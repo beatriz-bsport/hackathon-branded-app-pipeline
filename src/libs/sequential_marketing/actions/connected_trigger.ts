@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
-import { OptionCallback, Dispatch } from '../../../state/types';
+import type { OptionCallback, Dispatch } from '../../../state/types';
 
 import {
   subscribeStepToStep as subscribeStepToStepAPI,
@@ -10,7 +10,6 @@ import {
 
 import type {
   CadenceStep,
-  GraphCanvas,
   ConnectedTrigger,
 } from '#libs/sequential_marketing/types';
 
@@ -113,8 +112,7 @@ export const updateConnectedTriggerActions = {
 export function updateConnectedTrigger(
   cadenceId: number,
   connectedTriggerUUID: string,
-  canvas: GraphCanvas,
-  data: { trigger: any; step: any; values: any },
+  connectedTrigger: ConnectedTrigger,
   options?: OptionCallback<ConnectedTrigger>,
 ) {
   return async (dispatch: Dispatch) => {
@@ -125,7 +123,7 @@ export function updateConnectedTrigger(
       const response = await updateConnectedTriggerAPI(
         cadenceId,
         connectedTriggerUUID,
-        data,
+        connectedTrigger,
       );
       dispatch(updateConnectedTriggerActions.success(response.data));
       options && options.onSuccess && options.onSuccess(response.data);

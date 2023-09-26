@@ -9,9 +9,8 @@ import {
   buildUrlParams,
 } from '../../http';
 
-import { PaginatedResponse } from '../../state/types';
-
-import {
+import type { PaginatedResponse } from '../../state/types';
+import type {
   Cadence,
   CadenceStep,
   ConnectedTrigger,
@@ -194,13 +193,11 @@ export const modifyStepMarketingActionsConfiguration = async (
 export const updateConnectedTrigger = async (
   cadenceId: number,
   connectedTriggerUUID: string,
-  data: any,
+  connectedTrigger: ConnectedTrigger,
 ): Promise<AxiosResponse<ConnectedTrigger>> => {
   return putAuth(
     `${API_V1_URI}/sequential_marketing/cadence/${cadenceId}/connected_trigger/${connectedTriggerUUID}/`,
-    {
-      ...data,
-    },
+    connectedTrigger,
   );
 };
 

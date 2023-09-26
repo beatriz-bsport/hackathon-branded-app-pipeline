@@ -1,6 +1,5 @@
 import { faker } from '@faker-js/faker';
 
-import { generateRandomInt } from '../../utils/factories';
 import { smartlistFactory } from '#libs/smart-list/factories';
 import {
   FilterIdentifier,
@@ -40,7 +39,7 @@ function TriggerTimeoutConfigFactory(): TriggerTimeoutConfig {
   return {
     uuid: faker.string.uuid(),
     identifier: TriggerIdentifier.TIMEOUT,
-    timeout: generateRandomInt(7),
+    timeout: faker.number.int({ max: 7, min: 1 }),
   };
 }
 
@@ -50,21 +49,21 @@ function TriggerEventConfigFactory(): TriggerEventConfig {
     identifier: TriggerIdentifier.EVENT,
     event_type:
       CADENCE_EVENT_ALL_CHOICES[
-        generateRandomInt(CADENCE_EVENT_ALL_CHOICES.length - 1)
+        faker.number.int(CADENCE_EVENT_ALL_CHOICES.length - 1)
       ],
   };
 }
 
 function DestinationConfigFactory(): DestinationConfig {
   return {
-    destination_id: generateRandomInt(100),
+    destination_id: faker.number.int(100),
     kind: DESTINATION_KIND_CHOICES[
-      generateRandomInt(DESTINATION_KIND_CHOICES.length - 1)
+      faker.number.int(DESTINATION_KIND_CHOICES.length - 1)
     ],
     reason: faker.hacker.phrase(),
     status:
       DESTINATION_STATUS_CHOICES[
-        generateRandomInt(DESTINATION_STATUS_CHOICES.length - 1)
+        faker.number.int(DESTINATION_STATUS_CHOICES.length - 1)
       ],
     uuid: faker.string.uuid(),
   };
@@ -83,8 +82,8 @@ function FilteringConfigFactory(smartlistId?: number): FilteringConfig {
 function GraphCanvasFactory(): GraphCanvas {
   return {
     position: {
-      x: generateRandomInt(100).toString(),
-      y: generateRandomInt(100).toString(),
+      x: faker.number.int(100).toString(),
+      y: faker.number.int(100).toString(),
     },
   };
 }
@@ -93,7 +92,7 @@ export function triggerFactory(
   kind?: TriggerKind | number,
   smartlistId?: number,
 ): Partial<ConnectedTrigger> {
-  const triggerKind = kind ?? generateRandomInt(3);
+  const triggerKind = kind ?? faker.number.int(3);
   switch (triggerKind) {
     case TriggerKind.ONLY_EVENT_TRIGGER:
       return {
@@ -155,8 +154,8 @@ export function cadenceStepFactory({
 }: Partial<CadenceStep>): CadenceStep {
   return {
     id: faker.number.int(),
-    company: company || generateRandomInt(100),
-    cadence: cadence || generateRandomInt(50),
+    company: company || faker.number.int(100),
+    cadence: cadence || faker.number.int(50),
     name: name || faker.lorem.word(),
     is_entrypoint: is_entrypoint || false,
     disabled: disabled || false,
@@ -178,13 +177,13 @@ function stepMarketingActionsCommunicationSpecFactory({
   communication_kind,
 }: Partial<StepMarketingActionsCommunicationSpec>): StepMarketingActionsCommunicationSpec {
   return {
-    email_design: email_design || generateRandomInt(50),
+    email_design: email_design || faker.number.int(50),
     text_content: text_content || faker.hacker.phrase(),
     subject: subject || faker.lorem.word(),
     communication_kind:
       communication_kind ||
       CADENCE_MARKETING_ACTION_CHOICES[
-        generateRandomInt(CADENCE_MARKETING_ACTION_CHOICES.length)
+        faker.number.int(CADENCE_MARKETING_ACTION_CHOICES.length)
       ],
   };
 }
@@ -206,7 +205,7 @@ export function stepMarketingActionFactory({
   const factoryKind =
     kind ||
     CADENCE_MARKETING_ACTION_KIND_CHOICES[
-      generateRandomInt(CADENCE_MARKETING_ACTION_KIND_CHOICES.length)
+      faker.number.int(CADENCE_MARKETING_ACTION_KIND_CHOICES.length)
     ];
 
   const factoryActionSpec =
@@ -219,8 +218,8 @@ export function stepMarketingActionFactory({
 
   return {
     id: faker.number.int(),
-    company: company || generateRandomInt(100),
-    cadence_step: cadence_step || generateRandomInt(50),
+    company: company || faker.number.int(100),
+    cadence_step: cadence_step || faker.number.int(50),
     name: name || faker.lorem.word(),
     disabled: disabled || false,
     kind: factoryKind,

@@ -1,29 +1,35 @@
-// @ts-nocheck
 import React from 'react';
 import { Route, Switch } from 'react-router';
-import { connect } from 'react-redux';
+import { ConnectedProps, connect } from 'react-redux';
 
-import { withTranslation } from 'react-i18next';
+import { WithTranslation, withTranslation } from 'react-i18next';
 import {
   BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
   BsportRequestFromHeaderValue,
 } from '../../constants';
+// @ts-expect-error
 import asyncComponent from '../../AsyncComponent';
 import { RootState } from '../../reducers';
+// @ts-expect-error
 import namespaces from '../../i18n/namespaces.json';
 
 const MarketplaceResolver = asyncComponent(
+  // @ts-expect-error
   () => import('./MarketplaceResolver.page'),
 );
+
+// @ts-expect-error
 const Marketplace = asyncComponent(() => import('./Marketplace.page'));
+
 const MarketplaceAsManager = asyncComponent(
+  // @ts-expect-error
   () => import('./MarketplaceAsManager.page'),
 );
 
 const MarketplaceCustomForm = asyncComponent(
   () => import('./MarketplaceCustomForm.page'),
 );
-type Props = { is_manager: boolean; is_franchisor: boolean };
+type Props = ConnectedProps<typeof connector> & WithTranslation;
 
 export class MarketplaceRouter extends React.Component<Props> {
   componentDidMount() {
@@ -67,9 +73,9 @@ export class MarketplaceRouter extends React.Component<Props> {
   }
 }
 
-export default withTranslation(namespaces)(
-  connect((state: RootState) => ({
-    is_manager: state.auth.is_manager,
-    is_franchisor: state.auth.is_franchisor,
-  }))(MarketplaceRouter),
-);
+const connector = connect((state: RootState) => ({
+  is_manager: state.auth.is_manager,
+  is_franchisor: state.auth.is_franchisor,
+}));
+
+export default withTranslation(namespaces)(connector(MarketplaceRouter));

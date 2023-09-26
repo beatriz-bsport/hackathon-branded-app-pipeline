@@ -94,10 +94,10 @@ const MinimalSubscriptionCard: React.FC<Props> = ({
               'bs-minimal-subscription-card__price-item':
                 'bs-minimal-subscription-card__price-item',
             }}
-            columnEnd={2}
-            columnStart={2}
-            direction={Direction.ROW}
-            justification={Justification.FLEX_END}
+            columnEnd={1}
+            columnStart={1}
+            rowEnd={3}
+            rowStart={3}
           >
             <Price
               amount={subscription.recurrent_price}
@@ -152,8 +152,8 @@ const MinimalSubscriptionCard: React.FC<Props> = ({
             columnStart={1}
             direction={Direction.ROW}
             justification={Justification.FLEX_START}
-            rowEnd={3}
-            rowStart={3}
+            rowEnd={4}
+            rowStart={4}
           >
             <Collapse collapsedHeight={40} isExpanded={showAllDescription}>
               <div
@@ -186,7 +186,7 @@ const MinimalSubscriptionCard: React.FC<Props> = ({
             columnStart={1}
             direction={Direction.ROW}
             justification={Justification.FLEX_START}
-            rowStart={4}
+            rowStart={5}
           >
             <Button
               classes={{

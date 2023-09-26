@@ -23,7 +23,7 @@ export type TriggerCardProps = {
   isSelected?: boolean;
   disabled?: boolean;
   getSmartlist: (id: number) => SmartList;
-  onCardClick: () => void;
+  onCardClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
   onDelete?: () => void;
 };
 
@@ -52,6 +52,7 @@ const TriggerCard: React.FC<TriggerCardProps> = ({
   isSelected,
   disabled,
   getSmartlist,
+  onCardClick,
   onDelete,
 }) => {
   const { t } = useTranslation('marketing');
@@ -95,6 +96,7 @@ const TriggerCard: React.FC<TriggerCardProps> = ({
         />
       }
       isSelected={isSelected}
+      onCardClick={onCardClick}
       selectedColor={SequentialMarketingColors.TRIGGER_COLOR}
     />
   );

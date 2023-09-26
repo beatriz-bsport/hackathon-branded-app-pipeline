@@ -21,7 +21,7 @@ export type InnerStepCardProps = {
   disabled?: boolean;
   onDelete: () => void;
   handleChangeInExit: () => void;
-  onCardClick: (event?: React.MouseEvent<HTMLButtonElement>) => void;
+  onCardClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
   addNextStep: () => void;
 } & InnerStepContentProps;
 

@@ -1,5 +1,6 @@
 // @ts-nocheck
 import React, { useEffect, useRef, useState } from 'react';
+import Immutable from 'seamless-immutable';
 import { FixedSizeList as VirtualizedList } from 'react-window';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
@@ -49,7 +50,7 @@ export type OptionTypeBase =
 
 type BaseProps<T extends OptionTypeBase> = {
   id?: number | string;
-  options: T[];
+  options: T[] | Immutable.ImmutableArray<T>;
   inScrollBar?: boolean;
   isMenuListPaddingDisabled?: boolean;
   isMenuListVirtualized?: boolean;
@@ -77,6 +78,7 @@ type BaseProps<T extends OptionTypeBase> = {
   onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
   name?: string;
   blurOnSelect?: boolean;
+  placeholder?: string;
 } & Omit<NamedProps, 'options' | 'isMulti' | 'onChange' | 'value'>;
 
 export type OwnProps<T extends OptionTypeBase> =
@@ -121,6 +123,7 @@ function MaterialUISelector<T extends OptionTypeBase>(
     onBlur,
     name,
     blurOnSelect,
+    placeholder,
     ...restProps
   } = props;
   const classes = useStyles();
@@ -238,6 +241,7 @@ function MaterialUISelector<T extends OptionTypeBase>(
           menuPortalTarget={_menuPortalTarget}
           onChange={handleChange}
           options={options}
+          placeholder={placeholder}
           styles={getStyles()}
           tabSelectsValue={false}
           value={value}

@@ -23,6 +23,7 @@ export type SelectOption = {
 export type SelectOptionWithMetaData<T = unknown> = SelectOption & T;
 
 export type Props = {
+  id?: string;
   fullWidth?: boolean;
   classes?: {
     buttonContainer?: string;
@@ -75,6 +76,7 @@ const Select: React.FC<Props> = React.memo(
     classes,
     renderListItem,
     onChange,
+    id,
   }) => {
     const selectContainer = useRef(null);
     const [isOptionListOpen, setIsOptionListOpen] = useState(false);
@@ -135,6 +137,7 @@ const Select: React.FC<Props> = React.memo(
           'bs-select--idle-width': !fullWidth,
           'bs-select--full-width': fullWidth,
         })}
+        {...(id ? { id } : {})}
       >
         <button
           className={classNames(classes?.buttonContainer, {

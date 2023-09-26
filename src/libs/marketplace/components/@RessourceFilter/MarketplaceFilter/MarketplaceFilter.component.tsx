@@ -23,6 +23,7 @@ import Button, { ButtonColor } from '#components/css-only/Fabrique/Button';
 
 type Option = { value: number | string; label: string };
 export type Props = {
+  id?: string;
   text: string;
   options: (
     | Option
@@ -43,6 +44,7 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
   selectedOptions = [],
   onSelect,
   levelVariant,
+  id,
 }) => {
   const { t } = useTranslation(['common']);
   const [isOpen, setIsOpen] = useState(false);
@@ -118,6 +120,7 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
         })}
         onClick={handleOpenMenu}
         type="button"
+        {...(id ? { id } : {})}
       >
         <div
           className={classNames('bs-marketplace-filter__placeholder', {

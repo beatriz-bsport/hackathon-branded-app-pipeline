@@ -152,6 +152,7 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
         />
       )}
       <MarketplaceFilter
+        id="bs-marketplace-calendar-filters__activity"
         onSelect={handleChange('activity__in')}
         options={metaActivitiesOption}
         selectedOptions={filters.activity__in}
@@ -159,6 +160,7 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
       />
       <MarketplaceFilter
         levelVariant
+        id="bs-marketplace-calendar-filters__level"
         onSelect={handleChange('levels')}
         options={levelsOptions}
         selectedOptions={filters.levels}
@@ -166,6 +168,7 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
       />
       {!hideCoach && (
         <MarketplaceFilter
+          id="bs-marketplace-calendar-filters__coach"
           onSelect={handleChange('coaches')}
           options={coachesOptions}
           selectedOptions={filters.coaches}
@@ -173,6 +176,7 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
         />
       )}
       <MarketplaceFilter
+        id="bs-marketplace-calendar-filters__establishment"
         onSelect={handleChange('establishments')}
         options={establishmentsOptions.concat(disabledEstablishmentOptions)}
         selectedOptions={filters.establishments}
@@ -182,6 +186,7 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
         establishmentGroupList &&
         establishmentGroupList.length !== 0 && (
           <MarketplaceFilter
+            id="bs-marketplace-calendar-filters__establishment_group"
             onSelect={handleChange('establishment_group__in')}
             options={establishmentGroupOption}
             selectedOptions={filters.establishment_group__in}

@@ -143,6 +143,7 @@ const MarketplacePassFilters: React.FC<Props> = React.memo(
             {!hidePaymentPack && !hidePrivatePass && (
               <Select
                 isClearable
+                id="bs-pass-page__pass__filters__type_selector"
                 onChange={onChangeType}
                 options={searchFilterTypeOptions}
                 placeholder={t('marketplace:pass.filters.placeholder.type')}
@@ -152,6 +153,7 @@ const MarketplacePassFilters: React.FC<Props> = React.memo(
 
             {!!searchFiltersState.allCategories?.length && (
               <MarketplaceFilter
+                id="bs-pass-page__pass__filters__category_selector"
                 levelVariant={false}
                 onSelect={onChangeCategory}
                 options={searchFiltersState.allCategories}

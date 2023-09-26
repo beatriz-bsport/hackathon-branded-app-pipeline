@@ -10658,7 +10658,7 @@
                     "isEmpty": "Keine Lehrkraft"
                 },
                 "color": "Farbcode",
-                "title": "Personneller Termin"
+                "title": "Persönlicher Termin"
             },
             "actions": {
                 "delete": "Löschen"

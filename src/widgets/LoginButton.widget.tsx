@@ -53,17 +53,34 @@ class LoginButton extends Component<Props> {
 
   render() {
     return (
-      <ButtonGroup variant="outlined" color="primary" size="small">
+      <ButtonGroup
+        variant="outlined"
+        color="primary"
+        size="small"
+        id="bsport-widget-authentication__button_group"
+      >
         <Button
           onClick={this.onClick}
           disabled={!this.props.authenticationReceived}
+          id="bsport-widget-authentication__login_button"
         >
-          <PersonIcon fontSize="small" style={{ marginRight: 8 }} />
+          <PersonIcon
+            fontSize="small"
+            style={{ marginRight: 8 }}
+            id="bsport-widget-authentication__login_icon"
+          />
           {this.props.t('LOGIN')}
         </Button>
         {this.props.authenticated && this.props.authenticationReceived && (
-          <Button onClick={this.props.bridgeRequestLogout} size="small">
-            <PowerSettingsNewIcon fontSize="small" />
+          <Button
+            onClick={this.props.bridgeRequestLogout}
+            size="small"
+            id="bsport-widget-authentication__logout_button"
+          >
+            <PowerSettingsNewIcon
+              fontSize="small"
+              id="bsport-widget-authentication__logout_icon"
+            />
           </Button>
         )}
       </ButtonGroup>

@@ -20,7 +20,8 @@ import type { CustomNode } from './types';
 import type { SmartList } from '#libs/smart-list/types';
 import type { EmailTemplateSummary } from '#libs/email-editor/types';
 import type { Tag } from '#libs/tag/types';
-import type { StepEditionBubbleProps } from '../bubbles/StepEditionBubble.component';
+import type { StepEditionBubbleProps } from '#libs/sequential_marketing/components/graph/bubbles/StepEditionBubble.component';
+import type { Props as UniqueTriggerBubbleProps } from '#libs/sequential_marketing/components/graph/bubbles/UniqueTriggerBubble.component';
 
 export type Props = {
   cadence: Cadence;
@@ -28,6 +29,10 @@ export type Props = {
   displayDisabledTriggers: boolean;
   cadenceEditMode: boolean;
   stepBubbleProps: Omit<StepEditionBubbleProps, 'step'>;
+  triggerBubbleProps: Pick<
+    UniqueTriggerBubbleProps,
+    'onConfirm' | 'smartlists'
+  >;
   updateCadenceStepCanvasPosition: (
     id: number,
     { x, y }: { x: number; y: number },
@@ -62,22 +67,23 @@ export type Props = {
 export const useGraph = ({
   cadence,
   cadenceEditMode,
-  steps,
   displayDisabledTriggers,
   stepBubbleProps,
-  onClickEntryStep,
-  updateCadenceStepCanvasPosition,
-  updateConnectedTriggerPosition,
-  enterSubscriptionMode,
-  onClickConnectedTrigger,
-  resetAllSelection,
-  handleSelectedStepForEdition,
+  steps,
+  triggerBubbleProps,
   deleteCadenceStep,
   deleteConnectedTrigger,
+  enterSubscriptionMode,
+  getEmailTemplate,
   getSmartlist,
   getStepMarketingActions,
   getTag,
-  getEmailTemplate,
+  handleSelectedStepForEdition,
+  onClickConnectedTrigger,
+  onClickEntryStep,
+  resetAllSelection,
+  updateCadenceStepCanvasPosition,
+  updateConnectedTriggerPosition,
 }: Props) => {
   const [nodes, setNodes] = React.useState([]);
   const [edges, setEdges] = React.useState([]);
@@ -105,22 +111,23 @@ export const useGraph = ({
     useNodeElementsRecorder({
       cadence,
       cadenceEditMode,
+      stepBubbleProps,
       storedEntryStep,
       storedSteps,
       storedTriggers,
-      onClickEntryStep,
-      enterSubscriptionMode,
-      onClickConnectedTrigger,
-      resetAllSelection,
-      handleGetNodeConnectedEgdes,
-      handleSelectedStepForEdition,
+      triggerBubbleProps,
       deleteCadenceStep,
       deleteConnectedTrigger,
+      enterSubscriptionMode,
+      getEmailTemplate,
       getSmartlist,
       getStepMarketingActions,
       getTag,
-      getEmailTemplate,
-      stepBubbleProps,
+      handleGetNodeConnectedEgdes,
+      handleSelectedStepForEdition,
+      onClickConnectedTrigger,
+      onClickEntryStep,
+      resetAllSelection,
     });
 
   const onNodeDragStop = React.useCallback(

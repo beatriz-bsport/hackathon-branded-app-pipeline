@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import Immutable from 'seamless-immutable';
 import ReactFlow, {
   addEdge,
   applyEdgeChanges,
@@ -7,6 +8,7 @@ import ReactFlow, {
   ReactFlowProvider,
 } from 'react-flow-renderer';
 
+import type { OptionCallback } from '../../../../state/types';
 import { useNodeTypes, useGraphStyles, useGraph } from './hooks';
 import CadenceGraphViewPort from './CadenceGraphViewPort.component';
 import {
@@ -85,6 +87,11 @@ type Props = {
   getEmailDetail: (id: number) => void;
   resolvedGenericTags: ResolvedGenericTags;
   tagCategories: { [tag_name: string]: string[] };
+  smartlists: Immutable.ImmutableArray<SmartList>;
+  editConnectedTrigger: (
+    trigger: ConnectedTrigger,
+    options?: OptionCallback,
+  ) => void;
 };
 
 export const CadenceGraphFlow: React.FC<Props> = ({
@@ -97,10 +104,12 @@ export const CadenceGraphFlow: React.FC<Props> = ({
   emailSummaryListLoading,
   tagCategories,
   resolvedGenericTags,
+  smartlists,
   steps,
   tagList,
   deleteCadenceStep,
   deleteConnectedTrigger,
+  editConnectedTrigger,
   fetchEmailSummaryList,
   getEmailDetail,
   getEmailTemplate,
@@ -141,6 +150,10 @@ export const CadenceGraphFlow: React.FC<Props> = ({
     getStepMarketingActions,
     getTag,
     getEmailTemplate,
+    triggerBubbleProps: {
+      smartlists,
+      onConfirm: editConnectedTrigger,
+    },
     stepBubbleProps: {
       emailDetailList,
       emailDetailListLoading,

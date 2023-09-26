@@ -26,6 +26,7 @@ import type { SmartList } from '#libs/smart-list/types';
 import type { EmailTemplateSummary } from '#libs/email-editor/types';
 import type { Tag } from '#libs/tag/types';
 import type { StepEditionBubbleProps } from '../bubbles/StepEditionBubble.component';
+import type { Props as UniqueTriggerBubbleProps } from '#libs/sequential_marketing/components/graph/bubbles/UniqueTriggerBubble.component';
 
 export enum CustomNodesEnum {
   // Nodes for steps
@@ -153,6 +154,10 @@ type NodeRendererProps = {
   getEmailTemplate: (id: string) => EmailTemplateSummary;
   cadenceEditMode: boolean;
   stepBubbleProps: Omit<StepEditionBubbleProps, 'step'>;
+  triggerBubbleProps: Pick<
+    UniqueTriggerBubbleProps,
+    'onConfirm' | 'smartlists'
+  >;
 };
 
 export const useNodeElementsRecorder = ({
@@ -173,6 +178,7 @@ export const useNodeElementsRecorder = ({
   getTag,
   getEmailTemplate,
   stepBubbleProps,
+  triggerBubbleProps,
 }: NodeRendererProps) => {
   const handleSelectEntryStepForSubscription = React.useCallback(
     () => enterSubscriptionMode(storedEntryStep),
@@ -220,16 +226,16 @@ export const useNodeElementsRecorder = ({
     }
     return null;
   }, [
-    storedEntryStep,
     cadence.entries,
     cadenceEditMode,
-    getStepMarketingActions,
-    handleSelectEntryStepForSubscription,
-    onConnectToEntryStep,
-    getSmartlist,
-    getTag,
+    storedEntryStep,
     getEmailTemplate,
+    getSmartlist,
+    getStepMarketingActions,
+    getTag,
+    handleSelectEntryStepForSubscription,
     onClickEntryStep,
+    onConnectToEntryStep,
   ]);
 
   // The tiggerNodeElements consumes the list of storedTriggers data to draw the ConnectedTriggerElements on the graph.
@@ -260,17 +266,20 @@ export const useNodeElementsRecorder = ({
             ),
           getSmartlist,
           disabled: !cadenceEditMode,
+          bubble: triggerBubbleProps,
         },
       }));
     }
     return [];
+    // To prevent rerender issue coming from the react flow lib :
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     cadence,
     cadenceEditMode,
     storedTriggers,
     deleteConnectedTrigger,
-    onClickConnectedTrigger,
     getSmartlist,
+    onClickConnectedTrigger,
   ]);
 
   const handleOnConnectedStep = React.useCallback(

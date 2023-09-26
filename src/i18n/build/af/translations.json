@@ -545,6 +545,7 @@
       "bookingItem": { "bookingItemStatus": { "unpaid": "Unpaid", "waitingList": "Waiting list" } }
     },
     "expire_in": "Expires in ",
+    "spotSavedFor": "Selected spot is saved for: {{countdown}}",
     "events": {
       "basket-created": "Basket created",
       "basket-finalize": "Finalized/paid cart",

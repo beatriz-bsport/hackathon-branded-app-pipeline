@@ -30,6 +30,20 @@
   background: var(--color-error-background);
 }
 
+.bs-alert__container__success .bs-alert__icon__container {
+  color: var(--color-success-main);
+}
+
+.bs-alert__container__info .bs-alert__icon__container {
+  color: var(--color-info-main);
+}
+.bs-alert__container__warning .bs-alert__icon__container {
+  color: var(--color-warning-main);
+}
+.bs-alert__container__error .bs-alert__icon__container {
+  color: var(--color-error-main);
+}
+
 .bs-alert__icon__container {
   display: flex;
   opacity: 0.9;

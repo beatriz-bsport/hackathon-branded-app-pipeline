@@ -140,6 +140,7 @@ exports.default = {
     },
   },
   expire_in: 'Expires in ',
+  spotSavedFor: 'Selected spot is saved for: {{countdown}}',
   events: {
     [BASKET_EVENTS.created]: 'Basket created',
     [BASKET_EVENTS.finalize]: 'Finalized/paid cart',

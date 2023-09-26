@@ -7,11 +7,11 @@ import {
   fetchCadenceStepListActions,
   updateCadenceStepCanvasPositionActions,
   updateCadenceStepConnectedTriggerCanvasPositionActions,
-  subscribeStepToStepActions,
-  updateConnectedTriggerActions,
   updateCadenceStepActions,
   deleteCadenceStepActions,
   // TRIGGERS
+  subscribeStepToStepActions,
+  updateConnectedTriggerActions,
   deleteConnectedTriggerActions,
 } from '#libs/sequential_marketing/actions';
 

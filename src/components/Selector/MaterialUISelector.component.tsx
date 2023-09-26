@@ -83,14 +83,14 @@ type BaseProps<T extends OptionTypeBase> = {
 
 export type OwnProps<T extends OptionTypeBase> =
   | ({
-      onChange?: (values: T[]) => void;
+      onChange?: (values: T[] | OptionTypeBase[]) => void;
       isMulti: true;
-      value?: T[];
+      value?: T[] | OptionTypeBase[];
     } & BaseProps<T>)
   | ({
       isMulti?: false;
-      value?: T | null;
-      onChange?: (value: T) => void;
+      value?: T | OptionTypeBase | null;
+      onChange?: (value: T | OptionTypeBase) => void;
     } & BaseProps<T>);
 
 export type MuiSelectProps<T extends OptionTypeBase> = OwnProps<T>;

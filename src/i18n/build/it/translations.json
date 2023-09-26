@@ -9549,7 +9549,15 @@
                         "absence": "a ogni assenza",
                         "attendance": "a ogni presenza"
                     },
-                    "birthday": "Invia il giorno del compleanno"
+                    "birthday": "Invia il giorno del compleanno",
+                    "day_after": "Questa notifica sarà inviata {{days}} giorno dopo l'inizio della sessione.",
+                    "day_after_plural": "Questa notifica sarà inviata {{days}} giorni dopo l'inizio della sessione.",
+                    "day_before": "Questa notifica sarà inviata {{days}} il giorno prima dell'inizio della sessione.",
+                    "day_before_plural": "Questa notifica sarà inviata {{days}} giorni prima dell'inizio della sessione.",
+                    "hour_before": "Questa notifica sarà inviata {{hours}} ora prima dell'inizio della sessione.",
+                    "hour_before_plural": "Questa notifica sarà inviata {{hours}} ore prima dell'inizio della sessione.",
+                    "hour_after": "Questa notifica sarà inviata {{hours}} ora dopo la fine della sessione.",
+                    "hour_after_plural": "Questa notifica sarà inviata {{hours}} ore dopo la fine della sessione."
                 },
                 "cancel": "Annulla",
                 "next": "seguente",

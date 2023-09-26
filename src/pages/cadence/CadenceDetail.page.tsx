@@ -228,11 +228,11 @@ export class CadenceDetailPage extends Component<Props> {
     });
   };
 
-  handleSubmitEditConnectedTrigger = (
-    data: Values,
+  handleEditConnectedTrigger = (
+    trigger: ConnectedTrigger,
     options: OptionCallback,
   ) => {
-    this.props.updateConnectedTrigger(data, options);
+    this.props.updateConnectedTrigger(trigger, options);
   };
 
   handleClickConnectedTrigger = (
@@ -310,6 +310,7 @@ export class CadenceDetailPage extends Component<Props> {
               }
               deleteCadenceStep={this.props.deleteCadenceStep}
               deleteConnectedTrigger={this.props.deleteConnectedTriggerAction}
+              editConnectedTrigger={this.handleEditConnectedTrigger}
               emailDetailList={this.props.emailDetailList}
               emailDetailListLoading={this.props.emailDetailListLoading}
               emailSummaryList={this.props.emailSummaryList}
@@ -328,6 +329,7 @@ export class CadenceDetailPage extends Component<Props> {
               onClickEntryStep={this.props.onClickEntryStep}
               resetAllSelection={this.resetAllSelection}
               resolvedGenericTags={this.props.resolvedGenericTags}
+              smartlists={this.props.smartlists}
               steps={this.props.steps}
               submitMarketingActionForm={
                 this.props.updateStepMarketingActionList
@@ -651,33 +653,27 @@ const mapWithHandlers = {
 
   updateConnectedTrigger:
     (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>
-    (data: Values, options?: OptionCallback) => {
-      if (
-        props.triggerForEdition?.step?.id &&
-        props.triggerForEdition?.trigger?.trigger_config?.uuid
-      ) {
-        props.updateConnectedTriggerAction(
-          props.cadenceId,
-          props.triggerForEdition.trigger.trigger_config.uuid,
-          props.triggerForEdition?.trigger?.canvas,
-          { ...props.triggerForEdition, values: data },
-          {
-            onSuccess: () => {
-              props.resetSubscriptionDestination();
-              options && options.onSuccess && options.onSuccess();
-              props.retrieveCadenceAction(props.cadenceId, {
-                onSuccess: () => {
-                  props.retrieveCadence();
-                },
-              });
-            },
-            onError: () => {
-              props.resetSubscriptionDestination();
-              options && options.onError && options.onError();
-            },
+    (trigger: ConnectedTrigger, options?: OptionCallback) => {
+      props.updateConnectedTriggerAction(
+        props.cadenceId,
+        trigger?.trigger_config?.uuid,
+        trigger,
+        {
+          onSuccess: () => {
+            props.resetSubscriptionDestination();
+            options?.onSuccess?.();
+            props.retrieveCadenceAction(props.cadenceId, {
+              onSuccess: () => {
+                props.retrieveCadence();
+              },
+            });
           },
-        );
-      }
+          onError: () => {
+            props.resetSubscriptionDestination();
+            options?.onError?.();
+          },
+        },
+      );
     },
 
   fetchMarketingActions:

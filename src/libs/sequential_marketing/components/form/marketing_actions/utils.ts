@@ -9,7 +9,7 @@ import {
 } from '#libs/sequential_marketing/constants';
 
 import { marketingActionIconDict } from '#libs/sequential_marketing/components/helpers/utils';
-import {
+import type {
   StepMarketingActions,
   StepMarketingActionsCommunicationSpec,
 } from '#libs/sequential_marketing/types';
@@ -84,9 +84,8 @@ export const getMarketingActionOptions = (
   t: TFunction,
   addMarketingAction: (type: MarketingActions) => void,
 ) => {
-  const handleAddMarketingAction = (type: MarketingActions) => () => {
+  const handleAddMarketingAction = (type: MarketingActions) => () =>
     addMarketingAction?.(type);
-  };
 
   const marketingActionList = CADENCE_MARKETING_ACTION_CHOICES.map(
     (marketingAction) => ({

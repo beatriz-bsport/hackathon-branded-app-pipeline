@@ -1,15 +1,20 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import EditReferralProgramSettingsForm from './EditReferralProgramSettingsForm.component';
+import EditReferralProgramSettingsFormWithFormik, {
+  EditReferralProgramSettingsForm,
+} from './EditReferralProgramSettingsForm.component';
 import { referralProgramFactory } from '#libs/referral/factories/ReferralProgram';
 import { tagWithoutGroupListFactory } from '#libs/tag/factory';
 import withFormik from '@bbbtech/storybook-formik';
 import EditReferralProgramSettingsFormValidationSchema from './EditReferralProgramSettingsFormValidationSchema';
+import FactoryBotTheme from '#libs/theme/factories';
 
 const referralProgram = referralProgramFactory();
 const tagList = tagWithoutGroupListFactory(5);
+const fakeTheme = FactoryBotTheme.companyTheme.create();
 const companyTheme = {
+  ...fakeTheme,
   company: referralProgram.company,
   is_referral_program_activated: true,
 };
@@ -33,7 +38,7 @@ const initialValues = {
 
 export default {
   title: 'Components/Forms/EditReferralProgramSettingsForm',
-  component: EditReferralProgramSettingsForm,
+  component: EditReferralProgramSettingsFormWithFormik,
   decorators: [withFormik],
   argTypes: {
     theme: {
@@ -70,13 +75,6 @@ export default {
 
 const Template: ComponentStory<typeof EditReferralProgramSettingsForm> = (
   args,
-) => (
-  <EditReferralProgramSettingsForm
-    companyTheme={companyTheme}
-    referralProgram={referralProgram}
-    tagList={tagList}
-    {...args}
-  />
-);
+) => <EditReferralProgramSettingsForm tagList={tagList} {...args} />;
 
 export const EditReferralProgramForm = Template.bind({});

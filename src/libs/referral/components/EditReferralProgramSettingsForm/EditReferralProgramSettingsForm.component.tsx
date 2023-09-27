@@ -52,7 +52,7 @@ type FormProps = {
 
 type Props = OwnProps & FormProps;
 
-const EditReferralProgramSettingsForm: React.FC<
+export const EditReferralProgramSettingsForm: React.FC<
   FormikProps<FormikValues> & OwnProps
 > = ({ tagList, handleSubmit, isSubmitting, isValid, values }) => {
   const { t } = useTranslation('referral');

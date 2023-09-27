@@ -8,15 +8,6 @@ import MultipleActionsMenuOnHover, {
 export default {
   title: 'Components/Buttons/MultipleActionsMenuOnHover',
   component: MultipleActionsMenuOnHover,
-  decorators: [
-    (Story) => (
-      <div
-        style={{ margin: '3em', marginLeft: '15em', justifyContent: 'center' }}
-      >
-        <Story />
-      </div>
-    ),
-  ],
 } as ComponentMeta<typeof MultipleActionsMenuOnHover>;
 
 const Template: ComponentStory<typeof MultipleActionsMenuOnHover> = (

@@ -8,15 +8,6 @@ import MultipleActionsButton, {
 export default {
   title: 'Components/Buttons/MultipleActionsButton',
   component: MultipleActionsButton,
-  decorators: [
-    (Story) => (
-      <div
-        style={{ margin: '3em', marginLeft: '15em', justifyContent: 'center' }}
-      >
-        <Story />
-      </div>
-    ),
-  ],
 } as ComponentMeta<typeof MultipleActionsButton>;
 
 const Template: ComponentStory<typeof MultipleActionsButton> = (

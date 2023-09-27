@@ -57,7 +57,7 @@ const AppBarLogo: React.FC<LogoProps> = ({
               alt="bsport logo"
               className={classes.logo}
               height={40}
-              src={franchisor.cover}
+              src={logo}
               width={40}
             />
           </Hidden>
@@ -66,7 +66,7 @@ const AppBarLogo: React.FC<LogoProps> = ({
               alt="bsport logo"
               className={classes.logo}
               height={40}
-              src={franchisor.cover}
+              src={logo}
               width={40}
             />
           </Hidden>

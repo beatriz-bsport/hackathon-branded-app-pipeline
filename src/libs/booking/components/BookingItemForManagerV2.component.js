@@ -39,6 +39,8 @@ import { Cake, EventSeat, OfflineBolt } from '@material-ui/icons';
 import WarningIcon from '@material-ui/icons/Warning';
 import { BookingStatusCodeText } from '../utils';
 import AvatarWithBadge from '#libs/member/components/AvatarWithBadge.component';
+import { MetaActivity } from '#libs/meta-activity/types';
+import { Offer } from '#libs/offer/types';
 
 import Tooltip from '#components/Tooltip.component';
 import RedButton from '#components/button/RedButton.component';
@@ -60,6 +62,8 @@ import type { PerformanceTrackingProgram } from '#libs/performance-tracking/type
 
 import PlaceNumber from '#libs/spot-scheduling/component/PlaceNumber.component';
 import NoShowChip from './NoShowChip.component';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { getActivityWorkshopPermission } from '#libs/role/permission-utils/utils';
 
 type Props = {
   t: TFunction,
@@ -100,6 +104,8 @@ type Props = {
   onClickNoShowChip?: () => void,
   isRollCallMandatory?: boolean,
   dateRollCallLastModified?: string,
+  getOfferMetaActivity: (metaActivityId: number) => MetaActivity,
+  getBookingOffer: (offerId: number) => Offer,
 };
 
 const getPackDate = (consumerPack) => {
@@ -355,6 +361,8 @@ export class BookingItemForManager extends Component<Props, State> {
       handleRevert,
       classes,
       programList,
+      getBookingOffer,
+      getOfferMetaActivity,
     } = this.props;
     const { closeAndAction } = this;
 
@@ -362,6 +370,11 @@ export class BookingItemForManager extends Component<Props, State> {
       this.props.isRollCallMandatory &&
       this.props.dateRollCallLastModified &&
       booking?.attendance !== booking?.roll_call_attendance;
+
+    const bookingOffer = getBookingOffer?.(booking.offer);
+    const bookingOfferMetaActivity = getOfferMetaActivity?.(
+      bookingOffer?.meta_activity,
+    );
 
     return (
       <div>
@@ -421,16 +434,34 @@ export class BookingItemForManager extends Component<Props, State> {
             {discardBookingAttendance &&
             confirmBookingAttendance &&
             booking.booking_status_code === BOOKING_STATUS_OK.id ? (
-              <AttendanceButton
-                attendance={booking.attendance}
-                attendance_date_updated={booking.attendance_date_updated}
-                classes={classes}
-                confirmBookingAttendance={confirmBookingAttendance}
-                discardBookingAttendance={discardBookingAttendance}
-                isNoShow={booking.is_no_show}
-                t={t}
-                variant="outlined"
-              />
+              <ObjectLevelPermissionProvider
+                requiredPermission={[
+                  'reservation.activity.allowed_actions.attendance',
+                  'reservation.workshop.allowed_actions.attendance',
+                ]}
+              >
+                {([
+                  hasActivityAttendancePermission,
+                  hasWorkshopAttendancePermission,
+                ]) =>
+                  getActivityWorkshopPermission(
+                    bookingOfferMetaActivity?.is_workshop,
+                    hasActivityAttendancePermission,
+                    hasWorkshopAttendancePermission,
+                  ) && (
+                    <AttendanceButton
+                      attendance={booking.attendance}
+                      attendance_date_updated={booking.attendance_date_updated}
+                      classes={classes}
+                      confirmBookingAttendance={confirmBookingAttendance}
+                      discardBookingAttendance={discardBookingAttendance}
+                      isNoShow={booking.is_no_show}
+                      t={t}
+                      variant="outlined"
+                    />
+                  )
+                }
+              </ObjectLevelPermissionProvider>
             ) : null}
             {showQuickInvoiceButton &&
             booking.booking_status_code === BOOKING_STATUS_OK.id ? (
@@ -455,19 +486,37 @@ export class BookingItemForManager extends Component<Props, State> {
               BOOKING_STATUS_CANCELLED_BY_CONSUMER.id,
               BOOKING_STATUS_OK.id,
             ].includes(booking.booking_status_code) ? (
-              <IconButton
-                disabled={
-                  booking &&
-                  booking.booking_status_code ===
-                    BOOKING_STATUS_CANCELLED_BY_MANAGER.id
-                }
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleRevert(e);
-                }}
+              <ObjectLevelPermissionProvider
+                requiredPermission={[
+                  'reservation.activity.allowed_actions.delete',
+                  'reservation.workshop.allowed_actions.delete',
+                ]}
               >
-                <CancelIcon />
-              </IconButton>
+                {([
+                  hasActivityAttendancePermission,
+                  hasWorkshopAttendancePermission,
+                ]) =>
+                  getActivityWorkshopPermission(
+                    bookingOfferMetaActivity?.is_workshop,
+                    hasActivityAttendancePermission,
+                    hasWorkshopAttendancePermission,
+                  ) && (
+                    <IconButton
+                      disabled={
+                        booking &&
+                        booking.booking_status_code ===
+                          BOOKING_STATUS_CANCELLED_BY_MANAGER.id
+                      }
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        handleRevert(event);
+                      }}
+                    >
+                      <CancelIcon />
+                    </IconButton>
+                  )
+                }
+              </ObjectLevelPermissionProvider>
             ) : null}
 
             {booking.booking_status_code === BOOKING_STATUS_OK.id &&

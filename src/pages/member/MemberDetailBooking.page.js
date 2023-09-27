@@ -71,12 +71,14 @@ import {
   fetchOfferById as fetchOfferByIdAction,
   fetchOfferStatus as fetchOfferStatusAction,
   fetchOfferWaitingListPositionList as fetchOfferWaitingListPositionListAction,
+  fetchOfferBulk as fetchOfferBulkAction,
 } from '#libs/offer/actions';
 
 import {
   getDetailedOffer,
   withEstablishment,
   getOfferStatusWaitingListPositionById,
+  getOfferById,
 } from '#libs/offer/selectors';
 import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
 import { withCustomLevel } from '#libs/level/selectors';
@@ -105,7 +107,10 @@ import {
   discardBookingOption as discardBookingOptionAction,
   fetchBookingOptionForMember,
 } from '#libs/waiting-list/actions';
-import { getEnabledMetaActivities } from '#libs/meta-activity/selectors';
+import {
+  getEnabledMetaActivities,
+  getMetaActivity,
+} from '#libs/meta-activity/selectors';
 import { withGroup, getGroupListCount } from '#libs/group-offer/selectors';
 
 import {
@@ -124,6 +129,8 @@ import RevertBookingDialog from '#libs/booking/components/RevertBookingDialog.co
 import BookingFilters from '#libs/booking/components/BookingFilters.component';
 import RecurrenceRuleBookingListItem from '#libs/booking/components/RecurrenceRuleBookingListItem.component';
 import TemporalBarChart from '#components/graph/TemporalBarChart.component';
+import { getActivityWorkshopPermission } from '#libs/role/permission-utils/utils';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 import {
   getMemberBookingListWithConsumerPack,
@@ -146,7 +153,7 @@ import { Theme } from '#libs/theme/types';
 import AsyncSpotSelector, {
   asyncSelectSpotForBlueprint,
 } from '#libs/spot-scheduling/component/SpotSelector/AsyncSpotSelector.container';
-import type { Offer } from '../../api/types';
+import type { Offer, OfferStatusWaitingListPosition } from '#libs/offer/types';
 import { BookingOptionWithActivity, Booking } from '#libs/booking/types';
 import WaitingListDetail from '#libs/waiting-list/components/WaitingListDetail.component';
 import PaginatedBookingOptionList from '#libs/waiting-list/components/PaginatedBookingOptionList.component';
@@ -160,7 +167,6 @@ import {
 } from '#libs/performance-tracking/selector';
 
 import type { WaitingListConfiguration } from '#libs/waiting-list/type';
-import { OfferStatusWaitingListPosition } from '#libs/offer/types';
 
 const DEFAULT_SPOT_TYPE = { id: -1 };
 
@@ -280,6 +286,8 @@ type Props = {
   offerStatusWaitingListPositionById: {
     [key: number]: OfferStatusWaitingListPosition,
   },
+  getOfferMetaActivity: (metaActivityId: number) => MetaActivity,
+  getBookingOffer: (offerId: number) => Offer,
 };
 
 type State = {
@@ -748,6 +756,8 @@ export class MemberDetailBooking extends Component<Props, State> {
                       discardBookingAttendance={() =>
                         this.props.discardBookingAttendance(b.id)
                       }
+                      getBookingOffer={this.props.getBookingOffer}
+                      getOfferMetaActivity={this.props.getOfferMetaActivity}
                       handleRevert={() => {
                         this.props.fetchOffer(b.offer, {
                           onSuccess: (offer: Offer) => {
@@ -798,33 +808,68 @@ export class MemberDetailBooking extends Component<Props, State> {
                   {this.props.t('booking:recurrenceRule.recurrentBookings')}
                 </Typography>
                 <Divider />
-                <List disablePadding>
-                  {this.props.recurrenceRuleBooking.map((r) => (
-                    <RecurrenceRuleBookingListItem
-                      key={r.id}
-                      notShowMember
-                      onDelete={(id, data) =>
-                        this.props.onDeleteRecurrenceRuleBooking(
-                          r,
-                          this.props.id,
-                          data,
-                        )
-                      }
-                      onEdit={() => {
-                        this.props.fetchActivitiesCompany(
-                          this.props.theme.company,
-                        );
-                        this.props.fetchEstablishmentList();
-                        this.props.setBookerInAvanceDialog(true);
-                        this.props.setSelectedRecurrentBooking(r);
-                      }}
-                      recurrenceRuleBooking={{
-                        ...r,
-                        member: this.props.member,
-                      }}
-                    />
-                  ))}
-                </List>
+                <ObjectLevelPermissionProvider
+                  requiredPermission={[
+                    'reservation.activity.allowed_actions.delete',
+                    'reservation.workshop.allowed_actions.delete',
+                    'reservation.activity.allowed_actions.create',
+                    'reservation.workshop.allowed_actions.create',
+                  ]}
+                >
+                  {([
+                    hasActivityCancelBookingPermission,
+                    hasWorkshopCancelBookingPermission,
+                    hasActivityCreateBookingPermission,
+                    hasWorkshopCreateBookingPermission,
+                  ]) => (
+                    <List disablePadding>
+                      {this.props.recurrenceRuleBooking.map(
+                        (recurrenceRule) => (
+                          <RecurrenceRuleBookingListItem
+                            key={recurrenceRule.id}
+                            notShowMember
+                            onDelete={
+                              getActivityWorkshopPermission(
+                                recurrenceRule.meta_activity?.is_workshop,
+                                hasActivityCancelBookingPermission,
+                                hasWorkshopCancelBookingPermission,
+                              )
+                                ? (id, data) =>
+                                    this.props.onDeleteRecurrenceRuleBooking(
+                                      recurrenceRule,
+                                      this.props.id,
+                                      data,
+                                    )
+                                : undefined
+                            }
+                            onEdit={
+                              getActivityWorkshopPermission(
+                                recurrenceRule.meta_activity?.is_workshop,
+                                hasActivityCreateBookingPermission,
+                                hasWorkshopCreateBookingPermission,
+                              )
+                                ? () => {
+                                    this.props.fetchActivitiesCompany(
+                                      this.props.theme.company,
+                                    );
+                                    this.props.fetchEstablishmentList();
+                                    this.props.setBookerInAvanceDialog(true);
+                                    this.props.setSelectedRecurrentBooking(
+                                      recurrenceRule,
+                                    );
+                                  }
+                                : undefined
+                            }
+                            recurrenceRuleBooking={{
+                              ...recurrenceRule,
+                              member: this.props.member,
+                            }}
+                          />
+                        ),
+                      )}
+                    </List>
+                  )}
+                </ObjectLevelPermissionProvider>
                 <div className={this.props.classes.bookButtonWideContainer}>
                   {this.hasNext() && (
                     <Button
@@ -1044,6 +1089,9 @@ export default compose(
       waitingListConfiguration: getWaitingListConfigurationData(state),
       offerStatusWaitingListPositionById:
         getOfferStatusWaitingListPositionById(state),
+      getOfferMetaActivity: (metaActivityId: number) =>
+        getMetaActivity(state, metaActivityId),
+      getBookingOffer: (offerId: number) => getOfferById(state, offerId),
     }),
     {
       fetchMemberBookings: fetchBookingsByMemberAction,
@@ -1051,6 +1099,7 @@ export default compose(
       fetchPaymentPackBulk: fetchPaymentPackBulkAction,
       retrieveBooking,
       fetchOffer: fetchOfferByIdAction,
+      fetchOfferBulk: fetchOfferBulkAction,
       fetchCompanyUserRoles: fetchCompanyUserRolesAction,
       fetchEstablishmentList,
       fetchEstablishmentBulk: fetchEstablishmentBulkAction,
@@ -1251,6 +1300,7 @@ export default compose(
         fetchMemberBookings,
         retrieveConsumerPackBulk,
         bookingId,
+        fetchOfferBulk,
       }) =>
       (page, page_size) => {
         fetchMemberBookings({
@@ -1260,10 +1310,12 @@ export default compose(
           current_booking_id: !page ? bookingId : null,
           filters,
           options: {
-            onSuccess: (bookings) =>
+            onSuccess: (bookings) => {
               retrieveConsumerPackBulk(
                 bookings.map((b) => b.consumer_payment_pack),
-              ),
+              );
+              fetchOfferBulk(bookings.map((booking) => booking.offer));
+            },
           },
         });
       },

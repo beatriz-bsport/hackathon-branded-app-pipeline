@@ -127,7 +127,6 @@ export const MarketplaceAppBar: React.FC<Props> = ({
       <div className={classes.container}>
         <div className={classes.logo}>
           <AppBarLogo
-            currentTheme={theme}
             franchisor={franchisor}
             isWidget={isWidget}
             logo={logo}

@@ -1,9 +1,7 @@
-// @ts-nocheck
 import React from 'react';
 
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
-import Hidden from '@material-ui/core/Hidden';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import classnames from 'classnames';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
@@ -15,7 +13,6 @@ import Menu from '@material-ui/core/Menu';
 import { httpParser } from '#libs/marketplace/utils';
 import { Franchise } from '#libs/franchise/types';
 import { Company } from '#libs/company/types';
-import { CompanyTheme } from '#libs/theme/types';
 
 type LogoProps = {
   isWidget?: boolean;
@@ -24,7 +21,6 @@ type LogoProps = {
   title?: string;
   franchisor: Franchise | null;
   onCompanySelected: (c: Company) => void;
-  currentTheme: CompanyTheme | null;
 };
 
 const AppBarLogo: React.FC<LogoProps> = ({
@@ -33,7 +29,6 @@ const AppBarLogo: React.FC<LogoProps> = ({
   websiteURL,
   title,
   franchisor,
-  currentTheme,
   onCompanySelected,
 }) => {
   const classes = useStyles();
@@ -50,31 +45,8 @@ const AppBarLogo: React.FC<LogoProps> = ({
           onClick={(ev: React.SyntheticEvent<HTMLButtonElement>) =>
             setOpenMenu(ev.currentTarget)
           }
-          variant="outlined"
         >
-          <Hidden smDown>
-            <img
-              alt="bsport logo"
-              className={classes.logo}
-              height={40}
-              src={logo}
-              width={40}
-            />
-          </Hidden>
-          <Hidden smUp>
-            <img
-              alt="bsport logo"
-              className={classes.logo}
-              height={40}
-              src={logo}
-              width={40}
-            />
-          </Hidden>
-          <Hidden xsDown>
-            <Typography noWrap align="left" variant="subtitle2">
-              {currentTheme.company_name}
-            </Typography>
-          </Hidden>
+          <img alt="bsport logo" className={classes.logo} src={logo} />
           <KeyboardArrowDownIcon />
         </ButtonBase>
         <Menu
@@ -93,13 +65,6 @@ const AppBarLogo: React.FC<LogoProps> = ({
                   onCompanySelected(c);
                 }}
               >
-                <img
-                  alt="bsport logo"
-                  className={classes.logo}
-                  height={24}
-                  src={c.cover || franchisor.cover}
-                  width={24}
-                />
                 <ListItemText>{c.name}</ListItemText>
               </MenuItem>
             ))}
@@ -148,7 +113,6 @@ const useStyles = makeStyles((theme) => ({
     maxHeight: 50,
     borderRadius: theme.spacing(1.5),
     padding: theme.spacing(1),
-    border: '1px solid #c2c2c2',
   },
   title: {
     marginLeft: theme.spacing(2),
@@ -156,6 +120,8 @@ const useStyles = makeStyles((theme) => ({
   },
   logo: {
     objectFit: 'cover',
+    maxHeight: 40,
+    width: '100%',
   },
 }));
 

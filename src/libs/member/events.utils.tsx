@@ -9,6 +9,7 @@ import {
   LockOpen as LoginSuccessfulIcon,
   Schedule as PrivateBookingIcon,
   Label as TagAppliedIcon,
+  EventBusy as EventBusyIcon,
   Videocam as VODBoughtIcon,
 } from '@material-ui/icons';
 import { TFunction } from 'i18next';
@@ -54,6 +55,18 @@ const getTranslationDataFromEvent = (
             event.data?.spot_id,
           )}` || '',
         offerDate: event.data?.offer_date_str || '',
+      };
+
+    case MEMBER_EVENTS.privatebooking_canceled:
+      return {
+        private_slot_name: event.data?.private_slot_name || '',
+        private_service_name: event.data?.private_service_name || '',
+        date_start: event.data?.date_start || '',
+      };
+    case MEMBER_EVENTS.booking_canceled:
+      return {
+        name: event.data?.name || '',
+        date_start: event.data?.date_start || '',
       };
 
     case MEMBER_EVENTS.custom_form_filled:
@@ -116,10 +129,20 @@ export const COMPANY_EVENTS = {
     getPrimaryText,
     i18nText: `member:events.${MEMBER_EVENTS.booking_registered}.filter`,
   },
+  [MEMBER_EVENTS.booking_canceled]: {
+    icon: <EventBusyIcon color="primary" />,
+    getPrimaryText,
+    i18nText: `member:events.${MEMBER_EVENTS.booking_canceled}.filter`,
+  },
   [MEMBER_EVENTS.private_booking_registered]: {
     icon: <PrivateBookingIcon color="primary" />,
     getPrimaryText,
     i18nText: `member:events.${MEMBER_EVENTS.private_booking_registered}.filter`,
+  },
+  [MEMBER_EVENTS.privatebooking_canceled]: {
+    icon: <EventBusyIcon color="primary" />,
+    getPrimaryText,
+    i18nText: `member:events.${MEMBER_EVENTS.privatebooking_canceled}.filter`,
   },
   [MEMBER_EVENTS.basket_paid]: {
     icon: <BasketPaidIcon color="primary" />,
@@ -172,6 +195,9 @@ export const getMemberEventPath = (
     case MEMBER_EVENTS.booking_registered:
       return `${defaultPath}/bookings/${event.data?.booking_id || ''}`;
 
+    case MEMBER_EVENTS.booking_canceled:
+      return `${defaultPath}/bookings/${event.data?.booking_id || ''}`;
+
     case MEMBER_EVENTS.custom_form_filled:
       // there is no routing with the custom form filled ids
       return `${defaultPath}/form/`;
@@ -186,6 +212,11 @@ export const getMemberEventPath = (
       return `${defaultPath}/payment/`;
 
     case MEMBER_EVENTS.private_booking_registered:
+      return `${defaultPath}/private-booking/${
+        event.data?.private_booking_id || ''
+      }`;
+
+    case MEMBER_EVENTS.privatebooking_canceled:
       return `${defaultPath}/private-booking/${
         event.data?.private_booking_id || ''
       }`;

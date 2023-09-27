@@ -370,6 +370,16 @@ exports.default = {
       sourceManager: 'The manager {{ managerName }}',
       filter: 'Bookings',
     },
+    [MEMBER_EVENTS.booking_canceled]: {
+      primaryText:
+        'The booking for {{- name }} the {{- date_start }} was canceled.',
+      filter: 'Booking cancelations',
+    },
+    [MEMBER_EVENTS.privatebooking_canceled]: {
+      primaryText:
+        'The appointment for {{- private_service_name}} - {{- private_slot_name }} the {{- date_start }} was canceled.',
+      filter: 'Appointment cancelations',
+    },
     [MEMBER_EVENTS.custom_form_filled]: {
       filter: 'Profile form edited',
       primaryText: 'Profile edit form {{ formName }} has been filled.',

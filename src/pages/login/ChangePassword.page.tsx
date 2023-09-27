@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
-import { connect, ConnectedProps, Dispatch } from 'react-redux';
-import { withStyles, createStyles, WithStyles, Theme } from '@material-ui/core';
+import { connect, ConnectedProps } from 'react-redux';
+import {
+  withStyles,
+  createStyles,
+  type WithStyles,
+  type Theme,
+} from '@material-ui/core';
 
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -14,13 +19,14 @@ import Paper from '@material-ui/core/Paper';
 import { RootState } from '../../reducers';
 import themeSelectors, { getIsUISimplified } from '#libs/theme/selectors';
 import { parseQueryString, buildUrlParams } from '../../http';
+import type { Theme as CompanyTheme } from '#libs/theme/types';
 
 import { changePassword as changePasswordAPI } from '../../libs/login/api';
-import { snackbarSuccess } from '../../libs/snackbar/actions';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
 import { retrieveFranchise } from '../../libs/franchise/actions';
 import { getFranchisor } from '../../libs/franchise/selectors';
 
+// @ts-expect-error
 import B_ASSET from '../../public/images/b_dark.jpg';
 
 const styles = (theme: Theme) =>
@@ -60,8 +66,10 @@ type OwnProps = {
     };
   };
   classes: Object;
-  membership: number | null;
   simplifyUI?: boolean;
+  franchisorId?: number;
+  franchisor?: CompanyTheme;
+  membership?: number;
 };
 
 type Props = OwnProps &
@@ -96,7 +104,7 @@ export class ChangePassword extends Component<Props, State> {
 
     if (this.props.membership) {
       this.props.fetchCompanyTheme(this.props.membership, {
-        onSuccess: (theme) => {
+        onSuccess: (theme: CompanyTheme) => {
           if (theme.franchisor) this.props.retrieveFranchise(theme.franchisor);
         },
       });
@@ -249,58 +257,45 @@ export class ChangePassword extends Component<Props, State> {
   }
 }
 
-const mapStateToProps = (
-  state: RootState,
-  { membership }: { membership: number | null },
-) => ({
-  theme: !!membership && themeSelectors.getTheme(state),
-  simplifyUI: !!membership && getIsUISimplified(state),
-});
+const connector = connect(
+  (state: RootState, { membership }: { membership: number | null }) => ({
+    theme: !!membership && themeSelectors.getTheme(state),
+    simplifyUI: !!membership && getIsUISimplified(state),
+  }),
 
-function mapDispatchToProps(dispatch: Dispatch) {
-  return {
-    fetchCompanyTheme(companyId: number) {
-      dispatch(fetchCompanyTheme(companyId));
-    },
-    retrieveFranchise(franchisorId: number) {
-      dispatch(retrieveFranchise(franchisorId));
-    },
-    requestResetLink(membership: number | null, franchisorId: number | null) {
-      dispatch(
-        pushRouter(
-          `/login/reset_password${buildUrlParams({
-            ...(membership ? { membership } : {}),
-            ...(franchisorId ? { franchisor: franchisorId } : {}),
-          })}`,
-        ),
-      );
-    },
-    pushToLogin(
+  {
+    fetchCompanyTheme,
+    retrieveFranchise,
+    requestResetLink: (
+      membership: number | null,
+      franchisorId: number | null,
+    ) =>
+      pushRouter(
+        `/login/reset_password${buildUrlParams({
+          ...(membership ? { membership } : {}),
+          ...(franchisorId ? { franchisor: franchisorId } : {}),
+        })}`,
+      ),
+    pushToLogin: (
       successMessage: string,
       membership: number | null,
       franchisorId: number | null,
-    ) {
-      dispatch(snackbarSuccess(successMessage));
-      dispatch(
-        pushRouter(
-          `/login${buildUrlParams({
-            ...(membership ? { membership } : {}),
-            ...(franchisorId ? { franchisor: franchisorId } : {}),
-          })}`,
-        ),
-      );
-    },
-  };
-}
-
-const connector = connect(mapStateToProps, mapDispatchToProps);
+    ) =>
+      pushRouter(
+        `/login${buildUrlParams({
+          ...(membership ? { membership } : {}),
+          ...(franchisorId ? { franchisor: franchisorId } : {}),
+        })}`,
+      ),
+  },
+);
 
 export default compose(
   withStyles(styles),
   withTranslation(['translation', 'common']),
-  withProps((props) => {
-    const { membership, franchisor } = parseQueryString(
-      props.location?.search || '',
+  withProps(({ location }) => {
+    const { membership, franchisor }: any = parseQueryString(
+      location?.search || '',
     );
     return {
       membership,
@@ -308,7 +303,7 @@ export default compose(
     };
   }),
   connector,
-  connect((state: RootState, { theme, franchisorId }) => ({
+  connect((state: RootState, { theme, franchisorId }: any) => ({
     franchisor:
       theme?.franchisor || franchisorId ? getFranchisor(state) : undefined,
   })),

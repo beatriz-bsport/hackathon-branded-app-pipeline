@@ -72,6 +72,12 @@ import ResponsiveDrawerItem from './ResponsiveDrawerItem.component';
 import { hasObjectLevelPermission } from '#libs/role/permission-utils/utils';
 import { SEQUENTIAL_MARKETING_AUTHORIZED_COMPANY_IDS } from '#libs/sequential_marketingDEPRECATED/constants';
 
+// Temporary condition to hide the referral page while the feature is not finished
+// Condition will be removed once the feature is finished
+const shouldHideReferral =
+  Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ||
+  Config.REACT_APP_SENTRY_ENVIRONMENT === 'production';
+
 export const drawerWidth = 260;
 const usePrevious = (value: boolean) => {
   const previousIconOnlyState = React.useRef<boolean>();
@@ -573,11 +579,17 @@ const ResponsiveDrawer: React.FC<Props> = ({
             dense: true,
             text: t('backofficeMenu.settings.active_campaign'),
           },
-          {
-            to: '/settings/referral',
-            dense: true,
-            text: t('backofficeMenu.settings.referral'),
-          },
+          // Temporary condition to hide the referral page while the feature is not finished
+          // Condition will be removed once the feature is finished
+          ...(shouldHideReferral
+            ? []
+            : [
+                {
+                  to: '/settings/referral',
+                  dense: true,
+                  text: t('backofficeMenu.settings.referral'),
+                },
+              ]),
           {
             to: '/settings/platform-billing',
             dense: true,

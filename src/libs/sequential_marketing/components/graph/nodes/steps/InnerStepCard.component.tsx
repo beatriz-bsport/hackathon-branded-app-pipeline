@@ -2,10 +2,10 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Immutable from 'seamless-immutable';
 
-import StepCard from '#components/card/StepCard.component';
-import CadenceNodeTitle from '../internals/CadenceNodeTitle.component';
-import CadenceNodeContent from '../internals/CadenceNodeContent.component';
 import { SequentialMarketingColors } from '#libs/sequential_marketing/constants';
+import CadenceNodeContent from '#libs/sequential_marketing/components/graph/nodes/internals/CadenceNodeContent.component';
+import CadenceNodeTitle from '#libs/sequential_marketing/components/graph/nodes/internals/CadenceNodeTitle.component';
+import StepCard from '#components/card/StepCard.component';
 
 import type {
   CadenceStep,

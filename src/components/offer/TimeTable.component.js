@@ -15,6 +15,7 @@ import ValidationRollCallButton from '#libs/offer/components/ValidationRollCallB
 import ValidationRollCallText from '#libs/offer/components/ValidationRollCallText.component';
 
 import type { Theme as CompanyTheme } from '#libs/theme/types';
+import ObjectLevelPermissionWrapper from '../../libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 type Props = {
   loading: boolean,
@@ -100,16 +101,24 @@ export class TimeTable extends React.PureComponent<Props, State> {
                 }
               />
             </div>
-            <div className={classes.rollCallButton}>
-              <ValidationRollCallButton
-                outlined
-                nbRollCallsLeftToValidate={
-                  offers.filter((offer) => offer.roll_call_needs_validation)
-                    .length
-                }
-                onClick={this.props.openConfirmationRollCallDialog}
-              />
-            </div>
+            <ObjectLevelPermissionWrapper
+              forcedBehavior="hidden"
+              requiredPermission={[
+                'reservation.activity.allowed_actions.rollcall',
+                'reservation.workshop.allowed_actions.rollcall',
+              ]}
+            >
+              <div className={classes.rollCallButton}>
+                <ValidationRollCallButton
+                  outlined
+                  nbRollCallsLeftToValidate={
+                    offers.filter((offer) => offer.roll_call_needs_validation)
+                      .length
+                  }
+                  onClick={this.props.openConfirmationRollCallDialog}
+                />
+              </div>
+            </ObjectLevelPermissionWrapper>
           </div>
         )}
       </div>

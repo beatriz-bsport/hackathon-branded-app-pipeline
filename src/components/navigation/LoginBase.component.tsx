@@ -20,8 +20,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   bsportLogo: {
     marginTop: 30,
-    height: 80,
-    width: 80,
+    marginLeft: 10,
+    marginRight: 10,
+    maxWidth: '40vw',
+    width: 140,
   },
   content: {
     padding: theme.spacing(1),

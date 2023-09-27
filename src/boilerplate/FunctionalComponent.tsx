@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 
 import { replace } from 'connected-react-router';
@@ -39,7 +38,7 @@ export const FunctionalComponent = (props: Props) => {
 
 const connector = connect(
   (state: RootState) => ({
-    bar: state.foo.bar,
+    bar: state.login.authenticated,
   }),
   {
     replace,

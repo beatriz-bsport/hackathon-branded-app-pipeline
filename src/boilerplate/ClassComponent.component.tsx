@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 
 import { replace } from 'connected-react-router';
@@ -47,7 +46,7 @@ export class ClassComponent extends Component<Props, State> {
 
 const connector = connect(
   (state: RootState) => ({
-    bar: state.foo.bar,
+    bar: state.login.authenticated,
   }),
   {
     replace,

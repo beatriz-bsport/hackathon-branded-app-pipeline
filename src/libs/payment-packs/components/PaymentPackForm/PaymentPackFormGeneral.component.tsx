@@ -677,7 +677,7 @@ const useStyles = makeStyles<Theme>((theme) => ({
     marginTop: theme.spacing(2),
   },
   radioGroupLabel: {
-    lineHeight: theme.spacing(3),
+    lineHeight: 1.5,
   },
   penaltyContainer: { padding: theme.spacing(1) },
   alert: {

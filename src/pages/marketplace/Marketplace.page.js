@@ -97,6 +97,7 @@ import {
 } from '#libs/marketplace/constants';
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import ApplyCustomTheme from '#libs/exportable-components/ApplyCustomTheme.component';
 
 const MarketplacePassPage = asyncComponent(() => import('./MarketplacePass'));
 
@@ -494,11 +495,17 @@ export class MarketPlace extends Component<Props, State> {
             theme={this.props.theme}
             username={(this.props.auth && this.props.auth.username) || ''}
           />
+
           {!!this.props.customConfiguration &&
             !!this.props.customConfiguration.apply_on_marketplace && (
-              <ApplyCustomCssStyles
-                customConfiguration={this.props.customConfiguration}
-              />
+              <>
+                {!!this.props.theme?.widget_theme && (
+                  <ApplyCustomTheme styles={this.props.theme.widget_theme} />
+                )}
+                <ApplyCustomCssStyles
+                  customConfiguration={this.props.customConfiguration}
+                />
+              </>
             )}
           <div className={classes.container}>
             <MarketplaceAppBar

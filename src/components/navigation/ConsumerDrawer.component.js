@@ -523,13 +523,11 @@ class ConsumerDrawer extends React.Component<Props, State> {
             justify="center"
             style={{ paddingTop: 10 }}
           >
-            <Hidden smDown>
-              <img
-                alt="bsport logo"
-                height={40}
-                src={this.props.logo || LOGO_ASSET}
-              />
-            </Hidden>
+            <img
+              alt="bsport logo"
+              height={40}
+              src={this.props.logo || LOGO_ASSET}
+            />
           </Grid>
         </div>
         <List>

@@ -1,8 +1,9 @@
 import React from 'react';
 
 import { BaseAdditionalData, SearchItemData } from '../Search.component';
-import './style.css';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+
+import './style.css';
 
 export type Props = {
   item: SearchItemData<BaseAdditionalData>;

@@ -6,8 +6,9 @@ import { useTranslation } from 'react-i18next';
 
 import { List } from '#components/css-only/Search';
 
-import './style.css';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+
+import './style.css';
 
 export type FuseOptions = {
   shouldSort: boolean;

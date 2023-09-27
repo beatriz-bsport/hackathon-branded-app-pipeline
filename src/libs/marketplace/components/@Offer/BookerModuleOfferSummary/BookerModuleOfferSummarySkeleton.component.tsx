@@ -9,8 +9,9 @@ import GridItem, {
 } from '#components/css-only/Grid/GridItem';
 import { CardSize } from '#components/css-only/Card/types';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import './styles-skeleton.css';
 import Skeleton, { SkeletonVariant } from '#components/css-only/Skeleton';
+
+import './styles-skeleton.css';
 
 const BookerModuleOfferSummarySkeleton: React.FC = () => {
   return (

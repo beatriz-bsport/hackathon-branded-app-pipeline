@@ -7,9 +7,10 @@ import Content from '#components/css-only/Card/CardContent';
 import Grid from '#components/css-only/Grid';
 import Item, { Alignment } from '#components/css-only/Grid/GridItem';
 
-import './styles.css';
 import { PaymentPack } from '#libs/payment-packs/types';
 import MarketplacePaymentPackOffPeakSchedule from './MarketplacePaymentPackOffPeakSchedule.component';
+
+import './styles.css';
 
 export type Props = {
   paymentPack: PaymentPack;

@@ -7,9 +7,9 @@ import CheckCircleOutlineOutlinedIcon from '@material-ui/icons/CheckCircleOutlin
 
 import Chip from '..';
 
-import './stories.styles.css';
-
 import { Props } from '..';
+
+import './stories.styles.css';
 
 export default {
   title: 'Components/CssOnly/Chip',

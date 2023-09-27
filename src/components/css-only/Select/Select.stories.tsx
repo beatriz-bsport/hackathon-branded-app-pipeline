@@ -4,8 +4,9 @@ import { Props, SelectForStorybook } from '#components/css-only/Select';
 import { paymentPackListFactory } from '#libs/payment-packs/factory';
 import { LOCALE_LIST } from '../../input/LocaleSelector.component';
 
-import './style.css';
 import { useTranslation } from 'react-i18next';
+
+import './style.css';
 
 const options: { label: string; value: string }[] = paymentPackListFactory(
   20,

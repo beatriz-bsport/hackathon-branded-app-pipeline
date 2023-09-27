@@ -17,8 +17,9 @@ import GridItem, {
 import Price from '#components/css-only/Price';
 import type { PaymentPack } from '#libs/payment-packs/types';
 
-import './styles.css';
 import MinimalCardSkeleton from '#marketplacecomponents/MinimalCardSkeleton';
+
+import './styles.css';
 
 export type Props = {
   paymentPack: PaymentPack;

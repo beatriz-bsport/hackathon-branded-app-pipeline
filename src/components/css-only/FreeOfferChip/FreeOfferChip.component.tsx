@@ -2,9 +2,9 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 
-import './styles.css';
-
 import type { CompanyTheme } from '#libs/theme/types';
+
+import './styles.css';
 
 export type Props = {
   credits: number;

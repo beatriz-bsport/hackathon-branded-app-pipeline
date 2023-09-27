@@ -8,8 +8,9 @@ import { useTheme } from '@material-ui/core';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
 import { getTextColorFromRGB } from '../../../../../utils/color';
 import { getLevelColor, getLevelTranslation } from '#libs/level/utils';
-import './MarketplaceLevelCSSOnly.css';
 import { Level } from '#libs/level/types';
+
+import './MarketplaceLevelCSSOnly.css';
 
 export type Props = {
   customLevel: Level;

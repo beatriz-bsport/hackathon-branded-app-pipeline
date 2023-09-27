@@ -4,8 +4,9 @@ import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import classNames from 'classnames';
 
-import './styles.css';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+
+import './styles.css';
 
 export type Props = {
   name: string;

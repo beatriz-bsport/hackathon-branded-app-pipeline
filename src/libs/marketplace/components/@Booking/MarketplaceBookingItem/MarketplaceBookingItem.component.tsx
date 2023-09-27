@@ -15,8 +15,9 @@ import GridItem, {
 import ActivitySummary from '#marketplacecomponents/@Activity/ActivitySummary';
 import { CompanyTheme } from '#libs/theme/types';
 import Chip from '#components/css-only/Chip';
-import './styles.css';
 import MarketplaceLevelCSSOnly from '#marketplacecomponents/@Offer/MarketplaceLevelCSSOnly';
+
+import './styles.css';
 
 export type Props = {
   date: string;

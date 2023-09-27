@@ -20,7 +20,6 @@ import {
 } from '../../../../../utils/datetime';
 import { Moment } from '../../../../../i18n';
 import MarketPlaceCardOfferV2 from '#marketplacecomponents/@Offer/MarketplaceCardOfferCSSOnly';
-import './MarketplaceWeekTimeTableCSSOnly.css';
 import MarketPlaceOfferListItemComponent from '#marketplacecomponents/@Offer/MarketplaceOfferListItemCSSOnly';
 import { Offer_FULL, Offer } from '#libs/offer/types';
 import { Level } from '#libs/level/types';
@@ -32,6 +31,8 @@ import {
 import { MetaActivity } from '#libs/meta-activity/types';
 import { Establishment } from '#libs/establishment/types';
 import { Coach } from '#libs/associated-coach/types';
+
+import './MarketplaceWeekTimeTableCSSOnly.css';
 
 const SPLIT_AFTERNOON = 12;
 const SPLIT_EVENNING = 17;

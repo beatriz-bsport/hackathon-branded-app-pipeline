@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 
 import { SkeletonAnimation, SkeletonVariant } from '.';
+
 import './styles.css';
 
 export type Props = {

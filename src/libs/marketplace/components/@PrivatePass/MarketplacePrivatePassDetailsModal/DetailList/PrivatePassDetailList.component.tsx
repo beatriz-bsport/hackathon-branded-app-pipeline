@@ -11,10 +11,10 @@ import StyleIcon from '@material-ui/icons/Style';
 
 import { useValidityInfoForPrivatePassCard } from '#libs/marketplace/utils/private-pass';
 
-import './styles.list.css';
-
 import { PrivatePass } from '#libs/private-service/types';
 import { getCreditFactor } from '#libs/theme/selectors';
+
+import './styles.list.css';
 
 export type Props = {
   privatePass: PrivatePass;

@@ -8,8 +8,9 @@ import Alert, { AlertSeverity } from '#components/css-only/Alert';
 import Button, { ButtonSize } from '#components/css-only/Fabrique/Button';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
-import './styles.css';
 import { useConfirmationMessageData } from '#libs/checkout/hooks';
+
+import './styles.css';
 
 export type Props = {
   status: ConfirmationStatus;

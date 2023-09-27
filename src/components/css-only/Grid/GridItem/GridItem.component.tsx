@@ -1,8 +1,9 @@
 import React from 'react';
-import './styles.css';
 import classNames from 'classnames';
 
 import { Alignment, Direction, Justification } from './types';
+
+import './styles.css';
 
 export type Props = {
   rowStart?: number;

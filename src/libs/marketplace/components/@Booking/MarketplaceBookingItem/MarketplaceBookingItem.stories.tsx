@@ -16,7 +16,9 @@ import { coachFactory } from '#libs/associated-coach/factories';
 import { Coach } from '#libs/associated-coach/types';
 import { levelFactory } from '#libs/level/factories';
 import { Level } from '#libs/level/types';
+
 import './styles.storybook.css';
+
 const fakeCompanyTheme: CompanyTheme = themeFactoryBot.companyTheme.createOne();
 
 const fakeEstablishment: Establishment =

@@ -78,9 +78,10 @@ import { Offer } from '#libs/offer/types';
 import { convertMarketplaceFilterForMetaActivityCall } from '#libs/meta-activity/utils';
 import { useWidth } from '../../hooks/useWidth';
 
-import './MarketplaceWorkshop.css';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { getBookWorkshopUrl } from '#libs/marketplace/routing-utils';
+
+import './MarketplaceWorkshop.css';
 
 const BATCH_SIZE_FOR_META_ACTIVITY = 6;
 

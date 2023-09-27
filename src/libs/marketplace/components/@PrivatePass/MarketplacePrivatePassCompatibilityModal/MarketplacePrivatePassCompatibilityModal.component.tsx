@@ -9,9 +9,9 @@ import Content from '#components/css-only/Card/CardContent';
 import Grid from '#components/css-only/Grid';
 import Item, { Alignment } from '#components/css-only/Grid/GridItem';
 
-import './styles.css';
-
 import type { PrivateServiceWithSlots } from '#libs/private-service/types';
+
+import './styles.css';
 
 export type Props = {
   compatiblePrivateServices: PrivateServiceWithSlots[];

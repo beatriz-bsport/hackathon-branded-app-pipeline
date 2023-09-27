@@ -1,6 +1,7 @@
 import React from 'react';
-import './stories.styles.css';
 import GridItem, { Props } from '../GridItem';
+
+import './stories.styles.css';
 
 const GridTemplate = (args: Props) => {
   return (

@@ -9,11 +9,12 @@ import { useTranslation } from 'react-i18next';
 import Hidden from '@material-ui/core/Hidden';
 import TagCircle from './TagCircle.component';
 import { Tag, TagGroup } from '../../../tag/types';
-import './TagBadge.css';
 import TagChip from '../../../tag/components/TagChip.component';
 import BalanceChip from '#libs/member/components/BalanceChip.component';
 import { Member } from '#libs/member/types';
 import { ONLY_BALANCE, ONLY_UNPAID_AMOUNT } from '#libs/member/constants';
+
+import './TagBadge.css';
 
 const NUMBER_OF_TAGS_DISPLAYED = 4;
 

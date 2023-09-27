@@ -1,10 +1,10 @@
 import React from 'react';
 
-import './styles.css';
-
 import { useTranslation } from 'react-i18next';
 
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+
+import './styles.css';
 
 type Props = {
   interval: 'month' | 'week' | 'day' | 'year';

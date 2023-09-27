@@ -14,7 +14,6 @@ import Grow from '@material-ui/core/Grow';
 import Popper from '@material-ui/core/Popper';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import './MarketplaceDatePicker.css';
 import { EventWithElementTarget } from '#libs/marketplace/types';
 
 import MarketplaceDatePickerDay from './MarketplaceDatePickerDay.component';
@@ -23,6 +22,8 @@ import {
   formatAsDate,
   formatAsTitle,
 } from '../../../../../utils/datetime';
+
+import './MarketplaceDatePicker.css';
 
 export type Props = {
   dateSelected: string;

@@ -32,7 +32,6 @@ import {
 } from '#libs/marketplace/constants';
 import { Level } from '#libs/level/types';
 
-import './MarketplaceOfferListItemCSSOnly.css';
 import MarketplaceCoachInfos from '#marketplacecomponents/@Coach/MarketplaceCoachInfos';
 import MarketplaceEstablishmentTitle from '#marketplacecomponents/@Establishment/MarketplaceEstablishmentTitle';
 import FreeOfferChip from '#csscomponents/FreeOfferChip';
@@ -40,6 +39,8 @@ import FreeOfferChip from '#csscomponents/FreeOfferChip';
 import PopOver from '#components/Popover';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import MarketplaceOfferStatusChip from '../MarketplaceOfferStatusChip';
+
+import './MarketplaceOfferListItemCSSOnly.css';
 
 export const DISABLE_BOOKING_ELEMENTS_IDS = [
   'book-button--disabled',

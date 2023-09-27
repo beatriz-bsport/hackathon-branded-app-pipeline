@@ -14,8 +14,9 @@ import { useWheel } from '../../../hooks/useWheel';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { SLIDESHOW_INTERVAL_TIME, SLIDESHOW_ANIMATION_TIME } from './constants';
 import { getCarouselItemClasses } from '#csscomponents/utils';
-import './style.css';
 import CarouselIndicator from './CarouselIndicator';
+
+import './style.css';
 
 export interface Props<T = unknown> {
   data: Array<T>;

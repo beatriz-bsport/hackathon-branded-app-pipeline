@@ -13,7 +13,6 @@ import type {
   Establishment,
   EstablishmentGroup,
 } from '../../../../establishment/types';
-import './MarketplaceCalendarCSSOnly.css';
 import { Level } from '#libs/level/types';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { Offer } from '#libs/offer/types';
@@ -21,6 +20,8 @@ import { Theme } from '#libs/theme/types';
 import MarketplaceDatePicker from '#marketplacecomponents/@Date/MarketplaceDatePicker';
 import { formatAsTime } from '../../../../../utils/datetime';
 import { Coach } from '#libs/associated-coach/types';
+
+import './MarketplaceCalendarCSSOnly.css';
 
 const LoadingIndicator = () => (
   <div className="bs-calendar--loading">

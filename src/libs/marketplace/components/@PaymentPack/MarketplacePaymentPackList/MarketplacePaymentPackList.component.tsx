@@ -11,12 +11,12 @@ import MarketplacePaymentPackCard from '#marketplacecomponents/@PaymentPack/Mark
 import { MARKETPLACE_BREAKPOINT } from '#libs/marketplace/constants';
 import { useMarketplacePassFilters } from '#libs/marketplace/hooks';
 
-import './styles.css';
-
 import {
   PaymentPack,
   PaymentPackCategoryWithPacks,
 } from '#libs/payment-packs/types';
+
+import './styles.css';
 
 type Props = {
   paymentPackByCategory: Immutable<PaymentPackCategoryWithPacks[]>;

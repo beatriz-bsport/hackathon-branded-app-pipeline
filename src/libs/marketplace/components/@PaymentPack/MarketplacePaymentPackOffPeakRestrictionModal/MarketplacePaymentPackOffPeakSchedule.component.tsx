@@ -1,6 +1,7 @@
 import React, { memo, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { PaymentPack } from '#libs/payment-packs/types';
+
 import './styles.css';
 
 export type Props = {

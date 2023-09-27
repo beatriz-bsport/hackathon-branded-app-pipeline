@@ -1,8 +1,9 @@
 import React from 'react';
 import classNames from 'classnames';
-import './styles.css';
 
 import { CardSize } from './types';
+
+import './styles.css';
 
 export type Props = {
   children: React.ReactNode;

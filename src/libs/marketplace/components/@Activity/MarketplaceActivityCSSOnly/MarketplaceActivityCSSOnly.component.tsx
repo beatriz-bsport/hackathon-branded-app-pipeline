@@ -24,13 +24,14 @@ import { Level } from '#libs/level/types';
 import { Theme as CompanyTheme } from '#libs/theme/types';
 import Map from '#components/map/Map.component';
 
-import './MarketplaceActivity.css';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { Establishment } from '#libs/establishment/types';
 import { Coach } from '#libs/associated-coach/types';
 import { OffersGroup } from '#libs/group-offer/types';
 import FreeOfferChip from '#csscomponents/FreeOfferChip';
 import Button from '#components/css-only/Fabrique/Button';
+
+import './MarketplaceActivity.css';
 
 export type Props = {
   offer: Offer;

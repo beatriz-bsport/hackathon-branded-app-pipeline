@@ -37,12 +37,13 @@ import { OptionCallback } from '../../../../../state/types';
 import { appliesToContract } from '#libs/coupon/api';
 import CircularProgress from '#components/css-only/CircularProgress';
 
-import './styles.css';
 import MarketplaceContractPaymentInfos from './sections/MarketplaceContractPaymentInfos';
 import MarketplaceContractPaymentPricing from './sections/MarketplaceContractPaymentPricing.component';
 import MarketplaceContractPaymentCoupon from './sections/MarketplaceContractPaymentCoupon';
 import { updatePaymentMethodBillingDetails as updatePaymentMethodBillingDetailsAPI } from '#libs/payment/api';
 import Button, { ButtonType } from '#components/css-only/Fabrique/Button';
+
+import './styles.css';
 
 export type Props = {
   contract: Contract;

@@ -5,6 +5,7 @@ import { HourglassEmpty } from '@material-ui/icons';
 import classnames from 'classnames';
 import { compose } from 'recompose';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+
 import './BookButton.css';
 
 type OwnProps = {

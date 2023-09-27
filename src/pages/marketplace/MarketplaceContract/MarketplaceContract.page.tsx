@@ -30,8 +30,6 @@ import MarketplaceContractList from '#marketplacecomponents/@Subscription/Market
 import { MarketplaceContractDetailModalPortal } from '#marketplacecomponents/@Subscription/MarketplaceContractDetailModal';
 import WidgetUtils from '#libs/widget/WidgetUtils';
 
-import './styles.css';
-
 import {
   SearchItemData,
   BaseAdditionalData,
@@ -42,6 +40,8 @@ import { PaymentPack } from '#libs/payment-packs/types';
 import { getContractCheckoutUrl } from '#libs/marketplace/routing-utils';
 
 import { CompanyTheme } from '#libs/theme/types';
+
+import './styles.css';
 
 type OwnProps = {
   companyId: number;

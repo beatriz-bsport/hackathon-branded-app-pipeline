@@ -11,11 +11,12 @@ import GridItem, {
   Justification,
 } from '#components/css-only/Grid/GridItem';
 import Price from '#components/css-only/Price';
-import './styles.css';
 import { PaymentCombo } from '#libs/payment-combo/types';
 import PaymentComboItemList from '../MarketplacePaymentComboCard/PaymentComboItemList';
 import InitialPrice from '../MarketplacePaymentComboCard/InitialPrice';
 import MinimalCardSkeleton from '#marketplacecomponents/MinimalCardSkeleton';
+
+import './styles.css';
 
 export type Props = {
   paymentCombo: PaymentCombo;

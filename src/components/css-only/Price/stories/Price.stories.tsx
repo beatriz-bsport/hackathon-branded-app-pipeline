@@ -4,8 +4,9 @@ import Price, { Props } from '../';
 
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
-import './stories.styles.css';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+
+import './stories.styles.css';
 
 const PriceTemplate = (args: Props) => <Price {...args} />;
 

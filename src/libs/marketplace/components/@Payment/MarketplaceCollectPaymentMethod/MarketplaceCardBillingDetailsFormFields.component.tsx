@@ -7,8 +7,9 @@ import {
   CountryOption,
 } from './MarketplaceCollectPaymentMethod.component';
 import { usePaymentMethodBillingDetails } from '#libs/marketplace/hooks';
-import './styles.css';
 import { MarketplacePaymentMethodBillingDetails } from '#libs/marketplace/types';
+
+import './styles.css';
 
 type Props = {
   billingDetails: MarketplacePaymentMethodBillingDetails;

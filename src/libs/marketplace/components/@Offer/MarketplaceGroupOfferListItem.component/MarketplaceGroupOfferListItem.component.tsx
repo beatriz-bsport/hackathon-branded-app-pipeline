@@ -24,10 +24,11 @@ import {
   isOfferInThePast,
   getPositionOfOfferInTheList,
 } from '../../../utils';
-import './MarketplaceGroupOfferListItem.css';
 import MarketplaceCoachInfos from '#marketplacecomponents/@Coach/MarketplaceCoachInfos';
 import MarketplaceEstablishmentTitle from '#marketplacecomponents/@Establishment/MarketplaceEstablishmentTitle';
 import MarketplaceOfferStatusChip from '../MarketplaceOfferStatusChip';
+
+import './MarketplaceGroupOfferListItem.css';
 
 export type Props = {
   showOfferFilling: boolean;

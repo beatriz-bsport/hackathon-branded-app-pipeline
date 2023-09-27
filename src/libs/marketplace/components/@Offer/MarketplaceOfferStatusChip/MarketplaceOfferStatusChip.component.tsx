@@ -7,8 +7,6 @@ import HourglassFullIcon from '@material-ui/icons/HourglassFull';
 import AlarmOnIcon from '@material-ui/icons/AlarmOn';
 import UpdateIcon from '@material-ui/icons/Update';
 
-import './styles.css';
-
 import { getOfferStatus } from '#libs/marketplace/utils';
 import PopOver from '#components/Popover';
 import Chip from '#components/css-only/Chip';
@@ -17,6 +15,8 @@ import { MarketplaceOfferStatus, Offer } from '#libs/offer/types';
 import { CompanyTheme } from '#libs/theme/types';
 
 import { MetaActivity } from '#libs/meta-activity/types';
+
+import './styles.css';
 
 export type Props = {
   offer: Offer;

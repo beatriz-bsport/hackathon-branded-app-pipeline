@@ -1,11 +1,12 @@
 import React from 'react';
 
 import Price from '#csscomponents/Price';
-import './styles.css';
 
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 
 import type { PaymentCombo } from '#libs/payment-combo/types';
+
+import './styles.css';
 
 export type Props = {
   paymentCombo: PaymentCombo;

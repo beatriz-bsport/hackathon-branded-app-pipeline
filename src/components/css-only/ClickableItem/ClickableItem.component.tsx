@@ -1,7 +1,8 @@
 import React from 'react';
 
-import './styles.css';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+
+import './styles.css';
 
 export type Props = {
   primary?: string;

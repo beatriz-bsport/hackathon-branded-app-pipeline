@@ -1,11 +1,12 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import '../../login/components/Login.css';
 import { Button, Typography } from '@material-ui/core';
 import classNames from 'classnames';
 import chroma from 'chroma-js';
 import { getTextColorFromRGB } from '../../../utils/color';
+
+import '../../login/components/Login.css';
 
 type Props = {
   disconnect: () => void;

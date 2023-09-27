@@ -7,7 +7,9 @@ import GridItem, {
   Direction,
   Justification,
 } from '../GridItem';
+
 import './stories.styles.css';
+
 const GridTemplate = (
   args: GridProps & GridItemProps & { numberOfGridItems: number },
 ) => {

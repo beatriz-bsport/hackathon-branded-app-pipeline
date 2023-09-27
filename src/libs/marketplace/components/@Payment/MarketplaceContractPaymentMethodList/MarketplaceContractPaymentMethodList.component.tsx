@@ -14,6 +14,7 @@ import CircularProgress from '#components/css-only/CircularProgress';
 import { PaymentMethod } from '#libs/payment/types';
 
 import Button, { ButtonVariant } from '#components/css-only/Fabrique/Button';
+
 import './styles.css';
 
 export type Props = {

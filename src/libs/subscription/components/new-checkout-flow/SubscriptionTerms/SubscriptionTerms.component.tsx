@@ -9,6 +9,7 @@ import useIsTextExpandable from '../../../../../hooks/useIsTextExpandable';
 import Collapse from '#components/css-only/Fabrique/Collapse';
 
 import Button from '#components/css-only/Fabrique/Button';
+
 import './SubscriptionTermsStyles.css';
 
 export type Props = {

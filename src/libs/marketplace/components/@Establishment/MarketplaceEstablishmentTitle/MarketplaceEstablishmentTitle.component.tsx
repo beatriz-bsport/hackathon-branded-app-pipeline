@@ -1,11 +1,11 @@
 import React from 'react';
 
-import './styles.css';
-
 import classNames from 'classnames';
 
 import type { Theme } from '#libs/theme/types';
 import type { Establishment } from '#libs/establishment/types';
+
+import './styles.css';
 
 export type Props = {
   establishment: Establishment;

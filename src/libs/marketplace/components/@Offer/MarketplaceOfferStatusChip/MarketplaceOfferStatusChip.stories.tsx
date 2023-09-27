@@ -8,8 +8,9 @@ import themeFactory from '#libs/theme/factories';
 
 import type { Props } from '.';
 
-import './styles.css';
 import { CompanyTheme } from '#libs/theme/types';
+
+import './styles.css';
 
 const offer = offersFactory();
 const fakeTheme: CompanyTheme = themeFactory.companyTheme.createOne();

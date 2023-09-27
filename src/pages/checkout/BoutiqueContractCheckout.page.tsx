@@ -79,7 +79,6 @@ import { getContract, withPaymentPack } from '#libs/subscription/selectors';
 import type { OptionCallback } from '../../state/types';
 import { getMarketplaceEnabledPaymentMethods } from '#libs/payment/utils';
 
-import './BoutiqueContractCheckout.css';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import MarketplaceSubscriptionPayment from '#libs/checkout/components/new-checkout-flow/SubscriptionPayment';
 import SubscriptionTerms from '#libs/subscription/components/new-checkout-flow/SubscriptionTerms';
@@ -97,6 +96,8 @@ import MarketplaceContractCooldownModal from '#marketplacecomponents/@Subscripti
 import { BookerItem } from '#libs/booker-module/types';
 import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#libs/exportable-components/actions';
 import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
+
+import './BoutiqueContractCheckout.css';
 
 type RouterProps = {
   companyId: number;

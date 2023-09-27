@@ -18,8 +18,9 @@ import { Establishment } from '#libs/establishment/types';
 import { Level } from '#libs/level/types';
 import MarketplaceGroupOfferListItem from '#marketplacecomponents/@Offer/MarketplaceGroupOfferListItem.component/MarketplaceGroupOfferListItem.component';
 
-import './MarketplaceWorkshopCard.css';
 import { isOfferInThePast } from '#libs/marketplace/utils';
+
+import './MarketplaceWorkshopCard.css';
 
 export type Props = {
   metaActivity: MetaActivity;

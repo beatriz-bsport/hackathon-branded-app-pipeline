@@ -4,6 +4,7 @@ import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { StatusMessageWithIconSkeleton } from '.';
 
 import Button, { ButtonColor, ButtonVariant } from '../Fabrique/Button';
+
 import './styles.css';
 
 type ActionButton = {

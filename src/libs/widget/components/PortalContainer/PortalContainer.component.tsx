@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './styles.css';
 
 import { CSSTransition } from 'react-transition-group';
+
+import './styles.css';
 
 type SlidingContainerProps = {
   isOpen: boolean;

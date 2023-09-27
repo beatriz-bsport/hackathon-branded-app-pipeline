@@ -15,10 +15,11 @@ import { MarketPlaceFilter } from '../../../types';
 import MarketplaceFilter from '../MarketplaceFilter/MarketplaceFilter.component';
 import { getLevelColor, getLevelTranslation } from '#libs/level/utils';
 
-import './MarketplaceFilterCSSOnly.css';
 import { getGroupedEstablishmentOptions } from '#libs/establishment/components/EstablishmentSelector.component';
 import { Theme } from '#libs/theme/types';
 import MarketplaceCalendarSearch from '#marketplacecomponents/@Calendar/MarketplaceCalendarSearchCSSOnly/MarketplaceCalendarSearchCSSOnly.component';
+
+import './MarketplaceFilterCSSOnly.css';
 
 export type Props = {
   coaches: Coach[];

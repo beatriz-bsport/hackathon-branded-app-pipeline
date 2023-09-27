@@ -10,6 +10,7 @@ import {
   ButtonVariant,
   type Props,
 } from '.';
+
 import './styles-storybook.css';
 
 const ButtonTemplate = (args: Props) => (

@@ -19,6 +19,7 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 
 import Button, { ButtonColor } from '#components/css-only/Fabrique/Button';
+
 import './MarketplaceFilter.css';
 
 type Option = { value: number | string; label: string };

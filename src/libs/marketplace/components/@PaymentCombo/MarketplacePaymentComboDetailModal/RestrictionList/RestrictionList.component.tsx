@@ -4,9 +4,9 @@ import { useTranslation } from 'react-i18next';
 import PeopleIcon from '@material-ui/icons/People';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
-import './styles.css';
-
 import type { PaymentCombo } from '#libs/payment-combo/types';
+
+import './styles.css';
 
 type Props = {
   paymentCombo: PaymentCombo;

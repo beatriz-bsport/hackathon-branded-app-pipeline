@@ -1,4 +1,5 @@
 import React, { SVGProps } from 'react';
+
 import './GenderIcon.css';
 
 export type FemaleIconProps = { isMobile: boolean } & SVGProps<SVGElement>;

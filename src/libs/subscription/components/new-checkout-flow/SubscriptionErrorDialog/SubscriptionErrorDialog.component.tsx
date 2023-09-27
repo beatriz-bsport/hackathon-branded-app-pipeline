@@ -1,9 +1,10 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import './SubscriptionErrorDialogStyles.css';
 import Dialog from '@material-ui/core/Dialog';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+
+import './SubscriptionErrorDialogStyles.css';
 
 export type Props = {
   open: boolean;

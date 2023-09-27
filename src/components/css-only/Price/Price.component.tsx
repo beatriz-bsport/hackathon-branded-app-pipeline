@@ -1,9 +1,10 @@
 import React from 'react';
-import './styles.css';
 
 import classNames from 'classnames';
 
 import { Color } from './types';
+
+import './styles.css';
 
 export type Props = {
   children?: React.ReactNode;

@@ -1,7 +1,6 @@
 // @ts-nocheck
 import React, { useCallback, useMemo } from 'react';
 import { pure } from 'recompose';
-import './MarketplaceCardOfferCSSOnly.css';
 import GroupIcon from '@material-ui/icons/Group';
 import classNames from 'classnames';
 import { ArrowLeft } from '@material-ui/icons';
@@ -29,6 +28,8 @@ import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { Level } from '#libs/level/types';
 import MarketplaceOfferStatusChip from '../MarketplaceOfferStatusChip';
 import PopOver from '#components/Popover/Popover.component';
+
+import './MarketplaceCardOfferCSSOnly.css';
 
 type OwnProps = {
   offer: Offer;

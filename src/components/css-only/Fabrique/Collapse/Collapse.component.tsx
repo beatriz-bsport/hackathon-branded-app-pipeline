@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+
 import './styles.css';
 
 export type Props = {

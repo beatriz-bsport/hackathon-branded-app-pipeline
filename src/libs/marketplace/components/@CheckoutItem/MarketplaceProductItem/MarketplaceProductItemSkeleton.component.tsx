@@ -1,5 +1,6 @@
 import React from 'react';
 import Skeleton, { SkeletonVariant } from '#components/css-only/Skeleton';
+
 import './styles-skeleton.css';
 
 const MarketplaceProductItemSkeleton: React.FC = () => (

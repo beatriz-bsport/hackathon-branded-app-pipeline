@@ -15,11 +15,12 @@ import GridItem, {
   Justification,
 } from '#components/css-only/Grid/GridItem';
 import MarketplaceEstablishmentTitle from '#marketplacecomponents/@Establishment/MarketplaceEstablishmentTitle';
-import './styles.css';
 import { CompanyTheme } from '#libs/theme/types';
 import MarketplaceCoachInfos from '#marketplacecomponents/@Coach/MarketplaceCoachInfos';
 import SavedSpotCounddown from '#libs/checkout/components/new-checkout-flow/SavedSpotCountdown';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+
+import './styles.css';
 
 export type Props = {
   title?: string;

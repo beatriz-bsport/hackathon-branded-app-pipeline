@@ -1,6 +1,7 @@
 import React from 'react';
 
 import CardContent, { Props } from '../CardContent';
+
 import './stories.styles.css';
 
 const CardContentTemplate = (args: Props) => (

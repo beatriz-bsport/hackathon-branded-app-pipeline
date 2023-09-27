@@ -10,8 +10,9 @@ import GridItem, {
   Justification,
 } from '#components/css-only/Grid/GridItem';
 import Price from '#components/css-only/Price/Price.component';
-import './styles.css';
 import { MarketplaceProductItemSkeleton } from '.';
+
+import './styles.css';
 
 export type Props = {
   quantity: number;

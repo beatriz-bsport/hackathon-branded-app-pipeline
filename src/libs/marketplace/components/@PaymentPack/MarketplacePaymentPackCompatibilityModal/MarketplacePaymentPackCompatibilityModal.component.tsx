@@ -12,11 +12,11 @@ import Content from '#components/css-only/Card/CardContent';
 import Grid from '#components/css-only/Grid';
 import Item, { Alignment } from '#components/css-only/Grid/GridItem';
 
-import './styles.css';
-
 import type { MetaActivity } from '#libs/meta-activity/types';
 import type { Establishment } from '#libs/establishment/types';
 import type { SCT } from '#libs/category/types';
+
+import './styles.css';
 
 export type Props = {
   categories?: SCT[];

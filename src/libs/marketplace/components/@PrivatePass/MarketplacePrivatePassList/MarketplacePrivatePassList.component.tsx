@@ -12,12 +12,12 @@ import MarketplacePrivatePassCard from '#marketplacecomponents/@PrivatePass/Mark
 import { MARKETPLACE_BREAKPOINT } from '#libs/marketplace/constants';
 import { useMarketplacePassFilters } from '#libs/marketplace/hooks';
 
-import './styles.css';
-
 import {
   PrivatePass,
   PrivatePassCategoryWithPasses,
 } from '#libs/private-service/types';
+
+import './styles.css';
 
 type Props = {
   privatePassByCategory: Immutable<PrivatePassCategoryWithPasses[]>;

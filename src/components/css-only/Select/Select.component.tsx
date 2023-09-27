@@ -13,6 +13,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import useOnClickOutside from '../../../hooks/useClickOutside';
 import useOnScrollOutside from '../../../hooks/useScrollOutside';
+
 import './style.css';
 
 export type SelectOption = {

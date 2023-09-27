@@ -2,9 +2,9 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 
-import './styles.css';
-
 import type { PaymentCombo } from '#libs/payment-combo/types';
+
+import './styles.css';
 
 type Props = {
   paymentCombo: PaymentCombo;

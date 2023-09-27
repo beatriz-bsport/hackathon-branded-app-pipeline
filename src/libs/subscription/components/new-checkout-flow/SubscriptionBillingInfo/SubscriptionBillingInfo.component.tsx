@@ -11,8 +11,9 @@ import {
   PrepaidLine,
 } from '#libs/checkout/types';
 
-import './styles.css';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+
+import './styles.css';
 
 export type Props = {
   subscriptionPseudoBasket: Basket<string, PrepaidLine>;

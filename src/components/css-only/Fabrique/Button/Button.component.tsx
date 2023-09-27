@@ -7,6 +7,7 @@ import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { ButtonColor, ButtonSize, ButtonType, ButtonVariant } from '.';
 
 import ButtonBase from '../ButtonBase/ButtonBase.component';
+
 import './styles.css';
 
 export type Props = {

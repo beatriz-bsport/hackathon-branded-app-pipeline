@@ -26,14 +26,14 @@ import {
   formatOffPeakScheduleOnDisplay,
 } from '#libs/marketplace/utils/payment-pack';
 
-import './styles.css';
-
 import { PaymentPack } from '#libs/payment-packs/types';
 
 import {
   PENALTY_KIND_BLOCK_CPP,
   PENALTY_KIND_NEGATIVE_ACCOUNT,
 } from '#libs/payment-packs/constants';
+
+import './styles.css';
 
 type Props = {
   paymentPack: PaymentPack;

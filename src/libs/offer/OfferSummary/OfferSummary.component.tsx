@@ -210,13 +210,8 @@ const OfferSummary: React.FC<Props> = ({
               </div>
             )}
 
-          {spotId !== undefined && variant === OfferSummaryVariant.DEFAULT && (
-            <div
-              className={classNames(classes.itemWithIcon, {
-                [classes.hiddenOnMobile]:
-                  variant !== OfferSummaryVariant.DEFAULT,
-              })}
-            >
+          {spotId !== undefined && (
+            <div className={classNames(classes.itemWithIcon)}>
               <Adjust className={classes.icon} />
               <Typography>{`${t(`booking:place`)} ${spotId}`}</Typography>
             </div>

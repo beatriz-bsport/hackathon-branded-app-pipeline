@@ -280,7 +280,7 @@ const getTranslations = async () => {
         },
         activity: {
           allowed_actions: {
-            editPerformance: { _label: 'Edit programme performance' },
+            editPerformance: { _label: 'Edit program performance' },
             editSpot: { _label: 'Edit member spots' },
             attendance: { _label: 'Edit attendance/absences' },
             removeFromWaitlist: {
@@ -291,7 +291,7 @@ const getTranslations = async () => {
             addToWaitlist: { _label: 'Add members to the waiting list' },
             rollcall: { _label: 'Validate roll call' },
           },
-          _label: 'Booking management',
+          _label: 'Group activities management',
         },
         _label: 'Booking management',
         privateBooking: {

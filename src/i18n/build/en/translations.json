@@ -5514,8 +5514,7 @@
                         "rollcall": {
                             "_label": "Validate roll call"
                         }
-                    },
-                    "_label": "Booking management"
+                    }
                 },
                 "_label": "Booking management",
                 "privateBooking": {

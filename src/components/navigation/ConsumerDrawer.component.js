@@ -119,7 +119,9 @@ class ConsumerDrawer extends React.Component<Props, State> {
   renderMenuItem = (item: Object, i, isNested) => {
     if (!item) return null;
     const { classes, location } = this.props;
-    const isActive = location.pathname.includes(item.to);
+    const isActive =
+      location.pathname.includes(item.to) ||
+      (item.to === '/home/' && /\/c\/[0-9]*\/$/.test(location.pathname)); // to default select /home/ when we are on / url
     if (item === 'divider') {
       return <Divider key={i} />;
     }

@@ -135,6 +135,7 @@
 .bs-contract-card__left-button__content {
   color: var(--color-primary-main);
   margin-right: var(--spacing-1);
+  align-items: center;
 }
 
 .bs-contract-card__left-button__icon {

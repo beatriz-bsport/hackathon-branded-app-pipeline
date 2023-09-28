@@ -52,6 +52,14 @@ const getColumnData = (t: TFunction) => {
       },
     },
     {
+      name: 'email',
+      label: t('email'),
+      options: {
+        filter: false,
+        sort: false,
+      },
+    },
+    {
       name: 'date_joined',
       label: t('date_joined'),
       options: {
@@ -125,11 +133,12 @@ const renderRow = (
   goToMemberPage: (id: number) => void,
   interrogateMemberStatus: (id: number) => void,
 ) => {
-  const { credit_account_balance, date_joined, name, id, accept_email } =
+  const { credit_account_balance, email, date_joined, name, id, accept_email } =
     member;
   return {
     name,
     date_joined: formatAsDate(date_joined),
+    email,
     credit_account_balance: renderCreditAccountBalance(credit_account_balance),
     actions: renderActions(id, goToMemberPage, interrogateMemberStatus),
     accept_email: (

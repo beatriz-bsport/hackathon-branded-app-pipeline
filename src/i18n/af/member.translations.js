@@ -2,6 +2,7 @@ const { MEMBER_EVENTS } = require('@bsport/common/lib/master-data/events');
 
 exports.default = {
   date_joined: 'Sign up date',
+  email: 'Email',
   invoiceTitle: 'Invoices',
   subscriptionTitle: 'Subscriptions',
   offers_joined: 'Activities joined',

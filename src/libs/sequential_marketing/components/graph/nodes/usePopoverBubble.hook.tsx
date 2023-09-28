@@ -19,9 +19,9 @@ export const usePopoverBubble = () => {
     horizontal: 'left',
   };
 
-  const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
-    null,
-  );
+  const [anchorEl, setAnchorEl] = React.useState<
+    HTMLButtonElement | HTMLDivElement | null
+  >(null);
 
   return { anchorOrigin, popoverStyle, transformOrigin, anchorEl, setAnchorEl };
 };

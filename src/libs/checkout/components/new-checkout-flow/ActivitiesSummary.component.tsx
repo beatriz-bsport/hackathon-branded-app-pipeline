@@ -49,7 +49,7 @@ export const ActivitiesSummary: React.FC<ActivitiesSummaryProps> = ({
   return (
     <div className={classes.activityContainer}>
       {checkoutItemsWithDetails?.map((checkoutItem, index) => (
-        <div key={`checkout-item-details-${checkoutItem.id}`}>
+        <React.Fragment key={`checkout-item-details-${checkoutItem.id}`}>
           {checkoutItem.offers.map((offer) => (
             <OfferSummary
               key={`offer-summary-${offer?.id}`}
@@ -78,7 +78,7 @@ export const ActivitiesSummary: React.FC<ActivitiesSummaryProps> = ({
           {index !== checkoutItemsWithDetails.length - 1 && (
             <Divider className={classes.divider} variant="middle" />
           )}
-        </div>
+        </React.Fragment>
       ))}
     </div>
   );

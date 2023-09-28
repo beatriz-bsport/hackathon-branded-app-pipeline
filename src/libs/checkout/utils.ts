@@ -1,5 +1,8 @@
 import { TFunction } from 'i18next';
-import { SPOT_NOT_AVAILABLE } from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
+import {
+  SPOT_NOT_AVAILABLE,
+  OFFER_BOOKABLE_STATUS_FULL,
+} from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
 import { BUYABLE_ITEM_FEE } from '@bsport/common/lib/master-data/buyable-items';
 import { OFFER_WAITING_LIST_NO_USABLE_CONSUMER_PAYMENT_PACK } from '@bsport/common/lib/master-data/error-codes/waitinglist-can-not-be-joined';
 import {
@@ -164,6 +167,7 @@ export const getConfirmationStatus = (
       case SPOT_NOT_AVAILABLE:
       case LOCK_ACQUISITION_FAILURE_SPOT_SCHEDULING:
       case LOCK_ACQUISITION_FAILURE_GENERIC:
+      case OFFER_BOOKABLE_STATUS_FULL:
         return ConfirmationStatus.OFFER_ONLY_BOOKING_ERROR;
       default:
         return ConfirmationStatus.GENERIC_OFFER_ERROR;
@@ -180,6 +184,7 @@ export const getConfirmationStatus = (
       case SPOT_NOT_AVAILABLE:
       case LOCK_ACQUISITION_FAILURE_SPOT_SCHEDULING:
       case LOCK_ACQUISITION_FAILURE_GENERIC:
+      case OFFER_BOOKABLE_STATUS_FULL:
         return ConfirmationStatus.OFFER_BOOKING_ERROR_WITH_PURCHASE;
       default:
         return ConfirmationStatus.OFFER_GENERIC_ERROR_WITH_PURCHASE;

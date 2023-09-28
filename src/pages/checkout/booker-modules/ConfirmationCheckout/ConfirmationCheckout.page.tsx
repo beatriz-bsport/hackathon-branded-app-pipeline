@@ -211,16 +211,8 @@ export class ConfirmationCheckout extends React.PureComponent<Props> {
     const noOfferWasBooked = !this.props.offerBookedIdList.length;
     const noOfferOnWaitingList = !this.props.offerPreBookedIdList.length;
     const withErrorCodeList =
-      this.props.offerNotBookableIdWithErrorCodeList.length;
-    const noBasket =
-      !this.props.queryParams?.basket ||
-      this.props.queryParams?.basket === 'null';
-    return (
-      !noOfferWasBooked &&
-      !noOfferOnWaitingList &&
-      withErrorCodeList &&
-      noBasket
-    );
+      !!this.props.offerNotBookableIdWithErrorCodeList.length;
+    return noOfferWasBooked && noOfferOnWaitingList && withErrorCodeList;
   };
 
   isLoading = () => {

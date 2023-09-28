@@ -51,15 +51,13 @@ export const SubscriptionBillingInfo: React.FC<Props> = React.memo(
           />
         )}
         <CheckoutContext.Provider value>
-          <div className="bs-subscription__pricing">
-            <PriceCount
-              hideTotal
-              basket={subscriptionPseudoBasket}
-              isDeleteButtonDisabled={false}
-              isExcludingTax={isExcludingTax}
-              onRemoveCheckoutItem={onRemoveCoupon}
-            />
-          </div>
+          <PriceCount
+            hideTotal
+            basket={subscriptionPseudoBasket}
+            isDeleteButtonDisabled={false}
+            isExcludingTax={isExcludingTax}
+            onRemoveCheckoutItem={onRemoveCoupon}
+          />
         </CheckoutContext.Provider>
         <div className="bs-subscription__bottom__container">
           <div className="bs-subcription--bottom__container__total">

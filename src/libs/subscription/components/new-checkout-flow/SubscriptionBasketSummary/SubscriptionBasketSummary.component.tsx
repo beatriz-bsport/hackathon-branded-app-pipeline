@@ -33,19 +33,11 @@ export const SubscriptionBasketSummary: React.FC<Props> = React.memo(
             variant={OfferSummaryVariant.BASKET}
           />
         )}
-        <div
-          className={
-            offer
-              ? 'bs-subscription__recap-with-offer'
-              : 'bs-subscription__recap'
-          }
-        >
-          <SubscriptionRecap
-            contract={contract}
-            hideCredits={companyTheme.hide_credits_for_customers}
-            isExcludingTax={isExcludingTax}
-          />
-        </div>
+        <SubscriptionRecap
+          contract={contract}
+          hideCredits={companyTheme.hide_credits_for_customers}
+          isExcludingTax={isExcludingTax}
+        />
       </div>
     );
   },

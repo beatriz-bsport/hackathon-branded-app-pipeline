@@ -307,7 +307,6 @@ const useStyles = makeStyles<
     display: 'flex',
     flexDirection: 'column',
     maxWidth: '374px',
-    padding: theme.spacing(2),
     gap: theme.spacing(3),
     justifyContent: 'flex-start',
     backgroundColor: theme.palette.background.paper,

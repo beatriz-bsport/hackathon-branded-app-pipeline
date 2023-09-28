@@ -1,15 +1,19 @@
-.bs-subscription__pricing {
-  width: 100%;
-}
-
 .bs-subscription__bottom__container {
   display: flex;
   flex-direction: column;
-  padding: 0 var(--spacing-2) var(--spacing-2) var(--spacing-2);
   justify-content: center;
   align-items: center;
   width: 100%;
   gap: var(--spacing-2);
+  padding-top: none;
+  padding-bottom: var(--spacing-2);
+  padding-left: var(--spacing-2);
+  padding-right: var(--spacing-2);
+  border-style: solid;
+  border-width: 1px;
+  border-bottom-left-radius: var(--border-radius-3);
+  border-bottom-right-radius: var(--border-radius-3);
+  border-color: var(--color-grey-light);
 }
 
 .bs-subscription__bottom__submit-button {
@@ -70,8 +74,10 @@
     left: 0;
     right: 0;
     background: white;
-    border: 1px solid var(--color-grey-300);
     width: 100%;
     padding-top: var(--spacing-1);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-color: var(--color-grey-light);
   }
 }

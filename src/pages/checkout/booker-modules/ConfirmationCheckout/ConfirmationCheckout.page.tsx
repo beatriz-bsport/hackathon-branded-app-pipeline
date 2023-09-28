@@ -49,7 +49,6 @@ import { BuyableItemOptions, type Basket } from '#libs/checkout/types';
 import ConsumerAppBarContainer from '../../ConsumerAppBar.container';
 import MarketplaceOfferBookingList from '#marketplacecomponents/@Booking/MarketplaceOfferBookingList';
 
-import './styles.css';
 import {
   getConfirmationStatus,
   getNumberOfListToDisplay,
@@ -69,6 +68,8 @@ import ConfirmationMessage from '#libs/checkout/components/ConfirmationMessage';
 import { ConfirmationCheckoutSkeleton } from '.';
 import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#libs/exportable-components/actions';
 import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
+
+import './styles.css';
 
 type UserRegistrationResponse = {
   offer_on_waiting_list: number[];

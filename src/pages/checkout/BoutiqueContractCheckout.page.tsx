@@ -589,6 +589,7 @@ export class MarketplaceNewSubscriptionCheckout extends React.Component<
                       !this.state.isContractLegalTermsAccepted ||
                       !this.state.selectedSavedPaymentMethodId
                     }
+                    onRemoveCoupon={this.handleRemoveCoupon}
                     showCouponInput={this.state.showCouponInput}
                     // @ts-expect-error
                     subscriptionPseudoBasket={this.getSubscriptionPseudoBasketFromContract()}

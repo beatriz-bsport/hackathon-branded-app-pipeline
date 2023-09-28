@@ -164,6 +164,8 @@ exports.default = {
         address: 'Address',
         option_payment_url: 'Booking link',
         option_expiration_date: 'Waitlist expiration date',
+        waiting_list_position: 'Waitlist position',
+        waiting_list_size: 'Waitlist size',
       },
     },
     PrivateBooking: {

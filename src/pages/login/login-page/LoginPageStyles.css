@@ -8,6 +8,7 @@
   align-items: center;
   padding: var(--spacing-1);
   width: 100%;
+  max-width: 400px;
 }
 
 .bs-login-container--webpage--simplifyUI {
@@ -46,7 +47,6 @@
   align-items: center;
   width: 100%;
   overflow: auto;
-  min-height: 100vh;
 }
 
 .bs-flex-column--simplifyUI {

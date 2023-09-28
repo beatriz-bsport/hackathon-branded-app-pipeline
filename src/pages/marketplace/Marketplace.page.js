@@ -7,9 +7,7 @@ import { withRouter } from 'react-router';
 import Grid from '@material-ui/core/Grid';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Dialog from '@material-ui/core/Dialog';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
 
@@ -29,6 +27,7 @@ import { fetchCompanyTheme } from '#libs/theme/actions';
 import ApplyCustomCssStyles from '#libs/widget/components/ApplyCustomCssStyles.component';
 import Login from '#libs/login/components/Login.component';
 import MarketplaceAppBar from '#marketplacecomponents/@AppBar/MarketplaceAppBar';
+import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import Analytics from '#components/analytics/Analytics.component';
 import { parseQueryString } from '../../http';
 
@@ -569,32 +568,34 @@ export class MarketPlace extends Component<Props, State> {
               }
               open={!!this.state.currentBasketOpen}
             />
-            <Dialog
+            <GenericResponsiveDialog
+              maxWidth="sm"
               onClose={this.closeLogin}
               open={
                 this.state.loginDialogOpen && !this.props.auth.authenticated
               }
             >
-              <div className="bs-setup-variable" id="bs-setup-derived-variable">
-                <DialogContent>
-                  <div className={classes.loginDialog}>
-                    <Login
-                      company
-                      isPremium
-                      logoHidden
-                      marketplace
-                      doEmailLogin={this.doEmailLogin}
-                      error={this.props.auth.error}
-                      errorFields={this.props.errorFields}
-                      franchisor={this.props.franchisor}
-                      loading={this.props.auth.loading}
-                      requestSignUp={() => this.toggleSignUp(true)}
-                      theme={this.props.theme}
-                    />
-                  </div>
-                </DialogContent>
+              <div className={classes.loginContent}>
+                <div
+                  className="bs-setup-variable"
+                  id="bs-setup-derived-variable"
+                >
+                  <Login
+                    company
+                    isPremium
+                    logoHidden
+                    marketplace
+                    doEmailLogin={this.doEmailLogin}
+                    error={this.props.auth.error}
+                    errorFields={this.props.errorFields}
+                    franchisor={this.props.franchisor}
+                    loading={this.props.auth.loading}
+                    requestSignUp={() => this.toggleSignUp(true)}
+                    theme={this.props.theme}
+                  />
+                </div>
               </div>
-            </Dialog>
+            </GenericResponsiveDialog>
             <CustomFormViewDialogComponent
               fullWidth
               maxWidth="md"
@@ -662,12 +663,6 @@ const styles = (theme) => ({
       marginRight: theme.spacing(4),
     },
   },
-  loginDialog: {
-    marginTop: theme.spacing(3),
-    marginRight: theme.spacing(4),
-    marginLeft: theme.spacing(4),
-    marginBottom: theme.spacing(6),
-  },
   signupTitle: {
     marginBottom: theme.spacing(5),
     display: 'flex',
@@ -694,6 +689,13 @@ const styles = (theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+  },
+  loginContent: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    height: '100%',
+    padding: theme.spacing(4),
   },
 });
 

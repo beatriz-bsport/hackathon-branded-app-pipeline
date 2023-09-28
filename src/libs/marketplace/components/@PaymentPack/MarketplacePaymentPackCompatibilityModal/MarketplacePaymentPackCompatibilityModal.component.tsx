@@ -36,7 +36,7 @@ const MarketplacePaymentPackCompatibilityModal: React.FC<Props> = ({
   const { t } = useTranslation('marketplace');
 
   const validationIconStyles = {
-    color: '#4CAF50',
+    color: 'var(--color-primary-main)',
     circle: {
       width: 64,
       height: 64,

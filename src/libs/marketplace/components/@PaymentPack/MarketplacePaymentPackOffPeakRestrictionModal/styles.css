@@ -79,7 +79,6 @@
   display: flex;
   width: 64px;
   height: 64px;
-  background-color: #209d821a;
   border-radius: 50%;
   top: 10%;
   align-items: center;
@@ -89,7 +88,7 @@
 
 .bss-off_peak_clock-icon {
   font-size: 48px;
-  color: #209d82;
+  color: var(--color-primary-main);
   font-weight: 500;
 }
 

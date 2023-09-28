@@ -3390,6 +3390,9 @@
                     },
                     "tags": {
                         "_label": "Tags"
+                    },
+                    "cadence": {
+                        "_label": "Kadenz"
                     }
                 },
                 "payments": {
@@ -3489,6 +3492,9 @@
                 "_label": "Navigationsmenü",
                 "tutorial": {
                     "_label": "Tutorials"
+                },
+                "inbox": {
+                    "_label": "Posteingang"
                 }
             },
             "member": {
@@ -8746,7 +8752,15 @@
                         "absence": "Bei jeder Abwesenheit",
                         "attendance": "Bei jeder Anwesenheit"
                     },
-                    "birthday": "Am Geburtstag senden"
+                    "birthday": "Am Geburtstag senden",
+                    "day_after": "Diese Benachrichtigung wird {{days}} Tag nach Anfang der Session versendet.",
+                    "day_after_plural": "Diese Benachrichtigung wird {{days}} Tage nach Anfang der Session versendet.",
+                    "day_before": "Diese Benachrichtigung wird {{days}} Tag vor dem Anfang der Session versendet.",
+                    "day_before_plural": "Diese Benachrichtigung wird {{days}} Tage vor dem Anfang der Session versendet.",
+                    "hour_before": "Diese Benachrichtigung wird {{hours}} Stunde vor dem Anfang der Session versendet.",
+                    "hour_before_plural": "Diese Benachrichtigung wird {{hours}} Stunden vor dem Anfang der Session versendet.",
+                    "hour_after": "Diese Benachrichtigung wird {{hours}} Stunde nach Ende der Session versendet.",
+                    "hour_after_plural": "Diese Benachrichtigung wird  {{hours}} Stunden nach Ende der Session versendet."
                 },
                 "chooseKind": {
                     "absence": "Abwesenheit des Mitglieds bei einem Kurs",

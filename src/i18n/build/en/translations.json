@@ -7480,7 +7480,7 @@
     "waitingList": {
         "switchToEnable": "Reactivate waitlist",
         "switchToDisable": "Deactivate waitlist",
-        "nbPending": "{{ nbPending }} members have joined the waitlist",
+        "nbPending": "{{ nbPending }} on the waitlist",
         "nbConvertible": "{{ nbConvertible }} pending booking confirmation(s)",
         "form": {
             "dumb_delay_minutes": {

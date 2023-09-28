@@ -30,6 +30,7 @@ interface Props {
   onLeaveUnsafeZone: () => void;
   disabledEdit: boolean;
   preventResize?: boolean;
+  useFullSizeContainer?: boolean;
 }
 
 interface State {
@@ -367,6 +368,12 @@ export default class CanvasSvg extends React.PureComponent<Props, State> {
   };
 
   render() {
+    const svgHeight = this.props.useFullSizeContainer
+      ? '100%'
+      : this.state.height;
+    const svgWidth = this.props.useFullSizeContainer
+      ? '100%'
+      : this.state.width;
     return (
       <div
         id={this.svgContainerId}
@@ -376,7 +383,7 @@ export default class CanvasSvg extends React.PureComponent<Props, State> {
         }}
       >
         <svg
-          height={this.state.height}
+          height={svgHeight}
           id={this.svgId}
           onClick={this.onSvgClick}
           onMouseDown={this.onSvgMouseDown}
@@ -387,7 +394,7 @@ export default class CanvasSvg extends React.PureComponent<Props, State> {
           style={{ maxWidth: '100%' }}
           version="1.1"
           viewBox={this.viewBox}
-          width={this.state.width}
+          width={svgWidth}
           xmlns="http://www.w3.org/2000/svg"
         >
           {!this.props.disabledEdit && (

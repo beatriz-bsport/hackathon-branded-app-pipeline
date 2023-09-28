@@ -436,6 +436,7 @@ class CanvasViewController extends React.PureComponent<Props> {
           preventResize={this.props.isBoutiqueDisplay && this.props.isMobile}
           registerFunction={this.registerSvgFunctions}
           showGrid={this.props.showGrid}
+          useFullSizeContainer={!!this.props.isBoutiqueDisplay}
         >
           {this.renderElements()}
         </CanvasSvg>

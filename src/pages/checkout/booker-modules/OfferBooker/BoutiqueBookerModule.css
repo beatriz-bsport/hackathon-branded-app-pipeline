@@ -4,6 +4,7 @@
   height: 100%;
   container: bsOfferBookingPage / inline-size;
   display: grid;
+  overflow: auto;
 }
 
 .bs-new-offer-booking-page__pricing_container {

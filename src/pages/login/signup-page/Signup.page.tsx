@@ -36,7 +36,7 @@ import {
   CustomFormFieldAnswer,
 } from '#libs/custom-form/types';
 import WidgetUtils from '#libs/widget/WidgetUtils';
-import { CustomFormTitle } from '#libs/custom-form/components/CustomFormTitle.component';
+import CustomFormTitle from '#libs/custom-form/components/CustomFormTitle.component';
 import './SignupPageStyles.css';
 
 type OwnProps = {

@@ -3,7 +3,6 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import HelpIcon from '@material-ui/icons/Help';
-
 import { makeStyles } from '@material-ui/core';
 import chroma from 'chroma-js';
 import { openIntercomHelp } from '../../../intercom';
@@ -23,9 +22,9 @@ export const CustomFormTitle: React.FC<Props> = ({
 
   return (
     <div className={classes.signupTitle}>
-      <Typography className={classes.title}>{title}</Typography>
-      {!simplifyUI && (
-        <>
+      <div className={classes.titleWithBorder}>
+        <Typography className={classes.title}>{title}</Typography>
+        {!simplifyUI && (
           <div
             className={`${classes.rectangle} ${
               isCompany
@@ -33,17 +32,20 @@ export const CustomFormTitle: React.FC<Props> = ({
                 : classes.rectangleBackground
             }`}
           />
-          <IconButton
-            className={classes.iconButton}
-            onClick={() => openIntercomHelp('login')}
-          >
-            <HelpIcon />
-          </IconButton>
-        </>
-      )}
+        )}
+        {!simplifyUI && (
+          <div className={classes.iconButton}>
+            <IconButton onClick={() => openIntercomHelp('login')}>
+              <HelpIcon />
+            </IconButton>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
+
+const HELP_CENTER_ICON_SIZE_PX = 48;
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -51,17 +53,25 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 700,
   },
   signupTitle: {
-    position: 'relative',
-    marginBottom: theme.spacing(5),
+    paddingBottom: theme.spacing(5),
+    display: 'flex',
+    flexDirection: 'row',
+    gap: theme.spacing(2),
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+  },
+  titleWithBorder: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    position: 'relative',
   },
   iconButton: {
     position: 'absolute',
-    top: 4,
-    right: '-30%',
-    marginLeft: theme.spacing(2),
+    right: `-${HELP_CENTER_ICON_SIZE_PX}px`,
+    top: theme.spacing(0.5),
+    width: `${HELP_CENTER_ICON_SIZE_PX}px`,
   },
   rectangle: {
     height: 5,

@@ -17,6 +17,7 @@ import isEqual from 'lodash/isEqual';
 import uniq from 'lodash/uniq';
 import { compose } from 'recompose';
 import { withStyles } from '@material-ui/styles';
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { fetchMarketplacePrivateServices } from '../../../../libs/private-service/actions';
 import { _getPrivateServicesMarketplace } from '../../../../libs/private-service/selectors/private-service';
 // @ts-ignore
@@ -331,6 +332,7 @@ const mapParamsToProps = {
 };
 
 export const PrivateServiceSelectorDataProvider = compose<any, OwnProps>(
+  marketplaceCssHoc(),
   // @ts-ignore
   withStyles(styles),
   withTranslation(['privateService', 'datetime']),

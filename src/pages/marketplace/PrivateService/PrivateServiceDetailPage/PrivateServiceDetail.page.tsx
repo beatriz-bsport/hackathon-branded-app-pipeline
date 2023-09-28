@@ -10,8 +10,9 @@ import {
 } from '@bsport/common/lib/master-data/resource-attribution-methods';
 import moment from 'moment-timezone';
 import { push as pushAction } from 'connected-react-router';
-
 import { compose } from 'recompose';
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+
 import {
   fetchMarketplacePrivateSlots as fetchMarketplacePrivateSlotsAction,
   fetchPrivateService as fetchPrivateServiceAction,
@@ -493,6 +494,7 @@ const mapParamsToProps = {
 };
 
 export default compose(
+  marketplaceCssHoc(),
   routerParamsToProps(mapParamsToProps),
   PrivateServiceDetailDataProvider,
 )(PrivateServiceDetailPage);

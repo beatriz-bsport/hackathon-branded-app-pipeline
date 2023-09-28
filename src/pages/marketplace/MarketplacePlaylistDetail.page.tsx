@@ -9,6 +9,7 @@ import { push, replace } from 'connected-react-router';
 
 import { Theme } from '@material-ui/core';
 import PlaylistDetail from '../../libs/playlist/components/PlaylistDetail.component';
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { fetchAssociatedCoachBulk as fetchAssociatedCoachBulkAction } from '../../libs/associated-coach/actions';
 import { getPlaylist, withCoachInVideo } from '../../libs/playlist/selectors';
 import { retrievePlaylist as retrievePlaylistAction } from '../../libs/playlist/actions';
@@ -288,6 +289,7 @@ const withStateHandlersSetter = {
 };
 
 export const MarketplacePlaylistDetailDataProvider = compose<any, OwnProps>(
+  marketplaceCssHoc(),
   // @ts-ignore
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps),

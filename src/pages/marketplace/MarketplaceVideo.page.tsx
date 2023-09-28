@@ -9,6 +9,7 @@ import { push as pushRouter } from 'connected-react-router';
 import { WithTranslation, withTranslation } from 'react-i18next';
 
 import Typography from '@material-ui/core/Typography';
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { getPlaylistList } from '#libs/playlist/selectors';
 import {
   getVideoList,
@@ -307,6 +308,7 @@ const mapHandlers = {
 };
 
 export const MarketplaceVideoDataProvider = compose<any, OwnProps>(
+  marketplaceCssHoc(),
   // @ts-ignore
   withStyles(styles),
   withTranslation(['video']),

@@ -10,6 +10,7 @@ import { push as pushRouter } from 'connected-react-router';
 import { LinearProgress, Theme } from '@material-ui/core';
 
 import Modal from '@material-ui/core/Modal';
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { fetchAssociatedCoachBulk as fetchAssociatedCoachBulkAction } from '../../libs/associated-coach/actions';
 import VideoThumbnailList from '../../libs/video/components/VideoThumbnailList.component';
 import VideoPlayerFull from '../../libs/video/components/VideoPlayerFull.component';
@@ -265,6 +266,7 @@ const withStateHandlersSetter = {
 };
 
 export const MarketplaceVideoDetailDataProvider = compose<any, OwnProps>(
+  marketplaceCssHoc(),
   // @ts-ignore
   withStyles(styles),
   connect(mapStateToProps, mapDispatchToProps),

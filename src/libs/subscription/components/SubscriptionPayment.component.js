@@ -534,8 +534,8 @@ export class SubscriptionPayment extends React.Component<Props, State> {
             )}
           </>
         )}
-        <div className={classes.buttonDateBlock}>
-          {this.props.contract?.month_billing_day && (
+        {this.props.contract?.month_billing_day && (
+          <div className={classes.buttonDateBlock}>
             <Alert severity="info">
               {t('subscription.prorata.helperOnSusscribe', {
                 priceWithCurrency: getCurrencyDisplayWithPrice(
@@ -548,8 +548,8 @@ export class SubscriptionPayment extends React.Component<Props, State> {
                 monthBillingDay: this.props.contract.month_billing_day,
               })}
             </Alert>
-          )}
-        </div>
+          </div>
+        )}
         {this.props.contract && (
           <>
             {this.props.isExcludingTax && (
@@ -645,7 +645,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
               onlinePaymentEnabled={this.props.onlinePaymentEnabled}
               paymentMethod={paymentMethod}
             />
-            <Divider />
+            {!!((enabledPaymentMethods?.length || 0) > 1) && <Divider />}
             <div className={classes.cardContainer}>
               {paymentMethod === 'bsport:credit' ? (
                 <div>

@@ -148,10 +148,7 @@ type State = {
   userRegistrationserverErrorOccured: boolean;
 };
 
-export class MarketplaceNewSubscriptionCheckout extends React.Component<
-  Props,
-  State
-> {
+export class BoutiqueContractCheckout extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
@@ -828,4 +825,4 @@ export default compose<any, OwnProps>(
   marketplaceCssHoc(),
   WithCustomCssProvider,
   consumerAppBarHOC(),
-)(MarketplaceNewSubscriptionCheckout);
+)(BoutiqueContractCheckout);

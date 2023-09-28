@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import TextField from '@material-ui/core/TextField';
 import Chip from '@material-ui/core/Chip';
 import { makeStyles, Theme } from '@material-ui/core';
+import { emailValidationRegExp } from '#libs/custom-form/constants';
 
 export type Props = {
   emailList: Array<string>;
@@ -14,8 +15,6 @@ export type Props = {
   disabled: boolean;
   required: true;
 };
-
-const emailRegexp = /^([A-z0-9-_]|\.)+@[A-z0-9-_]+(\.[A-z]+)+$/;
 
 export const EmailInputWithChips = (props: Props) => {
   const { removeEmailFromList, emailList, addEmailToList } = props;
@@ -33,7 +32,7 @@ export const EmailInputWithChips = (props: Props) => {
         setTextInput: (text: string) => void,
         list: Array<string>,
       ) => {
-        if (emailRegexp.test(text) && !list.includes(text)) {
+        if (emailValidationRegExp.test(text) && !list.includes(text)) {
           addTextToList(text);
           setTextInput('');
         }
@@ -49,7 +48,7 @@ export const EmailInputWithChips = (props: Props) => {
       (e.key === ' ' || e.key === ',' || e.key === 'Tab') &&
       text.length > 0
     ) {
-      if (emailRegexp.test(text) && !emailList.includes(text)) {
+      if (emailValidationRegExp.test(text) && !emailList.includes(text)) {
         addEmailToList(text);
         setCurrentTextInput('');
       } else {

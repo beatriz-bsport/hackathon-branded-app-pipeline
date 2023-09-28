@@ -134,5 +134,6 @@ exports.default = {
     unavailablePersonalizedSpot: '{{ spotName }} not available',
     seeAll: 'See all',
     confirm: 'Confirm',
+    goBackToCheckout: 'Go back to the checkout',
   },
 };

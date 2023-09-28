@@ -580,6 +580,11 @@
       "title": "Payment",
       "totalHiddingTax": "Total to pay now",
       "flatFeeSubscription": "Application fee"
+    },
+    "expiredSpotDialog": {
+      "title": "Your spot reservation has expired",
+      "message": "Your spot reservation has expired, you can select it again or choose a different one.",
+      "refresh": "Refresh"
     }
   },
   "clockIn": {
@@ -10759,7 +10764,8 @@
       "unavailableSpot": "Spot not available",
       "unavailablePersonalizedSpot": "{{ spotName }} not available",
       "seeAll": "See all",
-      "confirm": "Confirm"
+      "confirm": "Confirm",
+      "goBackToCheckout": "Go back to the checkout"
     }
   },
   "stripe": {

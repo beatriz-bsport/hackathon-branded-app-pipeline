@@ -184,4 +184,10 @@ exports.default = {
     totalHiddingTax: 'Total to pay now',
     flatFeeSubscription: 'Application fee',
   },
+  expiredSpotDialog: {
+    title: 'Your spot reservation has expired',
+    message:
+      'Your spot reservation has expired, you can select it again or choose a different one.',
+    refresh: 'Refresh',
+  },
 };

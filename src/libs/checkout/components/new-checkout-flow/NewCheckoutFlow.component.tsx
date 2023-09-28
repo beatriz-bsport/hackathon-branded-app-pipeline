@@ -41,7 +41,7 @@ import { ActivitiesSummary } from './ActivitiesSummary.component';
 import { BasketSummary } from './BasketSummary.component';
 import CouponCodeInput from './CouponCodeInput.component';
 import type { InstalmentPaymentApiWithBasketId } from '#libs/instalment-payment-configuration/types';
-import { PriceCount } from './PriceCount.component';
+import PriceCount from './PriceCount.component';
 import { CheckoutSteps } from './CheckoutSteps.component';
 import type { CompanyTheme } from '#libs/theme/types';
 import CheckoutButtons from './CheckoutButtons.component';

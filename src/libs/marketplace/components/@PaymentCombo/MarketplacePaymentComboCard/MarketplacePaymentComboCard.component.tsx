@@ -7,9 +7,9 @@ import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import Card, { CardSize } from '#csscomponents/Card';
-import Content from '#csscomponents/Card/CardContent';
+import CardContent from '#csscomponents/Card/CardContent';
 import Grid from '#csscomponents/Grid';
-import Item, {
+import GridItem, {
   Alignment,
   Direction,
   Justification,
@@ -17,11 +17,10 @@ import Item, {
 import Price from '#csscomponents/Price';
 import InitialPrice from './InitialPrice';
 import PaymentComboItemList from './PaymentComboItemList';
-import Button, { ButtonColor } from '#components/css-only/Fabrique/Button';
+import Button, { ButtonColor } from '#csscomponents/Fabrique/Button';
+import type { PaymentCombo } from '#libs/payment-combo/types';
 
 import './styles.css';
-
-import type { PaymentCombo } from '#libs/payment-combo/types';
 
 export type Props = {
   paymentCombo: PaymentCombo;
@@ -46,9 +45,9 @@ const MarketplacePaymentComboCard: React.FC<Props> = ({
       onClick={onClick}
       size={CardSize.AUTO}
     >
-      <Content>
+      <CardContent>
         <Grid classes={{ 'bs-pack-card__grid': 'bs-pack-card__grid' }}>
-          <Item
+          <GridItem
             alignment={Alignment.FLEX_START}
             classes={{
               'bs-pack-card__item': 'bs-pack-card__item',
@@ -63,8 +62,8 @@ const MarketplacePaymentComboCard: React.FC<Props> = ({
                 {paymentCombo.description}
               </div>
             </div>
-          </Item>
-          <Item
+          </GridItem>
+          <GridItem
             classes={{
               'bs-pack-card__item': 'bs-pack-card__item',
               '--rigth': '--rigth',
@@ -101,9 +100,9 @@ const MarketplacePaymentComboCard: React.FC<Props> = ({
                 </Button>
               </Price>
             </div>
-          </Item>
+          </GridItem>
         </Grid>
-        <Item
+        <GridItem
           alignment={Alignment.CENTER}
           classes={{ 'bs-pack-card__footer': 'bs-pack-card__footer' }}
           direction={Direction.ROW}
@@ -129,8 +128,8 @@ const MarketplacePaymentComboCard: React.FC<Props> = ({
           >
             {t('genericCard.addButton.buttonContent')}
           </Button>
-        </Item>
-      </Content>
+        </GridItem>
+      </CardContent>
     </Card>
   );
 };

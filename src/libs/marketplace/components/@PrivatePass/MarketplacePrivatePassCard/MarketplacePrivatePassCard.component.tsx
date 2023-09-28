@@ -8,26 +8,26 @@ import { Style } from '@material-ui/icons';
 import { useMediaQuery, useTheme } from '@material-ui/core';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import ToolTip from '#components/Tooltip.component';
-import Card from '#components/css-only/Card';
-import Content from '#components/css-only/Card/CardContent';
-import Grid from '#components/css-only/Grid';
-import Item, {
+import Card from '#csscomponents/Card';
+import CardContent from '#csscomponents/Card/CardContent';
+import Grid from '#csscomponents/Grid';
+import GridItem, {
   Alignment,
   Direction,
   Justification,
-} from '#components/css-only/Grid/GridItem';
-import Price from '#components/css-only/Price';
+} from '#csscomponents/Grid/GridItem';
+import Price from '#csscomponents/Price';
 import {
   getCurrencyDisplayWithPrice,
   getCreditFactor,
 } from '#libs/theme/selectors';
-import type { PrivatePass } from '#libs/private-service/types';
 import { CardSize } from '#components/css-only/Card/types';
 import { MARKETPLACE_BREAKPOINT } from '#libs/marketplace/constants';
-
 import { useValidityInfoForPrivatePassCard } from '#libs/marketplace/utils/private-pass';
+import Button, { ButtonColor } from '#csscomponents/Fabrique/Button';
+
+import type { PrivatePass } from '#libs/private-service/types';
 import './styles.css';
-import Button, { ButtonColor } from '#components/css-only/Fabrique/Button';
 
 export type Props = {
   privatePass: PrivatePass;
@@ -60,12 +60,12 @@ const MarketplacePrivatePassCard: React.FC<Props> = ({
 
   return (
     <Card classes={{ 'bs-pass-card': 'bs-pass-card' }} size={CardSize.AUTO}>
-      <Content
+      <CardContent
         padding
         classes={{ 'bs-pass-card-content': 'bs-pass-card-content' }}
       >
         <Grid classes={{ 'bs-pass-card__grid': 'bs-pass-card__grid' }}>
-          <Item
+          <GridItem
             alignment={Alignment.FLEX_START}
             columnEnd={1}
             justification={
@@ -92,8 +92,8 @@ const MarketplacePrivatePassCard: React.FC<Props> = ({
                 {privatePass.description}
               </div>
             )}
-          </Item>
-          <Item
+          </GridItem>
+          <GridItem
             alignment={Alignment.FLEX_END}
             justification={Justification.SPACE_BETWEEN}
           >
@@ -117,9 +117,9 @@ const MarketplacePrivatePassCard: React.FC<Props> = ({
                 <ShoppingCartIcon />
               </Button>
             </Price>
-          </Item>
+          </GridItem>
         </Grid>
-        <Item
+        <GridItem
           classes={{ 'bs-pass-card__footer': 'bs-pass-card__footer' }}
           direction={Direction.ROW}
           justification={Justification.SPACE_BETWEEN}
@@ -144,8 +144,8 @@ const MarketplacePrivatePassCard: React.FC<Props> = ({
           >
             {t('genericCard.addButton.buttonContent')}
           </Button>
-        </Item>
-      </Content>
+        </GridItem>
+      </CardContent>
     </Card>
   );
 };

@@ -1,23 +1,25 @@
 import React from 'react';
-import './styles.css';
 import { useTranslation } from 'react-i18next';
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 
-import Card, { CardSize } from '#components/css-only/Card';
-import Content from '#components/css-only/Card/CardContent';
-import Grid from '#components/css-only/Grid';
-import Item, {
+import Card, { CardSize } from '#csscomponents/Card';
+import CardContent from '#csscomponents/Card/CardContent';
+import Grid from '#csscomponents/Grid';
+import GridItem, {
   Alignment,
   Direction,
   Justification,
-} from '#components/css-only/Grid/GridItem';
-import Price, { Color } from '#components/css-only/Price';
+} from '#csscomponents/Grid/GridItem';
+import Price, { Color } from '#csscomponents/Price';
 import PrivatePassDetailsList from './DetailList/PrivatePassDetailList.component';
 import { useDialogClickAwayListener } from '../../../../../hooks/useDialogClickAwayListener';
-import { PrivatePass } from '#libs/private-service/types';
-import Button, { ButtonColor } from '#components/css-only/Fabrique/Button';
+import Button, { ButtonColor } from '#csscomponents/Fabrique/Button';
+
+import type { PrivatePass } from '#libs/private-service/types';
+
+import './styles.css';
 
 export type Props = {
   privatePass: PrivatePass;
@@ -62,7 +64,7 @@ const MarketplacePrivatePassDetailsModal: React.FC<Props> = ({
               className="bs-pass-details-dialog__card-content"
             >
               <div className="bs-pass-details-dialog__container">
-                <Content
+                <CardContent
                   padding
                   classes={{
                     'bs-pass-details-dialog__header-container':
@@ -70,7 +72,7 @@ const MarketplacePrivatePassDetailsModal: React.FC<Props> = ({
                   }}
                 >
                   <Grid>
-                    <Item rowEnd={1} rowStart={1}>
+                    <GridItem rowEnd={1} rowStart={1}>
                       <div className="bs-pass-details-dialog__header">
                         <h3 className="bs-pass-details-dialog__header__title">
                           {privatePass.name}
@@ -87,26 +89,26 @@ const MarketplacePrivatePassDetailsModal: React.FC<Props> = ({
                           tax={tax}
                         />
                       </div>
-                    </Item>
-                    <Item rowStart={2}>
+                    </GridItem>
+                    <GridItem rowStart={2}>
                       <PrivatePassDetailsList
                         compatiblePrivateServices={compatiblePrivateServices}
                         hideCredits={!!hideCredits}
                         onShowCompatibilityDialog={onShowCompatibilityDialog}
                         privatePass={privatePass}
                       />
-                    </Item>
+                    </GridItem>
                   </Grid>
-                </Content>
+                </CardContent>
                 {!!privatePass.description && (
-                  <Content>
+                  <CardContent>
                     <Grid
                       classes={{
                         'bs-pass-details-dialog__grid':
                           'bs-pass-details-dialog__grid',
                       }}
                     >
-                      <Item
+                      <GridItem
                         classes={{
                           'bs-pass-details-dialog__description':
                             'bs-pass-details-dialog__description',
@@ -116,12 +118,12 @@ const MarketplacePrivatePassDetailsModal: React.FC<Props> = ({
                         rowStart={3}
                       >
                         {privatePass.description}
-                      </Item>
+                      </GridItem>
                     </Grid>
-                  </Content>
+                  </CardContent>
                 )}
               </div>
-              <Content
+              <CardContent
                 classes={{
                   'bs-pass-details-dialog__footer':
                     'bs-pass-details-dialog__footer',
@@ -135,7 +137,7 @@ const MarketplacePrivatePassDetailsModal: React.FC<Props> = ({
                       'bs-pass-details-dialog__footer-grid',
                   }}
                 >
-                  <Item
+                  <GridItem
                     alignment={Alignment.CENTER}
                     classes={{
                       'bs-pass-details-dialog__item':
@@ -166,9 +168,9 @@ const MarketplacePrivatePassDetailsModal: React.FC<Props> = ({
                         {t('genericCard.addButton.buttonContent')}
                       </Button>
                     </div>
-                  </Item>
+                  </GridItem>
                 </Grid>
-              </Content>
+              </CardContent>
             </div>
           </Card>
         </div>

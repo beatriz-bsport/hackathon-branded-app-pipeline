@@ -1,26 +1,27 @@
 import React from 'react';
-import './styles.css';
 import { useTranslation } from 'react-i18next';
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 
-import Card, { CardSize } from '#components/css-only/Card';
-import Content from '#components/css-only/Card/CardContent';
-import Grid from '#components/css-only/Grid';
-import Item, {
+import Card, { CardSize } from '#csscomponents/Card';
+import CardContent from '#csscomponents/Card/CardContent';
+import Grid from '#csscomponents/Grid';
+import GridItem, {
   Alignment,
   Direction,
   Justification,
-} from '#components/css-only/Grid/GridItem';
-import Price, { Color } from '#components/css-only/Price';
+} from '#csscomponents/Grid/GridItem';
+import Price, { Color } from '#csscomponents/Price';
 
 import PaymentPackDetailList from '#marketplacecomponents/@PaymentPack/MarketplacePaymentPackDetailModal/DetailList/PaymentPackDetailList.component';
 
 import { useDialogClickAwayListener } from '../../../../../hooks/useDialogClickAwayListener';
 
-import { PaymentPack } from '#libs/payment-packs/types';
-import Button, { ButtonColor } from '#components/css-only/Fabrique/Button';
+import type { PaymentPack } from '#libs/payment-packs/types';
+import Button, { ButtonColor } from '#csscomponents/Fabrique/Button';
+
+import './styles.css';
 
 export type Props = {
   paymentPack: PaymentPack;
@@ -72,7 +73,7 @@ const MarketplacePaymentPackDetailsModal: React.FC<Props> = React.memo(
                 className="bs-pack-details-dialog__card-content"
               >
                 <div className="bs-pack-details-dialog__container">
-                  <Content
+                  <CardContent
                     padding
                     classes={{
                       'bs-pack-details-dialog__header-container':
@@ -80,7 +81,7 @@ const MarketplacePaymentPackDetailsModal: React.FC<Props> = React.memo(
                     }}
                   >
                     <Grid>
-                      <Item rowEnd={1} rowStart={1}>
+                      <GridItem rowEnd={1} rowStart={1}>
                         <div className="bs-pack-details-dialog__header">
                           <h3 className="bs-pack-details-dialog__header__title">
                             {paymentPack.name}
@@ -99,8 +100,8 @@ const MarketplacePaymentPackDetailsModal: React.FC<Props> = React.memo(
                             tax={tax}
                           />
                         </div>
-                      </Item>
-                      <Item rowStart={2}>
+                      </GridItem>
+                      <GridItem rowStart={2}>
                         <PaymentPackDetailList
                           hideCredits={!!hideCredits}
                           isCompatibleWithAll={isCompatibleWithAll}
@@ -111,11 +112,11 @@ const MarketplacePaymentPackDetailsModal: React.FC<Props> = React.memo(
                           onShowRestrictionDialog={onShowRestrictionDialog}
                           paymentPack={paymentPack}
                         />
-                      </Item>
+                      </GridItem>
                     </Grid>
-                  </Content>
+                  </CardContent>
                   {!!paymentPack.description && (
-                    <Content
+                    <CardContent
                       classes={{
                         'bs-pack-details-dialog__body':
                           'bs-pack-details-dialog__body',
@@ -127,7 +128,7 @@ const MarketplacePaymentPackDetailsModal: React.FC<Props> = React.memo(
                             'bs-pack-details-dialog__grid',
                         }}
                       >
-                        <Item
+                        <GridItem
                           classes={{
                             'bs-pack-details-dialog__item':
                               'bs-pack-details-dialog__item',
@@ -137,12 +138,12 @@ const MarketplacePaymentPackDetailsModal: React.FC<Props> = React.memo(
                           rowStart={3}
                         >
                           {paymentPack.description}
-                        </Item>
+                        </GridItem>
                       </Grid>
-                    </Content>
+                    </CardContent>
                   )}
                 </div>
-                <Content
+                <CardContent
                   classes={{
                     'bs-pack-details-dialog__footer':
                       'bs-pack-details-dialog__footer',
@@ -154,7 +155,7 @@ const MarketplacePaymentPackDetailsModal: React.FC<Props> = React.memo(
                         'bs-pack-details-dialog__grid --footer',
                     }}
                   >
-                    <Item
+                    <GridItem
                       alignment={Alignment.CENTER}
                       classes={{
                         'bs-pack-details-dialog__item':
@@ -185,9 +186,9 @@ const MarketplacePaymentPackDetailsModal: React.FC<Props> = React.memo(
                           {t('genericCard.addButton.buttonContent')}
                         </Button>
                       </div>
-                    </Item>
+                    </GridItem>
                   </Grid>
-                </Content>
+                </CardContent>
               </div>
             </Card>
           </div>

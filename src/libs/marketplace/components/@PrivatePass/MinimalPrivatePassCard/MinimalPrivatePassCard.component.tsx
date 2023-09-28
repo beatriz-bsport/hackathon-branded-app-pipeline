@@ -5,19 +5,19 @@ import {
   getCreditFactor,
   getCurrencyDisplayWithPrice,
 } from '#libs/theme/selectors';
-import Card, { CardSize } from '#components/css-only/Card';
-import Grid from '#components/css-only/Grid';
-import CardContent from '#components/css-only/Card/CardContent';
+import Card, { CardSize } from '#csscomponents/Card';
+import Grid from '#csscomponents/Grid';
+import CardContent from '#csscomponents/Card/CardContent';
 
 import GridItem, {
   Alignment,
   Direction,
   Justification,
-} from '#components/css-only/Grid/GridItem';
-import Price from '#components/css-only/Price';
-import './styles.css';
-import { PrivatePass } from '#libs/private-service/types';
+} from '#csscomponents/Grid/GridItem';
+import Price from '#csscomponents/Price';
 import MinimalCardSkeleton from '#marketplacecomponents/MinimalCardSkeleton';
+import type { PrivatePass } from '#libs/private-service/types';
+import './styles.css';
 
 export type Props = {
   privatePass: PrivatePass;

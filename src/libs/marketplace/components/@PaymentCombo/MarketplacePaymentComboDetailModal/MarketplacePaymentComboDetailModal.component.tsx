@@ -1,14 +1,12 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import './styles.css';
-
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 import Card, { CardSize } from '#csscomponents/Card';
-import Content from '#csscomponents/Card/CardContent';
+import CardContent from '#csscomponents/Card/CardContent';
 import Grid from '#csscomponents/Grid';
-import Item, {
+import GridItem, {
   Alignment,
   Direction,
   Justification,
@@ -23,8 +21,11 @@ import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 
 import { useDialogClickAwayListener } from '../../../../../hooks/useDialogClickAwayListener';
 
+import Button, { ButtonColor } from '#csscomponents/Fabrique/Button';
+
 import type { PaymentCombo } from '#libs/payment-combo/types';
-import Button, { ButtonColor } from '#components/css-only/Fabrique/Button';
+
+import './styles.css';
 
 export type Props = {
   paymentCombo: PaymentCombo;
@@ -61,7 +62,7 @@ const MarketplacePaymentComboDetailsModal: React.FC<Props> = ({
               className="bs-combo-details-dialog__card-content"
             >
               <div className="bs-combo-details-dialog__container">
-                <Content
+                <CardContent
                   padding
                   classes={{
                     'bs-combo-details-dialog__header':
@@ -69,7 +70,7 @@ const MarketplacePaymentComboDetailsModal: React.FC<Props> = ({
                   }}
                 >
                   <Grid>
-                    <Item
+                    <GridItem
                       classes={{
                         'bs-combo-details-dialog__header-item':
                           'bs-combo-details-dialog__header-item',
@@ -101,8 +102,8 @@ const MarketplacePaymentComboDetailsModal: React.FC<Props> = ({
                           />
                         </div>
                       </div>
-                    </Item>
-                    <Item
+                    </GridItem>
+                    <GridItem
                       classes={{
                         'bs-combo-details-dialog__list-container':
                           'bs-combo-details-dialog__list-container',
@@ -110,10 +111,10 @@ const MarketplacePaymentComboDetailsModal: React.FC<Props> = ({
                       rowStart={2}
                     >
                       <RestrictionList paymentCombo={paymentCombo} />
-                    </Item>
+                    </GridItem>
                   </Grid>
-                </Content>
-                <Content
+                </CardContent>
+                <CardContent
                   classes={{
                     'bs-combo-details-dialog__body':
                       'bs-combo-details-dialog__body',
@@ -126,7 +127,7 @@ const MarketplacePaymentComboDetailsModal: React.FC<Props> = ({
                     }}
                   >
                     {!!paymentCombo && (
-                      <Item
+                      <GridItem
                         classes={{
                           'bs-combo-details-dialog__content-list':
                             'bs-combo-details-dialog__content-list',
@@ -138,9 +139,9 @@ const MarketplacePaymentComboDetailsModal: React.FC<Props> = ({
                           displayAllitems
                           paymentCombo={paymentCombo}
                         />
-                      </Item>
+                      </GridItem>
                     )}
-                    <Item
+                    <GridItem
                       classes={{
                         'bs-combo-details-dialog__description':
                           'bs-combo-details-dialog__description',
@@ -148,11 +149,11 @@ const MarketplacePaymentComboDetailsModal: React.FC<Props> = ({
                       rowStart={2}
                     >
                       {paymentCombo?.description}
-                    </Item>
+                    </GridItem>
                   </Grid>
-                </Content>
+                </CardContent>
               </div>
-              <Content
+              <CardContent
                 classes={{
                   'bs-combo-details-dialog__footer':
                     'bs-combo-details-dialog__footer',
@@ -165,7 +166,7 @@ const MarketplacePaymentComboDetailsModal: React.FC<Props> = ({
                     '--footer': '--footer',
                   }}
                 >
-                  <Item
+                  <GridItem
                     alignment={Alignment.CENTER}
                     classes={{
                       'bs-combo-details-dialog__footer__item':
@@ -194,9 +195,9 @@ const MarketplacePaymentComboDetailsModal: React.FC<Props> = ({
                         {t('genericCard.addButton.buttonContent')}
                       </Button>
                     </div>
-                  </Item>
+                  </GridItem>
                 </Grid>
-              </Content>
+              </CardContent>
             </div>
           </Card>
         </div>

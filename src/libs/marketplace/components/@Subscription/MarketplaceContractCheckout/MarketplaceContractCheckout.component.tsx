@@ -8,26 +8,26 @@ import { KeyboardArrowDown, KeyboardArrowUp } from '@material-ui/icons';
 import useIsTextExpandable from '../../../../../hooks/useIsTextExpandable';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
-import Card, { CardSize } from '#components/css-only/Card';
-import CardContent from '#components/css-only/Card/CardContent';
-import Grid from '#components/css-only/Grid';
+import Card, { CardSize } from '#csscomponents/Card';
+import CardContent from '#csscomponents/Card/CardContent';
+import Grid from '#csscomponents/Grid';
 import GridItem, {
   Alignment,
   Justification,
-} from '#components/css-only/Grid/GridItem';
-import Price from '#components/css-only/Price';
-import CircularProgress from '#components/css-only/CircularProgress';
+} from '#csscomponents/Grid/GridItem';
+import Price from '#csscomponents/Price';
+import CircularProgress from '#csscomponents/CircularProgress';
 import BillingInterval from '../MarketplaceBillingInterval';
-
-import './styles.css';
 
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import { PaymentPack } from '#libs/payment-packs/types';
 import { PrivatePass } from '#libs/private-service/types';
 import { PaymentCombo } from '#libs/payment-combo/types';
 import { Contract } from '#libs/subscription/types';
-import Button, { ButtonColor } from '#components/css-only/Fabrique/Button';
-import Collapse from '#components/css-only/Fabrique/Collapse';
+import Button, { ButtonColor } from '#csscomponents/Fabrique/Button';
+import Collapse from '#csscomponents/Fabrique/Collapse';
+
+import './styles.css';
 
 export type Props = {
   hideChooseButton?: boolean;

@@ -8,23 +8,22 @@ import UpdateIcon from '@material-ui/icons/Update';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 import Card, { CardSize } from '#csscomponents/Card';
-import Content from '#csscomponents/Card/CardContent';
+import CardContent from '#csscomponents/Card/CardContent';
 import Grid from '#csscomponents/Grid';
-import Item, {
+import GridItem, {
   Alignment,
   Direction,
   Justification,
 } from '#csscomponents/Grid/GridItem';
 import Price from '#csscomponents/Price';
+import Button, { ButtonColor } from '#csscomponents/Fabrique/Button';
 
 import BillingInterval from '../MarketplaceBillingInterval';
 
-import './styles.css';
-
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-
 import type { Contract } from '#libs/subscription/types';
-import Button, { ButtonColor } from '#components/css-only/Fabrique/Button';
+
+import './styles.css';
 
 export type Props = {
   isExcludingTax: boolean;
@@ -61,13 +60,13 @@ const MarketplaceContractCard: React.FC<Props> = ({
       classes={{ 'bs-contract-card': 'bs-contract-card' }}
       size={CardSize.AUTO}
     >
-      <Content padding>
+      <CardContent padding>
         <Grid
           classes={{
             'bs-contract-card__grid': 'bs-contract-card__grid',
           }}
         >
-          <Item
+          <GridItem
             alignment={Alignment.FLEX_START}
             columnEnd={1}
             justification={Justification.FLEX_START}
@@ -86,8 +85,8 @@ const MarketplaceContractCard: React.FC<Props> = ({
             <div className="bs-contract-card__description">
               {contract?.description}
             </div>
-          </Item>
-          <Item
+          </GridItem>
+          <GridItem
             alignment={Alignment.FLEX_END}
             columnEnd={2}
             justification={Justification.FLEX_START}
@@ -102,8 +101,8 @@ const MarketplaceContractCard: React.FC<Props> = ({
                 </div>
               </div>
             )}
-          </Item>
-          <Item
+          </GridItem>
+          <GridItem
             alignment={Alignment.FLEX_END}
             classes={{
               'bs-contract-card__price-item': 'bs-contract-card__price-item',
@@ -138,8 +137,8 @@ const MarketplaceContractCard: React.FC<Props> = ({
                 </div>
               </Price>
             </div>
-          </Item>
-          <Item
+          </GridItem>
+          <GridItem
             alignment={Alignment.FLEX_END}
             classes={{
               'bs-contract-card__price-icon': 'bs-contract-card__price-icon',
@@ -156,9 +155,9 @@ const MarketplaceContractCard: React.FC<Props> = ({
             >
               <ShoppingCartIcon />
             </Button>
-          </Item>
+          </GridItem>
         </Grid>
-        <Item
+        <GridItem
           classes={{
             'bs-contract-card__footer': 'bs-contract-card__footer',
           }}
@@ -183,8 +182,8 @@ const MarketplaceContractCard: React.FC<Props> = ({
           >
             {t('contractCard.registerButton')}
           </Button>
-        </Item>
-      </Content>
+        </GridItem>
+      </CardContent>
     </Card>
   );
 };

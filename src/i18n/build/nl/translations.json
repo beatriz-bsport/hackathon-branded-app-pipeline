@@ -5958,6 +5958,14 @@
             "member-giftcard_used": {
                 "filter": "Gebruikte cadeaubonnen",
                 "primaryText": "De cadeaubon {{- giftcardName }} is geactiveerd."
+            },
+            "member-private_booking_canceled": {
+                "filter": "Afspraken annuleren",
+                "primaryText": "De afspraak voor {{- private_service_name}} - {{- private_slot_name }} de {{- date_start }} is geannuleerd."
+            },
+            "member-booking_canceled": {
+                "filter": "Boekingen annuleren",
+                "primaryText": "De reservering voor {{- name }} de {{- date_start }} is geannuleerd."
             }
         },
         "memberTable": {
@@ -6110,7 +6118,15 @@
                         "attendance": "Bij iedere aanwezigheid",
                         "absence": "Bij iedere afwezigheid"
                     },
-                    "birthday": "Op verjaardagen versturen"
+                    "birthday": "Op verjaardagen versturen",
+                    "day_after": "Deze melding wordt {{days}} dag na de start van de sessie verstuurd.",
+                    "day_after_plural": "Deze melding wordt {{days}} dagen na de start van de sessies verstuurd.",
+                    "day_before": "Deze melding wordt {{days}} dag voor het begin van de sessie verstuurd.",
+                    "day_before_plural": "Deze melding wordt {{days}} dagen voor het begin van de sessies verstuurd.",
+                    "hour_before": "Deze melding wordt {{hours}} uur voor het begin van de sessie verstuurd.",
+                    "hour_before_plural": "Deze melding wordt {{hours}} uur voor het begin van de sessies verstuurd.",
+                    "hour_after": "Deze melding wordt {{hours}} uur na het einde van de sessie verstuurd.",
+                    "hour_after_plural": "Deze melding wordt {{hours}} uur na het einde van de sessie verstuurd."
                 },
                 "cancel": "Annuleren",
                 "next": "Volgende",
@@ -13683,6 +13699,9 @@
                     },
                     "tags": {
                         "_label": "Tags"
+                    },
+                    "cadence": {
+                        "_label": "Kadens"
                     }
                 },
                 "payments": {
@@ -13782,6 +13801,9 @@
                 "_label": "Navigatiemenu",
                 "tutorial": {
                     "_label": "Handleiding"
+                },
+                "inbox": {
+                    "_label": "Inbox"
                 }
             },
             "member": {

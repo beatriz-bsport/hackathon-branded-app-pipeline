@@ -9445,6 +9445,14 @@
             "member-vod_bought": {
                 "filter": "VOD gekauft",
                 "primaryText": "VOD {{- VODName }} wurde gekauft."
+            },
+            "member-private_booking_canceled": {
+                "filter": "Terminstornierungen",
+                "primaryText": "Der Termin für {{- private_service_name}}-{{- private_slot_name }} am {{- date_start }} wurde storniert."
+            },
+            "member-booking_canceled": {
+                "filter": "Buchungsstornierungen",
+                "primaryText": "Die Buchung für {{- name }} am {{- date_start }} wurde storniert."
             }
         },
         "resetPassword": {

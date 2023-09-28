@@ -303,7 +303,15 @@
                     "refunded": "Cancelamento não reembolsado n° {{notify_booking_nb}}",
                     "notRefunded": "Cancelamento fora do prazo n° {{notify_booking_nb}}",
                     "bookingDeprecated": "Reserva n° {{notify_booking_nb}}",
-                    "cancelledDeprecated": "Anulação n° {{notify_booking_nb}}"
+                    "cancelledDeprecated": "Anulação n° {{notify_booking_nb}}",
+                    "day_after": "Esta notificação será enviada {{days}} dia após o início da sessão.",
+                    "day_after_plural": "Esta notificação será enviada {{days}} dias após o início da sessão.",
+                    "hour_after": "Esta notificação será enviada {{hours}} hora após o fim da sessão.",
+                    "hour_after_plural": "Esta notificação será enviada {{hours}} horas após o fim sessão.",
+                    "hour_before": "Esta notificação será enviada{{hours}} hora antes do início da sessão.",
+                    "hour_before_plural": "Esta notificação será enviada {{hours}} horas antes do início da sessão.",
+                    "day_before": "Esta notificação será enviada{{days}} dia antes do início da sessão.",
+                    "day_before_plural": "Esta notificação será enviada {{days}} dias antes do início da sessão"
                 },
                 "title": "Formulário de notificação",
                 "typeTitle": "Tipo de notificação",
@@ -509,13 +517,20 @@
                 "waitingListOpen": {
                     "title": "Sessão completa",
                     "message": "Inscreva-se na lista de espera e receberá uma mensagem assim que houver um lugar disponível."
+                },
+                "noPassAvailable": {
+                    "message": "Não estão disponíveis passes para a lista de espera.",
+                    "title": "Não há passe disponível"
                 }
             },
             "subscriptions": "Subscrições",
             "combos": "Packs",
             "passes": "Passe de aulas",
             "otherPasses": "Outros passes",
-            "spotSelectorTitle": "Escolha o seu lugar"
+            "spotSelectorTitle": "Escolha o seu lugar",
+            "reviewAndConfirm": "Revisar e confirmar",
+            "recommended": "Recomendado",
+            "seeAllProducts": "Ver todos os produtos"
         }
     },
     "coach": {
@@ -774,7 +789,10 @@
         "delete": "Eliminar",
         "saveRecord": "Guardar",
         "download": "Descarregar",
-        "params": "Parâmetros"
+        "params": "Parâmetros",
+        "day": "Dia",
+        "day_plural": "Dias",
+        "recommended": "Recomendado"
     },
     "communication": {
         "mail": {
@@ -821,7 +839,9 @@
                 "lastOpen": "Última abertura",
                 "deliveryRate": "Envio bem sucedido",
                 "exportCampaign": "Exportar a campanha",
-                "exportError": "Ocorreu um erro durante a exportação"
+                "exportError": "Ocorreu um erro durante a exportação",
+                "plannedResends": "Reenvios automáticos planejados para:",
+                "resentOn": "Reenviar para:"
             },
             "automated": {
                 "eventKind": {
@@ -830,7 +850,7 @@
                 },
                 "form": {
                     "advancedSection": "Avançado",
-                    "max_communications_sent_per_member": "Número máximo de envios por membro",
+                    "max_communications_sent_per_member": "Número de vezes que a regra se aplica",
                     "max_communications_sent_per_member_limit": "Valor máximo : {{ max }}",
                     "subtitles": {
                         "create": {
@@ -843,7 +863,12 @@
                         }
                     },
                     "frequenceHelper": "Esta comunicação será enviada para {{ max }} {{ event_kind }} da lista inteligente para cada membro. Após {{ max }} {{ event_kind }} da lista inteligente para o mesmo membro, este deixará de receber esta comunicação. Pode alterar esta definição em 'Avançadas'.",
-                    "submit": "Confirmar"
+                    "submit": "Confirmar",
+                    "maxCommunicationSentHelperText": {
+                        "1": "Por predefinição, a mensagem é enviada apenas aquando da primeira saída de cada membro da lista inteligente. Pode ajustar a definição para permitir mensagens subsequentes aquando da segunda ou terceira saída do membro.",
+                        "0": "Por predefinição, a mensagem é enviada apenas aquando da primeira entrada de cada membro a partir da lista inteligente. Pode ajustar a definição para permitir mensagens subsequentes aquando da segunda ou terceira entrada do membro."
+                    },
+                    "limitSection": "Limite"
                 },
                 "panel": {
                     "title": "Regra de envio automático",
@@ -997,7 +1022,8 @@
                 "balise": "Avisos",
                 "sms": "SMS",
                 "notification": "Notificação push",
-                "template": "Modelo de email"
+                "template": "Modelo de email",
+                "autoResend": "Reenvios automáticos"
             },
             "buttons": {
                 "send": "Enviar",
@@ -1170,6 +1196,18 @@
             "refreshSmartlist": "Clique no botão para atualizar e consiga ver as novas listas inteligentes",
             "smartlistPlaceholder": "Selecionar uma lista inteligente",
             "title": "Nova mensagem"
+        },
+        "resendSection": {
+            "resendDelay": {
+                "helperText": "Valor máximo: 180",
+                "label": "Atraso antes de reenviar"
+            },
+            "resendCount": {
+                "helperText": "A mensagem de correio eletrónico será reenviada a todos os destinatários que não a abriram. Valor máximo: 5",
+                "label": "Número de reenvios automáticos"
+            },
+            "title": "Reenvio automático de e-mails não lidos",
+            "dialogTitle": "Reenvio automático de correio eletrónico não lido"
         }
     },
     "checkout": {
@@ -1193,7 +1231,8 @@
             "internalAccount": "Conta interna",
             "totalHiddingTax": "Total",
             "deliveryFee": "Despesas de envio",
-            "title": "Pagamento"
+            "title": "Pagamento",
+            "flatFeeSubscription": "Taxa de Inscrição"
         },
         "events": {
             "basket-created": "Cesto criado",
@@ -1226,7 +1265,16 @@
             },
             "acceptTermsAndFinalize": "Aceite os termos e condições e complete a reserva",
             "checkAndFinalize": "Verifique o seu carrinho e complete a reserva",
-            "almostDone": "Última etapa"
+            "almostDone": "Última etapa",
+            "noBooking": {
+                "checkAndFinalize": "Verifique o seu cesto",
+                "acceptTermsAndFinalize": "Aceite os termos e condições e complete o seu cesto"
+            },
+            "newCheckout": {
+                "isEmpty": "O seu cesto está vazio!",
+                "isEmptyDescription": "Continue a explorar o marketplace!"
+            },
+            "goToMarketplace": "Ver o marketplace"
         },
         "validation": {
             "actions": {
@@ -1235,7 +1283,16 @@
                 "back": "Anterior",
                 "widgetContinue": "Continuar",
                 "confirmPriceNull": "Confirmar",
-                "payNow": "Pagar"
+                "payNow": "Pagar",
+                "goToCalendar": "Voltar ao calendário",
+                "myBookings": "Minhas Reservas",
+                "retry": "Tentar novamente",
+                "newWorkshop": "Novo Worskhop",
+                "retryBookingSession": "Tentar reservar novamente",
+                "mySubscription": "Minha subscrição",
+                "myProducts": "Meus Produtos",
+                "myGiftcards": "Meus cartões de oferta",
+                "myPasses": "Meus Passes"
             },
             "sections": {
                 "errorExplain": {
@@ -1246,7 +1303,9 @@
                     "guestSettings": "O estúdio desactivou a função para convidados.",
                     "guestOffer": "O estúdio desactivou a função de reserva de convidados para esta sessão.",
                     "guestPass": "O estúdio desativou a função para convidados com este passe.",
-                    "guestNotEnoughSpot": "Não há lugares suficientes para todos os vossos convidados."
+                    "guestNotEnoughSpot": "Não há lugares suficientes para todos os vossos convidados.",
+                    "offerOnlyBookingError": "Lamentamos, mas a sessão e o local seleccionados não podem ser reservados de momento. Por favor, tente novamente.",
+                    "genericOfferError": "Encontrámos um problema ao processar a reserva da sua sessão. Por favor, tente novamente mais tarde ou reserve uma sessão diferente."
                 },
                 "offerBooked": "As suas sessões",
                 "offerBooked_plural": "",
@@ -1256,7 +1315,41 @@
                 "explain": "A sua transação foi processada. Enviar-lhe-emos um e-mail de confirmação.",
                 "recap": "Resumo",
                 "title": "Parabéns !",
-                "basket": "O meu cesto"
+                "basket": "O meu cesto",
+                "confirmationStatusTitle": {
+                    "errors": {
+                        "generic": "Ops! O pagamento falhou.",
+                        "genericOfferError": "Ops! A reserva falhou."
+                    },
+                    "success": {
+                        "offerOnlySuccess": "Aproveite a sessão!",
+                        "paymentSuccess": "Pagamento confirmado!",
+                        "waitingList": "Está inscrito na lista de espera"
+                    }
+                },
+                "confirmationStatusMessage": {
+                    "offerOnlySuccess": "A reserva foi efectuada. Receberá em breve um e-mail de confirmação com todos os detalhes.",
+                    "offerOnlySuccess_plural": "As reservas foram efectuadas. Receberá em breve um e-mail de confirmação com todos os detalhes.",
+                    "paymentSuccess": "Parabéns! A sua compra foi confirmada!",
+                    "paymentSuccess_plural": "Parabéns! As suas compras estão confirmadas!",
+                    "offerAndPurchaseSuccess": "Parabéns! As suas compras e reservas foram confirmadas. Receberá em breve um e-mail de confirmação com todos os datelhes."
+                },
+                "alert": "Ops! A reserva falhou.\nTivemos um problema ao processar a reserva da sua sessão. Por favor, tente novamente mais tarde ou marque uma sessão diferente.",
+                "myPass": "Meu passe",
+                "myPass_plural": "Meus passes",
+                "myPack": "Meu Pacote",
+                "myPack_plural": "Meus pacotes",
+                "mySubscription": "Minha subscrição",
+                "myProduct": "Meu produto",
+                "myProduct_plural": "Meus produtos",
+                "myGiftcard": "Meu cartão de oferta",
+                "myGiftcard_plural": "Meus cartões de oferta"
+            },
+            "bookingItem": {
+                "bookingItemStatus": {
+                    "waitingList": "Lista de Espera",
+                    "unpaid": "Não pago"
+                }
             }
         },
         "internalAccount": {
@@ -1498,7 +1591,8 @@
                 "1": "Passe",
                 "2": "SEPA",
                 "3": "Cheque",
-                "6": "Conflito"
+                "6": "Conflito",
+                "4": "Controle de férias"
             },
             "isInternalExplainFuturePayments": "A data de vencimento será deduzida automaticamente do depósito do cliente. Se este valor for insuficiente, será criado um depósito negativo.",
             "detach": {
@@ -1552,7 +1646,12 @@
             "name": "Nome e apelido do titular",
             "email": "Endereço eletrónico do titular",
             "address_postal_code": "Código de Postal",
-            "address_line_1": "Morada"
+            "address_line_1": "Morada",
+            "country": "País",
+            "state": "Estado",
+            "city": "Cidade",
+            "phone": "Número de telefone",
+            "address_line_2": "Linha de endereço 2"
         },
         "invoiceInfo": {
             "3": "Esta fatura é o resultado de uma migração. Por motivos legais, não podemos fornecer um PDF ou anulá-lo.",
@@ -1951,7 +2050,8 @@
             "relationConnectedAs": "Conectado como : {{name}}",
             "backToRelationMasterSpace": "voltar à minha conta",
             "connectedAs": "Iniciar sessão como",
-            "automaticLanguage": "Detetar automáticamente a língua"
+            "automaticLanguage": "Detetar automáticamente a língua",
+            "goBack": "Voltar"
         },
         "language": {
             "nl": "Holandês",
@@ -2219,7 +2319,11 @@
                     "update_mode": "Se desejar alterar os códigos registados para esta promoção, pode acrescentar aos existentes ou substituí-los",
                     "5006": "Este cupão único já está associado a um carrinho (aberto)",
                     "5005": "Este código já foi utilizado ou está atualmente associado a um carrinho.",
-                    "5004": "Este cupão só pode ser aplicado a um único artigo."
+                    "5004": "Este cupão só pode ser aplicado a um único artigo.",
+                    "codes": {
+                        "emptyArray": "É necessário acrescentar pelo menos um código",
+                        "updateMode": "É necessário escolher entre acrescentar os códigos aos já existentes ou substituí-los"
+                    }
                 },
                 "alertInfo": "Os cupões são códigos únicos que oferecem um desconto de 100% num produto específico para o membro. Estes códigos não são gerados pela própria plataforma, mas devem ser carregados aqui como um ficheiro CSV. Esta funcionalidade é particularmente útil se tiver feito uma parceria com uma entidade externa, como a Groupon, para realizar uma campanha promocional. Neste caso, a Groupon (ou uma entidade semelhante) gera e vende os cupões em nome do seu estúdio.",
                 "alertWarning": "Não aplicável às subscrições",
@@ -2236,10 +2340,16 @@
                 },
                 "update": {
                     "replace": "Substituir os códigos existentes",
-                    "alertInfo": "Existe {{count}} código registado para esta promoção, pode descarregar novos.",
-                    "alertInfo_plural": "Existem {{count}} códigos registados para esta promoção, pode descarregar novos.",
+                    "alertInfo": "Existe {{count}} código registado para esta promoção, pode descarregar novos códigos",
+                    "alertInfo_plural": "Existem {{count}} códigos registados para esta promoção, pode descarregar novos códigos",
                     "popover": "Os códigos não utilizados serão eliminados e os códigos utilizados serão mantidos.",
                     "append": "Adicionar aos cupões existentes"
+                },
+                "selectorPlaceholder": {
+                    "paymentCombo": "Selecionar um pacote",
+                    "shopItem": "Selecionar um artigo da loja virtual",
+                    "paymentPack": "Selecionar um passe",
+                    "privatePass": "Selecionar um cartão de marcação"
                 }
             },
             "voucherCodesDialog": {
@@ -2274,6 +2384,10 @@
         "fabLabels": {
             "discountCode": "Código do desconto",
             "voucherCodes": "Cupões"
+        },
+        "couponType": {
+            "3": "Vale de utilização única",
+            "0": "Código de desconto"
         }
     },
     "expense": {
@@ -2752,7 +2866,8 @@
                     "invalidEmail": "E-mail inválido",
                     "passwordConfirmationError": "As palavras-passe não são encriptadas",
                     "requiredSignature": "Por favor, assine o formulário.",
-                    "requiredFile": "Anexar um ficheiro"
+                    "requiredFile": "Anexar um ficheiro",
+                    "invalidOfficialDocumentId": "Este campo só pode conter números e letras"
                 },
                 "date_submitted": "Data de conclusão",
                 "dialog": {
@@ -2865,7 +2980,8 @@
                 "file": "Anexar um ficheiro",
                 "select_placeholder": "Selecionar",
                 "select": "Lista pendente",
-                "check_box": "Assinalar"
+                "check_box": "Assinalar",
+                "official_document_id": "Número de identidade"
             },
             "customFormField": {
                 "modal": {
@@ -3229,7 +3345,10 @@
                 "previous": "Anterior",
                 "next": "Seguinte",
                 "confirm": "Guardar",
-                "cancel": "Cancelar"
+                "cancel": "Cancelar",
+                "step": {
+                    "name": "Nome"
+                }
             }
         },
         "notifications": {
@@ -3390,7 +3509,8 @@
                 "availableCredit_plural": "{{count}} créditos"
             },
             "title": {
-                "universalPassMessage": "O passe universal pode ser utilizado para aulas de grupo e marcações"
+                "universalPassMessage": "O passe universal pode ser utilizado para aulas de grupo e marcações",
+                "autoRenewal": "Renovação automática"
             }
         },
         "selector": {
@@ -3658,7 +3778,8 @@
         "barcode": {
             "none": "nenhum",
             "code": "Código do cartão",
-            "display": "Mostrar código de barras"
+            "display": "Mostrar código de barras",
+            "label": "Código de barras"
         },
         "pastBooking": "último : ",
         "engagement": "Engagement",
@@ -3733,6 +3854,14 @@
             "member-custom_form_filled": {
                 "primaryText": "O formulário de edição de perfil {{ formName }} foi concluído.",
                 "filter": "Formulário de perfil editado"
+            },
+            "member-private_booking_canceled": {
+                "filter": "Cancelamento de marcações",
+                "primaryText": "O encontro para {{- private_slot_name }}{{- private_service_name}} em {{- date_start }} foi cancelado."
+            },
+            "member-booking_canceled": {
+                "filter": "Cancelamentos de reservas",
+                "primaryText": "A reserva para {{- name }} em {{- date_start }} foi cancelada."
             }
         },
         "member": {
@@ -3925,7 +4054,18 @@
         },
         "noData": "Não existem membros nesta lista inteligente.",
         "noMember": "De momento, não há membros para apresentar.",
-        "communication": "Comunicação"
+        "communication": "Comunicação",
+        "officialIdNumber": {
+            "label": "Número do documento de identidade",
+            "value": "Número {{id}}"
+        },
+        "membershipNumber": {
+            "label": "Número de membro",
+            "value": "Número {{id}}"
+        },
+        "memberTable": {
+            "error": "Ocorreu um erro"
+        }
     },
     "metaActivity": {
         "settings": {
@@ -4229,12 +4369,14 @@
                 "of": "De",
                 "lastUpdated": "Última modificação em",
                 "close": "Fechar",
-                "at": "à"
+                "at": "à",
+                "cashDialogTitle": "Livro-razão"
             },
-            "cashBookTooltip": "",
+            "cashBookTooltip": "Livro-razão",
             "video": "Vídeo biblioteca",
             "addMemberTooltip": "Adicionar membro",
-            "inbox": "Caixa de entrada"
+            "inbox": "Caixa de entrada",
+            "playlist": "Listas de reprodução"
         },
         "stripeOnboardingPending": {
             "banner": "Se não tiver terminado a configuração da faturação, os pagamentos em linha podem ser desactivados."
@@ -4908,6 +5050,10 @@
                 "category": {
                     "helperText": "Nome da categoria",
                     "label": "Categoria (opcional)"
+                },
+                "highlightedAsRecommended": {
+                    "helperText": "Permite que seus clientes vejam rapidamente quais passes são recomendados no momento.",
+                    "label": "Marcar como recomendado"
                 }
             }
         },
@@ -5552,7 +5698,9 @@
             "purchases": "Vendas",
             "content": "Conteúdo",
             "description": "Descrição",
-            "containsNProducts": "Contém {{ n }} produtos"
+            "containsNProducts": "Contém {{ n }} produtos",
+            "itemCount": "{{ count }} item",
+            "itemCount_plural": "{{ count }} itens"
         },
         "form": {
             "expiration_date": {
@@ -5606,7 +5754,11 @@
             "error": {
                 "atLeastOneThing": "Deve acrescentar pelo menos um artigo ao seu pack"
             },
-            "title": "Pack de formulários"
+            "title": "Pack de formulários",
+            "highlightedAsRecommended": {
+                "helperText": "Permite que seus clientes vejam rapidamente quais pacotes são recomendados no momento.",
+                "label": "Marcar como recomendado"
+            }
         },
         "list": {
             "buttons": {
@@ -5722,7 +5874,8 @@
                     "addPaymentMethod": "Adicionar um método de pagamento",
                     "retry": "Tentar novamente",
                     "collect": "Guardar",
-                    "close": "Fechar"
+                    "close": "Fechar",
+                    "cancel": "Cancelar"
                 },
                 "collect": {
                     "contentAdd": "Este método de pagamento será guardado na sua conta.",
@@ -6119,7 +6272,13 @@
                     "templates": {
                         "_label": "E-mails"
                     },
-                    "_label": "Marketing"
+                    "_label": "Marketing",
+                    "cadence": {
+                        "_label": "Cadência"
+                    }
+                },
+                "inbox": {
+                    "_label": "Caixa de entrada"
                 }
             },
             "franchiseMenu": {
@@ -7512,7 +7671,12 @@
         "last_invoice_status": {
             "": [
                 "Cancelar"
-            ]
+            ],
+            "4": "Processando",
+            "3": "Cancelado",
+            "2": "Pendente",
+            "1": "Falha",
+            "0": "Bem-sucedido"
         },
         "payment_method_with_credit_account": {
             "70": "Débito Direto",
@@ -7541,7 +7705,8 @@
             "check": "Cheque",
             "sepa": "SEPA",
             "cash": "Dinheiro",
-            "bacs_debit": "Débito Direto"
+            "bacs_debit": "Débito Direto",
+            "holiday_check": "Verificação de férias"
         },
         "no": "Não",
         "yes": "Sim",
@@ -7724,7 +7889,7 @@
             "nb_non_activated": "Número de passes não ativados",
             "nb_interval": "Número de recorrências",
             "nb_invoice_items": "Número de recorrências",
-            "nb_expired": "Número de passes expirados",
+            "nb_expired": "Número de cartões vencidos",
             "nb_canceled": "Número de cancelamentos",
             "nb_bookings": "Número de reservas",
             "nb_bookings_same_pass": "N.º de reservas através do mesmo passe",
@@ -7895,7 +8060,13 @@
             "referred_discount_use_date": "Data da utilização do desconto pela referência",
             "referred_discount_applied": "Desconto aplicado pelo membro referenciado",
             "purchased_products": "Produtos",
-            "company_name": "Franqueado"
+            "company_name": "Franqueado",
+            "coupon_type": "Tipo",
+            "last_booked_offer_id": "ID da última sessão reservada",
+            "last_booked_offer_date": "Data da última sessão reservada",
+            "last_booked_offer_meta_activity_name": "Atividade da última sessão reservada",
+            "last_booked_offer_pass_name": "Passe usado para a última sessão reservada",
+            "dst_company": "Uso de estúdio"
         },
         "categories": {
             "activityByCoach": "Atividades e workshops por professor",
@@ -7995,7 +8166,8 @@
                 "3": "Passe",
                 "2": "Passe",
                 "1": "Dinheiro",
-                "0": "Passe"
+                "0": "Passe",
+                "5": "Verificação de férias"
             },
             "booking_status_code": {
                 "3": "Sessão cancelada",
@@ -8056,7 +8228,8 @@
             "payment_method_with_credit_account": "Montante de pagamento",
             "payment_method": "Método de pagamento",
             "cts": "Preço em cêntimos",
-            "price": "Preço"
+            "price": "Preço",
+            "coupon_type_excluding_referrals": "Tipo de promoção"
         },
         "globalCategories": {
             "subheader": {
@@ -8661,6 +8834,10 @@
             "create": {
                 "success": "E-mail criado",
                 "error": "Impossível registar o e-mail"
+            },
+            "duplicate": {
+                "success": "E-mails duplicados",
+                "error": "Não é possível duplicar o e-mail"
             }
         },
         "coupon": {
@@ -9076,6 +9253,9 @@
             "timeout": "O servidor demorou demasiado tempo a responder. Tente atualizar a página",
             "cannotFetch": "Ocorreu um erro. Verifique a sua internet e tente atualizar a página.",
             "error": "Ocorreu um erro, tente novamente mais tarde"
+        },
+        "smartlistGetMembers": {
+            "error": "Ocorreu um erro: os membros não podem ser recuperados"
         }
     },
     "theme": {
@@ -9674,7 +9854,8 @@
             },
             "form": {
                 "description": {
-                    "label": "Descrição"
+                    "label": "Descrição",
+                    "placeholder": "Pergunte pelo Sr. Smith na 1 Oxford Street."
                 },
                 "name": {
                     "placeholder": "Marcações acumuladas",
@@ -10569,7 +10750,21 @@
                 }
             }
         },
-        "disabledPacksTitle": "Passe de Marcações arquivados"
+        "disabledPacksTitle": "Passe de Marcações arquivados",
+        "forms": {
+            "delete": {
+                "content": {
+                    "canDelete": "Tem certeza de que deseja excluir essa marcação? Essa alteração é definitiva. As reservas já feitas não serão afetadas."
+                },
+                "title": "Excluir Marcação",
+                "actions": {
+                    "cancel": "Cancelar",
+                    "confirm": "Excluir"
+                },
+                "cancel": "Cancelar",
+                "confirm": "Excluir"
+            }
+        }
     },
     "relationship": {
         "private_consumer_pass_links": {
@@ -12164,7 +12359,10 @@
             "subtitle2": "Como gestor, tem sempre acesso a todos os métodos de pagamento disponíveis.",
             "subtitle": "Pode ativar ou desativar os métodos de pagamento utilizados pelos seus membros quando pagam online.",
             "save": "Guardar",
-            "methodPaymentSubscriptionError": "Selecione pelo menos um método de pagamento"
+            "methodPaymentSubscriptionError": "Selecione pelo menos um método de pagamento",
+            "methodPaymentCardBillingDetailsHelper": "Ao ativar esse recurso, você reduzirá o número de pagamentos com cartão que requerem o 3D Secure (validação por SMS, aplicativos bancários etc.) Observe que esses campos são obrigatórios.",
+            "methodPaymentCardBillingDetailsTitle": "Solicitar detalhes completos de faturamento",
+            "methodPaymentCardBillingDetails": "Solicitar detalhes de faturamento para pagamentos com cartão."
         },
         "company": {
             "bankAccountInfo": {
@@ -12232,7 +12430,17 @@
                     "workshop": "Workshops",
                     "activity": "Atividades",
                     "establishment": "Estabelecimento",
-                    "level": "Nível"
+                    "level": "Nível",
+                    "mobile": "Tela pequena",
+                    "desktop": "Tela larga",
+                    "blockedByTags": "Direitos insuficientes",
+                    "isAlreadyRegistered": "Sessão já reservada",
+                    "isOfferNotAvailableYet": "Disponível em breve",
+                    "isTooLate": "Limite de tempo excedido",
+                    "isWaitingListBlockedByPendingBookings": "Outras reservas atuais",
+                    "isWaitingListFull": "A lista de espera está cheia",
+                    "isAlreadyInWaitingList": "Já está na lista de espera",
+                    "isWaitingListOpen": "A sessão está cheia"
                 },
                 "title": {
                     "paymentMethodType": "Modo de pagamento",
@@ -12252,7 +12460,13 @@
                     "withoutBookButton": "Ocultar botão de reserva",
                     "showDate": "Mostrar data",
                     "isWorkshop": "É um workshop",
-                    "hideCoach": "Ocultar o filtro do professor"
+                    "hideCoach": "Ocultar o filtro do professor",
+                    "isHidden": "Oculto",
+                    "isOfferInThePast": "A sessão terminou",
+                    "isOfferAvailable": "A sessão está disponível",
+                    "isOfferNotAvailableYet": "A sessão ainda não pode ser reservada",
+                    "blockedReasonStatus": "Motivo do bloqueio da reserva",
+                    "isOfferFull": "A sessão está cheia"
                 },
                 "configurationTitle": "Variações"
             },
@@ -12292,7 +12506,36 @@
                 "calendarWeekTimeTable": "Cabeçalho do calendário",
                 "calendarFilters": "Filtros do calendário (apenas apresentação)",
                 "select": "Selecionado",
-                "search": "Pesquisa"
+                "search": "Pesquisa",
+                "marketplace_search": "Filtro de pesquisa",
+                "marketplace_filter": "Seletor múltiplo",
+                "marketplace_select": "Seletor (individual)",
+                "marketplace_offer_list_item": "Detalhes da sessão (exibição de lista)",
+                "marketplace_calendar_filter": "Filtros de calendário (somente layout)",
+                "marketplace_week_time_table": "Cabeçalho do calendário",
+                "marketplace_offer_card": "Detalhes da sessão (visualização de calendário)",
+                "marketplace_date_picker": "Seletor de data",
+                "marketplace_payment_combo_card": "Cartão de Packs",
+                "marketplace_payment_pack_card": "Cartão de passe",
+                "marketplace_payment_pack_compatibility_modal": "Pop-up de compatibilidade (aprovado)",
+                "marketplace_payment_pack_restriction_modal": "Pop-up de restrições (passe)",
+                "marketplace_payment_pack_offpeack_restriction_modal": "Pop-up de restrição de intervalo de tempo (passe)",
+                "marketplace_private_pass_compatibility_modal": "Pop-up de compatibilidade (passe de marcação)",
+                "marketplace_private_pass_card": "Cartão de passe de marcação",
+                "marketplace_contract_card": "Cartão de assinatura",
+                "marketplace_contract_checkout": "Cartão de assinatura (pagamento)",
+                "marketplace_contract_detail_modal": "Pop-up de detalhes da assinatura",
+                "marketplace_contract_detail": "Detalhes da assinatura",
+                "marketplace_contract_terms_modal": "Pop-up de aviso legal de assinatura",
+                "marketplace_contract_cooldown_modal": "Pop-up de aviso de compra de assinatura",
+                "marketplace_coupon_form_modal": "Pop-up de código promocional de assinatura",
+                "marketplace_contract_not_found_modal": "Aviso de assinatura não encontrado",
+                "marketplace_contract_payment": "Módulo de pagamento de assinatura",
+                "marketplace_collect_payment_method": "Adição de método de pagamento",
+                "marketplace_activity_summary": "Detalhes da atividade",
+                "marketplace_activity_summary_dialog": "Detalhes da atividade (pop-up)",
+                "marketplace_booking_button": "Botão da Reserva",
+                "marketplace_booking_blocked_reason": "Não é possível fazer reservas"
             },
             "cssEditor": {
                 "reset": "reposto",
@@ -12344,7 +12587,8 @@
             "dialogMode": {
                 "iframe": "Permanecer no site",
                 "popup": "Nova janela",
-                "tab": "Novo separador"
+                "tab": "Novo separador",
+                "stayInContainer": "Sem pop-up"
             },
             "showFabLabel": "Botão Bsport EasyConnect",
             "dialogSizeLabel": "Tamanho do popup",
@@ -13043,8 +13287,9 @@
                 "CB": "Cartão",
                 "OTHER": "Diversos",
                 "DISPUTE": "Conflito",
-                "CHECK": "",
-                "CASH": "Dinheiro"
+                "CHECK": "Verificar",
+                "CASH": "Dinheiro",
+                "HOLIDAY_CHECK": "Verificação de férias"
             },
             "noPaymentItem": "Nenhum pagamento registado",
             "stillUnpaid": "Saldo em dívida : ",
@@ -13075,7 +13320,7 @@
             "paymentDate": "Data da compra",
             "object": "Descrição",
             "status": "Dinheiro",
-            "paymentMethodCheck": ""
+            "paymentMethodCheck": "Verificar"
         },
         "shop": {
             "noProvisionUpdates": "Sem stock",
@@ -14913,6 +15158,10 @@
                 },
                 "unusableByStaff": {
                     "label": "Invisível para o staff"
+                },
+                "highlightedAsRecommended": {
+                    "helperText": "Permite que seus clientes vejam rapidamente quais contratos são recomendados no momento.",
+                    "label": "Marcar como recomendado"
                 }
             },
             "interval": {
@@ -15480,7 +15729,59 @@
         },
         "cancel": "cancelar",
         "noAssociatedSubscription": "Nenhuma subscrição registada",
-        "copyLink": "Copiar o link para a página de pagamento"
+        "copyLink": "Copiar o link para a página de pagamento",
+        "newCheckout": {
+            "title": "Assinatura",
+            "processingPaymentModal": {
+                "title": "Pagamento em andamento",
+                "text": "Aguarde o processamento do pagamento. Não saia nem recarregue esta página.",
+                "timeEstimation": "Isso pode levar até um minuto"
+            },
+            "subscriptionSummary": {
+                "startDate": "Data de início",
+                "credit": "{{count}} crédito",
+                "credit_plural": "{{count}} créditos",
+                "unlimited": "Ilimitado",
+                "item": "{{count}} item",
+                "item_plural": "{{count}} itens",
+                "prorataPriceText": "{{proratedPrice}} devido a {{-today}},então{{recurrentPrice} cada{{monthBillingDay}} dia do mês.",
+                "billingInterval": {
+                    "month": "Todo mês",
+                    "month_plural": "Todos {{ count }} meses",
+                    "week": "Toda Semana",
+                    "week_plural": "Todas {{ count }} semanas",
+                    "year": "Todo Ano",
+                    "year_plural": "Todos {{ count }} Anos",
+                    "day": "Todo dia",
+                    "day_plural": "Todos {{ count }} dias"
+                }
+            },
+            "terms": {
+                "title": "Termos do contrato",
+                "seeMore": "Ver mais",
+                "seeLess": "Ver menos",
+                "acceptTerms": "Eu aceito os <0>termos legais</0>."
+            },
+            "subscriptionBasketSummary": {
+                "payNow": "Pague agora",
+                "message": "Você pode visualizar sua assinatura em seu perfil de membro"
+            },
+            "payment": {
+                "details": "Detalhes de Pagamento",
+                "tooltip": "Esse método de pagamento será retido para faturamento de acordo com o contrato. Não se preocupe, você pode alterá-lo posteriormente em sua conta."
+            },
+            "error": {
+                "title": "Ocorreu um erro",
+                "text": {
+                    "registerBackground": "Sua assinatura e reserva não puderam ser criadas. O método de pagamento não foi debitado.",
+                    "userRegistration": "Sua assinatura foi criada e seu método de pagamento será debitado em breve. No entanto, sua reserva não pôde ser registrada."
+                },
+                "button": {
+                    "registerBackground": "Fechar",
+                    "userRegistration": "Veja minha assinatura"
+                }
+            }
+        }
     },
     "shop": {
         "shopitem": {
@@ -16759,7 +17060,14 @@
             "myAddonTitle": "Os meus add-ons",
             "knowMore": "Mais informações +",
             "billRecurrent": "{{ price_cts }} / mês",
-            "billOnce": "{{ price_cts }}"
+            "billOnce": "{{ price_cts }}",
+            "lockDialog": {
+                "requestAccess": "Solicitar acesso",
+                "33": {
+                    "explain": "Você encontrará aqui todas as suas discussões diretas, bate-papos vinculados às suas sessões e suas campanhas de lista inteligente. O bate-papo é compatível com SMS, e-mail e notificações por push.",
+                    "intro": "Descubra nossa nova interface de bate-papo direto com seus membros."
+                }
+            }
         },
         "paymentMethod": {
             "info": {

@@ -4890,6 +4890,14 @@
             "member-vod_bought": {
                 "filter": "VOD achetées",
                 "primaryText": "La VOD {{- VODName }} a été achetée."
+            },
+            "member-private_booking_canceled": {
+                "filter": "Annulations de rendez-vous",
+                "primaryText": "Le rendez-vous pour {{- private_service_name}} - {{- private_slot_name }} le {{- date_start }} a été annulé."
+            },
+            "member-booking_canceled": {
+                "filter": "Annulations de réservation",
+                "primaryText": "La réservation pour {{- name }} le {{- date_start }} a été annulée."
             }
         },
         "memberTable": {

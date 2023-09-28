@@ -5939,6 +5939,14 @@
             "member-vod_bought": {
                 "filter": "VOD comprado",
                 "primaryText": "El VOD {{- VODName }} ha sido comprado."
+            },
+            "member-private_booking_canceled": {
+                "filter": "Cancelación de citas",
+                "primaryText": "La cita para {{- private_service_name}} - {{- private_slot_name }} el {{- date_start }} fue cancelada."
+            },
+            "member-booking_canceled": {
+                "filter": "Cancelación de reservas",
+                "primaryText": "La reserva para {{- name }} el {{- date_start }} ha sido cancelada."
             }
         },
         "resetPassword": {
@@ -6098,7 +6106,15 @@
                         "absence": "En cada ausencia",
                         "attendance": "En cada asistencia"
                     },
-                    "birthday": "Enviar el día del cumpleaños"
+                    "birthday": "Enviar el día del cumpleaños",
+                    "day_after": "Esta notificación se enviará {{days}} día después del inicio de la sesión.",
+                    "day_after_plural": "Esta notificación se enviará {{days}} días después del inicio de la sesión.",
+                    "day_before": "Esta notificación se enviará {{days}} día antes del inicio de la sesión.",
+                    "day_before_plural": "Esta notificación se enviará {{days}} días antes del inicio de la sesión.",
+                    "hour_before": "Esta notificación se enviará {{hours}} hora antes del inicio de la sesión.",
+                    "hour_before_plural": "Esta notificación se enviará {{hours}} horas antes del inicio de la sesión.",
+                    "hour_after": "Esta notificación se enviará {{hours}} hora después del final de la sesión.",
+                    "hour_after_plural": "Esta notificación se enviará {{hours}} horas después de finalizar la sesión."
                 },
                 "cancel": "Cancelar",
                 "next": "siguiente",
@@ -8641,7 +8657,7 @@
                 "totalClick": "Número de personas que han hecho clic en un enlace",
                 "exportError": "Se ha producido un error al exportar",
                 "exportCampaign": "Exportar campaña",
-                "plannedResends": "Renvío automático planeado para el:",
+                "plannedResends": "Reenvíos automáticos previstos:",
                 "resentOn": "Enviado de nuevo el:"
             },
             "list": {
@@ -9785,6 +9801,9 @@
                     },
                     "tags": {
                         "_label": "Tags"
+                    },
+                    "cadence": {
+                        "_label": "Cadencia"
                     }
                 },
                 "payments": {
@@ -9884,6 +9903,9 @@
                 "_label": "Menú de navegación",
                 "tutorial": {
                     "_label": "Tutorial"
+                },
+                "inbox": {
+                    "_label": "Bandeja de entrada"
                 }
             },
             "member": {

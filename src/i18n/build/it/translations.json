@@ -9390,6 +9390,14 @@
             "member-tag_applied": {
                 "filter": "Tag applicati",
                 "primaryText": "Il tag {{ tagName }} è stato applicato."
+            },
+            "member-booking_canceled": {
+                "filter": "Prenotazioni eliminate",
+                "primaryText": "La prenotazione per {{- name }} il {{- date_start }} è stata cancellata."
+            },
+            "member-private_booking_canceled": {
+                "filter": "Appuntamenti eliminati",
+                "primaryText": "L'appuntamento per {{- private_service_name}} - {{- private_slot_name }} il {{- date_start }} è stato cancellato."
             }
         },
         "resetPassword": {
@@ -12480,7 +12488,7 @@
             "replacement": "Sostituzione"
         },
         "replacement": "Sostituzione",
-        "inbox": "Inbox"
+        "inbox": "Posta in arrivo"
     },
     "dashboard": {
         "thisWeek": "Questa settimana",
@@ -13908,6 +13916,9 @@
                     },
                     "templates": {
                         "_label": "E-mail"
+                    },
+                    "cadence": {
+                        "_label": "Cadenza"
                     }
                 },
                 "payments": {
@@ -14007,6 +14018,9 @@
                 "_label": "Menu di navigazione",
                 "tutorial": {
                     "_label": "Tutorial"
+                },
+                "inbox": {
+                    "_label": "Posta in arrivo"
                 }
             },
             "member": {

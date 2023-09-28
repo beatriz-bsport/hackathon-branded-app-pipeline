@@ -130,7 +130,6 @@ const BookerModuleOfferSummary: React.FC<Props> = ({
       size={CardSize.AUTO}
     >
       <CardContent
-        padding
         classes={{
           'bs-booker-module-offer-summary-content': true,
         }}

@@ -89,46 +89,31 @@ const BookingConfirmButtonWithOfferSummary: React.FC<Props> = ({
         isMobile={isMobile}
       >
         {OfferSummaryComponent?.()}
-        <div className={classes.priceDetailContainer}>
-          <Collapse in={!!price}>
-            {displayTax && (
-              <div className={classes.columnGap1}>
-                <div className={classes.price}>
-                  <Typography className={classes.grey} variant="body2">
-                    {t(`checkout:payment.taxExcluded`)}
-                  </Typography>
-                  <Typography variant="body2">
-                    {getCurrencyDisplayWithPrice(price ?? 0, true, tax ?? 0)}
-                  </Typography>
-                </div>
-                <div className={classes.price}>
-                  <Typography className={classes.grey} variant="body2">
-                    {t(`checkout:payment.tax`)}
-                  </Typography>
-                  <Typography variant="body2">
-                    {getCurrencyDisplayWithPrice(
-                      getTaxPrice(price ?? 0, tax ?? 0),
-                    )}
-                  </Typography>
-                </div>
-              </div>
-            )}
-            {!isMobile && (
-              <div className={classes.price}>
-                <Typography variant="h6">
-                  {t(`checkout:payment.globalTotal`)}
-                </Typography>
-                <Typography variant="h6">
-                  {getCurrencyDisplayWithPrice(price ?? 0)}
-                </Typography>
-              </div>
-            )}
-          </Collapse>
-        </div>
-      </DetailsContainer>
-      {isMobile && (
+        <div className={classes.spacer}> </div>
         <Collapse in={!!price}>
-          <div className={classes.onlyPriceContainer}>
+          {displayTax && (
+            <div className={classes.columnGap1}>
+              <div className={classes.price}>
+                <Typography className={classes.grey} variant="body2">
+                  {t(`checkout:payment.taxExcluded`)}
+                </Typography>
+                <Typography variant="body2">
+                  {getCurrencyDisplayWithPrice(price ?? 0, true, tax ?? 0)}
+                </Typography>
+              </div>
+              <div className={classes.price}>
+                <Typography className={classes.grey} variant="body2">
+                  {t(`checkout:payment.tax`)}
+                </Typography>
+                <Typography variant="body2">
+                  {getCurrencyDisplayWithPrice(
+                    getTaxPrice(price ?? 0, tax ?? 0),
+                  )}
+                </Typography>
+              </div>
+            </div>
+          )}
+          {!isMobile && (
             <div className={classes.price}>
               <Typography variant="h6">
                 {t(`checkout:payment.globalTotal`)}
@@ -137,6 +122,18 @@ const BookingConfirmButtonWithOfferSummary: React.FC<Props> = ({
                 {getCurrencyDisplayWithPrice(price ?? 0)}
               </Typography>
             </div>
+          )}
+        </Collapse>
+      </DetailsContainer>
+      {isMobile && (
+        <Collapse in={!!price}>
+          <div className={classes.price}>
+            <Typography variant="h6">
+              {t(`checkout:payment.globalTotal`)}
+            </Typography>
+            <Typography variant="h6">
+              {getCurrencyDisplayWithPrice(price ?? 0)}
+            </Typography>
           </div>
         </Collapse>
       )}
@@ -164,8 +161,11 @@ const BookingConfirmButtonWithOfferSummary: React.FC<Props> = ({
 const useStyles = makeStyles((theme) => ({
   container: {
     backgroundColor: theme.palette.background.paper,
-    border: '2px solid #F1F3F4',
-    borderRadius: '0px',
+    padding: theme.spacing(2),
+    borderStyle: 'solid',
+    borderWidth: '1px',
+    borderColor: '#F1F3F4',
+    borderRadius: '12px',
     display: 'flex',
     flexDirection: 'column',
     '@media (max-width:950px)': {
@@ -174,8 +174,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   buttonContainer: {
-    paddingLeft: theme.spacing(1),
-    paddingRight: theme.spacing(1),
     paddingBottom: theme.spacing(1),
   },
   button: {
@@ -195,20 +193,15 @@ const useStyles = makeStyles((theme) => ({
       gap: 0,
     },
   },
-  priceDetailContainer: {
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2),
-  },
-  onlyPriceContainer: {
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2),
-  },
   price: {
     display: 'flex',
     justifyContent: 'space-between',
   },
   grey: {
     color: '#687586',
+  },
+  spacer: {
+    paddingTop: theme.spacing(2),
   },
 }));
 

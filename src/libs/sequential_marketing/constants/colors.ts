@@ -14,6 +14,7 @@ export enum SequentialMarketingColors {
 
   TRIGGER_COLOR = 'rgba(144, 59, 229, 1)',
   TRIGGER_BORDER_COLOR = 'rgba(144, 59, 229, 0.25)',
+  TRIGGER_BACKGROUND_COLOR = 'rgba(244, 236, 253, 1)',
 
   ACTION_BUTTON_COLOR = 'rgba(0, 0, 0, 0.54)',
 

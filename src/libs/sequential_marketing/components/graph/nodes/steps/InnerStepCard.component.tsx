@@ -2,7 +2,12 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Immutable from 'seamless-immutable';
 
-import { SequentialMarketingColors } from '#libs/sequential_marketing/constants';
+import {
+  SequentialMarketingColors,
+  TRIGGER_KIND_CHOICES,
+  TriggerKind,
+} from '#libs/sequential_marketing/constants';
+import { triggerIconByKind } from '#libs/sequential_marketing/components/helpers/utils';
 import CadenceNodeContent from '#libs/sequential_marketing/components/graph/nodes/internals/CadenceNodeContent.component';
 import CadenceNodeTitle from '#libs/sequential_marketing/components/graph/nodes/internals/CadenceNodeTitle.component';
 import StepCard from '#components/card/StepCard.component';
@@ -22,7 +27,7 @@ export type InnerStepCardProps = {
   onDelete: () => void;
   handleChangeInExit: () => void;
   onCardClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  addNextStep: () => void;
+  addNextStep: (triggerKind: TriggerKind) => void;
 } & InnerStepContentProps;
 
 type InnerStepHeaderProps = {
@@ -137,10 +142,25 @@ const InnerStepCard: React.FC<InnerStepCardProps> = ({
     [handleChangeInExit, onClickAction, onDelete, t],
   );
 
+  const triggerActions = React.useMemo(
+    () =>
+      Immutable(
+        TRIGGER_KIND_CHOICES.map((triggerKind) => ({
+          label: t(`cadence.triggers.kinds.${triggerKind}`),
+          icon: triggerIconByKind[triggerKind],
+          customColor: SequentialMarketingColors.TRIGGER_COLOR,
+          onClick: () => addNextStep(triggerKind),
+        })),
+      ),
+    [addNextStep, t],
+  );
+
   return (
     <StepCard
       maxWidth
-      addButtonAction={addNextStep}
+      actionListColor={SequentialMarketingColors.TRIGGER_BACKGROUND_COLOR}
+      actionListLabel={t('cadence.steps.actions.nextStepTrigger')}
+      addButtonActionList={triggerActions}
       addButtonColor={SequentialMarketingColors.INNER_STEP_COLOR}
       addButtonLabel={t('cadence.steps.actions.addNextStep')}
       color={SequentialMarketingColors.INNER_STEP_BORDER_COLOR}

@@ -1,10 +1,16 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import Immutable from 'seamless-immutable';
 
+import CadenceNodeContent from '#libs/sequential_marketing/components/graph/nodes/internals/CadenceNodeContent.component';
+import CadenceNodeTitle from '#libs/sequential_marketing/components/graph/nodes/internals/CadenceNodeTitle.component';
 import StepCard from '#components/card/StepCard.component';
-import CadenceNodeTitle from '../internals/CadenceNodeTitle.component';
-import CadenceNodeContent from '../internals/CadenceNodeContent.component';
-import { SequentialMarketingColors } from '#libs/sequential_marketing/constants';
+import { triggerIconByKind } from '#libs/sequential_marketing/components/helpers/utils';
+import {
+  SequentialMarketingColors,
+  TRIGGER_KIND_CHOICES,
+  TriggerKind,
+} from '#libs/sequential_marketing/constants';
 
 import type {
   CadenceStep,
@@ -22,18 +28,18 @@ type EntryStepHeaderProps = {
 
 type EntryStepContentProps = {
   marketingActionList?: StepMarketingActions[];
-  onClickNewMarketingAction?: () => void;
-  getTag?: (id: string) => Tag;
   getEmailTemplate?: (id: string) => EmailTemplateSummary;
+  getTag?: (id: string) => Tag;
+  onClickNewMarketingAction?: () => void;
 };
 
 export type EntryStepCardProps = {
-  step: CadenceStep;
-  onCardClick: () => void;
-  addNextStep: () => void;
-  addMarketingAction?: () => void;
-  isSelected?: boolean;
   disabled?: boolean;
+  isSelected?: boolean;
+  step: CadenceStep;
+  addMarketingAction?: () => void;
+  addNextStep: (triggerKind: TriggerKind) => void;
+  onCardClick: () => void;
 } & Omit<EntryStepHeaderProps, 'onClickNewMarketingAction'> &
   EntryStepContentProps;
 
@@ -56,9 +62,9 @@ const EntryStepHeader: React.FC<EntryStepHeaderProps> = React.memo(
 const EntryStepContent: React.FC<EntryStepContentProps> = React.memo(
   ({
     marketingActionList,
-    onClickNewMarketingAction,
-    getTag,
     getEmailTemplate,
+    getTag,
+    onClickNewMarketingAction,
   }) => {
     return (
       <CadenceNodeContent
@@ -74,16 +80,16 @@ const EntryStepContent: React.FC<EntryStepContentProps> = React.memo(
 );
 
 const EntryStepCard: React.FC<EntryStepCardProps> = ({
-  triggerList,
-  marketingActionList,
-  isSelected,
   disabled,
-  getTag,
-  getEmailTemplate,
+  isSelected,
+  marketingActionList,
+  triggerList,
   addMarketingAction,
-  getSmartlist,
-  onCardClick,
   addNextStep,
+  getEmailTemplate,
+  getSmartlist,
+  getTag,
+  onCardClick,
 }) => {
   const { t } = useTranslation('marketing');
 
@@ -103,10 +109,25 @@ const EntryStepCard: React.FC<EntryStepCardProps> = ({
     setClickDone(true);
   }, [addMarketingAction]);
 
+  const triggerActions = React.useMemo(
+    () =>
+      Immutable(
+        TRIGGER_KIND_CHOICES.map((triggerKind) => ({
+          label: t(`cadence.triggers.kinds.${triggerKind}`),
+          icon: triggerIconByKind[triggerKind],
+          customColor: SequentialMarketingColors.TRIGGER_COLOR,
+          onClick: () => addNextStep(triggerKind),
+        })),
+      ),
+    [addNextStep, t],
+  );
+
   return (
     <StepCard
       maxWidth
-      addButtonAction={addNextStep}
+      actionListColor={SequentialMarketingColors.TRIGGER_BACKGROUND_COLOR}
+      actionListLabel={t('cadence.steps.actions.nextStepTrigger')}
+      addButtonActionList={triggerActions}
       addButtonColor={SequentialMarketingColors.INNER_STEP_COLOR}
       addButtonLabel={t('cadence.steps.actions.addNextStep')}
       color={SequentialMarketingColors.ENTRY_BORDER_COLOR}

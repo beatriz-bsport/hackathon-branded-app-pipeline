@@ -35,7 +35,7 @@ const ConnectedTriggerChip: React.FC<ConnectedTriggerChipProps> = ({
 
   const triggerKind = useMemo(() => getTriggerKind(trigger), [trigger]);
 
-  let triggerConfig = trigger.trigger_config;
+  let triggerConfig = trigger?.trigger_config;
 
   switch (triggerKind) {
     case TriggerKind.ONLY_EVENT_TRIGGER:
@@ -43,7 +43,7 @@ const ConnectedTriggerChip: React.FC<ConnectedTriggerChipProps> = ({
       return (
         <CadenceChip
           color={color}
-          icon={getEventCategoryIconAsString(triggerConfig.event_type)}
+          icon={getEventCategoryIconAsString(triggerConfig?.event_type)}
           name={TriggerText({ connected_trigger_config: trigger })}
           toolTipValue={EventTriggerDetailText({
             connected_trigger_config: trigger,
@@ -75,7 +75,7 @@ const ConnectedTriggerChip: React.FC<ConnectedTriggerChipProps> = ({
         <>
           <CadenceChip
             color={color}
-            icon={getEventCategoryIconAsString(triggerConfig.event_type)}
+            icon={getEventCategoryIconAsString(triggerConfig?.event_type)}
             name={TriggerText({ connected_trigger_config: trigger })}
             toolTipValue={EventTriggerDetailText({
               connected_trigger_config: trigger,

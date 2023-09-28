@@ -108,6 +108,19 @@ export const PriceCount: React.FC<PriceCountProps> = ({
     [onRemoveCheckoutItem],
   );
 
+  const hasNothingToDisplay =
+    !deliveryFeeItem &&
+    !discountItemList?.length &&
+    !flatFeeItem &&
+    !isExcludingTax &&
+    !giftcardItemList &&
+    !internalAccountItem &&
+    hideTotal;
+
+  if (hasNothingToDisplay) {
+    return null;
+  }
+
   return (
     <div className={classes.priceCountContainer}>
       {!!(deliveryFeeItem || discountItemList?.length || flatFeeItem) && (

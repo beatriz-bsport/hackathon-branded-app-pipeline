@@ -10,10 +10,10 @@ import {
   firstOfferInGroupLocksBookingBecauseInPast,
 } from '../../../utils';
 import { Offer_FULL } from '#libs/offer/types';
-import './MarketplaceBookButtonForDialog.css';
 import { OffersGroup } from '#libs/group-offer/types';
 import { MetaActivity } from '#libs/meta-activity/types';
 import Button from '#components/css-only/Fabrique/Button';
+import './MarketplaceBookButtonForDialog.css';
 
 type Props = {
   offer: Offer_FULL;

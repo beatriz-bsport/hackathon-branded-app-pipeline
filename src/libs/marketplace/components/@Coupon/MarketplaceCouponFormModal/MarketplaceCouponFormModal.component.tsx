@@ -9,8 +9,8 @@ import { useDialogClickAwayListener } from '../../../../../hooks/useDialogClickA
 import { MARKETPLACE_COUPON_FORM_ERRORS as COUPON_FORM_ERRORS } from '#libs/marketplace/constants';
 
 import { OptionCallback } from '../../../../../state/types';
-import './styles.css';
 import Button, { ButtonType } from '#components/css-only/Fabrique/Button';
+import './styles.css';
 
 type CouponFormValues = {
   code: string;

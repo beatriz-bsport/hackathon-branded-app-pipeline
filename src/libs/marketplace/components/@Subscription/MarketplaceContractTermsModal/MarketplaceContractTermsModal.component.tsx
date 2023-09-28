@@ -9,8 +9,8 @@ import { downloadDocument } from '../../../../../utils/downloader';
 import { useDialogClickAwayListener } from '../../../../../hooks/useDialogClickAwayListener';
 import CircularProgress from '#components/css-only/CircularProgress';
 
-import './styles.css';
 import Button, { ButtonColor } from '#components/css-only/Fabrique/Button';
+import './styles.css';
 
 export type Props = {
   contractTerms: string;

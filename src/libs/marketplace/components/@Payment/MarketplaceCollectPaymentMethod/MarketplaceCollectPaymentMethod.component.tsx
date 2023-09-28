@@ -41,11 +41,12 @@ import {
 } from '#libs/marketplace/types';
 import { SelectOptionWithMetaData } from '#components/css-only/Select/Select.component';
 
-import './styles.css';
 import { usePaymentMethodBillingDetails } from '#libs/marketplace/hooks';
 import MarketplaceCardBillingDetailsFormFields from './MarketplaceCardBillingDetailsFormFields.component';
 import { PaymentMethod } from '#libs/payment/types';
 import Button, { ButtonType } from '#components/css-only/Fabrique/Button';
+
+import './styles.css';
 
 const stripePromise = loadStripe(getStripePkKey());
 

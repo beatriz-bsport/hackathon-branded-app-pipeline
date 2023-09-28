@@ -13,8 +13,8 @@ import { MarketplacePaymentMethods } from '#libs/marketplace/types';
 import CircularProgress from '#components/css-only/CircularProgress';
 import { PaymentMethod } from '#libs/payment/types';
 
-import './styles.css';
 import Button, { ButtonVariant } from '#components/css-only/Fabrique/Button';
+import './styles.css';
 
 export type Props = {
   isContractLegalTermsAccepted: boolean;

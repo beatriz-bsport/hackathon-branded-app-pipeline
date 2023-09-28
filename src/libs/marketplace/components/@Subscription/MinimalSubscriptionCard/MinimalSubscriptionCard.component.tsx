@@ -17,10 +17,11 @@ import BillingInterval from '../MarketplaceBillingInterval';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import type { Subscription } from '#libs/subscription/types';
 
-import './styles.css';
 import MinimalCardSkeleton from '../../MinimalCardSkeleton';
 import Collapse from '#components/css-only/Fabrique/Collapse';
 import Button from '#components/css-only/Fabrique/Button';
+
+import './styles.css';
 
 export type Props = {
   subscription: Subscription;

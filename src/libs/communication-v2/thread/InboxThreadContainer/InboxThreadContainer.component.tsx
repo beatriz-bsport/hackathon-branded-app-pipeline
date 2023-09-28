@@ -255,6 +255,7 @@ const InboxThreadContainer: React.FC<Props> = (props) => {
                   </Alert>
                 </Snackbar>
                 <CommunicationMessageListContainer
+                  allMemberCategoryList={props.allMemberCategoryList}
                   consentWarning={consentWarning}
                   contextMember={props.contextMember}
                   currentPage={props.currentPage}

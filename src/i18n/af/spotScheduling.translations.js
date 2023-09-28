@@ -135,5 +135,9 @@ exports.default = {
     seeAll: 'See all',
     confirm: 'Confirm',
     goBackToCheckout: 'Go back to the checkout',
+    selectOtherSpot: {
+      title: 'Or select a new spot',
+      message: 'Previous selection will become available for others.',
+    },
   },
 };

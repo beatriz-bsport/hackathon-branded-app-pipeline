@@ -1,8 +1,11 @@
 import React from 'react';
 import RoomIcon from '@material-ui/icons/Room';
 import AdjustIcon from '@material-ui/icons/Adjust';
+import { useTranslation } from 'react-i18next';
 
 import { CreditCard } from '@material-ui/icons';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import Button, { ButtonVariant } from '#components/css-only/Fabrique/Button';
 import type { Coach } from '#libs/associated-coach/types';
 import type { Establishment } from '#libs/establishment/types';
 import CardContent from '#components/css-only/Card/CardContent';
@@ -15,6 +18,7 @@ import MarketplaceEstablishmentTitle from '#marketplacecomponents/@Establishment
 import './styles.css';
 import { CompanyTheme } from '#libs/theme/types';
 import MarketplaceCoachInfos from '#marketplacecomponents/@Coach/MarketplaceCoachInfos';
+import SavedSpotCounddown from '#libs/checkout/components/new-checkout-flow/SavedSpotCountdown';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 export type Props = {
@@ -26,6 +30,9 @@ export type Props = {
   spotName?: string;
   credits?: string;
   showEstablishmentAddress?: boolean;
+  expirationDatetime?: string;
+  goToCheckout?: () => void;
+  fromSpotSelector?: boolean;
 };
 
 const ActivitySummary: React.FC<Props> = ({
@@ -37,7 +44,12 @@ const ActivitySummary: React.FC<Props> = ({
   spotName,
   credits,
   showEstablishmentAddress,
+  expirationDatetime,
+  goToCheckout,
+  fromSpotSelector,
 }) => {
+  const { t } = useTranslation('spotScheduling');
+
   return (
     <CardContent
       classes={{
@@ -133,6 +145,34 @@ const ActivitySummary: React.FC<Props> = ({
             <p className="bs-booking-item-details-credits__text">{credits}</p>
           </div>
         </GridItem>
+
+        {!!expirationDatetime && (
+          <GridItem
+            direction={Direction.ROW}
+            justification={Justification.FLEX_START}
+            rowStart={6}
+          >
+            <SavedSpotCounddown
+              additionalNode={
+                goToCheckout &&
+                fromSpotSelector && (
+                  <Button
+                    classes={{
+                      root: 'bs-booking-item-details__spot-countdown__checkout-button',
+                    }}
+                    onClick={goToCheckout}
+                    variant={ButtonVariant.OUTLINED}
+                  >
+                    {t('spotScheduling:spotSelector.goBackToCheckout')}
+                    <ArrowForwardIcon />
+                  </Button>
+                )
+              }
+              classes={{ 'bs-booking-item-details-countdown__container': true }}
+              expirationDatetime={expirationDatetime}
+            />
+          </GridItem>
+        )}
       </Grid>
     </CardContent>
   );

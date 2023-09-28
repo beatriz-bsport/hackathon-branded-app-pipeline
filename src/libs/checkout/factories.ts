@@ -31,6 +31,7 @@ export const checkoutItemFactory = (
     clearable: faker.datatype.boolean(),
     tax: tax ?? 0.2,
     extra_data: extraData ?? {},
+    expiration_datetime: '',
   };
 };
 

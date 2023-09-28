@@ -1,4 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react';
+import moment from 'moment-timezone';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import VisibilityIcon from '@material-ui/icons/Visibility';
@@ -24,6 +25,7 @@ import SpotSelector from '#libs/spot-scheduling/component/SpotSelector/SpotSelec
 import { DEFAULT_SPOT_TYPE_ID } from '#libs/spot-scheduling/utils';
 import { CanvasElement } from '#libs/spot-scheduling/CanvasSvg/tools/BaseClasses/Base.tool';
 import BookerModuleOfferSummary from '#libs/marketplace/components/@Offer/BookerModuleOfferSummary';
+import Countdown from '#components/time/CountDown.component';
 
 import './styles.css';
 
@@ -105,6 +107,9 @@ type Props = {
   spotTypes: SpotType[];
   selectedSpot: number;
   closeSpotSelector: () => void;
+  expirationDatetime?: string;
+  spotCurrentlyInBasket?: string;
+  goToCheckout?: () => void;
 };
 
 const MarketplaceSpotSelector: React.FC<Props> = (props) => {
@@ -171,12 +176,17 @@ const MarketplaceSpotSelector: React.FC<Props> = (props) => {
     <div className="bs-marketplace-spot-selector">
       <div className="bs-marketplace-spot-selector__header">
         <BookerModuleOfferSummary
+          fromSpotSelector
           noStyledContainer
           companyTheme={props.theme}
           establishment={props.offer?.establishment}
+          expirationDatetime={props.expirationDatetime}
+          goToCheckout={props.goToCheckout}
           metaActivity={props.offer?.meta_activity}
           offer={props.offer}
+          spotId={props.spotCurrentlyInBasket}
         />
+
         {!isMobile && (
           <div className="bs-marketplace-spot-selector__legend">
             <div className="bs-marketplace-spot-selector__legend-text">
@@ -200,6 +210,26 @@ const MarketplaceSpotSelector: React.FC<Props> = (props) => {
           </div>
         )}
       </div>
+
+      {!!props.expirationDatetime && (
+        <Countdown timestamp={moment(props.expirationDatetime).unix()}>
+          {(countdown: string) => {
+            if (countdown)
+              return (
+                <div className="bs-marketplace-spot-selector__select-other-spot">
+                  <div className="bs-marketplace-spot-selector__select-other-spot__title">
+                    {t('spotSelector.selectOtherSpot.title')}
+                  </div>
+                  <div className="bs-marketplace-spot-selector__select-other-spot__message">
+                    {t('spotSelector.selectOtherSpot.message')}
+                  </div>
+                </div>
+              );
+            return null;
+          }}
+        </Countdown>
+      )}
+
       {!isMobile ? (
         <SpotSelector
           isBoutiqueDisplay

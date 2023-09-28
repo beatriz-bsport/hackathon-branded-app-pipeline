@@ -10765,7 +10765,8 @@
       "unavailablePersonalizedSpot": "{{ spotName }} not available",
       "seeAll": "See all",
       "confirm": "Confirm",
-      "goBackToCheckout": "Go back to the checkout"
+      "goBackToCheckout": "Go back to the checkout",
+      "selectOtherSpot": { "title": "Or select a new spot", "message": "Previous selection will become available for others." }
     }
   },
   "stripe": {

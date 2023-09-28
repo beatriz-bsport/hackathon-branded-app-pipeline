@@ -579,6 +579,7 @@ export class BasketPage extends React.Component<Props> {
                   patchBasket={this.props.patchCurrentBasket}
                   paymentGroupId={this.state.paymentGroupId}
                   paymentProcessing={this.props.paymentProcessing}
+                  refreshBasket={this.props.refreshBasket}
                   removeItemFromBasket={this.props.removeItemFromBasket}
                   setPaymentProcessing={this.props.setPaymentProcessing}
                   setTermsAndConditionsAccepted={

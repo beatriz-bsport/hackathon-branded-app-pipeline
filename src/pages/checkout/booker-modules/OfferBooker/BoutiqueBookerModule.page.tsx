@@ -22,6 +22,7 @@ import ArrowBack from '@material-ui/icons/ArrowBack';
 
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { SvgIconComponent } from '@material-ui/icons';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status';
 import { OFFER_WAITING_LIST_STATUS_OPEN } from '@bsport/common/lib/master-data/waiting-list-status';
 import Alert, { AlertSeverity } from '#csscomponents/Alert';
@@ -41,6 +42,8 @@ import {
 } from '#libs/payment-combo/actions';
 // @ts-expect-error
 import withQueryParams from '#hocs/with-query-params.hoc';
+import { fetchCurrentBasket as fetchCurrentBasketAction } from '#libs/checkout/actions';
+import { getCurrentBasket } from '#libs/checkout/selectors';
 import { buildUrlParams } from '../../../../http';
 import {
   buildBuyableItemCategories,
@@ -154,10 +157,10 @@ import MarketplaceBookerModuleBuyableItems from '#marketplacecomponents/@Buyable
 import Button, {
   ButtonColor,
   ButtonVariant,
-  ButtonSize,
 } from '#components/css-only/Fabrique/Button';
 import Skeleton, { SkeletonVariant } from '#components/css-only/Skeleton';
 import BookingConfirmButtonWithOfferSummary from '#libs/booking/components/BookingConfirmButtonWithOfferSummary.component';
+import CountDown from '#components/time/CountDown.component';
 import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#libs/exportable-components/actions';
 import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
 import BookerModuleOfferSummary from '#libs/marketplace/components/@Offer/BookerModuleOfferSummary';
@@ -227,8 +230,10 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
   }
 
   componentDidMount() {
-    !!this.props.companyId &&
+    if (this.props.companyId) {
       this.props.retrieveCompanyCssConfiguration(this.props.companyId);
+      this.props.fetchCurrentBasket(this.props.companyId);
+    }
     this.props.fetchOffer(this.props.offerId, {
       onSuccess: (offer: Offer) => {
         this.props.fetchCompanyTheme(offer.company);
@@ -486,7 +491,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       prefix =
         this.props.spotTypes?.find?.(
           (spotType) => spotType.id === spot.spotTypeId,
-        ).prefix ?? '';
+        )?.prefix ?? '';
     }
 
     const selectedSpot = prefix + spot.indexType.toString();
@@ -725,6 +730,27 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       : this.props.t('booking:newBookingModule.buyPass');
   };
 
+  getCheckoutItemRelatedToOfferSpot = () => {
+    if (this.props.basketIsLoading) return null;
+
+    const offerCheckoutItem = this.props.basket?.checkout_items?.find(
+      (checkoutItem) =>
+        !!checkoutItem?.extra_data?.offers_data?.[0]?.extra_data?.spot_id &&
+        checkoutItem?.extra_data?.offers_data?.[0]?.offer_id ===
+          this.props.offerId,
+    );
+    return offerCheckoutItem;
+  };
+
+  getSpotExpirationDatetime = () => {
+    return this.getCheckoutItemRelatedToOfferSpot()?.expiration_datetime;
+  };
+
+  getSpotCurrentlyInBasket = () => {
+    return this.getCheckoutItemRelatedToOfferSpot()?.extra_data
+      ?.offers_data?.[0]?.extra_data?.spot_id;
+  };
+
   render() {
     const { t } = this.props;
     const offerSummaryLoading =
@@ -791,12 +817,15 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                     this.props.assetByIdBlueprintByIdentifier
                   }
                   closeSpotSelector={this.closeSpotSelector}
+                  expirationDatetime={this.getSpotExpirationDatetime()}
                   fetchOfferStatus={this.fetchOfferStatus}
                   fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
+                  goToCheckout={this.props.goTocheckout}
                   offer={this.props.offer}
                   offerStatusById={this.props.offerStatusById}
                   roomBlueprintsById={this.props.roomBlueprintsById}
                   selectedSpot={this.state.selectedSpotId}
+                  spotCurrentlyInBasket={this.getSpotCurrentlyInBasket()}
                   spotTypes={[DEFAULT_SPOT_TYPE as SpotType].concat(
                     this.props.spotTypes,
                   )}
@@ -814,10 +843,30 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
               color={ButtonColor.PRIMARY}
               isDisabled={this.state.selectedSpotId === null}
               onClick={this.closeSpotSelectorIfSpotSelected}
-              size={ButtonSize.LARGE}
             >
               {t('spotScheduling:spotSelector.confirm')}
             </Button>
+
+            {this.getSpotExpirationDatetime() && (
+              <CountDown
+                timestamp={moment(this.getSpotExpirationDatetime()).unix()}
+              >
+                {(countdown: string) => {
+                  return countdown ? (
+                    <Button
+                      classes={{
+                        root: 'bs-new-offer-booking__spot-selector__go-to-checkout',
+                      }}
+                      onClick={this.props.goTocheckout}
+                      variant={ButtonVariant.OUTLINED}
+                    >
+                      {t('spotScheduling:spotSelector.goBackToCheckout')}
+                      <ArrowForwardIcon />
+                    </Button>
+                  ) : null;
+                }}
+              </CountDown>
+            )}
           </div>
         </div>
       );
@@ -930,6 +979,8 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                   // Must be change, these information can be fetch and display faster to reduce loadig time feelling.
                   companyTheme={this.props.theme}
                   establishment={this.props.offer?.establishment}
+                  expirationDatetime={this.getSpotExpirationDatetime()}
+                  goToCheckout={this.props.goTocheckout}
                   loading={offerSummaryLoading}
                   metaActivity={this.props.offer?.meta_activity}
                   offer={this.props.offer}
@@ -1009,6 +1060,8 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
     marketplaceSettings: state.marketplace.settings,
     marketplaceSettingsLoading: state.marketplace.loading,
     customConfiguration: state.exportableComponents.customCss,
+    basket: getCurrentBasket(state),
+    basketIsLoading: state.checkout.basket.current.loading,
   };
 };
 
@@ -1047,6 +1100,7 @@ const mapDispatchToProps = {
   fetchMarketplaceSettings,
   goBack,
   retrieveCompanyCssConfiguration: retrieveCompanyCssConfigurationAction,
+  fetchCurrentBasket: fetchCurrentBasketAction,
 };
 
 const mapHandlers = {
@@ -1115,6 +1169,9 @@ const mapHandlers = {
         );
       }
     },
+  goTocheckout: (props: OwnProps & ConnectedProps<typeof connector>) => () => {
+    props.push(getCheckoutUrl(props.companyId, true));
+  },
 };
 
 const connector = connect(mapStateToProps, mapDispatchToProps);

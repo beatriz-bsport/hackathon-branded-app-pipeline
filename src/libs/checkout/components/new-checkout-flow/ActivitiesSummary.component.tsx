@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import Immutable from 'seamless-immutable';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -13,12 +13,15 @@ import { CheckoutItem } from '#libs/checkout/types';
 import { CompanyTheme } from '#libs/theme/types';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import OfferSummary from '#libs/offer/OfferSummary';
+import SavedSpotCounddown from '#libs/checkout/components/new-checkout-flow/SavedSpotCountdown';
 
 type ActivitiesSummaryProps = {
   activitySummaryCheckoutItems: CheckoutItem[];
   basketOffers: Offer<number, Establishment, MetaActivity>[];
   companyTheme: CompanyTheme;
   connectedToOtherComponents: boolean;
+  setExpiredSpotDialogOpen?: (value: boolean) => void;
+  basketLoading: boolean;
 };
 
 export const ActivitiesSummary: React.FC<ActivitiesSummaryProps> = ({
@@ -26,6 +29,8 @@ export const ActivitiesSummary: React.FC<ActivitiesSummaryProps> = ({
   basketOffers,
   companyTheme,
   connectedToOtherComponents,
+  setExpiredSpotDialogOpen,
+  basketLoading,
 }) => {
   const classes = useStyles({ connectedToOtherComponents });
 
@@ -34,15 +39,22 @@ export const ActivitiesSummary: React.FC<ActivitiesSummaryProps> = ({
       activitySummaryCheckoutItems.map((checkoutItem) => {
         return Immutable({
           ...checkoutItem,
-          offers: checkoutItem.extra_data?.offers_data?.map((offerData) =>
-            basketOffers?.find(
+          details: checkoutItem.extra_data?.offers_data?.map((offerData) => ({
+            offer: basketOffers?.find(
               (offerDetail) => offerDetail.id === offerData.offer_id,
             ),
-          ),
+            spotId: offerData.extra_data.spot_id,
+          })),
         });
       }),
     [activitySummaryCheckoutItems, basketOffers],
   );
+
+  const onCheckoutItemExpires = useCallback(() => {
+    if (setExpiredSpotDialogOpen) {
+      setExpiredSpotDialogOpen(true);
+    }
+  }, [setExpiredSpotDialogOpen]);
 
   if (activitySummaryCheckoutItems.length === 0) return null;
 
@@ -50,12 +62,13 @@ export const ActivitiesSummary: React.FC<ActivitiesSummaryProps> = ({
     <div className={classes.activityContainer}>
       {checkoutItemsWithDetails?.map((checkoutItem, index) => (
         <React.Fragment key={`checkout-item-details-${checkoutItem.id}`}>
-          {checkoutItem.offers.map((offer) => (
+          {checkoutItem.details.map((offerDetail) => (
             <OfferSummary
-              key={`offer-summary-${offer?.id}`}
-              establishment={offer?.establishment}
-              metaActivity={offer?.meta_activity}
-              offer={offer}
+              key={`offer-summary-${offerDetail.offer?.id}`}
+              establishment={offerDetail.offer?.establishment}
+              metaActivity={offerDetail.offer?.meta_activity}
+              offer={offerDetail.offer}
+              spotId={offerDetail.spotId}
               theme={companyTheme}
               variant={OfferSummaryVariant.BASKET}
             />
@@ -75,6 +88,15 @@ export const ActivitiesSummary: React.FC<ActivitiesSummaryProps> = ({
               {getCurrencyDisplayWithPrice(checkoutItem.unit_price)}
             </Typography>
           </div>
+
+          {checkoutItem.expiration_datetime && !basketLoading && (
+            <SavedSpotCounddown
+              classes={{ [classes.expirationWarning]: true }}
+              expirationDatetime={checkoutItem.expiration_datetime}
+              onFinish={onCheckoutItemExpires}
+            />
+          )}
+
           {index !== checkoutItemsWithDetails.length - 1 && (
             <Divider className={classes.divider} variant="middle" />
           )}
@@ -115,6 +137,9 @@ const useStyles = makeStyles<Theme, { connectedToOtherComponents: boolean }>(
       borderColor: theme.palette.grey[100],
       borderWidth: '1px',
       margin: theme.spacing(1),
+    },
+    expirationWarning: {
+      padding: theme.spacing(2),
     },
   }),
 );

@@ -64,6 +64,7 @@ export type CheckoutItem = {
   clearable: boolean;
   tax: number;
   extra_data: CheckoutItemExtraData;
+  expiration_datetime: string | null;
 };
 
 type ExtraData = {

@@ -3,7 +3,7 @@ import Typography from '@material-ui/core/Typography';
 import moment from 'moment-timezone';
 
 interface Props {
-  typographyProps: any;
+  typographyProps?: any;
   timestamp: number;
   onFinish?: () => void;
 }
@@ -54,7 +54,7 @@ export default class CountDown extends React.PureComponent<Props> {
 
     const str = moment.utc(duration.as('millisecond')).format('mm:ss');
 
-    if (duration.minutes() < 0 || duration.seconds() < 0) {
+    if (duration.minutes() <= 0 && duration.seconds() <= 0) {
       return '';
     }
 

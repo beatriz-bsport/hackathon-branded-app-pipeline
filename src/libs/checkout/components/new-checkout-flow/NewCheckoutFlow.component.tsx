@@ -49,6 +49,7 @@ import type { Offer } from '#libs/offer/types';
 import type { Establishment } from '#libs/establishment/types';
 import type { MetaActivity } from '#libs/meta-activity/types';
 import EmptyBasket from '#libs/checkout/components/new-checkout-flow/EmptyBasket';
+import ExpiredSpotDialog from '#libs/checkout/components/new-checkout-flow/ExpiredSpotDialog';
 
 import {
   useHandleSubmitButtonsCallbacks,
@@ -112,6 +113,7 @@ type NewCheckoutFlowProps = {
   useInternalAccount?: (amount: number) => void;
   validateUnpaid: (options: OptionCallback) => void;
   goToMarketplace: () => void;
+  refreshBasket: () => void;
 };
 
 export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
@@ -148,6 +150,7 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
   useInternalAccount,
   validateUnpaid,
   goToMarketplace,
+  refreshBasket,
 }) => {
   const { t } = useTranslation('checkout');
   const classes = useStyles();
@@ -188,6 +191,14 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
     React.useState<boolean>(false);
 
   const [isBasketDisplayed, setIsBasketDisplayed] = React.useState(false);
+
+  const [expiredSpotDialogOpen, setExpiredSpotDialogOpen] =
+    React.useState(false);
+
+  const handleCloseExpiredSpotDialog = React.useCallback(() => {
+    setExpiredSpotDialogOpen(false);
+    refreshBasket();
+  }, [refreshBasket]);
 
   // If the basket does not need anymore an adress, we should go to the next step directly
   React.useEffect(() => {
@@ -302,121 +313,131 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
   }
 
   return (
-    <div className={classes.container}>
-      <div className={classes.titleContainer}>
-        <IconButton onClick={goBack}>
-          <ArrowBack className={classes.arrowIcon} />
-        </IconButton>
-        <Typography className={classes.title} variant="h5">
-          {t('payment.title')}
-        </Typography>
-      </div>
-      <div className={classes.subContainer}>
-        <div className={classes.paymentContainer}>
-          <CheckoutSteps
-            ref={checkoutStepsRef}
-            allowConsumerToUseInternalAccount={
-              allowConsumerToUseInternalAccount
-            }
-            auth={auth}
-            basket={basket}
-            basketHasOffers={!noOfferInCheckoutItems}
-            basketLoading={basketLoading}
-            cardBillingDetailsMandatory={theme.force_billing_details_on_cards}
-            checkItemsBasket={checkItemsBasket}
-            clientSecret={clientSecret}
-            companyCountry={companyCountry}
-            companyId={companyId}
-            createPendingBookingsIfNecessary={createPendingBookingsIfNecessary}
-            creditAccountBalance={creditAccountBalance}
-            currentStep={currentStep}
-            detachPaymentMethod={detachPaymentMethod}
-            detachPaymentMethodLoading={detachPaymentMethodLoading}
-            instalmentPaymentConfigurationList={instalmentPaymentConfigurationList.filter(
-              (ipc) => ipc.basketId === basket?.id,
-            )}
-            isOnlinePaymentAvailable={isOnlinePaymentAvailable}
-            isPayLaterAvailable={isPayLaterAvailable}
-            isTotalPriceNull={isTotalPriceNull}
-            onPaymentSuccess={onPaymentSuccess}
-            onSelectInstalmentPayment={onSelectInstalmentPayment}
-            patchBasket={patchBasket}
-            paymentGroupId={paymentGroupId}
-            paymentMethodChoices={PAYMENT_GROUP_METHOD_BY_ENGINE[
-              PAYMENT_ENGINE_STRIPE
-            ].filter((pm) =>
-              (theme.payment_method_available_basket || []).includes(pm),
-            )}
-            paymentProcessing={paymentProcessing}
-            setCurrentStep={setCurrentStep}
-            setIsOnlinePaymentDisabled={setIsOnlinePaymentDisabled}
-            setPaymentProcessing={setPaymentProcessing}
-            setTermsAndConditionsAccepted={setTermsAndConditionsAccepted}
-            snackbarErrorMsg={snackbarErrorMsg}
-            snackbarSuccessMsg={snackbarSuccessMsg}
-            steps={steps}
-            stripeId={theme.stripe_id}
-            termsAndConditions={theme.general_terms_and_conditions}
-            termsAndConditionsAccepted={termsAndConditionsAccepted}
-            useInternalAccount={useInternalAccount}
-            validateUnpaid={validateUnpaid}
-          />
+    <>
+      <div className={classes.container}>
+        <div className={classes.titleContainer}>
+          <IconButton onClick={goBack}>
+            <ArrowBack className={classes.arrowIcon} />
+          </IconButton>
+          <Typography className={classes.title} variant="h5">
+            {t('payment.title')}
+          </Typography>
         </div>
-        <div className={classes.scrollableItems}>
-          <ActivitiesSummary
-            activitySummaryCheckoutItems={activitySummaryCheckoutItems}
-            basketOffers={basketOffers}
-            companyTheme={theme}
-            connectedToOtherComponents={
-              !isMobile || basketSummaryCheckoutItems.length > 0
-            }
-          />
-          <Collapse in={!isMobile || isBasketDisplayed}>
-            <BasketSummary
-              noPriceBackground
-              basketSummaryCheckoutItems={basketSummaryCheckoutItems}
-              displayBasketTitle={noOfferInCheckoutItems}
-              isExcludingTax={isExcludingTax}
-              isItemEditionDisabled={isBasketModificationDisabled}
-              onAddCheckoutItem={handleAddCheckoutItem}
-              onRemoveCheckoutItem={handleRemoveCheckoutItem}
-            />
-          </Collapse>
-          {isMobile && basketSummaryCheckoutItems.length > 0 && (
-            <Button
-              className={classes.expandContainer}
-              onClick={OnBasketRequest}
-            >
-              {isBasketDisplayed ? <ExpandLess /> : <ExpandMore />}
-            </Button>
-          )}
-        </div>
-        <div className={classes.validationContainer}>
-          <div className={classes.couponCodeInput}>
-            <CouponCodeInput
-              isBasketModificationDisabled={isBasketModificationDisabled}
-              onSubmit={attachCoupon}
+        <div className={classes.subContainer}>
+          <div className={classes.paymentContainer}>
+            <CheckoutSteps
+              ref={checkoutStepsRef}
+              allowConsumerToUseInternalAccount={
+                allowConsumerToUseInternalAccount
+              }
+              auth={auth}
+              basket={basket}
+              basketHasOffers={!noOfferInCheckoutItems}
+              basketLoading={basketLoading}
+              cardBillingDetailsMandatory={theme.force_billing_details_on_cards}
+              checkItemsBasket={checkItemsBasket}
+              clientSecret={clientSecret}
+              companyCountry={companyCountry}
+              companyId={companyId}
+              createPendingBookingsIfNecessary={
+                createPendingBookingsIfNecessary
+              }
+              creditAccountBalance={creditAccountBalance}
+              currentStep={currentStep}
+              detachPaymentMethod={detachPaymentMethod}
+              detachPaymentMethodLoading={detachPaymentMethodLoading}
+              instalmentPaymentConfigurationList={instalmentPaymentConfigurationList.filter(
+                (ipc) => ipc.basketId === basket?.id,
+              )}
+              isOnlinePaymentAvailable={isOnlinePaymentAvailable}
+              isPayLaterAvailable={isPayLaterAvailable}
+              isTotalPriceNull={isTotalPriceNull}
+              onPaymentSuccess={onPaymentSuccess}
+              onSelectInstalmentPayment={onSelectInstalmentPayment}
+              patchBasket={patchBasket}
+              paymentGroupId={paymentGroupId}
+              paymentMethodChoices={PAYMENT_GROUP_METHOD_BY_ENGINE[
+                PAYMENT_ENGINE_STRIPE
+              ].filter((pm) =>
+                (theme.payment_method_available_basket || []).includes(pm),
+              )}
+              paymentProcessing={paymentProcessing}
+              setCurrentStep={setCurrentStep}
+              setIsOnlinePaymentDisabled={setIsOnlinePaymentDisabled}
+              setPaymentProcessing={setPaymentProcessing}
+              setTermsAndConditionsAccepted={setTermsAndConditionsAccepted}
+              snackbarErrorMsg={snackbarErrorMsg}
+              snackbarSuccessMsg={snackbarSuccessMsg}
+              steps={steps}
+              stripeId={theme.stripe_id}
+              termsAndConditions={theme.general_terms_and_conditions}
+              termsAndConditionsAccepted={termsAndConditionsAccepted}
+              useInternalAccount={useInternalAccount}
+              validateUnpaid={validateUnpaid}
             />
           </div>
-          <PriceCount
-            basket={basket}
-            isDeleteButtonDisabled={isBasketModificationDisabled}
-            isExcludingTax={isExcludingTax}
-            onRemoveCheckoutItem={handleRemoveCheckoutItem}
-            onRemoveInternalAccountPrepaidLine={
-              onRemoveInternalAccountPrepaidLine
-            }
-            prepaidLines={basket.prepaid_lines}
-          />
-          <CheckoutButtons
-            handleSubmitButtonsCallbacks={handleSubmitButtonsCallbacks}
-            submitButtonsDisabledState={submitButtonsDisabledState}
-            submitButtonsDisplayableState={submitButtonsDisplayableState}
-            submitButtonsProcessingState={submitButtonsProcessingState}
-          />
+          <div className={classes.scrollableItems}>
+            <ActivitiesSummary
+              activitySummaryCheckoutItems={activitySummaryCheckoutItems}
+              basketLoading={basketLoading}
+              basketOffers={basketOffers}
+              companyTheme={theme}
+              connectedToOtherComponents={
+                !isMobile || basketSummaryCheckoutItems.length > 0
+              }
+              setExpiredSpotDialogOpen={setExpiredSpotDialogOpen}
+            />
+            <Collapse in={!isMobile || isBasketDisplayed}>
+              <BasketSummary
+                noPriceBackground
+                basketSummaryCheckoutItems={basketSummaryCheckoutItems}
+                displayBasketTitle={noOfferInCheckoutItems}
+                isExcludingTax={isExcludingTax}
+                isItemEditionDisabled={isBasketModificationDisabled}
+                onAddCheckoutItem={handleAddCheckoutItem}
+                onRemoveCheckoutItem={handleRemoveCheckoutItem}
+              />
+            </Collapse>
+            {isMobile && basketSummaryCheckoutItems.length > 0 && (
+              <Button
+                className={classes.expandContainer}
+                onClick={OnBasketRequest}
+              >
+                {isBasketDisplayed ? <ExpandLess /> : <ExpandMore />}
+              </Button>
+            )}
+          </div>
+          <div className={classes.validationContainer}>
+            <div className={classes.couponCodeInput}>
+              <CouponCodeInput
+                isBasketModificationDisabled={isBasketModificationDisabled}
+                onSubmit={attachCoupon}
+              />
+            </div>
+            <PriceCount
+              basket={basket}
+              isDeleteButtonDisabled={isBasketModificationDisabled}
+              isExcludingTax={isExcludingTax}
+              onRemoveCheckoutItem={handleRemoveCheckoutItem}
+              onRemoveInternalAccountPrepaidLine={
+                onRemoveInternalAccountPrepaidLine
+              }
+              prepaidLines={basket.prepaid_lines}
+            />
+            <CheckoutButtons
+              handleSubmitButtonsCallbacks={handleSubmitButtonsCallbacks}
+              submitButtonsDisabledState={submitButtonsDisabledState}
+              submitButtonsDisplayableState={submitButtonsDisplayableState}
+              submitButtonsProcessingState={submitButtonsProcessingState}
+            />
+          </div>
         </div>
       </div>
-    </div>
+      <ExpiredSpotDialog
+        handleClose={handleCloseExpiredSpotDialog}
+        open={expiredSpotDialogOpen}
+      />
+    </>
   );
 };
 

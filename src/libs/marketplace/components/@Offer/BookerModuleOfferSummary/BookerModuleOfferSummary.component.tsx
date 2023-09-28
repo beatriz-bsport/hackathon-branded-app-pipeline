@@ -48,6 +48,9 @@ export type Props = {
   confirmLoading?: boolean;
   noStyledContainer?: boolean;
   onConfirm?: () => void;
+  expirationDatetime?: string;
+  goToCheckout?: () => void;
+  fromSpotSelector?: boolean;
 };
 
 const BookerModuleOfferSummary: React.FC<Props> = ({
@@ -67,6 +70,9 @@ const BookerModuleOfferSummary: React.FC<Props> = ({
   confirmLoading,
   onConfirm,
   noStyledContainer,
+  expirationDatetime,
+  goToCheckout,
+  fromSpotSelector,
 }) => {
   const { t } = useTranslation([
     'datetime',
@@ -229,6 +235,9 @@ const BookerModuleOfferSummary: React.FC<Props> = ({
               companyTheme={companyTheme}
               credits={formattedCredits}
               establishment={establishment}
+              expirationDatetime={expirationDatetime}
+              fromSpotSelector={fromSpotSelector}
+              goToCheckout={goToCheckout}
               hideCoach={companyTheme?.hideCoach}
               showEstablishmentAddress={showEstablishmentAddress}
               spotName={spotName}

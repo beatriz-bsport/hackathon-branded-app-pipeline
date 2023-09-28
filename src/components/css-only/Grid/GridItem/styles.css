@@ -24,6 +24,9 @@
 .bs-grid-item-row-start-5 {
   grid-row-start: 5;
 }
+.bs-grid-item-row-start-6 {
+  grid-row-start: 6;
+}
 
 /* Grid row end */
 .bs-grid-item-row-end-1 {

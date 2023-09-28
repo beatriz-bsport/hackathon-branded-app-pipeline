@@ -184,7 +184,10 @@
     gap: var(--spacing-2);
   }
   .bs-new-offer-booking__spot-selector__confirm {
+    background-color: #fff;
     display: flex;
+    flex-direction: column;
+    gap: var(--spacing-1);
     justify-content: center;
     padding: var(--spacing-1) var(--spacing-2);
     width: 100%;
@@ -197,5 +200,10 @@
   .bs-new-offer-booking__spot-selector__blueprint {
     grid-area: main;
     overflow: scroll;
+  }
+  .bs-new-offer-booking__spot-selector__go-to-checkout {
+    color: var(--color-primary-main);
+    border-radius: var(--border-radius-4);
+    flex: 1;
   }
 }

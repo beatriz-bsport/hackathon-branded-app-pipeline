@@ -67,7 +67,7 @@ export const useConfirmationMessageData = (
         icon: React.createElement(ConfirmationMessageIcon, { isError: true }),
         message: t('validation.sections.errorExplain.offerOnlyBookingError'),
         title: t(
-          'validation.sections.confirmationStatusTitle.errors.offerOnlyBookingError',
+          'validation.sections.confirmationStatusTitle.errors.genericOfferError',
         ),
         withAlert: null,
         withSubScriptionActions: null,

@@ -8,8 +8,8 @@ import Checkbox from '#components/css-only/Checkbox/';
 import useIsTextExpandable from '../../../../../hooks/useIsTextExpandable';
 import Collapse from '#components/css-only/Fabrique/Collapse';
 
-import './SubscriptionTermsStyles.css';
 import Button from '#components/css-only/Fabrique/Button';
+import './SubscriptionTermsStyles.css';
 
 export type Props = {
   contractTerms: string;

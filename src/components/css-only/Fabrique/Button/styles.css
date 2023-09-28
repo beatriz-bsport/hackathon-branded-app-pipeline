@@ -101,6 +101,8 @@
   gap: var(--spacing-1);
   user-select: none;
   text-transform: uppercase;
+  align-items: center;
+  justify-content: center;
 }
 
 .bs-button-small__text {

@@ -39,7 +39,7 @@
 
 .bs-search__input {
   font-family: var(--body2-fontFamily);
-  font-size: var(--body2-fontSize);
+  font-size: 16px;
   color: var(--color-grey-dark);
   background-color: var(--color-background-paper);
   border: none;
@@ -80,7 +80,7 @@
 
 .bs-search__results__container__list__placeholder {
   font-family: var(--body2-fontFamily);
-  font-size: var(--body2-fontSize);
+  font-size: 16px;
   margin: 0;
   text-align: center;
 }

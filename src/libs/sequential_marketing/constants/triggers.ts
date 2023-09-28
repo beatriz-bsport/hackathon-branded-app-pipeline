@@ -57,6 +57,11 @@ export const TRIGGER_KIND_CHOICES = [
   TriggerKind.ONLY_TIMEOUT,
 ];
 
+/**
+ * @description Uuid given to the temporary trigger used during the creation of a new step.
+ */
+export const TRIGGER_TEMPORARY_ID = 'faker-trigger-id';
+
 // ========== CADENCE HANDLE STYLE ==========
 
 export const TRIGGER_LEFT_HANDLE_STYLE = {

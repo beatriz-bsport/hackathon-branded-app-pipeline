@@ -9,7 +9,7 @@ import StopIcon from '@material-ui/icons/Stop';
 import classNames from 'classnames';
 import Typography from '@material-ui/core/Typography';
 
-import { ELEMENT_WIDTH } from '../hooks/utils';
+import { ELEMENT_WIDTH } from '#libs/sequential_marketing/constants';
 
 export const ExitStepNodeElement: React.FC = () => {
   const { t } = useTranslation('marketing');

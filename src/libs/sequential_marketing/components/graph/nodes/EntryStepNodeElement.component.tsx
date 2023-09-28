@@ -16,8 +16,10 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import ToolTip from '#components/Tooltip.component';
 import { TriggerChip } from '../../CadenceConnectedTriggersCard.component';
 
-import { TriggerIdentifier } from '#libs/sequential_marketing/constants';
-import { ELEMENT_WIDTH } from '../hooks/utils';
+import {
+  TriggerIdentifier,
+  ELEMENT_WIDTH,
+} from '#libs/sequential_marketing/constants';
 
 import type {
   CadenceStep,

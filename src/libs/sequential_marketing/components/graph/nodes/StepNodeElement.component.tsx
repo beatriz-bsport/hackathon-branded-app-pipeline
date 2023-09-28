@@ -10,11 +10,13 @@ import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import DeleteIcon from '@material-ui/icons/Delete';
 
+import type { CadenceStep } from '#libs/sequential_marketing/types';
 import ToolTip from '#components/Tooltip.component';
 import DottedCallSplitIcon from '#components/icons/DottedCallSplitIcon.component';
-import type { CadenceStep } from '#libs/sequential_marketing/types';
-
-import { ELEMENT_WIDTH, ELEMENT_MAX_WIDTH } from '../hooks/utils';
+import {
+  ELEMENT_WIDTH,
+  ELEMENT_MAX_WIDTH,
+} from '#libs/sequential_marketing/constants';
 
 export type StepNodeElementProps = {
   step: CadenceStep;

@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import {
   OUTPUT_SECTION_HEIGHT,
   OUTPUT_SECTION_WIDTH,
-} from '#libs/sequential_marketing/constants/graph';
+} from '#libs/sequential_marketing/constants';
 
 export type CadenceOutputCollapseProps = {
   children: React.ReactNode;

@@ -29,33 +29,50 @@ import { getFranchisor } from '../../libs/franchise/selectors';
 // @ts-expect-error
 import B_ASSET from '../../public/images/b_dark.jpg';
 
-// @ts-expect-error honestly i dont understand why it raises an error
 const styles = (theme: Theme) =>
   createStyles({
     formContainer: {
       margin: theme.spacing(2),
     },
-    button: (props: Props) => ({
+    button: (props: OwnProps) => ({
       borderRadius: props.simplifyUI ? 24 : 8,
+      width: '100%',
     }),
     container: {
-      maxWidth: 320,
       textAlign: 'center',
       padding: 0,
       position: 'fixed',
       top: '50%',
       left: '50%',
       transform: 'translate(-50%, -50%)',
+      width: '500px',
+      [theme.breakpoints.down('sm')]: {
+        width: '100%',
+        height: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+      },
     },
     bsportLogo: {
-      marginTop: 30,
-      marginLeft: 10,
-      marginRight: 10,
-      maxWidth: '40vw',
-      width: 140,
+      position: 'absolute',
+      objectFit: 'contain',
+      width: '100%',
+      height: '100%',
     },
     content: {
       padding: theme.spacing(1),
+    },
+    logoWrapper: {
+      position: 'relative',
+      paddingBottom: '56.2%',
+      textAlign: 'start',
+    },
+    logoContainer: {
+      position: 'relative',
+    },
+    fullWidth: {
+      width: '100%',
     },
   });
 
@@ -174,14 +191,17 @@ export class ChangePassword extends Component<Props, State> {
     const { t, classes } = this.props;
     const { processing, hasExpired, password1, error, password2 } = this.state;
     const theme = this.props.franchisor || this.props.theme;
-
     return (
       <Paper className={classes.container}>
-        <img
-          alt={`${theme?.company_name || 'bsport'} logo`}
-          className={classes.bsportLogo}
-          src={theme?.cover || B_ASSET}
-        />
+        <div className={classes.logoContainer}>
+          <div className={classes.logoWrapper}>
+            <img
+              alt={`${theme?.company_name || 'bsport'} logo`}
+              className={classes.bsportLogo}
+              src={theme?.cover || B_ASSET}
+            />
+          </div>
+        </div>
         <div className={classes.content}>
           <form className={classes.formContainer} onSubmit={this.onSubmit}>
             <Grid container alignItems="center" direction="column" spacing={2}>
@@ -191,9 +211,10 @@ export class ChangePassword extends Component<Props, State> {
                 </Typography>
               </Grid>
               {!hasExpired && (
-                <Grid item>
+                <Grid item className={classes.fullWidth}>
                   <TextField
                     required
+                    className={classes.fullWidth}
                     name="password"
                     onChange={this.handlePassword1Change}
                     placeholder={t('form.login.password')}
@@ -203,9 +224,10 @@ export class ChangePassword extends Component<Props, State> {
                 </Grid>
               )}
               {!hasExpired && (
-                <Grid item>
+                <Grid item className={classes.fullWidth}>
                   <TextField
                     required
+                    className={classes.fullWidth}
                     name="passwordConfirm"
                     onChange={this.handlePassword2Change}
                     placeholder={t('form.login.confirmPassword')}
@@ -215,13 +237,13 @@ export class ChangePassword extends Component<Props, State> {
                 </Grid>
               )}
               {error ? (
-                <Grid item>
+                <Grid item className={classes.fullWidth}>
                   <Typography color="error" variant="caption">
                     {error}
                   </Typography>
                 </Grid>
               ) : null}
-              <Grid item>
+              <Grid item className={classes.fullWidth}>
                 {!!processing && <CircularProgress />}
                 {!processing && !hasExpired && (
                   <Button

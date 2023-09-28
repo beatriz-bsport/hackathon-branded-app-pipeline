@@ -591,6 +591,7 @@ exports.default = {
         changeInExit: 'Convert to output',
         delete: 'Delete',
         addNextStep: 'Add next step',
+        nextStepTrigger: 'Trigger to next step',
       },
     },
     marketingAction: { addAction: 'Add an action' },

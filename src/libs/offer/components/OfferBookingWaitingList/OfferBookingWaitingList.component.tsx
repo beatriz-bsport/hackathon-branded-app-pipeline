@@ -19,6 +19,7 @@ import { MetaActivity } from '#libs/meta-activity/types';
 import { CompanyTheme } from '#libs/theme/types';
 import { OffersGroup } from '#libs/group-offer/types';
 import BookerModuleOfferSummary from '#libs/marketplace/components/@Offer/BookerModuleOfferSummary';
+import Button, { ButtonVariant } from '#components/css-only/Fabrique/Button';
 
 import './styles.css';
 
@@ -87,13 +88,9 @@ const OfferBookingWaitingList: React.FC<Props> = ({
   return (
     <div className="bs-offer-booking-waiting-list__content__container">
       <div className="bs-offer-booking-waiting-list__header__container">
-        <button
-          className="bs-offer-booking-waiting-list__header__arrow__button"
-          onClick={onRedirectToCalendar}
-          type="button"
-        >
-          <ArrowBackIcon />
-        </button>
+        <Button onClick={onRedirectToCalendar} variant={ButtonVariant.ICON}>
+          <ArrowBackIcon className="bs-offer-booking-waiting-list__header__arrow__icon" />
+        </Button>
         {isLoading ? (
           <Skeleton height={32} variant="rect" width={350} />
         ) : (

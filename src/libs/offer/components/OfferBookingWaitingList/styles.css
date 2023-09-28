@@ -20,18 +20,8 @@
   color: var(--color-grey-dark);
 }
 
-.bs-offer-booking-waiting-list__header__arrow__button {
-  cursor: pointer;
-  border: none;
-  outline: none;
-  padding: 0;
-  border-radius: 100%;
-  background: none;
-  height: var(--spacing-3);
-}
-
-.bs-offer-booking-waiting-list__header__arrow__button:hover {
-  background-color: rgba(0, 0, 0, 0.04);
+.bs-offer-booking-waiting-list__header__arrow__icon {
+  color: var(--color-grey-main);
 }
 
 .bs-offer-booking-waiting-list__status__summary__container {

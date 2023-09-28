@@ -144,6 +144,7 @@ const MarketplaceBookerModuleBuyableItems: React.FC<Props> = ({
               }
             />
           )}
+          <div className="bs-booker-module-scroll_filler" />
         </Collapse>
       </>
     </div>

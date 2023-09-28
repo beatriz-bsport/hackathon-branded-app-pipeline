@@ -79,3 +79,7 @@
   height: 24px;
   line-height: 1;
 }
+
+.bs-booker-module-scroll_filler {
+  height: 20vh;
+}

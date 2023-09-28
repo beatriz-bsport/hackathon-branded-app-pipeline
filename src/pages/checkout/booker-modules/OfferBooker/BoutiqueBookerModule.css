@@ -17,6 +17,7 @@
   column-gap: var(--spacing-4);
   row-gap: var(--spacing-1);
   margin: var(--spacing-4) 0;
+  margin-bottom: 0;
 }
 
 .bs-new-offer-booking-header {

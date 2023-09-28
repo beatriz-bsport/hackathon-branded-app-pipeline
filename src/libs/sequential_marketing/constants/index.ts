@@ -21,6 +21,7 @@ import {
   DESTINATION_KIND_CHOICES,
   DESTINATION_STATUS_CHOICES,
   TRIGGER_DEFAULT_TIMEOUT_DAYS,
+  TRIGGER_KIND_CHOICES,
 } from './triggers';
 
 import {
@@ -48,7 +49,6 @@ export {
   MarketingActions,
   MarketingActionKind,
   CADENCE_MARKETING_ACTION_CHOICES,
-  TRIGGER_DEFAULT_TIMEOUT_DAYS,
   // TRIGGER
   TriggerIdentifier,
   DestinationKind,
@@ -56,6 +56,8 @@ export {
   TriggerKind,
   DESTINATION_KIND_CHOICES,
   DESTINATION_STATUS_CHOICES,
+  TRIGGER_DEFAULT_TIMEOUT_DAYS,
+  TRIGGER_KIND_CHOICES,
   // FILTER
   FilterIdentifier,
   // PANEL

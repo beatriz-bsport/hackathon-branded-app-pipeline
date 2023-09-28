@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import Immutable from 'seamless-immutable';
 
 import type { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/styles/makeStyles';
@@ -18,6 +19,8 @@ import {
   HEADER_FONT_SIZE,
   HEADER_MIN_HEIGHT,
 } from '#libs/sequential_marketing/constants/steps';
+import { Action } from '#components/button/MultipleActionsButton.component';
+import MultipleActionsRightButton from '#components/button/MultipleActionsRightButton.component';
 import ToolTip from '#components/Tooltip.component';
 
 const DEFAULT_ADD_BUTTON_COLOR = '#777';
@@ -32,18 +35,20 @@ type StepCardStylesProps = {
 };
 
 export type StepCardProps = {
-  header: React.ReactElement;
-  content?: React.ReactElement;
-  isSelected?: boolean;
-  isDivided?: boolean;
-  disabled?: boolean;
-  isEmpty?: boolean;
-  minHeight?: boolean;
-  disableRipple?: boolean;
-  onCardClick?: (event?: React.MouseEvent<HTMLButtonElement>) => void;
-  addButtonAction?: () => void;
-  addButtonLabel?: string;
+  actionListColor?: string;
+  actionListLabel?: string;
+  addButtonActionList?: Immutable.ImmutableArray<Action>;
   addButtonColor?: string;
+  addButtonLabel?: string;
+  content?: React.ReactElement;
+  disabled?: boolean;
+  disableRipple?: boolean;
+  header: React.ReactElement;
+  isDivided?: boolean;
+  isEmpty?: boolean;
+  isSelected?: boolean;
+  minHeight?: boolean;
+  onCardClick?: (event?: React.MouseEvent<HTMLButtonElement>) => void;
 } & Omit<StepCardStylesProps, 'heightSize' | 'selected'>;
 
 type Props = {
@@ -63,22 +68,24 @@ const StepCardContent: React.FC<Props> = React.memo(({ children }) => {
 });
 
 const StepCard: React.FC<StepCardProps> = ({
-  header,
-  content,
+  actionListColor,
+  actionListLabel,
+  addButtonActionList,
+  addButtonColor,
+  addButtonLabel,
   color,
-  selectedColor,
-  isSelected,
-  isDivided,
+  content,
   disabled,
-  withShadow,
+  disableRipple,
+  header,
+  isDivided,
   isEmpty,
+  isSelected,
   maxWidth,
   minHeight,
-  disableRipple,
+  selectedColor,
+  withShadow,
   onCardClick,
-  addButtonAction,
-  addButtonLabel,
-  addButtonColor,
 }) => {
   const [selected, setSelected] = useState(false);
 
@@ -131,15 +138,21 @@ const StepCard: React.FC<StepCardProps> = ({
           </div>
         </ButtonBase>
       </ClickAwayListener>
-      {!!addButtonAction && (
+      {!!addButtonActionList && (
         <div
           className={classes.addButtonContainer}
           style={{ color: addButtonColor || DEFAULT_ADD_BUTTON_COLOR }}
         >
           <ToolTip title={addButtonLabel || ''}>
-            <IconButton color="inherit" onClick={addButtonAction} size="small">
-              <AddCircleIcon fontSize="small" />
-            </IconButton>
+            <MultipleActionsRightButton
+              actionList={addButtonActionList}
+              customHoverBackgrondColor={actionListColor}
+              informationText={actionListLabel}
+            >
+              <IconButton color="inherit" size="small">
+                <AddCircleIcon fontSize="small" />
+              </IconButton>
+            </MultipleActionsRightButton>
           </ToolTip>
         </div>
       )}

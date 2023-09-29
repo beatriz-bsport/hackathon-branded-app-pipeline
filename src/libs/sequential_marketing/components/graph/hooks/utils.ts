@@ -1,4 +1,6 @@
+import { v4 as uuidv4 } from 'uuid';
 import {
+  DestinationKind,
   FilterIdentifier,
   TRIGGER_TEMPORARY_ID,
   TriggerIdentifier,
@@ -7,30 +9,30 @@ import {
 import type { ConnectedTrigger } from '#libs/sequential_marketing/types';
 import type { StoredStep } from '#libs/sequential_marketing/components/graph/hooks/types';
 
-export const getDefaultValuesComplete: (
-  kind: TriggerKind,
+export const getDefaultValuesComplete = (
+  triggerKind: TriggerKind,
   source?: StoredStep,
-) => ConnectedTrigger = (kind: TriggerKind, source?: StoredStep) => {
-  switch (kind) {
+  destinationKind?: DestinationKind,
+): ConnectedTrigger => {
+  switch (triggerKind) {
     case TriggerKind.ONLY_EVENT_TRIGGER:
       return {
         trigger_config: {
           uuid: TRIGGER_TEMPORARY_ID,
           identifier: TriggerIdentifier.EVENT,
           event_type: null,
-          timeout: null,
         },
         destination_config: {
           source_id: source?.id || null,
           destination_id: null,
-          kind: null,
-          reason: '',
+          kind: destinationKind || null,
+          reason: null,
           status: null,
-          uuid: null,
+          uuid: uuidv4(),
         },
         filtering_config: {
           identifier: FilterIdentifier.EMPTY,
-          uuid: null,
+          uuid: uuidv4(),
           smartlist_pk: null,
         },
         canvas: {
@@ -45,20 +47,18 @@ export const getDefaultValuesComplete: (
         trigger_config: {
           uuid: TRIGGER_TEMPORARY_ID,
           identifier: TriggerIdentifier.EMPTY,
-          event_type: null,
-          timeout: null,
         },
         destination_config: {
           source_id: source?.id || null,
           destination_id: null,
-          kind: null,
-          reason: '',
+          kind: destinationKind || null,
+          reason: null,
           status: null,
-          uuid: null,
+          uuid: uuidv4(),
         },
         filtering_config: {
           identifier: FilterIdentifier.SMARTLIST,
-          uuid: null,
+          uuid: uuidv4(),
           smartlist_pk: null,
         },
         canvas: {
@@ -73,20 +73,19 @@ export const getDefaultValuesComplete: (
         trigger_config: {
           uuid: TRIGGER_TEMPORARY_ID,
           identifier: TriggerIdentifier.TIMEOUT,
-          event_type: null,
           timeout: null,
         },
         destination_config: {
           source_id: source?.id || null,
           destination_id: null,
-          kind: null,
-          reason: '',
+          kind: destinationKind || null,
+          reason: null,
           status: null,
-          uuid: null,
+          uuid: uuidv4(),
         },
         filtering_config: {
           identifier: FilterIdentifier.EMPTY,
-          uuid: null,
+          uuid: uuidv4(),
           smartlist_pk: null,
         },
         canvas: {
@@ -102,19 +101,18 @@ export const getDefaultValuesComplete: (
           uuid: TRIGGER_TEMPORARY_ID,
           identifier: TriggerIdentifier.EVENT,
           event_type: null,
-          timeout: null,
         },
         destination_config: {
           source_id: source?.id || null,
           destination_id: null,
-          kind: null,
-          reason: '',
+          kind: destinationKind || null,
+          reason: null,
           status: null,
-          uuid: null,
+          uuid: uuidv4(),
         },
         filtering_config: {
           identifier: FilterIdentifier.SMARTLIST,
-          uuid: null,
+          uuid: uuidv4(),
           smartlist_pk: null,
         },
         canvas: {

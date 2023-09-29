@@ -74,8 +74,8 @@ export type FilteringConfig = {
 
 export type DestinationConfig = {
   destination_id: number;
-  kind: DestinationKind;
-  reason: string;
+  kind: DestinationKind | null;
+  reason: string | null;
   status: DestinationStatus;
   uuid: string;
   source_id?: number;

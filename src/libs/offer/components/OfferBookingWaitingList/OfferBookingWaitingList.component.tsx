@@ -123,6 +123,7 @@ const OfferBookingWaitingList: React.FC<Props> = ({
 
         <div className="bs-offer-booking-waiting-list__summary__container">
           <BookerModuleOfferSummary
+            noStyledContainer
             coach={offer.coach}
             companyTheme={companyTheme}
             confirmLoading={isWaitingListRegisterLoading}

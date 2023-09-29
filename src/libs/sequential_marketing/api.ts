@@ -162,8 +162,10 @@ export const deleteCadenceStep = async (
 
 export const subscribeStepToStep = async (
   cadenceId: number,
-  id: number,
-  data: any,
+  data: {
+    connected_trigger: ConnectedTrigger;
+    step: Pick<CadenceStep, 'id' | 'name' | 'canvas'>;
+  },
 ): Promise<
   AxiosResponse<{
     step: CadenceStep;

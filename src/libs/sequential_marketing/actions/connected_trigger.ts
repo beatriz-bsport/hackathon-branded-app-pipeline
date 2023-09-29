@@ -24,8 +24,10 @@ export const subscribeStepToStepActions = {
 
 export function subscribeStepToStep(
   cadenceId: number,
-  sourceStep: CadenceStep,
-  data: any,
+  data: {
+    connected_trigger: ConnectedTrigger;
+    step: Pick<CadenceStep, 'id' | 'name' | 'canvas'>;
+  },
   options?: OptionCallback<{
     step: CadenceStep;
     connected_trigger: ConnectedTrigger;
@@ -36,11 +38,7 @@ export function subscribeStepToStep(
     dispatch(subscribeStepToStepActions.error(null));
 
     try {
-      const response = await subscribeStepToStepAPI(
-        cadenceId,
-        sourceStep.id,
-        data,
-      );
+      const response = await subscribeStepToStepAPI(cadenceId, data);
       dispatch(subscribeStepToStepActions.success(response.data));
       options && options.onSuccess && options.onSuccess(response.data);
     } catch (err) {

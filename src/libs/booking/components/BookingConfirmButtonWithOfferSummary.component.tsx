@@ -161,17 +161,8 @@ const BookingConfirmButtonWithOfferSummary: React.FC<Props> = ({
 const useStyles = makeStyles((theme) => ({
   container: {
     backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(2),
-    borderStyle: 'solid',
-    borderWidth: '1px',
-    borderColor: '#F1F3F4',
-    borderRadius: '12px',
     display: 'flex',
     flexDirection: 'column',
-    '@media (max-width:950px)': {
-      border: 'none',
-      borderTop: '2px solid #F1F3F4',
-    },
   },
   buttonContainer: {
     paddingBottom: theme.spacing(1),

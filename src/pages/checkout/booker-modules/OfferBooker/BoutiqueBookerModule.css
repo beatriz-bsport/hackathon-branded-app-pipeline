@@ -58,6 +58,12 @@
 .bs-new-offer-booking__offer-summary {
   grid-area: main-right;
   align-self: start;
+  padding: var(--spacing-2);
+  border-style: solid;
+  border-width: 1px;
+  border-radius: var(--border-radius-3);
+  border-color: var(--color-grey-light);
+  background-color: white;
 }
 
 /* SPOT SCHEDULING */
@@ -161,8 +167,12 @@
     position: sticky;
     bottom: 0;
     width: 100vw;
-    padding: 0;
     grid-area: unset;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-radius: 0;
+    border-top-width: 2px;
   }
   .bs-new-offer-booking__spot-selector__container {
     display: grid;

@@ -85,7 +85,10 @@ import {
 } from '#libs/email-editor/selectors';
 import { getAllTagsWithTagGroup, getTag } from '#libs/tag/selectors';
 
-import { NodeIdentifiersEnum } from '#libs/sequential_marketing/components/graph/hooks';
+import {
+  NodeIdentifiersEnum,
+  getHorizontalPositionFromSource,
+} from '#libs/sequential_marketing/components/graph/hooks';
 import {
   getResolvedGenericTags,
   getTagCategories,
@@ -225,11 +228,13 @@ export class CadenceDetailPage extends Component<Props> {
     this.props.setSelectedStepIdForEdition(step_id);
   };
 
-  handleSubmitNewStepWithTrigger = (data: Values, options?: OptionCallback) => {
-    this.props.subscribeStepToStep(data, {
-      onSuccess: (step_id: number) => {
-        options.onSuccess();
-        this.handleSelectedStepForEdition(step_id);
+  handleCreateNewStepWithTrigger = (
+    connected_trigger: ConnectedTrigger,
+    options?: OptionCallback<number>,
+  ) => {
+    this.props.subscribeStepToStep(connected_trigger, {
+      onSuccess: (stepId) => {
+        options?.onSuccess?.(stepId);
       },
     });
   };
@@ -270,11 +275,11 @@ export class CadenceDetailPage extends Component<Props> {
     this.props.setInitialCadenceConfiguration(data, {
       onSuccess: () => {
         this.props.retrieveCadence();
-        options?.onSuccess && options.onSuccess();
+        options?.onSuccess?.();
       },
       onError: () => {
         this.props.retrieveCadence();
-        options?.onError && options.onError();
+        options?.onError?.();
       },
     });
   };
@@ -327,6 +332,9 @@ export class CadenceDetailPage extends Component<Props> {
               getSmartlist={this.props.getSmartlist}
               getStepMarketingActions={this.props.getStepMarketingActions}
               getTag={this.props.getTag}
+              handleCreateNewStepWithTrigger={
+                this.handleCreateNewStepWithTrigger
+              }
               handleSelectedStepForEdition={this.handleSelectedStepForEdition}
               handleSelectStepForSubscription={
                 this.handleSelectStepForSubscription
@@ -470,10 +478,10 @@ const mapWithHandlers = {
     (data: { name: string }, options?: OptionCallback) => {
       props.updateCadenceAction(props.cadenceId, data, {
         onSuccess: () => {
-          options && options.onSuccess && options.onSuccess();
+          options?.onSuccess?.();
         },
         onError: () => {
-          options && options.onError && options.onError();
+          options?.onError?.();
         },
       });
     },
@@ -484,10 +492,10 @@ const mapWithHandlers = {
       if (props.selectedStepIdForEdition) {
         props.updateCadenceStepAction(data.stepId, data, {
           onSuccess: () => {
-            options && options.onSuccess && options.onSuccess();
+            options?.onSuccess?.();
           },
           onError: () => {
-            options && options.onError && options.onError();
+            options?.onError?.();
           },
         });
       }
@@ -498,10 +506,10 @@ const mapWithHandlers = {
     (options?: OptionCallback) => {
       props.activateCadenceAction(props.cadenceId, {
         onSuccess: () => {
-          options && options.onSuccess && options.onSuccess();
+          options?.onSuccess?.();
         },
         onError: () => {
-          options && options.onError && options.onError();
+          options?.onError?.();
         },
       });
     },
@@ -511,10 +519,10 @@ const mapWithHandlers = {
     (options?: OptionCallback) => {
       props.shutOffCadenceAction(props.cadenceId, {
         onSuccess: () => {
-          options && options.onSuccess && options.onSuccess();
+          options?.onSuccess?.();
         },
         onError: () => {
-          options && options.onError && options.onError();
+          options?.onError?.();
         },
       });
     },
@@ -532,10 +540,10 @@ const mapWithHandlers = {
       props.setInitialCadenceConfigurationAction(props.cadenceId, data, {
         onSuccess: () => {
           props.setCadenceEditMode(true);
-          options && options.onSuccess && options.onSuccess();
+          options?.onSuccess?.();
         },
         onError: () => {
-          options && options.onError && options.onError();
+          options?.onError?.();
         },
       });
     },
@@ -552,10 +560,10 @@ const mapWithHandlers = {
     ) => {
       props.updateInitialCadenceConfigurationAction(props.cadenceId, data, {
         onSuccess: () => {
-          options && options.onSuccess && options.onSuccess();
+          options?.onSuccess?.();
         },
         onError: () => {
-          options && options.onError && options.onError();
+          options?.onError?.();
         },
       });
     },
@@ -569,10 +577,10 @@ const mapWithHandlers = {
     ) => {
       props.updateCadenceStepCanvasPositionAction(id, position, {
         onSuccess: () => {
-          options && options.onSuccess && options.onSuccess();
+          options?.onSuccess?.();
         },
         onError: () => {
-          options && options.onError && options.onError();
+          options?.onError?.();
         },
       });
     },
@@ -589,10 +597,10 @@ const mapWithHandlers = {
         position,
         {
           onSuccess: () => {
-            options && options.onSuccess && options.onSuccess();
+            options?.onSuccess?.();
           },
           onError: () => {
-            options && options.onError && options.onError();
+            options?.onError?.();
           },
         },
       );
@@ -609,40 +617,41 @@ const mapWithHandlers = {
     },
 
   subscribeStepToStep:
-    (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>
-    (data: Values, options?: OptionCallback<number>) => {
-      if (props.stepForSubscription?.id) {
-        // TODO : Need to find a way to position correctly element on creation
-        props.subscribeStepToStepAction(
-          props.cadenceId,
-          props.stepForSubscription,
-          {
-            ...data,
-            ...(props.subscriptionDestinationConfig?.step
-              ? { step: props.subscriptionDestinationConfig?.step }
-              : {}),
-          },
-          {
-            onSuccess: (step) => {
-              props.resetSubscriptionDestination();
-              props.retrieveCadence({
-                onSuccess: () => {
-                  options &&
-                    options.onSuccess &&
-                    options.onSuccess(
-                      step.connected_trigger?.destination_config
-                        ?.destination_id,
-                    );
-                },
-              });
-            },
-            onError: () => {
-              props.resetSubscriptionDestination();
-              options && options.onError && options.onError();
+    (props: OwnProps & ConnectedPropsAndStateAndRefreshAll & WithTranslation) =>
+    (connected_trigger: ConnectedTrigger, options?: OptionCallback<number>) => {
+      // TODO : Need to find a way to position correctly element on creation
+      props.subscribeStepToStepAction(
+        props.cadenceId,
+        {
+          connected_trigger,
+          step: {
+            id: null,
+            name: props.t('cadence.steps.defaultName'),
+            canvas: {
+              position: {
+                x: getHorizontalPositionFromSource(connected_trigger?.canvas),
+                y: connected_trigger?.canvas?.position?.y,
+              },
             },
           },
-        );
-      }
+        },
+        {
+          onSuccess: (step) => {
+            props.resetSubscriptionDestination();
+            props.retrieveCadence({
+              onSuccess: () => {
+                options?.onSuccess?.(
+                  step?.connected_trigger?.destination_config?.destination_id,
+                );
+              },
+            });
+          },
+          onError: () => {
+            props.resetSubscriptionDestination();
+            options?.onError?.();
+          },
+        },
+      );
     },
 
   updateStepMarketingActionList:
@@ -694,10 +703,10 @@ const mapWithHandlers = {
           { cadence_step: stepId },
           {
             onSuccess: () => {
-              options && options.onSuccess && options.onSuccess();
+              options?.onSuccess?.();
             },
             onError: () => {
-              options && options.onError && options.onError();
+              options?.onError?.();
             },
           },
         );
@@ -710,10 +719,10 @@ const mapWithHandlers = {
       if (data) {
         props.upsertStepMarketingAtionsAction(data, {
           onSuccess: () => {
-            options && options.onSuccess && options.onSuccess();
+            options?.onSuccess?.();
           },
           onError: () => {
-            options && options.onError && options.onError();
+            options?.onError?.();
           },
         });
       }

@@ -6,9 +6,25 @@ import {
   TriggerIdentifier,
   TriggerKind,
 } from '#libs/sequential_marketing/constants';
-import type { ConnectedTrigger } from '#libs/sequential_marketing/types';
+import type {
+  ConnectedTrigger,
+  GraphCanvas,
+} from '#libs/sequential_marketing/types';
 import type { StoredStep } from '#libs/sequential_marketing/components/graph/hooks/types';
 
+/** Determine the horizontal position of a node in the graph located 400 units away from its source.
+ * @param {GraphCanvas} sourceCanvas - Position of the source node
+ * @returns {string} - Return the horizontal position
+ */
+export const getHorizontalPositionFromSource = (sourceCanvas: GraphCanvas) =>
+  (parseFloat(sourceCanvas?.position?.x) || 0 + 400).toString();
+
+/** Get the default values for a ConnectedTrigger.
+ * @param {TriggerKind} triggerKind - Sequential marketing trigger kind
+ * @param {StoredStep} source - Source step of the trigger
+ * @param {DestinationKind} destinationKind - Destination kind for the trigger
+ * @returns {ConnectedTrigger} - Return a ConnectedTrigger with default values
+ */
 export const getDefaultValuesComplete = (
   triggerKind: TriggerKind,
   source?: StoredStep,
@@ -37,7 +53,7 @@ export const getDefaultValuesComplete = (
         },
         canvas: {
           position: {
-            x: (parseFloat(source?.canvas?.position?.x) || 0 + 400).toString(),
+            x: getHorizontalPositionFromSource(source?.canvas),
             y: source?.canvas?.position?.y,
           },
         },
@@ -63,7 +79,7 @@ export const getDefaultValuesComplete = (
         },
         canvas: {
           position: {
-            x: (parseFloat(source?.canvas?.position?.x) || 0 + 400).toString(),
+            x: getHorizontalPositionFromSource(source?.canvas),
             y: source?.canvas?.position?.y,
           },
         },
@@ -90,7 +106,7 @@ export const getDefaultValuesComplete = (
         },
         canvas: {
           position: {
-            x: (parseFloat(source?.canvas?.position?.x) || 0 + 400).toString(),
+            x: getHorizontalPositionFromSource(source?.canvas),
             y: source?.canvas?.position?.y,
           },
         },
@@ -117,7 +133,7 @@ export const getDefaultValuesComplete = (
         },
         canvas: {
           position: {
-            x: (parseFloat(source?.canvas?.position?.x) || 0 + 400).toString(),
+            x: getHorizontalPositionFromSource(source?.canvas),
             y: source?.canvas?.position?.y,
           },
         },

@@ -6,8 +6,10 @@ import {
   CustomNodesEnum,
   NodeIdentifiersEnum,
 } from './useNodes.hooks';
+import { getHorizontalPositionFromSource } from './utils';
 
 export {
+  getHorizontalPositionFromSource,
   useGraph,
   useGraphStyles,
   useNodeTypes,

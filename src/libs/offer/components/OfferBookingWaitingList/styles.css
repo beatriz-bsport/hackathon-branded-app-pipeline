@@ -41,7 +41,7 @@
   border-style: solid;
   border-width: 1px;
   border-radius: var(--border-radius-3);
-  border-color: var(--color-grey-light);
+  border-color: var(--border-color);
 }
 
 .bs-offer-booking-waiting-list-status__container {

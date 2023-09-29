@@ -28,7 +28,7 @@
 .bs-select__button {
   border-radius: var(--border-radius-8);
   height: 40px;
-  border: 2px solid var(--color-grey-light);
+  border: 2px solid var(--border-color);
 }
 
 .bs-select__button__square {
@@ -115,7 +115,7 @@
   padding: var(--spacing-1) 0;
   margin: var(--spacing-1) 0 0;
   border-radius: var(--border-radius-4);
-  border: 2px solid var(--color-grey-light);
+  border: 2px solid var(--border-color);
   overflow-y: auto;
   min-width: 200px;
   max-height: 300px;

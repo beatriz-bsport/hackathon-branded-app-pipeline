@@ -4,7 +4,7 @@
 .bs-card-offer {
   background: var(--color-background-paper);
   border-radius: var(--border-radius-3);
-  border-color: var(--color-grey-light);
+  border-color: var(--border-color);
   border-width: 2px;
   border-style: solid;
   cursor: pointer;
@@ -221,7 +221,7 @@
 .bs-card-offer__bottom {
   padding-bottom: 10px;
   padding-top: 10px;
-  border-top: 2px solid var(--color-grey-light);
+  border-top: 2px solid var(--border-color);
   width: 100%;
 }
 

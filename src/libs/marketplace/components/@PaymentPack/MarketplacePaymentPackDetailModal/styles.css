@@ -77,7 +77,7 @@
 .bs-pack-details-dialog__item {
   border-bottom-left-radius: var(--border-radius-2);
   border-bottom-right-radius: var(--border-radius-2);
-  border-top: 1px solid var(--color-grey-light);
+  border-top: 1px solid var(--border-color);
   display: flex;
   padding: var(--spacing-2);
 }

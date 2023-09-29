@@ -26,7 +26,7 @@
 }
 
 .bs-off_peak-modal__body {
-  border-bottom: var(--color-grey-light) solid 2px;
+  border-bottom: var(--border-color) solid 2px;
   display: flex;
   padding: 16px 24px;
   flex-direction: column;

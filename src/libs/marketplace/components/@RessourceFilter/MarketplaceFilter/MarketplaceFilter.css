@@ -9,7 +9,7 @@
   border-width: 2px;
   border-style: solid;
   border-radius: var(--border-radius-10);
-  border-color: var(--color-grey-light);
+  border-color: var(--border-color);
   gap: var(--spacing-1);
   height: var(--spacing-6);
   padding-top: var(--spacing-1);

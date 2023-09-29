@@ -7,12 +7,12 @@
   justify-content: space-between;
   background: var(--color-background-paper);
   outline-style: solid;
-  outline-color: var(--color-grey-light);
+  outline-color: var(--border-color);
   outline-width: 1px;
   padding: var(--spacing-3);
   transition: all 0.2s;
   border-style: solid;
-  border-color: var(--color-grey-light);
+  border-color: var(--border-color);
   border-bottom: none;
   border-width: 1px;
   font-family: var(--fontFamily);
@@ -31,7 +31,7 @@
 }
 
 .bs-offer-list-group-item--without-color {
-  border-left-color: var(--color-grey-light);
+  border-left-color: var(--border-color);
 }
 
 .bs-offer-list-group-item__left {

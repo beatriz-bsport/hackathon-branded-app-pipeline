@@ -305,7 +305,7 @@ li {
   position: sticky;
   bottom: 0;
   background-color: var(--color-background-paper);
-  border-top: thin double var(--color-grey-light);
+  border-top: thin double var(--border-color);
 }
 
 .bs-activity__bottom__content {

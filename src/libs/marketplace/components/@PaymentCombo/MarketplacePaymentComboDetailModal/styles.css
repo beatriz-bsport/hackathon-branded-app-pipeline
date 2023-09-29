@@ -110,7 +110,7 @@
 }
 
 .bs-combo-details-dialog__content-list {
-  border-top: 1px solid var(--color-grey-light);
+  border-top: 1px solid var(--border-color);
   padding-left: var(--spacing-3);
   padding-top: var(--spacing-1);
 }
@@ -142,7 +142,7 @@
 .bs-combo-details-dialog__footer__item {
   border-bottom-left-radius: var(--border-radius-2);
   border-bottom-right-radius: var(--border-radius-2);
-  border-top: 1px solid var(--color-grey-light);
+  border-top: 1px solid var(--border-color);
   display: flex;
   padding: var(--spacing-2);
 }

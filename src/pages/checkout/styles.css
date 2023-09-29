@@ -162,6 +162,6 @@
     width: 100%;
     background: #fff;
     padding: var(--spacing-2);
-    border-top: 2px solid var(--color-grey-light);
+    border-top: 2px solid var(--border-color);
   }
 }

@@ -1,5 +1,5 @@
 .consumer-payment-pack-card__container {
-  border: 2px solid var(--color-grey-light);
+  border: 2px solid var(--border-color);
   border-radius: var(--border-radius-2);
   display: grid;
   padding: var(--spacing-2);

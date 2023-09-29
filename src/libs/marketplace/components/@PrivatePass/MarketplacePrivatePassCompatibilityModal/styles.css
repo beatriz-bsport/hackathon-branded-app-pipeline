@@ -92,7 +92,7 @@
 }
 
 .bs-pass-compatibility-dialog__footer {
-  border-top: var(--color-grey-light) solid 1px;
+  border-top: var(--border-color) solid 1px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -126,7 +126,7 @@
 }
 
 .--mobile-body {
-  border-top: var(--color-grey-light) solid 1px;
+  border-top: var(--border-color) solid 1px;
   width: 100%;
   display: none;
   padding: var(--spacing-2);

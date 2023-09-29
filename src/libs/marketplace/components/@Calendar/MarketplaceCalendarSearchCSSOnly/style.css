@@ -22,7 +22,7 @@
 .bs-search__container {
   display: flex;
   background: var(--color-background-paper);
-  border: solid 2px var(--color-grey-light);
+  border: solid 2px var(--border-color);
   border-radius: var(--border-radius-8);
   width: fit-content;
   min-width: 400px;

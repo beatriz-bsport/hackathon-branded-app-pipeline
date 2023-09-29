@@ -28,8 +28,8 @@
 }
 
 .bs-restriction-modal__body {
-  border-top: var(--color-grey-light) solid 2px;
-  border-bottom: var(--color-grey-light) solid 2px;
+  border-top: var(--border-color) solid 2px;
+  border-bottom: var(--border-color) solid 2px;
   width: 100%;
   display: flex;
   flex-direction: column;

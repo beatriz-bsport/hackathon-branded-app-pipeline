@@ -66,13 +66,13 @@
 .bs-workshop-card__offer-list__offer__conditions {
   font-size: var(--body2-fontSize);
   padding-left: var(--spacing-2);
-  border-top: 2px solid var(--color-grey-light);
+  border-top: 2px solid var(--border-color);
   margin-bottom: var(--spacing-2);
   color: var(--color-text-secondary);
   padding-top: var(--spacing-2);
 }
 
 .bs-workshop-card__offer-list__offer__load-more {
-  border-top: 2px solid var(--color-grey-light);
+  border-top: 2px solid var(--border-color);
   color: var(--color-primary-main);
 }

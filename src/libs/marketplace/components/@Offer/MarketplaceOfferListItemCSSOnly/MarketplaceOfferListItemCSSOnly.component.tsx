@@ -237,7 +237,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
           theme?.show_activity_color && metaActivity?.color
             ? metaActivity?.color
             : getComputedStyle(document.documentElement).getPropertyValue(
-                '--color-grey-light',
+                '--border-color',
               ),
       }}
       type="button"

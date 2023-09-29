@@ -63,9 +63,13 @@
   .bs-login-container--webpage {
     margin-top: 0;
     height: 100vh;
+    justify-content: center;
+    width: 100%;
   }
   .bs-login-container--webpage--simplifyUI {
     margin-top: 0;
     height: 100vh;
+    justify-content: center;
+    width: 100%;
   }
 }

@@ -55,7 +55,7 @@ const getDefault = (theme: CompanyTheme) => ({
   secondaryColor: theme.secondary_color,
   greyDark: '#2D3748',
   grey: '#687586',
-  greyLight: '#f1f3f4',
+  borderColor: '#f1f3f4',
 });
 
 export const WidgetCssThemeOverrideForm: React.FC<
@@ -181,11 +181,11 @@ export const WidgetCssThemeOverrideForm: React.FC<
                 name="secondaryColor"
               />
             </ResetableField>
-            <ResetableField name="greyLight" theme={theme}>
+            <ResetableField name="borderColor" theme={theme}>
               <ColorField
                 buttonStyle={classes.colorButton}
                 label={t('widget.cssEditor.borderColor')}
-                name="greyLight"
+                name="borderColor"
               />
             </ResetableField>
           </div>
@@ -409,7 +409,7 @@ export default compose<any, OuterProps>(
         secondaryColor: initial?.secondaryColor ?? defaultStyle?.secondaryColor,
         greyDark: initial?.greyDark ?? defaultStyle?.greyDark,
         grey: initial?.grey ?? defaultStyle?.grey,
-        greyLight: initial?.greyLight ?? defaultStyle?.greyLight,
+        borderColor: initial?.borderColor ?? defaultStyle?.borderColor,
       };
     },
     enableReinitialize: true,

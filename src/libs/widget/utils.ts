@@ -22,7 +22,7 @@ export const getCustomWidgetStyle = memoize((styles: WidgetCustomCSS) => {
     secondaryColor,
     greyDark,
     grey,
-    greyLight,
+    borderColor,
   } = styles;
 
   let classes = '';
@@ -80,8 +80,8 @@ export const getCustomWidgetStyle = memoize((styles: WidgetCustomCSS) => {
   if (grey) {
     classes += `--color-grey-main: ${grey}; \n`;
   }
-  if (greyLight) {
-    classes += `--color-grey-light: ${greyLight}; \n`;
+  if (borderColor) {
+    classes += `--border-color: ${borderColor}; \n`;
   }
   if (primaryColor) {
     classes += `--color-primary-main: ${primaryColor}; \n`;

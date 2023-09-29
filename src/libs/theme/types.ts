@@ -143,6 +143,7 @@ export type WidgetCustomCSS = {
   greyDark?: string;
   grey?: string;
   greyLight?: string;
+  borderColor?: string;
 };
 
 export type CompanyTheme = Theme;

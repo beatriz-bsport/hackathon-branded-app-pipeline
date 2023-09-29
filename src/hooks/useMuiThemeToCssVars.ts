@@ -151,6 +151,7 @@ export const useMuiThemeToCssVars = () => {
 
     /* shape */
     --border-radius-1: ${theme.shape.borderRadius}px;
+    --border-color: #F1F3F4;
     /* transition */
     --duration-complex: ${theme.transitions.duration.complex};
     --duration-enteringScreen: ${theme.transitions.duration.enteringScreen};

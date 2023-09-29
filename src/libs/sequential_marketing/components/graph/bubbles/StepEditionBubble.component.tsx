@@ -34,7 +34,6 @@ export type StepEditionBubbleProps = {
   fetchEmailSummaryList: () => void;
   getEmailDetail: (id: number) => void;
   onCancel?: () => void;
-  onClose?: () => void;
   onConfirm: (data: { list: StepMarketingActions[]; step: number }) => void;
   updateCadenceStepName: (data: { name: string; stepId: number }) => void;
 };
@@ -78,7 +77,6 @@ const StepEditionBubble: React.FC<StepEditionBubbleProps> = ({
   fetchEmailSummaryList,
   getEmailDetail,
   onCancel,
-  onClose,
   onConfirm,
   updateCadenceStepName,
 }) => {
@@ -125,11 +123,11 @@ const StepEditionBubble: React.FC<StepEditionBubbleProps> = ({
       updateCadenceStepName?.({ name: stepName, stepId: step?.id });
     !marketingActionsUnchanged &&
       onConfirm?.({ list: marketingActionList, step: step?.id });
-    onClose?.();
+    onCancel?.();
   }, [
     marketingActionList,
     marketingActions,
-    onClose,
+    onCancel,
     onConfirm,
     step,
     stepName,

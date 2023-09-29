@@ -22,14 +22,24 @@ type FlowProps = {
   data: {
     onConnectToStep: (destination_step_id: string) => void;
     bubble: StepEditionBubbleProps;
+    stepToEditId: number;
+    endStepEdition: () => void;
   } & InnerStepCardProps;
 };
 
 export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
   const { t } = useTranslation('marketing');
 
+  const stepCardRef = React.useRef<HTMLDivElement | null>(null);
+
   const { anchorOrigin, popoverStyle, transformOrigin, anchorEl, setAnchorEl } =
     usePopoverBubble();
+
+  const isStepNew = data?.stepToEditId === data?.step?.id;
+
+  React.useEffect(() => {
+    isStepNew && setAnchorEl(stepCardRef?.current);
+  }, [isStepNew, setAnchorEl]);
 
   const handleConnect = React.useCallback(
     (params: Connection) => data.onConnectToStep?.(params.target),
@@ -38,30 +48,32 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
 
   const handleClick = React.useCallback(
     (event: React.MouseEvent<HTMLButtonElement>) => {
-      data.onCardClick?.(event);
+      data?.onCardClick?.(event);
       setAnchorEl(event?.currentTarget);
     },
     [data, setAnchorEl],
   );
 
-  const handleCloseBubble = React.useCallback(
-    () => setAnchorEl(null),
-    [setAnchorEl],
-  );
+  const handleCloseBubble = React.useCallback(() => {
+    setAnchorEl(null);
+    isStepNew && data?.endStepEdition?.();
+  }, [data, isStepNew, setAnchorEl]);
 
   const handleSubmitForm = React.useCallback(
     (param: { list: StepMarketingActions[]; step: number }) => {
-      data.bubble?.onConfirm?.({
-        list:
-          param?.list?.map((action) => ({
-            ...action,
-            cadence_step: data.step.id,
-            name: t('cadence.form.marketing_action.defaultName'),
-          })) ?? [],
-        step: data.step.id,
-      });
+      if (!!data?.bubble?.onConfirm && data?.step?.id)
+        data.bubble.onConfirm({
+          list:
+            param?.list?.map((action) => ({
+              ...action,
+              cadence_step: data.step.id,
+              name: t('cadence.form.marketing_action.defaultName'),
+            })) ?? [],
+          step: data.step.id,
+        });
+      isStepNew && data.endStepEdition();
     },
-    [data.bubble, data.step.id, t],
+    [data, isStepNew, t],
   );
 
   return (
@@ -72,20 +84,22 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
         style={LEFT_HANDLE_STYLE}
         type={HandleTypeChoices.TARGET}
       />
-      <InnerStepCard
-        addMarketingAction={data.addMarketingAction}
-        addNextStep={data.addNextStep}
-        disableAddMarketingAction={data.disableAddMarketingAction}
-        disabled={data.disabled}
-        getEmailTemplate={data.getEmailTemplate}
-        getTag={data.getTag}
-        handleChangeInExit={data.handleChangeInExit}
-        isSelected={data.isSelected}
-        marketingActionList={data.marketingActionList}
-        onCardClick={handleClick}
-        onDelete={data.onDelete}
-        step={data.step}
-      />
+      <div ref={stepCardRef}>
+        <InnerStepCard
+          addMarketingAction={data.addMarketingAction}
+          addNextStep={data.addNextStep}
+          disableAddMarketingAction={data.disableAddMarketingAction}
+          disabled={data.disabled}
+          getEmailTemplate={data.getEmailTemplate}
+          getTag={data.getTag}
+          handleChangeInExit={data.handleChangeInExit}
+          isSelected={data.isSelected}
+          marketingActionList={data.marketingActionList}
+          onCardClick={handleClick}
+          onDelete={data.onDelete}
+          step={data.step}
+        />
+      </div>
       <Handle
         isConnectable
         onConnect={handleConnect}
@@ -110,7 +124,6 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
           getEmailDetail={data.bubble.getEmailDetail}
           marketingActions={data.marketingActionList}
           onCancel={handleCloseBubble}
-          onClose={handleCloseBubble}
           onConfirm={handleSubmitForm}
           resolvedGenericTags={data.bubble.resolvedGenericTags}
           step={data.step}

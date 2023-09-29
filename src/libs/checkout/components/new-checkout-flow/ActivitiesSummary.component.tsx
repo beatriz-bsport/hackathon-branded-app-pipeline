@@ -95,15 +95,14 @@ const useStyles = makeStyles<Theme, { connectedToOtherComponents: boolean }>(
         props.connectedToOtherComponents ? '12px 12px 0 0' : '12px',
       display: 'flex',
       flexDirection: 'column',
+      padding: theme.spacing(2),
     },
     subContainer: {
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      margin: `${theme.spacing(1)}px ${theme.spacing(2)}px ${theme.spacing(
-        1,
-      )}px ${theme.spacing(2)}px`,
+      paddingTop: theme.spacing(2),
     },
     checkoutItemName: { fontWeight: 500 },
     checkoutItemPriceClass: {

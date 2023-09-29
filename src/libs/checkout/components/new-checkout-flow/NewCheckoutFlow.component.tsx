@@ -37,8 +37,8 @@ import type {
   OptionCallback,
   OptionCallBackWithKeyedCallbacks,
 } from '../../../../state/types';
-import { ActivitiesSummary } from './ActivitiesSummary.component';
-import { BasketSummary } from './BasketSummary.component';
+import ActivitiesSummary from './ActivitiesSummary.component';
+import BasketSummary from './BasketSummary.component';
 import CouponCodeInput from './CouponCodeInput.component';
 import type { InstalmentPaymentApiWithBasketId } from '#libs/instalment-payment-configuration/types';
 import PriceCount from './PriceCount.component';

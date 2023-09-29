@@ -3878,7 +3878,7 @@
                 "city": "Ville",
                 "country": "Pays",
                 "general_terms_and_conditions": "Conditions générales d'utilisation",
-                "repeatPassword": "Confirmer le mot de passe",
+                "repeatPassword": "Confirmer",
                 "paragraph": "Paragraphe",
                 "short_answer": "Réponse courte",
                 "long_answer": "Réponse longue",
@@ -15454,7 +15454,7 @@
                     "last_name": "Nom de Famille",
                     "email": "Adresse email",
                     "password": "Mot de passe",
-                    "passwordConfirm": "Confirmation du mot de passe",
+                    "passwordConfirm": "Confirmer",
                     "gender": "sexe",
                     "address_line_1": "Adresse",
                     "address_line_2": "Complément d'adresse",
@@ -15466,8 +15466,8 @@
                     "emergency_contact": "Contact d'urgence",
                     "general_terms_and_conditions_accepted": "J'accepte les conditions générales d'utilisation",
                     "waiver": "J'accepte les décharges de responsabilité",
-                    "accept_email": "J’accepte d'être notifié(e) par email pour des informations liées à mon activité (changement d’horaires, annulation de dernière minute, nouvel atelier... )",
-                    "accept_sms": "J’accepte d'être notifié(e) par SMS pour des informations liées à mon activité (changement d’horaires, annulation de dernière minute, nouvel atelier... )"
+                    "accept_email": "J'accepte d'être notifié(e) par email à des fins commerciales (promotions, offres spéciales...)",
+                    "accept_sms": "J'accepte d'être notifié(e) par SMS à des fins commerciales (promotions, offres spéciales...)"
                 },
                 "error": {
                     "password": "Le mot de passe doit contenir au moins 6 caractères",

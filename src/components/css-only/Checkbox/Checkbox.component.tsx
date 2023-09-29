@@ -13,6 +13,7 @@ export type Props = {
   isChecked: boolean;
   classes?: {
     label?: string;
+    text?: string;
   };
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 };
@@ -33,7 +34,9 @@ const Checkbox: React.FC<Props> = React.memo(
         />
 
         {isChecked ? <CheckBoxIcon /> : <CheckBoxOutlineBlankIcon />}
-        <span className="bs-checkbox__text">{label}</span>
+        <span className={classNames('bs-checkbox__text', classes.text)}>
+          {label}
+        </span>
       </label>
     </div>
   ),

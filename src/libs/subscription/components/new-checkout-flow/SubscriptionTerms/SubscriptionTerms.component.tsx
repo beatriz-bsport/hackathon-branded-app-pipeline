@@ -76,7 +76,10 @@ export const SubscriptionTerms: React.FC<Props> = (props) => {
       </div>
       <div className="bs-subscription-terms-accept-container">
         <Checkbox
-          classes={{ label: 'bs-subscription-terms__accept-label' }}
+          classes={{
+            label: 'bs-subscription-terms__accept-label',
+            text: 'bs-subscription-terms__accept-text',
+          }}
           isChecked={isContractLegalTermsAccepted}
           label={
             <Trans
@@ -84,6 +87,7 @@ export const SubscriptionTerms: React.FC<Props> = (props) => {
                 <Button
                   classes={{
                     root: 'bs-subscription-terms__accept__label__button',
+                    text: 'bs-subscription-terms__accept__label__button--text',
                   }}
                   onClick={onOpenContractTermsDialog}
                 >

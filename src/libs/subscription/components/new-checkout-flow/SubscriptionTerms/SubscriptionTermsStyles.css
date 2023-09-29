@@ -72,6 +72,11 @@
   color: var(--color-text-primary);
 }
 
+.bs-subscription-terms__accept-text {
+  display: flex;
+  align-items: center;
+}
+
 .bs-subscription-terms__accept__label__button {
   background: none;
   outline: none;
@@ -84,6 +89,11 @@
   letter-spacing: var(--body1-letterSpacing);
   line-height: var(--body1-lineHeight);
   padding: 0;
+}
+
+.bs-subscription-terms__accept__label__button--text {
+  text-transform: lowercase;
+  margin-left: var(--spacing-1);
 }
 
 .bs-subscription-terms__arrow {

@@ -27,13 +27,13 @@ export type TriggerCardProps = {
   onDelete?: () => void;
 };
 
-type TriggerCardHeaderProps = Pick<
-  TriggerCardProps,
-  'trigger' | 'getSmartlist'
-> & { name: string; actions: Immutable.ImmutableArray<Action> };
+type TriggerCardHeaderProps = {
+  actions: Immutable.ImmutableArray<Action>;
+  name: string;
+} & Pick<TriggerCardProps, 'trigger' | 'getSmartlist'>;
 
 const TriggerCardHeader: React.FC<TriggerCardHeaderProps> = React.memo(
-  ({ name, trigger, getSmartlist, actions }) => {
+  ({ actions, name, trigger, getSmartlist }) => {
     return (
       <CadenceNodeTitle
         actions={actions}

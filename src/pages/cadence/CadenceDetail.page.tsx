@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
-import { push as pushRouter } from 'connected-react-router';
-import classNames from 'classnames';
-import { connect, ConnectedProps } from 'react-redux';
 import { compose, withStateHandlers, withHandlers } from 'recompose';
-import { Theme, WithStyles, createStyles, withStyles } from '@material-ui/core';
+import { connect, ConnectedProps } from 'react-redux';
+import { push as pushRouter } from 'connected-react-router';
 import { withTranslation, WithTranslation } from 'react-i18next';
+import classNames from 'classnames';
+import {
+  type Theme,
+  WithStyles,
+  createStyles,
+  withStyles,
+} from '@material-ui/core';
 import withTitle from '#hocs/with-title.hoc';
 // @ts-expect-error : Not typed hoc
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
@@ -34,13 +39,12 @@ import {
   getAllSmartList,
   getSmartList,
   getSmartListDict,
-} from '../../libs/smart-list/selectors';
-
+} from '#libs/smart-list/selectors';
 import {
   DestinationStatus,
   CadencePanelMode,
+  HEADER_HEIGHT,
 } from '#libs/sequential_marketing/constants';
-import type { WithHandlerType } from '../../utils/types';
 import {
   getCadenceOnlyActiveCTs,
   getCadenceStepList,
@@ -49,6 +53,10 @@ import {
   getStepMarketingActionsLoading,
   getStepMarketingActionsUpsertLoading,
 } from '#libs/sequential_marketing/selectors';
+
+// This import stays on deprecated. Value will be completly different after refactor.
+import type { Values } from '#libs/sequential_marketingDEPRECATED/components/form/Trigger/components';
+import type { WithHandlerType } from '../../utils/types';
 import type { OptionCallback } from '../../state/types';
 import type {
   Cadence,
@@ -56,6 +64,7 @@ import type {
   CadenceStep,
   StepMarketingActions,
 } from '#libs/sequential_marketing/types';
+
 import CadenceDetailHeader from '#libs/sequential_marketing/components/CadenceDetailHeader.component';
 import { fetchAllSmartLists } from '#libs/smart-list/actions';
 import CadenceGraphFlow from '#libs/sequential_marketing/components/graph/CadenceGraphFlow.component';
@@ -64,8 +73,6 @@ import {
   CADENCE_STEPPER_WIN_STEP,
   CADENCE_STEPPER_LOSE_STEP,
 } from '#libs/sequential_marketingDEPRECATED/components/form/CadenceSettingsFormStepper.component';
-// This import stays on deprecated. Value wll be completly differrent after refactor.
-import type { Values } from '#libs/sequential_marketingDEPRECATED/components/form/Trigger/components';
 import {
   emailTemplatesSummaries,
   emailTemplateDetail,
@@ -79,7 +86,6 @@ import {
 import { getAllTagsWithTagGroup, getTag } from '#libs/tag/selectors';
 
 import { NodeIdentifiersEnum } from '#libs/sequential_marketing/components/graph/hooks';
-import { HEADER_HEIGHT } from '#libs/sequential_marketing/constants/graph';
 import {
   getResolvedGenericTags,
   getTagCategories,
@@ -455,6 +461,10 @@ const mapRefreshAllHandler = {
 };
 
 const mapWithHandlers = {
+  backtoCadenceList:
+    (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) => () =>
+      props.push('/cadence'),
+
   updateCadenceName:
     (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>
     (data: { name: string }, options?: OptionCallback) => {
@@ -721,31 +731,36 @@ const connector = connect(
     state: RootState,
     { cadenceId, selectedStepIdForEdition }: OwnProps & StateHandlerType,
   ) => ({
+    // CADENCES
     cadence: getCadenceOnlyActiveCTs(state, cadenceId),
     steps: getCadenceStepList(state, cadenceId),
     loading: state.cadenceWIP.cadence.loading || state.cadenceWIP.step.loading,
-    smartlists: getAllSmartList(state),
-    smartlistById: getSmartListDict(state),
-    allTagsWithTagGroup: getAllTagsWithTagGroup(state),
     stepForEdition: getCadenceStep(state, selectedStepIdForEdition),
-    getStepMarketingActions: (stepId: number) =>
-      getStepMarketingActionsByStepId(state, stepId),
     stepMarketingActionsLoading: getStepMarketingActionsLoading(state),
     stepMarketingActionsUpsertLoading:
       getStepMarketingActionsUpsertLoading(state),
+    getStepMarketingActions: (stepId: number) =>
+      getStepMarketingActionsByStepId(state, stepId),
+    // SMARTLISTS
+    smartlists: getAllSmartList(state),
+    smartlistById: getSmartListDict(state),
     getSmartlist: (id: number) => getSmartList(state, id),
-    getTag: (id: string) => getTag(state, id),
     // EMAILS
     emailDetailList: getEmailTemplatesDetail(state),
     emailDetailListLoading: state.emailTemplate.detail.loading,
     emailSummaryList: getAllEmailTemplatesSummaries(state),
     emailSummaryListLoading: state.emailTemplate.loading,
     getEmailTemplate: (id: string) => getEmailTemplateSummary(state, id),
-    // TAGS
+    // NOTIFICATION RULE TAGS (USED FOR EMAILS)
     resolvedGenericTags: getResolvedGenericTags(state),
     tagCategories: getTagCategories(state),
+    // TAGS (USED FOR MEMBERS)
+    allTagsWithTagGroup: getAllTagsWithTagGroup(state),
+    getTag: (id: string) => getTag(state, id),
   }),
   {
+    push: pushRouter,
+    // CADENCES
     retrieveCadenceAction,
     fetchCadenceStepListAction,
     updateCadenceAction,
@@ -755,8 +770,6 @@ const connector = connect(
     updateInitialCadenceConfigurationAction,
     subscribeStepToStepAction,
     updateConnectedTriggerAction,
-    backtoCadenceList: () => pushRouter('/cadence'),
-    fetchAllSmartLists,
     updateCadenceStepCanvasPositionAction,
     updateCadenceStepConnectedTriggerCanvasPositionAction,
     updateCadenceStepAction,
@@ -766,12 +779,14 @@ const connector = connect(
     deleteStepMarketingActionAction,
     deleteConnectedTriggerAction,
     modifyStepMarketingActionsConfigurationAction,
+    // SMARTLISTS
+    fetchAllSmartLists,
     // EMAILS
     fetchEmailTemplatesSummaries: () => emailTemplatesSummaries(),
     fetchEmailTemplateDetail: (id: number) => emailTemplateDetail(id),
     fetchEmailSummaryList: emailTemplatesSummaries,
     fetchEmailDetail: emailTemplateComplete,
-    // TAGS
+    // NOTIFICATION RULE TAGS (USED FOR EMAILS)
     fetchResolvedGenericTags: fetchResolvedGenericTagsAction,
     fetchTagList: fetchTagListAction,
   },
@@ -781,7 +796,6 @@ const styles = (theme: Theme) =>
   createStyles({
     pageContainer: {
       display: 'flex',
-      flexDirection: 'row',
       width: '100%',
       height: '100%',
       marginTop: -theme.spacing(2),
@@ -839,6 +853,6 @@ export default compose(
   withHandlers(mapRefreshAllHandler),
   withHandlers(mapWithHandlers),
   withTitle(({ cadence }: { cadence: Cadence }) => {
-    return cadence && cadence.name ? `${cadence.name}` : '';
+    return cadence?.name || '';
   }),
 )(CadenceDetailPage);

@@ -586,6 +586,7 @@ exports.default = {
     shutOff: 'Pause',
     back: 'Back',
     steps: {
+      defaultName: 'Autostep',
       actions: {
         changeInStep: 'Convert to step',
         changeInExit: 'Convert to output',

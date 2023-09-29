@@ -17591,5 +17591,38 @@
             "noAnonymousClientDebt": "Klantsaldo kan alleen voor bestaande leden worden gebruikt.",
             "internalCredits": "Interne credits"
         }
+    },
+    "referral": {
+        "form": {
+            "redirectLink": {
+                "title": "Doorverwijslink"
+            },
+            "tag": {
+                "title": "Tag"
+            },
+            "applicationTimeLimit": {
+                "units": {
+                    "month": "Maand",
+                    "month_plural": "Maanden",
+                    "week": "Week",
+                    "week_plural": "Weken",
+                    "day": "Dag",
+                    "day_plural": "Dagen"
+                }
+            },
+            "amountOffReferred": {
+                "amount": {
+                    "fieldLabel": "Bedrag",
+                    "title": "Bedrag"
+                },
+                "percent": {
+                    "fieldLabel": "Percentage",
+                    "title": "Percentage"
+                }
+            },
+            "activateReferral": {
+                "label": "Activeer doorverwijslink"
+            }
+        }
     }
 }

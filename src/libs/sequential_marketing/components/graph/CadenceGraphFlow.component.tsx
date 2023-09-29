@@ -68,6 +68,10 @@ type Props = {
   getSmartlist: (id: number) => SmartList;
   getStepMarketingActions: (stepId: number) => StepMarketingActions[];
   getTag: (id: string) => Tag;
+  handleCreateNewStepWithTrigger: (
+    connected_trigger: ConnectedTrigger,
+    options?: OptionCallback<number>,
+  ) => void;
   handleSelectedStepForEdition: (stepId: number) => void;
   handleSelectStepForSubscription: (
     step: CadenceStep,
@@ -116,6 +120,7 @@ export const CadenceGraphFlow: React.FC<Props> = ({
   getSmartlist,
   getStepMarketingActions,
   getTag,
+  handleCreateNewStepWithTrigger,
   handleSelectedStepForEdition,
   handleSelectStepForSubscription,
   onClickConnectedTrigger,
@@ -146,6 +151,7 @@ export const CadenceGraphFlow: React.FC<Props> = ({
     getSmartlist,
     getStepMarketingActions,
     getTag,
+    handleCreateNewStepWithTrigger,
     handleSelectedStepForEdition,
     onClickConnectedTrigger,
     onClickEntryStep,

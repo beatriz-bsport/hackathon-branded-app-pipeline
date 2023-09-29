@@ -52,6 +52,10 @@ export type Props = {
     connected_trigger: ConnectedTrigger,
   ) => void;
   resetAllSelection: () => void;
+  handleCreateNewStepWithTrigger: (
+    connected_trigger: ConnectedTrigger,
+    options?: OptionCallback<number>,
+  ) => void;
   handleSelectedStepForEdition: (stepId: number) => void;
   deleteCadenceStep: (stepId: number) => void;
   deleteConnectedTrigger: (
@@ -80,6 +84,7 @@ export const useGraph = ({
   getSmartlist,
   getStepMarketingActions,
   getTag,
+  handleCreateNewStepWithTrigger,
   handleSelectedStepForEdition,
   onClickConnectedTrigger,
   onClickEntryStep,
@@ -143,6 +148,7 @@ export const useGraph = ({
       getSmartlist,
       getStepMarketingActions,
       getTag,
+      handleCreateNewStepWithTrigger,
       handleGetNodeConnectedEgdes,
       handleResetFakerTrigger,
       handleSelectedStepForEdition,

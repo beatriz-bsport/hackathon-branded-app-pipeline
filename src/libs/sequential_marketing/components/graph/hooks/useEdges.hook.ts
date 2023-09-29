@@ -15,6 +15,7 @@ type EdgesRendererProps = {
   storedTriggers: Immutable.ImmutableArray<StoredTrigger>;
   edgesIdsToHighlight: string[];
 };
+
 export const useEdgesRenderer = ({
   storedTriggers,
   edgesIdsToHighlight,

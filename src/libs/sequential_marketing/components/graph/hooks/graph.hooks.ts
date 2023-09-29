@@ -1,4 +1,5 @@
 import React from 'react';
+import Immutable from 'seamless-immutable';
 
 import { getConnectedEdges } from 'react-flow-renderer';
 
@@ -7,7 +8,6 @@ import {
   useStepsAndTriggersRecorder,
   useNodeElementsRecorder,
 } from './useNodes.hooks';
-
 import useEdgesRenderer from './useEdges.hook';
 
 import type {
@@ -16,23 +16,24 @@ import type {
   CadenceStep,
   StepMarketingActions,
 } from '#libs/sequential_marketing/types';
-import type { CustomNode } from './types';
+import type { CustomNode, StoredTrigger } from './types';
 import type { SmartList } from '#libs/smart-list/types';
 import type { EmailTemplateSummary } from '#libs/email-editor/types';
 import type { Tag } from '#libs/tag/types';
 import type { StepEditionBubbleProps } from '#libs/sequential_marketing/components/graph/bubbles/StepEditionBubble.component';
-import type { Props as UniqueTriggerBubbleProps } from '#libs/sequential_marketing/components/graph/bubbles/UniqueTriggerBubble.component';
+import type { OptionCallback } from '../../../../../state/types';
 
 export type Props = {
   cadence: Cadence;
-  steps: CadenceStep[];
-  displayDisabledTriggers: boolean;
   cadenceEditMode: boolean;
+  displayDisabledTriggers: boolean;
   stepBubbleProps: Omit<StepEditionBubbleProps, 'step'>;
-  triggerBubbleProps: Pick<
-    UniqueTriggerBubbleProps,
-    'onConfirm' | 'smartlists'
-  >;
+  steps: CadenceStep[];
+  smartlists: Immutable.ImmutableArray<SmartList>;
+  editConnectedTrigger: (
+    data: ConnectedTrigger,
+    options?: OptionCallback,
+  ) => void;
   updateCadenceStepCanvasPosition: (
     id: number,
     { x, y }: { x: number; y: number },
@@ -68,11 +69,12 @@ export const useGraph = ({
   cadence,
   cadenceEditMode,
   displayDisabledTriggers,
+  smartlists,
   stepBubbleProps,
   steps,
-  triggerBubbleProps,
   deleteCadenceStep,
   deleteConnectedTrigger,
+  editConnectedTrigger,
   enterSubscriptionMode,
   getEmailTemplate,
   getSmartlist,
@@ -88,6 +90,20 @@ export const useGraph = ({
   const [nodes, setNodes] = React.useState([]);
   const [edges, setEdges] = React.useState([]);
   const [edgesIdsToHighlight, setEdgesIdsToHighlight] = React.useState([]);
+  const [fakerTrigger, setFakerTrigger] = React.useState<StoredTrigger | null>(
+    null,
+  );
+
+  const handleUpdateFakerTrigger = React.useCallback(
+    (storedTrigger: StoredTrigger) => {
+      setFakerTrigger(storedTrigger);
+    },
+    [],
+  );
+
+  const handleResetFakerTrigger = React.useCallback(() => {
+    setFakerTrigger(null);
+  }, []);
 
   const handleGetNodeConnectedEgdes = React.useCallback(
     (nodeId: string) => {
@@ -101,30 +117,36 @@ export const useGraph = ({
     },
     [edges, edgesIdsToHighlight],
   );
+
   const { storedEntryStep, storedTriggers, storedSteps } =
     useStepsAndTriggersRecorder({
       steps,
       displayDisabledTriggers,
+      fakerTrigger,
     });
 
   const { entryNode, triggerNodeElements, stepNodeElements, exitNodeElements } =
     useNodeElementsRecorder({
       cadence,
       cadenceEditMode,
+      fakerTrigger,
+      smartlists,
       stepBubbleProps,
       storedEntryStep,
       storedSteps,
       storedTriggers,
-      triggerBubbleProps,
       deleteCadenceStep,
       deleteConnectedTrigger,
+      editConnectedTrigger,
       enterSubscriptionMode,
       getEmailTemplate,
       getSmartlist,
       getStepMarketingActions,
       getTag,
       handleGetNodeConnectedEgdes,
+      handleResetFakerTrigger,
       handleSelectedStepForEdition,
+      handleUpdateFakerTrigger,
       onClickConnectedTrigger,
       onClickEntryStep,
       resetAllSelection,

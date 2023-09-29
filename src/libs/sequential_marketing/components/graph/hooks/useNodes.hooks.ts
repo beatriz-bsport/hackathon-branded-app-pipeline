@@ -13,7 +13,10 @@ import {
   DEFAULT_X_FOR_EXIT,
   DEFAULT_X_FOR_INNERSTEP,
   DEFAULT_X_FOR_TRIGGER,
+  TriggerKind,
 } from '#libs/sequential_marketing/constants';
+import { getDefaultValuesComplete } from './utils';
+import { isTriggerFake } from '#libs/sequential_marketing/components/helpers/utils';
 
 import type {
   Cadence,
@@ -26,7 +29,7 @@ import type { SmartList } from '#libs/smart-list/types';
 import type { EmailTemplateSummary } from '#libs/email-editor/types';
 import type { Tag } from '#libs/tag/types';
 import type { StepEditionBubbleProps } from '../bubbles/StepEditionBubble.component';
-import type { Props as UniqueTriggerBubbleProps } from '#libs/sequential_marketing/components/graph/bubbles/UniqueTriggerBubble.component';
+import type { OptionCallback } from '../../../../../state/types';
 
 export enum CustomNodesEnum {
   // Nodes for steps
@@ -59,11 +62,13 @@ export const useNodeTypes = () => {
 type NodeElementStoreProps = {
   steps: CadenceStep[];
   displayDisabledTriggers: boolean;
+  fakerTrigger?: StoredTrigger;
 };
 
 export const useStepsAndTriggersRecorder = ({
   steps,
   displayDisabledTriggers,
+  fakerTrigger,
 }: NodeElementStoreProps) => {
   /*
   Hook handling storage of the element that must be displayed as nodes 
@@ -92,9 +97,10 @@ export const useStepsAndTriggersRecorder = ({
 
   // Connected Triggers : Kind of a "flat list" constructed by reducing all the steps and their
   // exits configurations (the step in still re-injected mostly for handling forms / events on click)
+  // TODO: Avoid too long list with duplicated data by making trigger list uniq
   const storedTriggers = React.useMemo(() => {
     if (steps && steps.length !== 0) {
-      return Immutable.from(
+      const triggers = Immutable.from(
         steps.reduce<StoredTrigger[]>((acc, step) => {
           return acc.concat(
             (step?.exits || [])
@@ -113,10 +119,14 @@ export const useStepsAndTriggersRecorder = ({
           );
         }, []),
       );
+      if (fakerTrigger) {
+        return triggers.concat(Immutable([fakerTrigger]));
+      }
+      return triggers;
     }
     // Enforcing the typing here to avoid default on any.
     return Immutable<StoredTrigger[]>([]);
-  }, [steps, displayDisabledTriggers]);
+  }, [steps, fakerTrigger, displayDisabledTriggers]);
 
   return {
     storedEntryStep,
@@ -127,58 +137,65 @@ export const useStepsAndTriggersRecorder = ({
 
 type NodeRendererProps = {
   cadence: Cadence;
+  cadenceEditMode: boolean;
+  smartlists: Immutable.ImmutableArray<SmartList>;
+  stepBubbleProps: Omit<StepEditionBubbleProps, 'step'>;
   storedEntryStep: CadenceStep;
   storedSteps: StoredStep[];
   storedTriggers: Immutable.ImmutableArray<StoredTrigger>;
-  onClickEntryStep: (step: CadenceStep) => void;
-  enterSubscriptionMode: (
-    step: StoredStep,
-    destination_step?: number | string | null,
-  ) => void;
-  onClickConnectedTrigger: (
-    step: StoredStep,
-    connected_trigger: ConnectedTrigger,
-  ) => void;
-  resetAllSelection: () => void;
-  handleGetNodeConnectedEgdes: (nodeId: string) => void;
-  handleSelectedStepForEdition: (stepId: number) => void;
+  fakerTrigger?: StoredTrigger;
   deleteCadenceStep: (stepId: number) => void;
   deleteConnectedTrigger: (
     cadenceId: number,
     connectedTriggerUUID: string,
     sourceStepId: number,
   ) => void;
+  editConnectedTrigger: (
+    data: ConnectedTrigger,
+    options?: OptionCallback,
+  ) => void;
+  enterSubscriptionMode: (
+    step: StoredStep,
+    destination_step?: number | string | null,
+  ) => void;
+  getEmailTemplate: (id: string) => EmailTemplateSummary;
   getSmartlist: (id: number) => SmartList;
   getStepMarketingActions: (stepId: number) => StepMarketingActions[];
   getTag: (id: string) => Tag;
-  getEmailTemplate: (id: string) => EmailTemplateSummary;
-  cadenceEditMode: boolean;
-  stepBubbleProps: Omit<StepEditionBubbleProps, 'step'>;
-  triggerBubbleProps: Pick<
-    UniqueTriggerBubbleProps,
-    'onConfirm' | 'smartlists'
-  >;
+  handleUpdateFakerTrigger: (storedTrigger: StoredTrigger) => void;
+  handleGetNodeConnectedEgdes: (nodeId: string) => void;
+  handleResetFakerTrigger: () => void;
+  handleSelectedStepForEdition: (stepId: number) => void;
+  onClickConnectedTrigger: (
+    step: StoredStep,
+    connected_trigger: ConnectedTrigger,
+  ) => void;
+  onClickEntryStep: (step: CadenceStep) => void;
+  resetAllSelection: () => void;
 };
 
 export const useNodeElementsRecorder = ({
   cadence,
   cadenceEditMode,
+  smartlists,
+  stepBubbleProps,
   storedEntryStep,
   storedSteps,
   storedTriggers,
-  onClickEntryStep,
-  enterSubscriptionMode,
-  onClickConnectedTrigger,
-  handleGetNodeConnectedEgdes,
-  handleSelectedStepForEdition,
   deleteCadenceStep,
   deleteConnectedTrigger,
+  editConnectedTrigger,
+  enterSubscriptionMode,
+  getEmailTemplate,
   getSmartlist,
   getStepMarketingActions,
   getTag,
-  getEmailTemplate,
-  stepBubbleProps,
-  triggerBubbleProps,
+  handleGetNodeConnectedEgdes,
+  handleResetFakerTrigger,
+  handleSelectedStepForEdition,
+  handleUpdateFakerTrigger,
+  onClickConnectedTrigger,
+  onClickEntryStep,
 }: NodeRendererProps) => {
   const handleSelectEntryStepForSubscription = React.useCallback(
     () => enterSubscriptionMode(storedEntryStep),
@@ -238,37 +255,58 @@ export const useNodeElementsRecorder = ({
     onConnectToEntryStep,
   ]);
 
+  const handleConfirmTriggerBubble = React.useCallback(
+    (storedTrigger: StoredTrigger) =>
+      (trigger: ConnectedTrigger, options?: OptionCallback) => {
+        if (isTriggerFake(trigger)) {
+          handleUpdateFakerTrigger({
+            step: storedTrigger?.step,
+            trigger,
+          });
+        } else {
+          editConnectedTrigger(trigger, options);
+        }
+      },
+    [editConnectedTrigger, handleUpdateFakerTrigger],
+  );
+
   // The tiggerNodeElements consumes the list of storedTriggers data to draw the ConnectedTriggerElements on the graph.
   const triggerNodeElements = React.useMemo(() => {
     if (storedTriggers) {
-      return storedTriggers.map((triggerNode) => ({
-        id: triggerNode.trigger.trigger_config?.uuid,
-        type: CustomNodesEnum.TriggerCardFlowVersionNode,
-        ...(triggerNode?.trigger?.canvas?.position?.x &&
-        triggerNode?.trigger.canvas?.position?.y
-          ? {
-              position: {
-                x: parseFloat(triggerNode.trigger.canvas.position.x),
-                y: parseFloat(triggerNode.trigger.canvas.position.y),
-              },
-            }
-          : { position: { x: DEFAULT_X_FOR_TRIGGER, y: 0 } }),
-        data: {
-          step: triggerNode.step,
-          trigger: triggerNode.trigger,
-          onCardClick: () =>
-            onClickConnectedTrigger(triggerNode.step, triggerNode.trigger),
-          onDelete: () =>
-            deleteConnectedTrigger(
-              cadence.id,
-              triggerNode.trigger?.trigger_config?.uuid,
-              triggerNode.trigger.destination_config.source_id,
-            ),
-          getSmartlist,
-          disabled: !cadenceEditMode,
-          bubble: triggerBubbleProps,
-        },
-      }));
+      return storedTriggers.map((triggerNode) => {
+        return {
+          id: triggerNode?.trigger?.trigger_config?.uuid,
+          type: CustomNodesEnum.TriggerCardFlowVersionNode,
+          ...(triggerNode?.trigger?.canvas?.position?.x &&
+          triggerNode?.trigger?.canvas?.position?.y
+            ? {
+                position: {
+                  x: parseFloat(triggerNode?.trigger?.canvas?.position?.x),
+                  y: parseFloat(triggerNode?.trigger?.canvas?.position?.y),
+                },
+              }
+            : { position: { x: DEFAULT_X_FOR_TRIGGER, y: 0 } }),
+          data: {
+            step: triggerNode?.step,
+            trigger: triggerNode?.trigger,
+            onCardClick: () =>
+              onClickConnectedTrigger(triggerNode?.step, triggerNode?.trigger),
+            onDelete: () =>
+              deleteConnectedTrigger(
+                cadence?.id,
+                triggerNode?.trigger?.trigger_config?.uuid,
+                triggerNode?.trigger?.destination_config?.source_id,
+              ),
+            getSmartlist,
+            disabled: !cadenceEditMode,
+            bubble: {
+              smartlists,
+              onConfirm: handleConfirmTriggerBubble(triggerNode),
+            },
+            resetFakerTrigger: handleResetFakerTrigger,
+          },
+        };
+      });
     }
     return [];
     // To prevent rerender issue coming from the react flow lib :
@@ -303,6 +341,20 @@ export const useNodeElementsRecorder = ({
     [handleOnConnectedStep],
   );
 
+  const handleAddNextStepTrigger = React.useCallback(
+    (stepNode: StoredStep) => (triggerKind: TriggerKind) => {
+      const faker: ConnectedTrigger = getDefaultValuesComplete(
+        triggerKind,
+        stepNode,
+      );
+      handleUpdateFakerTrigger({
+        step: stepNode,
+        trigger: faker,
+      });
+    },
+    [handleUpdateFakerTrigger],
+  );
+
   // The stepNodeElements consumes the storedSteps data to draw the steps
   const stepNodeElements = React.useMemo(() => {
     if (storedSteps && storedSteps.length !== 0) {
@@ -325,7 +377,7 @@ export const useNodeElementsRecorder = ({
           onDelete: () => deleteCadenceStep(stepNode?.id),
           handleChangeInExit: () => {}, // TODO: code the changeInExit function
           addMarketingAction: () => {}, // TODO: code the newMA function
-          addNextStep: () => enterSubscriptionMode(stepNode),
+          addNextStep: handleAddNextStepTrigger(stepNode),
           onCardClick: () => {
             handleSelectedStepForEdition(stepNode?.id);
             handleGetNodeConnectedEgdes(stepNode?.id?.toString());
@@ -350,7 +402,7 @@ export const useNodeElementsRecorder = ({
     () =>
       storedTriggers.filter(
         (storedTrigger) =>
-          storedTrigger.trigger.destination_config.kind ===
+          storedTrigger?.trigger?.destination_config?.kind ===
           DestinationKind.STEP_TO_OUTSIDE,
       ),
     [storedTriggers],

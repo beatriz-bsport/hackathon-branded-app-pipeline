@@ -45,10 +45,12 @@ export const SubscriptionBillingInfo: React.FC<Props> = React.memo(
     return (
       <>
         {showCouponInput && (
-          <CouponCodeInput
-            isBasketModificationDisabled={false}
-            onSubmit={handleSubmitCouponCode}
-          />
+          <div className="bs-subscription__coupon_container">
+            <CouponCodeInput
+              isBasketModificationDisabled={false}
+              onSubmit={handleSubmitCouponCode}
+            />
+          </div>
         )}
         <CheckoutContext.Provider value>
           <PriceCount

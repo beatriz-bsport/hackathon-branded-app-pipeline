@@ -392,10 +392,12 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
           )}
         </div>
         <div className={classes.validationContainer}>
-          <CouponCodeInput
-            isBasketModificationDisabled={isBasketModificationDisabled}
-            onSubmit={attachCoupon}
-          />
+          <div className={classes.couponCodeInput}>
+            <CouponCodeInput
+              isBasketModificationDisabled={isBasketModificationDisabled}
+              onSubmit={attachCoupon}
+            />
+          </div>
           <PriceCount
             basket={basket}
             isDeleteButtonDisabled={isBasketModificationDisabled}
@@ -487,6 +489,14 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: 'center',
     width: '100%',
     height: 40,
+  },
+  couponCodeInput: {
+    borderStyle: 'solid',
+    borderWidth: '1px',
+    borderColor: theme.palette.grey[100],
+    [theme.breakpoints.down('sm')]: {
+      borderWidth: '0px',
+    },
   },
 }));
 

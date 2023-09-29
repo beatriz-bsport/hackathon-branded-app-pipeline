@@ -148,13 +148,9 @@ const useStyles = makeStyles((theme) => ({
     gap: theme.spacing(2),
     padding: theme.spacing(2),
     boxSizing: 'border-box',
-    borderStyle: 'solid',
-    borderWidth: '1px',
-    borderColor: theme.palette.grey[100],
     [theme.breakpoints.down('sm')]: {
       padding: ` ${theme.spacing(2)}px 0 ${theme.spacing(2)}px 0`,
       boxSizing: 'content-box',
-      borderWidth: '0px',
     },
   },
   couponInputContainerError: {

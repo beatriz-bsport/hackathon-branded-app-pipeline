@@ -8,39 +8,49 @@ interface Props {
   onFinish?: () => void;
 }
 
-export default class CountDown extends React.PureComponent<Props> {
-  state = {
-    countdown: '',
-  };
+type State = {
+  countdown: string;
+  isAlreadyExpiredAtInitialization: boolean;
+  finish: boolean;
+  interval: ReturnType<typeof setInterval> | null;
+};
 
-  interval: any = null;
-
-  finish = false;
-
+export default class CountDown extends React.PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
 
     const countdown = this.getDuration();
     this.state = {
       countdown,
+      isAlreadyExpiredAtInitialization: false,
+      finish: false,
+      interval: null,
     };
   }
 
   componentDidMount = () => {
-    this.interval = setInterval(this.setCountDown, 1000);
+    const interval = setInterval(this.setCountDown, 1000);
+    this.setState({
+      interval,
+      isAlreadyExpiredAtInitialization: moment
+        .unix(this.props.timestamp)
+        .isBefore(moment()),
+    });
   };
 
   componentWillUnmount = () => {
-    clearInterval(this.interval);
+    clearInterval(this.state.interval);
   };
 
   setCountDown = () => {
-    if (!this.finish) {
+    if (!this.state.finish) {
       const duration = this.getDuration();
 
       if (!duration) {
-        this.finish = true;
-        this.props.onFinish && this.props.onFinish();
+        this.setState({ finish: true });
+        !this.state.isAlreadyExpiredAtInitialization &&
+          this.props.onFinish &&
+          this.props.onFinish();
       }
 
       this.setState({ countdown: duration });
@@ -48,16 +58,17 @@ export default class CountDown extends React.PureComponent<Props> {
   };
 
   getDuration = () => {
+    if (this.state?.isAlreadyExpiredAtInitialization) return '';
+
     const now = moment();
     const end = moment(this.props.timestamp, 'X');
     const duration = moment.duration(end.diff(now));
-
-    const str = moment.utc(duration.as('millisecond')).format('mm:ss');
 
     if (duration.minutes() <= 0 && duration.seconds() <= 0) {
       return '';
     }
 
+    const str = moment.utc(duration.as('millisecond')).format('mm:ss');
     return str;
   };
 

@@ -8,28 +8,28 @@ import ReactFlow, {
   ReactFlowProvider,
 } from 'react-flow-renderer';
 
-import type { OptionCallback } from '../../../../state/types';
-import { useNodeTypes, useGraphStyles, useGraph } from './hooks';
 import CadenceGraphViewPort from './CadenceGraphViewPort.component';
+import { useNodeTypes, useGraphStyles, useGraph } from './hooks';
+import { DestinationStatus } from '#libs/sequential_marketing/constants';
 import {
   getCadenceWinOrLoseConnectedTriggers,
   isMinimalCadenceConfigurationCompleted,
 } from '#libs/sequential_marketing/utils';
 
+import type { OptionCallback } from '../../../../state/types';
+import type { SmartList } from '#libs/smart-list/types';
+import type { Tag, TagGroupAPI } from '#libs/tag/types';
 import type {
   Cadence,
   CadenceStep,
   ConnectedTrigger,
   StepMarketingActions,
 } from '#libs/sequential_marketing/types';
-import type { SmartList } from '#libs/smart-list/types';
 import type {
   EmailTemplateDetail,
   EmailTemplateSummary,
   ResolvedGenericTags,
 } from '#libs/email-editor/types';
-import type { Tag, TagGroupAPI } from '#libs/tag/types';
-import { DestinationStatus } from '#libs/sequential_marketing/constants';
 
 const rfStyle = {
   backgroundColor: 'transparent',
@@ -37,60 +37,60 @@ const rfStyle = {
 
 type Props = {
   cadence: Cadence;
-  steps: CadenceStep[];
-  updateCadenceStepCanvasPosition: (
-    id: number,
-    { x, y }: { x: number; y: number },
-  ) => void;
-  updateConnectedTriggerPosition: (
-    id: number,
-    { ct_uuid, x, y }: { ct_uuid: string; x: number; y: number },
-  ) => void;
-  onClickEntryStep: (step: CadenceStep) => void;
-  handleSelectStepForSubscription: (
-    step: CadenceStep,
-    subscriptionDestination?: number | string | null,
-  ) => void;
   cadenceMinimalConfigurationState: {
     cadenceWinConfigured: boolean;
     cadenceLoseConfigured: boolean;
     cadenceEntryConfigured: boolean;
   };
-  onClickConnectedTrigger: (
-    step: CadenceStep,
-    connected_trigger: ConnectedTrigger,
-  ) => void;
-  resetAllSelection: () => void;
   cadenceEditMode: boolean;
-  handleSelectedStepForEdition: (stepId: number) => void;
+  tagList: Tag<TagGroupAPI>[];
+  emailSummaryListLoading: boolean;
+  emailSummaryList: EmailTemplateSummary[];
+  emailDetailListLoading: boolean;
+  emailDetailList: Record<number, EmailTemplateDetail>;
+  resolvedGenericTags: ResolvedGenericTags;
+  tagCategories: { [tag_name: string]: string[] };
+  smartlists: Immutable.ImmutableArray<SmartList>;
+  steps: CadenceStep[];
   deleteCadenceStep: (stepId: number) => void;
   deleteConnectedTrigger: (
     cadenceId: number,
     connectedTriggerUUID: string,
     sourceStepId: number,
   ) => void;
+  editConnectedTrigger: (
+    trigger: ConnectedTrigger,
+    options?: OptionCallback,
+  ) => void;
+  fetchEmailSummaryList: () => void;
+  getEmailDetail: (id: number) => void;
+  getEmailTemplate: (id: string) => EmailTemplateSummary;
   getSmartlist: (id: number) => SmartList;
   getStepMarketingActions: (stepId: number) => StepMarketingActions[];
   getTag: (id: string) => Tag;
-  getEmailTemplate: (id: string) => EmailTemplateSummary;
-  tagList: Tag<TagGroupAPI>[];
+  handleSelectedStepForEdition: (stepId: number) => void;
+  handleSelectStepForSubscription: (
+    step: CadenceStep,
+    subscriptionDestination?: number | string | null,
+  ) => void;
+  onClickConnectedTrigger: (
+    step: CadenceStep,
+    connected_trigger: ConnectedTrigger,
+  ) => void;
+  onClickEntryStep: (step: CadenceStep) => void;
+  resetAllSelection: () => void;
   submitMarketingActionForm: (data: {
     list: StepMarketingActions[];
     step: number;
   }) => void;
+  updateCadenceStepCanvasPosition: (
+    id: number,
+    { x, y }: { x: number; y: number },
+  ) => void;
   updateCadenceStepName: (data: { name: string; stepId: number }) => void;
-  emailSummaryListLoading: boolean;
-  emailSummaryList: EmailTemplateSummary[];
-  emailDetailListLoading: boolean;
-  emailDetailList: Record<number, EmailTemplateDetail>;
-  fetchEmailSummaryList: () => void;
-  getEmailDetail: (id: number) => void;
-  resolvedGenericTags: ResolvedGenericTags;
-  tagCategories: { [tag_name: string]: string[] };
-  smartlists: Immutable.ImmutableArray<SmartList>;
-  editConnectedTrigger: (
-    trigger: ConnectedTrigger,
-    options?: OptionCallback,
+  updateConnectedTriggerPosition: (
+    id: number,
+    { ct_uuid, x, y }: { ct_uuid: string; x: number; y: number },
   ) => void;
 };
 
@@ -135,25 +135,23 @@ export const CadenceGraphFlow: React.FC<Props> = ({
   const { nodes, setNodes, edges, setEdges, onNodeDragStop } = useGraph({
     cadence,
     cadenceEditMode,
-    steps,
     displayDisabledTriggers,
-    onClickEntryStep,
-    updateCadenceStepCanvasPosition,
-    updateConnectedTriggerPosition,
-    enterSubscriptionMode: handleSelectStepForSubscription,
-    onClickConnectedTrigger,
-    resetAllSelection,
-    handleSelectedStepForEdition,
+    smartlists,
+    steps,
     deleteCadenceStep,
     deleteConnectedTrigger,
+    editConnectedTrigger,
+    enterSubscriptionMode: handleSelectStepForSubscription,
+    getEmailTemplate,
     getSmartlist,
     getStepMarketingActions,
     getTag,
-    getEmailTemplate,
-    triggerBubbleProps: {
-      smartlists,
-      onConfirm: editConnectedTrigger,
-    },
+    handleSelectedStepForEdition,
+    onClickConnectedTrigger,
+    onClickEntryStep,
+    resetAllSelection,
+    updateCadenceStepCanvasPosition,
+    updateConnectedTriggerPosition,
     stepBubbleProps: {
       emailDetailList,
       emailDetailListLoading,

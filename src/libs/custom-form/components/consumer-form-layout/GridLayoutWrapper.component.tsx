@@ -18,14 +18,21 @@ type OwnProps = {
 type Props = OwnProps;
 export const GridLayoutWrapper = (props: Props) => {
   const theme = useTheme();
+
+  // https://github.com/react-grid-layout/react-grid-layout#react-hooks-performance
+  const ResponsiveGridLayoutMemoized = React.useMemo(
+    () => ResponsiveGridLayout,
+    [],
+  );
   // We need to check both that the layout exists and if there are at least 4 breakpoints defined (otherwise
   // things are not going to work properly)
   if (!props.layouts || Object.keys(props.layouts)?.length !== 4) {
     return <>{props.children}</>;
   }
+
   return (
     <div className={props.isEditing ? 'isEditing' : null}>
-      <ResponsiveGridLayout
+      <ResponsiveGridLayoutMemoized
         breakpoints={{
           lg: theme.breakpoints.values.lg,
           md: theme.breakpoints.values.md,
@@ -46,7 +53,7 @@ export const GridLayoutWrapper = (props: Props) => {
         rowHeight={50}
       >
         {props.children}
-      </ResponsiveGridLayout>
+      </ResponsiveGridLayoutMemoized>
     </div>
   );
 };

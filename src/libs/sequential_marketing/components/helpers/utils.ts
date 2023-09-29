@@ -19,15 +19,16 @@ import {
   TriggerKind,
   MarketingActionKind,
   MarketingActions,
+  TRIGGER_TEMPORARY_ID,
 } from '#libs/sequential_marketing/constants';
-import { MarketingActionChipProps } from '#libs/sequential_marketing/components/graph/chips/MarketingActionChip.component';
 
 import type {
   ConnectedTrigger,
   StepMarketingActions,
   StepMarketingActionsCommunicationSpec,
   StepMarketingActionsTagSpec,
-} from '../../types';
+} from '#libs/sequential_marketing/types';
+import type { MarketingActionChipProps } from '#libs/sequential_marketing/components/graph/chips/MarketingActionChip.component';
 import type { SmartList } from '#libs/smart-list/types';
 
 type TriggerIconProps = {
@@ -328,3 +329,45 @@ export const getMarketingActionChipName = ({
       return null;
   }
 };
+
+/** Function testing if a trigger is valid (not faker trigger or other error)
+ * @param {ConnectedTrigger} trigger - Cadence trigger
+ * @returns {boolean} - Return whether or not the trigger is valid
+ */
+export const isTriggerValid = (trigger: ConnectedTrigger) => {
+  const triggerKind = getTriggerKind(trigger);
+
+  switch (triggerKind) {
+    case TriggerKind.ONLY_EVENT_TRIGGER:
+      return (
+        trigger?.trigger_config?.identifier === TriggerIdentifier.EVENT &&
+        !!trigger?.trigger_config?.event_type
+      );
+    case TriggerKind.ONLY_SMARTLIST_FILTERING:
+      return (
+        trigger?.filtering_config?.identifier === FilterIdentifier.SMARTLIST &&
+        !!trigger?.filtering_config?.smartlist_pk
+      );
+    case TriggerKind.ONLY_TIMEOUT:
+      return (
+        trigger?.trigger_config?.identifier === TriggerIdentifier.TIMEOUT &&
+        !!trigger?.trigger_config?.timeout
+      );
+    case TriggerKind.EVENT_TRIGGER_AND_SMARTLIST_FILTERING:
+      return (
+        trigger?.trigger_config?.identifier === TriggerIdentifier.EVENT &&
+        !!trigger?.trigger_config?.event_type &&
+        trigger?.filtering_config?.identifier === FilterIdentifier.SMARTLIST &&
+        !!trigger?.filtering_config?.smartlist_pk
+      );
+    default:
+      return false;
+  }
+};
+
+/** Function testing if a trigger is a faker one used in step creation or not
+ * @param {ConnectedTrigger} trigger - Cadence trigger
+ * @returns {boolean} - Return whether or not the trigger is fake
+ */
+export const isTriggerFake = (trigger: ConnectedTrigger) =>
+  trigger?.trigger_config?.uuid === TRIGGER_TEMPORARY_ID;

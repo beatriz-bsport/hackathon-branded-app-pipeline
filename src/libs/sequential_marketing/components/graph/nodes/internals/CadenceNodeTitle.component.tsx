@@ -11,6 +11,7 @@ import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
 import MenuSelectorIconOnHover from '#components/menu/hover';
 import ConnectedTriggerChip from '#libs/sequential_marketing/components/graph/chips/ConnectedTriggerChip.component';
 import TriggeredPersonIcon from '#components/icons/TriggeredPersonIcon.component';
+import { isTriggerValid } from '#libs/sequential_marketing/components/helpers/utils';
 import {
   HEADER_FONT_SIZE,
   HEADER_ICON_SIZE,
@@ -115,19 +116,20 @@ const CadenceNodeTitle: React.FC<CadenceNodeTitleProps> = ({
           </div>
         )}
       </div>
-      {!!triggerList && (
-        <div className={classes.chipSection}>
-          {triggerList.map((trigger, idx) => (
-            <div key={idx} className={classes.chip}>
-              <ConnectedTriggerChip
-                color={disabled ? chroma(color).alpha(0.5).hex() : color}
-                getSmartlist={getSmartlist}
-                trigger={trigger}
-              />
-            </div>
-          ))}
-        </div>
-      )}
+      {!!triggerList &&
+        (triggerList.length > 1 || isTriggerValid(triggerList[0])) && (
+          <div className={classes.chipSection}>
+            {triggerList.map((trigger) => (
+              <div key={trigger.trigger_config.uuid} className={classes.chip}>
+                <ConnectedTriggerChip
+                  color={disabled ? chroma(color).alpha(0.5).hex() : color}
+                  getSmartlist={getSmartlist}
+                  trigger={trigger}
+                />
+              </div>
+            ))}
+          </div>
+        )}
     </div>
   );
 };

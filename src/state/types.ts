@@ -116,3 +116,8 @@ export type OptionCallBackWithKeyedCallbacks<
   T = void,
   KeyedCallBackEnum extends number = number,
 > = OptionCallback<T> & KeyedCallbacks<KeyedCallBackEnum>;
+
+export type APIPollOptionCallback<T = void> = {
+  onPollSuccess?: (args?: T) => void;
+  onPollError?: (error?: Error) => void;
+};

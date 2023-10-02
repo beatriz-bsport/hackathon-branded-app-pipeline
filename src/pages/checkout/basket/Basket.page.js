@@ -36,6 +36,7 @@ import {
   attachPayment as attachPaymentAction,
   createOrRefreshInternalAccountPrepaidLine as createOrRefreshInternalAccountPrepaidLineAction,
   assignInstalmentPayment as assignInstalmentPaymentAction,
+  monitorExpiredItemRemoval,
 } from '../../../libs/checkout/actions';
 import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../../libs/establishment/actions';
 import { fetchInstalmentPaymentByBasket as fetchInstalmentPaymentByBasketAction } from '../../../libs/instalment-payment-configuration/actions';
@@ -48,6 +49,7 @@ import NewCheckoutFlow from '#libs/checkout/components/new-checkout-flow/NewChec
 import {
   getCurrentBasket,
   getBasketOfferList,
+  getCurrentBasketItemRemovalStatusLoading,
 } from '../../../libs/checkout/selectors';
 import {
   withMetaActivity,
@@ -93,6 +95,7 @@ import { getUsableCreditAccountBalance } from '#libs/membership/selectors';
 import type {
   OptionCallback,
   OptionCallBackWithKeyedCallbacks,
+  APIPollOptionCallback,
 } from '../../../state/types';
 import { fetchMember } from '#libs/member/actions';
 import { BasketAddress } from '#libs/checkout/types';
@@ -135,6 +138,12 @@ type Props = {
 
   shopItemList: Array<ShopItem>,
   fetchShopItemFeatured: (companyId: number) => void,
+  basketItemRemovalStatusLoading: boolean,
+  monitorExpiredItemRemoval: (
+    companyId: number,
+    checkoutItemId: string,
+    pollOptionCallback?: APIPollOptionCallback,
+  ) => void,
 
   addShopItemToBasket: (shopitemId: number) => void,
   fetchProfile: () => void,
@@ -547,6 +556,9 @@ export class BasketPage extends React.Component<Props> {
                   attachCoupon={this.attachCoupon}
                   auth={this.props.auth}
                   basket={this.props.basket}
+                  basketItemRemovalStatusLoading={
+                    this.props.basketItemRemovalStatusLoading
+                  }
                   basketLoading={this.props.loading || this.props.processing}
                   basketOffers={this.props.basketOffers}
                   cardBillingDetailsMandatory={
@@ -570,6 +582,9 @@ export class BasketPage extends React.Component<Props> {
                   )}
                   isExcludingTax={
                     this.props.theme.is_tax_excluded_in_marketplace
+                  }
+                  monitorExpiredItemRemoval={
+                    this.props.monitorExpiredItemRemoval
                   }
                   onPaymentSuccess={this.onSuccess}
                   onRemoveInternalAccountPrepaidLine={
@@ -667,6 +682,8 @@ export default compose(
         withEstablishment((state_) => getBasketOfferList(state_)),
       )(state),
       customConfiguration: state.exportableComponents.customCss,
+      basketItemRemovalStatusLoading:
+        getCurrentBasketItemRemovalStatusLoading(state),
     }),
     {
       disconnect: authActions.disconnect,
@@ -699,6 +716,7 @@ export default compose(
       fetchMetaActivityBulk: fetchMetaActivityBulkAction,
       fetchEstablishmentBulk: fetchEstablishmentBulkAction,
       retrieveCompanyCssConfiguration: retrieveCompanyCssConfigurationAction,
+      monitorExpiredItemRemoval,
     },
   ),
   withHandlers({

@@ -25,15 +25,18 @@ import {
   createQuicksaleBasket as createQuicksaleBasketAPI,
   updateQuicksaleBasketMember as updateQuicksaleBasketMemberAPI,
   dropQuicksaleBasket as dropQuicksaleBasketAPI,
+  getExpiredItemRemovalStatus as getExpiredItemRemovalStatusAPI,
 } from './api';
 import { getCurrentBasket } from './selectors';
 import { snackbarError } from '#libs/snackbar/actions';
 
 import type {
   Dispatch,
+  GetState,
   ThunkAction,
   OptionCallback,
   OptionCallBackWithKeyedCallbacks,
+  APIPollOptionCallback,
 } from '../../state/types';
 import type { RootState } from '../../reducers';
 import type {
@@ -55,6 +58,9 @@ export const currentBasket = {
   isLoading: createAction<boolean>('CHECKOUT_BASKET/CURRENT/IS_LOADING'),
   isUpdating: createAction<boolean>('CHECKOUT_BASKET/CURRENT/IS_UPDATING'),
   success: createAction<Basket>('CHECKOUT_BASKET/CURRENT/SUCCESS'),
+  isExpiredItemRemovalStatusLoading: createAction<boolean>(
+    'CHECKOUT_BASKET/CURRENT/REMOVAL_STATUS_LOADING',
+  ),
 };
 
 export function fetchCurrentBasket(
@@ -593,3 +599,102 @@ export function dropQuicksaleBasket(
     dispatch(dropQuicksaleBasketActions.isLoading(false));
   };
 }
+
+const MONITOR_EXPIRED_ITEM_REMOVAL_MAX_RETRIES = 15;
+const MONITOR_EXPIRED_ITEM_REMOVAL_POLL_DELAY_SECONDS = 2;
+
+export const monitorExpiredItemRemoval = (
+  companyId: number,
+  checkoutItemId: string,
+  pollOptionCallback?: APIPollOptionCallback,
+): ThunkAction => {
+  return (dispatch, getState) => {
+    dispatch(currentBasket.isExpiredItemRemovalStatusLoading(true));
+    const retryCount = 1;
+
+    fetchCurrentBasketItemRemovalStatus(
+      dispatch,
+      getState,
+      checkoutItemId,
+      retryCount,
+      companyId,
+      pollOptionCallback,
+    );
+  };
+};
+
+const fetchCurrentBasketItemRemovalStatus = async (
+  dispatch: Dispatch,
+  getState: GetState,
+  checkoutItemId: string,
+  retryCount: number,
+  companyId: number,
+  pollOptionCallback?: APIPollOptionCallback,
+) => {
+  if (retryCount > MONITOR_EXPIRED_ITEM_REMOVAL_MAX_RETRIES) {
+    // Try to manually remove the checkout item
+    const currentBasketId = getCurrentBasket(getState()).id;
+    dispatch(
+      removeItemFromBasket(
+        currentBasketId,
+        {
+          checkout_item: checkoutItemId,
+          quantity: 1,
+        },
+        {
+          onError: () => {
+            pollOptionCallback?.onPollError?.();
+            dispatch(currentBasket.isExpiredItemRemovalStatusLoading(false));
+          },
+          onSuccess: () => {
+            pollOptionCallback?.onPollSuccess?.();
+            dispatch(currentBasket.isExpiredItemRemovalStatusLoading(false));
+          },
+        },
+      ),
+    );
+    return;
+  }
+
+  try {
+    const response = await getExpiredItemRemovalStatusAPI({
+      checkout_item_id: checkoutItemId,
+      company: companyId,
+    });
+
+    const { removal_successful } = response.data;
+    if (removal_successful) {
+      pollOptionCallback?.onPollSuccess?.();
+      dispatch(currentBasket.isExpiredItemRemovalStatusLoading(false));
+    } else {
+      // Retry in a few seconds
+      setTimeout(
+        () =>
+          fetchCurrentBasketItemRemovalStatus(
+            dispatch,
+            getState,
+            checkoutItemId,
+            retryCount + 1,
+            companyId,
+            pollOptionCallback,
+          ),
+        MONITOR_EXPIRED_ITEM_REMOVAL_POLL_DELAY_SECONDS * 1000,
+      );
+    }
+  } catch (error) {
+    console.error(error);
+    // Retry in a few seconds
+    setTimeout(
+      () =>
+        fetchCurrentBasketItemRemovalStatus(
+          dispatch,
+          getState,
+          checkoutItemId,
+          retryCount + 1,
+          companyId,
+          pollOptionCallback,
+        ),
+      MONITOR_EXPIRED_ITEM_REMOVAL_POLL_DELAY_SECONDS * 1000,
+    );
+  }
+};

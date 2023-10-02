@@ -7,7 +7,14 @@ export const Dialog = Template.bind({});
 Dialog.args = {
   open: true,
   handleClose: () => {},
-  redirectToSpotSelection: () => {},
+  loading: false,
+};
+
+export const LoadingDialog = Template.bind({});
+LoadingDialog.args = {
+  open: true,
+  handleClose: () => {},
+  loading: true,
 };
 
 export default {

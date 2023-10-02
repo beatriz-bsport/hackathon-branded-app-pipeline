@@ -31,6 +31,7 @@ const initialState: Immutable.Immutable<CheckoutState> =
         loading: false,
         updating: false,
         error: null,
+        expiredItemRemovalStatusLoading: false,
       },
       history: {
         loading: false,
@@ -92,6 +93,15 @@ export default handleActions<Immutable.Immutable<CheckoutState>, any>(
       return state
         .setIn(['basket', 'current', 'data'], payload)
         .setIn(['basket', 'byId', payload.id], payload);
+    },
+    [currentBasket.isExpiredItemRemovalStatusLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['basket', 'current', 'expiredItemRemovalStatusLoading'],
+        payload,
+      );
     },
     [createOrRefreshInternalAccountPrepaidLineActions.isLoading.toString()]: (
       state,

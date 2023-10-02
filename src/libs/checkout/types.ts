@@ -119,6 +119,7 @@ export type CheckoutState = {
       loading: boolean;
       error?: Error;
       updating: boolean;
+      expiredItemRemovalStatusLoading: boolean;
     };
     loading: boolean;
     error?: Error;
@@ -219,3 +220,12 @@ export enum ConfirmationStatus {
   PURCHASE_WITH_ITEMS_SUCCESS = 'purchaseWithItemsSuccess',
   PURCHASE_WITH_GIFTCARDS_SUCCESS = 'purchaseWithGiftcardsSuccess',
 }
+
+export type ExpiredItemRemovalStatusPayload = {
+  checkout_item_id: string;
+  company: number;
+};
+
+export type ExpiredItemRemovalStatusResponse = {
+  removal_successful: boolean;
+};

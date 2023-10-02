@@ -19,6 +19,8 @@ import type {
   BasketAddress,
   AddItemToBasketParams,
   QuicksaleMemberUpdateResponse,
+  ExpiredItemRemovalStatusPayload,
+  ExpiredItemRemovalStatusResponse,
 } from './types';
 
 export const fetchCurrentBasket = (
@@ -162,4 +164,13 @@ export const dropQuicksaleBasket = (
   basketId: string,
 ): Promise<AxiosResponse<{ dropped: boolean }>> => {
   return deleteAuth(`${API_V1_URI}/checkout/basket/${basketId}/`);
+};
+
+export const getExpiredItemRemovalStatus = (
+  data: ExpiredItemRemovalStatusPayload,
+) => {
+  return putAuth<ExpiredItemRemovalStatusResponse>(
+    `${API_V1_URI}/checkout/basket/current/expired_item_removal_status/`,
+    data,
+  );
 };

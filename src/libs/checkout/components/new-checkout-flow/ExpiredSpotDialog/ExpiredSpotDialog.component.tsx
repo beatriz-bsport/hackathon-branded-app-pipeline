@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core';
 
 import WarningRoundedIcon from '@material-ui/icons/WarningRounded';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
@@ -11,9 +12,10 @@ import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
 export type Props = {
   open: boolean;
   handleClose: () => void;
+  loading: boolean;
 };
 
-const ExpiredSpotDialog: React.FC<Props> = ({ open, handleClose }) => {
+const ExpiredSpotDialog: React.FC<Props> = ({ open, handleClose, loading }) => {
   const { t } = useTranslation('checkout');
   const classes = useStyles();
 
@@ -39,10 +41,17 @@ const ExpiredSpotDialog: React.FC<Props> = ({ open, handleClose }) => {
           <Button
             className={classes.closeButton}
             color="primary"
+            disabled={loading}
             onClick={handleClose}
             variant="contained"
           >
             {t('expiredSpotDialog.refresh')}
+            {loading && (
+              <CircularProgress
+                className={classes.circularProgress}
+                size="1rem"
+              />
+            )}
           </Button>
         </div>
       </div>
@@ -83,6 +92,9 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: theme.spacing(3),
   },
   title: { paddingBottom: theme.spacing(1) },
+  circularProgress: {
+    marginLeft: theme.spacing(1),
+  },
 }));
 
 export default React.memo(ExpiredSpotDialog);

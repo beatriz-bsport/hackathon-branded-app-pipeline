@@ -36,6 +36,7 @@ import {
 import type {
   OptionCallback,
   OptionCallBackWithKeyedCallbacks,
+  APIPollOptionCallback,
 } from '../../../../state/types';
 import ActivitiesSummary from './ActivitiesSummary.component';
 import BasketSummary from './BasketSummary.component';
@@ -113,7 +114,13 @@ type NewCheckoutFlowProps = {
   useInternalAccount?: (amount: number) => void;
   validateUnpaid: (options: OptionCallback) => void;
   goToMarketplace: () => void;
-  refreshBasket: () => void;
+  basketItemRemovalStatusLoading: boolean;
+  monitorExpiredItemRemoval: (
+    companyId: number,
+    checkoutItemId: string,
+    pollOptionCallback?: APIPollOptionCallback,
+  ) => void;
+  refreshBasket: (options?: OptionCallback) => void;
 };
 
 export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
@@ -150,6 +157,8 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
   useInternalAccount,
   validateUnpaid,
   goToMarketplace,
+  basketItemRemovalStatusLoading,
+  monitorExpiredItemRemoval,
   refreshBasket,
 }) => {
   const { t } = useTranslation('checkout');
@@ -195,10 +204,32 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
   const [expiredSpotDialogOpen, setExpiredSpotDialogOpen] =
     React.useState(false);
 
+  const [expiredCheckoutItemIdToMonitor, setExpiredCheckoutItemIdToMonitor] =
+    React.useState<string | null>(null);
+
+  const handleCheckoutItemExpiration = React.useCallback(
+    (checkoutItemId: string) => {
+      setExpiredCheckoutItemIdToMonitor(checkoutItemId);
+      setExpiredSpotDialogOpen(true);
+    },
+    [],
+  );
+
   const handleCloseExpiredSpotDialog = React.useCallback(() => {
-    setExpiredSpotDialogOpen(false);
-    refreshBasket();
-  }, [refreshBasket]);
+    monitorExpiredItemRemoval(companyId, expiredCheckoutItemIdToMonitor, {
+      onPollSuccess: () => {
+        setExpiredSpotDialogOpen(false);
+        // refreshBasket will fetch the updated current basket as well as available instalment payments
+        refreshBasket();
+      },
+      onPollError: () => setExpiredSpotDialogOpen(false),
+    });
+  }, [
+    companyId,
+    monitorExpiredItemRemoval,
+    expiredCheckoutItemIdToMonitor,
+    refreshBasket,
+  ]);
 
   // If the basket does not need anymore an adress, we should go to the next step directly
   React.useEffect(() => {
@@ -385,7 +416,7 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
               connectedToOtherComponents={
                 !isMobile || basketSummaryCheckoutItems.length > 0
               }
-              setExpiredSpotDialogOpen={setExpiredSpotDialogOpen}
+              handleCheckoutItemExpiration={handleCheckoutItemExpiration}
             />
             <Collapse in={!isMobile || isBasketDisplayed}>
               <BasketSummary
@@ -435,6 +466,7 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
       </div>
       <ExpiredSpotDialog
         handleClose={handleCloseExpiredSpotDialog}
+        loading={basketItemRemovalStatusLoading}
         open={expiredSpotDialogOpen}
       />
     </>

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import Immutable from 'seamless-immutable';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -20,8 +20,8 @@ type ActivitiesSummaryProps = {
   basketOffers: Offer<number, Establishment, MetaActivity>[];
   companyTheme: CompanyTheme;
   connectedToOtherComponents: boolean;
-  setExpiredSpotDialogOpen?: (value: boolean) => void;
   basketLoading: boolean;
+  handleCheckoutItemExpiration?: (checkoutItemId: string) => void;
 };
 
 export const ActivitiesSummary: React.FC<ActivitiesSummaryProps> = ({
@@ -29,8 +29,8 @@ export const ActivitiesSummary: React.FC<ActivitiesSummaryProps> = ({
   basketOffers,
   companyTheme,
   connectedToOtherComponents,
-  setExpiredSpotDialogOpen,
   basketLoading,
+  handleCheckoutItemExpiration,
 }) => {
   const classes = useStyles({ connectedToOtherComponents });
 
@@ -49,12 +49,6 @@ export const ActivitiesSummary: React.FC<ActivitiesSummaryProps> = ({
       }),
     [activitySummaryCheckoutItems, basketOffers],
   );
-
-  const onCheckoutItemExpires = useCallback(() => {
-    if (setExpiredSpotDialogOpen) {
-      setExpiredSpotDialogOpen(true);
-    }
-  }, [setExpiredSpotDialogOpen]);
 
   if (activitySummaryCheckoutItems.length === 0) return null;
 
@@ -93,7 +87,7 @@ export const ActivitiesSummary: React.FC<ActivitiesSummaryProps> = ({
             <SavedSpotCounddown
               classes={{ [classes.expirationWarning]: true }}
               expirationDatetime={checkoutItem.expiration_datetime}
-              onFinish={onCheckoutItemExpires}
+              onFinish={() => handleCheckoutItemExpiration(checkoutItem.id)}
             />
           )}
 

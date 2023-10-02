@@ -959,7 +959,7 @@
                 "book": "Buchen",
                 "isPast": "Vergangen",
                 "notAvailable": "Storniert",
-                "notBookableYet": "Bald",
+                "notBookableYet": "Bald verfügbar",
                 "alreadyRegistered": "Buchen",
                 "full": "Vollständig",
                 "popOverTitle": {
@@ -17012,7 +17012,7 @@
             "close": "Schließen"
         },
         "registrationsStatus": {
-            "areClosed": "Geschlossen",
+            "areClosed": "Vergangen",
             "areNotClosed": "Geöffnet"
         },
         "coachAnswers": {

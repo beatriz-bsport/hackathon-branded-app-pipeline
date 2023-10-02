@@ -38,11 +38,12 @@ const getLabelForRules = (
     } else if (notification.event_rules.days > 0) {
       key = 'second_after_days';
     }
-    const trad = t(`booking:notification.form.chooseTime.${key}`);
-    return `${
-      Math.abs(notification.event_rules.hours) ||
-      Math.abs(notification.event_rules.days)
-    } ${trad}`;
+    const trad = t(`booking:notification.form.chooseTime.${key}`, {
+      count:
+        Math.abs(notification.event_rules.hours) ||
+        Math.abs(notification.event_rules.days),
+    });
+    return trad;
   }
 
   if (

@@ -9,7 +9,6 @@ import ExitCardFlowVersion from '../nodes/exits/CadenceExitCardFlowVersion.compo
 
 import {
   DestinationKind,
-  TriggerIdentifier,
   DEFAULT_X_FOR_ENTRYSTEP,
   DEFAULT_X_FOR_EXIT,
   DEFAULT_X_FOR_INNERSTEP,
@@ -105,12 +104,7 @@ export const useStepsAndTriggersRecorder = ({
         steps.reduce<StoredTrigger[]>((acc, step) => {
           return acc.concat(
             (step?.exits || [])
-              .filter(
-                (_trig) =>
-                  _trig?.trigger_config?.identifier !==
-                    TriggerIdentifier.TIMEOUT &&
-                  (displayDisabledTriggers || !_trig.disabled),
-              )
+              .filter((trigger) => displayDisabledTriggers || !trigger.disabled)
               .map((trig) =>
                 Immutable({
                   step: { ...omit(step, ['exits']) },

@@ -13384,7 +13384,8 @@
           "isAddingItemPossible": "Adding more items activated",
           "isItemEditionDisabled": "Modifying items disabled",
           "isDense": "Dense",
-          "numberOfDistinctCheckoutItem": "Number of disctint product in basket"
+          "numberOfDistinctCheckoutItem": "Number of disctint product in basket",
+          "basketIsEmpty": "Basket is empty"
         },
         "configurationTitle": "Variations"
       },
@@ -13439,7 +13440,8 @@
         "marketplace_search": "Search filter",
         "marketplace_item_quantity": "Basket item Quantity (Basket summary)",
         "marketplace_basket_summary_item": "Basket item component (Basket summary)",
-        "marketplace_basket_summary_list_item": "Basket item list component (Basket summary)"
+        "marketplace_basket_summary_list_item": "Basket item list component (Basket summary)",
+        "marketplace_basket_summary": "Basket summary"
       },
       "customCss": {
         "yourCode": "Your complementary implementation:",

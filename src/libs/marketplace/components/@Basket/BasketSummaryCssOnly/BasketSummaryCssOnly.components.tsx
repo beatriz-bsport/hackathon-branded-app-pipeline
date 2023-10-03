@@ -28,7 +28,6 @@ export type Props = {
     data: HandleAddCheckoutItemData,
     options?: OptionCallback,
   ) => void;
-  withPrice?: boolean;
   loading?: boolean;
   isExcludingTax?: boolean;
 };

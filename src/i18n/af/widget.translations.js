@@ -151,6 +151,7 @@ exports.default = {
         isItemEditionDisabled: 'Modifying items disabled',
         isDense: 'Dense',
         numberOfDistinctCheckoutItem: 'Number of disctint product in basket',
+        basketIsEmpty: 'Basket is empty',
       },
       configurationTitle: 'Variations',
     },
@@ -211,6 +212,7 @@ exports.default = {
       marketplace_basket_summary_item: 'Basket item component (Basket summary)',
       marketplace_basket_summary_list_item:
         'Basket item list component (Basket summary)',
+      marketplace_basket_summary: 'Basket summary',
     },
     customCss: {
       yourCode: 'Your complementary implementation:',

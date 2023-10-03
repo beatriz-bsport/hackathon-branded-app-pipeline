@@ -82,3 +82,8 @@ We need to brutally override some things from MUI.
 .bs-basket_summary_checkout_list--container {
   width: 100%;
 }
+
+/* BasketSummaryCssOnly */
+.bs-basket_summary--container {
+  width: 100%;
+}

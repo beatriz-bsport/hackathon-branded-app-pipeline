@@ -14,6 +14,7 @@ import * as Yup from 'yup';
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import classNames from 'classnames';
 import { CheckoutContext } from '../../../pages/checkout/basket/CheckoutContext';
 import type { OptionCallback } from '../../../state/types';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
@@ -54,7 +55,7 @@ export const UseInternalAccountForm: React.FC<Props> = ({
   const [open, setOpen] = React.useState(false);
   const { t } = useTranslation('checkout');
   const isNewCheckoutFlow = React.useContext(CheckoutContext);
-  const classes = useStyles({ isNewCheckoutFlow });
+  const classes = useStyles({ isNewCheckoutFlow, open });
   const [isUseInternalAccountProcessing, setIsUseInternalAccountProcessing] =
     React.useState(false);
 
@@ -83,16 +84,17 @@ export const UseInternalAccountForm: React.FC<Props> = ({
               {t('internalAccount.myInternalAccount')}
             </Typography>
           )}
-          <div className={classes.greyContainer}>
+          <div
+            className={classNames(
+              classes.greyContainer,
+              classes.accountBalanceContainer,
+            )}
+          >
             <Typography className={classes.creditAccountBalance} variant="h6">
               {getCurrencyDisplayWithPrice(creditAccountBalance)}
             </Typography>
-            <Collapse
-              className={classes.fullWidth}
-              in={!open}
-              timeout={{ appear: 10000 }}
-            >
-              <div className={classes.container}>
+            {!open && (
+              <div className={classNames(classes.container, classes.fullWidth)}>
                 <div className={classes.outterButtonContainer}>
                   <Button
                     fullWidth
@@ -113,7 +115,7 @@ export const UseInternalAccountForm: React.FC<Props> = ({
                   </Button>
                 </div>
               </div>
-            </Collapse>
+            )}
             {onBasketSubmit && open && (
               <Formik
                 initialValues={{
@@ -202,74 +204,84 @@ export const UseInternalAccountForm: React.FC<Props> = ({
   );
 };
 
-const useStyles = makeStyles<Theme, { isNewCheckoutFlow: boolean }>(
-  (theme: Theme) => ({
-    creditAccountBalance: {
-      flex: 1,
-      marginRight: theme.spacing(1),
+const useStyles = makeStyles<
+  Theme,
+  { isNewCheckoutFlow: boolean; open: boolean }
+>((theme) => ({
+  creditAccountBalance: {
+    flex: 1,
+    marginRight: theme.spacing(1),
+  },
+  header: {
+    paddingBottom: theme.spacing(2),
+  },
+  container: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  iconButton: {
+    marginRight: theme.spacing(1),
+  },
+  outterButtonContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    [theme.breakpoints.down('xs')]: {
+      width: ({ isNewCheckoutFlow }) => (isNewCheckoutFlow ? 'none' : '100%'),
     },
-    header: {
-      paddingBottom: theme.spacing(2),
+  },
+  accountBalanceContainer: {
+    alignItems: 'center',
+    [theme.breakpoints.down(400)]: {
+      flexDirection: ({ open }) => (open ? 'column' : 'row'),
+      gap: ({ open }) => (open ? theme.spacing(0.5) : 0),
     },
-    container: {
-      display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'center',
+  },
+  greyContainer: {
+    backgroundColor: grey[100],
+    borderRadius: theme.spacing(0.5),
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+    [theme.breakpoints.down('xs')]: {
+      flexWrap: ({ isNewCheckoutFlow }) =>
+        isNewCheckoutFlow ? 'none' : 'nowrap',
     },
-    iconButton: {
-      marginRight: theme.spacing(1),
+  },
+  fullWidth: {
+    [theme.breakpoints.down('xs')]: {
+      width: ({ isNewCheckoutFlow }) => (isNewCheckoutFlow ? 'none' : '100%'),
     },
-    outterButtonContainer: {
-      display: 'flex',
-      flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'center',
-      [theme.breakpoints.down('xs')]: {
-        width: (props) => (props.isNewCheckoutFlow ? 'none' : '100%'),
-      },
+  },
+  UseInternalAccountButton: {
+    [theme.breakpoints.down('sm')]: {
+      borderRadius: ({ isNewCheckoutFlow }) =>
+        isNewCheckoutFlow ? '24px' : 'none',
     },
-    greyContainer: {
-      backgroundColor: grey[100],
-      borderRadius: theme.spacing(0.5),
-      display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'center',
-      paddingTop: theme.spacing(1),
-      paddingBottom: theme.spacing(1),
-      paddingLeft: theme.spacing(2),
-      paddingRight: theme.spacing(2),
-      [theme.breakpoints.down('xs')]: {
-        flexWrap: (props) => (props.isNewCheckoutFlow ? 'none' : 'nowrap'),
-      },
+    [theme.breakpoints.down('xs')]: {
+      width: ({ isNewCheckoutFlow }) => (isNewCheckoutFlow ? 'none' : '100%'),
     },
-    fullWidth: {
-      [theme.breakpoints.down('xs')]: {
-        width: (props) => (props.isNewCheckoutFlow ? 'none' : '100%'),
-      },
-    },
-    UseInternalAccountButton: {
-      [theme.breakpoints.down('sm')]: {
-        borderRadius: (props) => (props.isNewCheckoutFlow ? '24px' : 'none'),
-      },
-      [theme.breakpoints.down('xs')]: {
-        width: (props) => (props.isNewCheckoutFlow ? 'none' : '100%'),
-      },
-    },
-    flexCollaspe: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'flex-start',
-      flexDirection: 'row',
-      paddingTop: theme.spacing(1),
-    },
-    flexButtons: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      flexDirection: 'row',
-      paddingBottom: theme.spacing(1),
-    },
-  }),
-);
+  },
+  flexCollaspe: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    flexDirection: 'row',
+    paddingTop: theme.spacing(1),
+  },
+  flexButtons: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    paddingBottom: theme.spacing(1),
+  },
+}));
 
 export default React.memo(UseInternalAccountForm);

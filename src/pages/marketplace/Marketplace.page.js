@@ -98,6 +98,8 @@ import {
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import ApplyCustomTheme from '#libs/exportable-components/ApplyCustomTheme.component';
 
+import MarketplaceBasketSummaryDialogCssOnly from '../../libs/marketplace/components/@Basket/MarketplaceBasketSummaryDialogCssOnly';
+
 const MarketplacePassPage = asyncComponent(() => import('./MarketplacePass'));
 
 const MarketplacePrivateServiceRouter = asyncComponent(() =>
@@ -542,32 +544,63 @@ export class MarketPlace extends Component<Props, State> {
               websiteURL={this.props.theme.websiteURL}
             />
             <div className={classes.content}>{this.renderContent()}</div>
-            <MarketplaceBasketDialog
-              basket={this.props.currentBasket}
-              goToCheckout={() =>
-                this.props.goToCheckout(
-                  this.props.currentBasket.company,
-                  this.props.theme?.display_new_checkout_flow,
-                )
-              }
-              isExcludingTax={this.props.theme.is_tax_excluded_in_marketplace}
-              loading={this.props.currentBasketLoading}
-              onAddCheckoutItem={(data, options?) =>
-                this.props.addItemToBasket(
-                  this.props.currentBasket.id,
-                  data,
-                  options,
-                )
-              }
-              onCancel={() => this.toggleCurrentBasketOpen(false)}
-              onRemoveCheckoutItem={(data) =>
-                this.props.removeItemFromBasket(
-                  this.props.currentBasket.id,
-                  data,
-                )
-              }
-              open={!!this.state.currentBasketOpen}
-            />
+
+            {this.props.theme?.display_new_checkout_flow ? (
+              <MarketplaceBasketSummaryDialogCssOnly
+                basket={this.props.currentBasket}
+                goToCheckout={() =>
+                  this.props.goToCheckout(
+                    this.props.currentBasket.company,
+                    this.props.theme?.display_new_checkout_flow,
+                  )
+                }
+                isExcludingTax={this.props.theme.is_tax_excluded_in_marketplace}
+                loading={this.props.currentBasketLoading}
+                onAddCheckoutItem={(data, options?) =>
+                  this.props.addItemToBasket(
+                    this.props.currentBasket.id,
+                    data,
+                    options,
+                  )
+                }
+                onCancel={() => this.toggleCurrentBasketOpen(false)}
+                onRemoveCheckoutItem={(data) =>
+                  this.props.removeItemFromBasket(
+                    this.props.currentBasket.id,
+                    data,
+                  )
+                }
+                open={!!this.state.currentBasketOpen}
+              />
+            ) : (
+              <MarketplaceBasketDialog
+                basket={this.props.currentBasket}
+                goToCheckout={() =>
+                  this.props.goToCheckout(
+                    this.props.currentBasket.company,
+                    this.props.theme?.display_new_checkout_flow,
+                  )
+                }
+                isExcludingTax={this.props.theme.is_tax_excluded_in_marketplace}
+                loading={this.props.currentBasketLoading}
+                onAddCheckoutItem={(data, options?) =>
+                  this.props.addItemToBasket(
+                    this.props.currentBasket.id,
+                    data,
+                    options,
+                  )
+                }
+                onCancel={() => this.toggleCurrentBasketOpen(false)}
+                onRemoveCheckoutItem={(data) =>
+                  this.props.removeItemFromBasket(
+                    this.props.currentBasket.id,
+                    data,
+                  )
+                }
+                open={!!this.state.currentBasketOpen}
+              />
+            )}
+
             <GenericResponsiveDialog
               maxWidth="sm"
               onClose={this.closeLogin}

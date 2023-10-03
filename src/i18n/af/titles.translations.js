@@ -85,4 +85,5 @@ exports.default = {
   coachUserSpace: { performance: 'Payroll', replacement: 'Substitution' },
   replacement: 'Substitution',
   inbox: 'Inbox',
+  giftcard: 'Gift cards',
 };

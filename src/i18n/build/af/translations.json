@@ -12034,7 +12034,8 @@
     "expense": { "expenseList": "Expenses" },
     "coachUserSpace": { "performance": "Payroll", "replacement": "Substitution" },
     "replacement": "Substitution",
-    "inbox": "Inbox"
+    "inbox": "Inbox",
+    "giftcard": "Gift cards"
   },
   "translation": {
     "dayParts": { "evening": "Evening", "afternoon": "Afternoon", "morning": "Morning" },

@@ -6,6 +6,7 @@ import Button, {
 } from '#csscomponents/Fabrique/Button';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import BasketSummaryCssOnly from '#libs/marketplace/components/@Basket/BasketSummaryCssOnly';
+import LinearProgress from '#components/css-only/Fabrique/LinearProgress';
 import type {
   Basket,
   PrepaidLine,
@@ -52,6 +53,7 @@ export const MarketplaceBasketSummaryDialogCssOnly: React.FC<Props> = ({
       open={open}
     >
       <div className="bs-setup-variable" id="bs-setup-derived-variable">
+        {loading && <LinearProgress />}
         <div className="bs-basket_summary_dialog_content--container">
           <div className="bs-basket_summary_dialog_title--container">
             <h3 className="bs-basket_summary_dialog_title--text">

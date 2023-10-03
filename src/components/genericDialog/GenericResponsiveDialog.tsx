@@ -5,6 +5,7 @@ import { Dialog, useMediaQuery } from '@material-ui/core';
 import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
 
 type OwnProps = {
+  id?: string;
   open: boolean;
   maxWidth?: Breakpoint;
   fullScreenBreakpoint?: Breakpoint;
@@ -36,6 +37,7 @@ export const GenericResponsiveDialog: React.FC<Props> = (props) => {
       fullWidth
       classes={{ paper: classes.modal }}
       fullScreen={noFullScreen ? false : fullScreen}
+      id={props.id}
       maxWidth={maxWidth}
       onClose={onClose}
       open={open}

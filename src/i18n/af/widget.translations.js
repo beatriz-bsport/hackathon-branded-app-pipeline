@@ -118,6 +118,9 @@ exports.default = {
         blockedByTags: 'Insufficient rights',
         desktop: 'Wide screen',
         mobile: 'Small screen',
+        1: 'One',
+        2: 'Two',
+        3: 'Three',
       },
       title: {
         nextOffer: 'Next session available',
@@ -147,6 +150,7 @@ exports.default = {
         isAddingItemPossible: 'Adding more items activated',
         isItemEditionDisabled: 'Modifying items disabled',
         isDense: 'Dense',
+        numberOfDistinctCheckoutItem: 'Number of disctint product in basket',
       },
       configurationTitle: 'Variations',
     },
@@ -205,6 +209,8 @@ exports.default = {
       marketplace_search: 'Search filter',
       marketplace_item_quantity: 'Basket item Quantity (Basket summary)',
       marketplace_basket_summary_item: 'Basket item component (Basket summary)',
+      marketplace_basket_summary_list_item:
+        'Basket item list component (Basket summary)',
     },
     customCss: {
       yourCode: 'Your complementary implementation:',

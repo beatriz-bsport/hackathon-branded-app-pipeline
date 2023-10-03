@@ -60,4 +60,5 @@ export enum CssComponentsVariantIdentifiers {
   MARKETPLACE_WEEK_TIME_TABLE = 'marketplace_week_time_table',
   MARKETPLACE_ITEM_QUANTITY = 'marketplace_item_quantity',
   MARKETPLACE_BASKET_SUMMARY_ITEM_PREVIEW = 'marketplace_basket_summary_item',
+  MARKETPLACE_BASKET_SUMMARY_LIST_ITEM_PREVIEW = 'marketplace_basket_summary_list_item',
 }

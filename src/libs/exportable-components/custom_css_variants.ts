@@ -130,6 +130,11 @@ import {
   MARKETPLACE_BASKET_SUMMARY_ITEM_CONFIGURATION,
   MARKETPLACE_BASKET_SUMMARY_ITEM_PREVIEW,
 } from '#marketplacecomponents/@Basket/MarketplaceBasketSummaryItemCssOnly';
+
+import {
+  MARKETPLACE_BASKET_SUMMARY_LIST_ITEM_CONFIGURATION,
+  MARKETPLACE_BASKET_SUMMARY_LIST_ITEM_PREVIEW,
+} from '#marketplacecomponents/@Basket/MarketplaceBasketSummaryListCssOnly';
 import {
   CSSComponentPreviews,
   MarketplaceCSSComponentConfig,
@@ -184,6 +189,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
   MARKETPLACE_BOOKING_BLOCKED_CONFIGURATION,
   MARKETPLACE_ITEM_QUANTITY_CONFIGURATION,
   MARKETPLACE_BASKET_SUMMARY_ITEM_CONFIGURATION,
+  MARKETPLACE_BASKET_SUMMARY_LIST_ITEM_CONFIGURATION,
 ];
 
 /*
@@ -265,6 +271,8 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
       MARKETPLACE_ITEM_QUANTITY_PREVIEW,
     [CssComponentsVariantIdentifiers.MARKETPLACE_BASKET_SUMMARY_ITEM_PREVIEW]:
       MARKETPLACE_BASKET_SUMMARY_ITEM_PREVIEW,
+    [CssComponentsVariantIdentifiers.MARKETPLACE_BASKET_SUMMARY_LIST_ITEM_PREVIEW]:
+      MARKETPLACE_BASKET_SUMMARY_LIST_ITEM_PREVIEW,
   });
 
 export const CSS_COMPONENT_PAGES: Immutable.Immutable<MarketplacePage[]> =

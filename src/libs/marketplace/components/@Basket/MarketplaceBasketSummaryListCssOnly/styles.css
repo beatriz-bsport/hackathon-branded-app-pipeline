@@ -1,0 +1,16 @@
+.bs-basket_summary_checkout_list--container {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--spacing-1);
+}
+
+.bs-basket_summary_checkout_list--divider_container {
+  padding-left: var(--spacing-1);
+  padding-right: var(--spacing-1);
+}
+
+.bs-basket_summary_checkout_list--divider {
+  height: 1px;
+  background-color: var(--color-grey-300);
+}

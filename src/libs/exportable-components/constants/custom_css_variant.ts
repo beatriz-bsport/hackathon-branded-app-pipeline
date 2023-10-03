@@ -58,4 +58,5 @@ export enum CssComponentsVariantIdentifiers {
   MARKETPLACE_SEARCH = 'marketplace_search',
   MARKETPLACE_SELECT = 'marketplace_select',
   MARKETPLACE_WEEK_TIME_TABLE = 'marketplace_week_time_table',
+  MARKETPLACE_ITEM_QUANTITY = 'marketplace_item_quantity',
 }

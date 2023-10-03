@@ -120,6 +120,12 @@ import {
   MARKETPLACE_BOOKING_BLOCKED_CONFIGURATION,
   MARKETPLACE_BOOKING_BLOCKED_PREVIEW,
 } from '#marketplacecomponents/@Booking/MarketplaceBookingBlockedReason';
+
+import {
+  MARKETPLACE_ITEM_QUANTITY_CONFIGURATION,
+  MARKETPLACE_ITEM_QUANTITY_PREVIEW,
+} from '#marketplacecomponents/@Basket/MarketplaceBasketSummaryItemCssOnly/ItemQuantity';
+
 import {
   CSSComponentPreviews,
   MarketplaceCSSComponentConfig,
@@ -172,6 +178,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
   MARKETPLACE_ACTIVITY_DIALOG_CONFIGURATION,
   MARKETPLACE_BOOKING_BUTTON_CONFIGURATION,
   MARKETPLACE_BOOKING_BLOCKED_CONFIGURATION,
+  MARKETPLACE_ITEM_QUANTITY_CONFIGURATION,
 ];
 
 /*
@@ -249,6 +256,8 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
       MARKETPLACE_SELECT_PREVIEW,
     [CssComponentsVariantIdentifiers.MARKETPLACE_WEEK_TIME_TABLE]:
       MARKETPLACE_WEEK_TIME_TABLE_PREVIEW,
+    [CssComponentsVariantIdentifiers.MARKETPLACE_ITEM_QUANTITY]:
+      MARKETPLACE_ITEM_QUANTITY_PREVIEW,
   });
 
 export const CSS_COMPONENT_PAGES: Immutable.Immutable<MarketplacePage[]> =

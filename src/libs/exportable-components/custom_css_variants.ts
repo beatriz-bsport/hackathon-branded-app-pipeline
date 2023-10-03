@@ -140,6 +140,11 @@ import {
   MARKETPLACE_BASKET_SUMMARY_CONFIGURATION,
   MARKETPLACE_BASKET_SUMMARY_PREVIEW,
 } from '#marketplacecomponents/@Basket/BasketSummaryCssOnly';
+
+import {
+  MARKETPLACE_BASKET_SUMMARY_DIALOG_CONFIGURATION,
+  MARKETPLACE_BASKET_SUMMARY_DIALOG_PREVIEW,
+} from '#marketplacecomponents/@Basket/MarketplaceBasketSummaryDialogCssOnly';
 import {
   CSSComponentPreviews,
   MarketplaceCSSComponentConfig,
@@ -196,6 +201,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
   MARKETPLACE_BASKET_SUMMARY_ITEM_CONFIGURATION,
   MARKETPLACE_BASKET_SUMMARY_LIST_ITEM_CONFIGURATION,
   MARKETPLACE_BASKET_SUMMARY_CONFIGURATION,
+  MARKETPLACE_BASKET_SUMMARY_DIALOG_CONFIGURATION,
 ];
 
 /*
@@ -281,6 +287,8 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
       MARKETPLACE_BASKET_SUMMARY_LIST_ITEM_PREVIEW,
     [CssComponentsVariantIdentifiers.MARKETPLACE_BASKET_SUMMARY_PREVIEW]:
       MARKETPLACE_BASKET_SUMMARY_PREVIEW,
+    [CssComponentsVariantIdentifiers.MARKETPLACE_BASKET_SUMMARY_DIALOG_PREVIEW]:
+      MARKETPLACE_BASKET_SUMMARY_DIALOG_PREVIEW,
   });
 export const CSS_COMPONENT_PAGES: Immutable.Immutable<MarketplacePage[]> =
   Immutable(Array.from(new Set(CSS_COMPONENTS.flatMap((c) => c.pages))));

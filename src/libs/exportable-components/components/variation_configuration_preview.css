@@ -87,3 +87,12 @@ We need to brutally override some things from MUI.
 .bs-basket_summary--container {
   width: 100%;
 }
+
+.bs-custom-css__component__preview #bs-basket_summary--dialog {
+  position: relative !important;
+}
+
+#bs-custom-css__component__preview #bs-basket_summary--dialog {
+  position: relative !important;
+  width: 100%;
+}

@@ -12,6 +12,8 @@ type OwnProps = {
   onClose?: () => void;
   padding?: boolean;
   noFullScreen?: boolean;
+  disablePortal?: boolean;
+  disableEnforceFocus?: boolean;
 };
 
 type Props = OwnProps;
@@ -19,12 +21,14 @@ type Props = OwnProps;
 export const GenericResponsiveDialog: React.FC<Props> = (props) => {
   const {
     children,
-    open,
-    maxWidth,
+    disableEnforceFocus,
+    disablePortal,
     fullScreenBreakpoint,
-    onClose,
-    padding,
+    maxWidth,
     noFullScreen,
+    onClose,
+    open,
+    padding,
   } = props;
   const theme: Theme = useTheme();
   const classes = useStyles({ padding });
@@ -36,6 +40,8 @@ export const GenericResponsiveDialog: React.FC<Props> = (props) => {
     <Dialog
       fullWidth
       classes={{ paper: classes.modal }}
+      disableEnforceFocus={disableEnforceFocus}
+      disablePortal={disablePortal}
       fullScreen={noFullScreen ? false : fullScreen}
       id={props.id}
       maxWidth={maxWidth}

@@ -213,6 +213,7 @@ exports.default = {
       marketplace_basket_summary_list_item:
         'Basket item list component (Basket summary)',
       marketplace_basket_summary: 'Basket summary',
+      marketplace_basket_summary_dialog: 'Basket summary (pop-up)',
     },
     customCss: {
       yourCode: 'Your complementary implementation:',

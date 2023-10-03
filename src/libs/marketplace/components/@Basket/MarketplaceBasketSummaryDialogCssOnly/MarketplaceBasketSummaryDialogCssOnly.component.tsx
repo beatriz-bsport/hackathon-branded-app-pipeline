@@ -16,7 +16,7 @@ import type { OptionCallback } from '../../../../../state/types';
 
 import './styles.css';
 
-type Props = {
+export type Props = {
   basket: Basket<string, PrepaidLine>;
   goToCheckout: () => void;
   isExcludingTax?: boolean;
@@ -31,11 +31,13 @@ type Props = {
     quantity: number;
   }) => void;
   open: boolean;
+  isCustomCssPreview?: boolean;
 };
 
 export const MarketplaceBasketSummaryDialogCssOnly: React.FC<Props> = ({
   basket,
   goToCheckout,
+  isCustomCssPreview,
   isExcludingTax,
   loading,
   onAddCheckoutItem,
@@ -47,6 +49,8 @@ export const MarketplaceBasketSummaryDialogCssOnly: React.FC<Props> = ({
 
   return (
     <GenericResponsiveDialog
+      disableEnforceFocus={isCustomCssPreview}
+      disablePortal={isCustomCssPreview}
       id="bs-basket_summary--dialog"
       maxWidth="xs"
       onClose={onCancel}

@@ -13447,7 +13447,8 @@
         "marketplace_basket_summary_list_item": "Basket item list component (Basket summary)",
         "marketplace_basket_summary": "Basket summary",
         "marketplace_basket_summary_dialog": "Basket summary (pop-up)",
-        "marketplace_prepaid_line_item": "Prepaid line list item"
+        "marketplace_prepaid_line_item": "Prepaid line list item",
+        "marketplace_prepaid_line_list": "Prepaid line list"
       },
       "customCss": {
         "yourCode": "Your complementary implementation:",

@@ -219,6 +219,7 @@ exports.default = {
       marketplace_basket_summary: 'Basket summary',
       marketplace_basket_summary_dialog: 'Basket summary (pop-up)',
       marketplace_prepaid_line_item: 'Prepaid line list item',
+      marketplace_prepaid_line_list: 'Prepaid line list',
     },
     customCss: {
       yourCode: 'Your complementary implementation:',

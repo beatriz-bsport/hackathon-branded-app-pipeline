@@ -100,3 +100,7 @@ We need to brutally override some things from MUI.
 .bs-basket_summary_prepaid_line_item--container {
   width: 100%;
 }
+
+.bs-basket_summary_prepaid_line_list--container {
+  width: 100%;
+}

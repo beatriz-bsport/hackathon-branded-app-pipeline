@@ -150,6 +150,10 @@ import {
   MARKETPLACE_PREPAID_LINE_ITEM_PREVIEW,
 } from '#marketplacecomponents/@Basket/MarketplaceBasketSummaryPrepaidLineItem';
 import {
+  MARKETPLACE_PREPAID_LINE_LIST_CONFIGURATION,
+  MARKETPLACE_PREPAID_LINE_LIST_PREVIEW,
+} from '#marketplacecomponents/@Basket/MarketplaceBasketSummaryPrepaidLineList';
+import {
   CSSComponentPreviews,
   MarketplaceCSSComponentConfig,
   MarketplacePage,
@@ -207,6 +211,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
   MARKETPLACE_BASKET_SUMMARY_CONFIGURATION,
   MARKETPLACE_BASKET_SUMMARY_DIALOG_CONFIGURATION,
   MARKETPLACE_PREPAID_LINE_ITEM_CONFIGURATION,
+  MARKETPLACE_PREPAID_LINE_LIST_CONFIGURATION,
 ];
 
 /*
@@ -286,6 +291,8 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
       MARKETPLACE_WEEK_TIME_TABLE_PREVIEW,
     [CssComponentsVariantIdentifiers.MARKETPLACE_PREPAID_LINE_ITEM]:
       MARKETPLACE_PREPAID_LINE_ITEM_PREVIEW,
+    [CssComponentsVariantIdentifiers.MARKETPLACE_PREPAID_LINE_LIST]:
+      MARKETPLACE_PREPAID_LINE_LIST_PREVIEW,
     [CssComponentsVariantIdentifiers.MARKETPLACE_ITEM_QUANTITY]:
       MARKETPLACE_ITEM_QUANTITY_PREVIEW,
     [CssComponentsVariantIdentifiers.MARKETPLACE_BASKET_SUMMARY_ITEM_PREVIEW]:

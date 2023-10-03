@@ -1,0 +1,37 @@
+/* Modal ID
+bs-basket_summary--dialog
+*/
+/* .bs-basket_summary_dialog_title--container {
+} */
+
+/* MODAL BACKDROP */
+/* #bs-basket_summary--dialog > [class*='MuiBackdrop'] {
+} */
+
+/* MODAL CONTAINER */
+/* #bs-basket_summary--dialog > [class*='MuiDialog-container'] {
+} */
+
+/* MODAL CONTENT CONTAINER */
+/* #bs-basket_summary--dialog > [class*='MuiPaper-root'] {
+} */
+
+.bs-basket_summary_dialog_content--container {
+  padding: var(--spacing-2);
+}
+
+.bs-basket_summary_dialog_title--text {
+  font-size: var(--h3-fontSize);
+  line-height: var(--h5-lineHeight);
+  margin: 0 var(--spacing-8) 0 0;
+  font-weight: var(--h5-fontWeight);
+  color: var(--color-grey-dark);
+}
+
+.bs-basket_summary_dialog_actions--container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-1) 0;
+}

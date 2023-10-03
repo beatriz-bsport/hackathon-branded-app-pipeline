@@ -1,0 +1,3 @@
+import MarketplaceBasketSummaryDialogCssOnly from './MarketplaceBasketSummaryDialogCssOnly.component';
+
+export default MarketplaceBasketSummaryDialogCssOnly;

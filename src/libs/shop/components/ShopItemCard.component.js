@@ -18,6 +18,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import ButtonBase from '@material-ui/core/ButtonBase';
+import ObjectLevelPermissionWrapper from '../../role/permission-utils/ObjectLevelPermissionWrapper.component';
 import TypographyMultiline from '../../../components/typo/TypographyMultiline.component';
 import RedButton from '../../../components/button/RedButton.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
@@ -38,19 +39,24 @@ const ShopItemCard = (props: {
 
   const renderLinkToPaymentPage = () => {
     return shopitem.id && shopitem.company ? (
-      <CopyToClipboard
-        text={`${window.location.origin}/customer/payment/shop-item/${shopitem.id}/?membership=${shopitem.company}`}
+      <ObjectLevelPermissionWrapper
+        forcedBehavior="hidden"
+        requiredPermission="billing.allowed_actions.readPaymentLink"
       >
-        <ButtonBase
-          className={classes.link}
-          onClick={() => snackbarSuccess('link.copied')}
+        <CopyToClipboard
+          text={`${window.location.origin}/customer/payment/shop-item/${shopitem.id}/?membership=${shopitem.company}`}
         >
-          <LinkIcon />
-          <Typography className={classes.linkTypo}>
-            {t('shop:link.copyLink')}
-          </Typography>
-        </ButtonBase>
-      </CopyToClipboard>
+          <ButtonBase
+            className={classes.link}
+            onClick={() => snackbarSuccess('link.copied')}
+          >
+            <LinkIcon />
+            <Typography className={classes.linkTypo}>
+              {t('shop:link.copyLink')}
+            </Typography>
+          </ButtonBase>
+        </CopyToClipboard>
+      </ObjectLevelPermissionWrapper>
     ) : (
       <CircularProgress />
     );

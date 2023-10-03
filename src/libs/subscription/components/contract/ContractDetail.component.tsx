@@ -13,6 +13,7 @@ import TypographyWithShowMore from '#components/typo/TypographyWithShowMore.comp
 import PrivatePassListItem from '#libs/private-service/components/pass/PrivatePassListItem.component';
 import PaymentComboListItem from '#libs/payment-combo/components/PaymentComboListItem.component';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import { ContractWithPaymentPack } from '../../types';
 import { getContractCheckoutUrl } from '#libs/marketplace/routing-utils';
 
@@ -107,25 +108,30 @@ const ContractDetail = (props: Props) => {
           </div>
         )}
         {props.company ? (
-          <div className={classes.block}>
-            <CopyToClipboard
-              text={`${window.location.origin}${getContractCheckoutUrl(
-                props.company.id,
-                props.contract.id,
-                { force: 'true' },
-              )}`}
-            >
-              <ButtonBase
-                className={classes.link}
-                onClick={() => props.snackbarSuccess('link.copied')}
+          <ObjectLevelPermissionWrapper
+            forcedBehavior="hidden"
+            requiredPermission="billing.allowed_actions.readPaymentLink"
+          >
+            <div className={classes.block}>
+              <CopyToClipboard
+                text={`${window.location.origin}${getContractCheckoutUrl(
+                  props.company.id,
+                  props.contract.id,
+                  { force: 'true' },
+                )}`}
               >
-                <LinkIcon />
-                <Typography className={classes.linkTypo}>
-                  {t('shop:link.copyLink')}
-                </Typography>
-              </ButtonBase>
-            </CopyToClipboard>
-          </div>
+                <ButtonBase
+                  className={classes.link}
+                  onClick={() => props.snackbarSuccess('link.copied')}
+                >
+                  <LinkIcon />
+                  <Typography className={classes.linkTypo}>
+                    {t('shop:link.copyLink')}
+                  </Typography>
+                </ButtonBase>
+              </CopyToClipboard>
+            </div>
+          </ObjectLevelPermissionWrapper>
         ) : null}
         <div className={classes.block}>
           <Typography variant="h6">{t('contract.description')}</Typography>

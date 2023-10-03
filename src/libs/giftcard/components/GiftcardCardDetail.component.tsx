@@ -12,6 +12,7 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import LinkIcon from '@material-ui/icons/Link';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import TypographyMultiline from '../../../components/typo/TypographyMultiline.component';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import AvailablePaymentMethodList from '../../payment/components/AvailablePaymentMethodList.component';
 import { Giftcard } from '../types';
 
@@ -41,22 +42,27 @@ const GiftcardCardDetail = (props: Props) => {
             {getCurrencyDisplayWithPrice(giftcard.price)}
           </Typography>
         </div>
-        <CopyToClipboard
-          text={`${window.location.origin}/checkout/${giftcard.company}/giftcard/${giftcard.id}/?force=true`}
+        <ObjectLevelPermissionWrapper
+          forcedBehavior="hidden"
+          requiredPermission="billing.allowed_actions.readPaymentLink"
         >
-          <ButtonBase
-            className={classes.link}
-            id="button_pass_copy"
-            onClick={() =>
-              props.snackbarSuccess && props.snackbarSuccess('link.copied')
-            }
+          <CopyToClipboard
+            text={`${window.location.origin}/checkout/${giftcard.company}/giftcard/${giftcard.id}/?force=true`}
           >
-            <LinkIcon />
-            <Typography className={classes.linkTypo}>
-              {t('link.copyLink')}
-            </Typography>
-          </ButtonBase>
-        </CopyToClipboard>
+            <ButtonBase
+              className={classes.link}
+              id="button_pass_copy"
+              onClick={() =>
+                props.snackbarSuccess && props.snackbarSuccess('link.copied')
+              }
+            >
+              <LinkIcon />
+              <Typography className={classes.linkTypo}>
+                {t('link.copyLink')}
+              </Typography>
+            </ButtonBase>
+          </CopyToClipboard>
+        </ObjectLevelPermissionWrapper>
         <div className={classes.descriptionContainer}>
           <TypographyMultiline color="textSecondary">
             {giftcard.description}

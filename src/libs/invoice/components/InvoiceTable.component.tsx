@@ -81,6 +81,7 @@ type Props = {
   sendInvoiceToQuickbooks: (uuid: string) => void;
   quickbooksLoading: boolean;
   consumerGiftcardList: Array<ConsumerGiftcard<Giftcard, Member, Member>>;
+  hidePaymentLink?: boolean;
   applyGiftcardOnInvoice: (
     invoiceUuid: string,
     consumergiftCardId: number,
@@ -92,7 +93,7 @@ type Props = {
 
 const quickbooksLogo = require('./QB_logo.png');
 
-const InvoiceRow: React.FC<Props> = React.memo((props: Props) => {
+const InvoiceRow: React.FC<Props> = React.memo((props) => {
   const { invoice } = props;
   const { t } = useTranslation(['invoice', 'payment']);
   const amount_remaining = parseFloat(
@@ -330,7 +331,7 @@ const InvoiceRow: React.FC<Props> = React.memo((props: Props) => {
       </TableRow>
       {!!props.onBill && (
         <TableRow>
-          {!props.asConsumer && (
+          {!props.asConsumer && !props.hidePaymentLink && (
             <TableCell>
               <CopyToClipboard
                 text={getPaymentLink(props.companyId, invoice.uuid)}
@@ -628,66 +629,75 @@ export const InvoiceTable = (props: {
   return (
     <TableContainer component={props.containerComponent}>
       <Table aria-label="collapsible table">
-        <TableHead>
-          <ObjectLevelPermissionProvider requiredPermission="export.allowed_actions.invoice">
-            {(hasPermission) => (
-              <TableRow>
-                {!props.compactMode && <TableCell />}
-                {!props.hideMemberName && (
-                  <TableCell>{t('table.header.member')}</TableCell>
-                )}
-                <TableCell>{t('table.header.amount')}</TableCell>
-                <TableCell>{t('table.header.missing')}</TableCell>
-                {!props.compactMode && (
-                  <TableCell>{t('table.header.id')}</TableCell>
-                )}
-                {!!props.showType && (
-                  <TableCell>{t('table.header.invoiceType')}</TableCell>
-                )}
-                <TableCell>{t('table.header.date')}</TableCell>
-                {!!props.finalizeInvoice && hasPermission && (
-                  <TableCell>{t('table.header.pdf')}</TableCell>
-                )}
-                {props.quickbooksIntegrated && (
-                  <TableCell>{t('table.header.quickbooks')}</TableCell>
-                )}
-              </TableRow>
-            )}
-          </ObjectLevelPermissionProvider>
-        </TableHead>
-        <TableBody>
-          {!props.loading &&
-            uniqBy(props.invoiceList, 'uuid').map(
-              (invoice: Invoice & { memberArchived?: boolean }) => (
-                <InvoiceRow
-                  key={invoice.uuid}
-                  applyGiftcardOnInvoice={props.applyGiftcardOnInvoice}
-                  asConsumer={!!props.asConsumer}
-                  compactMode={props.compactMode}
-                  companyId={props.companyId}
-                  consumerGiftcardList={props.consumerGiftcardList}
-                  finalizeInvoice={props.finalizeInvoice}
-                  getInvoicePaymentGroupIsProcessing={
-                    props.getInvoicePaymentGroupIsProcessing
-                  }
-                  hideMemberName={props.hideMemberName}
-                  invoice={invoice}
-                  nestedDataLoading={props.nestedDataLoading}
-                  onBill={props.onBill}
-                  onClickInvoice={props.onClickInvoice}
-                  onInvoiceExpand={props.onInvoiceExpand}
-                  open={invoice.uuid === open}
-                  quickbooksIntegrated={props.quickbooksIntegrated}
-                  quickbooksLoading={props.quickbooksLoading}
-                  sendInvoiceToQuickbooks={props.sendInvoiceToQuickbooks}
-                  setOpen={setOpen}
-                  showOpenInvoiceNested={!!props.showOpenInvoiceNested}
-                  showType={props.showType}
-                  snackbarSuccess={props.snackbarSuccess}
-                />
-              ),
-            )}
-        </TableBody>
+        <ObjectLevelPermissionProvider
+          requiredPermission={[
+            'export.allowed_actions.invoice',
+            'billing.allowed_actions.readPaymentLink',
+          ]}
+        >
+          {([
+            hasExportInvoicePermission,
+            hasPaymentLinkPermission,
+          ]: boolean[]) => (
+            <>
+              <TableHead>
+                <TableRow>
+                  {!props.compactMode && <TableCell />}
+                  {!props.hideMemberName && (
+                    <TableCell>{t('table.header.member')}</TableCell>
+                  )}
+                  <TableCell>{t('table.header.amount')}</TableCell>
+                  <TableCell>{t('table.header.missing')}</TableCell>
+                  {!props.compactMode && (
+                    <TableCell>{t('table.header.id')}</TableCell>
+                  )}
+                  {!!props.showType && (
+                    <TableCell>{t('table.header.invoiceType')}</TableCell>
+                  )}
+                  <TableCell>{t('table.header.date')}</TableCell>
+                  {!!props.finalizeInvoice && hasExportInvoicePermission && (
+                    <TableCell>{t('table.header.pdf')}</TableCell>
+                  )}
+                  {props.quickbooksIntegrated && (
+                    <TableCell>{t('table.header.quickbooks')}</TableCell>
+                  )}
+                </TableRow>
+              </TableHead>
+
+              <TableBody>
+                {!props.loading &&
+                  uniqBy(props.invoiceList, 'uuid').map(
+                    (invoice: Invoice & { memberArchived?: boolean }) => (
+                      <InvoiceRow
+                        key={invoice.uuid}
+                        applyGiftcardOnInvoice={props.applyGiftcardOnInvoice}
+                        asConsumer={!!props.asConsumer}
+                        compactMode={props.compactMode}
+                        companyId={props.companyId}
+                        consumerGiftcardList={props.consumerGiftcardList}
+                        finalizeInvoice={props.finalizeInvoice}
+                        hideMemberName={props.hideMemberName}
+                        hidePaymentLink={!hasPaymentLinkPermission}
+                        invoice={invoice}
+                        nestedDataLoading={props.nestedDataLoading}
+                        onBill={props.onBill}
+                        onClickInvoice={props.onClickInvoice}
+                        onInvoiceExpand={props.onInvoiceExpand}
+                        open={invoice.uuid === open}
+                        quickbooksIntegrated={props.quickbooksIntegrated}
+                        quickbooksLoading={props.quickbooksLoading}
+                        sendInvoiceToQuickbooks={props.sendInvoiceToQuickbooks}
+                        setOpen={setOpen}
+                        showOpenInvoiceNested={!!props.showOpenInvoiceNested}
+                        showType={props.showType}
+                        snackbarSuccess={props.snackbarSuccess}
+                      />
+                    ),
+                  )}
+              </TableBody>
+            </>
+          )}
+        </ObjectLevelPermissionProvider>
       </Table>
       {props.loading && <LinearProgress />}
       {!props.hidePagination && (

@@ -18,6 +18,7 @@ import LinkIcon from '@material-ui/icons/Link';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import ButtonBase from '@material-ui/core/ButtonBase';
 
+import ObjectLevelPermissionWrapper from '../../role/permission-utils/ObjectLevelPermissionWrapper.component';
 import TypographyMultiline from '../../../components/typo/TypographyMultiline.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import type { PaymentCombo } from '../types';
@@ -38,19 +39,24 @@ export const PaymentComboCard = (props: Props) => {
 
   const renderLinkToPaymentPage = () => {
     return paymentCombo.id ? (
-      <CopyToClipboard
-        text={`${window.location.origin}/customer/payment/combo/${paymentCombo.id}/?membership=${paymentCombo.company}`}
+      <ObjectLevelPermissionWrapper
+        forcedBehavior="hidden"
+        requiredPermission="billing.allowed_actions.readPaymentLink"
       >
-        <ButtonBase
-          className={props.classes.link}
-          onClick={() => snackbarSuccess('link.copied')}
+        <CopyToClipboard
+          text={`${window.location.origin}/customer/payment/combo/${paymentCombo.id}/?membership=${paymentCombo.company}`}
         >
-          <LinkIcon />
-          <Typography className={props.classes.linkTypo}>
-            {t('paymentCombo:link.copyLink')}
-          </Typography>
-        </ButtonBase>
-      </CopyToClipboard>
+          <ButtonBase
+            className={props.classes.link}
+            onClick={() => snackbarSuccess('link.copied')}
+          >
+            <LinkIcon />
+            <Typography className={props.classes.linkTypo}>
+              {t('paymentCombo:link.copyLink')}
+            </Typography>
+          </ButtonBase>
+        </CopyToClipboard>
+      </ObjectLevelPermissionWrapper>
     ) : null;
   };
 

@@ -26,6 +26,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import RedButton from '../../../components/button/RedButton.component';
 import type { MetaActivity, Establishment } from '../../../api/types';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import {
   getValidityInfo,
   getCompatibilityInfo,
@@ -248,9 +249,14 @@ export class PaymentPackCard extends Component<Props, State> {
 
             <div>
               {!onlyPublic && (
-                <div className={classes.copyButton}>
-                  {this.renderLinkToPaymentPage()}
-                </div>
+                <ObjectLevelPermissionWrapper
+                  forcedBehavior="hidden"
+                  requiredPermission="billing.allowed_actions.readPaymentLink"
+                >
+                  <div className={classes.copyButton}>
+                    {this.renderLinkToPaymentPage()}
+                  </div>
+                </ObjectLevelPermissionWrapper>
               )}
 
               <div className={isManager ? '' : classes.marginTop}>

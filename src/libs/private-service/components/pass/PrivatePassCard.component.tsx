@@ -33,6 +33,7 @@ import { getValidityInfo } from '../../utils';
 
 import type { PrivatePass, PrivatePassCategory } from '../../types';
 import TypographyMultilineComponent from '#components/typo/TypographyMultiline.component';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 type Props = {
   pass: PrivatePass;
@@ -63,19 +64,24 @@ export const PrivatePassCard: React.FC<Props> = (props) => {
 
   const renderLinkToPaymentPage = () => {
     return pass.id && pass.company ? (
-      <CopyToClipboard
-        text={`${window.location.origin}/customer/payment/private-pass/${pass.id}/?membership=${pass.company}&force=true`}
+      <ObjectLevelPermissionWrapper
+        forcedBehavior="hidden"
+        requiredPermission="billing.allowed_actions.readPaymentLink"
       >
-        <ButtonBase
-          className={classes.link}
-          onClick={() => props.snackbarSuccess('link.copied')}
+        <CopyToClipboard
+          text={`${window.location.origin}/customer/payment/private-pass/${pass.id}/?membership=${pass.company}&force=true`}
         >
-          <LinkIcon />
-          <Typography className={classes.linkTypo}>
-            {t('shop:link.copyLink')}
-          </Typography>
-        </ButtonBase>
-      </CopyToClipboard>
+          <ButtonBase
+            className={classes.link}
+            onClick={() => props.snackbarSuccess('link.copied')}
+          >
+            <LinkIcon />
+            <Typography className={classes.linkTypo}>
+              {t('shop:link.copyLink')}
+            </Typography>
+          </ButtonBase>
+        </CopyToClipboard>
+      </ObjectLevelPermissionWrapper>
     ) : (
       <CircularProgress />
     );

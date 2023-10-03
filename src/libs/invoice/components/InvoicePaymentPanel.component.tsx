@@ -27,6 +27,7 @@ import {
 } from '@bsport/common/lib/master-data/planned-payment-event';
 import PaymentGroupRequiringActionListItem from './PaymentGroupRequiringActionListItem.component';
 import RedButton from '../../../components/button/RedButton.component';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 import PaymentListItemV2 from './PaymentListItemV2.component';
 import PlannedPaymentEventListItem from './PlannedPaymentEventListItem.component';
@@ -173,52 +174,72 @@ const PaymentActions: FC<{
       {shouldPaymentPanelActionsBeDisplayed && (
         <div className={classes.row}>
           <div className={classes.buttonRow}>
-            {props.invoice.invoice_type === INVOICE_TYPE_REGULAR && (
-              <React.Fragment>
-                <CopyToClipboard
-                  text={getPaymentLink(props.companyId, props.invoice.uuid)}
-                >
-                  <Button
-                    color="primary"
-                    disabled={
-                      !props.invoice.member ||
-                      props.amountToPayCts === 0 ||
-                      processing
-                    }
-                    onClick={() => props.snackbarSuccess('link.copied')}
-                    variant="contained"
-                  >
-                    {t('paymentPanel.actions.generatePaymentLink')}
-                  </Button>
-                </CopyToClipboard>
-                <Button
-                  color="primary"
-                  disabled={
-                    !props.invoice.member ||
-                    props.amountToPayCts === 0 ||
-                    processing
-                  }
-                  onClick={props.onPaymentIntent}
-                  variant="contained"
-                >
-                  {t('paymentPanel.actions.bill')}
-                </Button>
-              </React.Fragment>
-            )}
-            {!props.invoice.reverse_invoices.length &&
-              !props.invoice.source_invoice &&
-              (props.invoice.invoice_type === INVOICE_TYPE_REGULAR ||
-                props.paymentList.filter(
-                  (p) => p.payment_engine !== PAYMENT_ENGINE_BSPORT,
-                ).length === 1) && (
-                <RedButton
-                  disabled={processing}
-                  onClick={props.onRevert}
-                  variant="contained"
-                >
-                  {t('paymentPanel.actions.revert')}
-                </RedButton>
+            <ObjectLevelPermissionProvider
+              requiredPermission={[
+                'billing.allowed_actions.readPaymentLink',
+                'billing.allowed_actions.cancelInvoice',
+              ]}
+            >
+              {([
+                hasPaymentLinkPermission,
+                hasCancelInvoicePermission,
+              ]: boolean[]) => (
+                <>
+                  {props.invoice.invoice_type === INVOICE_TYPE_REGULAR && (
+                    <React.Fragment>
+                      {hasPaymentLinkPermission && (
+                        <CopyToClipboard
+                          text={getPaymentLink(
+                            props.companyId,
+                            props.invoice.uuid,
+                          )}
+                        >
+                          <Button
+                            color="primary"
+                            disabled={
+                              !props.invoice.member ||
+                              props.amountToPayCts === 0 ||
+                              processing
+                            }
+                            onClick={() => props.snackbarSuccess('link.copied')}
+                            variant="contained"
+                          >
+                            {t('paymentPanel.actions.generatePaymentLink')}
+                          </Button>
+                        </CopyToClipboard>
+                      )}
+                      <Button
+                        color="primary"
+                        disabled={
+                          !props.invoice.member ||
+                          props.amountToPayCts === 0 ||
+                          processing
+                        }
+                        onClick={props.onPaymentIntent}
+                        variant="contained"
+                      >
+                        {t('paymentPanel.actions.bill')}
+                      </Button>
+                    </React.Fragment>
+                  )}
+                  {hasCancelInvoicePermission &&
+                    !props.invoice.reverse_invoices.length &&
+                    !props.invoice.source_invoice &&
+                    (props.invoice.invoice_type === INVOICE_TYPE_REGULAR ||
+                      props.paymentList.filter(
+                        (p) => p.payment_engine !== PAYMENT_ENGINE_BSPORT,
+                      ).length === 1) && (
+                      <RedButton
+                        disabled={processing}
+                        onClick={props.onRevert}
+                        variant="contained"
+                      >
+                        {t('paymentPanel.actions.revert')}
+                      </RedButton>
+                    )}
+                </>
               )}
+            </ObjectLevelPermissionProvider>
           </div>
           <div className={classes.buttonRow}>
             <UseConsumerGiftcardForm

@@ -50,6 +50,7 @@ import BackofficeLinearProgressComponent from '../../components/navigation/Backo
 import { RootState } from '../../reducers';
 import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 import { fetchTags } from '#libs/tag/actions';
+import { Tag, TagGroup } from '#libs/tag/types';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -67,6 +68,7 @@ type OwnProps = {
   consumerGiftcardList: Array<ConsumerGiftcard>;
   consumerGiftcardCount: number;
   fetchConsumerGiftcardList: (params: any) => void;
+  allTagsWithTagGroup?: Array<Tag<TagGroup>>;
 };
 
 type StateToProps = {

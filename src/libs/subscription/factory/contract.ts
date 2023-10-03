@@ -53,6 +53,7 @@ export const contractFactory = (options?: ContractFactoryOptions) => {
     is_usable_by_staff: options?.isUsableByStaff ?? faker.datatype.boolean(),
     month_billing_day: options?.monthBillingDay ?? null,
     highlighted_as_recommended: options?.isHighlightedAsRecommended ?? false,
+    tags_on_first_billing: [1, 2],
   };
 };
 

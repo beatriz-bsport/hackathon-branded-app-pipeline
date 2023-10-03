@@ -270,6 +270,7 @@ export type SubscriptionState = {
     };
   };
   contractTermsDownload: ErrorAndLoading;
+  tags_on_first_billing: number[];
 };
 
 export type SubscriptionQueryParams = {

@@ -65,10 +65,13 @@ export const basketFactory = (nb_items: number): Basket => {
     id: faker.number.int(16).toString(),
     is_finalized: false,
     total_price: checkout_items
-      .reduce((previous, current) => previous + current.unit_price, 0)
+      .reduce(
+        (previous, current) => previous + current.unit_price * current.quantity,
+        0,
+      )
       .toString(),
     total_price_cts: checkout_items.reduce(
-      (previous, current) => previous + current.unit_price,
+      (previous, current) => previous + current.unit_price * current.quantity,
       0,
     ),
     checkout_items,

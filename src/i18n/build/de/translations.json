@@ -3354,6 +3354,9 @@
                     },
                     "quicksale": {
                         "_label": "Schnelle Verkaufsschnittstelle"
+                    },
+                    "referral": {
+                        "_label": "Empfehlungsprogramm"
                     }
                 },
                 "reporting": {
@@ -4543,6 +4546,9 @@
                         },
                         "compatibility": {
                             "_label": "Kompatibilitäten verwalten"
+                        },
+                        "block": {
+                            "_label": "Den Pass eines Mitglieds sperren"
                         }
                     }
                 },
@@ -8433,9 +8439,9 @@
                 "1": "Montag"
             }
         },
-        "shortHourIdentifier": "Std.",
-        "shortMinuteIdentifier": "Min",
-        "shortDayIdentifier": "Tag(e)",
+        "shortHourIdentifier": "std",
+        "shortMinuteIdentifier": "min",
+        "shortDayIdentifier": "t",
         "never": "Nie",
         "longHourIdentifier": "Stunden",
         "longDayIdentifer": "Tage",
@@ -9472,7 +9478,9 @@
         "officialIdNumber": {
             "value": "Nr.{{id}}",
             "label": "Nummer des Ausweisdokuments"
-        }
+        },
+        "signedUpWithReferral": "Mitglied hat sich mit dem Empfehlungslink von <1>{{ name }}<1> angemeldet",
+        "email": "Email"
     },
     "common": {
         "text": {
@@ -13042,7 +13050,8 @@
                 "quickbooks": "QuickBooks",
                 "mobilePersonalization": "Personalisierung App",
                 "coachUserspace": "Lehrkräfteansicht",
-                "quicksale": "Verkaufsschnittstelle"
+                "quicksale": "Verkaufsschnittstelle",
+                "referral": "Empfehlung"
             },
             "myClub": "Mein Studio",
             "subscription": "Automatische Abbuchungen",
@@ -17470,6 +17479,104 @@
             "validate": "Bestätigen",
             "clientDebt": "Kunden-Restguthaben",
             "internalCredits": "Interne Credits"
+        }
+    },
+    "referral": {
+        "conditions": {
+            "description": {
+                "warning": "Bitte beachten Sie: Das Empfehlungsprogramm gilt nur für neue Mitglieder des Studios oder des Franchisesystems.",
+                "reward2": "Die Prämie wird automatisch auf die nächsten Warenkörbe des empfehlenden Mitglieds angerechnet: Es gibt keine zeitlichen oder betragsmäßigen Bedingungen für die Anwendung. Die Prämie kann auch in mehreren Raten ausgezahlt werden, wenn der Betrag des Warenkorbs geringer ist als die Prämie.",
+                "reward1": "Wenn der erste Kauf (ausgenommen Abonnements) in Übereinstimmung mit den beschriebenen Bedingungen getätigt wird, wird das empfehlende Mitglied <1>mit einer Summe von {{ referringReward }}</1> belohnt. Dies kann für jedes geworbene Mitglied bis zu einer Grenze von {{ maxReferralUses }} mal erhalten werden.",
+                "applicationTimeLimit": {
+                    "units": {
+                        "months": "Monat",
+                        "months_plural": "Monate",
+                        "weeks": "Woche",
+                        "weeks_plural": "Wochen",
+                        "days": "Tag",
+                        "days_plural": "Tage"
+                    }
+                },
+                "signUp": {
+                    "noReduction": "Über den freigegebenen Link wird das neue Mitglied zum Registrierungsformular weitergeleitet, wo es ein Konto erstellen kann. Sobald dies geschehen ist, muss das geworbene Mitglied seinen ersten Warenkorb gemäß den folgenden Bedingungen abschließen:<1><0>Der Betrag des Warenkorbs ist größer als {{ minBasketAmount }}</0><0>Er wird innerhalb{{ applicationTimeLimitIntervals }} {{ applicationTimeLimitUnit }}, nachdem sich das geworbene Mitglied angemeldet hat</0></1>",
+                    "reduction": "Über den freigegebenen Link wird das neue Mitglied zum Registrierungsformular weitergeleitet, wo es ein Konto erstellen kann. Sobald dies geschehen ist, kann das geworbene Mitglied <1> von einem Rabatt von {{ referredReduction }}<1> auf seinen ersten Warenkorb profitieren, wenn er die folgenden Bedingungen erfüllt: <3> <0> Der Betrag des Warenkorbs ist größer als {{ minBasketAmount }} </0> <0> Er wird innerhalb von {{ applicationTimeLimitIntervals }} {{ applicationTimeLimitUnit }} durchgeführt, nachdem sich das geworbene Mitglied angemeldet hat </0> </3>"
+                },
+                "maxUses": "Jedes Mitglied hat einen persönlichen Empfehlungslink, der weitergegeben werden kann, um eine Prämie zu erhalten. Er kann <1>maximal {{ maxReferralUses }} mal</1> erhalten werden."
+            },
+            "title": "Konditionen für die Nutzung des Empfehlungslinks"
+        },
+        "memberInfo": {
+            "warningMaxUsesReached": "Sie haben die maximale Anzahl von Verwendungen Ihres Empfehlungslinks erreicht",
+            "seeConditions": "Siehe Konditionen",
+            "copyLink": "Kopiere meinen Empfehlungslink",
+            "forYourFriend": "für Ihren Freund",
+            "forYou": "für Sie",
+            "inviteFriend": "Laden Sie einen Freund ein, sich zu anmelden",
+            "nbRemainingUses": "Anzahl der vebleibenden Verwendungen",
+            "referralLink": "Empfehlungslink"
+        },
+        "form": {
+            "submit": "Speichern",
+            "errors": {
+                "required": "Dieses Feld ist ein Pflichtfeld",
+                "url": "Bitte geben Sie eine gültige URL ein",
+                "rewardReferring": "Die Prämie muss über 0 liegen",
+                "timeLimit": "Die Verzögerung muss größer als 1 sein",
+                "referredAmount": "Der Rabatt muss über 0 liegen",
+                "maximumUses": "Die maximale Anzahl der Verwendungen muss über 1 liegen",
+                "minimumAmount": "Der Mindestbetrag muss über 0 liegen"
+            },
+            "activateReferral": {
+                "description": "Jedes Mitglied kann diesen Empfehlungslink an Nicht-Mitglieder weitergeben. Bei Nutzung erhält das neue Mitglied automatisch einen Rabatt und das Mitglied, das den Link weitergegeben hat, eine Prämie.",
+                "label": "Empfehlungslinks aktivieren"
+            },
+            "rewardReferring": {
+                "title": "Prämie für das werbende Mitglied",
+                "label": "Prämienbetrag"
+            },
+            "warnings": {
+                "rewardReferring": "Wenn Sie diesen Wert wählen, wird dem werbenden Mitglied keine Prämie gewährt",
+                "referredAmount": "Wenn Sie diesen Wert wählen, wird kein Rabatt auf den Einkauf des geworbenen Mitglieds gewährt"
+            },
+            "redirectLink": {
+                "placeholder": "Weiterleitungs-URL",
+                "description": "Nach der Registrierung wird das neue Mitglied auf die Seite weitergeleitet, die in Ihrer URL angegeben ist. Wenn Sie das Feld leer lassen, wird das neue Mitglied auf die Seite zum Kauf des Passes weitergeleitet",
+                "title": "Link weiterleiten"
+            },
+            "tag": {
+                "description": "Ein neues Mitglied, das den Empfehlungslink benutzt, wird markiert",
+                "title": "Tag"
+            },
+            "applicationTimeLimit": {
+                "units": {
+                    "month": "Monat",
+                    "month_plural": "Monate",
+                    "week": "Woche",
+                    "week_plural": "Wochen",
+                    "day": "Tag",
+                    "day_plural": "Tage"
+                },
+                "title": "Frist für die Inanspruchnahme des Rabatts nach der Anmeldung"
+            },
+            "amountOffReferred": {
+                "amount": {
+                    "fieldLabel": "Betrag",
+                    "title": "Betrag"
+                },
+                "percent": {
+                    "fieldLabel": "Prozentsatz",
+                    "title": "Prozentsatz"
+                },
+                "title": "Rabatt für das geworbene Mitglied"
+            },
+            "maximumUses": {
+                "label": "Maximale Anzahl von Verwendungen"
+            },
+            "minimumBasketAmount": {
+                "description": "Dieser Wert bezieht sich auf den Gesamtpreis des Warenkorbs",
+                "label": "Mindestwert des Kundenkorbs"
+            },
+            "title": "Empfehlung"
         }
     }
 }

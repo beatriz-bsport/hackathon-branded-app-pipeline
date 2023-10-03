@@ -11379,7 +11379,7 @@
         },
         "shortMinuteIdentifier": "min",
         "shortHourIdentifier": "h",
-        "shortDayIdentifier": "d",
+        "shortDayIdentifier": "g",
         "never": "Mai",
         "longHourIdentifier": "ore",
         "longMinuteIdentifier": "minuti",

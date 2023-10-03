@@ -63,4 +63,5 @@ export enum CssComponentsVariantIdentifiers {
   MARKETPLACE_BASKET_SUMMARY_LIST_ITEM_PREVIEW = 'marketplace_basket_summary_list_item',
   MARKETPLACE_BASKET_SUMMARY_PREVIEW = 'marketplace_basket_summary',
   MARKETPLACE_BASKET_SUMMARY_DIALOG_PREVIEW = 'marketplace_basket_summary_dialog',
+  MARKETPLACE_PREPAID_LINE_ITEM = 'marketplace_prepaid_line_item',
 }

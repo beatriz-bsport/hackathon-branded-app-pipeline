@@ -121,6 +121,9 @@ exports.default = {
         1: 'One',
         2: 'Two',
         3: 'Three',
+        giftcardPrepaidLine: 'Payment via giftcard',
+        internalAccountPrepaidLine: 'Payment via internal account',
+        defaultPrepaidLine: 'Default',
       },
       title: {
         nextOffer: 'Next session available',
@@ -152,6 +155,7 @@ exports.default = {
         isDense: 'Dense',
         numberOfDistinctCheckoutItem: 'Number of disctint product in basket',
         basketIsEmpty: 'Basket is empty',
+        prepaidLineKind: 'Prepaid line kind',
       },
       configurationTitle: 'Variations',
     },
@@ -214,6 +218,7 @@ exports.default = {
         'Basket item list component (Basket summary)',
       marketplace_basket_summary: 'Basket summary',
       marketplace_basket_summary_dialog: 'Basket summary (pop-up)',
+      marketplace_prepaid_line_item: 'Prepaid line list item',
     },
     customCss: {
       yourCode: 'Your complementary implementation:',

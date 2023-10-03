@@ -13354,7 +13354,10 @@
           "isAlreadyRegistered": "Session already booked",
           "blockedByTags": "Insufficient rights",
           "desktop": "Wide screen",
-          "mobile": "Small screen"
+          "mobile": "Small screen",
+          "giftcardPrepaidLine": "Payment via giftcard",
+          "internalAccountPrepaidLine": "Payment via internal account",
+          "defaultPrepaidLine": "Default"
         },
         "title": {
           "nextOffer": "Next session available",
@@ -13385,7 +13388,8 @@
           "isItemEditionDisabled": "Modifying items disabled",
           "isDense": "Dense",
           "numberOfDistinctCheckoutItem": "Number of disctint product in basket",
-          "basketIsEmpty": "Basket is empty"
+          "basketIsEmpty": "Basket is empty",
+          "prepaidLineKind": "Prepaid line kind"
         },
         "configurationTitle": "Variations"
       },
@@ -13442,7 +13446,8 @@
         "marketplace_basket_summary_item": "Basket item component (Basket summary)",
         "marketplace_basket_summary_list_item": "Basket item list component (Basket summary)",
         "marketplace_basket_summary": "Basket summary",
-        "marketplace_basket_summary_dialog": "Basket summary (pop-up)"
+        "marketplace_basket_summary_dialog": "Basket summary (pop-up)",
+        "marketplace_prepaid_line_item": "Prepaid line list item"
       },
       "customCss": {
         "yourCode": "Your complementary implementation:",

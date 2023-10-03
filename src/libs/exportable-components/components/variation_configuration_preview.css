@@ -96,3 +96,7 @@ We need to brutally override some things from MUI.
   position: relative !important;
   width: 100%;
 }
+
+.bs-basket_summary_prepaid_line_item--container {
+  width: 100%;
+}

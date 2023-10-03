@@ -211,7 +211,7 @@ type OwnProps = {
   noMulti?: boolean;
   isClearable?: boolean;
   closeMenuOnSelect?: boolean;
-  selectedTags?: number[] | number; // if noMulti, there is only one selected tag
+  selectedTags?: number[];
   allTagsWithTagGroup:
     | Array<Tag>
     | Array<Tag<TagGroup>>
@@ -243,9 +243,7 @@ export function TagSelector(props: Props) {
     selectedTags && allTagsWithTagGroup
       ? getTagListOptions(allTagsWithTagGroup).filter(
           (tagOption: { value: number; label: string }) =>
-            noMulti
-              ? selectedTags === tagOption.value
-              : selectedTags.includes(tagOption.value),
+            selectedTags.includes(tagOption.value),
         )
       : null;
   if (inScrollBar) {

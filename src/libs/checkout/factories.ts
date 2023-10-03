@@ -22,7 +22,7 @@ export const checkoutItemFactory = (
   return {
     quantity: faker.number.int({ max: 5, min: 1 }),
     id: faker.number.int().toString(),
-    unit_price: faker.number.int({ max: 50, min: 0 }),
+    unit_price: faker.number.int({ max: 1000, min: 0 }),
     name: generateRandomName(faker),
     buyable_item_identifier:
       buyableItemType ?? BuyableItemOptions.BUYABLE_ITEM_PASS,

@@ -93,6 +93,7 @@ export enum MarketplacePage {
   WORKSHOP = 'workshop',
   PASS = 'pass',
   SUBSCRIPTION = 'subscription',
+  BASKET = 'basket',
 }
 
 export type VariationConfigurationChoice = {

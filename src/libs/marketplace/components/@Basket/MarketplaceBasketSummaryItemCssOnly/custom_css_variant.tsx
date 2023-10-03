@@ -1,25 +1,22 @@
 import React from 'react';
-import ItemQuantity, { Props } from '.';
+import MarketplaceBasketSummaryItemCssOnly, { Props } from '.';
+
 // @ts-expect-error
 // eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
-import ItenQuantityCss from '!!raw-loader!./styles.css';
+import MarketplaceBasketSummaryItemCss from '!!raw-loader!./styles.css';
 import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
 import {
   MarketplaceCSSComponentConfig,
   MarketplacePage,
   VariationConfigurationChoice,
 } from '#libs/exportable-components/types';
+import { checkoutItemFactory } from '#libs/checkout/factories';
 import { CompanyTheme } from '#libs/theme/types';
+import { CheckoutItem } from '#libs/checkout/types';
 
-const marketplaceItemQuantityVariationRegistry = [
-  {
-    label: 'isAddingItemPossible',
-    choices: [
-      { label: 'true', value: 'true' },
-      { label: 'false', value: 'false' },
-    ],
-    default: { label: 'true', value: 'true' },
-  },
+const checkoutItem = checkoutItemFactory();
+
+const marketplaceBasketSummaryItemVariationRegistry = [
   {
     label: 'isItemEditionDisabled',
     choices: [
@@ -28,32 +25,42 @@ const marketplaceItemQuantityVariationRegistry = [
     ],
     default: { label: 'false', value: 'false' },
   },
+  {
+    label: 'isDense',
+    choices: [
+      { label: 'true', value: 'true' },
+      { label: 'false', value: 'false' },
+    ],
+    default: { label: 'true', value: 'true' },
+  },
 ];
 
 const usePropsFromVariation = (
   variationsSelected: Record<string, VariationConfigurationChoice>,
+  companyTheme: CompanyTheme,
   itemQuantity: number,
-  onAddOneItem: () => void,
-  onRemoveOneItem: () => void,
+  onAddOneItem: (checkoutItem: CheckoutItem) => void,
+  onRemoveItem: (checkoutItem: CheckoutItem) => void,
 ): Props => {
-  const isAddingItemPossible =
-    variationsSelected?.isAddingItemPossible?.value === 'true';
+  const isDense = variationsSelected?.isDense?.value === 'true';
+
   const isItemEditionDisabled =
     variationsSelected?.isItemEditionDisabled?.value === 'true';
-
   return {
-    isAddingItemPossible,
-    isItemEditionDisabled,
-    itemQuantity,
+    isExcludingTax: companyTheme?.is_tax_excluded_in_marketplace,
+    checkoutItem: { ...checkoutItem, quantity: itemQuantity },
+    dense: isDense,
     onAddOneItem,
-    onRemoveOneItem,
+    onRemoveItem,
+    isItemEditionDisabled,
   };
 };
 
-export const MARKETPLACE_ITEM_QUANTITY_CONFIGURATION: MarketplaceCSSComponentConfig =
+export const MARKETPLACE_BASKET_SUMMARY_ITEM_CONFIGURATION: MarketplaceCSSComponentConfig =
   {
-    label: CssComponentsVariantIdentifiers.MARKETPLACE_ITEM_QUANTITY,
-    css: ItenQuantityCss,
+    label:
+      CssComponentsVariantIdentifiers.MARKETPLACE_BASKET_SUMMARY_ITEM_PREVIEW,
+    css: MarketplaceBasketSummaryItemCss,
     pages: [
       MarketplacePage.BASKET,
       MarketplacePage.PASS,
@@ -61,13 +68,13 @@ export const MARKETPLACE_ITEM_QUANTITY_CONFIGURATION: MarketplaceCSSComponentCon
       MarketplacePage.CALENDAR,
     ],
     defaultState: {},
-    variations: marketplaceItemQuantityVariationRegistry,
+    variations: marketplaceBasketSummaryItemVariationRegistry,
   };
 
-export const MARKETPLACE_ITEM_QUANTITY_PREVIEW: React.FC<{
+export const MARKETPLACE_BASKET_SUMMARY_ITEM_PREVIEW: React.FC<{
   theme: CompanyTheme;
   variationsSelected: Record<string, VariationConfigurationChoice>;
-}> = React.memo(({ variationsSelected }) => {
+}> = React.memo(({ variationsSelected, theme }) => {
   const [itemQuantity, setItemQuantity] = React.useState(1);
 
   const onAddOneItem = () =>
@@ -78,9 +85,10 @@ export const MARKETPLACE_ITEM_QUANTITY_PREVIEW: React.FC<{
 
   const componentProps = usePropsFromVariation(
     variationsSelected,
+    theme,
     itemQuantity,
     onAddOneItem,
     onRemoveOneItem,
   );
-  return <ItemQuantity {...componentProps} />;
+  return <MarketplaceBasketSummaryItemCssOnly {...componentProps} />;
 });

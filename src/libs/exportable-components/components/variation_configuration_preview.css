@@ -72,3 +72,8 @@ We need to brutally override some things from MUI.
 .bs-custom-css__component__preview #bs-activity--dialog {
   position: relative !important;
 }
+
+/* MarketplaceBasketSummaryItemCssOnly */
+.bs-basket_summary_checkout_item--container {
+  width: 100%;
+}

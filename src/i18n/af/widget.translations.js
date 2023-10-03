@@ -144,6 +144,9 @@ exports.default = {
         isOfferAvailable: 'The session is available',
         isOfferInThePast: 'The session is over',
         isHidden: 'Hidden',
+        isAddingItemPossible: 'Adding more items activated',
+        isItemEditionDisabled: 'Modifying items disabled',
+        isDense: 'Dense',
       },
       configurationTitle: 'Variations',
     },
@@ -153,6 +156,7 @@ exports.default = {
       subscription: 'Subscriptions',
       pass: 'Passes',
       common: 'Common',
+      basket: 'Basket',
     },
     components: {
       calendar: 'Calendar page',
@@ -199,6 +203,8 @@ exports.default = {
       marketplace_select: 'Selector (single)',
       marketplace_filter: 'Multiple selector',
       marketplace_search: 'Search filter',
+      marketplace_item_quantity: 'Basket item Quantity (Basket summary)',
+      marketplace_basket_summary_item: 'Basket item component (Basket summary)',
     },
     customCss: {
       yourCode: 'Your complementary implementation:',

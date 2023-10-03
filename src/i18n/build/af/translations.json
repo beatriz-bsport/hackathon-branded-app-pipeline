@@ -13377,7 +13377,10 @@
           "isOfferNotAvailableYet": "The session is not yet bookable",
           "isOfferAvailable": "The session is available",
           "isOfferInThePast": "The session is over",
-          "isHidden": "Hidden"
+          "isHidden": "Hidden",
+          "isAddingItemPossible": "Adding more items activated",
+          "isItemEditionDisabled": "Modifying items disabled",
+          "isDense": "Dense"
         },
         "configurationTitle": "Variations"
       },
@@ -13386,7 +13389,8 @@
         "workshop": "Workshop",
         "subscription": "Subscriptions",
         "pass": "Passes",
-        "common": "Common"
+        "common": "Common",
+        "basket": "Basket"
       },
       "components": {
         "calendar": "Calendar page",
@@ -13428,7 +13432,9 @@
         "marketplace_offer_list_item": "Session details (list display)",
         "marketplace_select": "Selector (single)",
         "marketplace_filter": "Multiple selector",
-        "marketplace_search": "Search filter"
+        "marketplace_search": "Search filter",
+        "marketplace_item_quantity": "Basket item Quantity (Basket summary)",
+        "marketplace_basket_summary_item": "Basket item component (Basket summary)"
       },
       "customCss": {
         "yourCode": "Your complementary implementation:",

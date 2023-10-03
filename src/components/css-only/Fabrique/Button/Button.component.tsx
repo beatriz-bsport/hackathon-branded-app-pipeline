@@ -41,8 +41,10 @@ const Button: React.FC<Props> = ({
         {
           'bs-button-icon__container': variant === ButtonVariant.ICON,
           'bs-button-outlined__container': variant === ButtonVariant.OUTLINED,
-          'bs-button-primary__container': color === ButtonColor.PRIMARY,
-          'bs-button-secondary__container': color === ButtonColor.SECONDARY,
+          'bs-button-primary__container':
+            color === ButtonColor.PRIMARY && variant !== ButtonVariant.TEXT,
+          'bs-button-secondary__container':
+            color === ButtonColor.SECONDARY && variant !== ButtonVariant.TEXT,
           'bs-button-small__container': size === ButtonSize.SMALL,
           'bs-button-large__container': size === ButtonSize.LARGE,
         },
@@ -60,8 +62,14 @@ const Button: React.FC<Props> = ({
         className={classNames(
           'bs-button__text',
           {
-            'bs-button-primary__text': color === ButtonColor.PRIMARY,
-            'bs-button-secondary__text': color === ButtonColor.SECONDARY,
+            'bs-button-primary__text':
+              color === ButtonColor.PRIMARY && variant !== ButtonVariant.TEXT,
+            'bs-button-primary__text_primary_color':
+              color === ButtonColor.PRIMARY && variant === ButtonVariant.TEXT,
+            'bs-button-secondary__text':
+              color === ButtonColor.SECONDARY && variant !== ButtonVariant.TEXT,
+            'bs-button-primary__text_secondary_color':
+              color === ButtonColor.SECONDARY && variant === ButtonVariant.TEXT,
             'bs-button-small__text': size === ButtonSize.SMALL,
             'bs-button-large__text': size === ButtonSize.LARGE,
           },

@@ -7,6 +7,7 @@ enum ButtonType {
 enum ButtonVariant {
   ICON = 'icon',
   OUTLINED = 'outlined',
+  TEXT = 'text',
 }
 
 export enum ButtonSize {

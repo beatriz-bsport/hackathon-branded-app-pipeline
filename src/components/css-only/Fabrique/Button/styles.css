@@ -49,6 +49,7 @@
   .MuiSvgIcon-root {
   font-size: inherit;
 }
+
 .bs-button-outlined__container {
   border-style: solid;
   border-width: 1px;
@@ -117,6 +118,14 @@
   color: var(--color-primary-contrastText);
 }
 
+.bs-button-primary__text_primary_color {
+  color: var(--color-primary-main);
+}
+
 .bs-button-secondary__text {
   color: var(--color-secondary-contrastText);
+}
+
+.bs-button-primary__text_secondary_color {
+  color: var(--color-secondary-main);
 }

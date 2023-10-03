@@ -1,8 +1,10 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { getBasketTotalPriceExcludingTax } from '#libs/checkout/utils';
 import MarketplaceBasketSummaryListCssOnly from '#libs/marketplace/components/@Basket/MarketplaceBasketSummaryListCssOnly';
 import MarketplaceBasketSummaryPrepaidLineList from '#libs/marketplace/components/@Basket/MarketplaceBasketSummaryPrepaidLineList';
 import CircularProgress from '#components/css-only/CircularProgress';
+import Alert, { AlertSeverity } from '#csscomponents/Alert';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 
 import type {
@@ -38,6 +40,7 @@ export const BasketSummaryCssOnly: React.FC<Props> = ({
   onAddCheckoutItem,
   loading,
 }) => {
+  const { t } = useTranslation('checkout');
   const basketTotalPrice = React.useMemo(
     () =>
       isExcludingTax
@@ -73,7 +76,13 @@ export const BasketSummaryCssOnly: React.FC<Props> = ({
       </div>
     );
   }
-
+  if (!basket.checkout_items.length) {
+    return (
+      <div className="bs-basket_summary--container">
+        <Alert severity={AlertSeverity.INFO}>{t('myBasket.isEmpty')}</Alert>
+      </div>
+    );
+  }
   return (
     <div className="bs-basket_summary--container">
       <div className="bs-basket_summary__checkout_item_list--container">

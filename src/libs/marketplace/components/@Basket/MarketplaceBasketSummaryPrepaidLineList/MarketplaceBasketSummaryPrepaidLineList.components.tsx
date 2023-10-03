@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import type { PrepaidLine } from '#libs/checkout/types';
 
 import MarketplaceBasketSummaryPrepaidLineItem from '#libs/marketplace/components/@Basket/MarketplaceBasketSummaryPrepaidLineItem';
@@ -6,16 +7,22 @@ import './styles.css';
 
 export type Props = {
   prePaidLines: PrepaidLine[];
+  dense?: boolean;
 };
 
 const MarketplaceBasketSummaryPrepaidLineList: React.FC<Props> = ({
   prePaidLines,
+  dense,
 }) => {
   if (!prePaidLines) {
     return null;
   }
   return (
-    <div className="bs-basket_summary_prepaid_line_list--container">
+    <div
+      className={classNames('bs-basket_summary_prepaid_line_list--container', {
+        'bs-basket_summary_prepaid_line_list--dense': dense,
+      })}
+    >
       {prePaidLines.map((prepaidLine, index) => (
         <>
           <MarketplaceBasketSummaryPrepaidLineItem

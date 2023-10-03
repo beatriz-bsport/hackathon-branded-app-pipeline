@@ -4,6 +4,10 @@
   gap: var(--spacing-1);
 }
 
+.bs-basket_summary_prepaid_line_list--dense {
+  gap: 0;
+}
+
 .bs-basket_summary_prepaid_line_list--divider_container {
   padding-left: var(--spacing-1);
   padding-right: var(--spacing-1);

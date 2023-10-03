@@ -78,6 +78,7 @@ export const BasketSummaryCssOnly: React.FC<Props> = ({
     <div className="bs-basket_summary--container">
       <div className="bs-basket_summary__checkout_item_list--container">
         <MarketplaceBasketSummaryListCssOnly
+          dense
           checkoutItems={basket.checkout_items}
           isExcludingTax={isExcludingTax}
           isItemEditionDisabled={loading}
@@ -92,6 +93,7 @@ export const BasketSummaryCssOnly: React.FC<Props> = ({
       )}
       <div className="bs-basket_summary__prepaid_line_list--container">
         <MarketplaceBasketSummaryPrepaidLineList
+          dense
           prePaidLines={basket.prepaid_lines}
         />
       </div>

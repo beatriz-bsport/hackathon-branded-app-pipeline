@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import ItemQuantity from '#libs/marketplace/components/@Basket/MarketplaceBasketSummaryItemCssOnly/ItemQuantity';
 import { BuyableItemOptions, CheckoutItem } from '#libs/checkout/types';
@@ -12,6 +13,7 @@ export type Props = {
   isItemEditionDisabled: boolean;
   onAddOneItem: (checkoutItem: CheckoutItem) => void;
   onRemoveItem: (checkoutItem: CheckoutItem) => void;
+  dense?: boolean;
 };
 
 export const MarketplaceBasketSummaryItemCssOnly: React.FC<Props> = ({
@@ -20,6 +22,7 @@ export const MarketplaceBasketSummaryItemCssOnly: React.FC<Props> = ({
   isItemEditionDisabled,
   onAddOneItem,
   onRemoveItem,
+  dense,
 }) => {
   // Giftcards require additionnal information when being purchase thus,
   // we disable the possibility for them to be mutliplied.
@@ -43,9 +46,17 @@ export const MarketplaceBasketSummaryItemCssOnly: React.FC<Props> = ({
   }, [checkoutItem, onRemoveItem]);
 
   return (
-    <div className="bs-basket_summary_checkout_item--container">
+    <div
+      className={classNames('bs-basket_summary_checkout_item--container', {
+        'bs-basket_summary_checkout_item--dense': dense,
+      })}
+    >
       <div className="bs-basket_summary_checkout_item--title_container ">
-        <p className="bs-basket_summary_checkout_item--title">
+        <p
+          className={classNames('bs-basket_summary_checkout_item--title', {
+            'bs-basket_summary_checkout_item--title_dense': dense,
+          })}
+        >
           {checkoutItem.name}
         </p>
       </div>

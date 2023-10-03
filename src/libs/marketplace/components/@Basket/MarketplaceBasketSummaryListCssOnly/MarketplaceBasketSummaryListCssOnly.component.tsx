@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import MarketplaceBasketSummaryItemCssOnly from '#libs/marketplace/components/@Basket/MarketplaceBasketSummaryItemCssOnly';
 import type { CheckoutItem } from '#libs/checkout/types';
@@ -10,6 +11,7 @@ export type Props = {
   isItemEditionDisabled: boolean;
   onAddCheckoutItem: (checkoutItem: CheckoutItem) => void;
   onRemoveCheckoutItem: (checkoutItem: CheckoutItem) => void;
+  dense?: boolean;
 };
 
 export const MarketplaceBasketSummaryListItemCssOnly: React.FC<Props> = ({
@@ -18,16 +20,22 @@ export const MarketplaceBasketSummaryListItemCssOnly: React.FC<Props> = ({
   isItemEditionDisabled,
   onAddCheckoutItem,
   onRemoveCheckoutItem,
+  dense,
 }) => {
   return (
     <>
       {!!checkoutItems?.length && (
-        <div className="bs-basket_summary_checkout_list--container">
+        <div
+          className={classNames('bs-basket_summary_checkout_list--container', {
+            'bs-basket_summary_checkout_list--dense': dense,
+          })}
+        >
           {checkoutItems?.map((checkoutItem, index) => (
             <>
               <MarketplaceBasketSummaryItemCssOnly
                 key={`checkout-item-${checkoutItem.id}`}
                 checkoutItem={checkoutItem}
+                dense={dense}
                 isExcludingTax={isExcludingTax}
                 isItemEditionDisabled={isItemEditionDisabled}
                 onAddOneItem={onAddCheckoutItem}

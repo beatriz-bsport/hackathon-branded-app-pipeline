@@ -6,6 +6,8 @@ import {
   BuyableItemOptions,
   CheckoutItem,
   CheckoutItemExtraData,
+  type PrepaidLineExtraData,
+  type PrepaidLine,
 } from './types';
 
 /**
@@ -52,6 +54,35 @@ export const checkoutItemsFactory = (
     () => checkoutItemFactory(buyableItemType, extraData, tax),
     { count },
   );
+};
+
+/**
+ * Returns a PrepaidLine
+ * @param extraData Some additional data for giftcard or internal account
+ */
+export const prepaidLineFactory = (
+  extraData?: PrepaidLineExtraData,
+): PrepaidLine => {
+  return {
+    id: faker.number.int().toString(),
+    unit_value: faker.number
+      .float({ max: 1000, min: 0, precision: 0.01 })
+      .toFixed(2),
+    name: generateRandomName(faker),
+    extra_data: extraData ?? {},
+  };
+};
+
+/**
+ * Returns a list of  PrepaidLines
+ * @param count The number of PrepaidLines in the return value
+ * @param extraData Some additional data for giftcard or internal account
+ */
+export const prepaidLinesFactory = (
+  count: number,
+  extraData?: PrepaidLineExtraData,
+): PrepaidLine[] => {
+  return faker.helpers.multiple(() => prepaidLineFactory(extraData), { count });
 };
 
 /**

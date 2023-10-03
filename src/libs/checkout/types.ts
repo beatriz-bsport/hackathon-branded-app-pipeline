@@ -136,10 +136,15 @@ export type OnRemoveCheckoutItemData = {
   quantity: number;
 };
 
+export type PrepaidLineExtraData = {
+  consumer_giftcard_id?: number;
+  internal_account?: number;
+};
+
 export type PrepaidLine = {
   id: string;
   unit_value: string; // decimal price as string
-  extra_data: any;
+  extra_data: PrepaidLineExtraData;
   name: string;
 };
 

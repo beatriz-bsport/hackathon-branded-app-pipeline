@@ -30,6 +30,7 @@ type Props = {
   handleUncheckBookingOption: (bookingOptionId: number) => void;
   selectedBookingOptionsIds: number[];
   shouldHideBookButton?: Boolean;
+  shouldHideRemoveWaitlistButton?: Boolean;
 };
 
 const BookingOptionForManager: React.FC<Props> = ({
@@ -44,6 +45,7 @@ const BookingOptionForManager: React.FC<Props> = ({
   handleUncheckBookingOption,
   selectedBookingOptionsIds,
   shouldHideBookButton,
+  shouldHideRemoveWaitlistButton,
 }) => {
   const classes = useStyles({ disabled });
 
@@ -150,7 +152,7 @@ const BookingOptionForManager: React.FC<Props> = ({
             {t('booking.add')}
           </Button>
         )}
-        {!!onDiscard && (
+        {!!onDiscard && !shouldHideRemoveWaitlistButton && (
           <IconButton disabled={isIndividualButtonDisabled} onClick={onDiscard}>
             <CancelIcon />
           </IconButton>

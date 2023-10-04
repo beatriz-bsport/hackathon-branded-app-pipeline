@@ -460,7 +460,7 @@
             "establishment": "Struttura",
             "coach": "Insegnante",
             "newMember": "Nuovo membro",
-            "newCoach": "Nuovo professore",
+            "newCoach": "Nuovo insegnante",
             "firstname": "Nome",
             "lastname": "Cognome",
             "clearDate": "Cancella",
@@ -1026,7 +1026,7 @@
                 "metaActivityList": "Attività",
                 "metaActivityFormPage": "Form dell'attività",
                 "offerFormPage": "Creazione della sessione",
-                "coachPerformance": "Performance del professore",
+                "coachPerformance": "Performance dell'insegnante",
                 "coachFormPage": "Form dell'insegnante",
                 "invoiceFormPage": "Form della fatturazione",
                 "invoiceCreatePage": "Fattura",
@@ -1187,7 +1187,7 @@
                 "name": "Appuntamento",
                 "tags": {
                     "activity": "Attività",
-                    "coach": "Professore (facoltativo)",
+                    "coach": "Insegnante",
                     "date": "Ora / Data",
                     "address": "Indirizzo",
                     "establishment_practical_info": "Informazioni sull'accesso alla struttura (facoltativo)",
@@ -2925,7 +2925,7 @@
                 }
             },
             "configuration": {
-                "explainSetToHasNotOwnAvailabilitySlots": "Prenotabile in qualsiasi intervallo di tempo se professore/sala disponibile",
+                "explainSetToHasNotOwnAvailabilitySlots": "Le disponibilità di tutti gli insegnanti e gli stabilimenti correttamente configurati vengono gestite automaticamente.",
                 "explainSetToHasOwnAvailabilitySlots": "Prenotabile solo in alcuni slot",
                 "explainHasOwnAvailabilitySlots": "Fai clic sulla matita per limitare le prenotazioni a determinate fasce orarie",
                 "hasFutureSlot": "Calendario di disponibilità futura OK",
@@ -2966,7 +2966,7 @@
                 },
                 "coach_capacity_used": {
                     "helperText": "Es: un insegnante può seguire due allievi separatamente su due macchinari",
-                    "label": "Numero massimo di appuntamenti simultanei che un professore può gestire",
+                    "label": "Numero massimo di appuntamenti simultanei che un insegnante può gestire.",
                     "alertText": "Un docente può gestire contemporaneamente 1, 2, 3, 4, 6 o 12 appuntamenti."
                 },
                 "use_full_establishment_capacity": {
@@ -3005,7 +3005,7 @@
                 },
                 "coach_consumer_attribution": {
                     "helperText": "Il membro vede e sceglie l'insegnante prima di prenotare. Se impostato, dovrai scegliere l'insegnante dopo ogni appuntamento",
-                    "label": "Consentire la scelta del professore al momento della prenotazione"
+                    "label": "Consentire la scelta dell'insegnante al momento della prenotazione"
                 },
                 "addEstablishment": "Aggiungi una sala",
                 "addSlot": "Aggiungi un tipo di sessione",
@@ -3536,7 +3536,7 @@
             "cancelled_bookings": "Registrazioni cancellate",
             "confirmed_bookings": "Partecipanti",
             "unpaid_private_booking": "Gli appuntamenti non sono retribuiti.",
-            "coachName": "Professore",
+            "coachName": "Insegnante",
             "total_on_appointments": "Nomina retributiva",
             "total_on_sessions": "Remunerazione per le lezioni di gruppo",
             "nb_appointments": "Numero di appuntamenti",
@@ -3581,7 +3581,7 @@
             "table": {
                 "header": {
                     "nbSessions": "Numero di corsi di gruppo",
-                    "coachName": "Professore",
+                    "coachName": "Insegnante",
                     "confirmedBookings": " "
                 }
             }
@@ -4530,7 +4530,7 @@
             },
             "noMasterControl": {
                 "overbookingNotAllowed": "Non puoi superare il numero massimo di prenotazioni.",
-                "overrideCoachNotAllowed": "Non puoi forzare un appuntamento con questo professore.",
+                "overrideCoachNotAllowed": "Non puoi forzare un appuntamento con questo insegnante.",
                 "overbookingNotAllowedInWaitingList": "Non puoi superare la capienza massima della lista d'attesa.",
                 "overrideEstablishmentNotAllowed": "Non puoi forzare un appuntamento in questa stanza.",
                 "changeDateEstablishmentUnaivalable": "Impossibile prenotare in questa data: la sala non è libera.",
@@ -4547,8 +4547,8 @@
         },
         "coach": {
             "delete": {
-                "error": "Impossibile eliminare il professore",
-                "success": "Professore cancellato"
+                "error": "Impossibile eliminare l'insegnante",
+                "success": "Insegnante cancellato"
             },
             "create": {
                 "success": "Insegnante creato con successo"
@@ -4563,7 +4563,7 @@
             },
             "restore": {
                 "error": "Impossibile ripristinare l'insegnante",
-                "success": "Professore ripristinato con successo"
+                "success": "Insegnante ripristinato con successo"
             },
             "editAccessToCoachSpace": {
                 "error": "Errore durante la modifica dei diritti di accesso all'area insegnanti"
@@ -4944,7 +4944,7 @@
         "privateBooking": {
             "attachCoach": {
                 "success": "Appuntamento assegnato all'insegnante",
-                "error": "Impossibile assegnare al professore"
+                "error": "Impossibile assegnare all'insegnante"
             },
             "updateCoach": {
                 "error": "Impossibile modificare l'insegnante",
@@ -5444,7 +5444,7 @@
             "submit": "Salva",
             "zoom": {
                 "explainInvalid": "Account valido",
-                "explainValid": "Account valido: I link delle riunioni ZOOM verranno creati per ogni sessione 15 minuti prima dell'avvio automatico. Il professore riceverà un link per ospitare la riunione, mentre gli iscritti riceveranno un altro link per partecipare alla riunione. Si noti che se l'account ZOOM non è pagato, la riunione ZOOM è limitata a 40 minuti",
+                "explainValid": "Account valido: I link delle riunioni ZOOM verranno creati per ogni sessione 15 minuti prima dell'avvio automatico. l'insegnante riceverà un link per ospitare la riunione, mentre gli iscritti riceveranno un altro link per partecipare alla riunione. Si noti che se l'account ZOOM non è pagato, la riunione ZOOM è limitata a 40 minuti.",
                 "label": "Impostazioni degli account ZOOM",
                 "enabled": "Abilitare l'integrazione di ZOOM",
                 "revoke": "Disattivare ZOOM"
@@ -6291,7 +6291,7 @@
                 "confirm": "Rimuovi"
             },
             "linkByEmail": {
-                "title": "Indirizzo email del professore",
+                "title": "Indirizzo email dell'insegnante",
                 "cancel": "Annulla",
                 "emailLabel": "Email",
                 "explain": "Se questa email esiste già nel nostro sistema, il profilo dell'insegnante verrà creato automaticamente.",
@@ -6344,8 +6344,8 @@
         "inactiveCoaches": "Professori archiviati",
         "paymentRule": "Retribuzione",
         "coachAccess": {
-            "teacher": "professore",
-            "student": "membro",
+            "teacher": "Insegnante",
+            "student": "Membro",
             "info": "Abbiamo rilevato che lei è un insegnante in questo studio. Vuoi avere accesso alla tua area studenti o alla tua area insegnanti?",
             "access": "Accesso"
         },
@@ -9531,7 +9531,7 @@
             "isUnpaid": "Prenotazioni non pagate",
             "isPaid": "Prenotazioni pagate",
             "paid": "Pagamento",
-            "coach": "Professore",
+            "coach": "Insegnante",
             "pickCoach": "Ricerca di un insegnante..."
         },
         "creditConsumed": "{{credit_consumed}} credito",
@@ -12669,7 +12669,7 @@
             "billing_establishment": "Localizzazione",
             "billing_group": "Gruppo di fatturazione",
             "establishment": "Stabilimento",
-            "coach": "Professore",
+            "coach": "Insegnante",
             "was_refunded": "Rimborsato",
             "booking_status_code": "Stato della prenotazione",
             "date_created": "Data di prenotazione",
@@ -17073,8 +17073,8 @@
             "activities": "Attività {{number}}",
             "workshops": "Workshops ({{number}})",
             "categories": "Categorie {{number}}",
-            "coaches": "{{count}} Professore",
-            "coaches_plural": "{{count}} Professori",
+            "coaches": "{{count}} Insegnante",
+            "coaches_plural": "{{count}} Insegnanti",
             "delete": {
                 "title": "Elimina",
                 "description": "Sei sicuro di voler eliminare il gruppo disciplinare {{name}} ?",

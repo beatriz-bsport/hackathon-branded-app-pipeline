@@ -250,8 +250,14 @@ export class BookingItemForManager extends Component<Props, State> {
       classes,
       t,
       programList,
+      getBookingOffer,
+      getOfferMetaActivity,
     } = this.props;
     const attendText = booking.attendance ? t('attend') : t('doNotAttend');
+    const bookingOffer = getBookingOffer?.(booking.offer);
+    const bookingOfferMetaActivity = getOfferMetaActivity?.(
+      bookingOffer?.meta_activity,
+    );
     const switchAttendance = booking.attendance
       ? discardBookingAttendance
       : confirmBookingAttendance;
@@ -308,21 +314,36 @@ export class BookingItemForManager extends Component<Props, State> {
               <Typography>{t('actions.unregister')}</Typography>
             </MenuItem>
           )}
-          {this.props.spotSchedulingEnabled && this.props.onClickChangeSpot && (
-            <MenuItem
-              className={classes.menuItem}
-              onClick={closeAndAction(() =>
-                this.props.onClickChangeSpot(booking),
-              )}
-            >
-              <EventSeat className={classes.icon} />
-              <Typography>
-                {typeof booking.spot_id === 'number'
-                  ? t('changeSpot')
-                  : t('setSpot')}
-              </Typography>
-            </MenuItem>
-          )}
+          <ObjectLevelPermissionProvider
+            requiredPermission={[
+              'reservation.activity.allowed_actions.editSpot',
+              'reservation.workshop.allowed_actions.editSpot',
+            ]}
+          >
+            {([hasActivityEditSpotPermission, hasWorkshopEditSpotPermission]) =>
+              this.props.spotSchedulingEnabled &&
+              this.props.onClickChangeSpot &&
+              getActivityWorkshopPermission(
+                bookingOfferMetaActivity?.is_workshop,
+                hasActivityEditSpotPermission,
+                hasWorkshopEditSpotPermission,
+              ) && (
+                <MenuItem
+                  className={classes.menuItem}
+                  onClick={closeAndAction(() =>
+                    this.props.onClickChangeSpot(booking),
+                  )}
+                >
+                  <EventSeat className={classes.icon} />
+                  <Typography>
+                    {typeof booking.spot_id === 'number'
+                      ? t('changeSpot')
+                      : t('setSpot')}
+                  </Typography>
+                </MenuItem>
+              )
+            }
+          </ObjectLevelPermissionProvider>
           {!!programList?.length && (
             <MenuItem
               className={classes.menuItem}
@@ -538,22 +559,39 @@ export class BookingItemForManager extends Component<Props, State> {
                     onClose={closeAndAction()}
                     open={Boolean(this.state.menuAnchor)}
                   >
-                    {this.props.spotSchedulingEnabled &&
-                      this.props.onClickChangeSpot && (
-                        <MenuItem
-                          className={classes.menuItem}
-                          onClick={closeAndAction(() =>
-                            this.props.onClickChangeSpot(booking),
-                          )}
-                        >
-                          <EventSeat className={classes.icon} />
-                          <Typography>
-                            {typeof booking.spot_id === 'number'
-                              ? t('changeSpot')
-                              : t('setSpot')}
-                          </Typography>
-                        </MenuItem>
-                      )}
+                    <ObjectLevelPermissionProvider
+                      requiredPermission={[
+                        'reservation.activity.allowed_actions.editSpot',
+                        'reservation.workshop.allowed_actions.editSpot',
+                      ]}
+                    >
+                      {([
+                        hasActivityEditSpotPermission,
+                        hasWorkshopEditSpotPermission,
+                      ]) =>
+                        this.props.spotSchedulingEnabled &&
+                        this.props.onClickChangeSpot &&
+                        getActivityWorkshopPermission(
+                          bookingOfferMetaActivity?.is_workshop,
+                          hasActivityEditSpotPermission,
+                          hasWorkshopEditSpotPermission,
+                        ) && (
+                          <MenuItem
+                            className={classes.menuItem}
+                            onClick={closeAndAction(() =>
+                              this.props.onClickChangeSpot(booking),
+                            )}
+                          >
+                            <EventSeat className={classes.icon} />
+                            <Typography>
+                              {typeof booking.spot_id === 'number'
+                                ? t('changeSpot')
+                                : t('setSpot')}
+                            </Typography>
+                          </MenuItem>
+                        )
+                      }
+                    </ObjectLevelPermissionProvider>
                     {!!programList?.length && (
                       <MenuItem
                         className={classes.menuItem}

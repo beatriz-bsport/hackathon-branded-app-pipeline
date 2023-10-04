@@ -18,8 +18,8 @@ import {
 import {
   OFFER_BOOKABLE_STATUS_BOOKABLE,
   OFFER_BOOKABLE_STATUS_FULL,
-  OFFER_BOOKABLE_STATUS_TOO_SOON,
-  OFFER_BOOKABLE_STATUS_TOO_LATE,
+  OFFER_BOOKABLE_STATUS_CLOSE_TOO_SOON,
+  OFFER_BOOKABLE_STATUS_CLOSE_TOO_LATE,
   OFFER_BOOKABLE_STATUS_LOCKED,
 } from '@bsport/common/lib/master-data/bookable-status';
 import {
@@ -47,8 +47,8 @@ const OfferStatus = ({ offerStatus }: { offerStatus: OfferStatusType }) => {
     StatusIcon = BlockIcon;
   } else if (
     [
-      OFFER_BOOKABLE_STATUS_TOO_SOON,
-      OFFER_BOOKABLE_STATUS_TOO_LATE,
+      OFFER_BOOKABLE_STATUS_CLOSE_TOO_SOON,
+      OFFER_BOOKABLE_STATUS_CLOSE_TOO_LATE,
       OFFER_BOOKABLE_STATUS_LOCKED,
     ].includes(offerStatus.bookable_status)
   ) {

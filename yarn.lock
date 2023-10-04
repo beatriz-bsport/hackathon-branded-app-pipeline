@@ -2141,10 +2141,10 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@bsport/common@^2.5.16":
-  version "2.5.16"
-  resolved "https://registry.yarnpkg.com/@bsport/common/-/common-2.5.16.tgz#30fbd0708dbc2facb6de5fbb6ae3a36c5ad0b391"
-  integrity sha512-+Ihns4K6C2+WaiiaKhLyQPqW0Pd/0eN8o4nVIrfTUD6WTZ50LU/Ts2XKcIPQJ7rYjsGycZPnQ7LSRgNsgchYSw==
+"@bsport/common@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@bsport/common/-/common-3.0.0.tgz#af321a699c1c55ff4643faa910832a184f76321b"
+  integrity sha512-x/j/MAWLCXPOlCcZCYrI0xARKnsxoCYDqIsQ3kpFhz1jvbpuc0+pxtDBqM5LtwQQzyNt0ojCpUhoZLV5QLy3NA==
   dependencies:
     "@types/node" "^14.14.21"
     eslint-plugin-babel "^5.3.1"
@@ -15547,6 +15547,8 @@ is-date-object@^1.0.1:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/is-date-object/-/is-date-object-1.0.5.tgz#0841d5536e724c25597bf6ea62e1bd38298df31f"
   integrity sha512-9YQaSxsAiSwcvS33MBk3wTCVnWK+HhF8VZR2jRxehM16QcVOdHqPn4VPHmRK4lSr38n9JriurInLcP90xsYNfQ==
+  dependencies:
+    has-tostringtag "^1.0.0"
 
 is-decimal@^1.0.0:
   version "1.0.4"
@@ -26268,6 +26270,9 @@ util.promisify@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/util.promisify/-/util.promisify-1.0.0.tgz#440f7165a459c9a16dc145eb8e72f35687097030"
   integrity sha512-i+6qA2MPhvoKLuxnJNpXAGhg7HphQOSUq2LKMZD0m15EiskXUkMvKdF4Uui0WYeCUGea+o2cw/ZuwehtfsrNkA==
+  dependencies:
+    define-properties "^1.1.2"
+    object.getownpropertydescriptors "^2.0.3"
 
 util.promisify@~1.0.0:
   version "1.0.1"

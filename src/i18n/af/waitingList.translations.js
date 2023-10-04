@@ -1,99 +1,101 @@
-const {
-  WAITING_LIST_DYNAMIC_UNORDERED,
-  WAITING_LIST_DYNAMIC_ORDERED,
-} = require('@bsport/common/lib/master-data/waiting-list-dynamic');
+const getTranslations = async () => {
+  const { WAITING_LIST_DYNAMIC_UNORDERED, WAITING_LIST_DYNAMIC_ORDERED } =
+    await import('@bsport/common/lib/master-data/waiting-list-dynamic.js');
 
-exports.default = {
-  switchToEnable: 'Reactivate waitlist',
-  switchToDisable: 'Deactivate waitlist',
-  nbPending: '{{ nbPending }} members have joined the waitlist',
-  nbConvertible: '{{ nbConvertible }} pending booking confirmation(s)',
-  form: {
-    dumb_delay_minutes: {
-      label: 'Simple waitlist',
-    },
-    smart_delay_percentage: {
-      label: 'Intelligent waitlist',
-      helper:
-        'A member has X minutes, which equals a Y percentage of the remaining time, before the session begins to complete the booking.',
-    },
-    submit: 'Save',
-    auto_cancellation_type: { title: 'Waitlist management' },
-    auto_consume_pack: {
-      helper:
-        'A member that joined the waitlist will be automatically booked in once a spot becomes available. The system will automatically deduct the credits from passes that expire the soonest.',
-      label:
-        'Automatically book in a member from the waitlist once a spot becomes available and the deduct the credit(s) from a valid pass',
-    },
-    is_option_blocking: {
-      helper:
-        'A spot will be saved for members that joined the waitlist until they book.',
-      label: 'Save openings exclusively for members that joined the waitlist',
-    },
-    autokick_delay: {
-      helper:
-        "This is the number of notifications a member on a waitlist will receive before they're automatically removed if no response is registered.",
-      label: 'Automatic waitlist removal',
-    },
-    dynamic: {
-      [WAITING_LIST_DYNAMIC_UNORDERED]: {
-        explain:
-          'This is an unsorted and unranked waitlist. All members that joined this waitlist will be informed simultaneously once a spot becomes available.',
-        label: 'First come, first served',
+  return {
+    switchToEnable: 'Reactivate waitlist',
+    switchToDisable: 'Deactivate waitlist',
+    nbPending: '{{ nbPending }} members have joined the waitlist',
+    nbConvertible: '{{ nbConvertible }} pending booking confirmation(s)',
+    form: {
+      dumb_delay_minutes: {
+        label: 'Simple waitlist',
       },
-      [WAITING_LIST_DYNAMIC_ORDERED]: {
-        explain:
-          'Each member that joins the waitlist will be ranked. The first person will be notified automatically once a spot becomes available.',
-        settingsDelay: 'Time between recalls',
-        label: 'One by one',
-        overallExplainSmart:
-          'If a spot becomes available, the student has {{ autokick_delay }} reminders spaced at {{ smart_delay_percentage }}% of the time remaining before the session starts to register. For example, if there are {{ example_hours_before }} hours left before the session, the student has {{ example_computed_delay_one }} minutes to register, and then {{ example_computed_delay_two }} minutes after the first retry, and so on, before the next student is allowed to register.',
-        overallExplainSimple:
-          'If a spot becomes available, the student has {{ autokick_delay }} reminders spaced {{ dumb_delay_minutes }} minutes apart to book before giving their spot to the next student.',
+      smart_delay_percentage: {
+        label: 'Intelligent waitlist',
+        helper:
+          'A member has X minutes, which equals a Y percentage of the remaining time, before the session begins to complete the booking.',
       },
-      label: 'Select your waitlist priority management',
+      submit: 'Save',
+      auto_cancellation_type: { title: 'Waitlist management' },
+      auto_consume_pack: {
+        helper:
+          'A member that joined the waitlist will be automatically booked in once a spot becomes available. The system will automatically deduct the credits from passes that expire the soonest.',
+        label:
+          'Automatically book in a member from the waitlist once a spot becomes available and the deduct the credit(s) from a valid pass',
+      },
+      is_option_blocking: {
+        helper:
+          'A spot will be saved for members that joined the waitlist until they book.',
+        label: 'Save openings exclusively for members that joined the waitlist',
+      },
+      autokick_delay: {
+        helper:
+          "This is the number of notifications a member on a waitlist will receive before they're automatically removed if no response is registered.",
+        label: 'Automatic waitlist removal',
+      },
+      dynamic: {
+        [WAITING_LIST_DYNAMIC_UNORDERED]: {
+          explain:
+            'This is an unsorted and unranked waitlist. All members that joined this waitlist will be informed simultaneously once a spot becomes available.',
+          label: 'First come, first served',
+        },
+        [WAITING_LIST_DYNAMIC_ORDERED]: {
+          explain:
+            'Each member that joins the waitlist will be ranked. The first person will be notified automatically once a spot becomes available.',
+          settingsDelay: 'Time between recalls',
+          label: 'One by one',
+          overallExplainSmart:
+            'If a spot becomes available, the student has {{ autokick_delay }} reminders spaced at {{ smart_delay_percentage }}% of the time remaining before the session starts to register. For example, if there are {{ example_hours_before }} hours left before the session, the student has {{ example_computed_delay_one }} minutes to register, and then {{ example_computed_delay_two }} minutes after the first retry, and so on, before the next student is allowed to register.',
+          overallExplainSimple:
+            'If a spot becomes available, the student has {{ autokick_delay }} reminders spaced {{ dumb_delay_minutes }} minutes apart to book before giving their spot to the next student.',
+        },
+        label: 'Select your waitlist priority management',
+      },
+      last_delay_before_auto_consume: {
+        label:
+          'Do not accept bookings automatically if a session takes place in less than ',
+        helper:
+          'If the session takes place too soon in the future, the member will not be booked in even if they have a valid pass',
+      },
+      check_credit: {
+        helper:
+          'A client will not be able to be added to a waiting list unless he has a pass compatible with the session, and with enough credit',
+        label:
+          'Ensure the customer has one valid pass compatible with the session, with enough credit',
+      },
+      display_member_position: {
+        label: 'Display the position in the waiting list',
+      },
     },
-    last_delay_before_auto_consume: {
-      label:
-        'Do not accept bookings automatically if a session takes place in less than ',
-      helper:
-        'If the session takes place too soon in the future, the member will not be booked in even if they have a valid pass',
+    explainWaitingListConf:
+      'Example: a member that joined the waitlist for a session that starts in 3 hours has {{nbMinutesBeforeBookingOptionExpire}} minute(s) to complete their booking before they lose their priority spot on the waitlist.',
+    dialog: {
+      delete: {
+        title: 'Remove from waitlist',
+        content:
+          'Are you sure that you want to remove this member from the waitlist? The member will also be notified of this.',
+        cancel: 'Cancel',
+        confirm: 'Delete',
+        sendEmail: 'Send a message of the removal',
+        contentV2:
+          'Are you sure you want to remove this member from the waitlist?',
+      },
     },
-    check_credit: {
-      helper:
-        'A client will not be able to be added to a waiting list unless he has a pass compatible with the session, and with enough credit',
-      label:
-        'Ensure the customer has one valid pass compatible with the session, with enough credit',
+    member: {
+      detail: {
+        offerTitle: 'Associated session',
+        registrationSource: 'Booking channel',
+        registeredOn: 'Joined on',
+        title: 'Details',
+      },
+      empty: 'There are no waitlists to display.',
+      delete: 'Delete',
+      addToBook: 'Join',
+      listTitle: 'Waitlist',
+      waitingListPosition: 'Waiting list position {{ position }}/{{ size }}',
     },
-    display_member_position: {
-      label: 'Display the position in the waiting list',
-    },
-  },
-  explainWaitingListConf:
-    'Example: a member that joined the waitlist for a session that starts in 3 hours has {{nbMinutesBeforeBookingOptionExpire}} minute(s) to complete their booking before they lose their priority spot on the waitlist.',
-  dialog: {
-    delete: {
-      title: 'Remove from waitlist',
-      content:
-        'Are you sure that you want to remove this member from the waitlist? The member will also be notified of this.',
-      cancel: 'Cancel',
-      confirm: 'Delete',
-      sendEmail: 'Send a message of the removal',
-      contentV2:
-        'Are you sure you want to remove this member from the waitlist?',
-    },
-  },
-  member: {
-    detail: {
-      offerTitle: 'Associated session',
-      registrationSource: 'Booking channel',
-      registeredOn: 'Joined on',
-      title: 'Details',
-    },
-    empty: 'There are no waitlists to display.',
-    delete: 'Delete',
-    addToBook: 'Join',
-    listTitle: 'Waitlist',
-    waitingListPosition: 'Waiting list position {{ position }}/{{ size }}',
-  },
+  };
 };
+
+exports.default = getTranslations();

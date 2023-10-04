@@ -4,19 +4,19 @@ const fs = require('fs-extra');
 const beautify = require('json-beautify');
 const NAMESPACES = require('../namespaces.json');
 
-const generateSourceTranslations = (lang) => {
+const generateSourceTranslations = async (lang) => {
   console.log('* Generating the source translation...');
-  const concatenatedTranslations = NAMESPACES.reduce((acc, ns) => {
-    let m = { default: {} };
+  const concatenatedTranslations = await NAMESPACES.reduce(async (acc, ns) => {
+    const resolvedAcc = await acc;
     try {
-      m = require(`../${lang}/${ns}.translations`);
+      m = await require(`../${lang}/${ns}.translations`).default;
+      return { ...resolvedAcc, [ns]: m };
     } catch (err) {
       console.log(`MISSING: ${ns}`);
       console.error('ERROR in', lang, ns);
       console.error(err);
       throw Error(`Failted to parsed: ${ns}: ${err}`);
     }
-    return { ...acc, [ns]: m.default };
   }, {});
 
   fs.writeFileSync(

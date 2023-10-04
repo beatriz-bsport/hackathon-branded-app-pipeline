@@ -23,6 +23,7 @@ type Props = {
   hasBooked?: boolean;
   isFull?: boolean;
   anonimize?: boolean;
+  shouldHideBookButton?: boolean;
 
   showMember?: () => void;
   onClickListItem?: () => void;
@@ -70,10 +71,12 @@ function MemberBookingHelper(props: Props) {
                 <AttachMoneyIcon />
               )}
             </IconButton>
-            <Button color="primary" onClick={props.onClickRegister}>
-              <AddIcon className={classes.rightIcon} />
-              {t('offer.reCreateBooking')}
-            </Button>
+            {!props.shouldHideBookButton && (
+              <Button color="primary" onClick={props.onClickRegister}>
+                <AddIcon className={classes.rightIcon} />
+                {t('offer.reCreateBooking')}
+              </Button>
+            )}
           </React.Fragment>
         ) : (
           <React.Fragment>
@@ -85,16 +88,20 @@ function MemberBookingHelper(props: Props) {
               <HourglassEmptyIcon className={classes.rightIcon} />
               <Hidden xsDown>{t('offer.createBookingOption')}</Hidden>
             </Button>
-            <Button
-              color="primary"
-              onClick={props.onClickRegister}
-              variant="outlined"
-            >
-              <AddIcon className={classes.rightIcon} />
-              {t('offer.createBooking')}
-            </Button>
+
+            {!props.shouldHideBookButton && (
+              <Button
+                color="primary"
+                onClick={props.onClickRegister}
+                variant="outlined"
+              >
+                <AddIcon className={classes.rightIcon} />
+                {t('offer.createBooking')}
+              </Button>
+            )}
           </React.Fragment>
         )}
+
         {props.showMember ? (
           <IconButton
             color="secondary"

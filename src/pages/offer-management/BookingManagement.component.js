@@ -189,35 +189,57 @@ export class BookingManagement extends React.PureComponent<Props, State> {
     return (
       <PermissionContext.Consumer>
         {(permissions) => (
-          <MemberBookingHelper
-            key={member.id}
-            anonimize={!permissions?.member?.search}
-            hasBooked={hasBooked}
-            isFull={this.props.offer.is_full}
-            member={member}
-            onClickBill={() => this.props.addToQuickInvoicePanel(member.id)}
-            onClickListItem={
-              hasBooked
-                ? () => this.props.addToQuickInvoicePanel(member.id)
-                : null
-            }
-            onClickOption={() => {
-              this.props.registerToWaitingList(this.props.offer.id, member.id);
-              this.props.clearSearch();
-            }}
-            onClickRegister={() => {
-              this.props.handleMemberToRegister({
-                name: member.name,
-                photo: member.photo,
-                id: member.id,
-              });
-            }}
-            showMember={
-              permissions?.member?.retrieve
-                ? () => window.open(`/member/${member.id}/`)
-                : null
-            }
-          />
+          <ObjectLevelPermissionProvider
+            requiredPermission={[
+              'reservation.activity.allowed_actions.create',
+              'reservation.workshop.allowed_actions.create',
+            ]}
+          >
+            {([
+              hasActivityCreateBookingPermission,
+              hasWorkshopCreateBookingPermission,
+            ]) => (
+              <MemberBookingHelper
+                key={member.id}
+                anonimize={!permissions?.member?.search}
+                hasBooked={hasBooked}
+                isFull={this.props.offer.is_full}
+                member={member}
+                onClickBill={() => this.props.addToQuickInvoicePanel(member.id)}
+                onClickListItem={
+                  hasBooked
+                    ? () => this.props.addToQuickInvoicePanel(member.id)
+                    : null
+                }
+                onClickOption={() => {
+                  this.props.registerToWaitingList(
+                    this.props.offer.id,
+                    member.id,
+                  );
+                  this.props.clearSearch();
+                }}
+                onClickRegister={() => {
+                  this.props.handleMemberToRegister({
+                    name: member.name,
+                    photo: member.photo,
+                    id: member.id,
+                  });
+                }}
+                shouldHideBookButton={
+                  !getActivityWorkshopPermission(
+                    this.getIsWorkshop(),
+                    hasActivityCreateBookingPermission,
+                    hasWorkshopCreateBookingPermission,
+                  )
+                }
+                showMember={
+                  permissions?.member?.retrieve
+                    ? () => window.open(`/member/${member.id}/`)
+                    : null
+                }
+              />
+            )}
+          </ObjectLevelPermissionProvider>
         )}
       </PermissionContext.Consumer>
     );

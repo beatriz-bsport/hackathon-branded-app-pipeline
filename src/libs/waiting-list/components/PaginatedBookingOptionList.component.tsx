@@ -27,6 +27,7 @@ type OwnProps = {
   offerStatusWaitingListPositionById: {
     [key: number]: OfferStatusWaitingListPosition;
   };
+  onCheckActivityWorkshopPermission?: (metaActivityId: number) => boolean;
 };
 
 type Props = OwnProps &
@@ -67,6 +68,11 @@ const PaginatedBookingOptionList = (props: Props) => {
             onClickDiscard={() => props.onClickDiscard(bookingOption)}
             onClickRegister={() => props.onClickRegister(bookingOption)}
             selectedBookingOption={props.selectedBookingOption}
+            shouldHideRemoveWaitlistButton={
+              props.onCheckActivityWorkshopPermission?.(
+                bookingOption.meta_activity,
+              ) ?? false
+            }
             waitingListPosition={
               props.offerStatusWaitingListPositionById?.[bookingOption.offer.id]
                 ?.waiting_list_position

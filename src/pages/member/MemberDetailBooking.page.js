@@ -648,52 +648,77 @@ export class MemberDetailBooking extends Component<Props, State> {
             </DialogActions>
           </Dialog>
           <Grid item style={{ width: '100%' }}>
-            <PaginatedBookingOptionList
-              displayWaitingListPosition={
-                this.props.waitingListConfiguration?.display_member_position &&
-                this.props.waitingListConfiguration?.dynamic ===
-                  WAITING_LIST_DYNAMIC_ORDERED
-              }
-              itemPerPage={5}
-              items={this.props.bookingOptionList}
-              loading={this.props.bookingOptionListLoading}
-              nbItems={this.props.bookingOptionCount}
-              offerStatusWaitingListPositionById={
-                this.props.offerStatusWaitingListPositionById
-              }
-              onClick={(bo) => {
-                this.props.setSelectedBookingOption(
-                  this.props.selectedBookingOption &&
-                    this.props.selectedBookingOption.id === bo.id
-                    ? null
-                    : bo,
-                );
-              }}
-              onClickDiscard={(bo) => this.props.setDiscardBookingOption(bo.id)}
-              onClickRegister={(bo) => this.props.goToOffer(bo.offer.id)}
-              onPageRequested={(page) => {
-                this.props.fetchBookingOptionForMember(
-                  {
-                    member: this.props.id,
-                    page,
-                    page_size: 5,
-                  },
-                  {
-                    onSuccess: ({ results: bookingOptionList }) => {
-                      this.props.fetchOfferWaitingListPositionList(
-                        bookingOptionList.map(
-                          (bookingOption: BookingOptionWithActivity) =>
-                            bookingOption.offer.id,
-                        ),
-                        { memberId: this.props.id },
-                      );
-                    },
-                  },
-                );
-              }}
-              page={this.props.bookingOptionPage}
-              selectedBookingOption={this.props.selectedBookingOption}
-            />
+            <ObjectLevelPermissionProvider
+              requiredPermission={[
+                'reservation.activity.allowed_actions.removeFromWaitlist',
+                'reservation.workshop.allowed_actions.removeFromWaitlist',
+              ]}
+            >
+              {([
+                hasActivityRemoveWaitlistPermission,
+                hasWorkshopRemoveWaitlistPermission,
+              ]) => (
+                <PaginatedBookingOptionList
+                  displayWaitingListPosition={
+                    this.props.waitingListConfiguration
+                      ?.display_member_position &&
+                    this.props.waitingListConfiguration?.dynamic ===
+                      WAITING_LIST_DYNAMIC_ORDERED
+                  }
+                  itemPerPage={5}
+                  items={this.props.bookingOptionList}
+                  loading={this.props.bookingOptionListLoading}
+                  nbItems={this.props.bookingOptionCount}
+                  offerStatusWaitingListPositionById={
+                    this.props.offerStatusWaitingListPositionById
+                  }
+                  onCheckActivityWorkshopPermission={(metaActivityId) =>
+                    !getActivityWorkshopPermission(
+                      this.props.getOfferMetaActivity(metaActivityId)
+                        ?.is_workshop,
+                      hasActivityRemoveWaitlistPermission,
+                      hasWorkshopRemoveWaitlistPermission,
+                    )
+                  }
+                  onClick={(bookingOption) => {
+                    this.props.setSelectedBookingOption(
+                      this.props.selectedBookingOption &&
+                        this.props.selectedBookingOption.id === bookingOption.id
+                        ? null
+                        : bookingOption,
+                    );
+                  }}
+                  onClickDiscard={(bookingOption) =>
+                    this.props.setDiscardBookingOption(bookingOption.id)
+                  }
+                  onClickRegister={(bookingOption) =>
+                    this.props.goToOffer(bookingOption.offer.id)
+                  }
+                  onPageRequested={(page) => {
+                    this.props.fetchBookingOptionForMember(
+                      {
+                        member: this.props.id,
+                        page,
+                        page_size: 5,
+                      },
+                      {
+                        onSuccess: ({ results: bookingOptionList }) => {
+                          this.props.fetchOfferWaitingListPositionList(
+                            bookingOptionList.map(
+                              (bookingOption: BookingOptionWithActivity) =>
+                                bookingOption.offer.id,
+                            ),
+                            { memberId: this.props.id },
+                          );
+                        },
+                      },
+                    );
+                  }}
+                  page={this.props.bookingOptionPage}
+                  selectedBookingOption={this.props.selectedBookingOption}
+                />
+              )}
+            </ObjectLevelPermissionProvider>
 
             <Paper style={{ width: '100%' }}>
               <BookingFilters

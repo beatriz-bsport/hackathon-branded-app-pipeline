@@ -22,6 +22,7 @@ interface OwnProps {
   selectedBookingOption?: BookingOptionWithActivity;
   displayWaitingListPosition: boolean;
   waitingListPosition: { member_position: number; waiting_list_size: number };
+  shouldHideRemoveWaitlistButton?: boolean;
 }
 
 type Props = OwnProps &
@@ -80,15 +81,17 @@ class BookingOptionItem extends React.PureComponent<Props> {
               {t('member.addToBook')}
             </Button>
 
-            <IconButton
-              className={classes.marginLeft}
-              onClick={(e) => {
-                e.stopPropagation();
-                this.props.onClickDiscard(this.props.bookingOption);
-              }}
-            >
-              <CancelIcon />
-            </IconButton>
+            {!this.props.shouldHideRemoveWaitlistButton && (
+              <IconButton
+                className={classes.marginLeft}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  this.props.onClickDiscard(this.props.bookingOption);
+                }}
+              >
+                <CancelIcon />
+              </IconButton>
+            )}
           </div>
         )}
       </ListItem>

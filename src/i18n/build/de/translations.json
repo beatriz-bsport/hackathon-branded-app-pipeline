@@ -1460,7 +1460,7 @@
                 "typePhone": "Handynummer *",
                 "iAcceptPrivacyPolicy": "Ich akzeptiere die ",
                 "rgpdTitle": "Wie möchten Sie von Lehrkräften aufgrund von Stornierungen/Zeitänderungen kontaktiert werden?",
-                "confirmPasswordLabel": "Bestätigung",
+                "confirmPasswordLabel": "Bestätigen",
                 "addProfilePictureRequired": "Ein Profilbild hinzufügen *",
                 "addProfilePictureRequiredLabel": "Sie müssen ein Profilbild hinzufügen",
                 "fields": {
@@ -1471,7 +1471,7 @@
                     "last_name": "Nachname",
                     "email": "E-Mail Adresse",
                     "password": "Passwort",
-                    "passwordConfirm": "Bestätigen Sie das Passwort",
+                    "passwordConfirm": "Bestätigen",
                     "gender": "Sex",
                     "address_line_1": "Adresse",
                     "address_line_2": "Zusätzliche Adresse",
@@ -1486,7 +1486,7 @@
                 "addProfilePicture": "Ein Profilbild hinzufügen",
                 "error": {
                     "password": "Das Passwort muss mindestens 6 Zeichen enthalten",
-                    "passwordConfirm": "Die Kennwörter stimmen nicht überein"
+                    "passwordConfirm": "Die Kennwörter stimmen nicht überein."
                 }
             },
             "member": {
@@ -15607,7 +15607,7 @@
                 "title": "Titel",
                 "isMandatoryOnSignUp": "Die Frage ist bei der Anmeldung obligatorisch",
                 "waiver": "Haftungsfreistellung",
-                "repeatPassword": "Bestätigen Sie das Passwort",
+                "repeatPassword": "Bestätigen",
                 "general_terms_and_conditions": "Bedingungen und Konditionen",
                 "country": "Land",
                 "city": "Stadt",

@@ -9,7 +9,7 @@
         "private_service": "Su appuntamento",
         "openSchedule": "Vedi il tuo programma",
         "report": {
-            "delete": "Eliminazione di un rapporto"
+            "delete": "Elimina report"
         },
         "metaActivity": {
             "forms": {
@@ -4021,11 +4021,11 @@
                     "title": "Impostazione dell'orario"
                 },
                 "coach_can_edit_attendance": "Nell'applicazione mobile, l'insegnante può cambiare le presenze/assenze",
-                "internalAccountWarning2": "Per creare un rapporto sul saldo del cliente, vai alla scheda \"Rapporti\" e seleziona \"Crediti\" dalla categoria \"Pagamenti\" quando crei il nuovo rapporto.",
+                "internalAccountWarning2": "Per creare un report sul saldo del cliente, vai alla scheda \"Rapporti\" e seleziona \"Crediti\" dalla categoria \"Pagamenti\" quando crei il nuovo rapporto.",
                 "allowConsumerToUseInternalAccount": "Il cliente può utilizzare il suo deposito interno per pagare le sue fatture o il suo carrello",
                 "goToReports": "Pagina dei rapporti",
                 "internalAccountWarningTitle": "Attenzione ai saldi correnti dei clienti.",
-                "internalAccountWarning1": "Si consiglia vivamente di creare un rapporto sul saldo del cliente prima di abilitare questa funzione.",
+                "internalAccountWarning1": "Si consiglia vivamente di creare un report sul saldo del cliente prima di abilitare questa funzione.",
                 "internalAccountNotusableOnContract": "Questo metodo di pagamento non può essere utilizzato per gli abbonamenti",
                 "internalAccount": "Bilancio del cliente",
                 "errorURL": "Inserisci un URL valido prima di salvare il form",
@@ -4133,7 +4133,9 @@
                     "switchLabel": "Nascondi il pulsante \"{{-bookButtonTranslation}}\"",
                     "dialogDescription": "Nascondendo il pulsante \"{{-bookButtonTranslation}}\", potrai cliccare sul pass per prenotare la sessione."
                 },
-                "doubleBookingDisabledWithSpivi": "La doppia prenotazione non è compatibile con l'integrazione Spivi"
+                "doubleBookingDisabledWithSpivi": "La doppia prenotazione non è compatibile con l'integrazione Spivi",
+                "startWeekOnToday": "Mostrare come prima data del calendario quella odierna se la visualizzazione è settimanale",
+                "showPastSessionsCalendar": "Mostra le sessioni passate sul calendario dei membri"
             },
             "instagramURL": {
                 "label": "URL di Instagram",
@@ -6585,7 +6587,7 @@
                         "year": "anno",
                         "year_plural": "anni"
                     },
-                    "label": "Ripetere tutto",
+                    "label": "Ripeti ogni",
                     "helperText": " "
                 },
                 "recurrence": {
@@ -7476,8 +7478,8 @@
             "bacs_debit": "Bacs Direct Debit"
         },
         "list": {
-            "empty": "Nessun rapporto? Crea un primo rapporto!",
-            "button_new": "Creo il mio primo rapporto"
+            "empty": "Aggiungi report personalizzati per avere una panoramica dettagliata del tuo studio.",
+            "button_new": "Creo il mio primo report"
         },
         "product_type": {
             "shop_item": "Shop",
@@ -7494,14 +7496,14 @@
         "form": {
             "columns": "Colonne",
             "save": "Conferma",
-            "title": "Nuovo rapporto",
+            "title": "[Form] Report",
             "name": "Nome",
             "description": "Descrizione",
             "category": "Categoria",
             "cancel": "Annulla"
         },
         "report": {
-            "delete_message": "Sei sicuro di voler eliminare il rapporto {{name}}?"
+            "delete_message": "Sei sicuro di voler eliminare \"{{name}}\"?"
         },
         "yes": "Sì",
         "no": "No",
@@ -7566,12 +7568,12 @@
             "Club": "Club"
         },
         "export": {
-            "category": "Rapporto Excel: {{category}}",
-            "ready": "Il tuo rapporto \"{{ name }}\" è pronto per il download.",
+            "category": "Excel: {{category}}",
+            "ready": "Il tuo report \"{{ name }}\" è pronto per il download.",
             "generate": "Genera",
-            "processing": "La tua richiesta di rapporto Excel è in fase di elaborazione. Sarai avvisato non appena sarà pronto.",
+            "processing": "La tua richiesta di report Excel è in fase di elaborazione. Sarai avvisato non appena sarà pronto.",
             "continue": "Continua a navigare",
-            "excel_report": "Rapporto Excel"
+            "excel_report": "Excel"
         },
         "header": {
             "average": "In media",
@@ -7597,7 +7599,7 @@
             "from_to": "Da {{-from}} a {{-to}}",
             "save": "Salva"
         },
-        "search": "Cerca un rapporto",
+        "search": "Cerca un report",
         "datatype": {
             "booking_status_code": "Stato della prenotazione",
             "email": "Email",
@@ -7753,7 +7755,7 @@
                 "addGroupOption": "Gruppo di filtri",
                 "addFilterOption": "Filtro",
                 "addFilter": "Aggiungi un filtro",
-                "emptyState": "Nessuna colonna di questo rapporto è filtrabile",
+                "emptyState": "Nessuna colonna di questo report è filtrabile.",
                 "groupOperand": {
                     "0": "O",
                     "1": "E"
@@ -7774,7 +7776,7 @@
                 "submit": "Registrati",
                 "cancel": "Cancella",
                 "edit": "Modifica",
-                "columnError": "Attenzione, la colonna filtrata qui è stata rimossa dal rapporto. Tuttavia, il filtro su questa colonna è ancora applicato."
+                "columnError": "Attenzione, la colonna filtrata qui è stata rimossa dal report. Tuttavia, il filtro su questa colonna è ancora applicato."
             },
             "title": "Vista filtrata",
             "emptyFilter": "Tutti i dati",
@@ -7785,8 +7787,8 @@
             }
         },
         "franchiseWarning": {
-            "part1": "A causa della grande quantità di dati, la generazione del rapporto può richiedere diversi minuti.",
-            "part2": "Ora puoi esportare il rapporto ed elaborarlo successivamente in Excel. Le date indicate e la visualizzazione filtrata applicata verranno prese in considerazione nell'esportazione."
+            "part1": "A causa della grande quantità di dati, la generazione del report può richiedere diversi minuti.",
+            "part2": "Ora puoi esportare il report ed elaborarlo successivamente in Excel. Le date indicate e la visualizzazione filtrata applicata verranno prese in considerazione nell'esportazione."
         },
         "helperText": {
             "franchise_shared_pass": "Questo report consente di analizzare le prenotazioni effettuate con pass condivisi nel periodo selezionato. Quando viene acquistata un pass condiviso in uno studio, il report mostra il numero di prenotazioni effettuate con questo pass in un altro studio. Il numero di sessioni prenotate include prenotazioni per lezioni di gruppo, workshop e appuntamenti.",
@@ -8467,7 +8469,7 @@
                 "title": "Cancellazione",
                 "content": "Sei sicuro di voler eliminare questa categoria? Tutti gli elementi che contiene saranno inseriti nella sezione dei pass non categorizzati",
                 "cancel": "Cancella",
-                "confirm": "Confirmare"
+                "confirm": "Conferma"
             },
             "category": "Categorie di pass"
         },
@@ -9419,7 +9421,8 @@
             "value": "N°{{id}}",
             "label": "Numero documento di identità"
         },
-        "signedUpWithReferral": "Il membro si è iscritto tramite il link di <1>{{ name }}</1>"
+        "signedUpWithReferral": "Il membro si è iscritto tramite il link di <1>{{ name }}</1>",
+        "email": "Email"
     },
     "booking": {
         "statusCode": {
@@ -10057,7 +10060,7 @@
                         "second": "giorni"
                     },
                     "selector": {
-                        "6": "Tra X giorni",
+                        "6": "In X giorni",
                         "7": "Tra più di X giorni e meno di Y giorni",
                         "4": "Tra più di X giorni",
                         "8": "Meno di X giorni fa",
@@ -11591,7 +11594,7 @@
                         "year": "un",
                         "year_plural": "anni"
                     },
-                    "label": "Ripetere tutto",
+                    "label": "Ripeti ogni",
                     "helperText": " "
                 },
                 "recurrence": {
@@ -12199,11 +12202,11 @@
             "set_base_remuneration": "Definire una base di retribuzione fissa",
             "base_remuneration": "Base fissa",
             "forCancelledBookings": "Per le cancellazioni tardive e assenze",
-            "forConfirmedBookings": "Per gli studenti presenti",
+            "forConfirmedBookings": "Per i partecipanti",
             "calculationMethod": "Metodo di calcolo",
             "actions": "Azioni",
             "coaches": "Coach",
-            "name": "Cognome",
+            "name": "Nome",
             "addNewCoachPaymentRule": "Nuove impostazioni di retribuzione",
             "Simulator": {
                 "student_did_not_attend": "Membro assente",
@@ -12978,11 +12981,11 @@
         "internalAccount": {
             "cancel": "Cancella",
             "confirm": "Confermare",
-            "useMyInternalAccount": "Usare il mio equilibrio",
-            "myInternalAccount": "Il mio equilibrio",
-            "use": "Usa il mio equilibrio",
+            "useMyInternalAccount": "Usa il mio sado cliente",
+            "myInternalAccount": "Il mio saldo cliente",
+            "use": "Usa il mio saldo cliente",
             "label": "Importo disponibile : ",
-            "useAsManager": "Utilizza il saldo interno"
+            "useAsManager": "Utilizza il saldo cliente"
         },
         "payment": {
             "total": "Totale IVA inclusa",
@@ -12995,7 +12998,13 @@
             "deliveryFee": "Spese di spedizione",
             "title": "Pagamento",
             "flatFeeSubscription": "Tassa d'iscrizione"
-        }
+        },
+        "expiredSpotDialog": {
+            "refresh": "Ricarica",
+            "message": "La prenotazione del posto è scaduta, è possibile selezionarlo nuovamente o sceglierne uno diverso.",
+            "title": "La prenotazione del posto è scaduta"
+        },
+        "spotSavedFor": "Il posto selezionato è prenotato per: {{countdown}}"
     },
     "marketplace": {
         "selector": {
@@ -15073,6 +15082,9 @@
                         },
                         "manageExtension": {
                             "_label": "Aggiungi un'estensione di validità"
+                        },
+                        "block": {
+                            "_label": "Blocca il pass di un membro"
                         }
                     },
                     "_label": "Pass"
@@ -15388,7 +15400,14 @@
                 "marketplace_offer_list_item": "Dettagli della sessione (visualizzazione elenco)",
                 "marketplace_select": "Selettore (singolo)",
                 "marketplace_filter": "Multi selezione",
-                "marketplace_search": "Filtro di ricerca"
+                "marketplace_search": "Filtro di ricerca",
+                "marketplace_prepaid_line_item": "Elemento dell' elenco delle linee prepagate",
+                "marketplace_prepaid_line_list": "Elenco delle linee prepagate",
+                "marketplace_basket_summary": "Riepilogo del carrello",
+                "marketplace_basket_summary_list_item": "Componente dell'elenco degli articoli nel carrelli (Riepilogo del carrello)",
+                "marketplace_basket_summary_item": "Elemento del carrello componente (Riepilogo del carrello)",
+                "marketplace_item_quantity": "Elemento del carrello Quantità (Riepilogo del carrello)",
+                "marketplace_basket_summary_dialog": "Riepilogo del carrello (pop-up)"
             },
             "cssConfig": {
                 "title": {
@@ -15415,7 +15434,13 @@
                     "isOfferAvailable": "La sessione è disponibile",
                     "isOfferFull": "La sessione è al completo",
                     "isOfferInThePast": "La sessione è terminata",
-                    "isHidden": "Nascosto"
+                    "isHidden": "Nascosto",
+                    "prepaidLineKind": "Tipo di linea prepagata",
+                    "basketIsEmpty": "Il carrello è vuoto",
+                    "numberOfDistinctCheckoutItem": "Numero di prodotti distinti nel carrello",
+                    "isDense": "Denso",
+                    "isItemEditionDisabled": "Modifica degli elementi disabilitata",
+                    "isAddingItemPossible": "Aggiungi di altri elementi attivati"
                 },
                 "option": {
                     "false": "No",
@@ -15450,7 +15475,13 @@
                     "isAlreadyRegistered": "Sessione già prenotata",
                     "blockedByTags": "Diritti insufficienti",
                     "desktop": "Schermo largo",
-                    "mobile": "Schermo piccolo"
+                    "mobile": "Schermo piccolo",
+                    "defaultPrepaidLine": "Default",
+                    "internalAccountPrepaidLine": "Paga con il saldo cliente",
+                    "giftcardPrepaidLine": "Paga usando una giftcard",
+                    "3": "Tre",
+                    "2": "Due",
+                    "1": "Uno"
                 },
                 "configurationTitle": "Variazioni"
             },
@@ -15459,7 +15490,8 @@
                 "calendar": "Calendario",
                 "subscription": "Abbonamenti",
                 "pass": "Pass",
-                "common": "Comune"
+                "common": "Comune",
+                "basket": "Carrello"
             }
         },
         "create": "Generale",
@@ -16246,7 +16278,12 @@
             "unavailableSpot": "Posto non disponibile",
             "unavailablePersonalizedSpot": "{{ spotName }} non disponibile",
             "seeAll": "Vedi tutto",
-            "confirm": "Conferma"
+            "confirm": "Conferma",
+            "selectOtherSpot": {
+                "message": "Il posto precedentemente selezionato diventerà disponibile per gli altri.",
+                "title": "O seleziona un nuovo posto"
+            },
+            "goBackToCheckout": "Torna al checkout"
         }
     },
     "franchise": {
@@ -16885,7 +16922,7 @@
                 "end_plural": " e genererà {{number_of_billing}} incassi"
             },
             "frequency": {
-                "start": "Ripetere tutto"
+                "start": "Ripeti ogni"
             },
             "fee": "Costi fissi",
             "feeHelperText": "Tasse da pagare da parte del membro per utilizzare l'opzione di pagamento rateale, queste saranno aggiunte automaticamente al primo pagamento.",

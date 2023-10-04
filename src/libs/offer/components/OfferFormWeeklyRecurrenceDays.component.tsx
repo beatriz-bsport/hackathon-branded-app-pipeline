@@ -85,8 +85,7 @@ const WeekDayButton: React.FC<WeekDayButtonProps> = React.memo(
   },
 );
 
-const OfferFormWeeklyRecurrenceDays = (props: Props) => {
-  const { id, timezone } = props;
+const OfferFormWeeklyRecurrenceDays: React.FC<Props> = ({ id, timezone }) => {
   const classes = useStyles();
 
   const weekDaysButtons = useMemo(() => {
@@ -123,4 +122,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default OfferFormWeeklyRecurrenceDays;
+export default React.memo(OfferFormWeeklyRecurrenceDays);

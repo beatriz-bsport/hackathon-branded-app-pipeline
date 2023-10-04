@@ -69,6 +69,7 @@ const CommunicationSentGroupConfigListing: React.FC<Props> = ({
   if (!loading && communicationSentGroupConfigsList.length === 0) {
     return (
       <IsEmptyList
+        hideBottomActions
         button={t('campaign.add')}
         onCreate={handleOpenCommunicationSentGroupConfigCreateDialog}
         text={t('noCampaign')}

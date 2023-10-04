@@ -26,6 +26,8 @@ export interface CanvasSpotProps {
 }
 
 const LENGTH_REFERENCE = 62;
+const SPOT_IMAGE_HEIGHT = LENGTH_REFERENCE;
+const SPOT_IMAGE_WIDTH = LENGTH_REFERENCE;
 let TRIANGLE_LENGTH = 70;
 
 export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
@@ -61,6 +63,16 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
     if (this.props.selected) image = spotType?.selected_image;
     if (this.props.taken) image = spotType.taken_image;
 
+    // A bit dirty +2 is added because the text in not exactly centered otherwise
+    // something (either the strokes of svgs element or something else) is
+    // added an extra 2px in height and width.
+    const textPositionX = image
+      ? SPOT_IMAGE_WIDTH / 2 + 2
+      : LENGTH_REFERENCE / 2;
+    const textPositionY = image
+      ? SPOT_IMAGE_HEIGHT / 2 + 2
+      : LENGTH_REFERENCE / 2;
+
     return (
       <g
         {...this.BaseProps}
@@ -83,8 +95,15 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
           strokeWidth={2}
           width={LENGTH_REFERENCE}
         />
-        <image height={60} href={image} width={60} x={1} y={1} />
+        <image
+          height={SPOT_IMAGE_HEIGHT}
+          href={image}
+          width={SPOT_IMAGE_WIDTH}
+          x={1}
+          y={1}
+        />
         <text
+          alignmentBaseline="middle"
           dominantBaseline="middle"
           fontSize="30"
           fontStyle="normal"
@@ -95,8 +114,8 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
           style={{ userSelect: 'none' }}
           textAnchor="middle"
           transform={CanvasSpotComponent.getTransform(0, 0, -rotation || 0)}
-          x={LENGTH_REFERENCE / 2}
-          y={LENGTH_REFERENCE / 2}
+          x={textPositionX}
+          y={textPositionY}
         >
           {spotType?.prefix && indexType && `${spotType?.prefix}${indexType}`}
           {!spotType?.prefix && indexType && indexType}

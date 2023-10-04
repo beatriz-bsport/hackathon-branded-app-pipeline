@@ -32,7 +32,7 @@ import type { Invoice } from '#libs/invoice/types';
 import type { ConsumerGiftcard, Giftcard } from '#libs/giftcard/types';
 import type { OptionCallback } from '../../../state/types';
 import type { StripeReader } from '#libs/terminal/types';
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type Props = {
   balance: number;
@@ -43,7 +43,6 @@ type Props = {
   member: Member;
   memberLoading: boolean;
   asConsumer: boolean;
-  applyBalanceToUnpaidInvoices: () => void;
   fetchInvoiceListUnpaid: () => void;
   availablePaymentMethodList: number[];
   adjustCreditWithoutPaymentNote: (c: number) => void;
@@ -181,222 +180,233 @@ export const MemberBillingProblemCard = (props: Props) => {
   }
   return (
     <Paper className={classes.accountBalanceBloc}>
-      {!!(!props.asConsumer || (parsedBalance && parsedBalance < 0)) && (
-        <div className={classes.padding}>
-          <ObjectLevelPermissionWrapper
-            forcedBehavior="hidden"
-            requiredPermission="member.allowed_actions.readBalance"
-          >
-            <div className={classes.accountBalance}>
-              <Typography variant="h6">{t('creditAccountBalance')}</Typography>
-              <div className={classes.buttonContainer}>
-                <Typography inline color={color} component="span" variant="h6">
-                  {` ${getCurrencyDisplayWithPrice(balance)}`}
-                </Typography>
-                {props.memberLoading && (
-                  <CircularProgress color="primary" size={24} />
+      <ObjectLevelPermissionProvider
+        requiredPermission={[
+          'member.allowed_actions.readBalance',
+          'billing.allowed_actions.takePayment',
+          'billing.allowed_actions.editBalance',
+        ]}
+      >
+        {([
+          hasReadBalancePermission,
+          hasTakePaymentPermission,
+          hasEditBalancePermission,
+        ]: boolean[]) => (
+          <>
+            {!!(!props.asConsumer || (parsedBalance && parsedBalance < 0)) && (
+              <div className={classes.padding}>
+                {(hasReadBalancePermission || props.asConsumer) && (
+                  <div className={classes.accountBalance}>
+                    <Typography variant="h6">
+                      {t('creditAccountBalance')}
+                    </Typography>
+                    <div className={classes.buttonContainer}>
+                      <Typography
+                        inline
+                        color={color}
+                        component="span"
+                        variant="h6"
+                      >
+                        {` ${getCurrencyDisplayWithPrice(balance)}`}
+                      </Typography>
+                      {props.memberLoading && (
+                        <CircularProgress color="primary" size={24} />
+                      )}
+                      {(hasEditBalancePermission || props.asConsumer) && (
+                        <Button
+                          color="primary"
+                          disabled={props.memberLoading}
+                          onClick={() => {
+                            if (props.asConsumer) {
+                              setAmountToBill(Math.abs(parseFloat(balance)));
+                            } else {
+                              setAdjustBalanceDialogOpen(true);
+                            }
+                          }}
+                          variant="outlined"
+                        >
+                          {t(
+                            props.asConsumer
+                              ? 'regularizeBalance'
+                              : 'adjustBalance',
+                          )}
+                        </Button>
+                      )}
+                    </div>
+                  </div>
                 )}
-                <Button
-                  color="primary"
-                  disabled={props.memberLoading}
-                  onClick={() => {
-                    if (props.asConsumer) {
-                      setAmountToBill(Math.abs(parseFloat(balance)));
-                    } else {
-                      setAdjustBalanceDialogOpen(true);
-                    }
-                  }}
-                  variant="outlined"
-                >
-                  {t(props.asConsumer ? 'regularizeBalance' : 'adjustBalance')}
-                </Button>
-              </div>
-            </div>
-          </ObjectLevelPermissionWrapper>
-
-          {false &&
-            !props.asConsumer &&
-            !!props.applyBalanceToUnpaidInvoices &&
-            props.balance > 0 &&
-            !!unpaidInvoiceList.length && (
-              <div className={classes.applyBalanceToUnpaidButtonContainer}>
-                <Button
-                  onClick={props.applyBalanceToUnpaidInvoices}
-                  style={{ width: '100%' }}
-                  variant="outlined"
-                >
-                  {t('member:applyBalanceToUnpaidInvoices')}
-                </Button>
               </div>
             )}
-        </div>
-      )}
-      {!!unpaidInvoiceList.length && (
-        <React.Fragment>
-          {props.showPositiveBalance && (
-            <div className={classes.padding}>
-              <div className={classes.accountBalance}>
-                <Typography variant="h6">
-                  {t('creditAccountBalance')}
-                </Typography>
-                <div className={classes.buttonContainer}>
-                  <Typography
-                    inline
-                    color={color}
-                    component="span"
-                    variant="h6"
+            {!!unpaidInvoiceList.length && (
+              <React.Fragment>
+                {props.showPositiveBalance && (
+                  <div className={classes.padding}>
+                    <div className={classes.accountBalance}>
+                      <Typography variant="h6">
+                        {t('creditAccountBalance')}
+                      </Typography>
+                      <div className={classes.buttonContainer}>
+                        <Typography
+                          inline
+                          color={color}
+                          component="span"
+                          variant="h6"
+                        >
+                          {` ${getCurrencyDisplayWithPrice(balance)}`}
+                        </Typography>
+                        {props.memberLoading && (
+                          <CircularProgress color="primary" size={24} />
+                        )}
+                        <Button disabled color="primary" variant="outlined">
+                          {t(
+                            props.asConsumer
+                              ? 'regularizeBalance'
+                              : 'adjustBalance',
+                          )}
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                <Divider className={classes.divider} />
+                <div className={classes.invoiceContainer}>
+                  <div className={classes.unpaidAmountHeader}>
+                    <Typography className={classes.padding} variant="h6">
+                      {t('unpaidInvoiceTitle', {
+                        count: unpaidInvoiceList.length,
+                      })}
+                    </Typography>
+                    <Typography color="error" component="span" variant="h6">
+                      {` ${getCurrencyDisplayWithPrice(
+                        props.member.total_unpaid_amount,
+                      )}`}
+                    </Typography>
+                  </div>
+                  <InvoiceTable
+                    compactMode
+                    hideMemberName
+                    hidePagination
+                    showOpenInvoiceNested
+                    applyGiftcardOnInvoice={props.applyGiftcardOnInvoice}
+                    asConsumer={props.asConsumer}
+                    companyId={props.companyId}
+                    consumerGiftcardList={props.consumerGiftcardList}
+                    invoiceList={unpaidInvoiceList}
+                    loading={props.invoiceLoading}
+                    onBill={
+                      props.asConsumer && props.onlinePaymentEnabled === false
+                        ? null
+                        : setInvoiceToBill
+                    }
+                    onClickInvoice={props.goToInvoice}
+                    snackbarSuccess={props.snackbarSuccessMsg}
+                  />
+                </div>
+              </React.Fragment>
+            )}
+            {hasTakePaymentPermission &&
+              !!unpaidInvoiceList &&
+              unpaidInvoiceList.length >= 1 &&
+              !props.asConsumer && (
+                <div className={classes.payAllButtonContainer}>
+                  <Button
+                    className={classes.payAllButton}
+                    color="primary"
+                    onClick={() => setRegularizeFullDebt(true)}
+                    variant="outlined"
                   >
-                    {` ${getCurrencyDisplayWithPrice(balance)}`}
-                  </Typography>
-                  {props.memberLoading && (
-                    <CircularProgress color="primary" size={24} />
-                  )}
-                  <Button disabled color="primary" variant="outlined">
-                    {t(
-                      props.asConsumer ? 'regularizeBalance' : 'adjustBalance',
-                    )}
+                    {t('invoice:paymentPanel.actions.payAll')}
                   </Button>
                 </div>
-              </div>
-            </div>
-          )}
-          <Divider className={classes.divider} />
-          <ObjectLevelPermissionWrapper
-            forcedBehavior="hidden"
-            requiredPermission="billing.allowed_actions.readInvoices"
-          >
-            <div className={classes.invoiceContainer}>
-              <div className={classes.unpaidAmountHeader}>
-                <Typography className={classes.padding} variant="h6">
-                  {t('unpaidInvoiceTitle', { count: unpaidInvoiceList.length })}
-                </Typography>
-                <Typography color="error" component="span" variant="h6">
-                  {` ${getCurrencyDisplayWithPrice(
-                    props.member.total_unpaid_amount,
-                  )}`}
-                </Typography>
-              </div>
-              <InvoiceTable
-                compactMode
-                hideMemberName
-                hidePagination
-                showOpenInvoiceNested
-                applyGiftcardOnInvoice={props.applyGiftcardOnInvoice}
-                asConsumer={props.asConsumer}
-                companyId={props.companyId}
-                consumerGiftcardList={props.consumerGiftcardList}
-                invoiceList={unpaidInvoiceList}
-                loading={props.invoiceLoading}
-                onBill={
-                  props.asConsumer && props.onlinePaymentEnabled === false
-                    ? null
-                    : setInvoiceToBill
-                }
-                onClickInvoice={props.goToInvoice}
-                snackbarSuccess={props.snackbarSuccessMsg}
+              )}
+            {!!ajustBalanceOpen && (
+              <MemberBalanceUpdaterDialog
+                open
+                asManager={props.asConsumer === false}
+                billingEstablishmentId={billingEstablishmentId}
+                enableMultiLocalization={props.enableMultiLocalization}
+                establishments={props.establishments}
+                initialValue={parseFloat(props.balance)}
+                onClose={() => setAdjustBalanceDialogOpen(false)}
+                onSubmit={(arg, withoutPaymentNote) => {
+                  if (withoutPaymentNote) {
+                    props.adjustCreditWithoutPaymentNote(arg);
+                    setAdjustBalanceDialogOpen(false);
+                  } else {
+                    setAmountToBill(arg);
+                    setAdjustBalanceDialogOpen(false);
+                  }
+                }}
+                setBillingEstablishmentId={setBillingEstablishmentId}
               />
-            </div>
-          </ObjectLevelPermissionWrapper>
-        </React.Fragment>
-      )}
-      {!!unpaidInvoiceList &&
-        unpaidInvoiceList.length >= 1 &&
-        !props.asConsumer && (
-          <div className={classes.payAllButtonContainer}>
-            <Button
-              className={classes.payAllButton}
-              color="primary"
-              onClick={() => setRegularizeFullDebt(true)}
-              variant="outlined"
-            >
-              {t('invoice:paymentPanel.actions.payAll')}
-            </Button>
-          </div>
+            )}
+            {(!!invoiceToBill || !!amountToBill || !!regularizeFullDebt) && (
+              <PaymentDialog
+                termsAndConditionsAccepted
+                allowConsumerToUseInternalAccount={
+                  props.allowConsumerToUseInternalAccount
+                }
+                amountToPay={
+                  invoiceToBill
+                    ? parseFloat(
+                        invoiceToBill.amount_due_cts -
+                          invoiceToBill.amount_paid_cts,
+                      ).toFixed(2)
+                    : Math.round(amountToBill * 100)
+                }
+                applyBalanceLoading={props.applyBalanceLoading}
+                applyBalanceToInvoice={applyBalanceToInvoice}
+                asConsumer={props.asConsumer}
+                availablePaymentMethodList={
+                  props.availablePaymentMethodList.length
+                    ? props.availablePaymentMethodList
+                    : [PAYMENT_GROUP_METHOD_IDENTIFIER_CB]
+                }
+                cardBillingDetailsMandatory={props.cardBillingDetailsMandatory}
+                clientSecret={clientSecretLoading ? null : clientSecret}
+                clientSecretError={clientSecretError}
+                clientSecretLoading={clientSecretLoading}
+                companyId={props.companyId}
+                creditAccountBalance={props.creditAccountBalance}
+                defaultUserEmail={props.member ? props.member.email : ''}
+                defaultUserName={props.member ? props.member.name : ''}
+                detachPaymentMethod={props.detachPaymentMethod}
+                detachPaymentMethodLoading={props.detachPaymentMethodLoading}
+                establishments={props.establishments}
+                memberId={props.memberId}
+                onCancel={() => {
+                  setInvoiceToBill(null);
+                  setAmountToBill(0);
+                  setRegularizeFullDebt(false);
+                  if (props.onInvoicePaymentDialogClose)
+                    props.onInvoicePaymentDialogClose();
+                }}
+                onError={() => {}}
+                onlyInternal={
+                  (amountToBill && amountToBill < 0) || props.forceOnlyInternal
+                }
+                onSuccess={(callback?: () => void) => {
+                  props.fetchInvoiceListUnpaid();
+                  setInvoiceToBill(null);
+                  setAmountToBill(null);
+                  setRegularizeFullDebt(false);
+                  listenPaymentGroupCompleted();
+                  if (typeof callback === 'function') callback();
+                  if (props.onInvoicePaymentDialogClose)
+                    props.onInvoicePaymentDialogClose();
+                }}
+                paymentGroupId={paymentGroupId}
+                paymentGroupPriceCts={paymentGroupPriceCts}
+                requestClientSecret={requestClientSecret}
+                snackbarErrorMsg={props.snackbarErrorMsg}
+                snackbarSuccessMsg={props.snackbarSuccessMsg}
+                stripeId={props.stripeId}
+                stripeReaders={props.stripeReaders}
+              />
+            )}
+          </>
         )}
-      {!!ajustBalanceOpen && (
-        <MemberBalanceUpdaterDialog
-          open
-          asManager={props.asConsumer === false}
-          billingEstablishmentId={billingEstablishmentId}
-          enableMultiLocalization={props.enableMultiLocalization}
-          establishments={props.establishments}
-          initialValue={parseFloat(props.balance)}
-          onClose={() => setAdjustBalanceDialogOpen(false)}
-          onSubmit={(arg, withoutPaymentNote) => {
-            if (withoutPaymentNote) {
-              props.adjustCreditWithoutPaymentNote(arg);
-              setAdjustBalanceDialogOpen(false);
-            } else {
-              setAmountToBill(arg);
-              setAdjustBalanceDialogOpen(false);
-            }
-          }}
-          setBillingEstablishmentId={setBillingEstablishmentId}
-        />
-      )}
-      {(!!invoiceToBill || !!amountToBill || !!regularizeFullDebt) && (
-        <PaymentDialog
-          termsAndConditionsAccepted
-          allowConsumerToUseInternalAccount={
-            props.allowConsumerToUseInternalAccount
-          }
-          amountToPay={
-            invoiceToBill
-              ? parseFloat(
-                  invoiceToBill.amount_due_cts - invoiceToBill.amount_paid_cts,
-                ).toFixed(2)
-              : Math.round(amountToBill * 100)
-          }
-          applyBalanceLoading={props.applyBalanceLoading}
-          applyBalanceToInvoice={applyBalanceToInvoice}
-          asConsumer={props.asConsumer}
-          availablePaymentMethodList={
-            props.availablePaymentMethodList.length
-              ? props.availablePaymentMethodList
-              : [PAYMENT_GROUP_METHOD_IDENTIFIER_CB]
-          }
-          cardBillingDetailsMandatory={props.cardBillingDetailsMandatory}
-          clientSecret={clientSecretLoading ? null : clientSecret}
-          clientSecretError={clientSecretError}
-          clientSecretLoading={clientSecretLoading}
-          companyId={props.companyId}
-          creditAccountBalance={props.creditAccountBalance}
-          defaultUserEmail={props.member ? props.member.email : ''}
-          defaultUserName={props.member ? props.member.name : ''}
-          detachPaymentMethod={props.detachPaymentMethod}
-          detachPaymentMethodLoading={props.detachPaymentMethodLoading}
-          establishments={props.establishments}
-          memberId={props.memberId}
-          onCancel={() => {
-            setInvoiceToBill(null);
-            setAmountToBill(0);
-            setRegularizeFullDebt(false);
-            if (props.onInvoicePaymentDialogClose)
-              props.onInvoicePaymentDialogClose();
-          }}
-          onError={() => {}}
-          onlyInternal={
-            (amountToBill && amountToBill < 0) || props.forceOnlyInternal
-          }
-          onSuccess={(callback?: () => void) => {
-            props.fetchInvoiceListUnpaid();
-            setInvoiceToBill(null);
-            setAmountToBill(null);
-            setRegularizeFullDebt(false);
-            listenPaymentGroupCompleted();
-            if (typeof callback === 'function') callback();
-            if (props.onInvoicePaymentDialogClose)
-              props.onInvoicePaymentDialogClose();
-          }}
-          paymentGroupId={paymentGroupId}
-          paymentGroupPriceCts={paymentGroupPriceCts}
-          requestClientSecret={requestClientSecret}
-          snackbarErrorMsg={props.snackbarErrorMsg}
-          snackbarSuccessMsg={props.snackbarSuccessMsg}
-          stripeId={props.stripeId}
-          stripeReaders={props.stripeReaders}
-        />
-      )}
+      </ObjectLevelPermissionProvider>
     </Paper>
   );
 };

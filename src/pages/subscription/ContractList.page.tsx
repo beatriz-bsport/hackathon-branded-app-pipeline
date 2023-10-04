@@ -174,6 +174,7 @@ export class SubscriptionList extends React.Component<Props, State> {
           'product.contract.allowed_actions.delete',
           'product.contract.allowed_actions.createBillingPlan',
           'billing.allowed_actions.createInvoice',
+          'billing.allowed_actions.takePayment',
         ]}
       >
         {([
@@ -182,6 +183,7 @@ export class SubscriptionList extends React.Component<Props, State> {
           hasDeletePermission,
           hasCreateBillingPlanPermission,
           hasCreateInvoicePermission,
+          hasTakePaymentPermission,
         ]: boolean[]) => (
           <div className={this.props.classes.container}>
             {this.props.contractListAvailableAll?.length === 0 &&
@@ -238,6 +240,7 @@ export class SubscriptionList extends React.Component<Props, State> {
                       onRegister={
                         hasCreateBillingPlanPermission &&
                         hasCreateInvoicePermission &&
+                        hasTakePaymentPermission &&
                         this.props.openContractRegister
                       }
                       paymentComboList={this.props.paymentComboList}
@@ -279,6 +282,7 @@ export class SubscriptionList extends React.Component<Props, State> {
                     onRegister={
                       hasCreateBillingPlanPermission &&
                       hasCreateInvoicePermission &&
+                      hasTakePaymentPermission &&
                       this.props.openContractRegister
                     }
                     paymentComboList={this.props.paymentComboList}
@@ -310,6 +314,7 @@ export class SubscriptionList extends React.Component<Props, State> {
                     onRegister={
                       hasCreateBillingPlanPermission &&
                       hasCreateInvoicePermission &&
+                      hasTakePaymentPermission &&
                       this.props.openContractRegister
                     }
                     paymentComboList={this.props.paymentComboList}

@@ -45,11 +45,13 @@ export const MemberActions: React.FC<Props> = (props: Props) => {
         requiredPermission={[
           'product.contract.allowed_actions.createBillingPlan',
           'billing.allowed_actions.createInvoice',
+          'billing.allowed_actions.takePayment',
         ]}
       >
         {([
           hasCreateBillingPlanPermission,
           hasCreateInvoicePermission,
+          hasTakePaymentPermission,
         ]: boolean[]) => (
           <FabWithItems
             badgeValue={props.numberOfUnreadAnswers}
@@ -69,7 +71,8 @@ export const MemberActions: React.FC<Props> = (props: Props) => {
                       onClick: () => props.billMember(),
                     },
                     hasCreateBillingPlanPermission &&
-                      hasCreateInvoicePermission && {
+                      hasCreateInvoicePermission &&
+                      hasTakePaymentPermission && {
                         label: t('paymentAction.toSubscribe'),
                         onClick: () => props.subscribeMember(),
                       },
@@ -89,7 +92,8 @@ export const MemberActions: React.FC<Props> = (props: Props) => {
                       onClick: () => props.billMember(),
                     },
                     hasCreateBillingPlanPermission &&
-                      hasCreateInvoicePermission && {
+                      hasCreateInvoicePermission &&
+                      hasTakePaymentPermission && {
                         label: t('paymentAction.toSubscribe'),
                         onClick: () => props.subscribeMember(),
                       },
@@ -116,12 +120,14 @@ export const MemberActions: React.FC<Props> = (props: Props) => {
         'product.contract.allowed_actions.createBillingPlan',
         'member.allowed_actions.delete',
         'billing.allowed_actions.createInvoice',
+        'billing.allowed_actions.takePayment',
       ]}
     >
       {([
         hasCreateBillingPlanPermission,
         hasDeleteMemberPermission,
         hasCreateInvoicePermission,
+        hasTakePaymentPermission,
       ]: boolean[]) => (
         <div className={classes.bottomButtonContainer}>
           {(Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
@@ -156,17 +162,19 @@ export const MemberActions: React.FC<Props> = (props: Props) => {
               </>
             </Fab>
           )}
-          {hasCreateBillingPlanPermission && hasCreateInvoicePermission && (
-            <Fab
-              className={classes.bottomButton}
-              color="secondary"
-              onClick={props.subscribeMember}
-              variant="extended"
-            >
-              <PaymentIcon className={classes.leftIcon} />
-              {t('paymentAction.toSubscribe')}
-            </Fab>
-          )}
+          {hasCreateBillingPlanPermission &&
+            hasCreateInvoicePermission &&
+            hasTakePaymentPermission && (
+              <Fab
+                className={classes.bottomButton}
+                color="secondary"
+                onClick={props.subscribeMember}
+                variant="extended"
+              >
+                <PaymentIcon className={classes.leftIcon} />
+                {t('paymentAction.toSubscribe')}
+              </Fab>
+            )}
           {hasDeleteMemberPermission &&
           props.member &&
           props.member.archived ? (

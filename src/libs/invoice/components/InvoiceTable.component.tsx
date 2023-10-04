@@ -82,6 +82,7 @@ type Props = {
   quickbooksLoading: boolean;
   consumerGiftcardList: Array<ConsumerGiftcard<Giftcard, Member, Member>>;
   hidePaymentLink?: boolean;
+  hidePayButton?: boolean;
   applyGiftcardOnInvoice: (
     invoiceUuid: string,
     consumergiftCardId: number,
@@ -347,20 +348,22 @@ const InvoiceRow: React.FC<Props> = React.memo((props) => {
               </CopyToClipboard>
             </TableCell>
           )}
-          <TableCell>
-            <RedButton
-              disabled={isPaymentGroupBeingProcessed}
-              onClick={() => props.onBill(invoice)}
-              variant="outlined"
-            >
-              <PaymentIcon className={classes.leftIcon} />
-              {t(
-                props.asConsumer
-                  ? 'paymentPanel.actions.pay'
-                  : 'paymentPanel.actions.bill',
-              )}
-            </RedButton>
-          </TableCell>
+          {!props.hidePayButton && (
+            <TableCell>
+              <RedButton
+                disabled={isPaymentGroupBeingProcessed}
+                onClick={() => props.onBill(invoice)}
+                variant="outlined"
+              >
+                <PaymentIcon className={classes.leftIcon} />
+                {t(
+                  props.asConsumer
+                    ? 'paymentPanel.actions.pay'
+                    : 'paymentPanel.actions.bill',
+                )}
+              </RedButton>
+            </TableCell>
+          )}
           {relatedconsumerGiftcardList &&
             relatedconsumerGiftcardList.length !== 0 &&
             props.applyGiftcardOnInvoice && (
@@ -633,11 +636,13 @@ export const InvoiceTable = (props: {
           requiredPermission={[
             'export.allowed_actions.invoice',
             'billing.allowed_actions.readPaymentLink',
+            'billing.allowed_actions.takePayment',
           ]}
         >
           {([
             hasExportInvoicePermission,
             hasPaymentLinkPermission,
+            hasTakePaymentPermission,
           ]: boolean[]) => (
             <>
               <TableHead>
@@ -676,7 +681,11 @@ export const InvoiceTable = (props: {
                         companyId={props.companyId}
                         consumerGiftcardList={props.consumerGiftcardList}
                         finalizeInvoice={props.finalizeInvoice}
+                        getInvoicePaymentGroupIsProcessing={
+                          props.getInvoicePaymentGroupIsProcessing
+                        }
                         hideMemberName={props.hideMemberName}
+                        hidePayButton={!hasTakePaymentPermission}
                         hidePaymentLink={!hasPaymentLinkPermission}
                         invoice={invoice}
                         nestedDataLoading={props.nestedDataLoading}

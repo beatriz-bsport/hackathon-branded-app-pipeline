@@ -178,11 +178,13 @@ const PaymentActions: FC<{
               requiredPermission={[
                 'billing.allowed_actions.readPaymentLink',
                 'billing.allowed_actions.cancelInvoice',
+                'billing.allowed_actions.takePayment',
               ]}
             >
               {([
                 hasPaymentLinkPermission,
                 hasCancelInvoicePermission,
+                hasTakePaymentPermission,
               ]: boolean[]) => (
                 <>
                   {props.invoice.invoice_type === INVOICE_TYPE_REGULAR && (
@@ -208,18 +210,20 @@ const PaymentActions: FC<{
                           </Button>
                         </CopyToClipboard>
                       )}
-                      <Button
-                        color="primary"
-                        disabled={
-                          !props.invoice.member ||
-                          props.amountToPayCts === 0 ||
-                          processing
-                        }
-                        onClick={props.onPaymentIntent}
-                        variant="contained"
-                      >
-                        {t('paymentPanel.actions.bill')}
-                      </Button>
+                      {hasTakePaymentPermission && (
+                        <Button
+                          color="primary"
+                          disabled={
+                            !props.invoice.member ||
+                            props.amountToPayCts === 0 ||
+                            processing
+                          }
+                          onClick={props.onPaymentIntent}
+                          variant="contained"
+                        >
+                          {t('paymentPanel.actions.bill')}
+                        </Button>
+                      )}
                     </React.Fragment>
                   )}
                   {hasCancelInvoicePermission &&

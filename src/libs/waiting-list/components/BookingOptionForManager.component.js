@@ -27,8 +27,10 @@ type Props = {
   classes: any,
   onClickRegister: () => void,
   disabled: boolean,
-  waitingListPosition: number,
-  waitingListSize: number,
+  waitingListPosition: {
+    member_position: number,
+    waiting_list_size: number,
+  },
   displayPositionInWaitingList: Boolean,
 };
 
@@ -82,19 +84,14 @@ export class BookingOptionForManager extends Component<Props> {
   };
 
   getSecondaryTextToDisplay = () => {
-    const {
-      t,
-      option,
-      waitingListPosition,
-      waitingListSize,
-      displayPositionInWaitingList,
-    } = this.props;
+    const { t, option, waitingListPosition, displayPositionInWaitingList } =
+      this.props;
 
     if (option.is_convertible) return t('booking.waitingUserConfirmation');
-    if (displayPositionInWaitingList)
+    if (displayPositionInWaitingList && waitingListPosition)
       return t('booking.waitingListPosition', {
-        position: waitingListPosition,
-        size: waitingListSize,
+        position: waitingListPosition.member_position,
+        size: waitingListPosition.waiting_list_size,
       });
     return t('booking.onWaitingList');
   };

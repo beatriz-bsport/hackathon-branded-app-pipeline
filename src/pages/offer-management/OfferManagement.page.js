@@ -62,7 +62,8 @@ import {
 } from '#libs/spot-scheduling/selector';
 
 import {
-  discardBookingOption as discardBookingOptionAction,
+  fetchAllWaitingListPositions as fetchAllWaitingListPositionsAction,
+  discardBookingOption as discardBookingOptionAction_,
   registerToWaitingList as registerToWaitingListAction_,
   fetchByOffer as fetchBookingOptionByOfferAction,
   fetchCompanyConfiguration as fetchCompanyWaitlistConfigurationAction,
@@ -130,7 +131,10 @@ import { RootState } from '../../reducers';
 import { Booking } from '#libs/booking/types';
 import { fetchSignFormUpConfiguration } from '#libs/sign-up-form/actions';
 import { getSignUpFormConfigurationDict } from '#libs/sign-up-form/selectors';
-import { getWaitingListConfigurationData } from '#libs/waiting-list/selectors';
+import {
+  getBookingOptionPositionById,
+  getWaitingListConfigurationData,
+} from '#libs/waiting-list/selectors';
 import {
   fetchMemberProgram as fetchMemberProgramAction,
   fetchProgram as fetchProgramAction,
@@ -240,6 +244,7 @@ export default compose(
       spotTypes: getSpotTypesOfCompany(state),
       stripeReaders: getStripeReaders(state),
       waitingListConfiguration: getWaitingListConfigurationData(state),
+      bookingOptionPositionById: getBookingOptionPositionById(state),
 
       // unread answers
       numberOfUnreadAnswers: state.communicationV2.unreadAnswers.count,
@@ -257,7 +262,7 @@ export default compose(
 
       toggleWaitingListFreeze: toggleWaitingListFreezeAction,
       registerToWaitingListAction: registerToWaitingListAction_,
-      discardOption: discardBookingOptionAction,
+      discardBookingOptionAction: discardBookingOptionAction_,
       fetchBookingOptionByOffer: fetchBookingOptionByOfferAction,
       fetchStripeReaders,
 
@@ -339,9 +344,11 @@ export default compose(
       fetchSpotForBlueprint: fetchSpotForBlueprintAction,
       fetchPaymentPackBulk: fetchPaymentPackBulkAction,
 
-      // waitinglist config
+      // waitinglist
       fetchCompanyWaitlistConfiguration:
         fetchCompanyWaitlistConfigurationAction,
+
+      fetchAllWaitingListPositions: fetchAllWaitingListPositionsAction,
 
       // communication v2
       getUnreadAnswersCountAction,
@@ -538,6 +545,7 @@ export default compose(
         fetchGroupOffer,
         fetchPaymentPackBulk,
         fetchResolvedGenericTags,
+        fetchAllWaitingListPositions,
       }) =>
       (ordering_field) => {
         fetchOffer(offerId, {
@@ -586,6 +594,7 @@ export default compose(
           },
         );
         fetchBookingOptionByOffer(offerId);
+        fetchAllWaitingListPositions(offerId);
         fetchRecurrenceRuleBooking(
           { offer: offerId, page: 1, page_size: RECURRENT_BOOKING_PAGE_SIZE },
           {
@@ -599,20 +608,44 @@ export default compose(
         fetchResolvedGenericTags();
       },
     switchWaitingListFreeze:
-      ({ toggleWaitingListFreeze, fetchOffer, fetchBookingOptionByOffer }) =>
+      ({
+        toggleWaitingListFreeze,
+        fetchOffer,
+        fetchBookingOptionByOffer,
+        fetchAllWaitingListPositions,
+      }) =>
       (offerId, newFreezeState) => {
         toggleWaitingListFreeze(offerId, newFreezeState, {
           onSuccess: () => {
             fetchOffer(offerId);
             fetchBookingOptionByOffer(offerId);
+            fetchAllWaitingListPositions(offerId);
           },
         });
       },
     registerToWaitingList:
-      ({ registerToWaitingListAction, refreshFilteredMembers }) =>
+      ({
+        registerToWaitingListAction,
+        refreshFilteredMembers,
+        fetchAllWaitingListPositions,
+      }) =>
       (offerId, memberId) => {
         registerToWaitingListAction(offerId, memberId, {
-          onSuccess: () => refreshFilteredMembers({ offer: offerId }),
+          onSuccess: () => {
+            refreshFilteredMembers({ offer: offerId });
+            fetchAllWaitingListPositions(offerId);
+          },
+        });
+      },
+    discardOption:
+      ({ discardBookingOptionAction, fetchAllWaitingListPositions }) =>
+      (bookingOptionId, params, options, offerId) => {
+        discardBookingOptionAction(bookingOptionId, params, {
+          onSuccess: () => {
+            options?.onSuccess?.();
+            fetchAllWaitingListPositions(offerId);
+          },
+          onError: options?.onError,
         });
       },
     createQuickUnevenInvoice:

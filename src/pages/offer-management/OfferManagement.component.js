@@ -128,7 +128,12 @@ type Props = {
 
   createMember: (id: ?number, data: [*], options: any, offerId: number) => void,
   createInvoice: ([any], number, number) => void,
-  discardOption: (id: number, params: any, options: OptionCallback) => void,
+  discardOption: (
+    bookingOptionId: number,
+    params: any,
+    options: OptionCallback,
+    offerId: number,
+  ) => void,
   deleteBooking: (bookingId: number, data: any) => void,
 
   fetchOffer: (id: number, options: OptionCallback) => void,
@@ -247,6 +252,9 @@ type Props = {
   fetchBookingsByOffer: (offerId: number) => void,
   fetchCompanyWaitlistConfiguration: (companyId: number) => void,
   waitingListConfiguration: WaitingListConfiguration,
+  bookingOptionPositionById: {
+    [key: number]: OfferStatusWaitingListPosition,
+  },
 };
 
 type State = {
@@ -558,11 +566,16 @@ export class OfferManagement extends Component<Props, State> {
   };
 
   discardBookingOptionDialogOnSubmit = () => {
-    this.props.discardOption(this.props.optionToDiscard, null, {
-      onSuccess: () => {
-        this.props.cancelDiscardOption();
+    this.props.discardOption(
+      this.props.optionToDiscard,
+      {},
+      {
+        onSuccess: () => {
+          this.props.cancelDiscardOption();
+        },
       },
-    });
+      this.props.offerId,
+    );
   };
 
   handleCloseCommunicationDrawer = () => {
@@ -696,6 +709,7 @@ export class OfferManagement extends Component<Props, State> {
           <BookingManagement
             addToQuickInvoicePanel={this.addToQuickInvoicePanel}
             booking_ordering={this.props.booking_ordering}
+            bookingOptionPositionById={this.props.bookingOptionPositionById}
             bookingOptionsPending={this.props.bookingOptionsPending}
             bookings={this.props.bookings}
             clearSearch={this.props.clearSearch}
@@ -869,6 +883,7 @@ export class OfferManagement extends Component<Props, State> {
                 onSuccess: () => this.props.setOptionToDiscardWithDialog(null),
                 onError: () => this.props.setOptionToDiscardWithDialog(null),
               },
+              this.props.offerId,
             );
           }}
           open={!!this.props.optionToDiscardWithDialog}
@@ -1135,10 +1150,15 @@ export default compose(
 
             clearSearch();
             if (optionToDiscard) {
-              discardOption(optionToDiscard, {
-                disable_notification: true,
-                update_waiting_list: false, // the waiting list will already be updated on the creation of the booking, no need to do it twice
-              });
+              discardOption(
+                optionToDiscard,
+                {
+                  disable_notification: true,
+                  update_waiting_list: false, // the waiting list will already be updated on the creation of the booking, no need to do it twice
+                },
+                {},
+                this.props.offerId,
+              );
               cancelDiscardOption();
             }
             setMemberToRegister(null);
@@ -1195,9 +1215,14 @@ export default compose(
 
           clearSearch();
           if (optionToDiscard) {
-            discardOption(optionToDiscard, {
-              disable_notification: true,
-            });
+            discardOption(
+              optionToDiscard,
+              {
+                disable_notification: true,
+              },
+              {},
+              this.props.offerId,
+            );
             cancelDiscardOption();
           }
           setMemberToRegister(null);

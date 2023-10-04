@@ -29,6 +29,7 @@ type Props = {
   handleCheckBookingOption: (bookingOptionId: number) => void;
   handleUncheckBookingOption: (bookingOptionId: number) => void;
   selectedBookingOptionsIds: number[];
+  shouldHideBookButton?: Boolean;
 };
 
 const BookingOptionForManager: React.FC<Props> = ({
@@ -42,6 +43,7 @@ const BookingOptionForManager: React.FC<Props> = ({
   handleCheckBookingOption,
   handleUncheckBookingOption,
   selectedBookingOptionsIds,
+  shouldHideBookButton,
 }) => {
   const classes = useStyles({ disabled });
 
@@ -110,7 +112,8 @@ const BookingOptionForManager: React.FC<Props> = ({
         >
           <div
             className={classNames(classes.avatarContainer, {
-              [classes.avatarContainerWithHover]: !disabled,
+              [classes.avatarContainerWithHover]:
+                !disabled && !shouldHideBookButton,
             })}
           >
             <div className={classes.avatar}>
@@ -118,7 +121,7 @@ const BookingOptionForManager: React.FC<Props> = ({
                 <Avatar src={member ? member.photo : ''} />
               </ListItemAvatar>
             </div>
-            {!disabled && (
+            {!disabled && !shouldHideBookButton && (
               <div className={classes.checkBoxContainer}>
                 <Checkbox
                   checked={isChecked}
@@ -135,16 +138,18 @@ const BookingOptionForManager: React.FC<Props> = ({
           secondary={getSecondaryTextToDisplay()}
         />
 
-        <Button
-          className={classes.addButton}
-          color="primary"
-          disabled={isIndividualButtonDisabled}
-          onClick={onClickRegister}
-          variant="outlined"
-        >
-          <AddIcon />
-          {t('booking.add')}
-        </Button>
+        {!shouldHideBookButton && (
+          <Button
+            className={classes.addButton}
+            color="primary"
+            disabled={isIndividualButtonDisabled}
+            onClick={onClickRegister}
+            variant="outlined"
+          >
+            <AddIcon />
+            {t('booking.add')}
+          </Button>
+        )}
         {!!onDiscard && (
           <IconButton disabled={isIndividualButtonDisabled} onClick={onDiscard}>
             <CancelIcon />

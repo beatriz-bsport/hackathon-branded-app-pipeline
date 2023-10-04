@@ -9,11 +9,8 @@ import {
   SequentialMarketingColors,
 } from '#libs/sequential_marketing/constants';
 
-import type { StoredStep } from '#libs/sequential_marketing/components/graph/hooks/types';
-
 export type CadenceExitCardProps = {
   status: DestinationStatus;
-  step: StoredStep;
   onDelete: () => void;
   handleChangeInStep: () => void;
   isSelected?: boolean;
@@ -22,7 +19,7 @@ export type CadenceExitCardProps = {
 type CadenceExitHeaderProps = {
   handleDisableRipple: () => void;
   handleEnableRipple: () => void;
-} & Omit<CadenceExitCardProps, 'step' | 'isSelected'>;
+} & Omit<CadenceExitCardProps, 'isSelected'>;
 
 const CadenceExitHeader: React.FC<CadenceExitHeaderProps> = React.memo(
   ({
@@ -36,7 +33,7 @@ const CadenceExitHeader: React.FC<CadenceExitHeaderProps> = React.memo(
 
     const onClickAction = useCallback(
       (onClick: () => void) => () => {
-        handleDisableRipple();
+        handleDisableRipple?.();
         onClick?.();
       },
       [handleDisableRipple],

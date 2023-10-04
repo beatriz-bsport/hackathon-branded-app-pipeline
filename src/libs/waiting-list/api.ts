@@ -13,6 +13,7 @@ import {
   WaitingListBookingOptionQueryParams,
   WaitingListBookingOptionPaginatedQueryParams,
 } from './types';
+import { OfferStatusWaitingListPosition } from '#libs/offer/types';
 
 export const fetchConfiguration = async (): Promise<
   AxiosResponse<WaitingListConfiguration>
@@ -67,3 +68,9 @@ export const registerOptionToWaitingList = async (
     member,
   });
 };
+
+export async function fetchAllWaitingListPositions(offerId: number) {
+  return getAuth<OfferStatusWaitingListPosition[]>(
+    `${API_V1_URI}/offer/${offerId}/waiting_list_all_positions/`,
+  );
+}

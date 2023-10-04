@@ -36,3 +36,9 @@ export const getBookingOptionListForMember = createSelector(
 
 export const getWaitingListConfigurationData = (state: RootState) =>
   state.waitingList.configuration.data;
+
+export const getBookingOptionPositionState = (state: RootState) =>
+  state.waitingList.option.position;
+
+export const getBookingOptionPositionById = (state: RootState) =>
+  getBookingOptionPositionState(state).byId;

@@ -10,6 +10,7 @@ import {
   asConsumerActions,
   forBookingActions,
   forMemberActions,
+  allWaitingListPositionsActions,
 } from './actions';
 
 import type {
@@ -17,6 +18,7 @@ import type {
   WaitingListConfiguration,
   WaitingListState,
 } from './types';
+import type { OfferStatusWaitingListPosition } from '#libs/offer/types';
 import { PaginatedResponse } from '../../state/types';
 
 const initialState: Immutable.Immutable<WaitingListState> =
@@ -45,6 +47,11 @@ const initialState: Immutable.Immutable<WaitingListState> =
         allIds: [],
         page: 1,
         count: 0,
+      },
+      position: {
+        byId: {},
+        error: null,
+        loading: false,
       },
     },
     configuration: {
@@ -261,6 +268,39 @@ export default handleActions<Immutable.Immutable<WaitingListState>, any>(
       { payload }: { payload: WaitingListBookingOption },
     ) => {
       return state.setIn(['option', 'items'], [...state.option.items, payload]);
+    },
+    [allWaitingListPositionsActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['option', 'position', 'loading'], payload);
+    },
+    [allWaitingListPositionsActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error },
+    ) => {
+      return state.setIn(['option', 'position', 'error'], payload);
+    },
+    [allWaitingListPositionsActions.success.toString()]: (
+      state,
+      { payload }: { payload: OfferStatusWaitingListPosition[] },
+    ) => {
+      return state.merge(
+        {
+          option: {
+            position: {
+              byId: payload.reduce<{
+                [id: number]: OfferStatusWaitingListPosition;
+              }>((acc, bookingOptionPositionDetails) => {
+                acc[bookingOptionPositionDetails.id] =
+                  bookingOptionPositionDetails;
+                return acc;
+              }, {}),
+            },
+          },
+        },
+        { deep: true },
+      );
     },
   },
   initialState,

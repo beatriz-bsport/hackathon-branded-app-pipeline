@@ -9,6 +9,7 @@ import {
   fetchFilteredBookingOptionsPaginated as fetchFilteredBookingOptionsPaginatedAPI,
   discardBookingOption as discardBookingOptionAPI,
   registerOptionToWaitingList as registerOptionToWaitingListAPI,
+  fetchAllWaitingListPositions as fetchAllWaitingListPositionsAPI,
 } from './api';
 
 import { snackbarError } from '../snackbar/actions';
@@ -28,6 +29,8 @@ import {
   WaitingListBookingOptionQueryParams,
   WaitingListConfiguration,
 } from './types';
+
+import { OfferStatusWaitingListPosition } from '#libs/offer/types';
 
 export const configurationDetail = {
   error: createAction<Error>('WAITING_LIST_CONFIGURATION/DETAIL/ERROR'),
@@ -327,5 +330,35 @@ export function fetchBookingOptionForBooking(
       if (options && options.onError) options.onError(err);
     }
     dispatch(forBookingActions.isLoading(false));
+  };
+}
+
+export const allWaitingListPositionsActions = {
+  isLoading: createAction<boolean>('WAITING_LIST/ALL_POSITIONS/IS_LOADING'),
+  error: createAction<Error | null>('WAITING_LIST/ALL_POSITIONS/ERROR'),
+  success: createAction<OfferStatusWaitingListPosition[]>(
+    'WAITING_LIST/ALL_POSITIONS/SUCCESS',
+  ),
+};
+
+export function fetchAllWaitingListPositions(
+  offerId: number,
+  options?: OptionCallback<OfferStatusWaitingListPosition[]>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(allWaitingListPositionsActions.error(null));
+    dispatch(allWaitingListPositionsActions.isLoading(true));
+
+    try {
+      const response = await fetchAllWaitingListPositionsAPI(offerId);
+      dispatch(allWaitingListPositionsActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      console.error(error);
+      dispatch(allWaitingListPositionsActions.error(error));
+      options?.onError?.(error);
+    }
+
+    dispatch(allWaitingListPositionsActions.isLoading(false));
   };
 }

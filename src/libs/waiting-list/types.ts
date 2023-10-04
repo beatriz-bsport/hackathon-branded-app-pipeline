@@ -3,7 +3,7 @@ import {
   WAITING_LIST_AUTO_CANCELLATION_SMART,
 } from '@bsport/common/lib/master-data/waiting-list-auto-cancellation';
 import type { ErrorAndLoading } from '../types';
-import type { Offer } from '../offer/types';
+import type { Offer, OfferStatusWaitingListPosition } from '../offer/types';
 
 export enum WaitingListAutoCancellation {
   dumb = WAITING_LIST_AUTO_CANCELLATION_DUMB.id,
@@ -61,6 +61,9 @@ export type WaitingListState = {
       allIds: number[];
       page: number;
       count: number;
+    };
+    position: ErrorAndLoading & {
+      byId: { [key: number]: OfferStatusWaitingListPosition };
     };
   };
 };

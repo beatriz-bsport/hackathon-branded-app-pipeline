@@ -5,8 +5,8 @@ import green from '@material-ui/core/colors/green';
 import red from '@material-ui/core/colors/red';
 
 import type { StoredTrigger } from './types';
+import type { DestinationConfig } from '#libs/sequential_marketing/types';
 import {
-  DestinationKind,
   DestinationStatus,
   SequentialMarketingColors,
 } from '#libs/sequential_marketing/constants';
@@ -81,12 +81,7 @@ const baseEdgeStyle = {
 const getEdgeStyle = ({
   destination_config = {},
 }: {
-  destination_config?: {
-    id?: number;
-    kind?: DestinationKind;
-    source_id?: number;
-    status?: DestinationStatus;
-  };
+  destination_config?: Partial<DestinationConfig>;
 }) => {
   if (!destination_config) {
     return {

@@ -86,8 +86,10 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
         <image height={60} href={image} width={60} x={1} y={1} />
         <text
           dominantBaseline="middle"
-          fontSize="45"
-          fontWeight="bold"
+          fontSize="30"
+          fontStyle="normal"
+          fontWeight={700}
+          letterSpacing="0.15px"
           stroke="white"
           strokeWidth={2}
           style={{ userSelect: 'none' }}

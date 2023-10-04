@@ -1,7 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 
 import { useFormikContext } from 'formik';
-import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import moment from 'moment-timezone';
 import { makeStyles } from '@material-ui/styles';
@@ -33,7 +32,6 @@ const WeekDayButton: React.FC<WeekDayButtonProps> = React.memo(
     const classes = useStyles();
     const { values, setFieldValue } = useFormikContext<OfferFormValues>();
     const { recurrenceWeekDay } = values;
-    const { t } = useTranslation('datetime');
 
     const isoWeekDay = useMemo(() => {
       const isoweekday = moment()
@@ -79,7 +77,7 @@ const WeekDayButton: React.FC<WeekDayButtonProps> = React.memo(
         onClick={handleOnClick}
         variant="contained"
       >
-        {t(`time.isoWeekdayNumber.${isoWeekDay}`).slice(0, 3)}
+        {moment().isoWeekday(Number(isoWeekDay)).format('ddd').replace('.', '')}
       </Button>
     );
   },

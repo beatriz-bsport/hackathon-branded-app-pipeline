@@ -1,8 +1,8 @@
 import { TFunction } from 'i18next';
-import {
-  SPOT_NOT_AVAILABLE,
-  OFFER_BOOKABLE_STATUS_FULL,
-} from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
+// import {
+//   SPOT_NOT_AVAILABLE,
+//   OFFER_BOOKABLE_STATUS_FULL,
+// } from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
 import { BUYABLE_ITEM_FEE } from '@bsport/common/lib/master-data/buyable-items';
 import { OFFER_WAITING_LIST_NO_USABLE_CONSUMER_PAYMENT_PACK } from '@bsport/common/lib/master-data/error-codes/waitinglist-can-not-be-joined';
 import {
@@ -32,6 +32,10 @@ import {
 import type { MarketplacePaymentMethodBillingDetails } from '#libs/marketplace/types';
 import { OfferWithSpotInformation } from '#libs/offer/types';
 import { Subscription } from '#libs/subscription/types';
+
+// IDK what the hell is happening, but importing them from common broke the VOD widget
+const SPOT_NOT_AVAILABLE = 8001;
+const OFFER_BOOKABLE_STATUS_FULL = 3;
 
 export const getBasketTotalPriceExcludingTax = (
   basket: Basket | Basket<string, PrepaidLine> | Basket<number, PrepaidLine>,

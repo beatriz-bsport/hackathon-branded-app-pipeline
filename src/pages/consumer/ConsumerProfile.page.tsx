@@ -56,7 +56,7 @@ import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '#libs/p
 import PaymentModal from '#libs/payment/components/PaymentModal.component';
 import { getBackofficeBillingPlanEnabledPaymentMethods } from '#libs/payment/utils';
 import SpiviPrivacySettingsPanel from '#libs/spivi/components/SpiviPrivacySettingsPanel.component';
-import MemberMarketplaceReferralPanel from '#libs/member/components/MemberMarketplaceReferralPanel.component';
+import ReferralMemberSumup from '#libs/referral/components/referral-member-sumup';
 import {
   retrieveReferralProgramForCompany as retrieveReferralProgramForCompanyAction,
   retrieveReferralMemberStatus as retrieveReferralMemberStatusAction,
@@ -235,7 +235,7 @@ export class ConsumerProfile extends React.Component<Props, State> {
             )}
           {this.props.theme.is_referral_program_activated && (
             <Paper className={classes.gridItemContainer}>
-              <MemberMarketplaceReferralPanel
+              <ReferralMemberSumup
                 isLoading={
                   this.props.referralProgramLoading &&
                   this.props.referralMemberStatusLoading

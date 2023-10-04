@@ -1,14 +1,14 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import MemberMarketplaceReferralPanel from './MemberMarketplaceReferralPanel.component';
+import ReferralMemberSumup from './ReferralMemberSumup.component';
 import { referralProgramFactory } from '#libs/referral/factories/ReferralProgram';
 
 const referralProgram = referralProgramFactory();
 
 export default {
-  title: 'Member/MemberMarketplaceReferralPanel',
-  component: MemberMarketplaceReferralPanel,
+  title: 'Member/ReferralMemberSumup',
+  component: ReferralMemberSumup,
   argTypes: {
     backgroundColor: { control: 'color' },
   },
@@ -21,12 +21,10 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof MemberMarketplaceReferralPanel>;
+} as ComponentMeta<typeof ReferralMemberSumup>;
 
-const Template: ComponentStory<typeof MemberMarketplaceReferralPanel> = (
-  args,
-) => (
-  <MemberMarketplaceReferralPanel
+const Template: ComponentStory<typeof ReferralMemberSumup> = (args) => (
+  <ReferralMemberSumup
     referralProgram={referralProgram}
     isLoading={false}
     {...args}

@@ -25,7 +25,7 @@ type Props = {
   hideReferringReward: boolean;
 };
 
-const MemberMarketplaceReferralPanelDialog: React.FC<Props> = ({
+const ReferralMemberSumupDialog: React.FC<Props> = ({
   showConditions,
   setShowConditions,
   maxReferralUses,
@@ -173,4 +173,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default React.memo(MemberMarketplaceReferralPanelDialog);
+export default React.memo(ReferralMemberSumupDialog);

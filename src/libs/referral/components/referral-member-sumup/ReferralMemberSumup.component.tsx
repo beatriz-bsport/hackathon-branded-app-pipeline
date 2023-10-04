@@ -14,7 +14,7 @@ import AddIcon from '@material-ui/icons/Add';
 import { Alert } from '@material-ui/lab';
 import type { ReferralProgram } from '#libs/referral/types';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import MemberMarketplaceReferralPanelDialog from './MemberMarketplaceReferralPanelDialog.component';
+import ReferralMemberSumupDialog from './ReferralMemberSumupDialog.component';
 import { ReferredVoucherTypeChoices } from '#libs/referral/constants';
 
 type Props = {
@@ -24,7 +24,7 @@ type Props = {
   isLoading: boolean;
 };
 
-const MemberReferralPanel: React.FC<Props> = ({
+const ReferralMemberSumup: React.FC<Props> = ({
   nbRemainingReferralUses,
   referralProgram,
   referralLink,
@@ -165,7 +165,7 @@ const MemberReferralPanel: React.FC<Props> = ({
               </Typography>
             </ButtonBase>
           </Typography>
-          <MemberMarketplaceReferralPanelDialog
+          <ReferralMemberSumupDialog
             applicationTimeLimitIntervals={application_time_limit_intervals}
             applicationTimeLimitUnit={application_time_limit_unit}
             hideReferredReduction={hideReferredReduction}
@@ -252,4 +252,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default React.memo(MemberReferralPanel);
+export default React.memo(ReferralMemberSumup);

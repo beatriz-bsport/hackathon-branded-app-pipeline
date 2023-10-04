@@ -5,10 +5,14 @@ import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import moment from 'moment-timezone';
 import { makeStyles } from '@material-ui/styles';
-import { Theme } from '@material-ui/core';
 import classNames from 'classnames';
 
-import { OfferFormValues, OfferFormRecurrenceWeekDay } from '#libs/offer/types';
+import type { Theme } from '@material-ui/core';
+
+import type {
+  OfferFormValues,
+  OfferFormRecurrenceWeekDay,
+} from '#libs/offer/types';
 
 type Props = {
   id?: string;
@@ -24,61 +28,62 @@ type WeekDay = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
 const WEEK_DAYS: WeekDay[] = [0, 1, 2, 3, 4, 5, 6];
 
-const WeekDayButton = (props: WeekDayButtonProps) => {
-  const { day, timezone } = props;
-  const classes = useStyles();
-  const { values, setFieldValue } = useFormikContext<OfferFormValues>();
-  const { recurrenceWeekDay } = values;
-  const { t } = useTranslation('datetime');
+const WeekDayButton: React.FC<WeekDayButtonProps> = React.memo(
+  ({ day, timezone }) => {
+    const classes = useStyles();
+    const { values, setFieldValue } = useFormikContext<OfferFormValues>();
+    const { recurrenceWeekDay } = values;
+    const { t } = useTranslation('datetime');
 
-  const isoWeekDay = useMemo(() => {
-    const isoweekday = moment()
-      .tz(timezone)
-      .startOf('week')
-      .add(day, 'days')
-      .isoWeekday();
+    const isoWeekDay = useMemo(() => {
+      const isoweekday = moment()
+        .tz(timezone)
+        .startOf('week')
+        .add(day, 'days')
+        .isoWeekday();
 
-    return isoweekday.toString() as OfferFormRecurrenceWeekDay;
-  }, [day, timezone]);
+      return isoweekday.toString() as OfferFormRecurrenceWeekDay;
+    }, [day, timezone]);
 
-  const recurrenceWeekDayState = recurrenceWeekDay[isoWeekDay];
+    const recurrenceWeekDayState = recurrenceWeekDay[isoWeekDay];
 
-  const handleToggleWeekday = useCallback(
-    (weekDay: OfferFormRecurrenceWeekDay) => {
-      setFieldValue('recurrenceWeekDay', {
-        ...recurrenceWeekDay,
-        [weekDay]: !recurrenceWeekDay[weekDay],
-      });
-    },
-    [recurrenceWeekDay, setFieldValue],
-  );
+    const handleToggleWeekday = useCallback(
+      (weekDay: OfferFormRecurrenceWeekDay) => {
+        setFieldValue('recurrenceWeekDay', {
+          ...recurrenceWeekDay,
+          [weekDay]: !recurrenceWeekDay[weekDay],
+        });
+      },
+      [recurrenceWeekDay, setFieldValue],
+    );
 
-  const handleOnClick = useCallback(
-    () => handleToggleWeekday(isoWeekDay),
-    [handleToggleWeekday, isoWeekDay],
-  );
+    const handleOnClick = useCallback(
+      () => handleToggleWeekday(isoWeekDay),
+      [handleToggleWeekday, isoWeekDay],
+    );
 
-  return (
-    <Button
-      key={day}
-      disableElevation
-      disableRipple
-      className={classNames(
-        classes.buttonBase,
-        {
-          [classes.activeWeekDayButton]: recurrenceWeekDayState,
-        },
-        {
-          [classes.weekDayButton]: !recurrenceWeekDayState,
-        },
-      )}
-      onClick={handleOnClick}
-      variant="contained"
-    >
-      {t(`time.isoWeekdayNumber.${isoWeekDay}`).slice(0, 3)}
-    </Button>
-  );
-};
+    return (
+      <Button
+        key={day}
+        disableElevation
+        disableRipple
+        className={classNames(
+          classes.buttonBase,
+          {
+            [classes.activeWeekDayButton]: recurrenceWeekDayState,
+          },
+          {
+            [classes.weekDayButton]: !recurrenceWeekDayState,
+          },
+        )}
+        onClick={handleOnClick}
+        variant="contained"
+      >
+        {t(`time.isoWeekdayNumber.${isoWeekDay}`).slice(0, 3)}
+      </Button>
+    );
+  },
+);
 
 const OfferFormWeeklyRecurrenceDays = (props: Props) => {
   const { id, timezone } = props;

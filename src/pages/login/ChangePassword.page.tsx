@@ -29,7 +29,6 @@ import { getFranchisor } from '../../libs/franchise/selectors';
 // @ts-expect-error
 import B_ASSET from '../../public/images/b_dark.jpg';
 
-// @ts-expect-error honestly i dont understand why it raises an error
 const styles = (theme: Theme) =>
   createStyles({
     formContainer: {

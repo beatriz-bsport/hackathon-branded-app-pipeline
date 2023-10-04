@@ -193,11 +193,15 @@ export class BookingManagement extends React.PureComponent<Props, State> {
             requiredPermission={[
               'reservation.activity.allowed_actions.create',
               'reservation.workshop.allowed_actions.create',
+              'reservation.activity.allowed_actions.addToWaitlist',
+              'reservation.workshop.allowed_actions.addToWaitlist',
             ]}
           >
             {([
               hasActivityCreateBookingPermission,
               hasWorkshopCreateBookingPermission,
+              hasActivityRegisterWaitlistPermission,
+              hasWorkshopRegisterWaitlistPermission,
             ]) => (
               <MemberBookingHelper
                 key={member.id}
@@ -230,6 +234,13 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                     this.getIsWorkshop(),
                     hasActivityCreateBookingPermission,
                     hasWorkshopCreateBookingPermission,
+                  )
+                }
+                shouldHideRegisterWaitlistButton={
+                  !getActivityWorkshopPermission(
+                    this.getIsWorkshop(),
+                    hasActivityRegisterWaitlistPermission,
+                    hasWorkshopRegisterWaitlistPermission,
                   )
                 }
                 showMember={
@@ -868,11 +879,15 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                       requiredPermission={[
                         'reservation.activity.allowed_actions.create',
                         'reservation.workshop.allowed_actions.create',
+                        'reservation.activity.allowed_actions.removeFromWaitlist',
+                        'reservation.workshop.allowed_actions.removeFromWaitlist',
                       ]}
                     >
                       {([
                         hasActivityCreateBookingPermission,
                         hasWorkshopCreateBookingPermission,
+                        hasActivityRemoveWaitlistPermission,
+                        hasWorkshopRemoveWaitlistPermission,
                       ]) => (
                         <BookingOptionForManager
                           key={bookingOption.id}
@@ -916,6 +931,13 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                               this.getIsWorkshop(),
                               hasActivityCreateBookingPermission,
                               hasWorkshopCreateBookingPermission,
+                            )
+                          }
+                          shouldHideRemoveWaitlistButton={
+                            !getActivityWorkshopPermission(
+                              this.getIsWorkshop(),
+                              hasActivityRemoveWaitlistPermission,
+                              hasWorkshopRemoveWaitlistPermission,
                             )
                           }
                           waitingListPosition={

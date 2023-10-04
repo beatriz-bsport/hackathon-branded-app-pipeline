@@ -24,7 +24,7 @@ type Props = {
   isFull?: boolean;
   anonimize?: boolean;
   shouldHideBookButton?: boolean;
-
+  shouldHideRegisterWaitlistButton?: boolean;
   showMember?: () => void;
   onClickListItem?: () => void;
   onClickOption: () => void;
@@ -80,14 +80,16 @@ function MemberBookingHelper(props: Props) {
           </React.Fragment>
         ) : (
           <React.Fragment>
-            <Button
-              color="primary"
-              disabled={!props.isFull}
-              onClick={props.onClickOption}
-            >
-              <HourglassEmptyIcon className={classes.rightIcon} />
-              <Hidden xsDown>{t('offer.createBookingOption')}</Hidden>
-            </Button>
+            {!props.shouldHideRegisterWaitlistButton && (
+              <Button
+                color="primary"
+                disabled={!props.isFull}
+                onClick={props.onClickOption}
+              >
+                <HourglassEmptyIcon className={classes.rightIcon} />
+                <Hidden xsDown>{t('offer.createBookingOption')}</Hidden>
+              </Button>
+            )}
 
             {!props.shouldHideBookButton && (
               <Button

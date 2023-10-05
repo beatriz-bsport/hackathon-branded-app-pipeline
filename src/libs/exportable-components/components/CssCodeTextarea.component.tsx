@@ -1,6 +1,5 @@
 import React, { useCallback, useState, useLayoutEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { compose } from 'recompose';
 import { Collapse, Typography } from '@material-ui/core';
 import Editor from 'react-simple-code-editor';
 // @ts-ignore
@@ -8,7 +7,6 @@ import { highlight, languages } from 'prismjs/components/prism-core';
 import 'prismjs/components/prism-css';
 import 'prismjs/themes/prism-dark.css';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { interpolateCSSVar } from '#libs/widget/utils';
 
 type Props = {
@@ -80,7 +78,4 @@ const CssCodeTextarea: React.FC<Props> = ({
   );
 };
 
-export default compose<any, Props>(
-  React.memo,
-  marketplaceCssHoc(),
-)(CssCodeTextarea);
+export default React.memo(CssCodeTextarea);

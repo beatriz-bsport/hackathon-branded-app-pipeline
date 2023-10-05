@@ -5978,7 +5978,9 @@
         "officialIdNumber": {
             "value": "ID: {{id}}",
             "label": "Identiteitsbewijsnummer"
-        }
+        },
+        "signedUpWithReferral": "Lid heeft zich aangemeld met <1>{{ name }}</1>'s doorverwijslink",
+        "email": "Email"
     },
     "booking": {
         "bookingModule": {
@@ -6333,8 +6335,25 @@
                 "frequencyMonthly": "deze maand.",
                 "frequencyYearly": "dit jaar.",
                 "frequencyGeneric": "deze periode.",
-                "warningCustomLeveledSession": "Er is een gepersonaliseerd niveau op deze sessie van toepassing. Houd er rekening mee dat je gast(en) ook aan dit niveau voldoen."
-            }
+                "warningCustomLeveledSession": "Er is een gepersonaliseerd niveau op deze sessie van toepassing. Houd er rekening mee dat je gast(en) ook aan dit niveau voldoen.",
+                "bookingStatus": {
+                    "guestNotAllowed": "De sessie is niet toegankelijk voor gasten",
+                    "4": "De sessie is gesloten voor boekingen",
+                    "3": "De sessie is vol",
+                    "2": "De sessie is gesloten voor boekingen",
+                    "1": "De sessie is nog niet open voor boekingen",
+                    "0": "Nodig een vriend uit"
+                },
+                "addGuestNumberLeftGeneric": "Je kunt deze periode nog 1 persoon uitnodigen.",
+                "addGuestNumberLeftGeneric_plural": "Je kunt deze periode nog steeds {{count}} mensen uitnodigen.",
+                "addGuestNumberLeftYear": "Je mag dit jaar 1 persoon meer uitnodigen.",
+                "addGuestNumberLeftYear_plural": "Je kunt dit jaar nog steeds {{count}} mensen uitnodigen.",
+                "addGuestNumberLeftMonth": "Je kunt deze maand nog 1 persoon uitnodigen.",
+                "addGuestNumberLeftMonth_plural": "Je kunt deze maand nog {{count}} mensen uitnodigen.",
+                "addGuestNumberLeftWeek": "Je kunt deze week nog 1 persoon uitnodigen.",
+                "addGuestNumberLeftWeek_plural": "Je kunt deze week nog {{count}} mensen uitnodigen."
+            },
+            "bookingFor": "Boeken voor"
         },
         "setSpot": "Een plaats toewijzen",
         "changeSpot": "Plaats wijzigen",
@@ -6361,6 +6380,22 @@
                 },
                 "email": {
                     "label": "E-mail"
+                },
+                "errors": {
+                    "email": "Voer een geldig e-mailadres in",
+                    "requiredField": "Vul dit veld in"
+                },
+                "dialog": {
+                    "emailWarning": {
+                        "actions": {
+                            "saveAndContinue": "Opslaan en doorgaan",
+                            "continueWithoutEmail": "Doorgaan zonder e-mail"
+                        },
+                        "description": "Je hebt geen e-mailadres opgegeven voor je gast. Hierdoor zullen ze geen informatie ontvangen over deze sessie. Weet je dit zeker?",
+                        "title": "Geen e-mail ingevoerd"
+                    },
+                    "description": "Neem je een vriend of metgezel mee om de ervaring te delen? Vul gewoon de naam en het e-mailadres van je gast in en wij zorgen ervoor dat hij of zij alle benodigde informatie ontvangt.",
+                    "title": "Nodig een gast uit"
                 }
             }
         },
@@ -12758,13 +12793,15 @@
                     "paymentSuccess": "Gefeliciteerd met uw aankoop! Uw aankoop is bevestigd!",
                     "paymentSuccess_plural": "Gefeliciteerd met uw aankopen! Uw aankopen zijn bevestigd!",
                     "offerOnlySuccess": "De boeking is gemaakt. Je ontvangt binnenkort een bevestigingsmail met alle details.",
-                    "offerOnlySuccess_plural": "De boekingen zijn gemaakt. Je ontvangt binnenkort een bevestigingsmail met alle details."
+                    "offerOnlySuccess_plural": "De boekingen zijn gemaakt. Je ontvangt binnenkort een bevestigingsmail met alle details.",
+                    "offerOnlyGuestSuccess": "De reservering is gemaakt. Jij en je gast ontvangen binnenkort een bevestigingsmail met alle details."
                 },
                 "confirmationStatusTitle": {
                     "success": {
                         "waitingList": "U staat op de wachtlijst",
                         "paymentSuccess": "Betaling bevestigd!",
-                        "offerOnlySuccess": "Geniet van de sessie!"
+                        "offerOnlySuccess": "Geniet van de sessie!",
+                        "offerOnlyGuestSuccess": "Geniet van de sessie met je gast!"
                     },
                     "errors": {
                         "genericOfferError": "Oeps! De boeking is mislukt.",
@@ -12839,7 +12876,13 @@
             "deliveryFee": "Bezorgkosten",
             "title": "Betaling",
             "flatFeeSubscription": "Aanvraagkosten"
-        }
+        },
+        "expiredSpotDialog": {
+            "refresh": "Hervers",
+            "message": "De reservering van je plek is verlopen, je kunt deze opnieuw selecteren of een andere plek kiezen.",
+            "title": "De reservering van je plek is verlopen"
+        },
+        "spotSavedFor": "Geselecteerde plek is opgeslagen voor: {{countdown}}"
     },
     "invoice": {
         "returnPayment": {
@@ -15051,7 +15094,8 @@
                 "quickbooks": "QuickBooks",
                 "mobilePersonalization": "Gepersonaliseerde app",
                 "coachUserspace": "Instructeursomgeving",
-                "quicksale": "Verkoopinterface"
+                "quicksale": "Verkoopinterface",
+                "referral": "Verwijzing"
             },
             "pass": "Leskaarten",
             "goBack": "Terug",
@@ -15990,7 +16034,12 @@
                         "cadence": "Geef hier onder de criteria waar leden aan moeten voldoen om via de cadence automatisch gecontacteerd te kunnen worden."
                     },
                     "title": "Aanleiding",
-                    "event_or_smartlist_helper": "Leden moeten aan de criteria van het geselecteerde Evenement voldoen óf deel uitmaken van de geselecteerde Smartlists(s) om in deze cadence terecht te komen."
+                    "event_or_smartlist_helper": "Leden moeten aan de criteria van het geselecteerde Evenement voldoen óf deel uitmaken van de geselecteerde Smartlists(s) om in deze cadence terecht te komen.",
+                    "triggerTimeoutDays": "dag.",
+                    "triggerTimeoutDays_plural": "dagen.",
+                    "triggerTimeoutLabel": "Trigger na",
+                    "selectSmartlist": "Selecteer een smartlist",
+                    "selectEvent": "Selecteer een evenement"
                 },
                 "exit": {
                     "exit_fail_label": "Verloren",
@@ -17595,10 +17644,13 @@
     "referral": {
         "form": {
             "redirectLink": {
-                "title": "Doorverwijslink"
+                "title": "Doorverwijslink",
+                "placeholder": "Omleiding URL",
+                "description": "Na registratie wordt het nieuwe lid doorverwezen naar de pagina die wordt aangegeven door je URL. Als je het vakje leeg laat, worden ze doorverwezen naar de pagina voor het kopen van een pas"
             },
             "tag": {
-                "title": "Tag"
+                "title": "Tag",
+                "description": "Een nieuw lid dat de doorverwijslink gebruikt, wordt getagd"
             },
             "applicationTimeLimit": {
                 "units": {
@@ -17608,7 +17660,8 @@
                     "week_plural": "Weken",
                     "day": "Dag",
                     "day_plural": "Dagen"
-                }
+                },
+                "title": "Tijdslimiet voor het toepassen van de korting na registratie"
             },
             "amountOffReferred": {
                 "amount": {
@@ -17618,11 +17671,35 @@
                 "percent": {
                     "fieldLabel": "Percentage",
                     "title": "Percentage"
-                }
+                },
+                "title": "Korting voor het doorverwezen lid"
             },
             "activateReferral": {
-                "label": "Activeer doorverwijslink"
-            }
+                "label": "Activeer doorverwijslink",
+                "description": "Elk lid kan deze doorverwijslink delen met niet-leden. Bij gebruik krijgt het nieuwe lid automatisch korting en wordt het lid dat de link deelde beloond."
+            },
+            "errors": {
+                "timeLimit": "De vertraging moet groter zijn dan 1",
+                "referredAmount": "De korting moet hoger zijn dan 0",
+                "maximumUses": "Het maximale aantal toepassingen moet hoger zijn dan 1",
+                "minimumAmount": "Het minimumbedrag moet hoger zijn dan 0"
+            },
+            "warnings": {
+                "rewardReferring": "Door deze waarde te kiezen, zal er geen beloning worden toegekend aan het verwijzende lid",
+                "referredAmount": "Als je deze waarde kiest, wordt er geen korting toegepast op de aankoop van het verwezen lid"
+            },
+            "rewardReferring": {
+                "label": "Beloningsbedrag",
+                "title": "Beloning voor het doorverwijzende lid"
+            },
+            "maximumUses": {
+                "label": "Maximaal aantal toepassingen"
+            },
+            "minimumBasketAmount": {
+                "description": "Deze waarde verwijst naar de totale prijs van het mandje",
+                "label": "Minimumwaarde van klantmandje"
+            },
+            "title": "Verwijzing"
         }
     }
 }

@@ -434,8 +434,25 @@
                 "frequencyWeekly": "cette semaine.",
                 "frequencyMonthly": "ce mois-ci.",
                 "frequencyYearly": "l'année en cours.",
-                "frequencyGeneric": "la période en cours."
-            }
+                "frequencyGeneric": "la période en cours.",
+                "bookingStatus": {
+                    "guestNotAllowed": "La séance n'est pas ouverte aux invités",
+                    "4": "La séance est fermée à la réservation",
+                    "3": "La séance est complète",
+                    "2": "La séance est fermée à la réservation",
+                    "1": "La séance n'est pas encore ouverte aux réservations",
+                    "0": "Inviter un(e) ami(e)"
+                },
+                "addGuestNumberLeftGeneric": "Vous pouvez inviter 1 personne supplémentaire pendant cette période.",
+                "addGuestNumberLeftGeneric_plural": "Vous pouvez encore inviter {{count}} personnes pendant cette période.",
+                "addGuestNumberLeftYear": "Vous pouvez inviter une personne supplémentaire cette année.",
+                "addGuestNumberLeftYear_plural": "Vous pouvez encore inviter {{count}} personnes cette année.",
+                "addGuestNumberLeftMonth": "Vous pouvez inviter 1 personne supplémentaire ce mois-ci.",
+                "addGuestNumberLeftMonth_plural": "Vous pouvez encore inviter {{count}} personnes ce mois-ci.",
+                "addGuestNumberLeftWeek": "Vous pouvez inviter 1 personne supplémentaire cette semaine.",
+                "addGuestNumberLeftWeek_plural": "Vous pouvez encore inviter {{count}} personnes cette semaine."
+            },
+            "bookingFor": "Réservation pour"
         },
         "guest": {
             "form": {
@@ -453,6 +470,22 @@
                 },
                 "lastname": {
                     "label": "Nom"
+                },
+                "errors": {
+                    "email": "Veuillez saisir une adresse électronique valide",
+                    "requiredField": "Veuillez compléter ce champ"
+                },
+                "dialog": {
+                    "emailWarning": {
+                        "actions": {
+                            "saveAndContinue": "Sauvegarder et continuer",
+                            "continueWithoutEmail": "Continuer sans email"
+                        },
+                        "description": "Vous n'avez pas fourni d'adresse électronique pour votre invité(e). Par conséquent, il/elle ne recevra pas d'informations sur cette séance. En êtes-vous sûr(e) ?",
+                        "title": "Aucun courriel n'a été saisi"
+                    },
+                    "description": "Vous amenez un(e) ami(e) ou un(e) accompagnant(e) pour partager l'expérience ? Il vous suffit d'indiquer le nom et l'adresse électronique de votre invité(e), et nous nous assurerons qu'il/elle reçoive tous les détails nécessaires.",
+                    "title": "Inviter une personne"
                 }
             }
         },
@@ -691,7 +724,8 @@
                     "success": {
                         "offerOnlySuccess": "Bonne séance !",
                         "paymentSuccess": "Paiement confirmé !",
-                        "waitingList": "Vous vous êtes inscrit sur la liste d'attente"
+                        "waitingList": "Vous vous êtes inscrit sur la liste d'attente",
+                        "offerOnlyGuestSuccess": "Profitez de la séance avec votre invité(e) !"
                     }
                 },
                 "confirmationStatusMessage": {
@@ -699,7 +733,8 @@
                     "offerOnlySuccess_plural": "Les réservations ont bien été effectuées. Vous recevrez bientôt un e-mail de confirmation avec tous les détails.",
                     "paymentSuccess": "Félicitations ! Votre achat est confirmé !",
                     "paymentSuccess_plural": "Félicitations ! Vos achats sont confirmés !",
-                    "offerAndPurchaseSuccess": "Félicitations ! Vos achats et réservations sont confirmés. Vous recevrez sous peu un e-mail de confirmation contenant tous les détails."
+                    "offerAndPurchaseSuccess": "Félicitations ! Vos achats et réservations sont confirmés. Vous recevrez sous peu un e-mail de confirmation contenant tous les détails.",
+                    "offerOnlyGuestSuccess": "La réservation a été effectuée. Votre invité(e) et vous allez recevoir sous peu un e-mail de confirmation contenant tous les détails."
                 },
                 "alert": "Oups ! La réservation a échoué.\n Nous avons rencontré un problème lors du traitement de votre réservation de séance. Veuillez réessayer ultérieurement ou réserver une séance différente.",
                 "myPass": "Ma carte de cours",
@@ -727,7 +762,13 @@
             "cancel": "Annuler",
             "confirm": "Confirmer",
             "useAsManager": "Utiliser le solde"
-        }
+        },
+        "expiredSpotDialog": {
+            "refresh": "Actualiser",
+            "message": "Votre réservation d'emplacement a expiré, vous pouvez le sélectionner à nouveau ou choisir un autre emplacement.",
+            "title": "Votre réservation d'emplacement a expiré"
+        },
+        "spotSavedFor": "L'emplacement sélectionné est réservé pour : {{countdown}}"
     },
     "clockIn": {
         "clockinDialog": {
@@ -4111,7 +4152,12 @@
                     "select_marketing_actions_helper": "Sélectionnez une ou plusieurs actions à effectuer quand un membre est gagné. Cette option est facultative.",
                     "trigger_timeout_title": "Limite de temps",
                     "trigger_timeout_select_label": "jours maximum dans la cadence",
-                    "trigger_timeout_explain_value_selected": "Si le membre est toujours présent dans la cadence au bout de {{ days }} jours alors il sera automatiquement sorti de celle-ci et considéré comme perdu."
+                    "trigger_timeout_explain_value_selected": "Si le membre est toujours présent dans la cadence au bout de {{ days }} jours alors il sera automatiquement sorti de celle-ci et considéré comme perdu.",
+                    "triggerTimeoutDays": "jour.",
+                    "triggerTimeoutDays_plural": "jours.",
+                    "triggerTimeoutLabel": "Déclencher après",
+                    "selectSmartlist": "Sélectionner une smartlist",
+                    "selectEvent": "Sélectionner un événement"
                 },
                 "exit": {
                     "title": "Sortie",
@@ -4902,7 +4948,8 @@
         },
         "memberTable": {
             "error": "Une erreur est survenue"
-        }
+        },
+        "email": "Email"
     },
     "membership": {
         "selector": {
@@ -10335,6 +10382,9 @@
                         },
                         "compatibility": {
                             "_label": "Gérer les compatibilités"
+                        },
+                        "block": {
+                            "_label": "Bloquer la carte de cours du membre"
                         }
                     }
                 },
@@ -13530,7 +13580,12 @@
             "unavailableSpot": "Place non disponible",
             "unavailablePersonalizedSpot": "{{ spotName }} non disponible",
             "seeAll": "Voir tout",
-            "confirm": "Confirmer"
+            "confirm": "Confirmer",
+            "selectOtherSpot": {
+                "message": "La sélection précédente sera disponible aux autres membres.",
+                "title": "Ou sélectionnez un nouvel emplacement"
+            },
+            "goBackToCheckout": "Retournez au payment"
         }
     },
     "stripe": {
@@ -14772,7 +14827,9 @@
                 "hideBookButton": {
                     "switchLabel": "Cacher le bouton \"{{-bookButtonTranslation}}\"",
                     "dialogDescription": "En cachant le bouton \"{{-bookButtonTranslation}}\", la carte devient cliquable pour réserver la séance."
-                }
+                },
+                "startWeekOnToday": "Démarrez le calendrier de vos membres à la date du jour si l'affichage est en mode carte hebdomadaire",
+                "showPastSessionsCalendar": "Afficher les séances passées sur le calendrier de vos membres"
             },
             "cover": {
                 "label": "Logo",
@@ -15073,7 +15130,8 @@
             "replacement": "Remplacement"
         },
         "replacement": "Remplacement",
-        "inbox": "Boîte de réception"
+        "inbox": "Boîte de réception",
+        "giftcard": "Cartes cadeaux"
     },
     "translation": {
         "activityCreated": "Activité ajoutée",
@@ -16611,14 +16669,22 @@
                 "marketplace_activity_summary": "Detail de l'activité",
                 "marketplace_activity_summary_dialog": "Detail de l'activité (modale)",
                 "marketplace_booking_button": "Bouton de réservation",
-                "marketplace_booking_blocked_reason": "Réservation impossible"
+                "marketplace_booking_blocked_reason": "Réservation impossible",
+                "marketplace_basket_summary_item": "Composant de l'article dans le panier (résumé du panier)",
+                "marketplace_prepaid_line_item": "Object de la liste de la ligne prépayée",
+                "marketplace_prepaid_line_list": "Liste de la ligne prépayée",
+                "marketplace_basket_summary_dialog": "Résumé du panier (pop-up)",
+                "marketplace_basket_summary": "Résumé du panier",
+                "marketplace_basket_summary_list_item": "Composant de la liste des articles du panier (résumé du panier)",
+                "marketplace_item_quantity": "Quantité de l'article dans le panier (Résumé du panier)"
             },
             "page": {
                 "common": "Commun",
                 "workshop": "Atelier",
                 "calendar": "Calendrier",
                 "pass": "Cartes de cours",
-                "subscription": "Abonnements"
+                "subscription": "Abonnements",
+                "basket": "Panier"
             },
             "cssConfig": {
                 "configurationTitle": "Variations",
@@ -16646,7 +16712,13 @@
                     "isOfferFull": "La séance est complète",
                     "isOfferAvailable": "La séance est disponible",
                     "isOfferNotAvailableYet": "La séance n'est pas encore réservable",
-                    "blockedReasonStatus": "Raison du blocage de la réservation"
+                    "blockedReasonStatus": "Raison du blocage de la réservation",
+                    "prepaidLineKind": "Type de ligne prépayée",
+                    "basketIsEmpty": "Panier vide",
+                    "numberOfDistinctCheckoutItem": "Nombre d'articles disctint dans le panier",
+                    "isDense": "Dense",
+                    "isItemEditionDisabled": "Modification des éléments désactivée",
+                    "isAddingItemPossible": "Ajout d'autres éléments activés"
                 },
                 "option": {
                     "true": "Oui",
@@ -16681,7 +16753,13 @@
                     "isWaitingListBlockedByPendingBookings": "Autres réservations en cours",
                     "isWaitingListFull": "Liste d'attente pleine",
                     "isAlreadyInWaitingList": "Déjà sur liste d'attente",
-                    "isWaitingListOpen": "Séance pleine"
+                    "isWaitingListOpen": "Séance pleine",
+                    "defaultPrepaidLine": "Défaut",
+                    "internalAccountPrepaidLine": "Paiement via un compte interne",
+                    "giftcardPrepaidLine": "Paiement par carte cadeau",
+                    "3": "Trois",
+                    "2": "Deux",
+                    "1": "Un"
                 }
             }
         },

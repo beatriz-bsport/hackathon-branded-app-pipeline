@@ -307,22 +307,29 @@ export const PrivateBookingCard = (props: Props) => {
                 )}
               </ListItemSecondaryAction>
             </ListItem>
-            <MemberMinimalListItem
-              bottomCredit
-              createMemberProgram={props.createMemberProgram}
-              fetchPerformanceTrackingData={props.fetchPerformanceTrackingData}
-              firstPrivateBooking={private_booking.first_in_company}
-              member={private_booking.member}
-              onClick={
-                props.goToMember
-                  ? () => props.goToMember(private_booking.member.id)
-                  : null
-              }
-              programDataLoading={props.programDataLoading}
-              programList={props.programList}
-              showVaccinationStatus={props.showVaccinationStatus}
-              updateMemberMetricValue={props.updateMemberMetricValue}
-            />
+            <ObjectLevelPermissionProvider requiredPermission="reservation.privateBooking.allowed_actions.editPerformance">
+              {(hasEditPerformancePermission) => (
+                <MemberMinimalListItem
+                  bottomCredit
+                  createMemberProgram={props.createMemberProgram}
+                  fetchPerformanceTrackingData={
+                    props.fetchPerformanceTrackingData
+                  }
+                  firstPrivateBooking={private_booking.first_in_company}
+                  isPreventUpdateMetricValue={!hasEditPerformancePermission}
+                  member={private_booking.member}
+                  onClick={
+                    props.goToMember
+                      ? () => props.goToMember(private_booking.member.id)
+                      : null
+                  }
+                  programDataLoading={props.programDataLoading}
+                  programList={props.programList}
+                  showVaccinationStatus={props.showVaccinationStatus}
+                  updateMemberMetricValue={props.updateMemberMetricValue}
+                />
+              )}
+            </ObjectLevelPermissionProvider>
             {private_booking.coach && !props.isCoach ? (
               <CoachListItem
                 noEdit

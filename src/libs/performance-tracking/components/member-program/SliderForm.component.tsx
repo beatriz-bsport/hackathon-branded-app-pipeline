@@ -1,34 +1,29 @@
 import React from 'react';
 
-import { PerformanceTrackingMetric } from '#libs/performance-tracking/types';
 import MetricSlider from './MetricSlider.component';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { PerformanceTrackingMetric } from '#libs/performance-tracking/types';
 
-type OwnProps = {
+type Props = {
   value: number;
   metric: PerformanceTrackingMetric;
+  isPreventUpdateMetricValue?: boolean;
   changeMemberMetricValue: (value: number, metric: number) => void;
 };
-type Props = OwnProps;
-export const SliderForm = (props: Props) => {
-  const { value, metric, changeMemberMetricValue } = props;
 
-  return (
-    <>
-      <ObjectLevelPermissionProvider requiredPermission="reservation.privateBooking.allowed_actions.editPerformance">
-        {(hasEditPerformancePermission: boolean) => (
-          <MetricSlider
-            hasEditPerformancePermission={hasEditPerformancePermission}
-            metric={metric}
-            onChange={(val) => {
-              changeMemberMetricValue(val, metric?.id);
-            }}
-            value={value}
-          />
-        )}
-      </ObjectLevelPermissionProvider>
-    </>
-  );
-};
+export const SliderForm: React.FC<Props> = ({
+  value,
+  metric,
+  isPreventUpdateMetricValue,
+  changeMemberMetricValue,
+}) => (
+  <MetricSlider
+    isPreventUpdateMetricValue={isPreventUpdateMetricValue}
+    metric={metric}
+    onChange={(sliderValue) => {
+      changeMemberMetricValue(sliderValue, metric?.id);
+    }}
+    value={value}
+  />
+);
 
-export default SliderForm;
+export default React.memo(SliderForm);

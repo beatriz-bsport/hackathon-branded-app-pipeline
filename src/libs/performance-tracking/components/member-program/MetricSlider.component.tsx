@@ -9,7 +9,7 @@ type Props = {
   value: number;
   onChange: (value: number) => void;
   metric: PerformanceTrackingMetric;
-  hasEditPerformancePermission: boolean;
+  isPreventUpdateMetricValue?: boolean;
 };
 
 type State = {
@@ -42,19 +42,17 @@ export default class MetricSlider extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    const { hasEditPerformancePermission } = this.props;
-    if (!hasEditPerformancePermission) {
-      return;
+    if (!this.props.isPreventUpdateMetricValue) {
+      const box = this.box.current;
+      // on press
+      box.addEventListener('mousedown', this.onMoveStart);
+      box.addEventListener('touchstart', this.onMoveStart);
+      // on move
+      box.addEventListener('mousemove', this.onMove);
+      box.addEventListener('touchmove', this.onMove);
+      // on unpress
+      box.addEventListener('mouseup', this.stopMove);
     }
-    const box = this.box.current;
-    // on press
-    box.addEventListener('mousedown', this.onMoveStart);
-    box.addEventListener('touchstart', this.onMoveStart);
-    // on move
-    box.addEventListener('mousemove', this.onMove);
-    box.addEventListener('touchmove', this.onMove);
-    // on unpress
-    box.addEventListener('mouseup', this.stopMove);
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -238,7 +236,7 @@ export default class MetricSlider extends React.Component<Props, State> {
 
   render() {
     const { angle, value } = this.state;
-    const { metric, hasEditPerformancePermission } = this.props;
+    const { metric, isPreventUpdateMetricValue } = this.props;
 
     const pathD = this.svgGenerateArcPath(
       150,
@@ -310,7 +308,7 @@ export default class MetricSlider extends React.Component<Props, State> {
               <div className="placeholder">{metric?.name}</div>
             </div>
           </div>
-          {hasEditPerformancePermission && (
+          {!isPreventUpdateMetricValue && (
             <>
               <IconButton
                 className="minus"

@@ -28,6 +28,7 @@ type OwnProps = {
   programList: PerformanceTrackingProgram[];
   booking?: Booking;
   memberName?: string;
+  isPreventUpdateMetricValue?: boolean;
   updateMemberMetricValue: (
     data: { memberProgram: number; metric: number; value: number },
     options?: any,
@@ -52,6 +53,7 @@ export const MemberProgramDetailDialog: React.FC<Props> = (props) => {
     booking,
     members,
     memberName,
+    isPreventUpdateMetricValue,
     closeDialog,
     updateMemberMetricValue,
     changeMember,
@@ -112,12 +114,14 @@ export const MemberProgramDetailDialog: React.FC<Props> = (props) => {
                   <MemberProgramDetail
                     withIcon
                     changeMemberMetricValue={(value, metric) =>
+                      !isPreventUpdateMetricValue &&
                       updateMemberMetricValue({
                         memberProgram: memberProgram?.id,
                         metric,
                         value,
                       })
                     }
+                    isPreventUpdateMetricValue={isPreventUpdateMetricValue}
                     memberProgram={memberProgram}
                   />
                 ))}

@@ -297,6 +297,7 @@ type State = {
   warningDialogIsOpen: boolean,
   hasSpiviWarning: boolean,
   hasRollCallWarning: boolean,
+  programDialogBooking: Booking,
 };
 
 const BOOKING_PAGE_SIZE = 7;
@@ -310,6 +311,7 @@ export class MemberDetailBooking extends Component<Props, State> {
     warningDialogIsOpen: false,
     hasSpiviWarning: false,
     hasRollCallWarning: false,
+    programDialogBooking: null,
   };
 
   componentDidMount() {
@@ -555,7 +557,6 @@ export class MemberDetailBooking extends Component<Props, State> {
       this.props.consumerPackLoading ||
       this.props.recurrentBookingLoading ||
       this.props.userFiltersLoading;
-
     return (
       <Grid container direction="row" spacing={3}>
         <Grid
@@ -730,30 +731,49 @@ export class MemberDetailBooking extends Component<Props, State> {
               />
               <Divider />
 
-              <MemberProgramDetailDialog
-                booking={this.props.bookings?.find(
-                  (b) => b?.member === this.props.id,
+              <ObjectLevelPermissionProvider
+                requiredPermission={[
+                  'reservation.activity.allowed_actions.editPerformance',
+                  'reservation.workshop.allowed_actions.editPerformance',
+                ]}
+              >
+                {([
+                  hasActivityEditPerformancePermission,
+                  hasWorkshopEditPerformancePermission,
+                ]) => (
+                  <MemberProgramDetailDialog
+                    booking={this.state.programDialogBooking}
+                    closeDialog={() =>
+                      this.setState({
+                        isMemberProgramDetailDialogOpen: false,
+                      })
+                    }
+                    createMemberProgram={(id) =>
+                      this.props.createMemberProgram({
+                        program: id,
+                        member: this.props.id,
+                      })
+                    }
+                    isPreventUpdateMetricValue={
+                      !getActivityWorkshopPermission(
+                        this.props.getOfferMetaActivity(
+                          this.state.programDialogBooking?.meta_activity,
+                        )?.is_workshop,
+                        hasActivityEditPerformancePermission,
+                        hasWorkshopEditPerformancePermission,
+                      )
+                    }
+                    loading={this.props.programDataLoading}
+                    memberProgramList={this.props.memberProgramIdsList(
+                      this.props.id,
+                    )}
+                    members={[this.props.member]}
+                    open={this.state.isMemberProgramDetailDialogOpen}
+                    programList={this.props.programList}
+                    updateMemberMetricValue={this.props.updateMemberMetricValue}
+                  />
                 )}
-                closeDialog={() =>
-                  this.setState({
-                    isMemberProgramDetailDialogOpen: false,
-                  })
-                }
-                createMemberProgram={(id) =>
-                  this.props.createMemberProgram({
-                    program: id,
-                    member: this.props.id,
-                  })
-                }
-                loading={this.props.programDataLoading}
-                memberProgramList={this.props.memberProgramIdsList(
-                  this.props.id,
-                )}
-                members={[this.props.member]}
-                open={this.state.isMemberProgramDetailDialogOpen}
-                programList={this.props.programList}
-                updateMemberMetricValue={this.props.updateMemberMetricValue}
-              />
+              </ObjectLevelPermissionProvider>
               {!this.props.userFiltersLoading && (
                 <PaginatedListBase
                   additionalFilters={this.props.filters}
@@ -767,36 +787,38 @@ export class MemberDetailBooking extends Component<Props, State> {
                   }
                   page={this.props.bookingCurrentPage}
                   renderCustomPageFirst={!!this.props.bookingId}
-                  renderItem={(b: Booking) => (
+                  renderItem={(booking: Booking) => (
                     <BookingItemForManagerV2
-                      key={b.id}
+                      key={booking.id}
                       button
                       displayNoShowChip
                       showRevertBookingButton
-                      booking={b}
+                      booking={booking}
                       confirmBookingAttendance={() =>
-                        this.props.confirmBookingAttendance(b.id)
+                        this.props.confirmBookingAttendance(booking.id)
                       }
-                      dateRollCallLastModified={b.date_roll_call_last_modified}
+                      dateRollCallLastModified={
+                        booking.date_roll_call_last_modified
+                      }
                       discardBookingAttendance={() =>
-                        this.props.discardBookingAttendance(b.id)
+                        this.props.discardBookingAttendance(booking.id)
                       }
                       getBookingOffer={this.props.getBookingOffer}
                       getOfferMetaActivity={this.props.getOfferMetaActivity}
                       handleRevert={() => {
-                        this.props.fetchOffer(b.offer, {
+                        this.props.fetchOffer(booking.offer, {
                           onSuccess: (offer: Offer) => {
                             if (offer.group) {
                               this.props.fetchGroupOffer(offer.group);
                               this.props.fetchSimilarFuturBookingInGroup(
                                 offer.group,
-                                b.member,
+                                booking.member,
                               );
                             }
                           },
                         });
 
-                        this.setState({ bookingToRevert: b });
+                        this.setState({ bookingToRevert: booking });
                       }}
                       heading="date_start"
                       isRollCallMandatory={
@@ -806,22 +828,25 @@ export class MemberDetailBooking extends Component<Props, State> {
                       noShowChipMessage={this.props.t(
                         'booking:noShowChip.message',
                       )}
-                      onClick={() => this.selectBooking(b)}
+                      onClick={() => this.selectBooking(booking)}
                       onClickChangeSpot={this.onClickChangeSpot}
                       onClickNoShowChip={this.openNoShowChipMessageDialog}
                       onClickWarningIcon={this.openWarningDialog}
                       onProgramDetailsClick={() => {
                         this.props.fetchPerformanceTrackingData(this.props.id);
                         this.setState({
+                          programDialogBooking: booking,
                           isMemberProgramDetailDialogOpen: true,
                         });
                       }}
                       programList={this.props.programList}
                       selected={
                         this.props.selectedBooking &&
-                        this.props.selectedBooking.id === b.id
+                        this.props.selectedBooking.id === booking.id
                       }
-                      spotSchedulingEnabled={typeof b.spot_id === 'number'}
+                      spotSchedulingEnabled={
+                        typeof booking.spot_id === 'number'
+                      }
                     />
                   )}
                 />

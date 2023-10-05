@@ -40,6 +40,7 @@ type Props = {
   firstPrivateBooking: boolean;
   programDataLoading: boolean;
   bottomCredit?: boolean;
+  isPreventUpdateMetricValue?: boolean;
 };
 export const MemberMinimalListItem: React.FC<Props> = ({
   member,
@@ -55,6 +56,7 @@ export const MemberMinimalListItem: React.FC<Props> = ({
   firstPrivateBooking,
   programDataLoading,
   bottomCredit,
+  isPreventUpdateMetricValue,
 }) => {
   const classes = useStyles();
   const [isMemberProgramDetailDialogOpen, setIsMemberProgramDetailDialogOpen] =
@@ -150,6 +152,7 @@ export const MemberMinimalListItem: React.FC<Props> = ({
             member: member.id,
           })
         }
+        isPreventUpdateMetricValue={isPreventUpdateMetricValue}
         loading={programDataLoading}
         memberName={member.name + (firstPrivateBooking ? ' ★' : '')}
         memberProgramList={member.memberProgramList}

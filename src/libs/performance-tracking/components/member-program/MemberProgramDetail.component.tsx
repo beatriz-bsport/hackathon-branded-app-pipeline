@@ -13,11 +13,18 @@ import TypographyMultilineComponent from '#components/typo/TypographyMultiline.c
 type OwnProps = {
   memberProgram: PerformanceTrackingMemberProgram;
   withIcon?: boolean;
+  isPreventUpdateMetricValue?: boolean;
   changeMemberMetricValue: (value: number, metric: number) => void;
 };
 type Props = OwnProps & WithTranslation;
 export const MemberProgramDetail = (props: Props) => {
-  const { t, memberProgram, withIcon, changeMemberMetricValue } = props;
+  const {
+    t,
+    memberProgram,
+    withIcon,
+    isPreventUpdateMetricValue,
+    changeMemberMetricValue,
+  } = props;
   const classes = useStyles({ color: memberProgram?.program?.color });
 
   return (
@@ -56,6 +63,7 @@ export const MemberProgramDetail = (props: Props) => {
               (member_metric) => (
                 <SliderForm
                   changeMemberMetricValue={changeMemberMetricValue}
+                  isPreventUpdateMetricValue={isPreventUpdateMetricValue}
                   metric={member_metric?.metric}
                   value={member_metric?.value}
                 />

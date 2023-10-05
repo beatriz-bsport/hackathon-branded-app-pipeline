@@ -67,6 +67,8 @@ import MemberProgramDetailDialog from '#libs/performance-tracking/components/mem
 import ConfirmationRollCallDialog from '#libs/offer/components/ConfirmationRollCallDialog.component';
 import { InternalPaymentPayload } from '../../libs/payment/types';
 import ObjectLevelPermissionWrapper from '../../libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { getActivityWorkshopPermission } from '../../libs/role/permission-utils/utils';
 
 const RECURRENT_BOOKING_PAGE_SIZE = 10;
 
@@ -326,6 +328,9 @@ export class OfferManagement extends Component<Props, State> {
     if (this.props.offer) {
       this.props.fetchMetaActivityBulk([this.props.offer.meta_activity_id]);
     }
+    if (!this.props.offer && this.props.offerId) {
+      this.fetchOfferAndData();
+    }
     this.props.fetchEstablishmentList();
     this.props.fetchLevelList({
       company: this.props.company_theme.company,
@@ -359,6 +364,12 @@ export class OfferManagement extends Component<Props, State> {
   };
 
   componentDidUpdate(prevProps: Props) {
+    if (
+      this.props.offer &&
+      this.props.offer?.meta_activity_id !== prevProps.offer?.meta_activity_id
+    ) {
+      this.props.fetchMetaActivityBulk([this.props.offer.meta_activity_id]);
+    }
     if (!!this.props.offerId && this.props.offerId !== prevProps.offerId) {
       this.fetchOfferAndData();
     }
@@ -847,22 +858,44 @@ export class OfferManagement extends Component<Props, State> {
           onConfirm={this.postRollCall}
           open={this.state.openConfirmationRollCallDialog}
         />
-        <MemberProgramDetailDialog
-          booking={this.props.bookings?.find(
-            (b) => b?.member === this.state.memberIdFocused,
+
+        <ObjectLevelPermissionProvider
+          requiredPermission={[
+            'reservation.activity.allowed_actions.editPerformance',
+            'reservation.workshop.allowed_actions.editPerformance',
+          ]}
+        >
+          {(
+            hasActivityEditPerformancePermission,
+            hasWorkshopEditPerformancePermission,
+          ) => (
+            <MemberProgramDetailDialog
+              booking={this.props.bookings?.find(
+                (booking) => booking?.member === this.state.memberIdFocused,
+              )}
+              changeMember={this.handleChangeMember}
+              closeDialog={this.closeMemberProgramDetailDialog}
+              createMemberProgram={this.handleCreateMemberProgram}
+              isPreventUpdateMetricValue={
+                !getActivityWorkshopPermission(
+                  this.props.getOfferMetaActivity(
+                    this.props.offer?.meta_activity_id,
+                  ),
+                  hasActivityEditPerformancePermission,
+                  hasWorkshopEditPerformancePermission,
+                )
+              }
+              loading={this.props.programDataLoading}
+              memberProgramList={this.props.memberProgramIdsList(
+                this.state.memberIdFocused,
+              )}
+              members={this.props.members}
+              open={this.state.isMemberProgramDetailDialogOpen}
+              programList={this.props.programList}
+              updateMemberMetricValue={this.props.updateMemberMetricValue}
+            />
           )}
-          changeMember={this.handleChangeMember}
-          closeDialog={this.closeMemberProgramDetailDialog}
-          createMemberProgram={this.handleCreateMemberProgram}
-          loading={this.props.programDataLoading}
-          memberProgramList={this.props.memberProgramIdsList(
-            this.state.memberIdFocused,
-          )}
-          members={this.props.members}
-          open={this.state.isMemberProgramDetailDialogOpen}
-          programList={this.props.programList}
-          updateMemberMetricValue={this.props.updateMemberMetricValue}
-        />
+        </ObjectLevelPermissionProvider>
 
         {!!this.props.offer && this.props.bookerInAvanceDialog && (
           <RecurrenceRuleBookingFormDialog

@@ -25,7 +25,7 @@ import {
   PAYMENT_GROUP_METHOD_BY_ENGINE,
   PAYMENT_INTENT_STATUS_SUCCESS,
 } from '@bsport/common/lib/master-data/payment-group';
-import ALL_ERROR_CODES from '@bsport/common/src/master-data/error-codes/buyable-item-can-not-be-bought';
+import ALL_ERROR_CODES from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
 import { marketplaceCssHoc } from '../../../hocs/marketplace-css.hoc';
 import {
   addItemToBasket as addItemToBasketAction,

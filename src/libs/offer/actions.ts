@@ -3,9 +3,7 @@ import { createAction } from 'redux-actions';
 import uniq from 'lodash/uniq';
 import moment from 'moment-timezone';
 
-// we import from src and not lib bvecause there is some shittery happening that
-// makes the build of the wdget crashing (widget use this file somehow)
-import ALL_ERROR_CODES from '@bsport/common/src/master-data/error-codes/buyable-item-can-not-be-bought';
+import ALL_ERROR_CODES from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
 
 import {
   Dispatch,

@@ -10,7 +10,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import type { Theme } from '@material-ui/core/styles';
 import { compose, withState, withProps, withHandlers } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
-import ALL_ERROR_CODES from '@bsport/common/src/master-data/error-codes/buyable-item-can-not-be-bought';
+import ALL_ERROR_CODES from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
 
 import { withTranslation, WithTranslation } from 'react-i18next';
 import {

@@ -14,7 +14,7 @@ import {
 import {
   OFFER_WAITING_LIST_STATUS_ALREADY_BOOKED,
   OFFER_WAITING_LIST_STATUS_FULL,
-} from '@bsport/common/src/master-data/error-codes/buyable-item-can-not-be-bought';
+} from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
 
 const fakeCompanyTheme = {
   ...themeFactoryBot.companyTheme.createOne(),

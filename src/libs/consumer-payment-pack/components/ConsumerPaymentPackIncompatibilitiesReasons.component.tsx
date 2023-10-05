@@ -4,7 +4,7 @@ import { makeStyles, Typography } from '@material-ui/core';
 import {
   PAYMENT_PACK_INCOMPATIBLE_WITH_META_ACTIVITY,
   PAYMENT_PACK_INCOMPATIBLE_BEFORE_FIRST_ACTION,
-} from '@bsport/common/src/master-data/error-codes/buyable-item-can-not-be-bought';
+} from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import { formatAsDate } from '../../../utils/datetime';

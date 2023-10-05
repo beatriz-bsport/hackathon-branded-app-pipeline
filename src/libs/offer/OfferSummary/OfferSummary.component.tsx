@@ -14,7 +14,7 @@ import Person from '@material-ui/icons/Person';
 
 import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status';
 import { OFFER_WAITING_LIST_STATUS_OPEN } from '@bsport/common/lib/master-data/waiting-list-status';
-import { OFFER_WAITING_LIST_STATUS_FULL } from '@bsport/common/src/master-data/error-codes/buyable-item-can-not-be-bought';
+import { OFFER_WAITING_LIST_STATUS_FULL } from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
 import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 
 import { ImmutableObject } from 'seamless-immutable';

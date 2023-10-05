@@ -16676,7 +16676,8 @@
                 "marketplace_basket_summary_dialog": "Résumé du panier (pop-up)",
                 "marketplace_basket_summary": "Résumé du panier",
                 "marketplace_basket_summary_list_item": "Composant de la liste des articles du panier (résumé du panier)",
-                "marketplace_item_quantity": "Quantité de l'article dans le panier (Résumé du panier)"
+                "marketplace_item_quantity": "Quantité de l'article dans le panier (Résumé du panier)",
+                "booker_module_offer_summary": "Résumé de la séance"
             },
             "page": {
                 "common": "Commun",
@@ -16684,7 +16685,8 @@
                 "calendar": "Calendrier",
                 "pass": "Cartes de cours",
                 "subscription": "Abonnements",
-                "basket": "Panier"
+                "basket": "Panier",
+                "bookingPage": "Réservation"
             },
             "cssConfig": {
                 "configurationTitle": "Variations",
@@ -16715,10 +16717,15 @@
                     "blockedReasonStatus": "Raison du blocage de la réservation",
                     "prepaidLineKind": "Type de ligne prépayée",
                     "basketIsEmpty": "Panier vide",
-                    "numberOfDistinctCheckoutItem": "Nombre d'articles disctint dans le panier",
+                    "numberOfDistinctCheckoutItem": "Nombre d'articles distincts dans le panier",
                     "isDense": "Dense",
                     "isItemEditionDisabled": "Modification des éléments désactivée",
-                    "isAddingItemPossible": "Ajout d'autres éléments activés"
+                    "isAddingItemPossible": "Ajout d'autres éléments activés",
+                    "showEstablishmentAddress": "Afficher l'adresse de l'établissement",
+                    "noStyledContainer": "Montrer la variante sans conteneur",
+                    "showCredit": "Afficher les crédits",
+                    "showPrice": "Afficher le prix",
+                    "showSpot": "Afficher l'emplacement"
                 },
                 "option": {
                     "true": "Oui",

@@ -2963,7 +2963,9 @@
                     "switchLabel": "Ausblenden der Schaltfläche \"{{-bookButtonTranslation}}\"",
                     "dialogDescription": "Wenn Sie die Schaltfläche \"{{-bookButtonTranslation}}\" ausblenden, wird die Karte anklickbar, um die Session zu buchen."
                 },
-                "doubleBookingDisabledWithSpivi": "Die Doppelbuchung ist nicht mit der Spivi-Integration kompatibel"
+                "doubleBookingDisabledWithSpivi": "Die Doppelbuchung ist nicht mit der Spivi-Integration kompatibel",
+                "startWeekOnToday": "Starten Sie den Kalender Ihrer Mitglieder mit dem heutigen Datum, wenn die Anzeige im Wochenansicht-Kartenmodus ist",
+                "showPastSessionsCalendar": "Zeige vergangene Sessions im Kalender Ihrer Mitglieder"
             },
             "submit": "Speichern",
             "instagramURL": {
@@ -8965,8 +8967,25 @@
                 "frequencyGeneric": "der aktuellen Periode.",
                 "addGuest": "Einen Gast hinzufügen",
                 "warningCustomLeveledSession": "Dieser Kurs hat ein personalisiertes Niveau. Stellen Sie sicher, dass die Person, die Sie einladen, über das erwartete Niveau verfügt.",
-                "warningLeveledSession": "Dieser Kurs ist nur für Personen mit dem Niveau : {{level}}. Stellen Sie sicher, dass die Person, die Sie einladen, über das erwartete Niveau verfügt."
-            }
+                "warningLeveledSession": "Dieser Kurs ist nur für Personen mit dem Niveau : {{level}}. Stellen Sie sicher, dass die Person, die Sie einladen, über das erwartete Niveau verfügt.",
+                "bookingStatus": {
+                    "guestNotAllowed": "Die Session ist nicht für Gäste zugänglich",
+                    "4": "Die Session ist nicht mehr buchbar",
+                    "3": "Die Session ist ausgebucht",
+                    "2": "Die Session ist nicht mehr buchbar",
+                    "1": "Die Session ist noch nicht buchbar",
+                    "0": "Laden Sie einen Freund ein"
+                },
+                "addGuestNumberLeftGeneric": "Sie können noch eine wietere Person in diesem Zeitraum einladen.",
+                "addGuestNumberLeftGeneric_plural": "Sie können noch {{count}} weitere Personen in diesem Zeitraum einladen.",
+                "addGuestNumberLeftYear": "Sie können noch eine weitere Person dieses Jahr einladen.",
+                "addGuestNumberLeftYear_plural": "Sie können noch {{count}} weitere Personen dieses Jahr einladen.",
+                "addGuestNumberLeftMonth": "Sie können noch eine weitere Person diesen Monat einladen.",
+                "addGuestNumberLeftMonth_plural": "Sie können noch {{count}} weitere Personen diesen Monat einladen.",
+                "addGuestNumberLeftWeek": "Sie können noch eine weitere Person diese Woche einladen.",
+                "addGuestNumberLeftWeek_plural": "Sie können noch {{count}} weitere Personen diese Woche einladen."
+            },
+            "bookingFor": "Buchung für"
         },
         "placeNumber": "Ort {{count}}",
         "noSpotAttributed": "Kein Platz zugewiesen",
@@ -8993,6 +9012,22 @@
                 },
                 "email": {
                     "label": "Email"
+                },
+                "errors": {
+                    "email": "Bitte fügen Sie eine gültige E-Mail-Adresse ein",
+                    "requiredField": "Bitte füllen Sie dieses Feld aus"
+                },
+                "dialog": {
+                    "emailWarning": {
+                        "actions": {
+                            "saveAndContinue": "Speichern und fortfahren",
+                            "continueWithoutEmail": "Ohne E-Mail fortfahren"
+                        },
+                        "description": "Sie haben keine E-Mail für Ihren Gast angegeben. Aus diesem Grund wird er keine Informationen bezüglich dieser Session erhalten. Sind Sie sich sicher?",
+                        "title": "Keine E-Mail angegeben"
+                    },
+                    "description": "Bringen Sie einen Freund oder Partner mit, um das Erlebnis zu teilen? Geben Sie einfach den Namen und die E-Mail-Adresse Ihres Gastes an und wir werden dafür sorgen, dass er alle notwendigen Informationen erhält.",
+                    "title": "Laden Sie einen Gast ein"
                 }
             }
         },
@@ -12495,7 +12530,8 @@
             "replacement": "Vertretung"
         },
         "replacement": "Vertretung",
-        "inbox": "Posteingang"
+        "inbox": "Posteingang",
+        "giftcard": "Geschenkkarte"
     },
     "stripe": {
         "decline_code": {
@@ -14854,15 +14890,15 @@
         "or": "oder",
         "validation": {
             "sections": {
-                "offerPreBooked": "Aufnahme in die Warteliste",
+                "offerPreBooked": "Aufnahme in die Warteliste für",
                 "title": "Herzlichen Glückwunsch!",
                 "basket": "Mein Warenkorb",
-                "offerBooked": "Meine Session",
-                "offerBooked_plural": "Meine Sessions",
-                "offerNotBookable": "Keine Registrierung",
+                "offerBooked": "Meine Buchung",
+                "offerBooked_plural": "Meine Buchungen",
+                "offerNotBookable": "Keine Registrierung möglich",
                 "errorExplain": {
                     "generic": "Die Operation konnte nicht durchgeführt werden. Wir bitten Sie, es noch einmal zu versuchen.",
-                    "guestGeneric": "Es ist ein Problem mit der Buchung für einen Gast aufgetreten.",
+                    "guestGeneric": "Es ist ein Problem mit der Reservierung für einen Gast aufgetreten.",
                     "guestOvercomeLimit": "Die Anzahl der für diese Buchung hinzugefügten Gäste überschreitet die zulässige Anzahl.",
                     "guestOffer": "Das Studio hat die Buchungsfunktion für einen Gast für diese Session deaktiviert.",
                     "guestPass": "Das Studio hat die Buchungsfunktion für einen Gast für dieser Kurspass deaktiviert.",
@@ -14890,13 +14926,15 @@
                     "paymentSuccess": "Herzlichen Glückwunsch! Ihr Kauf wurde bestätigt!",
                     "paymentSuccess_plural": "Herzlichen Glückwunsch! Ihre Einkäufe wurden bestätigt!",
                     "offerOnlySuccess": "Die Buchung wurde erfolgreich durchgeführt. Sie erhalten in Kürze eine Bestätigungs-E-Mail mit allen Details.",
-                    "offerOnlySuccess_plural": "Die Buchungen wurden erfolgreich durchgeführt. Sie erhalten in Kürze eine Bestätigungs-E-Mail mit allen Details."
+                    "offerOnlySuccess_plural": "Die Buchungen wurden erfolgreich durchgeführt. Sie erhalten in Kürze eine Bestätigungs-E-Mail mit allen Details.",
+                    "offerOnlyGuestSuccess": "Die Buchung wurde abgeschlossen. Sie und Ihr Gast werden in Kürze eine Bestätigungsmail mit allen Details erhalten."
                 },
                 "confirmationStatusTitle": {
                     "success": {
                         "waitingList": "Sie haben sich auf die Warteliste gesetzt",
                         "paymentSuccess": "Zahlung bestätigt!",
-                        "offerOnlySuccess": "Viel Spaß bei der Session!"
+                        "offerOnlySuccess": "Viel Spaß bei der Session!",
+                        "offerOnlyGuestSuccess": "Genießen Sie die Session mit Ihrem Gast!"
                     },
                     "errors": {
                         "genericOfferError": "Hoppla! Die Buchung ist fehlgeschlagen.",
@@ -14972,7 +15010,13 @@
             "deliveryFee": "Versandkosten",
             "title": "Bezahlung",
             "flatFeeSubscription": "Anmeldegebühren"
-        }
+        },
+        "expiredSpotDialog": {
+            "refresh": "Aktualisieren",
+            "message": "Ihre Platzreservierung ist abgelaufen. Sie können sie erneut auswählen oder sich für eine neue entscheiden.",
+            "title": "Ihre Platzreservierung ist abgelaufen"
+        },
+        "spotSavedFor": "Der ausgewählte Platz wird für {{countdown}} reserviert."
     },
     "tag": {
         "filter": {
@@ -15364,14 +15408,23 @@
                 "marketplace_offer_list_item": "Sessiondetails (Listenansicht)",
                 "marketplace_select": "Selektor (einzeln)",
                 "marketplace_filter": "Mehrfachauswahl",
-                "marketplace_search": "Suchfilter"
+                "marketplace_search": "Suchfilter",
+                "marketplace_prepaid_line_list": "Liste der Prepaid-Leitung",
+                "marketplace_prepaid_line_item": "Listenobjekt der Prepaid-Leitung",
+                "marketplace_basket_summary_dialog": "Warenkorbübersicht (pop-up)",
+                "marketplace_basket_summary": "Warenkorbübersicht",
+                "marketplace_item_quantity": "Menge des Artikels im Warenkorb (Warenkorbübersicht)",
+                "marketplace_basket_summary_item": "Komponente des Artikels im Warenkorb (Warenkorbübersicht)",
+                "marketplace_basket_summary_list_item": "Bestandteil der Liste der Artikel im Warenkorb (Warenkorbübersicht)",
+                "booker_module_offer_summary": "Session-Zusammenfassung"
             },
             "page": {
                 "calendar": "Kalender",
                 "workshop": "Workshop",
                 "subscription": "Abonnements",
                 "pass": "Kurspass",
-                "common": "Gemeinsam"
+                "common": "Gemeinsam",
+                "bookingPage": "Buchung"
             },
             "cssConfig": {
                 "configurationTitle": "Variationen",
@@ -15399,7 +15452,18 @@
                     "isOfferAvailable": "Die Session ist verfügbar",
                     "isOfferFull": "Die Session ist voll",
                     "isOfferInThePast": "Die Session ist vorbei",
-                    "isHidden": "Versteckt"
+                    "isHidden": "Versteckt",
+                    "showEstablishmentAddress": "Adresse der Einrichtung anzeigen",
+                    "noStyledContainer": "Variante ohne Container anzeigen",
+                    "showCredit": "Credits anzeigen",
+                    "showPrice": "Preis anzeigen",
+                    "showSpot": "Platz anzeigen",
+                    "prepaidLineKind": "Art der Prepaid-Leitung",
+                    "basketIsEmpty": "Der Warenkorb ist leer",
+                    "numberOfDistinctCheckoutItem": "Anzahl der verschiedenen Produkte im Warenkorb",
+                    "isDense": "Dicht",
+                    "isItemEditionDisabled": "Ändern von Elementen deaktiviert",
+                    "isAddingItemPossible": "Hinzufügen weiterer Elemente aktiviert"
                 },
                 "option": {
                     "activityName": "Aktivität",
@@ -15434,7 +15498,13 @@
                     "isAlreadyRegistered": "Session bereits gebucht",
                     "blockedByTags": "Unzureichende Rechte",
                     "desktop": "Großer Bildschirm",
-                    "mobile": "Kleiner Bildschirm"
+                    "mobile": "Kleiner Bildschirm",
+                    "defaultPrepaidLine": "Standard",
+                    "internalAccountPrepaidLine": "Mit internem Konto bezahlen",
+                    "giftcardPrepaidLine": "Mit Geschenkkarte bezahlen",
+                    "3": "Drei",
+                    "2": "Zwei",
+                    "1": "Eins"
                 }
             }
         },
@@ -15801,7 +15871,12 @@
                     "trigger_event_kind_label": "Ein Ereignis",
                     "and_rule_between_triggers": "Und",
                     "trigger_timeout_select_label": "Tage maximal in der Liste",
-                    "event_or_smartlist_helper": "Die Mitglieder müssen zum Ereignis passen oder Teil der Smartlist sein, um in die Kadenz zu passen"
+                    "event_or_smartlist_helper": "Die Mitglieder müssen zum Ereignis passen oder Teil der Smartlist sein, um in die Kadenz zu passen",
+                    "triggerTimeoutDays": "Tag.",
+                    "triggerTimeoutDays_plural": "Tagen.",
+                    "triggerTimeoutLabel": "Auslösen nach",
+                    "selectSmartlist": "Eine Smartlist auswählen",
+                    "selectEvent": "Ein Event auswählen"
                 },
                 "marketing_action": {
                     "select_tag": "Tag wählen",
@@ -16013,7 +16088,7 @@
                 },
                 "entryTrigger": {
                     "title": "Eingang",
-                    "addTrigger": "Hinzufügen eines Eingabeauslösers",
+                    "addTrigger": "Einen Eingangs-Trigger hinzufügen",
                     "helperText": "Bitte legen Sie fest, wann und wer in diesen Rhythmus mit den ausgewählten Kriterien und Auslösern eintritt."
                 },
                 "step": {
@@ -16153,7 +16228,12 @@
             "unavailableSpot": "Platz nicht verfügbar",
             "unavailablePersonalizedSpot": "{{ spotName }} nicht verfügbar",
             "seeAll": "Alle sehen",
-            "confirm": "Bestätigen"
+            "confirm": "Bestätigen",
+            "selectOtherSpot": {
+                "message": "Die vorherige Platzwahl wird für andere verfügbar.",
+                "title": "Oder einen neuen Platz auswählen"
+            },
+            "goBackToCheckout": "Zum Checkout zurückkehren"
         }
     },
     "franchise": {

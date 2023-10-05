@@ -5966,7 +5966,9 @@
         "membershipNumber": {
             "label": "Numéro de membership",
             "value": "Número {{id}}"
-        }
+        },
+        "signedUpWithReferral": "Miembro registrado con el enlace de referencia de <1>{{ name }}</1>",
+        "email": "Email"
     },
     "booking": {
         "details": {
@@ -6321,8 +6323,25 @@
                 "frequencyMonthly": "este mes.",
                 "frequencyYearly": "el año en curso.",
                 "frequencyGeneric": "el período actual.",
-                "warningCustomLeveledSession": "Esta sesión tiene un nivel personalizado. Asegúrate de que la persona que invitas tiene el nivel esperado."
-            }
+                "warningCustomLeveledSession": "Esta sesión tiene un nivel personalizado. Asegúrate de que la persona que invitas tiene el nivel esperado.",
+                "bookingStatus": {
+                    "guestNotAllowed": "La sesión no está abierta a invitados",
+                    "4": "La sesión no admite reservas",
+                    "3": "La sesión está completa",
+                    "2": "La sesión no admite reservas",
+                    "1": "La sesión aún no está abierta a reservas",
+                    "0": "Invitar a un amigo"
+                },
+                "addGuestNumberLeftGeneric": "Puedes invitar a 1 persona más este periodo.",
+                "addGuestNumberLeftGeneric_plural": "Aún puedes invitar a {{count}} personas este periodo.",
+                "addGuestNumberLeftYear": "Puedes invitar a 1 persona más este año.",
+                "addGuestNumberLeftYear_plural": "Aún puedes invitar a {{count}} personas este año.",
+                "addGuestNumberLeftMonth": "Puedes invitar a 1 persona más este mes.",
+                "addGuestNumberLeftMonth_plural": "Aún puedes invitar a {{count}} personas este mes.",
+                "addGuestNumberLeftWeek": "Puedes invitar a 1 persona más esta semana.",
+                "addGuestNumberLeftWeek_plural": "Aún puedes invitar a {{count}} personas esta semana."
+            },
+            "bookingFor": "Reserva para"
         },
         "placeNumber": "Sitios {{count}}",
         "noSpotAttributed": "No hay lugar asignado",
@@ -6348,6 +6367,22 @@
                 },
                 "email": {
                     "label": "Correo electrónico"
+                },
+                "errors": {
+                    "email": "Introduzca una dirección de correo electrónico válida",
+                    "requiredField": "Rellene este campo"
+                },
+                "dialog": {
+                    "emailWarning": {
+                        "actions": {
+                            "saveAndContinue": "Guardar y continuar",
+                            "continueWithoutEmail": "Continuar sin correo electrónico"
+                        },
+                        "description": "No ha proporcionado una dirección de correo electrónico para su invitado. Por lo tanto, no recibirá información sobre esta sesión. ¿Está usted seguro?",
+                        "title": "No se ha introducido correo electrónico"
+                    },
+                    "description": "¿Trae a un amigo o acompañante para compartir la experiencia? Sólo tiene que indicar el nombre y la dirección de correo electrónico de su invitado, y nos aseguraremos de que reciba toda la información necesaria.",
+                    "title": "Invitar a un invitado"
                 }
             }
         },
@@ -9341,7 +9376,9 @@
                     "switchLabel": "Ocultar el botón \"{{-bookButtonTranslation}}",
                     "dialogDescription": "Al ocultar el botón \"{{-bookButtonTranslation}}\", puede hacer clic en el pase para reservar la sesión."
                 },
-                "doubleBookingDisabledWithSpivi": "Doble reserva no compatible con la integración de Spivi"
+                "doubleBookingDisabledWithSpivi": "Doble reserva no compatible con la integración de Spivi",
+                "startWeekOnToday": "Inicie la agenda de sus socios en la fecha de hoy si la pantalla está en modo tarjeta vista semana",
+                "showPastSessionsCalendar": "Mostrar sesiones pasadas en el calendario de sus miembros"
             },
             "submit": "Guardar",
             "instagramURL": {
@@ -9765,6 +9802,9 @@
                     },
                     "quicksale": {
                         "_label": "Interfaz de venta rápida"
+                    },
+                    "referral": {
+                        "_label": "Programa de referencia"
                     }
                 },
                 "reporting": {
@@ -10022,6 +10062,9 @@
                         },
                         "delete": {
                             "_label": "Suprimir"
+                        },
+                        "block": {
+                            "_label": "Bloquear el pase de un miembro"
                         }
                     },
                     "_label": "Bonos"
@@ -11399,13 +11442,15 @@
                     "paymentSuccess": "¡Enhorabuena! Su compra ha sido confirmada.",
                     "paymentSuccess_plural": "¡Enhorabuena! Sus compras están confirmadas.",
                     "offerOnlySuccess": "La reserva se ha efectuada. En breve recibirá un correo electrónico de confirmación con todos los detalles.",
-                    "offerOnlySuccess_plural": "Las reservas se han efectuado. En breve recibirá un correo electrónico de confirmación con todos los detalles."
+                    "offerOnlySuccess_plural": "Las reservas se han efectuado. En breve recibirá un correo electrónico de confirmación con todos los detalles.",
+                    "offerOnlyGuestSuccess": "La reserva ha sido efectuada. Usted y su invitado recibirán en breve un correo electrónico de confirmación con todos los detalles."
                 },
                 "confirmationStatusTitle": {
                     "success": {
                         "waitingList": "Se ha registrado en la lista de espera",
                         "paymentSuccess": "¡Pago confirmado!",
-                        "offerOnlySuccess": "¡Disfrute de la sesión!"
+                        "offerOnlySuccess": "¡Disfrute de la sesión!",
+                        "offerOnlyGuestSuccess": "¡Disfrute de la sesión con su invitado!"
                     },
                     "errors": {
                         "genericOfferError": "¡Ups! La reserva ha fallado.",
@@ -11481,7 +11526,13 @@
             "deliveryFee": "Gastos de envío",
             "title": "Pago",
             "flatFeeSubscription": "Tasa de matriculación"
-        }
+        },
+        "expiredSpotDialog": {
+            "refresh": "Actualizar",
+            "message": "Su reserva de plaza ha caducado, puede seleccionarla de nuevo o elegir otra.",
+            "title": "Su reserva de plaza ha caducado"
+        },
+        "spotSavedFor": "El lugar seleccionado se guarda por: {{countdown}}"
     },
     "waitingList": {
         "dialog": {
@@ -13882,7 +13933,8 @@
                 "quickbooks": "QuickBooks",
                 "mobilePersonalization": "Personalización de la app",
                 "coachUserspace": "Área de profesores",
-                "quicksale": "Interfaz de ventas"
+                "quicksale": "Interfaz de ventas",
+                "referral": "Referencia"
             },
             "pass": "Bono",
             "goBack": "Volver",
@@ -15259,7 +15311,8 @@
             "replacement": "Sustitución"
         },
         "replacement": "Sustitución",
-        "inbox": "Bandeja de entrada"
+        "inbox": "Bandeja de entrada",
+        "giftcard": "Tarjetas regalo"
     },
     "widget": {
         "widget": {
@@ -15381,7 +15434,13 @@
                     "isWaitingListBlockedByPendingBookings": "Otras reservas hechas",
                     "isWaitingListFull": "La lista de espera está llena",
                     "isAlreadyInWaitingList": "Ya en lista de espera",
-                    "isWaitingListOpen": "Sesión llena"
+                    "isWaitingListOpen": "Sesión llena",
+                    "defaultPrepaidLine": "Por defecto",
+                    "internalAccountPrepaidLine": "Pago mediante cuenta interna",
+                    "giftcardPrepaidLine": "Pago mediante tarjeta regalo",
+                    "3": "Tres",
+                    "2": "Dos",
+                    "1": "Uno"
                 },
                 "title": {
                     "nextOffer": "Próxima sesión disponible",
@@ -15407,7 +15466,18 @@
                     "isOfferAvailable": "La sesión está disponible",
                     "isOfferNotAvailableYet": "La sesión ya no se puede reservar",
                     "blockedReasonStatus": "Motivo para bloquear la reserva",
-                    "isOfferFull": "La sesión está llena"
+                    "isOfferFull": "La sesión está llena",
+                    "showEstablishmentAddress": "Mostrar la dirección del establecimiento",
+                    "noStyledContainer": "Mostrar la variante sin contenedor",
+                    "showCredit": "Mostrar los créditos",
+                    "showPrice": "Mostrar el precio",
+                    "showSpot": "Mostrar el lugar",
+                    "prepaidLineKind": "Tipo de línea de prepago",
+                    "basketIsEmpty": "La cesta está vacía",
+                    "numberOfDistinctCheckoutItem": "Número de productos distintos en la cesta",
+                    "isDense": "Denso",
+                    "isItemEditionDisabled": "Modificación de elementos desactivada",
+                    "isAddingItemPossible": "Añadir más elementos activados"
                 },
                 "configurationTitle": "Variaciones"
             },
@@ -15416,7 +15486,8 @@
                 "workshop": "Taller",
                 "subscription": "Suscripciones",
                 "pass": "Bonos",
-                "common": "Común"
+                "common": "Común",
+                "bookingPage": "Reserva"
             },
             "components": {
                 "calendar": "Página del calendario",
@@ -15483,7 +15554,15 @@
                 "marketplace_activity_summary": "Detalles de actividad",
                 "marketplace_activity_summary_dialog": "Detalles de actividad (pop-up)",
                 "marketplace_booking_button": "Botón de reserva",
-                "marketplace_booking_blocked_reason": "Reserva imposible"
+                "marketplace_booking_blocked_reason": "Reserva imposible",
+                "marketplace_prepaid_line_list": "Lista de líneas de prepago",
+                "marketplace_prepaid_line_item": "Lista de artículos prepagados",
+                "marketplace_basket_summary_dialog": "Resumen de la cesta (ventana emergente)",
+                "marketplace_basket_summary": "Resumen de la cesta",
+                "marketplace_basket_summary_list_item": "Componente de la lista de artículos de la cesta (Resumen de la cesta)",
+                "marketplace_basket_summary_item": "Componente del artículo de la cesta (Resumen de la cesta)",
+                "marketplace_item_quantity": "Cantidad de artículos de la cesta (resumen de la cesta)",
+                "booker_module_offer_summary": "Resumen de la sesión"
             },
             "customCss": {
                 "yourCode": "Su implementación complementaria:",
@@ -15980,7 +16059,12 @@
                         "cadence": "Defina aquí los desencadenantes de ingreso a la cadencia. Los miembros habrán de corresponder a los criterios indicados a continuación para ingresar la secuencia marketing."
                     },
                     "title": "Desencadenantes",
-                    "event_or_smartlist_helper": "Los miembros tendrán que coincidir con el evento o formar parte de la smartlist para incluirse en la cadencia"
+                    "event_or_smartlist_helper": "Los miembros tendrán que coincidir con el evento o formar parte de la smartlist para incluirse en la cadencia",
+                    "triggerTimeoutDays": "día",
+                    "triggerTimeoutDays_plural": "días",
+                    "triggerTimeoutLabel": "Activar después de",
+                    "selectSmartlist": "Seleccione una smartlist",
+                    "selectEvent": "Seleccione un evento"
                 },
                 "previous": "Anterior",
                 "next": "Siguiente",
@@ -16147,7 +16231,7 @@
                 "entryTrigger": {
                     "helperText": "Defina cuándo y quién entrará en esta cadencia con los criterios y desencadenantes seleccionados.",
                     "title": "Entrada",
-                    "addTrigger": "Añadir un desencadenador de entrada"
+                    "addTrigger": "Añadir un activador de entrada"
                 },
                 "cancel": "Cancelar",
                 "confirm": "Guardar",
@@ -16293,7 +16377,12 @@
             "unavailableSpot": "Sitio no disponible",
             "unavailablePersonalizedSpot": "{{ spotName }} no disponible",
             "seeAll": "Ver todo",
-            "confirm": "Confirmar"
+            "confirm": "Confirmar",
+            "selectOtherSpot": {
+                "message": "La selección previa estará disponible para los demás.",
+                "title": "O seleccione un nuevo lugar"
+            },
+            "goBackToCheckout": "Volver a la caja"
         }
     },
     "franchise": {
@@ -17620,6 +17709,104 @@
                 "identify": "Identificar"
             },
             "clientDebt": "Saldo de la cuenta cliente"
+        }
+    },
+    "referral": {
+        "conditions": {
+            "description": {
+                "warning": "Nota: el programa de recomendación sólo se aplica a los nuevos miembros del estudio o franquicia.",
+                "reward2": "La recompensa se aplicará automáticamente a las próximas cestas del afiliado que la recomiende: no hay condiciones de tiempo ni de importe para su aplicación. También puede aplicarse en varios plazos si el importe de la cesta es inferior a la recompensa.",
+                "reward1": "Si la primera compra (excluidas las suscripciones) se realiza de acuerdo con los términos y condiciones descritos, el miembro recomendado será <1>recompensado con una suma de {{ referringReward }}</1>. Esto podrá obtenerse por cada miembro referido hasta un límite de {{ maxReferralUses }} veces.",
+                "applicationTimeLimit": {
+                    "units": {
+                        "months": "mes",
+                        "months_plural": "meses",
+                        "weeks": "semana",
+                        "weeks_plural": "semanas",
+                        "days": "día",
+                        "days_plural": "días"
+                    }
+                },
+                "signUp": {
+                    "noReduction": "Al utilizar el enlace compartido, el nuevo miembro accederá al formulario de registro para crear una cuenta. Una vez hecho esto, el miembro referido deberá completar su primera cesta de acuerdo con las siguientes condiciones:<1><0>El importe de la cesta es superior a {{ minBasketAmount }}</0><0>Se realiza dentro de {{ applicationTimeLimitIntervals }} {{ applicationTimeLimitUnit }} {{ applicationTimeLimitUnit }} después de que el miembro referido se haya registrado</0></1>.",
+                    "reduction": "Al utilizar el enlace compartido, el nuevo miembro accederá al formulario de registro para crear una cuenta. Una vez hecho esto, el miembro referido podrá <1>beneficiarse de un descuento de {{ referredReduction }}</1> en su primera cesta si cumple las siguientes condiciones:<3><0>El importe de la cesta es superior a {{ minBasketAmount }}</0><0>Se realiza dentro de los {{ applicationTimeLimitIntervals }} {{ applicationTimeLimitUnit }} {{ applicationTimeLimitUnit }} después de que el miembro referido se haya registrado</0></3>"
+                },
+                "maxUses": "Cada miembro dispone de un enlace de recomendación personal que puede compartir para obtener una recompensa. Se puede obtener un <1>número máximo de {{ maxReferralUses }} veces</1>."
+            },
+            "title": "Condiciones de uso del enlace de referencia"
+        },
+        "memberInfo": {
+            "warningMaxUsesReached": "Ha alcanzado el número máximo de usos de su enlace de referencia",
+            "seeConditions": "Ver condiciones",
+            "copyLink": "Copie mi enlace de referencia",
+            "forYourFriend": "para su amigo",
+            "forYou": "para ti",
+            "inviteFriend": "Invita a un amigo a inscribirse",
+            "nbRemainingUses": "Número de usos restantes",
+            "referralLink": "Enlace  de referencia"
+        },
+        "form": {
+            "submit": "Guardar",
+            "errors": {
+                "required": "Este campo es obligatorio",
+                "url": "Por favor, introduzca una URL válida",
+                "rewardReferring": "La recompensa debe ser superior a 0",
+                "timeLimit": "La demora debe ser superior a 1",
+                "referredAmount": "El descuento debe ser superior a 0",
+                "maximumUses": "El número máximo de usos debe ser superior a 1",
+                "minimumAmount": "El importe mínimo debe ser superior a 0"
+            },
+            "warnings": {
+                "rewardReferring": "Al elegir este valor, no se concederá ninguna recompensa al miembro referente",
+                "referredAmount": "Al elegir este valor, no se aplicará ningún descuento a la compra del miembro referido"
+            },
+            "redirectLink": {
+                "placeholder": "URL de redireccionamiento",
+                "description": "Después de registrarse, el nuevo miembro será redirigido a la página indicada por su URL. Si deja la casilla vacía, será redirigido a la página de compra de pases.",
+                "title": "Enlace de redireccionamiento"
+            },
+            "tag": {
+                "description": "Un nuevo miembro que utilice el enlace de recomendación será etiquetado",
+                "title": "Etiqueta"
+            },
+            "rewardReferring": {
+                "label": "Importe de la recompensa",
+                "title": "Recompensa para el miembro referente"
+            },
+            "applicationTimeLimit": {
+                "units": {
+                    "month": "Mes",
+                    "month_plural": "Meses",
+                    "week": "Semana",
+                    "week_plural": "Semanas",
+                    "day": "Día",
+                    "day_plural": "Días"
+                },
+                "title": "Plazo para aplicar el descuento tras la inscripción"
+            },
+            "amountOffReferred": {
+                "amount": {
+                    "fieldLabel": "Cantidad",
+                    "title": "Cantidad"
+                },
+                "percent": {
+                    "fieldLabel": "Porcentaje",
+                    "title": "Porcentaje"
+                },
+                "title": "Descuento para el miembro recomendado"
+            },
+            "maximumUses": {
+                "label": "Número máximo de usos"
+            },
+            "minimumBasketAmount": {
+                "description": "Este valor se refiere al precio total de la cesta",
+                "label": "Valor mínimo de la cesta del cliente"
+            },
+            "activateReferral": {
+                "description": "Cada miembro puede compartir este enlace de recomendación con los no miembros. Al utilizarlo, se ofrece un descuento automático al nuevo miembro, así como una recompensa para el miembro que compartió el enlace.",
+                "label": "Activar enlace de referencia"
+            },
+            "title": "Referencia"
         }
     }
 }

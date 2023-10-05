@@ -12465,7 +12465,9 @@
                     "switchLabel": "Verberg de knop \"{{-bookButtonTranslation}}\"",
                     "dialogDescription": "Door de \"{{-bookButtonTranslation}}\" knop te verbergen, wordt de kaart klikbaar om de sessie te boeken."
                 },
-                "doubleBookingDisabledWithSpivi": "Dubbele reserveringen zijn niet mogelijk met de Spivi-integratie."
+                "doubleBookingDisabledWithSpivi": "Dubbele reserveringen zijn niet mogelijk met de Spivi-integratie.",
+                "startWeekOnToday": "Start de kalender van uw leden op de datum van vandaag als het scherm in de kaartmodus voor weekweergave staat.",
+                "showPastSessionsCalendar": "Toon sessies uit het verleden op de kalender van je leden"
             },
             "gtmId": {
                 "placeholder": "GTM-XXXXXX",
@@ -13706,6 +13708,9 @@
                     },
                     "quicksale": {
                         "_label": "Snelle verkoopinterface"
+                    },
+                    "referral": {
+                        "_label": "Verwijzingsprogramma"
                     }
                 },
                 "reporting": {
@@ -14088,6 +14093,9 @@
                         },
                         "manageCredit": {
                             "_label": "Creditbeheer van leden"
+                        },
+                        "block": {
+                            "_label": "De pas van een lid blokkeren"
                         }
                     },
                     "_label": "Leskaarten"
@@ -16312,7 +16320,12 @@
             "unavailableSpot": "Ruimte niet beschikbaar",
             "unavailablePersonalizedSpot": "{{ spotName }} niet beschikbaar",
             "seeAll": "Bekijk alle",
-            "confirm": "Bevestig"
+            "confirm": "Bevestig",
+            "selectOtherSpot": {
+                "message": "Eerdere selecties komen beschikbaar voor anderen.",
+                "title": "Of selecteer een nieuwe plek"
+            },
+            "goBackToCheckout": "Ga terug naar de kassa"
         }
     },
     "franchise": {
@@ -17682,7 +17695,10 @@
                 "timeLimit": "De vertraging moet groter zijn dan 1",
                 "referredAmount": "De korting moet hoger zijn dan 0",
                 "maximumUses": "Het maximale aantal toepassingen moet hoger zijn dan 1",
-                "minimumAmount": "Het minimumbedrag moet hoger zijn dan 0"
+                "minimumAmount": "Het minimumbedrag moet hoger zijn dan 0",
+                "required": "Dit veld is verplicht",
+                "url": "Voer een geldige URL in",
+                "rewardReferring": "De beloning moet hoger zijn dan 0"
             },
             "warnings": {
                 "rewardReferring": "Door deze waarde te kiezen, zal er geen beloning worden toegekend aan het verwijzende lid",
@@ -17699,7 +17715,41 @@
                 "description": "Deze waarde verwijst naar de totale prijs van het mandje",
                 "label": "Minimumwaarde van klantmandje"
             },
-            "title": "Verwijzing"
+            "title": "Verwijzing",
+            "submit": "Opslaan"
+        },
+        "conditions": {
+            "description": {
+                "warning": "Let op: het doorverwijzingsprogramma geldt alleen voor nieuwe leden van de studio of franchise.",
+                "reward2": "De beloning wordt automatisch toegepast op de volgende mandjes van het verwijzende lid: er zijn geen voorwaarden wat betreft tijd of bedrag. Het kan ook in verschillende termijnen worden toegepast als het bedrag van het mandje lager is dan de beloning.",
+                "reward1": "Als de eerste aankoop (met uitzondering van abonnementen) wordt gedaan in overeenstemming met de beschreven voorwaarden, wordt het verwijzende lid <1>beloond met een bedrag van {{ referringReward }}</1>. Dit kan worden verkregen voor elk verwezen lid tot een limiet van {{ maxReferralUses }} keer.",
+                "applicationTimeLimit": {
+                    "units": {
+                        "months": "maand",
+                        "months_plural": "maanden",
+                        "weeks": "week",
+                        "weeks_plural": "weken",
+                        "days": "dag",
+                        "days_plural": "dagen"
+                    }
+                },
+                "signUp": {
+                    "noReduction": "Via de gedeelde link gaat het nieuwe lid naar het registratieformulier waarmee het een account kan aanmaken. Nadat dit is gebeurd, moet het doorverwezen lid zijn eerste winkelwagen voltooien in overeenstemming met de volgende voorwaarden:<1><0>Het bedrag van de winkelwagen is groter dan {{ minBasketAmount }}</0><0>Het is uitgevoerd binnen {{ applicationTimeLimitIntervals }} {{ applicationTimeLimitUnit }} nadat het verwezen lid zich heeft geregistreerd</0></1>",
+                    "reduction": "Als je de gedeelde link gebruikt, gaat het nieuwe lid naar het registratieformulier waarmee hij/zij een account kan aanmaken. Zodra dit is gebeurd, kan het verwezen lid <1>profiteren van een korting van {{ referredReduction }}</1> op zijn eerste winkelwagen als deze voldoet aan de volgende voorwaarden:<3><0>Het bedrag van de winkelwagen is groter dan {{ minBasketAmount }}</0><0>Het is uitgevoerd binnen {{ applicationTimeLimitIntervals }} {{ applicationTimeLimitUnit }} nadat het verwezen lid zich heeft geregistreerd</0></3>. {{ applicationTimeLimitUnit }} nadat het verwezen lid zich heeft geregistreerd</0></3>"
+                },
+                "maxUses": "Elk lid heeft een persoonlijke doorverwijslink die gedeeld kan worden om een beloning te krijgen. Deze kan een <1>maximaal aantal {{ maxReferralUses }} keer</1> worden verkregen."
+            },
+            "title": "Gebruiksvoorwaarden van de doorverwijslink"
+        },
+        "memberInfo": {
+            "warningMaxUsesReached": "Je hebt het maximale aantal keren dat je je doorverwijslink kunt gebruiken bereikt",
+            "seeConditions": "Zie voorwaarden",
+            "copyLink": "Kopieer mijn doorverwijslink",
+            "forYourFriend": "voor je vriend",
+            "forYou": "voor jou",
+            "inviteFriend": "Nodig een vriend uit om je aan te melden",
+            "nbRemainingUses": "Aantal resterende toepassingen",
+            "referralLink": "Doorverwijslink"
         }
     }
 }

@@ -402,7 +402,9 @@
                 "frequencyWeekly": "esta semana.",
                 "frequencyMonthly": "este mês.",
                 "frequencyYearly": "no ano em curso.",
-                "frequencyGeneric": "o período atual."
+                "frequencyGeneric": "o período atual.",
+                "addGuestNumberLeftWeek": "Você pode convidar mais uma pessoa esta semana.",
+                "addGuestNumberLeftWeek_plural": "Você pode convidar {{count}} pessoas esta semana."
             },
             "mainButton": {
                 "numberOfBook": "{{count}} inscrição",
@@ -423,7 +425,8 @@
             "noPackAvailable_plural": "Nenhum passe é compatível com este grupo de sessões. Terá de efetuar mais do que uma reserva.",
             "bookingsTitleFor": "Quero marcar para {{name}}",
             "bookingForMe": "Eu",
-            "showMore": "Ver mais"
+            "showMore": "Ver mais",
+            "bookingFor": "Reserva para"
         },
         "source": {
             "web": "Site",

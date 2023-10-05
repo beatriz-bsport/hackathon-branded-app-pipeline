@@ -9777,8 +9777,20 @@
                 "addGuestNumberLeftSeveral": "Puoi ancora invitare {{number}} persone per",
                 "addGuestLimit": "Hai raggiunto il limite di invito per",
                 "warningLeveledSession": "Questa sessione è riservata a persone di livello : {{level}}. Assicurati che la persona che inviti possieda il livello previsto.",
-                "warningCustomLeveledSession": "Questa sessione ha un livello personalizzato. Assicurati che la persona che inviti possieda il livello previsto."
-            }
+                "warningCustomLeveledSession": "Questa sessione ha un livello personalizzato. Assicurati che la persona che inviti possieda il livello previsto.",
+                "bookingStatus": {
+                    "0": "Invita un amico"
+                },
+                "addGuestNumberLeftGeneric": "Questo periodo puoi invitare 1 persona in più.",
+                "addGuestNumberLeftGeneric_plural": "Questo periodo puoi ancora invitare {{count}} persone.",
+                "addGuestNumberLeftYear": "Quest'anno puoi invitare 1 persona in più.",
+                "addGuestNumberLeftYear_plural": "Quest'anno puoi ancora invitare {{count}} persone.",
+                "addGuestNumberLeftMonth": "Questo mese puoi invitare 1 persona in più.",
+                "addGuestNumberLeftMonth_plural": "Questo mese puoi ancora invitare {{count}} persone.",
+                "addGuestNumberLeftWeek": "Questa settimana puoi invitare 1 persona in più.",
+                "addGuestNumberLeftWeek_plural": "Questa settimana puoi ancora invitare {{count}} persone."
+            },
+            "bookingFor": "Prenota per"
         },
         "setSpot": "Assegnare un posto",
         "changeSpot": "Cambiare il posto",

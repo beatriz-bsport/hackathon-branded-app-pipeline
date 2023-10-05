@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { Dispatch } from 'redux';
 import { createAction } from 'redux-actions';
+import { REPLACEMENT_REQUEST_CANNOT_HAVE_ESTABLISHMENTS_AND_LOCATIONS_SET_AT_THE_SAME_TIME } from '@bsport/common/lib/master-data/error-codes/replacement';
 import { OptionCallback } from '../../state/types';
 import { ReplacementRequestPaginationByStatus } from '#libs/replacement-request/constants';
 
@@ -43,10 +44,6 @@ import {
   ReplacementRequestConfiguration,
 } from './types';
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
-
-const {
-  REPLACEMENT_REQUEST_CANNOT_HAVE_ESTABLISHMENTS_AND_LOCATIONS_SET_AT_THE_SAME_TIME,
-} = require('@bsport/common/lib/master-data/error-codes/replacement');
 
 export const fetchAllReplacementRequestsActions = {
   error: createAction('REPLACEMENT_REQUEST/FETCH_LIST/ERROR'),

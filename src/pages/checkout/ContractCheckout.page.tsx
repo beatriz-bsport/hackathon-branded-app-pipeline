@@ -11,6 +11,7 @@ import {
 } from 'connected-react-router';
 import { Stripe, loadStripe } from '@stripe/stripe-js';
 import classNames from 'classnames';
+import { CONTRACT_IS_ALREADY_SUBSCRIBED } from '@bsport/common/lib/master-data/error-codes/subscription';
 
 // @ts-ignore
 import withQueryParams from '../../hocs/with-query-params.hoc';
@@ -79,10 +80,6 @@ import MarketplaceContractNotFound from '#marketplacecomponents/@Subscription/Ma
 import MemberShipValidationWrapper from '../consumer/MemberShipValidationWrapper.component';
 
 import './styles.css';
-
-const {
-  CONTRACT_IS_ALREADY_SUBSCRIBED,
-} = require('@bsport/common/lib/master-data/error-codes/subscription');
 
 const MarketplaceContractPayment = asyncComponent(
   () => import('#marketplacecomponents/@Payment/MarketplaceContractPayment'),
@@ -267,7 +264,7 @@ export class MarketplaceSubscriptionPayment extends React.Component<
         },
         {
           // @ts-ignore
-          onError: (err: { response: { data: { error_code: string } } }) => {
+          onError: (err: { response: { data: { error_code: number } } }) => {
             this.setState({ processing: false });
             if (
               err.response?.data?.error_code === CONTRACT_IS_ALREADY_SUBSCRIBED

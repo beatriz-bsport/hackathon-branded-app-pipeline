@@ -5,6 +5,7 @@ import { createAction } from 'redux-actions';
 import uniq from 'lodash/uniq';
 import { ThunkDispatch } from 'redux-thunk';
 import { COACH_EMAIL_ADDRESS_EXISTS } from '@bsport/common/lib/master-data/error-codes/associated-coach';
+import { REPLACEMENT_REQUEST_CANNOT_HAVE_ESTABLISHMENTS_AND_LOCATIONS_SET_AT_THE_SAME_TIME } from '@bsport/common/lib/master-data/error-codes/replacement';
 import { putAuth, API_V1_URI, buildUrlParams } from '../../http';
 import { snackbarSuccess, snackbarError } from '#libs/snackbar/actions';
 import {
@@ -40,10 +41,6 @@ import {
   CoachLateReplacementRequestStatus,
 } from './types';
 import { AssignAssociatedCoachDisciplineGroupParams } from '#libs/replacement-request/types';
-
-const {
-  REPLACEMENT_REQUEST_CANNOT_HAVE_ESTABLISHMENTS_AND_LOCATIONS_SET_AT_THE_SAME_TIME,
-} = require('@bsport/common/lib/master-data/error-codes/replacement');
 
 export const associated = {
   isLoading: createAction('COACH/ASSOCIATED/IS_LOADING'),

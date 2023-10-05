@@ -10,6 +10,7 @@ import { withTranslation, TFunction } from 'react-i18next';
 // eslint-disable-next-line bsport/no-redux-in-component
 import { connect } from 'react-redux';
 import moment from 'moment-timezone';
+import { CONTRACT_IS_ALREADY_SUBSCRIBED } from '@bsport/common/lib/master-data/error-codes/subscription';
 import themeSelectors from '../../../libs/theme/selectors';
 
 import SubscriptionContractCard from '../../../libs/subscription/components/SubscriptionContractCard.component';
@@ -21,10 +22,6 @@ import Analytics from '../../../components/analytics/Analytics.component';
 import GenericDialogWithCountdownConfirm from '#components/genericDialog/GenericDialogWithCountdownConfirm.component';
 import { COUNTDOWN_BEFORE_ACTIVATION } from '../constants';
 import { getMarketplaceEnabledPaymentMethods } from '#libs/payment/utils';
-
-const {
-  CONTRACT_IS_ALREADY_SUBSCRIBED,
-} = require('@bsport/common/lib/master-data/error-codes/subscription');
 
 type Props = {
   t: TFunction,

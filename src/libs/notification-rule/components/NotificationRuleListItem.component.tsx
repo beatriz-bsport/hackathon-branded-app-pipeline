@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 import Alert from '@material-ui/lab/Alert';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import { AxiosError } from 'axios';
+import { EMAIL_TEMPLATE_MISSING_REQUIRED_TAGS } from '@bsport/common/lib/master-data/error-codes/notification-rule';
 import EmailSelector from '../../email-editor/components/EmailSelector.component';
 import Tooltip from '../../../components/Tooltip.component';
 import { NotificationRule } from '../types';
@@ -24,10 +25,6 @@ import { FeatureList } from '#libs/company/types';
 import { hasUpsell } from '#libs/platform-billing/utils';
 import RequiredTags from '#components/notification/RequiredTags.component';
 import { OptionCallback } from '../../../state/types';
-
-const {
-  EMAIL_TEMPLATE_MISSING_REQUIRED_TAGS,
-} = require('@bsport/common/lib/master-data/error-codes/notification-rule');
 
 type Props = {
   emailDesignList: EmailTemplateSummary[];

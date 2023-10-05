@@ -6,6 +6,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { push } from 'connected-react-router';
 import { createStyles, Grid, Theme } from '@material-ui/core';
+import { EMAIL_TEMPLATE_MISSING_REQUIRED_TAGS } from '@bsport/common/lib/master-data/error-codes/notification-rule';
 import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
@@ -42,10 +43,6 @@ import FranchiseNotificationRuleList from '#libs/franchise/components/FranchiseN
 import FranchiseNotificationRuleDetails from '#libs/franchise/components/FranchiseNotificationRuleDetails.component';
 import { NotificationRule } from '#libs/notification-rule/types';
 import { OptionCallback } from '../../state/types';
-
-const {
-  EMAIL_TEMPLATE_MISSING_REQUIRED_TAGS,
-} = require('@bsport/common/lib/master-data/error-codes/notification-rule');
 
 const BIRTHDAY_NOTIFICATION = {
   kind: 0,

@@ -26,6 +26,7 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { Alert } from '@material-ui/lab';
 import isEqual from 'lodash/isEqual';
 import { AxiosError } from 'axios';
+import { EMAIL_TEMPLATE_MISSING_REQUIRED_TAGS } from '@bsport/common/lib/master-data/error-codes/notification-rule';
 import { OptionCallback } from '../../../state/types';
 import Checkbox from '../../../components/input/Checkbox.component';
 import {
@@ -42,10 +43,6 @@ import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { createUrl } from '../../../utils/createUrlHandlers';
 import RequiredTags from '#components/notification/RequiredTags.component';
-
-const {
-  EMAIL_TEMPLATE_MISSING_REQUIRED_TAGS,
-} = require('@bsport/common/lib/master-data/error-codes/notification-rule');
 
 const { trackFormSubmitIntent, trackFormCancel } =
   rudderStackFormTrackingFunctionsRegistry(

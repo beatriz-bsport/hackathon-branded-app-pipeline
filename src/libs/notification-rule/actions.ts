@@ -1,5 +1,6 @@
 // @ts-nocheck
 import { createAction } from 'redux-actions';
+import { EMAIL_TEMPLATE_MISSING_REQUIRED_TAGS } from '@bsport/common/lib/master-data/error-codes/notification-rule';
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 
 import {
@@ -16,10 +17,6 @@ import {
 
 import type { Dispatch, OptionCallback } from '../../state/types';
 import { ResolvedGenericTags } from '#libs/email-editor/types';
-
-const {
-  EMAIL_TEMPLATE_MISSING_REQUIRED_TAGS,
-} = require('@bsport/common/lib/master-data/error-codes/notification-rule');
 
 export const notificationRuleListActions = {
   error: createAction('NOTIFICATION_RULE/LIST/ERROR'),

@@ -10,6 +10,7 @@ import {
   retrieveCadenceStep as retrieveCadenceStepAPI,
   fetchCadenceStepList as fetchCadenceStepListAPI,
   updateCadenceStepCanvasPosition as updateCadenceStepCanvasPositionAPI,
+  changeCadenceStepInExit as changeCadenceStepInExitAPI,
   updateCadenceStep as updateCadenceStepAPI,
   deleteCadenceStep as deleteCadenceStepAPI,
 } from '#libs/sequential_marketing/api';
@@ -17,7 +18,9 @@ import {
 import type {
   CadenceStep,
   CadenceStepQueryParams,
+  UpdatedTriggersList,
 } from '#libs/sequential_marketing/types';
+import { DestinationStatus } from '../constants';
 
 export const retrieveCadenceStepActions = {
   isLoading: createAction<boolean>('CADENCE_STEP_WIP/RETRIEVE/IS_LOADING'),
@@ -103,6 +106,39 @@ export function updateCadenceStepCanvasPosition(
     }
 
     dispatch(updateCadenceStepCanvasPositionActions.isLoading(false));
+  };
+}
+
+export const changeCadenceStepInExitActions = {
+  isLoading: createAction<boolean>(
+    'CADENCE_STEP_WIP/CHANGE_IN_EXIT/IS_LOADING',
+  ),
+  error: createAction<Error | null>('CADENCE_STEP_WIP/CHANGE_IN_EXIT/ERROR'),
+  success: createAction<UpdatedTriggersList>(
+    'CADENCE_STEP_WIP/CHANGE_IN_EXIT/SUCCESS',
+  ),
+};
+
+export function changeCadenceStepInExit(
+  id: number,
+  status: DestinationStatus,
+  options?: OptionCallback<UpdatedTriggersList>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(changeCadenceStepInExitActions.isLoading(true));
+    dispatch(changeCadenceStepInExitActions.error(null));
+
+    try {
+      const response = await changeCadenceStepInExitAPI(id, status);
+      dispatch(changeCadenceStepInExitActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(changeCadenceStepInExitActions.error(err));
+      options?.onError?.();
+    }
+
+    dispatch(changeCadenceStepInExitActions.isLoading(false));
   };
 }
 

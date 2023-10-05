@@ -3,22 +3,27 @@ import { handleActions } from 'redux-actions';
 
 import {
   // STEPS
-  retrieveCadenceStepActions,
-  fetchCadenceStepListActions,
-  updateCadenceStepCanvasPositionActions,
-  updateCadenceStepConnectedTriggerCanvasPositionActions,
-  updateCadenceStepActions,
+  changeCadenceStepInExitActions,
   deleteCadenceStepActions,
+  fetchCadenceStepListActions,
+  retrieveCadenceStepActions,
+  updateCadenceStepActions,
+  updateCadenceStepCanvasPositionActions,
   // TRIGGERS
-  subscribeStepToStepActions,
-  updateConnectedTriggerActions,
+  changeCadenceExitInStepActions,
   deleteConnectedTriggerActions,
+  subscribeStepToStepActions,
+  updateCadenceStepConnectedTriggerCanvasPositionActions,
+  updateConnectedTriggerActions,
 } from '#libs/sequential_marketing/actions';
+import { updatedSourceStep } from '#libs/sequential_marketing/utils';
 
 import type {
   CadenceStep,
   CadenceStepState,
   ConnectedTrigger,
+  UpdatedTrigger,
+  UpdatedTriggersList,
 } from '#libs/sequential_marketing/types';
 
 import type { PaginatedResponse } from '../../../state/types';
@@ -94,6 +99,59 @@ export default handleActions<ImmutableCadenceStepState, any>(
           payload.id,
         ])
         .setIn(['byId', payload.id.toString()], payload);
+    },
+
+    [changeCadenceStepInExitActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['trigger', 'loading'], payload);
+    },
+    [changeCadenceStepInExitActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['trigger', 'error'], payload);
+    },
+    [changeCadenceStepInExitActions.success.toString()]: (
+      state,
+      { payload }: { payload: UpdatedTriggersList },
+    ) => {
+      if (payload.triggers && payload.step)
+        return (
+          state
+            .set(
+              'allIds',
+              state.allIds.filter((id) => id !== payload.step.id),
+            )
+            // Revising the 'exits' property for each ConnectedTrigger source step,
+            // as this is where all the ConnectedTriggers are retrieved.
+            .merge(
+              {
+                byId: payload.triggers.reduce<{ [id: number]: CadenceStep }>(
+                  (acc, updatedTrigger) => {
+                    if (updatedTrigger?.destination_config?.source_id)
+                      return {
+                        ...acc,
+                        [updatedTrigger.destination_config.source_id]:
+                          updatedSourceStep(
+                            updatedTrigger,
+                            state.byId[
+                              updatedTrigger.destination_config.source_id
+                            ],
+                            acc[updatedTrigger.destination_config.source_id]
+                              ?.exits,
+                          ),
+                      };
+                    return acc;
+                  },
+                  {},
+                ),
+              },
+              { deep: true },
+            )
+        );
+      return state;
     },
 
     [deleteCadenceStepActions.isLoading.toString()]: (
@@ -186,15 +244,22 @@ export default handleActions<ImmutableCadenceStepState, any>(
     },
     [updateCadenceStepConnectedTriggerCanvasPositionActions.success.toString()]:
       (state, { payload }: { payload: ConnectedTrigger }) => {
-        return state.setIn(
-          ['byId', payload.destination_config.source_id.toString(), 'exits'],
-          [
-            ...state.byId[payload.destination_config.source_id].exits.filter(
-              (e) => e?.trigger_config?.uuid !== payload.trigger_config?.uuid,
-            ),
-            payload,
-          ],
-        );
+        if (
+          !!payload?.destination_config?.source_id ||
+          payload.destination_config.source_id === 0
+        )
+          return state.setIn(
+            ['byId', payload.destination_config.source_id.toString(), 'exits'],
+            [
+              ...(state.byId[payload.destination_config.source_id].exits.filter(
+                (trigger) =>
+                  trigger?.trigger_config?.uuid !==
+                  payload?.trigger_config?.uuid,
+              ) ?? []),
+              payload,
+            ],
+          );
+        return state;
       },
     [subscribeStepToStepActions.isLoading.toString()]: (
       state,
@@ -242,6 +307,49 @@ export default handleActions<ImmutableCadenceStepState, any>(
             payload,
           ],
         );
+      return state;
+    },
+    [changeCadenceExitInStepActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['trigger', 'loading'], payload);
+    },
+    [changeCadenceExitInStepActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['trigger', 'error'], payload);
+    },
+    [changeCadenceExitInStepActions.success.toString()]: (
+      state,
+      { payload }: { payload: UpdatedTrigger },
+    ) => {
+      if (
+        !!payload?.trigger?.destination_config?.source_id ||
+        payload.trigger.destination_config.source_id === 0
+      ) {
+        return state
+          .set('allIds', [...state.allIds, payload.step.id])
+          .setIn(
+            [
+              'byId',
+              payload.trigger.destination_config.source_id.toString(),
+              'exits',
+            ],
+            [
+              ...(state.byId[
+                payload.trigger.destination_config.source_id
+              ].exits.filter(
+                (trigger) =>
+                  trigger?.trigger_config?.uuid !==
+                  payload.trigger?.trigger_config?.uuid,
+              ) ?? []),
+              payload.trigger,
+            ],
+          )
+          .setIn(['byId', payload.step.id.toString()], payload.step);
+      }
       return state;
     },
     [deleteConnectedTriggerActions.isLoading.toString()]: (

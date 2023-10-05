@@ -4,6 +4,7 @@ import type { OptionCallback, Dispatch } from '../../../state/types';
 import {
   subscribeStepToStep as subscribeStepToStepAPI,
   updateCadenceStepConnectedTriggerCanvasPosition as updateCadenceStepConnectedTriggerCanvasPositionAPI,
+  changeCadenceExitInStep as changeCadenceExitInStepAPI,
   updateConnectedTrigger as updateConnectedTriggerAPI,
   deleteConnectedTrigger as deleteConnectedTriggerAPI,
 } from '#libs/sequential_marketing/api';
@@ -11,6 +12,8 @@ import {
 import type {
   CadenceStep,
   ConnectedTrigger,
+  GraphCanvas,
+  UpdatedTrigger,
 } from '#libs/sequential_marketing/types';
 
 export const subscribeStepToStepActions = {
@@ -96,6 +99,43 @@ export function updateCadenceStepConnectedTriggerCanvasPosition(
     dispatch(
       updateCadenceStepConnectedTriggerCanvasPositionActions.isLoading(false),
     );
+  };
+}
+
+export const changeCadenceExitInStepActions = {
+  isLoading: createAction<boolean>(
+    'CADENCE_STEP_WIP/CHANGE_IN_STEP/IS_LOADING',
+  ),
+  error: createAction<Error | null>('CADENCE_STEP_WIP/CHANGE_IN_STEP/ERROR'),
+  success: createAction<UpdatedTrigger>(
+    'CADENCE_STEP_WIP/CHANGE_IN_STEP/SUCCESS',
+  ),
+};
+
+export function changeCadenceExitInStep(
+  cadenceId: number,
+  triggerUuid: string,
+  step: { name: string; canvas: GraphCanvas },
+  options?: OptionCallback<UpdatedTrigger>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(changeCadenceExitInStepActions.isLoading(true));
+    dispatch(changeCadenceExitInStepActions.error(null));
+
+    try {
+      const response = await changeCadenceExitInStepAPI(
+        cadenceId,
+        triggerUuid,
+        step,
+      );
+      dispatch(changeCadenceExitInStepActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(changeCadenceExitInStepActions.error(err));
+      options?.onError?.();
+    }
+    dispatch(changeCadenceExitInStepActions.isLoading(false));
   };
 }
 

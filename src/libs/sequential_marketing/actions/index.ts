@@ -45,6 +45,9 @@ import {
   // DELETE
   deleteCadenceStepActions,
   deleteCadenceStep,
+  // CHANGE IN EXIT
+  changeCadenceStepInExitActions,
+  changeCadenceStepInExit,
   // SUBSCRIBE
 } from './step';
 
@@ -61,6 +64,9 @@ import {
   // POSITION
   updateCadenceStepConnectedTriggerCanvasPositionActions,
   updateCadenceStepConnectedTriggerCanvasPosition,
+  // CHANGE IN STEP
+  changeCadenceExitInStepActions,
+  changeCadenceExitInStep,
 } from './connected_trigger';
 
 import {
@@ -110,6 +116,8 @@ export {
   updateCadenceStep,
   deleteCadenceStepActions,
   deleteCadenceStep,
+  changeCadenceStepInExitActions,
+  changeCadenceStepInExit,
   subscribeStepToStepActions,
   subscribeStepToStep,
   // CONNECTED TRIGGER
@@ -119,6 +127,8 @@ export {
   deleteConnectedTrigger,
   updateCadenceStepConnectedTriggerCanvasPositionActions,
   updateCadenceStepConnectedTriggerCanvasPosition,
+  changeCadenceExitInStepActions,
+  changeCadenceExitInStep,
   // MARKETING ACTIONS
   fetchStepMarketingActions,
   fetchMarketingActions,

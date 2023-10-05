@@ -8,6 +8,9 @@ import type {
   CadenceStepQueryParams,
   CadenceQueryParams,
   StepMarketingActions,
+  GraphCanvas,
+  UpdatedTrigger,
+  UpdatedTriggersList,
 } from './types';
 
 import {
@@ -19,6 +22,7 @@ import {
   patchAuth,
   buildUrlParams,
 } from '../../http';
+import { DestinationStatus } from './constants';
 
 // CADENCE
 
@@ -90,6 +94,8 @@ export const patchInitialCadenceConfiguration = (id: number, data: any) => {
   );
 };
 
+// CADENCE STEPS
+
 export const retrieveCadenceStep = (id: number) => {
   return getAuth<CadenceStep>(
     `${API_V1_URI}/sequential_marketing/cadence_step/${id}`,
@@ -129,6 +135,16 @@ export const updateCadenceStepConnectedTriggerCanvasPosition = (
   );
 };
 
+export const changeCadenceStepInExit = (
+  id: number,
+  status: DestinationStatus,
+) => {
+  return postAuth<UpdatedTriggersList>(
+    `${API_V1_URI}/sequential_marketing/cadence_step/${id}/change_in_exit/`,
+    { status },
+  );
+};
+
 export const updateCadenceStep = (id: number, { name }: { name: string }) => {
   return putAuth<CadenceStep>(
     `${API_V1_URI}/sequential_marketing/cadence_step/${id}/`,
@@ -143,6 +159,18 @@ export const deleteCadenceStep = (id: number) => {
     `${API_V1_URI}/sequential_marketing/cadence_step/${id}/`,
   );
 };
+
+export const modifyStepMarketingActionsConfiguration = async (
+  step_id: number,
+  list: StepMarketingActions[],
+) => {
+  return postAuth<{ result: StepMarketingActions[]; disabled: number[] }>(
+    `${API_V1_URI}/sequential_marketing/cadence_step/${step_id}/modify_marketing_actions_configuration/`,
+    list,
+  );
+};
+
+// CONNNECTED TRIGGERS
 
 export const subscribeStepToStep = (
   cadenceId: number,
@@ -161,18 +189,6 @@ export const subscribeStepToStep = (
     },
   );
 };
-
-export const modifyStepMarketingActionsConfiguration = (
-  step_id: number,
-  list: StepMarketingActions[],
-) => {
-  return postAuth<{ result: StepMarketingActions[]; disabled: number[] }>(
-    `${API_V1_URI}/sequential_marketing/cadence_step/${step_id}/modify_marketing_actions_configuration/`,
-    list,
-  );
-};
-
-// Connected Triggers
 
 export const updateConnectedTrigger = (
   cadenceId: number,
@@ -194,7 +210,18 @@ export const deleteConnectedTrigger = (
   );
 };
 
-// MarketingActions
+export const changeCadenceExitInStep = (
+  cadenceId: number,
+  triggerUuid: string,
+  { name, canvas }: { name: string; canvas: GraphCanvas },
+) => {
+  return postAuth<UpdatedTrigger>(
+    `${API_V1_URI}/sequential_marketing/cadence/${cadenceId}/connected_trigger/${triggerUuid}/change_in_step/`,
+    { name, canvas },
+  );
+};
+
+// MARKETING ACTIONS
 
 export const fetchMarketingActions = (params: StepMarketingActionsParams) => {
   return getAuth<PaginatedResponse<StepMarketingActions>>(

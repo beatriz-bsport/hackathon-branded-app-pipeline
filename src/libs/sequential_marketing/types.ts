@@ -1,4 +1,4 @@
-import { ErrorAndLoading } from '#libs/types';
+import type { ErrorAndLoading } from '#libs/types';
 
 import type {
   TriggerIdentifier,
@@ -110,6 +110,26 @@ export type StepMarketingActions = {
   action_spec:
     | StepMarketingActionsCommunicationSpec
     | StepMarketingActionsTagSpec;
+};
+
+/**
+ *  @description [TYPE] Object returned by changeCadenceExitInStep API call
+ *  @param {ConnectedTrigger} trigger : The connected trigger after update
+ *  @param {CadenceStep} step : The new step created as trigger destination
+ */
+export type UpdatedTrigger = {
+  trigger: ConnectedTrigger;
+  step: CadenceStep;
+};
+
+/**
+ *  @description [TYPE] Object returned by changeCadenceStepInExit API call
+ *  @param {ConnectedTrigger[]} triggers : List of the connected triggers which had step as destination and have been updated
+ *  @param {CadenceStep} step : The step disabled to be replaced by exits
+ */
+export type UpdatedTriggersList = {
+  triggers: ConnectedTrigger[];
+  step: CadenceStep;
 };
 
 // ========== API QUERY PARAMS==========

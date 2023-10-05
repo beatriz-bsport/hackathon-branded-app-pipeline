@@ -1,25 +1,29 @@
 // @flow
 
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { compose } from 'recompose';
 import Typography from '@material-ui/core/Typography';
-import withStyles from '@material-ui/core/styles/withStyles';
+import { makeStyles } from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
-import { withTranslation, TFunction } from 'react-i18next';
 
 type Props = {
   isDisabled: boolean,
-  bookingOptionsPending: Array<BookingOption>,
+  bookingOptionsPending: BookingOption[],
   switchWaitingListFreeze: () => void,
-  classes: Object,
-  t: TFunction,
 };
 
-export const WaitingListControlHeader = (props: Props) => {
-  const { t, isDisabled, classes, bookingOptionsPending } = props;
+export const WaitingListControlHeader: React.FC<Props> = ({
+  isDisabled,
+  bookingOptionsPending,
+  switchWaitingListFreeze,
+}) => {
+  const classes = useStyles();
+
+  const { t } = useTranslation('waitingList');
+
   const nbPending = React.useMemo(
     () =>
       bookingOptionsPending?.filter(
@@ -27,21 +31,27 @@ export const WaitingListControlHeader = (props: Props) => {
       )?.length ?? 0,
     [bookingOptionsPending],
   );
-  const nbConvertible = bookingOptionsPending.filter(
-    (bo) => bo.is_convertible && !bo.booking && !bo.cancelled,
-  ).length;
+
+  const nbConvertible = React.useMemo(
+    () =>
+      bookingOptionsPending?.filter(
+        (option: BookingOption) =>
+          option.is_convertible && !option.booking && !option.cancelled,
+      )?.length ?? 0,
+    [bookingOptionsPending],
+  );
   return (
     <div className={classes.container}>
       <div className={classes.row}>
         <Typography variant="caption">
-          {props.t('nbConvertible', { nbConvertible })}
+          {t('nbConvertible', { nbConvertible })}
         </Typography>
         <Typography variant="caption">
-          {props.t('nbPending', { nbPending })}
+          {t('nbPending', { nbPending })}
         </Typography>
         <Button
           className={classes.smallButton}
-          onClick={props.switchWaitingListFreeze}
+          onClick={switchWaitingListFreeze}
         >
           <PowerSettingsNewIcon className={classes.smallIcon} />
           <Typography
@@ -57,7 +67,7 @@ export const WaitingListControlHeader = (props: Props) => {
   );
 };
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   container: {
     width: '100%',
     background: '#F8F8F8',
@@ -79,9 +89,6 @@ const styles = (theme) => ({
     flexDirection: 'row',
     alignItems: 'center',
   },
-});
+}));
 
-export default compose(
-  withStyles(styles),
-  withTranslation(['waitingList']),
-)(WaitingListControlHeader);
+export default React.memo(WaitingListControlHeader);

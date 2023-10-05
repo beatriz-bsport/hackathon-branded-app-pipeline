@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import type { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import MultipleActionsMenuOnHover, {
   MultipleActionsMenuOnHoverProps,
@@ -8,6 +8,38 @@ import MultipleActionsMenuOnHover, {
 export default {
   title: 'Components/Buttons/MultipleActionsMenuOnHover',
   component: MultipleActionsMenuOnHover,
+  parameters: {
+    docs: {
+      page: null,
+    },
+    description: {
+      component:
+        'Icon button opening a selector menu for different actions at the bottom left on hover, made for cadence usage',
+    },
+  },
+  argTypes: {
+    actionList: {
+      description: 'List of the actions in the menu',
+    },
+    customColor: {
+      control: 'color',
+      description:
+        '[Optional] Color of the icon button and the icons in the menu, if not default color is "black"',
+    },
+    customIcon: {
+      control: 'string',
+      description:
+        '[Optional] Name of the icon for the button, if not default icon is "MoreVert"',
+    },
+    optionOnClick: {
+      action: 'optionOnClick',
+      description: '[Optional] Optional action to add on click',
+    },
+    optionOnLeave: {
+      action: 'optionOnLeave',
+      description: '[Optional] Optional action to add when leaving the button',
+    },
+  },
 } as ComponentMeta<typeof MultipleActionsMenuOnHover>;
 
 const Template: ComponentStory<typeof MultipleActionsMenuOnHover> = (

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import type { ComponentStory, ComponentMeta } from '@storybook/react';
 import { fakerEN as faker } from '@faker-js/faker';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import IconButton from '@material-ui/core/IconButton';
@@ -17,7 +17,7 @@ export default {
     },
     description: {
       component:
-        'Selector menu button opening at the top right of the children element on click, made for cadence usage',
+        'Selector menu button opening at the top right of its children element on click, made for cadence usage',
     },
   },
   argTypes: {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import type { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import SelectMenuButton, {
   SelectMenuButtonProps,
@@ -16,21 +16,24 @@ export default {
       component: 'Selector menu button made for cadence usage',
     },
   },
-  decorators: [
-    (Story) => (
-      <div
-        style={{
-          margin: '3em',
-          display: 'flex',
-          justifyContent: 'center',
-        }}
-      >
-        <div>
-          <Story />
-        </div>
-      </div>
-    ),
-  ],
+  argTypes: {
+    actionList: {
+      description: 'List of the actions in the menu',
+    },
+    label: {
+      control: 'text',
+      description: 'Text to display in the button',
+    },
+    customColor: {
+      control: 'color',
+      description:
+        '[Optional] Color of the icon button and the icons in the menu, if not default color is "black"',
+    },
+    optionOnClick: {
+      action: 'optionOnClick',
+      description: '[Optional] Optional action to add on click',
+    },
+  },
 } as ComponentMeta<typeof SelectMenuButton>;
 
 const actions = [

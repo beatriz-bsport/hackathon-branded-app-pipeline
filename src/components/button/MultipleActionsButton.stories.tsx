@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import type { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import MultipleActionsButton, {
   MultipleActionsButtonProps,
@@ -8,6 +8,34 @@ import MultipleActionsButton, {
 export default {
   title: 'Components/Buttons/MultipleActionsButton',
   component: MultipleActionsButton,
+  parameters: {
+    docs: {
+      page: null,
+    },
+    description: {
+      component:
+        'Icon button opening a selector menu for different actions at the bottom left on click, made for cadence usage',
+    },
+  },
+  argTypes: {
+    actionList: {
+      description: 'List of the actions in the menu',
+    },
+    customColor: {
+      control: 'color',
+      description:
+        '[Optional] Color of the icon button and the icons in the menu, if not default color is "black"',
+    },
+    customIcon: {
+      control: 'string',
+      description:
+        '[Optional] Name of the icon for the button, if not default icon is "MoreVert"',
+    },
+    optionOnClick: {
+      action: 'optionOnClick',
+      description: '[Optional] Optional action to add on click',
+    },
+  },
 } as ComponentMeta<typeof MultipleActionsButton>;
 
 const Template: ComponentStory<typeof MultipleActionsButton> = (

@@ -237,12 +237,12 @@ export const useNodeElementsRecorder = ({
       return {
         id: storedEntryStep.id.toString(),
         type: CustomNodesEnum.EntryStepFlowVersionNode,
-        ...(storedEntryStep.canvas.position?.x &&
+        ...(storedEntryStep.canvas?.position?.x &&
         storedEntryStep.canvas?.position?.y
           ? {
               position: {
-                x: parseFloat(storedEntryStep.canvas?.position?.x ?? '0'),
-                y: parseFloat(storedEntryStep.canvas?.position?.y ?? '0'),
+                x: parseFloat(storedEntryStep.canvas.position.x ?? '0'),
+                y: parseFloat(storedEntryStep.canvas.position.y ?? '0'),
               },
             }
           : { position: { x: DEFAULT_X_FOR_ENTRYSTEP, y: 0 } }),
@@ -312,8 +312,8 @@ export const useNodeElementsRecorder = ({
           triggerNode?.trigger?.canvas?.position?.y
             ? {
                 position: {
-                  x: parseFloat(triggerNode?.trigger?.canvas?.position?.x),
-                  y: parseFloat(triggerNode?.trigger?.canvas?.position?.y),
+                  x: parseFloat(triggerNode.trigger.canvas.position.x),
+                  y: parseFloat(triggerNode.trigger.canvas.position.y),
                 },
               }
             : { position: { x: DEFAULT_X_FOR_TRIGGER, y: 0 } }),

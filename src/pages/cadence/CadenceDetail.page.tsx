@@ -13,7 +13,6 @@ import {
 import withTitle from '#hocs/with-title.hoc';
 // @ts-expect-error : Not typed hoc
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import { RootState } from '../../reducers';
 import {
   retrieveCadence as retrieveCadenceAction,
   fetchCadenceStepList as fetchCadenceStepListAction,
@@ -23,7 +22,9 @@ import {
   activateCadence as activateCadenceAction,
   shutOffCadence as shutOffCadenceAction,
   updateCadenceStepCanvasPosition as updateCadenceStepCanvasPositionAction,
+  changeCadenceStepInExit as changeCadenceStepInExitAction,
   updateCadenceStepConnectedTriggerCanvasPosition as updateCadenceStepConnectedTriggerCanvasPositionAction,
+  changeCadenceExitInStep as changeCadenceExitInStepAction,
   subscribeStepToStep as subscribeStepToStepAction,
   updateConnectedTrigger as updateConnectedTriggerAction,
   updateCadenceStep as updateCadenceStepAction,
@@ -58,11 +59,13 @@ import {
 import type { Values } from '#libs/sequential_marketingDEPRECATED/components/form/Trigger/components';
 import type { WithHandlerType } from '../../utils/types';
 import type { OptionCallback } from '../../state/types';
+import type { RootState } from '../../reducers';
 import type {
   Cadence,
   ConnectedTrigger,
   CadenceStep,
   StepMarketingActions,
+  GraphCanvas,
 } from '#libs/sequential_marketing/types';
 
 import CadenceDetailHeader from '#libs/sequential_marketing/components/CadenceDetailHeader.component';
@@ -319,6 +322,8 @@ export class CadenceDetailPage extends Component<Props> {
               cadenceMinimalConfigurationState={
                 this.props.cadenceMinimalConfigurationState
               }
+              changeCadenceExitInStep={this.props.changeCadenceExitInStep}
+              changeCadenceStepInExit={this.props.changeCadenceStepInExit}
               deleteCadenceStep={this.props.deleteCadenceStep}
               deleteConnectedTrigger={this.props.deleteConnectedTriggerAction}
               editConnectedTrigger={this.handleEditConnectedTrigger}
@@ -585,6 +590,12 @@ const mapWithHandlers = {
       });
     },
 
+  changeCadenceStepInExit:
+    (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>
+    (id: number, status: DestinationStatus) => {
+      props.changeCadenceStepInExitAction(id, status);
+    },
+
   updateCadenceStepConnectedTriggerCanvasPosition:
     (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>
     (
@@ -604,6 +615,12 @@ const mapWithHandlers = {
           },
         },
       );
+    },
+
+  changeCadenceExitInStep:
+    (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>
+    (triggerUuid: string, step: { name: string; canvas: GraphCanvas }) => {
+      props.changeCadenceExitInStepAction(props.cadenceId, triggerUuid, step);
     },
 
   onClickEntryStep:
@@ -766,7 +783,9 @@ const connector = connect(
     subscribeStepToStepAction,
     updateConnectedTriggerAction,
     updateCadenceStepCanvasPositionAction,
+    changeCadenceStepInExitAction,
     updateCadenceStepConnectedTriggerCanvasPositionAction,
+    changeCadenceExitInStepAction,
     updateCadenceStepAction,
     deleteCadenceStepAction,
     fetchMarketingActionsAction,

@@ -1,13 +1,10 @@
 import React from 'react';
 import type { ComponentStory, ComponentMeta } from '@storybook/react';
-
-import MultipleActionsButton, {
-  MultipleActionsButtonProps,
-} from './MultipleActionsButton.component';
+import MenuSelectorIconButton from '.';
 
 export default {
-  title: 'Components/Buttons/MultipleActionsButton',
-  component: MultipleActionsButton,
+  title: 'Components/Buttons/MenuSelectorIconButton',
+  component: MenuSelectorIconButton,
   parameters: {
     docs: {
       page: null,
@@ -36,11 +33,11 @@ export default {
       description: '[Optional] Optional action to add on click',
     },
   },
-} as ComponentMeta<typeof MultipleActionsButton>;
+} as ComponentMeta<typeof MenuSelectorIconButton>;
 
-const Template: ComponentStory<typeof MultipleActionsButton> = (
-  args: MultipleActionsButtonProps,
-) => <MultipleActionsButton {...args} />;
+const Template: ComponentStory<typeof MenuSelectorIconButton> = (
+  args: React.ComponentProps<typeof MenuSelectorIconButton>,
+) => <MenuSelectorIconButton {...args} />;
 
 const actions = [
   {

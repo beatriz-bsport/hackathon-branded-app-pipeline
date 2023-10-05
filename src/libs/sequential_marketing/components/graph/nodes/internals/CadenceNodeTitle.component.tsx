@@ -2,13 +2,13 @@ import React, { useCallback } from 'react';
 import chroma from 'chroma-js';
 import Immutable from 'seamless-immutable';
 
-import { makeStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles, type Theme } from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
 
 import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
-import MultipleActionsMenuOnHover from '#components/button/MultipleActionsMenuOnHover.component';
+import MenuSelectorIconOnHover from '#components/menu/hover';
 import ConnectedTriggerChip from '#libs/sequential_marketing/components/graph/chips/ConnectedTriggerChip.component';
 import TriggeredPersonIcon from '#components/icons/TriggeredPersonIcon.component';
 import {
@@ -19,7 +19,7 @@ import {
 
 import type { ConnectedTrigger } from '#libs/sequential_marketing/types';
 import type { SmartList } from '#libs/smart-list/types';
-import type { Action } from '#components/button/MultipleActionsButton.component';
+import type { Action } from '#components/menu/icon';
 
 type StylesProps = {
   color: string;
@@ -92,7 +92,7 @@ const CadenceNodeTitle: React.FC<CadenceNodeTitleProps> = ({
         {!!actions && actions.length > 0 && (
           <div className={classes.actionSection}>
             {actions.length > 1 ? (
-              <MultipleActionsMenuOnHover
+              <MenuSelectorIconOnHover
                 actionList={actions}
                 optionOnClick={handleDisableRipple}
                 optionOnLeave={handleEnableRipple}

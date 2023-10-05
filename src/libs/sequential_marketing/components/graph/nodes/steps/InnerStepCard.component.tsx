@@ -16,7 +16,7 @@ import type {
   CadenceStep,
   StepMarketingActions,
 } from '#libs/sequential_marketing/types';
-import type { Action } from '#components/button/MultipleActionsButton.component';
+import type { Action } from '#components/menu/icon';
 import type { EmailTemplateSummary } from '#libs/email-editor/types';
 import type { Tag } from '#libs/tag/types';
 

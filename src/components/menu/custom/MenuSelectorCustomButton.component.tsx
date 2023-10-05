@@ -1,39 +1,41 @@
 import React, { useCallback, useState } from 'react';
-import chroma from 'chroma-js';
 import Immutable from 'seamless-immutable';
 
-import { makeStyles, type Theme } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
+import { type Theme, makeStyles } from '@material-ui/core/styles';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import Divider from '@material-ui/core/Divider';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
+import type { Action } from '../icon';
 
-import type { Action } from './MultipleActionsButton.component';
+export const MULTIPLE_ACTION_BUTTON_MAX_SIZE = '32px';
 
-type StylesProps = { color: string; open: boolean };
-
-export type SelectMenuButtonProps = {
+export type Props = {
   actionList: Immutable.ImmutableArray<Action>;
-  label: string;
+  children: React.ReactElement;
   customColor?: string;
+  customHoverBackgroundColor?: string;
+  informationText?: string;
   optionOnClick?: () => void;
 };
 
-const SelectMenuButton: React.FC<SelectMenuButtonProps> = ({
+const MenuSelectorCustomButton: React.FC<Props> = ({
   actionList,
-  label,
+  children,
   customColor,
+  customHoverBackgroundColor,
+  informationText,
   optionOnClick,
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-  const classes = useStyles({ color: customColor, open: Boolean(anchorEl) });
+  const classes = useStyles({ customHoverBackgroundColor });
 
   const handleClick = useCallback(
     (event: React.MouseEvent<HTMLButtonElement>) => {
-      const current = event?.currentTarget;
+      const current = event.currentTarget;
       event.stopPropagation();
       event.preventDefault();
       optionOnClick?.();
@@ -71,39 +73,44 @@ const SelectMenuButton: React.FC<SelectMenuButtonProps> = ({
   return (
     <div className={classes.container}>
       <ClickAwayListener onClickAway={handleClickAway}>
-        <Button className={classes.button} onClick={handleClick} variant="text">
-          {label}
-        </Button>
+        {React.cloneElement(children, { onClick: handleClick })}
       </ClickAwayListener>
       <Menu
         anchorEl={anchorEl}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         getContentAnchorEl={null}
         id="action-menu"
         onClose={handleClickAway}
         open={!!anchorEl}
         PaperProps={{
           style: {
-            marginTop: '4px',
+            marginLeft: 4,
           },
         }}
-        transformOrigin={{ vertical: 'top', horizontal: 'left' }}
       >
-        {actionList.map((action) => (
+        {!!informationText && informationText.length > 0 && (
+          <>
+            <MenuItem key="text-info" disabled className={classes.labelInfo}>
+              <Typography variant="body1">{informationText}</Typography>
+            </MenuItem>
+            <Divider />
+          </>
+        )}
+        {actionList.map((action, index) => (
           <MenuItem
-            key={`${action.icon}_${action.label}`}
+            key={`${index}${action.label}`}
+            className={classes.menuItem}
             onClick={handleOnClickAction(action.onClick)}
             onContextMenu={handleRightClick}
             value={action.label}
           >
             <CustomMuiIcon
+              defaultBackGround
               customColor={action.customColor || customColor}
               icon={action.icon}
               withBackground={false}
             />
-            <Typography className={classes.label} variant="body1">
-              {action.label}
-            </Typography>
+            <Typography variant="body1">{action.label}</Typography>
           </MenuItem>
         ))}
       </Menu>
@@ -111,37 +118,25 @@ const SelectMenuButton: React.FC<SelectMenuButtonProps> = ({
   );
 };
 
-const useStyles = makeStyles<Theme, StylesProps>((theme) => ({
-  container: {
-    display: 'flex',
-    borderRadius: theme.spacing(1),
-  },
-  button: {
-    elevation: 5,
-    borderRadius: theme.spacing(0.5),
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2),
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
-    fontWeight: 'bold',
-    color: ({ color }) => color || 'black',
-    backgroundColor: ({ open, color }) =>
-      open &&
-      chroma(color || 'black')
-        .alpha(0.15)
-        .hex(),
-    '&:hover': {
-      backgroundColor: ({ color }) =>
-        chroma(color || 'black')
-          .alpha(0.1)
-          .hex(),
+const useStyles = makeStyles<Theme, Pick<Props, 'customHoverBackgroundColor'>>(
+  (theme) => ({
+    container: {
+      display: 'flex',
+      borderRadius: theme.spacing(1),
     },
-  },
-  label: {
-    fontSize: '15.5px',
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(1),
-  },
-}));
+    menuItem: {
+      display: 'flex',
+      gap: theme.spacing(3),
+      '&:hover': {
+        backgroundColor: ({ customHoverBackgroundColor }) =>
+          customHoverBackgroundColor,
+      },
+    },
+    labelInfo: {
+      opacity: '1 !important',
+      paddingBottom: theme.spacing(1),
+    },
+  }),
+);
 
-export default React.memo(SelectMenuButton);
+export default React.memo(MenuSelectorCustomButton);

@@ -3,38 +3,51 @@ import chroma from 'chroma-js';
 import Immutable from 'seamless-immutable';
 
 import { makeStyles, type Theme } from '@material-ui/core/styles';
+import ButtonBase from '@material-ui/core/ButtonBase';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
-import {
-  MULTIPLE_ACTION_BUTTON_MAX_SIZE,
-  type Action,
-} from './MultipleActionsButton.component';
-import { TriggeredPersonIcon } from '#components/icons/TriggeredPersonIcon.component';
+
+export type Action = {
+  label: string;
+  icon: string;
+  onClick: () => void;
+  customColor?: string;
+};
+
+export const MULTIPLE_ACTION_BUTTON_MAX_SIZE = '32px';
 
 type StylesProps = { color: string; open: boolean };
 
-export type MultipleActionsMenuOnHoverProps = {
+type Props = {
   actionList: Immutable.ImmutableArray<Action>;
   customIcon?: string;
   customColor?: string;
   optionOnClick?: () => void;
-  optionOnLeave?: () => void;
 };
 
-const MultipleActionsMenuOnHover: React.FC<MultipleActionsMenuOnHoverProps> = ({
+const MenuSelectorIconButton: React.FC<Props> = ({
   actionList,
   customIcon,
   customColor,
   optionOnClick,
-  optionOnLeave,
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const classes = useStyles({ color: customColor, open: Boolean(anchorEl) });
 
-  // ----- Prevent right click propagation -----
+  const handleClick = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement>) => {
+      const current = event.currentTarget;
+      event.stopPropagation();
+      event.preventDefault();
+      optionOnClick?.();
+      setAnchorEl(current);
+    },
+    [optionOnClick],
+  );
 
   const handleRightClick = useCallback(
     (event: React.MouseEvent<HTMLElement>) => {
@@ -44,34 +57,13 @@ const MultipleActionsMenuOnHover: React.FC<MultipleActionsMenuOnHoverProps> = ({
     [optionOnClick],
   );
 
-  // -------------------------------------------
-
-  const handleMouseEnter = useCallback(
-    (event: React.MouseEvent<HTMLElement>) => {
-      event.preventDefault();
-      optionOnClick?.();
-      setAnchorEl(event.currentTarget);
-    },
-    [optionOnClick],
-  );
-
-  const handleMouseLeave = useCallback(
-    (event: React.MouseEvent<HTMLMenuElement>) => {
-      event.preventDefault();
-      optionOnLeave?.();
-      setAnchorEl(null);
-    },
-    [optionOnLeave],
-  );
-
   const handleClickAway = useCallback(
     (event: React.MouseEvent<Document, MouseEvent>) => {
       event.stopPropagation();
       event.preventDefault();
-      optionOnLeave?.();
       setAnchorEl(null);
     },
-    [optionOnLeave],
+    [],
   );
 
   const handleOnClickAction = useCallback(
@@ -85,26 +77,25 @@ const MultipleActionsMenuOnHover: React.FC<MultipleActionsMenuOnHoverProps> = ({
 
   return (
     <div className={classes.container}>
-      <div
-        className={classes.button}
-        onContextMenu={handleRightClick}
-        onMouseEnter={handleMouseEnter}
-      >
-        <CustomMuiIcon
-          defaultBackGround
-          customColor={customColor || 'black'}
-          icon={customIcon || 'MoreVert'}
-          withBackground={false}
-        />
-      </div>
+      <ClickAwayListener onClickAway={handleClickAway}>
+        <ButtonBase
+          className={classes.button}
+          onClick={handleClick}
+          onContextMenu={handleRightClick}
+        >
+          <CustomMuiIcon
+            defaultBackGround
+            customColor={customColor || 'black'}
+            icon={customIcon || 'MoreVert'}
+            withBackground={false}
+          />
+        </ButtonBase>
+      </ClickAwayListener>
       <Menu
         anchorEl={anchorEl}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
         getContentAnchorEl={null}
         id="action-menu"
-        MenuListProps={{
-          onMouseLeave: handleMouseLeave,
-        }}
         onClose={handleClickAway}
         open={Boolean(anchorEl)}
         PaperProps={{
@@ -121,16 +112,12 @@ const MultipleActionsMenuOnHover: React.FC<MultipleActionsMenuOnHoverProps> = ({
             onContextMenu={handleRightClick}
             value={action.label}
           >
-            {action.icon === 'TriggeredPerson' ? (
-              <TriggeredPersonIcon fill={action.customColor || customColor} />
-            ) : (
-              <CustomMuiIcon
-                defaultBackGround
-                customColor={action.customColor || customColor}
-                icon={action.icon}
-                withBackground={false}
-              />
-            )}
+            <CustomMuiIcon
+              defaultBackGround
+              customColor={action.customColor || customColor}
+              icon={action.icon}
+              withBackground={false}
+            />
             <Typography className={classes.label} variant="body1">
               {action.label}
             </Typography>
@@ -147,7 +134,7 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) => ({
     borderRadius: theme.spacing(1),
   },
   button: {
-    display: 'flex',
+    display: 'absolute',
     borderRadius: theme.spacing(1),
     width: MULTIPLE_ACTION_BUTTON_MAX_SIZE,
     height: MULTIPLE_ACTION_BUTTON_MAX_SIZE,
@@ -158,6 +145,12 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) => ({
       chroma(color || 'black')
         .alpha(0.15)
         .hex(),
+    '&:hover': {
+      backgroundColor: ({ color }) =>
+        chroma(color || 'black')
+          .alpha(0.06)
+          .hex(),
+    },
   },
   label: {
     paddingLeft: theme.spacing(1),
@@ -165,4 +158,4 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) => ({
   },
 }));
 
-export default React.memo(MultipleActionsMenuOnHover);
+export default React.memo(MenuSelectorIconButton);

@@ -4,13 +4,11 @@ import { fakerEN as faker } from '@faker-js/faker';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import IconButton from '@material-ui/core/IconButton';
 
-import MultipleActionsRightButton, {
-  type Props as MultipleActionsRightButtonProps,
-} from './MultipleActionsRightButton.component';
+import MenuSelectorCustomButton from '.';
 
 export default {
-  title: 'Components/Buttons/MultipleActionsRightButton',
-  component: MultipleActionsRightButton,
+  title: 'Components/Buttons/MenuSelectorCustomButton',
+  component: MenuSelectorCustomButton,
   parameters: {
     docs: {
       page: null,
@@ -25,7 +23,7 @@ export default {
       control: 'color',
       description: 'Color of the icons in the list',
     },
-    customHoverBackgrondColor: {
+    customHoverBackgroundColor: {
       control: 'color',
       description: 'Color of the background color on hover of the menu items',
     },
@@ -41,7 +39,7 @@ export default {
       description: 'Optional action to add on click',
     },
   },
-} as ComponentMeta<typeof MultipleActionsRightButton>;
+} as ComponentMeta<typeof MenuSelectorCustomButton>;
 
 const capitalize = (str: string) =>
   str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
@@ -59,18 +57,18 @@ const actions = [
   },
 ];
 
-const TemplateWithChildren: ComponentStory<
-  typeof MultipleActionsRightButton
-> = (args: MultipleActionsRightButtonProps) => (
-  <MultipleActionsRightButton {...args}>
+const TemplateWithChildren: ComponentStory<typeof MenuSelectorCustomButton> = (
+  args: React.ComponentProps<typeof MenuSelectorCustomButton>,
+) => (
+  <MenuSelectorCustomButton {...args}>
     <IconButton color="inherit" size="small">
       <AddCircleIcon fontSize="small" />
     </IconButton>
-  </MultipleActionsRightButton>
+  </MenuSelectorCustomButton>
 );
 
 export const Children = TemplateWithChildren.bind({});
 Children.args = {
   actionList: actions,
-  informationText: 'Tada',
+  informationText: faker.lorem.sentence({ min: 3, max: 5 }),
 };

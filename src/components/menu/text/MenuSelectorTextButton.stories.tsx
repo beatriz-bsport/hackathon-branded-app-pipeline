@@ -1,13 +1,10 @@
 import React from 'react';
 import type { ComponentStory, ComponentMeta } from '@storybook/react';
-
-import SelectMenuButton, {
-  SelectMenuButtonProps,
-} from './SelectMenuButton.component';
+import MenuSelectorTextButton from '.';
 
 export default {
-  title: 'Components/Buttons/SelectMenuButton',
-  component: SelectMenuButton,
+  title: 'Components/Buttons/MenuSelectorTextButton',
+  component: MenuSelectorTextButton,
   parameters: {
     docs: {
       page: null,
@@ -34,7 +31,7 @@ export default {
       description: '[Optional] Optional action to add on click',
     },
   },
-} as ComponentMeta<typeof SelectMenuButton>;
+} as ComponentMeta<typeof MenuSelectorTextButton>;
 
 const actions = [
   {
@@ -51,9 +48,9 @@ const actions = [
   },
 ];
 
-const Template: ComponentStory<typeof SelectMenuButton> = (
-  args: SelectMenuButtonProps,
-) => <SelectMenuButton {...args} />;
+const Template: ComponentStory<typeof MenuSelectorTextButton> = (
+  args: React.ComponentProps<typeof MenuSelectorTextButton>,
+) => <MenuSelectorTextButton {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {

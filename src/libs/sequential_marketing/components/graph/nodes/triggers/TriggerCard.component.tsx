@@ -15,7 +15,7 @@ import type {
   ConnectedTrigger,
 } from '#libs/sequential_marketing/types';
 import type { SmartList } from '#libs/smart-list/types';
-import type { Action } from '#components/button/MultipleActionsButton.component';
+import type { Action } from '#components/menu/icon';
 
 export type TriggerCardProps = {
   step: CadenceStep;

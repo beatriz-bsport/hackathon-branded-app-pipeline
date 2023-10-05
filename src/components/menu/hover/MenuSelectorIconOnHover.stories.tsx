@@ -1,13 +1,10 @@
 import React from 'react';
 import type { ComponentStory, ComponentMeta } from '@storybook/react';
-
-import MultipleActionsMenuOnHover, {
-  MultipleActionsMenuOnHoverProps,
-} from './MultipleActionsMenuOnHover.component';
+import MenuSelectorIconOnHover from '.';
 
 export default {
-  title: 'Components/Buttons/MultipleActionsMenuOnHover',
-  component: MultipleActionsMenuOnHover,
+  title: 'Components/Buttons/MenuSelectorIconOnHover',
+  component: MenuSelectorIconOnHover,
   parameters: {
     docs: {
       page: null,
@@ -40,11 +37,11 @@ export default {
       description: '[Optional] Optional action to add when leaving the button',
     },
   },
-} as ComponentMeta<typeof MultipleActionsMenuOnHover>;
+} as ComponentMeta<typeof MenuSelectorIconOnHover>;
 
-const Template: ComponentStory<typeof MultipleActionsMenuOnHover> = (
-  args: MultipleActionsMenuOnHoverProps,
-) => <MultipleActionsMenuOnHover {...args} />;
+const Template: ComponentStory<typeof MenuSelectorIconOnHover> = (
+  args: React.ComponentProps<typeof MenuSelectorIconOnHover>,
+) => <MenuSelectorIconOnHover {...args} />;
 
 const actions = [
   {

@@ -19,8 +19,8 @@ import {
   HEADER_FONT_SIZE,
   HEADER_MIN_HEIGHT,
 } from '#libs/sequential_marketing/constants/steps';
-import { Action } from '#components/button/MultipleActionsButton.component';
-import MultipleActionsRightButton from '#components/button/MultipleActionsRightButton.component';
+import type { Action } from '#components/menu/icon';
+import MenuSelectorCustomButton from '#components/menu/custom';
 import ToolTip from '#components/Tooltip.component';
 
 const DEFAULT_ADD_BUTTON_COLOR = '#777';
@@ -144,15 +144,15 @@ const StepCard: React.FC<StepCardProps> = ({
           style={{ color: addButtonColor || DEFAULT_ADD_BUTTON_COLOR }}
         >
           <ToolTip title={addButtonLabel || ''}>
-            <MultipleActionsRightButton
+            <MenuSelectorCustomButton
               actionList={addButtonActionList}
-              customHoverBackgrondColor={actionListColor}
+              customHoverBackgroundColor={actionListColor}
               informationText={actionListLabel}
             >
               <IconButton color="inherit" size="small">
                 <AddCircleIcon fontSize="small" />
               </IconButton>
-            </MultipleActionsRightButton>
+            </MenuSelectorCustomButton>
           </ToolTip>
         </div>
       )}

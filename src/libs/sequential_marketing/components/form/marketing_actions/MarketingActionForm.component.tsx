@@ -11,14 +11,14 @@ import {
 
 import { makeStyles } from '@material-ui/core/styles';
 
-import { OptionCallback } from '../../../../../state/types';
-import SelectMenuButton from '#components/button/SelectMenuButton.component';
+import MenuSelectorTextButton from '#components/menu/text';
 import {
   MarketingActionKind,
   MarketingActions,
   SequentialMarketingColors,
 } from '#libs/sequential_marketing/constants';
 
+import type { OptionCallback } from '../../../../../state/types';
 import type { StepMarketingActions } from '#libs/sequential_marketing/types';
 import type {
   EmailTemplateDetail,
@@ -129,7 +129,7 @@ const MarketingActionForm: React.FC<Props> = ({
               </div>
             ))}
           {isAddActionEnabled && (
-            <SelectMenuButton
+            <MenuSelectorTextButton
               actionList={getMarketingActionOptions(
                 t,
                 (type: MarketingActions) =>

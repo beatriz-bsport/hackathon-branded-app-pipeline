@@ -5525,7 +5525,9 @@
                     "establishment_practical_info": "Accès à la salle",
                     "address": "Adresse",
                     "option_payment_url": "Lien de réservation",
-                    "option_expiration_date": "Date d'expiration place sur liste d'attente"
+                    "option_expiration_date": "Date d'expiration place sur liste d'attente",
+                    "waiting_list_position": "Position sur la liste d'attente",
+                    "waiting_list_size": "Nombre de personnes sur la liste d'attente"
                 }
             },
             "Birthday": {

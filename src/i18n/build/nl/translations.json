@@ -245,7 +245,9 @@
                     "establishment": "Vestiging",
                     "date": "Tijd en datum",
                     "coach": "Instructeur",
-                    "activity": "Activiteit"
+                    "activity": "Activiteit",
+                    "waiting_list_position": "wachtlijst positie",
+                    "waiting_list_size": "wachtlijst grootte"
                 },
                 "name": "Wachtlijst"
             },
@@ -6894,7 +6896,8 @@
             "replacement": "Vervanging"
         },
         "replacement": "Vervanging",
-        "inbox": "Chatbox"
+        "inbox": "Chatbox",
+        "giftcard": "Cadeaukaarten"
     },
     "event": {
         "list": {
@@ -9518,8 +9521,8 @@
             "tenMinutes": "10 min"
         },
         "never": "Nooit",
-        "shortMinuteIdentifier": "min.",
-        "shortHourIdentifier": "u",
+        "shortMinuteIdentifier": "min",
+        "shortHourIdentifier": "h",
         "time": {
             "weekday": {
                 "sunday": "Zondag",
@@ -15403,7 +15406,13 @@
                     "isAlreadyRegistered": "Gereserveerd",
                     "desktop": "Groot scherm",
                     "mobile": "Klein scherm",
-                    "blockedByTags": "Onvoldoende rechten"
+                    "blockedByTags": "Onvoldoende rechten",
+                    "2": "Twee",
+                    "3": "Drie",
+                    "internalAccountPrepaidLine": "Betaling via interne account",
+                    "defaultPrepaidLine": "Standaard",
+                    "1": "Een",
+                    "giftcardPrepaidLine": "Betaling via cadeaukaart"
                 },
                 "title": {
                     "nextOffer": "Volgende sessie beschikbaar",
@@ -15429,7 +15438,18 @@
                     "isOfferAvailable": "Beschikbaar",
                     "isOfferFull": "Vol",
                     "isOfferInThePast": "Afgelopen",
-                    "isHidden": "Verborgen"
+                    "isHidden": "Verborgen",
+                    "basketIsEmpty": "Winkelmand is leeg",
+                    "showSpot": "Toon de plaats",
+                    "showPrice": "Toon de prijs",
+                    "showCredit": "Toon de credits",
+                    "noStyledContainer": "Toon de variant zonder container",
+                    "showEstablishmentAddress": "Toon het adres van de vestiging",
+                    "isItemEditionDisabled": "Bewerken van items uitgeschakeld",
+                    "numberOfDistinctCheckoutItem": "Aantal verschillende producten in winkelmand",
+                    "isAddingItemPossible": "Toevoegen van meer items geactiveerd",
+                    "isDense": "Dicht",
+                    "prepaidLineKind": "Voorafbetaalde lijn type"
                 },
                 "configurationTitle": "Variaties"
             },
@@ -15438,7 +15458,8 @@
                 "workshop": "Workshop",
                 "subscription": "Abonnementen",
                 "pass": "Leskaart",
-                "common": "Algemeen"
+                "common": "Algemeen",
+                "bookingPage": "Boeking"
             },
             "components": {
                 "calendar": "Agenda",
@@ -15505,7 +15526,15 @@
                 "marketplace_payment_pack_restriction_modal": "Pop-up met beperkingen (cursuskaart)",
                 "marketplace_payment_pack_compatibility_modal": "Compatibiliteit popup (cursuskaart)",
                 "marketplace_payment_combo_card": "Pakketkaart",
-                "marketplace_select": "Keuzeschakelaar (single)"
+                "marketplace_select": "Keuzeschakelaar (single)",
+                "marketplace_item_quantity": "Winkelmand item aantal (Winkelmand overzicht)",
+                "marketplace_basket_summary_item": "Winkelmand item component (Winkelmand overzicht)",
+                "marketplace_basket_summary_list_item": "Winkelmand item lijst component (Winkelmand overzicht)",
+                "booker_module_offer_summary": "Samenvatting van de sessie",
+                "marketplace_basket_summary": "Winkelmand overzicht",
+                "marketplace_prepaid_line_item": "Voorafbetaalde lijn lijst item",
+                "marketplace_prepaid_line_list": "Voorafbetaalde lijn lijst",
+                "marketplace_basket_summary_dialog": "Winkelmand overzicht (pop-up)"
             },
             "customCss": {
                 "yourCode": "Je aanvullende implementatie:",

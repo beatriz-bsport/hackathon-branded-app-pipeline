@@ -82,6 +82,8 @@ const getTranslations = async () => {
       paymentMethod: {
         actions: {
           addPaymentMethod: 'Add a payment method',
+          addPaymentMethodDenied:
+            'This member does not currently have any saved payment methods of this kind, and you do not have permission to add a new one.',
           retry: 'Try again',
           collect: 'Save',
           close: 'Close',

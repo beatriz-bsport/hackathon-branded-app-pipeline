@@ -70,6 +70,7 @@ type Props = {
   hideSaveForLater?: boolean;
   cardBillingDetailsMandatory: boolean;
   companyCountry?: string;
+  hasAddPaymentMethodPermission?: boolean;
 };
 
 const CARD_ELEMENT_OPTIONS = {
@@ -143,6 +144,7 @@ const StripePaymentCard = forwardRef(
       hideSaveForLater,
       cardBillingDetailsMandatory,
       companyCountry,
+      hasAddPaymentMethodPermission = true,
     }: Props,
     ref,
   ) => {
@@ -338,7 +340,8 @@ const StripePaymentCard = forwardRef(
       !elements ||
       !clientSecret ||
       !termsAndConditionsAccepted ||
-      !areBillingDetailsProvided;
+      !areBillingDetailsProvided ||
+      (!hasAddPaymentMethodPermission && !paymentMethodList.length);
 
     // This useEffect is required in the new checkout flow, in order to disable the 'Pay Now' button
     // if needed
@@ -530,90 +533,100 @@ const StripePaymentCard = forwardRef(
           />
         )}
         {addPaymentMethod && (
-          <div>
-            <CardSection error={error} />
-            <div
-              className={classNames(
-                classes.saveAndDisplay,
-                customClasses?.saveAndDisplay,
-              )}
-            >
-              <div className={classNames(classes.row, customClasses?.row)}>
-                {!hideSaveForLater && (
-                  <>
-                    <Checkbox
-                      checked={saveForLater || forceSave}
-                      color="primary"
-                      disabled={forceSave}
-                      onChange={onSaveForLaterChange}
-                    />
-                    <Typography
-                      variant={isNewCheckoutFlow ? 'body1' : 'caption'}
-                    >
-                      {t('paymentPanel.actions.saveForLater')}
-                    </Typography>
-                    <div
-                      className={classNames(
-                        classes.securityInformationContainer,
-                        customClasses?.securityInformationContainer,
-                      )}
-                    >
-                      {isMobile ? (
-                        <IconButton onClick={OnInfoRequest}>
-                          <Info />
-                        </IconButton>
-                      ) : (
-                        <PopOver
-                          anchorOrigin={{
-                            vertical: 'bottom',
-                            horizontal: 'center',
-                          }}
-                          className={classNames(
-                            classes.securityInformationText,
-                            customClasses?.securityInformationText,
-                          )}
-                          title={t(
-                            'paymentPanel.actions.paymentSecurityInformation',
-                          )}
-                          transformOrigin={{
-                            vertical: 'top',
-                            horizontal: 'center',
-                          }}
-                        >
-                          <Info
-                            className={classNames(
-                              classes.infoIcon,
-                              customClasses?.infoIcon,
-                            )}
-                          />
-                        </PopOver>
-                      )}
-                    </div>
-                  </>
+          <>
+            {!hasAddPaymentMethodPermission ? (
+              <Typography>
+                {t(
+                  'payment:forms.paymentMethod.actions.addPaymentMethodDenied',
                 )}
-              </div>
-              {!!paymentMethodList.length && (
-                <ButtonBase
+              </Typography>
+            ) : (
+              <div>
+                <CardSection error={error} />
+                <div
                   className={classNames(
-                    classes.displayButton,
-                    customClasses?.displayButton,
+                    classes.saveAndDisplay,
+                    customClasses?.saveAndDisplay,
                   )}
-                  onClick={stopAddingPaymentMethod}
                 >
-                  <Typography align="right" color="primary" variant="body1">
-                    {t(
-                      'payment:forms.paymentMethod.actions.displayPaymentMethod',
+                  <div className={classNames(classes.row, customClasses?.row)}>
+                    {!hideSaveForLater && (
+                      <>
+                        <Checkbox
+                          checked={saveForLater || forceSave}
+                          color="primary"
+                          disabled={forceSave}
+                          onChange={onSaveForLaterChange}
+                        />
+                        <Typography
+                          variant={isNewCheckoutFlow ? 'body1' : 'caption'}
+                        >
+                          {t('paymentPanel.actions.saveForLater')}
+                        </Typography>
+                        <div
+                          className={classNames(
+                            classes.securityInformationContainer,
+                            customClasses?.securityInformationContainer,
+                          )}
+                        >
+                          {isMobile ? (
+                            <IconButton onClick={OnInfoRequest}>
+                              <Info />
+                            </IconButton>
+                          ) : (
+                            <PopOver
+                              anchorOrigin={{
+                                vertical: 'bottom',
+                                horizontal: 'center',
+                              }}
+                              className={classNames(
+                                classes.securityInformationText,
+                                customClasses?.securityInformationText,
+                              )}
+                              title={t(
+                                'paymentPanel.actions.paymentSecurityInformation',
+                              )}
+                              transformOrigin={{
+                                vertical: 'top',
+                                horizontal: 'center',
+                              }}
+                            >
+                              <Info
+                                className={classNames(
+                                  classes.infoIcon,
+                                  customClasses?.infoIcon,
+                                )}
+                              />
+                            </PopOver>
+                          )}
+                        </div>
+                      </>
                     )}
-                  </Typography>
-                </ButtonBase>
-              )}
-              {isMobile && isPaymentSecurityInfoDisplayed && (
-                <div className={classes.greyContainer}>
-                  {t('paymentPanel.actions.paymentSecurityInformation')}
+                  </div>
+                  {!!paymentMethodList.length && (
+                    <ButtonBase
+                      className={classNames(
+                        classes.displayButton,
+                        customClasses?.displayButton,
+                      )}
+                      onClick={stopAddingPaymentMethod}
+                    >
+                      <Typography align="right" color="primary" variant="body1">
+                        {t(
+                          'payment:forms.paymentMethod.actions.displayPaymentMethod',
+                        )}
+                      </Typography>
+                    </ButtonBase>
+                  )}
+                  {isMobile && isPaymentSecurityInfoDisplayed && (
+                    <div className={classes.greyContainer}>
+                      {t('paymentPanel.actions.paymentSecurityInformation')}
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
-          </div>
+              </div>
+            )}
+          </>
         )}
         {!addPaymentMethod && !!error && (
           <div style={{ margin: 8 }}>
@@ -643,25 +656,28 @@ const StripePaymentCard = forwardRef(
               setBillingDetails={setBillingDetails}
               setHasDetached={setHasDetached}
             />
-            <ButtonBase
-              className={classNames(
-                classes.addButton,
-                customClasses?.addButton,
-              )}
-              disabled={false}
-              onClick={startAddingPaymentMethod}
-            >
-              <AddIcon
+
+            {hasAddPaymentMethodPermission && (
+              <ButtonBase
                 className={classNames(
-                  classes.leftIcon,
-                  customClasses?.leftIcon,
+                  classes.addButton,
+                  customClasses?.addButton,
                 )}
-                color="primary"
-              />
-              <Typography align="left" color="primary" variant="body1">
-                {t('payment:forms.paymentMethod.actions.addPaymentMethod')}
-              </Typography>
-            </ButtonBase>
+                disabled={false}
+                onClick={startAddingPaymentMethod}
+              >
+                <AddIcon
+                  className={classNames(
+                    classes.leftIcon,
+                    customClasses?.leftIcon,
+                  )}
+                  color="primary"
+                />
+                <Typography align="left" color="primary" variant="body1">
+                  {t('payment:forms.paymentMethod.actions.addPaymentMethod')}
+                </Typography>
+              </ButtonBase>
+            )}
           </div>
         )}
         {allowConsumerToUseInternalAccount && !!creditAccountBalance && (

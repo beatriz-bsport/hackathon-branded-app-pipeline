@@ -17,6 +17,7 @@ import Add from '@material-ui/icons/Add';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import LinkIcon from '@material-ui/icons/Link';
 import { OptionCallback } from '../../../state/types';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 import { getAddPaymentLink } from '#libs/consumer-space/utils';
 
@@ -43,85 +44,90 @@ export const MemberPaymentMethodPanel = (props: Props) => {
     [props.companyId],
   );
   return (
-    <div style={{ width: '100%' }}>
-      <div className={classes.flexTitle}>
-        <Typography className={classes.title} component="h2" variant="h6">
-          {t('paymentMethod.title')}
-        </Typography>
-        {props.detachPaymentMethodLoading && (
-          <CircularProgress color="secondary" size="1.5rem" />
-        )}
-      </div>
-      {props.paymentMethodLoading && <LinearProgress />}
-      <Divider />
-      <List>
-        {props.paymentMethod && props.paymentMethod.length !== 0 ? (
-          props.paymentMethod.map((method) => {
-            return (
-              <ListItem>
-                <ListItemAvatar>
-                  {method.type === 'card' ? (
-                    <PaymentIcon />
-                  ) : (
-                    <AccountBalanceIcon />
-                  )}
-                </ListItemAvatar>
-                <ListItemText
-                  primary={`**** **** **** ${method.readable_identifier}`}
-                  secondary={`${method.type === 'card' ? method.brand : ''}   ${
-                    method.additional_info
-                  }`}
-                />
-
-                <ListItemSecondaryAction>
-                  <IconButton
-                    aria-label="delete"
-                    disabled={props.detachPaymentMethodLoading}
-                    edge="end"
-                  >
-                    <DeleteIcon
-                      onClick={() => props.detachPaymentMethod(method.id)}
+    <ObjectLevelPermissionProvider requiredPermission="billing.allowed_actions.addPaymentMethod">
+      {(hasAddPaymentMethodPermission: boolean) => (
+        <div style={{ width: '100%' }}>
+          <div className={classes.flexTitle}>
+            <Typography className={classes.title} component="h2" variant="h6">
+              {t('paymentMethod.title')}
+            </Typography>
+            {props.detachPaymentMethodLoading && (
+              <CircularProgress color="secondary" size="1.5rem" />
+            )}
+          </div>
+          {props.paymentMethodLoading && <LinearProgress />}
+          <Divider />
+          <List>
+            {props.paymentMethod && props.paymentMethod.length !== 0 ? (
+              props.paymentMethod.map((method) => {
+                return (
+                  <ListItem>
+                    <ListItemAvatar>
+                      {method.type === 'card' ? (
+                        <PaymentIcon />
+                      ) : (
+                        <AccountBalanceIcon />
+                      )}
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={`**** **** **** ${method.readable_identifier}`}
+                      secondary={`${
+                        method.type === 'card' ? method.brand : ''
+                      }   ${method.additional_info}`}
                     />
-                  </IconButton>
-                </ListItemSecondaryAction>
-              </ListItem>
-            );
-          })
-        ) : (
-          <Typography color="textSecondary" variant="caption">
-            <p> {t('paymentMethod.none')}</p>
-          </Typography>
-        )}
-      </List>
-      {openAddPaymentMethodDialog && (
-        <div className={classes.row}>
-          <Button
-            color="primary"
-            onClick={openAddPaymentMethodDialogCallback}
-            variant="outlined"
-          >
-            <Add className={classes.leftIcon} color="primary" />
-            {t('paymentMethod.addPaymentMethod')}
-          </Button>
-          {props.companyId && (
-            <CopyToClipboard text={addPaymentLink}>
-              <ButtonBase
-                className={classes.link}
-                id="button_pass_copy"
-                onClick={() =>
-                  props.snackbarSuccess && props.snackbarSuccess('link.copied')
-                }
+
+                    <ListItemSecondaryAction>
+                      <IconButton
+                        aria-label="delete"
+                        disabled={props.detachPaymentMethodLoading}
+                        edge="end"
+                      >
+                        <DeleteIcon
+                          onClick={() => props.detachPaymentMethod(method.id)}
+                        />
+                      </IconButton>
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                );
+              })
+            ) : (
+              <Typography color="textSecondary" variant="caption">
+                <p> {t('paymentMethod.none')}</p>
+              </Typography>
+            )}
+          </List>
+          {hasAddPaymentMethodPermission && openAddPaymentMethodDialog && (
+            <div className={classes.row}>
+              <Button
+                color="primary"
+                onClick={openAddPaymentMethodDialogCallback}
+                variant="outlined"
               >
-                <LinkIcon />
-                <Typography className={classes.linkTypo}>
-                  {t('paymentMethod.copyLink')}
-                </Typography>
-              </ButtonBase>
-            </CopyToClipboard>
+                <Add className={classes.leftIcon} color="primary" />
+                {t('paymentMethod.addPaymentMethod')}
+              </Button>
+              {props.companyId && (
+                <CopyToClipboard text={addPaymentLink}>
+                  <ButtonBase
+                    className={classes.link}
+                    id="button_pass_copy"
+                    onClick={() =>
+                      props.snackbarSuccess &&
+                      props.snackbarSuccess('link.copied')
+                    }
+                  >
+                    <LinkIcon />
+                    <Typography className={classes.linkTypo}>
+                      {t('paymentMethod.copyLink')}
+                    </Typography>
+                  </ButtonBase>
+                </CopyToClipboard>
+              )}
+            </div>
           )}
         </div>
       )}
-    </div>
+    </ObjectLevelPermissionProvider>
   );
 };
 

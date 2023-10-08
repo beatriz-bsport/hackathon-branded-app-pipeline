@@ -165,6 +165,7 @@ export class PaymentDialog extends React.Component<Props, State> {
 
     const availableEngineList = this.getAvailableEngineList();
     const dialogOffset = '50%';
+
     return (
       <Modal open classes={{ paper: classes.container }}>
         <>

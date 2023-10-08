@@ -35,6 +35,7 @@ import InstalmentPaymentSelector from '../../../instalment-payment-configuration
 
 import PaymentMethodCardSelector from '../PaymentMethodCardSelector.component';
 import AcceptTermsAndConditions from '../AcceptTermsAndConditions.component';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 import {
   getStripePkKey,
@@ -371,57 +372,64 @@ const PaymentStripe: React.FC<
         ) : (
           <div className={classes.innerContainer}>
             <Elements options={elementOptions} stripe={stripePromise}>
-              <StripePaymentMethodForm
-                ref={ref}
-                AcceptTermsAndConditionsComponent={
-                  termsAndConditions ? (
-                    <AcceptTermsAndConditions
-                      accepted={termsAndConditionsAccepted}
-                      onChecked={setTermsAndConditionsAccepted}
-                      termsAndConditions={termsAndConditions}
-                      type={TermsAndConditionType.TERMS_AND_CONDITIONS}
-                    />
-                  ) : null
-                }
-                allowConsumerToUseInternalAccount={
-                  allowConsumerToUseInternalAccount &&
-                  (useInternalAccount || applyBalanceToInvoice)
-                }
-                applyBalanceLoading={applyBalanceLoading}
-                applyBalanceToInvoice={applyBalanceToInvoice}
-                basketId={basketId}
-                basketTotalPriceCts={basketTotalPriceCts}
-                cardBillingDetailsMandatory={cardBillingDetailsMandatory}
-                checkItemsBasket={checkItemsBasket}
-                clientSecret={clientSecret}
-                companyCountry={companyCountry}
-                companyId={companyId}
-                createPendingBookingsIfNecessary={
-                  createPendingBookingsIfNecessary
-                }
-                creditAccountBalance={creditAccountBalance}
-                detachPaymentMethod={detachPaymentMethod}
-                detachPaymentMethodLoading={detachPaymentMethodLoading}
-                forceDisabled={priceUpdaterOpen}
-                forceSave={!!instalmentPaymentSelectedId}
-                fromApp={fromApp}
-                loading={loading || applyBalanceLoading}
-                memberId={memberId}
-                onCancel={onCancel}
-                onError={onError}
-                onSuccess={onSuccess}
-                paymentGroupId={paymentGroupId}
-                saveForLaterBacsDebit={saveForLaterBacsDebit}
-                setIsOnlinePaymentDisabled={setIsOnlinePaymentDisabled}
-                setPaymentProcessing={setPaymentProcessing}
-                setSaveForLaterBacsDebit={setSaveForLaterBacsDebit}
-                snackbarErrorMsg={snackbarErrorMsg}
-                snackbarSuccessMsg={snackbarSuccessMsg}
-                termsAndConditionsAccepted={termsAndConditionsAccepted}
-                useInternalAccount={useInternalAccount}
-                userDefaultEmail={sepaDefaultEmail}
-                userDefaultName={sepaDefaultName}
-              />
+              <ObjectLevelPermissionProvider requiredPermission="billing.allowed_actions.addPaymentMethod">
+                {(hasAddPaymentMethodPermission) => (
+                  <StripePaymentMethodForm
+                    ref={ref}
+                    AcceptTermsAndConditionsComponent={
+                      termsAndConditions ? (
+                        <AcceptTermsAndConditions
+                          accepted={termsAndConditionsAccepted}
+                          onChecked={setTermsAndConditionsAccepted}
+                          termsAndConditions={termsAndConditions}
+                          type={TermsAndConditionType.TERMS_AND_CONDITIONS}
+                        />
+                      ) : null
+                    }
+                    allowConsumerToUseInternalAccount={
+                      allowConsumerToUseInternalAccount &&
+                      (useInternalAccount || applyBalanceToInvoice)
+                    }
+                    applyBalanceLoading={applyBalanceLoading}
+                    applyBalanceToInvoice={applyBalanceToInvoice}
+                    basketId={basketId}
+                    basketTotalPriceCts={basketTotalPriceCts}
+                    cardBillingDetailsMandatory={cardBillingDetailsMandatory}
+                    checkItemsBasket={checkItemsBasket}
+                    clientSecret={clientSecret}
+                    companyCountry={companyCountry}
+                    companyId={companyId}
+                    createPendingBookingsIfNecessary={
+                      createPendingBookingsIfNecessary
+                    }
+                    creditAccountBalance={creditAccountBalance}
+                    detachPaymentMethod={detachPaymentMethod}
+                    detachPaymentMethodLoading={detachPaymentMethodLoading}
+                    forceDisabled={priceUpdaterOpen}
+                    forceSave={!!instalmentPaymentSelectedId}
+                    fromApp={fromApp}
+                    hasAddPaymentMethodPermission={
+                      hasAddPaymentMethodPermission
+                    }
+                    loading={loading || applyBalanceLoading}
+                    memberId={memberId}
+                    onCancel={onCancel}
+                    onError={onError}
+                    onSuccess={onSuccess}
+                    paymentGroupId={paymentGroupId}
+                    saveForLaterBacsDebit={saveForLaterBacsDebit}
+                    setIsOnlinePaymentDisabled={setIsOnlinePaymentDisabled}
+                    setPaymentProcessing={setPaymentProcessing}
+                    setSaveForLaterBacsDebit={setSaveForLaterBacsDebit}
+                    snackbarErrorMsg={snackbarErrorMsg}
+                    snackbarSuccessMsg={snackbarSuccessMsg}
+                    termsAndConditionsAccepted={termsAndConditionsAccepted}
+                    useInternalAccount={useInternalAccount}
+                    userDefaultEmail={sepaDefaultEmail}
+                    userDefaultName={sepaDefaultName}
+                  />
+                )}
+              </ObjectLevelPermissionProvider>
             </Elements>
           </div>
         )}

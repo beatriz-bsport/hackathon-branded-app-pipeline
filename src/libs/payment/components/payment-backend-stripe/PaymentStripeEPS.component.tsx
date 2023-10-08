@@ -1,5 +1,4 @@
 // @ts-nocheck
-// @flow
 import React, { useImperativeHandle, forwardRef } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { useStripe, useElements } from '@stripe/react-stripe-js';
@@ -28,6 +27,7 @@ type PaymentStripeEPSProps = {
     payment_group_method_identifier?: number;
   }) => void;
   setIsOnlinePaymentDisabled?: (isLoading: boolean) => void;
+  hasAddPaymentMethodPermission?: boolean;
 };
 
 export const PaymentStripeEPS = forwardRef(
@@ -42,6 +42,7 @@ export const PaymentStripeEPS = forwardRef(
       setPaymentProcessing,
       createPendingBookingsIfNecessary,
       setIsOnlinePaymentDisabled,
+      hasAddPaymentMethodPermission = true,
     }: PaymentStripeEPSProps,
     ref,
   ) => {
@@ -176,19 +177,28 @@ export const PaymentStripeEPS = forwardRef(
 
     return (
       <form onSubmit={handleSubmit}>
-        <div className={classes.fieldContainer}>
-          <TextInput
-            required
-            className={classes.field}
-            label={t('paymentPanel.fields.accountHolderName.label')}
-            onChange={(ev) => setName(ev.target.value)}
-            placeholder={t('paymentPanel.fields.accountHolderName.placeholder')}
-            value={name}
-          />
-          {errorMessage && (
-            <Typography color="error">{errorMessage}</Typography>
-          )}
-        </div>
+        {!hasAddPaymentMethodPermission ? (
+          <Typography>
+            {t('payment:forms.paymentMethod.actions.addPaymentMethodDenied')}
+          </Typography>
+        ) : (
+          <div className={classes.fieldContainer}>
+            <TextInput
+              required
+              className={classes.field}
+              label={t('paymentPanel.fields.accountHolderName.label')}
+              onChange={(ev) => setName(ev.target.value)}
+              placeholder={t(
+                'paymentPanel.fields.accountHolderName.placeholder',
+              )}
+              value={name}
+            />
+            {errorMessage && (
+              <Typography color="error">{errorMessage}</Typography>
+            )}
+          </div>
+        )}
+
         {!isNewCheckoutFlow && (
           <div className={classes.actionRow}>
             {processing ? (
@@ -196,7 +206,9 @@ export const PaymentStripeEPS = forwardRef(
             ) : (
               <Button
                 color="primary"
-                disabled={forceDisabled || !stripe}
+                disabled={
+                  forceDisabled || !stripe || !hasAddPaymentMethodPermission
+                }
                 type="submit"
                 variant="contained"
               >

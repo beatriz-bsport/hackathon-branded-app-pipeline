@@ -1,4 +1,3 @@
-// @flow
 import React, {
   useCallback,
   useEffect,
@@ -60,6 +59,7 @@ interface PaymentStripeBacsDebitProps {
     payment_group_method_identifier?: number;
   }) => void;
   setIsOnlinePaymentDisabled?: (isLoading: boolean) => void;
+  hasAddPaymentMethodPermission?: boolean;
 }
 
 const PaymentStripeBacsDebit = forwardRef(
@@ -86,6 +86,7 @@ const PaymentStripeBacsDebit = forwardRef(
       setSaveForLaterBacsDebit,
       createPendingBookingsIfNecessary,
       setIsOnlinePaymentDisabled,
+      hasAddPaymentMethodPermission = true,
     }: PaymentStripeBacsDebitProps,
     ref,
   ) => {
@@ -151,7 +152,11 @@ const PaymentStripeBacsDebit = forwardRef(
     );
 
     const isSubmitButtonDisabled =
-      loading || forceDisabled || !stripe || !termsAndConditionsAccepted;
+      loading ||
+      forceDisabled ||
+      !stripe ||
+      !termsAndConditionsAccepted ||
+      (!hasAddPaymentMethodPermission && !paymentMethodList.length);
 
     // This useEffect is required in the new checkout flow, in order to disable the 'Pay Now' button
     // if needed
@@ -357,44 +362,65 @@ const PaymentStripeBacsDebit = forwardRef(
           )}
         </Typography>
         {addPaymentMethod && (
-          <div>
-            <PaymentElement />
-            <div className={classes.saveAndDisplay}>
-              <div className={classes.row}>
-                <Checkbox
-                  checked={saveForLaterBacsDebit}
-                  color="primary"
-                  onChange={handleSaveForLater}
-                />
-                <Typography variant={isNewCheckoutFlow ? 'body1' : 'caption'}>
-                  {t('paymentPanel.actions.saveForLater')}
-                </Typography>
-                <div className={classes.securityInformationContainer}>
-                  <PopOver
-                    anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-                    className={classes.securityInformationText}
-                    title={t('paymentPanel.actions.paymentSecurityInformation')}
-                    transformOrigin={{ vertical: 'top', horizontal: 'center' }}
-                  >
-                    <Info className={classes.infoIcon} />
-                  </PopOver>
+          <>
+            {!hasAddPaymentMethodPermission ? (
+              <Typography>
+                {t(
+                  'payment:forms.paymentMethod.actions.addPaymentMethodDenied',
+                )}
+              </Typography>
+            ) : (
+              <div>
+                <PaymentElement />
+                <div className={classes.saveAndDisplay}>
+                  <div className={classes.row}>
+                    <Checkbox
+                      checked={saveForLaterBacsDebit}
+                      color="primary"
+                      onChange={handleSaveForLater}
+                    />
+                    <Typography
+                      variant={isNewCheckoutFlow ? 'body1' : 'caption'}
+                    >
+                      {t('paymentPanel.actions.saveForLater')}
+                    </Typography>
+                    <div className={classes.securityInformationContainer}>
+                      <PopOver
+                        anchorOrigin={{
+                          vertical: 'bottom',
+                          horizontal: 'center',
+                        }}
+                        className={classes.securityInformationText}
+                        title={t(
+                          'paymentPanel.actions.paymentSecurityInformation',
+                        )}
+                        transformOrigin={{
+                          vertical: 'top',
+                          horizontal: 'center',
+                        }}
+                      >
+                        <Info className={classes.infoIcon} />
+                      </PopOver>
+                    </div>
+                  </div>
+                  {!!paymentMethodList.length && (
+                    <ButtonBase
+                      className={classes.displayButton}
+                      onClick={() => setAddPaymentMethod(false)}
+                    >
+                      <Typography align="right" color="primary" variant="body1">
+                        {t(
+                          'payment:forms.paymentMethod.actions.displayPaymentMethod',
+                        )}
+                      </Typography>
+                    </ButtonBase>
+                  )}
                 </div>
               </div>
-              {!!paymentMethodList.length && (
-                <ButtonBase
-                  className={classes.displayButton}
-                  onClick={() => setAddPaymentMethod(false)}
-                >
-                  <Typography align="right" color="primary" variant="body1">
-                    {t(
-                      'payment:forms.paymentMethod.actions.displayPaymentMethod',
-                    )}
-                  </Typography>
-                </ButtonBase>
-              )}
-            </div>
-          </div>
+            )}
+          </>
         )}
+
         {!addPaymentMethod && !!paymentMethodList.length && (
           <div>
             <PaymentMethodList
@@ -406,16 +432,19 @@ const PaymentStripeBacsDebit = forwardRef(
               selectedSavedPaymentMethodId={paymentMethodSelected}
               setHasDetached={setHasDetached}
             />
-            <ButtonBase
-              className={classes.addButton}
-              disabled={false}
-              onClick={() => setAddPaymentMethod(true)}
-            >
-              <AddIcon className={classes.leftIcon} color="primary" />
-              <Typography align="left" color="primary" variant="body1">
-                {t('payment:forms.paymentMethod.actions.addPaymentMethod')}
-              </Typography>
-            </ButtonBase>
+
+            {hasAddPaymentMethodPermission && (
+              <ButtonBase
+                className={classes.addButton}
+                disabled={false}
+                onClick={() => setAddPaymentMethod(true)}
+              >
+                <AddIcon className={classes.leftIcon} color="primary" />
+                <Typography align="left" color="primary" variant="body1">
+                  {t('payment:forms.paymentMethod.actions.addPaymentMethod')}
+                </Typography>
+              </ButtonBase>
+            )}
           </div>
         )}
         {errorMessage && <Typography color="error">{errorMessage}</Typography>}

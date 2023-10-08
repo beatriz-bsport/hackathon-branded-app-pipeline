@@ -14,6 +14,7 @@ import CollectPaymentMethod from '../CollectPaymentMethod.component';
 import { PaymentMethod } from '../../types';
 import CardBillingDetailsForm from '../payment-backend-stripe/CardBillingDetailsForm';
 import { MarketplacePaymentMethodBillingDetails } from '#libs/marketplace/types';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 type Props = {
   companyId?: number;
@@ -121,14 +122,16 @@ export const PaymentMethodList = ({
         </React.Fragment>
       ))}
       {!!requestSetupIntentSecret && onlinePaymentEnabledValue && (
-        <ListItem button onClick={() => setCollectPaymentMethodIsOpen(true)}>
-          <ListItemIcon>
-            <AddIcon />
-          </ListItemIcon>
-          <ListItemText>
-            {t('forms.paymentMethod.actions.addPaymentMethod')}
-          </ListItemText>
-        </ListItem>
+        <ObjectLevelPermissionWrapper requiredPermission="billing.allowed_actions.addPaymentMethod">
+          <ListItem button onClick={() => setCollectPaymentMethodIsOpen(true)}>
+            <ListItemIcon>
+              <AddIcon />
+            </ListItemIcon>
+            <ListItemText>
+              {t('forms.paymentMethod.actions.addPaymentMethod')}
+            </ListItemText>
+          </ListItem>
+        </ObjectLevelPermissionWrapper>
       )}
       {collectPaymentMethodIsOpen && (
         <CollectPaymentMethod

@@ -1,4 +1,3 @@
-// @flow
 import React, { useImperativeHandle, forwardRef } from 'react';
 
 import {
@@ -64,6 +63,7 @@ type PaymentStripeIdealProps = {
     payment_group_method_identifier?: number;
   }) => void;
   setIsOnlinePaymentDisabled?: (isLoading: boolean) => void;
+  hasAddPaymentMethodPermission?: boolean;
 };
 
 export const PaymentStripeIdeal = forwardRef(
@@ -84,6 +84,7 @@ export const PaymentStripeIdeal = forwardRef(
       setPaymentProcessing,
       createPendingBookingsIfNecessary,
       setIsOnlinePaymentDisabled,
+      hasAddPaymentMethodPermission = true,
     }: PaymentStripeIdealProps,
     ref,
   ) => {
@@ -111,7 +112,11 @@ export const PaymentStripeIdeal = forwardRef(
     );
 
     const isSubmitButtonDisabled =
-      loading || forceDisabled || !stripe || !termsAndConditionsAccepted;
+      loading ||
+      forceDisabled ||
+      !stripe ||
+      !termsAndConditionsAccepted ||
+      !hasAddPaymentMethodPermission;
 
     // This useEffect is required in the new checkout flow, in order to disable the 'Pay Now' button
     // if needed
@@ -230,57 +235,68 @@ export const PaymentStripeIdeal = forwardRef(
 
     return (
       <form onSubmit={handleSubmit}>
-        <IdealBankSection />
-        <div className={classes.fieldContainer}>
-          <TextInput
-            required
-            className={classes.field}
-            label={t('paymentPanel.fields.accountHolderName.label')}
-            onChange={(ev) => setName(ev.target.value)}
-            placeholder={t('paymentPanel.fields.accountHolderName.placeholder')}
-            value={name}
-          />
-          <TextInput
-            required
-            className={classes.field}
-            label={t('paymentPanel.fields.email.label')}
-            onChange={(ev) => setEmail(ev.target.value)}
-            placeholder={t('paymentPanel.fields.email.placeholder')}
-            value={email}
-          />
-          {errorMessage && (
-            <Typography color="error">{errorMessage}</Typography>
-          )}
-        </div>
-        <div className={classes.row}>
-          <Checkbox
-            checked={saveForLater || forceSave}
-            color="primary"
-            disabled={!!forceSave}
-            onChange={(ev) => setSaveForLater(ev.target.checked)}
-          />
-          <div className={classes.leftColumn}>
-            <Typography variant={isNewCheckoutFlow ? 'body1' : 'caption'}>
-              {t('paymentPanel.actions.saveForLater')}
-            </Typography>
-            <Typography
-              color="textSecondary"
-              variant={isNewCheckoutFlow ? 'body1' : 'caption'}
-            >
-              {t('paymentPanel.actions.saveForLaterAsSEPA')}
-            </Typography>
-          </div>
-          <div className={classes.securityInformationContainer}>
-            <PopOver
-              anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-              className={classes.securityInformationText}
-              title={t('paymentPanel.actions.paymentSecurityInformation')}
-              transformOrigin={{ vertical: 'top', horizontal: 'center' }}
-            >
-              <Info className={classes.infoIcon} />
-            </PopOver>
-          </div>
-        </div>
+        {!hasAddPaymentMethodPermission ? (
+          <Typography>
+            {t('payment:forms.paymentMethod.actions.addPaymentMethodDenied')}
+          </Typography>
+        ) : (
+          <>
+            <IdealBankSection />
+            <div className={classes.fieldContainer}>
+              <TextInput
+                required
+                className={classes.field}
+                label={t('paymentPanel.fields.accountHolderName.label')}
+                onChange={(ev) => setName(ev.target.value)}
+                placeholder={t(
+                  'paymentPanel.fields.accountHolderName.placeholder',
+                )}
+                value={name}
+              />
+              <TextInput
+                required
+                className={classes.field}
+                label={t('paymentPanel.fields.email.label')}
+                onChange={(ev) => setEmail(ev.target.value)}
+                placeholder={t('paymentPanel.fields.email.placeholder')}
+                value={email}
+              />
+              {errorMessage && (
+                <Typography color="error">{errorMessage}</Typography>
+              )}
+            </div>
+            <div className={classes.row}>
+              <Checkbox
+                checked={saveForLater || forceSave}
+                color="primary"
+                disabled={!!forceSave}
+                onChange={(ev) => setSaveForLater(ev.target.checked)}
+              />
+              <div className={classes.leftColumn}>
+                <Typography variant={isNewCheckoutFlow ? 'body1' : 'caption'}>
+                  {t('paymentPanel.actions.saveForLater')}
+                </Typography>
+                <Typography
+                  color="textSecondary"
+                  variant={isNewCheckoutFlow ? 'body1' : 'caption'}
+                >
+                  {t('paymentPanel.actions.saveForLaterAsSEPA')}
+                </Typography>
+              </div>
+              <div className={classes.securityInformationContainer}>
+                <PopOver
+                  anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                  className={classes.securityInformationText}
+                  title={t('paymentPanel.actions.paymentSecurityInformation')}
+                  transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+                >
+                  <Info className={classes.infoIcon} />
+                </PopOver>
+              </div>
+            </div>
+          </>
+        )}
+
         {!isNewCheckoutFlow && (
           <>
             <div className={classes.conditions}>

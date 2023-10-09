@@ -3,6 +3,7 @@ import {
   MarketPlaceDaysFormatDisplay,
   MarketPlaceSessionTimeDisplay,
 } from '@bsport/common/lib/master-data/personalization';
+import { BOOKING_FOR_GUEST_FREQUENCY } from '#libs/offer/types';
 
 export type Theme = {
   id: string;
@@ -55,7 +56,7 @@ export type Theme = {
   accept_double_booking_workshop: boolean;
   allow_guest: boolean;
   allow_guest_activatable: boolean;
-  allow_guest_frequency: string;
+  allow_guest_frequency: BOOKING_FOR_GUEST_FREQUENCY;
   allow_guest_max_number: number;
   vod: boolean;
   show_booked_gender_offer: boolean;

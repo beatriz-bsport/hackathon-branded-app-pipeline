@@ -66,6 +66,7 @@ import {
   retrieveOffer as fetchOffer,
   fetchOfferStatus as fetchOfferStatusAction,
   offerUserRegistration,
+  fetchBookingGuestNumber as fetchBookingGuestNumberAction,
 } from '#libs/offer/actions';
 import { getMemberTagsIdsList } from '#libs/tag/selectors';
 
@@ -116,6 +117,7 @@ import {
   withCoach,
   withMetaActivity,
   getOfferById,
+  getBookingGuestNumberLeft,
 } from '#libs/offer/selectors';
 // @ts-expect-error
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
@@ -195,7 +197,13 @@ type State = {
 type OwnProps = {
   companyId: number;
   offerId: number;
-  queryParams: { fromWorkshop: string };
+  queryParams: {
+    fromWorkshop?: 'true';
+    guest_booking?: 'true';
+    guest_first_name?: 'true';
+    guest_last_name?: 'true';
+    guest_email?: 'true';
+  };
   memberTagList: number[];
   authenticated: boolean;
   goBack: () => void;
@@ -236,6 +244,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     }
     this.props.fetchOffer(this.props.offerId, {
       onSuccess: (offer: Offer) => {
+        this.props.fetchBookingGuestNumber(this.props.offerId);
         this.props.fetchCompanyTheme(offer.company);
         this.setState({ offerWasRetrieved: true });
         this.props.fetchMarketplaceSettings(offer.company.toString());
@@ -265,6 +274,8 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       },
     });
   }
+
+  getIsGuestBooking = this.props.queryParams.guest_booking === 'true';
 
   getAvailableConsumerPack = () => {
     return getAvailableConsumerPack(
@@ -431,6 +442,12 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
           this.props.offer,
           [],
           this.props.offerStatusById,
+          /**
+           * For getOfferContraints logic:
+           * in old flow, we could book guest at the same time with member booking
+           * we now always book for 1 person at a time, so no need to provide
+           * the additional guest count anymore
+           */
           0,
         ),
       };
@@ -464,9 +481,9 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
   };
 
   fetchOfferStatus = () => {
-    if (this.props.offer.id) {
+    if (this.props.offer?.id) {
       this.props.fetchOfferStatus(
-        this.props.offer.id,
+        this.props.offer?.id,
         {},
         {
           onSuccess: this.updateOfferConstraints,
@@ -548,6 +565,11 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       this.state.selectedItem,
       this.props.offer.id,
       this.state.selectedSpotId,
+      this.getIsGuestBooking && {
+        firstName: this.props.queryParams.guest_first_name ?? '',
+        lastName: this.props.queryParams.guest_last_name ?? '',
+        email: this.props.queryParams.guest_email ?? '',
+      },
     );
 
     if (
@@ -787,6 +809,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       this.state.selectedItem === null ||
       (this.state.isBookingBlocked &&
         !this.state.bookingBlockedReason.isWaitingListOpenMainReason);
+
     if (
       this.state.isSpotSelectorOpen &&
       !this.props.assetForBlueprintLoading &&
@@ -808,7 +831,11 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                 <ArrowBack className="bs-new-offer-booking__consumer-payment-packs__arrow-icon" />
               </Button>
               <div className="bs-new-offer-booking__spot-selector__header__text">
-                {t('newBookingModule.spotSelectorTitle')}
+                {t(
+                  this.getIsGuestBooking
+                    ? 'newBookingModule.guestSpotSelectorTitle'
+                    : 'newBookingModule.spotSelectorTitle',
+                )}
               </div>
             </div>
             <div className="bs-new-offer-booking__spot-selector__blueprint">
@@ -984,6 +1011,10 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                   establishment={this.props.offer?.establishment}
                   expirationDatetime={this.getSpotExpirationDatetime()}
                   goToCheckout={this.props.goTocheckout}
+                  guestName={`${this.props.queryParams.guest_first_name} ${
+                    this.props.queryParams.guest_last_name ?? ''
+                  }`}
+                  isGuestBooking={this.getIsGuestBooking}
                   loading={offerSummaryLoading}
                   metaActivity={this.props.offer?.meta_activity}
                   offer={this.props.offer}
@@ -1065,6 +1096,7 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
     customConfiguration: state.exportableComponents.customCss,
     basket: getCurrentBasket(state),
     basketIsLoading: state.checkout.basket.current.loading,
+    bookingGuestRemainingCount: getBookingGuestNumberLeft(state),
   };
 };
 
@@ -1104,6 +1136,7 @@ const mapDispatchToProps = {
   goBack,
   retrieveCompanyCssConfiguration: retrieveCompanyCssConfigurationAction,
   fetchCurrentBasket: fetchCurrentBasketAction,
+  fetchBookingGuestNumber: fetchBookingGuestNumberAction,
 };
 
 const mapHandlers = {
@@ -1193,7 +1226,16 @@ export default compose(
     companyId: 'companyId:number',
     offerId: 'offerId:number',
   }),
-  withQueryParams([['fromWorkshop'], 'queryParams']),
+  withQueryParams([
+    [
+      'fromWorkshop',
+      'guest_booking',
+      'guest_first_name',
+      'guest_last_name',
+      'guest_email',
+    ],
+    'queryParams',
+  ]),
   connector,
   withHandlers(mapHandlers),
   marketplaceCssHoc(),

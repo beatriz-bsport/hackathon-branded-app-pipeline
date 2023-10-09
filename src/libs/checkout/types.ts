@@ -226,6 +226,7 @@ export enum ConfirmationStatus {
   GENERIC_OFFER_ERROR = 'genericOfferError',
   OFFER_ONLY_BOOKING_ERROR = 'offerOnlyBookingError',
   OFFER_ONLY_SUCCESS = 'offerOnlySuccess',
+  OFFER_ONLY_GUEST_SUCCESS = 'offerOnlyGuestSuccess',
   OFFER_GENERIC_ERROR_WITH_PURCHASE = 'offerAndPurchaseGenericError',
   OFFER_BOOKING_ERROR_WITH_PURCHASE = 'offerAndPurchaseBookingError',
   OFFER_AND_PURCHASE_SUCCESS = 'offerAndPurchaseSuccess',

@@ -174,6 +174,28 @@ export const useConfirmationMessageData = (
         withAlert: null,
         withSubScriptionActions: null,
       },
+      [ConfirmationStatus.OFFER_ONLY_GUEST_SUCCESS]: {
+        actions: {
+          cancel: {
+            label: t('validation.actions.goToCalendar'),
+            onClick: goToCalendar,
+          },
+          confirm: {
+            label: t('validation.actions.myBookings'),
+            onClick: goToMemberProfile,
+          },
+        },
+        icon: React.createElement(ConfirmationMessageIcon, { isError: false }),
+        message: t(
+          'validation.sections.confirmationStatusMessage.offerOnlyGuestSuccess',
+          { count: offers?.length },
+        ),
+        title: t(
+          'validation.sections.confirmationStatusTitle.success.offerOnlyGuestSuccess',
+        ),
+        withAlert: null,
+        withSubScriptionActions: null,
+      },
       [ConfirmationStatus.WAITING_LIST]: {
         actions: {
           cancel: {

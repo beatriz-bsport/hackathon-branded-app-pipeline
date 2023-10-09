@@ -135,6 +135,7 @@ export const getConfirmationStatus = (
   basket: Basket,
   billingPlan: Subscription,
   offersOnWaitingList: number[],
+  isGuestBooking?: boolean,
 ) => {
   const checkoutItems =
     basket?.checkout_items?.filter((checkoutItem) => !!checkoutItem) ?? [];
@@ -177,8 +178,11 @@ export const getConfirmationStatus = (
         return ConfirmationStatus.GENERIC_OFFER_ERROR;
     }
   }
-  if (!!offers?.length && !basket && !billingPlan) {
+  if (!!offers?.length && !basket && !billingPlan && !isGuestBooking) {
     return ConfirmationStatus.OFFER_ONLY_SUCCESS;
+  }
+  if (!!offers?.length && !basket && !billingPlan && isGuestBooking) {
+    return ConfirmationStatus.OFFER_ONLY_GUEST_SUCCESS;
   }
   if (!!offers?.length && (!!basket || !!billingPlan)) {
     if (!codeError) {

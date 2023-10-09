@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useCallback, useState } from 'react';
+import React, { ChangeEvent, useCallback, useState } from 'react';
 import classNames from 'classnames';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
@@ -23,7 +23,7 @@ import {
 
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import PriceInput from '../../../components/input/PriceInput.component';
-import NumberInput from '../../../components/input/NumericInput.component';
+import NumericInput from '../../../components/input/NumericInput.component';
 import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelector.component';
 import PrivatePassSelector from '../../private-service/components/pass/PrivatePassSelector.component';
 import PaymentComboSelector from '../../payment-combo/components/PaymentComboSelector.component';
@@ -39,67 +39,59 @@ type BuyableItemProps = {
   onSelect?: (id: number) => void;
 };
 
-const BuyableItemSelector: React.FC<BuyableItemProps> = React.memo((props) => {
-  switch (props.buyableItemIdentifier) {
-    case BUYABLE_ITEM_PASS:
-      return (
-        <PaymentPackSelector
-          autofocus
-          onChange={(buyableItem) => props.onSelect(buyableItem)}
-          paymentPacks={
-            props.availableBuyableItems[props.buyableItemIdentifier]
-          }
-          value={props.value}
-        />
-      );
-    case BUYABLE_ITEM_SHOP_ITEM:
-      return (
-        <ShopItemSelector
-          autofocus
-          onChange={(buyableItem) => props.onSelect(buyableItem)}
-          shopItemList={
-            props.availableBuyableItems[props.buyableItemIdentifier]
-          }
-          value={props.value}
-        />
-      );
-    case BUYABLE_ITEM_PRIVATE_PASS:
-      return (
-        <PrivatePassSelector
-          autofocus
-          onChange={(buyableItem) => props.onSelect(buyableItem)}
-          privatePassList={
-            props.availableBuyableItems[props.buyableItemIdentifier]
-          }
-          value={props.value}
-        />
-      );
-    case BUYABLE_ITEM_COMBO_ITEM:
-      return (
-        <PaymentComboSelector
-          autofocus
-          onChange={(buyableItem) => props.onSelect(buyableItem)}
-          paymentComboList={
-            props.availableBuyableItems[props.buyableItemIdentifier]
-          }
-          value={props.value}
-        />
-      );
-    case BUYABLE_ITEM_GIFTCARD:
-      return (
-        <GiftcardSelector
-          autofocus
-          giftcardList={
-            props.availableBuyableItems[props.buyableItemIdentifier]
-          }
-          onChange={(buyableItem) => props.onSelect(buyableItem)}
-          value={props.value}
-        />
-      );
-    default:
-      return null;
-  }
-});
+const BuyableItemSelector: React.FC<BuyableItemProps> = React.memo(
+  ({ buyableItemIdentifier, value, availableBuyableItems, onSelect }) => {
+    switch (buyableItemIdentifier) {
+      case BUYABLE_ITEM_PASS:
+        return (
+          <PaymentPackSelector
+            autofocus
+            onChange={onSelect}
+            paymentPacks={availableBuyableItems[buyableItemIdentifier]}
+            value={value}
+          />
+        );
+      case BUYABLE_ITEM_SHOP_ITEM:
+        return (
+          <ShopItemSelector
+            autofocus
+            onChange={onSelect}
+            shopItemList={availableBuyableItems[buyableItemIdentifier]}
+            value={value}
+          />
+        );
+      case BUYABLE_ITEM_PRIVATE_PASS:
+        return (
+          <PrivatePassSelector
+            autofocus
+            onChange={onSelect}
+            privatePassList={availableBuyableItems[buyableItemIdentifier]}
+            value={value}
+          />
+        );
+      case BUYABLE_ITEM_COMBO_ITEM:
+        return (
+          <PaymentComboSelector
+            autofocus
+            onChange={onSelect}
+            paymentComboList={availableBuyableItems[buyableItemIdentifier]}
+            value={value}
+          />
+        );
+      case BUYABLE_ITEM_GIFTCARD:
+        return (
+          <GiftcardSelector
+            autofocus
+            giftcardList={availableBuyableItems[buyableItemIdentifier]}
+            onChange={onSelect}
+            value={value}
+          />
+        );
+      default:
+        return null;
+    }
+  },
+);
 
 type Props = {
   onAddBuyableItem: (buyableItemIdentifier: number, buyableItem: any) => void;
@@ -156,6 +148,29 @@ const InvoiceItemEditor: React.FC<Props> = ({
   const [voucherPercent, setVoucherPercent] = useState<number>(null);
 
   const [warnMamangerOnInvoice, setWarnManagerOnInvoice] = useState(false);
+
+  const handleChangeTab = useCallback(
+    (_: React.SyntheticEvent, value: string) => {
+      setBuyableItemId(null);
+      setVoucher(null);
+      setVoucherPercent(null);
+      setBuyableItemIdentifier(parseInt(value, 10));
+    },
+    [],
+  );
+
+  const handleSelectBuyableItem = useCallback((item_id: number) => {
+    setBuyableItemId(item_id);
+    setVoucher(null);
+    setVoucherPercent(null);
+  }, []);
+
+  const handleSetQuantity = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      setQuantity(parseInt(event.target.value, 10));
+    },
+    [],
+  );
 
   const onClickAddInvoiceItem = useCallback(() => {
     if (buyableItemIdentifier === BUYABLE_ITEM_CREDIT) {
@@ -214,6 +229,13 @@ const InvoiceItemEditor: React.FC<Props> = ({
     [buyableItemIdentifier, buyableItemId, availableBuyableItems],
   );
 
+  const handleOnChangeVoucherCredit = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      onChangeVoucherCredit(parseFloat(event.target.value) || 0);
+    },
+    [onChangeVoucherCredit],
+  );
+
   const onChangeVoucherPercent = useCallback(
     (percent: number) => {
       setVoucherPercent(percent);
@@ -237,6 +259,14 @@ const InvoiceItemEditor: React.FC<Props> = ({
     },
     [buyableItemIdentifier, buyableItemId, availableBuyableItems],
   );
+
+  const handleOnChangeVoucherPercent = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      onChangeVoucherPercent(parseFloat(event.target.value) || 0);
+    },
+    [onChangeVoucherPercent],
+  );
+
   React.useEffect(() => {
     if (!buyableItemId || !buyableItemIdentifier || !member) {
       return setWarnManagerOnInvoice(false);
@@ -252,17 +282,13 @@ const InvoiceItemEditor: React.FC<Props> = ({
     }
     return setWarnManagerOnInvoice(false);
   }, [buyableItemIdentifier, availableBuyableItems, member, buyableItemId]);
+
   return (
     <div>
       <Paper>
         <Tabs
           indicatorColor="primary"
-          onChange={(ev, value) => {
-            setBuyableItemId(null);
-            setVoucher(null);
-            setVoucherPercent(null);
-            setBuyableItemIdentifier(parseInt(value, 10));
-          }}
+          onChange={handleChangeTab}
           scrollButtons="auto"
           textColor="primary"
           value={buyableItemIdentifier}
@@ -311,15 +337,11 @@ const InvoiceItemEditor: React.FC<Props> = ({
                 availableBuyableItems={availableBuyableItems}
                 buyableItemIdentifier={buyableItemIdentifier}
                 member={member}
-                onSelect={(id: number) => {
-                  setBuyableItemId(id);
-                  setVoucher(null);
-                  setVoucherPercent(null);
-                }}
+                onSelect={handleSelectBuyableItem}
                 value={buyableItemId}
               />
               <div className={classes.numericInputRow}>
-                <NumberInput
+                <NumericInput
                   dense
                   shrink
                   disabled={buyableItemId === null}
@@ -331,7 +353,7 @@ const InvoiceItemEditor: React.FC<Props> = ({
                     ),
                   }}
                   label={t('invoiceItem.quantity')}
-                  onChange={(ev) => setQuantity(parseInt(ev.target.value, 10))}
+                  onChange={handleSetQuantity}
                   value={quantity}
                   variant="outlined"
                 />
@@ -343,13 +365,13 @@ const InvoiceItemEditor: React.FC<Props> = ({
                       shrink
                       disabled={buyableItemId === null}
                       label={t('invoiceItem.discount')}
-                      onChange={(ev) => onChangeVoucherCredit(ev.target.value)}
+                      onChange={handleOnChangeVoucherCredit}
                       value={voucher === null ? '0.00' : voucher}
                       variant="outlined"
                     />
 
                     <div className={classes.percentDiscountWrapper}>
-                      <NumberInput
+                      <NumericInput
                         dense
                         shrink
                         disabled={buyableItemId === null}
@@ -361,9 +383,7 @@ const InvoiceItemEditor: React.FC<Props> = ({
                           ),
                         }}
                         label={t('invoiceItem.discount')}
-                        onChange={(ev) =>
-                          onChangeVoucherPercent(ev.target.value)
-                        }
+                        onChange={handleOnChangeVoucherPercent}
                         value={
                           voucherPercent === null ? '0.00' : voucherPercent
                         }

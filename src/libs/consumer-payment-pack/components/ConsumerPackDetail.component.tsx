@@ -85,8 +85,18 @@ export const ConsumerPaymentPackDetail: React.FC<Props> = (props) => {
 
   return (
     <div>
-      <ObjectLevelPermissionProvider requiredPermission="billing.allowed_actions.readInvoices">
-        {(hasReadInvoicePermission: boolean) => (
+      <ObjectLevelPermissionProvider
+        requiredPermission={[
+          'billing.allowed_actions.readInvoices',
+          'billing.allowed_actions.partialRefundAsDiscount',
+          'billing.allowed_actions.partialRefundAsCredit',
+        ]}
+      >
+        {([
+          hasReadInvoicePermission,
+          hasRefundAsDiscountPermission,
+          hasRefundAsCreditPermission,
+        ]: boolean[]) => (
           <>
             {hasReadInvoicePermission && props.invoice && (
               <React.Fragment>
@@ -120,34 +130,39 @@ export const ConsumerPaymentPackDetail: React.FC<Props> = (props) => {
                   )}
                 {!props.consumerPack.linked_private_consumer_pass && (
                   <div className={classes.rightButton}>
-                    <Button
-                      color="primary"
-                      disabled={
-                        props.consumerPack.disabled ||
-                        (!props.consumerPack.payment_pack.unlimited &&
-                          !props.consumerPack.available_credits)
-                      }
-                      onClick={() =>
-                        props.requestRefund(props.consumerPack, false)
-                      }
-                      variant="contained"
-                    >
-                      {t('consumerPaymentPack.details.actions.applyVoucher')}
-                    </Button>
-                    <Button
-                      color="primary"
-                      disabled={
-                        props.consumerPack.disabled ||
-                        (!props.consumerPack.payment_pack.unlimited &&
-                          !props.consumerPack.available_credits)
-                      }
-                      onClick={() =>
-                        props.requestRefund(props.consumerPack, true)
-                      }
-                      variant="contained"
-                    >
-                      {t('consumerPaymentPack.details.actions.refund')}
-                    </Button>
+                    {hasRefundAsDiscountPermission && (
+                      <Button
+                        color="primary"
+                        disabled={
+                          props.consumerPack.disabled ||
+                          (!props.consumerPack.payment_pack.unlimited &&
+                            !props.consumerPack.available_credits)
+                        }
+                        onClick={() =>
+                          props.requestRefund(props.consumerPack, false)
+                        }
+                        variant="contained"
+                      >
+                        {t('consumerPaymentPack.details.actions.applyVoucher')}
+                      </Button>
+                    )}
+
+                    {hasRefundAsCreditPermission && (
+                      <Button
+                        color="primary"
+                        disabled={
+                          props.consumerPack.disabled ||
+                          (!props.consumerPack.payment_pack.unlimited &&
+                            !props.consumerPack.available_credits)
+                        }
+                        onClick={() =>
+                          props.requestRefund(props.consumerPack, true)
+                        }
+                        variant="contained"
+                      >
+                        {t('consumerPaymentPack.details.actions.refund')}
+                      </Button>
+                    )}
                   </div>
                 )}
               </React.Fragment>

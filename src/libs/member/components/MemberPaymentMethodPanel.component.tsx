@@ -44,8 +44,16 @@ export const MemberPaymentMethodPanel = (props: Props) => {
     [props.companyId],
   );
   return (
-    <ObjectLevelPermissionProvider requiredPermission="billing.allowed_actions.addPaymentMethod">
-      {(hasAddPaymentMethodPermission: boolean) => (
+    <ObjectLevelPermissionProvider
+      requiredPermission={[
+        'billing.allowed_actions.addPaymentMethod',
+        'billing.allowed_actions.deletePaymentMethod',
+      ]}
+    >
+      {([
+        hasAddPaymentMethodPermission,
+        hasDeletePaymentMethodPermission,
+      ]: boolean[]) => (
         <div style={{ width: '100%' }}>
           <div className={classes.flexTitle}>
             <Typography className={classes.title} component="h2" variant="h6">
@@ -76,17 +84,19 @@ export const MemberPaymentMethodPanel = (props: Props) => {
                       }   ${method.additional_info}`}
                     />
 
-                    <ListItemSecondaryAction>
-                      <IconButton
-                        aria-label="delete"
-                        disabled={props.detachPaymentMethodLoading}
-                        edge="end"
-                      >
-                        <DeleteIcon
-                          onClick={() => props.detachPaymentMethod(method.id)}
-                        />
-                      </IconButton>
-                    </ListItemSecondaryAction>
+                    {hasDeletePaymentMethodPermission && (
+                      <ListItemSecondaryAction>
+                        <IconButton
+                          aria-label="delete"
+                          disabled={props.detachPaymentMethodLoading}
+                          edge="end"
+                        >
+                          <DeleteIcon
+                            onClick={() => props.detachPaymentMethod(method.id)}
+                          />
+                        </IconButton>
+                      </ListItemSecondaryAction>
+                    )}
                   </ListItem>
                 );
               })

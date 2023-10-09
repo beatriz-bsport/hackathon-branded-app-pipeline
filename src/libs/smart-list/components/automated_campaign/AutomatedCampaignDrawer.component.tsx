@@ -448,7 +448,7 @@ export const AutomatedCommunicationDrawer: React.FC<
                       helperText={t('resendSection.resendCount.helperText')}
                       inputProps={{ min: 0, max: 5 }}
                       label={t('resendSection.resendCount.label')}
-                      name="resend_count"
+                      name="email_resend_count"
                       type="number"
                     />
                   </div>
@@ -466,7 +466,7 @@ export const AutomatedCommunicationDrawer: React.FC<
                           >
                             <Typography>
                               {t('common:day', {
-                                count: values.resend_delay,
+                                count: values.email_resend_delay,
                               })}
                             </Typography>
                           </InputAdornment>
@@ -474,7 +474,7 @@ export const AutomatedCommunicationDrawer: React.FC<
                         inputProps: { min: 0, max: 180 },
                       }}
                       label={t('resendSection.resendDelay.label')}
-                      name="resend_delay"
+                      name="email_resend_delay"
                       type="number"
                     />
                   </div>
@@ -591,8 +591,8 @@ type Values = {
   title: string | null;
   max_communications_sent_per_member: number;
   email_kind: number | null;
-  resend_count: number;
-  resend_delay: number;
+  email_resend_count: number;
+  email_resend_delay: number;
 };
 
 const AutomatedCampaignValidationSchema = Yup.object().shape({
@@ -629,7 +629,7 @@ const AutomatedCampaignValidationSchema = Yup.object().shape({
     },
   ),
   max_communications_sent_per_member: Yup.number().required().max(3),
-  resend_count: Yup.number()
+  email_resend_count: Yup.number()
     .min(0)
     .max(5)
     .test(
@@ -638,14 +638,14 @@ const AutomatedCampaignValidationSchema = Yup.object().shape({
       function checkResendCountValidity(item) {
         if (
           this.parent.communication_kind === COMMUNICATION_KIND_EMAIL &&
-          item + this.parent.resend_delay > 0
+          item + this.parent.email_resend_delay > 0
         ) {
-          return item > 0 && this.parent.resend_delay > 0;
+          return item > 0 && this.parent.email_resend_delay > 0;
         }
         return true;
       },
     ),
-  resend_delay: Yup.number()
+  email_resend_delay: Yup.number()
     .min(0)
     .max(180)
     .test(
@@ -654,9 +654,9 @@ const AutomatedCampaignValidationSchema = Yup.object().shape({
       function checkResendDelayValidity(item) {
         if (
           this.parent.communication_kind === COMMUNICATION_KIND_EMAIL &&
-          item + this.parent.resend_count > 0
+          item + this.parent.email_resend_count > 0
         ) {
-          return item > 0 && this.parent.resend_count > 0;
+          return item > 0 && this.parent.email_resend_count > 0;
         }
         return true;
       },
@@ -678,8 +678,8 @@ const formikFormWrapper = withFormik<Props, Values>({
         email_kind: initial?.email_design
           ? TEMPLATE_EMAIL_KIND
           : WRITTEN_EMAIL_KIND,
-        resend_count: initial.resend_count,
-        resend_delay: initial.resend_delay,
+        email_resend_count: initial.email_resend_count,
+        email_resend_delay: initial.email_resend_delay,
       };
     }
     return {
@@ -691,8 +691,8 @@ const formikFormWrapper = withFormik<Props, Values>({
       title: '',
       max_communications_sent_per_member: 1,
       email_kind: WRITTEN_EMAIL_KIND,
-      resend_count: 0,
-      resend_delay: 0,
+      email_resend_count: 0,
+      email_resend_delay: 0,
     };
   },
   enableReinitialize: true,
@@ -703,8 +703,8 @@ const formikFormWrapper = withFormik<Props, Values>({
         ? values
         : {
             ...values,
-            resend_count: 0,
-            resend_delay: 0,
+            email_resend_count: 0,
+            email_resend_delay: 0,
           };
     onSubmit(valuesToSubmit, {
       onSuccess: () => setSubmitting(false),

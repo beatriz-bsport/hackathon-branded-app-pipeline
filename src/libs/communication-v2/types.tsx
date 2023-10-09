@@ -149,8 +149,8 @@ export type MessageData = {
   notification_title?: string;
   notification_content?: string;
   member_blacklist?: number[]; // recipients to blacklist
-  resend_delay?: number;
-  resend_count?: number;
+  email_resend_delay?: number;
+  email_resend_count?: number;
 };
 
 export type CommunicationFilterParams = {

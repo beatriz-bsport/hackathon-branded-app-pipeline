@@ -410,8 +410,8 @@ export class CommunicationDrawer extends Component<Props, State> {
           member_blacklist: this.state.unCheckedMembers.email,
           subject: this.state.mailTitle,
           body: this.state.mailContent,
-          resend_count: this.state.resendCount,
-          resend_delay: this.state.resendDelay,
+          email_resend_count: this.state.resendCount,
+          email_resend_delay: this.state.resendDelay,
         });
         break;
       case SEND_SMS:
@@ -425,8 +425,8 @@ export class CommunicationDrawer extends Component<Props, State> {
           member_blacklist: this.state.unCheckedMembers.email,
           email_template: this.state.selectedTemplate,
           subject: this.state.mailTitle,
-          resend_count: this.state.resendCount,
-          resend_delay: this.state.resendDelay,
+          email_resend_count: this.state.resendCount,
+          email_resend_delay: this.state.resendDelay,
         });
         break;
       case SEND_PUSH_NOTIFICATION:

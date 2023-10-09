@@ -416,8 +416,8 @@ export class CommunicationSendMessageContainer extends React.PureComponent<
   sendMessage = () => {
     let content;
     let autoResendConfiguration = {
-      resend_delay: 0,
-      resend_count: 0,
+      email_resend_delay: 0,
+      email_resend_count: 0,
     };
     switch (this.props.communicationKind) {
       case WRITE_EMAIL:
@@ -433,8 +433,8 @@ export class CommunicationSendMessageContainer extends React.PureComponent<
           };
         }
         autoResendConfiguration = {
-          resend_count: this.state.resendCount,
-          resend_delay: this.state.resendDelay,
+          email_resend_count: this.state.resendCount,
+          email_resend_delay: this.state.resendDelay,
         };
         break;
       case WRITE_SMS:

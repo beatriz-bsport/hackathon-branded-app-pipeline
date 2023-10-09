@@ -2816,11 +2816,7 @@
                     "max_communications_sent_per_member": "Maximum number of messages per member",
                     "advancedSection": "Advanced",
                     "submit": "Confirm",
-                    "maxCommunicationSentHelperText": {
-                        "1": "",
-                        "0": ""
-                    },
-                    "limitSection": "Limite"
+                    "limitSection": "Limit"
                 },
                 "activeSince": "Active since: {{-date}}",
                 "eventKind": {

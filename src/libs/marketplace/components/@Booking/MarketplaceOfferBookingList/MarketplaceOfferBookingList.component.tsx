@@ -1,11 +1,17 @@
 import React from 'react';
 import classNames from 'classnames';
+
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-
 import MarketplaceOfferBookingItem from '#marketplacecomponents/@Booking/MarketplaceOfferBookingItem';
+import { getGuestBookingName } from '#libs/marketplace/utils/booking';
 
-import type { OfferWithSpotInformation } from '#libs/offer/types';
+import {
+  BOOKING_FOR_GUEST_FREQUENCY,
+  type OfferStatus,
+  type OfferWithSpotInformation,
+} from '#libs/offer/types';
 import type { CompanyTheme } from '#libs/theme/types';
+import { CheckoutItem } from '#libs/checkout/types';
 
 import './styles.css';
 
@@ -15,6 +21,12 @@ export type Props = {
   companyTheme: CompanyTheme;
   isLoading: boolean;
   classes?: { [key: string]: string | boolean };
+  bookingGuestNumberLeft?: number;
+  bookingGuestFrequency?: BOOKING_FOR_GUEST_FREQUENCY;
+  checkoutItems: CheckoutItem[];
+  onOpenAddGuestModal: () => void;
+  getBookableStatus: (offerId: number) => OfferStatus['bookable_status'];
+  getIsAddGuestDisabled: (offerId: number) => boolean;
 };
 
 const MarketplaceOfferBookingList: React.FC<Props> = ({
@@ -23,6 +35,12 @@ const MarketplaceOfferBookingList: React.FC<Props> = ({
   hideCoach,
   classes,
   isLoading,
+  bookingGuestNumberLeft,
+  bookingGuestFrequency,
+  checkoutItems,
+  onOpenAddGuestModal,
+  getBookableStatus,
+  getIsAddGuestDisabled,
 }) => {
   const filteredOffers = offers.filter((offer) => !!offer);
 
@@ -33,17 +51,21 @@ const MarketplaceOfferBookingList: React.FC<Props> = ({
       })}
     >
       <ul className="bs-offer-booking-list">
-        {filteredOffers.map((offer) => {
-          return (
-            <MarketplaceOfferBookingItem
-              key={`offer-booking-item-id-${offer.id}`}
-              companyTheme={companyTheme}
-              hideCoach={hideCoach}
-              isLoading={isLoading}
-              offer={offer}
-            />
-          );
-        })}
+        {filteredOffers.map((offer) => (
+          <MarketplaceOfferBookingItem
+            key={`offer-booking-item-id-${offer.id}`}
+            bookableStatus={getBookableStatus(offer.id)}
+            bookingGuestFrequency={bookingGuestFrequency}
+            bookingGuestNumberLeft={bookingGuestNumberLeft}
+            companyTheme={companyTheme}
+            guestName={getGuestBookingName(checkoutItems, offer.id)}
+            hideCoach={hideCoach}
+            isAddGuestDisabled={getIsAddGuestDisabled(offer.id)}
+            isLoading={isLoading}
+            offer={offer}
+            onOpenAddGuestModal={onOpenAddGuestModal}
+          />
+        ))}
       </ul>
     </div>
   );

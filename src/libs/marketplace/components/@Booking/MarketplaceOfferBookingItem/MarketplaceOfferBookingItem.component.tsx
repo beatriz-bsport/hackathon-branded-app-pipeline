@@ -1,17 +1,29 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { OfferWithSpotInformation } from '#libs/offer/types';
-import { CompanyTheme } from '#libs/theme/types';
+
+import {
+  BOOKING_FOR_GUEST_FREQUENCY,
+  OfferStatus,
+  OfferWithSpotInformation,
+} from '#libs/offer/types';
 import MarketplaceBookingItem from '../MarketplaceBookingItem';
 import { useOfferFormattedDate, useOfferHours } from '#libs/marketplace/hooks';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import MarketplaceOfferBookingItemSkeleton from './MarketplaceOfferBookingItemSkeleton.component';
+import { CompanyTheme } from '#libs/theme/types';
+import { getAddGuestTooltipText } from '#libs/marketplace/utils/booking';
 
 export type Props = {
   offer: OfferWithSpotInformation;
   hideCoach: boolean;
   companyTheme: CompanyTheme;
   isLoading: boolean;
+  bookableStatus?: OfferStatus['bookable_status'];
+  isAddGuestDisabled?: boolean;
+  guestName?: string;
+  bookingGuestFrequency?: BOOKING_FOR_GUEST_FREQUENCY;
+  bookingGuestNumberLeft?: number;
+  onOpenAddGuestModal?: () => void;
 };
 
 const MarketplaceOfferBookingItem: React.FC<Props> = ({
@@ -19,6 +31,12 @@ const MarketplaceOfferBookingItem: React.FC<Props> = ({
   hideCoach,
   offer,
   isLoading,
+  bookableStatus,
+  isAddGuestDisabled,
+  guestName,
+  bookingGuestFrequency,
+  bookingGuestNumberLeft,
+  onOpenAddGuestModal,
 }) => {
   const formattedDate = useOfferFormattedDate(offer, companyTheme);
   const { t } = useTranslation('booking');
@@ -38,13 +56,26 @@ const MarketplaceOfferBookingItem: React.FC<Props> = ({
 
   return (
     <MarketplaceBookingItem
+      addGuestTooltipText={getAddGuestTooltipText(
+        bookableStatus,
+        offer.allow_guest_offer,
+        bookingGuestFrequency,
+        bookingGuestNumberLeft,
+        t,
+      )}
       coach={offer.coach}
       companyTheme={companyTheme}
       date={date}
       establishment={offer.establishment}
+      guestName={guestName}
       hideCoach={hideCoach}
+      isAddGuestDisabled={isAddGuestDisabled}
       isWaitingList={offer.full}
       level={offer.customLevel}
+      onOpenAddGuestModal={onOpenAddGuestModal}
+      shouldDisplayAddGuestButton={
+        companyTheme.allow_guest && companyTheme.allow_guest_activatable
+      }
       spotName={
         offer?.spot_information &&
         `${t('place')} ${offer.spot_information?.prefix}${

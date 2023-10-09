@@ -1,5 +1,6 @@
 // @ts-nocheck
 import React, { useCallback, useState } from 'react';
+import classNames from 'classnames';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -20,6 +21,7 @@ import {
   BUYABLE_ITEM_CREDIT,
 } from '@bsport/common/lib/master-data/buyable-items';
 
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import PriceInput from '../../../components/input/PriceInput.component';
 import NumberInput from '../../../components/input/NumericInput.component';
 import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelector.component';
@@ -133,8 +135,11 @@ const ButtonAddWithWarning = withConfirm(Button, 'onClick', {
 });
 
 // TODO Types BuyableItem
-const InvoiceItemEditor = (props: Props) => {
-  const { onAddBuyableItem, availableBuyableItems, member } = props;
+const InvoiceItemEditor: React.FC<Props> = ({
+  onAddBuyableItem,
+  availableBuyableItems,
+  member,
+}) => {
   const classes = useStyles();
   const { t } = useTranslation(['invoice']);
 
@@ -287,48 +292,27 @@ const InvoiceItemEditor = (props: Props) => {
           />
         </Tabs>
       </Paper>
-      <div className={classes.innerEditor}>
-        <div className={classes.innerEditorTop}>
-          <BuyableItemSelector
-            availableBuyableItems={availableBuyableItems}
-            buyableItemIdentifier={buyableItemIdentifier}
-            member={member}
-            onSelect={(id: number) => {
-              setBuyableItemId(id);
-              setVoucher(null);
-              setVoucherPercent(null);
-            }}
-            value={buyableItemId}
-          />
-          <div className={classes.numericInputRow}>
-            <NumberInput
-              dense
-              shrink
-              disabled={buyableItemId === null}
-              InputProps={{
-                step: 1,
-                min: 1,
-                startAdornment: (
-                  <InputAdornment position="start">x</InputAdornment>
-                ),
-              }}
-              label={t('invoiceItem.quantity')}
-              onChange={(ev) => setQuantity(parseInt(ev.target.value, 10))}
-              value={quantity}
-              variant="outlined"
-            />
-            <div className={classes.discountInputWrapper}>
-              <PriceInput
-                dense
-                shrink
-                disabled={buyableItemId === null}
-                label={t('invoiceItem.discount')}
-                onChange={(ev) => onChangeVoucherCredit(ev.target.value)}
-                value={voucher === null ? '0.00' : voucher}
-                variant="outlined"
-              />
 
-              <div className={classes.percentDiscountWrapper}>
+      <ObjectLevelPermissionProvider requiredPermission="billing.allowed_actions.createManualDiscount">
+        {(hasCreateDiscountPermission: boolean) => (
+          <div
+            className={classNames(classes.innerEditor, {
+              [classes.minHeight]: hasCreateDiscountPermission,
+            })}
+          >
+            <div className={classes.innerEditorTop}>
+              <BuyableItemSelector
+                availableBuyableItems={availableBuyableItems}
+                buyableItemIdentifier={buyableItemIdentifier}
+                member={member}
+                onSelect={(id: number) => {
+                  setBuyableItemId(id);
+                  setVoucher(null);
+                  setVoucherPercent(null);
+                }}
+                value={buyableItemId}
+              />
+              <div className={classes.numericInputRow}>
                 <NumberInput
                   dense
                   shrink
@@ -337,42 +321,79 @@ const InvoiceItemEditor = (props: Props) => {
                     step: 1,
                     min: 1,
                     startAdornment: (
-                      <InputAdornment position="start">%</InputAdornment>
+                      <InputAdornment position="start">x</InputAdornment>
                     ),
                   }}
-                  label={t('invoiceItem.discount')}
-                  onChange={(ev) => onChangeVoucherPercent(ev.target.value)}
-                  value={voucherPercent === null ? '0.00' : voucherPercent}
+                  label={t('invoiceItem.quantity')}
+                  onChange={(ev) => setQuantity(parseInt(ev.target.value, 10))}
+                  value={quantity}
                   variant="outlined"
                 />
+
+                {hasCreateDiscountPermission && (
+                  <div className={classes.discountInputWrapper}>
+                    <PriceInput
+                      dense
+                      shrink
+                      disabled={buyableItemId === null}
+                      label={t('invoiceItem.discount')}
+                      onChange={(ev) => onChangeVoucherCredit(ev.target.value)}
+                      value={voucher === null ? '0.00' : voucher}
+                      variant="outlined"
+                    />
+
+                    <div className={classes.percentDiscountWrapper}>
+                      <NumberInput
+                        dense
+                        shrink
+                        disabled={buyableItemId === null}
+                        InputProps={{
+                          step: 1,
+                          min: 1,
+                          startAdornment: (
+                            <InputAdornment position="start">%</InputAdornment>
+                          ),
+                        }}
+                        label={t('invoiceItem.discount')}
+                        onChange={(ev) =>
+                          onChangeVoucherPercent(ev.target.value)
+                        }
+                        value={
+                          voucherPercent === null ? '0.00' : voucherPercent
+                        }
+                        variant="outlined"
+                      />
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
+            <div>
+              <Divider className={classes.divider} />
+              {!warnMamangerOnInvoice ? (
+                <Button
+                  color="primary"
+                  disabled={!buyableItemId}
+                  onClick={onClickAddInvoiceItem}
+                  variant="contained"
+                >
+                  <AddIcon className={classes.leftIcon} />
+                  {t('actions.addInvoiceItem')}
+                </Button>
+              ) : (
+                <ButtonAddWithWarning
+                  color="primary"
+                  onClick={onClickAddInvoiceItem}
+                  variant="contained"
+                >
+                  <AddIcon className={classes.leftIcon} />
+                  {t('actions.addInvoiceItem')}
+                </ButtonAddWithWarning>
+              )}
+            </div>
           </div>
-        </div>
-        <div>
-          <Divider className={classes.divider} />
-          {!warnMamangerOnInvoice ? (
-            <Button
-              color="primary"
-              disabled={!buyableItemId}
-              onClick={onClickAddInvoiceItem}
-              variant="contained"
-            >
-              <AddIcon className={classes.leftIcon} />
-              {t('actions.addInvoiceItem')}
-            </Button>
-          ) : (
-            <ButtonAddWithWarning
-              color="primary"
-              onClick={onClickAddInvoiceItem}
-              variant="contained"
-            >
-              <AddIcon className={classes.leftIcon} />
-              {t('actions.addInvoiceItem')}
-            </ButtonAddWithWarning>
-          )}
-        </div>
-      </div>
+        )}
+      </ObjectLevelPermissionProvider>
     </div>
   );
 };
@@ -380,12 +401,12 @@ const InvoiceItemEditor = (props: Props) => {
 const useStyles = makeStyles((theme) => ({
   innerEditor: {
     margin: theme.spacing(2),
-    minHeight: 300,
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'stretch',
     flexDirection: 'column',
   },
+  minHeight: { minHeight: 300 },
   leftIcon: {
     marginRight: theme.spacing(1),
   },
@@ -433,4 +454,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default InvoiceItemEditor;
+export default React.memo(InvoiceItemEditor);

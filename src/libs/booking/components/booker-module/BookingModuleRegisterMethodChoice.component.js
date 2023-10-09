@@ -27,6 +27,7 @@ import PercentInput from '../../../../components/input/PercentInput.component';
 import PaymentPackListItem from '../../../payment-packs/components/PaymentPackListItem.component';
 import ConsumerPackRowItem from '../../../consumer-payment-pack/components/ConsumerPackRowItem.component';
 import ObjectLevelPermissionWrapper from '../../../role/permission-utils/ObjectLevelPermissionWrapper.component';
+import ObjectLevelPermissionProvider from '../../../role/permission-utils/ObjectLevelPermissionProvider.component';
 
 import { PaymentPack } from '../../../payment-packs/types';
 import {
@@ -438,64 +439,82 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
           <Typography variant="caption">
             {t('translation:quickInvoiceNoVoucher')}
           </Typography>
-          <div className={classes.voucherField}>
-            <PaymentPackListItem
-              hidePacksNumber
-              isFlexContainerOnMobile
-              showDuration
-              pack={selectedPack}
-            />
-            <div className={classes.voucherRight}>
-              <PriceInput
-                error={
-                  Number.isNaN(voucher) ||
-                  voucher < 0 ||
-                  (selectedPack ? selectedPack.price < voucher : true)
-                }
-                invalid={
-                  Number.isNaN(voucher) ||
-                  (selectedPack ? selectedPack.price < voucher : true) ||
-                  voucher < 0
-                }
-                label={t('translation:payment.voucher')}
-                onChange={(ev) =>
-                  setVoucher(
-                    Math.round(parseFloat(ev.target.value) * 100) / 100,
-                  )
-                }
-                value={voucher}
-                variant="outlined"
-              />
-              <PercentInput
-                error={
-                  Number.isNaN(voucher) ||
-                  voucher < 0 ||
-                  (selectedPack ? selectedPack.price < voucher : true)
-                }
-                invalid={
-                  (selectedPack ? selectedPack.price < voucher : true) ||
-                  voucher < 0
-                }
-                label={t('translation:payment.voucher')}
-                onChange={(ev) =>
-                  setVoucher(
-                    selectedPack
-                      ? Math.round(
-                          parseFloat(ev.target.value) * selectedPack.price,
-                        ) / 100
-                      : voucher,
-                  )
-                }
-                style={{ minWidth: 480 }}
-                value={
-                  selectedPack
-                    ? parseInt((voucher / selectedPack.price) * 100 + 0.5, 10)
-                    : 0
-                }
-                variant="outlined"
-              />
-            </div>
-          </div>
+          <ObjectLevelPermissionProvider requiredPermission="billing.allowed_actions.createManualDiscount">
+            {(hasCreateDiscountPermission) => (
+              <div
+                className={classNames(classes.voucherField, {
+                  [classes.alignCenter]: !hasCreateDiscountPermission,
+                })}
+              >
+                <PaymentPackListItem
+                  hidePacksNumber
+                  isFlexContainerOnMobile
+                  showDuration
+                  pack={selectedPack}
+                />
+                {hasCreateDiscountPermission ? (
+                  <div className={classes.voucherRight}>
+                    <PriceInput
+                      error={
+                        Number.isNaN(voucher) ||
+                        voucher < 0 ||
+                        (selectedPack ? selectedPack.price < voucher : true)
+                      }
+                      invalid={
+                        Number.isNaN(voucher) ||
+                        (selectedPack ? selectedPack.price < voucher : true) ||
+                        voucher < 0
+                      }
+                      label={t('translation:payment.voucher')}
+                      onChange={(ev) =>
+                        setVoucher(
+                          Math.round(parseFloat(ev.target.value) * 100) / 100,
+                        )
+                      }
+                      value={voucher}
+                      variant="outlined"
+                    />
+                    <PercentInput
+                      error={
+                        Number.isNaN(voucher) ||
+                        voucher < 0 ||
+                        (selectedPack ? selectedPack.price < voucher : true)
+                      }
+                      invalid={
+                        (selectedPack ? selectedPack.price < voucher : true) ||
+                        voucher < 0
+                      }
+                      label={t('translation:payment.voucher')}
+                      onChange={(ev) =>
+                        setVoucher(
+                          selectedPack
+                            ? Math.round(
+                                parseFloat(ev.target.value) *
+                                  selectedPack.price,
+                              ) / 100
+                            : voucher,
+                        )
+                      }
+                      style={{ minWidth: 480 }}
+                      value={
+                        selectedPack
+                          ? parseInt(
+                              (voucher / selectedPack.price) * 100 + 0.5,
+                              10,
+                            )
+                          : 0
+                      }
+                      variant="outlined"
+                    />
+                  </div>
+                ) : (
+                  <Typography>
+                    {t('invoice:section.invoiceItemList.cannotCreateDiscount')}
+                  </Typography>
+                )}
+              </div>
+            )}
+          </ObjectLevelPermissionProvider>
           {props.enableMultiLocalization && (
             <div>
               <Typography className={classes.sectionTitle} variant="h6">
@@ -581,6 +600,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     paddingTop: theme.spacing(2),
   },
+  alignCenter: { alignItems: 'center' },
   voucherRight: {
     display: 'flex',
     flexDirection: 'column',

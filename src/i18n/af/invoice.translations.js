@@ -253,6 +253,8 @@ const getTranslations = async () => {
         title: 'Purchases',
         titleReverse: 'Purchase breakdown',
         billing_establishment: 'Billing establishment*',
+        cannotCreateDiscount:
+          'You do not have the required permission to add a discount.',
       },
     },
     invoiceItem: {

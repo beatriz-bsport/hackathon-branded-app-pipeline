@@ -1,11 +1,19 @@
 import React from 'react';
-import { replace as replaceRouter, goBack } from 'connected-react-router';
+import {
+  replace as replaceRouter,
+  push as pushRouter,
+  goBack,
+} from 'connected-react-router';
 import flatten from 'lodash/flatten';
 import { compose, withHandlers, withProps } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { connect, ConnectedProps } from 'react-redux';
 import classNames from 'classnames';
+import { RouterProps } from 'react-router';
+import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status';
+import { OFFER_BOOKABLE_STATUS_ALREADY_BOOKED } from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
 
+import { buildUrlParams } from '../../../../http';
 // @ts-expect-error
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 // @ts-expect-error
@@ -19,13 +27,19 @@ import {
   withMetaActivity,
   withCoach,
   withEstablishment,
+  getBookingGuestNumberLeft,
+  getOfferBookableStatus,
 } from '#libs/offer/selectors';
 import { withCustomLevel } from '#libs/level/selectors';
 // @ts-expect-error
 import { getSubscriptionDetail } from '#libs/subscription/selectors';
 
 import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '#libs/establishment/actions';
-import { fetchOfferBulk as fetchOfferBulkAction } from '#libs/offer/actions';
+import {
+  fetchOfferBulk as fetchOfferBulkAction,
+  fetchOfferStatusList as fetchOfferStatusListAction,
+  fetchBookingGuestNumber as fetchBookingGuestNumberAction,
+} from '#libs/offer/actions';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#libs/meta-activity/actions';
 import { fetchCoachBulk as fetchCoachBulkAction } from '#libs/associated-coach/actions';
 import { fetchBasket as fetchBasketAction } from '#libs/checkout/actions';
@@ -68,6 +82,10 @@ import ConfirmationMessage from '#libs/checkout/components/ConfirmationMessage';
 import { ConfirmationCheckoutSkeleton } from '.';
 import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#libs/exportable-components/actions';
 import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
+import MarketplaceBookingAddGuestModal, {
+  AddGuestFormValues,
+} from '#libs/marketplace/components/@Booking/MarketplaceBookingAddGuestModal';
+import { getOfferBookerUrl } from '#libs/marketplace/routing-utils';
 
 import './styles.css';
 
@@ -76,6 +94,7 @@ type UserRegistrationResponse = {
   error_codes: number[];
   extra_data: ExtraDataFromQueryParams;
   offers_booked: Offer_FULL[];
+  buyable_item_error_code: number | null;
 };
 
 type QueryParams = {
@@ -83,7 +102,7 @@ type QueryParams = {
   billingPlanId: string;
   dialogMode: string;
   onValidation: string;
-  user_registration_response: UserRegistrationResponse;
+  user_registration_response: string;
 };
 
 type ConfirmationCheckoutProps = {
@@ -101,6 +120,11 @@ type ConfirmationCheckoutProps = {
   goToMemberPasses: () => void;
   goToMemberSubscriptions: () => void;
   goBack: () => void;
+  onAddGuestSubmit: (values: AddGuestFormValues) => void;
+};
+
+type State = {
+  isAddGuestDialogOpen: boolean;
 };
 
 type Props = ConfirmationCheckoutProps &
@@ -108,8 +132,19 @@ type Props = ConfirmationCheckoutProps &
   ConnectedProps<typeof basketConnector> &
   WithTranslation;
 
-export class ConfirmationCheckout extends React.PureComponent<Props> {
+export class ConfirmationCheckout extends React.PureComponent<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      isAddGuestDialogOpen: false,
+    };
+  }
+
   componentDidMount() {
+    if (this.props.offerBookedIdList && this.props.offerBookedIdList?.length) {
+      this.props.fetchBookingGuestNumber(this.props.offerBookedIdList?.[0]);
+      this.props.fetchOfferStatusList(this.props.offerBookedIdList);
+    }
     this.props.retrieveCompanyCssConfiguration(this.props.companyId);
     if (this.props.queryParams.user_registration_response) {
       this.fetchOfferData();
@@ -207,6 +242,37 @@ export class ConfirmationCheckout extends React.PureComponent<Props> {
     });
   };
 
+  getParsedUserRegistrationResponse: () => Omit<
+    UserRegistrationResponse,
+    'offers_booked'
+  > & {
+    offers_booked: number[];
+  } = () =>
+    this.props.queryParams?.user_registration_response &&
+    JSON.parse(
+      decodeURIComponent(this.props.queryParams.user_registration_response),
+    );
+
+  handleOpenAddGuestDialog = () =>
+    this.setState({ isAddGuestDialogOpen: true });
+
+  handleCloseAddGuestDialog = () =>
+    this.setState({ isAddGuestDialogOpen: false });
+
+  /**
+   * Disable the "Invite a guest" button according to offer bookable status
+   *
+   * we want to be able to book even if double booking is disabled
+   * @param {number} offerId
+   * @returns {boolean}
+   */
+  getIsAddGuestDisabled = (offerId: number) =>
+    ![
+      OFFER_BOOKABLE_STATUS_BOOKABLE,
+      OFFER_BOOKABLE_STATUS_ALREADY_BOOKED,
+    ].includes(this.props.getOfferBookableStatus(offerId)) ||
+    this.props.bookingGuestRemainingCount === 0;
+
   isError = () => {
     const noOfferWasBooked = !this.props.offerBookedIdList.length;
     const noOfferOnWaitingList = !this.props.offerPreBookedIdList.length;
@@ -289,6 +355,8 @@ export class ConfirmationCheckout extends React.PureComponent<Props> {
 
     const errorCode = this.props.offerNotBookableIdWithErrorCodeList[0]?.[1];
 
+    const userRegistrationResponse = this.getParsedUserRegistrationResponse();
+
     const confirmationStatus = getConfirmationStatus(
       this.isError(),
       errorCode,
@@ -296,6 +364,7 @@ export class ConfirmationCheckout extends React.PureComponent<Props> {
       this.props.basket,
       billingPlan,
       this.props.offerPreBookedIdList,
+      userRegistrationResponse?.extra_data?.[0]?.booking_for_invitee_only,
     );
 
     const isLoading = this.isLoading();
@@ -307,9 +376,21 @@ export class ConfirmationCheckout extends React.PureComponent<Props> {
         </div>
       );
     }
+
     return (
       <ConsumerAppBarContainer>
         <div className="bs-confirmation-checkout-container">
+          {this.state.isAddGuestDialogOpen && (
+            <MarketplaceBookingAddGuestModal
+              bookingGuestFrequency={
+                this.props.companyTheme.allow_guest_frequency
+              }
+              bookingGuestRemainingCount={this.props.bookingGuestRemainingCount}
+              onCancel={this.handleCloseAddGuestDialog}
+              onSubmit={this.props.onAddGuestSubmit}
+            />
+          )}
+
           <div className="bs-confirmation-checkout-container--with-padding">
             <div className="bs-confirmation-checkout-message__container">
               <ConfirmationMessage
@@ -335,19 +416,32 @@ export class ConfirmationCheckout extends React.PureComponent<Props> {
               )}
             >
               <h5 className="bs-confirmation-checkout-booking-list__title">
-                {t('validation.sections.offerBooked', {
-                  count: sortedOfferList?.length,
-                })}
+                {userRegistrationResponse?.extra_data?.[0]
+                  ?.booking_for_invitee_only
+                  ? t('validation.sections.offerGuestBooked', {
+                      count: sortedOfferList?.length,
+                    })
+                  : t('validation.sections.offerBooked', {
+                      count: sortedOfferList?.length,
+                    })}
               </h5>
               <MarketplaceOfferBookingList
+                bookingGuestFrequency={
+                  this.props.companyTheme.allow_guest_frequency
+                }
+                bookingGuestNumberLeft={this.props.bookingGuestRemainingCount}
+                checkoutItems={this.props.basket?.checkout_items}
                 classes={{
                   'bs-confirmation-checkout-booking-list__list':
                     'bs-confirmation-checkout-booking-list__list',
                 }}
                 companyTheme={companyTheme}
+                getBookableStatus={this.props.getOfferBookableStatus}
+                getIsAddGuestDisabled={this.getIsAddGuestDisabled}
                 hideCoach={hideCoach}
                 isLoading={isLoading}
                 offers={sortedOfferList}
+                onOpenAddGuestModal={this.handleOpenAddGuestDialog}
               />
             </div>
             <div
@@ -483,6 +577,19 @@ export class ConfirmationCheckout extends React.PureComponent<Props> {
 }
 
 const mapWithHandlers = {
+  onAddGuestSubmit:
+    ({ push, companyId, offerBookedIdList }: RouterProps & Props) =>
+    (values: AddGuestFormValues) => {
+      push(
+        getOfferBookerUrl(companyId, offerBookedIdList[0], true) +
+          buildUrlParams({
+            guest_first_name: values.firstName,
+            ...(values.lastName && { guest_last_name: values.lastName }),
+            ...(values.email && { guest_email: values.email }),
+            guest_booking: 'true',
+          }),
+      );
+    },
   onContinue:
     ({
       replace,
@@ -593,6 +700,7 @@ const mapStateToProps = (
     offerExtraDataList: ExtraDataFromQueryParams;
   },
 ) => ({
+  bookingGuestRemainingCount: getBookingGuestNumberLeft(state),
   hideCoach: themeSelectors.getTheme(state).hideCoach,
   isBasketLoading: state.checkout.basket.loading,
   isOfferLoading: state.offer.bulk.loading,
@@ -633,6 +741,8 @@ const mapStateToProps = (
     queryParams.billingPlanId &&
     getSubscriptionDetail(state, queryParams.billingPlanId),
   customConfiguration: state.exportableComponents.customCss,
+  getOfferBookableStatus: (offerId: number) =>
+    getOfferBookableStatus(state, offerId),
 });
 
 const mapDispatchToProps = {
@@ -644,8 +754,11 @@ const mapDispatchToProps = {
   fetchPaymentComboList: fetchPaymentComboListAction,
   fetchBillinPlan: fetchBillingPlanAction,
   fetchOfferBulk: fetchOfferBulkAction,
+  fetchOfferStatusList: fetchOfferStatusListAction,
+  fetchBookingGuestNumber: fetchBookingGuestNumberAction,
   fetchLevelList: fetchLevelListAction,
   replace: replaceRouter,
+  push: pushRouter,
   goBack,
   retrieveCompanyCssConfiguration: retrieveCompanyCssConfigurationAction,
 };

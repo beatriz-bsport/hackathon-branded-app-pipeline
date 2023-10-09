@@ -68,7 +68,7 @@ export type Props = {
       >
     | Offer_FULL;
 
-  spotId?: string;
+  spotId?: number;
   price?: string;
   onConfirm?: () => void;
   disableButton?: boolean;

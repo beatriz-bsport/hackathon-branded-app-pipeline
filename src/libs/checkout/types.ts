@@ -8,6 +8,7 @@ import {
   BUYABLE_ITEM_CREDIT as CREDIT,
   BUYABLE_ITEM_GIFTCARD as GIFTCARD,
 } from '@bsport/common/lib/master-data/buyable-items';
+import { AdditionalGuest } from '#libs/booker-module/types';
 
 export type AddItemToBasketParams = {
   check_offer_unicity?: boolean;
@@ -102,7 +103,16 @@ export type CheckoutItemExtraData = {
 
 export type CheckoutItemOfferData = {
   offer_id: number;
-  extra_data: { [key: string]: any };
+  extra_data: {
+    /** Provide infos when booking for a guest. Empty dict if booking for a member */
+    additional_guest_info?: AdditionalGuest[] | {};
+    /** Equals to `member.id` if booking for a member or `null` if booking for a guest */
+    booking_for_member?: number | null;
+    /** The spot number associated with the booking */
+    spot_id?: number | null;
+    /** `true` if currently booking for a guest */
+    booking_for_invitee_only?: boolean;
+  };
 };
 
 export type CheckoutState = {

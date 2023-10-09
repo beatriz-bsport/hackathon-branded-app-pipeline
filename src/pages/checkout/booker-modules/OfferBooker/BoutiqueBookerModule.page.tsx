@@ -747,8 +747,11 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
   };
 
   getSpotCurrentlyInBasket = () => {
-    return this.getCheckoutItemRelatedToOfferSpot()?.extra_data
-      ?.offers_data?.[0]?.extra_data?.spot_id;
+    const spotId =
+      this.getCheckoutItemRelatedToOfferSpot()?.extra_data?.offers_data?.[0]
+        ?.extra_data?.spot_id;
+
+    return spotId?.toString();
   };
 
   render() {

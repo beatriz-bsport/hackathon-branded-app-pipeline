@@ -37,6 +37,7 @@ export type Props = {
   loading?: boolean;
   metaActivity: MetaActivity;
   offer: Offer_FULL;
+  /** The spot name e.g `F4` */
   spotId?: string;
   price?: number | string;
   tax?: number | string;

@@ -33,6 +33,7 @@ export type Props = {
   isNoPassCompatibleForBooking: boolean;
   isWaitingListRegisterLoading: boolean;
   offerSummaryPrice: string;
+  /** The spot name e.g `F4` */
   bookingSpotId?: string;
   isPassTabInMarketplaceConfig: boolean;
   onRegisterToWaitList: () => void;

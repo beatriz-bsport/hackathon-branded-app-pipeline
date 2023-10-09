@@ -1157,7 +1157,7 @@ export default compose(
                   update_waiting_list: false, // the waiting list will already be updated on the creation of the booking, no need to do it twice
                 },
                 {},
-                this.props.offerId,
+                offer.id,
               );
               cancelDiscardOption();
             }
@@ -1221,7 +1221,7 @@ export default compose(
                 disable_notification: true,
               },
               {},
-              this.props.offerId,
+              offer.id,
             );
             cancelDiscardOption();
           }

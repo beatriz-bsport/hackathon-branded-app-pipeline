@@ -428,6 +428,11 @@ export const getOffersListByGroup = createCachedSelector(
 const getBookableStatusData = (state: RootState) =>
   state.offer.offerStatus.byId;
 
+export const getOfferBookableStatus = createSelector(
+  [getBookableStatusData, (_: RootState, offerId: number) => offerId],
+  (bookableStatusData, offerId) => bookableStatusData[offerId].bookable_status,
+);
+
 export const withBookableStatus = memoize(
   (selector: (state: RootState) => any) =>
     createSelector(

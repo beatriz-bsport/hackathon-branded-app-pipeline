@@ -39,6 +39,7 @@ import type {
   ContractWithPaymentPack,
 } from '#libs/subscription/types';
 import { computeProrataPriceForSubscription } from '#libs/subscription/utils';
+import type { AddGuestFormValues } from '../components/@Booking/MarketplaceBookingAddGuestModal';
 // pass page category filter - get all of the available categories
 export const getPassFilterAvailableCategories = (
   paymentPackByCategory: Immutable<PaymentPackCategoryWithPacks[]>,
@@ -283,6 +284,7 @@ export const buildDataForUserRegistration = (
   selectedItem: BookerItem,
   offerId: number,
   selectedSpotId: number | null,
+  bookingForGuestValues?: AddGuestFormValues,
 ) => {
   const data: {
     consumer_payment_pack?: number;
@@ -314,7 +316,20 @@ export const buildDataForUserRegistration = (
       {
         offer_id: offerId,
         extra_data: {
-          spot_id: selectedSpotId ?? null,
+          ...(bookingForGuestValues
+            ? {
+                additional_guest_info: [
+                  {
+                    first_name: bookingForGuestValues.firstName,
+                    last_name: bookingForGuestValues.lastName,
+                    email: bookingForGuestValues.email,
+                    spot_id: selectedSpotId ?? null,
+                  },
+                ],
+                booking_for_member: null,
+                booking_for_invitee_only: true,
+              }
+            : { spot_id: selectedSpotId ?? null }),
         },
       },
     ];

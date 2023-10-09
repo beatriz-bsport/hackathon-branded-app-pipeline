@@ -63,6 +63,8 @@ const getTranslations = async () => {
         offerPreBooked: "You've joined the waitlist for",
         offerBooked: 'My booking',
         offerBooked_plural: 'My bookings',
+        offerGuestBooked: 'My guest booking',
+        offerGuestBooked_plural: 'My guest bookings',
         basket: 'My basket',
         title: 'Congratulations!',
         errorExplain: {

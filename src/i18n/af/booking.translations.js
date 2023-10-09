@@ -380,6 +380,11 @@ const getTranslations = async () => {
         warningLeveledSession:
           'This session is reserved for people with the following level: {{level}}. Make sure the person you invite has the expected level.',
         addGuestLimit: 'You have reached the invitation limit for',
+        guestLimitReached: {
+          every_week: 'You have reached the invitation limit for this week.',
+          every_month: 'You have reached the invitation limit for this month.',
+          every_year: 'You have reached the invitation limit for this year.',
+        },
         addGuestNumberLeftSeveral: 'You can still invite {{number}} people for',
         addGuestNumberLeftOne: 'You can invite 1 more person on',
         frequencyWeekly: 'this week.',
@@ -526,6 +531,7 @@ const getTranslations = async () => {
       passes: 'Passes',
       otherPasses: 'Other passes',
       spotSelectorTitle: 'Choose your spot',
+      guestSpotSelectorTitle: 'Select a spot for your guest',
       seeAllProducts: 'See all products',
       recommended: 'Recommended',
       reviewAndConfirm: 'Review and confirm',

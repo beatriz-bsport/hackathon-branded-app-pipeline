@@ -68,6 +68,8 @@ const getTranslations = async () => {
     NOTIFICATION_SPIVI_ACCOUNT_CREATED,
     NOTIFICATION_SPIVI_PERFORMANCE,
     NOTIFICATION_SPIVI_COACH_ACCOUNT_CREATED,
+    NOTIFICATION_BOOKING_CREATED_FOR_INVITEE_SEND_TO_HOST,
+    NOTIFICATION_BOOKING_CREATED_FOR_INVITEE_SEND_TO_INVITEE,
   } = NOTIFICATION_EVENTS;
 
   return {
@@ -208,6 +210,15 @@ const getTranslations = async () => {
         },
         name: 'Company',
       },
+      GuestInvitation: {
+        name: 'Guest booking',
+        tags: {
+          firstname_guest: 'Guest first name',
+          lastname_guest: 'Guest last name',
+          firstname_host: 'Inviting member first name',
+          lastname_host: 'Inviting member last name',
+        },
+      },
       RecurrentRule: {
         tags: {
           recurring_booking_fail_reason: 'Reason for recurrent booking failure',
@@ -325,6 +336,10 @@ const getTranslations = async () => {
       [NOTIFICATION_SUBSCRIPTION_PAYMENT_RECEIVED]: 'Payment received',
       [NOTIFICATION_BOOKING_BROADCAST]:
         'Reminder that the livestream starts in 15 minutes (for members)',
+      [NOTIFICATION_BOOKING_CREATED_FOR_INVITEE_SEND_TO_HOST]:
+        'Booking for a guest (for inviting member)',
+      [NOTIFICATION_BOOKING_CREATED_FOR_INVITEE_SEND_TO_INVITEE]:
+        'Booking for a guest (for guest)',
       [NOTIFICATION_PRIVATE_BOOKING_CREATE_CONSUMER]:
         'New appointment (for members)',
       [NOTIFICATION_PRIVATE_BOOKING_UPDATETIME_CONSUMER]:

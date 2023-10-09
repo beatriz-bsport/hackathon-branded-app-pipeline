@@ -354,6 +354,11 @@
         "addGuest": "Add a guest",
         "warningLeveledSession": "This session is reserved for people with the following level: {{level}}. Make sure the person you invite has the expected level.",
         "addGuestLimit": "You have reached the invitation limit for",
+        "guestLimitReached": {
+          "every_week": "You have reached the invitation limit for this week.",
+          "every_month": "You have reached the invitation limit for this month.",
+          "every_year": "You have reached the invitation limit for this year."
+        },
         "addGuestNumberLeftSeveral": "You can still invite {{number}} people for",
         "addGuestNumberLeftOne": "You can invite 1 more person on",
         "frequencyWeekly": "this week.",
@@ -459,6 +464,7 @@
       "passes": "Passes",
       "otherPasses": "Other passes",
       "spotSelectorTitle": "Choose your spot",
+      "guestSpotSelectorTitle": "Select a spot for your guest",
       "seeAllProducts": "See all products",
       "recommended": "Recommended",
       "reviewAndConfirm": "Review and confirm"
@@ -509,6 +515,8 @@
         "offerPreBooked": "You've joined the waitlist for",
         "offerBooked": "My booking",
         "offerBooked_plural": "My bookings",
+        "offerGuestBooked": "My guest booking",
+        "offerGuestBooked_plural": "My guest bookings",
         "basket": "My basket",
         "title": "Congratulations!",
         "errorExplain": {
@@ -4028,7 +4036,11 @@
         "sourceManager": "The manager {{ managerName }}",
         "filter": "Bookings"
       },
-      "undefined": {
+      "member-booking_canceled": {
+        "primaryText": "The booking for {{- name }} the {{- date_start }} was canceled.",
+        "filter": "Booking cancelations"
+      },
+      "member-private_booking_canceled": {
         "primaryText": "The appointment for {{- private_service_name}} - {{- private_slot_name }} the {{- date_start }} was canceled.",
         "filter": "Appointment cancelations"
       },
@@ -4575,6 +4587,15 @@
         },
         "name": "Company"
       },
+      "GuestInvitation": {
+        "name": "Guest booking",
+        "tags": {
+          "firstname_guest": "Guest first name",
+          "lastname_guest": "Guest last name",
+          "firstname_host": "Inviting member first name",
+          "lastname_host": "Inviting member last name"
+        }
+      },
       "RecurrentRule": {
         "tags": {
           "recurring_booking_fail_reason": "Reason for recurrent booking failure",
@@ -4671,6 +4692,8 @@
       "27": "Subscription ended or terminated",
       "28": "Payment received",
       "29": "Reminder that the livestream starts in 15 minutes (for members)",
+      "30": "Booking for a guest (for inviting member)",
+      "31": "Booking for a guest (for guest)",
       "101": "Reminder that the livestream starts in 15 minutes (for teachers)",
       "102": "Cancelled session (for teachers)",
       "103": "Modified session (for teachers)",

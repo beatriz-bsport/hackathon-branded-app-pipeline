@@ -607,9 +607,7 @@ export class CommunicationDrawer extends Component<Props, State> {
               )}
 
               {!hideAutoResend &&
-                [(WRITE_EMAIL, SELECT_EMAIL)].includes(
-                  this.state.actionType,
-                ) && (
+                [WRITE_EMAIL, SELECT_EMAIL].includes(this.state.actionType) && (
                   <div className={classes.resendSectionContainer}>
                     <div className={classes.sectionTitle}>
                       <RepeatIcon className={classes.sectionTitleIcon} />

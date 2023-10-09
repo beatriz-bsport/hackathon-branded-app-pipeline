@@ -73,6 +73,9 @@ type BaseProps<T extends OptionTypeBase> = {
   blurOnSelect?: boolean;
   placeholder?: string;
   withoutConfirmButton?: boolean;
+  openMenuOnFocus?: boolean;
+  openMenuOnClear?: boolean;
+  closeMenuOnSelect?: boolean;
 } & Omit<NamedProps, 'options' | 'isMulti' | 'onChange' | 'value'>;
 
 export type ItemRendererProps<T extends OptionTypeBase> = {
@@ -131,6 +134,9 @@ function MaterialUISelector<T extends OptionTypeBase>(
     blurOnSelect,
     placeholder,
     withoutConfirmButton,
+    openMenuOnFocus,
+    openMenuOnClear,
+    closeMenuOnSelect = true,
     ...restProps
   } = props;
   const classes = useStyles();
@@ -139,10 +145,12 @@ function MaterialUISelector<T extends OptionTypeBase>(
   const [displayMore, setDisplayMore] = useState(false);
   const handleChange = (data: T | T[], { action }: ActionMeta) => {
     if (!onChange) return;
-    // needed as it conflict with formik sometine
+
     if (!withoutConfirmButton) {
+      // needed as it conflict with formik sometine
       selectRef.current?.select?.blur();
     }
+
     if (Array.isArray(data)) {
       if (isMulti) {
         onChange(data);
@@ -150,6 +158,13 @@ function MaterialUISelector<T extends OptionTypeBase>(
     } else {
       onChange(data);
     }
+
+    /* when clearing the values, the selected items gets updated properly (asynchronous behavior) and the 
+    menu reopens with empty values instead of closing the menu */
+    if (openMenuOnClear && action === 'clear') {
+      selectRef.current.select.blur();
+    }
+
     if (blurOnSelect && (action === 'clear' || action === 'remove-value')) {
       setTimeout(() => selectRef.current.select.blur(), 1);
     }
@@ -248,6 +263,7 @@ function MaterialUISelector<T extends OptionTypeBase>(
           isSearchable={isSearchable}
           menuPortalTarget={_menuPortalTarget}
           onChange={handleChange}
+          openMenuOnFocus={openMenuOnFocus}
           options={options}
           placeholder={placeholder}
           styles={getStyles()}
@@ -257,7 +273,7 @@ function MaterialUISelector<T extends OptionTypeBase>(
           {...restProps}
           // Mandatory for multi selection use
           ref={selectRef}
-          closeMenuOnSelect={!withoutConfirmButton}
+          closeMenuOnSelect={closeMenuOnSelect}
           defaultNumberShown={defaultNumberShown}
           onBlur={handleBlur}
           onInputChange={onInputChange}
@@ -307,6 +323,8 @@ function Menu<T extends OptionTypeBase>(props: MenuProps<T, boolean, any>) {
       setSelected(selectedValuesWithoutIndex);
       if (props.selectProps.withoutConfirmButton) {
         props.setValue(selectedValuesWithoutIndex);
+        props.selectProps.openMenuOnFocus &&
+          setTimeout(() => props.selectProps.selectRef.current.focus());
       }
       return;
     }
@@ -314,6 +332,8 @@ function Menu<T extends OptionTypeBase>(props: MenuProps<T, boolean, any>) {
     setSelected(selectedValues);
     if (props.selectProps.withoutConfirmButton) {
       props.setValue(selectedValues);
+      props.selectProps.openMenuOnFocus &&
+        setTimeout(() => props.selectProps.selectRef.current.focus());
     }
   };
 
@@ -332,6 +352,9 @@ function Menu<T extends OptionTypeBase>(props: MenuProps<T, boolean, any>) {
       setSelected(globalSelectedValues);
       if (props.selectProps.withoutConfirmButton) {
         props.setValue(globalSelectedValues);
+        // trick to keep the menu open while selecting options
+        props.selectProps.openMenuOnFocus &&
+          setTimeout(() => props.selectProps.selectRef.current.focus());
       }
     }
   };

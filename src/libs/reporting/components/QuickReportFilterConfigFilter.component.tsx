@@ -186,7 +186,10 @@ const QuickReportFilterConfigFilter: React.FC<
             <div className={classes.flexTwo}>
               {!!values.config.groups.length && (
                 <DatatypeFilterConfigValueManager
+                  openMenuOnClear
+                  openMenuOnFocus
                   withoutConfirmButton
+                  closeMenuOnSelect={false}
                   comparator={
                     values.config.groups[0].filters_data[index].comparator
                   }

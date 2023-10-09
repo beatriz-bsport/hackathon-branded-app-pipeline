@@ -205,6 +205,9 @@ type MaterialUiMultiSelectorProps = {
   withoutConfirmButton?: boolean;
   itemRenderer?: (props: itemRendererProps) => React.ReactNode;
   chipsRenderer?: (props: chipsRendererProps) => React.ReactNode;
+  openMenuOnFocus?: boolean;
+  openMenuOnClear?: boolean;
+  closeMenuOnSelect?: boolean;
 };
 
 type Props = BaseFieldProps & MaterialUiMultiSelectorProps;
@@ -231,6 +234,7 @@ export const MaterialUiMultiSelectorField: React.FC<Props> = (props) => {
           <MaterialUISelector
             isMulti
             chipsRenderer={props.chipsRenderer}
+            closeMenuOnSelect={props.closeMenuOnSelect}
             defaultNumberShown={props.defaultNumberShown}
             error={!!(meta.touched && meta.error) || props.forceError}
             inScrollBar={props.inScrollBar}
@@ -242,6 +246,8 @@ export const MaterialUiMultiSelectorField: React.FC<Props> = (props) => {
               helpers.setValue(valueList);
               helpers.setTouched(true, false);
             }}
+            openMenuOnClear={props.openMenuOnClear}
+            openMenuOnFocus={props.openMenuOnFocus}
             options={props.options}
             placeholder={props.placeholder}
             value={value}

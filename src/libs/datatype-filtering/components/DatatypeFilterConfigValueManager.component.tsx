@@ -111,6 +111,9 @@ type Props = {
   inScrollBar?: boolean;
   reportCategory?: string;
   withoutConfirmButton?: boolean;
+  closeMenuOnSelect?: boolean;
+  openMenuOnClear?: boolean;
+  openMenuOnFocus?: boolean;
 };
 const PAYMENT_METHODS_WITHOUT_CREDIT_ACCOUNT = PAYMENT_METHODS.filter(
   (paymentMethod) => paymentMethod.id !== CREDIT_ACCOUNT.id,
@@ -125,6 +128,9 @@ const DatatypeFilterConfigValueManager: React.FC<Props> = ({
   inScrollBar,
   reportCategory,
   withoutConfirmButton,
+  closeMenuOnSelect,
+  openMenuOnClear,
+  openMenuOnFocus,
 }) => {
   const { t } = useTranslation('reporting');
   const classes = useStyles();
@@ -218,6 +224,7 @@ const DatatypeFilterConfigValueManager: React.FC<Props> = ({
       <DatatypeFilterConfigValueList
         key={`${prefix}.value`}
         chipsRenderer={!!chipsRenderer && chipsRenderer}
+        closeMenuOnSelect={closeMenuOnSelect}
         columnName={filterItem.identifier}
         datatype={filterItem.datatype}
         getDataByType={getDataByType}
@@ -225,6 +232,8 @@ const DatatypeFilterConfigValueManager: React.FC<Props> = ({
         isPreview={isPreview}
         itemRenderer={!!itemRenderer && itemRenderer}
         name={`${prefix}.value`}
+        openMenuOnClear={openMenuOnClear}
+        openMenuOnFocus={openMenuOnFocus}
         withoutConfirmButton={withoutConfirmButton}
       />
     );
@@ -398,7 +407,10 @@ const DatatypeFilterConfigValueList: React.FC<{
   columnName: string;
   itemRenderer: (itemProps: ItemProps) => React.ReactNode;
   chipsRenderer: (itemProps: ItemProps) => React.ReactNode;
-  withoutConfirmButton: boolean;
+  withoutConfirmButton?: boolean;
+  closeMenuOnSelect?: boolean;
+  openMenuOnClear?: boolean;
+  openMenuOnFocus?: boolean;
 }> = ({
   name,
   datatype,
@@ -409,6 +421,9 @@ const DatatypeFilterConfigValueList: React.FC<{
   itemRenderer,
   withoutConfirmButton,
   chipsRenderer,
+  closeMenuOnSelect,
+  openMenuOnClear,
+  openMenuOnFocus,
 }) => {
   const { t } = useTranslation('reporting');
   const classes = useStyles();
@@ -693,12 +708,15 @@ const DatatypeFilterConfigValueList: React.FC<{
       isMenuListVirtualized
       chipsRenderer={!!chipsRenderer && chipsRenderer}
       className={classes.flexOne}
+      closeMenuOnSelect={closeMenuOnSelect}
       defaultNumberShown={1}
       forceError={false && error && isTouched}
       inScrollBar={inScrollBar}
       isDisabled={isPreview}
       itemRenderer={!!itemRenderer && itemRenderer}
       name={name}
+      openMenuOnClear={openMenuOnClear}
+      openMenuOnFocus={openMenuOnFocus}
       options={[...getOptions()]}
       placeholder={t('filter.form.placeholderList')}
       withoutConfirmButton={withoutConfirmButton}

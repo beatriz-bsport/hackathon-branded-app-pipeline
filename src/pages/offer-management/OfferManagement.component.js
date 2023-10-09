@@ -49,7 +49,7 @@ import { MemberMap } from '#libs/member/utils';
 import { Tag, TagGroup } from '#libs/tag/types';
 import GenericDialog from '#components/genericDialog/GenericDialog';
 import { showDeleteDialog } from '#components/genericDialog/CustomDialogs';
-import { OptionCallback } from '../../state/types';
+import { OptionCallback, OptionBackgroundCallback } from '../../state/types';
 import CommunicationDrawer from '#libs/communication-v2/components/CommunicationDrawer.component';
 import { CONTEXT_OFFER } from '#libs/communication-v2/constants';
 import { getOfferCategories } from '#libs/communication-v2/utils';
@@ -59,6 +59,7 @@ import type { StripeReader } from '#libs/terminal/types';
 import Config from '../../config';
 import MemberProgramDetailDialog from '#libs/performance-tracking/components/member-program/MemberProgramDetail.dialog';
 import ConfirmationRollCallDialog from '#libs/offer/components/ConfirmationRollCallDialog.component';
+import { InternalPaymentPayload } from '../../libs/payment/types';
 
 const RECURRENT_BOOKING_PAGE_SIZE = 10;
 
@@ -255,6 +256,16 @@ type Props = {
   bookingOptionPositionById: {
     [key: number]: OfferStatusWaitingListPosition,
   },
+  getInvoicePaymentGroupIsProcessing: (invoiceUuid: string) => boolean,
+  submitInternalPaymentInBackground: (
+    paymentGroupId: number,
+    invoiceUuid: string,
+    data: InternalPaymentPayload,
+    options?: OptionBackgroundCallback<
+      { paymentGroupId: number, invoiceUuid: string },
+      { paymentGroupId: number, invoiceUuid: string },
+    >,
+  ) => void,
 };
 
 type State = {
@@ -612,7 +623,6 @@ export class OfferManagement extends Component<Props, State> {
       members,
       numberOfUnreadAnswers,
     } = this.props;
-
     if (!this.props.offer) {
       return (
         <Grid container direction="row" spacing={2}>
@@ -810,6 +820,9 @@ export class OfferManagement extends Component<Props, State> {
               this.props.company_theme.enable_multi_localization
             }
             establishments={this.props.establishmentList}
+            getInvoicePaymentGroupIsProcessing={
+              this.props.getInvoicePaymentGroupIsProcessing
+            }
             memberDetails={this.props.memberDetails}
             onlinePaymentEnabled={
               this.props.company_theme.online_payment_enabled
@@ -820,6 +833,9 @@ export class OfferManagement extends Component<Props, State> {
             snackbarSuccess={this.props.snackbarSuccess}
             stripeId={this.props.company_theme.stripe_id}
             stripeReaders={this.props.stripeReaders}
+            submitInternalPaymentInBackground={
+              this.props.submitInternalPaymentInBackground
+            }
             unevenSavedInvoices={this.props.unpaidInvoiceList}
           />
           <Prompt

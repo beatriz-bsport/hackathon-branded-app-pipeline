@@ -16,8 +16,12 @@ import type { Establishment } from '../../libs/establishment/types';
 import type { Member } from '#libs/member/types';
 import type { Invoice } from '#libs/invoice/types';
 import type { ConsumerGiftcard, Giftcard } from '#libs/giftcard/types';
-import type { OptionCallback } from '../../state/types';
+import type {
+  OptionCallback,
+  OptionBackgroundCallback,
+} from '../../state/types';
 import type { StripeReader } from '#libs/terminal/types';
+import { InternalPaymentPayload } from '../../libs/payment/types';
 
 type Props = {
   classes: Object,
@@ -27,9 +31,9 @@ type Props = {
   createInvoice: (InvoiceData: Invoice, options: OptionCallback) => void,
   closeQuickInvoice: (memberId: number) => void,
   availableBuyableItems: { [buyable_item_identifier: number]: BuyableItem },
-  invoiceToBill: Array<Invoice>,
+  invoiceToBill: Invoice,
   setInvoiceToBill: (invoice: ?Invoice) => void,
-  refreshInvoice: () => void,
+  refreshInvoice: (invoiceUuid: string) => void,
   availablePaymentMethodList: number[],
   className: {},
   establishments: Array<Establishment>,
@@ -48,6 +52,16 @@ type Props = {
   enableMultiLocalization: boolean,
   stripeReaders: StripeReader[],
   cardBillingDetailsMandatory: boolean,
+  getInvoicePaymentGroupIsProcessing?: (invoiceUuid: string) => void,
+  submitInternalPaymentInBackground: (
+    paymentGroupId: number,
+    invoiceUuid: string,
+    data: InternalPaymentPayload,
+    options?: OptionBackgroundCallback<
+      { paymentGroupId: number, invoiceUuid: string },
+      { paymentGroupId: number, invoiceUuid: string },
+    >,
+  ) => void,
 };
 
 type State = {
@@ -98,6 +112,45 @@ export class QuickInvoicePanel extends React.PureComponent<Props, State> {
         if (options && options.onError) options.onError?.();
       },
     });
+  };
+
+  submitInternalPaymentInBackground = (
+    data: InternalPaymentPayload,
+    options?: OptionBackgroundCallback<
+      { paymentGroupId: number, invoiceUuid: string },
+      { paymentGroupId: number, invoiceUuid: string },
+    >,
+  ) => {
+    if (
+      this.props.invoiceToBill &&
+      this.props.invoiceToBill.uuid &&
+      this.state.paymentGroupId
+    ) {
+      const invoiceUuid = this.props.invoiceToBill.uuid;
+      this.props.submitInternalPaymentInBackground(
+        this.state.paymentGroupId,
+        this.props.invoiceToBill.uuid,
+        data,
+        {
+          onSuccess: () => {
+            this.props.setInvoiceToBill(null);
+            if (options && options.onSuccess) options.onSuccess();
+          },
+          onError: () => {
+            if (options && options.onError) options.onError();
+          },
+          onBackgroundSuccess: () => {
+            this.props.refreshInvoice(invoiceUuid);
+            if (options && options.onBackgroundSuccess)
+              options.onBackgroundSuccess();
+          },
+          onBackgroundError: () => {
+            if (options && options.onBackgroundError)
+              options.onBackgroundError();
+          },
+        },
+      );
+    }
   };
 
   render() {
@@ -156,56 +209,63 @@ export class QuickInvoicePanel extends React.PureComponent<Props, State> {
                   applyGiftcardOnInvoice={this.props.applyGiftcardOnInvoice}
                   companyId={this.props.companyId}
                   consumerGiftcardList={this.props.consumerGiftcardList}
+                  getInvoicePaymentGroupIsProcessing={
+                    this.props.getInvoicePaymentGroupIsProcessing
+                  }
                   invoiceList={unevenSavedInvoices}
                   onBill={this.props.setInvoiceToBill}
                   snackbarSuccess={this.props.snackbarSuccess}
                 />
               </React.Fragment>
             ) : null}
-            {!!this.props.invoiceToBill?.member && (
-              <PaymentDialog
-                termsAndConditionsAccepted
-                amountToPay={parseFloat(
-                  this.props.invoiceToBill.amount_due_cts -
-                    this.props.invoiceToBill.amount_paid_cts,
-                ).toFixed(2)}
-                availablePaymentMethodList={
-                  this.props.availablePaymentMethodList
-                }
-                cardBillingDetailsMandatory={
-                  this.props.cardBillingDetailsMandatory
-                }
-                clientSecret={
-                  this.state.clientSecretLoading
-                    ? null
-                    : this.state.clientSecret
-                }
-                clientSecretLoading={this.state.clientSecretLoading}
-                companyId={this.props.companyId}
-                defaultUserEmail={this.props.invoiceToBill.member.email}
-                defaultUserName={this.props.invoiceToBill.member.name}
-                memberId={
-                  (this.props.invoiceToBill.member &&
-                    this.props.invoiceToBill.member.id) ||
-                  this.props.invoiceToBill.member
-                }
-                onCancel={() => this.props.setInvoiceToBill(null)}
-                onError={() => {}}
-                onlyInternal={!this.props.onlinePaymentEnabled}
-                onSuccess={(callback) => {
-                  setTimeout(() => {
-                    this.props.refreshInvoice(this.props.invoiceToBill.uuid);
-                    this.props.setInvoiceToBill(null);
-                    if (typeof callback === 'function') callback();
-                  }, 3000);
-                }}
-                paymentGroupId={this.state.paymentGroupId}
-                paymentGroupPriceCts={this.state.paymentGroupPriceCts}
-                requestClientSecret={this.requestClientSecret}
-                stripeId={this.props.stripeId}
-                stripeReaders={this.props.stripeReaders}
-              />
-            )}
+            {!!this.props.invoiceToBill &&
+              !!this.props.invoiceToBill.member && (
+                <PaymentDialog
+                  termsAndConditionsAccepted
+                  amountToPay={parseFloat(
+                    this.props.invoiceToBill.amount_due_cts -
+                      this.props.invoiceToBill.amount_paid_cts,
+                  ).toFixed(2)}
+                  availablePaymentMethodList={
+                    this.props.availablePaymentMethodList
+                  }
+                  cardBillingDetailsMandatory={
+                    this.props.cardBillingDetailsMandatory
+                  }
+                  clientSecret={
+                    this.state.clientSecretLoading
+                      ? null
+                      : this.state.clientSecret
+                  }
+                  clientSecretLoading={this.state.clientSecretLoading}
+                  companyId={this.props.companyId}
+                  defaultUserEmail={this.props.invoiceToBill.member.email}
+                  defaultUserName={this.props.invoiceToBill.member.name}
+                  memberId={
+                    (this.props.invoiceToBill.member &&
+                      this.props.invoiceToBill.member.id) ||
+                    this.props.invoiceToBill.member
+                  }
+                  onCancel={() => this.props.setInvoiceToBill(null)}
+                  onError={() => {}}
+                  onlyInternal={!this.props.onlinePaymentEnabled}
+                  onSuccess={(callback) => {
+                    setTimeout(() => {
+                      this.props.refreshInvoice(this.props.invoiceToBill.uuid);
+                      this.props.setInvoiceToBill(null);
+                      if (typeof callback === 'function') callback();
+                    }, 3000);
+                  }}
+                  paymentGroupId={this.state.paymentGroupId}
+                  paymentGroupPriceCts={this.state.paymentGroupPriceCts}
+                  requestClientSecret={this.requestClientSecret}
+                  stripeId={this.props.stripeId}
+                  stripeReaders={this.props.stripeReaders}
+                  submitInternalPaymentInBackground={
+                    this.submitInternalPaymentInBackground
+                  }
+                />
+              )}
           </Paper>
         )}
       </ObjectLevelPermissionProvider>

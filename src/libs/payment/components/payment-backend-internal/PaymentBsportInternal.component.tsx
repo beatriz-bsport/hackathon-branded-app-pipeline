@@ -1,7 +1,6 @@
 import React, { JSX } from 'react';
 import moment, { type Moment } from 'moment-timezone';
 import classNames from 'classnames';
-
 import { makeStyles } from '@material-ui/core/styles';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
@@ -19,6 +18,9 @@ import DateInput from '../../../../components/input/DateInput.component';
 import PriceInput from '../../../../components/input/PriceInput.component';
 
 import { submitInternalPayment as submitInternalPaymentAPI } from '../../api';
+import type { InternalPaymentPayload } from '#libs/payment/types';
+
+import type { OptionBackgroundCallback } from '../../../../state/types';
 
 type Props = {
   paymentMethodChoices: Array<number>;
@@ -30,6 +32,13 @@ type Props = {
   dateFieldEndAdornment?: JSX.Element;
   customClasses?: { [className: string]: string };
   children?: React.ReactNode;
+  submitInternalPaymentInBackground?: (
+    data: InternalPaymentPayload,
+    options?: OptionBackgroundCallback<
+      { paymentGroupId: number; invoiceUuid: string },
+      { paymentGroupId: number; invoiceUuid: string }
+    >,
+  ) => void;
 };
 
 export const PaymentStripe: React.FC<Props> = ({
@@ -42,6 +51,7 @@ export const PaymentStripe: React.FC<Props> = ({
   dateFieldEndAdornment,
   customClasses,
   children,
+  submitInternalPaymentInBackground,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation(['invoice']);
@@ -74,18 +84,39 @@ export const PaymentStripe: React.FC<Props> = ({
     (ev: React.FormEvent) => {
       ev.preventDefault();
       setProcessing(true);
-      submitInternalPaymentAPI({
-        secret: clientSecret,
-        payment_method_identifier: paymentMethodSelected,
-        payment_note,
-        date,
-        // @ts-expect-error just to be safe since modifiedAmountToPay can be a string
-        price_cts: Math.round(parseFloat(modifiedAmountToPay) * 100),
-      })
-        .then(() => {
-          onSuccess(() => setProcessing(false));
+      if (submitInternalPaymentInBackground) {
+        submitInternalPaymentInBackground(
+          {
+            payment_backend_id: clientSecret,
+            payment_method_identifier: paymentMethodSelected,
+            // @ts-expect-error just to be safe since modifiedAmountToPay can be a string
+            price_cts: Math.round(parseFloat(modifiedAmountToPay) * 100),
+            payment_note,
+            date,
+          },
+          {
+            onSuccess: () => {
+              setProcessing(false);
+            },
+            onError: () => {
+              setProcessing(false);
+            },
+          },
+        );
+      } else {
+        submitInternalPaymentAPI({
+          secret: clientSecret,
+          payment_method_identifier: paymentMethodSelected,
+          payment_note,
+          date,
+          // @ts-expect-error just to be safe since modifiedAmountToPay can be a string
+          price_cts: Math.round(parseFloat(modifiedAmountToPay) * 100),
         })
-        .catch((err) => console.error(err));
+          .then(() => {
+            onSuccess(() => setProcessing(false));
+          })
+          .catch((err) => console.error(err));
+      }
     },
     [
       clientSecret,
@@ -94,6 +125,7 @@ export const PaymentStripe: React.FC<Props> = ({
       onSuccess,
       paymentMethodSelected,
       payment_note,
+      submitInternalPaymentInBackground,
     ],
   );
 

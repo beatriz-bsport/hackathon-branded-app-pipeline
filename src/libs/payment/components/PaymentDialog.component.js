@@ -32,6 +32,12 @@ import { FeatureList } from '#libs/company/types';
 import { UPSELL_IDENTIFIER_STRIPE_TERMINAL } from '#libs/platform-billing/upsell-identifiers';
 import { hasUpsell } from '#libs/platform-billing/utils';
 
+import { InternalPaymentPayload } from '../types';
+import type {
+  OptionCallback,
+  OptionBackgroundCallback,
+} from '../../state/types';
+
 type Props = {
   clientSecret: string,
   requestClientSecret: (paymentEngine: number, params?: any) => void,
@@ -66,6 +72,17 @@ type Props = {
   stripeId: string | null,
   cardBillingDetailsMandatory: boolean,
   companyId: number,
+  invoiceUuid?: string,
+  onBackgroundTaskSuccess?: (invoiceUuid: string) => void,
+  submitInternalPaymentInBackground: (
+    paymentGroupId: number,
+    invoiceUuid: string,
+    data: InternalPaymentPayload,
+    options?: OptionBackgroundCallback<
+      { paymentGroupId: number, invoiceUuid: string },
+      { paymentGroupId: number, invoiceUuid: string },
+    >,
+  ) => void,
 };
 
 type State = {
@@ -328,12 +345,20 @@ export class PaymentDialog extends React.Component<Props, State> {
                       amountToPay={this.props.amountToPay}
                       clientSecret={this.props.clientSecret}
                       establishment={this.props.establishments}
+                      invoiceUuid={this.props.invoiceUuid}
                       memberId={this.props.memberId}
+                      onBackgroundTaskSuccess={
+                        this.props.onBackgroundTaskSuccess
+                      }
                       onCancel={this.props.onCancel}
                       onError={this.props.onError}
                       onSuccess={this.onSuccess}
+                      paymentGroupId={this.props.paymentGroupId}
                       paymentMethodChoices={
                         PAYMENT_GROUP_METHOD_BY_ENGINE[PAYMENT_ENGINE_BSPORT]
+                      }
+                      submitInternalPaymentInBackground={
+                        this.props.submitInternalPaymentInBackground
                       }
                       termsAndConditionsAccepted={
                         this.props.termsAndConditionsAccepted

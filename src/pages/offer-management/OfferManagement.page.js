@@ -162,6 +162,9 @@ import {
 import { getUnreadAnswersCount as getUnreadAnswersCountAction } from '#libs/communication-v2/actions';
 import type { MemberMinimal } from '#libs/member/types';
 
+import { getInvoicePaymentGroupIsProcessing } from '../../libs/payment/selectors';
+import { submitInternalPaymentInBackground as submitInternalPaymentInBackgroundAction } from '../../libs/payment/actions';
+
 const RECURRENT_BOOKING_PAGE_SIZE = 10;
 
 const formatTitle = (offer: Offer, offerLoading: boolean) => {
@@ -249,6 +252,10 @@ export default compose(
       // unread answers
       numberOfUnreadAnswers: state.communicationV2.unreadAnswers.count,
       rollCallLoading: state.offer.rollCall.loading,
+      // PaymentGroup
+
+      getInvoicePaymentGroupIsProcessing: (invoiceUuid: string) =>
+        getInvoicePaymentGroupIsProcessing(state, invoiceUuid),
     }),
     {
       fetchOffer: fetchOfferByIdAction,
@@ -352,6 +359,10 @@ export default compose(
 
       // communication v2
       getUnreadAnswersCountAction,
+
+      // PaymentGroup
+      submitInternalPaymentInBackground:
+        submitInternalPaymentInBackgroundAction,
     },
   ),
   withHandlers({

@@ -87,6 +87,7 @@ type Props = {
     amount: number,
     options?: OptionCallback,
   ) => void;
+  getInvoicePaymentGroupIsProcessing?: (invoiceUuid: string) => boolean;
 };
 
 const quickbooksLogo = require('./QB_logo.png');
@@ -120,6 +121,11 @@ const InvoiceRow: React.FC<Props> = React.memo((props: Props) => {
       amount_remaining_color = 'primary';
     }
   }
+
+  const isPaymentGroupBeingProcessed =
+    (props.getInvoicePaymentGroupIsProcessing &&
+      props.getInvoicePaymentGroupIsProcessing(invoice.uuid)) ??
+    false;
 
   const renderQuickbooksRow = () => {
     if (
@@ -330,6 +336,7 @@ const InvoiceRow: React.FC<Props> = React.memo((props: Props) => {
                 text={getPaymentLink(props.companyId, invoice.uuid)}
               >
                 <RedButton
+                  disabled={isPaymentGroupBeingProcessed}
                   onClick={() => props.snackbarSuccess('link.copied')}
                   variant="outlined"
                 >
@@ -340,7 +347,11 @@ const InvoiceRow: React.FC<Props> = React.memo((props: Props) => {
             </TableCell>
           )}
           <TableCell>
-            <RedButton onClick={() => props.onBill(invoice)} variant="outlined">
+            <RedButton
+              disabled={isPaymentGroupBeingProcessed}
+              onClick={() => props.onBill(invoice)}
+              variant="outlined"
+            >
               <PaymentIcon className={classes.leftIcon} />
               {t(
                 props.asConsumer
@@ -365,6 +376,7 @@ const InvoiceRow: React.FC<Props> = React.memo((props: Props) => {
             {!!props.showOpenInvoiceNested &&
               (props.asConsumer ? (
                 <Button
+                  disabled={isPaymentGroupBeingProcessed}
                   onClick={() => props.onClickInvoice(invoice.uuid, invoice)}
                   variant="outlined"
                 >
@@ -376,7 +388,10 @@ const InvoiceRow: React.FC<Props> = React.memo((props: Props) => {
                   style={{ textDecoration: 'none' }}
                   to={`/invoice/${invoice.uuid}`}
                 >
-                  <Button variant="outlined">
+                  <Button
+                    disabled={isPaymentGroupBeingProcessed}
+                    variant="outlined"
+                  >
                     <ArrowForwardIcon className={classes.leftIcon} />
                     {t('paymentPanel.actions.showInvoice')}
                   </Button>
@@ -605,6 +620,7 @@ export const InvoiceTable = (props: {
     amount: number,
     options?: OptionCallback,
   ) => void;
+  getInvoicePaymentGroupIsProcessing?: (invoiceUuid: string) => boolean;
 }) => {
   const { t } = useTranslation(['invoice']);
 
@@ -651,6 +667,9 @@ export const InvoiceTable = (props: {
                   companyId={props.companyId}
                   consumerGiftcardList={props.consumerGiftcardList}
                   finalizeInvoice={props.finalizeInvoice}
+                  getInvoicePaymentGroupIsProcessing={
+                    props.getInvoicePaymentGroupIsProcessing
+                  }
                   hideMemberName={props.hideMemberName}
                   invoice={invoice}
                   nestedDataLoading={props.nestedDataLoading}

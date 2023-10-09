@@ -37,6 +37,14 @@ export type AdditionalGuest = {
 export type ExtraDataFromQueryParams = Array<{
   offer_id: number;
   spot_id?: number;
+  /**
+   * When booking for a member, additional_guest_info is `{}`
+   *
+   * When booking for a guest, additional_guest_info is `AdditionalGuest[]`
+   */
+  additional_guest_info: AdditionalGuest[] | {};
+  booking_for_invitee_only: boolean;
+  booking_for_member: boolean;
 }>;
 
 export type BuyableItemIdentifier =

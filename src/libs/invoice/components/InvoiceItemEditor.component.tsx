@@ -36,10 +36,10 @@ type BuyableItemProps = {
   buyableItemIdentifier: number;
   value?: number;
   availableBuyableItems: { [key: string]: any };
-  onSelect?: any;
+  onSelect?: (id: number) => void;
 };
 
-const BuyableItemSelector = (props: BuyableItemProps) => {
+const BuyableItemSelector: React.FC<BuyableItemProps> = React.memo((props) => {
   switch (props.buyableItemIdentifier) {
     case BUYABLE_ITEM_PASS:
       return (
@@ -99,11 +99,11 @@ const BuyableItemSelector = (props: BuyableItemProps) => {
     default:
       return null;
   }
-};
+});
 
 type Props = {
   onAddBuyableItem: (buyableItemIdentifier: number, buyableItem: any) => void;
-  availableBuyableItems: { [buyableItemIdentifier: number]: Array<any> };
+  availableBuyableItems: { [buyableItemIdentifier: number]: any[] };
   member: { credit_account_balance: number };
 };
 
@@ -141,16 +141,22 @@ const InvoiceItemEditor: React.FC<Props> = ({
   member,
 }) => {
   const classes = useStyles();
-  const { t } = useTranslation(['invoice']);
+
+  const { t } = useTranslation('invoice');
 
   const [buyableItemIdentifier, setBuyableItemIdentifier] =
     useState(BUYABLE_ITEM_PASS);
-  const [buyableItemId, setBuyableItemId] = useState(null);
+
+  const [buyableItemId, setBuyableItemId] = useState<number>(null);
+
   const [quantity, setQuantity] = useState(1);
 
-  const [voucher, setVoucher] = useState(null);
-  const [voucherPercent, setVoucherPercent] = useState(null);
+  const [voucher, setVoucher] = useState<number>(null);
+
+  const [voucherPercent, setVoucherPercent] = useState<number>(null);
+
   const [warnMamangerOnInvoice, setWarnManagerOnInvoice] = useState(false);
+
   const onClickAddInvoiceItem = useCallback(() => {
     if (buyableItemIdentifier === BUYABLE_ITEM_CREDIT) {
       const data = {

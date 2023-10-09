@@ -11,6 +11,7 @@ import {
   incrementalListPayoutActions,
   detachPaymentMethodActions,
   stripeBalanceActions,
+  submitInternalPaymentInBackgroundActions,
 } from './actions';
 
 const initialState = Immutable({
@@ -54,6 +55,9 @@ const initialState = Immutable({
     error: null,
     amountAvailable: 0,
     amountPending: 0,
+  },
+  paymentGroupBeingProcessed: {
+    byInvoiceUuid: {},
   },
 });
 
@@ -179,6 +183,35 @@ export default handleActions(
     },
     [stripeBalanceActions.error]: (state, { payload }) => {
       return state.setIn(['balance', 'error'], payload);
+    },
+
+    [submitInternalPaymentInBackgroundActions.loading.toString()]: (
+      state,
+      { payload }: { invoiceUuid: string, loading: boolean },
+    ) => {
+      return state.setIn(
+        [
+          'paymentGroupBeingProcessed',
+          'byInvoiceUuid',
+          payload.invoiceUuid,
+          'loading',
+        ],
+        payload.loading,
+      );
+    },
+    [submitInternalPaymentInBackgroundActions.error.toString()]: (
+      state,
+      { payload }: { invoiceUuid: string, error: Error },
+    ) => {
+      return state.setIn(
+        [
+          'paymentGroupBeingProcessed',
+          'byInvoiceUuid',
+          payload.invoiceUuid,
+          'error',
+        ],
+        payload.error,
+      );
     },
   },
   initialState,

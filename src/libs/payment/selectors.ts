@@ -81,3 +81,17 @@ export const getStripeBalanceTotal = createSelector(
   [_getStripeBalanceAvailable, _getStripeBalancePending],
   (availableBalance, pendingBalance) => availableBalance + pendingBalance,
 );
+
+const _getPaymentGroupBeingProcessed = (state: RootState) =>
+  state.paymentBackend.paymentGroupBeingProcessed;
+
+const _getInvoiceUuid = (_: RootState, invoiceUuid: string) => invoiceUuid;
+
+export const getInvoicePaymentGroupIsProcessing = createSelector(
+  [_getPaymentGroupBeingProcessed, _getInvoiceUuid],
+  (paymentGroupBeingProcessed, invoiceUuid) => {
+    return (
+      paymentGroupBeingProcessed?.byInvoiceUuid?.[invoiceUuid]?.loading ?? false
+    );
+  },
+);

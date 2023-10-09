@@ -7,7 +7,7 @@ import {
   postAuth,
   buildUrlParams,
 } from '../../http';
-import { PaymentGroup, PaymentMethod } from './types';
+import { PaymentGroup, PaymentMethod, InternalPaymentPayload } from './types';
 import type { BillingDetails } from '#libs/marketplace/types';
 
 export const fetchPaymentMethodList = async (
@@ -79,6 +79,16 @@ export const requestSetupIntentSecretNoAuth = async (
 
 export const submitInternalPayment = async (data: any) => {
   return postAuth(`${API_V1_URI}/payment/internal_payment/`, data);
+};
+
+export const submitInternalPaymentInBackground = (
+  id: number,
+  data: InternalPaymentPayload,
+) => {
+  return postAuth(
+    `${API_V1_URI}/payment/payment_group/${id}/handle_internal_payment_in_background_task/`,
+    data,
+  );
 };
 
 export const getPaymentGroupStatus = async (id: number) => {

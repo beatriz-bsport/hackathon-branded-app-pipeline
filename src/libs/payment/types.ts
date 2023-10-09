@@ -89,3 +89,11 @@ export type PaymentGroup = {
   currency: string;
   status: number;
 };
+
+export type InternalPaymentPayload = {
+  payment_backend_id: string;
+  payment_method_identifier: number;
+  price_cts: number;
+  payment_note: string;
+  date: string;
+};

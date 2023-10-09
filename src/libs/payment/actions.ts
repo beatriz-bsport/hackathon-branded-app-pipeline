@@ -1,10 +1,15 @@
 // @ts-nocheck
 import { createAction } from 'redux-actions';
-import { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
+import {
+  Dispatch,
+  ThunkAction,
+  OptionCallback,
+  OptionBackgroundCallback,
+} from '../../state/types';
 import { RootState } from '../../reducers';
 import { ReportConfiguration } from '../reporting/types';
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
-
+import { monitorBackgroundTask } from '../background-task/actions';
 import {
   fetchPaymentMethodList as fetchPaymentMethodListAPI,
   fetchOnSpotPaymentReport as fetchOnSpotPaymentReportAPI,
@@ -14,8 +19,14 @@ import {
   updatePaymentGroupPriceCts as updatePaymentGroupPriceCtsAPI,
   detachPaymentMethod as detachPaymentMethodAPI,
   setPaymentMethodAsDefault as setPaymentMethodAsDefaultAPI,
+  submitInternalPaymentInBackground as submitInternalPaymentInBackgroundAPI,
 } from './api';
-import type { PaymentGroup, PaymentMethod, Payout } from './types';
+import type {
+  PaymentGroup,
+  PaymentMethod,
+  Payout,
+  InternalPaymentPayload,
+} from './types';
 
 // Active campaign Account
 export const listSavedPaymentMethodListActions = {
@@ -281,5 +292,83 @@ export function updatePaymentGroupPriceCts(
       dispatch(updatePaymentGroupPriceCtsActions.error(err));
     }
     dispatch(updatePaymentGroupPriceCtsActions.isLoading(false));
+  };
+}
+
+export const submitInternalPaymentInBackgroundActions = {
+  error: createAction<{ invoiceUuid: string; error: Error }>(
+    'PAYMENT_GROUP/INTERNAL_PAYMENT_BACKGROUND/ERROR',
+  ),
+  loading: createAction<{ invoiceUuid: string; loading: boolean }>(
+    'PAYMENT_GROUP/INTERNAL_PAYMENT_BACKGROUND/IS_LOADING',
+  ),
+};
+
+export function submitInternalPaymentInBackground(
+  paymentGroupId: number,
+  invoiceUuid: string,
+  data: InternalPaymentPayload,
+  options?: OptionBackgroundCallback<
+    { paymentGroupId: number; invoiceUuid: string },
+    { paymentGroupId: number; invoiceUuid: string }
+  >,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(
+      submitInternalPaymentInBackgroundActions.loading({
+        invoiceUuid,
+        loading: true,
+      }),
+    );
+    dispatch(
+      submitInternalPaymentInBackgroundActions.error({
+        invoiceUuid,
+        error: null,
+      }),
+    );
+
+    try {
+      const response = await submitInternalPaymentInBackgroundAPI(
+        paymentGroupId,
+        data,
+      );
+
+      const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+      dispatch(
+        monitorBackgroundTask(backgroundTaskUuid, {
+          onError: (err) => {
+            console.error(err);
+            if (options?.onBackgroundError) options.onBackgroundError(err);
+          },
+          onSuccess: () => {
+            dispatch(
+              submitInternalPaymentInBackgroundActions.loading({
+                invoiceUuid,
+                loading: false,
+              }),
+            );
+            if (options && options.onBackgroundSuccess) {
+              options.onBackgroundSuccess({
+                paymentGroupId,
+                invoiceUuid,
+              });
+            }
+          },
+        }),
+      );
+
+      if (options && options.onSuccess) {
+        options.onSuccess();
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch(
+        submitInternalPaymentInBackgroundActions.error({
+          invoiceUuid,
+          error,
+        }),
+      );
+      if (options && options.onError) options.onError(error);
+    }
   };
 }

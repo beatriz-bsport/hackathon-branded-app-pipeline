@@ -36,7 +36,8 @@ export type Props = {
   shouldDisplayAddGuestButton?: boolean;
   addGuestTooltipText?: string;
   isAddGuestDisabled?: boolean;
-  onAddGuestClick?: () => void;
+  guestName?: string;
+  onOpenAddGuestModal?: () => void;
   onAddGuestModalCancel?: () => void;
 };
 
@@ -53,9 +54,10 @@ const MarketplaceBookingItem: React.FC<Props> = ({
   shouldDisplayAddGuestButton,
   addGuestTooltipText,
   isAddGuestDisabled,
-  onAddGuestClick,
+  guestName,
+  onOpenAddGuestModal,
 }) => {
-  const { t } = useTranslation('checkout');
+  const { t } = useTranslation(['checkout', 'booking']);
   const hasStatusChip = isWaitingList;
   return (
     <Card
@@ -71,8 +73,25 @@ const MarketplaceBookingItem: React.FC<Props> = ({
         <Grid
           classes={{
             'bs-booking-item-grid': 'bs-booking-item-grid',
+            'bs-booking-item-grid--with-guest': guestName,
           }}
         >
+          {!!guestName && (
+            <GridItem
+              classes={{
+                'bs-booking-item-guest-name': 'bs-booking-item-guest-name',
+              }}
+              columnStart={1}
+              direction={Direction.ROW}
+              justification={Justification.FLEX_START}
+              rowStart={1}
+            >
+              <p className="bs-booking-item-guest-name__text">
+                {t('booking:offer.bookingFor')}
+                <i>{` ${guestName}`}</i>
+              </p>
+            </GridItem>
+          )}
           <GridItem
             classes={{
               'bs-booking-item-details-date': 'bs-booking-item-details-date',
@@ -80,7 +99,7 @@ const MarketplaceBookingItem: React.FC<Props> = ({
             columnStart={1}
             direction={Direction.ROW}
             justification={Justification.FLEX_START}
-            rowStart={1}
+            rowStart={2}
           >
             {date}
           </GridItem>
@@ -89,7 +108,7 @@ const MarketplaceBookingItem: React.FC<Props> = ({
               'bs-booking-item-details': 'bs-booking-item-details',
             }}
             columnStart={1}
-            rowStart={2}
+            rowStart={3}
           >
             <ActivitySummary
               coach={coach}
@@ -115,7 +134,7 @@ const MarketplaceBookingItem: React.FC<Props> = ({
             columnEnd={2}
             columnStart={2}
             direction={Direction.ROW}
-            rowStart={1}
+            rowStart={2}
           >
             <Chip
               classes={{
@@ -141,7 +160,7 @@ const MarketplaceBookingItem: React.FC<Props> = ({
             columnEnd={3}
             columnStart={3}
             direction={Direction.ROW}
-            rowStart={1}
+            rowStart={2}
           >
             <MarketplaceLevelCSSOnly
               className="bs-booking-item-level"
@@ -158,7 +177,7 @@ const MarketplaceBookingItem: React.FC<Props> = ({
               columnStart={3}
               direction={Direction.ROW}
               justification={Justification.FLEX_END}
-              rowStart={2}
+              rowStart={3}
             >
               <Tooltip
                 id="bs-booking-item-add-guest-tooltip"
@@ -170,7 +189,7 @@ const MarketplaceBookingItem: React.FC<Props> = ({
                     text: 'bs-booking-item-add-guest__button__text',
                   }}
                   isDisabled={isAddGuestDisabled}
-                  onClick={onAddGuestClick}
+                  onClick={onOpenAddGuestModal}
                   variant={ButtonVariant.ICON}
                 >
                   <PersonAdd />

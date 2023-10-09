@@ -17,9 +17,10 @@ import { Coach } from '#libs/associated-coach/types';
 import { levelFactory } from '#libs/level/factories';
 import { Level } from '#libs/level/types';
 
-import './styles.storybook.css';
 import i18n from 'i18next';
 import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status';
+
+import './styles.storybook.css';
 
 const fakeCompanyTheme: CompanyTheme = themeFactoryBot.companyTheme.createOne();
 
@@ -94,6 +95,7 @@ WithAddGuestButton.args = {
   isWaitingList: false,
   level: fakeLevel,
   shouldDisplayAddGuestButton: true,
+  guestName: faker.person.fullName(),
   addGuestTooltipText: i18n.t(
     `booking:offer.bookingForAGuest.bookingStatus.${OFFER_BOOKABLE_STATUS_BOOKABLE}`,
   ),

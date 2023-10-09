@@ -18,6 +18,7 @@ import { OFFER_WAITING_LIST_STATUS_FULL } from '@bsport/common/lib/master-data/e
 import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 
 import { ImmutableObject } from 'seamless-immutable';
+import PersonAdd from '@material-ui/icons/PersonAdd';
 import { formatAsDateWithWeekday } from '../../../utils/datetime';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import { getTaxPrice } from '#libs/theme/utils';
@@ -80,6 +81,8 @@ export type Props = {
   theme: CompanyTheme;
   isBookingButtonHidden?: boolean;
   noStyledContainer?: boolean;
+  isGuestBooking?: boolean;
+  guestName?: string;
 };
 
 const OfferSummary: React.FC<Props> = ({
@@ -100,6 +103,8 @@ const OfferSummary: React.FC<Props> = ({
   theme,
   isBookingButtonHidden,
   noStyledContainer,
+  isGuestBooking,
+  guestName,
 }) => {
   const classes = useStyles({ variant, offerStatus, noStyledContainer });
 
@@ -141,7 +146,16 @@ const OfferSummary: React.FC<Props> = ({
 
   return (
     <div className={classes.grid}>
-      <div className={classes.columnGap2}>
+      <div className={classes.columnGap1}>
+        {isGuestBooking && (
+          <div className={classes.bookingGuestContainer}>
+            <PersonAdd className={classes.grey} />
+            <Typography className={classes.bookingGuestName} variant="body1">
+              {t('booking:offer.bookingFor')}
+              <i>{` ${guestName}`}</i>
+            </Typography>
+          </div>
+        )}
         <div className={classes.columnGap1}>
           <Typography variant="h6">{metaActivity?.name}</Typography>
 
@@ -374,6 +388,14 @@ const useStyles = makeStyles<
   price: {
     display: 'flex',
     justifyContent: 'space-between',
+  },
+  bookingGuestContainer: {
+    display: 'flex',
+    marginBottom: 4,
+    gap: theme.spacing(1),
+  },
+  bookingGuestName: {
+    color: '#2D3748',
   },
 }));
 

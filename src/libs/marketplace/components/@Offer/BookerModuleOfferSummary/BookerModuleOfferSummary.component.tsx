@@ -5,6 +5,7 @@ import { OFFER_WAITING_LIST_STATUS_OPEN } from '@bsport/common/lib/master-data/w
 import { OFFER_WAITING_LIST_STATUS_FULL } from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
 import { HourglassFull } from '@material-ui/icons';
 import VideocamIcon from '@material-ui/icons/Videocam';
+import PersonAdd from '@material-ui/icons/PersonAdd';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import Card from '#components/css-only/Card';
 import CardContent from '#components/css-only/Card/CardContent';
@@ -48,6 +49,8 @@ export type Props = {
   isBookingButtonHidden?: boolean;
   confirmLoading?: boolean;
   noStyledContainer?: boolean;
+  isGuestBooking?: boolean;
+  guestName?: string;
   onConfirm?: () => void;
   expirationDatetime?: string;
   goToCheckout?: () => void;
@@ -74,6 +77,8 @@ const BookerModuleOfferSummary: React.FC<Props> = ({
   expirationDatetime,
   goToCheckout,
   fromSpotSelector,
+  isGuestBooking,
+  guestName,
 }) => {
   const { t } = useTranslation([
     'datetime',
@@ -147,6 +152,24 @@ const BookerModuleOfferSummary: React.FC<Props> = ({
             'bs-booker-module-offer-summary-grid': true,
           }}
         >
+          {isGuestBooking && (
+            <GridItem
+              alignment={Alignment.CENTER}
+              classes={{
+                'bs-booker-module-offer-summary-item': true,
+                'bs-booker-module-offer-summary-item__guest-container': true,
+              }}
+              direction={Direction.ROW}
+              justification={Justification.FLEX_START}
+              rowStart={1}
+            >
+              <PersonAdd className="bs-booker-module-offer-summary-item__guest-container__icon" />
+              <span className="bs-booker-module-offer-summary-item__guest-container__name">
+                {t('booking:offer.bookingFor')}
+                <i>{` ${guestName}`}</i>
+              </span>
+            </GridItem>
+          )}
           <GridItem
             alignment={Alignment.CENTER}
             classes={{
@@ -155,7 +178,7 @@ const BookerModuleOfferSummary: React.FC<Props> = ({
             }}
             direction={Direction.ROW}
             justification={Justification.FLEX_START}
-            rowStart={1}
+            rowStart={2}
           >
             {metaActivity?.name}
           </GridItem>
@@ -167,7 +190,7 @@ const BookerModuleOfferSummary: React.FC<Props> = ({
             }}
             direction={Direction.ROW}
             justification={Justification.FLEX_START}
-            rowStart={2}
+            rowStart={3}
           >
             {date}
           </GridItem>
@@ -181,7 +204,7 @@ const BookerModuleOfferSummary: React.FC<Props> = ({
             }}
             direction={Direction.ROW}
             justification={Justification.FLEX_START}
-            rowStart={3}
+            rowStart={4}
           >
             <Chip
               classes={{
@@ -230,7 +253,7 @@ const BookerModuleOfferSummary: React.FC<Props> = ({
             }}
             direction={Direction.ROW}
             justification={Justification.FLEX_START}
-            rowStart={4}
+            rowStart={5}
           >
             <ActivitySummary
               coach={coach}

@@ -14,6 +14,7 @@ import { CompanyTheme } from '#libs/theme/types';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import OfferSummary from '#libs/offer/OfferSummary';
 import SavedSpotCounddown from '#libs/checkout/components/new-checkout-flow/SavedSpotCountdown';
+import { getGuestBookingName } from '#libs/marketplace/utils/booking';
 
 type ActivitiesSummaryProps = {
   activitySummaryCheckoutItems: CheckoutItem[];
@@ -60,6 +61,11 @@ export const ActivitiesSummary: React.FC<ActivitiesSummaryProps> = ({
             <OfferSummary
               key={`offer-summary-${offerDetail.offer?.id}`}
               establishment={offerDetail.offer?.establishment}
+              guestName={getGuestBookingName([checkoutItem])}
+              isGuestBooking={
+                checkoutItem.extra_data?.offers_data?.[0].extra_data
+                  ?.booking_for_invitee_only
+              }
               metaActivity={offerDetail.offer?.meta_activity}
               offer={offerDetail.offer}
               spotId={offerDetail.spotId}

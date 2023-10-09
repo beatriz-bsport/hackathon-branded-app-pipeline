@@ -32,7 +32,7 @@ import { Invoice } from '../types';
 import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type Props = {
-  paymentItemList: Array<PaymentItem>;
+  paymentItemList: PaymentItem[];
   removeInvoiceItem: (id: number) => void;
   removePaymentItem: (id: number) => void;
   amountInvoiceItem: number;
@@ -42,30 +42,31 @@ type Props = {
   updatePaymentMethod: (uuid: string, paymentMethodId: number) => void;
   isReturningPayment: boolean;
   goToSubscription: (id: number) => void;
-
   invoice?: Invoice;
   invoiceItemLoading: boolean;
-  invoiceItemList: Array<InvoiceItem>;
+  invoiceItemList: InvoiceItem[];
   editCustomFooter: (options: OptionCallback) => void;
-  couponList?: Array<{
+  couponList?: {
     coupon_code: string;
     coupon_voucher: number;
-    compatible_items: Array<number>;
-  }>;
+    compatible_items: number[];
+  }[];
   deleteCoupon?: (couponIndex: number) => void;
   applyCoupon?: (couponCode: String, options: OptionCallback) => void;
   disableCoupon: boolean;
   couponLoading: boolean;
   withEstablishment: boolean;
   establishmentLoading: boolean;
-  establishments: Array<Establishment>;
+  establishments: Establishment[];
   setBillingEstablishment: (establishmentId: number | null) => void;
   billing_establishment_id: number;
   enableMultiLocalization: boolean;
   requiredEstablishmentIsMissing?: boolean;
 };
-export const InvoiceContent = (props: Props) => {
+
+export const InvoiceContent: React.FC<Props> = (props) => {
   const classes = useStyles(props);
+
   const {
     removeInvoiceItem,
     removePaymentItem,
@@ -73,13 +74,19 @@ export const InvoiceContent = (props: Props) => {
     paymentItemList,
     enableMultiLocalization,
   } = props;
-  const { t } = useTranslation(['invoice']);
+
+  const { t } = useTranslation('invoice');
+
   const [editFooterOpen, setEditFooterOpen] = React.useState(false);
+
   const [customFooterValue, setCustomFooterValue] = React.useState([
     props.invoice ? props.invoice.custom_footer : '',
   ]);
+
   const [loading, setLoading] = React.useState(false);
+
   const is_reverse = props.invoice && props.invoice.source_invoice;
+
   return (
     <div>
       <Paper className={classes.paperContainer}>
@@ -466,4 +473,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default InvoiceContent;
+export default React.memo(InvoiceContent);

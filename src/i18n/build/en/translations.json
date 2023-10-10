@@ -16424,7 +16424,18 @@
                     "isOfferNotAvailableYet": "The session is not yet bookable",
                     "isOfferAvailable": "The session is available",
                     "isOfferInThePast": "The session is over",
-                    "isHidden": "Hidden"
+                    "isHidden": "Hidden",
+                    "prepaidLineKind": "Type of prepaid line",
+                    "isDense": "Dense",
+                    "noStyledContainer": "Show the variant without container",
+                    "showPrice": "Show the price",
+                    "showSpot": "Show the spot",
+                    "isItemEditionDisabled": "Modifying items disabled",
+                    "isAddingItemPossible": "Adding more items activated",
+                    "basketIsEmpty": "Basket is empty",
+                    "showCredit": "Show the credits",
+                    "showEstablishmentAddress": "Show the establishment's address",
+                    "numberOfDistinctCheckoutItem": "Number of products in the basket"
                 },
                 "configurationTitle": "Variations"
             },
@@ -16433,7 +16444,8 @@
                 "workshop": "Workshop",
                 "subscription": "Subscriptions",
                 "pass": "Passes",
-                "common": "Common"
+                "common": "Common",
+                "bookingPage": "Booking"
             },
             "components": {
                 "calendar": "Calendar page",
@@ -16504,7 +16516,9 @@
                 "marketplace_offer_list_item": "Session details (list display)",
                 "marketplace_select": "Selector (single)",
                 "marketplace_filter": "Multiple selector",
-                "marketplace_search": "Search filter"
+                "marketplace_search": "Search filter",
+                "marketplace_basket_summary": "Basket summary",
+                "booker_module_offer_summary": "Session summary"
             },
             "customCss": {
                 "yourCode": "Your complementary implementation:",

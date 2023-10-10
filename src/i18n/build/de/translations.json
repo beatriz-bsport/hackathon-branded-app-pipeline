@@ -76,7 +76,8 @@
                 "offerTitle": "Verknüpfte Session"
             },
             "listTitle": "Warteliste",
-            "addToBook": "Register"
+            "addToBook": "Register",
+            "waitingListPosition": "Position auf der Warteliste {{ position }}/{{ size }}"
         }
     },
     "subscription": {
@@ -1716,7 +1717,8 @@
             "notifyRevert": "Stornierungs-E-Mail senden",
             "refundRevert": "Rückerstattung gebrauchter Credits",
             "cancellingOtherBookingInGroup": "Achtung: Diese Session ist eine Gruppeneinheit von {{ name }}. Wenn das Mitglied weitere Buchungen in dieser Gruppe hat, werden diese nicht beeinflusst.",
-            "cancellingBookingInGroup": "Stornieren Sie für die anderen Sessions in dieser Gruppe."
+            "cancellingBookingInGroup": "Stornieren Sie für die anderen Sessions in dieser Gruppe.",
+            "waitingListPosition": "Auf der Warteliste {{ position }}/{{ size }}"
         },
         "consumer": {
             "booking": {
@@ -9494,6 +9496,10 @@
             "member-booking_canceled": {
                 "filter": "Buchungsstornierungen",
                 "primaryText": "Die Buchung für {{- name }} am {{- date_start }} wurde storniert."
+            },
+            "undefined": {
+                "filter": "Terminabsagen",
+                "primaryText": "Der Termin für {{- private_service_name}}{{- private_slot_name }} am {{- date_start }} wurde abgesagt."
             }
         },
         "resetPassword": {
@@ -12000,7 +12006,9 @@
                     "establishment": "Einrichtung",
                     "date": "Uhrzeit/Datum des Kurses",
                     "coach": "Lehrkraft",
-                    "activity": "Aktivität"
+                    "activity": "Aktivität",
+                    "waiting_list_size": "Größe der Warteliste",
+                    "waiting_list_position": "Position auf der Warteliste"
                 },
                 "name": "Warteliste"
             },
@@ -14054,7 +14062,9 @@
             "success": "Bestätigte Absage",
             "warningOfferGroup": "Bitte beachten Sie, dass die folgenden Sessions nicht abgesagt werden können, da sie Teil einer Gruppensession sind. Um sie zu stornieren, stornieren Sie bitte die entsprechende Gruppe.",
             "offers": "Nicht stornierbare Sessions",
-            "warningOfferGroupTitle": "Nicht abgesagte Sessions"
+            "warningOfferGroupTitle": "Nicht abgesagte Sessions",
+            "activityOnly": "Da Sie nicht die Erlaubnis haben Workshopsessions zu stornieren wird diese Aktion nur Gruppenaktivitätssessions stornieren.",
+            "workshopOnly": "Da Sie nicht die Erlaubnis haben Gruppenaktivitäten zu stornieren wird diese Aktion nur Workshopsessions stornieren."
         },
         "bookingListEmpty": "Keine Buchung",
         "bookingList": "Buchungen",
@@ -14319,7 +14329,8 @@
                     "SETTINGS": "Ändern der EInstellungen",
                     "INFOS": "Session"
                 }
-            }
+            },
+            "forbidden": "Sie habne nicht die Erlaubnis Sessions zu dieser Aktivität hinzuzufügen. Bitte kontaktieren Sie Ihren Manager, um die notwendigen Rechte zu erhalten."
         },
         "broadcast": "Videokonferenzen",
         "onSite": "Im Studio",

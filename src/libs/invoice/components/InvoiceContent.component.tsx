@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React, { ChangeEvent, useCallback } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { type Theme, makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
@@ -27,8 +27,8 @@ import CouponCodeForm from '#libs/coupon/components/CouponCodeForm.component';
 import EstablishmentSelector from '#libs/establishment/components/EstablishmentSelector.component';
 import { getReceiptUrl as getReceiptUrlAPI } from '../api';
 import type { Establishment } from '#libs/establishment/types';
-import { OptionCallback } from '../../../state/types';
-import { Invoice } from '../types';
+import type { OptionCallback } from '../../../state/types';
+import type { Invoice } from '../types';
 import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type Props = {
@@ -92,7 +92,10 @@ export const InvoiceContent: React.FC<Props> = ({
   enableMultiLocalization,
   requiredEstablishmentIsMissing,
 }) => {
-  const classes = useStyles();
+  const classes = useStyles({
+    amountPaymentItem,
+    amountInvoiceItem,
+  });
 
   const { t } = useTranslation('invoice');
 
@@ -411,7 +414,10 @@ export const InvoiceContent: React.FC<Props> = ({
   );
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles<
+  Theme,
+  Pick<Props, 'amountPaymentItem' | 'amountInvoiceItem'>
+>((theme) => ({
   paperContainer: {
     minHeight: '20vh',
     paddingBottom: theme.spacing(2),
@@ -463,14 +469,10 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'flex-end',
   },
   sumUpInnerInvoiceItem: {
-    borderRight: (props: Props) =>
-      `2px solid ${
-        props.amountPaymentItem !== props.amountInvoiceItem ? 'red' : 'black'
-      }`,
-    borderBottom: (props: Props) =>
-      `2px solid ${
-        props.amountPaymentItem !== props.amountInvoiceItem ? 'red' : 'black'
-      }`,
+    borderRight: ({ amountPaymentItem, amountInvoiceItem }) =>
+      `2px solid ${amountPaymentItem !== amountInvoiceItem ? 'red' : 'black'}`,
+    borderBottom: ({ amountPaymentItem, amountInvoiceItem }) =>
+      `2px solid ${amountPaymentItem !== amountInvoiceItem ? 'red' : 'black'}`,
     borderRadius: theme.spacing(0.5),
     '&>*': {
       marginLeft: theme.spacing(1),

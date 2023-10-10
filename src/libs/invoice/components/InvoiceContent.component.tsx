@@ -64,28 +64,48 @@ type Props = {
   requiredEstablishmentIsMissing?: boolean;
 };
 
-export const InvoiceContent: React.FC<Props> = (props) => {
-  const classes = useStyles(props);
+export const InvoiceContent: React.FC<Props> = ({
+  paymentItemList,
+  removeInvoiceItem,
+  removePaymentItem,
+  amountInvoiceItem,
+  amountPaymentItem,
+  returnPayment,
+  finalizeInvoice,
+  updatePaymentMethod,
+  isReturningPayment,
+  goToSubscription,
 
-  const {
-    removeInvoiceItem,
-    removePaymentItem,
-    invoiceItemList,
-    paymentItemList,
-    enableMultiLocalization,
-  } = props;
+  invoice,
+  invoiceItemLoading,
+  invoiceItemList,
+  editCustomFooter,
+  couponList,
+  deleteCoupon,
+  applyCoupon,
+  disableCoupon,
+  couponLoading,
+  withEstablishment,
+  establishmentLoading,
+  establishments,
+  setBillingEstablishment,
+  billing_establishment_id,
+  enableMultiLocalization,
+  requiredEstablishmentIsMissing,
+}) => {
+  const classes = useStyles();
 
   const { t } = useTranslation('invoice');
 
   const [editFooterOpen, setEditFooterOpen] = React.useState(false);
 
   const [customFooterValue, setCustomFooterValue] = React.useState([
-    props.invoice ? props.invoice.custom_footer : '',
+    invoice ? invoice.custom_footer : '',
   ]);
 
   const [loading, setLoading] = React.useState(false);
 
-  const is_reverse = props.invoice && props.invoice.source_invoice;
+  const is_reverse = invoice && invoice.source_invoice;
 
   return (
     <div>
@@ -98,7 +118,7 @@ export const InvoiceContent: React.FC<Props> = (props) => {
                 : 'section.invoiceItemList.title',
             )}
           </Typography>
-          {props.invoiceItemLoading ? (
+          {invoiceItemLoading ? (
             <LinearProgress className={classes.divider} />
           ) : (
             <Divider className={classes.divider} />
@@ -112,7 +132,7 @@ export const InvoiceContent: React.FC<Props> = (props) => {
               />
             </div>
           ))}
-          {!props.invoiceItemLoading && !invoiceItemList.length && (
+          {!invoiceItemLoading && !invoiceItemList.length && (
             <div className={classes.isEmptyContainer}>
               <Typography variant="caption">
                 {t('section.invoiceItemList.isEmpty')}
@@ -126,13 +146,13 @@ export const InvoiceContent: React.FC<Props> = (props) => {
               </Typography>
               <Typography variant="h5">
                 {getCurrencyDisplayWithPrice(
-                  parseFloat(props.amountInvoiceItem).toFixed(2),
+                  parseFloat(amountInvoiceItem).toFixed(2),
                 )}
               </Typography>
             </div>
           </div>
         </div>
-        {!!props.invoice && !props.invoice.is_v2 && (
+        {!!invoice && !invoice.is_v2 && (
           <div className={classes.section}>
             <div className={classes.sectionTitle}>
               <Typography variant="h6">
@@ -144,11 +164,11 @@ export const InvoiceContent: React.FC<Props> = (props) => {
               paymentItemList.map((p) => (
                 <PaymentItem
                   key={p.uuid}
-                  handleChangeMethod={props.updatePaymentMethod}
-                  isReturningPayment={props.isReturningPayment}
+                  handleChangeMethod={updatePaymentMethod}
+                  isReturningPayment={isReturningPayment}
                   onDelete={() => removePaymentItem(p.id)}
                   paymentItem={p}
-                  returnPayment={props.returnPayment}
+                  returnPayment={returnPayment}
                 />
               ))}
             {!paymentItemList ||
@@ -165,28 +185,24 @@ export const InvoiceContent: React.FC<Props> = (props) => {
                   {t('section.paymentList.total')}
                 </Typography>
                 <Typography
-                  color={
-                    props.amountPaymentItem < props.amountInvoiceItem
-                      ? 'error'
-                      : ''
-                  }
+                  color={amountPaymentItem < amountInvoiceItem ? 'error' : ''}
                   variant="h5"
                 >
-                  {getCurrencyDisplayWithPrice(props.amountPaymentItem || 0)}
+                  {getCurrencyDisplayWithPrice(amountPaymentItem || 0)}
                 </Typography>
               </div>
             </div>
           </div>
         )}
-        {!!props.invoice && props.invoice.is_v2 && !editFooterOpen ? (
+        {!!invoice && invoice.is_v2 && !editFooterOpen ? (
           <div className={classes.footerSectionColumn}>
-            {!!props.invoice.custom_footer && (
+            {!!invoice.custom_footer && (
               <Typography
                 className={classes.customFooterContainer}
                 color="textSecondary"
                 variant="caption"
               >
-                {props.invoice.custom_footer}
+                {invoice.custom_footer}
               </Typography>
             )}
             <div>
@@ -211,7 +227,7 @@ export const InvoiceContent: React.FC<Props> = (props) => {
             </IconButton>
             <IconButton
               onClick={() =>
-                props.editCustomFooter(customFooterValue, {
+                editCustomFooter(customFooterValue, {
                   onSuccess: () => setEditFooterOpen(false),
                 })
               }
@@ -221,21 +237,19 @@ export const InvoiceContent: React.FC<Props> = (props) => {
           </div>
         )}
         <div>
-          {props.couponList && (
+          {couponList && (
             <div className={classes.couponButton}>
               <CouponCodeForm
-                disabled={props.disableCoupon || props.couponLoading}
-                onSubmit={props.applyCoupon}
+                disabled={disableCoupon || couponLoading}
+                onSubmit={applyCoupon}
               />
             </div>
           )}
-          {props.couponLoading && (
-            <LinearProgress className={classes.divider} />
-          )}
+          {couponLoading && <LinearProgress className={classes.divider} />}
           <List>
-            {!!props.couponList &&
-              props.couponList.length !== 0 &&
-              props.couponList.map((coupon, index) => (
+            {!!couponList &&
+              couponList.length !== 0 &&
+              couponList.map((coupon, index) => (
                 <>
                   <ListItem>
                     <ListItemText
@@ -248,7 +262,7 @@ export const InvoiceContent: React.FC<Props> = (props) => {
                     <ListItemSecondaryAction>
                       <IconButton
                         aria-label="delete"
-                        onClick={() => props.deleteCoupon(index)}
+                        onClick={() => deleteCoupon(index)}
                       >
                         <DeleteIcon fontSize="small" />
                       </IconButton>
@@ -259,12 +273,12 @@ export const InvoiceContent: React.FC<Props> = (props) => {
           </List>
         </div>
 
-        {enableMultiLocalization && props.withEstablishment && (
+        {enableMultiLocalization && withEstablishment && (
           <>
             <Typography className={classes.sectionTitle} variant="h6">
               {t('section.invoiceItemList.billing_establishment')}
             </Typography>
-            {props.establishmentLoading || props.invoiceItemLoading ? (
+            {establishmentLoading || invoiceItemLoading ? (
               <LinearProgress className={classes.divider} />
             ) : (
               <Divider className={classes.divider} />
@@ -275,15 +289,15 @@ export const InvoiceContent: React.FC<Props> = (props) => {
                 isOptionDisabled
                 isRequired
                 noMulti
-                establishments={props.establishments}
-                isLoading={props.establishmentLoading || loading}
-                requiredValueIsMissing={props.requiredEstablishmentIsMissing}
-                selectedEstablishments={[props.billing_establishment_id]}
+                establishments={establishments}
+                isLoading={establishmentLoading || loading}
+                requiredValueIsMissing={requiredEstablishmentIsMissing}
+                selectedEstablishments={[billing_establishment_id]}
                 selectOption={async (item: {
                   value: number;
                   label: string;
                 }) => {
-                  props.setBillingEstablishment(item ? item.value : null);
+                  setBillingEstablishment(item ? item.value : null);
                   setLoading(true);
                   // loading is used to force re-render of the menuPortal to update
                   // selected items
@@ -297,9 +311,9 @@ export const InvoiceContent: React.FC<Props> = (props) => {
           </>
         )}
       </Paper>
-      {!!props.finalizeInvoice &&
-        !!props.invoice &&
-        props.invoice.invoice_type !== INVOICE_TYPE_MIGRATION && (
+      {!!finalizeInvoice &&
+        !!invoice &&
+        invoice.invoice_type !== INVOICE_TYPE_MIGRATION && (
           <div className={classes.buttonRow}>
             <ObjectLevelPermissionProviderComponent requiredPermission="export.allowed_actions.invoice">
               {(hasPermission) =>
@@ -307,19 +321,19 @@ export const InvoiceContent: React.FC<Props> = (props) => {
                   <Tooltip
                     aria-label="pdf-not-available"
                     title={
-                      props.invoice.is_draft
+                      invoice.is_draft
                         ? `${t('actions.explainPdfDraft')}`
                         : undefined
                     }
                   >
                     <Button
-                      color={props.invoice.is_draft ? undefined : 'primary'}
+                      color={invoice.is_draft ? undefined : 'primary'}
                       onClick={() => {
-                        if (!props.invoice.is_draft) {
-                          if (props.invoice.stripe_invoice_pdf) {
-                            window.open(props.invoice.stripe_invoice_pdf);
+                        if (!invoice.is_draft) {
+                          if (invoice.stripe_invoice_pdf) {
+                            window.open(invoice.stripe_invoice_pdf);
                           } else {
-                            props.finalizeInvoice();
+                            finalizeInvoice();
                           }
                         }
                       }}
@@ -332,11 +346,11 @@ export const InvoiceContent: React.FC<Props> = (props) => {
                 )
               }
             </ObjectLevelPermissionProviderComponent>
-            {!!props.invoice.payments?.length && (
+            {!!invoice.payments?.length && (
               <Button
                 color="secondary"
                 onClick={() => {
-                  getReceiptUrlAPI(props.invoice.uuid).then((r) =>
+                  getReceiptUrlAPI(invoice.uuid).then((r) =>
                     window.open(r.data),
                   );
                 }}
@@ -346,12 +360,10 @@ export const InvoiceContent: React.FC<Props> = (props) => {
                 {t('actions.downloadReceipt')}
               </Button>
             )}
-            {!!props.invoice.plannedinvoice && (
+            {!!invoice.plannedinvoice && (
               <Button
                 color="primary"
-                onClick={() =>
-                  props.goToSubscription(props.invoice.billing_plan)
-                }
+                onClick={() => goToSubscription(invoice.billing_plan)}
                 variant="outlined"
               >
                 {t('actions.goToSubscription')}

@@ -114,7 +114,10 @@ import {
 } from '#libs/member/selectors';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#libs/meta-activity/actions';
 import { fetchGroupOffer as fetchGroupOfferAction } from '#libs/group-offer/actions';
-import { getEnabledMetaActivities } from '#libs/meta-activity/selectors';
+import {
+  getEnabledMetaActivities,
+  getMetaActivity,
+} from '#libs/meta-activity/selectors';
 import { getGroupListCount, withGroup } from '#libs/group-offer/selectors';
 
 import {
@@ -190,6 +193,8 @@ export default compose(
         state,
       ),
       offerLoading: state.offer.retrieve.loading,
+      getOfferMetaActivity: (metaActivityId: number) =>
+        getMetaActivity(state, metaActivityId),
       // member
       membersloading: state.member.loading,
       members: withMemberProgram(withTags(getAllMembers))(state),

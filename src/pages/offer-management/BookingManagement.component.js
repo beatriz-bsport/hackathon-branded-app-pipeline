@@ -48,6 +48,7 @@ import BookingTable from '#libs/booking/components/BookingTable.component';
 import RecurrenceRuleBookingListItem from '#libs/booking/components/RecurrenceRuleBookingListItem.component';
 import BookingOptionForManager from '#libs/waiting-list/components/BookingOptionForManager.component';
 import BookingOptionActionBar from '#libs/waiting-list/components/BookingOptionActionBar.component';
+import { getActivityWorkshopPermission } from '#libs/role/permission-utils/utils';
 
 import type { Booking, BookingOption } from '#libs/booking/types';
 import type { Member } from '#libs/member/types';
@@ -65,6 +66,7 @@ import { formatAsTime } from '../../utils/datetime';
 import OfferIconHybridIndicator from '../../libs/offer/components/OfferHybridIconIndicator.component';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { OfferStatusWaitingListPosition } from '#libs/offer/types';
+import { MetaActivity } from '#libs/meta-activity/types';
 
 const getMemberFromId = (id: number, membersList: Array<Member>) => {
   const member = membersList.find((m) => m.id === id);
@@ -153,6 +155,7 @@ type Props = {
   handleCheckBookingOption: (bookingOptionId: number) => void,
   handleUncheckBookingOption: (bookingOptionId: number) => void,
   onClickAutoBook: () => void,
+  getOfferMetaActivity: (metaActivityId: number) => MetaActivity,
 };
 
 type State = {
@@ -375,6 +378,17 @@ export class BookingManagement extends React.PureComponent<Props, State> {
 
   setSpiviWarning = (hasSpiviWarning: boolean) => {
     this.setState({ hasSpiviWarning });
+  };
+
+  getIsWorkshop = () => {
+    const { getOfferMetaActivity, offer } = this.props;
+    if (getOfferMetaActivity && offer?.meta_activity_id) {
+      return (
+        offer?.meta_activity_id &&
+        getOfferMetaActivity(offer.meta_activity_id)?.is_workshop
+      );
+    }
+    return false;
   };
 
   render() {
@@ -609,12 +623,32 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                   {this.props.isRollCallMandatory && (
                     <div className={classes.rollCallContainer}>
                       <div className={classes.rollCallButton}>
-                        <ValidationRollCallButton
-                          nbRollCallsLeftToValidate={
-                            this.props.offer.roll_call_needs_validation ? 1 : 0
+                        <ObjectLevelPermissionProvider
+                          requiredPermission={[
+                            'reservation.activity.allowed_actions.rollcall',
+                            'reservation.workshop.allowed_actions.rollcall',
+                          ]}
+                        >
+                          {([
+                            hasActivityRollCallPermission,
+                            hasWorkshopRollCallPermission,
+                          ]) =>
+                            getActivityWorkshopPermission(
+                              this.getIsWorkshop(),
+                              hasActivityRollCallPermission,
+                              hasWorkshopRollCallPermission,
+                            ) && (
+                              <ValidationRollCallButton
+                                nbRollCallsLeftToValidate={
+                                  this.props.offer.roll_call_needs_validation
+                                    ? 1
+                                    : 0
+                                }
+                                onClick={this.props.onRollCallButtonClick}
+                              />
+                            )
                           }
-                          onClick={this.props.onRollCallButtonClick}
-                        />
+                        </ObjectLevelPermissionProvider>
                       </div>
                       <Hidden smUp>
                         <div className={classes.rollCallText}>

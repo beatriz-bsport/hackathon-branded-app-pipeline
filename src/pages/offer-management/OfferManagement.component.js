@@ -267,6 +267,7 @@ type Props = {
   numberOfUnreadAnswers: number,
   fetchBookingsByOffer: (offerId: number) => void,
   fetchCompanyWaitlistConfiguration: (companyId: number) => void,
+  getOfferMetaActivity: (metaActivityId: number) => MetaActivity,
   waitingListConfiguration: WaitingListConfiguration,
   bookingOptionPositionById: {
     [key: number]: OfferStatusWaitingListPosition,
@@ -934,6 +935,7 @@ export class OfferManagement extends Component<Props, State> {
               this.props.fetchPerformanceTrackingData
             }
             fetchVideoPurchase={this.props.fetchVideoPurchase}
+            getOfferMetaActivity={this.props.getOfferMetaActivity}
             goToMemberBooking={this.props.goToMemberBooking}
             handleCheckBookingOption={this.handleCheckBookingOption}
             handleMemberToRegister={this.props.setMemberToRegister}

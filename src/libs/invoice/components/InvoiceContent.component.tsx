@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React from 'react';
+import React, { ChangeEvent, useCallback } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
@@ -75,7 +75,6 @@ export const InvoiceContent: React.FC<Props> = ({
   updatePaymentMethod,
   isReturningPayment,
   goToSubscription,
-
   invoice,
   invoiceItemLoading,
   invoiceItemList,
@@ -99,13 +98,79 @@ export const InvoiceContent: React.FC<Props> = ({
 
   const [editFooterOpen, setEditFooterOpen] = React.useState(false);
 
-  const [customFooterValue, setCustomFooterValue] = React.useState([
+  const [customFooterValue, setCustomFooterValue] = React.useState(
     invoice ? invoice.custom_footer : '',
-  ]);
+  );
 
   const [loading, setLoading] = React.useState(false);
 
   const is_reverse = invoice && invoice.source_invoice;
+
+  const handleRemoveInvoiceItem = useCallback(
+    (ii: InvoiceItem) => () => removeInvoiceItem(ii.id),
+    [removeInvoiceItem],
+  );
+
+  const handleRemovePaymentItem = useCallback(
+    (p: PaymentItem) => () => removePaymentItem(p.id),
+    [removePaymentItem],
+  );
+
+  const handleOpenEditFooter = useCallback(() => setEditFooterOpen(true), []);
+
+  const handleCloseEditFooter = useCallback(() => setEditFooterOpen(false), []);
+
+  const handleEditCustomFooter = useCallback(
+    () =>
+      editCustomFooter(customFooterValue, {
+        onSuccess: handleCloseEditFooter,
+      }),
+    [customFooterValue, editCustomFooter, handleCloseEditFooter],
+  );
+
+  const handleDeleteCoupon = useCallback(
+    (index: number) => () => deleteCoupon(index),
+    [deleteCoupon],
+  );
+
+  const handleDownloadInvoice = useCallback(() => {
+    if (!invoice.is_draft) {
+      if (invoice.stripe_invoice_pdf) {
+        window.open(invoice.stripe_invoice_pdf);
+      } else {
+        finalizeInvoice();
+      }
+    }
+  }, [finalizeInvoice, invoice?.is_draft, invoice?.stripe_invoice_pdf]);
+
+  const handleGoToSubscription = useCallback(() => {
+    goToSubscription(invoice.billing_plan);
+  }, [goToSubscription, invoice?.billing_plan]);
+
+  const handleGetReceiptUrlAPI = useCallback(
+    () => getReceiptUrlAPI(invoice.uuid).then((r) => window.open(r.data)),
+    [invoice?.uuid],
+  );
+
+  const handleSelectOption = useCallback(
+    async (item: { value: number; label: string }) => {
+      setBillingEstablishment(item ? item.value : null);
+      setLoading(true);
+      // loading is used to force re-render of the menuPortal to update
+      // selected items
+      await new Promise((resolve) => {
+        setTimeout(resolve, 500);
+      });
+      setLoading(false);
+    },
+    [setBillingEstablishment],
+  );
+
+  const handleChangeCustomFooterValue = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) =>
+      setCustomFooterValue(event?.target?.value),
+    [setCustomFooterValue],
+  );
 
   return (
     <div>
@@ -123,12 +188,12 @@ export const InvoiceContent: React.FC<Props> = ({
           ) : (
             <Divider className={classes.divider} />
           )}
-          {invoiceItemList.map((ii) => (
+          {invoiceItemList.map((ii: InvoiceItem) => (
             <div>
               <InvoiceItem
                 key={`${ii.buyable_item_identifier}:${ii.id}:${ii.voucher}`}
                 invoiceItem={ii}
-                onDelete={() => removeInvoiceItem(ii.id)}
+                onDelete={handleRemoveInvoiceItem(ii)}
               />
             </div>
           ))}
@@ -161,12 +226,12 @@ export const InvoiceContent: React.FC<Props> = ({
             </div>
             <Divider className={classes.divider} />
             {!!paymentItemList &&
-              paymentItemList.map((p) => (
+              paymentItemList.map((p: PaymentItem) => (
                 <PaymentItem
                   key={p.uuid}
                   handleChangeMethod={updatePaymentMethod}
                   isReturningPayment={isReturningPayment}
-                  onDelete={() => removePaymentItem(p.id)}
+                  onDelete={handleRemovePaymentItem(p)}
                   paymentItem={p}
                   returnPayment={returnPayment}
                 />
@@ -206,7 +271,7 @@ export const InvoiceContent: React.FC<Props> = ({
               </Typography>
             )}
             <div>
-              <Button onClick={() => setEditFooterOpen(true)}>
+              <Button onClick={handleOpenEditFooter}>
                 {t('actions.addFooter')}
               </Button>
             </div>
@@ -218,20 +283,14 @@ export const InvoiceContent: React.FC<Props> = ({
           <div className={classes.footerSectionRow}>
             <TextField
               fullWidth
-              onChange={(ev) => setCustomFooterValue(ev.target.value)}
+              onChange={handleChangeCustomFooterValue}
               value={customFooterValue}
               variant="outlined"
             />
-            <IconButton onClick={() => setEditFooterOpen(false)}>
+            <IconButton onClick={handleCloseEditFooter}>
               <CancelIcon />
             </IconButton>
-            <IconButton
-              onClick={() =>
-                editCustomFooter(customFooterValue, {
-                  onSuccess: () => setEditFooterOpen(false),
-                })
-              }
-            >
+            <IconButton onClick={handleEditCustomFooter}>
               <SaveIcon />
             </IconButton>
           </div>
@@ -262,7 +321,7 @@ export const InvoiceContent: React.FC<Props> = ({
                     <ListItemSecondaryAction>
                       <IconButton
                         aria-label="delete"
-                        onClick={() => deleteCoupon(index)}
+                        onClick={handleDeleteCoupon(index)}
                       >
                         <DeleteIcon fontSize="small" />
                       </IconButton>
@@ -293,19 +352,7 @@ export const InvoiceContent: React.FC<Props> = ({
                 isLoading={establishmentLoading || loading}
                 requiredValueIsMissing={requiredEstablishmentIsMissing}
                 selectedEstablishments={[billing_establishment_id]}
-                selectOption={async (item: {
-                  value: number;
-                  label: string;
-                }) => {
-                  setBillingEstablishment(item ? item.value : null);
-                  setLoading(true);
-                  // loading is used to force re-render of the menuPortal to update
-                  // selected items
-                  await new Promise((resolve) => {
-                    setTimeout(resolve, 500);
-                  });
-                  setLoading(false);
-                }}
+                selectOption={handleSelectOption}
               />
             </div>
           </>
@@ -328,15 +375,7 @@ export const InvoiceContent: React.FC<Props> = ({
                   >
                     <Button
                       color={invoice.is_draft ? undefined : 'primary'}
-                      onClick={() => {
-                        if (!invoice.is_draft) {
-                          if (invoice.stripe_invoice_pdf) {
-                            window.open(invoice.stripe_invoice_pdf);
-                          } else {
-                            finalizeInvoice();
-                          }
-                        }
-                      }}
+                      onClick={handleDownloadInvoice}
                       variant="contained"
                     >
                       <AttachFileIcon className={classes.iconLeft} />
@@ -349,11 +388,7 @@ export const InvoiceContent: React.FC<Props> = ({
             {!!invoice.payments?.length && (
               <Button
                 color="secondary"
-                onClick={() => {
-                  getReceiptUrlAPI(invoice.uuid).then((r) =>
-                    window.open(r.data),
-                  );
-                }}
+                onClick={handleGetReceiptUrlAPI}
                 variant="contained"
               >
                 <AttachFileIcon className={classes.iconLeft} />
@@ -363,7 +398,7 @@ export const InvoiceContent: React.FC<Props> = ({
             {!!invoice.plannedinvoice && (
               <Button
                 color="primary"
-                onClick={() => goToSubscription(invoice.billing_plan)}
+                onClick={handleGoToSubscription}
                 variant="outlined"
               >
                 {t('actions.goToSubscription')}

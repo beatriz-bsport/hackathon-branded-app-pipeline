@@ -70,7 +70,7 @@ export type Invoice<M = number, PI = number, II = number> = {
   plannedinvoice: number;
   billing_plan: number | null;
   source_invoice: string | null;
-  custom_footer: number;
+  custom_footer: string;
   invoice_legal_identifier: string | null;
   establishment: number | null;
   author: number;

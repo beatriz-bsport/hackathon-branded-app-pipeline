@@ -4944,6 +4944,10 @@
             "member-booking_canceled": {
                 "filter": "Annulations de réservation",
                 "primaryText": "La réservation pour {{- name }} le {{- date_start }} a été annulée."
+            },
+            "undefined": {
+                "filter": "Annulations de rendez-vous",
+                "primaryText": "Le rendez vous {{- private_service_name}} - {{- private_slot_name }} du {{- date_start }} a été annulé."
             }
         },
         "memberTable": {
@@ -5856,7 +5860,9 @@
             },
             "offers": "Séances non annulables",
             "warningOfferGroupTitle": "Séances non annulées",
-            "warningOfferGroup": "Attention les séances suivantes n'ont pas pu être annulées car elle font partie d'un groupe de séance. Pour les annuler merci d'annuler le groupe correspondant."
+            "warningOfferGroup": "Attention les séances suivantes n'ont pas pu être annulées car elle font partie d'un groupe de séance. Pour les annuler merci d'annuler le groupe correspondant.",
+            "activityOnly": "Comme vous n'avez pas le droit d'annuler les séances d'atelier, cette action n'annulera que les séances d'activités.",
+            "workshopOnly": "Comme vous n'avez pas la permission d'annuler les séances d'activités, cette action n'annulera que les séances d'ateliers."
         },
         "bookingList": "Réservations",
         "bookingListEmpty": "Aucune réservation",
@@ -6114,7 +6120,8 @@
             "warnings": {
                 "effectif": "Attention, vous n'êtes pas en train de saisir un prix. Êtes-vous sûr de la valeur ?",
                 "editOfferInitialCredits": "Les réservations anciennes ne prennent pas en compte les modifications des crédits"
-            }
+            },
+            "forbidden": "Vous n'avez pas la permission d'ajouter des séances à cette activité. Veuillez contacter votre responsable pour obtenir les droits nécessaires."
         }
     },
     "order": {
@@ -16034,7 +16041,8 @@
             "free": "place(s) disponible(s)",
             "seeCustomers": "Afficher les réservations",
             "cancellingOtherBookingInGroup": "Attention cette séance est une séance groupée de {{ name }}. Si le membre dispose d'autres réservations dans ce groupe elles ne seront pas impactées.",
-            "cancellingBookingInGroup": "Annuler pour les autres séances de ce groupe."
+            "cancellingBookingInGroup": "Annuler pour les autres séances de ce groupe.",
+            "waitingListPosition": "En liste d'attente {{ position }}/{{ size }}"
         },
         "level": {
             "all": "Tous niveaux",
@@ -16519,7 +16527,8 @@
                 "registeredOn": "Inscrit le",
                 "registrationSource": "Canal d'inscription",
                 "offerTitle": "Séance liée"
-            }
+            },
+            "waitingListPosition": "Position en liste d'attente {{ position }}/{{ size }}"
         }
     },
     "widget": {

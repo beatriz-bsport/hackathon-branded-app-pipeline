@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { ChangeEvent, useCallback, useState } from 'react';
+import React, { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import classNames from 'classnames';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
@@ -23,7 +23,6 @@ import {
 } from '@bsport/common/lib/master-data/buyable-items';
 
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import PriceInput from '../../../components/input/PriceInput.component';
 import NumericInput from '../../../components/input/NumericInput.component';
 import PaymentPackSelector from '../../payment-packs/components/PaymentPackSelector.component';
 import PrivatePassSelector from '../../private-service/components/pass/PrivatePassSelector.component';
@@ -33,6 +32,7 @@ import ShopItemSelector from '../../shop/components/ShopItemSelector.component';
 import withConfirm from '../../../hocs/with-confirm.hoc';
 import { paymentPackTagsAndMemberTagsCompatibilty } from '../../payment-packs/utils';
 import { BuyableItemTypes } from '../types';
+import { getCurrencyDisplay } from '#libs/theme/selectors';
 
 type BuyableItemProps = {
   buyableItemIdentifier: number;
@@ -158,6 +158,13 @@ const InvoiceItemEditor: React.FC<Props> = ({
   const [voucherPercent, setVoucherPercent] = useState<number | null>(null);
 
   const [warnMamangerOnInvoice, setWarnManagerOnInvoice] = useState(false);
+
+  const buyableItemPrice = useMemo(() => {
+    const currentItem = availableBuyableItems[buyableItemIdentifier].find(
+      (buyableItem) => buyableItem.id === buyableItemId,
+    );
+    return currentItem?.price || 0;
+  }, [availableBuyableItems, buyableItemId, buyableItemIdentifier]);
 
   const handleChangeTab = useCallback(
     (_: React.SyntheticEvent, value: string) => {
@@ -352,8 +359,7 @@ const InvoiceItemEditor: React.FC<Props> = ({
               />
               <div className={classes.numericInputRow}>
                 <NumericInput
-                  dense
-                  shrink
+                  fullWidth
                   disabled={buyableItemId === null}
                   InputProps={{
                     inputProps: {
@@ -372,10 +378,21 @@ const InvoiceItemEditor: React.FC<Props> = ({
 
                 {hasCreateDiscountPermission && (
                   <div className={classes.discountInputWrapper}>
-                    <PriceInput
-                      dense
-                      shrink
+                    <NumericInput
+                      fullWidth
                       disabled={buyableItemId === null}
+                      InputProps={{
+                        inputProps: {
+                          max: buyableItemPrice,
+                          min: 0,
+                          step: 1,
+                        },
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            {getCurrencyDisplay()}
+                          </InputAdornment>
+                        ),
+                      }}
                       label={t('invoiceItem.discount')}
                       onChange={handleOnChangeVoucherCredit}
                       value={voucher === null ? '0.00' : voucher}
@@ -384,12 +401,14 @@ const InvoiceItemEditor: React.FC<Props> = ({
 
                     <div className={classes.percentDiscountWrapper}>
                       <NumericInput
-                        dense
-                        shrink
+                        fullWidth
                         disabled={buyableItemId === null}
                         InputProps={{
-                          step: 1,
-                          min: 1,
+                          inputProps: {
+                            min: 0,
+                            max: 100,
+                            step: 1,
+                          },
                           startAdornment: (
                             <InputAdornment position="start">%</InputAdornment>
                           ),
@@ -484,6 +503,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: `${theme.shape.borderRadius}px`,
   },
   discountInputWrapper: {
+    width: '100%',
     display: 'flex',
     flexDirection: 'column',
   },

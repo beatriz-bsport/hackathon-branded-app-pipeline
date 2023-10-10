@@ -58,6 +58,7 @@ const getTranslations = async () => {
   return {
     duplicate: 'Duplicate',
     name: 'Name of the Smartlist',
+    usedInFranchiseCommmunication: 'Used in a campaign by your franchise',
     search: 'Search a Smartlist',
     description: 'Description',
     mails: 'Emails',
@@ -147,6 +148,8 @@ const getTranslations = async () => {
           "Are you sure that you want to delete this Smartlist? This action can't be undone.",
         cancel: 'Cancel',
         confirm: 'Delete',
+        linkedToAFranchiseCommunication:
+          'This smartlist is used by your franchise and cannot be deleted',
       },
       validate: 'Confirm',
     },

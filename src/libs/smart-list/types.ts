@@ -7,6 +7,7 @@ export type SmartList = {
   description: string;
   members: Array<any>;
   member_base: number;
+  has_active_communication_group_configs: boolean;
 };
 
 export type AutoTagRule = {

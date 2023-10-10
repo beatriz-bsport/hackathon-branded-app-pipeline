@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import memoize from 'memoize-one';
 import withStyles from '@material-ui/core/styles/withStyles';
-import { createStyles, Theme } from '@material-ui/core';
+import { Chip, createStyles, Theme } from '@material-ui/core';
 import Menu from '@material-ui/core/Menu';
 import { compose } from 'recompose';
 import moment from 'moment-timezone';
@@ -55,6 +55,7 @@ import {
   TERMS_AND_CONDITIONS_FILTER_IDENTIFIER,
 } from '@bsport/common/lib/master-data/smart-list';
 
+import EmailIcon from '@material-ui/icons/Email';
 import type { Establishment } from '../../establishment/types';
 import type { PrivatePass, PrivateService } from '../../private-service/types';
 import type { OptionCallback } from '../../../state/types';
@@ -321,6 +322,12 @@ export class FiltersPanel extends Component<Props, State> {
               <SendIcon className={this.props.classes.leftIcon} />
               {t('mail.sendMail')}
             </Button>
+            {this.props.smartList?.has_active_communication_group_configs && (
+              <Chip
+                icon={<EmailIcon />}
+                label={t('usedInFranchiseCommmunication')}
+              />
+            )}
             {hasCustomAppUpsell(this.props.featureList) && (
               <div className={classes.smartListPopupButtonContainer}>
                 <Button
@@ -696,7 +703,7 @@ const styles = createStyles((theme: Theme) => ({
   sendCommunicationButtons: {
     display: 'flex',
     flexDirection: 'column',
-    gap: theme.spacing(1),
+    gap: theme.spacing(4),
   },
   exportButtonsContainer: {
     display: 'flex',

@@ -1,5 +1,3 @@
-// @flow
-
 import React, { useEffect, useCallback, useState } from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -11,7 +9,7 @@ import FileCopyIcon from '@material-ui/icons/FileCopy';
 
 import DeleteIcon from '@material-ui/icons/Delete';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import { MenuItem } from '@material-ui/core';
+import { MenuItem, Tooltip } from '@material-ui/core';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Typography from '@material-ui/core/Typography';
 import withConfirm from '../../../hocs/with-confirm.hoc';
@@ -32,6 +30,20 @@ type Props = {
   getCadences: (id: number) => Cadence[],
   cadencesLoading: boolean,
 };
+
+const emptyMethodToRenderIconButtonComponent = () => {};
+
+const DisabledDeleteButton = withTranslation(['smartList'])(
+  ({ t }: { t: TFunction }) => (
+    <Tooltip title={t('modal.delete.linkedToAFranchiseCommunication')}>
+      <span>
+        <IconButton disabled>
+          <DeleteIcon />
+        </IconButton>
+      </span>
+    </Tooltip>
+  ),
+);
 
 const DeleteButton = (props: { onClick: () => void }) => (
   <IconButton
@@ -93,6 +105,7 @@ export const SmartListItem = (props: Props) => {
     cadencesLoading,
     smartlist,
   } = props;
+
   const [openCannotBeDeletedDialog, setOpenCannotBeDeletedDialog] =
     useState(false);
 
@@ -187,12 +200,17 @@ export const SmartListItem = (props: Props) => {
               color: 'primary',
               onClick: handleOnClickDuplicate,
             },
-            props.onClickDelete && {
-              iconButtonComponent: ButtonWithConfirm,
-              menuItemComponent: ButtonWithConfirmMenuItem,
-              onClick: handleOnClickDelete,
-              color: 'secondary',
-            },
+            smartlist.has_active_communication_group_configs
+              ? {
+                  iconButtonComponent: DisabledDeleteButton,
+                  onClick: emptyMethodToRenderIconButtonComponent(),
+                }
+              : props.onClickDelete && {
+                  iconButtonComponent: ButtonWithConfirm,
+                  menuItemComponent: ButtonWithConfirmMenuItem,
+                  onClick: handleOnClickDelete,
+                  color: 'secondary',
+                },
           ]}
         />
       </ListItem>

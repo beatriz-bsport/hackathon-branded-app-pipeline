@@ -55,6 +55,8 @@ import { downloadDocument } from '../../utils/downloader';
 
 import type { Contract } from '#libs/subscription/types';
 
+import { isErrorWithCustomCode } from '#libs/utils';
+
 export const fetchSubscriptionEventList = (
   params: { event_types?: any } = {},
   options: OptionCallback,
@@ -447,12 +449,7 @@ export function updatePlannedInvoicePrice(
       dispatch(updatePlannedInvoiceActions.error(err));
       if (options && options.onError) options.onError(err);
 
-      if (
-        err.response &&
-        err.response.status === 499 &&
-        err.response.data &&
-        err.response.data.error_code
-      ) {
+      if (isErrorWithCustomCode(err) && err.response.data?.error_code) {
         dispatch(
           snackbarError(
             `plannedInvoice.upsert.errors.${err.response.data.error_code}`,
@@ -553,7 +550,7 @@ export function switchSubscriptionPaymentPack(
     } catch (err) {
       console.error(err);
       dispatch(switchPaymentPackActions.error(err));
-      if (err.response?.status === 499 && err.response?.data?.error_code) {
+      if (isErrorWithCustomCode(err) && err.response.data?.error_code) {
         dispatch(
           snackbarError(
             `subscription.switchItemsErrors.paymentPack.${err.response.data.error_code}`,
@@ -593,7 +590,7 @@ export function switchSubscriptionPrivatePass(
     } catch (err) {
       console.error(err);
       dispatch(switchPrivatePassActions.error(err));
-      if (err.response?.status === 499 && err.response?.data?.error_code) {
+      if (isErrorWithCustomCode(err) && err.response.data?.error_code) {
         dispatch(
           snackbarError(
             `subscription.switchItemsErrors.privatePass.${err.response.data.error_code}`,
@@ -631,7 +628,7 @@ export function switchSubscriptionPaymentCombo(
     } catch (err) {
       console.error(err);
       dispatch(switchPaymentComboActions.error(err));
-      if (err.response?.status === 499 && err.response?.data?.error_code) {
+      if (isErrorWithCustomCode(err) && err.response.data?.error_code) {
         dispatch(
           snackbarError(
             `subscription.switchItemsErrors.paymentCombo.${err.response.data.error_code}`,

@@ -32,6 +32,8 @@ import {
 
 import { OfferStatusWaitingListPosition } from '#libs/offer/types';
 
+import { isErrorWithCustomCode } from '#libs/utils';
+
 export const configurationDetail = {
   error: createAction<Error>('WAITING_LIST_CONFIGURATION/DETAIL/ERROR'),
   isLoading: createAction<boolean>(
@@ -193,8 +195,8 @@ export function registerToWaitingList(
       console.error(err);
       dispatch(registerOptionActions.error(err));
       if (
-        err.response?.status === 499 &&
-        err.response?.data?.error_code ===
+        isErrorWithCustomCode(err) &&
+        err.response.data?.error_code ===
           EXCEPTION_STAFF_ROLE_OVERBOOKING_IN_WAITING_LIST_NOT_ALLOWED
       ) {
         dispatch(
@@ -203,8 +205,8 @@ export function registerToWaitingList(
           ),
         );
       } else if (
-        err.response?.status === 499 &&
-        err.response?.data?.error_code ===
+        isErrorWithCustomCode(err) &&
+        err.response.data?.error_code ===
           OFFER_WAITING_LIST_NO_USABLE_CONSUMER_PAYMENT_PACK
       ) {
         dispatch(

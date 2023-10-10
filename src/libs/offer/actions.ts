@@ -61,6 +61,8 @@ import type {
   OfferStatusParams,
 } from './types';
 
+import { isErrorWithCustomCode } from '#libs/utils';
+
 export const similarOffers = {
   isLoading: createAction('OFFERS/SIMILAR/IS_LOADING'),
   error: createAction('OFFERS/SIMILAR/ERROR'),
@@ -894,7 +896,7 @@ export function offerUserRegistration(
         options.onSuccess(response.data);
       }
     } catch (err) {
-      if (err.response?.status === 499 && err.response?.data?.error_code) {
+      if (isErrorWithCustomCode(err) && err.response.data?.error_code) {
         dispatch(
           snackbarError(`canNotBuyErrorCode.${err.response.data.error_code}`),
         );
@@ -1019,7 +1021,7 @@ export function createOffers(
         dispatch(monitorBackgroundTask(backgroundTaskUuid));
       }
     } catch (error) {
-      if (error.response?.status === 499 && error.response?.data?.error_code) {
+      if (isErrorWithCustomCode(error) && error.response.data?.error_code) {
         dispatch(
           snackbarError(
             `snackbar:spivi.error.${error.response.data.error_code}`,
@@ -1063,7 +1065,7 @@ export function editOffers(
         dispatch(monitorBackgroundTask(backgroundTaskUuid));
       }
     } catch (error) {
-      if (error.response?.status === 499 && error.response?.data?.error_code) {
+      if (isErrorWithCustomCode(error) && error.response.data?.error_code) {
         dispatch(
           snackbarError(
             `snackbar:spivi.error.${error.response.data.error_code}`,

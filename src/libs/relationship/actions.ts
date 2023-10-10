@@ -24,6 +24,8 @@ import {
 import { Dispatch, OptionCallback } from '../../state/types';
 import { MEISUNDEFINED } from './constants';
 
+import { isErrorWithCustomCode } from '#libs/utils';
+
 export const memberRelationCreateOrUpdateActions = {
   isLoading: createAction('MEMBER_RELATION/CREATE_OR_UPDATE/LOADING'),
   error: createAction('MEMBER_RELATION/CREATE_OR_UPDATE/ERROR'),
@@ -168,10 +170,7 @@ export function linkToMemberRelation(
     } catch (error) {
       console.error(error);
       dispatch(sharedConsumerPackCreateOrUpdateActions.error(error));
-      if (
-        error?.response?.status === 499 &&
-        error?.response?.data?.error_code
-      ) {
+      if (isErrorWithCustomCode(error) && error.response.data?.error_code) {
         dispatch(
           snackbarError(
             `relationship.consumer_payment_pack_links.create.error.${String(
@@ -303,10 +302,7 @@ export function linkPrivatePassToMemberRelation(
     } catch (error) {
       console.error(error);
       dispatch(sharedPrivateConsumerPassCreateOrUpdateActions.error(error));
-      if (
-        error?.response?.status === 499 &&
-        error?.response?.data?.error_code
-      ) {
+      if (isErrorWithCustomCode(error) && error.response.data?.error_code) {
         dispatch(
           snackbarError(
             `relationship.private_consumer_pass_links.create.error.${String(

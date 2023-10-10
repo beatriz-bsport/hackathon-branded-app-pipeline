@@ -36,6 +36,8 @@ import type {
   ResponsiveLayouts,
 } from './types';
 
+import { isErrorWithCustomCode } from '#libs/utils';
+
 export const fetchAllCustomFormActions = {
   isLoading: createAction('CUSTOM_FORM/GET/IS_LOADING'),
   error: createAction('CUSTOM_FORM/GET/ERROR'),
@@ -159,7 +161,7 @@ export function upsertCustomForm(form: CustomForm, options?: OptionCallback) {
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       if (options && options.onError) options.onError();
-      if (error.response?.status === 499 && error.response?.data?.error_code) {
+      if (isErrorWithCustomCode(error) && error.response.data?.error_code) {
         dispatch(
           snackbarError(
             `customForm.upsert.errors.${error.response.data.error_code}`,
@@ -364,7 +366,7 @@ export function submitCustomForm(
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       if (options && options.onError) options.onError();
-      if (error.response?.status === 499 && error.response?.data?.error_code) {
+      if (isErrorWithCustomCode(error) && error.response.data?.error_code) {
         dispatch(
           snackbarError(
             `customForm.signupViaCustomForm.errors.${error.response.data.error_code}`,
@@ -401,7 +403,7 @@ export function submitCustomFormDraft(
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       if (options && options.onError) options.onError();
-      if (error.response?.status === 499 && error.response?.data?.error_code) {
+      if (isErrorWithCustomCode(error) && error.response.data?.error_code) {
         dispatch(
           snackbarError(
             `customForm.signupViaCustomForm.errors.${error.response.data.error_code}`,
@@ -508,7 +510,7 @@ export function upsertCustomFormDisplayRule(
       dispatch(snackbarSuccess(`customFormDisplayRule.${kind}.success`));
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
-      if (error?.response.status === 499 && error?.response?.data?.error_code) {
+      if (isErrorWithCustomCode(error) && error.response.data?.error_code) {
         dispatch(
           snackbarError(
             `customFormDisplayRule.customError.${error.response.data.error_code}`,
@@ -664,7 +666,7 @@ export function submitSignUpCustomForm(
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
       if (options && options.onError) options.onError();
-      if (error.response?.status === 499 && error.response?.data?.error_code) {
+      if (isErrorWithCustomCode(error) && error.response.data?.error_code) {
         dispatch(
           snackbarError(
             `customForm.signupViaCustomForm.errors.${error.response.data.error_code}`,

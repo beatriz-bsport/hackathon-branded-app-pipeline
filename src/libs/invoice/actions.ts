@@ -66,6 +66,8 @@ import { InvoiceItem } from './invoice-item/types';
 import { Payment } from '#libs/payment/types';
 import { CouponErrorCodes } from '#libs/coupon/constants';
 
+import { isErrorWithCustomCode } from '#libs/utils';
+
 export const invoiceConfigurationPatchActions = {
   isLoading: createAction<boolean>('INVOICE-CONFIGURATION/PATCH/IS_LOADING'),
   error: createAction<Error | null>('INVOICE-CONFIGURATION/PATCH/ERROR'), // not used in reducers
@@ -217,7 +219,7 @@ export function revertInvoice(
       }
     } catch (err) {
       dispatch(retrieveInvoiceActions.error(err));
-      if (err.response?.status === 499 && err.response?.data?.error_code) {
+      if (isErrorWithCustomCode(err) && err.response.data?.error_code) {
         dispatch(
           snackbarError(
             `invoice.revert.errors.${err.response.data.error_code}`,
@@ -258,7 +260,7 @@ export function createQuickInvoice(
       }
     } catch (err) {
       dispatch(quickInvoiceActions.error(err));
-      if (err.response?.status === 499 && err.response?.data?.error_code) {
+      if (isErrorWithCustomCode(err) && err.response.data?.error_code) {
         let translationKey = '';
         switch (err.response.data.error_code) {
           case EXCEPTION_STAFF_ROLE_OVERBOOKING_NOT_ALLOWED:
@@ -476,8 +478,8 @@ export function createOrUpdateInvoice(
     } catch (error) {
       console.error(error);
       if (
-        error.response?.status === 499 &&
-        error.response?.data?.error_code === CouponErrorCodes.UNIQUE_CODE_LOCKED
+        isErrorWithCustomCode(error) &&
+        error.response.data?.error_code === CouponErrorCodes.UNIQUE_CODE_LOCKED
       ) {
         dispatch(
           snackbarError(`coupon.errors.${error.response.data.error_code}`),
@@ -1077,13 +1079,7 @@ export function applyBalanceToInvoice(uuid: string, options?: OptionCallback) {
         options.onSuccess(response.data);
       }
     } catch (error) {
-      if (
-        error.response &&
-        error.response.status &&
-        error.response.status === 499 &&
-        error.response.data &&
-        error.response.data.error_code
-      ) {
+      if (isErrorWithCustomCode(error) && error.response.data?.error_code) {
         dispatch(
           snackbarError(
             `invoice.applyBalance.errors.${error.response.data.error_code}`,
@@ -1129,13 +1125,7 @@ export function applyGiftcardOnInvoice(
         options.onSuccess(response.data);
       }
     } catch (error) {
-      if (
-        error.response &&
-        error.response.status &&
-        error.response.status === 499 &&
-        error.response.data &&
-        error.response.data.error_code
-      ) {
+      if (isErrorWithCustomCode(error) && error.response.data?.error_code) {
         dispatch(
           snackbarError(
             `invoice.applyGiftcard.errors.${error.response.data.error_code}`,

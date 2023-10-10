@@ -42,6 +42,8 @@ import {
 } from './types';
 import { AssignAssociatedCoachDisciplineGroupParams } from '#libs/replacement-request/types';
 
+import { isErrorWithCustomCode } from '#libs/utils';
+
 export const associated = {
   isLoading: createAction('COACH/ASSOCIATED/IS_LOADING'),
   error: createAction('COACH/ASSOCIATED/ERROR'),
@@ -65,9 +67,8 @@ export function linkByEmail(
     } catch (err) {
       console.error(err);
       options.onError(err);
-      const errorCode = err.response?.data?.error_code;
-      if (err.response?.status === 499 && errorCode) {
-        dispatch(snackbarError(`coach.errors.${errorCode}`));
+      if (isErrorWithCustomCode(err) && err.response.data?.error_code) {
+        dispatch(snackbarError(`coach.errors.${err.response.data.error_code}`));
       }
     }
   };
@@ -291,8 +292,8 @@ export function createOrUpdateCoach(
       dispatch(fetchAssociatedCoachesList());
       if (options && options.onSuccess) options.onSuccess();
     } catch (error) {
-      if (error.response?.status === 499 && error.response?.data?.error_code) {
-        const error_code = error.response?.data?.error_code;
+      if (isErrorWithCustomCode(error) && error.response.data?.error_code) {
+        const error_code = error.response.data.error_code;
         const isEditing = coachData.has('id');
 
         if (

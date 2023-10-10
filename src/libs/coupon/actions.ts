@@ -41,6 +41,8 @@ import {
 } from '#libs/coupon/types';
 import { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';
 
+import { isErrorWithCustomCode } from '#libs/utils';
+
 export const couponList = {
   error: createAction<Error | null>('COUPON/LIST/ERROR'),
   isLoading: createAction<boolean>('COUPON/LIST/IS_LOADING'),
@@ -463,8 +465,8 @@ export function createUniqueCodeCoupon(
       }
     } catch (error) {
       dispatch(couponCreateOrUpdate.error(error));
-      if (error.response?.status === 499 && error.response?.data?.error_code) {
-        if (options && options[error.response?.data?.error_code]) {
+      if (isErrorWithCustomCode(error) && error.response.data?.error_code) {
+        if (options && options[error.response.data.error_code]) {
           options[error.response.data.error_code]?.();
         }
       }
@@ -494,8 +496,8 @@ export function updateUniqueCodeCoupon(
       }
     } catch (error) {
       dispatch(couponCreateOrUpdate.error(error));
-      if (error.response?.status === 499 && error.response?.data?.error_code) {
-        if (options && options[error.response?.data?.error_code]) {
+      if (isErrorWithCustomCode(error) && error.response.data?.error_code) {
+        if (options && options[error.response.data.error_code]) {
           options[error.response.data.error_code]?.();
         }
       }
@@ -558,7 +560,7 @@ export function markCodesAsRedeemed(
       }
     } catch (error) {
       dispatch(couponCreateOrUpdate.error(error));
-      if (error.response?.status === 499 && error.response?.data?.error_code) {
+      if (isErrorWithCustomCode(error) && error.response.data?.error_code) {
         dispatch(
           snackbarError(`coupon.errors.${error.response.data.error_code}`),
         );

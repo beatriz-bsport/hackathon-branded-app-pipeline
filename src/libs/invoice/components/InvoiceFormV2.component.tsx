@@ -28,6 +28,8 @@ import { Member } from '#libs/member/types';
 import { InvoiceItem } from '../invoice-item/types';
 import { BuyableItem } from '../types';
 
+import { isErrorWithCustomCode } from '#libs/utils';
+
 type OwnProps = {
   invoiceItemList: Array<InvoiceItem>;
 
@@ -197,9 +199,9 @@ export class InvoiceForm extends React.Component<Props, State> {
         options.onNotFound();
       }
     } catch (error) {
-      if (error.response?.status === 499 && error.response?.data?.error_code) {
+      if (isErrorWithCustomCode(error) && error.response?.data?.error_code) {
         if (options && options[error.response?.data?.error_code]) {
-          options[error.response?.data?.error_code]();
+          options[error.response.data.error_code]();
         }
       } else if (options && options.onError) {
         options.onError(error);

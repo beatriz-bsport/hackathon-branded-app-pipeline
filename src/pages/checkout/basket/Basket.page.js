@@ -110,6 +110,8 @@ import { CouponErrorCodes } from '#libs/coupon/constants';
 import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#libs/exportable-components/actions';
 import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
 
+import { isErrorWithCustomCode } from '#libs/utils';
+
 type Props = {
   basket: ?Basket,
   loading: boolean,
@@ -875,7 +877,7 @@ export default compose(
         try {
           await checkItemsBasketAPI(basketId);
         } catch (error) {
-          if (error.response?.status === 499 && error.response?.data) {
+          if (isErrorWithCustomCode(error) && error.response.data) {
             error.response.data.forEach((e) => {
               const { error_code } = e;
               if (ALL_ERROR_CODES.includes(error_code)) {

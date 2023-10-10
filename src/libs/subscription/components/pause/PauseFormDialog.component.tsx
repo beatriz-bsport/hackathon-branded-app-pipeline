@@ -26,6 +26,8 @@ import {
 } from '../../types';
 import { PAUSE_RESULT_SUCCESS, PAUSE_NAME_MAX_LENGTH } from '../../constants';
 
+import { isErrorWithCustomCode } from '#libs/utils';
+
 const PAUSE_RESULT_FAIL_UNKNOWN_ERROR = 63200;
 
 type OwnProps = {
@@ -139,7 +141,7 @@ class PauseFormDialog extends React.Component<Props, State> {
       fromDate: '',
       untilDate: '',
     };
-    if (error && error.response && error.response.status === 499) {
+    if (isErrorWithCustomCode(error)) {
       params.resultIdentifier =
         error.response.data?.error_code || PAUSE_RESULT_FAIL_UNKNOWN_ERROR;
       if (error.response.data?.error_data) {

@@ -11,6 +11,8 @@ import {
 } from './api';
 import { snackbarError, snackbarSuccess } from '#libs/snackbar/actions';
 
+import { isErrorWithCustomCode } from '#libs/utils';
+
 export const instalmentPaymentDisableActions = {
   error: createAction('INSTALMENT_PAYMENT/DISABLE/ERROR'),
   isLoading: createAction('INSTALMENT_PAYMENT/DISABLE/IS_LOADING'),
@@ -69,7 +71,7 @@ export function createOrUpdateInstalmentPayment(
     } catch (error) {
       dispatch(instalmentPaymentCreateOrUpdateActions.error(error));
       options?.onError && options.onError(error);
-      if (error.response?.status === 499 && error.response.data?.error_code) {
+      if (isErrorWithCustomCode(error) && error.response.data?.error_code) {
         dispatch(
           snackbarError(`instalmentPayment.${error.response.data.error_code}`),
         );

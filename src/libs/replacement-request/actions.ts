@@ -45,6 +45,8 @@ import {
 } from './types';
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 
+import { isErrorWithCustomCode } from '#libs/utils';
+
 export const fetchAllReplacementRequestsActions = {
   error: createAction('REPLACEMENT_REQUEST/FETCH_LIST/ERROR'),
   loading: createAction('REPLACEMENT_REQUEST/FETCH_LIST/LOADING'),
@@ -127,7 +129,7 @@ export const createReplacementRequestBulk = (
       dispatch(createReplacementRequestBulkActions.success(response.data));
       options?.onSuccess?.(response.data);
     } catch (error) {
-      if (error.response?.status === 499 && error.response?.data?.error_code) {
+      if (isErrorWithCustomCode(error) && error.response.data?.error_code) {
         dispatch(
           snackbarError(`replacement.errors.${error.response.data.error_code}`),
         );
@@ -160,7 +162,7 @@ export const postponeReplacementRequestClosingDate = (
       dispatch(updateReplacementRequestActions.success(response.data));
       options?.onSuccess?.(response.data);
     } catch (error) {
-      if (error.response?.status === 499 && error.response?.data?.error_code) {
+      if (isErrorWithCustomCode(error) && error.response.data?.error_code) {
         dispatch(
           snackbarError(`replacement.errors.${error.response.data.error_code}`),
         );
@@ -186,7 +188,7 @@ export const refuseReplacementRequest = (
       dispatch(updateReplacementRequestActions.success(response.data));
       options?.onSuccess?.(response.data);
     } catch (error) {
-      if (error.response?.status === 499 && error.response?.data?.error_code) {
+      if (isErrorWithCustomCode(error) && error.response.data?.error_code) {
         dispatch(
           snackbarError(`replacement.errors.${error.response.data.error_code}`),
         );
@@ -215,7 +217,7 @@ export const approveReplacementRequestCoachAnswer = (
       dispatch(updateReplacementRequestActions.success(response.data));
       options?.onSuccess?.();
     } catch (error) {
-      if (error.response?.status === 499 && error.response?.data?.error_code) {
+      if (isErrorWithCustomCode(error) && error.response.data?.error_code) {
         dispatch(
           snackbarError(`replacement.errors.${error.response.data.error_code}`),
         );
@@ -241,7 +243,7 @@ export const cancelReplacementRequest = (
       dispatch(snackbarSuccess('replacement.cancelReplacementRequest.success'));
       options?.onSuccess?.();
     } catch (error) {
-      if (error.response?.status === 499 && error.response?.data?.error_code) {
+      if (isErrorWithCustomCode(error) && error.response.data?.error_code) {
         dispatch(
           snackbarError(`replacement.errors.${error.response.data.error_code}`),
         );
@@ -530,7 +532,7 @@ export const updateReplacementConfiguration = (
       options?.onSuccess?.();
     } catch (error) {
       dispatch(updateReplacementRequestConfigurationActions.error(error));
-      if (error.response?.status === 499 && error.response.data?.error_code) {
+      if (isErrorWithCustomCode(error) && error.response.data?.error_code) {
         dispatch(
           snackbarError(`replacement.errors.${error.response.data.error_code}`),
         );

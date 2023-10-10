@@ -51,6 +51,8 @@ import { COMPANY_EVENTS } from './event.utils';
 import { fetchEventList } from '#libs/event/actions';
 import type { EventListParams } from '#libs/event/types';
 
+import { isErrorWithCustomCode } from '#libs/utils';
+
 export const currentBasket = {
   error: createAction<Error>('CHECKOUT_BASKET/CURRENT/ERROR'),
   isLoading: createAction<boolean>('CHECKOUT_BASKET/CURRENT/IS_LOADING'),
@@ -112,8 +114,8 @@ export function createOrRefreshInternalAccountPrepaidLine(
       }
     } catch (error) {
       if (
-        error.response?.status === 499 &&
-        error.response?.data?.error_code === BASKET_LOCK_ACQUISITION_FAILURE
+        isErrorWithCustomCode(error) &&
+        error.response.data?.error_code === BASKET_LOCK_ACQUISITION_FAILURE
       ) {
         dispatch(
           snackbarError(
@@ -122,8 +124,8 @@ export function createOrRefreshInternalAccountPrepaidLine(
         );
       }
       if (
-        error.response?.status === 499 &&
-        error.response?.data?.error_code === BASKET_PROCESSING_PAYMENT_EXCEPTION
+        isErrorWithCustomCode(error) &&
+        error.response.data?.error_code === BASKET_PROCESSING_PAYMENT_EXCEPTION
       ) {
         dispatch(
           snackbarError(`modifyBasket.${BASKET_PROCESSING_PAYMENT_EXCEPTION}`),
@@ -276,16 +278,16 @@ export function removeItemFromBasket(
       }
     } catch (error) {
       if (
-        error.response?.status === 499 &&
-        error.response?.data?.error_code === BASKET_PROCESSING_PAYMENT_EXCEPTION
+        isErrorWithCustomCode(error) &&
+        error.response.data?.error_code === BASKET_PROCESSING_PAYMENT_EXCEPTION
       ) {
         dispatch(
           snackbarError(`modifyBasket.${BASKET_PROCESSING_PAYMENT_EXCEPTION}`),
         );
       }
       if (
-        error.response?.status === 499 &&
-        error.response?.data?.error_code === BASKET_LOCK_ACQUISITION_FAILURE
+        isErrorWithCustomCode(error) &&
+        error.response.data?.error_code === BASKET_LOCK_ACQUISITION_FAILURE
       ) {
         dispatch(
           snackbarError(`removeItem.${BASKET_LOCK_ACQUISITION_FAILURE}`),
@@ -340,10 +342,9 @@ export function attachCoupon(
       dispatch(currentBasket.success(response.data));
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {
-      if (error.response?.status === 499 && error.response?.data?.error_code) {
+      if (isErrorWithCustomCode(error) && error.response.data?.error_code) {
         if (
-          error.response?.data?.error_code ===
-          BASKET_PROCESSING_PAYMENT_EXCEPTION
+          error.response.data.error_code === BASKET_PROCESSING_PAYMENT_EXCEPTION
         ) {
           dispatch(
             snackbarError(

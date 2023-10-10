@@ -132,6 +132,8 @@ import {
 } from '#libs/role/constants';
 import { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';
 
+import { isErrorWithCustomCode } from '#libs/utils';
+
 export const privateBookingAttachCoachActions = {
   error: createAction('PRIVATE_BOOKING/ATTACH_COACH/ERROR'),
   isLoading: createAction('PRIVATE_BOOKING/ATTACH_COACH/IS_LOADING'),
@@ -2042,7 +2044,7 @@ export function registerPrivateBooking(
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
-      if (err.response?.status === 499 && err.response?.data?.error_code) {
+      if (isErrorWithCustomCode(err) && err.response.data?.error_code) {
         const error_code = err.response.data.error_code;
         switch (error_code) {
           case EXCEPTION_STAFF_ROLE_OVERRIDE_COACH_NOT_ALLOWED:
@@ -2096,7 +2098,7 @@ export function updatePrivateBookingDatetime(
     } catch (err) {
       console.error(err);
       dispatch(privateBookingCreateOrUpdateActions.error(null));
-      if (err.response?.status === 499 && err.response?.data?.error_code) {
+      if (isErrorWithCustomCode(err) && err.response.data?.error_code) {
         const error_code = err.response.data.error_code;
         switch (error_code) {
           case EXCEPTION_STAFF_ROLE_CAN_NOT_CHANGE_DATE_BECAUSE_NO_COACH_OVERRIDE:

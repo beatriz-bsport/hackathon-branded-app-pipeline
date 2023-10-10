@@ -55,6 +55,8 @@ import { snackbarWarning, snackbarSuccess } from '#libs/snackbar/actions';
 import { getInstalmentForBasketList } from '#libs/instalment-payment-configuration/selectors';
 import { InstalmentPayment } from '#libs/instalment-payment-configuration/types';
 
+import { isErrorWithCustomCode } from '#libs/utils';
+
 const PaymentStripe = asyncComponent(
   () =>
     import(
@@ -496,7 +498,7 @@ export default compose(
         try {
           await checkItemsBasketAPI(basketId);
         } catch (error) {
-          if (error.response?.status === 499 && error.response?.data) {
+          if (isErrorWithCustomCode(error) && error.response.data) {
             error.response.data.forEach((exc: { error_code: number }) => {
               const { error_code } = exc;
               if (ALL_ERROR_CODES.includes(error_code)) {

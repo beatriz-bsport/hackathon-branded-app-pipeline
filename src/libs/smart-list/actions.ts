@@ -57,6 +57,8 @@ import {
 import { RootState } from '../../reducers';
 import { monitorBackgroundTask } from '../background-task/actions';
 
+import { isErrorWithCustomCode } from '#libs/utils';
+
 export const smartListListAction = {
   error: createAction('SMART-LIST/LIST/ERROR'),
   isLoading: createAction('SMART-LIST/LIST/IS_LOADING'),
@@ -650,7 +652,7 @@ export const createSmartListAutomatedCampaign = (
     } catch (error) {
       console.error(error);
       dispatch(createSmartListAutomatedCampaignActions.error(error));
-      if (error.response?.status === 499 && error.response?.data?.error_code) {
+      if (isErrorWithCustomCode(error) && error.response.data?.error_code) {
         dispatch(
           snackbarError(
             `automatedCampaign.errors.${error.response.data.error_code}`,
@@ -683,7 +685,7 @@ export const updateSmartListAutomatedCampaign = (
     } catch (error) {
       console.error(error);
       dispatch(updateSmartListAutomatedCampaignActions.error(error));
-      if (error.response?.status === 499 && error.response?.data?.error_code) {
+      if (isErrorWithCustomCode(error) && error.response.data?.error_code) {
         dispatch(
           snackbarError(
             `automatedCampaign.errors.${error.response.data.error_code}`,
@@ -716,7 +718,7 @@ export const deleteSmartListAutomatedCampaign = (
     } catch (error) {
       console.error(error);
       dispatch(deleteSmartListAutomatedCampaignActions.error(error));
-      if (error.response?.status === 499 && error.response?.data?.error_code) {
+      if (isErrorWithCustomCode(error) && error.response.data?.error_code) {
         dispatch(
           snackbarError(
             `automatedCampaign.errors.${error.response.data.error_code}`,

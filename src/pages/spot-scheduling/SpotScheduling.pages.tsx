@@ -44,6 +44,8 @@ import { hasUpsell } from '#libs/platform-billing/utils';
 import { FeatureList } from '#libs/company/types';
 import { buildSpiviCorrespondence } from '../../libs/spot-scheduling/utils';
 
+import { isErrorWithCustomCode } from '#libs/utils';
+
 type OwnProps = {
   id: number;
 };
@@ -79,10 +81,9 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
     this.props.updateRoomBlueprint(this.props.roomBlueprint.id, roomBlueprint, {
       onSuccess: () => this.props.success('spotScheduling:saved'),
       onError: (error) => {
-        const error_code = error?.response?.data?.error_code;
         if (
-          error?.response?.status === 499 &&
-          error_code ===
+          isErrorWithCustomCode(error) &&
+          error.response.data?.error_code ===
             ROOM_PLAN_NOT_EDITABLE_BECAUSE_AVAILABLE_OFFERS_SCHEDULED
         ) {
           this.props.error('spotScheduling:errorAvailableOffersScheduled');

@@ -33,6 +33,8 @@ import type { Dispatch, OptionCallback, ThunkAction } from '../../state/types';
 import { Booking } from './types';
 import { EXCEPTION_STAFF_ROLE_OVERBOOKING_NOT_ALLOWED } from '#libs/role/constants';
 
+import { isErrorWithCustomCode } from '#libs/utils';
+
 export const retrieveActions = {
   success: createAction('BOOKING/RETRIEVE/SUCCESS'),
   isLoading: createAction('BOOKING/RETRIEVE/IS_LOADING'),
@@ -516,7 +518,7 @@ export function registerBooking(
     } catch (err) {
       console.error(err);
       dispatch(registerActions.error(err));
-      if (err.response?.status === 499 && err.response?.data?.error_code) {
+      if (isErrorWithCustomCode(err) && err.response.data?.error_code) {
         let translationKey = '';
         switch (err.response.data.error_code) {
           case EXCEPTION_STAFF_ROLE_OVERBOOKING_NOT_ALLOWED:

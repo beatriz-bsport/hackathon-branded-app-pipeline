@@ -41,6 +41,8 @@ import {
   GiftcardTemplate,
 } from './types';
 
+import { isErrorWithCustomCode } from '#libs/utils';
+
 const GIFTCARD_ACTIVATION_ERRORS = [
   GIFTCARD_ACTIVATION_CODE_ERROR_CODE,
   GIFTCARD_ACTIVATION_UNAUTHORIZED_WHEN_DISABLED,
@@ -379,7 +381,7 @@ export function attributeToMember(
     } catch (error) {
       console.error(error);
       dispatch(attributeToMemberActions.error(error));
-      if (error.response && error.response.status === 499) {
+      if (isErrorWithCustomCode(error)) {
         dispatch(
           snackbarError(
             `invoice.applyGiftcard.errors.${

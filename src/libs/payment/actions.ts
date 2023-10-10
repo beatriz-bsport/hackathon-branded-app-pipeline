@@ -28,6 +28,8 @@ import type {
   InternalPaymentPayload,
 } from './types';
 
+import { isErrorWithCustomCode } from '#libs/utils';
+
 // Active campaign Account
 export const listSavedPaymentMethodListActions = {
   isLoading: createAction('PAYMENT_METHOD/LIST/LOADING'),
@@ -74,7 +76,7 @@ export function detachPaymentMethod(params: any, options?: OptionCallback) {
     } catch (err) {
       console.error(err);
       dispatch(detachPaymentMethodActions.success({}));
-      if (err.response?.status === 499 && err.response?.data?.error_code) {
+      if (isErrorWithCustomCode(err) && err.response.data?.error_code) {
         dispatch(
           snackbarError(`paymentMethod.errors.${err.response.data.error_code}`),
         );
@@ -109,7 +111,7 @@ export function setPaymentMethodAsDefault(
     } catch (err) {
       console.error(err);
       dispatch(setPaymentMethodAsDefaultActions.success({}));
-      if (err.response?.status === 499 && err.response?.data?.error_code) {
+      if (isErrorWithCustomCode(err) && err.response.data?.error_code) {
         dispatch(
           snackbarError(`paymentMethod.errors.${err.response.data.error_code}`),
         );

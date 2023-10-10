@@ -17,6 +17,8 @@ import type { ClockInData, ClockInQueryParams } from './types';
 import { displayBackgroundDialog } from '../background-dialog/actions';
 import { monitorBackgroundTask } from '../background-task/actions';
 
+import { isErrorWithCustomCode } from '#libs/utils';
+
 export const retrieveLastClockInActions = {
   error: createAction('CLOCKIN/GET_LAST/ERROR'),
   loading: createAction('CLOCKIN/GET_LAST/IS_LOADING'),
@@ -63,7 +65,7 @@ export const clockIn = (
     } catch (error) {
       console.error(error);
       dispatch(clockInActions.error(error));
-      if (error.response?.status === 499 && error.response?.data?.error_code) {
+      if (isErrorWithCustomCode(error) && error.response.data?.error_code) {
         dispatch(
           snackbarWarning(`clockIn.errors.${error.response.data.error_code}`),
         );
@@ -88,7 +90,7 @@ export const clockOut = (
     } catch (error) {
       console.error(error);
       dispatch(clockInActions.error(error));
-      if (error.response?.status === 499 && error.response?.data?.error_code) {
+      if (isErrorWithCustomCode(error) && error.response.data?.error_code) {
         dispatch(
           snackbarWarning(`clockIn.errors.${error.response.data.error_code}`),
         );

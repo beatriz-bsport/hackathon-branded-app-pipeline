@@ -852,7 +852,8 @@
             "notifyRevert": "Invia una email di cancellazione",
             "refundRevert": "Crediti di rimborso utilizzati",
             "cancellingOtherBookingInGroup": "Tieni presente che questa sessione è una sessione di gruppo di {{ name }}. Se il membro ha altre prenotazioni in questo gruppo, queste non saranno interessate.",
-            "cancellingBookingInGroup": "Annulla per altre sessioni in questo gruppo."
+            "cancellingBookingInGroup": "Annulla per altre sessioni in questo gruppo.",
+            "waitingListPosition": "In lista d'attesa {{ position }}/{{ size }}"
         },
         "calendar": {
             "previous": "<",
@@ -1145,7 +1146,9 @@
                     "coach": "Insegnante",
                     "date": "Ora / data della sessione",
                     "establishment": "Luogo",
-                    "establishment_practical_info": "Accesso alla sala"
+                    "establishment_practical_info": "Accesso alla sala",
+                    "waiting_list_position": "Posizione in lista d'attesa",
+                    "waiting_list_size": "Dimensione della lista d'attesa"
                 },
                 "name": "Lista d'attesa"
             },
@@ -4005,7 +4008,7 @@
                     "checkbox": "Limita lo squilibrio DONNE / UOMINI nelle prenotazioni"
                 },
                 "offerBalance": "Controlla il rapporto DONNA / UOMO in ogni sessione",
-                "hideCoach": "Nascondere le informazioni dell'insegnante nelle interfacce client",
+                "hideCoach": "Nascondere le informazioni dell'insegnante nelle interfacce dei clienti",
                 "maxFutureBooking": {
                     "numberCheck": {
                         "helperText": "I tuoi membri non potranno avere più di questo numero di prenotazioni in futuro",
@@ -9779,7 +9782,12 @@
                 "warningLeveledSession": "Questa sessione è riservata a persone di livello : {{level}}. Assicurati che la persona che inviti possieda il livello previsto.",
                 "warningCustomLeveledSession": "Questa sessione ha un livello personalizzato. Assicurati che la persona che inviti possieda il livello previsto.",
                 "bookingStatus": {
-                    "0": "Invita un amico"
+                    "0": "Invita un amico",
+                    "1": "La sessione non è ancora aperta alle prenotazioni",
+                    "2": "La sessione è chiusa alle prenotazioni",
+                    "3": "La sessione è completa",
+                    "4": "La sessione è chiusa alle prenotazioni",
+                    "guestNotAllowed": "La sessione non è aperta agli ospiti"
                 },
                 "addGuestNumberLeftGeneric": "Questo periodo puoi invitare 1 persona in più.",
                 "addGuestNumberLeftGeneric_plural": "Questo periodo puoi ancora invitare {{count}} persone.",
@@ -9817,6 +9825,22 @@
                 },
                 "email": {
                     "label": "Email"
+                },
+                "dialog": {
+                    "title": "Invita un ospite",
+                    "description": "Vuoi portare un amico o un compagno per condividere l'esperienza? Basta inserire il nome e l'email del tuo ospite, e ci assicureremo che ricevano tutti i dettagli necessari.",
+                    "emailWarning": {
+                        "title": "Nessuna email inserita",
+                        "description": "Non hai fornito un indirizzo email per il tuo ospite. Di conseguenza, non riceveranno informazioni su questa sessione. Sei sicuro?",
+                        "actions": {
+                            "continueWithoutEmail": "Continua senza email",
+                            "saveAndContinue": "Salva e continua"
+                        }
+                    }
+                },
+                "errors": {
+                    "requiredField": "Per favore, compila questo campo",
+                    "email": "Inserisci un indirizzo email valido, per favore"
                 }
             }
         },
@@ -12089,7 +12113,8 @@
             "empty": "Nessuna inscrizione nella lista d'attesa",
             "delete": "Elimina",
             "addToBook": "Registrare",
-            "listTitle": "Lista d'attesa"
+            "listTitle": "Lista d'attesa",
+            "waitingListPosition": "Posizione in lista d'attesa {{ position }}/{{ size }}"
         }
     },
     "shop": {
@@ -12929,13 +12954,15 @@
                     "paymentSuccess": "Congratulazioni! Il tuo acquisto è stato confermato!",
                     "paymentSuccess_plural": "Congratulazioni! I tuoi acquisti sono confermati!",
                     "offerOnlySuccess": "La prenotazione è stata effettuata. Riceverai presto un'e-mail di conferma con tutti i dettagli.",
-                    "offerOnlySuccess_plural": "Le prenotazioni sono state effettuate. Riceverai presto un'e-mail di conferma con tutti i dettagli."
+                    "offerOnlySuccess_plural": "Le prenotazioni sono state effettuate. Riceverai presto un'e-mail di conferma con tutti i dettagli.",
+                    "offerOnlyGuestSuccess": "La prenotazione è stata effettuata. Tu e il tuo ospite riceverete a breve una email di conferma con tutti i dettagli."
                 },
                 "confirmationStatusTitle": {
                     "success": {
                         "waitingList": "Ti sei iscritto alla lista di attesa",
                         "paymentSuccess": "Pagamento confermato!",
-                        "offerOnlySuccess": "Goditi la sessione!"
+                        "offerOnlySuccess": "Goditi la sessione!",
+                        "offerOnlyGuestSuccess": "Goditi la sessione con il tuo ospite!"
                     },
                     "errors": {
                         "genericOfferError": "Oops! Prenotazione fallita.",
@@ -15420,7 +15447,8 @@
                 "marketplace_basket_summary_list_item": "Componente dell'elenco degli articoli nel carrelli (Riepilogo del carrello)",
                 "marketplace_basket_summary_item": "Elemento del carrello componente (Riepilogo del carrello)",
                 "marketplace_item_quantity": "Elemento del carrello Quantità (Riepilogo del carrello)",
-                "marketplace_basket_summary_dialog": "Riepilogo del carrello (pop-up)"
+                "marketplace_basket_summary_dialog": "Riepilogo del carrello (pop-up)",
+                "booker_module_offer_summary": "Riepilogo della sessione"
             },
             "cssConfig": {
                 "title": {
@@ -15453,7 +15481,12 @@
                     "numberOfDistinctCheckoutItem": "Numero di prodotti distinti nel carrello",
                     "isDense": "Denso",
                     "isItemEditionDisabled": "Modifica degli elementi disabilitata",
-                    "isAddingItemPossible": "Aggiungi di altri elementi attivati"
+                    "isAddingItemPossible": "Aggiungi di altri elementi attivati",
+                    "showSpot": "Mostra il posto",
+                    "showPrice": "Mostra il prezzo",
+                    "showCredit": "Mostra i crediti",
+                    "noStyledContainer": "Mostra la variante senza contenitore",
+                    "showEstablishmentAddress": "Mostra l'indirizzo della struttura"
                 },
                 "option": {
                     "false": "No",
@@ -15504,7 +15537,8 @@
                 "subscription": "Abbonamenti",
                 "pass": "Pass",
                 "common": "Comune",
-                "basket": "Carrello"
+                "basket": "Carrello",
+                "bookingPage": "Prenotazione"
             }
         },
         "create": "Generale",
@@ -15992,7 +16026,12 @@
                         "cadence": "Definite qui i trigger per l'inserimento della cadenza. Per avviare la sequenza di marketing, i membri dovranno corrispondere ai criteri indicati di seguito."
                     },
                     "title": "Trigger",
-                    "event_or_smartlist_helper": "I membri dovranno corrispondere all'evento o far parte della smartlist per entrare nella Cadence"
+                    "event_or_smartlist_helper": "I membri dovranno corrispondere all'evento o far parte della smartlist per entrare nella Cadence",
+                    "selectEvent": "Seleziona un evento",
+                    "triggerTimeoutLabel": "Attivare dopo",
+                    "selectSmartlist": "Seleziona una smartlist",
+                    "triggerTimeoutDays": "giorno.",
+                    "triggerTimeoutDays_plural": "giorni."
                 },
                 "next": "Seguente",
                 "previous": "Precedente",

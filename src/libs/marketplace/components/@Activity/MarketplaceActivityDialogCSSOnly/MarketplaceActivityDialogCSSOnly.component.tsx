@@ -3,6 +3,7 @@ import withMobileDialog from '@material-ui/core/withMobileDialog';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 
+import { DIALOG_MODE_DEACTIVATED } from '@bsport/common/lib/master-data/widget-dialog-mode';
 import MarketplaceActivityV2 from '../MarketplaceActivityCSSOnly';
 import { Offer } from '#libs/offer/types';
 import { Theme as CompanyTheme } from '#libs/theme/types';
@@ -44,8 +45,10 @@ export function MarketplaceActivityDialog(props: Props) {
       maxHeight: '80vh',
     },
   };
-
-  if (WidgetUtils.isWidget()) {
+  const useWidgetSlidingPortal =
+    WidgetUtils.isWidget() &&
+    WidgetUtils.getDialogMode() === DIALOG_MODE_DEACTIVATED;
+  if (useWidgetSlidingPortal) {
     return (
       <WidgetPortalSlidingContainer isOpen={props.open}>
         {props.open ? <MarketplaceActivityV2 {...props} width="xs" /> : null}

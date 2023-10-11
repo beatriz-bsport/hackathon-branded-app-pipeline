@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import {
+  DEFAULT_NODE_GAP,
   DestinationKind,
   FilterIdentifier,
   TRIGGER_TEMPORARY_ID,
@@ -17,7 +18,7 @@ import type { StoredStep } from '#libs/sequential_marketing/components/graph/hoo
  * @returns {string} - Return the horizontal position
  */
 export const getHorizontalPositionFromSource = (sourceCanvas: GraphCanvas) =>
-  (parseFloat(sourceCanvas?.position?.x) || 0 + 400).toString();
+  ((parseFloat(sourceCanvas?.position?.x) || 0) + DEFAULT_NODE_GAP).toString();
 
 /** Get the default values for a ConnectedTrigger.
  * @param {TriggerKind} triggerKind - Sequential marketing trigger kind

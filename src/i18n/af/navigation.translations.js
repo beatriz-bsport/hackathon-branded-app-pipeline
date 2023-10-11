@@ -229,5 +229,10 @@ exports.default = {
       access: 'Access creation',
       configuration: 'Personalising categories',
     },
+    appSettings: {
+      links: 'External links',
+      popups: 'Startup pop-up',
+      customize: 'Personalisation',
+    },
   },
 };

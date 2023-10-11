@@ -293,6 +293,25 @@ exports.default = {
       updated: 'Update',
       add: 'Add pop-up',
     },
+    customize: {
+      title: 'Personalisation',
+      defaultPage: {
+        title: 'Default page',
+        pageContent: {
+          label: 'Change default “Home button”',
+          helperText:
+            'This option will allow you to choose the default page that users will see upon opening the app.',
+          placeholder: 'Select a page',
+          options: {
+            membership: 'Calendar',
+            bookings: 'Bookings',
+            home: 'Activities (default)',
+            marketplace: 'Studio',
+            profile: 'Profile',
+          },
+        },
+      },
+    },
   },
   company: {
     bankAccountInfo: {

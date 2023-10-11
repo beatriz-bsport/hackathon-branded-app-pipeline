@@ -31,3 +31,42 @@ export const hasObjectLevelPermission: (
 
   return hasPermission;
 };
+
+/**
+ * Handle the associated permission whenever `offer.meta_activity` is a workshop or not
+ * @param isOfferMetaActivityWorkshop boolean passed from `offer.meta_activity.is_workshop`
+ * @param hasActivityPermission boolean for a activity related permission
+ * @param hasWorkshopPermission boolean for a workshop related permission
+ * @returns {boolean}
+ * @example
+ * <ObjectLevelPermissionProvider
+ *   requiredPermission={[
+ *     'reservation.activity.allowed_actions.attendance',
+ *     'reservation.workshop.allowed_actions.attendance',
+ *   ]}
+ * >
+ *   {([hasActivityAttendancePermission, hasWorkshopAttendancePermission]) =>
+ *     <button
+ *       onClick={
+ *         getActivityWorkshopPermission(
+ *           props.offer.meta_activity.is_workshop,
+ *           hasActivityAttendancePermission,
+ *           hasWorkshopAttendancePermission,
+ *         ) && props.onToggleAttendance
+ *       }
+ *     />
+ *   }
+ * </ObjectLevelPermissionProvider>
+ */
+export const getActivityWorkshopPermission = (
+  isOfferMetaActivityWorkshop: boolean,
+  hasActivityPermission: boolean,
+  hasWorkshopPermission: boolean,
+) => {
+  const isWorkshopAndHasPermission =
+    isOfferMetaActivityWorkshop && hasWorkshopPermission;
+  const isActivityAndHasPermission =
+    !isOfferMetaActivityWorkshop && hasActivityPermission;
+
+  return isWorkshopAndHasPermission || isActivityAndHasPermission;
+};

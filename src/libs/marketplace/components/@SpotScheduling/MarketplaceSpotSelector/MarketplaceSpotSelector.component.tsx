@@ -1,14 +1,10 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import moment from 'moment-timezone';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import { useMediaQuery, useTheme } from '@material-ui/core';
-import {
-  TransformWrapper,
-  TransformComponent,
-  ReactZoomPanPinchRef,
-} from 'react-zoom-pan-pinch';
+
 import type { OptionCallback } from '../../../../../state/types';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { type OfferStatus, type Offer_FULL } from '#libs/offer/types';
@@ -118,7 +114,6 @@ const MarketplaceSpotSelector: React.FC<Props> = (props) => {
   const isMobile = useMediaQuery(
     theme.breakpoints.down(MARKETPLACE_BREAKPOINT.SM),
   );
-  const [isPanningDisabled, setIsPanningDisabled] = useState(true);
 
   const { offer, fetchOfferStatus, updateSpotForOffer, closeSpotSelector } =
     props;
@@ -163,14 +158,9 @@ const MarketplaceSpotSelector: React.FC<Props> = (props) => {
       ),
     [props.spotTypes, spotTypesIdOfBlueprint],
   );
-
   const firstSpotTypes = spotTypesOfBlueprint.slice(0, 2);
 
   const lastSpotTypes = spotTypesOfBlueprint.slice(2);
-
-  const onZoomStop = useCallback((ref: ReactZoomPanPinchRef) => {
-    setIsPanningDisabled(ref.state.scale <= 1);
-  }, []);
 
   return (
     <div className="bs-marketplace-spot-selector">
@@ -230,43 +220,19 @@ const MarketplaceSpotSelector: React.FC<Props> = (props) => {
         </Countdown>
       )}
 
-      {!isMobile ? (
-        <SpotSelector
-          isBoutiqueDisplay
-          assets={assets}
-          coach={props.offer?.coach_override ?? props.offer?.coach}
-          fetchSpotForBlueprint={props.fetchSpotForBlueprint}
-          isMobile={isMobile}
-          onMouseOverSpot={onMouseOverSpot}
-          onSelectSpot={onSelectSpotAndCloseSelector}
-          roomBlueprint={roomBlueprint}
-          selectedSpot={props.selectedSpot}
-          spotTypesOfBlueprint={spotTypesOfBlueprint}
-          takenSpot={takenSpots}
-        />
-      ) : (
-        <TransformWrapper
-          initialScale={1}
-          minScale={1}
-          onZoomStop={onZoomStop}
-          panning={{ disabled: isPanningDisabled }}
-        >
-          <TransformComponent>
-            <SpotSelector
-              isBoutiqueDisplay
-              assets={assets}
-              coach={props.offer?.coach_override ?? props.offer?.coach}
-              fetchSpotForBlueprint={props.fetchSpotForBlueprint}
-              isMobile={isMobile}
-              onSelectSpot={onSelectSpot}
-              roomBlueprint={roomBlueprint}
-              selectedSpot={props.selectedSpot}
-              spotTypesOfBlueprint={spotTypesOfBlueprint}
-              takenSpot={takenSpots}
-            />
-          </TransformComponent>
-        </TransformWrapper>
-      )}
+      <SpotSelector
+        isBoutiqueDisplay
+        assets={assets}
+        coach={props.offer?.coach_override ?? props.offer?.coach}
+        fetchSpotForBlueprint={props.fetchSpotForBlueprint}
+        isMobile={isMobile}
+        onMouseOverSpot={onMouseOverSpot}
+        onSelectSpot={onSelectSpotAndCloseSelector}
+        roomBlueprint={roomBlueprint}
+        selectedSpot={props.selectedSpot}
+        spotTypesOfBlueprint={spotTypesOfBlueprint}
+        takenSpot={takenSpots}
+      />
       {isMobile && (
         <div
           className={classNames(

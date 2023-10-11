@@ -6,6 +6,8 @@ import clx from 'classnames';
 import { WithTranslation, withTranslation } from 'react-i18next';
 
 import CanvasSvg from './CanvasSvg';
+import CanvasSvgDisplayOnly from './CanvasSvgDisplayOnly';
+
 import { CanvasElement } from './tools/BaseClasses/Base.tool';
 import { MaterialStyleType } from '../../../utils/types';
 import {
@@ -96,7 +98,6 @@ class CanvasViewController extends React.PureComponent<Props> {
       let minY = 4000;
       let maxX = 0;
       let maxY = 0;
-
       this.props.elements.forEach((element) => {
         const tool = CanvasSelectableToolStrategy[element.type];
         if (tool?.getBoundaries) {
@@ -115,7 +116,6 @@ class CanvasViewController extends React.PureComponent<Props> {
           }
         }
       });
-
       this.svgFunction.centerSvg({
         minX,
         minY,
@@ -309,17 +309,21 @@ class CanvasViewController extends React.PureComponent<Props> {
       element?: CanvasElement<any>;
       draftType?: any;
     }[] = [];
+
     this.props.elements.forEach((el) => {
       elementAndDraft.push({ element: el });
     });
 
-    Object.keys(CanvasSelectableToolStrategy).forEach((key) => {
-      const Component = CanvasComponentClasses[key];
+    // The below seems unnecessary thus for the new version of the display we
+    // do not include these element (marketplace user-space, this is kept for clureprint editor)
+    !this.props.isBoutiqueDisplay &&
+      Object.keys(CanvasSelectableToolStrategy).forEach((key) => {
+        const Component = CanvasComponentClasses[key];
 
-      if (Component) {
-        elementAndDraft.push({ draftType: key });
-      }
-    });
+        if (Component) {
+          elementAndDraft.push({ draftType: key });
+        }
+      });
 
     const orderedElementsAndDraft = elementAndDraft.sort((a, b) => {
       const A = a.draftType
@@ -343,7 +347,7 @@ class CanvasViewController extends React.PureComponent<Props> {
         }
 
         if (elementOrDraft.draftType === 'spotCustomized') {
-          return this.props?.spotTypes?.map((spotType) => {
+          return (this.props.spotTypes ?? []).map((spotType) => {
             return (
               <DraftComponent
                 key={`spot-${spotType?.id}`}
@@ -368,6 +372,7 @@ class CanvasViewController extends React.PureComponent<Props> {
           />
         );
       }
+
       if (elementOrDraft.element) {
         const { element } = elementOrDraft;
         const Component = CanvasComponentClasses[elementOrDraft.element.type];
@@ -411,35 +416,38 @@ class CanvasViewController extends React.PureComponent<Props> {
 
   render() {
     const { classes } = this.props;
-
     return (
       <div
         className={clx(classes.relativeContainer, {
           [classes.noCursor]: this.tool && this.tool.hideNativeCursor,
         })}
       >
-        <CanvasSvg
-          disabledEdit={this.props.disabledEdit}
-          enablePan={
-            !this.props.isBoutiqueDisplay &&
-            [
-              CANVAS_SELECTABLE_TOOLS.hand,
-              CANVAS_SELECTABLE_TOOLS.spot_selector,
-            ].includes(this.props.selectedTool)
-          }
-          onClick={this.onSvgClick}
-          onEnterUnsafeZone={() => this.setState({ isUnsafeZone: true })}
-          onLeaveUnsafeZone={() => this.setState({ isUnsafeZone: false })}
-          onMouseMove={this.onSvgMouseMove}
-          onMouseOut={this.onSvgMouseOut}
-          onSvgId={this.onSvgId}
-          preventResize={this.props.isBoutiqueDisplay && this.props.isMobile}
-          registerFunction={this.registerSvgFunctions}
-          showGrid={this.props.showGrid}
-          useFullSizeContainer={!!this.props.isBoutiqueDisplay}
-        >
-          {this.renderElements()}
-        </CanvasSvg>
+        {this.props.isBoutiqueDisplay ? (
+          <CanvasSvgDisplayOnly>{this.renderElements()}</CanvasSvgDisplayOnly>
+        ) : (
+          <CanvasSvg
+            disabledEdit={this.props.disabledEdit}
+            enablePan={
+              !this.props.isBoutiqueDisplay &&
+              [
+                CANVAS_SELECTABLE_TOOLS.hand,
+                CANVAS_SELECTABLE_TOOLS.spot_selector,
+              ].includes(this.props.selectedTool)
+            }
+            onClick={this.onSvgClick}
+            onEnterUnsafeZone={() => this.setState({ isUnsafeZone: true })}
+            onLeaveUnsafeZone={() => this.setState({ isUnsafeZone: false })}
+            onMouseMove={this.onSvgMouseMove}
+            onMouseOut={this.onSvgMouseOut}
+            onSvgId={this.onSvgId}
+            preventResize={this.props.isBoutiqueDisplay && this.props.isMobile}
+            registerFunction={this.registerSvgFunctions}
+            showGrid={this.props.showGrid}
+            useFullSizeContainer={!!this.props.isBoutiqueDisplay}
+          >
+            {this.renderElements()}
+          </CanvasSvg>
+        )}
 
         <div className={classes.cursor} id={this.cursorId}>
           {this.renderCursor()}

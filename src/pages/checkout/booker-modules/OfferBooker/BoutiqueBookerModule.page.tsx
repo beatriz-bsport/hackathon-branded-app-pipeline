@@ -269,6 +269,9 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
           this.props.fetchAssetForBlueprint({
             blueprint: offer.room_blueprint,
           });
+          this.props.fetchSpotForBlueprint({
+            company: this.props.companyId,
+          });
         }
         this.fetchOfferStatus();
       },
@@ -841,7 +844,6 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       this.state.isSpotSelectorOpen &&
       !this.props.assetForBlueprintLoading &&
       !this.props.roomBlueprintLoading &&
-      !this.props.spotForBlueprintLoading &&
       !isWaitingList &&
       (this.getIsGuestBooking() ||
         !isRegistered ||
@@ -1115,7 +1117,6 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
     bookingFunnelLoading: state.marketplace.bookingFunnel.loading,
     roomBlueprintLoading: state.spotScheduling.roomBlueprint.loading,
     assetForBlueprintLoading: state.spotScheduling.assetForBlueprint.loading,
-    spotForBlueprintLoading: state.spotScheduling.spotForBlueprint.loading,
     waitingListConfiguration: state.waitingList.configuration.data,
     waitingListConfigurationLoading: state.waitingList.configuration.loading,
     consumerPacksForBooking: state.consumerPaymentPack.forBooking.allIds,

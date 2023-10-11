@@ -1,14 +1,4 @@
-import { AxiosResponse } from 'axios';
-import {
-  API_V1_URI,
-  getAuth,
-  putAuth,
-  postAuth,
-  deleteAuth,
-  patchAuth,
-  buildUrlParams,
-} from '../../http';
-
+import type { AxiosResponse } from 'axios';
 import type { PaginatedResponse } from '../../state/types';
 import type {
   Cadence,
@@ -20,71 +10,70 @@ import type {
   StepMarketingActions,
 } from './types';
 
+import {
+  API_V1_URI,
+  getAuth,
+  putAuth,
+  postAuth,
+  deleteAuth,
+  patchAuth,
+  buildUrlParams,
+} from '../../http';
+
 // CADENCE
 
-export const retrieveCadence = async (
-  id: number,
-): Promise<AxiosResponse<Cadence>> => {
-  return getAuth(`${API_V1_URI}/sequential_marketing/cadence/${id}/`);
+export const retrieveCadence = (id: number) => {
+  return getAuth<Cadence>(`${API_V1_URI}/sequential_marketing/cadence/${id}/`);
 };
 
-export const fetchCadenceList = async (
-  params: CadenceQueryParams,
-): Promise<AxiosResponse<PaginatedResponse<Cadence>>> => {
-  return getAuth(
+export const fetchCadenceList = (params: CadenceQueryParams) => {
+  return getAuth<PaginatedResponse<Cadence>>(
     `${API_V1_URI}/sequential_marketing/cadence/${buildUrlParams(params)}`,
   );
 };
 
-export const createCadence = async ({
-  name,
-}: {
-  name: string;
-}): Promise<AxiosResponse<Cadence>> => {
-  return postAuth(`${API_V1_URI}/sequential_marketing/cadence/`, {
+export const createCadence = ({ name }: { name: string }) => {
+  return postAuth<Cadence>(`${API_V1_URI}/sequential_marketing/cadence/`, {
     name,
   });
 };
 
-export const updateCadence = async (
+export const updateCadence = (
   id: number,
   { name, priority_index }: { name?: string; priority_index?: number },
-): Promise<AxiosResponse<Cadence>> => {
-  return putAuth(`${API_V1_URI}/sequential_marketing/cadence/${id}/`, {
+) => {
+  return putAuth<Cadence>(`${API_V1_URI}/sequential_marketing/cadence/${id}/`, {
     name,
     priority_index,
   });
 };
 
-export const archiveCadence = async (
-  id: number,
-): Promise<AxiosResponse<Cadence>> => {
-  return deleteAuth(`${API_V1_URI}/sequential_marketing/cadence/${id}/`);
+export const archiveCadence = (id: number) => {
+  return deleteAuth<Cadence>(
+    `${API_V1_URI}/sequential_marketing/cadence/${id}/`,
+  );
 };
 
-export const restoreCadence = async (
-  id: number,
-): Promise<AxiosResponse<Cadence>> => {
-  return postAuth(`${API_V1_URI}/sequential_marketing/cadence/${id}/restore/`);
+export const restoreCadence = (id: number) => {
+  return postAuth<Cadence>(
+    `${API_V1_URI}/sequential_marketing/cadence/${id}/restore/`,
+  );
 };
 
-export const activateCadence = async (
-  id: number,
-): Promise<AxiosResponse<Cadence>> => {
-  return postAuth(`${API_V1_URI}/sequential_marketing/cadence/${id}/activate/`);
+export const activateCadence = (id: number) => {
+  return postAuth<Cadence>(
+    `${API_V1_URI}/sequential_marketing/cadence/${id}/activate/`,
+  );
 };
 
-export const shutOffCadence = async (
-  id: number,
-): Promise<AxiosResponse<Cadence>> => {
-  return postAuth(`${API_V1_URI}/sequential_marketing/cadence/${id}/shut_off/`);
+export const shutOffCadence = (id: number) => {
+  return postAuth<Cadence>(
+    `${API_V1_URI}/sequential_marketing/cadence/${id}/shut_off/`,
+  );
 };
 
-export const setInitialCadenceConfiguration = async (
-  id: number,
-  data: any,
-): Promise<AxiosResponse<Cadence>> => {
-  return postAuth(
+export const setInitialCadenceConfiguration = (id: number, data: any) => {
+  return postAuth<Cadence>(
     `${API_V1_URI}/sequential_marketing/cadence/${id}/initial_config/`,
     {
       ...data,
@@ -92,11 +81,8 @@ export const setInitialCadenceConfiguration = async (
   );
 };
 
-export const patchInitialCadenceConfiguration = async (
-  id: number,
-  data: any,
-): Promise<AxiosResponse<Cadence>> => {
-  return putAuth(
+export const patchInitialCadenceConfiguration = (id: number, data: any) => {
+  return putAuth<Cadence>(
     `${API_V1_URI}/sequential_marketing/cadence/${id}/initial_config/`,
     {
       ...data,
@@ -104,25 +90,23 @@ export const patchInitialCadenceConfiguration = async (
   );
 };
 
-export const retrieveCadenceStep = async (
-  id: number,
-): Promise<AxiosResponse<CadenceStep>> => {
-  return getAuth(`${API_V1_URI}/sequential_marketing/cadence_step/${id}`);
+export const retrieveCadenceStep = (id: number) => {
+  return getAuth<CadenceStep>(
+    `${API_V1_URI}/sequential_marketing/cadence_step/${id}`,
+  );
 };
 
-export const fetchCadenceStepList = async (
-  params: CadenceStepQueryParams,
-): Promise<AxiosResponse<PaginatedResponse<CadenceStep>>> => {
-  return getAuth(
+export const fetchCadenceStepList = (params: CadenceStepQueryParams) => {
+  return getAuth<PaginatedResponse<CadenceStep>>(
     `${API_V1_URI}/sequential_marketing/cadence_step/${buildUrlParams(params)}`,
   );
 };
 
-export const updateCadenceStepCanvasPosition = async (
+export const updateCadenceStepCanvasPosition = (
   id: number,
   { x, y }: { x: number; y: number },
-): Promise<AxiosResponse<CadenceStep>> => {
-  return postAuth(
+) => {
+  return postAuth<CadenceStep>(
     `${API_V1_URI}/sequential_marketing/cadence_step/${id}/set_position/`,
     {
       x,
@@ -131,11 +115,11 @@ export const updateCadenceStepCanvasPosition = async (
   );
 };
 
-export const updateCadenceStepConnectedTriggerCanvasPosition = async (
+export const updateCadenceStepConnectedTriggerCanvasPosition = (
   id: number,
   { ct_uuid, x, y }: { ct_uuid: string; x: number; y: number },
-): Promise<AxiosResponse<CadenceStep>> => {
-  return postAuth(
+) => {
+  return postAuth<CadenceStep>(
     `${API_V1_URI}/sequential_marketing/cadence/${id}/connected_trigger/${ct_uuid}/set_position/`,
     {
       ct_uuid,
@@ -145,34 +129,32 @@ export const updateCadenceStepConnectedTriggerCanvasPosition = async (
   );
 };
 
-export const updateCadenceStep = async (
-  id: number,
-  { name }: { name: string },
-): Promise<AxiosResponse<CadenceStep>> => {
-  return putAuth(`${API_V1_URI}/sequential_marketing/cadence_step/${id}/`, {
-    name,
-  });
+export const updateCadenceStep = (id: number, { name }: { name: string }) => {
+  return putAuth<CadenceStep>(
+    `${API_V1_URI}/sequential_marketing/cadence_step/${id}/`,
+    {
+      name,
+    },
+  );
 };
 
-export const deleteCadenceStep = async (
-  id: number,
-): Promise<AxiosResponse<CadenceStep>> => {
-  return deleteAuth(`${API_V1_URI}/sequential_marketing/cadence_step/${id}/`);
+export const deleteCadenceStep = (id: number) => {
+  return deleteAuth<CadenceStep>(
+    `${API_V1_URI}/sequential_marketing/cadence_step/${id}/`,
+  );
 };
 
-export const subscribeStepToStep = async (
+export const subscribeStepToStep = (
   cadenceId: number,
   data: {
     connected_trigger: ConnectedTrigger;
     step: Pick<CadenceStep, 'id' | 'name' | 'canvas'>;
   },
-): Promise<
-  AxiosResponse<{
+) => {
+  return postAuth<{
     step: CadenceStep;
     connected_trigger: ConnectedTrigger;
-  }>
-> => {
-  return postAuth(
+  }>(
     `${API_V1_URI}/sequential_marketing/cadence/${cadenceId}/connected_trigger/`,
     {
       ...data,
@@ -180,7 +162,7 @@ export const subscribeStepToStep = async (
   );
 };
 
-export const modifyStepMarketingActionsConfiguration = async (
+export const modifyStepMarketingActionsConfiguration = (
   step_id: number,
   list: StepMarketingActions[],
 ) => {
@@ -192,18 +174,18 @@ export const modifyStepMarketingActionsConfiguration = async (
 
 // Connected Triggers
 
-export const updateConnectedTrigger = async (
+export const updateConnectedTrigger = (
   cadenceId: number,
   connectedTriggerUUID: string,
   connectedTrigger: ConnectedTrigger,
-): Promise<AxiosResponse<ConnectedTrigger>> => {
-  return putAuth(
+) => {
+  return putAuth<ConnectedTrigger>(
     `${API_V1_URI}/sequential_marketing/cadence/${cadenceId}/connected_trigger/${connectedTriggerUUID}/`,
     connectedTrigger,
   );
 };
 
-export const deleteConnectedTrigger = async (
+export const deleteConnectedTrigger = (
   cadenceId: number,
   connectedTriggerUUID: string,
 ): Promise<AxiosResponse> => {
@@ -214,38 +196,32 @@ export const deleteConnectedTrigger = async (
 
 // MarketingActions
 
-export const fetchMarketingActions = async (
-  params: StepMarketingActionsParams,
-): Promise<AxiosResponse<PaginatedResponse<StepMarketingActions>>> => {
-  return getAuth(
+export const fetchMarketingActions = (params: StepMarketingActionsParams) => {
+  return getAuth<PaginatedResponse<StepMarketingActions>>(
     `${API_V1_URI}/sequential_marketing/cadence_marketing_action/${buildUrlParams(
       params,
     )}`,
   );
 };
 
-export const createStepMarketingAction = async (
-  data: StepMarketingActions,
-): Promise<AxiosResponse<StepMarketingActions>> => {
-  return postAuth(
+export const createStepMarketingAction = (data: StepMarketingActions) => {
+  return postAuth<StepMarketingActions>(
     `${API_V1_URI}/sequential_marketing/cadence_marketing_action/`,
     data,
   );
 };
 
-export const deleteStepMarketingAction = async (
-  id: number,
-): Promise<AxiosResponse<StepMarketingActions>> => {
-  return deleteAuth(
+export const deleteStepMarketingAction = (id: number) => {
+  return deleteAuth<StepMarketingActions>(
     `${API_V1_URI}/sequential_marketing/cadence_marketing_action/${id}/`,
   );
 };
 
-export const updateStepMarketingAction = async (
+export const updateStepMarketingAction = (
   id: number,
   data: StepMarketingActions,
-): Promise<AxiosResponse<StepMarketingActions>> => {
-  return patchAuth(
+) => {
+  return patchAuth<StepMarketingActions>(
     `${API_V1_URI}/sequential_marketing/cadence_marketing_action/${id}/`,
     data,
   );

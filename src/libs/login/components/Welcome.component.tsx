@@ -11,14 +11,16 @@ import { httpParser } from '#libs/marketplace/utils';
 
 type Props = {
   companyName: string;
-  urlRedirection: string;
+  urlRedirection?: string;
   simplifyUI?: boolean;
+  onConfirm?: () => void;
 };
 
 export const WelcomeComponent: React.FC<Props> = ({
   companyName,
   urlRedirection,
   simplifyUI,
+  onConfirm,
 }) => {
   const { t } = useTranslation('login');
   const classes = useStyles();
@@ -42,17 +44,23 @@ export const WelcomeComponent: React.FC<Props> = ({
       <Typography className={classes.textExplain} variant="body1">
         {t('welcome.textExplain')}
       </Typography>
-      <Button
-        className={classes.beginButton}
-        color="primary"
-        id="btn-begin"
-        onClick={() => {
-          window.location.href = httpParser(urlRedirection);
-        }}
-        variant="contained"
-      >
-        {t('welcome.begin')}
-      </Button>
+      {(!!urlRedirection || !!onConfirm) && (
+        <Button
+          className={classes.beginButton}
+          color="primary"
+          id="btn-begin"
+          onClick={() => {
+            if (urlRedirection) {
+              window.location.href = httpParser(urlRedirection);
+            } else if (typeof onConfirm === 'function') {
+              onConfirm();
+            }
+          }}
+          variant="contained"
+        >
+          {t('welcome.begin')}
+        </Button>
+      )}
     </div>
   );
 };

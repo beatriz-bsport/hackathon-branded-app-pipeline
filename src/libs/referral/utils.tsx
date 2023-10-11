@@ -1,3 +1,4 @@
+import type { ReferralLinkStatus } from './types';
 /* This function builds the referral link which is given to a member,
 so they can send it to the people they want to refer.
 
@@ -8,3 +9,7 @@ export const buildMemberReferralLink = (
   companyId: number,
   referral_uuid: string,
 ) => `/referral/${referral_uuid}?membership=${companyId}`;
+
+export const isReferralUsable = (
+  referralLinkStatus: ReferralLinkStatus | null,
+) => referralLinkStatus && !referralLinkStatus.is_max_referral_uses_reached;

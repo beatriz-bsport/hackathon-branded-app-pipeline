@@ -11,7 +11,7 @@ export type SubShop = {
   id: number;
   name: string;
   company: number;
-  shopitems: Array<ShopItem>;
+  shopItems: Array<ShopItem>;
 };
 
 export type SubShopAPI = {

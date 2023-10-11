@@ -1,6 +1,8 @@
 // @ts-nocheck
 import { createSelector } from 'reselect';
 import type { State } from '../../state/types';
+import type { RootState } from '../../reducers';
+import { SubShop } from './types';
 
 const _getSubShops = (state: State) => state.shop.subShops;
 
@@ -39,12 +41,12 @@ const getSubShops = createSelector(
       shopItems: (as_consumer ? shopitemListAsConsumer : shopItemsList).filter(
         (si) => si.subshop === sub.id,
       ),
-    }));
+    })) as SubShop[];
   },
 );
 
 export const getSubShopsByCompany = (
-  state: State,
+  state: RootState,
   companyId: number,
   as_consumer?: boolean,
 ) => getSubShops(state, as_consumer).filter((sub) => sub.company === companyId);

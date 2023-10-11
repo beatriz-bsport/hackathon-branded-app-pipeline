@@ -27,7 +27,9 @@ const EditReferralProgramSettingsFormTag: React.FC<Props> = ({ tagList }) => {
           allTagsWithTagGroup={tagList}
           id="tag-referred-member"
           name="tag_referred_member"
-          selectedTags={values?.tag_referred_member}
+          selectedTags={
+            values?.tag_referred_member ? [values.tag_referred_member] : []
+          }
         />
       </div>
     </FormSection>

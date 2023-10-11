@@ -12,7 +12,6 @@ import { push } from 'connected-react-router';
 import PaymentRuleSetsDashboard from './PaymentRuleSetsDashboard.page';
 import CompanyDetailPage from './CompanyDetailPage.page';
 import RoleConfigurationPage from './RoleConfiguration.page';
-import MobilePersonalizationPage from './MobilePersonalization.page';
 import InvoiceConfigurationPage from './InvoiceConfigurationPage.page';
 import WaitingListConfigurationPage from './WaitingListConfigurationPage.page';
 import BroadcastConfiguration from './BroadcastConfiguration.page';
@@ -37,6 +36,7 @@ import Quicksale from './quicksale';
 
 import withTitle from '../../hocs/with-title.hoc';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import SettingsMobileRouter from './SettingsMobile.router';
 
 type Props = {};
 
@@ -102,9 +102,8 @@ export const Settings = () => {
         path="/settings/personalization"
       />
       <Route
-        exact
-        component={MobilePersonalizationPage}
-        path="/settings/mobile-personalization"
+        component={SettingsMobileRouter}
+        path="/settings/mobile-personalisation/:tab"
       />
 
       <Route

@@ -510,7 +510,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
           ...(hasUpsellIdentifier(UPSELL_IDENTIFIER_CUSTOM_APP)
             ? [
                 {
-                  to: '/settings/mobile-personalization',
+                  to: '/settings/mobile-personalisation/links',
                   dense: true,
                   text: t('backofficeMenu.settings.mobilePersonalization'),
                 },

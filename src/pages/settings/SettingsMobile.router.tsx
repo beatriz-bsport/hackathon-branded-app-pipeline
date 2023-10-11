@@ -1,15 +1,16 @@
-// @ts-nocheck
-import React, { useEffect } from 'react';
-import { connect, ConnectedProps } from 'react-redux';
-import { compose } from 'recompose';
-import { withTranslation, WithTranslation } from 'react-i18next';
-import { TFunction } from 'i18next';
+import React, { useCallback, useEffect } from 'react';
 
+import { connect, ConnectedProps } from 'react-redux';
+import { Redirect, Route, Switch } from 'react-router';
+import { WithTranslation } from 'react-i18next';
+import { compose } from 'recompose';
+import { push as pushFunc } from 'connected-react-router';
+import Immutable from 'seamless-immutable';
 import { makeStyles, Theme } from '@material-ui/core';
 
-import withTitle from '../../hocs/with-title.hoc';
+import withPageHeightHOC, { WithPageHeight } from '#hocs/with-page-height.hoc';
+import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
 import { fetchMarketplaceContractList as fetchMarketplaceContractListAction } from '#libs/subscription/actions';
-import { getMarketplaceContractList as getContractList } from '#libs/subscription/selectors';
 import { getGiftcardListActive } from '#libs/giftcard/selectors';
 import { fetchGiftcardList as fetchGiftcardListAction } from '#libs/giftcard/actions';
 import { fetchPaymentComboList as fetchPaymentComboListAction } from '#libs/payment-combo/actions';
@@ -25,6 +26,7 @@ import { getVideoList } from '#libs/video/selectors';
 import { fetchAllSubShop as fetchAllSubShopAction } from '#libs/shop/actions/subshop';
 import MobileCustomShopRedirectionSettings from '#libs/settings/components/MobileCustomShopRedirectionSettings.component';
 import CustomMobilePopupSettings from '#libs/settings/components/CustomMobilePopupSettings.component';
+import MobileAppPersonalisationForm from '#libs/settings/components/MobileAppPersonalisationForm.component';
 import {
   fetchCustomShopRedirections as fetchCustomShopRedirectionsAction,
   createCustomShopRedirection as createCustomShopRedirectionAction,
@@ -42,10 +44,26 @@ import {
   getCustomMobileRedirectionsList,
 } from '#libs/settings/selectors';
 import { RootState } from '../../reducers';
+import { updateCompanyTheme as updateCompanyThemeAction } from '#libs/theme/actions';
+// @ts-expect-error
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+// @ts-expect-error
+import { getMarketplaceContractList as getContractList } from '#libs/subscription/selectors';
 
-type Props = ConnectedProps<typeof connector> & WithTranslation;
+type Props = {
+  tab: 'links' | 'popups' | 'customize';
+} & ConnectedProps<typeof connector> &
+  WithPageHeight &
+  WithTranslation;
 
-const MobilePersonalization: React.FC<Props> = ({
+const tabsData = Immutable([
+  { label: 'tab.appSettings.links', value: 'links' },
+  { label: 'tab.appSettings.popups', value: 'popups' },
+  { label: 'tab.appSettings.customize', value: 'customize' },
+]);
+
+const SettingsMobileRouter: React.FC<Props> = ({
+  companyTheme,
   customMobilePopupsLoading,
   customShopRedirectionsLoading,
   customMobilePopupsList,
@@ -72,6 +90,10 @@ const MobilePersonalization: React.FC<Props> = ({
   fetchPaymentPackList,
   fetchVideoList,
   fetchGiftcardList,
+  updateCompanyTheme,
+  tab,
+  push,
+  pageHeight,
 }) => {
   const classes = useStyles();
 
@@ -106,31 +128,56 @@ const MobilePersonalization: React.FC<Props> = ({
     fetchGiftcardList,
   ]);
 
+  const onChange = useCallback(
+    (newTab: string) => {
+      push(`/settings/mobile-personalisation/${newTab}`);
+    },
+    [push],
+  );
+
   return (
-    <div className={classes.container}>
-      <MobileCustomShopRedirectionSettings
-        contractListCount={contractList?.length}
-        createCustomShopRedirection={createCustomShopRedirection}
-        deleteCustomShopRedirection={deleteCustomShopRedirection}
-        giftcardsCount={giftcards?.length}
-        loading={customShopRedirectionsLoading}
-        paymentComboListCount={paymentComboList?.length}
-        paymentPackListCount={paymentPackList?.length}
-        shopRedirections={customMobileRedirectionsList}
-        subshopList={subshopList}
-        updateCustomShopRedirection={updateCustomShopRedirection}
-        vodListCount={vodList?.length}
-      />
-      <div className={classes.mobileSettings}>
-        <CustomMobilePopupSettings
-          createCustomMobilePopup={createCustomMobilePopup}
-          deleteCustomMobilePopup={deleteCustomMobilePopup}
-          loading={customMobilePopupsLoading}
-          popups={customMobilePopupsList}
-          updateCustomMobilePopup={updateCustomMobilePopup}
-        />
+    <ContentWithAppBar
+      onChange={onChange}
+      pageHeight={pageHeight}
+      tab={tab}
+      tabsData={tabsData}
+    >
+      <div className={classes.container}>
+        <Switch>
+          <Route exact path="/settings/mobile-personalisation/links">
+            <MobileCustomShopRedirectionSettings
+              contractListCount={contractList?.length}
+              createCustomShopRedirection={createCustomShopRedirection}
+              deleteCustomShopRedirection={deleteCustomShopRedirection}
+              giftcardsCount={giftcards?.length}
+              loading={customShopRedirectionsLoading}
+              paymentComboListCount={paymentComboList?.length}
+              paymentPackListCount={paymentPackList?.length}
+              shopRedirections={customMobileRedirectionsList}
+              subshopList={subshopList}
+              updateCustomShopRedirection={updateCustomShopRedirection}
+              vodListCount={vodList?.length}
+            />
+          </Route>
+          <Route exact path="/settings/mobile-personalisation/popups">
+            <CustomMobilePopupSettings
+              createCustomMobilePopup={createCustomMobilePopup}
+              deleteCustomMobilePopup={deleteCustomMobilePopup}
+              loading={customMobilePopupsLoading}
+              popups={customMobilePopupsList}
+              updateCustomMobilePopup={updateCustomMobilePopup}
+            />
+          </Route>
+          <Route exact path="/settings/mobile-personalisation/customize">
+            <MobileAppPersonalisationForm
+              onSubmit={updateCompanyTheme}
+              theme={companyTheme}
+            />
+          </Route>
+          <Redirect to="/settings/mobile-personalisation/links" />
+        </Switch>
       </div>
-    </div>
+    </ContentWithAppBar>
   );
 };
 
@@ -159,9 +206,13 @@ const connector = connect(
     vodList: getVideoList(state),
     giftcards: getGiftcardListActive(state),
     subshopList: getSubShopsByCompany(state, state.theme.theme.company, true),
+
     companyId: state.theme.theme.company,
+    companyTheme: state.theme.theme,
   }),
   {
+    push: pushFunc,
+
     fetchCustomShopRedirections: fetchCustomShopRedirectionsAction,
     createCustomShopRedirection: createCustomShopRedirectionAction,
     updateCustomShopRedirection: updateCustomShopRedirectionAction,
@@ -179,11 +230,16 @@ const connector = connect(
     fetchPaymentPackList: fetchPaymentPackListAction,
     fetchVideoList: fetchVideoListAction,
     fetchGiftcardList: fetchGiftcardListAction,
+
+    // For mobile app personalisation
+    updateCompanyTheme: updateCompanyThemeAction,
   },
 );
 
 export default compose(
-  withTranslation('settings'),
-  withTitle(({ t }: { t: TFunction }) => t('mobilePersonalization.title')),
   connector,
-)(MobilePersonalization);
+  routerParamsToProps({
+    tab: 'tab',
+  }),
+  withPageHeightHOC(),
+)(SettingsMobileRouter);

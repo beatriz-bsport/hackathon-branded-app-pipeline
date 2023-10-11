@@ -79,7 +79,13 @@ export const URLS_PERMISSIONS: Record<ProtectedUrls, string[]> = {
   '/settings/general': ['navigationMenu.settings.generals'],
   '/settings/invoice': ['navigationMenu.settings.billing'],
   '/settings/marketplace-settings': ['navigationMenu.settings.marketplace'],
-  '/settings/mobile-personalization': [
+  '/settings/mobile-personalisation/links': [
+    'navigationMenu.settings.mobilePersonalization',
+  ],
+  '/settings/mobile-personalisation/popups': [
+    'navigationMenu.settings.mobilePersonalization',
+  ],
+  '/settings/mobile-personalisation/customize': [
     'navigationMenu.settings.mobilePersonalization',
   ],
   '/settings/notification-rule': [
@@ -123,7 +129,9 @@ export const URLS_UPSELL: Record<string, number> = {
   '/performance-tracking': UPSELL_PERFORMANCE_TRACKING_IDENTIFIER,
   '/clock-in': UPSELL_IDENTIFIER_CLOCK_IN,
   '/marketing/strategies': 99999999999, // beta
-  '/settings/mobile-personalization': UPSELL_IDENTIFIER_CUSTOM_APP,
+  '/settings/mobile-personalisation/links': UPSELL_IDENTIFIER_CUSTOM_APP,
+  '/settings/mobile-personalisation/popups': UPSELL_IDENTIFIER_CUSTOM_APP,
+  '/settings/mobile-personalisation/customize': UPSELL_IDENTIFIER_CUSTOM_APP,
   // todo check vod
 };
 

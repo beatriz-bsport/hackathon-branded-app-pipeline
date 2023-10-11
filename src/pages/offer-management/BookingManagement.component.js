@@ -47,6 +47,7 @@ import WaitingListControlHeader from './WaitingListControlHeader.component';
 import BookingTable from '#libs/booking/components/BookingTable.component';
 import RecurrenceRuleBookingListItem from '#libs/booking/components/RecurrenceRuleBookingListItem.component';
 import BookingOptionForManager from '#libs/waiting-list/components/BookingOptionForManager.component';
+import BookingOptionActionBar from '#libs/waiting-list/components/BookingOptionActionBar.component';
 
 import type { Booking, BookingOption } from '#libs/booking/types';
 import type { Member } from '#libs/member/types';
@@ -146,6 +147,11 @@ type Props = {
   bookingOptionPositionById: {
     [key: number]: OfferStatusWaitingListPosition,
   },
+  handleSelectAllBookingOptions: () => void,
+  handleUnselectAllBookingOptions: () => void,
+  selectedBookingOptionsIds: number[],
+  handleCheckBookingOption: (bookingOptionId: number) => void,
+  handleUncheckBookingOption: (bookingOptionId: number) => void,
 };
 
 type State = {
@@ -372,6 +378,16 @@ export class BookingManagement extends React.PureComponent<Props, State> {
 
   render() {
     const { offer, classes, t, onProgramDetailsClick } = this.props;
+
+    const availableBookingOptions =
+      this.props.bookingOptionsPending?.filter(
+        (bookingOption) => !bookingOption.cancelled,
+      ) ?? [];
+
+    const isOfferExpired = moment(this.props.offer.date_start).isBefore(
+      moment(),
+    );
+
     return (
       <div className={classes.container}>
         <Dialog
@@ -765,6 +781,21 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                   />
                 ) : null}
                 <List disablePadding>
+                  <BookingOptionActionBar
+                    availableBookingOptionsCount={
+                      availableBookingOptions?.length
+                    }
+                    handleSelectAllBookingOptions={
+                      this.props.handleSelectAllBookingOptions
+                    }
+                    handleUnselectAllBookingOptions={
+                      this.props.handleUnselectAllBookingOptions
+                    }
+                    isDisabled={isOfferExpired}
+                    selectedBookingOptionsCount={
+                      this.props.selectedBookingOptionsIds?.length
+                    }
+                  />
                   {this.props.bookingOptionsPending.map((bookingOption) => (
                     <BookingOptionForManager
                       key={bookingOption.id}
@@ -773,6 +804,12 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                       )}
                       displayPositionInWaitingList={
                         this.props.displayPositionInWaitingList
+                      }
+                      handleCheckBookingOption={
+                        this.props.handleCheckBookingOption
+                      }
+                      handleUncheckBookingOption={
+                        this.props.handleUncheckBookingOption
                       }
                       member={this.props.members.find(
                         (m) => m.id === bookingOption.member,
@@ -794,6 +831,9 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                         this.props.discardOption(bookingOption.id);
                       }}
                       option={bookingOption}
+                      selectedBookingOptionsIds={
+                        this.props.selectedBookingOptionsIds
+                      }
                       waitingListPosition={
                         this.props.bookingOptionPositionById?.[bookingOption.id]
                           ?.waiting_list_position

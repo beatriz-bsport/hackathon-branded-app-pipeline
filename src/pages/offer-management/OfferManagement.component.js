@@ -275,6 +275,7 @@ type State = {
   isMemberProgramDetailDialogOpen: boolean,
   memberIdFocused: null | number,
   openConfirmationRollCallDialog: boolean,
+  selectedBookingOptionsIds: number[],
 };
 
 export class OfferManagement extends Component<Props, State> {
@@ -284,6 +285,7 @@ export class OfferManagement extends Component<Props, State> {
     isMemberProgramDetailDialogOpen: false,
     memberIdFocused: null,
     openConfirmationRollCallDialog: false,
+    selectedBookingOptionsIds: [],
   };
 
   componentDidMount() {
@@ -614,6 +616,36 @@ export class OfferManagement extends Component<Props, State> {
     this.setState({ openConfirmationRollCallDialog: false });
   };
 
+  handleSelectAllBookingOptions = () => {
+    const availableBookingOptionsIds =
+      this.props.bookingOptionsPending
+        ?.filter((bookingOption) => !bookingOption.cancelled)
+        .map((availableBookingOption) => availableBookingOption?.id) ?? [];
+    this.setState({ selectedBookingOptionsIds: availableBookingOptionsIds });
+  };
+
+  handleUnselectAllBookingOptions = () => {
+    this.setState({ selectedBookingOptionsIds: [] });
+  };
+
+  handleCheckBookingOption = (bookingOptionId: number) => {
+    this.setState((prevState) => ({
+      selectedBookingOptionsIds: [
+        ...prevState.selectedBookingOptionsIds,
+        bookingOptionId,
+      ],
+    }));
+  };
+
+  handleUncheckBookingOption = (bookingOptionId: number) => {
+    this.setState((prevState) => ({
+      selectedBookingOptionsIds: prevState.selectedBookingOptionsIds.filter(
+        (selectedBookingOptionId) =>
+          selectedBookingOptionId !== bookingOptionId,
+      ),
+    }));
+  };
+
   render() {
     const {
       offer,
@@ -740,8 +772,14 @@ export class OfferManagement extends Component<Props, State> {
             }
             fetchVideoPurchase={this.props.fetchVideoPurchase}
             goToMemberBooking={this.props.goToMemberBooking}
+            handleCheckBookingOption={this.handleCheckBookingOption}
             handleMemberToRegister={this.props.setMemberToRegister}
             handleRevertBooking={this.props.handleRevertBooking}
+            handleSelectAllBookingOptions={this.handleSelectAllBookingOptions}
+            handleUncheckBookingOption={this.handleUncheckBookingOption}
+            handleUnselectAllBookingOptions={
+              this.handleUnselectAllBookingOptions
+            }
             isRollCallMandatory={
               this.props.company_theme.is_roll_call_mandatory
             }
@@ -782,6 +820,7 @@ export class OfferManagement extends Component<Props, State> {
             searchedMembers={this.props.searchedMembers}
             searchedText={this.props.searchedText}
             searchMembers={this.props.searchMembers}
+            selectedBookingOptionsIds={this.state.selectedBookingOptionsIds}
             showVaccinationStatus={this.props.showVaccinationStatus}
             switchWaitingListFreeze={this.props.switchWaitingListFreeze}
           />

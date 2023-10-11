@@ -11,6 +11,7 @@ import Button from '@material-ui/core/Button';
 import { useTranslation } from 'react-i18next';
 
 import { Checkbox, Theme, makeStyles } from '@material-ui/core';
+import classNames from 'classnames';
 import type { Member } from '../../member/types';
 import type { BookingOption } from '#libs/booking/types';
 
@@ -25,6 +26,9 @@ type Props = {
     waiting_list_size: number;
   };
   displayPositionInWaitingList: boolean;
+  handleCheckBookingOption: (bookingOptionId: number) => void;
+  handleUncheckBookingOption: (bookingOptionId: number) => void;
+  selectedBookingOptionsIds: number[];
 };
 
 const BookingOptionForManager: React.FC<Props> = ({
@@ -35,8 +39,11 @@ const BookingOptionForManager: React.FC<Props> = ({
   displayPositionInWaitingList,
   disabled,
   onDiscard,
+  handleCheckBookingOption,
+  handleUncheckBookingOption,
+  selectedBookingOptionsIds,
 }) => {
-  const classes = useStyles();
+  const classes = useStyles({ disabled });
 
   const { t } = useTranslation('translation');
 
@@ -60,6 +67,24 @@ const BookingOptionForManager: React.FC<Props> = ({
     return t('booking.onWaitingList');
   }, [option, displayPositionInWaitingList, t, waitingListPosition]);
 
+  const isChecked = selectedBookingOptionsIds?.includes(option.id) ?? false;
+
+  const handleSelectBookingOption = React.useCallback(() => {
+    isChecked
+      ? handleUncheckBookingOption(option?.id)
+      : handleCheckBookingOption(option?.id);
+  }, [
+    handleUncheckBookingOption,
+    handleCheckBookingOption,
+    option?.id,
+    isChecked,
+  ]);
+
+  const isIndividualButtonDisabled =
+    disabled || !!selectedBookingOptionsIds?.length;
+
+  if (!option) return null;
+
   if (option.cancelled) {
     return (
       <ListItem button disableRipple divider onClick={handleListItemClick()}>
@@ -75,13 +100,37 @@ const BookingOptionForManager: React.FC<Props> = ({
   }
 
   return (
-    <ListItem button disableRipple divider onClick={handleListItemClick}>
+    <ListItem button disableRipple divider>
       <div className={classes.outerRow}>
-        <Checkbox className={classes.checkBox} />
-        <ListItemAvatar>
-          <Avatar src={member ? member.photo : ''} />
-        </ListItemAvatar>
+        <div
+          className={classNames(classes.avatarWithCheckbox, {
+            [classes.avatarWithCheckboxAndSelection]:
+              !!selectedBookingOptionsIds?.length,
+          })}
+        >
+          <div
+            className={classNames(classes.avatarContainer, {
+              [classes.avatarContainerWithHover]: !disabled,
+            })}
+          >
+            <div className={classes.avatar}>
+              <ListItemAvatar>
+                <Avatar src={member ? member.photo : ''} />
+              </ListItemAvatar>
+            </div>
+            {!disabled && (
+              <div className={classes.checkBoxContainer}>
+                <Checkbox
+                  checked={isChecked}
+                  className={classes.checkBox}
+                  onChange={handleSelectBookingOption}
+                />
+              </div>
+            )}
+          </div>
+        </div>
         <ListItemText
+          onClick={handleListItemClick()}
           primary={member ? member.name : ''}
           secondary={getSecondaryTextToDisplay()}
         />
@@ -89,7 +138,7 @@ const BookingOptionForManager: React.FC<Props> = ({
         <Button
           className={classes.addButton}
           color="primary"
-          disabled={disabled}
+          disabled={isIndividualButtonDisabled}
           onClick={onClickRegister}
           variant="outlined"
         >
@@ -97,7 +146,7 @@ const BookingOptionForManager: React.FC<Props> = ({
           {t('booking.add')}
         </Button>
         {!!onDiscard && (
-          <IconButton disabled={disabled} onClick={onDiscard}>
+          <IconButton disabled={isIndividualButtonDisabled} onClick={onDiscard}>
             <CancelIcon />
           </IconButton>
         )}
@@ -106,7 +155,7 @@ const BookingOptionForManager: React.FC<Props> = ({
   );
 };
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles<Theme, { disabled: boolean }>((theme) => ({
   outerRow: {
     display: 'flex',
     width: '100%',
@@ -125,6 +174,45 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  avatarWithCheckbox: {
+    position: 'relative',
+  },
+  avatarContainer: {
+    position: 'relative',
+    width: '100%',
+    height: '100%',
+    top: '0',
+    left: '0',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  avatarContainerWithHover: {
+    '&:hover': {
+      '& $avatar': {
+        opacity: '10%',
+      },
+      '& $checkBoxContainer': {
+        visibility: 'visible',
+      },
+    },
+  },
+  avatar: {
+    opacity: '100%',
+  },
+  checkBoxContainer: {
+    visibility: 'hidden',
+    position: 'absolute',
+    transform: 'translate(-8%, 0%)',
+  },
+  avatarWithCheckboxAndSelection: {
+    '& $avatar': {
+      opacity: '10%',
+    },
+    '& $checkBoxContainer': {
+      visibility: 'visible',
+    },
   },
 }));
 

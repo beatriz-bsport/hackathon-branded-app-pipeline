@@ -19,6 +19,7 @@ import {
   BUYABLE_ITEM_COMBO_ITEM,
   BUYABLE_ITEM_GIFTCARD,
   BUYABLE_ITEM_CREDIT,
+  QuicksaleBasketItem,
 } from '@bsport/common/lib/master-data/buyable-items';
 
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
@@ -31,11 +32,12 @@ import GiftcardSelector from '../../giftcard/components/GiftcardSelector.compone
 import ShopItemSelector from '../../shop/components/ShopItemSelector.component';
 import withConfirm from '../../../hocs/with-confirm.hoc';
 import { paymentPackTagsAndMemberTagsCompatibilty } from '../../payment-packs/utils';
+import { BuyableItemTypes } from '../types';
 
 type BuyableItemProps = {
   buyableItemIdentifier: number;
   value?: number;
-  availableBuyableItems: { [key: string]: any };
+  availableBuyableItems: { [key: string]: BuyableItemTypes };
   onSelect?: (id: number) => void;
 };
 
@@ -94,12 +96,20 @@ const BuyableItemSelector: React.FC<BuyableItemProps> = React.memo(
 );
 
 type Props = {
-  onAddBuyableItem: (buyableItemIdentifier: number, buyableItem: any) => void;
-  availableBuyableItems: { [buyableItemIdentifier: number]: any[] };
+  onAddBuyableItem: (
+    buyableItemIdentifier: QuicksaleBasketItem,
+    buyableItem: BuyableItemTypes,
+  ) => void;
+  availableBuyableItems: {
+    [buyableItemIdentifier: QuicksaleBasketItem]: BuyableItemTypes[];
+  };
   member: { credit_account_balance: number };
 };
 
-const getPriceForItem = (item: any, identifier: number) => {
+const getPriceForItem = (
+  item: BuyableItemTypes,
+  identifier: QuicksaleBasketItem,
+) => {
   if (identifier === BUYABLE_ITEM_PASS) {
     return item.base_price;
   }
@@ -139,13 +149,13 @@ const InvoiceItemEditor: React.FC<Props> = ({
   const [buyableItemIdentifier, setBuyableItemIdentifier] =
     useState(BUYABLE_ITEM_PASS);
 
-  const [buyableItemId, setBuyableItemId] = useState<number>(null);
+  const [buyableItemId, setBuyableItemId] = useState<number | null>(null);
 
   const [quantity, setQuantity] = useState(1);
 
-  const [voucher, setVoucher] = useState<number>(null);
+  const [voucher, setVoucher] = useState<number | null>(null);
 
-  const [voucherPercent, setVoucherPercent] = useState<number>(null);
+  const [voucherPercent, setVoucherPercent] = useState<number | null>(null);
 
   const [warnMamangerOnInvoice, setWarnManagerOnInvoice] = useState(false);
 

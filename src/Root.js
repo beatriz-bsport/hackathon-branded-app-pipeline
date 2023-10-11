@@ -74,6 +74,10 @@ const QuicksaleRouter = asyncComponent(() =>
   import('./pages/quicksale/Quicksale.router'),
 );
 
+const ReferralRegistration = asyncComponent(() =>
+  import('./pages/login/ReferralRegistration.page'),
+);
+
 const styles = () => ({
   root: {
     flexGrow: 1,
@@ -216,6 +220,10 @@ export class Root extends Component<Props> {
               path="/widget/:companyName/:companyId"
             />
             <Route component={QuicksaleRouter} path="/quicksale/" />
+            <Route
+              component={ReferralRegistration}
+              path="/referral/:referralUuid"
+            />
             <Route component={UserspaceSwitcher} path="/" />
           </Switch>
         ) : (

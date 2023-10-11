@@ -185,3 +185,15 @@ export interface FormikCustomFormFilled {
   date_created: string;
   custom_form_field: Array<FormikCustomFormFieldAnswer>;
 }
+
+export interface SignUpSuccessResponse {
+  email_confirmed: boolean;
+  user_id: number;
+}
+
+export interface SignUpErrorResponse {
+  error_code: number;
+  message: string;
+}
+
+export type SignUpResponse = SignUpSuccessResponse | SignUpErrorResponse;

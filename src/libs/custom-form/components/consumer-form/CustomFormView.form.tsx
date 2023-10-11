@@ -28,10 +28,10 @@ type Props = {
   handleSubmit?: () => void;
   isSubmitting?: boolean;
   initial?: CustomForm;
-  onSubmit?: (data: FormData, options: any) => void;
+  onSubmit?: (data: CustomFormFieldAnswer, options: any) => void;
   initialWithAnswer?: CustomFormFieldAnswer;
   refreshLoading?: boolean;
-  onCancel?: (data?: FormData) => void;
+  onCancel?: (data?: CustomFormFieldAnswer) => void;
   onSubmitDraft?: (customFormwithAnswer: CustomFormFilled) => void;
   isMulti?: boolean;
   disconnectOnCancel?: boolean;
@@ -43,8 +43,9 @@ type Props = {
   disableLayout?: boolean;
   fieldsAreIndependent?: boolean;
   simplifyUI?: boolean;
-  data?: FormData;
+  data?: CustomFormFieldAnswer;
   values?: CustomFormFilled;
+  hideBackButton?: boolean;
 };
 
 const ConsumerFormView: React.FC<Props> = (props: Props) => {
@@ -94,7 +95,7 @@ const ConsumerFormView: React.FC<Props> = (props: Props) => {
         <div
           className={props.onCancel ? classes.submitAndCancel : classes.submit}
         >
-          {props.onCancel && (
+          {props.onCancel && !props.hideBackButton && (
             <Button
               className={classes.button}
               color="primary"

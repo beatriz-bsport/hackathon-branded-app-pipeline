@@ -139,11 +139,13 @@ export async function submitCustomForm(
 export async function submitSignUpCustomForm(
   signup_form_filled: FormData,
   companyId: number | string | null,
+  referral_uuid?: string | null,
 ) {
   if (companyId) {
     return postBaseAuth(
       `${API_V1_URI}/custom_form/custom_form_filled/signup/${buildUrlParams({
         companyId,
+        ...(referral_uuid ? { referral_uuid } : {}),
       })}`,
       signup_form_filled,
     );

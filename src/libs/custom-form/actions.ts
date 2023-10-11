@@ -34,6 +34,7 @@ import type {
   CustomFormFieldAnswer,
   CustomFormDisplayRule,
   ResponsiveLayouts,
+  SignUpSuccessResponse,
 } from './types';
 
 import { isErrorWithCustomCode } from '#libs/utils';
@@ -351,10 +352,7 @@ export const submitCustomFormActions = {
 export function submitCustomForm(
   form_filled: CustomFormFieldAnswer,
   companyId: number,
-  options?: {
-    onSuccess: (data: { email_confirmed: boolean; user_id: number }) => void;
-    onError: () => void;
-  },
+  options?: OptionCallback<CustomFormFieldAnswer>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(submitCustomFormActions.isLoading(true));
@@ -648,9 +646,10 @@ export const signUpViaCustomFormActions = {
 };
 
 export function submitSignUpCustomForm(
-  sign_up_custom_form_filled: FormData,
+  sign_up_custom_form_filled: CustomFormFieldAnswer,
   company: number | string,
-  options?: OptionCallback,
+  options?: OptionCallback<SignUpSuccessResponse>,
+  referral_uuid?: string | null,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(signUpViaCustomFormActions.isLoading(true));
@@ -659,8 +658,8 @@ export function submitSignUpCustomForm(
       const response = await submitSignUpCustomFormAPI(
         sign_up_custom_form_filled,
         company,
+        referral_uuid,
       );
-
       dispatch(signUpViaCustomFormActions.success(response.data));
       dispatch(snackbarSuccess(`customForm.signupViaCustomForm.success`));
       if (options && options.onSuccess) options.onSuccess(response.data);

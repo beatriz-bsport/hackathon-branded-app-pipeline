@@ -218,4 +218,8 @@ exports.default = {
     begin: 'Start',
     title: 'Welcome to {{- companyName}} !',
   },
+  referral: {
+    signUpNow:
+      "Merci d'avoir utilisé le lien de parrainage de {{ referringMemberFirstName }}. Inscrivez-vous dès maintenant pour obtenir une réduction sur votre premier panier !",
+  },
 };

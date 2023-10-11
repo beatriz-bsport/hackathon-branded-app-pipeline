@@ -17,6 +17,7 @@ import {
   COMMUNICATION_SRC_OR_DST_SENT,
   COMMUNICATION_SRC_OR_DST_RECEIVED,
   COMMUNICATION_CHANNEL_CADENCE,
+  COMMUNICATION_CHANNEL_FRANCHISE,
 } from '@bsport/common/lib/master-data/communication-filters';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 
@@ -89,6 +90,7 @@ export const COMMUNICATION_FILTER_CHANNELS = {
   [COMMUNICATION_CHANNEL_MESSAGE_DIRECT]: 'member_id',
   [COMMUNICATION_CHANNEL_NOTIFICATION_RULE]: 'notification_rule',
   [COMMUNICATION_CHANNEL_CADENCE]: 'cadence_marketing_action_id',
+  [COMMUNICATION_CHANNEL_FRANCHISE]: 'communication_sent_group_config_id',
 };
 
 export const COMMUNICATION_FILTER_KINDS = [

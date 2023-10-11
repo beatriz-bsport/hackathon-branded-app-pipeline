@@ -36,6 +36,7 @@ const getTranslations = async () => {
     COMMUNICATION_SEND_PARAMETER_AUTO,
     COMMUNICATION_SEND_PARAMETER_MANUAL,
     COMMUNICATION_SRC_OR_DST_SENT,
+    COMMUNICATION_CHANNEL_FRANCHISE,
     COMMUNICATION_SRC_OR_DST_RECEIVED,
     COMMUNICATION_CHANNEL_CADENCE,
   } = COMMUNICATION_FILTERS;
@@ -244,6 +245,7 @@ const getTranslations = async () => {
         [COMMUNICATION_SRC_OR_DST_SENT]: 'Sent',
         [COMMUNICATION_SRC_OR_DST_RECEIVED]: 'Received',
         [COMMUNICATION_CHANNEL_CADENCE]: 'Cadence',
+        [COMMUNICATION_CHANNEL_FRANCHISE]: 'Franchise',
       },
       sendParameter: { placeholder: 'Select a setting', title: 'Settings' },
       recipient: {

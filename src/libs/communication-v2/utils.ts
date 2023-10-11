@@ -21,6 +21,7 @@ import {
   COMMUNICATION_SRC_OR_DST_SENT,
   COMMUNICATION_SRC_OR_DST_RECEIVED,
   COMMUNICATION_CHANNEL_CADENCE,
+  COMMUNICATION_CHANNEL_FRANCHISE,
 } from '@bsport/common/lib/master-data/communication-filters';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
@@ -120,6 +121,10 @@ export const getFieldChoicesByIdentifier = memoize(
           {
             value: COMMUNICATION_CHANNEL_CADENCE,
             label: t(`filter.choicesLabels.${COMMUNICATION_CHANNEL_CADENCE}`),
+          },
+          {
+            value: COMMUNICATION_CHANNEL_FRANCHISE,
+            label: t(`filter.choicesLabels.${COMMUNICATION_CHANNEL_FRANCHISE}`),
           },
         ];
       case COMMUNICATION_FILTER_IDENTIFIER_RECIPIENT:
@@ -595,6 +600,8 @@ export const getChannelFromMetadata = (metadata: CommunicationMetadata) => {
         return COMMUNICATION_CHANNEL_MESSAGE_DIRECT;
       case 'cadence_marketing_action_id':
         return COMMUNICATION_CHANNEL_CADENCE;
+      case 'communication_sent_group_config_id':
+        return COMMUNICATION_CHANNEL_FRANCHISE;
       default:
         return undefined;
     }

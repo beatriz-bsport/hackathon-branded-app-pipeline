@@ -124,6 +124,7 @@ export type CommunicationMetadata = {
   notification_event?: number;
   automated_campaign_id?: number;
   marketing_notification_id?: number;
+  communication_sent_group_config_id?: number;
 };
 
 export type CommunicationContext = {

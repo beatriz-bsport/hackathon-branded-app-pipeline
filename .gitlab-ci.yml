@@ -6,6 +6,7 @@ variables:
 
 stages:
   - prepare-image-docker
+  - build-deploy-feature-branch
   - static-analysis
   - bump-version
   - build-deploy

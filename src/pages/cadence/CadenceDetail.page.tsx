@@ -241,7 +241,7 @@ export class CadenceDetailPage extends Component<Props> {
 
   handleEditConnectedTrigger = (
     trigger: ConnectedTrigger,
-    options: OptionCallback,
+    options: OptionCallback<ConnectedTrigger>,
   ) => {
     this.props.updateConnectedTrigger(trigger, options);
   };
@@ -672,26 +672,12 @@ const mapWithHandlers = {
 
   updateConnectedTrigger:
     (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>
-    (trigger: ConnectedTrigger, options?: OptionCallback) => {
+    (trigger: ConnectedTrigger, options?: OptionCallback<ConnectedTrigger>) => {
       props.updateConnectedTriggerAction(
         props.cadenceId,
         trigger?.trigger_config?.uuid,
         trigger,
-        {
-          onSuccess: () => {
-            props.resetSubscriptionDestination();
-            options?.onSuccess?.();
-            props.retrieveCadenceAction(props.cadenceId, {
-              onSuccess: () => {
-                props.retrieveCadence();
-              },
-            });
-          },
-          onError: () => {
-            props.resetSubscriptionDestination();
-            options?.onError?.();
-          },
-        },
+        options,
       );
     },
 

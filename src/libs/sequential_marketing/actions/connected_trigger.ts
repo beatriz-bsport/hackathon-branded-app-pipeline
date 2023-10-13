@@ -124,11 +124,11 @@ export function updateConnectedTrigger(
         connectedTrigger,
       );
       dispatch(updateConnectedTriggerActions.success(response.data));
-      options && options.onSuccess && options.onSuccess(response.data);
+      options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
       dispatch(updateConnectedTriggerActions.error(err));
-      options && options.onError && options.onError();
+      options?.onError?.();
     }
 
     dispatch(updateConnectedTriggerActions.isLoading(false));

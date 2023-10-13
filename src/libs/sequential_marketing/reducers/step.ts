@@ -219,13 +219,30 @@ export default handleActions<ImmutableCadenceStepState, any>(
       state,
       { payload }: { payload: boolean },
     ) => {
-      return state.setIn(['subscribe', 'loading'], payload);
+      return state.setIn(['trigger', 'loading'], payload);
     },
     [updateConnectedTriggerActions.error.toString()]: (
       state,
       { payload }: { payload: Error | null },
     ) => {
-      return state.setIn(['subscribe', 'error'], payload);
+      return state.setIn(['trigger', 'error'], payload);
+    },
+    [updateConnectedTriggerActions.success.toString()]: (
+      state,
+      { payload }: { payload: ConnectedTrigger },
+    ) => {
+      if (payload?.destination_config?.source_id)
+        return state.setIn(
+          ['byId', payload.destination_config.source_id.toString(), 'exits'],
+          [
+            ...(state.byId[payload.destination_config.source_id].exits.filter(
+              (trigger) =>
+                trigger?.trigger_config?.uuid !== payload.trigger_config?.uuid,
+            ) ?? []),
+            payload,
+          ],
+        );
+      return state;
     },
     [deleteConnectedTriggerActions.isLoading.toString()]: (
       state,

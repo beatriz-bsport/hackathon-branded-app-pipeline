@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import MuiTextField from '@material-ui/core/TextField';
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import { Field, FieldProps, useField } from 'formik';
+import { Field, useField } from 'formik';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { Switch } from '@material-ui/core';
@@ -100,12 +100,25 @@ type SwitchFieldProps = {
   label: string;
   switchColor?: 'default' | 'primary' | 'secondary';
   revertValue?: boolean;
+  onChange?: () => void;
 };
 export const SwitchField = (props: SwitchFieldProps) => {
-  const { name, disabled, label, switchColor, revertValue, id } = props;
+  const { name, disabled, label, switchColor, revertValue, id, onChange } =
+    props;
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [field, meta, helpers] = useField<number>(name);
+
+  const handleFieldOnChange = React.useCallback(
+    (fieldValue) => () => {
+      onChange ? onChange() : helpers.setValue(!fieldValue);
+    },
+    [onChange, helpers],
+  );
+
   return (
     <Field name={name}>
-      {({ field }: FieldProps) => {
+      {() => {
         return (
           <FormControlLabel
             id={id}
@@ -114,6 +127,7 @@ export const SwitchField = (props: SwitchFieldProps) => {
             control={<Switch color={switchColor ?? 'primary'} />}
             disabled={disabled}
             label={label}
+            onChange={handleFieldOnChange(field.value)}
             value=""
           />
         );
@@ -127,6 +141,7 @@ type MaterialUiSingleSelectorOwnProps = {
   title?: ReactNode;
   onChange?: (value: { label: string; value: any }) => void;
   forceError?: boolean;
+  withoutNullValues?: boolean;
 } & Partial<
   Pick<
     MaterialUISelectorProps<{
@@ -185,6 +200,7 @@ export const MaterialUiSingleSelectorField: React.FC<
             options={props.options}
             placeholder={props.placeholder}
             value={value}
+            withoutNullValues={props.withoutNullValues}
           />
         )}
       </Field>

@@ -76,6 +76,7 @@ type BaseProps<T extends OptionTypeBase> = {
   openMenuOnFocus?: boolean;
   openMenuOnClear?: boolean;
   closeMenuOnSelect?: boolean;
+  withoutNullValues?: boolean;
 } & Omit<NamedProps, 'options' | 'isMulti' | 'onChange' | 'value'>;
 
 export type ItemRendererProps<T extends OptionTypeBase> = {
@@ -137,6 +138,7 @@ function MaterialUISelector<T extends OptionTypeBase>(
     openMenuOnFocus,
     openMenuOnClear,
     closeMenuOnSelect = true,
+    withoutNullValues,
     ...restProps
   } = props;
   const classes = useStyles();
@@ -268,7 +270,7 @@ function MaterialUISelector<T extends OptionTypeBase>(
           placeholder={placeholder}
           styles={getStyles()}
           tabSelectsValue={false}
-          value={value}
+          value={withoutNullValues ? !!value && value : value}
           withoutSelectAll={withoutSelectAll}
           {...restProps}
           // Mandatory for multi selection use

@@ -1,13 +1,14 @@
 import React, { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Typography, makeStyles } from '@material-ui/core';
-import { ErrorMessage } from 'formik';
+import { ErrorMessage, useFormikContext } from 'formik';
 import SeamlessImmutable from 'seamless-immutable';
 import {
   MaterialUiSingleSelectorField,
   SwitchField,
 } from '#libs/custom-form/components/GenericFormik.input';
 import { SmartList } from '#libs/smart-list/types';
+import { CommunicationSentGroupConfigFormValues } from '#libs/communication/types';
 
 type Props = {
   index: number;
@@ -22,6 +23,10 @@ export const CommunicationSentGroupConfigSmartlistSelectionRow: React.FC<
 > = ({ index, companyName, companyId, smartLists, toggleDisabled }) => {
   const { t } = useTranslation('campaign');
   const classes = useStyle();
+
+  const { values, setFieldValue } =
+    useFormikContext<CommunicationSentGroupConfigFormValues>();
+
   const options = useMemo(() => {
     const filteredOptions = (smartLists || [])
       .filter((smartList) => smartList.company === companyId)
@@ -33,17 +38,34 @@ export const CommunicationSentGroupConfigSmartlistSelectionRow: React.FC<
     return [...filteredOptions];
   }, [smartLists, companyId]);
 
+  const handleSwitchFieldOnChange = React.useCallback(() => {
+    setFieldValue(
+      `companiesWithSmartLists.${index}.toggleSend`,
+      !values.companiesWithSmartLists[index].toggleSend,
+      false,
+    );
+    if (values.companiesWithSmartLists[index].toggleSend) {
+      setFieldValue(
+        `companiesWithSmartLists.${index}.smartListId`,
+        null,
+        false,
+      );
+    }
+  }, [values.companiesWithSmartLists, index, setFieldValue]);
+
   return (
     <div className={classes.row}>
       <div className={classes.companyNameAndToggle}>
         <SwitchField
           label={companyName}
           name={`companiesWithSmartLists.${index}.toggleSend`}
+          onChange={handleSwitchFieldOnChange}
         />
       </div>
       <div className={classes.selector}>
         <MaterialUiSingleSelectorField
           inScrollBar
+          withoutNullValues
           isDisabled={toggleDisabled}
           name={`companiesWithSmartLists.${index}.smartListId`}
           options={options}

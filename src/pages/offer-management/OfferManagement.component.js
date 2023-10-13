@@ -892,7 +892,7 @@ export class OfferManagement extends Component<Props, State> {
             switchWaitingListFreeze={this.props.switchWaitingListFreeze}
           />
         </Grid>
-        <Grid item lg={6} xs={12}>
+        <Grid item className={classes.autoScroll} lg={6} xs={12}>
           {!!this.props.offer.is_broadcast &&
             !!this.props.offer.broadcast_info && (
               <OfferBroadcastHelper offer={this.props.offer} />
@@ -918,7 +918,6 @@ export class OfferManagement extends Component<Props, State> {
             cardBillingDetailsMandatory={
               this.props.company_theme.force_billing_details_on_cards
             }
-            className={classes.autoScroll}
             closeQuickInvoice={this.closeQuickInvoice}
             companyId={this.props.companyId}
             consumerGiftcardList={this.props.consumerGiftcardList}
@@ -1080,7 +1079,7 @@ const styles = (theme) => ({
   autoScroll: {
     overflowY: 'auto',
     [theme.breakpoints.up('lg')]: {
-      height: `calc(100vh - ${theme.spacing(19)}px)`,
+      height: `calc(100vh - ${theme.spacing(17)}px)`,
     },
   },
   voucherField: {

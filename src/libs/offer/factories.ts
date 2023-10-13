@@ -52,6 +52,7 @@ FactoryBot.define('Offer', {
   meta_activity: 1,
   group: null,
   additional_coaches: [],
+  tot_slots: faker.number.int(100),
 });
 
 export const offerFactory = memoize(

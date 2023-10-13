@@ -532,6 +532,7 @@ exports.default = {
       exit: 'Exit',
       start: 'Entry',
       delete: 'Delete',
+      changeKind: 'Change to',
       kinds: {
         [ONLY_EVENT_TRIGGER]: 'Event',
         [ONLY_SMARTLIST_FILTERING]: 'Smartlist',

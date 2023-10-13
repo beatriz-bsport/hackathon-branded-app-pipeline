@@ -143,3 +143,73 @@ export const getDefaultValuesComplete = (
       return null;
   }
 };
+
+/** Returns a new ConnectedTrigger with the provided TriggerKind.
+ * @param {ConnectedTrigger} connectedTrigger - The connected trigger to modify.
+ * @param {TriggerKind} newKind - The new kind for the trigger.
+ * @returns {ConnectedTrigger} - A modified ConnectedTrigger with the same destination and position but with the new kind.
+ */
+export const changeConnectedTriggerKind = (
+  connectedTrigger: ConnectedTrigger,
+  newKind: TriggerKind,
+): ConnectedTrigger => {
+  switch (newKind) {
+    case TriggerKind.ONLY_EVENT_TRIGGER:
+      return {
+        ...connectedTrigger,
+        trigger_config: {
+          uuid: connectedTrigger.trigger_config.uuid,
+          identifier: TriggerIdentifier.EVENT,
+          event_type: null,
+        },
+        filtering_config: {
+          uuid: connectedTrigger.filtering_config.uuid,
+          identifier: FilterIdentifier.EMPTY,
+          smartlist_pk: null,
+        },
+      };
+    case TriggerKind.ONLY_SMARTLIST_FILTERING:
+      return {
+        ...connectedTrigger,
+        trigger_config: {
+          uuid: connectedTrigger.trigger_config.uuid,
+          identifier: TriggerIdentifier.EMPTY,
+        },
+        filtering_config: {
+          uuid: connectedTrigger.filtering_config.uuid,
+          identifier: FilterIdentifier.SMARTLIST,
+          smartlist_pk: null,
+        },
+      };
+    case TriggerKind.ONLY_TIMEOUT:
+      return {
+        ...connectedTrigger,
+        trigger_config: {
+          uuid: connectedTrigger.trigger_config.uuid,
+          identifier: TriggerIdentifier.TIMEOUT,
+          timeout: null,
+        },
+        filtering_config: {
+          uuid: connectedTrigger.filtering_config.uuid,
+          identifier: FilterIdentifier.EMPTY,
+          smartlist_pk: null,
+        },
+      };
+    case TriggerKind.EVENT_TRIGGER_AND_SMARTLIST_FILTERING:
+      return {
+        ...connectedTrigger,
+        trigger_config: {
+          uuid: connectedTrigger.trigger_config.uuid,
+          identifier: TriggerIdentifier.EVENT,
+          event_type: null,
+        },
+        filtering_config: {
+          uuid: connectedTrigger.filtering_config.uuid,
+          identifier: FilterIdentifier.SMARTLIST,
+          smartlist_pk: null,
+        },
+      };
+    default:
+      return null;
+  }
+};

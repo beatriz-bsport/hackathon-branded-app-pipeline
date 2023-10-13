@@ -147,7 +147,7 @@ type NodeRendererProps = {
   ) => void;
   editConnectedTrigger: (
     data: ConnectedTrigger,
-    options?: OptionCallback,
+    options?: OptionCallback<ConnectedTrigger>,
   ) => void;
   enterSubscriptionMode: (
     step: StoredStep,
@@ -277,7 +277,7 @@ export const useNodeElementsRecorder = ({
   ]);
 
   const handleConfirmTriggerBubble = React.useCallback(
-    (trigger: ConnectedTrigger, options?: OptionCallback) => {
+    (trigger: ConnectedTrigger, options?: OptionCallback<ConnectedTrigger>) => {
       if (isTriggerFake(trigger)) {
         const updatedTrigger = {
           ...trigger,

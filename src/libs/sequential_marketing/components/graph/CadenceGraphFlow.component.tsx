@@ -60,7 +60,7 @@ type Props = {
   ) => void;
   editConnectedTrigger: (
     trigger: ConnectedTrigger,
-    options?: OptionCallback,
+    options?: OptionCallback<ConnectedTrigger>,
   ) => void;
   fetchEmailSummaryList: () => void;
   getEmailDetail: (id: number) => void;

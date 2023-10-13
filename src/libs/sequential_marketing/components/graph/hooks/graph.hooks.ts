@@ -32,7 +32,7 @@ export type Props = {
   smartlists: Immutable.ImmutableArray<SmartList>;
   editConnectedTrigger: (
     data: ConnectedTrigger,
-    options?: OptionCallback,
+    options?: OptionCallback<ConnectedTrigger>,
   ) => void;
   updateCadenceStepCanvasPosition: (
     id: number,

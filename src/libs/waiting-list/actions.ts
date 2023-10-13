@@ -10,12 +10,14 @@ import {
   discardBookingOption as discardBookingOptionAPI,
   registerOptionToWaitingList as registerOptionToWaitingListAPI,
   fetchAllWaitingListPositions as fetchAllWaitingListPositionsAPI,
+  registerMultipleOptionsBackground as registerMultipleOptionsBackgroundAPI,
 } from './api';
 
 import { snackbarError } from '../snackbar/actions';
 
 import type {
   Dispatch,
+  OptionBackgroundCallback,
   OptionCallback,
   OptionPaginatedCallback,
   PaginatedResponse,
@@ -24,6 +26,7 @@ import type {
 
 import { EXCEPTION_STAFF_ROLE_OVERBOOKING_IN_WAITING_LIST_NOT_ALLOWED } from '#libs/role/constants';
 import {
+  RegisterMultipleBackgroundReturnValue,
   WaitingListBookingOption,
   WaitingListBookingOptionPaginatedQueryParams,
   WaitingListBookingOptionQueryParams,
@@ -31,6 +34,7 @@ import {
 } from './types';
 
 import { OfferStatusWaitingListPosition } from '#libs/offer/types';
+import { monitorBackgroundTask } from '#libs/background-task/actions';
 
 import { isErrorWithCustomCode } from '#libs/utils';
 
@@ -218,6 +222,67 @@ export function registerToWaitingList(
       if (options && options.onError) options.onError(err);
     }
     dispatch(registerOptionActions.isLoading(false));
+  };
+}
+
+export const registerMultipleOptionsBackgroundActions = {
+  error: createAction<Error>('WAITING_LIST/OPTION/REGISTER_MULTIPLE/ERROR'),
+  isLoading: createAction<boolean>(
+    'WAITING_LIST/OPTION/REGISTER_MULTIPLE/IS_LOADING',
+  ),
+  success: createAction<number[]>(
+    'WAITING_LIST/OPTION/REGISTER_MULTIPLE/SUCCESS',
+  ),
+};
+
+export function registerMultipleOptionsBackground(
+  bookingOptionsIds: number[],
+  options?: OptionBackgroundCallback<
+    void,
+    RegisterMultipleBackgroundReturnValue
+  >,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(registerMultipleOptionsBackgroundActions.isLoading(true));
+    dispatch(registerMultipleOptionsBackgroundActions.error(null));
+
+    try {
+      const response = await registerMultipleOptionsBackgroundAPI(
+        bookingOptionsIds,
+      );
+      const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+      dispatch(
+        monitorBackgroundTask<RegisterMultipleBackgroundReturnValue>(
+          backgroundTaskUuid,
+          {
+            onError: (err) => {
+              console.error(err);
+              if (options?.onBackgroundError) options.onBackgroundError(err);
+            },
+            onSuccess: (responseData) => {
+              dispatch(
+                registerMultipleOptionsBackgroundActions.success(
+                  responseData?.return_value.unregistered_booking_options,
+                ),
+              );
+              if (options && options.onBackgroundSuccess) {
+                options.onBackgroundSuccess(responseData?.return_value);
+              }
+            },
+          },
+          // We set hideBackgroundTaskSnackbar to true as we don't want any snackbar
+          true,
+        ),
+      );
+      if (options && options.onSuccess) {
+        options.onSuccess();
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch(registerMultipleOptionsBackgroundActions.error(error));
+      if (options && options.onError) options.onError(error);
+    }
+    dispatch(registerMultipleOptionsBackgroundActions.isLoading(false));
   };
 }
 

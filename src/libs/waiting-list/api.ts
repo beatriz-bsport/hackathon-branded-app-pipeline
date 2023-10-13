@@ -69,6 +69,17 @@ export const registerOptionToWaitingList = async (
   });
 };
 
+export const registerMultipleOptionsBackground = async (
+  booking_options_ids: number[],
+) => {
+  return postAuth(
+    `${API_V1_URI}/waiting-list/booking-option/register_multiple_background/`,
+    {
+      booking_options_ids,
+    },
+  );
+};
+
 export async function fetchAllWaitingListPositions(offerId: number) {
   return getAuth<OfferStatusWaitingListPosition[]>(
     `${API_V1_URI}/offer/${offerId}/waiting_list_all_positions/`,

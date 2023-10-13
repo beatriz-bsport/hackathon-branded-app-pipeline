@@ -86,3 +86,8 @@ export type WaitingListBookingOptionPaginatedQueryParams =
     page: number;
     page_size: number;
   };
+
+export type RegisterMultipleBackgroundReturnValue = {
+  registered_booking_options: number[];
+  unregistered_booking_options: number[];
+};

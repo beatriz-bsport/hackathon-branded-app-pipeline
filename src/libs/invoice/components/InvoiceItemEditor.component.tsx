@@ -393,7 +393,9 @@ const InvoiceItemEditor: React.FC<Props> = ({
                           </InputAdornment>
                         ),
                       }}
-                      label={t('invoiceItem.discount')}
+                      label={`${t(
+                        'invoiceItem.discount',
+                      )} (${getCurrencyDisplay()})`}
                       onChange={handleOnChangeVoucherCredit}
                       value={voucher === null ? '0.00' : voucher}
                       variant="outlined"
@@ -413,7 +415,7 @@ const InvoiceItemEditor: React.FC<Props> = ({
                             <InputAdornment position="start">%</InputAdornment>
                           ),
                         }}
-                        label={t('invoiceItem.discount')}
+                        label={`${t('invoiceItem.discount')} (%)`}
                         onChange={handleOnChangeVoucherPercent}
                         value={
                           voucherPercent === null ? '0.00' : voucherPercent

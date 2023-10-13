@@ -4,10 +4,15 @@ import Immutable from 'seamless-immutable';
 
 import StepCard from '#components/card/StepCard.component';
 import CadenceNodeTitle from '#libs/sequential_marketing/components/graph/nodes/internals/CadenceNodeTitle.component';
-import { SequentialMarketingColors } from '#libs/sequential_marketing/constants';
+import {
+  SequentialMarketingColors,
+  TRIGGER_KIND_CHOICES,
+  TriggerKind,
+} from '#libs/sequential_marketing/constants';
 import {
   getTriggerIcon,
   getTriggerKind,
+  triggerIconByKind,
 } from '#libs/sequential_marketing/components/helpers/utils';
 
 import type {
@@ -16,19 +21,21 @@ import type {
 } from '#libs/sequential_marketing/types';
 import type { SmartList } from '#libs/smart-list/types';
 import type { Action } from '#components/menu/icon';
+import type { NestedAction } from '#components/menu/nested';
 
 export type TriggerCardProps = {
   step: CadenceStep;
   trigger: ConnectedTrigger;
   isSelected?: boolean;
   disabled?: boolean;
+  changeConnectedTriggerKind: (triggerKind: TriggerKind) => void;
   getSmartlist: (id: number) => SmartList;
   onCardClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
   onDelete?: () => void;
 };
 
 type TriggerCardHeaderProps = {
-  actions: Immutable.ImmutableArray<Action>;
+  actions: Immutable.ImmutableArray<NestedAction>;
   name: string;
 } & Pick<TriggerCardProps, 'trigger' | 'getSmartlist'>;
 
@@ -36,6 +43,7 @@ const TriggerCardHeader: React.FC<TriggerCardHeaderProps> = React.memo(
   ({ actions, name, trigger, getSmartlist }) => {
     return (
       <CadenceNodeTitle
+        hasNestedActions
         actions={actions}
         color={SequentialMarketingColors.TRIGGER_COLOR}
         getSmartlist={getSmartlist}
@@ -51,6 +59,7 @@ const TriggerCard: React.FC<TriggerCardProps> = ({
   trigger,
   isSelected,
   disabled,
+  changeConnectedTriggerKind,
   getSmartlist,
   onCardClick,
   onDelete,
@@ -59,27 +68,55 @@ const TriggerCard: React.FC<TriggerCardProps> = ({
   const [disableRipple, setDisableRipple] = useState(false);
   const [clickDone, setClickDone] = useState(false);
 
-  useEffect(() => {
-    if (clickDone) {
-      setDisableRipple(false);
-      setClickDone(false);
-    }
-  }, [clickDone]);
-
   const onClickDelete = useCallback(() => {
     setDisableRipple(true);
     onDelete();
     setClickDone(true);
   }, [onDelete]);
 
-  const deleteTriggerAction = useMemo(() => {
-    return {
-      label: t('cadence.triggers.delete'),
-      icon: 'Delete',
-      onClick: onClickDelete,
-      customColor: SequentialMarketingColors.ACTION_BUTTON_COLOR,
-    };
-  }, [onClickDelete, t]);
+  const kind = useMemo(() => getTriggerKind(trigger), [trigger]);
+
+  const changeConnectedTriggerKindActions: Immutable.ImmutableArray<Action> =
+    useMemo(
+      () =>
+        Immutable(
+          TRIGGER_KIND_CHOICES.filter(
+            (triggerKind) => triggerKind !== kind,
+          ).map((triggerKind) => ({
+            label: t(`cadence.triggers.kinds.${triggerKind}`),
+            icon: triggerIconByKind[triggerKind],
+            customColor: SequentialMarketingColors.TRIGGER_COLOR,
+            onClick: () => changeConnectedTriggerKind(triggerKind),
+          })),
+        ),
+      [changeConnectedTriggerKind, kind, t],
+    );
+
+  const triggerActions: Immutable.ImmutableArray<NestedAction> = useMemo(() => {
+    return Immutable([
+      {
+        label: t('cadence.triggers.changeKind'),
+        icon: 'Autorenew',
+        onClick: null,
+        customColor: SequentialMarketingColors.ACTION_BUTTON_COLOR,
+        actionList: changeConnectedTriggerKindActions,
+      },
+      {
+        label: t('cadence.triggers.delete'),
+        icon: 'Delete',
+        onClick: onClickDelete,
+        customColor: SequentialMarketingColors.ACTION_BUTTON_COLOR,
+        actionList: null,
+      },
+    ]);
+  }, [changeConnectedTriggerKindActions, onClickDelete, t]);
+
+  useEffect(() => {
+    if (clickDone) {
+      setDisableRipple(false);
+      setClickDone(false);
+    }
+  }, [clickDone]);
 
   return (
     <StepCard
@@ -89,9 +126,9 @@ const TriggerCard: React.FC<TriggerCardProps> = ({
       disableRipple={disableRipple}
       header={
         <TriggerCardHeader
-          actions={!!onDelete && Immutable([deleteTriggerAction])}
+          actions={triggerActions}
           getSmartlist={getSmartlist}
-          name={t(`cadence.triggers.kinds.${getTriggerKind(trigger)}`)}
+          name={t(`cadence.triggers.kinds.${kind}`)}
           trigger={trigger}
         />
       }

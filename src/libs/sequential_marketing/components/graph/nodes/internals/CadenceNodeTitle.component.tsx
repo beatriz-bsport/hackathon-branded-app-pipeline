@@ -8,7 +8,10 @@ import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
 
 import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
-import MenuSelectorIconOnHover from '#components/menu/hover';
+import MenuSelectorIconButton, { type Action } from '#components/menu/icon';
+import NestedMenuSelectorIconButton, {
+  type NestedAction,
+} from '#components/menu/nested';
 import ConnectedTriggerChip from '#libs/sequential_marketing/components/graph/chips/ConnectedTriggerChip.component';
 import TriggeredPersonIcon from '#components/icons/TriggeredPersonIcon.component';
 import { isTriggerValid } from '#libs/sequential_marketing/components/helpers/utils';
@@ -20,7 +23,6 @@ import {
 
 import type { ConnectedTrigger } from '#libs/sequential_marketing/types';
 import type { SmartList } from '#libs/smart-list/types';
-import type { Action } from '#components/menu/icon';
 
 type StylesProps = {
   color: string;
@@ -30,26 +32,27 @@ type StylesProps = {
 };
 
 export type CadenceNodeTitleProps = {
-  name: string;
+  actions?: Immutable.ImmutableArray<Action | NestedAction>;
+  hasNestedActions?: boolean;
   icon: string;
+  name: string;
   triggerList?: ConnectedTrigger[];
-  actions?: Immutable.ImmutableArray<Action>;
+  getSmartlist?: (id: number) => SmartList;
   handleDisableRipple?: () => void;
   handleEnableRipple?: () => void;
-  getSmartlist?: (id: number) => SmartList;
 } & Omit<StylesProps, 'hasActions'>;
 
 const CadenceNodeTitle: React.FC<CadenceNodeTitleProps> = ({
-  name,
-  icon,
-  color,
-  triggerList,
   actions,
+  hasNestedActions,
+  color,
   disabled,
+  icon,
+  name,
   squareIcon,
-  handleDisableRipple,
-  handleEnableRipple,
+  triggerList,
   getSmartlist,
+  handleDisableRipple,
 }) => {
   const classes = useStyles({
     color,
@@ -93,11 +96,19 @@ const CadenceNodeTitle: React.FC<CadenceNodeTitleProps> = ({
         {!!actions && actions.length > 0 && (
           <div className={classes.actionSection}>
             {actions.length > 1 ? (
-              <MenuSelectorIconOnHover
-                actionList={actions}
-                optionOnClick={handleDisableRipple}
-                optionOnLeave={handleEnableRipple}
-              />
+              <>
+                {hasNestedActions ? (
+                  <NestedMenuSelectorIconButton
+                    actionList={actions}
+                    optionOnClick={handleDisableRipple}
+                  />
+                ) : (
+                  <MenuSelectorIconButton
+                    actionList={actions}
+                    optionOnClick={handleDisableRipple}
+                  />
+                )}
+              </>
             ) : (
               <Tooltip title={actions[0].label}>
                 <ButtonBase
@@ -106,7 +117,7 @@ const CadenceNodeTitle: React.FC<CadenceNodeTitleProps> = ({
                 >
                   <CustomMuiIcon
                     defaultBackGround
-                    customColor={actions[0]?.customColor}
+                    customColor={actions[0].customColor}
                     icon={actions[0].icon}
                     withBackground={false}
                   />

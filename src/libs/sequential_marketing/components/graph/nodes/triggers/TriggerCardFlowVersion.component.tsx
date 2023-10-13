@@ -1,11 +1,13 @@
 import React from 'react';
 import { Position } from 'react-flow-renderer';
-import { Popover } from '@material-ui/core';
+import Popover from '@material-ui/core/Popover';
 
 import {
   TRIGGER_LEFT_HANDLE_STYLE,
   TRIGGER_RIGHT_HANDLE_STYLE,
+  TriggerKind,
 } from '#libs/sequential_marketing/constants/triggers';
+import { changeConnectedTriggerKind } from '#libs/sequential_marketing/components/graph/hooks/utils';
 import { HandleTypeChoices } from '#libs/sequential_marketing/constants/steps';
 import { isTriggerFake } from '#libs/sequential_marketing/components/helpers/utils';
 import usePopoverBubble from '#libs/sequential_marketing/components/graph/nodes/usePopoverBubble.hook';
@@ -15,7 +17,6 @@ import TriggerCard, { type TriggerCardProps } from './TriggerCard.component';
 import UniqueTriggerBubble, {
   type Props as UniqueTriggerBubbleProps,
 } from '#libs/sequential_marketing/components/graph/bubbles/UniqueTriggerBubble.component';
-
 import type { ConnectedTrigger } from '#libs/sequential_marketing/types';
 
 type FlowProps = {
@@ -26,6 +27,9 @@ type FlowProps = {
 };
 
 export const TriggerCardFlowVersion: React.FC<FlowProps> = ({ data }) => {
+  const [newTriggerKind, setNewTriggerKind] =
+    React.useState<TriggerKind | null>(null);
+
   const triggerCardRef = React.useRef<HTMLDivElement | null>(null);
 
   const { anchorOrigin, popoverStyle, transformOrigin, anchorEl, setAnchorEl } =
@@ -58,6 +62,14 @@ export const TriggerCardFlowVersion: React.FC<FlowProps> = ({ data }) => {
     [data.bubble, setAnchorEl],
   );
 
+  const handleChangeConnectedTriggerKind = React.useCallback(
+    (triggerKind: TriggerKind) => {
+      setNewTriggerKind(triggerKind);
+      setAnchorEl(triggerCardRef?.current);
+    },
+    [setAnchorEl],
+  );
+
   return (
     <>
       <HiddenHandle
@@ -67,6 +79,7 @@ export const TriggerCardFlowVersion: React.FC<FlowProps> = ({ data }) => {
       />
       <div ref={triggerCardRef}>
         <TriggerCard
+          changeConnectedTriggerKind={handleChangeConnectedTriggerKind}
           disabled={data.disabled}
           getSmartlist={data.getSmartlist}
           isSelected={data.isSelected}
@@ -93,7 +106,11 @@ export const TriggerCardFlowVersion: React.FC<FlowProps> = ({ data }) => {
           onCancel={handleCloseBubble}
           onConfirm={handleSubmitForm}
           smartlists={data?.bubble?.smartlists}
-          trigger={data.trigger}
+          trigger={
+            newTriggerKind !== null
+              ? changeConnectedTriggerKind(data.trigger, newTriggerKind)
+              : data.trigger
+          }
         />
       </Popover>
     </>

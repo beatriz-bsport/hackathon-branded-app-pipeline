@@ -8,13 +8,14 @@ import BaliseIcon from '@material-ui/icons/SettingsEthernet';
 import { getAvailableTagsFromContext } from '#libs/communication-v2/utils';
 import { CONTEXT_CADENCE } from '#libs/communication-v2/constants';
 
-import NestedList from '#components/NestedMenu.component';
+import NestedMenu from '#components/NestedMenu.component';
 
 export type Props = {
   tagCategories: { [tag_name: string]: string[] };
   withMaxWidth?: boolean;
   onBaliseItemClick: (item: string) => void;
 };
+
 type StylesProps = Pick<Props, 'withMaxWidth'>;
 
 const HTMLTagMenuSelector: React.FC<Props> = ({
@@ -45,13 +46,13 @@ const HTMLTagMenuSelector: React.FC<Props> = ({
   );
 
   return (
-    <div className={classes.ontainer}>
+    <div className={classes.container}>
       <Tooltip placement="top" title={t('sendMessage.icons.balise')}>
         <IconButton onClick={handleClick}>
           <BaliseIcon />
         </IconButton>
       </Tooltip>
-      <NestedList
+      <NestedMenu
         forTagsSelector
         anchorElMenu={menuBalisesAnchorEl}
         dataRecord={tags}
@@ -63,7 +64,7 @@ const HTMLTagMenuSelector: React.FC<Props> = ({
 };
 
 const useStyles = makeStyles<Theme, StylesProps>(() => ({
-  ontainer: {
+  container: {
     display: 'flex',
     alignItems: 'center',
     width: ({ withMaxWidth }) => withMaxWidth && '100%',

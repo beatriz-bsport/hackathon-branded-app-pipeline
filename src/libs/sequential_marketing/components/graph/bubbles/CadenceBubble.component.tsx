@@ -14,7 +14,7 @@ import {
   CADENCE_BUBBLE_WIDTH,
   HEADER_ICON_SIZE,
 } from '#libs/sequential_marketing/constants/steps';
-import { TriggeredPersonIcon } from '#components/icons/TriggeredPersonIcon.component';
+import TriggeredPersonIcon from '#components/icons/TriggeredPersonIcon.component';
 
 export type CadenceBubbleProps = {
   title: string;

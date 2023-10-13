@@ -113,7 +113,6 @@ const GiftcardForm: React.FC<Props> = ({
 
       <ConsumerGiftcardFormWithPreviewComponent
         // @ts-expect-error because ConsumerGiftcardFormFieldHOC is wrongly typed
-        isManager
         companyCover={cover}
         giftcard={giftcard}
         giftcardBackgroundImageList={giftcardBackgroundImageList}

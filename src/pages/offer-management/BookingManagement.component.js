@@ -152,6 +152,7 @@ type Props = {
   selectedBookingOptionsIds: number[],
   handleCheckBookingOption: (bookingOptionId: number) => void,
   handleUncheckBookingOption: (bookingOptionId: number) => void,
+  onClickAutoBook: () => void,
 };
 
 type State = {
@@ -792,6 +793,7 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                       this.props.handleUnselectAllBookingOptions
                     }
                     isDisabled={isOfferExpired}
+                    onBook={this.props.onClickAutoBook}
                     selectedBookingOptionsCount={
                       this.props.selectedBookingOptionsIds?.length
                     }

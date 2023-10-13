@@ -30,6 +30,11 @@ import OfferNavigationHeader from './OfferNavigationHeader.component';
 import OfferBroadcastHelper from './OfferBroadcastHelper.component';
 import RecurrenceRuleBookingFormDialog from '#libs/booking/components/RecurrenceRuleBookingFormDialog.component';
 
+import WaitinglistAutoBookingInfoDialog from '#libs/waiting-list/components/Dialogs/WaitinglistAutoBookingInfoDialog.component';
+import WaitingListAutoBookingLoadingDialog from '#libs/waiting-list/components/Dialogs/WaitingListAutoBookingLoadingDialog.component';
+import WaitingListAutoBookingFeedbackDialog from '#libs/waiting-list/components/Dialogs/WaitingListAutoBookingFeedbackDialog.component';
+import WaitinglistAutoBookingWarningDialog from '#libs/waiting-list/components/Dialogs/WaitinglistAutoBookingWarningDialog.component';
+
 import type {
   PaymentPack,
   ConsumerPaymentPack,
@@ -63,6 +68,13 @@ import { InternalPaymentPayload } from '../../libs/payment/types';
 import ObjectLevelPermissionWrapper from '../../libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 const RECURRENT_BOOKING_PAGE_SIZE = 10;
+
+const AUTOBOOKING_DIALOGS = {
+  info: 'info',
+  loading: 'loading',
+  feedBack: 'feedBack',
+  warning: 'warning',
+};
 
 type Props = {
   goToMemberBooking: (memberId: number, bookingId?: number) => void,
@@ -267,6 +279,9 @@ type Props = {
       { paymentGroupId: number, invoiceUuid: string },
     >,
   ) => void,
+  openAutoBookingDialog: (openedDialogType: string) => void,
+  autoBookingDialogOpened: string,
+  closeAllAutoBookingDialogs: () => void,
 };
 
 type State = {
@@ -646,6 +661,22 @@ export class OfferManagement extends Component<Props, State> {
     }));
   };
 
+  openAutoBookingInfoDialog = () => {
+    this.props.openAutoBookingDialog(AUTOBOOKING_DIALOGS.info);
+  };
+
+  openAutoBookingLoadingDialog = () => {
+    this.props.openAutoBookingDialog(AUTOBOOKING_DIALOGS.loading);
+  };
+
+  openAutoBookingFeedbackDialog = () => {
+    this.props.openAutoBookingDialog(AUTOBOOKING_DIALOGS.feedBack);
+  };
+
+  openAutoBookingWarningDialog = () => {
+    this.props.openAutoBookingDialog(AUTOBOOKING_DIALOGS.warning);
+  };
+
   render() {
     const {
       offer,
@@ -656,6 +687,19 @@ export class OfferManagement extends Component<Props, State> {
       members,
       numberOfUnreadAnswers,
     } = this.props;
+
+    const isAutoBookingInfoDialogOpened =
+      this.props.autoBookingDialogOpened === AUTOBOOKING_DIALOGS.info;
+
+    const isAutoBookingLoadingDialogOpened =
+      this.props.autoBookingDialogOpened === AUTOBOOKING_DIALOGS.loading;
+
+    const isAutoBookingFeedbackDialogOpened =
+      this.props.autoBookingDialogOpened === AUTOBOOKING_DIALOGS.feedBack;
+
+    const isAutoBookingWarningDialogOpened =
+      this.props.autoBookingDialogOpened === AUTOBOOKING_DIALOGS.warning;
+
     if (!this.props.offer) {
       return (
         <Grid container direction="row" spacing={2}>
@@ -676,6 +720,28 @@ export class OfferManagement extends Component<Props, State> {
     }
     return (
       <Grid container direction="row" spacing={2}>
+        <WaitinglistAutoBookingInfoDialog
+          onClose={this.props.closeAllAutoBookingDialogs}
+          onConfirm={this.props.closeAllAutoBookingDialogs}
+          open={isAutoBookingInfoDialogOpened}
+        />
+        <WaitingListAutoBookingLoadingDialog
+          open={isAutoBookingLoadingDialogOpened}
+        />
+
+        {/* TODO: CORRECTLY SET ISERROR WHEN ACTIONS ARE DONE */}
+        <WaitingListAutoBookingFeedbackDialog
+          isError={false}
+          onClose={this.props.closeAllAutoBookingDialogs}
+          open={isAutoBookingFeedbackDialogOpened}
+        />
+
+        <WaitinglistAutoBookingWarningDialog
+          onClose={this.props.closeAllAutoBookingDialogs}
+          onConfirm={this.props.closeAllAutoBookingDialogs}
+          open={isAutoBookingWarningDialogOpened}
+        />
+
         <ConfirmationRollCallDialog
           isLoading={this.props.rollCallLoading}
           nbRollCallsLeftToValidate={1}
@@ -790,6 +856,7 @@ export class OfferManagement extends Component<Props, State> {
             numberOfUnreadAnswers={numberOfUnreadAnswers}
             offer={this.props.offer}
             onChangeBookingOrdering={this.props.onChangeBookingOrdering}
+            onClickAutoBook={this.openAutoBookingInfoDialog}
             onClickChangeSpot={this.onClickChangeSpot}
             onDeleteRecurrenceRuleBooking={
               this.props.onDeleteRecurrenceRuleBooking
@@ -1047,6 +1114,20 @@ export default compose(
   withState('bookerInAvanceDialog', 'setBookerInAvanceDialog', false),
   withState('memberToRegister', 'setMemberToRegister', null),
   withState('voucher', 'setVoucher', 0),
+  withState('autoBookingDialogsState', 'setAutoBookingDialogsState', {
+    info: {
+      open: false,
+    },
+    loading: {
+      open: false,
+    },
+    feedBack: {
+      open: false,
+    },
+    warning: {
+      open: false,
+    },
+  }),
   withStateHandlers(
     {
       searchedText: '',
@@ -1056,6 +1137,7 @@ export default compose(
       optionToDiscard: null,
       optionToDiscardWithDialog: null,
       confirmOptionToDiscard: false,
+      autoBookingDialogOpened: '',
     },
     {
       closeCommunicationDialog: () => () => ({
@@ -1097,6 +1179,12 @@ export default compose(
       }),
       setOptionToDiscardWithDialog: () => (optionId) => ({
         optionToDiscardWithDialog: optionId,
+      }),
+      openAutoBookingDialog: () => (openedDialogType: string) => ({
+        autoBookingDialogOpened: openedDialogType,
+      }),
+      closeAllAutoBookingDialogs: () => () => ({
+        autoBookingDialogOpened: '',
       }),
     },
   ),

@@ -97,7 +97,7 @@ const MenuSelectorIconButton: React.FC<Props> = ({
         getContentAnchorEl={null}
         id="action-menu"
         onClose={handleClickAway}
-        open={Boolean(anchorEl)}
+        open={!!anchorEl}
         PaperProps={{
           style: {
             marginTop: '4px',
@@ -107,7 +107,7 @@ const MenuSelectorIconButton: React.FC<Props> = ({
       >
         {actionList.map((action, index) => (
           <MenuItem
-            key={`${index}${action.label}`}
+            key={`${index}-${action.label}`}
             onClick={handleOnClickAction(action.onClick)}
             onContextMenu={handleRightClick}
             value={action.label}

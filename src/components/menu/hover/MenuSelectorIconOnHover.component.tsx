@@ -8,7 +8,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
 import { MULTIPLE_ACTION_BUTTON_MAX_SIZE, type Action } from '../icon';
-import { TriggeredPersonIcon } from '#components/icons/TriggeredPersonIcon.component';
+import TriggeredPersonIcon from '#components/icons/TriggeredPersonIcon.component';
 
 type StylesProps = { color: string; open: boolean };
 
@@ -104,7 +104,7 @@ const MenuSelectorIconOnHover: React.FC<Props> = ({
           onMouseLeave: handleMouseLeave,
         }}
         onClose={handleClickAway}
-        open={Boolean(anchorEl)}
+        open={!!anchorEl}
         PaperProps={{
           style: {
             marginTop: '4px',
@@ -114,7 +114,7 @@ const MenuSelectorIconOnHover: React.FC<Props> = ({
       >
         {actionList.map((action, index) => (
           <MenuItem
-            key={`${index}${action.label}`}
+            key={`${index}-${action.label}`}
             onClick={handleOnClickAction(action.onClick)}
             onContextMenu={handleRightClick}
             value={action.label}

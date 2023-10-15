@@ -333,7 +333,7 @@ function Menu<T extends OptionTypeBase>(props: MenuProps<T, boolean, any>) {
     if (props.selectProps.withoutConfirmButton) {
       props.setValue(selectedValues);
       props.selectProps.openMenuOnFocus &&
-        setTimeout(() => props.selectProps.selectRef.current.focus());
+        setTimeout(() => props.selectProps?.selectRef?.current?.focus());
     }
   };
 

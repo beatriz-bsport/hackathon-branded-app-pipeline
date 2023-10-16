@@ -199,7 +199,7 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
   const [isOnlinePaymentDisabled, setIsOnlinePaymentDisabled] =
     React.useState<boolean>(false);
 
-  const [isBasketDisplayed, setIsBasketDisplayed] = React.useState(false);
+  const [isBasketDisplayed, setIsBasketDisplayed] = React.useState(true);
 
   const [expiredSpotDialogOpen, setExpiredSpotDialogOpen] =
     React.useState(false);

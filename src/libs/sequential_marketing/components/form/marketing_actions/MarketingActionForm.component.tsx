@@ -1,6 +1,5 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import * as Yup from 'yup';
 
 import {
   useFormikContext,
@@ -13,7 +12,6 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import MenuSelectorTextButton from '#components/menu/text';
 import {
-  MarketingActionKind,
   MarketingActions,
   SequentialMarketingColors,
 } from '#libs/sequential_marketing/constants';
@@ -34,13 +32,7 @@ import {
   getMarketingActionOptions,
   getMarketingActionType,
 } from './utils';
-import {
-  notificationValidationSchema,
-  smsValidationSchema,
-  tagValidationSchema,
-  templateEmailValidationSchema,
-  writtenEmailValidationSchema,
-} from './validationSchemas';
+import { multipleMarketingActionsValidationSchema } from './validationSchemas';
 
 export type Props = {
   emailDetailList: Record<number, EmailTemplateDetail>;
@@ -203,33 +195,7 @@ const withFormikWrapper = withFormik<HOCProps, FormValues>({
       onError: () => setSubmitting(false),
     });
   },
-  validationSchema: Yup.array().of(
-    Yup.object()
-      .when('kind', {
-        is: MarketingActionKind.TAG,
-        then: tagValidationSchema,
-      })
-      .when('kind', {
-        is: MarketingActionKind.COMMUNICATION,
-        then: Yup.object()
-          .when('action_spec.communication_kind', {
-            is: MarketingActions.CADENCE_MARKETING_ACTION_PUSH_NOTIFICATION,
-            then: notificationValidationSchema,
-          })
-          .when('action_spec.communication_kind', {
-            is: MarketingActions.CADENCE_MARKETING_ACTION_EMAIL_TEMPLATE,
-            then: templateEmailValidationSchema,
-          })
-          .when('action_spec.communication_kind', {
-            is: MarketingActions.CADENCE_MARKETING_ACTION_SMS,
-            then: smsValidationSchema,
-          })
-          .when('action_spec.communication_kind', {
-            is: MarketingActions.CADENCE_MARKETING_ACTION_WRITTEN_EMAIL,
-            then: writtenEmailValidationSchema,
-          }),
-      }),
-  ),
+  validationSchema: multipleMarketingActionsValidationSchema,
 });
 
 export default React.memo(withFormikWrapper(MarketingActionForm));

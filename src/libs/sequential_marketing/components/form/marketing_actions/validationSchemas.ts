@@ -98,3 +98,33 @@ export const writtenEmailValidationSchema = Yup.object().shape({
     ]),
   }),
 });
+
+export const marketingActionValidationSchema = Yup.object()
+  .when('kind', {
+    is: MarketingActionKind.TAG,
+    then: tagValidationSchema,
+  })
+  .when('kind', {
+    is: MarketingActionKind.COMMUNICATION,
+    then: Yup.object()
+      .when('action_spec.communication_kind', {
+        is: MarketingActions.CADENCE_MARKETING_ACTION_PUSH_NOTIFICATION,
+        then: notificationValidationSchema,
+      })
+      .when('action_spec.communication_kind', {
+        is: MarketingActions.CADENCE_MARKETING_ACTION_EMAIL_TEMPLATE,
+        then: templateEmailValidationSchema,
+      })
+      .when('action_spec.communication_kind', {
+        is: MarketingActions.CADENCE_MARKETING_ACTION_SMS,
+        then: smsValidationSchema,
+      })
+      .when('action_spec.communication_kind', {
+        is: MarketingActions.CADENCE_MARKETING_ACTION_WRITTEN_EMAIL,
+        then: writtenEmailValidationSchema,
+      }),
+  });
+
+export const multipleMarketingActionsValidationSchema = Yup.array().of(
+  marketingActionValidationSchema,
+);

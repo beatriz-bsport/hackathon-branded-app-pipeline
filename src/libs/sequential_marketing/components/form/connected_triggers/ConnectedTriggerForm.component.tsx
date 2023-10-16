@@ -41,14 +41,6 @@ const ConnectedTriggerForm: React.FC<Props> = ({
 
   const { values, isValid } = useFormikContext<FormValues>();
 
-  React.useEffect(() => {
-    updateFormValidation(isValid);
-  }, [isValid, updateFormValidation]);
-
-  React.useEffect(() => {
-    updateTrigger(values.trigger);
-  }, [updateTrigger, values.trigger]);
-
   const handleUpdateTrigger = React.useCallback(
     (trigger: ConnectedTrigger) => updateTrigger(trigger),
     [updateTrigger],
@@ -58,6 +50,10 @@ const ConnectedTriggerForm: React.FC<Props> = ({
     () => getTriggerKind(values.trigger),
     [values.trigger],
   );
+
+  React.useEffect(() => {
+    updateFormValidation(isValid);
+  }, [isValid, updateFormValidation]);
 
   return (
     <div className={classes.content}>

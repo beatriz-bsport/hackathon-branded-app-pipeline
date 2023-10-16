@@ -25,29 +25,54 @@ const TimeoutForm: React.FC<Props> = ({ trigger, updateValue }) => {
   const { timeoutValue, changeTimeOut, handleChangeTimeOut } =
     useTimeOutContext();
 
-  React.useEffect(() => {
-    const timeout = (trigger?.trigger_config as TriggerTimeoutConfig)?.timeout;
-    if (timeout) changeTimeOut(timeout);
-  }, [changeTimeOut, trigger]);
-
-  const handleUpdateTimeout = React.useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      const ev = event;
+  const handleUpdateTriggerWithNewTimeout = React.useCallback(
+    (newTimeout: number) => {
       const updatedTrigger = {
         ...trigger,
         trigger_config: {
           ...trigger?.trigger_config,
-          timeout:
-            event?.target?.value === '0'
-              ? 0
-              : parseFloat(ev.target.value) || TRIGGER_DEFAULT_TIMEOUT_DAYS,
+          timeout: newTimeout,
         },
       };
-      handleChangeTimeOut?.(ev);
       updateValue?.(updatedTrigger);
     },
-    [trigger, handleChangeTimeOut, updateValue],
+    [trigger, updateValue],
   );
+  const handleUpdateTimeout = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const ev = event;
+      const inputValue = ev?.target?.value;
+
+      let newTimeout: number;
+      if (!inputValue) {
+        newTimeout = TRIGGER_DEFAULT_TIMEOUT_DAYS;
+      } else if (inputValue === '0') {
+        newTimeout = 0;
+      } else {
+        newTimeout = parseFloat(inputValue);
+      }
+
+      handleUpdateTriggerWithNewTimeout(newTimeout);
+      handleChangeTimeOut?.(ev);
+    },
+    [handleChangeTimeOut, handleUpdateTriggerWithNewTimeout],
+  );
+
+  React.useEffect(() => {
+    const timeout = (trigger?.trigger_config as TriggerTimeoutConfig)?.timeout;
+    if (timeout) {
+      changeTimeOut(timeout);
+    } else if (timeoutValue) {
+      changeTimeOut(timeoutValue);
+      handleUpdateTriggerWithNewTimeout(timeoutValue);
+    }
+  }, [
+    changeTimeOut,
+    handleUpdateTriggerWithNewTimeout,
+    timeoutValue,
+    trigger,
+    updateValue,
+  ]);
 
   return (
     <>

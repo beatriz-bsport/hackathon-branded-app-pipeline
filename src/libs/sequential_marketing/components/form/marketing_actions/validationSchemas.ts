@@ -14,18 +14,14 @@ export const notificationValidationSchema = Yup.object().shape({
       .test(
         'Text Communication Content',
         'communication_content_must_not_be_empty',
-        (item) => {
-          return !!item;
-        },
+        (item) => !!item,
       ),
     subject: Yup.string()
       .nullable(false)
       .test(
         'Text Communication Subject',
         'communication_title_must_not_be_empty',
-        (item) => {
-          return !!item;
-        },
+        (item) => !!item,
       ),
     communication_kind: Yup.number().oneOf([
       MarketingActions.CADENCE_MARKETING_ACTION_PUSH_NOTIFICATION,
@@ -43,9 +39,7 @@ export const smsValidationSchema = Yup.object().shape({
       .test(
         'Text Communication Content',
         'communication_content_must_not_be_empty',
-        (item) => {
-          return !!item;
-        },
+        (item) => !!item,
       ),
     communication_kind: Yup.number().oneOf([
       MarketingActions.CADENCE_MARKETING_ACTION_SMS,
@@ -72,9 +66,7 @@ export const templateEmailValidationSchema = Yup.object().shape({
       .test(
         'Test Email Desgin Selection',
         'email_design_must_be_selected',
-        (item) => {
-          return !!item;
-        },
+        (item) => !!item,
       ),
     communication_kind: Yup.number().oneOf([
       MarketingActions.CADENCE_MARKETING_ACTION_EMAIL_TEMPLATE,
@@ -92,18 +84,14 @@ export const writtenEmailValidationSchema = Yup.object().shape({
       .test(
         'Text Communication Content',
         'communication_content_must_not_be_empty',
-        (item) => {
-          return !!item;
-        },
+        (item) => !!item,
       ),
     subject: Yup.string()
       .nullable(false)
       .test(
         'Text Communication Subject',
         'communication_title_must_not_be_empty',
-        (item) => {
-          return !!item;
-        },
+        (item) => !!item,
       ),
     communication_kind: Yup.number().oneOf([
       MarketingActions.CADENCE_MARKETING_ACTION_WRITTEN_EMAIL,

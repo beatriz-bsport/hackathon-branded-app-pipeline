@@ -1,5 +1,5 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import type { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import MarketingActionBubble, {
   Props,
@@ -13,7 +13,7 @@ export default {
       page: null,
     },
     description: {
-      component: 'Bubble for marketing action form used in cadences.',
+      component: 'Bubble for marketing actions form used in cadences.',
     },
   },
   argTypes: {

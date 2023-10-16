@@ -19,7 +19,9 @@ export type DraftMarketingAction = {
   marketingAction?: StepMarketingActions;
 };
 
-export const getDefaultValues = (type: MarketingActions) => {
+export const getDefaultValues = (
+  type: MarketingActions,
+): Partial<StepMarketingActions> => {
   switch (type) {
     case MarketingActions.CADENCE_MARKETING_ACTION_WRITTEN_EMAIL:
       return {
@@ -29,6 +31,7 @@ export const getDefaultValues = (type: MarketingActions) => {
         action_spec: {
           text_content: '',
           subject: '',
+          email_design: null,
           communication_kind:
             MarketingActions.CADENCE_MARKETING_ACTION_WRITTEN_EMAIL,
         },
@@ -40,6 +43,8 @@ export const getDefaultValues = (type: MarketingActions) => {
         kind: MarketingActionKind.COMMUNICATION,
         action_spec: {
           text_content: '',
+          subject: '',
+          email_design: null,
           communication_kind: MarketingActions.CADENCE_MARKETING_ACTION_SMS,
         },
       };
@@ -51,6 +56,7 @@ export const getDefaultValues = (type: MarketingActions) => {
         action_spec: {
           text_content: '',
           subject: '',
+          email_design: null,
           communication_kind:
             MarketingActions.CADENCE_MARKETING_ACTION_PUSH_NOTIFICATION,
         },
@@ -61,6 +67,8 @@ export const getDefaultValues = (type: MarketingActions) => {
         name: '',
         kind: MarketingActionKind.COMMUNICATION,
         action_spec: {
+          text_content: '',
+          subject: '',
           email_design: null,
           communication_kind:
             MarketingActions.CADENCE_MARKETING_ACTION_EMAIL_TEMPLATE,

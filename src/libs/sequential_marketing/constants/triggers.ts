@@ -72,3 +72,5 @@ export const TRIGGER_RIGHT_HANDLE_STYLE = {
 };
 
 export const TRIGGER_DEFAULT_TIMEOUT_DAYS = 7;
+
+export const TRIGGER_DEFAULT_ICON = 'Error';

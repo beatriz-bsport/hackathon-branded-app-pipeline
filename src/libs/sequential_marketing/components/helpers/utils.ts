@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import type { TFunction } from 'i18next';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import GroupIcon from '@material-ui/icons/Group';
@@ -20,6 +21,8 @@ import {
   MarketingActionKind,
   MarketingActions,
   TRIGGER_TEMPORARY_ID,
+  CADENCE_EVENT_CATEGORY_CHOICES,
+  TRIGGER_DEFAULT_ICON,
 } from '#libs/sequential_marketing/constants';
 
 import type {
@@ -27,6 +30,7 @@ import type {
   StepMarketingActions,
   StepMarketingActionsCommunicationSpec,
   StepMarketingActionsTagSpec,
+  TriggerEventConfig,
 } from '#libs/sequential_marketing/types';
 import type { MarketingActionChipProps } from '#libs/sequential_marketing/components/graph/chips/MarketingActionChip.component';
 import type { SmartList } from '#libs/smart-list/types';
@@ -101,13 +105,9 @@ export const marketingActionIconDict: { [key in MarketingActions]: string } = {
  * @param {Events} eventType - Sequential marketing event type
  * @returns {SvgIcon} - Return the corresponding SvgIcon
  */
-const getEventCategoryIcon: (eventType: Events) => typeof SvgIcon = (
-  eventType: Events,
-) => {
-  for (const category of Object.keys(CADENCE_EVENT_GROUPED_BY_CATEGORY)) {
-    // @ts-expect-error
+const getEventCategoryIcon = (eventType: Events): typeof SvgIcon => {
+  for (const category of CADENCE_EVENT_CATEGORY_CHOICES) {
     if (CADENCE_EVENT_GROUPED_BY_CATEGORY[category]?.includes(eventType)) {
-      // @ts-expect-error
       return categoryIconDict[category];
     }
   }
@@ -118,13 +118,9 @@ const getEventCategoryIcon: (eventType: Events) => typeof SvgIcon = (
  * @param {Events} eventType - Sequential marketing event type
  * @returns {string} - Return the corresponding naming used as key for translation
  */
-const getEventCategoryText: (eventType: Events) => string = (
-  eventType: Events,
-) => {
-  for (const category in EventsCategory) {
-    // @ts-expect-error
+const getEventCategoryText = (eventType: Events): string => {
+  for (const category of CADENCE_EVENT_CATEGORY_CHOICES) {
     if (CADENCE_EVENT_GROUPED_BY_CATEGORY[category]?.includes(eventType)) {
-      // @ts-expect-error
       return categoryChipDict[category];
     }
   }
@@ -135,17 +131,13 @@ const getEventCategoryText: (eventType: Events) => string = (
  * @param {Events} eventType - Sequential marketing event type
  * @returns {string} - Return the corresponding icon name used to build a CustomMuiIcon
  */
-export const getEventCategoryIconAsString: (eventType: Events) => string = (
-  eventType: Events,
-) => {
-  for (const category of Object.keys(CADENCE_EVENT_GROUPED_BY_CATEGORY)) {
-    // @ts-expect-error
+export const getEventCategoryIconAsString = (eventType: Events): string => {
+  for (const category of CADENCE_EVENT_CATEGORY_CHOICES) {
     if (CADENCE_EVENT_GROUPED_BY_CATEGORY[category]?.includes(eventType)) {
-      // @ts-expect-error
       return categoryStringIconDict[category];
     }
   }
-  return 'Error';
+  return TRIGGER_DEFAULT_ICON;
 };
 
 /** Function returning the SvgIcon which corresponds to the ConnectedTrigger in parameter
@@ -206,6 +198,41 @@ export const TriggerText = ({
   }
 };
 
+/** Function returning the name corresponding to the connected trigger in parameter
+ * @param {TFunction} t - Translation function
+ * @param {ConnectedTrigger} connected_trigger_config - Cadence connected trigger config
+ * @param {SmartList} smartlist - Smartlist used in connected_trigger_config filtering
+ * @returns {string} - Return the corresponding translated name
+ */
+export const getTriggerLabel = (
+  t: TFunction,
+  connected_trigger_config: ConnectedTrigger,
+  smartlist?: SmartList | undefined,
+) => {
+  switch (connected_trigger_config?.trigger_config?.identifier) {
+    case TriggerIdentifier.EMPTY:
+      if (
+        connected_trigger_config.filtering_config?.smartlist_pk ===
+        smartlist?.id
+      ) {
+        return smartlist.name;
+      }
+      return t('All');
+    case TriggerIdentifier.EVENT:
+      return t(
+        `cadence.triggers.events.${getEventCategoryText(
+          connected_trigger_config.trigger_config?.event_type,
+        )}`,
+      );
+    case TriggerIdentifier.TIMEOUT:
+      return t('cadence.triggers.timeout.timout_days_chip', {
+        days: connected_trigger_config.trigger_config?.timeout || 0,
+      });
+    default:
+      return t('Error');
+  }
+};
+
 /** Function returning the exact name corresponding to the event connected trigger in parameter
  * @param {ConnectedTrigger} connected_trigger_config - Cadence event connected trigger config
  * @returns {string} - Return the corresponding translated name
@@ -215,6 +242,26 @@ export const EventTriggerDetailText = ({
 }: TriggerTextProps) => {
   const { t } = useTranslation('marketing');
 
+  if (
+    connected_trigger_config?.trigger_config?.identifier !==
+    TriggerIdentifier.EVENT
+  ) {
+    return TriggerText({ connected_trigger_config });
+  }
+  return t(
+    `cadence.form.event.${connected_trigger_config?.trigger_config?.event_type}`,
+  );
+};
+
+/** Function returning the exact name corresponding to the event connected trigger in parameter
+ * @param {TFunction} t - Translation function
+ * @param {ConnectedTrigger} connected_trigger_config - Cadence event connected trigger config
+ * @returns {string} - Return the corresponding translated name
+ */
+export const getEventTriggerDetailText = (
+  t: TFunction,
+  connected_trigger_config: ConnectedTrigger,
+) => {
   if (
     connected_trigger_config?.trigger_config?.identifier !==
     TriggerIdentifier.EVENT
@@ -371,3 +418,26 @@ export const isTriggerValid = (trigger: ConnectedTrigger) => {
  */
 export const isTriggerFake = (trigger: ConnectedTrigger) =>
   trigger?.trigger_config?.uuid === TRIGGER_TEMPORARY_ID;
+
+/** Get the specific icon name which corresponds to the ConnectedTrigger in parameter for the ConnectedTriggerChip
+ * @param {ConnectedTrigger} connected_trigger_config - Cadence ConnectedTrigger config
+ * @returns {string} - Return the icon name of the trigger passed in paramater depending on the trigger kind.
+ *                     If the trigger kind is not recognized or is EVENT_TRIGGER_AND_SMARTLIST_FILTERING, return null.
+ */
+export const getTriggerSpecificIcon = (
+  connected_trigger_config: ConnectedTrigger,
+): string => {
+  switch (getTriggerKind(connected_trigger_config)) {
+    case TriggerKind.ONLY_EVENT_TRIGGER:
+      return getEventCategoryIconAsString(
+        (connected_trigger_config.trigger_config as TriggerEventConfig)
+          .event_type,
+      );
+    case TriggerKind.ONLY_SMARTLIST_FILTERING:
+      return 'People';
+    case TriggerKind.ONLY_TIMEOUT:
+      return 'Timer';
+    default:
+      return null;
+  }
+};

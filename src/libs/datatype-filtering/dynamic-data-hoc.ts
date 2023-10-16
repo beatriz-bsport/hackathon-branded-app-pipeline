@@ -425,12 +425,18 @@ export default function withDatatypeDynamicData(
                 return null;
               }
 
-              case ReportFilterableDataType.COMPANY:
-                return props.franchiseCompanies.find(
+              case ReportFilterableDataType.COMPANY: {
+                const matchingFranchiseCompany = (
+                  props.franchiseCompanies ?? []
+                ).find(
                   (franchiseCompany) =>
-                    franchiseCompany.i.toString() === stringifiedValue,
+                    franchiseCompany?.id?.toString() === stringifiedValue,
                 )?.name;
-
+                if (matchingFranchiseCompany) {
+                  return matchingFranchiseCompany;
+                }
+                return null;
+              }
               default:
                 return null;
             }

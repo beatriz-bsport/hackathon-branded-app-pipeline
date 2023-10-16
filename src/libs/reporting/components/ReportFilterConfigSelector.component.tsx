@@ -176,9 +176,11 @@ const ReportFilterConfigSelector: React.FC<Props & Values> = memo(
           .map((reportFilter) => ({
             value: reportFilter.id,
             label: reportFilter.name,
-            hasError: reportFilter?.config?.groups
-              .flatMap((g) => g.filters_data.map((fd) => fd?.identifier))
-              .some((column) => !columnIdentifiers?.includes(column)),
+            hasError: reportFilter?.config?.groups?.length
+              ? reportFilter?.config?.groups
+                  .flatMap((g) => g.filters_data?.map((fd) => fd?.identifier))
+                  .some((column) => !columnIdentifiers?.includes(column))
+              : false,
           })),
       ],
       [columnIdentifiers, reportFilterConfigs, t],
@@ -229,9 +231,9 @@ const ReportFilterConfigSelector: React.FC<Props & Values> = memo(
     }, [editReportFilterConfig, reportQuickFilter, values]);
 
     const columnsDataSelectedQuickFilter = useMemo(() => {
-      return values.config.groups
+      return values.config?.groups?.length
         ? values.config.groups.flatMap((group: DatatypeFilterConfigGroup) =>
-            group.filters_data.map((row: DatatypeFilterConfigItem) => ({
+            group.filters_data?.map((row: DatatypeFilterConfigItem) => ({
               identifier: row.identifier,
               value: row.value,
               comparator: row.comparator,

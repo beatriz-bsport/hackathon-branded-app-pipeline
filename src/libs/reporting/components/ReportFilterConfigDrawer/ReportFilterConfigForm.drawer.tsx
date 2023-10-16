@@ -460,10 +460,9 @@ export default compose<any, OuterProps>(
     validationSchema: ReportFilterConfigFormDrawerSchema,
     handleSubmit: (values, { props: { onSubmit, initial }, setSubmitting }) => {
       const { id, ...restInitial } = initial ?? {};
-
       onSubmit({
         id,
-        values: {
+        valuesHandledByDrawer: {
           ...(restInitial ?? {}),
           ...values,
         },

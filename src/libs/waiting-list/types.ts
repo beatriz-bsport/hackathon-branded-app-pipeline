@@ -65,6 +65,7 @@ export type WaitingListState = {
     position: ErrorAndLoading & {
       byId: { [key: number]: OfferStatusWaitingListPosition };
     };
+    registerMultiple: ErrorAndLoading;
   };
 };
 

@@ -11,6 +11,7 @@ import {
   forBookingActions,
   forMemberActions,
   allWaitingListPositionsActions,
+  registerMultipleOptionsBackgroundActions,
 } from './actions';
 
 import type {
@@ -29,6 +30,10 @@ const initialState: Immutable.Immutable<WaitingListState> =
       loading: false,
       error: null,
       register: {
+        loading: false,
+        error: null,
+      },
+      registerMultiple: {
         loading: false,
         error: null,
       },
@@ -268,6 +273,18 @@ export default handleActions<Immutable.Immutable<WaitingListState>, any>(
       { payload }: { payload: WaitingListBookingOption },
     ) => {
       return state.setIn(['option', 'items'], [...state.option.items, payload]);
+    },
+    [registerMultipleOptionsBackgroundActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['option', 'registerMultiple', 'loading'], payload);
+    },
+    [registerMultipleOptionsBackgroundActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error },
+    ) => {
+      return state.setIn(['option', 'registerMultiple', 'error'], payload);
     },
     [allWaitingListPositionsActions.isLoading.toString()]: (
       state,

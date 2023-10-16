@@ -85,7 +85,10 @@ const useQuicksalePayments = ({
           setPaymentGroupPriceCts(data.price_cts);
           setLoading(false);
         })
-        .catch((err) => console.error(err));
+        .catch((err) => {
+          console.error(err);
+          setLoading(false);
+        });
     }
   }, [basketId, paymentEngine, paymentMethod, setLoading]);
 

@@ -1332,6 +1332,15 @@
                     "average_HR": "Frequenza cardiaca media"
                 },
                 "name": "Performance"
+            },
+            "GuestInvitation": {
+                "tags": {
+                    "lastname_host": "Cognome del membro che invita",
+                    "firstname_host": "Nome del membro che invita",
+                    "lastname_guest": "Cognome dell'ospite",
+                    "firstname_guest": "Nome ospite"
+                },
+                "name": "Prenotazione per l'ospite"
             }
         },
         "eventType": {
@@ -1398,7 +1407,9 @@
             "305": "Modifica della email del membro dal backoffice",
             "1002": "Performance della sessione di spinning",
             "1001": "Account Spivi creato (membri)",
-            "1003": "Account Spivi creato (insegnanti)"
+            "1003": "Account Spivi creato (insegnanti)",
+            "31": "Prenotazione per un ospite (per l'ospite)",
+            "30": "Prenotazione per un ospite (per il membro che invita)"
         },
         "ruleGroup": {
             "private_booking": "Appuntamento",
@@ -7779,7 +7790,8 @@
                 "submit": "Registrati",
                 "cancel": "Cancella",
                 "edit": "Modifica",
-                "columnError": "Attenzione, la colonna filtrata qui è stata rimossa dal report. Tuttavia, il filtro su questa colonna è ancora applicato."
+                "columnError": "Attenzione, la colonna filtrata qui è stata rimossa dal report. Tuttavia, il filtro su questa colonna è ancora applicato.",
+                "shortColumnError": "La colonna corrispondente non viene mostrata"
             },
             "title": "Vista filtrata",
             "emptyFilter": "Tutti i dati",
@@ -9600,11 +9612,15 @@
                 },
                 "chooseKindTitle": "Evento che attiva la notifica",
                 "chooseTime": {
-                    "second_after": "ore dopo la sessione",
-                    "second_before": "ore prima della sessione",
+                    "second_after": "{{ count }} ora dopo la fine della sessione.",
+                    "second_after_plural": "{{ count }} ore dopo la fine della sessione.",
+                    "second_before": "{{ count }} ora prima dell'inizio della sessione.",
+                    "second_before_plural": "{{ count }} ore prima dell'inizio della sessione.",
                     "first": "Invia una email",
-                    "second_before_days": "giorno(i) prima della sessione",
-                    "second_after_days": "ora(e) dopo la sessione"
+                    "second_before_days": "{{ count }} giorno prima dell'inizio della sessione.",
+                    "second_before_days_plural": "{{ count }} giorni prima dell'inizio della sessione.",
+                    "second_after_days": "{{ count }} giorno dopo la fine della sessione.",
+                    "second_after_days_plural": "{{ count }} giorni dopo la fine della sessione."
                 },
                 "sendAfterMail": "Invia l'email al membro prima della sessione interessata dalla notifica",
                 "sendBeforeMail": "Invia l'email al membro prima della sessione interessata dalla notifica",
@@ -9796,7 +9812,12 @@
                 "addGuestNumberLeftMonth": "Questo mese puoi invitare 1 persona in più.",
                 "addGuestNumberLeftMonth_plural": "Questo mese puoi ancora invitare {{count}} persone.",
                 "addGuestNumberLeftWeek": "Questa settimana puoi invitare 1 persona in più.",
-                "addGuestNumberLeftWeek_plural": "Questa settimana puoi ancora invitare {{count}} persone."
+                "addGuestNumberLeftWeek_plural": "Questa settimana puoi ancora invitare {{count}} persone.",
+                "guestLimitReached": {
+                    "every_year": "Hai raggiunto il limite di inviti per quest'anno.",
+                    "every_month": "Hai raggiunto il limite di inviti per questo mese.",
+                    "every_week": "Hai raggiunto il limite di inviti per questa settimana."
+                }
             },
             "bookingFor": "Prenota per"
         },
@@ -9918,7 +9939,8 @@
             "spotSelectorTitle": "Scegli il tuo posto",
             "recommended": "Consigliati",
             "seeAllProducts": "Vedi tutti i prodotti",
-            "reviewAndConfirm": "RIvedi e conferma"
+            "reviewAndConfirm": "RIvedi e conferma",
+            "guestSpotSelectorTitle": "Seleziona un posto per il tuo ospite"
         }
     },
     "smartList": {
@@ -12968,7 +12990,9 @@
                         "genericOfferError": "Oops! Prenotazione fallita.",
                         "generic": "Oops! Pagamento fallito."
                     }
-                }
+                },
+                "offerGuestBooked": "La mia prenotazione per gli ospiti",
+                "offerGuestBooked_plural": "Le mie prenotazioni per gli ospiti"
             },
             "actions": {
                 "back": "Precedente",
@@ -13457,7 +13481,9 @@
             "success": "Cancellazione confermata",
             "warningOfferGroup": "Attenzione, le seguenti sessioni non possono essere annullate perché fanno parte di un gruppo di sessioni. Per cancellarle, cancella il gruppo corrispondente.",
             "warningOfferGroupTitle": "Sessioni non annullate",
-            "offers": "Sessioni non annullabili"
+            "offers": "Sessioni non annullabili",
+            "activityOnly": "Poiché non si ha il permesso di annullare le sessioni di workshop, questa azione annullerà solo le sessioni di attività di gruppo.",
+            "workshopOnly": "Poiché non si ha il permesso di annullare le sessioni di attività di gruppo, questa azione annullerà solo le sessioni di workshop."
         },
         "bookingListEmpty": "Nessuna prenotazione",
         "bookingList": "Prenotazioni",
@@ -13722,7 +13748,8 @@
                     "SETTINGS": "Impostazioni",
                     "INFOS": "Sessione"
                 }
-            }
+            },
+            "forbidden": "Non si ha il permesso di aggiungere sessioni a questa attività. Contattare il proprio manager per ottenere i diritti necessari."
         },
         "isFree": "Gratis",
         "broadcast": "Videoconferenza",
@@ -16165,8 +16192,10 @@
                     "changeInStep": "Trasforma in step",
                     "changeInExit": "Trasforma in output",
                     "delete": "Elimina",
-                    "addNextStep": "Aggiungi il prossimo step"
-                }
+                    "addNextStep": "Aggiungi il prossimo step",
+                    "nextStepTrigger": "Attivazione per la fase successiva"
+                },
+                "defaultName": "Autostep"
             },
             "marketingAction": {
                 "addAction": "Aggiungi un'azione"

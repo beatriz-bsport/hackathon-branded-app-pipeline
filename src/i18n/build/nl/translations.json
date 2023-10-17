@@ -3003,7 +3003,8 @@
                 "columnError": "De gefilterde kolom is uit dit rapportage verwijderd. De filter zelf wordt alsnog toegepast voor het gehele bestand.",
                 "information": "Algemeen",
                 "addFilter": "Een filter toevoegen",
-                "emptyState": "Er zijn geen filterbare kolommen om weer te geven."
+                "emptyState": "Er zijn geen filterbare kolommen om weer te geven.",
+                "shortColumnError": "De bijbehorende kolom wordt niet weergegeven"
             },
             "title": "Gefilterde weergave"
         },
@@ -6172,11 +6173,15 @@
                 },
                 "chooseKindTitle": "Gebeurtenis die de melding activeert",
                 "chooseTime": {
-                    "second_after": "uur na het einde van de sessie.",
-                    "second_before": "uur/uren voor het begin van de sessie.",
+                    "second_after": "{{ count }} uur na het einde van de sessie.",
+                    "second_after_plural": "{{ count }} uur na het einde van de sessies.",
+                    "second_before": "{{ count }} uur voor het begin van de sessie.",
+                    "second_before_plural": "{{ count }} uur voor het begin van de sessies.",
                     "first": "Verstuur deze melding",
-                    "second_after_days": "uur(en) na afloop van de sessie",
-                    "second_before_days": "dag(en) voor het begin van de sessie"
+                    "second_after_days": "{{ count }} dag na het einde van de sessie",
+                    "second_after_days_plural": "{{ count }} dagen na het einde van de sessies",
+                    "second_before_days": "{{ count }} dag voor het begin van de sessie",
+                    "second_before_days_plural": "{{ count }} dagen voor het begin van de sessie"
                 },
                 "sendAfterMail": "Stuur deze melding nadat de sessie afgelopen is",
                 "sendBeforeMail": "Stuur deze melding voor het begin van de sessie",
@@ -16210,7 +16215,8 @@
                     "delete": "Verwijderen",
                     "addNextStep": "Volgende stap toevoegen",
                     "nextStepTrigger": "Trigger"
-                }
+                },
+                "defaultName": "Autostap"
             },
             "marketingAction": {
                 "addAction": "Een actie toevoegen"

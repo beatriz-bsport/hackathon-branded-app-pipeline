@@ -339,10 +339,14 @@
                 "sendAfterNotifications": "Enviar notificações ao aluno após a sessão",
                 "chooseTime": {
                     "first": "Enviar email",
-                    "second_before": "hora(s) antes da sessão",
-                    "second_before_days": "dia(s) anterior(es) à sessão",
-                    "second_after": "hora(s) após a sessão",
-                    "second_after_days": "hora(s) após a sessão"
+                    "second_before": "{{ count }}hora antes do início da sessão.",
+                    "second_before_plural": "{{ count }} horas antes do início da sessão.",
+                    "second_before_days": "{{ count }} dia  antes do início da sessão",
+                    "second_before_days_plural": "{{ count }} dias antes do início da sessão",
+                    "second_after": "{{ count }} hora após a sessão",
+                    "second_after_plural": "{{ count }} horas após a sessão",
+                    "second_after_days": "{{ count }} dia após a sessão",
+                    "second_after_days_plural": "{{ count }} dias após o término da sessão"
                 },
                 "chooseStatus": {
                     "title": "Escolha o tipo de marcação que pretende notificar",
@@ -434,7 +438,12 @@
                 "addGuestNumberLeftYear": "Este ano, pode convidar mais uma pessoa.",
                 "addGuestNumberLeftYear_plural": "Ainda é possível convidar {{count}} pessoas este ano.",
                 "addGuestNumberLeftMonth": "Pode convidar mais uma pessoa este mês",
-                "addGuestNumberLeftMonth_plural": "Ainda é possível convidar {{count}} pessoas este mês."
+                "addGuestNumberLeftMonth_plural": "Ainda é possível convidar {{count}} pessoas este mês.",
+                "guestLimitReached": {
+                    "every_year": "Você atingiu o limite de convites para este ano.",
+                    "every_month": "Você atingiu o limite de convites para este mês.",
+                    "every_week": "Você atingiu o limite de convites para esta semana."
+                }
             },
             "mainButton": {
                 "numberOfBook": "{{count}} inscrição",
@@ -563,7 +572,8 @@
             "spotSelectorTitle": "Escolha o seu lugar",
             "reviewAndConfirm": "Revisar e confirmar",
             "recommended": "Recomendado",
-            "seeAllProducts": "Ver todos os produtos"
+            "seeAllProducts": "Ver todos os produtos",
+            "guestSpotSelectorTitle": "Selecione um local para seu convidado"
         }
     },
     "coach": {
@@ -1378,7 +1388,9 @@
                 "myProduct": "Meu produto",
                 "myProduct_plural": "Meus produtos",
                 "myGiftcard": "Meu cartão de oferta",
-                "myGiftcard_plural": "Meus cartões de oferta"
+                "myGiftcard_plural": "Meus cartões de oferta",
+                "offerGuestBooked": "Minha reserva de convidado",
+                "offerGuestBooked_plural": "Minhas reservas de convidados"
             },
             "bookingItem": {
                 "bookingItemStatus": {
@@ -3367,13 +3379,15 @@
                     "addNextStep": "Adicionar próxima etapa",
                     "changeInExit": "Converter numa saída",
                     "changeInStep": "Transformar numa etapa",
-                    "delete": "Eliminar"
-                }
+                    "delete": "Eliminar",
+                    "nextStepTrigger": "Acionador para a próxima etapa"
+                },
+                "defaultName": "Autostep"
             },
             "bubble": {
                 "entryTrigger": {
                     "helperText": "Defina quando e quem entrará nesta cadência com os critérios e acionadores selecionados.",
-                    "addTrigger": "Adicionar um ativador de entrada",
+                    "addTrigger": "Adicionar um acionador de entrada",
                     "title": "Entrar"
                 },
                 "marketingAction": {
@@ -4116,7 +4130,7 @@
         "memberTable": {
             "error": "Ocorreu um erro"
         },
-        "signedUpWithReferral": "Membro registado com <1>{{ name }}</1>ligação de referência",
+        "signedUpWithReferral": "Membro registado com <1>{{ name }}</1>link de referência",
         "email": "Correio eletrónico"
     },
     "metaActivity": {
@@ -4758,6 +4772,15 @@
                     "calories_kJ": "Calorias em K",
                     "total_distance": "Distância percorrida"
                 }
+            },
+            "GuestInvitation": {
+                "tags": {
+                    "lastname_host": "Sobrenome do membro convidado",
+                    "firstname_host": "Primeiro nome do membro convidado",
+                    "lastname_guest": "Sobrenome do convidado",
+                    "firstname_guest": "Nome do convidado"
+                },
+                "name": "Reserva de convidado"
             }
         },
         "eventType": {
@@ -4824,7 +4847,9 @@
             "1002": "Desempenho da sessão",
             "28": "Pagamento recebido",
             "987": "Tentativa de cobrança de pagamentos em prestações",
-            "1003": "Conta Spivi criada (professores)"
+            "1003": "Conta Spivi criada (professores)",
+            "31": "Reserva para um convidado (para convidado)",
+            "30": "Reserva para um convidado (para membros convidados)"
         },
         "emailDesign": {
             "placeholder": "Criado por bsport",
@@ -7830,7 +7855,8 @@
                 "filter": "Filtros",
                 "information": "Informações gerais",
                 "name": "Nome",
-                "title": "Ver filtro"
+                "title": "Ver filtro",
+                "shortColumnError": "A coluna correspondente não é exibida"
             },
             "deleteModal": {
                 "content": "Tem a certeza de que pretende eliminar este filtro ? Esta ação é irreversível.",

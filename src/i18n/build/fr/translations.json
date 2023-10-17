@@ -290,10 +290,14 @@
                 "sendAfterNotifications": "Envoyer les notifications au membre après la séance concernée par la notification",
                 "chooseTime": {
                     "first": "Envoyer un mail",
-                    "second_before": "heure(s) avant la séance",
-                    "second_after": "heure(s) après la séance",
-                    "second_before_days": "jour(s) avant la séance",
-                    "second_after_days": "heure(s) après la séance"
+                    "second_before": "{{ count }} heure avant la séance.",
+                    "second_before_plural": "{{ count }} heures avant la séance.",
+                    "second_after": "{{ count }} heure après la séance.",
+                    "second_after_plural": "{{ count }} heures après la séance.",
+                    "second_before_days": "{{ count }} jour avant la séance",
+                    "second_before_days_plural": "{{ count }} jours avant la séance",
+                    "second_after_days": "{{ count }} jour après la séance",
+                    "second_after_days_plural": "{{ count }} jours après la séance"
                 },
                 "chooseStatus": {
                     "title": "Choisissez le type de réservation que vous voulez notifier",
@@ -450,7 +454,12 @@
                 "addGuestNumberLeftMonth": "Vous pouvez inviter 1 personne supplémentaire ce mois-ci.",
                 "addGuestNumberLeftMonth_plural": "Vous pouvez encore inviter {{count}} personnes ce mois-ci.",
                 "addGuestNumberLeftWeek": "Vous pouvez inviter 1 personne supplémentaire cette semaine.",
-                "addGuestNumberLeftWeek_plural": "Vous pouvez encore inviter {{count}} personnes cette semaine."
+                "addGuestNumberLeftWeek_plural": "Vous pouvez encore inviter {{count}} personnes cette semaine.",
+                "guestLimitReached": {
+                    "every_year": "Vous avez atteint la limite d'invitations pour cette année.",
+                    "every_month": "Vous avez atteint la limite d'invitations pour ce mois.",
+                    "every_week": "Vous avez atteint la limite d'invitations pour cette semaine."
+                }
             },
             "bookingFor": "Réservation pour"
         },
@@ -553,7 +562,8 @@
             "passes": "Cartes de cours",
             "otherPasses": "Autres cartes de cours",
             "recommended": "Recommandés",
-            "spotSelectorTitle": "Choisissez votre place"
+            "spotSelectorTitle": "Choisissez votre place",
+            "guestSpotSelectorTitle": "Sélectionnez un emplacement pour votre invité"
         },
         "place": "Place",
         "noShowChip": {
@@ -745,7 +755,9 @@
                 "myProduct": "Mon produit",
                 "myProduct_plural": "Mes produits",
                 "myGiftcard": "Ma carte cadeau",
-                "myGiftcard_plural": "Mes cartes cadeaux"
+                "myGiftcard_plural": "Mes cartes cadeaux",
+                "offerGuestBooked": "Réservation de mon invité",
+                "offerGuestBooked_plural": "Réservations de mon invité"
             },
             "bookingItem": {
                 "bookingItemStatus": {
@@ -4286,8 +4298,10 @@
                     "delete": "Supprimer",
                     "changeInExit": "Transformer en sortie",
                     "changeInStep": "Transformer en étape",
-                    "addNextStep": "Ajouter prochaine étape"
-                }
+                    "addNextStep": "Ajouter prochaine étape",
+                    "nextStepTrigger": "Déclencheur de l'étape suivante"
+                },
+                "defaultName": "Etape automatique"
             },
             "graph": {
                 "tools": {
@@ -5628,6 +5642,15 @@
                 "giftcard_message": "Message de la carte cadeau",
                 "giftcard_value": "Valeur de la carte cadeau",
                 "manage_changing_email_link": "Lien de gestion du changement d'email"
+            },
+            "GuestInvitation": {
+                "tags": {
+                    "lastname_host": "Nom du membre invitant",
+                    "firstname_host": "Prénom du membre invitant",
+                    "lastname_guest": "Nom de l'invité",
+                    "firstname_guest": "Prénom de l'invité"
+                },
+                "name": "Réservation de l'invité"
             }
         },
         "eventType": {
@@ -5694,7 +5717,9 @@
             "987": "Tentative d'encaissement d'un paiement échelonné",
             "1001": "Compte Spivi créé (élèves)",
             "1002": "Performance de la séance de spinning",
-            "1003": "Compte Spivi créé (professeurs)"
+            "1003": "Compte Spivi créé (professeurs)",
+            "31": "Réservation pour un invité (pour un membre invité)",
+            "30": "Réservation pour un invité (pour un membre invitant)"
         },
         "franchise": {
             "emptySelect": "Sélectionner un email transactionnel pour voir sur quel franchisé il est partagé et utilisé.",
@@ -9641,7 +9666,8 @@
                 "submit": "Enregistrer",
                 "cancel": "Annuler",
                 "edit": "Modifier",
-                "columnError": "Attention la colonne filtrée ici a été enlevée du rapport. Le filtre sur cette colonne est cependant encore appliqué."
+                "columnError": "Attention la colonne filtrée ici a été enlevée du rapport. Le filtre sur cette colonne est cependant encore appliqué.",
+                "shortColumnError": "La colonne correspondante n'est pas affichée"
             },
             "title": "Vue filtrée",
             "emptyFilter": "Toutes les données",

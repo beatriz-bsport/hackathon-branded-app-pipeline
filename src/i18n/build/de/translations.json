@@ -722,7 +722,7 @@
                     "deletedAtBy": "Storniert am {{- dateDeletion}} von {{staffName}}",
                     "fromToUntil": "Von {{- fromDate}} bis {{- untilDate}}",
                     "label": "Pause von {{- fromDate}} bis {{- untilDate}}",
-                    "deletedAt": "Storniert am {{- dateDeletion}} von {{staffName}}",
+                    "deletedAt": "Storniert am {{- dateDeletion}}",
                     "pausedAt": "{{ days }} Tage - Am {{- date}}",
                     "isUpdated": "Bearbeitete Pause"
                 }
@@ -872,8 +872,8 @@
                 "item": "{{count}} Element",
                 "item_plural": "{{count}} Elemente",
                 "unlimited": "Unbegrenzt",
-                "credit": "{{count}} Kredit",
-                "credit_plural": "{{count}} Kredite",
+                "credit": "{{count}} Credit",
+                "credit_plural": "{{count}} Credits",
                 "startDate": "Startdatum"
             },
             "processingPaymentModal": {
@@ -1158,7 +1158,7 @@
                 "DISPUTE": "Streitfall",
                 "SUBSCRIPTION_CB": "Geplante Zahlung",
                 "BANK_TRANSFER": "Überweisung",
-                "CREDIT_ACCOUNT": "Internes Konto (Kredit)"
+                "CREDIT_ACCOUNT": "Internes Konto (Credit)"
             },
             "paymentMethod": "Zahlungsmethode",
             "invoice": "Rechnung",
@@ -1807,7 +1807,7 @@
             "addWorkshopActivity": "Einen Workshop hinzufügen"
         },
         "activity": {
-            "orNcredits2": " Kredite)",
+            "orNcredits2": " Credits)",
             "orNcredits1": "(oder ",
             "noOfferThisDay": "Kein Kurs, wähle ein anderes Datum im Kalender aus",
             "offersThisDay": "Heutige Kurse :",
@@ -1844,7 +1844,7 @@
             "invoiceReverted": "Die Rechnung wurde storniert",
             "revertExplainShop": "Einkäufe im Shop werden storniert und das Inventar zurückgesetzt.",
             "revertExplainPacks": "Kurspässe werden zusammen mit ALLEN damit verbundenen Buchungen storniert",
-            "explainDateChoser": "Bitte wähle das Rechnungsdatum. Zahlungen per Kreditkarte werden unabhängig vom gewählten Datum sofort eingelöst",
+            "explainDateChoser": "Bitte wähle das Rechnungsdatum. Zahlungen per Kreditkarte werden unabhängig vom gewählten Datum sofort eingelöst.",
             "choseDate": "Rechnungsdatum",
             "revert": "Die Rechnung stornieren",
             "reverted": "Storniert",
@@ -1927,7 +1927,7 @@
             "CHECK": "Scheck",
             "CB_MANUAL": "Kreditkarte (manuell)",
             "CB": "Kreditkarte",
-            "CREDIT_ACCOUNT": "Internes Konto (Kredit)"
+            "CREDIT_ACCOUNT": "Internes Konto (Credit)"
         },
         "members": {
             "form": {
@@ -2855,7 +2855,7 @@
                 "coach_can_edit_attendance": "In der mobilen Anwendung kann die Lehrkraft die An-/Abwesenheit ändern",
                 "internalAccount": "Restguthaben Kunde",
                 "internalAccountWarningTitle": "Achten Sie auf aktuelle Kundensalden.",
-                "internalAccountWarning2": "Um einen Bericht über Kundensalden zu erstellen, gehen Sie auf die Registerkarte 'Berichte' und wählen Sie bei der Erstellung des neuen Berichts in der Kategorie 'Zahlungen' 'Kredite' aus.",
+                "internalAccountWarning2": "Um einen Bericht über Kundensalden zu erstellen, gehen Sie auf die Registerkarte 'Berichte' und wählen Sie bei der Erstellung des neuen Berichts in der Kategorie 'Zahlungen' 'Credits' aus.",
                 "internalAccountWarning1": "Wir empfehlen dringend, einen Bericht über die Kundensalden zu erstellen, bevor Sie diese Funktion aktivieren.",
                 "goToReports": "Seite mit Berichten",
                 "allowConsumerToUseInternalAccount": "Der Kunde kann seine interne Anzahlung verwenden, um seine Rechnungen oder seinen Warenkorb zu bezahlen",
@@ -3164,8 +3164,8 @@
                 "delete": {
                     "confirm": "Löschen",
                     "cancel": "Abbrechen",
-                    "content": "Bist Du sicher, dass Du dieses Konto löschen möchtest?",
-                    "title": "Ein Staffkonto löschen"
+                    "content": "Sind Sie sicher, dass Sie dieses Mitarbeiterkonto löschen möchten?",
+                    "title": "Ein Mitarbeiterkonto löschen"
                 },
                 "create": {
                     "submit": "Speichern",
@@ -3178,8 +3178,8 @@
                             "topLabel": "Rolle"
                         }
                     },
-                    "title": "Ein Staffkonto erstellen",
-                    "buttonLabel": "Einen Admin-Account hinzufügen",
+                    "title": "Ein Mitarbeiterkonto erstellen",
+                    "buttonLabel": "Mitarbeiter hinzufügen",
                     "email": {
                         "label": "E-Mail"
                     },
@@ -3229,13 +3229,13 @@
                     "name": "Name",
                     "title": "Rollenerstellung",
                     "buttonCreate": "Füge eine Rolle hinzu  ",
-                    "restrictedUrlExplain": "Verwenden Sie diesen Parameter, um eine Whitelist von URLs für diese Rolle festzulegen. Nur die unten aufgelisteten URLs sind für den mit dieser Rolle verbundenen Staff zugänglich",
-                    "authorizeManagerExplain": "Die Mitarbeiter mit dieser Rolle können Aktionen wie der Manager durchführen: die Buchung einer Session in einer nicht verfügbaren Einrichtung veranlassen, die Buchung mit einer nicht verfügbaren Lehrkraft durchsetzen, die maximale Anzahl der für eine Session angemeldeten Mitglieder überschreiten.",
+                    "restrictedUrlExplain": "Verwenden Sie diesen Parameter, um eine Whitelist von URLs für diese Rolle festzulegen. Nur die unten aufgelisteten URLs sind für den mit dieser Rolle verbundenen Mitarbeitern zugänglich",
+                    "authorizeManagerExplain": "Die Mitarbeiter mit dieser Rolle können die gleichen Aktionen, wie der Manager durchführen: die Buchung einer Session in einer nicht verfügbaren Einrichtung veranlassen, die Buchung mit einer nicht verfügbaren Lehrkraft durchsetzen, die maximale Anzahl der für eine Session angemeldeten Mitglieder überschreiten.",
                     "authorizeManagerAction": "Dem Mitarbeiter die Kontrolle eines Managers geben"
                 },
                 "failDelete": {
                     "title": "Löschen der Rolle nicht möglich",
-                    "content": "Ein Mitarbeite hat diese Rolle noch, Sie können sie nicht löschen.",
+                    "content": "Ein Mitarbeiter hat diese Rolle noch, Sie können sie nicht löschen.",
                     "close": "Schließen"
                 },
                 "franchise": {
@@ -3255,10 +3255,10 @@
             }
         },
         "explainStaffDoNot": "Ein Mitarbeiter-Zugang ermöglicht keine Verbindung zur mobilen Anwendung (nur Lehrkräfte und Schüler)",
-        "explainStaffDo": "Ein Staffzugang ermöglicht eine Verbindung per Handy oder Computer mit dem folgenden Link : https://backoffice.bsport.io",
+        "explainStaffDo": "Ein Mitarbeiterzugang ermöglicht eine Verbindung per Handy oder Computer mit dem folgenden Link : https://backoffice.bsport.io",
         "permissions": "Verfügbare Rollen",
-        "userRoles": "Admin-Konten",
-        "pageTitle": "Staff",
+        "userRoles": "Mitarbeiterkonten",
+        "pageTitle": "Mitarbeiter",
         "roleDescription": {
             "4": {
                 "description": "Administrator, gleicher Zugang wie der Leiter, kann aber gelöscht/erstellt werden",
@@ -3278,7 +3278,7 @@
             },
             "0": {
                 "name": "Leiter",
-                "description": "Zugang des Administrators, keine Einschränkung, kann Staff-Konten erstellen"
+                "description": "Zugang des Administrators, keine Einschränkung, kann Mitarbeiterkonten erstellen"
             },
             "5": {
                 "name": "Berichte",
@@ -3422,7 +3422,7 @@
                             "_label": "Zugriff auf den Verlauf der Zeiterfassung"
                         },
                         "clockInForOther": {
-                            "_label": "Für einen anderen Mitarbieter stempeln"
+                            "_label": "Für einen anderen Mitarbeiter stempeln"
                         }
                     },
                     "billings": {
@@ -5029,8 +5029,8 @@
         "credit": {
             "updated": "Die Credits sind aktualisiert"
         },
-        "credits": "Credits",
-        "credits_plural": "Kredite",
+        "credits": "Credit",
+        "credits_plural": "Credits",
         "consumerPaymentPack": {
             "refund": {
                 "description": "{{ credits }} Credit - {{ note }}",
@@ -5153,7 +5153,7 @@
             "invoice": "Rechnung",
             "reverted": "Rechnung storniert",
             "notReverted": "Rechnung nicht storniert",
-            "credits": "Kredit",
+            "credits": "Credits",
             "expiration": "Gültigkeit",
             "all": "Alle Pässe",
             "isValidToday": "Gültig"
@@ -5509,20 +5509,20 @@
             "name": "{{ name }}"
         },
         "privateBookingIncomplete": {
-            "name": "Mitglied : {{ user_name }}",
-            "date": "Datum : {{ date_start }}",
-            "explain": "Der Termin von <1>{{name}}</1> hat keine vorgesehene Lehrkraft."
+            "name": "Mitglied: {{ user_name }}",
+            "date": "Datum: {{ date_start }}",
+            "explain": "Der Termin von <1>{{name}}</1> hat keine zugeteilte Lehrkraft."
         },
         "unevenInvoice": {
-            "explainUneven": "Diese Rechnung <1>{{ invoice_identifier }}</1> ist unausgeglichen.",
-            "title": "Unausgeglichene Rechnung",
-            "pricePayed": "Eingenommener Betrag : {{price_payed }}.",
-            "priceDue": "Geschuldeter Betrag : {{ price_due }}."
+            "explainUneven": "Diese Rechnung <1>{{ invoice_identifier }}</1> ist nicht ausgeglichen.",
+            "title": "Unbezahlte Rechnungen",
+            "pricePayed": "Gezahlter Betrag: {{price_payed }}.",
+            "priceDue": "Fälliger Betrag: {{ price_due }}."
         },
         "alert_kind": {
-            "4": "Termin, der ergänzen werden muss",
-            "3": "Auftrag",
-            "2": "Bestellung",
+            "4": "Zu ergänzender Termin",
+            "3": "Aufträge",
+            "2": "Bestellungen",
             "1": "Rechnungsstellung",
             "5": "Rechtliche Informationen",
             "6": "Unbezahlte Termine",
@@ -5537,26 +5537,26 @@
         "showMore": "Mehr anzeigen",
         "newOrder": {
             "explain": "Von <1>{{name}}</1> im Shop bezahlt.",
-            "price": "Betrag : {{ price }}.",
+            "price": "Betrag: {{ price }}.",
             "title": "Bestellung in Bearbeitung"
         },
         "companyOnboarding": {
             "creation": {
-                "content": "Um Karten- und SEPA-Zahlungen einziehen zu können, überprüfen Sie bitte Ihre rechtlichen Informationen",
-                "title": "Online-Zahlungen deaktiviert"
+                "content": "Um Karten- und SEPA-Zahlungen einziehen zu können, überprüfen Sie bitte Ihre rechtlichen und banktechnischen Informationen.",
+                "title": "Online-Zahlungen derzeit deaktiviert"
             },
             "payout": {
-                "content": "Wir können keine Zahlungen auf Ihr Bankkonto vornehmen, weil Ihr Bankkonto nicht existiert oder falsch eingerichtet ist.",
+                "content": "Auszahlungen können nicht durchgeführt werden, weil die Kontoverifizierung nicht oder nicht korrekt durchgeführt wurde.",
                 "title": "Fehlende Bankinformationen"
             },
             "verification": {
-                "warning": "Online-Zahlungen können nach diesem Datum <1>deaktiviert</1> werden !",
-                "content": "Mehrere Dokumente sind ausstehend, Du hast bis <1>{{ date }}</1> Zeit, um Dein Konto zu überprüfen.",
+                "warning": "Online-Zahlungen können nach diesem Datum <1>deaktiviert</1> werden!",
+                "content": "Mehrere Dokumente müssen noch validiert werden, um Ihr Konto zu verifizieren. Die Frist ist <1>{{date}}</1>.",
                 "title": "Verwaltung meines Unternehmens"
             }
         },
         "unpaidPrivateBooking": {
-            "credits_due": "Zu zahlende Kredite : {{ credits }}"
+            "credits_due": "Unbezahlte Credits: {{ credits }}"
         },
         "lateReplacementRequest": {
             "title": "Späte Vertretung",
@@ -5565,14 +5565,14 @@
         "newTutorialSectionOrLesson": {
             "newSection": {
                 "title": "Neue Sektion",
-                "content": "Die Sektion {{- name}} wurde hinzugefügt, bilden Sie sich jetzt weiter."
+                "content": "Das {{- name}} Tutorial wurde hinzugefügt, bilden Sie sich jetzt weiter."
             },
             "newLesson": {
                 "title": "Neuer Kurs {{- name}}",
                 "content": "Zur Sektion {{- name}} hinzugefügt"
             }
         },
-        "readAll": "Alles als gelesen markieren"
+        "readAll": "Alle als gelesen markieren"
     },
     "reporting": {
         "form": {
@@ -5604,12 +5604,12 @@
             "bank_transfer": "Überweisung",
             "amex": "AMEX",
             "holiday_check": "Urlaubsgutschein",
-            "manual_credit_card": "Kreditkarte (manuel)",
+            "manual_credit_card": "Kreditkarte (manuell)",
             "stripe": "Kreditkarte",
             "dispute": "Streitfall",
             "check": "Scheck",
             "cash": "Bargeld",
-            "credit_account": "Kredit des Kundes",
+            "credit_account": "Internes Konto",
             "sepa": "SEPA",
             "credit_card": "CB",
             "eps": "EPS",
@@ -5738,8 +5738,8 @@
             "author": "Autor",
             "nb_bookings_same_pass": "Anzahl der Buchungen mit dem gleichen Kurspass",
             "credit_consumed": "Verbrauchte Credits",
-            "min_credit": "Minimaler Kredit",
-            "max_credit": "Maximaler Kredit",
+            "min_credit": "Minimale Credits",
+            "max_credit": "Maximale Credits",
             "today_end_amount": "Tagesendbetrag",
             "today_start_amount": "Betrag zu Beginn des Tages",
             "amount": "Gewinn des Tages",
@@ -5805,9 +5805,9 @@
             "billing_group": "Abrechnungsgruppe",
             "company_name": "Franchisenehmer",
             "reverted": "Abgesagt",
-            "sum_available_amount_non_expired": "Kreditangebote noch verfügbar",
-            "sum_available_amount_expired": "Angebotene und abgelaufene Kredite",
-            "sum_consumed_amount": "Angebotene Kredite",
+            "sum_available_amount_non_expired": "Verbleibende Credits",
+            "sum_available_amount_expired": "Verwendete und abgelaufene Credits",
+            "sum_consumed_amount": "Verwendete Credits",
             "nb_expired": "Anzahl der nicht aktivierten Gutscheine",
             "nb_non_activated": "Anzahl der nicht aktivierten Gutscheine",
             "nb_activated": "Anzahl der aktivierten Gutscheine",
@@ -6075,7 +6075,8 @@
                 "isTrue": "Wahr",
                 "isFalse": "Falsch",
                 "submit": "Speichern",
-                "edit": "Bearbeiten"
+                "edit": "Bearbeiten",
+                "shortColumnError": "Die entsprechende Spalte wird nicht angezeigt"
             },
             "deleteModal": {
                 "content": "SInd Sie sicher, dass Sie die gefilterte Ansicht löschen möchten? Diese Einstellung kann nicht rückgängig gemacht werden.",
@@ -6143,11 +6144,11 @@
                 "4": "Karte (manuell)",
                 "5": "Urlaubscheck",
                 "8": "Veranstaltungshinweise",
-                "9": "Kundenkredit"
+                "9": "Internes Konto"
             },
             "payment_method_with_credit_account": {
                 "0": "Karte",
-                "9": "Kundenkredit",
+                "9": "Internes Konto",
                 "13": "SEPA"
             },
             "payment_engine": {
@@ -6241,7 +6242,7 @@
         },
         "payment_method_with_credit_account": {
             "0": "Karte",
-            "9": "Kundenkredit",
+            "9": "Internes Konto",
             "13": "SEPA",
             "70": "Bacs-Lastschriftverfahren"
         },
@@ -7492,12 +7493,12 @@
             "voucher": "Rabatt : {{ voucher }}",
             "quantity": "Menge",
             "credit": {
-                "label": "Kredit"
+                "label": "Credit"
             },
             "buyableItemIdentifier": {
                 "10": "Package",
                 "9": "Terminpass",
-                "3": "Kredit",
+                "3": "Credit",
                 "2": "Shop",
                 "1": "Kurspässe",
                 "undefined": "Geschenkkarte",
@@ -7849,7 +7850,7 @@
             "2": "Scheck",
             "1": "Bargeld",
             "0": "Kreditkarte",
-            "9": "Internes Konto (Kredit)",
+            "9": "Internes Konto (Credit)",
             "label": "Zahlungsmethode",
             "12": "Streitfall",
             "13": "SEPA",
@@ -8628,26 +8629,26 @@
     },
     "booking": {
         "details": {
-            "pleaseSelectABooking": "Wähle eine Buchung aus, um die Details zu sehen",
-            "offerTitle": "Kurs verbunden",
-            "consumerPaymentPackTitle": "Kurspass benutzt",
-            "title": "Details der Buchungen"
+            "pleaseSelectABooking": "Wählen Sie eine Buchung aus, um die Details zu sehen",
+            "offerTitle": "Verbundene Session",
+            "consumerPaymentPackTitle": "Genutzer Kurspass",
+            "title": "Details der Buchung"
         },
         "bookingModule": {
             "option": {
                 "isFull": "Der Kurs ist voll. Du kannst dich auf die Warteliste eintragen. Du wirst per E-Mail benachrichtigt, sobald ein Platz frei wird.",
-                "isAlreadyOnWaitingList": "Du bist auf der Warteliste registriert, wir werden Dich per E-Mail benachrichtigen, wenn ein Platz frei ist.",
-                "registerOption": "Mich auf die Warteliste einschreiben",
-                "isAlreadyRegistered": "Der Kurs ist voll, herzlichen Glückwunsch, Du bist eingeschrieben!",
-                "waitingListOpen": "Der Kurs ist voll, Du kannst dich jedoch auf der Warteliste registrieren. Wir werden Dich per E-Mail benachrichtigen, sobald ein Platz verfügbar ist",
+                "isAlreadyOnWaitingList": "Du bist auf der Warteliste registriert. Wir werden Dich per Email benachrichtigen, wenn ein Platz frei wird.",
+                "registerOption": "Mich auf die Warteliste setzen lassen",
+                "isAlreadyRegistered": "Die Session ist voll. Herzlichen Glückwunsch, Sie sind eingebucht!",
+                "waitingListOpen": "Der Kurs ist voll. Sie können sich jedoch auf die Warteliste setzen lassen. Wir werden Sie per E-Mail benachrichtigen, sobald ein Platz verfügbar ist.",
                 "waitingListLockedByPendingBookings": "Andere Personen buchen gerade, die Warteliste ist derzeit nicht verfügbar. Bitte versuchen Sie es in ein paar Minuten erneut, um zu sehen, ob ein Platz frei geworden ist."
             },
             "offer": {
-                "isDisabled": "Der Kurs wurde leider abgesagt.",
-                "isWaitingListFull": "Der Kurs ist abgeschlossen und die Warteliste ist voll.",
-                "isTooLate": "Anmeldungen sind nicht mehr möglich, die Anmeldefrist ist überschritten.",
-                "isTooSoon": "Die Anmeldungen sind derzeit geschlossen und werden am {{-date}} geöffnet.",
-                "isAlreadyRegistered": "Sie sind bereits für diese Session registriert",
+                "isDisabled": "Diese Session wurde leider abgesagt.",
+                "isWaitingListFull": "Die Session und die Warteliste sind voll.",
+                "isTooLate": "Anmeldungen sind nicht mehr möglich.",
+                "isTooSoon": "Buchungen öffnen am {{-date}}.",
+                "isAlreadyRegistered": "Sie sind bereits für diese Session registriert.",
                 "blockedByTags": "Sie haben nicht die erforderlichen Rechte, um sich für diese Session anzumelden."
             },
             "section": {
@@ -8658,19 +8659,19 @@
                 "contract": "Abonnieren"
             },
             "messages": {
-                "offerLocked": "Du kannst diesen Kurs nicht buchen",
-                "maleUnavailable": "Der Kurs kann nicht mehr für Männer gebucht werden.",
-                "femaleUnavailable": "Der Kurs kann nicht mehr für Frauen gebucht werden."
+                "offerLocked": "Fehler beim Buchen",
+                "maleUnavailable": "Die Session kann nicht mehr für Männer gebucht werden.",
+                "femaleUnavailable": "Die Session kann nicht mehr für Frauen gebucht werden."
             },
-            "hasRegistered": "Du bist für diesen Kurs angemeldet",
+            "hasRegistered": "Sie sind bereits für diese Session angemeldet.",
             "recurrent": {
                 "backToRegistererChoice": "Zurück",
                 "bookMultiple": "Buchen",
-                "title": "Zukünftige Kurse"
+                "title": "Nächste Sessions"
             },
-            "isLoading": "Kurse werden gesucht...",
+            "isLoading": "Sessions werden gesucht...",
             "book": {
-                "unknowError": "Momentan kann nicht gebucht werden. Bitte versuche es später erneut"
+                "unknowError": "Momentan keine Buchung möglich - Bitte versuchen Sie es später erneut"
             },
             "tags": {
                 "unAuthorized": "Sie haben nicht die erforderlichen Rechte, um sich für diese Session anzumelden.",
@@ -8683,14 +8684,14 @@
             }
         },
         "statusCode": {
-            "cancelledByOffer": "Kurs von dem Studio storniert",
-            "cancelledByConsumer": "Stornierung vom Kunde",
+            "cancelledByOffer": "Kurs vom Studio abgesagt",
+            "cancelledByConsumer": "Vom Kunden storniert",
             "cancelledByManager": "Vom Manager storniert ({{cancelled_by}})",
-            "cancelledByOfferDate": "Kurs vom Club am {{-date}} um {{time}} abgesagt",
-            "cancelledByConsumerDate": "Kundenstornierung am {{-date}} um {{time}}",
-            "cancelledByManagerDate": "Abgesagt vom Manager am {{-date}} um {{time}} von {{cancelled_by}}",
+            "cancelledByOfferDate": "Kurs vom Studio am {{-date}} um {{time}} abgesagt.",
+            "cancelledByConsumerDate": "Vom Kunden am {{-date}} um {{time}} storniert.",
+            "cancelledByManagerDate": "Am {{-date}} um {{time}} von {{cancelled_by}} abgesagt.",
             "cancelledByAnonymousManager": "Annullierung Admin",
-            "cancelledByAnonymousManagerDate": "Annullierung Admin am {{-date}} um {{time}}"
+            "cancelledByAnonymousManagerDate": "Vom Studio am {{-date}} um {{time}} abgesagt."
         },
         "doNotAttend": "Abwesend",
         "attend": "Anwesend",
@@ -8699,18 +8700,18 @@
             "wasRefunded": "Zurückerstattet"
         },
         "source": {
-            "other": "Divers",
+            "other": "Andere",
             "saas": "Backoffice",
-            "app": "App",
+            "app": "Mobile App",
             "web": "Web",
             "migration": "Migration"
         },
         "parameters": {
-            "registeredOn": "Gebucht, am ",
-            "source": "Buchungs-Kanal",
+            "registeredOn": "Gebucht am ",
+            "source": "Gebucht über",
             "cancelledOn": "Storniert am ",
             "by": "Durch",
-            "noShow": "abwesend "
+            "noShow": "No-show "
         },
         "loading": "Es lädt ...",
         "wasRefunded": "Zurückerstattet",
@@ -8722,16 +8723,16 @@
             "pastBooking": "Vergangene Buchungen",
             "futureBooking": "Zukünftige Buchungen",
             "time": "Buchungen im Laufe der Zeit",
-            "attendance": "Stornierung",
-            "consumerCanceled": "Stornierung Kunde",
-            "managerCanceled": "Stornierung  Admin",
-            "canceled": "Kurs storniert",
+            "attendance": "Anwesenheit",
+            "consumerCanceled": "Vom Mitglied storniert",
+            "managerCanceled": "Vom Studio abgesagt",
+            "canceled": "Session storniert",
             "absent": "Abwesend",
             "present": "Anwesend",
             "all": "Alle Buchungen",
-            "withoutRecurrentBookings": "Einmalige Buchung",
-            "withRecurrentBookings": "Wiederkehrende Buchung",
-            "recurrentBooking": "Wiederkehrende Buchungen",
+            "withoutRecurrentBookings": "Einmalige Buchungen",
+            "withRecurrentBookings": "Wiederkehrende Buchungen",
+            "recurrentBooking": "Wiederkehrende Buchung",
             "notCancelled": "Nicht storniert",
             "pickCoach": "Nach einer Lehrkraft suchen...",
             "coach": "Lehrkraft",
@@ -8780,11 +8781,15 @@
                     "title": "Ereignis, das die Benachrichtigung auslöst"
                 },
                 "chooseTime": {
-                    "second_after": "Stunde (n) nach dem Kurs",
-                    "second_before": "Stunde (n) vor Beginn des Kurses",
+                    "second_after": "Stunde(n) nach Ende der Session.",
+                    "second_after_plural": "Stunde(n) nach Ende der Session.",
+                    "second_before": "Stunde(n) vor Beginn der Session.",
+                    "second_before_plural": "Stunde(n) vor Beginn der Session.",
                     "first": "Eine E-Mail senden",
-                    "second_before_days": "Tag(e) vor dem Kurs",
-                    "second_after_days": "Stunde(n) vor dem Kurs"
+                    "second_before_days": "Tag(e) vor dem Beginn der Session.",
+                    "second_before_days_plural": "Tag(e) vor dem Beginn der Session.",
+                    "second_after_days": "Stunde(n) nach Ende der Session.",
+                    "second_after_days_plural": "Stunde(n) nach Ende der Session."
                 },
                 "sendAfterMail": "Sende die E-Mail nach der von der Benachrichtigung betroffenen Kurse an das Mitglied",
                 "sendBeforeMail": "Sende die E-mail vor den von der Benachrichtigung betroffenen Kursen and das Mitglied",
@@ -8985,7 +8990,12 @@
                 "addGuestNumberLeftMonth": "Sie können noch eine weitere Person diesen Monat einladen.",
                 "addGuestNumberLeftMonth_plural": "Sie können noch {{count}} weitere Personen diesen Monat einladen.",
                 "addGuestNumberLeftWeek": "Sie können noch eine weitere Person diese Woche einladen.",
-                "addGuestNumberLeftWeek_plural": "Sie können noch {{count}} weitere Personen diese Woche einladen."
+                "addGuestNumberLeftWeek_plural": "Sie können noch {{count}} weitere Personen diese Woche einladen.",
+                "guestLimitReached": {
+                    "every_year": "Sie haben das Einladungslimit für dieses Jahr erreicht.",
+                    "every_month": "Sie haben das Einladungslimit für diesen Monat erreicht.",
+                    "every_week": "Sie haben das Einladungslimit für diese Woche erreicht."
+                }
             },
             "bookingFor": "Buchung für"
         },
@@ -9107,7 +9117,8 @@
             "spotSelectorTitle": "Wählen Sie Ihren Platz",
             "seeAllProducts": "Alle Produkte ansehen",
             "recommended": "Empfehlungen",
-            "reviewAndConfirm": "Überprüfen und Bestätigen"
+            "reviewAndConfirm": "Überprüfen und Bestätigen",
+            "guestSpotSelectorTitle": "Wählen Sie einen Platz für Ihren Gast"
         }
     },
     "member": {
@@ -10744,7 +10755,7 @@
             "invoice": "Rechnung",
             "reverted": "Rechnung storniert",
             "notReverted": "Rechnung nicht storniert",
-            "credits": "Kredit",
+            "credits": "Credit(s)",
             "expiration": "Gültigkeit",
             "all": "Alle Pässe",
             "isValidToday": "Gültig"
@@ -11874,12 +11885,12 @@
                 "confirm": "Bestätigen"
             },
             "title": "Passwort wiederherstellen",
-            "emailHasBeenSent": "Eine E-Mail wurde an {{email}} gesendet, um Dein Passwort wiederherzustellen",
-            "explain1": "Wie lautete die E-Mail-Adresse des Kontos?",
-            "noEmail": "Diese E-Mail ist nicht gespeichert",
-            "explain2": "Wir senden Dir Anweisungen zur Wiederherstellung deines Passworts",
-            "contactUs": "Kontaktiere uns via ",
-            "hasProblem": "Hast Du Probleme beim Zurücksetzen?"
+            "emailHasBeenSent": "Eine E-Mail wurde an \"{{email}}\" gesendet, um Ihr Passwort wiederherzustellen.",
+            "explain1": "Welche Email verwenden Sie zum Einloggen?",
+            "noEmail": "Diese E-Mail existiert nicht in unserer Mitgliederdatenbank.",
+            "explain2": "Wir senden Ihnen Anweisungen zur Wiederherstellung Ihres Passworts.",
+            "contactUs": "Kontaktieren Sie uns via ",
+            "hasProblem": "Haben Sie Probleme beim Zurücksetzen Ihres Passworts?"
         }
     },
     "category": {
@@ -11894,7 +11905,7 @@
         "task": {
             "form": {
                 "task_owner": {
-                    "helperText": "Personal, das benachrichtigt werden muss"
+                    "helperText": "Mitarbeiter, die benachrichtigt werden müssen"
                 },
                 "name": {
                     "label": "Titel"
@@ -11947,7 +11958,7 @@
             "17": "Buchung storniert : Credits werden nicht zurückerstattet",
             "402": "Neuer Termin (Lehrkraft)",
             "25": "Änderung der Zahlungsmethode",
-            "19": "Anmeldung als Mitglied (Admin)",
+            "19": "Anmeldung als Mitglied (Mitarbeiter)",
             "16": "Geänderter Kurs",
             "12": "Anmeldung zur Warteliste",
             "8": "Buchung + gleichzeitiger Kauf von Kurspässen",
@@ -11956,7 +11967,7 @@
             "21": "Neue Buchung",
             "403": "Geänderte Uhrzeit (Lehrkraft)",
             "26": "Abonnement unterbrochen",
-            "14": "Abmeldung von der Warteliste (Admin)",
+            "14": "Abmeldung von der Warteliste (Mitarbeiter)",
             "9": "Die Warteliste verlassen : Buchung möglich",
             "10": "Der Wartelistenplatz ist abgelaufen",
             "300": "Kick (nicht zu oft rechtzeitig validiert)",
@@ -11994,7 +12005,9 @@
             "305": "Änderung der Mitglieds-E-Mail aus dem Backoffice",
             "1002": "Leistung der Spinning-Sitzung",
             "1001": "Spivi-Konto erstellt (Schüler)",
-            "1003": "Spivi-Konto erstellt (Lehrkraft)"
+            "1003": "Spivi-Konto erstellt (Lehrkraft)",
+            "31": "Buchung für einen Gast (für Gast)",
+            "30": "Buchung für einen Gast (für einladendes Mitglied)"
         },
         "tag": {
             "BookingOption": {
@@ -12192,6 +12205,15 @@
                     "SEP": "Spivi Ecosystem Point"
                 },
                 "name": "Performance"
+            },
+            "GuestInvitation": {
+                "tags": {
+                    "lastname_host": "Nachname des einladenden Mitglieds",
+                    "firstname_host": "Vorname des einladenden Mitglieds",
+                    "lastname_guest": "Nachname des Gasts",
+                    "firstname_guest": "Vorname des Gasts"
+                },
+                "name": "Gastbuchung"
             }
         },
         "emailDesign": {
@@ -13077,7 +13099,7 @@
                 "partnership": "Partnerschaft",
                 "webhook": "WebHook",
                 "personalization": "Personalisierung",
-                "role": "Staff",
+                "role": "Mitarbeiter",
                 "shop": "Shop",
                 "waitingList": "Warteliste",
                 "invoice": "Rechnungsstellung",
@@ -13271,7 +13293,7 @@
             },
             "franchise": {
                 "staff": {
-                    "staffAccount": "Mitarbeiterkonto",
+                    "staffAccount": "Mitarbeiterkonten",
                     "role": "Aufgaben"
                 }
             },
@@ -14181,7 +14203,7 @@
         "pendingReplacementRequest": "Ein Antrag auf Vertretung ist offen",
         "form": {
             "warnings": {
-                "editOfferInitialCredits": "Ältere Buchungen berücksichtigen keine Kreditänderungen",
+                "editOfferInitialCredits": "Ältere Buchungen berücksichtigen keine Creditänderungen",
                 "effectif": "Achtung: Sie geben hier keinen Preis ein. Sind Sie sich über den Wert sicher?"
             },
             "errors": {
@@ -14414,7 +14436,7 @@
             "partnership": "Partnerschaft",
             "webhook": "WebHook",
             "personalization": "Personalisierung",
-            "role": "Staff",
+            "role": "Mitarbeiter",
             "shop": "Shop",
             "active_campaign": "ActiveCampaign",
             "general": "Allgemein",
@@ -14951,7 +14973,9 @@
                         "genericOfferError": "Hoppla! Die Buchung ist fehlgeschlagen.",
                         "generic": "Hoppla! Die Zahlung ist fehlgeschlagen."
                     }
-                }
+                },
+                "offerGuestBooked": "Meine Gastbuchung",
+                "offerGuestBooked_plural": "Meine Gastbuchungen"
             },
             "actions": {
                 "continue": "Meinen Einkauf fortsetzen",
@@ -16074,8 +16098,10 @@
                     "changeInStep": "In einen Schritt umwandeln",
                     "changeInExit": "Von der Kadenz entfernen",
                     "delete": "Löschen",
-                    "addNextStep": "Nächsten Schritt hinzufügen"
-                }
+                    "addNextStep": "Nächsten Schritt hinzufügen",
+                    "nextStepTrigger": "Auslöser für den nächsten Schritt"
+                },
+                "defaultName": "Autostep"
             },
             "marketingAction": {
                 "addAction": "Eine Aktion hinzufügen"
@@ -16702,8 +16728,8 @@
             "supplier": "Lieferant / Verkäufer",
             "description": "Titel / Beschreibung",
             "category": "Kategorie",
-            "staff": "Staff",
-            "noStaff": "Ohne zugewiesenen Staff",
+            "staff": "Mitarbeiter",
+            "noStaff": "Ohne zugewiesene Mitarbeiter",
             "amount": "Betrag",
             "requiredField": "Hier können Sie die Ausgaben für Ihr Studio hinzufügen.",
             "actions": {
@@ -16727,10 +16753,10 @@
             "titleCategory": "Kategorien",
             "filterSupplier": "Alle Anbieter",
             "filterCategory": "Alle Kategorien",
-            "noStaff": "Ohne zugewiesenen Staff",
+            "noStaff": "Ohne zugewiesene Mitarbeiter",
             "titleSupplier": "Anbieter",
             "noCategory": "Ohne Kategorie",
-            "titleStaff": "Personal",
+            "titleStaff": "Mitarbeiter",
             "filterStaff": "Der gesamte Mitarbeiterstab",
             "showFuture": "Zukünftige Ausgaben"
         },
@@ -16755,7 +16781,7 @@
             "header": {
                 "repeat": "Rekursion",
                 "date_due": "Fälligkeitsdatum",
-                "staff": "Personal",
+                "staff": "Mitarbeiter",
                 "category": "Kategorie",
                 "amount": "Betrag",
                 "supplier": "Lieferant / Verkäufer",
@@ -16980,7 +17006,7 @@
         "clockinDialog": {
             "successClockIn": "Ankunftszeit:",
             "subtitleSuccess": "Ihre Zeiterfassung wurde erfolgreich abgeschlossen. Sie können eine neue Zeiterfassung starten, wenn Sie dieses Fenster das nächste Mal öffnen.",
-            "clockInForOther": "für einen anderen Staff ausstempeln",
+            "clockInForOther": "für einen anderen Mitarbeiter ausstempeln",
             "subtitleClockOut": "Jetzt geht es los! Um erneut auszustempeln und den Stundenzähler zu stoppen, klicken Sie bitte auf \"Beenden\"",
             "subtitleClockIn": "Hallo {{ name }}, klicken Sie auf \"Starten\", um mit der Stempelung Ihres Tages zu beginnen.",
             "lastClockOut": "Ankunftszeit: ",
@@ -17000,7 +17026,7 @@
         },
         "tabHistory": "Geschichte",
         "tabRealTime": "Echtzeit",
-        "pageTitle": "Öffnungszeiten Staff",
+        "pageTitle": "Anwesenheit",
         "editModal": {
             "confirm": "Bestätigen",
             "cancel": "Abbrechen",
@@ -17010,7 +17036,7 @@
         },
         "modal": {
             "delete": {
-                "content": "Achtung: Sind Sie sicher, dass Sie den Zeitslot für diesen Staff löschen möchten? Dieser Vorgang ist unumkehrbar.",
+                "content": "Achtung: Sind Sie sicher, dass Sie den Zeitslot für diesen Mitarbeiter löschen möchten? Dieser Vorgang ist unumkehrbar.",
                 "title": "Suppresion"
             }
         },
@@ -17021,11 +17047,11 @@
             "durationHoursMinutes": "Geleistete Arbeitsstunden (Stunde und Minute)",
             "endingHour": "Uhrzeit des Endes",
             "startingHour": "Uhrzeit des Beginns",
-            "staff": "Staff"
+            "staff": "Mitarbeiter"
         },
         "attendanceTable": {
-            "emptyState": "Sie haben noch keinen Staffzugang vergeben. Um Staff-Zugänge einzurichten, gehen Sie zu Einstellungen und dann Staff oder klicken Sie auf die Schaltfläche unten. Um die Arbeitszeiten Ihres Staffs zu verfolgen, vergessen Sie nicht, beim Erstellen der Rolle die Option \"Zeiterfassung\" zu aktivieren.",
-            "createStaff": "einen Staff-Zugang erstellen",
+            "emptyState": "Sie haben noch keinen Mitarbeiterzugang vergeben. Um Mitarbeiterzugänge einzurichten, gehen Sie zu Einstellungen und dann Mitarbeiter oder klicken Sie auf die Schaltfläche unten. Um die Arbeitszeiten Ihrer Mitarbeiter zu verfolgen, vergessen Sie nicht, beim Erstellen der Rolle die Option \"Zeiterfassung\" zu aktivieren.",
+            "createStaff": "Mitarbeiterzugang erstellen",
             "missing": "Abwesend",
             "here": "Gegenwart",
             "end": "Beginnen",
@@ -17035,7 +17061,7 @@
             "status": "Status",
             "lastClockIn": "Letzte Stempelung",
             "email": "Email",
-            "staff": "Staff",
+            "staff": "Mitarbeiter",
             "lastname": "Name",
             "firstname": "Vorname"
         }
@@ -17285,7 +17311,7 @@
     "tutorial": {
         "shareDialog": {
             "infoTextSection": "Geben Sie alle Sessions von \"{{name}}\" an Mitarbeiter weiter, die z. B. keinen Zugang zu den Handbüchern haben. Die Empfänger haben exklusiven Zugriff auf diesen Bereich.",
-            "infoTextLesson": "Geben Sie diese Session ({{name}}) an Mitarbeiter weiter, die z. B. keinen Zugang zu den Handbüchern haben. Die Empfänger haben exklusiven Zugriff auf diese Session.",
+            "infoTextLesson": "Geben Sie diese Session {{name}} an Mitarbeiter weiter, die z. B. keinen Zugang zu den Handbüchern haben. Die Empfänger haben exklusiven Zugriff auf diese Session.",
             "title": "Teilen",
             "continueButton": "Weiter"
         },
@@ -17418,7 +17444,7 @@
         },
         "pageTitle": "Verkaufsschnittstelle",
         "rolePage": {
-            "subtitle": "Diese Zugänge ermöglichen dem Staff den Zugriff auf die Schnittstelle für den Schnellverkauf. Sie müssen sich einloggen, um über die Schnittstelle verkaufen zu können.",
+            "subtitle": "Diese Zugänge ermöglichen den Mitarbeitern den Zugriff auf die Schnittstelle für den Schnellverkauf. Sie müssen sich einloggen, um über die Schnittstelle verkaufen zu können.",
             "addAccess": "Zugang hinzufügen",
             "modalTitle": "Erstellen eines Zugangs zur Verkaufsschnittstelle",
             "email": "E-Mail",

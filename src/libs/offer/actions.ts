@@ -477,7 +477,7 @@ export function fetchNextAvailableOffer(
       // eslint-disable-next-line
       delete params.filters;
       const response = await fetchOffersListAPI({
-        only_future: true,
+        only_future_strict: true,
         max_date: moment().add(4, 'month').format('YYYY-MM-DD'),
         ...params,
         ...createOfferFilter(filters),

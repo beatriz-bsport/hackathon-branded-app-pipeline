@@ -210,11 +210,19 @@ const getTranslations = async () => {
           title: 'Event',
         },
         chooseTime: {
-          second_after: 'hour(s) after the end of the session.',
-          second_before: 'hour(s) before the start of the session.',
+          second_after: '{{ count }} hour after the end of the session.',
+          second_after_plural:
+            '{{ count }} hours after the end of the session.',
+          second_before: '{{ count }} hour before the start of the session.',
+          second_before_plural:
+            '{{ count }} hours before the start of the session.',
           first: 'Send this notification',
-          second_after_days: 'hour(s) after the end of the session',
-          second_before_days: 'day(s) before the start of the session',
+          second_after_days: '{{ count }} day after the end of the session',
+          second_after_days_plural:
+            '{{ count }} days after the end of the session',
+          second_before_days: '{{ count }} day before the start of the session',
+          second_before_days_plural:
+            '{{ count }} days before the start of the session',
         },
         sendAfterMail: 'Send this notification after the session has ended',
         sendBeforeMail:

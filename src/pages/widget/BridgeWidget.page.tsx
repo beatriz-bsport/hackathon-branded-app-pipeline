@@ -54,6 +54,17 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
     }
   }
 
+  // The redux stores of the different widget and the bridge (iframe) are not shared.
+  // However, the localStorage can be updated by the bridge and/or another iframe (usually the booking/payment popup).
+  //
+  // The localStorage contains the authentication token. This means that we can be in the situation where:
+  // - the token was updated (deleted because of logout) and this component
+  // - the redux store is not in sync with that and authenticated === true, for example
+  //
+  // To resolve these inconsistencies, we need to listen to these changes and update the redux store if
+  // the authentication status has changed.
+  // To do so, we listen to localStorage changes to detect token modification.
+  // When the token is updated, we refetch user data via a redux action and store it in the redux store.
   onStorageChange = () => {
     const token = getAuthToken();
     if (token !== this.token) {
@@ -107,6 +118,8 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
   fetchAccessLevel = (token: string) => {
     if (token && token !== 'null') {
       this.props.fetchAccessLevel(token);
+    } else {
+      this.props.disconnect();
     }
   };
 

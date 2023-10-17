@@ -91,6 +91,7 @@ import type {
 } from '#libs/datatype-filtering/types';
 import { checkIdentifierAlreadyExist } from '#libs/datatype-filtering/utils';
 import {
+  DATATYPE_FILTERABLE_BY_ID_IN,
   FILTER_EQUAL_OPERAND,
   FILTER_GTE_OPERAND,
   FILTER_IN_OPERAND,
@@ -759,7 +760,12 @@ export const getFilterableColumns = (
     (columns || []).filter((d) => {
       if (!d.is_filterable) return false;
       // For franchisors, we only allow the 'company' datatype among DATATYPE_FILTERABLE_BY_ID_IN
-      if (isFranchisor && d.datatype !== 'company') return false;
+      if (
+        isFranchisor &&
+        DATATYPE_FILTERABLE_BY_ID_IN.includes(d.datatype) &&
+        d.datatype !== 'company'
+      )
+        return false;
       // If the column has already been filtered on, a filter on the same column can't be applied
       if (
         filterGroups &&

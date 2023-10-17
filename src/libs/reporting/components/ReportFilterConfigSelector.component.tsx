@@ -193,6 +193,8 @@ const ReportFilterConfigSelector: React.FC<Props & Values> = memo(
     const handleCloseModal = () => {
       setIsModalOpen(false);
       setEditFilterId(null);
+      setIsQuickFilterModalOpen(false);
+      setIsQuickFilterConfigColumnModalOpen(false);
     };
 
     const handleQuickFilterModalOpen = useCallback(

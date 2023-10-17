@@ -6,7 +6,6 @@ import React, {
   useState,
   useCallback,
 } from 'react';
-import uniqBy from 'lodash/uniqBy';
 import { useTranslation } from 'react-i18next';
 
 import classNames from 'classnames';
@@ -45,7 +44,6 @@ import {
   GROUP_AND_OPERAND,
 } from '#libs/datatype-filtering/constants';
 import {
-  checkIdentifierAlreadyExist,
   generateNewGroup,
   generateNewFilterItem,
 } from '#libs/datatype-filtering/utils';
@@ -55,6 +53,7 @@ import OperandSelect from '#libs/datatype-filtering/components/OperandSelect.com
 import DatatypeFilterConfigGroupRow from '#libs/datatype-filtering/components/DatatypeFilterConfigGroupRow.component';
 import { OptionCallback } from '../../../../state/types';
 import { handleGetDynamicDataForFiltersReturn } from '#libs/datatype-filtering/dynamic-data-hoc';
+import { getFilterableColumns } from '#libs/reporting/utils';
 
 type Values = {
   name: string;
@@ -122,22 +121,7 @@ const ReportFilterConfigFormDrawer: React.FC<
   // Columns management
   //
   const consumableColumns = useMemo(
-    () =>
-      uniqBy(
-        columns.filter((d) => {
-          if (!d.is_filterable) return false;
-          // For franchisors, we only allow the 'company' datatype among DATATYPE_FILTERABLE_BY_ID_IN
-          if (isFranchisor && d.datatype !== 'company') return false;
-          // by Id filter sould be uniq across the filter as a product decision
-          if (
-            DATATYPE_FILTERABLE_BY_ID_IN.includes(d.datatype) &&
-            checkIdentifierAlreadyExist(d.identifier, values.config.groups)
-          )
-            return false;
-          return true;
-        }),
-        (column) => [column.datatype, column.identifier],
-      ),
+    () => getFilterableColumns(values.config.groups, columns, isFranchisor),
     [columns, values.config.groups, isFranchisor],
   );
 

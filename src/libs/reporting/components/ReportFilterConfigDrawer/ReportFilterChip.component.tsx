@@ -284,7 +284,12 @@ const useStyles = makeStyles((theme: Theme) => ({
       backgroundColor: '#FFF7EB',
     },
   },
-  column: { display: 'flex', alignItems: 'center', flexDirection: 'column' },
+  column: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
   filterWithoutValues: {
     color: theme.palette.text.disabled,
     backgroundColor: chroma('black').alpha(0.1).hex(),

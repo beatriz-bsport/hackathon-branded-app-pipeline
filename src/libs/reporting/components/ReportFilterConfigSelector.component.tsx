@@ -252,7 +252,7 @@ const ReportFilterConfigSelector: React.FC<Props & Values> = memo(
         <div ref={containerRef} style={{ width: '100%' }}>
           <div className={classes.rowHeader}>
             {!!options?.filter((f) => f.value !== -1)?.length && (
-              <div style={{ width: '100%', maxWidth: 340 }}>
+              <div className={classes.filteredConfigMenu}>
                 <MaterialUISelector
                   // dirty trick to close selector on click for popup edit/create/delete
                   key={`${editFilterId}-${deleteFilterId}-${
@@ -334,70 +334,62 @@ const ReportFilterConfigSelector: React.FC<Props & Values> = memo(
                 />
               </div>
             )}
-            <div className={classes.row}>
-              <div className={classes.chipList}>
-                {columnsDataSelectedQuickFilter.map((filterItem) => (
-                  <ReportFilterChip
-                    key={filterItem.identifier}
-                    ref={chipRef}
-                    columnIdentifiers={columnIdentifiers}
-                    comparator={filterItem.comparator}
-                    datatype={filterItem.datatype}
-                    editReportFilterConfig={editReportFilterConfig}
-                    getDataByTypeAndId={handleGetDynamicDataForReport}
-                    label={filterItem.identifier}
-                    reportQuickFilter={reportQuickFilter}
-                    setAnchorEl={setAnchorEl}
-                    setIsQuickFilterConfigRowModalOpen={
-                      setIsQuickFilterConfigRowModalOpen
-                    }
-                    setIsQuickFilterModalOpen={setIsQuickFilterModalOpen}
-                    setSelectedColumn={setSelectedColumn}
-                    value={filterItem.value}
-                  />
-                ))}
-              </div>
-              {isQuickFilterModalOpen && (
-                <QuickReportFilterConfigColumnsMenu
-                  anchorEl={anchorEl}
-                  chipRef={chipRef}
-                  columns={columnsMetadata}
-                  columnsDataSelectedQuickFilter={
-                    columnsDataSelectedQuickFilter
-                  }
-                  getDataByType={handleGetDynamicDataForReport}
-                  handleOpenModal={handleOpenModal}
-                  handleQuickFilterModalClose={handleQuickFilterModalClose}
-                  isFranchisor={isFranchisor}
-                  isQuickFilterConfigColumnModalOpen={
-                    isQuickFilterConfigColumnModalOpen
-                  }
-                  isQuickFilterConfigRowModalOpen={
-                    isQuickFilterConfigRowModalOpen
-                  }
-                  isQuickFilterModalOpen={isQuickFilterModalOpen}
-                  reportCategory={reportCategory}
-                  selectedColumn={selectedColumn}
+            <div className={classes.chipList}>
+              {columnsDataSelectedQuickFilter.map((filterItem) => (
+                <ReportFilterChip
+                  key={filterItem.identifier}
+                  ref={chipRef}
+                  columnIdentifiers={columnIdentifiers}
+                  comparator={filterItem.comparator}
+                  datatype={filterItem.datatype}
+                  editReportFilterConfig={editReportFilterConfig}
+                  getDataByTypeAndId={handleGetDynamicDataForReport}
+                  label={filterItem.identifier}
+                  reportQuickFilter={reportQuickFilter}
                   setAnchorEl={setAnchorEl}
-                  setIsQuickFilterConfigColumnModalOpen={
-                    setIsQuickFilterConfigColumnModalOpen
-                  }
                   setIsQuickFilterConfigRowModalOpen={
                     setIsQuickFilterConfigRowModalOpen
                   }
                   setIsQuickFilterModalOpen={setIsQuickFilterModalOpen}
                   setSelectedColumn={setSelectedColumn}
+                  value={filterItem.value}
                 />
-              )}
-              <Button
-                className={classes.button}
-                color="primary"
-                onClick={handleQuickFilterModalOpen}
-              >
+              ))}
+              <Button color="primary" onClick={handleQuickFilterModalOpen}>
                 <AddIcon className={classes.icon} />
                 {t('filter.form.addFilter').toUpperCase()}
               </Button>
             </div>
+            {isQuickFilterModalOpen && (
+              <QuickReportFilterConfigColumnsMenu
+                anchorEl={anchorEl}
+                chipRef={chipRef}
+                columns={columnsMetadata}
+                columnsDataSelectedQuickFilter={columnsDataSelectedQuickFilter}
+                getDataByType={handleGetDynamicDataForReport}
+                handleOpenModal={handleOpenModal}
+                handleQuickFilterModalClose={handleQuickFilterModalClose}
+                isFranchisor={isFranchisor}
+                isQuickFilterConfigColumnModalOpen={
+                  isQuickFilterConfigColumnModalOpen
+                }
+                isQuickFilterConfigRowModalOpen={
+                  isQuickFilterConfigRowModalOpen
+                }
+                isQuickFilterModalOpen={isQuickFilterModalOpen}
+                reportCategory={reportCategory}
+                selectedColumn={selectedColumn}
+                setAnchorEl={setAnchorEl}
+                setIsQuickFilterConfigColumnModalOpen={
+                  setIsQuickFilterConfigColumnModalOpen
+                }
+                setIsQuickFilterConfigRowModalOpen={
+                  setIsQuickFilterConfigRowModalOpen
+                }
+                setIsQuickFilterModalOpen={setIsQuickFilterModalOpen}
+                setSelectedColumn={setSelectedColumn}
+              />
+            )}
           </div>
         </div>
         {isModalOpen && (
@@ -451,12 +443,6 @@ const useStyles = makeStyles((theme: Theme) => ({
       display: 'block',
     },
   },
-  button: {
-    marginTop: theme.spacing(1),
-    [theme.breakpoints.down('xs')]: {
-      display: 'none',
-    },
-  },
   icon: {
     marginRight: theme.spacing(1),
   },
@@ -504,10 +490,14 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginBottom: theme.spacing(1),
     marginTop: theme.spacing(1),
     borderRadius: 16,
-    padding: theme.spacing(1),
     '&:hover': {
       backgroundColor: '#efefef',
     },
+  },
+  filteredConfigMenu: {
+    width: '100%',
+    maxWidth: 340,
+    marginRight: theme.spacing(1),
   },
 }));
 

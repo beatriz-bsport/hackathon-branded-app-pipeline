@@ -199,6 +199,7 @@ const QuickReportFilterConfigColumnsMenu: React.FC<Props> = ({
           vertical: 'bottom',
           horizontal: 'left',
         }}
+        classes={{ paper: classes.columnMenu }}
         id="column-selector-popover"
         onClose={handleQuickFilterConfigColumnModalClose}
         open={isQuickFilterModalOpen && isQuickFilterConfigColumnModalOpen}
@@ -252,8 +253,9 @@ const QuickReportFilterConfigColumnsMenu: React.FC<Props> = ({
   );
 };
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   row: { display: 'flex', flexDirection: 'row' },
+  columnMenu: { padding: theme.spacing(1) },
 }));
 
 export default memo(QuickReportFilterConfigColumnsMenu);

@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import Immutable from 'seamless-immutable';
 
 import {
+  MarketingActions,
   SequentialMarketingColors,
   TRIGGER_KIND_CHOICES,
   TriggerKind,
@@ -40,7 +41,7 @@ type InnerStepHeaderProps = {
 type InnerStepContentProps = {
   marketingActionList?: StepMarketingActions[];
   disableAddMarketingAction?: boolean;
-  addMarketingAction?: () => void;
+  addMarketingAction?: (type: MarketingActions) => void;
   getTag?: (id: string) => Tag;
   getEmailTemplate?: (id: string) => EmailTemplateSummary;
 };
@@ -112,10 +113,13 @@ const InnerStepCard: React.FC<InnerStepCardProps> = ({
     setDisableRipple(false);
   }, []);
 
-  const onClickNewMarketingAction = useCallback(() => {
-    handleDisableRipple();
-    addMarketingAction?.();
-  }, [addMarketingAction, handleDisableRipple]);
+  const onClickNewMarketingAction = useCallback(
+    (type: MarketingActions) => {
+      handleDisableRipple();
+      addMarketingAction?.(type);
+    },
+    [addMarketingAction, handleDisableRipple],
+  );
 
   const onClickAction = useCallback(
     (onClick: (anchor?: HTMLElement) => void) => (anchor?: HTMLElement) => {

@@ -19,20 +19,24 @@ import {
 import ConvertIntoExitBubble from '#libs/sequential_marketing/components/graph/bubbles/ConvertIntoExitBubble.component';
 import {
   DestinationStatus,
+  MarketingActions,
   SequentialMarketingColors,
   TriggerKind,
 } from '#libs/sequential_marketing/constants';
+import { getDefaultValues } from '#libs/sequential_marketing/components/form/marketing_actions/utils';
 
+import UniqueMarketingActionBubble from '#libs/sequential_marketing/components/graph/bubbles/UniqueMarketingActionBubble.component';
 import usePopoverBubble from '#libs/sequential_marketing/components/graph/nodes/hooks/usePopoverBubble.hook';
 import useConnectToStep from '#libs/sequential_marketing/components/graph/nodes/hooks/useConnectToStep.hook';
 import MenuSelectorOnly from '#components/menu/menu-only';
 
 type FlowProps = {
   data: {
-    onConnectToStep: (destinationId: number, triggerKind: TriggerKind) => void;
     bubble: StepEditionBubbleProps;
     stepToEditId: number;
+    createNewMarketingAction: (value: Partial<StepMarketingActions>) => void;
     endStepEdition: () => void;
+    onConnectToStep: (destinationId: number, triggerKind: TriggerKind) => void;
     submitConvertIntoExit: (status: DestinationStatus) => void;
   } & InnerStepCardProps;
 };
@@ -81,7 +85,7 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
   }, [data, isStepNew, setAnchorEl]);
   // ===================================================================
 
-  // ====================== CONVERT INTO EXIT BUBBLE ======================
+  // ==================== CONVERT INTO EXIT BUBBLE =====================
   const handleOpenConvertIntoExitBubble = React.useCallback(
     () => setAnchorConvertIntoExit(stepCardRef?.current),
     [],
@@ -110,6 +114,38 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
     [data, isStepNew, t],
   );
 
+  // =============== ADD UNIQUE MARKETING ACTION BUBBLE ================
+  const [anchorAddMarketingAction, setAnchorAddMarketingAction] =
+    React.useState<HTMLDivElement | null>(null);
+
+  const [newMarketingAction, setNewMarketingAction] =
+    React.useState<Partial<StepMarketingActions> | null>(null);
+
+  const handleOpenUniqueMarketingActionBubble = React.useCallback(
+    (type: MarketingActions) => {
+      setNewMarketingAction(getDefaultValues(type));
+      setAnchorAddMarketingAction(stepCardRef?.current);
+    },
+    [stepCardRef],
+  );
+
+  const handleCloseUniqueMarketingActionBubble = React.useCallback(
+    () => setAnchorAddMarketingAction(null),
+    [],
+  );
+
+  const handleCreateOneMarketingAction = React.useCallback(
+    (value: Partial<StepMarketingActions>) => {
+      data.createNewMarketingAction({
+        ...value,
+        cadence_step: value?.cadence_step || data?.step?.id,
+        name: t('cadence.form.marketing_action.defaultName'),
+      });
+    },
+    [data, t],
+  );
+  // ===================================================================
+
   return (
     <>
       <Handle
@@ -120,7 +156,7 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
       />
       <div ref={stepCardRef}>
         <InnerStepCard
-          addMarketingAction={data.addMarketingAction}
+          addMarketingAction={handleOpenUniqueMarketingActionBubble}
           addNextStep={data.addNextStep}
           disableAddMarketingAction={data.disableAddMarketingAction}
           disabled={data.disabled}
@@ -184,6 +220,29 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
         <ConvertIntoExitBubble
           onCancel={handleCloseConvertIntoExitBubble}
           onConfirm={data.submitConvertIntoExit}
+        />
+      </Popover>
+      <Popover
+        anchorEl={anchorAddMarketingAction}
+        anchorOrigin={anchorOrigin}
+        onClose={handleCloseUniqueMarketingActionBubble}
+        open={!!anchorAddMarketingAction}
+        PaperProps={popoverStyle}
+        transformOrigin={transformOrigin}
+      >
+        <UniqueMarketingActionBubble
+          emailDetailList={data.bubble.emailDetailList}
+          emailDetailListLoading={data.bubble.emailDetailListLoading}
+          emailSummaryList={data.bubble.emailSummaryList}
+          emailSummaryListLoading={data.bubble.emailSummaryListLoading}
+          fetchEmailSummaryList={data.bubble.fetchEmailSummaryList}
+          getEmailDetail={data.bubble.getEmailDetail}
+          marketingAction={newMarketingAction}
+          onClose={handleCloseUniqueMarketingActionBubble}
+          onConfirm={handleCreateOneMarketingAction}
+          resolvedGenericTags={data.bubble.resolvedGenericTags}
+          tagCategories={data.bubble.tagCategories}
+          tagList={data.bubble.tagList}
         />
       </Popover>
     </>

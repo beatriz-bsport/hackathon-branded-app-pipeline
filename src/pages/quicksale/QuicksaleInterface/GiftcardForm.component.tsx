@@ -7,13 +7,13 @@ import Close from '@material-ui/icons/Close';
 import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-items';
 
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
-import { Giftcard, GiftcardBackgroundImage } from '#libs/giftcard/types';
-import ConsumerGiftcardFormWithPreviewComponent from '#libs/giftcard/components/ConsumerGiftcardFormWithPreview.component';
+import ConsumerGiftcardFormWithPreview from '#libs/giftcard/components/ConsumerGiftcardFormWithPreview.component';
 
 import type { FormValues as ConsumerGiftcardDetails } from '#libs/giftcard/components/ConsumerGiftcardForm.component';
 import type { OptionCallback } from '../../../state/types';
 import type { QuicksaleCardInfo } from '#libs/quicksale/types';
 import type { Basket, CheckoutItemData } from '#libs/checkout/types';
+import type { Giftcard, GiftcardBackgroundImage } from '#libs/giftcard/types';
 
 import useStyles from './hooks/styles';
 import { getIdsFromQuicksaleCardInfoId } from '#libs/quicksale/utils';
@@ -111,7 +111,7 @@ const GiftcardForm: React.FC<Props> = ({
         </IconButton>
       </DialogTitle>
 
-      <ConsumerGiftcardFormWithPreviewComponent
+      <ConsumerGiftcardFormWithPreview
         // @ts-expect-error because ConsumerGiftcardFormFieldHOC is wrongly typed
         companyCover={cover}
         giftcard={giftcard}

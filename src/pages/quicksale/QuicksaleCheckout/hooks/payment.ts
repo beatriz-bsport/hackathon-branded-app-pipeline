@@ -9,7 +9,7 @@ import { QuicksalePaymentMethod } from '#libs/quicksale/constants';
 
 import useFeaturesProvider from '#libs/company/hooks/feature-list-provider.hook';
 
-import { requestClientSecret as requestClientSecretAPI } from '../../../../libs/invoice/api';
+import { requestClientSecret as requestClientSecretAPI } from '#libs/invoice/api';
 import type { Theme } from '#libs/theme/types';
 import type { Basket } from '#libs/checkout/types';
 
@@ -25,14 +25,17 @@ const useQuicksalePayments = ({
   basket?: Basket;
 }) => {
   // ========== Client secret and payment info ==========
-  const [clientSecret, setClientSecret] = React.useState<string>(null);
+  const [clientSecret, setClientSecret] = React.useState<string | null>(null);
 
   const [isProcessing, setIsProcessing] = React.useState(false);
 
-  const [paymentGroupId, setPaymentGroupId] = React.useState<number>(null);
+  const [paymentGroupId, setPaymentGroupId] = React.useState<number | null>(
+    null,
+  );
 
-  const [paymentGroupPriceCts, setPaymentGroupPriceCts] =
-    React.useState<number>(null);
+  const [paymentGroupPriceCts, setPaymentGroupPriceCts] = React.useState<
+    number | null
+  >(null);
 
   const { stripeTerminalEnabled } = useFeaturesProvider();
 

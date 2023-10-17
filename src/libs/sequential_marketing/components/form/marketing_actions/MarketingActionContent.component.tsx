@@ -19,7 +19,7 @@ import TemplateEmailForm from './communication_forms/TemplateEmailForm';
 import TagForm from './communication_forms/TagForm';
 
 type Props = {
-  marketingAction: StepMarketingActions;
+  marketingAction: Partial<StepMarketingActions>;
   emailDetailList: Record<number, EmailTemplateDetail>;
   emailDetailListLoading: boolean;
   emailSummaryList: EmailTemplateSummary[];
@@ -29,7 +29,7 @@ type Props = {
   tagList: Tag<TagGroupAPI>[];
   fetchEmailSummaryList: () => void;
   getEmailDetail: (id: number) => void;
-  submit?: (data: StepMarketingActions) => void;
+  submit?: (data: Partial<StepMarketingActions>) => void;
 };
 
 const MarketingActionContent: React.FC<Props> = ({

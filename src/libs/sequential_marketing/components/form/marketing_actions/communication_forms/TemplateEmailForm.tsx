@@ -21,11 +21,11 @@ export type Props = {
   emailDetailListLoading: boolean;
   emailSummaryList: EmailTemplateSummary[];
   emailSummaryListLoading: boolean;
-  marketingAction: StepMarketingActions;
+  marketingAction: Partial<StepMarketingActions>;
   resolvedGenericTags: ResolvedGenericTags;
   fetchEmailSummaryList: () => void;
   getEmailDetail: (id: number) => void;
-  submit?: (data: StepMarketingActions) => void;
+  submit?: (data: Partial<StepMarketingActions>) => void;
 };
 
 const TemplateEmailForm: React.FC<Props> = ({
@@ -39,7 +39,7 @@ const TemplateEmailForm: React.FC<Props> = ({
   getEmailDetail,
   submit,
 }) => {
-  const formik = useFormik<StepMarketingActions>({
+  const formik = useFormik<Partial<StepMarketingActions>>({
     initialValues: marketingAction,
     enableReinitialize: true,
     onSubmit: submit,

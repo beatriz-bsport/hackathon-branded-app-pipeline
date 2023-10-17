@@ -108,7 +108,7 @@ export const getMarketingActionOptions = (
 };
 
 export const getMarketingActionType = (
-  marketingAction: StepMarketingActions,
+  marketingAction: Partial<StepMarketingActions>,
 ) => {
   if (marketingAction?.kind === MarketingActionKind.COMMUNICATION) {
     const actionSpec =

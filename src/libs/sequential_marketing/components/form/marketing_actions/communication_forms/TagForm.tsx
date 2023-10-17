@@ -13,14 +13,14 @@ import type {
 } from '#libs/sequential_marketing/types';
 
 export type Props = {
-  marketingAction: StepMarketingActions;
+  marketingAction: Partial<StepMarketingActions>;
   tagList: Tag<TagGroupAPI>[];
-  submit?: (data: StepMarketingActions) => void;
+  submit?: (data: Partial<StepMarketingActions>) => void;
 };
 
 const TagForm: React.FC<Props> = ({ marketingAction, tagList, submit }) => {
   const { t } = useTranslation('marketing');
-  const formik = useFormik<StepMarketingActions>({
+  const formik = useFormik<Partial<StepMarketingActions>>({
     initialValues: marketingAction,
     enableReinitialize: true,
     onSubmit: submit,

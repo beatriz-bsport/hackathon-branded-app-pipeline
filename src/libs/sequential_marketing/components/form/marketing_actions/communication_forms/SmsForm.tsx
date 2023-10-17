@@ -13,9 +13,9 @@ import type {
 } from '#libs/sequential_marketing/types';
 
 export type Props = {
-  marketingAction: StepMarketingActions;
+  marketingAction: Partial<StepMarketingActions>;
   tagCategories: { [tag_name: string]: string[] };
-  submit?: (data: StepMarketingActions) => void;
+  submit?: (data: Partial<StepMarketingActions>) => void;
 };
 
 const SmsForm: React.FC<Props> = ({
@@ -23,7 +23,7 @@ const SmsForm: React.FC<Props> = ({
   tagCategories,
   submit,
 }) => {
-  const formik = useFormik<StepMarketingActions>({
+  const formik = useFormik<Partial<StepMarketingActions>>({
     initialValues: marketingAction,
     enableReinitialize: true,
     onSubmit: submit,

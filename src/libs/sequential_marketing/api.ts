@@ -231,7 +231,9 @@ export const fetchMarketingActions = (params: StepMarketingActionsParams) => {
   );
 };
 
-export const createStepMarketingAction = (data: StepMarketingActions) => {
+export const createStepMarketingAction = (
+  data: Partial<StepMarketingActions>,
+) => {
   return postAuth<StepMarketingActions>(
     `${API_V1_URI}/sequential_marketing/cadence_marketing_action/`,
     data,
@@ -246,7 +248,7 @@ export const deleteStepMarketingAction = (id: number) => {
 
 export const updateStepMarketingAction = (
   id: number,
-  data: StepMarketingActions,
+  data: Partial<StepMarketingActions>,
 ) => {
   return patchAuth<StepMarketingActions>(
     `${API_V1_URI}/sequential_marketing/cadence_marketing_action/${id}/`,

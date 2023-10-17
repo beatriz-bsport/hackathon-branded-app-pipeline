@@ -60,7 +60,7 @@ export const upsertStepMarketingActionsActions = {
 };
 
 export function upsertStepMarketingAtions(
-  data: StepMarketingActions,
+  data: Partial<StepMarketingActions>,
   options?: OptionCallback<StepMarketingActions>,
 ) {
   return async (dispatch: Dispatch) => {
@@ -71,16 +71,16 @@ export function upsertStepMarketingAtions(
       if (data?.id) {
         const response = await updateStepMarketingActionAPI(data.id, data);
         dispatch(upsertStepMarketingActionsActions.success(response.data));
-        options && options.onSuccess && options.onSuccess();
+        options?.onSuccess?.(response.data);
       } else {
         const response = await createStepMarketingActionAPI(data);
         dispatch(upsertStepMarketingActionsActions.success(response.data));
-        options && options.onSuccess && options.onSuccess();
+        options?.onSuccess?.(response.data);
       }
     } catch (err) {
       console.error(err);
       dispatch(upsertStepMarketingActionsActions.error(err));
-      options && options.onError && options.onError();
+      options?.onError?.(err);
     }
 
     dispatch(upsertStepMarketingActionsActions.isLoading(false));

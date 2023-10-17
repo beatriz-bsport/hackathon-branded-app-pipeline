@@ -245,6 +245,8 @@ const ReportFilterConfigSelector: React.FC<Props & Values> = memo(
         : [];
     }, [values.config.groups]);
 
+    const chipRef = useRef<HTMLDivElement | null>(null);
+
     return (
       <>
         <div ref={containerRef} style={{ width: '100%' }}>
@@ -337,6 +339,7 @@ const ReportFilterConfigSelector: React.FC<Props & Values> = memo(
                 {columnsDataSelectedQuickFilter.map((filterItem) => (
                   <ReportFilterChip
                     key={filterItem.identifier}
+                    ref={chipRef}
                     columnIdentifiers={columnIdentifiers}
                     comparator={filterItem.comparator}
                     datatype={filterItem.datatype}
@@ -357,6 +360,7 @@ const ReportFilterConfigSelector: React.FC<Props & Values> = memo(
               {isQuickFilterModalOpen && (
                 <QuickReportFilterConfigColumnsMenu
                   anchorEl={anchorEl}
+                  chipRef={chipRef}
                   columns={columnsMetadata}
                   columnsDataSelectedQuickFilter={
                     columnsDataSelectedQuickFilter
@@ -374,6 +378,7 @@ const ReportFilterConfigSelector: React.FC<Props & Values> = memo(
                   isQuickFilterModalOpen={isQuickFilterModalOpen}
                   reportCategory={reportCategory}
                   selectedColumn={selectedColumn}
+                  setAnchorEl={setAnchorEl}
                   setIsQuickFilterConfigColumnModalOpen={
                     setIsQuickFilterConfigColumnModalOpen
                   }

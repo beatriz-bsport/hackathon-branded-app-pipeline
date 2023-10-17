@@ -64,6 +64,10 @@ type Props = {
     React.SetStateAction<DatatypeFilterConfigItem>
   >;
   reportCategory: string;
+  chipRef: React.MutableRefObject<HTMLDivElement | null>;
+  setAnchorEl: React.Dispatch<
+    (EventTarget & HTMLButtonElement) | HTMLDivElement
+  >;
 };
 
 const QuickReportFilterConfigColumnsMenu: React.FC<Props> = ({
@@ -83,6 +87,8 @@ const QuickReportFilterConfigColumnsMenu: React.FC<Props> = ({
   isQuickFilterConfigRowModalOpen,
   setIsQuickFilterConfigRowModalOpen,
   reportCategory,
+  chipRef,
+  setAnchorEl,
 }) => {
   const classes = useStyles();
   const [search, setSearch] = useState('');
@@ -148,6 +154,9 @@ const QuickReportFilterConfigColumnsMenu: React.FC<Props> = ({
       setIsQuickFilterConfigColumnModalOpen(false);
       setSelectedColumn(generateNewFilterItem(column));
       setIsQuickFilterConfigRowModalOpen(true);
+      // I don't need to make a list of chipRef because all I need is to retrieve the last one created
+      // setTimeout is to let time for the last chip to be rendered to anchor the element to the last chip
+      setTimeout(() => !!chipRef?.current && setAnchorEl(chipRef.current));
     },
     [
       setIsQuickFilterConfigColumnModalOpen,
@@ -155,6 +164,8 @@ const QuickReportFilterConfigColumnsMenu: React.FC<Props> = ({
       values.config.groups,
       setSelectedColumn,
       setIsQuickFilterConfigRowModalOpen,
+      setAnchorEl,
+      chipRef,
     ],
   );
 

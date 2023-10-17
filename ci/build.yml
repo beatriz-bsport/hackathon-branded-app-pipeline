@@ -97,17 +97,14 @@ Buid Deploy Dev:
     - build-frontend
     - cluster:bsport-tooling
 
-Build Deploy Feature Branch:
+.Build Deploy Feature Branch Generic:
   except:
     - dev
     - master
     - production
-  only:
-    variables:
-      - $CI_COMMIT_MESSAGE =~ /deploy-chaos-env:/
   variables:
     CLOUDFRONT_ID: E2QPTVAZWMZ5F5
-    SLACK_WEBHOOK_URL: '${SLACK_DEV_WEBHOOK_URL}'
+    SLACK_WEBHOOK_URL: '${SLACK_FEATURE_BRANCH_WEBHOOK_URL}'
     CLOUDFRONT_INVALIDATION_LAMBDA_URL: 'https://uc7e26gvpwrprl5hubmfe4zeou0zyqyu.lambda-url.eu-west-3.on.aws/'
   tags:
     - build-frontend
@@ -140,7 +137,7 @@ Build Deploy Feature Branch:
     - echo "export default '$VERSION_SHA';" > src/release-sha.js
     - yarn updateTranslation
     - yarn build
-    - sed -i "s/FEATURE_BRANCH_IDENTIFIER/${FEATURE_BRANCH_IDENTIFIER}/g" envs/template-feature-branch
+    - sed -i "s/FEATURE_BRANCH_IDENTIFIER/${FEATURE_BRANCH_IDENTIFIER}/g" envs/${ENV_TEMPLATE_FILE}
     - mv envs/template-feature-branch build/env.js
     - export SENTRY_NO_PROGRESS_BAR=1
     - ./scripts/prepare-sentry-release.sh $VERSION_SHA $FRONTEND_URL
@@ -167,3 +164,19 @@ Build Deploy Feature Branch:
     - envsubst < ./slack_template.json > slack_template2.json
     - cat slack_template2.json
     - 'curl -s -d @slack_template2.json --header "Content-Type: application/json" "${SLACK_WEBHOOK_URL}" || exit 0'
+
+Build Deploy Feature Branch Backend And Frontend:
+  extends: .Build Deploy Feature Branch Generic
+  only:
+    variables:
+      - $CI_COMMIT_MESSAGE =~ /deploy-chaos-env:/
+  variables:
+    ENV_TEMPLATE_FILE: template-feature-branch
+
+Build Deploy Feature Branch Frontend Only:
+  extends: .Build Deploy Feature Branch Generic
+  only:
+    variables:
+      - $CI_COMMIT_MESSAGE =~ /deploy-frontend-only-chaos-env:/
+  variables:
+    ENV_TEMPLATE_FILE: template-frontend-only-feature-branch

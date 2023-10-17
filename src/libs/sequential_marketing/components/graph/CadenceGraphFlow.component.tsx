@@ -104,6 +104,9 @@ type Props = {
     id: number,
     { ct_uuid, x, y }: { ct_uuid: string; x: number; y: number },
   ) => void;
+  upsertMarketingAction: (
+    marketingAction: Partial<StepMarketingActions>,
+  ) => void;
 };
 
 export const CadenceGraphFlow: React.FC<Props> = ({
@@ -139,6 +142,7 @@ export const CadenceGraphFlow: React.FC<Props> = ({
   updateCadenceStepCanvasPosition,
   updateCadenceStepName,
   updateConnectedTriggerPosition,
+  upsertMarketingAction,
 }) => {
   const [disabledMode, setDisabledMode] = React.useState(true);
   const [displayDisabledTriggers, setDisplayDisabledTriggers] =
@@ -168,6 +172,7 @@ export const CadenceGraphFlow: React.FC<Props> = ({
     resetAllSelection,
     updateCadenceStepCanvasPosition,
     updateConnectedTriggerPosition,
+    upsertMarketingAction,
     stepBubbleProps: {
       emailDetailList,
       emailDetailListLoading,

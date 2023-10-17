@@ -77,6 +77,9 @@ export type Props = {
   getStepMarketingActions: (stepId: number) => StepMarketingActions[];
   getTag: (id: string) => Tag;
   getEmailTemplate: (id: string) => EmailTemplateSummary;
+  upsertMarketingAction: (
+    marketingAction: Partial<StepMarketingActions>,
+  ) => void;
 };
 
 export const useGraph = ({
@@ -102,6 +105,7 @@ export const useGraph = ({
   resetAllSelection,
   updateCadenceStepCanvasPosition,
   updateConnectedTriggerPosition,
+  upsertMarketingAction,
 }: Props) => {
   const [nodes, setNodes] = React.useState([]);
   const [edges, setEdges] = React.useState([]);
@@ -168,6 +172,7 @@ export const useGraph = ({
       onClickConnectedTrigger,
       onClickEntryStep,
       resetAllSelection,
+      upsertMarketingAction,
     });
 
   const onNodeDragStop = React.useCallback(

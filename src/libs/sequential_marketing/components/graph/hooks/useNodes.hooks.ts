@@ -180,6 +180,9 @@ type NodeRendererProps = {
   ) => void;
   onClickEntryStep: (step: CadenceStep) => void;
   resetAllSelection: () => void;
+  upsertMarketingAction: (
+    marketingAction: Partial<StepMarketingActions>,
+  ) => void;
 };
 
 export const useNodeElementsRecorder = ({
@@ -204,6 +207,7 @@ export const useNodeElementsRecorder = ({
   handleUpdateFakerTrigger,
   onClickConnectedTrigger,
   onClickEntryStep,
+  upsertMarketingAction,
 }: NodeRendererProps) => {
   const [stepToEditId, setStepToEditId] = React.useState<number | null>(null);
 
@@ -374,6 +378,12 @@ export const useNodeElementsRecorder = ({
     onClickConnectedTrigger,
   ]);
 
+  const handleCreateNewMarketingAction = React.useCallback(
+    (newMarketingAction: Partial<StepMarketingActions>) =>
+      upsertMarketingAction(newMarketingAction),
+    [upsertMarketingAction],
+  );
+
   const handleConvertIntoExit = React.useCallback(
     (stepNode: StoredStep) => (status: DestinationStatus) =>
       stepNode?.id && convertCadenceStepIntoExit(stepNode.id, status),
@@ -400,13 +410,13 @@ export const useNodeElementsRecorder = ({
           marketingActionList: getStepMarketingActions?.(stepNode?.id),
           bubble: stepBubbleProps,
           stepToEditId,
-          endStepEdition: handleResetStepToEditId,
-          onDelete: () => deleteCadenceStep(stepNode?.id),
-          addMarketingAction: () => {}, // TODO: code the newMA function
           addNextStep: handleAddNextStepTrigger(stepNode),
-          onConnectToStep: onConnectToInnerStep(stepNode),
-          getTag,
+          createNewMarketingAction: handleCreateNewMarketingAction,
+          endStepEdition: handleResetStepToEditId,
           getEmailTemplate,
+          getTag,
+          onConnectToStep: onConnectToInnerStep(stepNode),
+          onDelete: () => deleteCadenceStep(stepNode?.id),
           submitConvertIntoExit: handleConvertIntoExit(stepNode),
         },
       }));

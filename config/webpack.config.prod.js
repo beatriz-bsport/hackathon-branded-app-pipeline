@@ -10,6 +10,7 @@ const ManifestPlugin = require('webpack-manifest-plugin');
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const eslintFormatter = require('react-dev-utils/eslintFormatter');
 const ModuleScopePlugin = require('react-dev-utils/ModuleScopePlugin');
+const TerserPlugin = require('terser-webpack-plugin');
 // const SentryWebpackPlugin = require('@sentry/webpack-plugin');
 const paths = require('./paths');
 const getClientEnvironment = require('./env');
@@ -67,6 +68,12 @@ module.exports = {
   },
 
   optimization: {
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        parallel: 6,
+      }),
+    ],
     splitChunks: {
       cacheGroups: {
         vendor: {

@@ -1,8 +1,7 @@
 // @ts-expect-error
 import FactoryBot from 'ya-factorybot';
 import { fakerEN as faker } from '@faker-js/faker';
-import { generateRandomInt } from '../../utils/factories';
-import { Tag, TagGroup } from './types';
+import type { Tag, TagGroup } from './types';
 
 const random_hex_color_code = () => {
   const n = (Math.random() * 0xfffff * 1000000).toString(16);
@@ -15,9 +14,9 @@ FactoryBot.define('Tag', {
   id: FactoryBot.sequence(),
   name: () => faker.lorem.word(2),
   group: () => ({
-    id: generateRandomInt(1000),
+    id: faker.number.int(1000),
     name: faker.lorem.word(),
-    kind: generateRandomInt(400),
+    kind: faker.number.int(400),
   }),
   color: () => random_hex_color_code(),
   icon: () => iconNameList[Math.floor(Math.random() * iconNameList.length)],
@@ -25,9 +24,9 @@ FactoryBot.define('Tag', {
 
 export const tagWithoutGroupFactory = (): Tag => {
   return {
-    id: generateRandomInt(1000),
+    id: faker.number.int(1000),
     name: faker.lorem.words(2),
-    group: generateRandomInt(1000),
+    group: faker.number.int(1000),
     color: faker.internet.color(),
     icon: '',
   };
@@ -40,12 +39,12 @@ export const tagWithoutGroupListFactory = (num_el: number): Tag[] => {
 
 export const tagFactory = (): Partial<Tag<TagGroup>> => {
   return {
-    id: generateRandomInt(1000),
+    id: faker.number.int(1000),
     name: faker.lorem.words(2),
     group: {
-      id: generateRandomInt(1000),
+      id: faker.number.int(1000),
       name: faker.lorem.word(),
-      kind: generateRandomInt(400),
+      kind: faker.number.int(400),
       tags: [],
     },
     color: faker.internet.color(),

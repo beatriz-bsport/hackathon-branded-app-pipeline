@@ -270,6 +270,10 @@ export class CadenceDetailPage extends Component<Props> {
     });
   };
 
+  handleUpsertStepMarketingAction = (
+    marketingAction: Partial<StepMarketingActions>,
+  ) => this.props.upsertStepMarketingAtions(marketingAction);
+
   render() {
     const { classes } = this.props;
 
@@ -342,6 +346,7 @@ export class CadenceDetailPage extends Component<Props> {
               updateConnectedTriggerPosition={
                 this.props.updateCadenceStepConnectedTriggerCanvasPosition
               }
+              upsertMarketingAction={this.handleUpsertStepMarketingAction}
             />
           </div>
         </div>
@@ -708,17 +713,11 @@ const mapWithHandlers = {
 
   upsertStepMarketingAtions:
     (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>
-    (data: StepMarketingActions, options?: OptionCallback) => {
-      if (data) {
-        props.upsertStepMarketingAtionsAction(data, {
-          onSuccess: () => {
-            options?.onSuccess?.();
-          },
-          onError: () => {
-            options?.onError?.();
-          },
-        });
-      }
+    (
+      data: Partial<StepMarketingActions>,
+      options?: OptionCallback<StepMarketingActions>,
+    ) => {
+      data && props.upsertStepMarketingAtionsAction(data, options);
     },
 
   deleteStepMarketingAction:

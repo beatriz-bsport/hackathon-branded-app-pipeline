@@ -258,7 +258,7 @@ const getTranslations = async () => {
       },
     },
     invoiceItem: {
-      voucher: 'Discount: €{{ voucher }}',
+      voucher: 'Discount: {{ voucher }}',
       quantity: 'Quantity',
       credit: { label: 'Credit' },
       buyableItemIdentifier: {

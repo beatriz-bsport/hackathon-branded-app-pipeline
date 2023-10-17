@@ -2559,7 +2559,7 @@
       }
     },
     "invoiceItem": {
-      "voucher": "Discount: €{{ voucher }}",
+      "voucher": "Discount: {{ voucher }}",
       "quantity": "Quantity",
       "credit": { "label": "Credit" },
       "buyableItemIdentifier": { "1": "Passes", "2": "Webshop", "3": "Credit", "9": "Appointment passes", "10": "Packs", "11": "Gift cards" },

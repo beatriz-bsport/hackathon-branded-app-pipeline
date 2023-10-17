@@ -146,6 +146,7 @@ export const handleBridgeMessage = (eventData: any) => (dispatch: any) => {
       if (!eventData.authenticated) {
         dispatch(basketCountActions.success(null));
         dispatch(bookingCountActions.success(null));
+        dispatch(closeUserInteractionPortal());
       }
       break;
 

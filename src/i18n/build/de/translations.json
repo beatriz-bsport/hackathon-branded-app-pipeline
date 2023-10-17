@@ -8781,15 +8781,15 @@
                     "title": "Auslöser"
                 },
                 "chooseTime": {
-                    "second_after": "{{ count }} Stunde nach Ende der Session.",
-                    "second_after_plural": "{{ count }} Stunden nach Ende der Session.",
+                    "second_after": "{{ count }} Stunde nach dem Ende des Kurses.",
+                    "second_after_plural": "{{ count }} Stunden nach dem Ende des Kurses.",
                     "second_before": "{{ count }} Stunde vor Beginn der Session.",
                     "second_before_plural": "{{ count }} Stunden vor Beginn der Session.",
-                    "first": "Diese Benachrichtigung versenden",
-                    "second_before_days": "{{ count }} Tag vor dem Beginn der Session",
-                    "second_before_days_plural": "{{ count }} Tage vor dem Beginn der Session",
-                    "second_after_days": "{{ count }} Stunde nach Ende der Session",
-                    "second_after_days_plural": "{{ count }} Stunden nach Ende der Session"
+                    "first": "Eine E-Mail senden",
+                    "second_before_days": "{{ count }} Tag vor dem Beginn der Session.",
+                    "second_before_days_plural": "{{ count }} Tage vor dem Beginn der Session.",
+                    "second_after_days": "{{ count }} Tag nach Ende der Session.",
+                    "second_after_days_plural": "{{ count }} Tage nach Ende der Session."
                 },
                 "sendAfterMail": "Sende diese Benachrichtigung nach Ende der Session",
                 "sendBeforeMail": "Sende diese Benachrichtigung vor dem Anfang einer Session",

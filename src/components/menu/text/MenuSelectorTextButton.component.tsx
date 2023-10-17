@@ -17,6 +17,7 @@ type Props = {
   actionList: Immutable.ImmutableArray<Action> | Action[];
   label: string;
   customColor?: string;
+  isDisabled?: boolean;
   optionOnClick?: () => void;
 };
 
@@ -24,6 +25,7 @@ const MenuSelectorTextButton: React.FC<Props> = ({
   actionList,
   label,
   customColor,
+  isDisabled,
   optionOnClick,
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -70,7 +72,12 @@ const MenuSelectorTextButton: React.FC<Props> = ({
   return (
     <div className={classes.container}>
       <ClickAwayListener onClickAway={handleClickAway}>
-        <Button className={classes.button} onClick={handleClick} variant="text">
+        <Button
+          className={classes.button}
+          disabled={isDisabled}
+          onClick={handleClick}
+          variant="text"
+        >
           {label}
         </Button>
       </ClickAwayListener>
@@ -114,6 +121,7 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) => ({
   container: {
     display: 'flex',
     borderRadius: theme.spacing(1),
+    justifyContent: 'center',
   },
   button: {
     elevation: 5,

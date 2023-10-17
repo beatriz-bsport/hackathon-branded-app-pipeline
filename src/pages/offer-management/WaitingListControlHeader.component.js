@@ -20,7 +20,13 @@ type Props = {
 
 export const WaitingListControlHeader = (props: Props) => {
   const { t, isDisabled, classes, bookingOptionsPending } = props;
-  const nbPending = bookingOptionsPending.length;
+  const nbPending = React.useMemo(
+    () =>
+      bookingOptionsPending?.filter(
+        (option: BookingOption) => !option.cancelled,
+      )?.length ?? 0,
+    [bookingOptionsPending],
+  );
   const nbConvertible = bookingOptionsPending.filter(
     (bo) => bo.is_convertible && !bo.booking && !bo.cancelled,
   ).length;

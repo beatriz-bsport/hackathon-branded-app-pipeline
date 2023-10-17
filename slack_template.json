@@ -1,11 +1,11 @@
 {
-	"text": "Build: bsport-saas (backoffice) on ${NAMESPACE} - ${STATUS}",
+	"text": "${STATUS} Deployment bsport-saas on ${CI_COMMIT_REF_NAME}",
 	"blocks": [
 		{
 			"type": "section",
 			"text": {
 				"type": "mrkdwn",
-				"text": "*Docker Image Build ${SUCCESS}*"
+				"text": "*Deployment bsport-saas - ${CI_COMMIT_REF_NAME} : ${SUCCESS}*"
 			}
 		},
 		{
@@ -15,24 +15,12 @@
 			"type": "section",
 			"text": {
 				"type": "mrkdwn",
-				"text": "*Service*: bsport-saas (backoffice)\n*Docker Image*: ${TAG}\n*Author*: ${GITLAB_USER_NAME}\n"
+				"text": "*Service*: bsport-saas \n*Branch*: ${CI_COMMIT_REF_NAME}\n*Author*: ${GITLAB_USER_NAME}\n*Commit:* ${CI_COMMIT_MESSAGE}"
 			},
 			"accessory": {
 				"type": "image",
 				"image_url": "${SUCCESS_ICON}",
 				"alt_text": "none"
-			}
-		},
-		{
-			"type": "section",
-			"text": {
-				"type": "mrkdwn",
-				"text": "*Version: ${VERSION}\n*Release*: ${CI_COMMIT_SHA}\n**${CI_COMMIT_MESSAGE}**"
-			},
-			"type": "section",
-			"text": {
-				"type": "mrkdwn",
-				"text": "*Changelog*: \n${CHANGELOG}"
 			}
 		},
 		{

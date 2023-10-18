@@ -88,10 +88,7 @@ import {
 } from '#libs/email-editor/selectors';
 import { getAllTagsWithTagGroup, getTag } from '#libs/tag/selectors';
 
-import {
-  NodeIdentifiersEnum,
-  getHorizontalPositionFromSource,
-} from '#libs/sequential_marketing/components/graph/hooks';
+import { getHorizontalPositionFromSource } from '#libs/sequential_marketing/components/graph/hooks';
 import {
   getResolvedGenericTags,
   getTagCategories,
@@ -210,21 +207,6 @@ export class CadenceDetailPage extends Component<Props> {
   displayEditStepForm = () =>
     this.props.setRightPanelMode(CadencePanelMode.CADENCE_EDIT_STEP);
 
-  handleSelectStepForSubscription = (
-    step: CadenceStep,
-    subscriptionDestination?: number | string | null,
-  ) => {
-    this.displayNewStepParametersForm();
-    this.props.setStepFormSubscription(step, {
-      step:
-        subscriptionDestination && typeof subscriptionDestination !== 'string'
-          ? subscriptionDestination
-          : null,
-      exit:
-        subscriptionDestination === NodeIdentifiersEnum.EXIT_NODE_IDENTIFIER,
-    });
-  };
-
   handleSelectedStepForEdition = (step_id: number) => {
     this.displayEditStepForm();
     this.props.fetchMarketingActions(step_id);
@@ -236,6 +218,7 @@ export class CadenceDetailPage extends Component<Props> {
     options?: OptionCallback<number>,
   ) => {
     this.props.subscribeStepToStep(connected_trigger, {
+      ...options,
       onSuccess: (stepId) => {
         options?.onSuccess?.(stepId);
       },
@@ -341,9 +324,6 @@ export class CadenceDetailPage extends Component<Props> {
                 this.handleCreateNewStepWithTrigger
               }
               handleSelectedStepForEdition={this.handleSelectedStepForEdition}
-              handleSelectStepForSubscription={
-                this.handleSelectStepForSubscription
-              }
               onClickConnectedTrigger={this.handleClickConnectedTrigger}
               onClickEntryStep={this.props.onClickEntryStep}
               resetAllSelection={this.resetAllSelection}
@@ -645,16 +625,22 @@ const mapWithHandlers = {
         props.cadenceId,
         {
           connected_trigger,
-          step: {
-            id: null,
-            name: props.t('cadence.steps.defaultName'),
-            canvas: {
-              position: {
-                x: getHorizontalPositionFromSource(connected_trigger?.canvas),
-                y: connected_trigger?.canvas?.position?.y,
-              },
-            },
-          },
+          ...(!connected_trigger?.destination_config?.destination_id
+            ? {
+                step: {
+                  id: null,
+                  name: props.t('cadence.steps.defaultName'),
+                  canvas: {
+                    position: {
+                      x: getHorizontalPositionFromSource(
+                        connected_trigger?.canvas,
+                      ),
+                      y: connected_trigger?.canvas?.position?.y,
+                    },
+                  },
+                },
+              }
+            : {}),
         },
         {
           onSuccess: (step) => {
@@ -667,9 +653,9 @@ const mapWithHandlers = {
               },
             });
           },
-          onError: () => {
+          onError: (err) => {
             props.resetSubscriptionDestination();
-            options?.onError?.();
+            options?.onError?.(err);
           },
         },
       );

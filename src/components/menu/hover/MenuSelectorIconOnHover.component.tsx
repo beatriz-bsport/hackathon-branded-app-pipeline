@@ -13,7 +13,7 @@ import TriggeredPersonIcon from '#components/icons/TriggeredPersonIcon.component
 type StylesProps = { color: string; open: boolean };
 
 type Props = {
-  actionList: Immutable.ImmutableArray<Action>;
+  actionList: Immutable.ImmutableArray<Action> | Action[];
   customIcon?: string;
   customColor?: string;
   optionOnClick?: () => void;

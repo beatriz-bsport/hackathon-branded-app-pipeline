@@ -10,10 +10,8 @@ import Typography from '@material-ui/core/Typography';
 import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
 import type { Action } from '../icon';
 
-export const MULTIPLE_ACTION_BUTTON_MAX_SIZE = '32px';
-
 export type Props = {
-  actionList: Immutable.ImmutableArray<Action>;
+  actionList: Immutable.ImmutableArray<Action> | Action[];
   children: React.ReactElement;
   customColor?: string;
   customHoverBackgroundColor?: string;

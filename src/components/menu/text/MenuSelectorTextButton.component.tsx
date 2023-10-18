@@ -14,7 +14,7 @@ import type { Action } from '../icon';
 type StylesProps = { color: string; open: boolean };
 
 type Props = {
-  actionList: Immutable.ImmutableArray<Action>;
+  actionList: Immutable.ImmutableArray<Action> | Action[];
   label: string;
   customColor?: string;
   optionOnClick?: () => void;

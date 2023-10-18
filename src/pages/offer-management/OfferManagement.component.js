@@ -1272,8 +1272,8 @@ export default compose(
         optionToDiscard,
         discardOption,
         cancelDiscardOption,
-        setMemberToRegister,
         offer,
+        registerOptionOnAutoBooking,
       }) =>
       async (
         memberId: number,
@@ -1360,10 +1360,10 @@ export default compose(
               );
               cancelDiscardOption();
             }
-            setMemberToRegister(null);
+            registerOptionOnAutoBooking();
           } else {
             clearSearch();
-            setMemberToRegister(null);
+            registerOptionOnAutoBooking();
           }
         } else {
           let spot_id = null;
@@ -1424,7 +1424,7 @@ export default compose(
             );
             cancelDiscardOption();
           }
-          setMemberToRegister(null);
+          registerOptionOnAutoBooking();
         }
       },
 

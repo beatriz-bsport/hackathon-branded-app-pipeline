@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Connection, Handle, Position } from 'react-flow-renderer';
-import Popover from '@material-ui/core/Popover';
+import { Handle, Position } from 'react-flow-renderer';
+import { Popover } from '@material-ui/core';
 
 import InnerStepCard, {
   type InnerStepCardProps,
@@ -16,16 +16,23 @@ import {
   RIGHT_HANDLE_STYLE,
   HandleTypeChoices,
 } from '#libs/sequential_marketing/constants/steps';
-import usePopoverBubble from '#libs/sequential_marketing/components/graph/nodes/usePopoverBubble.hook';
 import ConvertIntoExitBubble from '#libs/sequential_marketing/components/graph/bubbles/ConvertIntoExitBubble.component';
-import { DestinationStatus } from '#libs/sequential_marketing/constants';
+import {
+  DestinationStatus,
+  SequentialMarketingColors,
+  TriggerKind,
+} from '#libs/sequential_marketing/constants';
+
+import usePopoverBubble from '#libs/sequential_marketing/components/graph/nodes/hooks/usePopoverBubble.hook';
+import useConnectToStep from '#libs/sequential_marketing/components/graph/nodes/hooks/useConnectToStep.hook';
+import MenuSelectorOnly from '#components/menu/menu-only';
 
 type FlowProps = {
   data: {
+    onConnectToStep: (destinationId: number, triggerKind: TriggerKind) => void;
     bubble: StepEditionBubbleProps;
     stepToEditId: number;
     endStepEdition: () => void;
-    onConnectToStep: (destination_step_id: string) => void;
     submitConvertIntoExit: (status: DestinationStatus) => void;
   } & InnerStepCardProps;
 };
@@ -38,7 +45,16 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
   const { anchorOrigin, popoverStyle, transformOrigin, anchorEl, setAnchorEl } =
     usePopoverBubble();
 
-  const isStepNew = data?.stepToEditId === data?.step?.id;
+  const {
+    stepDestinationId,
+    triggerChoicesToConnectStepToStep,
+    handleConnectStepWithLink,
+  } = useConnectToStep(data.onConnectToStep);
+
+  const isStepNew =
+    !!data?.stepToEditId &&
+    !!data.step?.id &&
+    data.stepToEditId === data.step.id;
 
   React.useEffect(() => {
     isStepNew && setAnchorEl(stepCardRef?.current);
@@ -76,11 +92,6 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
     [],
   );
   // ===================================================================
-
-  const handleConnect = React.useCallback(
-    (params: Connection) => data.onConnectToStep?.(params.target),
-    [data],
-  );
 
   const handleSubmitForm = React.useCallback(
     (param: { list: StepMarketingActions[]; step: number }) => {
@@ -125,10 +136,17 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
       </div>
       <Handle
         isConnectable
-        onConnect={handleConnect}
+        onConnect={handleConnectStepWithLink}
         position={Position.Right}
         style={RIGHT_HANDLE_STYLE}
         type={HandleTypeChoices.SOURCE}
+      />
+      <MenuSelectorOnly
+        actionList={triggerChoicesToConnectStepToStep}
+        anchorElement={!!stepDestinationId && stepCardRef.current}
+        customHoverBackgroundColor={
+          SequentialMarketingColors.TRIGGER_BACKGROUND_COLOR
+        }
       />
       <Popover
         anchorEl={anchorEl}

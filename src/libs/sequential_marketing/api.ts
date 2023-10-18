@@ -176,7 +176,7 @@ export const subscribeStepToStep = (
   cadenceId: number,
   data: {
     connected_trigger: ConnectedTrigger;
-    step: Pick<CadenceStep, 'id' | 'name' | 'canvas'>;
+    step?: Pick<CadenceStep, 'id' | 'name' | 'canvas'>;
   },
 ) => {
   return postAuth<{

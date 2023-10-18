@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { ChangeEvent, useCallback } from 'react';
 import { type Theme, makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
@@ -21,7 +20,9 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { ListItem } from '@material-ui/core';
 import Tooltip from '#components/Tooltip.component';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+// @ts-expect-error
 import InvoiceItem from './InvoiceItem.component';
+// @ts-expect-error
 import PaymentItem from './PaymentItem.component';
 import CouponCodeForm from '#libs/coupon/components/CouponCodeForm.component';
 import EstablishmentSelector from '#libs/establishment/components/EstablishmentSelector.component';
@@ -45,7 +46,7 @@ type Props = {
   invoice?: Invoice;
   invoiceItemLoading: boolean;
   invoiceItemList: InvoiceItem[];
-  editCustomFooter: (options: OptionCallback) => void;
+  editCustomFooter: (footer: string, options?: OptionCallback) => void;
   couponList?: {
     coupon_code: string;
     coupon_voucher: number;
@@ -107,7 +108,7 @@ export const InvoiceContent: React.FC<Props> = ({
 
   const [loading, setLoading] = React.useState(false);
 
-  const is_reverse = invoice && invoice.source_invoice;
+  const is_reverse = invoice?.source_invoice;
 
   const handleRemoveInvoiceItem = useCallback(
     (ii: InvoiceItem) => () => removeInvoiceItem(ii.id),
@@ -214,6 +215,7 @@ export const InvoiceContent: React.FC<Props> = ({
               </Typography>
               <Typography variant="h5">
                 {getCurrencyDisplayWithPrice(
+                  // @ts-expect-error
                   parseFloat(amountInvoiceItem).toFixed(2),
                 )}
               </Typography>
@@ -253,7 +255,7 @@ export const InvoiceContent: React.FC<Props> = ({
                   {t('section.paymentList.total')}
                 </Typography>
                 <Typography
-                  color={amountPaymentItem < amountInvoiceItem ? 'error' : ''}
+                  color={amountPaymentItem < amountInvoiceItem ? 'error' : null}
                   variant="h5"
                 >
                   {getCurrencyDisplayWithPrice(amountPaymentItem || 0)}

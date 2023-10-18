@@ -1,6 +1,9 @@
 .bs-collapse {
   height: 0px;
   overflow: hidden;
+}
+
+.bs-collapse-transition {
   transition-timing-function: ease;
   transition-duration: 250ms;
   transition-property: height;

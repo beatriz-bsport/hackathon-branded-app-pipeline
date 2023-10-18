@@ -1,4 +1,5 @@
 import React, { memo } from 'react';
+
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 import './styles.css';
@@ -13,23 +14,38 @@ export const Collapse: React.FC<Props> = ({
   children,
   collapsedHeight,
 }) => {
-  const ref = React.useRef<HTMLDivElement>(null);
-  const [contentHeight, setContentHeight] = React.useState(0);
+  const collapseRef = React.useRef<HTMLDivElement>(null);
+  const contentRef = React.useRef<HTMLDivElement>(null);
 
   React.useEffect(() => {
-    if (ref.current) {
-      setContentHeight(ref.current.scrollHeight);
+    // To prevent the transition from occurring as soon as the component mounts,
+    // we incorporate it with a 250ms delay for proper execution.
+    const transitionClassTimeout = setTimeout(() => {
+      collapseRef.current?.classList?.add('bs-collapse-transition');
+    }, 250);
+    if (contentRef.current && collapseRef.current) {
+      if (isExpanded) {
+        collapseRef.current.style.setProperty(
+          'height',
+          `${contentRef.current.scrollHeight}px`,
+          'important',
+        );
+      } else {
+        collapseRef?.current?.style.setProperty(
+          'height',
+          `${collapsedHeight}px`,
+          'important',
+        );
+      }
     }
-  }, [children]);
+    return () => {
+      clearTimeout(transitionClassTimeout);
+    };
+  }, [isExpanded, collapsedHeight]);
 
   return (
-    <div
-      className="bs-collapse"
-      style={{
-        height: isExpanded ? contentHeight : collapsedHeight ?? 0,
-      }}
-    >
-      <div ref={ref} className="bs-content">
+    <div ref={collapseRef} className="bs-collapse">
+      <div ref={contentRef} className="bs-content">
         {children}
       </div>
     </div>

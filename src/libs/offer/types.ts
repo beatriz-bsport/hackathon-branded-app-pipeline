@@ -412,6 +412,10 @@ export type UserRegistrationParams = {
   check_offer_unicity?: boolean;
 };
 
+export type OfferStatusParams = {
+  booking_for_invitee_only?: boolean;
+};
+
 export enum OfferSummaryVariant {
   DEFAULT = 'default',
   BASKET = 'basket',

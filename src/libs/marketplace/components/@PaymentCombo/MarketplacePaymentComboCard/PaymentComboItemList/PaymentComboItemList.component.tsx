@@ -6,7 +6,7 @@ import type { PaymentCombo } from '#libs/payment-combo/types';
 
 import './styles.css';
 
-type Props = {
+export type Props = {
   paymentCombo: PaymentCombo;
   displayAllitems?: boolean;
   numberOfItemsToDisplay?: number;

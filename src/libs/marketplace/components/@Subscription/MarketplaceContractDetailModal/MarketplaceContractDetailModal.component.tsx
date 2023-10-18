@@ -325,7 +325,7 @@ const MarketplaceContractDetailModal: React.FC<Props> = React.memo(
                       }}
                     >
                       <Collapse
-                        collapsedHeight={40}
+                        collapsedHeight={45}
                         isExpanded={showMoreDescription}
                       >
                         <div
@@ -364,7 +364,7 @@ const MarketplaceContractDetailModal: React.FC<Props> = React.memo(
                           {t('contractCard.legalContract')}
                         </h4>
                         <Collapse
-                          collapsedHeight={40}
+                          collapsedHeight={45}
                           isExpanded={showMoreLegalContract}
                         >
                           <div

@@ -515,7 +515,26 @@ export class OfferManagement extends Component<Props, State> {
     this.props.setBookerInAvanceDialog(true);
   };
 
-  closeBookerModule = () => this.props.setMemberToRegister(null);
+  closeBookerModule = () => {
+    if (this.props.unregisteredSelectedBookingOptions.length) {
+      this.props.closeAllAutoBookingDialogs();
+    }
+    this.props.setMemberToRegister(null);
+    this.props.setUnregisteredSelectedBookingOptions([]);
+  };
+
+  handleCloseBookerModule = () => {
+    if (this.props.unregisteredSelectedBookingOptions.length) {
+      this.openAutoBookingWarningDialog();
+    } else {
+      this.closeBookerModule();
+    }
+  };
+
+  handleCancelBookerModule = () => {
+    const data = this.props.getBookingOptionToRegisterData();
+    this.props.setMemberToRegister(data?.memberToRegister ?? null);
+  };
 
   getMembersWithStatusOk = () =>
     this.props.bookings
@@ -667,6 +686,11 @@ export class OfferManagement extends Component<Props, State> {
     }));
   };
 
+  onCloseAutoBookingDialogs = () => {
+    this.props.setIsAutoBookingError(false);
+    this.props.closeAllAutoBookingDialogs();
+  };
+
   openAutoBookingInfoDialog = () => {
     this.props.openAutoBookingDialog(AUTOBOOKING_DIALOGS.info);
   };
@@ -681,6 +705,10 @@ export class OfferManagement extends Component<Props, State> {
 
   openAutoBookingWarningDialog = () => {
     this.props.openAutoBookingDialog(AUTOBOOKING_DIALOGS.warning);
+  };
+
+  handleAutoBook = () => {
+    this.props.registerMultipleOptions(this.state.selectedBookingOptionsIds);
   };
 
   render() {
@@ -727,24 +755,23 @@ export class OfferManagement extends Component<Props, State> {
     return (
       <Grid container direction="row" spacing={2}>
         <WaitinglistAutoBookingInfoDialog
-          onClose={this.props.closeAllAutoBookingDialogs}
-          onConfirm={this.props.closeAllAutoBookingDialogs}
+          onClose={this.onCloseAutoBookingDialogs}
+          onConfirm={this.handleAutoBook}
           open={isAutoBookingInfoDialogOpened}
         />
         <WaitingListAutoBookingLoadingDialog
           open={isAutoBookingLoadingDialogOpened}
         />
-
-        {/* TODO: CORRECTLY SET ISERROR WHEN ACTIONS ARE DONE */}
         <WaitingListAutoBookingFeedbackDialog
-          isError={false}
-          onClose={this.props.closeAllAutoBookingDialogs}
+          isDisabled={this.props.offerLoading}
+          isError={this.props.isAutoBookingError}
+          onClose={this.onCloseAutoBookingDialogs}
           open={isAutoBookingFeedbackDialogOpened}
         />
 
         <WaitinglistAutoBookingWarningDialog
-          onClose={this.props.closeAllAutoBookingDialogs}
-          onConfirm={this.props.closeAllAutoBookingDialogs}
+          onClose={this.onCloseAutoBookingDialogs}
+          onConfirm={this.closeBookerModule}
           open={isAutoBookingWarningDialogOpened}
         />
 

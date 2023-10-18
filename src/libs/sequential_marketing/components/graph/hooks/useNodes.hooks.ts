@@ -162,10 +162,6 @@ type NodeRendererProps = {
     data: ConnectedTrigger,
     options?: OptionCallback<ConnectedTrigger>,
   ) => void;
-  enterSubscriptionMode: (
-    step: StoredStep,
-    destination_step?: number | string | null,
-  ) => void;
   getEmailTemplate: (id: string) => EmailTemplateSummary;
   getSmartlist: (id: number) => SmartList;
   getStepMarketingActions: (stepId: number) => StepMarketingActions[];
@@ -199,15 +195,12 @@ export const useNodeElementsRecorder = ({
   deleteCadenceStep,
   deleteConnectedTrigger,
   editConnectedTrigger,
-  enterSubscriptionMode,
   getEmailTemplate,
   getSmartlist,
   getStepMarketingActions,
   getTag,
   handleCreateNewStepWithTrigger,
-  handleGetNodeConnectedEgdes,
   handleResetFakerTrigger,
-  handleSelectedStepForEdition,
   handleUpdateFakerTrigger,
   onClickConnectedTrigger,
   onClickEntryStep,
@@ -226,7 +219,7 @@ export const useNodeElementsRecorder = ({
 
   const handleAddNextStepTrigger = React.useCallback(
     (stepNode: StoredStep) => (triggerKind: TriggerKind) => {
-      const faker: ConnectedTrigger = getDefaultValuesComplete(
+      const faker = getDefaultValuesComplete(
         triggerKind,
         stepNode,
         DestinationKind.STEP_TO_STEP,
@@ -239,11 +232,26 @@ export const useNodeElementsRecorder = ({
     [handleUpdateFakerTrigger],
   );
 
-  const onConnectToEntryStep = React.useCallback(
-    (cadence_step_id: number) =>
-      enterSubscriptionMode(storedEntryStep, cadence_step_id),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [storedEntryStep],
+  const onConnectToInnerStep = React.useCallback(
+    (stepNode: StoredStep) =>
+      (destinationId: number, triggerKind: TriggerKind) => {
+        if (destinationId) {
+          const destinationStep = storedSteps.find(
+            (step) => step.id === destinationId,
+          );
+          const faker = getDefaultValuesComplete(
+            triggerKind,
+            stepNode,
+            DestinationKind.STEP_TO_STEP,
+            destinationStep,
+          );
+          handleUpdateFakerTrigger({
+            step: stepNode,
+            trigger: faker,
+          });
+        }
+      },
+    [handleUpdateFakerTrigger, storedSteps],
   );
 
   // The EntryNode consumes the StoredEntryNode data to draw the initial step on the graph.
@@ -272,7 +280,7 @@ export const useNodeElementsRecorder = ({
           getSmartlist,
           getTag,
           onCardClick: () => onClickEntryStep(storedEntryStep), // TODO: code the onClickEntryStep function
-          onConnectToStep: onConnectToEntryStep,
+          onConnectToStep: onConnectToInnerStep(storedEntryStep),
         },
       };
     }
@@ -287,21 +295,21 @@ export const useNodeElementsRecorder = ({
     getTag,
     handleAddNextStepTrigger,
     onClickEntryStep,
-    onConnectToEntryStep,
+    onConnectToInnerStep,
   ]);
 
   const handleConfirmTriggerBubble = React.useCallback(
     (trigger: ConnectedTrigger, options?: OptionCallback<ConnectedTrigger>) => {
       if (isTriggerFake(trigger)) {
-        const updatedTrigger = {
+        const updatedTrigger: ConnectedTrigger = {
           ...trigger,
           trigger_config: { ...trigger?.trigger_config, uuid: uuidv4() },
         };
         handleResetFakerTrigger();
         handleCreateNewStepWithTrigger(updatedTrigger, {
-          onSuccess: (stepId) => {
-            handleBeginStepEdition(stepId);
-          },
+          onSuccess:
+            !updatedTrigger.destination_config.destination_id &&
+            handleBeginStepEdition,
         });
       } else {
         editConnectedTrigger(trigger, options);
@@ -366,27 +374,6 @@ export const useNodeElementsRecorder = ({
     onClickConnectedTrigger,
   ]);
 
-  const handleOnConnectedStep = React.useCallback(
-    (cadence_step_id: string, stepNode) => {
-      if (typeof cadence_step_id !== 'string') {
-        return;
-      }
-      if (!Number.isNaN(parseInt(cadence_step_id))) {
-        enterSubscriptionMode(stepNode, parseInt(cadence_step_id));
-      } else if (cadence_step_id === NodeIdentifiersEnum.EXIT_NODE_IDENTIFIER) {
-        enterSubscriptionMode(stepNode, cadence_step_id);
-      }
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [],
-  );
-
-  const onConnectToInnerStep = React.useCallback(
-    (stepNode: StoredStep) => (cadence_step_id: string) =>
-      handleOnConnectedStep(cadence_step_id, stepNode),
-    [handleOnConnectedStep],
-  );
-
   const handleConvertIntoExit = React.useCallback(
     (stepNode: StoredStep) => (status: DestinationStatus) =>
       stepNode?.id && convertCadenceStepIntoExit(stepNode.id, status),
@@ -417,10 +404,6 @@ export const useNodeElementsRecorder = ({
           onDelete: () => deleteCadenceStep(stepNode?.id),
           addMarketingAction: () => {}, // TODO: code the newMA function
           addNextStep: handleAddNextStepTrigger(stepNode),
-          onCardClick: () => {
-            handleSelectedStepForEdition(stepNode?.id);
-            handleGetNodeConnectedEgdes(stepNode?.id?.toString());
-          },
           onConnectToStep: onConnectToInnerStep(stepNode),
           getTag,
           getEmailTemplate,
@@ -436,7 +419,6 @@ export const useNodeElementsRecorder = ({
     stepToEditId,
     getEmailTemplate,
     getTag,
-    handleOnConnectedStep,
     handleResetStepToEditId,
   ]);
 

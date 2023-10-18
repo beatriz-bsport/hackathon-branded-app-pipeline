@@ -56,10 +56,6 @@ export type Props = {
     id: number,
     { ct_uuid, x, y }: { ct_uuid: string; x: number; y: number },
   ) => void;
-  enterSubscriptionMode: (
-    step: CadenceStep,
-    destination_step?: number | string | null,
-  ) => void;
   onClickEntryStep: (step: CadenceStep) => void;
   onClickConnectedTrigger: (
     step: CadenceStep,
@@ -95,7 +91,6 @@ export const useGraph = ({
   deleteCadenceStep,
   deleteConnectedTrigger,
   editConnectedTrigger,
-  enterSubscriptionMode,
   getEmailTemplate,
   getSmartlist,
   getStepMarketingActions,
@@ -161,7 +156,6 @@ export const useGraph = ({
       deleteCadenceStep,
       deleteConnectedTrigger,
       editConnectedTrigger,
-      enterSubscriptionMode,
       getEmailTemplate,
       getSmartlist,
       getStepMarketingActions,

@@ -85,10 +85,6 @@ type Props = {
     options?: OptionCallback<number>,
   ) => void;
   handleSelectedStepForEdition: (stepId: number) => void;
-  handleSelectStepForSubscription: (
-    step: CadenceStep,
-    subscriptionDestination?: number | string | null,
-  ) => void;
   onClickConnectedTrigger: (
     step: CadenceStep,
     connected_trigger: ConnectedTrigger,
@@ -136,7 +132,6 @@ export const CadenceGraphFlow: React.FC<Props> = ({
   getTag,
   handleCreateNewStepWithTrigger,
   handleSelectedStepForEdition,
-  handleSelectStepForSubscription,
   onClickConnectedTrigger,
   onClickEntryStep,
   resetAllSelection,
@@ -162,7 +157,6 @@ export const CadenceGraphFlow: React.FC<Props> = ({
     deleteCadenceStep,
     deleteConnectedTrigger,
     editConnectedTrigger,
-    enterSubscriptionMode: handleSelectStepForSubscription,
     getEmailTemplate,
     getSmartlist,
     getStepMarketingActions,

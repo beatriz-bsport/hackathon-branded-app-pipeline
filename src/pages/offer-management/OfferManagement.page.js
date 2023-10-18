@@ -67,6 +67,7 @@ import {
   registerToWaitingList as registerToWaitingListAction_,
   fetchByOffer as fetchBookingOptionByOfferAction,
   fetchCompanyConfiguration as fetchCompanyWaitlistConfigurationAction,
+  registerMultipleOptionsBackground as registerMultipleOptionsBackgroundAction,
 } from '#libs/waiting-list/actions';
 import {
   getOfferBookingListWithConsumerPack,
@@ -152,6 +153,7 @@ import {
   fetchConsumerGiftcardList as fetchConsumerGiftcardListAction,
   fetchGiftcardBulk as fetchGiftcardBulkAction,
 } from '#libs/giftcard/actions';
+import { submitInternalPaymentInBackground as submitInternalPaymentInBackgroundAction } from '../../libs/payment/actions';
 import {
   getConsumerGiftcardList,
   withGiftcard,
@@ -159,11 +161,9 @@ import {
   withReceiver,
   onlyUsable,
 } from '#libs/giftcard/selectors';
+import { getInvoicePaymentGroupIsProcessing } from '../../libs/payment/selectors';
 import { getUnreadAnswersCount as getUnreadAnswersCountAction } from '#libs/communication-v2/actions';
 import type { MemberMinimal } from '#libs/member/types';
-
-import { getInvoicePaymentGroupIsProcessing } from '../../libs/payment/selectors';
-import { submitInternalPaymentInBackground as submitInternalPaymentInBackgroundAction } from '../../libs/payment/actions';
 
 const RECURRENT_BOOKING_PAGE_SIZE = 10;
 
@@ -294,6 +294,8 @@ export default compose(
 
       // modify booking
       registerBooking: registerBookingAction,
+      registerMultipleOptionsBackground:
+        registerMultipleOptionsBackgroundAction,
       cancelBooking: cancelBookingAction,
       discardBookingAttendance: discardBookingAttendanceAction,
       confirmBookingAttendance: confirmBookingAttendanceAction,
@@ -359,7 +361,6 @@ export default compose(
 
       // communication v2
       getUnreadAnswersCountAction,
-
       // PaymentGroup
       submitInternalPaymentInBackground:
         submitInternalPaymentInBackgroundAction,

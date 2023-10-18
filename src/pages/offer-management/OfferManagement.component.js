@@ -282,6 +282,12 @@ type Props = {
   openAutoBookingDialog: (openedDialogType: string) => void,
   autoBookingDialogOpened: string,
   closeAllAutoBookingDialogs: () => void,
+  registerMultipleOptions: (bookingOptionsIds: number[]) => void,
+  isAutoBookingError: boolean,
+  setUnregisteredSelectedBookingOptions: (bookingOptionsIds: number[]) => void,
+  unregisteredSelectedBookingOptions: number[],
+  getBookingOptionToRegisterData: () => void,
+  setIsAutoBookingError: (isAutoBookingError: boolean) => void,
 };
 
 type State = {
@@ -1113,20 +1119,12 @@ export default compose(
   withState('bookerInAvanceDialog', 'setBookerInAvanceDialog', false),
   withState('memberToRegister', 'setMemberToRegister', null),
   withState('voucher', 'setVoucher', 0),
-  withState('autoBookingDialogsState', 'setAutoBookingDialogsState', {
-    info: {
-      open: false,
-    },
-    loading: {
-      open: false,
-    },
-    feedBack: {
-      open: false,
-    },
-    warning: {
-      open: false,
-    },
-  }),
+  withState('isAutoBookingError', 'setIsAutoBookingError', false),
+  withState(
+    'unregisteredSelectedBookingOptions',
+    'setUnregisteredSelectedBookingOptions',
+    [],
+  ),
   withStateHandlers(
     {
       searchedText: '',
@@ -1203,6 +1201,59 @@ export default compose(
         },
     },
   ),
+  withHandlers({
+    getBookingOptionToRegisterData:
+      ({
+        bookingOptionsPending,
+        unregisteredSelectedBookingOptions,
+        setUnregisteredSelectedBookingOptions,
+        members,
+      }) =>
+      (): {
+        memberToRegister: null | Member,
+        bookingOptionBeingProcessed: BookingOption,
+      } => {
+        if (!unregisteredSelectedBookingOptions?.length) return {};
+        const unregisteredBookingOptionsToBeProcessed =
+          unregisteredSelectedBookingOptions.filter(
+            (bookingOption) =>
+              bookingOption !== unregisteredSelectedBookingOptions[0],
+          );
+        setUnregisteredSelectedBookingOptions(
+          unregisteredBookingOptionsToBeProcessed,
+        );
+        const bookingOptionBeingProcessed =
+          bookingOptionsPending?.find(
+            (bookingOption) =>
+              bookingOption.id === unregisteredBookingOptionsToBeProcessed[0],
+          ) ?? {};
+        const memberToRegister =
+          members?.find(
+            (member) => member.id === bookingOptionBeingProcessed.member,
+          ) ?? null;
+        return { memberToRegister, bookingOptionBeingProcessed };
+      },
+  }),
+  withHandlers({
+    registerOptionOnAutoBooking:
+      ({
+        getBookingOptionToRegisterData,
+        registerOption,
+        setMemberToRegister,
+      }) =>
+      () => {
+        const data = getBookingOptionToRegisterData?.() ?? {};
+        if (!!data.memberToRegister && !!data.bookingOptionBeingProcessed) {
+          registerOption(data.bookingOptionBeingProcessed.id, {
+            name: data.memberToRegister.name,
+            photo: data.memberToRegister.photo,
+            id: data.memberToRegister.id,
+          });
+        } else {
+          setMemberToRegister(null);
+        }
+      },
+  }),
   withHandlers({
     goToMemberBooking: () => (memberId: number, bookingId?: number) => {
       const url = `/member/${memberId}/bookings/${
@@ -1414,6 +1465,87 @@ export default compose(
       ({ booking_ordering, offerId, revertQuickInvoiceAndRefreshOffer }) =>
       (uuid) => {
         revertQuickInvoiceAndRefreshOffer(uuid, offerId, booking_ordering);
+      },
+
+    registerMultipleOptions:
+      ({
+        setIsAutoBookingError,
+        registerMultipleOptionsBackground,
+        setUnregisteredSelectedBookingOptions,
+        booking_ordering,
+        fetchOfferData,
+        bookingOptionsPending,
+        members,
+        registerOption,
+        offer,
+        openAutoBookingDialog,
+        closeAllAutoBookingDialogs,
+      }) =>
+      (bookingOptionsIds: number[]) => {
+        if (!Array.isArray(bookingOptionsIds)) return;
+        if (offer.room_blueprint) {
+          setUnregisteredSelectedBookingOptions(bookingOptionsIds);
+          const bookingOptionBeingProcessed =
+            bookingOptionsPending?.find(
+              (bookingOption) => bookingOption.id === bookingOptionsIds[0],
+            ) ?? {};
+          const memberToRegister = members?.find(
+            (member) => member.id === bookingOptionBeingProcessed.member,
+          );
+          if (memberToRegister) {
+            registerOption(bookingOptionBeingProcessed.id, {
+              name: memberToRegister.name,
+              photo: memberToRegister.photo,
+              id: memberToRegister.id,
+            });
+          }
+          closeAllAutoBookingDialogs();
+        } else {
+          registerMultipleOptionsBackground(bookingOptionsIds, {
+            onSuccess: () => {
+              openAutoBookingDialog(AUTOBOOKING_DIALOGS.loading);
+            },
+            onBackgroundSuccess: (returnedValue) => {
+              closeAllAutoBookingDialogs();
+              fetchOfferData(booking_ordering);
+              if (returnedValue?.unregistered_booking_options?.length) {
+                setUnregisteredSelectedBookingOptions(
+                  returnedValue.unregistered_booking_options,
+                );
+                const bookingOptionBeingProcessed =
+                  bookingOptionsPending?.find(
+                    (bookingOption) =>
+                      bookingOption.id ===
+                      returnedValue?.unregistered_booking_options[0],
+                  ) ?? {};
+                const memberToRegister = members?.find(
+                  (member) => member.id === bookingOptionBeingProcessed.member,
+                );
+                if (memberToRegister) {
+                  registerOption(bookingOptionBeingProcessed.id, {
+                    name: memberToRegister.name,
+                    photo: memberToRegister.photo,
+                    id: memberToRegister.id,
+                  });
+                }
+              } else {
+                openAutoBookingDialog(AUTOBOOKING_DIALOGS.feedBack);
+              }
+            },
+            onError: () => {
+              setIsAutoBookingError(
+                true,
+                openAutoBookingDialog(AUTOBOOKING_DIALOGS.feedBack),
+              );
+            },
+            onBackgroundError: () => {
+              setIsAutoBookingError(
+                true,
+                openAutoBookingDialog(AUTOBOOKING_DIALOGS.feedBack),
+              );
+            },
+          });
+        }
       },
   }),
 )(OfferManagement);

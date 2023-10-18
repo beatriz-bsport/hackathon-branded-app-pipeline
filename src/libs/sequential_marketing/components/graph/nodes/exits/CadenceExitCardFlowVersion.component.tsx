@@ -9,7 +9,7 @@ import CadenceExitCard, {
 import { TRIGGER_LEFT_HANDLE_STYLE } from '#libs/sequential_marketing/constants/triggers';
 import { HandleTypeChoices } from '#libs/sequential_marketing/constants/steps';
 import ConvertIntoStepBubble from '#libs/sequential_marketing/components/graph/bubbles/ConvertIntoStepBubble.component';
-import usePopoverBubble from '../usePopoverBubble.hook';
+import usePopoverBubble from '#libs/sequential_marketing/components/graph/nodes/hooks/usePopoverBubble.hook';
 
 type Props = {
   data: {

@@ -10,7 +10,7 @@ import {
 import { changeConnectedTriggerKind } from '#libs/sequential_marketing/components/graph/hooks/utils';
 import { HandleTypeChoices } from '#libs/sequential_marketing/constants/steps';
 import { isTriggerFake } from '#libs/sequential_marketing/components/helpers/utils';
-import usePopoverBubble from '#libs/sequential_marketing/components/graph/nodes/usePopoverBubble.hook';
+import usePopoverBubble from '#libs/sequential_marketing/components/graph/nodes/hooks/usePopoverBubble.hook';
 import HiddenHandle from '#libs/sequential_marketing/components/graph/handles/HiddenHandle.component';
 
 import TriggerCard, { type TriggerCardProps } from './TriggerCard.component';

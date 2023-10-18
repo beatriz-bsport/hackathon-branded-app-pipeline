@@ -14,6 +14,8 @@ import type {
   OfferFilterData,
   UserRegistrationParams,
   OfferStatusWaitingListPosition,
+  OfferStatusParams,
+  OfferStatus,
 } from './types';
 
 import { PaginatedResponse } from '../../state/types';
@@ -68,8 +70,11 @@ export async function fetchSimilarOffers(offerId: number, params: any) {
   );
 }
 
-export async function fetchOfferStatus(offerId: number, params: any = {}) {
-  return getAuth(
+export async function fetchOfferStatus(
+  offerId: number,
+  params: OfferStatusParams = {},
+) {
+  return getAuth<OfferStatus>(
     `${API_V1_URI}/offer/${offerId}/bookable_status/${buildUrlParams(params)}`,
   );
 }

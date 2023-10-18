@@ -49,7 +49,7 @@ import { UPSELL_IDENTIFIER_SUBTEACHER_TOOL } from '#libs/platform-billing/upsell
 
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 import type { RootState } from '../../reducers';
-import {
+import type {
   OfferFilter,
   OfferFilterData,
   OfferStatus,
@@ -58,6 +58,7 @@ import {
   OfferEdit,
   UserRegistrationParams,
   OfferStatusWaitingListPosition,
+  OfferStatusParams,
 } from './types';
 
 export const similarOffers = {
@@ -570,7 +571,7 @@ export const offerStatusActions = {
 
 export function fetchOfferStatus(
   id: number,
-  params: any = {},
+  params: OfferStatusParams = {},
   options?: OptionCallback<OfferStatus>,
 ) {
   return async (dispatch: Dispatch) => {

@@ -484,7 +484,9 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     if (this.props.offer?.id) {
       this.props.fetchOfferStatus(
         this.props.offer?.id,
-        {},
+        {
+          booking_for_invitee_only: this.getIsGuestBooking,
+        },
         {
           onSuccess: this.updateOfferConstraints,
         },
@@ -559,6 +561,10 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       this.props.theme.accept_double_booking,
       this.props.theme.accept_double_booking_workshop,
     );
+
+    if (this.getIsGuestBooking && !this.props.theme.accept_double_booking) {
+      offerFeature.isBookable = true;
+    }
 
     const data = buildDataForUserRegistration(
       offerFeature,
@@ -693,8 +699,10 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       );
 
     if (
-      isWaitingListOpenMainReason &&
-      this.props.waitingListConfiguration.check_credit
+      (isWaitingListOpenMainReason &&
+        this.props.waitingListConfiguration?.check_credit) ||
+      // we still want to access the booking flow for guests even is double booking is disabled
+      (this.getIsGuestBooking && !this.props.theme.accept_double_booking)
     ) {
       isBookingBlocked = false;
     }

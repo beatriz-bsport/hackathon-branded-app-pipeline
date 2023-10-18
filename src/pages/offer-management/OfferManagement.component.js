@@ -989,13 +989,17 @@ export class OfferManagement extends Component<Props, State> {
         </Grid>
         {!!this.props.memberToRegister && (
           <BookerModuleManager
+            isAutoBooking={
+              !!this.props.unregisteredSelectedBookingOptions.length
+            }
             member={this.props.memberToRegister}
             memberDetails={this.props.memberDetails}
             offer={this.props.offer}
             offerId={this.props.offerId}
-            onCancel={this.closeBookerModule}
-            onClose={this.closeBookerModule}
+            onCancel={this.handleCancelBookerModule}
+            onClose={this.handleCloseBookerModule}
             openRecurrenceRuleForm={this.openRecurrenceRuleForm}
+            openWarningDialog={this.openAutoBookingWarningDialog}
             registerToOffer={this.props.registerToOffer}
           />
         )}

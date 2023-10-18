@@ -136,12 +136,21 @@ type Props = {
   hasFetchedNonCompatiblePasses: boolean,
   setHasFetchedNonCompatiblePasses: (hasFetch: boolean) => void,
   nonCompatibleByOfferByMemberLoading: boolean,
+  isAutoBooking: boolean,
 };
 
 const REGISTER_METHOD_CHOICE = 0;
 const OFFER_CHOICE = 1;
 
-export class BookerModuleManager extends PureComponent<Props> {
+type State = {
+  isNotifyClientPreselected: boolean,
+};
+
+export class BookerModuleManager extends PureComponent<Props, State> {
+  state = {
+    isNotifyClientPreselected: false,
+  };
+
   componentDidMount() {
     this.props.checkOfferTagEligibility();
     this.props.fetchByOfferByMemberAction(
@@ -176,18 +185,43 @@ export class BookerModuleManager extends PureComponent<Props> {
       );
     }
     this.props.fetchCompanyUserRoles();
+    this.setState({ isNotifyClientPreselected: this.props.isAutoBooking });
   }
 
   componentDidUpdate(prevProps: Props) {
-    if (
-      !(prevProps.member && prevProps.member.id) ||
-      (prevProps.member &&
-        prevProps.member.id &&
-        this.props.member &&
-        this.props.member.id &&
-        prevProps.member.id !== this.props.member.id)
-    ) {
+    const isAnotherMember =
+      prevProps.member &&
+      prevProps.member.id &&
+      this.props.member &&
+      this.props.member.id &&
+      prevProps.member.id !== this.props.member.id;
+    if (!(prevProps.member && prevProps.member.id) || isAnotherMember) {
       this.props.checkOfferTagEligibility();
+    }
+    if (isAnotherMember) {
+      this.props.fetchByOfferByMemberAction(
+        this.props.offerId,
+        this.props.member.id,
+        {
+          onSuccess: (consumerPaymentPacks) => {
+            if (
+              consumerPaymentPacks.length === 0 ||
+              prevProps.consumerPacksNonCompatible.length
+            ) {
+              this.props.setHasFetchedNonCompatiblePasses(false, () =>
+                this.handleFetchNoncompatibleConsumerPackByOfferByMember(),
+              );
+            }
+            this.props.fetchConsumerPaymentPackLinks(
+              flatten(
+                consumerPaymentPacks.map((cpp) =>
+                  cpp.src_consumer_payment_pack.map((id) => id),
+                ),
+              ),
+            );
+          },
+        },
+      );
     }
   }
 
@@ -312,10 +346,14 @@ export class BookerModuleManager extends PureComponent<Props> {
                 <FormControlLabel
                   control={
                     <Checkbox
-                      checked={this.props.notify_member}
-                      onChange={(ev) =>
-                        this.props.setNotifyMember(ev.target.checked)
+                      checked={
+                        this.props.notify_member ||
+                        this.state.isNotifyClientPreselected
                       }
+                      onChange={(ev) => {
+                        this.setState({ isNotifyClientPreselected: false });
+                        this.props.setNotifyMember(ev.target.checked);
+                      }}
                       value="checkedG"
                     />
                   }

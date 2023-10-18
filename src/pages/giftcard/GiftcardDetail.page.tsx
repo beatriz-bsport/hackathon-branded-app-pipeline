@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { Component } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose, withState, withHandlers } from 'recompose';
@@ -16,6 +15,7 @@ import GiftcardFormDrawer from '#libs/giftcard/components/GiftcardFormDrawer.com
 import GiftcardDeleteDialog from '#libs/giftcard/components/GiftcardDeleteDialog.component';
 import BottomActionsButton from '#components/button/BottomActionsButton.component';
 import withTitle from '../../hocs/with-title.hoc';
+// @ts-expect-error
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import {
   Giftcard,
@@ -35,6 +35,7 @@ import {
 import ConsumerGiftcardListItem from '#libs/giftcard/components/ConsumerGiftcardListItem.component';
 
 import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '#libs/member/actions';
+// @ts-expect-error
 import PaginatedListBase from '#components/PaginatedListBase.component';
 import { snackbarSuccess } from '#libs/snackbar/actions';
 import { OptionCallback } from '../../state/types';

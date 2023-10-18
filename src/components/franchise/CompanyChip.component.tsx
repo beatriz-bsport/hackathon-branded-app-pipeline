@@ -1,10 +1,9 @@
-// @ts-nocheck
-// @flow
 import React from 'react';
 import { Chip, MuiThemeProvider } from '@material-ui/core';
 
 import chroma from 'chroma-js';
-import { FranchiseCompany } from '../../libs/franchise/types';
+import type { FranchiseCompany } from '../../libs/franchise/types';
+// @ts-expect-error
 import { getTheme } from '../../theme';
 
 export type OwnProps = {

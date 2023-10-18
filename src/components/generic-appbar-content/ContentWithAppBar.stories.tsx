@@ -1,7 +1,6 @@
-// @ts-nocheck
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import ContentWithAppBar, { Props } from './ContentWithAppBar.component';
+import ContentWithAppBar from './ContentWithAppBar.component';
 
 export default {
   title: 'Components/Commons/ContentWithAppBar',
@@ -14,7 +13,7 @@ export default {
 } as ComponentMeta<typeof ContentWithAppBar>;
 
 const ContentWithAppBarTemplate: ComponentStory<typeof ContentWithAppBar> = (
-  args: Props,
+  args: React.ComponentProps<typeof ContentWithAppBar>,
 ) => <ContentWithAppBar {...args} />;
 
 export const AppBarWithContent = ContentWithAppBarTemplate.bind({});

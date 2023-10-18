@@ -1,13 +1,13 @@
-// @ts-nocheck
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-// @flow
 import React from 'react';
 import { compose } from 'recompose';
 import { WithStyles, withStyles } from '@material-ui/styles';
 import { Theme } from '@material-ui/core';
 
 import executeOnDeprecatedVersion from '../utils/executeOnDeprecatedVersion';
+// @ts-expect-error
 import RELEASE_VERSION from '../release';
+// @ts-expect-error
 import RELEASE_DATE from '../release-date';
 import Tooltip from './Tooltip.component';
 

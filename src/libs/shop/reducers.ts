@@ -1,8 +1,8 @@
-// @ts-nocheck
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
-import { PaginatedResponse } from '../../state/types';
+import type { PaginatedResponse } from '../../state/types';
+// @ts-expect-error
 import type { ShopState } from '../../state/shop/types';
 import {
   shopItemAsManagerActions,
@@ -24,7 +24,7 @@ import {
   subshopListActions,
   subShopCreateOrUpdateActions,
 } from './actions/subshop';
-import {
+import type {
   IsShopUsedInComboAPI,
   Provision,
   ShopItem,

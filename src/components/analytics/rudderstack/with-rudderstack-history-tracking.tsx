@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import history from '../../../history';
 import { parseQueryString } from '../../../http';
@@ -36,7 +35,7 @@ export function withRudderStackHistoryTracker<P>(
       this.state.unlisten();
     }
 
-    componentDidUpdate(_, prevState: State) {
+    componentDidUpdate(_: P, prevState: State) {
       if (
         prevState.prevPath !== this.state.prevPath ||
         prevState.prevSearch !== this.state.prevSearch

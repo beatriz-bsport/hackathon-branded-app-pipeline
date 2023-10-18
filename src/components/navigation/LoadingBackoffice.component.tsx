@@ -1,14 +1,16 @@
-// @flow
 import React from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles, Theme } from '@material-ui/core/styles';
+import Config from '../../config';
 import LOGO_ASSET from '../../public/images/banner_lowres.png';
 
 export const LoadingBackoffice = () => {
   const classes = useStyles();
   return (
     <div className={classes.container}>
-      <img alt="bsport logo" height={40} src={LOGO_ASSET} />
+      {Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' && (
+        <img alt="bsport logo" height={40} src={LOGO_ASSET} />
+      )}
       <CircularProgress className={classes.loading} />
     </div>
   );

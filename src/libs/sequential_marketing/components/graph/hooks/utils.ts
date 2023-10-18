@@ -20,17 +20,63 @@ import type { StoredStep } from '#libs/sequential_marketing/components/graph/hoo
 export const getHorizontalPositionFromSource = (sourceCanvas: GraphCanvas) =>
   ((parseFloat(sourceCanvas?.position?.x) || 0) + DEFAULT_NODE_GAP).toString();
 
+/** Computes the average of two input numbers and returns it as a string.
+ * @param {number} a - The value of the first parameter.
+ * @param {number} b - The value of the second parameter.
+ * @returns {string} - The average position as a string.
+ */
+export const getMiddlePosition = (a: number, b: number) =>
+  ((a + b) / 2).toString();
+
+/** Determines the optimal position for the new ConnectedTrigger based on its source step and destination step positions.
+ *
+ * If the ConnectedTrigger lacks a destination step, it will be positioned to the right of its source step.
+ * If the ConnectedTrigger has a destination step, it will be centered between its source and destination steps.
+ *
+ * @param {StoredStep} source - The source step of the ConnectedTrigger.
+ * @param {StoredStep} destination - The destination step of the ConnectedTrigger, if connecting step to step.
+ * @returns {GraphCanvas} - The calculated position for the ConnectedTrigger.
+ */
+export const getConnectedTriggerPosition = (
+  source: StoredStep,
+  destination?: StoredStep,
+): GraphCanvas => {
+  if (destination?.canvas?.position && source?.canvas?.position)
+    return {
+      position: {
+        x: getMiddlePosition(
+          parseFloat(source.canvas.position.x),
+          parseFloat(destination.canvas.position.x),
+        ),
+        y: getMiddlePosition(
+          parseFloat(source.canvas.position.y),
+          parseFloat(destination.canvas.position.y),
+        ),
+      },
+    };
+  return {
+    position: {
+      x: getHorizontalPositionFromSource(source?.canvas),
+      y: source?.canvas?.position?.y,
+    },
+  };
+};
+
 /** Get the default values for a ConnectedTrigger.
  * @param {TriggerKind} triggerKind - Sequential marketing trigger kind
  * @param {StoredStep} source - Source step of the trigger
  * @param {DestinationKind} destinationKind - Destination kind for the trigger
+ * @param {StoredStep} destination - Destination step of the trigger, in case of connect step to step
  * @returns {ConnectedTrigger} - Return a ConnectedTrigger with default values
  */
 export const getDefaultValuesComplete = (
   triggerKind: TriggerKind,
   source?: StoredStep,
   destinationKind?: DestinationKind,
+  destination?: StoredStep,
 ): ConnectedTrigger => {
+  const position = getConnectedTriggerPosition(source, destination);
+
   switch (triggerKind) {
     case TriggerKind.ONLY_EVENT_TRIGGER:
       return {
@@ -41,7 +87,7 @@ export const getDefaultValuesComplete = (
         },
         destination_config: {
           source_id: source?.id || null,
-          destination_id: null,
+          destination_id: destination?.id || null,
           kind: destinationKind || null,
           reason: null,
           status: null,
@@ -52,12 +98,7 @@ export const getDefaultValuesComplete = (
           uuid: uuidv4(),
           smartlist_pk: null,
         },
-        canvas: {
-          position: {
-            x: getHorizontalPositionFromSource(source?.canvas),
-            y: source?.canvas?.position?.y,
-          },
-        },
+        canvas: position,
       };
     case TriggerKind.ONLY_SMARTLIST_FILTERING:
       return {
@@ -67,7 +108,7 @@ export const getDefaultValuesComplete = (
         },
         destination_config: {
           source_id: source?.id || null,
-          destination_id: null,
+          destination_id: destination?.id || null,
           kind: destinationKind || null,
           reason: null,
           status: null,
@@ -78,12 +119,7 @@ export const getDefaultValuesComplete = (
           uuid: uuidv4(),
           smartlist_pk: null,
         },
-        canvas: {
-          position: {
-            x: getHorizontalPositionFromSource(source?.canvas),
-            y: source?.canvas?.position?.y,
-          },
-        },
+        canvas: position,
       };
     case TriggerKind.ONLY_TIMEOUT:
       return {
@@ -94,7 +130,7 @@ export const getDefaultValuesComplete = (
         },
         destination_config: {
           source_id: source?.id || null,
-          destination_id: null,
+          destination_id: destination?.id || null,
           kind: destinationKind || null,
           reason: null,
           status: null,
@@ -105,12 +141,7 @@ export const getDefaultValuesComplete = (
           uuid: uuidv4(),
           smartlist_pk: null,
         },
-        canvas: {
-          position: {
-            x: getHorizontalPositionFromSource(source?.canvas),
-            y: source?.canvas?.position?.y,
-          },
-        },
+        canvas: position,
       };
     case TriggerKind.EVENT_TRIGGER_AND_SMARTLIST_FILTERING:
       return {
@@ -121,7 +152,7 @@ export const getDefaultValuesComplete = (
         },
         destination_config: {
           source_id: source?.id || null,
-          destination_id: null,
+          destination_id: destination?.id || null,
           kind: destinationKind || null,
           reason: null,
           status: null,
@@ -132,12 +163,7 @@ export const getDefaultValuesComplete = (
           uuid: uuidv4(),
           smartlist_pk: null,
         },
-        canvas: {
-          position: {
-            x: getHorizontalPositionFromSource(source?.canvas),
-            y: source?.canvas?.position?.y,
-          },
-        },
+        canvas: position,
       };
     default:
       return null;

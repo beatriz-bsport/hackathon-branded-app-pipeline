@@ -257,7 +257,7 @@ const DateRangeSelector: React.FC<Props & FormikProps<Values>> = ({
         <Paper>
           <div className={classes.menu}>
             <Typography className={classes.row} color="textSecondary">
-              {t('header.selectRange')}
+              {t('header.selectDateRange')}
             </Typography>
             <div className={classes.row}>
               <div>

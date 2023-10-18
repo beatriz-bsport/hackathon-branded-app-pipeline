@@ -488,7 +488,7 @@ const getTranslations = async () => {
     header: {
       average: 'Average',
       sum: 'Total',
-      selectRange: 'Select a date range',
+      selectDateRange: 'Select a date range',
       selectDate: 'Select a date',
       from: 'From',
       to: 'To',

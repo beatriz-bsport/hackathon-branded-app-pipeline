@@ -14,12 +14,14 @@ import { ErrorIcon } from '#components/icons/ErrorIcon.component';
 type Props = {
   open: boolean;
   isError: boolean;
+  isDisabled: boolean;
   onClose: () => void;
 };
 
 const WaitingListAutoBookingFeedbackDialog: React.FC<Props> = ({
   open,
   isError,
+  isDisabled,
   onClose,
 }) => {
   const { t } = useTranslation('waitingList');
@@ -50,7 +52,9 @@ const WaitingListAutoBookingFeedbackDialog: React.FC<Props> = ({
           </DialogContent>
         )}
         <DialogActions>
-          <Button onClick={onClose}>{t('dialog.cancel')}</Button>
+          <Button disabled={isDisabled} onClick={onClose}>
+            {t('dialog.cancel')}
+          </Button>
         </DialogActions>
       </div>
     </GenericResponsiveDialog>

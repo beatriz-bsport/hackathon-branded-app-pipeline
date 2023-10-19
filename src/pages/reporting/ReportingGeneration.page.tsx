@@ -136,8 +136,10 @@ export class ReportingGeneration extends Component<Props, State> {
     timePeriod: string;
     page?: number;
   }) => {
+    // remove seconds as per product requirement
     const time_window_start = moment(values.timeStart, 'HH:mm').format('HH:mm');
     const time_window_end = moment(values.timeEnd, 'HH:mm').format('HH:mm');
+
     const date_start = moment(values.dateStart).format('YYYY-MM-DD');
     const date_end = moment(values.dateEnd).format('YYYY-MM-DD');
     this.setState({

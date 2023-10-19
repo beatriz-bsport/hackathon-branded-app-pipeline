@@ -341,11 +341,11 @@
                     "first": "Enviar email",
                     "second_before": "{{ count }}hora antes do início da sessão.",
                     "second_before_plural": "{{ count }} horas antes do início da sessão.",
-                    "second_before_days": "{{ count }} dia  antes do início da sessão",
+                    "second_before_days": "{{ count }} dia antes do início da sessão",
                     "second_before_days_plural": "{{ count }} dias antes do início da sessão",
                     "second_after": "{{ count }} hora após a sessão",
                     "second_after_plural": "{{ count }} horas após a sessão",
-                    "second_after_days": "{{ count }} dia após a sessão",
+                    "second_after_days": "{{ count }} dia apóso término da sessão",
                     "second_after_days_plural": "{{ count }} dias após o término da sessão"
                 },
                 "chooseStatus": {
@@ -2347,7 +2347,7 @@
         "uniqueCodeCoupon": {
             "form": {
                 "fileUploader": {
-                    "title": "Descarregar cupões únicos",
+                    "title": "Carregar cupões únicos",
                     "label": "Arrastar e largar ou clicar para selecionar o ficheiro",
                     "sizeLimitHelper": "Ficheiro CSV (1MB máximo)",
                     "helperText": "Carregue um ficheiro CSV com todos os códigos de oferta na primeira coluna, um código por linha, sem cabeçalho."

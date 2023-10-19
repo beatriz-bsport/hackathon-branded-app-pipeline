@@ -785,9 +785,9 @@ export const getComparatorLabel = (comparator: AllComparator) => {
     case FILTER_NOT_EQUAL_OPERAND:
     case FILTER_OUT_OPERAND:
       return '≠';
-    case FILTER_LTE_OPERAND:
-      return '≥';
     case FILTER_GTE_OPERAND:
+      return '≥';
+    case FILTER_LTE_OPERAND:
       return '≤';
     default:
       return '';

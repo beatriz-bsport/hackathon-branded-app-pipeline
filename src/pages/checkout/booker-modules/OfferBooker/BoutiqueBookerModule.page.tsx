@@ -275,7 +275,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     });
   }
 
-  getIsGuestBooking = this.props.queryParams.guest_booking === 'true';
+  getIsGuestBooking = () => this.props.queryParams.guest_booking === 'true';
 
   getAvailableConsumerPack = () => {
     return getAvailableConsumerPack(
@@ -485,7 +485,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       this.props.fetchOfferStatus(
         this.props.offer?.id,
         {
-          booking_for_invitee_only: this.getIsGuestBooking,
+          booking_for_invitee_only: this.getIsGuestBooking(),
         },
         {
           onSuccess: this.updateOfferConstraints,
@@ -562,7 +562,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       this.props.theme.accept_double_booking_workshop,
     );
 
-    if (this.getIsGuestBooking && !this.props.theme.accept_double_booking) {
+    if (this.getIsGuestBooking() && !this.props.theme.accept_double_booking) {
       offerFeature.isBookable = true;
     }
 
@@ -571,7 +571,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       this.state.selectedItem,
       this.props.offer.id,
       this.state.selectedSpotId,
-      this.getIsGuestBooking && {
+      this.getIsGuestBooking() && {
         firstName: this.props.queryParams.guest_first_name ?? '',
         lastName: this.props.queryParams.guest_last_name ?? '',
         email: this.props.queryParams.guest_email ?? '',
@@ -701,8 +701,8 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     if (
       (isWaitingListOpenMainReason &&
         this.props.waitingListConfiguration?.check_credit) ||
-      // we still want to access the booking flow for guests even is double booking is disabled
-      (this.getIsGuestBooking && !this.props.theme.accept_double_booking)
+      // we still want to access the booking flow for guests even if double booking is disabled
+      (this.getIsGuestBooking() && !this.props.theme.accept_double_booking)
     ) {
       isBookingBlocked = false;
     }
@@ -840,7 +840,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
               </Button>
               <div className="bs-new-offer-booking__spot-selector__header__text">
                 {t(
-                  this.getIsGuestBooking
+                  this.getIsGuestBooking()
                     ? 'newBookingModule.guestSpotSelectorTitle'
                     : 'newBookingModule.spotSelectorTitle',
                 )}
@@ -1022,7 +1022,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                   guestName={`${this.props.queryParams.guest_first_name} ${
                     this.props.queryParams.guest_last_name ?? ''
                   }`}
-                  isGuestBooking={this.getIsGuestBooking}
+                  isGuestBooking={this.getIsGuestBooking()}
                   loading={offerSummaryLoading}
                   metaActivity={this.props.offer?.meta_activity}
                   offer={this.props.offer}

@@ -99,7 +99,7 @@ const ReportFilterConfigSelector: React.FC<Props & Values> = memo(
     const [editFilterId, setEditFilterId] = useState<number>(null);
     const [deleteFilterId, setDeletefilterId] = useState<number>(null);
     const [anchorEl, setAnchorEl] = useState<
-      (EventTarget & HTMLButtonElement) | HTMLDivElement
+      (EventTarget & HTMLButtonElement) | HTMLDivElement | null
     >(null);
     const containerRef = useRef(null);
 

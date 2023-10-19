@@ -46,7 +46,7 @@ type QuickReportFilterConfigFilterProps = {
   getDataByType: (
     datatype: DynamicFilterDataType,
   ) => handleGetDynamicDataForFiltersReturn;
-  anchorEl: (EventTarget & HTMLButtonElement) | HTMLDivElement;
+  anchorEl: (EventTarget & HTMLButtonElement) | HTMLDivElement | null;
   columnsDataSelectedQuickFilter: QuickFiltersColumnsData;
   isQuickFilterModalOpen: boolean;
   onClose: () => void;

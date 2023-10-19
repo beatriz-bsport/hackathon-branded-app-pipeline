@@ -53,7 +53,7 @@ type Props = {
   >;
   handleQuickFilterModalClose: () => void;
   handleOpenModal: () => void;
-  anchorEl: (EventTarget & HTMLButtonElement) | HTMLDivElement;
+  anchorEl: (EventTarget & HTMLButtonElement) | HTMLDivElement | null;
   columns: DataSourceFieldMetadata[];
   isFranchisor: boolean;
   getDataByType: (
@@ -67,7 +67,7 @@ type Props = {
   reportCategory: string;
   chipRef: React.MutableRefObject<HTMLDivElement | null>;
   setAnchorEl: React.Dispatch<
-    (EventTarget & HTMLButtonElement) | HTMLDivElement
+    (EventTarget & HTMLButtonElement) | HTMLDivElement | null
   >;
 };
 

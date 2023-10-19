@@ -53,7 +53,7 @@ type ReportFilterChipProps = {
     React.SetStateAction<boolean>
   >;
   setAnchorEl?: React.Dispatch<
-    (EventTarget & HTMLButtonElement) | HTMLDivElement
+    (EventTarget & HTMLButtonElement) | HTMLDivElement | null
   >;
   setSelectedColumn?: React.Dispatch<
     React.SetStateAction<DatatypeFilterConfigItem>

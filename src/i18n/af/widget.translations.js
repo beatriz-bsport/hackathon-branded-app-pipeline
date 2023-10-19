@@ -149,6 +149,7 @@ exports.default = {
         isOfferNotAvailableYet: 'The session is not yet bookable',
         isOfferAvailable: 'The session is available',
         isOfferInThePast: 'The session is over',
+        isBookingDisabled: 'Booking is disabled',
         isHidden: 'Hidden',
         isAddingItemPossible: 'Adding more items activated',
         isItemEditionDisabled: 'Modifying items disabled',

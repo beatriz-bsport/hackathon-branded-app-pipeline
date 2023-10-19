@@ -88,6 +88,9 @@ export class ReportingGeneration extends Component<Props, State> {
     });
     if (!this.props.isFranchisor && this.props.report.date_start) {
       this.handleGenerate({
+        timeStart: this.props.report.time_window_start,
+        timeEnd: this.props.report.time_window_end,
+        timeWindowPeriod: 'custom',
         dateStart: this.props.report.date_start,
         dateEnd: this.props.report.date_end,
         reportFilterConfigId: this.props.report.report_filter_config_id,
@@ -103,6 +106,9 @@ export class ReportingGeneration extends Component<Props, State> {
       !prevProps.report.date_start
     ) {
       this.handleGenerate({
+        timeStart: this.props.report.time_window_start,
+        timeEnd: this.props.report.time_window_end,
+        timeWindowPeriod: 'custom',
         dateStart: this.props.report.date_start,
         dateEnd: this.props.report.date_end,
         reportFilterConfigId: this.props.report.report_filter_config_id,
@@ -122,12 +128,16 @@ export class ReportingGeneration extends Component<Props, State> {
   };
 
   handleGenerate = (values: {
+    timeStart: string;
+    timeEnd: string;
     dateStart: string;
     dateEnd: string;
     reportFilterConfigId: number;
     timePeriod: string;
     page?: number;
   }) => {
+    const time_window_start = moment(values.timeStart, 'HH:mm').format('HH:mm');
+    const time_window_end = moment(values.timeEnd, 'HH:mm').format('HH:mm');
     const date_start = moment(values.dateStart).format('YYYY-MM-DD');
     const date_end = moment(values.dateEnd).format('YYYY-MM-DD');
     this.setState({
@@ -135,11 +145,16 @@ export class ReportingGeneration extends Component<Props, State> {
       dateEnd: date_end,
       reportFilterConfigId: values.reportFilterConfigId,
       timePeriod: values.timePeriod,
+      timeEnd: time_window_end,
+      timeStart: time_window_start,
+      timeWindowPeriod: values.timeWindowPeriod,
     });
 
     this.handleGenerateHeaders({
       date_start,
       date_end,
+      time_window_start,
+      time_window_end,
       report_filter_config_id: values.reportFilterConfigId,
       time_period: values.timePeriod || 'custom',
     });
@@ -149,6 +164,8 @@ export class ReportingGeneration extends Component<Props, State> {
         ? {
             date_start,
             date_end,
+            time_window_start,
+            time_window_end,
             page_size: this.props.pageSize,
             page: values.page || 1,
             report_filter_config_id: values.reportFilterConfigId,
@@ -175,6 +192,10 @@ export class ReportingGeneration extends Component<Props, State> {
 
   handleGeneratePreviousPage = () => {
     this.handleGenerate({
+      timeStart: this.state.timeStart || this.props.report.time_start,
+      timeEnd: this.state.timeEnd || this.props.report.time_end,
+      timeWindowPeriod:
+        this.state.timeWindowPeriod || this.props.report.time_window_period,
       dateStart: this.state.dateStart || this.props.report.date_start,
       dateEnd: this.state.dateEnd || this.props.report.date_end,
       reportFilterConfigId:
@@ -187,6 +208,10 @@ export class ReportingGeneration extends Component<Props, State> {
 
   handleGenerateNextPage = () => {
     this.handleGenerate({
+      timeStart: this.state.timeStart || this.props.report.time_start,
+      timeEnd: this.state.timeEnd || this.props.report.time_end,
+      timeWindowPeriod:
+        this.state.timeWindowPeriod || this.props.report.time_window_period,
       dateStart: this.state.dateStart || this.props.report.date_start,
       dateEnd: this.state.dateEnd || this.props.report.date_end,
       reportFilterConfigId:

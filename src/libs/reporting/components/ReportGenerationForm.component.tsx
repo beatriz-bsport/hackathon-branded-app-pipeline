@@ -22,6 +22,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 import { Submit, defaultHandleSubmit } from '#components/forms';
 import DateRangeSelector from '#components/date/DateRangeSelector.component';
+import TimeRangeSelector from '#components/time/TimeRangeSelector.component';
 import DatePickerSelector from '#components/date/DatePickerSelector.component';
 import ReportFilterConfigSelector from './ReportFilterConfigSelector.component';
 
@@ -65,6 +66,7 @@ type Props = {
 
   fetchReportFilterConfigList: (params: ReportFilterConfigParams) => void;
   isFranchisor: boolean;
+  timeWindowFilteringEnabled: boolean;
 };
 
 type DownloadButtonProps = {
@@ -200,6 +202,7 @@ const ReportGenerationForm: React.FC<Props> = ({
   fetchReportFilterConfigList,
   deleteReportFilterConfig,
   isFranchisor,
+  timeWindowFilteringEnabled,
 }) => {
   const { t } = useTranslation();
   const classes = useStyles();
@@ -245,6 +248,15 @@ const ReportGenerationForm: React.FC<Props> = ({
         (reportFilter) => reportFilter.is_quick_report_filter === true,
       ),
     [reportFilterConfigs],
+  );
+
+  const handleTimeSelectorSubmit = useCallback(
+    (_values) => {
+      setFieldValue('timeStart', _values.timeStart);
+      setFieldValue('timeEnd', _values.timeEnd);
+      setFieldValue('timeWindowPeriod', _values.timeWindowPeriod);
+    },
+    [setFieldValue],
   );
 
   return (
@@ -306,6 +318,14 @@ const ReportGenerationForm: React.FC<Props> = ({
                   setFieldValue('timePeriod', _values.timePeriod);
                 }}
                 timePeriod={values.time_period}
+              />
+            )}
+            {timeWindowFilteringEnabled && (
+              <TimeRangeSelector
+                onSubmit={handleTimeSelectorSubmit}
+                originalTimeEnd={values.timeEnd}
+                originalTimeStart={values.timeStart}
+                originalTimeWindowPeriod={values.timeWindowPeriod}
               />
             )}
             {CATEGORIES_NEEDING_HELPER_TEXT_FOR_DATES.includes(
@@ -404,6 +424,9 @@ export default compose(
     mapPropsToValues: ({ initial, reportConfiguration }) => {
       return (
         initial || {
+          timeStart: reportConfiguration.time_window_start || '00:00',
+          timeEnd: reportConfiguration.time_window_end || '23:59',
+          timeWindowPeriod: 'custom',
           dateStart: moment(reportConfiguration.date_start),
           dateEnd: moment(reportConfiguration.date_end),
           dateType: reportConfiguration.date_type,

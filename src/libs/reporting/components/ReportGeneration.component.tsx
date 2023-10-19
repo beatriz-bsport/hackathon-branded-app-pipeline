@@ -118,6 +118,10 @@ const ReportGeneration: React.FC<Props> = ({
   const columnsMetadata =
     report?.columns?.map((c) => getColumn(metadata, report, c)) ?? [];
 
+  const reportMetadata = metadata?.results?.find(
+    (r) => r.category === report.category,
+  );
+
   return (
     <div>
       {isFranchisor && (
@@ -159,6 +163,9 @@ const ReportGeneration: React.FC<Props> = ({
           setDisableContinue={setDisableContinue}
           setShowDialog={setShowDialog}
           showDialog={showDialog}
+          timeWindowFilteringEnabled={
+            !!reportMetadata?.time_window_filtering_enabled
+          }
         />
       )}
       <ReportTableHeaders

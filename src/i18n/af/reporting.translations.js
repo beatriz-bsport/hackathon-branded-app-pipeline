@@ -488,6 +488,7 @@ const getTranslations = async () => {
     header: {
       average: 'Average',
       sum: 'Total',
+      selectTimeRange: 'Select a time slot',
       selectDateRange: 'Select a date range',
       selectDate: 'Select a date',
       from: 'From',
@@ -496,6 +497,7 @@ const getTranslations = async () => {
       end: 'End',
       rapidChoice: 'Quick Select',
       helper: {
+        allDay: 'All day',
         today: 'Today',
         week: 'Last week',
         month: 'Last month',

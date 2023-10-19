@@ -821,7 +821,7 @@ const styles = (theme: Theme) =>
   });
 const mapStateToProps = (state: RootState) => ({
   loading: state.paymentPack.loading,
-  enabledPacks: withLinkedPrivatePass(getEnabledPaymentPacks)(state),
+  enabledPacks: withSCT(withLinkedPrivatePass(getEnabledPaymentPacks))(state),
   theme: themeSelectors.getTheme(state),
   videoCategories: state.video.filterableParams.items.SCTs,
   allTagsWithTagGroup: getAllTagsWithTagGroup(state),

@@ -140,10 +140,10 @@ export function changeCadenceExitInStep(
 }
 
 export const updateConnectedTriggerActions = {
-  isLoading: createAction<boolean>('CONNECTED_TIRGGER_WIP/UPDATE/IS_LOADING'),
-  error: createAction<Error>('CONNECTED_TIRGGER_WIP/UPDATE/ERROR'),
+  isLoading: createAction<boolean>('CONNECTED_TRIGGER_WIP/UPDATE/IS_LOADING'),
+  error: createAction<Error>('CONNECTED_TRIGGER_WIP/UPDATE/ERROR'),
   success: createAction<ConnectedTrigger>(
-    'CONNECTED_TIRGGER_WIP/UPDATE/SUCCESS',
+    'CONNECTED_TRIGGER_WIP/UPDATE/SUCCESS',
   ),
 };
 

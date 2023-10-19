@@ -172,14 +172,16 @@ const DatatypeFilterConfigValueManager: React.FC<Props> = ({
 
   if (filterItem.datatype === 'boolean') {
     return (
-      <MaterialUiSingleSelectorField
-        chipsRenderer={!!chipsRenderer && chipsRenderer}
-        inScrollBar={inScrollBar}
-        isDisabled={isPreview}
-        itemRenderer={!!itemRenderer && itemRenderer}
-        name={`${prefix}.value`}
-        options={booleanOptions}
-      />
+      <div className={classes.booleanSelector}>
+        <MaterialUiSingleSelectorField
+          chipsRenderer={!!chipsRenderer && chipsRenderer}
+          inScrollBar={inScrollBar}
+          isDisabled={isPreview}
+          itemRenderer={!!itemRenderer && itemRenderer}
+          name={`${prefix}.value`}
+          options={booleanOptions}
+        />
+      </div>
     );
   }
 
@@ -381,7 +383,6 @@ const DatatypeFilterConfigValueFloat: React.FC<{
   if (datatype === 'percent') {
     return <PercentField castAsNumber disabled={isPreview} name={name} />;
   }
-
   return (
     <TextField
       castAsNumber
@@ -704,23 +705,25 @@ const DatatypeFilterConfigValueList: React.FC<{
   }
 
   return (
-    <MaterialUiMultiSelectorField
-      isMenuListVirtualized
-      chipsRenderer={!!chipsRenderer && chipsRenderer}
-      className={classes.flexOne}
-      closeMenuOnSelect={closeMenuOnSelect}
-      defaultNumberShown={1}
-      forceError={false && error && isTouched}
-      inScrollBar={inScrollBar}
-      isDisabled={isPreview}
-      itemRenderer={!!itemRenderer && itemRenderer}
-      name={name}
-      openMenuOnClear={openMenuOnClear}
-      openMenuOnFocus={openMenuOnFocus}
-      options={[...getOptions()]}
-      placeholder={t('filter.form.placeholderList')}
-      withoutConfirmButton={withoutConfirmButton}
-    />
+    <div className={classes.multiValueSelector}>
+      <MaterialUiMultiSelectorField
+        isMenuListVirtualized
+        chipsRenderer={!!chipsRenderer && chipsRenderer}
+        className={classes.flexOne}
+        closeMenuOnSelect={closeMenuOnSelect}
+        defaultNumberShown={1}
+        forceError={false && error && isTouched}
+        inScrollBar={inScrollBar}
+        isDisabled={isPreview}
+        itemRenderer={!!itemRenderer && itemRenderer}
+        name={name}
+        openMenuOnClear={openMenuOnClear}
+        openMenuOnFocus={openMenuOnFocus}
+        options={[...getOptions()]}
+        placeholder={t('filter.form.placeholderList')}
+        withoutConfirmButton={withoutConfirmButton}
+      />
+    </div>
   );
 };
 
@@ -735,6 +738,8 @@ const useStyles = makeStyles((theme) => ({
   flexOne: {
     flex: '1 1 120px',
   },
+  multiValueSelector: { minWidth: '300px' },
+  booleanSelector: { minWidth: '150px' },
 }));
 
 export default memo(DatatypeFilterConfigValueManager);

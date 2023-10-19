@@ -169,21 +169,21 @@ const QuickReportFilterConfigFilter: React.FC<
           />
           <div className={classes.quickReportFilterSelectorRows}>
             {selectedColumn.datatype === 'datetime' && (
-              <div className={classes.flexOne}>
+              <div className={classes.subDataTypeSelector}>
                 <MaterialUiSingleSelectorField
                   name={`config.groups[0].filters_data.${index}.sub_datatype`}
                   options={subDataTypeOption}
                 />
               </div>
             )}
-            <div className={classes.flexOne}>
+            <div className={classes.comparatorSelector}>
               <MaterialUiSingleSelectorField
                 name={`config.groups[0].filters_data.${index}.comparator`}
                 onChange={handleComparatorChange}
                 options={filterComparatorOptions}
               />
             </div>
-            <div className={classes.flexTwo}>
+            <div>
               {!!values.config.groups.length && (
                 <DatatypeFilterConfigValueManager
                   openMenuOnClear
@@ -215,7 +215,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     justifyContent: 'flex-start',
     alignItems: 'flex-start',
     gap: theme.spacing(1),
-    minWidth: '500px',
     width: 'fit-content',
   },
   quickReportFilterSelectorRows: {
@@ -224,28 +223,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     gap: theme.spacing(1),
     width: '100%',
   },
-  flexOne: {
-    flex: '0.2 1 120px',
-    position: 'relative',
-  },
-  flexTwo: {
-    flex: '0.8 1 120px',
-    position: 'relative',
-  },
-  select: {
-    minWidth: 160,
-  },
-  chipList: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    gap: theme.spacing(1),
-    marginBottom: theme.spacing(1),
-    marginTop: theme.spacing(1),
-    borderRadius: 16,
-    padding: theme.spacing(1),
-    '&:hover': {
-      backgroundColor: '#efefef',
-    },
-  },
+  subDataTypeSelector: { minWidth: '100px' },
+  comparatorSelector: { minWidth: '200px' },
 }));
 export default memo(QuickReportFilterConfigFilter);

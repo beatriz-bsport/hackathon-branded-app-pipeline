@@ -342,11 +342,15 @@ export default function withDatatypeDynamicData(
                   (coach) => coach.id.toString() === stringifiedValue,
                 )?.name;
 
-              case ReportFilterableDataType.BILLING_ESTABLISHMENT:
-                return props.establishments.find(
+              case ReportFilterableDataType.BILLING_ESTABLISHMENT: {
+                const matchingBillingEstablishment = (
+                  props.establishments || []
+                ).find(
                   (establishment) =>
-                    establishment.id.toString() === stringifiedValue,
-                )?.name;
+                    establishment?.id?.toString() === stringifiedValue,
+                )?.location?.address;
+                return matchingBillingEstablishment || null;
+              }
 
               case ReportFilterableDataType.ESTABLISHMENT:
                 return props.establishments.find(
@@ -432,10 +436,7 @@ export default function withDatatypeDynamicData(
                   (franchiseCompany) =>
                     franchiseCompany?.id?.toString() === stringifiedValue,
                 )?.name;
-                if (matchingFranchiseCompany) {
-                  return matchingFranchiseCompany;
-                }
-                return null;
+                return matchingFranchiseCompany || null;
               }
               default:
                 return null;

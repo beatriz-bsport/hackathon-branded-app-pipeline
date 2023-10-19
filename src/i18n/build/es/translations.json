@@ -944,7 +944,8 @@
             "notifyRevert": "Enviar un email de cancelación",
             "refundRevert": "Reembolso de los créditos utilizados",
             "cancellingBookingInGroup": "Cancelar para otras sesiones de este grupo.",
-            "cancellingOtherBookingInGroup": "Cuidado, esta sesión es una sesión de grupo de {{ name }}. Si el miembro tiene otras reservas en este grupo no se verán afectadas."
+            "cancellingOtherBookingInGroup": "Cuidado, esta sesión es una sesión de grupo de {{ name }}. Si el miembro tiene otras reservas en este grupo no se verán afectadas.",
+            "waitingListPosition": "En lista de espera {{ posición }}/{ tamaño }}"
         },
         "level": {
             "all": "Todos los niveles",
@@ -4960,7 +4961,8 @@
                 "filter": "Filtros",
                 "information": "Informaciones generales",
                 "name": "Nombre",
-                "title": "Vista filtrada"
+                "title": "Vista filtrada",
+                "shortColumnError": "La columna correspondiente no se visualiza"
             },
             "deleteModal": {
                 "content": "¿Estás seguro de que quieres eliminar esta vista filtrada? Esta acción es irreversible.",
@@ -5284,7 +5286,9 @@
             "success": "Anulación confirmada",
             "warningOfferGroup": "Tenga en cuenta que las siguientes sesiones no han podido ser canceladas por formar parte de un grupo de sesiones. Para anularlos, anula el grupo correspondiente.",
             "warningOfferGroupTitle": "Sesiones no canceladas",
-            "offers": "Sesiones no cancelables"
+            "offers": "Sesiones no cancelables",
+            "activityOnly": "Dado que no tiene permiso para cancelar sesiones de taller, esta acción sólo cancelará sesiones de actividades de grupo.",
+            "workshopOnly": "Dado que no tiene permiso para cancelar sesiones de actividades de grupo, esta acción sólo cancelará las sesiones de taller."
         },
         "bookingList": "Reservas",
         "bookingListEmpty": "Ninguna reserva",
@@ -5549,7 +5553,8 @@
                     "SETTINGS": "Parámetros de modificación",
                     "INFOS": "Sesión"
                 }
-            }
+            },
+            "forbidden": "No tiene permiso para añadir sesiones a esta actividad. Póngase en contacto con su gestor para obtener los derechos necesarios."
         },
         "isFree": "Gratis",
         "onSite": "En el estudio",
@@ -6143,11 +6148,15 @@
                 },
                 "chooseKindTitle": "Evento que activa la notificación",
                 "chooseTime": {
-                    "second_after": "hora(s) después de la sesión",
-                    "second_before": "hora(s) antes de la sesión",
+                    "second_after": "{{ count }} hora después del final de la sesión.",
+                    "second_after_plural": "{{ count }} horas después del final de la sesión.",
+                    "second_before": "{{ count }} hora antes del inicio de la sesión.",
+                    "second_before_plural": "{{ count }} horas antes del inicio de la sesión.",
                     "first": "Enviar un email",
-                    "second_after_days": "hora(s) después de la sesión",
-                    "second_before_days": "día(s) antes de la sesión"
+                    "second_after_days": "{{ count }} día después del final de la sesión",
+                    "second_after_days_plural": "{{ count }} días después del final de la sesión",
+                    "second_before_days": "{{ count }} día antes del inicio de la sesión",
+                    "second_before_days_plural": "{{ count }} días antes del inicio de la sesión"
                 },
                 "sendAfterMail": "Enviar el email al miembro después de la sesión afectada por la notificación",
                 "sendBeforeMail": "Enviar el email al miembro antes de la sesión afectada por la notificación",
@@ -6339,7 +6348,12 @@
                 "addGuestNumberLeftMonth": "Puedes invitar a 1 persona más este mes.",
                 "addGuestNumberLeftMonth_plural": "Aún puedes invitar a {{count}} personas este mes.",
                 "addGuestNumberLeftWeek": "Puedes invitar a 1 persona más esta semana.",
-                "addGuestNumberLeftWeek_plural": "Aún puedes invitar a {{count}} personas esta semana."
+                "addGuestNumberLeftWeek_plural": "Aún puedes invitar a {{count}} personas esta semana.",
+                "guestLimitReached": {
+                    "every_year": "Ha alcanzado el límite de invitaciones para este año.",
+                    "every_month": "Ha alcanzado el límite de invitaciones para este mes.",
+                    "every_week": "Ha alcanzado el límite de invitaciones para esta semana."
+                }
             },
             "bookingFor": "Reserva para"
         },
@@ -6461,7 +6475,8 @@
             "spotSelectorTitle": "Elige tu sitio",
             "seeAllProducts": "Ver todos los productos",
             "recommended": "Recomendados",
-            "reviewAndConfirm": "Revisar y confirmar"
+            "reviewAndConfirm": "Revisar y confirmar",
+            "guestSpotSelectorTitle": "Seleccione un lugar para su invitado"
         }
     },
     "marketplace": {
@@ -6804,7 +6819,9 @@
             "305": "Cambio del email del miembro desde el backoffice",
             "1002": "Rendimiento de la sesión de spinning",
             "1001": "Cuenta Spivi creada (alumnos)",
-            "1003": "Cuenta Spivi creada (profesores)"
+            "1003": "Cuenta Spivi creada (profesores)",
+            "31": "Reserva para un invitado (para el invitado)",
+            "30": "Reserva para un invitado (para el miembro que invita)"
         },
         "tag": {
             "BookingOption": {
@@ -6816,7 +6833,9 @@
                     "establishment": "Establecimiento",
                     "date": "Hora/Fecha",
                     "coach": "Profesor",
-                    "activity": "Actividad"
+                    "activity": "Actividad",
+                    "waiting_list_size": "Tamaño de la lista de espera",
+                    "waiting_list_position": "Posición en la lista de espera"
                 },
                 "name": "Lista de espera"
             },
@@ -7000,6 +7019,15 @@
                     "SEP": "Spivi Ecosystem Point"
                 },
                 "name": "Rendimiento"
+            },
+            "GuestInvitation": {
+                "tags": {
+                    "lastname_host": "Apellido del miembro que invita",
+                    "firstname_host": "Nombre del miembro que invita",
+                    "lastname_guest": "Apellido del invitado",
+                    "firstname_guest": "Nombre del invitado"
+                },
+                "name": "Reserva para invitados"
             }
         },
         "emailDesign": {
@@ -11456,7 +11484,9 @@
                         "genericOfferError": "¡Ups! La reserva ha fallado.",
                         "generic": "¡Ups! Pago fallido."
                     }
-                }
+                },
+                "offerGuestBooked": "Mi reserva para invitados",
+                "offerGuestBooked_plural": "Mis reservas para invitados"
             },
             "actions": {
                 "back": "Anteriormente",
@@ -11611,7 +11641,8 @@
             "empty": "No hay lista de espera para el registro",
             "delete": "Borrar",
             "addToBook": "Registrar",
-            "listTitle": "Lista de espera"
+            "listTitle": "Lista de espera",
+            "waitingListPosition": "Posición en la lista de espera {{ position }}/{ size }}"
         }
     },
     "workshop": {
@@ -16212,8 +16243,10 @@
                     "changeInStep": "Transformar en un paso",
                     "changeInExit": "Convertir en salida",
                     "delete": "Borrar",
-                    "addNextStep": "Añadir el paso siguiente"
-                }
+                    "addNextStep": "Añadir el paso siguiente",
+                    "nextStepTrigger": "Activación de la siguiente etapa"
+                },
+                "defaultName": "Autostep"
             },
             "marketingAction": {
                 "addAction": "Añadir una acción"

@@ -148,13 +148,16 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
     offerSearchResult: { query: '', offerList: null },
   };
 
+  getStartCalendarWeekOnToday = () =>
+    this.props.theme.start_calendar_week_on_today && !this.props.compactMode;
+
   start_date = () =>
-    this.props.theme.start_calendar_week_on_today
+    this.getStartCalendarWeekOnToday()
       ? moment(this.props.otherParams.date).format(DATE_FORMAT)
       : moment(this.props.otherParams.date).startOf('week').format(DATE_FORMAT);
 
   end_date = () =>
-    this.props.theme.start_calendar_week_on_today
+    this.getStartCalendarWeekOnToday()
       ? moment(this.props.otherParams.date).add(7, 'days').format(DATE_FORMAT)
       : moment(this.props.otherParams.date).endOf('week').format(DATE_FORMAT);
 
@@ -216,7 +219,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
 
   componentDidUpdate(prevProps: Props, prevState: State) {
     const filtersPropsChanged = !isEqual(prevProps.filters, this.props.filters);
-    const selectedWeekChanged = this.props.theme.start_calendar_week_on_today
+    const selectedWeekChanged = this.getStartCalendarWeekOnToday()
       ? !moment(prevProps.otherParams.date).isSame(
           moment(this.props.otherParams.date),
         )
@@ -495,7 +498,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           showMultiLocalization={this.props.theme.enable_multi_localization}
           showOfferFilling={this.props.theme.show_offers_filling}
           showOfferGender={this.props.theme.show_booked_gender_offer}
-          startWeekOnDaySelected={this.props.theme.start_calendar_week_on_today}
+          startWeekOnDaySelected={this.getStartCalendarWeekOnToday()}
           theme={this.props.theme}
           toggleFiltersOpen={this.toggleFiltersOpen}
           variant={this.props.variant}

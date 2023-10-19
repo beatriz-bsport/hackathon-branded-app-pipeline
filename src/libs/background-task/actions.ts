@@ -52,9 +52,9 @@ export function fetchBackgroundTask(uuid: string) {
   };
 }
 
-export function monitorBackgroundTask(
+export function monitorBackgroundTask<ReturnedValue>(
   uuid: string,
-  options?: OptionCallback<BackgroundTask>,
+  options?: OptionCallback<BackgroundTask<ReturnedValue>>,
   hideBackgroundTaskSnackbar: boolean = false,
 ) {
   return (dispatch: Dispatch, getState: () => State) => {

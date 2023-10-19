@@ -1,8 +1,8 @@
-export type BackgroundTask = {
+export type BackgroundTask<ReturnedValue = unknown> = {
   uuid: string;
   status: number;
   task_name: string;
-  return_value: any;
+  return_value: ReturnedValue;
 };
 
 export type BackgroundTaskState = {

@@ -32,6 +32,7 @@ import HoverableWarning from '#components/HoverableWarning.component';
 import ReportFilterChip from './ReportFilterConfigDrawer/ReportFilterChip.component';
 import QuickReportFilterConfigColumnsMenu from './QuickReportFilterConfigColumnsMenu.component';
 import { handleGetDynamicDataForFiltersReturn } from '#libs/datatype-filtering/dynamic-data-hoc';
+import { authorIdentifiers } from '#libs/reporting/constants';
 
 export type Props = {
   reportFilterConfigs: ReportFilterConfig[];
@@ -236,7 +237,11 @@ const ReportFilterConfigSelector: React.FC<Props & Values> = memo(
       return values.config?.groups?.length
         ? values.config.groups.flatMap((group: DatatypeFilterConfigGroup) =>
             group.filters_data?.map((row: DatatypeFilterConfigItem) => ({
-              identifier: row.identifier,
+              identifier:
+                row.datatype === 'user' &&
+                !authorIdentifiers.includes(row.identifier)
+                  ? 'member'
+                  : row.identifier,
               value: row.value,
               comparator: row.comparator,
               datatype: row.datatype,

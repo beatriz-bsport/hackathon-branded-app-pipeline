@@ -32,6 +32,7 @@ import { MaterialUiSingleSelectorField } from '#libs/custom-form/components/Gene
 import HoverableWarning from '#components/HoverableWarning.component';
 import DatatypeFilterConfigValueManager from './DatatypeFilterConfigValueManager.component';
 import { handleGetDynamicDataForFiltersReturn } from '../dynamic-data-hoc';
+import { authorIdentifiers } from '#libs/reporting/constants';
 
 type Props = {
   filterItem: DatatypeFilterConfigItem;
@@ -84,9 +85,10 @@ const DatatypeFilterConfigRow: React.FC<Props> = ({
           {
             label: t(
               `${translationPrefix}.${
-                filterItem.datatype !== 'user'
-                  ? filterItem.identifier
-                  : 'member'
+                filterItem.datatype === 'user' &&
+                !authorIdentifiers.includes(filterItem.identifier)
+                  ? 'member'
+                  : filterItem.identifier
               }`,
             ),
             value: filterItem.identifier,
@@ -95,7 +97,10 @@ const DatatypeFilterConfigRow: React.FC<Props> = ({
           ...consumableColumns.map((c) => ({
             label: t(
               `${translationPrefix}.${
-                c.datatype !== 'user' ? c.identifier : 'member'
+                c.datatype === 'user' &&
+                !authorIdentifiers.includes(filterItem.identifier)
+                  ? 'member'
+                  : c.identifier
               }`,
             ),
             value: c.identifier,

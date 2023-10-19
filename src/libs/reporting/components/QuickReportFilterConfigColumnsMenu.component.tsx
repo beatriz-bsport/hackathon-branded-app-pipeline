@@ -31,6 +31,7 @@ import QuickReportFilterConfigFilter, {
 } from './QuickReportFilterConfigFilter.component';
 import { getFilterableColumns } from '../utils';
 import { handleGetDynamicDataForFiltersReturn } from '#libs/datatype-filtering/dynamic-data-hoc';
+import { authorIdentifiers } from '#libs/reporting/constants';
 
 type QuickFilterConfigSearchColumnOptions = {
   label: string;
@@ -124,7 +125,12 @@ const QuickReportFilterConfigColumnsMenu: React.FC<Props> = ({
         [
           ...(filterableColumns || []).map((c) => ({
             label: t(
-              `columns.${c.datatype !== 'user' ? c.identifier : 'member'}`,
+              `columns.${
+                c.datatype === 'user' &&
+                !authorIdentifiers.includes(c.identifier)
+                  ? 'member'
+                  : c.identifier
+              }`,
             ),
             value: c.identifier,
             datatype: c.datatype,

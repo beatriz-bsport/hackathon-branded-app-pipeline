@@ -1,3 +1,12 @@
+import {
+  DisputeMetadataIdentifierEnum,
+  ExpenseMetadataIdentifierEnum,
+  InvoiceMetadataIdentifierEnum,
+  OnSpotPaymentMetadataIdentifierEnum,
+  PaymentByInstalmentsMetadataIdentifierEnum,
+  PaymentMetadataIdentifierEnum,
+  UnpaidInvoiceMetadataIdentifierEnum,
+} from '@bsport/common/lib/master-data/metadata-identifiers';
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 
 export const GREEN_GREY_BOOLEAN_CHIPS = [
@@ -92,3 +101,13 @@ export const COMPANY_REPORT_CATEGORIES_BY_GLOBAL_CATEGORY = {
     ReportCategoryEnum.VIDEO,
   ],
 };
+
+export const authorIdentifiers = [
+  OnSpotPaymentMetadataIdentifierEnum.AUTHOR,
+  PaymentMetadataIdentifierEnum.AUTHOR,
+  PaymentByInstalmentsMetadataIdentifierEnum.AUTHOR,
+  DisputeMetadataIdentifierEnum.AUTHOR,
+  ExpenseMetadataIdentifierEnum.AUTHOR,
+  InvoiceMetadataIdentifierEnum.AUTHOR,
+  UnpaidInvoiceMetadataIdentifierEnum.AUTHOR_NAME,
+] as string[];

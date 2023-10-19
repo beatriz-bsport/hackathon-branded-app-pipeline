@@ -128,7 +128,7 @@ Buid Deploy Dev:
     - yarn install --frozen-lockfile # just to be sure
     - echo "FAILED" > .job_status
     - VERSION=`echo "$(cat ./VERSION)"`
-    - export FEATURE_BRANCH_IDENTIFIER=`echo $CI_COMMIT_MESSAGE | sed -n 's/.*deploy-\(frontend-only-\)\{0,1\}chaos-env:\([[:alnum:]]\+\).*/\2/p'`
+    - export FEATURE_BRANCH_IDENTIFIER=`echo $CI_COMMIT_MESSAGE | sed -n 's/.*deploy-\(frontend-only-\)\{0,1\}chaos-env:\([[:alnum:]_-]\+\).*/\2/p'`
     - export ENVIRONMENT=$FEATURE_BRANCH_IDENTIFIER
     - export S3_BUCKET="s3://bsport-backoffice-assets-feature-branch-${FEATURE_BRANCH_IDENTIFIER}/"
     - export FRONTEND_URL="backoffice-${FEATURE_BRANCH_IDENTIFIER}.chaos.bsport.io"
@@ -165,7 +165,7 @@ Buid Deploy Dev:
     - '[[ $VERSION != $OLD_VERSION ]] && CHANGELOG=`git grep -B 200 ${OLD_VERSION} CHANGELOG.md | grep -A ${VERSION} || echo="Unable to find release note";` || CHANGELOG="Technical release";'
     - export CHANGELOG
 
-    - export FEATURE_BRANCH_IDENTIFIER=`echo $CI_COMMIT_MESSAGE | sed -n 's/.*deploy-\(frontend-only-\)\{0,1\}chaos-env:\([[:alnum:]]\+\).*/\2/p'`
+    - export FEATURE_BRANCH_IDENTIFIER=`echo $CI_COMMIT_MESSAGE | sed -n 's/.*deploy-\(frontend-only-\)\{0,1\}chaos-env:\([[:alnum:]_-]\+\).*/\2/p'`
     - envsubst < ./slack_template_feature-branch.json > slack_template2.json
     - cat slack_template2.json
     - 'curl -s -d @slack_template2.json --header "Content-Type: application/json" "${SLACK_WEBHOOK_URL}" || exit 0'

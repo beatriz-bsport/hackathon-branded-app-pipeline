@@ -13501,7 +13501,7 @@
             },
             "last_delay_before_auto_consume": {
                 "helper": "Als er onvoldoende tijd is voordat de sessie begint wordt het lid niet ingeschreven, ook niet als de persoon een geldige leskaart bezit",
-                "label": "Het automatisch reserveren alleen voltooien als de sessie plaatsvindt in meer dan "
+                "label": "Accepteer niet automatisch boekingen als een sessie plaatsvindt in minder dan "
             },
             "check_credit": {
                 "label": "Controleren of de klant een cursuskaart heeft die compatibel is met het aanbod en voldoende krediet heeft",

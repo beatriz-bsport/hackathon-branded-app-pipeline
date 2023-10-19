@@ -40,7 +40,7 @@
                 "label": "Die freigewordenen Plätze sind ausschließlich für Personen auf der Warteliste verfügbar."
             },
             "last_delay_before_auto_consume": {
-                "label": "Schließen Sie die automatische Buchung nur ab, wenn die Session in mehr als ... stattfindet : ",
+                "label": "Nehmen Sie Buchungen nicht automatisch an, wenn eine Sitzung in weniger als ... stattfindet ",
                 "helper": "Wenn die Session zu kurzfristig in der Zukunft stattfindet, wird das Mitglied nicht angemeldet, auch wenn es einen gültigen Kurspass besitzt"
             },
             "check_credit": {
@@ -8862,7 +8862,7 @@
                 "title": "Wiederholungsregel löschen",
                 "success": "Die wiederkehrende Buchung wurde gelöscht"
             },
-            "explain": "Das Mitglied wird immer {{delayWeek}} Wochen im Voraus für Kurse von {{dayOfWeek}} bis {{hour}}: {{minute}} registriert. Du wirst nur registriert, wenn Du einen gültigen Kurspass hast.",
+            "explain": "Das Mitglied wird immer {{delayWeek}} Wochen im Voraus für Kurse von {{dayOfWeek}} bis {{hour}}: {{minute}} registriert. Sie wirst nur registriert, wenn sie einen gültigen Kurspass haben.",
             "actions": {
                 "save": "Speichern",
                 "close": "Schließen"
@@ -8886,7 +8886,7 @@
                     "label": "Wochentag"
                 },
                 "at": " bei ",
-                "timeGroup": "Datum des Kurses",
+                "timeGroup": "Datum der Session",
                 "title": "Plane eine Wiederholung",
                 "startFromDate": {
                     "label": "Beginn der Wiederholung am "
@@ -8898,24 +8898,24 @@
                 "explain": "Alle {{dayOfWeek}} - {{hour}}: {{minute}}, {{delayWeek}} Wochen zuvor"
             },
             "recurrentBookings": "Wiederkehrende Buchungen",
-            "needConsumerPack": "Dieses Mitglied hat keinen kompatiblen Kurspass, es ist nicht möglich, eine Wiederholungsregel einzurichten",
+            "needConsumerPack": "Dieses Mitglied hat keinen kompatiblen Kurspass. Es ist nicht möglich, eine Wiederholungsregel einzurichten",
             "createModal": {
                 "create": "Erstelle eine wiederkehrende Buchung",
                 "info": "Eine bereits vorhandene wiederkehrende Buchung kann nicht neu erstellt werden",
-                "success": "Die wiederkehrende Buchung wurde geändert."
+                "success": "Die wiederkehrende Buchung wurde erstellt."
             },
             "editModal": {
                 "success": "Die wiederkehrende Buchung wurde geändert"
             },
-            "blockedBookings": "Ihre Kunden können bis zu {{days}} Tage vor Beginn der Session für diese Aktivität buchen. Wir empfehlen daher, die Wiederholung für einen längeren Zeitraum zu planen, um eine Überfüllung zu vermeiden.",
-            "notifyIfCanceled": "Sende eine Stornierungs-E-Mail der Reservierung",
-            "notify": "Sende eine Bestätigungs-E-Mail, wenn Du das Mitglied registrierst",
+            "blockedBookings": "Ihre Kunden können bis zu {{days}} Tage vor Beginn der Session diese Aktivität buchen. Wir empfehlen daher, die Wiederholung für einen längeren Zeitraum zu planen, um eine Überfüllung zu vermeiden.",
+            "notifyIfCanceled": "Sende eine Stornierungs-E-Mail",
+            "notify": "Sende eine Bestätigungs-E-Mail, wenn ein Mitglied registriert wird",
             "showLess": "Weniger anzeigen",
             "showMore": "Mehr anzeigen ({{count}})"
         },
         "memberGraph": {
-            "label": "Buchungen",
-            "title": "Zusammenfassung der Buchungen"
+            "label": "Reservierungen",
+            "title": "Zusammenfassung der Reservierungen"
         },
         "offer": {
             "showMore": "Mehr anzeigen",
@@ -8926,13 +8926,13 @@
                 "book": "Buchen"
             },
             "bookingsTitle": "Buchen",
-            "addSession": "Kurs hinzufügen",
+            "addSession": "Session hinzufügen",
             "noPackAvailable": "Kein Kurspass ist mit diesem Kurs kompatibel!",
             "noPackAvailable_plural": "Kein Kurspass ist mit dieser Gruppe von Sessions zur gleichen Zeit kompatibel. Sie müssen sich für mehrere Sessions anmelden.",
             "packTitle": "Meine Buchungsmethode",
             "offerStatus": {
                 "waiting_list_status": {
-                    "3": "Vollständige Session",
+                    "3": "Session voll",
                     "2": "Anmeldung abgeschlossen",
                     "1": "Abgeschlossene Registrierungen",
                     "0": "Warteliste",
@@ -8940,40 +8940,40 @@
                     "5": "Bereits registriert",
                     "6": "Unausgewogenes Verhältnis zwischen Männern und Frauen",
                     "7": "Unausgewogenes Verhältnis zwischen Männern und Frauen",
-                    "6002": "Vollständige Warteliste",
-                    "6003": "Bereits aufgelistet",
+                    "6002": "Warteliste: voll",
+                    "6003": "Warteliste: beigetreten",
                     "9": "Sie versuchen, mehr zukünftige Sessions zu buchen, als Ihr Studio erlaubt",
                     "6005": "Warteliste"
                 },
                 "bookable_status": {
                     "4": "Kurs nicht verfügbar",
-                    "2": "Abgeschlossene Anmeldungen",
+                    "2": "Anmeldungen geschlossen",
                     "1": "Anmeldungen geschlossen",
                     "0": "Anmeldung offen",
                     "9": "Sie versuchen, mehr zukünftige Sessions zu buchen, als Ihr Studio erlaubt"
                 },
                 "waiting_list": "Warteliste",
                 "book": "Anmeldung",
-                "blockedByTags": "Unerlaubte Eintragung"
+                "blockedByTags": "Unerlaubte Anmeldung"
             },
             "similarOffer": {
                 "showMore": "Mehr anzeigen",
-                "empty": "Kein Kurs gefunden",
+                "empty": "Keine Sessions gefunden",
                 "title": "Buche weitere Sessions",
                 "selectAll": "Alle auswählen"
             },
-            "bookingForMe": "ich",
+            "bookingForMe": "Mich",
             "bookingsTitleFor": "Ich buche für {{name}}",
             "bookingForAGuest": {
                 "addGuestLimit": "Sie haben die Einladungsgrenze erreicht für",
-                "addGuestNumberLeftSeveral": "Sie können noch {{number}} weitere Personen einladen auf",
-                "addGuestNumberLeftOne": "Sie können noch 1 Person einladen auf",
+                "addGuestNumberLeftSeveral": "Sie können noch {{number}} weitere Personen einladen für",
+                "addGuestNumberLeftOne": "Sie können noch 1 Person einladen für",
                 "frequencyWeekly": "in dieser Woche.",
                 "frequencyMonthly": "in diesem Monat.",
-                "frequencyYearly": "im laufenden Jahr.",
-                "frequencyGeneric": "der aktuellen Periode.",
+                "frequencyYearly": "in diesem Jahr.",
+                "frequencyGeneric": "der aktuelle Zeitraum.",
                 "addGuest": "Einen Gast hinzufügen",
-                "warningCustomLeveledSession": "Dieser Kurs hat ein personalisiertes Niveau. Stellen Sie sicher, dass die Person, die Sie einladen, über das erwartete Niveau verfügt.",
+                "warningCustomLeveledSession": "Dieser Kurs hat ein benutzerdefiniertes Niveau. Stellen Sie sicher, dass die Person, die Sie einladen, über das erwartete Niveau verfügt.",
                 "warningLeveledSession": "Dieser Kurs ist nur für Personen mit dem Niveau : {{level}}. Stellen Sie sicher, dass die Person, die Sie einladen, über das erwartete Niveau verfügt.",
                 "bookingStatus": {
                     "guestNotAllowed": "Die Session ist nicht für Gäste zugänglich",
@@ -9001,8 +9001,8 @@
         },
         "placeNumber": "Ort {{count}}",
         "noSpotAttributed": "Kein Platz zugewiesen",
-        "changeSpot": "Ändern Sie den Ort",
-        "setSpot": "Einen Sitzplatz zuweisen",
+        "changeSpot": "Ändern Sie Ihren Platz",
+        "setSpot": "Einen Platz zuweisen",
         "performanceTracking": {
             "stat": "Statistiken"
         },
@@ -9038,7 +9038,7 @@
                         "description": "Sie haben keine E-Mail für Ihren Gast angegeben. Aus diesem Grund wird er keine Informationen bezüglich dieser Session erhalten. Sind Sie sich sicher?",
                         "title": "Keine E-Mail angegeben"
                     },
-                    "description": "Bringen Sie einen Freund oder Partner mit, um das Erlebnis zu teilen? Geben Sie einfach den Namen und die E-Mail-Adresse Ihres Gastes an und wir werden dafür sorgen, dass er alle notwendigen Informationen erhält.",
+                    "description": "Sie bringen einen Freund oder Partner mit, um das Erlebnis zu teilen? Geben Sie einfach den Namen und die E-Mail-Adresse Ihres Gastes an und wir werden dafür sorgen, dass er alle notwendigen Informationen erhält.",
                     "title": "Laden Sie einen Gast ein"
                 }
             }
@@ -9051,7 +9051,7 @@
         },
         "warning": "Achtung",
         "spivi": {
-            "errorText": "Das Mitglied erfüllt die Bedingungen von Spivi nicht, daher wurde die Buchung nicht über Spivi getätigt.",
+            "errorText": "Das Mitglied erfüllt nicht die Bedingungen von Spivi, daher wurde die Buchung nicht über Spivi getätigt.",
             "connectionImpossible": "Verbindung zu Spivi nicht möglich",
             "error": "Probleme bei der Verbindung mit Spivi"
         },
@@ -9074,7 +9074,7 @@
                     "title": "Unzureichende Rechte"
                 },
                 "default": {
-                    "message": "Die Buchung dieser Session ist nicht verfügbar",
+                    "message": "Die Buchung dieser Session ist nicht möglich",
                     "title": "Buchung gesperrt"
                 },
                 "waitingListLockedByPendingBookings": {
@@ -9103,7 +9103,7 @@
             "myPasses": "Mein Kurspass",
             "myPasses_plural": "Meine Kurspässe",
             "buyNewPass": "Neuen Kurspass kaufen",
-            "buyPass": "Kurspass kaufen",
+            "buyPass": "Neuen Kurspass kaufen",
             "choosePass": "Kurspass wählen",
             "cards": {
                 "seeMore": "Mehr sehen",

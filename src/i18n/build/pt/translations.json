@@ -12841,7 +12841,7 @@
             },
             "last_delay_before_auto_consume": {
                 "helper": "Se a sessão tiver lugar demasiado cedo, o membro não será registado, mesmo que tenha um passe de aulas válido",
-                "label": "Inscrição automática apenas se a sessão se realizar em menos de "
+                "label": "Não aceitar reservas automaticamente se uma sessão tiver lugar em menos de "
             },
             "display_member_position": {
                 "label": "Mostrar a posição na fila de espera"

@@ -2214,7 +2214,7 @@
             "placeholder": "Trova una palestra / sala / club ...",
             "noMatchingCompany": "Nessun risultato",
             "explainConsumer": "Con <1> bsport </2> vivi un'esperienza unica per la prenotazione di tutte le tue attività sportive. <3 /> Con un solo account e una password!",
-            "fetchMore": "Vedere di più"
+            "fetchMore": "Mostra di più"
         }
     },
     "reminder": {
@@ -5028,7 +5028,7 @@
             "timeout": "Il server ci ha messo troppo a rispondere. Prova ad aggiornare la pagina",
             "error": "Si è verificato un errore, riprovare più tardi",
             "success": "Completato",
-            "pending": "Trattamento in corso, attendere"
+            "pending": "In fase di elaborazione..."
         },
         "offer": {
             "restore": {
@@ -7747,7 +7747,7 @@
                         "0": "Uguale",
                         "1": "Non è uguale",
                         "2": "Minore o uguale a",
-                        "3": "Superiore o uguale a",
+                        "3": "Maggiore o uguale a",
                         "4": "Nell'intervallo",
                         "5": "Fuori dall'intervallo"
                     },
@@ -9767,8 +9767,8 @@
                 "blockedByTags": "Registrazione non autorizzata"
             },
             "similarOffer": {
-                "showMore": "Vedere di più",
-                "empty": "Réserver d'autres sessions",
+                "showMore": "Mostra di più",
+                "empty": "Non ci sono altre sessioni da visualizzare.",
                 "title": "Prenota più sessioni",
                 "selectAll": "Seleziona tutti"
             },
@@ -9776,7 +9776,7 @@
             "noPackAvailable": "Nessun pass compatibile con questa sessione !",
             "noPackAvailable_plural": "Nessun pass compatibile con questo gruppo di sessioni. Si prega di prenotare separatamente.",
             "addSession": "Aggiungi una sessione",
-            "showMore": "Vedere di più",
+            "showMore": "Mostra di più",
             "bookingsTitle": "Prenotazione",
             "mainButton": {
                 "book": "Prenotare",
@@ -11625,13 +11625,13 @@
             "isEmptyWarning": "NB: alcune collezioni prima del 15 marzo 2021 potrebbero non essere elencate qui sotto.",
             "isEmpty": "Nessuna raccolta.",
             "invoice": "Fattura {{ uuid }}",
-            "seeMore": "Vedere di più",
+            "seeMore": "Mostra di più",
             "paymentNb": "{{nb}} pagamenti",
             "status": {
                 "4": "Cancellato",
                 "3": "Fallito",
-                "2": "Successo",
-                "1": "Trattamento in corso",
+                "2": "Pagamento riuscito",
+                "1": "In fase di elaborazione",
                 "0": "In attesa"
             },
             "title": "Le mie ricevute",
@@ -11847,7 +11847,7 @@
             "close": "Chiudi",
             "explain": "Questa password è valida fino al {{expirationDate}}. La tua password principale non è cambiata.",
             "explainRequest": "Richiedi una password temporanea valida per una settimana per consentire, ad esempio, ai nostri team di connettersi al tuo account per un tempo limitato. La tua password principale non cambia.",
-            "submit": "Creare",
+            "submit": "Genera",
             "copied": "Password copiata",
             "copy": "Copia la password negli appunti"
         },
@@ -12101,7 +12101,7 @@
             },
             "last_delay_before_auto_consume": {
                 "helper": "Se la sessione ha luogo troppo presto nel futuro, il membro non sarà registrato anche se ha un pass valido",
-                "label": "Autoregistrarsi solo se la sessione si svolge in più di "
+                "label": "Non accettare prenotazioni automatiche se una sessione si svolge in meno di "
             },
             "check_credit": {
                 "label": "Verificare che il cliente sia in possesso di un pass compatibile con l'offerta e sufficientemente accreditato",
@@ -12418,7 +12418,7 @@
         "monthly": "Mensile",
         "weekly": "Settimanale",
         "showLess": "Mostra meno",
-        "showMore": "Vedere di più ({{count}})",
+        "showMore": "Mostra di più ({{count}})",
         "duration": {
             "minute": "{{ count }} minuto",
             "minute_plural": "{{ count }} minuti",
@@ -13825,7 +13825,7 @@
                     "title": "Cancellazione del ruolo"
                 },
                 "create": {
-                    "showAdvanced": "Vedere di più",
+                    "showAdvanced": "Mostra di più",
                     "permissions": "Permessi",
                     "restrictedUrlPlaceholder": "ex: /membro/",
                     "restrictedUrl": "URL limitati",

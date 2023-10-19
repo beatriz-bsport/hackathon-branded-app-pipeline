@@ -16521,7 +16521,7 @@
                 "title": "Gestion de la liste d'attente"
             },
             "last_delay_before_auto_consume": {
-                "label": "Auto inscrire uniquement si la séance a lieu dans moins de ",
+                "label": "Ne pas auto-inscrire si la séance a lieu dans moins de ",
                 "helper": "Si la séance a lieu trop rapidement dans le futur, le membre ne sera pas inscrit même s'il possède une carte de cours valide"
             },
             "check_credit": {

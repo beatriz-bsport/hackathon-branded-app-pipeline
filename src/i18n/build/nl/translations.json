@@ -6174,14 +6174,14 @@
                 "chooseKindTitle": "Gebeurtenis die de melding activeert",
                 "chooseTime": {
                     "second_after": "{{ count }} uur na het einde van de sessie.",
-                    "second_after_plural": "{{ count }} uur na het einde van de sessies.",
+                    "second_after_plural": "{{ count }} uur na het einde van de sessie.",
                     "second_before": "{{ count }} uur voor het begin van de sessie.",
-                    "second_before_plural": "{{ count }} uur voor het begin van de sessies.",
+                    "second_before_plural": "{{ count }} uur voor het begin van de sessie.",
                     "first": "Verstuur deze melding",
-                    "second_after_days": "{{ count }} dag na het einde van de sessie",
-                    "second_after_days_plural": "{{ count }} dagen na het einde van de sessies",
-                    "second_before_days": "{{ count }} dag voor het begin van de sessie",
-                    "second_before_days_plural": "{{ count }} dagen voor het begin van de sessie"
+                    "second_after_days": "{{ count }} dag na het einde van de sessie.",
+                    "second_after_days_plural": "{{ count }} dagen na het einde van de sessie.",
+                    "second_before_days": "{{ count }} dag voor het begin van de sessie.",
+                    "second_before_days_plural": "{{ count }} dagen voor het begin van de sessie."
                 },
                 "sendAfterMail": "Stuur deze melding nadat de sessie afgelopen is",
                 "sendBeforeMail": "Stuur deze melding voor het begin van de sessie",

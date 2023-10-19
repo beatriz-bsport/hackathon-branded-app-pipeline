@@ -224,7 +224,7 @@ const OfferSummary: React.FC<Props> = ({
               </div>
             )}
 
-          {spotId !== undefined && (
+          {spotId !== undefined && spotId !== null && (
             <div className={classNames(classes.itemWithIcon)}>
               <Adjust className={classes.icon} />
               <Typography>{`${t(`booking:place`)} ${spotId}`}</Typography>

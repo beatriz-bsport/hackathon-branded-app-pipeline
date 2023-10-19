@@ -86,6 +86,7 @@
   width: 100%;
   align-items: center;
   padding: var(--spacing-4) var(--spacing-4);
+  height: fit-content;
 }
 
 .bs-new-offer-booking__spot-selector__blueprint {
@@ -180,7 +181,7 @@
     grid-template:
       'header'
       'main';
-    grid-template-rows: 5vh calc(90vh - 10vh);
+    grid-template-rows: min(5vh, 50px) calc(90vh - min(10vh, 100px));
     gap: var(--spacing-2);
   }
   .bs-new-offer-booking__spot-selector__confirm {
@@ -196,6 +197,7 @@
   }
   .bs-new-offer-booking__spot-selector__go-back-container {
     grid-area: header;
+    padding: 0 var(--spacing-2);
   }
   .bs-new-offer-booking__spot-selector__blueprint {
     grid-area: main;

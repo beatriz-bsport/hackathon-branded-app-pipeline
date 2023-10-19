@@ -8,6 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
 
@@ -608,7 +609,7 @@ export class MarketPlace extends Component<Props, State> {
                 this.state.loginDialogOpen && !this.props.auth.authenticated
               }
             >
-              <div className={classes.loginContent}>
+              <DialogContent>
                 <div
                   className="bs-setup-variable"
                   id="bs-setup-derived-variable"
@@ -627,7 +628,7 @@ export class MarketPlace extends Component<Props, State> {
                     theme={this.props.theme}
                   />
                 </div>
-              </div>
+              </DialogContent>
             </GenericResponsiveDialog>
             <CustomFormViewDialogComponent
               fullWidth
@@ -722,13 +723,6 @@ const styles = (theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-  },
-  loginContent: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    height: '100%',
-    padding: theme.spacing(4),
   },
 });
 

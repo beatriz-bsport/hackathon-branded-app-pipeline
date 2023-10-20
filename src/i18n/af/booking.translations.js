@@ -293,6 +293,8 @@ const getTranslations = async () => {
         startFromDate: { label: 'Start the recurrent booking the ' },
         groupWarning:
           "Please note that it's not possible to add recurrent bookings for events.",
+        permissionWarning:
+          'You do not have the permission to create bookings for this activity',
       },
       recurrentRuleBooking: 'Recurrent booking',
       item: {

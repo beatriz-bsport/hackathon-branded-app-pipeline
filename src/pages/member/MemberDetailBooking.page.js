@@ -889,19 +889,38 @@ export class MemberDetailBooking extends Component<Props, State> {
               </Paper>
             )}
 
-            <div className={this.props.classes.createRecurrentBooking}>
-              <Button
-                color="primary"
-                onClick={() => {
-                  this.props.setBookerInAvanceDialog(true);
-                  this.props.fetchActivitiesCompany(this.props.theme.company);
-                  this.props.fetchEstablishmentList();
-                }}
-                variant="outlined"
-              >
-                {this.props.t('booking:recurrenceRule.createModal.create')}
-              </Button>
-            </div>
+            <ObjectLevelPermissionProvider
+              requiredPermission={[
+                'reservation.activity.allowed_actions',
+                'reservation.workshop.allowed_actions',
+              ]}
+            >
+              {([
+                hasActivityCreateBookingPermission,
+                hasWorkshopCreateBookingPermission,
+              ]) =>
+                (hasActivityCreateBookingPermission ||
+                  hasWorkshopCreateBookingPermission) && (
+                  <div className={this.props.classes.createRecurrentBooking}>
+                    <Button
+                      color="primary"
+                      onClick={() => {
+                        this.props.setBookerInAvanceDialog(true);
+                        this.props.fetchActivitiesCompany(
+                          this.props.theme.company,
+                        );
+                        this.props.fetchEstablishmentList();
+                      }}
+                      variant="outlined"
+                    >
+                      {this.props.t(
+                        'booking:recurrenceRule.createModal.create',
+                      )}
+                    </Button>
+                  </div>
+                )
+              }
+            </ObjectLevelPermissionProvider>
             {this.props.bookerInAvanceDialog && (
               <RecurrenceRuleBookingFormDialog
                 establishmentList={this.props.establishmentList}

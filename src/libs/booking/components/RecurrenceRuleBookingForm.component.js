@@ -35,6 +35,7 @@ type Props = {
   initial: Object,
   establishmentList: Array<Establishment>,
   hasActivityGroups: boolean,
+  showCreateBookingWarning: boolean,
 };
 
 export const RecurrenceRuleBookingForm: React.FC<Props> = ({
@@ -47,6 +48,7 @@ export const RecurrenceRuleBookingForm: React.FC<Props> = ({
   fetchGroupsOfferList,
   hasActivityGroups = false,
   setFieldValue,
+  showCreateBookingWarning,
 }) => {
   const { t } = useTranslation(['booking', 'datetime']);
   const classes = useStyles();
@@ -170,6 +172,11 @@ export const RecurrenceRuleBookingForm: React.FC<Props> = ({
           />
         </FormGroup>
       </div>
+      {showCreateBookingWarning && (
+        <Alert severity="error">
+          {t('booking:recurrenceRule.form.permissionWarning')}
+        </Alert>
+      )}
     </div>
   );
 };

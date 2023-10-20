@@ -172,6 +172,7 @@ exports.default = {
       pass: 'Passes',
       common: 'Common',
       bookingPage: 'Booking',
+      fabrique: 'Fabrique',
     },
     components: {
       calendar: 'Calendar page',
@@ -227,6 +228,7 @@ exports.default = {
       marketplace_basket_summary_dialog: 'Basket summary (pop-up)',
       marketplace_prepaid_line_item: 'Prepaid line list item',
       marketplace_prepaid_line_list: 'Prepaid line list',
+      fabrique_typography: 'Typography',
     },
     customCss: {
       yourCode: 'Your complementary implementation:',

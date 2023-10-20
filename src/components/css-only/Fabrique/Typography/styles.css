@@ -1,0 +1,141 @@
+.bs-typography-display-lg {
+  color: var(--bs-color-text-default);
+  font-family: var(--bs-font-family);
+  font-size: var(--bs-font-size-display-lg);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 7.5rem;
+  letter-spacing: -0.48px;
+  word-break: break-word;
+  margin: 0;
+}
+
+.bs-typography-display-md {
+  color: var(--bs-color-text-default);
+  font-family: var(--bs-font-family);
+  font-size: var(--bs-font-size-display-md);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 5.25rem;
+  word-break: break-word;
+  margin: 0;
+}
+
+.bs-typography-display-sm {
+  color: var(--bs-color-text-default);
+  font-family: var(--bs-font-family);
+  font-size: var(--bs-font-size-display-sm);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 4rem;
+  word-break: break-word;
+  margin: 0;
+}
+
+.bs-typography-title-lg {
+  color: var(--bs-color-text-default);
+  font-family: var(--bs-font-family);
+  font-size: var(--bs-font-size-title-lg);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 2.5rem;
+  word-break: break-word;
+  margin: 0;
+}
+
+.bs-typography-title-md {
+  color: var(--bs-color-text-default);
+  font-family: var(--bs-font-family);
+  font-size: var(--bs-font-size-title-md);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 2rem;
+  word-break: break-word;
+  margin: 0;
+}
+
+.bs-typography-title-sm {
+  color: var(--bs-color-text-default);
+  font-family: var(--bs-font-family);
+  font-size: var(--bs-font-size-title-sm);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.75rem;
+  word-break: break-word;
+  margin: 0;
+}
+
+.bs-typography-body-lg {
+  color: var(--bs-color-text-default);
+  font-family: var(--bs-font-family);
+  font-size: var(--bs-font-size-body-lg);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.75rem;
+  word-break: break-word;
+  margin: 0;
+}
+
+.bs-typography-body-md {
+  color: var(--bs-color-text-default);
+  font-family: var(--bs-font-family);
+  font-size: var(--bs-font-size-body-md);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.5rem;
+  word-break: break-word;
+  margin: 0;
+}
+
+.bs-typography-body-sm {
+  color: var(--bs-color-text-default);
+  font-family: var(--bs-font-family);
+  font-size: var(--bs-font-size-body-sm);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.25rem;
+  word-break: break-word;
+  margin: 0;
+}
+
+.bs-typography-body-xs {
+  color: var(--bs-color-text-default);
+  font-family: var(--bs-font-family);
+  font-size: var(--bs-font-size-body-xs);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.125rem;
+  word-break: break-word;
+  margin: 0;
+}
+
+.bs-typography-body-2xs {
+  color: var(--bs-color-text-default);
+  font-family: var(--bs-font-family);
+  font-size: var(--bs-font-size-body-2xs);
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1rem;
+  word-break: break-word;
+  margin: 0;
+}
+
+.bs-typography-text-align-inherit {
+  text-align: inherit;
+}
+
+.bs-typography-text-align-left {
+  text-align: left;
+}
+
+.bs-typography-text-align-center {
+  text-align: center;
+}
+
+.bs-typography-text-align-right {
+  text-align: right;
+}
+
+.bs-typography-text-align-justify {
+  text-align: justify;
+}

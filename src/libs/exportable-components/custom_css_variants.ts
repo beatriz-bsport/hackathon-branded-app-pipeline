@@ -160,6 +160,11 @@ import {
   MARKETPLACE_PREPAID_LINE_LIST_PREVIEW,
 } from '#marketplacecomponents/@Basket/MarketplaceBasketSummaryPrepaidLineList';
 import {
+  FABRIQUE_TYPOGRAPHY_CONFIGURATION,
+  FABRIQUE_TYPOGRAPHY_PREVIEW,
+} from '#components/css-only/Fabrique/Typography';
+
+import {
   CSSComponentPreviews,
   MarketplaceCSSComponentConfig,
   MarketplacePage,
@@ -219,6 +224,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
   MARKETPLACE_PREPAID_LINE_ITEM_CONFIGURATION,
   MARKETPLACE_PREPAID_LINE_LIST_CONFIGURATION,
   MARKETPLACE_BOOKER_MODULE_OFFER_SUMMARY_CONFIGURATION,
+  FABRIQUE_TYPOGRAPHY_CONFIGURATION,
 ];
 
 /*
@@ -312,6 +318,8 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
       MARKETPLACE_BASKET_SUMMARY_DIALOG_PREVIEW,
     [CssComponentsVariantIdentifiers.BOOKER_MODULE_OFFER_SUMMARY]:
       MARKETPLACE_BOOKER_MODULE_OFFER_SUMMARY_PREVIEW,
+    [CssComponentsVariantIdentifiers.FABRIQUE_TYPOGRAPHY]:
+      FABRIQUE_TYPOGRAPHY_PREVIEW,
   });
 export const CSS_COMPONENT_PAGES: Immutable.Immutable<MarketplacePage[]> =
   Immutable(Array.from(new Set(CSS_COMPONENTS.flatMap((c) => c.pages))));

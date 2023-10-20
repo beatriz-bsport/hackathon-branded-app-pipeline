@@ -190,7 +190,7 @@ export class ChangePassword extends Component<Props, State> {
   render() {
     const { t, classes } = this.props;
     const { processing, hasExpired, password1, error, password2 } = this.state;
-    const theme = this.props.franchisor || this.props.theme;
+    const theme = this.props.theme || this.props.franchisor;
     return (
       <Paper className={classes.container}>
         <div className={classes.logoContainer}>

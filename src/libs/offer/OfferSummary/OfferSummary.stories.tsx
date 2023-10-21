@@ -19,7 +19,6 @@ const spotId = Math.floor(Math.random() * 10);
 
 const OfferSummaryTemplate = (args: Props) => {
   return (
-    // @ts-expect-error
     <OfferSummaryForStorybook
       metaActivity={meta_activity}
       offer={offer}
@@ -30,7 +29,6 @@ const OfferSummaryTemplate = (args: Props) => {
       spotId={spotId}
       coachOverride={coachOverride}
       variant="default"
-      disabled={false}
       confirmLoading={false}
       theme={{
         hideCoach: false,

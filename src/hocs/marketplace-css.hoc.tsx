@@ -33,7 +33,7 @@ export const MuiThemeToCssVarsHOC = (props: { children: React.ReactNode }) => {
 
 export function marketplaceCssHoc<P>(): (
   component: React.ComponentType<P>,
-) => React.ReactNode {
+) => React.ComponentType<P> {
   return (WrappedComponent: React.ComponentType<P>) => {
     class Wrapper extends Component<P> {
       render() {

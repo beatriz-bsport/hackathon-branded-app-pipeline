@@ -7,9 +7,9 @@ import { PassSearchForStorybook, Props } from './index';
 
 const CustomTemplate = (args: Props) => {
   return (
-    // @ts-ignore
     <PassSearchForStorybook
       {...args}
+      //@ts-expect-error
       showPaymentPackDetail={() => {}}
       addPaymentPackToBasket={() => {}}
       showPrivatePassDetail={() => {}}

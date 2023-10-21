@@ -4,7 +4,6 @@ import { fakerEN as faker } from '@faker-js/faker';
 import { CollapseForStorybook, type Props } from '.';
 
 const CollaspeTemplate = (args: Props) => (
-  // @ts-expect-error
   <CollapseForStorybook {...args}>{args.children}</CollapseForStorybook>
 );
 

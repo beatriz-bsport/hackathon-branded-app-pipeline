@@ -72,6 +72,7 @@ export const Typography: React.FC<Props> = ({
   );
 };
 
-export const TypographyStorybook = marketplaceCssHoc()(Typography);
+export const TypographyStorybook =
+  marketplaceCssHoc<React.ComponentProps<typeof Typography>>()(Typography);
 
 export default React.memo(Typography);

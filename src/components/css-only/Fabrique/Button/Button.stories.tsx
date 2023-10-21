@@ -14,12 +14,10 @@ import {
 import './styles-storybook.css';
 
 const ButtonTemplate = (args: Props) => (
-  // @ts-expect-error
   <ButtonForStorybook {...args}>{faker.lorem.word(10)}</ButtonForStorybook>
 );
 
 const ButtonTextWithIconTemplate = (args: Props) => (
-  // @ts-expect-error
   <ButtonForStorybook {...args}>
     {faker.lorem.word(10)} <AddIcon />
   </ButtonForStorybook>
@@ -27,7 +25,6 @@ const ButtonTextWithIconTemplate = (args: Props) => (
 
 const ButtonIconTemplate = (args: Props) => {
   return (
-    // @ts-expect-error
     <ButtonForStorybook {...args}>
       <AddIcon />
     </ButtonForStorybook>

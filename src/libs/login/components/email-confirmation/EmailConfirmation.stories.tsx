@@ -2,7 +2,6 @@ import React from 'react';
 import { EmailConfirmationForStorybook } from './EmailConfirmation.component';
 
 const EmailConfirmationTemplate = (args: {}) => (
-  // @ts-expect-error
   <EmailConfirmationForStorybook {...args} />
 );
 

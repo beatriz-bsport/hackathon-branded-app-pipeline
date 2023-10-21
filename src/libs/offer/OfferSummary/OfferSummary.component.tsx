@@ -399,6 +399,7 @@ const useStyles = makeStyles<
   },
 }));
 
-export const OfferSummaryForStorybook = marketplaceCssHoc()(OfferSummary);
+export const OfferSummaryForStorybook =
+  marketplaceCssHoc<React.ComponentProps<typeof OfferSummary>>()(OfferSummary);
 
 export default React.memo(OfferSummary);

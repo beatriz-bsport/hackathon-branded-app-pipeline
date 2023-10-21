@@ -5,7 +5,6 @@ import Button, { ButtonSize } from '#csscomponents/Fabrique/Button';
 import { AlertForStorybook, type Props, AlertSeverity } from '.';
 
 const AlertTemplate = (args: Props) => (
-  // @ts-expect-error
   <AlertForStorybook
     actionElement={
       <Button size={ButtonSize.SMALL} onClick={() => {}}>

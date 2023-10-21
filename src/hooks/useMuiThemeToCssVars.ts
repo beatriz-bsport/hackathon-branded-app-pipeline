@@ -243,7 +243,7 @@ export const useMuiThemeToCssVars = () => {
     --bs-blue-500: #2196F3;
     --bs-blue-600: #0B79D0;
     --bs-blue-650: #046DC8;
-    --bs-blue-800: var(--bs-blue-800);
+    --bs-blue-800: #0D3C61;
 
     /* FABRIQUE COLOR PALETTE - GREEN */
     --bs-green-50: #F1F9F1;

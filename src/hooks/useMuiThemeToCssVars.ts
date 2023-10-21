@@ -211,98 +211,98 @@ export const useMuiThemeToCssVars = () => {
 
     /* FABRIQUE COLOR PALETTE */
     /* FABRIQUE COLOR PALETTE - GREY */
-    --grey-50: #FAFAFA;
-    --grey-100: #EFEFEF;
-    --grey-300: #E0E0E0;
-    --grey-400: #BDBDBD;
-    --grey-500: #9E9E9E;
-    --grey-600: #757575;
-    --grey-700: #616161;
-    --grey-800: #424242;
-    --grey-850: #2B2B2B;
-    --grey-900: #212121;
-    --grey-0: #FFFFFF;
-    --grey-1000: #000000;
-    --grey-alpha-100a: #EFEFEF7F;
-    --grey-alpha-300a: #E0E0E066;
-    --grey-alpha-400a: #BDBDBD99;
-    --grey-alpha-500a: #9E9E9EB2;
-    --grey-alpha-800a: #424242CC;
+    --bs-grey-50: #FAFAFA;
+    --bs-grey-100: #EFEFEF;
+    --bs-grey-300: #E0E0E0;
+    --bs-grey-400: #BDBDBD;
+    --bs-grey-500: #9E9E9E;
+    --bs-grey-600: #757575;
+    --bs-grey-700: #616161;
+    --bs-grey-800: #424242;
+    --bs-grey-850: #2B2B2B;
+    --bs-grey-900: #212121;
+    --bs-grey-0: #FFFFFF;
+    --bs-grey-1000: #000000;
+    --bs-grey-alpha-100a: #EFEFEF7F;
+    --bs-grey-alpha-300a: #E0E0E066;
+    --bs-grey-alpha-400a: #BDBDBD99;
+    --bs-grey-alpha-500a: #9E9E9EB2;
+    --bs-grey-alpha-800a: #424242CC;
 
     /* FABRIQUE COLOR PALETTE - ORANGE */
-    --orange-50: #FFF7EB;
-    --orange-100: #FFF2CC;
-    --orange-300: #FFCD66;
-    --orange-500: #FF9800;
-    --orange-600: #DB7900;
-    --orange-800: #934500;
+    --bs-orange-50: #FFF7EB;
+    --bs-orange-100: #FFF2CC;
+    --bs-orange-300: #FFCD66;
+    --bs-orange-500: #FF9800;
+    --bs-orange-600: #DB7900;
+    --bs-orange-800: #934500;
 
     /* FABRIQUE COLOR PALETTE - BLUE */
-    --blue-100: #EEF7FE;
-    --blue-300: #64B6F7;
-    --blue-500: #2196F3;
-    --blue-600: #0B79D0;
-    --blue-650: #046DC8;
-    --blue-800: var(--blue-800);
+    --bs-blue-100: #EEF7FE;
+    --bs-blue-300: #64B6F7;
+    --bs-blue-500: #2196F3;
+    --bs-blue-600: #0B79D0;
+    --bs-blue-650: #046DC8;
+    --bs-blue-800: var(--bs-blue-800);
 
     /* FABRIQUE COLOR PALETTE - GREEN */
-    --green-50: #F1F9F1;
-    --green-100: #CFE5CF;
-    --green-200: #A0D9A0;
-    --green-300: #7BC67E;
-    --green-500: #4CAF50;
-    --green-600: #3B873E;
-    --green-800: #1E4620;
+    --bs-green-50: #F1F9F1;
+    --bs-green-100: #CFE5CF;
+    --bs-green-200: #A0D9A0;
+    --bs-green-300: #7BC67E;
+    --bs-green-500: #4CAF50;
+    --bs-green-600: #3B873E;
+    --bs-green-800: #1E4620;
 
     /* FABRIQUE COLOR PALETTE - RED */
-    --red-100: #FFF0EF;
-    --red-200: #F88078;
-    --red-300: #F44336;
-    --red-500: #E31B0C;
-    --red-600: #A60D02;
-    --red-800: #621B16;
+    --bs-red-100: #FFF0EF;
+    --bs-red-200: #F88078;
+    --bs-red-300: #F44336;
+    --bs-red-500: #E31B0C;
+    --bs-red-600: #A60D02;
+    --bs-red-800: #621B16;
 
     /* FABRIQUE COLOR PALETTE - BRAND */
-    --brand-main: ${theme.palette.primary.main};
-    --brand-main-strong ${theme.palette.primary.dark};
-    --brand-main-weak: ${theme.palette.primary.light};
+    --bs-brand-main: ${theme.palette.primary.main};
+    --bs-brand-main-strong ${theme.palette.primary.dark};
+    --bs-brand-main-weak: ${theme.palette.primary.light};
 
-    --brand-secondary: ${theme.palette.secondary.main};
-    --brand-secondary-strong ${theme.palette.secondary.dark};
-    --brand-secondary-weak: ${theme.palette.secondary.light};
+    --bs-brand-secondary: ${theme.palette.secondary.main};
+    --bs-brand-secondary-strong ${theme.palette.secondary.dark};
+    --bs-brand-secondary-weak: ${theme.palette.secondary.light};
 
     /* FABRIQUE SPACING */
-    --space-size-1: 4;
+    --bs-space-size-1: 4;
 
     /* FABRIQUE BORDER RADIUS */
-    --border-radius-button-lg: 10;
-    --border-radius-circle: 999;
-    --border-radius-pill: 99;
-    --border-radius-lg: 12;
-    --border-radius-md: 8;
-    --border-radius-sm: 6;
-    --border-radius-xs: 4;
+    --bs-border-radius-button-lg: 10;
+    --bs-border-radius-circle: 999;
+    --bs-border-radius-pill: 99;
+    --bs-border-radius-lg: 12;
+    --bs-border-radius-md: 8;
+    --bs-border-radius-sm: 6;
+    --bs-border-radius-xs: 4;
 
     /* FABRIQUE TYPOGRAPHY */
-    --font-family : '"Hanken Grotesk", sans-serif';
-    --font-size-display-lg: 6rem;
-    --font-size-display-md: 3.75rem;
-    --font-size-display-sm: 3rem;
-    --font-size-title-lg: 2rem;
-    --font-size-title-md: 1.5rem;
-    --font-size-title-sm: 1.25rem;
-    --font-size-body-lg: 1.12rem;
-    --font-size-body-md: 1rem;
-    --font-size-body-sm: 0.88rem;
-    --font-size-body-xs: 0.75rem;
-    --font-size-body-2xs: 0.62rem;
+    --bs-font-family : "Hanken Grotesk", sans-serif;
+    --bs-font-size-display-lg: 6rem;
+    --bs-font-size-display-md: 3.75rem;
+    --bs-font-size-display-sm: 3rem;
+    --bs-font-size-title-lg: 2rem;
+    --bs-font-size-title-md: 1.5rem;
+    --bs-font-size-title-sm: 1.25rem;
+    --bs-font-size-body-lg: 1.12rem;
+    --bs-font-size-body-md: 1rem;
+    --bs-font-size-body-sm: 0.88rem;
+    --bs-font-size-body-xs: 0.75rem;
+    --bs-font-size-body-2xs: 0.62rem;
 
     /* FABRIQUE SHADOW */
-    --shadow-xs:  0px 2px 4px rgba(0, 0, 0, 0.04), 0px 0px 6px rgba(0, 0, 0, 0.02);
-    --shadow-s:  0px 2px 6px rgba(0, 0, 0, 0.08), 0px 0px 6px rgba(0, 0, 0, 0.02);
-    --shadow-m:  0px 4px 8px rgba(0, 0, 0, 0.06), 0px 0px 4px rgba(0, 0, 0, 0.04);
-    --shadow-l:  0px 8px 16px rgba(0, 0, 0, 0.08), 0px 0px 4px rgba(0, 0, 0, 0.04);
-    --footer-shadow:  0px 4px 8px rgba(0, 0, 0, 0.06), 0px -4px 4px rgba(0, 0, 0, 0.04);
+    --bs-shadow-xs:  0px 2px 4px rgba(0, 0, 0, 0.04), 0px 0px 6px rgba(0, 0, 0, 0.02);
+    --bs-shadow-s:  0px 2px 6px rgba(0, 0, 0, 0.08), 0px 0px 6px rgba(0, 0, 0, 0.02);
+    --bs-shadow-m:  0px 4px 8px rgba(0, 0, 0, 0.06), 0px 0px 4px rgba(0, 0, 0, 0.04);
+    --bs-shadow-l:  0px 8px 16px rgba(0, 0, 0, 0.08), 0px 0px 4px rgba(0, 0, 0, 0.04);
+    --bs-footer-shadow:  0px 4px 8px rgba(0, 0, 0, 0.06), 0px -4px 4px rgba(0, 0, 0, 0.04);
   `;
 
   // Inside the 'id' section, we define styles that will be applied to the 'div' element with the id 'bs-setup-derived-variable'.
@@ -346,162 +346,162 @@ export const useMuiThemeToCssVars = () => {
 
     /* FABRIQUE DERIVED VARIABLES - ACTION COLORS */
     /* FABRIQUE DERIVED VARIABLES - ACTION COLORS - DEFAULT */
-    --color-action-light: var(--grey-0);
-    --color-action-disabled: var(--grey-alpha-100a);
-    --color-action-grey-default: var(--grey-800);
-    --color-action-grey-hovered: var(--grey-500);
-    --color-action-grey-pressed: var(--grey-800);
-    --color-action-grey-weak-hovered: var(--grey-100);
-    --color-action-grey-weak-pressed: var(--grey-300);
-    --color-action-inverse-default: var(--grey-0);
-    --color-action-inverse-hovered: var(--grey-alpha-300a);
-    --color-action-inverse-pressed: var(--grey-alpha-400a);
-    --color-action-info-default: var(--blue-500);
-    --color-action-info-hovered: var(--blue-300);
-    --color-action-info-pressed: var(--blue-600);
-    --color-action-info-weak-hovered: var(--blue-100);
-    --color-action-info-weak-pressed: var(--blue-300);
-    --color-action-success-default: var(--green-500);
-    --color-action-success-hovered: var(--green-300);
-    --color-action-success-pressed: var(--green-800);
-    --color-action-success-weak-hovered: var(--green-100);
-    --color-action-success-weak-pressed: var(--green-300);
-    --color-action-warning-default: var(--orange-600);
-    --color-action-warning-hovered: var(--orange-500);
-    --color-action-warning-pressed: var(--orange-800);
-    --color-action-warning-weak-hovered: var(--orange-50);
-    --color-action-warning-weak-pressed: var(--orange-100);
-    --color-action-error-default: var(--red-500);
-    --color-action-error-hovered: var(--red-300);
-    --color-action-error-pressed: var(--red-600);
-    --color-action-error-weak-hovered: var(--red-100);
-    --color-action-error-weak-pressed: var(--red-200);
+    --bs-color-action-light: var(--bs-grey-0);
+    --bs-color-action-disabled: var(--bs-grey-alpha-100a);
+    --bs-color-action-grey-default: var(--bs-grey-800);
+    --bs-color-action-grey-hovered: var(--bs-grey-500);
+    --bs-color-action-grey-pressed: var(--bs-grey-800);
+    --bs-color-action-grey-weak-hovered: var(--bs-grey-100);
+    --bs-color-action-grey-weak-pressed: var(--bs-grey-300);
+    --bs-color-action-inverse-default: var(--bs-grey-0);
+    --bs-color-action-inverse-hovered: var(--bs-grey-alpha-300a);
+    --bs-color-action-inverse-pressed: var(--bs-grey-alpha-400a);
+    --bs-color-action-info-default: var(--bs-blue-500);
+    --bs-color-action-info-hovered: var(--bs-blue-300);
+    --bs-color-action-info-pressed: var(--bs-blue-600);
+    --bs-color-action-info-weak-hovered: var(--bs-blue-100);
+    --bs-color-action-info-weak-pressed: var(--bs-blue-300);
+    --bs-color-action-success-default: var(--bs-green-500);
+    --bs-color-action-success-hovered: var(--bs-green-300);
+    --bs-color-action-success-pressed: var(--bs-green-800);
+    --bs-color-action-success-weak-hovered: var(--bs-green-100);
+    --bs-color-action-success-weak-pressed: var(--bs-green-300);
+    --bs-color-action-warning-default: var(--bs-orange-600);
+    --bs-color-action-warning-hovered: var(--bs-orange-500);
+    --bs-color-action-warning-pressed: var(--bs-orange-800);
+    --bs-color-action-warning-weak-hovered: var(--bs-orange-50);
+    --bs-color-action-warning-weak-pressed: var(--bs-orange-100);
+    --bs-color-action-error-default: var(--bs-red-500);
+    --bs-color-action-error-hovered: var(--bs-red-300);
+    --bs-color-action-error-pressed: var(--bs-red-600);
+    --bs-color-action-error-weak-hovered: var(--bs-red-100);
+    --bs-color-action-error-weak-pressed: var(--bs-red-200);
 
     /* FABRIQUE DERIVED VARIABLES - ACTION COLORS - BRAND */
 
-    --color-action-brand-main: var(--brand-main);
-    --color-action-brand-main-hovered: var(--brand-main-weak);
-    --color-action-brand-main-pressed: var(--brand-main-strong);
-    --color-action-brand-main-selected: var(--brand-main-strong);
+    --bs-color-action-brand-main: var(--bs-brand-main);
+    --bs-color-action-brand-main-hovered: var(--bs-brand-main-weak);
+    --bs-color-action-brand-main-pressed: var(--bs-brand-main-strong);
+    --bs-color-action-brand-main-selected: var(--bs-brand-main-strong);
 
-    --color-action-brand-secondary: var(--brand-secondary);
-    --color-action-brand-secondary-hovered: var(--brand-secondary-weak); 
-    --color-action-brand-secondary-pressed: var(--brand-secondary-strong);
-    --color-action-brand-secondary-selected: var(--brand-secondary-strong);
+    --bs-color-action-brand-secondary: var(--bs-brand-secondary);
+    --bs-color-action-brand-secondary-hovered: var(--bs-brand-secondary-weak); 
+    --bs-color-action-brand-secondary-pressed: var(--bs-brand-secondary-strong);
+    --bs-color-action-brand-secondary-selected: var(--bs-brand-secondary-strong);
 
     /* FABRIQUE DERIVED VARIABLES - BACKGROUND COLORS */
     /* FABRIQUE DERIVED VARIABLES - BACKGROUND COLORS - BRAND */
-    --color-background-brand-main: var(--brand-main);
-    --color-background-brand-main-weak: var(--brand-main-weak);
-    --color-background-brand-main-selected: var(--brand-secondary-strong);
+    --bs-color-background-brand-main: var(--bs-brand-main);
+    --bs-color-background-brand-main-weak: var(--bs-brand-main-weak);
+    --bs-color-background-brand-main-selected: var(--bs-brand-secondary-strong);
     
-    --color-background-brand-secondary: var(--brand-main);
-    --color-background-brand-secondary-weak: var(--brand-secondary-weak);
-    --color-background-brand-secondary-selected:  var(--brand-secondary-strong);
+    --bs-color-background-brand-secondary: var(--bs-brand-main);
+    --bs-color-background-brand-secondary-weak: var(--bs-brand-secondary-weak);
+    --bs-color-background-brand-secondary-selected:  var(--bs-brand-secondary-strong);
 
-    --color-background-disabled: var(--grey-alpha-100a);
-    --color-background-grey-default: var(--grey-800);
-    --color-background-grey-weak: var(--grey-100);
-    --color-background-inverse-default: var(--grey-0);
-    --color-background-info-default: var(--blue-500);
-    --color-background-info-weak: var(--blue-100);
-    --color-background-light: var(--grey-0);
-    --color-background-success-default: var(--green-600);
-    --color-background-success-weak: var(--green-50);
-    --color-background-warning-default: var(--orange-600);
-    --color-background-warning-weak: var(--orange-50);
-    --color-background-error-default: var(--red-500);
-    --color-background-error-weak: var(--red-100);
+    --bs-color-background-disabled: var(--bs-grey-alpha-100a);
+    --bs-color-background-grey-default: var(--bs-grey-800);
+    --bs-color-background-grey-weak: var(--bs-grey-100);
+    --bs-color-background-inverse-default: var(--bs-grey-0);
+    --bs-color-background-info-default: var(--bs-blue-500);
+    --bs-color-background-info-weak: var(--bs-blue-100);
+    --bs-color-background-light: var(--bs-grey-0);
+    --bs-color-background-success-default: var(--bs-green-600);
+    --bs-color-background-success-weak: var(--bs-green-50);
+    --bs-color-background-warning-default: var(--bs-orange-600);
+    --bs-color-background-warning-weak: var(--bs-orange-50);
+    --bs-color-background-error-default: var(--bs-red-500);
+    --bs-color-background-error-weak: var(--bs-red-100);
 
     /* FABRIQUE DERIVED VARIABLES - BORDER COLORS */
-    --color-border-brand-main: var(--brand-main);
-    --color-border-brand-main-strong: var(--brand-main-strong);
-    --color-border-brand-main-weak: var(--brand-main-weak);
+    --bs-color-border-brand-main: var(--bs-brand-main);
+    --bs-color-border-brand-main-strong: var(--bs-brand-main-strong);
+    --bs-color-border-brand-main-weak: var(--bs-brand-main-weak);
     
-    --color-border-brand-secondary: var(--brand-secondary);
-    --color-border-brand-secondary-strong: var(--brand-secondary-strong);
-    --color-border-brand-secondary-weak: var(--brand-secondary-weak);
+    --bs-color-border-brand-secondary: var(--bs-brand-secondary);
+    --bs-color-border-brand-secondary-strong: var(--bs-brand-secondary-strong);
+    --bs-color-border-brand-secondary-weak: var(--bs-brand-secondary-weak);
 
-    --color-border-default: var(--grey-alpha-500a);
-    --color-border-weak: var(--grey-alpha-300a);
-    --color-border-strong: var(--grey-800);
-    --color-border-inverse-default: var(--grey-0);
-    --color-border-disabled: var(--grey-alpha-400a);
-    --color-border-status-info-strong: var(--blue-800);
-    --color-border-status-info-weak: var(--blue-600);
-    --color-border-status-success-strong: var(--green-800);
-    --color-border-status-success-weak: var(--green-600);
-    --color-border-status-warning-strong: var(--orange-800);
-    --color-border-status-warning-weak: var(--orange-600);
-    --color-border-status-error-strong: var(--red-600);
-    --color-border-status-error-weak: var(--red-500);
+    --bs-color-border-default: var(--bs-grey-alpha-500a);
+    --bs-color-border-weak: var(--bs-grey-alpha-300a);
+    --bs-color-border-strong: var(--bs-grey-800);
+    --bs-color-border-inverse-default: var(--bs-grey-0);
+    --bs-color-border-disabled: var(--bs-grey-alpha-400a);
+    --bs-color-border-status-info-strong: var(--bs-blue-800);
+    --bs-color-border-status-info-weak: var(--bs-blue-600);
+    --bs-color-border-status-success-strong: var(--bs-green-800);
+    --bs-color-border-status-success-weak: var(--bs-green-600);
+    --bs-color-border-status-warning-strong: var(--bs-orange-800);
+    --bs-color-border-status-warning-weak: var(--bs-orange-600);
+    --bs-color-border-status-error-strong: var(--bs-red-600);
+    --bs-color-border-status-error-weak: var(--bs-red-500);
 
     /* FABRIQUE DERIVED VARIABLES - TEXT COLORS */
-    --color-text-brand-main-strong: var(--brand-main-strong);
-    --color-text-brand-main-weak: var(--brand-main-weak);
-    --color-text-brand-secondary-strong: var(--brand-secondary-strong);
-    --color-text-brand-secondary-weak: var(--brand-secondary-weak);
+    --bs-color-text-brand-main-strong: var(--bs-brand-main-strong);
+    --bs-color-text-brand-main-weak: var(--bs-brand-main-weak);
+    --bs-color-text-brand-secondary-strong: var(--bs-brand-secondary-strong);
+    --bs-color-text-brand-secondary-weak: var(--bs-brand-secondary-weak);
     
-    --color-text-default: var(--grey-850);
-    --color-text-weak: var(--grey-700);
-    --color-text-weaker: var(--grey-600);
-    --color-text-weakest: var(--grey-400);
-    --color-text-disabled: var(--grey-alpha-400a);
-    --color-text-inverse-default: var(--grey-0);
-    --color-text-inverse-hover: var(--grey-alpha-400a);
-    --color-text-info-strong: var(--blue-800);
-    --color-text-selected: var(--brand-main);
-    --color-text-info-weak: var(--blue-600);
-    --color-text-success-strong: var(--green-800);
-    --color-text-success-weak: var(--green-600);
-    --color-text-warning-strong: var(--orange-800);
-    --color-text-warning-weak: var(--orange-600);
-    --color-text-error-strong: var(--red-600);
-    --color-text-error-weak: var(--red-500);
-    --color-text-onstrong: var(--grey-0);
+    --bs-color-text-default: var(--bs-grey-850);
+    --bs-color-text-weak: var(--bs-grey-700);
+    --bs-color-text-weaker: var(--bs-grey-600);
+    --bs-color-text-weakest: var(--bs-grey-400);
+    --bs-color-text-disabled: var(--bs-grey-alpha-400a);
+    --bs-color-text-inverse-default: var(--bs-grey-0);
+    --bs-color-text-inverse-hover: var(--bs-grey-alpha-400a);
+    --bs-color-text-info-strong: var(--bs-blue-800);
+    --bs-color-text-selected: var(--bs-brand-main);
+    --bs-color-text-info-weak: var(--bs-blue-600);
+    --bs-color-text-success-strong: var(--bs-green-800);
+    --bs-color-text-success-weak: var(--bs-green-600);
+    --bs-color-text-warning-strong: var(--bs-orange-800);
+    --bs-color-text-warning-weak: var(--bs-orange-600);
+    --bs-color-text-error-strong: var(--bs-red-600);
+    --bs-color-text-error-weak: var(--bs-red-500);
+    --bs-color-text-onstrong: var(--bs-grey-0);
 
     /* FABRIQUE DERIVED VARIABLES - LINK COLORS */
-    --color-link-link: var(--blue-600);
-    --color-link-hover: var(--blue-500);
-    --color-icon-default: var(--grey-850);
-    --color-link-pressed: var(--blue-800);
+    --bs-color-link-link: var(--bs-blue-600);
+    --bs-color-link-hover: var(--bs-blue-500);
+    --bs-color-icon-default: var(--bs-grey-850);
+    --bs-color-link-pressed: var(--bs-blue-800);
     
     /* FABRIQUE DERIVED VARIABLES - ICON COLORS */
-    --color-icon-brand-main: var(--brand-main);
-    --color-icon-brand-main-strong: var(--brand-main-strong);
-    --color-icon-brand-main-weak: var(--brand-main-weak);
+    --bs-color-icon-brand-main: var(--bs-brand-main);
+    --bs-color-icon-brand-main-strong: var(--bs-brand-main-strong);
+    --bs-color-icon-brand-main-weak: var(--bs-brand-main-weak);
 
-    --color-icon-brand-secondary: var(--brand-main);
-    --color-icon-brand-secondary-strong: var(--brand-secondary-strong);
-    --color-icon-brand-secondary-weak: var(--brand-secondary-weak);
+    --bs-color-icon-brand-secondary: var(--bs-brand-main);
+    --bs-color-icon-brand-secondary-strong: var(--bs-brand-secondary-strong);
+    --bs-color-icon-brand-secondary-weak: var(--bs-brand-secondary-weak);
 
-    --color-icon-weak: var(--grey-700);
-    --color-icon-weaker: var(--grey-600);
-    --color-icon-weakest: var(--grey-400);
-    --color-icon-disabled: var(--grey-alpha-300a);
-    --color-icon-on-button-disabled: var(--grey-alpha-400a);
-    --color-icon-inverse-default: var(--grey-0);
-    --color-icon-inverse-hover: var(--grey-alpha-400a);
-    --color-icon-brand-main-weak: var(--brand-main-weak);
-    --color-icon-selected: var(--brand-main);
-    --color-icon-onstrong: var(--grey-0);
-    --color-icon-status-info-strong: var(--blue-800);
-    --color-icon-onweak: var(--grey-800);
-    --color-icon-status-info-weak: var(--blue-600);
-    --color-icon-status-success-strong: var(--green-800);
-    --color-icon-status-success-weak: var(--green-600);
-    --color-icon-status-warning-strong: var(--orange-800);
-    --color-icon-status-warning-weak: var(--orange-600);
-    --color-icon-status-error-strong: var(--red-600);
-    --color-icon-status-error-weak: var(--red-500);
+    --bs-color-icon-weak: var(--bs-grey-700);
+    --bs-color-icon-weaker: var(--bs-grey-600);
+    --bs-color-icon-weakest: var(--bs-grey-400);
+    --bs-color-icon-disabled: var(--bs-grey-alpha-300a);
+    --bs-color-icon-on-button-disabled: var(--bs-grey-alpha-400a);
+    --bs-color-icon-inverse-default: var(--bs-grey-0);
+    --bs-color-icon-inverse-hover: var(--bs-grey-alpha-400a);
+    --bs-color-icon-brand-main-weak: var(--bs-brand-main-weak);
+    --bs-color-icon-selected: var(--bs-brand-main);
+    --bs-color-icon-onstrong: var(--bs-grey-0);
+    --bs-color-icon-status-info-strong: var(--bs-blue-800);
+    --bs-color-icon-onweak: var(--bs-grey-800);
+    --bs-color-icon-status-info-weak: var(--bs-blue-600);
+    --bs-color-icon-status-success-strong: var(--bs-green-800);
+    --bs-color-icon-status-success-weak: var(--bs-green-600);
+    --bs-color-icon-status-warning-strong: var(--bs-orange-800);
+    --bs-color-icon-status-warning-weak: var(--bs-orange-600);
+    --bs-color-icon-status-error-strong: var(--bs-red-600);
+    --bs-color-icon-status-error-weak: var(--bs-red-500);
 
     /* FABRIQUE DERIVED VARIABLES - SPACING */
-    --space-size-18: calc(var(--space-size-1) * 18);
-    --space-size-8: calc(var(--space-size-1) * 8);
-    --space-size-6: calc(var(--space-size-1) * 6);
-    --space-size-4: calc(var(--space-size-1) * 4);
-    --space-size-3: calc(var(--space-size-1) * 3);
-    --space-size-2: calc(var(--space-size-1) * 2);
+    --bs-space-size-18: calc(var(--bs-space-size-1) * 18);
+    --bs-space-size-8: calc(var(--bs-space-size-1) * 8);
+    --bs-space-size-6: calc(var(--bs-space-size-1) * 6);
+    --bs-space-size-4: calc(var(--bs-space-size-1) * 4);
+    --bs-space-size-3: calc(var(--bs-space-size-1) * 3);
+    --bs-space-size-2: calc(var(--bs-space-size-1) * 2);
 
     font-family: var(--fontFamily);
     width: 100%;

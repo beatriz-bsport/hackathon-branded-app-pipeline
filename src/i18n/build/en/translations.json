@@ -7091,7 +7091,7 @@
         "actions": {
             "search": "Search a workshop",
             "addWorkshopActivity": "Add a workshop",
-            "addWorkshopGroup": "Add an event"
+            "addWorkshopGroup": "Add a grouped session"
         },
         "noWorkshops": "Workshops are events which you can add, edit, delete, and manage in this tab.",
         "disabledWorkshops": "Archived workshops",

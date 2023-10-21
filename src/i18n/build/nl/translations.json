@@ -201,7 +201,7 @@
             "300": "Wanneer een lid niet tijdig op de wachtlijst antwoordt en hun plaats verliest",
             "601": "Automatische annulering van onderbezette sessies (instructeurs)",
             "702": "Sanctie: er is een boete opgelegd (leden)",
-            "701": "Tijdige annulering: geblokkeerde kaart (studenten)",
+            "701": "Te late annulering: geblokkeerde kaart (studenten)",
             "530": "Wanneer een abonnementsbetaling gestorneerd wordt",
             "520": "Wanneer een Smart Retry automatisch de abonnementsbetaling opnieuw gaat proberen de betaling te voltooien",
             "515": "Wanneer de kaart van een abonnement automatisch gedeactiveerd wordt",
@@ -6208,7 +6208,7 @@
                 "bookingNumber_plural": "1e reservering",
                 "ifKind": {
                     "notRefunded": "Te late annuleringen",
-                    "refunded": "Tijdige annulering",
+                    "refunded": "Te late annulering",
                     "absence": "Afwezigheid",
                     "attendance": "Aanwezigheid"
                 },

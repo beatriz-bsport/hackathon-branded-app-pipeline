@@ -4144,7 +4144,7 @@
                                 "_label": "Erstellen"
                             }
                         },
-                        "_label": "Gekaufte Geschenkkarten"
+                        "_label": "Gekaufte Gutscheine"
                     },
                     "giftcard": {
                         "allowed_actions": {
@@ -4161,7 +4161,7 @@
                                 "_label": "Erstellen"
                             }
                         },
-                        "_label": "Geschenkkarte"
+                        "_label": "Gutschein"
                     },
                     "discount": {
                         "allowed_actions": {
@@ -5956,8 +5956,8 @@
             "video": "Video",
             "unpaid_invoices": "Unbezahlte Rechnungen",
             "video_purchase": "Video-Kauf",
-            "consumer_giftcard": "Gekaufte Geschenkkarten",
-            "giftcard": "Geschenkkarte",
+            "consumer_giftcard": "Gekaufter Gutschein",
+            "giftcard": "Gutscheine",
             "unpaid_private_bookings": "Unbezahlte Reservierungen (Termin)",
             "payment_installments": "Zahlungen in Raten",
             "expense": "Ausgaben",
@@ -6212,7 +6212,7 @@
             "expense": "Ausgaben werden nach Fälligkeit gefiltert.",
             "cashbook": "Für den ausgewählten Zeitraum finden Sie für jeden Tag die Entwicklung der Kasse.",
             "shop": "Für jeden Ihrer Artikel finden Sie die Entwicklung des Bestands zwischen dem Start- und Enddatum des ausgewählten Intervalls.",
-            "consumer_giftcard": "Die Geschenkkarten werden nach dem Kaufdatum gefiltert.",
+            "consumer_giftcard": "Die Gutscheine werden nach dem Kaufdatum gefiltert.",
             "discount": "Die Angebote werden nach dem Datum gefiltert, an dem sie genutzt wurden.",
             "universal_passes": "Es werden nur die an diesem Tag gültigen Universalpässe angezeigt.",
             "private_cpasses": "Die angezeigten Terminpässe sind diejenigen, die an diesem Tag gültig sind.",
@@ -6512,15 +6512,15 @@
             },
             "applyGiftcard": {
                 "errors": {
-                    "45001": "Es ist nicht möglich, diese Rechnung mit dieser Geschenkkarte zu begleichen",
+                    "45001": "Es ist nicht möglich, diese Rechnung mit diesem Gutschein zu begleichen",
                     "45006": "Der Gutschein wurde bereits aktiviert",
                     "45003": "Der Gutschein wurde deaktiviert.",
                     "45000": "Der Aktivierungscode ist falsch.",
-                    "generic": "Nicht möglich den Gutschein zu aktivieren",
-                    "45007": "Nicht möglich, das Mitglied zu finden, das die Geschenkkarte aktivieren möchte."
+                    "generic": "Aktivierung des Gutscheins nicht möglich",
+                    "45007": "Nicht möglich, das Mitglied zu finden, das den Gutschein aktivieren möchte."
                 },
-                "success": "Zahlung mit Geschenkkarte bestätigt",
-                "error": "Es ist nicht möglich, den gewünschten Betrag mit dieser Geschenkkarte zu bezahlen"
+                "success": "Zahlung mit Gutschein bestätigt",
+                "error": "Es ist nicht möglich, den gewünschten Betrag mit diesem Gutschein zu bezahlen"
             },
             "applyBalance": {
                 "success": "Der Betrag Ihres Restguthabens wurde auf die Rechnung angewendet.",
@@ -7278,7 +7278,7 @@
             "16001": "Der Prozentsatz des Gesamtbetrags muss zwischen 0 und 100 festgelegt werden"
         },
         "giftCard": {
-            "notFound": "Diese Geschenkkarte wurde nicht gefunden. Sie wurde möglicherweise archiviert."
+            "notFound": "Dieser Gutscheine wurde nicht gefunden. Er wurde möglicherweise archiviert."
         },
         "modifyBasket": {
             "15004": "Der Warenkorb wird gerade bearbeitet, bitte versuchen Sie es in ein paar Minuten erneut"
@@ -7816,15 +7816,15 @@
                 "errors": {
                     "errorAmount": "Ungültiger Betrag."
                 },
-                "usedGiftcard": "Verwendete Geschenkkarte",
-                "amountToPay": "Mit Geschenkkarten bezahlter Betrag"
+                "usedGiftcard": "Verwendeter Gutschein",
+                "amountToPay": "Mit Gutschein bezahlter Betrag"
             },
             "actions": {
-                "apply": "Zahlung Geschenkkarte",
+                "apply": "Zahlung mit Gutschein",
                 "cancel": "Schließen",
                 "confirm": "Bestätigen"
             },
-            "giftcard": "Geschenkkarte"
+            "giftcard": "Gutschein"
         },
         "invoiceFuturePaymentsDialog": {
             "applyForAllFuturePayments": "Auf zukünftige Fälligkeiten dieser Rechnung anwenden"
@@ -9078,8 +9078,8 @@
                     "title": "Buchung gesperrt"
                 },
                 "waitingListLockedByPendingBookings": {
-                    "title": "Sonstige Buchungen in Bearbeitung",
-                    "message": "Andere Personen buchen gerade, die Warteliste ist derzeit nicht verfügbar. Bitte versuchen Sie es in ein paar Minuten erneut, um zu sehen, ob ein Platz frei ist."
+                    "title": "Andere Buchungen in Bearbeitung",
+                    "message": "Andere Personen buchen gerade, die Warteliste ist derzeit nicht verfügbar. Bitte versuchen Sie es in ein paar Minuten erneut, um zu sehen, ob ein Platz frei geworden ist."
                 },
                 "isWaitingListFull": {
                     "title": "Warteliste voll",
@@ -9090,7 +9090,7 @@
                     "message": "Wenn Sie auf der Warteliste stehen, werden Sie per E-Mail benachrichtigt, sobald ein Platz frei wird."
                 },
                 "waitingListOpen": {
-                    "title": "Volle Session",
+                    "title": "Session voll",
                     "message": "Treten Sie der Warteliste bei und Sie erhalten eine Nachricht, sobald ein Platz frei wird."
                 },
                 "noPassAvailable": {
@@ -9205,7 +9205,7 @@
             "info": "Allgemein",
             "vod": "VOD",
             "form": "Formulare",
-            "giftcard": "Geschenkkarte",
+            "giftcard": "Gutschein",
             "programs": "Programme",
             "basket": "Korb"
         },
@@ -9480,8 +9480,8 @@
                 "primaryText": "Das Formular für die Profilbearbeitung {{ formName }} wurde ausgefüllt."
             },
             "member-giftcard_used": {
-                "filter": "Verwendete Geschenkkarten",
-                "primaryText": "Die Geschenkkarte {{- giftcardName }} wurde aktiviert."
+                "filter": "Verwendete Gutscheine",
+                "primaryText": "Der Gutschein {{- giftcardName }} wurde aktiviert."
             },
             "member-invoice_paid": {
                 "filter": "Bezahlte Rechnungen",
@@ -11443,7 +11443,7 @@
             "myVideos": "Meine Videos",
             "pick_a_language": "Wähle eine Sprache",
             "automaticLanguage": "Automatische Spracherkennung",
-            "giftcard": "Geschenkkarten",
+            "giftcard": "Gutscheine",
             "statistic": "Statistiken",
             "connectedAs": "Anmelden als",
             "backToRelationMasterSpace": "zu meinem Konto zurückkehren",
@@ -12159,14 +12159,14 @@
                 }
             },
             "GiftCard": {
-                "name": "Geschenkkarte",
+                "name": "Gutschein",
                 "tags": {
-                    "giftcard_message": "Nachricht der Geschenkkarte",
-                    "activate_giftcard_url": "Link zur Aktivierung der Geschenkkarte",
-                    "message_is_from": "Mitglied, das die Geschenkkarte versendet",
-                    "message_is_for": "Empfänger der Geschenkkarte",
-                    "giftcard_value": "Wert der Geschenkkarte",
-                    "giftcard_name": "Name der Geschenkkarte"
+                    "giftcard_message": "Gutschein-Nachricht",
+                    "activate_giftcard_url": "Link zur Aktivierung des Gutscheins",
+                    "message_is_from": "Mitglied, das den Gutschein versendet",
+                    "message_is_for": "Empfänger des Gutscheins",
+                    "giftcard_value": "Wert des Gutscheins",
+                    "giftcard_name": "Name des Gutscheins"
                 }
             },
             "EmailChange": {
@@ -12184,9 +12184,9 @@
                 "email_confirmation_url": "Link zur Bestätigung der E-Mail-Adresse",
                 "new_email": "Neue Login-E-Mail",
                 "old_email": "Alte Login-E-Mail",
-                "activate_giftcard_url": "Aktivierungslink für die Geschenkkarte",
-                "giftcard_message": "Nachricht der Geschenkkarte",
-                "giftcard_value": "Wert der Geschenkkarte",
+                "activate_giftcard_url": "Aktivierungslink für den Gutschein",
+                "giftcard_message": "Gutschein-Nachricht",
+                "giftcard_value": "Wert des Gutscheins",
                 "manage_changing_email_link": "Link zur Verwaltung von E-Mail-Änderungen"
             },
             "SpiviPerformance": {
@@ -12233,7 +12233,7 @@
             "payment_pack": "Strafe",
             "recurrent_private_booking": "Wiederkehrende Verabredung",
             "replacement_request": "Vertretung",
-            "giftcard": "Geschenkkarte",
+            "giftcard": "Gutscheine",
             "performance": "Performance"
         },
         "pageTitle": "Transaktions-E-Mails",
@@ -12473,7 +12473,7 @@
             "marketplaceCalendar": "Kalender",
             "marketplaceWorkshop": "Workshops",
             "marketplaceShop": "Shop",
-            "marketplaceGiftcard": "Geschenkkarten"
+            "marketplaceGiftcard": "Gutscheine"
         },
         "establishment": {
             "establishmentFormPage": "Einrichtung-Formular",
@@ -12561,7 +12561,7 @@
         },
         "replacement": "Vertretung",
         "inbox": "Posteingang",
-        "giftcard": "Geschenkkarte"
+        "giftcard": "Gutscheine"
     },
     "stripe": {
         "decline_code": {
@@ -13161,7 +13161,7 @@
             "redirecting": "Sie werden zu Ihrer Seite weitergeleitet",
             "backToFranchiseWorskpace": "Rückkehr zum Stammkonto",
             "franchiseConnectedAs": "Sie sind derzeit verbunden als: {{- name}}",
-            "giftcard": "Geschenkkarten",
+            "giftcard": "Gutscheine",
             "programs": "Programme",
             "expenses": "Ausgaben",
             "instalmentPayment": "Zahlungsmittel",
@@ -13242,7 +13242,7 @@
                 "bookings": "Buchung",
                 "bookings_plural": "Buchungen ({{number}})",
                 "giftcard": "Gutschein",
-                "giftcard_plural": "Gutscheine ({{number}})",
+                "giftcard_plural": "Gutschein ({{number}})",
                 "paymentPack": "Kurspass",
                 "paymentPack_plural": "Kurspässe ({{number}})",
                 "contact": "Kontakt",
@@ -14489,7 +14489,7 @@
                 "calendar": "Kalender",
                 "newsletter": "Newsletter",
                 "loginButton": "Login-Button",
-                "giftcard": "Geschenkkarte",
+                "giftcard": "Gutscheine",
                 "paymentPackTemplate": "Geteilte Kurspässe",
                 "calendarV2": "Kalender"
             },
@@ -14870,14 +14870,14 @@
                     "payment": "Rechnungsstellung"
                 }
             },
-            "isEmpty": "Ihr Warenkorb ist leer",
-            "featured": "Wir empfehlen Dir",
+            "isEmpty": "Ihr Warenkorb ist leer.",
+            "featured": "Wir empfehlen",
             "error": {
-                "invalidBasket": "Dein Warenkorb enthielt Produkte, die nicht mehr zum Verkauf stehen. Es wurde keine Zahlung verzeichnet",
-                "inconsistentBasket": "Ihr Warenkorb wurde geändert. Bitte aktualisieren Sie Ihre Seite, bevor Sie Ihre Zahlung bestätigen.\nSie wurden nicht abgebucht."
+                "invalidBasket": "Dein Warenkorb enthielt Produkte, die nicht mehr zum Verkauf stehen. Es wurde keine Zahlung verzeichnet.",
+                "inconsistentBasket": "Ihr Warenkorb wurde geändert. Bitte aktualisieren Sie Ihre Seite, bevor Sie Ihre Zahlung bestätigen.\nIhnen wurde nichts in Rechnung gestellt."
             },
-            "isFinalized": "Dein Warenkorb wurde validiert",
-            "checkingPaymentStatus": "Bitte warten Sie, wir prüfen den Status Ihrer Zahlung",
+            "isFinalized": "Ihr Warenkorb wurde validiert",
+            "checkingPaymentStatus": "Bitte warten Sie, wir prüfen den Status Ihrer Zahlung.",
             "totalQuantity": "Enthält: {{ qty }} Produkt(e)",
             "acceptTermsAndFinalize": "Bitte akzeptieren Sie die Allgemeinen Geschäftsbedingungen und schließen Sie Ihre Buchung ab",
             "checkAndFinalize": "Bitte überprüfen Sie Ihren Warenkorb und schließen Sie Ihre Buchung ab",
@@ -14899,15 +14899,15 @@
                     "submit": "Weiter"
                 },
                 "first_name": "Vorname",
-                "last_name": "Name"
+                "last_name": "Nachname"
             }
         },
         "paymentIntent": {
-            "isProcessing": "Bitte warte einen Augenblick"
+            "isProcessing": "Bitte warten Sie einen Augenblick"
         },
         "autoAdd": {
             "paymentPack": {
-                "locked": "Dieses Produkt ist nicht vorhanden."
+                "locked": "Dieses Produkt ist nicht verfügbar."
             },
             "privatePass": {
                 "error": "Dieser Terminpass ist nicht verfügbar"
@@ -14918,7 +14918,7 @@
         },
         "payLater": {
             "submit": "Zahlen Sie vor Ort",
-            "explain": "Die Zahlung wird vor Ort abgewickelt. Zuvor gilt die Rechnung als unbezahlt."
+            "explain": "Die Zahlung wird vor Ort abgewickelt. Davor gilt die Rechnung als unbezahlt."
         },
         "or": "oder",
         "validation": {
@@ -14930,22 +14930,22 @@
                 "offerBooked_plural": "Meine Buchungen",
                 "offerNotBookable": "Keine Registrierung möglich",
                 "errorExplain": {
-                    "generic": "Die Operation konnte nicht durchgeführt werden. Wir bitten Sie, es noch einmal zu versuchen.",
+                    "generic": "Der Vorgang konnte nicht durchgeführt werden. Wir bitten Sie, es noch einmal zu versuchen.",
                     "guestGeneric": "Es ist ein Problem mit der Reservierung für einen Gast aufgetreten.",
                     "guestOvercomeLimit": "Die Anzahl der für diese Buchung hinzugefügten Gäste überschreitet die zulässige Anzahl.",
                     "guestOffer": "Das Studio hat die Buchungsfunktion für einen Gast für diese Session deaktiviert.",
-                    "guestPass": "Das Studio hat die Buchungsfunktion für einen Gast für dieser Kurspass deaktiviert.",
+                    "guestPass": "Das Studio hat die Buchungsfunktion für einen Gast für diesen Kurspass deaktiviert.",
                     "guestNotEnoughSpot": "Es gibt nicht genug Plätze für alle Ihre Gäste.",
                     "guestReachedLimit": "Sie haben bereits das Limit für die Buchung eines Gastes im aktuellen Zeitraum erreicht. Es ist nicht mehr möglich, weitere zu buchen.",
                     "guestSettings": "Das Studio hat die Buchungsfunktion für einen Gast deaktiviert.",
-                    "genericOfferError": "Wir sind auf ein Problem bei der Verarbeitung Ihrer Sessionbuchung gestoßen. Bitte versuchen Sie es zu einem späteren Zeitpunkt noch einmal oder buchen Sie eine andere Session.",
-                    "offerOnlyBookingError": "Leider können die ausgewählte Sitzung und der ausgewählte Spot derzeit nicht gebucht werden. Wir bitten Sie, es noch einmal zu versuchen."
+                    "genericOfferError": "Wir sind auf ein Problem bei der Verarbeitung Ihrer Sessionbuchung gestoßen. Bitte versuchen Sie es zu einem späteren Zeitpunkt erneut oder buchen Sie eine andere Session.",
+                    "offerOnlyBookingError": "Leider können die ausgewählte Sitzung und der ausgewählte Platz derzeit nicht gebucht werden. Wir bitten Sie, es erneut zu versuchen."
                 },
                 "error": "Fehler",
                 "recap": "Zusammenfassung",
-                "explain": "Ihre Transaktion wurde berücksichtigt. Wir schicken Ihnen eine Bestätigungsmail.",
-                "myGiftcard": "Meine Geschenkkarte",
-                "myGiftcard_plural": "Meine Geschenkkarten",
+                "explain": "Ihre Kauf wurde bearbeitet. In Kürze werden Sie auch eine Bestätigungs-E-Mail erhalten.",
+                "myGiftcard": "Mein Gutschein",
+                "myGiftcard_plural": "Meine Gutscheine",
                 "myProduct": "Mein Produkt",
                 "myProduct_plural": "Meine Produkte",
                 "mySubscription": "Mein Abonnement",
@@ -14953,13 +14953,13 @@
                 "myPack_plural": "Meine Pakete",
                 "myPass": "Mein Kurspass",
                 "myPass_plural": "Meine Kurspässe",
-                "alert": "Ups! Die Buchung ist fehlgeschlagen.\n Wir sind bei der Verarbeitung Ihrer Sessionbuchung auf ein Problem gestoßen. Bitte versuchen Sie es zu einem späteren Zeitpunkt noch einmal oder buchen Sie eine andere Session.",
+                "alert": "Ups! Die Buchung ist fehlgeschlagen.\nWir sind bei der Verarbeitung Ihrer Sessionbuchung auf ein Problem gestoßen. Bitte versuchen Sie es zu einem späteren Zeitpunkt erneut oder buchen Sie eine andere Session.",
                 "confirmationStatusMessage": {
                     "offerAndPurchaseSuccess": "Herzlichen Glückwunsch! Ihre Einkäufe und Buchungen sind bestätigt. Sie erhalten in Kürze eine Bestätigungs-E-Mail mit allen Details.",
                     "paymentSuccess": "Herzlichen Glückwunsch! Ihr Kauf wurde bestätigt!",
-                    "paymentSuccess_plural": "Herzlichen Glückwunsch! Ihre Einkäufe wurden bestätigt!",
-                    "offerOnlySuccess": "Die Buchung wurde erfolgreich durchgeführt. Sie erhalten in Kürze eine Bestätigungs-E-Mail mit allen Details.",
-                    "offerOnlySuccess_plural": "Die Buchungen wurden erfolgreich durchgeführt. Sie erhalten in Kürze eine Bestätigungs-E-Mail mit allen Details.",
+                    "paymentSuccess_plural": "Herzlichen Glückwunsch! Ihre Käufe wurden bestätigt!",
+                    "offerOnlySuccess": "Die Buchung wurde erfolgreich abgeschlossen. Sie erhalten in Kürze eine Bestätigungs-E-Mail mit allen Details.",
+                    "offerOnlySuccess_plural": "Die Buchungen wurden erfolgreich abgeschlossen. Sie erhalten in Kürze eine Bestätigungs-E-Mail mit allen Details.",
                     "offerOnlyGuestSuccess": "Die Buchung wurde abgeschlossen. Sie und Ihr Gast werden in Kürze eine Bestätigungsmail mit allen Details erhalten."
                 },
                 "confirmationStatusTitle": {
@@ -14984,11 +14984,11 @@
                 "member": "Mitgliederbereich",
                 "confirmPriceNull": "Bestätigen",
                 "payNow": "Bezahlen",
-                "myPasses": "Meine Kurskarten",
+                "myPasses": "Meine Kurspässe",
                 "myGiftcards": "Meine Gutscheine",
-                "myProducts": "Meine Käufe",
+                "myProducts": "Meine Produkte",
                 "mySubscription": "Mein Abonnement",
-                "retryBookingSession": "Erneut versuchen zu buchen",
+                "retryBookingSession": "Buchung erneut versuchen",
                 "newWorkshop": "Neuer Workshop",
                 "retry": "Erneut versuchen",
                 "myBookings": "Meine Buchungen",
@@ -15536,7 +15536,7 @@
                     "mobile": "Kleiner Bildschirm",
                     "defaultPrepaidLine": "Standard",
                     "internalAccountPrepaidLine": "Mit internem Konto bezahlen",
-                    "giftcardPrepaidLine": "Mit Geschenkkarte bezahlen",
+                    "giftcardPrepaidLine": "Mit Gutschein bezahlen",
                     "3": "Drei",
                     "2": "Zwei",
                     "1": "Eins"
@@ -16401,11 +16401,11 @@
                     "label": "Unbegrenzt"
                 },
                 "expiration_days": {
-                    "helperText": "Die Gültigkeit der Karte beginnt an dem Tag, an dem die E-Mail mit der Geschenkkarte versandt wird",
+                    "helperText": "Die Gültigkeit des Gutscheins beginnt an dem Tag, an dem die E-Mail mit dem Gutschein versendet wird.",
                     "label": "Dauer der Gültigkeit in Tagen"
                 },
                 "price": {
-                    "helperText": "Bestimmt den Wert der angebotenen Karte",
+                    "helperText": "Bestimmt den Wert des angebotenen Gutscheins.",
                     "label": "Verkaufspreis"
                 },
                 "section": {
@@ -16423,7 +16423,7 @@
                 "name": {
                     "label": "Name"
                 },
-                "title": "Geschenkkarte",
+                "title": "Gutschein",
                 "actions": {
                     "submit": "Bestätigen",
                     "cancel": "Schließen"
@@ -16438,16 +16438,16 @@
                         "close": "Schließen",
                         "delete": "Löschen"
                     },
-                    "content": "Sind Sie sicher, dass Sie diesen Pass löschen wollen? Mitglieder, die diesen Pass bereits erworben haben, können sie weiterhin nutzen.",
-                    "title": "Löschung"
+                    "content": "Sind Sie sicher, dass Sie diesen Gutschein löschen wollen? Mitglieder, die diesen bereits erworben haben, können ihn weiterhin nutzen.",
+                    "title": "Löschen"
                 }
             },
             "detail": {
                 "manager_only": "Kein Online-Verkauf möglich",
-                "availablePaymentMethods": "Verfügbare Zahlungsmittel",
-                "expirationDate": "Gültigkeitsdauer vor Ablauf: {{ expiration_days }} Tage"
+                "availablePaymentMethods": "Verfügbare Zahlungsmethoden",
+                "expirationDate": "Gültigkeitsdauer vor Ablauf: {{ expiration_days }} Tag(e)"
             },
-            "configurationTitle": "Geschenkkarte"
+            "configurationTitle": "Gutschein"
         },
         "link": {
             "copyLink": "Kopieren Sie den Kauflink",
@@ -16455,7 +16455,7 @@
         },
         "consumerGiftcard": {
             "form": {
-                "footer": "Die Karte wird am {{- date_send }} um {{- hour_send }} per E-Mail an die angegebenen Adressen gesendet. Sie ist für {{ expiration_days }} Tage nach dem Versand der E-Mail gültig. Dem Konto des Empfängers wird ein Betrag von {{- price }} für zukünftige Einkäufe gutgeschriebe.",
+                "footer": "Der Gutschein wird am {{- date_send }} um {{- hour_send }} per E-Mail an die angegebenen Adressen gesendet. Er ist für {{ expiration_days }} Tage nach dem Versand der E-Mail gültig. Dem Konto des Empfängers wird ein Betrag von {{- price }} für zukünftige Einkäufe gutgeschrieben.",
                 "actions": {
                     "submit": "In den Warenkorb legen",
                     "cancel": "Abbrechen"
@@ -16476,9 +16476,9 @@
                     "label": "Zu Händen von "
                 },
                 "name": {
-                    "label": "Name der Karte"
+                    "label": "Name des Gutscheins"
                 },
-                "footerUnlimited": "Die Karte wird am {{- date_send }} um {{- hour_send }} per E-Mail an die angegebenen Adressen gesendet. Sie enthält kein Verfallsdatum. Dem Konto des Empfängers wird ein Betrag von {{- price }} für zukünftige Einkäufe gutgeschrieben.",
+                "footerUnlimited": "Der Gutschein wird am {{- date_send }} um {{- hour_send }} per E-Mail an die angegebenen Adressen gesendet. Er enthält kein Verfallsdatum. Dem Konto des Empfängers wird ein Betrag von {{- price }} für zukünftige Einkäufe gutgeschrieben.",
                 "select_image": "Wählen Sie Ihr Hintergrundbild",
                 "hour_send": "Uhrzeit des Versands"
             },
@@ -16486,74 +16486,74 @@
                 "message_content": "[Personalisierte Nachricht]",
                 "message_is_for": "[Name des Empfängers]",
                 "message_is_from": "[Name des Käufers]",
-                "name": "[Name der Karte]",
-                "giftcard_amount": "[Kartenbetrag]"
+                "name": "[Name des Gutscheins]",
+                "giftcard_amount": "[Gutscheinbetrag]"
             },
-            "sendTo": "Einladung zurücksenden",
+            "sendTo": "Einladung erneut versenden",
             "expiresOn": "Läuft ab am {{- d }}",
             "notAttributedYet": "Nicht validiert",
             "willInviteOn": "Die Einladung wird am {{- d }} verschickt",
-            "invitedOn": "Envoyée le {{- d }}",
+            "invitedOn": "Am {{- d }} versendet",
             "value": "Wert",
             "isFrom": "Von ",
             "isFor": "Zu Händen von ",
-            "isEmpty": "Keine Geschenkkarten",
+            "isEmpty": "Keine Gutscheine",
             "linkedInvoice": "Verknüpfte Rechnung",
             "list": {
-                "myGifted": "Erhaltene Geschenkkarten",
-                "myPurchases": "Gekaufte Geschenkkarten"
+                "myGifted": "Erhaltene Gutscheine",
+                "myPurchases": "Gekaufte Gutscheine"
             },
             "invitationForm": {
                 "actions": {
                     "submit": "Senden",
                     "close": "Schließen"
                 },
-                "content": "Sie können die Empfänger der Geschenkkarte ändern. Beachten Sie, dass nur einer sie verwenden kann. Wenn die E-Mail nicht angekommen ist, können Sie auch diesen Aktivierungslink weiterleiten :",
+                "content": "Sie können die Empfänger des Gutscheins ändern. Beachten Sie, dass nur einer sie verwenden kann. Wenn die E-Mail nicht angekommen ist, können Sie auch diesen Aktivierungslink weiterleiten:",
                 "title": "Senden Sie eine Einladungs-E-Mail",
                 "activationCodeLink": "Die Einladungs-E-Mail wurde versandt und kann nicht mehr geändert werden. Sollte sie nicht den richtigen Empfänger erreicht haben, können Sie diesen Aktivierungslink weiterleiten, um die Geschenkkarte anzubieten: "
             },
             "activation": {
-                "alreadyActivated": "Diese Geschenkkarte wurde bereits von einem anderen Benutzer verwendet",
-                "activate": "Aktivieren Sie meine Geschenkkarte",
-                "content3": "Wenn Sie nicht mit dem richtigen Konto angemeldet sind, melden Sie sich bitte ab und melden Sie sich mit dem richtigen Konto an. Wenn dieser Geschenkgutschein nicht für Sie bestimmt ist, lösen Sie ihn bitte nicht ein.",
-                "content2": "Sie wird automatisch als Zahlungsmethode zu Ihrem Einkaufswagen hinzugefügt. Alle Informationen zu Ihrer Geschenkkarte finden Sie in Ihrem Profil.",
-                "content1": "Ihre Geschenkkarte im Wert von {{price}} ist mit allen Produkten unseres Shops kompatibel und hat kein Verfallsdatum. Viel Spaß!",
-                "subtitle": "Es scheint, als hätte Ihnen jemand eine Überraschung bereitet.",
-                "title": "Jemand wollte Ihnen eine Freude machen!",
-                "content1withDate": "Ihre {{price}} Geschenkkarte ist mit allen Produkten in unserem Shop kompatibel. Diese Karte verfällt {{expiration_days }} Tage nach der Aktivierung, also gönnen Sie sich was!"
+                "alreadyActivated": "Dieser Gutschein wurde bereits von einem anderen Benutzer verwendet.",
+                "activate": "Aktiviere meinen Gutschein",
+                "content3": "Wenn Sie nicht mit dem richtigen Konto angemeldet sind, melden Sie sich bitte ab und melden Sie sich mit dem richtigen Konto an. Wenn dieser Gutscheinn nicht für Sie bestimmt ist, lösen Sie ihn bitte nicht ein.",
+                "content2": "Der Gutschein wird automatisch als Zahlungsmethode zu Ihrem Warenkorb hinzugefügt. Alle Informationen zu Ihrem Gutschein finden Sie in Ihrem Profil.",
+                "content1": "Ihr Gutschein im Wert von {{price}} ist mit allen Produkten unseres Shops kompatibel und hat kein Verfallsdatum. Viel Spaß!",
+                "subtitle": "Es scheint, als wolle Sie jemand überraschen.",
+                "title": "Sie haben ein Geschenk erhalten!",
+                "content1withDate": "Ihr {{price}} Gutschein ist mit allen Produkten in unserem Shop kompatibel. Dieser Gutschein verfällt {{expiration_days }} Tage nach der Aktivierung, also gönnen Sie sich was!"
             }
         },
         "list": {
             "actions": {
-                "create": "Eine Geschenkkarte erstellen",
-                "goToGiftcard": "Alle Geschenkkarten anzeigen"
+                "create": "Einen Gutschein hinzufügen",
+                "goToGiftcard": "Alle Gutscheine anzeigen"
             },
-            "addBackgroundImage": "Hinzufügen von Anpassungsbildern",
-            "isEmpty": "Keine Geschenkkarten verfügbar",
-            "archivedTitle": "Archiviert",
+            "addBackgroundImage": "Bild hinzufügen",
+            "isEmpty": "Keine Gutscheine verfügbar",
+            "archivedTitle": "Archivierte Gutscheine",
             "explainIfEmpty": "Gutscheine ermöglichen es Ihren Mitgliedern, Angebote mit ihren Gästen zu teilen und die potenzielle Reichweite Ihres Studios zu erhöhen.",
             "unavailableForSaleTitle": "Nicht zum Verkauf verfügbar",
             "activeTitle": "Zum Verkauf verfügbar",
             "visibility": "Nicht sichtbar",
             "unlimited": "Unbegrenzt",
-            "validity": "Gültig {{ duration }} für Tage"
+            "validity": "Gültig für {{ duration }} Tage"
         },
         "delete": {
-            "submit": "Bestätigen Sie",
+            "submit": "Bestätigen",
             "cancel": "Abbrechen",
-            "content": "Wollen Sie diese Geschenkkarte wirklich archivieren? Sie wird nicht mehr über das Backoffice abrechenbar sein. Sie können sie später wieder aktivieren.",
-            "title": "Archivierung der Geschenkkarte"
+            "content": "Wollen Sie diesen Gutschein wirklich archivieren? Er wird nicht mehr in ihrem Backoffice zu sehen sein. Sie können ihn in der Zukunft wieder aktivieren.",
+            "title": "Diesen Gutschein archivieren"
         },
-        "search": "Suche nach einer Geschenkkarte",
-        "widget": "Eine Geschenkkarte auswählen",
+        "search": "Gutschein suchen",
+        "widget": "Gutschein auswählen",
         "giftcardTemplate": {
             "template": {
                 "deleteInstanceContent1": "Durch die Deaktivierung dieses Studios für die gemeinsame Nutzung des Gutscheins können alle Mitglieder, die diese Karte besitzen und sie von einem Mitglied erhalten haben, das diese Karte in diesem Studio gekauft hat, diese weiterhin nutzen. Sie können sie jedoch nicht mehr in anderen Studios verwenden.",
                 "unlimited": "Unbegrenzt",
                 "deleteTemplateContent": "Durch die Deaktivierung eines gemeinsam genutzten Gutscheins können Mitglieder, die diese Karte besitzen, sie nur noch in dem Studio nutzen, in dem sie gekauft wurde.",
-                "deleteInstanceContent2": "Schließlich sind Gutscheine, die in anderen Studios gekauft wurden, in dem deaktivierten Studio nicht mehr verwendbar, unabhängig davon, wann sie gekauft wurden.",
-                "validity": "Gültig {{count}} Tag",
-                "validity_plural": "Gültig {{count}} Tage",
+                "deleteInstanceContent2": "Gutscheine, die in anderen Studios gekauft wurden, sind in dem deaktivierten Studio nicht mehr verwendbar, unabhängig davon, wann sie gekauft wurden.",
+                "validity": "{{count}} Tag gültig",
+                "validity_plural": "{{count}} Tage gültig",
                 "validityDetail": "Gültigkeit vor Ablauf : {{count}} Tag",
                 "validityDetail_plural": "Gültigkeit vor Ablauf : {{count}} Tage",
                 "withoutTax": "Exkl. MwSt./Umsatzsteuer"
@@ -16810,7 +16810,7 @@
             "duration": "Alle {{frequency}} {{recurrency}} während {{number_of_billing}} {{recurrency_ponderate_by_number_of_billing}}",
             "noConfiguration": "Wählen Sie eine Konfiguration aus, um ihre Details zu sehen",
             "title": "Details zur Konfiguration",
-            "giftcard": "Geschenkkarten",
+            "giftcard": "Gutscheine",
             "paymentPack": "Kurspässe",
             "privatePass": "Terminpässe",
             "shopItem": "Produkte",
@@ -16832,9 +16832,9 @@
             "comboAvailableForAll": "Alle kompatiblen Packs",
             "comboAvailable": "{length}} kompatibles Paket",
             "comboAvailable_plural": "{{length}} kompatible Pakete",
-            "giftcardAvailableForALl": "Alle kompatiblen Geschenkkarten",
-            "giftcardAvailable": "{{length}} kompatible Geschenkkarte",
-            "giftcardAvailable_plural": "{{length}} kompatible Geschenkkarten",
+            "giftcardAvailableForALl": "Alle kompatiblen Gutscheine",
+            "giftcardAvailable": "{{length}} kompatibler Gutschein",
+            "giftcardAvailable_plural": "{{length}} kompatible Gutscheine",
             "shopItemAvailableForALl": "Alle Produkte aus dem kompatiblen Shop",
             "shopItemAvailable": "{{length}} Produkt aus dem kompatiblen Magazin",
             "shopItemAvailable_plural": "{{length}} kompatible Produkte aus den Geschäften",
@@ -16892,7 +16892,7 @@
                 "selectPrivatePass": "Terminpässe auswählen",
                 "selectCombo": "Wählen Sie ein Paket aus",
                 "selectShopItem": "Wählen Sie ein Produkt aus",
-                "selectGiftcard": "Eine Geschenkkarte auswählen",
+                "selectGiftcard": "Einen Gutscheine auswählen",
                 "allPass": "Kompatibel mit allen Kurspässen",
                 "pack": "Kurspass",
                 "privateBooking": "Terminpass",
@@ -16901,8 +16901,8 @@
                 "allCombo": "Mit allen Paketen kompatibel",
                 "shopItem": "Produkte im Laden",
                 "allShopItem": "Kompatibel mit allen Produkten im Laden",
-                "giftcard": "Geschenkkarten",
-                "allGiftcard": "Kompatibel mit allen Geschenkkarten"
+                "giftcard": "Gutscheine",
+                "allGiftcard": "Kompatibel mit allen Gutscheinen"
             },
             "customInstalmentAmount": {
                 "label": "die Höhe der ersten Ratenzahlung anpassen",
@@ -17402,7 +17402,7 @@
                 "day_plural": "alle {{ recurrence_basis }} Tage"
             },
             "subtitle": {
-                "giftcard": "Geschenkkarte",
+                "giftcard": "Gutschein",
                 "subscription": "Vertrag",
                 "paymentCombo": "Paket",
                 "shopProduct": "Produkt",

@@ -272,16 +272,16 @@ export const useMuiThemeToCssVars = () => {
     --bs-brand-secondary-weak: ${theme.palette.secondary.light};
 
     /* FABRIQUE SPACING */
-    --bs-space-size-1: 4;
+    --bs-space-size-1: 4px;
 
     /* FABRIQUE BORDER RADIUS */
-    --bs-border-radius-button-lg: 10;
-    --bs-border-radius-circle: 999;
-    --bs-border-radius-pill: 99;
-    --bs-border-radius-lg: 12;
-    --bs-border-radius-md: 8;
-    --bs-border-radius-sm: 6;
-    --bs-border-radius-xs: 4;
+    --bs-border-radius-button-lg: 10px;
+    --bs-border-radius-circle: 999px;
+    --bs-border-radius-pill: 99px;
+    --bs-border-radius-lg: 12px;
+    --bs-border-radius-md: 8px;
+    --bs-border-radius-sm: 6px;
+    --bs-border-radius-xs: 4px;
 
     /* FABRIQUE TYPOGRAPHY */
     --bs-font-family : "Hanken Grotesk", sans-serif;

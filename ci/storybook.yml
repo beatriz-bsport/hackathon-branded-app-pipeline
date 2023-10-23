@@ -26,19 +26,32 @@
 
 Deploy-storybook Feature Branch:
   extends: .Deploy-storybook
-  except:
-    - dev
-    - master
-    - production
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_COMMIT_REF_NAME == "production"
+      when: never 
+    - if: $CI_COMMIT_REF_NAME == "dev"
+      when: never
+    - if: $CI_COMMIT_REF_NAME == "master"
+      when: never
+    - when: always
 
 Deploy-storybook:
   extends: .Deploy-storybook
   allow_failure: true
   stage: label-issues
-  only:
-    - dev
-    - master
-    - production
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_COMMIT_REF_NAME == "dev"
+      when: always
+    - if: $CI_COMMIT_REF_NAME == "master"
+      when: always
+    - if: $CI_COMMIT_REF_NAME == "production"
+      when: always
+    - when: never
+
 # FOR REFERENCE : same thing but with gitlab.io pages
 # --------------------------------------------------
 

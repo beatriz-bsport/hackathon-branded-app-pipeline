@@ -52,9 +52,12 @@
 
 Buid Deploy Staging:
   extends: .Build and deploy Base
-  only:
-    refs:
-      - master
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_COMMIT_REF_NAME == "master"
+      when: always
+    - when: never
   variables:
     ENVIRONMENT: staging
     FRONTEND_URL: backoffice.staging.bsport.io
@@ -68,9 +71,12 @@ Buid Deploy Staging:
 
 Buid Deploy Production:
   extends: .Build and deploy Base
-  only:
-    refs:
-      - production
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_COMMIT_REF_NAME == "production"
+      when: always
+    - when: never
   variables:
     ENVIRONMENT: production
     FRONTEND_URL: backoffice.bsport.io
@@ -85,9 +91,12 @@ Buid Deploy Production:
 
 Buid Deploy Dev:
   extends: .Build and deploy Base
-  only:
-    refs:
-      - dev
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_COMMIT_REF_NAME == "dev"
+      when: always
+    - when: never
   variables:
     ENVIRONMENT: dev
     FRONTEND_URL: backoffice.dev.bsport.io
@@ -100,10 +109,16 @@ Buid Deploy Dev:
     - cluster:bsport-tooling
 
 .Build Deploy Feature Branch Generic:
-  except:
-    - dev
-    - master
-    - production
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_COMMIT_REF_NAME == "production"
+      when: never 
+    - if: $CI_COMMIT_REF_NAME == "dev"
+      when: never
+    - if: $CI_COMMIT_REF_NAME == "master"
+      when: never
+    - when: always
   variables:
     CLOUDFRONT_ID: E2QPTVAZWMZ5F5
     SLACK_WEBHOOK_URL: '${SLACK_FEATURE_BRANCH_WEBHOOK_URL}'
@@ -172,16 +187,22 @@ Buid Deploy Dev:
 
 Build Deploy Feature Branch Backend And Frontend:
   extends: .Build Deploy Feature Branch Generic
-  only:
-    variables:
-      - $CI_COMMIT_MESSAGE =~ /deploy-chaos-env:/
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_COMMIT_MESSAGE =~ /deploy-chaos-env:/
+      when: always
+    - when: never
   variables:
     ENV_TEMPLATE_FILE: template-feature-branch
 
 Build Deploy Feature Branch Frontend Only:
   extends: .Build Deploy Feature Branch Generic
-  only:
-    variables:
-      - $CI_COMMIT_MESSAGE =~ /deploy-frontend-only-chaos-env:/
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_COMMIT_MESSAGE =~ /deploy-frontend-only-chaos-env:/
+      when: always
+    - when: never
   variables:
     ENV_TEMPLATE_FILE: template-frontend-only-feature-branch

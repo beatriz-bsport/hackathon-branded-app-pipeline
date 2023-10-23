@@ -4,18 +4,28 @@
   tags:
     - light
     - cluster:bsport-tooling
-  only:
-    - dev
-    - master
-    - production
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_COMMIT_REF_NAME == "dev"
+      when: always
+    - if: $CI_COMMIT_REF_NAME == "master"
+      when: always
+    - if: $CI_COMMIT_REF_NAME == "production"
+      when: always
+    - when: never
   script: ./scripts/label-gitlab-issue.sh
   allow_failure: true
 
 
 Label issue dev:
   extends: .Label issues Base
-  only:
-    - dev
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_COMMIT_REF_NAME == "dev"
+      when: always
+    - when: never
   variables:
     ENVIRONMENT: dev
     SOURCE_BRANCH: dev
@@ -23,8 +33,12 @@ Label issue dev:
 
 Label issue staging:
   extends: .Label issues Base
-  only:
-    - master
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_COMMIT_REF_NAME == "master"
+      when: always
+    - when: never
   variables:
     ENVIRONMENT: staging
     SOURCE_BRANCH: master
@@ -32,8 +46,12 @@ Label issue staging:
 
 Label issue production:
   extends: .Label issues Base
-  only:
-    - production
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_COMMIT_REF_NAME == "production"
+      when: always
+    - when: never
   variables:
     ENVIRONMENT: production
     SOURCE_BRANCH: production

@@ -4,10 +4,6 @@
   tags:
     - light
     - cluster:bsport-tooling
-  only:
-    - dev
-    - master
-  when: manual
   script:
     - git remote -v
     - git remote set-url origin https://${GIT_USERNAME}:${GIT_PASSWORD}@gitlab.com/bsport/bsport-saas.git
@@ -20,16 +16,24 @@
 
 Promote to staging:
   extends: .Promote Base
-  only:
-    - dev
   variables:
     SOURCE_BRANCH: dev
     DEST_BRANCH: master
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_COMMIT_REF_NAME == "dev"
+      when: manual
+    - when: never
 
 Promote to production:
   extends: .Promote Base
-  only:
-    - master
   variables:
     SOURCE_BRANCH: master
     DEST_BRANCH: production
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_COMMIT_REF_NAME == "master"
+      when: manual 
+    - when: never

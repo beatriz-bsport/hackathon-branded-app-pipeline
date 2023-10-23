@@ -18,6 +18,18 @@ stages:
 before_script:
   - OLD_VERSION=`echo "$(cat ./VERSION)"`
 
+include:
+  - local: '/ci/storybook.yml'
+  - local: '/ci/widget.yml'
+  - local: '/ci/docker-image.yml'
+  - local: '/ci/label-issues.yml'
+  - local: '/ci/static-analysis.yml'
+  - local: '/ci/promote.yml'
+  - local: '/ci/build.yml'
+  - local: '/ci/tag-releases.yml'
+  - local: '/ci/build-retro.yaml'
+
+
 # sonarcloud-check:
 #   stage: static-analysis 
 #   allow_failure: true
@@ -41,44 +53,44 @@ before_script:
 #     SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache
 #     GIT_DEPTH: "0"  # Tells git to fetch all the branches of the project, required by the analysis task
 
-.Auto Bump Version Base:
-  image: 672633452901.dkr.ecr.eu-west-3.amazonaws.com/bsport-infra/gitlab-build-docker:latest
-  stage: bump-version
-  tags:
-    - light
-    - cluster:bsport-tooling
-  allow_failure: true
-  only:
-    - master
-    - production
-  before_script:
-    - echo 'Overriding default before_script instruction relying on yarn'
-
-  script:
-    - echo $CI_COMMIT_REF_NAME
-    - envsubst "$(printf '${%s} ' $(env | sed 's/=.*//'))"  > .cz < .cz
-    - cat .cz
-    - git remote -v
-    - git remote set-url origin https://${GIT_USERNAME}:${GIT_PASSWORD}@gitlab.com/bsport/bsport-saas.git
-    - git config --global user.email "contact@bsport.io"
-    - git config --global user.name "bsport-bot"
-    - git fetch --tags
-    - 'exists=`git show-ref refs/heads/${CI_COMMIT_REF_NAME}` && if [ -n "$exists" ]; then git branch -D ${CI_COMMIT_REF_NAME}; fi'
-    - git checkout -b $CI_COMMIT_REF_NAME
-
-    - '[[ $PRERELEASE ]] && cz bump --check-consistency --yes --changelog --prerelease $PRERELEASE && SHOULD_PUSH=1 || SHOULD_PUSH=0;'
-    - 'cz bump --check-consistency --yes --changelog --prerelease $PRERELEASE && SHOULD_PUSH=1 || SHOULD_PUSH=0;'
-    - VERSION=`echo "$(cat ./VERSION)"`
-    - echo $VERSION
-    - echo "#!/bin/sh" >> variables
-    - echo "export TAG='$VERSION'" >> variables
-
-    - 'git push origin $CI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME --follow-tags || echo "no code to push"'
-    - ./scripts/release-gitlab.sh $VERSION  $CI_PROJECT_ID
-
-  artifacts:
-    paths:
-      - variables
+# .Auto Bump Version Base:
+#   image: 672633452901.dkr.ecr.eu-west-3.amazonaws.com/bsport-infra/gitlab-build-docker:latest
+#   stage: bump-version
+#   tags:
+#     - light
+#     - cluster:bsport-tooling
+#   allow_failure: true
+#   only:
+#     - master
+#     - production
+#   before_script:
+#     - echo 'Overriding default before_script instruction relying on yarn'
+# 
+#   script:
+#     - echo $CI_COMMIT_REF_NAME
+#     - envsubst "$(printf '${%s} ' $(env | sed 's/=.*//'))"  > .cz < .cz
+#     - cat .cz
+#     - git remote -v
+#     - git remote set-url origin https://${GIT_USERNAME}:${GIT_PASSWORD}@gitlab.com/bsport/bsport-saas.git
+#     - git config --global user.email "contact@bsport.io"
+#     - git config --global user.name "bsport-bot"
+#     - git fetch --tags
+#     - 'exists=`git show-ref refs/heads/${CI_COMMIT_REF_NAME}` && if [ -n "$exists" ]; then git branch -D ${CI_COMMIT_REF_NAME}; fi'
+#     - git checkout -b $CI_COMMIT_REF_NAME
+# 
+#     - '[[ $PRERELEASE ]] && cz bump --check-consistency --yes --changelog --prerelease $PRERELEASE && SHOULD_PUSH=1 || SHOULD_PUSH=0;'
+#     - 'cz bump --check-consistency --yes --changelog --prerelease $PRERELEASE && SHOULD_PUSH=1 || SHOULD_PUSH=0;'
+#     - VERSION=`echo "$(cat ./VERSION)"`
+#     - echo $VERSION
+#     - echo "#!/bin/sh" >> variables
+#     - echo "export TAG='$VERSION'" >> variables
+# 
+#     - 'git push origin $CI_COMMIT_REF_NAME:$CI_COMMIT_REF_NAME --follow-tags || echo "no code to push"'
+#     - ./scripts/release-gitlab.sh $VERSION  $CI_PROJECT_ID
+# 
+#   artifacts:
+#     paths:
+#       - variables
 
 #Auto Bump Dev:
 #  extends: .Auto Bump Version Base
@@ -101,21 +113,6 @@ before_script:
 #   only:
 #     refs:
 #       - production
-
-
-
-
-
-
-include:
-  - local: '/ci/storybook.yml'
-  - local: '/ci/widget.yml'
-  - local: '/ci/docker-image.yml'
-  - local: '/ci/label-issues.yml'
-  - local: '/ci/static-analysis.yml'
-  - local: '/ci/promote.yml'
-  - local: '/ci/build.yml'
-  - local: '/ci/tag-releases.yml'
 
 # release on sentry:
 #   stage: build

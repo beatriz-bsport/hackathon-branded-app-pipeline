@@ -8,23 +8,32 @@ Build widget dev:
   extends: .Build widget
   trigger:
     branch: dev
-  only:
-    refs:
-      - dev
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_COMMIT_REF_NAME == "dev"
+      when: always
+    - when: never
 
 Build widget staging:
   extends: .Build widget
-  only:
-    refs:
-      - master
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_COMMIT_REF_NAME == "master"
+      when: always
+    - when: never
   trigger:
     branch: master 
 
 Build widget production:
   extends: .Build widget
-  only:
-    refs:
-      - production
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: $CI_COMMIT_REF_NAME == "production"
+      when: always
+    - when: never
   trigger:
     branch: production
 

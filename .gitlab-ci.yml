@@ -13,6 +13,7 @@ stages:
   - build-widget
   - promote
   - label-issues
+  - tag-releases
 
 before_script:
   - OLD_VERSION=`echo "$(cat ./VERSION)"`
@@ -114,6 +115,7 @@ include:
   - local: '/ci/static-analysis.yml'
   - local: '/ci/promote.yml'
   - local: '/ci/build.yml'
+  - local: '/ci/tag-releases.yml'
 
 # release on sentry:
 #   stage: build

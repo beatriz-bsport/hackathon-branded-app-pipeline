@@ -508,7 +508,7 @@ export const useMuiThemeToCssVars = () => {
     --bs-color-icon-brand-main-strong: var(--bs-brand-main-strong);
     --bs-color-icon-brand-main-weak: var(--bs-brand-main-weak);
 
-    --bs-color-icon-brand-secondary: var(--bs-brand-main);
+    --bs-color-icon-brand-secondary: var(--bs-brand-secondary);
     --bs-color-icon-brand-secondary-strong: var(--bs-brand-secondary-strong);
     --bs-color-icon-brand-secondary-weak: var(--bs-brand-secondary-weak);
 

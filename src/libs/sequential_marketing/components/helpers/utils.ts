@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-import type { TFunction } from 'i18next';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import GroupIcon from '@material-ui/icons/Group';
@@ -118,7 +117,7 @@ const getEventCategoryIcon = (eventType: Events): typeof SvgIcon => {
  * @param {Events} eventType - Sequential marketing event type
  * @returns {string} - Return the corresponding naming used as key for translation
  */
-const getEventCategoryText = (eventType: Events): string => {
+export const getEventCategoryText = (eventType: Events): string => {
   for (const category of CADENCE_EVENT_CATEGORY_CHOICES) {
     if (CADENCE_EVENT_GROUPED_BY_CATEGORY[category]?.includes(eventType)) {
       return categoryChipDict[category];
@@ -198,41 +197,6 @@ export const TriggerText = ({
   }
 };
 
-/** Function returning the name corresponding to the connected trigger in parameter
- * @param {TFunction} t - Translation function
- * @param {ConnectedTrigger} connected_trigger_config - Cadence connected trigger config
- * @param {SmartList} smartlist - Smartlist used in connected_trigger_config filtering
- * @returns {string} - Return the corresponding translated name
- */
-export const getTriggerLabel = (
-  t: TFunction,
-  connected_trigger_config: ConnectedTrigger,
-  smartlist?: SmartList | undefined,
-) => {
-  switch (connected_trigger_config?.trigger_config?.identifier) {
-    case TriggerIdentifier.EMPTY:
-      if (
-        connected_trigger_config.filtering_config?.smartlist_pk ===
-        smartlist?.id
-      ) {
-        return smartlist.name;
-      }
-      return t('All');
-    case TriggerIdentifier.EVENT:
-      return t(
-        `cadence.triggers.events.${getEventCategoryText(
-          connected_trigger_config.trigger_config?.event_type,
-        )}`,
-      );
-    case TriggerIdentifier.TIMEOUT:
-      return t('cadence.triggers.timeout.timout_days_chip', {
-        days: connected_trigger_config.trigger_config?.timeout || 0,
-      });
-    default:
-      return t('Error');
-  }
-};
-
 /** Function returning the exact name corresponding to the event connected trigger in parameter
  * @param {ConnectedTrigger} connected_trigger_config - Cadence event connected trigger config
  * @returns {string} - Return the corresponding translated name
@@ -242,26 +206,6 @@ export const EventTriggerDetailText = ({
 }: TriggerTextProps) => {
   const { t } = useTranslation('marketing');
 
-  if (
-    connected_trigger_config?.trigger_config?.identifier !==
-    TriggerIdentifier.EVENT
-  ) {
-    return TriggerText({ connected_trigger_config });
-  }
-  return t(
-    `cadence.form.event.${connected_trigger_config?.trigger_config?.event_type}`,
-  );
-};
-
-/** Function returning the exact name corresponding to the event connected trigger in parameter
- * @param {TFunction} t - Translation function
- * @param {ConnectedTrigger} connected_trigger_config - Cadence event connected trigger config
- * @returns {string} - Return the corresponding translated name
- */
-export const getEventTriggerDetailText = (
-  t: TFunction,
-  connected_trigger_config: ConnectedTrigger,
-) => {
   if (
     connected_trigger_config?.trigger_config?.identifier !==
     TriggerIdentifier.EVENT

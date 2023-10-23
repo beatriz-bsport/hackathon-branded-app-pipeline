@@ -1,13 +1,10 @@
 import React, { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 
 import {
   getEventCategoryIconAsString,
-  getEventTriggerDetailText,
   getTriggerKind,
   getTriggerSpecificIcon,
-  getTriggerLabel,
 } from '#libs/sequential_marketing/components/helpers/utils';
 import {
   TriggerKind,
@@ -21,6 +18,7 @@ import type {
   TriggerEventConfig,
 } from '#libs/sequential_marketing/types';
 import type { SmartList } from '#libs/smart-list/types';
+import useConnectedTriggerChip from './useConnectedTriggerChip.hook';
 
 export type ConnectedTriggerChipProps = {
   trigger: ConnectedTrigger;
@@ -33,8 +31,11 @@ const ConnectedTriggerChip: React.FC<ConnectedTriggerChipProps> = ({
   color,
   getSmartlist,
 }) => {
-  const { t } = useTranslation('marketing');
   const classes = useStyles();
+
+  const { getTriggerLabel, getEventTriggerDetailText } =
+    useConnectedTriggerChip();
+
   const triggerKind = useMemo(() => getTriggerKind(trigger), [trigger]);
 
   switch (triggerKind) {
@@ -46,7 +47,6 @@ const ConnectedTriggerChip: React.FC<ConnectedTriggerChipProps> = ({
           color={color}
           icon={getTriggerSpecificIcon(trigger)}
           name={getTriggerLabel(
-            t,
             trigger,
             getSmartlist?.(trigger?.filtering_config?.smartlist_pk),
           )}
@@ -60,8 +60,8 @@ const ConnectedTriggerChip: React.FC<ConnectedTriggerChipProps> = ({
             icon={getEventCategoryIconAsString(
               (trigger?.trigger_config as TriggerEventConfig)?.event_type,
             )}
-            name={getTriggerLabel(t, trigger)}
-            toolTipValue={getEventTriggerDetailText(t, trigger)}
+            name={getTriggerLabel(trigger)}
+            toolTipValue={getEventTriggerDetailText(trigger)}
           />
           <div className={classes.filter}>
             <CustomMuiIcon

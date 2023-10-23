@@ -185,12 +185,14 @@ export const MemberBillingProblemCard = (props: Props) => {
           'member.allowed_actions.readBalance',
           'billing.allowed_actions.takePayment',
           'billing.allowed_actions.editBalance',
+          'billing.allowed_actions.readInvoices',
         ]}
       >
         {([
           hasReadBalancePermission,
           hasTakePaymentPermission,
           hasEditBalancePermission,
+          hasReadInvoicesPermission,
         ]: boolean[]) => (
           <>
             {!!(!props.asConsumer || (parsedBalance && parsedBalance < 0)) && (
@@ -237,7 +239,7 @@ export const MemberBillingProblemCard = (props: Props) => {
                 )}
               </div>
             )}
-            {!!unpaidInvoiceList.length && (
+            {!!unpaidInvoiceList.length && hasReadInvoicesPermission && (
               <React.Fragment>
                 {props.showPositiveBalance && (
                   <div className={classes.padding}>

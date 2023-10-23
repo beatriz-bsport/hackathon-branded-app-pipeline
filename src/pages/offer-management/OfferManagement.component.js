@@ -60,6 +60,7 @@ import Config from '../../config';
 import MemberProgramDetailDialog from '#libs/performance-tracking/components/member-program/MemberProgramDetail.dialog';
 import ConfirmationRollCallDialog from '#libs/offer/components/ConfirmationRollCallDialog.component';
 import { InternalPaymentPayload } from '../../libs/payment/types';
+import ObjectLevelPermissionWrapper from '../../libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 const RECURRENT_BOOKING_PAGE_SIZE = 10;
 
@@ -838,10 +839,15 @@ export class OfferManagement extends Component<Props, State> {
             }
             unevenSavedInvoices={this.props.unpaidInvoiceList}
           />
-          <Prompt
-            message={this.props.t('offerManagement.unevenQuickInvoices')}
-            when={this.props.unpaidInvoiceList.length > 0}
-          />
+          <ObjectLevelPermissionWrapper
+            forcedBehavior="hidden"
+            requiredPermission="billing.allowed_actions.readInvoices"
+          >
+            <Prompt
+              message={this.props.t('offerManagement.unevenQuickInvoices')}
+              when={this.props.unpaidInvoiceList.length > 0}
+            />
+          </ObjectLevelPermissionWrapper>
         </Grid>
         {!!this.props.memberToRegister && (
           <BookerModuleManager

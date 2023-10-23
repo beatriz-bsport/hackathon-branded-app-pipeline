@@ -108,6 +108,7 @@
     "react-gtm-module": "^2.0.8",
     "react-helmet": "^5.2.1",
     "react-i18next": "10.13.2",
+    "react-infinite-scroll-component": "^6.1.0",
     "react-intercom": "^1.0.15",
     "react-leaflet": "^2.0.0",
     "react-linkify": "^1.0.0-alpha",

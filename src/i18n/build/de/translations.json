@@ -8637,7 +8637,7 @@
         "bookingModule": {
             "option": {
                 "isFull": "Der Kurs ist voll. Du kannst dich auf die Warteliste eintragen. Du wirst per E-Mail benachrichtigt, sobald ein Platz frei wird.",
-                "isAlreadyOnWaitingList": "Du bist auf der Warteliste registriert. Wir werden Dich per Email benachrichtigen, wenn ein Platz frei wird.",
+                "isAlreadyOnWaitingList": "Du bist auf der Warteliste registriert. Wir werden Dich per E-Mail benachrichtigen, wenn ein Platz frei wird.",
                 "registerOption": "Mich auf die Warteliste setzen lassen",
                 "isAlreadyRegistered": "Die Session ist voll. Herzlichen Glückwunsch, Sie sind eingebucht!",
                 "waitingListOpen": "Der Kurs ist voll. Sie können sich jedoch auf die Warteliste setzen lassen. Wir werden Sie per E-Mail benachrichtigen, sobald ein Platz verfügbar ist.",
@@ -8838,7 +8838,7 @@
                 "pushHelper": "Achtung, Push-Benachrichtigungen sollten sparsam eingesetzt werden. Zu viele Push-Benachrichtigungen können dazu führen, dass einige Mitglieder die App deinstallieren.",
                 "needPushUpsell": "Bitte aktivieren Sie das Push-Benachrichtigungs-Add-On, um diese Funktion zu nutzen.",
                 "push": "Push-Benachrichtigung",
-                "mail": "Email",
+                "mail": "E-Mail",
                 "sendingMethod": "Kommunikationskanal",
                 "sendAfterNotifications": "Sende diese Benachrichtigung, nachdem die Session, die davon betroffen ist, vorbei ist",
                 "sendAfterNotification": "Sende diese Push-Benachrichtigung, nachdem die davon betroffene Session vorbei ist",
@@ -9023,7 +9023,7 @@
                     "label": "Vorname"
                 },
                 "email": {
-                    "label": "Email"
+                    "label": "E-Mail"
                 },
                 "errors": {
                     "email": "Bitte fügen Sie eine gültige E-Mail-Adresse ein",
@@ -9367,7 +9367,7 @@
                             "title": "Fusion Angenommen"
                         },
                         "accepted": {
-                            "title": "Fusion Angenommen",
+                            "title": "Fusion angenommen",
                             "content": "Ihr Konto wurde erfolgreich mit \"{{ old_email }}\" zusammengeführt. Sie wurden bei {{- company }} registriert und können von nun an die mit \"{{ new_email }}\" verbundenen Anmeldedaten verwenden."
                         }
                     },
@@ -9435,7 +9435,7 @@
                 "securityHelperText": "Aus Sicherheitsgründen werden wir ihm eine E-Mail schicken, um diese Änderung zu bestätigen.",
                 "expiryText": "Nach dem Absenden läuft der Änderungsantrag innerhalb von 7 Tagen ab",
                 "newEmail": "Neue Adresse: {{ email }}",
-                "oldEmail": "Ehemalige Adresse: {{ email }}",
+                "oldEmail": "Ehemalige E-Mail-Adresse: {{ email }}",
                 "mergeMember": {
                     "unchangedEmail": "Wenn Sie auf Bestätigen klicken, wird das Mitglied {{ new_email }} die Rechnungen, Buchungen, den Kontostand und die Einkäufe von {{ old_email }} abrufen. Das Mitglied {{ old_email }} wird gelöscht. An beide Adressen wird eine E-Mail gesendet, um die Mitglieder zu benachrichtigen.",
                     "warning": "Achtung, Sie versuchen, diese beiden Mitglieder Ihres Studios zu verschmelzen :"
@@ -9532,7 +9532,7 @@
             "label": "Nummer des Ausweisdokuments"
         },
         "signedUpWithReferral": "Mitglied hat sich mit dem Empfehlungslink von <1>{{ name }}<1> angemeldet",
-        "email": "Email"
+        "email": "E-Mail"
     },
     "common": {
         "text": {
@@ -9547,17 +9547,17 @@
         },
         "form": {
             "duration": {
-                "day": "Tag :",
-                "day_plural": "Tage :",
-                "hour": "Stunde :",
-                "hour_plural": "Stunden :",
-                "minute": "Minute :",
-                "minute_plural": "Minuten :"
+                "day": "Dauer in Tagen:",
+                "day_plural": "Tage:",
+                "hour": "Dauer in Stunden:",
+                "hour_plural": "Stunden:",
+                "minute": "Dauer in Minuten:",
+                "minute_plural": "Minuten:"
             },
-            "requiredField": "dieses Feld ist erforderlich"
+            "requiredField": "Dieses Feld ist erforderlich."
         },
         "selector": {
-            "validate": "Bestätigen Sie",
+            "validate": "Bestätigen",
             "unselectAll": "Alle abwählen",
             "selectAll": "Alle auswählen"
         },
@@ -9568,12 +9568,12 @@
         "activate": "Aktivieren",
         "save": "Speichern",
         "requiredField": "dieses Feld ist erforderlich",
-        "startAfterEnd": "Das Startdatum muss kleiner sein als das Enddatum",
-        "endBeforeStart": "Das Enddatum muss größer sein als das Startdatum",
+        "startAfterEnd": "Das Startdatum muss vor dem Enddatum liegen",
+        "endBeforeStart": "Das Enddatum kann nicht vor dem Startdatum liegen",
         "monthly": "Monatlich",
         "weekly": "Wöchentlich",
         "showLess": "Weniger anzeigen",
-        "showMore": "Mehr anzeigen {{count}}",
+        "showMore": "Mehr anzeigen ({{count}})",
         "duration": {
             "minute": "{{ count }} Minute",
             "minute_plural": "{{ count }} Minuten",
@@ -9587,14 +9587,14 @@
         "delete": "Löschen",
         "finish": "Beenden",
         "letsGo": "Los geht's!",
-        "previous": "Vorher",
-        "next": "Weiter",
+        "previous": "Vorherige",
+        "next": "Nächste",
         "start": "Beginnen",
         "card": {
             "categoryNames": {
                 "restrictions": "Einschränkungen",
                 "credits": "Anzahl der Credits",
-                "vod": "VOD",
+                "vod": "Video On-Demand",
                 "accessibility": "Zugänglichkeit",
                 "compatibility": "Kompatibilität",
                 "paymentMethods": "Verfügbare Zahlungsmethoden",
@@ -9912,7 +9912,7 @@
             "searchSlot": "Einen Slot suchen",
             "availableSlots": "Verfügbare Slots",
             "private_pass": {
-                "credits": "{{ credits }} Krediptunkte"
+                "credits": "{{ credits }} Credit(s)"
             },
             "bookingCapabilities": {
                 "emptyConsumerPassList": "Du besitzt keine gültige Karte mit ausreichenden Credits",
@@ -10887,7 +10887,7 @@
                     "cancel": "abbrechen",
                     "title": "Unterdrückung der Benachrichtigung"
                 },
-                "mail": "Mail "
+                "mail": "E-Mail "
             },
             "addButton": "Eine Benachrichtigung hinzufügen"
         },
@@ -11033,7 +11033,7 @@
             "readCount": "Anzahl der Öffnungen",
             "kind": {
                 "1": "SMS",
-                "0": "E-mail",
+                "0": "E-Mail",
                 "2": "Push-Benachrichtigung"
             },
             "unavailableMail": "Preview nicht verfügbar",
@@ -11088,20 +11088,20 @@
             "noObject": "Kein Betreff",
             "title": "Betreff",
             "missing": "E-Mail nicht vorhanden",
-            "success": "Die E-Mail wurde gesendet",
+            "success": "Die Nachricht wurde versendet.",
             "content": "Inhalt der E-Mail",
-            "refreshText": "Bitte lade die Seite neu, um die E-Mail-Änderung zu aktualisieren",
-            "error": "E-Mail wurde nicht versendet, versuche es später erneut",
-            "refreshTextPhone": "Bitte lade die Seite neu, um die Telefonänderung zu aktualisieren",
-            "sendSms": "Sende eine SMS",
+            "refreshText": "Bitte laden Sie die Seite neu, um die E-Mail-Änderung zu aktualisieren",
+            "error": "E-Mail wurde nicht versendet, bitte versuchen Sie es später erneut",
+            "refreshTextPhone": "Bitte laden Sie die Seite neu, um die Telefonänderung zu aktualisieren",
+            "sendSms": "SMS senden",
             "hideMail": "E-Mail verstecken",
             "count": "Zeichen",
             "showMail": "E-Mail ansehen",
             "mailSelection": "E-Mail auswählen",
-            "selectToShowPreview": "Wählen Sie eine E-Mail aus, um eine Vorschau zu sehen",
+            "selectToShowPreview": "Wählen Sie eine E-Mail aus, um eine Vorschau davon zu sehen.",
             "noMailAvailable": "Keine verfügbare E-Mail, bitte erstelle eine E-Mail",
-            "phoneMissing": "Fehlende Telefonnummer",
-            "mailMissing": "E-Mail nicht vorhanden",
+            "phoneMissing": "Es kann keine Telefonnummer angezeigt werden.",
+            "mailMissing": "Es kann keine E-Mail angezeigt werden.",
             "numberSms": "SMS",
             "contentSms": "SMS-Inhalt",
             "selectTemplate": "Eine Vorlage auswählen",
@@ -11270,7 +11270,7 @@
             "noPhone": "nicht ausgefüllte Nummer",
             "noMail": "nicht ausgefüllte E-Mail",
             "warnings": {
-                "full": "Einige Empfänger haben keine Mail/Telefonnummer und es wurden nicht alle Empfänger ausgewählt.",
+                "full": "Einige Empfänger haben keine E-Mail/Telefonnummer und es wurden nicht alle Empfänger ausgewählt.",
                 "recipientsNotAllSelected": "Es wurden nicht alle Empfänger ausgewählt.",
                 "phoneOrMailMissing": "Manche Empfänger haben keine E-Mail-Adresse/Telefonnummer.",
                 "header": "Achtung"
@@ -11699,9 +11699,9 @@
             "downloadCSV": "Download (.csv)"
         },
         "fields": {
-            "rule": "Regel für die Bezahlung der Session",
+            "rule": "Regel für die Entlohnung der Session",
             "date": "Datum",
-            "name": "Name des Kurses",
+            "name": "Name der Session",
             "duration": "Dauer",
             "base": "Basis",
             "bonus": "Bonus",
@@ -11710,18 +11710,18 @@
             "total": "Gesamtvergütung",
             "cancelled_bookings": "Stornierte Buchungen",
             "confirmed_bookings": "Teilnehmer",
-            "unpaid_private_booking": "Termine sind unbezahlt.",
+            "unpaid_private_booking": "Unbezahlte Termine.",
             "coachName": "Lehrkraft",
-            "total_on_appointments": "Vergütung Termin",
-            "total_on_sessions": "Vergütung Gruppenunterricht",
+            "total_on_appointments": "Vergütung (Termine)",
+            "total_on_sessions": "Vergütung (Gruppenaktivitäten & Workshops)",
             "nb_appointments": "Anzahl der Termine",
-            "nb_sessions": "Anzahl der Session",
+            "nb_sessions": "Anzahl der Sessions",
             "totalNetGain": "Gesamtnettogewinn",
             "netGain": "Nettogewinn",
             "marginValue": "Marginaler Input",
             "nb_private_bookings": " "
         },
-        "checkboxIncludeABonus": "Einen Leistungsbonus einschließen",
+        "checkboxIncludeABonus": "Einen Leistungsbonus integrieren",
         "pricePerOffer": "Betrag pro Session",
         "dateTitle": "Zeitraum",
         "bookingThresholdHelper": "Ein Kurs wird nur dann gezählt, wenn er diese Anzahl von Buchungen erreicht",
@@ -11736,20 +11736,20 @@
             "downloadMySavedData": "Download",
             "enterPreviewMode": "In den Preview-Modus wechseln",
             "unresolvedDaterange": "Ungültiges Lohnintervall",
-            "dateRange": "Bezüge des {{- startDate }} bis {{- endDate }}",
-            "dateSaved": "Daten erzeugt am {{ date }}",
+            "dateRange": "Lohnauszüge des {{- startDate }} bis {{- endDate }}",
+            "dateSaved": "Daten erzeugt am: {{ date }}",
             "title": "Gespeicherte Daten ({{ count }})",
-            "undeterminedOldestUpdate": "Ältestes Update nicht ermittelt",
-            "oldestUpdate": "Älteste Aktualisierung durchgeführt am: {{- date }}"
+            "undeterminedOldestUpdate": "Keine vorherigen Updates verfügbar",
+            "oldestUpdate": "Letzte Aktualisierung durchgeführt am: {{- date }}"
         },
         "export": {
             "completed": {
-                "message": "Die Exportdatei für die Lehrkräftegehälter ist verfügbar. Sie können diese Daten auch unter 'Gespeicherte Daten' abrufen.",
-                "title": "Excel-Export der Lehrkräftegehälter"
+                "message": "Die Exportdatei für die Lehrkraftgehälter ist verfügbar. Sie können diese Daten auch unter 'Gespeicherte Daten' abrufen.",
+                "title": "Excel-Export der Lehrkraftgehälter"
             },
             "dialog": {
                 "buttonText": "Bestätigen",
-                "message": "Durch den Export der Daten können Sie ein Excel für die ausgewählte Dauer erstellen. Diese Daten werden ebenfalls gespeichert und können später verwendet werden.",
+                "message": "Durch den Export der Daten können Sie ein Excel Dokument für die ausgewählte Dauer erstellen. Diese Daten können ebenfalls gespeichert und später verwendet werden.",
                 "title": "Exportieren und Speichern von Daten"
             },
             "buttonText": "Exportieren"
@@ -11757,7 +11757,7 @@
         "performance": {
             "table": {
                 "header": {
-                    "nbSessions": "Anzahl der Gruppenkurse",
+                    "nbSessions": "Anzahl der Gruppenaktivitäten",
                     "coachName": "Lehrkraft",
                     "confirmedBookings": " "
                 }
@@ -11766,9 +11766,9 @@
         "advancedFilters": {
             "byCoachPaymentRules": "Nach Vergütungsregeln filtern (für Lehrkräfte ohne Vergütungsgruppe)",
             "byCoachPaymentruleGroups": "Nach Gehaltsgruppen filtern",
-            "privateserviceCoachPaymentRuleSelector": "Treffpunkt",
+            "privateserviceCoachPaymentRuleSelector": "Termin",
             "workshopCoachPaymentRuleSelctor": "Workshops",
-            "sessionCoachPaymentRuleSelctor": "Gruppenunterricht ",
+            "sessionCoachPaymentRuleSelctor": "Gruppenaktivitäten ",
             "coachPaymentRuleGroupSelector": "Gehaltsgruppen",
             "coachSelector": "Wählen Sie Lehrkräfte aus",
             "reset": "Filter zurücksetzen",
@@ -11886,7 +11886,7 @@
             },
             "title": "Passwort wiederherstellen",
             "emailHasBeenSent": "Eine E-Mail wurde an \"{{email}}\" gesendet, um Ihr Passwort wiederherzustellen.",
-            "explain1": "Welche Email verwenden Sie zum Einloggen?",
+            "explain1": "Welche E-Mail verwenden Sie zum Einloggen?",
             "noEmail": "Diese E-Mail existiert nicht in unserer Mitgliederdatenbank.",
             "explain2": "Wir senden Ihnen Anweisungen zur Wiederherstellung Ihres Passworts.",
             "contactUs": "Kontaktieren Sie uns via ",
@@ -12292,7 +12292,7 @@
             "modifyTransactionnalNotification": "die Push-Benachrichtigung ändern",
             "sendTransactionnalNotification": "Eine Push-Benachrichtigung senden",
             "transactionnalNotification": "Push-Benachrichtigung",
-            "mailToSend": "Zu sendende Mail",
+            "mailToSend": "Zu sendende E-Mail",
             "copyCarbon": "Eine Kopie der E-Mail erhalten",
             "sendTransactionnalEmail": "Senden einer Transaktions-E-Mail",
             "transactionnalEmail": "Transaktions-E-Mail",
@@ -13202,7 +13202,7 @@
                 "giftcardTemplates": "Gutscheine",
                 "couponTemplates": "Angebote"
             },
-            "emailTemplates": "Emails",
+            "emailTemplates": "E-Mails",
             "notificationRules": "Transaktions-E-Mails",
             "widgets": "Widget",
             "staff": "Mitarbeiter",
@@ -13349,12 +13349,12 @@
                 "confirm": "Löschen",
                 "cancel": "Abbrechen",
                 "content": "Wenn diese Vorlage mit einer Transaktions-E-Mail-Konfiguration verknüpft ist, wird diese ebenfalls gelöscht. Sind Sie sicher, dass Sie diese E-Mail-Vorlage löschen möchten?",
-                "title": "Löschung des E-Mail-Vorlage"
+                "title": "E-Mail-Vorlage löschen"
             }
         },
         "editTitle": "Änderung der Vorlage",
         "autoSave": "Automatisches Backup",
-        "leaveAlert": "Möchtest Du diese Seite wirklich verlassen?",
+        "leaveAlert": "Möchten Sie diese Seite wirklich verlassen?",
         "delete": "Löschen",
         "edit": "Ändern",
         "allCompanies": "Alle Franchisenehmer",
@@ -13368,7 +13368,7 @@
         "forms": {
             "delete": {
                 "content": {
-                    "canDelete": "Bist Du Dir sicher, dass Du diese Lehrkraft entfernen möchtest? Du wirst dann keinen Zugang mehr auf die Berechnung seines Lohns haben. Du kannst ihn von seiner E-Mail aus erneut hinzufügen.",
+                    "canDelete": "Bist Du Dir sicher, dass Du diese Lehrkraft entfernen möchtest? Du wirst dann keinen Zugang mehr auf die Berechnung ihres Lohns haben. Du kannst sie von ihrer E-Mail aus erneut hinzufügen.",
                     "cannotDelete": "Du kannst diese Lehrkraft nicht entfernen, weil Kurse in der Zukunft geplant sind!"
                 },
                 "confirm": "Löschen",
@@ -13379,7 +13379,7 @@
                 },
                 "title": "Lehrkraft löschen"
             },
-            "error_email_exists": "Es gibt bereits eine Lehrkraft mit dieser E-Mail, verwende das Formular zur Erstellung einer Lehrkraft",
+            "error_email_exists": "Es gibt bereits eine Lehrkraft mit dieser E-Mail. Verwende das Formular zur Erstellung einer Lehrkraft",
             "linkByEmail": {
                 "emailPlaceHolder": "lehrkraft@bsport.io",
                 "explain": "Wenn diese E-Mail bereits in unserer Datenbank existiert, werden wir die Lehrkraft automatisch für Sie erstellen.",
@@ -13390,11 +13390,11 @@
             },
             "create": {
                 "title": "Neue Lehrkraft",
-                "success": "Lehrkraft erfolgreich erstellt"
+                "success": "Lehrkraft erstellt"
             },
             "update": {
-                "success": "Lehrkraft erfolgreich geändert",
-                "title": "Änderung der Informationen",
+                "success": "Lehrkraftdetails geändert",
+                "title": "Informationen bearbeiten",
                 "errors": {
                     "emailAlreadyInUse": "Die eingegebene E-Mail existiert bereits in der Datenbank. Sie können diese E-Mail nur dann mit einer Lehrkraft verknüpfen, wenn Sie eine neue Lehrkraft erstellen."
                 }
@@ -13418,7 +13418,7 @@
         },
         "description": "Beschreibung",
         "card": {
-            "update": "Ändern"
+            "update": "Bearbeiten"
         },
         "addCoach": "Eine Lehrkraft hinzufügen",
         "search": "Eine Lehrkraft suchen",
@@ -13427,36 +13427,36 @@
             "disabled": "Archivierte Lehrkräfte",
             "enabled": "Aktive Lehrkräfte"
         },
-        "emptyDescription": "Keine verfügbare Beschreibung",
-        "pleaseFill": "Gib die Lehrkraft an",
-        "showDescription": "Die Beschreibung ansehen",
+        "emptyDescription": "Keine Beschreibung verfügbar.",
+        "pleaseFill": "Bitte geben Sie eine Lehrkraft an",
+        "showDescription": "Beschreibung ansehen",
         "color": "Farbcode (Termin)",
         "coach_override": "Vertretung",
         "overrideSelectorTitle": "Lehrkraft",
         "overrider": "Vertretung",
-        "baseCoach": "Gewöhnlich",
+        "baseCoach": "Standard",
         "coach": "Lehrkraft",
         "detail": {
             "tab": {
                 "calendar": "Kalender",
                 "general": "Profil"
             },
-            "coachSpaceInfo": "In diesem Bereich kann Ihre Lehrkraft auf dessen Abrechnungsübersicht pro Session zugreifen und dessen Stundenplan einsehen. Er/Sie kann auch dessen Verfügbarkeiten hinzufügen.",
+            "coachSpaceInfo": "In diesem Bereich kann Ihre Lehrkraft auf dessen Abrechnungsübersicht pro Session zugreifen und dessen Stundenplan einsehen. Er/Sie kann auch seine/ihre Verfügbarkeiten hinzufügen.",
             "coachSpace": "Lehrkräftebereich",
             "noPaymentRule": "Achtung, für diese Lehrkraft wurden keine Gehaltsregulation festgelegt."
         },
         "showPerformance": "Lohn ausstellen",
         "noCoach": "Zur Zeit gibt es keine registrierten Lehrkräfte",
-        "noCoachs": "Keine registrierten Lehrkräfte, verwalte hier die Lehrkräfte, Referenten und deren Gehälter.",
+        "noCoachs": "Keine registrierten Lehrkräfte. Verwalten Sie hier die Lehrkräfte, Referenten und deren Gehälter.",
         "inactiveCoaches": "Archivierte Lehrkräfte",
-        "paymentRule": "Dienstbezüge",
+        "paymentRule": "Entlohnung",
         "coachAccess": {
             "teacher": "Lehrkraft",
-            "student": "Schüler",
+            "student": "Mitglied",
             "info": "Wir haben festgestellt, dass Sie Lehrkraft in diesem Studio sind. Möchten Sie Zugang zu Ihrem Kundenbereich oder Ihrem Lehrkraftbereich?",
             "access": "Zugang"
         },
-        "numberCoaches": "{{ number }}Lehrkraft",
+        "numberCoaches": "{{ number }} Lehrkräfte",
         "workingDateSection": "Zeitraum der Aktivität im Studio",
         "dateJoinedCompany": "Startdatum",
         "dateLeftCompany": "Enddatum",
@@ -13556,7 +13556,7 @@
                     "label": "Passwort"
                 },
                 "email": {
-                    "errorExists": "Diese E-mail existiert bereits, bitte wähle eine andere.",
+                    "errorExists": "Diese E-Mail existiert bereits, bitte wähle eine andere.",
                     "placeholder": "me@bsport.io",
                     "label": "E-Mail"
                 },
@@ -13582,8 +13582,8 @@
             "linkExpired": "Dein Bestätigungslink ist abgelaufen",
             "hasSentAgain": "Die E-Mail wurde gesendet",
             "sendAgain": "Eine Bestätigungs-E-Mail nochmals senden",
-            "success": "Deine Email wurde bestätigt, Du wirst in wenigen Sekunden umgeleitet.",
-            "explain": "Wir haben Dir eine Bestätigungs-Email geschickt!"
+            "success": "Deine E-Mail wurde bestätigt, Du wirst in wenigen Sekunden umgeleitet.",
+            "explain": "Wir haben Dir eine Bestätigungs-E-Mail geschickt!"
         },
         "language": {
             "es": "spanisch",
@@ -13642,7 +13642,7 @@
             "configureStripeAction": "Stripe-Konfiguration"
         },
         "emailConfirmation": {
-            "textExplain": "Sie haben soeben eine Bestätigungs-Mail erhalten, um Ihre E-Mail-Adresse zu bestätigen. Um Ihre Anmeldung abzuschließen, klicken Sie auf den Link, um Ihr Konto zu aktivieren.",
+            "textExplain": "Sie haben soeben eine Bestätigungs-E-Mail erhalten, um Ihre E-Mail-Adresse zu bestätigen. Um Ihre Anmeldung abzuschließen, klicken Sie auf den Link, um Ihr Konto zu aktivieren.",
             "dialog": {
                 "cannotBeResent": "Eine E-Mail wurde bereits versendet. Wenn Sie in {{timeLeftBeforeNewSent}} Minuten noch nichts erhalten haben, versuchen Sie es bitte erneut. Vergessen Sie nicht, Ihren Spam zu überprüfen.",
                 "title": "Senden Sie die Bestätigungsmail erneut",
@@ -13652,10 +13652,10 @@
                 "sentAgain": "E-Mail erneut gesendet!",
                 "continue": "Weiter",
                 "close": "Schließen",
-                "sentAgainExplain": "Die Bestätigungsmail wurde soeben erneut an Ihre E-Mail-Adresse gesendet."
+                "sentAgainExplain": "Die Bestätigungs-E-Mail wurde soeben erneut an Ihre E-Mail-Adresse gesendet."
             },
             "title": "Sie sind bereits registriert",
-            "clickHere": "hier klicken",
+            "clickHere": "Hier klicken",
             "helperToSendOnceAgain": "um die Bestätigungsmail erneut zu senden",
             "backToLogin": "Zurück zur Login-Seite",
             "notReceived": "Sie haben noch nichts erhalten?"
@@ -15005,45 +15005,45 @@
         "historyTitle": "Warenkorbverlauf",
         "eventHistory": {
             "pleaseSelectABasket": "Wählen Sie einen Warenkorb aus, um den Verlauf anzuzeigen",
-            "sectionTitle": "Ereignisse (Bearbeiten)"
+            "sectionTitle": "Events"
         },
         "events": {
-            "basket-automaticclean": "Automatische Korbreinigung",
-            "basket-removeitem": "Warenkorbabhebung",
-            "basket-additem": "in den Warenkorb legen",
+            "basket-automaticclean": "Warenkorb automatisch leeren",
+            "basket-removeitem": "Aus dem Warenkorb entfernen",
+            "basket-additem": "In den Warenkorb legen",
             "basket-finalize": "Warenkorb fertig / bezahlt",
             "basket-created": "Warenkorb erstellt"
         },
         "bookerMethod": {
             "section": {
-                "combo": "Packungen",
+                "combo": "Pakete",
                 "pass": "Verfügbare Pässe",
                 "consumerPass": "Meine Pässe"
             },
             "actions": {
                 "bookVod": "Das Video freischalten"
             },
-            "emptyMethod": "Kein Pass ist mit diesem Video kompatibel, bitte kontaktieren Sie Ihr Studio"
+            "emptyMethod": "Kein Pass ist mit diesem Video kompatibel. Bitte kontaktieren Sie Ihr Studio."
         },
         "internalAccount": {
             "use": "Mein Guthaben verwenden",
             "label": "Verfügbarer Betrag : ",
             "cancel": "Abbrechen",
             "confirm": "Bestätigen",
-            "useMyInternalAccount": "Verwendung meines Guthabens",
+            "useMyInternalAccount": "Mein Guthaben verwenden",
             "myInternalAccount": "Mein Kontostand",
             "useAsManager": "Guthaben verwenden"
         },
         "payment": {
-            "total": "Gesamtwert einschließlich aller Steuern",
-            "taxExcluded": "Zwischensumme ohne Steuern",
+            "total": "Gesamtwert (einschließlich aller Steuern)",
+            "taxExcluded": "Zwischensumme (ohne Steuern)",
             "tax": "Steuern",
             "flat_fee": "Bearbeitungsgebühr",
-            "globalTotal": "Gesamt",
-            "internalAccount": "Internes Konto",
-            "totalHiddingTax": "Gesamt",
+            "globalTotal": "Gesamtbetrag",
+            "internalAccount": "Interner Kontostand",
+            "totalHiddingTax": "Gesamtbetrag",
             "deliveryFee": "Versandkosten",
-            "title": "Bezahlung",
+            "title": "Zahlung",
             "flatFeeSubscription": "Anmeldegebühren"
         },
         "expiredSpotDialog": {
@@ -15609,10 +15609,10 @@
             "stats": {
                 "total_mail_opened": "Anzahl der geöffneten Mails",
                 "opened_rate": "Öffnungsrate",
-                "total_mail_send": "Anzahl der gesendeten Emails"
+                "total_mail_send": "Anzahl der gesendeten E-Mails"
             },
             "mailTitle": "Vorschau der E-Mail",
-            "mail": "Mail ",
+            "mail": "E-Mail ",
             "statisticDetails": "Statistik",
             "notificationDetails": "Details der Benachrichtigung",
             "notificationPreview": "Übersicht über die Benachrichtigung",
@@ -16314,7 +16314,7 @@
             "create": "Eine Vorlage erstellen",
             "franchiseEmails": "Meine Vorlagen",
             "emptyStateDescription": "Wählen Sie eine Vorlage",
-            "emptyStateTitle": "Vorschau auf die Mail",
+            "emptyStateTitle": "Vorschau auf die E-Mail",
             "searchPlaceholder": "Suche nach einer Vorlage"
         },
         "login": {
@@ -17007,16 +17007,16 @@
             "successClockIn": "Ankunftszeit:",
             "subtitleSuccess": "Ihre Zeiterfassung wurde erfolgreich abgeschlossen. Sie können eine neue Zeiterfassung starten, wenn Sie dieses Fenster das nächste Mal öffnen.",
             "clockInForOther": "für einen anderen Mitarbeiter ausstempeln",
-            "subtitleClockOut": "Jetzt geht es los! Um erneut auszustempeln und den Stundenzähler zu stoppen, klicken Sie bitte auf \"Beenden\"",
-            "subtitleClockIn": "Hallo {{ name }}, klicken Sie auf \"Starten\", um mit der Stempelung Ihres Tages zu beginnen.",
+            "subtitleClockOut": "Jetzt geht es los! Um erneut auszustempeln und den Stundenzähler zu stoppen, klicken Sie bitte auf \"Clock-Out\".",
+            "subtitleClockIn": "Hallo {{ name }}, klicken Sie auf \"Clock-In\", um mit der Stempelung Ihres Tages zu beginnen.",
             "lastClockOut": "Ankunftszeit: ",
-            "lastClockIn": "Letzte Stempelung: {{- date }}-{{ hour }}",
-            "clockOut": "Beenden",
-            "clockIn": "Beginnen",
+            "lastClockIn": "Letzter Clock-In: {{- date }} - {{ hour }}",
+            "clockOut": "Clock-Out",
+            "clockIn": "Clock-In",
             "close": "Schließen",
             "title": "Stundenstempel",
             "successDuration": "Anzahl der gearbeiteten Stunden:",
-            "successClockOut": "Uhrzeit der Abreise:"
+            "successClockOut": "Abfahrtzeit:"
         },
         "export": {
             "dialog": {
@@ -17028,23 +17028,23 @@
         "tabRealTime": "Echtzeit",
         "pageTitle": "Anwesenheit",
         "editModal": {
-            "confirm": "Bestätigen",
+            "confirm": "Speichern",
             "cancel": "Abbrechen",
             "startingTime": "Uhrzeit des Beginns",
             "endingTime": "Uhrzeit des Endes",
-            "title": "Änderung des Stundenplans"
+            "title": "Stundenplanänderung"
         },
         "modal": {
             "delete": {
-                "content": "Achtung: Sind Sie sicher, dass Sie den Zeitslot für diesen Mitarbeiter löschen möchten? Dieser Vorgang ist unumkehrbar.",
-                "title": "Suppresion"
+                "content": "Achtung! Sind Sie sicher, dass Sie den Zeitslot für diesen Mitarbeiter löschen möchten? Dieser Vorgang ist unumkehrbar.",
+                "title": "Löschen"
             }
         },
         "historyTable": {
             "download": "Download",
             "action": "Aktion",
-            "durationHours": "Geleistete Arbeitsstunden (Stunde)",
-            "durationHoursMinutes": "Geleistete Arbeitsstunden (Stunde und Minute)",
+            "durationHours": "Geleistete Arbeitsstunden (in Stunden)",
+            "durationHoursMinutes": "Geleistete Arbeitsstunden (in Stunden und Minuten)",
             "endingHour": "Uhrzeit des Endes",
             "startingHour": "Uhrzeit des Beginns",
             "staff": "Mitarbeiter"
@@ -17053,16 +17053,16 @@
             "emptyState": "Sie haben noch keinen Mitarbeiterzugang vergeben. Um Mitarbeiterzugänge einzurichten, gehen Sie zu Einstellungen und dann Mitarbeiter oder klicken Sie auf die Schaltfläche unten. Um die Arbeitszeiten Ihrer Mitarbeiter zu verfolgen, vergessen Sie nicht, beim Erstellen der Rolle die Option \"Zeiterfassung\" zu aktivieren.",
             "createStaff": "Mitarbeiterzugang erstellen",
             "missing": "Abwesend",
-            "here": "Gegenwart",
-            "end": "Beginnen",
-            "start": "Beenden",
+            "here": "Präsenz",
+            "end": "Clock-In",
+            "start": "Clock-Out",
             "role": "Rolle",
             "action": "Aktion",
             "status": "Status",
             "lastClockIn": "Letzte Stempelung",
-            "email": "Email",
+            "email": "E-Mail",
             "staff": "Mitarbeiter",
-            "lastname": "Name",
+            "lastname": "Nachname",
             "firstname": "Vorname"
         }
     },

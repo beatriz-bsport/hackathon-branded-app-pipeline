@@ -244,6 +244,7 @@ exports.default = {
       fabrique_typography: 'Typography',
       fabrique_card: 'Card',
       marketplace_minimal_appbar: 'Minimal AppBar',
+      fabrique_badge: 'Badge',
     },
     customCss: {
       yourCode: 'Your complementary implementation:',

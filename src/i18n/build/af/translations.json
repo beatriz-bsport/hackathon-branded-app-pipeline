@@ -13686,7 +13686,8 @@
         "authentication_login": "Login component",
         "fabrique_typography": "Typography",
         "fabrique_card": "Card",
-        "marketplace_minimal_appbar": "Minimal AppBar"
+        "marketplace_minimal_appbar": "Minimal AppBar",
+        "fabrique_badge": "Badge"
       },
       "customCss": {
         "yourCode": "Your complementary implementation:",

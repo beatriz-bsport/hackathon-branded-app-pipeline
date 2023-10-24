@@ -72,4 +72,5 @@ export enum CssComponentsVariantIdentifiers {
   MARKETPLACE_MINIMAL_APPBAR = 'marketplace_minimal_appbar',
   FABRIQUE_TYPOGRAPHY = 'fabrique_typography',
   FABRIQUE_CARD = 'fabrique_card',
+  FABRIQUE_BADGE = 'fabrique_badge',
 }

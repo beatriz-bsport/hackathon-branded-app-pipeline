@@ -148,7 +148,7 @@ export const InvoiceContent: React.FC<Props> = ({
   }, [finalizeInvoice, invoice?.is_draft, invoice?.stripe_invoice_pdf]);
 
   const handleGoToSubscription = useCallback(() => {
-    goToSubscription(invoice.billing_plan);
+    !!invoice.billing_plan && goToSubscription(invoice.billing_plan);
   }, [goToSubscription, invoice?.billing_plan]);
 
   const handleGetReceiptUrlAPI = useCallback(
@@ -156,7 +156,7 @@ export const InvoiceContent: React.FC<Props> = ({
     [invoice?.uuid],
   );
 
-  const handleSelectOption = useCallback(
+  const handleSelectBillingEstablishment = useCallback(
     async (item: { value: number; label: string }) => {
       setBillingEstablishment(item ? item.value : null);
       setLoading(true);
@@ -193,13 +193,11 @@ export const InvoiceContent: React.FC<Props> = ({
             <Divider className={classes.divider} />
           )}
           {invoiceItemList.map((ii: InvoiceItem) => (
-            <div>
-              <InvoiceItem
-                key={`${ii.buyable_item_identifier}:${ii.id}:${ii.voucher}`}
-                invoiceItem={ii}
-                onDelete={handleRemoveInvoiceItem(ii)}
-              />
-            </div>
+            <InvoiceItem
+              key={`${ii.buyable_item_identifier}:${ii.id}:${ii.voucher}`}
+              invoiceItem={ii}
+              onDelete={handleRemoveInvoiceItem(ii)}
+            />
           ))}
           {!invoiceItemLoading && !invoiceItemList.length && (
             <div className={classes.isEmptyContainer}>
@@ -315,7 +313,7 @@ export const InvoiceContent: React.FC<Props> = ({
               couponList.length !== 0 &&
               couponList.map((coupon, index) => (
                 <>
-                  <ListItem>
+                  <ListItem key={`coupon:${coupon.coupon_code}`}>
                     <ListItemText
                       primary={`${
                         coupon.coupon_code
@@ -357,7 +355,7 @@ export const InvoiceContent: React.FC<Props> = ({
                 isLoading={establishmentLoading || loading}
                 requiredValueIsMissing={requiredEstablishmentIsMissing}
                 selectedEstablishments={[billing_establishment_id]}
-                selectOption={handleSelectOption}
+                selectOption={handleSelectBillingEstablishment}
               />
             </div>
           </>

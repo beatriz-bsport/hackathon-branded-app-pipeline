@@ -411,28 +411,43 @@ const mapHandlers = {
     );
   },
   getAvailablePaymentPacks: (props: OwnAndConnectedProps) => () => {
+    const selectedOffers = props.selectedOffers.map((data) => data.offer);
     return getAvailablePaymentPacks(
       props.offersConstraint,
       props.paymentPackList,
-      props.selectedOffers.map((data) => data.offer),
+      // For group using full_booking_only, maxout are computed only considering the first offer
+      // and not all group's offers
+      props.offer?.group?.full_booking_only
+        ? uniqBy(selectedOffers, 'group')
+        : selectedOffers,
       props.offer,
       props.offer.timezone_name,
     );
   },
   getAvailableComboPacks: (props: OwnAndConnectedProps) => () => {
+    const selectedOffers = props.selectedOffers.map((data) => data.offer);
     return getAvailableComboPacks(
       props.offersConstraint,
       props.paymentComboList,
-      props.selectedOffers.map((data) => data.offer),
+      // For group using full_booking_only, maxout are computed only considering the first offer
+      // and not all group's offers
+      props.offer?.group?.full_booking_only
+        ? uniqBy(selectedOffers, 'group')
+        : selectedOffers,
       props.offer,
       props.offer.timezone_name,
     );
   },
   getAvailableContracts: (props: OwnAndConnectedProps) => () => {
+    const selectedOffers = props.selectedOffers.map((data) => data.offer);
     return getAvailableContracts(
       props.offersConstraint,
       props.contractList,
-      props.selectedOffers.map((data) => data.offer),
+      // For group using full_booking_only, maxout are computed only considering the first offer
+      // and not all group's offers
+      props.offer?.group?.full_booking_only
+        ? uniqBy(selectedOffers, 'group')
+        : selectedOffers,
       props.offer,
       props.offer.timezone_name,
     );

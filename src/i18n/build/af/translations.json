@@ -13644,6 +13644,7 @@
           "grey": "Grey",
           "white": "White",
           "success": "Success",
+          "light": "Light",
           "info": "Info",
           "error": "Error",
           "onstrong": "On strong background",
@@ -13851,7 +13852,8 @@
         "marketplace_checkout_items_payment_combo_list": "List of checkout items with packs",
         "marketplace_checkout_items_payment_pack_list": "List of checkout items with passes",
         "marketplace_booking_item": "Booking item",
-        "marketplace_offer_booking_list": "Booking list"
+        "marketplace_offer_booking_list": "Booking list",
+        "fabrique_alert": "Alert"
       },
       "customCss": {
         "yourCode": "Your complementary implementation:",

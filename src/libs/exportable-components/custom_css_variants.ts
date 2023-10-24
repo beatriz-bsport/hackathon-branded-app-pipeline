@@ -218,6 +218,10 @@ import {
   FABRIQUE_CHIP_CONFIGURATION,
   FABRIQUE_CHIP_PREVIEW,
 } from '#components/css-only/Fabrique/Chip';
+import {
+  FABRIQUE_ALERT_CONFIGURATION,
+  FABRIQUE_ALERT_PREVIEW,
+} from '#components/css-only/Fabrique/Alert';
 
 import {
   CSSComponentPreviews,
@@ -423,6 +427,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
         FABRIQUE_RADIOBUTTON_CONFIGURATION,
         FABRIQUE_CHECKBOX_CONFIGURATION,
         FABRIQUE_CHIP_CONFIGURATION,
+        FABRIQUE_ALERT_CONFIGURATION,
       ]
     : []),
 ];
@@ -586,6 +591,7 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
       [CssComponentsVariantIdentifiers.FABRIQUE_CHECKBOX]:
         FABRIQUE_CHECKBOX_PREVIEW,
       [CssComponentsVariantIdentifiers.FABRIQUE_CHIP]: FABRIQUE_CHIP_PREVIEW,
+      [CssComponentsVariantIdentifiers.FABRIQUE_ALERT]: FABRIQUE_ALERT_PREVIEW,
     }),
   });
 

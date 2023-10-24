@@ -133,6 +133,7 @@ exports.default = {
         grey: 'Grey',
         white: 'White',
         success: 'Success',
+        light: 'Light',
         info: 'Info',
         error: 'Error',
         onstrong: 'On strong background',
@@ -362,6 +363,7 @@ exports.default = {
         'List of checkout items with passes',
       marketplace_booking_item: 'Booking item',
       marketplace_offer_booking_list: 'Booking list',
+      fabrique_alert: 'Alert',
     },
     customCss: {
       yourCode: 'Your complementary implementation:',

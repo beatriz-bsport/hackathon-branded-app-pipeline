@@ -11,7 +11,6 @@ stages:
   - bump-version
   - build-deploy
   - build-widget
-  - promote
   - label-issues
   - tag-releases
 
@@ -24,7 +23,6 @@ include:
   - local: '/ci/docker-image.yml'
   - local: '/ci/label-issues.yml'
   - local: '/ci/static-analysis.yml'
-  - local: '/ci/promote.yml'
   - local: '/ci/build.yml'
   - local: '/ci/tag-releases.yml'
   - local: '/ci/build-retro.yaml'

@@ -25,7 +25,8 @@
     - mv /app/node_modules .
     - TODAY=`date +%F`
     - echo "running date -d ${TODAY} -${RETRO_DURATION} ${RETRO_DURATION_TYPE} +%F"
-    - RETRO_TAG=release-`date -d ${TODAY} -${RETRO_DURATION} ${RETRO_DURATION_TYPE} +%F`
+    - apk add coreutils # the date cmd in busybox is not enough for date manipulation
+    - RETRO_TAG=release-`coreutils --coreutils-prog=date -d ${TODAY} -${RETRO_DURATION} ${RETRO_DURATION_TYPE} +%F`
     - echo "goin back to retro tag ${RETRO_TAG}"
     - git checkout $RETRO_TAG
     - yarn install --frozen-lockfile # just to be sure

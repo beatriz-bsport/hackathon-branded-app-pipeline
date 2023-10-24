@@ -8,13 +8,13 @@ import CadenceExitCard, {
 } from './CadenceExitCard.component';
 import { TRIGGER_LEFT_HANDLE_STYLE } from '#libs/sequential_marketing/constants/triggers';
 import { HandleTypeChoices } from '#libs/sequential_marketing/constants/steps';
-import ChangeInStepBubble from '#libs/sequential_marketing/components/graph/bubbles/ChangeInStepBubble.component';
+import ConvertIntoStepBubble from '#libs/sequential_marketing/components/graph/bubbles/ConvertIntoStepBubble.component';
 import usePopoverBubble from '../usePopoverBubble.hook';
 
 type Props = {
   data: {
-    submitChangeInStep: (stepName: string) => void;
-  } & Omit<CadenceExitCardProps, 'handleChangeInStep'>;
+    submitConvertIntoStep: (stepName: string) => void;
+  } & Omit<CadenceExitCardProps, 'handleConvertIntoStep'>;
 };
 
 export const ExitCardFlowVersion: React.FC<Props> = ({ data }) => {
@@ -23,19 +23,19 @@ export const ExitCardFlowVersion: React.FC<Props> = ({ data }) => {
   const { anchorOrigin, popoverStyle, transformOrigin, anchorEl, setAnchorEl } =
     usePopoverBubble();
 
-  const handleOpenChangeInStepBubble = React.useCallback(
+  const handleOpenConvertIntoStepBubble = React.useCallback(
     () => setAnchorEl(exitCardRef?.current),
     [setAnchorEl],
   );
 
-  const handleCloseChangeInStepBubble = React.useCallback(
+  const handleCloseConvertIntoStepBubble = React.useCallback(
     () => setAnchorEl(null),
     [setAnchorEl],
   );
 
-  const handleSubmitChangeInStep = React.useCallback(
+  const handleSubmitConvertIntoStep = React.useCallback(
     (stepName: string) => {
-      data?.submitChangeInStep?.(stepName);
+      data?.submitConvertIntoStep?.(stepName);
       setAnchorEl(null);
     },
     [data, setAnchorEl],
@@ -50,7 +50,7 @@ export const ExitCardFlowVersion: React.FC<Props> = ({ data }) => {
       />
       <div ref={exitCardRef}>
         <CadenceExitCard
-          handleChangeInStep={handleOpenChangeInStepBubble}
+          handleConvertIntoStep={handleOpenConvertIntoStepBubble}
           isSelected={data.isSelected}
           onDelete={data.onDelete}
           status={data.status}
@@ -59,14 +59,14 @@ export const ExitCardFlowVersion: React.FC<Props> = ({ data }) => {
       <Popover
         anchorEl={anchorEl}
         anchorOrigin={anchorOrigin}
-        onClose={handleCloseChangeInStepBubble}
+        onClose={handleCloseConvertIntoStepBubble}
         open={!!anchorEl}
         PaperProps={popoverStyle}
         transformOrigin={transformOrigin}
       >
-        <ChangeInStepBubble
-          onCancel={handleCloseChangeInStepBubble}
-          onConfirm={handleSubmitChangeInStep}
+        <ConvertIntoStepBubble
+          onCancel={handleCloseConvertIntoStepBubble}
+          onConfirm={handleSubmitConvertIntoStep}
         />
       </Popover>
     </>

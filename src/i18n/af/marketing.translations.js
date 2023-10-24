@@ -589,8 +589,8 @@ exports.default = {
     steps: {
       defaultName: 'Autostep',
       actions: {
-        changeInStep: 'Convert to step',
-        changeInExit: 'Convert to output',
+        convertIntoStep: 'Convert into step',
+        convertIntoExit: 'Convert into exit',
         delete: 'Delete',
         addNextStep: 'Add next step',
         nextStepTrigger: 'Trigger to next step',
@@ -599,14 +599,14 @@ exports.default = {
     marketingAction: { addAction: 'Add an action' },
     bubble: {
       previous: 'Previous',
-      changeInExit: { title: 'Exit', label: 'Consider the member as' },
+      convertIntoExit: { title: 'Exit', label: 'Consider the member as' },
       entryTrigger: {
         addTrigger: 'Add an input trigger',
         helperText:
           'Please define when and who will enter this cadence with the selected criteria and triggers.',
         title: 'Entry',
       },
-      changeInStep: { default: 'Step label', label: 'Step label' },
+      convertIntoStep: { default: 'Step label', label: 'Step label' },
       marketingAction: {
         title: 'Marketing action',
         label: 'Select a marketing action',

@@ -135,12 +135,12 @@ export const updateCadenceStepConnectedTriggerCanvasPosition = (
   );
 };
 
-export const changeCadenceStepInExit = (
+export const convertCadenceStepIntoExit = (
   id: number,
   status: DestinationStatus,
 ) => {
   return postAuth<UpdatedTriggersList>(
-    `${API_V1_URI}/sequential_marketing/cadence_step/${id}/change_in_exit/`,
+    `${API_V1_URI}/sequential_marketing/cadence_step/${id}/convert_into_exit/`,
     { status },
   );
 };
@@ -210,13 +210,13 @@ export const deleteConnectedTrigger = (
   );
 };
 
-export const changeCadenceExitInStep = (
+export const convertCadenceExitIntoStep = (
   cadenceId: number,
   triggerUuid: string,
   { name, canvas }: { name: string; canvas: GraphCanvas },
 ) => {
   return postAuth<UpdatedTrigger>(
-    `${API_V1_URI}/sequential_marketing/cadence/${cadenceId}/connected_trigger/${triggerUuid}/change_in_step/`,
+    `${API_V1_URI}/sequential_marketing/cadence/${cadenceId}/connected_trigger/${triggerUuid}/convert_into_step/`,
     { name, canvas },
   );
 };

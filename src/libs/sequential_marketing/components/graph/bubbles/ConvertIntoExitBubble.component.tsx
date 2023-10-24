@@ -11,15 +11,12 @@ import {
   SequentialMarketingColors,
 } from '#libs/sequential_marketing/constants';
 
-export type ChangeInExitBubbleProps = {
+export type Props = {
   onCancel?: () => void;
   onConfirm?: (status: DestinationStatus) => void;
 };
 
-const ChangeInExitBubble: React.FC<ChangeInExitBubbleProps> = ({
-  onCancel,
-  onConfirm,
-}) => {
+const ConvertIntoExitBubble: React.FC<Props> = ({ onCancel, onConfirm }) => {
   const { t } = useTranslation('marketing');
 
   const classes = useStyles();
@@ -48,11 +45,11 @@ const ChangeInExitBubble: React.FC<ChangeInExitBubbleProps> = ({
       icon="Stop"
       onCancelClick={onCancel}
       onConfirmClick={handleSubmit}
-      title={t('cadence.bubble.changeInExit.title')}
+      title={t('cadence.bubble.convertIntoExit.title')}
     >
       <div>
         <Typography className={classes.label}>
-          {t('cadence.bubble.changeInExit.label')}
+          {t('cadence.bubble.convertIntoExit.label')}
         </Typography>
         <RadioGroup
           aria-labelledby="demo-controlled-radio-buttons-group"
@@ -83,4 +80,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default React.memo(ChangeInExitBubble);
+export default React.memo(ConvertIntoExitBubble);

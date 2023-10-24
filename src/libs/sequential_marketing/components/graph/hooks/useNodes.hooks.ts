@@ -141,14 +141,17 @@ type NodeRendererProps = {
   storedSteps: StoredStep[];
   storedTriggers: Immutable.ImmutableArray<StoredTrigger>;
   fakerTrigger?: StoredTrigger;
-  changeCadenceExitInStep: (
+  convertCadenceExitIntoStep: (
     triggerUuid: string,
     step: {
       name: string;
       canvas: GraphCanvas;
     },
   ) => void;
-  changeCadenceStepInExit: (stepId: number, status: DestinationStatus) => void;
+  convertCadenceStepIntoExit: (
+    stepId: number,
+    status: DestinationStatus,
+  ) => void;
   deleteCadenceStep: (stepId: number) => void;
   deleteConnectedTrigger: (
     cadenceId: number,
@@ -191,8 +194,8 @@ export const useNodeElementsRecorder = ({
   storedEntryStep,
   storedSteps,
   storedTriggers,
-  changeCadenceExitInStep,
-  changeCadenceStepInExit,
+  convertCadenceExitIntoStep,
+  convertCadenceStepIntoExit,
   deleteCadenceStep,
   deleteConnectedTrigger,
   editConnectedTrigger,
@@ -384,10 +387,10 @@ export const useNodeElementsRecorder = ({
     [handleOnConnectedStep],
   );
 
-  const handleChangeInExit = React.useCallback(
+  const handleConvertIntoExit = React.useCallback(
     (stepNode: StoredStep) => (status: DestinationStatus) =>
-      stepNode?.id && changeCadenceStepInExit(stepNode.id, status),
-    [changeCadenceStepInExit],
+      stepNode?.id && convertCadenceStepIntoExit(stepNode.id, status),
+    [convertCadenceStepIntoExit],
   );
 
   // The stepNodeElements consumes the storedSteps data to draw the steps
@@ -421,7 +424,7 @@ export const useNodeElementsRecorder = ({
           onConnectToStep: onConnectToInnerStep(stepNode),
           getTag,
           getEmailTemplate,
-          submitChangeInExit: handleChangeInExit(stepNode),
+          submitConvertIntoExit: handleConvertIntoExit(stepNode),
         },
       }));
     }
@@ -447,7 +450,7 @@ export const useNodeElementsRecorder = ({
     [storedTriggers],
   );
 
-  const handleChangeInStep = React.useCallback(
+  const handleConvertIntoStep = React.useCallback(
     (trigger: ConnectedTrigger) => (name: string) => {
       const canvas: GraphCanvas = {
         position: {
@@ -455,9 +458,12 @@ export const useNodeElementsRecorder = ({
           y: trigger?.canvas?.position?.y,
         },
       };
-      changeCadenceExitInStep(trigger?.trigger_config?.uuid, { name, canvas });
+      convertCadenceExitIntoStep(trigger?.trigger_config?.uuid, {
+        name,
+        canvas,
+      });
     },
-    [changeCadenceExitInStep],
+    [convertCadenceExitIntoStep],
   );
 
   // The exitNodeElements consumes the list of storedTriggersToOutside data to draw the ExitElements on the graph.
@@ -479,12 +485,12 @@ export const useNodeElementsRecorder = ({
           disabled: !cadenceEditMode,
           status: triggerNode?.trigger?.destination_config?.status,
           onDelete: () => {},
-          submitChangeInStep: handleChangeInStep(triggerNode?.trigger),
+          submitConvertIntoStep: handleConvertIntoStep(triggerNode?.trigger),
         },
       }));
     }
     return [];
-  }, [cadenceEditMode, handleChangeInStep, storedTriggersToOutside]);
+  }, [cadenceEditMode, handleConvertIntoStep, storedTriggersToOutside]);
 
   return { entryNode, triggerNodeElements, stepNodeElements, exitNodeElements };
 };

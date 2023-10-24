@@ -53,8 +53,11 @@ type Props = {
   tagCategories: { [tag_name: string]: string[] };
   smartlists: Immutable.ImmutableArray<SmartList>;
   steps: CadenceStep[];
-  changeCadenceStepInExit: (stepId: number, status: DestinationStatus) => void;
-  changeCadenceExitInStep: (
+  convertCadenceStepIntoExit: (
+    stepId: number,
+    status: DestinationStatus,
+  ) => void;
+  convertCadenceExitIntoStep: (
     triggerUuid: string,
     step: {
       name: string;
@@ -120,8 +123,8 @@ export const CadenceGraphFlow: React.FC<Props> = ({
   smartlists,
   steps,
   tagList,
-  changeCadenceExitInStep,
-  changeCadenceStepInExit,
+  convertCadenceExitIntoStep,
+  convertCadenceStepIntoExit,
   deleteCadenceStep,
   deleteConnectedTrigger,
   editConnectedTrigger,
@@ -154,8 +157,8 @@ export const CadenceGraphFlow: React.FC<Props> = ({
     displayDisabledTriggers,
     smartlists,
     steps,
-    changeCadenceExitInStep,
-    changeCadenceStepInExit,
+    convertCadenceExitIntoStep,
+    convertCadenceStepIntoExit,
     deleteCadenceStep,
     deleteConnectedTrigger,
     editConnectedTrigger,

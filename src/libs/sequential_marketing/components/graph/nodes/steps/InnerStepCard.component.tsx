@@ -25,7 +25,7 @@ export type InnerStepCardProps = {
   isSelected?: boolean;
   disabled?: boolean;
   onDelete: () => void;
-  handleChangeInExit: () => void;
+  handleConvertIntoExit: () => void;
   onCardClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
   addNextStep: (triggerKind: TriggerKind) => void;
 } & InnerStepContentProps;
@@ -96,7 +96,7 @@ const InnerStepCard: React.FC<InnerStepCardProps> = ({
   getTag,
   getEmailTemplate,
   onDelete,
-  handleChangeInExit,
+  handleConvertIntoExit,
   onCardClick,
   addNextStep,
 }) => {
@@ -129,9 +129,9 @@ const InnerStepCard: React.FC<InnerStepCardProps> = ({
     () =>
       Immutable([
         {
-          label: t('cadence.steps.actions.changeInExit'),
+          label: t('cadence.steps.actions.convertIntoExit'),
           icon: 'Autorenew',
-          onClick: onClickAction(handleChangeInExit),
+          onClick: onClickAction(handleConvertIntoExit),
         },
         {
           label: t('cadence.steps.actions.delete'),
@@ -139,7 +139,7 @@ const InnerStepCard: React.FC<InnerStepCardProps> = ({
           onClick: onClickAction(onDelete),
         },
       ]),
-    [handleChangeInExit, onClickAction, onDelete, t],
+    [handleConvertIntoExit, onClickAction, onDelete, t],
   );
 
   const triggerActions = React.useMemo(

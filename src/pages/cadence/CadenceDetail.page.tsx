@@ -22,9 +22,9 @@ import {
   activateCadence as activateCadenceAction,
   shutOffCadence as shutOffCadenceAction,
   updateCadenceStepCanvasPosition as updateCadenceStepCanvasPositionAction,
-  changeCadenceStepInExit as changeCadenceStepInExitAction,
+  convertCadenceStepIntoExit as convertCadenceStepIntoExitAction,
   updateCadenceStepConnectedTriggerCanvasPosition as updateCadenceStepConnectedTriggerCanvasPositionAction,
-  changeCadenceExitInStep as changeCadenceExitInStepAction,
+  convertCadenceExitIntoStep as convertCadenceExitIntoStepAction,
   subscribeStepToStep as subscribeStepToStepAction,
   updateConnectedTrigger as updateConnectedTriggerAction,
   updateCadenceStep as updateCadenceStepAction,
@@ -322,8 +322,8 @@ export class CadenceDetailPage extends Component<Props> {
               cadenceMinimalConfigurationState={
                 this.props.cadenceMinimalConfigurationState
               }
-              changeCadenceExitInStep={this.props.changeCadenceExitInStep}
-              changeCadenceStepInExit={this.props.changeCadenceStepInExit}
+              convertCadenceExitIntoStep={this.props.convertCadenceExitIntoStep}
+              convertCadenceStepIntoExit={this.props.convertCadenceStepIntoExit}
               deleteCadenceStep={this.props.deleteCadenceStep}
               deleteConnectedTrigger={this.props.deleteConnectedTriggerAction}
               editConnectedTrigger={this.handleEditConnectedTrigger}
@@ -590,10 +590,10 @@ const mapWithHandlers = {
       });
     },
 
-  changeCadenceStepInExit:
+  convertCadenceStepIntoExit:
     (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>
     (id: number, status: DestinationStatus) => {
-      props.changeCadenceStepInExitAction(id, status);
+      props.convertCadenceStepIntoExitAction(id, status);
     },
 
   updateCadenceStepConnectedTriggerCanvasPosition:
@@ -617,10 +617,14 @@ const mapWithHandlers = {
       );
     },
 
-  changeCadenceExitInStep:
+  convertCadenceExitIntoStep:
     (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>
     (triggerUuid: string, step: { name: string; canvas: GraphCanvas }) => {
-      props.changeCadenceExitInStepAction(props.cadenceId, triggerUuid, step);
+      props.convertCadenceExitIntoStepAction(
+        props.cadenceId,
+        triggerUuid,
+        step,
+      );
     },
 
   onClickEntryStep:
@@ -783,9 +787,9 @@ const connector = connect(
     subscribeStepToStepAction,
     updateConnectedTriggerAction,
     updateCadenceStepCanvasPositionAction,
-    changeCadenceStepInExitAction,
+    convertCadenceStepIntoExitAction,
     updateCadenceStepConnectedTriggerCanvasPositionAction,
-    changeCadenceExitInStepAction,
+    convertCadenceExitIntoStepAction,
     updateCadenceStepAction,
     deleteCadenceStepAction,
     fetchMarketingActionsAction,

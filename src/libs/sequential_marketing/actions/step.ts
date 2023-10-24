@@ -10,7 +10,7 @@ import {
   retrieveCadenceStep as retrieveCadenceStepAPI,
   fetchCadenceStepList as fetchCadenceStepListAPI,
   updateCadenceStepCanvasPosition as updateCadenceStepCanvasPositionAPI,
-  changeCadenceStepInExit as changeCadenceStepInExitAPI,
+  convertCadenceStepIntoExit as convertCadenceStepIntoExitAPI,
   updateCadenceStep as updateCadenceStepAPI,
   deleteCadenceStep as deleteCadenceStepAPI,
 } from '#libs/sequential_marketing/api';
@@ -109,36 +109,36 @@ export function updateCadenceStepCanvasPosition(
   };
 }
 
-export const changeCadenceStepInExitActions = {
+export const convertCadenceStepIntoExitActions = {
   isLoading: createAction<boolean>(
-    'CADENCE_STEP_WIP/CHANGE_IN_EXIT/IS_LOADING',
+    'CADENCE_STEP_WIP/CONVERT_INTO_EXIT/IS_LOADING',
   ),
-  error: createAction<Error | null>('CADENCE_STEP_WIP/CHANGE_IN_EXIT/ERROR'),
+  error: createAction<Error | null>('CADENCE_STEP_WIP/CONVERT_INTO_EXIT/ERROR'),
   success: createAction<UpdatedTriggersList>(
-    'CADENCE_STEP_WIP/CHANGE_IN_EXIT/SUCCESS',
+    'CADENCE_STEP_WIP/CONVERT_INTO_EXIT/SUCCESS',
   ),
 };
 
-export function changeCadenceStepInExit(
+export function convertCadenceStepIntoExit(
   id: number,
   status: DestinationStatus,
   options?: OptionCallback<UpdatedTriggersList>,
 ) {
   return async (dispatch: Dispatch) => {
-    dispatch(changeCadenceStepInExitActions.isLoading(true));
-    dispatch(changeCadenceStepInExitActions.error(null));
+    dispatch(convertCadenceStepIntoExitActions.isLoading(true));
+    dispatch(convertCadenceStepIntoExitActions.error(null));
 
     try {
-      const response = await changeCadenceStepInExitAPI(id, status);
-      dispatch(changeCadenceStepInExitActions.success(response.data));
+      const response = await convertCadenceStepIntoExitAPI(id, status);
+      dispatch(convertCadenceStepIntoExitActions.success(response.data));
       options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
-      dispatch(changeCadenceStepInExitActions.error(err));
+      dispatch(convertCadenceStepIntoExitActions.error(err));
       options?.onError?.();
     }
 
-    dispatch(changeCadenceStepInExitActions.isLoading(false));
+    dispatch(convertCadenceStepIntoExitActions.isLoading(false));
   };
 }
 

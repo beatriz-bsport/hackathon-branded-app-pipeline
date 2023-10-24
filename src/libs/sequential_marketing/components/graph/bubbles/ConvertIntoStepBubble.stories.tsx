@@ -1,13 +1,11 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import ChangeInStepBubble, {
-  ChangeInStepBubbleProps,
-} from './ChangeInStepBubble.component';
+import ConvertIntoStepBubble from './ConvertIntoStepBubble.component';
 
 export default {
-  title: 'Components/Cadences/Bubbles/ChangeInStep',
-  component: ChangeInStepBubble,
+  title: 'Components/Cadences/Bubbles/ConvertIntoStep',
+  component: ConvertIntoStepBubble,
   decorators: [
     (Story) => (
       <div
@@ -26,7 +24,7 @@ export default {
       page: null,
     },
     description: {
-      component: 'Bubble for change in step form',
+      component: 'Bubble for convert into step form',
     },
   },
   argTypes: {
@@ -39,10 +37,10 @@ export default {
       description: 'Confirm button',
     },
   },
-} as ComponentMeta<typeof ChangeInStepBubble>;
+} as ComponentMeta<typeof ConvertIntoStepBubble>;
 
-const Template: ComponentStory<typeof ChangeInStepBubble> = (
-  args: ChangeInStepBubbleProps,
-) => <ChangeInStepBubble {...args} />;
+const Template: ComponentStory<typeof ConvertIntoStepBubble> = (
+  args: React.ComponentProps<typeof ConvertIntoStepBubble>,
+) => <ConvertIntoStepBubble {...args} />;
 
 export const Primary = Template.bind({});

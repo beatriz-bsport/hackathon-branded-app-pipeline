@@ -113,7 +113,7 @@ export type StepMarketingActions = {
 };
 
 /**
- *  @description [TYPE] Object returned by changeCadenceExitInStep API call
+ *  @description [TYPE] Object returned by convertCadenceExitIntoStep API call
  *  @param {ConnectedTrigger} trigger : The connected trigger after update
  *  @param {CadenceStep} step : The new step created as trigger destination
  */
@@ -123,7 +123,7 @@ export type UpdatedTrigger = {
 };
 
 /**
- *  @description [TYPE] Object returned by changeCadenceStepInExit API call
+ *  @description [TYPE] Object returned by convertCadenceStepIntoExit API call
  *  @param {ConnectedTrigger[]} triggers : List of the connected triggers which had step as destination and have been updated
  *  @param {CadenceStep} step : The step disabled to be replaced by exits
  */

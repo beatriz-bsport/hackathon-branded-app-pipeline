@@ -33,14 +33,17 @@ export type Props = {
   stepBubbleProps: Omit<StepEditionBubbleProps, 'step'>;
   steps: CadenceStep[];
   smartlists: Immutable.ImmutableArray<SmartList>;
-  changeCadenceExitInStep: (
+  convertCadenceExitIntoStep: (
     triggerUuid: string,
     step: {
       name: string;
       canvas: GraphCanvas;
     },
   ) => void;
-  changeCadenceStepInExit: (stepId: number, status: DestinationStatus) => void;
+  convertCadenceStepIntoExit: (
+    stepId: number,
+    status: DestinationStatus,
+  ) => void;
   editConnectedTrigger: (
     data: ConnectedTrigger,
     options?: OptionCallback<ConnectedTrigger>,
@@ -87,8 +90,8 @@ export const useGraph = ({
   smartlists,
   stepBubbleProps,
   steps,
-  changeCadenceExitInStep,
-  changeCadenceStepInExit,
+  convertCadenceExitIntoStep,
+  convertCadenceStepIntoExit,
   deleteCadenceStep,
   deleteConnectedTrigger,
   editConnectedTrigger,
@@ -153,8 +156,8 @@ export const useGraph = ({
       storedEntryStep,
       storedSteps,
       storedTriggers,
-      changeCadenceExitInStep,
-      changeCadenceStepInExit,
+      convertCadenceExitIntoStep,
+      convertCadenceStepIntoExit,
       deleteCadenceStep,
       deleteConnectedTrigger,
       editConnectedTrigger,

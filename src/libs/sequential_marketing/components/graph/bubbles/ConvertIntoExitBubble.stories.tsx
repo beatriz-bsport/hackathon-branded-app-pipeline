@@ -1,13 +1,11 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import ChangeInExitBubble, {
-  ChangeInExitBubbleProps,
-} from './ChangeInExitBubble.component';
+import ConvertIntoExitBubble from './ConvertIntoExitBubble.component';
 
 export default {
-  title: 'Components/Cadences/Bubbles/ChangeInExit',
-  component: ChangeInExitBubble,
+  title: 'Components/Cadences/Bubbles/ConvertIntoExit',
+  component: ConvertIntoExitBubble,
   decorators: [
     (Story) => (
       <div
@@ -26,7 +24,7 @@ export default {
       page: null,
     },
     description: {
-      component: 'Bubble for change in exit form',
+      component: 'Bubble for convert into exit form',
     },
   },
   argTypes: {
@@ -39,10 +37,10 @@ export default {
       description: 'Confirm button',
     },
   },
-} as ComponentMeta<typeof ChangeInExitBubble>;
+} as ComponentMeta<typeof ConvertIntoExitBubble>;
 
-const Template: ComponentStory<typeof ChangeInExitBubble> = (
-  args: ChangeInExitBubbleProps,
-) => <ChangeInExitBubble {...args} />;
+const Template: ComponentStory<typeof ConvertIntoExitBubble> = (
+  args: React.ComponentProps<typeof ConvertIntoExitBubble>,
+) => <ConvertIntoExitBubble {...args} />;
 
 export const Primary = Template.bind({});

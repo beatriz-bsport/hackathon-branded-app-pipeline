@@ -3,14 +3,14 @@ import { handleActions } from 'redux-actions';
 
 import {
   // STEPS
-  changeCadenceStepInExitActions,
+  convertCadenceStepIntoExitActions,
   deleteCadenceStepActions,
   fetchCadenceStepListActions,
   retrieveCadenceStepActions,
   updateCadenceStepActions,
   updateCadenceStepCanvasPositionActions,
   // TRIGGERS
-  changeCadenceExitInStepActions,
+  convertCadenceExitIntoStepActions,
   deleteConnectedTriggerActions,
   subscribeStepToStepActions,
   updateCadenceStepConnectedTriggerCanvasPositionActions,
@@ -101,19 +101,19 @@ export default handleActions<ImmutableCadenceStepState, any>(
         .setIn(['byId', payload.id.toString()], payload);
     },
 
-    [changeCadenceStepInExitActions.isLoading.toString()]: (
+    [convertCadenceStepIntoExitActions.isLoading.toString()]: (
       state,
       { payload }: { payload: boolean },
     ) => {
       return state.setIn(['trigger', 'loading'], payload);
     },
-    [changeCadenceStepInExitActions.error.toString()]: (
+    [convertCadenceStepIntoExitActions.error.toString()]: (
       state,
       { payload }: { payload: Error | null },
     ) => {
       return state.setIn(['trigger', 'error'], payload);
     },
-    [changeCadenceStepInExitActions.success.toString()]: (
+    [convertCadenceStepIntoExitActions.success.toString()]: (
       state,
       { payload }: { payload: UpdatedTriggersList },
     ) => {
@@ -309,19 +309,19 @@ export default handleActions<ImmutableCadenceStepState, any>(
         );
       return state;
     },
-    [changeCadenceExitInStepActions.isLoading.toString()]: (
+    [convertCadenceExitIntoStepActions.isLoading.toString()]: (
       state,
       { payload }: { payload: boolean },
     ) => {
       return state.setIn(['trigger', 'loading'], payload);
     },
-    [changeCadenceExitInStepActions.error.toString()]: (
+    [convertCadenceExitIntoStepActions.error.toString()]: (
       state,
       { payload }: { payload: Error | null },
     ) => {
       return state.setIn(['trigger', 'error'], payload);
     },
-    [changeCadenceExitInStepActions.success.toString()]: (
+    [convertCadenceExitIntoStepActions.success.toString()]: (
       state,
       { payload }: { payload: UpdatedTrigger },
     ) => {

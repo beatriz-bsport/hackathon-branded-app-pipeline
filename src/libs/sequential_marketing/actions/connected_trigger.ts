@@ -4,7 +4,7 @@ import type { OptionCallback, Dispatch } from '../../../state/types';
 import {
   subscribeStepToStep as subscribeStepToStepAPI,
   updateCadenceStepConnectedTriggerCanvasPosition as updateCadenceStepConnectedTriggerCanvasPositionAPI,
-  changeCadenceExitInStep as changeCadenceExitInStepAPI,
+  convertCadenceExitIntoStep as convertCadenceExitIntoStepAPI,
   updateConnectedTrigger as updateConnectedTriggerAPI,
   deleteConnectedTrigger as deleteConnectedTriggerAPI,
 } from '#libs/sequential_marketing/api';
@@ -102,40 +102,40 @@ export function updateCadenceStepConnectedTriggerCanvasPosition(
   };
 }
 
-export const changeCadenceExitInStepActions = {
+export const convertCadenceExitIntoStepActions = {
   isLoading: createAction<boolean>(
-    'CADENCE_STEP_WIP/CHANGE_IN_STEP/IS_LOADING',
+    'CADENCE_STEP_WIP/CONVERT_INTO_STEP/IS_LOADING',
   ),
-  error: createAction<Error | null>('CADENCE_STEP_WIP/CHANGE_IN_STEP/ERROR'),
+  error: createAction<Error | null>('CADENCE_STEP_WIP/CONVERT_INTO_STEP/ERROR'),
   success: createAction<UpdatedTrigger>(
-    'CADENCE_STEP_WIP/CHANGE_IN_STEP/SUCCESS',
+    'CADENCE_STEP_WIP/CONVERT_INTO_STEP/SUCCESS',
   ),
 };
 
-export function changeCadenceExitInStep(
+export function convertCadenceExitIntoStep(
   cadenceId: number,
   triggerUuid: string,
   step: { name: string; canvas: GraphCanvas },
   options?: OptionCallback<UpdatedTrigger>,
 ) {
   return async (dispatch: Dispatch) => {
-    dispatch(changeCadenceExitInStepActions.isLoading(true));
-    dispatch(changeCadenceExitInStepActions.error(null));
+    dispatch(convertCadenceExitIntoStepActions.isLoading(true));
+    dispatch(convertCadenceExitIntoStepActions.error(null));
 
     try {
-      const response = await changeCadenceExitInStepAPI(
+      const response = await convertCadenceExitIntoStepAPI(
         cadenceId,
         triggerUuid,
         step,
       );
-      dispatch(changeCadenceExitInStepActions.success(response.data));
+      dispatch(convertCadenceExitIntoStepActions.success(response.data));
       options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
-      dispatch(changeCadenceExitInStepActions.error(err));
+      dispatch(convertCadenceExitIntoStepActions.error(err));
       options?.onError?.();
     }
-    dispatch(changeCadenceExitInStepActions.isLoading(false));
+    dispatch(convertCadenceExitIntoStepActions.isLoading(false));
   };
 }
 

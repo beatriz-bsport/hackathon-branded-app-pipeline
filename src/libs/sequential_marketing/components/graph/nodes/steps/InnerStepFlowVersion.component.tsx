@@ -17,7 +17,7 @@ import {
   HandleTypeChoices,
 } from '#libs/sequential_marketing/constants/steps';
 import usePopoverBubble from '#libs/sequential_marketing/components/graph/nodes/usePopoverBubble.hook';
-import ChangeInExitBubble from '#libs/sequential_marketing/components/graph/bubbles/ChangeInExitBubble.component';
+import ConvertIntoExitBubble from '#libs/sequential_marketing/components/graph/bubbles/ConvertIntoExitBubble.component';
 import { DestinationStatus } from '#libs/sequential_marketing/constants';
 
 type FlowProps = {
@@ -26,7 +26,7 @@ type FlowProps = {
     stepToEditId: number;
     endStepEdition: () => void;
     onConnectToStep: (destination_step_id: string) => void;
-    submitChangeInExit: (status: DestinationStatus) => void;
+    submitConvertIntoExit: (status: DestinationStatus) => void;
   } & InnerStepCardProps;
 };
 
@@ -44,7 +44,7 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
     isStepNew && setAnchorEl(stepCardRef?.current);
   }, [isStepNew, setAnchorEl]);
 
-  const [anchorChangeInExit, setAnchorChangeInExit] =
+  const [anchorConvertIntoExit, setAnchorConvertIntoExit] =
     React.useState<HTMLDivElement>(null);
 
   // ======================= STEP EDITION BUBBLE =======================
@@ -65,14 +65,14 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
   }, [data, isStepNew, setAnchorEl]);
   // ===================================================================
 
-  // ====================== CHANGE IN EXIT BUBBLE ======================
-  const handleOpenChangeInExitBubble = React.useCallback(
-    () => setAnchorChangeInExit(stepCardRef?.current),
+  // ====================== CONVERT INTO EXIT BUBBLE ======================
+  const handleOpenConvertIntoExitBubble = React.useCallback(
+    () => setAnchorConvertIntoExit(stepCardRef?.current),
     [],
   );
 
-  const handleCloseChangeInExitBubble = React.useCallback(
-    () => setAnchorChangeInExit(null),
+  const handleCloseConvertIntoExitBubble = React.useCallback(
+    () => setAnchorConvertIntoExit(null),
     [],
   );
   // ===================================================================
@@ -115,7 +115,7 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
           disabled={data.disabled}
           getEmailTemplate={data.getEmailTemplate}
           getTag={data.getTag}
-          handleChangeInExit={handleOpenChangeInExitBubble}
+          handleConvertIntoExit={handleOpenConvertIntoExitBubble}
           isSelected={data.isSelected}
           marketingActionList={data.marketingActionList}
           onCardClick={handleClick}
@@ -156,16 +156,16 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
         />
       </Popover>
       <Popover
-        anchorEl={anchorChangeInExit}
+        anchorEl={anchorConvertIntoExit}
         anchorOrigin={anchorOrigin}
-        onClose={handleCloseChangeInExitBubble}
-        open={!!anchorChangeInExit}
+        onClose={handleCloseConvertIntoExitBubble}
+        open={!!anchorConvertIntoExit}
         PaperProps={popoverStyle}
         transformOrigin={transformOrigin}
       >
-        <ChangeInExitBubble
-          onCancel={handleCloseChangeInExitBubble}
-          onConfirm={data.submitChangeInExit}
+        <ConvertIntoExitBubble
+          onCancel={handleCloseConvertIntoExitBubble}
+          onConfirm={data.submitConvertIntoExit}
         />
       </Popover>
     </>

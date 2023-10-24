@@ -5,21 +5,18 @@ import TextField from '@material-ui/core/TextField';
 import CadenceBubble from './CadenceBubble.component';
 import { SequentialMarketingColors } from '#libs/sequential_marketing/constants';
 
-export type ChangeInStepBubbleProps = {
+type Props = {
   onCancel?: () => void;
   onConfirm?: (stepName: string) => void;
 };
 
-const ChangeInStepBubble: React.FC<ChangeInStepBubbleProps> = ({
-  onCancel,
-  onConfirm,
-}) => {
+const ConvertIntoStepBubble: React.FC<Props> = ({ onCancel, onConfirm }) => {
   const { t } = useTranslation('marketing');
 
   const classes = useStyles();
 
   const [stepName, setStepName] = useState<string>(
-    t('cadence.bubble.changeInStep.default'),
+    t('cadence.bubble.convertIntoStep.default'),
   );
 
   const handleChange = useCallback(
@@ -48,8 +45,8 @@ const ChangeInStepBubble: React.FC<ChangeInStepBubbleProps> = ({
         fullWidth
         required
         className={classes.label}
-        defaultValue={t('cadence.bubble.changeInStep.default')}
-        label={t('cadence.bubble.changeInStep.label')}
+        defaultValue={t('cadence.bubble.convertIntoStep.default')}
+        label={t('cadence.bubble.convertIntoStep.label')}
         name="stepName"
         onChange={handleChange}
         type="text"
@@ -64,4 +61,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default React.memo(ChangeInStepBubble);
+export default React.memo(ConvertIntoStepBubble);

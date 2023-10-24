@@ -184,7 +184,7 @@ const QuickReportFilterConfigFilter: React.FC<
               />
             </div>
             <div>
-              {!!values.config.groups.length && (
+              {!!values.config?.groups.length && (
                 <DatatypeFilterConfigValueManager
                   openMenuOnClear
                   openMenuOnFocus
@@ -193,7 +193,7 @@ const QuickReportFilterConfigFilter: React.FC<
                   comparator={
                     values.config.groups[0].filters_data[index].comparator
                   }
-                  filterItem={selectedColumn}
+                  filterItem={values.config.groups[0].filters_data[index]}
                   getDataByType={getDataByType}
                   prefix={`config.groups[0].filters_data.${index}`}
                   reportCategory={reportCategory}

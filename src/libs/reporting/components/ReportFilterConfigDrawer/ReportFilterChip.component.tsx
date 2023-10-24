@@ -71,6 +71,7 @@ type ReportFilterChipProps = {
   ) => handleGetDynamicDataForFiltersReturn;
   columnIdentifiers?: string[];
   ref?: React.Ref<HTMLDivElement | null>;
+  subDataType?: 0 | 1 | null;
 };
 
 const ReportFilterChip: React.FC<ReportFilterChipProps> = forwardRef(
@@ -89,6 +90,7 @@ const ReportFilterChip: React.FC<ReportFilterChipProps> = forwardRef(
       value,
       getDataByTypeAndId,
       columnIdentifiers,
+      subDataType,
     },
     ref,
   ) => {
@@ -104,12 +106,13 @@ const ReportFilterChip: React.FC<ReportFilterChipProps> = forwardRef(
     const valueLabel = () => {
       if (Array.isArray(value)) {
         if (value?.length > 1) {
-          return getMultipleValuesLabel(datatype, value);
+          return getMultipleValuesLabel(datatype, subDataType, value);
         }
         if (value.length === 1) {
           return `${getComparatorLabel(comparator) ?? ''} ${getSingleValueLabel(
             datatype,
             value,
+            subDataType,
             getDataByTypeAndId,
             t,
           )}`;
@@ -120,6 +123,7 @@ const ReportFilterChip: React.FC<ReportFilterChipProps> = forwardRef(
       return `${getComparatorLabel(comparator) ?? ''} ${getSingleValueLabel(
         datatype,
         value,
+        subDataType,
         getDataByTypeAndId,
         t,
       )}`;
@@ -253,7 +257,13 @@ const ReportFilterChip: React.FC<ReportFilterChipProps> = forwardRef(
 
     if (
       !onlyDisplay &&
-      getSingleValueLabel(datatype, value, getDataByTypeAndId, t) === ''
+      getSingleValueLabel(
+        datatype,
+        value,
+        subDataType,
+        getDataByTypeAndId,
+        t,
+      ) === ''
     ) {
       return (
         <div ref={ref}>

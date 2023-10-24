@@ -98,6 +98,7 @@ import {
   FILTER_LTE_OPERAND,
   FILTER_NOT_EQUAL_OPERAND,
   FILTER_OUT_OPERAND,
+  HOUR_SUBDATA_TYPE,
   ReportFilterableDataType,
 } from '#libs/datatype-filtering/constants';
 import { handleGetDynamicDataForFiltersReturn } from '#libs/datatype-filtering/dynamic-data-hoc';
@@ -797,6 +798,7 @@ export const getComparatorLabel = (comparator: AllComparator) => {
 export const getSingleValueLabel = (
   datatype: DataSourceMedadataDataType,
   value: boolean | number[] | number,
+  subDataType: 0 | 1 | null,
   getDataByTypeAndId: (
     type: DynamicFilterDataType,
     valueId?: number[],
@@ -827,6 +829,9 @@ export const getSingleValueLabel = (
     case ReportFilterableDataType.DATE:
     case ReportFilterableDataType.TIME:
     case ReportFilterableDataType.DATETIME:
+      if (subDataType === HOUR_SUBDATA_TYPE) {
+        return moment.unix(value as number).format('LT');
+      }
       return moment.unix(value as number).format('L');
     case ReportFilterableDataType.BOOLEAN:
       return value === true ? t('yes') : t('no');
@@ -868,6 +873,7 @@ export const getSingleValueLabel = (
 
 export const getMultipleValuesLabel = (
   datatype: DataSourceMedadataDataType,
+  subDataType: 0 | 1 | null,
   value: number[],
 ) => {
   switch (datatype) {
@@ -877,6 +883,11 @@ export const getMultipleValuesLabel = (
     case ReportFilterableDataType.DATE:
     case ReportFilterableDataType.TIME:
     case ReportFilterableDataType.DATETIME:
+      if (subDataType === HOUR_SUBDATA_TYPE) {
+        return `: ${moment.unix(value[0]).format('LT')} → ${moment
+          .unix(value[1])
+          .format('LT')}`;
+      }
       return `: ${moment.unix(value[0]).format('L')} → ${moment
         .unix(value[1])
         .format('L')}`;

@@ -245,6 +245,7 @@ const ReportFilterConfigSelector: React.FC<Props & Values> = memo(
               value: row.value,
               comparator: row.comparator,
               datatype: row.datatype,
+              sub_datatype: row.sub_datatype,
             })),
           )
         : [];
@@ -357,6 +358,7 @@ const ReportFilterConfigSelector: React.FC<Props & Values> = memo(
                   }
                   setIsQuickFilterModalOpen={setIsQuickFilterModalOpen}
                   setSelectedColumn={setSelectedColumn}
+                  subDataType={filterItem.sub_datatype}
                   value={filterItem.value}
                 />
               ))}

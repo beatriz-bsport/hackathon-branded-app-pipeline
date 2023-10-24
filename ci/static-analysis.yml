@@ -17,6 +17,8 @@ Lint and Compile:
   rules:
     - if: '$CI_PIPELINE_SOURCE == "schedule"'
       when: never
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
     - if: '$CI_COMMIT_REF_NAME == "master"'
       when: never
     - if: '$CI_COMMIT_REF_NAME == "production"'
@@ -36,6 +38,8 @@ Test:
 
   rules:
     - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: never
     - if: '$CI_COMMIT_REF_NAME == "master"'
       when: never

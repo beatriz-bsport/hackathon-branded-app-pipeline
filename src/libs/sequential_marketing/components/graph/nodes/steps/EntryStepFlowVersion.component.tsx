@@ -27,6 +27,7 @@ export const EntryStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
         addNextStep={data.addNextStep}
         disabled={data.disabled}
         getEmailTemplate={data.getEmailTemplate}
+        getSmartlist={data.getSmartlist}
         getTag={data.getTag}
         isSelected={data.isSelected}
         marketingActionList={data.marketingActionList}

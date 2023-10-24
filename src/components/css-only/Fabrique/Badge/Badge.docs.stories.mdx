@@ -1,0 +1,31 @@
+import { Meta, Canvas, Story, Source } from '@storybook/addon-docs';
+import {BadgeStorybook as Badge} from '.'
+
+<Meta title="Fabrique/Badge/Doc" component={Badge} />
+
+# Badge
+
+## Description
+The **`badge`** component is used to display small pieces of information, such as counts or status indicators, in a visually distinct manner. It is commonly used within tabs and side navigation items to provide additional context.
+If there are more than 999 items, the badge displays “999+”.
+
+### Color
+
+<Canvas withSource="none" withToolbar isExpanded>
+  <Story id="fabrique-badge-stories--badgeonstrong"/>
+  <Story id="fabrique-badge-stories--badgemain"/>
+  <Story id="fabrique-badge-stories--badgewarning"/>
+  <Story id="fabrique-badge-stories--badgegrey"/>
+</Canvas>
+
+#### Example
+<Source dark language='html' id="fabrique-badge-stories--badgemain" />
+
+### Different number size
+<Canvas withSource="none" withToolbar>
+  <Story id="fabrique-badge-stories--badgeover-999"/>
+  <Story id="fabrique-badge-stories--badgesingleunit"/>
+</Canvas>
+
+#### Example
+<Source dark language='html' id="fabrique-badge-stories--badgeover-999" />

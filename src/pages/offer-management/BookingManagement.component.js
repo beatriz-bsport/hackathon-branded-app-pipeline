@@ -59,7 +59,7 @@ import { Tag, TagGroup } from '#libs/tag/types';
 import { OptionCallback } from '../../state/types';
 import type { PerformanceTrackingProgram } from '../../performance-tracking/types';
 import BottomActionsButtonCustom from '#components/button/BottomActionsButtonCustom.component';
-import Config, { useOldPermissions } from '../../config';
+import Config from '../../config';
 import ValidationRollCallButton from '#libs/offer/components/ValidationRollCallButton.component';
 import ValidationRollCallText from '#libs/offer/components/ValidationRollCallText.component';
 import { formatAsTime } from '../../utils/datetime';
@@ -603,23 +603,32 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                       <PermissionContext.Consumer>
                         {(permissions) => (
                           <>
-                            <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.create">
-                              {(hasNewPermission) => {
-                                // Temporary while former and new set of permissions coexist
-                                const hasPermission = useOldPermissions
-                                  ? permissions?.member?.create
-                                  : hasNewPermission;
-                                return (
-                                  hasPermission && (
-                                    <IconButton
-                                      color="primary"
-                                      onClick={this.props.openAddMemberModal}
-                                    >
-                                      <PersonAddIcon />
-                                    </IconButton>
-                                  )
-                                );
-                              }}
+                            <ObjectLevelPermissionProvider
+                              requiredPermission={[
+                                'member.allowed_actions.create',
+                                'reservation.activity.allowed_actions.create',
+                                'reservation.workshop.allowed_actions.create',
+                              ]}
+                            >
+                              {([
+                                hasMemberCreatePermission,
+                                hasActivityCreateBookingPermission,
+                                hasWorkshopCreateBookingPermission,
+                              ]) =>
+                                hasMemberCreatePermission &&
+                                getActivityWorkshopPermission(
+                                  this.getIsWorkshop(),
+                                  hasActivityCreateBookingPermission,
+                                  hasWorkshopCreateBookingPermission,
+                                ) && (
+                                  <IconButton
+                                    color="primary"
+                                    onClick={this.props.openAddMemberModal}
+                                  >
+                                    <PersonAddIcon />
+                                  </IconButton>
+                                )
+                              }
                             </ObjectLevelPermissionProvider>
                             <SearchMember
                               anonimize={!permissions?.member?.search}

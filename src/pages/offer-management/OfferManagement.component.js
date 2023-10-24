@@ -296,7 +296,6 @@ type State = {
   isMemberProgramDetailDialogOpen: boolean,
   memberIdFocused: null | number,
   openConfirmationRollCallDialog: boolean,
-  selectedBookingOptionsIds: number[],
 };
 
 export class OfferManagement extends Component<Props, State> {
@@ -306,7 +305,6 @@ export class OfferManagement extends Component<Props, State> {
     isMemberProgramDetailDialogOpen: false,
     memberIdFocused: null,
     openConfirmationRollCallDialog: false,
-    selectedBookingOptionsIds: [],
   };
 
   componentDidMount() {
@@ -661,29 +659,29 @@ export class OfferManagement extends Component<Props, State> {
       this.props.bookingOptionsPending
         ?.filter((bookingOption) => !bookingOption.cancelled)
         .map((availableBookingOption) => availableBookingOption?.id) ?? [];
-    this.setState({ selectedBookingOptionsIds: availableBookingOptionsIds });
+    this.props.setUnregisteredSelectedBookingOptions(
+      availableBookingOptionsIds,
+    );
   };
 
   handleUnselectAllBookingOptions = () => {
-    this.setState({ selectedBookingOptionsIds: [] });
+    this.props.setUnregisteredSelectedBookingOptions([]);
   };
 
   handleCheckBookingOption = (bookingOptionId: number) => {
-    this.setState((prevState) => ({
-      selectedBookingOptionsIds: [
-        ...prevState.selectedBookingOptionsIds,
-        bookingOptionId,
-      ],
-    }));
+    this.props.setUnregisteredSelectedBookingOptions((prevState) => [
+      ...prevState,
+      bookingOptionId,
+    ]);
   };
 
   handleUncheckBookingOption = (bookingOptionId: number) => {
-    this.setState((prevState) => ({
-      selectedBookingOptionsIds: prevState.selectedBookingOptionsIds.filter(
+    this.props.setUnregisteredSelectedBookingOptions((prevState) =>
+      prevState.filter(
         (selectedBookingOptionId) =>
           selectedBookingOptionId !== bookingOptionId,
       ),
-    }));
+    );
   };
 
   onCloseAutoBookingDialogs = () => {
@@ -708,7 +706,9 @@ export class OfferManagement extends Component<Props, State> {
   };
 
   handleAutoBook = () => {
-    this.props.registerMultipleOptions(this.state.selectedBookingOptionsIds);
+    this.props.registerMultipleOptions(
+      this.props.unregisteredSelectedBookingOptions,
+    );
   };
 
   render() {
@@ -920,7 +920,9 @@ export class OfferManagement extends Component<Props, State> {
             searchedMembers={this.props.searchedMembers}
             searchedText={this.props.searchedText}
             searchMembers={this.props.searchMembers}
-            selectedBookingOptionsIds={this.state.selectedBookingOptionsIds}
+            selectedBookingOptionsIds={
+              this.props.unregisteredSelectedBookingOptions
+            }
             showVaccinationStatus={this.props.showVaccinationStatus}
             switchWaitingListFreeze={this.props.switchWaitingListFreeze}
           />

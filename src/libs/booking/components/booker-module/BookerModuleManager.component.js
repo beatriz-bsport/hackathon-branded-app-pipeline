@@ -420,7 +420,9 @@ export class BookerModuleManager extends PureComponent<Props, State> {
                   }
                   cppMaxoutBookingsByCpp={this.props.cppMaxoutBookingsByCpp}
                   disableMultiBooking={
-                    !!this.props.offer.room_blueprint || hasGroup
+                    !!this.props.offer.room_blueprint ||
+                    hasGroup ||
+                    this.props.isAutoBooking
                   }
                   enableMultiLocalization={
                     this.props.companyTheme.enable_multi_localization

@@ -173,6 +173,11 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
     nonCompatibleByOfferByMemberLoading,
     setOpenNonCompatibleConsumerPass,
   ]);
+
+  React.useEffect(() => {
+    setVoucherDialogOpen(false);
+  }, [props.member]);
+
   return (
     <div className={classes.container}>
       <Typography component="h4" variant="h6">

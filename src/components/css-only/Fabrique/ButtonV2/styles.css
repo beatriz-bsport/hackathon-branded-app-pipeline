@@ -11,8 +11,9 @@
 }
 
 .bs-button-root {
-  transition: background-color 200ms ease-in-out, color 200ms ease-in-out,
-    border-color 200ms ease-in-out;
+  transition: background-color var(--bs-transition-duration-slow) ease-in-out,
+    color var(--bs-transition-duration-slow) ease-in-out,
+    border-color var(--bs-transition-duration-slow) ease-in-out;
 }
 
 /* BUTTON SIZES */

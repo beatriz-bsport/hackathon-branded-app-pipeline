@@ -319,6 +319,12 @@ export const useMuiThemeToCssVars = () => {
     --bs-shadow-m:  0px 4px 8px rgba(0, 0, 0, 0.06), 0px 0px 4px rgba(0, 0, 0, 0.04);
     --bs-shadow-l:  0px 8px 16px rgba(0, 0, 0, 0.08), 0px 0px 4px rgba(0, 0, 0, 0.04);
     --bs-footer-shadow:  0px 4px 8px rgba(0, 0, 0, 0.06), 0px -4px 4px rgba(0, 0, 0, 0.04);
+
+    /* FABRIQUE TRANSITIONS */
+    --bs-transition-duration-quick:50ms;
+    --bs-transition-duration-normal:100ms;
+    --bs-transition-duration-slow:200ms;
+    --bs-transition-duration-slower:300ms;
   `;
 
   // Inside the 'id' section, we define styles that will be applied to the 'div' element with the id 'bs-setup-derived-variable'.

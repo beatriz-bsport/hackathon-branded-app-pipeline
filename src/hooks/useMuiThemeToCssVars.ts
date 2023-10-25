@@ -264,12 +264,28 @@ export const useMuiThemeToCssVars = () => {
 
     /* FABRIQUE COLOR PALETTE - BRAND */
     --bs-brand-main: ${theme.palette.primary.main};
-    --bs-brand-main-strong ${theme.palette.primary.dark};
+    --bs-brand-main-strong: ${theme.palette.primary.dark};
+    --bs-brand-main-stronger: ${chroma(theme.palette.primary.dark).darken(1)};
+    --bs-brand-main-strongest: ${chroma(theme.palette.primary.dark).darken(2)};
     --bs-brand-main-weak: ${theme.palette.primary.light};
+    --bs-brand-main-weaker: ${chroma(theme.palette.primary.light).alpha(0.2)};
+    --bs-brand-main-weakest: ${chroma(theme.palette.primary.light).alpha(0.1)};
 
     --bs-brand-secondary: ${theme.palette.secondary.main};
-    --bs-brand-secondary-strong ${theme.palette.secondary.dark};
+    --bs-brand-secondary-strong: ${theme.palette.secondary.dark};
+    --bs-brand-secondary-stronger: ${chroma(theme.palette.primary.dark).darken(
+      1,
+    )};
+    --bs-brand-secondary-strongest ${chroma(theme.palette.primary.dark).darken(
+      1,
+    )};
     --bs-brand-secondary-weak: ${theme.palette.secondary.light};
+    --bs-brand-secondary-weaker: ${chroma(theme.palette.secondary.light).alpha(
+      0.2,
+    )};
+    --bs-brand-secondary-weakest: ${chroma(theme.palette.secondary.light).alpha(
+      0.1,
+    )};  
 
     /* FABRIQUE SPACING */
     --bs-space-size-1: 4px;
@@ -385,7 +401,7 @@ export const useMuiThemeToCssVars = () => {
     --bs-color-action-brand-main-selected: var(--bs-brand-main-strong);
 
     --bs-color-action-brand-secondary: var(--bs-brand-secondary);
-    --bs-color-action-brand-secondary-hovered: var(--bs-brand-secondary-weak); 
+    --bs-color-action-brand-secondary-hovered: var(--bs-brand-secondary-weak);
     --bs-color-action-brand-secondary-pressed: var(--bs-brand-secondary-strong);
     --bs-color-action-brand-secondary-selected: var(--bs-brand-secondary-strong);
 
@@ -393,10 +409,16 @@ export const useMuiThemeToCssVars = () => {
     /* FABRIQUE DERIVED VARIABLES - BACKGROUND COLORS - BRAND */
     --bs-color-background-brand-main: var(--bs-brand-main);
     --bs-color-background-brand-main-weak: var(--bs-brand-main-weak);
-    --bs-color-background-brand-main-selected: var(--bs-brand-secondary-strong);
+    --bs-color-background-brand-main-weaker: var(--bs-brand-main-weaker);
+    --bs-color-background-brand-main-weakest: var(--bs-brand-main-weakest);
+    --bs-color-background-brand-main-selected: var(--bs-brand-main-strong);
+    --bs-color-background-brand-main-stronger: var(--bs-brand-main-stronger);
+    --bs-color-background-brand-main-strongest: var(--bs-brand-main-strongest);
     
-    --bs-color-background-brand-secondary: var(--bs-brand-main);
+    --bs-color-background-brand-secondary: var(--bs-brand-secondary);
     --bs-color-background-brand-secondary-weak: var(--bs-brand-secondary-weak);
+    --bs-color-background-brand-secondary-weaker: var(--bs-brand-secondary-weaker);
+    --bs-color-background-brand-secondary-weakest: var(--bs-brand-secondary-weakest);
     --bs-color-background-brand-secondary-selected:  var(--bs-brand-secondary-strong);
 
     --bs-color-background-disabled: var(--bs-grey-alpha-100a);
@@ -437,11 +459,14 @@ export const useMuiThemeToCssVars = () => {
     --bs-color-border-status-error-weak: var(--bs-red-500);
 
     /* FABRIQUE DERIVED VARIABLES - TEXT COLORS */
+    --bs-color-text-brand-main: var(--bs-brand-main);
     --bs-color-text-brand-main-strong: var(--bs-brand-main-strong);
     --bs-color-text-brand-main-weak: var(--bs-brand-main-weak);
+    
+    --bs-color-text-brand-secondary: var(--bs-brand-secondary);
     --bs-color-text-brand-secondary-strong: var(--bs-brand-secondary-strong);
     --bs-color-text-brand-secondary-weak: var(--bs-brand-secondary-weak);
-    
+
     --bs-color-text-default: var(--bs-grey-850);
     --bs-color-text-weak: var(--bs-grey-700);
     --bs-color-text-weaker: var(--bs-grey-600);
@@ -458,7 +483,7 @@ export const useMuiThemeToCssVars = () => {
     --bs-color-text-warning-weak: var(--bs-orange-600);
     --bs-color-text-error-strong: var(--bs-red-600);
     --bs-color-text-error-weak: var(--bs-red-500);
-    --bs-color-text-onstrong: var(--bs-grey-0);
+    --bs-color-text-on-strong: var(--bs-grey-0);
 
     /* FABRIQUE DERIVED VARIABLES - LINK COLORS */
     --bs-color-link-link: var(--bs-blue-600);
@@ -484,7 +509,7 @@ export const useMuiThemeToCssVars = () => {
     --bs-color-icon-inverse-hover: var(--bs-grey-alpha-400a);
     --bs-color-icon-brand-main-weak: var(--bs-brand-main-weak);
     --bs-color-icon-selected: var(--bs-brand-main);
-    --bs-color-icon-onstrong: var(--bs-grey-0);
+    --bs-color-icon-on-strong: var(--bs-grey-0);
     --bs-color-icon-status-info-strong: var(--bs-blue-800);
     --bs-color-icon-onweak: var(--bs-grey-800);
     --bs-color-icon-status-info-weak: var(--bs-blue-600);

@@ -13316,6 +13316,8 @@
     },
     "explainWaitingListConf": "Example: a member that joined the waitlist for a session that starts in 3 hours has {{nbMinutesBeforeBookingOptionExpire}} minute(s) to complete their booking before they lose their priority spot on the waitlist.",
     "dialog": {
+      "cancel": "Cancel",
+      "confirm": "Confirm",
       "delete": {
         "title": "Remove from waitlist",
         "content": "Are you sure that you want to remove this member from the waitlist? The member will also be notified of this.",
@@ -13323,6 +13325,25 @@
         "confirm": "Delete",
         "sendEmail": "Send a message of the removal",
         "contentV2": "Are you sure you want to remove this member from the waitlist?"
+      },
+      "autoBooking": {
+        "error": {
+          "title": "The auto booking has failed",
+          "content": "Members could not be added to the session. Please try again"
+        },
+        "success": { "title": "Members were added to the session successfully" },
+        "info": {
+          "title": "Automatic bookings for valid passes",
+          "content": "Members with valid passes will be automatically booked into the session and will receive a confirmation email. The system will automatically deduct the credits from passes that expire the soonest"
+        },
+        "loading": {
+          "title": "Members are being added to the session",
+          "content": "Please do not refresh the tab or leave this page. This process can take up to 40 seconds"
+        },
+        "warning": {
+          "title": "Are you sure?",
+          "content": "By closing the form, the selected member(s) will not be added to the session. If you selected several members and want to unselect this member only, please click on cancel on the member form"
+        }
       }
     },
     "member": {

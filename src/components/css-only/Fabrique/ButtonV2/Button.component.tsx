@@ -13,8 +13,9 @@ import type {
   ButtonSize as ButtonSizeType,
 } from './types';
 
-import './styles.css';
 import { ButtonSize, ButtonVariant, ButtonColor } from './constants';
+
+import './styles.css';
 
 type Props = {
   color: ButtonColorType;

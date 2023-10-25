@@ -401,22 +401,28 @@ export const useMuiThemeToCssVars = () => {
 
     /* FABRIQUE DERIVED VARIABLES - ACTION COLORS - BRAND */
 
-    --bs-color-action-brand-main: var(--bs-brand-main);
-    --bs-color-action-brand-main-hovered: var(--bs-brand-main-weak);
-    --bs-color-action-brand-main-pressed: var(--bs-brand-main-strong);
-    --bs-color-action-brand-main-selected: var(--bs-brand-main-strong);
+    --bs-color-action-brand-main:var(--bs-brand-main);
+    --bs-color-action-brand-main-hovered:var(--bs-brand-main-weak);
+    --bs-color-action-brand-main-pressed:var(--bs-brand-main-strong);
+    --bs-color-action-brand-main-selected:var(--bs-brand-main-strong);
+
+    --bs-color-action-brand-weak-main-hovered:var(--bs-brand-main-weakest);
+    --bs-color-action-brand-weak-main-pressed:var(--bs-brand-main-weaker);
+    --bs-color-action-brand-weak-main-selected:var(--bs-brand-main-weaker);
 
     --bs-color-action-brand-secondary: var(--bs-brand-secondary);
     --bs-color-action-brand-secondary-hovered: var(--bs-brand-secondary-weak);
     --bs-color-action-brand-secondary-pressed: var(--bs-brand-secondary-strong);
     --bs-color-action-brand-secondary-selected: var(--bs-brand-secondary-strong);
 
+    --bs-color-action-brand-weak-secondary-hovered:var(--bs-brand-secondary-weakest);
+    --bs-color-action-brand-weak-secondary-pressed:var(--bs-brand-secondary-weaker);
+    --bs-color-action-brand-weak-secondary-selected:var(--bs-brand-secondary-weaker);
+    
     /* FABRIQUE DERIVED VARIABLES - BACKGROUND COLORS */
     /* FABRIQUE DERIVED VARIABLES - BACKGROUND COLORS - BRAND */
     --bs-color-background-brand-main: var(--bs-brand-main);
     --bs-color-background-brand-main-weak: var(--bs-brand-main-weak);
-    --bs-color-background-brand-main-weaker: var(--bs-brand-main-weaker);
-    --bs-color-background-brand-main-weakest: var(--bs-brand-main-weakest);
     --bs-color-background-brand-main-selected: var(--bs-brand-main-strong);
     --bs-color-background-brand-main-stronger: var(--bs-brand-main-stronger);
     --bs-color-background-brand-main-strongest: var(--bs-brand-main-strongest);

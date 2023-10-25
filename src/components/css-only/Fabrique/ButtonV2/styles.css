@@ -51,7 +51,7 @@
 /* ----- CONTAINED BRAND MAIN ----- */
 .bs-button-root-contained--main {
   color: var(--bs-color-text-on-strong);
-  background-color: var(--bs-color-background-brand-main);
+  background-color: var(--bs-color-action-brand-main);
 }
 
 .bs-button-root-contained--main:hover,
@@ -61,14 +61,13 @@
 
 .bs-button-root-contained--main:active:hover {
   transition: unset;
-  /* TODO : DESIGN wrong var --bs-color-action-brand-pressed */
   background-color: var(--bs-color-action-brand-main-pressed);
 }
 
 /* ----- CONTAINED BRAND SECONDARY ----- */
 .bs-button-root-contained--secondary {
   color: var(--bs-color-text-on-strong);
-  background-color: var(--bs-color-background-brand-secondary);
+  background-color: var(--bs-color-action-brand-secondary);
 }
 
 .bs-button-root-contained--secondary:hover,
@@ -99,14 +98,13 @@
 
 /* ----- CONTAINED WHITE ----- */
 .bs-button-root-contained--white {
-  color: var(--bs-color-text-inverse-default);
-  background-color: transparent;
+  color: var(--bs-color-text-default);
+  background-color: var(--bs-color-action-inverse-default);
 }
 
 .bs-button-root-contained--white:hover,
 .bs-button-root-contained--white:focus-visible {
-  color: var(--bs-color-text-weak);
-  background-color: var(--bs-color-action-grey-weak-hovered);
+  background-color: var(--bs-color-action-inverse-hovered);
 }
 
 .bs-button-root-contained--white:active:hover {
@@ -164,7 +162,6 @@
 
 /* ----- CONTAINED DISABLED----- */
 .bs-button-root-contained--disabled {
-  /* TODO figma as color and background-color set as color-text-disabled but with different transparence */
   color: var(--bs-color-text-disabled);
   /* TODO Why text var for backgroun --bs-color-text-disabled */
   background-color: var(--bs-color-text-disabled);
@@ -181,38 +178,38 @@
 
 /* ----- OUTLINED BRAND MAIN----- */
 .bs-button-root-outlined--main {
-  color: var(--bs-color-text-brand-main-weak);
+  color: var(--bs-color-text-brand-main);
   border-color: var(--bs-color-border-brand-main);
 }
 .bs-button-root-outlined--main:hover,
 .bs-button-root-outlined--main:focus-visible {
-  color: var(--bs-color-text-brand-main-weak);
-  background-color: var(--bs-color-background-brand-main-weakest);
+  color: var(--bs-color-text-brand-main);
+  background-color: var(--bs-color-action-brand-weak-main-hovered);
 }
 .bs-button-root-outlined--main:active:hover {
   transition: unset;
   color: var(--bs-color-text-brand-main-strong);
   border-color: var(--bs-color-border-brand-main-strong);
-  background-color: var(--bs-color-background-brand-main-weaker);
+  background-color: var(--bs-color-action-brand-weak-main-pressed);
 }
 
 /* ----- OUTLINED BRAND SECONDARY----- */
 .bs-button-root-outlined--secondary {
-  color: var(--bs-color-text-brand-secondary-weak);
+  color: var(--bs-color-text-brand-secondary);
   border-color: var(--bs-color-border-brand-secondary);
 }
 
 .bs-button-root-outlined--secondary:hover,
 .bs-button-root-outlined--secondary:focus-visible {
-  color: var(--bs-color-text-brand-secondary-weak);
-  background-color: var(--bs-color-background-brand-secondary-weakest);
+  color: var(--bs-color-text-brand-secondary);
+  background-color: var(--bs-color-action-brand-weak-secondary-hovered);
 }
 
 .bs-button-root-outlined--secondary:active:hover {
   transition: unset;
   color: var(--bs-color-text-brand-secondary-strong);
   border-color: var(--bs-color-border-brand-secondary-strong);
-  background-color: var(--bs-color-background-brand-secondary-weaker);
+  background-color: var(--bs-color-action-brand-weak-secondary-pressed);
 }
 
 /* ----- OUTLINED GREY----- */
@@ -234,24 +231,22 @@
 
 /* ----- OUTLINED WHITE----- */
 .bs-button-root-outlined--white {
-  /* TODO IN FIGMA WRITTEN var(--bs-grey-0-white, #FFF); */
-  color: var(--bs-grey-0);
-  /* TODO written var(--bs-grey-0-white, #FFF); */
-  border-color: var(--bs-grey-0);
+  color: var(--bs-color-text-inverse-default);
+  border-color: var(--bs-color-border-inverse-default);
+  background-color: transparent;
 }
 
 .bs-button-root-outlined--white:hover,
 .bs-button-root-outlined--white:focus-visible {
-  color: var(--bs-color-text-weak);
-  /* TODO written color-text-weak */
-  border-color: var(--bs-color-text-weak);
+  color: var(--bs-color-text-weaker);
+  border-color: var(--bs-color-border-weak);
   background-color: var(--bs-color-action-grey-weak-hovered);
 }
 
 .bs-button-root-outlined--white:active:hover {
   transition: unset;
-  color: var(--bs-color-text-weak);
-  border-color: var(--bs-color-border-strong);
+  color: var(--bs-color-text-weaker);
+  border-color: var(--bs-color-border-weak);
   background-color: var(--bs-color-action-inverse-pressed);
 }
 
@@ -259,6 +254,7 @@
 .bs-button-root-outlined--info {
   color: var(--bs-color-text-info-weak);
   border-color: var(--bs-color-border-status-info-weak);
+  background-color: var(--bs-color-action-light);
 }
 
 .bs-button-root-outlined--info:hover,
@@ -311,51 +307,48 @@
 
 /* ----- OUTLINED DISABLED----- */
 .bs-button-root-outlined--disabled {
-  /* TODO MISSING IN FIGMA */
   color: var(--bs-color-text-disabled);
+  /* TODO FIGMA WRONG */
   background-color: var(--bs-color-border-disabled);
-  border-color: var(--bs-color-border-disabled);
+  border-color: var(--bs-color-action-disabled);
 }
 
 /* TEXT BUTTON STYLES */
 
 /* ----- TEXT BUTTON ROOT ----- */
-button[class*='bs-button-text-outlined'] {
-  background-color: var(--bs-color-action-light);
-}
 
 /* ----- TEXT BUTTON BRAND MAIN ----- */
 .bs-button-root-text--main {
-  color: var(--bs-color-text-brand-main-weak);
+  color: var(--bs-color-text-brand-main);
 }
 
 .bs-button-root-text--main:hover,
 .bs-button-root-text--main:focus-visible {
-  color: var(--bs-color-text-brand-main-weak);
-  background-color: var(--bs-color-background-brand-main-weakest);
+  color: var(--bs-color-text-brand-main);
+  background-color: var(--bs-color-action-brand-weak-main-hovered);
 }
 
 .bs-button-root-text--main:active:hover {
   transition: unset;
   color: var(--bs-color-text-brand-main-strong);
-  background-color: var(--bs-color-background-brand-main-weaker);
+  background-color: var(--bs-color-action-brand-weak-main-pressed);
 }
 
 /* ----- TEXT BUTTON BRAND SECONDARY ----- */
 .bs-button-root-text--secondary {
-  color: var(--bs-color-text-brand-secondary-weak);
+  color: var(--bs-color-text-brand-secondary);
 }
 
 .bs-button-root-text--secondary:hover,
 .bs-button-root-text--secondary:focus-visible {
-  color: var(--bs-color-text-brand-secondary-weak);
-  background-color: var(--bs-color-background-brand-secondary-weakest);
+  color: var(--bs-color-text-brand-secondary);
+  background-color: var(--bs-color-action-brand-weak-secondary-hovered);
 }
 
 .bs-button-root-text--secondary:active:hover {
   transition: unset;
   color: var(--bs-color-text-brand-secondary-strong);
-  background-color: var(--bs-color-background-brand-secondary-weaker);
+  background-color: var(--bs-color-action-brand-weak-secondary-pressed);
 }
 
 /* ----- TEXT BUTTON GREY ----- */
@@ -377,26 +370,27 @@ button[class*='bs-button-text-outlined'] {
 
 /* ----- TEXT BUTTON WHITE ----- */
 .bs-button-root-text--white {
-  /* TODO IN FIGMA WRITTEN var(--bs-grey-0-white, #FFF); */
-  color: var(--bs-grey-0);
+  /* TODO : FIGMA GIVES AN ACTION TOKEN */
+  color: var(--bs-color-action-light);
+  background-color: transparent;
 }
 
 .bs-button-root-text--white:hover,
 .bs-button-root-text--white:focus-visible {
-  color: var(--bs-color-text-weak);
-  /* TODO written color-text-weak */
+  color: var(--bs-color-text-weaker);
   background-color: var(--bs-color-action-grey-weak-hovered);
 }
 
 .bs-button-root-text--white:active:hover {
   transition: unset;
-  color: var(--bs-color-text-weak);
+  color: var(--bs-color-text-weaker);
   background-color: var(--bs-color-action-inverse-pressed);
 }
 
 /* ----- TEXT BUTTON INFO ----- */
 .bs-button-root-text--info {
   color: var(--bs-color-text-info-weak);
+  background-color: var(--bs-color-action-light);
 }
 
 .bs-button-root-text--info:hover,
@@ -426,7 +420,7 @@ button[class*='bs-button-text-outlined'] {
   background-color: var(--bs-color-action-warning-weak-pressed);
 }
 
-/* ----- TEXT BUTTON WARNING----- */
+/* ----- TEXT BUTTON ERROR----- */
 
 .bs-button-root-text--error {
   color: var(--bs-color-text-error-weak);
@@ -445,7 +439,6 @@ button[class*='bs-button-text-outlined'] {
 
 /* ----- TEXT BUTTON DISABLED----- */
 .bs-button-root-text--disabled {
-  /* TODO MISSING IN FIGMA */
   color: var(--bs-color-text-disabled);
-  background-color: var(--bs-color-background-disabled);
+  background-color: transparent;
 }

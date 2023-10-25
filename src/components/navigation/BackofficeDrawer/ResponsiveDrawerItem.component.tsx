@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useCallback } from 'react';
 import { pure } from 'recompose';
 import type { Theme } from '@material-ui/core/styles';
@@ -12,14 +11,19 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import type { DrawerItem } from './ResponsiveDrawer.component';
-import { checkRequiredPermissionsForPath } from '../../../libs/role/utils';
-import { RolePermission } from '#libs/role/types';
+import type {
+  DrawerItem,
+  DrawerItemDefault,
+  DrawerItemDivider,
+  DrawerItemNested,
+} from './ResponsiveDrawer.component';
+import { checkRequiredPermissionsForPath } from '#libs/role/utils';
+import { RolePermission, ProtectedUrls } from '#libs/role/types';
 import DrawerListItem from './ResponsiveDrawerListItem.component';
 import ResponsiveDrawerListItemIcon from './DrawerListItemIcon.component';
 
 type WrapperProp = {
-  item: DrawerItem;
+  item: DrawerItemDefault;
   i: number;
 };
 class Wrapper extends React.PureComponent<WrapperProp> {
@@ -48,7 +52,7 @@ type Props = {
   isNested?: boolean;
   permissions: RolePermission;
   location: Location;
-  handleToggle: (idx: number, item: DrawerItem) => void;
+  handleToggle: (idx: number, item: DrawerItem) => () => void;
 
   toggledMenu: Record<number, boolean>;
   onMenuItemClick: () => void;
@@ -89,7 +93,7 @@ export const DrawerItemComponent: React.FC<Props> = ({
    * @returns A boolean indicating whether the DrawerItem should be highlighted as active.
    */
   const urlPatternMatch = useCallback(
-    (_item: DrawerItem) => {
+    (_item: DrawerItemDefault) => {
       const pattern = _item?.hasInnerTabs
         ? _item.to.replace(/\/[^/]+$/g, '')
         : _item.to;
@@ -98,8 +102,8 @@ export const DrawerItemComponent: React.FC<Props> = ({
     [currentPath],
   );
 
-  const hasAnActiveNestedItem = item?.nestedItems?.some((_item) =>
-    urlPatternMatch(_item),
+  const hasAnActiveNestedItem = (item as DrawerItemNested)?.nestedItems?.some(
+    (_item) => urlPatternMatch(_item),
   );
 
   // We want this effect to only run once when the component is mounted in order to
@@ -109,28 +113,38 @@ export const DrawerItemComponent: React.FC<Props> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (!checkRequiredPermissionsForPath(item?.to, permissions)) {
+  if (
+    !checkRequiredPermissionsForPath(
+      (item as DrawerItemDefault)?.to as ProtectedUrls,
+      permissions,
+    )
+  ) {
     return null;
   }
-  if (item?.nestedItems) {
+  if ((item as DrawerItemNested)?.nestedItems) {
     if (
-      !item?.nestedItems.some(
+      !(item as DrawerItemNested)?.nestedItems.some(
         (_item) =>
-          _item.to && checkRequiredPermissionsForPath(_item?.to, permissions),
+          _item.to &&
+          checkRequiredPermissionsForPath(
+            _item.to as ProtectedUrls,
+            permissions,
+          ),
       )
     ) {
       return null;
     }
   }
 
-  const isActive = urlPatternMatch(item) || hasAnActiveNestedItem;
+  const isActive =
+    urlPatternMatch(item as DrawerItemDefault) || hasAnActiveNestedItem;
 
-  if (item.type === 'nested') {
+  if ((item as DrawerItemNested).type === 'nested') {
     return (
-      <React.Fragment key={item.text}>
+      <React.Fragment key={(item as DrawerItemNested).text}>
         <ListItem
           button
-          dense={item?.dense || isNested}
+          dense={isNested}
           id="button_menu_item"
           onClick={handleToggle(i, item)}
           selected={isActive}
@@ -145,9 +159,11 @@ export const DrawerItemComponent: React.FC<Props> = ({
           {!iconsOnly && (
             <>
               <ListItemText
-                id={item?.id}
-                primary={item?.text}
-                secondary={item?.subtext}
+                id={(item as DrawerItemDefault)?.id}
+                primary={(item as DrawerItemDefault | DrawerItemNested)?.text}
+                secondary={
+                  (item as DrawerItemDefault | DrawerItemNested)?.subtext
+                }
                 secondaryTypographyProps={{
                   style: { color: colors.primaryDark },
                 }}
@@ -163,38 +179,44 @@ export const DrawerItemComponent: React.FC<Props> = ({
           timeout="auto"
         >
           <List disablePadding className={classes.nestedList}>
-            {item?.nestedItems.map((subitem: DrawerItem, subi: number) => (
-              <DrawerItemComponent
-                key={`responsive_drawer_item_nested${subi}`}
-                isNested
-                handleToggle={handleToggle}
-                i={subi}
-                iconsOnly={iconsOnly}
-                item={subitem}
-                location={location}
-                nbTutorialAlerting={nbTutorialAlerting}
-                onMenuItemClick={onMenuItemClick}
-                permissions={permissions}
-                toggledMenu={toggledMenu}
-                tutorialDialogOpen={tutorialDialogOpen}
-                updateUserAcknowlegdeTutorial={updateUserAcknowlegdeTutorial}
-                userAcknowlegdePlatformTutorial={
-                  userAcknowlegdePlatformTutorial
-                }
-              />
-            ))}
+            {(item as DrawerItemNested)?.nestedItems.map(
+              (subitem, subi: number) => (
+                <DrawerItemComponent
+                  key={`responsive_drawer_item_nested${subi}`}
+                  isNested
+                  handleToggle={handleToggle}
+                  i={subi}
+                  iconsOnly={iconsOnly}
+                  item={subitem}
+                  location={location}
+                  nbTutorialAlerting={nbTutorialAlerting}
+                  onMenuItemClick={onMenuItemClick}
+                  permissions={permissions}
+                  toggledMenu={toggledMenu}
+                  tutorialDialogOpen={tutorialDialogOpen}
+                  updateUserAcknowlegdeTutorial={updateUserAcknowlegdeTutorial}
+                  userAcknowlegdePlatformTutorial={
+                    userAcknowlegdePlatformTutorial
+                  }
+                />
+              ),
+            )}
           </List>
         </Collapse>
         {toggledMenu[i] ? <Divider key={`${i}-second-nestedDivider`} /> : null}
       </React.Fragment>
     );
   }
-  if (item?.type === 'divider') {
+  if ((item as DrawerItemDivider)?.type === 'divider') {
     return <Divider key={i} className={item?.className} />;
   }
 
   return (
-    <Wrapper key={item.text} i={i} item={item}>
+    <Wrapper
+      key={(item as DrawerItemDefault).text}
+      i={i}
+      item={item as DrawerItemDefault}
+    >
       <DrawerListItem
         iconsOnly={iconsOnly}
         isActive={isActive}

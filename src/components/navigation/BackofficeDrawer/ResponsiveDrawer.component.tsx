@@ -110,38 +110,44 @@ type Props = {
   handleUserSetDrawerIconsOnly?: (isIconOnly: boolean) => void;
 };
 
+export type DrawerItemDefault = {
+  icon?: React.ElementType;
+  action?: () => void;
+  text: string;
+  subtext?: string | null;
+  className?: string;
+  to: string | null;
+  disabled?: boolean;
+  dense?: boolean;
+  id?: string;
+  actionOnMenuToggle?: undefined;
+  shrinkMenuOnIconOnly?: boolean;
+  hasInnerTabs?: boolean;
+};
+
+export type DrawerItemDivider = {
+  type: 'divider';
+  className?: string;
+  actionOnMenuToggle?: undefined;
+  shrinkMenuOnIconOnly?: boolean;
+};
+
+export type DrawerItemNested = {
+  icon: React.ElementType;
+  text: string;
+  type: 'nested';
+  subtext?: string | null;
+  className?: string;
+  defaultTo?: string;
+  nestedItems: DrawerItemDefault[];
+  actionOnMenuToggle?: () => void;
+  shrinkMenuOnIconOnly?: boolean;
+};
+
 export type DrawerItem =
-  | {
-      icon?: React.ElementType;
-      action?: () => void;
-      text: string;
-      subtext?: string | null;
-      className?: string;
-      to: string | null;
-      disabled?: boolean;
-      dense?: boolean;
-      id?: string;
-      actionOnMenuToggle?: undefined;
-      shrinkMenuOnIconOnly?: boolean;
-      hasInnerTabs?: boolean;
-    }
-  | {
-      type: 'divider';
-      className?: string;
-      actionOnMenuToggle?: undefined;
-      shrinkMenuOnIconOnly?: boolean;
-    }
-  | {
-      icon: React.ElementType;
-      text: string;
-      type: 'nested';
-      subtext?: string | null;
-      className?: string;
-      defaultTo?: string;
-      nestedItems: DrawerItem[];
-      actionOnMenuToggle?: () => void;
-      shrinkMenuOnIconOnly?: boolean;
-    };
+  | DrawerItemDefault
+  | DrawerItemDivider
+  | DrawerItemNested;
 
 const ResponsiveDrawer: React.FC<Props> = ({
   logo,
@@ -201,56 +207,56 @@ const ResponsiveDrawer: React.FC<Props> = ({
         text: t('backofficeMenu.search'),
         icon: Search,
         className: classes.menuMobile,
-      },
-      { type: 'divider', className: classes.menuMobile },
+      } as DrawerItemDefault,
+      { type: 'divider', className: classes.menuMobile } as DrawerItemDivider,
       {
         to: '/dashboard',
         text: t('backofficeMenu.dashboard'),
         icon: TrendingUp,
-      },
-      { type: 'divider' },
+      } as DrawerItemDefault,
+      { type: 'divider' } as DrawerItemDivider,
       {
         to: '/calendar',
         icon: DateRangeIcon,
         text: t('backofficeMenu.calendar'),
-      },
+      } as DrawerItemDefault,
       {
         to: '/schedule',
         icon: ScheduleIcon,
         text: t('backofficeMenu.schedule'),
-      },
+      } as DrawerItemDefault,
       {
         icon: BusinessCenterIcon,
         text: t('backofficeMenu.myClub'),
         type: 'nested',
         nestedItems: [
-          { type: 'divider' },
+          { type: 'divider' } as DrawerItemDivider,
           {
             to: '/activity',
             icon: Star,
             text: t('backofficeMenu.activity'),
-          },
+          } as DrawerItemDefault,
           {
             to: '/workshop-activity/tabs/list',
             icon: TodayIcon,
             text: t('backofficeMenu.workshopActivities'),
-          },
+          } as DrawerItemDefault,
           {
             to: '/private-service/service/',
             icon: ScheduleIcon,
             text: t('backofficeMenu.privateService.services'),
-          },
+          } as DrawerItemDefault,
           {
             to: '/coach',
             id: 'button_menu_teachers',
             icon: FitnessCenter,
             text: t('backofficeMenu.coaches'),
-          },
+          } as DrawerItemDefault,
           {
             to: '/establishment/room',
             icon: LocationOn,
             text: t('backofficeMenu.establishment'),
-          },
+          } as DrawerItemDefault,
           ...(![634, 631, 632, 633, 630].includes(companyId) &&
           !hasUpsellIdentifier(UPSELL_PERFORMANCE_TRACKING_IDENTIFIER)
             ? []
@@ -259,7 +265,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
                   to: '/performance-tracking',
                   icon: OfflineBoltIcon,
                   text: t('backofficeMenu.programs'),
-                },
+                } as DrawerItemDefault,
               ]),
           ...(hasUpsellIdentifier(UPSELL_IDENTIFIER_SUBTEACHER_TOOL, true) &&
           hasObjectLevelPermission(
@@ -271,63 +277,63 @@ const ResponsiveDrawer: React.FC<Props> = ({
                   to: '/replacement/management',
                   icon: Cached,
                   text: t('backofficeMenu.replacement'),
-                },
+                } as DrawerItemDefault,
               ]
             : []),
         ],
-      },
+      } as DrawerItemNested,
       {
         icon: ShoppingCartIcon,
         text: t('backofficeMenu.product'),
         type: 'nested',
         nestedItems: [
-          { type: 'divider' },
+          { type: 'divider' } as DrawerItemDivider,
           {
             to: '/payment-pack',
             icon: VpnKey,
             text: t('backofficeMenu.pass'),
-          },
+          } as DrawerItemDefault,
           {
             to: '/private-service/pass/',
             icon: ScheduleIcon,
             text: t('backofficeMenu.privateService.pass'),
-          },
+          } as DrawerItemDefault,
           {
             to: '/shop',
             icon: ShoppingCartIcon,
             text: t('backofficeMenu.myShop'),
-          },
+          } as DrawerItemDefault,
           {
             to: '/combo',
             icon: GroupWorkIcon,
             text: t('backofficeMenu.combo'),
-          },
+          } as DrawerItemDefault,
           {
             to: '/giftcard/',
             icon: RedeemIcon,
             text: t('backofficeMenu.giftcard'),
-          },
+          } as DrawerItemDefault,
           {
             to: '/coupon/',
             icon:
               getCurrencyDisplay() === '€' ? EuroSymbolIcon : AttachMoneyIcon,
             text: t('backofficeMenu.coupon'),
-          },
-          { type: 'divider' },
+          } as DrawerItemDefault,
+          { type: 'divider' } as DrawerItemDivider,
           {
             to: '/subscription/contract',
             icon: Payment,
             text: t('backofficeMenu.contract'),
-          },
+          } as DrawerItemDefault,
         ],
-      },
+      } as DrawerItemNested,
       {
         icon: getCurrencyDisplay() === '€' ? EuroSymbolIcon : AttachMoneyIcon,
         text: t('backofficeMenu.payment'),
         type: 'nested',
         defaultTo: '/invoice',
         nestedItems: [
-          { type: 'divider' },
+          { type: 'divider' } as DrawerItemDivider,
           ...(hasObjectLevelPermission(
             objectLevelPermissions,
             'billing.allowed_actions.readInvoices',
@@ -337,14 +343,14 @@ const ResponsiveDrawer: React.FC<Props> = ({
                   to: '/invoice',
                   icon: ReceiptIcon,
                   text: t('backofficeMenu.invoice'),
-                },
+                } as DrawerItemDefault,
               ]
             : []),
           {
             to: '/subscription',
             icon: Payment,
             text: t('backofficeMenu.subscription'),
-          },
+          } as DrawerItemDefault,
           ...(hasObjectLevelPermission(
             objectLevelPermissions,
             'management.coach.allowed_actions.readPayroll',
@@ -354,24 +360,24 @@ const ResponsiveDrawer: React.FC<Props> = ({
                   to: '/coach/performance',
                   icon: PersonIcon,
                   text: t('backofficeMenu.coachPerformance'),
-                },
+                } as DrawerItemDefault,
               ]
             : []),
           {
             to: '/order/',
             icon: ShoppingCartIcon,
             text: t('backofficeMenu.order'),
-          },
+          } as DrawerItemDefault,
           {
             to: '/expense/',
             icon: DescriptionIcon,
             text: t('backofficeMenu.expenses'),
-          },
+          } as DrawerItemDefault,
           {
             to: '/instalment-payment/',
             icon: DoubleArrow,
             text: t('backofficeMenu.instalmentPayment'),
-          },
+          } as DrawerItemDefault,
           ...(!hasUpsellIdentifier(UPSELL_IDENTIFIER_CLOCK_IN) ||
           !(
             checkRequiredPermissions(
@@ -389,42 +395,42 @@ const ResponsiveDrawer: React.FC<Props> = ({
                   to: '/clock-in/',
                   icon: TimerIcon,
                   text: t('backofficeMenu.clockIn'),
-                },
+                } as DrawerItemDefault,
               ]),
         ],
-      },
+      } as DrawerItemNested,
       {
         icon: Email,
         text: t('backofficeMenu.message'),
         type: 'nested',
         defaultTo: '/smart-list',
         nestedItems: [
-          { type: 'divider' },
+          { type: 'divider' } as DrawerItemDivider,
           {
             to: '/email-template',
             icon: Email,
             text: t('backofficeMenu.email_template'),
-          },
+          } as DrawerItemDefault,
           {
             to: '/custom-form',
             icon: AssignmentIcon,
             text: t('backofficeMenu.custom_form'),
-          },
+          } as DrawerItemDefault,
           {
             to: '/smart-list',
             icon: People,
             text: t('backofficeMenu.smart_list'),
-          },
+          } as DrawerItemDefault,
           {
             to: '/marketing/notifications',
             icon: NotificationsActiveIcon,
             text: t('backofficeMenu.marketingNotification'),
-          },
+          } as DrawerItemDefault,
           {
             to: '/marketing/tags',
             icon: LabelIcon,
             text: t('backofficeMenu.tags'),
-          },
+          } as DrawerItemDefault,
           ...(SEQUENTIAL_MARKETING_AUTHORIZED_COMPANY_IDS.includes(companyId) ||
           hasUpsellIdentifier(UPSELL_IDENTIFIER_CADENCE)
             ? [
@@ -432,47 +438,47 @@ const ResponsiveDrawer: React.FC<Props> = ({
                   to: '/cadence',
                   icon: AccountTreeIcon,
                   text: t('backofficeMenu.cadences'),
-                },
+                } as DrawerItemDefault,
               ]
             : []),
         ],
-      },
+      } as DrawerItemNested,
       {
         icon: LaptopIcon,
         text: t('backofficeMenu.digital'),
         type: 'nested',
         nestedItems: [
-          { type: 'divider' },
+          { type: 'divider' } as DrawerItemDivider,
           {
             icon: VideoLibraryIcon,
             text: t('backofficeMenu.video'),
             disabled: true,
             to: '/vod/video',
-          },
+          } as DrawerItemDefault,
           {
             icon: PlaylistPlayIcon,
             text: t('backofficeMenu.playlist'),
             disabled: true,
             to: '/vod/playlist',
-          },
+          } as DrawerItemDefault,
         ],
-      },
+      } as DrawerItemNested,
       {
         to: '/inbox/thread',
         icon: ChatIcon,
         text: 'Inbox',
-      },
+      } as DrawerItemDefault,
       {
         to: '/member',
         icon: People,
         text: t('backofficeMenu.member'),
-      },
+      } as DrawerItemDefault,
       {
         to: '/reporting',
         icon: DescriptionIcon,
         text: t('backofficeMenu.reporting'),
-      },
-      { type: 'divider' },
+      } as DrawerItemDefault,
+      { type: 'divider' } as DrawerItemDivider,
       {
         icon: SettingsIcon,
         text: t('backofficeMenu.settings.settings'),
@@ -482,33 +488,33 @@ const ResponsiveDrawer: React.FC<Props> = ({
           iconsOnly && setDrawerIconsOnly && setDrawerIconsOnly(false);
         },
         nestedItems: [
-          { type: 'divider' },
+          { type: 'divider' } as DrawerItemDivider,
           {
             to: '/settings/general',
             dense: true,
             text: t('backofficeMenu.settings.general'),
-          },
+          } as DrawerItemDefault,
           {
             to: '/settings/marketplace-settings',
             dense: true,
             text: t('backofficeMenu.settings.marketplaceSettings'),
-          },
+          } as DrawerItemDefault,
           {
             to: '/settings/widget/create',
             dense: true,
             text: t('backofficeMenu.settings.widget'),
             hasInnerTabs: true,
-          },
+          } as DrawerItemDefault,
           {
             to: '/settings/role',
             dense: true,
             text: t('backofficeMenu.settings.role'),
-          },
+          } as DrawerItemDefault,
           {
             to: '/settings/personalization',
             dense: true,
             text: t('backofficeMenu.settings.personalization'),
-          },
+          } as DrawerItemDefault,
           ...(hasUpsellIdentifier(UPSELL_IDENTIFIER_CUSTOM_APP)
             ? [
                 {
@@ -516,79 +522,79 @@ const ResponsiveDrawer: React.FC<Props> = ({
                   dense: true,
                   text: t('backofficeMenu.settings.mobilePersonalization'),
                   hasInnerTabs: true,
-                },
+                } as DrawerItemDefault,
               ]
             : []),
           {
             to: '/settings/coach-userspace',
             dense: true,
             text: t('backofficeMenu.settings.coachUserspace'),
-          },
+          } as DrawerItemDefault,
           {
             to: '/settings/forms',
             dense: true,
             text: t('backofficeMenu.settings.forms'),
-          },
+          } as DrawerItemDefault,
           {
             to: '/settings/broadcast',
             dense: true,
             text: t('backofficeMenu.settings.broadcast'),
-          },
+          } as DrawerItemDefault,
           {
             to: '/settings/notification-rule',
             dense: true,
             text: t('backofficeMenu.settings.notificationRule'),
-          },
+          } as DrawerItemDefault,
           {
             to: '/settings/payment-rules',
             dense: true,
             text: t('backofficeMenu.settings.paymentRules'),
-          },
+          } as DrawerItemDefault,
           {
             to: '/settings/payment-methods',
             dense: true,
             text: t('backofficeMenu.settings.paymentMethod'),
-          },
+          } as DrawerItemDefault,
           {
             to: '/settings/company',
             dense: true,
             text: t('backofficeMenu.settings.company'),
-          },
+          } as DrawerItemDefault,
           {
             to: '/settings/invoice',
             dense: true,
             text: t('backofficeMenu.settings.invoice'),
-          },
+          } as DrawerItemDefault,
           {
             to: '/settings/waiting-list',
             dense: true,
             text: t('backofficeMenu.settings.waitingList'),
-          },
+          } as DrawerItemDefault,
           {
             to: '/settings/shop',
             dense: true,
             text: t('backofficeMenu.settings.shop'),
-          },
+          } as DrawerItemDefault,
           {
             to: '/settings/webhook',
             dense: true,
             text: t('backofficeMenu.settings.webhook'),
-          },
+          } as DrawerItemDefault,
           {
             to: '/settings/partnership',
             dense: true,
             text: t('backofficeMenu.settings.partnership'),
-          },
+          } as DrawerItemDefault,
           {
             to: '/settings/quickbooks',
             dense: true,
             text: t('backofficeMenu.settings.quickbooks'),
-          },
+          } as DrawerItemDefault,
           {
             to: '/settings/active-campaign',
             dense: true,
             text: t('backofficeMenu.settings.active_campaign'),
-          },
+          } as DrawerItemDefault,
           // Temporary condition to hide the referral page while the feature is not finished
           // Condition will be removed once the feature is finished
           ...(shouldHideReferral
@@ -598,24 +604,24 @@ const ResponsiveDrawer: React.FC<Props> = ({
                   to: '/settings/referral',
                   dense: true,
                   text: t('backofficeMenu.settings.referral'),
-                },
+                } as DrawerItemDefault,
               ]),
           {
             to: '/settings/platform-billing',
             dense: true,
             text: t('backofficeMenu.settings.platform_billing'),
-          },
+          } as DrawerItemDefault,
           ...(hasUpsellIdentifier(UPSELL_IDENTIFIER_QUICKSALE)
             ? [
                 {
                   to: '/settings/quicksale',
                   dense: true,
                   text: t('backofficeMenu.settings.quicksale'),
-                },
+                } as DrawerItemDefault,
               ]
             : []),
         ],
-      },
+      } as DrawerItemNested,
       ...(checkRequiredPermissions('navigationMenu.tutorial', permissions) &&
       platformTutorialActivated()
         ? [
@@ -623,7 +629,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
               to: '/tutorial',
               icon: TutorialIconWithAlertings,
               text: t('backofficeMenu.tutorial'),
-            },
+            } as DrawerItemDefault,
           ]
         : []),
       {
@@ -631,7 +637,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
         to: null,
         icon: HighlightOff,
         text: t('backofficeMenu.logoff'),
-      },
+      } as DrawerItemDefault,
     ];
   }, [
     classes,

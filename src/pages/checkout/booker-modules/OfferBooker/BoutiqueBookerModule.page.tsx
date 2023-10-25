@@ -449,6 +449,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
            * the additional guest count anymore
            */
           0,
+          this.getIsGuestBooking(),
         ),
       };
     });

@@ -21,6 +21,7 @@ import ShopItemCard from '../../shop/components/ShopItemCard.component';
 import ShopItemListCard from '../../shop/components/ShopItemListCard.component';
 
 const SubShopComponent = (props: {
+  subshopId: string,
   subshop: SubShop,
   addToOrder: (id: number) => void,
   expanded: boolean,
@@ -30,6 +31,7 @@ const SubShopComponent = (props: {
 }) => {
   return (
     <div
+      id={props.subshopId}
       style={{
         marginTop: 24,
         marginBottom: 60,
@@ -82,6 +84,23 @@ type Props = {
 };
 
 export function MarketplaceShop(props: Props) {
+  /**
+   * Computes a unique identifier based on shop category name and id
+   * @param id The webshop category id
+   * @param name The webshop category name
+   */
+  const getShopCategoryIdentifier = React.useCallback(
+    (id: number, name: string) => {
+      const sanitizedCategoryName = name
+        .replace(/\s+/g, '-') // replace spaces by dashes
+        .replace(/[^a-zA-Z0-9-]/g, '') // only keep letters numbers and dashes
+        .toLowerCase();
+
+      return `${sanitizedCategoryName}-${id}`;
+    },
+    [],
+  );
+
   if (props.subShops.length === 0) {
     return (
       <div className={props.classes.container}>
@@ -99,25 +118,26 @@ export function MarketplaceShop(props: Props) {
     <div className={props.classes.container}>
       <div className={props.classes.subShopListContainer}>
         {props.subShops
-          .filter((sub) => sub.shopitems.length !== 0)
-          .map((sub) => (
+          .filter((subshop) => subshop.shopitems.length !== 0)
+          .map((subshop) => (
             <SubShopComponent
-              key={sub.id}
+              key={subshop.id}
               addToOrder={props.addToOrder}
               classes={props.classes}
-              expanded={!props.notExpandedSubshop.includes(sub.id)}
+              expanded={!props.notExpandedSubshop.includes(subshop.id)}
               isExcludingTax={props.isExcludingTax}
               selectShopItem={props.selectShopItem}
-              subshop={sub}
+              subshop={subshop}
+              subshopId={getShopCategoryIdentifier(subshop.id, subshop.name)}
               toggleExpanded={() => {
-                if (props.notExpandedSubshop.includes(sub.id)) {
+                if (props.notExpandedSubshop.includes(subshop.id)) {
                   props.setNotExpandedSubshop(
-                    props.notExpandedSubshop.filter((id) => id !== sub.id),
+                    props.notExpandedSubshop.filter((id) => id !== subshop.id),
                   );
                 } else {
                   props.setNotExpandedSubshop([
                     ...props.notExpandedSubshop,
-                    sub.id,
+                    subshop.id,
                   ]);
                 }
               }}

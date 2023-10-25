@@ -132,6 +132,7 @@ exports.default = {
         secondary: 'Secondary',
         grey: 'Grey',
         white: 'White',
+        success: 'Success',
         info: 'Info',
         error: 'Error',
         onstrong: 'On strong background',
@@ -145,6 +146,8 @@ exports.default = {
         password: 'Password',
         contained: 'Contained',
         outlined: 'Outlined',
+        strong: 'Strong',
+        weak: 'Weak',
         confirmationMessage: {
           generic: 'Error while processing transaction',
           genericOfferError: 'Reservation failed unexpectedly',

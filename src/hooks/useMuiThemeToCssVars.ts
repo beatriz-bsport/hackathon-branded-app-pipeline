@@ -425,6 +425,8 @@ export const useMuiThemeToCssVars = () => {
     /* FABRIQUE DERIVED VARIABLES - BACKGROUND COLORS */
     /* FABRIQUE DERIVED VARIABLES - BACKGROUND COLORS - BRAND */
     --bs-color-background-brand-main: var(--bs-brand-main);
+    --bs-color-background-brand-main-weakest: var(--bs-brand-main-weakest);
+    --bs-color-background-brand-main-weaker: var(--bs-brand-main-weaker);
     --bs-color-background-brand-main-weak: var(--bs-brand-main-weak);
     --bs-color-background-brand-main-selected: var(--bs-brand-main-strong);
     --bs-color-background-brand-main-stronger: var(--bs-brand-main-stronger);

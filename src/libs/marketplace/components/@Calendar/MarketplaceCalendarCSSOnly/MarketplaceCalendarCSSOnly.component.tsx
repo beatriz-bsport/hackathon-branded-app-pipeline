@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useRef, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { withTranslation, TFunction } from 'react-i18next';
 import moment from 'moment-timezone';
 
@@ -43,7 +43,6 @@ type Props = {
   setFilters: (any) => void;
   filters: any;
   forceDayDisplayOnly: boolean;
-  compactMode: boolean;
   onClickBook: (offer: Offer) => void;
   onClickBookOption: (offer: Offer) => void;
   showOfferFilling: boolean;
@@ -68,6 +67,8 @@ type Props = {
   onClearInput: () => void;
   searchedOffers: Offer[];
   startWeekOnDaySelected?: boolean;
+  isCardModeDisplay: boolean;
+  refContainer: React.RefObject<HTMLDivElement>;
 };
 
 export const MarketplaceCalendar = (props: Props) => {
@@ -81,13 +82,14 @@ export const MarketplaceCalendar = (props: Props) => {
     setFilters,
     filters,
     forceDayDisplayOnly,
-    compactMode = null,
+    isCardModeDisplay,
     nextAvailableOffer,
     groupSessionByPeriod,
     onSearch,
     onClearInput,
     searchedOffers,
     startWeekOnDaySelected,
+    refContainer,
   } = props;
 
   const weekOffers = useMemo(
@@ -102,23 +104,11 @@ export const MarketplaceCalendar = (props: Props) => {
       ),
     [offers, selectedDate, startWeekOnDaySelected],
   );
-  const refContainer = useRef(null);
 
   const showDayParts =
     groupSessionByPeriod == null || groupSessionByPeriod === true;
 
   const noOfferDisplayed = !loading && weekOffers.length === 0;
-  // compact calendar
-  const isCompact =
-    (compactMode !== null && compactMode === true) ||
-    (compactMode === null &&
-      (refContainer?.current?.clientWidth ?? 1200) < 1250);
-
-  // large calendar
-  const isLarge =
-    (compactMode != null && compactMode === false) ||
-    (compactMode == null &&
-      !((refContainer?.current?.clientWidth ?? 1240) < 1250));
 
   const renderNoOffer = () => {
     return (
@@ -203,8 +193,7 @@ export const MarketplaceCalendar = (props: Props) => {
             getLevel={props.getLevel}
             group={props.group}
             hideCoach={props.hideCoach}
-            isCompact={isCompact}
-            isLarge={isLarge}
+            isCardModeDisplay={isCardModeDisplay}
             metaActivities={metaActivities}
             offers={offers}
             onClickBook={props.onClickBook}

@@ -148,8 +148,32 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
     offerSearchResult: { query: '', offerList: null },
   };
 
+  constructor(props: FinalProps) {
+    super(props);
+    // This reference is used to evaluate the size of the calendar,
+    // and to determine if it should be displayed in card mode or not.
+    // That way, we can enable or disable the fetching of the offers when updating the start date.
+    this.calendarRefContainer = React.createRef();
+  }
+
+  // compact calendar
+  getIsCompact = () =>
+    (this.props.compactMode !== null && this.props.compactMode === true) ||
+    (this.props.compactMode === null &&
+      (this.calendarRefContainer?.current?.clientWidth ?? 1200) < 1250);
+
+  // large calendar
+  getIsLarge = () =>
+    (this.props.compactMode != null && this.props.compactMode === false) ||
+    (this.props.compactMode == null &&
+      !((this.calendarRefContainer?.current?.clientWidth ?? 1240) < 1250));
+
+  // Card mode display
+  getIsCardModeDisplay = () => !(this.getIsCompact() && !this.getIsLarge());
+
   getStartCalendarWeekOnToday = () =>
-    this.props.theme.start_calendar_week_on_today && !this.props.compactMode;
+    this.props.theme.start_calendar_week_on_today &&
+    this.getIsCardModeDisplay();
 
   start_date = () =>
     this.getStartCalendarWeekOnToday()
@@ -475,6 +499,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           group={this.props.group}
           groupSessionByPeriod={this.props.groupSessionByPeriod}
           hideCoach={this.props.theme.hideCoach}
+          isCardModeDisplay={this.getIsCardModeDisplay()}
           loading={loading}
           metaActivities={
             this.props.theme.show_workshops_customer
@@ -490,6 +515,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           onClickOffer={this.openOfferDialog}
           onSearch={this.handleSearch}
           onSelectDate={this.handleDateChange}
+          refContainer={this.calendarRefContainer}
           searchedOffers={this.state.offerSearchResult?.offerList}
           selectedDate={
             this.props.otherParams.date || moment().format('YYYY-MM-DD')

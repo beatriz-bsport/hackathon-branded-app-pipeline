@@ -58,8 +58,7 @@ export type Props = {
   showOfferGender?: boolean;
   bookedOffers?: number[];
   onSelectDate: (date: string) => void;
-  isCompact: boolean;
-  isLarge: boolean;
+  isCardModeDisplay: boolean;
   theme: Theme;
   variant?: 'activityName' | 'coach' | 'time';
   showDayParts: boolean;
@@ -397,7 +396,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
   };
 
   render() {
-    const { loading, date } = this.props;
+    const { loading, date, isCardModeDisplay } = this.props;
 
     if (this.props.searchedOffers && !this.props.searchedOffers.length) {
       return (
@@ -417,7 +416,6 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
       ? moment(date)
       : moment(date).startOf('week');
     const main_date = moment(date).clone();
-    const isCardModeDisplay = !(this.props.isCompact && !this.props.isLarge);
     const bs_week = classNames({
       'bs-week-card': isCardModeDisplay,
       'bs-week-list': !isCardModeDisplay,

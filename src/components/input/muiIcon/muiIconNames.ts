@@ -1,8 +1,14 @@
+import React from 'react';
 // @ts-expect-error
 import asyncComponent from '../../../AsyncComponent';
 import '@material-ui/icons';
+import type { MuiIconName } from './MuiIconNameType';
 
-const muiIconNames = {
+const muiIconNames: {
+  [iconName in MuiIconName]: React.ComponentType<{
+    className: string;
+  }>;
+} = {
   AccessAlarm: asyncComponent(() => import('@material-ui/icons/AccessAlarm')),
   AccessAlarms: asyncComponent(() => import('@material-ui/icons/AccessAlarms')),
   Accessibility: asyncComponent(

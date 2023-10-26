@@ -59,6 +59,7 @@ export const CustomMuiIcon: React.FC<Props> = ({
     <MuiIconComponent
       className={className}
       defaultIcon="CheckCircle"
+      fillColor={customColor}
       icon={icon}
     />
   );

@@ -13,7 +13,6 @@ import NestedMenuSelectorIconButton, {
   type NestedAction,
 } from '#components/menu/nested';
 import ConnectedTriggerChip from '#libs/sequential_marketing/components/graph/chips/ConnectedTriggerChip.component';
-import TriggeredPersonIcon from '#components/icons/TriggeredPersonIcon.component';
 import { isTriggerValid } from '#libs/sequential_marketing/components/helpers/utils';
 import {
   HEADER_FONT_SIZE,
@@ -76,17 +75,13 @@ const CadenceNodeTitle: React.FC<CadenceNodeTitleProps> = ({
         <div className={classes.flexIconAndText}>
           <div className={classes.losange}>
             <div className={classes.centerAbsolute}>
-              {icon === 'TriggeredPerson' ? (
-                <TriggeredPersonIcon fill={color} />
-              ) : (
-                <CustomMuiIcon
-                  defaultBackGround
-                  customColor={color}
-                  fadeIcon={disabled}
-                  icon={icon}
-                  withBackground={false}
-                />
-              )}
+              <CustomMuiIcon
+                defaultBackGround
+                customColor={color}
+                fadeIcon={disabled}
+                icon={icon}
+                withBackground={false}
+              />
             </div>
           </div>
           <Typography className={classes.label} variant="subtitle2">

@@ -1,29 +1,40 @@
-// @ts-nocheck
 import React from 'react';
 import { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/styles/makeStyles';
 import muiIconNames from './input/muiIcon/muiIconNames';
+import TriggeredPersonIcon from './icons/TriggeredPersonIcon.component';
+import type { MuiIconName } from './input/muiIcon/MuiIconNameType';
 
 type Props = {
   icon: string;
-  className?: string;
   defaultIcon?: string;
+  className?: string;
+  fillColor?: string;
 };
 
-const MuiIcon = (props: Props) => {
-  const { icon, defaultIcon } = props;
-  const MuiIconComponent = muiIconNames[icon] ?? muiIconNames[defaultIcon];
+const MuiIcon: React.FC<Props> = ({
+  icon,
+  defaultIcon,
+  className,
+  fillColor,
+}) => {
   const classes = useStyles();
-  // const iconComponent = React.createElement(muiIconComponent?.type, {
-  //   className: props.className || classes.small,
-  // });
+  if (icon === 'TriggeredPerson')
+    return (
+      <TriggeredPersonIcon
+        className={className || classes.small}
+        fill={fillColor}
+      />
+    );
+
+  const MuiIconComponent =
+    muiIconNames[icon as MuiIconName] ??
+    muiIconNames[defaultIcon as MuiIconName];
 
   return MuiIconComponent ? (
-    <>
-      <MuiIconComponent className={props.className || classes.small} />
-    </>
+    <MuiIconComponent className={className || classes.small} />
   ) : (
-    <div className={props.className || classes.small} />
+    <div className={className || classes.small} />
   );
 };
 
@@ -34,4 +45,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default MuiIcon;
+export default React.memo(MuiIcon);

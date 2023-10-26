@@ -6,9 +6,11 @@ export const TriggeredPersonIcon: React.FC<SVGProps<SVGElement>> = ({
   viewBox,
   xmlns,
   fill,
+  className,
 }) => {
   return (
     <svg
+      className={className}
       fill={fill}
       height={height}
       viewBox={viewBox}

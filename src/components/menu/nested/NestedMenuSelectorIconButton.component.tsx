@@ -16,7 +16,6 @@ import Popper from '@material-ui/core/Popper';
 import Typography from '@material-ui/core/Typography';
 
 import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
-import TriggeredPersonIcon from '#components/icons/TriggeredPersonIcon.component';
 import { type Action, MULTIPLE_ACTION_BUTTON_MAX_SIZE } from '../icon';
 
 export type NestedAction = Action & {
@@ -136,18 +135,12 @@ const NestedMenuSelectorIconButton: React.FC<Props> = ({
               onContextMenu={handleRightClick}
               onPointerEnter={handleOpenNestedMenu(mainAction.actionList)}
             >
-              {mainAction.icon === 'TriggeredPerson' ? (
-                <TriggeredPersonIcon
-                  fill={mainAction.customColor || customColor}
-                />
-              ) : (
-                <CustomMuiIcon
-                  defaultBackGround
-                  customColor={mainAction.customColor || customColor}
-                  icon={mainAction.icon}
-                  withBackground={false}
-                />
-              )}
+              <CustomMuiIcon
+                defaultBackGround
+                customColor={mainAction.customColor || customColor}
+                icon={mainAction.icon}
+                withBackground={false}
+              />
               <Typography className={classes.label} variant="body1">
                 {mainAction.label}
               </Typography>
@@ -178,20 +171,14 @@ const NestedMenuSelectorIconButton: React.FC<Props> = ({
                                 nestedAction.onClick,
                               )}
                             >
-                              {nestedAction.icon === 'TriggeredPerson' ? (
-                                <TriggeredPersonIcon
-                                  fill={nestedAction.customColor || customColor}
-                                />
-                              ) : (
-                                <CustomMuiIcon
-                                  defaultBackGround
-                                  customColor={
-                                    nestedAction.customColor || customColor
-                                  }
-                                  icon={nestedAction.icon}
-                                  withBackground={false}
-                                />
-                              )}
+                              <CustomMuiIcon
+                                defaultBackGround
+                                customColor={
+                                  nestedAction.customColor || customColor
+                                }
+                                icon={nestedAction.icon}
+                                withBackground={false}
+                              />
                               <Typography
                                 className={classes.label}
                                 variant="body1"

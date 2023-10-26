@@ -8,7 +8,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
 import { MULTIPLE_ACTION_BUTTON_MAX_SIZE, type Action } from '../icon';
-import TriggeredPersonIcon from '#components/icons/TriggeredPersonIcon.component';
 
 type StylesProps = { color: string; open: boolean };
 
@@ -120,16 +119,12 @@ const MenuSelectorIconOnHover: React.FC<Props> = ({
             onContextMenu={handleRightClick}
             value={action.label}
           >
-            {action.icon === 'TriggeredPerson' ? (
-              <TriggeredPersonIcon fill={action.customColor || customColor} />
-            ) : (
-              <CustomMuiIcon
-                defaultBackGround
-                customColor={action.customColor || customColor}
-                icon={action.icon}
-                withBackground={false}
-              />
-            )}
+            <CustomMuiIcon
+              defaultBackGround
+              customColor={action.customColor || customColor}
+              icon={action.icon}
+              withBackground={false}
+            />
             <Typography className={classes.label} variant="body1">
               {action.label}
             </Typography>

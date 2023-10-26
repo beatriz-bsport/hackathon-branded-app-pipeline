@@ -943,7 +943,7 @@
             },
             "checkout": {
                 "dialog": {
-                    "title": "Il mio cestino",
+                    "title": "Carrello",
                     "cancel": "Ritorna allo shop",
                     "goToDelivery": "Continua",
                     "goToPayment": "Pagare"
@@ -1608,7 +1608,7 @@
         "subscription": {
             "isEmpty": "Non hai un abbonamento in corso"
         },
-        "Basket": "Il mio cestino",
+        "Basket": "Carrello",
         "appbar": {
             "login": "Connessione",
             "logout": "Disconnessione",
@@ -12882,7 +12882,7 @@
                     "payment": "Fatturazione"
                 }
             },
-            "title": "Il mio carrello",
+            "title": "Carrello",
             "isEmpty": "Il tuo carrello è vuoto",
             "actions": {
                 "checkoutBasket": "Pagare",
@@ -12944,7 +12944,7 @@
                 "offerPreBooked": "Registrazione sulla lista d'attesa",
                 "offerBooked": "La mia prenotazione",
                 "offerBooked_plural": "Le mie prenotazioni",
-                "basket": "Il mio carrello",
+                "basket": "Carrello",
                 "title": "Congratulazioni!",
                 "errorExplain": {
                     "guestPass": "Lo studio ha disabilitato la funzionalità di prenotazione per un ospite per questo pass.",

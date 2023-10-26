@@ -67,4 +67,5 @@ export enum CssComponentsVariantIdentifiers {
   MARKETPLACE_PREPAID_LINE_LIST = 'marketplace_prepaid_line_list',
   BOOKER_MODULE_OFFER_SUMMARY = 'booker_module_offer_summary',
   FABRIQUE_TYPOGRAPHY = 'fabrique_typography',
+  FABRIQUE_CARD = 'fabrique_card',
 }

@@ -1,0 +1,91 @@
+import { Meta, Canvas, Story , Description, ArgsTable, Source} from '@storybook/addon-docs';
+
+import * as CardStories from './Card.stories'
+
+import {CardStorybook as Card} from '.'
+
+import dedent from 'ts-dedent';
+
+<Meta title="Fabrique/Card/Doc" component={Card} />
+
+# Card
+
+## Description
+
+The **`card`** component serves as a versatile container, allowing you to present various types of content in a structured and visually appealing manner. Within the card, you can include different children components referred to as card content. Cards are commonly used to display information, images, or actions in a compact and organised format. They provide a consistent and user-friendly way to showcase content, making it easy for users to scan and interact with the displayed information.
+
+## Usage
+
+Cards are ideal for displaying items such as articles, products, user profiles, or any other type of content that benefits from a structured presentation.
+
+Customise the content, layout, and styling of the card based on the specific use case and design requirements of your application.
+
+The component can contain various children components, referred to as card content, allowing flexibility in designing the content inside the card.
+
+### Rest
+
+#### Usage
+The rest variant of the card component represents the default state of a card. It is designed to display regular content without any special emphasis. This variant provides a clean and neutral appearance, suitable for displaying general information or items
+
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-card-stories--divrest"/>  
+</Canvas>
+
+#### Example
+
+<Source dark language='html' id="fabrique-card-stories--divrest" />
+
+### Elevated
+
+#### Usage
+The selected variant of the card component indicates that the card is currently active, highlighted, or chosen by the user. This variant includes a shadow-md effect to provide a subtle elevation and visual emphasis.
+
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-card-stories--divelevated"/>
+</Canvas>
+
+#### Example
+
+<Source dark language='html' id="fabrique-card-stories--divelevated" />
+
+### Button
+
+#### Usage
+A card behaving like a button, allowing click interactions.
+
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-card-stories--buttonrest"/>  
+  <Story id="fabrique-card-stories--buttonelevated"/>  
+</Canvas>
+
+#### Example
+
+<Source dark language='html' id="fabrique-card-stories--buttonrest" />
+
+### Square
+
+#### Usage
+A variant of the card with no border radius applied.  
+
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-card-stories--divelevatedsquare"/>  
+  <Story id="fabrique-card-stories--buttonrestsquare"/>
+</Canvas>
+
+#### Example
+
+<Source dark language='html' id="fabrique-card-stories--divelevatedsquare" />
+
+
+## Css card specific variables
+
+<Source
+  language='css'
+  dark
+  format={false}
+  code={dedent`
+      :root {
+        --bs-fabrique-border-2: 2px;
+      }
+  `}
+/>

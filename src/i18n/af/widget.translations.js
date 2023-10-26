@@ -124,6 +124,8 @@ exports.default = {
         giftcardPrepaidLine: 'Payment via giftcard',
         internalAccountPrepaidLine: 'Payment via internal account',
         defaultPrepaidLine: 'Default',
+        rest: 'Rest',
+        elevated: 'Elevated',
       },
       title: {
         nextOffer: 'Next session available',
@@ -162,6 +164,10 @@ exports.default = {
         showCredit: 'Show the credits',
         noStyledContainer: 'Show the variant without container',
         showEstablishmentAddress: "Show the establishment's address",
+        componentType: 'Container is a button',
+        cardVariant: 'Select the card variant to use',
+        square: 'Unable the rounded corners',
+        isRippleEnabled: 'Unable the button ripple effect',
       },
       configurationTitle: 'Variations',
     },
@@ -229,6 +235,7 @@ exports.default = {
       marketplace_prepaid_line_item: 'Prepaid line list item',
       marketplace_prepaid_line_list: 'Prepaid line list',
       fabrique_typography: 'Typography',
+      fabrique_card: 'Card',
     },
     customCss: {
       yourCode: 'Your complementary implementation:',

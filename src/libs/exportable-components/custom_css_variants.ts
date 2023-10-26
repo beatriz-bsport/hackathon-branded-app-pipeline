@@ -163,6 +163,10 @@ import {
   FABRIQUE_TYPOGRAPHY_CONFIGURATION,
   FABRIQUE_TYPOGRAPHY_PREVIEW,
 } from '#components/css-only/Fabrique/Typography';
+import {
+  FABRIQUE_CARD_CONFIGURATION,
+  FABRIQUE_CARD_PREVIEW,
+} from '#components/css-only/Fabrique/Card';
 
 import {
   CSSComponentPreviews,
@@ -225,6 +229,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
   MARKETPLACE_PREPAID_LINE_LIST_CONFIGURATION,
   MARKETPLACE_BOOKER_MODULE_OFFER_SUMMARY_CONFIGURATION,
   FABRIQUE_TYPOGRAPHY_CONFIGURATION,
+  FABRIQUE_CARD_CONFIGURATION,
 ];
 
 /*
@@ -320,6 +325,7 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
       MARKETPLACE_BOOKER_MODULE_OFFER_SUMMARY_PREVIEW,
     [CssComponentsVariantIdentifiers.FABRIQUE_TYPOGRAPHY]:
       FABRIQUE_TYPOGRAPHY_PREVIEW,
+    [CssComponentsVariantIdentifiers.FABRIQUE_CARD]: FABRIQUE_CARD_PREVIEW,
   });
 export const CSS_COMPONENT_PAGES: Immutable.Immutable<MarketplacePage[]> =
   Immutable(Array.from(new Set(CSS_COMPONENTS.flatMap((c) => c.pages))));

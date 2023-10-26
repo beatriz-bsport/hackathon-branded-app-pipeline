@@ -181,7 +181,6 @@
     grid-template:
       'header'
       'main';
-    grid-template-rows: min(5vh, 50px) calc(90vh - min(10vh, 100px));
     gap: var(--spacing-2);
   }
   .bs-new-offer-booking__spot-selector__confirm {

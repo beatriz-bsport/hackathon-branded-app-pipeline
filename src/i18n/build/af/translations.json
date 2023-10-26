@@ -3529,8 +3529,8 @@
         "convertIntoExit": { "title": "Exit", "label": "Consider the member as" },
         "entryTrigger": {
           "addTrigger": "Add an input trigger",
-          "helperText": "Please define when and who will enter this cadence with the selected criteria and triggers.",
-          "title": "Entry"
+          "helperText": "First let's decide how your members are going to enter the workflow. Select one or mutiple events or smartlists, if the member corresponds to one of them, he/she will enter the worflow.",
+          "title": "Entry criteria"
         },
         "convertIntoStep": { "default": "Step label", "label": "Step label" },
         "marketingAction": { "title": "Marketing action", "label": "Select a marketing action" },

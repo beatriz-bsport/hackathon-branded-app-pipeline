@@ -603,8 +603,8 @@ exports.default = {
       entryTrigger: {
         addTrigger: 'Add an input trigger',
         helperText:
-          'Please define when and who will enter this cadence with the selected criteria and triggers.',
-        title: 'Entry',
+          "First let's decide how your members are going to enter the workflow. Select one or mutiple events or smartlists, if the member corresponds to one of them, he/she will enter the worflow.",
+        title: 'Entry criteria',
       },
       convertIntoStep: { default: 'Step label', label: 'Step label' },
       marketingAction: {

@@ -356,8 +356,10 @@ const InvoiceItemEditor: React.FC<Props> = ({
                   shrink
                   disabled={buyableItemId === null}
                   InputProps={{
-                    step: 1,
-                    min: 1,
+                    inputProps: {
+                      step: 1,
+                      min: 1,
+                    },
                     startAdornment: (
                       <InputAdornment position="start">x</InputAdornment>
                     ),

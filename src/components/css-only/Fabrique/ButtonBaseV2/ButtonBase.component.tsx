@@ -10,45 +10,22 @@ export type Props = {
   isDisabled?: boolean;
   children: React.ReactNode;
   className?: string;
-  onClick?: (
-    event: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>,
-  ) => void;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   classes?: string;
   type: ButtonHTMLType;
   isRippleEnabled: boolean;
-} & (
-  | (React.ButtonHTMLAttributes<HTMLButtonElement> & { href: never })
-  | React.AnchorHTMLAttributes<HTMLAnchorElement>
-);
+} & React.AnchorHTMLAttributes<HTMLButtonElement>;
 
 export const ButtonBase: React.FC<Props> = ({
   children,
   classes,
   className,
-  href,
   isDisabled,
   onClick,
   type,
   isRippleEnabled,
+  ...rest
 }) => {
-  if (href) {
-    return (
-      <a
-        className={classNames(
-          'bs-button-base-root',
-          {
-            'bs-button-base-root--disabled': isDisabled,
-          },
-          className,
-          classes,
-        )}
-        href={href}
-      >
-        {children}
-      </a>
-    );
-  }
-
   return (
     <button
       className={classNames(
@@ -63,6 +40,7 @@ export const ButtonBase: React.FC<Props> = ({
       onClick={onClick}
       // eslint-disable-next-line react/button-has-type
       type={type}
+      {...rest}
     >
       {children}
     </button>

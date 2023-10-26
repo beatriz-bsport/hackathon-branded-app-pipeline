@@ -24,7 +24,6 @@ type Props = {
   onClick: () => void;
   isRippleEnabled?: boolean;
   type?: ButtonHTMLType;
-  link?: string;
   size: ButtonSizeType;
 };
 
@@ -133,12 +132,9 @@ export const Button: React.FC<Props> = ({
   onClick,
   isRippleEnabled,
   type = 'button',
-  link = '',
   size = ButtonSize.LG,
   children,
 }) => {
-  const ButtonBaseAs = link ? { as: 'link', href: link } : { as: 'button' };
-
   const buttonClassNames = useButtonClassNames(
     size,
     color,
@@ -147,12 +143,11 @@ export const Button: React.FC<Props> = ({
   );
   return (
     <ButtonBase
+      className={buttonClassNames}
       isDisabled={isDisabled}
       isRippleEnabled={isRippleEnabled}
       onClick={onClick}
       type={type}
-      {...ButtonBaseAs}
-      className={buttonClassNames}
     >
       {children}
     </ButtonBase>

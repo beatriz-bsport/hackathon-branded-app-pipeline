@@ -7,6 +7,8 @@
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
     - if: $CI_COMMIT_REF_NAME == "dev"
       when: always
     - if: $CI_COMMIT_REF_NAME == "master"
@@ -17,11 +19,12 @@
   script: ./scripts/label-gitlab-issue.sh
   allow_failure: true
 
-
 Label issue dev:
   extends: .Label issues Base
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: never
     - if: $CI_COMMIT_REF_NAME == "dev"
       when: always
@@ -36,6 +39,8 @@ Label issue staging:
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
     - if: $CI_COMMIT_REF_NAME == "master"
       when: always
     - when: never
@@ -48,6 +53,8 @@ Label issue production:
   extends: .Label issues Base
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: never
     - if: $CI_COMMIT_REF_NAME == "production"
       when: always

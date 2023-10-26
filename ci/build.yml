@@ -55,6 +55,8 @@ Buid Deploy Staging:
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
     - if: $CI_COMMIT_REF_NAME == "master"
       when: always
     - when: never
@@ -73,6 +75,8 @@ Buid Deploy Production:
   extends: .Build and deploy Base
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: never
     - if: $CI_COMMIT_REF_NAME == "production"
       when: always
@@ -93,6 +97,8 @@ Buid Deploy Dev:
   extends: .Build and deploy Base
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: never
     - if: $CI_COMMIT_REF_NAME == "dev"
       when: always

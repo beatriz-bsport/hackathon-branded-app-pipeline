@@ -2,7 +2,7 @@
   stage: build-widget
   allow_failure: true
   trigger:
-    project: bsport/bsport-widget 
+    project: bsport/bsport-widget
 
 Build widget dev:
   extends: .Build widget
@@ -10,6 +10,8 @@ Build widget dev:
     branch: dev
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: never
     - if: $CI_COMMIT_REF_NAME == "dev"
       when: always
@@ -20,21 +22,23 @@ Build widget staging:
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
     - if: $CI_COMMIT_REF_NAME == "master"
       when: always
     - when: never
   trigger:
-    branch: master 
+    branch: master
 
 Build widget production:
   extends: .Build widget
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      when: never
     - if: $CI_COMMIT_REF_NAME == "production"
       when: always
     - when: never
   trigger:
     branch: production
-
-

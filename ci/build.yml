@@ -46,9 +46,9 @@
     - '[[ $VERSION != $OLD_VERSION ]] && CHANGELOG=`git grep -B 200 ${OLD_VERSION} CHANGELOG.md | grep -A ${VERSION} || echo="Unable to find release note";` || CHANGELOG="Technical release";'
     - export CHANGELOG
 
-    - envsubst < ./slack_template.json > slack_template2.json
-    - cat slack_template2.json
-    - 'curl -s -d @slack_template2.json --header "Content-Type: application/json" "${SLACK_WEBHOOK_URL}" || exit 0'
+    - envsubst < ./ci/slack_template/slack_template.json > slack_template_interpolated.json
+    - cat slack_template_interpolated.json
+    - 'curl -s -d @slack_template_interpolated.json --header "Content-Type: application/json" "${SLACK_WEBHOOK_URL}" || exit 0'
 
 Buid Deploy Staging:
   extends: .Build and deploy Base
@@ -189,9 +189,9 @@ Buid Deploy Dev:
     - export CHANGELOG
 
     - export FEATURE_BRANCH_IDENTIFIER=`echo $CI_COMMIT_MESSAGE | sed -n 's/.*deploy-\(frontend-only-\)\{0,1\}chaos-env:\([[:alnum:]_-]\+\).*/\2/p'`
-    - envsubst < ./slack_template_feature-branch.json > slack_template2.json
-    - cat slack_template2.json
-    - 'curl -s -d @slack_template2.json --header "Content-Type: application/json" "${SLACK_WEBHOOK_URL}" || exit 0'
+    - envsubst < $SLACK_TEMPLATE_FILE > slack_template_interpolated.json
+    - cat slack_template_interpolated.json
+    - 'curl -s -d @slack_template_interpolated.json --header "Content-Type: application/json" "${SLACK_WEBHOOK_URL}" || exit 0'
 
 Build Deploy Feature Branch Backend And Frontend:
   extends: .Build Deploy Feature Branch Generic
@@ -211,6 +211,7 @@ Build Deploy Feature Branch Backend And Frontend:
     - when: never
   variables:
     ENV_TEMPLATE_FILE: template-feature-branch
+    SLACK_TEMPLATE_FILE: "./ci/slack_template/slack_template_feature-branch.json"
 
 Build Deploy Feature Branch Frontend Only:
   extends: .Build Deploy Feature Branch Generic
@@ -230,3 +231,5 @@ Build Deploy Feature Branch Frontend Only:
     - when: never
   variables:
     ENV_TEMPLATE_FILE: template-frontend-only-feature-branch
+    SLACK_WEBHOOK_URL: '${SLACK_READY_FOR_TEST_WEBHOOK_URL}'
+    SLACK_TEMPLATE_FILE: "./ci/slack_template/slack_template_feature-branch-ready-to-test.json"

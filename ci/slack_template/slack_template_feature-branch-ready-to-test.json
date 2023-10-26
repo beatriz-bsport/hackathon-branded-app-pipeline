@@ -15,7 +15,7 @@
 			"type": "section",
 			"text": {
 				"type": "mrkdwn",
-				"text": "*Service*: bsport-saas \n*Branch*: ${CI_COMMIT_REF_NAME}\n*Author*: ${GITLAB_USER_NAME}\n*Available at:* https://backoffice-${FEATURE_BRANCH_IDENTIFIER}.chaos.bsport.io\n*Commit:* ${CI_COMMIT_MESSAGE}"
+				"text": "*Service*: bsport-saas \n*Branch*: `${CI_COMMIT_REF_NAME}`\n*Author*: ${GITLAB_USER_NAME}\n*Commit:* `${CI_COMMIT_MESSAGE}`\n\n_To test this feature, please use dev environment logins._\n*Available at:* https://backoffice-${FEATURE_BRANCH_IDENTIFIER}.chaos.bsport.io"
 			},
 			"accessory": {
 				"type": "image",

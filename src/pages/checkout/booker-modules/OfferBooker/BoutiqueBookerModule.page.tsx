@@ -539,6 +539,18 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       getBoutiqueContractCheckoutUrl(this.props.offer.company, contractId, {
         offerId: this.props.offerId,
         selectedSpotId: this.state.selectedSpotId,
+        ...(this.props.queryParams.guest_first_name && {
+          guest_first_name: this.props.queryParams.guest_first_name,
+        }),
+        ...(this.props.queryParams.guest_last_name && {
+          guest_last_name: this.props.queryParams.guest_last_name,
+        }),
+        ...(this.props.queryParams.guest_email && {
+          guest_email: this.props.queryParams.guest_email,
+        }),
+        ...(this.getIsGuestBooking() && {
+          guest_booking: this.getIsGuestBooking().toString(),
+        }),
       }),
     );
   };

@@ -96,6 +96,7 @@ import MarketplaceContractCooldownModal from '#marketplacecomponents/@Subscripti
 import { BookerItem } from '#libs/booker-module/types';
 import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#libs/exportable-components/actions';
 import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
+import { buildUrlParams } from '../../http';
 
 import './BoutiqueContractCheckout.css';
 
@@ -106,6 +107,10 @@ type RouterProps = {
     force: string;
     offerId: string;
     selectedSpotId: string | null;
+    guest_booking: string;
+    guest_first_name: string;
+    guest_last_name: string;
+    guest_email: string;
   };
 };
 
@@ -755,6 +760,7 @@ const handlers = {
       offerUserRegistration,
       selectedSpotId,
       goToConfirmationPage,
+      queryParams,
     }: RouterProps & RedirectionHandlersProps & ConnectedProps & WithProps) =>
     (
       consumerPaymentPackId: number,
@@ -775,11 +781,23 @@ const handlers = {
         theme.accept_double_booking_workshop,
       );
 
+      if (
+        queryParams.guest_booking === 'true' &&
+        !theme.accept_double_booking
+      ) {
+        offerFeature.isBookable = true;
+      }
+
       const data = buildDataForUserRegistration(
         offerFeature,
         fakeSelectedItem,
         offer.id,
         selectedSpotId,
+        queryParams.guest_booking === 'true' && {
+          firstName: queryParams.guest_first_name ?? '',
+          lastName: queryParams.guest_last_name ?? '',
+          email: queryParams.guest_email ?? '',
+        },
       );
 
       offerUserRegistration(
@@ -798,9 +816,25 @@ const handlers = {
       );
     },
   goBackToPricingPage:
-    ({ push, companyId, offerId }: RouterProps & ConnectedProps & WithProps) =>
+    ({
+      push,
+      companyId,
+      offerId,
+      queryParams,
+    }: RouterProps & ConnectedProps & WithProps) =>
     () => {
-      push(getOfferBookerUrl(companyId, offerId, true));
+      const isGuestBooking = queryParams.guest_booking === 'true';
+      const guestFirstName = queryParams.guest_first_name;
+      const guestLastNameParam = queryParams.guest_last_name;
+      const guestEmailParam = queryParams.guest_email;
+      push(
+        `${getOfferBookerUrl(companyId, offerId, true)}${buildUrlParams({
+          ...(isGuestBooking && { guest_booking: isGuestBooking }),
+          ...(guestFirstName && { guest_first_name: guestFirstName }),
+          ...(guestLastNameParam && { guest_last_name: guestLastNameParam }),
+          ...(guestEmailParam && { guest_email: guestEmailParam }),
+        })}`,
+      );
     },
 };
 
@@ -809,7 +843,18 @@ export default compose<any, OwnProps>(
     contractId: 'contractId:number',
     companyId: 'companyId:number',
   }),
-  withQueryParams([['offerId', 'selectedSpotId'], 'queryParams']),
+  withQueryParams([
+    [
+      'offerId',
+      'selectedSpotId',
+      'guest_booking',
+      'guest_first_name',
+      'guest_last_name',
+      'guest_email',
+      'guest_booking',
+    ],
+    'queryParams',
+  ]),
   withProps(({ queryParams }: RouterProps) => ({
     offerId: Number.parseInt(queryParams.offerId),
     selectedSpotId: queryParams.selectedSpotId

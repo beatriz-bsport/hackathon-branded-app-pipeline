@@ -1050,7 +1050,7 @@
             "waitingUserConfirmation": "Pending: member confirmation",
             "add": "Book",
             "onHold": "Pending",
-            "onWaitingList": "Active waitlists",
+            "onWaitingList": "On waiting list",
             "discard": "Discard",
             "doNotAttend": "Absent",
             "attend": "Present",

@@ -8,7 +8,7 @@ import type { ConnectedTrigger } from '#libs/sequential_marketing/types';
 import type { SmartList } from '#libs/smart-list/types';
 
 import { getTriggerKind } from '#libs/sequential_marketing/components/helpers/utils';
-import { triggerValidationSchema } from './validationSchema';
+import { uniqueTriggerValidationSchema } from './validationSchema';
 import ConnectedTriggerContent from './ConnectedTriggerContent.component';
 
 export type Props = {
@@ -77,16 +77,12 @@ const useStyles = makeStyles((theme) => ({
 
 const withFormikWrapper = withFormik<HOCProps, FormValues>({
   enableReinitialize: true,
-  mapPropsToValues: ({ trigger }) => {
-    return {
-      trigger,
-    };
-  },
+  mapPropsToValues: ({ trigger }) => ({ trigger }),
   handleSubmit: (_values, { setSubmitting }) => {
     setSubmitting(false);
   },
   validateOnMount: true,
-  validationSchema: triggerValidationSchema,
+  validationSchema: uniqueTriggerValidationSchema,
 });
 
 export default React.memo(withFormikWrapper(ConnectedTriggerForm));

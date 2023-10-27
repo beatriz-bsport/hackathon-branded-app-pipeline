@@ -1,6 +1,6 @@
 .bs-booking-item {
   background-color: var(--color-background-paper);
-  container: bsBookingItem, inline-size;
+  container: bsBookingItem / inline-size;
   width: 100%;
 }
 

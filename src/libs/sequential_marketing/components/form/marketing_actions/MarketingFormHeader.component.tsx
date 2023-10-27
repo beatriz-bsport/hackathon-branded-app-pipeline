@@ -14,11 +14,14 @@ import {
 } from '#libs/sequential_marketing/constants';
 
 type Props = {
-  type: MarketingActions;
+  marketingActionType: MarketingActions;
   deleteAction: () => void;
 };
 
-const MarketingActionHeader: React.FC<Props> = ({ type, deleteAction }) => {
+const MarketingActionHeader: React.FC<Props> = ({
+  marketingActionType,
+  deleteAction,
+}) => {
   const { t } = useTranslation('marketing');
   const classes = useStyles();
 
@@ -32,11 +35,11 @@ const MarketingActionHeader: React.FC<Props> = ({ type, deleteAction }) => {
       <CustomMuiIcon
         defaultBackGround
         customColor={SequentialMarketingColors.INNER_STEP_COLOR}
-        icon={marketingActionIconDict[type]}
+        icon={marketingActionIconDict[marketingActionType]}
         withBackground={false}
       />
       <Typography variant="body1">
-        {t(`cadence.form.marketing_action.${type}`)}
+        {t(`cadence.form.marketing_action.${marketingActionType}`)}
       </Typography>
       <IconButton
         className={classes.deleteButton}

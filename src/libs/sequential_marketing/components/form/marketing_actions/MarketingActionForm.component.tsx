@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { makeStyles } from '@material-ui/core/styles';
 
 import {
   useFormikContext,
@@ -7,8 +8,6 @@ import {
   FieldArray,
   FieldArrayRenderProps,
 } from 'formik';
-
-import { makeStyles } from '@material-ui/core/styles';
 
 import MenuSelectorTextButton from '#components/menu/text';
 import {
@@ -94,14 +93,18 @@ const MarketingActionForm: React.FC<Props> = ({
         (index: number) => (data: StepMarketingActions) =>
           arrayHelpers.replace(index, data);
 
+      const handleAddMarketingAction = (
+        marketingActionType: MarketingActions,
+      ) => arrayHelpers.push(getDefaultValues(marketingActionType));
+
       return (
-        <div>
+        <>
           {isMarketingActionsNotEmpty &&
             values.marketingActions.map((marketingAction, index) => (
               <div key={`marketingAction_${marketingAction.id}`}>
                 <MarketingActionHeader
                   deleteAction={handleDeleteAction(index)}
-                  type={getMarketingActionType(marketingAction)}
+                  marketingActionType={getMarketingActionType(marketingAction)}
                 />
                 <div className={classes.marketingAction}>
                   <MarketingActionContent
@@ -124,14 +127,13 @@ const MarketingActionForm: React.FC<Props> = ({
             <MenuSelectorTextButton
               actionList={getMarketingActionOptions(
                 t,
-                (type: MarketingActions) =>
-                  arrayHelpers.push(getDefaultValues(type)),
+                handleAddMarketingAction,
               )}
               customColor={SequentialMarketingColors.INNER_STEP_COLOR}
               label={`+ ${t('cadence.marketingAction.addAction')}`}
             />
           )}
-        </div>
+        </>
       );
     },
     [

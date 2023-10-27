@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React from 'react';
+import React, { useCallback } from 'react';
 import { pure } from 'recompose';
 import type { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/styles/makeStyles';
@@ -77,8 +77,29 @@ export const DrawerItemComponent: React.FC<Props> = ({
   const classes = useStyles({ iconsOnly });
 
   const currentPath = location?.pathname ?? '';
+
+  /**
+   * Determines if a given DrawerItem should be highlighted as active based on the current URL path.
+   * If the DrawerItem has inner tabs, the last part of the URL path is removed before checking.
+   *
+   * For example, if the current URL path is `<url>/booking/1234`, and the DrawerItem has
+   * inner tabs, it will be highlighted as active since its `to` property starts with `<url>/booking`.
+   *
+   * @param _item The DrawerItem to check.
+   * @returns A boolean indicating whether the DrawerItem should be highlighted as active.
+   */
+  const urlPatternMatch = useCallback(
+    (_item: DrawerItem) => {
+      const pattern = _item?.hasInnerTabs
+        ? _item.to.replace(/\/[^/]+$/g, '')
+        : _item.to;
+      return currentPath.startsWith(pattern);
+    },
+    [currentPath],
+  );
+
   const hasAnActiveNestedItem = item?.nestedItems?.some((_item) =>
-    currentPath.startsWith(_item.to),
+    urlPatternMatch(_item),
   );
 
   // We want this effect to only run once when the component is mounted in order to
@@ -102,7 +123,7 @@ export const DrawerItemComponent: React.FC<Props> = ({
     }
   }
 
-  const isActive = currentPath?.startsWith(item.to) || hasAnActiveNestedItem;
+  const isActive = urlPatternMatch(item) || hasAnActiveNestedItem;
 
   if (item.type === 'nested') {
     return (

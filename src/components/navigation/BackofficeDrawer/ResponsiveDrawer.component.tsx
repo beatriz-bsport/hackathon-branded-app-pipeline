@@ -123,6 +123,7 @@ export type DrawerItem =
       id?: string;
       actionOnMenuToggle?: undefined;
       shrinkMenuOnIconOnly?: boolean;
+      hasInnerTabs?: boolean;
     }
   | {
       type: 'divider';
@@ -496,6 +497,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
             to: '/settings/widget/create',
             dense: true,
             text: t('backofficeMenu.settings.widget'),
+            hasInnerTabs: true,
           },
           {
             to: '/settings/role',
@@ -513,6 +515,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
                   to: '/settings/mobile-personalisation/links',
                   dense: true,
                   text: t('backofficeMenu.settings.mobilePersonalization'),
+                  hasInnerTabs: true,
                 },
               ]
             : []),

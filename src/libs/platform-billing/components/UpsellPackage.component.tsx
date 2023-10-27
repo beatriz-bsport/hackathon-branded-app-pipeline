@@ -138,6 +138,8 @@ const createUpsellPackageComponent = memoize(
       const classes = useStyles();
       const { t } = useTranslation('platformBilling');
       const { upsellPackage, onKnowMore, handleSubscribe } = props;
+      const canSubscribe =
+        !!handleSubscribe && upsellPackage.subscribe_from_backoffice;
       const UpsellCustomIcon =
         MAP_UPSELL_IDENTIFIER_TO_ICON_COMPONENT[upsellIdentifier];
 
@@ -164,13 +166,13 @@ const createUpsellPackageComponent = memoize(
             </div>
           </div>
           <div className={classes.buttonContainer}>
-            {onKnowMore && (
+            {onKnowMore && !canSubscribe && (
               <Button onClick={showMoreUpsellInformation} variant="outlined">
                 <HelpOutlinedIcon className={classes.iconLeft} />
                 {t('upsellPackage.knowMore')}
               </Button>
             )}
-            {handleSubscribe && upsellPackage.subscribe_from_backoffice && (
+            {canSubscribe && (
               <Button
                 color="primary"
                 onClick={showSubscribe}

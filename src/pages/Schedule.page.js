@@ -122,6 +122,7 @@ type Props = {
   customEventList: Array<CustomEvent>,
   onRequestCustomEvent: (data: any) => void,
   resourceData: Array<ResourceData>,
+  resourceDataLoading: boolean,
   setResourceFiltersArray: (resources: Array<Ressource>) => void,
   fetchResourceList: () => void,
   closeCustomEventDialog: () => void,
@@ -380,6 +381,7 @@ export class CoachPrivateCalendar extends React.Component<Props> {
           refreshOffers={this.props.fetchOfferList}
           refreshPrivateBookings={this.props.fetchPrivateBookingList}
           resourceAvailable={resourceAvailable}
+          resourceDataLoading={this.props.resourceDataLoading}
           resourcesByDatatype={this.props.resourcesByDatatype}
           resourceSelectedListIds={this.props.resourceFiltersArray}
           scheduleFilter={this.props.scheduleFilter}

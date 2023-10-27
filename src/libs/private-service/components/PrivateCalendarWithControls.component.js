@@ -130,10 +130,10 @@ export const PrivateCalendarWithControls = (props: Props) => {
           {!props.hideResourceSelector && !!props.resourceAvailable && (
             <ResourceSelector
               collapse={props.collapsResourceSelector}
+              loading={props.resourceDataLoading}
               onChangeResourcesSelected={props.onChangeResourcesSelected}
               onEditResourceConfiguration={props.onEditResourceConfiguration}
               resourceAvailable={props.resourceAvailable}
-              resourceDataLoading={props.resourceDataLoading}
               resourceSelectedListIds={props.resourceSelectedListIds}
               setResourceFiltered={props.setResourceFiltered}
               updateRessourcesFilters={props.updateRessourcesFilters}

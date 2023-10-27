@@ -76,7 +76,7 @@ export const ResourceSelector = (props: PropsSelector) => {
         </div>
         <Collapse in={props.expanded}>
           {props.loading ? (
-            <CircularProgress />
+            <CircularProgress size="1.5rem" />
           ) : (
             <div className={classes.expandedInnerContainer}>
               <ResourceSelectorInner classes={classes} {...props} />

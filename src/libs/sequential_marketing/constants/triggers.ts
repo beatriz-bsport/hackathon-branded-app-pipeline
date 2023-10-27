@@ -71,6 +71,10 @@ export const TRIGGER_RIGHT_HANDLE_STYLE = {
   right: '0px',
 };
 
+// ==========================================
+
 export const TRIGGER_DEFAULT_TIMEOUT_DAYS = 7;
 
 export const TRIGGER_DEFAULT_ICON = 'Error';
+
+export const TRIGGER_FORM_DEFAULT_HEIGHT = 40;

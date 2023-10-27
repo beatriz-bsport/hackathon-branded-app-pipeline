@@ -77,6 +77,24 @@
   display: flex;
 }
 
+.bs-offer-list-item__content__time__offer-hours {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-1);
+}
+
+.bs-offer-list-item__content__time__offer-hours__date {
+}
+
+.bs-offer-list-item__content__time__offer-hours__start-time {
+}
+
+.bs-offer-list-item__content__time__offer-hours__time-separator {
+}
+
+.bs-offer-list-item__content__time__offer-hours__end-time-duration {
+}
+
 .bs-offer-list-item__content__offer__left__time--without-date {
   font-size: var(--body2-fontSize);
   line-height: var(--body2-lineHeight);
@@ -110,10 +128,6 @@
   padding: 0;
   color: var(--color-grey-dark);
   font-family: var(--fontFamily);
-}
-
-.bs-offer-list-item__button__title:hover {
-  text-decoration: underline;
 }
 
 .bs-offer-list-item__button__title:disabled {

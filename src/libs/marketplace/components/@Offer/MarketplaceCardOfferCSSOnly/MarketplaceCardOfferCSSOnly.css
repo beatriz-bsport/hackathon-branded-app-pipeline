@@ -74,10 +74,6 @@
   color: var(--color-grey-dark);
 }
 
-.bs-card-offer__button__title:hover {
-  text-decoration: underline;
-}
-
 .bs-card-offer__button__title:disabled {
   background: transparent;
 }
@@ -117,16 +113,31 @@
 
 .bs-card-offer__content__time {
   align-self: flex-start;
-  font-family: var(--body2-fontFamily);
   font-style: normal;
+  font-family: var(--body2-fontFamily);
   font-weight: var(--fontWeightRegular);
   font-size: var(--body2-fontSize);
   line-height: var(--body2-lineHeight);
-  grid-column: 1 / 3;
+  grid-column: 1 / 4;
   grid-row: 2 / last;
   text-align: left;
   display: flex;
   align-items: center;
+}
+
+.bs-card-offer__content__time__offer-hours {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-1);
+}
+
+.bs-card-offer__content__time__offer-hours__start-time {
+}
+
+.bs-card-offer__content__time__offer-hours__time-separator {
+}
+
+.bs-card-offer__content__time__offer-hours__end-time-duration {
 }
 
 .bs-card-offer__content__status-chip {
@@ -142,6 +153,7 @@
   line-height: var(--subtitle1-lineHeight);
   grid-column: 1 / last;
   grid-row: 1 / 2;
+  gap: var(--spacing-1);
 }
 
 .bs-card-offer__content__time--coach-highlighted {

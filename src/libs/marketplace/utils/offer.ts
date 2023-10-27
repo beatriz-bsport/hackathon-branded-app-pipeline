@@ -4,6 +4,10 @@ import moment from 'moment-timezone';
 import type { MetaActivity } from '#libs/meta-activity/types';
 import type { OffersGroup } from '#libs/group-offer/types';
 import { Offer, MarketplaceOfferStatus, Offer_FULL } from '#libs/offer/types';
+import {
+  OFFER_DATE_HOURS_SEPARATOR,
+  OFFER_HOURS_SEPARATOR,
+} from '../constants';
 
 export function isOfferInThePast(offer: Offer | Offer_FULL) {
   if (!offer) return false;
@@ -125,3 +129,15 @@ export const getGroupOfferSetAsFullBookingOnlyStatus = (
   }
   return MarketplaceOfferStatus.BOOKABLE;
 };
+
+export const formatOfferHours = (offerHours: {
+  startTime: string;
+  endTimeOrDuration: string;
+}) => {
+  return offerHours.endTimeOrDuration
+    ? `${offerHours.startTime}${OFFER_HOURS_SEPARATOR}${offerHours.endTimeOrDuration}`
+    : `${offerHours.startTime}`;
+};
+
+export const formatOfferDateWithTime = (date: string, hours: string) =>
+  `${date}${OFFER_DATE_HOURS_SEPARATOR}${hours}`;

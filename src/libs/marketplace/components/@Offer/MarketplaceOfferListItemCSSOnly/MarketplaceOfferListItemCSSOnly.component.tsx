@@ -29,6 +29,7 @@ import MarketplaceCalendarVariant from '#libs/marketplace/types';
 import {
   AVAILABLE_BOOKING_ELEMENTS_IDS,
   MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER,
+  OFFER_HOURS_SEPARATOR,
 } from '#libs/marketplace/constants';
 import { Level } from '#libs/level/types';
 
@@ -74,6 +75,54 @@ export type Props = {
   isOfferPassed: boolean;
 };
 
+type OfferDateAndHoursProps = {
+  offerHours: {
+    startTime: string;
+    endTimeOrDuration: string;
+  };
+  date: string;
+  showDate: boolean;
+};
+
+const OfferDateAndHours: React.FC<OfferDateAndHoursProps> = ({
+  offerHours,
+  date,
+  showDate,
+}) => (
+  <div className="bs-offer-list-item__content__time__offer-hours">
+    {showDate && (
+      <div
+        className="bs-offer-list-item__content__time__offer-hours__date"
+        id="bs-offer-list-item-date"
+      >
+        {date}
+      </div>
+    )}
+    <div
+      className="bs-offer-list-item__content__time__offer-hours__start-time"
+      id="bs-offer-list-item-start-time"
+    >
+      {offerHours.startTime}
+    </div>
+    {offerHours.endTimeOrDuration && (
+      <div
+        className="bs-offer-list-item__content__time__offer-hours__time-separator"
+        id="bs-offer-list-item-time-separator"
+      >
+        {OFFER_HOURS_SEPARATOR}
+      </div>
+    )}
+    {offerHours.endTimeOrDuration && (
+      <div
+        className="bs-offer-list-item__content__time__offer-hours__end-time-duration"
+        id="bs-offer-list-item-end-time-duration"
+      >
+        {offerHours.endTimeOrDuration}
+      </div>
+    )}
+  </div>
+);
+
 const MarketplaceOfferListItem: React.FC<Props> = ({
   offer,
   theme,
@@ -116,7 +165,9 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
   const handleClickOnHiddenBookButton = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       if (
-        event.target.classList.contains(MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER)
+        event.currentTarget.classList.contains(
+          MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER,
+        )
       ) {
         event.stopPropagation();
         onClick(offer?.id);
@@ -143,10 +194,14 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
   const handleClick = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       if (isBookingDisabled) return;
+      event.stopPropagation();
+      const savedEvent = event;
 
       if (theme?.hide_book_button) {
-        handleClickOnHiddenBookButton(event);
-      } else if (AVAILABLE_BOOKING_ELEMENTS_IDS.includes(event?.target?.id)) {
+        handleClickOnHiddenBookButton(savedEvent);
+      } else if (
+        AVAILABLE_BOOKING_ELEMENTS_IDS.includes(savedEvent.currentTarget.id)
+      ) {
         handleBook();
         // offer?.full ? handleBookOption() : handleBook();
       } else if (!isWorkshop) {
@@ -306,7 +361,11 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                 onClick={handleClick}
                 type="button"
               >
-                {(showDate ? `${date} ` : '') + offerHours}
+                <OfferDateAndHours
+                  date={date}
+                  offerHours={offerHours}
+                  showDate={showDate}
+                />
               </button>
             ) : (
               <div
@@ -326,7 +385,11 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                     t('translation:marketplace.bookButton.popOverTitle.isPast')
                   }
                 >
-                  {(showDate ? `${date} ` : '') + offerHours}
+                  <OfferDateAndHours
+                    date={date}
+                    offerHours={offerHours}
+                    showDate={showDate}
+                  />
                 </PopOver>
               </div>
             )}

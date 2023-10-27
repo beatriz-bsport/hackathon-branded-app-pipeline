@@ -30,6 +30,11 @@ import { getTaxPrice } from '#libs/theme/utils';
 import Button, { ButtonColor } from '#components/css-only/Fabrique/Button';
 import { BookerModuleOfferSummarySkeleton } from '.';
 
+import {
+  formatOfferDateWithTime,
+  formatOfferHours,
+} from '#libs/marketplace/utils/offer';
+
 import './styles.css';
 
 export type Props = {
@@ -109,7 +114,9 @@ const BookerModuleOfferSummary: React.FC<Props> = ({
     companyTheme,
   );
 
-  const date = `${formattedDate} • ${offerHours}`;
+  const formattedOfferHours = formatOfferHours(offerHours);
+
+  const date = formatOfferDateWithTime(formattedDate, formattedOfferHours);
 
   const spotName = spotId ? `${t(`booking:place`)} ${spotId}` : null;
 

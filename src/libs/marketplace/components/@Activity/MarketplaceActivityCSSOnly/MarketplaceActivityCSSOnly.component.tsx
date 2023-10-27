@@ -32,6 +32,7 @@ import FreeOfferChip from '#csscomponents/FreeOfferChip';
 import Button from '#components/css-only/Fabrique/Button';
 
 import './MarketplaceActivity.css';
+import { formatOfferHours } from '#libs/marketplace/utils/offer';
 
 export type Props = {
   offer: Offer;
@@ -94,6 +95,8 @@ export const MarketplaceActivityV2 = (props: Props) => {
     metaActivity,
     companyTheme,
   );
+
+  const formattedOfferHours = formatOfferHours(offerHours);
 
   const coach = useMemo(
     () => coaches?.find((c) => c.id === offer.coach),
@@ -181,7 +184,7 @@ export const MarketplaceActivityV2 = (props: Props) => {
             </div>
             <div className="bs-activity__top__content__time__hour">
               <ScheduleIcon />
-              {offerHours}
+              {formattedOfferHours}
             </div>
           </div>
           <div className="bs-activity__top__content__location">

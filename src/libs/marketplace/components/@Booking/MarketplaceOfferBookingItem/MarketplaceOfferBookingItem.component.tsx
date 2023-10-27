@@ -12,6 +12,10 @@ import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import MarketplaceOfferBookingItemSkeleton from './MarketplaceOfferBookingItemSkeleton.component';
 import { CompanyTheme } from '#libs/theme/types';
 import { getAddGuestTooltipText } from '#libs/marketplace/utils/booking';
+import {
+  formatOfferDateWithTime,
+  formatOfferHours,
+} from '#libs/marketplace/utils/offer';
 
 export type Props = {
   offer: OfferWithSpotInformation;
@@ -48,7 +52,9 @@ const MarketplaceOfferBookingItem: React.FC<Props> = ({
     companyTheme,
   );
 
-  const date = `${formattedDate} • ${offerHours}`;
+  const formattedOfferHours = formatOfferHours(offerHours);
+
+  const date = formatOfferDateWithTime(formattedDate, formattedOfferHours);
 
   if (isLoading) {
     return <MarketplaceOfferBookingItemSkeleton />;

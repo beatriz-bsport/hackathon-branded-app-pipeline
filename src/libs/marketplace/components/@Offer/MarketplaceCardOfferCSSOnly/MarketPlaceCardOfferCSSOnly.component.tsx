@@ -17,6 +17,7 @@ import { Establishment } from '#libs/establishment/types';
 import {
   AVAILABLE_BOOKING_ELEMENTS_IDS,
   MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER,
+  OFFER_HOURS_SEPARATOR,
 } from '#libs/marketplace/constants';
 import MarketplaceCoachInfos from '#marketplacecomponents/@Coach/MarketplaceCoachInfos';
 import MarketplaceEstablishmentTitle from '#marketplacecomponents/@Establishment/MarketplaceEstablishmentTitle';
@@ -51,7 +52,41 @@ type OwnProps = {
   isOfferPassed: boolean;
 };
 
+type OfferHoursProps = {
+  offerHours: {
+    startTime: string;
+    endTimeOrDuration: string;
+  };
+};
+
 export type Props = OwnProps;
+
+const OfferHours: React.FC<OfferHoursProps> = ({ offerHours }) => (
+  <div className="bs-card-offer__content__time__offer-hours">
+    <div
+      className="bs-card-offer__content__time__offer-hours__start-time"
+      id="bs-card-offer-start-time"
+    >
+      {offerHours.startTime}
+    </div>
+    {offerHours.endTimeOrDuration && (
+      <div
+        className="bs-card-offer__content__time__offer-hours__time-separator"
+        id="bs-card-offer-time-separator"
+      >
+        {OFFER_HOURS_SEPARATOR}
+      </div>
+    )}
+    {offerHours.endTimeOrDuration && (
+      <div
+        className="bs-card-offer__content__time__offer-hours__end-time-duration"
+        id="bs-card-offer-end-time-duration"
+      >
+        {offerHours.endTimeOrDuration}
+      </div>
+    )}
+  </div>
+);
 
 const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
   coaches,
@@ -89,7 +124,9 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
   const handleClickOnHiddenBookButton = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       if (
-        event.target.classList.contains(MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER)
+        event.currentTarget.classList.contains(
+          MARKETPLACE_CLICKABLE_TITLE_IDENTIFIER,
+        )
       ) {
         event.stopPropagation();
         onClickOffer(offer.id);
@@ -108,10 +145,13 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
   const handleClick = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       if (isBookingDisabled) return;
-
+      event.stopPropagation();
+      const savedEvent = event;
       if (theme?.hide_book_button) {
-        handleClickOnHiddenBookButton(event);
-      } else if (AVAILABLE_BOOKING_ELEMENTS_IDS.includes(event?.target?.id)) {
+        handleClickOnHiddenBookButton(savedEvent);
+      } else if (
+        AVAILABLE_BOOKING_ELEMENTS_IDS.includes(savedEvent?.target?.id)
+      ) {
         handleBook();
       } else {
         onClickOffer(offer.id);
@@ -256,7 +296,7 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
                 onClick={handleClick}
                 type="button"
               >
-                {offerHours}
+                <OfferHours offerHours={offerHours} />
               </button>
             ) : (
               <div
@@ -273,7 +313,7 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
                     t('marketplace.bookButton.popOverTitle.isPast')
                   }
                 >
-                  {offerHours}
+                  <OfferHours offerHours={offerHours} />
                 </PopOver>
               </div>
             )}

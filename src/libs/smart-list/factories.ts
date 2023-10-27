@@ -1,6 +1,5 @@
 import { fakerEN as faker } from '@faker-js/faker';
-import { generateRandomInt } from '../../utils/factories';
-import { SmartList } from './types';
+import type { SmartList } from './types';
 
 function generateMemberIdsBatch(length?: number): number[] {
   const intTab: number[] = [];
@@ -10,7 +9,7 @@ function generateMemberIdsBatch(length?: number): number[] {
 
   const res: number[] = [];
   for (let i = 0; i < length; i += 1) {
-    res.push(intTab[generateRandomInt(intTab.length - 1)]);
+    res.push(faker.helpers.arrayElement(intTab));
   }
 
   return res;
@@ -22,11 +21,11 @@ export function smartlistFactory(
   randomName?: boolean,
   numberOfMembers?: number,
 ): Partial<SmartList> {
-  const smartlistId = id || generateRandomInt(99);
+  const smartlistId = id || faker.number.int(99);
 
   return {
     id: smartlistId,
-    company: companyId || generateRandomInt(300),
+    company: companyId || faker.number.int(300),
     name: randomName ? faker.lorem.words(2) : `Smartlist n°${smartlistId}`,
     description: faker.hacker.phrase(),
     members: generateMemberIdsBatch(numberOfMembers || 3),
@@ -35,7 +34,7 @@ export function smartlistFactory(
 }
 
 export function smartlistBatchFactory(length: number): Partial<SmartList>[] {
-  const companyId = generateRandomInt(100);
+  const companyId = faker.number.int(100);
   const res: Partial<SmartList>[] = [];
 
   for (let i = 0; i < length; i += 1) {

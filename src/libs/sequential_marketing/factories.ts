@@ -47,24 +47,16 @@ function TriggerEventConfigFactory(): TriggerEventConfig {
   return {
     uuid: faker.string.uuid(),
     identifier: TriggerIdentifier.EVENT,
-    event_type:
-      CADENCE_EVENT_ALL_CHOICES[
-        faker.number.int(CADENCE_EVENT_ALL_CHOICES.length - 1)
-      ],
+    event_type: faker.helpers.arrayElement(CADENCE_EVENT_ALL_CHOICES),
   };
 }
 
 function DestinationConfigFactory(): DestinationConfig {
   return {
     destination_id: faker.number.int(100),
-    kind: DESTINATION_KIND_CHOICES[
-      faker.number.int(DESTINATION_KIND_CHOICES.length - 1)
-    ],
+    kind: faker.helpers.arrayElement(DESTINATION_KIND_CHOICES),
     reason: faker.hacker.phrase(),
-    status:
-      DESTINATION_STATUS_CHOICES[
-        faker.number.int(DESTINATION_STATUS_CHOICES.length - 1)
-      ],
+    status: faker.helpers.arrayElement(DESTINATION_STATUS_CHOICES),
     uuid: faker.string.uuid(),
   };
 }
@@ -128,6 +120,7 @@ export function triggerFactory(
 
 export function triggerBatchFactory(
   length: number,
+  smartlistIds?: number[],
 ): Partial<ConnectedTrigger>[] {
   const res: number[] = [];
   for (let i = 0; i < length; i += 1) {
@@ -139,7 +132,10 @@ export function triggerBatchFactory(
       kind === TriggerKind.ONLY_SMARTLIST_FILTERING ||
       TriggerKind.EVENT_TRIGGER_AND_SMARTLIST_FILTERING
     )
-      return triggerFactory(kind, smartlistFactory().id);
+      return triggerFactory(
+        kind,
+        faker.helpers.arrayElement(smartlistIds) || smartlistFactory().id,
+      );
     return triggerFactory(kind);
   });
 }
@@ -182,9 +178,7 @@ function stepMarketingActionsCommunicationSpecFactory({
     subject: subject || faker.lorem.word(),
     communication_kind:
       communication_kind ||
-      CADENCE_MARKETING_ACTION_CHOICES[
-        faker.number.int(CADENCE_MARKETING_ACTION_CHOICES.length)
-      ],
+      faker.helpers.arrayElement(CADENCE_MARKETING_ACTION_CHOICES),
   };
 }
 
@@ -203,10 +197,7 @@ export function stepMarketingActionFactory({
   tag_id,
 }: StepMarketingActionFactoryProps): Partial<StepMarketingActions> {
   const factoryKind =
-    kind ||
-    CADENCE_MARKETING_ACTION_KIND_CHOICES[
-      faker.number.int(CADENCE_MARKETING_ACTION_KIND_CHOICES.length)
-    ];
+    kind || faker.helpers.arrayElement(CADENCE_MARKETING_ACTION_KIND_CHOICES);
 
   const factoryActionSpec =
     factoryKind === MarketingActionKind.TAG

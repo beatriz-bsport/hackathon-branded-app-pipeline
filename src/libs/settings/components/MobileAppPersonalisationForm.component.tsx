@@ -91,9 +91,6 @@ const MobileAppPersonalisationForm: React.FC<FormikProps<FormikValues>> = ({
   return (
     <Form onSubmit={handleSubmit}>
       <div className={classes.main}>
-        <Typography className={classes.title} variant="h5">
-          {t('mobilePersonalization.customize.title')}
-        </Typography>
         <Paper className={classes.paper}>
           <Typography className={classes.namesHeader}>
             {t('mobilePersonalization.customize.defaultPage.title')}

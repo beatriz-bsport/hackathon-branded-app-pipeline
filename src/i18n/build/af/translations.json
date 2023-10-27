@@ -9647,7 +9647,7 @@
             "helperText": "This option will allow you to choose the default page that users will see upon opening the app.",
             "placeholder": "Select a page",
             "options": {
-              "membership": "Calendar",
+              "membership": "Schedule",
               "bookings": "Bookings",
               "home": "Activities (default)",
               "marketplace": "Studio",

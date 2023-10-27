@@ -65,28 +65,42 @@ export const getConnectedTriggerPosition = (
 /** Get the default values for a ConnectedTrigger.
  * @param {TriggerKind} triggerKind - Sequential marketing trigger kind
  * @param {StoredStep} source - Source step of the trigger
+ * @param {number} sourceId - Id of the trigger source step
  * @param {DestinationKind} destinationKind - Destination kind for the trigger
  * @param {StoredStep} destination - Destination step of the trigger, in case of connect step to step
+ * @param {string} triggerUuid - Uuid of the trigger_config
  * @returns {ConnectedTrigger} - Return a ConnectedTrigger with default values
  */
-export const getDefaultValuesComplete = (
-  triggerKind: TriggerKind,
-  source?: StoredStep,
-  destinationKind?: DestinationKind,
-  destination?: StoredStep,
-): ConnectedTrigger => {
+
+type TriggerDefaultValuesParameters = {
+  triggerKind: TriggerKind;
+  source?: StoredStep;
+  sourceId?: number;
+  destinationKind?: DestinationKind;
+  destination?: StoredStep;
+  triggerUuid?: string;
+};
+
+export const getConnectedTriggerDefaultValues = ({
+  triggerKind,
+  source,
+  sourceId,
+  destinationKind,
+  destination,
+  triggerUuid,
+}: TriggerDefaultValuesParameters): ConnectedTrigger => {
   const position = getConnectedTriggerPosition(source, destination);
 
   switch (triggerKind) {
     case TriggerKind.ONLY_EVENT_TRIGGER:
       return {
         trigger_config: {
-          uuid: TRIGGER_TEMPORARY_ID,
+          uuid: triggerUuid || `${TRIGGER_TEMPORARY_ID}_${uuidv4()}`,
           identifier: TriggerIdentifier.EVENT,
           event_type: null,
         },
         destination_config: {
-          source_id: source?.id || null,
+          source_id: source?.id || sourceId || null,
           destination_id: destination?.id || null,
           kind: destinationKind || null,
           reason: null,
@@ -107,7 +121,7 @@ export const getDefaultValuesComplete = (
           identifier: TriggerIdentifier.EMPTY,
         },
         destination_config: {
-          source_id: source?.id || null,
+          source_id: source?.id || sourceId || null,
           destination_id: destination?.id || null,
           kind: destinationKind || null,
           reason: null,
@@ -129,7 +143,7 @@ export const getDefaultValuesComplete = (
           timeout: null,
         },
         destination_config: {
-          source_id: source?.id || null,
+          source_id: source?.id || sourceId || null,
           destination_id: destination?.id || null,
           kind: destinationKind || null,
           reason: null,
@@ -151,7 +165,7 @@ export const getDefaultValuesComplete = (
           event_type: null,
         },
         destination_config: {
-          source_id: source?.id || null,
+          source_id: source?.id || sourceId || null,
           destination_id: destination?.id || null,
           kind: destinationKind || null,
           reason: null,

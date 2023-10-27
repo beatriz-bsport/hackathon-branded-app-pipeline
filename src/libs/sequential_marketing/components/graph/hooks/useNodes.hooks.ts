@@ -16,7 +16,7 @@ import {
   TriggerKind,
   DestinationStatus,
 } from '#libs/sequential_marketing/constants';
-import { getDefaultValuesComplete } from './utils';
+import { getConnectedTriggerDefaultValues } from './utils';
 import { isTriggerFake } from '#libs/sequential_marketing/components/helpers/utils';
 
 import type {
@@ -223,11 +223,11 @@ export const useNodeElementsRecorder = ({
 
   const handleAddNextStepTrigger = React.useCallback(
     (stepNode: StoredStep) => (triggerKind: TriggerKind) => {
-      const faker = getDefaultValuesComplete(
+      const faker = getConnectedTriggerDefaultValues({
         triggerKind,
-        stepNode,
-        DestinationKind.STEP_TO_STEP,
-      );
+        source: stepNode,
+        destinationKind: DestinationKind.STEP_TO_STEP,
+      });
       handleUpdateFakerTrigger({
         step: stepNode,
         trigger: faker,
@@ -243,12 +243,12 @@ export const useNodeElementsRecorder = ({
           const destinationStep = storedSteps.find(
             (step) => step.id === destinationId,
           );
-          const faker = getDefaultValuesComplete(
+          const faker = getConnectedTriggerDefaultValues({
             triggerKind,
-            stepNode,
-            DestinationKind.STEP_TO_STEP,
-            destinationStep,
-          );
+            source: stepNode,
+            destinationKind: DestinationKind.STEP_TO_STEP,
+            destination: destinationStep,
+          });
           handleUpdateFakerTrigger({
             step: stepNode,
             trigger: faker,

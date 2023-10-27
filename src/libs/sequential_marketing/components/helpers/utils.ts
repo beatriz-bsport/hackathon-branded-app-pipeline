@@ -361,7 +361,7 @@ export const isTriggerValid = (trigger: ConnectedTrigger) => {
  * @returns {boolean} - Return whether or not the trigger is fake
  */
 export const isTriggerFake = (trigger: ConnectedTrigger) =>
-  trigger?.trigger_config?.uuid === TRIGGER_TEMPORARY_ID;
+  trigger?.trigger_config?.uuid.includes(TRIGGER_TEMPORARY_ID);
 
 /** Get the specific icon name which corresponds to the ConnectedTrigger in parameter for the ConnectedTriggerChip
  * @param {ConnectedTrigger} connected_trigger_config - Cadence ConnectedTrigger config

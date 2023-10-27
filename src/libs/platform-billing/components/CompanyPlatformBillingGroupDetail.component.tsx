@@ -38,6 +38,7 @@ const UpsellPackageList = (props: {
               sm={12}
             >
               <UpsellPackageComponent
+                // @ts-expect-error
                 defaultCurrencyDisplay={props.defaultCurrencyDisplay}
                 onKnowMore={props.onKnowMore}
                 onRequestUpsell={props.onRequestUpsell}

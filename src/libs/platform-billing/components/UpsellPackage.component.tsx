@@ -1,7 +1,4 @@
-// @ts-nocheck
-// @flow
-
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Paper from '@material-ui/core/Paper';
@@ -29,6 +26,7 @@ import TimerIcon from '@material-ui/icons/Timer';
 import Typography from '@material-ui/core/Typography';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 
+import { memoize } from 'lodash';
 import {
   UPSELL_IDENTIFIER_CUSTOM_APP,
   UPSELL_IDENTIFIER_VOD,
@@ -50,11 +48,12 @@ import {
   UPSELL_IDENTIFIER_GUEST,
   UPSELL_IDENTIFIER_PREMIUM_SUPPORT,
 } from '../upsell-identifiers';
+import { UpsellPackage } from '#libs/company/types';
 
 type Props = {
-  upsellPackage: any;
-  onKnowMore: (upsellIdentifier: number) => void;
-  children?: React.ReactChild;
+  upsellPackage: UpsellPackage;
+  onKnowMore?: (upsellIdentifier: number) => void;
+  handleSubscribe?: (upsellPackage: UpsellPackage) => void;
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -111,283 +110,142 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const UpsellPackageCustomApp = (props: Props) => {
-  const classes = useStyles();
-  return (
-    <DefaultTemplate {...props}>
-      <MobileFriendlyIcon className={classes.icon} />
-    </DefaultTemplate>
-  );
+export const MAP_UPSELL_IDENTIFIER_TO_ICON_COMPONENT = {
+  [UPSELL_IDENTIFIER_CUSTOM_APP]: MobileFriendlyIcon,
+  [UPSELL_IDENTIFIER_WHEREBY]: VideocamIcon,
+  [UPSELL_IDENTIFIER_DAILY_PAIMENT]: TodayIcon,
+  [UPSELL_IDENTIFIER_VOD]: VideoLibraryIcon,
+  [UPSELL_IDENTIFIER_SMS]: SMSIcon,
+  [UPSELL_IDENTIFIER_ZOOM_APP]: DuoIcon,
+  [UPSELL_IDENTIFIER_TABLET]: TabletIcon,
+  [UPSELL_IDENTIFIER_CLASSPASS]: SendToMobileIcon,
+  [UPSELL_IDENTIFIER_ANALYTICS]: AnalyticsIcon,
+  [UPSELL_IDENTIFIER_PREMIUM]: StarIcon,
+  [UPSELL_IDENTIFIER_VOD_YOUTUBE_AND_VIMEO]: PlayCircleIcon,
+  [UPSELL_IDENTIFIER_ACTIVE_CAMPAIGN]: AllInboxIcon,
+  [UPSELL_IDENTIFIER_QUICKBOOKS]: ReceiptIcon,
+  [UPSELL_IDENTIFIER_SPOT_SCHEDULING]: DirectionsBikeIcon,
+  [UPSELL_IDENTIFIER_PUSH_NOTIFICATION]: NotificationsActiveIcon,
+  [UPSELL_IDENTIFIER_MASTER_ACCOUNT]: SupervisorAccountIcon,
+  [UPSELL_IDENTIFIER_CLOCK_IN]: TimerIcon,
+  [UPSELL_IDENTIFIER_GUEST]: PersonAddIcon,
+  [UPSELL_IDENTIFIER_PREMIUM_SUPPORT]: HelpOutlinedIcon,
 };
 
-const UpsellPackageTablet = (props: Props) => {
-  const classes = useStyles();
-  return (
-    <DefaultTemplate {...props}>
-      <TabletIcon className={classes.icon} />
-    </DefaultTemplate>
-  );
-};
+const createUpsellPackageComponent = memoize(
+  (upsellIdentifier: keyof typeof MAP_UPSELL_IDENTIFIER_TO_ICON_COMPONENT) =>
+    (props: Props) => {
+      const classes = useStyles();
+      const { t } = useTranslation('platformBilling');
+      const { upsellPackage, onKnowMore, handleSubscribe } = props;
+      const UpsellCustomIcon =
+        MAP_UPSELL_IDENTIFIER_TO_ICON_COMPONENT[upsellIdentifier];
 
-const UpsellPackageDailyPayment = (props: Props) => {
-  const classes = useStyles();
-  return (
-    <DefaultTemplate {...props}>
-      <TodayIcon className={classes.icon} />
-    </DefaultTemplate>
-  );
-};
+      const showMoreUpsellInformation = useCallback(() => {
+        return onKnowMore ? onKnowMore(upsellPackage.upsell_identifier) : {};
+      }, [onKnowMore, upsellPackage.upsell_identifier]);
 
-const UpsellPackageZoomApp = (props: Props) => {
-  const classes = useStyles();
-  return (
-    <DefaultTemplate {...props}>
-      <DuoIcon className={classes.icon} />
-    </DefaultTemplate>
-  );
-};
+      const showSubscribe = useCallback(
+        () => handleSubscribe?.(upsellPackage),
+        [handleSubscribe, upsellPackage],
+      );
 
-const UpsellPackageClassPass = (props: Props) => {
-  const classes = useStyles();
-  return (
-    <DefaultTemplate {...props}>
-      <SendToMobileIcon className={classes.icon} />
-    </DefaultTemplate>
-  );
-};
-
-const UpsellPackageAnalytics = (props: Props) => {
-  const classes = useStyles();
-  return (
-    <DefaultTemplate {...props}>
-      <AnalyticsIcon className={classes.icon} />
-    </DefaultTemplate>
-  );
-};
-
-const UpsellPackagePremium = (props: Props) => {
-  const classes = useStyles();
-  return (
-    <DefaultTemplate {...props}>
-      <StarIcon className={classes.icon} />
-    </DefaultTemplate>
-  );
-};
-
-const UpsellPackageYoutubeAndVimeo = (props: Props) => {
-  const classes = useStyles();
-  return (
-    <DefaultTemplate {...props}>
-      <PlayCircleIcon className={classes.icon} />
-    </DefaultTemplate>
-  );
-};
-
-const UpsellPackageActiveCampaign = (props: Props) => {
-  const classes = useStyles();
-  return (
-    <DefaultTemplate {...props}>
-      <AllInboxIcon className={classes.icon} />
-    </DefaultTemplate>
-  );
-};
-
-const UpsellPushNotification = (props: Props) => {
-  const classes = useStyles();
-  return (
-    <DefaultTemplate {...props}>
-      <NotificationsActiveIcon className={classes.icon} />
-    </DefaultTemplate>
-  );
-};
-
-const UpsellMasterAccount = (props: Props) => {
-  const classes = useStyles();
-  return (
-    <DefaultTemplate {...props}>
-      <SupervisorAccountIcon className={classes.icon} />
-    </DefaultTemplate>
-  );
-};
-
-const UpsellPackageWhereby = (props: Props) => {
-  const classes = useStyles();
-  return (
-    <DefaultTemplate {...props}>
-      <VideocamIcon className={classes.icon} />
-    </DefaultTemplate>
-  );
-};
-
-const UpsellPackageVod = (props: Props) => {
-  const classes = useStyles();
-  return (
-    <DefaultTemplate {...props}>
-      <VideoLibraryIcon className={classes.icon} />
-    </DefaultTemplate>
-  );
-};
-
-const UpsellPackageQuickbooks = (props: Props) => {
-  const classes = useStyles();
-  return (
-    <DefaultTemplate {...props}>
-      <ReceiptIcon className={classes.icon} />
-    </DefaultTemplate>
-  );
-};
-
-const UpsellPackageSpotScheduling = (props: Props) => {
-  const classes = useStyles();
-  return (
-    <DefaultTemplate {...props}>
-      <DirectionsBikeIcon className={classes.icon} />
-    </DefaultTemplate>
-  );
-};
-
-const UpsellClockIn: React.FC<Props> = (props) => {
-  const classes = useStyles();
-  return (
-    <DefaultTemplate {...props}>
-      <TimerIcon className={classes.icon} />
-    </DefaultTemplate>
-  );
-};
-
-const UpsellGuest: React.FC<Props> = (props) => {
-  const classes = useStyles();
-  return (
-    <DefaultTemplate {...props}>
-      <PersonAddIcon className={classes.icon} />
-    </DefaultTemplate>
-  );
-};
-
-const UpsellPremiumSupport: React.FC<Props> = (props) => {
-  const classes = useStyles();
-  return (
-    <DefaultTemplate {...props}>
-      <HelpOutlinedIcon className={classes.icon} />
-    </DefaultTemplate>
-  );
-};
-
-const DefaultTemplate = (props: Props) => {
-  const classes = useStyles();
-  const { t } = useTranslation('platformBilling');
-  const { upsellPackage, onKnowMore } = props;
-  const canSeeMoreUpsellInformation = !!onKnowMore && !upsellPackage.subscribed;
-  const showMoreUpsellInformation = canSeeMoreUpsellInformation
-    ? () => {
-        onKnowMore(upsellPackage.upsell_identifier);
-      }
-    : () => {};
-  return (
-    <Paper className={classes.paperContainer}>
-      <div className={classes.upsellContent}>
-        <div className={classes.iconContainer}>{props.children}</div>
-        <div className={classes.innerContainer}>
-          <div>
-            <Typography variant="h6">{upsellPackage.name}</Typography>
-            <div className={classes.innerDescription}>
-              {upsellPackage.description_html ? (
-                <iframe
-                  className={classes.iframe}
-                  frameBorder="0"
-                  srcDoc={props.upsellPackage.description_html}
-                  title="upsell-package-default-template-iframe"
-                />
-              ) : (
+      return (
+        <Paper className={classes.paperContainer}>
+          <div className={classes.upsellContent}>
+            <div className={classes.iconContainer}>
+              <UpsellCustomIcon className={classes.icon} />
+            </div>
+            <div className={classes.innerContainer}>
+              <Typography variant="h6">{upsellPackage.name}</Typography>
+              <div className={classes.innerDescription}>
                 <Typography>{upsellPackage.description}</Typography>
-              )}
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div className={classes.buttonContainer}>
-        {canSeeMoreUpsellInformation && (
-          <Button onClick={showMoreUpsellInformation} variant="outlined">
-            <HelpOutlinedIcon className={classes.iconLeft} />
-            {t('upsellPackage.knowMore')}
-          </Button>
-        )}
-      </div>
-    </Paper>
-  );
-};
-
-const UpsellPackageSMS = (props: Omit<Props, 'children'>) => {
-  const classes = useStyles();
-  const { t } = useTranslation('platformBilling');
-  const { upsellPackage, onKnowMore } = props;
-  const canSeeMoreUpsellInformation = !!onKnowMore && !upsellPackage.subscribed;
-  const showMoreUpsellInformation = canSeeMoreUpsellInformation
-    ? () => {
-        onKnowMore(upsellPackage.upsell_identifier);
-      }
-    : () => {};
-  return (
-    <Paper className={classes.paperContainer}>
-      <div className={classes.upsellContent}>
-        <div className={classes.iconContainer}>
-          <SMSIcon className={classes.icon} />
-        </div>
-        <div className={classes.innerContainer}>
-          <Typography variant="h6">{upsellPackage.name}</Typography>
-          <div className={classes.innerDescription}>
-            {upsellPackage.description_html ? (
-              <iframe
-                className={classes.iframe}
-                frameBorder="0"
-                srcDoc={props.upsellPackage.description_html}
-                title="upsell-package-sms-iframe"
-              />
-            ) : (
-              <Typography>{upsellPackage.description}</Typography>
+          <div className={classes.buttonContainer}>
+            {onKnowMore && (
+              <Button onClick={showMoreUpsellInformation} variant="outlined">
+                <HelpOutlinedIcon className={classes.iconLeft} />
+                {t('upsellPackage.knowMore')}
+              </Button>
+            )}
+            {handleSubscribe && upsellPackage.subscribe_from_backoffice && (
+              <Button
+                color="primary"
+                onClick={showSubscribe}
+                variant="contained"
+              >
+                {t('upsellPackage.seeMore')}
+              </Button>
             )}
           </div>
-        </div>
-      </div>
-      <div className={classes.buttonContainer}>
-        {canSeeMoreUpsellInformation && (
-          <Button onClick={showMoreUpsellInformation} variant="outlined">
-            <HelpOutlinedIcon className={classes.iconLeft} />
-            {t('upsellPackage.knowMore')}
-          </Button>
-        )}
-      </div>
-    </Paper>
-  );
-};
+        </Paper>
+      );
+    },
+);
 
 const UPSELL_REGISTRY = {
-  [UPSELL_IDENTIFIER_CUSTOM_APP]: UpsellPackageCustomApp,
-  [UPSELL_IDENTIFIER_WHEREBY]: UpsellPackageWhereby,
-  [UPSELL_IDENTIFIER_DAILY_PAIMENT]: UpsellPackageDailyPayment,
-  [UPSELL_IDENTIFIER_VOD]: UpsellPackageVod,
-  [UPSELL_IDENTIFIER_SMS]: UpsellPackageSMS,
-  [UPSELL_IDENTIFIER_ZOOM_APP]: UpsellPackageZoomApp,
-  [UPSELL_IDENTIFIER_TABLET]: UpsellPackageTablet,
-  [UPSELL_IDENTIFIER_CLASSPASS]: UpsellPackageClassPass,
-  [UPSELL_IDENTIFIER_ANALYTICS]: UpsellPackageAnalytics,
-  [UPSELL_IDENTIFIER_PREMIUM]: UpsellPackagePremium,
-  [UPSELL_IDENTIFIER_VOD_YOUTUBE_AND_VIMEO]: UpsellPackageYoutubeAndVimeo,
-  [UPSELL_IDENTIFIER_ACTIVE_CAMPAIGN]: UpsellPackageActiveCampaign,
-  [UPSELL_IDENTIFIER_QUICKBOOKS]: UpsellPackageQuickbooks,
-  [UPSELL_IDENTIFIER_SPOT_SCHEDULING]: UpsellPackageSpotScheduling,
-  [UPSELL_IDENTIFIER_PUSH_NOTIFICATION]: UpsellPushNotification,
-  [UPSELL_IDENTIFIER_MASTER_ACCOUNT]: UpsellMasterAccount,
-  [UPSELL_IDENTIFIER_CLOCK_IN]: UpsellClockIn,
-  [UPSELL_IDENTIFIER_GUEST]: UpsellGuest,
-  [UPSELL_IDENTIFIER_PREMIUM_SUPPORT]: UpsellPremiumSupport,
+  [UPSELL_IDENTIFIER_CUSTOM_APP]: createUpsellPackageComponent(
+    UPSELL_IDENTIFIER_CUSTOM_APP,
+  ),
+  [UPSELL_IDENTIFIER_WHEREBY]: createUpsellPackageComponent(
+    UPSELL_IDENTIFIER_WHEREBY,
+  ),
+  [UPSELL_IDENTIFIER_DAILY_PAIMENT]: createUpsellPackageComponent(
+    UPSELL_IDENTIFIER_DAILY_PAIMENT,
+  ),
+  [UPSELL_IDENTIFIER_VOD]: createUpsellPackageComponent(UPSELL_IDENTIFIER_VOD),
+  [UPSELL_IDENTIFIER_SMS]: createUpsellPackageComponent(UPSELL_IDENTIFIER_SMS),
+  [UPSELL_IDENTIFIER_ZOOM_APP]: createUpsellPackageComponent(
+    UPSELL_IDENTIFIER_ZOOM_APP,
+  ),
+  [UPSELL_IDENTIFIER_TABLET]: createUpsellPackageComponent(
+    UPSELL_IDENTIFIER_TABLET,
+  ),
+  [UPSELL_IDENTIFIER_CLASSPASS]: createUpsellPackageComponent(
+    UPSELL_IDENTIFIER_CLASSPASS,
+  ),
+  [UPSELL_IDENTIFIER_ANALYTICS]: createUpsellPackageComponent(
+    UPSELL_IDENTIFIER_ANALYTICS,
+  ),
+  [UPSELL_IDENTIFIER_PREMIUM]: createUpsellPackageComponent(
+    UPSELL_IDENTIFIER_PREMIUM,
+  ),
+  [UPSELL_IDENTIFIER_VOD_YOUTUBE_AND_VIMEO]: createUpsellPackageComponent(
+    UPSELL_IDENTIFIER_VOD_YOUTUBE_AND_VIMEO,
+  ),
+  [UPSELL_IDENTIFIER_ACTIVE_CAMPAIGN]: createUpsellPackageComponent(
+    UPSELL_IDENTIFIER_ACTIVE_CAMPAIGN,
+  ),
+  [UPSELL_IDENTIFIER_QUICKBOOKS]: createUpsellPackageComponent(
+    UPSELL_IDENTIFIER_QUICKBOOKS,
+  ),
+  [UPSELL_IDENTIFIER_SPOT_SCHEDULING]: createUpsellPackageComponent(
+    UPSELL_IDENTIFIER_SPOT_SCHEDULING,
+  ),
+  [UPSELL_IDENTIFIER_PUSH_NOTIFICATION]: createUpsellPackageComponent(
+    UPSELL_IDENTIFIER_PUSH_NOTIFICATION,
+  ),
+  [UPSELL_IDENTIFIER_MASTER_ACCOUNT]: createUpsellPackageComponent(
+    UPSELL_IDENTIFIER_MASTER_ACCOUNT,
+  ),
+  [UPSELL_IDENTIFIER_CLOCK_IN]: createUpsellPackageComponent(
+    UPSELL_IDENTIFIER_CLOCK_IN,
+  ),
+  [UPSELL_IDENTIFIER_GUEST]: createUpsellPackageComponent(
+    UPSELL_IDENTIFIER_GUEST,
+  ),
+  [UPSELL_IDENTIFIER_PREMIUM_SUPPORT]: createUpsellPackageComponent(
+    UPSELL_IDENTIFIER_PREMIUM_SUPPORT,
+  ),
 };
 
 export const getUpsellPackageComponent = (upsellIdentifier: number) => {
   if (upsellIdentifier in UPSELL_REGISTRY) {
-    return UPSELL_REGISTRY[upsellIdentifier];
+    return UPSELL_REGISTRY[upsellIdentifier as keyof typeof UPSELL_REGISTRY];
   }
-  return UpsellMasterAccount;
+  return UPSELL_REGISTRY[UPSELL_IDENTIFIER_MASTER_ACCOUNT];
 };
 
 export default getUpsellPackageComponent;

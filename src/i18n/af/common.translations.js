@@ -37,6 +37,7 @@ exports.default = {
   previous: 'Previous',
   letsGo: "Let's go!",
   finish: 'Finish',
+  subscribe: 'Subscribe',
   card: {
     categoryNames: {
       compatibility: 'Compatibility',

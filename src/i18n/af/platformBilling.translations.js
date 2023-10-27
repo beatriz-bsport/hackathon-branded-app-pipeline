@@ -28,6 +28,7 @@ exports.default = {
     otherAddonTitle: 'Available Add-Ons',
     myAddonTitle: 'My Add-Ons',
     knowMore: 'More information',
+    seeMore: 'See more',
     sms: { explainBilling: '{{ price_cts }} / SMS' },
     lockDialog: {
       33: {
@@ -36,6 +37,16 @@ exports.default = {
           "You'll find here all your direct discussions, chats linked to your sessions, and your smartlist campaigns. The chat is compatible with SMS, email and push notifications.",
       },
       requestAccess: 'Request access',
+    },
+    subscriptionForm: {
+      title: 'Subscribe to add-on',
+      priceHelper: 'This price will be added to your monthly plan.',
+      confirmHelper: 'Please confirm you want to subscribe to this add-on',
+      infoHelper: 'Need more information?',
+      info: 'Contact customer support',
+      confirmationMessage: 'You have successfully subscribed to {{ name }}',
+      commitmentMessage:
+        'Please note: Subscribing entails a 12-month commitment period',
     },
   },
   platformBillingStage: {

@@ -122,3 +122,13 @@ export const MAP_MARKETPLACE_PAYMENT_METHOD_TO_IDENTIFIER = {
   [MarketplacePaymentMethods.sepa]: PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
   [MarketplacePaymentMethods.bacs]: PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
 };
+
+/**
+ * hours - minutes
+ */
+export const OFFER_HOURS_SEPARATOR = ' - ';
+
+/**
+ * date • time
+ */
+export const OFFER_DATE_HOURS_SEPARATOR = ' • ';

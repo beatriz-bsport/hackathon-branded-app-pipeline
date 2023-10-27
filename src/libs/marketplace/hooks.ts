@@ -274,17 +274,17 @@ export const useOfferHours = (
       const endMoment = moment(offer?.date_start).add(duration).tz(tz);
 
       if (!endMoment.isSame(startMoment, 'day')) {
-        return startHour;
+        return { startTime: startHour, endTimeOrDuration: '' };
       }
       const endHour = formatAsTime(endMoment, tz);
 
       switch (theme?.session_time_display) {
         case MarketPlaceSessionTimeDisplay.ONLY_STARTING_TIME:
-          return `${startHour}`;
+          return { startTime: startHour, endTimeOrDuration: '' };
         case MarketPlaceSessionTimeDisplay.STARTING_TIME_AND_DURATION:
-          return `${startHour} - ${readableDuration}`;
+          return { startTime: startHour, endTimeOrDuration: readableDuration };
         default:
-          return `${startHour} - ${endHour}`;
+          return { startTime: startHour, endTimeOrDuration: endHour };
       }
     }
 
@@ -305,19 +305,19 @@ export const useOfferHours = (
       const endHour = endMoment.format('HH:mm');
 
       if (!endMoment.isSame(startMoment, 'day')) {
-        return startHour;
+        return { startTime: startHour, endTimeOrDuration: '' };
       }
 
       switch (theme?.session_time_display) {
         case MarketPlaceSessionTimeDisplay.ONLY_STARTING_TIME:
-          return `${startHour}`;
+          return { startTime: startHour, endTimeOrDuration: '' };
         case MarketPlaceSessionTimeDisplay.STARTING_TIME_AND_DURATION:
-          return `${startHour} - ${readableDuration}`;
+          return { startTime: startHour, endTimeOrDuration: readableDuration };
         default:
-          return `${startHour} - ${endHour}`;
+          return { startTime: startHour, endTimeOrDuration: endHour };
       }
     }
-    return '';
+    return { startTime: '', endTimeOrDuration: '' };
   }, [
     offer?.date_start,
     offer?.duration_minute,

@@ -99,7 +99,7 @@ const MarketplaceBookerModuleBuyableItems: React.FC<Props> = ({
                         'bs-new-offer-booking__buyable_items__header__arrow',
                         {
                           'bs-new-offer-booking__buyable_items__header__arrow--rotate':
-                            isShowBuyableItems,
+                            isDisplayBuyableItems,
                         },
                       )}
                     />
@@ -112,7 +112,7 @@ const MarketplaceBookerModuleBuyableItems: React.FC<Props> = ({
             )}
           </>
         )}
-        <Collapse isExpanded={isDisplayBuyableItems}>
+        <Collapse collapsedHeight={0} isExpanded={isDisplayBuyableItems}>
           <MarketplaceFilterBuyableItemCategory
             buyableItemCategories={buyableItemCategories}
             onClickCategory={onClickCategory}

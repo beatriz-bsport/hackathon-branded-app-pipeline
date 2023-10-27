@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { connect } from 'react-redux';
@@ -15,6 +14,7 @@ import {
 import Button from '@material-ui/core/Button';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { CircularProgress } from '@material-ui/core';
+// @ts-expect-error
 import { getLanguage } from '../../i18n';
 
 import { RootState } from '../../reducers';
@@ -30,6 +30,8 @@ import {
   getTutorialLessonLoadingState,
 } from '#libs/platform-tutorial/selectors';
 import { getPermissions } from '#libs/role/selectors';
+// @ts-expect-error
+import { getUpsellPackageByIdentifier } from '#libs/platform-billing/selectors';
 
 import {
   updateTutorialLessonViewedStatus as updateTutorialLessonViewedStatusAction,
@@ -41,14 +43,20 @@ import {
   retrieveTutorialLesson as retrieveTutorialLessonAction,
   updateUserAcknowlegdeTutorial,
 } from '#libs/platform-tutorial/actions';
-import { requestUpsellPackage as requestUpsellPackageAction } from '#libs/platform-billing/actions';
+import {
+  fetchUpsellPackage as fetchUpsellPackageAction,
+  requestUpsellPackage as requestUpsellPackageAction,
+  subscribeUpsellPackage as subscribeUpsellPackageAction,
+} from '#libs/platform-billing/actions';
 
 import { checkRequiredPermissions } from '#libs/role/utils';
 
+// @ts-expect-error
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 
 import TutorialLessonHeader from '#libs/platform-tutorial/components/TutorialLessonHeader.component';
 import TutorialLessonContent from '#libs/platform-tutorial/components/TutorialLessonContent.component';
+// @ts-expect-error
 import FeatureRequestDialog from '#libs/platform-billing/components/FeatureRequestDialog.component';
 import TutorialGenericDialog from '#libs/platform-tutorial/components/TutorialGenericDialog.component';
 
@@ -59,6 +67,14 @@ import {
   ALL_TUTORIAL_LESSONS_FINISH_DIALOG_OPEN_QUERY_PARAMS,
   TUTORIAL_GENERIC_DIALOG_SECTION_FINISH,
 } from '#libs/platform-tutorial/constant';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+import UpsellPackageSubscriptionDrawer from '#libs/platform-billing/components/UpsellPackageSubscriptionDrawer.component';
+
+const { trackFormAdd, trackFormSubmitIntent, trackFormSuccess } =
+  rudderStackFormTrackingFunctionsRegistry(
+    SegmentAnalyticsFormObjectIdentifier.UpsellSubscription,
+  );
 
 type OwnProps = {
   id: number;
@@ -89,7 +105,19 @@ type Props = OwnAndConnectedProps &
   WithStyles &
   State;
 
-class TutorialLessonDetail extends React.Component<Props> {
+type ComponentState = {
+  openSubscribtionForm: boolean;
+  openConfirmationDialog: boolean;
+  upsellSubscriptionLoading: boolean;
+};
+
+class TutorialLessonDetail extends React.Component<Props, ComponentState> {
+  state: ComponentState = {
+    openSubscribtionForm: false,
+    openConfirmationDialog: false,
+    upsellSubscriptionLoading: false,
+  };
+
   componentDidMount(): void {
     this.props.updateUserAcknowlegdeTutorial();
     if (this.props.lessonRestricted) {
@@ -118,13 +146,18 @@ class TutorialLessonDetail extends React.Component<Props> {
       this.props.fetchListTutorialSections();
       this.props.fetchUserTutorialCompletion();
     }
+    if (this.props.selectedLesson?.upsell_identifiers?.[0]) {
+      this.props.fetchUpsellPackage(
+        this.props.selectedLesson?.upsell_identifiers[0],
+      );
+    }
   }
 
   componentDidUpdate(prevProps: Props): void {
     if (
       (!prevProps.section && this.props.section) ||
       (!prevProps.selectedLesson && this.props.selectedLesson)
-    )
+    ) {
       if (this.props.lessonRestricted) {
         this.props.retrieveTutorialLesson({
           uuid: this.props.lessonId,
@@ -147,6 +180,15 @@ class TutorialLessonDetail extends React.Component<Props> {
         this.props.fetchListTutorialSections();
         this.props.fetchUserTutorialCompletion();
       }
+    }
+    if (
+      !prevProps.selectedLesson?.upsell_identifiers &&
+      this.props.selectedLesson?.upsell_identifiers?.[0]
+    ) {
+      this.props.fetchUpsellPackage(
+        this.props.selectedLesson?.upsell_identifiers[0],
+      );
+    }
   }
 
   completeAndGoToLesson = (
@@ -222,6 +264,37 @@ class TutorialLessonDetail extends React.Component<Props> {
     this.goToMenu();
   };
 
+  handleOpenSubscribtionForm = () => {
+    this.setState({
+      openSubscribtionForm: true,
+    });
+    trackFormAdd(this.props.associatedUpsellPackage?.id);
+  };
+
+  handleSubscribeUpsellPackage = () => {
+    trackFormSubmitIntent(this.props.associatedUpsellPackage?.id);
+    this.setState({ upsellSubscriptionLoading: true });
+    this.props.subscribeUpsellPackage(this.props.associatedUpsellPackage?.id, {
+      onSuccess: () => {
+        trackFormSuccess(this.props.associatedUpsellPackage?.id);
+        this.handleCloseSubscriptionForm();
+        this.setState({ upsellSubscriptionLoading: false });
+        this.setState({ openConfirmationDialog: true });
+      },
+      onError: () => {
+        this.handleCloseSubscriptionForm();
+        this.setState({ upsellSubscriptionLoading: false });
+      },
+    });
+  };
+
+  handleCloseSubscriptionForm = () => {
+    this.setState({ openSubscribtionForm: false });
+  };
+
+  handleCloseConfirmationDialog = () =>
+    this.setState({ openConfirmationDialog: false });
+
   render() {
     const { classes, t } = this.props;
     const lessonsId = this.props.section?.lessons?.map((lesson) => lesson.id);
@@ -252,7 +325,9 @@ class TutorialLessonDetail extends React.Component<Props> {
         )}
 
         <TutorialLessonHeader
+          associatedUpsellPackage={this.props.associatedUpsellPackage}
           goToLesson={this.props.goToLesson}
+          handleSubscribe={this.handleOpenSubscribtionForm}
           onKnowMore={this.props.onRequestUpsell}
           section={this.props.section}
           selectedLesson={this.props.selectedLesson}
@@ -279,6 +354,16 @@ class TutorialLessonDetail extends React.Component<Props> {
           onClose={() => this.props.setOpenFeatureRequest(false)}
           open={this.props.openFeatureRequest}
         />
+        <UpsellPackageSubscriptionDrawer
+          loading={this.state.upsellSubscriptionLoading}
+          onClose={this.handleCloseSubscriptionForm}
+          onCloseDialog={this.handleCloseConfirmationDialog}
+          onKnowMore={this.props.onRequestUpsell}
+          onSubscribe={this.handleSubscribeUpsellPackage}
+          open={this.state.openSubscribtionForm}
+          openDialog={this.state.openConfirmationDialog}
+          upsellPackage={this.props.associatedUpsellPackage}
+        />
       </div>
     );
   }
@@ -300,24 +385,41 @@ const styles = createStyles((theme: Theme) => ({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  responsiveDrawerHeader: {
+    marginBottom: theme.spacing(3),
+  },
+  responsiveDrawerContent: {
+    padding: 0,
+  },
 }));
 
 const mapStateToProps = (
   state: RootState,
   { sectionId, lessonId, selectedLanguage }: OwnProps,
-) => ({
-  selectedLesson: translateLesson(
+) => {
+  const selectedLesson = translateLesson(
     getTutorialLesson(lessonId)(state),
     selectedLanguage,
-  ),
-  section: translateSectionsWithLessons(
-    withLessons(getTutorialSection(sectionId)),
-  )(state, selectedLanguage),
-  statistics: getUserTutorialStatistics(state),
-  tutorial_completion: getUserTutorialCompletion(state),
-  permissions: getPermissions(state),
-  isLessonLoading: getTutorialLessonLoadingState(state),
-});
+  );
+  return {
+    selectedLesson,
+    section: translateSectionsWithLessons(
+      withLessons(getTutorialSection(sectionId)),
+    )(state, selectedLanguage),
+    statistics: getUserTutorialStatistics(state),
+    tutorial_completion: getUserTutorialCompletion(state),
+    permissions: getPermissions(state),
+    isLessonLoading: getTutorialLessonLoadingState(state),
+    associatedUpsellPackage: getUpsellPackageByIdentifier(
+      state,
+      // The data structure of the API is ready for a OneToMany relation between Tutorial lessons and upsells.
+      // That is why the upsells identifiers are stored in a list.
+      // Nevertheless, upsell_identifiers shouldn't be of length greater than 1.
+      selectedLesson?.upsell_identifiers?.[0],
+      { must_expensive: true },
+    ),
+  };
+};
 
 const mapDispatchToProps = {
   fetchListTutorialLessons: fetchListTutorialLessonsAction,
@@ -336,6 +438,8 @@ const mapDispatchToProps = {
     push(`/tutorial/?${ALL_TUTORIAL_LESSONS_FINISH_DIALOG_OPEN_QUERY_PARAMS}`),
   updateUserAcknowlegdeTutorial,
   requestUpsellPackage: requestUpsellPackageAction,
+  fetchUpsellPackage: fetchUpsellPackageAction,
+  subscribeUpsellPackage: subscribeUpsellPackageAction,
 };
 
 const mapWithHandlers = {
@@ -363,9 +467,6 @@ const mapWithHandlers = {
     (upsell_identifier: number) => {
       setOpenFeatureRequest(true);
       requestUpsellPackage(upsell_identifier);
-      window.Intercom('trackEvent', 'Upsell feature requested', {
-        upsell_identifier,
-      });
     },
 };
 

@@ -1,5 +1,5 @@
-// @ts-nocheck
 import React from 'react';
+
 import chroma from 'chroma-js';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
@@ -15,31 +15,42 @@ import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import EmojiEventsIcon from '@material-ui/icons/EmojiEvents';
 import HelpOutlinedIcon from '@material-ui/icons/HelpOutline';
 import { Skeleton } from '@material-ui/lab';
+import SeamlessImmutable from 'seamless-immutable';
 
 import { isLessonCompleted, isUpsellNotSubscribed } from '../utils';
-
+// @ts-expect-error
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
 import ToolTip from '#components/Tooltip.component';
 import MuiIcon from '#components/MuiIcon.component';
 import LessonStatusChips from './TutorialLessonStatusChip.component';
 import InfoBox from '#components/box/InfoBox.component';
 
-import { FeatureList } from '#libs/company/types';
-import { TutorialCompletion, TutorialLesson, TutorialSection } from '../types';
+import type { FeatureList, UpsellPackage } from '#libs/company/types';
+import type {
+  TutorialCompletion,
+  TutorialLesson,
+  TutorialSection,
+} from '../types';
 
 export type Props = {
   selectedLesson: TutorialLesson;
   section: TutorialSection;
+  tutorial_completion:
+    | TutorialCompletion
+    | SeamlessImmutable.Immutable<TutorialCompletion>;
   goToLesson: (sectionId: number | string, lessonId: number | string) => void;
-  tutorial_completion: TutorialCompletion;
   onKnowMore: (id: number) => void;
+  handleSubscribe: () => void;
+  associatedUpsellPackage?: UpsellPackage;
 };
 
 const TutorialLessonHeader: React.FC<Props> = ({
-  selectedLesson,
+  associatedUpsellPackage,
   section,
-  goToLesson,
+  selectedLesson,
   tutorial_completion,
+  goToLesson,
+  handleSubscribe,
   onKnowMore,
 }: Props) => {
   const classes = useStyles();
@@ -171,10 +182,20 @@ const TutorialLessonHeader: React.FC<Props> = ({
                     content={t('lessonHeader.warning')}
                     variant="outlined"
                   />
-                  <Button onClick={handleKnowMore} variant="outlined">
-                    <HelpOutlinedIcon className={classes.iconLeft} />
-                    {t('platformBilling:upsellPackage.knowMore')}
-                  </Button>
+                  {associatedUpsellPackage?.subscribe_from_backoffice ? (
+                    <Button
+                      color="primary"
+                      onClick={handleSubscribe}
+                      variant="contained"
+                    >
+                      {t('platformBilling:upsellPackage.seeMore')}
+                    </Button>
+                  ) : (
+                    <Button onClick={handleKnowMore} variant="outlined">
+                      <HelpOutlinedIcon className={classes.iconLeft} />
+                      {t('platformBilling:upsellPackage.knowMore')}
+                    </Button>
+                  )}
                 </div>
               )}
             </>

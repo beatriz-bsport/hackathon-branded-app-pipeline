@@ -12,6 +12,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { useTranslation } from 'react-i18next';
 import chroma from 'chroma-js';
 import classNames from 'classnames';
+import SeamlessImmutable from 'seamless-immutable';
 import VimeoEmbedVideo from '#libs/video/components/VimeoEmbedVideo';
 import { TutorialCompletion, TutorialLesson } from '../types';
 import { isLessonCompleted } from '../utils';
@@ -33,7 +34,9 @@ export type Props = {
   previousLessonId: number | string;
   nextLessonId: number | string;
   lesson_restricted: boolean;
-  tutorial_completion: TutorialCompletion;
+  tutorial_completion:
+    | TutorialCompletion
+    | SeamlessImmutable.Immutable<TutorialCompletion>;
 };
 
 const TutorialLessonContent: React.FC<Props> = (props: Props) => {

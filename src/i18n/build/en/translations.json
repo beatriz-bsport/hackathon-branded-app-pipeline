@@ -2794,7 +2794,7 @@
                 },
                 "panel": {
                     "subtitle": {
-                        "onLeft": "Removal",
+                        "onLeft": "Exit",
                         "onJoin": "Entry"
                     },
                     "add": "Add",
@@ -2804,7 +2804,7 @@
                     "frequenceHelper": "This message will be sent upon {{ max }} {{ event_kind }} to each member in this Smartlist. After {{ max }} {{ event_kind }}, members will no longer receive the message. Use \"Advanced\" to edit these settings.",
                     "subtitles": {
                         "create": {
-                            "leftSmartList": "Add an automatic message for members that leave this Smartlist.",
+                            "leftSmartList": "Add an automatic message for members that exit this Smartlist.",
                             "joinSmartList": "Add an automatic message for members that enter this Smartlist."
                         },
                         "update": {

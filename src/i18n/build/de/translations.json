@@ -5185,7 +5185,7 @@
         "category": {
             "deleteModal": {
                 "confirm": "Bestätigen Sie",
-                "cancel": "ringförmig",
+                "cancel": "Abbrechen",
                 "content": "Sind Sie sicher, dass Sie diese Kategorie löschen möchten? Alle darin enthaltenen Artikel werden in den Bereich der unsortierten Unterrichtspässen verschoben",
                 "title": "Unterdrückung"
             },
@@ -6008,9 +6008,12 @@
                 "next_week": "Nächste Woche",
                 "next_month": "Nächster Monat",
                 "next_trimester": "Nächsten drei Monate",
-                "next_year": "Nächstes Jahr"
+                "next_year": "Nächstes Jahr",
+                "allDay": "Ganztägig"
             },
-            "save": "Speichern"
+            "save": "Speichern",
+            "selectDateRange": "Wählen Sie einen Datumsbereich",
+            "selectTimeRange": "Wählen Sie ein Zeitfenster"
         },
         "search": "Suche nach einem Bericht",
         "filter": {
@@ -7438,7 +7441,8 @@
                 "isEmpty": "Keine Einkäufe",
                 "title": "Einkäufe",
                 "titleReverse": "Rückzahlung",
-                "billing_establishment": "Rechnungsstellung*"
+                "billing_establishment": "Rechnungsstellung*",
+                "cannotCreateDiscount": "Sie verfügen nicht über die notwendigen Rechte, um einen Rabatt hinzuzufügen."
             },
             "paymentList": {
                 "total": "Gesamte Zahlungen",
@@ -7886,7 +7890,8 @@
                     "close": "Schließen",
                     "displayPaymentMethod": "Meine Zahlungsarten anzeigen",
                     "selectPaymentMethod": "Wählen Sie Ihre Zahlungsmethode",
-                    "cancel": "Stornieren"
+                    "cancel": "Stornieren",
+                    "addPaymentMethodDenied": "Dieses Mitglied hat derzeit keine solche Zahlungsmethode gespeichert, und Sie haben nicht die Erlaubnis, eine neue hinzuzufügen."
                 },
                 "collect": {
                     "content": "Diese Zahlungsmethode wird in Deinem Konto hinterlegt und vertragsgemäß in Rechnung gestellt.",
@@ -11028,7 +11033,7 @@
                 "resentOn": "Zurückgeschickt am :"
             },
             "clickCount": "Klicks",
-            "recipientCount": "Empfänger : {{ total_recipients }}",
+            "recipientCount": "Empfänger: {{ total_recipients }}",
             "showReport": "Report",
             "readCount": "Anzahl der Öffnungen",
             "kind": {
@@ -11099,21 +11104,21 @@
             "showMail": "E-Mail ansehen",
             "mailSelection": "E-Mail auswählen",
             "selectToShowPreview": "Wählen Sie eine E-Mail aus, um eine Vorschau davon zu sehen.",
-            "noMailAvailable": "Keine verfügbare E-Mail, bitte erstelle eine E-Mail",
+            "noMailAvailable": "Keine E-Mail verfügbar. Bitte erstellen Sie eine.",
             "phoneMissing": "Es kann keine Telefonnummer angezeigt werden.",
             "mailMissing": "Es kann keine E-Mail angezeigt werden.",
             "numberSms": "SMS",
             "contentSms": "SMS-Inhalt",
             "selectTemplate": "Eine Vorlage auswählen",
             "writeMail": "Eine E-Mail schreiben",
-            "dialogTitle": "Kommunikation",
+            "dialogTitle": "Nachricht",
             "contentNotification": "Inhalt",
             "titleNotification": "Titel",
             "sendNotification": "Push-Benachrichtigung",
             "warningConsent2": "Diese Entscheidung deines Mitglieds zu missachten, wäre illegal. Bsport distanziert sich von jeglicher Verantwortung für den Missbrauch von direkten E-Mails.",
-            "warningConsent1": "Achtung! Dieses Mitglied hat die Möglichkeit, ihm Werbe-E-Mails zu senden, deaktiviert. Direkte E-Mails ermöglichen es Ihnen, mit Ihren Mitgliedern auf einfache und schnelle Weise zu chatten. Sie sollten nicht für Werbe- oder Promotionszwecke verwendet werden.",
-            "titleInterpolated": "Die Variablen in der Betreffzeile und im Corp der E-Mail werden entsprechend dem Empfänger aktualisiert",
-            "warningProvider": "Bitte beachten Sie, dass die Antworten der Mitglieder auf diese Nachricht nicht auf der Plattform, sondern direkt in Ihrer Mailbox erscheinen werden. Damit sie alle hier erscheinen, ändern Sie die Kommunikationseinstellung auf der Seite Einstellungen/Anpassung."
+            "warningConsent1": "Achtung! Dieses Mitglied hat die Option, ihm Werbe-E-Mails zu senden, deaktiviert. Direkte E-Mails ermöglichen es Ihnen, mit Ihren Mitgliedern auf einfache und schnelle Weise zu kommunizieren. Sie sollten nicht für Werbe- oder Promotionszwecke verwendet werden.",
+            "titleInterpolated": "Die Variablen in der Betreffzeile und im Corp der E-Mail werden entsprechend dem Empfänger aktualisiert.",
+            "warningProvider": "Bitte beachten Sie, dass die Antworten der Mitglieder auf diese Nachricht nicht auf der Plattform, sondern direkt in Ihrer Mailbox erscheinen werden. Damit alle hier erscheinen, ändern Sie die Kommunikationseinstellung auf der Seite Einstellungen/Anpassung."
         },
         "table": {
             "columns": {
@@ -13306,6 +13311,11 @@
             "quicksale": {
                 "configuration": "Kategorien anpassen",
                 "access": "Zugang erstellen"
+            },
+            "appSettings": {
+                "customize": "Personalisierung",
+                "popups": "Startup Pop-Up",
+                "links": "Externe Links"
             }
         }
     },
@@ -14632,6 +14642,24 @@
                 "name": "Pop-up Name",
                 "link": "Pop-up Link",
                 "action": "Aktion"
+            },
+            "customize": {
+                "defaultPage": {
+                    "pageContent": {
+                        "options": {
+                            "profile": "Profil",
+                            "marketplace": "Studio",
+                            "home": "Aktivitäten (Standard)",
+                            "bookings": "Buchungen",
+                            "membership": "Kalender"
+                        },
+                        "placeholder": "Eine Seite auswählen",
+                        "helperText": "Mit dieser Option können Sie die Standardseite auswählen, die Nutzer beim Öffnen der App sehen.",
+                        "label": "Standard \"Home-Button\" ändern"
+                    },
+                    "title": "Standardseite"
+                },
+                "title": "Personalisierung"
             }
         },
         "company": {
@@ -15451,7 +15479,8 @@
                 "marketplace_item_quantity": "Menge des Artikels im Warenkorb (Warenkorbübersicht)",
                 "marketplace_basket_summary_item": "Komponente des Artikels im Warenkorb (Warenkorbübersicht)",
                 "marketplace_basket_summary_list_item": "Bestandteil der Liste der Artikel im Warenkorb (Warenkorbübersicht)",
-                "booker_module_offer_summary": "Session-Zusammenfassung"
+                "booker_module_offer_summary": "Session-Zusammenfassung",
+                "fabrique_typography": "Typografie"
             },
             "page": {
                 "calendar": "Kalender",
@@ -15459,7 +15488,8 @@
                 "subscription": "Abonnements",
                 "pass": "Kurspass",
                 "common": "Gemeinsam",
-                "bookingPage": "Buchung"
+                "bookingPage": "Buchung",
+                "fabrique": "Fabrik"
             },
             "cssConfig": {
                 "configurationTitle": "Variationen",
@@ -15498,7 +15528,8 @@
                     "numberOfDistinctCheckoutItem": "Anzahl der verschiedenen Produkte im Warenkorb",
                     "isDense": "Dicht",
                     "isItemEditionDisabled": "Ändern von Elementen deaktiviert",
-                    "isAddingItemPossible": "Hinzufügen weiterer Elemente aktiviert"
+                    "isAddingItemPossible": "Hinzufügen weiterer Elemente aktiviert",
+                    "isBookingDisabled": "Buchungen sind deaktiviert"
                 },
                 "option": {
                     "activityName": "Aktivität",
@@ -15677,7 +15708,7 @@
                     },
                     "add": {
                         "confirm": "Bestätigen Sie",
-                        "cancel": "ringförmig",
+                        "cancel": "Abbrechen",
                         "option": "Option hinzufügen",
                         "select": "einen Artikel auswählen",
                         "addField": "Eins hinzufügen ",
@@ -15686,7 +15717,7 @@
                     "disable": {
                         "content": "Wenn Sie diesen Artikel löschen, wird er in den archivierten Artikeln abgelegt und nicht mehr angezeigt.",
                         "confirm": "Bestätigen Sie",
-                        "cancel": "ringförmig",
+                        "cancel": "Abbrechen",
                         "title": "Ein Element löschen"
                     }
                 }
@@ -15747,7 +15778,7 @@
                 "delete": {
                     "content": "Wenn Sie dieses Formular archivieren, wird es in Ihren archivierten Formularen abgelegt und ist für Ihre Mitglieder nicht mehr zugänglich.",
                     "confirm": "Bestätigen Sie",
-                    "cancel": "ringförmig",
+                    "cancel": "Abbrechen",
                     "title": "Eine Formel archivieren"
                 }
             },
@@ -15774,8 +15805,8 @@
             "numberQuestions": "Anzahl der Fragen",
             "mandatory": "Obligatorisch",
             "send": "senden an",
-            "cancel": "ringförmig",
-            "save": "Zum Schutz",
+            "cancel": "Abbrechen",
+            "save": "Speichern",
             "kind": "Schreiben Sie",
             "label": "Etikett",
             "preview": "Formular für die Vorschau",
@@ -16065,7 +16096,8 @@
                     "2": "Event + Smartlist",
                     "0": "Event",
                     "1": "Smartlist"
-                }
+                },
+                "changeKind": "Ändern zu"
             },
             "graph": {
                 "tools": {
@@ -16099,7 +16131,9 @@
                     "changeInExit": "Von der Kadenz entfernen",
                     "delete": "Löschen",
                     "addNextStep": "Nächsten Schritt hinzufügen",
-                    "nextStepTrigger": "Auslöser für den nächsten Schritt"
+                    "nextStepTrigger": "Auslöser für den nächsten Schritt",
+                    "convertIntoExit": "Umrechnen in Ausgang",
+                    "convertIntoStep": "Umrechnen in Schritt"
                 },
                 "defaultName": "Autostep"
             },
@@ -16130,6 +16164,14 @@
                 },
                 "step": {
                     "name": "Name"
+                },
+                "convertIntoStep": {
+                    "label": "Schritt Label",
+                    "default": "Schritt Label"
+                },
+                "convertIntoExit": {
+                    "label": "Das Mitglied betrachten als",
+                    "title": "Ausgang"
                 }
             }
         }

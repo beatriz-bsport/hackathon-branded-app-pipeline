@@ -9,6 +9,7 @@ import './styles.css';
 export type Props = {
   size?: 'xs' | 'sm';
   contrastStrokeColor?: boolean;
+  className?: string;
 };
 
 const circularProgressSizeClasses = {
@@ -16,12 +17,16 @@ const circularProgressSizeClasses = {
   sm: 'bs-circular-progress__container--small',
 };
 
-const CircularProgress: React.FC<Props> = ({ size, contrastStrokeColor }) => {
+const CircularProgress: React.FC<Props> = ({
+  size,
+  contrastStrokeColor,
+  className,
+}) => {
   const circleContainerClass =
     circularProgressSizeClasses[size] ?? 'bs-circular-progress__container';
 
   return (
-    <div className={circleContainerClass}>
+    <div className={classNames(circleContainerClass, className)}>
       <svg
         className="bs-circular-progress__circle__container"
         viewBox="22 22 44 44"

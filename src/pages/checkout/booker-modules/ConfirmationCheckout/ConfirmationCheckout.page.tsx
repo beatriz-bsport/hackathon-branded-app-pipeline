@@ -77,6 +77,8 @@ import MarketplaceCheckoutItemsWithPaymentComboList from '#marketplacecomponents
 import MarketplaceProductItemList from '#marketplacecomponents/@CheckoutItem/MarketplaceProductItemList';
 import MinimalSubscriptionCard from '#marketplacecomponents/@Subscription/MinimalSubscriptionCard';
 import { Subscription } from '#libs/subscription/types';
+// @ts-expect-error
+import Analytics from '#components/analytics/Analytics.component';
 
 import ConfirmationMessage from '#libs/checkout/components/ConfirmationMessage';
 import { ConfirmationCheckoutSkeleton } from '.';
@@ -182,6 +184,12 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
     }
   }
 
+  trackBookings = () => {
+    this.props.offerBookedList.forEach((offerBooked) => {
+      Analytics.bookingSuccess(offerBooked);
+    });
+  };
+
   fetchOfferData = () => {
     const offerIds = [
       ...this.props.offerBookedIdList,
@@ -208,17 +216,29 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
               (offer) => offer.meta_activity,
             );
 
-            !!establishmentIds.length &&
-              this.props.fetchEstablishmentBulk(establishmentIds);
+            const promises = [
+              this.props.fetchLevelList({
+                company: this.props.companyId,
+              }),
+              ...(establishmentIds.length
+                ? [this.props.fetchEstablishmentBulk(establishmentIds)]
+                : []),
+              ...(coachIds.length ? [this.props.fetchCoachBulk(coachIds)] : []),
+              ...(metaActivityIds.length
+                ? [this.props.fetchMetaActivityBulk(metaActivityIds)]
+                : []),
+            ];
 
-            !!coachIds.length && this.props.fetchCoachBulk(coachIds);
-
-            !!metaActivityIds.length &&
-              this.props.fetchMetaActivityBulk(metaActivityIds);
-
-            this.props.fetchLevelList({
-              company: this.props.companyId,
-            });
+            Promise.all(promises).then(() =>
+              // setTimeout to make sure properties were injected by the
+              // withCoach / withMetaActivity / withEstablishment selectors
+              setTimeout(this.trackBookings, 500),
+            );
+          },
+          onCacheUsed: () => {
+            // setTimeout to make sure properties were injected by the
+            // withCoach / withMetaActivity / withEstablishment selectors
+            setTimeout(this.trackBookings, 500);
           },
         },
         true,

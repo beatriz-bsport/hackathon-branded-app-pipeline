@@ -512,7 +512,7 @@ export const offerBulkActions = {
 
 export function fetchOfferBulk(
   ids: Array<number>,
-  options?: OptionCallback<Offer[]>,
+  options?: OptionCallback<Offer[]> & { onCacheUsed?: () => void },
   useCache?: boolean,
   ignoreManagerOnly?: boolean,
 ) {
@@ -523,6 +523,7 @@ export function fetchOfferBulk(
     }
 
     if (ids_uniq.length === 0) {
+      if (useCache) options?.onCacheUsed?.();
       return;
     }
     dispatch(offerBulkActions.error(null));

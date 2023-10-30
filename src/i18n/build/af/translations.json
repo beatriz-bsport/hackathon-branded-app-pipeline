@@ -13597,7 +13597,14 @@
           "main": "Main",
           "grey": "Grey",
           "onstrong": "On strong background",
-          "warning": "Warning"
+          "warning": "Warning",
+          "sm": "Small",
+          "md": "Medium",
+          "lg": "Large",
+          "text": "Text",
+          "email": "Email",
+          "tel": "Phone number",
+          "password": "Password"
         },
         "title": {
           "nextOffer": "Next session available",
@@ -13643,7 +13650,15 @@
           "hasSent": "The form has been submitted",
           "hasEmailChoices": "Email list choices",
           "isError": "Is in error state",
-          "color": "Element's color"
+          "color": "Element's color",
+          "size": "Element size",
+          "displayLeftIcon": "Display the left icon",
+          "displayRightIcon": "Display the right icon",
+          "isDisabled": "Element is disabled",
+          "displayHelperText": "Display the helper text",
+          "displayLabel": "Display the label",
+          "displayPlaceholder": "Display the placeholder",
+          "textFieldType": "Type of input"
         },
         "configurationTitle": "Variations"
       },
@@ -13714,7 +13729,8 @@
         "fabrique_card": "Card",
         "marketplace_minimal_appbar": "Minimal AppBar",
         "fabrique_badge": "Badge",
-        "marketplace_spot_selector": "Spot scheduling selector"
+        "marketplace_spot_selector": "Spot scheduling selector",
+        "fabrique_textfield": "TextField"
       },
       "customCss": {
         "yourCode": "Your complementary implementation:",

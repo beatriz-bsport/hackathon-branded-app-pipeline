@@ -1,0 +1,168 @@
+:root {
+  --bs-fabrique-textfield-border-width-default: 1px;
+  --bs-fabrique-textfield-border-left-width: 1px;
+  /* The offset is here because there is a thin line between the border and the outline ONLY on the corners (due to border-radius) */
+  --bs-fabrique-textfield-offset: -1px;
+}
+
+/* TEXTFIELD WRAPPER INCLUDING LABEL INPUT AND HELPER TEXT*/
+.bs-fabrique-textfield__wrapper {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: var(--bs-space-size-1);
+}
+
+/* TEXTFIELD CONTAINER INCLUDING LABEL AND INPUT CONTAINER */
+.bs-fabrique-textfield__container {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: var(--bs-space-size-1);
+}
+
+/* TEXTFIELD LABEL CSS PROPERTIES*/
+.bs-fabrique-textfield__label {
+  display: inline-flex;
+  gap: var(--bs-space-size-2);
+}
+
+.bs-fabrique-textfield__label--required {
+  color: var(--bs-color-text-error-strong);
+}
+
+.bs-fabrique-textfield__label--disabled {
+  color: var(--bs-color-text-disabled);
+}
+
+/* INPUT CONTAINER WITH INPUT AND ICONS*/
+.bs-fabrique-textfield__input__container {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border: var(--bs-fabrique-textfield-border-width-default) solid
+    var(--bs-color-border-default);
+  gap: var(--bs-space-size-2);
+  box-sizing: border-box;
+  width: 300px;
+}
+
+.bs-fabrique-textfield__input__container--disabled {
+  border-color: var(--bs-color-border-disabled);
+  cursor: default;
+}
+
+.bs-fabrique-textfield__input__container--focused {
+  border-color: var(--bs-color-border-strong);
+  /* doing a calc for outline width to take into account the negative offset */
+  outline: var(--bs-color-border-strong) solid
+    calc(
+      var(--bs-fabrique-textfield-border-width-default) -
+        var(--bs-fabrique-textfield-offset)
+    );
+  outline-offset: var(--bs-fabrique-textfield-offset);
+}
+
+.bs-fabrique-textfield__input__container--error {
+  border-color: var(--bs-color-border-status-error-weak);
+  /* doing a calc for outline width to take into account the negative offset */
+  outline: var(--bs-color-border-status-error-weak) solid
+    calc(
+      var(--bs-fabrique-textfield-border-width-default) -
+        var(--bs-fabrique-textfield-offset)
+    );
+  outline-offset: var(--bs-fabrique-textfield-offset);
+}
+
+/* INPUT CSS PROPERTIES */
+.bs-fabrique-textfield__input:disabled {
+  color: var(--bs-color-text-disabled);
+}
+
+.bs-fabrique-textfield__input {
+  font-family: var(--bs-font-family);
+  border: 0 transparent var(--bs-color-border-default);
+  outline: none;
+  color: var(--bs-color-text-default);
+  width: 100%;
+  -webkit-user-select: text; /* Chrome, Opera, Safari */
+  -moz-user-select: text; /* Firefox 2+ */
+  -ms-user-select: text; /* IE 10+ */
+  user-select: text; /* Standard syntax */
+  background: inherit;
+}
+
+/* DIFFERENT SIZE */
+
+.bs-fabrique-textfield__input__container--small {
+  border-radius: var(--bs-border-radius-sm);
+  padding: var(--bs-space-size-2) var(--bs-space-size-3);
+}
+
+.bs-fabrique-textfield__input__container--large {
+  border-radius: var(--bs-border-radius-md);
+  padding: var(--bs-space-size-3) var(--bs-space-size-4);
+}
+
+.bs-fabrique-textfield__input--small {
+  font-size: var(--bs-font-size-body-sm);
+}
+
+.bs-fabrique-textfield__input--large {
+  font-size: var(--bs-font-size-body-md);
+}
+
+.bs-fabrique-textfield__input::placeholder {
+  color: var(--bs-color-text-weakest);
+}
+
+/* ICONS CSS PROPERTIES*/
+.bs-fabrique-textfield__icon--base {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  appearance: none;
+  border: none;
+  margin: 0;
+  box-sizing: content-box;
+}
+
+.bs-fabrique-textfield__icon--base svg {
+  fill: var(--bs-color-icon-weakest);
+}
+
+.bs-fabrique-textfield__icon--small svg {
+  width: var(--bs-icon-size-sm);
+  height: var(--bs-icon-size-sm);
+}
+
+.bs-fabrique-textfield__icon--large svg {
+  width: var(--bs-icon-size-md);
+  height: var(--bs-icon-size-md);
+}
+
+/* WRAPPER CONTAINING RIGHT ICON AND CLEAR BUTTON */
+.bs-fabrique-textfield__right-icons__wrapper {
+  display: inline-flex;
+  gap: var(--bs-space-size-2);
+  align-items: center;
+}
+
+.bs-fabrique-textfield__right-icon {
+  border-left: var(--bs-fabrique-textfield-border-left-width) solid
+    var(--bs-color-border-disabled);
+  padding-left: var(--bs-space-size-2);
+}
+
+.bs-fabrique-textfield__clear-button {
+  fill: var(--bs-color-icon-weakest);
+}
+
+.bs-fabrique-textfield__clear-button:hover svg,
+.bs-fabrique-textfield__clear-button:focus svg {
+  fill: black;
+}
+
+.bs-fabrique-textfield__clear-button:disabled {
+  cursor: default;
+}

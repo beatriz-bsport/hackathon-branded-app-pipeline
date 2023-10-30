@@ -186,6 +186,10 @@ import {
   AUTHENTICATION_LOGIN_CONFIGURATION,
   AUTHENTICATION_LOGIN_PREVIEW,
 } from '#components/css-only/Login';
+import {
+  FABRIQUE_TEXTFIELD_CONFIGURATION,
+  FABRIQUE_TEXTFIELD_PREVIEW,
+} from '#components/css-only/Fabrique/TextFieldV2';
 
 import {
   CSSComponentPreviews,
@@ -266,6 +270,8 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
         FABRIQUE_TYPOGRAPHY_CONFIGURATION,
         FABRIQUE_CARD_CONFIGURATION,
         FABRIQUE_BADGE_CONFIGURATION,
+        AUTHENTICATION_LOGIN_CONFIGURATION,
+        FABRIQUE_TEXTFIELD_CONFIGURATION,
       ]
     : []),
 ];
@@ -377,6 +383,8 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
         FABRIQUE_TYPOGRAPHY_PREVIEW,
       [CssComponentsVariantIdentifiers.FABRIQUE_CARD]: FABRIQUE_CARD_PREVIEW,
       [CssComponentsVariantIdentifiers.FABRIQUE_BADGE]: FABRIQUE_BADGE_PREVIEW,
+      [CssComponentsVariantIdentifiers.FABRIQUE_TEXTFIELD]:
+        FABRIQUE_TEXTFIELD_PREVIEW,
     }),
   });
 export const CSS_COMPONENT_PAGES: Immutable.Immutable<MarketplacePage[]> =

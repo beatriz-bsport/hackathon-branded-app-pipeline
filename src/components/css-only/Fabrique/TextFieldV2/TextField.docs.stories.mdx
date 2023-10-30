@@ -1,0 +1,57 @@
+import { Meta, Canvas, Story, Source } from '@storybook/addon-docs';
+
+import {TextFieldStoryBook as TextField} from '.'
+
+<Meta title="Fabrique/TextField/Doc" component={TextField} />
+
+# TextField
+
+## Description
+The **`textField`** component is a standard input field where users can enter textual information. It is versatile and can be used for various types of textual input.
+
+### Usage
+Use for capturing names, addresses, email addresses, or any other textual information.
+There are several optional states that can be added to display various things (required, error, disabled, caption, clear button)
+
+<Canvas withSource="none" isColumn withToolbar >
+  <Story id="fabrique-textfield-stories--textfielddefault"/>  
+  <Story id="fabrique-textfield-stories--textfieldcaption"/>
+  <Story id="fabrique-textfield-stories--textfielderror"/>
+  <Story id="fabrique-textfield-stories--textfieldwithclear"/>
+  <Story id="fabrique-textfield-stories--textfieldrequired"/>
+</Canvas>
+
+#### Example
+<Source dark language='tsx' id="fabrique-textfield-stories--textfielddefault" />
+
+### Input and text size
+You can either have small (sm) or large (lg) input size
+<Canvas withSource="none" isColumn withToolbar>
+  <Story id="fabrique-textfield-stories--textfieldsmall"/>  
+  <Story id="fabrique-textfield-stories--textfieldlarge"/>
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-textfield-stories--textfieldlarge" />
+
+### Icons
+Optional icon to display inside the input field.
+
+<Canvas withSource="none" isColumn>
+  <Story id="fabrique-textfield-stories--textfieldwithrighticon" /> 
+  <Story id="fabrique-textfield-stories--textfieldwithrighticonandclear" />  
+  <Story id="fabrique-textfield-stories--textfieldwithlefticon" />  
+  <Story id="fabrique-textfield-stories--textfieldwithalliconsandclear" />  
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-textfield-stories--textfieldwithalliconsandclear" />
+
+### Accessibility
+You can test the accessibility here with different textfields
+
+<Canvas withSource="none" isColumn>
+  <Story id="fabrique-textfield-stories--textfieldmultiplefield"/> 
+</Canvas>

@@ -210,7 +210,7 @@ exports.default = {
         hasSent: 'The form has been submitted',
         hasEmailChoices: 'Email list choices',
         isError: 'Is in error state',
-        color: 'Element color',
+        color: "Element's color",
         size: 'Element size',
         displayLeftIcon: 'Display the left icon',
         displayRightIcon: 'Display the right icon',

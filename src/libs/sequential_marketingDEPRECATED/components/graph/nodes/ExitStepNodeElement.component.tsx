@@ -19,7 +19,7 @@ export const ExitStepNodeElement: React.FC = () => {
     <div className={classes.card}>
       <div className={classes.cardHeader}>
         <div className={classes.flexIconAndText}>
-          <div className={classes.losange}>
+          <div className={classes.diamond}>
             <StopIcon
               className={classNames(classes.redIcon, classes.centerAbsolute)}
             />
@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   redIcon: {
     color: red[500],
   },
-  losange: {
+  diamond: {
     backgroundColor: '#FFF0EF',
     transform: 'rotate(45deg)',
     height: '40px',

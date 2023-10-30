@@ -69,7 +69,7 @@ export const EntryStepNodeElement: React.FC<EntryStepNodeElementProps> = ({
         <div className={classes.card} id={`card_element${step?.id}`}>
           <div className={classes.cardHeader}>
             <div className={classes.flexIconAndText}>
-              <div className={classes.losange}>
+              <div className={classes.diamond}>
                 <PlayArrowIcon
                   className={classNames(
                     classes.greenICon,
@@ -156,7 +156,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   greenICon: {
     color: green[500],
   },
-  losange: {
+  diamond: {
     backgroundColor: '#F1F9F1',
     transform: 'rotate(45deg)',
     height: '40px',

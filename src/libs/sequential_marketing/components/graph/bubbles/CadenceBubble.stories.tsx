@@ -58,7 +58,7 @@ export default {
     },
     minimalIcon: {
       control: 'boolean',
-      description: 'True for an icon without losange background',
+      description: 'True for an icon without diamond background',
     },
     withoutBottomActions: {
       control: 'boolean',

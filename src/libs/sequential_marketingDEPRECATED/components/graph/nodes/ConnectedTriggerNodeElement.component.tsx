@@ -43,7 +43,7 @@ export const ConnectedTriggerNodeElement: React.FC<
             className={classes.card}
             id={`card_element${connectedTrigger?.id}`}
           >
-            <div className={classes.losange}>
+            <div className={classes.diamond}>
               <div className={classes.centerAbsolute}>
                 <div className={classNames(classes.customPulse)}>
                   <div className={classes.icon}>
@@ -90,7 +90,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     alignItems: 'center',
     width: '100%',
   },
-  losange: {
+  diamond: {
     backgroundColor: '#12166B1A',
     transform: 'rotate(45deg)',
     height: '40px',

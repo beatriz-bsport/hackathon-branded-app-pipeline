@@ -48,7 +48,7 @@ const CadenceBubbleHeader: React.FC<CadenceBubbleHeaderProps> = React.memo(
               withBackground={false}
             />
           ) : (
-            <div className={classes.losange}>
+            <div className={classes.diamond}>
               <div className={classes.centerAbsolute}>
                 <CustomMuiIcon
                   defaultBackGround
@@ -203,7 +203,7 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) => ({
     whiteSpace: 'nowrap',
     flex: 1,
   },
-  losange: {
+  diamond: {
     flexShrink: 0,
     position: 'relative',
     backgroundColor: ({ color }) =>

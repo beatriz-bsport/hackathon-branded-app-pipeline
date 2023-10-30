@@ -73,7 +73,7 @@ const CadenceNodeTitle: React.FC<CadenceNodeTitleProps> = ({
     <div className={classes.title}>
       <div className={classes.upperTitle}>
         <div className={classes.flexIconAndText}>
-          <div className={classes.losange}>
+          <div className={classes.diamond}>
             <div className={classes.centerAbsolute}>
               <CustomMuiIcon
                 defaultBackGround
@@ -164,7 +164,7 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) => ({
     width: '100%',
     maxWidth: ({ hasActions }) => hasActions && HEADER_MAX_WIDTH,
   },
-  losange: {
+  diamond: {
     flexShrink: 0,
     position: 'relative',
     backgroundColor: ({ color }) =>

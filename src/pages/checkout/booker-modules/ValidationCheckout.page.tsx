@@ -36,6 +36,7 @@ import {
   fetchOfferBulk,
   fetchOfferWaitingListPositionList as fetchOfferWaitingListPositionListAction,
 } from '#libs/offer/actions';
+import Analytics from '#components/analytics/Analytics.component';
 import { fetchMetaActivityBulk } from '#libs/meta-activity/actions';
 import { fetchCoachBulk } from '#libs/associated-coach/actions';
 import { fetchEstablishmentBulk } from '#libs/establishment/actions';
@@ -82,6 +83,12 @@ export class ValidationCheckout extends React.Component<Props> {
     this.fetchOfferData();
   }
 
+  trackBookings = () => {
+    this.props.offerBookedList.forEach((offerBooked) =>
+      Analytics.bookingSuccess(offerBooked),
+    );
+  };
+
   fetchOfferData = () => {
     this.props.fetchOfferBulk(
       [
@@ -91,20 +98,32 @@ export class ValidationCheckout extends React.Component<Props> {
       ],
       {
         onSuccess: (offerList) => {
-          this.props.fetchEstablishmentBulk(
-            offerList.map((o) => o.establishment),
-          );
-          this.props.fetchCoachBulk([
-            ...offerList.map((o) => o.coach),
-            ...offerList.map((o) => o.coach_override),
-          ]);
-          this.props.fetchMetaActivityBulk(
-            offerList.map((o) => o.meta_activity),
-          );
+          Promise.all([
+            this.props.fetchEstablishmentBulk(
+              offerList.map((o) => o.establishment),
+            ),
+            this.props.fetchCoachBulk([
+              ...offerList.map((o) => o.coach),
+              ...offerList.map((o) => o.coach_override),
+            ]),
+            this.props.fetchMetaActivityBulk(
+              offerList.map((o) => o.meta_activity),
+            ),
+          ]).then(() => {
+            // setTimeout to make sure properties were injected by the
+            // withCoach / withMetaActivity / withEstablishment selectors
+            setTimeout(this.trackBookings, 500);
+          });
+
           this.props.fetchCompanyWaitlistConfiguration(this.props.companyId);
           this.props.fetchOfferWaitingListPositionList(
             this.props.offerPreBookedIdList,
           );
+        },
+        onCacheUsed: () => {
+          // setTimeout to make sure properties were injected by the
+          // withCoach / withMetaActivity / withEstablishment selectors
+          setTimeout(this.trackBookings, 500);
         },
       },
       true,

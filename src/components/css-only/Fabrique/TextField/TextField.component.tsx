@@ -5,6 +5,8 @@ import classNames from 'classnames';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { TextFieldSize } from '.';
 
+import { TextFieldVariant } from './types';
+
 import './styles.css';
 
 export type Props = {
@@ -28,7 +30,13 @@ export type Props = {
   inputId: string;
   helperTextId?: string;
   isError?: boolean;
+  variant?: `${TextFieldVariant}`;  
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+};
+
+const TextFieldContainerClassNameMap = {
+  [TextFieldVariant.STANDARD]: 'bs-text-field-standard__container ',
+  [TextFieldVariant.OUTLINED]: 'bs-text-field-outlined__container',
 };
 
 const TextField: React.FC<Props> = ({
@@ -46,12 +54,15 @@ const TextField: React.FC<Props> = ({
   inputId,
   helperTextId,
   isError,
+  variant = TextFieldVariant.OUTLINED,
   onChange,
 }) => {
   const [isInputFocused, setIsInputFocused] = useState(false);
 
   const onInputFocus = useCallback(() => setIsInputFocused(true), []);
   const onInputUnfocus = useCallback(() => setIsInputFocused(false), []);
+
+  const containerClassName = TextFieldContainerClassNameMap[variant];
 
   return (
     <div
@@ -70,6 +81,7 @@ const TextField: React.FC<Props> = ({
             'bs-text-field__container--small': size === TextFieldSize.SMALL,
             'bs-text-field__container--large': size === TextFieldSize.LARGE,
           },
+          containerClassName,
           classes?.root,
         )}
       >

@@ -1,13 +1,24 @@
 .bs-text-field__container {
-  border-radius: var(--border-radius-1);
-  border: 1px solid var(--border-color);
-  padding: calc(var(--spacing-1) * 1.25) calc(var(--spacing-1) * 1.5);
-  height: 42px;
   position: relative;
 }
 
-.bs-text-field__container--error {
-  border: 1px solid var(--color-error-main);
+.bs-text-field-outlined__container {
+  height: 42px;
+  padding: calc(var(--spacing-1) * 1.25) calc(var(--spacing-1) * 1.5);
+}
+
+.bs-text-field-outlined__container {
+  border-radius: var(--border-radius-1);
+  border: 1px solid var(--border-color);
+}
+
+.bs-text-field-standard__container {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.bs-text-field-standard__container {
+  height: 32px;
+  padding: calc(var(--spacing-1) / 2) 0;
 }
 
 .bs-text-field__container,
@@ -26,17 +37,24 @@
   position: absolute;
   top: 50%;
   transform: translate(0, -50%);
-  left: var(--spacing-1);
   display: inline-flex;
   line-height: 1;
   background: #fff;
   height: min-content;
-  padding: 0 calc(var(--spacing-1) / 2);
   transition: top 125ms ease-in-out;
 }
 
-.bs-text-field__label--top {
+.bs-text-field-outlined__container .bs-text-field__label {
+  left: var(--spacing-1);
+  padding: 0 calc(var(--spacing-1) / 2);
+}
+
+.bs-text-field-outlined__container .bs-text-field__label--top {
   top: 0;
+}
+
+.bs-text-field-standard__container .bs-text-field__label--top {
+  top: calc(-1 * var(--spacing-1));
 }
 
 .bs-text-field__input {

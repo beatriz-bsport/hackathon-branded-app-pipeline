@@ -4,4 +4,9 @@ enum TextFieldSize {
   LARGE = 'large',
 }
 
-export { TextFieldSize };
+enum TextFieldVariant {
+  OUTLINED = 'outlined',
+  STANDARD = 'standard',
+}
+
+export { TextFieldSize, TextFieldVariant };

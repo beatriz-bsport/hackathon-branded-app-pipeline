@@ -11,6 +11,7 @@ import ButtonBase from '../ButtonBase/ButtonBase.component';
 import './styles.css';
 
 export type Props = {
+  id?: string;
   type?: ButtonType;
   isLoading?: boolean;
   classes?: { root?: string; text?: string };
@@ -24,6 +25,7 @@ export type Props = {
 };
 
 const Button: React.FC<Props> = ({
+  id,
   type,
   isLoading,
   classes,
@@ -52,6 +54,7 @@ const Button: React.FC<Props> = ({
         classes?.root,
       )}
       disableRipple={disableRipple || isDisabled}
+      id={id}
       isDisabled={isDisabled || isLoading}
       isLoading={isLoading}
       onClick={onClick}

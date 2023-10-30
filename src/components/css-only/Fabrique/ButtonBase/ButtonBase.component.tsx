@@ -9,6 +9,7 @@ import { ButtonType } from '../Button';
 import './styles.css';
 
 export type Props = {
+  id?: string;
   isLoading?: boolean;
   isDisabled?: boolean;
   children: React.ReactNode;
@@ -19,6 +20,7 @@ export type Props = {
 };
 
 const ButtonBase: React.FC<Props> = ({
+  id,
   isLoading,
   isDisabled,
   children,
@@ -37,6 +39,7 @@ const ButtonBase: React.FC<Props> = ({
         classes,
       )}
       disabled={isDisabled || isLoading}
+      id={id}
       onClick={onClick}
       // eslint-disable-next-line react/button-has-type
       type={type ?? 'button'}

@@ -410,7 +410,7 @@ exports.default = {
       marketing_action: {
         1: 'Email',
         2: 'SMS',
-        3: 'Notification push',
+        3: 'Push notification',
         4: 'Tag',
         5: 'Email template',
         form: {
@@ -484,7 +484,7 @@ exports.default = {
     },
     svgText: {
       action_name: "{ Nom de l'action marketing }",
-      push_notification: 'Notification Push',
+      push_notification: 'Push notification',
       sms: 'SMS',
       email: 'Email',
       select_event: 'Select an event',
@@ -605,6 +605,12 @@ exports.default = {
         helperText:
           "First let's decide how your members are going to enter the workflow. Select one or mutiple events or smartlists, if the member corresponds to one of them, he/she will enter the worflow.",
         title: 'Entry criteria',
+      },
+      entryAction: {
+        addAction: 'Add action',
+        helperText:
+          "Select what you want to do when your members enter the workflow. Tag them, send an email... It's up to you. Or do nothing, this step is optional.",
+        title: 'Entry action',
       },
       convertIntoStep: { default: 'Step label', label: 'Step label' },
       marketingAction: {

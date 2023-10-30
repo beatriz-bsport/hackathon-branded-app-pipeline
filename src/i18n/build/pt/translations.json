@@ -2044,7 +2044,8 @@
                 "total": "Total da compra",
                 "isEmpty": "Nenhuma compra",
                 "titleReverse": "Voltar à compra",
-                "title": "Compras"
+                "title": "Compras",
+                "cannotCreateDiscount": "Você não tem a permissão necessária para adicionar um desconto."
             }
         },
         "returnPayment": {
@@ -3335,7 +3336,8 @@
                     "basket_chip": "Carrinho",
                     "book_chip": "Reserva",
                     "purchase_chip": "Comprar"
-                }
+                },
+                "changeKind": "Alterar para"
             },
             "cadenceCard": {
                 "lost": "Perdido",
@@ -3380,7 +3382,9 @@
                     "changeInExit": "Converter numa saída",
                     "changeInStep": "Transformar numa etapa",
                     "delete": "Eliminar",
-                    "nextStepTrigger": "Acionador para a próxima etapa"
+                    "nextStepTrigger": "Acionador para a próxima etapa",
+                    "convertIntoExit": "Converter em saída",
+                    "convertIntoStep": "Converter em passo"
                 },
                 "defaultName": "Autostep"
             },
@@ -3408,6 +3412,13 @@
                 "cancel": "Cancelar",
                 "step": {
                     "name": "Nome"
+                },
+                "convertIntoStep": {
+                    "label": "Etiqueta da etapa"
+                },
+                "convertIntoExit": {
+                    "label": "Considerar o membro como",
+                    "title": "Sair"
                 }
             }
         },
@@ -4555,6 +4566,11 @@
             "quicksale": {
                 "configuration": "Personalizar categorias",
                 "access": "Criar acesso"
+            },
+            "appSettings": {
+                "customize": "Personalização",
+                "popups": "Pop-up de arranque",
+                "links": "Links externos"
             }
         },
         "multiSession": {
@@ -5955,7 +5971,8 @@
                     "retry": "Tentar novamente",
                     "collect": "Guardar",
                     "close": "Fechar",
-                    "cancel": "Cancelar"
+                    "cancel": "Cancelar",
+                    "addPaymentMethodDenied": "Este membro não tem atualmente nenhum método de pagamento guardado deste tipo e  você não tem permissão para adicionar um novo."
                 },
                 "collect": {
                     "contentAdd": "Este método de pagamento será guardado na sua conta.",
@@ -8214,7 +8231,8 @@
                 "trimester": "Últimos três meses",
                 "month": "Último mês",
                 "week": "Semana passada",
-                "today": "Hoje"
+                "today": "Hoje",
+                "allDay": "Todo o dia"
             },
             "rapidChoice": "Seleção rápida",
             "end": "Fim",
@@ -8224,7 +8242,9 @@
             "selectDate": "Seleccionar uma data",
             "selectRange": "Selecionar um intervalo de datas",
             "average": "Em média",
-            "sum": "Soma"
+            "sum": "Soma",
+            "selectDateRange": "Selecionar um intervalo de datas",
+            "selectTimeRange": "Selecionar um horário"
         },
         "presetValuesByDatatype": {
             "payment_engine": {
@@ -12435,7 +12455,16 @@
                 "helperText": "Pode adicionar ligações externas à aplicação para redirecionar os seus clientes para o seu website ou outra plataforma. As ligações aparecerão no separador de compras da aplicação móvel.",
                 "subtitle": "Links externos"
             },
-            "title": "Personalizar a aplicação"
+            "title": "Personalizar a aplicação",
+            "customize": {
+                "defaultPage": {
+                    "pageContent": {
+                        "label": "Alterar o \"botão Início\" predefinido"
+                    },
+                    "title": "Página predefinida"
+                },
+                "title": "Personalização"
+            }
         },
         "companyOnboarding": {
             "error": "Não é possível alterar esta informação"

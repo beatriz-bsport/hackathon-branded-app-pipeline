@@ -3376,7 +3376,8 @@
                 "titleReverse": "Retour achat",
                 "isEmpty": "Aucun achat",
                 "total": "Total achat",
-                "billing_establishment": "Établissement de facturation"
+                "billing_establishment": "Établissement de facturation",
+                "cannotCreateDiscount": "Vous n'avez pas l'autorisation requise pour ajouter une réduction."
             },
             "paymentList": {
                 "title": "Moyens de paiement",
@@ -4106,6 +4107,14 @@
                     "title": "Entrée",
                     "addTrigger": "Ajouter un déclencheur d'entrée",
                     "helperText": "Veuillez définir quand et qui entrera dans cette cadence avec les critères et les déclencheurs sélectionnés."
+                },
+                "convertIntoStep": {
+                    "label": "Intitulé de l'étape",
+                    "default": "Intitulé de l'étape"
+                },
+                "convertIntoExit": {
+                    "label": "Considérer le member comme",
+                    "title": "Sortie"
                 }
             },
             "back": "Retour",
@@ -4291,7 +4300,8 @@
                 "smartlist": {
                     "label": "Smartlist"
                 },
-                "delete": "Supprimer"
+                "delete": "Supprimer",
+                "changeKind": "Changer en"
             },
             "steps": {
                 "actions": {
@@ -4299,7 +4309,9 @@
                     "changeInExit": "Transformer en sortie",
                     "changeInStep": "Transformer en étape",
                     "addNextStep": "Ajouter prochaine étape",
-                    "nextStepTrigger": "Déclencheur de l'étape suivante"
+                    "nextStepTrigger": "Déclencheur de l'étape suivante",
+                    "convertIntoExit": "Convertir en sortie",
+                    "convertIntoStep": "Convertir en étape"
                 },
                 "defaultName": "Etape automatique"
             },
@@ -5412,6 +5424,11 @@
             "quicksale": {
                 "configuration": "Personnalisation des catégories",
                 "access": "Création d'accès"
+            },
+            "appSettings": {
+                "customize": "Personnalisation",
+                "popups": "Pop-up de démarrage",
+                "links": "Liens externes"
             }
         }
     },
@@ -6426,7 +6443,8 @@
                     "addPaymentMethod": "Ajouter une méthode de paiement",
                     "selectPaymentMethod": "Sélectionner votre moyen de paiement",
                     "displayPaymentMethod": "Afficher mes méthodes de paiement",
-                    "cancel": "Annuler"
+                    "cancel": "Annuler",
+                    "addPaymentMethodDenied": "Ce membre ne dispose actuellement d'aucun mode de paiement enregistré de ce type, et vous n'êtes pas autorisé à en ajouter un nouveau."
                 },
                 "mandateRevalidated": {
                     "collect": "Accepter",
@@ -9240,10 +9258,13 @@
                 "next_week": "Semaine à venir",
                 "next_month": "Mois à venir",
                 "next_trimester": "Trois prochains mois à venir",
-                "next_year": "Année à venir"
+                "next_year": "Année à venir",
+                "allDay": "Toute la journée"
             },
             "from_to": "Du {{-from}} au {{-to}}",
-            "save": "Sauvegarder"
+            "save": "Sauvegarder",
+            "selectDateRange": "Sélectionner une période",
+            "selectTimeRange": "Sélectionner une plage horaire"
         },
         "columns": {
             "initial_price": "Prix d'achat",
@@ -11717,6 +11738,24 @@
                         "see": "Voir"
                     }
                 }
+            },
+            "customize": {
+                "defaultPage": {
+                    "pageContent": {
+                        "options": {
+                            "profile": "Profil",
+                            "marketplace": "Studio",
+                            "home": "Activités (par défaut)",
+                            "bookings": "Réservations",
+                            "membership": "Calendrier"
+                        },
+                        "placeholder": "Sélectionner une page",
+                        "helperText": "Cette option vous permet de choisir la page par défaut que les utilisateurs verront à l'ouverture de l'application.",
+                        "label": "Modifier le \"bouton d'accueil\" par défaut"
+                    },
+                    "title": "Page par défaut"
+                },
+                "title": "Personnalisation"
             }
         },
         "company": {
@@ -16714,7 +16753,8 @@
                 "marketplace_basket_summary": "Résumé du panier",
                 "marketplace_basket_summary_list_item": "Composant de la liste des articles du panier (résumé du panier)",
                 "marketplace_item_quantity": "Quantité de l'article dans le panier (Résumé du panier)",
-                "booker_module_offer_summary": "Résumé de la séance"
+                "booker_module_offer_summary": "Résumé de la séance",
+                "fabrique_typography": "Typographie"
             },
             "page": {
                 "common": "Commun",
@@ -16723,7 +16763,8 @@
                 "pass": "Cartes de cours",
                 "subscription": "Abonnements",
                 "basket": "Panier",
-                "bookingPage": "Réservation"
+                "bookingPage": "Réservation",
+                "fabrique": "Fabrique"
             },
             "cssConfig": {
                 "configurationTitle": "Variations",
@@ -16762,7 +16803,8 @@
                     "noStyledContainer": "Montrer la variante sans conteneur",
                     "showCredit": "Afficher les crédits",
                     "showPrice": "Afficher le prix",
-                    "showSpot": "Afficher l'emplacement"
+                    "showSpot": "Afficher l'emplacement",
+                    "isBookingDisabled": "La réservation est désactivée"
                 },
                 "option": {
                     "true": "Oui",

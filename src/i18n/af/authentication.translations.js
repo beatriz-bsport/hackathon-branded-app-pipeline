@@ -1,7 +1,7 @@
 exports.default = {
   resetPassword: {
     title: 'Reset password',
-    noEmail: "This email doesn't exist in our member data base.",
+    noEmail: "This email doesn't exist in our member database.",
     explain1: 'Which email do you use to log in?',
     explain2: "We'll send you the password reset instructions shortly.",
     emailHasBeenSent:

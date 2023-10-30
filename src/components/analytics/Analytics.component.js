@@ -138,6 +138,10 @@ class Analytics extends React.Component<Props> {
     this.applyMethod('workshopClick', offer);
   }
 
+  static bookingSuccess(offer) {
+    this.applyMethod('bookingSuccess', offer);
+  }
+
   render() {
     return null;
   }

@@ -152,4 +152,30 @@ FacebookPixel.addMethod(
   ],
 );
 
+FacebookPixel.addMethod(
+  'bookingSuccess',
+  'Booking',
+  (offer) => ({
+    event: 'bsport:booking:success',
+    data: {
+      session_id: offer.id,
+      activity: offer.meta_activity.name,
+      session_date: moment(offer.date_start).format(),
+      establishment: offer.establishment_override
+        ? offer.establishment_override.title
+        : offer.establishment.name,
+      coach: offer.coach_override
+        ? offer.coach_override.name
+        : offer.coach.name,
+    },
+  }),
+  [
+    ['session_id', 'fbp.bookingSuccess.session_id'],
+    ['activity', 'fbp.bookingSuccess.activity'],
+    ['session_date', 'fbp.bookingSuccess.session_date'],
+    ['establishment', 'fbp.bookingSuccess.establishment'],
+    ['coach', 'fbp.bookingSuccess.coach'],
+  ],
+);
+
 FacebookPixel.addMethod('signupSuccess', 'CompleteRegistration', () => {}, []);

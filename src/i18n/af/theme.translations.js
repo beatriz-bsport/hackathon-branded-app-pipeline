@@ -420,6 +420,7 @@ const getTranslations = async () => {
       contractPaymentShow:
         'When a user is on the payment page for a subscription',
       workshopClick: 'When a user selects a date for a workshop',
+      bookingSuccess: 'When a user books a session (group activities)',
     },
     signUpForm: {
       error: 'Error when saving form',

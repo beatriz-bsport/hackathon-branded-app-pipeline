@@ -1,4 +1,5 @@
 import TagManager from 'react-gtm-module';
+import moment from 'moment-timezone';
 import { getCoachOrSubstitute } from '../../libs/offer/utils';
 
 const storage = window.localStorage;
@@ -360,5 +361,31 @@ GoogleAnalytics.addMethod(
     ['coach', 'gtm.workshopClick.coach'],
     ['establishment', 'gtm.workshopClick.establishment'],
     ['activity', 'gtm.workshopClick.activity'],
+  ],
+);
+
+GoogleAnalytics.addMethod(
+  'bookingSuccess',
+  'bsport:booking:success',
+  (offer) => ({
+    event: 'bsport:booking:success',
+    data: {
+      sessionId: offer.id,
+      activity: offer.meta_activity.name,
+      sessionDate: moment(offer.date_start).format(),
+      establishment: offer.establishment_override
+        ? offer.establishment_override.title
+        : offer.establishment.title,
+      coach: offer.coach_override
+        ? offer.coach_override.name
+        : offer.coach.name,
+    },
+  }),
+  [
+    ['sessionId', 'gtm.bookingSuccess.sessionId'],
+    ['activity', 'gtm.bookingSuccess.activity'],
+    ['sessionDate', 'gtm.bookingSuccess.sessionDate'],
+    ['establishment', 'gtm.bookingSuccess.establishment'],
+    ['coach', 'gtm.bookingSuccess.coach'],
   ],
 );

@@ -12079,7 +12079,8 @@
       "contractPaymentSuccess": "When a user signed up for a subscription",
       "contractShow": "When a user clicks on a subscription",
       "contractPaymentShow": "When a user is on the payment page for a subscription",
-      "workshopClick": "When a user selects a date for a workshop"
+      "workshopClick": "When a user selects a date for a workshop",
+      "bookingSuccess": "When a user books a session (group activities)"
     },
     "signUpForm": {
       "error": "Error when saving form",

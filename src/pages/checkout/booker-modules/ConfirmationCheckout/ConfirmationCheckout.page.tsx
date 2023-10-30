@@ -583,9 +583,13 @@ const mapWithHandlers = {
       push(
         getOfferBookerUrl(companyId, offerBookedIdList[0], true) +
           buildUrlParams({
-            guest_first_name: values.firstName,
-            ...(values.lastName && { guest_last_name: values.lastName }),
-            ...(values.email && { guest_email: values.email }),
+            guest_first_name: encodeURIComponent(values.firstName),
+            ...(values.lastName && {
+              guest_last_name: encodeURIComponent(values.lastName),
+            }),
+            ...(values.email && {
+              guest_email: encodeURIComponent(values.email),
+            }),
             guest_booking: 'true',
           }),
       );

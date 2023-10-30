@@ -15,19 +15,21 @@ import type {
 export type Props = {
   marketingAction: Partial<StepMarketingActions>;
   tagCategories: { [tag_name: string]: string[] };
+  withoutValidation?: boolean;
   submit: (data: Partial<StepMarketingActions>) => void;
 };
 
 const NotificationForm: React.FC<Props> = ({
   marketingAction,
   tagCategories,
+  withoutValidation,
   submit,
 }) => {
   const formik = useFormik<Partial<StepMarketingActions>>({
     initialValues: marketingAction,
     enableReinitialize: true,
     onSubmit: submit,
-    validationSchema: notificationValidationSchema,
+    validationSchema: withoutValidation ? null : notificationValidationSchema,
   });
 
   const { setFieldValue, handleSubmit } = formik;
@@ -61,8 +63,8 @@ const NotificationForm: React.FC<Props> = ({
   const handleChangeContent = React.useCallback(
     async (event: React.ChangeEvent<HTMLInputElement>) => {
       const target = event.target;
-      setFieldValue(`action_spec.text_content`, target.value);
-      await handleSubmit?.();
+      await setFieldValue(`action_spec.text_content`, target.value);
+      handleSubmit?.();
     },
     [handleSubmit, setFieldValue],
   );

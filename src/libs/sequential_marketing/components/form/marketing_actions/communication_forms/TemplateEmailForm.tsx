@@ -23,6 +23,7 @@ export type Props = {
   emailSummaryListLoading: boolean;
   marketingAction: Partial<StepMarketingActions>;
   resolvedGenericTags: ResolvedGenericTags;
+  withoutValidation?: boolean;
   fetchEmailSummaryList: () => void;
   getEmailDetail: (id: number) => void;
   submit?: (data: Partial<StepMarketingActions>) => void;
@@ -35,6 +36,7 @@ const TemplateEmailForm: React.FC<Props> = ({
   emailSummaryListLoading,
   marketingAction,
   resolvedGenericTags,
+  withoutValidation,
   fetchEmailSummaryList,
   getEmailDetail,
   submit,
@@ -43,7 +45,7 @@ const TemplateEmailForm: React.FC<Props> = ({
     initialValues: marketingAction,
     enableReinitialize: true,
     onSubmit: submit,
-    validationSchema: templateEmailValidationSchema,
+    validationSchema: withoutValidation ? null : templateEmailValidationSchema,
   });
 
   const { setFieldValue, handleSubmit } = formik;

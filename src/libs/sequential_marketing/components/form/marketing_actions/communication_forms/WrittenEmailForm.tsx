@@ -15,19 +15,21 @@ import type {
 export type Props = {
   marketingAction: Partial<StepMarketingActions>;
   tagCategories: { [tag_name: string]: string[] };
+  withoutValidation?: boolean;
   submit?: (data: Partial<StepMarketingActions>) => void;
 };
 
 const WrittenEmailForm: React.FC<Props> = ({
   marketingAction,
   tagCategories,
+  withoutValidation,
   submit,
 }) => {
   const formik = useFormik<Partial<StepMarketingActions>>({
     initialValues: marketingAction,
     enableReinitialize: true,
     onSubmit: submit,
-    validationSchema: writtenEmailValidationSchema,
+    validationSchema: withoutValidation ? null : writtenEmailValidationSchema,
   });
 
   const { setFieldValue, handleSubmit } = formik;

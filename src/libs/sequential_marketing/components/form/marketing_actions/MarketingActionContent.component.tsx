@@ -27,6 +27,7 @@ type Props = {
   tagCategories: { [tag_name: string]: string[] };
   resolvedGenericTags: ResolvedGenericTags;
   tagList: Tag<TagGroupAPI>[];
+  withoutValidation?: boolean;
   fetchEmailSummaryList: () => void;
   getEmailDetail: (id: number) => void;
   submit?: (data: Partial<StepMarketingActions>) => void;
@@ -41,6 +42,7 @@ const MarketingActionContent: React.FC<Props> = ({
   marketingAction,
   resolvedGenericTags,
   tagList,
+  withoutValidation,
   fetchEmailSummaryList,
   getEmailDetail,
   submit,
@@ -54,6 +56,7 @@ const MarketingActionContent: React.FC<Props> = ({
           marketingAction={marketingAction}
           submit={submit}
           tagCategories={tagCategories}
+          withoutValidation={withoutValidation}
         />
       );
     case MarketingActions.CADENCE_MARKETING_ACTION_SMS:
@@ -62,6 +65,7 @@ const MarketingActionContent: React.FC<Props> = ({
           marketingAction={marketingAction}
           submit={submit}
           tagCategories={tagCategories}
+          withoutValidation={withoutValidation}
         />
       );
     case MarketingActions.CADENCE_MARKETING_ACTION_EMAIL_TEMPLATE:
@@ -76,6 +80,7 @@ const MarketingActionContent: React.FC<Props> = ({
           marketingAction={marketingAction}
           resolvedGenericTags={resolvedGenericTags}
           submit={submit}
+          withoutValidation={withoutValidation}
         />
       );
     case MarketingActions.CADENCE_MARKETING_ACTION_TAG_MANAGEMENT:
@@ -85,6 +90,7 @@ const MarketingActionContent: React.FC<Props> = ({
             marketingAction={marketingAction}
             submit={submit}
             tagList={tagList}
+            withoutValidation={withoutValidation}
           />
         </div>
       );
@@ -94,6 +100,7 @@ const MarketingActionContent: React.FC<Props> = ({
           marketingAction={marketingAction}
           submit={submit}
           tagCategories={tagCategories}
+          withoutValidation={withoutValidation}
         />
       );
     default:

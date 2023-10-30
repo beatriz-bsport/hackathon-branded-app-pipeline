@@ -53,11 +53,12 @@ const UniqueMarketingActionBubble: React.FC<Props> = ({
   const [updatedMarketingAction, setUpdatedMarketingAction] =
     React.useState<Partial<StepMarketingActions> | null>(null);
 
-  React.useEffect(() => {
-    !!marketingAction &&
-      !updatedMarketingAction &&
-      setUpdatedMarketingAction(marketingAction);
-  }, [marketingAction, updatedMarketingAction]);
+  const [isFormValid, setIsFormValid] = React.useState(false);
+
+  const marketingActionType = React.useMemo(
+    () => getMarketingActionType(marketingAction),
+    [marketingAction],
+  );
 
   const updateMarketingAction = React.useCallback(
     (action: StepMarketingActions) => setUpdatedMarketingAction(action),
@@ -69,16 +70,22 @@ const UniqueMarketingActionBubble: React.FC<Props> = ({
     onClose?.();
   }, [updatedMarketingAction, onClose, onConfirm]);
 
-  const marketingActionType = React.useMemo(
-    () => getMarketingActionType(marketingAction),
-    [marketingAction],
-  );
+  const handleUpdateFormValidation = React.useCallback((isValid: boolean) => {
+    setIsFormValid(isValid);
+  }, []);
+
+  React.useEffect(() => {
+    !!marketingAction &&
+      !updatedMarketingAction &&
+      setUpdatedMarketingAction(marketingAction);
+  }, [marketingAction, updatedMarketingAction]);
 
   return (
     <CadenceBubble
       minimalIcon
       color={SequentialMarketingColors.INNER_STEP_COLOR}
       icon={marketingActionIconDict[marketingActionType]}
+      isSubmissionForbidden={!isFormValid}
       onCancelClick={onClose}
       onConfirmClick={handleSubmit}
       title={t(`cadence.form.marketing_action.${marketingActionType}`)}
@@ -94,6 +101,7 @@ const UniqueMarketingActionBubble: React.FC<Props> = ({
         resolvedGenericTags={resolvedGenericTags}
         tagCategories={tagCategories}
         tagList={tagList}
+        updateFormValidation={handleUpdateFormValidation}
         updateMarketingAction={updateMarketingAction}
       />
     </CadenceBubble>

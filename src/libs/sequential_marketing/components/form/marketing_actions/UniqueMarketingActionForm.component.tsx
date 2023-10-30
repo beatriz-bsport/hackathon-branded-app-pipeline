@@ -14,7 +14,7 @@ import type {
 import type { Tag, TagGroupAPI } from '#libs/tag/types';
 
 import MarketingActionContent from './MarketingActionContent.component';
-import { marketingActionValidationSchema } from './validationSchemas';
+import { uniqueMarketingActionValidationSchema } from './validationSchemas';
 
 export type Props = {
   emailDetailList: { [templateId: number]: EmailTemplateDetail };
@@ -30,6 +30,7 @@ export type Props = {
     value: Partial<StepMarketingActions>,
     options?: OptionCallback,
   ) => void;
+  updateFormValidation: (isValid: boolean) => void;
   updateMarketingAction: (value: Partial<StepMarketingActions>) => void;
 };
 
@@ -49,20 +50,26 @@ const UniqueMarketingActionForm: React.FC<Props> = ({
   tagList,
   fetchEmailSummaryList,
   getEmailDetail,
+  updateFormValidation,
   updateMarketingAction,
 }) => {
   const classes = useStyles();
 
-  const { values } = useFormikContext<FormValues>();
+  const { values, isValid } = useFormikContext<FormValues>();
 
   React.useEffect(() => {
     updateMarketingAction(values.marketingAction);
   }, [updateMarketingAction, values.marketingAction]);
 
+  React.useEffect(() => {
+    updateFormValidation(isValid);
+  }, [isValid, updateFormValidation]);
+
   return (
     <div className={classes.content}>
       {!!values.marketingAction && (
         <MarketingActionContent
+          withoutValidation
           emailDetailList={emailDetailList}
           emailDetailListLoading={emailDetailListLoading}
           emailSummaryList={emailSummaryList}
@@ -102,6 +109,7 @@ const useStyles = makeStyles((theme) => ({
 
 const withFormikWrapper = withFormik<HOCProps, FormValues>({
   enableReinitialize: true,
+  validateOnMount: true,
   mapPropsToValues: ({ marketingAction }) => ({ marketingAction }),
   handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
     onSubmit(values.marketingAction, {
@@ -109,7 +117,7 @@ const withFormikWrapper = withFormik<HOCProps, FormValues>({
       onError: () => setSubmitting(false),
     });
   },
-  validationSchema: marketingActionValidationSchema,
+  validationSchema: uniqueMarketingActionValidationSchema,
 });
 
 export default React.memo(withFormikWrapper(UniqueMarketingActionForm));

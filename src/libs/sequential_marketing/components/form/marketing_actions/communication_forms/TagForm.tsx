@@ -15,16 +15,22 @@ import type {
 export type Props = {
   marketingAction: Partial<StepMarketingActions>;
   tagList: Tag<TagGroupAPI>[];
+  withoutValidation?: boolean;
   submit?: (data: Partial<StepMarketingActions>) => void;
 };
 
-const TagForm: React.FC<Props> = ({ marketingAction, tagList, submit }) => {
+const TagForm: React.FC<Props> = ({
+  marketingAction,
+  tagList,
+  withoutValidation,
+  submit,
+}) => {
   const { t } = useTranslation('marketing');
   const formik = useFormik<Partial<StepMarketingActions>>({
     initialValues: marketingAction,
     enableReinitialize: true,
     onSubmit: submit,
-    validationSchema: tagValidationSchema,
+    validationSchema: withoutValidation ? null : tagValidationSchema,
   });
 
   const { setFieldValue, handleSubmit } = formik;

@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
 import { compose } from 'recompose';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import { Button, IconButton } from '@material-ui/core';
-import './LoginBackground.css';
-import './Login.css';
+
 import HelpIcon from '@material-ui/icons/Help';
 import { withTranslation, WithTranslation } from 'react-i18next';
 
 import { CompanyTheme } from '#libs/theme/types';
-import PasswordInput from '#components/input/PasswordInput.component';
-import Radio from '#components/css-only/Radio';
-// @ts-expect-error
-import FormField from '#components/input/FormField.component';
+import Radio from '#csscomponents/Radio';
+import CircularProgress from '#csscomponents/CircularProgress';
+import Button, { ButtonType, ButtonVariant } from '#Fabrique/Button';
+import TextField from '#Fabrique/TextField';
 import { openIntercomHelp } from '../../../intercom';
 import getCalendlyLinkFromCountry from '../../../i18n/utils/calendly-link-language';
 import WidgetUtils from '#libs/widget/WidgetUtils';
 import Config from '../../../config';
 import { Franchise } from '#libs/franchise/types';
 import { buildUrlParams } from '../../../http';
+
+import './LoginBackground.css';
+import './Login.css';
 
 type Props = {
   doEmailLogin: (Obj: { email: string; password: string }) => void;
@@ -131,13 +131,14 @@ export class ConsumerLogin extends Component<Props, State> {
               />
             )}
             {!simplifyUI && (
-              <IconButton
-                className="bs-login-container__icon-button"
+              <Button
+                classes={{ root: 'bs-login-container__icon-button' }}
                 id="btn-intercom"
                 onClick={() => openIntercomHelp('login')}
+                variant={ButtonVariant.ICON}
               >
                 <HelpIcon />
-              </IconButton>
+              </Button>
             )}
           </div>
         </div>
@@ -179,27 +180,48 @@ export class ConsumerLogin extends Component<Props, State> {
                 </>
               </div>
             ) : (
-              <FormField
-                fullWidth
+              <TextField
+                isFullWidth
+                classes={{
+                  root: 'bs-login-container__text-field',
+                  label: 'bs-login-container__text-field__label',
+                }}
                 data-testid="email"
-                disabled={this.props.loading}
                 id="email"
+                inputId="bs-login-email"
+                isDisabled={this.props.loading}
+                label="Email"
                 name="login"
-                onChange={this.onFormFieldChange}
+                onChange={(event) =>
+                  this.onFormFieldChange('email')(event.target.value)
+                }
+                value={this.state.email}
+                variant="standard"
               />
             )}
           </div>
           <div className="bs-login-container__field">
-            <PasswordInput
-              fullWidth
-              disabled={
+            <TextField
+              isFullWidth
+              withPasswordToggle
+              classes={{
+                root: 'bs-login-container__text-field',
+                label: 'bs-login-container__text-field__label',
+              }}
+              id="bs-login-password"
+              inputId="bs-login-password"
+              isDisabled={
                 this.props.loading ||
                 (!!this.props.emailChoices && !this.state.email)
               }
-              onChange={(ev: any) =>
-                this.onFormFieldChange('password')(ev.target.value)
+              label="Password"
+              name="bs-login-password"
+              onChange={(event) =>
+                this.onFormFieldChange('password')(event.target.value)
               }
+              type="password"
               value={this.state.password}
+              variant="standard"
             />
           </div>
           {error ? (
@@ -217,27 +239,27 @@ export class ConsumerLogin extends Component<Props, State> {
               >
                 {errorMessage}
               </div>
-              <IconButton
+              <Button
                 id="btn-intercom-error"
                 onClick={() => openIntercomHelp('login')}
+                variant={ButtonVariant.ICON}
               >
                 <HelpIcon />
-              </IconButton>
+              </Button>
             </div>
           ) : null}
           <Button
-            className={signinButtonClass}
+            classes={{ root: signinButtonClass }}
             data-testid="btn-signin"
-            disabled={this.props.loading}
             id="btn-signin"
-            type="submit"
-            variant="contained"
+            isDisabled={this.props.loading}
+            type={ButtonType.SUBMIT}
           >
             {!!this.props.loading && (
               <CircularProgress
+                contrastStrokeColor
                 className="bs-login-container__signin-button__circular-progress"
-                color="inherit"
-                size={24}
+                size="sm"
               />
             )}
             {t('actions.signin')}
@@ -290,9 +312,7 @@ export class ConsumerLogin extends Component<Props, State> {
       : 'bs-login-container__signup-divider--default';
 
     return (
-      <div
-        className={classnames('bs-login-container', 'bs-flex-column--center')}
-      >
+      <div className="bs-login-container bs-flex-column--center">
         {this.getEmailLogin()}
         {!hideRegister && (
           <>
@@ -301,11 +321,11 @@ export class ConsumerLogin extends Component<Props, State> {
               {t('actions.signup.noAccount')}
             </div>
             <Button
-              className="bs-login-container__register-button"
-              disabled={loading}
+              classes={{ root: 'bs-login-container__register-button' }}
               id="btn-goto-signup"
+              isDisabled={loading}
               onClick={requestSignUp}
-              variant="outlined"
+              variant={ButtonVariant.OUTLINED}
             >
               {t('actions.signup.register')}
             </Button>
@@ -330,4 +350,4 @@ export class ConsumerLogin extends Component<Props, State> {
   }
 }
 
-export default compose<any, Props>(withTranslation(['login']))(ConsumerLogin);
+export default compose<any, Props>(withTranslation('login'))(ConsumerLogin);

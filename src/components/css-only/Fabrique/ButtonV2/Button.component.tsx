@@ -36,13 +36,13 @@ const useButtonClassNames = (
   const buttonSizeClassName = React.useMemo(() => {
     switch (size) {
       case ButtonSize.LG:
-        return 'bs-button-root-lg';
+        return 'bs-fabrique-button-root-lg';
       case ButtonSize.MD:
-        return 'bs-button-root-md';
+        return 'bs-fabrique-button-root-md';
       case ButtonSize.SM:
-        return 'bs-button-root-sm';
+        return 'bs-fabrique-button-root-sm';
       default:
-        return 'bs-button-root-md';
+        return 'bs-fabrique-button-root-md';
     }
   }, [size]);
 
@@ -52,69 +52,84 @@ const useButtonClassNames = (
     if (isDisabled) {
       switch (variant) {
         case 'contained':
-          return ['bs-button-root-contained--disabled'];
+          return ['bs-fabrique-button-root-contained--disabled'];
         case 'outlined':
-          return ['bs-button-root-outlined--disabled'];
+          return ['bs-fabrique-button-root-outlined--disabled'];
         case 'text':
-          return ['bs-button-root-text--disabled'];
+          return ['bs-fabrique-button-root-text--disabled'];
         default:
-          return ['bs-button-root-contained--disabled'];
+          return ['bs-fabrique-button-root-contained--disabled'];
       }
     } else {
       switch (joinedVariantWithColor) {
         // Contained
         case 'contained-primary':
-          return ['bs-button-root-contained--main'];
+          return ['bs-fabrique-button-root-contained--main'];
         case 'contained-secondary':
-          return ['bs-button-root-contained--secondary'];
+          return ['bs-fabrique-button-root-contained--secondary'];
         case 'contained-error':
-          return ['bs-button-root-contained--error'];
+          return ['bs-fabrique-button-root-contained--error'];
         case 'contained-warning':
-          return ['bs-button-root-contained--warning'];
+          return ['bs-fabrique-button-root-contained--warning'];
         case 'contained-grey':
-          return ['bs-button-root-contained--grey'];
+          return ['bs-fabrique-button-root-contained--grey'];
         case 'contained-info':
-          return ['bs-button-root-contained--info'];
+          return ['bs-fabrique-button-root-contained--info'];
         case 'contained-white':
-          return ['bs-button-root-contained--white'];
+          return ['bs-fabrique-button-root-contained--white'];
         // Outlined
         case 'outlined-primary':
-          return ['bs-button-root-outlined', 'bs-button-root-outlined--main'];
+          return [
+            'bs-fabrique-button-root-outlined',
+            'bs-fabrique-button-root-outlined--main',
+          ];
         case 'outlined-secondary':
           return [
-            'bs-button-root-outlined',
-            'bs-button-root-outlined--secondary',
+            'bs-fabrique-button-root-outlined',
+            'bs-fabrique-button-root-outlined--secondary',
           ];
         case 'outlined-error':
-          return ['bs-button-root-outlined', 'bs-button-root-outlined--error'];
+          return [
+            'bs-fabrique-button-root-outlined',
+            'bs-fabrique-button-root-outlined--error',
+          ];
         case 'outlined-warning':
           return [
-            'bs-button-root-outlined',
-            'bs-button-root-outlined--warning',
+            'bs-fabrique-button-root-outlined',
+            'bs-fabrique-button-root-outlined--warning',
           ];
         case 'outlined-grey':
-          return ['bs-button-root-outlined', 'bs-button-root-outlined--grey'];
+          return [
+            'bs-fabrique-button-root-outlined',
+            'bs-fabrique-button-root-outlined--grey',
+          ];
         case 'outlined-info':
-          return ['bs-button-root-outlined', 'bs-button-root-outlined--info'];
+          return [
+            'bs-fabrique-button-root-outlined',
+            'bs-fabrique-button-root-outlined--info',
+          ];
         case 'outlined-white':
-          return ['bs-button-root-outlined', 'bs-button-root-outlined--white'];
+          return [
+            'bs-fabrique-button-root-outlined',
+            'bs-fabrique-button-root-outlined--white',
+          ];
         // Text
         case 'text-primary':
-          return ['bs-button-root-text--main'];
+          return ['bs-fabrique-button-root-text--main'];
         case 'text-secondary':
-          return ['bs-button-root-text--secondary'];
+          return ['bs-fabrique-button-root-text--secondary'];
         case 'text-error':
-          return ['bs-button-root-text--error'];
+          return ['bs-fabrique-button-root-text--error'];
         case 'text-warning':
-          return ['bs-button-root-text--warning'];
+          return ['bs-fabrique-button-root-text--warning'];
         case 'text-grey':
-          return ['bs-button-root-text--grey'];
+          return ['bs-fabrique-button-root-text--grey'];
         case 'text-info':
-          return ['bs-button-root-text--info'];
+          return ['bs-fabrique-button-root-text--info'];
         case 'text-white':
-          return ['bs-button-root-text--white'];
+          return ['bs-fabrique-button-root-text--white'];
         default:
-          return ['bs-button-root-contained--main'];
+          return ['bs-fabrique-button-root-contained--main'];
       }
     }
   }, [joinedVariantWithColor, isDisabled, variant]);

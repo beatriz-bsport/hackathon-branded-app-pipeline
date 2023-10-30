@@ -29,10 +29,10 @@ export const ButtonBase: React.FC<Props> = ({
   return (
     <button
       className={classNames(
-        'bs-button-base-root',
+        'bs-fabrique-button-base-root',
         {
-          'bs-button-base-root--disabled': isDisabled,
-          'bs-button-base-ripple': isRippleEnabled,
+          'bs-fabrique-button-base-root--disabled': isDisabled,
+          'bs-fabrique-button-base-ripple': isRippleEnabled,
         },
         className,
         classes,

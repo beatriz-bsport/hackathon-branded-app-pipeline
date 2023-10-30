@@ -65,10 +65,10 @@ const EntryTriggerBubble: React.FC<Props> = ({
       icon="PlayArrow"
       isSubmissionForbidden={!isFormValid}
       onCancelClick={!isInitial && onClose}
-      onCancelText={!isInitial && t('cadence.form.cancel')}
+      onCancelText={!isInitial && t('cadence.bubble.cancel')}
       onConfirmClick={handleSubmit}
       onConfirmText={
-        isInitial ? t('cadence.form.next') : t('cadence.form.save')
+        isInitial ? t('cadence.bubble.next') : t('cadence.bubble.confirm')
       }
       title={t('cadence.bubble.entryTrigger.title')}
     >

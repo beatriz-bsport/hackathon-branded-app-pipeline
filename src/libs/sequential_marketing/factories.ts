@@ -26,6 +26,7 @@ import {
   CADENCE_MARKETING_ACTION_KIND_CHOICES,
   CADENCE_MARKETING_ACTION_CHOICES,
   MarketingActionKind,
+  MarketingActions,
 } from './constants/marketing_actions';
 
 function TriggerEmptyConfigFactory(): TriggerEmptyConfig {
@@ -216,4 +217,24 @@ export function stepMarketingActionFactory({
     kind: factoryKind,
     action_spec: factoryActionSpec,
   };
+}
+
+export function stepMarketingActionBatchFactory(
+  length: number,
+): Partial<StepMarketingActions>[] {
+  const res: number[] = [];
+  for (let i = 0; i < length; i += 1) {
+    res.push(i);
+  }
+  return res.map((index) => {
+    const kind = index % 5;
+    return stepMarketingActionFactory({
+      communication_kind: CADENCE_MARKETING_ACTION_CHOICES[kind],
+      kind:
+        CADENCE_MARKETING_ACTION_CHOICES[kind] ===
+        MarketingActions.CADENCE_MARKETING_ACTION_TAG_MANAGEMENT
+          ? MarketingActionKind.TAG
+          : MarketingActionKind.COMMUNICATION,
+    });
+  });
 }

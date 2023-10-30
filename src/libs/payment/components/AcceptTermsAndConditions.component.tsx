@@ -96,7 +96,8 @@ const useStyles = makeStyles<Theme, NewCheckoutFlowThemeProps>((theme) => ({
     alignItems: 'center',
     justifyContent: 'flex-start',
     width: '100%',
-    ...(isNewCheckoutFlow ? { paddingLeft: theme.spacing(1.5) } : {}),
+    // this value of padding left is to compensate for the root marginLeft of FormControlLabel
+    ...(isNewCheckoutFlow ? { paddingLeft: theme.spacing(1.375) } : {}),
   }),
   termsAndConditions: {
     display: 'flex',

@@ -12205,7 +12205,8 @@
           "bookSingleInGroup": "Exclusively book this session",
           "bookMoreInGroup": "Book other events",
           "groupWarning": "This session is associated to an event ({{ name }}).",
-          "loadingData": "Loading booking data"
+          "loadingData": "Loading booking data",
+          "bookingLimitReached": "Booking limit reached"
         }
       }
     },

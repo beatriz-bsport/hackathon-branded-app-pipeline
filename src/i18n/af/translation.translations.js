@@ -51,6 +51,7 @@ exports.default = {
         bookMoreInGroup: 'Book other events',
         groupWarning: 'This session is associated to an event ({{ name }}).',
         loadingData: 'Loading booking data',
+        bookingLimitReached: 'Booking limit reached',
       },
     },
   },

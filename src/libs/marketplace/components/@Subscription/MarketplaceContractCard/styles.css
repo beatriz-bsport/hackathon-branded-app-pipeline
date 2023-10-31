@@ -80,6 +80,10 @@
   justify-content: space-between;
 }
 
+.bs-contract-card .bs-generic-card__content__grid {
+  flex: 1;
+}
+
 .bs-contract-card__planned-invoices {
   display: flex;
   align-items: center;

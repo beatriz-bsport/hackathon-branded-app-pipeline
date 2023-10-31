@@ -9264,7 +9264,13 @@
             "from_to": "Du {{-from}} au {{-to}}",
             "save": "Sauvegarder",
             "selectDateRange": "Sélectionner une période",
-            "selectTimeRange": "Sélectionner une plage horaire"
+            "selectTimeRange": "Sélectionner une plage horaire",
+            "fromToInTimeContext": "Du {{-from}} au {{-to}}",
+            "fromToInDateContext": "Du {{-from}} au {{-to}}",
+            "toInTimeContext": "Au",
+            "fromInTimeContext": "Du",
+            "fromInDateContext": "Du",
+            "toInDateContext": "Au"
         },
         "columns": {
             "initial_price": "Prix d'achat",

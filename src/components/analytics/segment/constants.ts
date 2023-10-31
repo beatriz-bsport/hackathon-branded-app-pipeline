@@ -24,6 +24,9 @@ export enum SegmentAnalyticsFormObjectIdentifier {
   // Subscription
   Subscription = 'subscription',
 
+  // Upsell subscription
+  UpsellSubscription = 'upsell_subscription',
+
   // Email Template
   EmailTemplate = 'email_template',
 

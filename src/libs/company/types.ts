@@ -77,9 +77,19 @@ export type UpsellPackage = {
   upsell_identifier: number;
   readable_identifier: string;
   price_cts: number;
-  subscribed: boolean;
   hidden: boolean;
   tax: string;
+  subscribe_from_backoffice: boolean;
+};
+
+/**
+ * Describes the UpsellPackageSubscribed model as returned by the API.
+ */
+export type UpsellPackageSubscribedAPI = {
+  id: number;
+  upsell_package: number;
+  platform_subscription: number;
+  has_been_billed_once: boolean;
 };
 
 export type PlatformBillingGroup = {

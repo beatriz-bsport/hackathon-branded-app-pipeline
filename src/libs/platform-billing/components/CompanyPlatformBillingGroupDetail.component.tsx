@@ -64,9 +64,11 @@ export const CompanyPlatformBillinGroupDetail = (props: Props) => {
     props.platformSubscription;
   if (!platformBillingGroup) return null;
   const myUpsellPackageList = platformBillingGroup.upsell_packages.filter(
+    // @ts-expect-error
     (up) => !!up.subscribed,
   );
   const otherUpsellPackageList = platformBillingGroup.upsell_packages.filter(
+    // @ts-expect-error
     (up) => !up.subscribed,
   );
   return (

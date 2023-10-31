@@ -27,6 +27,7 @@ type ProfileMenuProps = {
   navigateToRelationAccount?: (memberId: number) => void;
   isRelationNavigation?: boolean;
   navigateBackToMasterRelation?: () => void;
+  popoverId?: string;
 };
 
 const AppBarProfileMenu: React.FC<ProfileMenuProps> = ({
@@ -42,6 +43,7 @@ const AppBarProfileMenu: React.FC<ProfileMenuProps> = ({
   navigateBackToMasterRelation,
   isRelationNavigation,
   navigateToRelationAccount,
+  popoverId,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation(['translation', 'consumerSpace']);
@@ -55,6 +57,7 @@ const AppBarProfileMenu: React.FC<ProfileMenuProps> = ({
         onClose={() => setIsMenuOpen(false)}
         open={isMenuOpen}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+        {...(popoverId ? { id: popoverId } : {})}
       >
         {photo ? (
           <Avatar classes={{ root: classes.profilePicTall }} src={photo} />

@@ -100,7 +100,15 @@ export class ResetPassword extends Component<Props, State> {
         className="bs-reset-password-container__link"
         to={this.getRedirectUrlWithParams()}
       >
-        <Button classes={{ root: buttonClass }} id="btn-cancel">
+        <Button
+          classes={{
+            root: classnames(
+              buttonClass,
+              'bs-reset-password-container__button-cancel',
+            ),
+          }}
+          id="btn-cancel"
+        >
           {this.props.t('resetPassword.actions.cancel')}
         </Button>
       </Link>
@@ -108,7 +116,12 @@ export class ResetPassword extends Component<Props, State> {
         <CircularProgress />
       ) : (
         <Button
-          classes={{ root: buttonClass }}
+          classes={{
+            root: classnames(
+              buttonClass,
+              'bs-reset-password-container__button-submit',
+            ),
+          }}
           color="primary"
           id="btn-reset-password"
           type="submit"
@@ -154,7 +167,7 @@ export class ResetPassword extends Component<Props, State> {
                 {this.props.t('resetPassword.hasProblem')}
               </div>
               <div className="bs-reset-password-container__contact-us">
-                <div className="bs-reset-password-container__div--margin-right">
+                <div className="bs-reset-password-container__contact-us__text">
                   {this.props.t('resetPassword.contactUs')}
                 </div>
                 <a href="mailto:support+reset-password@bsport.io">
@@ -164,9 +177,14 @@ export class ResetPassword extends Component<Props, State> {
             </div>
           </div>
         )}
-      <div className="bs-reset-password-container__div--padding-top-20">
+      <div className="bs-reset-password-container__div__back-to-login">
         <Button
-          classes={{ root: buttonClass }}
+          classes={{
+            root: classnames(
+              buttonClass,
+              'bs-reset-password-container__back-to-login-button',
+            ),
+          }}
           color="primary"
           id="btn-back-to-login"
           onClick={this.redirectLogin}
@@ -229,7 +247,12 @@ export class ResetPassword extends Component<Props, State> {
               {this.props.t('resetPassword.noEmail')}
             </div>
           ) : null}
-          <div className="bs-reset-password-container__div-send-buttons">
+          <div
+            className={classnames({
+              'bs-reset-password-container__div-send-success-msg': hasSent,
+              'bs-reset-password-container__div-send-buttons': !hasSent,
+            })}
+          >
             {hasSent
               ? this.getSuccessMsg(buttonClass)
               : this.getSendingButton(buttonClass)}

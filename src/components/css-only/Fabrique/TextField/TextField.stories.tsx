@@ -44,16 +44,28 @@ const baseArgs = {
   },
   id: '',
   inputId: '',
+  type: 'text',
+  variant: 'outlined',
 };
 
-export const TextFieldIdle = TextFieldTemplate.bind({});
-TextFieldIdle.args = baseArgs;
+export const TextFieldOutlined = TextFieldTemplate.bind({});
+TextFieldOutlined.args = baseArgs;
+
+export const TextFieldStandard = TextFieldTemplate.bind({});
+TextFieldStandard.args = { ...baseArgs, variant: 'standard' };
 
 export const TextFieldRequired = TextFieldTemplate.bind({});
 TextFieldRequired.args = { ...baseArgs, isRequired: true };
 
 export const TextFieldWithValue = TextFieldWithValueTemplate.bind({});
 TextFieldWithValue.args = baseArgs;
+
+export const TextFieldPassword = TextFieldWithValueTemplate.bind({});
+TextFieldPassword.args = {
+  ...baseArgs,
+  type: 'password',
+  withPasswordToggle: true,
+};
 
 export const TextFieldError = TextFieldTemplate.bind({});
 TextFieldError.args = {
@@ -90,6 +102,25 @@ export default {
         type: 'select',
         options: [undefined, TextFieldSize.SMALL, TextFieldSize.LARGE],
       },
+    },
+    variant: {
+      control: {
+        type: 'select',
+        options: ['outlined', 'filled', 'standard'],
+        default: 'outlined',
+      },
+    },
+    type: {
+      control: {
+        type: 'select',
+        options: ['text', 'email', 'tel', 'pasword'],
+      },
+    },
+    withPasswordToggle: {
+      control: {
+        type: 'boolean',
+      },
+      defaultValue: false,
     },
     onClick: {
       action: 'onClick',

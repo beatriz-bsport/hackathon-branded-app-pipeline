@@ -44,6 +44,16 @@
   transition: top 125ms ease-in-out;
 }
 
+.bs-text-field__input__password-toggle {
+  color: var(--color-grey-700);
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: var(--spacing-1);
+  height: fit-content;
+  z-index: 2;
+}
+
 .bs-text-field-outlined__container .bs-text-field__label {
   left: var(--spacing-1);
   padding: 0 calc(var(--spacing-1) / 2);
@@ -71,6 +81,14 @@
   width: 100%;
   z-index: 2;
   position: relative;
+}
+
+.bs-text-field__standard-input--with-password-toggle {
+  width: calc(100% - var(--spacing-5));
+}
+
+.bs-text-field__input--with-password-toggle {
+  width: calc(100% - var(--spacing-4));
 }
 
 .bs-text-field__container--small {

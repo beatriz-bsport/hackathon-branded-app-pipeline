@@ -1,9 +1,11 @@
 import React, { ChangeEvent, useState, useCallback } from 'react';
-
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import Visibility from '@material-ui/icons/Visibility';
 import classNames from 'classnames';
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { TextFieldSize } from '.';
+import Button, { ButtonVariant } from '../Button';
 
 import { TextFieldVariant } from './types';
 
@@ -30,7 +32,8 @@ export type Props = {
   inputId: string;
   helperTextId?: string;
   isError?: boolean;
-  variant?: `${TextFieldVariant}`;  
+  variant?: `${TextFieldVariant}`;
+  withPasswordToggle?: boolean;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 };
 
@@ -55,14 +58,28 @@ const TextField: React.FC<Props> = ({
   helperTextId,
   isError,
   variant = TextFieldVariant.OUTLINED,
+  withPasswordToggle,
   onChange,
 }) => {
   const [isInputFocused, setIsInputFocused] = useState(false);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const onInputFocus = useCallback(() => setIsInputFocused(true), []);
   const onInputUnfocus = useCallback(() => setIsInputFocused(false), []);
 
   const containerClassName = TextFieldContainerClassNameMap[variant];
+
+  const inputType = React.useMemo(() => {
+    if (type === 'password') {
+      return isPasswordVisible ? 'text' : 'password';
+    }
+    return type ?? 'text';
+  }, [isPasswordVisible, type]);
+
+  const handleTogglePasswordVisible = useCallback(
+    () => setIsPasswordVisible((state) => !state),
+    [],
+  );
 
   return (
     <div
@@ -108,6 +125,10 @@ const TextField: React.FC<Props> = ({
             'bs-text-field__input',
             {
               'bs-text-field__input--disabled': isDisabled,
+              'bs-text-field__input--with-password-toggle':
+                variant !== TextFieldVariant.STANDARD && withPasswordToggle,
+              'bs-text-field__standard-input--with-password-toggle':
+                variant === TextFieldVariant.STANDARD && withPasswordToggle,
               'bs-text-field__input--small': size === TextFieldSize.SMALL,
               'bs-text-field__input--large': size === TextFieldSize.LARGE,
             },
@@ -120,9 +141,23 @@ const TextField: React.FC<Props> = ({
           onChange={onChange}
           onFocus={onInputFocus}
           required={isRequired}
-          type={type ?? 'text'}
+          type={inputType}
           value={value}
         />
+        {type === 'password' && withPasswordToggle && (
+          <Button
+            disableRipple
+            classes={{ root: 'bs-text-field__input__password-toggle' }}
+            onClick={handleTogglePasswordVisible}
+            variant={ButtonVariant.ICON}
+          >
+            {isPasswordVisible ? (
+              <Visibility color="inherit" />
+            ) : (
+              <VisibilityOff color="inherit" />
+            )}
+          </Button>
+        )}
       </div>
 
       {!!helperText && (

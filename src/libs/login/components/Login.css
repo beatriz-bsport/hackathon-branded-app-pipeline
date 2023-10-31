@@ -5,11 +5,6 @@
   --color-default-2-dark: hsl(187, 48%, 29%);
 }
 
-.reactangle-animated {
-  animation: 5s linear infinite gradient;
-  background-size: 400% 100%;
-}
-
 @keyframes gradient {
   0% {
     background-position: 0% 50%;
@@ -20,6 +15,11 @@
   100% {
     background-position: 0% 50%;
   }
+}
+
+.rectangle-animated {
+  animation: 5s linear infinite gradient;
+  background-size: 400% 100%;
 }
 
 .bs-login-container__body1-text {
@@ -52,7 +52,7 @@
   align-items: center;
 }
 
-.bs-flex-column--align-left {
+.bs-login-container__email-choices {
   display: flex;
   flex-direction: column;
   align-items: left;
@@ -74,7 +74,7 @@
 
 .bs-login-container__icon-button {
   position: absolute;
-  top: 4px;
+  top: calc(var(--spacing-1) / 2);
   right: -30%;
   margin-left: var(--spacing-2);
 }
@@ -82,7 +82,7 @@
 .bs-login-container__signin-button--simplifyUI--loading {
   margin-top: var(--spacing-2);
   background: #dedede;
-  border-radius: 24px;
+  border-radius: var(--border-radius-6);
   height: 48px;
   color: var(--color-grey-dark);
 }
@@ -90,7 +90,7 @@
 .bs-login-container__signin-button--simplifyUI {
   margin-top: var(--spacing-2);
   background: var(--color-primary-main);
-  border-radius: 24px;
+  border-radius: var(--border-radius-6);
   height: 48px;
   color: var(--color-primary-contrastText);
 }
@@ -102,7 +102,7 @@
 .bs-login-container__signin-button--simplifyUI-company--loading {
   margin-top: var(--spacing-2);
   background: #dedede;
-  border-radius: 24px;
+  border-radius: var(--border-radius-6);
   height: 48px;
   color: var(--color-grey-dark);
 }
@@ -110,7 +110,7 @@
 .bs-login-container__signin-button--simplifyUI-company {
   margin-top: var(--spacing-2);
   background: var(--color-primary-main);
-  border-radius: 24px;
+  border-radius: var(--border-radius-6);
   height: 48px;
   color: var(--color-primary-contrastText);
 }
@@ -122,7 +122,7 @@
 .bs-login-container__signin-button--company--loading {
   margin-top: var(--spacing-2);
   background: #dedede;
-  border-radius: 8px;
+  border-radius: var(--border-radius-2);
   height: 48px;
   color: var(--color-grey-dark);
 }
@@ -135,7 +135,7 @@
     var(--color-primary-main) 4.66%,
     var(--color-primary-dark) 88.6%
   );
-  border-radius: 8px;
+  border-radius: var(--border-radius-2);
   height: 48px;
   color: var(--color-primary-contrastText);
 }
@@ -155,7 +155,7 @@
     var(--color-default-1-light) 4.66%,
     var(--color-default-2-light) 88.6%
   );
-  border-radius: 8px;
+  border-radius: var(--border-radius-2);
   height: 48px;
   color: var(--color-primary-contrastText);
   box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
@@ -165,7 +165,7 @@
 .bs-login-container__signin-button--default--loading {
   margin-top: var(--spacing-2);
   background: #dedede;
-  border-radius: 8px;
+  border-radius: var(--border-radius-2);
   height: 48px;
   color: var(--color-grey-dark);
 }
@@ -188,7 +188,7 @@
 }
 
 .bs-login-container__text-field {
-  border-color: rgba(0, 0, 0, 0.42);
+  border-color: var(--bs-shadow-m);
 }
 
 .bs-login-container__text-field__label {
@@ -200,7 +200,7 @@
   align-self: center;
 }
 
-.bs-column {
+.bs-login-container__form {
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -318,7 +318,7 @@
   height: 38px;
 }
 
-.bs-login-container__logo-div {
+.bs-login-container__logo-container {
   align-self: start;
 }
 
@@ -334,7 +334,7 @@
   .bs-login-container {
     width: 100%;
   }
-  .bs-column {
+  .bs-login-container__form {
     width: 100%;
   }
   .bs-login-container__studio-manager {
@@ -358,7 +358,7 @@
 }
 
 @container (min-width: 599px) {
-  .bs-login-container__logo-div {
+  .bs-login-container__logo-container {
     display: none;
   }
 }

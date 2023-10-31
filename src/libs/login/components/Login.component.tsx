@@ -93,11 +93,9 @@ export class ConsumerLogin extends Component<Props, State> {
         ? 'bs-rectangle--company'
         : 'bs-rectangle--default';
     return (
-      <div
-        className={`${'bs-flex-column--center'} ${'bs-login-container__get-email-login'}`}
-      >
+      <div className="bs-flex-column--center bs-login-container__get-email-login">
         {!WidgetUtils.isWidget() && !this.props.logoHidden && !simplifyUI && (
-          <div className="bs-login-container__logo-div">
+          <div className="bs-login-container__logo-container">
             <div>
               <img
                 alt={
@@ -127,7 +125,7 @@ export class ConsumerLogin extends Component<Props, State> {
             </div>
             {!simplifyUI && (
               <div
-                className={classnames(rectangleClass, 'reactangle-animated')}
+                className={classnames(rectangleClass, 'rectangle-animated')}
               />
             )}
             {!simplifyUI && (
@@ -147,7 +145,7 @@ export class ConsumerLogin extends Component<Props, State> {
             {t('signin.connect')}
           </div>
         </div>
-        <form className="bs-column" onSubmit={this.doEmailLogin}>
+        <form className="bs-login-container__form" onSubmit={this.doEmailLogin}>
           <div className="bs-login-container__field">
             {this.props.emailChoices ? (
               <div id="email-choices">
@@ -160,7 +158,7 @@ export class ConsumerLogin extends Component<Props, State> {
                   >
                     {t('signin.selectYourCurrentEmail')}
                   </div>
-                  <div className="bs-flex-column--align-left">
+                  <div className="bs-login-container__email-choices">
                     {this.props.emailChoices?.map((email_choice) => {
                       return (
                         <form className="bs-flex-row">

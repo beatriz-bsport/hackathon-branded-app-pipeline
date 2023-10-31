@@ -39,6 +39,8 @@ const getTranslations = async () => {
           "This session is full. Join the waitlist and you'll receive a message once a spot becomes available.",
         waitingListLockedByPendingBookings:
           'Other people are booking, the waiting list is currently unavailable. Please try again in a few minutes to see if a place has become available.',
+        isBookingLimitReached:
+          'You have already reached your limit of reservations. You will be able to book again when a session has passed or is cancelled.',
       },
       offer: {
         isDisabled: 'This session has been cancelled.',
@@ -534,6 +536,11 @@ const getTranslations = async () => {
         noPassAvailable: {
           title: 'No pass available',
           message: 'No passes are available to join the waiting list.',
+        },
+        isBookingLimitReached: {
+          title: 'Unable to book',
+          message:
+            'You have already reached your limit of reservations. You will be able to book again when a session has passed or is cancelled.',
         },
       },
       subscriptions: 'Subscriptions',

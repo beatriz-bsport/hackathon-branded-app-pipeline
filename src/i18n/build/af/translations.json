@@ -13678,7 +13678,8 @@
         "marketplace_prepaid_line_item": "Prepaid line list item",
         "marketplace_prepaid_line_list": "Prepaid line list",
         "fabrique_typography": "Typography",
-        "fabrique_card": "Card"
+        "fabrique_card": "Card",
+        "marketplace_minimal_appbar": "Minimal AppBar"
       },
       "customCss": {
         "yourCode": "Your complementary implementation:",

@@ -236,6 +236,7 @@ exports.default = {
       marketplace_prepaid_line_list: 'Prepaid line list',
       fabrique_typography: 'Typography',
       fabrique_card: 'Card',
+      marketplace_minimal_appbar: 'Minimal AppBar',
     },
     customCss: {
       yourCode: 'Your complementary implementation:',

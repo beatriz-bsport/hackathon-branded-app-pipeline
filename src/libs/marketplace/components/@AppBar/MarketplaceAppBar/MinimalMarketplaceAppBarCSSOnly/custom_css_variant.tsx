@@ -32,13 +32,21 @@ const usePropsFromVariation = (
   const isRegisteredSelected =
     variationsSelected?.isRegistered?.value === 'true';
 
-  const auth = {
-    name: 'Client Name',
-    username: 'client@email.io',
-    authenticated: isRegisteredSelected,
-  };
+  const auth = isRegisteredSelected
+    ? {
+        name: 'Client Name',
+        username: 'client@email.io',
+        authenticated: isRegisteredSelected,
+      }
+    : {
+        name: '',
+        username: '',
+        authenticated: isRegisteredSelected,
+      };
 
-  return auth;
+  const photo = isRegisteredSelected ? faker.image.urlPicsumPhotos() : '';
+
+  return { auth, photo };
 };
 
 export const MARKETPLACE_MINIMAL_APPBAR_CONFIGURATION: MarketplaceCSSComponentConfig =
@@ -53,11 +61,13 @@ export const MARKETPLACE_MINIMAL_APPBAR_CONFIGURATION: MarketplaceCSSComponentCo
 export const MARKETPLACE_MINIMAL_APPBAR_PREVIEW: React.FC<{
   theme: CompanyTheme;
   variationsSelected: Record<string, VariationConfigurationChoice>;
-}> = React.memo(({ theme, variationsSelected }) => {
+}> = React.memo(({ variationsSelected }) => {
   const componentProps = usePropsFromVariation(variationsSelected);
 
-  const photo = faker.image.urlPicsumPhotos();
   return (
-    <MinimalMarketplaceAppBarCSSOnly auth={componentProps} photo={photo} />
+    <MinimalMarketplaceAppBarCSSOnly
+      auth={componentProps.auth}
+      photo={componentProps.photo}
+    />
   );
 });

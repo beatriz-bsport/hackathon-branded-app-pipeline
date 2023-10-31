@@ -137,6 +137,8 @@ type Props = {
   setHasFetchedNonCompatiblePasses: (hasFetch: boolean) => void,
   nonCompatibleByOfferByMemberLoading: boolean,
   isAutoBooking: boolean,
+  fetchFutureBookingsByMember: (memberId: number) => void,
+  futureBookingsByMemberCount: number,
 };
 
 const REGISTER_METHOD_CHOICE = 0;
@@ -171,6 +173,8 @@ export class BookerModuleManager extends PureComponent<Props, State> {
         },
       },
     );
+
+    this.props.fetchFutureBookingsByMember(this.props.member.id);
 
     this.props.fetchEstablishments();
     this.props.fetchAllEstablishmentBillingGroup();
@@ -322,6 +326,13 @@ export class BookerModuleManager extends PureComponent<Props, State> {
                   </Alert>
                 </>
               )}
+              {this.props.companyTheme.max_future_booking &&
+                this.props.futureBookingsByMemberCount >=
+                  this.props.companyTheme.max_future_booking && (
+                  <Typography align="center" color="error" variant="body1">
+                    {t('offerManagement.forms.register.bookingLimitReached')}
+                  </Typography>
+                )}
               <Divider />
               <div>
                 <ObjectLevelPermissionWrapper

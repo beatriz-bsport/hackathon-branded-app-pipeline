@@ -50,6 +50,8 @@ import { RootState } from '../../reducers';
 import themeSelectors from '../../libs/theme/selectors';
 import { withIsSharedActive } from '../../libs/relationship/selectors';
 import { fetchConsumerPaymentPackLinks } from '../../libs/relationship/actions';
+import { getFutureBookingsByMemberCount } from '#libs/booking/selectors';
+import { fetchFutureBookingsByMember } from '#libs/booking/actions';
 
 import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
 import { withCustomLevel } from '#libs/level/selectors';
@@ -86,6 +88,10 @@ export default compose(
       incompatibilitiesReasons: getIncompatibilitiesReasons(state),
       nonCompatibleByOfferByMemberLoading:
         state.consumerPaymentPack.nonCompatibleByOfferByMember.loading,
+      futureBookingsByMemberCount: getFutureBookingsByMemberCount(
+        state,
+        props.member.id,
+      ),
     }),
     {
       fetchPaymentPackBulk,
@@ -114,6 +120,7 @@ export default compose(
       resetIncompatibilitiesReasonsByOfferByConsumerPack:
         resetIncompatibilitiesReasonsByOfferByConsumerPackAction,
       pushRouter: push,
+      fetchFutureBookingsByMember,
     },
   ),
 

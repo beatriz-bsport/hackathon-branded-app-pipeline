@@ -563,6 +563,13 @@ exports.default = {
         title: 'Delete a cadence',
       },
     },
+    pause: {
+      dialog: {
+        title: 'Pause workflow',
+        helper:
+          'All member actions that happen during the pause will not be taken into account.',
+      },
+    },
     howTo: {
       set_trigger_destination: '{{ index }}. Redirect to a marketing action',
       add_smartlist_filter: '{{ index }}. Filter on smartlists',
@@ -621,6 +628,27 @@ exports.default = {
       confirm: 'Save',
       next: 'Next',
       step: { name: 'Name' },
+    },
+    step: {
+      archive: {
+        dialog: {
+          title: 'Are you sure you want to delete this step?',
+          helper:
+            'This action cannot be undone. Connected triggers will also be deleted. The rest of the flow will be disconnected but not deleted.',
+        },
+      },
+      convertExit: {
+        dialog: {
+          title: 'Convert this step into an exit',
+          helper:
+            'The next connected trigger will also be deleted. The rest of the flow will be disconnected but not deleted.',
+        },
+      },
+    },
+    dialog: {
+      cancel: 'Cancel',
+      confirm: 'Confirm',
+      do_not_display_anymore: 'Do not display this message anymore.',
     },
   },
 };

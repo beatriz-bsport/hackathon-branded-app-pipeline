@@ -32,7 +32,7 @@ import { OptionCallback } from '../../state/types';
 import type { Cadence } from '#libs/sequential_marketing/types';
 import CadenceList from '#libs/sequential_marketing/components/CadenceList.component';
 import CadenceManagerFab from '#libs/sequential_marketingDEPRECATED/components/CadenceManagerFab.components';
-import CadenceArchiveDialog from '#libs/sequential_marketing/components/CadenceArchivedDialog.component';
+import CadenceArchivedDialog from '#libs/sequential_marketing/components/dialogs/CadenceArchivedDialog.component';
 
 const CADENCE_PAGE_SIZE = 100;
 type OwnProps = {
@@ -210,7 +210,7 @@ export class CadenceDetailPage extends Component<Props> {
           onSubmit={this.handleUpsertCadence}
           open={this.props.openCreationForm || !!this.props.cadenceToEdit}
         />
-        <CadenceArchiveDialog
+        <CadenceArchivedDialog
           cadence={cadenceToArchive}
           onCancel={this.handleResetCadenceToArchive}
           onConfirm={this.props.archiveCadence}

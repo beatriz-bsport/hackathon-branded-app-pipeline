@@ -15,7 +15,7 @@ import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import CadenceCreateAndUpdateForm from '#libs/sequential_marketing/components/form/CadenceCreateAndUpdateForm.component';
-import CadenceActivateDialog from '#libs/sequential_marketing/components/CadenceActivateDialog.component';
+import CadenceActivateDialog from '#libs/sequential_marketing/components/dialogs/CadenceActivateDialog.component';
 import ToolTip from '#components/Tooltip.component';
 import StopBuildIcon from '#components/icons/StopBuildIcon.component';
 import { isMinimalCadenceConfigurationCompleted } from '#libs/sequential_marketing/utils';

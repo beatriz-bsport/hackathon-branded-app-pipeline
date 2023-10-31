@@ -216,6 +216,12 @@
   background: var(--color-grey-light);
 }
 
+@container bsContractCheckoutPage (width < 750px) {
+  .bs-contract-checkout__body__grid {
+    height: 100%;
+  }
+}
+
 @container bsContractCheckoutPage (width < 570px) {
   .bs-contract-checkout__price {
     display: flex;

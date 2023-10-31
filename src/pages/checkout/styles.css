@@ -34,8 +34,16 @@
   padding: var(--spacing-4) var(--spacing-6);
   background: #ffffff;
   max-width: 500px;
-  gap: var(--spacing-2);
   scroll-behavior: smooth;
+  height: calc(100vh - var(--spacing-6));
+}
+
+.bs-contract-checkout__list__container .bs-contract-checkout {
+  min-height: fit-content; /* workaround height within scrollable 100vh list for Safari 12 */
+}
+
+.bs-contract-checkout__list__container .bs-contract-checkout:not(:last-child) {
+  margin-bottom: var(--spacing-2); /* workaround gap property for Safari 12 */
 }
 
 .bs-contract-checkout__list__container::-webkit-scrollbar {

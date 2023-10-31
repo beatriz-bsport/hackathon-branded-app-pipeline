@@ -5,8 +5,8 @@ import { createAction } from 'redux-actions';
 
 import {
   fetchPlatformInvoiceList as fetchPlatformInvoiceListAPI,
-  fetchUpsellPackageList as fetchUpsellPackageListAPI,
-  fetchUpsellPackageSubscribedList as fetchUpsellPackageSubscribedListAPI,
+  fetchUpsellPackages as fetchUpsellPackagesAPI,
+  fetchUpsellPackageSubscribedIds as fetchUpsellPackageSubscribedIdsAPI,
   fetchPlatformBillingPlanList as fetchPlatformBillingPlanListAPI,
   fetchPlatformBillingStageList as fetchPlatformBillingStageListAPI,
   retrieveSubscription as retrieveSubscriptionAPI,
@@ -15,11 +15,18 @@ import {
   checkPlatformSubscriptionSetup as checkPlatformSubscriptionSetupAPI,
   payInvoice as payInvoiceAPI,
   retrievePlatformSubscriptionPaymentStatusAPI,
+  subscribeUpsellPackage as subscribeUpsellPackageAPI,
 } from './api';
 
-import type { Dispatch, OptionCallback } from '../../state/types';
 import { snackbarError, snackbarSuccess } from '../snackbar/actions';
 import { PlatformSubscriptionPaymentStatus } from './type';
+import { getFeatureListWithoutLoading } from '#libs/company/actions';
+
+import type { Dispatch, OptionCallback } from '../../state/types';
+import {
+  UpsellPackageSubscribedAPI,
+  type UpsellPackage,
+} from '#libs/company/types';
 
 export const listPlatformInvoiceActions = {
   isLoading: createAction('PLATFORM_INVOICE/LIST/IS_LOADING'),
@@ -49,59 +56,105 @@ export function fetchPlatformInvoiceList(
   };
 }
 
-export const listUpsellPackageActions = {
-  isLoading: createAction('UPSELL_PACKAGE/LIST/IS_LOADING'),
-  error: createAction('UPSELL_PACKAGE/LIST/ERROR'),
-  success: createAction('UPSELL_PACKAGE/LIST/SUCCESS'),
+export const fetchUpsellPackageActions = {
+  isLoading: createAction<boolean>('UPSELL_PACKAGE/RETRIEVE_BY_ID/IS_LOADING'),
+  error: createAction<Error | null>('UPSELL_PACKAGE/RETRIEVE_BY_ID/ERROR'),
+  success: createAction<UpsellPackage>('UPSELL_PACKAGE/RETRIEVE_BY_ID/SUCCESS'),
 };
 
-export function fetchUpsellPackageList(
-  params: any = {},
-  options: OptionCallback,
-) {
+/**
+ * Fetches an upsell package based on the upsell identifier.
+ *
+ * @param upsellIdentifier - The identifier of the upsell package.
+ * @returns - The async thunk function.
+ */
+export function fetchUpsellPackage(upsellIdentifier: number) {
   return async (dispatch: Dispatch) => {
-    dispatch(listUpsellPackageActions.isLoading(true));
-    dispatch(listUpsellPackageActions.error(null));
+    dispatch(fetchUpsellPackageActions.isLoading(true));
+    dispatch(fetchUpsellPackageActions.error(null));
     try {
-      const response = await fetchUpsellPackageListAPI(params);
-      dispatch(listUpsellPackageActions.success(response.data));
-      if (options && options.onSuccess) {
-        options.onSuccess(response.data);
-      }
+      const response = await fetchUpsellPackagesAPI({
+        upsell_identifier: upsellIdentifier,
+      });
+      dispatch(fetchUpsellPackageActions.success(response.data));
     } catch (err) {
       console.error(err);
-      dispatch(listUpsellPackageActions.error(err));
-      if (options && options.onError) options.onError();
+      dispatch(fetchUpsellPackageActions.error(err));
     }
-    dispatch(listUpsellPackageActions.isLoading(false));
+    dispatch(fetchUpsellPackageActions.isLoading(false));
   };
 }
 
-export const listUpsellPackageSubscribedActions = {
-  isLoading: createAction('UPSELL_PACKAGE_SUBSCRIBED/LIST/IS_LOADING'),
-  error: createAction('UPSELL_PACKAGE_SUBSCRIBED/LIST/ERROR'),
-  success: createAction('UPSELL_PACKAGE_SUBSCRIBED/LIST/SUCCESS'),
+export const listUpsellPackagesActions = {
+  isLoading: createAction<boolean>('UPSELL_PACKAGE/LIST/IS_LOADING'),
+  error: createAction<Error | null>('UPSELL_PACKAGE/LIST/ERROR'),
+  success: createAction<UpsellPackage[]>('UPSELL_PACKAGE/LIST/SUCCESS'),
 };
 
-export function fetchUpsellPackageSubscribedList(
-  params: any = {},
-  options: OptionCallback,
-) {
+/**
+ * Fetches the upsell packages with the given parameters and options.
+ *
+ * @param params - The parameters for the fetch request, passed through the url.
+ * @param options - The callback options for the fetch request.
+ * @returns - A promise that resolves with the fetched data.
+ */
+export function fetchUpsellPackages(params: any = {}, options: OptionCallback) {
   return async (dispatch: Dispatch) => {
-    dispatch(listUpsellPackageSubscribedActions.isLoading(true));
-    dispatch(listUpsellPackageSubscribedActions.error(null));
+    dispatch(listUpsellPackagesActions.isLoading(true));
+    dispatch(listUpsellPackagesActions.error(null));
     try {
-      const response = await fetchUpsellPackageSubscribedListAPI(params);
-      dispatch(listUpsellPackageSubscribedActions.success(response.data));
+      const response = await fetchUpsellPackagesAPI(params);
+      dispatch(listUpsellPackagesActions.success(response.data));
       if (options && options.onSuccess) {
         options.onSuccess(response.data);
       }
     } catch (err) {
       console.error(err);
-      dispatch(listUpsellPackageSubscribedActions.error(err));
-      if (options && options.onError) options.onError();
+      dispatch(listUpsellPackagesActions.error(err));
+      if (options && options.onError) {
+        options.onError();
+      }
     }
-    dispatch(listUpsellPackageSubscribedActions.isLoading(false));
+    dispatch(listUpsellPackagesActions.isLoading(false));
+  };
+}
+
+export const listUpsellPackageSubscribedIdsActions = {
+  isLoading: createAction<boolean>('UPSELL_PACKAGE_SUBSCRIBED/LIST/IS_LOADING'),
+  error: createAction<Error | null>('UPSELL_PACKAGE_SUBSCRIBED/LIST/ERROR'),
+  success: createAction<UpsellPackageSubscribedAPI[]>(
+    'UPSELL_PACKAGE_SUBSCRIBED/LIST/SUCCESS',
+  ),
+};
+
+/**
+ * Fetches the subscribed upsell package IDs.
+ *
+ * @param params - The parameters for the fetch request, passed in the url.
+ * @param options - The callback options for the fetch request.
+ * @returns - The async thunk function.
+ */
+export function fetchUpsellPackageSubscribedIds(
+  params,
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(listUpsellPackageSubscribedIdsActions.isLoading(true));
+    dispatch(listUpsellPackageSubscribedIdsActions.error(null));
+    try {
+      const response = await fetchUpsellPackageSubscribedIdsAPI(params);
+      dispatch(listUpsellPackageSubscribedIdsActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(listUpsellPackageSubscribedIdsActions.error(err));
+      if (options && options.onError) {
+        options.onError();
+      }
+    }
+    dispatch(listUpsellPackageSubscribedIdsActions.isLoading(false));
   };
 }
 
@@ -239,6 +292,45 @@ export function requestUpsellPackage(
       if (options && options.onError) options.onError();
     }
     dispatch(requestUpsellPackageActions.isLoading(false));
+  };
+}
+
+export const subscribeUpsellPackageActions = {
+  isLoading: createAction<boolean>('UPSELL_PACKAGE/SUBSCRIBE/IS_LOADING'),
+  error: createAction<Error | null>('UPSELL_PACKAGE/SUBSCRIBE/ERROR'),
+  success: createAction<{
+    upsell_package_subscribed: UpsellPackageSubscribedAPI;
+    upsell_package: UpsellPackage;
+  }>('UPSELL_PACKAGE/SUBSCRIBE/SUCCESS'),
+};
+
+/**
+ * Subscribes to an upsell package directly from the backoffice.
+ *
+ * @param id - The id of the upsell package.
+ * @param options - The callback options for the subscription.
+ * @returns - The async thunk function.
+ */
+export function subscribeUpsellPackage(id: number, options: OptionCallback) {
+  return async (dispatch: Dispatch) => {
+    dispatch(subscribeUpsellPackageActions.isLoading(true));
+    dispatch(subscribeUpsellPackageActions.error(null));
+    try {
+      const response = await subscribeUpsellPackageAPI(id);
+      // Update feature list after subscription
+      dispatch(getFeatureListWithoutLoading());
+      dispatch(subscribeUpsellPackageActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(subscribeUpsellPackageActions.error(err));
+      if (options && options.onError) {
+        options.onError();
+      }
+    }
+    dispatch(subscribeUpsellPackageActions.isLoading(false));
   };
 }
 

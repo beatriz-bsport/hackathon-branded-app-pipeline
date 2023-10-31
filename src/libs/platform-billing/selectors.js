@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import { difference } from 'lodash';
 
 const getPlatformInvoiceIdList = (state) =>
   state.platformBilling.platformInvoice.list.allIds;
@@ -25,6 +26,116 @@ export const _getPlatformSubscription = (state) =>
 export const _getUpsellPackage = (state, id) => {
   return state.platformBilling.upsellPackage.byId[id];
 };
+
+const _getUpsellPackageIds = (state) =>
+  state.platformBilling.upsellPackage.allIds;
+const _getUpsellPackageData = (state) =>
+  state.platformBilling.upsellPackage.byId;
+
+const _getUpsellPackageSubscribedIds = (state) =>
+  state.platformBilling.upsellPackageSubscribed.allIds;
+const _getUpsellPackageSubscribedData = (state) =>
+  state.platformBilling.upsellPackageSubscribed.byId;
+
+/**
+ * Retrieves all upsell packages from the state.
+ *
+ * @param state - The state object.
+ * @returns - An array of upsell packages.
+ */
+export const getAllUpsellPackages = createSelector(
+  [_getUpsellPackageIds, _getUpsellPackageData],
+  (ids, data) => ids.map((id) => data[id]),
+);
+
+/**
+ * Retrieves an upsell package by its identifier.
+ *
+ * @param state - The state object.
+ * @param upsellIdentifier - The upsell identifier.
+ * @returns - The upsell package.
+ */
+export const getUpsellPackageByIdentifier = createSelector(
+  [
+    getAllUpsellPackages,
+    (_, upsellIdentifier, options) => ({
+      upsellIdentifier,
+      options,
+    }),
+  ],
+  (upsellPackages, { upsellIdentifier, options }) => {
+    if (!upsellIdentifier) {
+      return null;
+    }
+    if (options.must_expensive) {
+      return upsellPackages
+        .filter((up) => up.upsell_identifier === upsellIdentifier)
+        .reduce((prev, curr) => {
+          if (!prev || prev?.price_cts < curr?.price_cts) {
+            return curr;
+          }
+          return prev;
+        }, null);
+    }
+    return upsellPackages.find(
+      (up) => up.upsell_identifier === upsellIdentifier,
+    );
+  },
+);
+
+/**
+ * Retrieves all upsell packages that are not subscribed.
+ *
+ * @param state - The state object.
+ * @returns - An array of upsell packages.
+ * @see getSubscribedUpsellPackages
+ */
+export const getNonSubscribedUpsellPackages = createSelector(
+  [
+    _getUpsellPackageSubscribedIds,
+    _getUpsellPackageIds,
+    _getUpsellPackageSubscribedData,
+    _getUpsellPackageData,
+  ],
+  (
+    upsellPackageSubscribedIds,
+    upsellPackageIds,
+    upsellPackageSubscribedData,
+    upsellPackageData,
+  ) => {
+    return difference(
+      upsellPackageIds,
+      upsellPackageSubscribedIds.map(
+        (id) => upsellPackageSubscribedData[id].upsell_package,
+      ),
+    ).map((id) => upsellPackageData[id]);
+  },
+);
+
+/**
+ * Retrieves all upsell packages that are subscribed.
+ *
+ * @param state - The state object.
+ * @returns - An array of upsell packages.
+ * @see getNonSubscribedUpsellPackages
+ */
+export const getSubscribedUpsellPackages = createSelector(
+  [
+    _getUpsellPackageSubscribedIds,
+    _getUpsellPackageSubscribedData,
+    _getUpsellPackageData,
+  ],
+  (
+    upsellPackageSubscribedIds,
+    upsellPackageSubscribedData,
+    upsellPackageData,
+  ) => {
+    return upsellPackageSubscribedIds.map(
+      (id) =>
+        upsellPackageData[upsellPackageSubscribedData[id]?.upsell_package],
+    );
+  },
+);
 
 export const getPlatformSubscription = (state) => {
   const platformSubscription = _getPlatformSubscription(state);

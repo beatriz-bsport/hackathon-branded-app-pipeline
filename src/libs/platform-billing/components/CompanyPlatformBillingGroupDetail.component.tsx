@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Grid from '@material-ui/core/Grid';
@@ -7,17 +7,16 @@ import Divider from '@material-ui/core/Divider';
 
 import getUpsellPackageComponent from './UpsellPackage.component';
 
-import { UpsellPackage as UpsellPackageType } from '#libs/company/types';
+import { type UpsellPackage } from '#libs/company/types';
 
 import { PlatformSubscription } from '../type';
 
 import PlatformBillingPlanGroupCard from './PlatformBillingPlanGroupCard.component';
 
 const UpsellPackageList = (props: {
-  upsellPackageList: Array<UpsellPackageType>;
+  upsellPackageList: UpsellPackage[];
   onKnowMore: (upsellIdentifier: number) => void;
-  onRequestUpsell?: (upsellIdentifier: number) => void;
-  defaultCurrencyDisplay: string;
+  handleSubscribe?: (upsellPackage: UpsellPackage) => void;
 }) => {
   const classes = useStyles();
   return (
@@ -38,10 +37,8 @@ const UpsellPackageList = (props: {
               sm={12}
             >
               <UpsellPackageComponent
-                // @ts-expect-error
-                defaultCurrencyDisplay={props.defaultCurrencyDisplay}
+                handleSubscribe={props.handleSubscribe}
                 onKnowMore={props.onKnowMore}
-                onRequestUpsell={props.onRequestUpsell}
                 upsellPackage={up}
               />
             </Grid>
@@ -53,53 +50,58 @@ const UpsellPackageList = (props: {
 
 type Props = {
   onKnowMore: (upsellIdentifier: number) => void;
-  onRequestUpsell: (upsellIdentifier: number) => void;
+  handleSubscribe: (upsellPackage: UpsellPackage) => void;
   platformSubscription: PlatformSubscription;
+  subscribedUpsellPackages: UpsellPackage[];
+  nonSubscribedUpsellPackages: UpsellPackage[];
 };
 
-export const CompanyPlatformBillinGroupDetail = (props: Props) => {
+export const CompanyPlatformBillinGroupDetail = ({
+  onKnowMore,
+  handleSubscribe,
+  platformSubscription,
+  subscribedUpsellPackages,
+  nonSubscribedUpsellPackages,
+}: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['platformBilling']);
-  if (!props.platformSubscription) return null;
-  const { platformBillingGroup, default_currency_display } =
-    props.platformSubscription;
-  if (!platformBillingGroup) return null;
-  const myUpsellPackageList = platformBillingGroup.upsell_packages.filter(
-    // @ts-expect-error
-    (up) => !!up.subscribed,
+
+  const nonSubscribedUpsellPackagesToShow = useMemo(
+    () => nonSubscribedUpsellPackages.filter((ups) => !ups.hidden),
+    [nonSubscribedUpsellPackages],
   );
-  const otherUpsellPackageList = platformBillingGroup.upsell_packages.filter(
-    // @ts-expect-error
-    (up) => !up.subscribed,
-  );
+
+  if (!platformSubscription) {
+    return null;
+  }
+  const { platformBillingGroup } = platformSubscription;
+  if (!platformBillingGroup) {
+    return null;
+  }
   return (
     <div className={classes.container}>
-      {!!myUpsellPackageList.length && (
+      {subscribedUpsellPackages?.length > 0 && (
         <React.Fragment>
           <Typography variant="h5">
             {t('upsellPackage.myAddonTitle')}
           </Typography>
           <Divider className={classes.sectionDivider} />
           <UpsellPackageList
-            defaultCurrencyDisplay={default_currency_display}
-            onKnowMore={props.onKnowMore}
-            upsellPackageList={myUpsellPackageList}
+            onKnowMore={onKnowMore}
+            upsellPackageList={subscribedUpsellPackages}
           />
         </React.Fragment>
       )}
-      {!!otherUpsellPackageList.length && (
+      {nonSubscribedUpsellPackages?.length > 0 && (
         <React.Fragment>
           <Typography className={classes.upsellSection} variant="h5">
             {t('upsellPackage.otherAddonTitle')}
           </Typography>
           <Divider className={classes.sectionDivider} />
           <UpsellPackageList
-            defaultCurrencyDisplay={default_currency_display}
-            onKnowMore={props.onKnowMore}
-            onRequestUpsell={props.onRequestUpsell}
-            upsellPackageList={otherUpsellPackageList.filter(
-              (ups) => !ups.hidden,
-            )}
+            handleSubscribe={handleSubscribe}
+            onKnowMore={onKnowMore}
+            upsellPackageList={nonSubscribedUpsellPackagesToShow}
           />
         </React.Fragment>
       )}
@@ -108,20 +110,18 @@ export const CompanyPlatformBillinGroupDetail = (props: Props) => {
       </Typography>
       <Divider className={classes.sectionDivider} />
       <PlatformBillingPlanGroupCard
-        couponCts={props.platformSubscription.coupon_cts}
+        couponCts={platformSubscription.coupon_cts}
         currentPlatformBillingPlanId={
-          props.platformSubscription &&
-          props.platformSubscription.current_platform_billing_plan &&
-          props.platformSubscription.current_platform_billing_plan.id
+          platformSubscription &&
+          platformSubscription.current_platform_billing_plan &&
+          platformSubscription.current_platform_billing_plan.id
         }
         currentPlatformBillingStageId={
-          props.platformSubscription &&
-          props.platformSubscription.current_platform_billing_stage &&
-          props.platformSubscription.current_platform_billing_stage.id
+          platformSubscription &&
+          platformSubscription.current_platform_billing_stage &&
+          platformSubscription.current_platform_billing_stage.id
         }
-        defaultCurrencyDisplay={
-          props.platformSubscription?.default_currency_display
-        }
+        defaultCurrencyDisplay={platformSubscription?.default_currency_display}
         platformBillingGroup={platformBillingGroup}
       />
     </div>

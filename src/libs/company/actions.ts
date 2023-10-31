@@ -164,6 +164,35 @@ export function getFeatureList(options?: OptionCallback<UpsellSumup>) {
     dispatch(listFeatureActions.isLoading(false));
   };
 }
+
+/**
+ * Retrieves the feature list without dispatching the loading action.
+ *
+ * ⚠️ WARNING: This function does not dispatch the loading action to avoid unnecessary reloading of the backoffice. Use it with caution ! ⚠️
+ *
+ * @param options - Optional callback options.
+ * @returns An async function that takes a dispatch function as a parameter.
+ */
+export function getFeatureListWithoutLoading(
+  options?: OptionCallback<UpsellSumup>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(listFeatureActions.error(null));
+
+    try {
+      const response = await getFeatureListAPI();
+      dispatch(listFeatureActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(listFeatureActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+  };
+}
+
 export const retrieveMyCompanyActions = {
   success: createAction('COMPANY/ME/SUCCESS'),
   isLoading: createAction('COMPANY/ME/IS_LOADING'),

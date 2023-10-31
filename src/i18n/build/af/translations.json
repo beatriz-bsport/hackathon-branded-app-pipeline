@@ -8353,8 +8353,10 @@
       "selectTimeRange": "Select a time slot",
       "selectDateRange": "Select a date range",
       "selectDate": "Select a date",
-      "from": "From",
-      "to": "To",
+      "fromInDateContext": "From",
+      "toInDateContext": "To",
+      "fromInTimeContext": "From",
+      "toInTimeContext": "To",
       "start": "Start",
       "end": "End",
       "rapidChoice": "Quick Select",
@@ -8370,7 +8372,8 @@
         "next_month": "Upcoming month",
         "next_week": "Upcoming week"
       },
-      "from_to": "From {{-from}} to {{-to}}",
+      "fromToInDateContext": "From {{-from}} to {{-to}}",
+      "fromToInTimeContext": "From {{-from}} to {{-to}}",
       "save": "Save"
     },
     "search": "Search a report",

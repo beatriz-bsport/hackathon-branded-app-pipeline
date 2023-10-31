@@ -210,11 +210,11 @@ const DateRangeSelector: React.FC<Props & FormikProps<Values>> = ({
     return (
       <>
         <Typography color="textSecondary" display="inline">
-          {t('header.from')}
+          {t('header.fromInDateContext')}
         </Typography>
         <Typography display="inline">{values.dateStart.format('L')}</Typography>
         <Typography color="textSecondary" display="inline">
-          {t('header.to')}
+          {t('header.toInDateContext')}
         </Typography>
         <Typography display="inline">{values.dateEnd.format('L')}</Typography>
       </>
@@ -294,7 +294,7 @@ const DateRangeSelector: React.FC<Props & FormikProps<Values>> = ({
                     {t(`header.helper.${selection.timePeriod}`)}
                   </Typography>
                   <Typography color="textSecondary" variant="caption">
-                    {t('header.from_to', {
+                    {t('header.fromToInDateContext', {
                       to: moment
                         .unix(selection.getStartEndTimestamps().dateEnd)
                         .format('L'),

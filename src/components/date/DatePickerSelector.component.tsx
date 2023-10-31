@@ -89,7 +89,7 @@ const DatePickerSelector: React.FC<Props & FormikProps<Values>> = ({
     return (
       <>
         <Typography color="textSecondary" display="inline">
-          {t('header.from')}
+          {t('header.fromInDateContext')}
         </Typography>
         <Typography display="inline">{values.date.format('L')}</Typography>
       </>

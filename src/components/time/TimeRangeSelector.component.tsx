@@ -134,13 +134,13 @@ const TimeRangeSelector: React.FC<Props & FormikProps<Values>> = ({
     return (
       <>
         <Typography color="textSecondary" display="inline">
-          {t('header.from')}
+          {t('header.fromInTimeContext')}
         </Typography>
         <Typography display="inline">
           {values.timeStart.split(':').slice(0, 2).join(':')}
         </Typography>
         <Typography color="textSecondary" display="inline">
-          {t('header.to')}
+          {t('header.toInTimeContext')}
         </Typography>
         <Typography display="inline">
           {values.timeEnd.split(':').slice(0, 2).join(':')}
@@ -222,7 +222,7 @@ const TimeRangeSelector: React.FC<Props & FormikProps<Values>> = ({
                   {t(`header.helper.${ALL_DAY_SELECTION.timePeriod}`)}
                 </Typography>
                 <Typography color="textSecondary" variant="caption">
-                  {t('header.from_to', {
+                  {t('header.fromToInTimeContext', {
                     to: ALL_DAY_SELECTION.timeEnd,
                     from: ALL_DAY_SELECTION.timeStart,
                   })}

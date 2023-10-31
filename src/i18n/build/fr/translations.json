@@ -16580,7 +16580,30 @@
                 "sendEmail": "Envoyer un mail de désinscription",
                 "cancel": "Annuler",
                 "confirm": "Supprimer"
-            }
+            },
+            "autoBooking": {
+                "warning": {
+                    "content": "En fermant le formulaire, le(s) membre(s) sélectionné(s) ne sera(ont) pas ajouté(s) à la séance. Si vous avez sélectionné plusieurs membres et que vous souhaitez désélectionner ce membre uniquement, veuillez cliquer sur annuler dans le formulaire du membre",
+                    "title": "Êtes-vous sûr ?"
+                },
+                "loading": {
+                    "content": "Merci de ne pas rafraîchir l'onglet ou de quitter cette page. Ce processus peut prendre jusqu'à 40 secondes",
+                    "title": "Les membres sont ajoutés à la séance"
+                },
+                "info": {
+                    "content": "Les membres disposant d'une carte de cours valide seront automatiquement inscrits à la séance et recevront un courriel de confirmation. Le système déduira automatiquement les crédits des cartes de cours qui expirent le plus tôt",
+                    "title": "Inscription automatique pour les cartes de cours valides"
+                },
+                "success": {
+                    "title": "Les membres ont été ajoutés à la séance avec succès"
+                },
+                "error": {
+                    "content": "Les membres n'ont pas pu être ajoutés à la séance. Veuillez réessayer",
+                    "title": "L'inscription automatique a échoué"
+                }
+            },
+            "confirm": "Confirmer",
+            "cancel": "Annuler"
         },
         "member": {
             "listTitle": "Liste d'attente",

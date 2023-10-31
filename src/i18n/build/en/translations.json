@@ -7834,7 +7834,7 @@
                 "title": "Delete Spot Scheduling configuration"
             },
             "add": "Add a layout",
-            "subtitle": "Add a custom seating plan to your establishment to allow members book their specific spot for your sessions.",
+            "subtitle": "Add a custom room plan to your establishment to allow members book their specific spot for your sessions.",
             "title": "Spot Scheduling"
         },
         "localisation": "Location",

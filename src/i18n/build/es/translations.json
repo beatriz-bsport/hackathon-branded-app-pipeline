@@ -2477,7 +2477,23 @@
                 "action": "Acción",
                 "image": "Imagen"
             },
-            "title": "Personalización de la app"
+            "title": "Personalización de la app",
+            "customize": {
+                "defaultPage": {
+                    "pageContent": {
+                        "options": {
+                            "home": "Actividades (por defecto)",
+                            "bookings": "Reservas",
+                            "membership": "Calendario"
+                        },
+                        "placeholder": "Seleccione una página",
+                        "helperText": "Esta opción le permitirá elegir la página predeterminada que verán los usuarios al abrir la aplicación.",
+                        "label": "Cambiar el \"Botón de inicio\" por defecto"
+                    },
+                    "title": "Página por defecto"
+                },
+                "title": "Personalización"
+            }
         },
         "company": {
             "bankAccountInfo": {
@@ -2674,7 +2690,8 @@
                     "close": "Cerrar",
                     "displayPaymentMethod": "Ver mis métodos de pago",
                     "selectPaymentMethod": "Seleccione su método de pago",
-                    "cancel": "Cancelar"
+                    "cancel": "Cancelar",
+                    "addPaymentMethodDenied": "Este miembro no tiene actualmente ningún método de pago guardado de este tipo, y usted no tiene permiso para añadir uno nuevo."
                 },
                 "collect": {
                     "content": "Esta forma de pago se guardará en su cuenta para ser facturada de acuerdo con el contrato.",
@@ -3062,7 +3079,8 @@
                 "isEmpty": "Ninguna compra",
                 "title": "Compras",
                 "titleReverse": "Devolución de la compra",
-                "billing_establishment": "Establecimiento de facturación*"
+                "billing_establishment": "Establecimiento de facturación*",
+                "cannotCreateDiscount": "No dispone de los permisos necesarios para añadir un descuento."
             }
         },
         "invoiceItem": {
@@ -4850,7 +4868,8 @@
                 "next_year": "Próximo año",
                 "next_week": "Próxima semana",
                 "next_month": "Próximo mes",
-                "next_trimester": "Próximos tres meses"
+                "next_trimester": "Próximos tres meses",
+                "allDay": "Todo el día"
             },
             "rapidChoice": "Elección rápida",
             "end": "Final",
@@ -4858,7 +4877,9 @@
             "to": "hasta el",
             "from": "Del",
             "selectDate": "Seleccionar una fecha",
-            "selectRange": "Seleccionar un rango de fechas"
+            "selectRange": "Seleccionar un rango de fechas",
+            "selectDateRange": "Seleccione un intervalo de fechas",
+            "selectTimeRange": "Seleccione una franja horaria"
         },
         "search": "Buscar un informe",
         "datatype": {
@@ -14145,6 +14166,11 @@
             "quicksale": {
                 "access": "Creación de accesos",
                 "configuration": "Personalización de categorías"
+            },
+            "appSettings": {
+                "customize": "Personalización",
+                "popups": "Ventana emergente de inicio",
+                "links": "Enlaces externos"
             }
         }
     },
@@ -16192,7 +16218,8 @@
                     "2": "Evento + Smartlist",
                     "1": "Smartlist",
                     "0": "Evento"
-                }
+                },
+                "changeKind": "Cambiar a"
             },
             "cadenceCard": {
                 "lost": "Perdido",
@@ -16244,7 +16271,9 @@
                     "changeInExit": "Convertir en salida",
                     "delete": "Borrar",
                     "addNextStep": "Añadir el paso siguiente",
-                    "nextStepTrigger": "Activación de la siguiente etapa"
+                    "nextStepTrigger": "Activación de la siguiente etapa",
+                    "convertIntoExit": "Convertir en salida",
+                    "convertIntoStep": "Convertir en paso"
                 },
                 "defaultName": "Autostep"
             },
@@ -16275,6 +16304,14 @@
                 },
                 "step": {
                     "name": "Nombre"
+                },
+                "convertIntoStep": {
+                    "label": "Etiqueta del paso",
+                    "default": "Etiqueta del paso"
+                },
+                "convertIntoExit": {
+                    "label": "Considerar al miembro como",
+                    "title": "Salida"
                 }
             }
         }

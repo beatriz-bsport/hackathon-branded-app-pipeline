@@ -3861,6 +3861,11 @@
             "quicksale": {
                 "access": "Creazione accesso",
                 "configuration": "Personalizzazione delle categorie"
+            },
+            "appSettings": {
+                "customize": "Personalizzazione",
+                "popups": "Pop-up di avvio",
+                "links": "Link esterno"
             }
         }
     },
@@ -5721,7 +5726,25 @@
                 "helperText": "Puoi aggiungere dei link esterni sull'applicazione per reindirizzare i tuoi clienti al tuo sito web o a un'altra piattaforma. I link appariranno nella scheda di acquisto dell'applicazione mobile.",
                 "subtitle": "Link esterni"
             },
-            "title": "Personalizzazione dell'app"
+            "title": "Personalizzazione dell'app",
+            "customize": {
+                "defaultPage": {
+                    "pageContent": {
+                        "options": {
+                            "profile": "Profilo",
+                            "marketplace": "Studio",
+                            "home": "Attività (predefinita)",
+                            "bookings": "Prenotazioni",
+                            "membership": "Calendario"
+                        },
+                        "placeholder": "Seleziona una pagina",
+                        "helperText": "Questa opzione consente di scegliere la pagina predefinita che gli utenti vedranno all'apertura dell'applicazione.",
+                        "label": "Cambia il \"pulsante Home\" predefinito"
+                    },
+                    "title": "Pagina predefinita"
+                },
+                "title": "Personalizzazione"
+            }
         },
         "company": {
             "bankAccountSuccess": {
@@ -5946,7 +5969,8 @@
                 "isEmpty": "Nessun acquisto",
                 "title": "Acquisti",
                 "titleReverse": "Restituzione dell'acquisto",
-                "billing_establishment": "Stabilimento di fatturazione"
+                "billing_establishment": "Stabilimento di fatturazione",
+                "cannotCreateDiscount": "Non si dispone dell'autorizzazione necessaria per ottenere uno sconto."
             }
         },
         "invoiceInfoDialog": {
@@ -7601,7 +7625,8 @@
                 "next_week": "Prossima settimana",
                 "next_month": "Prossimo mese",
                 "next_trimester": "Prossimi tre mesi",
-                "next_year": "Prossimo anno"
+                "next_year": "Prossimo anno",
+                "allDay": "Tutto il giorno"
             },
             "selectRange": "Seleziona un intervallo di date",
             "selectDate": "Seleziona una data",
@@ -7611,7 +7636,9 @@
             "end": "Fine",
             "rapidChoice": "Scelta rapida",
             "from_to": "Da {{-from}} a {{-to}}",
-            "save": "Salva"
+            "save": "Salva",
+            "selectDateRange": "Seleziona un intervallo di date",
+            "selectTimeRange": "Seleziona una fascia oraria"
         },
         "search": "Cerca un report",
         "datatype": {
@@ -11474,7 +11501,8 @@
                     "close": "Chiudi",
                     "displayPaymentMethod": "Visualizza i miei metodi di pagamento",
                     "selectPaymentMethod": "Seleziona il tuo metodo di pagamento",
-                    "cancel": "Cancella"
+                    "cancel": "Cancella",
+                    "addPaymentMethodDenied": "Questo membro non ha attualmente alcun metodo di pagamento salvato di questo tipo e non ha il permesso di aggiungerne uno nuovo."
                 },
                 "message": {
                     "error": "Impossibile registrare questo metodo di pagamento",
@@ -12120,7 +12148,30 @@
                 "cancel": "Annulla",
                 "sendEmail": "Inviare un email di cancellazione della registrazione",
                 "contentV2": "Sei sicuro di voler rimuovere questo membro della lista d'attesa ?"
-            }
+            },
+            "autoBooking": {
+                "warning": {
+                    "content": "Chiudendo il modulo, i membri selezionati non saranno aggiunti alla sessione. Se sono stati selezionati più membri e si desidera deselezionare solo questo membro, fare clic su Annulla nel formulario",
+                    "title": "Sei sicuro?"
+                },
+                "loading": {
+                    "content": "Non aggiornare la scheda e non lasciare la pagina. Questo processo può richiedere fino a 40 secondi",
+                    "title": "I membri stanno per essere aggiunti alla sessione"
+                },
+                "info": {
+                    "content": "I membri con pass validi saranno automaticamente prenotati per la sessione e riceveranno un'e-mail di conferma. Il sistema dedurrà automaticamente i crediti dai pass che scadono prima",
+                    "title": "Prenotazioni automatiche per i pass validi"
+                },
+                "success": {
+                    "title": "I membri sono stati aggiunti con successo alla sessione"
+                },
+                "error": {
+                    "content": "Non è stato possibile aggiungere membri alla sessione. Riprova",
+                    "title": "La prenotazione automatica non è andata a buon fine"
+                }
+            },
+            "confirm": "Conferma",
+            "cancel": "Annulla"
         },
         "switchToEnable": "Riattiva la lista di attesa",
         "nbConvertible": "{{nbConvertible}} in attesa di conferma",
@@ -15475,7 +15526,8 @@
                 "marketplace_basket_summary_item": "Elemento del carrello componente (Riepilogo del carrello)",
                 "marketplace_item_quantity": "Elemento del carrello Quantità (Riepilogo del carrello)",
                 "marketplace_basket_summary_dialog": "Riepilogo del carrello (pop-up)",
-                "booker_module_offer_summary": "Riepilogo della sessione"
+                "booker_module_offer_summary": "Riepilogo della sessione",
+                "fabrique_typography": "Tipografia"
             },
             "cssConfig": {
                 "title": {
@@ -15513,7 +15565,8 @@
                     "showPrice": "Mostra il prezzo",
                     "showCredit": "Mostra i crediti",
                     "noStyledContainer": "Mostra la variante senza contenitore",
-                    "showEstablishmentAddress": "Mostra l'indirizzo della struttura"
+                    "showEstablishmentAddress": "Mostra l'indirizzo della struttura",
+                    "isBookingDisabled": "La prenotazione è disabilitata"
                 },
                 "option": {
                     "false": "No",
@@ -15565,7 +15618,8 @@
                 "pass": "Pass",
                 "common": "Comune",
                 "basket": "Carrello",
-                "bookingPage": "Prenotazione"
+                "bookingPage": "Prenotazione",
+                "fabrique": "Fabbrica"
             }
         },
         "create": "Generale",
@@ -16141,7 +16195,8 @@
                     "2": "Evento + Smartlist",
                     "1": "Smartlist",
                     "0": "Evento"
-                }
+                },
+                "changeKind": "Cambia in"
             },
             "cadenceCard": {
                 "lost": "Perso",
@@ -16193,7 +16248,9 @@
                     "changeInExit": "Trasforma in output",
                     "delete": "Elimina",
                     "addNextStep": "Aggiungi il prossimo step",
-                    "nextStepTrigger": "Attivazione per la fase successiva"
+                    "nextStepTrigger": "Attivazione per la fase successiva",
+                    "convertIntoExit": "Converti in uscita",
+                    "convertIntoStep": "Converti in step"
                 },
                 "defaultName": "Autostep"
             },
@@ -16224,6 +16281,14 @@
                 "cancel": "Cancella",
                 "step": {
                     "name": "Nome"
+                },
+                "convertIntoStep": {
+                    "label": "Step etichetta",
+                    "default": "Step etichetta"
+                },
+                "convertIntoExit": {
+                    "label": "Considera il membro come",
+                    "title": "Uscita"
                 }
             }
         }

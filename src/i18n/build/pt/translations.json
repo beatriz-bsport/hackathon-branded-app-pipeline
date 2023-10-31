@@ -3414,7 +3414,8 @@
                     "name": "Nome"
                 },
                 "convertIntoStep": {
-                    "label": "Etiqueta da etapa"
+                    "label": "Etiqueta da etapa",
+                    "default": "Etiqueta da etapa"
                 },
                 "convertIntoExit": {
                     "label": "Considerar o membro como",
@@ -12459,7 +12460,16 @@
             "customize": {
                 "defaultPage": {
                     "pageContent": {
-                        "label": "Alterar o \"botão Início\" predefinido"
+                        "label": "Alterar o \"botão Início\" predefinido",
+                        "options": {
+                            "profile": "Perfil",
+                            "marketplace": "Estúdio",
+                            "home": "Actividades (predefinição)",
+                            "bookings": "Reservas",
+                            "membership": "Calendário"
+                        },
+                        "placeholder": "Selecionar uma página",
+                        "helperText": "Esta opção permite-lhe escolher a página predefinida que os utilizadores verão ao abrir a aplicação."
                     },
                     "title": "Página predefinida"
                 },
@@ -12603,7 +12613,8 @@
                     "numberOfDistinctCheckoutItem": "Número de produtos descontínuos no cesto",
                     "isDense": "Densa",
                     "isItemEditionDisabled": "Modificação de itens desactivada",
-                    "isAddingItemPossible": "Adicionar mais itens activados"
+                    "isAddingItemPossible": "Adicionar mais itens activados",
+                    "isBookingDisabled": "A reserva está desactivada"
                 },
                 "configurationTitle": "Variações"
             },
@@ -12680,7 +12691,8 @@
                 "marketplace_basket_summary_list_item": "Componente da lista de itens do cesto (resumo do cesto)",
                 "marketplace_basket_summary_item": "Componente do item do cesto (resumo do cesto)",
                 "marketplace_item_quantity": "Quantidade do item do cesto (resumo do cesto)",
-                "booker_module_offer_summary": "Resumo da sessão"
+                "booker_module_offer_summary": "Resumo da sessão",
+                "fabrique_typography": "Tipografia"
             },
             "cssEditor": {
                 "reset": "reposto",
@@ -12772,7 +12784,8 @@
                 "pass": "Passes de aulas",
                 "subscription": "Subscrições",
                 "common": "Comum",
-                "bookingPage": "Reserva"
+                "bookingPage": "Reserva",
+                "fabrique": "Fábrica"
             },
             "customCss": {
                 "yourCode": "A sua implementação complementar:",
@@ -12824,7 +12837,30 @@
                 "content": "Tem a certeza de que pretende retirar este membro da lista de espera ? Ele será notificado por e-mail.",
                 "cancel": "Cancelar",
                 "sendEmail": "Enviar uma mensagem de email para anular a subscrição"
-            }
+            },
+            "autoBooking": {
+                "warning": {
+                    "content": "Ao fechar o formulário, o(s) membro(s) selecionado(s) não será(ão) adicionado(s) à sessão. Se seleccionou vários membros e pretende anular a seleção apenas deste membro, clique em cancelar no formulário de membro",
+                    "title": "Tens a certeza?"
+                },
+                "loading": {
+                    "content": "Não actualize o separador nem saia desta página. Este processo pode demorar até 40 segundos",
+                    "title": "Os membros estão a ser adicionados à sessão"
+                },
+                "info": {
+                    "content": "Os membros com passes válidos serão automaticamente inscritos na sessão e receberão um e-mail de confirmação. O sistema deduzirá automaticamente os créditos dos passes que expiram mais cedo",
+                    "title": "Reservas automáticas para passes válidos"
+                },
+                "success": {
+                    "title": "Os membros foram acrescentados à sessão com êxito"
+                },
+                "error": {
+                    "content": "Não foi possível adicionar membros à sessão. Por favor, tente novamente",
+                    "title": "A reserva automática falhou"
+                }
+            },
+            "confirm": "Confirmar",
+            "cancel": "Cancelar"
         },
         "form": {
             "auto_cancellation_type": {

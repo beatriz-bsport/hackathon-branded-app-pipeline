@@ -60,7 +60,30 @@
                 "title": "Löschung der Warteliste",
                 "contentV2": "Sind Sie sicher, dass Sie dieses Mitglied von der Warteliste streichen möchten?",
                 "sendEmail": "Senden Sie eine E-Mail zur Abmeldung"
-            }
+            },
+            "autoBooking": {
+                "warning": {
+                    "content": "Wenn Sie dieses Formular schließen, werden die ausgewählten Mitglieder nicht zur Session hinzugefügt. Wenn Sie mehrere Mitglieder ausgewählt haben und nur dieses eine Mitglied abwählen wollen, klicken Sie bitte auf Abbrechen auf dem Formular des Mitglieds",
+                    "title": "Sind Sie sicher?"
+                },
+                "loading": {
+                    "content": "Bitte aktualisieren Sie nicht diese Seite oder verlassen diese. Dieser Prozess kann bis zu 40 Sekunden dauern",
+                    "title": "Mitglieder werden zur Session hinzugefügt"
+                },
+                "info": {
+                    "content": "Mitglieder mit gältigen Pässen werden automatisch in die Session eingebucht und erhalten eine Bestätigungs-E-Mail. Das System wird die Credits automatisch von dem Pass abziehen, der als nächstes abläuft",
+                    "title": "Automatische Buchungen für gültige Pässe"
+                },
+                "success": {
+                    "title": "Mitglieder erfolgreich zur Session hinzugefügt"
+                },
+                "error": {
+                    "content": "Die Mitglieder konnten nicht zur Session hinzugefügt werden. Bitte versuchen Sie es erneut",
+                    "title": "Die automatische Buchung ist fehlgeschlagen"
+                }
+            },
+            "confirm": "Bestätigen",
+            "cancel": "Abbrechen"
         },
         "nbPending": "{{ nbPending }} auf die Liste",
         "nbConvertible": "{{ nbConvertible }} in Erwartung einer Bestätigung",

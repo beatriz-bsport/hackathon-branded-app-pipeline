@@ -2931,11 +2931,14 @@
                 "next_year": "Komend jaar",
                 "next_trimester": "Komende drie maanden",
                 "next_week": "Komende week",
-                "next_month": "Komende maand"
+                "next_month": "Komende maand",
+                "allDay": "Gehele dag"
             },
             "from_to": "Van {{-from}} tot {{-to}}",
             "save": "Opslaan",
-            "selectRange": "Selecteer een datumbereik"
+            "selectRange": "Selecteer een datumbereik",
+            "selectDateRange": "Selecteer een datumbereik",
+            "selectTimeRange": "Selecteer een tijdslot"
         },
         "search": "Zoek een rapportage",
         "filter": {
@@ -8420,7 +8423,25 @@
                 "helperText": "Gebruik externe links in de gepersonaliseerde app om leden door te verwijzen naar externe webpagina's.",
                 "subtitle": "Externe links"
             },
-            "title": "Gepersonaliseerde app"
+            "title": "Gepersonaliseerde app",
+            "customize": {
+                "defaultPage": {
+                    "pageContent": {
+                        "options": {
+                            "profile": "Profiel",
+                            "marketplace": "Studio",
+                            "home": "Activiteiten (standaard)",
+                            "bookings": "Boekingen",
+                            "membership": "Agenda"
+                        },
+                        "placeholder": "Selecteer een pagina",
+                        "helperText": "Met deze optie kun je de standaardpagina kiezen die gebruikers te zien krijgen als ze de app openen.",
+                        "label": "Standaard \"Home-knop\" wijzigen"
+                    },
+                    "title": "Standaard pagina"
+                },
+                "title": "Personalisatie"
+            }
         },
         "company": {
             "bankAccountSuccess": {
@@ -9937,7 +9958,8 @@
                     "close": "Sluiten",
                     "displayPaymentMethod": "Toon mijn betaalmethoden",
                     "selectPaymentMethod": "Selecteer je gewenste betaalmethode",
-                    "cancel": "Annuleer"
+                    "cancel": "Annuleer",
+                    "addPaymentMethodDenied": "Dit lid heeft momenteel geen opgeslagen betaalmethoden van dit type en je hebt geen toestemming om een nieuwe toe te voegen."
                 },
                 "collect": {
                     "content": "Deze betaalmethode wordt in je account conform de overeenkomst toegevoegd.",
@@ -13060,7 +13082,8 @@
                 "isEmpty": "Er zijn nog geen producten aan deze factuur toevoegen.",
                 "title": "Aankopen",
                 "titleReverse": "Aankoopdetails",
-                "billing_establishment": "Vestiging van facturatie*"
+                "billing_establishment": "Vestiging van facturatie*",
+                "cannotCreateDiscount": "Je hebt niet de vereiste toestemming om een korting toe te voegen."
             }
         },
         "invoiceItem": {
@@ -13520,7 +13543,30 @@
                 "confirm": "Verwijderen",
                 "sendEmail": "Stuur een afmeldbericht",
                 "contentV2": "Weet je zeker dat je dit lid van de wachtlijst wilt verwijderen?"
-            }
+            },
+            "autoBooking": {
+                "loading": {
+                    "title": "Leden worden toegevoegd aan de sessie",
+                    "content": "Vernieuw het tabblad niet en verlaat deze pagina niet. Dit proces kan tot 40 seconden duren"
+                },
+                "info": {
+                    "content": "Leden met een geldige pas worden automatisch geboekt voor de sessie en ontvangen een bevestigingsmail. Het systeem zal automatisch de credits aftrekken van de passen die als eerst verlopen",
+                    "title": "Automatische boeking voor geldige passen"
+                },
+                "success": {
+                    "title": "Leden zijn succesvol toegevoegd aan de sessie"
+                },
+                "error": {
+                    "content": "Leden kunnen niet toegevoegd worden aan de sessie. Probeer het nogmaals",
+                    "title": "De automatische boeking is mislukt"
+                },
+                "warning": {
+                    "content": "Als je het formulier sluit, wordt het geselecteerde lid niet toegevoegd aan de sessie. Als je meerdere leden hebt geselecteerd en alleen dit lid wilt afmelden, klik dan op annuleren op het ledenformulier",
+                    "title": "Weet je het zeker?"
+                }
+            },
+            "confirm": "Bevestig",
+            "cancel": "Annuleer"
         },
         "member": {
             "detail": {
@@ -15312,6 +15358,11 @@
             "quicksale": {
                 "access": "Toegangsverlening",
                 "configuration": "Categorieën"
+            },
+            "appSettings": {
+                "customize": "Personalisatie",
+                "popups": "Startup pop-up",
+                "links": "Externe links"
             }
         }
     },
@@ -15478,7 +15529,8 @@
                     "numberOfDistinctCheckoutItem": "Aantal verschillende producten in winkelmand",
                     "isAddingItemPossible": "Toevoegen van meer items geactiveerd",
                     "isDense": "Dicht",
-                    "prepaidLineKind": "Voorafbetaalde lijn type"
+                    "prepaidLineKind": "Voorafbetaalde lijn type",
+                    "isBookingDisabled": "Boeking is uitgeschakeld"
                 },
                 "configurationTitle": "Variaties"
             },
@@ -15488,7 +15540,8 @@
                 "subscription": "Abonnementen",
                 "pass": "Leskaart",
                 "common": "Algemeen",
-                "bookingPage": "Boeking"
+                "bookingPage": "Boeking",
+                "fabrique": "Fabriek"
             },
             "components": {
                 "calendar": "Agenda",
@@ -15563,7 +15616,8 @@
                 "marketplace_basket_summary": "Winkelmand overzicht",
                 "marketplace_prepaid_line_item": "Voorafbetaalde lijn lijst item",
                 "marketplace_prepaid_line_list": "Voorafbetaalde lijn lijst",
-                "marketplace_basket_summary_dialog": "Winkelmand overzicht (pop-up)"
+                "marketplace_basket_summary_dialog": "Winkelmand overzicht (pop-up)",
+                "fabrique_typography": "Typografie"
             },
             "customCss": {
                 "yourCode": "Je aanvullende implementatie:",
@@ -16183,7 +16237,8 @@
                     "2": "Evenementen & Smartlists",
                     "0": "Evenementen",
                     "1": "Smartlists"
-                }
+                },
+                "changeKind": "Verander naar"
             },
             "cadenceCard": {
                 "lost": "Verloren",
@@ -16214,7 +16269,9 @@
                     "changeInExit": "Converteren naar uitvoer",
                     "delete": "Verwijderen",
                     "addNextStep": "Volgende stap toevoegen",
-                    "nextStepTrigger": "Trigger"
+                    "nextStepTrigger": "Trigger",
+                    "convertIntoExit": "Omzetten in uitgang",
+                    "convertIntoStep": "Omzetten in stap"
                 },
                 "defaultName": "Autostap"
             },
@@ -16245,6 +16302,14 @@
                 "cancel": "Annuleren",
                 "step": {
                     "name": "Naam"
+                },
+                "convertIntoStep": {
+                    "label": "Staplabel",
+                    "default": "Staplabel"
+                },
+                "convertIntoExit": {
+                    "label": "Beschouw het lid als",
+                    "title": "Uitgang"
                 }
             }
         }

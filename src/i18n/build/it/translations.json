@@ -7638,7 +7638,13 @@
             "from_to": "Da {{-from}} a {{-to}}",
             "save": "Salva",
             "selectDateRange": "Seleziona un intervallo di date",
-            "selectTimeRange": "Seleziona una fascia oraria"
+            "selectTimeRange": "Seleziona una fascia oraria",
+            "fromToInTimeContext": "Dalle {{-from}} alle {{-to}}",
+            "toInTimeContext": "Alle",
+            "fromInTimeContext": "Dalle",
+            "toInDateContext": "Al",
+            "fromInDateContext": "Dal",
+            "fromToInDateContext": "Dal {{-from}} al {{-to}}"
         },
         "search": "Cerca un report",
         "datatype": {

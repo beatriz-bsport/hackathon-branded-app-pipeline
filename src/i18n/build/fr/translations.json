@@ -9265,10 +9265,10 @@
             "save": "Sauvegarder",
             "selectDateRange": "Sélectionner une période",
             "selectTimeRange": "Sélectionner une plage horaire",
-            "fromToInTimeContext": "Du {{-from}} au {{-to}}",
+            "fromToInTimeContext": "De {{-from}} à {{-to}}",
             "fromToInDateContext": "Du {{-from}} au {{-to}}",
-            "toInTimeContext": "Au",
-            "fromInTimeContext": "Du",
+            "toInTimeContext": "À",
+            "fromInTimeContext": "De",
             "fromInDateContext": "Du",
             "toInDateContext": "Au"
         },

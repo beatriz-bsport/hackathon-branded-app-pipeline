@@ -6036,7 +6036,13 @@
             },
             "save": "Speichern",
             "selectDateRange": "Wählen Sie einen Datumsbereich",
-            "selectTimeRange": "Wählen Sie ein Zeitfenster"
+            "selectTimeRange": "Wählen Sie ein Zeitfenster",
+            "fromToInDateContext": "Vom {{-from}} bis zum {{-to}}",
+            "fromToInTimeContext": "Von {{-from}} bis {{-to}}",
+            "toInTimeContext": "Bis",
+            "fromInTimeContext": "Von",
+            "toInDateContext": "Bis",
+            "fromInDateContext": "Von"
         },
         "search": "Suche nach einem Bericht",
         "filter": {
@@ -11013,8 +11019,8 @@
                     "email": "E-Mail",
                     "status": "Status",
                     "clicked": "Klicks",
-                    "readCount": "Anzahl der Öffnungen",
-                    "lastRead": "Letzte Öffnung"
+                    "readCount": "Geöffnet",
+                    "lastRead": "Zuletzt geöffnet am"
                 }
             },
             "status": {
@@ -11022,49 +11028,49 @@
                 "4": "Empfangen",
                 "5": "Fehler",
                 "2": "Abgelehnt",
-                "1": "Ongoing",
-                "0": "Ongoing"
+                "1": "Ausstehend",
+                "0": "Ausstehend"
             },
-            "clicksCount": "Klick",
-            "readCount": "Öffnung",
+            "clicksCount": "Klicks",
+            "readCount": "Geöffnet",
             "showSms": "SMS anzeigen",
             "isAnswerWarning": "Achtung ! Nur Sie können diese Nachricht sehen",
-            "numberOfRecipientsCompact": "{{count}} Empfänger.",
-            "numberOfRecipients": "Gesendet an 1 Empfänger",
+            "numberOfRecipientsCompact": "Empfänger: {{count}}",
+            "numberOfRecipients": "Gesendet an einen Empfänger",
             "numberOfRecipients_plural": "Gesendet an {{count}} Empfänger",
-            "showNotification": "Siehe Benachrichtigung"
+            "showNotification": "Benachrichtigung anzeigen"
         },
         "campaign": {
             "list": {
                 "showMore": "Mehr anzeigen",
-                "isEmpty": "Momentan gibt es keine gesendeten E-Mails"
+                "isEmpty": "Momentan gibt es keine gesendeten E-Mails."
             },
             "showMail": "E-Mail ansehen",
-            "sentAt": "Am {{ date_created }} gesendet",
+            "sentAt": "Gesendet am: {{ date_created }}",
             "report": {
-                "dateCreated": "Sendedatum",
+                "dateCreated": "Gesendet am:",
                 "totalClick": "Anzahl der Personen, die auf einen Link geklickt haben",
                 "deliveryRate": "Erfolgreiche Sendungen",
                 "noTopLink": "Keine Klicks",
-                "recipientList": "Details nach Empfänger",
+                "recipientList": "Details der Empfänger",
                 "topLinks": "Meist angeklickte Links",
-                "totalRead": "Number of people who opened the mail",
-                "lastOpen": "Letzte Öffnung",
+                "totalRead": "Anzahl der Personen, die die E-Mail geöffnet haben",
+                "lastOpen": "Zuletzt geöffnet am:",
                 "exportError": "Beim Export ist ein Fehler aufgetreten",
                 "exportCampaign": "Kampagne exportieren",
-                "plannedResends": "Auto-Rücksendungen geplant am:",
-                "resentOn": "Zurückgeschickt am :"
+                "plannedResends": "Automatische Neusendungen geplant am:",
+                "resentOn": "Erneut verschickt am:"
             },
             "clickCount": "Klicks",
             "recipientCount": "Empfänger: {{ total_recipients }}",
-            "showReport": "Report",
-            "readCount": "Anzahl der Öffnungen",
+            "showReport": "Berichte",
+            "readCount": "Geöffnet",
             "kind": {
                 "1": "SMS",
                 "0": "E-Mail",
                 "2": "Push-Benachrichtigung"
             },
-            "unavailableMail": "Preview nicht verfügbar",
+            "unavailableMail": "Voranschau nicht verfügbar",
             "automated": {
                 "panel": {
                     "add": "Hinzufügen",
@@ -11077,36 +11083,36 @@
                 "form": {
                     "subtitles": {
                         "create": {
-                            "leftSmartList": "Erstellen einer Regel für das automatische Senden beim Verlassen der Smartlist",
-                            "joinSmartList": "Erstellen einer Regel für das automatische Senden als Eingang für die Smartlist"
+                            "leftSmartList": "Erstellen einer Regel für das automatische Senden beim Verlassen der Smartlist.",
+                            "joinSmartList": "Automatische Nachricht für Mitglieder, die dieser Smartlist beitreten hinzufügen."
                         },
                         "update": {
                             "leftSmartList": "Bearbeiten einer Regel für das automatische Senden an den Ausgang der Smartlist",
-                            "joinSmartList": "Bearbeiten einer Regel für das automatische Senden als Eingang in die Smartlist"
+                            "joinSmartList": "Bearbeiten einer Regel für das automatische Senden als Eingang in die Smartlist."
                         }
                     },
-                    "max_communications_sent_per_member_limit": "Maximaler Wert : {{ max }}",
+                    "max_communications_sent_per_member_limit": "Maximaler Wert: {{ max }}",
                     "max_communications_sent_per_member": "Anzahl der Fälle, in denen die Regel gilt",
                     "advancedSection": "Fortgeschrittene",
                     "submit": "Bestätigen",
-                    "frequenceHelper": "Diese Benachrichtigung wird für {{ max }} {{ event_kind }} der Smartlist für jedes Mitglied gesendet. Nach {{ max }} {{ event_kind }} der Smartlist für das gleiche Mitglied erhält es diese Benachrichtigung nicht mehr. Sie können diese Einstellung unter 'Erweitert' ändern.",
+                    "frequenceHelper": "Diese Benachrichtigung wird für {{ max }} {{ event_kind }} an jedes Mitglied der Smartlist gesendet. Nach {{ max }} {{ event_kind }} werden die Mitglieder keine Nachricht mehr erhalten. Sie können diese Einstellung unter 'Erweitert' ändern.",
                     "maxCommunicationSentHelperText": {
                         "1": "Standardmäßig wird die Nachricht nur beim ersten Verlassen der Smartlist durch ein Mitglied gesendet. Sie können die Einstellung so anpassen, dass beim zweiten oder dritten Verlassen der Smartlist durch das Mitglied weitere Nachrichten gesendet werden.",
                         "0": "Standardmäßig wird die Nachricht nur beim ersten Eintrag eines Mitglieds in die Smartlist gesendet. Sie können die Einstellung so anpassen, dass beim zweiten oder dritten Eintrag des Mitglieds weitere Nachrichten gesendet werden können."
                     },
                     "limitSection": "Limit"
                 },
-                "activeSince": "Aktiv seit dem {{-date}}",
+                "activeSince": "Aktiv seit dem: {{-date}}",
                 "create": "Erstellung ",
-                "onJoin": "Am Eingang zur Smartlist",
+                "onJoin": "Am Eingang in die Smartlist",
                 "onLeft": "Beim Verlassen der Smartlist",
                 "deleteDialog": {
-                    "content": "Sind Sie sicher, dass Sie diese Regel zum automatischen Senden entfernen möchten? Diese Aktion ist endgültig.",
-                    "title": "Löschung"
+                    "content": "Sind Sie sicher, dass Sie diese Regel zum automatischen Senden entfernen möchten? Diese Aktion kann nicht mehr umgekehrt werden.",
+                    "title": "Löschen"
                 },
                 "eventKind": {
-                    "1": "Abmeldung",
-                    "0": "Anmeldung"
+                    "1": "Ausgang",
+                    "0": "Eingang"
                 }
             },
             "automatedTitle": "Automatische Sendungen",
@@ -11124,7 +11130,7 @@
             "sendSms": "SMS senden",
             "hideMail": "E-Mail verstecken",
             "count": "Zeichen",
-            "showMail": "E-Mail ansehen",
+            "showMail": "E-Mail anzeigen",
             "mailSelection": "E-Mail auswählen",
             "selectToShowPreview": "Wählen Sie eine E-Mail aus, um eine Vorschau davon zu sehen.",
             "noMailAvailable": "Keine E-Mail verfügbar. Bitte erstellen Sie eine.",
@@ -11140,7 +11146,7 @@
             "sendNotification": "Push-Benachrichtigung",
             "warningConsent2": "Diese Entscheidung deines Mitglieds zu missachten, wäre illegal. Bsport distanziert sich von jeglicher Verantwortung für den Missbrauch von direkten E-Mails.",
             "warningConsent1": "Achtung! Dieses Mitglied hat die Option, ihm Werbe-E-Mails zu senden, deaktiviert. Direkte E-Mails ermöglichen es Ihnen, mit Ihren Mitgliedern auf einfache und schnelle Weise zu kommunizieren. Sie sollten nicht für Werbe- oder Promotionszwecke verwendet werden.",
-            "titleInterpolated": "Die Variablen in der Betreffzeile und im Corp der E-Mail werden entsprechend dem Empfänger aktualisiert.",
+            "titleInterpolated": "Die Variablen in der Betreffzeile und im Körper der E-Mail werden entsprechend dem Empfänger aktualisiert.",
             "warningProvider": "Bitte beachten Sie, dass die Antworten der Mitglieder auf diese Nachricht nicht auf der Plattform, sondern direkt in Ihrer Mailbox erscheinen werden. Damit alle hier erscheinen, ändern Sie die Kommunikationseinstellung auf der Seite Einstellungen/Anpassung."
         },
         "table": {
@@ -11285,18 +11291,18 @@
                 "content": "Nachricht"
             },
             "icons": {
-                "template": "E-Mail-Template",
+                "template": "E-Mail-Vorlage",
                 "balise": "Tags",
                 "notification": "Push-Benachrichtigung",
                 "sms": "SMS",
                 "mail": "E-Mail",
-                "autoResend": "Automatische Rücksendung"
+                "autoResend": "Automatische Neusendung"
             }
         },
         "dialogRecipients": {
-            "refreshMemberData": "Um Ihre Änderungen anzuzeigen, klicken Sie bitte auf die Schaltfläche Aktualisieren.",
-            "noPhone": "nicht ausgefüllte Nummer",
-            "noMail": "nicht ausgefüllte E-Mail",
+            "refreshMemberData": "Um Ihre Änderungen anzuzeigen, klicken Sie bitte auf die Schaltfläche \"Aktualisieren\".",
+            "noPhone": "Keine Telefonnummer angegeben",
+            "noMail": "Keine E-Mail-Adresse angegeben",
             "warnings": {
                 "full": "Einige Empfänger haben keine E-Mail/Telefonnummer und es wurden nicht alle Empfänger ausgewählt.",
                 "recipientsNotAllSelected": "Es wurden nicht alle Empfänger ausgewählt.",
@@ -11305,29 +11311,29 @@
             }
         },
         "dialogTemplate": {
-            "refreshText": "Um Ihre neue Template in der Liste erscheinen zu lassen, klicken Sie bitte auf die Schaltfläche Aktualisieren.",
-            "title": "Template-Auswahl"
+            "refreshText": "Um Ihre neue Vorlage in der Liste erscheinen zu lassen, klicken Sie bitte auf die Schaltfläche \"Aktualisieren\".",
+            "title": "Vorlage auswählen"
         },
         "dialogInformation": {
             "status": {
-                "openNo": "nein",
-                "openYes": "ja",
-                "notReceived": "Nicht empfangen",
-                "4": "empfangen",
-                "1": "in der Warteschleife"
+                "openNo": "Nein",
+                "openYes": "Ja",
+                "notReceived": "Fehlgeschlagen",
+                "4": "Empfangen",
+                "1": "Ausstehend"
             },
             "headerOpen": "Geöffnet",
             "headerStatus": "Status"
         },
         "filter": {
             "choicesLabels": {
-                "71": "Empfangene",
+                "71": "Empfangen",
                 "70": "Gesendet",
-                "51": "Manuel",
+                "51": "Manuell",
                 "50": "Automatisch",
                 "32": "Warteliste",
-                "31": "Stornierte Reservierungen",
-                "30": "Reservierungen",
+                "31": "Stornierte Buchungen",
+                "30": "Buchungen",
                 "14": "Transaktions-E-Mails",
                 "13": "Benachrichtigung",
                 "12": "Smartlist",
@@ -11343,7 +11349,7 @@
                 "title": "Nachrichten"
             },
             "sendParameter": {
-                "placeholder": "Wählen Sie eine Sendeeinstellung",
+                "placeholder": "Wählen Sie eine Einstellung",
                 "title": "Parameter für die Sendung"
             },
             "recipient": {
@@ -11351,20 +11357,20 @@
                 "title": "Empfänger"
             },
             "channel": {
-                "placeholder": "Wählen Sie einen Kanaltyp aus",
+                "placeholder": "Wählen Sie einen Kommunikationskanal aus",
                 "title": "Kanäle"
             },
             "kind": {
                 "placeholder": "Wählen Sie eine Sendungsart aus",
                 "title": "Art der Sendung"
             },
-            "numberFilter": "1 angewandter Filter",
-            "numberFilter_plural": "{{count}} angeandte Filter",
+            "numberFilter": "1 Filter angewendet",
+            "numberFilter_plural": "{{count}} Filter angewendet",
             "dateFilter": {
-                "dateEnd": "Datum des Endes",
-                "dateStart": "Datum des Anfangs",
+                "dateEnd": "Enddatum",
+                "dateStart": "Anfangsdatum",
                 "period": "Zeitraum",
-                "title": "Datum des Versands"
+                "title": "Gesendet am:"
             },
             "filterAction": "Filtern",
             "applyFilter": "Anwenden"

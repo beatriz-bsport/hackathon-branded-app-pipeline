@@ -2484,7 +2484,9 @@
                         "options": {
                             "home": "Actividades (por defecto)",
                             "bookings": "Reservas",
-                            "membership": "Calendario"
+                            "membership": "Calendario",
+                            "profile": "Perfil",
+                            "marketplace": "Mi espacio"
                         },
                         "placeholder": "Seleccione una página",
                         "helperText": "Esta opción le permitirá elegir la página predeterminada que verán los usuarios al abrir la aplicación.",
@@ -4879,7 +4881,13 @@
             "selectDate": "Seleccionar una fecha",
             "selectRange": "Seleccionar un rango de fechas",
             "selectDateRange": "Seleccione un intervalo de fechas",
-            "selectTimeRange": "Seleccione una franja horaria"
+            "selectTimeRange": "Seleccione una franja horaria",
+            "fromToInTimeContext": "Desde {{-from}} hasta {{-to}}",
+            "fromToInDateContext": "Desde {{-from}} hasta {{-to}}",
+            "toInTimeContext": "Hasta",
+            "fromInTimeContext": "Desde",
+            "toInDateContext": "hasta",
+            "fromInDateContext": "Desde"
         },
         "search": "Buscar un informe",
         "datatype": {
@@ -11594,7 +11602,30 @@
                 "title": "Supresión de la lista de espera",
                 "sendEmail": "Enviar un correo electrónico para cancelar la suscripción",
                 "contentV2": "¿Está seguro de que quiere eliminar a este miembro de la lista de espera?"
-            }
+            },
+            "autoBooking": {
+                "warning": {
+                    "content": "Al cerrar el formulario, los miembros seleccionados no se añadirán a la sesión. Si ha seleccionado a varios miembros y desea deseleccionar sólo a este miembro, pulse cancelar en el formulario de miembros.",
+                    "title": "Está seguro?"
+                },
+                "loading": {
+                    "content": "No actualice la pestaña ni abandone esta página. Este proceso puede tardar hasta 40 segundos",
+                    "title": "Se añaden miembros a la sesión"
+                },
+                "info": {
+                    "content": "Los miembros con bonos válidos serán inscritos automáticamente en la sesión y recibirán un correo electrónico de confirmación. El sistema descontará automáticamente los créditos de los bonos que caduquen antes.",
+                    "title": "Reservas automáticas para bonos válidos"
+                },
+                "success": {
+                    "title": "Los miembros se añadieron a la sesión con éxito"
+                },
+                "error": {
+                    "content": "No se han podido añadir miembros a la sesión. Vuelva a intentarlo",
+                    "title": "La reserva automática ha fallado"
+                }
+            },
+            "confirm": "Confirmar",
+            "cancel": "Cancelar"
         },
         "explainWaitingListConf": "Ej: hay 3 horas antes de la sesión, el estudiante tiene {{nbMinutesBeforeBookingOptionExpire}} minutos para confirmar su reserva antes de abandonar su plaza.",
         "form": {
@@ -15534,7 +15565,8 @@
                     "numberOfDistinctCheckoutItem": "Número de productos distintos en la cesta",
                     "isDense": "Denso",
                     "isItemEditionDisabled": "Modificación de elementos desactivada",
-                    "isAddingItemPossible": "Añadir más elementos activados"
+                    "isAddingItemPossible": "Añadir más elementos activados",
+                    "isBookingDisabled": "Reservas desactivadas"
                 },
                 "configurationTitle": "Variaciones"
             },
@@ -15544,7 +15576,8 @@
                 "subscription": "Suscripciones",
                 "pass": "Bonos",
                 "common": "Común",
-                "bookingPage": "Reserva"
+                "bookingPage": "Reserva",
+                "fabrique": "Fábrica"
             },
             "components": {
                 "calendar": "Página del calendario",
@@ -15619,7 +15652,8 @@
                 "marketplace_basket_summary_list_item": "Componente de la lista de artículos de la cesta (Resumen de la cesta)",
                 "marketplace_basket_summary_item": "Componente del artículo de la cesta (Resumen de la cesta)",
                 "marketplace_item_quantity": "Cantidad de artículos de la cesta (resumen de la cesta)",
-                "booker_module_offer_summary": "Resumen de la sesión"
+                "booker_module_offer_summary": "Resumen de la sesión",
+                "fabrique_typography": "Tipografía"
             },
             "customCss": {
                 "yourCode": "Su implementación complementaria:",

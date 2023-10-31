@@ -2938,7 +2938,13 @@
             "save": "Opslaan",
             "selectRange": "Selecteer een datumbereik",
             "selectDateRange": "Selecteer een datumbereik",
-            "selectTimeRange": "Selecteer een tijdslot"
+            "selectTimeRange": "Selecteer een tijdslot",
+            "fromToInDateContext": "Van {{-from}} tot {{-to}}",
+            "fromToInTimeContext": "Van {{-from}} tot {{-to}}",
+            "toInTimeContext": "Tot",
+            "toInDateContext": "Tot",
+            "fromInTimeContext": "Van",
+            "fromInDateContext": "Van"
         },
         "search": "Zoek een rapportage",
         "filter": {

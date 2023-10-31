@@ -8245,7 +8245,13 @@
             "average": "Em média",
             "sum": "Soma",
             "selectDateRange": "Selecionar um intervalo de datas",
-            "selectTimeRange": "Selecionar um horário"
+            "selectTimeRange": "Selecionar um horário",
+            "fromToInTimeContext": "De {{-from}} para {{-to}}",
+            "fromToInDateContext": "De {{-from}} para {{-to}}",
+            "toInTimeContext": "Para",
+            "fromInTimeContext": "De",
+            "toInDateContext": "Para",
+            "fromInDateContext": "De"
         },
         "presetValuesByDatatype": {
             "payment_engine": {

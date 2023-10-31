@@ -178,3 +178,11 @@ export const getSimilarBookingList = createSelector(
   [_getData, _getIdsSimilar],
   (data, ids) => ids.map((id) => data[id]),
 );
+
+export const getFutureBookingsByMemberCount = (
+  state: State,
+  memberId: number,
+) => {
+  const futureBookingsByMember = state.booking.futureBookingsByMember.byId;
+  return futureBookingsByMember[memberId]?.length ?? 0;
+};

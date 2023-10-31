@@ -404,6 +404,45 @@ export function fetchBookingsByMember({
   };
 }
 
+export const fetchFutureBookingsByMemberActions = {
+  success: createAction<{ memberId: number; bookings: Booking[] }>(
+    'FUTURE_BOOKINGS/BY_MEMBER/SUCCESS',
+  ),
+  isLoading: createAction<boolean>('FUTURE_BOOKINGS/BY_MEMBER/IS_LOADING'),
+  error: createAction<Error | null>('FUTURE_BOOKINGS/BY_MEMBER/ERROR'),
+};
+
+export function fetchFutureBookingsByMember(
+  member: number,
+  options: OptionCallback<Booking[]>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchFutureBookingsByMemberActions.isLoading(true));
+    dispatch(fetchFutureBookingsByMemberActions.error(null));
+    try {
+      const response = await fetchBookingListAPI({
+        member,
+        page_size: 30,
+        booking_status_code: 0,
+        future_booking: true,
+      });
+      dispatch(
+        fetchFutureBookingsByMemberActions.success({
+          memberId: member,
+          bookings: response.data.results,
+        }),
+      );
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results);
+      }
+    } catch (err) {
+      dispatch(fetchFutureBookingsByMemberActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(fetchFutureBookingsByMemberActions.isLoading(false));
+  };
+}
+
 export const byConsumerPackActions = {
   success: createAction('BOOKING/BY_CONSUMER_PACK/SUCCESS'),
   isLoading: createAction('BOOKING/BY_CONSUMER_PACK/IS_LOADING'),

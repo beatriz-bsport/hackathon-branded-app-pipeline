@@ -119,6 +119,7 @@ export type BookingsState = {
   similar: ErrorAndLoading & {
     allIds: number[];
   };
+  futureBookingsByMember: ErrorAndLoading & { allIds: number[] };
 };
 
 export type BookingsAction =

@@ -1,3 +1,4 @@
+import { PaginatedResponse } from '../../state/types';
 import { cleanParams } from '../../utils/createUrlHandlers';
 import {
   buildUrlParams,
@@ -7,6 +8,7 @@ import {
   deleteAuth,
   patchAuth,
 } from '../../http';
+import { Booking } from './types';
 
 export const fetchFilteredBookingOptions = async (params: any) => {
   return getAuth(
@@ -16,8 +18,11 @@ export const fetchFilteredBookingOptions = async (params: any) => {
 
 export const fetchBookingList = async (params: any) => {
   const cleanedParams = cleanParams(params);
-  return getAuth(`${API_V1_URI}/booking/${buildUrlParams(cleanedParams)}`);
+  return getAuth<PaginatedResponse<Booking>>(
+    `${API_V1_URI}/booking/${buildUrlParams(cleanedParams)}`,
+  );
 };
+
 export const fetchOfferGroupRelatedBookings = async (bookingId: number) => {
   return getAuth(
     `${API_V1_URI}/booking/${bookingId}/get_offer_group_related_bookings/`,

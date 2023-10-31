@@ -16,8 +16,9 @@ import {
   updateRecurrenceRuleBookingActions,
   deleteRecurrenceRuleBookingActions,
   fetchSimilarFuturBookingInGroupActions,
+  fetchFutureBookingsByMemberActions,
 } from './actions';
-import { BookingsState } from './types';
+import { Booking, BookingsState } from './types';
 
 export const initialState: Immutable.Immutable<BookingsState> =
   Immutable<BookingsState>({
@@ -89,6 +90,11 @@ export const initialState: Immutable.Immutable<BookingsState> =
     },
     similar: {
       allIds: [],
+      loading: false,
+      error: null,
+    },
+    futureBookingsByMember: {
+      byId: {},
       loading: false,
       error: null,
     },
@@ -389,6 +395,27 @@ export default handleActions<Immutable.Immutable<BookingsState>>(
           },
           { deep: true },
         );
+    },
+    [fetchFutureBookingsByMemberActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['futureBookingsByMember', 'loading'], payload);
+    },
+    [fetchFutureBookingsByMemberActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error },
+    ) => {
+      return state.setIn(['futureBookingsByMember', 'error'], payload);
+    },
+    [fetchFutureBookingsByMemberActions.success.toString()]: (
+      state,
+      { payload }: { payload: { memberId: number; bookings: Booking[] } },
+    ) => {
+      return state.setIn(
+        ['futureBookingsByMember', 'byId', payload.memberId],
+        payload.bookings.map((booking: Booking) => booking.id),
+      );
     },
   },
   initialState,

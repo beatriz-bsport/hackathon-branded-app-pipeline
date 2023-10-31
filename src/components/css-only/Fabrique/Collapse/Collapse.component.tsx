@@ -41,7 +41,7 @@ export const Collapse: React.FC<Props> = ({
     return () => {
       clearTimeout(transitionClassTimeout);
     };
-  }, [isExpanded, collapsedHeight]);
+  }, [children, isExpanded, collapsedHeight]);
 
   return (
     <div ref={collapseRef} className="bs-collapse">

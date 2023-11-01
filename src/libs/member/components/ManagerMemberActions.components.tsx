@@ -29,7 +29,6 @@ type OwnProps = {
   unArchiveMember: () => void;
   member: Member;
   openCommunicationDrawer: () => void;
-  companyId: number;
   numberOfUnreadAnswers: number;
 };
 type Props = OwnProps;
@@ -58,8 +57,7 @@ export const MemberActions: React.FC<Props> = (props: Props) => {
             items={
               Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
               Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ||
-              Config.REACT_APP_SENTRY_ENVIRONMENT === 'local' ||
-              props.companyId === 498
+              Config.REACT_APP_SENTRY_ENVIRONMENT === 'local'
                 ? [
                     {
                       label: t('communication'),
@@ -132,8 +130,7 @@ export const MemberActions: React.FC<Props> = (props: Props) => {
         <div className={classes.bottomButtonContainer}>
           {(Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
             Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ||
-            Config.REACT_APP_SENTRY_ENVIRONMENT === 'local' ||
-            props.companyId === 498) && (
+            Config.REACT_APP_SENTRY_ENVIRONMENT === 'local') && (
             <Fab
               className={classes.bottomButton}
               color="secondary"

@@ -486,7 +486,6 @@ export class MemberDetail extends React.Component<Props> {
         {member && !member.is_pos && (
           <MemberActions
             billMember={this.handleBillMember}
-            companyId={this.props.companyId}
             interrogateMemberStatus={this.interrogateMemberStatus}
             member={this.props.member}
             numberOfUnreadAnswers={numberOfUnreadAnswers}
@@ -552,8 +551,7 @@ export class MemberDetail extends React.Component<Props> {
         />
         {(Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
           Config.REACT_APP_SENTRY_ENVIRONMENT === 'local' ||
-          Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ||
-          this.props.companyId === 498) &&
+          Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging') &&
           isOpenChat && (
             <CommunicationDrawer
               contextIdentifier={CONTEXT_MEMBER}

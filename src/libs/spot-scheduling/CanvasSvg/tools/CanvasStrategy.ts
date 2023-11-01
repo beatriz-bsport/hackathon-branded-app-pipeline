@@ -25,6 +25,7 @@ import CanvasDoorComponent from './Door/CanvasDoor.component';
 import DoorDOMController from './Door/CanvasDoor.controller';
 import CanvasDoorTool from './Door/CanvasDoor.tool';
 import CanvasResizer from './Resizer/CanvasResizer.tool';
+import CanvasBeautifier from './Beautifier/Beautifier.tool';
 
 export type CanvasSelectableToolsEnum =
   | 'eraser'
@@ -38,7 +39,8 @@ export type CanvasSelectableToolsEnum =
   | 'screen'
   | 'door'
   | 'spot_selector'
-  | 'resizer';
+  | 'resizer'
+  | 'beautifier';
 
 export const CANVAS_SELECTABLE_TOOLS = {
   eraser: 'eraser' as const,
@@ -54,6 +56,7 @@ export const CANVAS_SELECTABLE_TOOLS = {
   door: 'door' as const,
   spot_selector: 'spot_selector' as const,
   resizer: 'resizer' as const,
+  beautifier: 'beautifier' as const,
 };
 
 export const CanvasComponentClasses: { [key: string]: any } = {
@@ -91,4 +94,5 @@ export const CanvasSelectableToolStrategy = {
   [CANVAS_SELECTABLE_TOOLS.screen]: new CanvasScreenTool(),
   [CANVAS_SELECTABLE_TOOLS.door]: new CanvasDoorTool(),
   [CANVAS_SELECTABLE_TOOLS.resizer]: new CanvasResizer(),
+  [CANVAS_SELECTABLE_TOOLS.beautifier]: new CanvasBeautifier(),
 };

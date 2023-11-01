@@ -10807,12 +10807,15 @@
       "line": "Draw",
       "rotation": "Rotate",
       "eraser": "Rubber",
+      "advancedTool": "HTML",
       "sections": {
         "custom": "Custom",
         "elements": "Elements",
         "place": "Position",
         "walls": "Walls",
         "edition": "Edit",
+        "editionHistory": "Edition history",
+        "editionAdvanced": "Advanced edition",
         "spivi": "Spivi integration",
         "assets": "Assets"
       },

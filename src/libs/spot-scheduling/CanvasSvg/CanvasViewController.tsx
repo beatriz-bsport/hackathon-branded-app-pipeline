@@ -5,9 +5,9 @@ import { compose } from 'recompose';
 import clx from 'classnames';
 import { WithTranslation, withTranslation } from 'react-i18next';
 
+import Popover from '@material-ui/core/Popover';
 import CanvasSvg from './CanvasSvg';
 import CanvasSvgDisplayOnly from './CanvasSvgDisplayOnly';
-
 import { CanvasElement } from './tools/BaseClasses/Base.tool';
 import { MaterialStyleType } from '../../../utils/types';
 import {
@@ -19,6 +19,7 @@ import {
 import CanvasScreenComponent from './tools/Screen/CanvasScreen.component';
 import CanvasTeacherComponent from './tools/Teacher/CanvasTeacher.component';
 import CanvasZoomButtons from './CanvasZoomButtons.component';
+import BeautifierForm from './tools/Beautifier/BeautifierForm.component';
 import { SpotType } from '../types';
 import { DEFAULT_SPOT_TYPE_ID } from '../utils';
 
@@ -73,7 +74,12 @@ class CanvasViewController extends React.PureComponent<Props> {
 
     this.state = {
       isUnsafeZone: false,
+      openBeautifyPopover: false,
+      anchorEl: null,
+      clickedElement: null,
     };
+
+    this.anchorRef = React.createRef();
   }
 
   get tool() {
@@ -216,12 +222,25 @@ class CanvasViewController extends React.PureComponent<Props> {
     }
   };
 
+  handleClosePopover = () => {
+    this.setState({ openBeautifyPopover: false, anchorEl: null });
+  };
+
   onMouseClickElement = (
     mouseEvent: any,
     clickedElement: CanvasElement<any>,
   ) => {
     if (this.props.selectedTool === CANVAS_SELECTABLE_TOOLS.spot_selector) {
       this.props.onSelectElement(clickedElement);
+      return;
+    }
+    if (this.props.selectedTool === CANVAS_SELECTABLE_TOOLS.beautifier) {
+      mouseEvent.persist();
+      this.setState((prevState) => ({
+        openBeautifyPopover: !prevState.openBeautifyPopover,
+        anchorEl: mouseEvent.target,
+        clickedElement,
+      }));
       return;
     }
 
@@ -234,6 +253,27 @@ class CanvasViewController extends React.PureComponent<Props> {
       });
       elements && this.props.onElementsChange(elements);
     }
+  };
+
+  onSubmitBeautifier = (values: any) => {
+    const canvasElement = this.state.clickedElement;
+
+    const newElements = [
+      ...this.props.elements.filter((ele) => ele.id !== canvasElement.id),
+      {
+        ...canvasElement,
+        data: {
+          ...canvasElement.data,
+          ...values,
+        },
+      },
+    ];
+    this.props.onElementsChange(newElements);
+    this.setState(() => ({
+      openBeautifyPopover: false,
+      anchorEl: null,
+      clickedElement: null,
+    }));
   };
 
   onMouseOverElement = (
@@ -426,6 +466,7 @@ class CanvasViewController extends React.PureComponent<Props> {
           <CanvasSvgDisplayOnly>{this.renderElements()}</CanvasSvgDisplayOnly>
         ) : (
           <CanvasSvg
+            ref={this.anchorRef}
             disabledEdit={this.props.disabledEdit}
             enablePan={
               !this.props.isBoutiqueDisplay &&
@@ -448,7 +489,21 @@ class CanvasViewController extends React.PureComponent<Props> {
             {this.renderElements()}
           </CanvasSvg>
         )}
-
+        <Popover
+          anchorEl={this.state.anchorEl}
+          anchorOrigin="right"
+          onClose={this.handleClosePopover}
+          open={
+            !!this.state.anchorEl &&
+            this.state.openBeautifyPopover &&
+            !!this.state.clickedElement
+          }
+        >
+          <BeautifierForm
+            canvasElement={this.state.clickedElement}
+            onSubmit={this.onSubmitBeautifier}
+          />
+        </Popover>
         <div className={classes.cursor} id={this.cursorId}>
           {this.renderCursor()}
         </div>

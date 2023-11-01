@@ -28,6 +28,7 @@ import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 import HeightIcon from '@material-ui/icons/Height';
 import RedoIcon from '@material-ui/icons/Redo';
 import AutorenewIcon from '@material-ui/icons/Autorenew';
+import CodeIcon from '@material-ui/icons/Code';
 
 import AspectRatioIcon from '@material-ui/icons/AspectRatio';
 import ColorInput from '../../../components/input/ColorInput.component';
@@ -111,7 +112,6 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
               <Typography> {t('toolsMenu.pointer')}</Typography>
             </div>
           </Grid>
-
           <Grid item xs={4}>
             <div className={classes.itemContainer}>
               <ButtonBase
@@ -129,7 +129,6 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
               <Typography> {t('toolsMenu.resize')}</Typography>
             </div>
           </Grid>
-
           <Grid item xs={4}>
             <div className={classes.itemContainer}>
               <ButtonBase
@@ -147,7 +146,6 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
               <Typography> {t('toolsMenu.hand')}</Typography>
             </div>
           </Grid>
-
           <Grid item xs={4}>
             <div className={classes.itemContainer}>
               <ButtonBase
@@ -166,7 +164,6 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
               <Typography> {t('toolsMenu.rotation')}</Typography>
             </div>
           </Grid>
-
           <Grid item xs={4}>
             <div className={classes.itemContainer}>
               <ButtonBase
@@ -184,7 +181,34 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
               <Typography> {t('toolsMenu.eraser')}</Typography>
             </div>
           </Grid>
-
+        </Grid>
+        <Typography className={classes.sectionTitle} variant="h6">
+          {t('toolsMenu.sections.editionAdvanced')}
+        </Typography>
+        <Grid container className={classes.sectionContainer} spacing={4}>
+          <Grid item xs={4}>
+            <div className={classes.itemContainer}>
+              <ButtonBase
+                className={clx({
+                  [classes.item]: true,
+                  [classes.itemSelected]:
+                    this.props.selectedTool ===
+                    CANVAS_SELECTABLE_TOOLS.beautifier,
+                })}
+                onClick={() => {
+                  this.props.onSelectTool(CANVAS_SELECTABLE_TOOLS.beautifier);
+                }}
+              >
+                <CodeIcon fontSize="large" />
+              </ButtonBase>
+              <Typography> {t('toolsMenu.advancedTool')}</Typography>
+            </div>
+          </Grid>
+        </Grid>
+        <Typography className={classes.sectionTitle} variant="h6">
+          {t('toolsMenu.sections.editionHistory')}
+        </Typography>
+        <Grid container className={classes.sectionContainer} spacing={4}>
           <Grid item xs={4}>
             <div className={classes.itemContainer}>
               <ButtonBase
@@ -196,7 +220,6 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
               <Typography> {t('toolsMenu.undo')}</Typography>
             </div>
           </Grid>
-
           <Grid item xs={4}>
             <div className={classes.itemContainer}>
               <ButtonBase

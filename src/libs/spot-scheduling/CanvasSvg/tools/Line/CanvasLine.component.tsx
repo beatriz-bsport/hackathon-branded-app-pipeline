@@ -20,7 +20,7 @@ export default class CanvasLineComponent extends CanvasBaseComponent<CanvasLineP
   }
 
   render() {
-    const { stroke, fill } = this.props;
+    const { stroke, fill, strokeWidth } = this.props;
 
     return (
       <polyline
@@ -29,7 +29,7 @@ export default class CanvasLineComponent extends CanvasBaseComponent<CanvasLineP
         fill={fill || 'transparent'}
         points={this.pointsStr}
         stroke={stroke || 'black'}
-        strokeWidth={2}
+        strokeWidth={strokeWidth ?? 2}
       />
     );
   }

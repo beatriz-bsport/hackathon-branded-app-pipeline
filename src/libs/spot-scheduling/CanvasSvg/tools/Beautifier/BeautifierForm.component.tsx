@@ -5,15 +5,37 @@ import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 import { Formik, FormikProps } from 'formik';
 import type { OptionCallback } from '../../../../../state/types';
-// @ts-expect-error
-import { IntegerField, TextField } from '../../../../../components/forms';
+
+import {
+  HeightField,
+  WidthField,
+  PositionXField,
+  PositionYField,
+  RotationField,
+  StrokeLineCapField,
+  StrokeWidthField,
+  StrokeColorField,
+  FillField,
+} from './BeautifierInputForm.component';
 import { CanvasElement } from '../BaseClasses/Base.tool';
+import { CANVAS_SELECTABLE_TOOLS } from '../CanvasStrategy';
+import useBeautifierField from './useBeautifierField.hook';
 
 const AssetUploaderSchema = Yup.object().shape({
+  type: Yup.string().oneOf([
+    CANVAS_SELECTABLE_TOOLS.door,
+    CANVAS_SELECTABLE_TOOLS.line,
+    CANVAS_SELECTABLE_TOOLS.rect,
+    CANVAS_SELECTABLE_TOOLS.screen,
+    CANVAS_SELECTABLE_TOOLS.spot,
+    CANVAS_SELECTABLE_TOOLS.spotCustomized,
+    CANVAS_SELECTABLE_TOOLS.teacher,
+  ]),
   fill: Yup.string().nullable(),
   height: Yup.number().nullable(false),
   rotation: Yup.number().nullable(false).min(0).max(360),
   stroke: Yup.string().nullable(),
+  strokeLinecap: Yup.string().oneOf(['butt', 'round', 'square']),
   strokeWidth: Yup.string().nullable(),
   width: Yup.number().nullable(false),
   x: Yup.number().nullable(false),
@@ -21,14 +43,27 @@ const AssetUploaderSchema = Yup.object().shape({
 });
 
 const getInitialValues = (canvasElement: CanvasElement<any>) => {
-  return canvasElement
-    ? {
+  if (!canvasElement) {
+    return {};
+  }
+  switch (canvasElement.type) {
+    case CANVAS_SELECTABLE_TOOLS.door:
+      return {
+        type: canvasElement.type,
+        ...canvasElement.data,
+        strokeWidth: canvasElement.data?.strokeWidth
+          ? parseInt(canvasElement.data?.strokeWidth)
+          : 5,
+      };
+    default:
+      return {
+        type: canvasElement.type,
         ...canvasElement.data,
         strokeWidth: canvasElement.data?.strokeWidth
           ? parseInt(canvasElement.data?.strokeWidth)
           : 1,
-      }
-    : {};
+      };
+  }
 };
 
 type Props = {
@@ -45,6 +80,17 @@ export const BeautifierForm: React.FC<Props> = ({
   const { t } = useTranslation('spotScheduling');
   const classes = useStyles();
 
+  const {
+    displayFill,
+    displayHeight,
+    displayRotation,
+    displayStroke,
+    displayStrokeLineCap,
+    displayStrokeWidth,
+    displayWidth,
+    displayX,
+    displayY,
+  } = useBeautifierField(canvasElement?.type);
   return (
     <Formik
       enableReinitialize
@@ -66,31 +112,20 @@ export const BeautifierForm: React.FC<Props> = ({
             <div style={{ width: '100%' }}>
               <div className={classes.centered}>
                 <div className={classes.formContainer}>
-                  <IntegerField fullWidth label="height" name="height" />
-                  <IntegerField fullWidth label="width" name="width" />
-                  <IntegerField fullWidth label="x" name="x" />
-                  <IntegerField fullWidth label="y" name="y" />
-                  <IntegerField fullWidth label="rotation" name="rotation" />
-                  <IntegerField
-                    fullWidth
-                    label="strokeWidth"
-                    name="strokeWidth"
-                  />
-                  <TextField
-                    transparentColorAvailable
-                    label="fill"
-                    name="fill"
-                  />
-                  <TextField
-                    transparentColorAvailable
-                    label="stroke"
-                    name="stroke"
-                  />
+                  {displayHeight && <HeightField />}
+                  {displayWidth && <WidthField />}
+                  {displayX && <PositionXField />}
+                  {displayY && <PositionYField />}
+                  {displayFill && <FillField />}
+                  {displayRotation && <RotationField />}
+                  {displayStroke && <StrokeColorField />}
+                  {displayStrokeLineCap && <StrokeLineCapField />}
+                  {displayStrokeWidth && <StrokeWidthField />}
                   <Button
                     color="primary"
                     disabled={loading}
                     type="submit"
-                    variant="contained"
+                    variant="text"
                   >
                     {t('assetUpoadForm.submit')}
                   </Button>
@@ -105,54 +140,13 @@ export const BeautifierForm: React.FC<Props> = ({
 };
 
 const useStyles = makeStyles((theme) => ({
-  field: {
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
-  },
-  imageInput: {
-    cursor: 'pointer',
-    marginTop: theme.spacing(1),
-    height: 100,
-    width: 100,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    backgroundColor: theme.palette.grey[200],
-    borderRadius: 5,
-    '&:hover': {
-      backgroundColor: theme.palette.grey[300],
-    },
-  },
-  imageInputIcon: {
-    cursor: 'pointer',
-  },
-  previewContainer: {
-    display: 'flex',
-    gap: theme.spacing(1),
-    border: `1px solid ${theme.palette.grey[100]}`,
-    borderRadius: theme.spacing(1),
-    alignItems: 'center',
-    maxWidth: '100%',
-    justifyContent: 'space-around',
-  },
-  rightIcons: {
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-around',
-  },
-  fileName: { paddingTop: theme.spacing(1) },
-  spotStatus: { whiteSpace: 'nowrap', overFlow: 'hidden' },
-  alertInfo: {
-    display: 'flex',
-    alignItems: 'center',
-  },
   centered: {
     width: '100%',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingLeft: theme.spacing(0.5),
+    paddingRight: theme.spacing(0.5),
   },
   formContainer: {
     paddingTop: theme.spacing(2),

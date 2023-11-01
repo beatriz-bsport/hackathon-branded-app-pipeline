@@ -5,8 +5,10 @@ export interface CanvasDoorProps {
   x: number;
   y: number;
   rotation: number;
-  stroke: string;
-  fill: string;
+  stroke: React.SVGAttributes<SVGPolylineElement>['stroke'];
+  fill: React.SVGAttributes<SVGPolylineElement>['fill'];
+  strokeWidth?: React.SVGAttributes<SVGPolylineElement>['strokeWidth'];
+  strokeLinecap?: React.SVGAttributes<SVGPolylineElement>['strokeLinecap'];
 }
 
 export default class CanvasDoorComponent extends CanvasBaseComponent<CanvasDoorProps> {
@@ -17,7 +19,7 @@ export default class CanvasDoorComponent extends CanvasBaseComponent<CanvasDoorP
   }
 
   render() {
-    const { x, y, rotation, stroke } = this.props;
+    const { x, y, rotation, stroke, strokeWidth, strokeLinecap } = this.props;
 
     return (
       <g
@@ -32,15 +34,15 @@ export default class CanvasDoorComponent extends CanvasBaseComponent<CanvasDoorP
           fill={stroke || 'black'}
           points="20,15 20,50"
           stroke={stroke || 'black'}
-          strokeLinecap="round"
-          strokeWidth={5}
+          strokeLinecap={strokeLinecap ?? 'round'}
+          strokeWidth={strokeWidth ?? 5}
         />
 
         <path
           d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"
           fill={stroke || 'black'}
           stroke={stroke || 'black'}
-          strokeLinecap="round"
+          strokeLinecap={strokeLinecap ?? 'round'}
           transform="translate(25 15) scale(1.5)"
         />
 

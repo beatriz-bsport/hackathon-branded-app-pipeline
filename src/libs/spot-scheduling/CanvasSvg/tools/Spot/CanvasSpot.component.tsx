@@ -33,10 +33,10 @@ let TRIANGLE_LENGTH = 70;
 export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
   static zIndex = 99;
 
-  static getTransform(x: number, y: number, rotation: number) {
-    return `translate(${x} ${y}) rotate(${rotation} ${LENGTH_REFERENCE / 2} ${
-      LENGTH_REFERENCE / 2
-    })`;
+  static getTransform(x: number, y: number, rotation: number, height: number) {
+    return `translate(${x} ${y}) rotate(${rotation} ${
+      height ?? LENGTH_REFERENCE / 2
+    } ${LENGTH_REFERENCE / 2})`;
   }
 
   static getTransformRectangle(x: number, y: number, rotation: number) {
@@ -58,7 +58,7 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
   }
 
   renderPersonalizedSpot(spotType: SpotType) {
-    const { x, y, rotation, indexType, index } = this.props;
+    const { x, y, rotation, indexType, index, height, width } = this.props;
     let image = spotType?.free_image;
     if (this.props.selected) image = spotType?.selected_image;
     if (this.props.taken) image = spotType.taken_image;
@@ -80,20 +80,21 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
           x === undefined ? -9999 : x,
           y === undefined ? -9999 : y,
           rotation || 0,
+          height ?? 0,
         )}
         type="personalized"
       >
         <rect
           className="svg-element"
           fill="transparent"
-          height={LENGTH_REFERENCE}
+          height={height ?? LENGTH_REFERENCE}
           stroke={
             this.props.selected && !this.props.selectingSpot
               ? 'red'
               : 'transparent'
           }
           strokeWidth={2}
-          width={LENGTH_REFERENCE}
+          width={width ?? LENGTH_REFERENCE}
         />
         <image
           height={SPOT_IMAGE_HEIGHT}
@@ -123,10 +124,10 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
         </text>
         <rect
           fill="transparent"
-          height={LENGTH_REFERENCE}
+          height={height ?? LENGTH_REFERENCE}
           stroke="transparent"
           visibility="visible"
-          width={LENGTH_REFERENCE}
+          width={width ?? LENGTH_REFERENCE}
           x={0}
           y={0}
         />

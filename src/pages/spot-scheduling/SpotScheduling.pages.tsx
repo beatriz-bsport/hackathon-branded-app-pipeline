@@ -7,14 +7,15 @@ import { CircularProgress } from '@material-ui/core';
 import { push } from 'connected-react-router';
 import { withTranslation } from 'react-i18next';
 import { ROOM_PLAN_NOT_EDITABLE_BECAUSE_AVAILABLE_OFFERS_SCHEDULED } from '@bsport/common/lib/master-data/spot-scheduling';
-
+import { v4 as uuid4 } from 'uuid';
 import { MaterialStyleType } from '../../utils/types';
-import CanvasEditorComponent from '../../libs/spot-scheduling/CanvasSvg/CanvasEditor.component';
+import CanvasEditorComponent from '#libs/spot-scheduling/CanvasSvg/CanvasEditor.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { RootState } from '../../reducers';
 
 import {
   createAssetForBlueprint,
+  createUnboundedAssetForBlueprint,
   createSpotForBlueprint,
   fetchAssetForBlueprint,
   fetchSpotForBlueprint,
@@ -23,17 +24,23 @@ import {
   updateRoomBlueprint,
   updateSpotForBlueprint,
   deleteSpotType,
-} from '../../libs/spot-scheduling/actions';
-import { RoomBlueprint, SpotType } from '../../libs/spot-scheduling/types';
+  fetchUnboundedAssetForBlueprintPaginated,
+} from '#libs/spot-scheduling/actions';
+import {
+  AssetForBlueprint,
+  RoomBlueprint,
+  SpotType,
+} from '#libs/spot-scheduling/types';
 import {
   getAssetByIdentifier,
   getRoomBlueprint,
   getAvailableRoomBlueprints,
   getSpotTypesOfCompanyByBlueprintId,
-} from '../../libs/spot-scheduling/selector';
-import { snackbar } from '../../libs/snackbar/actions';
+} from '#libs/spot-scheduling/selector';
+import { snackbar } from '#libs/snackbar/actions';
 import { OptionCallback } from '../../state/types';
 import CanvasSpotCreatorDrawer from '#libs/spot-scheduling/component/SpotCreator/CanvasSpotCreatorDrawer.component';
+import CanvasAssetUploaderDialog from '#libs/spot-scheduling/component/SpotCreator/CanvasAssetUploaderDialog.component';
 import CanvasSpotDeleteModal from '#libs/spot-scheduling/CanvasSvg/CanvasSpotDeleteModal.component';
 import { PERSONALIZED_CUSTOMIZATION } from '#libs/spot-scheduling/component/SpotCreator/CanvasSpotCreatorForm.component';
 import SpiviConfirmationDialog from '#libs/spot-scheduling/component/SpiviConfirmationDialog.component';
@@ -42,7 +49,7 @@ import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc.js
 import { UPSELL_IDENTIFIER_SPIVI } from '#libs/platform-billing/upsell-identifiers';
 import { hasUpsell } from '#libs/platform-billing/utils';
 import { FeatureList } from '#libs/company/types';
-import { buildSpiviCorrespondence } from '../../libs/spot-scheduling/utils';
+import { buildSpiviCorrespondence } from '#libs/spot-scheduling/utils';
 
 import { isErrorWithCustomCode } from '#libs/utils';
 
@@ -56,6 +63,8 @@ type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>>;
 
 class SpotSchedulingPages extends React.PureComponent<Props> {
+  canvasEditorRef = React.createRef();
+
   state = {
     creationFormIsOpen: false,
     spotTypeToUpdate: false,
@@ -67,6 +76,7 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
     spotCorrespondence: {},
     tablePages: {},
     tableCountPages: {},
+    assetUploaderIsOpen: false,
   };
 
   componentDidMount() {
@@ -250,6 +260,30 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
     }
   };
 
+  onUnboundedCreateAsset = (
+    { image }: { image: File },
+    options?: OptionCallback,
+  ) => {
+    const newAsset = new FormData();
+    newAsset.append('blueprint', this.props.id.toString());
+    newAsset.append('identifier', uuid4());
+    newAsset.append('asset', image);
+    newAsset.append('is_unbounded', true);
+
+    this.props.createUnboundedAssetForBlueprint(newAsset, {
+      onSuccess: () => {
+        this.props.fetchUnboundedAssetForBlueprintPaginated({
+          is_unbounded: true,
+          blueprint: this.props.id,
+        });
+        options?.onSuccess?.();
+      },
+      onError: () => {
+        options?.onError?.();
+      },
+    });
+  };
+
   newOnDeleteSpot = async (id: number, options: OptionCallback) => {
     let error = false;
 
@@ -285,6 +319,10 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
 
   openSpotUpdateForm = (spotTypeToUpdate: SpotType) => {
     this.setState({ creationFormIsOpen: true, spotTypeToUpdate });
+  };
+
+  openAssetUploader = () => {
+    this.setState({ assetUploaderIsOpen: true });
   };
 
   openDeleteModal = () => {
@@ -342,6 +380,33 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
     this.setState({ spiviDialogIsOpen: false });
   };
 
+  onClickUnboundedAsset = (asset: AssetForBlueprint) => {
+    const data = {
+      x: 0,
+      y: 0,
+      selected: false,
+      height: 100,
+      width: 100,
+      image: asset.asset,
+    };
+    const newSvgElement = {
+      type: 'rect',
+      id: `unbounded-asset-${asset.identifier}`,
+      data,
+    };
+
+    const currentCanvasEditor = this.canvasEditorRef?.current;
+    currentCanvasEditor?.state?.current?.elements &&
+      currentCanvasEditor.setStateWithHistory({
+        elements: [
+          ...(currentCanvasEditor?.state?.current?.elements ?? []),
+          newSvgElement,
+        ],
+      });
+
+    this.setState({ assetUploaderIsOpen: false });
+  };
+
   render() {
     const { classes } = this.props;
     return (
@@ -349,6 +414,7 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
         {this.props.roomBlueprint ? (
           <div style={{ width: '100%' }}>
             <CanvasEditorComponent
+              ref={this.canvasEditorRef}
               assets={this.props.assets}
               blueprints={this.props.allBlueprints}
               fetchSpotForBlueprint={
@@ -358,6 +424,7 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
               onExit={this.onExit}
               onSave={this.onSave}
               onUpdateImages={this.onUpdateImages}
+              openAssetUploader={this.openAssetUploader}
               openDeleteModal={this.openDeleteModal}
               openSpiviDialog={this.openSpiviDialog}
               openSpotCreationForm={this.openSpotCreationForm}
@@ -374,6 +441,15 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
               onCreateSpot={this.onCreateSpot}
               onUpdateSpot={this.onUpdateSpotType}
               open={this.state.creationFormIsOpen}
+              spotTypeToUpdate={this.state.spotTypeToUpdate}
+            />
+            <CanvasAssetUploaderDialog
+              blueprintId={this.props.id}
+              closeDialog={() => this.setState({ assetUploaderIsOpen: false })}
+              defaultSpot={this.state.defaultSpot}
+              onClickUnboundedAsset={this.onClickUnboundedAsset}
+              onCreateAsset={this.onUnboundedCreateAsset}
+              open={this.state.assetUploaderIsOpen}
               spotTypeToUpdate={this.state.spotTypeToUpdate}
             />
             <CanvasSpotDeleteModal
@@ -451,8 +527,10 @@ const mapDispatchToProps = {
   fetchAssetForBlueprint,
   fetchSpotForBlueprint,
   createAssetForBlueprint,
+  createUnboundedAssetForBlueprint,
   createSpotForBlueprint,
   deleteSpotType,
+  fetchUnboundedAssetForBlueprintPaginated,
   push,
   success: snackbar.success,
   error: snackbar.error,

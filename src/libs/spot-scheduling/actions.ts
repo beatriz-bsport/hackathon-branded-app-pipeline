@@ -21,6 +21,14 @@ export const assetForBlueprintActions = {
   error: createAction('SPOTSCHEDULING/ASSETBLUEPRINT/ERROR'),
 };
 
+export const assetUnboundedForBlueprintActions = {
+  success: createAction('SPOTSCHEDULING/ASSETUNBOUNDEDBLUEPRINT/SUCCESS'),
+  list: createAction('SPOTSCHEDULING/ASSETUNBOUNDEDBLUEPRINT/LIST'),
+  isLoading: createAction('SPOTSCHEDULING/ASSETUNBOUNDEDBLUEPRINT/IS_LOADING'),
+  error: createAction('SPOTSCHEDULING/ASSETUNBOUNDEDBLUEPRINT/ERROR'),
+  create: createAction('SPOTSCHEDULING/ASSETUNBOUNDEDBLUEPRINT/CREATE'),
+};
+
 export const createOrUpdateSpotForBlueprintActions = {
   success: createAction('SPOTSCHEDULING/SPOTBLUEPRINT/CREATE/SUCCESS'),
   isLoading: createAction('SPOTSCHEDULING/SPOTBLUEPRINT/CREATE/IS_LOADING'),
@@ -180,6 +188,85 @@ export function fetchAssetForBlueprint(
     }
 
     dispatch(assetForBlueprintActions.isLoading(false));
+  };
+}
+
+export function fetchUnboundedAssetForBlueprintPaginated(
+  params: {
+    is_unbounded: boolean;
+    blueprint: number;
+  },
+  options?: OptionCallback,
+): ThunkAction {
+  return async (dispatch: Dispatch, getState) => {
+    dispatch(assetUnboundedForBlueprintActions.isLoading(true));
+    dispatch(assetUnboundedForBlueprintActions.error(null));
+    try {
+      if (!params?.blueprint) {
+        throw new Error(
+          'Not fetching UnboundedAssetForBluePrint without blueprint id',
+        );
+      }
+      const currentState =
+        getState()?.spotScheduling?.assetUnboundedForBlueprint.byBlueprintId?.[
+          params?.blueprint
+        ];
+
+      const hasCurrentState = !!currentState;
+      const nextPage = currentState?.next_page;
+      if (hasCurrentState && !nextPage) {
+        // Avoiding spaming when it's actually useless
+        // Better to do nothing than allow a lot of api calls.
+        return;
+      }
+      const response = await api.fetchAssetForBlueprint({
+        ...params,
+        is_unbounded: true,
+        page: nextPage ?? 1,
+      });
+
+      dispatch(
+        assetUnboundedForBlueprintActions.success({
+          data: response.data,
+          blueprintId: params.blueprint,
+        }),
+      );
+      if (options && options.onSuccess) {
+        options.onSuccess();
+      }
+    } catch (error) {
+      dispatch(assetUnboundedForBlueprintActions.error(error));
+      if (options && options.onError) {
+        options.onError(error);
+      }
+    }
+
+    dispatch(assetUnboundedForBlueprintActions.isLoading(false));
+  };
+}
+
+export function createUnboundedAssetForBlueprint(
+  data: FormData,
+  options?: OptionCallback,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    let response = null;
+    dispatch(assetUnboundedForBlueprintActions.isLoading(true));
+    dispatch(assetUnboundedForBlueprintActions.error(null));
+    try {
+      response = await api.createAssetForBlueprint(data);
+      dispatch(assetUnboundedForBlueprintActions.create(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess();
+      }
+    } catch (error) {
+      dispatch(assetUnboundedForBlueprintActions.error(error));
+      if (options && options.onError) {
+        options.onError(error);
+      }
+    }
+    dispatch(assetUnboundedForBlueprintActions.isLoading(false));
+    return response;
   };
 }
 

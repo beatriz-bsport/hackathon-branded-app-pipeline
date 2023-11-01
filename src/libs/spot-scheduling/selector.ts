@@ -135,3 +135,28 @@ export const getSpotTypesOfCompany = createSelector(
           !spotType.disabled,
       ),
 );
+
+export const getAssetUnboundedForBluePrintState = (state: RootState) =>
+  state.spotScheduling.assetUnboundedForBlueprint;
+
+export const getAssetUnboudedForBluePrintById = createSelector(
+  [getAssetUnboundedForBluePrintState, (_: RootState, id: number) => id],
+  (assetUnboundedForBluePrintState, id) => {
+    return (
+      assetUnboundedForBluePrintState.byBlueprintId[id] ??
+      ({
+        allIds: [],
+        byId: {},
+        count: 0,
+        next_page: null,
+        previous_page: null,
+      } as {
+        allIds: number[];
+        byId: { [key: string]: AssetForBlueprint };
+        next_page: number | null;
+        previous_page: number | null;
+        count: number | null;
+      })
+    );
+  },
+);

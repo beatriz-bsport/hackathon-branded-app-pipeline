@@ -1,6 +1,7 @@
 // @ts-nocheck
 import {
   ButtonBase,
+  Button,
   Checkbox,
   FormControlLabel,
   Grid,
@@ -23,11 +24,12 @@ import VideoLabelIcon from '@material-ui/icons/VideoLabel';
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import UndoIcon from '@material-ui/icons/Undo';
 import InputAdornment from '@material-ui/core/InputAdornment';
-
+import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 import HeightIcon from '@material-ui/icons/Height';
 import RedoIcon from '@material-ui/icons/Redo';
 import AutorenewIcon from '@material-ui/icons/Autorenew';
 
+import AspectRatioIcon from '@material-ui/icons/AspectRatio';
 import ColorInput from '../../../components/input/ColorInput.component';
 import { MaterialStyleType } from '../../../utils/types';
 import { DEFAULT_SPOT_TYPE_ID } from '../utils';
@@ -72,6 +74,7 @@ type OwnProps = {
   spotTypeIdSelected?: number;
   spiviBoxId: number;
   onSpiviBoxIdChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  openAssetUploader: () => void;
 };
 
 type Props = OwnProps &
@@ -87,11 +90,9 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
     return (
       <div className={classes.toolsMenuContainer}>
         <Typography variant="h5">{t('toolsMenu.title')}</Typography>
-
         <Typography className={classes.sectionTitle} variant="h6">
           {t('toolsMenu.sections.edition')}
         </Typography>
-
         <Grid container className={classes.sectionContainer} spacing={4}>
           <Grid item xs={4}>
             <div className={classes.itemContainer}>
@@ -108,6 +109,24 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
                 <PointerIcon />
               </ButtonBase>
               <Typography> {t('toolsMenu.pointer')}</Typography>
+            </div>
+          </Grid>
+
+          <Grid item xs={4}>
+            <div className={classes.itemContainer}>
+              <ButtonBase
+                className={clx({
+                  [classes.item]: true,
+                  [classes.itemSelected]:
+                    this.props.selectedTool === CANVAS_SELECTABLE_TOOLS.resizer,
+                })}
+                onClick={() => {
+                  this.props.onSelectTool(CANVAS_SELECTABLE_TOOLS.resizer);
+                }}
+              >
+                <AspectRatioIcon fontSize="large" />
+              </ButtonBase>
+              <Typography> {t('toolsMenu.resize')}</Typography>
             </div>
           </Grid>
 
@@ -190,7 +209,6 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
             </div>
           </Grid>
         </Grid>
-
         <Typography className={classes.sectionTitle} variant="h6">
           {t('toolsMenu.sections.walls')}
         </Typography>
@@ -230,7 +248,6 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
             </div>
           </Grid>
         </Grid>
-
         <Grid spacing={4}>
           <Grid item xs={9}>
             <Typography className={classes.customItemContainer}>
@@ -268,7 +285,6 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
             label={t('toolsMenu.showGrid')}
           />
         </div>
-
         <Typography className={classes.sectionTitle} variant="h6">
           {t('toolsMenu.sections.place')}
         </Typography>
@@ -330,7 +346,6 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
             </Tooltip>
           </Grid>
         </Grid>
-
         <Typography className={classes.sectionTitle} variant="h6">
           {t('toolsMenu.teacher')}
         </Typography>
@@ -380,7 +395,6 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
             </div>
           </Grid>
         </Grid>
-
         <Typography className={classes.sectionTitle} variant="h6">
           {t('toolsMenu.sections.elements')}
         </Typography>
@@ -421,6 +435,13 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
             </div>
           </Grid>
         </Grid>
+        <Typography className={classes.sectionTitle} variant="h6">
+          {t('toolsMenu.sections.assets')}
+        </Typography>
+        <Button onClick={this.props.openAssetUploader}>
+          <OpenInNewIcon />
+          <Typography> {t('toolsMenu.openAssetModal')}</Typography>
+        </Button>
         <Grid item xs={9}>
           <Typography className={classes.customItemContainer}>
             {t('toolsMenu.customFill')}
@@ -448,6 +469,8 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
             </div>
           )}
         </FeatureListProvider>
+
+        <div className={classes.spacer} />
       </div>
     );
   }
@@ -559,6 +582,9 @@ const styles = (theme: Theme) => ({
       backgroundColor: '#E8E8E8',
       borderRadius: theme.spacing(3),
     },
+  },
+  spacer: {
+    paddingTop: 100,
   },
 });
 

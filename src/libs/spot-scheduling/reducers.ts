@@ -1,6 +1,7 @@
 // @ts-nocheck
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
+import uniq from 'lodash/uniq';
 import { AssetForBlueprint, SpotSchedulingState } from './types';
 import {
   assetForBlueprintActions,
@@ -8,6 +9,7 @@ import {
   roomBlueprintActions,
   spotForBlueprintActions,
   deleteSpotForBlueprintActions,
+  assetUnboundedForBlueprintActions,
 } from './actions';
 
 const initialState: Immutable.Immutable<SpotSchedulingState> =
@@ -28,6 +30,11 @@ const initialState: Immutable.Immutable<SpotSchedulingState> =
     spotForBlueprint: {
       byId: {},
       ids: [],
+      loading: false,
+      error: null,
+    },
+    assetUnboundedForBlueprint: {
+      byBlueprintId: {},
       loading: false,
       error: null,
     },
@@ -175,6 +182,109 @@ export default handleActions(
     [deleteSpotForBlueprintActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['spotForBlueprint', 'error'], payload);
     },
+    [assetUnboundedForBlueprintActions.isLoading.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['assetUnboundedForBlueprint', 'loading'], payload);
+    },
+    [assetUnboundedForBlueprintActions.error.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state.setIn(['assetUnboundedForBlueprint', 'error'], payload);
+    },
+    [assetUnboundedForBlueprintActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      const { data, blueprintId } = payload;
+
+      return state
+        .setIn(
+          [
+            'assetUnboundedForBlueprint',
+            'byBlueprintId',
+            blueprintId,
+            'allIds',
+          ],
+          uniq([
+            ...(state.assetUnboundedForBlueprint.byBlueprintId?.[blueprintId]
+              ?.allIds ?? []),
+            ...((data?.results ?? [])
+              .filter((_asset) => _asset.is_unbounded)
+              .map((asset) => asset.id) ?? []),
+          ]),
+        )
+        .setIn(
+          ['assetUnboundedForBlueprint', 'byBlueprintId', blueprintId, 'count'],
+          data.count,
+        )
+        .setIn(
+          [
+            'assetUnboundedForBlueprint',
+            'byBlueprintId',
+            blueprintId,
+            'next_page',
+          ],
+          data.next_page,
+        )
+        .setIn(
+          [
+            'assetUnboundedForBlueprint',
+            'byBlueprintId',
+            blueprintId,
+            'previous_page',
+          ],
+          data.previous_page,
+        )
+        .merge(
+          {
+            assetUnboundedForBlueprint: {
+              byBlueprintId: {
+                [blueprintId]: {
+                  byId: data.results.reduce((acc: any, ps: any) => {
+                    acc[ps.id] = ps;
+                    return acc;
+                  }, {}),
+                },
+              },
+            },
+          },
+          { deep: true },
+        );
+    },
+    [assetUnboundedForBlueprintActions.create.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state
+        .setIn(
+          [
+            'assetUnboundedForBlueprint',
+            'byBlueprintId',
+            payload.blueprint,
+            'allIds',
+          ],
+          uniq([
+            payload.id,
+            ...(state.assetUnboundedForBlueprint.byBlueprintId?.[
+              payload.blueprint
+            ]?.allIds ?? []),
+          ]),
+        )
+        .setIn(
+          [
+            'assetUnboundedForBlueprint',
+            'byBlueprintId',
+            payload.blueprint,
+            'byId',
+            payload.id,
+          ],
+          payload,
+        );
+    },
+    assetUnboundedForBlueprintActions,
   },
   initialState,
 );

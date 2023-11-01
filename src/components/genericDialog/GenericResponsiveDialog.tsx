@@ -14,6 +14,8 @@ type OwnProps = {
   noFullScreen?: boolean;
   disablePortal?: boolean;
   disableEnforceFocus?: boolean;
+  PaperComponent?: React.Component;
+  ariaLabelledby?: string;
 };
 
 type Props = OwnProps;
@@ -29,6 +31,8 @@ export const GenericResponsiveDialog: React.FC<Props> = (props) => {
     onClose,
     open,
     padding,
+    PaperComponent,
+    ariaLabelledby,
   } = props;
   const theme: Theme = useTheme();
   const classes = useStyles({ padding });
@@ -39,6 +43,7 @@ export const GenericResponsiveDialog: React.FC<Props> = (props) => {
   return (
     <Dialog
       fullWidth
+      {...(ariaLabelledby ? { 'aria-labelledby': ariaLabelledby } : {})}
       classes={{ paper: classes.modal }}
       disableEnforceFocus={disableEnforceFocus}
       disablePortal={disablePortal}
@@ -48,6 +53,7 @@ export const GenericResponsiveDialog: React.FC<Props> = (props) => {
       onClose={onClose}
       open={open}
       scroll="body"
+      {...(PaperComponent || {})}
     >
       {children}
     </Dialog>

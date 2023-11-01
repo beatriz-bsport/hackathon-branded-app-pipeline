@@ -60,6 +60,7 @@ type OwnProps = {
   fetchSpotForBlueprint: (data: { company: number }) => void;
   isMobile: boolean;
   onMouseOverSpot?: (spot: CanvasElement<any>) => void;
+  openAssetUploader?: () => void;
 };
 
 type Props = OwnProps &
@@ -173,6 +174,10 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
     this.setState({ selectedTool, spotTypeId });
   };
 
+  onChangeToolToResizer = () => {
+    this.onChangeTool(CANVAS_SELECTABLE_TOOLS.resizer);
+  };
+
   onHeightCoachChange = (coefficient: string) => {
     this.setState({ coachHeight: coefficient });
   };
@@ -252,7 +257,6 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
 
   render() {
     const { classes } = this.props;
-
     return (
       <div
         className={classNames(classes.container, {
@@ -291,6 +295,7 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
               getAsset={this.getAsset}
               isBoutiqueDisplay={this.props.isBoutiqueDisplay}
               isMobile={this.props.isMobile}
+              onChangeToolToResizer={this.onChangeToolToResizer}
               onElementsChange={(elements: CanvasElement<any>[]) =>
                 this.props.setStateWithHistory({ elements })
               }
@@ -338,6 +343,7 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
                   wallStrokeColor: strokeColor || 'transparent',
                 })
               }
+              openAssetUploader={this.props.openAssetUploader}
               openDeleteModal={this.props.openDeleteModal}
               openSpotCreationForm={(defaultSpot: boolean) => {
                 this.onClickSave();

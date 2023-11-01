@@ -13,6 +13,7 @@ exports.default = {
       walls: 'Walls',
       edition: 'Edit',
       spivi: 'Spivi integration',
+      assets: 'Assets',
     },
     title: 'Toolbox',
     customFill: 'Filling',
@@ -30,6 +31,8 @@ exports.default = {
     helperText: "The teacher's size must be strictly positive",
     requiredForSpivi: 'Required for Spivi integration',
     boxId: 'Box ID',
+    openAssetModal: 'Open assets handler',
+    resize: 'Scale',
   },
   placeCount: '{{count}} spot(s)',
   roomBlueprints: 'Spot Scheduling',
@@ -116,6 +119,12 @@ exports.default = {
     name: 'Name',
     subtitle: 'Creation of a place type',
     title: 'Spot Scheduling',
+  },
+  assetUpoadForm: {
+    description:
+      'You can upload and use images directly from here. Once new images are uploaded they will be available to insert within your map.',
+    submit: 'Submit',
+    loadMore: 'Load more',
   },
   errorAvailableOffersScheduled:
     'Cannot be saved. This layout cannot be edited since it is used in future sessions.',

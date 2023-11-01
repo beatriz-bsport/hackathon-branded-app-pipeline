@@ -5,7 +5,9 @@ export abstract class ElementDOMController<ComponentProps> {
 
   id: string;
 
-  elm: HTMLElement | null;
+  elm: Element | null;
+
+  compatibleWithResize = false;
 
   select(id: string) {
     this.elm = document.getElementById(id);

@@ -9,28 +9,69 @@ export interface CanvasRectProps {
   stroke?: string;
   fill?: string;
   rotation?: number;
+  image?: string;
 }
 
 export default class CanvasRectComponent extends CanvasBaseComponent<CanvasRectProps> {
   render() {
-    const { x, y, width, height, stroke, fill, rotation } = this.props;
-
+    const { x, y, width, height, stroke, fill, rotation, image } = this.props;
+    if (!image) {
+      /* In this case Rect is use to actually display a rectangle on the map */
+      return (
+        <rect
+          {...this.BaseProps}
+          className="svg-element"
+          data-rotation={rotation || 0}
+          fill={fill || 'transparent'}
+          height={height || 0}
+          stroke={stroke || 'black'}
+          strokeWidth={2}
+          transform={
+            rotation && `rotate(${rotation} ${x + width / 2} ${y + height / 2})`
+          }
+          width={width || 0}
+          x={x || 0}
+          y={y || 0}
+        />
+      );
+    }
+    // The method shown below is the most effective way I've found to
+    // preserve an image that perfectly fits the viewbox of its container.
     return (
-      <rect
+      <g
         {...this.BaseProps}
-        className="svg-element"
-        data-rotation={rotation || 0}
-        fill={fill || 'transparent'}
-        height={height || 0}
-        stroke={stroke || 'black'}
-        strokeWidth={2}
+        className="svg-element unbounded-asset-group"
         transform={
           rotation && `rotate(${rotation} ${x + width / 2} ${y + height / 2})`
         }
-        width={width || 0}
-        x={x || 0}
-        y={y || 0}
-      />
+      >
+        <svg height={height || 0} width={width || 0} x={x || 0} y={y || 0}>
+          <defs>
+            <pattern
+              height="100%"
+              id={`image${this.BaseProps.id}`}
+              patternContentUnits="objectBoundingBox"
+              patternUnits="userSpaceOnUse"
+              width="100%"
+            >
+              <image
+                height={1}
+                href={image}
+                preserveAspectRatio="xMidYMid slice"
+                width={1}
+                x={0}
+                y={0}
+              />
+            </pattern>
+          </defs>
+          <rect
+            fill={`url(#image${this.BaseProps.id})`}
+            height="100%"
+            patternContentUnits="objectBoundingBox"
+            width="100%"
+          />
+        </svg>
+      </g>
     );
   }
 }

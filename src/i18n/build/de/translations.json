@@ -9667,8 +9667,8 @@
                 "not_found": "Dieser Gutscheincode ist ungültig.",
                 "not_applicable": "Dieser Gutscheincode ist nicht anwendbar.",
                 "apply": "Bewerben",
-                "5006": "Dieser einmalige Code ist bereits mit einem offenen Warenkorb verbunden.",
-                "5004": "Dieser Code kann auf keinen einzelnen Artikel angewendet werden."
+                "5006": "Dieser einmalige Code ist bereits mit einem offenen Warenkorb verbunden",
+                "5004": "Dieser Code kann nicht auf einen einzelnen Artikel angewendet werden."
             }
         },
         "createCoupon": "Einen Rabatt hinzufügen",
@@ -9683,9 +9683,9 @@
                     "all": "Der ganze Warenkorb",
                     "9": "Terminpass",
                     "6": "Versandkosten",
-                    "2": "Shop",
+                    "2": "Webshop",
                     "1": "Kurspass",
-                    "10": "Pack"
+                    "10": "Pakete"
                 },
                 "choicesFranchise": {
                     "9": "Geteilte Terminpässe",
@@ -9693,7 +9693,7 @@
                 }
             },
             "minimum_amount": {
-                "label": "Minimaler Kaufbetrag"
+                "label": "Minimaler Wert des Warenkorbs"
             },
             "combinable": {
                 "label": "Kann mit anderen Codes verwendet werden"
@@ -9712,28 +9712,28 @@
             "code": {
                 "label": "Code",
                 "helperText": "Der Code, der an die betroffenen Kunden weitergeleitet wird",
-                "helperTextFranchise": "Den Code, den Sie an die betreffenden Kunden weitergeben. Achten Sie darauf, dass der Code nicht bereits in Ihren verschiedenen Studios existiert."
+                "helperTextFranchise": "Der Code, den Sie an die betroffenen Kunden weitergeben. Achten Sie darauf, dass der Code nicht bereits in Ihren verschiedenen Studios existiert."
             },
             "is_active": {
                 "label": "Aktiv",
-                "helperText": "Ein Code, der nicht aktiv ist, kann von Kunden nicht verwendet werden"
+                "helperText": "Ein Code, der nicht aktiv ist, kann von Kunden nicht verwendet werden."
             },
             "section": {
                 "advanced": "Fortgeschritten",
                 "voucherConfig": "Rabatt",
                 "availability": "Verfügbarkeit",
-                "usability": "Benutzung",
+                "usability": "Nutzbarkeit",
                 "applies_to": "Einstellungen",
                 "general": "Allgemein",
                 "subscription": "Abonnement (Vertrag)",
-                "blacklist_tags": "Nein - Erlaubt",
-                "whitelist_tags": "Autorisiert",
+                "blacklist_tags": "Nicht erlaubt",
+                "whitelist_tags": "Erlaubt",
                 "tags": "Tags",
                 "tagInfo": "Verwenden Sie Tags, um den Coupon nur für eine bestimmte Gruppe von Mitgliedern auf dem Marktplatz, im Widget und in der App nutzbar zu machen. Sie können Tags auswählen, damit der Gutschein nur von Mitgliedern mit einem der ausgewählten Tags verwendet werden kann. Oder Sie können Tags auswählen, um den Gutschein nur für Mitglieder mit einem der ausgewählten Tags unbrauchbar zu machen. "
             },
             "selectorPlaceholder": {
-                "paymentPack": "Kurspass auswählen (gültig für alle Pässe, wenn keiner ausgewählt wurde)",
-                "shopitem": "Produkte aus dem Shop auswählen (gültig für alle Produkte, wenn keins ausgewählt ist)",
+                "paymentPack": "Kurspässe auswählen (gültig für alle Pässe, wenn keiner ausgewählt wurde)",
+                "shopitem": "Produkte aus dem Webshop auswählen (gültig für alle Produkte, wenn keins ausgewählt ist)",
                 "privatePass": "Terminpässe auswählen (gültig für alle Pässe, wenn keine ausgewählt ist)",
                 "paymentCombo": "Pakete auswählen (gilt für alle Produkte, wenn keines ausgewählt ist)"
             },
@@ -9744,7 +9744,7 @@
                 "label": "Mit Ablaufdatum"
             },
             "voucher_type": {
-                "percent": "In Prozenten",
+                "percent": "In Prozent",
                 "amount": "Wertmäßig"
             },
             "percent_off": {
@@ -9778,29 +9778,29 @@
         "list": {
             "inactiveCoupons": "Deaktivierte oder abgelaufene Werbeaktionen",
             "activeCoupons": "Aktive Werbeaktionen",
-            "isEmpty": "Kein gespeicherter Werbecode"
+            "isEmpty": "Kein gespeicherter Rabattcode."
         },
         "card": {
-            "member_use": "Benutzung pro Mitglied",
+            "member_use": "Verwendungen pro Mitglied",
             "expiration": "Ablaufdatum",
             "no_expiration": "Kein Ablaufdatum",
-            "validity": "Gültigkeit :",
+            "validity": "Gültigkeit:",
             "cumulable": "Kumulativ",
             "no_cumulable": "Nicht kumulativ",
-            "uses": "Benutzungen",
+            "uses": "Verwendungen",
             "limitation": "Beschränkt auf",
             "first_buy": "Kann nur beim ersten Kauf verwendet werden",
-            "member_uses": "Benutzungen pro Mitglied",
-            "blacklist_tags": "Nicht verfügbar für Mitglieder mit bestimmten Tags",
-            "whitelist_tags": "Nur für Mitglieder mit bestimmten Tags verfügbar",
-            "unallowedFor": "Nicht zulässig für",
+            "member_uses": "Verwendungen pro Mitglied.",
+            "blacklist_tags": "[Blacklist] Nicht verfügbar für Mitglieder mit bestimmten Tags:",
+            "whitelist_tags": "[Whitelist} Nur für Mitglieder mit bestimmten Tags verfügbar:",
+            "unallowedFor": "Nicht zugelassen für",
             "allowedFor": "Zugelassen für"
         },
-        "noDiscount": "Keine Käufe mit dem Code durchgeführt",
-        "search": "Suche nach einem Promo-Code",
-        "reverted": "Stornierte Rechnung",
+        "noDiscount": "Noch keine Käufe mit dem Code durchgeführt.",
+        "search": "Promo-Code suchen",
+        "reverted": "Rechnung storniert",
         "couponTemplateInstance": {
-            "companyEmpty": "Kein Studio ist so konfiguriert, dass es diese Aktion annimmt",
+            "companyEmpty": "Kein Studio ist so konfiguriert, dass es diese Aktion annimmt.",
             "delete": {
                 "explain2": "Sie können sie später wieder hinzufügen.",
                 "explain1": "Sind Sie sicher, dass Sie die Weitergabe des Aktionscodes für {{name}} stoppen wollen ?",
@@ -9818,7 +9818,7 @@
                 "content1": "Achtung, Sie möchten die Einstellungen für die Anwendung der gemeinsamen Aktionen auf bestimmte Kurs- oder Terminpässe ändern.",
                 "content2": "Dadurch wird die Liste der Studios, mit denen die Aktion geteilt wird, zurückgesetzt.",
                 "content3": "Sie können wieder auswählen, welche Studios sich diese Aktion teilen.",
-                "title": "Änderung bestätigen"
+                "title": "Änderungen bestätigen"
             },
             "isEmptyExplain": "Keine gespeicherten geteilten Aktionscodes",
             "actions": {
@@ -11190,17 +11190,17 @@
             "item": {
                 "year": "{{count}} Jahr",
                 "year_plural": "{{count}} Jahre",
-                "weeks": "Woche",
-                "days": "d",
+                "weeks": "W",
+                "days": "T",
                 "hours": "h",
                 "minutes": "min",
                 "unarchive": "Wiederherstellen",
                 "archive": "Archivieren",
-                "unmute": "reaktivieren",
-                "mute": "stummschalten",
-                "removeFavorite": "von Favoriten entfernen",
-                "addToFavorite": "zu Favoriten hinzufügen",
-                "markAsRead": "als ungelesen markieren",
+                "unmute": "Reaktivieren",
+                "mute": "Stummschalten",
+                "removeFavorite": "Aus Favoriten entfernen",
+                "addToFavorite": "Zu Favoriten hinzufügen",
+                "markAsRead": "Als ungelesen markieren",
                 "detail": {
                     "offer": "Session-Details",
                     "smartlist": "Smartlist-Details",
@@ -11209,8 +11209,8 @@
                 "filterMessages": "Nachrichten filtern",
                 "noMessage": "Keine Nachricht",
                 "disableDialog": {
-                    "title": "Den Chat archivieren",
-                    "firstContent": "SIe sind dabei diesen Chat zu archvieren.",
+                    "title": "Chat archivieren",
+                    "firstContent": "Sie sind dabei diesen Chat zu archvieren.",
                     "secondContent": "Er wird nicht mehr in der Chat-Liste erscheinen, kann aber weiterhin über den Filter 'Archiviert' aufgerufen werden.",
                     "thirdContent": "Beachten Sie, dass eine neue Nachricht in diesem Chat, die von Ihnen oder Ihrem Gesprächspartner kommt, den Chat automatisch wiederherstellt."
                 }
@@ -11232,14 +11232,14 @@
             "noThread": {
                 "list": "Kein Ergebnis",
                 "item": {
-                    "member": "Hier finden Sie die Gespräche mit den Mitgliiedern",
-                    "smartlist": "Hier finden Sie die Konversationen zihrer Smartlist",
+                    "member": "Hier finden Sie die Gespräche mit den Mitgliedern",
+                    "smartlist": "Hier finden Sie die Konversationen Ihrer Smartlists",
                     "offer": "Hier finden Sie die Konversationen Ihrer Sessions"
                 }
             },
             "selectThread": {
                 "title": "Einen Chat auswählen",
-                "description": "Klicken Sie auf ein Mitglied, eine Smartlist oder eine Session um die zugehörige Konversation anzuzeigen"
+                "description": "Klicken Sie auf ein Mitglied, eine Smartlist oder eine Session, um die zugehörige Konversation anzuzeigen"
             },
             "panel": {
                 "header": "Details",
@@ -11247,7 +11247,7 @@
                 "member": {
                     "invoices": {
                         "title": "Rechnungen",
-                        "noUnpaidInvoices": "Ein Tag"
+                        "noUnpaidInvoices": "Aktuell"
                     },
                     "files": "Dokumente",
                     "notes": "Notizen"
@@ -11259,7 +11259,7 @@
                 },
                 "navigation": {
                     "member": "Details zum Mitglied ansehen",
-                    "smartlist": "Detaisl der Smartliste ansehen",
+                    "smartlist": "Details der Smartlist ansehen",
                     "offer": "Details der Session ansehen"
                 },
                 "openPanel": "Details öffnen",
@@ -11380,7 +11380,7 @@
             "communication": "Kommunikation"
         },
         "forms": {
-            "title": "Chat Einstellungen",
+            "title": "Chat-Einstellungen",
             "submit": "Speichern",
             "twoWayEmail": {
                 "title": "Erhalten Sie Antworten per E-Mail auf der Plattform",
@@ -11390,7 +11390,7 @@
         "smartListPopup": {
             "recipient": "Empfänger",
             "recipient_plural": "Empfänger",
-            "drawerTitle": "Verlauf der Startup-Pop-ups",
+            "drawerTitle": "Verlauf der Start-Pop-Ups",
             "close": "Schließen",
             "preview": "Vorschau",
             "previewTitle": "Vorschau",
@@ -11399,7 +11399,7 @@
             "seeRecipients": "Empfänger anzeigen",
             "see": "Anzeigen",
             "noSmartListPopup": "Kein Start-Pop-up",
-            "memberListTitle": "Start-Pop-up"
+            "memberListTitle": "Start-Pop-Up"
         },
         "messageList": {
             "filterOutCommunicationSent": "Die Kommunikation, die Sie gerade gesendet haben, wird von den aktiven Filtern verdeckt.",
@@ -11432,27 +11432,27 @@
         "actions": {
             "goToSubscription": "Alle Abonnements ansehen",
             "goToPass": "Alle Pässe ansehen",
-            "goToCalendar": "Zum Stundenplan",
-            "goToHome": "Alle Dienstleistungen anzeigen"
+            "goToCalendar": "Kalender öffnen",
+            "goToHome": "Alle Angebote anzeigen"
         },
         "booking": {
             "showCalendar": "Kalender ansehen",
             "bookAgain": "Erneut buchen",
             "discard": "Abbrechen",
-            "titlePrivateBooking": "Termin",
-            "titleBooking": "Kurs",
+            "titlePrivateBooking": "Termine",
+            "titleBooking": "Gruppenaktivitäten",
             "accessLive": "Livestream beitreten",
-            "spotNumber": "Ort {{count}}",
+            "spotNumber": "Ort: {{count}}",
             "isUnpaid": "Unbezahlt",
             "noShow": "Sie wurden für diese Session als abwesend gekennzeichnet"
         },
         "congratulation": {
             "cancel": "Schließen",
-            "content": "Danke für die Anmeldung!"
+            "content": "Ihr Kauf wurde bestätigt!"
         },
         "dashboard": {
-            "noBooking": "Kein bevorstehender Kurs",
-            "noPackCurrentlyActive": "Kein gültiger Pass",
+            "noBooking": "Kein bevorstehender Kurs.",
+            "noPackCurrentlyActive": "Kein gültiger Pass.",
             "showMore": "Mehr anzeigen",
             "currentPassTitle": "Meine Pässe",
             "favoriteTitle": "Buchungsvorschlag",
@@ -11460,40 +11460,40 @@
             "optionTitle": "Auf der Warteliste"
         },
         "debt": {
-            "regularize": "Ausgleichen",
-            "explainPayment": "Dieser Betrag wird an das Studio überwiesen, um den ausstehenden Betrag auszugleichen",
-            "titlePaymentDialog": "Ausstehenden Betrag ausgleichen",
-            "title": "Ausstehender Betrag"
+            "regularize": "Zahlung abschließen",
+            "explainPayment": "Dieser Betrag wird an das Studio gezahlt, um Ihre ausstehenden Schulden zu begleichen.",
+            "titlePaymentDialog": "Ausstehenden Betrag begleichen",
+            "title": "Ausstehende Schulden"
         },
         "navigation": {
-            "changeMembership": "Das Studio wechseln",
-            "subscription": "Abo",
-            "calendar": "Meine Buchungen",
+            "changeMembership": "Studio wechseln",
+            "subscription": "Abonnements",
+            "calendar": "Verlauf",
             "logoff": "Abmelden",
             "profile": "Profil",
             "invoice": "Rechnungen",
             "pack": "Pässe",
             "dashboard": "Überblick",
             "myVideos": "Meine Videos",
-            "pick_a_language": "Wähle eine Sprache",
+            "pick_a_language": "Wählen Sie eine Sprache",
             "automaticLanguage": "Automatische Spracherkennung",
             "giftcard": "Gutscheine",
             "statistic": "Statistiken",
             "connectedAs": "Anmelden als",
-            "backToRelationMasterSpace": "zu meinem Konto zurückkehren",
-            "relationConnectedAs": "Angemeldet als : {{name}}",
+            "backToRelationMasterSpace": "Zu meinem Konto zurückkehren",
+            "relationConnectedAs": "Derzeit angemeldet als: {{name}}",
             "goBack": "Zurück"
         },
         "pack": {
-            "titlePrivatePack": "Terminpass",
-            "titlePaymentPack": "Kurspass",
+            "titlePrivatePack": "Termine",
+            "titlePaymentPack": "Gruppenaktivitäten",
             "titleUniversalPack": "Universell"
         },
         "unsubscriber": {
-            "explain": "Möchtest Sie sich von allen Newslettern Ihres Studios abmelden?",
-            "doUnsubscribe": "Abmelden",
-            "error": "Fehler beim Abmelden",
-            "success": "Du wurdest abgemeldet"
+            "explain": "Möchten Sie sich von allen Newslettern Ihres Studios abmelden?",
+            "doUnsubscribe": "Abonnement stornieren",
+            "error": "Fehler beim Stornierung des Abonnements",
+            "success": "Sie haben Ihr Abonnement abgebrochen."
         },
         "myVideos": {
             "gotToVOD": "Alle Videos anzeigen",
@@ -11501,8 +11501,8 @@
         },
         "widget": {
             "noBookingPast": "Keine Session in Ihrem Verlauf",
-            "noBookingFuture": "Keine bevorstehende Kurse",
-            "pastBooking": "Historie",
+            "noBookingFuture": "Keine bevorstehende Sessions",
+            "pastBooking": "Verlauf",
             "futureBooking": "Meine Buchungen"
         },
         "language": {
@@ -11510,7 +11510,7 @@
             "it": "Italienisch",
             "de": "Deutsch",
             "es": "Spanisch",
-            "en-GB": "Englisch (United Kingdom)",
+            "en-GB": "Englisch (Vereinigtes Königreich)",
             "en-US": "Englisch (USA)",
             "fr": "Französisch",
             "none": "Automatisch",
@@ -11518,16 +11518,16 @@
             "cs": "Tschechisch"
         },
         "subscription": {
-            "isEmpty": "Sie haben keine laufenden Abos"
+            "isEmpty": "Sie haben keine aktiven Abonnements."
         },
         "Basket": "Mein Warenkorb",
         "appbar": {
-            "login": "Login",
+            "login": "Anmelden",
             "logout": "Abmelden",
             "profile": "Zu meinem Profil"
         },
         "spivi": {
-            "settingsInfo": "Wenn diese Option aktiviert ist, werden Ihre Daten (Geschwindigkeit, Kalorienverbrauch...) während Ihrer Trainingseinheit in Echtzeit angezeigt. Wenn Sie diese Option deaktivieren, werden Ihre Daten nicht mehr angezeigt, aber Sie erhalten am Ende des Kurses Ihre Zusammenfassung per E-Mail.",
+            "settingsInfo": "Wenn diese Option aktiviert ist, werden Ihre Daten (Geschwindigkeit, Kalorienverbrauch...) während Ihrer Trainingseinheit in Echtzeit angezeigt. Wenn Sie diese Option deaktivieren, werden Ihre Daten nicht mehr angezeigt, aber Sie erhalten am Ende des Kurses eine Zusammenfassung per E-Mail.",
             "settings": "Meine Daten in Echtzeit anzeigen",
             "settingsTitle": "Spinning-Daten"
         }

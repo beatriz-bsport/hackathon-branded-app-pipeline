@@ -7,6 +7,8 @@ export interface CanvasScreenProps {
   rotation: number;
   stroke: string;
   fill: string;
+  strokeWidth?: React.SVGAttributes<SVGPolylineElement>['strokeWidth'];
+  strokeLinecap?: React.SVGAttributes<SVGPolylineElement>['strokeLinecap'];
 }
 
 export default class CanvasScreenComponent extends CanvasBaseComponent<CanvasScreenProps> {
@@ -19,7 +21,8 @@ export default class CanvasScreenComponent extends CanvasBaseComponent<CanvasScr
   }
 
   render() {
-    const { x, y, rotation, stroke, fill } = this.props;
+    const { x, y, rotation, stroke, fill, strokeWidth, strokeLinecap } =
+      this.props;
 
     return (
       <g
@@ -35,8 +38,8 @@ export default class CanvasScreenComponent extends CanvasBaseComponent<CanvasScr
           fill={fill || 'transparent'}
           points="15,20 115, 20"
           stroke={stroke || 'black'}
-          strokeLinecap="round"
-          strokeWidth={15}
+          strokeLinecap={strokeLinecap ?? 'round'}
+          strokeWidth={strokeWidth ?? 15}
         />
 
         <rect

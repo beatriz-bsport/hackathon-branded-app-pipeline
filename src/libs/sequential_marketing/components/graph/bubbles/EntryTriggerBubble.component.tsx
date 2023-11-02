@@ -76,6 +76,7 @@ const EntryTriggerBubble: React.FC<Props> = ({
         </Alert>
         <MultipleConnectedTriggerForm
           isEntrystep
+          addTriggerLabel={`+ ${t('cadence.bubble.entryTrigger.addTrigger')}`}
           connectedTriggers={connectedTriggerList}
           customColor={SequentialMarketingColors.ENTRY_COLOR}
           smartlists={smartlists}

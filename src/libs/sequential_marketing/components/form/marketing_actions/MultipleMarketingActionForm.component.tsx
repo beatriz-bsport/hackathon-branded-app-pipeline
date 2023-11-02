@@ -25,6 +25,7 @@ import CollapsibleMarketingActionContent from './CollapsibleMarketingActionConte
 import useMarketingActionOptions from './hooks/useMarketingActionOptions.hook';
 
 type Props = {
+  addActionLabel?: string;
   updateMarketingActions: (values: Partial<StepMarketingActions>[]) => void;
   updateFormValidation: (isValid: boolean) => void;
 } & MarketingActionEssentials;
@@ -44,6 +45,7 @@ const MultipleMarketingActionForm: React.FC<Props> = ({
   tagCategories,
   resolvedGenericTags,
   tagList,
+  addActionLabel,
   fetchEmailSummaryList,
   getEmailDetail,
   updateMarketingActions,
@@ -151,7 +153,9 @@ const MultipleMarketingActionForm: React.FC<Props> = ({
           actionList={marketingActionOptions}
           customColor={SequentialMarketingColors.MARKETING_ACTION_COLOR}
           isDisabled={values?.marketingActions?.length >= 5}
-          label={`+ ${t('cadence.bubble.entryAction.addAction')}`}
+          label={
+            addActionLabel || `+ ${t('cadence.marketingAction.addAction')}`
+          }
         />
       </div>
     </div>

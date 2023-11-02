@@ -20,7 +20,8 @@ import useConnectedTriggerChoices from './hooks/useConnectedTriggerChoices.hook'
 type Props = {
   customColor: string;
   smartlists: Immutable.ImmutableArray<SmartList>;
-  sourceId: number;
+  sourceId?: number;
+  addTriggerLabel?: string;
   isEntrystep?: boolean;
   updateConnectedTriggerList: (value: ConnectedTrigger[]) => void;
   updateFormValidation: (isValid: boolean) => void;
@@ -35,8 +36,11 @@ type HOCProps = Props & FormValues;
 /**
  * Form component to create and edit multiple ConnectedTriggers.
  *
+ * @param {string} customColor - Custom color for icons.
  * @param {Immutable.ImmutableArray<SmartList>} smartlists - All smartlists of the company.
- * @param {number} sourceId - The id of the soruce step.
+ * @param {number} sourceId - The id of the sourcce step. If not provided, it means that the source is one of the "general outputs".
+ * @param {string} addTriggerLabel - Label for the add trigger button.
+ * @param {boolean} isEntrystep - Specifies if the step associated with the form is the entrystep or not.
  * @param {(value: ConnectedTrigger[]) => void} updateConnectedTriggerList - Updates the connected trigger list defined in a parent context.
  * @param {(isValid: boolean) => void} updateFormValidation - Updates the isValid state defined in a parent context. 
  *                                                            isValid is a boolean indicating whether the form is valid or not.
@@ -46,6 +50,7 @@ const MultipleConnectedTriggerForm: React.FC<Props> = ({
   customColor,
   smartlists,
   sourceId,
+  addTriggerLabel,
   isEntrystep,
   updateConnectedTriggerList,
   updateFormValidation,
@@ -145,7 +150,7 @@ const MultipleConnectedTriggerForm: React.FC<Props> = ({
           actionList={connectedTriggerActionList}
           customColor={customColor}
           isDisabled={values.connectedTriggers?.length >= 5}
-          label={`+ ${t('cadence.bubble.entryTrigger.addTrigger')}`}
+          label={addTriggerLabel || `+ ${t('cadence.trigger.addTrigger')}`}
         />
       </div>
     </div>

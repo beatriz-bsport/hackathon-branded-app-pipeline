@@ -83,6 +83,7 @@ const EntryActionBubble: React.FC<Props> = ({
           {t('cadence.bubble.entryAction.helperText')}
         </Alert>
         <MultipleMarketingActionForm
+          addActionLabel={`+ ${t('cadence.bubble.entryAction.addAction')}`}
           emailDetailList={emailDetailList}
           emailDetailListLoading={emailDetailListLoading}
           emailSummaryList={emailSummaryList}

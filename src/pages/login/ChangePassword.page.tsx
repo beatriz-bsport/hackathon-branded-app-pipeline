@@ -46,7 +46,7 @@ const styles = (theme: Theme) =>
       left: '50%',
       transform: 'translate(-50%, -50%)',
       width: '500px',
-      [theme.breakpoints.down('sm')]: {
+      [theme.breakpoints.down('xs')]: {
         width: '100%',
         height: '100vh',
         display: 'flex',
@@ -59,6 +59,7 @@ const styles = (theme: Theme) =>
       objectFit: 'contain',
       width: '100%',
       height: '100%',
+      maxWidth: '250px',
     },
     content: {
       padding: theme.spacing(1),
@@ -67,9 +68,12 @@ const styles = (theme: Theme) =>
       position: 'relative',
       paddingBottom: '56.2%',
       textAlign: 'start',
+      display: 'flex',
+      justifyContent: 'center',
     },
     logoContainer: {
       position: 'relative',
+      maxHeight: '250px',
     },
     fullWidth: {
       width: '100%',

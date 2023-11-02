@@ -141,7 +141,10 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
   }
 
   componentDidMount() {
-    if (this.props.offerBookedIdList && this.props.offerBookedIdList?.length) {
+    if (
+      this.props.offerBookedIdList?.[0] &&
+      typeof this.props.offerBookedIdList?.[0] === 'number' // dont fetch if [undefined]
+    ) {
       this.props.fetchBookingGuestNumber(this.props.offerBookedIdList?.[0]);
       this.props.fetchOfferStatusList(this.props.offerBookedIdList);
     }

@@ -98,11 +98,13 @@ const MenuSelectorTextButton: React.FC<Props> = ({
         {actionList.map((action) => (
           <MenuItem
             key={`${action.icon}_${action.label}`}
+            className={classes.menuItem}
             onClick={handleOnClickAction(action.onClick)}
             onContextMenu={handleRightClick}
             value={action.label}
           >
             <CustomMuiIcon
+              defaultBackGround
               customColor={action.customColor || customColor}
               icon={action.icon}
               withBackground={false}
@@ -148,6 +150,9 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) => ({
     fontSize: '15.5px',
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(1),
+  },
+  menuItem: {
+    minHeight: theme.spacing(6),
   },
 }));
 

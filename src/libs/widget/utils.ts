@@ -131,12 +131,56 @@ export const getCustomWidgetStyle = memoize((styles: WidgetCustomCSS) => {
   };
 });
 
-export const cleanCSSFile = (css: string) => {
-  const propertyRegex = /{[^}]*}/gm;
+/**
+ * Cleans a CSS string and returns a formatted string with only style rules and media queries.
+ * @param {string} css - The input CSS string.
+ * @returns {string} - The cleaned and formatted CSS string.
+ */
+export const cleanCSSFile = (css: string): string => {
+  const stytleSheet = new CSSStyleSheet();
+  stytleSheet.replace(css);
 
-  return css.replace(propertyRegex, '{\n    \n}');
+  const cssRules = stytleSheet.cssRules;
+
+  const cssRulesList = Object.values(cssRules);
+
+  /* eslint-disable no-param-reassign */
+  const stringifyStyleSheet = cssRulesList.reduce(
+    (stringifySheetAccumulator, currentCssRule) => {
+      if (currentCssRule instanceof CSSStyleRule) {
+        stringifySheetAccumulator += `\n${currentCssRule.selectorText} {\n    \n} \n`;
+      }
+      if (currentCssRule instanceof CSSMediaRule) {
+        const CSSRulesinMediaRule = Object.values(currentCssRule.cssRules);
+        const stringifyMediaRuleContent = parseCSSRuleList(CSSRulesinMediaRule);
+        stringifySheetAccumulator += `\n@media ${currentCssRule.conditionText} {\n ${stringifyMediaRuleContent} \n} \n`;
+      }
+      if (currentCssRule instanceof CSSContainerRule) {
+        const CSSRulesinContainerRule = Object.values(currentCssRule.cssRules);
+        const stringifyContainerRuleContent = parseCSSRuleList(
+          CSSRulesinContainerRule,
+        );
+        stringifySheetAccumulator += `\n@container ${currentCssRule.conditionText} {\n ${stringifyContainerRuleContent} \n} \n`;
+      }
+      if (currentCssRule instanceof CSSKeyframesRule) {
+        stringifySheetAccumulator += `\n${currentCssRule.cssText} \n`;
+      }
+      return stringifySheetAccumulator;
+    },
+    '',
+  );
+  /* eslint-enable no-param-reassign */
+  return stringifyStyleSheet;
 };
 
+const parseCSSRuleList = (ruleList: CSSRule[]) => {
+  /* eslint-disable no-param-reassign */
+  return ruleList.reduce((acc: string, cv: CSSStyleRule) => {
+    acc += `\n ${cv.selectorText} {\n    \n } \n`;
+    return acc;
+  }, '');
+  /* eslint-disable no-param-reassign */
+};
 export const interpolateCSSVar = (css: string, isDomLoaded: boolean) => {
   /*
   This methods interpolate the variable in the theme, thus using

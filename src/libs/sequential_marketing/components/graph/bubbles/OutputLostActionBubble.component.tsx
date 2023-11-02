@@ -1,0 +1,114 @@
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { makeStyles } from '@material-ui/core/styles';
+import Alert from '@material-ui/lab/Alert';
+
+import CadenceBubble from './CadenceBubble.component';
+import { SequentialMarketingColors } from '#libs/sequential_marketing/constants';
+import MultipleMarketingActionForm from '#libs/sequential_marketing/components/form/marketing_actions/MultipleMarketingActionForm.component';
+
+import type {
+  MarketingActionEssentials,
+  StepMarketingActions,
+} from '#libs/sequential_marketing/types';
+
+type Props = {
+  isInitial?: boolean;
+  marketingActions?: StepMarketingActions[];
+  onClose?: () => void;
+  onConfirm: (data: StepMarketingActions[]) => void;
+} & MarketingActionEssentials;
+
+const OutputLostActionBubble: React.FC<Props> = ({
+  emailDetailList,
+  emailDetailListLoading,
+  emailSummaryList,
+  emailSummaryListLoading,
+  resolvedGenericTags,
+  tagCategories,
+  tagList,
+  isInitial,
+  marketingActions,
+  fetchEmailSummaryList,
+  getEmailDetail,
+  onClose,
+  onConfirm,
+}) => {
+  const { t } = useTranslation('marketing');
+
+  const classes = useStyles({ color: SequentialMarketingColors.ENTRY_COLOR });
+
+  const [isFormValid, setIsFormValid] = React.useState(false);
+
+  const [marketingActionList, setMarketingActionList] = React.useState<
+    StepMarketingActions[]
+  >([]);
+
+  const updateMarketingActionList = React.useCallback(
+    (newConnectedTriggerList: StepMarketingActions[]) =>
+      setMarketingActionList(newConnectedTriggerList),
+    [setMarketingActionList],
+  );
+
+  const handleSubmit = React.useCallback(() => {
+    onConfirm?.(marketingActionList);
+    onClose?.();
+  }, [marketingActionList, onClose, onConfirm]);
+
+  const handleUpdateFormValidation = React.useCallback((isValid: boolean) => {
+    setIsFormValid(isValid);
+  }, []);
+
+  React.useEffect(() => {
+    setMarketingActionList(marketingActions || []);
+  }, [marketingActions]);
+
+  return (
+    <CadenceBubble
+      color={SequentialMarketingColors.LOSE_COLOR}
+      icon="Cancel"
+      isSubmissionForbidden={!isFormValid}
+      onCancelClick={onClose}
+      onCancelText={
+        isInitial ? t('cadence.bubble.previous') : t('cadence.bubble.cancel')
+      }
+      onConfirmClick={handleSubmit}
+      onConfirmText={
+        isInitial ? t('cadence.bubble.finish') : t('cadence.bubble.confirm')
+      }
+      title={t('cadence.bubble.lostAction.title')}
+    >
+      <div className={classes.content}>
+        <Alert severity="info">
+          {t('cadence.bubble.lostAction.helperText')}
+        </Alert>
+        <MultipleMarketingActionForm
+          addActionLabel={`+ ${t('cadence.bubble.lostAction.addAction')}`}
+          emailDetailList={emailDetailList}
+          emailDetailListLoading={emailDetailListLoading}
+          emailSummaryList={emailSummaryList}
+          emailSummaryListLoading={emailSummaryListLoading}
+          fetchEmailSummaryList={fetchEmailSummaryList}
+          getEmailDetail={getEmailDetail}
+          marketingActions={marketingActionList}
+          resolvedGenericTags={resolvedGenericTags}
+          tagCategories={tagCategories}
+          tagList={tagList}
+          updateFormValidation={handleUpdateFormValidation}
+          updateMarketingActions={updateMarketingActionList}
+        />
+      </div>
+    </CadenceBubble>
+  );
+};
+
+const useStyles = makeStyles((theme) => ({
+  content: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(4),
+  },
+}));
+
+export default React.memo(OutputLostActionBubble);

@@ -4,9 +4,15 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import Alert from '@material-ui/lab/Alert';
 
-import { SequentialMarketingColors } from '#libs/sequential_marketing/constants';
 import CadenceBubble from './CadenceBubble.component';
 import MultipleConnectedTriggerForm from '#libs/sequential_marketing/components/form/connected_triggers/MultipleConnectedTriggerForm.component';
+
+import {
+  LOST_OUTPUT_TIMEOUT_TRIGGER_ID,
+  SequentialMarketingColors,
+  TriggerKind,
+} from '#libs/sequential_marketing/constants';
+import { getConnectedTriggerDefaultValues } from '#libs/sequential_marketing/components/graph/hooks/utils';
 
 import type { SmartList } from '#libs/smart-list/types';
 import type { ConnectedTrigger } from '#libs/sequential_marketing/types';
@@ -19,7 +25,7 @@ type Props = {
   onConfirm: (data: ConnectedTrigger[]) => void;
 };
 
-const OutputWonTriggerBubble: React.FC<Props> = ({
+const OutputLostTriggerBubble: React.FC<Props> = ({
   connectedTriggers,
   smartlists,
   isInitial,
@@ -55,13 +61,20 @@ const OutputWonTriggerBubble: React.FC<Props> = ({
   }, []);
 
   React.useEffect(() => {
-    setConnectedTriggerList(connectedTriggers || []);
+    setConnectedTriggerList(
+      connectedTriggers || [
+        getConnectedTriggerDefaultValues({
+          triggerKind: TriggerKind.ONLY_TIMEOUT,
+          triggerUuid: LOST_OUTPUT_TIMEOUT_TRIGGER_ID,
+        }),
+      ],
+    );
   }, [connectedTriggers]);
 
   return (
     <CadenceBubble
-      color={SequentialMarketingColors.ENTRY_COLOR}
-      icon="CheckCircle"
+      color={SequentialMarketingColors.LOSE_COLOR}
+      icon="Cancel"
       isSubmissionForbidden={!isFormValid}
       onCancelClick={handleCancel}
       onCancelText={
@@ -71,17 +84,17 @@ const OutputWonTriggerBubble: React.FC<Props> = ({
       onConfirmText={
         isInitial ? t('cadence.bubble.next') : t('cadence.bubble.confirm')
       }
-      title={t('cadence.bubble.wonTrigger.title')}
+      title={t('cadence.bubble.lostTrigger.title')}
     >
       <div className={classes.content}>
         <Alert severity="info">
-          {t('cadence.bubble.wonTrigger.helperText')}
+          {t('cadence.bubble.lostTrigger.helperText')}
         </Alert>
         <MultipleConnectedTriggerForm
           isOutput
-          addTriggerLabel={`+ ${t('cadence.bubble.wonTrigger.addTrigger')}`}
+          addTriggerLabel={`+ ${t('cadence.bubble.lostTrigger.addTrigger')}`}
           connectedTriggers={connectedTriggerList}
-          customColor={SequentialMarketingColors.ENTRY_COLOR}
+          customColor={SequentialMarketingColors.LOSE_COLOR}
           smartlists={smartlists}
           updateConnectedTriggerList={updateConnectedTriggerList}
           updateFormValidation={handleUpdateFormValidation}
@@ -100,4 +113,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default React.memo(OutputWonTriggerBubble);
+export default React.memo(OutputLostTriggerBubble);

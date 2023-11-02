@@ -192,6 +192,8 @@ Build Deploy Feature Branch Backend And Frontend:
       when: never
     - if: $CI_COMMIT_REF_NAME == "master"
       when: never
+    - if: $CI_COMMIT_TAG =~ /deploy-frontend-only-/
+      when: never
     - if: $CI_COMMIT_TAG =~ /deploy-/
       when: always
     - when: never

@@ -8,11 +8,15 @@ import { useTranslation } from 'react-i18next';
 
 import WelcomeIcon from '#components/icons/WelcomeIcon.component';
 import { hasUpsell } from '#libs/platform-billing/utils';
-import { requestUpsellPackage as requestUpsellPackageAction } from '#libs/platform-billing/actions';
+import {
+  requestUpsellPackage as requestUpsellPackageAction,
+  subscribeUpsellPackage as subscribeUpsellPackageAction,
+} from '#libs/platform-billing/actions';
 
 import Config from '../../../config';
 import type { Dispatch } from '../../../state/types';
 import type { RootState } from '../../../reducers';
+import { UpsellPackage } from '#libs/company/types';
 
 const useStyles = makeStyles((theme: Theme) => ({
   blockerFrame: {
@@ -46,16 +50,30 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     maxWidth: 500,
   },
+  buttonsContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    width: '100%',
+  },
+  knowMoreButton: {
+    color: theme.palette.grey[700],
+    marginRight: theme.spacing(2),
+  },
 }));
 
 type Props = {
   upsellIdentifier: number;
+  handleOpenSubscriptionForm?: () => void;
+  upsellPackage?: UpsellPackage;
 } & ConnectedProps<typeof connector>;
 
 const UpsellBlocker = ({
   upsellIdentifier,
   featureList,
   requestUpsellPackage,
+  handleOpenSubscriptionForm,
+  upsellPackage,
 }: Props) => {
   const classes = useStyles();
   const theme = useTheme();
@@ -83,13 +101,26 @@ const UpsellBlocker = ({
             <Typography align="center">
               {t(`upsellPackage.lockDialog.${upsellIdentifier}.explain`)}
             </Typography>
-            <Button
-              color="primary"
-              onClick={() => requestUpsellPackage(upsellIdentifier)}
-              variant="contained"
-            >
-              {t('upsellPackage.lockDialog.requestAccess')}
-            </Button>
+            <div className={classes.buttonsContainer}>
+              {!handleOpenSubscriptionForm && (
+                <Button
+                  className={classes.knowMoreButton}
+                  onClick={() => requestUpsellPackage(upsellIdentifier)}
+                >
+                  {t('upsellPackage.lockDialog.requestAccess')}
+                </Button>
+              )}
+              {handleOpenSubscriptionForm && (
+                <Button
+                  color="primary"
+                  disabled={!upsellPackage}
+                  onClick={handleOpenSubscriptionForm}
+                  variant="contained"
+                >
+                  {t('upsellPackage.seeMore')}
+                </Button>
+              )}
+            </div>
           </div>
         </Paper>
       </div>
@@ -104,11 +135,8 @@ const connector = connect(
   (dispatch: Dispatch) => ({
     requestUpsellPackage(upsellIdentifier: number) {
       dispatch(requestUpsellPackageAction(upsellIdentifier));
-      // @ts-expect-error
-      window.Intercom('trackEvent', 'Upsell feature requested', {
-        upsellIdentifier,
-      });
     },
+    subscribeUpsellPackage: subscribeUpsellPackageAction,
   }),
 );
 

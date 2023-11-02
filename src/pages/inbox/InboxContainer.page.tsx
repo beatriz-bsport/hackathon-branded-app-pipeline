@@ -8,8 +8,9 @@ import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
 import { withStyles, createStyles, WithStyles, Theme } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import { compose, withHandlers, withState } from 'recompose';
-
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
+import { WithTranslation, withTranslation } from 'react-i18next';
+
 // @ts-expect-error : Not typed hoc
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import type { RootState } from '../../reducers';
@@ -21,8 +22,26 @@ import InboxPanel from './InboxPanel.page';
 import { drawerIconsOnlyWith } from '#components/navigation/BackofficeDrawer/BackofficeDrawer.component';
 import UpsellBlocker from '#libs/platform-billing/components/UpsellBlocker.component';
 import { UPSELL_IDENTIFIER_INBOX } from '#libs/platform-billing/upsell-identifiers';
+import {
+  fetchUpsellPackage as fetchUpsellPackageAction,
+  requestUpsellPackage as requestUpsellPackageAction,
+  subscribeUpsellPackage as subscribeUpsellPackageAction,
+} from '#libs/platform-billing/actions';
+import { getFeatureList as getFeatureListAction } from '#libs/company/actions';
+// @ts-expect-error
+import { getUpsellPackageByIdentifier } from '#libs/platform-billing/selectors';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+import UpsellPackageSubscriptionDrawer from '#libs/platform-billing/components/UpsellPackageSubscriptionDrawer.component';
+
+import type { UpsellPackage } from '#libs/company/types';
 
 const INBOX_PANEL_WIDTH = 378;
+
+const { trackFormAdd, trackFormSubmitIntent, trackFormSuccess } =
+  rudderStackFormTrackingFunctionsRegistry(
+    SegmentAnalyticsFormObjectIdentifier.UpsellSubscription,
+  );
 
 type State = {
   contextSelected: ChatThreadKinds;
@@ -36,6 +55,7 @@ type InboxConnectedProps = { id?: number } & State &
 
 type WithHandlers = {
   fetchThreadOrRedirectToTheList: () => void;
+  onRequestUpsell: () => void;
 };
 
 type Props = {
@@ -43,7 +63,14 @@ type Props = {
   width: Breakpoint;
 } & InboxConnectedProps &
   WithHandlers &
-  WithStyles<typeof styles>;
+  WithStyles<typeof styles> &
+  WithTranslation;
+
+type ComponentState = {
+  openSubscribtionForm: boolean;
+  openConfirmationDialog: boolean;
+  upsellSubscriptionLoading: boolean;
+};
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -86,12 +113,29 @@ const styles = (theme: Theme) =>
     closedPanel: {
       width: drawerIconsOnlyWith,
     },
+    responsiveDrawerHeader: {
+      marginBottom: theme.spacing(3),
+    },
+    responsiveDrawerContent: {
+      padding: 0,
+    },
   });
 
-class InboxContainer extends React.PureComponent<Props> {
+class InboxContainer extends React.PureComponent<Props, ComponentState> {
+  state: ComponentState = {
+    openSubscribtionForm: false,
+    openConfirmationDialog: false,
+    upsellSubscriptionLoading: false,
+  };
+
   componentDidMount() {
-    const { id, fetchThreadOrRedirectToTheList, width, setIsPanelOpen } =
-      this.props;
+    const {
+      id,
+      width,
+      fetchThreadOrRedirectToTheList,
+      fetchUpsellPackage,
+      setIsPanelOpen,
+    } = this.props;
 
     if (isWidthUp('lg', width)) {
       setIsPanelOpen(true);
@@ -100,6 +144,8 @@ class InboxContainer extends React.PureComponent<Props> {
     if (id) {
       fetchThreadOrRedirectToTheList();
     }
+
+    fetchUpsellPackage(UPSELL_IDENTIFIER_INBOX);
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -109,6 +155,43 @@ class InboxContainer extends React.PureComponent<Props> {
       fetchThreadOrRedirectToTheList();
     }
   }
+
+  handleOpenSubscribtionForm = () => {
+    if (!this.props.upsellPackage) {
+      return;
+    }
+    this.setState({
+      openSubscribtionForm: true,
+    });
+    trackFormAdd(this.props.upsellPackage?.id);
+  };
+
+  handleSubscribeUpsellPackage = () => {
+    if (!this.props.upsellPackage) {
+      return;
+    }
+    this.setState({ upsellSubscriptionLoading: true });
+    trackFormSubmitIntent(this.props.upsellPackage?.id);
+    this.props.subscribeUpsellPackage(this.props.upsellPackage?.id, {
+      onSuccess: () => {
+        trackFormSuccess(this.props.upsellPackage?.id);
+        this.handleCloseSubscriptionForm();
+        this.setState({ upsellSubscriptionLoading: false });
+        this.setState({ openConfirmationDialog: true });
+      },
+      onError: () => {
+        this.handleCloseSubscriptionForm();
+        this.setState({ upsellSubscriptionLoading: false });
+      },
+    });
+  };
+
+  handleCloseSubscriptionForm = () => {
+    this.setState({ openSubscribtionForm: false });
+  };
+
+  handleCloseConfirmationDialog = () =>
+    this.setState({ openConfirmationDialog: false });
 
   render() {
     const {
@@ -130,13 +213,21 @@ class InboxContainer extends React.PureComponent<Props> {
         <Switch>
           <Route exact path="/inbox/thread/:id/">
             <>
-              <UpsellBlocker upsellIdentifier={UPSELL_IDENTIFIER_INBOX} />
+              <UpsellBlocker
+                handleOpenSubscriptionForm={this.handleOpenSubscribtionForm}
+                upsellIdentifier={UPSELL_IDENTIFIER_INBOX}
+                upsellPackage={this.props.upsellPackage}
+              />
               <InboxThreadContainer thread={thread} />
             </>
           </Route>
           <Route exact path="/inbox/thread/">
             <>
-              <UpsellBlocker upsellIdentifier={UPSELL_IDENTIFIER_INBOX} />
+              <UpsellBlocker
+                handleOpenSubscriptionForm={this.handleOpenSubscribtionForm}
+                upsellIdentifier={UPSELL_IDENTIFIER_INBOX}
+                upsellPackage={this.props.upsellPackage}
+              />
               <InboxThreadList
                 contextSelected={contextSelected}
                 setContextSelected={setContextSelected}
@@ -145,7 +236,11 @@ class InboxContainer extends React.PureComponent<Props> {
           </Route>
           <Route exact path="/inbox/thread/:id/detail/">
             <>
-              <UpsellBlocker upsellIdentifier={UPSELL_IDENTIFIER_INBOX} />
+              <UpsellBlocker
+                handleOpenSubscriptionForm={this.handleOpenSubscribtionForm}
+                upsellIdentifier={UPSELL_IDENTIFIER_INBOX}
+                upsellPackage={this.props.upsellPackage}
+              />
               <InboxPanel isLoadingThread={isLoadingThread} thread={thread} />
             </>
           </Route>
@@ -155,7 +250,11 @@ class InboxContainer extends React.PureComponent<Props> {
 
     return (
       <div className={classes.container}>
-        <UpsellBlocker upsellIdentifier={UPSELL_IDENTIFIER_INBOX} />
+        <UpsellBlocker
+          handleOpenSubscriptionForm={this.handleOpenSubscribtionForm}
+          upsellIdentifier={UPSELL_IDENTIFIER_INBOX}
+          upsellPackage={this.props.upsellPackage}
+        />
         <InboxThreadList
           contextSelected={contextSelected}
           setContextSelected={setContextSelected}
@@ -186,6 +285,16 @@ class InboxContainer extends React.PureComponent<Props> {
             thread={thread}
           />
         </div>
+        <UpsellPackageSubscriptionDrawer
+          loading={this.state.upsellSubscriptionLoading}
+          onClose={this.handleCloseSubscriptionForm}
+          onCloseDialog={this.handleCloseConfirmationDialog}
+          onKnowMore={this.props.onRequestUpsell}
+          onSubscribe={this.handleSubscribeUpsellPackage}
+          open={this.state.openSubscribtionForm}
+          openDialog={this.state.openConfirmationDialog}
+          upsellPackage={this.props.upsellPackage}
+        />
       </div>
     );
   }
@@ -195,14 +304,24 @@ const connector = connect(
   (state: RootState, { id }: { id?: number }) => ({
     thread: getInboxThreadFromSelectedId(state, id),
     isLoadingThread: state.communicationV2.inboxThread.currentThread.loading,
+    upsellPackage: getUpsellPackageByIdentifier(
+      state,
+      UPSELL_IDENTIFIER_INBOX,
+      { must_expensive: true },
+    ) as UpsellPackage,
   }),
   {
     fetchInboxThreadFromId: fetchInboxThreadFromIdAction,
     goToThreadList: () => push(`/inbox/thread/`),
+    fetchUpsellPackage: fetchUpsellPackageAction,
+    subscribeUpsellPackage: subscribeUpsellPackageAction,
+    getFeatureList: getFeatureListAction,
+    requestUpsellPackage: requestUpsellPackageAction,
   },
 );
 
 export default compose(
+  withTranslation(['platformBilling']),
   withState('contextSelected', 'setContextSelected', ChatThreadKinds.Member),
   withState('isPanelOpen', 'setIsPanelOpen', false),
   routerParamsToProps({ id: 'id:number' }),
@@ -216,6 +335,15 @@ export default compose(
             goToThreadList();
           },
         });
+      },
+    onRequestUpsell:
+      ({ requestUpsellPackage }: InboxConnectedProps) =>
+      () => {
+        requestUpsellPackage(UPSELL_IDENTIFIER_INBOX);
+        // // @ts-expect-error
+        // window.Intercom('trackEvent', 'Upsell feature requested', {
+        //   upsellIdentifier: UPSELL_IDENTIFIER_INBOX,
+        // });
       },
   }),
   withWidth(),

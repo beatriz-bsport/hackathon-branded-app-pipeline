@@ -157,6 +157,25 @@ const getTranslations = async () => {
               title: 'Incompatible payment method',
             },
           },
+          processing: {
+            title: 'Transaction in progress',
+            content: 'Please follow the instructions on the Stripe terminal',
+            help: {
+              title: 'Are you encountering an issue ?',
+              content:
+                'If the terminal displays an error you can click on cancel and try to pay again. You may want to check your internet connection on both your laptop and terminal.',
+            },
+            cancelError: {
+              generic: {
+                title: 'An error occurred',
+                content: 'The operation cannot be cancelled',
+              },
+              readerBusy: {
+                title: 'Payment is being processed',
+                content: 'Please wait for the payment to be completed.',
+              },
+            },
+          },
           radio: 'Payment Terminal',
           amountToPay: 'Amount due',
           connectAndPay: 'Send to terminal',

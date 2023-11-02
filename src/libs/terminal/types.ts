@@ -20,3 +20,27 @@ export type ConnectionToken = {
   objet: string;
   secret: string;
 };
+
+export type ProcessPaymentIntentPayload = {
+  payment_intent_id: string;
+};
+
+export type ProcessSetupIntentPayload = {
+  setup_intent_id: string;
+};
+
+export enum ReaderActionStatus {
+  SUCCEEDED = 'succeeded',
+  IN_PROGRESS = 'in_progress',
+  FAILED = 'failed',
+}
+
+export type ReaderActionSumup = {
+  reader_id: string;
+  action_type: string;
+  failure_code: string | null;
+  failure_message: string | null;
+  status: ReaderActionStatus;
+  stripe_resource_id: string;
+  stripe_timestamp_created: number;
+};

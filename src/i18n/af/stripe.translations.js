@@ -29,6 +29,12 @@ exports.default = {
     invalid_bank_account_account_number: 'The bank account number is invalid.',
     invalid_bank_account_routing_number: 'The sort code provided is invalid.',
     email_invalid: 'The email address is invalid.',
+    terminal_reader_busy:
+      'The reader is currently busy processing another request or is performing an update.',
+    terminal_reader_offline:
+      'The reader is currently offline, please ensure the reader is powered on and connected to the internet before retrying your request.',
+    terminal_reader_timeout:
+      'There was a timeout when sending this command to the reader.',
   },
   error_code: {
     incomplete_number: 'Your card number is incomplete.',

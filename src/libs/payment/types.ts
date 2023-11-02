@@ -97,3 +97,10 @@ export type InternalPaymentPayload = {
   payment_note: string;
   date: string;
 };
+
+export type StripeAPIException = {
+  type?: string;
+  message: string;
+  code: string;
+  decline_code?: string;
+};

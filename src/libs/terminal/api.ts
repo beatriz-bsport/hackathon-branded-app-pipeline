@@ -1,5 +1,10 @@
 import { API_V1_URI, postAuth, getAuth, deleteAuth, putAuth } from '../../http';
-import { ConnectionToken } from './types';
+import type {
+  ConnectionToken,
+  ProcessPaymentIntentPayload,
+  ProcessSetupIntentPayload,
+  ReaderActionSumup,
+} from './types';
 
 export const fetchStripeReaders = async () => {
   return getAuth(`${API_V1_URI}/terminal/reader`);
@@ -29,3 +34,29 @@ export const capturePaymentIntent = async (data: {
 }) => {
   return postAuth(`${API_V1_URI}/terminal/capture_payment_intent`, data);
 };
+
+export const retrieveReaderActionSumup = (readerId: string) =>
+  getAuth<ReaderActionSumup>(
+    `${API_V1_URI}/terminal/reader/${readerId}/retrieve_reader_sumup/`,
+  );
+
+export const processPaymentIntent = (
+  readerId: string,
+  data: ProcessPaymentIntentPayload,
+) =>
+  postAuth<ReaderActionSumup>(
+    `${API_V1_URI}/terminal/reader/${readerId}/process_payment_intent/`,
+    data,
+  );
+
+export const processSetupIntent = (
+  readerId: string,
+  data: ProcessSetupIntentPayload,
+) =>
+  postAuth<ReaderActionSumup>(
+    `${API_V1_URI}/terminal/reader/${readerId}/process_setup_intent/`,
+    data,
+  );
+
+export const cancelReaderAction = (readerId: string) =>
+  postAuth<void>(`${API_V1_URI}/terminal/reader/${readerId}/cancel_action/`);

@@ -19,13 +19,21 @@ export type DraftMarketingAction = {
   marketingAction?: StepMarketingActions;
 };
 
-export const getDefaultValues = (
-  type: MarketingActions,
+/**
+ * Retrieves partial values of the marketing step based on the marketing action type.
+ *
+ * @param marketingActionType - The marketing action type for which to retrieve partial marketing step values.
+ * @param marketingActionId - The marketing action id.
+ * @returns A partial object representing marketing action values corresponding to the marketing action type.
+ */
+export const getMarketingActionPartialValues = (
+  marketingActionType: MarketingActions,
+  marketingActionId?: number,
 ): Partial<StepMarketingActions> => {
-  switch (type) {
+  switch (marketingActionType) {
     case MarketingActions.CADENCE_MARKETING_ACTION_WRITTEN_EMAIL:
       return {
-        id: null,
+        id: marketingActionId || null,
         name: '',
         kind: MarketingActionKind.COMMUNICATION,
         action_spec: {
@@ -38,7 +46,7 @@ export const getDefaultValues = (
       };
     case MarketingActions.CADENCE_MARKETING_ACTION_SMS:
       return {
-        id: null,
+        id: marketingActionId || null,
         name: '',
         kind: MarketingActionKind.COMMUNICATION,
         action_spec: {
@@ -50,7 +58,7 @@ export const getDefaultValues = (
       };
     case MarketingActions.CADENCE_MARKETING_ACTION_PUSH_NOTIFICATION:
       return {
-        id: null,
+        id: marketingActionId || null,
         name: '',
         kind: MarketingActionKind.COMMUNICATION,
         action_spec: {
@@ -63,7 +71,7 @@ export const getDefaultValues = (
       };
     case MarketingActions.CADENCE_MARKETING_ACTION_EMAIL_TEMPLATE:
       return {
-        id: null,
+        id: marketingActionId || null,
         name: '',
         kind: MarketingActionKind.COMMUNICATION,
         action_spec: {
@@ -76,7 +84,7 @@ export const getDefaultValues = (
       };
     case MarketingActions.CADENCE_MARKETING_ACTION_TAG_MANAGEMENT:
       return {
-        id: null,
+        id: marketingActionId || null,
         name: '',
         kind: MarketingActionKind.TAG,
         action_spec: {

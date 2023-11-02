@@ -23,7 +23,7 @@ import {
   SequentialMarketingColors,
   TriggerKind,
 } from '#libs/sequential_marketing/constants';
-import { getDefaultValues } from '#libs/sequential_marketing/components/form/marketing_actions/utils';
+import { getMarketingActionPartialValues } from '#libs/sequential_marketing/components/form/marketing_actions/utils';
 
 import UniqueMarketingActionBubble from '#libs/sequential_marketing/components/graph/bubbles/UniqueMarketingActionBubble.component';
 import usePopoverBubble from '#libs/sequential_marketing/components/graph/nodes/hooks/usePopoverBubble.hook';
@@ -123,7 +123,7 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
 
   const handleOpenUniqueMarketingActionBubble = React.useCallback(
     (type: MarketingActions) => {
-      setNewMarketingAction(getDefaultValues(type));
+      setNewMarketingAction(getMarketingActionPartialValues(type));
       setAnchorAddMarketingAction(stepCardRef?.current);
     },
     [stepCardRef],

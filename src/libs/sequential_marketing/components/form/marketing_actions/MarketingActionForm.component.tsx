@@ -27,7 +27,7 @@ import type { Tag, TagGroupAPI } from '#libs/tag/types';
 import MarketingActionHeader from './MarketingFormHeader.component';
 import MarketingActionContent from './MarketingActionContent.component';
 import {
-  getDefaultValues,
+  getMarketingActionPartialValues,
   getMarketingActionOptions,
   getMarketingActionType,
 } from './utils';
@@ -95,7 +95,8 @@ const MarketingActionForm: React.FC<Props> = ({
 
       const handleAddMarketingAction = (
         marketingActionType: MarketingActions,
-      ) => arrayHelpers.push(getDefaultValues(marketingActionType));
+      ) =>
+        arrayHelpers.push(getMarketingActionPartialValues(marketingActionType));
 
       return (
         <>

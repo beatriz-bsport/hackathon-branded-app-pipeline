@@ -5,7 +5,7 @@ import type { ComponentStory, ComponentMeta } from '@storybook/react';
 import UniqueMarketingActionBubble, {
   type Props as UniqueMarketingActionBubbleProps,
 } from './UniqueMarketingActionBubble.component';
-import { getDefaultValues } from '../../form/marketing_actions/utils';
+import { getMarketingActionPartialValues } from '../../form/marketing_actions/utils';
 import {
   MarketingActionKind,
   MarketingActions,
@@ -91,7 +91,7 @@ Edition.args = {
 
 export const SmsCreation = Template.bind({});
 SmsCreation.args = {
-  marketingAction: getDefaultValues(
+  marketingAction: getMarketingActionPartialValues(
     MarketingActions.CADENCE_MARKETING_ACTION_SMS,
   ),
   tagCategories: fakeTagCategories,
@@ -100,7 +100,7 @@ SmsCreation.args = {
 
 export const WrittenEmailCreation = Template.bind({});
 WrittenEmailCreation.args = {
-  marketingAction: getDefaultValues(
+  marketingAction: getMarketingActionPartialValues(
     MarketingActions.CADENCE_MARKETING_ACTION_WRITTEN_EMAIL,
   ),
   tagCategories: fakeTagCategories,
@@ -109,7 +109,7 @@ WrittenEmailCreation.args = {
 
 export const TemplateEmailCreation = Template.bind({});
 TemplateEmailCreation.args = {
-  marketingAction: getDefaultValues(
+  marketingAction: getMarketingActionPartialValues(
     MarketingActions.CADENCE_MARKETING_ACTION_EMAIL_TEMPLATE,
   ),
   tagCategories: fakeTagCategories,
@@ -121,7 +121,7 @@ TemplateEmailCreation.args = {
 
 export const PushNotifCreation = Template.bind({});
 PushNotifCreation.args = {
-  marketingAction: getDefaultValues(
+  marketingAction: getMarketingActionPartialValues(
     MarketingActions.CADENCE_MARKETING_ACTION_PUSH_NOTIFICATION,
   ),
   tagCategories: fakeTagCategories,
@@ -130,7 +130,7 @@ PushNotifCreation.args = {
 
 export const TagCreation = Template.bind({});
 TagCreation.args = {
-  marketingAction: getDefaultValues(
+  marketingAction: getMarketingActionPartialValues(
     MarketingActions.CADENCE_MARKETING_ACTION_TAG_MANAGEMENT,
   ),
   tagList: tagListFactory(faker.number.int({ min: 2, max: 10 })),

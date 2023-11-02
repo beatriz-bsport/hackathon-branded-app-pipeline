@@ -17,10 +17,17 @@ import {
   StrokeColorField,
   FillField,
   ImageLinkField,
+  FontSizeField,
+  TextOffsetXField,
+  TextOffsetYField,
+  FontColorField,
+  FontWeightField,
+  StrokeDasharrayField,
 } from './BeautifierInputForm.component';
 import { CanvasElement } from '../BaseClasses/Base.tool';
 import { CANVAS_SELECTABLE_TOOLS } from '../CanvasStrategy';
 import useBeautifierField from './useBeautifierField.hook';
+import type { SpotType } from '#libs/spot-scheduling/types';
 
 const AssetUploaderSchema = Yup.object().shape({
   type: Yup.string().oneOf([
@@ -42,6 +49,10 @@ const AssetUploaderSchema = Yup.object().shape({
   x: Yup.number().nullable(false),
   y: Yup.number().nullable(false),
   image: Yup.string().nullable(),
+  fontSize: Yup.number().nullable(),
+  textOffsetX: Yup.number().nullable(),
+  textOffsetY: Yup.number().nullable(),
+  fontColor: Yup.string().nullable(),
 });
 
 const getInitialValues = (canvasElement: CanvasElement<any>) => {
@@ -72,12 +83,14 @@ type Props = {
   onSubmit: (values: any, options?: OptionCallback) => void;
   loading: boolean;
   canvasElement: CanvasElement<any>;
+  spotTypes: SpotType[];
 };
 
 export const BeautifierForm: React.FC<Props> = ({
   onSubmit,
   loading,
   canvasElement,
+  spotTypes,
 }) => {
   const { t } = useTranslation('spotScheduling');
   const classes = useStyles();
@@ -93,7 +106,14 @@ export const BeautifierForm: React.FC<Props> = ({
     displayX,
     displayY,
     displayImageLink,
-  } = useBeautifierField(canvasElement?.type);
+    displayFontSize,
+    displayTextOffsetX,
+    displayTextOffsetY,
+    displayFontColor,
+    displayFontWeight,
+    displayStrokeDasharray,
+  } = useBeautifierField(canvasElement, spotTypes);
+
   return (
     <Formik
       enableReinitialize
@@ -125,6 +145,12 @@ export const BeautifierForm: React.FC<Props> = ({
                   {displayStrokeLineCap && <StrokeLineCapField />}
                   {displayStrokeWidth && <StrokeWidthField />}
                   {displayImageLink && <ImageLinkField />}
+                  {displayFontSize && <FontSizeField />}
+                  {displayTextOffsetX && <TextOffsetXField />}
+                  {displayTextOffsetY && <TextOffsetYField />}
+                  {displayFontColor && <FontColorField />}
+                  {displayFontWeight && <FontWeightField />}
+                  {displayStrokeDasharray && <StrokeDasharrayField />}
                   <Button
                     color="primary"
                     disabled={loading}

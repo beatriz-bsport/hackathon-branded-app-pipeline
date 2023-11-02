@@ -502,6 +502,7 @@ class CanvasViewController extends React.PureComponent<Props> {
           <BeautifierForm
             canvasElement={this.state.clickedElement}
             onSubmit={this.onSubmitBeautifier}
+            spotTypes={this.props.spotTypes}
           />
         </Popover>
         <div className={classes.cursor} id={this.cursorId}>

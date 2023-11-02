@@ -50,10 +50,34 @@ export const StrokeColorField: React.FC = React.memo(() => {
   return <TextField label="stroke" name="stroke" />;
 });
 
+export const StrokeDasharrayField: React.FC = React.memo(() => {
+  return <TextField label="stroke-dasharray" name="strokeDasharray" />;
+});
 export const FillField: React.FC = React.memo(() => {
   return <TextField label="fill" name="fill" />;
 });
 
 export const ImageLinkField: React.FC = React.memo(() => {
   return <TextField label="image-link" name="image" />;
+});
+
+export const FontSizeField: React.FC = React.memo(() => {
+  return <IntegerField fullWidth label="fontSize" name="fontSize" />;
+});
+export const FontColorField: React.FC = React.memo(() => {
+  return <TextField fullWidth label="fontColor" name="fontColor" />;
+});
+export const FontWeightField: React.FC = React.memo(() => {
+  return <IntegerField fullWidth label="fontWeight" name="fontWeight" />;
+});
+export const TextOffsetXField: React.FC = React.memo(() => {
+  return (
+    <IntegerField fullWidth label="textOffsetX" min={-100} name="textOffsetX" />
+  );
+});
+
+export const TextOffsetYField: React.FC = React.memo(() => {
+  return (
+    <IntegerField fullWidth label="textOffsetY" min={-100} name="textOffsetY" />
+  );
 });

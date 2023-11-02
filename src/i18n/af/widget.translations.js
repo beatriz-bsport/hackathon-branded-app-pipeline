@@ -168,6 +168,7 @@ exports.default = {
         cardVariant: 'Select the card variant to use',
         square: 'Unable the rounded corners',
         isRippleEnabled: 'Unable the button ripple effect',
+        hasSent: 'The form has been submitted',
       },
       configurationTitle: 'Variations',
     },
@@ -179,6 +180,7 @@ exports.default = {
       common: 'Common',
       bookingPage: 'Booking',
       fabrique: 'Fabrique',
+      authentication: 'Authentication',
     },
     components: {
       calendar: 'Calendar page',
@@ -234,6 +236,7 @@ exports.default = {
       marketplace_basket_summary_dialog: 'Basket summary (pop-up)',
       marketplace_prepaid_line_item: 'Prepaid line list item',
       marketplace_prepaid_line_list: 'Prepaid line list',
+      authentication_reset_password_form: 'Reset password form',
       fabrique_typography: 'Typography',
       fabrique_card: 'Card',
       marketplace_minimal_appbar: 'Minimal AppBar',

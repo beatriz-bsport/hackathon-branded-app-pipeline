@@ -88,6 +88,7 @@ export type MarketplaceSettingState = {
   settings: MarketplaceSettings;
 };
 export enum MarketplacePage {
+  AUTHENTICATION = 'authentication',
   COMMON = 'common', // made for common components across marketplace
   CALENDAR = 'calendar',
   WORKSHOP = 'workshop',

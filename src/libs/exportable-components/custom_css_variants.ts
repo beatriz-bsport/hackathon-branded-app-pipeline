@@ -174,6 +174,10 @@ import {
   FABRIQUE_CARD_CONFIGURATION,
   FABRIQUE_CARD_PREVIEW,
 } from '#components/css-only/Fabrique/Card';
+import {
+  AUTHENTICATION_RESET_PASSWORD_FORM_CONFIGURATION,
+  AUTHENTICATION_RESET_PASSWORD_FORM_PREVIEW,
+} from '#components/css-only/ResetPasswordForm';
 
 import {
   CSSComponentPreviews,
@@ -198,6 +202,7 @@ import { CssComponentsVariantIdentifiers } from './constants';
  }
 */
 export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
+  AUTHENTICATION_RESET_PASSWORD_FORM_CONFIGURATION,
   MARKETPLACE_SEARCH_CONFIGURATION,
   MARKETPLACE_FILTER_CONFIGURATION,
   MARKETPLACE_DATE_PICKER_CONFIGURATION,
@@ -258,6 +263,8 @@ Template
 
 export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
   Immutable({
+    [CssComponentsVariantIdentifiers.AUTHENTICATION_RESET_PASSWORD_FORM]:
+      AUTHENTICATION_RESET_PASSWORD_FORM_PREVIEW,
     [CssComponentsVariantIdentifiers.MARKETPLACE_ACTIVITY_DIALOG]:
       MARKETPLACE_ACTIVITY_DIALOG_PREVIEW,
     [CssComponentsVariantIdentifiers.MARKETPLACE_ACTIVITY]:

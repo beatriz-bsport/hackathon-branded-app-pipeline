@@ -1,15 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import moment from 'moment-timezone';
 import { compose, withProps } from 'recompose';
-import { Redirect, Link } from 'react-router-dom';
-import WarningIcon from '@material-ui/icons/HelpOutlined';
-import classnames from 'classnames';
-import { withTranslation, TFunction } from 'react-i18next';
+import { Redirect } from 'react-router-dom';
 
-import CircularProgress from '#csscomponents/CircularProgress';
-import TextField from '#Fabrique/TextField';
-import Button from '#Fabrique/Button';
+import ResetPasswordForm from '#csscomponents/ResetPasswordForm';
 import { parseQueryString, buildUrlParams } from '../../../http';
 import ApplyCustomCssStyles from '#libs/widget/components/ApplyCustomCssStyles.component';
 
@@ -17,7 +11,7 @@ import { resetPassword } from '../../../actions/auth.actions';
 import { getIsUISimplified } from '#libs/theme/selectors';
 import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '../../../libs/exportable-components/actions';
 
-import './ResetPasswordStyles.css';
+import { MarketplaceCSSConfiguration } from '#libs/exportable-components/types';
 
 type Props = {
   resetPassword: (
@@ -27,7 +21,6 @@ type Props = {
   ) => void,
   loading: boolean,
   resetError: ?Error,
-  t: TFunction,
   last_password_reset_request: string,
   membership: null | number,
   franchisorId: ?string,
@@ -64,8 +57,7 @@ export class ResetPassword extends Component<Props, State> {
     });
   };
 
-  onSubmit = (event: Object) => {
-    event.preventDefault();
+  onSubmit = () => {
     if (!this.state.email) {
       return;
     }
@@ -94,47 +86,6 @@ export class ResetPassword extends Component<Props, State> {
     return `/login${buildUrlParams(loginPathParams)}`;
   };
 
-  getSendingButton = (buttonClass) => (
-    <div className="bs-reset-password-container__sending-buttons">
-      <Link
-        className="bs-reset-password-container__link"
-        to={this.getRedirectUrlWithParams()}
-      >
-        <Button
-          classes={{
-            root: classnames(
-              buttonClass,
-              'bs-reset-password-container__button-cancel',
-            ),
-          }}
-          id="btn-cancel"
-        >
-          {this.props.t('resetPassword.actions.cancel')}
-        </Button>
-      </Link>
-      {this.props.loading ? (
-        <CircularProgress />
-      ) : (
-        <Button
-          classes={{
-            root: classnames(
-              buttonClass,
-              'bs-reset-password-container__button-submit',
-            ),
-          }}
-          color="primary"
-          id="btn-reset-password"
-          type="submit"
-          variant="contained"
-        >
-          {this.props.simplifyUI
-            ? this.props.t('resetPassword.actions.confirm')
-            : this.props.t('resetPassword.actions.reset')}
-        </Button>
-      )}
-    </div>
-  );
-
   resetComponent = () => {
     this.setState({ hasSent: false });
   };
@@ -145,126 +96,37 @@ export class ResetPassword extends Component<Props, State> {
     });
   };
 
-  getSuccessMsg = (buttonClass) => (
-    <div>
-      <div>
-        {this.props.t('resetPassword.emailHasBeenSent', {
-          email: this.state.email,
-        })}
-      </div>
-      {this.props.last_password_reset_request &&
-        moment(this.props.last_password_reset_request).isAfter(
-          moment().add(-4, 'hours'),
-        ) && (
-          <div className="bs-reset-password-container__help-reset">
-            <WarningIcon
-              className="bs-reset-password-container__help-icon"
-              color="secondary"
-              fontSize="large"
-            />
-            <div>
-              <div className="bs-reset-password-container__error-text">
-                {this.props.t('resetPassword.hasProblem')}
-              </div>
-              <div className="bs-reset-password-container__contact-us">
-                <div className="bs-reset-password-container__contact-us__text">
-                  {this.props.t('resetPassword.contactUs')}
-                </div>
-                <a href="mailto:support+reset-password@bsport.io">
-                  support+reset-password@bsport.io
-                </a>
-              </div>
-            </div>
-          </div>
-        )}
-      <div className="bs-reset-password-container__div__back-to-login">
-        <Button
-          classes={{
-            root: classnames(
-              buttonClass,
-              'bs-reset-password-container__back-to-login-button',
-            ),
-          }}
-          color="primary"
-          id="btn-back-to-login"
-          onClick={this.redirectLogin}
-          variant="contained"
-        >
-          {this.props.t('resetPassword.actions.backToLogin')}
-        </Button>
-      </div>
-    </div>
-  );
-
   render() {
-    const { hasSent, redirectLogin, email } = this.state;
-    const buttonClass = this.props.simplifyUI
-      ? 'bs-reset-password-container__button--simplifyUI'
-      : 'bs-reset-password-container__button';
-    if (redirectLogin) {
+    if (this.state.redirectLogin) {
       return <Redirect to={this.getRedirectUrlWithParams()} />;
     }
     return (
-      <form className="bs-reset-password-form" onSubmit={this.onSubmit}>
+      <>
         {this.props.customConfiguration && (
           <ApplyCustomCssStyles
             customConfiguration={this.props.customConfiguration}
           />
         )}
 
-        <div className="bs-reset-password-container">
-          {!hasSent && (
-            <div className="bs-reset-password-container__flex-column">
-              <h1 className="bs-reset-password-container__title">
-                {this.props.t('resetPassword.title')}
-              </h1>
-              <p className="bs-reset-password-container__text-block">
-                {this.props.t('resetPassword.explain1')}
-              </p>
-              <p className="bs-reset-password-container__text-block">
-                {this.props.t('resetPassword.explain2')}
-              </p>
-              <TextField
-                isFullWidth
-                classes={{
-                  root: 'bs-reset-password-container__email-input bs-text-field__container--large',
-                }}
-                label="Email"
-                name="email"
-                onChange={this.updateEmail}
-                type="email"
-                value={email}
-              />
-            </div>
-          )}
-          {this.props.resetError ? (
-            <div
-              className={classnames(
-                'bs-reset-password-container__error-text',
-                'bs-reset-password-container__caption-text',
-              )}
-            >
-              {this.props.t('resetPassword.noEmail')}
-            </div>
-          ) : null}
-          <div
-            className={classnames({
-              'bs-reset-password-container__div-send-success-msg': hasSent,
-              'bs-reset-password-container__div-send-buttons': !hasSent,
-            })}
-          >
-            {hasSent
-              ? this.getSuccessMsg(buttonClass)
-              : this.getSendingButton(buttonClass)}
-          </div>
-        </div>
-      </form>
+        <ResetPasswordForm
+          customConfiguration={this.props.customConfiguration}
+          email={this.state.email}
+          hasResetError={!!this.props.resetError}
+          hasSent={this.state.hasSent}
+          isLoading={this.props.loading}
+          last_password_reset_request={this.props.last_password_reset_request}
+          onSubmit={this.onSubmit}
+          redirectLogin={this.redirectLogin}
+          redirectUrlWithParams={this.getRedirectUrlWithParams()}
+          simplifyUI={this.props.simplifyUI}
+          updateEmail={this.updateEmail}
+        />
+      </>
     );
   }
 }
 
 export default compose(
-  withTranslation('authentication'),
   withProps((props) => ({
     membership: parseQueryString(props.location.search)?.membership,
     franchisorId: parseQueryString(props.location.search)?.franchisor,

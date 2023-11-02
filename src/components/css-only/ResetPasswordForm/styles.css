@@ -12,6 +12,7 @@
 .bs-reset-password-container__text-block {
   text-align: left;
   margin-bottom: var(--spacing-2);
+  margin-top: 0;
 }
 
 .bs-reset-password-container__email-input {
@@ -36,8 +37,7 @@
   border-radius: var(--border-radius-2);
 }
 
-/* .bs-reset-password-container__button-cancel {
-} */
+/* .bs-reset-password-container__button-cancel {} */
 
 .bs-reset-password-container__button-submit {
   padding: calc(var(--spacing-1) / 2) var(--spacing-3);

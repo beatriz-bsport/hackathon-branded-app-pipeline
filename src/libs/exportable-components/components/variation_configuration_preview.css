@@ -14,6 +14,15 @@ We need to brutally override some things from MUI.
   position: relative !important;
 }
 
+/* ResetPasswordForm */
+.bs-custom-css__component__preview .bs-reset-password-container {
+  position: relative;
+  transform: inherit;
+  top: inherit;
+  left: inherit;
+  padding: 0;
+}
+
 /* MarketPlaceContractCooldownModal */
 .bs-custom-css__component__preview .bs-contract-cooldown-dialog__backdrop {
   position: relative;

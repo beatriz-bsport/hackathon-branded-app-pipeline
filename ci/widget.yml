@@ -15,6 +15,8 @@ Build widget dev:
       when: never
     - if: $CI_COMMIT_REF_NAME == "dev"
       when: always
+    - if: $CI_COMMIT_TAG =~ /deploy-/
+      when: never
     - when: never
 
 Build widget staging:
@@ -26,6 +28,8 @@ Build widget staging:
       when: never
     - if: $CI_COMMIT_REF_NAME == "master"
       when: always
+    - if: $CI_COMMIT_TAG =~ /deploy-/
+      when: never
     - when: never
   trigger:
     branch: master
@@ -39,6 +43,8 @@ Build widget production:
       when: never
     - if: $CI_COMMIT_REF_NAME == "production"
       when: always
+    - if: $CI_COMMIT_TAG =~ /deploy-/
+      when: never
     - when: never
   trigger:
     branch: production

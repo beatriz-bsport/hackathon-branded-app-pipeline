@@ -405,6 +405,8 @@ exports.default = {
       win_step: 'Won',
       error: {
         triggerCannotBeEmpty: 'You have to select an input type.',
+        minimumConnectedTrigger: 'You have to select at least one trigger.',
+        maximumConnectedTrigger: 'You cannot set up more than five triggers.',
         timeoutMustBeStrictPositive: 'The time limit must be at least 1 day.',
       },
       marketing_action: {
@@ -615,9 +617,13 @@ exports.default = {
         nextStepTrigger: 'Trigger to next step',
       },
     },
-    marketingAction: { addAction: 'Add an action' },
+    marketingAction: {
+      addAction: 'Add an action',
+    },
+    trigger: {
+      addTrigger: 'Add a trigger',
+    },
     bubble: {
-      previous: 'Previous',
       convertIntoExit: { title: 'Exit', label: 'Consider the member as' },
       entryTrigger: {
         addTrigger: 'Add an input trigger',
@@ -631,6 +637,36 @@ exports.default = {
           "Select what you want to do when your members enter the workflow. Tag them, send an email... It's up to you. Or do nothing, this step is optional.",
         title: 'Entry action',
       },
+      wonTrigger: {
+        addTrigger: 'Add an output trigger',
+        helperText:
+          'Let\'s define the general exit rules. Just like for the entry, indicate which events are going to make your members leave the workflow. Wherever the member is, if this event happens, the member will leave the workflow. First, define what you\'ll consider as a success to mark the member as "Won" upon leaving the workflow.',
+        title: 'Won criteria',
+      },
+      wonAction: {
+        addAction: 'Add action',
+        helperText:
+          "Select what you want to do when your members leave the workflow as won. Tag them, send an email... It's up to you. Or do nothing, this step is optional",
+        title: 'Won action',
+      },
+      lostTrigger: {
+        timeout: {
+          title: 'Time limit',
+          label: 'Days in the workflow',
+          helperText:
+            "If a member is still present in this workflow after the selected Time Limit, the member will be considered as 'Lost'.",
+        },
+        addTrigger: 'Add an output trigger',
+        helperText:
+          'Now let\'s define what you consider as a failure, so that your member leaves the workflow as "lost"',
+        title: 'Lost criteria',
+      },
+      lostAction: {
+        addAction: 'Add action',
+        helperText:
+          "Select what you want to do when your members leave the workflow as lost. Tag them, send an email... It's up to you. Or do nothing, this step is optional.",
+        title: 'Lost action',
+      },
       convertIntoStep: { default: 'Step label', label: 'Step label' },
       marketingAction: {
         title: 'Marketing action',
@@ -639,7 +675,9 @@ exports.default = {
       delete: 'Delete',
       cancel: 'Cancel',
       confirm: 'Save',
+      previous: 'Previous',
       next: 'Next',
+      finish: 'Finish',
       step: { name: 'Name' },
       requiredField: 'This field is required to continue.',
     },

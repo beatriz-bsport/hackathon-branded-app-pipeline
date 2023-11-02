@@ -1,10 +1,8 @@
 import React from 'react';
 import Immutable from 'seamless-immutable';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import type { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import UniqueTriggerBubble, {
-  type Props,
-} from './UniqueTriggerBubble.component';
+import UniqueTriggerBubble from './UniqueTriggerBubble.component';
 import { triggerFactory } from '#libs/sequential_marketing/factories';
 import { smartlistBatchFactory } from '#libs/smart-list/factories';
 import { TriggerKind } from '#libs/sequential_marketing/constants';
@@ -47,9 +45,9 @@ export default {
   ],
 } as ComponentMeta<typeof UniqueTriggerBubble>;
 
-const Template: ComponentStory<typeof UniqueTriggerBubble> = (args: Props) => (
-  <UniqueTriggerBubble {...args} />
-);
+const Template: ComponentStory<typeof UniqueTriggerBubble> = (
+  args: React.ComponentProps<typeof UniqueTriggerBubble>,
+) => <UniqueTriggerBubble {...args} />;
 
 export const Random = Template.bind({});
 Random.args = {

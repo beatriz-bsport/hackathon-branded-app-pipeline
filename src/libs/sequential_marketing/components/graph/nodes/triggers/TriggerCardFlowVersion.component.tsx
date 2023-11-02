@@ -14,14 +14,15 @@ import usePopoverBubble from '#libs/sequential_marketing/components/graph/nodes/
 import HiddenHandle from '#libs/sequential_marketing/components/graph/handles/HiddenHandle.component';
 
 import TriggerCard, { type TriggerCardProps } from './TriggerCard.component';
-import UniqueTriggerBubble, {
-  type Props as UniqueTriggerBubbleProps,
-} from '#libs/sequential_marketing/components/graph/bubbles/UniqueTriggerBubble.component';
+import UniqueTriggerBubble from '#libs/sequential_marketing/components/graph/bubbles/UniqueTriggerBubble.component';
 import type { ConnectedTrigger } from '#libs/sequential_marketing/types';
 
 type FlowProps = {
   data: TriggerCardProps & {
-    bubble: Pick<UniqueTriggerBubbleProps, 'onConfirm' | 'smartlists'>;
+    bubble: Pick<
+      React.ComponentProps<typeof UniqueTriggerBubble>,
+      'onConfirm' | 'smartlists'
+    >;
     resetFakerTrigger: () => void;
   };
 };

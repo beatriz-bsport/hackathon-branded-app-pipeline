@@ -10,7 +10,7 @@ import CadenceBubble from './CadenceBubble.component';
 import MarketingActionForm from '#libs/sequential_marketing/components/form/marketing_actions/MarketingActionForm.component';
 import { SequentialMarketingColors } from '#libs/sequential_marketing/constants';
 
-export type Props = {
+type Props = {
   marketingActions?: StepMarketingActions[];
   onCancel?: () => void;
   onClose?: () => void;

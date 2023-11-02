@@ -1,12 +1,11 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
-import { makeStyles, type Theme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Alert from '@material-ui/lab/Alert';
 
-import CadenceBubble from './CadenceBubble.component';
 import { SequentialMarketingColors } from '#libs/sequential_marketing/constants';
-import MultipleMarketingActionForm from '../../form/marketing_actions/MultipleMarketingActionForm.component';
+import CadenceBubble from './CadenceBubble.component';
+import MultipleMarketingActionForm from '#libs/sequential_marketing/components/form/marketing_actions/MultipleMarketingActionForm.component';
 
 import type {
   MarketingActionEssentials,
@@ -25,11 +24,11 @@ const EntryActionBubble: React.FC<Props> = ({
   emailDetailListLoading,
   emailSummaryList,
   emailSummaryListLoading,
-  tagCategories,
-  marketingActions,
   resolvedGenericTags,
+  tagCategories,
   tagList,
   isInitial,
+  marketingActions,
   fetchEmailSummaryList,
   getEmailDetail,
   onConfirm,
@@ -80,7 +79,7 @@ const EntryActionBubble: React.FC<Props> = ({
       title={t('cadence.bubble.entryAction.title')}
     >
       <div className={classes.content}>
-        <Alert className={classes.alert} severity="info">
+        <Alert severity="info">
           {t('cadence.bubble.entryAction.helperText')}
         </Alert>
         <MultipleMarketingActionForm
@@ -102,14 +101,12 @@ const EntryActionBubble: React.FC<Props> = ({
   );
 };
 
-type StylesProps = { color: string };
-
-const useStyles = makeStyles<Theme, StylesProps>((theme) => ({
+const useStyles = makeStyles((theme) => ({
   content: {
     width: '100%',
-  },
-  alert: {
-    marginBottom: theme.spacing(4),
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(4),
   },
 }));
 

@@ -1,9 +1,7 @@
 import React from 'react';
 import type { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import MarketingActionBubble, {
-  Props,
-} from './MarketingActionBubble.component';
+import MarketingActionBubble from './MarketingActionBubble.component';
 
 export default {
   title: 'Components/Cadences/Bubbles/MarketingAction',
@@ -55,7 +53,7 @@ export default {
 } as ComponentMeta<typeof MarketingActionBubble>;
 
 const Template: ComponentStory<typeof MarketingActionBubble> = (
-  args: Props,
+  args: React.ComponentProps<typeof MarketingActionBubble>,
 ) => <MarketingActionBubble {...args} />;
 
 export const Primary = Template.bind({});

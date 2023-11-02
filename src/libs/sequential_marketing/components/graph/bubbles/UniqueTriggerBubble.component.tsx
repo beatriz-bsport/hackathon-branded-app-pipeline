@@ -13,7 +13,7 @@ import { SequentialMarketingColors } from '#libs/sequential_marketing/constants'
 import CadenceBubble from './CadenceBubble.component';
 import ConnectedTriggerForm from '#libs/sequential_marketing/components/form/connected_triggers/ConnectedTriggerForm.component';
 
-export type Props = {
+type Props = {
   trigger: ConnectedTrigger;
   smartlists: Immutable.ImmutableArray<SmartList>;
   onCancel?: () => void;

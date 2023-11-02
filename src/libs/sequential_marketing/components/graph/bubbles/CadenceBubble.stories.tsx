@@ -1,7 +1,7 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import type { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import CadenceBubble, { CadenceBubbleProps } from './CadenceBubble.component';
+import CadenceBubble from './CadenceBubble.component';
 
 export default {
   title: 'Components/Cadences/Bubbles/Generic',
@@ -77,7 +77,7 @@ export default {
 } as ComponentMeta<typeof CadenceBubble>;
 
 const Template: ComponentStory<typeof CadenceBubble> = (
-  args: CadenceBubbleProps,
+  args: React.ComponentProps<typeof CadenceBubble>,
 ) => <CadenceBubble {...args} />;
 
 export const Basic = Template.bind({});

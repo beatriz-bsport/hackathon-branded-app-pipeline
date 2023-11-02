@@ -6,6 +6,7 @@ import EntryActionBubble from './EntryActionBubble.component';
 import EmailTemplateSummaryFactoryBot from '#libs/email-editor/factories/EmailTemplateSummary';
 import { tagListFactory } from '#libs/tag/factory';
 import { stepMarketingActionBatchFactory } from '#libs/sequential_marketing/factories';
+import { MarketingActionArgTypes } from '#libs/sequential_marketing/constants/marketing_actions';
 
 export default {
   title: 'Components/Cadences/Bubbles/EntryAction',
@@ -32,6 +33,7 @@ export default {
     },
   },
   argTypes: {
+    ...MarketingActionArgTypes,
     onClose: {
       action: 'onCloseClicked',
       description: 'Cancel button',
@@ -39,6 +41,16 @@ export default {
     onConfirm: {
       action: 'onConfirmClicked',
       description: 'Confirm button',
+    },
+    isInitial: {
+      description:
+        'Indicates whether the workflow is in its initial state. True if it has not been initialized yet, signifying the first configuration.',
+      control: { type: 'boolean' },
+    },
+    marketingActions: {
+      description:
+        'List of marketing actions associated with the entry step in the workflow.',
+      control: { type: 'object' },
     },
   },
 } as ComponentMeta<typeof EntryActionBubble>;

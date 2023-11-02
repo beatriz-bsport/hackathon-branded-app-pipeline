@@ -14,7 +14,7 @@ import {
   HEADER_ICON_SIZE,
 } from '#libs/sequential_marketing/constants/steps';
 
-export type CadenceBubbleProps = {
+type Props = {
   title: string;
   icon: string;
   color: string;
@@ -32,7 +32,7 @@ export type CadenceBubbleProps = {
 };
 
 type CadenceBubbleHeaderProps = { classes: ClassNameMap<string> } & Pick<
-  CadenceBubbleProps,
+  Props,
   'title' | 'smallTitle' | 'icon' | 'color' | 'minimalIcon' | 'onCancelClick'
 >;
 
@@ -87,7 +87,7 @@ const CadenceBubbleHeader: React.FC<CadenceBubbleHeaderProps> = React.memo(
   },
 );
 
-const CadenceBubble: React.FC<CadenceBubbleProps> = ({
+const CadenceBubble: React.FC<Props> = ({
   title,
   isSubmissionForbidden,
   icon,

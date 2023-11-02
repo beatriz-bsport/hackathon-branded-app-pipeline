@@ -1,17 +1,15 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import Immutable from 'seamless-immutable';
-
-import { makeStyles, type Theme } from '@material-ui/core/styles';
+import { useTranslation } from 'react-i18next';
+import { makeStyles } from '@material-ui/core/styles';
 import Alert from '@material-ui/lab/Alert';
 
-import CadenceBubble from './CadenceBubble.component';
 import { SequentialMarketingColors } from '#libs/sequential_marketing/constants';
+import CadenceBubble from './CadenceBubble.component';
 import MultipleConnectedTriggerForm from '#libs/sequential_marketing/components/form/connected_triggers/MultipleConnectedTriggerForm.component';
 
 import type { SmartList } from '#libs/smart-list/types';
 import type { ConnectedTrigger } from '#libs/sequential_marketing/types';
-import type { OptionCallback } from '../../../../../state/types';
 
 type Props = {
   connectedTriggers: ConnectedTrigger[];
@@ -19,7 +17,7 @@ type Props = {
   entrystepId: number;
   isInitial?: boolean;
   onClose?: () => void;
-  onConfirm: (data: ConnectedTrigger[], options?: OptionCallback) => void;
+  onConfirm: (data: ConnectedTrigger[]) => void;
 };
 
 const EntryTriggerBubble: React.FC<Props> = ({
@@ -40,10 +38,6 @@ const EntryTriggerBubble: React.FC<Props> = ({
     ConnectedTrigger[]
   >([]);
 
-  React.useEffect(() => {
-    setConnectedTriggerList(connectedTriggers || []);
-  }, [connectedTriggers]);
-
   const updateConnectedTriggerList = React.useCallback(
     (newConnectedTriggerList: ConnectedTrigger[]) =>
       setConnectedTriggerList(newConnectedTriggerList),
@@ -59,13 +53,17 @@ const EntryTriggerBubble: React.FC<Props> = ({
     setIsFormValid(isValid);
   }, []);
 
+  React.useEffect(() => {
+    setConnectedTriggerList(connectedTriggers || []);
+  }, [connectedTriggers]);
+
   return (
     <CadenceBubble
       color={SequentialMarketingColors.ENTRY_COLOR}
       icon="PlayArrow"
       isSubmissionForbidden={!isFormValid}
       onCancelClick={!isInitial && onClose}
-      onCancelText={!isInitial && t('cadence.bubble.cancel')}
+      onCancelText={!isInitial ? t('cadence.bubble.cancel') : ''}
       onConfirmClick={handleSubmit}
       onConfirmText={
         isInitial ? t('cadence.bubble.next') : t('cadence.bubble.confirm')
@@ -73,7 +71,7 @@ const EntryTriggerBubble: React.FC<Props> = ({
       title={t('cadence.bubble.entryTrigger.title')}
     >
       <div className={classes.content}>
-        <Alert className={classes.alert} severity="info">
+        <Alert severity="info">
           {t('cadence.bubble.entryTrigger.helperText')}
         </Alert>
         <MultipleConnectedTriggerForm
@@ -90,14 +88,12 @@ const EntryTriggerBubble: React.FC<Props> = ({
   );
 };
 
-type StylesProps = { color: string };
-
-const useStyles = makeStyles<Theme, StylesProps>((theme) => ({
+const useStyles = makeStyles((theme) => ({
   content: {
     width: '100%',
-  },
-  alert: {
-    marginBottom: theme.spacing(4),
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(4),
   },
 }));
 

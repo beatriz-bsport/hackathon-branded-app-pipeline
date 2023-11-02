@@ -1,9 +1,7 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import type { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import StepEditionBubble, {
-  StepEditionBubbleProps,
-} from './StepEditionBubble.component';
+import StepEditionBubble from './StepEditionBubble.component';
 import { cadenceStepFactory } from '#libs/sequential_marketing/factories';
 
 export default {
@@ -56,7 +54,7 @@ export default {
 } as ComponentMeta<typeof StepEditionBubble>;
 
 const Template: ComponentStory<typeof StepEditionBubble> = (
-  args: StepEditionBubbleProps,
+  args: React.ComponentProps<typeof StepEditionBubble>,
 ) => <StepEditionBubble {...args} />;
 
 export const NoProps = Template.bind({});

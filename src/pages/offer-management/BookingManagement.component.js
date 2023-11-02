@@ -858,97 +858,108 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                   />
                 ) : null}
                 <List disablePadding>
-                  <BookingOptionActionBar
-                    availableBookingOptionsCount={
-                      availableBookingOptions?.length
-                    }
-                    handleSelectAllBookingOptions={
-                      this.props.handleSelectAllBookingOptions
-                    }
-                    handleUnselectAllBookingOptions={
-                      this.props.handleUnselectAllBookingOptions
-                    }
-                    isDisabled={isOfferExpired}
-                    onBook={this.props.onClickAutoBook}
-                    selectedBookingOptionsCount={
-                      this.props.selectedBookingOptionsIds?.length
-                    }
-                  />
-                  {this.props.bookingOptionsPending.map((bookingOption) => (
-                    <ObjectLevelPermissionProvider
-                      requiredPermission={[
-                        'reservation.activity.allowed_actions.create',
-                        'reservation.workshop.allowed_actions.create',
-                        'reservation.activity.allowed_actions.removeFromWaitlist',
-                        'reservation.workshop.allowed_actions.removeFromWaitlist',
-                      ]}
-                    >
-                      {([
-                        hasActivityCreateBookingPermission,
-                        hasWorkshopCreateBookingPermission,
-                        hasActivityRemoveWaitlistPermission,
-                        hasWorkshopRemoveWaitlistPermission,
-                      ]) => (
-                        <BookingOptionForManager
-                          key={bookingOption.id}
-                          disabled={moment(
-                            this.props.offer.date_start,
-                          ).isBefore(moment())}
-                          displayPositionInWaitingList={
-                            this.props.displayPositionInWaitingList
+                  <ObjectLevelPermissionProvider
+                    requiredPermission={[
+                      'reservation.activity.allowed_actions.create',
+                      'reservation.workshop.allowed_actions.create',
+                      'reservation.activity.allowed_actions.removeFromWaitlist',
+                      'reservation.workshop.allowed_actions.removeFromWaitlist',
+                    ]}
+                  >
+                    {([
+                      hasActivityCreateBookingPermission,
+                      hasWorkshopCreateBookingPermission,
+                      hasActivityRemoveWaitlistPermission,
+                      hasWorkshopRemoveWaitlistPermission,
+                    ]) => (
+                      <>
+                        <BookingOptionActionBar
+                          availableBookingOptionsCount={
+                            availableBookingOptions?.length
                           }
-                          handleCheckBookingOption={
-                            this.props.handleCheckBookingOption
+                          handleSelectAllBookingOptions={
+                            this.props.handleSelectAllBookingOptions
                           }
-                          handleUncheckBookingOption={
-                            this.props.handleUncheckBookingOption
+                          handleUnselectAllBookingOptions={
+                            this.props.handleUnselectAllBookingOptions
                           }
-                          member={this.props.members.find(
-                            (m) => m.id === bookingOption.member,
-                          )}
-                          onClickRegister={(e) => {
-                            e.stopPropagation();
-                            const member = getMemberFromId(
-                              bookingOption.member,
-                              this.props.members,
-                            );
-                            this.props.registerOption(bookingOption.id, {
-                              name: member.name,
-                              photo: member.photo,
-                              id: bookingOption.member,
-                            });
-                          }}
-                          onDiscard={(e) => {
-                            e.stopPropagation();
-                            this.props.discardOption(bookingOption.id);
-                          }}
-                          option={bookingOption}
-                          selectedBookingOptionsIds={
-                            this.props.selectedBookingOptionsIds
-                          }
-                          shouldHideBookButton={
+                          isDisabled={
+                            isOfferExpired ||
                             !getActivityWorkshopPermission(
                               this.getIsWorkshop(),
                               hasActivityCreateBookingPermission,
                               hasWorkshopCreateBookingPermission,
                             )
                           }
-                          shouldHideRemoveWaitlistButton={
-                            !getActivityWorkshopPermission(
-                              this.getIsWorkshop(),
-                              hasActivityRemoveWaitlistPermission,
-                              hasWorkshopRemoveWaitlistPermission,
-                            )
-                          }
-                          waitingListPosition={
-                            this.props.bookingOptionPositionById?.[
-                              bookingOption.id
-                            ]?.waiting_list_position
+                          onBook={this.props.onClickAutoBook}
+                          selectedBookingOptionsCount={
+                            this.props.selectedBookingOptionsIds?.length
                           }
                         />
-                      )}
-                    </ObjectLevelPermissionProvider>
-                  ))}
+                        {this.props.bookingOptionsPending.map(
+                          (bookingOption) => (
+                            <BookingOptionForManager
+                              key={bookingOption.id}
+                              disabled={moment(
+                                this.props.offer.date_start,
+                              ).isBefore(moment())}
+                              displayPositionInWaitingList={
+                                this.props.displayPositionInWaitingList
+                              }
+                              handleCheckBookingOption={
+                                this.props.handleCheckBookingOption
+                              }
+                              handleUncheckBookingOption={
+                                this.props.handleUncheckBookingOption
+                              }
+                              member={this.props.members.find(
+                                (m) => m.id === bookingOption.member,
+                              )}
+                              onClickRegister={(e) => {
+                                e.stopPropagation();
+                                const member = getMemberFromId(
+                                  bookingOption.member,
+                                  this.props.members,
+                                );
+                                this.props.registerOption(bookingOption.id, {
+                                  name: member.name,
+                                  photo: member.photo,
+                                  id: bookingOption.member,
+                                });
+                              }}
+                              onDiscard={(e) => {
+                                e.stopPropagation();
+                                this.props.discardOption(bookingOption.id);
+                              }}
+                              option={bookingOption}
+                              selectedBookingOptionsIds={
+                                this.props.selectedBookingOptionsIds
+                              }
+                              shouldHideBookButton={
+                                !getActivityWorkshopPermission(
+                                  this.getIsWorkshop(),
+                                  hasActivityCreateBookingPermission,
+                                  hasWorkshopCreateBookingPermission,
+                                )
+                              }
+                              shouldHideRemoveWaitlistButton={
+                                !getActivityWorkshopPermission(
+                                  this.getIsWorkshop(),
+                                  hasActivityRemoveWaitlistPermission,
+                                  hasWorkshopRemoveWaitlistPermission,
+                                )
+                              }
+                              waitingListPosition={
+                                this.props.bookingOptionPositionById?.[
+                                  bookingOption.id
+                                ]?.waiting_list_position
+                              }
+                            />
+                          ),
+                        )}
+                      </>
+                    )}
+                  </ObjectLevelPermissionProvider>
                 </List>
                 {!!this.props.recurrenceRuleBookingList.length && (
                   <div>

@@ -28,7 +28,7 @@ const BookingOptionActionBar: React.FC<Props> = ({
   onBook,
   isDisabled,
 }) => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation(['common', 'translation']);
   const classes = useStyles();
 
   const isIndeterminate =
@@ -79,7 +79,7 @@ const BookingOptionActionBar: React.FC<Props> = ({
             variant="outlined"
           >
             <AddIcon />
-            {t('book')}
+            {t('translation:booking.add')}
           </Button>
         </div>
       </ListItem>

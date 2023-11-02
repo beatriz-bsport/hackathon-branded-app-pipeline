@@ -1,5 +1,7 @@
 import Immutable from 'seamless-immutable';
 
+import Config from '../../config';
+
 import {
   MARKETPLACE_OFFER_CARD_CONFIGURATION,
   MARKETPLACE_OFFER_CARD_PREVIEW,
@@ -228,8 +230,9 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
   MARKETPLACE_PREPAID_LINE_ITEM_CONFIGURATION,
   MARKETPLACE_PREPAID_LINE_LIST_CONFIGURATION,
   MARKETPLACE_BOOKER_MODULE_OFFER_SUMMARY_CONFIGURATION,
-  FABRIQUE_TYPOGRAPHY_CONFIGURATION,
-  FABRIQUE_CARD_CONFIGURATION,
+  ...(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production'
+    ? [FABRIQUE_TYPOGRAPHY_CONFIGURATION, FABRIQUE_CARD_CONFIGURATION]
+    : []),
 ];
 
 /*
@@ -323,9 +326,11 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
       MARKETPLACE_BASKET_SUMMARY_DIALOG_PREVIEW,
     [CssComponentsVariantIdentifiers.BOOKER_MODULE_OFFER_SUMMARY]:
       MARKETPLACE_BOOKER_MODULE_OFFER_SUMMARY_PREVIEW,
-    [CssComponentsVariantIdentifiers.FABRIQUE_TYPOGRAPHY]:
-      FABRIQUE_TYPOGRAPHY_PREVIEW,
-    [CssComponentsVariantIdentifiers.FABRIQUE_CARD]: FABRIQUE_CARD_PREVIEW,
+    ...(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' && {
+      [CssComponentsVariantIdentifiers.FABRIQUE_TYPOGRAPHY]:
+        FABRIQUE_TYPOGRAPHY_PREVIEW,
+      [CssComponentsVariantIdentifiers.FABRIQUE_CARD]: FABRIQUE_CARD_PREVIEW,
+    }),
   });
 export const CSS_COMPONENT_PAGES: Immutable.Immutable<MarketplacePage[]> =
   Immutable(Array.from(new Set(CSS_COMPONENTS.flatMap((c) => c.pages))));

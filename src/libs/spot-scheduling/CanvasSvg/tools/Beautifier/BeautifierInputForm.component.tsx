@@ -53,3 +53,7 @@ export const StrokeColorField: React.FC = React.memo(() => {
 export const FillField: React.FC = React.memo(() => {
   return <TextField label="fill" name="fill" />;
 });
+
+export const ImageLinkField: React.FC = React.memo(() => {
+  return <TextField label="image-link" name="image" />;
+});

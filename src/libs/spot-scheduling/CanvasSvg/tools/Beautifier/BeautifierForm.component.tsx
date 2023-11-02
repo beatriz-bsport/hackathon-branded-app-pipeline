@@ -16,6 +16,7 @@ import {
   StrokeWidthField,
   StrokeColorField,
   FillField,
+  ImageLinkField,
 } from './BeautifierInputForm.component';
 import { CanvasElement } from '../BaseClasses/Base.tool';
 import { CANVAS_SELECTABLE_TOOLS } from '../CanvasStrategy';
@@ -40,6 +41,7 @@ const AssetUploaderSchema = Yup.object().shape({
   width: Yup.number().nullable(false),
   x: Yup.number().nullable(false),
   y: Yup.number().nullable(false),
+  image: Yup.string().nullable(),
 });
 
 const getInitialValues = (canvasElement: CanvasElement<any>) => {
@@ -90,6 +92,7 @@ export const BeautifierForm: React.FC<Props> = ({
     displayWidth,
     displayX,
     displayY,
+    displayImageLink,
   } = useBeautifierField(canvasElement?.type);
   return (
     <Formik
@@ -121,6 +124,7 @@ export const BeautifierForm: React.FC<Props> = ({
                   {displayStroke && <StrokeColorField />}
                   {displayStrokeLineCap && <StrokeLineCapField />}
                   {displayStrokeWidth && <StrokeWidthField />}
+                  {displayImageLink && <ImageLinkField />}
                   <Button
                     color="primary"
                     disabled={loading}

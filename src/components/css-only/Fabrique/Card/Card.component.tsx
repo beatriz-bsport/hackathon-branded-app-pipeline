@@ -41,7 +41,7 @@ export type CardProps = {
   square?: boolean;
   /**
    * The variant to use.
-   * @default 'outlined'
+   * @default 'rest'
    */
   variant?: CardVariant;
 };

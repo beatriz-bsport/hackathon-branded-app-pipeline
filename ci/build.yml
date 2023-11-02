@@ -3,13 +3,6 @@
   stage: build-deploy
   retry:
     max: 2
-  # cache:
-  #   files:
-  #     - yarn.lock
-  #   paths:
-  #       - "$YARN_CACHE_DIR"
-  #       - "$CYPRESS_CACHE_FOLDER/node_modules"
-  #       - node_modules
   script:
     - mv /app/node_modules .
     - yarn install --frozen-lockfile # just to be sure
@@ -50,7 +43,7 @@
     - cat slack_template_interpolated.json
     - 'curl -s -d @slack_template_interpolated.json --header "Content-Type: application/json" "${SLACK_WEBHOOK_URL}" || exit 0'
 
-Buid Deploy Staging:
+Build Deploy Staging:
   extends: .Build and deploy Base
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -71,7 +64,7 @@ Buid Deploy Staging:
     - build-frontend
     - cluster:bsport-tooling
 
-Buid Deploy Production:
+Build Deploy Production:
   extends: .Build and deploy Base
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -93,7 +86,7 @@ Buid Deploy Production:
     - build-frontend
     - cluster:bsport-tooling
 
-Buid Deploy Dev:
+Build Deploy Dev:
   extends: .Build and deploy Base
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
@@ -139,13 +132,6 @@ Buid Deploy Dev:
 
   image: ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_NAME}
   stage: build-deploy-feature-branch
-  # cache:
-  #   files:
-  #     - yarn.lock
-  #   paths:
-  #       - "$YARN_CACHE_DIR"
-  #       - "$CYPRESS_CACHE_FOLDER/node_modules"
-  #       - node_modules
   script:
     - mv /app/node_modules .
     - yarn install --frozen-lockfile # just to be sure

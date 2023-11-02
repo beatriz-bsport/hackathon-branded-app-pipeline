@@ -13,13 +13,6 @@
 
   image: ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_NAME}
   stage: tag-releases
-  # cache:
-  #   files:
-  #     - yarn.lock
-  #   paths:
-  #       - "$YARN_CACHE_DIR"
-  #       - "$CYPRESS_CACHE_FOLDER/node_modules"
-  #       - node_modules
   script:
     - RETRO_IDENTIFIER="${RETRO_DURATION}${RETRO_DURATION_TYPE}"
     - mv /app/node_modules .

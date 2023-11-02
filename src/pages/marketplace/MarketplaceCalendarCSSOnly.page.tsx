@@ -156,10 +156,14 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
     this.calendarRefContainer = React.createRef();
   }
 
-  // compact calendar
+  /**
+   *  @description Wheter or not the calendar must display its list or card version. For the widget this is configurable via the property compactMode.
+   *  compactMode can be null, true, false AND also undefined (parameter coming from the widget code-snippet and is often deleted from the dict).
+   * Thus, we must consider null and undefined equivalent and have to serve the same purpose -> let the container width establish the display behavior.
+   */
   getIsCompact = () =>
     (this.props.compactMode !== null && this.props.compactMode === true) ||
-    (this.props.compactMode === null &&
+    (!this.props.compactMode &&
       (this.calendarRefContainer?.current?.clientWidth ?? 1200) < 1250);
 
   // large calendar

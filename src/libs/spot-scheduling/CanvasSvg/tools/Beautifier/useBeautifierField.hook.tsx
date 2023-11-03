@@ -44,6 +44,10 @@ export const useBeautifierField = (
     canvasElementType === CANVAS_SELECTABLE_TOOLS.spot &&
     !isCustomStop &&
     spotShape === 'square';
+  const isDefaultReactangleSpot =
+    canvasElementType === CANVAS_SELECTABLE_TOOLS.spot &&
+    !isCustomStop &&
+    spotShape === 'rectangle';
 
   return {
     displayFill:
@@ -51,24 +55,28 @@ export const useBeautifierField = (
       canvasElementType === CANVAS_SELECTABLE_TOOLS.rect ||
       canvasElementType === CANVAS_SELECTABLE_TOOLS.screen ||
       isDefaultCircularSpot ||
-      isDefaultSquareSpot,
+      isDefaultSquareSpot ||
+      isDefaultReactangleSpot,
     displayHeight:
       canvasElementType === CANVAS_SELECTABLE_TOOLS.rect ||
       isDefaultCircularSpot ||
-      isDefaultSquareSpot,
+      isDefaultSquareSpot ||
+      isDefaultReactangleSpot,
     displayRotation:
       canvasElementType === CANVAS_SELECTABLE_TOOLS.door ||
       canvasElementType === CANVAS_SELECTABLE_TOOLS.rect ||
       canvasElementType === CANVAS_SELECTABLE_TOOLS.screen ||
       isDefaultCircularSpot ||
-      isDefaultSquareSpot,
+      isDefaultSquareSpot ||
+      isDefaultReactangleSpot,
     displayStroke:
       canvasElementType === CANVAS_SELECTABLE_TOOLS.door ||
       canvasElementType === CANVAS_SELECTABLE_TOOLS.line ||
       canvasElementType === CANVAS_SELECTABLE_TOOLS.rect ||
       canvasElementType === CANVAS_SELECTABLE_TOOLS.screen ||
       isDefaultCircularSpot ||
-      isDefaultSquareSpot,
+      isDefaultSquareSpot ||
+      isDefaultReactangleSpot,
     displayStrokeLineCap:
       canvasElementType === CANVAS_SELECTABLE_TOOLS.door ||
       canvasElementType === CANVAS_SELECTABLE_TOOLS.line ||
@@ -79,31 +87,42 @@ export const useBeautifierField = (
       canvasElementType === CANVAS_SELECTABLE_TOOLS.rect ||
       canvasElementType === CANVAS_SELECTABLE_TOOLS.screen ||
       isDefaultCircularSpot ||
-      isDefaultSquareSpot,
-    displayWidth: canvasElementType === CANVAS_SELECTABLE_TOOLS.rect,
+      isDefaultSquareSpot ||
+      isDefaultReactangleSpot,
+    displayWidth:
+      canvasElementType === CANVAS_SELECTABLE_TOOLS.rect ||
+      isDefaultReactangleSpot,
     displayX:
       canvasElementType === CANVAS_SELECTABLE_TOOLS.door ||
       canvasElementType === CANVAS_SELECTABLE_TOOLS.rect ||
       canvasElementType === CANVAS_SELECTABLE_TOOLS.screen ||
       isDefaultCircularSpot ||
-      isDefaultSquareSpot,
+      isDefaultSquareSpot ||
+      isDefaultReactangleSpot,
     displayY:
       canvasElementType === CANVAS_SELECTABLE_TOOLS.door ||
       canvasElementType === CANVAS_SELECTABLE_TOOLS.rect ||
       canvasElementType === CANVAS_SELECTABLE_TOOLS.screen ||
       isDefaultCircularSpot ||
-      isDefaultSquareSpot,
+      isDefaultSquareSpot ||
+      isDefaultReactangleSpot,
     displayImageLink: canvasElementType === CANVAS_SELECTABLE_TOOLS.rect,
-    displayFontSize: isDefaultCircularSpot || isDefaultSquareSpot,
-    displayFontColor: isDefaultCircularSpot || isDefaultSquareSpot,
-    displayFontWeight: isDefaultCircularSpot || isDefaultSquareSpot,
-    displayTextOffsetX: isDefaultCircularSpot || isDefaultSquareSpot,
-    displayTextOffsetY: isDefaultCircularSpot || isDefaultSquareSpot,
+    displayFontSize:
+      isDefaultCircularSpot || isDefaultSquareSpot || isDefaultReactangleSpot,
+    displayFontColor:
+      isDefaultCircularSpot || isDefaultSquareSpot || isDefaultReactangleSpot,
+    displayFontWeight:
+      isDefaultCircularSpot || isDefaultSquareSpot || isDefaultReactangleSpot,
+    displayTextOffsetX:
+      isDefaultCircularSpot || isDefaultSquareSpot || isDefaultReactangleSpot,
+    displayTextOffsetY:
+      isDefaultCircularSpot || isDefaultSquareSpot || isDefaultReactangleSpot,
     displayStrokeDasharray:
       isDefaultCircularSpot ||
       canvasElementType === CANVAS_SELECTABLE_TOOLS.line ||
       canvasElementType === CANVAS_SELECTABLE_TOOLS.rect ||
-      isDefaultSquareSpot,
+      isDefaultSquareSpot ||
+      isDefaultReactangleSpot,
   };
 };
 

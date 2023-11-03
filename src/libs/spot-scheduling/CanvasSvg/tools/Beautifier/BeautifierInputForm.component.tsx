@@ -11,7 +11,7 @@ export const HeightField: React.FC = React.memo(() => {
   return <IntegerField fullWidth label="height" name="height" />;
 });
 export const WidthField: React.FC = React.memo(() => {
-  return <IntegerField fullWidth label="width" name="height" />;
+  return <IntegerField fullWidth label="width" name="width" />;
 });
 
 export const PositionXField: React.FC = React.memo(() => {

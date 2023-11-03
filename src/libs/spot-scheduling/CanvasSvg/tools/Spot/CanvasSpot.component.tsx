@@ -39,9 +39,15 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
     } ${(height ?? LENGTH_REFERENCE) / 2})`;
   }
 
-  static getTransformRectangle(x: number, y: number, rotation: number) {
-    return `translate(${x} ${y}) rotate(${rotation} ${100 / 2} ${
-      LENGTH_REFERENCE / 2
+  static getTransformRectangle(
+    x: number,
+    y: number,
+    rotation: number,
+    height: number,
+    width: number,
+  ) {
+    return `translate(${x} ${y}) rotate(${rotation} ${(width ?? 100) / 2} ${
+      (height ?? LENGTH_REFERENCE) / 2
     })`;
   }
 
@@ -308,8 +314,25 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
   }
 
   renderRectSpot(spotType: SpotType) {
-    const { x, y, rotation, indexType, index } = this.props;
-    const fill = spotType.fill_color || 'white';
+    const {
+      x,
+      y,
+      rotation,
+      indexType,
+      index,
+      fill: _fill,
+      stroke,
+      height,
+      width,
+      strokeWidth,
+      fontSize,
+      textOffsetX,
+      textOffsetY,
+      fontColor,
+      fontWeight,
+      strokeDasharray,
+    } = this.props;
+    const fill = _fill || spotType.fill_color || 'white';
     const spotTextColor = this.getSpotTextColor(fill);
     return (
       <g
@@ -318,16 +341,18 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
           x === undefined ? -9999 : x,
           y === undefined ? -9999 : y,
           rotation || 0,
+          height,
+          width,
         )}
         type="rectangle"
       >
         {this.props.selected && !this.props.selectingSpot && (
           <rect
             fill="transparent"
-            height={LENGTH_REFERENCE}
+            height={height || LENGTH_REFERENCE}
             stroke="black"
             strokeWidth={2}
-            width={LENGTH_REFERENCE}
+            width={height || LENGTH_REFERENCE}
             x={0}
             y={0}
           />
@@ -335,37 +360,41 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
         <rect
           className="svg-element"
           data-rotation={rotation || 0}
-          fill={spotType.fill_color || 'transparent'}
-          height={LENGTH_REFERENCE}
+          fill={fill || spotType.fill_color || 'transparent'}
+          height={height || LENGTH_REFERENCE}
           stroke={
             this.props.selected && !this.props.selectingSpot
               ? 'red'
-              : spotType.stroke_color || 'black'
+              : stroke || spotType.stroke_color || 'black'
           }
-          strokeWidth={2}
-          width={100}
+          strokeWidth={strokeWidth ?? 2}
+          width={width || 100}
+          {...(strokeDasharray ? { strokeDasharray } : {})}
         />
         <rect
           fill={spotType.fill_color || 'transparent'}
           height={15}
           width={indexType > 9 ? 20 : 15}
-          x={LENGTH_REFERENCE / 2 - (indexType > 9 ? 20 : 15) / 2}
-          y={LENGTH_REFERENCE / 2 - 15 / 2}
+          x={(height || LENGTH_REFERENCE) / 2 - (indexType > 9 ? 20 : 15) / 2}
+          y={(height || LENGTH_REFERENCE) / 2 - 15 / 2}
         />
 
         <text
           dominantBaseline="middle"
-          fill={spotTextColor}
-          fontSize="30"
+          fill={fontColor ?? spotTextColor}
+          fontSize={fontSize ?? '30'}
           style={{ userSelect: 'none' }}
           textAnchor="middle"
           transform={CanvasSpotComponent.getTransformRectangle(
             0,
             0,
             -rotation || 0,
+            height,
+            width,
           )}
-          x={100 / 2}
-          y={LENGTH_REFERENCE / 2}
+          x={(textOffsetX ?? 0) + (width || 100) / 2}
+          y={(textOffsetY ?? 0) + (height || LENGTH_REFERENCE) / 2}
+          {...(fontWeight ? { fontWeight } : {})}
         >
           {spotType?.prefix && indexType && `${spotType?.prefix}${indexType}`}
           {!spotType?.prefix && indexType && indexType}
@@ -373,10 +402,10 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
         </text>
         <rect
           fill="transparent"
-          height={LENGTH_REFERENCE}
+          height={height || LENGTH_REFERENCE}
           stroke="transparent"
           visibility="visible"
-          width={100}
+          width={width || 100}
           x={0}
           y={0}
         />

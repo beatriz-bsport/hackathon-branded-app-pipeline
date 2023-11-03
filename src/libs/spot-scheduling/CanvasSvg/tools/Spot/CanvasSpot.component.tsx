@@ -51,10 +51,15 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
     })`;
   }
 
-  static getTransformTriangle(x: number, y: number, rotation: number) {
-    return `translate(${x} ${y}) rotate(${rotation} ${TRIANGLE_LENGTH / 2} ${
-      TRIANGLE_LENGTH / 2 + 13
-    })`;
+  static getTransformTriangle(
+    x: number,
+    y: number,
+    rotation: number,
+    height: number,
+  ) {
+    return `translate(${x} ${y}) rotate(${rotation} ${
+      (height ?? TRIANGLE_LENGTH) / 2
+    } ${(height ?? TRIANGLE_LENGTH) / 2 + 13})`;
   }
 
   getSpotTextColor(spotFillColor) {
@@ -238,8 +243,24 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
   }
 
   renderTriangleSpot(spotType: SpotType) {
-    const { x, y, rotation, indexType, index } = this.props;
-    const fill = spotType.fill_color || 'white';
+    const {
+      x,
+      y,
+      rotation,
+      indexType,
+      index,
+      fill: _fill,
+      stroke,
+      height,
+      strokeWidth,
+      fontSize,
+      textOffsetX,
+      textOffsetY,
+      fontColor,
+      fontWeight,
+      strokeDasharray,
+    } = this.props;
+    const fill = _fill || spotType.fill_color || 'white';
     const spotTextColor = this.getSpotTextColor(fill);
 
     if (this.props.trianglePreview) {
@@ -252,16 +273,17 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
           x === undefined ? -9999 : x,
           y === undefined ? -9999 : y,
           rotation || 0,
+          height,
         )}
         type="triangle"
       >
         {this.props.selected && !this.props.selectingSpot && (
           <rect
             fill="transparent"
-            height={TRIANGLE_LENGTH}
+            height={height ?? TRIANGLE_LENGTH}
             stroke="black"
             strokeWidth={2}
-            width={TRIANGLE_LENGTH}
+            width={height ?? TRIANGLE_LENGTH}
             x={0}
             y={0}
           />
@@ -275,26 +297,29 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
           width={LENGTH_REFERENCE}
         />
         <polygon
-          fill={spotType?.fill_color || 'white'}
-          points={`${
-            TRIANGLE_LENGTH / 2
-          },0 0,${TRIANGLE_LENGTH} ${TRIANGLE_LENGTH},${TRIANGLE_LENGTH}`}
-          stroke={spotType?.stroke_color || 'black'}
-          strokeWidth={2}
+          fill={fill || spotType?.fill_color || 'white'}
+          points={`${(height ?? TRIANGLE_LENGTH) / 2},0 0,${
+            height ?? TRIANGLE_LENGTH
+          } ${height ?? TRIANGLE_LENGTH},${height ?? TRIANGLE_LENGTH}`}
+          stroke={stroke || spotType?.stroke_color || 'black'}
+          strokeWidth={strokeWidth ?? 2}
+          {...(strokeDasharray ? { strokeDasharray } : {})}
         />
         <text
           dominantBaseline="middle"
-          fill={spotTextColor}
-          fontSize="25"
+          fill={fontColor ?? spotTextColor}
+          fontSize={fontSize ?? '25'}
           style={{ userSelect: 'none' }}
           textAnchor="middle"
           transform={CanvasSpotComponent.getTransformTriangle(
             0,
             0,
             -rotation || 0,
+            height,
           )}
-          x={TRIANGLE_LENGTH / 2}
-          y={TRIANGLE_LENGTH / 2 + 13}
+          x={(textOffsetX ?? 0) + (height ?? TRIANGLE_LENGTH) / 2}
+          y={(textOffsetY ?? 0) + (height ?? TRIANGLE_LENGTH) / 2 + 13}
+          {...(fontWeight ? { fontWeight } : {})}
         >
           {spotType?.prefix && indexType && `${spotType?.prefix}${indexType}`}
           {!spotType?.prefix && indexType && indexType}
@@ -302,10 +327,10 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
         </text>
         <rect
           fill="transparent"
-          height={TRIANGLE_LENGTH}
+          height={height ?? TRIANGLE_LENGTH}
           stroke="transparent"
           visibility="visible"
-          width={TRIANGLE_LENGTH}
+          width={height ?? TRIANGLE_LENGTH}
           x={0}
           y={0}
         />

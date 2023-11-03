@@ -44,10 +44,16 @@ export const useBeautifierField = (
     canvasElementType === CANVAS_SELECTABLE_TOOLS.spot &&
     !isCustomStop &&
     spotShape === 'square';
+
   const isDefaultReactangleSpot =
     canvasElementType === CANVAS_SELECTABLE_TOOLS.spot &&
     !isCustomStop &&
     spotShape === 'rectangle';
+
+  const isDefaultTriangleSpot =
+    canvasElementType === CANVAS_SELECTABLE_TOOLS.spot &&
+    !isCustomStop &&
+    spotShape === 'triangle';
 
   return {
     displayFill:
@@ -56,19 +62,22 @@ export const useBeautifierField = (
       canvasElementType === CANVAS_SELECTABLE_TOOLS.screen ||
       isDefaultCircularSpot ||
       isDefaultSquareSpot ||
-      isDefaultReactangleSpot,
+      isDefaultReactangleSpot ||
+      isDefaultTriangleSpot,
     displayHeight:
       canvasElementType === CANVAS_SELECTABLE_TOOLS.rect ||
       isDefaultCircularSpot ||
       isDefaultSquareSpot ||
-      isDefaultReactangleSpot,
+      isDefaultReactangleSpot ||
+      isDefaultTriangleSpot,
     displayRotation:
       canvasElementType === CANVAS_SELECTABLE_TOOLS.door ||
       canvasElementType === CANVAS_SELECTABLE_TOOLS.rect ||
       canvasElementType === CANVAS_SELECTABLE_TOOLS.screen ||
       isDefaultCircularSpot ||
       isDefaultSquareSpot ||
-      isDefaultReactangleSpot,
+      isDefaultReactangleSpot ||
+      isDefaultTriangleSpot,
     displayStroke:
       canvasElementType === CANVAS_SELECTABLE_TOOLS.door ||
       canvasElementType === CANVAS_SELECTABLE_TOOLS.line ||
@@ -76,7 +85,8 @@ export const useBeautifierField = (
       canvasElementType === CANVAS_SELECTABLE_TOOLS.screen ||
       isDefaultCircularSpot ||
       isDefaultSquareSpot ||
-      isDefaultReactangleSpot,
+      isDefaultReactangleSpot ||
+      isDefaultTriangleSpot,
     displayStrokeLineCap:
       canvasElementType === CANVAS_SELECTABLE_TOOLS.door ||
       canvasElementType === CANVAS_SELECTABLE_TOOLS.line ||
@@ -88,7 +98,8 @@ export const useBeautifierField = (
       canvasElementType === CANVAS_SELECTABLE_TOOLS.screen ||
       isDefaultCircularSpot ||
       isDefaultSquareSpot ||
-      isDefaultReactangleSpot,
+      isDefaultReactangleSpot ||
+      isDefaultTriangleSpot,
     displayWidth:
       canvasElementType === CANVAS_SELECTABLE_TOOLS.rect ||
       isDefaultReactangleSpot,
@@ -98,31 +109,49 @@ export const useBeautifierField = (
       canvasElementType === CANVAS_SELECTABLE_TOOLS.screen ||
       isDefaultCircularSpot ||
       isDefaultSquareSpot ||
-      isDefaultReactangleSpot,
+      isDefaultReactangleSpot ||
+      isDefaultTriangleSpot,
     displayY:
       canvasElementType === CANVAS_SELECTABLE_TOOLS.door ||
       canvasElementType === CANVAS_SELECTABLE_TOOLS.rect ||
       canvasElementType === CANVAS_SELECTABLE_TOOLS.screen ||
       isDefaultCircularSpot ||
       isDefaultSquareSpot ||
-      isDefaultReactangleSpot,
+      isDefaultReactangleSpot ||
+      isDefaultTriangleSpot,
     displayImageLink: canvasElementType === CANVAS_SELECTABLE_TOOLS.rect,
     displayFontSize:
-      isDefaultCircularSpot || isDefaultSquareSpot || isDefaultReactangleSpot,
+      isDefaultCircularSpot ||
+      isDefaultSquareSpot ||
+      isDefaultReactangleSpot ||
+      isDefaultTriangleSpot,
     displayFontColor:
-      isDefaultCircularSpot || isDefaultSquareSpot || isDefaultReactangleSpot,
+      isDefaultCircularSpot ||
+      isDefaultSquareSpot ||
+      isDefaultReactangleSpot ||
+      isDefaultTriangleSpot,
     displayFontWeight:
-      isDefaultCircularSpot || isDefaultSquareSpot || isDefaultReactangleSpot,
+      isDefaultCircularSpot ||
+      isDefaultSquareSpot ||
+      isDefaultReactangleSpot ||
+      isDefaultTriangleSpot,
     displayTextOffsetX:
-      isDefaultCircularSpot || isDefaultSquareSpot || isDefaultReactangleSpot,
+      isDefaultCircularSpot ||
+      isDefaultSquareSpot ||
+      isDefaultReactangleSpot ||
+      isDefaultTriangleSpot,
     displayTextOffsetY:
-      isDefaultCircularSpot || isDefaultSquareSpot || isDefaultReactangleSpot,
+      isDefaultCircularSpot ||
+      isDefaultSquareSpot ||
+      isDefaultReactangleSpot ||
+      isDefaultTriangleSpot,
     displayStrokeDasharray:
       isDefaultCircularSpot ||
       canvasElementType === CANVAS_SELECTABLE_TOOLS.line ||
       canvasElementType === CANVAS_SELECTABLE_TOOLS.rect ||
       isDefaultSquareSpot ||
-      isDefaultReactangleSpot,
+      isDefaultReactangleSpot ||
+      isDefaultTriangleSpot,
   };
 };
 

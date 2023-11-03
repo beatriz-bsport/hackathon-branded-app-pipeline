@@ -836,7 +836,10 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
       !this.props.assetForBlueprintLoading &&
       !this.props.roomBlueprintLoading &&
       !this.props.spotForBlueprintLoading &&
-      !isWaitingList
+      !isWaitingList &&
+      (this.getIsGuestBooking() ||
+        !isRegistered ||
+        this.props.theme.accept_double_booking)
     ) {
       return (
         <div className="bs-new-offer-booking-page">

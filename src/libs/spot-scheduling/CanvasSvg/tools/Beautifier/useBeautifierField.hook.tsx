@@ -40,26 +40,35 @@ export const useBeautifierField = (
     !isCustomStop &&
     spotShape === 'circular';
 
+  const isDefaultSquareSpot =
+    canvasElementType === CANVAS_SELECTABLE_TOOLS.spot &&
+    !isCustomStop &&
+    spotShape === 'square';
+
   return {
     displayFill:
       canvasElementType === CANVAS_SELECTABLE_TOOLS.line ||
       canvasElementType === CANVAS_SELECTABLE_TOOLS.rect ||
       canvasElementType === CANVAS_SELECTABLE_TOOLS.screen ||
-      isDefaultCircularSpot,
+      isDefaultCircularSpot ||
+      isDefaultSquareSpot,
     displayHeight:
       canvasElementType === CANVAS_SELECTABLE_TOOLS.rect ||
-      isDefaultCircularSpot,
+      isDefaultCircularSpot ||
+      isDefaultSquareSpot,
     displayRotation:
       canvasElementType === CANVAS_SELECTABLE_TOOLS.door ||
       canvasElementType === CANVAS_SELECTABLE_TOOLS.rect ||
       canvasElementType === CANVAS_SELECTABLE_TOOLS.screen ||
-      isDefaultCircularSpot,
+      isDefaultCircularSpot ||
+      isDefaultSquareSpot,
     displayStroke:
       canvasElementType === CANVAS_SELECTABLE_TOOLS.door ||
       canvasElementType === CANVAS_SELECTABLE_TOOLS.line ||
       canvasElementType === CANVAS_SELECTABLE_TOOLS.rect ||
       canvasElementType === CANVAS_SELECTABLE_TOOLS.screen ||
-      isDefaultCircularSpot,
+      isDefaultCircularSpot ||
+      isDefaultSquareSpot,
     displayStrokeLineCap:
       canvasElementType === CANVAS_SELECTABLE_TOOLS.door ||
       canvasElementType === CANVAS_SELECTABLE_TOOLS.line ||
@@ -69,28 +78,32 @@ export const useBeautifierField = (
       canvasElementType === CANVAS_SELECTABLE_TOOLS.line ||
       canvasElementType === CANVAS_SELECTABLE_TOOLS.rect ||
       canvasElementType === CANVAS_SELECTABLE_TOOLS.screen ||
-      isDefaultCircularSpot,
+      isDefaultCircularSpot ||
+      isDefaultSquareSpot,
     displayWidth: canvasElementType === CANVAS_SELECTABLE_TOOLS.rect,
     displayX:
       canvasElementType === CANVAS_SELECTABLE_TOOLS.door ||
       canvasElementType === CANVAS_SELECTABLE_TOOLS.rect ||
       canvasElementType === CANVAS_SELECTABLE_TOOLS.screen ||
-      isDefaultCircularSpot,
+      isDefaultCircularSpot ||
+      isDefaultSquareSpot,
     displayY:
       canvasElementType === CANVAS_SELECTABLE_TOOLS.door ||
       canvasElementType === CANVAS_SELECTABLE_TOOLS.rect ||
       canvasElementType === CANVAS_SELECTABLE_TOOLS.screen ||
-      isDefaultCircularSpot,
+      isDefaultCircularSpot ||
+      isDefaultSquareSpot,
     displayImageLink: canvasElementType === CANVAS_SELECTABLE_TOOLS.rect,
-    displayFontSize: isDefaultCircularSpot,
-    displayFontColor: isDefaultCircularSpot,
-    displayFontWeight: isDefaultCircularSpot,
-    displayTextOffsetX: isDefaultCircularSpot,
-    displayTextOffsetY: isDefaultCircularSpot,
+    displayFontSize: isDefaultCircularSpot || isDefaultSquareSpot,
+    displayFontColor: isDefaultCircularSpot || isDefaultSquareSpot,
+    displayFontWeight: isDefaultCircularSpot || isDefaultSquareSpot,
+    displayTextOffsetX: isDefaultCircularSpot || isDefaultSquareSpot,
+    displayTextOffsetY: isDefaultCircularSpot || isDefaultSquareSpot,
     displayStrokeDasharray:
       isDefaultCircularSpot ||
       canvasElementType === CANVAS_SELECTABLE_TOOLS.line ||
-      canvasElementType === CANVAS_SELECTABLE_TOOLS.rect,
+      canvasElementType === CANVAS_SELECTABLE_TOOLS.rect ||
+      isDefaultSquareSpot,
   };
 };
 

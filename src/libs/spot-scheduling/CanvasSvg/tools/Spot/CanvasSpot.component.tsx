@@ -136,8 +136,24 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
   }
 
   renderSquareSpot(spotType: SpotType) {
-    const { x, y, rotation, indexType, index } = this.props;
-    const fill = spotType.fill_color || 'white';
+    const {
+      x,
+      y,
+      rotation,
+      indexType,
+      index,
+      fill: _fill,
+      stroke,
+      height,
+      strokeWidth,
+      fontSize,
+      textOffsetX,
+      textOffsetY,
+      fontColor,
+      fontWeight,
+      strokeDasharray,
+    } = this.props;
+    const fill = _fill || spotType.fill_color || 'white';
     const spotTextColor = this.getSpotTextColor(fill);
 
     return (
@@ -147,48 +163,56 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
           x === undefined ? -9999 : x,
           y === undefined ? -9999 : y,
           rotation || 0,
+          height,
         )}
         type="square"
       >
         {this.props.selected && !this.props.selectingSpot && (
           <rect
             fill="transparent"
-            height={LENGTH_REFERENCE}
+            height={height || LENGTH_REFERENCE}
             stroke="black"
             strokeWidth={2}
-            width={LENGTH_REFERENCE}
+            width={height || LENGTH_REFERENCE}
             x={0}
             y={0}
           />
         )}
         <rect
           className="svg-element"
-          fill={spotType.fill_color || 'transparent'}
-          height={LENGTH_REFERENCE}
+          fill={fill || spotType.fill_color || 'transparent'}
+          height={height || LENGTH_REFERENCE}
           stroke={
             this.props.selected && !this.props.selectingSpot
               ? 'red'
-              : spotType.stroke_color || 'black'
+              : stroke || spotType.stroke_color || 'black'
           }
-          strokeWidth={2}
-          width={LENGTH_REFERENCE}
+          strokeWidth={strokeWidth ?? 2}
+          width={height || LENGTH_REFERENCE}
+          {...(strokeDasharray ? { strokeDasharray } : {})}
         />
         <rect
           fill={spotType.fill_color || 'transparent'}
           height={15}
           width={indexType > 9 ? 20 : 15}
-          x={LENGTH_REFERENCE / 2 - (indexType > 9 ? 20 : 15) / 2}
-          y={LENGTH_REFERENCE / 2 - 15 / 2}
+          x={(height || LENGTH_REFERENCE) / 2 - (indexType > 9 ? 20 : 15) / 2}
+          y={(height || LENGTH_REFERENCE) / 2 - 15 / 2}
         />
         <text
           dominantBaseline="middle"
-          fill={spotTextColor}
-          fontSize="30"
+          fill={fontColor ?? spotTextColor}
+          fontSize={fontSize ?? '30'}
           style={{ userSelect: 'none' }}
           textAnchor="middle"
-          transform={CanvasSpotComponent.getTransform(0, 0, -rotation || 0)}
-          x={LENGTH_REFERENCE / 2}
-          y={LENGTH_REFERENCE / 2}
+          transform={CanvasSpotComponent.getTransform(
+            0,
+            0,
+            -rotation || 0,
+            height,
+          )}
+          x={(textOffsetX ?? 0) + (height || LENGTH_REFERENCE) / 2}
+          y={(textOffsetY ?? 0) + (height || LENGTH_REFERENCE) / 2}
+          {...(fontWeight ? { fontWeight } : {})}
         >
           {spotType?.prefix && indexType && `${spotType?.prefix}${indexType}`}
           {!spotType?.prefix && indexType && indexType}
@@ -196,10 +220,10 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
         </text>
         <rect
           fill="transparent"
-          height={LENGTH_REFERENCE}
+          height={height || LENGTH_REFERENCE}
           stroke="transparent"
           visibility="visible"
-          width={LENGTH_REFERENCE}
+          width={height || LENGTH_REFERENCE}
           x={0}
           y={0}
         />
@@ -408,7 +432,6 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
           cx={`${(height || LENGTH_REFERENCE) / 2}`}
           cy={`${(height || LENGTH_REFERENCE) / 2}`}
           fill={fill || 'white'}
-          pathLength={20}
           r={`${
             height % 2 === 0
               ? (height || LENGTH_REFERENCE) / 2 - 1

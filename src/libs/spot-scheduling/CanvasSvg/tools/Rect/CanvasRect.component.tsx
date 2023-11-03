@@ -51,6 +51,7 @@ export default class CanvasRectComponent extends CanvasBaseComponent<CanvasRectP
     }
     // The method shown below is the most effective way I've found to
     // preserve an image that perfectly fits the viewbox of its container.
+
     return (
       <g
         {...this.BaseProps}
@@ -71,7 +72,7 @@ export default class CanvasRectComponent extends CanvasBaseComponent<CanvasRectP
               <image
                 height={1}
                 href={image}
-                preserveAspectRatio="xMidYMid slice"
+                preserveAspectRatio="none"
                 width={1}
                 x={0}
                 y={0}

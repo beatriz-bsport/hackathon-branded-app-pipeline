@@ -6,10 +6,19 @@ export interface CanvasTeacherProps {
   x: number;
   y: number;
   rotation: number;
-  stroke: string;
-  fill: string;
+  stroke: React.SVGAttributes<SVGPolylineElement>['stroke'];
+  fill: React.SVGAttributes<SVGPolylineElement>['fill'];
   coach?: any;
   coachHeight: number;
+  height?: number;
+  fontSize?: React.SVGAttributes<SVGPolylineElement>['height'];
+  fontStyle?: React.SVGAttributes<SVGPolylineElement>['height'];
+  textOffsetX?: number;
+  textOffsetY?: number;
+  fontColor?: React.SVGAttributes<SVGPolylineElement>['fill'];
+  fontWeight?: React.SVGAttributes<SVGPolylineElement>['fontWeight'];
+  textStroke?: React.SVGAttributes<SVGPolylineElement>['stroke'];
+  textStrokeWidth?: React.SVGAttributes<SVGPolylineElement>['strokeWidth'];
 }
 
 const MARGIN_BETWEEN_AVATAR_AND_TEXT = 15;
@@ -25,9 +34,23 @@ export default class CanvasTeacherComponent extends CanvasBaseComponent<CanvasTe
   }
 
   render() {
-    const { x, y, rotation } = this.props;
+    const {
+      x,
+      y,
+      rotation,
+      height,
+      fontSize,
+      fontStyle,
+      textOffsetX,
+      textOffsetY,
+      fontColor,
+      fontWeight,
+      textStroke,
+      textStrokeWidth,
+    } = this.props;
+
     const avatarSize =
-      CanvasTeacherComponent.avatarSize * this.props.coachHeight;
+      (height ?? CanvasTeacherComponent.avatarSize) * this.props.coachHeight;
 
     return (
       <g
@@ -84,8 +107,19 @@ export default class CanvasTeacherComponent extends CanvasBaseComponent<CanvasTe
           dominantBaseline="middle"
           style={{ userSelect: 'none' }}
           textAnchor="middle"
-          x={avatarSize / 4}
-          y={avatarSize - avatarSize / 4 + MARGIN_BETWEEN_AVATAR_AND_TEXT}
+          x={(textOffsetX ?? 0) + avatarSize / 4}
+          y={
+            (textOffsetY ?? 0) +
+            avatarSize -
+            avatarSize / 4 +
+            MARGIN_BETWEEN_AVATAR_AND_TEXT
+          }
+          {...(fontSize ? { fontSize } : {})}
+          {...(fontStyle ? { fontStyle } : {})}
+          {...(fontColor ? { fontColor } : {})}
+          {...(fontWeight ? { fontWeight } : {})}
+          {...(textStroke ? { stroke: textStroke } : {})}
+          {...(textStrokeWidth ? { strokeWidth: textStrokeWidth } : {})}
         >
           {this.props.coach?.name || CanvasTeacherComponent.label}
         </text>

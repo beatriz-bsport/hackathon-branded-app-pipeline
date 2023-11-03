@@ -67,6 +67,7 @@ export const useBeautifierField = (
       isCustomStop,
     displayHeight:
       canvasElementType === CANVAS_SELECTABLE_TOOLS.rect ||
+      canvasElementType === CANVAS_SELECTABLE_TOOLS.teacher ||
       isDefaultCircularSpot ||
       isDefaultSquareSpot ||
       isDefaultReactangleSpot ||
@@ -80,6 +81,7 @@ export const useBeautifierField = (
       isDefaultSquareSpot ||
       isDefaultReactangleSpot ||
       isDefaultTriangleSpot ||
+      canvasElementType === CANVAS_SELECTABLE_TOOLS.teacher ||
       isCustomStop,
     displayStroke:
       canvasElementType === CANVAS_SELECTABLE_TOOLS.door ||
@@ -134,30 +136,35 @@ export const useBeautifierField = (
       isDefaultSquareSpot ||
       isDefaultReactangleSpot ||
       isDefaultTriangleSpot ||
+      canvasElementType === CANVAS_SELECTABLE_TOOLS.teacher ||
       isCustomStop,
     displayFontColor:
       isDefaultCircularSpot ||
       isDefaultSquareSpot ||
       isDefaultReactangleSpot ||
       isDefaultTriangleSpot ||
+      canvasElementType === CANVAS_SELECTABLE_TOOLS.teacher ||
       isCustomStop,
     displayFontWeight:
       isDefaultCircularSpot ||
       isDefaultSquareSpot ||
       isDefaultReactangleSpot ||
       isDefaultTriangleSpot ||
+      canvasElementType === CANVAS_SELECTABLE_TOOLS.teacher ||
       isCustomStop,
     displayTextOffsetX:
       isDefaultCircularSpot ||
       isDefaultSquareSpot ||
       isDefaultReactangleSpot ||
       isDefaultTriangleSpot ||
+      canvasElementType === CANVAS_SELECTABLE_TOOLS.teacher ||
       isCustomStop,
     displayTextOffsetY:
       isDefaultCircularSpot ||
       isDefaultSquareSpot ||
       isDefaultReactangleSpot ||
       isDefaultTriangleSpot ||
+      canvasElementType === CANVAS_SELECTABLE_TOOLS.teacher ||
       isCustomStop,
     displayStrokeDasharray:
       isDefaultCircularSpot ||
@@ -167,9 +174,12 @@ export const useBeautifierField = (
       isDefaultReactangleSpot ||
       isDefaultTriangleSpot ||
       isCustomStop,
-    displayTextStroke: isCustomStop,
-    displayTextStrokeWidth: isCustomStop,
-    displayFontStyle: isCustomStop,
+    displayTextStroke:
+      isCustomStop || canvasElementType === CANVAS_SELECTABLE_TOOLS.teacher,
+    displayTextStrokeWidth:
+      isCustomStop || canvasElementType === CANVAS_SELECTABLE_TOOLS.teacher,
+    displayFontStyle:
+      isCustomStop || canvasElementType === CANVAS_SELECTABLE_TOOLS.teacher,
     displayFontColorOnTaken: isCustomStop,
     displayFontColorOnSelected: isCustomStop,
   };

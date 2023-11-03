@@ -23,10 +23,14 @@ export const useConfirmationMessageData = (
             label: t('validation.actions.goToCalendar'),
             onClick: goToCalendar,
           },
-          confirm: {
-            label: t('validation.actions.retry'),
-            onClick: goBack,
-          },
+          ...(goBack
+            ? {
+                confirm: {
+                  label: t('validation.actions.retry'),
+                  onClick: goBack,
+                },
+              }
+            : {}),
         },
         icon: React.createElement(ConfirmationMessageIcon, { isError: true }),
         message: t('validation.sections.errorExplain.generic'),
@@ -40,10 +44,14 @@ export const useConfirmationMessageData = (
             label: t('validation.actions.goToCalendar'),
             onClick: goToCalendar,
           },
-          confirm: {
-            label: t('validation.actions.myBookings'),
-            onClick: goToMemberProfile,
-          },
+          ...(goToMemberProfile
+            ? {
+                confirm: {
+                  label: t('validation.actions.myBookings'),
+                  onClick: goToMemberProfile,
+                },
+              }
+            : {}),
         },
         icon: React.createElement(ConfirmationMessageIcon, { isError: true }),
         message: t('validation.sections.errorExplain.genericOfferError'),
@@ -59,10 +67,14 @@ export const useConfirmationMessageData = (
             label: t('validation.actions.goToCalendar'),
             onClick: goToCalendar,
           },
-          confirm: {
-            label: t('validation.actions.retryBookingSession'),
-            onClick: goBack,
-          },
+          ...(goBack
+            ? {
+                confirm: {
+                  label: t('validation.actions.retryBookingSession'),
+                  onClick: goBack,
+                },
+              }
+            : {}),
         },
         icon: React.createElement(ConfirmationMessageIcon, { isError: true }),
         message: t('validation.sections.errorExplain.offerOnlyBookingError'),
@@ -78,10 +90,14 @@ export const useConfirmationMessageData = (
             label: t('validation.actions.goToCalendar'),
             onClick: goToCalendar,
           },
-          confirm: {
-            label: t('validation.actions.myBookings'),
-            onClick: goToMemberProfile,
-          },
+          ...(goToMemberProfile
+            ? {
+                confirm: {
+                  label: t('validation.actions.myBookings'),
+                  onClick: goToMemberProfile,
+                },
+              }
+            : {}),
         },
         icon: React.createElement(ConfirmationMessageIcon, { isError: false }),
         message: t('validation.sections.errorExplain.genericOfferError'),
@@ -103,10 +119,14 @@ export const useConfirmationMessageData = (
             label: t('validation.actions.goToCalendar'),
             onClick: goToCalendar,
           },
-          confirm: {
-            label: t('validation.actions.myBookings'),
-            onClick: goToMemberProfile,
-          },
+          ...(goToMemberProfile
+            ? {
+                confirm: {
+                  label: t('validation.actions.myBookings'),
+                  onClick: goToMemberProfile,
+                },
+              }
+            : {}),
         },
         icon: React.createElement(ConfirmationMessageIcon, { isError: false }),
         message: t('validation.sections.errorExplain.genericOfferError'),
@@ -128,10 +148,14 @@ export const useConfirmationMessageData = (
             label: t('validation.actions.goToCalendar'),
             onClick: goToCalendar,
           },
-          confirm: {
-            label: t('validation.actions.myBookings'),
-            onClick: goToMemberProfile,
-          },
+          ...(goToMemberProfile
+            ? {
+                confirm: {
+                  label: t('validation.actions.myBookings'),
+                  onClick: goToMemberProfile,
+                },
+              }
+            : {}),
         },
         icon: React.createElement(ConfirmationMessageIcon, { isError: false }),
         message: t(
@@ -146,10 +170,14 @@ export const useConfirmationMessageData = (
             label: t('validation.actions.goToCalendar'),
             onClick: goToCalendar,
           },
-          confirm: {
-            label: t('validation.actions.mySubscription'),
-            onClick: goToMemberSubscriptions,
-          },
+          ...(goToMemberSubscriptions
+            ? {
+                confirm: {
+                  label: t('validation.actions.mySubscription'),
+                  onClick: goToMemberSubscriptions,
+                },
+              }
+            : {}),
         },
       },
       [ConfirmationStatus.OFFER_ONLY_SUCCESS]: {
@@ -158,10 +186,14 @@ export const useConfirmationMessageData = (
             label: t('validation.actions.goToCalendar'),
             onClick: goToCalendar,
           },
-          confirm: {
-            label: t('validation.actions.myBookings'),
-            onClick: goToMemberProfile,
-          },
+          ...(goToMemberProfile
+            ? {
+                confirm: {
+                  label: t('validation.actions.myBookings'),
+                  onClick: goToMemberProfile,
+                },
+              }
+            : {}),
         },
         icon: React.createElement(ConfirmationMessageIcon, { isError: false }),
         message: t(
@@ -180,10 +212,14 @@ export const useConfirmationMessageData = (
             label: t('validation.actions.goToCalendar'),
             onClick: goToCalendar,
           },
-          confirm: {
-            label: t('validation.actions.myBookings'),
-            onClick: goToMemberProfile,
-          },
+          ...(goToMemberProfile
+            ? {
+                confirm: {
+                  label: t('validation.actions.myBookings'),
+                  onClick: goToMemberProfile,
+                },
+              }
+            : {}),
         },
         icon: React.createElement(ConfirmationMessageIcon, { isError: false }),
         message: t(
@@ -202,10 +238,14 @@ export const useConfirmationMessageData = (
             label: t('validation.actions.goToCalendar'),
             onClick: goToCalendar,
           },
-          confirm: {
-            label: t('validation.actions.myBookings'),
-            onClick: goToMemberProfile,
-          },
+          ...(goToMemberProfile
+            ? {
+                confirm: {
+                  label: t('validation.actions.myBookings'),
+                  onClick: goToMemberProfile,
+                },
+              }
+            : {}),
         },
         icon: React.createElement(ConfirmationMessageIcon, { isError: false }),
         message: t('validation.sections.explain'),
@@ -221,10 +261,14 @@ export const useConfirmationMessageData = (
             label: t('validation.actions.goToCalendar'),
             onClick: goToCalendar,
           },
-          confirm: {
-            label: t('validation.actions.myBookings'),
-            onClick: goToMemberProfile,
-          },
+          ...(goToMemberProfile
+            ? {
+                confirm: {
+                  label: t('validation.actions.myBookings'),
+                  onClick: goToMemberProfile,
+                },
+              }
+            : {}),
         },
         icon: React.createElement(ConfirmationMessageIcon, { isError: false }),
         message: t(
@@ -245,10 +289,14 @@ export const useConfirmationMessageData = (
             label: t('validation.actions.goToCalendar'),
             onClick: goToCalendar,
           },
-          confirm: {
-            label: t('validation.actions.myPasses'),
-            onClick: goToMemberPasses,
-          },
+          ...(goToMemberPasses
+            ? {
+                confirm: {
+                  label: t('validation.actions.myPasses'),
+                  onClick: goToMemberPasses,
+                },
+              }
+            : {}),
         },
         icon: React.createElement(ConfirmationMessageIcon, { isError: false }),
         message: t(
@@ -269,10 +317,14 @@ export const useConfirmationMessageData = (
             label: t('validation.actions.goToCalendar'),
             onClick: goToCalendar,
           },
-          confirm: {
-            label: t('validation.actions.myProducts'),
-            onClick: goToMemberProfile,
-          },
+          ...(goToMemberProfile
+            ? {
+                confirm: {
+                  label: t('validation.actions.myProducts'),
+                  onClick: goToMemberProfile,
+                },
+              }
+            : {}),
         },
         icon: React.createElement(ConfirmationMessageIcon, { isError: false }),
         message: t(
@@ -293,10 +345,14 @@ export const useConfirmationMessageData = (
             label: t('validation.actions.goToCalendar'),
             onClick: goToCalendar,
           },
-          confirm: {
-            label: t('validation.actions.myGiftcards'),
-            onClick: goToMemberProfile,
-          },
+          ...(goToMemberProfile
+            ? {
+                confirm: {
+                  label: t('validation.actions.myGiftcards'),
+                  onClick: goToMemberProfile,
+                },
+              }
+            : {}),
         },
         icon: React.createElement(ConfirmationMessageIcon, { isError: false }),
         message: t(

@@ -4589,6 +4589,7 @@
           "subscription_name": "Subscription name",
           "subscription_recurrent_price": "Monthly price",
           "subscription_nb_months": "Number of months",
+          "subscription_duration": "Total duration",
           "subscription_flat_fee": "Joining fee",
           "subscription_payment_method": "Payment method",
           "subscription_nb_days_pause": "Paused for X number of days",

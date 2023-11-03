@@ -36,10 +36,6 @@
   line-height: var(--body2-lineHeight);
 }
 
-.bs-login-container__error-text {
-  color: var(--color-error-main);
-}
-
 .bs-flex-row {
   display: flex;
   flex-direction: row;
@@ -50,13 +46,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.bs-login-container__email-choices {
-  display: flex;
-  flex-direction: column;
-  align-items: left;
-  gap: var(--spacing-1);
 }
 
 .bs-login-container {
@@ -77,134 +66,6 @@
   top: calc(var(--spacing-1) / 2);
   right: -30%;
   margin-left: var(--spacing-2);
-}
-
-.bs-login-container__signin-button--simplifyUI--loading {
-  margin-top: var(--spacing-2);
-  background: #dedede;
-  border-radius: var(--border-radius-6);
-  height: 48px;
-  color: var(--color-grey-dark);
-}
-
-.bs-login-container__signin-button--simplifyUI {
-  margin-top: var(--spacing-2);
-  background: var(--color-primary-main);
-  border-radius: var(--border-radius-6);
-  height: 48px;
-  color: var(--color-primary-contrastText);
-}
-
-.bs-login-container__signin-button--simplifyUI:hover {
-  background: var(--color-primary-dark);
-}
-
-.bs-login-container__signin-button--simplifyUI-company--loading {
-  margin-top: var(--spacing-2);
-  background: #dedede;
-  border-radius: var(--border-radius-6);
-  height: 48px;
-  color: var(--color-grey-dark);
-}
-
-.bs-login-container__signin-button--simplifyUI-company {
-  margin-top: var(--spacing-2);
-  background: var(--color-primary-main);
-  border-radius: var(--border-radius-6);
-  height: 48px;
-  color: var(--color-primary-contrastText);
-}
-
-.bs-login-container__signin-button--simplifyUI-company:hover {
-  background: var(--color-primary-dark);
-}
-
-.bs-login-container__signin-button--company--loading {
-  margin-top: var(--spacing-2);
-  background: #dedede;
-  border-radius: var(--border-radius-2);
-  height: 48px;
-  color: var(--color-grey-dark);
-}
-
-.bs-login-container__signin-button--company {
-  margin-top: var(--spacing-2);
-  background: var(--color-primary-main);
-  background: linear-gradient(
-    90deg,
-    var(--color-primary-main) 4.66%,
-    var(--color-primary-dark) 88.6%
-  );
-  border-radius: var(--border-radius-2);
-  height: 48px;
-  color: var(--color-primary-contrastText);
-}
-
-.bs-login-container__signin-button--company:hover {
-  background: linear-gradient(
-    90deg,
-    var(--color-primary-dark) 4.66%,
-    var(--color-primary-dark) 88.6%
-  );
-}
-
-.bs-login-container__signin-button--default {
-  margin-top: var(--spacing-2);
-  background: linear-gradient(
-    90deg,
-    var(--color-default-1-light) 4.66%,
-    var(--color-default-2-light) 88.6%
-  );
-  border-radius: var(--border-radius-2);
-  height: 48px;
-  color: var(--color-primary-contrastText);
-  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
-    0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
-}
-
-.bs-login-container__signin-button--default--loading {
-  margin-top: var(--spacing-2);
-  background: #dedede;
-  border-radius: var(--border-radius-2);
-  height: 48px;
-  color: var(--color-grey-dark);
-}
-
-.bs-login-container__signin-button--default:hover {
-  background: linear-gradient(
-    90deg,
-    var(--color-default-1-dark) 4.66%,
-    var(--color-default-2-dark) 88.6%
-  );
-}
-
-.bs-login-container__signin-button__circular-progress {
-  margin-right: 8px;
-}
-
-.bs-login-container__field {
-  margin-bottom: var(--spacing-4);
-  color: rgba(117, 117, 117, 1);
-}
-
-.bs-login-container__text-field {
-  border-color: var(--bs-shadow-m);
-}
-
-.bs-login-container__text-field__label {
-  font-size: 1rem;
-}
-
-.bs-login-container__error-message {
-  margin-left: calc(var(--spacing-1) * 2.5);
-  align-self: center;
-}
-
-.bs-login-container__form {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  width: 100%;
 }
 
 .bs-rectangle--company {
@@ -242,19 +103,6 @@
   padding-top: var(--spacing-4);
   padding-bottom: var(--spacing-6);
   text-align: center;
-}
-
-.bs-login-container__forgotten-password {
-  align-self: center;
-}
-
-.bs-login-container__forgotten-password__link {
-  text-decoration: none;
-  text-align: center;
-}
-
-.bs-login-container__forgotten-password__link__text {
-  color: var(--color-secondary-dark);
 }
 
 .bs-login-container__register-button {
@@ -326,15 +174,8 @@
   width: 100%;
 }
 
-.bs-login-container__email-choice-label {
-  padding-bottom: var(--spacing-2);
-}
-
 @container (max-width: 600px) {
   .bs-login-container {
-    width: 100%;
-  }
-  .bs-login-container__form {
     width: 100%;
   }
   .bs-login-container__studio-manager {

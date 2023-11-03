@@ -30,6 +30,7 @@ Template
 */
 export enum CssComponentsVariantIdentifiers {
   AUTHENTICATION_RESET_PASSWORD_FORM = 'authentication_reset_password_form',
+  AUTHENTICATION_LOGIN_FORM = 'authentication_login_form',
   MARKETPLACE_ACTIVITY = 'marketplace_activity_summary',
   MARKETPLACE_ACTIVITY_DIALOG = 'marketplace_activity_summary_dialog',
   MARKETPLACE_BOOKING_BLOCKED = 'marketplace_booking_blocked_reason',

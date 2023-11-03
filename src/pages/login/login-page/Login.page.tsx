@@ -266,7 +266,7 @@ const connector = connect(null, properMapDispatchToProps);
 export default compose(
   marketplaceCssHoc(),
   withRouter,
-  withTranslation(['login']),
+  withTranslation('login'),
   withQueryParamsUndecoded([['step'], 'queryParams', 'setQueryParams']),
   withState('selectedFranchisee', 'setSelectedFranchisee', null),
   withProps((props: OwnProps) => {

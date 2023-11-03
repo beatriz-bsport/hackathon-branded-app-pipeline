@@ -178,6 +178,10 @@ import {
   AUTHENTICATION_RESET_PASSWORD_FORM_CONFIGURATION,
   AUTHENTICATION_RESET_PASSWORD_FORM_PREVIEW,
 } from '#components/css-only/ResetPasswordForm';
+import {
+  AUTHENTICATION_LOGIN_FORM_CONFIGURATION,
+  AUTHENTICATION_LOGIN_FORM_PREVIEW,
+} from '#components/css-only/LoginForm';
 
 import {
   CSSComponentPreviews,
@@ -203,6 +207,7 @@ import { CssComponentsVariantIdentifiers } from './constants';
 */
 export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
   AUTHENTICATION_RESET_PASSWORD_FORM_CONFIGURATION,
+  AUTHENTICATION_LOGIN_FORM_CONFIGURATION,
   MARKETPLACE_SEARCH_CONFIGURATION,
   MARKETPLACE_FILTER_CONFIGURATION,
   MARKETPLACE_DATE_PICKER_CONFIGURATION,
@@ -265,6 +270,8 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
   Immutable({
     [CssComponentsVariantIdentifiers.AUTHENTICATION_RESET_PASSWORD_FORM]:
       AUTHENTICATION_RESET_PASSWORD_FORM_PREVIEW,
+    [CssComponentsVariantIdentifiers.AUTHENTICATION_LOGIN_FORM]:
+      AUTHENTICATION_LOGIN_FORM_PREVIEW,
     [CssComponentsVariantIdentifiers.MARKETPLACE_ACTIVITY_DIALOG]:
       MARKETPLACE_ACTIVITY_DIALOG_PREVIEW,
     [CssComponentsVariantIdentifiers.MARKETPLACE_ACTIVITY]:

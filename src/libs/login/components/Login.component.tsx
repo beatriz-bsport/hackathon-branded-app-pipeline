@@ -1,21 +1,20 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
-import { compose } from 'recompose';
 
 import HelpIcon from '@material-ui/icons/Help';
-import { withTranslation, WithTranslation } from 'react-i18next';
+import { WithTranslation } from 'react-i18next';
 
 import { CompanyTheme } from '#libs/theme/types';
-import Radio from '#csscomponents/Radio';
-import CircularProgress from '#csscomponents/CircularProgress';
-import Button, { ButtonType, ButtonVariant } from '#Fabrique/Button';
-import TextField from '#Fabrique/TextField';
+import Button, { ButtonVariant } from '#Fabrique/Button';
+import LoginForm from '#components/css-only/LoginForm';
 import { openIntercomHelp } from '../../../intercom';
 import getCalendlyLinkFromCountry from '../../../i18n/utils/calendly-link-language';
 import WidgetUtils from '#libs/widget/WidgetUtils';
 import Config from '../../../config';
 import { Franchise } from '#libs/franchise/types';
 import { buildUrlParams } from '../../../http';
+import ApplyCustomCssStyles from '#libs/widget/components/ApplyCustomCssStyles.component';
+import type { MarketplaceCSSConfiguration } from '#libs/exportable-components/types';
 
 import './LoginBackground.css';
 import './Login.css';
@@ -39,6 +38,7 @@ type Props = {
   franchisor?: Franchise;
   hideRegister?: boolean;
   emailChoices?: Array<string>;
+  customConfiguration?: MarketplaceCSSConfiguration;
 } & WithTranslation;
 
 type State = {
@@ -52,7 +52,7 @@ export class ConsumerLogin extends Component<Props, State> {
     password: '',
   };
 
-  onFormFieldChange = (id: string) => (value: string) => {
+  onFormFieldChange = (id: 'email' | 'password') => (value: string) => {
     if (id === 'email') {
       this.setState({ [id]: value });
     } else if (id === 'password') {
@@ -61,6 +61,17 @@ export class ConsumerLogin extends Component<Props, State> {
   };
 
   onEmailChange = (value: string) => this.onFormFieldChange('email')(value);
+
+  handleOpenIntercomHelp = () => openIntercomHelp('login');
+
+  getHrefLink = () => {
+    return `${Config.PUBLIC_URL}/login/reset_password${buildUrlParams({
+      ...(this.props.theme ? { membership: this.props.theme.company } : {}),
+      ...(this.props.franchisor
+        ? { franchisor: this.props.franchisor.id }
+        : {}),
+    })}`;
+  };
 
   getEmailLogin = () => {
     const { simplifyUI, error, errorFields, t } = this.props;
@@ -72,21 +83,6 @@ export class ConsumerLogin extends Component<Props, State> {
     if (errorFields && errorFields.email) {
       errorMessage = t('error.invalidEmail');
     }
-    let signinButtonClass = 'bs-login-container__signin-button--default';
-    if (simplifyUI) {
-      if (this.props.company || this.props.franchisor) {
-        signinButtonClass =
-          'bs-login-container__signin-button--simplifyUI-company';
-      } else {
-        signinButtonClass = 'bs-login-container__signin-button--simplifyUI';
-      }
-    } else if (this.props.company || this.props.franchisor) {
-      signinButtonClass = 'bs-login-container__signin-button--company';
-    }
-
-    if (this.props.loading) {
-      signinButtonClass += '--loading';
-    }
 
     const rectangleClass =
       this.props.company || this.props.franchisor
@@ -94,6 +90,12 @@ export class ConsumerLogin extends Component<Props, State> {
         : 'bs-rectangle--default';
     return (
       <div className="bs-flex-column--center bs-login-container__get-email-login">
+        {this.props.customConfiguration && (
+          <ApplyCustomCssStyles
+            customConfiguration={this.props.customConfiguration}
+          />
+        )}
+
         {!WidgetUtils.isWidget() && !this.props.logoHidden && !simplifyUI && (
           <div className="bs-login-container__logo-container">
             <div>
@@ -132,7 +134,7 @@ export class ConsumerLogin extends Component<Props, State> {
               <Button
                 classes={{ root: 'bs-login-container__icon-button' }}
                 id="btn-intercom"
-                onClick={() => openIntercomHelp('login')}
+                onClick={this.handleOpenIntercomHelp}
                 variant={ButtonVariant.ICON}
               >
                 <HelpIcon />
@@ -145,158 +147,28 @@ export class ConsumerLogin extends Component<Props, State> {
             {t('signin.connect')}
           </div>
         </div>
-        <form className="bs-login-container__form" onSubmit={this.doEmailLogin}>
-          <div className="bs-login-container__field">
-            {this.props.emailChoices ? (
-              <div id="email-choices">
-                <>
-                  <div
-                    className={classnames(
-                      'bs-login-container__email-choice-label',
-                      'bs-login-container__body1-text',
-                    )}
-                  >
-                    {t('signin.selectYourCurrentEmail')}
-                  </div>
-                  <div className="bs-login-container__email-choices">
-                    {this.props.emailChoices?.map((email_choice) => {
-                      return (
-                        <form className="bs-flex-row">
-                          <Radio
-                            labelRight
-                            disabled={this.props.loading}
-                            isChecked={this.state.email === email_choice}
-                            label={email_choice}
-                            name={email_choice}
-                            onClick={this.onEmailChange}
-                            value={email_choice}
-                          />
-                        </form>
-                      );
-                    })}
-                  </div>
-                </>
-              </div>
-            ) : (
-              <TextField
-                isFullWidth
-                classes={{
-                  root: 'bs-login-container__text-field',
-                  label: 'bs-login-container__text-field__label',
-                }}
-                data-testid="email"
-                id="email"
-                inputId="bs-login-email"
-                isDisabled={this.props.loading}
-                label="Email"
-                name="login"
-                onChange={(event) =>
-                  this.onFormFieldChange('email')(event.target.value)
-                }
-                value={this.state.email}
-                variant="standard"
-              />
-            )}
-          </div>
-          <div className="bs-login-container__field">
-            <TextField
-              isFullWidth
-              withPasswordToggle
-              classes={{
-                root: 'bs-login-container__text-field',
-                label: 'bs-login-container__text-field__label',
-              }}
-              id="bs-login-password"
-              inputId="bs-login-password"
-              isDisabled={
-                this.props.loading ||
-                (!!this.props.emailChoices && !this.state.email)
-              }
-              label="Password"
-              name="bs-login-password"
-              onChange={(event) =>
-                this.onFormFieldChange('password')(event.target.value)
-              }
-              type="password"
-              value={this.state.password}
-              variant="standard"
-            />
-          </div>
-          {error ? (
-            <div
-              className={classnames(
-                'bs-login-container__error-message',
-                'bs-flex-row',
-              )}
-            >
-              <div
-                className={classnames(
-                  'bs-login-container__error-text',
-                  'bs-login-container__body2-text',
-                )}
-              >
-                {errorMessage}
-              </div>
-              <Button
-                id="btn-intercom-error"
-                onClick={() => openIntercomHelp('login')}
-                variant={ButtonVariant.ICON}
-              >
-                <HelpIcon />
-              </Button>
-            </div>
-          ) : null}
-          <Button
-            classes={{ root: signinButtonClass }}
-            data-testid="btn-signin"
-            id="btn-signin"
-            isDisabled={this.props.loading}
-            type={ButtonType.SUBMIT}
-          >
-            {!!this.props.loading && (
-              <CircularProgress
-                contrastStrokeColor
-                className="bs-login-container__signin-button__circular-progress"
-                size="sm"
-              />
-            )}
-            {t('actions.signin')}
-          </Button>
-          <div
-            className={classnames(
-              'bs-flex-row',
-              'bs-login-container__forgotten-password',
-            )}
-          >
-            <a
-              className="bs-login-container__forgotten-password__link"
-              href={`${Config.PUBLIC_URL}/login/reset_password${buildUrlParams({
-                ...(this.props.theme
-                  ? { membership: this.props.theme.company }
-                  : {}),
-                ...(this.props.franchisor
-                  ? { franchisor: this.props.franchisor.id }
-                  : {}),
-              })}`}
-            >
-              <p
-                className={classnames(
-                  'bs-login-container__forgotten-password__link__text',
-                  'bs-login-container__body2-text',
-                )}
-              >
-                {t('actions.forgottenPassword')}
-              </p>
-            </a>
-          </div>
-        </form>
+
+        <LoginForm
+          email={this.state.email}
+          emailChoices={this.props.emailChoices}
+          errorMessage={errorMessage}
+          hasCompany={!!this.props.company}
+          hasError={error}
+          hasFranchisor={!!this.props.franchisor}
+          hrefLink={this.getHrefLink()}
+          onChangeField={this.onFormFieldChange}
+          onOpenIntercomHelp={this.handleOpenIntercomHelp}
+          onSubmit={this.doEmailLogin}
+          password={this.state.password}
+          simplifyUI={this.props.simplifyUI}
+        />
       </div>
     );
   };
 
-  doEmailLogin = (e: any) => {
-    e.preventDefault();
+  doEmailLogin = (event: React.FormEvent<HTMLFormElement>) => {
     const { email, password } = this.state;
+    event.preventDefault();
     this.props.doEmailLogin({ email, password });
   };
 
@@ -348,4 +220,4 @@ export class ConsumerLogin extends Component<Props, State> {
   }
 }
 
-export default compose<any, Props>(withTranslation('login'))(ConsumerLogin);
+export default ConsumerLogin;

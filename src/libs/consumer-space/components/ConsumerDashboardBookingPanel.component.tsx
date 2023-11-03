@@ -53,6 +53,7 @@ type OwnProps = {
   onClickBlueprintPreview?: (
     booking: Booking<Offer<Coach, Establishment, MetaActivity>>,
   ) => void;
+  isPast: boolean;
 };
 
 type Props = OwnProps &

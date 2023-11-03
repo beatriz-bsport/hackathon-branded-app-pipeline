@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
@@ -8,6 +7,7 @@ import { Theme, withStyles } from '@material-ui/core/styles';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import moment from 'moment-timezone';
 
+// @ts-expect-error
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { RootState } from '../../reducers';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
@@ -52,8 +52,8 @@ type Props = OwnAndConnectedProps &
   WithHandlerType<typeof mapWithHandlers> &
   StateHandlerType;
 
-const SHOW_FUTURE_TAB: typeof SHOW_FUTURE_TAB = 0;
-const SHOW_PAST_TAB: typeof SHOW_PAST_TAB = 1;
+const SHOW_FUTURE_TAB = 0;
+const SHOW_PAST_TAB = 1;
 
 interface State {
   tab: typeof SHOW_FUTURE_TAB | typeof SHOW_PAST_TAB;
@@ -153,7 +153,7 @@ class BookingsAndPrivateBookingsPage extends React.PureComponent<Props, State> {
     return (
       <div className={classes.container}>
         <div className={classes.bookingsContainer}>
-          <AppBarMUI color="white" position="relative">
+          <AppBarMUI color="transparent" position="relative">
             <Tabs
               aria-label="full width tabs example"
               indicatorColor="primary"
@@ -187,6 +187,7 @@ class BookingsAndPrivateBookingsPage extends React.PureComponent<Props, State> {
                   this.props.bookingsAndPrivateBookings
                 }
                 hasMore={this.props.hasMoreBookingsAndPrivateBookings}
+                hideCoach={this.props.companyTheme.hideCoach}
                 isPast={this.state.tab === SHOW_PAST_TAB}
                 loading={this.props.bookingsAndPrivateBookingsLoading}
                 membership={this.props.membership}
@@ -200,6 +201,7 @@ class BookingsAndPrivateBookingsPage extends React.PureComponent<Props, State> {
 
           <BookingCancellationDialog
             fullScreen
+            // @ts-expect-error
             booking={this.props.bookingToCancel}
             onCancel={() => this.props.setBookingToCancel(null)}
             onSubmit={(options: OptionCallback) =>
@@ -298,25 +300,19 @@ const mapWithHandlers = {
         options: {
           onSuccess: (allObj) => {
             props.fetchOfferBulk(
+              // @ts-expect-error
               allObj.booking.results.map((b) => b.offer),
               {
-                // @ts-ignore
                 onSuccess: (offerList) => {
-                  // @ts-ignore
                   props.fetchMetaActivityBulk(
-                    // @ts-ignore
                     offerList.map((b) => b.meta_activity),
                   );
                   props.fetchCoachBulk([
-                    // @ts-ignore
                     ...offerList.map((b) => b.coach),
-                    // @ts-ignore
                     ...offerList.map((b) => b.coach_override),
                   ]);
                   props.fetchEstablishmentBulk([
-                    // @ts-ignore
                     ...offerList.map((b) => b.establishment),
-                    // @ts-ignore
                     ...offerList.map((b) => b.establishment_override),
                   ]);
                 },

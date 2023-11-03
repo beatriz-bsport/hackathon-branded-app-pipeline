@@ -372,6 +372,8 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
 
     const isLoading = this.isLoading();
 
+    const showCallToActionButtons = !WidgetUtils.isWidget();
+
     if (isLoading) {
       return (
         <div className="bs-confirmation-checkout-container">
@@ -399,11 +401,17 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
               <ConfirmationMessage
                 billingPlan={billingPlan}
                 checkoutItems={checkoutItems}
-                goBack={this.props.goBack}
+                {...(showCallToActionButtons && { goBack: this.props.goBack })}
                 goToCalendar={this.props.goToMarketplace}
-                goToMemberPasses={this.props.goToMemberPasses}
-                goToMemberProfile={this.props.onContinue}
-                goToMemberSubscriptions={this.props.goToMemberSubscriptions}
+                {...(showCallToActionButtons && {
+                  goToMemberPasses: this.props.goToMemberPasses,
+                })}
+                {...(showCallToActionButtons && {
+                  goToMemberProfile: this.props.onContinue,
+                })}
+                {...(showCallToActionButtons && {
+                  goToMemberSubscriptions: this.props.goToMemberSubscriptions,
+                })}
                 isLoading={isLoading}
                 offers={offers}
                 status={confirmationStatus}

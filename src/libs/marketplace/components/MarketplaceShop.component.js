@@ -84,23 +84,6 @@ type Props = {
 };
 
 export function MarketplaceShop(props: Props) {
-  /**
-   * Computes a unique identifier based on shop category name and id
-   * @param id The webshop category id
-   * @param name The webshop category name
-   */
-  const getShopCategoryIdentifier = React.useCallback(
-    (id: number, name: string) => {
-      const sanitizedCategoryName = name
-        .replace(/\s+/g, '-') // replace spaces by dashes
-        .replace(/[^a-zA-Z0-9-]/g, '') // only keep letters numbers and dashes
-        .toLowerCase();
-
-      return `${sanitizedCategoryName}-${id}`;
-    },
-    [],
-  );
-
   if (props.subShops.length === 0) {
     return (
       <div className={props.classes.container}>
@@ -128,7 +111,7 @@ export function MarketplaceShop(props: Props) {
               isExcludingTax={props.isExcludingTax}
               selectShopItem={props.selectShopItem}
               subshop={subshop}
-              subshopId={getShopCategoryIdentifier(subshop.id, subshop.name)}
+              subshopId={`webshop-category-${subshop.id}`}
               toggleExpanded={() => {
                 if (props.notExpandedSubshop.includes(subshop.id)) {
                   props.setNotExpandedSubshop(

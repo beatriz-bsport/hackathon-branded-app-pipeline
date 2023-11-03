@@ -29,7 +29,10 @@ import {
   getFranchisor,
 } from '#libs/franchise/selectors';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import { getMarketplaceRoute } from '#libs/marketplace/routing-utils';
+import {
+  getMarketplaceRoute,
+  getUserSpaceUrl,
+} from '#libs/marketplace/routing-utils';
 import { getThemeLoading } from '#libs/theme/selectors';
 
 type OwnProps = {
@@ -169,6 +172,8 @@ const mapWithHandlers = {
     (companyId: number, companyName: string) => {
       if (props.next) {
         props.pushRouter(`/checkout/${companyId}/${props.next}`);
+      } else if (WidgetUtils.isWidget()) {
+        props.pushRouter(getUserSpaceUrl(companyId));
       } else {
         props.pushRouter(getMarketplaceRoute(companyName, companyId));
       }

@@ -91,6 +91,8 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
       textOffsetX,
       textOffsetY,
       fontColor,
+      fontColorOnTaken,
+      fontColorOnSelected,
       fontWeight,
       strokeDasharray,
       textStroke,
@@ -100,6 +102,12 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
     if (this.props.selected) image = spotType?.selected_image;
     if (this.props.taken) image = spotType.taken_image;
 
+    let applicableFontColor = fontColor;
+    if (fontColorOnTaken && this.props.taken)
+      applicableFontColor = fontColorOnTaken;
+
+    if (fontColorOnSelected && this.props.selected && !this.props.taken)
+      applicableFontColor = fontColorOnSelected;
     // A bit dirty +2 is added because the text in not exactly centered otherwise
     // something (either the strokes of svgs element or something else) is
     // added an extra 2px in height and width.
@@ -164,7 +172,7 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
           )}
           x={(textOffsetX ?? 0) + textPositionX}
           y={(textOffsetY ?? 0) + textPositionY}
-          {...(fontColor ? { fill: fontColor } : {})}
+          {...(applicableFontColor ? { fill: applicableFontColor } : {})}
         >
           {spotType?.prefix && indexType && `${spotType?.prefix}${indexType}`}
           {!spotType?.prefix && indexType && indexType}

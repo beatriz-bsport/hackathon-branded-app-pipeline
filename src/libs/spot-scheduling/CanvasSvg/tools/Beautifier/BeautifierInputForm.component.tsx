@@ -67,6 +67,22 @@ export const FontSizeField: React.FC = React.memo(() => {
 export const FontColorField: React.FC = React.memo(() => {
   return <TextField fullWidth label="font-color" name="fontColor" />;
 });
+
+export const FontColorOnTakenField: React.FC = React.memo(() => {
+  return (
+    <TextField fullWidth label="font-color-on-taken" name="fontColorOnTaken" />
+  );
+});
+export const FontColorOnSelectedField: React.FC = React.memo(() => {
+  return (
+    <TextField
+      fullWidth
+      label="font-color-on-selected"
+      name="fontColorOnSelected"
+    />
+  );
+});
+
 export const FontWeightField: React.FC = React.memo(() => {
   return <IntegerField fullWidth label="font-weight" name="fontWeight" />;
 });

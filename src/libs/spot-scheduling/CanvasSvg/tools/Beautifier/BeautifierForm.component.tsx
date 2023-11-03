@@ -26,6 +26,8 @@ import {
   TextStrokeField,
   TextStrokeWidthField,
   FontStyleField,
+  FontColorOnTakenField,
+  FontColorOnSelectedField,
 } from './BeautifierInputForm.component';
 import { CanvasElement } from '../BaseClasses/Base.tool';
 import { CANVAS_SELECTABLE_TOOLS } from '../CanvasStrategy';
@@ -118,6 +120,8 @@ export const BeautifierForm: React.FC<Props> = ({
     displayTextStroke,
     displayTextStrokeWidth,
     displayFontStyle,
+    displayFontColorOnTaken,
+    displayFontColorOnSelected,
   } = useBeautifierField(canvasElement, spotTypes);
 
   return (
@@ -156,6 +160,8 @@ export const BeautifierForm: React.FC<Props> = ({
                   {displayImageLink && <ImageLinkField />}
                   {displayFontSize && <FontSizeField />}
                   {displayFontColor && <FontColorField />}
+                  {displayFontColorOnTaken && <FontColorOnTakenField />}
+                  {displayFontColorOnSelected && <FontColorOnSelectedField />}
                   {displayFontWeight && <FontWeightField />}
                   {displayTextOffsetX && <TextOffsetXField />}
                   {displayTextOffsetY && <TextOffsetYField />}

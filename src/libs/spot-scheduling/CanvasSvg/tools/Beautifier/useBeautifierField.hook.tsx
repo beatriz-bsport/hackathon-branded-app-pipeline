@@ -170,6 +170,8 @@ export const useBeautifierField = (
     displayTextStroke: isCustomStop,
     displayTextStrokeWidth: isCustomStop,
     displayFontStyle: isCustomStop,
+    displayFontColorOnTaken: isCustomStop,
+    displayFontColorOnSelected: isCustomStop,
   };
 };
 

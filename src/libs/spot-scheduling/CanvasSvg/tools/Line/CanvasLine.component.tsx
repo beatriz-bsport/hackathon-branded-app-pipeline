@@ -7,6 +7,7 @@ export interface CanvasLineProps {
   fill?: string;
   strokeWidth?: React.SVGAttributes<SVGPolylineElement>['strokeWidth'];
   strokeLinecap?: React.SVGAttributes<SVGPolylineElement>['strokeLinecap'];
+  strokeDasharray?: React.SVGAttributes<SVGPolylineElement>['strokeDasharray'];
 }
 
 export default class CanvasLineComponent extends CanvasBaseComponent<CanvasLineProps> {
@@ -22,7 +23,8 @@ export default class CanvasLineComponent extends CanvasBaseComponent<CanvasLineP
   }
 
   render() {
-    const { stroke, fill, strokeWidth, strokeLinecap } = this.props;
+    const { stroke, fill, strokeWidth, strokeLinecap, strokeDasharray } =
+      this.props;
 
     return (
       <polyline
@@ -33,6 +35,7 @@ export default class CanvasLineComponent extends CanvasBaseComponent<CanvasLineP
         stroke={stroke || 'black'}
         strokeWidth={strokeWidth ?? 2}
         {...(strokeLinecap ? { strokeLinecap } : {})}
+        {...(strokeDasharray ? { strokeDasharray } : {})}
       />
     );
   }

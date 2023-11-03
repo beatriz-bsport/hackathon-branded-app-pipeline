@@ -11,12 +11,23 @@ export interface CanvasRectProps {
   rotation?: number;
   image?: string;
   strokeWidth?: React.SVGAttributes<SVGPolylineElement>['strokeWidth'];
+  strokeDasharray?: React.SVGAttributes<SVGPolylineElement>['strokeDasharray'];
 }
 
 export default class CanvasRectComponent extends CanvasBaseComponent<CanvasRectProps> {
   render() {
-    const { x, y, width, height, stroke, fill, rotation, image, strokeWidth } =
-      this.props;
+    const {
+      x,
+      y,
+      width,
+      height,
+      stroke,
+      fill,
+      rotation,
+      image,
+      strokeWidth,
+      strokeDasharray,
+    } = this.props;
     if (!image) {
       /* In this case Rect is use to actually display a rectangle on the map */
       return (
@@ -34,6 +45,7 @@ export default class CanvasRectComponent extends CanvasBaseComponent<CanvasRectP
           width={width || 0}
           x={x || 0}
           y={y || 0}
+          {...(strokeDasharray ? { strokeDasharray } : {})}
         />
       );
     }

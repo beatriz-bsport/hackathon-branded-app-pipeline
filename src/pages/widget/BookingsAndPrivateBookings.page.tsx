@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { connect } from 'react-redux';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
 import { CircularProgress, Tab, Tabs } from '@material-ui/core';
@@ -6,6 +6,7 @@ import AppBarMUI from '@material-ui/core/AppBar';
 import { Theme, withStyles } from '@material-ui/core/styles';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import moment from 'moment-timezone';
+import { DIALOG_MODE_DEACTIVATED } from '@bsport/common/lib/master-data/widget-dialog-mode';
 
 // @ts-expect-error
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -33,6 +34,12 @@ import { PrivateBooking } from '../../libs/private-service/types';
 import { cancelBooking as cancelBookingAction } from '../../libs/booking/actions';
 
 import { disablePrivateBooking } from '../../libs/private-service/actions';
+import ConsumerAppBarContainer from '../checkout/ConsumerAppBar.container';
+import WidgetUtils from '#libs/widget/WidgetUtils';
+
+const EmptyWrapper: React.FC = ({ children }: { children: ReactNode }) => (
+  <>{children}</>
+);
 
 type OwnProps = {
   companyId: number;
@@ -147,83 +154,91 @@ class BookingsAndPrivateBookingsPage extends React.PureComponent<Props, State> {
     });
   };
 
+  isNoPopUpMode = WidgetUtils.getDialogMode() === DIALOG_MODE_DEACTIVATED;
+
   render() {
     const { classes, t } = this.props;
 
+    const MainWrapper = this.isNoPopUpMode
+      ? ConsumerAppBarContainer
+      : EmptyWrapper;
+
     return (
-      <div className={classes.container}>
-        <div className={classes.bookingsContainer}>
-          <AppBarMUI color="transparent" position="relative">
-            <Tabs
-              aria-label="full width tabs example"
-              indicatorColor="primary"
-              onChange={(e, tab) => this.setState({ tab })}
-              textColor="primary"
-              value={this.state.tab}
-              variant="fullWidth"
-            >
-              <Tab
-                label={t('consumerSpace:widget.futureBooking')}
-                value={SHOW_FUTURE_TAB}
-              />
-              <Tab
-                label={t('consumerSpace:widget.pastBooking')}
-                value={SHOW_PAST_TAB}
-              />
-            </Tabs>
-          </AppBarMUI>
+      <MainWrapper>
+        <div className={classes.container}>
+          <div className={classes.bookingsContainer}>
+            <AppBarMUI color="transparent" position="relative">
+              <Tabs
+                aria-label="full width tabs example"
+                indicatorColor="primary"
+                onChange={(e, tab) => this.setState({ tab })}
+                textColor="primary"
+                value={this.state.tab}
+                variant="fullWidth"
+              >
+                <Tab
+                  label={t('consumerSpace:widget.futureBooking')}
+                  value={SHOW_FUTURE_TAB}
+                />
+                <Tab
+                  label={t('consumerSpace:widget.pastBooking')}
+                  value={SHOW_PAST_TAB}
+                />
+              </Tabs>
+            </AppBarMUI>
 
-          {!this.props.bookingsAndPrivateBookings.length &&
-          this.props.bookingsAndPrivateBookingsLoading ? (
-            <div className={classes.loaderView}>
-              <CircularProgress />
-            </div>
-          ) : (
-            <div className={classes.bookingsContainerInner}>
-              <ConsumerDashboardBookingPanel
-                fullWidth
-                hideTitle
-                bookingsAndPrivateBookings={
-                  this.props.bookingsAndPrivateBookings
-                }
-                hasMore={this.props.hasMoreBookingsAndPrivateBookings}
-                hideCoach={this.props.companyTheme.hideCoach}
-                isPast={this.state.tab === SHOW_PAST_TAB}
-                loading={this.props.bookingsAndPrivateBookingsLoading}
-                membership={this.props.membership}
-                onDiscardBooking={this.props.setBookingToCancel}
-                onDiscardPrivateBooking={this.props.setPrivateBookingToCancel}
-                showMoreBooking={this.onClickShowMoreBookings}
-                timezone={this.props.companyTheme.timezone_name}
-              />
-            </div>
-          )}
+            {!this.props.bookingsAndPrivateBookings.length &&
+            this.props.bookingsAndPrivateBookingsLoading ? (
+              <div className={classes.loaderView}>
+                <CircularProgress />
+              </div>
+            ) : (
+              <div className={classes.bookingsContainerInner}>
+                <ConsumerDashboardBookingPanel
+                  fullWidth
+                  hideTitle
+                  bookingsAndPrivateBookings={
+                    this.props.bookingsAndPrivateBookings
+                  }
+                  hasMore={this.props.hasMoreBookingsAndPrivateBookings}
+                  hideCoach={this.props.companyTheme.hideCoach}
+                  isPast={this.state.tab === SHOW_PAST_TAB}
+                  loading={this.props.bookingsAndPrivateBookingsLoading}
+                  membership={this.props.membership}
+                  onDiscardBooking={this.props.setBookingToCancel}
+                  onDiscardPrivateBooking={this.props.setPrivateBookingToCancel}
+                  showMoreBooking={this.onClickShowMoreBookings}
+                  timezone={this.props.companyTheme.timezone_name}
+                />
+              </div>
+            )}
 
-          <BookingCancellationDialog
-            fullScreen
-            // @ts-expect-error
-            booking={this.props.bookingToCancel}
-            onCancel={() => this.props.setBookingToCancel(null)}
-            onSubmit={(options: OptionCallback) =>
-              this.onDiscardBooking(this.props.bookingToCancel.id, options)
-            }
-            open={!!this.props.bookingToCancel}
-          />
+            <BookingCancellationDialog
+              fullScreen
+              // @ts-expect-error
+              booking={this.props.bookingToCancel}
+              onCancel={() => this.props.setBookingToCancel(null)}
+              onSubmit={(options: OptionCallback) =>
+                this.onDiscardBooking(this.props.bookingToCancel.id, options)
+              }
+              open={!!this.props.bookingToCancel}
+            />
 
-          <PrivateBookingCancellationDialog
-            fullScreen
-            onCancel={() => this.props.setPrivateBookingToCancel(null)}
-            onSubmit={(options) =>
-              this.onDiscardPrivateBooking(
-                this.props.privateBookingToCancel.id,
-                options,
-              )
-            }
-            open={!!this.props.privateBookingToCancel}
-            privateBooking={this.props.privateBookingToCancel}
-          />
+            <PrivateBookingCancellationDialog
+              fullScreen
+              onCancel={() => this.props.setPrivateBookingToCancel(null)}
+              onSubmit={(options) =>
+                this.onDiscardPrivateBooking(
+                  this.props.privateBookingToCancel.id,
+                  options,
+                )
+              }
+              open={!!this.props.privateBookingToCancel}
+              privateBooking={this.props.privateBookingToCancel}
+            />
+          </div>
         </div>
-      </div>
+      </MainWrapper>
     );
   }
 }

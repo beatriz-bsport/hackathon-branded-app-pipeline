@@ -115,7 +115,7 @@ type ConfirmationCheckoutProps = {
   offerNotBookableList: OfferWithSpotInformation[];
   billingPlan: Subscription;
   companyId: number;
-  onContinue: () => void;
+  goToMemberProfile: () => void;
   goToMarketplace: () => void;
   goToMemberPasses: () => void;
   goToMemberSubscriptions: () => void;
@@ -131,6 +131,14 @@ type Props = ConfirmationCheckoutProps &
   ConnectedProps<typeof connector> &
   ConnectedProps<typeof basketConnector> &
   WithTranslation;
+
+const buildUrlForWidget = (path: string, theme: CompanyTheme, params?: any) => {
+  const { company, company_name } = theme;
+  return `/widget/${company_name}/${company}/${path}${buildUrlParams({
+    context: 'widget',
+    ...(params || {}),
+  })}`;
+};
 
 export class ConfirmationCheckout extends React.PureComponent<Props, State> {
   constructor(props: Props) {
@@ -406,9 +414,7 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
                 {...(showCallToActionButtons && {
                   goToMemberPasses: this.props.goToMemberPasses,
                 })}
-                {...(showCallToActionButtons && {
-                  goToMemberProfile: this.props.onContinue,
-                })}
+                goToMemberProfile={this.props.goToMemberProfile}
                 {...(showCallToActionButtons && {
                   goToMemberSubscriptions: this.props.goToMemberSubscriptions,
                 })}
@@ -605,22 +611,20 @@ const mapWithHandlers = {
           }),
       );
     },
-  onContinue:
+  goToMemberProfile:
     ({
       replace,
       companyId,
-      queryParams,
+      companyTheme,
     }: {
       replace: typeof replaceRouter;
       companyId: number;
       queryParams: QueryParams;
+      companyTheme: CompanyTheme;
     }) =>
     () => {
       if (WidgetUtils.isWidget()) {
-        WidgetUtils.paymentSuccess();
-        if (queryParams && queryParams.onValidation === 'close') {
-          window.close();
-        }
+        replace(buildUrlForWidget('bookings/', companyTheme));
         return;
       }
       replace(`/c/${companyId}`);

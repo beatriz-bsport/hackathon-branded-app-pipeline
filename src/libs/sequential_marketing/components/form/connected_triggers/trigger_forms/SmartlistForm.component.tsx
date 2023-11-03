@@ -10,7 +10,7 @@ import useSmartlistContext, {
 import type { ConnectedTrigger } from '#libs/sequential_marketing/types';
 import type { SmartList } from '#libs/smart-list/types';
 
-export type Props = {
+type Props = {
   trigger: ConnectedTrigger;
   smartlists: Immutable.ImmutableArray<SmartList>;
   updateValue: (trigger: ConnectedTrigger) => void;

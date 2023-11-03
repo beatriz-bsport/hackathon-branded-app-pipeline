@@ -11,7 +11,7 @@ import type {
 } from '#libs/sequential_marketing/types';
 import { Events } from '#libs/sequential_marketing/constants';
 
-export type Props = {
+type Props = {
   trigger: ConnectedTrigger;
   updateValue: (value: ConnectedTrigger, event: Events) => void;
 };

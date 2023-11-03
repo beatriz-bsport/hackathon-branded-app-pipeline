@@ -72,11 +72,9 @@ const TimeoutForm: React.FC<Props> = ({ trigger, updateValue }) => {
   return (
     <>
       <div className={classes.timeoutSelectorContainer}>
-        <div>
-          <Typography variant="body1">
-            {t('cadence.form.trigger.triggerTimeoutLabel')}
-          </Typography>
-        </div>
+        <Typography variant="body1">
+          {t('cadence.form.trigger.triggerTimeoutLabel')}
+        </Typography>
         <div className={classes.timeoutInput}>
           <NumericInput
             error={timeoutValue < 1}
@@ -107,9 +105,6 @@ const TimeoutForm: React.FC<Props> = ({ trigger, updateValue }) => {
 };
 
 const useStyles = makeStyles((theme) => ({
-  timeoutSection: {
-    paddingBottom: theme.spacing(2),
-  },
   timeoutSelectorContainer: {
     display: 'flex',
     justifyContent: 'space-between',

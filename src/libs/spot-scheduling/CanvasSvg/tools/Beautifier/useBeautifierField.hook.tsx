@@ -63,13 +63,15 @@ export const useBeautifierField = (
       isDefaultCircularSpot ||
       isDefaultSquareSpot ||
       isDefaultReactangleSpot ||
-      isDefaultTriangleSpot,
+      isDefaultTriangleSpot ||
+      isCustomStop,
     displayHeight:
       canvasElementType === CANVAS_SELECTABLE_TOOLS.rect ||
       isDefaultCircularSpot ||
       isDefaultSquareSpot ||
       isDefaultReactangleSpot ||
-      isDefaultTriangleSpot,
+      isDefaultTriangleSpot ||
+      isCustomStop,
     displayRotation:
       canvasElementType === CANVAS_SELECTABLE_TOOLS.door ||
       canvasElementType === CANVAS_SELECTABLE_TOOLS.rect ||
@@ -77,7 +79,8 @@ export const useBeautifierField = (
       isDefaultCircularSpot ||
       isDefaultSquareSpot ||
       isDefaultReactangleSpot ||
-      isDefaultTriangleSpot,
+      isDefaultTriangleSpot ||
+      isCustomStop,
     displayStroke:
       canvasElementType === CANVAS_SELECTABLE_TOOLS.door ||
       canvasElementType === CANVAS_SELECTABLE_TOOLS.line ||
@@ -86,7 +89,8 @@ export const useBeautifierField = (
       isDefaultCircularSpot ||
       isDefaultSquareSpot ||
       isDefaultReactangleSpot ||
-      isDefaultTriangleSpot,
+      isDefaultTriangleSpot ||
+      isCustomStop,
     displayStrokeLineCap:
       canvasElementType === CANVAS_SELECTABLE_TOOLS.door ||
       canvasElementType === CANVAS_SELECTABLE_TOOLS.line ||
@@ -99,10 +103,12 @@ export const useBeautifierField = (
       isDefaultCircularSpot ||
       isDefaultSquareSpot ||
       isDefaultReactangleSpot ||
-      isDefaultTriangleSpot,
+      isDefaultTriangleSpot ||
+      isCustomStop,
     displayWidth:
       canvasElementType === CANVAS_SELECTABLE_TOOLS.rect ||
-      isDefaultReactangleSpot,
+      isDefaultReactangleSpot ||
+      isCustomStop,
     displayX:
       canvasElementType === CANVAS_SELECTABLE_TOOLS.door ||
       canvasElementType === CANVAS_SELECTABLE_TOOLS.rect ||
@@ -110,7 +116,8 @@ export const useBeautifierField = (
       isDefaultCircularSpot ||
       isDefaultSquareSpot ||
       isDefaultReactangleSpot ||
-      isDefaultTriangleSpot,
+      isDefaultTriangleSpot ||
+      isCustomStop,
     displayY:
       canvasElementType === CANVAS_SELECTABLE_TOOLS.door ||
       canvasElementType === CANVAS_SELECTABLE_TOOLS.rect ||
@@ -118,40 +125,51 @@ export const useBeautifierField = (
       isDefaultCircularSpot ||
       isDefaultSquareSpot ||
       isDefaultReactangleSpot ||
-      isDefaultTriangleSpot,
-    displayImageLink: canvasElementType === CANVAS_SELECTABLE_TOOLS.rect,
+      isDefaultTriangleSpot ||
+      isCustomStop,
+    displayImageLink:
+      canvasElementType === CANVAS_SELECTABLE_TOOLS.rect || isCustomStop,
     displayFontSize:
       isDefaultCircularSpot ||
       isDefaultSquareSpot ||
       isDefaultReactangleSpot ||
-      isDefaultTriangleSpot,
+      isDefaultTriangleSpot ||
+      isCustomStop,
     displayFontColor:
       isDefaultCircularSpot ||
       isDefaultSquareSpot ||
       isDefaultReactangleSpot ||
-      isDefaultTriangleSpot,
+      isDefaultTriangleSpot ||
+      isCustomStop,
     displayFontWeight:
       isDefaultCircularSpot ||
       isDefaultSquareSpot ||
       isDefaultReactangleSpot ||
-      isDefaultTriangleSpot,
+      isDefaultTriangleSpot ||
+      isCustomStop,
     displayTextOffsetX:
       isDefaultCircularSpot ||
       isDefaultSquareSpot ||
       isDefaultReactangleSpot ||
-      isDefaultTriangleSpot,
+      isDefaultTriangleSpot ||
+      isCustomStop,
     displayTextOffsetY:
       isDefaultCircularSpot ||
       isDefaultSquareSpot ||
       isDefaultReactangleSpot ||
-      isDefaultTriangleSpot,
+      isDefaultTriangleSpot ||
+      isCustomStop,
     displayStrokeDasharray:
       isDefaultCircularSpot ||
       canvasElementType === CANVAS_SELECTABLE_TOOLS.line ||
       canvasElementType === CANVAS_SELECTABLE_TOOLS.rect ||
       isDefaultSquareSpot ||
       isDefaultReactangleSpot ||
-      isDefaultTriangleSpot,
+      isDefaultTriangleSpot ||
+      isCustomStop,
+    displayTextStroke: isCustomStop,
+    displayTextStrokeWidth: isCustomStop,
+    displayFontStyle: isCustomStop,
   };
 };
 

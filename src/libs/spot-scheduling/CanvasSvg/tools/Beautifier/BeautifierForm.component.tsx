@@ -23,6 +23,9 @@ import {
   FontColorField,
   FontWeightField,
   StrokeDasharrayField,
+  TextStrokeField,
+  TextStrokeWidthField,
+  FontStyleField,
 } from './BeautifierInputForm.component';
 import { CanvasElement } from '../BaseClasses/Base.tool';
 import { CANVAS_SELECTABLE_TOOLS } from '../CanvasStrategy';
@@ -112,6 +115,9 @@ export const BeautifierForm: React.FC<Props> = ({
     displayFontColor,
     displayFontWeight,
     displayStrokeDasharray,
+    displayTextStroke,
+    displayTextStrokeWidth,
+    displayFontStyle,
   } = useBeautifierField(canvasElement, spotTypes);
 
   return (
@@ -142,14 +148,17 @@ export const BeautifierForm: React.FC<Props> = ({
                   {displayFill && <FillField />}
                   {displayRotation && <RotationField />}
                   {displayStroke && <StrokeColorField />}
-                  {displayStrokeLineCap && <StrokeLineCapField />}
                   {displayStrokeWidth && <StrokeWidthField />}
+                  {displayStrokeLineCap && <StrokeLineCapField />}
+                  {displayTextStroke && <TextStrokeField />}
+                  {displayFontStyle && <FontStyleField />}
+                  {displayTextStrokeWidth && <TextStrokeWidthField />}
                   {displayImageLink && <ImageLinkField />}
                   {displayFontSize && <FontSizeField />}
-                  {displayTextOffsetX && <TextOffsetXField />}
-                  {displayTextOffsetY && <TextOffsetYField />}
                   {displayFontColor && <FontColorField />}
                   {displayFontWeight && <FontWeightField />}
+                  {displayTextOffsetX && <TextOffsetXField />}
+                  {displayTextOffsetY && <TextOffsetYField />}
                   {displayStrokeDasharray && <StrokeDasharrayField />}
                   <Button
                     color="primary"

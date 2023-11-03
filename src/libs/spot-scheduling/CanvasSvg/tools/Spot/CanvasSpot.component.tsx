@@ -33,9 +33,15 @@ let TRIANGLE_LENGTH = 70;
 export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
   static zIndex = 99;
 
-  static getTransform(x: number, y: number, rotation: number, height: number) {
+  static getTransform(
+    x: number,
+    y: number,
+    rotation: number,
+    height: number,
+    width: number,
+  ) {
     return `translate(${x} ${y}) rotate(${rotation} ${
-      (height ?? LENGTH_REFERENCE) / 2
+      (width ?? height ?? LENGTH_REFERENCE) / 2
     } ${(height ?? LENGTH_REFERENCE) / 2})`;
   }
 
@@ -69,7 +75,27 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
   }
 
   renderPersonalizedSpot(spotType: SpotType) {
-    const { x, y, rotation, indexType, index, height, width } = this.props;
+    const {
+      x,
+      y,
+      rotation,
+      indexType,
+      index,
+      height,
+      width,
+      fill: _fill,
+      stroke,
+      strokeWidth,
+      fontSize,
+      fontStyle,
+      textOffsetX,
+      textOffsetY,
+      fontColor,
+      fontWeight,
+      strokeDasharray,
+      textStroke,
+      textStrokeWidth,
+    } = this.props;
     let image = spotType?.free_image;
     if (this.props.selected) image = spotType?.selected_image;
     if (this.props.taken) image = spotType.taken_image;
@@ -77,12 +103,14 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
     // A bit dirty +2 is added because the text in not exactly centered otherwise
     // something (either the strokes of svgs element or something else) is
     // added an extra 2px in height and width.
-    const textPositionX = image
-      ? SPOT_IMAGE_WIDTH / 2 + 2
-      : LENGTH_REFERENCE / 2;
-    const textPositionY = image
-      ? SPOT_IMAGE_HEIGHT / 2 + 2
-      : LENGTH_REFERENCE / 2;
+    const textPositionX =
+      image && !height
+        ? SPOT_IMAGE_WIDTH / 2 + 2
+        : (height ?? LENGTH_REFERENCE) / 2;
+    const textPositionY =
+      image && !width
+        ? SPOT_IMAGE_HEIGHT / 2 + 2
+        : (width ?? LENGTH_REFERENCE) / 2;
 
     return (
       <g
@@ -92,42 +120,51 @@ export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {
           y === undefined ? -9999 : y,
           rotation || 0,
           height ?? 0,
+          width,
         )}
         type="personalized"
       >
         <rect
           className="svg-element"
-          fill="transparent"
+          fill={_fill || 'transparent'}
           height={height ?? LENGTH_REFERENCE}
           stroke={
             this.props.selected && !this.props.selectingSpot
               ? 'red'
-              : 'transparent'
+              : stroke || 'transparent'
           }
-          strokeWidth={2}
+          strokeWidth={strokeWidth ?? 2}
           width={width ?? LENGTH_REFERENCE}
+          {...(strokeDasharray ? { strokeDasharray } : {})}
         />
         <image
-          height={SPOT_IMAGE_HEIGHT}
+          height={height ?? SPOT_IMAGE_HEIGHT}
           href={image}
-          width={SPOT_IMAGE_WIDTH}
+          width={width ?? SPOT_IMAGE_WIDTH}
           x={1}
           y={1}
         />
         <text
           alignmentBaseline="middle"
           dominantBaseline="middle"
-          fontSize="30"
-          fontStyle="normal"
-          fontWeight={700}
+          fontSize={fontSize ?? '30'}
+          fontStyle={fontStyle ?? 'normal'}
+          fontWeight={fontWeight ?? 700}
           letterSpacing="0.15px"
-          stroke="white"
-          strokeWidth={2}
+          stroke={textStroke ?? 'white'}
+          strokeWidth={textStrokeWidth ?? 2}
           style={{ userSelect: 'none' }}
           textAnchor="middle"
-          transform={CanvasSpotComponent.getTransform(0, 0, -rotation || 0)}
-          x={textPositionX}
-          y={textPositionY}
+          transform={CanvasSpotComponent.getTransform(
+            0,
+            0,
+            -rotation || 0,
+            height,
+            width,
+          )}
+          x={(textOffsetX ?? 0) + textPositionX}
+          y={(textOffsetY ?? 0) + textPositionY}
+          {...(fontColor ? { fill: fontColor } : {})}
         >
           {spotType?.prefix && indexType && `${spotType?.prefix}${indexType}`}
           {!spotType?.prefix && indexType && indexType}

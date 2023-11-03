@@ -56,12 +56,12 @@ const AssetSmallPreview: React.FC<{
 }> = React.memo(({ asset, onClickUnboundedAsset }) => {
   const classes = useAssetStyles();
 
-  const handleonClickUnboundedAsset = (clickedAsset: AssetForBlueprint) => {
-    onClickUnboundedAsset(clickedAsset);
+  const handleOnClickUnboundedAsset = () => {
+    onClickUnboundedAsset(asset);
   };
   return (
     <Card className={classes.root}>
-      <CardActionArea onClick={() => handleonClickUnboundedAsset(asset)}>
+      <CardActionArea onClick={handleOnClickUnboundedAsset}>
         <CardMedia className={classes.media} image={asset.asset} />
       </CardActionArea>
     </Card>
@@ -109,7 +109,7 @@ export const CanvasAssetUploaderDialog: React.FC<Props> = ({
   const assetIds = assetState?.allIds ?? [];
   const assetById = assetState?.byId ?? {};
 
-  const allAssets = assetIds.map((assId: number) => assetById[assId]);
+  const allAssets = assetIds.map((assetId: number) => assetById[assetId]);
   return (
     <Dialog
       disablePortal
@@ -141,10 +141,10 @@ export const CanvasAssetUploaderDialog: React.FC<Props> = ({
         />
 
         <div className={classes.assetPreviewsContainer}>
-          {(allAssets ?? []).map((asso) => (
+          {(allAssets ?? []).map((_asset) => (
             <AssetSmallPreview
-              key={asso.identifier}
-              asset={asso}
+              key={_asset.identifier}
+              asset={_asset}
               onClickUnboundedAsset={onClickUnboundedAsset}
             />
           ))}

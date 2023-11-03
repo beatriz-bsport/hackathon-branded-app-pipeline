@@ -407,6 +407,9 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
     this.setState({ assetUploaderIsOpen: false });
   };
 
+  handleCloseAssetUploader = () =>
+    this.setState({ assetUploaderIsOpen: false });
+
   render() {
     const { classes } = this.props;
     return (
@@ -445,7 +448,7 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
             />
             <CanvasAssetUploaderDialog
               blueprintId={this.props.id}
-              closeDialog={() => this.setState({ assetUploaderIsOpen: false })}
+              closeDialog={this.handleCloseAssetUploader}
               defaultSpot={this.state.defaultSpot}
               onClickUnboundedAsset={this.onClickUnboundedAsset}
               onCreateAsset={this.onUnboundedCreateAsset}

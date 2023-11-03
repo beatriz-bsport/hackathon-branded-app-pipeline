@@ -29,7 +29,7 @@ export default class CanvasRectComponent extends CanvasBaseComponent<CanvasRectP
       strokeDasharray,
     } = this.props;
     if (!image) {
-      /* In this case Rect is use to actually display a rectangle on the map */
+      /* In this case Rect is used to actually display a rectangle on the map */
       return (
         <rect
           {...this.BaseProps}

@@ -83,6 +83,9 @@ type Props = OwnProps &
   WithTranslation;
 
 class CanvasToolsMenu extends React.PureComponent<Props> {
+  handleClickResizerTool = () =>
+    this.props.onSelectTool(CANVAS_SELECTABLE_TOOLS.resizer);
+
   render() {
     const sortSpots = (a, b) => b.id - a.id;
     const { classes, t } = this.props;
@@ -120,9 +123,7 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
                   [classes.itemSelected]:
                     this.props.selectedTool === CANVAS_SELECTABLE_TOOLS.resizer,
                 })}
-                onClick={() => {
-                  this.props.onSelectTool(CANVAS_SELECTABLE_TOOLS.resizer);
-                }}
+                onClick={this.handleClickResizerTool}
               >
                 <AspectRatioIcon fontSize="large" />
               </ButtonBase>

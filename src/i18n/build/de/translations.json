@@ -7523,7 +7523,7 @@
             "titleReverted": "Rechnung (storniert) {{uuid}}"
         },
         "invoiceItem": {
-            "voucher": "Rabatt : {{ voucher }}",
+            "voucher": "Rabatt: {{ voucher }}",
             "quantity": "Menge",
             "credit": {
                 "label": "Credit"
@@ -9866,10 +9866,10 @@
                     "5003": "Einige einmalige Codes sind bereits in einem anderen Gutschein gespeichert.",
                     "5004": "Dieser Code kann nur auf einen einzigen Artikel angewendet werden.",
                     "5001": "Einige der einmaligen Codes können nicht hinzugefügt werden, da sie bereits registriert wurden.",
-                    "update_mode": "Wenn Sie die für diese Aktion gespeicherten Codes ändern möchten, können Sie die Codes zu den bestehenden hinzufügen oder die bestehenden Codes ersetzen.",
+                    "update_mode": "Wenn Sie die für diese Aktion gespeicherten Codes ändern möchten, können Sie die Codes zu den bestehenden hinzufügen oder die bestehenden Codes ersetzen",
                     "5005": "Dieser Code wird bereits verwendet oder ist derzeit an einen Warenkorb angehängt.",
                     "codes": {
-                        "updateMode": "Sie müssen sich entscheiden, ob Sie die Codes zu den Bestehenden hinzufügen oder sie ersetzen wollen",
+                        "updateMode": "Sie müssen sich entscheiden, ob Sie die Codes zu den bestehenden hinzufügen oder sie ersetzen wollen",
                         "emptyArray": "Sie müssen mindestens einen Code hinzufügen"
                     }
                 },
@@ -9905,8 +9905,8 @@
                 },
                 "close": "Schließen",
                 "checkBoxes": {
-                    "unselectAll": "Nichts ausgewählt",
-                    "selectAll": "Alles ausgewählt"
+                    "unselectAll": "Nichts auswählen",
+                    "selectAll": "Alles auswählen"
                 },
                 "markAsRedeemed": "Als verwendet markieren",
                 "markAsRedeemed_plural": "Als verwendet markieren"
@@ -12669,24 +12669,24 @@
     },
     "dashboard": {
         "detailsGraphTitle": "Details",
-        "filterByDateTitle": "Nach Datum sortieren",
+        "filterByDateTitle": "Sortieren nach: Datum",
         "dateRange": {
             "end": "Ende",
-            "start": "Anfang"
+            "start": "Start"
         },
         "turnover": {
-            "title": "Eingegangene Zahlungen",
-            "caption": "Umsatz (€)",
+            "title": "Umsatz",
+            "caption": "Einnahmen (€)",
             "popover": "Summe aller auf Rechnungen eingegangenen Zahlungen"
         },
-        "nbOffers": "Kurse",
+        "nbOffers": "Sessions",
         "newMembers": "Neue Mitglieder",
         "thisMonth": "Dieser Monat",
         "thisWeek": "Diese Woche",
-        "current_year": "Laufendes Jahr",
+        "current_year": "Letztes Jahr",
         "last_three_months": "Drei letzten Monate",
-        "current_week": "Laufende Woche",
-        "current_month": "Laufender Monat",
+        "current_week": "Letzte Woche",
+        "current_month": "Letzter Monat",
         "bookings": "Buchungen",
         "pageTitle": "Dashboard",
         "current_day": "Letzte 24 Stunden",
@@ -12706,17 +12706,17 @@
             "popover": "Durchschnittliche Anzahl von Buchungen pro Zeitfenster"
         },
         "dateFilter": {
-            "customSelect": "Wähle einen Datumsbereich",
-            "quickSelect": "Schnelle Auswahl"
+            "customSelect": "Wählen Sie einen Datenbereich",
+            "quickSelect": "Schnellauswahl"
         },
         "noData": "Keine Daten verfügbar",
         "plannedPayment": {
-            "caption": "Eingegangene Zahlungen",
+            "caption": "Umsatz",
             "title": "Umsatz von Abonnements",
             "popover": "Summe aller Zahlungen für Abonnements"
         },
         "bookingSource": {
-            "title": "Herkunft der Buchung",
+            "title": "Herkunft der Buchungen",
             "app": "Applikation",
             "web": "Web",
             "saas": "Bsport Backoffice",
@@ -12738,7 +12738,7 @@
             "contentType": {
                 "10": "Pakete",
                 "9": "Terminpässe",
-                "7": "Werbeaktion",
+                "7": "Werbeaktionen",
                 "6": "Versandkosten",
                 "2": "Produkte",
                 "1": "Kurspässe"
@@ -12767,10 +12767,10 @@
                     "grid": "Häufigkeitstabelle",
                     "area": "Flächendiagramm",
                     "bar": "Histogramm",
-                    "qualitativeInvoiceItem": "Teilung",
+                    "qualitativeInvoiceItem": "Aufteilung",
                     "temporalPlannedInvoice": "Entwicklung über Zeit",
                     "temporalPayment": "Entwicklung über Zeit",
-                    "qualitativeBooking": "Teilung",
+                    "qualitativeBooking": "Verteilung",
                     "temporalBooking": "Entwicklung über Zeit",
                     "temporalTimeslotBooking": "Tägliche und stündliche Frequenzen",
                     "temporalMember": "Entwicklung über Zeit",
@@ -12785,24 +12785,24 @@
                     "booking": "Buchungen",
                     "member": "Neue Mitglieder",
                     "object": {
-                        "helperText": "Wähle aus, was angezeigt werden soll",
-                        "placeholder": "Wähle einen Datentyp",
-                        "isEmpty": "Keine Daten ausgewählt"
+                        "helperText": "Wählen Sie aus, was angezeigt werden soll.",
+                        "placeholder": "Wählen Sie einen Datentyp.",
+                        "isEmpty": "Keine Daten ausgewählt."
                     },
-                    "privateBooking": "Termin"
+                    "privateBooking": "Termine"
                 },
                 "graphComponent": "Gewünschte Darstellung",
                 "datatype": "Art des Diagramms",
                 "submit": "Speichern",
                 "cancel": "Abbrechen",
-                "title": "Grafik"
+                "title": "Diagramm"
             },
-            "noResource": "Bitte wähle einen Datentyp.",
-            "addChart": "Erstelle ein Diagramm"
+            "noResource": "Bitte wählen Sie einen Datentyp.",
+            "addChart": "Diagramm hinzufügen"
         },
         "booking": {
-            "popover": "Die Gesamtzahl der für dieses Datum erhaltenen Reservierungen. Du kannst Stornierungen / verspätete Stornierungen / ...",
-            "caption": "Buchung gespeichert",
+            "popover": "Die Gesamtzahl der für dieses Datum erhaltenen Reservierungen. Sie können nach Stornierungen / verspäteten Stornierungen / ... filtern.",
+            "caption": "Bestätigte Buchungen",
             "title": "Buchungen"
         },
         "graphFormDrawer": {
@@ -12892,7 +12892,7 @@
         "privateBooking": {
             "popover": "Die Gesamtzahl der für dieses Datum gespeicherten Termine. Sie können nach Stornierungen / Rückerstattungen / ... filtern.",
             "caption": "Registrierte Termine",
-            "title": "Termin"
+            "title": "Termine"
         },
         "noGraphToDisplay": "Auf diesem Tab sind keine Graphen konfiguriert. Fügen Sie hier einen hinzu.",
         "tabNameDialog": {
@@ -12906,24 +12906,24 @@
             "private_service_name": "Termin",
             "price": "Preis inkl. MwSt",
             "contract": "Vertrag",
-            "date": "Datum der Zahlung",
+            "date": "Zahlungsdatum",
             "payment_method": "Zahlungsmethode",
             "payment_price": "Preis inkl. MwSt",
-            "payment_date": "Datum der Zahlung",
+            "payment_date": "Zahlungsdatum",
             "accept_sms": "Akzeptiert SMS",
             "accept_email": "Akzeptiert E-Mails",
             "gender": "Geschlecht",
-            "billing_establishment": "Lokalisierung",
-            "billing_group": "Rechnungsgruppe",
+            "billing_establishment": "Standort",
+            "billing_group": "Abrechnungsgruppe",
             "coach": "Lehrkäfte",
-            "was_refunded": "Zurückgezahlt",
-            "booking_status_code": "Status der Reservierung",
+            "was_refunded": "Zurückerstattet",
+            "booking_status_code": "Status der Buchung",
             "date_created": "Datum der Buchung",
-            "date_start": "Datum des Kurses",
+            "date_start": "Datum der Session",
             "attendance": "Anwesend",
             "payment_engine": "Art der Zahlung",
             "is_workshop": "Workshop",
-            "activity_kind": "Art des Kurses",
+            "activity_kind": "Art der Session",
             "booking_effectif_timeslots": "Durchschnittliche Anzahl",
             "plannedinvoice_pk": "Anzahl der Rechnungen",
             "payment_pk": "Anzahl der Zahlungen",
@@ -12971,17 +12971,17 @@
         "graphDefaultTitles": {
             "paymentTemporal": "Zahlungseingänge",
             "bookingTimeslots": "Durchschnittliche Mitarbeiterzahl",
-            "bookingQualitative": "Quellen der Buchungen",
+            "bookingQualitative": "Herkunft der Buchungen",
             "bookingTemporal": "Buchungen",
-            "subscriptionTemporalCount": "Anzahl der Mitgliedsrechnungen",
-            "billingPlanTemporal": "Anmeldungen",
-            "memberTemporal": "Neumitglieder",
-            "privateBookingTemporal": "Termine",
+            "subscriptionTemporalCount": "Anzahl der Abonnementrechnungen",
+            "billingPlanTemporal": "Abonnements",
+            "memberTemporal": "Neue Mitglieder",
+            "privateBookingTemporal": "Termin",
             "subscriptionTemporalSum": "Abonnementzahlungen",
             "invoiceItemTemporal": "Summe der in Rechnung gestellten Posten"
         },
         "placeholderEmptyValues": {
-            "coach": "keine Lehrkraft",
+            "coach": "Keine Lehrkraft",
             "establishment": "Keine Niederlassung"
         }
     },
@@ -15509,7 +15509,8 @@
                 "marketplace_basket_summary_item": "Komponente des Artikels im Warenkorb (Warenkorbübersicht)",
                 "marketplace_basket_summary_list_item": "Bestandteil der Liste der Artikel im Warenkorb (Warenkorbübersicht)",
                 "booker_module_offer_summary": "Session-Zusammenfassung",
-                "fabrique_typography": "Typografie"
+                "fabrique_typography": "Typografie",
+                "fabrique_card": "Karte"
             },
             "page": {
                 "calendar": "Kalender",
@@ -15558,7 +15559,9 @@
                     "isDense": "Dicht",
                     "isItemEditionDisabled": "Ändern von Elementen deaktiviert",
                     "isAddingItemPossible": "Hinzufügen weiterer Elemente aktiviert",
-                    "isBookingDisabled": "Buchungen sind deaktiviert"
+                    "isBookingDisabled": "Buchungen sind deaktiviert",
+                    "cardVariant": "Wählen Sie die zu verwendende Kartenvariante",
+                    "componentType": "Container ist eine Schaltfläche"
                 },
                 "option": {
                     "activityName": "Aktivität",
@@ -15599,7 +15602,9 @@
                     "giftcardPrepaidLine": "Mit Gutschein bezahlen",
                     "3": "Drei",
                     "2": "Zwei",
-                    "1": "Eins"
+                    "1": "Eins",
+                    "elevated": "Erweitert",
+                    "rest": "Pause"
                 }
             }
         },
@@ -16187,9 +16192,9 @@
                     "label": "Wählen Sie eine Marketing-Aktion aus"
                 },
                 "entryTrigger": {
-                    "title": "Eingang",
+                    "title": "Eingangskriterium",
                     "addTrigger": "Einen Eingangs-Trigger hinzufügen",
-                    "helperText": "Bitte legen Sie fest, wann und wer in diesen Rhythmus mit den ausgewählten Kriterien und Auslösern eintritt."
+                    "helperText": "Zuerst wird festgelegt wie viele Mitglieder dem Workflow beitreten. Wählen Sie eine oder mehrere Events oder Smartlists. Wenn das Mitglied einem dieser entspricht, wird er/sie dem Workflow beitreten."
                 },
                 "step": {
                     "name": "Name"
@@ -16201,6 +16206,11 @@
                 "convertIntoExit": {
                     "label": "Das Mitglied betrachten als",
                     "title": "Ausgang"
+                },
+                "entryAction": {
+                    "title": "Eingangsaktion",
+                    "helperText": "Wählen Sie aus, was Sie tun möchten, wenn Ihre Mitglieder den Workflow betreten. Markieren Sie sie, senden Sie eine E-Mail... Das bleibt Ihnen überlassen. Sie können alternativ auch nichts tun, dieser Schritt ist optional.",
+                    "addAction": "Aktion hinzufügen"
                 }
             }
         }

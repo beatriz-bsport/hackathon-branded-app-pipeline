@@ -7619,7 +7619,7 @@
                 "percentagebaseRemunerationTypeError": "La rémunération par pourcentage doit être un nombre compris entre 0 et 100.",
                 "taxeRateRequired": "La taxe est un champ obligatoire si vous avez coché la case 'Calcul TTC' ci-dessus.",
                 "taxeRateTypeError": "La taxe doit être un nombre compris entre 0 et 100.",
-                "lowerIntervalTypeError": "L'interval inférieur doit être un nombre inférieur ou égale à 1",
+                "lowerIntervalTypeError": "L'intervalle inférieur doit être un nombre inférieur ou égale à 1",
                 "invalidCancelledBookingRules": "Si vous souhaitez appliquer des bonus différents pour les élèves absents vous devez définir au moins un bonus ou une base par pourcentage dans la section ci-dessous.",
                 "oneRuleRequired": "Vous devez définir au moins une régle de rémunération pour créer un groupe",
                 "invalidPrivateSlot": "Un rendez-vous doit être sélectionné",
@@ -9646,8 +9646,8 @@
                         "1": "N'est pas égal à",
                         "2": "Inférieur ou égal à",
                         "3": "Supérieur ou égal à",
-                        "4": "Dans l'interval",
-                        "5": "Hors de l'interval"
+                        "4": "Dans l'intervalle",
+                        "5": "Hors de l'intervalle"
                     },
                     "2": {
                         "0": "Est",
@@ -9656,7 +9656,7 @@
                     "3": {
                         "0": "Est le",
                         "1": "N'est pas le",
-                        "4": "Dans l'interval"
+                        "4": "Dans l'intervalle"
                     }
                 },
                 "title": "Vue filtrée",
@@ -14458,7 +14458,7 @@
                     },
                     "failureStep": {
                         "title": "Échec de mise en pause",
-                        "contentIncomingBill": "L'abonnement {{- subscriptionName}} de {{subscriberName}} n'a pas pu être mis en pause car une facture dans l'interval de pause va être facturée dans les 24h, ou une facture future est en cours de paiment. Merci de changer la date de début de la pause.",
+                        "contentIncomingBill": "L'abonnement {{- subscriptionName}} de {{subscriberName}} n'a pas pu être mis en pause car une facture dans l'intervalle de pause va être facturée dans les 24h, ou une facture future est en cours de paiment. Merci de changer la date de début de la pause.",
                         "contentOverlapPause": "L'abonnement {{- subscriptionName}} de {{subscriberName}} n'a pas pu être mis en pause car une pause est déjà prévue du {{- fromDate}} au {{- untilDate}}.",
                         "contentInvalidTimedelta": "La pause doit au moins durer une journée.",
                         "contentCanNotCancelPause": "La pause ayant déjà commencé ou étant déjà passée, elle ne peut pas être annulée.",

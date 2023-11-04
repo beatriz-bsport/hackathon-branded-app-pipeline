@@ -82,6 +82,8 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
     return CanvasSelectableToolStrategy[this.state.selectedTool];
   }
 
+  containerRef = React.createRef<HTMLDivElement>();
+
   get elements() {
     return this.props.disableEdit
       ? this.props.selectedRoomBlueprint.canvas.elements
@@ -285,10 +287,11 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
             />
           )}
 
-          <div className={classes.canvasContainer}>
+          <div ref={this.containerRef} className={classes.canvasContainer}>
             <CanvasViewController
               coach={this.props.coach}
               coachHeight={this.state.coachHeight}
+              containerRef={this.containerRef}
               disabledEdit={this.props.disableEdit}
               elements={this.elements}
               fillColor={this.props.current.fillColor}

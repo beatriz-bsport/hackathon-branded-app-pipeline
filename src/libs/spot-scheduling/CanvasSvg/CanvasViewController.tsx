@@ -44,6 +44,7 @@ interface OwnProps {
   isBoutiqueDisplay: boolean;
   isMobile?: boolean;
   onMouseOverSpot?: (spot: CanvasElement<any>) => void;
+  containerRef: React.RefObject<HTMLDivElement>;
 }
 
 type Props = OwnProps &
@@ -463,7 +464,12 @@ class CanvasViewController extends React.PureComponent<Props> {
         })}
       >
         {this.props.isBoutiqueDisplay ? (
-          <CanvasSvgDisplayOnly>{this.renderElements()}</CanvasSvgDisplayOnly>
+          <CanvasSvgDisplayOnly
+            containerRef={this.props.containerRef}
+            isMobile={this.props.isMobile}
+          >
+            {this.renderElements()}
+          </CanvasSvgDisplayOnly>
         ) : (
           <CanvasSvg
             ref={this.anchorRef}

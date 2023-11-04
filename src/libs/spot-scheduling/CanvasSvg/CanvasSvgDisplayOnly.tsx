@@ -1,17 +1,34 @@
 import React from 'react';
 
+import {
+  TransformWrapper,
+  TransformComponent,
+  ReactZoomPanPinchRef,
+} from 'react-zoom-pan-pinch';
+import useParentSize from '#hooks/useParentSize';
+
 const SVG_CANVAS_DISPLAY_ID = 'svg-canvas-display';
 // https://developer.mozilla.org/en-US/docs/Web/API/SVGGraphicsElement/getBBox
 const CanvasSvgDisplayOnly: React.FC = ({
   children,
+  containerRef,
 }: {
+  isMobile: boolean;
   children: SVGElement;
+  containerRef: React.RefObject<HTMLDivElement>;
 }) => {
   const [SVGElContainer, setSVGElContainer] =
     React.useState<SVGGraphicsElement>(null);
 
   const [SVGBbbox, setSVGBbbox] = React.useState('');
+  const [SVGDimensions, setSVGDimensions] = React.useState({
+    height: 0,
+    width: 0,
+  });
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { width, height } = useParentSize(containerRef);
 
+  const [isPanningDisabled, setIsPanningDisabled] = React.useState(true);
   // CDM
   React.useEffect(() => {
     window.addEventListener('resize', handleSetviewBox);
@@ -34,9 +51,10 @@ const CanvasSvgDisplayOnly: React.FC = ({
     if (bbox) {
       // Handling Bbox error that can occur if element is not yet in the DOM for example
       // -9999 values means most likely something went wrong.
-      bbox.x !== -9999 &&
-        bbox.y !== -9999 &&
+      if (bbox.x !== -9999 && bbox.y !== -9999) {
         setSVGBbbox(`${bbox.x} ${bbox.y} ${bbox.width} ${bbox.height}`);
+        setSVGDimensions({ height: bbox.height, width: bbox.width });
+      }
     }
     // We need to enforce the computation when children changes
   }, [SVGElContainer, children]);
@@ -45,22 +63,43 @@ const CanvasSvgDisplayOnly: React.FC = ({
     const bbox = SVGElContainer?.getBBox?.();
 
     if (bbox) {
-      bbox.x !== -9999 &&
-        bbox.y !== -9999 &&
+      if (bbox.x !== -9999 && bbox.y !== -9999) {
         setSVGBbbox(`${bbox.x} ${bbox.y} ${bbox.width} ${bbox.height}`);
+        setSVGDimensions({ height: bbox.height, width: bbox.width });
+      }
     }
   };
 
+  const onZoomStop = React.useCallback((ref: ReactZoomPanPinchRef) => {
+    setIsPanningDisabled(ref.state.scale <= 1);
+  }, []);
+
+  const correctedHeight = (SVGDimensions.height / SVGDimensions.width) * width;
   return (
-    <svg
-      id="svg-canvas-display"
-      style={{ maxWidth: '100%' }}
-      version="1.1"
-      {...(SVGBbbox ? { viewBox: SVGBbbox } : {})}
-      xmlns="http://www.w3.org/2000/svg"
+    <TransformWrapper
+      initialScale={1}
+      onZoomStop={onZoomStop}
+      panning={{ disabled: !isPanningDisabled }}
     >
-      {children}
-    </svg>
+      <TransformComponent>
+        <div
+          style={{
+            height: correctedHeight,
+            width,
+          }}
+        >
+          <svg
+            id="svg-canvas-display"
+            style={{ maxWidth: '100%' }}
+            version="1.1"
+            {...(SVGBbbox ? { viewBox: SVGBbbox } : {})}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            {children}
+          </svg>
+        </div>
+      </TransformComponent>
+    </TransformWrapper>
   );
 };
 

@@ -29,12 +29,13 @@ import HeightIcon from '@material-ui/icons/Height';
 import RedoIcon from '@material-ui/icons/Redo';
 import AutorenewIcon from '@material-ui/icons/Autorenew';
 import CodeIcon from '@material-ui/icons/Code';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
 
 import AspectRatioIcon from '@material-ui/icons/AspectRatio';
+import EraserIcon from './tools/Eraser/Eraser.icon';
 import ColorInput from '../../../components/input/ColorInput.component';
 import { MaterialStyleType } from '../../../utils/types';
 import { DEFAULT_SPOT_TYPE_ID } from '../utils';
-import EraserIcon from './tools/Eraser/Eraser.icon';
 import CanvasSpotToolMenu from './CanvasSpotToolMenu.component';
 
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc.js';
@@ -163,6 +164,23 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
                 <AutorenewIcon fontSize="large" />
               </ButtonBase>
               <Typography> {t('toolsMenu.rotation')}</Typography>
+            </div>
+          </Grid>
+          <Grid item xs={4}>
+            <div className={classes.itemContainer}>
+              <ButtonBase
+                className={clx({
+                  [classes.item]: true,
+                  [classes.itemSelected]:
+                    this.props.selectedTool === CANVAS_SELECTABLE_TOOLS.copier,
+                })}
+                onClick={() => {
+                  this.props.onSelectTool(CANVAS_SELECTABLE_TOOLS.copier);
+                }}
+              >
+                <FileCopyIcon fontSize="large" />
+              </ButtonBase>
+              <Typography> {t('toolsMenu.copier')}</Typography>
             </div>
           </Grid>
           <Grid item xs={4}>

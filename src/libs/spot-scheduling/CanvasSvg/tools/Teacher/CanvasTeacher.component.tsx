@@ -22,12 +22,13 @@ export interface CanvasTeacherProps {
 }
 
 const MARGIN_BETWEEN_AVATAR_AND_TEXT = 15;
+export const COACH_CANVAS_AVATAR_DEFAULT_SIZE = 80;
 export default class CanvasTeacherComponent extends CanvasBaseComponent<CanvasTeacherProps> {
   static zIndex = 99;
 
   static label = '';
 
-  static avatarSize = 80;
+  static avatarSize = COACH_CANVAS_AVATAR_DEFAULT_SIZE;
 
   static getTransform(x: number, y: number, rotation: number) {
     return `translate(${x} ${y}) rotate(${rotation} ${31.5 / 2} ${35 / 2})`;

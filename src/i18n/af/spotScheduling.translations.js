@@ -7,6 +7,7 @@ exports.default = {
     rotation: 'Rotate',
     eraser: 'Rubber',
     advancedTool: 'HTML',
+    copier: 'Duplicator',
     sections: {
       custom: 'Custom',
       elements: 'Elements',

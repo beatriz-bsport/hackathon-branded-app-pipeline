@@ -25,9 +25,9 @@ export interface CanvasSpotProps {
   trianglePreview: boolean;
 }
 
-const LENGTH_REFERENCE = 62;
-const SPOT_IMAGE_HEIGHT = LENGTH_REFERENCE;
-const SPOT_IMAGE_WIDTH = LENGTH_REFERENCE;
+export const LENGTH_REFERENCE = 62;
+export const SPOT_IMAGE_HEIGHT = LENGTH_REFERENCE;
+export const SPOT_IMAGE_WIDTH = LENGTH_REFERENCE;
 let TRIANGLE_LENGTH = 70;
 
 export class CanvasSpotComponent extends CanvasBaseComponent<CanvasSpotProps> {

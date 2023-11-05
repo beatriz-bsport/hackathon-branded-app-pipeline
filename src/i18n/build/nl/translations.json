@@ -15498,7 +15498,9 @@
                     "internalAccountPrepaidLine": "Betaling via interne account",
                     "defaultPrepaidLine": "Standaard",
                     "1": "Een",
-                    "giftcardPrepaidLine": "Betaling via cadeaukaart"
+                    "giftcardPrepaidLine": "Betaling via cadeaukaart",
+                    "elevated": "Verhoogd",
+                    "rest": "Pauze"
                 },
                 "title": {
                     "nextOffer": "Volgende sessie beschikbaar",
@@ -15536,7 +15538,9 @@
                     "isAddingItemPossible": "Toevoegen van meer items geactiveerd",
                     "isDense": "Dicht",
                     "prepaidLineKind": "Voorafbetaalde lijn type",
-                    "isBookingDisabled": "Boeking is uitgeschakeld"
+                    "isBookingDisabled": "Boeking is uitgeschakeld",
+                    "square": "Deselecteer afgeronde hoeken",
+                    "cardVariant": "Selecteer de te gebruiken variant voor kaarten"
                 },
                 "configurationTitle": "Variaties"
             },
@@ -15586,44 +15590,45 @@
                 "calendarFilters": "Agendafilters (exclusief voor de lay-out)",
                 "calendarWeekTimeTable": "Koptekst agenda",
                 "select": "Selecteer",
-                "marketplace_booking_blocked_reason": "Reservering niet mogelijk",
+                "marketplace_booking_blocked_reason": "Reserveren niet mogelijk",
                 "marketplace_booking_button": "Reserveerknop",
                 "marketplace_private_pass_card": "Afsprakenkaart",
                 "marketplace_payment_pack_card": "Leskaart",
                 "marketplace_date_picker": "Datumselectie",
-                "marketplace_offer_card": "Sessie (agendaweergave)",
+                "marketplace_offer_card": "Sessies (agendaweergave)",
                 "marketplace_week_time_table": "Agenda (kop)",
-                "marketplace_calendar_filter": "Agendafilters (layout)",
+                "marketplace_calendar_filter": "Agendafilters (lay-out)",
                 "marketplace_offer_list_item": "Sessies (lijstweergave)",
                 "marketplace_filter": "Selectie",
                 "marketplace_search": "Zoekfilter",
-                "marketplace_activity_summary_dialog": "Activiteitendetails (modaal)",
-                "marketplace_activity_summary": "Activiteit details",
+                "marketplace_activity_summary_dialog": "Activiteitendetails (pop-up)",
+                "marketplace_activity_summary": "Activiteitendetails",
                 "marketplace_collect_payment_method": "Een betaalmethode toevoegen",
                 "marketplace_contract_payment": "Betaalmodule abonnementen",
                 "marketplace_contract_not_found_modal": "Waarschuwing abonnement niet gevonden",
-                "marketplace_coupon_form_modal": "Abonnement promo code popup",
+                "marketplace_coupon_form_modal": "Abonnement promocode popup",
                 "marketplace_contract_cooldown_modal": "Waarschuwingspop-up voor aankoop abonnement",
                 "marketplace_contract_terms_modal": "Pop-up wettelijke kennisgeving inschrijving",
-                "marketplace_contract_detail": "Inschrijvingsgegevens",
-                "marketplace_contract_detail_modal": "Pop-up abonnementsgegevens",
+                "marketplace_contract_detail": "Abonnementsinformatie",
+                "marketplace_contract_detail_modal": "Pop-up abonnementsinformatie",
                 "marketplace_contract_checkout": "Abonnement (betaling)",
                 "marketplace_contract_card": "Abonnementskaart",
-                "marketplace_private_pass_compatibility_modal": "Compatibiliteit popup (afspraakkaart)",
-                "marketplace_payment_pack_offpeack_restriction_modal": "Pop-up met roosterbeperking (cursuskaart)",
+                "marketplace_private_pass_compatibility_modal": "Pop-up compatibiliteit (afspraakkaart)",
+                "marketplace_payment_pack_offpeack_restriction_modal": "Pop-up met roosterbeperking (leskaart)",
                 "marketplace_payment_pack_restriction_modal": "Pop-up met beperkingen (cursuskaart)",
-                "marketplace_payment_pack_compatibility_modal": "Compatibiliteit popup (cursuskaart)",
+                "marketplace_payment_pack_compatibility_modal": "Pop-up compatibiliteit (cursuskaart)",
                 "marketplace_payment_combo_card": "Pakketkaart",
                 "marketplace_select": "Keuzeschakelaar (single)",
-                "marketplace_item_quantity": "Winkelmand item aantal (Winkelmand overzicht)",
-                "marketplace_basket_summary_item": "Winkelmand item component (Winkelmand overzicht)",
-                "marketplace_basket_summary_list_item": "Winkelmand item lijst component (Winkelmand overzicht)",
+                "marketplace_item_quantity": "Aantal producten in winkelmand (overzicht winkelmandje)",
+                "marketplace_basket_summary_item": "Winkelmand item component (overzicht winkelmandje)",
+                "marketplace_basket_summary_list_item": "Winkelmand item lijst component (overzicht winkelmandje)",
                 "booker_module_offer_summary": "Samenvatting van de sessie",
-                "marketplace_basket_summary": "Winkelmand overzicht",
+                "marketplace_basket_summary": "Overzicht winkelmandje",
                 "marketplace_prepaid_line_item": "Voorafbetaalde lijn lijst item",
                 "marketplace_prepaid_line_list": "Voorafbetaalde lijn lijst",
                 "marketplace_basket_summary_dialog": "Winkelmand overzicht (pop-up)",
-                "fabrique_typography": "Typografie"
+                "fabrique_typography": "Typografie",
+                "fabrique_card": "Kaart"
             },
             "customCss": {
                 "yourCode": "Je aanvullende implementatie:",
@@ -16251,7 +16256,7 @@
                 "win": "Gewonnen"
             },
             "svgText": {
-                "push_notification": "Push notificatie",
+                "push_notification": "Push-notificatie",
                 "sms": "SMS",
                 "email": "Email",
                 "select_event": "Selecteer een evenement",
@@ -16288,7 +16293,7 @@
                 "entryTrigger": {
                     "addTrigger": "Selecteer een aanleiding",
                     "title": "Aanleiding",
-                    "helperText": "Selecteer de voorwaarden voor het activeren van deze cadence voor leden aan de hand van deze criteria, marketingacties en meer."
+                    "helperText": "Ten eerste moet de werking van de cadence bepaald worden. Selecteer één of meerdere evenementen of Smartlists waar om een lid in de cadence te zetten."
                 },
                 "marketingAction": {
                     "label": "Selecteer een marketingactie",
@@ -16316,6 +16321,11 @@
                 "convertIntoExit": {
                     "label": "Beschouw het lid als",
                     "title": "Uitgang"
+                },
+                "entryAction": {
+                    "title": "Aanleiding",
+                    "helperText": "(Optioneel) Selecteer de volgende stappen, zoals het toevoegen van tags of het versturen van een e-mail, zodra de lid in de cadence wordt gezet.",
+                    "addAction": "Een actie toevoegen"
                 }
             }
         }

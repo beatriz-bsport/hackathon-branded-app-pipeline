@@ -17,7 +17,9 @@ import {
 } from '@bsport/common/lib/master-data/payment-group';
 import { getCurrencyDisplay } from '../../theme/selectors';
 
-import SEPA_LOGO from '../icons/sepa.png';
+// @ts-ignore
+// import/no-unresolved
+import SEPA_LOGO from '../icons/sepa.svg';
 import BANCONTACT_LOGO from '../icons/bancontact.png';
 import SOFORT_LOGO from '../icons/sofort.png';
 import IDEAL_LOGO from '../icons/ideal.png';

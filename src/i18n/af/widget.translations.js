@@ -251,6 +251,8 @@ exports.default = {
         displayIcon: 'Display with icon',
         hasLeftAction: 'Enable left action on the component',
         isSelectable: 'Enable select interaction with the component',
+        withListTitle: 'Display list title',
+        inputType: 'Type of list display',
       },
       configurationTitle: 'Variations',
       confirmationMessageComponentAlert:
@@ -376,6 +378,7 @@ exports.default = {
       fabrique_menu_item: 'Menu Item',
       fabrique_menu_item_list: 'Menu Item List',
       fabrique_list_item: 'List item',
+      fabrique_list: 'List',
     },
     customCss: {
       yourCode: 'Your complementary implementation:',

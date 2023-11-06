@@ -1,0 +1,17 @@
+.bs-fabrique-list__root {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  gap: var(--bs-space-size-2);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.bs-fabrique-list__title {
+  color: var(--bs-color-text-weakest);
+}
+
+.bs-fabrique-list__field--empty {
+  display: none;
+}

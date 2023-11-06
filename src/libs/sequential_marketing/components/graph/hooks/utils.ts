@@ -91,12 +91,14 @@ export const getConnectedTriggerDefaultValues = ({
   triggerUuid,
 }: TriggerDefaultValuesParameters): ConnectedTrigger => {
   const position = getConnectedTriggerPosition(source, destination);
+  const triggerConfigUuid =
+    triggerUuid || `${TRIGGER_TEMPORARY_ID}_${uuidv4()}`;
 
   switch (triggerKind) {
     case TriggerKind.ONLY_EVENT_TRIGGER:
       return {
         trigger_config: {
-          uuid: triggerUuid || `${TRIGGER_TEMPORARY_ID}_${uuidv4()}`,
+          uuid: triggerConfigUuid,
           identifier: TriggerIdentifier.EVENT,
           event_type: null,
         },
@@ -118,7 +120,7 @@ export const getConnectedTriggerDefaultValues = ({
     case TriggerKind.ONLY_SMARTLIST_FILTERING:
       return {
         trigger_config: {
-          uuid: TRIGGER_TEMPORARY_ID,
+          uuid: triggerConfigUuid,
           identifier: TriggerIdentifier.EMPTY,
         },
         destination_config: {
@@ -139,7 +141,7 @@ export const getConnectedTriggerDefaultValues = ({
     case TriggerKind.ONLY_TIMEOUT:
       return {
         trigger_config: {
-          uuid: TRIGGER_TEMPORARY_ID,
+          uuid: triggerConfigUuid,
           identifier: TriggerIdentifier.TIMEOUT,
           timeout: TRIGGER_DEFAULT_TIMEOUT_DAYS,
         },
@@ -161,7 +163,7 @@ export const getConnectedTriggerDefaultValues = ({
     case TriggerKind.EVENT_TRIGGER_AND_SMARTLIST_FILTERING:
       return {
         trigger_config: {
-          uuid: TRIGGER_TEMPORARY_ID,
+          uuid: triggerConfigUuid,
           identifier: TriggerIdentifier.EVENT,
           event_type: null,
         },

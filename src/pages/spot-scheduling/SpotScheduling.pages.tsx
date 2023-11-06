@@ -15,7 +15,7 @@ import { RootState } from '../../reducers';
 
 import {
   createAssetForBlueprint,
-  createUnboundedAssetForBlueprint,
+  createUnboundAssetForBlueprint,
   createSpotForBlueprint,
   fetchAssetForBlueprint,
   fetchSpotForBlueprint,
@@ -24,7 +24,7 @@ import {
   updateRoomBlueprint,
   updateSpotForBlueprint,
   deleteSpotType,
-  fetchUnboundedAssetForBlueprintPaginated,
+  fetchUnboundAssetForBlueprintPaginated,
 } from '#libs/spot-scheduling/actions';
 import {
   AssetForBlueprint,
@@ -260,7 +260,7 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
     }
   };
 
-  onUnboundedCreateAsset = (
+  onUnboundCreateAsset = (
     { image }: { image: File },
     options?: OptionCallback,
   ) => {
@@ -268,12 +268,12 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
     newAsset.append('blueprint', this.props.id.toString());
     newAsset.append('identifier', uuid4());
     newAsset.append('asset', image);
-    newAsset.append('is_unbounded', true);
+    newAsset.append('is_unbound', true);
 
-    this.props.createUnboundedAssetForBlueprint(newAsset, {
+    this.props.createUnboundAssetForBlueprint(newAsset, {
       onSuccess: () => {
-        this.props.fetchUnboundedAssetForBlueprintPaginated({
-          is_unbounded: true,
+        this.props.fetchUnboundAssetForBlueprintPaginated({
+          is_unbound: true,
           blueprint: this.props.id,
         });
         options?.onSuccess?.();
@@ -380,7 +380,7 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
     this.setState({ spiviDialogIsOpen: false });
   };
 
-  onClickUnboundedAsset = (asset: AssetForBlueprint) => {
+  onClickUnboundAsset = (asset: AssetForBlueprint) => {
     const data = {
       x: 0,
       y: 0,
@@ -391,7 +391,7 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
     };
     const newSvgElement = {
       type: 'rect',
-      id: `unbounded-asset-${asset.identifier}`,
+      id: `unbound-asset-${asset.identifier}`,
       data,
     };
 
@@ -450,8 +450,8 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
               blueprintId={this.props.id}
               closeDialog={this.handleCloseAssetUploader}
               defaultSpot={this.state.defaultSpot}
-              onClickUnboundedAsset={this.onClickUnboundedAsset}
-              onCreateAsset={this.onUnboundedCreateAsset}
+              onClickUnboundAsset={this.onClickUnboundAsset}
+              onCreateAsset={this.onUnboundCreateAsset}
               open={this.state.assetUploaderIsOpen}
               spotTypeToUpdate={this.state.spotTypeToUpdate}
             />
@@ -530,10 +530,10 @@ const mapDispatchToProps = {
   fetchAssetForBlueprint,
   fetchSpotForBlueprint,
   createAssetForBlueprint,
-  createUnboundedAssetForBlueprint,
+  createUnboundAssetForBlueprint,
   createSpotForBlueprint,
   deleteSpotType,
-  fetchUnboundedAssetForBlueprintPaginated,
+  fetchUnboundAssetForBlueprintPaginated,
   push,
   success: snackbar.success,
   error: snackbar.error,

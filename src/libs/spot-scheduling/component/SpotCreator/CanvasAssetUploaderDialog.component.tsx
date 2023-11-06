@@ -23,7 +23,7 @@ import type { RootState } from '../../../../reducers';
 import type { OptionCallback } from '../../../../state/types';
 import {
   fetchAssetForBlueprint,
-  fetchUnboundedAssetForBlueprintPaginated as fetchUnboundedAssetForBlueprintPaginatedAction,
+  fetchUnboundAssetForBlueprintPaginated as fetchUnboundAssetForBlueprintPaginatedAction,
 } from '#libs/spot-scheduling/actions';
 
 import { getAssetUnboudedForBluePrintById } from '#libs/spot-scheduling/selector';
@@ -32,7 +32,7 @@ type OwnProps = {
   open: boolean;
   closeDialog: () => void;
   blueprintId: number;
-  onClickUnboundedAsset: (toto: any) => void;
+  onClickUnboundAsset: (toto: any) => void;
   onCreateAsset: (image: File, options?: OptionCallback) => void;
 };
 
@@ -52,16 +52,16 @@ const useAssetStyles = makeStyles({
 
 const AssetSmallPreview: React.FC<{
   asset: AssetForBlueprint;
-  onClickUnboundedAsset: (toto: any) => void;
-}> = React.memo(({ asset, onClickUnboundedAsset }) => {
+  onClickUnboundAsset: (toto: any) => void;
+}> = React.memo(({ asset, onClickUnboundAsset }) => {
   const classes = useAssetStyles();
 
-  const handleOnClickUnboundedAsset = () => {
-    onClickUnboundedAsset(asset);
+  const handleOnClickUnboundAsset = () => {
+    onClickUnboundAsset(asset);
   };
   return (
     <Card className={classes.root}>
-      <CardActionArea onClick={handleOnClickUnboundedAsset}>
+      <CardActionArea onClick={handleOnClickUnboundAsset}>
         <CardMedia className={classes.media} image={asset.asset} />
       </CardActionArea>
     </Card>
@@ -82,12 +82,12 @@ function PaperComponent(props: PaperProps) {
 export const CanvasAssetUploaderDialog: React.FC<Props> = ({
   closeDialog,
   blueprintId,
-  fetchUnboundedAssetForBlueprintPaginated,
+  fetchUnboundAssetForBlueprintPaginated,
   assetState,
   open,
   assetLoading,
   onCreateAsset,
-  onClickUnboundedAsset,
+  onClickUnboundAsset,
 }) => {
   const { t } = useTranslation('spotScheduling');
 
@@ -99,8 +99,8 @@ export const CanvasAssetUploaderDialog: React.FC<Props> = ({
   // CDM
   React.useEffect(() => {
     blueprintId &&
-      fetchUnboundedAssetForBlueprintPaginated({
-        is_unbounded: true,
+      fetchUnboundAssetForBlueprintPaginated({
+        is_unbound: true,
         blueprint: blueprintId,
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -145,7 +145,7 @@ export const CanvasAssetUploaderDialog: React.FC<Props> = ({
             <AssetSmallPreview
               key={_asset.identifier}
               asset={_asset}
-              onClickUnboundedAsset={onClickUnboundedAsset}
+              onClickUnboundAsset={onClickUnboundAsset}
             />
           ))}
         </div>
@@ -154,8 +154,8 @@ export const CanvasAssetUploaderDialog: React.FC<Props> = ({
       <Button
         disabled={!assetState?.next_page || assetLoading}
         onClick={() =>
-          fetchUnboundedAssetForBlueprintPaginated({
-            is_unbounded: true,
+          fetchUnboundAssetForBlueprintPaginated({
+            is_unbound: true,
             blueprint: blueprintId,
           })
         }
@@ -202,13 +202,13 @@ const useStyles = makeStyles((theme) => ({
 
 const connector = connect(
   (state: RootState, props: OwnProps) => ({
-    assetLoading: state.spotScheduling.assetUnboundedForBlueprint.loading,
+    assetLoading: state.spotScheduling.assetUnboundForBlueprint.loading,
     assetState: getAssetUnboudedForBluePrintById(state, props.blueprintId),
   }),
   {
     fetchAssetForBlueprint,
-    fetchUnboundedAssetForBlueprintPaginated:
-      fetchUnboundedAssetForBlueprintPaginatedAction,
+    fetchUnboundAssetForBlueprintPaginated:
+      fetchUnboundAssetForBlueprintPaginatedAction,
   },
 );
 export default React.memo(connector(CanvasAssetUploaderDialog));

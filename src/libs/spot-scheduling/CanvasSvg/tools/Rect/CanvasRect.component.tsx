@@ -55,7 +55,7 @@ export default class CanvasRectComponent extends CanvasBaseComponent<CanvasRectP
     return (
       <g
         {...this.BaseProps}
-        className="svg-element unbounded-asset-group"
+        className="svg-element unbound-asset-group"
         transform={
           rotation && `rotate(${rotation} ${x + width / 2} ${y + height / 2})`
         }

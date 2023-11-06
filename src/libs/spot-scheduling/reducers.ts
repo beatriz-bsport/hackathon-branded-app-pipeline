@@ -9,7 +9,7 @@ import {
   roomBlueprintActions,
   spotForBlueprintActions,
   deleteSpotForBlueprintActions,
-  assetUnboundedForBlueprintActions,
+  assetUnboundForBlueprintActions,
 } from './actions';
 
 const initialState: Immutable.Immutable<SpotSchedulingState> =
@@ -33,7 +33,7 @@ const initialState: Immutable.Immutable<SpotSchedulingState> =
       loading: false,
       error: null,
     },
-    assetUnboundedForBlueprint: {
+    assetUnboundForBlueprint: {
       byBlueprintId: {},
       loading: false,
       error: null,
@@ -182,19 +182,19 @@ export default handleActions(
     [deleteSpotForBlueprintActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['spotForBlueprint', 'error'], payload);
     },
-    [assetUnboundedForBlueprintActions.isLoading.toString()]: (
+    [assetUnboundForBlueprintActions.isLoading.toString()]: (
       state,
       { payload },
     ) => {
-      return state.setIn(['assetUnboundedForBlueprint', 'loading'], payload);
+      return state.setIn(['assetUnboundForBlueprint', 'loading'], payload);
     },
-    [assetUnboundedForBlueprintActions.error.toString()]: (
+    [assetUnboundForBlueprintActions.error.toString()]: (
       state,
       { payload },
     ) => {
-      return state.setIn(['assetUnboundedForBlueprint', 'error'], payload);
+      return state.setIn(['assetUnboundForBlueprint', 'error'], payload);
     },
-    [assetUnboundedForBlueprintActions.success.toString()]: (
+    [assetUnboundForBlueprintActions.success.toString()]: (
       state,
       { payload },
     ) => {
@@ -202,27 +202,22 @@ export default handleActions(
 
       return state
         .setIn(
-          [
-            'assetUnboundedForBlueprint',
-            'byBlueprintId',
-            blueprintId,
-            'allIds',
-          ],
+          ['assetUnboundForBlueprint', 'byBlueprintId', blueprintId, 'allIds'],
           uniq([
-            ...(state.assetUnboundedForBlueprint.byBlueprintId?.[blueprintId]
+            ...(state.assetUnboundForBlueprint.byBlueprintId?.[blueprintId]
               ?.allIds ?? []),
             ...((data?.results ?? [])
-              .filter((_asset) => _asset.is_unbounded)
+              .filter((_asset) => _asset.is_unbound)
               .map((asset) => asset.id) ?? []),
           ]),
         )
         .setIn(
-          ['assetUnboundedForBlueprint', 'byBlueprintId', blueprintId, 'count'],
+          ['assetUnboundForBlueprint', 'byBlueprintId', blueprintId, 'count'],
           data.count,
         )
         .setIn(
           [
-            'assetUnboundedForBlueprint',
+            'assetUnboundForBlueprint',
             'byBlueprintId',
             blueprintId,
             'next_page',
@@ -231,7 +226,7 @@ export default handleActions(
         )
         .setIn(
           [
-            'assetUnboundedForBlueprint',
+            'assetUnboundForBlueprint',
             'byBlueprintId',
             blueprintId,
             'previous_page',
@@ -240,7 +235,7 @@ export default handleActions(
         )
         .merge(
           {
-            assetUnboundedForBlueprint: {
+            assetUnboundForBlueprint: {
               byBlueprintId: {
                 [blueprintId]: {
                   byId: data.results.reduce((acc: any, ps: any) => {
@@ -254,28 +249,28 @@ export default handleActions(
           { deep: true },
         );
     },
-    [assetUnboundedForBlueprintActions.create.toString()]: (
+    [assetUnboundForBlueprintActions.create.toString()]: (
       state,
       { payload },
     ) => {
       return state
         .setIn(
           [
-            'assetUnboundedForBlueprint',
+            'assetUnboundForBlueprint',
             'byBlueprintId',
             payload.blueprint,
             'allIds',
           ],
           uniq([
             payload.id,
-            ...(state.assetUnboundedForBlueprint.byBlueprintId?.[
+            ...(state.assetUnboundForBlueprint.byBlueprintId?.[
               payload.blueprint
             ]?.allIds ?? []),
           ]),
         )
         .setIn(
           [
-            'assetUnboundedForBlueprint',
+            'assetUnboundForBlueprint',
             'byBlueprintId',
             payload.blueprint,
             'byId',
@@ -284,7 +279,7 @@ export default handleActions(
           payload,
         );
     },
-    assetUnboundedForBlueprintActions,
+    assetUnboundForBlueprintActions,
   },
   initialState,
 );

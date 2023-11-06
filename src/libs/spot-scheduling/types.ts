@@ -17,7 +17,7 @@ export type AssetForBlueprint = {
   identifier: string;
   asset: string;
   blueprint: number;
-  is_unbounded: boolean;
+  is_unbound: boolean;
   id?: number;
 };
 
@@ -35,7 +35,7 @@ export type SpotSchedulingState = {
     byId: { [key: string]: SpotType };
     ids: number[];
   };
-  assetUnboundedForBlueprint: ErrorAndLoading & {
+  assetUnboundForBlueprint: ErrorAndLoading & {
     byBlueprintId: {
       [key: string]: {
         allIds: number[];

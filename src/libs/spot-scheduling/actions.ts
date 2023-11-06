@@ -21,12 +21,12 @@ export const assetForBlueprintActions = {
   error: createAction('SPOTSCHEDULING/ASSETBLUEPRINT/ERROR'),
 };
 
-export const assetUnboundedForBlueprintActions = {
-  success: createAction('SPOTSCHEDULING/ASSETUNBOUNDEDBLUEPRINT/SUCCESS'),
-  list: createAction('SPOTSCHEDULING/ASSETUNBOUNDEDBLUEPRINT/LIST'),
-  isLoading: createAction('SPOTSCHEDULING/ASSETUNBOUNDEDBLUEPRINT/IS_LOADING'),
-  error: createAction('SPOTSCHEDULING/ASSETUNBOUNDEDBLUEPRINT/ERROR'),
-  create: createAction('SPOTSCHEDULING/ASSETUNBOUNDEDBLUEPRINT/CREATE'),
+export const assetUnboundForBlueprintActions = {
+  success: createAction('SPOTSCHEDULING/ASSETUNBOUNDBLUEPRINT/SUCCESS'),
+  list: createAction('SPOTSCHEDULING/ASSETUNBOUNDBLUEPRINT/LIST'),
+  isLoading: createAction('SPOTSCHEDULING/ASSETUNBOUNDBLUEPRINT/IS_LOADING'),
+  error: createAction('SPOTSCHEDULING/ASSETUNBOUNDBLUEPRINT/ERROR'),
+  create: createAction('SPOTSCHEDULING/ASSETUNBOUNDBLUEPRINT/CREATE'),
 };
 
 export const createOrUpdateSpotForBlueprintActions = {
@@ -191,24 +191,24 @@ export function fetchAssetForBlueprint(
   };
 }
 
-export function fetchUnboundedAssetForBlueprintPaginated(
+export function fetchUnboundAssetForBlueprintPaginated(
   params: {
-    is_unbounded: boolean;
+    is_unbound: boolean;
     blueprint: number;
   },
   options?: OptionCallback,
 ): ThunkAction {
   return async (dispatch: Dispatch, getState) => {
-    dispatch(assetUnboundedForBlueprintActions.isLoading(true));
-    dispatch(assetUnboundedForBlueprintActions.error(null));
+    dispatch(assetUnboundForBlueprintActions.isLoading(true));
+    dispatch(assetUnboundForBlueprintActions.error(null));
     try {
       if (!params?.blueprint) {
         throw new Error(
-          'Not fetching UnboundedAssetForBluePrint without blueprint id',
+          'Not fetching UnboundAssetForBluePrint without blueprint id',
         );
       }
       const currentState =
-        getState()?.spotScheduling?.assetUnboundedForBlueprint.byBlueprintId?.[
+        getState()?.spotScheduling?.assetUnboundForBlueprint.byBlueprintId?.[
           params?.blueprint
         ];
 
@@ -221,12 +221,12 @@ export function fetchUnboundedAssetForBlueprintPaginated(
       }
       const response = await api.fetchAssetForBlueprint({
         ...params,
-        is_unbounded: true,
+        is_unbound: true,
         page: nextPage ?? 1,
       });
 
       dispatch(
-        assetUnboundedForBlueprintActions.success({
+        assetUnboundForBlueprintActions.success({
           data: response.data,
           blueprintId: params.blueprint,
         }),
@@ -235,37 +235,37 @@ export function fetchUnboundedAssetForBlueprintPaginated(
         options.onSuccess();
       }
     } catch (error) {
-      dispatch(assetUnboundedForBlueprintActions.error(error));
+      dispatch(assetUnboundForBlueprintActions.error(error));
       if (options && options.onError) {
         options.onError(error);
       }
     }
 
-    dispatch(assetUnboundedForBlueprintActions.isLoading(false));
+    dispatch(assetUnboundForBlueprintActions.isLoading(false));
   };
 }
 
-export function createUnboundedAssetForBlueprint(
+export function createUnboundAssetForBlueprint(
   data: FormData,
   options?: OptionCallback,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     let response = null;
-    dispatch(assetUnboundedForBlueprintActions.isLoading(true));
-    dispatch(assetUnboundedForBlueprintActions.error(null));
+    dispatch(assetUnboundForBlueprintActions.isLoading(true));
+    dispatch(assetUnboundForBlueprintActions.error(null));
     try {
       response = await api.createAssetForBlueprint(data);
-      dispatch(assetUnboundedForBlueprintActions.create(response.data));
+      dispatch(assetUnboundForBlueprintActions.create(response.data));
       if (options && options.onSuccess) {
         options.onSuccess();
       }
     } catch (error) {
-      dispatch(assetUnboundedForBlueprintActions.error(error));
+      dispatch(assetUnboundForBlueprintActions.error(error));
       if (options && options.onError) {
         options.onError(error);
       }
     }
-    dispatch(assetUnboundedForBlueprintActions.isLoading(false));
+    dispatch(assetUnboundForBlueprintActions.isLoading(false));
     return response;
   };
 }

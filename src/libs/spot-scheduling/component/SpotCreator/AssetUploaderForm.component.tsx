@@ -110,15 +110,12 @@ export const AssetUploaderForm: React.FC<Props> = ({
               <div className={classes.centered}>
                 <div className={classes.formContainer}>
                   {!formikProps?.values.image ? (
-                    <ImageUpload
-                      id="unbounded-asset-image-input"
-                      name="image"
-                    />
+                    <ImageUpload id="unbound-asset-image-input" name="image" />
                   ) : (
                     <ImageUploadedPreview
                       file={formikProps?.values.image}
                       handleDeleteImage={handleDeleteImage}
-                      id="unbounded-asset-image-input"
+                      id="unbound-asset-image-input"
                       name="image"
                     />
                   )}

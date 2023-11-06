@@ -6,12 +6,12 @@ export default class RectDOMController extends ElementDOMController<CanvasRectPr
 
   compatibleWithResize = true;
   /* The Rect on the map serves two purposes: it can either display a simple rectangle or function as an image container. 
-  The use of `this.elm.classList.contains('unbounded-asset-group')` is the only method I've identified to accurately determine the type of Rect we're working with. 
+  The use of `this.elm.classList.contains('unbound-asset-group')` is the only method I've identified to accurately determine the type of Rect we're working with. 
   Based on this, the properties that need to be updated vary. For more details, refer to the Rect DOM structure in CanvasRect.component.tsx. */
 
   getProps = () => {
     let targettedElm = this.elm;
-    if (this.elm.classList.contains('unbounded-asset-group')) {
+    if (this.elm.classList.contains('unbound-asset-group')) {
       targettedElm = this.elm.children[0];
     }
     const x = parseInt(targettedElm.getAttribute('x'));
@@ -45,7 +45,7 @@ export default class RectDOMController extends ElementDOMController<CanvasRectPr
     let y = 0;
     let targettedElm = this.elm;
     // For Rect use to contain an image we must
-    if (this.elm.classList.contains('unbounded-asset-group')) {
+    if (this.elm.classList.contains('unbound-asset-group')) {
       targettedElm = this.elm.children[0];
     }
     if (this.elm) {
@@ -59,7 +59,7 @@ export default class RectDOMController extends ElementDOMController<CanvasRectPr
   setPosition = (x: number | string, y: number | string) => {
     if (this.elm) {
       let targettedElm = this.elm;
-      if (this.elm.classList.contains('unbounded-asset-group')) {
+      if (this.elm.classList.contains('unbound-asset-group')) {
         targettedElm = this.elm.children[0];
       }
       if (targettedElm) {
@@ -83,7 +83,7 @@ export default class RectDOMController extends ElementDOMController<CanvasRectPr
     let height = 0;
     let width = 0;
     let targettedElm = this.elm;
-    if (this.elm.classList.contains('unbounded-asset-group')) {
+    if (this.elm.classList.contains('unbound-asset-group')) {
       targettedElm = this.elm.children[0];
     }
     if (this.elm) {
@@ -98,7 +98,7 @@ export default class RectDOMController extends ElementDOMController<CanvasRectPr
     let targettedElm = this.elm;
 
     if (targettedElm) {
-      if (targettedElm.classList.contains('unbounded-asset-group')) {
+      if (targettedElm.classList.contains('unbound-asset-group')) {
         targettedElm = this.elm.children[0];
       }
       targettedElm.setAttribute('width', width.toString());

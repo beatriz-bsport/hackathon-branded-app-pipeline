@@ -4,7 +4,6 @@ import React from 'react';
 import { compose } from 'recompose';
 import { withStyles } from '@material-ui/styles';
 import isEqual from 'lodash/isEqual';
-
 import classNames from 'classnames';
 import { withTheme } from '@storybook/theming';
 import { DeepPartial, MaterialStyleType } from '../../../utils/types';
@@ -24,6 +23,7 @@ import CanvasToolbar from './CanvasToolbar.component';
 import { AssetForBlueprint, RoomBlueprint, SpotType } from '../types';
 import { OptionCallback } from '../../../state/types';
 import { Theme } from '#libs/theme/types';
+import CanvasEditorCssForm from './CanvasEditorCssForm.component';
 
 type UndoRedoState = {
   elements: CanvasElement<any>[];
@@ -84,6 +84,8 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
 
   containerRef = React.createRef<HTMLDivElement>();
 
+  dialogContainerRef = React.createRef<HTMLDivElement>();
+
   get elements() {
     return this.props.disableEdit
       ? this.props.selectedRoomBlueprint.canvas.elements
@@ -103,6 +105,7 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
       showGrid: false,
       coachHeight: this.props.selectedRoomBlueprint.canvas.coachHeight || 1,
       spiviBoxId: this.props.selectedRoomBlueprint?.spivi_box_id,
+      openCanvasCssForm: false,
     };
   }
 
@@ -257,6 +260,14 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
     return nameChanged || elementChanged;
   };
 
+  handleOpenCanvasCssForm = () => {
+    this.setState({ openCanvasCssForm: true });
+  };
+
+  handleCloseCanvasCssForm = () => {
+    this.setState({ openCanvasCssForm: false });
+  };
+
   render() {
     const { classes } = this.props;
     return (
@@ -350,6 +361,7 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
               }
               openAssetUploader={this.props.openAssetUploader}
               openDeleteModal={this.props.openDeleteModal}
+              openPreviewDialog={this.handleOpenCanvasCssForm}
               openSpotCreationForm={(defaultSpot: boolean) => {
                 this.onClickSave();
                 this.props.openSpotCreationForm?.(defaultSpot);
@@ -371,11 +383,24 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
         )}
 
         {!this.props.disableEdit && !this.props.isBoutiqueDisplay && (
-          <SpotImageUploadDialog
-            onClose={() => this.setState({ showImageDialog: false })}
-            onSubmit={this.updateSpotImages}
-            open={this.state.showImageDialog}
-          />
+          <>
+            <SpotImageUploadDialog
+              onClose={() => this.setState({ showImageDialog: false })}
+              onSubmit={this.updateSpotImages}
+              open={this.state.showImageDialog}
+            />
+            <CanvasEditorCssForm
+              coach={this.props.coach}
+              coachHeight={this.state.coachHeight}
+              elements={this.elements}
+              getAsset={this.getAsset}
+              isMobile={this.props.isMobile}
+              onClose={this.handleCloseCanvasCssForm}
+              open={this.state.openCanvasCssForm}
+              roomBluePrint={this.props.selectedRoomBlueprint}
+              spotTypes={this.props.spotTypes}
+            />
+          </>
         )}
       </div>
     );
@@ -424,6 +449,13 @@ const styles = (theme: Theme) => ({
     width: 320,
     position: 'relative',
     overflow: 'hidden',
+  },
+  previewDialogTitle: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+    flexDirection: 'row',
   },
 });
 

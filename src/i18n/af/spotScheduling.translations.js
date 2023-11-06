@@ -7,6 +7,7 @@ exports.default = {
     rotation: 'Rotate',
     eraser: 'Rubber',
     advancedTool: 'HTML',
+    cssEditor: 'CSS',
     copier: 'Duplicator',
     sections: {
       custom: 'Custom',
@@ -152,5 +153,10 @@ exports.default = {
       title: 'Or select a new spot',
       message: 'Previous selection will become available for others.',
     },
+  },
+  cssForm: {
+    openPreview: 'Preview',
+    helper:
+      "You can add CSS rules for your layout in this section. The entire map is wrapped in a svg with the ID 'svg-canvas-display'. By default, a stylesheet targeting each element on the canvas (such as spots, rectangles, and teachers) is automatically generated. You can observe your changes gradually by clicking the '{{ buttonLabel }}' button.",
   },
 };

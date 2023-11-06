@@ -16,6 +16,7 @@ type OwnProps = {
   disableEnforceFocus?: boolean;
   PaperComponent?: React.Component;
   ariaLabelledby?: string;
+  scroll?: 'paper' | 'body';
 };
 
 type Props = OwnProps;
@@ -33,6 +34,7 @@ export const GenericResponsiveDialog: React.FC<Props> = (props) => {
     padding,
     PaperComponent,
     ariaLabelledby,
+    scroll = 'body',
   } = props;
   const theme: Theme = useTheme();
   const classes = useStyles({ padding });
@@ -52,7 +54,7 @@ export const GenericResponsiveDialog: React.FC<Props> = (props) => {
       maxWidth={maxWidth}
       onClose={onClose}
       open={open}
-      scroll="body"
+      scroll={scroll}
       {...(PaperComponent || {})}
     >
       {children}

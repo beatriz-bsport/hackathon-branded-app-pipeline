@@ -29,6 +29,7 @@ import HeightIcon from '@material-ui/icons/Height';
 import RedoIcon from '@material-ui/icons/Redo';
 import AutorenewIcon from '@material-ui/icons/Autorenew';
 import CodeIcon from '@material-ui/icons/Code';
+import BuildIcon from '@material-ui/icons/Build';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 
 import AspectRatioIcon from '@material-ui/icons/AspectRatio';
@@ -77,6 +78,7 @@ type OwnProps = {
   spiviBoxId: number;
   onSpiviBoxIdChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   openAssetUploader: () => void;
+  openPreviewDialog: () => void;
 };
 
 type Props = OwnProps &
@@ -86,6 +88,11 @@ type Props = OwnProps &
 class CanvasToolsMenu extends React.PureComponent<Props> {
   handleClickResizerTool = () =>
     this.props.onSelectTool(CANVAS_SELECTABLE_TOOLS.resizer);
+
+  handleClickCssTool = () => {
+    this.props.openPreviewDialog();
+    this.props.onSelectTool(CANVAS_SELECTABLE_TOOLS.pointer);
+  };
 
   render() {
     const sortSpots = (a, b) => b.id - a.id;
@@ -218,9 +225,20 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
                   this.props.onSelectTool(CANVAS_SELECTABLE_TOOLS.beautifier);
                 }}
               >
-                <CodeIcon fontSize="large" />
+                <BuildIcon fontSize="large" />
               </ButtonBase>
               <Typography> {t('toolsMenu.advancedTool')}</Typography>
+            </div>
+          </Grid>
+          <Grid item xs={4}>
+            <div className={classes.itemContainer}>
+              <ButtonBase
+                className={classes.item}
+                onClick={this.handleClickCssTool}
+              >
+                <CodeIcon fontSize="large" />
+              </ButtonBase>
+              <Typography> {t('toolsMenu.cssEditor')}</Typography>
             </div>
           </Grid>
         </Grid>

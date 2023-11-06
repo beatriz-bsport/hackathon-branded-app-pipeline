@@ -25,16 +25,16 @@ import { DEFAULT_SPOT_TYPE_ID } from '../utils';
 
 interface OwnProps {
   elements: CanvasElement<any>[];
-  selectedTool: CanvasSelectableToolsEnum;
+  selectedTool?: CanvasSelectableToolsEnum;
   strokeColor?: string;
   fillColor?: string;
   wallStrokeColor?: string;
   wallFillColor?: string;
-  onElementsChange: (elements: CanvasElement<any>[]) => void;
+  onElementsChange?: (elements: CanvasElement<any>[]) => void;
   selectedElement?: CanvasElement<any>;
-  onChangeSelectedElement: (element: CanvasElement<any>) => void;
+  onChangeSelectedElement?: (element: CanvasElement<any>) => void;
   getAsset: (identifier: string) => string;
-  onSelectElement: (element: CanvasElement<any>) => void;
+  onSelectElement?: (element: CanvasElement<any>) => void;
   disabledEdit?: boolean;
   showGrid: boolean;
   coach?: any;

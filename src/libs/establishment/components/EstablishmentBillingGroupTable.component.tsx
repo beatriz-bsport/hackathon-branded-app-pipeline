@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
@@ -17,6 +16,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
 import { MaterialStyleType } from '../../../utils/types';
+// @ts-expect-error
 import withConfirm from '../../../hocs/with-confirm.hoc';
 import type { EstablishmentBillingGroup } from '../types';
 

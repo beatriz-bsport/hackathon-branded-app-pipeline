@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import uniq from 'lodash/uniq';
 import { compose } from 'recompose';
@@ -22,15 +21,19 @@ import type {
   EstablishmentGroupByAddress,
   EstablishmentListGroupByAddress,
 } from '../types';
+// @ts-expect-error
 import { TextField } from '../../../components/forms';
 import EstablishmentSelector from './EstablishmentSelector.component';
+// @ts-expect-error
 import EstablishmentListItem from './EstablishmentListItem.component';
 
 type InitialValues = {
   initial?: EstablishmentBillingGroup;
 };
 type OwnProps = InitialValues & {
-  onSubmit: (data: EstablishmentBillingGroupAPI) => void;
+  onSubmit: (
+    data: Omit<EstablishmentBillingGroupAPI, 'id' | 'company_id'>,
+  ) => void;
   isSubmitting: boolean;
   open: boolean;
   onClose: () => void;

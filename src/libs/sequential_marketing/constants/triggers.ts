@@ -62,6 +62,22 @@ export const TRIGGER_KIND_CHOICES = [
  */
 export const TRIGGER_TEMPORARY_ID = 'faker-trigger-id';
 
+/**
+ * @description Temporary UUID assigned to the lost criteria timeout trigger during the initial setup
+ *              of a workflow to configure the timeout for the lost criteria.
+ */
+export const LOST_OUTPUT_TIMEOUT_TRIGGER_ID = 'lost-output-timeout-trigger';
+
+export const TRIGGER_DEFAULT_TIMEOUT_DAYS = 7;
+
+export const TRIGGER_DEFAULT_ICON = 'Error';
+
+// ============= TRIGGER SIZES =============
+
+export const TRIGGER_FORM_DEFAULT_HEIGHT = 40;
+
+export const TIMEOUT_TRIGGER_INPUT_WIDTH = 57;
+
 // ========== CADENCE HANDLE STYLE ==========
 
 export const TRIGGER_LEFT_HANDLE_STYLE = {
@@ -70,11 +86,3 @@ export const TRIGGER_LEFT_HANDLE_STYLE = {
 export const TRIGGER_RIGHT_HANDLE_STYLE = {
   right: '0px',
 };
-
-// ==========================================
-
-export const TRIGGER_DEFAULT_TIMEOUT_DAYS = 7;
-
-export const TRIGGER_DEFAULT_ICON = 'Error';
-
-export const TRIGGER_FORM_DEFAULT_HEIGHT = 40;

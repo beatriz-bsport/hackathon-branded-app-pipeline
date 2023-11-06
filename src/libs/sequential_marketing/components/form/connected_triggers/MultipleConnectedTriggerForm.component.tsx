@@ -8,7 +8,10 @@ import { useFormikContext, withFormik } from 'formik';
 import type { ConnectedTrigger } from '#libs/sequential_marketing/types';
 import type { SmartList } from '#libs/smart-list/types';
 
-import { TriggerKind } from '#libs/sequential_marketing/constants';
+import {
+  LOST_OUTPUT_TIMEOUT_TRIGGER_ID,
+  TriggerKind,
+} from '#libs/sequential_marketing/constants';
 import { getConnectedTriggerDefaultValues } from '#libs/sequential_marketing/components/graph/hooks/utils';
 import { getTriggerKind } from '#libs/sequential_marketing/components/helpers/utils';
 import { multipleTriggersValidationSchema } from './validationSchema';
@@ -16,6 +19,7 @@ import { multipleTriggersValidationSchema } from './validationSchema';
 import CollapsibleConnectedTriggerContent from './CollapsibleConnectedTriggerContent.component';
 import MenuSelectorTextButton from '#components/menu/text';
 import useConnectedTriggerChoices from './hooks/useConnectedTriggerChoices.hook';
+import LostTriggerTimeoutForm from './trigger_forms/LostTriggerTimeoutForm.component';
 
 type Props = {
   customColor: string;
@@ -23,6 +27,7 @@ type Props = {
   sourceId?: number;
   addTriggerLabel?: string;
   isEntrystep?: boolean;
+  isOutput?: boolean;
   updateConnectedTriggerList: (value: ConnectedTrigger[]) => void;
   updateFormValidation: (isValid: boolean) => void;
 };
@@ -40,7 +45,8 @@ type HOCProps = Props & FormValues;
  * @param {Immutable.ImmutableArray<SmartList>} smartlists - All smartlists of the company.
  * @param {number} sourceId - The id of the sourcce step. If not provided, it means that the source is one of the "general outputs".
  * @param {string} addTriggerLabel - Label for the add trigger button.
- * @param {boolean} isEntrystep - Specifies if the step associated with the form is the entrystep or not.
+ * @param {boolean} isEntrystep - Specifies if the step associated to the form is the entrystep or not.
+ * @param {boolean} isOutput - Specifies if the step associated to the form is one of the general outputs or not.
  * @param {(value: ConnectedTrigger[]) => void} updateConnectedTriggerList - Updates the connected trigger list defined in a parent context.
  * @param {(isValid: boolean) => void} updateFormValidation - Updates the isValid state defined in a parent context. 
  *                                                            isValid is a boolean indicating whether the form is valid or not.
@@ -52,6 +58,7 @@ const MultipleConnectedTriggerForm: React.FC<Props> = ({
   sourceId,
   addTriggerLabel,
   isEntrystep,
+  isOutput,
   updateConnectedTriggerList,
   updateFormValidation,
 }) => {
@@ -66,6 +73,24 @@ const MultipleConnectedTriggerForm: React.FC<Props> = ({
 
   const { values, isValid } = useFormikContext<FormValues>();
 
+  const lostOutputTimeoutTrigger = React.useMemo(
+    () =>
+      values?.connectedTriggers?.find(
+        (trigger) =>
+          trigger?.trigger_config?.uuid === LOST_OUTPUT_TIMEOUT_TRIGGER_ID,
+      ),
+    [values.connectedTriggers],
+  );
+
+  const connectedTriggerList = React.useMemo(
+    () =>
+      values?.connectedTriggers?.filter(
+        (trigger) =>
+          trigger?.trigger_config?.uuid !== LOST_OUTPUT_TIMEOUT_TRIGGER_ID,
+      ),
+    [values.connectedTriggers],
+  );
+
   const handleAddTrigger = React.useCallback(
     (triggerKind: TriggerKind) => {
       updateConnectedTriggerList([
@@ -75,21 +100,34 @@ const MultipleConnectedTriggerForm: React.FC<Props> = ({
           sourceId,
         }),
       ]);
-      setOpenItem(values.connectedTriggers.length);
+      setOpenItem(connectedTriggerList.length);
     },
-    [sourceId, updateConnectedTriggerList, values.connectedTriggers],
+    [
+      connectedTriggerList.length,
+      sourceId,
+      updateConnectedTriggerList,
+      values.connectedTriggers,
+    ],
   );
 
   const handleDeleteTrigger = React.useCallback(
     (idx: number) => () => {
       setWithoutCollapseAnimation(true);
       updateConnectedTriggerList(
-        values.connectedTriggers.filter((_, index) => index !== idx),
+        [
+          !!lostOutputTimeoutTrigger && lostOutputTimeoutTrigger,
+          ...connectedTriggerList.filter((_, index) => index !== idx),
+        ]?.filter(Boolean) ?? [],
       );
       openItem === idx && setOpenItem(null);
       openItem > idx && setOpenItem((prev) => prev - 1);
     },
-    [openItem, updateConnectedTriggerList, values.connectedTriggers],
+    [
+      updateConnectedTriggerList,
+      connectedTriggerList,
+      lostOutputTimeoutTrigger,
+      openItem,
+    ],
   );
 
   const handleEditTrigger = React.useCallback(
@@ -99,19 +137,38 @@ const MultipleConnectedTriggerForm: React.FC<Props> = ({
   );
 
   const handleUpdateTrigger = React.useCallback(
-    (idx: number) => (trigger: ConnectedTrigger) => {
+    (idx: number) => (trigger: ConnectedTrigger) =>
       updateConnectedTriggerList(
-        values.connectedTriggers.map((connectedTrigger, index) =>
-          index === idx ? trigger : connectedTrigger,
+        [
+          !!lostOutputTimeoutTrigger && lostOutputTimeoutTrigger,
+          ...connectedTriggerList.map((connectedTrigger, index) =>
+            index === idx ? trigger : connectedTrigger,
+          ),
+        ]?.filter(Boolean) ?? [],
+      ),
+    [
+      updateConnectedTriggerList,
+      connectedTriggerList,
+      lostOutputTimeoutTrigger,
+    ],
+  );
+
+  const updateLostOutputTimeoutTrigger = React.useCallback(
+    (updatedTrigger: ConnectedTrigger) =>
+      updateConnectedTriggerList(
+        values.connectedTriggers.map((trigger) =>
+          trigger?.trigger_config?.uuid === LOST_OUTPUT_TIMEOUT_TRIGGER_ID
+            ? updatedTrigger
+            : trigger,
         ),
-      );
-    },
+      ),
     [updateConnectedTriggerList, values.connectedTriggers],
   );
 
   const connectedTriggerActionList = useConnectedTriggerChoices({
     addConnectedTrigger: handleAddTrigger,
-    connectedTriggersToExclude: isEntrystep ? [TriggerKind.ONLY_TIMEOUT] : [],
+    connectedTriggersToExclude:
+      isEntrystep || isOutput ? [TriggerKind.ONLY_TIMEOUT] : [],
     customColor,
   });
 
@@ -126,14 +183,20 @@ const MultipleConnectedTriggerForm: React.FC<Props> = ({
 
   return (
     <div className={classes.container}>
-      {!!values?.connectedTriggers?.length && (
+      {isOutput && !!lostOutputTimeoutTrigger && (
+        <LostTriggerTimeoutForm
+          trigger={lostOutputTimeoutTrigger}
+          updateValue={updateLostOutputTimeoutTrigger}
+        />
+      )}
+      {!!connectedTriggerList?.length && (
         <div className={classes.content}>
-          {values.connectedTriggers.map((connectedTrigger, index) => (
+          {connectedTriggerList.map((connectedTrigger, index) => (
             <CollapsibleConnectedTriggerContent
-              key={`ConnectedTrigger:${index}_${connectedTrigger.trigger_config.uuid}`}
+              key={`ConnectedTrigger:${index}_${connectedTrigger?.trigger_config?.uuid}`}
               color={customColor}
               deleteTrigger={handleDeleteTrigger(index)}
-              isLast={index === values.connectedTriggers.length - 1}
+              isLast={index === connectedTriggerList.length - 1}
               isOpen={index === openItem}
               openOrCloseTrigger={handleEditTrigger(index)}
               smartlists={smartlists}
@@ -149,7 +212,7 @@ const MultipleConnectedTriggerForm: React.FC<Props> = ({
         <MenuSelectorTextButton
           actionList={connectedTriggerActionList}
           customColor={customColor}
-          isDisabled={values.connectedTriggers?.length >= 5}
+          isDisabled={connectedTriggerList?.length >= 5}
           label={addTriggerLabel || `+ ${t('cadence.trigger.addTrigger')}`}
         />
       </div>

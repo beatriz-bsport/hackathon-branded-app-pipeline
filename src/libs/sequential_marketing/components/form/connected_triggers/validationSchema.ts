@@ -30,7 +30,7 @@ const triggerValidationSchema = Yup.object().shape({
       }),
   }),
   destination_config: Yup.object().shape({
-    source_id: Yup.number(),
+    source_id: Yup.number().nullable(),
   }),
   filtering_config: Yup.object().shape({
     identifier: Yup.string().oneOf(Object.values(FilterIdentifier)).required(),

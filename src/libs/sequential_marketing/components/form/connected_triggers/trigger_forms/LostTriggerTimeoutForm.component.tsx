@@ -1,14 +1,19 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
-
 import Typography from '@material-ui/core/Typography';
-import NumericInput from '#components/input/NumericInput.component';
 
 import type {
   ConnectedTrigger,
   TriggerTimeoutConfig,
 } from '#libs/sequential_marketing/types';
+
+import {
+  SequentialMarketingColors,
+  TIMEOUT_TRIGGER_INPUT_WIDTH,
+} from '#libs/sequential_marketing/constants';
+import { CustomMuiIcon } from '#components/icons/CustomMuiIcon.component';
+import NumericInput from '#components/input/NumericInput.component';
 import useTimeOutContext from '../hooks/useTimeOutContext.hook';
 
 type Props = {
@@ -16,7 +21,7 @@ type Props = {
   updateValue: (trigger: ConnectedTrigger) => void;
 };
 
-const TimeoutForm: React.FC<Props> = ({ trigger, updateValue }) => {
+const LostTriggerTimeoutForm: React.FC<Props> = ({ trigger, updateValue }) => {
   const { t } = useTranslation('marketing');
 
   const classes = useStyles();
@@ -71,59 +76,66 @@ const TimeoutForm: React.FC<Props> = ({ trigger, updateValue }) => {
   }, [handleUpdateTriggerWithNewTimeout, changeTimeOut]);
 
   return (
-    <>
-      <div className={classes.timeoutSelectorContainer}>
+    <div className={classes.container}>
+      <div className={classes.header}>
+        <CustomMuiIcon
+          defaultBackGround
+          customColor={SequentialMarketingColors.LOSE_COLOR}
+          icon="Timer"
+          withBackground={false}
+        />
+        <Typography variant="subtitle1">
+          {t('cadence.bubble.lostTrigger.timeout.title')}
+        </Typography>
+      </div>
+      <div className={classes.timeoutConfiguration}>
         <Typography variant="body1">
-          {t('cadence.form.trigger.triggerTimeoutLabel')}
+          {t('cadence.bubble.lostTrigger.timeout.label')}
         </Typography>
         <div className={classes.timeoutInput}>
           <NumericInput
             error={timeoutValue < 1}
             InputProps={{
-              inputProps: { step: 1, min: 0 },
+              inputProps: { step: 1, min: 1 },
             }}
             onChange={handleUpdateTimeout}
             value={timeoutValue}
           />
         </div>
-        <div className={classes.timeoutInputTextEnd}>
-          <Typography variant="body1">
-            {t('cadence.form.trigger.triggerTimeoutDays', {
-              count: timeoutValue,
-            })}
-          </Typography>
-        </div>
       </div>
-      {timeoutValue < 1 && (
-        <div className={classes.timeoutInputErrorText}>
-          <Typography color="error" variant="caption">
-            {t('cadence.form.error.timeoutMustBeStrictPositive')}
-          </Typography>
-        </div>
-      )}
-    </>
+      <Typography className={classes.helperText} variant="caption">
+        {t('cadence.bubble.lostTrigger.timeout.helperText')}
+      </Typography>
+    </div>
   );
 };
 
 const useStyles = makeStyles((theme) => ({
-  timeoutSelectorContainer: {
+  container: {
     display: 'flex',
-    justifyContent: 'space-between',
+    flexDirection: 'column',
+    gap: theme.spacing(1),
+    marginBottom: theme.spacing(4),
+  },
+  header: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: theme.spacing(2),
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+  },
+  timeoutConfiguration: {
+    display: 'flex',
     alignItems: 'center',
     gap: theme.spacing(2),
   },
   timeoutInput: {
-    minWidth: theme.spacing(6),
-    flex: 1,
+    width: TIMEOUT_TRIGGER_INPUT_WIDTH,
   },
-  timeoutInputTextEnd: {
-    flex: 9,
-  },
-  timeoutInputErrorText: {
-    padding: theme.spacing(0),
-    paddingBottom: theme.spacing(1),
-    margin: theme.spacing(0),
+  helperText: {
+    alignItems: 'center',
+    color: theme.palette.grey[600],
   },
 }));
 
-export default React.memo(TimeoutForm);
+export default React.memo(LostTriggerTimeoutForm);

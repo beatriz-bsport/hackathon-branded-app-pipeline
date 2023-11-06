@@ -200,7 +200,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
       if (theme?.hide_book_button) {
         handleClickOnHiddenBookButton(savedEvent);
       } else if (
-        AVAILABLE_BOOKING_ELEMENTS_IDS.includes(savedEvent.currentTarget.id)
+        AVAILABLE_BOOKING_ELEMENTS_IDS.includes(savedEvent.target?.id)
       ) {
         handleBook();
         // offer?.full ? handleBookOption() : handleBook();

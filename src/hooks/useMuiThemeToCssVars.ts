@@ -541,6 +541,7 @@ export const useMuiThemeToCssVars = () => {
     --bs-space-size-18: calc(var(--bs-space-size-1) * 18);
     --bs-space-size-8: calc(var(--bs-space-size-1) * 8);
     --bs-space-size-6: calc(var(--bs-space-size-1) * 6);
+    --bs-space-size-5: calc(var(--bs-space-size-1) * 5);
     --bs-space-size-4: calc(var(--bs-space-size-1) * 4);
     --bs-space-size-3: calc(var(--bs-space-size-1) * 3);
     --bs-space-size-2: calc(var(--bs-space-size-1) * 2);

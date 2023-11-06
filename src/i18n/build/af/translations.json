@@ -13832,7 +13832,10 @@
           "type": "Type of the component",
           "selected": "Is selected",
           "showGroupTitle": "Display the list with group title",
-          "hasDivider": "The list has a divider at the bottom"
+          "hasDivider": "The list has a divider at the bottom",
+          "displayIcon": "Display with icon",
+          "hasLeftAction": "Enable left action on the component",
+          "isSelectable": "Enable select interaction with the component"
         },
         "configurationTitle": "Variations",
         "confirmationMessageComponentAlert": "This component primarily manages booking and payment statuses. For customizing its appearance, we recommend utilizing its root components located in common section",
@@ -13941,7 +13944,8 @@
         "marketplace_offer_booking_list": "Booking list",
         "fabrique_alert": "Alert",
         "fabrique_menu_item": "Menu Item",
-        "fabrique_menu_item_list": "Menu Item List"
+        "fabrique_menu_item_list": "Menu Item List",
+        "fabrique_list_item": "List item"
       },
       "customCss": {
         "yourCode": "Your complementary implementation:",

@@ -195,6 +195,10 @@ import {
   FABRIQUE_TEXTFIELD_PREVIEW,
 } from '#components/css-only/Fabrique/TextFieldV2';
 import {
+  FABRIQUE_LIST_ITEM_CONFIGURATION,
+  FABRIQUE_LIST_ITEM_PREVIEW,
+} from '#components/css-only/Fabrique/ListItem/custom_css_variants';
+import {
   FABRIQUE_BUTTON_CONFIGURATION,
   FABRIQUE_BUTTON_PREVIEW,
 } from '#components/css-only/Fabrique/ButtonV2';
@@ -433,6 +437,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
         FABRIQUE_BLANKET_CONFIGURATION,
         FABRIQUE_TAB_CONFIGURATION,
         FABRIQUE_TEXTFIELD_CONFIGURATION,
+        FABRIQUE_LIST_ITEM_CONFIGURATION,
         FABRIQUE_RADIOBUTTON_CONFIGURATION,
         FABRIQUE_CHECKBOX_CONFIGURATION,
         FABRIQUE_CHIP_CONFIGURATION,
@@ -588,6 +593,8 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
       [CssComponentsVariantIdentifiers.FABRIQUE_BADGE]: FABRIQUE_BADGE_PREVIEW,
       [CssComponentsVariantIdentifiers.FABRIQUE_TEXTFIELD]:
         FABRIQUE_TEXTFIELD_PREVIEW,
+      [CssComponentsVariantIdentifiers.FABRIQUE_LIST_ITEM]:
+        FABRIQUE_LIST_ITEM_PREVIEW,
       [CssComponentsVariantIdentifiers.FABRIQUE_BUTTON]:
         FABRIQUE_BUTTON_PREVIEW,
       [CssComponentsVariantIdentifiers.FABRIQUE_ICON_BUTTON]:

@@ -36,6 +36,10 @@
   height: var(--bs-icon-size-md);
 }
 
+.bs-fabrique-radio__captiontext {
+  color: var(--bs-color-text-weaker);
+}
+
 /* DEFAULT VARIANT */
 .bs-fabrique-radio--checked--main {
   fill: var(--bs-color-icon-brand-main);
@@ -71,10 +75,6 @@
 
 .bs-fabrique-radio__text--inversed {
   color: var(--bs-color-text-inverse-default);
-}
-
-.bs-fabrique-radio__captiontext {
-  color: var(--bs-color-text-weaker);
 }
 
 .bs-fabrique-radio__textwrapper {

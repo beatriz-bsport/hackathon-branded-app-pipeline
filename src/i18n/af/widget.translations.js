@@ -248,6 +248,9 @@ exports.default = {
         selected: 'Is selected',
         showGroupTitle: 'Display the list with group title',
         hasDivider: 'The list has a divider at the bottom',
+        displayIcon: 'Display with icon',
+        hasLeftAction: 'Enable left action on the component',
+        isSelectable: 'Enable select interaction with the component',
       },
       configurationTitle: 'Variations',
       confirmationMessageComponentAlert:
@@ -372,6 +375,7 @@ exports.default = {
       fabrique_alert: 'Alert',
       fabrique_menu_item: 'Menu Item',
       fabrique_menu_item_list: 'Menu Item List',
+      fabrique_list_item: 'List item',
     },
     customCss: {
       yourCode: 'Your complementary implementation:',

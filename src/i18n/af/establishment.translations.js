@@ -96,7 +96,13 @@ exports.default = {
       associated_localizations: 'Associated establishments',
       dialog: { title: 'Location', cancel: 'Cancel', save: 'Save' },
     },
-    table: { actions: 'Action', establishment: 'Establishments', name: 'Name' },
+    table: {
+      actions: 'Action',
+      establishment: 'Establishments',
+      name: 'Name',
+      address: 'Address',
+      noAddress: 'No address is associated with this billing group',
+    },
   },
   billing_group: {
     table: {
@@ -109,7 +115,7 @@ exports.default = {
         confirm: 'Delete',
         cancel: 'Cancel',
         content:
-          'Are you sure that you want to delete this billing group? This action will be processed retroactively and will no longer appear in associated reports.',
+          'Are you sure that you want to delete this billing group? Future invoices will not be able to be linked to this location any more, nor to be selected by the members as their preferred location while performing an online purchase. Before deleting the billing group please make sure that all your establishments are linked to existing billing groups',
         title: 'Delete a billing group',
       },
     },
@@ -117,10 +123,20 @@ exports.default = {
       error: {
         groupShouldContainsOneRoom: 'Please select at least one establishment',
         groupShouldHaveName: 'You must give a name to this billing group',
+        groupShouldHaveAddress:
+          'You must give an address to this billing group',
+      },
+      warning: {
+        groupHasSeveralLocations:
+          'Note that the establishments that you have selected do not have the same address and may not be part of the same location',
       },
       dialog: { save: 'Save', cancel: 'Cancel', title: 'Billing group' },
       associated_localizations: 'Associated establishments',
       name: 'Name',
+      address: {
+        label: 'Address',
+        helperText: 'Enter the address of the billing group.',
+      },
     },
     actions: 'Actions',
     name: ' Name',

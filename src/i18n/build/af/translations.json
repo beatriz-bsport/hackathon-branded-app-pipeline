@@ -2060,7 +2060,13 @@
         "associated_localizations": "Associated establishments",
         "dialog": { "title": "Location", "cancel": "Cancel", "save": "Save" }
       },
-      "table": { "actions": "Action", "establishment": "Establishments", "name": "Name" }
+      "table": {
+        "actions": "Action",
+        "establishment": "Establishments",
+        "name": "Name",
+        "address": "Address",
+        "noAddress": "No address is associated with this billing group"
+      }
     },
     "billing_group": {
       "table": { "name": "Name", "establishment": "Establishments", "actions": "Actions" },
@@ -2068,18 +2074,23 @@
         "delete": {
           "confirm": "Delete",
           "cancel": "Cancel",
-          "content": "Are you sure that you want to delete this billing group? This action will be processed retroactively and will no longer appear in associated reports.",
+          "content": "Are you sure that you want to delete this billing group? Future invoices will not be able to be linked to this location any more, nor to be selected by the members as their preferred location while performing an online purchase. Before deleting the billing group please make sure that all your establishments are linked to existing billing groups",
           "title": "Delete a billing group"
         }
       },
       "form": {
         "error": {
           "groupShouldContainsOneRoom": "Please select at least one establishment",
-          "groupShouldHaveName": "You must give a name to this billing group"
+          "groupShouldHaveName": "You must give a name to this billing group",
+          "groupShouldHaveAddress": "You must give an address to this billing group"
+        },
+        "warning": {
+          "groupHasSeveralLocations": "Note that the establishments that you have selected do not have the same address and may not be part of the same location"
         },
         "dialog": { "save": "Save", "cancel": "Cancel", "title": "Billing group" },
         "associated_localizations": "Associated establishments",
-        "name": "Name"
+        "name": "Name",
+        "address": { "label": "Address", "helperText": "Enter the address of the billing group." }
       },
       "actions": "Actions",
       "name": " Name"
@@ -9614,7 +9625,7 @@
     },
     "billing_group": {
       "header": "Billing group",
-      "helperText": "If you have several studios belonging to different companies, you can group them here by billing group. The billing groups will appear on your reports to easily link each invoice to the right company name.",
+      "helperText": "“The billing groups will appear on your reports to easily link each invoice to the right location and will be used in the basket by the members to choose their preferred location. At least one billing group must be defined for the members to proceed online purchases. If you have several establishments belonging to the same location, you can group them within the same billing group",
       "add": "Add a billing group"
     },
     "quickbooks": {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import uniq from 'lodash/uniq';
 import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
@@ -14,6 +14,7 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import Typography from '@material-ui/core/Typography';
 import * as Yup from 'yup';
+import { Alert } from '@material-ui/lab';
 import type {
   EstablishmentBillingGroup,
   EstablishmentBillingGroupAPI,
@@ -37,7 +38,7 @@ type OwnProps = InitialValues & {
   isSubmitting: boolean;
   open: boolean;
   onClose: () => void;
-  establishments: any;
+  establishmentData: Establishment[];
 };
 type Props = OwnProps &
   WithTranslation &
@@ -57,6 +58,9 @@ const EstablishmentBillingGroupSchema = Yup.object().shape({
         return this.parent.establishments?.length > 0;
       },
     ),
+  address: Yup.string().required(
+    'establishment:billing_group.form.error.groupShouldHaveAddress',
+  ),
 });
 export function EstablishmentBillingGroupForm(props: Props) {
   const { t, isSubmitting, classes } = props;
@@ -64,7 +68,7 @@ export function EstablishmentBillingGroupForm(props: Props) {
   const establishmentSelectedGroupedByaddress = (
     establishmentSelectedIds: Array<number>,
   ) => {
-    const establishmentGourpByAddress = props.establishments
+    const establishmentGroupByAddress = props.establishmentData
       .filter((item: Establishment) =>
         establishmentSelectedIds.includes(item.id),
       )
@@ -90,8 +94,43 @@ export function EstablishmentBillingGroupForm(props: Props) {
         },
         [],
       );
-    return establishmentGourpByAddress;
+    return establishmentGroupByAddress;
   };
+
+  /**
+   * Memoized object meant to easily access establishment data.
+   */
+  const establishmentDataById: { [id: number]: Establishment } = useMemo(
+    () =>
+      props.establishmentData.reduce((acc, curr) => {
+        return {
+          ...acc,
+          [curr.id]: curr,
+        };
+      }, {}),
+    [props.establishmentData],
+  );
+
+  /**
+   * Checks if the adresses of all the establishments are equal, in order to display or not the corresponding warning.
+   * If the list is null, undefined, or empty, the function returns true.
+   *
+   * @param establishment - List of establishments id to check
+   */
+  const allAdressesAreEquals = (establishments: number[]) => {
+    if (!establishments?.length) {
+      return true;
+    }
+
+    return establishments
+      .map((establishment_id) => establishmentDataById?.[establishment_id])
+      .map((establishment) => establishment.location.address)
+      .every(
+        (address) =>
+          address === establishmentDataById[establishments[0]].location.address,
+      );
+  };
+
   return (
     <Formik
       initialValues={
@@ -105,6 +144,7 @@ export function EstablishmentBillingGroupForm(props: Props) {
           : {
               name: '',
               establishments: [],
+              address: '',
             }
       }
       onSubmit={(values) => {
@@ -153,7 +193,7 @@ export function EstablishmentBillingGroupForm(props: Props) {
                     noMulti
                     nullCurrentValue
                     disabled={isSubmitting}
-                    establishments={props.establishments?.filter(
+                    establishments={props.establishmentData?.filter(
                       (est: Establishment) =>
                         !est.establishment_billing_group_id ||
                         est.establishment_billing_group_id ===
@@ -165,6 +205,16 @@ export function EstablishmentBillingGroupForm(props: Props) {
                       value: number;
                       label: string;
                     }) => {
+                      if (
+                        !formik.values.establishments.length &&
+                        !formik.values.address
+                      ) {
+                        // Set address to first establishment if it is still empty
+                        formik.setFieldValue(
+                          'address',
+                          establishmentDataById?.[item.value]?.location.address,
+                        );
+                      }
                       formik.setFieldValue(
                         'establishments',
                         uniq([...formik.values.establishments, item.value]),
@@ -177,13 +227,6 @@ export function EstablishmentBillingGroupForm(props: Props) {
                     }}
                   />
                 </div>
-                <ErrorMessage name="name">
-                  {(error_msg) => (
-                    <Typography color="error" variant="caption">
-                      {t(`${error_msg}`)}
-                    </Typography>
-                  )}
-                </ErrorMessage>
                 <FieldArray name="establishments">
                   {({
                     remove,
@@ -218,11 +261,17 @@ export function EstablishmentBillingGroupForm(props: Props) {
                                 noDivider
                                 establishment={est}
                                 onClickDelete={() => {
+                                  if (
+                                    formik.values.establishments.length === 1 &&
+                                    formik.values.address
+                                  ) {
+                                    // Erase address field when removing the last establishment
+                                    formik.setFieldValue('address', '');
+                                  }
                                   const establishmentIndex =
                                     formik.values.establishments.findIndex(
                                       (esta: number) => esta === est.id,
                                     );
-
                                   remove(establishmentIndex);
                                 }}
                               />
@@ -230,10 +279,37 @@ export function EstablishmentBillingGroupForm(props: Props) {
                           </List>
                         ),
                       )}
+                      {!allAdressesAreEquals(establishments) && (
+                        <Alert
+                          className={classes.warningAlert}
+                          severity="warning"
+                        >
+                          <Typography variant="body1">
+                            {t(
+                              'establishment:billing_group.form.warning.groupHasSeveralLocations',
+                            )}
+                          </Typography>
+                        </Alert>
+                      )}
                     </>
                   )}
                 </FieldArray>
                 <ErrorMessage name="establishments">
+                  {(error_msg) => (
+                    <Typography color="error" variant="caption">
+                      {t(`${error_msg}`)}
+                    </Typography>
+                  )}
+                </ErrorMessage>
+                <TextField
+                  fullWidth
+                  required
+                  helperText={t('billing_group.form.address.helperText')}
+                  id="textfield_establishment_billing_group_address"
+                  label={t('billing_group.form.address.label')}
+                  name="address"
+                />
+                <ErrorMessage name="address">
                   {(error_msg) => (
                     <Typography color="error" variant="caption">
                       {t(`${error_msg}`)}
@@ -284,6 +360,11 @@ const styles = (theme: Theme) =>
     },
     establishmentSelector: {
       paddingBottom: theme.spacing(1),
+    },
+    warningAlert: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
     },
   });
 

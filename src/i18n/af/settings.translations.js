@@ -173,7 +173,7 @@ exports.default = {
   billing_group: {
     header: 'Billing group',
     helperText:
-      'If you have several studios belonging to different companies, you can group them here by billing group. The billing groups will appear on your reports to easily link each invoice to the right company name.',
+      '“The billing groups will appear on your reports to easily link each invoice to the right location and will be used in the basket by the members to choose their preferred location. At least one billing group must be defined for the members to proceed online purchases. If you have several establishments belonging to the same location, you can group them within the same billing group',
     add: 'Add a billing group',
   },
   quickbooks: {

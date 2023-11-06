@@ -143,7 +143,7 @@ export class InvoiceConfigurationPage extends React.Component<Props, State> {
               </Paper>
               {this.props.openDialogForm && (
                 <EstablishmentBillingGroupFormDialog
-                  establishments={this.props.establishments}
+                  establishmentData={this.props.establishments}
                   initial={this.props.initialBillingGroup}
                   isSubmitting={this.props.submitting}
                   onClose={() => {

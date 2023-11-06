@@ -48,6 +48,7 @@ export const EstablishmentBillingGroupTable = (props: Props) => {
       <TableHead>
         <TableRow>
           <TableCell>{t('group.table.name')}</TableCell>
+          <TableCell>{t('group.table.address')}</TableCell>
           <TableCell>{t('group.table.establishment')}</TableCell>
           <TableCell align="center">{t('group.table.actions')}</TableCell>
         </TableRow>
@@ -58,6 +59,9 @@ export const EstablishmentBillingGroupTable = (props: Props) => {
             (group: EstablishmentBillingGroup) => (
               <TableRow key={group.id}>
                 <TableCell> {group.name}</TableCell>
+                <TableCell>
+                  {group.address || t('group.table.noAdress')}
+                </TableCell>
                 <TableCell>
                   {group.establishments &&
                     group.establishments.map((est) => (

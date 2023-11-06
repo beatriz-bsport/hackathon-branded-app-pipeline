@@ -1,0 +1,41 @@
+import { Meta, Canvas, Story, Source } from '@storybook/addon-docs';
+
+import {ListItemStorybook as ListItem} from './ListItem.component'
+
+<Meta title="Fabrique/List&ListItem/ListItemDoc" component={ListItem} />
+
+# ListItem
+
+## Description
+ListItem acts as a standalone item in a list that doesn’t require any specific container.
+
+### Plain text 
+
+#### Usage 
+Here, ListItem acts as a descriptive text with different sizes and with/without caption text
+<Canvas withSource='none' withToolbar isColumn >
+  <Story id="fabrique-list-listitem-listitemstories--listitemdefault" />  
+  <Story id="fabrique-list-listitem-listitemstories--listitemsm" />
+  <Story id="fabrique-list-listitem-listitemstories--listitemlg" />
+  <Story id="fabrique-list-listitem-listitemstories--listitemcaptiontext" />
+  <Story id="fabrique-list-listitem-listitemstories--listitemicon" />
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-list-listitem-listitemstories--listitemsm" />
+
+### Actions
+
+#### Usage
+ListItem can have a checkbox or a radio
+<Canvas withSource='none' withToolbar isColumn >
+  <Story id="fabrique-list-listitem-listitemstories--listitemradio" />
+  <Story id="fabrique-list-listitem-listitemstories--listitemcheckbox" />
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-list-listitem-listitemstories--listitemcheckbox" />
+
+

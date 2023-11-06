@@ -2,21 +2,8 @@ import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import { ListItemStorybook } from '.';
-import { ListItemSizeEnum } from './constants';
-
-const Icon = () => (
-  <svg
-    width="100%"
-    height="100%"
-    viewBox="0 0 23 34"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M0.980749 15.4319L19.7586 0.566112C21.0697 -0.471871 23 0.461933 23 2.1342L23 17L23 31.8658C23 33.5381 21.0697 34.4719 19.7586 33.4339L0.980749 18.5681C-0.0307105 17.7674 -0.0307104 16.2326 0.980749 15.4319Z"
-      id="Arrow"
-    />
-  </svg>
-);
+import { ListItemSizeEnum, ListItemTypeEnum } from './constants';
+import { ArrowBlockLeft } from '#components/untitledui';
 
 const ListItemStorybookTemplate: ComponentStory<typeof ListItemStorybook> = (
   args,
@@ -56,7 +43,7 @@ Listitemlg.args = { ...defaultArgs, size: ListItemSizeEnum.LG };
 export const Listitemicon = ListItemStorybookTemplate.bind({});
 Listitemicon.args = {
   ...defaultArgs,
-  icon: <Icon />,
+  icon: <ArrowBlockLeft />,
 };
 
 export const Listitemradio = ListItemStorybookNotTextTemplate.bind({});
@@ -89,6 +76,15 @@ export default {
     captionText: {
       description: 'Caption text',
       control: 'text',
+    },
+    type: {
+      description: 'Type of the component',
+      control: 'inline-radio',
+      options: [
+        ListItemTypeEnum.CHECKBOX,
+        ListItemTypeEnum.RADIO,
+        ListItemTypeEnum.TEXT,
+      ],
     },
   },
 } as ComponentMeta<typeof ListItemStorybook>;

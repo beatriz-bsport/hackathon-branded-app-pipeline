@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import { push as pushRouter } from 'connected-react-router';
+import { withTranslation, WithTranslation } from 'react-i18next';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose, withStateHandlers, withHandlers } from 'recompose';
 import { Theme, WithStyles, createStyles, withStyles } from '@material-ui/core';
@@ -8,10 +9,7 @@ import Alert from '@material-ui/lab/Alert';
 import AddIcon from '@material-ui/icons/Add';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import Button from '@material-ui/core/Button';
-import { withTranslation, WithTranslation } from 'react-i18next';
 import withTitle from '#hocs/with-title.hoc';
-import { RootState } from '../../reducers';
-import CadenceCreateAndUpdateForm from '#libs/sequential_marketing/components/form/CadenceCreateAndUpdateForm.component';
 
 import {
   fetchCadenceList as fetchCadenceListAction,
@@ -20,26 +18,24 @@ import {
   archiveCadence as archiveCadenceAction,
   restoreCadence as restoreCadenceAction,
 } from '#libs/sequential_marketing/actions';
-
-import { WithHandlerType } from '../../utils/types';
-
 import {
   getEnabledCadencesList,
   getArchivedCadencesList,
 } from '#libs/sequential_marketing/selectors';
 
-import { OptionCallback } from '../../state/types';
-import type { Cadence } from '#libs/sequential_marketing/types';
 import CadenceList from '#libs/sequential_marketing/components/CadenceList.component';
 import CadenceManagerFab from '#libs/sequential_marketingDEPRECATED/components/CadenceManagerFab.components';
 import CadenceUtilityDialog, {
-  DialogVariant,
+  type DialogVariant,
 } from '#libs/sequential_marketing/components/dialogs/DialogUtility';
+import CadenceCreateAndUpdateForm from '#libs/sequential_marketing/components/form/CadenceCreateAndUpdateForm.component';
+
+import type { RootState } from '../../reducers';
+import type { WithHandlerType } from '../../utils/types';
+import type { OptionCallback } from '../../state/types';
+import type { Cadence } from '#libs/sequential_marketing/types';
 
 const CADENCE_PAGE_SIZE = 100;
-type OwnProps = {
-  title: string;
-};
 
 type StateHandlerType = typeof StateHandlersInit &
   WithHandlerType<typeof StateHandlersSetter>;
@@ -47,8 +43,7 @@ type StateHandlerType = typeof StateHandlersInit &
 type ConnectedPropsAndState = ConnectedProps<typeof connector> &
   StateHandlerType;
 
-type Props = OwnProps &
-  ConnectedPropsAndState &
+type Props = ConnectedPropsAndState &
   WithHandlerType<typeof mapWithHandlers> &
   WithStyles<typeof styles> &
   StateHandlerType &
@@ -91,21 +86,21 @@ export class CadenceDetailPage extends Component<Props> {
     if (!data?.id) {
       return this.props.createCadence(data, {
         onSuccess: (cadenceId: number) => {
-          options && options.onSuccess && options.onSuccess();
+          options?.onSuccess?.();
           this.handleCloseCreationFormAndGoToCadencePage(cadenceId);
         },
         onError: () => {
-          options && options.onError && options.onError();
+          options?.onError?.();
         },
       });
     }
     return this.props.updateCadence(data.id, data, {
       onSuccess: () => {
-        options && options.onSuccess && options.onSuccess();
+        options?.onSuccess?.();
         this.handleCloseCreationForm();
       },
       onError: () => {
-        options && options.onError && options.onError();
+        options?.onError?.();
       },
     });
   };
@@ -257,18 +252,22 @@ const StateHandlersSetter = {
 };
 
 const mapWithHandlers = {
+  goToCadencePage: (props: ConnectedPropsAndState) => (id: number) =>
+    props.push(`/cadence/wip/${id}`),
+
   fetchCadenceList: (props: ConnectedPropsAndState) => () => {
     props.fetchCadenceListAction({ page_size: CADENCE_PAGE_SIZE });
   },
+
   createCadence:
     (props: ConnectedPropsAndState) =>
     (data: { name: string }, options?: OptionCallback<number>) => {
       props.createCadenceAction(data, {
         onSuccess: (cadence) => {
-          options && options.onSuccess && options.onSuccess(cadence?.id);
+          options?.onSuccess?.(cadence?.id);
         },
         onError: () => {
-          options && options.onError && options.onError();
+          options?.onError?.();
         },
       });
     },
@@ -278,10 +277,10 @@ const mapWithHandlers = {
     (id: number, data: { name: string }, options?: OptionCallback) => {
       props.updateCadenceAction(id, data, {
         onSuccess: () => {
-          options && options.onSuccess && options.onSuccess();
+          options?.onSuccess?.();
         },
         onError: () => {
-          options && options.onError && options.onError();
+          options?.onError?.();
         },
       });
     },
@@ -295,10 +294,10 @@ const mapWithHandlers = {
       props.updateCadenceAction(id, data, {
         onSuccess: () => {
           props.fetchCadenceListAction({ page_size: CADENCE_PAGE_SIZE });
-          options && options.onSuccess && options.onSuccess();
+          options?.onSuccess?.();
         },
         onError: () => {
-          options && options.onError && options.onError();
+          options?.onError?.();
         },
       });
     },
@@ -328,12 +327,12 @@ const connector = connect(
     cadenceArchivedList: getArchivedCadencesList(state),
   }),
   {
+    push: pushRouter,
     fetchCadenceListAction,
     createCadenceAction,
     updateCadenceAction,
     archiveCadenceAction,
     restoreCadenceAction,
-    goToCadencePage: (id: number) => pushRouter(`/cadence/${id}`),
   },
 );
 const styles = (theme: Theme) =>
@@ -388,6 +387,7 @@ const styles = (theme: Theme) =>
       marginBottom: theme.spacing(2),
     },
   });
+
 export default compose(
   withStyles(styles),
   withTranslation(['marketing']),

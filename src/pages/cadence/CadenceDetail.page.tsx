@@ -6,7 +6,7 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import {
   type Theme,
-  WithStyles,
+  type WithStyles,
   createStyles,
   withStyles,
 } from '@material-ui/core';
@@ -189,6 +189,7 @@ export class CadenceDetailPage extends Component<Props> {
       this.props.cadence?.entries?.filter(
         (entry: ConnectedTrigger) => !entry.disabled,
       )?.length !== 0;
+
     return {
       cadenceWinConfigured,
       cadenceLoseConfigured,
@@ -508,7 +509,7 @@ const mapRefreshAllHandler = {
 const mapWithHandlers = {
   backtoCadenceList:
     (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) => () =>
-      props.push('/cadence'),
+      props.push('/cadence/wip'),
 
   updateCadenceName:
     (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>

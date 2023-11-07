@@ -113,3 +113,8 @@ We need to brutally override some things from MUI.
 .bs-basket_summary_prepaid_line_list--container {
   width: 100%;
 }
+
+#bs-custom-css__component__preview
+  .bs-login-container__forgotten-password__link {
+  pointer-events: none;
+}

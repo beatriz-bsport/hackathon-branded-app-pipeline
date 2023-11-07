@@ -26,6 +26,8 @@ export const MinimalMarketplaceAppBarCSSOnly: React.FC<Props> = ({
   photo,
   requestLogin,
 }) => {
+  const { t } = useTranslation('consumerSpace');
+
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement>(null);
@@ -38,14 +40,13 @@ export const MinimalMarketplaceAppBarCSSOnly: React.FC<Props> = ({
     (event: React.SyntheticEvent<HTMLElement>) => {
       if (auth) {
         setIsMenuOpen(true);
-        setAnchorEl(event.currentTarget);
+        const currentTarget = event.currentTarget;
+        setAnchorEl(currentTarget);
       }
       requestLogin?.();
     },
     [auth, requestLogin],
   );
-
-  const { t } = useTranslation('consumerSpace');
 
   return (
     <div id="bs-minimal-appbar--container">
@@ -68,6 +69,7 @@ export const MinimalMarketplaceAppBarCSSOnly: React.FC<Props> = ({
                 aria-haspopup="true"
                 aria-owns={isMenuOpen ? 'material-appbar' : undefined}
                 color="disabled"
+                id="bs-minimal-appbar__right--profile__image__default__avatar"
               />
             )}
           </div>

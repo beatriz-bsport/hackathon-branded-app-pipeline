@@ -31,7 +31,7 @@
 }
 
 .bs-login-background__dark--default {
-  background: rgba(44, 118, 126);
+  background: rgb(44, 118, 126);
   opacity: 0.6;
 }
 
@@ -41,7 +41,7 @@
 }
 
 .bs-login-background__light--default {
-  background: rgba(73, 156, 124);
+  background: rgb(73, 156, 124);
   opacity: 0.6;
 }
 

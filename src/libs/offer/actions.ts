@@ -549,6 +549,7 @@ export function fetchOfferBulk(
     dispatch(offerBulkActions.isLoading(false));
   };
 }
+
 export const setStoredOffersInGroupsDataActions = {
   execute: createAction<{ groupId: number; offersIds: number[] }>(
     'OFFER/SET_STORED_DATA_IN_GROUP/EXECUTE',

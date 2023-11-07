@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { fakerEN as faker } from '@faker-js/faker';
 import { ComponentMeta } from '@storybook/react';
 
-import TextField, { type Props, TextFieldSize } from '.';
+import TextField, { Props, TextFieldSize } from '.';
 import { MuiThemeToCssVarsHOC } from '#hocs/marketplace-css.hoc';
 
 import './styles-storybook.css';

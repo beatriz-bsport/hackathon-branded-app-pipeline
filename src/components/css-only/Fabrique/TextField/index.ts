@@ -1,5 +1,6 @@
 import TextField, { Props, TextFieldForStorybook } from './TextField.component';
 import { TextFieldSize } from './types';
 
-export { TextFieldForStorybook, type Props, TextFieldSize };
+export type { Props };
+export { TextFieldForStorybook, TextFieldSize };
 export default TextField;

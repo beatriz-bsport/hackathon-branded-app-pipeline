@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ComponentMeta } from '@storybook/react';
 
-import Skeleton, { type Props, SkeletonAnimation, SkeletonVariant } from '.';
+import Skeleton, { Props, SkeletonAnimation, SkeletonVariant } from '.';
 import { MuiThemeToCssVarsHOC } from '#hocs/marketplace-css.hoc';
 
 import './styles-storybook.css';

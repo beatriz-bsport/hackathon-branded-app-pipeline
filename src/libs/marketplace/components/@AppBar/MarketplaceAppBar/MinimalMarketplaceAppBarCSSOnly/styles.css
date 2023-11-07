@@ -43,6 +43,9 @@
   border-radius: var(--border-radius-8);
 }
 
+#bs-minimal-appbar__right--profile__image__default__avatar {
+}
+
 #bs-minimal-appbar__right--profile__image__container .MuiSvgIcon-root {
   font-size: 38px;
 }
@@ -54,6 +57,12 @@
     border-style: solid;
     border-width: 4px;
     border-radius: 50%;
+  }
+}
+
+@media (max-width: 960px) {
+  #bs-minimal-appbar__right--auth__name__container {
+    display: none;
   }
 }
 

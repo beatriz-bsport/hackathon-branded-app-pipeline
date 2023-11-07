@@ -326,7 +326,7 @@ export class BookerModuleManager extends PureComponent<Props, State> {
                   </Alert>
                 </>
               )}
-              {this.props.companyTheme.max_future_booking &&
+              {!!this.props.companyTheme.max_future_booking &&
                 this.props.futureBookingsByMemberCount >=
                   this.props.companyTheme.max_future_booking && (
                   <Typography align="center" color="error" variant="body1">

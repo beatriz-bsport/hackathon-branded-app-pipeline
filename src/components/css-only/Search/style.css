@@ -39,7 +39,13 @@
 
 .bs-search__input {
   font-family: var(--body2-fontFamily);
-  font-size: var(--body2-fontSize);
+  /* to disable autofocus on safari, font-size needs to be 16px minimum 
+  we're trying text-size adjust instead of hardcoding 16px for now
+  */
+  /* font-size: 16px; */
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
   color: var(--color-grey-dark);
   border: none;
   padding: 0 12px;
@@ -79,7 +85,13 @@
 
 .bs-search__results__container__list__placeholder {
   font-family: var(--body2-fontFamily);
-  font-size: var(--body2-fontSize);
+  /* to disable autofocus on safari, font-size needs to be 16px minimum 
+  we're trying text-size adjust instead of hardcoding 16px for now
+  */
+  /* font-size: 16px; */
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
   margin: 0;
   text-align: center;
 }

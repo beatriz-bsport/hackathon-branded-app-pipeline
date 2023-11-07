@@ -13683,6 +13683,7 @@
         "marketplace_prepaid_line_list": "Prepaid line list",
         "authentication_reset_password_form": "Reset password form",
         "authentication_login_form": "Login form",
+        "authentication_login": "Login component",
         "fabrique_typography": "Typography",
         "fabrique_card": "Card",
         "marketplace_minimal_appbar": "Minimal AppBar"

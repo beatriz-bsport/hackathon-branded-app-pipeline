@@ -30,6 +30,7 @@ export type Props = {
   isRequired?: boolean;
   id: string;
   inputId: string;
+  inputTestId?: string;
   helperTextId?: string;
   isError?: boolean;
   variant?: `${TextFieldVariant}`;
@@ -55,6 +56,7 @@ const TextField: React.FC<Props> = ({
   isRequired,
   id,
   inputId,
+  inputTestId,
   helperTextId,
   isError,
   variant = TextFieldVariant.OUTLINED,
@@ -134,6 +136,7 @@ const TextField: React.FC<Props> = ({
             },
             classes?.input,
           )}
+          data-testid={inputTestId}
           disabled={isDisabled}
           id={inputId}
           name={name}

@@ -79,7 +79,7 @@ const CanvasSvgDisplayOnly: React.FC = ({
     <TransformWrapper
       initialScale={1}
       onZoomStop={onZoomStop}
-      panning={{ disabled: !isPanningDisabled }}
+      panning={{ disabled: isPanningDisabled }}
     >
       <TransformComponent>
         <div

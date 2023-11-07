@@ -686,14 +686,19 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
   setBuyableItemsAndOfferFeature = () => {
     this.getBuyableItemCategories();
 
-    const { isBookable, blockedByTags, isRegistered, isRegisteredWaitingList } =
-      getOfferFeature(
-        // @ts-expect-error
-        this.props.offer,
-        this.props.offerStatusById,
-        this.props.theme.accept_double_booking,
-        this.props.theme.accept_double_booking_workshop,
-      );
+    const {
+      isBookable,
+      isWaitingList,
+      blockedByTags,
+      isRegistered,
+      isRegisteredWaitingList,
+    } = getOfferFeature(
+      // @ts-expect-error
+      this.props.offer,
+      this.props.offerStatusById,
+      this.props.theme.accept_double_booking,
+      this.props.theme.accept_double_booking_workshop,
+    );
 
     let isBookingBlocked = !isBookable || blockedByTags;
 
@@ -704,6 +709,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
         this.props.offerStatusById[this.props.offerId],
         {
           isBookable,
+          isWaitingList,
           isRegistered,
           isRegisteredWaitingList,
           blockedByTags,

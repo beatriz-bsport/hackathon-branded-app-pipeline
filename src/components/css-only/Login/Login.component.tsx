@@ -13,8 +13,6 @@ import WidgetUtils from '#libs/widget/WidgetUtils';
 import Config from '../../../config';
 import { Franchise } from '#libs/franchise/types';
 import { buildUrlParams } from '../../../http';
-import ApplyCustomCssStyles from '#libs/widget/components/ApplyCustomCssStyles.component';
-import type { MarketplaceCSSConfiguration } from '#libs/exportable-components/types';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 import './LoginBackground.css';
@@ -39,7 +37,6 @@ export type Props = {
   franchisor?: Franchise;
   hideRegister?: boolean;
   emailChoices?: Array<string>;
-  customConfiguration?: MarketplaceCSSConfiguration;
 } & WithTranslation;
 
 type State = {
@@ -107,12 +104,6 @@ export class ConsumerLogin extends Component<Props, State> {
     return (
       <div className="bs-login-container bs-flex-column--center">
         <div className="bs-flex-column--center bs-login-container__get-email-login">
-          {this.props.customConfiguration && (
-            <ApplyCustomCssStyles
-              customConfiguration={this.props.customConfiguration}
-            />
-          )}
-
           {!WidgetUtils.isWidget() && !this.props.logoHidden && !simplifyUI && (
             <div className="bs-login-container__logo-container">
               <div>

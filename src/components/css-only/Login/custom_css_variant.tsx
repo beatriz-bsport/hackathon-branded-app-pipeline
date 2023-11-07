@@ -75,7 +75,6 @@ const usePropsFromVariation = (
           count: 3,
         })
       : null,
-    customConfiguration: undefined,
   };
 };
 

@@ -30,6 +30,7 @@ import { buildSignUpUrl } from '../utils';
 import './LoginPageStyles.css';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#libs/exportable-components/actions';
+import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
 
 type OwnProps = {
   location: {
@@ -266,7 +267,6 @@ const mapStateToProps = (
 const connector = connect(null, properMapDispatchToProps);
 
 export default compose(
-  marketplaceCssHoc(),
   withRouter,
   withTranslation('login'),
   withQueryParamsUndecoded([['step'], 'queryParams', 'setQueryParams']),
@@ -295,4 +295,6 @@ export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   connect(null, properMapDispatchToProps),
   withHandlers(mapWithHandlers),
+  marketplaceCssHoc(),
+  WithCustomCssProvider,
 )(ConsumerLoginPage);

@@ -67,7 +67,6 @@ const ValidateEmailWithTokenPage = asyncComponent(
 const LoginPage = asyncComponent(() => import('./login-page/Login.page'));
 
 const ResetPassword = asyncComponent(
-  // @ts-expect-error
   () => import('./reset-password-page/ResetPassword.page'),
 );
 

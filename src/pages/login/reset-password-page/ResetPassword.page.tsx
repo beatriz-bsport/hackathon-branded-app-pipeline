@@ -1,57 +1,60 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import { connect, ConnectedProps as ConnectedPropsRedux } from 'react-redux';
 import { compose, withProps } from 'recompose';
 import { Redirect } from 'react-router-dom';
-
 import ResetPasswordForm from '#csscomponents/ResetPasswordForm';
 import { parseQueryString, buildUrlParams } from '../../../http';
 import ApplyCustomCssStyles from '#libs/widget/components/ApplyCustomCssStyles.component';
 
+// @ts-expect-errors
 import { resetPassword } from '../../../actions/auth.actions';
 import { getIsUISimplified } from '#libs/theme/selectors';
 import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '../../../libs/exportable-components/actions';
 
-import { MarketplaceCSSConfiguration } from '#libs/exportable-components/types';
+import type { RootState } from '../../../reducers';
 
-type Props = {
+type LocationProps = { location: Location };
+
+type WithQueryParamsProps = {
+  membership: null | string;
+  franchisorId?: string;
+};
+
+type ConnectedProps = ConnectedPropsRedux<typeof connector> & {
   resetPassword: (
     email: string,
     companyId: number | null,
     options: any,
-  ) => void,
-  loading: boolean,
-  resetError: ?Error,
-  last_password_reset_request: string,
-  membership: null | number,
-  franchisorId: ?string,
-  simplifyUI?: boolean,
-  customConfiguration: MarketplaceCSSConfiguration,
-  retrieveCompanyCssConfiguration: (
-    company: number,
-    options?: OptionCallback<MarketplaceCSSConfiguration[]>,
-  ) => Promise<void>,
+  ) => void;
+  last_password_reset_request: string;
 };
+type Props = ConnectedProps & LocationProps & WithQueryParamsProps;
 
 type State = {
-  email: string,
-  hasSent: boolean,
-  redirectLogin: boolean,
+  email: string;
+  hasSent: boolean;
+  redirectLogin: boolean;
 };
 
 export class ResetPassword extends Component<Props, State> {
-  state = {
-    email: '',
-    hasSent: false,
-    redirectLogin: false,
-  };
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      email: '',
+      hasSent: false,
+      redirectLogin: false,
+    };
+  }
 
   componentDidMount() {
     if (this.props.membership) {
-      this.props.retrieveCompanyCssConfiguration(this.props.membership);
+      this.props.retrieveCompanyCssConfiguration(
+        parseInt(this.props.membership),
+      );
     }
   }
 
-  updateEmail = (event: Object) => {
+  updateEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({
       email: event.target.value,
     });
@@ -76,7 +79,7 @@ export class ResetPassword extends Component<Props, State> {
   };
 
   getRedirectUrlWithParams = () => {
-    const loginPathParams = {};
+    const loginPathParams = {} as { membership?: string; franchisor?: string };
     if (this.props.membership) {
       loginPathParams.membership = this.props.membership;
     }
@@ -109,7 +112,6 @@ export class ResetPassword extends Component<Props, State> {
         )}
 
         <ResetPasswordForm
-          customConfiguration={this.props.customConfiguration}
           email={this.state.email}
           hasResetError={!!this.props.resetError}
           hasSent={this.state.hasSent}
@@ -126,27 +128,30 @@ export class ResetPassword extends Component<Props, State> {
   }
 }
 
+const connector = connect(
+  (state: RootState, { membership }: WithQueryParamsProps) => {
+    return {
+      resetError: state.auth.resetPassword.error,
+      loading:
+        state.auth.resetPassword.loading && state.exportableComponents.loading,
+      last_password_reset_request:
+        state.auth.resetPassword.last_password_reset_request,
+      simplifyUI: !!membership && getIsUISimplified(state),
+      customConfiguration: state.exportableComponents.customCss,
+    };
+  },
+  {
+    resetPassword,
+    retrieveCompanyCssConfiguration: retrieveCompanyCssConfigurationAction,
+  },
+);
+
 export default compose(
-  withProps((props) => ({
+  withProps((props: LocationProps) => ({
+    // @ts-expect-error
     membership: parseQueryString(props.location.search)?.membership,
+    // @ts-expect-error
     franchisorId: parseQueryString(props.location.search)?.franchisor,
   })),
-  connect(
-    (state, { membership }) => {
-      return {
-        resetError: state.auth.resetPassword.error,
-        loading:
-          state.auth.resetPassword.loading &&
-          state.exportableComponents.loading,
-        last_password_reset_request:
-          state.auth.resetPassword.last_password_reset_request,
-        simplifyUI: !!membership && getIsUISimplified(state),
-        customConfiguration: state.exportableComponents.customCss,
-      };
-    },
-    {
-      resetPassword,
-      retrieveCompanyCssConfiguration: retrieveCompanyCssConfigurationAction,
-    },
-  ),
+  connector,
 )(ResetPassword);

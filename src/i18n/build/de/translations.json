@@ -7125,16 +7125,16 @@
         },
         "establishmentBillingGroup": {
             "delete": {
-                "error": "Die Rechnungsgruppe kann nicht gelöscht werden",
+                "error": "Die Abrechnungsgruppe kann nicht gelöscht werden",
                 "success": "Fakturierungsgruppe gelöscht"
             },
             "update": {
-                "error": "Die Rechnungsgruppe kann nicht geändert werden",
-                "success": "Geänderte Rechnungsgruppe"
+                "error": "Die Abrechnungsgruppe kann nicht geändert werden",
+                "success": "Abrechnungsgruppe geändert"
             },
             "create": {
-                "error": "Die Rechnungsgruppe kann nicht erstellt werden",
-                "success": "Die neue Rechnungsgruppe wurde erstellt"
+                "error": "Die Abrechnungsgruppe kann nicht erstellt werden",
+                "success": "Die neue Abrechnungsgruppe wurde erstellt"
             }
         },
         "customFormDisplayRule": {
@@ -7336,24 +7336,24 @@
         "configuration": {
             "submit_stripe_footer": "Aktualisieren",
             "forms": {
-                "stripe_footer_placeholder": "Keine weitere Angabe",
+                "stripe_footer_placeholder": "Keine weitere rechtliche Angabe",
                 "show_company_email_in_invoice": "Anzeige der Kontakt-E-Mail Ihres Unternehmens auf Rechnungen"
             },
             "stripe_footer": "Fußzeile der Rechnung",
-            "explainStripeFooter": "Dieser Text wird am Ende Deiner als PDF bearbeiteten Rechnungen angezeigt. Füge alle erforderlichen rechtlichen Hinweise hinzu.",
+            "explainStripeFooter": "Dieser Text wird am Ende Ihrer als PDF bearbeiteten Rechnungen angezeigt. Fügen Sie alle erforderlichen rechtlichen Hinweise hinzu.",
             "nf525Button": "Herunterladen",
-            "nf525Explain": "Bsport befolgt die NF525-Konformitätsverfahren. Hier kannst Du unser offizielles Zertifikat herunterladen.",
-            "nf525": "Zertifizierung",
+            "nf525Explain": "Bsport befolgt die NF525-Konformitätsverfahren. Hier können Sie unser offizielles Zertifikat herunterladen.",
+            "nf525": "NF525 Zertifizierung",
             "subscription": {
                 "forms": {
                     "disable_pass_on_fail_subscription_payment": {
-                        "helperText": "Wenn die Zahlung des Abonnements fehlschlägt oder für strittig erklärt wird, werden die Kurs- und Terminpässe für diese Rechnung deaktiviert, bis die Rechnung eingezogen wird",
-                        "label": "Deaktivieren Sie Pässe, wenn die Zahlung fehlschlägt."
+                        "helperText": "Wenn die Zahlung des Abonnements scheitert oder für strittig erklärt wird, werden die Kurs- und Terminpässe für diese Rechnung deaktiviert, bis die Rechnung eingezogen wird",
+                        "label": "Deaktivieren Sie Pässe, wenn die Zahlung scheitert"
                     },
                     "revert_bookings_on_fail_subscription_payment": {
-                        "helperText": "Wenn die Zahlung des Abonnements fehlschlägt oder für strittig erklärt wird, werden die mit diesen Karten vorgenommenen Reservierungen storniert (und das Guthaben wieder gutgeschrieben)",
-                        "warning": "Achtung, Reservierungen werden nicht neu erstellt, wenn die Zahlung erfolgreich ist!",
-                        "label": "Stornieren Sie Reservierungen, wenn die Zahlung fehlschlägt."
+                        "helperText": "Wenn die Zahlung des Abonnements scheitert oder für strittig erklärt wird, werden die mit diesen Karten vorgenommenen Reservierungen storniert (und das Guthaben wieder gutgeschrieben)",
+                        "warning": "Achtung! Reservierungen werden nicht neu erstellt, wenn die Zahlung erfolgreich ist!",
+                        "label": "Stornieren Sie Reservierungen, wenn die Zahlung scheitert"
                     },
                     "nbRetriesSubscriptionPayments": {
                         "helperText": "Zwischen 0 und 5 Versuchen",
@@ -7458,10 +7458,10 @@
         },
         "returnPayment": {
             "modal": {
-                "confirm": "Zurückzahlen",
+                "confirm": "Rückerstatten",
                 "cancel": "Abbrechen",
                 "title": "Rückerstattung an Kunden",
-                "content": "Die Zahlung wird auf das BANK-Konto des Kunden überwiesen, eine Anzahlung des gleichen Betrags wird der Rechnung hinzugefügt, um die Zahlung zu repräsentieren."
+                "content": "Die Zahlung wird auf das Bankkonto des Kunden überwiesen. Eine Anzahlung des gleichen Betrags wird der Rechnung hinzugefügt, um die Zahlung zu repräsentieren."
             }
         },
         "section": {
@@ -8411,15 +8411,15 @@
             "threeHour": "3 Std.",
             "twoHour": "2 Std.",
             "oneHourAndHalf": "1 Std. 30 Min",
-            "oneHourFifteen": "1 Std. 15 Min",
+            "oneHourFifteen": "1 Std. 15 Min.",
             "oneHour": "1 Std.",
             "halfAndQuarterHour": "45 Min",
             "halfHour": "30 Min",
-            "twentyMinutes": "20 min",
+            "twentyMinutes": "20 Min",
             "quarterHour": "15 Min",
             "zeroMinute": "0 Min",
-            "fiftyMinutes": "50 min",
-            "tenMinutes": "10 min"
+            "fiftyMinutes": "50 Min.",
+            "tenMinutes": "10 Min."
         },
         "time": {
             "monthShort": {
@@ -8431,10 +8431,10 @@
                 "january": "Jan",
                 "november": "Nov",
                 "december": "Dez",
-                "july": "Juli",
-                "june": "Juni",
+                "july": "Jul",
+                "june": "Jun",
                 "may": "Mai",
-                "march": "März"
+                "march": "Mär"
             },
             "weekday": {
                 "satursday": "Samstag",
@@ -9668,7 +9668,7 @@
                 "not_applicable": "Dieser Gutscheincode ist nicht anwendbar.",
                 "apply": "Bewerben",
                 "5006": "Dieser einmalige Code ist bereits mit einem offenen Warenkorb verbunden",
-                "5004": "Dieser Code kann nicht auf einen einzelnen Artikel angewendet werden."
+                "5004": "Dieser Code kann nur auf einen Artikel angewendet werden."
             }
         },
         "createCoupon": "Einen Rabatt hinzufügen",
@@ -12808,12 +12808,12 @@
         "graphFormDrawer": {
             "helperText": {
                 "booking_effectif_timeslots": "Durchschnittliche Anzahl der Teilnehmer in den Sessions pro Zeitfenster.",
-                "subscriptionCount": "Anzahl der Rechnungen im Zusammenhang mit den Anmeldungen.",
+                "subscriptionCount": "Anzahl der Rechnungen im Zusammenhang mit den Abonnements.",
                 "subscriptionPrice": {
-                    "max": "Maximum aller erhaltenen Zahlungen im Zusammenhang mit den Anmeldungen.",
-                    "min": "Minimum aller erhaltenen Zahlungen im Zusammenhang mit den Anmeldungen.",
-                    "avg": "Durchschnitt aller erhaltenen Zahlungen im Zusammenhang mit den Anmeldungen.",
-                    "sum": "Summe aller erhaltenen Zahlungen im Zusammenhang mit den Anmeldungen."
+                    "max": "Maximum aller erhaltenen Zahlungen im Zusammenhang mit den Abonnements.",
+                    "min": "Minimum aller erhaltenen Zahlungen im Zusammenhang mit den Abonnements.",
+                    "avg": "Durchschnitt aller erhaltenen Zahlungen im Zusammenhang mit den Abonnements.",
+                    "sum": "Summe aller erhaltenen Zahlungen im Zusammenhang mit den Abonnements."
                 },
                 "plannedInvoiceCount": "Anzahl der Rechnungen im Zusammenhang mit den Abonnements.",
                 "dateCreated": "Die Daten werden zeitlich nach dem Datum dargestellt, an dem die Buchungen vorgenommen wurden.",
@@ -12827,10 +12827,10 @@
                 "graph_dispute": "Streitigkeiten",
                 "graph_subscriptions": "Rechnungen der Abonnements",
                 "graph_payments": "Zahlungen",
-                "graph_private_bookings": "Termin",
-                "graph_bookings": "Reservierungen",
+                "graph_private_bookings": "Termine",
+                "graph_bookings": "Buchungen",
                 "graph_members": "Neue Mitglieder",
-                "graph_billing_plan": "Anmeldungen",
+                "graph_billing_plan": "Abonnements",
                 "graph_invoice_items": "Einkäufe"
             },
             "aggregation": {
@@ -12858,7 +12858,7 @@
             "labels": {
                 "aggregationName": "Aggregation",
                 "dividedBy": "Geteilt durch",
-                "dataToDisplay": "Angezeigte Angabe",
+                "dataToDisplay": "Angezeigte Daten",
                 "dateFilterField": "Angabe für das Datum",
                 "groupByField": "Verteilen auf",
                 "graphFamily": {
@@ -12934,10 +12934,10 @@
             "member_pk_accumulate": "Anzahl der Mitglieder",
             "member_pk": "Anzahl der neuen Mitglieder",
             "date_joined": "Datum der Anmeldung",
-            "plan_auto_renewal": "Stillschweigende Verlängerung",
+            "plan_auto_renewal": "Automatische Verlängerung",
             "billing_plan_payment_method": "Zahlungsmethode",
             "last_invoice_status": "Status der letzten Zahlung",
-            "billingplan_pk": "Anzahl der Anmeldungen",
+            "billingplan_pk": "Anzahl der Abonnements",
             "new_member_only": "Angebot für Neumitglieder",
             "plan_date_end": "Enddatum der Rechnungsstellung",
             "plan_date_start": "Erstes Rechnungsdatum",
@@ -12946,15 +12946,15 @@
             "private_pass": "Terminpass",
             "total_payments_made": "Anzahl der getätigten Zahlungseingänge",
             "is_no_show": "Abwesend",
-            "contract_name": "Anmeldung",
+            "contract_name": "Abonnement",
             "payout_identifier": "Überweisung",
-            "payout_status": "Status der Überweisungs",
-            "total_discount": "Ermäßigung insgesamt",
+            "payout_status": "Status der Überweisung",
+            "total_discount": "Gesamtrabatt",
             "plan_status": "Status des Abonnements",
             "establishment": "Niederlassung",
             "nb_planned_invoices": "Anzahl der Zahlungseingänge gesamt",
-            "margin_value": "Grenzertrag (inkl. MwSt.)",
-            "dispute_status": "Streitstand",
+            "margin_value": "Grenzwert (inkl. MwSt.)",
+            "dispute_status": "Status der Streitigkeiten",
             "payout_date_created": "Überweisungsdatum",
             "is_unpaid": "Unbezahlt",
             "staff_commission_amount_notax": "Personalprovision ohne MwSt",
@@ -13351,9 +13351,9 @@
     "emailTemplate": {
         "editor": {
             "error": {
-                "content": "Bitte gib den Inhalt der E-Mail ein",
-                "title": "Bitte gib einen Namen ein",
-                "subject": "Bitte geben Sie ein Objekt ein"
+                "content": "Bitte geben Sie den Inhalt der E-Mail an",
+                "title": "Bitte geben Sie einen Namen an",
+                "subject": "Bitte geben Sie einen Betreff an"
             },
             "cancel": "Abbrechen",
             "subject": "Betreff",
@@ -13363,7 +13363,7 @@
             "selectorPlaceholder": "Auswahl der Franchisenehmer",
             "shareWithHelper": "Die Vorlage kann von den Franchisenehmern nicht geändert werden",
             "shareWith": "Teilen mit",
-            "showRequiredTags": "Siehe die Variablen",
+            "showRequiredTags": "Variablen anzeigen",
             "infoBoxTextFirstLine": "Diese E-Mail ist mit der Transaktions-E-Mail \"{{-names}}\" verknüpft. Einige Variablen sind erforderlich.",
             "infoBoxTextLastLine": "Stellen Sie sicher, dass Sie sie zu Ihrer Vorlage hinzufügen, damit sie gespeichert werden können.",
             "alertBoxTextFirstLine": "Diese E-Mail ist mit der Transaktions-E-Mail \"{{-names}}\" verknüpft. Sie muss die folgenden Variablen enthalten: ",
@@ -13372,10 +13372,10 @@
         },
         "no_subject": "Kein Betreff",
         "preview": "Vorschau der E-Mail",
-        "subject": "Betreff :",
-        "modification_date": "Letzte Änderung am",
-        "templateListEmpty": "Keine Vorlage, erstelle Deine erste Vorlage hier.",
-        "create": "Eine Vorlage erstellen",
+        "subject": "Betreff:",
+        "modification_date": "Zuletzt bearbeitet am",
+        "templateListEmpty": "Auf diesem Tab können Sie mit unserem Drag-&-Drop-E-Mail-Editor schöne und personalisierte E-Mail-Vorlagen entwerfen. Sie können diese direkt an Mitglieder senden und mit automatischen Benachrichtigungen verknüpfen, um Ihre Mitgliederinteraktion zu optimieren.",
+        "create": "Vorlage erstellen",
         "selectToShowPreview": "Eine Vorlage auswählen",
         "detail": "Ausführliche Informationen",
         "search": "Eine Vorlage suchen",
@@ -13391,13 +13391,13 @@
                 "title": "E-Mail-Vorlage löschen"
             }
         },
-        "editTitle": "Änderung der Vorlage",
+        "editTitle": "Vorlage bearbeiten",
         "autoSave": "Automatisches Backup",
         "leaveAlert": "Möchten Sie diese Seite wirklich verlassen?",
         "delete": "Löschen",
-        "edit": "Ändern",
+        "edit": "Bearbeiten",
         "allCompanies": "Alle Franchisenehmer",
-        "seeAll": "Alle sehen",
+        "seeAll": "Alle ansehen",
         "franchiseEmails": "Franchise-Vorlagen",
         "companieEmails": "Meine Vorlagen",
         "infoBsportTemplateEmails": "Wenn Sie Benachrichtigungen versenden oder die Vorlagen in diesem Abschnitt bearbeiten möchten, müssen Sie eine Kopie der gewünschten Vorlage erstellen. Wählen Sie dann die Kopie der E-Mail aus, wenn Sie eine Benachrichtigung versenden.",
@@ -14021,7 +14021,7 @@
     "event": {
         "booking": {
             "register": {
-                "name": "Neue Buchung",
+                "name": "Neue Buchungen",
                 "description": "Wird bei einer neuen registrierten Buchung ausgelöst"
             }
         },
@@ -14036,7 +14036,7 @@
         "member": {
             "register": {
                 "name": "Neues Mitglied",
-                "description": "Wird ausgelöst, wenn auf Bsport ein neues Mitglied des Studios auf Bsport hinzugefügt wird"
+                "description": "Wird ausgelöst, wenn auf bsport ein neues Mitglied des Studios hinzugefügt wird"
             }
         },
         "booking_option": {
@@ -14556,8 +14556,8 @@
             "methodPaymentCardBillingDetailsHelper": "Wenn Sie diese Funktion aktivieren, reduzieren Sie die Anzahl der Kartenzahlungen, die 3D Secure erfordern (SMS-Validierung, Bankanwendungen usw.).Achtung, diese Felder sind Pflichtfelder."
         },
         "billing_group": {
-            "header": "Abrechnungsgruppen",
-            "helperText": "Wenn Sie mehrere Studios unter verschiedenen Firmennamen haben, können Sie sie hier nach Rechnungsgruppen gruppieren. Die Rechnungsgruppen erscheinen in Ihren Berichten, um die Zuordnung jeder Rechnung zum richtigen Firmennamen zu erleichtern.",
+            "header": "Abrechnungsgruppe",
+            "helperText": "Wenn Sie mehrere Studios unter verschiedenen Firmennamen haben, können Sie sie hier nach Abrechnungsgruppen gruppieren. Die Abrechnungsgruppen erscheinen in Ihren Berichten, um die Zuordnung jeder Rechnung zum richtigen Firmennamen zu erleichtern.",
             "add": "Gruppe hinzufügen"
         },
         "quickbooks": {
@@ -14768,7 +14768,7 @@
                 },
                 "title": "Einrichtung löschen",
                 "content": {
-                    "canDelete": "Bist Du sicher, dass Du diese Einrichtung löschen möchtest? Diese Aktion ist unwiderruflich. Vergangene Kurse und bereits registrierte Buchungen werden nicht davon betroffen",
+                    "canDelete": "Sind Sie sicher, dass Sie diese Einrichtung löschen möchten? Diese Aktion ist unwiderruflich. Vergangene Kurse und bereits registrierte Buchungen sind nicht davon betroffen.",
                     "cannotDelete": "Es ist unmöglich, diese Einrichtung zu löschen, da Kurse in der Zukunft dort geplant sind. Prüfe, ob sie storniert und dann gelöscht wurden"
                 }
             },
@@ -14778,19 +14778,19 @@
             "create": {
                 "title": "Neue Einrichtung"
             },
-            "edit": "Ändern"
+            "edit": "Bearbeiten"
         },
         "establishment": "Einrichtung",
-        "baseEstablishment": "Gewöhnlich",
+        "baseEstablishment": "Standard",
         "overrider": "Vertretung",
-        "establishment_override": "Vertretungseinrichtung",
+        "establishment_override": "Ersatzeinrichtung",
         "search": "Eine Einrichtung suchen",
         "addButton": "Eine Einrichtung hinzufügen",
         "pleaseSelectOne": "Bitte wählen Sie ein Studio auf der Karte aus",
-        "offers": "Kalender der Kurse :",
+        "offers": "Kurskalender:",
         "noMoreOffers": "Kein anderer geplanter Kurs",
         "goBackToList": "Zurück zur Einrichtungen",
-        "pleaseFill": "Bitte gib eine Einrichtung an",
+        "pleaseFill": "Bitte geben Sie eine Einrichtung an",
         "practical_info": {
             "label": "Zugangsinformationen",
             "placeholder": "Code 1234 rechte Tür",
@@ -14805,10 +14805,10 @@
             "update": "Ändern"
         },
         "update": {
-            "imageUploaderRequireEditMessage": "Sobald die Einrichtung erstellt ist, hast Du die Möglichkeit, zusätzliche Bilder hinzuzufügen."
+            "imageUploaderRequireEditMessage": "Sobald die Einrichtung erstellt ist, haben Sie die Möglichkeit, zusätzliche Bilder hinzuzufügen."
         },
         "cancel": "Abbrechen",
-        "noEstablishement": "Verwalte hier Deine Einrichtungen, Deinen Standort, Deine Auslastung und Deinen Kalender",
+        "noEstablishement": "Verwalten Sie hier Ihre Einrichtungen, Ihren Standort, Ihre Auslastung und Ihren Kalender",
         "notificationToolTip": "Benachrichtigungen sind für Buchungen in dieser Einrichtung aktiviert",
         "list": {
             "section": {
@@ -14827,26 +14827,26 @@
         },
         "spotScheduling": {
             "delete": {
-                "content": "Sind Sie sicher, dass Sie diesen Sitzplan löschen möchten? Dieser Vorgang ist unumkehrbar.",
-                "title": "Sitzplan löschen"
+                "content": "Sind Sie sicher, dass Sie dieses Platzlayout löschen möchten? Dieser Vorgang ist unumkehrbar.",
+                "title": "Platzlayout löschen"
             },
-            "title": "Sitzplan",
-            "subtitle": "Wird für die Spotterminierung verwendet. Ermöglicht es Ihren Kunden, den von ihnen gewünschten Platz im Raum zu reservieren.",
-            "add": "Einen Sitzplan hinzufügen",
-            "placeCount": "{{count}} orte",
+            "title": "Spot Scheduling",
+            "subtitle": "Wird für die Platzreservierung verwendet. Es ermöglicht Ihren Kunden, den von ihnen gewünschten Platz im Raum zu reservieren.",
+            "add": "Ein Platzlayout hinzufügen",
+            "placeCount": "{{count}} Orte",
             "untitled": "Unbenannt"
         },
         "group": {
             "table": {
-                "name": "Nachname",
-                "establishment": "Aktionen",
-                "actions": "Aktionen"
+                "name": "Name",
+                "establishment": "Einrichtungen",
+                "actions": "Aktion"
             },
             "modal": {
                 "delete": {
                     "confirm": "Löschen",
                     "cancel": "Abbrechen",
-                    "content": "Dieser Ort wird in handelsüblichen Filtern, Widgets und benutzerdefinierten Apps nicht mehr angezeigt.",
+                    "content": "Dieser Ort wird in den Filtern, Widgets und benutzerdefinierten Apps nicht mehr angezeigt.",
                     "title": "Einen Standort löschen"
                 }
             },
@@ -14856,43 +14856,43 @@
                     "cancel": "Abbrechen",
                     "title": "Standort"
                 },
-                "associated_localizations": "Verbundene Betriebe",
-                "name": "Nachname"
+                "associated_localizations": "Verbundene Einrichtungen",
+                "name": "Name"
             },
             "noGroupHelper": "Standorte werden verwendet, um mehrere Adressen zu gruppieren. Wenn Sie mehrere Studios in verschiedenen Städten haben, können Sie Studios aus derselben Stadt an einem Ort gruppieren. Auf dem Markt, dem Widget und der personalisierten Anwendung können Ihre Kunden den Standort auswählen, der sie am meisten interessiert, um nur die Kurse in ihrer Nähe zu sehen.",
-            "actions": "Aktionen",
-            "name": " Nachname",
-            "addLocalisation": "einen Ort hinzufügen",
-            "groupButton": "Gruppenbetriebe"
+            "actions": "Aktion",
+            "name": " Name",
+            "addLocalisation": "Ort hinzufügen",
+            "groupButton": "Gruppeneinrichtungen"
         },
-        "room": "Saal",
+        "room": "Einrichtung",
         "localisation": "Standort",
         "billing_group": {
             "table": {
-                "name": "name",
-                "establishment": "Niederlassungen",
-                "actions": "Abbrechen"
+                "name": "Name",
+                "establishment": "Einrichtungen",
+                "actions": "Aktionen"
             },
             "modal": {
                 "delete": {
-                    "confirm": "Supprimer",
+                    "confirm": "Löschen",
                     "cancel": "Abbrechen",
-                    "content": "Möchten Sie diese Rechnungsgruppe löschen? Die Löschung dieser Gruppe erfolgt rückwirkend, sie erscheint nicht mehr in den zugehörigen Berichten.",
-                    "title": "Löschen einer Rechnungsgruppe"
+                    "content": "Möchten Sie diese Abrechnungsgruppe löschen? Die Löschung dieser Gruppe erfolgt rückwirkend, weshalb sie nicht mehr in den zugehörigen Berichten erscheint.",
+                    "title": "Abrechnungsgruppe löschen"
                 }
             },
             "form": {
                 "error": {
-                    "groupShouldHaveName": "Sie müssen dieser Rechnungsgruppe einen Namen geben",
-                    "groupShouldContainsOneRoom": "Bitte wählen Sie mindestens ein Zimmer"
+                    "groupShouldHaveName": "Sie müssen dieser Abrechnungsgruppe einen Namen geben",
+                    "groupShouldContainsOneRoom": "Bitte wählen Sie mindestens eine Einrichtung"
                 },
                 "dialog": {
-                    "save": "Register",
+                    "save": "Speichern",
                     "cancel": "Abbrechen",
                     "title": "Abrechnungsgruppe"
                 },
-                "associated_localizations": "Zugehörige Räume",
-                "name": "name"
+                "associated_localizations": "Zugehörige Einrichtungen",
+                "name": "Name"
             },
             "actions": "Aktionen",
             "name": " Name"
@@ -14901,17 +14901,17 @@
         "favouriteLocation": "Lokalisierungspräferenzen",
         "notification": {
             "modal": {
-                "content": "Sind Sie sicher, dass Sie diese Benachrichtigung löschen möchten? Dieser Vorgang ist endgültig",
+                "content": "Sind Sie sicher, dass Sie diese Benachrichtigung löschen möchten? Dieser Vorgang ist endgültig.",
                 "confirm": "Löschen",
                 "cancel": "Abbrechen",
-                "title": "Unterdrückung der Benachrichtigung"
+                "title": "Benachrichtigung verweigern"
             }
         },
         "marketing": {
             "notification": "Benachrichtigungen"
         },
         "roomRequired": "Raum *",
-        "roomRequiredIsMissing": "Sie haben keine Rechnungsstelle ausgewählt."
+        "roomRequiredIsMissing": "Sie haben keine Abrechnungsstelle ausgewählt."
     },
     "checkout": {
         "myBasket": {
@@ -15561,7 +15561,9 @@
                     "isAddingItemPossible": "Hinzufügen weiterer Elemente aktiviert",
                     "isBookingDisabled": "Buchungen sind deaktiviert",
                     "cardVariant": "Wählen Sie die zu verwendende Kartenvariante",
-                    "componentType": "Container ist eine Schaltfläche"
+                    "componentType": "Container ist eine Schaltfläche",
+                    "isRippleEnabled": "Ripple-Effekt der Schaltfläche deaktivieren",
+                    "square": "Abgerundete Ecken deaktivieren"
                 },
                 "option": {
                     "activityName": "Aktivität",
@@ -16358,22 +16360,22 @@
         "companies": {
             "pageTitle": "Franchisenehmer",
             "navigateToCompany": "Anmeldung Franchisenehmer-Konto",
-            "membersEmptyState": "Keine Mitglieder in dieser Gesellschaft",
-            "establishmentEmptyState": "Keine Einrichtungen in diesem Unternehmen",
-            "establishment": "Niederlassungen",
+            "membersEmptyState": "Keine Mitglieder in diesem Studio",
+            "establishmentEmptyState": "Keine Einrichtungen in diesem Studio.",
+            "establishment": "Einrichtungen",
             "members": "Mitglieder",
-            "emptySelect": "Wählen Sie eine Franchise, um Details anzuzeigen.",
-            "searchPlaceholder": "Suche nach einem Franchisenehmer"
+            "emptySelect": "Wählen Sie ein Studio, um mehr Informationen anzuzeigen.",
+            "searchPlaceholder": "Suche nach einem Studio"
         },
         "member": {
             "pageTitle": "Mitglied",
-            "seeMembership": "siehe die Akte des Mitglieds",
-            "isVaccinated": "Gültiger Gesundheitspass",
+            "seeMembership": "Mitgliedinformationen anzeigen",
+            "isVaccinated": "Ich habe einen gültigen COVID-19 Ausweis",
             "franchises": "Franchises"
         },
         "pagination": {
             "outOf": "{{from}} - {{to}} -{{count}}",
-            "rowPerPage": "Element pro Seite",
+            "rowPerPage": "Elemente pro Seite",
             "nextPage": "Nächste Seite",
             "previousPage": "Vorherige Seite"
         },
@@ -16387,14 +16389,14 @@
         "emails": {
             "chooseGroup": "Wählen Sie eine Gruppe",
             "copy": "kopieren",
-            "groupByPlaceholder": "Gruppe nach",
+            "groupByPlaceholder": "Gruppieren nach",
             "franchised": "Franchisenehmer",
-            "groupBy": "Gruppe nach",
+            "groupBy": "Gruppieren nach",
             "pageTitle": "Vorlage",
             "companiesEmails": "Franchise-Vorlagen",
             "create": "Eine Vorlage erstellen",
             "franchiseEmails": "Meine Vorlagen",
-            "emptyStateDescription": "Wählen Sie eine Vorlage",
+            "emptyStateDescription": "Wählen Sie eine Vorlage, um eine Vorschau zu sehen.",
             "emptyStateTitle": "Vorschau auf die E-Mail",
             "searchPlaceholder": "Suche nach einer Vorlage"
         },
@@ -16449,7 +16451,7 @@
                 "titleInactive": "Nicht verfügbar zum Kauf",
                 "fuzzySearch": "Eine Karte suchen",
                 "shortMenu": {
-                    "goTo": "Details",
+                    "goTo": "Detail",
                     "delete": "Löschen",
                     "edit": "Bearbeiten",
                     "restore": "Wiederherstellen"
@@ -16491,14 +16493,14 @@
                 },
                 "section": {
                     "parameters": {
-                        "title": "Parameter"
+                        "title": "Einstellungen"
                     }
                 },
                 "description": {
                     "label": "Beschreibung"
                 },
                 "available_payment_method_identifiers": {
-                    "label": "Verfügbare Zahlungsmittel",
+                    "label": "Verfügbare Zahlungsmethoden",
                     "helperText": " "
                 },
                 "name": {
@@ -16538,7 +16540,7 @@
             "form": {
                 "footer": "Der Gutschein wird am {{- date_send }} um {{- hour_send }} per E-Mail an die angegebenen Adressen gesendet. Er ist für {{ expiration_days }} Tage nach dem Versand der E-Mail gültig. Dem Konto des Empfängers wird ein Betrag von {{- price }} für zukünftige Einkäufe gutgeschrieben.",
                 "actions": {
-                    "submit": "In den Warenkorb legen",
+                    "submit": "Zum Warenkorb hinzufügen",
                     "cancel": "Abbrechen"
                 },
                 "date_send": {
@@ -16578,7 +16580,7 @@
             "value": "Wert",
             "isFrom": "Von ",
             "isFor": "Zu Händen von ",
-            "isEmpty": "Keine Gutscheine",
+            "isEmpty": "Keine Gutscheine verfügbar.",
             "linkedInvoice": "Verknüpfte Rechnung",
             "list": {
                 "myGifted": "Erhaltene Gutscheine",
@@ -16589,7 +16591,7 @@
                     "submit": "Senden",
                     "close": "Schließen"
                 },
-                "content": "Sie können die Empfänger des Gutscheins ändern. Beachten Sie, dass nur einer sie verwenden kann. Wenn die E-Mail nicht angekommen ist, können Sie auch diesen Aktivierungslink weiterleiten:",
+                "content": "Sie können die Empfänger des Gutscheins ändern. Beachten Sie, dass nur einer ihn verwenden kann. Wenn die E-Mail nicht angekommen ist, können Sie auch diesen Aktivierungslink weiterleiten:",
                 "title": "Senden Sie eine Einladungs-E-Mail",
                 "activationCodeLink": "Die Einladungs-E-Mail wurde versandt und kann nicht mehr geändert werden. Sollte sie nicht den richtigen Empfänger erreicht haben, können Sie diesen Aktivierungslink weiterleiten, um die Geschenkkarte anzubieten: "
             },
@@ -16606,27 +16608,27 @@
         },
         "list": {
             "actions": {
-                "create": "Einen Gutschein hinzufügen",
+                "create": "Gutschein hinzufügen",
                 "goToGiftcard": "Alle Gutscheine anzeigen"
             },
             "addBackgroundImage": "Bild hinzufügen",
-            "isEmpty": "Keine Gutscheine verfügbar",
+            "isEmpty": "Keine Gutscheine verfügbar.",
             "archivedTitle": "Archivierte Gutscheine",
             "explainIfEmpty": "Gutscheine ermöglichen es Ihren Mitgliedern, Angebote mit ihren Gästen zu teilen und die potenzielle Reichweite Ihres Studios zu erhöhen.",
             "unavailableForSaleTitle": "Nicht zum Verkauf verfügbar",
             "activeTitle": "Zum Verkauf verfügbar",
             "visibility": "Nicht sichtbar",
             "unlimited": "Unbegrenzt",
-            "validity": "Gültig für {{ duration }} Tage"
+            "validity": "Gültig für {{ duration }} Tag(e)"
         },
         "delete": {
             "submit": "Bestätigen",
             "cancel": "Abbrechen",
-            "content": "Wollen Sie diesen Gutschein wirklich archivieren? Er wird nicht mehr in ihrem Backoffice zu sehen sein. Sie können ihn in der Zukunft wieder aktivieren.",
+            "content": "Wollen Sie diesen Gutschein wirklich archivieren? Er wird nicht mehr in Ihrem Backoffice zu sehen sein. Sie können ihn in der Zukunft wieder aktivieren.",
             "title": "Diesen Gutschein archivieren"
         },
         "search": "Gutschein suchen",
-        "widget": "Gutschein auswählen",
+        "widget": "Gutscheine auswählen",
         "giftcardTemplate": {
             "template": {
                 "deleteInstanceContent1": "Durch die Deaktivierung dieses Studios für die gemeinsame Nutzung des Gutscheins können alle Mitglieder, die diese Karte besitzen und sie von einem Mitglied erhalten haben, das diese Karte in diesem Studio gekauft hat, diese weiterhin nutzen. Sie können sie jedoch nicht mehr in anderen Studios verwenden.",
@@ -16756,7 +16758,7 @@
                     "tuesday": "Dienstag",
                     "wednesday": "Mittwoch",
                     "sunday": "Sonntag",
-                    "first": "1ers",
+                    "first": "erste",
                     "second": "zweite",
                     "thursday": "Donnerstag",
                     "saturday": "Samstag",
@@ -16764,9 +16766,9 @@
                     "friday": "Freitag"
                 },
                 "interval": "Intervall",
-                "count": "Anzahl der Vorkommen :",
+                "count": "Anzahl der Intervalle:",
                 "months": {
-                    "january": "Le dimanche",
+                    "january": "Januar",
                     "july": "Juli",
                     "august": "August",
                     "september": "September",
@@ -16779,38 +16781,38 @@
                     "june": "Juni",
                     "december": "Dezember"
                 },
-                "title": "Rekursion",
+                "title": "Intervall",
                 "week": "Woche(n)",
-                "repeatWeek_nb": "Alle {{ nb }} Wochen wird der",
-                "repeatYear": "Jedes Jahr wird der",
-                "repeatYear_nb": "Alle {{ nb }} Jahre wird der",
-                "month": "Monat",
-                "until": "Auf",
+                "repeatWeek_nb": "Alle {{ nb }} Wochen am",
+                "repeatYear": "Jedes Jahr am",
+                "repeatYear_nb": "Alle {{ nb }} Jahre am",
+                "month": "Monat(e)",
+                "until": "Bis",
                 "year": "Jahr(e)",
                 "day": "Tag(e)",
-                "repeatEvery": "Wiederholen Sie alle",
-                "repeatMonth": "Jeden Monat, am",
-                "repeatMonth_nb": "Alle {{ nb }} Monat, am",
+                "repeatEvery": "Wiederholt alle",
+                "repeatMonth": "Jeden Monat am",
+                "repeatMonth_nb": "Alle {{ nb }} Monate am",
                 "repeatMonthDay": "Alle",
-                "repeatWeek": "Jede Woche, am",
+                "repeatWeek": "Jede Woche am",
                 "weekdays_pl": {
                     "monday": "Montags",
                     "tuesday": "Dienstags",
                     "wednesday": "Mittwochs",
                     "thursday": "Donnerstags",
                     "friday": "Freitags",
-                    "saturday": "Samstage",
+                    "saturday": "Samstags",
                     "sunday": "Sonntags"
                 },
                 "fromDate": "Ab dem",
                 "ends": "Endet nach",
-                "number": "Wiederholungen :"
+                "number": "Intervalle:"
             },
             "supplier": "Lieferant / Verkäufer",
             "description": "Titel / Beschreibung",
             "category": "Kategorie",
             "staff": "Mitarbeiter",
-            "noStaff": "Ohne zugewiesene Mitarbeiter",
+            "noStaff": "Kein zugewiesener Mitarbeiter",
             "amount": "Betrag",
             "requiredField": "Hier können Sie die Ausgaben für Ihr Studio hinzufügen.",
             "actions": {
@@ -16818,14 +16820,14 @@
                 "edit": "Aktualisieren",
                 "cancel": "Abbrechen"
             },
-            "titleAdd": "Eine Ausgabe hinzufügen",
-            "titleEdit": "Eine Ausgabe bearbeiten",
+            "titleAdd": "Ausgabe hinzufügen",
+            "titleEdit": "Ausgabe bearbeiten",
             "editChoices": {
-                "editDateDue": "Fälligkeitsdatum ändern",
-                "editDetails": "Bearbeiten Sie die Details der Ausgabe",
+                "editDateDue": "Fälligkeitsdatum bearbeiten",
+                "editDetails": "Details der Ausgabe bearbeiten",
                 "explanation": {
-                    "dateDue": "Das Fälligkeitsdatum wird nur für die ausgewählte Ausgabe geändert.",
-                    "details": "Die Änderungen werden wahlweise auf die laufende Ausgabe und zukünftige Ausgaben oder auf alle Ausgaben angewendet."
+                    "dateDue": "Das Fälligkeitsdatum wird nur für die ausgewählte Ausgabe(n) geändert.",
+                    "details": "Die Änderungen werden wahlweise auf die laufenden Ausgaben, zukünftigen Ausgaben oder auf alle Ausgaben angewendet."
                 }
             },
             "date_due": "Fälligkeitsdatum"
@@ -16834,33 +16836,33 @@
             "titleCategory": "Kategorien",
             "filterSupplier": "Alle Anbieter",
             "filterCategory": "Alle Kategorien",
-            "noStaff": "Ohne zugewiesene Mitarbeiter",
+            "noStaff": "Keine zugewiesene Mitarbeiter",
             "titleSupplier": "Anbieter",
-            "noCategory": "Ohne Kategorie",
+            "noCategory": "Keine Kategorie",
             "titleStaff": "Mitarbeiter",
             "filterStaff": "Der gesamte Mitarbeiterstab",
-            "showFuture": "Zukünftige Ausgaben"
+            "showFuture": "Zukünftige Ausgaben anzeigen"
         },
         "dialogDeleteExpense": {
-            "all": "Alle ähnlichen Ausgaben (vergangene und zukünftige) streichen",
+            "all": "Alle vergangenen und zukünftigen Ausgaben löschen",
             "confirm": "Sie werden die Ausgabe von {{amount}} vom {{date_due}} dauerhaft löschen.",
             "cancel": "Abbrechen",
             "delete": "Löschen",
             "current": "Nur diese Ausgabe löschen",
-            "future": "Diese und ähnliche zukünftige Ausgaben streichen",
-            "warning": "Sind Sie sicher, dass Sie diese Ausgabe streichen möchten?"
+            "future": "Diese und ähnliche zukünftige Ausgaben löschen",
+            "warning": "Sind Sie sicher, dass Sie diese Ausgabe löschen möchten?"
         },
         "dialogEditExpense": {
-            "all": "Alle ähnlichen Ausgaben (vergangene und zukünftige) ändern",
-            "future": "Diese Ausgabe und ähnliche zukünftige Ausgaben ändern",
+            "all": "Alle ähnlichen vergangenen und zukünftigen Ausgaben bearbeiten",
+            "future": "Diese Ausgabe und ähnliche zukünftige Ausgabe bearbeiten",
             "validate": "Bestätigen",
             "cancel": "Abbrechen",
             "current": "Nur diese Ausgabe bearbeiten"
         },
         "table": {
-            "yes": "ja",
+            "yes": "Ja",
             "header": {
-                "repeat": "Rekursion",
+                "repeat": "Intervall",
                 "date_due": "Fälligkeitsdatum",
                 "staff": "Mitarbeiter",
                 "category": "Kategorie",
@@ -16869,21 +16871,21 @@
                 "description": "Titel / Beschreibung",
                 "actions": "Aktionen"
             },
-            "no": "nicht"
+            "no": "Nicht"
         },
         "create": {
             "error": "Diese Ausgabe kann nicht erstellt werden",
-            "success": "Die Ausgabe wurde erstellt."
+            "success": "Die Ausgabe wurde erstellt"
         },
         "update": {
             "error": "Diese Ausgabe kann nicht aktualisiert werden",
-            "success": "Die Ausgabe wurde aktualisiert."
+            "success": "Die Ausgabe wurde aktualisiert"
         },
         "delete": {
-            "success": "Die Ausgabe wurde gestrichen.",
+            "success": "Die Ausgabe wurde erfolgreich entfernt.",
             "error": "Diese Ausgabe kann nicht gelöscht werden"
         },
-        "addButton": "Eine Ausgabe hinzufügen",
+        "addButton": "Ausgabe hinzufügen",
         "noExpenses": "Hier können Sie die Ausgaben für Ihr Studio hinzufügen."
     },
     "instalmentPayment": {

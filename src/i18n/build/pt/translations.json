@@ -3390,9 +3390,9 @@
             },
             "bubble": {
                 "entryTrigger": {
-                    "helperText": "Defina quando e quem entrará nesta cadência com os critérios e acionadores selecionados.",
+                    "helperText": "Primeiro, vamos decidir como é que os seus membros vão entrar no fluxo de trabalho. Seleccione um ou vários eventos ou listas inteligentes, se o membro corresponder a um deles, ele/ela entrará no fluxo de trabalho",
                     "addTrigger": "Adicionar um acionador de entrada",
-                    "title": "Entrar"
+                    "title": "Critérios de entrada"
                 },
                 "marketingAction": {
                     "label": "Selecionar uma ação de marketing",
@@ -3420,6 +3420,11 @@
                 "convertIntoExit": {
                     "label": "Considerar o membro como",
                     "title": "Sair"
+                },
+                "entryAction": {
+                    "title": "Ação de entrada",
+                    "helperText": "Seleccione o que pretende fazer quando os seus membros entram no fluxo de trabalho. Marcá-los, enviar um e-mail... A decisão é sua. Ou não faça nada, este passo é opcional.",
+                    "addAction": "Adicionar ação"
                 }
             }
         },
@@ -12582,7 +12587,9 @@
                     "giftcardPrepaidLine": "Pagamento através de cartão de presente",
                     "3": "três",
                     "2": "Dois",
-                    "1": "Um"
+                    "1": "Um",
+                    "elevated": "Elevado",
+                    "rest": "Descanso"
                 },
                 "title": {
                     "paymentMethodType": "Modo de pagamento",
@@ -12620,7 +12627,11 @@
                     "isDense": "Densa",
                     "isItemEditionDisabled": "Modificação de itens desactivada",
                     "isAddingItemPossible": "Adicionar mais itens activados",
-                    "isBookingDisabled": "A reserva está desactivada"
+                    "isBookingDisabled": "A reserva está desactivada",
+                    "isRippleEnabled": "Não é possível ativar o efeito de ondulação do botão",
+                    "square": "Não é possível arredondar os cantos",
+                    "cardVariant": "Selecionar a variante de cartão a utilizar",
+                    "componentType": "O contentor é um botão"
                 },
                 "configurationTitle": "Variações"
             },
@@ -12698,7 +12709,8 @@
                 "marketplace_basket_summary_item": "Componente do item do cesto (resumo do cesto)",
                 "marketplace_item_quantity": "Quantidade do item do cesto (resumo do cesto)",
                 "booker_module_offer_summary": "Resumo da sessão",
-                "fabrique_typography": "Tipografia"
+                "fabrique_typography": "Tipografia",
+                "fabrique_card": "Cartão"
             },
             "cssEditor": {
                 "reset": "reposto",

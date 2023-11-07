@@ -2134,7 +2134,7 @@
                 "title": "Antwoorden per e-mail ontvangen op het platform"
             },
             "submit": "Opslaan",
-            "title": "Chat"
+            "title": "Inbox"
         },
         "smartListPopup": {
             "noSmartListPopup": "Geen opstart pop-up",
@@ -3135,7 +3135,7 @@
             }
         },
         "helperText": {
-            "franchise_shared_pass": "Met dit rapport kunt u de boekingen analyseren die zijn gemaakt met gedeelde kaarten in de geselecteerde periode. Wanneer een gedeelde kaart is gekocht in een studio, toont het rapport het aantal boekingen dat met deze kaart is gemaakt in een andere studio. Het aantal geboekte sessies omvat boekingen voor groepslessen, workshops en afspraken.",
+            "franchise_shared_pass": "Met dit rapport kun je de reserveringen analyseren die zijn gemaakt met gedeelde kaarten binnen de geselecteerde periode. Wanneer een gedeelde kaart is gekocht in een studio, toont het rapport het aantal reserveringen dat met deze kaart is gemaakt in een andere studio. Het aantal gereserveerde sessies omvat boekingen voor groepslessen, workshops en afspraken.",
             "billing_plan": "Abonnementen worden gefilterd op de datum van de eerste factuur.",
             "invoices": "Aankopen worden gefilterd op de datum van afgifte van de bijbehorende factuur.",
             "video_purchase": "Video's worden gefilterd op datum van aankoop.",
@@ -3155,11 +3155,11 @@
             "expired_pass": "Verlopen cursuskaarten worden gefilterd op hun vervaldatum.",
             "private_cpasses_expired": "Verlopen afsprakenkaarten worden gefilterd op hun vervaldatum.",
             "unpaid_private_bookings": "Onbetaalde reserveringen worden gefilterd op de datum van de desbetreffende sessie.",
-            "private_bookings": "Boekingen worden gefilterd op de datum van de betreffende afspraak.",
-            "first_privatebooking": "De eerste boekingen worden gefilterd op de datum van de desbetreffende afspraak.",
+            "private_bookings": "Reserveringen worden gefilterd op de datum van de betreffende afspraak.",
+            "first_privatebooking": "De eerste reserveringen worden gefilterd op de datum van de desbetreffende afspraak.",
             "first_attendance": "Eerste aanwezigheden worden gefilterd op de datum van de zitting waarin ze plaatsvonden.",
             "bookings": "Reserveringen worden gefilterd op de datum van de desbetreffende sessie.",
-            "first_booking": "De eerste boekingen worden gefilterd op de datum van de desbetreffende sessie.",
+            "first_booking": "De eerste reserveringen worden gefilterd op de datum van de desbetreffende sessie.",
             "dayBookings": "Reserveringen worden gefilterd op de datum van de desbetreffende sessie.",
             "privateService": "Afspraken worden gefilterd op de datum waarop ze plaatsvinden.",
             "subscription": "Facturen worden gefilterd op vervaldatum.",
@@ -3611,7 +3611,7 @@
                     "noShowCheckbox": "Te veel no-shows",
                     "cancellationsCheckbox": "Te veel annuleringen buiten de tijd",
                     "titleCheckbox": "Pas een sanctie toe voor",
-                    "helperText": "Sancties toepassen voor te veel no-shows of te late boekingen",
+                    "helperText": "Sancties toepassen voor te veel no-shows of te late annuleringen",
                     "label": "Een sanctie toepassen"
                 },
                 "only_vod_access": "Alleen geschikt voor Video On Demand",
@@ -4850,7 +4850,7 @@
                 "name": "Telefoon"
             },
             "105": {
-                "explanation": "Heeft X relaties en Y leskaarten of afspraakkaarten van gedeelde boekingen",
+                "explanation": "Heeft X relaties en Y leskaarten, afspraakkaarten of reserveringen",
                 "acceptEmail": {
                     "false": "accepteert geen",
                     "second": "emails",
@@ -5991,7 +5991,7 @@
                 "primaryText": "De afspraak voor {{- private_service_name}} - {{- private_slot_name }} de {{- date_start }} is geannuleerd."
             },
             "member-booking_canceled": {
-                "filter": "Boekingen annuleren",
+                "filter": "Geannuleerde reserveringen",
                 "primaryText": "De reservering voor {{- name }} de {{- date_start }} is geannuleerd."
             }
         },
@@ -6369,10 +6369,10 @@
                 "warningCustomLeveledSession": "Er is een gepersonaliseerd niveau op deze sessie van toepassing. Houd er rekening mee dat je gast(en) ook aan dit niveau voldoen.",
                 "bookingStatus": {
                     "guestNotAllowed": "De sessie is niet toegankelijk voor gasten",
-                    "4": "De sessie is gesloten voor boekingen",
+                    "4": "Reserveren is niet langer mogelijk",
                     "3": "De sessie is vol",
-                    "2": "De sessie is gesloten voor boekingen",
-                    "1": "De sessie is nog niet open voor boekingen",
+                    "2": "Reserveren is niet langer mogelijk",
+                    "1": "Reserveringen zijn voor alsnog gesloten",
                     "0": "Nodig een vriend uit"
                 },
                 "addGuestNumberLeftGeneric": "Je kunt deze periode nog 1 persoon uitnodigen.",
@@ -6467,7 +6467,7 @@
                 },
                 "waitingListLockedByPendingBookings": {
                     "message": "Andere mensen zijn op dit moment aan het boeken, de wachtlijst is op dit moment niet beschikbaar. Probeer het over een paar minuten nog eens om te zien of er een plaats beschikbaar is.",
-                    "title": "Overige onderhanden boekingen"
+                    "title": "Bestaande reserveringen zijn in behandeling"
                 },
                 "isTooLate": {
                     "message": "Sorry, maar de boekingsperiode voor deze sessie is voorbij.",
@@ -6931,7 +6931,7 @@
             "replacement": "Vervanging"
         },
         "replacement": "Vervanging",
-        "inbox": "Chatbox",
+        "inbox": "Inbox",
         "giftcard": "Cadeaukaarten"
     },
     "event": {
@@ -8437,7 +8437,7 @@
                             "profile": "Profiel",
                             "marketplace": "Studio",
                             "home": "Activiteiten (standaard)",
-                            "bookings": "Boekingen",
+                            "bookings": "Reserveringen",
                             "membership": "Agenda"
                         },
                         "placeholder": "Selecteer een pagina",
@@ -10152,7 +10152,7 @@
         "stripeBalance": {
             "title": "Stripe saldo",
             "dialog": {
-                "firstPart": "Bij bsport gebruiken we de dienst Stripe om al uw online betalingen te beheren. De bedragen daarvan worden bij Stripe opgeslagen en vervolgens naar uw rekening overgemaakt (\"Mijn collecties\").",
+                "firstPart": "BSPORT maakt gebruik van Stripe voor online en offline betalingen, facturatie en meer. Verwerkte betalingen worden veilig bij Stripe opgeslagen en vervolgens naar je gekoppelde rekening overgemaakt (zie Abonnement > Mijn uitbetalingen).",
                 "close": "Sluiten",
                 "secondPart": "Uw \"beschikbare saldo\" komt dus overeen met het bedrag aan online betalingen dat nog niet aan u is uitbetaald.",
                 "thirdPart": "Uw \"saldo in behandeling\" komt overeen met het bedrag dat zal worden toegevoegd aan uw beschikbare saldo.",
@@ -12848,11 +12848,11 @@
                 "myPass_plural": "Mijn cursuskaarten",
                 "alert": "Oeps! De boeking is mislukt.\n Er is een probleem opgetreden bij het verwerken van uw boeking. Probeer het later nog eens of boek een andere sessie.",
                 "confirmationStatusMessage": {
-                    "offerAndPurchaseSuccess": "Gefeliciteerd met uw aankoop! Je aankopen en boekingen zijn bevestigd. Je ontvangt binnenkort een bevestigingsmail met alle details.",
+                    "offerAndPurchaseSuccess": "Gefeliciteerd! Je aankopen en/of reserveringen zijn bevestigd. Binnenkort ontvang je bevestigingsmail met alle details.",
                     "paymentSuccess": "Gefeliciteerd met uw aankoop! Uw aankoop is bevestigd!",
                     "paymentSuccess_plural": "Gefeliciteerd met uw aankopen! Uw aankopen zijn bevestigd!",
-                    "offerOnlySuccess": "De boeking is gemaakt. Je ontvangt binnenkort een bevestigingsmail met alle details.",
-                    "offerOnlySuccess_plural": "De boekingen zijn gemaakt. Je ontvangt binnenkort een bevestigingsmail met alle details.",
+                    "offerOnlySuccess": "Je reservering is bevestigd. Binnenkort ontvang je een bevestigingsmail met alle details.",
+                    "offerOnlySuccess_plural": "Je reserveringen zijn bevestigd. Binnenkort ontvang je een bevestigingsmail met alle details.",
                     "offerOnlyGuestSuccess": "De reservering is gemaakt. Jij en je gast ontvangen binnenkort een bevestigingsmail met alle details."
                 },
                 "confirmationStatusTitle": {
@@ -12884,7 +12884,7 @@
                 "retryBookingSession": "Probeer opnieuw te boeken",
                 "newWorkshop": "Nieuwe workshop",
                 "retry": "Probeer het opnieuw",
-                "myBookings": "Mijn boekingen",
+                "myBookings": "Mijn reserveringen",
                 "goToCalendar": "Terug naar de kalender"
             },
             "bookingItem": {
@@ -13231,7 +13231,7 @@
         },
         "balance": {
             "updaterDialog": {
-                "topup": "Incasso",
+                "topup": "Credit",
                 "debt": "Debet",
                 "explainTopup": "Het saldo van de interne rekening (Wallet) van dit lid wordt met {{ currencyDisplay }}{{ amount }} verhoogd.",
                 "explainDecaissement": "Het saldo van de interne rekening (Wallet) van dit lid wordt met {{ currencyDisplay }}{{ amount }} verlaagd.",
@@ -13530,7 +13530,7 @@
             },
             "last_delay_before_auto_consume": {
                 "helper": "Als er onvoldoende tijd is voordat de sessie begint wordt het lid niet ingeschreven, ook niet als de persoon een geldige leskaart bezit",
-                "label": "Accepteer niet automatisch boekingen als een sessie plaatsvindt in minder dan "
+                "label": "Geen reserveringen accepteren voor sessies die plaatsvinden in minder dan "
             },
             "check_credit": {
                 "label": "Controleren of de klant een cursuskaart heeft die compatibel is met het aanbod en voldoende krediet heeft",
@@ -13715,8 +13715,8 @@
                 "description": "Dit geeft iemand alleen toegang tot Rapportages; dit kan handig voor je accountants zijn."
             },
             "-1": {
-                "name": "Inchecken verkoopinterface",
-                "description": "Alleen toegang tot de snelle verkoopinterface"
+                "name": "Kassasysteem check-in",
+                "description": "Alleen toegang tot het kassasysteem"
             }
         },
         "rolePermissions": {
@@ -13791,7 +13791,7 @@
                         "_label": "Instructeursomgeving"
                     },
                     "quicksale": {
-                        "_label": "Snelle verkoopinterface"
+                        "_label": "Kassasysteem"
                     },
                     "referral": {
                         "_label": "Verwijzingsprogramma"
@@ -15186,7 +15186,7 @@
                 "quickbooks": "QuickBooks",
                 "mobilePersonalization": "Gepersonaliseerde app",
                 "coachUserspace": "Instructeursomgeving",
-                "quicksale": "Verkoopinterface",
+                "quicksale": "Kassasysteem",
                 "referral": "Verwijzing"
             },
             "pass": "Leskaarten",
@@ -15234,7 +15234,7 @@
             },
             "cadences": "Cadences",
             "replacement": "Vervanging",
-            "inbox": "Chatbox"
+            "inbox": "Inbox"
         },
         "deprecatedNavigator": {
             "close": "Sluiten",
@@ -15540,7 +15540,9 @@
                     "prepaidLineKind": "Voorafbetaalde lijn type",
                     "isBookingDisabled": "Boeking is uitgeschakeld",
                     "square": "Deselecteer afgeronde hoeken",
-                    "cardVariant": "Selecteer de te gebruiken variant voor kaarten"
+                    "cardVariant": "Selecteer de te gebruiken variant voor kaarten",
+                    "isRippleEnabled": "Het rimpeleffect van de knop is niet mogelijk",
+                    "componentType": "Container is een knop"
                 },
                 "configurationTitle": "Variaties"
             },
@@ -15698,7 +15700,7 @@
                 "requestAccess": "Vraag om toegang",
                 "33": {
                     "intro": "Ontdek de nieuwe live chatbox met leden!",
-                    "explain": "Hier staan alle gesprekken met individuele personen, maar ook gesprekken uit Sessies en Smartlists. Deze chatbox is compatibel met e-mails, sms'jes en push-notificaties."
+                    "explain": "Hier staan alle gesprekken met individuele personen, maar ook gesprekken uit Sessies en Smartlists. Deze Inbox is compatibel met e-mails, sms'jes en push-notificaties."
                 }
             }
         },
@@ -15709,7 +15711,7 @@
             },
             "sectionTitle": "Mijn betaalmethoden",
             "info": {
-                "content": "Uw Bsport abonnement wordt afgeschreven van de hieronder aangegeven betaalmethode. Om de rekening te configureren waarop de online betalingen via Bsport worden afgeschreven, klikt u op",
+                "content": "BSPORT gebruikt de volgende betaalmethode voor het incasseren van je abonnement. Klik hier om rekening van de uitbetalingen te configureren",
                 "link": "Hier"
             }
         },
@@ -17576,7 +17578,7 @@
                 "objectsAddition": "Objecten toevoegen",
                 "objectGroupsSubtitle": "Een groep objecten toevoegen",
                 "simpleObjectsSubtitle": "Objecten toevoegen",
-                "title": "Verkoopinterface"
+                "title": "Kassasysteem"
             },
             "goBack": "Terug"
         },
@@ -17613,7 +17615,7 @@
             }
         },
         "rolePage": {
-            "noResult": "Momenteel zijn nog geen mensen gemachtigd om de verkoopinterface te gebruiken.",
+            "noResult": "Momenteel zijn nog geen mensen gemachtigd om het kassasysteem te gebruiken.",
             "actionColumn": "Acties",
             "emailColumn": "E-mailadres",
             "staffColumn": "Instructeurs",
@@ -17623,12 +17625,12 @@
             "email": "E-mailadres",
             "lastName": "Achternaam",
             "firstName": "Voornaam",
-            "modalTitle": "[Formulier] Toegang verkoopinterface",
+            "modalTitle": "[Formulier] Toegang kassasysteem",
             "addAccess": "Toegang toevoegen",
             "subtitle": "Selecteer hier de medewerkers die toegang hebben tot deze functie. Medewerkers moeten ingelogd zijn om deze optie te kunnen gebruiken.",
             "title": "Verkooptoegang"
         },
-        "pageTitle": "Verkoopinterface",
+        "pageTitle": "Kassasysteem",
         "pageLeavePrompt": {
             "discard": "Afsluiten zonder op te slaan",
             "save": "Opslaan",

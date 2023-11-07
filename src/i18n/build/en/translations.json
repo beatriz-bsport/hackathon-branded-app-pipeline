@@ -16439,7 +16439,9 @@
                     "basketIsEmpty": "Basket is empty",
                     "showCredit": "Show the credits",
                     "showEstablishmentAddress": "Show the establishment's address",
-                    "numberOfDistinctCheckoutItem": "Number of products in the basket"
+                    "numberOfDistinctCheckoutItem": "Number of products in the basket",
+                    "isRippleEnabled": "Disable the button ripple effect",
+                    "square": "Disable the rounded corners"
                 },
                 "configurationTitle": "Variations"
             },

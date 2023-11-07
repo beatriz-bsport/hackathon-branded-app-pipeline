@@ -4104,9 +4104,9 @@
                     "label": "Sélectionnez une action marketing"
                 },
                 "entryTrigger": {
-                    "title": "Entrée",
+                    "title": "Critères d'entrée",
                     "addTrigger": "Ajouter un déclencheur d'entrée",
-                    "helperText": "Veuillez définir quand et qui entrera dans cette cadence avec les critères et les déclencheurs sélectionnés."
+                    "helperText": "Tout d'abord, définissez la manière dont vos membres entrerons dans le workflow. Sélectionnez un ou plusieurs événements ou smartlists et si le membre correspond à l'un d'entre eux, il entrera dans le workflow."
                 },
                 "convertIntoStep": {
                     "label": "Intitulé de l'étape",
@@ -4115,6 +4115,11 @@
                 "convertIntoExit": {
                     "label": "Considérer le member comme",
                     "title": "Sortie"
+                },
+                "entryAction": {
+                    "title": "Action de saisie",
+                    "helperText": "Sélectionnez ce que vous voulez faire lorsque vos membres entrent dans le workflow. Les taguer, leur envoyer un email... C'est à vous de décider. Ou ne rien faire, cette étape est facultative.",
+                    "addAction": "Ajouter une action"
                 }
             },
             "back": "Retour",
@@ -16783,7 +16788,8 @@
                 "marketplace_basket_summary_list_item": "Composant de la liste des articles du panier (résumé du panier)",
                 "marketplace_item_quantity": "Quantité de l'article dans le panier (Résumé du panier)",
                 "booker_module_offer_summary": "Résumé de la séance",
-                "fabrique_typography": "Typographie"
+                "fabrique_typography": "Typographie",
+                "fabrique_card": "Carte"
             },
             "page": {
                 "common": "Commun",
@@ -16833,7 +16839,11 @@
                     "showCredit": "Afficher les crédits",
                     "showPrice": "Afficher le prix",
                     "showSpot": "Afficher l'emplacement",
-                    "isBookingDisabled": "La réservation est désactivée"
+                    "isBookingDisabled": "La réservation est désactivée",
+                    "isRippleEnabled": "Désactiver l'effet de ricochet des boutons",
+                    "square": "Désactiver les coins arrondis",
+                    "cardVariant": "Sélectionnez la variante de carte à utiliser",
+                    "componentType": "Le conteneur est un bouton"
                 },
                 "option": {
                     "true": "Oui",
@@ -16874,7 +16884,9 @@
                     "giftcardPrepaidLine": "Paiement par carte cadeau",
                     "3": "Trois",
                     "2": "Deux",
-                    "1": "Un"
+                    "1": "Un",
+                    "elevated": "Elevé",
+                    "rest": "Pause"
                 }
             }
         },

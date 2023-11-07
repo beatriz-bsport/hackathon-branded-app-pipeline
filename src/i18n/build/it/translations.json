@@ -191,7 +191,7 @@
             "myAccount": "Il mio account"
         },
         "paymentMethod": {
-            "CB": "Carta",
+            "CB": "Carta di credito",
             "CB_MANUAL": "Carta (manuale)",
             "CHECK": "Assegno bancario",
             "HOLIDAY_CHECK": "Assegno vacanze",
@@ -670,7 +670,7 @@
             "paymentMethods": {
                 "HOLIDAY_CHECK": "Buoni vacanze",
                 "CB_MANUAL": "Carta (manuale)",
-                "CB": "Carta",
+                "CB": "Carta di credito",
                 "CHECK": "Assegno bancario",
                 "OTHER": "Altro",
                 "CASH": "Contanti",
@@ -682,7 +682,7 @@
                 "DISPUTE": "Contenzioso"
             },
             "updateInvoiceVoucher": "Aggiungi un voucher",
-            "paymentMethodStripe": "Carta",
+            "paymentMethodStripe": "Carta di credito",
             "payment": "Pagamento",
             "credit": "Credito",
             "privatePass": "Pass per appuntamenti",
@@ -5900,7 +5900,7 @@
                 "undefined": "carta regalo",
                 "11": "gift card"
             },
-            "voucher": "Riduzione: {{voucher}}",
+            "voucher": "Sconto: {{voucher}}",
             "quantity": "Quantità",
             "credit": {
                 "label": "Credito"
@@ -6147,7 +6147,7 @@
                 "4": "Assegno di vacanza",
                 "3": "Assegno",
                 "2": "SEPA",
-                "1": "Carta",
+                "1": "Carta di credito",
                 "0": "Cash",
                 "14": "Acconto del cliente (debito)",
                 "16": "Bacs Direct Debit"
@@ -6493,7 +6493,7 @@
             },
             "sepa": "Addebito diretto SEPA",
             "bsportCredit": "Conto cliente",
-            "card": "Carta",
+            "card": "Carta di credito",
             "bacs_debit": "BACS Direct Debit"
         },
         "subscriptionStatus": {
@@ -6508,7 +6508,7 @@
             "nbMonths": "Numero di collezioni",
             "payment_method": {
                 "2": "Sul conto",
-                "0": "Carta",
+                "0": "Carta di credito",
                 "1": "Bonifici SEPA",
                 "label": "Metodo di pagamento",
                 "paymentOnline": "Pagamento online"
@@ -6534,7 +6534,7 @@
             "payment_method_group": {
                 "14": "Credito",
                 "2": "SEPA",
-                "1": "Carta"
+                "1": "Carta di credito"
             },
             "paymentCombo": "Pacchetto",
             "payment_combo": "Confezione",
@@ -7249,7 +7249,7 @@
             "payment_note": "Nota di pagamento",
             "remaining_days": "Giorni rimanenti",
             "bsport_fee": "Commissioni di transazione",
-            "payment_method_stripe": "Carta",
+            "payment_method_stripe": "Carta di credito",
             "payment_method_cash": "Metodo",
             "payment_method_manual_credit_card": "Carta (manuale)",
             "payment_method_total": "Totale",
@@ -7498,7 +7498,7 @@
             "holiday_check": "Buoni vacanze",
             "other": "Altro",
             "check": "Assegno bancario",
-            "stripe": "Carta",
+            "stripe": "Carta di credito",
             "credit_account": "Credito al cliente",
             "amex": "American Express",
             "bank_transfer": "Bonifico bancario",
@@ -7692,7 +7692,7 @@
             "payment_method": {
                 "1": "Contante",
                 "8": "Event brite",
-                "0": "Carta",
+                "0": "Carta di credito",
                 "2": "Check",
                 "3": "Pass",
                 "4": "Carta (manuale)",
@@ -7738,7 +7738,7 @@
                 "13": "SEPA",
                 "10": "Pagamento automatico",
                 "9": "Credito cliente",
-                "0": "Carta"
+                "0": "Carta di credito"
             }
         },
         "presetValuesByIdentifier": {
@@ -7929,7 +7929,7 @@
             "13": "SEPA",
             "10": "Pagamento automatico",
             "9": "Credito cliente",
-            "0": "Carta",
+            "0": "Carta di credito",
             "70": "BACS Direct Debit"
         }
     },
@@ -11555,7 +11555,7 @@
         "bookAnotherOption": "Iscrivimi nuovamente nella lista di attesa",
         "method": {
             "CREDIT_ACCOUNT": "Credito cliente",
-            "CB": "Carta",
+            "CB": "Carta di credito",
             "CHECK": "Controlla",
             "CASH": "Specie",
             "GIROPAY": "Giropay",
@@ -15533,7 +15533,8 @@
                 "marketplace_item_quantity": "Elemento del carrello Quantità (Riepilogo del carrello)",
                 "marketplace_basket_summary_dialog": "Riepilogo del carrello (pop-up)",
                 "booker_module_offer_summary": "Riepilogo della sessione",
-                "fabrique_typography": "Tipografia"
+                "fabrique_typography": "Tipografia",
+                "fabrique_card": "Tessera"
             },
             "cssConfig": {
                 "title": {
@@ -15572,7 +15573,11 @@
                     "showCredit": "Mostra i crediti",
                     "noStyledContainer": "Mostra la variante senza contenitore",
                     "showEstablishmentAddress": "Mostra l'indirizzo della struttura",
-                    "isBookingDisabled": "La prenotazione è disabilitata"
+                    "isBookingDisabled": "La prenotazione è disabilitata",
+                    "isRippleEnabled": "Disattiva l'effetto increspatura dei pulsanti",
+                    "square": "Impossibile ottenere gli angoli arrotondati",
+                    "cardVariant": "Seleziona la variante di carta da utilizzare",
+                    "componentType": "Il contenitore è un pulsante"
                 },
                 "option": {
                     "false": "No",
@@ -15613,7 +15618,9 @@
                     "giftcardPrepaidLine": "Paga usando una giftcard",
                     "3": "Tre",
                     "2": "Due",
-                    "1": "Uno"
+                    "1": "Uno",
+                    "elevated": "Elevato",
+                    "rest": "Pausa"
                 },
                 "configurationTitle": "Variazioni"
             },
@@ -16265,9 +16272,9 @@
             },
             "bubble": {
                 "entryTrigger": {
-                    "helperText": "Definire quando e chi entrerà in questa cadenza con i criteri e i trigger selezionati.",
+                    "helperText": "Per prima cosa stabilisci come i tuoi membri entreranno nel flusso di lavoro. Seleziona uno o più eventi o smartlist, se il membro corrisponde a uno di essi entrerà nel flusso di lavoro.",
                     "addTrigger": "Aggiungi un trigger di ingresso",
-                    "title": "Entra"
+                    "title": "Criterio di ingresso"
                 },
                 "marketingAction": {
                     "label": "Seleziona un'azione di marketing",
@@ -16295,6 +16302,11 @@
                 "convertIntoExit": {
                     "label": "Considera il membro come",
                     "title": "Uscita"
+                },
+                "entryAction": {
+                    "title": "Azione di ingresso",
+                    "helperText": "Seleziona cosa volete fare quando i membri entrano nel flusso. Taggarli, inviare un'e-mail... sta a te decidere. Oppure non fare nulla, questo passaggio è facoltativo.",
+                    "addAction": "Aggiungi un'azione"
                 }
             }
         }

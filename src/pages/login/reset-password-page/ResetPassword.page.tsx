@@ -4,11 +4,10 @@ import { compose, withProps } from 'recompose';
 import { Redirect } from 'react-router-dom';
 import ResetPasswordForm from '#csscomponents/ResetPasswordForm';
 import { parseQueryString, buildUrlParams } from '../../../http';
-import ApplyCustomCssStyles from '#libs/widget/components/ApplyCustomCssStyles.component';
-
+import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
 // @ts-expect-errors
 import { resetPassword } from '../../../actions/auth.actions';
-import { getIsUISimplified } from '#libs/theme/selectors';
+import themeSelectors, { getIsUISimplified } from '#libs/theme/selectors';
 import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '../../../libs/exportable-components/actions';
 
 import type { RootState } from '../../../reducers';
@@ -105,12 +104,6 @@ export class ResetPassword extends Component<Props, State> {
     }
     return (
       <>
-        {this.props.customConfiguration && (
-          <ApplyCustomCssStyles
-            customConfiguration={this.props.customConfiguration}
-          />
-        )}
-
         <ResetPasswordForm
           email={this.state.email}
           hasResetError={!!this.props.resetError}
@@ -138,6 +131,7 @@ const connector = connect(
         state.auth.resetPassword.last_password_reset_request,
       simplifyUI: !!membership && getIsUISimplified(state),
       customConfiguration: state.exportableComponents.customCss,
+      theme: !!membership && themeSelectors.getTheme(state),
     };
   },
   {
@@ -154,4 +148,5 @@ export default compose(
     franchisorId: parseQueryString(props.location.search)?.franchisor,
   })),
   connector,
+  WithCustomCssProvider,
 )(ResetPassword);

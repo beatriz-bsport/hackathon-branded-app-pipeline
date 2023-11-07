@@ -28,6 +28,7 @@ export default <P extends object>(WrappedComponent: React.ComponentType<P>) => {
   return class extends React.Component<Props & P> {
     render() {
       const companyThemeProps = this.props.theme ?? this.props.companyTheme;
+
       return (
         <>
           <ApplyCustomTheme styles={companyThemeProps?.widget_theme} />

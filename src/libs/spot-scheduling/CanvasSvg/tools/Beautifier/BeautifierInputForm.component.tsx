@@ -4,6 +4,7 @@ import {
   IntegerField,
   TextField,
   SelectField,
+  ColorField,
   // @ts-expect-error
 } from '../../../../../components/forms';
 
@@ -47,14 +48,14 @@ export const StrokeWidthField: React.FC = React.memo(() => {
 });
 
 export const StrokeColorField: React.FC = React.memo(() => {
-  return <TextField label="stroke" name="stroke" />;
+  return <ColorField fullWidth label="stroke" name="stroke" />;
 });
 
 export const StrokeDasharrayField: React.FC = React.memo(() => {
   return <TextField label="stroke-dasharray" name="strokeDasharray" />;
 });
 export const FillField: React.FC = React.memo(() => {
-  return <TextField label="fill" name="fill" />;
+  return <ColorField fullWidth label="fill" name="fill" />;
 });
 
 export const ImageLinkField: React.FC = React.memo(() => {
@@ -65,12 +66,12 @@ export const FontSizeField: React.FC = React.memo(() => {
   return <IntegerField fullWidth label="font-size" name="fontSize" />;
 });
 export const FontColorField: React.FC = React.memo(() => {
-  return <TextField fullWidth label="font-color" name="fontColor" />;
+  return <ColorField fullWidth label="font-color" name="fontColor" />;
 });
 
 export const FontColorOnTakenField: React.FC = React.memo(() => {
   return (
-    <TextField fullWidth label="font-color-on-taken" name="fontColorOnTaken" />
+    <ColorField fullWidth label="font-color-on-taken" name="fontColorOnTaken" />
   );
 });
 export const FontColorOnSelectedField: React.FC = React.memo(() => {
@@ -87,7 +88,7 @@ export const FontWeightField: React.FC = React.memo(() => {
   return <IntegerField fullWidth label="font-weight" name="fontWeight" />;
 });
 export const TextStrokeField: React.FC = React.memo(() => {
-  return <TextField fullWidth label="text-stroke" name="textStroke" />;
+  return <ColorField fullWidth label="text-stroke" name="textStroke" />;
 });
 export const TextStrokeWidthField: React.FC = React.memo(() => {
   return (

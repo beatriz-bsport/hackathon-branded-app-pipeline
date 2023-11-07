@@ -33,10 +33,10 @@ export class ColorInput extends Component<Props> {
   };
 
   render() {
-    const { classes, t, theme, buttonStyle } = this.props;
+    const { classes, t, theme, buttonStyle, fullWidth } = this.props;
 
     return (
-      <FormControl>
+      <FormControl fullWidth={fullWidth}>
         <FormLabel>{this.props.label}</FormLabel>
         <ButtonBase
           className={classNames(buttonStyle, classes.button)}

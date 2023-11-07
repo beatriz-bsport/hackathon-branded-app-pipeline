@@ -263,7 +263,9 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
       <div
         className={classNames(classes.container, {
           [classes.containerIsMobile]: this.props.isMobile,
-          [classes.containerSelecting]: this.props.selectingSpot,
+          // In order to have a bigger conainer to zoom in we do not use this container on mobile adding extra padding
+          [classes.containerSelecting]:
+            this.props.selectingSpot && !this.props.isMobile,
           [classes.containerSelectingIsNotMobile]:
             this.props.selectingSpot &&
             !this.props.isMobile &&

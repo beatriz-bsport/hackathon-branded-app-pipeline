@@ -35,15 +35,16 @@ type StepCardStylesProps = {
 };
 
 export type StepCardProps = {
+  header: React.ReactElement;
+  content?: React.ReactElement;
+  addButtonActionList?: Immutable.ImmutableArray<Action>;
   actionListColor?: string;
   actionListLabel?: string;
-  addButtonActionList?: Immutable.ImmutableArray<Action>;
   addButtonColor?: string;
   addButtonLabel?: string;
-  content?: React.ReactElement;
   disabled?: boolean;
   disableRipple?: boolean;
-  header: React.ReactElement;
+  forceSelection?: boolean;
   isDivided?: boolean;
   isEmpty?: boolean;
   isSelected?: boolean;
@@ -81,6 +82,7 @@ const StepCard: React.FC<StepCardProps> = ({
   isDivided,
   isEmpty,
   isSelected,
+  forceSelection,
   maxWidth,
   minHeight,
   selectedColor,
@@ -100,8 +102,8 @@ const StepCard: React.FC<StepCardProps> = ({
   });
 
   useEffect(() => {
-    setSelected(isSelected && !disabled);
-  }, [isSelected, disabled]);
+    setSelected((isSelected && !disabled) || forceSelection);
+  }, [isSelected, disabled, forceSelection]);
 
   const handleClick = useCallback(
     (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -117,9 +119,9 @@ const StepCard: React.FC<StepCardProps> = ({
     (event: React.MouseEvent<Document, MouseEvent>) => {
       event.stopPropagation();
       event.preventDefault();
-      setSelected(false);
+      !disabled && !forceSelection && setSelected(false);
     },
-    [],
+    [disabled, forceSelection],
   );
 
   return (

@@ -1,11 +1,10 @@
-// @ts-nocheck
-// @flow
 import React from 'react';
 import chroma from 'chroma-js';
 import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { colors } from '@bsport/common/lib/colors';
 import Select from 'react-select';
+import { styleFn, StylesConfig } from 'react-select/lib/styles';
 import type {
   EstablishmentGroup,
   EstablishmentGroupSelectOption,
@@ -25,40 +24,51 @@ const getEstablishmentGroupOptions = (
   });
 };
 
-const establishmentGroupStyles = {
+const establishmentGroupStyles: StylesConfig = {
   control: (styles) => ({ ...styles, backgroundColor: 'white' }),
   menuPortal: (base) => ({ ...base, zIndex: 9999 }),
   option: (styles, { isDisabled, isFocused, isSelected }) => {
     const color = chroma(colors.secondary);
-    /* eslint-disable */
+
+    let backgroundColor;
+    if (isDisabled) {
+      backgroundColor = null;
+    } else if (isSelected) {
+      backgroundColor = colors.secondary;
+    } else if (isFocused) {
+      backgroundColor = color.alpha(0.1).css();
+    } else {
+      backgroundColor = null;
+    }
+
+    let colorValue;
+    if (isDisabled) {
+      colorValue = '#ccc';
+    } else if (isSelected) {
+      if (chroma.contrast(color, 'white') > 2) {
+        colorValue = 'white';
+      } else {
+        colorValue = 'black';
+      }
+    } else {
+      colorValue = colors.secondary;
+    }
+
     return {
       ...styles,
-      backgroundColor: isDisabled
-        ? null
-        : isSelected
-        ? colors.secondary
-        : isFocused
-        ? color.alpha(0.1).css()
-        : null,
-      color: isDisabled
-        ? '#ccc'
-        : isSelected
-        ? chroma.contrast(color, 'white') > 2
-          ? 'white'
-          : 'black'
-        : colors.secondary,
+      backgroundColor,
+      color: colorValue,
       cursor: isDisabled ? 'not-allowed' : 'default',
 
       ':active': {
+        // @ts-expect-error
         ...styles[':active'],
         backgroundColor:
           !isDisabled &&
           (isSelected ? colors.secondary : color.alpha(0.3).css()),
       },
-      groupHeading: (base) => ({ ...base, margin: 0 }),
+      groupHeading: ((base) => ({ ...base, margin: 0 })) as styleFn,
     };
-
-    /* eslint-enable */
   },
   multiValue: (styles) => {
     const color = chroma(colors.secondary);
@@ -85,8 +95,8 @@ type OwnProps = {
   establishmentGroups: Array<EstablishmentGroup>;
   selectOption: (
     suggestion:
-      | EstablishmentGroupSelectOption[]
-      | EstablishmentGroupSelectOption,
+      | Omit<EstablishmentGroupSelectOption, 'establishmentGroupList'>[]
+      | Omit<EstablishmentGroupSelectOption, 'establishmentGroupList'>,
   ) => void;
   selectMultipleOptions?: (itemsValueList: Array<number>) => void;
   selectedEstablishmentGroups: Array<number> | null;

@@ -22,6 +22,10 @@
   overflow: hidden;
 }
 
+.bs-minimal-appbar__right--container__button__base {
+  gap: var(--spacing-1);
+}
+
 #bs-minimal-appbar__right--profile__image__container {
   display: inline-flex;
   flex: 0 0 auto;
@@ -54,7 +58,6 @@
 }
 
 #bs-minimal-appbar__right--auth__name__container {
-  padding-left: 8px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

@@ -57,7 +57,10 @@ export const MinimalMarketplaceAppBarCSSOnly: React.FC<Props> = ({
       </div>
 
       <div id="bs-minimal-appbar__right--container">
-        <ButtonBase onClick={handleProfileMenuOpen}>
+        <ButtonBase
+          classes="bs-minimal-appbar__right--container__button__base"
+          onClick={handleProfileMenuOpen}
+        >
           <div id="bs-minimal-appbar__right--profile__image__container">
             {photo ? (
               <Avatar

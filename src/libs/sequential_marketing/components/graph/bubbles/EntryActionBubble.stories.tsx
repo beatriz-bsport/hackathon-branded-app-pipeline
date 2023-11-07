@@ -34,8 +34,8 @@ export default {
   },
   argTypes: {
     ...MarketingActionArgTypes,
-    onClose: {
-      action: 'onCloseClicked',
+    onCancel: {
+      action: 'onCancelClicked',
       description: 'Cancel button',
     },
     onConfirm: {

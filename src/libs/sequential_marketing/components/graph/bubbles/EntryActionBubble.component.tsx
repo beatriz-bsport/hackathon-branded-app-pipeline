@@ -16,7 +16,7 @@ type Props = {
   isInitial?: boolean;
   marketingActions?: StepMarketingActions[];
   onConfirm: (data: StepMarketingActions[]) => void;
-  onClose?: () => void;
+  onCancel?: (value?: StepMarketingActions[]) => void;
 } & MarketingActionEssentials;
 
 const EntryActionBubble: React.FC<Props> = ({
@@ -32,7 +32,7 @@ const EntryActionBubble: React.FC<Props> = ({
   fetchEmailSummaryList,
   getEmailDetail,
   onConfirm,
-  onClose,
+  onCancel,
 }) => {
   const { t } = useTranslation('marketing');
 
@@ -50,10 +50,18 @@ const EntryActionBubble: React.FC<Props> = ({
     [setMarketingActionList],
   );
 
+  const handleCancel = React.useCallback(() => {
+    onCancel?.(marketingActionList);
+  }, [marketingActionList, onCancel]);
+
   const handleSubmit = React.useCallback(() => {
-    onConfirm?.(marketingActionList);
-    onClose?.();
-  }, [marketingActionList, onClose, onConfirm]);
+    onConfirm?.(
+      marketingActionList?.map((action) => ({
+        ...action,
+        name: t('cadence.form.marketing_action.defaultName'),
+      })) ?? [],
+    );
+  }, [marketingActionList, onConfirm, t]);
 
   const handleUpdateFormValidation = React.useCallback((isValid: boolean) => {
     setIsFormValid(isValid);
@@ -68,7 +76,7 @@ const EntryActionBubble: React.FC<Props> = ({
       color={SequentialMarketingColors.ENTRY_COLOR}
       icon="PlayArrow"
       isSubmissionForbidden={!isFormValid}
-      onCancelClick={onClose}
+      onCancelClick={handleCancel}
       onCancelText={
         isInitial ? t('cadence.bubble.previous') : t('cadence.bubble.cancel')
       }

@@ -34,9 +34,11 @@ type EntryStepContentProps = {
 };
 
 export type EntryStepCardProps = {
-  disabled?: boolean;
-  isSelected?: boolean;
   step: CadenceStep;
+  disabled?: boolean;
+  isFirstConfigurationMode?: boolean;
+  isEntryFirstConfiguration?: boolean;
+  isSelected?: boolean;
   addMarketingAction?: () => void;
   addNextStep: (triggerKind: TriggerKind) => void;
   onCardClick: () => void;
@@ -81,6 +83,7 @@ const EntryStepContent: React.FC<EntryStepContentProps> = React.memo(
 
 const EntryStepCard: React.FC<EntryStepCardProps> = ({
   disabled,
+  isFirstConfigurationMode,
   isSelected,
   marketingActionList,
   triggerList,
@@ -127,24 +130,28 @@ const EntryStepCard: React.FC<EntryStepCardProps> = ({
       maxWidth
       actionListColor={SequentialMarketingColors.TRIGGER_BACKGROUND_COLOR}
       actionListLabel={t('cadence.steps.actions.nextStepTrigger')}
-      addButtonActionList={triggerActions}
+      addButtonActionList={!isFirstConfigurationMode && triggerActions}
       addButtonColor={SequentialMarketingColors.INNER_STEP_COLOR}
       addButtonLabel={t('cadence.steps.actions.addNextStep')}
       color={SequentialMarketingColors.ENTRY_BORDER_COLOR}
       content={
-        (!!marketingActionList || !!addMarketingAction) && (
+        (marketingActionList?.length > 0 ||
+          (!isFirstConfigurationMode && !!addMarketingAction)) && (
           <EntryStepContent
             getEmailTemplate={getEmailTemplate}
             getTag={getTag}
             marketingActionList={marketingActionList}
             onClickNewMarketingAction={
-              !!addMarketingAction && onClickNewMarketingAction
+              !isFirstConfigurationMode &&
+              !!addMarketingAction &&
+              onClickNewMarketingAction
             }
           />
         )
       }
       disabled={disabled}
       disableRipple={disableRipple}
+      forceSelection={isFirstConfigurationMode}
       header={
         <EntryStepHeader
           getSmartlist={getSmartlist}

@@ -14,7 +14,7 @@ import type { ConnectedTrigger } from '#libs/sequential_marketing/types';
 type Props = {
   connectedTriggers: ConnectedTrigger[];
   smartlists: Immutable.ImmutableArray<SmartList>;
-  entrystepId: number;
+  entrystepId?: number;
   isInitial?: boolean;
   onClose?: () => void;
   onConfirm: (data: ConnectedTrigger[]) => void;
@@ -79,8 +79,8 @@ const EntryTriggerBubble: React.FC<Props> = ({
           addTriggerLabel={`+ ${t('cadence.bubble.entryTrigger.addTrigger')}`}
           connectedTriggers={connectedTriggerList}
           customColor={SequentialMarketingColors.ENTRY_COLOR}
+          destinationId={entrystepId}
           smartlists={smartlists}
-          sourceId={entrystepId}
           updateConnectedTriggerList={updateConnectedTriggerList}
           updateFormValidation={handleUpdateFormValidation}
         />

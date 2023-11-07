@@ -71,7 +71,9 @@ export class ConsumerLoginPage extends Component<Props> {
     if (this.props.membership) {
       if (this.props.theme?.id) Analytics.signinShow();
       this.props.fetchCompanyTheme(parseInt(this.props.membership, 10));
-      this.props.retrieveCompanyCssConfiguration(this.props.membership);
+      this.props.retrieveCompanyCssConfiguration(
+        parseInt(this.props.membership, 10),
+      );
     }
     if (this.props.franchisor) {
       this.props.fetchFranchiseTheme(parseInt(this.props.franchisor, 10));

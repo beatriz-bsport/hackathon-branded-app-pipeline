@@ -38,7 +38,7 @@ export type Props = {
 };
 
 const TextFieldContainerClassNameMap = {
-  [TextFieldVariant.STANDARD]: 'bs-text-field-standard__container ',
+  [TextFieldVariant.STANDARD]: 'bs-text-field-standard__container',
   [TextFieldVariant.OUTLINED]: 'bs-text-field-outlined__container',
 };
 

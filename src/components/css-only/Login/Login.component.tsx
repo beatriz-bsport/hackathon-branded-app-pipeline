@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import classnames from 'classnames';
 
 import HelpIcon from '@material-ui/icons/Help';
-import { WithTranslation } from 'react-i18next';
+import { withTranslation, WithTranslation } from 'react-i18next';
 
 import { CompanyTheme } from '#libs/theme/types';
 import Button, { ButtonVariant } from '#Fabrique/Button';
@@ -15,11 +15,12 @@ import { Franchise } from '#libs/franchise/types';
 import { buildUrlParams } from '../../../http';
 import ApplyCustomCssStyles from '#libs/widget/components/ApplyCustomCssStyles.component';
 import type { MarketplaceCSSConfiguration } from '#libs/exportable-components/types';
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 import './LoginBackground.css';
-import './Login.css';
+import './styles.css';
 
-type Props = {
+export type Props = {
   doEmailLogin: (Obj: { email: string; password: string }) => void;
   requestSignUp?: () => void;
   loading: boolean;
@@ -73,8 +74,22 @@ export class ConsumerLogin extends Component<Props, State> {
     })}`;
   };
 
-  getEmailLogin = () => {
-    const { simplifyUI, error, errorFields, t } = this.props;
+  doEmailLogin = (event: React.FormEvent<HTMLFormElement>) => {
+    const { email, password } = this.state;
+    event.preventDefault();
+    this.props.doEmailLogin({ email, password });
+  };
+
+  render() {
+    const { simplifyUI, loading, t, hideRegister, errorFields, error } =
+      this.props;
+
+    const { requestSignUp } = this.props;
+
+    const signUpDividerClass = WidgetUtils.isWidget()
+      ? 'bs-login-container__signup-divider--widget'
+      : 'bs-login-container__signup-divider--default';
+
     let errorMessage = t('error.authError');
 
     if (errorFields && errorFields.password) {
@@ -88,102 +103,84 @@ export class ConsumerLogin extends Component<Props, State> {
       this.props.company || this.props.franchisor
         ? 'bs-rectangle--company'
         : 'bs-rectangle--default';
-    return (
-      <div className="bs-flex-column--center bs-login-container__get-email-login">
-        {this.props.customConfiguration && (
-          <ApplyCustomCssStyles
-            customConfiguration={this.props.customConfiguration}
-          />
-        )}
-
-        {!WidgetUtils.isWidget() && !this.props.logoHidden && !simplifyUI && (
-          <div className="bs-login-container__logo-container">
-            <div>
-              <img
-                alt={
-                  this.props.theme
-                    ? `${this.props.theme.company_name} - logo`
-                    : 'bsport-logo'
-                }
-                className="bs-login-container__logo"
-                src={
-                  this.props.theme
-                    ? this.props.theme.cover
-                    : 'https://cdn.bsport.io/bsport_logo_txt.png'
-                }
-              />
-            </div>
-          </div>
-        )}
-        <div className="bs-flex-row">
-          <div
-            className={classnames(
-              'bs-flex-column--center',
-              'bs-login-container__connection-title',
-            )}
-          >
-            <div className="bs-login-container__connection">
-              {t('signin.connection')}
-            </div>
-            {!simplifyUI && (
-              <div
-                className={classnames(rectangleClass, 'rectangle-animated')}
-              />
-            )}
-            {!simplifyUI && (
-              <Button
-                classes={{ root: 'bs-login-container__icon-button' }}
-                id="btn-intercom"
-                onClick={this.handleOpenIntercomHelp}
-                variant={ButtonVariant.ICON}
-              >
-                <HelpIcon />
-              </Button>
-            )}
-          </div>
-        </div>
-        <div className="bs-login-container__connect">
-          <div className="bs-login-container__body1-text">
-            {t('signin.connect')}
-          </div>
-        </div>
-
-        <LoginForm
-          email={this.state.email}
-          emailChoices={this.props.emailChoices}
-          errorMessage={errorMessage}
-          hasCompany={!!this.props.company}
-          hasError={error}
-          hasFranchisor={!!this.props.franchisor}
-          hrefLink={this.getHrefLink()}
-          onChangeField={this.onFormFieldChange}
-          onOpenIntercomHelp={this.handleOpenIntercomHelp}
-          onSubmit={this.doEmailLogin}
-          password={this.state.password}
-          simplifyUI={this.props.simplifyUI}
-        />
-      </div>
-    );
-  };
-
-  doEmailLogin = (event: React.FormEvent<HTMLFormElement>) => {
-    const { email, password } = this.state;
-    event.preventDefault();
-    this.props.doEmailLogin({ email, password });
-  };
-
-  render() {
-    const { simplifyUI, loading, t, hideRegister } = this.props;
-
-    const { requestSignUp } = this.props;
-
-    const signUpDividerClass = WidgetUtils.isWidget()
-      ? 'bs-login-container__signup-divider--widget'
-      : 'bs-login-container__signup-divider--default';
 
     return (
       <div className="bs-login-container bs-flex-column--center">
-        {this.getEmailLogin()}
+        <div className="bs-flex-column--center bs-login-container__get-email-login">
+          {this.props.customConfiguration && (
+            <ApplyCustomCssStyles
+              customConfiguration={this.props.customConfiguration}
+            />
+          )}
+
+          {!WidgetUtils.isWidget() && !this.props.logoHidden && !simplifyUI && (
+            <div className="bs-login-container__logo-container">
+              <div>
+                <img
+                  alt={
+                    this.props.theme
+                      ? `${this.props.theme.company_name} - logo`
+                      : 'bsport-logo'
+                  }
+                  className="bs-login-container__logo"
+                  src={
+                    this.props.theme
+                      ? this.props.theme.cover
+                      : 'https://cdn.bsport.io/bsport_logo_txt.png'
+                  }
+                />
+              </div>
+            </div>
+          )}
+          <div className="bs-flex-row">
+            <div
+              className={classnames(
+                'bs-flex-column--center',
+                'bs-login-container__connection-title',
+              )}
+            >
+              <div className="bs-login-container__connection">
+                {t('signin.connection')}
+              </div>
+              {!simplifyUI && (
+                <div
+                  className={classnames(rectangleClass, 'rectangle-animated')}
+                />
+              )}
+              {!simplifyUI && (
+                <Button
+                  classes={{ root: 'bs-login-container__icon-button' }}
+                  id="btn-intercom"
+                  onClick={this.handleOpenIntercomHelp}
+                  variant={ButtonVariant.ICON}
+                >
+                  <HelpIcon />
+                </Button>
+              )}
+            </div>
+          </div>
+          <div className="bs-login-container__connect">
+            <div className="bs-login-container__body1-text">
+              {t('signin.connect')}
+            </div>
+          </div>
+
+          <LoginForm
+            email={this.state.email}
+            emailChoices={this.props.emailChoices}
+            errorMessage={errorMessage}
+            hasCompany={!!this.props.company}
+            hasError={error}
+            hasFranchisor={!!this.props.franchisor}
+            hrefLink={this.getHrefLink()}
+            onChangeField={this.onFormFieldChange}
+            onOpenIntercomHelp={this.handleOpenIntercomHelp}
+            onSubmit={this.doEmailLogin}
+            password={this.state.password}
+            simplifyUI={this.props.simplifyUI}
+          />
+        </div>
+
         {!hideRegister && (
           <>
             <div className={signUpDividerClass} />
@@ -220,4 +217,9 @@ export class ConsumerLogin extends Component<Props, State> {
   }
 }
 
-export default ConsumerLogin;
+export const LoginStorybook =
+  marketplaceCssHoc<React.ComponentProps<typeof ConsumerLogin>>()(
+    ConsumerLogin,
+  );
+
+export default withTranslation('login')(ConsumerLogin);

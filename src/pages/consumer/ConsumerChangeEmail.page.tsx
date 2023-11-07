@@ -47,7 +47,7 @@ import {
   UnAuthorizedContent,
 } from '#libs/member/components/change_email/consumer-space/content';
 
-import LoginComponent from '#libs/login/components/Login.component';
+import LoginComponent from '#csscomponents/Login/Login.component';
 import { requestLogin } from '../../actions/auth.actions';
 
 type StateHandlerInit = {

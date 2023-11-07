@@ -103,7 +103,10 @@ const LoginForm: React.FC<Props> = ({
               <div className="bs-login-container__email-choices">
                 {emailChoices?.map((email_choice) => {
                   return (
-                    <form key={email_choice} className="bs-login-container__row-center">
+                    <form
+                      key={email_choice}
+                      className="bs-login-container__row-center"
+                    >
                       <Radio
                         labelRight
                         className="bs-login-container__email-choices-radio"
@@ -127,9 +130,9 @@ const LoginForm: React.FC<Props> = ({
               root: 'bs-login-container__text-field',
               label: 'bs-login-container__text-field__label',
             }}
-            data-testid="email"
             id="bs-login-email-container"
             inputId="bs-login-email-input"
+            inputTestId="email"
             isDisabled={isLoading}
             label="Email"
             name="login"
@@ -149,6 +152,7 @@ const LoginForm: React.FC<Props> = ({
           }}
           id="bs-login-password-container"
           inputId="bs-login-password-input"
+          inputTestId="password"
           isDisabled={isLoading || (!!emailChoices && !email)}
           label="Password"
           name="bs-login-password"

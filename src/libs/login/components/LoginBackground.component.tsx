@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import classNames from 'classnames';
 import { useTheme } from '@material-ui/core';
-import './LoginBackground.css';
+import '#csscomponents/Login/LoginBackground.css';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 type Props = {

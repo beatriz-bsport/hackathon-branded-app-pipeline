@@ -1,7 +1,7 @@
 import React from 'react';
-import './LoginBackground.css';
+import '#csscomponents/Login/LoginBackground.css';
 import Button from '@material-ui/core/Button';
-import './Login.css';
+import '#csscomponents/Login/styles.css';
 import { useTranslation } from 'react-i18next';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
 import { Typography, useTheme, makeStyles } from '@material-ui/core';

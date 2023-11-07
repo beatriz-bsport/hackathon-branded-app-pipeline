@@ -26,7 +26,7 @@ import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationActio
 import { getTheme } from '../../theme';
 import { fetchCompanyTheme } from '#libs/theme/actions';
 import ApplyCustomCssStyles from '#libs/widget/components/ApplyCustomCssStyles.component';
-import Login from '#libs/login/components/Login.component';
+import Login from '#csscomponents/Login/Login.component';
 import MarketplaceAppBar from '#marketplacecomponents/@AppBar/MarketplaceAppBar';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import Analytics from '#components/analytics/Analytics.component';

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
-import '../Login.css';
+import '#csscomponents/Login/styles.css';
 import { useTranslation } from 'react-i18next';
 
 import { StylesProvider } from '@material-ui/styles';

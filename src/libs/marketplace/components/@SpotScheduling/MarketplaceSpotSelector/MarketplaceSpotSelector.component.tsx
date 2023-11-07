@@ -227,7 +227,7 @@ const MarketplaceSpotSelector: React.FC<Props> = (props) => {
         fetchSpotForBlueprint={props.fetchSpotForBlueprint}
         isMobile={isMobile}
         onMouseOverSpot={onMouseOverSpot}
-        onSelectSpot={onSelectSpotAndCloseSelector}
+        onSelectSpot={isMobile ? onSelectSpot : onSelectSpotAndCloseSelector}
         roomBlueprint={roomBlueprint}
         selectedSpot={props.selectedSpot}
         spotTypesOfBlueprint={spotTypesOfBlueprint}

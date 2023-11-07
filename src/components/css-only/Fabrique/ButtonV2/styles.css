@@ -390,7 +390,6 @@
 /* ----- TEXT BUTTON INFO ----- */
 .bs-fabrique-button-root-text--info {
   color: var(--bs-color-text-info-weak);
-  background-color: var(--bs-color-action-light);
 }
 
 .bs-fabrique-button-root-text--info:hover,

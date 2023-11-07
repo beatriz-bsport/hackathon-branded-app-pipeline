@@ -106,7 +106,7 @@
 }
 
 .bs-login-container__register-button {
-  border-radius: 42px;
+  border-radius: var(--border-radius-6);
   border: 1px solid #4d4d4d;
   min-width: 200px;
   min-height: 46px;

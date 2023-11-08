@@ -490,6 +490,8 @@ export class ConsumerPackRowItem extends Component<Props, State> {
     const { consumer, dst_consumer_payment_pack: isFromShare } =
       consumerPack ?? {};
 
+    if (!consumerPack) return null;
+
     return (
       <div>
         <ListItem

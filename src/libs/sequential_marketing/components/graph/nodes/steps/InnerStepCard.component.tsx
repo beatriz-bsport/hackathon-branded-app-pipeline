@@ -13,16 +13,14 @@ import CadenceNodeContent from '#libs/sequential_marketing/components/graph/node
 import CadenceNodeTitle from '#libs/sequential_marketing/components/graph/nodes/internals/CadenceNodeTitle.component';
 import StepCard from '#components/card/StepCard.component';
 
-import type {
-  CadenceStep,
-  StepMarketingActions,
-} from '#libs/sequential_marketing/types';
+import type { StepMarketingActions } from '#libs/sequential_marketing/types';
 import type { Action } from '#components/menu/icon';
 import type { EmailTemplateSummary } from '#libs/email-editor/types';
 import type { Tag } from '#libs/tag/types';
+import type { StoredStep } from '../../hooks/types';
 
 export type InnerStepCardProps = {
-  step: CadenceStep;
+  step: StoredStep;
   isSelected?: boolean;
   disabled?: boolean;
   onDelete: () => void;

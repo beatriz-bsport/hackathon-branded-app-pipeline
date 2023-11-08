@@ -42,7 +42,7 @@ export type CustomNode =
   | CustomNodeExit
   | CustomNodeTrigger;
 
-export type StoredStep = Omit<CadenceStep, 'exits'>;
+export type StoredStep = Omit<CadenceStep, 'exits'> & { hasExits?: boolean };
 
 export type StoredTrigger = {
   step: StoredStep;

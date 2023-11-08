@@ -30,7 +30,7 @@ import usePopoverBubble from '#libs/sequential_marketing/components/graph/nodes/
 import useConnectToStep from '#libs/sequential_marketing/components/graph/nodes/hooks/useConnectToStep.hook';
 import MenuSelectorOnly from '#components/menu/menu-only';
 import CadencDialogUtility, {
-  DialogVariant,
+  type DialogVariant,
 } from '#libs/sequential_marketing/components/dialogs/DialogUtility';
 
 type FlowProps = {
@@ -89,11 +89,26 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
   // ===================================================================
 
   // ==================== CONVERT INTO EXIT BUBBLE =====================
-  const handleOpenConvertIntoExitBubble = React.useCallback(
-    () => setAnchorConvertIntoExit(stepCardRef?.current),
+  const [openConvertStepIntoExitDialog, setOpenConvertStepIntoExitDialog] =
+    React.useState(false);
+
+  const handleCloseConvertStepIntoExitDialog = React.useCallback(
+    () => setOpenConvertStepIntoExitDialog(false),
     [],
   );
 
+  const handleConvertStepIntoExit = React.useCallback(() => {
+    handleCloseConvertStepIntoExitDialog();
+    setAnchorConvertIntoExit(stepCardRef?.current);
+  }, [handleCloseConvertStepIntoExitDialog, setAnchorConvertIntoExit]);
+
+  const handleOpenConvertIntoExitBubble = React.useCallback(
+    () =>
+      data?.step?.hasExits === true
+        ? setOpenConvertStepIntoExitDialog(true)
+        : handleConvertStepIntoExit(),
+    [handleConvertStepIntoExit, data.step.hasExits],
+  );
   const handleCloseConvertIntoExitBubble = React.useCallback(
     () => setAnchorConvertIntoExit(null),
     [],
@@ -174,6 +189,8 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
   // ===================================================================
 
   const deleteStepDialogVariant: DialogVariant = 'delete-step';
+  const convertStepIntoExitDialogVariant: DialogVariant =
+    'convert-step-into-exit';
 
   // ===================================================================
 
@@ -281,6 +298,12 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
         onConfirm={handleDeleteStep}
         open={openDeleteStepDialog}
         variant={deleteStepDialogVariant}
+      />
+      <CadencDialogUtility
+        onCancel={handleCloseConvertStepIntoExitDialog}
+        onConfirm={handleConvertStepIntoExit}
+        open={openConvertStepIntoExitDialog}
+        variant={convertStepIntoExitDialogVariant}
       />
     </>
   );

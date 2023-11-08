@@ -92,7 +92,10 @@ export const useStepsAndTriggersRecorder = ({
       (step) => !step?.is_entrypoint && !!step,
     );
     if (notEntrySteps && notEntrySteps.length !== 0) {
-      return notEntrySteps.map((_step) => ({ ...omit(_step, ['exits']) }));
+      return notEntrySteps.map((step) => ({
+        ...omit(step, ['exits']),
+        hasExits: (step.exits ?? []).length > 0,
+      }));
     }
     return [];
   }, [steps]);

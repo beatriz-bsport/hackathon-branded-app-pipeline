@@ -6,10 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
 
-import type {
-  CadenceStep,
-  StepMarketingActions,
-} from '#libs/sequential_marketing/types';
+import type { StepMarketingActions } from '#libs/sequential_marketing/types';
 import type { Tag, TagGroupAPI } from '#libs/tag/types';
 import type {
   EmailTemplateDetail,
@@ -20,9 +17,10 @@ import type {
 import { SequentialMarketingColors } from '#libs/sequential_marketing/constants';
 import CadenceBubble from './CadenceBubble.component';
 import MarketingActionsForm from '#libs/sequential_marketing/components/form/marketing_actions/MarketingActionForm.component';
+import type { StoredStep } from '../hooks/types';
 
 export type StepEditionBubbleProps = {
-  step: CadenceStep;
+  step: StoredStep;
   emailDetailList: Record<number, EmailTemplateDetail>;
   emailDetailListLoading: boolean;
   emailSummaryList: EmailTemplateSummary[];

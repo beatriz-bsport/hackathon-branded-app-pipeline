@@ -29,6 +29,9 @@ import UniqueMarketingActionBubble from '#libs/sequential_marketing/components/g
 import usePopoverBubble from '#libs/sequential_marketing/components/graph/nodes/hooks/usePopoverBubble.hook';
 import useConnectToStep from '#libs/sequential_marketing/components/graph/nodes/hooks/useConnectToStep.hook';
 import MenuSelectorOnly from '#components/menu/menu-only';
+import CadencDialogUtility, {
+  DialogVariant,
+} from '#libs/sequential_marketing/components/dialogs/DialogUtility';
 
 type FlowProps = {
   data: {
@@ -144,6 +147,34 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
     },
     [data, t],
   );
+
+  // =============== OPEN DELETE STEP DIALOG ================
+
+  const [openDeleteStepDialog, setOpenDeleteStepDialog] = React.useState(false);
+
+  const handleOpenDeleteStepDialog = React.useCallback(
+    () => setOpenDeleteStepDialog(true),
+    [],
+  );
+
+  const handleCloseDeleteStepDialog = React.useCallback(
+    () => setOpenDeleteStepDialog(false),
+    [],
+  );
+
+  const handleDeleteStep = React.useCallback(() => {
+    handleCloseDeleteStepDialog();
+    data.onDelete();
+  }, [data, handleCloseDeleteStepDialog]);
+
+  const handleOnDelete = React.useCallback(() => {
+    handleOpenDeleteStepDialog();
+  }, [handleOpenDeleteStepDialog]);
+
+  // ===================================================================
+
+  const deleteStepDialogVariant: DialogVariant = 'delete-step';
+
   // ===================================================================
 
   return (
@@ -166,7 +197,7 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
           isSelected={data.isSelected}
           marketingActionList={data.marketingActionList}
           onCardClick={handleClick}
-          onDelete={data.onDelete}
+          onDelete={handleOnDelete}
           step={data.step}
         />
       </div>
@@ -245,6 +276,12 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
           tagList={data.bubble.tagList}
         />
       </Popover>
+      <CadencDialogUtility
+        onCancel={handleCloseDeleteStepDialog}
+        onConfirm={handleDeleteStep}
+        open={openDeleteStepDialog}
+        variant={deleteStepDialogVariant}
+      />
     </>
   );
 };

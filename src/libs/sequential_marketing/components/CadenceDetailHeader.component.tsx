@@ -22,6 +22,9 @@ import { isMinimalCadenceConfigurationCompleted } from '#libs/sequential_marketi
 
 import type { OptionCallback } from '../../../state/types';
 import type { Cadence } from '#libs/sequential_marketing/types';
+import CadenceUtilityDialog, {
+  type DialogVariant,
+} from '#libs/sequential_marketing/components/dialogs/DialogUtility';
 
 type Props = {
   cadence: Cadence;
@@ -46,7 +49,7 @@ type HeaderActionsProps = {
   cadenceEditMode: boolean;
   setOpenEditDialog: (open: boolean) => void;
   setOpenActivateDialog: (open: boolean) => void;
-  onShutOff: (options?: OptionCallback) => void;
+  openPauseDialog: () => void;
   switchCadenceEditMode: () => void;
   cadenceMinimalConfigurationState: {
     cadenceWinConfigured: boolean;
@@ -63,7 +66,7 @@ const CadenceDetailHeaderActions: React.FC<HeaderActionsProps> = React.memo(
     cadenceEditMode,
     setOpenEditDialog,
     setOpenActivateDialog,
-    onShutOff,
+    openPauseDialog,
     switchCadenceEditMode,
     cadenceMinimalConfigurationState,
   }) => {
@@ -82,7 +85,10 @@ const CadenceDetailHeaderActions: React.FC<HeaderActionsProps> = React.memo(
       [setOpenActivateDialog],
     );
 
-    const handleShutOff = React.useCallback(() => onShutOff?.(), [onShutOff]);
+    const handleOpenPauseDialog = React.useCallback(
+      () => openPauseDialog?.(),
+      [openPauseDialog],
+    );
 
     React.useEffect(() => {
       if (
@@ -124,7 +130,7 @@ const CadenceDetailHeaderActions: React.FC<HeaderActionsProps> = React.memo(
               <Button
                 color="primary"
                 disabled={loading || cadenceEditMode}
-                onClick={handleShutOff}
+                onClick={handleOpenPauseDialog}
                 variant="contained"
               >
                 <PauseIcon className={classes.leftIcon} />
@@ -199,6 +205,7 @@ export const CadenceDetailHeader: React.FC<Props> = ({
 
   const [openEditDialog, setOpenEditDialog] = React.useState(false);
   const [openActivateDialog, setOpenActivateDialog] = React.useState(false);
+  const [openPauseDialog, setOpenPauseDialog] = React.useState(false);
 
   const handleCloseEditForm = React.useCallback(
     () => setOpenEditDialog(false),
@@ -207,6 +214,16 @@ export const CadenceDetailHeader: React.FC<Props> = ({
 
   const handleCloseActivateDialog = React.useCallback(
     () => setOpenActivateDialog(false),
+    [],
+  );
+
+  const handleClosePauseDialog = React.useCallback(
+    () => setOpenPauseDialog(false),
+    [],
+  );
+
+  const handleOpenPauseDialog = React.useCallback(
+    () => setOpenPauseDialog(true),
     [],
   );
 
@@ -231,6 +248,15 @@ export const CadenceDetailHeader: React.FC<Props> = ({
     });
   }, [onActivate]);
 
+  const handlePause = React.useCallback(() => {
+    onShutOff?.({
+      onSuccess: () => setOpenPauseDialog(false),
+      onError: () => setOpenPauseDialog(false),
+    });
+  }, [onShutOff]);
+
+  const pauseDialogVariant: DialogVariant = 'pause-workflow';
+
   if (loading || !cadence) {
     return (
       <div className={classes.centerVerticalContent}>
@@ -253,7 +279,7 @@ export const CadenceDetailHeader: React.FC<Props> = ({
             cadenceMinimalConfigurationState={cadenceMinimalConfigurationState}
             goBack={goBack}
             loading={loading}
-            onShutOff={onShutOff}
+            openPauseDialog={handleOpenPauseDialog}
             setOpenActivateDialog={setOpenActivateDialog}
             setOpenEditDialog={setOpenEditDialog}
             switchCadenceEditMode={switchCadenceEditMode}
@@ -273,6 +299,12 @@ export const CadenceDetailHeader: React.FC<Props> = ({
         onCancel={handleCloseActivateDialog}
         onConfirm={handleActivate}
         open={openActivateDialog}
+      />
+      <CadenceUtilityDialog
+        onCancel={handleClosePauseDialog}
+        onConfirm={handlePause}
+        open={openPauseDialog}
+        variant={pauseDialogVariant}
       />
     </>
   );

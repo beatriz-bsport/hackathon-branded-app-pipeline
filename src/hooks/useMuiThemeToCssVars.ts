@@ -325,6 +325,9 @@ export const useMuiThemeToCssVars = () => {
     --bs-transition-duration-normal:100ms;
     --bs-transition-duration-slow:200ms;
     --bs-transition-duration-slower:300ms;
+
+    /* FABRIQUE ICON SIZE */
+    --bs-icon-size-xs: 8px;
   `;
 
   // Inside the 'id' section, we define styles that will be applied to the 'div' element with the id 'bs-setup-derived-variable'.
@@ -539,6 +542,13 @@ export const useMuiThemeToCssVars = () => {
     --bs-space-size-4: calc(var(--bs-space-size-1) * 4);
     --bs-space-size-3: calc(var(--bs-space-size-1) * 3);
     --bs-space-size-2: calc(var(--bs-space-size-1) * 2);
+
+    /* FABRIQUE DERIVED VARIABLES - ICON SIZE */
+    --bs-icon-size-sm: calc(var(--bs-icon-size-xs) * 1.5);
+    --bs-icon-size-md: calc(var(--bs-icon-size-xs) * 2);
+    --bs-icon-size-lg: calc(var(--bs-icon-size-xs) * 3);
+    --bs-icon-size-xl: calc(var(--bs-icon-size-xs) * 4);
+    --bs-icon-size-xxl: calc(var(--bs-icon-size-xs) * 9);
 
     font-family: var(--fontFamily);
     width: 100%;

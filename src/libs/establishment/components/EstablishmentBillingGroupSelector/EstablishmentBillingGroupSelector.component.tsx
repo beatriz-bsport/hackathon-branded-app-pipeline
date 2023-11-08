@@ -1,6 +1,6 @@
 import React from 'react';
 import chroma from 'chroma-js';
-import { useTranslation, WithTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import { colors } from '@bsport/common/lib/colors';
 import Select, { components } from 'react-select';
 import { styleFn, StylesConfig } from 'react-select/lib/styles';
@@ -33,7 +33,7 @@ type OwnProps = {
   selectOption: (value: EstablishmentBillingGroupSelectOption) => void;
 };
 
-export type Props = OwnProps & WithTranslation;
+export type Props = OwnProps;
 
 /**
  * Groups establishment billing groups by address and sorts them by name.
@@ -304,4 +304,4 @@ export function EstablishmentBillingGroupSelector(props: Props) {
   );
 }
 
-export default EstablishmentBillingGroupSelector;
+export default React.memo(EstablishmentBillingGroupSelector);

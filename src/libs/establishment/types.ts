@@ -173,3 +173,7 @@ export type EstablishmentBillingGroupSelectOption = {
 };
 
 export type WithEstablishment<T> = T & { establishment: Establishment };
+
+export type WithEstablishmentBillingGroup<T> = T & {
+  establishment_billing_group: EstablishmentBillingGroup;
+};

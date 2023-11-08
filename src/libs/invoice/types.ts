@@ -73,6 +73,7 @@ export type Invoice<M = number, PI = number, II = number> = {
   custom_footer: string;
   invoice_legal_identifier: string | null;
   establishment: number | null;
+  establishment_billing_group: number | null;
   author: number;
   source: number;
   is_member_pos: boolean;

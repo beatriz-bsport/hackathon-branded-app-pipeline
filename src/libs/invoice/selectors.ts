@@ -15,7 +15,10 @@ import { getEnabled as getPaymentPackEnabled } from '../payment-packs/selectors'
 import { getPaymentComboList } from '../payment-combo/selectors';
 import { getMemberListData, getMemberDetailData } from '../member/selectors';
 import { getUsers as getStaff } from '../role/selectors';
-import { getAllEstablishments } from '../establishment/selectors';
+import {
+  getAllEstablishments,
+  getAllEstablishmentBillingGroupDict,
+} from '../establishment/selectors';
 import { getGiftcardListEnabled } from '../giftcard/selectors';
 
 import { RootState } from '../../reducers';
@@ -270,6 +273,45 @@ export const withEstablishment = memoize(
             establishmentData?.find(
               (est: Establishment) => est.id === invoice.establishment,
             ),
+        };
+      },
+    ),
+);
+
+/**
+ * Creates a memoized selector that adds the establishment billing group to each invoice.
+ *
+ * @param {Function} selector - A function that selects invoices from the state.
+ * @returns {Function} - A memoized selector that selects invoices with their associated establishment billing group.
+ *
+ * If `selector` returns an array of invoices, the selector maps over the array and replaces the `establishment_billing_group` property of each invoice.
+ * If `selector` returns a single invoice, the selector replaces the `establishment_billing_group` property of that invoice.
+ */
+export const withEstablishmentBillingGroup = memoize(
+  (selector: (state: RootState) => Invoice[] | Invoice | null) =>
+    createSelector(
+      [selector, getAllEstablishmentBillingGroupDict],
+      (invoice, establishmentBillingGroupById) => {
+        if (!invoice) return invoice;
+        if (Array.isArray(invoice)) {
+          return invoice
+            .filter((inv) => !!inv)
+            .map((inv) => ({
+              ...inv,
+              establishment_billing_group: inv.establishment_billing_group
+                ? establishmentBillingGroupById?.[
+                    inv?.establishment_billing_group
+                  ]
+                : null,
+            }));
+        }
+        return {
+          ...invoice,
+          establishment_billing_group:
+            invoice?.establishment_billing_group &&
+            establishmentBillingGroupById?.[
+              invoice?.establishment_billing_group
+            ],
         };
       },
     ),

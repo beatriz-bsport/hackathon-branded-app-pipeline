@@ -437,9 +437,7 @@ export const generateRowLink = ({
         rowExtraData[OfferMetadataIdentifierEnum.DATE_START_DATE] &&
         rowExtraData[OfferMetadataIdentifierEnum.OFFER_ID]
       ) {
-        return `/offer/${
-          rowExtraData[OfferMetadataIdentifierEnum.OFFER_ID]
-        }`;
+        return `/offer/${rowExtraData[OfferMetadataIdentifierEnum.OFFER_ID]}`;
       }
       break;
 

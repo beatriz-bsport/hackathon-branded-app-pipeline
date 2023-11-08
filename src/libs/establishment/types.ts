@@ -166,4 +166,10 @@ export type EstablishmentBillingGroupAPI = {
   address: string;
 };
 
+export type EstablishmentBillingGroupSelectOption = {
+  label: string;
+  value: number;
+  establishmentList: number[];
+};
+
 export type WithEstablishment<T> = T & { establishment: Establishment };

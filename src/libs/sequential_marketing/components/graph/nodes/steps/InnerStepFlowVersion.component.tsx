@@ -37,10 +37,14 @@ type FlowProps = {
   data: {
     bubble: StepEditionBubbleProps;
     stepToEditId: number;
+    isDeleteStepDialogHidden: boolean;
+    isConvertStepIntoExitDialogHidden: boolean;
     createNewMarketingAction: (value: Partial<StepMarketingActions>) => void;
     endStepEdition: () => void;
     onConnectToStep: (destinationId: number, triggerKind: TriggerKind) => void;
     submitConvertIntoExit: (status: DestinationStatus) => void;
+    addHideDeleteStepDialogCadenceIds: () => void;
+    addHideConvertStepIntoExitExitDialogCadenceIds: () => void;
   } & InnerStepCardProps;
 };
 
@@ -89,26 +93,11 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
   // ===================================================================
 
   // ==================== CONVERT INTO EXIT BUBBLE =====================
-  const [openConvertStepIntoExitDialog, setOpenConvertStepIntoExitDialog] =
-    React.useState(false);
-
-  const handleCloseConvertStepIntoExitDialog = React.useCallback(
-    () => setOpenConvertStepIntoExitDialog(false),
+  const handleOpenConvertIntoExitBubble = React.useCallback(
+    () => setAnchorConvertIntoExit(stepCardRef?.current),
     [],
   );
 
-  const handleConvertStepIntoExit = React.useCallback(() => {
-    handleCloseConvertStepIntoExitDialog();
-    setAnchorConvertIntoExit(stepCardRef?.current);
-  }, [handleCloseConvertStepIntoExitDialog, setAnchorConvertIntoExit]);
-
-  const handleOpenConvertIntoExitBubble = React.useCallback(
-    () =>
-      data?.step?.hasExits === true
-        ? setOpenConvertStepIntoExitDialog(true)
-        : handleConvertStepIntoExit(),
-    [handleConvertStepIntoExit, data.step.hasExits],
-  );
   const handleCloseConvertIntoExitBubble = React.useCallback(
     () => setAnchorConvertIntoExit(null),
     [],
@@ -167,26 +156,70 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
 
   const [openDeleteStepDialog, setOpenDeleteStepDialog] = React.useState(false);
 
-  const handleOpenDeleteStepDialog = React.useCallback(
-    () => setOpenDeleteStepDialog(true),
-    [],
-  );
+  const handleOpenDeleteStepDialog = React.useCallback(() => {
+    if (data?.isDeleteStepDialogHidden) {
+      data?.onDelete();
+    } else {
+      setOpenDeleteStepDialog(true);
+    }
+  }, [data]);
 
   const handleCloseDeleteStepDialog = React.useCallback(
     () => setOpenDeleteStepDialog(false),
     [],
   );
 
-  const handleDeleteStep = React.useCallback(() => {
-    handleCloseDeleteStepDialog();
-    data.onDelete();
-  }, [data, handleCloseDeleteStepDialog]);
+  const handleDeleteStep = React.useCallback(
+    (isChecked: boolean) => {
+      handleCloseDeleteStepDialog();
+      isChecked && data?.addHideDeleteStepDialogCadenceIds();
+      data?.onDelete();
+    },
+    [data, handleCloseDeleteStepDialog],
+  );
 
   const handleOnDelete = React.useCallback(() => {
     handleOpenDeleteStepDialog();
   }, [handleOpenDeleteStepDialog]);
 
   // ===================================================================
+
+  const [
+    openConvertStepIntoExitExitDialog,
+    setOpenConvertStepIntoExitExitDialog,
+  ] = React.useState(false);
+  const [destinationStatus, setDestinationStatus] =
+    React.useState<DestinationStatus>(DestinationStatus.WIN);
+
+  const handleCloseConvertStepIntoExitExitDialog = React.useCallback(
+    () => setOpenConvertStepIntoExitExitDialog(false),
+    [],
+  );
+
+  const handleOpenConvertStepIntoExitExitDialog = React.useCallback(() => {
+    setOpenConvertStepIntoExitExitDialog(true);
+  }, []);
+
+  const handleConvertStepIntoExitExit = React.useCallback(
+    (isChecked: boolean) => {
+      handleCloseConvertStepIntoExitExitDialog();
+      isChecked && data?.addHideConvertStepIntoExitExitDialogCadenceIds();
+      data?.submitConvertIntoExit(destinationStatus);
+    },
+    [data, destinationStatus, handleCloseConvertStepIntoExitExitDialog],
+  );
+
+  const handleSubmitConvertIntoExit = React.useCallback(
+    (status: DestinationStatus) => {
+      setDestinationStatus(status);
+      if (data?.step.hasExits && !data?.isConvertStepIntoExitDialogHidden) {
+        handleOpenConvertStepIntoExitExitDialog();
+      } else {
+        data?.submitConvertIntoExit(destinationStatus);
+      }
+    },
+    [data, destinationStatus, handleOpenConvertStepIntoExitExitDialog],
+  );
 
   const deleteStepDialogVariant: DialogVariant = 'delete-step';
   const convertStepIntoExitDialogVariant: DialogVariant =
@@ -267,7 +300,7 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
       >
         <ConvertIntoExitBubble
           onCancel={handleCloseConvertIntoExitBubble}
-          onConfirm={data.submitConvertIntoExit}
+          onConfirm={handleSubmitConvertIntoExit}
         />
       </Popover>
       <Popover
@@ -300,9 +333,9 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
         variant={deleteStepDialogVariant}
       />
       <CadencDialogUtility
-        onCancel={handleCloseConvertStepIntoExitDialog}
-        onConfirm={handleConvertStepIntoExit}
-        open={openConvertStepIntoExitDialog}
+        onCancel={handleCloseConvertStepIntoExitExitDialog}
+        onConfirm={handleConvertStepIntoExitExit}
+        open={openConvertStepIntoExitExitDialog}
         variant={convertStepIntoExitDialogVariant}
       />
     </>

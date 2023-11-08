@@ -37,6 +37,17 @@ import {
 } from '#libs/sequential_marketing/actions';
 
 import {
+  doNotDisplayDeleteStepDialogAnymore as doNotDisplayDeleteStepDialogAnymoreAction,
+  doNotDisplayConvertStepIntoExitDialogAnymore as doNotDisplayConvertStepIntoExitDialogAnymoreAction,
+  doNotDisplayPauseDialogAnymore as doNotDisplayPauseDialogAnymoreAction,
+} from '#libs/user-preference/actions';
+import {
+  getDoNotDisplayDeleteStepDialogCadenceIds,
+  getDoNotDisplayConvertStepIntoExitDialogCadenceIds,
+  getDoNotDisplayPauseDialogCadenceIds,
+} from '#libs/user-preference/selectors';
+
+import {
   getAllSmartList,
   getSmartList,
   getSmartListDict,
@@ -274,6 +285,17 @@ export class CadenceDetailPage extends Component<Props> {
     marketingAction: Partial<StepMarketingActions>,
   ) => this.props.upsertStepMarketingAtions(marketingAction);
 
+  handleDoNotDisplayDeleteStepDialogAnymoreAction = () =>
+    this.props.doNotDisplayDeleteStepDialogAnymore(this.props.cadence.id);
+
+  handleDoNotDisplayConvertStepIntoExitDialogAnymoreAction = () =>
+    this.props.doNotDisplayConvertStepIntoExitDialogAnymore(
+      this.props.cadence.id,
+    );
+
+  handleDoNotDisplayPauseDialogAnymoreAction = () =>
+    this.props.doNotDisplayPauseDialogAnymore(this.props.cadence.id);
+
   render() {
     const { classes } = this.props;
 
@@ -293,7 +315,13 @@ export class CadenceDetailPage extends Component<Props> {
                 cadenceMinimalConfigurationState={
                   this.props.cadenceMinimalConfigurationState
                 }
+                doNotDisplayPauseDialogAnymore={
+                  this.handleDoNotDisplayPauseDialogAnymoreAction
+                }
                 goBack={this.props.backtoCadenceList}
+                hidePauseDialogCadenceIds={
+                  this.props.doNotDisplayPauseDialogCadenceIds
+                }
                 loading={this.props.loading}
                 onActivate={this.props.activateCadence}
                 onEdit={this.props.updateCadenceName}
@@ -313,6 +341,12 @@ export class CadenceDetailPage extends Component<Props> {
               convertCadenceStepIntoExit={this.props.convertCadenceStepIntoExit}
               deleteCadenceStep={this.props.deleteCadenceStep}
               deleteConnectedTrigger={this.props.deleteConnectedTriggerAction}
+              doNotDisplayConvertStepIntoExitDialogAnymoreAction={
+                this.handleDoNotDisplayConvertStepIntoExitDialogAnymoreAction
+              }
+              doNotDisplayDeleteStepDialogCadenceIdsAction={
+                this.handleDoNotDisplayDeleteStepDialogAnymoreAction
+              }
               editConnectedTrigger={this.handleEditConnectedTrigger}
               emailDetailList={this.props.emailDetailList}
               emailDetailListLoading={this.props.emailDetailListLoading}
@@ -328,6 +362,18 @@ export class CadenceDetailPage extends Component<Props> {
                 this.handleCreateNewStepWithTrigger
               }
               handleSelectedStepForEdition={this.handleSelectedStepForEdition}
+              hideConvertStepIntoExitDialogCadenceIds={
+                this.props.doNotDisplayConvertStepIntoExitDialogCadenceIds
+              }
+              hideDeleteStepDialogCadenceIds={
+                this.props.doNotDisplayDeleteStepDialogCadenceIds
+              }
+              isConvertStepIntoExitDialogHidden={this.props.doNotDisplayConvertStepIntoExitDialogCadenceIds.includes(
+                this.props.cadence.id,
+              )}
+              isDeleteStepDialogHidden={this.props.doNotDisplayDeleteStepDialogCadenceIds.includes(
+                this.props.cadence.id,
+              )}
               onClickConnectedTrigger={this.handleClickConnectedTrigger}
               onClickEntryStep={this.props.onClickEntryStep}
               resetAllSelection={this.resetAllSelection}
@@ -720,6 +766,24 @@ const mapWithHandlers = {
       data && props.upsertStepMarketingAtionsAction(data, options);
     },
 
+  doNotDisplayDeleteStepDialogAnymore:
+    (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>
+    (cadenceId: number) => {
+      props.doNotDisplayDeleteStepDialogAnymoreAction(cadenceId);
+    },
+
+  doNotDisplayConvertStepIntoExitDialogAnymore:
+    (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>
+    (cadenceId: number) => {
+      props.doNotDisplayConvertStepIntoExitDialogAnymoreAction(cadenceId);
+    },
+
+  doNotDisplayPauseDialogAnymore:
+    (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>
+    (cadenceId: number) => {
+      props.doNotDisplayPauseDialogAnymoreAction(cadenceId);
+    },
+
   deleteStepMarketingAction:
     (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>
     (data: { id: number; stepId: number }) => {
@@ -744,6 +808,12 @@ const connector = connect(
       getStepMarketingActionsByStepId(state, stepId),
     // SMARTLISTS
     smartlists: getAllSmartList(state),
+    doNotDisplayDeleteStepDialogCadenceIds:
+      getDoNotDisplayDeleteStepDialogCadenceIds(state),
+    doNotDisplayConvertStepIntoExitDialogCadenceIds:
+      getDoNotDisplayConvertStepIntoExitDialogCadenceIds(state),
+    doNotDisplayPauseDialogCadenceIds:
+      getDoNotDisplayPauseDialogCadenceIds(state),
     smartlistById: getSmartListDict(state),
     getSmartlist: (id: number) => getSmartList(state, id),
     // EMAILS
@@ -779,6 +849,9 @@ const connector = connect(
     deleteCadenceStepAction,
     fetchMarketingActionsAction,
     upsertStepMarketingAtionsAction,
+    doNotDisplayDeleteStepDialogAnymoreAction,
+    doNotDisplayConvertStepIntoExitDialogAnymoreAction,
+    doNotDisplayPauseDialogAnymoreAction,
     deleteStepMarketingActionAction,
     deleteConnectedTriggerAction,
     modifyStepMarketingActionsConfigurationAction,

@@ -40,11 +40,14 @@ type Props = {
     cadenceLoseConfigured: boolean;
     cadenceEntryConfigured: boolean;
   };
+  doNotDisplayPauseDialogAnymore: (cadenceId: number) => void;
+  hidePauseDialogCadenceIds: number[];
 };
 
 type HeaderActionsProps = {
   cadence: Cadence;
   loading: boolean;
+  hidePauseDialogCadenceIds: number[];
   goBack: () => void;
   cadenceEditMode: boolean;
   setOpenEditDialog: (open: boolean) => void;
@@ -56,11 +59,13 @@ type HeaderActionsProps = {
     cadenceLoseConfigured: boolean;
     cadenceEntryConfigured: boolean;
   };
+  handlePause: (isChecked: boolean) => void;
 };
 
 const CadenceDetailHeaderActions: React.FC<HeaderActionsProps> = React.memo(
   ({
     cadence,
+    hidePauseDialogCadenceIds,
     goBack,
     loading,
     cadenceEditMode,
@@ -69,6 +74,7 @@ const CadenceDetailHeaderActions: React.FC<HeaderActionsProps> = React.memo(
     openPauseDialog,
     switchCadenceEditMode,
     cadenceMinimalConfigurationState,
+    handlePause,
   }) => {
     const { t } = useTranslation('marketing');
     const classes = useStyles();
@@ -85,10 +91,13 @@ const CadenceDetailHeaderActions: React.FC<HeaderActionsProps> = React.memo(
       [setOpenActivateDialog],
     );
 
-    const handleOpenPauseDialog = React.useCallback(
-      () => openPauseDialog?.(),
-      [openPauseDialog],
-    );
+    const handleOpenPauseDialog = React.useCallback(() => {
+      if (!hidePauseDialogCadenceIds.includes(cadence.id)) {
+        openPauseDialog?.();
+      } else {
+        handlePause(false);
+      }
+    }, [cadence.id, handlePause, hidePauseDialogCadenceIds, openPauseDialog]);
 
     React.useEffect(() => {
       if (
@@ -200,6 +209,8 @@ export const CadenceDetailHeader: React.FC<Props> = ({
   cadenceEditMode,
   switchCadenceEditMode,
   cadenceMinimalConfigurationState,
+  doNotDisplayPauseDialogAnymore,
+  hidePauseDialogCadenceIds,
 }) => {
   const classes = useStyles();
 
@@ -248,12 +259,16 @@ export const CadenceDetailHeader: React.FC<Props> = ({
     });
   }, [onActivate]);
 
-  const handlePause = React.useCallback(() => {
-    onShutOff?.({
-      onSuccess: () => setOpenPauseDialog(false),
-      onError: () => setOpenPauseDialog(false),
-    });
-  }, [onShutOff]);
+  const handlePause = React.useCallback(
+    (isChecked: boolean) => {
+      onShutOff?.({
+        onSuccess: () => setOpenPauseDialog(false),
+        onError: () => setOpenPauseDialog(false),
+      });
+      isChecked && doNotDisplayPauseDialogAnymore(cadence.id);
+    },
+    [doNotDisplayPauseDialogAnymore, cadence.id, onShutOff],
+  );
 
   const pauseDialogVariant: DialogVariant = 'pause-workflow';
 
@@ -278,6 +293,8 @@ export const CadenceDetailHeader: React.FC<Props> = ({
             cadenceEditMode={cadenceEditMode}
             cadenceMinimalConfigurationState={cadenceMinimalConfigurationState}
             goBack={goBack}
+            handlePause={handlePause}
+            hidePauseDialogCadenceIds={hidePauseDialogCadenceIds}
             loading={loading}
             openPauseDialog={handleOpenPauseDialog}
             setOpenActivateDialog={setOpenActivateDialog}

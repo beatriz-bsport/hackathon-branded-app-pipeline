@@ -53,6 +53,10 @@ type Props = {
   tagCategories: { [tag_name: string]: string[] };
   smartlists: Immutable.ImmutableArray<SmartList>;
   steps: CadenceStep[];
+  hideDeleteStepDialogCadenceIds: number[];
+  hideConvertStepIntoExitDialogCadenceIds: number[];
+  isDeleteStepDialogHidden: boolean;
+  isConvertStepIntoExitDialogHidden: boolean;
   convertCadenceStepIntoExit: (
     stepId: number,
     status: DestinationStatus,
@@ -107,6 +111,8 @@ type Props = {
   upsertMarketingAction: (
     marketingAction: Partial<StepMarketingActions>,
   ) => void;
+  doNotDisplayDeleteStepDialogCadenceIdsAction: () => void;
+  doNotDisplayConvertStepIntoExitDialogAnymoreAction: () => void;
 };
 
 export const CadenceGraphFlow: React.FC<Props> = ({
@@ -122,6 +128,10 @@ export const CadenceGraphFlow: React.FC<Props> = ({
   smartlists,
   steps,
   tagList,
+  hideDeleteStepDialogCadenceIds,
+  hideConvertStepIntoExitDialogCadenceIds,
+  isDeleteStepDialogHidden,
+  isConvertStepIntoExitDialogHidden,
   convertCadenceExitIntoStep,
   convertCadenceStepIntoExit,
   deleteCadenceStep,
@@ -143,6 +153,8 @@ export const CadenceGraphFlow: React.FC<Props> = ({
   updateCadenceStepName,
   updateConnectedTriggerPosition,
   upsertMarketingAction,
+  doNotDisplayDeleteStepDialogCadenceIdsAction,
+  doNotDisplayConvertStepIntoExitDialogAnymoreAction,
 }) => {
   const [disabledMode, setDisabledMode] = React.useState(true);
   const [displayDisabledTriggers, setDisplayDisabledTriggers] =
@@ -156,6 +168,10 @@ export const CadenceGraphFlow: React.FC<Props> = ({
     displayDisabledTriggers,
     smartlists,
     steps,
+    hideDeleteStepDialogCadenceIds,
+    hideConvertStepIntoExitDialogCadenceIds,
+    isDeleteStepDialogHidden,
+    isConvertStepIntoExitDialogHidden,
     convertCadenceExitIntoStep,
     convertCadenceStepIntoExit,
     deleteCadenceStep,
@@ -186,6 +202,9 @@ export const CadenceGraphFlow: React.FC<Props> = ({
       onConfirm: submitMarketingActionForm,
       updateCadenceStepName,
     },
+    doNotDisplayDeleteStepDialogCadenceIdsAction,
+    doNotDisplayConvertStepIntoExitDialogCadenceIdsAction:
+      doNotDisplayConvertStepIntoExitDialogAnymoreAction,
   });
 
   const onNodesChange = React.useCallback(

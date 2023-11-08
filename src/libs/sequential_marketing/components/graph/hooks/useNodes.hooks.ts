@@ -144,6 +144,10 @@ type NodeRendererProps = {
   storedSteps: StoredStep[];
   storedTriggers: Immutable.ImmutableArray<StoredTrigger>;
   fakerTrigger?: StoredTrigger;
+  hideDeleteStepDialogCadenceIds: number[];
+  hideConvertStepIntoExitDialogCadenceIds: number[];
+  isDeleteStepDialogHidden: boolean;
+  isConvertStepIntoExitDialogHidden: boolean;
   convertCadenceExitIntoStep: (
     triggerUuid: string,
     step: {
@@ -186,6 +190,8 @@ type NodeRendererProps = {
   upsertMarketingAction: (
     marketingAction: Partial<StepMarketingActions>,
   ) => void;
+  doNotDisplayDeleteStepDialogCadenceIdsAction: () => void;
+  doNotDisplayConvertStepIntoExitDialogCadenceIdsAction: () => void;
 };
 
 export const useNodeElementsRecorder = ({
@@ -196,6 +202,10 @@ export const useNodeElementsRecorder = ({
   storedEntryStep,
   storedSteps,
   storedTriggers,
+  hideDeleteStepDialogCadenceIds,
+  hideConvertStepIntoExitDialogCadenceIds,
+  isDeleteStepDialogHidden,
+  isConvertStepIntoExitDialogHidden,
   convertCadenceExitIntoStep,
   convertCadenceStepIntoExit,
   deleteCadenceStep,
@@ -211,6 +221,8 @@ export const useNodeElementsRecorder = ({
   onClickConnectedTrigger,
   onClickEntryStep,
   upsertMarketingAction,
+  doNotDisplayDeleteStepDialogCadenceIdsAction,
+  doNotDisplayConvertStepIntoExitDialogCadenceIdsAction,
 }: NodeRendererProps) => {
   const [stepToEditId, setStepToEditId] = React.useState<number | null>(null);
 
@@ -413,6 +425,10 @@ export const useNodeElementsRecorder = ({
           marketingActionList: getStepMarketingActions?.(stepNode?.id),
           bubble: stepBubbleProps,
           stepToEditId,
+          hideDeleteStepDialogCadenceIds,
+          hideConvertStepIntoExitDialogCadenceIds,
+          isDeleteStepDialogHidden,
+          isConvertStepIntoExitDialogHidden,
           addNextStep: handleAddNextStepTrigger(stepNode),
           createNewMarketingAction: handleCreateNewMarketingAction,
           endStepEdition: handleResetStepToEditId,
@@ -421,6 +437,10 @@ export const useNodeElementsRecorder = ({
           onConnectToStep: onConnectToInnerStep(stepNode),
           onDelete: () => deleteCadenceStep(stepNode?.id),
           submitConvertIntoExit: handleConvertIntoExit(stepNode),
+          addHideDeleteStepDialogCadenceIds:
+            doNotDisplayDeleteStepDialogCadenceIdsAction,
+          addHideConvertStepIntoExitExitDialogCadenceIds:
+            doNotDisplayConvertStepIntoExitDialogCadenceIdsAction,
         },
       }));
     }

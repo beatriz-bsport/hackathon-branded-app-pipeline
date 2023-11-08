@@ -33,6 +33,10 @@ export type Props = {
   stepBubbleProps: Omit<StepEditionBubbleProps, 'step'>;
   steps: CadenceStep[];
   smartlists: Immutable.ImmutableArray<SmartList>;
+  hideDeleteStepDialogCadenceIds: number[];
+  hideConvertStepIntoExitDialogCadenceIds: number[];
+  isDeleteStepDialogHidden: boolean;
+  isConvertStepIntoExitDialogHidden: boolean;
   convertCadenceExitIntoStep: (
     triggerUuid: string,
     step: {
@@ -80,6 +84,8 @@ export type Props = {
   upsertMarketingAction: (
     marketingAction: Partial<StepMarketingActions>,
   ) => void;
+  doNotDisplayDeleteStepDialogCadenceIdsAction: () => void;
+  doNotDisplayConvertStepIntoExitDialogCadenceIdsAction: () => void;
 };
 
 export const useGraph = ({
@@ -89,6 +95,10 @@ export const useGraph = ({
   smartlists,
   stepBubbleProps,
   steps,
+  hideDeleteStepDialogCadenceIds,
+  hideConvertStepIntoExitDialogCadenceIds,
+  isDeleteStepDialogHidden,
+  isConvertStepIntoExitDialogHidden,
   convertCadenceExitIntoStep,
   convertCadenceStepIntoExit,
   deleteCadenceStep,
@@ -106,6 +116,8 @@ export const useGraph = ({
   updateCadenceStepCanvasPosition,
   updateConnectedTriggerPosition,
   upsertMarketingAction,
+  doNotDisplayDeleteStepDialogCadenceIdsAction,
+  doNotDisplayConvertStepIntoExitDialogCadenceIdsAction,
 }: Props) => {
   const [nodes, setNodes] = React.useState([]);
   const [edges, setEdges] = React.useState([]);
@@ -155,6 +167,10 @@ export const useGraph = ({
       storedEntryStep,
       storedSteps,
       storedTriggers,
+      hideDeleteStepDialogCadenceIds,
+      hideConvertStepIntoExitDialogCadenceIds,
+      isDeleteStepDialogHidden,
+      isConvertStepIntoExitDialogHidden,
       convertCadenceExitIntoStep,
       convertCadenceStepIntoExit,
       deleteCadenceStep,
@@ -173,6 +189,8 @@ export const useGraph = ({
       onClickEntryStep,
       resetAllSelection,
       upsertMarketingAction,
+      doNotDisplayDeleteStepDialogCadenceIdsAction,
+      doNotDisplayConvertStepIntoExitDialogCadenceIdsAction,
     });
 
   const onNodeDragStop = React.useCallback(

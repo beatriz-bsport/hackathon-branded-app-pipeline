@@ -24,8 +24,6 @@ type Props = {
   onConfirm: (isCheked?: boolean) => void;
   variant: DialogVariant;
   cadence?: Cadence;
-  isChecked?: boolean;
-  handleCheck?: () => void;
 };
 
 const useCadenceUtilityIcon = (
@@ -212,15 +210,31 @@ export const CadenceUtilityDialog: React.FC<Props> = ({
   onConfirm,
   variant,
   cadence,
-  isChecked,
-  handleCheck,
 }) => {
   const classes = useStyles();
   const theme = useTheme();
 
   const { icon, customIcon, color } = useCadenceUtilityIcon(variant, theme);
-  const buttons = useCadenceUtilityButtons(variant, theme, onCancel, onConfirm);
   const displayCheckBox = useCadenceUtilityCheckbox(variant);
+
+  const [isChecked, setIsChecked] = React.useState<boolean>(false);
+
+  const handleCheck = React.useCallback(
+    () => setIsChecked(!isChecked),
+    [isChecked],
+  );
+
+  const handleOnConfirm = React.useCallback(
+    () => onConfirm(isChecked),
+    [isChecked, onConfirm],
+  );
+
+  const buttons = useCadenceUtilityButtons(
+    variant,
+    theme,
+    onCancel,
+    handleOnConfirm,
+  );
 
   const { title, descriptions } = useCadenceUtilityTexts(
     variant,

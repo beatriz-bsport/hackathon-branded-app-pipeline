@@ -17,6 +17,7 @@ import {
   listPlannedPaymentEventActions,
   editCustomFooterActions,
   editBillingEstablishmentActions,
+  editEstablishmentBillingGroupActions,
   checkInvoiceInfoActions,
   cancelPlannedPaymentEventActions,
   enablePlannedPaymentEventActions,
@@ -110,6 +111,10 @@ const initialState: Immutable.Immutable<InvoiceState> = Immutable<InvoiceState>(
     },
     errorSpecific: null,
     loadingSpecific: false,
+    editEstablishmentBillingGroup: {
+      loading: false,
+      error: null,
+    },
   },
 );
 
@@ -380,6 +385,24 @@ export default handleActions<Immutable.Immutable<InvoiceState>, any>(
       { payload }: { payload: InvoiceV1Serializer },
     ) => {
       return state.setIn(['byId', payload.uuid], payload);
+    },
+    [editEstablishmentBillingGroupActions.success.toString()]: (
+      state,
+      { payload }: { payload: InvoiceV1Serializer },
+    ) => {
+      return state.setIn(['byId', payload.uuid], payload);
+    },
+    [editEstablishmentBillingGroupActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['editEstablishmentBillingGroup', 'error'], payload);
+    },
+    [editEstablishmentBillingGroupActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['editEstablishmentBillingGroup', 'loading'], payload);
     },
     [listPlannedPaymentEventActions.isLoading.toString()]: (
       state,

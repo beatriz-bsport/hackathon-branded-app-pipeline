@@ -33,6 +33,7 @@ import {
   fetchPlannedPaymentEvent as fetchPlannedPaymentEventAPI,
   editCustomFooter as editCustomFooterAPI,
   editBillingEstablishent as editBillingEstablishentAPI,
+  editEstablishmentBillingGroup as editEstablishmentBillingGroupAPI,
   cancelPlannedPaymentEvent as cancelPlannedPaymentEventAPI,
   enablePlannedPaymentEvent as enablePlannedPaymentEventAPI,
   registerNowPlannedPaymentEvent as registerNowPlannedPaymentEventAPI,
@@ -1043,7 +1044,7 @@ export function editBillingEstablishment(
         options.onSuccess(response.data);
       }
     } catch (err) {
-      if (err && err.response && err.response.status === 401) {
+      if (err && err.response && err.response.status === 403) {
         dispatch(
           snackbarError(
             'invoice.billingEstablishment.error.unAuthorizedEstablishmentModification',
@@ -1057,6 +1058,62 @@ export function editBillingEstablishment(
       }
     }
     dispatch(editBillingEstablishmentActions.isLoading(false));
+  };
+}
+
+export const editEstablishmentBillingGroupActions = {
+  isLoading: createAction<boolean>(
+    'INVOICE/EDIT_ESTABLISHMENT_BILLING_GROUP/LOADING',
+  ),
+  error: createAction<Error | null>(
+    'INVOICE/EDIT_ESTABLISHMENT_BILLING_GROUP/ERROR',
+  ),
+  success: createAction<InvoiceV1Serializer>(
+    'INVOICE/EDIT_ESTABLISHMENT_BILLING_GROUP/SUCCESS',
+  ),
+};
+
+/**
+ * Dispatches actions to edit the EstablishmentBillingGroup of an Invoice.
+ *
+ * @param {string} uuid - The UUID of the invoice.
+ * @param {string} establishmentBillingGroupId - The ID of the establishment billing group.
+ * @param {OptionCallback<InvoiceV1Serializer>} [options] - Optional callbacks to handle success and error states.
+ * @returns {Function} - A thunk function.
+ */
+export function editEstablishmentBillingGroup(
+  uuid: string,
+  establishmentBillingGroupId: string,
+  options?: OptionCallback<InvoiceV1Serializer>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(editEstablishmentBillingGroupActions.isLoading(true));
+    dispatch(editEstablishmentBillingGroupActions.error(null));
+
+    try {
+      const response = await editEstablishmentBillingGroupAPI(
+        uuid,
+        establishmentBillingGroupId,
+      );
+      dispatch(editEstablishmentBillingGroupActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      if (err && err.response && err.response.status === 403) {
+        dispatch(
+          snackbarError(
+            'invoice.billingEstablishment.error.unAuthorizedEstablishmentModification',
+          ),
+        );
+      } else {
+        dispatch(editEstablishmentBillingGroupActions.error(err));
+        if (options && options.onError) {
+          options.onError(err);
+        }
+      }
+    }
+    dispatch(editEstablishmentBillingGroupActions.isLoading(false));
   };
 }
 

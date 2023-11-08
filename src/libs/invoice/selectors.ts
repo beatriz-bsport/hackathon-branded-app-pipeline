@@ -317,6 +317,9 @@ export const withEstablishmentBillingGroup = memoize(
     ),
 );
 
+export const getEditEstablishmentBillingGroupIsLoading = (state: RootState) =>
+  getState(state).editEstablishmentBillingGroup.loading;
+
 const _getPaymentListIds = (state: RootState) => getState(state).payment.allIds;
 
 const _getUuid = (_: RootState, uuid: string) => uuid;

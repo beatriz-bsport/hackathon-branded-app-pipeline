@@ -306,6 +306,22 @@ export async function editBillingEstablishent(
     { billing_establishment_id },
   );
 }
+/**
+ * Sends a POST request to update the establishment billing group of an invoice.
+ *
+ * @param {string} uuid - The UUID of the invoice.
+ * @param {number} establishment_billing_group_id - The ID of the new establishment billing group.
+ * @returns {Promise<AxiosResponse<InvoiceV1Serializer>>} - A promise that resolves to the response of the API request.
+ */
+export function editEstablishmentBillingGroup(
+  uuid: string,
+  establishment_billing_group_id: number,
+) {
+  return postAuth<InvoiceV1Serializer>(
+    `${API_V1_URI}/payment/invoices/${uuid}/update_establishment_billing_group/`,
+    { establishment_billing_group_id },
+  );
+}
 
 export async function applyBalanceToInvoice(
   uuid: string,

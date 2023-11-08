@@ -17,21 +17,26 @@
   transition: max-height 200ms ease-in-out;
   transition: padding 0 ease-in;
 }
+
 .collapsed {
   max-height: 0px;
   padding: 0px;
 }
+
 .react-flow__controls_bottom_fab {
   bottom: 20px;
   left: 12px;
   position: absolute;
-  z-index: 5;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 60px;
   height: 50px;
+}
+
+.react-flow__controls__forward {
+  z-index: 800 !important;
 }
 
 .react-flow__controls button {
@@ -93,4 +98,12 @@
 .react-flow__controls-zoomin:hover > svg {
   animation: shake 0.8s;
   animation-iteration-count: 1;
+}
+
+.react-flow__renderer {
+  z-index: 700 !important;
+}
+
+.react-flow__node {
+  cursor: default;
 }

@@ -32,27 +32,31 @@ import type { SmartList } from '#libs/smart-list/types';
 
 const nbsp = `\u00A0`;
 type Props = {
-  displayDisabledTriggers: boolean;
-  switchDisplayDisabledNodes: () => void;
   active: boolean;
+  creationMode: boolean;
+  displayDisabledTriggers: boolean;
   editMode: boolean;
-  winTriggers: ConnectedTrigger[];
+  inOutputConfiguration: boolean;
   loseTriggers: ConnectedTrigger[];
+  winTriggers: ConnectedTrigger[];
   getSmartlist: (id: number) => SmartList;
+  switchDisplayDisabledNodes: () => void;
 };
 
 export const CadenceGraphViewPort: React.FC<Props> = ({
-  displayDisabledTriggers,
-  switchDisplayDisabledNodes,
   active,
+  creationMode,
+  displayDisabledTriggers,
   editMode,
-  winTriggers,
+  inOutputConfiguration,
   loseTriggers,
+  winTriggers,
   getSmartlist,
+  switchDisplayDisabledNodes,
 }) => {
   const [collapsed, setCollapsed] = React.useState(true);
   const { t } = useTranslation('marketing');
-  const classes = useStyles();
+  const classes = useStyles({ inOutputConfiguration });
 
   const [showMap, setShowMap] = React.useState(false);
 
@@ -90,7 +94,7 @@ export const CadenceGraphViewPort: React.FC<Props> = ({
             </Alert>
           </div>
         )}
-        {!editMode && !active && (
+        {!creationMode && !editMode && !active && (
           <div className={classes.topAlert}>
             <Alert className={classes.alert} severity="info">
               {t('cadence.graph.alert.switchToEditMode')}
@@ -162,49 +166,52 @@ export const CadenceGraphViewPort: React.FC<Props> = ({
   );
 };
 
-const useStyles = makeStyles((theme: Theme) => ({
-  container: {
-    paddingLeft: theme.spacing(0.5),
-    paddingRight: theme.spacing(0.5),
-    paddingTop: theme.spacing(0.5),
-    zIndex: 500,
-    position: 'absolute',
-    display: 'flex',
-    flex: 1,
-    width: '100%',
-    justifyContent: 'space-between',
-  },
-  viewportInfo: {
-    display: 'flex',
-    flexDirection: 'column',
-    color: theme.palette.text.secondary,
-    width: 'auto',
-  },
-  outputSection: {
-    display: 'flex',
-    padding: theme.spacing(2),
-  },
-  topAlert: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
-  },
-  column: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  noHover: {
-    '&:hover': {
-      backgroundColor: 'transparent',
+const useStyles = makeStyles<Theme, Pick<Props, 'inOutputConfiguration'>>(
+  (theme) => ({
+    container: {
+      paddingLeft: theme.spacing(0.5),
+      paddingRight: theme.spacing(0.5),
+      paddingTop: theme.spacing(0.5),
+      zIndex: ({ inOutputConfiguration }) =>
+        inOutputConfiguration ? 900 : 500,
+      position: 'absolute',
+      display: 'flex',
+      flex: 1,
+      width: '100%',
+      justifyContent: 'space-between',
     },
-  },
-  iconNos: {
-    color: 'rgba(0, 0, 0, 0.3)',
-  },
-  alert: {
-    alignItems: 'center',
-  },
-}));
+    viewportInfo: {
+      display: 'flex',
+      flexDirection: 'column',
+      color: theme.palette.text.secondary,
+      width: 'auto',
+    },
+    outputSection: {
+      display: 'flex',
+      padding: theme.spacing(2),
+    },
+    topAlert: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: '100%',
+    },
+    column: {
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    noHover: {
+      '&:hover': {
+        backgroundColor: 'transparent',
+      },
+    },
+    iconNos: {
+      color: 'rgba(0, 0, 0, 0.3)',
+    },
+    alert: {
+      alignItems: 'center',
+    },
+  }),
+);
 
 export default React.memo(CadenceGraphViewPort);

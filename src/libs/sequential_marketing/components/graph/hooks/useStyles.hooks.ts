@@ -1,15 +1,19 @@
 import makeStyles from '@material-ui/styles/makeStyles';
+import type { Theme } from '@material-ui/core/styles';
 
-export const useGraphStyles = makeStyles(() => ({
+type GraphStyles = { isFirstOutputConfiguration: boolean };
+
+export const useGraphStyles = makeStyles<Theme, GraphStyles>(() => ({
   blurDisabledOverLay: {
-    backgroundColor: 'rgba(255, 255, 255, .5)',
-    backdropFilter: 'blur(0.5px)',
+    backgroundColor: 'rgba(0, 0, 0, 0.15)',
+    backdropFilter: 'blur(1px)',
     position: 'absolute',
     height: '100%',
     width: '100%',
     top: '50%',
     left: '50%',
-    zIndex: 1000,
+    zIndex: ({ isFirstOutputConfiguration }) =>
+      isFirstOutputConfiguration ? 800 : 600,
     transform: 'translate(-50%,-50%)',
     '-ms-transform': 'translate(-50%,-50%)',
   },

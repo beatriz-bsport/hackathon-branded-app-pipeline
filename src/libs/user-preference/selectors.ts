@@ -48,3 +48,13 @@ export const getWorkshopDetailGroupFilter = (state: RootState) =>
 
 export const getShrinkResponsiveDrawer = (state: RootState) =>
   state.userPreference.shrinkResponsiveDrawer || false;
+
+export const getDoNotDisplayDeleteStepDialogCadenceIds = (state: RootState) =>
+  state.userPreference.doNotDisplayDeleteStepDialogCadenceIds || [];
+
+export const getDoNotDisplayConvertStepIntoExitDialogCadenceIds = (
+  state: RootState,
+) => state.userPreference.doNotDisplayConvertStepIntoExitDialogCadenceIds || [];
+
+export const getDoNotDisplayPauseDialogCadenceIds = (state: RootState) =>
+  state.userPreference.doNotDisplayPauseDialogCadenceIds || [];

@@ -55,4 +55,7 @@ export type UserPreference = {
   replacementRequestManagerFilter: ReplacementRequestFilter;
   replacementRequestOfferHistoryFilter: ReplacementRequestOfferHistoryFilter;
   hideCoachNotAssociatedToPrivateServiceWarning: boolean;
+  doNotDisplayDeleteStepDialogCadenceIds: number[];
+  doNotDisplayConvertStepIntoExitDialogCadenceIds: number[];
+  doNotDisplayPauseDialogCadenceIds: number[];
 };

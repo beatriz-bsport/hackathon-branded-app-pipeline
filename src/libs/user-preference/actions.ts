@@ -6,9 +6,15 @@ import {
   SortOption,
 } from '../payment-packs/components/PaymentPackFilterAndSortHeader.component';
 import type { OfferFilter } from '#libs/offer/types';
-import { PrivateBookingFilter, ScheduleFilter } from './types';
-import { OffersGroupFilter } from '#libs/meta-activity/types';
-import {
+import type {
+  PrivateBookingFilter,
+  ScheduleFilter,
+  doNotDisplayDeleteStepDialogCadenceIds,
+  doNotDisplayConvertStepIntoExitDialogCadenceIds,
+  doNotDisplayPauseDialogCadenceIds,
+} from './types';
+import type { OffersGroupFilter } from '#libs/meta-activity/types';
+import type {
   ReplacementRequestFilter,
   ReplacementRequestOfferHistoryFilter,
 } from '#libs/replacement-request/types';
@@ -59,6 +65,18 @@ export const userPreferenceActions = {
   setHideCoachNotAssociatedToPrivateServiceWarning: createAction<boolean>(
     'USER_PREFERANCE/HIDE_ASSOCIATED_COACH_WITHOUTH_PRIVATE_SERVICE_DIALOG',
   ),
+  doNotDisplayDeleteStepDialogAnymore:
+    createAction<doNotDisplayDeleteStepDialogCadenceIds>(
+      'USER_PREFERENCE/ADD_DO_NOT_DISPLAY_DELETE_STEP_DIALOG_CADENCE_IDS',
+    ),
+  doNotDisplayConvertStepIntoExitDialogAnymore:
+    createAction<doNotDisplayConvertStepIntoExitDialogCadenceIds>(
+      'USER_PREFERENCE/ADD_DO_NOT_DISPLAY_CONVERT_STEP_EXIT_DIALOG_CADENCE_IDS',
+    ),
+  doNotDisplayPauseDialogAnymore:
+    createAction<doNotDisplayPauseDialogCadenceIds>(
+      'USER_PREFERENCE/ADD_DO_NOT_DISPLAY_PAUSE_DIALOG_CADENCE_IDS',
+    ),
 };
 
 export function setPaymentPackSort(sortOption: SortOption) {
@@ -215,5 +233,31 @@ export function setHideCoachNotAssociatedToPrivateServiceWarning(
         hide,
       ),
     );
+  };
+}
+
+export function doNotDisplayDeleteStepDialogAnymore(cadenceId: number) {
+  return async (dispatch: Dispatch) => {
+    dispatch(
+      userPreferenceActions.doNotDisplayDeleteStepDialogAnymore(cadenceId),
+    );
+  };
+}
+
+export function doNotDisplayConvertStepIntoExitDialogAnymore(
+  cadenceId: number,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(
+      userPreferenceActions.doNotDisplayConvertStepIntoExitDialogAnymore(
+        cadenceId,
+      ),
+    );
+  };
+}
+
+export function doNotDisplayPauseDialogAnymore(cadenceId: number) {
+  return async (dispatch: Dispatch) => {
+    dispatch(userPreferenceActions.doNotDisplayPauseDialogAnymore(cadenceId));
   };
 }

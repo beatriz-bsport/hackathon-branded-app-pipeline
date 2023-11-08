@@ -43,6 +43,9 @@ const initialState: Immutable.Immutable<UserPreference> = Immutable({
     offer_available: true,
   },
   hideCoachNotAssociatedToPrivateServiceWarning: false,
+  doNotDisplayedDeleteStepDialogCadenceIds: [],
+  doNotDisplayedConvertStepIntoExitDialogCadenceIds: [],
+  doNotDisplayedPauseDialogCadenceIds: [],
 });
 
 export default handleActions<Immutable.Immutable<UserPreference>, any>(
@@ -174,6 +177,31 @@ export default handleActions<Immutable.Immutable<UserPreference>, any>(
           payload,
         );
       },
+    [userPreferenceActions.doNotDisplayDeleteStepDialogAnymore.toString()]: (
+      state,
+      { payload }: { payload: number },
+    ) => {
+      return state.set('doNotDisplayDeleteStepDialogCadenceIds', [
+        ...(state.doNotDisplayDeleteStepDialogCadenceIds || []),
+        payload,
+      ]);
+    },
+    [userPreferenceActions.doNotDisplayConvertStepIntoExitDialogAnymore.toString()]:
+      (state, { payload }: { payload: number }) => {
+        return state.set('doNotDisplayConvertStepIntoExitDialogCadenceIds', [
+          ...(state.doNotDisplayConvertStepIntoExitDialogCadenceIds || []),
+          payload,
+        ]);
+      },
+    [userPreferenceActions.doNotDisplayPauseDialogAnymore.toString()]: (
+      state,
+      { payload }: { payload: number },
+    ) => {
+      return state.set('doNotDisplayPauseDialogCadenceIds', [
+        ...(state.doNotDisplayPauseDialogCadenceIds || []),
+        payload,
+      ]);
+    },
   },
   initialState,
 );

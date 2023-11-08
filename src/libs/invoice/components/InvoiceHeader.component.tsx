@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import Typography from '@material-ui/core/Typography';
 import { useTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
@@ -19,28 +19,31 @@ import {
   INVOICE_TYPE_REVERSE,
   INVOICE_TYPE_MIGRATION,
 } from '@bsport/common/lib/master-data/invoice-type';
+import { CircularProgress } from '@material-ui/core';
 
-import EstablishmentSelector from '#libs/establishment/components/EstablishmentSelector.component';
+import EstablishmentBillingGroupSelector from '#libs/establishment/components/EstablishmentBillingGroupSelector';
 import type { Invoice, WithAuthor } from '../types';
 import type {
   Establishment,
+  EstablishmentBillingGroup,
+  EstablishmentBillingGroupSelectOption,
   WithEstablishment,
+  WithEstablishmentBillingGroup,
 } from '#libs/establishment/types';
 import { getStaffName } from '#libs/booking/utils';
-import { OptionCallback } from '../../../state/types';
 import { Member } from '#libs/member/types';
 import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 
 type Props = {
-  invoice?: WithAuthor<WithEstablishment<Invoice<Member>>>;
-  onClickInvoice: (uuid: string) => void;
-  establishments: Array<Establishment>;
-  editBillingEstablishment: (
-    estabishmentID: number,
-    options?: OptionCallback,
-  ) => void;
+  editEstablishmentBillingGroupIsLoading: boolean;
+  establishmentBillingGroups: EstablishmentBillingGroup[];
   enableMultiLocalization: boolean;
+  invoice?:
+    | WithAuthor<WithEstablishment<Invoice<Member>>>
+    | WithAuthor<WithEstablishmentBillingGroup<Invoice<Member>>>;
   memberDefaultBillingEstablishment?: Establishment;
+  editEstablishmentBillingGroup: (establishmentBillingGroupId: number) => void;
+  onClickInvoice: (uuid: string) => void;
 };
 
 const InvoiceTypeInfo = ({
@@ -70,28 +73,56 @@ const InvoiceTypeInfo = ({
 };
 
 export const InvoiceHeader = (props: Props) => {
-  const { invoice, memberDefaultBillingEstablishment } = props;
+  const {
+    editEstablishmentBillingGroupIsLoading,
+    establishmentBillingGroups,
+    invoice,
+    memberDefaultBillingEstablishment,
+    editEstablishmentBillingGroup,
+  } = props;
+
   const { t } = useTranslation(['invoice']);
   const classes = useStyles();
-  const [editEstablishment, setEditEstablishment] = React.useState(false);
-  const { locationInSelector, locationName } = React.useMemo(() => {
-    let selectedEstablishment;
-    if (invoice && invoice.establishment)
-      selectedEstablishment = invoice.establishment;
-    else if (memberDefaultBillingEstablishment)
-      selectedEstablishment = memberDefaultBillingEstablishment;
-    else selectedEstablishment = undefined;
-    const _locationInSelector = selectedEstablishment?.id
-      ? [selectedEstablishment.id]
-      : [];
-    const _locationName =
-      selectedEstablishment?.location?.address ||
-      t('invoice.header.noEstablishment');
-    return {
-      locationInSelector: _locationInSelector,
-      locationName: _locationName,
-    };
+
+  const [
+    showEstablishmentBillingGroupSelector,
+    setShowEstablishmentBillingGroupSelector,
+  ] = React.useState(false);
+
+  // As default behavior, we first look for a billing group.
+  // If no billing group, the invoice may contain an establishment address.
+  // If not, we just take the default one.
+  const locationName = React.useMemo(() => {
+    const billingGroup =
+      invoice?.establishment_billing_group as EstablishmentBillingGroup;
+
+    const establishment =
+      (invoice?.establishment as Establishment) ||
+      memberDefaultBillingEstablishment;
+
+    return (
+      billingGroup?.name ||
+      establishment?.location?.address ||
+      t('invoice.header.noBillingGroup')
+    );
   }, [invoice, memberDefaultBillingEstablishment, t]);
+
+  const onEditEstablishmentBillingGroup = useCallback(
+    (option: EstablishmentBillingGroupSelectOption) => {
+      editEstablishmentBillingGroup(option.value);
+      setShowEstablishmentBillingGroupSelector(false);
+    },
+    [editEstablishmentBillingGroup, setShowEstablishmentBillingGroupSelector],
+  );
+
+  const handleShowEstablishmentBillingGroupSelector = useCallback(
+    () =>
+      setShowEstablishmentBillingGroupSelector(
+        (previousValue) => !previousValue,
+      ),
+    [setShowEstablishmentBillingGroupSelector],
+  );
+
   if (!invoice) {
     return null;
   }
@@ -143,30 +174,21 @@ export const InvoiceHeader = (props: Props) => {
         </div>
         {props.enableMultiLocalization ? (
           <>
-            {editEstablishment ? (
+            {showEstablishmentBillingGroupSelector ? (
               <div className={classes.row}>
                 <div className={classes.selectorRow}>
-                  <EstablishmentSelector
+                  <EstablishmentBillingGroupSelector
                     closeMenuOnSelect
                     isClearable
-                    isOptionDisabled
-                    noMulti
-                    nullCurrentValue
-                    disabled={!editEstablishment}
-                    establishments={props.establishments}
-                    selectedEstablishments={locationInSelector}
-                    selectOption={async (item: {
-                      value: number;
-                      label: string;
-                    }) => {
-                      props.editBillingEstablishment(item?.value);
-                      setEditEstablishment(false);
-                    }}
+                    establishmentBillingGroups={establishmentBillingGroups}
+                    isDisabled={!showEstablishmentBillingGroupSelector}
+                    selectedEstablishmentBillingGroup={null}
+                    selectOption={onEditEstablishmentBillingGroup}
                   />
                 </div>
                 <IconButton
                   className={classes.iconButton}
-                  onClick={() => setEditEstablishment(!editEstablishment)}
+                  onClick={handleShowEstablishmentBillingGroupSelector}
                 >
                   <CloseIcon fontSize="small" />
                 </IconButton>
@@ -174,13 +196,19 @@ export const InvoiceHeader = (props: Props) => {
             ) : (
               <div className={classes.row}>
                 <LocationIcon className={classes.leftIcon} fontSize="small" />
-                <Typography color="textSecondary">{locationName}</Typography>
-                <IconButton
-                  className={classes.iconButton}
-                  onClick={() => setEditEstablishment(!editEstablishment)}
-                >
-                  <EditIcon fontSize="small" />
-                </IconButton>
+                {editEstablishmentBillingGroupIsLoading ? (
+                  <CircularProgress color="secondary" size="1rem" />
+                ) : (
+                  <Typography color="textSecondary">{locationName}</Typography>
+                )}
+                {!editEstablishmentBillingGroupIsLoading && (
+                  <IconButton
+                    className={classes.iconButton}
+                    onClick={handleShowEstablishmentBillingGroupSelector}
+                  >
+                    <EditIcon fontSize="small" />
+                  </IconButton>
+                )}
               </div>
             )}
           </>

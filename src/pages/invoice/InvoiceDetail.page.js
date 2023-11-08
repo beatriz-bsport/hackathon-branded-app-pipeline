@@ -21,6 +21,8 @@ import {
   getPaymentListInInvoice,
   getPlannedPaymentEventList,
   withEstablishment,
+  withEstablishmentBillingGroup,
+  getEditEstablishmentBillingGroupIsLoading,
   getInvoiceMemberFullDetail,
 } from '#libs/invoice/selectors';
 import {
@@ -43,7 +45,7 @@ import {
   updatePaymentMethod as updatePaymentMethodAction,
   allocateDebt,
   editCustomFooter as editCustomFooterAction,
-  editBillingEstablishment as editBillingEstablishmentAction,
+  editEstablishmentBillingGroup as editEstablishmentBillingGroupAction,
   fetchPlannedPaymentEventList,
   enablePlannedPaymentEvent as enablePlannedPaymentEventAction,
   registerNowPlannedPaymentEvent as registerNowPlannedPaymentEventAction,
@@ -52,9 +54,12 @@ import {
   schedulePayment,
   applyGiftcardOnInvoice as applyGiftcardOnInvoiceAction,
 } from '#libs/invoice/actions';
-import { fetchEstablishments } from '#libs/establishment/actions';
+import {
+  fetchEstablishments,
+  fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction,
+} from '#libs/establishment/actions';
 import { fetchStripeReaders } from '#libs/terminal/actions';
-import { getAllEstablishments } from '#libs/establishment/selectors';
+import { getEnabledEstablishmentBillinGroups } from '#libs/establishment/selectors';
 import { getStripeReaders } from '#libs/terminal/selectors';
 import {
   updatePaymentGroupPriceCts,
@@ -82,7 +87,7 @@ import PaymentDialog from '#libs/payment/components/PaymentDialog.component';
 import InstalmentPaymentDialog from '#libs/payment/components/InstalmentPaymentForm.dialog';
 import CreditMemberBadge from '#libs/member/components/CreditMemberBadge.component';
 import CheckPermission from '#libs/role/components/CheckPermission.component';
-import type { Establishment } from '../../libs/establishment/types';
+import type { EstablishmentBillingGroup } from '../../libs/establishment/types';
 import themeSelectors, {
   getStripeRegion,
   getCompanyCountry,
@@ -193,12 +198,6 @@ type Props = {
   ) => void,
   savedPaymentMethodList: Array<PaymentMethod>,
   fetchEstablishments: () => void,
-  establishments: Array<Establishment>,
-  editBillingEstablishment: (
-    uuid: string,
-    estabishmentID: number,
-    options: OptionCallback,
-  ) => void,
   companyTheme: CompanyThemeType,
   companyId: number,
   snackbarSuccess: (msg: string) => void,
@@ -219,6 +218,13 @@ type Props = {
   stripeReaders: StripeReader[],
   fetchStripeBalance: () => void,
   fetchStripeReaders: () => void,
+  editEstablishmentBillingGroup: (
+    establishmentBillingGroupId: string,
+    options?: OptionCallback<InvoiceV1Serializer>,
+  ) => void,
+  fetchAllEstablishmentBillingGroup: () => void,
+  establishmentBillingGroups: EstablishmentBillingGroup[],
+  editEstablishmentBillingGroupIsLoading: boolean,
 };
 
 type State = {
@@ -245,6 +251,9 @@ export class InvoiceDetail extends React.Component<Props, State> {
     this.props.fetchStripeReaders();
     this.props.refreshCompanyTheme();
     this.props.fetchStripeBalance();
+    if (this.props.companyTheme.enable_multi_localization) {
+      this.props.fetchAllEstablishmentBillingGroup();
+    }
   }
 
   fetchInvoiceData = () => {
@@ -519,11 +528,18 @@ export class InvoiceDetail extends React.Component<Props, State> {
           <Grid container direction="row">
             <Grid item md={6} xs={12}>
               <InvoiceHeader
-                editBillingEstablishment={this.props.editBillingEstablishment}
+                editEstablishmentBillingGroup={
+                  this.props.editEstablishmentBillingGroup
+                }
+                editEstablishmentBillingGroupIsLoading={
+                  this.props.editEstablishmentBillingGroupIsLoading
+                }
                 enableMultiLocalization={
                   this.props.companyTheme.enable_multi_localization
                 }
-                establishments={this.props.establishments}
+                establishmentBillingGroups={
+                  this.props.establishmentBillingGroups
+                }
                 invoice={this.props.invoice}
                 memberDefaultBillingEstablishment={
                   this.props.member?.default_billing_establishment
@@ -832,7 +848,11 @@ export default compose(
   connect(
     (state, { uuid }) => ({
       invoice: withAuthor(
-        withInvoiceItem(withMember(withEstablishment(getInvoice))),
+        withInvoiceItem(
+          withMember(
+            withEstablishment(withEstablishmentBillingGroup(getInvoice)),
+          ),
+        ),
       )(state, uuid),
       member: withDefaultBillingEstablishment(
         getInvoiceMemberFullDetail(getInvoice),
@@ -850,7 +870,6 @@ export default compose(
         state.theme.theme.payment_method_available_manager,
       savedPaymentMethodList: getSavedPaymentMethodList(state),
 
-      establishments: getAllEstablishments(state),
       companyTheme: themeSelectors.getTheme(state),
       companyId: state.theme.theme.company,
       consumerGiftcardList: withSender(
@@ -861,6 +880,9 @@ export default compose(
       plannedPaymentEventLoading: state.invoice.planned_payment_event.loading,
       stripeBalanceSum: getStripeBalanceTotal(state),
       stripeReaders: getStripeReaders(state),
+      establishmentBillingGroups: getEnabledEstablishmentBillinGroups(state),
+      editEstablishmentBillingGroupIsLoading:
+        getEditEstablishmentBillingGroupIsLoading(state),
     }),
     {
       fetchInvoiceItemList,
@@ -888,7 +910,7 @@ export default compose(
       changePaymentMethodAndRegisterPlannedPaymentEvent,
       schedulePayment,
       fetchEstablishments,
-      editBillingEstablishment: editBillingEstablishmentAction,
+      editEstablishmentBillingGroup: editEstablishmentBillingGroupAction,
       snackbarSuccess,
       snackbarWarning,
       snackbarError,
@@ -899,6 +921,8 @@ export default compose(
       fetchMemberBulkById: fetchMemberBulkByIdAction,
       fetchStripeBalance: fetchStripeBalanceAction,
       fetchStripeReaders,
+      fetchAllEstablishmentBillingGroup:
+        fetchAllEstablishmentBillingGroupAction,
     },
   ),
   withHandlers({
@@ -914,10 +938,6 @@ export default compose(
           status: PAYMENT_INTENT_STATUS_REQUIRES_ACTION,
         });
       },
-    editBillingEstablishment:
-      ({ editBillingEstablishment, uuid }) =>
-      (establishment_billing_id, options) =>
-        editBillingEstablishment(uuid, establishment_billing_id, options),
     updatePaymentMethod:
       ({ updatePaymentMethod }) =>
       (paymentUuid, newMethod, options) =>

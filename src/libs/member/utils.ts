@@ -35,6 +35,13 @@ export const anonymizeEmail = (email: string | null) => {
   return `${anonymizedBase}@${domain}`;
 };
 
+export const anonymizeName = (name: string | null) => {
+  if (!name) {
+    return "";
+  }
+  return name.slice(0, 1) + '*'.repeat(Math.max(name.length - 2, 0)) + name.slice( -1);
+};
+
 export const USER_STATUS_VALIDATION_WITH_USER_NOT_MEMBER_OF_COMPANY = 2;
 export const USER_STATUS_VALIDATION_WITH_MEMBER_OF_COMPANY = 1;
 export const USER_STATUS_VALIDATION_COMPLETED = 0;

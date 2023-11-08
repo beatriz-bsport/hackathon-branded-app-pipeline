@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -15,7 +13,7 @@ type Props = {
   offer: Object,
   t: TFunction,
   onClick: (offerId: number) => void,
-  rightAction: ?React.Node,
+  rightAction?: React.Node,
 };
 
 export const OfferListItem = (props: Props) => {

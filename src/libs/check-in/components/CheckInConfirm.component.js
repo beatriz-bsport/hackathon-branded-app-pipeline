@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Button from '@material-ui/core/Button';
+import { anonymizeName, anonymizeEmail } from '#libs/member/utils';
 import type { Member } from '../../member/types';
 
 import ConsumerPackRowItem from '../../consumer-payment-pack/components/ConsumerPackRowItem.component';
@@ -48,10 +49,12 @@ class CheckInConfirm extends Component<Props> {
         <div className={classes.column}>
           <Avatar className={classes.memberAvatar} src={member?.photo ?? ''} />
           <Typography variant="h5">
-            {member && member.name ? member.name : ''}
+            {member && member.first_name ? member.first_name : ''}
+            &nbsp;
+            {member && member.last_name ? anonymizeName(member.last_name) : ''}
           </Typography>
           <Typography align="center" color="textSecondary" variant="body1">
-            {member && member.email ? member.email : ''}
+            {member && member.email ? anonymizeEmail(member.email) : ''}
           </Typography>
           <Paper className={classes.footer}>
             <ConsumerPackRowItem

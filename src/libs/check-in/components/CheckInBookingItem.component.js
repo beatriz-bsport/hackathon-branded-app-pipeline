@@ -12,7 +12,7 @@ import DoneIcon from '@material-ui/icons/Done';
 import Avatar from '@material-ui/core/Avatar';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import type { Member } from '../../member/types';
-import { anonymizeEmail } from '../../member/utils';
+import { anonymizeEmail, anonymizeName } from '../../member/utils';
 
 type Props = {
   t: TFunction,
@@ -30,7 +30,7 @@ export const CheckInBookingItem = (props: Props) => {
         <Avatar alt={member.name} src={member.photo} />
       </ListItemAvatar>
       <ListItemText
-        primary={member.name}
+        primary={`${member.first_name} ${anonymizeName(member.last_name)}`}
         secondary={
           member && member.consumer
             ? anonymizeEmail(member.consumer.email)

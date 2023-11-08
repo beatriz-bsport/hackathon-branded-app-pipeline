@@ -1,7 +1,13 @@
 // @flow
 
 import React from 'react';
-import { compose, withStateHandlers, withProps, withHandlers } from 'recompose';
+import {
+  compose,
+  withStateHandlers,
+  withProps,
+  withHandlers,
+  withState,
+} from 'recompose';
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { push as pushRouter } from 'connected-react-router';
@@ -18,12 +24,18 @@ import {
   confirmAttendance as confirmBookingAttendanceAction,
   fetchBookingsByOffer as fetchBookingsByOfferAction,
   registerBooking as registerBookingAction,
+  retrieveBooking,
 } from '../../libs/booking/actions';
+import CheckInConfirm from '../../libs/check-in/components/CheckInConfirm.component';
 import { fetchOfferById as fetchOfferByIdAction } from '../../libs/offer/actions';
 import { getRetrieveOffer } from '../../libs/offer/selectors';
 import { getSearchedMembers, getAllMembers } from '../../libs/member/selectors';
-import { getOfferBookingListWithConsumerPack } from '../../libs/booking/selectors';
+import {
+  getOfferBookingListWithConsumerPack,
+  getMemberBookingWithConsumerPack,
+} from '../../libs/booking/selectors';
 import RegistrationFlowDialog from '../../libs/check-in/components/SearchAndRegisterMember.component';
+import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import {
   retrieveConsumerPackBulk as retrieveConsumerPackBulkAction,
   fetchByOfferByMember as fetchByOfferByMemberAction,
@@ -77,7 +89,6 @@ type Props = {
   loading: boolean,
 
   goBack: () => void,
-  redirectToConfirmPage: (offerId: number, bookingId: number) => void,
 
   fetchMemberByBarcode: (string, OptionCallback) => void,
 
@@ -108,6 +119,12 @@ type Props = {
   companyCountry: string,
 
   fetchLevel: (id: number) => void,
+  member: Member | null,
+  bookingShown: Booking | null,
+  setBookingShown: (booking: Booking | null) => void,
+
+  retrieveBooking: (id: number, options: OptionCallback) => void,
+  retrieveConsumerPackBulk: (Array<number>) => void,
 };
 
 type State = {
@@ -147,6 +164,15 @@ export class CheckInOfferDetailPage extends React.Component<Props, State> {
     if (!!prevProps.searchedMember && !this.props.searchedMember) {
       this.props.executeOnMemberUnselectedCallback();
     }
+    if (
+      this.props.bookingShown &&
+      this.props.bookingShown !== prevProps.bookingShown
+    ) {
+      this.props.retrieveBooking(this.props.bookingShown, {
+        onSuccess: (booking) =>
+          this.props.retrieveConsumerPackBulk([booking.consumer_payment_pack]),
+      });
+    }
   }
 
   render() {
@@ -156,10 +182,10 @@ export class CheckInOfferDetailPage extends React.Component<Props, State> {
           barcodeDetectorEnabled={this.props.barcodeDetectorEnabled}
           bookingLoading={this.props.loading}
           closeBarcodeAndFaceID={this.props.closeBarcodeAndFaceID}
-          confirmBookingAttendance={(bookingId) => {
+          confirmBookingAttendance={(booking) => {
             playSound(likeAudio);
-            this.props.confirmBookingAttendance(bookingId);
-            this.props.redirectToConfirmPage(this.props.offerId, bookingId);
+            this.props.confirmBookingAttendance(booking.id);
+            this.props.setBookingShown(booking);
           }}
           faceIdAvailable={this.state.faceIdAvailable}
           faceIdEnabled={this.props.faceIdEnabled}
@@ -202,6 +228,22 @@ export class CheckInOfferDetailPage extends React.Component<Props, State> {
             waiver={this.props.theme.waiver}
           />
         )}
+        <GenericResponsiveDrawer
+          withoutHeaderContainer
+          withoutPadding
+          onClose={() => this.props.setBookingShown(null)}
+          open={!!this.props.bookingShown}
+        >
+          <CheckInConfirm
+            booking={this.props.bookingShown}
+            goBack={() => this.props.setBookingShown(null)}
+            member={this.props.member}
+            offer={this.props.offer}
+            paymentPack={
+              this.props.bookingShown?.consumer_payment_pack?.payment_pack
+            }
+          />
+        </GenericResponsiveDrawer>
       </div>
     );
   }
@@ -300,6 +342,9 @@ export default compose(
       compatibleConsumerPacksLoading:
         state.consumerPaymentPack.byOfferByMember.loading,
       managerFormConfig: getSignUpFormConfigurationDict(state),
+      getBooking: (bookingId) =>
+        bookingId ? getMemberBookingWithConsumerPack(state, bookingId) : null,
+      bookingLoading: state.booking.loading,
     }),
     {
       fetchOfferById: fetchOfferByIdAction,
@@ -309,6 +354,7 @@ export default compose(
       confirmBookingAttendance: confirmBookingAttendanceAction,
       retrieveConsumerPackBulk: retrieveConsumerPackBulkAction,
 
+      retrieveBooking,
       fetchPaymentPackList: () =>
         fetchPaymentPackListAction({ disabled: false, page_size: 70000 }),
       fetchPaymentPackBulk: fetchPaymentPackBulkAction,
@@ -320,12 +366,11 @@ export default compose(
       registerBooking: registerBookingAction,
 
       goBack: () => pushRouter('/check-in'),
-      redirectToConfirmPage: (offerId, bookingId) =>
-        pushRouter(`/check-in/offer/${offerId}/booking/${bookingId}`),
       fetchSignFormUpConfiguration,
       fetchLevel: fetchLevelAction,
     },
   ),
+  withState('bookingShown', 'setBookingShown', null),
   withHandlers({
     fetchByOfferByMember:
       ({ fetchByOfferByMember, offerId, searchedMember }) =>
@@ -379,6 +424,9 @@ export default compose(
       ...members.find((member) => member.id === booking.member),
       booking,
     })),
+  })),
+  withProps(({ members, bookingShown }) => ({
+    member: members.find((m) => m.id === bookingShown?.member),
   })),
   withHandlers({
     registerWithPass:

@@ -6,8 +6,6 @@ import { withTranslation, TFunction } from 'react-i18next';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import Button from '@material-ui/core/Button';
 import { anonymizeName, anonymizeEmail } from '#libs/member/utils';
 import type { Member } from '../../member/types';
 
@@ -22,7 +20,7 @@ type Props = {
   goBack: () => void,
 };
 
-const DISMISS_TIMER = 1000 * 6; // this page dismiss in 20 second
+const DISMISS_TIMER = 1000 * 3; // this page dismiss in 3 seconds
 
 class CheckInConfirm extends Component<Props> {
   dismissTimer: any;
@@ -60,8 +58,8 @@ class CheckInConfirm extends Component<Props> {
             <ConsumerPackRowItem
               hideConsumer
               noDivider
-              consumerPack={booking.consumer_payment_pack}
-              paymentPack={booking.consumer_payment_pack?.payment_pack}
+              consumerPack={booking?.consumer_payment_pack}
+              paymentPack={booking?.consumer_payment_pack?.payment_pack}
             />
           </Paper>
         </div>
@@ -107,15 +105,6 @@ class CheckInConfirm extends Component<Props> {
         </div>
         <div className={this.props.classes.rightPanel}>
           {this.renderRightPanel()}
-          <Button
-            className={this.props.classes.backButton}
-            color="primary"
-            onClick={this.dismissConfirm}
-            variant="extendedFab"
-          >
-            <ChevronLeftIcon className={this.props.classes.buttonIcon} />
-            {this.props.t('translation:navigation.goBack')}
-          </Button>
         </div>
       </Paper>
     );
@@ -129,18 +118,19 @@ const style = (theme) => {
       display: 'flex',
       flexDirection: 'row',
       alignItems: 'stretch',
-      minHeight: '70vh',
+      height: '100%',
+      width: '100%',
     },
     leftPanel: {
       backgroundColor: theme.palette.grey[200],
       padding: '0 !important',
       width: '40%',
-      minHeight: '70vh',
+      height: '100%',
     },
     rightPanel: {
       position: 'relative',
       width: '60%',
-      minHeight: '70vh',
+      height: '100%',
       padding: '0 !important',
     },
     leftHeader: {

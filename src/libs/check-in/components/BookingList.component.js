@@ -59,7 +59,7 @@ export const BookingList = (props: Props) => {
             key={member.booking.id}
             confirmAttendance={() => {
               playSound(likeAudio);
-              props.confirmBookingAttendance(member.booking.id);
+              props.confirmBookingAttendance(member.booking);
             }}
             member={member}
           />

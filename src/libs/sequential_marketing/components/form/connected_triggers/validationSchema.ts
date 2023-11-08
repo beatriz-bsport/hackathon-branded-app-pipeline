@@ -45,10 +45,20 @@ export const uniqueTriggerValidationSchema = Yup.object().shape({
   trigger: triggerValidationSchema,
 });
 
-export const multipleTriggersValidationSchema = Yup.object().shape({
-  connectedTriggers: Yup.array()
-    .of(triggerValidationSchema)
-    .min(1, 'The array must contain at least one connected trigger')
-    .max(5, 'The array cannot contain more than 5 connected triggers')
-    .required(),
-});
+/**
+ * @description Yup validation schema for an array of connected triggers in a workflow.
+ *
+ * @param {number} [max=5] The maximum allowed number of connected triggers.
+ *                         It defaults to 5 but can be overridden in exceptional cases where additional mandatory
+ *                         connected triggers are required, in addition to the ones that can be added.
+ *
+ * @returns {object} The Yup validation schema for the array of connected triggers within the 'connectedTriggers' field.
+ */
+export const multipleTriggersValidationSchema = (max?: number) =>
+  Yup.object().shape({
+    connectedTriggers: Yup.array()
+      .of(triggerValidationSchema)
+      .min(1, 'marketing:cadence.form.error.minimumConnectedTrigger')
+      .max(max || 5, 'marketing:cadence.form.error.maximumConnectedTrigger')
+      .required(),
+  });

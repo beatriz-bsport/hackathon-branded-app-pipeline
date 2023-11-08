@@ -240,7 +240,13 @@ const withFormikWrapper = withFormik<HOCProps, FormValues>({
     setSubmitting(false);
   },
   validateOnMount: true,
-  validationSchema: multipleTriggersValidationSchema,
+  validationSchema: ({ connectedTriggers }: HOCProps) =>
+    multipleTriggersValidationSchema(
+      !!connectedTriggers?.find(
+        (trigger) =>
+          trigger?.trigger_config?.uuid === LOST_OUTPUT_TIMEOUT_TRIGGER_ID,
+      ) && 6,
+    ),
 });
 
 export default React.memo(withFormikWrapper(MultipleConnectedTriggerForm));

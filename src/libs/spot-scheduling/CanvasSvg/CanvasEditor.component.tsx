@@ -22,7 +22,7 @@ import SpotImageUploadDialog from './SpotImageUploadDialog.component';
 import CanvasToolbar from './CanvasToolbar.component';
 import { AssetForBlueprint, RoomBlueprint, SpotType } from '../types';
 import { OptionCallback } from '../../../state/types';
-import { Theme } from '#libs/theme/types';
+import { CompanyTheme, Theme } from '#libs/theme/types';
 import CanvasEditorCssForm from './CanvasEditorCssForm.component';
 
 type UndoRedoState = {
@@ -61,6 +61,7 @@ type OwnProps = {
   isMobile: boolean;
   onMouseOverSpot?: (spot: CanvasElement<any>) => void;
   openAssetUploader?: () => void;
+  companyTheme?: CompanyTheme;
 };
 
 type Props = OwnProps &
@@ -333,6 +334,7 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
           <div className={classes.toolMenuContainer}>
             <CanvasToolsMenu
               coachHeight={this.state.coachHeight}
+              companyTheme={this.props.companyTheme}
               fillColor={this.props.current.fillColor}
               onChangeGridVisibility={(showGrid) => this.setState({ showGrid })}
               onClickRedo={this.props.redo}

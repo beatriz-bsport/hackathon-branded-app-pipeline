@@ -37,6 +37,7 @@ import {
   getAvailableRoomBlueprints,
   getSpotTypesOfCompanyByBlueprintId,
 } from '#libs/spot-scheduling/selector';
+import themeSelectors from '#libs/theme/selectors';
 import { snackbar } from '#libs/snackbar/actions';
 import { OptionCallback } from '../../state/types';
 import CanvasSpotCreatorDrawer from '#libs/spot-scheduling/component/SpotCreator/CanvasSpotCreatorDrawer.component';
@@ -411,7 +412,7 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
     this.setState({ assetUploaderIsOpen: false });
 
   render() {
-    const { classes } = this.props;
+    const { classes, companyTheme } = this.props;
     return (
       <div className={classes.containerSpotScheduling}>
         {this.props.roomBlueprint ? (
@@ -420,6 +421,7 @@ class SpotSchedulingPages extends React.PureComponent<Props> {
               ref={this.canvasEditorRef}
               assets={this.props.assets}
               blueprints={this.props.allBlueprints}
+              companyTheme={companyTheme}
               fetchSpotForBlueprint={
                 this.fetchSpotForBlueprintAndBuildSpiviCorrespondence
               }
@@ -520,6 +522,7 @@ const mapStateToProps = (state: RootState, props: OwnProps) => ({
   allBlueprints: getAvailableRoomBlueprints(state),
   assets: getAssetByIdentifier(state, props.id),
   spotTypes: getSpotTypesOfCompanyByBlueprintId(state, props.id),
+  companyTheme: themeSelectors.getTheme(state),
 });
 
 const mapDispatchToProps = {

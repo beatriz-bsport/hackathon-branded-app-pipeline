@@ -50,6 +50,7 @@ import {
 import PointerIcon from './tools/Pointer/Pointer.icon';
 import HandIcon from './tools/Hand/Hand.icon';
 import { SpotType } from '../types';
+import { CompanyTheme } from '#libs/theme/types';
 
 type OwnProps = {
   selectedTool: CanvasSelectableToolsEnum;
@@ -79,6 +80,7 @@ type OwnProps = {
   onSpiviBoxIdChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   openAssetUploader: () => void;
   openPreviewDialog: () => void;
+  companyTheme: CompanyTheme;
 };
 
 type Props = OwnProps &
@@ -230,17 +232,19 @@ class CanvasToolsMenu extends React.PureComponent<Props> {
               <Typography> {t('toolsMenu.advancedTool')}</Typography>
             </div>
           </Grid>
-          <Grid item xs={4}>
-            <div className={classes.itemContainer}>
-              <ButtonBase
-                className={classes.item}
-                onClick={this.handleClickCssTool}
-              >
-                <CodeIcon fontSize="large" />
-              </ButtonBase>
-              <Typography> {t('toolsMenu.cssEditor')}</Typography>
-            </div>
-          </Grid>
+          {this.props.companyTheme?.display_new_checkout_flow && (
+            <Grid item xs={4}>
+              <div className={classes.itemContainer}>
+                <ButtonBase
+                  className={classes.item}
+                  onClick={this.handleClickCssTool}
+                >
+                  <CodeIcon fontSize="large" />
+                </ButtonBase>
+                <Typography> {t('toolsMenu.cssEditor')}</Typography>
+              </div>
+            </Grid>
+          )}
         </Grid>
         <Typography className={classes.sectionTitle} variant="h6">
           {t('toolsMenu.sections.editionHistory')}

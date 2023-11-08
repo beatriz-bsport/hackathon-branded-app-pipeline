@@ -39,6 +39,8 @@ export const OfferListItem = (props: Props) => {
               {offer && offer.date_start
                 ? ` - ${formatAsTime(offer.date_start, offer.timezone_name)} `
                 : ''}
+              &nbsp; - &nbsp;
+              {offer?.coach ? offer.coach.name : null}
             </Typography>
             <Level noStyle customLevel={offer.level} variant="caption" />
           </div>

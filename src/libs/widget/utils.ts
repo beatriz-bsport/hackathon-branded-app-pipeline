@@ -1,6 +1,6 @@
 import moment from 'moment-timezone';
 import chroma from 'chroma-js';
-
+import * as Sentry from '@sentry/react';
 import memoize from 'memoize-one';
 import { getTextColorFromRGB } from '../../utils/color';
 import { WidgetCustomCSS } from '#libs/theme/types';
@@ -136,7 +136,7 @@ export const getCustomWidgetStyle = memoize((styles: WidgetCustomCSS) => {
  * @param {string} css - The input CSS string.
  * @returns {string} - The cleaned and formatted CSS string.
  */
-export const cleanCSSFile = (css: string): string => {
+export const cleanCSSFileStyleSheet = (css: string): string => {
   const stytleSheet = new CSSStyleSheet();
   stytleSheet.replace(css);
 
@@ -181,6 +181,31 @@ const parseCSSRuleList = (ruleList: CSSRule[]) => {
   }, '');
   /* eslint-disable no-param-reassign */
 };
+
+/**
+ * @deprecated This version is not type safe.
+ */
+export const cleanCSSFileUnsafe = (css: string) => {
+  const propertyRegex = /{[^}]*}/gm;
+
+  return css.replace(propertyRegex, '{\n    \n}');
+};
+
+/**
+ * Tries Stylesheet cleaning of falls back on the simple regex one on error (TODO: FIX FIREFOX ERROR)
+ * @param {string} css - The input CSS string.
+ * @returns {string} - The cleaned and formatted CSS string.
+ */
+export const cleanCSSFile = (css: string) => {
+  try {
+    return cleanCSSFileStyleSheet(css);
+  } catch (error) {
+    Sentry.captureException(error);
+    console.error(error);
+    return cleanCSSFileUnsafe(css);
+  }
+};
+
 export const interpolateCSSVar = (css: string, isDomLoaded: boolean) => {
   /*
   This methods interpolate the variable in the theme, thus using

@@ -246,6 +246,8 @@ const getTranslations = async () => {
       initial_price: 'Purchase price',
       last_view: 'Last seen on',
       video_title: 'Video title',
+      nb_option: "Places en liste d'attente",
+      waiting_list_max_size: "Taille liste d'attente",
       sum__non_attendance: 'Number of absentees',
       sum_attendance: 'Number of attendees',
       nb_canceled: 'Number of cancellations',

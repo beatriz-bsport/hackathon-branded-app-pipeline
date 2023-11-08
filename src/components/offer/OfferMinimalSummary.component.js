@@ -123,6 +123,11 @@ const getFillingInfo = (offer: Offer) => {
           </Typography>
           <Typography color="textPrimary" variant="caption">
             )
+            {!!offer.nb_option && (
+              <Typography inline color="textSecondary" variant="caption">
+                &nbsp; ⧗{`${offer.nb_option}/${offer.waiting_list_max_size}`}
+              </Typography>
+            )}
           </Typography>
         </React.Fragment>
       </Hidden>

@@ -324,6 +324,10 @@ export const matchUrlToRelevantPermissionKey = (url: string) => {
     if (
       new RegExp(/^\/calendar\/[0-9]{4}\/[0-9]{2}\/[0-9]{2}\/?$/).test(
         cleanedUrl,
+      ) ||(
+      new RegExp(/^\/offer\/[0-9]+\/?$/).test(
+        cleanedUrl,
+      )
       )
     ) {
       return ['navigationMenu', 'calendar'];

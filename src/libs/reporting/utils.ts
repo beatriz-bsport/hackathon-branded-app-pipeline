@@ -437,10 +437,7 @@ export const generateRowLink = ({
         rowExtraData[OfferMetadataIdentifierEnum.DATE_START_DATE] &&
         rowExtraData[OfferMetadataIdentifierEnum.OFFER_ID]
       ) {
-        const date = dateConverterToLink(
-          rowExtraData[OfferMetadataIdentifierEnum.DATE_START_DATE],
-        );
-        return `/calendar/${date}/${
+        return `/offer/${
           rowExtraData[OfferMetadataIdentifierEnum.OFFER_ID]
         }`;
       }

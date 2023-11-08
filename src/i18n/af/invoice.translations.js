@@ -267,6 +267,7 @@ const getTranslations = async () => {
         reverseInvoice: 'Refunded via ',
         sourceInvoice: 'Cancel invoice',
         noEstablishment: 'No establishment has been associated to this invoice',
+        noBillingGroup: 'No billing group has been associated to this invoice',
       },
       titleRevert: 'Credit {{ uuid }}',
       titleReceipt: 'Payment receipt {{ uuid }}',

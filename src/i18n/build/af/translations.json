@@ -2200,6 +2200,7 @@
     },
     "localisation": "Location",
     "room": "Establishment",
+    "billingGroup": "Billing group",
     "group": {
       "name": " Name",
       "noGroupHelper": "Locations allow you to group several addresses together. If you have several studios in different cities, you can group the studios in the same city into one location. On the marketplace, the widget and the personalized application your students will be able to select the location they are most interested in to see only the classes near their home.",
@@ -2790,7 +2791,8 @@
         "date": "Date: {{ date }}",
         "reverseInvoice": "Refunded via ",
         "sourceInvoice": "Cancel invoice",
-        "noEstablishment": "No establishment has been associated to this invoice"
+        "noEstablishment": "No establishment has been associated to this invoice",
+        "noBillingGroup": "No billing group has been associated to this invoice"
       },
       "titleRevert": "Credit {{ uuid }}",
       "titleReceipt": "Payment receipt {{ uuid }}",

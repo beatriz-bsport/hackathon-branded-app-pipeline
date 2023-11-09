@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import Immutable from 'seamless-immutable';
 import classNames from 'classnames';
 import {
   useViewport,
@@ -8,8 +9,10 @@ import {
   ControlButton,
 } from 'react-flow-renderer';
 
+import Popover, { type PopoverOrigin } from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
 import makeStyles from '@material-ui/styles/makeStyles';
+import type { Theme } from '@material-ui/core/styles';
 import MapIcon from '@material-ui/icons/Map';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
@@ -17,7 +20,6 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import IconButton from '@material-ui/core/IconButton';
 import Alert from '@material-ui/lab/Alert';
-import type { Theme } from '@material-ui/core/styles';
 
 import Config from '../../../../config';
 
@@ -25,9 +27,17 @@ import './styles.css';
 
 import CadenceOutputCollapse from '#libs/sequential_marketing/components/graph/nodes/outputs/CadenceOutputCollapse.component';
 import CadenceOutput from '#libs/sequential_marketing/components/graph/nodes/outputs/CadenceOutput.component';
-import { DestinationStatus } from '#libs/sequential_marketing/constants';
+import OutputWonTriggerBubble from '#libs/sequential_marketing/components/graph/bubbles/OutputWonTriggerBubble.component';
+import OutputLostTriggerBubble from '#libs/sequential_marketing/components/graph/bubbles/OutputLostTriggerBubble.component';
+import {
+  DestinationStatus,
+  InitialConfigurationStep,
+} from '#libs/sequential_marketing/constants';
 
-import type { ConnectedTrigger } from '#libs/sequential_marketing/types';
+import type {
+  ConnectedTrigger,
+  InitialConfigurationValues,
+} from '#libs/sequential_marketing/types';
 import type { SmartList } from '#libs/smart-list/types';
 
 const nbsp = `\u00A0`;
@@ -36,11 +46,38 @@ type Props = {
   creationMode: boolean;
   displayDisabledTriggers: boolean;
   editMode: boolean;
-  inOutputConfiguration: boolean;
+  isFirstOutputConfiguration: boolean;
   loseTriggers: ConnectedTrigger[];
   winTriggers: ConnectedTrigger[];
+  smartlists: Immutable.ImmutableArray<SmartList>;
+  initialConfiguration: InitialConfigurationValues;
   getSmartlist: (id: number) => SmartList;
+  closeEntryActionBubble: () => void;
+  openEntryActionBubble: () => void;
+  setCurrentStepConfiguration: (
+    currentStepConfiguration: InitialConfigurationStep,
+  ) => void;
+  setInitialConfig: (data: InitialConfigurationValues, save?: boolean) => void;
   switchDisplayDisabledNodes: () => void;
+};
+
+const anchorOrigin: PopoverOrigin = {
+  vertical: 'bottom',
+  horizontal: 'right',
+};
+
+const transformOrigin: PopoverOrigin = {
+  vertical: 'top',
+  horizontal: 'right',
+};
+
+const popoverStyle = {
+  style: {
+    backgroundColor: 'transparent',
+    boxShadow: 'none',
+    padding: '5px 30px 30px 30px',
+    overflow: 'visible',
+  },
 };
 
 export const CadenceGraphViewPort: React.FC<Props> = ({
@@ -48,28 +85,190 @@ export const CadenceGraphViewPort: React.FC<Props> = ({
   creationMode,
   displayDisabledTriggers,
   editMode,
-  inOutputConfiguration,
+  isFirstOutputConfiguration,
   loseTriggers,
   winTriggers,
+  smartlists,
+  initialConfiguration,
   getSmartlist,
+  closeEntryActionBubble,
+  openEntryActionBubble,
+  setCurrentStepConfiguration,
+  setInitialConfig,
   switchDisplayDisabledNodes,
 }) => {
-  const [collapsed, setCollapsed] = React.useState(true);
   const { t } = useTranslation('marketing');
-  const classes = useStyles({ inOutputConfiguration });
+  const classes = useStyles({ isFirstOutputConfiguration, creationMode });
 
   const [showMap, setShowMap] = React.useState(false);
+  const [collapsed, setCollapsed] = React.useState(true);
+
+  const [anchorWonTriggerBubble, setAnchorWonTriggerBubble] =
+    React.useState<HTMLElement | null>(null);
+  const [anchorLostTriggerBubble, setAnchorLostTriggerBubble] =
+    React.useState<HTMLElement | null>(null);
+
+  const openWonCriteriaBubble = React.useCallback(
+    () =>
+      setTimeout(() => {
+        const outputWon = document.getElementById('output_won');
+        setAnchorWonTriggerBubble(outputWon);
+      }, 200),
+    [],
+  );
+
+  const openLostCriteriaBubble = React.useCallback(
+    () =>
+      setTimeout(() => {
+        const outputLost = document.getElementById('output_lost');
+        setAnchorLostTriggerBubble(outputLost);
+      }, 200),
+    [],
+  );
+
+  const wonConnectedTriggers = React.useMemo(
+    () =>
+      creationMode
+        ? initialConfiguration[InitialConfigurationStep.CADENCE_WIN_STEP]
+            .connectedTriggers
+        : winTriggers,
+    [initialConfiguration, creationMode, winTriggers],
+  );
+
+  const lostConnectedTriggers = React.useMemo(
+    () =>
+      creationMode
+        ? initialConfiguration[InitialConfigurationStep.CADENCE_LOSE_STEP]
+            .connectedTriggers
+        : loseTriggers,
+    [initialConfiguration, creationMode, loseTriggers],
+  );
 
   const { x, y, zoom } = useViewport();
 
-  const switchShowMap = () => setShowMap(!showMap);
+  const isDebuggerMode = React.useMemo(
+    () => !!Config?.REACT_APP_DEBUGGER_MODE,
+    [],
+  );
 
-  const isDebuggerMode = React.useMemo(() => {
-    if (Config?.REACT_APP_DEBUGGER_MODE) {
-      return true;
-    }
-    return false;
-  }, []);
+  const switchShowMap = React.useCallback(
+    () => setShowMap(!showMap),
+    [showMap],
+  );
+
+  const submitWonCriteriaBubble = React.useCallback(
+    (value: ConnectedTrigger[]) =>
+      setInitialConfig({
+        ...initialConfiguration,
+        [InitialConfigurationStep.CADENCE_WIN_STEP]: {
+          ...initialConfiguration[InitialConfigurationStep.CADENCE_WIN_STEP],
+          connectedTriggers: value,
+        },
+      }),
+    [initialConfiguration, setInitialConfig],
+  );
+
+  const submitLostCriteriaBubble = React.useCallback(
+    (value: ConnectedTrigger[], save?: boolean) =>
+      setInitialConfig(
+        {
+          ...initialConfiguration,
+          [InitialConfigurationStep.CADENCE_LOSE_STEP]: {
+            ...initialConfiguration[InitialConfigurationStep.CADENCE_LOSE_STEP],
+            connectedTriggers: value,
+          },
+        },
+        save,
+      ),
+    [initialConfiguration, setInitialConfig],
+  );
+
+  // ================= WON CRITERIA BUBBLE ==================
+  const handleCloseWonCriteriaBubble = React.useCallback(() => {
+    !isFirstOutputConfiguration && setAnchorWonTriggerBubble(null);
+  }, [isFirstOutputConfiguration, setAnchorWonTriggerBubble]);
+
+  const handleCancelWonCriteriaBubble = React.useCallback(
+    (value: ConnectedTrigger[]) => {
+      setAnchorWonTriggerBubble(null);
+      if (isFirstOutputConfiguration) {
+        submitWonCriteriaBubble(value);
+        setCurrentStepConfiguration(
+          InitialConfigurationStep.CADENCE_ENTRY_STEP,
+        );
+        openEntryActionBubble();
+      }
+    },
+    [
+      isFirstOutputConfiguration,
+      openEntryActionBubble,
+      setCurrentStepConfiguration,
+      submitWonCriteriaBubble,
+    ],
+  );
+
+  const handleConfirmWonCriteriaBubble = React.useCallback(
+    (value: ConnectedTrigger[]) => {
+      submitWonCriteriaBubble(value);
+      setAnchorWonTriggerBubble(null);
+      if (isFirstOutputConfiguration) {
+        openLostCriteriaBubble();
+        setCurrentStepConfiguration(InitialConfigurationStep.CADENCE_LOSE_STEP);
+      }
+    },
+    [
+      isFirstOutputConfiguration,
+      openLostCriteriaBubble,
+      setCurrentStepConfiguration,
+      submitWonCriteriaBubble,
+    ],
+  );
+
+  React.useEffect(() => {
+    closeEntryActionBubble();
+    isFirstOutputConfiguration && openWonCriteriaBubble();
+  }, [
+    isFirstOutputConfiguration,
+    closeEntryActionBubble,
+    openWonCriteriaBubble,
+  ]);
+  // ========================================================
+
+  // ================= LOST CRITERIA BUBBLE =================
+  const handleCloseLostCriteriaBubble = React.useCallback(() => {
+    !isFirstOutputConfiguration && setAnchorLostTriggerBubble(null);
+  }, [isFirstOutputConfiguration]);
+
+  const handleCancelLostCriteriaBubble = React.useCallback(
+    (value: ConnectedTrigger[]) => {
+      setAnchorLostTriggerBubble(null);
+      if (isFirstOutputConfiguration) {
+        openWonCriteriaBubble();
+        submitLostCriteriaBubble(value);
+        setCurrentStepConfiguration(InitialConfigurationStep.CADENCE_WIN_STEP);
+      }
+    },
+    [
+      isFirstOutputConfiguration,
+      openWonCriteriaBubble,
+      setCurrentStepConfiguration,
+      submitLostCriteriaBubble,
+    ],
+  );
+
+  const handleConfirmLostCriteriaBubble = React.useCallback(
+    (value: ConnectedTrigger[]) => {
+      submitLostCriteriaBubble(value, true);
+      setAnchorLostTriggerBubble(null);
+      isFirstOutputConfiguration && setCurrentStepConfiguration(null);
+    },
+    [
+      isFirstOutputConfiguration,
+      setCurrentStepConfiguration,
+      submitLostCriteriaBubble,
+    ],
+  );
+  // ========================================================
 
   return (
     <>
@@ -103,17 +302,23 @@ export const CadenceGraphViewPort: React.FC<Props> = ({
         )}
 
         <div className={classes.outputSection}>
-          <CadenceOutputCollapse>
-            <CadenceOutput
-              getSmartlist={getSmartlist}
-              status={DestinationStatus.WIN}
-              triggerList={winTriggers}
-            />
-            <CadenceOutput
-              getSmartlist={getSmartlist}
-              status={DestinationStatus.FAIL}
-              triggerList={loseTriggers}
-            />
+          <CadenceOutputCollapse isOpen={creationMode}>
+            <div id="output_won">
+              <CadenceOutput
+                forceSelection={!!anchorWonTriggerBubble}
+                getSmartlist={getSmartlist}
+                status={DestinationStatus.WIN}
+                triggerList={wonConnectedTriggers}
+              />
+            </div>
+            <div id="output_lost">
+              <CadenceOutput
+                forceSelection={!!anchorLostTriggerBubble}
+                getSmartlist={getSmartlist}
+                status={DestinationStatus.FAIL}
+                triggerList={lostConnectedTriggers}
+              />
+            </div>
           </CadenceOutputCollapse>
         </div>
       </div>
@@ -123,6 +328,7 @@ export const CadenceGraphViewPort: React.FC<Props> = ({
       <Controls
         className={classNames('collapsable', 'react-flow__controls', {
           collapsed,
+          'react-flow__controls__forward': !creationMode,
         })}
       >
         <ControlButton
@@ -153,7 +359,11 @@ export const CadenceGraphViewPort: React.FC<Props> = ({
           </ControlButton>
         )}
       </Controls>
-      <div className="react-flow__controls_bottom_fab">
+      <div
+        className={classNames('react-flow__controls_bottom_fab', {
+          'react-flow__controls__forward': !creationMode,
+        })}
+      >
         <IconButton onClick={() => setCollapsed(!collapsed)}>
           {collapsed ? (
             <ExpandMoreIcon fontSize="small" />
@@ -162,56 +372,93 @@ export const CadenceGraphViewPort: React.FC<Props> = ({
           )}
         </IconButton>
       </div>
+
+      <Popover
+        anchorEl={anchorWonTriggerBubble}
+        anchorOrigin={anchorOrigin}
+        onClose={handleCloseWonCriteriaBubble}
+        open={!!anchorWonTriggerBubble}
+        PaperProps={popoverStyle}
+        transformOrigin={transformOrigin}
+      >
+        <OutputWonTriggerBubble
+          connectedTriggers={wonConnectedTriggers}
+          isInitial={isFirstOutputConfiguration}
+          onCancel={handleCancelWonCriteriaBubble}
+          onConfirm={handleConfirmWonCriteriaBubble}
+          smartlists={smartlists}
+        />
+      </Popover>
+
+      <Popover
+        anchorEl={anchorLostTriggerBubble}
+        anchorOrigin={anchorOrigin}
+        onClose={handleCloseLostCriteriaBubble}
+        open={!!anchorLostTriggerBubble}
+        PaperProps={popoverStyle}
+        transformOrigin={transformOrigin}
+      >
+        <OutputLostTriggerBubble
+          connectedTriggers={lostConnectedTriggers}
+          isInitial={isFirstOutputConfiguration}
+          onCancel={handleCancelLostCriteriaBubble}
+          onConfirm={handleConfirmLostCriteriaBubble}
+          smartlists={smartlists}
+        />
+      </Popover>
     </>
   );
 };
 
-const useStyles = makeStyles<Theme, Pick<Props, 'inOutputConfiguration'>>(
-  (theme) => ({
-    container: {
-      paddingLeft: theme.spacing(0.5),
-      paddingRight: theme.spacing(0.5),
-      paddingTop: theme.spacing(0.5),
-      zIndex: ({ inOutputConfiguration }) =>
-        inOutputConfiguration ? 900 : 500,
-      position: 'absolute',
-      display: 'flex',
-      flex: 1,
-      width: '100%',
-      justifyContent: 'space-between',
+type StylesProps = Pick<Props, 'isFirstOutputConfiguration' | 'creationMode'>;
+
+const useStyles = makeStyles<Theme, StylesProps>((theme) => ({
+  container: {
+    paddingLeft: theme.spacing(0.5),
+    paddingRight: theme.spacing(0.5),
+    paddingTop: theme.spacing(0.5),
+    zIndex: ({ isFirstOutputConfiguration, creationMode }) => {
+      if (isFirstOutputConfiguration) return 900;
+      if (creationMode) return 500;
+      return 800;
     },
-    viewportInfo: {
-      display: 'flex',
-      flexDirection: 'column',
-      color: theme.palette.text.secondary,
-      width: 'auto',
+    position: 'absolute',
+    display: 'flex',
+    flex: 1,
+    width: '100%',
+    justifyContent: 'space-between',
+  },
+  viewportInfo: {
+    display: 'flex',
+    flexDirection: 'column',
+    color: theme.palette.text.secondary,
+    width: 'auto',
+  },
+  outputSection: {
+    display: 'flex',
+    padding: theme.spacing(2),
+  },
+  topAlert: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+  },
+  column: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  noHover: {
+    '&:hover': {
+      backgroundColor: 'transparent',
     },
-    outputSection: {
-      display: 'flex',
-      padding: theme.spacing(2),
-    },
-    topAlert: {
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      width: '100%',
-    },
-    column: {
-      display: 'flex',
-      flexDirection: 'column',
-    },
-    noHover: {
-      '&:hover': {
-        backgroundColor: 'transparent',
-      },
-    },
-    iconNos: {
-      color: 'rgba(0, 0, 0, 0.3)',
-    },
-    alert: {
-      alignItems: 'center',
-    },
-  }),
-);
+  },
+  iconNos: {
+    color: 'rgba(0, 0, 0, 0.3)',
+  },
+  alert: {
+    alignItems: 'center',
+  },
+}));
 
 export default React.memo(CadenceGraphViewPort);

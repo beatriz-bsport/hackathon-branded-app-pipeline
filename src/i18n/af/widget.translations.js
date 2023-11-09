@@ -201,6 +201,8 @@ exports.default = {
         displayPlaceholder: 'Display the placeholder',
         textFieldType: 'Type of input',
         isIconButton: 'Button has an icon',
+        isSelected: 'Element is selected',
+        hasBadge: 'Display element badge',
       },
       configurationTitle: 'Variations',
     },
@@ -280,6 +282,7 @@ exports.default = {
       fabrique_badge: 'Badge',
       marketplace_spot_selector: 'Spot scheduling selector',
       fabrique_textfield: 'TextField',
+      fabrique_action_tab: 'Action tab',
     },
     customCss: {
       yourCode: 'Your complementary implementation:',

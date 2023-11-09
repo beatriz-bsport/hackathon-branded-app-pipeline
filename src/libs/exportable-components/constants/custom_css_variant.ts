@@ -77,4 +77,5 @@ export enum CssComponentsVariantIdentifiers {
   FABRIQUE_TEXTFIELD = 'fabrique_textfield',
   FABRIQUE_BUTTON = 'fabrique_button',
   FABRIQUE_ICON_BUTTON = 'fabrique_icon_button',
+  FABRIQUE_ACTION_TAB = 'fabrique_action_tab',
 }

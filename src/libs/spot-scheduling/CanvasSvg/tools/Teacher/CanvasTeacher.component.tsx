@@ -117,7 +117,7 @@ export default class CanvasTeacherComponent extends CanvasBaseComponent<CanvasTe
           }
           {...(fontSize ? { fontSize } : {})}
           {...(fontStyle ? { fontStyle } : {})}
-          {...(fontColor ? { fontColor } : {})}
+          {...(fontColor ? { fill: fontColor } : {})}
           {...(fontWeight ? { fontWeight } : {})}
           {...(textStroke ? { stroke: textStroke } : {})}
           {...(textStrokeWidth ? { strokeWidth: textStrokeWidth } : {})}

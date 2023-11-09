@@ -8986,7 +8986,7 @@
                     "paymentSuccess": {
                         "content": {
                             "payment": "The payment has been processed.",
-                            "wait": "The payment is being processed."
+                            "wait": "Just a moment longer, we are processing your data."
                         },
                         "title": {
                             "payment": "Payment accepted",

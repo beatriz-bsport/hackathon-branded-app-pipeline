@@ -5947,10 +5947,10 @@
         },
         "events": {
             "member-login_successful": {
-                "primaryText": "Een succesvolle {{ source }} verbinding is geregistreerd.",
-                "sourceApp": "van de toepassing",
+                "primaryText": "Een succesvolle login {{ source }} is geregistreerd.",
+                "sourceApp": "via de mobiele app",
                 "filter": "Succesvolle verbindingen",
-                "sourceMarketplace": "van de markt"
+                "sourceMarketplace": "via de web marketplace"
             },
             "member-tag_applied": {
                 "filter": "Tags toegepast",
@@ -13046,7 +13046,7 @@
                         },
                         "content": {
                             "payment": "De betaling is verwerkt.",
-                            "wait": "De betaling wordt verwerkt."
+                            "wait": "Nog even geduld, we verwerken uw gegevens."
                         }
                     },
                     "paymentFailed": {

@@ -1549,7 +1549,7 @@
             },
             "login": {
                 "confirmPassword": "Bestätigen",
-                "passwordChangedSuccess": "Passwort erfolgreich geändert !",
+                "passwordChangedSuccess": "Passwort erfolgreich geändert!",
                 "passwordTooEasy": "Ihr Passwort muss mindestens 6 Zeichen enthalten und darunter eine Zahl und Buchstaben",
                 "password": "Passwort",
                 "changePasswordTitle": "Passwort ändern",
@@ -6732,7 +6732,7 @@
             }
         },
         "login": {
-            "passwordChangedSuccess": "Passwort erfolgreich geändert !"
+            "passwordChangedSuccess": "Passwort erfolgreich geändert!"
         },
         "webhook": {
             "testError": "Bitte prüfe die URL",
@@ -7360,7 +7360,7 @@
                         "label": "Anzahl der Versuche nach einer fehlgeschlagenen Zahlung"
                     },
                     "activateSmartRetries": {
-                        "helperText": "bsport wird fehlgeschlagene Abo-Zahlungen automatisch zum besten Zeitpunkt wiederholen.",
+                        "helperText": "Das System wird fehlgeschlagene Zahlungen automatisch zum besten Zeitpunkt wiederholen.",
                         "label": "Smart Retries bei fehlgeschlagenen Zahlungen aktivieren"
                     },
                     "advance_sepa_billing": {
@@ -7381,21 +7381,21 @@
                             "title": "Stornierung",
                             "error": "Bei der Stornierung ist ein Fehler aufgetreten."
                         },
-                        "payment": "Die Verbindung mit dem Terminal ist hergestellt. Der zu zahlende Betrag sollte nun angezeigt werden.",
-                        "intent": "Die Verbindung mit dem Terminal ist hergestellt. Der Kunde sollte in der Lage sein, seine Karte vorzulegen.",
+                        "payment": "Die Verbindung mit dem Terminal wurde hergestellt. Der zu zahlende Betrag sollte nun angezeigt werden.",
+                        "intent": "Die Verbindung mit dem Terminal wurde hergestellt. Der Kunde sollte in der Lage sein, seine Karte vorzulegen.",
                         "processing": "Ihr Antrag wird bearbeitet"
                     },
                     "radio": "Zahlungs-Terminal",
                     "amountToPay": "Fälliger Betrag",
-                    "connectAndPay": "An das Terminal senden",
+                    "connectAndPay": "An den Terminal senden",
                     "paymentSuccess": {
                         "title": {
-                            "setupOnly": "Gespeicherte Zahlungsart",
+                            "setupOnly": "Zahlungsmethode gespeichert",
                             "payment": "Zahlung akzeptiert",
-                            "setupAndPlan": "Gespeicherte Zahlung"
+                            "setupAndPlan": "Zahlung gespeichert"
                         },
                         "content": {
-                            "wait": "Die Zahlung wird bearbeitet.",
+                            "wait": "Einen Moment bitte. Die Zahlung wird bearbeitet.",
                             "payment": "Die Zahlung wurde bearbeitet."
                         }
                     },
@@ -7409,11 +7409,11 @@
                         },
                         "content": {
                             "paymentIntent": "Die Zahlung wurde nicht bearbeitet.",
-                            "setupIntent": "The payment method has not been saved."
+                            "setupIntent": "Die Zahlungsmethode wurde nicht gespeichert."
                         },
                         "title": {
                             "paymentIntent": "Zahlung fehlgeschlagen",
-                            "setupIntent": "Operation failed"
+                            "setupIntent": "Operation fehlgeschlagen"
                         }
                     },
                     "minAmountInfo": "Der Mindesteinkaufsbetrag für die Nutzung des Terminals ist {{amountString}}.",
@@ -7425,19 +7425,19 @@
                 "deleteDialog": {
                     "content3": "Erneut verbinden",
                     "title": "Entfernen",
-                    "content2": "Dieses Terminal wird nicht mehr für physische Zahlungen erscheinen.",
-                    "content1": "Sind Sie sicher, dass Sie dieses Zahlungsterminal ({{label}}) entfernen möchten?"
+                    "content2": "Dieser Terminal wird nicht mehr für physische Zahlungen erscheinen.",
+                    "content1": "Sind Sie sicher, dass Sie diesen Zahlungs-Terminal ({{label}}) entfernen möchten?"
                 },
                 "connectDialog": {
                     "title": {
                         "connect": "Verbinden",
                         "error": "Verbindung fehlgeschlagen",
-                        "edit": "Änderung",
+                        "edit": "Änderungen",
                         "success": "Erfolgreich verbunden"
                     },
-                    "mustCreateStripeLocation": "Bei der ersten Anmeldung geben Sie bitte die Daten des Studios an, in dem das Terminal genutzt werden soll.",
+                    "mustCreateStripeLocation": "Bei der ersten Anmeldung geben Sie bitte die Daten des Studios an, in dem der Terminal genutzt werden soll.",
                     "loading1": "Wir versuchen, eine Verbindung mit Ihrem Terminal herzustellen.",
-                    "loading2": "Bitte warten.",
+                    "loading2": "Bitte warten",
                     "form": {
                         "readerLabel": "Name des Terminals",
                         "registrationCode": "Terminal-Code",
@@ -7447,7 +7447,7 @@
                         "retry": "Wiederholen",
                         "update": "Bearbeiten"
                     },
-                    "error2": "Erneut versuchen.",
+                    "error2": "Erneut versuchen",
                     "error1": "Ihr Stripe-Terminal wurde nicht verbunden.",
                     "success": "Ihr Stripe Terminal hat sich erfolgreich verbunden"
                 },
@@ -7467,14 +7467,14 @@
         "section": {
             "invoiceItemList": {
                 "total": "Gesamte Einkäufe",
-                "isEmpty": "Keine Einkäufe",
+                "isEmpty": "Bitte beginnen Sie damit Produkte zu dieser Rechnung hinzuzufügen.",
                 "title": "Einkäufe",
-                "titleReverse": "Rückzahlung",
-                "billing_establishment": "Rechnungsstellung*",
+                "titleReverse": "Zusammensetzung des Einkaufs",
+                "billing_establishment": "Einrichtung der Rechnungsstellung*",
                 "cannotCreateDiscount": "Sie verfügen nicht über die notwendigen Rechte, um einen Rabatt hinzuzufügen."
             },
             "paymentList": {
-                "total": "Gesamte Zahlungen",
+                "total": "Alle Zahlungen",
                 "isEmpty": "Keine registrierte Zahlungsmethode",
                 "title": "Zahlungsmethoden"
             }
@@ -7482,23 +7482,23 @@
         "actions": {
             "equilibrate": "Ausgleichen (Anzahlung)",
             "backToInvoiceItemEditor": "Einkauf",
-            "finalize": "Finalisieren (PDF)",
-            "download": "Rechnung herunterladen",
+            "finalize": "Abschließen (PDF)",
+            "download": "Rechnung herunterladen (PDF)",
             "addInvoiceItem": "Zur Rechnung hinzufügen",
             "save": "Speichern",
             "goToPaymentEditor": "Zahlung",
             "goToSubscription": "Das Abonnement anzeigen",
             "revert": "Abbrechen",
-            "invoiceReverted": "Die Rechnung wurde storniert",
+            "invoiceReverted": "Rechnung storniert",
             "consumeBalance": "Zahle per Restguthaben",
             "explainPdfDraft": "Die Rechnung ist noch in Entwurfsform, das PDF ist nicht verfügbar.",
-            "addFooter": "Fußnote anpassen",
+            "addFooter": "Fußnote dieser Rechnung anpassen",
             "addCoupon": "Einen Promo-Code hinzufügen",
             "downloadReceipt": "Quittung über die Zahlung"
         },
         "invoice": {
             "editor": {
-                "title": "Erstellung der Rechnung",
+                "title": "Rechnungsstellung",
                 "save": "Rechnung ausstellen",
                 "sumup": "Zusammenfassung"
             },
@@ -7515,12 +7515,12 @@
                 "date": "Datum : {{ date }}",
                 "reverseInvoice": "Rückerstattung über ",
                 "sourceInvoice": "Rechnung stornieren",
-                "noEstablishment": "Keine Niederlassung"
+                "noEstablishment": "Keine Einrichtung mit dieser Rechnung verbunden"
             },
             "title": "Rechnung {{ uuid }}",
-            "titleRevert": "Habe {{uuid}}",
+            "titleRevert": "Credit {{uuid}}",
             "titleReceipt": "Erhalten {{uuid}}",
-            "titleReverted": "Rechnung (storniert) {{uuid}}"
+            "titleReverted": "Rechnung (zurückgeschickt) {{uuid}}"
         },
         "invoiceItem": {
             "voucher": "Rabatt: {{ voucher }}",
@@ -7529,15 +7529,15 @@
                 "label": "Credit"
             },
             "buyableItemIdentifier": {
-                "10": "Package",
+                "10": "Pakete",
                 "9": "Terminpass",
                 "3": "Credit",
-                "2": "Shop",
+                "2": "Webshop",
                 "1": "Kurspässe",
                 "undefined": "Geschenkkarte",
-                "11": "Geschenkkarte"
+                "11": "Gutscheine"
             },
-            "discount": "Reduktion"
+            "discount": "Rabatt"
         },
         "uneditableMessage": {
             "invoiceFinalizedThusNotEditable": "Die Rechnung wurde abgeschlossen und kann deswegen nicht mehr geändert werden",
@@ -7550,7 +7550,7 @@
         "invoiceInfoDialog": {
             "actions": {
                 "close": "Schließen",
-                "show": "Die Rechnung anzeigen"
+                "show": "Rechnung anzeigen"
             },
             "explain": "Eine oder mehrere Zahlungen wurden nicht korrekt vorgenommen, die Anzahlung des Mitglieds spiegelt die nicht erfolgte Zahlung wider"
         },
@@ -7566,21 +7566,21 @@
                     "1": "Eine Gutschrift wird erstellt und wird dem Kundenguthaben entsprechend gutgeschrieben. Verwende diese Methode, um eine Gutschrift zu erstellen.",
                     "0": "Kartenzahlungen / SEPA / etc... werden direkt auf das Konto des Kunden überwiesen. Verwenden Sie diese Methode, um eine direkte Erstattung nach einem Fehler zu machen."
                 },
-                "explainEmptyPayment": "Möchtest Du diese Rechnung wirklich stornieren?"
+                "explainEmptyPayment": "Möchten Sie diese Rechnung wirklich stornieren?"
             },
             "dialog": {
                 "actions": {
-                    "confirm": "Bestätigen Sie",
-                    "cancel": "Schließen Sie"
+                    "confirm": "Bestätigen",
+                    "cancel": "Schließen"
                 },
                 "title": "Rechnungsstornierung"
             },
             "warning": {
-                "interac": "At least one payment has been made with an Interac card on this invoice. Direct refunds are not supported for Interac cards."
+                "interac": "Mindestens eine Zahlung auf dieser Rechnung wurde mit einer Interac Karte vorgenommen. Direkte Rückerstattungen werden für Interac Karten nicht unterstützt."
             },
             "autoDebitDialog": {
                 "helper": "Ihr Studio ist gerade dabei, Ihr Bsport-Konto zu schließen.\n\nWenn Sie auf Bestätigen klicken, wird die Rechnung zurückerstattet. Ihr Stripe-Guthaben wird mit {{refundAmount}} belastet. {{ currencyDisplay }}. Um Ihr Stripe-Guthaben jedoch auf 0 {{ currencyDisplay }} zurückzusetzen, wird der Differenzbetrag automatisch direkt von Ihrem unter Einstellungen > Unternehmen angegebenen Bankkonto abgebucht.\n\nWenn Sie Ihr Überziehungslimit nicht überschreiten wollen, können Sie warten, bis Ihr Stripe-Saldo wieder steigt.",
-                "title": "Unzureichendes Strip-Guthaben"
+                "title": "Unzureichendes Stripe-Guthaben"
             },
             "blockedDialog": {
                 "title": "Unzureichender Stripe-Saldo",
@@ -7602,8 +7602,8 @@
                 "explainTopup": "Der Kontostand des Mitglieds erhöht sich um: {{ currencyDisplay }}{{ amount }}.",
                 "balanceValueLabel": "Betrag",
                 "withoutPaymentNote": {
-                    "warning": "Bitte beachte: Wir werden keine Historie von diesem Vorgang behalten. Nur für außergewöhnliche Anpassungen verwenden.",
-                    "label": "Generiere keine Quittung"
+                    "warning": "Bitte beachten Sie: Wir werden keine Historie von diesem Vorgang behalten. Nur für außergewöhnliche Anpassungen verwenden.",
+                    "label": "Keine Rechnung erstellen"
                 }
             }
         },
@@ -7663,18 +7663,18 @@
                 "invoiceItem": {
                     "header": {
                         "voucher": "Rabatt",
-                        "priceExcTax": "Betrag exklusive Steuern",
-                        "price": "Betrag inklusive Steuern",
+                        "priceExcTax": "Betrag (exkl. Steuern)",
+                        "price": "Betrag (inkl. Steuern)",
                         "product": "Name"
                     },
-                    "isEmpty": "Keine Käufe",
+                    "isEmpty": "Bitte beginnen Sie damit Produkte zu dieser Rechnung hinzuzufügen.",
                     "title": "Käufe"
                 }
             },
             "header": {
                 "pdf": "PDF",
-                "missing": "Restbetrag",
-                "amount": "Betrag",
+                "missing": "Fälliger Betrag",
+                "amount": "Gesamtkosten",
                 "date": "Rechnungsdatum",
                 "id": "ID",
                 "member": "Mitglied",
@@ -7692,11 +7692,11 @@
                     "label": "Land der Kontoverbindung"
                 },
                 "email": {
-                    "placeholder": "marie@dupont.fr",
+                    "placeholder": "max@mustermann.de",
                     "label": "E-Mail des Kontoinhabers"
                 },
                 "accountHolderName": {
-                    "placeholder": "Marie Dupont",
+                    "placeholder": "Max Mustermann",
                     "label": "Kontoinhaber"
                 }
             },
@@ -7707,22 +7707,22 @@
             },
             "actions": {
                 "saveForLaterAsSEPA": "Das Mandat wird als \"SEPA\" registriert",
-                "saveForLater": "diese Zahlungsmethode hinterlegen",
-                "showInvoice": "Die Rechnung anzeigen",
-                "confirmPayment": "Bestätige Zahlung",
+                "saveForLater": "Zahlungsmethode speichern",
+                "showInvoice": "Rechnung anzeigen",
+                "confirmPayment": "Zahlung bestätigen",
                 "payAll": "Kundenschulden begleichen",
                 "cancel": "Abbrechen",
                 "revert": "Abbrechen",
-                "pay": "Diese Rechnung bezahlen",
+                "pay": "Rechnung bezahlen",
                 "bill": "Einziehen",
                 "basketInconsistent": "Ihr Warenkorb wurde geändert, bitte aktualisieren Sie Ihre Seite, bevor Sie Ihre Zahlung bestätigen.\n Sie wurden nicht belastet.",
                 "billByInstalment": "Zahlung in Raten",
-                "paymentLink": "Link zur Bezahlung",
-                "generatePaymentLink": "Erzeugen eines Zahlungslinks",
+                "paymentLink": "Zahlungslink",
+                "generatePaymentLink": "Zahlungslinks erstellen",
                 "paymentSecurityInformation": "Sie können Ihre Zahlungsdaten und -informationen für zukünftige Einkäufe sicher und verschlüsselt speichern."
             },
             "sumup": {
-                "amountRemaining": "Noch zu zahlen",
+                "amountRemaining": "Ausstehender Betrag",
                 "amountPaid": "Eingegangene Zahlungen",
                 "amountDue": "Gesamt",
                 "title": "Zusammenfassung",
@@ -7740,7 +7740,7 @@
             },
             "amountRemaining": "Restbetrag: {{amount}}",
             "billingMoreThanNeeded": "Wenn mehr als der Rechnungsbetrag eingelöst wird, erhöht sich das Guthaben des Mitglieds um die Differenz",
-            "errorSecretExplain2": "Wenn das Problem weiterhin besteht, wende dich an dev+payment-intent@bsport.io",
+            "errorSecretExplain2": "Wenn das Problem weiterhin besteht, wenden Sie sich an dev+payment-intent@bsport.io",
             "errorSecretExplain1": "Diese Zahlungsmethode ist derzeit nicht verfügbar",
             "plannedPaymentEvent": {
                 "title": "Geplante Zahlung",
@@ -8598,7 +8598,7 @@
             "register": {
                 "title": "Wiedergabe aktivieren",
                 "buyPass": "Kaufe eine Karte",
-                "noPassAvailable": "Du hast keine kompatible Karte"
+                "noPassAvailable": "Sie haben keine kompatible Karte"
             },
             "analytics": {
                 "uploaded": "Video hochgeladen am {{date}}",
@@ -12041,7 +12041,8 @@
             "1001": "Spivi-Konto erstellt (Schüler)",
             "1003": "Spivi-Konto erstellt (Lehrkraft)",
             "31": "Buchung für einen Gast (für Gast)",
-            "30": "Buchung für einen Gast (für einladendes Mitglied)"
+            "30": "Buchung für einen Gast (für einladendes Mitglied)",
+            "undefined": "Buchung für einen Gast (für Gast)"
         },
         "tag": {
             "BookingOption": {
@@ -12301,7 +12302,7 @@
                     "selectCompanies": "Mindestens einen Franchisenehmer auswählen",
                     "name": "Bitte geben Sie einen Namen ein"
                 },
-                "save": "Register",
+                "save": "Speichern",
                 "cancel": "Abbrechen",
                 "mailSelection": "Wählen Sie eine Vorlage",
                 "receiveCarbonCopySubtitle": "Sie erhalten eine Kopie von jeder gesendeten E-Mail",
@@ -15123,7 +15124,7 @@
                     "cancel": "Abbrechen"
                 },
                 "namePlaceholder": "Name der Markierung",
-                "submit": "Register",
+                "submit": "Speichern",
                 "name": "Name des Tags",
                 "color": "Farbe",
                 "info": "Wenn Sie ein Symbol auswählen, erscheint es als Abzeichen neben dem Profilbild für alle Mitglieder, die mit diesem Tag markiert sind.",

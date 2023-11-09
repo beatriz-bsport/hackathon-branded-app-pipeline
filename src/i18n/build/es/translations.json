@@ -3086,7 +3086,7 @@
             }
         },
         "invoiceItem": {
-            "voucher": "Reducción: {{voucher}} €",
+            "voucher": "Descuento: {{voucher}} €",
             "quantity": "Candidad",
             "credit": {
                 "label": "Crédito"
@@ -5981,6 +5981,10 @@
             "member-booking_canceled": {
                 "filter": "Cancelación de reservas",
                 "primaryText": "La reserva para {{- name }} el {{- date_start }} ha sido cancelada."
+            },
+            "undefined": {
+                "filter": "Cancelación de citas",
+                "primaryText": "La cita para {{- private_service_name}} - {{- private_slot_name }} el {{- date_start }} fue cancelada."
             }
         },
         "resetPassword": {
@@ -6850,7 +6854,8 @@
             "1001": "Cuenta Spivi creada (alumnos)",
             "1003": "Cuenta Spivi creada (profesores)",
             "31": "Reserva para un invitado (para el invitado)",
-            "30": "Reserva para un invitado (para el miembro que invita)"
+            "30": "Reserva para un invitado (para el miembro que invita)",
+            "undefined": "Reserva para un invitado (para invitado)"
         },
         "tag": {
             "BookingOption": {
@@ -15528,7 +15533,9 @@
                     "giftcardPrepaidLine": "Pago mediante tarjeta regalo",
                     "3": "Tres",
                     "2": "Dos",
-                    "1": "Uno"
+                    "1": "Uno",
+                    "elevated": "Elevado",
+                    "rest": "Pausa"
                 },
                 "title": {
                     "nextOffer": "Próxima sesión disponible",
@@ -15566,7 +15573,11 @@
                     "isDense": "Denso",
                     "isItemEditionDisabled": "Modificación de elementos desactivada",
                     "isAddingItemPossible": "Añadir más elementos activados",
-                    "isBookingDisabled": "Reservas desactivadas"
+                    "isBookingDisabled": "Reservas desactivadas",
+                    "isRippleEnabled": "Desactivar el efecto de ondulación de los botones",
+                    "square": "No se pueden redondear las esquinas",
+                    "cardVariant": "Seleccione la variante de tarjeta que desea utilizar",
+                    "componentType": "El contenedor es un botón"
                 },
                 "configurationTitle": "Variaciones"
             },
@@ -15653,7 +15664,8 @@
                 "marketplace_basket_summary_item": "Componente del artículo de la cesta (Resumen de la cesta)",
                 "marketplace_item_quantity": "Cantidad de artículos de la cesta (resumen de la cesta)",
                 "booker_module_offer_summary": "Resumen de la sesión",
-                "fabrique_typography": "Tipografía"
+                "fabrique_typography": "Tipografía",
+                "fabrique_card": "Tarjeta"
             },
             "customCss": {
                 "yourCode": "Su implementación complementaria:",
@@ -16325,8 +16337,8 @@
                     "title": "Acción de marketing"
                 },
                 "entryTrigger": {
-                    "helperText": "Defina cuándo y quién entrará en esta cadencia con los criterios y desencadenantes seleccionados.",
-                    "title": "Entrada",
+                    "helperText": "Primero decidamos cómo van a entrar sus miembros en el flujo de trabajo. Seleccione uno o varios eventos o smartlists, si el miembro corresponde a uno de ellos, él / ella entrará en el flujo de trabajo.",
+                    "title": "Criterios de entrada",
                     "addTrigger": "Añadir un activador de entrada"
                 },
                 "cancel": "Cancelar",
@@ -16346,6 +16358,11 @@
                 "convertIntoExit": {
                     "label": "Considerar al miembro como",
                     "title": "Salida"
+                },
+                "entryAction": {
+                    "title": "Acción de entrada",
+                    "helperText": "Seleccione lo que desea hacer cuando sus miembros entren en el flujo de trabajo. Etiquételos, envíe un correo electrónico... Usted decide. O no hacer nada, este paso es opcional.",
+                    "addAction": "Añade una acción"
                 }
             }
         }

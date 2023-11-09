@@ -442,6 +442,59 @@ export const DurationField = withStyles(DurationFieldstyles)(
           const days = parseInt(total / (60 * 24), 10);
           const hours = parseInt((total - days * 24 * 60) / 60, 10);
           const minutes = total - days * 24 * 60 - hours * 60;
+
+          const [internalDays, setDays] = React.useState(days);
+          const [internalHours, setHours] = React.useState(hours);
+          const [internalMinutes, setMinutes] = React.useState(minutes);
+
+          const setDaysFromEvent = React.useCallback(
+            (ev) => setDays(ev.target.value),
+            [setDays],
+          );
+          const setHoursFromEvent = React.useCallback(
+            (ev) => setDays(ev.target.value),
+            [setDays],
+          );
+          const setMinutesFromEvent = React.useCallback(
+            (ev) => setMinutes(ev.target.value),
+            [setMinutes],
+          );
+
+          const onFocusDays = React.useCallback(() => {
+            if (!internalDays) setDays('');
+          }, [internalDays, setDays]);
+          const onFocusHours = React.useCallback(() => {
+            if (!internalHours) setHours('');
+          }, [internalHours, setHours]);
+          const onFocusMinutes = React.useCallback(() => {
+            if (!internalMinutes) setMinutes('');
+          }, [internalMinutes, setMinutes]);
+
+          const computeGlobal = React.useCallback(() => {
+            const newValue =
+              parseInt(internalMinutes || 0, 10) +
+              parseInt(internalHours || 0, 10) * 60 +
+              parseInt(internalDays || 0, 10) * 24 * 60;
+            if (internalDays === '') setDays(0);
+            if (internalHours === '') setHours(0);
+            if (internalMinutes === '') setMinutes(0);
+            setFieldValue(props.name, newValue);
+          }, [
+            setFieldValue,
+            internalDays,
+            internalHours,
+            internalMinutes,
+            setDays,
+            setHours,
+            setMinutes,
+          ]);
+
+          React.useEffect(() => {
+            setDays(days || 0);
+            setHours(hours || 0);
+            setMinutes(minutes || 0);
+          }, [days, hours, minutes]);
+
           return (
             <MuiFormControl
               error={!!(touched && error)}
@@ -475,16 +528,11 @@ export const DurationField = withStyles(DurationFieldstyles)(
                       InputProps={{
                         inputProps: { min: 0, step: 1 },
                       }}
-                      onChange={(value) => {
-                        setFieldValue(
-                          props.name,
-                          parseInt(value.target.value || 0, 10) * (24 * 60) +
-                            hours * 60 +
-                            minutes,
-                        );
-                      }}
+                      onBlur={computeGlobal}
+                      onChange={setDaysFromEvent}
+                      onFocus={onFocusDays}
                       type="number"
-                      value={days}
+                      value={internalDays}
                     />
                   </Grid>
                   <Grid item md={4} xs={12}>
@@ -511,16 +559,11 @@ export const DurationField = withStyles(DurationFieldstyles)(
                           InputProps={{
                             inputProps: { min: 0, step: 1, max: 23 },
                           }}
-                          onChange={(value) => {
-                            setFieldValue(
-                              props.name,
-                              parseInt(value.target.value || 0, 10) * 60 +
-                                days * 60 * 24 +
-                                minutes,
-                            );
-                          }}
+                          onBlur={computeGlobal}
+                          onChange={setHoursFromEvent}
+                          onFocus={onFocusHours}
                           type="number"
-                          value={hours}
+                          value={internalHours}
                         />
                       </div>
                     </div>
@@ -549,16 +592,11 @@ export const DurationField = withStyles(DurationFieldstyles)(
                           InputProps={{
                             inputProps: { min: 0, max: 59, step: 1 },
                           }}
-                          onChange={(value) => {
-                            setFieldValue(
-                              props.name,
-                              parseInt(value.target.value || 0, 10) +
-                                days * 60 * 24 +
-                                hours * 60,
-                            );
-                          }}
+                          onBlur={computeGlobal}
+                          onChange={setMinutesFromEvent}
+                          onFocus={onFocusMinutes}
                           type="number"
-                          value={minutes}
+                          value={internalMinutes}
                         />
                       </div>
                     </div>

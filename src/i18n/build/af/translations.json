@@ -11752,8 +11752,18 @@
         "showGenderOffer": "Show the amount of men and women that booked a session",
         "hideCoach": "Hide teachers' info on the calendar for members",
         "maxFutureBooking": {
-          "numberCheck": { "helperText": "This will be the maximum amount of future bookings per member.", "placeholder": "Maximum" },
+          "numberCheck": {
+            "helperText": "This will be the maximum amount of future bookings per member, excluding workshop bookings.",
+            "placeholder": "Maximum"
+          },
           "label": "Limit the amount of future bookings per member"
+        },
+        "maxFutureWorkshop": {
+          "numberCheck": {
+            "helperText": "This will be the maximum amount of future booked workshop sessions per member.",
+            "placeholder": "Maximum"
+          },
+          "label": "Limit the amount of future booked workshop sessions per member"
         },
         "hiddenFromMarketplace": "Activate this to display your studio on the general BSPORT app",
         "schedule": {

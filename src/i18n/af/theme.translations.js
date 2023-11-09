@@ -95,10 +95,19 @@ const getTranslations = async () => {
         maxFutureBooking: {
           numberCheck: {
             helperText:
-              'This will be the maximum amount of future bookings per member.',
+              'This will be the maximum amount of future bookings per member, excluding workshop bookings.',
             placeholder: 'Maximum',
           },
           label: 'Limit the amount of future bookings per member',
+        },
+        maxFutureWorkshop: {
+          numberCheck: {
+            helperText:
+              'This will be the maximum amount of future booked workshop sessions per member.',
+            placeholder: 'Maximum',
+          },
+          label:
+            'Limit the amount of future booked workshop sessions per member',
         },
         hiddenFromMarketplace:
           'Activate this to display your studio on the general BSPORT app',

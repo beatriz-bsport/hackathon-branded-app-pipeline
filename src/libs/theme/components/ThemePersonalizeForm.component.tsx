@@ -73,6 +73,7 @@ interface FormikValues {
   hide_member_details_in_app_private_booking_for_coach: boolean;
   gender_max_shift_for_booking: number;
   max_future_booking: number;
+  max_future_workshop: number;
   basket_expiration_days: number;
   nb_to_check_balance: number;
   default_booking_ordering: string;
@@ -393,6 +394,40 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
                       'forms.themePersonalization.maxFutureBooking.numberCheck.placeholder',
                     )}
                     name="max_future_booking"
+                  />
+                </div>
+              </div>
+            )}
+          </div>
+          <div>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={values.max_future_workshop > 0}
+                  onChange={() => {
+                    setFieldValue(
+                      'max_future_workshop',
+                      values.max_future_workshop ? 0 : 10,
+                    );
+                  }}
+                />
+              }
+              label={t('forms.themePersonalization.maxFutureWorkshop.label')}
+            />
+            {values.max_future_workshop > 0 && (
+              <div className={classes.borderLeft}>
+                <div className={classes.verticalInput}>
+                  <IntegerField
+                    helperText={t(
+                      'forms.themePersonalization.maxFutureWorkshop.numberCheck.helperText',
+                    )}
+                    InputProps={{
+                      inputProps: { min: 1, step: 1, max: 50 },
+                    }}
+                    label={t(
+                      'forms.themePersonalization.maxFutureWorkshop.numberCheck.placeholder',
+                    )}
+                    name="max_future_workshop"
                   />
                 </div>
               </div>
@@ -962,6 +997,7 @@ const ThemePersonalizeFormSchema = Yup.object().shape({
 
   gender_max_shift_for_booking: Yup.number().required(),
   max_future_booking: Yup.number().required(),
+  max_future_workshop: Yup.number().required(),
   basket_expiration_days: Yup.number().required(),
   nb_to_check_balance: Yup.number().required(),
   allow_guest_max_number: Yup.number().required(),
@@ -1106,6 +1142,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
 
         gender_max_shift_for_booking: theme.gender_max_shift_for_booking,
         max_future_booking: theme.max_future_booking,
+        max_future_workshop: theme.max_future_workshop,
         default_booking_ordering: theme.default_booking_ordering,
         basket_expiration_days: theme.basket_expiration_days,
         nb_to_check_balance: theme.nb_to_check_balance,
@@ -1162,6 +1199,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
 
       gender_max_shift_for_booking: 0,
       max_future_booking: 0,
+      max_future_workshop: 0,
       default_booking_ordering: BOOKING_DATE_ORDER,
       basket_expiration_days: 0,
       nb_to_check_balance: 0,
@@ -1195,6 +1233,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
       'allow_guest_max_number',
       'show_studio_on_general_app',
       'max_future_booking',
+      'max_future_workshop',
       'default_booking_ordering',
       'coach_can_edit_attendance',
       'default_attendance',

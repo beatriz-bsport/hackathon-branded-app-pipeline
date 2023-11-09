@@ -337,6 +337,74 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
             )}
           </div>
 
+          <div>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={values.max_future_booking > 0}
+                  onChange={() => {
+                    setFieldValue(
+                      'max_future_booking',
+                      values.max_future_booking ? 0 : 10,
+                    );
+                  }}
+                />
+              }
+              label={t('forms.themePersonalization.maxFutureBooking.label')}
+            />
+            {values.max_future_booking > 0 && (
+              <div className={classes.borderLeft}>
+                <div className={classes.verticalInput}>
+                  <IntegerField
+                    helperText={t(
+                      'forms.themePersonalization.maxFutureBooking.numberCheck.helperText',
+                    )}
+                    InputProps={{
+                      inputProps: { min: 1, step: 1, max: 50 },
+                    }}
+                    label={t(
+                      'forms.themePersonalization.maxFutureBooking.numberCheck.placeholder',
+                    )}
+                    name="max_future_booking"
+                  />
+                </div>
+              </div>
+            )}
+          </div>
+          <div>
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={values.max_future_workshop > 0}
+                  onChange={() => {
+                    setFieldValue(
+                      'max_future_workshop',
+                      values.max_future_workshop ? 0 : 10,
+                    );
+                  }}
+                />
+              }
+              label={t('forms.themePersonalization.maxFutureWorkshop.label')}
+            />
+            {values.max_future_workshop > 0 && (
+              <div className={classes.borderLeft}>
+                <div className={classes.verticalInput}>
+                  <IntegerField
+                    helperText={t(
+                      'forms.themePersonalization.maxFutureWorkshop.numberCheck.helperText',
+                    )}
+                    InputProps={{
+                      inputProps: { min: 1, step: 1, max: 50 },
+                    }}
+                    label={t(
+                      'forms.themePersonalization.maxFutureWorkshop.numberCheck.placeholder',
+                    )}
+                    name="max_future_workshop"
+                  />
+                </div>
+              </div>
+            )}
+          </div>
           <SwitchField
             label={t('forms.themePersonalization.hideBuyablePassIfSuperfluous')}
             name="hide_unnecessary_compatible_purchase_method"

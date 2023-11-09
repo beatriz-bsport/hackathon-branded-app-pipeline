@@ -69,20 +69,23 @@ export class MarketplaceCalendarSearch extends PureComponent<Props, State> {
 
   render() {
     return (
-      <form className="bs-search__container" onSubmit={this.handleSubmit}>
-        <div className="bs-search__input__container">
-          <button className="bs-search__input__icon" type="button">
+      <form
+        className="bs-calendar-search__container"
+        onSubmit={this.handleSubmit}
+      >
+        <div className="bs-calendar-search__input__container">
+          <button className="bs-calendar-search__input__icon" type="button">
             <SearchIcon fontSize="small" />
           </button>
           <input
-            className="bs-search__input"
+            className="bs-calendar-search__input"
             onChange={this.handleChange}
             placeholder={this.props.t('input')}
             value={this.state.searchText}
           />
           {this.state.searchText && (
             <button
-              className="bs-search__input__icon"
+              className="bs-calendar-search__input__icon"
               onClick={this.handleClearInput}
               type="button"
             >

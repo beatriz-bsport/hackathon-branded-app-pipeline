@@ -548,7 +548,7 @@ export class OfferManagement extends Component<Props, State> {
   handleCancelBookerModule = () => {
     const data = this.props.getBookingOptionToRegisterData();
     this.props.registerOption(
-      data?.bookingOptionBeingProcessed.id ?? null,
+      data?.bookingOptionBeingProcessed?.id ?? null,
       data?.memberToRegister ?? null,
     );
   };

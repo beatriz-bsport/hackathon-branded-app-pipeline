@@ -228,6 +228,10 @@ import {
   MARKETPLACE_SPOT_SELECTOR_PREVIEW,
 } from '#marketplacecomponents/@SpotScheduling/MarketplaceSpotSelector/custom_css_variant';
 
+import {
+  FABRIQUE_RADIOBUTTON_CONFIGURATION,
+  FABRIQUE_RADIOBUTTON_PREVIEW,
+} from '#components/css-only/Fabrique/RadioButtonV2';
 /* TEMPLATE
 
 {
@@ -298,6 +302,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
         FABRIQUE_TAB_CONFIGURATION,
         AUTHENTICATION_LOGIN_CONFIGURATION,
         FABRIQUE_TEXTFIELD_CONFIGURATION,
+        FABRIQUE_RADIOBUTTON_CONFIGURATION,
       ]
     : []),
 ];
@@ -420,6 +425,8 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
       [CssComponentsVariantIdentifiers.FABRIQUE_BLANKET]:
         FABRIQUE_BLANKET_PREVIEW,
       [CssComponentsVariantIdentifiers.FABRIQUE_TAB]: FABRIQUE_TAB_PREVIEW,
+      [CssComponentsVariantIdentifiers.FABRIQUE_RADIOBUTTON]:
+        FABRIQUE_RADIOBUTTON_PREVIEW,
     }),
   });
 export const CSS_COMPONENT_PAGES: Immutable.Immutable<MarketplacePage[]> =

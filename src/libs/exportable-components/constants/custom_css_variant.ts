@@ -80,4 +80,5 @@ export enum CssComponentsVariantIdentifiers {
   FABRIQUE_ACTION_TAB = 'fabrique_action_tab',
   FABRIQUE_BLANKET = 'fabrique_blanket',
   FABRIQUE_TAB = 'fabrique_tab',
+  FABRIQUE_RADIOBUTTON = 'fabrique_radiobutton',
 }

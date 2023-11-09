@@ -206,6 +206,9 @@ exports.default = {
         showBlanket: 'Show blanket',
         isTabSelected: 'The tab is selected',
         showTabSelect: 'The tab has select options',
+        isChecked: 'Is in checked state',
+        isInversed: "Element's color inversed",
+        displayCaptionText: 'Display the caption text',
       },
       configurationTitle: 'Variations',
     },
@@ -288,6 +291,7 @@ exports.default = {
       fabrique_action_tab: 'Action tab',
       fabrique_blanket: 'Blanket',
       fabrique_tab: 'Tab',
+      fabrique_radiobutton: 'Radio button',
     },
     customCss: {
       yourCode: 'Your complementary implementation:',

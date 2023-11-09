@@ -9,6 +9,7 @@ import ExitCardFlowVersion from '../nodes/exits/CadenceExitCardFlowVersion.compo
 
 import {
   DestinationKind,
+  InitialConfigurationStep,
   DEFAULT_X_FOR_ENTRYSTEP,
   DEFAULT_X_FOR_EXIT,
   DEFAULT_X_FOR_INNERSTEP,
@@ -21,9 +22,10 @@ import { isTriggerFake } from '#libs/sequential_marketing/components/helpers/uti
 
 import type {
   Cadence,
-  ConnectedTrigger,
   CadenceStep,
+  ConnectedTrigger,
   GraphCanvas,
+  InitialConfigurationValues,
   StepMarketingActions,
   MarketingActionEssentials,
 } from '#libs/sequential_marketing/types';
@@ -138,6 +140,9 @@ export const useStepsAndTriggersRecorder = ({
 type NodeRendererProps = {
   cadence: Cadence;
   cadenceEditMode: boolean;
+  initialConfiguration: InitialConfigurationValues;
+  isEntryActionBubbleOpen: boolean;
+  isEntryFirstConfiguration: boolean;
   smartlists: Immutable.ImmutableArray<SmartList>;
   marketingActionEssentials: MarketingActionEssentials;
   storedEntryStep: CadenceStep;
@@ -198,11 +203,18 @@ type NodeRendererProps = {
   ) => void;
   doNotDisplayDeleteStepDialogCadenceIdsAction: () => void;
   doNotDisplayConvertStepIntoExitDialogCadenceIdsAction: () => void;
+  setInitialConfig: (data: InitialConfigurationValues) => void;
+  setCurrentStepConfiguration: (
+    currentStepConfiguration: InitialConfigurationStep,
+  ) => void;
 };
 
 export const useNodeElementsRecorder = ({
   cadence,
   cadenceEditMode,
+  initialConfiguration,
+  isEntryActionBubbleOpen,
+  isEntryFirstConfiguration,
   smartlists,
   marketingActionEssentials,
   storedEntryStep,
@@ -227,6 +239,8 @@ export const useNodeElementsRecorder = ({
   handleUpdateFakerTrigger,
   onClickConnectedTrigger,
   onClickEntryStep,
+  setCurrentStepConfiguration,
+  setInitialConfig,
   upsertMarketingAction,
   doNotDisplayDeleteStepDialogCadenceIdsAction,
   doNotDisplayConvertStepIntoExitDialogCadenceIdsAction,
@@ -234,6 +248,8 @@ export const useNodeElementsRecorder = ({
   updateCadenceStepName,
 }: NodeRendererProps) => {
   const [stepToEditId, setStepToEditId] = React.useState<number | null>(null);
+
+  const isFirstConfigurationMode = !cadence.initialized;
 
   const handleBeginStepEdition = React.useCallback(
     (stepId: number) => setStepToEditId(stepId),
@@ -251,6 +267,7 @@ export const useNodeElementsRecorder = ({
         triggerKind,
         source: stepNode,
         destinationKind: DestinationKind.STEP_TO_STEP,
+        isTemporary: true,
       });
       handleUpdateFakerTrigger({
         step: stepNode,
@@ -272,6 +289,7 @@ export const useNodeElementsRecorder = ({
             source: stepNode,
             destinationKind: DestinationKind.STEP_TO_STEP,
             destination: destinationStep,
+            isTemporary: true,
           });
           handleUpdateFakerTrigger({
             step: stepNode,
@@ -280,6 +298,30 @@ export const useNodeElementsRecorder = ({
         }
       },
     [handleUpdateFakerTrigger, storedSteps],
+  );
+
+  const handleConfirmEntryCriteriaBubble = React.useCallback(
+    (value: ConnectedTrigger[]) =>
+      setInitialConfig({
+        ...initialConfiguration,
+        [InitialConfigurationStep.CADENCE_ENTRY_STEP]: {
+          ...initialConfiguration[InitialConfigurationStep.CADENCE_ENTRY_STEP],
+          connectedTriggers: value,
+        },
+      }),
+    [initialConfiguration, setInitialConfig],
+  );
+
+  const handleConfirmEntryActionBubble = React.useCallback(
+    (value: StepMarketingActions[]) =>
+      setInitialConfig({
+        ...initialConfiguration,
+        [InitialConfigurationStep.CADENCE_ENTRY_STEP]: {
+          ...initialConfiguration[InitialConfigurationStep.CADENCE_ENTRY_STEP],
+          marketingActions: value,
+        },
+      }),
+    [initialConfiguration, setInitialConfig],
   );
 
   // The EntryNode consumes the StoredEntryNode data to draw the initial step on the graph.
@@ -299,9 +341,26 @@ export const useNodeElementsRecorder = ({
           : { position: { x: DEFAULT_X_FOR_ENTRYSTEP, y: 0 } }),
         data: {
           disabled: !cadenceEditMode,
-          marketingActionList: getStepMarketingActions?.(storedEntryStep?.id),
+          marketingActionList: isFirstConfigurationMode
+            ? initialConfiguration[InitialConfigurationStep.CADENCE_ENTRY_STEP]
+                .marketingActions
+            : getStepMarketingActions?.(storedEntryStep?.id),
           step: storedEntryStep,
-          triggerList: cadence.entries,
+          triggerList: isFirstConfigurationMode
+            ? initialConfiguration[InitialConfigurationStep.CADENCE_ENTRY_STEP]
+                .connectedTriggers
+            : cadence.entries,
+          isFirstConfigurationMode,
+          isEntryActionBubbleOpen,
+          isEntryFirstConfiguration,
+          connectedTriggersBubble: {
+            smartlists,
+            onConfirm: handleConfirmEntryCriteriaBubble,
+          },
+          marketingActionsBubble: {
+            ...marketingActionEssentials,
+            onConfirm: handleConfirmEntryActionBubble,
+          },
           addMarketingAction: () => {}, // TODO: code the newMA function
           addNextStep: handleAddNextStepTrigger(storedEntryStep),
           getEmailTemplate,
@@ -309,21 +368,31 @@ export const useNodeElementsRecorder = ({
           getTag,
           onCardClick: () => onClickEntryStep(storedEntryStep), // TODO: code the onClickEntryStep function
           onConnectToStep: onConnectToInnerStep(storedEntryStep),
+          setCurrentStepConfiguration,
         },
       };
     }
     return null;
+    // To prevent rerender issue coming from the react flow lib :
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    cadence.entries,
     cadenceEditMode,
+    isEntryActionBubbleOpen,
     storedEntryStep,
+    smartlists,
+    cadence.entries,
+    isEntryFirstConfiguration,
+    isFirstConfigurationMode,
     getEmailTemplate,
     getSmartlist,
     getStepMarketingActions,
     getTag,
     handleAddNextStepTrigger,
+    handleConfirmEntryActionBubble,
+    handleConfirmEntryCriteriaBubble,
     onClickEntryStep,
     onConnectToInnerStep,
+    setCurrentStepConfiguration,
   ]);
 
   const handleConfirmTriggerBubble = React.useCallback(
@@ -451,6 +520,7 @@ export const useNodeElementsRecorder = ({
       }));
     }
     return [];
+    // To prevent rerender issue coming from the react flow lib :
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     cadenceEditMode,

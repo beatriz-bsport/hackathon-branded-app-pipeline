@@ -16,6 +16,7 @@ import type {
   ConnectedTrigger,
   GraphCanvas,
   MarketingActionEssentials,
+  InitialConfigurationValues,
   StepMarketingActions,
 } from '#libs/sequential_marketing/types';
 import type { CustomNode, StoredTrigger } from './types';
@@ -24,19 +25,25 @@ import type { EmailTemplateSummary } from '#libs/email-editor/types';
 import type { Tag } from '#libs/tag/types';
 import type { OptionCallback } from '../../../../../state/types';
 
-import { DestinationStatus } from '#libs/sequential_marketing/constants';
+import {
+  DestinationStatus,
+  InitialConfigurationStep,
+} from '#libs/sequential_marketing/constants';
 
 type Props = {
   cadence: Cadence;
   cadenceEditMode: boolean;
   displayDisabledTriggers: boolean;
   marketingActionEssentials: MarketingActionEssentials;
-  steps: CadenceStep[];
-  smartlists: Immutable.ImmutableArray<SmartList>;
-  hideDeleteStepDialogCadenceIds: number[];
   hideConvertStepIntoExitDialogCadenceIds: number[];
-  isDeleteStepDialogHidden: boolean;
+  hideDeleteStepDialogCadenceIds: number[];
+  initialConfiguration: InitialConfigurationValues;
   isConvertStepIntoExitDialogHidden: boolean;
+  isDeleteStepDialogHidden: boolean;
+  isEntryActionBubbleOpen: boolean;
+  isEntryFirstConfiguration: boolean;
+  smartlists: Immutable.ImmutableArray<SmartList>;
+  steps: CadenceStep[];
   convertCadenceExitIntoStep: (
     triggerUuid: string,
     step: {
@@ -92,12 +99,19 @@ type Props = {
   ) => void;
   doNotDisplayDeleteStepDialogCadenceIdsAction: () => void;
   doNotDisplayConvertStepIntoExitDialogCadenceIdsAction: () => void;
+  setInitialConfig: (data: InitialConfigurationValues) => void;
+  setCurrentStepConfiguration: (
+    currentStepConfiguration: InitialConfigurationStep,
+  ) => void;
 };
 
 export const useGraph = ({
   cadence,
   cadenceEditMode,
   displayDisabledTriggers,
+  initialConfiguration,
+  isEntryActionBubbleOpen,
+  isEntryFirstConfiguration,
   smartlists,
   marketingActionEssentials,
   steps,
@@ -121,6 +135,8 @@ export const useGraph = ({
   onClickEntryStep,
   resetAllSelection,
   submitMarketingActionForm,
+  setCurrentStepConfiguration,
+  setInitialConfig,
   updateCadenceStepCanvasPosition,
   updateCadenceStepName,
   updateConnectedTriggerPosition,
@@ -171,6 +187,9 @@ export const useGraph = ({
       cadence,
       cadenceEditMode,
       fakerTrigger,
+      isEntryActionBubbleOpen,
+      isEntryFirstConfiguration,
+      initialConfiguration,
       smartlists,
       marketingActionEssentials,
       storedEntryStep,
@@ -200,6 +219,8 @@ export const useGraph = ({
       resetAllSelection,
       submitMarketingActionForm,
       updateCadenceStepName,
+      setCurrentStepConfiguration,
+      setInitialConfig,
       upsertMarketingAction,
       doNotDisplayDeleteStepDialogCadenceIdsAction,
       doNotDisplayConvertStepIntoExitDialogCadenceIdsAction,

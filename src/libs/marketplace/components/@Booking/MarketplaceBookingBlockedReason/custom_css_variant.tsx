@@ -46,6 +46,10 @@ const bookingBlockedReasonVariationRegistry = [
         label: 'isWaitingListOpen',
         value: 'isWaitingListOpen',
       },
+      {
+        label: 'isBlockedByMaxFutureBooking',
+        value: 'isBlockedByMaxFutureBooking',
+      },
     ],
     default: { label: 'blockedByTags', value: 'blockedByTags' },
   },
@@ -61,6 +65,7 @@ const usePropsFromVariation = (
   // The method below simplify the behavior of the method coming from @bsport-common
   // getMainOfferNotBookableReasonWithTitle. Too complicated to mock proper
   // OfferBookableStatus and metaActivity setup to display proper messages
+
   const getMainOfferNotBookableReasonWithTitle = () => {
     switch (selectedStatus) {
       case 'blockedByTags':
@@ -73,6 +78,18 @@ const usePropsFromVariation = (
           ),
           icon: 'label-off',
           color: 'error',
+        };
+      case 'isBlockedByMaxFutureBooking':
+        return {
+          title: t(
+            'booking:newBookingModule.blockedReasons.isBookingLimitReached.title',
+          ),
+          message: t(
+            'booking:newBookingModule.blockedReasons.isBookingLimitReached.message',
+          ),
+          icon: 'block',
+          color: 'error',
+          isBlockedByMaxFutureBooking: true,
         };
       case 'isAlreadyRegistered':
         return {

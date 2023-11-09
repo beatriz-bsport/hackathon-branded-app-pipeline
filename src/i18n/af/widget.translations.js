@@ -115,6 +115,7 @@ exports.default = {
         isTooLate: 'Time limit exceeded',
         isOfferNotAvailableYet: 'Available soon',
         isAlreadyRegistered: 'Session already booked',
+        isBlockedByMaxFutureBooking: 'Max future bookings limit reached',
         blockedByTags: 'Insufficient rights',
         desktop: 'Wide screen',
         mobile: 'Small screen',

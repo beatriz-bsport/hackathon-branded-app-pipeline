@@ -24,3 +24,8 @@
   border-radius: var(--border-radius-8);
   margin-top: var(--spacing-2);
 }
+
+.bs-booker-module-skeleton-card {
+  max-width: 100% !important;
+  width: 100% !important;
+}

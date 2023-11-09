@@ -15,7 +15,10 @@ import './styles-skeleton.css';
 
 const BookerModuleOfferSummarySkeleton: React.FC = () => {
   return (
-    <Card size={CardSize.M}>
+    <Card
+      classes={{ 'bs-booker-module-skeleton-card': true }}
+      size={CardSize.M}
+    >
       <CardContent padding>
         <Grid>
           <GridItem

@@ -203,4 +203,4 @@ const useDetailsContainerStyle = makeStyles(() => ({
     justifyContent: 'center',
   },
 }));
-export default BookingConfirmButtonWithOfferSummary;
+export default React.memo(BookingConfirmButtonWithOfferSummary);

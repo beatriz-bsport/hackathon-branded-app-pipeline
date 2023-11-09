@@ -126,6 +126,10 @@ exports.default = {
         defaultPrepaidLine: 'Default',
         rest: 'Rest',
         elevated: 'Elevated',
+        main: 'Main',
+        grey: 'Grey',
+        onstrong: 'On strong background',
+        warning: 'Warning',
       },
       title: {
         nextOffer: 'Next session available',
@@ -171,6 +175,7 @@ exports.default = {
         hasSent: 'The form has been submitted',
         hasEmailChoices: 'Email list choices',
         isError: 'Is in error state',
+        color: "Element's color",
       },
       configurationTitle: 'Variations',
     },

@@ -1,6 +1,6 @@
 import { TFunction } from 'i18next';
 import { BUYABLE_ITEM_FEE } from '@bsport/common/lib/master-data/buyable-items';
-import { 
+import {
   OFFER_WAITING_LIST_NO_USABLE_CONSUMER_PAYMENT_PACK,
   OFFER_WAITING_LIST_CAN_NOT_BOOK_TOO_MANY_FUTURE,
 } from '@bsport/common/lib/master-data/error-codes/waitinglist-can-not-be-joined';

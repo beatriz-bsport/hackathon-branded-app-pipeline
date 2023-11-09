@@ -508,11 +508,11 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
             disabled={
               !(values.max_future_booking || values.max_future_workshop)
             }
-            label={t(
-              'forms.themePersonalization.waitingListAccountsForMaxFutureBookings.label',
-            )}
             helperText={t(
               'forms.themePersonalization.waitingListAccountsForMaxFutureBookings.helperText',
+            )}
+            label={t(
+              'forms.themePersonalization.waitingListAccountsForMaxFutureBookings.label',
             )}
             name="booking_option_included_in_max_future_booking"
           />

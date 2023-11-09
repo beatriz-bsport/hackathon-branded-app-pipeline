@@ -66,12 +66,7 @@ export const MARKETPLACE_BASKET_SUMMARY_DIALOG_CONFIGURATION: MarketplaceCSSComp
     label:
       CssComponentsVariantIdentifiers.MARKETPLACE_BASKET_SUMMARY_DIALOG_PREVIEW,
     css: BasketSummaryCssOnlyDialogCss,
-    pages: [
-      MarketplacePage.BASKET,
-      MarketplacePage.PASS,
-      MarketplacePage.WORKSHOP,
-      MarketplacePage.CALENDAR,
-    ],
+    pages: [MarketplacePage.BASKET],
     defaultState: {},
     variations: marketplaceBasketSummaryDialogVariationRegistry,
   };

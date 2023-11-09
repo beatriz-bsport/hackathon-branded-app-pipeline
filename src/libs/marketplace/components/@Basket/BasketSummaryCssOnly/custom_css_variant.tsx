@@ -63,9 +63,6 @@ export const MARKETPLACE_BASKET_SUMMARY_CONFIGURATION: MarketplaceCSSComponentCo
     css: BasketSummaryCssOnlyCss,
     pages: [
       MarketplacePage.BASKET,
-      MarketplacePage.PASS,
-      MarketplacePage.WORKSHOP,
-      MarketplacePage.CALENDAR,
     ],
     defaultState: {},
     variations: marketplaceBasketSummaryVariationRegistry,

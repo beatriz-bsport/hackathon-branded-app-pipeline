@@ -54,12 +54,7 @@ export const MARKETPLACE_ITEM_QUANTITY_CONFIGURATION: MarketplaceCSSComponentCon
   {
     label: CssComponentsVariantIdentifiers.MARKETPLACE_ITEM_QUANTITY,
     css: ItenQuantityCss,
-    pages: [
-      MarketplacePage.BASKET,
-      MarketplacePage.PASS,
-      MarketplacePage.WORKSHOP,
-      MarketplacePage.CALENDAR,
-    ],
+    pages: [MarketplacePage.BASKET],
     defaultState: {},
     variations: marketplaceItemQuantityVariationRegistry,
   };

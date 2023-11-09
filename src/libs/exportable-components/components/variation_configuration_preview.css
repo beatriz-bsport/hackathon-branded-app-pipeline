@@ -118,3 +118,43 @@ We need to brutally override some things from MUI.
   .bs-login-container__forgotten-password__link {
   pointer-events: none;
 }
+
+#bs-custom-css__component__preview .bs-marketplace-spot-selector {
+  width: 100% !important;
+}
+
+#bs-custom-css__component__preview .bs-marketplace-spot-selector {
+  width: 100% !important;
+}
+
+#bs-custom-css__component__preview #unbound-asset-css-preview {
+  filter: blur(5px);
+}
+
+#bs-custom-css__component__preview #fake-spot-1 circle,
+#fake-spot-2 circle,
+#fake-spot-3 circle,
+#fake-spot-4 circle,
+#fake-spot-5 circle,
+#fake-spot-6 circle {
+  filter: drop-shadow(15px 15px 2px rgb(0 0 0 / 0.4));
+  transition: ease 0.3s;
+}
+
+#bs-custom-css__component__preview #fake-spot-1:hover circle,
+#fake-spot-2:hover circle,
+#fake-spot-3:hover circle,
+#fake-spot-4:hover circle,
+#fake-spot-5:hover circle,
+#fake-spot-6:hover circle {
+  transform: scale(1.1);
+}
+
+#bs-custom-css__component__preview #fake-spot-1 rect,
+#fake-spot-2 rect,
+#fake-spot-3 rect,
+#fake-spot-4 rect,
+#fake-spot-5 rect,
+#fake-spot-6 rect {
+  opacity: 0;
+}

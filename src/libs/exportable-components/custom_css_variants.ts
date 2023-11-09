@@ -198,6 +198,11 @@ import {
   FABRIQUE_BADGE_PREVIEW,
   FABRIQUE_BADGE_CONFIGURATION,
 } from '#components/css-only/Fabrique/Badge/custom_css_variant';
+
+import {
+  MARKETPLACE_SPOT_SELECTOR_CONFIGURATION,
+  MARKETPLACE_SPOT_SELECTOR_PREVIEW,
+} from '#marketplacecomponents/@SpotScheduling/MarketplaceSpotSelector/custom_css_variant';
 /* TEMPLATE
 
 {
@@ -254,6 +259,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
   MARKETPLACE_PREPAID_LINE_LIST_CONFIGURATION,
   MARKETPLACE_MINIMAL_APPBAR_CONFIGURATION,
   MARKETPLACE_BOOKER_MODULE_OFFER_SUMMARY_CONFIGURATION,
+  MARKETPLACE_SPOT_SELECTOR_CONFIGURATION,
   ...(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production'
     ? [
         FABRIQUE_TYPOGRAPHY_CONFIGURATION,
@@ -363,6 +369,9 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
       MARKETPLACE_MINIMAL_APPBAR_PREVIEW,
     [CssComponentsVariantIdentifiers.BOOKER_MODULE_OFFER_SUMMARY]:
       MARKETPLACE_BOOKER_MODULE_OFFER_SUMMARY_PREVIEW,
+    [CssComponentsVariantIdentifiers.MARKETPLACE_SPOT_SELECTOR]:
+      MARKETPLACE_SPOT_SELECTOR_PREVIEW,
+
     ...(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' && {
       [CssComponentsVariantIdentifiers.FABRIQUE_TYPOGRAPHY]:
         FABRIQUE_TYPOGRAPHY_PREVIEW,

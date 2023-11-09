@@ -188,6 +188,7 @@ exports.default = {
       bookingPage: 'Booking',
       fabrique: 'Fabrique',
       authentication: 'Authentication',
+      spot_scheduling: 'Spot scheduling',
     },
     components: {
       calendar: 'Calendar page',
@@ -250,6 +251,7 @@ exports.default = {
       fabrique_card: 'Card',
       marketplace_minimal_appbar: 'Minimal AppBar',
       fabrique_badge: 'Badge',
+      marketplace_spot_selector: 'Spot scheduling selector',
     },
     customCss: {
       yourCode: 'Your complementary implementation:',

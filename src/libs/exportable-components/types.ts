@@ -96,6 +96,7 @@ export enum MarketplacePage {
   SUBSCRIPTION = 'subscription',
   BASKET = 'basket',
   BOOKING_PAGE = 'bookingPage',
+  SPOT_SCHEDULING = 'spot_scheduling',
   FABRIQUE = 'fabrique',
 }
 

@@ -1792,7 +1792,7 @@
                     },
                     "paymentSuccess": {
                         "content": {
-                            "wait": "Mais um pouco e estaremos a processar os seus dados.",
+                            "wait": "Só mais um momento, estamos a processar os seus dados",
                             "payment": "O pagamento foi processado."
                         },
                         "title": {
@@ -9582,7 +9582,14 @@
                 "doubleBookingDisabledWithSpivi": "A reserva dupla não é compatível com a integração do Spivi",
                 "cancelledOffersCustomer": "Mostrar sessões canceladas no calendário do aluno",
                 "startWeekOnToday": "Iniciar o calendário dos seus membros na data de hoje se o ecrã estiver no modo de cartão de visualização semanal",
-                "showPastSessionsCalendar": "Mostrar sessões anteriores no calendário dos seus membros"
+                "showPastSessionsCalendar": "Mostrar sessões anteriores no calendário dos seus membros",
+                "maxFutureWorkshop": {
+                    "label": "Limitar o número de futuras sessões de workshop reservadas por membro",
+                    "numberCheck": {
+                        "placeholder": "Máximo",
+                        "helperText": "Essa será a quantidade máxima de futuras sessões de workshop reservadas por membro"
+                    }
+                }
             },
             "warningColorBrightness": {
                 "save": "Guardar",

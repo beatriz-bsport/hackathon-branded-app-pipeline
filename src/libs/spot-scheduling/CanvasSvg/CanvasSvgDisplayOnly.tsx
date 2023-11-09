@@ -75,11 +75,13 @@ const CanvasSvgDisplayOnly: React.FC = ({
   }, []);
 
   const correctedHeight = (SVGDimensions.height / SVGDimensions.width) * width;
+
   return (
     <TransformWrapper
       initialScale={1}
       onZoomStop={onZoomStop}
       panning={{ disabled: isPanningDisabled }}
+      wheel={{ wheelDisabled: true, touchPadDisabled: true }}
     >
       <TransformComponent>
         <div

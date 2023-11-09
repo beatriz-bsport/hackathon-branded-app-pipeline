@@ -1,6 +1,9 @@
 import { createAction } from 'redux-actions';
 
-import { OFFER_WAITING_LIST_NO_USABLE_CONSUMER_PAYMENT_PACK } from '@bsport/common/lib/master-data/error-codes/waitinglist-can-not-be-joined';
+import { 
+  OFFER_WAITING_LIST_NO_USABLE_CONSUMER_PAYMENT_PACK,
+  OFFER_WAITING_LIST_CAN_NOT_BOOK_TOO_MANY_FUTURE,
+} from '@bsport/common/lib/master-data/error-codes/waitinglist-can-not-be-joined';
 import {
   fetchConfiguration as fetchConfigurationAPI,
   fetchCompanyConfiguration as fetchCompanyConfigurationAPI,
@@ -210,12 +213,15 @@ export function registerToWaitingList(
         );
       } else if (
         isErrorWithCustomCode(err) &&
-        err.response.data?.error_code ===
+        [
+          OFFER_WAITING_LIST_CAN_NOT_BOOK_TOO_MANY_FUTURE,
           OFFER_WAITING_LIST_NO_USABLE_CONSUMER_PAYMENT_PACK
+        ].includes(
+        err.response.data?.error_code)
       ) {
         dispatch(
           snackbarError(
-            `canNotBuyErrorCode.${OFFER_WAITING_LIST_NO_USABLE_CONSUMER_PAYMENT_PACK}`,
+            `canNotBuyErrorCode.${err.response.data.error_code}`,
           ),
         );
       }

@@ -70,6 +70,7 @@ const getTranslations = async () => {
             'This is the number of days before an abandoned basket is automatically emptied.',
           label: 'Basket expiration date',
         },
+        bookingLimitation: 'Global booking restrictions',
         cancelledOffersManager:
           'By default show cancelled sessions on the manager calendar',
         checkBalance: {
@@ -91,6 +92,12 @@ const getTranslations = async () => {
         offerBalance: 'Gender ratio',
         showGenderOffer:
           'Show the amount of men and women that booked a session',
+        waitingListAccountsForMaxFutureBookings: {
+          label:
+            'Include waiting-list slots in maximum future booking/workshop count',
+          helperText:
+            'If activated, the number of future booking will be decreased by the number of future waiting-list slots registered. Future waiting-list slots will also be restricted based on this same count, to avoid overbooking.',
+        },
         hideCoach: "Hide teachers' info on the calendar for members",
         maxFutureBooking: {
           numberCheck: {

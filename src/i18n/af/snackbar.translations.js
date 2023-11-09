@@ -131,7 +131,10 @@ const getTranslations = async () => {
     DST_PRIVATE_CONSUMER_PASS_CANNOT_BE_SHARED_AGAIN,
   } = await import('@bsport/common/lib/master-data/error-codes/shared-pass.js');
 
-  const { OFFER_WAITING_LIST_NO_USABLE_CONSUMER_PAYMENT_PACK } = await import(
+  const {
+    OFFER_WAITING_LIST_NO_USABLE_CONSUMER_PAYMENT_PACK,
+    OFFER_WAITING_LIST_CAN_NOT_BOOK_TOO_MANY_FUTURE,
+  } = await import(
     '@bsport/common/lib/master-data/error-codes/waitinglist-can-not-be-joined.js'
   );
 
@@ -887,6 +890,8 @@ const getTranslations = async () => {
         'The item is already being added to the basket, please wait',
       [OFFER_WAITING_LIST_NO_USABLE_CONSUMER_PAYMENT_PACK]:
         'There is no pass available to be able to register to the waiting-list',
+      [OFFER_WAITING_LIST_CAN_NOT_BOOK_TOO_MANY_FUTURE]:
+        'You have reached the maximum of future bookings / waiting-list, you can not register more',
 
       generic: 'Error while booking',
     },

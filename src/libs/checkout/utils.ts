@@ -1,10 +1,9 @@
 import { TFunction } from 'i18next';
-// import {
-//   SPOT_NOT_AVAILABLE,
-//   OFFER_BOOKABLE_STATUS_FULL,
-// } from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
 import { BUYABLE_ITEM_FEE } from '@bsport/common/lib/master-data/buyable-items';
-import { OFFER_WAITING_LIST_NO_USABLE_CONSUMER_PAYMENT_PACK } from '@bsport/common/lib/master-data/error-codes/waitinglist-can-not-be-joined';
+import { 
+  OFFER_WAITING_LIST_NO_USABLE_CONSUMER_PAYMENT_PACK,
+  OFFER_WAITING_LIST_CAN_NOT_BOOK_TOO_MANY_FUTURE,
+} from '@bsport/common/lib/master-data/error-codes/waitinglist-can-not-be-joined';
 import {
   LOCK_ACQUISITION_FAILURE_GENERIC,
   LOCK_ACQUISITION_FAILURE_SPOT_SCHEDULING,
@@ -102,6 +101,10 @@ export const getBookingErrorMessage = (t: TFunction, codeError?: number) => {
     case OFFER_WAITING_LIST_NO_USABLE_CONSUMER_PAYMENT_PACK:
       return t(
         `snackbar:canNotBuyErrorCode.${OFFER_WAITING_LIST_NO_USABLE_CONSUMER_PAYMENT_PACK}`,
+      );
+    case OFFER_WAITING_LIST_CAN_NOT_BOOK_TOO_MANY_FUTURE:
+      return t(
+        `snackbar:canNotBuyErrorCode.${OFFER_WAITING_LIST_CAN_NOT_BOOK_TOO_MANY_FUTURE}`,
       );
     default:
       return t('validation.sections.errorExplain.generic');

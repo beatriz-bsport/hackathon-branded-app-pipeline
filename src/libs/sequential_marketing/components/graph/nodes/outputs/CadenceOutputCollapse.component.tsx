@@ -19,7 +19,7 @@ const CadenceOutputCollapse: React.FC<CadenceOutputCollapseProps> = ({
   isOpen,
   disabled,
 }) => {
-  const [isExpanded, setIsExpanded] = useState(isOpen);
+  const [isExpanded, setIsExpanded] = useState(false);
   const classes = useStyles({ expand: isExpanded });
 
   useEffect(() => {
@@ -27,8 +27,8 @@ const CadenceOutputCollapse: React.FC<CadenceOutputCollapseProps> = ({
   }, [isOpen]);
 
   const handleExpandClick = useCallback(
-    () => setIsExpanded((previousIsExpended) => !previousIsExpended),
-    [],
+    () => !isOpen && setIsExpanded((previousIsExpended) => !previousIsExpended),
+    [isOpen],
   );
 
   return (
@@ -38,7 +38,7 @@ const CadenceOutputCollapse: React.FC<CadenceOutputCollapseProps> = ({
       )}
       <ButtonBase
         className={classes.container}
-        disabled={disabled}
+        disabled={disabled || isOpen}
         onClick={handleExpandClick}
       >
         <div className={classes.output}>

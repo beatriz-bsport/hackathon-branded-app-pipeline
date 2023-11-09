@@ -14,8 +14,9 @@ import type { SmartList } from '#libs/smart-list/types';
 export type CadenceOutputProps = {
   status: DestinationStatus;
   triggerList: ConnectedTrigger[];
-  isSelected?: boolean;
   disabled?: boolean;
+  forceSelection?: boolean;
+  isSelected?: boolean;
   getSmartlist: (id: number) => SmartList;
 };
 
@@ -48,8 +49,9 @@ const CadenceOutputHeader: React.FC<CadenceOutputHeaderProps> = React.memo(
 const CadenceOutput: React.FC<CadenceOutputProps> = ({
   status,
   triggerList,
-  isSelected,
   disabled,
+  forceSelection,
+  isSelected,
   getSmartlist,
 }) => {
   return (
@@ -60,6 +62,7 @@ const CadenceOutput: React.FC<CadenceOutputProps> = ({
           : SequentialMarketingColors.LOSE_BORDER_COLOR
       }
       disabled={disabled}
+      forceSelection={forceSelection}
       header={
         <CadenceOutputHeader
           disabled={disabled}

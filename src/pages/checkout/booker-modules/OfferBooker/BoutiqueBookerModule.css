@@ -2,6 +2,8 @@
   max-width: 1180px;
   width: 100%;
   height: 100%;
+  /* APP BAR HEIHGT */
+  max-height: calc(100dvh - 48px);
   container: bsOfferBookingPage / inline-size;
   display: grid;
   overflow: auto;
@@ -12,8 +14,9 @@
   grid-template:
     'header-left header-right'
     'main-left main-right';
+  /* The available height is the DVH - size of apparbar - size of the first row*/
   grid-template-columns: calc(1180px * 0.66) auto;
-  grid-template-rows: 5vh calc(90vh - 5vh);
+  grid-template-rows: 5dvh calc(100dvh - 48px - 5dvh);
   column-gap: var(--spacing-4);
   row-gap: var(--spacing-1);
   margin: 0;
@@ -73,7 +76,7 @@
   grid-template:
     'header-left header-right'
     'main main';
-  grid-template-rows: 5vh calc(90vh - 5vh);
+  grid-template-rows: 5dvh calc(90dvh - 5dvh);
   gap: var(--spacing-4);
 }
 
@@ -99,6 +102,7 @@
 .bs-new-offer-booking__spot-selector__confirm-button {
   border-radius: var(--border-radius-4);
   flex: 1;
+  max-height: 48px;
 }
 
 .bs-new-offer-booking__header--loading {
@@ -148,7 +152,7 @@
       'header'
       'panel';
     grid-template-columns: 1fr;
-    grid-template-rows: 50px calc(90vh - 100px);
+    grid-template-rows: 50px calc(90dvh - 100px);
   }
   .bs-new-offer-booking-header {
     grid-area: header;
@@ -187,7 +191,7 @@
     display: flex;
     flex-direction: column;
     gap: var(--spacing-1);
-    justify-content: center;
+    justify-content: flex-end;
     padding: var(--spacing-1) var(--spacing-2);
     width: 100%;
     position: sticky;

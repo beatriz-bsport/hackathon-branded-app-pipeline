@@ -12,8 +12,8 @@ export type Props = {
   className?: string;
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   classes?: string;
-  type: ButtonHTMLType;
-  isRippleEnabled: boolean;
+  type?: ButtonHTMLType;
+  isRippleEnabled?: boolean;
 } & React.AnchorHTMLAttributes<HTMLButtonElement>;
 
 export const ButtonBase: React.FC<Props> = ({
@@ -22,7 +22,7 @@ export const ButtonBase: React.FC<Props> = ({
   className,
   isDisabled,
   onClick,
-  type,
+  type = 'button',
   isRippleEnabled,
   ...rest
 }) => {

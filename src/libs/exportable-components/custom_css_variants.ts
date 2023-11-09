@@ -363,6 +363,11 @@ import {
   FABRIQUE_MENU_PREVIEW,
 } from '#components/css-only/Fabrique/Menu';
 
+import {
+  FABRIQUE_BOTTOM_DRAWER_CONFIGURATION,
+  FABRIQUE_BOTTOM_DRAWER_PREVIEW,
+} from '#components/css-only/Fabrique/BottomDrawer';
+
 /* TEMPLATE
 
 {
@@ -461,6 +466,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
         FABRIQUE_MENU_ITEM_LIST_CONFIGURATION,
         FABRIQUE_MENU_CONFIGURATION,
         FABRIQUE_MODAL_DIALOG_CONFIGURATION,
+        FABRIQUE_BOTTOM_DRAWER_CONFIGURATION,
       ]
     : []),
 ];
@@ -635,6 +641,8 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
       [CssComponentsVariantIdentifiers.FABRIQUE_MENU]: FABRIQUE_MENU_PREVIEW,
       [CssComponentsVariantIdentifiers.FABRIQUE_MODAL_DIALOG]:
         FABRIQUE_MODAL_DIALOG_PREVIEW,
+      [CssComponentsVariantIdentifiers.FABRIQUE_BOTTOM_DRAWER]:
+        FABRIQUE_BOTTOM_DRAWER_PREVIEW,
     }),
   });
 

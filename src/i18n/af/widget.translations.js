@@ -231,6 +231,7 @@ exports.default = {
         isSelected: 'Element is selected',
         hasBadge: 'Display element badge',
         showBlanket: 'Show blanket',
+        showBottomDrawer: 'Show bottom drawer',
         isTabSelected: 'The tab is selected',
         showTabSelect: 'The tab has select options',
         isChecked: 'Is in checked state',
@@ -255,6 +256,7 @@ exports.default = {
         isSelectable: 'Enable select interaction with the component',
         withListTitle: 'Display list title',
         inputType: 'Type of list display',
+        isExpanded: 'Element is expanded',
       },
       configurationTitle: 'Variations',
       confirmationMessageComponentAlert:
@@ -383,6 +385,7 @@ exports.default = {
       fabrique_list: 'List',
       fabrique_menu: 'Menu',
       fabrique_modal_dialog: 'Modal Dialog',
+      fabrique_bottom_drawer: 'Bottom drawer',
     },
     customCss: {
       yourCode: 'Your complementary implementation:',

@@ -100,6 +100,8 @@ const VariationConfigurationWrapper: React.FC<{
         return true;
       case CssComponentsVariantIdentifiers.MARKETPLACE_PAYMENT_PACK_OFFPEAK_RESTRICTION_MODAL:
         return true;
+      case CssComponentsVariantIdentifiers.FABRIQUE_BOTTOM_DRAWER:
+        return true;
       default:
         return false;
     }

@@ -187,3 +187,13 @@ We need to brutally override some things from MUI.
 .bs-custom-css__component__preview .bs-contract-buyable-item__card {
   width: 100%;
 }
+
+.bs-custom-css__component__preview .bs-fabrique-bottom-drawer__blanket {
+  position: absolute;
+  height: 900px;
+}
+
+.bs-custom-css__component__preview
+  .bs-fabrique-bottom-drawer__modal-dialog--expanded {
+  max-height: 100%;
+}

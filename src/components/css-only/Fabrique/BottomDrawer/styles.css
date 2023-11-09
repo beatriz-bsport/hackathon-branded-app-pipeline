@@ -1,0 +1,31 @@
+.bs-fabrique-bottom-drawer__blanket {
+  display: flex;
+  align-items: flex-end;
+}
+
+.bs-fabrique-bottom-drawer__blanket-content {
+  width: 100%;
+}
+
+.bs-fabrique-bottom-drawer__blanket-content--expanded {
+  height: 100%;
+}
+
+.bs-fabrique-bottom-drawer__modal-dialog {
+  border-top-left-radius: var(--bs-border-radius-lg);
+  border-top-right-radius: var(--bs-border-radius-lg);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.bs-fabrique-bottom-drawer__modal-dialog--expanded {
+  height: 100dvh;
+  max-height: none;
+  border-radius: 0;
+}
+
+.bs-fabrique-bottom-drawer__modal-dialog--expanded
+  .bs-fabrique-modal-dialog__content {
+  display: flex;
+  flex: 1;
+}

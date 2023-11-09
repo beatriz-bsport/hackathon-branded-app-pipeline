@@ -16,19 +16,6 @@ const MarketplaceBookerModuleBuyableItemsSkeleton: React.FC = () => {
         className="bs-marketplace-consumer-payment-pack-card__container--loading"
         variant={SkeletonVariant.RECTANGLE}
       />
-      <Skeleton
-        className="bs-marketplace-consumer-payment-pack-card__container--loading"
-        variant={SkeletonVariant.RECTANGLE}
-      />
-      <Skeleton
-        className="bs-marketplace-consumer-payment-pack-card__container--loading"
-        variant={SkeletonVariant.RECTANGLE}
-      />
-
-      <Skeleton
-        className="bs-new-offer-booking__buyable_items__header--loading"
-        variant={SkeletonVariant.RECTANGLE}
-      />
 
       <div className="bs-marketplace-filter-buyable-item-category__container--loading">
         <Skeleton
@@ -50,28 +37,6 @@ const MarketplaceBookerModuleBuyableItemsSkeleton: React.FC = () => {
         variant={SkeletonVariant.RECTANGLE}
       />
 
-      <Skeleton
-        className="bs-marketplace-buyable-item-category__card--loading"
-        variant={SkeletonVariant.RECTANGLE}
-      />
-      <Skeleton
-        className="bs-marketplace-buyable-item-category__card--loading"
-        variant={SkeletonVariant.RECTANGLE}
-      />
-      <Skeleton
-        className="bs-marketplace-buyable-item-category__card--loading"
-        variant={SkeletonVariant.RECTANGLE}
-      />
-
-      <Skeleton
-        className="bs-marketplace-buyable-item-category__title--loading"
-        variant={SkeletonVariant.RECTANGLE}
-      />
-
-      <Skeleton
-        className="bs-marketplace-buyable-item-category__card--loading"
-        variant={SkeletonVariant.RECTANGLE}
-      />
       <Skeleton
         className="bs-marketplace-buyable-item-category__card--loading"
         variant={SkeletonVariant.RECTANGLE}

@@ -1,5 +1,5 @@
 import React from 'react';
-import type { PopoverOrigin } from '@material-ui/core';
+import type { PopoverOrigin } from '@material-ui/core/Popover';
 
 export const usePopoverBubble = () => {
   const anchorOrigin: PopoverOrigin = {
@@ -11,6 +11,8 @@ export const usePopoverBubble = () => {
     style: {
       backgroundColor: 'transparent',
       boxShadow: 'none',
+      padding: '30px 30px 30px 5px',
+      overflow: 'visible',
     },
   };
 

@@ -375,7 +375,7 @@ export const useMuiThemeToCssVars = () => {
     --bs-color-action-disabled: var(--bs-grey-alpha-100a);
     --bs-color-action-grey-default: var(--bs-grey-800);
     --bs-color-action-grey-hovered: var(--bs-grey-500);
-    --bs-color-action-grey-pressed: var(--bs-grey-800);
+    --bs-color-action-grey-pressed: var(--bs-grey-900);
     --bs-color-action-grey-weak-hovered: var(--bs-grey-100);
     --bs-color-action-grey-weak-pressed: var(--bs-grey-300);
     --bs-color-action-inverse-default: var(--bs-grey-0);

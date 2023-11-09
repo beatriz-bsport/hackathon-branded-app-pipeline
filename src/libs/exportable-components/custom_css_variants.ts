@@ -264,6 +264,11 @@ import {
   MESSAGE_WITH_ICON_PREVIEW,
 } from '#components/css-only/StatusMessageWithIcon';
 
+import {
+  FABRIQUE_CHECKBOX_PREVIEW,
+  FABRIQUE_CHECKBOX_CONFIGURATION,
+} from '#components/css-only/Fabrique/Checkbox';
+
 /* TEMPLATE
 
 {
@@ -342,6 +347,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
         AUTHENTICATION_LOGIN_CONFIGURATION,
         FABRIQUE_TEXTFIELD_CONFIGURATION,
         FABRIQUE_RADIOBUTTON_CONFIGURATION,
+        FABRIQUE_CHECKBOX_CONFIGURATION,
       ]
     : []),
 ];
@@ -478,6 +484,8 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
       [CssComponentsVariantIdentifiers.FABRIQUE_TAB]: FABRIQUE_TAB_PREVIEW,
       [CssComponentsVariantIdentifiers.FABRIQUE_RADIOBUTTON]:
         FABRIQUE_RADIOBUTTON_PREVIEW,
+      [CssComponentsVariantIdentifiers.FABRIQUE_CHECKBOX]:
+        FABRIQUE_CHECKBOX_PREVIEW,
     }),
   });
 

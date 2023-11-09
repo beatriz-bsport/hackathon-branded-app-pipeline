@@ -13736,7 +13736,8 @@
           "bookingOrPurchaseStatus": "Reservation and purchase status",
           "alertSeverity": "Severity",
           "alertWithAction": "With button",
-          "messageWithActions": "With buttons"
+          "messageWithActions": "With buttons",
+          "isMultiple": "Is in multiple state"
         },
         "configurationTitle": "Variations",
         "confirmationMessageComponentAlert": "This component primarily manages booking and payment statuses. For customizing its appearance, we recommend utilizing its root components located in common section"
@@ -13823,7 +13824,8 @@
         "fabrique_action_tab": "Action tab",
         "fabrique_blanket": "Blanket",
         "fabrique_tab": "Tab",
-        "fabrique_radiobutton": "Radio button"
+        "fabrique_radiobutton": "Radio button",
+        "fabrique_checkbox": "Checkbox"
       },
       "customCss": {
         "yourCode": "Your complementary implementation:",

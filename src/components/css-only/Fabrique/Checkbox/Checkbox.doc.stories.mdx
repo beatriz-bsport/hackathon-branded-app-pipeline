@@ -1,0 +1,96 @@
+import { Meta, Canvas, Story , Source} from '@storybook/addon-docs';
+
+import * as CheckboxStories from './Checkbox.stories'
+
+import {CheckboxStorybook as Checkbox} from '.'
+
+<Meta title="Fabrique/Checkbox/Doc" component={Checkbox} />
+
+# Card
+
+## Description
+
+The **`Checkbox`** component allows users to select or deselect a single option. It is typically used when there are binary choices or when multiple selections are allowed.
+
+## Usage
+
+Suitable for yes/no questions, terms and conditions agreements, or any scenario where a single option needs to be chosen or unchosen.
+
+### Default
+
+### Usage
+Default checkbox without any additional information, label or caption text  
+
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-checkbox-stories--withoutlabel"/>  
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-checkbox-stories--withoutlabel" />
+
+
+### Label
+
+#### Usage
+Text to display next to the component
+
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-checkbox-stories--withlabel"/>  
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-checkbox-stories--withlabel" />
+
+### Caption text
+
+#### Usage
+Additional text providing context or guidance related to the checkbox.
+
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-checkbox-stories--withcaptiontext"/>
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-checkbox-stories--withcaptiontext" />
+
+### Multiple
+
+#### Usage
+State used when multiple options are available but some of them remain selected 
+
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-checkbox-stories--multiple"/>  
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-checkbox-stories--multiple" />
+
+### Disabled
+
+#### Usage
+A variant of the checkbox when disabled  
+
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-checkbox-stories--disabled"/>  
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-checkbox-stories--disabled" />
+
+### Inversed
+
+#### Usage
+A variant of the checkbox when the user wants to display the checkbox with inversed colours.   
+
+<Canvas withSource='none' withToolbar style={{background: "#333333"}}>
+  <Story id="fabrique-checkbox-stories--inversed"/>  
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-checkbox-stories--inversed" />

@@ -233,6 +233,7 @@ exports.default = {
         alertSeverity: 'Severity',
         alertWithAction: 'With button',
         messageWithActions: 'With buttons',
+        isMultiple: 'Is in multiple state',
       },
       configurationTitle: 'Variations',
       confirmationMessageComponentAlert:
@@ -327,6 +328,7 @@ exports.default = {
       fabrique_blanket: 'Blanket',
       fabrique_tab: 'Tab',
       fabrique_radiobutton: 'Radio button',
+      fabrique_checkbox: 'Checkbox',
     },
     customCss: {
       yourCode: 'Your complementary implementation:',

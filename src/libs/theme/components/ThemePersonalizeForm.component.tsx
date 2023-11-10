@@ -504,7 +504,8 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
               </div>
             </div>
           )}
-          <SwitchField
+          {/*
+              <SwitchField
             disabled={
               !(values.max_future_booking || values.max_future_workshop)
             }
@@ -516,6 +517,7 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
             )}
             name="booking_option_included_in_max_future_booking"
           />
+                  */}
         </div>
         <div className={classes.section}>
           <Typography className={classes.namesHeader}>

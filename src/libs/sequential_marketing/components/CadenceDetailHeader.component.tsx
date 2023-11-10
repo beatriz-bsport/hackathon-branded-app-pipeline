@@ -2,8 +2,7 @@ import React from 'react';
 
 import { useTranslation } from 'react-i18next';
 
-import type { Theme } from '@material-ui/core/styles';
-import makeStyles from '@material-ui/styles/makeStyles';
+import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import EditIcon from '@material-ui/icons/Edit';
@@ -17,7 +16,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import CadenceCreateAndUpdateForm from '#libs/sequential_marketing/components/form/CadenceCreateAndUpdateForm.component';
 import ToolTip from '#components/Tooltip.component';
 import StopBuildIcon from '#components/icons/StopBuildIcon.component';
-import { isMinimalCadenceConfigurationCompleted } from '#libs/sequential_marketing/utils';
 
 import type { OptionCallback } from '../../../state/types';
 import type { Cadence } from '#libs/sequential_marketing/types';
@@ -26,57 +24,46 @@ import CadenceUtilityDialog from '#libs/sequential_marketing/components/dialogs/
 type Props = {
   cadence: Cadence;
   loading: boolean;
+  cadenceEditMode: boolean;
+  hidePauseDialogCadenceIds: number[];
   goBack: () => void;
   onEdit: (data: { name: string }, options: OptionCallback) => void;
   onActivate: (options?: OptionCallback) => void;
   onShutOff: (options?: OptionCallback) => void;
-  cadenceEditMode: boolean;
   switchCadenceEditMode: () => void;
-  cadenceMinimalConfigurationState: {
-    cadenceWinConfigured: boolean;
-    cadenceLoseConfigured: boolean;
-    cadenceEntryConfigured: boolean;
-  };
   doNotDisplayPauseDialogAnymore: (cadenceId: number) => void;
-  hidePauseDialogCadenceIds: number[];
 };
 
 type HeaderActionsProps = {
   cadence: Cadence;
   loading: boolean;
   hidePauseDialogCadenceIds: number[];
-  goBack: () => void;
   cadenceEditMode: boolean;
+  goBack: () => void;
   setOpenEditDialog: (open: boolean) => void;
   setOpenActivateDialog: (open: boolean) => void;
   openPauseDialog: () => void;
   switchCadenceEditMode: () => void;
-  cadenceMinimalConfigurationState: {
-    cadenceWinConfigured: boolean;
-    cadenceLoseConfigured: boolean;
-    cadenceEntryConfigured: boolean;
-  };
   handlePause: (isChecked: boolean) => void;
 };
 
 const CadenceDetailHeaderActions: React.FC<HeaderActionsProps> = React.memo(
   ({
     cadence,
-    hidePauseDialogCadenceIds,
-    goBack,
-    loading,
     cadenceEditMode,
-    setOpenEditDialog,
-    setOpenActivateDialog,
-    openPauseDialog,
-    switchCadenceEditMode,
-    cadenceMinimalConfigurationState,
+    hidePauseDialogCadenceIds,
+    loading,
+    goBack,
     handlePause,
+    openPauseDialog,
+    setOpenActivateDialog,
+    setOpenEditDialog,
+    switchCadenceEditMode,
   }) => {
     const { t } = useTranslation('marketing');
     const classes = useStyles();
 
-    const [canBeActivated, setCanbeActivated] = React.useState(false);
+    const canBeActivated = cadence.initialized;
 
     const handleOpenEditDialog = React.useCallback(
       () => setOpenEditDialog?.(true),
@@ -95,16 +82,6 @@ const CadenceDetailHeaderActions: React.FC<HeaderActionsProps> = React.memo(
         handlePause(false);
       }
     }, [cadence.id, handlePause, hidePauseDialogCadenceIds, openPauseDialog]);
-
-    React.useEffect(() => {
-      if (
-        isMinimalCadenceConfigurationCompleted(cadenceMinimalConfigurationState)
-      ) {
-        setCanbeActivated(true);
-      } else {
-        setCanbeActivated(false);
-      }
-    }, [cadenceMinimalConfigurationState]);
 
     return (
       <>
@@ -198,16 +175,15 @@ const CadenceDetailHeaderActions: React.FC<HeaderActionsProps> = React.memo(
 
 export const CadenceDetailHeader: React.FC<Props> = ({
   cadence,
-  loading,
-  goBack,
-  onEdit,
-  onActivate,
-  onShutOff,
   cadenceEditMode,
-  switchCadenceEditMode,
-  cadenceMinimalConfigurationState,
-  doNotDisplayPauseDialogAnymore,
   hidePauseDialogCadenceIds,
+  loading,
+  doNotDisplayPauseDialogAnymore,
+  goBack,
+  onActivate,
+  onEdit,
+  onShutOff,
+  switchCadenceEditMode,
 }) => {
   const classes = useStyles();
 
@@ -239,11 +215,11 @@ export const CadenceDetailHeader: React.FC<Props> = ({
     (data: { name: string }, options: OptionCallback) =>
       onEdit?.(data, {
         onSuccess: () => {
-          options.onSuccess && options.onSuccess();
+          options?.onSuccess?.();
           setOpenEditDialog(false);
         },
         onError() {
-          options.onError && options.onError();
+          options?.onError?.();
         },
       }),
     [onEdit],
@@ -289,7 +265,6 @@ export const CadenceDetailHeader: React.FC<Props> = ({
           <CadenceDetailHeaderActions
             cadence={cadence}
             cadenceEditMode={cadenceEditMode}
-            cadenceMinimalConfigurationState={cadenceMinimalConfigurationState}
             goBack={goBack}
             handlePause={handlePause}
             hidePauseDialogCadenceIds={hidePauseDialogCadenceIds}
@@ -326,7 +301,7 @@ export const CadenceDetailHeader: React.FC<Props> = ({
   );
 };
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((theme) => ({
   centerVerticalContent: {
     display: 'flex',
     flexDirection: 'column',

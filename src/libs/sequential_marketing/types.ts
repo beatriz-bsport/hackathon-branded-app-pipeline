@@ -6,13 +6,14 @@ import type {
   ResolvedGenericTags,
 } from '#libs/email-editor/types';
 import type {
-  TriggerIdentifier,
-  Events,
-  FilterIdentifier,
   DestinationKind,
   DestinationStatus,
+  Events,
+  FilterIdentifier,
+  InitialConfigurationStep,
   MarketingActionKind,
   MarketingActions,
+  TriggerIdentifier,
 } from './constants';
 
 // ========== BACKEND MODELS & JSON SPECIFICATIONS ==========
@@ -27,6 +28,7 @@ export type Cadence = {
   cadence_exits: ConnectedTrigger[];
   steps: number[];
   entrypoint_step_id: number;
+  initialized: boolean;
 };
 
 export type CadenceStep = {
@@ -90,7 +92,7 @@ export type ConnectedTrigger = {
   trigger_config: TriggerConfig;
   destination_config: DestinationConfig;
   filtering_config: FilteringConfig;
-  canvas: GraphCanvas;
+  canvas?: GraphCanvas;
   disabled?: boolean;
 };
 
@@ -149,7 +151,7 @@ export type UpdatedTriggersList = {
   step: CadenceStep;
 };
 
-// ========== API QUERY PARAMS==========
+// ========== API QUERY PARAMS ==========
 export type CadenceQueryParams = {
   id__in?: number[];
   page_size?: number;
@@ -202,4 +204,18 @@ export type TriggerState = {
 export type GlobalCadenceChip = {
   name: string;
   icon: string;
+};
+
+// ========== INITIAL CONFIGURATION ==========
+export type CadenceConfigurationState = {
+  cadenceWinConfigured: boolean;
+  cadenceLoseConfigured: boolean;
+  cadenceEntryConfigured: boolean;
+};
+
+export type InitialConfigurationValues = {
+  [key in InitialConfigurationStep]: {
+    connectedTriggers: ConnectedTrigger[];
+    marketingActions?: StepMarketingActions[];
+  };
 };

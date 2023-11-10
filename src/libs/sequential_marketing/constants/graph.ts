@@ -7,3 +7,10 @@ export const ELEMENT_WIDTH = 175;
 export const ELEMENT_MAX_WIDTH = 250;
 
 export const DEFAULT_NODE_GAP = 400;
+
+// INITIAL CONFIGURATION
+export enum InitialConfigurationStep {
+  CADENCE_ENTRY_STEP = 1,
+  CADENCE_WIN_STEP = 2,
+  CADENCE_LOSE_STEP = 3,
+}

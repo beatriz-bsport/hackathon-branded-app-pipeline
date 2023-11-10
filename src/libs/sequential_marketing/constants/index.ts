@@ -39,6 +39,7 @@ import {
 } from './steps';
 
 import {
+  InitialConfigurationStep,
   DEFAULT_NODE_GAP,
   ELEMENT_MAX_WIDTH,
   ELEMENT_WIDTH,
@@ -93,6 +94,7 @@ export {
   DEFAULT_X_FOR_TRIGGER,
   MAX_LENGTH_CADENCE_STEP_NAME,
   // GRAPH
+  InitialConfigurationStep,
   DEFAULT_NODE_GAP,
   ELEMENT_MAX_WIDTH,
   ELEMENT_WIDTH,

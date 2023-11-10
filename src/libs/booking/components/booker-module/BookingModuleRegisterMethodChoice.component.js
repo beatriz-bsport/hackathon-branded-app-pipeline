@@ -371,7 +371,9 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
                       }
                       onBookOne={() => {
                         handlePackSelect(pack);
-                        if (props.offer.is_full) {
+                        // We don't trust offer.is_full field, as it takes into account the waiting list's convertible options.
+                        // The relevant figure in this case is the real number of available bookings left.
+                        if (props.offer.nb_bookings >= props.offer.effectif) {
                           setOpenConfirmation(true);
                         } else {
                           setVoucherDialogOpen(true);

@@ -1426,7 +1426,12 @@ export default compose(
       ) => {
         if (!Array.isArray(offerId)) {
           let fullOfferConfirmation = false;
-          if (offer?.is_full && !registererObject.paymentPack) {
+          if (
+            // We don't trust offer.is_full field, as it takes into account the waiting list's convertible options.
+            // The relevant figure in this case is the real number of available bookings left.
+            offer?.nb_bookings >= offer?.effectif &&
+            !registererObject.paymentPack
+          ) {
             fullOfferConfirmation = await showDeleteDialog(
               t('maximumNumber'),
               t('maximumNumberDescription', {
@@ -1436,7 +1441,7 @@ export default compose(
           }
           if (
             fullOfferConfirmation ||
-            !offer?.is_full ||
+            offer?.nb_bookings < offer?.effectif ||
             registererObject.paymentPack
           ) {
             let spot_id = null;

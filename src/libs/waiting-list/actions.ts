@@ -215,14 +215,11 @@ export function registerToWaitingList(
         isErrorWithCustomCode(err) &&
         [
           OFFER_WAITING_LIST_CAN_NOT_BOOK_TOO_MANY_FUTURE,
-          OFFER_WAITING_LIST_NO_USABLE_CONSUMER_PAYMENT_PACK
-        ].includes(
-        err.response.data?.error_code)
+          OFFER_WAITING_LIST_NO_USABLE_CONSUMER_PAYMENT_PACK,
+        ].includes(err.response.data?.error_code)
       ) {
         dispatch(
-          snackbarError(
-            `canNotBuyErrorCode.${err.response.data.error_code}`,
-          ),
+          snackbarError(`canNotBuyErrorCode.${err.response.data.error_code}`),
         );
       }
       if (options && options.onError) options.onError(err);

@@ -73,6 +73,8 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
       propsConfig.dynamic === stateConfig.dynamic &&
       propsConfig.auto_consume_pack === stateConfig.auto_consume_pack &&
       propsConfig.autokick_delay === stateConfig.autokick_delay &&
+      propsConfig.kick_if_no_pack_when_auto_consume ===
+        stateConfig.kick_if_no_pack_when_auto_consume &&
       propsConfig.auto_consume_pack === stateConfig.auto_consume_pack &&
       propsConfig.last_delay_before_auto_consume ===
         stateConfig.last_delay_before_auto_consume &&
@@ -187,6 +189,35 @@ export class WaitingListConfigurationForm extends Component<Props, State> {
             variant="caption"
           >
             {t('form.auto_consume_pack.helper')}
+          </Typography>
+        </div>
+        <div className={classes.field}>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={
+                  this.state.configuration.kick_if_no_pack_when_auto_consume &&
+                  this.state.configuration.auto_consume_pack
+                }
+                disabled={!this.state.configuration.auto_consume_pack}
+                onChange={(event) =>
+                  this.handleChange('kick_if_no_pack_when_auto_consume')(
+                    event.target.checked,
+                  )
+                }
+                value={
+                  this.state.configuration.kick_if_no_pack_when_auto_consume
+                }
+              />
+            }
+            label={t('form.kick_if_no_pack_when_auto_consume.label')}
+          />
+          <Typography
+            className={classes.helperText}
+            color="textSecondary"
+            variant="caption"
+          >
+            {t('form.kick_if_no_pack_when_auto_consume.helper')}
           </Typography>
         </div>
         <div className={classes.field}>

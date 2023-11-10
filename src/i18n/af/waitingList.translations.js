@@ -24,6 +24,12 @@ const getTranslations = async () => {
         label:
           'Automatically book in a member from the waitlist once a spot becomes available and the deduct the credit(s) from a valid pass',
       },
+      kick_if_no_pack_when_auto_consume: {
+        helper:
+          'A member might use his credits on another session while waiting on the waiting list. With this settings activated, if that happens, his slot on waiting list will be automatcially cancelled when it is his turn to register.',
+        label:
+          'Automatically remove the member from the waiting list if, when his slots becomes available, he does not have a valid pass anymore',
+      },
       is_option_blocking: {
         helper:
           'A spot will be saved for members that joined the waitlist until they book.',

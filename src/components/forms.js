@@ -453,7 +453,7 @@ export const DurationField = withStyles(DurationFieldstyles)(
           );
           const setHoursFromEvent = React.useCallback(
             (ev) => setHours(ev.target.value),
-            [setDays],
+            [setHours],
           );
           const setMinutesFromEvent = React.useCallback(
             (ev) => setMinutes(ev.target.value),

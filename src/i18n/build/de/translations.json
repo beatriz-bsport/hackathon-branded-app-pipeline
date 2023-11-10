@@ -8675,7 +8675,8 @@
                 "registerOption": "Mich auf die Warteliste setzen lassen",
                 "isAlreadyRegistered": "Die Session ist voll. Herzlichen Glückwunsch, Sie sind eingebucht!",
                 "waitingListOpen": "Der Kurs ist voll. Sie können sich jedoch auf die Warteliste setzen lassen. Wir werden Sie per E-Mail benachrichtigen, sobald ein Platz verfügbar ist.",
-                "waitingListLockedByPendingBookings": "Andere Personen buchen gerade, die Warteliste ist derzeit nicht verfügbar. Bitte versuchen Sie es in ein paar Minuten erneut, um zu sehen, ob ein Platz frei geworden ist."
+                "waitingListLockedByPendingBookings": "Andere Personen buchen gerade, die Warteliste ist derzeit nicht verfügbar. Bitte versuchen Sie es in ein paar Minuten erneut, um zu sehen, ob ein Platz frei geworden ist.",
+                "isBookingLimitReached": "Sie haben bereits das Limit Ihrer Reservierungen erreicht. Sie können wieder buchen, sobald eine Session vorbei ist oder storniert wurde."
             },
             "offer": {
                 "isDisabled": "Diese Session wurde leider abgesagt.",
@@ -8925,7 +8926,8 @@
                 "startFromDate": {
                     "label": "Beginn der Wiederholung am "
                 },
-                "groupWarning": "Achtung es ist nicht möglich, wiederkehrende Buchungen für Gruppen von Sessions zu erstellen"
+                "groupWarning": "Achtung es ist nicht möglich, wiederkehrende Buchungen für Gruppen von Sessions zu erstellen",
+                "permissionWarning": "Sie haben keine Erlaubnis Buchungen für diese Aktivität abzuschließen"
             },
             "recurrentRuleBooking": "Wiederkehrende Buchung",
             "item": {
@@ -9130,6 +9132,10 @@
                 "noPassAvailable": {
                     "title": "Keine Kurspässe verfügbar",
                     "message": "Es sind keine Kurspässe verfügbar, um sich auf die Warteliste setzen zu lassen."
+                },
+                "isBookingLimitReached": {
+                    "message": "Sie haben Ihr Limit an Buchungen erreicht. Sie können ernaut buchen, wenn eine Session vorbei ist oder storniert wurde.",
+                    "title": "Buchung nicht möglich"
                 }
             },
             "backToCalendar": "Zurück zum Kalender",
@@ -11342,7 +11348,8 @@
                 "2": "Push-Benachrichtigung",
                 "1": "SMS",
                 "0": "E-Mail",
-                "15": "Kadenz"
+                "15": "Kadenz",
+                "16": "Franchise"
             },
             "srcOrDst": {
                 "placeholder": "Wählen Sie einen Nachrichtentyp aus",
@@ -13242,7 +13249,13 @@
             "widgets": "Widget",
             "staff": "Mitarbeiter",
             "settings": "Einstellungen",
-            "tag": "Tags"
+            "tag": "Tags",
+            "marketing": {
+                "tags": "Tags",
+                "emailTemplates": "E-Mails",
+                "campaigns": "Kampagnen",
+                "label": "Marketing"
+            }
         },
         "multiSession": {
             "current": "Aktuelle Session",
@@ -13346,6 +13359,10 @@
                 "customize": "Personalisierung",
                 "popups": "Startup Pop-Up",
                 "links": "Externe Links"
+            },
+            "communicationSentGroupConfig": {
+                "campaigns": "Kampagnen",
+                "general": "Allgemein"
             }
         }
     },
@@ -17778,6 +17795,53 @@
                 "label": "Mindestwert des Kundenkorbs"
             },
             "title": "Empfehlung"
+        }
+    },
+    "campaign": {
+        "exportCampaign": "Exportieren",
+        "save": "Speichern",
+        "schemaError": {
+            "nonEmptyEmailTemplate": "Bitte wählen Sie eine E-Mail-Vorlage",
+            "nonEmptyBody": "Der Inhalt Ihrer E-Mail ist derzeit leer. Bitte fügen Sie Inhalte hinzu bevor Sie fortfahren.",
+            "nonEmptyToggle": "Bitte wählen Sie Empfänger bevor Sie die Nachricht verschicken.",
+            "nonEmptySmartList": "Bitte wählen Sie eine Smartlist"
+        },
+        "smartListOption": "Wählen Sie eine Smartlist",
+        "mail": {
+            "sendButton": "Senden",
+            "customDomainNotDefined": "Sie haben keine benutzerdefinierte Domäne definiert. \"Bitte setzen Sie sich mit unserem Team in Verbindung, um den Konfigurationsprozess einzuleiten.\"",
+            "example": "Beispiel",
+            "customEmail": "Benutzerdefinierte E-Mail",
+            "franchiseeMail": "Franchisenehmer E-Mail",
+            "chooseSender": "Bitte wählen Sie die E-Mail-Adresse , die zum Versenden verwenden möchten.",
+            "sendMail": "Nachricht schicken"
+        },
+        "memberSelectionInfo": "Fügen Sie Mitglieder zu den Empfängern Ihrer Kampagne hinzu, indem Sie ein Studio auswählen und dann eine seiner Smartlists auswählen. Wenn Sie alle Ihre Mitglieder direkt hinzufügen möchten, können Sie auch auf \"Alle Mitglieder auswählen\" klicken.",
+        "noCampaign": "Verschicken Sie Kampagnen an Ihre Mitglieder, um sie über Geschehnisse in Ihrem Franchise auf dem Laufenden zu halten.",
+        "historyTitle": "Versandhistorie",
+        "campaign": {
+            "add": "Kampagne hinzufügen"
+        },
+        "memberSelectionTitle": "Mitgliederauswahl",
+        "sendToAllMembers": "An alle Mitglieder senden",
+        "modal": {
+            "delete": {
+                "content": "Diese Aktion wird die Kampagne permanent archivieren und alle verbundenen Daten werden nicht mehr zugänglich sein. Sind Sie sich sicher, dass Sie mit dem Archivieren fortfahren wollen?",
+                "confirm": "Bestätigen",
+                "cancel": "Abbrechen",
+                "title": "Kampagne archivieren"
+            }
+        },
+        "search": "Nach Kampagnen suchen",
+        "cancel": "Abbrechen",
+        "delete": "Löschen",
+        "edit": "Bearbeiten",
+        "duplicate": "Duplikat",
+        "detail": {
+            "tab": {
+                "campaign": "Kampagnen",
+                "general": "Allgemein"
+            }
         }
     }
 }

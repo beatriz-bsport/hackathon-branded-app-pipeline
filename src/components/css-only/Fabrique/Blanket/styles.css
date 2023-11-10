@@ -1,0 +1,12 @@
+.bs-fabrique-blanket {
+  background: var(--bs-grey-alpha-800a);
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+/* .bs-fabrique-blanket-content {} */

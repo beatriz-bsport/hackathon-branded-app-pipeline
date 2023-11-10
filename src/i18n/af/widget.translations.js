@@ -203,6 +203,7 @@ exports.default = {
         isIconButton: 'Button has an icon',
         isSelected: 'Element is selected',
         hasBadge: 'Display element badge',
+        showBlanket: 'Show blanket',
       },
       configurationTitle: 'Variations',
     },
@@ -283,6 +284,7 @@ exports.default = {
       marketplace_spot_selector: 'Spot scheduling selector',
       fabrique_textfield: 'TextField',
       fabrique_action_tab: 'Action tab',
+      fabrique_blanket: 'Blanket',
     },
     customCss: {
       yourCode: 'Your complementary implementation:',

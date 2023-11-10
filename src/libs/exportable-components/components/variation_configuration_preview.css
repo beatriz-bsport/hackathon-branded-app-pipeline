@@ -158,3 +158,9 @@ We need to brutally override some things from MUI.
 #fake-spot-6 rect {
   opacity: 0;
 }
+
+#bs-custom-css__component__preview .bs-fabrique-blanket-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

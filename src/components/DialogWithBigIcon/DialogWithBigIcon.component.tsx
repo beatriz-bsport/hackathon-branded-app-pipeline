@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 import chroma from 'chroma-js';
 
-import { Theme, makeStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -13,6 +13,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import MUIButton from '@material-ui/core/Button';
 import type { ButtonTypeMap } from '@material-ui/core';
+import Checkbox from '@material-ui/core/Checkbox';
 import type { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
 
 import MuiIconComponent from '#components/MuiIcon.component';
@@ -60,7 +61,7 @@ const SubText: React.FC<SubTextsProps> = ({
   }
   return (
     <ul className={classNames(classes.subTextList, customClasses?.subTextList)}>
-      {subText.map((line, subIndex) => (
+      {subText?.map((line, subIndex) => (
         <li key={`${index}-${subIndex}-${line}`}>
           <Typography
             className={classNames(
@@ -136,28 +137,32 @@ type Props = {
   buttons?: ButtonProps[];
   customClasses?: { [className: string]: string };
   namespaces?: string | string[];
+  displayCheckBox?: boolean;
+  isChecked?: boolean;
+  handleCheck?: () => void;
 };
 
-const DialogWithBigIcon: React.FC<Props> = (props) => {
-  const {
-    open,
-    onClose,
-    maxWidth,
-    CustomIcon,
-    customIconHeight,
-    customIconWidth,
-    customIconFillOpacity,
-    icon,
-    iconColor,
-    withoutBackground,
-    withCross,
-    title,
-    subTexts,
-    buttons,
-    customClasses,
-    namespaces,
-  } = props;
-
+const DialogWithBigIcon: React.FC<Props> = ({
+  open,
+  onClose,
+  maxWidth,
+  CustomIcon,
+  customIconHeight,
+  customIconWidth,
+  customIconFillOpacity,
+  icon,
+  iconColor,
+  withoutBackground,
+  withCross,
+  title,
+  subTexts,
+  buttons,
+  customClasses,
+  namespaces,
+  displayCheckBox,
+  isChecked,
+  handleCheck,
+}) => {
   const { t } = useTranslation(namespaces);
 
   const classes = useStyles({ iconColor, withoutBackground });
@@ -247,7 +252,7 @@ const DialogWithBigIcon: React.FC<Props> = (props) => {
           </Typography>
         )}
 
-        {subTexts.map((subText, index) => (
+        {subTexts?.map((subText, index) => (
           <SubText
             key={`${index}-${subText}`}
             customClasses={customClasses}
@@ -257,6 +262,22 @@ const DialogWithBigIcon: React.FC<Props> = (props) => {
         ))}
       </DialogContent>
 
+      {displayCheckBox && (
+        <div className={classes.checkboxContainer}>
+          <div className={classes.checkbox}>
+            <Checkbox
+              checked={isChecked}
+              disabled={false}
+              edge="end"
+              onChange={handleCheck}
+            />
+          </div>
+          <Typography align="center" variant="body1">
+            {t('cadence.dialog.do_not_display_anymore')}
+          </Typography>
+        </div>
+      )}
+
       {buttons?.length && (
         <DialogActions
           className={classNames(
@@ -264,7 +285,7 @@ const DialogWithBigIcon: React.FC<Props> = (props) => {
             customClasses?.dialogActions,
           )}
         >
-          {buttons.map((button, index) => (
+          {buttons?.map((button, index) => (
             <Button key={index} button={button} customClasses={customClasses} />
           ))}
         </DialogActions>
@@ -336,6 +357,13 @@ const useStyles = makeStyles<
     textAlign: 'center',
   },
   subTextListItem: {},
+  checkboxContainer: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  checkbox: {
+    width: '42px',
+  },
   dialogActions: {
     justifyContent: 'center',
     gap: theme.spacing(2),

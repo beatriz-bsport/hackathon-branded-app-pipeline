@@ -82,9 +82,40 @@ DialogWithoutCrossWithButtonsAndSubTextList.args = {
   icon: 'Person',
   buttons: [
     {
-      title: 'Identifier un membre',
+      title: 'Annuler',
+      onClick: actionData.onClick,
+      variant: 'text',
+      fontColor: '#757575',
+    },
+    {
+      title: 'Supprimer',
       onClick: actionData.onClick,
       variant: 'contained',
+      fontColor: '#FFFFFF',
+      backgroundColor: '#F44336',
+    },
+  ],
+};
+
+export const DialogWithCheckbox = Template.bind({});
+DialogWithCheckbox.args = {
+  displayCheckBox: true,
+  title: 'A dialog with checkbox',
+  subTexts: [['Here is a sbutext.']],
+  icon: 'Person',
+  buttons: [
+    {
+      title: 'Cancel',
+      onClick: actionData.onClick,
+      variant: 'text',
+      fontColor: '#757575',
+    },
+    {
+      title: 'Confirm',
+      onClick: actionData.onClick,
+      variant: 'contained',
+      fontColor: '#FFFFFF',
+      backgroundColor: '#F44336',
     },
   ],
 };

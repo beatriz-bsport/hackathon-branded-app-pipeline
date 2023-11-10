@@ -1,6 +1,6 @@
 import React, { SVGProps } from 'react';
 
-export const TriggeredPersonIcon: React.FC<SVGProps<SVGElement>> = ({
+export const WarningIconRounded: React.FC<SVGProps<SVGElement>> = ({
   width,
   height,
   viewBox,
@@ -20,7 +20,7 @@ export const TriggeredPersonIcon: React.FC<SVGProps<SVGElement>> = ({
   );
 };
 
-TriggeredPersonIcon.defaultProps = {
+WarningIconRounded.defaultProps = {
   width: '72',
   height: '72',
   viewBox: '0 0 72 72',
@@ -28,4 +28,4 @@ TriggeredPersonIcon.defaultProps = {
   xmlns: 'http://www.w3.org/2000/svg',
 };
 
-export default React.memo(TriggeredPersonIcon);
+export default React.memo(WarningIconRounded);

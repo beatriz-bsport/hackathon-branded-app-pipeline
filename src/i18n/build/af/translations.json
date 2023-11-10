@@ -13620,7 +13620,12 @@
           "rest": "Rest",
           "elevated": "Elevated",
           "main": "Main",
+          "primary": "Primary",
+          "secondary": "Secondary",
           "grey": "Grey",
+          "white": "White",
+          "info": "Info",
+          "error": "Error",
           "onstrong": "On strong background",
           "warning": "Warning",
           "sm": "Small",
@@ -13629,7 +13634,9 @@
           "text": "Text",
           "email": "Email",
           "tel": "Phone number",
-          "password": "Password"
+          "password": "Password",
+          "contained": "Contained",
+          "outlined": "Outlined"
         },
         "title": {
           "nextOffer": "Next session available",
@@ -13670,6 +13677,7 @@
           "showEstablishmentAddress": "Show the establishment's address",
           "componentType": "Container is a button",
           "cardVariant": "Select the card variant to use",
+          "fabriqueVariant": "Element variant",
           "square": "Unable the rounded corners",
           "isRippleEnabled": "Unable the button ripple effect",
           "hasSent": "The form has been submitted",
@@ -13683,7 +13691,8 @@
           "displayHelperText": "Display the helper text",
           "displayLabel": "Display the label",
           "displayPlaceholder": "Display the placeholder",
-          "textFieldType": "Type of input"
+          "textFieldType": "Type of input",
+          "isIconButton": "Button has an icon"
         },
         "configurationTitle": "Variations"
       },
@@ -13752,6 +13761,7 @@
         "authentication_login": "Login component",
         "fabrique_typography": "Typography",
         "fabrique_card": "Card",
+        "fabrique_button": "Button",
         "marketplace_minimal_appbar": "Minimal AppBar",
         "fabrique_badge": "Badge",
         "marketplace_spot_selector": "Spot scheduling selector",

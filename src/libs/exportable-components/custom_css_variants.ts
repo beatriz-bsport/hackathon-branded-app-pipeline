@@ -190,6 +190,10 @@ import {
   FABRIQUE_TEXTFIELD_CONFIGURATION,
   FABRIQUE_TEXTFIELD_PREVIEW,
 } from '#components/css-only/Fabrique/TextFieldV2';
+import {
+  FABRIQUE_BUTTON_CONFIGURATION,
+  FABRIQUE_BUTTON_PREVIEW,
+} from '#components/css-only/Fabrique/ButtonV2';
 
 import {
   CSSComponentPreviews,
@@ -207,6 +211,7 @@ import {
   MARKETPLACE_SPOT_SELECTOR_CONFIGURATION,
   MARKETPLACE_SPOT_SELECTOR_PREVIEW,
 } from '#marketplacecomponents/@SpotScheduling/MarketplaceSpotSelector/custom_css_variant';
+
 /* TEMPLATE
 
 {
@@ -270,6 +275,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
         FABRIQUE_TYPOGRAPHY_CONFIGURATION,
         FABRIQUE_CARD_CONFIGURATION,
         FABRIQUE_BADGE_CONFIGURATION,
+        FABRIQUE_BUTTON_CONFIGURATION,
         AUTHENTICATION_LOGIN_CONFIGURATION,
         FABRIQUE_TEXTFIELD_CONFIGURATION,
       ]
@@ -385,6 +391,8 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
       [CssComponentsVariantIdentifiers.FABRIQUE_BADGE]: FABRIQUE_BADGE_PREVIEW,
       [CssComponentsVariantIdentifiers.FABRIQUE_TEXTFIELD]:
         FABRIQUE_TEXTFIELD_PREVIEW,
+      [CssComponentsVariantIdentifiers.FABRIQUE_BUTTON]:
+        FABRIQUE_BUTTON_PREVIEW,
     }),
   });
 export const CSS_COMPONENT_PAGES: Immutable.Immutable<MarketplacePage[]> =

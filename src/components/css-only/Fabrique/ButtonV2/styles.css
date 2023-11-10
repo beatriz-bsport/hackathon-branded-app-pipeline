@@ -181,11 +181,13 @@
   color: var(--bs-color-text-brand-main);
   border-color: var(--bs-color-border-brand-main);
 }
+
 .bs-fabrique-button-root-outlined--main:hover,
 .bs-fabrique-button-root-outlined--main:focus-visible {
   color: var(--bs-color-text-brand-main);
   background-color: var(--bs-color-action-brand-weak-main-hovered);
 }
+
 .bs-fabrique-button-root-outlined--main:active:hover {
   transition: unset;
   color: var(--bs-color-text-brand-main-strong);
@@ -217,11 +219,13 @@
   color: var(--bs-color-text-weak);
   border-color: var(--bs-color-border-default);
 }
+
 .bs-fabrique-button-root-outlined--grey:hover,
 .bs-fabrique-button-root-outlined--grey:focus-visible {
   color: var(--bs-color-text-default);
   background-color: var(--bs-color-action-grey-weak-hovered);
 }
+
 .bs-fabrique-button-root-outlined--grey:active:hover {
   transition: unset;
   color: var(--bs-color-text-default);

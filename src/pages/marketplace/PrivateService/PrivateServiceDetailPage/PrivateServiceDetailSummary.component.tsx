@@ -40,6 +40,7 @@ const PrivateServiceDetailSummary: React.FC<Props> = (props) => {
               className={classes.serviceDescription}
               color="textSecondary"
               variant="subtitle2"
+              whiteSpace="pre-wrap"
             >
               {privateService.description}
             </TypographyMultiline>

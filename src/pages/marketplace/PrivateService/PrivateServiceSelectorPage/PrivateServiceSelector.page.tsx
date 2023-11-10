@@ -164,6 +164,7 @@ export class PrivateServiceSelectorPage extends React.PureComponent<Props> {
                         align="left"
                         color="textSecondary"
                         variant="subtitle1"
+                        whiteSpace="pre-wrap"
                       >
                         {ps.description}
                       </TypographyWithShowMore>

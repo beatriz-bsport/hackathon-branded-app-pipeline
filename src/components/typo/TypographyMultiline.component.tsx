@@ -32,6 +32,13 @@ type Props = {
     | 'textSecondary'
     | 'error'
     | undefined;
+  whiteSpace?:
+    | 'normal'
+    | 'nowrap'
+    | 'pre'
+    | 'pre-wrap'
+    | 'pre-line'
+    | 'break-spaces';
   style?: React.CSSProperties;
 };
 
@@ -50,7 +57,9 @@ const TypographyMultiline: React.FC<Props> = (props) => (
     ])}
   >
     <Linkify>
-      <p style={{ whiteSpace: 'pre-line' }}>{props.children || ''}</p>
+      <p style={{ whiteSpace: props.whiteSpace || 'pre-line' }}>
+        {props.children || ''}
+      </p>
     </Linkify>
   </Typography>
 );

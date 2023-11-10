@@ -55,6 +55,7 @@ export const ConsumerGiftcardForm = (props: Props) => {
       <TypographyMultiline
         className={classes.description}
         color="textSecondary"
+        whiteSpace="pre-wrap"
       >
         {props.giftcard.description}
       </TypographyMultiline>

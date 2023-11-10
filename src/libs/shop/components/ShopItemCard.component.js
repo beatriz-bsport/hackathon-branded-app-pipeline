@@ -97,6 +97,7 @@ const ShopItemCard = (props: {
           color="textSecondary"
           style={{ marginTop: 16 }}
           variant="body1"
+          whiteSpace="pre-wrap"
         >
           {props.shopitem.description || props.t('shopitem.noDescription')}
         </TypographyMultiline>

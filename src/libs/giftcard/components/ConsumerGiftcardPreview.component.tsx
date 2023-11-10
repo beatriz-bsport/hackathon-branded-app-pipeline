@@ -40,7 +40,7 @@ const ConsumerGiftcardPreview = (props: Props) => {
           <Typography>{message_is_for}</Typography>
         </div>
         <div className={classes.section}>
-          <TypographyMultiline variant="body2">
+          <TypographyMultiline variant="body2" whiteSpace="pre-wrap">
             {message_content}
           </TypographyMultiline>
         </div>

@@ -101,7 +101,7 @@ export const VideoPlayerFull = (props: Props) => {
             ))}
           </div>
         )}
-        <TypographyMultiline color="textSecondary">
+        <TypographyMultiline color="textSecondary" whiteSpace="pre-wrap">
           {props.video.description}
         </TypographyMultiline>
       </div>

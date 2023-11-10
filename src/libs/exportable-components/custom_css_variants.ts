@@ -206,6 +206,10 @@ import {
   FABRIQUE_BLANKET_CONFIGURATION,
   FABRIQUE_BLANKET_PREVIEW,
 } from '#components/css-only/Fabrique/Blanket';
+import {
+  FABRIQUE_TAB_CONFIGURATION,
+  FABRIQUE_TAB_PREVIEW,
+} from '#components/css-only/Fabrique/Tab';
 
 import {
   CSSComponentPreviews,
@@ -291,6 +295,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
         FABRIQUE_ICON_BUTTON_CONFIGURATION,
         FABRIQUE_ACTION_TAB_CONFIGURATION,
         FABRIQUE_BLANKET_CONFIGURATION,
+        FABRIQUE_TAB_CONFIGURATION,
         AUTHENTICATION_LOGIN_CONFIGURATION,
         FABRIQUE_TEXTFIELD_CONFIGURATION,
       ]
@@ -414,6 +419,7 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
         FABRIQUE_ACTION_TAB_PREVIEW,
       [CssComponentsVariantIdentifiers.FABRIQUE_BLANKET]:
         FABRIQUE_BLANKET_PREVIEW,
+      [CssComponentsVariantIdentifiers.FABRIQUE_TAB]: FABRIQUE_TAB_PREVIEW,
     }),
   });
 export const CSS_COMPONENT_PAGES: Immutable.Immutable<MarketplacePage[]> =

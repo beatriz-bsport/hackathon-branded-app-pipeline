@@ -204,6 +204,8 @@ exports.default = {
         isSelected: 'Element is selected',
         hasBadge: 'Display element badge',
         showBlanket: 'Show blanket',
+        isTabSelected: 'The tab is selected',
+        showTabSelect: 'The tab has select options',
       },
       configurationTitle: 'Variations',
     },
@@ -285,6 +287,7 @@ exports.default = {
       fabrique_textfield: 'TextField',
       fabrique_action_tab: 'Action tab',
       fabrique_blanket: 'Blanket',
+      fabrique_tab: 'Tab',
     },
     customCss: {
       yourCode: 'Your complementary implementation:',

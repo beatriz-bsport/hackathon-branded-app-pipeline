@@ -13700,7 +13700,9 @@
           "isIconButton": "Button has an icon",
           "isSelected": "Element is selected",
           "hasBadge": "Display element badge",
-          "showBlanket": "Show blanket"
+          "showBlanket": "Show blanket",
+          "isTabSelected": "The tab is selected",
+          "showTabSelect": "The tab has select options"
         },
         "configurationTitle": "Variations"
       },
@@ -13776,7 +13778,8 @@
         "marketplace_spot_selector": "Spot scheduling selector",
         "fabrique_textfield": "TextField",
         "fabrique_action_tab": "Action tab",
-        "fabrique_blanket": "Blanket"
+        "fabrique_blanket": "Blanket",
+        "fabrique_tab": "Tab"
       },
       "customCss": {
         "yourCode": "Your complementary implementation:",

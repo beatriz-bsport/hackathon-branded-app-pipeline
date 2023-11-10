@@ -2,7 +2,6 @@ import React, { useMemo } from 'react';
 import chroma from 'chroma-js';
 import { makeStyles, type Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import type { ClassNameMap } from '@material-ui/styles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
@@ -15,29 +14,31 @@ import {
 } from '#libs/sequential_marketing/constants/steps';
 
 type Props = {
-  title: string;
-  icon: string;
   color: string;
+  icon: string;
+  title: string;
   children?: React.ReactNode;
-  minimalIcon?: boolean;
-  smallTitle?: boolean;
-  withoutBottomActions?: boolean;
-  onCancelClick?: () => void;
   onCancelText?: string;
-  onConfirmClick?: () => void;
   onConfirmText?: string;
   isSubmissionForbidden?: boolean;
-  withDeleteIcon?: boolean;
+  minimalIcon?: boolean;
+  smallTitle?: boolean;
   squareIcon?: boolean;
+  withDeleteIcon?: boolean;
+  withoutBottomActions?: boolean;
+  withUpwardPointingTail?: boolean;
+  onCancelClick?: () => void;
+  onConfirmClick?: () => void;
 };
 
-type CadenceBubbleHeaderProps = { classes: ClassNameMap<string> } & Pick<
+type CadenceBubbleHeaderProps = Pick<
   Props,
   'title' | 'smallTitle' | 'icon' | 'color' | 'minimalIcon' | 'onCancelClick'
 >;
 
 const CadenceBubbleHeader: React.FC<CadenceBubbleHeaderProps> = React.memo(
-  ({ classes, color, icon, minimalIcon, smallTitle, title, onCancelClick }) => {
+  ({ color, icon, minimalIcon, smallTitle, title, onCancelClick }) => {
+    const classes = useStyles({ color });
     return (
       <div className={classes.title}>
         <div className={classes.flexIconAndText}>
@@ -88,20 +89,21 @@ const CadenceBubbleHeader: React.FC<CadenceBubbleHeaderProps> = React.memo(
 );
 
 const CadenceBubble: React.FC<Props> = ({
-  title,
-  isSubmissionForbidden,
-  icon,
   color,
+  icon,
+  title,
   children,
+  isSubmissionForbidden,
   minimalIcon,
-  withoutBottomActions,
-  onCancelClick,
   onCancelText,
-  onConfirmClick,
   onConfirmText,
-  withDeleteIcon,
-  squareIcon,
   smallTitle,
+  squareIcon,
+  withDeleteIcon,
+  withoutBottomActions,
+  withUpwardPointingTail,
+  onCancelClick,
+  onConfirmClick,
 }) => {
   const { t } = useTranslation('marketing');
 
@@ -118,10 +120,13 @@ const CadenceBubble: React.FC<Props> = ({
   const classes = useStyles({ color, bottomButtonPosition, squareIcon });
 
   return (
-    <BubbleCard withShadow width={CADENCE_BUBBLE_WIDTH}>
+    <BubbleCard
+      withShadow
+      width={CADENCE_BUBBLE_WIDTH}
+      withUpwardPointingTail={withUpwardPointingTail}
+    >
       <div className={classes.header}>
         <CadenceBubbleHeader
-          classes={classes}
           color={color}
           icon={icon}
           minimalIcon={minimalIcon}
@@ -162,7 +167,7 @@ const CadenceBubble: React.FC<Props> = ({
 
 type StylesProps = {
   color: string;
-  bottomButtonPosition: string;
+  bottomButtonPosition?: string;
   squareIcon?: boolean;
 };
 

@@ -77,6 +77,7 @@ const OutputLostTriggerBubble: React.FC<Props> = ({
 
   return (
     <CadenceBubble
+      withUpwardPointingTail
       color={SequentialMarketingColors.LOSE_COLOR}
       icon="Cancel"
       isSubmissionForbidden={!isFormValid}

@@ -73,6 +73,10 @@ export default {
       control: 'boolean',
       description: 'True to have a smaller title',
     },
+    withUpwardPointingTail: {
+      control: 'boolean',
+      description: 'True to have the bubble tail point upward',
+    },
   },
 } as ComponentMeta<typeof CadenceBubble>;
 
@@ -80,15 +84,23 @@ const Template: ComponentStory<typeof CadenceBubble> = (
   args: React.ComponentProps<typeof CadenceBubble>,
 ) => <CadenceBubble {...args} />;
 
-export const Basic = Template.bind({});
-Basic.args = {
+export const LeftPointing = Template.bind({});
+LeftPointing.args = {
   title: 'Title',
   icon: 'PlayArrow',
   color: '#60caff',
   onCancelText: 'Cancel',
   onConfirmText: 'Confirm',
-  minimalIcon: false,
-  withoutBottomActions: false,
+};
+
+export const UpwardPointing = Template.bind({});
+UpwardPointing.args = {
+  title: 'Title',
+  icon: 'PlayArrow',
+  color: '#60caff',
+  onCancelText: 'Cancel',
+  onConfirmText: 'Confirm',
+  withUpwardPointingTail: true,
 };
 
 export const SquareIcon = Template.bind({});

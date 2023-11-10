@@ -60,6 +60,7 @@ const OutputWonTriggerBubble: React.FC<Props> = ({
 
   return (
     <CadenceBubble
+      withUpwardPointingTail
       color={SequentialMarketingColors.ENTRY_COLOR}
       icon="CheckCircle"
       isSubmissionForbidden={!isFormValid}

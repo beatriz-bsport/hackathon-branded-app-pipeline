@@ -1,8 +1,8 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import type { ComponentStory, ComponentMeta } from '@storybook/react';
 import { faker } from '@faker-js/faker';
 
-import BubbleCard, { BubbleCardProps } from './BubbleCard.component';
+import BubbleCard from './BubbleCard.component';
 
 export default {
   title: 'Components/Cards/BubbleCard',
@@ -28,6 +28,10 @@ export default {
       control: 'text',
       description: 'The width of the bubble (example: 80px)',
     },
+    withUpwardPointingTail: {
+      control: 'boolean',
+      description: 'Indicates if the bubble is pointing upwards',
+    },
   },
   decorators: [
     (Story) => (
@@ -45,15 +49,15 @@ export default {
 } as ComponentMeta<typeof BubbleCard>;
 
 const Template: ComponentStory<typeof BubbleCard> = (
-  args: BubbleCardProps & { text?: string },
+  args: React.ComponentProps<typeof BubbleCard> & { text?: string },
 ) => (
   <BubbleCard {...args}>
     <div>{args.text || 'text'}</div>
   </BubbleCard>
 );
 
-export const Primary = Template.bind({});
-Primary.args = { customColor: 'white', withShadow: false };
+export const Basic = Template.bind({});
+Basic.args = { customColor: 'white', withShadow: true };
 
 export const Long = Template.bind({});
 Long.args = {
@@ -61,3 +65,17 @@ Long.args = {
   withShadow: false,
   text: faker.lorem.sentence(40),
 };
+
+export const PointingUpward = Template.bind({});
+PointingUpward.args = {
+  customColor: '#d1eaca',
+  text: faker.lorem.sentence(40),
+  withUpwardPointingTail: true,
+};
+
+const TemplateWithoutChildren: ComponentStory<typeof BubbleCard> = (
+  args: React.ComponentProps<typeof BubbleCard>,
+) => <BubbleCard {...args} />;
+
+export const NoContent = TemplateWithoutChildren.bind({});
+NoContent.args = { customColor: 'red' };

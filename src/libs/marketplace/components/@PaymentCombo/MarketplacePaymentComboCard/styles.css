@@ -76,7 +76,7 @@
   -webkit-line-clamp: 5;
   /* autoprefixer: off */
   -webkit-box-orient: vertical;
-  white-space: pre-line;
+  white-space: pre-wrap;
   max-width: 95%;
   word-break: break-word;
 }

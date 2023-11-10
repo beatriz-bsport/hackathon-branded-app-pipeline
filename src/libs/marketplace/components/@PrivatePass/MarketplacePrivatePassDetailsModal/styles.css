@@ -80,7 +80,7 @@
 .bs-pass-details-dialog__description {
   color: var(--color-grey-main);
   font-size: var(--body-1-fontSize);
-  white-space: pre-line;
+  white-space: pre-wrap;
   word-break: break-word;
 }
 

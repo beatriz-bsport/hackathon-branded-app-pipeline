@@ -129,7 +129,7 @@
   font-weight: var(--body1-fontWeight);
   overflow: hidden;
   transition: max-height 0.5s;
-  white-space: pre-line;
+  white-space: pre-wrap;
 }
 
 .--hide {

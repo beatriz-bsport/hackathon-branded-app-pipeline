@@ -21,7 +21,7 @@ import {
 import { DynamicFilterDataType } from '#libs/datatype-filtering/types';
 import { getColumn } from '../utils';
 import { OptionCallback } from '../../../state/types';
-import { RolePermission } from '#libs/role/types';
+import { ObjectLevelPermissions, RolePermission } from '#libs/role/types';
 import { handleGetDynamicDataForFiltersReturn } from '#libs/datatype-filtering/dynamic-data-hoc';
 
 type Props = {
@@ -64,6 +64,7 @@ type Props = {
   ) => void;
   fetchReportFilterConfigList: (params: ReportFilterConfigParams) => void;
   deleteReportFilterConfig: (reporFilterId: number) => void;
+  objectLevelPermissions: ObjectLevelPermissions;
 };
 
 const CATEGORIES_NEEDING_HELPER_TEXT = ['franchise_shared_pass'];
@@ -107,6 +108,7 @@ const ReportGeneration: React.FC<Props> = ({
   deleteReportFilterConfig,
   allowedFranchisees,
   userPermissions,
+  objectLevelPermissions,
 }) => {
   const { t } = useTranslation('reporting');
   const classes = useStyles();
@@ -182,6 +184,7 @@ const ReportGeneration: React.FC<Props> = ({
             loading={resultLoading}
             metadata={metadata}
             nextPage={nextPage}
+            objectLevelPermissions={objectLevelPermissions}
             otherPages={otherPages}
             pageSize={pageSize}
             previousPage={previousPage}

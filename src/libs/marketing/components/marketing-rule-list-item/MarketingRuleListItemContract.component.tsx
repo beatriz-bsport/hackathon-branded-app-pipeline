@@ -23,6 +23,7 @@ import NotificationListInner from '#libs/marketing/components/NotificationListIn
 import { MarketingNotification } from '#libs/marketing/types';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import { SmartList } from '#libs/smart-list/types';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 type OwnProps = {
   updateNotification: (id: number, data: any) => void;
@@ -90,30 +91,35 @@ class MarketingRuleListItemContract extends React.PureComponent<Props> {
                   notification={notif}
                   smartLists={this.props.smartLists}
                 />
-                <div className={classes.secondaryAction}>
-                  <Switch
-                    checked={notif.active}
-                    inputProps={{ 'aria-label': 'secondary checkbox' }}
-                    onChange={() =>
-                      this.handleUpdateNotification(notif.id, !notif.active)
-                    }
-                    value="checkedA"
-                  />
-                  <IconButton
-                    aria-label="Edit"
-                    color="primary"
-                    edge="end"
-                    onClick={() => this.handleEditNotification(notif, true)}
-                  >
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton
-                    color="secondary"
-                    onClick={() => this.handleDeleteModalOpen(notif, true)}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </div>
+                <ObjectLevelPermissionWrapper
+                  forcedBehavior="hidden"
+                  requiredPermission="member.allowed_actions.manageNotification"
+                >
+                  <div className={classes.secondaryAction}>
+                    <Switch
+                      checked={notif.active}
+                      inputProps={{ 'aria-label': 'secondary checkbox' }}
+                      onChange={() =>
+                        this.handleUpdateNotification(notif.id, !notif.active)
+                      }
+                      value="checkedA"
+                    />
+                    <IconButton
+                      aria-label="Edit"
+                      color="primary"
+                      edge="end"
+                      onClick={() => this.handleEditNotification(notif, true)}
+                    >
+                      <EditIcon />
+                    </IconButton>
+                    <IconButton
+                      color="secondary"
+                      onClick={() => this.handleDeleteModalOpen(notif, true)}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </div>
+                </ObjectLevelPermissionWrapper>
               </ListItem>
             </div>
           ))}

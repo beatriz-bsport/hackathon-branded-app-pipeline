@@ -24,6 +24,7 @@ import type { PerformanceTrackingProgram } from '#libs/performance-tracking/type
 import VaccinationBadge from './VaccinationBadge.component';
 import AvatarWithBadge from './AvatarWithBadge.component';
 import MemberProgramDetailDialog from '../../performance-tracking/components/member-program/MemberProgramDetail.dialog';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type Props = {
   member: Member<Tag<TagGroup>>;
@@ -107,22 +108,26 @@ export const MemberMinimalListItem: React.FC<Props> = ({
             />
           </Wrapper>
         </ListItemAvatar>
-        <ListItemText
-          primary={
-            <div className={classes.flexDiv}>
-              <Typography>
-                {member.name + (firstBooking ? ' ★' : '')}
-              </Typography>
-              {isBirthday && (
-                <Cake color="secondary" style={{ fontSize: '14px' }} />
-              )}
-              <Typography color="secondary" variant="caption">
-                {member.archived ? `${'\u00A0'}(${t('archived')})` : ''}
-              </Typography>
-            </div>
-          }
-          secondary={secondaryInfo}
-        />
+        <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.accessProfile">
+          {(hasMemberProfileAccessPermission: boolean) => (
+            <ListItemText
+              primary={
+                <div className={classes.flexDiv}>
+                  <Typography>
+                    {member.name + (firstBooking ? ' ★' : '')}
+                  </Typography>
+                  {isBirthday && (
+                    <Cake color="secondary" style={{ fontSize: '14px' }} />
+                  )}
+                  <Typography color="secondary" variant="caption">
+                    {member.archived ? `${'\u00A0'}(${t('archived')})` : ''}
+                  </Typography>
+                </div>
+              }
+              secondary={hasMemberProfileAccessPermission && secondaryInfo}
+            />
+          )}
+        </ObjectLevelPermissionProvider>
         <ListItemSecondaryAction>
           {fetchPerformanceTrackingData && !!programList?.length && (
             <Tooltip title={t('performanceTracking:metric.statistic')}>

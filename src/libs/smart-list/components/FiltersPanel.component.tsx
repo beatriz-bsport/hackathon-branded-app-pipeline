@@ -78,6 +78,7 @@ import { UPSELL_IDENTIFIER_CUSTOM_APP } from '#libs/platform-billing/upsell-iden
 import { Cadence } from '#libs/sequential_marketingDEPRECATED/types';
 import GenericMuiDialog from '#components/genericDialog/GenericMuiDIalog';
 import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 const { trackFormAdd, trackFormSubmitIntent, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(
@@ -312,43 +313,48 @@ export class FiltersPanel extends Component<Props, State> {
     return (
       <div>
         <div className={classes.buttonsRow}>
-          <div className={classes.sendCommunicationButtons}>
-            <Button
-              className={classes.sendEmailButton}
-              color="secondary"
-              onClick={this.props.onRequestEmail}
-              variant="contained"
-            >
-              <SendIcon className={this.props.classes.leftIcon} />
-              {t('mail.sendMail')}
-            </Button>
-            {this.props.smartList?.has_active_communication_group_configs && (
-              <Chip
-                icon={<EmailIcon />}
-                label={t('usedInFranchiseCommmunication')}
-              />
-            )}
-            {hasCustomAppUpsell(this.props.featureList) && (
-              <div className={classes.smartListPopupButtonContainer}>
-                <Button
-                  className={classes.smartListPopupButton}
-                  color="secondary"
-                  onClick={this.openCustomMobilePopupDialog}
-                  variant="outlined"
-                >
-                  <SmartphoneIcon className={this.props.classes.leftIcon} />
-                  {t('popup.sendPopup')}
-                </Button>
-                <IconButton
-                  className={classes.smartListPopupListButton}
-                  color="primary"
-                  onClick={this.openSmartListPopupHistoryDialog}
-                >
-                  <VisibilityIcon />
-                </IconButton>
-              </div>
-            )}
-          </div>
+          <ObjectLevelPermissionWrapper
+            forcedBehavior="hidden"
+            requiredPermission="member.allowed_actions.communication"
+          >
+            <div className={classes.sendCommunicationButtons}>
+              <Button
+                className={classes.sendEmailButton}
+                color="secondary"
+                onClick={this.props.onRequestEmail}
+                variant="contained"
+              >
+                <SendIcon className={this.props.classes.leftIcon} />
+                {t('mail.sendMail')}
+              </Button>
+              {this.props.smartList?.has_active_communication_group_configs && (
+                <Chip
+                  icon={<EmailIcon />}
+                  label={t('usedInFranchiseCommmunication')}
+                />
+              )}
+              {hasCustomAppUpsell(this.props.featureList) && (
+                <div className={classes.smartListPopupButtonContainer}>
+                  <Button
+                    className={classes.smartListPopupButton}
+                    color="secondary"
+                    onClick={this.openCustomMobilePopupDialog}
+                    variant="outlined"
+                  >
+                    <SmartphoneIcon className={this.props.classes.leftIcon} />
+                    {t('popup.sendPopup')}
+                  </Button>
+                  <IconButton
+                    className={classes.smartListPopupListButton}
+                    color="primary"
+                    onClick={this.openSmartListPopupHistoryDialog}
+                  >
+                    <VisibilityIcon />
+                  </IconButton>
+                </div>
+              )}
+            </div>
+          </ObjectLevelPermissionWrapper>
           <CustomMobilePopupDialogDialog
             initial={null}
             onClose={this.closeCustomMobilePopupDialog}

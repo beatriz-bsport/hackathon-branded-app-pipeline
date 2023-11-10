@@ -3,12 +3,13 @@ import React from 'react';
 import { TableCell } from '@material-ui/core';
 import { ClassNameMap } from '@material-ui/styles';
 
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 import { CellConverter, CellData, ReportMetadataColumn } from '../types';
 
 import ReportCellRenderer from './ReportCellRenderer.component';
 
 type ReportTableCellProps = {
-  reportCategory: string;
+  reportCategory: ReportCategoryEnum;
   columnConfig:
     | ReportMetadataColumn
     | {
@@ -34,6 +35,7 @@ const ReportTableCell: React.FC<ReportTableCellProps> = ({
   row_extra_data,
 }) => {
   const { value, cellProps } = converter(cellValues?.value);
+
   return (
     <TableCell
       key={columnConfig?.identifier}

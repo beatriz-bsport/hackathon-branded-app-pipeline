@@ -3,6 +3,7 @@ import React, { useCallback, useMemo } from 'react';
 import { TableRow } from '@material-ui/core';
 import { ClassNameMap } from '@material-ui/styles';
 
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 import { CellConverter, ReportMetadataColumn, SerializedRow } from '../types';
 import ReportTableCell from './ReportTableCell';
 import { generateRowLink } from '../utils';
@@ -23,7 +24,7 @@ type ReportTableRowsProps = {
       }
   >;
   serializedRow: SerializedRow;
-  reportCategory: string;
+  reportCategory: ReportCategoryEnum;
   userPermissions: RolePermission;
 };
 
@@ -63,6 +64,7 @@ const ReportTableRow: React.FC<ReportTableRowsProps> = ({
   ]);
   const chipClass =
     link && hasAccessToLink ? classes.chipClickable : classes.chipDefault;
+
   return (
     <TableRow key={index} classes={rowClass} onClick={goToItemDetail}>
       {columns.map((column, columnIndex) => {

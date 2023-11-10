@@ -46,6 +46,7 @@ import Config from '../../../config';
 import { UPSELL_IDENTIFIER_PUSH_NOTIFICATION } from '#libs/platform-billing/upsell-identifiers';
 import { FeatureList } from '#libs/company/types';
 import { hasUpsell } from '#libs/platform-billing/utils';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 type OwnProps = {
   emailSummary?: EmailTemplateSummary;
@@ -425,25 +426,29 @@ class MarketingRuleDetail extends React.PureComponent<Props, State> {
               <Paper className={classes.paperDetail}>
                 <Typography variant="h6">{getLabel(this.props)}</Typography>
                 {this.renderPrimaryText(this.props.selectedNotification)}
+                <ObjectLevelPermissionWrapper
+                  forcedBehavior="hidden"
+                  requiredPermission="member.allowed_actions.manageNotification"
+                >
+                  <div className={classes.notificationActions}>
+                    <Button
+                      color="primary"
+                      onClick={this.props.onClickEdit}
+                      variant="contained"
+                    >
+                      {t('marketing:notifications.editRule')}
+                    </Button>
 
-                <div className={classes.notificationActions}>
-                  <Button
-                    color="primary"
-                    onClick={this.props.onClickEdit}
-                    variant="contained"
-                  >
-                    {t('marketing:notifications.editRule')}
-                  </Button>
-
-                  <Button
-                    className={classes.removeContainer}
-                    color="primary"
-                    onClick={this.props.onClickRemove}
-                    variant="outlined"
-                  >
-                    {t('marketing:notifications.removeRule')}
-                  </Button>
-                </div>
+                    <Button
+                      className={classes.removeContainer}
+                      color="primary"
+                      onClick={this.props.onClickRemove}
+                      variant="outlined"
+                    >
+                      {t('marketing:notifications.removeRule')}
+                    </Button>
+                  </div>
+                </ObjectLevelPermissionWrapper>
               </Paper>
 
               {this.props.emailSummary && this.props.emailDetails && (

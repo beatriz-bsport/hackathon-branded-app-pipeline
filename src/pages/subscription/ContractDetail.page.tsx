@@ -227,12 +227,14 @@ export class ContractDetailPage extends Component<Props> {
           'product.contract.allowed_actions.edit',
           'product.contract.allowed_actions.delete',
           'product.contract.allowed_actions.pause',
+          'member.allowed_actions.manageNotification',
         ]}
       >
         {([
           hasEditPermission,
           hasDeletePermission,
           hasPausePermission,
+          hasMembersManageNotification,
         ]: boolean[]) => (
           <div className={classes.pageContainer}>
             <Grid container alignItems="stretch" spacing={3}>
@@ -264,16 +266,17 @@ export class ContractDetailPage extends Component<Props> {
                   smartLists={this.props.smartLists}
                   updateNotification={this.props.updateMarketingNotification}
                 />
-
-                <div className={classes.notificationButtonContainer}>
-                  <Button
-                    color="primary"
-                    onClick={this.openContractNotificationForm}
-                    variant="outlined"
-                  >
-                    {t('addNotification')}
-                  </Button>
-                </div>
+                {hasMembersManageNotification && (
+                  <div className={classes.notificationButtonContainer}>
+                    <Button
+                      color="primary"
+                      onClick={this.openContractNotificationForm}
+                      variant="outlined"
+                    >
+                      {t('addNotification')}
+                    </Button>
+                  </div>
+                )}
                 {this.props.contractNotificationFormOpen && (
                   <MarketingRuleFormContract
                     emailDetailLoading={this.props.emailDetailLoading}

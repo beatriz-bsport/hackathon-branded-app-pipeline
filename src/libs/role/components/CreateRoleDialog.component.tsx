@@ -319,7 +319,7 @@ export class CreateRoleDialog extends React.Component<Props, State> {
 
     const name = disabled ? getRoleName(this.props.role, t) : this.state.name;
 
-    const isLocalOrDevEnv = ['local', 'dev'].includes(
+    const isLocalOrDevEnv = ['local', 'dev', 'pool'].includes(
       Config.REACT_APP_SENTRY_ENVIRONMENT,
     );
 

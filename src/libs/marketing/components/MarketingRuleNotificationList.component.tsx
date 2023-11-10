@@ -16,6 +16,7 @@ import { DeepPartial, MaterialStyleType } from '../../../utils/types';
 import { EmailTemplateSummary } from '../../email-editor/types';
 import NotificationListInner from './NotificationListInner.component';
 import { SmartList } from '../../smart-list/types';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 type OwnProps = {
   notifications: MarketingNotification[];
@@ -91,17 +92,21 @@ export class MarketingNotificationsList extends React.PureComponent<Props> {
                   notification={notif}
                   smartLists={smartLists}
                 />
-
-                <div>
-                  <Switch
-                    checked={notif.active}
-                    onChange={() =>
-                      this.props.onUpdateNotification(notif.id, {
-                        active: !notif.active,
-                      })
-                    }
-                  />
-                </div>
+                <ObjectLevelPermissionWrapper
+                  forcedBehavior="hidden"
+                  requiredPermission="member.allowed_actions.manageNotification"
+                >
+                  <div>
+                    <Switch
+                      checked={notif.active}
+                      onChange={() =>
+                        this.props.onUpdateNotification(notif.id, {
+                          active: !notif.active,
+                        })
+                      }
+                    />
+                  </div>
+                </ObjectLevelPermissionWrapper>
               </ButtonBase>
             </div>
           );

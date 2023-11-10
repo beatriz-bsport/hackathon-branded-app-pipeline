@@ -41,7 +41,7 @@ import withDatatypeDynamicData, {
   withDatatypeDynamicDataProps,
 } from '#libs/datatype-filtering/dynamic-data-hoc';
 import { fetchCompanyRoles as fetchCompanyRolesAction } from '#libs/role/actions';
-import { getPermissions } from '#libs/role/selectors';
+import { getObjectPermissions, getPermissions } from '#libs/role/selectors';
 
 import { RootState } from '../../reducers';
 
@@ -298,6 +298,7 @@ export class ReportingGeneration extends Component<Props, State> {
           isFranchisor={this.props.isFranchisor}
           metadata={metadata}
           nextPage={nextPage}
+          objectLevelPermissions={this.props.objectLevelPermissions}
           otherPages={otherPages}
           pageSize={pageSize}
           previousPage={previousPage}
@@ -335,6 +336,7 @@ const connector = connect(
     reportHeadersLoading: getReportHeadersLoading(state),
     reportFilterConfigs: getReportFilterConfigList(state),
     userPermissions: getPermissions(state),
+    objectLevelPermissions: getObjectPermissions(state),
   }),
   {
     fetchReportMetadata: fetchReportMetadataAction,

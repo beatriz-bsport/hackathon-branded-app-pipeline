@@ -45,12 +45,14 @@ export const MemberActions: React.FC<Props> = (props: Props) => {
           'product.contract.allowed_actions.createBillingPlan',
           'billing.allowed_actions.createInvoice',
           'billing.allowed_actions.takePayment',
+          'member.allowed_actions.communication',
         ]}
       >
         {([
           hasCreateBillingPlanPermission,
           hasCreateInvoicePermission,
           hasTakePaymentPermission,
+          hasMemberCommunicationPermission,
         ]: boolean[]) => (
           <FabWithItems
             badgeValue={props.numberOfUnreadAnswers}
@@ -59,7 +61,7 @@ export const MemberActions: React.FC<Props> = (props: Props) => {
               Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ||
               Config.REACT_APP_SENTRY_ENVIRONMENT === 'local'
                 ? [
-                    {
+                    hasMemberCommunicationPermission && {
                       label: t('communication'),
                       onClick: props.openCommunicationDrawer,
                       badgeValue: props.numberOfUnreadAnswers,
@@ -119,6 +121,7 @@ export const MemberActions: React.FC<Props> = (props: Props) => {
         'member.allowed_actions.delete',
         'billing.allowed_actions.createInvoice',
         'billing.allowed_actions.takePayment',
+        'member.allowed_actions.communication',
       ]}
     >
       {([
@@ -126,22 +129,24 @@ export const MemberActions: React.FC<Props> = (props: Props) => {
         hasDeleteMemberPermission,
         hasCreateInvoicePermission,
         hasTakePaymentPermission,
+        hasMemberCommunicationPermission,
       ]: boolean[]) => (
         <div className={classes.bottomButtonContainer}>
           {(Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
             Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ||
-            Config.REACT_APP_SENTRY_ENVIRONMENT === 'local') && (
-            <Fab
-              className={classes.bottomButton}
-              color="secondary"
-              onClick={props.openCommunicationDrawer}
-              variant="extended"
-            >
-              <ExtendedFabBadge badgeValue={props.numberOfUnreadAnswers} />
-              <Send className={classes.leftIcon} />
-              {t('communication')}
-            </Fab>
-          )}
+            Config.REACT_APP_SENTRY_ENVIRONMENT === 'local') &&
+            hasMemberCommunicationPermission && (
+              <Fab
+                className={classes.bottomButton}
+                color="secondary"
+                onClick={props.openCommunicationDrawer}
+                variant="extended"
+              >
+                <ExtendedFabBadge badgeValue={props.numberOfUnreadAnswers} />
+                <Send className={classes.leftIcon} />
+                {t('communication')}
+              </Fab>
+            )}
           {hasCreateInvoicePermission && (
             <Fab
               className={classes.bottomButton}

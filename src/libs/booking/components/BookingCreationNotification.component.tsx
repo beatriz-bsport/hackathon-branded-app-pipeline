@@ -25,6 +25,7 @@ import MarketingRuleFormBooking from '../../marketing/components/marketing-rule-
 
 import NotificationListInner from '../../marketing/components/NotificationListInner.component';
 import { ResolvedGenericTags } from '#libs/email-editor/types';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 type Props = {
   getEmails: () => void;
@@ -86,46 +87,60 @@ const BookingCreationNotification = (props: Props) => {
                   smartLists={props.smartLists}
                 />
               </div>
-              <Switch
-                checked={notif.active}
-                onChange={() =>
-                  props.updateNotification(notif.id, { active: !notif.active })
-                }
-              />
-              <ListItemSecondaryAction>
-                <IconButton
-                  aria-label="Edit"
-                  color="primary"
-                  edge="end"
-                  onClick={() => {
-                    props.setSelectedNotification(notif);
-                    props.setIsFormOpen(true);
-                  }}
-                >
-                  <EditIcon />
-                </IconButton>
-                <IconButton
-                  color="secondary"
-                  onClick={() => {
-                    props.setSelectedNotification(notif);
-                    props.setIsDeleteModalOpen(true);
-                  }}
-                >
-                  <DeleteIcon />
-                </IconButton>
-              </ListItemSecondaryAction>
+              <ObjectLevelPermissionWrapper
+                forcedBehavior="hidden"
+                requiredPermission="member.allowed_actions.manageNotification"
+              >
+                <>
+                  <Switch
+                    checked={notif.active}
+                    onChange={() =>
+                      props.updateNotification(notif.id, {
+                        active: !notif.active,
+                      })
+                    }
+                  />
+                  <ListItemSecondaryAction>
+                    <IconButton
+                      aria-label="Edit"
+                      color="primary"
+                      edge="end"
+                      onClick={() => {
+                        props.setSelectedNotification(notif);
+                        props.setIsFormOpen(true);
+                      }}
+                    >
+                      <EditIcon />
+                    </IconButton>
+                    <IconButton
+                      color="secondary"
+                      onClick={() => {
+                        props.setSelectedNotification(notif);
+                        props.setIsDeleteModalOpen(true);
+                      }}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </ListItemSecondaryAction>
+                </>
+              </ObjectLevelPermissionWrapper>
             </ListItem>
           ))}
       </Paper>
-      <div className={classes.addButtonContainer}>
-        <Button
-          color="primary"
-          onClick={() => props.setIsFormOpen(true)}
-          variant="outlined"
-        >
-          {t('notification.addNotification')}
-        </Button>
-      </div>
+      <ObjectLevelPermissionWrapper
+        forcedBehavior="hidden"
+        requiredPermission="member.allowed_actions.manageNotification"
+      >
+        <div className={classes.addButtonContainer}>
+          <Button
+            color="primary"
+            onClick={() => props.setIsFormOpen(true)}
+            variant="outlined"
+          >
+            {t('notification.addNotification')}
+          </Button>
+        </div>
+      </ObjectLevelPermissionWrapper>
       {props.isFormOpen && (
         <MarketingRuleFormBooking
           emailDetailLoading={props.emailDetailLoading}

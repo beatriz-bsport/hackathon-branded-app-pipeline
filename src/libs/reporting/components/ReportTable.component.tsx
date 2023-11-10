@@ -16,9 +16,10 @@ import { TableFooter, Theme } from '@material-ui/core';
 import grey from '@material-ui/core/colors/grey';
 
 import { ReportConfiguration, ReportMetadata, SerializedRow } from '../types';
-import { getConverter, getColumn } from '../utils';
+import { getConverter, getColumn, ReportColumnPermissions } from '../utils';
 import ReportTableRow from './ReportTableRow';
-import { RolePermission } from '#libs/role/types';
+import { ObjectLevelPermissions, RolePermission } from '#libs/role/types';
+import { hasObjectLevelPermission } from '#libs/role/permission-utils/utils';
 
 type TableProps = {
   reportStoreRowsLoading: boolean;
@@ -31,6 +32,7 @@ type TableProps = {
   handleGeneratePreviousPage: (data: any) => void;
   handleGenerateNextPage: (data: any) => void;
   userPermissions: RolePermission;
+  objectLevelPermissions: ObjectLevelPermissions;
 };
 
 type PaginationProps = {
@@ -90,6 +92,7 @@ const ReportTable: React.FC<TableProps> = ({
   handleGeneratePreviousPage,
   handleGenerateNextPage,
   userPermissions,
+  objectLevelPermissions,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation('reporting');
@@ -104,6 +107,47 @@ const ReportTable: React.FC<TableProps> = ({
     () => columnsConfigs?.map((c) => getConverter(c, classes, t)) ?? [],
     [classes, columnsConfigs, t],
   );
+
+  /*
+    Replace values with empty string if the staff user doesn't have permission to
+    see the column's data
+    If the report category is not in ReportColumnPermissions, resultsWithPermissions returns result and we avoid useless calculations
+    If not, we retrieve columnPermissionsIndex which is an array of boolean in which the staff user have permission to see column's data
+    and we map on results to filter out the hidden data.
+   */
+  const resultsWithPermissions: SerializedRow[] = React.useMemo(() => {
+    // Check if report category is in ReportColumnPermissions, else return result
+    // @ts-expect-error not every categories are in ReportColumnPermissions
+    if (ReportColumnPermissions[report.category]) {
+      const columnPermissionsIndex: boolean[] = columns.map((column) => {
+        const columnPermissions =
+          // @ts-expect-error not every categories are in ReportColumnPermissions
+          ReportColumnPermissions[report.category][column];
+
+        if (columnPermissions) {
+          return columnPermissions.every((permission: string) =>
+            hasObjectLevelPermission(objectLevelPermissions, permission),
+          );
+        }
+        return true;
+      });
+
+      if (!columnPermissionsIndex.includes(false)) {
+        return result;
+      }
+
+      return result.map((row) => {
+        return {
+          ...row,
+          values: row.values.map((data, colIndex) => {
+            const canSeeColumn = columnPermissionsIndex[colIndex];
+            return canSeeColumn ? data : { ...data, value: '' };
+          }),
+        };
+      });
+    }
+    return result;
+  }, [columns, report, objectLevelPermissions, result]);
 
   return (
     <div className={classes.responsive}>
@@ -126,7 +170,7 @@ const ReportTable: React.FC<TableProps> = ({
         </TableHead>
         <TableBody>
           {result &&
-            result.map((serializedRow, index) => (
+            resultsWithPermissions.map((serializedRow, index) => (
               <ReportTableRow
                 key={index}
                 classes={classes}

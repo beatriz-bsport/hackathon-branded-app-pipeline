@@ -18,6 +18,7 @@ import Divider from '@material-ui/core/Divider';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import SendIcon from '@material-ui/icons/Send';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
@@ -615,38 +616,44 @@ export class SmartListDetailMember extends React.Component<Props, State> {
         {(Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
           Config.REACT_APP_SENTRY_ENVIRONMENT === 'local' ||
           Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ||
+          Config.REACT_APP_SENTRY_ENVIRONMENT === 'pool' ||
           this.props.companyId === 498) && (
-          <>
-            {!!this.props.openCommunicationChatDrawer && (
-              <CommunicationDrawer
-                contextIdentifier={CONTEXT_SMARTLIST}
-                contextObjectId={this.props.smartlist?.id ?? this.props.id}
-                contextTitle={this.props.smartlist?.name}
-                onDrawerClose={this.handleCommunicationDrawerClose}
-                openDrawer={this.props.openCommunicationChatDrawer}
-                propToListenToReloadRecipients={
-                  this.state.resetMembersFetchForCommunication
-                }
-              />
-            )}
-            <BottomActionsButtonCustom
-              buttonsProperties={[
-                {
-                  onClick: (e) => {
-                    e.stopPropagation();
-                    this.props.setOpenCommunicationChatDrawer(true);
+          <ObjectLevelPermissionWrapper
+            forcedBehavior="hidden"
+            requiredPermission="member.allowed_actions.communication"
+          >
+            <>
+              {!!this.props.openCommunicationChatDrawer && (
+                <CommunicationDrawer
+                  contextIdentifier={CONTEXT_SMARTLIST}
+                  contextObjectId={this.props.smartlist?.id ?? this.props.id}
+                  contextTitle={this.props.smartlist?.name}
+                  onDrawerClose={this.handleCommunicationDrawerClose}
+                  openDrawer={this.props.openCommunicationChatDrawer}
+                  propToListenToReloadRecipients={
+                    this.state.resetMembersFetchForCommunication
+                  }
+                />
+              )}
+              <BottomActionsButtonCustom
+                buttonsProperties={[
+                  {
+                    onClick: (e) => {
+                      e.stopPropagation();
+                      this.props.setOpenCommunicationChatDrawer(true);
+                    },
+                    color: 'primary',
+                    disabled: this.props.loading,
+                    icon: <SendIcon />,
+                    text: this.props.t('communication:generic.communication'),
+                    keepTextUnderSelectedMinWidth: true,
+                    badgeValue: this.props.numberOfUnreadAnswers,
                   },
-                  color: 'primary',
-                  disabled: this.props.loading,
-                  icon: <SendIcon />,
-                  text: this.props.t('communication:generic.communication'),
-                  keepTextUnderSelectedMinWidth: true,
-                  badgeValue: this.props.numberOfUnreadAnswers,
-                },
-              ]}
-              minWidth="xs"
-            />
-          </>
+                ]}
+                minWidth="xs"
+              />
+            </>
+          </ObjectLevelPermissionWrapper>
         )}
         <SmartListEditDialog
           fullScreen

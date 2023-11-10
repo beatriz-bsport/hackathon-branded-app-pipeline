@@ -250,11 +250,18 @@ const getTabsData = (
           value: 'private-consumer-pass',
           count: private_consumer_pass,
         },
-        {
-          label: 'tab.member.form',
-          value: 'form',
-          count: form,
-        },
+        ...(hasObjectLevelPermission(
+          objectLevelPermissions,
+          'member.allowed_actions.accessProfile',
+        )
+          ? [
+              {
+                label: 'tab.member.form',
+                value: 'form',
+                count: form,
+              },
+            ]
+          : []),
         { label: 'tab.member.basket', value: 'basket' },
       ]
     : [

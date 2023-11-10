@@ -30,6 +30,7 @@ import MemberForm from '../MemberForm.component';
 import { Member } from '../types';
 import { OptionCallback } from '../../../state/types';
 import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type Props = {
   open: boolean;
@@ -59,29 +60,34 @@ const MemberListItem = (props: {
     disabled={props.disabled}
     onClick={props.onClick}
   >
-    <ListItemText
-      primary={
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-          }}
-        >
-          <div>{props.member.name}</div>
-          <div
-            style={{
-              marginLeft: props.theme.spacing(0.5),
-              paddingTop: props.theme.spacing(0.25),
-            }}
-          >
-            {props.isBirthday && (
-              <Cake color="secondary" style={{ fontSize: '14px' }} />
-            )}
-          </div>
-        </div>
-      }
-      secondary={props.member.email}
-    />
+    <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.accessProfile">
+      {(hasMemberProfileAccessPermission: boolean) => (
+        <ListItemText
+          primary={
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+              }}
+            >
+              <div>{props.member.name}</div>
+              <div
+                style={{
+                  marginLeft: props.theme.spacing(0.5),
+                  paddingTop: props.theme.spacing(0.25),
+                }}
+              >
+                {props.isBirthday && (
+                  <Cake color="secondary" style={{ fontSize: '14px' }} />
+                )}
+              </div>
+            </div>
+          }
+          secondary={hasMemberProfileAccessPermission && props.member.email}
+        />
+      )}
+    </ObjectLevelPermissionProvider>
+
     <ListItemSecondaryAction>
       <IconButton
         onClick={(ev) => {

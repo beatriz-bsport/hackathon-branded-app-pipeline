@@ -16,6 +16,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 import MarketingRuleFormPrivateBooking from '../../../marketing/components/marketing-rule-form/MarketingRuleFormPrivateBooking.component';
 import NotificationListInner from '../../../marketing/components/NotificationListInner.component';
@@ -72,47 +73,59 @@ const PrivateBookingNotification = (props: Props) => {
                 notification={notif}
               />
             </div>
-            <Switch
-              checked={notif.active}
-              onChange={() =>
-                props.updateNotification(notif.id, {
-                  active: !notif.active,
-                })
-              }
-            />
-            <ListItemSecondaryAction>
-              <IconButton
-                color="primary"
-                edge="end"
-                onClick={() => {
-                  props.setSelectedNotification(notif);
-                  props.setIsFormOpen(true);
-                }}
-              >
-                <EditIcon />
-              </IconButton>
-              <IconButton
-                color="secondary"
-                onClick={() => {
-                  props.setSelectedNotification(notif);
-                  props.setIsDeleteModalOpen(true);
-                }}
-              >
-                <DeleteIcon />
-              </IconButton>
-            </ListItemSecondaryAction>
+            <ObjectLevelPermissionWrapper
+              forcedBehavior="hidden"
+              requiredPermission="member.allowed_actions.manageNotification"
+            >
+              <>
+                <Switch
+                  checked={notif.active}
+                  onChange={() =>
+                    props.updateNotification(notif.id, {
+                      active: !notif.active,
+                    })
+                  }
+                />
+                <ListItemSecondaryAction>
+                  <IconButton
+                    color="primary"
+                    edge="end"
+                    onClick={() => {
+                      props.setSelectedNotification(notif);
+                      props.setIsFormOpen(true);
+                    }}
+                  >
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton
+                    color="secondary"
+                    onClick={() => {
+                      props.setSelectedNotification(notif);
+                      props.setIsDeleteModalOpen(true);
+                    }}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </ListItemSecondaryAction>
+              </>
+            </ObjectLevelPermissionWrapper>
           </ListItem>
         ))}
       </Paper>
-      <div className={classes.addButtonContainer}>
-        <Button
-          color="primary"
-          onClick={() => props.setIsFormOpen(true)}
-          variant="outlined"
-        >
-          {t('paymentPack:notification.addButton')}
-        </Button>
-      </div>
+      <ObjectLevelPermissionWrapper
+        forcedBehavior="hidden"
+        requiredPermission="member.allowed_actions.manageNotification"
+      >
+        <div className={classes.addButtonContainer}>
+          <Button
+            color="primary"
+            onClick={() => props.setIsFormOpen(true)}
+            variant="outlined"
+          >
+            {t('paymentPack:notification.addButton')}
+          </Button>
+        </div>
+      </ObjectLevelPermissionWrapper>
       {props.isFormOpen && (
         <MarketingRuleFormPrivateBooking
           emailDetailLoading={props.emailDetailLoading}

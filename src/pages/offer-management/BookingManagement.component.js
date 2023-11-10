@@ -2,7 +2,6 @@
 import React from 'react';
 
 import { compose } from 'recompose';
-
 import Collapse from '@material-ui/core/Collapse';
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
@@ -38,6 +37,7 @@ import {
   Dialog,
   DialogTitle,
 } from '@material-ui/core';
+import Config, { useOldPermissions } from '../../config';
 import ResultList from '#components/search/ResultList.component';
 import MemberBookingHelper from './MemberBookingHelper.component';
 
@@ -54,12 +54,10 @@ import type { Booking, BookingOption } from '#libs/booking/types';
 import type { Member } from '#libs/member/types';
 import type { Invoice } from '#libs/invoice/types';
 import { PermissionContext } from '../../context';
-import CheckPermission from '#libs/role/components/CheckPermission.component';
 import { Tag, TagGroup } from '#libs/tag/types';
 import { OptionCallback } from '../../state/types';
 import type { PerformanceTrackingProgram } from '../../performance-tracking/types';
 import BottomActionsButtonCustom from '#components/button/BottomActionsButtonCustom.component';
-import Config from '../../config';
 import ValidationRollCallButton from '#libs/offer/components/ValidationRollCallButton.component';
 import ValidationRollCallText from '#libs/offer/components/ValidationRollCallText.component';
 import { formatAsTime } from '../../utils/datetime';
@@ -575,71 +573,100 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                         flexDirection: 'row',
                       }}
                     >
-                      <CheckPermission requiredPermissions="member.retrieve">
-                        <IconButton
-                          color="primary"
-                          disabled={this.props.bookingLoading}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            this.props.openMailDialog();
-                          }}
-                        >
-                          <MailIcon />
-                        </IconButton>
-                        {(Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
-                          Config.REACT_APP_SENTRY_ENVIRONMENT === 'local' ||
-                          Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ||
-                          this.props.companyId === 498) && (
-                          <BottomActionsButtonCustom
-                            buttonsProperties={[
-                              {
-                                onClick: (e) => {
-                                  e.stopPropagation();
-                                  this.props.openCommunicationDrawer();
-                                },
-                                color: 'primary',
-                                disabled:
-                                  this.props.bookingLoading ||
-                                  this.props.loading,
-                                icon: <SendIcon />,
-                                text: t('communication:generic.communication'),
-                                keepTextUnderSelectedMinWidth: true,
-                                badgeValue: this.props.numberOfUnreadAnswers,
-                              },
-                            ]}
-                            minWidth="xs"
-                          />
-                        )}
-                      </CheckPermission>
                       <PermissionContext.Consumer>
                         {(permissions) => (
                           <>
                             <ObjectLevelPermissionProvider
                               requiredPermission={[
                                 'member.allowed_actions.create',
+                                'member.allowed_actions.communication',
                                 'reservation.activity.allowed_actions.create',
                                 'reservation.workshop.allowed_actions.create',
                               ]}
                             >
                               {([
-                                hasMemberCreatePermission,
+                                hasNewCreatePermission,
+                                hasNewCommunicationPermission,
                                 hasActivityCreateBookingPermission,
                                 hasWorkshopCreateBookingPermission,
-                              ]) =>
-                                hasMemberCreatePermission &&
-                                getActivityWorkshopPermission(
-                                  this.getIsWorkshop(),
-                                  hasActivityCreateBookingPermission,
-                                  hasWorkshopCreateBookingPermission,
-                                ) && (
-                                  <IconButton
-                                    color="primary"
-                                    onClick={this.props.openAddMemberModal}
-                                  >
-                                    <PersonAddIcon />
-                                  </IconButton>
-                                )
-                              }
+                              ]) => {
+                                // Temporary while former and new set of permissions coexist
+                                const hasCreatePermission = useOldPermissions
+                                  ? permissions?.member?.create
+                                  : hasNewCreatePermission;
+
+                                const hasCommunicationPermission =
+                                  useOldPermissions
+                                    ? permissions?.member?.retrieve
+                                    : hasNewCommunicationPermission;
+
+                                return (
+                                  <>
+                                    {hasCommunicationPermission && (
+                                      <>
+                                        <IconButton
+                                          color="primary"
+                                          disabled={this.props.bookingLoading}
+                                          onClick={(e) => {
+                                            e.stopPropagation();
+                                            this.props.openMailDialog();
+                                          }}
+                                        >
+                                          <MailIcon />
+                                        </IconButton>
+                                        {(Config.REACT_APP_SENTRY_ENVIRONMENT ===
+                                          'dev' ||
+                                          Config.REACT_APP_SENTRY_ENVIRONMENT ===
+                                            'local' ||
+                                          Config.REACT_APP_SENTRY_ENVIRONMENT ===
+                                            'staging' ||
+                                          Config.REACT_APP_SENTRY_ENVIRONMENT ===
+                                            'pool' ||
+                                          this.props.companyId === 498) && (
+                                          <BottomActionsButtonCustom
+                                            buttonsProperties={[
+                                              {
+                                                onClick: (e) => {
+                                                  e.stopPropagation();
+                                                  this.props.openCommunicationDrawer();
+                                                },
+                                                color: 'primary',
+                                                disabled:
+                                                  this.props.bookingLoading ||
+                                                  this.props.loading,
+                                                icon: <SendIcon />,
+                                                text: t(
+                                                  'communication:generic.communication',
+                                                ),
+                                                keepTextUnderSelectedMinWidth: true,
+                                                badgeValue:
+                                                  this.props
+                                                    .numberOfUnreadAnswers,
+                                              },
+                                            ]}
+                                            minWidth="xs"
+                                          />
+                                        )}
+                                      </>
+                                    )}
+                                    {hasCreatePermission &&
+                                      getActivityWorkshopPermission(
+                                        this.getIsWorkshop(),
+                                        hasActivityCreateBookingPermission,
+                                        hasWorkshopCreateBookingPermission,
+                                      ) && (
+                                        <IconButton
+                                          color="primary"
+                                          onClick={
+                                            this.props.openAddMemberModal
+                                          }
+                                        >
+                                          <PersonAddIcon />
+                                        </IconButton>
+                                      )}
+                                  </>
+                                );
+                              }}
                             </ObjectLevelPermissionProvider>
                             <SearchMember
                               anonimize={!permissions?.member?.search}

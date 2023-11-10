@@ -19,6 +19,7 @@ import {
   getNotificationForMarketingPage,
 } from '#libs/marketing/selectors';
 import { getTheme } from '#libs/theme/selectors';
+
 import {
   fetchMarketingNotification,
   fetchMarketingNotificationList,
@@ -102,6 +103,7 @@ import { EstablishmentGroup } from '#libs/establishment/types';
 
 import FabWithItems from '#components/button/FabWithItems';
 import MarketingRuleListContract from '#libs/marketing/components/MarketingRuleListContract.component';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 type Props = ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps &
@@ -480,12 +482,17 @@ export class MarketingRuleListPage extends Component<Props, State> {
           tags={this.props.tagCategories}
           workshopList={this.props.workshopList}
         />
-        <FabWithItems
-          items={this.getCreateButtonSpec()}
-          label={this.props.t(
-            'marketing:notifications.createNotificationFabLabel',
-          )}
-        />
+        <ObjectLevelPermissionWrapper
+          forcedBehavior="hidden"
+          requiredPermission="member.allowed_actions.manageNotification"
+        >
+          <FabWithItems
+            items={this.getCreateButtonSpec()}
+            label={this.props.t(
+              'marketing:notifications.createNotificationFabLabel',
+            )}
+          />
+        </ObjectLevelPermissionWrapper>
       </div>
     );
   }

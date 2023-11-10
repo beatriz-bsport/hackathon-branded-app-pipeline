@@ -63,7 +63,9 @@ import {
 import { UPSELL_IDENTIFIER_SMS } from '#libs/platform-billing/upsell-identifiers';
 import { FeatureList } from '#libs/company/types';
 import { hasUpsell } from '#libs/platform-billing/utils';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+
 import { MemberSummaryCardReferralSection } from './MemberSummaryCardReferralSection.component';
 
 const SELECT_EMAIL = 1;
@@ -129,29 +131,37 @@ export class MemberSummaryCard extends PureComponent<Props> {
     }`;
 
     return (
-      <div className={this.props.classes.horizontalPadding2}>
-        <MemberSummaryInfoItem
-          icon={<TodayIcon />}
-          value={memberBirthdayValue}
-        />
+      <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.accessProfile">
+        {(hasMemberProfileAccess: boolean) => (
+          <div className={this.props.classes.horizontalPadding2}>
+            {hasMemberProfileAccess && (
+              <MemberSummaryInfoItem
+                icon={<TodayIcon />}
+                value={memberBirthdayValue}
+              />
+            )}
 
-        <MemberSummaryInfoItem
-          icon={<ContactsIcon />}
-          label={t('member:officialIdNumber.label')}
-          value={t('member:officialIdNumber.value', {
-            id: member.official_document_id,
-          })}
-          valueExtra={isBirthday && <Cake color="secondary" fontSize="small" />}
-        />
-
-        <MemberSummaryInfoItem
-          icon={<PersonOutlineIcon />}
-          label={t('member:membershipNumber.label')}
-          value={t('member:membershipNumber.value', {
-            id: member.membership_ID,
-          })}
-        />
-      </div>
+            <MemberSummaryInfoItem
+              icon={<ContactsIcon />}
+              label={t('member:officialIdNumber.label')}
+              value={t('member:officialIdNumber.value', {
+                id: member.official_document_id,
+              })}
+              valueExtra={
+                hasMemberProfileAccess &&
+                isBirthday && <Cake color="secondary" fontSize="small" />
+              }
+            />
+            <MemberSummaryInfoItem
+              icon={<PersonOutlineIcon />}
+              label={t('member:membershipNumber.label')}
+              value={t('member:membershipNumber.value', {
+                id: member.membership_ID,
+              })}
+            />
+          </div>
+        )}
+      </ObjectLevelPermissionProvider>
     );
   };
 
@@ -181,78 +191,103 @@ export class MemberSummaryCard extends PureComponent<Props> {
   renderNotificationSettings = () => {
     const { member } = this.props;
     return (
-      <List dense>
-        <FeatureListProvider>
-          {(featureList: FeatureList) => (
-            <PhoneItem
-              notificationIcon
-              accept_contact={member.accept_sms}
-              hideContactButton={this.props.hideContactButton}
-              openSmsDialog={() => {
-                if (!hasUpsell(featureList, UPSELL_IDENTIFIER_SMS)) {
-                  window.location = `sms:${member.consumer.phonenumber.phone_number}`;
-                } else {
-                  this.setState({ displayMailDialog: true, sendSms: true });
+      <ObjectLevelPermissionProvider
+        requiredPermission={[
+          'member.allowed_actions.communication',
+          'member.allowed_actions.accessProfile',
+        ]}
+      >
+        {([
+          hasMemberCommunicationPermission,
+          hasMemberProfileAccess,
+        ]: boolean[]) => {
+          const hideContactButton =
+            this.props.hideContactButton || !hasMemberCommunicationPermission;
+
+          return (
+            <List dense>
+              <FeatureListProvider>
+                {(featureList: FeatureList) => (
+                  <PhoneItem
+                    notificationIcon
+                    accept_contact={member.accept_sms}
+                    hideContactButton={hideContactButton}
+                    openSmsDialog={() => {
+                      if (!hasUpsell(featureList, UPSELL_IDENTIFIER_SMS)) {
+                        window.location = `sms:${member.consumer.phonenumber.phone_number}`;
+                      } else {
+                        this.setState({
+                          displayMailDialog: true,
+                          sendSms: true,
+                        });
+                      }
+                    }}
+                    phoneNumber={
+                      (hasMemberProfileAccess &&
+                        member.consumer.phonenumber?.phone_number) ||
+                      ''
+                    }
+                  />
+                )}
+              </FeatureListProvider>
+              <EmailItem
+                notificationIcon
+                accept_email={member.accept_email}
+                email={(hasMemberProfileAccess && member.consumer.email) || ''}
+                hideContactButton={hideContactButton}
+                openMailDialog={
+                  // eslint-disable-next-line
+                  () => this.setState({ displayMailDialog: true })
                 }
-              }}
-              phoneNumber={
-                member.consumer.phonenumber &&
-                member.consumer.phonenumber.phone_number
-              }
-            />
-          )}
-        </FeatureListProvider>
-        <EmailItem
-          notificationIcon
-          accept_email={member.accept_email}
-          email={member.consumer.email}
-          hideContactButton={this.props.hideContactButton}
-          openMailDialog={
-            // eslint-disable-next-line
-            () => this.setState({ displayMailDialog: true })
-          }
-          pending_email={member.pending_email}
-        />
-        {member.emergency_contact && (
-          <EmergencyContactItemComponent
-            emergency_contact={member.emergency_contact}
-          />
-        )}
-        {this.props.favoriteEstablishmentGroupList &&
-          this.props.favoriteEstablishmentGroupList?.length !== 0 && (
-            <FavouriteEstablishmentGroupItemComponent
-              establishmentGroupList={this.props.favoriteEstablishmentGroupList}
-            />
-          )}
-        {this.props.showVaccinationStatus && (
-          <VaccinationStatus vaccinationStatus={member.vaccination_status} />
-        )}
-        {this.state.displayMailDialog && (
-          <DEPRECATEDCommunicationDrawer
-            fullscreen
-            receiversNotEditable
-            actionType={this.state.sendSms ? SEND_SMS : SELECT_EMAIL}
-            allIds={[member.id]}
-            allIdsWithEmail={member.email ? [member.id] : []}
-            allIdsWithPhone={member.phone_number ? [member.id] : []}
-            emailDetailLoading={this.props.emailDetailLoading}
-            emailDetails={this.props.emailDetails}
-            emailListLoading={this.props.emailListLoading}
-            emails={this.props.emails}
-            getEmailDetail={this.props.getEmailDetail}
-            getEmails={this.props.getEmails}
-            membersToDisplay={[{ ...member, phone: member.phone_number }]}
-            onCancel={() =>
-              this.setState({ displayMailDialog: false, sendSms: false })
-            }
-            open={this.state.displayMailDialog}
-            resolvedGenericTags={this.props.resolvedGenericTags}
-            send={this.props.sendCommunication}
-            showEmailConsentWarning={!member.accept_email}
-            showSmsConsentWarning={!member.accept_sms}
-          />
-        )}
-      </List>
+                pending_email={member.pending_email}
+              />
+              {hasMemberProfileAccess && member.emergency_contact && (
+                <EmergencyContactItemComponent
+                  emergency_contact={member.emergency_contact}
+                />
+              )}
+              {this.props.favoriteEstablishmentGroupList &&
+                this.props.favoriteEstablishmentGroupList?.length !== 0 && (
+                  <FavouriteEstablishmentGroupItemComponent
+                    establishmentGroupList={
+                      this.props.favoriteEstablishmentGroupList
+                    }
+                  />
+                )}
+              {this.props.showVaccinationStatus && (
+                <VaccinationStatus
+                  vaccinationStatus={member.vaccination_status}
+                />
+              )}
+              {this.state.displayMailDialog && (
+                <DEPRECATEDCommunicationDrawer
+                  fullscreen
+                  receiversNotEditable
+                  actionType={this.state.sendSms ? SEND_SMS : SELECT_EMAIL}
+                  allIds={[member.id]}
+                  allIdsWithEmail={member.email ? [member.id] : []}
+                  allIdsWithPhone={member.phone_number ? [member.id] : []}
+                  emailDetailLoading={this.props.emailDetailLoading}
+                  emailDetails={this.props.emailDetails}
+                  emailListLoading={this.props.emailListLoading}
+                  emails={this.props.emails}
+                  getEmailDetail={this.props.getEmailDetail}
+                  getEmails={this.props.getEmails}
+                  membersToDisplay={[{ ...member, phone: member.phone_number }]}
+                  onCancel={() =>
+                    this.setState({ displayMailDialog: false, sendSms: false })
+                  }
+                  open={this.state.displayMailDialog}
+                  resolvedGenericTags={this.props.resolvedGenericTags}
+                  send={this.props.sendCommunication}
+                  showEmailConsentWarning={!member.accept_email}
+                  showSmsConsentWarning={!member.accept_sms}
+                />
+              )}
+            </List>
+          );
+        }}
+      </ObjectLevelPermissionProvider>
     );
   };
 
@@ -276,16 +311,21 @@ export class MemberSummaryCard extends PureComponent<Props> {
       }${(address.country || '').toUpperCase()}`;
     }
     return (
-      <List>
-        <ListItem>
-          <PlaceIcon />
-          <ListItemText
-            className={this.props.classes.listItemText}
-            primary={primary}
-            secondary={secondary}
-          />
-        </ListItem>
-      </List>
+      <ObjectLevelPermissionWrapper
+        forcedBehavior="hidden"
+        requiredPermission="member.allowed_actions.accessProfile"
+      >
+        <List>
+          <ListItem>
+            <PlaceIcon />
+            <ListItemText
+              className={this.props.classes.listItemText}
+              primary={primary}
+              secondary={secondary}
+            />
+          </ListItem>
+        </List>
+      </ObjectLevelPermissionWrapper>
     );
   };
 

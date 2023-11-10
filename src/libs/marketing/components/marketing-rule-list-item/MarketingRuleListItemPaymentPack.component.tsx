@@ -25,6 +25,7 @@ import NotificationListInner from '#libs/marketing/components/NotificationListIn
 import { getMergeTags } from '../../utils';
 import { PaymentPack } from '../../../payment-packs/types';
 import { ResolvedGenericTags } from '#libs/email-editor/types';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 type Props = {
   getEmails: () => void;
@@ -86,52 +87,62 @@ const PaymentPackNotification = (props: Props) => {
                 notification={notif}
                 smartLists={smartLists}
               />
-              <ListItemSecondaryAction>
-                <Switch
-                  checked={notif.active}
-                  inputProps={{ 'aria-label': 'secondary checkbox' }}
-                  onChange={() =>
-                    props.updateNotification(notif.id, {
-                      active: !notif.active,
-                    })
-                  }
-                  value="checkedA"
-                />
-                <IconButton
-                  aria-label="Edit"
-                  color="primary"
-                  edge="end"
-                  onClick={() => {
-                    props.setSelectedNotification(notif);
-                    props.setIsFormOpen(true);
-                  }}
-                >
-                  <EditIcon />
-                </IconButton>
-                <IconButton
-                  color="secondary"
-                  onClick={() => {
-                    props.setSelectedNotification(notif);
-                    props.setIsDeleteModalOpen(true);
-                  }}
-                >
-                  <DeleteIcon />
-                </IconButton>
-              </ListItemSecondaryAction>
+              <ObjectLevelPermissionWrapper
+                forcedBehavior="hidden"
+                requiredPermission="member.allowed_actions.manageNotification"
+              >
+                <ListItemSecondaryAction>
+                  <Switch
+                    checked={notif.active}
+                    inputProps={{ 'aria-label': 'secondary checkbox' }}
+                    onChange={() =>
+                      props.updateNotification(notif.id, {
+                        active: !notif.active,
+                      })
+                    }
+                    value="checkedA"
+                  />
+                  <IconButton
+                    aria-label="Edit"
+                    color="primary"
+                    edge="end"
+                    onClick={() => {
+                      props.setSelectedNotification(notif);
+                      props.setIsFormOpen(true);
+                    }}
+                  >
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton
+                    color="secondary"
+                    onClick={() => {
+                      props.setSelectedNotification(notif);
+                      props.setIsDeleteModalOpen(true);
+                    }}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </ListItemSecondaryAction>
+              </ObjectLevelPermissionWrapper>
             </ListItem>
           </div>
         ))}
       </Paper>
-      <div className={classes.addButtonContainer}>
-        <Button
-          color="primary"
-          id="button_pass_notification"
-          onClick={() => props.setIsFormOpen(true)}
-          variant="outlined"
-        >
-          {t('notification.addButton')}
-        </Button>
-      </div>
+      <ObjectLevelPermissionWrapper
+        forcedBehavior="hidden"
+        requiredPermission="member.allowed_actions.manageNotification"
+      >
+        <div className={classes.addButtonContainer}>
+          <Button
+            color="primary"
+            id="button_pass_notification"
+            onClick={() => props.setIsFormOpen(true)}
+            variant="outlined"
+          >
+            {t('notification.addButton')}
+          </Button>
+        </div>
+      </ObjectLevelPermissionWrapper>
       {props.isFormOpen && (
         <MarketingRuleFormProduct
           emailDetailLoading={props.emailDetailLoading}

@@ -10,11 +10,11 @@ import ReactFlow, {
 
 import CadenceGraphViewPort from './CadenceGraphViewPort.component';
 import { useNodeTypes, useGraphStyles, useGraph } from './hooks';
-import { DestinationStatus } from '#libs/sequential_marketing/constants';
 import {
-  getCadenceWinOrLoseConnectedTriggers,
-  isMinimalCadenceConfigurationCompleted,
-} from '#libs/sequential_marketing/utils';
+  DestinationStatus,
+  InitialConfigurationStep,
+} from '#libs/sequential_marketing/constants';
+import { getCadenceWinOrLoseConnectedTriggers } from '#libs/sequential_marketing/utils';
 
 import type { OptionCallback } from '../../../../state/types';
 import type { EmailTemplateSummary } from '#libs/email-editor/types';
@@ -26,6 +26,7 @@ import type {
   ConnectedTrigger,
   GraphCanvas,
   MarketingActionEssentials,
+  InitialConfigurationValues,
   StepMarketingActions,
 } from '#libs/sequential_marketing/types';
 
@@ -35,13 +36,11 @@ const rfStyle = {
 
 type Props = {
   cadence: Cadence;
-  cadenceMinimalConfigurationState: {
-    cadenceWinConfigured: boolean;
-    cadenceLoseConfigured: boolean;
-    cadenceEntryConfigured: boolean;
-  };
   cadenceEditMode: boolean;
+  currentStepConfiguration: InitialConfigurationStep;
   smartlists: Immutable.ImmutableArray<SmartList>;
+  initialConfiguration: InitialConfigurationValues;
+  isEntryFirstConfiguration: boolean;
   steps: CadenceStep[];
   hideDeleteStepDialogCadenceIds: number[];
   hideConvertStepIntoExitDialogCadenceIds: number[];
@@ -84,6 +83,10 @@ type Props = {
   ) => void;
   onClickEntryStep: (step: CadenceStep) => void;
   resetAllSelection: () => void;
+  setCurrentStepConfiguration: (
+    currentStepConfiguration: InitialConfigurationStep,
+  ) => void;
+  setInitialConfig: (data: InitialConfigurationValues, save?: boolean) => void;
   submitMarketingActionForm: (data: {
     list: StepMarketingActions[];
     stepId: number;
@@ -107,15 +110,17 @@ type Props = {
 export const CadenceGraphFlow: React.FC<Props> = ({
   cadence,
   cadenceEditMode,
-  cadenceMinimalConfigurationState,
+  currentStepConfiguration,
   emailDetailList,
   emailDetailListLoading,
   emailSummaryList,
   emailSummaryListLoading,
-  tagCategories,
+  initialConfiguration,
+  isEntryFirstConfiguration,
   resolvedGenericTags,
   smartlists,
   steps,
+  tagCategories,
   tagList,
   hideDeleteStepDialogCadenceIds,
   hideConvertStepIntoExitDialogCadenceIds,
@@ -138,6 +143,8 @@ export const CadenceGraphFlow: React.FC<Props> = ({
   onClickConnectedTrigger,
   onClickEntryStep,
   resetAllSelection,
+  setCurrentStepConfiguration,
+  setInitialConfig,
   submitMarketingActionForm,
   updateCadenceStepCanvasPosition,
   updateCadenceStepName,
@@ -146,16 +153,45 @@ export const CadenceGraphFlow: React.FC<Props> = ({
   doNotDisplayDeleteStepDialogCadenceIdsAction,
   doNotDisplayConvertStepIntoExitDialogAnymoreAction,
 }) => {
-  const [disabledMode, setDisabledMode] = React.useState(true);
   const [displayDisabledTriggers, setDisplayDisabledTriggers] =
     React.useState(false);
 
-  const classes = useGraphStyles();
+  const [isEntryActionBubbleOpen, setIsEntryActionBubbleOpen] =
+    React.useState(false);
+
+  const [containerDimensions, setContainerDimensions] = React.useState({
+    width: 0,
+    height: 0,
+  });
+
+  const openEntryActionBubble = React.useCallback(
+    () => setIsEntryActionBubbleOpen(true),
+    [],
+  );
+
+  const closeEntryActionBubble = React.useCallback(
+    () => setIsEntryActionBubbleOpen(false),
+    [],
+  );
+
+  const creationMode = !(cadence?.initialized ?? true);
+
+  const isFirstOutputConfiguration =
+    creationMode &&
+    [
+      InitialConfigurationStep.CADENCE_LOSE_STEP,
+      InitialConfigurationStep.CADENCE_WIN_STEP,
+    ].includes(currentStepConfiguration);
+
+  const classes = useGraphStyles({ isFirstOutputConfiguration });
 
   const { nodes, setNodes, edges, setEdges, onNodeDragStop } = useGraph({
     cadence,
     cadenceEditMode,
     displayDisabledTriggers,
+    initialConfiguration,
+    isEntryActionBubbleOpen,
+    isEntryFirstConfiguration,
     smartlists,
     steps,
     hideDeleteStepDialogCadenceIds,
@@ -177,6 +213,8 @@ export const CadenceGraphFlow: React.FC<Props> = ({
     onClickConnectedTrigger,
     onClickEntryStep,
     resetAllSelection,
+    setCurrentStepConfiguration,
+    setInitialConfig,
     updateCadenceStepCanvasPosition,
     updateConnectedTriggerPosition,
     upsertMarketingAction,
@@ -198,6 +236,36 @@ export const CadenceGraphFlow: React.FC<Props> = ({
       doNotDisplayConvertStepIntoExitDialogAnymoreAction,
   });
 
+  const winTriggers = React.useMemo(
+    () =>
+      !!cadence &&
+      getCadenceWinOrLoseConnectedTriggers(cadence, DestinationStatus.WIN),
+    [cadence],
+  );
+
+  const loseTriggers = React.useMemo(
+    () =>
+      !!cadence &&
+      getCadenceWinOrLoseConnectedTriggers(cadence, DestinationStatus.FAIL),
+    [cadence],
+  );
+
+  const repositionedEntryNode = React.useMemo(() => {
+    return nodes.map((node) =>
+      node?.data?.step?.is_entrypoint &&
+      containerDimensions.height &&
+      containerDimensions.width
+        ? {
+            ...node,
+            position: {
+              x: containerDimensions.width / 15,
+              y: (containerDimensions.height - node.height) / 2,
+            },
+          }
+        : node,
+    );
+  }, [containerDimensions.height, containerDimensions.width, nodes]);
+
   const onNodesChange = React.useCallback(
     (changes) => setNodes((nds) => applyNodeChanges(changes, nds)),
     [setNodes],
@@ -216,55 +284,68 @@ export const CadenceGraphFlow: React.FC<Props> = ({
   const { nodeTypes } = useNodeTypes();
 
   React.useEffect(() => {
-    if (
-      isMinimalCadenceConfigurationCompleted(cadenceMinimalConfigurationState)
-    ) {
-      setDisabledMode(false);
-    } else {
-      setDisabledMode(true);
-    }
-  }, [cadenceMinimalConfigurationState]);
+    const container = document.getElementById('react-flow-div');
 
-  const winTriggers = React.useMemo(
-    () =>
-      !!cadence &&
-      getCadenceWinOrLoseConnectedTriggers(cadence, DestinationStatus.WIN),
-    [cadence],
-  );
+    const updateDimensions = () => {
+      if (container) {
+        const newWidth = container.offsetWidth;
+        const newHeight = container.offsetHeight;
+        if (
+          newWidth !== containerDimensions.width ||
+          newHeight !== containerDimensions.height
+        ) {
+          setContainerDimensions({ width: newWidth, height: newHeight });
+        }
+      }
+    };
 
-  const loseTriggers = React.useMemo(
-    () =>
-      !!cadence &&
-      getCadenceWinOrLoseConnectedTriggers(cadence, DestinationStatus.FAIL),
-    [cadence],
-  );
+    // Attach an event listener to update dimensions when the container size changes
+    window.addEventListener('resize', updateDimensions);
+
+    // Initial dimensions setup
+    updateDimensions();
+
+    // Clean up the event listener on unmount
+    return () => {
+      window.removeEventListener('resize', updateDimensions);
+    };
+  }, [containerDimensions]);
 
   return (
     <ReactFlowProvider>
       <div
         className={classNames({
-          [classes.blurDisabledOverLay]: disabledMode,
+          [classes.blurDisabledOverLay]: creationMode,
           [classes.clearDisabledOverLay]:
-            !disabledMode && (cadence.active || !cadenceEditMode),
+            !creationMode && (cadence.active || !cadenceEditMode),
         })}
+        id="react-flow-div"
       />
       <CadenceGraphViewPort
         active={cadence.active}
+        closeEntryActionBubble={closeEntryActionBubble}
+        creationMode={creationMode}
         displayDisabledTriggers={displayDisabledTriggers}
         editMode={cadenceEditMode}
         getSmartlist={getSmartlist}
+        initialConfiguration={initialConfiguration}
+        isFirstOutputConfiguration={isFirstOutputConfiguration}
         loseTriggers={loseTriggers}
+        openEntryActionBubble={openEntryActionBubble}
+        setCurrentStepConfiguration={setCurrentStepConfiguration}
+        setInitialConfig={setInitialConfig}
+        smartlists={smartlists}
         switchDisplayDisabledNodes={() =>
           setDisplayDisabledTriggers(!displayDisabledTriggers)
         }
         winTriggers={winTriggers}
       />
       <ReactFlow
-        fitView
         edges={edges}
+        fitView={!creationMode}
         fitViewOptions={{ maxZoom: 1, minZoom: 0 }}
         maxZoom={2}
-        nodes={nodes}
+        nodes={creationMode ? repositionedEntryNode : nodes}
         nodesConnectable={cadenceEditMode}
         nodesDraggable={cadenceEditMode}
         nodeTypes={nodeTypes}

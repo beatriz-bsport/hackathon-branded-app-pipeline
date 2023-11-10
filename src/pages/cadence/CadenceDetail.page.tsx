@@ -53,9 +53,13 @@ import {
   getSmartListDict,
 } from '#libs/smart-list/selectors';
 import {
-  DestinationStatus,
   CadencePanelMode,
+  DestinationStatus,
+  InitialConfigurationStep,
+  TriggerKind,
   HEADER_HEIGHT,
+  LOST_OUTPUT_TIMEOUT_TRIGGER_ID,
+  DestinationKind,
 } from '#libs/sequential_marketing/constants';
 import {
   getCadenceOnlyActiveCTs,
@@ -77,6 +81,8 @@ import type {
   CadenceStep,
   StepMarketingActions,
   GraphCanvas,
+  CadenceConfigurationState,
+  InitialConfigurationValues,
 } from '#libs/sequential_marketing/types';
 
 import CadenceDetailHeader from '#libs/sequential_marketing/components/CadenceDetailHeader.component';
@@ -108,6 +114,11 @@ import {
   fetchResolvedGenericTags as fetchResolvedGenericTagsAction,
   fetchTagList as fetchTagListAction,
 } from '#libs/notification-rule/actions';
+import { isMinimalCadenceConfigurationCompleted } from '#libs/sequential_marketing/utils';
+import {
+  updateConnectedTriggerUuid,
+  getConnectedTriggerDefaultValues,
+} from '#libs/sequential_marketing/components/graph/hooks/utils';
 
 type OwnProps = {
   cadenceId: number;
@@ -136,8 +147,10 @@ export class CadenceDetailPage extends Component<Props> {
     }
     this.props.fetchAllSmartLists();
     this.props.fetchEmailTemplatesSummaries();
-    this.props.setCadenceMinimalConfigurationState(
-      this.getCadenceMinimalConfigurationState(),
+    const minimalConfigration = this.getCadenceMinimalConfigurationState();
+    this.props.setCadenceMinimalConfigurationState(minimalConfigration);
+    this.props.setCurrentStepConfigurationFromCadenceMinimalConfiguration(
+      minimalConfigration,
     );
     this.props.fetchTagList();
     this.props.fetchResolvedGenericTags();
@@ -150,17 +163,15 @@ export class CadenceDetailPage extends Component<Props> {
         prevProps.cadence !== this.props.cadence) ||
       (prevProps.loading && !this.props.loading)
     ) {
-      const {
-        cadenceWinConfigured,
-        cadenceLoseConfigured,
-        cadenceEntryConfigured,
-      } = this.getCadenceMinimalConfigurationState();
-      this.props.setCadenceMinimalConfigurationState({
-        cadenceWinConfigured,
-        cadenceLoseConfigured,
-        cadenceEntryConfigured,
-      });
-      if (!cadenceWinConfigured || !cadenceLoseConfigured) {
+      const minimalConfigration = this.getCadenceMinimalConfigurationState();
+      this.props.setCadenceMinimalConfigurationState(minimalConfigration);
+      this.props.setCurrentStepConfigurationFromCadenceMinimalConfiguration(
+        minimalConfigration,
+      );
+      if (
+        !minimalConfigration.cadenceWinConfigured ||
+        !minimalConfigration.cadenceLoseConfigured
+      ) {
         this.props.setCadenceEditMode(false);
         this.props.setRightPanelMode(
           CadencePanelMode.CADENCE_PANEL_INTIAL_PARAMETERS,
@@ -171,7 +182,7 @@ export class CadenceDetailPage extends Component<Props> {
     }
   }
 
-  getCadenceMinimalConfigurationState = () => {
+  getCadenceMinimalConfigurationState = (): CadenceConfigurationState => {
     const cadenceWinConfigured =
       (this.props.cadence?.exits || []).filter(
         (exit: ConnectedTrigger) =>
@@ -263,23 +274,47 @@ export class CadenceDetailPage extends Component<Props> {
   };
 
   setInitialCadenceConfiguration = (
-    data: {
-      [CADENCE_STEPPER_ENTRY_STEP]?: Values | {};
-      [CADENCE_STEPPER_WIN_STEP]?: Values | {};
-      [CADENCE_STEPPER_LOSE_STEP]?: Values | {};
-    },
-    options?: OptionCallback,
+    initialConfig: InitialConfigurationValues,
+    save?: boolean,
   ) => {
-    this.props.setInitialCadenceConfiguration(data, {
-      onSuccess: () => {
-        this.props.retrieveCadence();
-        options?.onSuccess?.();
-      },
-      onError: () => {
-        this.props.retrieveCadence();
-        options?.onError?.();
-      },
+    this.props.setInitialConfigurationState(initialConfig);
+    this.props.setCadenceMinimalConfigurationState({
+      cadenceWinConfigured:
+        initialConfig[InitialConfigurationStep.CADENCE_WIN_STEP]
+          .connectedTriggers?.length > 0,
+      cadenceLoseConfigured:
+        initialConfig[InitialConfigurationStep.CADENCE_LOSE_STEP]
+          .connectedTriggers?.length > 0,
+      cadenceEntryConfigured:
+        initialConfig[InitialConfigurationStep.CADENCE_ENTRY_STEP]
+          .connectedTriggers?.length > 0,
     });
+    isMinimalCadenceConfigurationCompleted(
+      this.props.cadenceMinimalConfigurationState,
+    ) &&
+      save &&
+      this.props.setInitialCadenceConfiguration(initialConfig, {
+        onSuccess: (entryStepId: number) => {
+          this.props.updateStepMarketingActionList(
+            {
+              list:
+                initialConfig[
+                  InitialConfigurationStep.CADENCE_ENTRY_STEP
+                ].marketingActions?.map((action) => ({
+                  ...action,
+                  id: null,
+                  cadence_step: entryStepId,
+                })) ?? [],
+              stepId: entryStepId,
+            },
+            {
+              onSuccess: () => this.props.retrieveCadence(),
+              onError: () => this.props.retrieveCadence(),
+            },
+          );
+        },
+        onError: () => this.props.retrieveCadence(),
+      });
   };
 
   handleUpsertStepMarketingAction = (
@@ -313,9 +348,6 @@ export class CadenceDetailPage extends Component<Props> {
               <CadenceDetailHeader
                 cadence={this.props.cadence}
                 cadenceEditMode={this.props.cadenceEditMode}
-                cadenceMinimalConfigurationState={
-                  this.props.cadenceMinimalConfigurationState
-                }
                 doNotDisplayPauseDialogAnymore={
                   this.handleDoNotDisplayPauseDialogAnymoreAction
                 }
@@ -335,11 +367,9 @@ export class CadenceDetailPage extends Component<Props> {
             <CadenceGraphFlow
               cadence={this.props.cadence}
               cadenceEditMode={this.props.cadenceEditMode}
-              cadenceMinimalConfigurationState={
-                this.props.cadenceMinimalConfigurationState
-              }
               convertCadenceExitIntoStep={this.props.convertCadenceExitIntoStep}
               convertCadenceStepIntoExit={this.props.convertCadenceStepIntoExit}
+              currentStepConfiguration={this.props.currentStepConfiguration}
               deleteCadenceStep={this.props.deleteCadenceStep}
               deleteConnectedTrigger={this.props.deleteConnectedTriggerAction}
               deleteStepMarketingAction={this.props.deleteStepMarketingAction}
@@ -370,16 +400,26 @@ export class CadenceDetailPage extends Component<Props> {
               hideDeleteStepDialogCadenceIds={
                 this.props.doNotDisplayDeleteStepDialogCadenceIds
               }
+              initialConfiguration={this.props.initialConfigurationValues}
               isConvertStepIntoExitDialogHidden={this.props.doNotDisplayConvertStepIntoExitDialogCadenceIds.includes(
                 this.props.cadence.id,
               )}
               isDeleteStepDialogHidden={this.props.doNotDisplayDeleteStepDialogCadenceIds.includes(
                 this.props.cadence.id,
               )}
+              isEntryFirstConfiguration={
+                !this.props.cadence.initialized &&
+                !this.props.cadenceMinimalConfigurationState
+                  .cadenceEntryConfigured
+              }
               onClickConnectedTrigger={this.handleClickConnectedTrigger}
               onClickEntryStep={this.props.onClickEntryStep}
               resetAllSelection={this.resetAllSelection}
               resolvedGenericTags={this.props.resolvedGenericTags}
+              setCurrentStepConfiguration={
+                this.props.setCurrentStepConfigurationState
+              }
+              setInitialConfig={this.setInitialCadenceConfiguration}
               smartlists={this.props.smartlists}
               steps={this.props.steps}
               submitMarketingActionForm={
@@ -411,11 +451,9 @@ type StateHandlerInit = {
     step?: number | null;
     exit?: boolean;
   };
-  cadenceMinimalConfigurationState: {
-    cadenceEntryConfigured: boolean;
-    cadenceWinConfigured: boolean;
-    cadenceLoseConfigured: boolean;
-  };
+  cadenceMinimalConfigurationState: CadenceConfigurationState;
+  initialConfigurationValues: InitialConfigurationValues;
+  currentStepConfiguration: InitialConfigurationStep | null;
   triggerForEdition: {
     trigger: ConnectedTrigger | null;
     step: CadenceStep | null;
@@ -433,6 +471,21 @@ const StateHandlersInit: StateHandlerInit = {
     cadenceWinConfigured: false,
     cadenceLoseConfigured: false,
   },
+  initialConfigurationValues: {
+    [InitialConfigurationStep.CADENCE_ENTRY_STEP]: { connectedTriggers: [] },
+    [InitialConfigurationStep.CADENCE_WIN_STEP]: { connectedTriggers: [] },
+    [InitialConfigurationStep.CADENCE_LOSE_STEP]: {
+      connectedTriggers: [
+        getConnectedTriggerDefaultValues({
+          triggerKind: TriggerKind.ONLY_TIMEOUT,
+          triggerUuid: LOST_OUTPUT_TIMEOUT_TRIGGER_ID,
+          destinationKind: DestinationKind.CADENCE_TO_OUTSIDE,
+          destinationStatus: DestinationStatus.FAIL,
+        }),
+      ],
+    },
+  },
+  currentStepConfiguration: null,
   triggerForEdition: { trigger: null, step: null },
   cadenceEditMode: false,
 };
@@ -458,12 +511,40 @@ const StateHandlersSetter = {
     },
 
   setCadenceMinimalConfigurationState:
-    () =>
-    (cadenceMinimalConfigurationState: {
-      cadenceWinConfigured: boolean;
-      cadenceLoseConfigured: boolean;
-      cadenceEntryConfigured: boolean;
-    }) => ({ cadenceMinimalConfigurationState }),
+    () => (cadenceMinimalConfigurationState: CadenceConfigurationState) => ({
+      cadenceMinimalConfigurationState,
+    }),
+
+  setInitialConfigurationState:
+    () => (initialConfigurationValues: InitialConfigurationValues) => ({
+      initialConfigurationValues,
+    }),
+
+  setCurrentStepConfigurationState:
+    () => (currentStepConfiguration: InitialConfigurationStep) => ({
+      currentStepConfiguration,
+    }),
+
+  setCurrentStepConfigurationFromCadenceMinimalConfiguration:
+    () => (cadenceMinimalConfigurationState: CadenceConfigurationState) => {
+      if (cadenceMinimalConfigurationState) {
+        if (!cadenceMinimalConfigurationState.cadenceEntryConfigured)
+          return {
+            currentStepConfiguration:
+              InitialConfigurationStep.CADENCE_ENTRY_STEP,
+          };
+        if (!cadenceMinimalConfigurationState.cadenceWinConfigured)
+          return {
+            currentStepConfiguration: InitialConfigurationStep.CADENCE_WIN_STEP,
+          };
+        if (!cadenceMinimalConfigurationState.cadenceLoseConfigured)
+          return {
+            currentStepConfiguration:
+              InitialConfigurationStep.CADENCE_LOSE_STEP,
+          };
+      }
+      return {};
+    },
 
   resetSubscriptionDestination: () => () => ({
     subscriptionDestinationConfig: {},
@@ -558,22 +639,33 @@ const mapWithHandlers = {
   setInitialCadenceConfiguration:
     (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>
     (
-      data: {
-        [CADENCE_STEPPER_ENTRY_STEP]?: Values | {};
-        [CADENCE_STEPPER_WIN_STEP]?: Values | {};
-        [CADENCE_STEPPER_LOSE_STEP]?: Values | {};
-      },
-      options?: OptionCallback,
+      initialConfiguration: InitialConfigurationValues,
+      options?: OptionCallback<number>,
     ) => {
-      props.setInitialCadenceConfigurationAction(props.cadenceId, data, {
-        onSuccess: () => {
-          props.setCadenceEditMode(true);
-          options?.onSuccess?.();
+      props.setInitialCadenceConfigurationAction(
+        props.cadenceId,
+        {
+          ...initialConfiguration,
+          [InitialConfigurationStep.CADENCE_LOSE_STEP]: {
+            connectedTriggers: initialConfiguration[
+              InitialConfigurationStep.CADENCE_LOSE_STEP
+            ].connectedTriggers?.map((trigger) =>
+              trigger?.trigger_config?.uuid === LOST_OUTPUT_TIMEOUT_TRIGGER_ID
+                ? updateConnectedTriggerUuid(trigger)
+                : trigger,
+            ),
+          },
         },
-        onError: () => {
-          options?.onError?.();
+        {
+          onSuccess: (cadence: Cadence) => {
+            props.setCadenceEditMode(true);
+            options?.onSuccess?.(cadence.entrypoint_step_id);
+          },
+          onError: () => {
+            options?.onError?.();
+          },
         },
-      });
+      );
     },
 
   updateInitialCadenceConfiguration:
@@ -689,11 +781,10 @@ const mapWithHandlers = {
           onSuccess: (step) => {
             props.resetSubscriptionDestination();
             props.retrieveCadence({
-              onSuccess: () => {
+              onSuccess: () =>
                 options?.onSuccess?.(
                   step?.connected_trigger?.destination_config?.destination_id,
-                );
-              },
+                ),
             });
           },
           onError: (err) => {
@@ -706,9 +797,11 @@ const mapWithHandlers = {
 
   updateStepMarketingActionList:
     (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>
-    (data: { list: StepMarketingActions[]; stepId: number }) => {
-      props.modifyStepMarketingActionsConfigurationAction(data);
-    },
+    (
+      data: { list: StepMarketingActions[]; stepId: number },
+      options?: OptionCallback<StepMarketingActions[]>,
+    ) =>
+      props.modifyStepMarketingActionsConfigurationAction(data, options),
 
   deleteCadenceStep:
     (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>
@@ -738,12 +831,8 @@ const mapWithHandlers = {
         props.fetchMarketingActionsAction(
           { cadence_step: stepId },
           {
-            onSuccess: () => {
-              options?.onSuccess?.();
-            },
-            onError: () => {
-              options?.onError?.();
-            },
+            onSuccess: () => options?.onSuccess?.(),
+            onError: () => options?.onError?.(),
           },
         );
       }

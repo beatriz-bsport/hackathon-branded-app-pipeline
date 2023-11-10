@@ -26,6 +26,7 @@ type Props = {
   isRippleEnabled?: boolean;
   type?: ButtonHTMLType;
   size?: ButtonSizeType;
+  children: React.ReactNode;
 };
 
 const useButtonClassNames = (

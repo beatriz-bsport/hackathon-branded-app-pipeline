@@ -6,7 +6,7 @@
   max-height: calc(100dvh - 48px);
   container: bsOfferBookingPage / inline-size;
   display: grid;
-  overflow: auto;
+  overflow: hidden;
 }
 
 .bs-new-offer-booking-page__pricing_container {

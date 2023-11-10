@@ -6625,7 +6625,7 @@
                         "helperText": "This will be the maximum amount of future bookings per member.",
                         "placeholder": "Maximum"
                     },
-                    "label": "Limit the amount of future bookings per member"
+                    "label": "Limit the amount of future bookings per member for group activities"
                 },
                 "hiddenFromMarketplace": "Activate this to display your studio on the general BSPORT app",
                 "schedule": {

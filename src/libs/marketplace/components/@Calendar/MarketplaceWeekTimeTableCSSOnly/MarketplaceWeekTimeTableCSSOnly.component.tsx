@@ -25,7 +25,7 @@ import { Level } from '#libs/level/types';
 import { Theme } from '#libs/theme/types';
 import {
   isOfferInThePast,
-  firstOfferInGroupLocksBookingBecauseInPast,
+  isOfferInGroupLockedByPreviousOfferInPast,
 } from '../../../utils';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { Establishment } from '#libs/establishment/types';
@@ -242,11 +242,11 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
                     isBookingDisabled={
                       !o.available ||
                       isOfferInThePast(o) ||
-                      firstOfferInGroupLocksBookingBecauseInPast(o, groupData)
+                      isOfferInGroupLockedByPreviousOfferInPast(o, groupData)
                     }
                     isOfferPassed={
                       isOfferInThePast(o) ||
-                      firstOfferInGroupLocksBookingBecauseInPast(o, groupData)
+                      isOfferInGroupLockedByPreviousOfferInPast(o, groupData)
                     }
                     isRegistered={this.props.bookedOffers?.includes(o?.id)}
                     metaActivities={this.props.metaActivities}
@@ -347,7 +347,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
                 isBookingDisabled={!offer.available || isOfferInThePast(offer)}
                 isOfferPassed={
                   isOfferInThePast(offer) ||
-                  firstOfferInGroupLocksBookingBecauseInPast(offer, groupData)
+                  isOfferInGroupLockedByPreviousOfferInPast(offer, groupData)
                 }
                 isRegistered={this.props.bookedOffers?.includes(offer?.id)}
                 metaActivity={metaActivity}

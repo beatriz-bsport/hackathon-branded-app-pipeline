@@ -7,7 +7,7 @@ import DoneAllIcon from '@material-ui/icons/DoneAll';
 import {
   isOfferInThePast,
   getBookingButtonTraduction,
-  firstOfferInGroupLocksBookingBecauseInPast,
+  isOfferInGroupLockedByPreviousOfferInPast,
 } from '../../../utils';
 import { Offer_FULL } from '#libs/offer/types';
 import { OffersGroup } from '#libs/group-offer/types';
@@ -43,7 +43,7 @@ const MarketplaceBookButtonForDialog: React.FC<Props> = ({
     () =>
       !offer.available ||
       isOfferInThePast(offer) ||
-      firstOfferInGroupLocksBookingBecauseInPast(offer, group),
+      isOfferInGroupLockedByPreviousOfferInPast(offer, group),
     [group, offer],
   );
   return (

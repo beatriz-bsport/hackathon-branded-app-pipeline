@@ -11,7 +11,7 @@ import DoneAllIcon from '@material-ui/icons/DoneAll';
 import {
   isOfferInThePast,
   getBookingButtonTraduction,
-  firstOfferInGroupLocksBookingBecauseInPast,
+  isOfferInGroupLockedByPreviousOfferInPast,
 } from '#libs/marketplace/utils';
 import { Offer } from '#libs/offer/types';
 import { OffersGroup } from '#libs/group-offer/types';
@@ -41,7 +41,7 @@ const MarketplaceBookButton: React.FC<Props> = ({
   const offerIsInThePast = useMemo(() => isOfferInThePast(offer), [offer]);
 
   const firstOfferInGroupIsInThePast = useMemo(
-    () => firstOfferInGroupLocksBookingBecauseInPast(offer, group),
+    () => isOfferInGroupLockedByPreviousOfferInPast(offer, group),
     [group, offer],
   );
 

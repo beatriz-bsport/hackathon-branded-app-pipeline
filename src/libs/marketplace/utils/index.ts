@@ -16,7 +16,7 @@ import {
 import { doTextSearch } from './fuse-search';
 import {
   isOfferInThePast,
-  firstOfferInGroupLocksBookingBecauseInPast,
+  isOfferInGroupLockedByPreviousOfferInPast,
   isOfferBookableYet,
   getPositionOfOfferInTheList,
   getOfferStatus,
@@ -38,7 +38,7 @@ export {
   getSepaDebitNeedsBillingAddress,
   doTextSearch,
   isOfferInThePast,
-  firstOfferInGroupLocksBookingBecauseInPast,
+  isOfferInGroupLockedByPreviousOfferInPast,
   isOfferBookableYet,
   getPositionOfOfferInTheList,
   getOfferStatus,

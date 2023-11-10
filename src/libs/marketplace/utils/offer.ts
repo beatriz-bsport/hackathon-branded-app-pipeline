@@ -14,10 +14,23 @@ export function isOfferInThePast(offer: Offer | Offer_FULL) {
   return moment(offer.date_start).isBefore(moment());
 }
 
-export function firstOfferInGroupLocksBookingBecauseInPast(
+/**
+ * Checks if an offer in a group is locked by a previous offer of this group.
+ * 1. If the offer group allows single bookings, then the offer shouldn't be locked
+ * 2. Otherwise, if the group contains any past offer, it should be locked
+ *
+ * @param offerInGroup - The offer in the group to check.
+ * @param offerGroup - The group of offers to check in.
+ *
+ * @returns - Returns true if the offer is locked by a previous offer, false otherwise.
+ */
+export function isOfferInGroupLockedByPreviousOfferInPast(
   offerInGroup: Offer_FULL,
   offerGroup?: OffersGroup,
 ) {
+  if (offerGroup?.full_booking_only === false) {
+    return false;
+  }
   if (offerGroup?.first_offer_date) {
     return moment(offerGroup.first_offer_date).isSameOrBefore(moment());
   }

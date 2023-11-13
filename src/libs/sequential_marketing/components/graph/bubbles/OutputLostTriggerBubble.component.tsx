@@ -8,6 +8,8 @@ import CadenceBubble from './CadenceBubble.component';
 import MultipleConnectedTriggerForm from '#libs/sequential_marketing/components/form/connected_triggers/MultipleConnectedTriggerForm.component';
 
 import {
+  DestinationKind,
+  DestinationStatus,
   LOST_OUTPUT_TIMEOUT_TRIGGER_ID,
   SequentialMarketingColors,
   TriggerKind,
@@ -66,6 +68,8 @@ const OutputLostTriggerBubble: React.FC<Props> = ({
         getConnectedTriggerDefaultValues({
           triggerKind: TriggerKind.ONLY_TIMEOUT,
           triggerUuid: LOST_OUTPUT_TIMEOUT_TRIGGER_ID,
+          destinationKind: DestinationKind.CADENCE_TO_OUTSIDE,
+          destinationStatus: DestinationStatus.FAIL,
         }),
       ],
     );

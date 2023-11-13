@@ -16575,7 +16575,7 @@
                 "helper": "Si la séance a lieu trop rapidement dans le futur, le membre ne sera pas inscrit même s'il possède une carte de cours valide"
             },
             "check_credit": {
-                "label": "Vérifier que le client a une carte de cours compatible avec l'offre et suffisamment créditée",
+                "label": "Vérifier que le client a une carte de cours compatible avec la séance et suffisamment créditée",
                 "helper": "Un client ne pourra être ajouté à une file d'attente tant qu'il ne dispose pas d'une carte de cours compatible avec l'offre concernée et étant suffisamment créditée pour effectuer la réservation"
             },
             "display_member_position": {

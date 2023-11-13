@@ -275,6 +275,7 @@ exports.default = {
       fabrique_typography: 'Typography',
       fabrique_card: 'Card',
       fabrique_button: 'Button',
+      fabrique_icon_button: 'Icon button',
       marketplace_minimal_appbar: 'Minimal AppBar',
       fabrique_badge: 'Badge',
       marketplace_spot_selector: 'Spot scheduling selector',

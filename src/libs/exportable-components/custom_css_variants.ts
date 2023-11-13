@@ -194,6 +194,10 @@ import {
   FABRIQUE_BUTTON_CONFIGURATION,
   FABRIQUE_BUTTON_PREVIEW,
 } from '#components/css-only/Fabrique/ButtonV2';
+import {
+  FABRIQUE_ICON_BUTTON_CONFIGURATION,
+  FABRIQUE_ICON_BUTTON_PREVIEW,
+} from '#components/css-only/Fabrique/IconButton';
 
 import {
   CSSComponentPreviews,
@@ -276,6 +280,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
         FABRIQUE_CARD_CONFIGURATION,
         FABRIQUE_BADGE_CONFIGURATION,
         FABRIQUE_BUTTON_CONFIGURATION,
+        FABRIQUE_ICON_BUTTON_CONFIGURATION,
         AUTHENTICATION_LOGIN_CONFIGURATION,
         FABRIQUE_TEXTFIELD_CONFIGURATION,
       ]
@@ -393,6 +398,8 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
         FABRIQUE_TEXTFIELD_PREVIEW,
       [CssComponentsVariantIdentifiers.FABRIQUE_BUTTON]:
         FABRIQUE_BUTTON_PREVIEW,
+      [CssComponentsVariantIdentifiers.FABRIQUE_ICON_BUTTON]:
+        FABRIQUE_ICON_BUTTON_PREVIEW,
     }),
   });
 export const CSS_COMPONENT_PAGES: Immutable.Immutable<MarketplacePage[]> =

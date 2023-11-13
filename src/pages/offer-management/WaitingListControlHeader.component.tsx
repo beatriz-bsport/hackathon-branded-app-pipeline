@@ -26,7 +26,7 @@ export const WaitingListControlHeader: React.FC<Props> = ({
   const nbPending = React.useMemo(
     () =>
       bookingOptionsPending?.filter(
-        (option: BookingOption) => !option.cancelled,
+        (option: BookingOption) => !option.cancelled && !option.booking
       )?.length ?? 0,
     [bookingOptionsPending],
   );

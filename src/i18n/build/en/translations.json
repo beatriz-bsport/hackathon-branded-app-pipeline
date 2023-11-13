@@ -18591,5 +18591,13 @@
             "noAnonymousClientDebt": "It is necessary to identify a member on the invoice to use the client account balance",
             "internalCredits": "Internal credits"
         }
+    },
+    "campaign": {
+        "schemaError": {
+            "nonEmptyEmailTemplate": "Please choose an e-mail template"
+        },
+        "mail": {
+            "customDomainNotDefined": "You did not define a custom domain. Please get in touch with our team to initiate the configuration process."
+        }
     }
 }

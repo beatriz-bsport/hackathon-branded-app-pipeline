@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 import {
   DEFAULT_NODE_GAP,
   DestinationKind,
+  DestinationStatus,
   FilterIdentifier,
   TRIGGER_DEFAULT_TIMEOUT_DAYS,
   TRIGGER_TEMPORARY_ID,
@@ -10,6 +11,7 @@ import {
 } from '#libs/sequential_marketing/constants';
 import type {
   ConnectedTrigger,
+  DestinationConfig,
   GraphCanvas,
 } from '#libs/sequential_marketing/types';
 import type { StoredStep } from '#libs/sequential_marketing/components/graph/hooks/types';
@@ -67,9 +69,12 @@ export const getConnectedTriggerPosition = (
  * @param {TriggerKind} triggerKind - Sequential marketing trigger kind
  * @param {StoredStep} source - Source step of the trigger
  * @param {number} sourceId - Id of the trigger source step
- * @param {DestinationKind} destinationKind - Destination kind for the trigger
  * @param {StoredStep} destination - Destination step of the trigger, in case of connect step to step
+ * @param {number} destinationId - Id of the trigger destination step
+ * @param {DestinationKind} destinationKind - Destination kind for the trigger
+ * @param {DestinationStatus} destinationStatus - Destination status for the trigger
  * @param {string} triggerUuid - Uuid of the trigger_config
+ * @param {boolean} isTemporary - Indicates whether the trigger should have a temporary uuid or not
  * @returns {ConnectedTrigger} - Return a ConnectedTrigger with default values
  */
 
@@ -77,22 +82,45 @@ type TriggerDefaultValuesParameters = {
   triggerKind: TriggerKind;
   source?: StoredStep;
   sourceId?: number;
-  destinationKind?: DestinationKind;
   destination?: StoredStep;
+  destinationId?: number;
+  destinationKind?: DestinationKind;
+  destinationStatus?: DestinationStatus;
   triggerUuid?: string;
+  isTemporary?: boolean;
 };
 
 export const getConnectedTriggerDefaultValues = ({
   triggerKind,
   source,
   sourceId,
-  destinationKind,
   destination,
+  destinationId,
+  destinationKind,
+  destinationStatus,
   triggerUuid,
+  isTemporary,
 }: TriggerDefaultValuesParameters): ConnectedTrigger => {
   const position = getConnectedTriggerPosition(source, destination);
+
   const triggerConfigUuid =
-    triggerUuid || `${TRIGGER_TEMPORARY_ID}_${uuidv4()}`;
+    triggerUuid ||
+    (isTemporary ? `${TRIGGER_TEMPORARY_ID}_${uuidv4()}` : uuidv4());
+
+  const hasCanvasPosition =
+    destinationKind &&
+    [DestinationKind.STEP_TO_OUTSIDE, DestinationKind.STEP_TO_STEP].includes(
+      destinationKind,
+    );
+
+  const destination_config: DestinationConfig = {
+    source_id: source?.id || sourceId || null,
+    destination_id: destination?.id || destinationId || null,
+    kind: destinationKind || null,
+    reason: null,
+    status: destinationStatus || null,
+    uuid: uuidv4(),
+  };
 
   switch (triggerKind) {
     case TriggerKind.ONLY_EVENT_TRIGGER:
@@ -102,20 +130,12 @@ export const getConnectedTriggerDefaultValues = ({
           identifier: TriggerIdentifier.EVENT,
           event_type: null,
         },
-        destination_config: {
-          source_id: source?.id || sourceId || null,
-          destination_id: destination?.id || null,
-          kind: destinationKind || null,
-          reason: null,
-          status: null,
-          uuid: uuidv4(),
-        },
         filtering_config: {
           identifier: FilterIdentifier.EMPTY,
           uuid: uuidv4(),
-          smartlist_pk: null,
         },
-        canvas: position,
+        destination_config,
+        ...(hasCanvasPosition ? { canvas: position } : {}),
       };
     case TriggerKind.ONLY_SMARTLIST_FILTERING:
       return {
@@ -123,20 +143,12 @@ export const getConnectedTriggerDefaultValues = ({
           uuid: triggerConfigUuid,
           identifier: TriggerIdentifier.EMPTY,
         },
-        destination_config: {
-          source_id: source?.id || sourceId || null,
-          destination_id: destination?.id || null,
-          kind: destinationKind || null,
-          reason: null,
-          status: null,
-          uuid: uuidv4(),
-        },
         filtering_config: {
           identifier: FilterIdentifier.SMARTLIST,
           uuid: uuidv4(),
-          smartlist_pk: null,
         },
-        canvas: position,
+        destination_config,
+        ...(hasCanvasPosition ? { canvas: position } : {}),
       };
     case TriggerKind.ONLY_TIMEOUT:
       return {
@@ -145,20 +157,12 @@ export const getConnectedTriggerDefaultValues = ({
           identifier: TriggerIdentifier.TIMEOUT,
           timeout: TRIGGER_DEFAULT_TIMEOUT_DAYS,
         },
-        destination_config: {
-          source_id: source?.id || sourceId || null,
-          destination_id: destination?.id || null,
-          kind: destinationKind || null,
-          reason: null,
-          status: null,
-          uuid: uuidv4(),
-        },
         filtering_config: {
           identifier: FilterIdentifier.EMPTY,
           uuid: uuidv4(),
-          smartlist_pk: null,
         },
-        canvas: position,
+        destination_config,
+        ...(hasCanvasPosition ? { canvas: position } : {}),
       };
     case TriggerKind.EVENT_TRIGGER_AND_SMARTLIST_FILTERING:
       return {
@@ -167,20 +171,12 @@ export const getConnectedTriggerDefaultValues = ({
           identifier: TriggerIdentifier.EVENT,
           event_type: null,
         },
-        destination_config: {
-          source_id: source?.id || sourceId || null,
-          destination_id: destination?.id || null,
-          kind: destinationKind || null,
-          reason: null,
-          status: null,
-          uuid: uuidv4(),
-        },
         filtering_config: {
           identifier: FilterIdentifier.SMARTLIST,
           uuid: uuidv4(),
-          smartlist_pk: null,
         },
-        canvas: position,
+        destination_config,
+        ...(hasCanvasPosition ? { canvas: position } : {}),
       };
     default:
       return null;
@@ -208,7 +204,6 @@ export const changeConnectedTriggerKind = (
         filtering_config: {
           uuid: connectedTrigger.filtering_config.uuid,
           identifier: FilterIdentifier.EMPTY,
-          smartlist_pk: null,
         },
       };
     case TriggerKind.ONLY_SMARTLIST_FILTERING:
@@ -221,7 +216,6 @@ export const changeConnectedTriggerKind = (
         filtering_config: {
           uuid: connectedTrigger.filtering_config.uuid,
           identifier: FilterIdentifier.SMARTLIST,
-          smartlist_pk: null,
         },
       };
     case TriggerKind.ONLY_TIMEOUT:
@@ -235,7 +229,6 @@ export const changeConnectedTriggerKind = (
         filtering_config: {
           uuid: connectedTrigger.filtering_config.uuid,
           identifier: FilterIdentifier.EMPTY,
-          smartlist_pk: null,
         },
       };
     case TriggerKind.EVENT_TRIGGER_AND_SMARTLIST_FILTERING:
@@ -249,10 +242,23 @@ export const changeConnectedTriggerKind = (
         filtering_config: {
           uuid: connectedTrigger.filtering_config.uuid,
           identifier: FilterIdentifier.SMARTLIST,
-          smartlist_pk: null,
         },
       };
     default:
       return null;
   }
 };
+
+/** Replaces the connected trigger uuid by a random one generated with uuidv4.
+ * @param {ConnectedTrigger} connectedTrigger - The connected trigger to modify.
+ * @returns {ConnectedTrigger} - A modified connected trigger with a new trigger_config uuid.
+ */
+export const updateConnectedTriggerUuid = (
+  connectedTrigger: ConnectedTrigger,
+): ConnectedTrigger => ({
+  ...connectedTrigger,
+  trigger_config: {
+    ...connectedTrigger.trigger_config,
+    uuid: uuidv4(),
+  },
+});

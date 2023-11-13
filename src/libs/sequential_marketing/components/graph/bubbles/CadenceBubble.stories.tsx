@@ -64,6 +64,11 @@ export default {
       control: 'boolean',
       description: 'True to hide bottom action buttons',
     },
+    squareIcon: {
+      control: 'boolean',
+      description:
+        'True to have square icon in the bubble header instead of the diamond one',
+    },
   },
 } as ComponentMeta<typeof CadenceBubble>;
 
@@ -71,8 +76,8 @@ const Template: ComponentStory<typeof CadenceBubble> = (
   args: CadenceBubbleProps,
 ) => <CadenceBubble {...args} />;
 
-export const Primary = Template.bind({});
-Primary.args = {
+export const Basic = Template.bind({});
+Basic.args = {
   title: 'Title',
   icon: 'PlayArrow',
   color: '#60caff',
@@ -80,4 +85,14 @@ Primary.args = {
   onConfirmText: 'Confirm',
   minimalIcon: false,
   withoutBottomActions: false,
+};
+
+export const SquareIcon = Template.bind({});
+SquareIcon.args = {
+  title: 'Title',
+  icon: 'DeviceHub',
+  color: '#ffb55e',
+  onCancelText: 'No',
+  onConfirmText: 'Yes',
+  squareIcon: true,
 };

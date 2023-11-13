@@ -28,6 +28,7 @@ export type CadenceBubbleProps = {
   onConfirmText?: string;
   isSubmissionForbidden?: boolean;
   withDeleteIcon?: boolean;
+  squareIcon?: boolean;
 };
 
 type CadenceBubbleHeaderProps = { classes: ClassNameMap<string> } & Pick<
@@ -96,6 +97,7 @@ const CadenceBubble: React.FC<CadenceBubbleProps> = ({
   onConfirmClick,
   onConfirmText,
   withDeleteIcon,
+  squareIcon,
 }) => {
   const { t } = useTranslation('marketing');
 
@@ -109,7 +111,7 @@ const CadenceBubble: React.FC<CadenceBubbleProps> = ({
     return 'space-between';
   }, [onCancelClick, onConfirmClick, withDeleteIcon]);
 
-  const classes = useStyles({ color, bottomButtonPosition });
+  const classes = useStyles({ color, bottomButtonPosition, squareIcon });
 
   return (
     <BubbleCard withShadow width={CADENCE_BUBBLE_WIDTH}>
@@ -153,7 +155,11 @@ const CadenceBubble: React.FC<CadenceBubbleProps> = ({
   );
 };
 
-type StylesProps = { color: string; bottomButtonPosition: string };
+type StylesProps = {
+  color: string;
+  bottomButtonPosition: string;
+  squareIcon?: boolean;
+};
 
 const useStyles = makeStyles<Theme, StylesProps>((theme) => ({
   footer: {
@@ -188,7 +194,7 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) => ({
     alignItems: 'center',
     gap: theme.spacing(1.5),
     paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
+    paddingBottom: ({ squareIcon }) => !squareIcon && theme.spacing(1),
     width: '100%',
     flex: 1,
   },
@@ -210,17 +216,20 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) => ({
       chroma(color || theme.palette.primary.main)
         .alpha(0.09)
         .hex(),
-    transform: 'rotate(45deg)',
+    transform: ({ squareIcon }) => !squareIcon && 'rotate(45deg)',
     height: HEADER_ICON_SIZE,
     width: HEADER_ICON_SIZE,
     borderRadius: theme.spacing(0.5),
-    margin: theme.spacing(1),
+    margin: ({ squareIcon }) => !squareIcon && theme.spacing(1),
   },
   centerAbsolute: {
     position: 'absolute',
     top: '50%',
     left: '50%',
-    transform: 'translate(-45%,-45%) rotate(-45deg)',
+    transform: ({ squareIcon }) =>
+      squareIcon
+        ? 'translate(-45%,-45%)'
+        : 'translate(-45%,-45%) rotate(-45deg)',
   },
   deleteButton: {
     position: 'absolute',

@@ -69,6 +69,10 @@ export default {
       description:
         'True to have square icon in the bubble header instead of the diamond one',
     },
+    smallTitle: {
+      control: 'boolean',
+      description: 'True to have a smaller title',
+    },
   },
 } as ComponentMeta<typeof CadenceBubble>;
 

@@ -2,7 +2,6 @@ import React from 'react';
 import Immutable from 'seamless-immutable';
 import { useTranslation } from 'react-i18next';
 
-import type { OptionCallback } from '../../../../../state/types';
 import type { ConnectedTrigger } from '#libs/sequential_marketing/types';
 import type { SmartList } from '#libs/smart-list/types';
 
@@ -18,7 +17,7 @@ export type Props = {
   trigger: ConnectedTrigger;
   smartlists: Immutable.ImmutableArray<SmartList>;
   onCancel?: () => void;
-  onConfirm: (data: ConnectedTrigger, options?: OptionCallback) => void;
+  onConfirm: (data: ConnectedTrigger) => void;
 };
 
 const UniqueTriggerBubble: React.FC<Props> = ({
@@ -52,6 +51,7 @@ const UniqueTriggerBubble: React.FC<Props> = ({
 
   return (
     <CadenceBubble
+      smallTitle
       color={SequentialMarketingColors.TRIGGER_COLOR}
       icon={triggerIconByKind[kind]}
       isSubmissionForbidden={!isFormValid}

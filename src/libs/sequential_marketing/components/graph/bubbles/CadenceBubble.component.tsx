@@ -10,7 +10,6 @@ import IconButton from '@material-ui/core/IconButton';
 import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
 import BubbleCard from '#components/card/BubbleCard.component';
 import {
-  CADENCE_BUBBLE_HEADER_FONT_SIZE,
   CADENCE_BUBBLE_WIDTH,
   HEADER_ICON_SIZE,
 } from '#libs/sequential_marketing/constants/steps';
@@ -21,6 +20,7 @@ export type CadenceBubbleProps = {
   color: string;
   children?: React.ReactNode;
   minimalIcon?: boolean;
+  smallTitle?: boolean;
   withoutBottomActions?: boolean;
   onCancelClick?: () => void;
   onCancelText?: string;
@@ -33,11 +33,11 @@ export type CadenceBubbleProps = {
 
 type CadenceBubbleHeaderProps = { classes: ClassNameMap<string> } & Pick<
   CadenceBubbleProps,
-  'title' | 'icon' | 'color' | 'minimalIcon' | 'onCancelClick'
+  'title' | 'smallTitle' | 'icon' | 'color' | 'minimalIcon' | 'onCancelClick'
 >;
 
 const CadenceBubbleHeader: React.FC<CadenceBubbleHeaderProps> = React.memo(
-  ({ classes, color, icon, minimalIcon, title, onCancelClick }) => {
+  ({ classes, color, icon, minimalIcon, smallTitle, title, onCancelClick }) => {
     return (
       <div className={classes.title}>
         <div className={classes.flexIconAndText}>
@@ -61,7 +61,10 @@ const CadenceBubbleHeader: React.FC<CadenceBubbleHeaderProps> = React.memo(
             </div>
           )}
           <div className={classes.labelContainer}>
-            <Typography className={classes.label} variant="subtitle2">
+            <Typography
+              className={classes.label}
+              variant={smallTitle ? 'subtitle1' : 'h6'}
+            >
               {title}
             </Typography>
           </div>
@@ -98,6 +101,7 @@ const CadenceBubble: React.FC<CadenceBubbleProps> = ({
   onConfirmText,
   withDeleteIcon,
   squareIcon,
+  smallTitle,
 }) => {
   const { t } = useTranslation('marketing');
 
@@ -122,6 +126,7 @@ const CadenceBubble: React.FC<CadenceBubbleProps> = ({
           icon={icon}
           minimalIcon={minimalIcon}
           onCancelClick={withDeleteIcon ? onCancelClick : null}
+          smallTitle={smallTitle}
           title={title}
         />
       </div>
@@ -202,12 +207,10 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) => ({
     overflow: 'hidden',
   },
   label: {
-    fontSize: CADENCE_BUBBLE_HEADER_FONT_SIZE,
-    fontWeight: 'bold',
+    fontWeight: 500,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
-    flex: 1,
   },
   diamond: {
     flexShrink: 0,

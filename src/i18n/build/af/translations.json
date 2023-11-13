@@ -3617,7 +3617,8 @@
         "cancel": "Cancel",
         "confirm": "Save",
         "next": "Next",
-        "step": { "name": "Name" }
+        "step": { "name": "Name" },
+        "requiredField": "This field is required to continue."
       },
       "step": {
         "archive": {

@@ -640,6 +640,7 @@ exports.default = {
       confirm: 'Save',
       next: 'Next',
       step: { name: 'Name' },
+      requiredField: 'This field is required to continue.',
     },
     step: {
       archive: {

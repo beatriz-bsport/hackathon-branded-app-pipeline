@@ -42,6 +42,23 @@ export const generateRandomName = (
 };
 
 /**
+ * Generates multiple product names with Faker
+ * @param fakerInstance The faker instance
+ * @param options The options you want to pass. Count is set to 2 by default
+ */
+export const generateRandomNames = (
+  fakerInstance: Faker,
+  options: {
+    count?: number;
+    length?: FakerTextLength;
+  },
+) => {
+  return Array.from({ length: options?.count ?? 2 }, () =>
+    generateRandomName(fakerInstance, options?.length),
+  );
+};
+
+/**
  * Generates a product description with Faker
  * @param length The text length
  */

@@ -13368,11 +13368,19 @@
         },
         "loading": {
           "title": "Members are being added to the session",
-          "content": "Please do not refresh the tab or leave this page. This process can take up to 40 seconds"
+          "content": "Please do not refresh the tab or leave this page. This process can take a few seconds to run."
         },
         "warning": {
           "title": "Are you sure?",
           "content": "By closing the form, the selected member(s) will not be added to the session. If you selected several members and want to unselect this member only, please click on cancel on the member form"
+        },
+        "incomplete": {
+          "title": "Finalize your waitlist",
+          "content": {
+            "registered": "The following members have been registered, as a compatible was found:",
+            "unregistered": "The following members could NOT be registered, no compatible pass could be found"
+          },
+          "actions": { "ok": "OK", "bookThem": "Book them manually" }
         }
       }
     },

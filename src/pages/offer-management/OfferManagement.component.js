@@ -32,6 +32,7 @@ import RecurrenceRuleBookingFormDialog from '#libs/booking/components/Recurrence
 
 import WaitinglistAutoBookingInfoDialog from '#libs/waiting-list/components/Dialogs/WaitinglistAutoBookingInfoDialog.component';
 import WaitingListAutoBookingLoadingDialog from '#libs/waiting-list/components/Dialogs/WaitingListAutoBookingLoadingDialog.component';
+import WaitingListAutoBookingIncompleteDialog from '#libs/waiting-list/components/Dialogs/WaitingListAutoBookingIncompleteDialog.component';
 import WaitingListAutoBookingFeedbackDialog from '#libs/waiting-list/components/Dialogs/WaitingListAutoBookingFeedbackDialog.component';
 import WaitinglistAutoBookingWarningDialog from '#libs/waiting-list/components/Dialogs/WaitinglistAutoBookingWarningDialog.component';
 
@@ -72,6 +73,7 @@ const RECURRENT_BOOKING_PAGE_SIZE = 10;
 const AUTOBOOKING_DIALOGS = {
   info: 'info',
   loading: 'loading',
+  incomplete: 'incomplete',
   feedBack: 'feedBack',
   warning: 'warning',
 };
@@ -288,6 +290,8 @@ type Props = {
   unregisteredSelectedBookingOptions: number[],
   getBookingOptionToRegisterData: () => void,
   setIsAutoBookingError: (isAutoBookingError: boolean) => void,
+
+  registeredSelectedBookingOptions: Array<number>,
 };
 
 type State = {
@@ -714,6 +718,53 @@ export class OfferManagement extends Component<Props, State> {
     );
   };
 
+  launchBookingOptionRegistrationBulk = () => {
+    const bookingOptionBeingProcessed =
+      this.props.bookingOptionsPending?.find(
+        (bookingOption) =>
+          bookingOption.id ===
+          this.props.unregisteredSelectedBookingOptions?.[0],
+      ) ?? {};
+    const memberToRegister = this.props.members?.find(
+      (member) => member.id === bookingOptionBeingProcessed.member,
+    );
+    if (memberToRegister) {
+      this.props.registerOption(bookingOptionBeingProcessed.id, {
+        name: memberToRegister.name,
+        photo: memberToRegister.photo,
+        id: memberToRegister.id,
+      });
+    }
+    this.onCloseAutoBookingDialogs();
+  };
+
+  getMemberRegisteredAutomatically = () => {
+    return this.props.registeredSelectedBookingOptions.map((bo) =>
+      this.props.members?.find(
+        (member) =>
+          member.id ===
+            (
+              this.props.bookingOptionsPending?.find(
+                (bookingOption) => bookingOption.id === bo,
+              ) ?? {}
+            ).member ?? null,
+      ),
+    );
+  };
+
+  getMemberNotRegisteredAutomatically = () =>
+    this.props.unregisteredSelectedBookingOptions.map((bo) =>
+      this.props.members?.find(
+        (member) =>
+          member.id ===
+            (
+              this.props.bookingOptionsPending?.find(
+                (bookingOption) => bookingOption.id === bo,
+              ) ?? {}
+            ).member ?? null,
+      ),
+    );
+
   render() {
     const {
       offer,
@@ -733,6 +784,9 @@ export class OfferManagement extends Component<Props, State> {
 
     const isAutoBookingFeedbackDialogOpened =
       this.props.autoBookingDialogOpened === AUTOBOOKING_DIALOGS.feedBack;
+
+    const isAutoBookingIncompleteDialogOpened =
+      this.props.autoBookingDialogOpened === AUTOBOOKING_DIALOGS.incomplete;
 
     const isAutoBookingWarningDialogOpened =
       this.props.autoBookingDialogOpened === AUTOBOOKING_DIALOGS.warning;
@@ -764,6 +818,13 @@ export class OfferManagement extends Component<Props, State> {
         />
         <WaitingListAutoBookingLoadingDialog
           open={isAutoBookingLoadingDialogOpened}
+        />
+        <WaitingListAutoBookingIncompleteDialog
+          onClose={this.onCloseAutoBookingDialogs}
+          onContinueBookingOptions={this.launchBookingOptionRegistrationBulk}
+          open={isAutoBookingIncompleteDialogOpened}
+          registeredMemberList={this.getMemberRegisteredAutomatically()}
+          unregisteredMemberList={this.getMemberNotRegisteredAutomatically()}
         />
         <WaitingListAutoBookingFeedbackDialog
           isDisabled={this.props.offerLoading}
@@ -1161,6 +1222,11 @@ export default compose(
     'setUnregisteredSelectedBookingOptions',
     [],
   ),
+  withState(
+    'registeredSelectedBookingOptions',
+    'setRegisteredSelectedBookingOptions',
+    [],
+  ),
   withStateHandlers(
     {
       searchedText: '',
@@ -1507,6 +1573,7 @@ export default compose(
       ({
         setIsAutoBookingError,
         registerMultipleOptionsBackground,
+        setRegisteredSelectedBookingOptions,
         setUnregisteredSelectedBookingOptions,
         booking_ordering,
         fetchOfferData,
@@ -1545,25 +1612,13 @@ export default compose(
               closeAllAutoBookingDialogs();
               fetchOfferData(booking_ordering);
               if (returnedValue?.unregistered_booking_options?.length) {
+                openAutoBookingDialog(AUTOBOOKING_DIALOGS.incomplete);
+                setRegisteredSelectedBookingOptions(
+                  returnedValue.registered_booking_options,
+                );
                 setUnregisteredSelectedBookingOptions(
                   returnedValue.unregistered_booking_options,
                 );
-                const bookingOptionBeingProcessed =
-                  bookingOptionsPending?.find(
-                    (bookingOption) =>
-                      bookingOption.id ===
-                      returnedValue?.unregistered_booking_options[0],
-                  ) ?? {};
-                const memberToRegister = members?.find(
-                  (member) => member.id === bookingOptionBeingProcessed.member,
-                );
-                if (memberToRegister) {
-                  registerOption(bookingOptionBeingProcessed.id, {
-                    name: memberToRegister.name,
-                    photo: memberToRegister.photo,
-                    id: memberToRegister.id,
-                  });
-                }
               } else {
                 openAutoBookingDialog(AUTOBOOKING_DIALOGS.feedBack);
               }

@@ -18,13 +18,14 @@ import { ButtonSize, ButtonVariant, ButtonColor } from './constants';
 import './styles.css';
 
 type Props = {
-  color: ButtonColorType;
+  color?: ButtonColorType;
+  className?: string;
   isDisabled?: boolean;
-  variant: ButtonVariantType;
+  variant?: ButtonVariantType;
   onClick: () => void;
   isRippleEnabled?: boolean;
   type?: ButtonHTMLType;
-  size: ButtonSizeType;
+  size?: ButtonSizeType;
 };
 
 const useButtonClassNames = (
@@ -142,6 +143,7 @@ const useButtonClassNames = (
 };
 export const Button: React.FC<Props> = ({
   color = ButtonColor.PRIMARY,
+  className,
   isDisabled,
   variant = ButtonVariant.CONTAINED,
   onClick,
@@ -158,7 +160,7 @@ export const Button: React.FC<Props> = ({
   );
   return (
     <ButtonBase
-      className={buttonClassNames}
+      className={classNames(buttonClassNames, className)}
       isDisabled={isDisabled}
       isRippleEnabled={isRippleEnabled}
       onClick={onClick}

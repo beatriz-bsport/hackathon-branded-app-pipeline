@@ -53,3 +53,5 @@ export const DEFAULT_X_FOR_EXIT = 1200;
 
 export const CADENCE_BUBBLE_HEADER_FONT_SIZE = '20px';
 export const CADENCE_BUBBLE_WIDTH = '470px';
+
+export const MAX_LENGTH_CADENCE_STEP_NAME = 500;

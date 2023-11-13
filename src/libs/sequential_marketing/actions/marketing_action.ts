@@ -38,11 +38,11 @@ export function fetchMarketingActions(
     try {
       const response = await fetchMarketingActionsAPI(params);
       dispatch(fetchStepMarketingActions.success(response.data));
-      options && options.onSuccess && options.onSuccess(response.data);
+      options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
       dispatch(fetchStepMarketingActions.error(err));
-      options && options.onError && options.onError();
+      options?.onError?.();
     }
 
     dispatch(fetchStepMarketingActions.isLoading(false));
@@ -116,11 +116,11 @@ export function modifyStepMarketingActionsConfiguration(
       dispatch(
         modifyStepMarketingActionsConfigurationActions.success(response.data),
       );
-      options && options.onSuccess && options.onSuccess(response.data.result);
+      options?.onSuccess?.(response.data.result);
     } catch (err) {
       console.error(err);
       dispatch(modifyStepMarketingActionsConfigurationActions.error(err));
-      options && options.onError && options.onError(err);
+      options?.onError?.(err);
     }
 
     dispatch(modifyStepMarketingActionsConfigurationActions.isLoading(false));
@@ -148,11 +148,11 @@ export function deleteStepMarketingAction(
     try {
       await deleteStepMarketingActionAPI(data.id);
       dispatch(deleteStepMarketingActionsActions.success(data));
-      options && options.onSuccess && options.onSuccess();
+      options?.onSuccess?.();
     } catch (err) {
       console.error(err);
       dispatch(deleteStepMarketingActionsActions.error(err));
-      options && options.onError && options.onError();
+      options?.onError?.();
     }
 
     dispatch(deleteStepMarketingActionsActions.isLoading(false));

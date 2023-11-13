@@ -22,6 +22,7 @@ import {
 import type {
   Cadence,
   CadenceQueryParams,
+  InitialConfigurationValues,
 } from '#libs/sequential_marketing/types';
 
 import { snackbarError, snackbarSuccess } from '#libs/snackbar/actions';
@@ -46,12 +47,12 @@ export function createCadence(
       const response = await createCadenceAPI(data);
       dispatch(createCadenceActions.success(response.data));
       dispatch(snackbarSuccess('cadence.create.success'));
-      options && options.onSuccess && options.onSuccess(response.data);
+      options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
       dispatch(createCadenceActions.error(err));
       dispatch(snackbarError('cadence.create.error'));
-      options && options.onError && options.onError();
+      options?.onError?.();
     }
 
     dispatch(createCadenceActions.isLoading(false));
@@ -77,12 +78,12 @@ export function updateCadence(
       const response = await updateCadenceAPI(id, data);
       dispatch(updateCadenceActions.success(response.data));
       dispatch(snackbarSuccess('cadence.update.success'));
-      options && options.onSuccess && options.onSuccess(response.data);
+      options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
       dispatch(snackbarError('cadence.update.error'));
       dispatch(updateCadenceActions.error(err));
-      options && options.onError && options.onError();
+      options?.onError?.();
     }
 
     dispatch(updateCadenceActions.isLoading(false));
@@ -103,11 +104,11 @@ export function archiveCadence(id: number, options?: OptionCallback) {
     try {
       await archiveCadenceAPI(id);
       dispatch(archiveCadenceActions.success({ id }));
-      options && options.onSuccess && options.onSuccess();
+      options?.onSuccess?.();
     } catch (err) {
       console.error(err);
       dispatch(archiveCadenceActions.error(err));
-      options && options.onError && options.onError();
+      options?.onError?.();
     }
 
     dispatch(archiveCadenceActions.isLoading(false));
@@ -128,11 +129,11 @@ export function restoreCadence(id: number, options?: OptionCallback<Cadence>) {
     try {
       const response = await restoreCadenceAPI(id);
       dispatch(restoreCadenceActions.success(response.data));
-      options && options.onSuccess && options.onSuccess(response.data);
+      options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
       dispatch(restoreCadenceActions.error(err));
-      options && options.onError && options.onError();
+      options?.onError?.();
     }
 
     dispatch(restoreCadenceActions.isLoading(false));
@@ -153,11 +154,11 @@ export function activateCadence(id: number, options?: OptionCallback<Cadence>) {
     try {
       const response = await activateCadenceAPI(id);
       dispatch(activateCadenceActions.success(response.data));
-      options && options.onSuccess && options.onSuccess(response.data);
+      options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
       dispatch(activateCadenceActions.error(err));
-      options && options.onError && options.onError();
+      options?.onError?.();
     }
 
     dispatch(activateCadenceActions.isLoading(false));
@@ -178,11 +179,11 @@ export function shutOffCadence(id: number, options?: OptionCallback<Cadence>) {
     try {
       const response = await shutOffCadenceAPI(id);
       dispatch(shutOffCadenceActions.success(response.data));
-      options && options.onSuccess && options.onSuccess(response.data);
+      options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
       dispatch(shutOffCadenceActions.error(err));
-      options && options.onError && options.onError();
+      options?.onError?.();
     }
 
     dispatch(shutOffCadenceActions.isLoading(false));
@@ -197,7 +198,7 @@ export const upsertInitialCadenceConfigurationActions = {
 
 export function setInitialCadenceConfiguration(
   id: number,
-  data: FormValues,
+  data: InitialConfigurationValues,
   options?: OptionCallback<Cadence>,
 ) {
   return async (dispatch: Dispatch) => {
@@ -207,11 +208,11 @@ export function setInitialCadenceConfiguration(
     try {
       const response = await setInitialCadenceConfigurationAPI(id, data);
       dispatch(upsertInitialCadenceConfigurationActions.success(response.data));
-      options && options.onSuccess && options.onSuccess(response.data);
+      options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
       dispatch(upsertInitialCadenceConfigurationActions.error(err));
-      options && options.onError && options.onError();
+      options?.onError?.();
     }
 
     dispatch(upsertInitialCadenceConfigurationActions.isLoading(false));
@@ -230,11 +231,11 @@ export function updateInitialCadenceConfiguration(
     try {
       const response = await patchInitialCadenceConfigurationAPI(id, data);
       dispatch(upsertInitialCadenceConfigurationActions.success(response.data));
-      options && options.onSuccess && options.onSuccess(response.data);
+      options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
       dispatch(upsertInitialCadenceConfigurationActions.error(err));
-      options && options.onError && options.onError();
+      options?.onError?.();
     }
 
     dispatch(upsertInitialCadenceConfigurationActions.isLoading(false));
@@ -255,11 +256,11 @@ export function retrieveCadence(id: number, options?: OptionCallback<Cadence>) {
     try {
       const response = await retrieveCadenceAPI(id);
       dispatch(retrieveCadenceActions.success(response.data));
-      options && options.onSuccess && options.onSuccess(response.data);
+      options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
       dispatch(retrieveCadenceActions.error(err));
-      options && options.onError && options.onError();
+      options?.onError?.();
     }
 
     dispatch(retrieveCadenceActions.isLoading(false));
@@ -283,11 +284,11 @@ export function fetchCadenceList(
     try {
       const response = await fetchCadenceListAPI(params);
       dispatch(fetchCadenceListActions.success(response.data));
-      options && options.onSuccess && options.onSuccess(response.data);
+      options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
       dispatch(fetchCadenceListActions.error(err));
-      options && options.onError && options.onError();
+      options?.onError?.();
     }
 
     dispatch(fetchCadenceListActions.isLoading(false));

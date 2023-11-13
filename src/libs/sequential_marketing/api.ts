@@ -2,16 +2,18 @@ import type { AxiosResponse } from 'axios';
 import type { PaginatedResponse } from '../../state/types';
 import type {
   Cadence,
-  CadenceStep,
-  ConnectedTrigger,
-  StepMarketingActionsParams,
-  CadenceStepQueryParams,
   CadenceQueryParams,
-  StepMarketingActions,
+  CadenceStep,
+  CadenceStepQueryParams,
+  ConnectedTrigger,
   GraphCanvas,
+  InitialConfigurationValues,
+  StepMarketingActions,
+  StepMarketingActionsParams,
   UpdatedTrigger,
   UpdatedTriggersList,
 } from './types';
+import { InitialConfigurationStep, type DestinationStatus } from './constants';
 
 import {
   API_V1_URI,
@@ -22,7 +24,6 @@ import {
   patchAuth,
   buildUrlParams,
 } from '../../http';
-import { DestinationStatus } from './constants';
 
 // CADENCE
 
@@ -76,11 +77,19 @@ export const shutOffCadence = (id: number) => {
   );
 };
 
-export const setInitialCadenceConfiguration = (id: number, data: any) => {
+export const setInitialCadenceConfiguration = (
+  id: number,
+  data: InitialConfigurationValues,
+) => {
   return postAuth<Cadence>(
     `${API_V1_URI}/sequential_marketing/cadence/${id}/initial_config/`,
     {
-      ...data,
+      entry_list:
+        data[InitialConfigurationStep.CADENCE_ENTRY_STEP].connectedTriggers,
+      win_exit_list:
+        data[InitialConfigurationStep.CADENCE_WIN_STEP].connectedTriggers,
+      lose_exit_list:
+        data[InitialConfigurationStep.CADENCE_LOSE_STEP].connectedTriggers,
     },
   );
 };

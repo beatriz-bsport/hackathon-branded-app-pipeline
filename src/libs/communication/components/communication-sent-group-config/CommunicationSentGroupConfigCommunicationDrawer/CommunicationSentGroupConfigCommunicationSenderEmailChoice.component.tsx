@@ -9,7 +9,7 @@ import {
 import { Alert } from '@material-ui/lab';
 import { useFormikContext } from 'formik';
 import React, { useCallback, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import Select from 'react-select';
 import { Values } from './CommunicationSentGroupConfigCommunicationDrawer.component';
 import { SenderEmailKind } from '#libs/communication/constant';
@@ -118,7 +118,12 @@ export const CommunicationSentGroupConfigCommunicationSenderEmailChoice: React.F
       {!franchisorCustomDomain && (
         <Alert className={classes.alert} severity="warning">
           <Typography variant="subtitle1">
-            {t('campaign:mail.customDomainNotDefined')}
+            <Trans i18nKey="campaign:mail.customDomainNotDefined" t={t}>
+              You did not define a custom domain.
+              <br />
+              Please get in touch with our team to initiate the configuration
+              process.
+            </Trans>
           </Typography>
         </Alert>
       )}
@@ -131,7 +136,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
   },
   row: { display: 'flex', flexDirection: 'row' },
-  alert: { marginBottom: theme.spacing(2) },
+  alert: { marginBottom: theme.spacing(2), alignItems: 'center' },
   emailRadioContainer: { display: 'flex', flexDirection: 'column' },
   buttonContainer: {
     padding: theme.spacing(2),

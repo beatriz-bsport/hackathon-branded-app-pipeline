@@ -37,7 +37,7 @@ exports.default = {
     customEmail: 'Custom email',
     example: 'Example',
     customDomainNotDefined:
-      'You did not define a custom domain. "Please get in touch with our team to initiate the configuration process."',
+      'You did not define a custom domain.<1/>Please get in touch with our team to initiate the configuration process.',
     sendButton: 'Send',
   },
   smartListOption: 'Choose a smartlist',

@@ -1051,7 +1051,7 @@ const getTranslations = async () => {
         error: 'Unable to create the campaign',
       },
       update: {
-        success: 'Campagne mise à jour avec succès',
+        success: 'Campaign updated successfully',
         error: 'Unable to save the campaign',
       },
       delete: {

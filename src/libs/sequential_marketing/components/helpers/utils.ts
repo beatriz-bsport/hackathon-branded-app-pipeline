@@ -189,8 +189,8 @@ export const TriggerText = ({
         )}`,
       );
     case TriggerIdentifier.TIMEOUT:
-      return t('cadence.triggers.timeout.timout_days_chip', {
-        days: connected_trigger_config?.trigger_config?.timeout || 0,
+      return t('cadence.triggers.timeout.timeout_days_chip', {
+        count: connected_trigger_config?.trigger_config?.timeout ?? 0,
       });
     default:
       return t('Error');
@@ -369,13 +369,12 @@ export const isTriggerFake = (trigger: ConnectedTrigger) =>
  *                     If the trigger kind is not recognized or is EVENT_TRIGGER_AND_SMARTLIST_FILTERING, return null.
  */
 export const getTriggerSpecificIcon = (
-  connected_trigger_config: ConnectedTrigger,
+  connectedTrigger: ConnectedTrigger,
 ): string => {
-  switch (getTriggerKind(connected_trigger_config)) {
+  switch (getTriggerKind(connectedTrigger)) {
     case TriggerKind.ONLY_EVENT_TRIGGER:
       return getEventCategoryIconAsString(
-        (connected_trigger_config.trigger_config as TriggerEventConfig)
-          .event_type,
+        (connectedTrigger?.trigger_config as TriggerEventConfig)?.event_type,
       );
     case TriggerKind.ONLY_SMARTLIST_FILTERING:
       return 'People';

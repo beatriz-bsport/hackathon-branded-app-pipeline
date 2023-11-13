@@ -40,8 +40,8 @@ export const useConnectedTriggerChip = () => {
             )}`,
           );
         case TriggerIdentifier.TIMEOUT:
-          return t('cadence.triggers.timeout.timout_days_chip', {
-            days: connected_trigger_config.trigger_config?.timeout || 0,
+          return t('cadence.triggers.timeout.timeout_days_chip', {
+            count: connected_trigger_config.trigger_config?.timeout ?? 0,
           });
         default:
           return t('Error');

@@ -1060,7 +1060,8 @@
                     "groupWarning": "Questa sessione fa parte del gruppo di sessioni {{ name }}",
                     "loadingData": "Caricamento dati prenotazione",
                     "bookMoreInGroup": "Registrati per altre sessioni di gruppo",
-                    "bookSingleInGroup": "Registrati solo per questa sessione"
+                    "bookSingleInGroup": "Registrati solo per questa sessione",
+                    "bookingLimitReached": "Limite di prenotazione raggiunto"
                 }
             }
         },
@@ -1173,7 +1174,8 @@
                     "subscription_flat_fee": "Spese amministrative",
                     "subscription_nb_days_pause": "Pausa: numero di giorni",
                     "subscription_next_invoice_date": "Data della prossima fatturazione",
-                    "subscription_contract_terms_link": "link \"Condizioni Legali\""
+                    "subscription_contract_terms_link": "link \"Condizioni Legali\"",
+                    "subscription_duration": "Durata totale"
                 }
             },
             "PrivateConsumerPass": {
@@ -1687,7 +1689,7 @@
                 "confirm": "Conferma"
             },
             "title": "Recupero della password",
-            "noEmail": "Questa email non è stata salvata",
+            "noEmail": "Questo indirizzo e-mail non è presente nel nostro database.",
             "explain1": "Qual era l'indirizzo e-mail?",
             "explain2": "Ti invieremo le istruzioni per il recupero",
             "emailHasBeenSent": "È stata inviata un'email a {{email}} per recuperare la password",
@@ -2127,7 +2129,8 @@
                 "2": "Notifica push",
                 "1": "SMS",
                 "0": "Email",
-                "15": "Cadenza"
+                "15": "Cadenza",
+                "16": "Franchise"
             },
             "srcOrDst": {
                 "placeholder": "Seleziona un tipo di messaggio",
@@ -3762,7 +3765,13 @@
                 "paymentPackTemplates": "Pass",
                 "label": "Prodotti"
             },
-            "tag": "Tag"
+            "tag": "Tag",
+            "marketing": {
+                "tags": "Tag",
+                "emailTemplates": "Email",
+                "campaigns": "Campagne",
+                "label": "Marketing"
+            }
         },
         "multiSession": {
             "current": "Sessione corrente",
@@ -3866,6 +3875,10 @@
                 "customize": "Personalizzazione",
                 "popups": "Pop-up di avvio",
                 "links": "Link esterno"
+            },
+            "communicationSentGroupConfig": {
+                "campaigns": "Campagne",
+                "general": "Generale"
             }
         }
     },
@@ -4027,10 +4040,10 @@
                 "hideCoach": "Nascondere le informazioni dell'insegnante nelle interfacce dei clienti",
                 "maxFutureBooking": {
                     "numberCheck": {
-                        "helperText": "I tuoi membri non potranno avere più di questo numero di prenotazioni in futuro",
+                        "helperText": "Questo sarà il numero massimo di prenotazioni future per ogni membro, escluse le prenotazioni per i workshop.",
                         "placeholder": "Numero massimo"
                     },
-                    "label": "Limitare il numero massimo di prenotazioni future per cliente"
+                    "label": "Limita il numero massimo di prenotazioni future per cliente"
                 },
                 "hiddenFromMarketplace": "Appaiono nell' APP Bsport",
                 "schedule": {
@@ -4154,7 +4167,14 @@
                 },
                 "doubleBookingDisabledWithSpivi": "La doppia prenotazione non è compatibile con l'integrazione Spivi",
                 "startWeekOnToday": "Mostrare come prima data del calendario quella odierna se la visualizzazione è settimanale",
-                "showPastSessionsCalendar": "Mostra le sessioni passate sul calendario dei membri"
+                "showPastSessionsCalendar": "Mostra le sessioni passate sul calendario dei membri",
+                "maxFutureWorkshop": {
+                    "label": "Limita il numero di workshop prenotati in futuro per ogni membro",
+                    "numberCheck": {
+                        "placeholder": "Massimo",
+                        "helperText": "Questo sarà il numero massimo di sessioni workshop prenotate in futuro per ogni membro."
+                    }
+                }
             },
             "instagramURL": {
                 "label": "URL di Instagram",
@@ -4289,7 +4309,8 @@
             "fbPixelEvent": "FB Pixel Nome dell'evento",
             "gtmEvent": "GTM Nome dell'evento",
             "eventDesc": "Descrizione dell'evento",
-            "showAnalyticsInformation": "Mostra gli eventi tracciati"
+            "showAnalyticsInformation": "Mostra gli eventi tracciati",
+            "bookingSuccess": "Quando un membro prenota una sessione (lezioni di gruppo)"
         },
         "signUpForm": {
             "error": "Si è verificato un problema",
@@ -5446,13 +5467,31 @@
             "error": {
                 "21004": "La doppia prenotazione non è compatibile con l'integrazione Spivi",
                 "21003": "Le sessioni di Spivi devono durare tra i 20 minuti e le 4 ore",
-                "21002": "La programmazione dei posti selezionata deve avere un Box ID per far sì che la sessione si colleghi a Spivi",
-                "21001": "Nessuna programmazione dei posti è stata selezionata",
+                "21002": "La gestione dei posti selezionata deve avere un Box ID per far sì che la sessione si colleghi a Spivi",
+                "21001": "Nessuna gestione dei posti è stata selezionata",
                 "21000": "L'upsell Spivi non è attivato."
             }
         },
         "smartlistGetMembers": {
             "error": "Si è verificato un errore: i membri non possono essere recuperati"
+        },
+        "communicationSentGroupConfig": {
+            "duplicate": {
+                "error": "Impossibile duplicare la campagna",
+                "success": "Campagna duplicata"
+            },
+            "delete": {
+                "error": "Impossibile eliminare la campagna",
+                "success": "Campagna eliminata"
+            },
+            "update": {
+                "error": "Impossibile salvare la campagna",
+                "success": "Campagna aggiornata con successo"
+            },
+            "create": {
+                "error": "Impossibile creare la campagna",
+                "success": "Campagna creata correttamente"
+            }
         }
     },
     "settings": {
@@ -5735,7 +5774,7 @@
                             "marketplace": "Studio",
                             "home": "Attività (predefinita)",
                             "bookings": "Prenotazioni",
-                            "membership": "Calendario"
+                            "membership": "Programma"
                         },
                         "placeholder": "Seleziona una pagina",
                         "helperText": "Questa opzione consente di scegliere la pagina predefinita che gli utenti vedranno all'apertura dell'applicazione.",
@@ -9511,7 +9550,8 @@
                 "isAlreadyOnWaitingList": "Sei già in lista d'attesa, ti avviseremo via e-mail quando ci sarà un posto disponibile.",
                 "isAlreadyRegistered": "La sessione è piena, congratulazioni, sei ben registrato!",
                 "waitingListOpen": "La sessione è piena, ma è possibile registrarsi nella lista d'attesa. Ti avviseremo via e-mail quando si renderà disponibile un posto",
-                "waitingListLockedByPendingBookings": "Altri utenti stanno prenotando, la lista d'attesa non è al momento disponibile. Riprova tra qualche minuto per vedere se si è liberato un posto."
+                "waitingListLockedByPendingBookings": "Altri utenti stanno prenotando, la lista d'attesa non è al momento disponibile. Riprova tra qualche minuto per vedere se si è liberato un posto.",
+                "isBookingLimitReached": "Hai già raggiunto il limite di prenotazioni. Sarà possibile prenotare di nuovo quando una sessione sarà passata o sarà stata cancellata."
             },
             "recurrent": {
                 "backToRegistererChoice": "Indietro",
@@ -9738,7 +9778,8 @@
                 "startFromDate": {
                     "label": "Inizio della ricorrenza su "
                 },
-                "groupWarning": "Si noti che non è possibile creare una ricorrenza di prenotazioni per gruppi di sessioni"
+                "groupWarning": "Si noti che non è possibile creare una ricorrenza di prenotazioni per gruppi di sessioni",
+                "permissionWarning": "Non hai il permesso di effettuare prenotazioni per questa attività"
             },
             "recurrentRuleBooking": "Prenotazione ricorrente",
             "item": {
@@ -9955,6 +9996,10 @@
                 "noPassAvailable": {
                     "title": "Nessun pass disponibile",
                     "message": "Non è possibile iscriversi alla lista d'attesa."
+                },
+                "isBookingLimitReached": {
+                    "message": "Hai già raggiunto il limite di prenotazioni. Sarà possibile prenotare di nuovo quando una sessione sarà passata o sarà stata cancellata.",
+                    "title": "Impossibile prenotare"
                 }
             },
             "backToCalendar": "Torna al calendario",
@@ -10629,7 +10674,8 @@
                 "title": "Rimozione di una Smartlist",
                 "content": "Sei sicuro di voler eliminare questa smartlist? Questa operazione è definitiva",
                 "cancel": "Annulla",
-                "confirm": "Rimuovi"
+                "confirm": "Rimuovi",
+                "linkedToAFranchiseCommunication": "Questa smartlist è utilizzata dal franchising e non può essere cancellata"
             },
             "validate": "Convalidare"
         },
@@ -10684,7 +10730,8 @@
         "downLoadSavedExport": "Scarica l'esportazione precedente",
         "lastGenerated": "Ultima esportazione generata il : {{-date}} {{time}}",
         "generateHelperText": "Generare l'esportazione per scaricare la smartlist",
-        "generateExport": "Generare l'esportazione"
+        "generateExport": "Generare l'esportazione",
+        "usedInFranchiseCommmunication": "Utilizzato in una campagna dal franchising"
     },
     "relationship": {
         "member": {
@@ -11292,12 +11339,12 @@
         },
         "spotScheduling": {
             "delete": {
-                "title": "Elimina programmazione dei posti",
-                "content": "Sei sicuro di voler eliminare questa programmazione dei posti ? Questa operazione è irreversibile."
+                "title": "Elimina la configurazione",
+                "content": "Sei sicuro di volerla eliminare? Questa operazione è irreversibile."
             },
-            "add": "Aggiungi una programmazione dei posti",
-            "subtitle": "Utilizzato per il spot scheduling. Permette ai tuoi studenti di prenotare il posto desiderato nella salla.",
-            "title": "Programmazione dei posti",
+            "add": "Aggiungi una disposizione",
+            "subtitle": "Utilizzato per la gestione dei posti. Permette ai tuoi studenti di prenotare il posto desiderato nella sala.",
+            "title": "Gestione dei posti",
             "untitled": "Senza titolo",
             "placeCount": "{{count}} posti"
         },
@@ -13667,7 +13714,7 @@
                     "broadcastLink": "Il link è sbagliato. Deve iniziare con http:// o https:// e non contenere spazi",
                     "partnerMaxBookingCount": "Il numero di posti qui è maggiore del numero di posti nella sessione",
                     "effectif": "Il valore è maggiore del numero massimo di posti",
-                    "roomBlueprintSpivi": "Devi selezionare una programmazione dei posti per le sessioni sincornizzate con Spivi",
+                    "roomBlueprintSpivi": "Devi selezionare una gestione dei posti per le sessioni sincornizzate con Spivi",
                     "durationMinuteSpivi": "Una sessione di Spivi deve durare tra i 20 minuti e le 4 ore"
                 },
                 "dateTooFar": "Impossibile creare sessioni che si svolgono tra più di 3 anni",
@@ -13780,9 +13827,9 @@
                     "field": {
                         "roomBlueprint": {
                             "placeholder": "Seleziona un piano",
-                            "title": "Spot scheduling"
+                            "title": "Gestione dei posti"
                         },
-                        "broadcastLink": "Link della videoconferenza",
+                        "broadcastLink": "Link della videolezione",
                         "establishment": "Stabilimento",
                         "credits": "Crediti",
                         "level": "Livello",
@@ -14250,6 +14297,18 @@
                 },
                 "tag": {
                     "_label": "Tag"
+                },
+                "marketing": {
+                    "tags": {
+                        "_label": "Tag"
+                    },
+                    "campaigns": {
+                        "_label": "Campagne"
+                    },
+                    "emailTemplates": {
+                        "_label": "Email"
+                    },
+                    "_label": "Marketing"
                 }
             }
         },
@@ -15534,7 +15593,13 @@
                 "marketplace_basket_summary_dialog": "Riepilogo del carrello (pop-up)",
                 "booker_module_offer_summary": "Riepilogo della sessione",
                 "fabrique_typography": "Tipografia",
-                "fabrique_card": "Tessera"
+                "fabrique_card": "Tessera",
+                "marketplace_spot_selector": "Selettore per la gestione dei posti",
+                "fabrique_badge": "Badge",
+                "marketplace_minimal_appbar": "AppBar minimale",
+                "authentication_login": "Componente di login",
+                "authentication_login_form": "Modulo di login",
+                "authentication_reset_password_form": "Modulo per resettare la password"
             },
             "cssConfig": {
                 "title": {
@@ -15577,7 +15642,11 @@
                     "isRippleEnabled": "Disattiva l'effetto increspatura dei pulsanti",
                     "square": "Impossibile ottenere gli angoli arrotondati",
                     "cardVariant": "Seleziona la variante di carta da utilizzare",
-                    "componentType": "Il contenitore è un pulsante"
+                    "componentType": "Il contenitore è un pulsante",
+                    "color": "Colore del componente",
+                    "isError": "È in uno stato di errore",
+                    "hasEmailChoices": "Scelta dell'elenco di email",
+                    "hasSent": "Il modulo è stato inviato"
                 },
                 "option": {
                     "false": "No",
@@ -15620,7 +15689,12 @@
                     "2": "Due",
                     "1": "Uno",
                     "elevated": "Elevato",
-                    "rest": "Pausa"
+                    "rest": "Pausa",
+                    "warning": "Attenzione",
+                    "onstrong": "Su uno sfondo intenso",
+                    "grey": "Grigio",
+                    "main": "Principale",
+                    "isBlockedByMaxFutureBooking": "Limite massimo di prenotazioni future raggiunto"
                 },
                 "configurationTitle": "Variazioni"
             },
@@ -15632,7 +15706,9 @@
                 "common": "Comune",
                 "basket": "Carrello",
                 "bookingPage": "Prenotazione",
-                "fabrique": "Fabbrica"
+                "fabrique": "Fabbrica",
+                "spot_scheduling": "Gestione dei posti",
+                "authentication": "Autenticazione"
             }
         },
         "create": "Generale",
@@ -16313,14 +16389,14 @@
     },
     "spotScheduling": {
         "placeCount": "{{count}} posti",
-        "roomBlueprints": "Mappa della salla",
+        "roomBlueprints": "Gestione dei posti",
         "saveError": "Errore",
         "errorLessSpotThanEffectif": "Il salvataggio non è possibile. La mappa deve contenere più spazio del numero di persone nella sessione a cui è associato",
-        "saved": "Mappa della salla registrata",
+        "saved": "Salvato",
         "effectifError": "Il numero di posti deve essere uguale o superiore al numero di studenti della sessione",
-        "searchHelper": "Aiuto: permette ai tuoi studenti di riservare il posto che vogliono nella stanza. Campi non obbligatori",
-        "search": "Cercare una mappa per il spot scheduling",
-        "roomBlueprintSelectorTitle": "Scegliere una mappa",
+        "searchHelper": "(Facoltativo) I membri possono utilizzare la configurazione di gestione dei posti per prenotare quello che preferiscono",
+        "search": "Cercare una configurazione per la gestione dei posti",
+        "roomBlueprintSelectorTitle": "Scegliere una configurazione",
         "spotSelectorDialog": {
             "takeSpotError": "Il posto che hai selezionato per questo corso non è più disponibile. Si prega di selezionarne uno nuovo.",
             "submit": "Conferma",
@@ -16376,13 +16452,21 @@
                 "place": "Posizione",
                 "walls": "Muri",
                 "edition": "Edizione",
-                "spivi": "Integrazione Spivi"
+                "spivi": "Integrazione Spivi",
+                "assets": "Attività",
+                "editionAdvanced": "Modifica avanzata",
+                "editionHistory": "Cronologia modifiche"
             },
             "title": "Cassetta degli attrezzi",
             "helperText": "La dimensione del docente deve essere strettamente positiva",
             "addSpotType": "Aggiungi un tipo di spot",
             "requiredForSpivi": "Necessario per l'integrazione Spivi",
-            "boxId": "Box ID"
+            "boxId": "Box ID",
+            "resize": "Scala",
+            "openAssetModal": "Gestione delle attività",
+            "copier": "Duplicare",
+            "cssEditor": "CSS",
+            "advancedTool": "HTML"
         },
         "spotCreatorForm": {
             "alertDefaultSpot": "Modificando lo spot di default, tutti gli altri presenti su tutte le planimetrie verranno poi modificati in modo identico",
@@ -16391,7 +16475,7 @@
             "triangle": "Triangolo",
             "square": "Quadrato",
             "generalInfo": "Informazioni generali",
-            "title": "Spot Scheduling",
+            "title": "Gestione dei posti",
             "nameExplain": "Nome del tipo di spot",
             "prefix": "Prefisso",
             "prefixExplain": "Il carattere qui indicato apparirà come prefisso ai numeri spot",
@@ -16427,7 +16511,7 @@
                 }
             }
         },
-        "errorAvailableOffersScheduled": "Impossibile salvare. La programmazione dei posti non deve essere utilizzato in sessioni future per la modifica.",
+        "errorAvailableOffersScheduled": "Impossibil salvare. Questo layout non può essere modificato perché viene utilizzato nelle sessioni future.",
         "spiviDialog": {
             "spiviIdentifiers": "ID Spivi",
             "bsportIdentifiers": "ID bsport",
@@ -16448,6 +16532,15 @@
                 "title": "O seleziona un nuovo posto"
             },
             "goBackToCheckout": "Torna al checkout"
+        },
+        "cssForm": {
+            "helper": "In questa sezione è possibile aggiungere regole CSS per il layout. L'intera mappa è racchiusa in un SVG con l'ID \"svg-canvas-display\". Per impostazione predefinita, viene generato automaticamente uno \"StyleSheet\" per ogni elemento del foglio (punti, rettangoli, insegnanti..). È possibile osservare gradualmente le modifiche facendo clic sul pulsante \"{{ buttonLabel }}\".",
+            "openPreview": "Anteprima"
+        },
+        "assetUpoadForm": {
+            "loadMore": "Leggi di più",
+            "submit": "Salva",
+            "description": "È possibile caricare e utilizzare le immagini direttamente da qui. Una volta caricate, le nuove immagini saranno disponibili per essere inserite nella mappa."
         }
     },
     "franchise": {
@@ -17871,6 +17964,53 @@
                 "label": "Attiva il link di riferimento"
             },
             "title": "Riferimento"
+        }
+    },
+    "campaign": {
+        "exportCampaign": "Esporta",
+        "save": "Salva",
+        "schemaError": {
+            "nonEmptyEmailTemplate": "Si prega di selezionare un email modello",
+            "nonEmptyBody": "Il corpo dell'e-mail è attualmente vuoto. Si prega di aggiungere contenuti prima di continuare.",
+            "nonEmptyToggle": "Seleziona i destinatari prima di inviare il messaggio.",
+            "nonEmptySmartList": "Si prega di selezionare una smartlist"
+        },
+        "smartListOption": "Seleziona una smartlist",
+        "mail": {
+            "sendButton": "Invia",
+            "customDomainNotDefined": "Non è stato definito un dominio personalizzato. \"Contatta il nostro team per avviare il processo di configurazione.\"",
+            "example": "Esempio",
+            "customEmail": "Email personalizzata",
+            "franchiseeMail": "Email del franchise",
+            "chooseSender": "Seleziona l'indirizzo e-mail che si desidera utilizzare per l'invio.",
+            "sendMail": "Invia un messaggio"
+        },
+        "memberSelectionInfo": "Per aggiungere i membri ai destinatari della campagna, seleziona uno studio e scegli una delle smartlist. Se si vuole aggiungere direttamente tutti i membri, è possibile cliccare su \"Seleziona tutti i membri\".",
+        "noCampaign": "Invia campagne ai membri per tenerli in contatto con ciò che accade nel franchising.",
+        "historyTitle": "Storico mail",
+        "campaign": {
+            "add": "Crea una campagna"
+        },
+        "memberSelectionTitle": "Selezione dei membri",
+        "sendToAllMembers": "Invia a tutti i membri",
+        "modal": {
+            "delete": {
+                "content": "Questa azione archivierà definitivamente la campagna e tutti i dati associati non saranno più accessibili. Procedere con l'archiviazione?",
+                "confirm": "Conferma",
+                "cancel": "Cancella",
+                "title": "Archivia una campagna"
+            }
+        },
+        "search": "Cerca una campagna",
+        "cancel": "Cancella",
+        "delete": "Elimina",
+        "edit": "Modifica",
+        "duplicate": "Duplicata",
+        "detail": {
+            "tab": {
+                "campaign": "Campagna",
+                "general": "Generale"
+            }
         }
     }
 }

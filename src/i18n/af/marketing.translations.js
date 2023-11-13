@@ -525,8 +525,8 @@ exports.default = {
         basket_chip: 'Basket',
       },
       timeout: {
-        timout_days_chip: '{{ days }} day',
-        timout_days_chip_plural: '{{ days }} days',
+        timeout_days_chip: '{{ count }} day',
+        timeout_days_chip_plural: '{{ count }} days',
       },
       trigger: 'Trigger',
       exit: 'Exit',

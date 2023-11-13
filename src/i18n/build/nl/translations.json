@@ -3,7 +3,7 @@
         "resetPassword": {
             "explain2": "Vervolgens sturen we binnen enkele seconden een bericht met instructies over hoe je je wachtwoord kunt herstellen.",
             "explain1": "Deel hieronder het e-mailadres dat je gebruikt om in te loggen.",
-            "noEmail": "Deze e-mail staat niet in onze gegevensbestand.",
+            "noEmail": "Deze e-mail staat niet in ons ledenbestand.",
             "title": "Wachtwoord herstellen",
             "actions": {
                 "backToLogin": "Terug",
@@ -324,7 +324,8 @@
                     "subscription_recurrent_price": "Maandbedrag",
                     "subscription_name": "Abonnementsnaam",
                     "subscription_next_invoice_date": "Eerstvolgende factuurdatum",
-                    "subscription_contract_terms_link": "Link voor voorwaarden"
+                    "subscription_contract_terms_link": "Link voor voorwaarden",
+                    "subscription_duration": "Totale duur"
                 },
                 "name": "Abonnementen"
             },
@@ -675,7 +676,8 @@
                     "bookMoreInGroup": "Andere evenementen reserveren",
                     "groupWarning": "Deze sessie is onderdeel van het evenement \"{{ name }}\".",
                     "bookSingleInGroup": "Alleen voor deze sessie inschrijven",
-                    "loadingData": "Reserveringsgegevens laden"
+                    "loadingData": "Reserveringsgegevens laden",
+                    "bookingLimitReached": "Reserveringslimiet bereikt"
                 }
             }
         },
@@ -1946,7 +1948,8 @@
                 "12": "Smartlist",
                 "71": "Ontvangen",
                 "70": "Verzonden",
-                "15": "Cadence"
+                "15": "Cadence",
+                "16": "Franchise"
             },
             "sendParameter": {
                 "placeholder": "Selecteer een instelling",
@@ -4368,7 +4371,8 @@
                 "content": "Weet je zeker dat je deze Smartlist wilt verwijderen? Deze actie is definitief.",
                 "cancel": "Annuleren",
                 "confirm": "Verwijderen",
-                "title": "Smartlist verwijderen"
+                "title": "Smartlist verwijderen",
+                "linkedToAFranchiseCommunication": "Deze smartlist wordt gebruikt door uw franchise en kan niet worden verwijderd"
             },
             "validate": "Bevestigen"
         },
@@ -4998,7 +5002,8 @@
         "downLoadSavedExport": "Vorige export downloaden",
         "lastGenerated": "Laatste export gegenereerd op: {{-date}} {{time}}",
         "generateHelperText": "Genereer de export om de smartlist te downloaden",
-        "generateExport": "Genereer export"
+        "generateExport": "Genereer export",
+        "usedInFranchiseCommmunication": "Gebruikt in een campagne door uw franchise"
     },
     "metaActivity": {
         "forms": {
@@ -6024,7 +6029,8 @@
                 "isFull": "Deze sessie is volgeboekt. Schrijf je op de wachtlijst in en we sturen je een bericht zodra er een plaats vrijkomt.",
                 "isAlreadyRegistered": "Je reservering is voltooid en de sessie is nu vol.",
                 "waitingListOpen": "Deze sessie is vol. Schrijf je in op de wachtlijst en je ontvangt een bericht zodra er een plaats vrijkomt.",
-                "waitingListLockedByPendingBookings": "De wachtlijst is momenteel niet beschikbaar, omdat andere mensen aan het reserveren zijn. Probeer het over een paar minuten opnieuw om te zien of er een plaats beschikbaar is."
+                "waitingListLockedByPendingBookings": "De wachtlijst is momenteel niet beschikbaar, omdat andere mensen aan het reserveren zijn. Probeer het over een paar minuten opnieuw om te zien of er een plaats beschikbaar is.",
+                "isBookingLimitReached": "U heeft uw limiet voor reserveringen al bereikt. U kunt opnieuw reserveren als een sessie voorbij is of geannuleerd wordt."
             },
             "offer": {
                 "isDisabled": "Deze sessie is geannuleerd.",
@@ -6271,7 +6277,8 @@
                 "startFromDate": {
                     "label": "Startdatum "
                 },
-                "groupWarning": "Het is niet mogelijk om een periodieke reservering voor evenementen toe te voegen."
+                "groupWarning": "Het is niet mogelijk om een periodieke reservering voor evenementen toe te voegen.",
+                "permissionWarning": "U heeft geen toestemming om boekingen te maken voor deze activiteit"
             },
             "deleteModal": {
                 "cancel": "Annuleren",
@@ -6492,6 +6499,10 @@
                 "noPassAvailable": {
                     "title": "Er zijn geen beschikbare leskaarten om weer te geven.",
                     "message": "Er zijn geen beschikbare leskaarten voor deze wachtlijst."
+                },
+                "isBookingLimitReached": {
+                    "message": "U heeft uw limiet van reserveringen al bereikt. U kunt opnieuw reserveren als een sessie voorbij is of is geannuleerd.",
+                    "title": "Niet in staat om te boeken"
                 }
             },
             "backToCalendar": "Terug naar de kalender",
@@ -8438,7 +8449,7 @@
                             "marketplace": "Studio",
                             "home": "Activiteiten (standaard)",
                             "bookings": "Reserveringen",
-                            "membership": "Agenda"
+                            "membership": "Rooster"
                         },
                         "placeholder": "Selecteer een pagina",
                         "helperText": "Met deze optie kun je de standaardpagina kiezen die gebruikers te zien krijgen als ze de app openen.",
@@ -10898,7 +10909,7 @@
             "15002": "Het artikel is al toegevoegd aan het winkelmandje, even geduld a.u.b.",
             "1122": "Dit pakket kan niet meer worden gekocht omdat de houdbaarheidsdatum is verstreken",
             "2025": "Deze kaart kan niet meer worden gekocht omdat de vervaldatum is verstreken",
-            "23001": "Zonder cursuskaart kunt u in de wachtrij voor deze aanbieding worden geplaatst",
+            "23001": "Zonder cursuskaart kunt u niet in de wachtrij voor deze activiteit worden geplaatst",
             "11114": "Deze afsprakenkaart kan niet meer worden gekocht omdat de vervaldatum is verstreken"
         },
         "signup": {
@@ -11178,6 +11189,24 @@
         },
         "smartlistGetMembers": {
             "error": "Error bij het herstellen van leden"
+        },
+        "communicationSentGroupConfig": {
+            "duplicate": {
+                "error": "Campagne kan niet worden gedupliceerd",
+                "success": "Campagne gedupliceerd"
+            },
+            "delete": {
+                "error": "De campagne kan niet worden verwijderd",
+                "success": "Campagne verwijderd"
+            },
+            "update": {
+                "error": "De campagne kan niet worden opgeslagen",
+                "success": "Campagne succesvol bijgewerkt"
+            },
+            "create": {
+                "error": "De campagne kan niet worden aangemaakt",
+                "success": "Campagne succesvol aangemaakt"
+            }
         }
     },
     "coach": {
@@ -12396,10 +12425,10 @@
                 "showGenderOffer": "Toon het aantal ingeschreven MANNEN / VROUWEN op de agenda van je leden",
                 "hideCoach": "Verberg de informatie van instructeurs op de agenda van je leden",
                 "maxFutureBooking": {
-                    "label": "Beperk het maximaal aantal toekomstige reserveringen per lid",
+                    "label": "Beperk het maximaal aantal toekomstige reserveringen per lid voor groepsactiviteiten",
                     "numberCheck": {
                         "placeholder": "Limiet",
-                        "helperText": "Dit is het maximum aantal toekomstige reserveringen voor je leden"
+                        "helperText": "Dit is het maximum aantal toekomstige reserveringen voor uw leden, exclusief workshop reserveringen."
                     }
                 },
                 "hiddenFromMarketplace": "Activeer deze optie om je studio op de algemene app van BSPORT te tonen",
@@ -12524,7 +12553,14 @@
                 },
                 "doubleBookingDisabledWithSpivi": "Dubbele reserveringen zijn niet mogelijk met de Spivi-integratie.",
                 "startWeekOnToday": "Start de kalender van uw leden op de datum van vandaag als het scherm in de kaartmodus voor weekweergave staat.",
-                "showPastSessionsCalendar": "Toon sessies uit het verleden op de kalender van je leden"
+                "showPastSessionsCalendar": "Toon sessies uit het verleden op de kalender van je leden",
+                "maxFutureWorkshop": {
+                    "label": "Aantal toekomstig geboekte workshop sessies per lid beperken",
+                    "numberCheck": {
+                        "placeholder": "Maximum",
+                        "helperText": "Dit is het maximum aantal toekomstige reserveringen voor workshop sessies per lid."
+                    }
+                }
             },
             "gtmId": {
                 "placeholder": "GTM-XXXXXX",
@@ -12669,7 +12705,8 @@
             "paymentSuccess": "Wanneer een gebruiker een succesvolle betaling verricht",
             "signinShow": "Wanneer een gebruiker de inlogpagina opent",
             "sessionShow": "Wanneer een gebruiker een sessie selecteert",
-            "workshopClick": "Wanneer een lid een datum van een workshop selecteert"
+            "workshopClick": "Wanneer een lid een datum van een workshop selecteert",
+            "bookingSuccess": "Wanneer een gebruiker een sessie boekt (groepsactiviteiten)"
         },
         "zoom": {
             "confirmDialog": {
@@ -14023,6 +14060,18 @@
                 "_label": "Navigatiemenu",
                 "tag": {
                     "_label": "Tags"
+                },
+                "marketing": {
+                    "tags": {
+                        "_label": "Tags"
+                    },
+                    "campaigns": {
+                        "_label": "Campagnes"
+                    },
+                    "emailTemplates": {
+                        "_label": "Emails"
+                    },
+                    "_label": "Marketing"
                 }
             }
         },
@@ -14974,7 +15023,7 @@
                 "activity": {
                     "allowed_actions": {
                         "editPerformance": {
-                            "_label": "Prestatiemetingen wijzigen"
+                            "_label": "Programmaprestaties bewerken"
                         },
                         "editSpot": {
                             "_label": "Gereserveerde plekken wijzigen"
@@ -14998,7 +15047,7 @@
                             "_label": "Aanwezigheidsregistraties"
                         }
                     },
-                    "_label": "Groepslessen beheren"
+                    "_label": "Groepsactiviteiten beheren"
                 },
                 "_label": "Reserveringenbeheer"
             },
@@ -15265,7 +15314,13 @@
                 "label": "Producten",
                 "giftcardTemplates": "Cadeaubonnen"
             },
-            "tag": "Tags"
+            "tag": "Tags",
+            "marketing": {
+                "tags": "Tags",
+                "emailTemplates": "Emails",
+                "campaigns": "Campagnes",
+                "label": "Marketing"
+            }
         },
         "multiSession": {
             "current": "Huidige sessie",
@@ -15369,6 +15424,10 @@
                 "customize": "Personalisatie",
                 "popups": "Startup pop-up",
                 "links": "Externe links"
+            },
+            "communicationSentGroupConfig": {
+                "campaigns": "Campagnes",
+                "general": "Algemeen"
             }
         }
     },
@@ -15500,7 +15559,12 @@
                     "1": "Een",
                     "giftcardPrepaidLine": "Betaling via cadeaukaart",
                     "elevated": "Verhoogd",
-                    "rest": "Pauze"
+                    "rest": "Pauze",
+                    "warning": "Waarschuwing",
+                    "onstrong": "Sterke achtergrond",
+                    "grey": "Grijs",
+                    "main": "Hoofdpagina",
+                    "isBlockedByMaxFutureBooking": "Maximum aantal toekomstige boekingen bereikt"
                 },
                 "title": {
                     "nextOffer": "Volgende sessie beschikbaar",
@@ -15542,7 +15606,11 @@
                     "square": "Deselecteer afgeronde hoeken",
                     "cardVariant": "Selecteer de te gebruiken variant voor kaarten",
                     "isRippleEnabled": "Het rimpeleffect van de knop is niet mogelijk",
-                    "componentType": "Container is een knop"
+                    "componentType": "Container is een knop",
+                    "color": "Element kleur",
+                    "isError": "Verkeert in foutstatus",
+                    "hasEmailChoices": "Keuzes voor emaillijst",
+                    "hasSent": "Het formulier is verstuurd"
                 },
                 "configurationTitle": "Variaties"
             },
@@ -15553,7 +15621,9 @@
                 "pass": "Leskaart",
                 "common": "Algemeen",
                 "bookingPage": "Boeking",
-                "fabrique": "Fabriek"
+                "fabrique": "Fabriek",
+                "spot_scheduling": "Spot planning",
+                "authentication": "Authenticatie"
             },
             "components": {
                 "calendar": "Agenda",
@@ -15630,7 +15700,13 @@
                 "marketplace_prepaid_line_list": "Voorafbetaalde lijn lijst",
                 "marketplace_basket_summary_dialog": "Winkelmand overzicht (pop-up)",
                 "fabrique_typography": "Typografie",
-                "fabrique_card": "Kaart"
+                "fabrique_card": "Kaart",
+                "marketplace_spot_selector": "Spot planningskiezer",
+                "fabrique_badge": "Badge",
+                "marketplace_minimal_appbar": "Minimaal AppBar",
+                "authentication_login": "Aanmeldingscomponent",
+                "authentication_login_form": "Inlogformulier",
+                "authentication_reset_password_form": "Wachtwoord opnieuw instellen"
             },
             "customCss": {
                 "yourCode": "Je aanvullende implementatie:",
@@ -16352,7 +16428,10 @@
                 "place": "Plaats",
                 "walls": "Muren",
                 "edition": "Bewerken",
-                "spivi": "Spivi-integratie"
+                "spivi": "Spivi-integratie",
+                "assets": "Middelen",
+                "editionAdvanced": "Geavanceerde versie",
+                "editionHistory": "Versie geschiedenis"
             },
             "title": "Hulpmiddelen",
             "showGrid": "Toon raster",
@@ -16363,7 +16442,12 @@
             "addSpotType": "Een type plaats toevoegen",
             "helperText": "De grootte moet positief zijn.",
             "requiredForSpivi": "Dit is een vereiste voor de Spivi-integratie.",
-            "boxId": "Box ID"
+            "boxId": "Box ID",
+            "resize": "Schalen",
+            "openAssetModal": "Open middelen afhandelen",
+            "copier": "Duplicator",
+            "cssEditor": "CSS",
+            "advancedTool": "HTML"
         },
         "placeCount": "{{count}} plaats(en)",
         "roomBlueprints": "Plattegrond",
@@ -16469,6 +16553,15 @@
                 "title": "Of selecteer een nieuwe plek"
             },
             "goBackToCheckout": "Ga terug naar de kassa"
+        },
+        "cssForm": {
+            "helper": "In dit gedeelte kunt u CSS-regels voor uw lay-out toevoegen. De hele kaart is verpakt in een svg met de ID 'svg-canvas-display'. Standaard wordt er automatisch een stylesheet gegenereerd voor elk element op het canvas (zoals stippen, rechthoeken en leraren). U kunt uw wijzigingen stapsgewijs bekijken door op de knop '{{ buttonLabel }}' te klikken.",
+            "openPreview": "Preview"
+        },
+        "assetUpoadForm": {
+            "loadMore": "Lees meer",
+            "submit": "Verzenden",
+            "description": "U kunt afbeeldingen rechtstreeks vanaf hier uploaden en gebruiken. Zodra nieuwe afbeeldingen zijn geüpload, zijn ze beschikbaar om in uw kaart in te voegen."
         }
     },
     "franchise": {
@@ -17893,6 +17986,53 @@
             "inviteFriend": "Nodig een vriend uit om je aan te melden",
             "nbRemainingUses": "Aantal resterende toepassingen",
             "referralLink": "Doorverwijslink"
+        }
+    },
+    "campaign": {
+        "exportCampaign": "Exporteer",
+        "save": "Opslaan",
+        "schemaError": {
+            "nonEmptyEmailTemplate": "Kies een emailtemplate",
+            "nonEmptyBody": "De body van uw email is momenteel leeg. Voeg inhoud toe voordat u verder gaat.",
+            "nonEmptyToggle": "Selecteer ontvangers voordat u het bericht verzendt.",
+            "nonEmptySmartList": "Selecteer een smartlist"
+        },
+        "smartListOption": "Kies een smartlist",
+        "mail": {
+            "sendButton": "Verstuur",
+            "customDomainNotDefined": "U heeft geen aangepast domein gedefinieerd. \"Neem contact op met ons team om het configuratieproces te starten.\"",
+            "example": "Voorbeeld",
+            "customEmail": "Aangepaste email",
+            "franchiseeMail": "E-mail franchisenemer",
+            "chooseSender": "Selecteer het e-mailadres dat u wilt gebruiken voor het verzenden.",
+            "sendMail": "Stuur een bericht"
+        },
+        "memberSelectionInfo": "Voeg leden toe als ontvangers van uw campagne door een studio te selecteren en vervolgens een van de smartlists te kiezen. Als u al uw leden direct wilt toevoegen, kunt u ook klikken op 'Selecteer alle leden'.",
+        "noCampaign": "Stuur campagnes naar uw leden om ze op de hoogte te houden van wat er in uw franchise gebeurt.",
+        "historyTitle": "Mailing geschiedenis",
+        "campaign": {
+            "add": "Campagne toevoegen"
+        },
+        "memberSelectionTitle": "Selectie leden",
+        "sendToAllMembers": "Verzenden naar alle leden",
+        "modal": {
+            "delete": {
+                "content": "Met deze actie wordt de campagne permanent gearchiveerd en zijn alle bijbehorende gegevens niet meer beschikbaar. Weet u zeker dat u wilt doorgaan met archiveren?",
+                "confirm": "Bevestigen",
+                "cancel": "Annuleer",
+                "title": "Archiveer een campagne"
+            }
+        },
+        "search": "Zoeken naar een campagne",
+        "cancel": "Annuleer",
+        "delete": "Verwijderen",
+        "edit": "Bewerken",
+        "duplicate": "Duplicaat",
+        "detail": {
+            "tab": {
+                "campaign": "Campagnes",
+                "general": "Algemeen"
+            }
         }
     }
 }

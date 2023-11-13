@@ -32,7 +32,9 @@ import { OptionCallback } from '../../state/types';
 import type { Cadence } from '#libs/sequential_marketing/types';
 import CadenceList from '#libs/sequential_marketing/components/CadenceList.component';
 import CadenceManagerFab from '#libs/sequential_marketingDEPRECATED/components/CadenceManagerFab.components';
-import CadenceArchivedDialog from '#libs/sequential_marketing/components/dialogs/CadenceArchivedDialog.component';
+import CadenceUtilityDialog, {
+  type DialogVariant,
+} from '#libs/sequential_marketing/components/dialogs/DialogUtility';
 
 const CADENCE_PAGE_SIZE = 100;
 type OwnProps = {
@@ -121,6 +123,7 @@ export class CadenceDetailPage extends Component<Props> {
       cadenceLoading,
       cadencesList,
     } = this.props;
+    const archiveCadenceDialogVariant: DialogVariant = 'archive-workflow';
 
     if (
       !cadenceLoading &&
@@ -210,11 +213,12 @@ export class CadenceDetailPage extends Component<Props> {
           onSubmit={this.handleUpsertCadence}
           open={this.props.openCreationForm || !!this.props.cadenceToEdit}
         />
-        <CadenceArchivedDialog
+        <CadenceUtilityDialog
           cadence={cadenceToArchive}
           onCancel={this.handleResetCadenceToArchive}
           onConfirm={this.props.archiveCadence}
           open={!!cadenceToArchive}
+          variant={archiveCadenceDialogVariant}
         />
         <CadenceManagerFab onAdd={this.handleOpenCreationForm} />
       </>

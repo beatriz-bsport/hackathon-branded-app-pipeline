@@ -1,9 +1,7 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import type { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import ConnectedTriggerChip, {
-  ConnectedTriggerChipProps,
-} from './ConnectedTriggerChip.component';
+import ConnectedTriggerChip from './ConnectedTriggerChip.component';
 import {
   TriggerKind,
   SequentialMarketingColors,
@@ -52,26 +50,29 @@ const smartlist = {
 const getSmartlist = (id: number) => smartlistFactory(id);
 
 const Template: ComponentStory<typeof ConnectedTriggerChip> = (
-  args: ConnectedTriggerChipProps,
+  args: React.ComponentProps<typeof ConnectedTriggerChip>,
 ) => <ConnectedTriggerChip {...args} />;
 
 export const Event = Template.bind({});
 Event.args = {
-  trigger: triggerFactory(TriggerKind.ONLY_EVENT_TRIGGER),
+  connectedTrigger: triggerFactory(TriggerKind.ONLY_EVENT_TRIGGER),
   color: SequentialMarketingColors.ENTRY_COLOR,
   getSmartlist: getSmartlist,
 };
 
 export const Timeout = Template.bind({});
 Timeout.args = {
-  trigger: triggerFactory(TriggerKind.ONLY_TIMEOUT),
+  connectedTrigger: triggerFactory(TriggerKind.ONLY_TIMEOUT),
   color: SequentialMarketingColors.ENTRY_COLOR,
   getSmartlist: getSmartlist,
 };
 
 export const Smartlist = Template.bind({});
 Smartlist.args = {
-  trigger: triggerFactory(TriggerKind.ONLY_SMARTLIST_FILTERING, smartlist.id),
+  connectedTrigger: triggerFactory(
+    TriggerKind.ONLY_SMARTLIST_FILTERING,
+    smartlist.id,
+  ),
   smartlist: smartlist,
   color: SequentialMarketingColors.ENTRY_COLOR,
   getSmartlist: getSmartlist,
@@ -79,7 +80,7 @@ Smartlist.args = {
 
 export const EventForSmartlist = Template.bind({});
 EventForSmartlist.args = {
-  trigger: triggerFactory(
+  connectedTrigger: triggerFactory(
     TriggerKind.EVENT_TRIGGER_AND_SMARTLIST_FILTERING,
     smartlist.id,
   ),

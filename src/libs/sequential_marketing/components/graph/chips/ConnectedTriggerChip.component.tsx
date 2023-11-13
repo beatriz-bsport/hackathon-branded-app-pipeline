@@ -12,22 +12,21 @@ import {
 } from '#libs/sequential_marketing/constants';
 import { CadenceChip } from './CadenceChip.component';
 import { CustomMuiIcon } from '#components/icons/CustomMuiIcon.component';
-
+import useConnectedTriggerChip from './useConnectedTriggerChip.hook';
 import type {
   ConnectedTrigger,
   TriggerEventConfig,
 } from '#libs/sequential_marketing/types';
 import type { SmartList } from '#libs/smart-list/types';
-import useConnectedTriggerChip from './useConnectedTriggerChip.hook';
 
 export type ConnectedTriggerChipProps = {
-  trigger: ConnectedTrigger;
+  connectedTrigger: ConnectedTrigger;
   color: string;
   getSmartlist: (id: number) => SmartList;
 };
 
 const ConnectedTriggerChip: React.FC<ConnectedTriggerChipProps> = ({
-  trigger,
+  connectedTrigger,
   color,
   getSmartlist,
 }) => {
@@ -36,7 +35,10 @@ const ConnectedTriggerChip: React.FC<ConnectedTriggerChipProps> = ({
   const { getTriggerLabel, getEventTriggerDetailText } =
     useConnectedTriggerChip();
 
-  const triggerKind = useMemo(() => getTriggerKind(trigger), [trigger]);
+  const triggerKind = useMemo(
+    () => getTriggerKind(connectedTrigger),
+    [connectedTrigger],
+  );
 
   switch (triggerKind) {
     case TriggerKind.ONLY_EVENT_TRIGGER:
@@ -45,10 +47,10 @@ const ConnectedTriggerChip: React.FC<ConnectedTriggerChipProps> = ({
       return (
         <CadenceChip
           color={color}
-          icon={getTriggerSpecificIcon(trigger)}
+          icon={getTriggerSpecificIcon(connectedTrigger)}
           name={getTriggerLabel(
-            trigger,
-            getSmartlist?.(trigger?.filtering_config?.smartlist_pk),
+            connectedTrigger,
+            getSmartlist?.(connectedTrigger?.filtering_config?.smartlist_pk),
           )}
         />
       );
@@ -58,10 +60,11 @@ const ConnectedTriggerChip: React.FC<ConnectedTriggerChipProps> = ({
           <CadenceChip
             color={color}
             icon={getEventCategoryIconAsString(
-              (trigger?.trigger_config as TriggerEventConfig)?.event_type,
+              (connectedTrigger?.trigger_config as TriggerEventConfig)
+                ?.event_type,
             )}
-            name={getTriggerLabel(trigger)}
-            toolTipValue={getEventTriggerDetailText(trigger)}
+            name={getTriggerLabel(connectedTrigger)}
+            toolTipValue={getEventTriggerDetailText(connectedTrigger)}
           />
           <div className={classes.filter}>
             <CustomMuiIcon
@@ -74,7 +77,8 @@ const ConnectedTriggerChip: React.FC<ConnectedTriggerChipProps> = ({
               color={color}
               icon="People"
               name={
-                getSmartlist?.(trigger?.filtering_config?.smartlist_pk)?.name
+                getSmartlist?.(connectedTrigger?.filtering_config?.smartlist_pk)
+                  ?.name
               }
             />
           </div>

@@ -3,7 +3,7 @@ import makeStyles from '@material-ui/styles/makeStyles';
 import { CustomChip } from '#components/chip/CustomChip.component';
 import { CADENCE_CHIP_MAX_SIZE } from '#libs/sequential_marketing/constants/steps';
 
-export type CadenceChipProps = {
+type CadenceChipProps = {
   name: string;
   icon: string;
   color: string;

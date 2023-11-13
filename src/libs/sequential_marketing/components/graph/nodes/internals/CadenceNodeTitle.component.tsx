@@ -125,12 +125,15 @@ const CadenceNodeTitle: React.FC<CadenceNodeTitleProps> = ({
       {!!triggerList &&
         (triggerList.length > 1 || isTriggerValid(triggerList[0])) && (
           <div className={classes.chipSection}>
-            {triggerList.map((trigger) => (
-              <div key={trigger.trigger_config.uuid} className={classes.chip}>
+            {triggerList.map((connectedTrigger) => (
+              <div
+                key={connectedTrigger.trigger_config.uuid}
+                className={classes.chip}
+              >
                 <ConnectedTriggerChip
                   color={disabled ? chroma(color).alpha(0.5).hex() : color}
+                  connectedTrigger={connectedTrigger}
                   getSmartlist={getSmartlist}
-                  trigger={trigger}
                 />
               </div>
             ))}

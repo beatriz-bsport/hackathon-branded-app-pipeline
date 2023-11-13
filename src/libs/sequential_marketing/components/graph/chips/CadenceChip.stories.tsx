@@ -1,7 +1,7 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import type { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import CadenceChip, { CadenceChipProps } from './CadenceChip.component';
+import CadenceChip from './CadenceChip.component';
 
 export default {
   title: 'Components/Cadences/Chips/CadenceChips',
@@ -31,7 +31,7 @@ export default {
 } as ComponentMeta<typeof CadenceChip>;
 
 const Template: ComponentStory<typeof CadenceChip> = (
-  args: CadenceChipProps,
+  args: React.ComponentProps<typeof CadenceChip>,
 ) => <CadenceChip {...args} />;
 
 export const Trigger = Template.bind({});

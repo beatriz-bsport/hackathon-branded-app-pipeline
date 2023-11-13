@@ -9,6 +9,8 @@ import type { ConnectedTrigger } from '#libs/sequential_marketing/types';
 import type { SmartList } from '#libs/smart-list/types';
 
 import {
+  DestinationKind,
+  DestinationStatus,
   LOST_OUTPUT_TIMEOUT_TRIGGER_ID,
   TriggerKind,
 } from '#libs/sequential_marketing/constants';
@@ -24,7 +26,8 @@ import LostTriggerTimeoutForm from './trigger_forms/LostTriggerTimeoutForm.compo
 type Props = {
   customColor: string;
   smartlists: Immutable.ImmutableArray<SmartList>;
-  sourceId?: number;
+  destinationKind?: DestinationKind;
+  destinationId?: number;
   addTriggerLabel?: string;
   isEntrystep?: boolean;
   isOutput?: boolean;
@@ -43,7 +46,7 @@ type HOCProps = Props & FormValues;
  *
  * @param {string} customColor - Custom color for icons.
  * @param {Immutable.ImmutableArray<SmartList>} smartlists - All smartlists of the company.
- * @param {number} sourceId - The id of the sourcce step. If not provided, it means that the source is one of the "general outputs".
+ * @param {number} destinationId - The id of the destination step. If not provided, it means that the destination is one of the "general outputs".
  * @param {string} addTriggerLabel - Label for the add trigger button.
  * @param {boolean} isEntrystep - Specifies if the step associated to the form is the entrystep or not.
  * @param {boolean} isOutput - Specifies if the step associated to the form is one of the general outputs or not.
@@ -55,7 +58,8 @@ type HOCProps = Props & FormValues;
 const MultipleConnectedTriggerForm: React.FC<Props> = ({
   customColor,
   smartlists,
-  sourceId,
+  destinationKind,
+  destinationId,
   addTriggerLabel,
   isEntrystep,
   isOutput,
@@ -73,6 +77,12 @@ const MultipleConnectedTriggerForm: React.FC<Props> = ({
 
   const { values, isValid } = useFormikContext<FormValues>();
 
+  const connectedTriggersDestinationKind = React.useMemo(() => {
+    if (isEntrystep) return DestinationKind.OUTSIDE_TO_STEP;
+    if (isOutput) return DestinationKind.CADENCE_TO_OUTSIDE;
+    return destinationKind;
+  }, [destinationKind, isEntrystep, isOutput]);
+
   const lostOutputTimeoutTrigger = React.useMemo(
     () =>
       values?.connectedTriggers?.find(
@@ -81,6 +91,12 @@ const MultipleConnectedTriggerForm: React.FC<Props> = ({
       ),
     [values.connectedTriggers],
   );
+
+  const connectedTriggersDestinationStatus = React.useMemo(() => {
+    if (isOutput && !!lostOutputTimeoutTrigger) return DestinationStatus.FAIL;
+    if (isOutput) return DestinationStatus.WIN;
+    return null;
+  }, [isOutput, lostOutputTimeoutTrigger]);
 
   const connectedTriggerList = React.useMemo(
     () =>
@@ -97,16 +113,20 @@ const MultipleConnectedTriggerForm: React.FC<Props> = ({
         ...values.connectedTriggers,
         getConnectedTriggerDefaultValues({
           triggerKind,
-          sourceId,
+          destinationId,
+          destinationKind: connectedTriggersDestinationKind,
+          destinationStatus: connectedTriggersDestinationStatus,
         }),
       ]);
       setOpenItem(connectedTriggerList.length);
     },
     [
       connectedTriggerList.length,
-      sourceId,
-      updateConnectedTriggerList,
+      connectedTriggersDestinationKind,
+      connectedTriggersDestinationStatus,
       values.connectedTriggers,
+      destinationId,
+      updateConnectedTriggerList,
     ],
   );
 
@@ -123,10 +143,10 @@ const MultipleConnectedTriggerForm: React.FC<Props> = ({
       openItem > idx && setOpenItem((prev) => prev - 1);
     },
     [
-      updateConnectedTriggerList,
       connectedTriggerList,
       lostOutputTimeoutTrigger,
       openItem,
+      updateConnectedTriggerList,
     ],
   );
 
@@ -147,9 +167,9 @@ const MultipleConnectedTriggerForm: React.FC<Props> = ({
         ]?.filter(Boolean) ?? [],
       ),
     [
-      updateConnectedTriggerList,
       connectedTriggerList,
       lostOutputTimeoutTrigger,
+      updateConnectedTriggerList,
     ],
   );
 

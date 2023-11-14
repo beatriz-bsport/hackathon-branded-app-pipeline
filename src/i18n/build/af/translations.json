@@ -3614,6 +3614,7 @@
         },
         "convertIntoStep": { "default": "Step label", "label": "Step label" },
         "marketingAction": { "title": "Marketing action", "label": "Select a marketing action" },
+        "delete": "Delete",
         "cancel": "Cancel",
         "confirm": "Save",
         "next": "Next",

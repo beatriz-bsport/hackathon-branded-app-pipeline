@@ -636,6 +636,7 @@ exports.default = {
         title: 'Marketing action',
         label: 'Select a marketing action',
       },
+      delete: 'Delete',
       cancel: 'Cancel',
       confirm: 'Save',
       next: 'Next',

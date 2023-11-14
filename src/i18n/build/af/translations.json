@@ -1043,8 +1043,8 @@
           "frequenceHelper": "This message will be sent upon {{ max }} {{ event_kind }} to each member in this Smartlist. After {{ max }} {{ event_kind }}, members will no longer receive the message. Use \"Advanced\" to edit these settings.",
           "limitSection": "Limit",
           "maxCommunicationSentHelperText": {
-            "0": "By default, the message is sent only upon each member's first entry from the smartlist. You can adjust the setting to allow for subsequent messages upon the member's second or third entry.",
-            "1": "By default, the message is sent only upon each member's first exit from the smartlist. You can adjust the setting to allow for subsequent messages upon the member's second or third exit."
+            "0": "By default, the message is sent each time a member enters the smartlist. If a member leaves and later re-enters, the message is sent again. Adjust the setting if you want to limit how many times the same member can receive the message: once, twice, or thrice.",
+            "1": "By default, the message is sent each time a member exits the smartlist. If a member re-enters and later exits again, the message is sent again. Adjust the setting if you want to limit how many times the same member can receive the message: once, twice, or thrice."
           },
           "subtitles": {
             "create": {
@@ -1056,6 +1056,7 @@
               "joinSmartList": "Add an automatic message for members that enter this Smartlist."
             }
           },
+          "unlimited": "No limit",
           "max_communications_sent_per_member_limit": "Maximum value: {{ max }}",
           "max_communications_sent_per_member": "Number of times the rule applies",
           "advancedSection": "Advanced",

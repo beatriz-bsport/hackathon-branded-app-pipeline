@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { CSSProperties, useCallback, useMemo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import * as Yup from 'yup';
 import Button from '@material-ui/core/Button';
@@ -11,6 +11,7 @@ import {
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Typography from '@material-ui/core/Typography';
+import { colors } from '@bsport/common/lib/colors';
 
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -27,7 +28,10 @@ import RepeatIcon from '@material-ui/icons/Repeat';
 import Alert from '@material-ui/lab/Alert';
 import { SEND_COMMUNICATION_ON_JOIN } from '@bsport/common/lib/master-data/smart-list';
 import classNames from 'classnames';
-import { AutomatedCampaign } from '#libs/smart-list/types';
+import Select from 'react-select';
+import type { ValueType } from 'react-select/lib/types';
+import chroma from 'chroma-js';
+import type { AutomatedCampaign, OptionType } from '#libs/smart-list/types';
 import Config from '../../../../config';
 import {
   MAX_LENGTH_PUSH_TITLE,
@@ -47,7 +51,6 @@ import GenericResponsiveDialog from '#components/genericDialog/GenericResponsive
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 // @ts-expect-error
 import { Submit, TextField } from '#components/forms';
-import NumericInput from '#components/input/NumericInput.component';
 import type { FeatureList } from '#libs/company/types';
 import type { OptionCallback } from '../../../../state/types';
 import { ResolvedGenericTags } from '#libs/email-editor/types';
@@ -56,9 +59,30 @@ import {
   UPSELL_IDENTIFIER_SMS,
 } from '#libs/platform-billing/upsell-identifiers';
 import { hasUpsell } from '#libs/platform-billing/utils';
+import { UNLIMITED_AUTOMATIC_MESSAGING } from '#libs/smart-list/components/constants';
 
 const WRITTEN_EMAIL_KIND = 0;
 const TEMPLATE_EMAIL_KIND = 1;
+
+const selectStyles = {
+  menuPortal: (base: CSSProperties) => ({ ...base, zIndex: 9999 }),
+  option: (base: CSSProperties, { isSelected }: { isSelected: boolean }) => {
+    const color = chroma(colors.secondary);
+    const contrastColor =
+      chroma.contrast(color, 'white') > 2 ? 'white' : 'black';
+    return {
+      ...base,
+      backgroundColor: isSelected && colors.secondary,
+      color: isSelected ? contrastColor : colors.secondary,
+      '&:hover': {
+        backgroundColor: !isSelected && color.alpha(0.1).css(),
+      },
+      '&:active': {
+        backgroundColor: color.alpha(0.3).css(),
+      },
+    };
+  },
+};
 
 type Props = {
   // eslint-disable-next-line react/no-unused-prop-types
@@ -112,8 +136,12 @@ const useFormikHandlers = () => {
     });
 
   const handleChangeMaxCommunicationPerMember = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) =>
-      setFieldValue('max_communications_sent_per_member', event.target.value),
+    (option: ValueType<OptionType>) => {
+      setFieldValue(
+        'max_communications_sent_per_member',
+        (option as OptionType).value,
+      );
+    },
     [setFieldValue],
   );
 
@@ -210,6 +238,27 @@ export const AutomatedCommunicationDrawer: React.FC<
     handleSwitchToPushNotification,
     handleChangeMaxCommunicationPerMember,
   } = useFormikHandlers();
+
+  const AUTOMATIC_MESSAGE_OPTIONS: OptionType[] = React.useMemo(
+    () => [
+      {
+        value: UNLIMITED_AUTOMATIC_MESSAGING,
+        label: t('campaign.automated.form.unlimited'),
+      },
+      { value: 1, label: '1' },
+      { value: 2, label: '2' },
+      { value: 3, label: '3' },
+    ],
+    [t],
+  );
+
+  const maxCommunicationValue = useMemo(
+    () =>
+      AUTOMATIC_MESSAGE_OPTIONS.filter(
+        (option) => option.value === values.max_communications_sent_per_member,
+      )?.[0],
+    [values.max_communications_sent_per_member, AUTOMATIC_MESSAGE_OPTIONS],
+  );
 
   return (
     <GenericResponsiveDrawer
@@ -385,29 +434,24 @@ export const AutomatedCommunicationDrawer: React.FC<
 
         <Divider variant="fullWidth" />
 
-        <div className={classes.avancedSection}>
+        <div className={classes.limitSection}>
           <div className={classes.headerWithIcon}>
             <RemoveCircleIcon className={classes.leftIcon} />
             <Typography variant="h6">
               {t('campaign.automated.form.limitSection')}
             </Typography>
           </div>
-          <NumericInput
-            fullWidth
-            required
-            helperText={t(
-              'campaign.automated.form.max_communications_sent_per_member_limit',
-              { max: 3 },
-            )}
-            InputProps={{
-              inputProps: { step: 1, min: 0 },
-            }}
-            label={t(
-              'campaign.automated.form.max_communications_sent_per_member',
-            )}
-            onChange={handleChangeMaxCommunicationPerMember}
-            value={values.max_communications_sent_per_member}
-          />
+          <div className={classes.selectContainer}>
+            <Typography variant="caption">
+              {t('campaign.automated.form.max_communications_sent_per_member')}
+            </Typography>
+            <Select
+              onChange={handleChangeMaxCommunicationPerMember}
+              options={AUTOMATIC_MESSAGE_OPTIONS}
+              styles={selectStyles}
+              value={maxCommunicationValue}
+            />
+          </div>
           <Alert className={classes.alert} severity="info" variant="outlined">
             {t(
               `campaign.automated.form.maxCommunicationSentHelperText.${values.event_kind}`,
@@ -503,6 +547,18 @@ export const AutomatedCommunicationDrawer: React.FC<
 };
 
 const useStyles = makeStyles((theme) => ({
+  selectContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(1),
+  },
+  limitSection: {
+    display: 'flex',
+    flexDirection: 'column',
+    paddingTop: theme.spacing(3),
+    paddingBottom: theme.spacing(3),
+    gap: theme.spacing(2),
+  },
   radioContainer: {
     marginBottom: theme.spacing(2),
     width: '100%',
@@ -547,7 +603,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'row',
-    paddingBottom: theme.spacing(2),
   },
   collapseTitle: {
     display: 'flex',
@@ -560,7 +615,6 @@ const useStyles = makeStyles((theme) => ({
   },
   alert: {
     alignItems: 'center',
-    marginTop: theme.spacing(3),
   },
   expandIcon: {
     transform: 'rotate(0)',
@@ -589,7 +643,7 @@ type Values = {
   text: string | null;
   email_design: number | null;
   title: string | null;
-  max_communications_sent_per_member: number;
+  max_communications_sent_per_member: number | null;
   email_kind: number | null;
   email_resend_count: number;
   email_resend_delay: number;
@@ -628,7 +682,7 @@ const AutomatedCampaignValidationSchema = Yup.object().shape({
       return true;
     },
   ),
-  max_communications_sent_per_member: Yup.number().required().max(3),
+  max_communications_sent_per_member: Yup.number().nullable().max(3),
   email_resend_count: Yup.number()
     .min(0)
     .max(5)
@@ -689,7 +743,7 @@ const formikFormWrapper = withFormik<Props, Values>({
       text: '',
       email_design: null,
       title: '',
-      max_communications_sent_per_member: 1,
+      max_communications_sent_per_member: UNLIMITED_AUTOMATIC_MESSAGING,
       email_kind: WRITTEN_EMAIL_KIND,
       email_resend_count: 0,
       email_resend_delay: 0,

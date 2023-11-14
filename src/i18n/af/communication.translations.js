@@ -155,9 +155,9 @@ const getTranslations = async () => {
 
           maxCommunicationSentHelperText: {
             [SEND_COMMUNICATION_ON_JOIN]:
-              "By default, the message is sent only upon each member's first entry from the smartlist. You can adjust the setting to allow for subsequent messages upon the member's second or third entry.",
+              'By default, the message is sent each time a member enters the smartlist. If a member leaves and later re-enters, the message is sent again. Adjust the setting if you want to limit how many times the same member can receive the message: once, twice, or thrice.',
             [SEND_COMMUNICATION_ON_LEFT]:
-              "By default, the message is sent only upon each member's first exit from the smartlist. You can adjust the setting to allow for subsequent messages upon the member's second or third exit.",
+              'By default, the message is sent each time a member exits the smartlist. If a member re-enters and later exits again, the message is sent again. Adjust the setting if you want to limit how many times the same member can receive the message: once, twice, or thrice.',
           },
           subtitles: {
             create: {
@@ -173,6 +173,7 @@ const getTranslations = async () => {
                 'Add an automatic message for members that enter this Smartlist.',
             },
           },
+          unlimited: 'No limit',
           max_communications_sent_per_member_limit: 'Maximum value: {{ max }}',
           max_communications_sent_per_member:
             'Number of times the rule applies',

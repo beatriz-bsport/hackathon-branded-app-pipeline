@@ -70,7 +70,7 @@ export type AutomatedCampaign<C = number, SM = number, ED = number> = {
   title: string | null;
   disabled: boolean;
   date_created: string;
-  max_communications_sent_per_member: number;
+  max_communications_sent_per_member: number | null;
   email_resend_count: number;
   email_resend_delay: number;
 };
@@ -84,4 +84,9 @@ export type FetchSmartlistMembersQueryParams = {
   page?: number;
   page_size?: number;
   email_confirmed?: boolean;
+};
+
+export type OptionType = {
+  value: number | null;
+  label: string;
 };

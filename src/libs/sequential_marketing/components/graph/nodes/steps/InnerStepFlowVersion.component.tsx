@@ -41,6 +41,8 @@ type FlowProps = {
     isDeleteStepDialogHidden: boolean;
     isConvertStepIntoExitDialogHidden: boolean;
     createNewMarketingAction: (value: Partial<StepMarketingActions>) => void;
+    upsertMarketingAction: (value: Partial<StepMarketingActions>) => void;
+    deleteStepMarketingAction: (data: { id: number; stepId: number }) => void;
     endStepEdition: () => void;
     onConnectToStep: (destinationId: number, triggerKind: TriggerKind) => void;
     submitConvertIntoExit: (status: DestinationStatus) => void;
@@ -123,31 +125,51 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
   const [anchorAddMarketingAction, setAnchorAddMarketingAction] =
     React.useState<HTMLDivElement | null>(null);
 
-  const [newMarketingAction, setNewMarketingAction] =
+  const [marketingAction, setMarketingAction] =
     React.useState<Partial<StepMarketingActions> | null>(null);
 
-  const handleOpenUniqueMarketingActionBubble = React.useCallback(
+  const handleCreateMarketingAction = React.useCallback(
     (type: MarketingActions) => {
-      setNewMarketingAction(getMarketingActionPartialValues(type));
+      setMarketingAction(getMarketingActionPartialValues(type));
       setAnchorAddMarketingAction(stepCardRef?.current);
     },
     [stepCardRef],
   );
 
-  const handleCloseUniqueMarketingActionBubble = React.useCallback(
+  const handleEditMarketingAction = React.useCallback(
+    (action: StepMarketingActions) => {
+      setMarketingAction(action);
+      setAnchorAddMarketingAction(stepCardRef?.current);
+    },
+    [stepCardRef],
+  );
+
+  const handleCloseMarketingActionBubble = React.useCallback(
     () => setAnchorAddMarketingAction(null),
     [],
   );
 
-  const handleCreateOneMarketingAction = React.useCallback(
-    (value: Partial<StepMarketingActions>) => {
-      data.createNewMarketingAction({
-        ...value,
-        cadence_step: value?.cadence_step || data?.step?.id,
+  const handleCancelMarketingActionBubble = React.useCallback(() => {
+    handleCloseMarketingActionBubble();
+    !!marketingAction?.id &&
+      data?.step?.id &&
+      data.deleteStepMarketingAction?.({
+        stepId: data.step.id,
+        id: marketingAction.id,
+      });
+    setMarketingAction(null);
+  }, [data, handleCloseMarketingActionBubble, marketingAction?.id]);
+
+  const handleUpsertMarketingAction = React.useCallback(
+    (action: Partial<StepMarketingActions>) => {
+      data.upsertMarketingAction?.({
+        ...action,
+        cadence_step: action?.cadence_step || data?.step?.id,
         name: t('cadence.form.marketing_action.defaultName'),
       });
+      handleCloseMarketingActionBubble();
     },
-    [data, t],
+    [data, handleCloseMarketingActionBubble, t],
   );
 
   // =============== OPEN DELETE STEP DIALOG ================
@@ -234,10 +256,11 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
       />
       <div ref={stepCardRef}>
         <InnerStepCard
-          addMarketingAction={handleOpenUniqueMarketingActionBubble}
+          addMarketingAction={handleCreateMarketingAction}
           addNextStep={data.addNextStep}
           disableAddMarketingAction={data.disableAddMarketingAction}
           disabled={data.disabled}
+          editMarketingAction={handleEditMarketingAction}
           getEmailTemplate={data.getEmailTemplate}
           getTag={data.getTag}
           handleConvertIntoExit={handleOpenConvertIntoExitBubble}
@@ -292,16 +315,16 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
       <Popover
         anchorEl={anchorAddMarketingAction}
         anchorOrigin={anchorOrigin}
-        onClose={handleCloseUniqueMarketingActionBubble}
+        onClose={handleCloseMarketingActionBubble}
         open={!!anchorAddMarketingAction}
         PaperProps={popoverStyle}
         transformOrigin={transformOrigin}
       >
         <UniqueMarketingActionBubble
           {...data.marketingActionEssentials}
-          marketingAction={newMarketingAction}
-          onClose={handleCloseUniqueMarketingActionBubble}
-          onConfirm={handleCreateOneMarketingAction}
+          marketingAction={marketingAction}
+          onCancel={handleCancelMarketingActionBubble}
+          onConfirm={handleUpsertMarketingAction}
         />
       </Popover>
       <CadencDialogUtility

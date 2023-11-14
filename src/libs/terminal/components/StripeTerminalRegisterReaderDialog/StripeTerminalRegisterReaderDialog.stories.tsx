@@ -1,12 +1,12 @@
 import React from 'react';
 
 import {
-  StripeTerminalConnectReaderDialog,
-  Props,
-} from './StripeTerminalConnectReaderDialog.component';
+  StripeTerminalRegisterReaderDialogForStorybook,
+  type Props,
+} from '../StripeTerminalRegisterReaderDialog';
 
 const CustomTemplate = (args: Props) => (
-  <StripeTerminalConnectReaderDialog {...args} />
+  <StripeTerminalRegisterReaderDialogForStorybook {...args} />
 );
 
 export const LoadingScreen = CustomTemplate.bind({});
@@ -37,8 +37,8 @@ ErrorScreen.args = {
 };
 
 export default {
-  title: 'Library/Terminal/ConnectReaderDialog',
-  component: StripeTerminalConnectReaderDialog,
+  title: 'Library/Terminal/RegisterReaderDialog',
+  component: StripeTerminalRegisterReaderDialogForStorybook,
   parameters: {
     docs: {
       page: null,

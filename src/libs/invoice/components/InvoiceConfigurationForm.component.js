@@ -22,7 +22,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import DeleteIcon from '@material-ui/icons/Delete';
 import IconButton from '@material-ui/core/IconButton';
-import StripeTerminalConnectReaderDialog from '#libs/terminal/components/StripeTerminalConnectReaderDialog.component';
+import StripeTerminalRegisterReaderDialog from '#libs/terminal/components/StripeTerminalRegisterReaderDialog';
 import NumberInput from '../../../components/input/NumericInput.component';
 import ThemeInternalAccountForm from '#libs/theme/components/ThemeInternalAccountForm.component';
 import ProvincialTaxForm from '../../theme/components/ProvincialTax.form';
@@ -489,7 +489,7 @@ export class InvoiceConfigurationForm extends React.Component<Props, State> {
           </Paper>
         </div>
         {this.state.openConnectReaderDialog && (
-          <StripeTerminalConnectReaderDialog
+          <StripeTerminalRegisterReaderDialog
             createReaderAndFetch={this.props.createReaderAndFetch}
             editReaderAndFetch={this.props.editReaderAndFetch}
             mustCreateStripeLocation={!this.props.theme.has_stripe_location}

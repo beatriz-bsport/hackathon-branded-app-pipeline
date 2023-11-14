@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { compose, withState } from 'recompose';
 
@@ -11,11 +10,12 @@ import * as Yup from 'yup';
 import { Form, withFormik, FormikProps } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme, CircularProgress } from '@material-ui/core';
-import LocaleSelector from '../../../components/input/LocaleSelector.component';
+import LocaleSelector from '#components/input/LocaleSelector.component';
 import ValidationIcon from '#components/icons/ValidationIcon.component';
 import ErrorIcon from '#components/icons/ErrorIcon.component';
-import { TextField } from '../../../components/forms';
-import { OptionCallback } from '../../../state/types';
+// @ts-expect-error
+import { TextField } from '../../../../components/forms';
+import { OptionCallback } from '../../../../state/types';
 import { StripeReader } from '#libs/terminal/types';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -98,7 +98,7 @@ type OwnProps = {
 
 export type Props = OwnProps & FormikProps<FormikValues>;
 
-export const StripeTerminalConnectReaderDialog = (props: Props) => {
+export const StripeTerminalRegisterReaderDialog: React.FC<Props> = (props) => {
   const classes = useStyles();
 
   const { t } = useTranslation(['invoice']);
@@ -147,7 +147,7 @@ export const StripeTerminalConnectReaderDialog = (props: Props) => {
                       hideLang
                       noMargin
                       label={t('translation:form.address.country')}
-                      onChange={(ev) => {
+                      onChange={(ev: React.ChangeEvent<HTMLInputElement>) => {
                         props.setFieldValue('country', ev.target.value);
                       }}
                       value={props.values.country}
@@ -375,9 +375,12 @@ export const ConnectReaderFormHOC = withFormik<Props, FormikValues>({
   },
 });
 
+export const StripeTerminalRegisterReaderDialogForStorybook =
+  StripeTerminalRegisterReaderDialog;
+
 export default compose(
   withState('displayForm', 'setDisplayForm', true),
   withState('displaySuccess', 'setDisplaySuccess', false),
   withState('displayError', 'setDisplayError', false),
   ConnectReaderFormHOC,
-)(StripeTerminalConnectReaderDialog);
+)(StripeTerminalRegisterReaderDialog);

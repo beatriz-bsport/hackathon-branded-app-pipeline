@@ -34,7 +34,6 @@
     "@sentry/tracing": "^7.26.0",
     "@stripe/react-stripe-js": "^2.1.0",
     "@stripe/stripe-js": "^1.52.0",
-    "@stripe/terminal-js": "^0.10.0",
     "@types/react-virtualized-auto-sizer": "^1.0.1",
     "autoprefixer": "7.1.6",
     "axios": "^0.18.0",

@@ -14,7 +14,7 @@ import { marketingActionIconDict } from '#libs/sequential_marketing/components/h
 
 type Props = {
   marketingAction?: Partial<StepMarketingActions>;
-  onClose?: () => void;
+  onCancel?: () => void;
   onConfirm: (data: Partial<StepMarketingActions>) => void;
 } & MarketingActionEssentials;
 
@@ -29,10 +29,12 @@ const UniqueMarketingActionBubble: React.FC<Props> = ({
   tagList,
   fetchEmailSummaryList,
   getEmailDetail,
-  onClose,
+  onCancel,
   onConfirm,
 }) => {
   const { t } = useTranslation('marketing');
+
+  const isEdition = !!marketingAction?.id;
 
   const [updatedMarketingAction, setUpdatedMarketingAction] =
     React.useState<Partial<StepMarketingActions> | null>(null);
@@ -51,8 +53,7 @@ const UniqueMarketingActionBubble: React.FC<Props> = ({
 
   const handleSubmit = React.useCallback(() => {
     onConfirm?.(updatedMarketingAction);
-    onClose?.();
-  }, [updatedMarketingAction, onClose, onConfirm]);
+  }, [updatedMarketingAction, onConfirm]);
 
   const handleUpdateFormValidation = React.useCallback((isValid: boolean) => {
     setIsFormValid(isValid);
@@ -70,7 +71,8 @@ const UniqueMarketingActionBubble: React.FC<Props> = ({
       color={SequentialMarketingColors.INNER_STEP_COLOR}
       icon={marketingActionIconDict[marketingActionType]}
       isSubmissionForbidden={!isFormValid}
-      onCancelClick={onClose}
+      onCancelClick={onCancel}
+      onCancelText={isEdition ? t(`cadence.bubble.delete`) : ''}
       onConfirmClick={handleSubmit}
       title={t(`cadence.form.marketing_action.${marketingActionType}`)}
     >

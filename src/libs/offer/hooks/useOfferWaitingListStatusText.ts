@@ -19,6 +19,7 @@ const useOfferWaitingListStatusText = (
 ) => {
   const { t } = useTranslation('booking');
   const {
+    isBookingLimitReached,
     isWaitlistOpen,
     isWaitlistAlreadyBooked,
     isWaitlistFull,
@@ -62,6 +63,15 @@ const useOfferWaitingListStatusText = (
       'booking:newBookingModule.blockedReasons.waitingListLockedByPendingBookings.title';
     message =
       'booking:newBookingModule.blockedReasons.waitingListLockedByPendingBookings.message';
+  }
+
+  if (isBookingLimitReached) {
+    headerTitle =
+      'booking:newBookingModule.blockedReasons.isBookingLimitReached.title';
+    title =
+      'booking:newBookingModule.blockedReasons.isBookingLimitReached.title';
+    message =
+      'booking:newBookingModule.blockedReasons.isBookingLimitReached.message';
   }
 
   return {

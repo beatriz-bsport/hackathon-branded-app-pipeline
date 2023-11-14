@@ -5,6 +5,7 @@ import {
 import {
   OFFER_WAITING_LIST_STATUS_ALREADY_BOOKED,
   OFFER_WAITING_LIST_STATUS_FULL,
+  OFFER_BOOKABLE_STATUS_TOO_MANY_IN_FUTURE,
 } from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
 import { OfferStatus } from '../types';
 
@@ -17,6 +18,8 @@ import { OfferStatus } from '../types';
  * )
  */
 const useOfferWaitingListStatus = (offerStatus: OfferStatus) => {
+  const isBookingLimitReached =
+    offerStatus?.bookable_status === OFFER_BOOKABLE_STATUS_TOO_MANY_IN_FUTURE;
   const isWaitlistOpen =
     offerStatus?.waiting_list_status === OFFER_WAITING_LIST_STATUS_OPEN;
   const isWaitlistFull =
@@ -29,6 +32,7 @@ const useOfferWaitingListStatus = (offerStatus: OfferStatus) => {
     OFFER_WAITING_LIST_LOCKED_BY_PENDING_BOOKINGS;
 
   return {
+    isBookingLimitReached,
     isWaitlistOpen,
     isWaitlistAlreadyBooked,
     isWaitlistFull,

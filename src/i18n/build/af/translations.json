@@ -1101,14 +1101,14 @@
         "13": "Notification",
         "14": "Transactional notifications",
         "15": "Cadence",
+        "16": "Franchise",
         "30": "Bookings",
         "31": "Cancelled bookings",
         "32": "Waiting list",
         "50": "Automatic",
         "51": "Manual",
         "70": "Sent",
-        "71": "Received",
-        "undefined": "Franchise"
+        "71": "Received"
       },
       "sendParameter": { "placeholder": "Select a setting", "title": "Settings" },
       "recipient": { "placeholder": "Select a booking status", "title": "Recipients" },
@@ -4096,7 +4096,11 @@
         "sourceManager": "The manager {{ managerName }}",
         "filter": "Bookings"
       },
-      "undefined": {
+      "member-booking_canceled": {
+        "primaryText": "The booking for {{- name }} the {{- date_start }} was canceled.",
+        "filter": "Booking cancelations"
+      },
+      "member-private_booking_canceled": {
         "primaryText": "The appointment for {{- private_service_name}} - {{- private_slot_name }} the {{- date_start }} was canceled.",
         "filter": "Appointment cancelations"
       },
@@ -4750,6 +4754,8 @@
       "27": "Subscription ended or terminated",
       "28": "Payment received",
       "29": "Reminder that the livestream starts in 15 minutes (for members)",
+      "30": "Booking for a guest (for inviting member)",
+      "31": "Booking for a guest (for guest)",
       "101": "Reminder that the livestream starts in 15 minutes (for teachers)",
       "102": "Cancelled session (for teachers)",
       "103": "Modified session (for teachers)",
@@ -4791,8 +4797,7 @@
       "987": "Attempt to collect an installment payment",
       "1001": "Spivi account created (for members)",
       "1002": "Spinning session performance",
-      "1003": "Spivi account created (for teachers)",
-      "undefined": "Booking for a guest (for guest)"
+      "1003": "Spivi account created (for teachers)"
     },
     "pageTitle": "Transactional notifications",
     "caption": {

@@ -2,6 +2,7 @@
 
 set -e
 
+FEATURE_BRANCH_IDENTIFIER=$1
 
 echo cloning saas repo
 git clone https://${GIT_USERNAME}:${GIT_PASSWORD}@gitlab.com/bsport/bsport-saas.git /bsport-saas
@@ -15,7 +16,17 @@ echo checkout saas to $CI_COMMIT_REF_NAME
 git checkout $CI_COMMIT_REF_NAME
 rm -fr /bsport-saas/.git/
 mkdir -p ./build
-cp /bsport-saas/envs/$ENVIRONMENT ./build/env.js
+
+echo "FEATURE_BRANCH_IDENTIFIER: $FEATURE_BRANCH_IDENTIFIER"
+
+if [ -z $FEATURE_BRANCH_IDENTIFIER ]
+then
+	cp /bsport-saas/envs/$ENVIRONMENT ./build/env.js
+else
+	ENV_TEMPLATE_FILE=template-frontend-only-feature-branch
+	sed -i "s/FEATURE_BRANCH_IDENTIFIER/${FEATURE_BRANCH_IDENTIFIER}/g" /bsport-saas/envs/${ENV_TEMPLATE_FILE}
+	cp /bsport-saas/envs/${ENV_TEMPLATE_FILE} ./build/env.js
+fi
 yarn install --frozen-lockfile
 
 echo linking project

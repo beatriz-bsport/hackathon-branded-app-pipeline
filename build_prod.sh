@@ -9,7 +9,12 @@ S3DESTINATION=$S3BUCKETNAME$S3BUCKETLOCATION
 echo $ENVIRONMENT
 if [[ "$ENVIRONMENT" != "production" ]]
 then
-  cp ./config.$ENVIRONMENT.js ./config.production.js
+  if [ -z $FEATURE_BRANCH_IDENTIFIER ]
+  then
+    cp ./config.$ENVIRONMENT.js ./config.production.js
+  else
+    cp ./config.dev.js ./config.production.js
+  fi
 fi
 
 echo "Current env is "
@@ -27,15 +32,13 @@ cd dist/
 
 aws s3 sync ./ s3://$S3DESTINATION/ \
   --cache-control max-age=31536000,public \
-  --acl public-read \
   --exclude widget.js  \
-  --exclude "*.map*"
+  --exclude "*.map*" $ACL_PARAM
 
 aws s3 cp ./widget.js s3://$S3DESTINATION/widget.js \
   --metadata-directive REPLACE \
   --cache-control max-age=0,no-cache,no-store,must-revalidate \
-  --content-type application/javascript \
-  --acl public-read
+  --content-type application/javascript $ACL_PARAM
 
 curl --get \
    --data-urlencode paths='["/scripts/widget.js"]' \

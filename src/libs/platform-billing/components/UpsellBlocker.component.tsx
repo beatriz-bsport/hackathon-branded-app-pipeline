@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { JSX } from 'react';
 
 // eslint-disable-next-line bsport/no-redux-in-component
-import { connect, type ConnectedProps } from 'react-redux';
-import { makeStyles, useTheme, Theme } from '@material-ui/core/styles';
+import { connect, ConnectedProps } from 'react-redux';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Paper, Button, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
@@ -18,7 +18,7 @@ import type { Dispatch } from '../../../state/types';
 import type { RootState } from '../../../reducers';
 import { UpsellPackage } from '#libs/company/types';
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((theme) => ({
   blockerFrame: {
     position: 'absolute',
     left: 0,
@@ -60,16 +60,26 @@ const useStyles = makeStyles((theme: Theme) => ({
     color: theme.palette.grey[700],
     marginRight: theme.spacing(2),
   },
+  largeIconContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: '100%',
+    width: '110px',
+    height: '110px',
+  },
 }));
 
 type Props = {
   upsellIdentifier: number;
   handleOpenSubscriptionForm?: () => void;
   upsellPackage?: UpsellPackage;
+  CustomIconComponent?: JSX.Element;
 } & ConnectedProps<typeof connector>;
 
 const UpsellBlocker = ({
   upsellIdentifier,
+  CustomIconComponent,
   featureList,
   requestUpsellPackage,
   handleOpenSubscriptionForm,
@@ -90,11 +100,17 @@ const UpsellBlocker = ({
       <div className={classes.pseudoDialogContainer}>
         <Paper className={classes.pseudoDialog} elevation={3}>
           <div className={classes.innerPaper}>
-            <WelcomeIcon
-              fill={theme.palette.primary.main}
-              height={96}
-              width={96}
-            />
+            {CustomIconComponent ? (
+              <div className={classes.largeIconContainer}>
+                {CustomIconComponent}
+              </div>
+            ) : (
+              <WelcomeIcon
+                fill={theme.palette.primary.main}
+                height={96}
+                width={96}
+              />
+            )}
             <Typography align="center" variant="h6">
               {t(`upsellPackage.lockDialog.${upsellIdentifier}.intro`)}
             </Typography>

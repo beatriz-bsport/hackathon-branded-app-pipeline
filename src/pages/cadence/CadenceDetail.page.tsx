@@ -341,6 +341,7 @@ export class CadenceDetailPage extends Component<Props> {
               convertCadenceStepIntoExit={this.props.convertCadenceStepIntoExit}
               deleteCadenceStep={this.props.deleteCadenceStep}
               deleteConnectedTrigger={this.props.deleteConnectedTriggerAction}
+              deleteStepMarketingAction={this.props.deleteStepMarketingAction}
               doNotDisplayConvertStepIntoExitDialogAnymoreAction={
                 this.handleDoNotDisplayConvertStepIntoExitDialogAnymoreAction
               }
@@ -752,9 +753,8 @@ const mapWithHandlers = {
     (
       data: Partial<StepMarketingActions>,
       options?: OptionCallback<StepMarketingActions>,
-    ) => {
-      data && props.upsertStepMarketingAtionsAction(data, options);
-    },
+    ) =>
+      data && props.upsertStepMarketingAtionsAction(data, options),
 
   doNotDisplayDeleteStepDialogAnymore:
     (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>
@@ -776,9 +776,8 @@ const mapWithHandlers = {
 
   deleteStepMarketingAction:
     (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>
-    (data: { id: number; stepId: number }) => {
-      props.deleteStepMarketingActionAction(data);
-    },
+    (data: { id: number; stepId: number }) =>
+      props.deleteStepMarketingActionAction(data),
 };
 
 const connector = connect(

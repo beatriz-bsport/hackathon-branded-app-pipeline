@@ -77,6 +77,7 @@ type Props = {
     connectedTriggerUUID: string,
     sourceStepId: number,
   ) => void;
+  deleteStepMarketingAction: (data: { id: number; stepId: number }) => void;
   getSmartlist: (id: number) => SmartList;
   getStepMarketingActions: (stepId: number) => StepMarketingActions[];
   getTag: (id: string) => Tag;
@@ -108,6 +109,7 @@ export const useGraph = ({
   convertCadenceStepIntoExit,
   deleteCadenceStep,
   deleteConnectedTrigger,
+  deleteStepMarketingAction,
   editConnectedTrigger,
   getEmailTemplate,
   getSmartlist,
@@ -182,6 +184,7 @@ export const useGraph = ({
       convertCadenceStepIntoExit,
       deleteCadenceStep,
       deleteConnectedTrigger,
+      deleteStepMarketingAction,
       editConnectedTrigger,
       getEmailTemplate,
       getSmartlist,

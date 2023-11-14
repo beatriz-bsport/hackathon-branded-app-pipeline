@@ -64,6 +64,7 @@ type Props = {
     connectedTriggerUUID: string,
     sourceStepId: number,
   ) => void;
+  deleteStepMarketingAction: (data: { id: number; stepId: number }) => void;
   editConnectedTrigger: (
     trigger: ConnectedTrigger,
     options?: OptionCallback<ConnectedTrigger>,
@@ -124,6 +125,7 @@ export const CadenceGraphFlow: React.FC<Props> = ({
   convertCadenceStepIntoExit,
   deleteCadenceStep,
   deleteConnectedTrigger,
+  deleteStepMarketingAction,
   editConnectedTrigger,
   fetchEmailSummaryList,
   getEmailDetail,
@@ -164,6 +166,7 @@ export const CadenceGraphFlow: React.FC<Props> = ({
     convertCadenceStepIntoExit,
     deleteCadenceStep,
     deleteConnectedTrigger,
+    deleteStepMarketingAction,
     editConnectedTrigger,
     getEmailTemplate,
     getSmartlist,

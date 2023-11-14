@@ -1801,7 +1801,8 @@
                     "loadingData": "Buchungsdaten laden",
                     "groupWarning": "Diese Session ist Teil der Gruppensession {{ name }}",
                     "bookMoreInGroup": "Für andere Gruppensessions anmelden",
-                    "bookSingleInGroup": "Nur für diese Session anmelden"
+                    "bookSingleInGroup": "Nur für diese Session anmelden",
+                    "bookingLimitReached": "Buchungsgrenze erreicht"
                 }
             }
         },
@@ -2615,7 +2616,8 @@
                 "confirm": "Löschen",
                 "cancel": "Abbrechen",
                 "content": "Bist Du Dir sicher, dass Du diese Smartlist löschen möchtest? Diese Aktion ist unwiderruflich",
-                "title": "Smartlist löschen"
+                "title": "Smartlist löschen",
+                "linkedToAFranchiseCommunication": "Diese Smartlist wurde von Ihrem Franchise verwendet und kann nicht gelöscht werden"
             },
             "validate": "Bestätigen"
         },
@@ -2751,7 +2753,8 @@
         "downLoadSavedExport": "Vorherigen Export herunterladen",
         "generateExport": "Export generieren",
         "generateHelperText": "Generieren Sie den Export zum Herunterladen der Smartlist",
-        "lastGenerated": "Letzter generierter Export am: {{-date}} {{time}}"
+        "lastGenerated": "Letzter generierter Export am: {{-date}} {{time}}",
+        "usedInFranchiseCommmunication": "In einer Kampagne von Ihrem Franchise verwendet"
     },
     "theme": {
         "forms": {
@@ -2863,7 +2866,7 @@
                 "hideCoach": "Blende die Anzeige der Lehrkraft auf dem Kundenkalender aus",
                 "maxFutureBooking": {
                     "numberCheck": {
-                        "helperText": "Ihre Mitglieder werden in Zukunft nicht mehr als diese Anzahl von Reservierungen haben können",
+                        "helperText": "Dies ist die maximale Anzahl zukünftiger Buchungen pro Mitglied, ausgenommen Workshop-Buchungen.",
                         "placeholder": "Maximale Anzahl"
                     },
                     "label": "Begrenzung der maximalen Anzahl zukünftiger Buchungen pro Kunde"
@@ -2990,7 +2993,14 @@
                 },
                 "doubleBookingDisabledWithSpivi": "Die Doppelbuchung ist nicht mit der Spivi-Integration kompatibel",
                 "startWeekOnToday": "Starten Sie den Kalender Ihrer Mitglieder mit dem heutigen Datum, wenn die Anzeige im Wochenansicht-Kartenmodus ist",
-                "showPastSessionsCalendar": "Zeige vergangene Sessions im Kalender Ihrer Mitglieder"
+                "showPastSessionsCalendar": "Zeige vergangene Sessions im Kalender Ihrer Mitglieder",
+                "maxFutureWorkshop": {
+                    "label": "Begrenzung der Anzahl der künftig gebuchten Workshops pro Mitglied",
+                    "numberCheck": {
+                        "placeholder": "Maximal",
+                        "helperText": "Dies ist die Maximalanzahl der künftig gebuchten Workshop-Sessions pro Mitglied."
+                    }
+                }
             },
             "submit": "Speichern",
             "instagramURL": {
@@ -3102,7 +3112,8 @@
             "addPassToCart": "Wenn ein Nutzer einen Pass in seinen Warenkorb legt",
             "signinShow": "Wenn der Benutzer auf der Anmeldeseite ankommt",
             "signupShow": "Wenn der Benutzer das Registrierungsformular anzeigt",
-            "contractPaymentSuccess": "Wenn der Benutzer ein Abo abgeschlossen hat"
+            "contractPaymentSuccess": "Wenn der Benutzer ein Abo abgeschlossen hat",
+            "bookingSuccess": "Wenn ein Benutzer eine Session bucht (Gruppenaktivitäten)"
         },
         "signUpForm": {
             "fields": {
@@ -3616,6 +3627,18 @@
                 },
                 "tag": {
                     "_label": "Tags"
+                },
+                "marketing": {
+                    "tags": {
+                        "_label": "Tags"
+                    },
+                    "campaigns": {
+                        "_label": "Kampagnen"
+                    },
+                    "emailTemplates": {
+                        "_label": "E-Mails"
+                    },
+                    "_label": "Marketing"
                 }
             }
         },
@@ -3758,7 +3781,7 @@
                             "_label": "Anwesenheiten/Abwesenheiten bearbeiten"
                         },
                         "editPerformance": {
-                            "_label": "Programmleistungen bearbeiten"
+                            "_label": "Programmleistung bearbeiten"
                         },
                         "removeFromWaitlist": {
                             "_label": "Mitglieder von der Warteliste entfernen"
@@ -7330,6 +7353,24 @@
         },
         "smartlistGetMembers": {
             "error": "Es ist ein Fehler aufgetreten: Die Mitglieder können nicht abgerufen werden"
+        },
+        "communicationSentGroupConfig": {
+            "duplicate": {
+                "error": "Duplizieren der Kampagne nicht möglich",
+                "success": "Kampagne dupliziert"
+            },
+            "delete": {
+                "error": "Löschen der Kampagne nicht möglich",
+                "success": "Kampagne gelöscht"
+            },
+            "update": {
+                "error": "Speichern der Kampagne nicht möglich",
+                "success": "Kampagne erfolgreich aktualisiert"
+            },
+            "create": {
+                "error": "Erstellung der Kampagne nicht möglich",
+                "success": "Kampagne erfolgreich erstellt"
+            }
         }
     },
     "invoice": {
@@ -12096,7 +12137,8 @@
                     "subscription_recurrent_price": "Monatlich abgebuchter Betrag",
                     "subscription_nb_days_pause": "Pause : Anzahl der Tage",
                     "subscription_next_invoice_date": "Nächstes Abrechnungsdatum",
-                    "subscription_contract_terms_link": "Link für Nutzungsbedingungen"
+                    "subscription_contract_terms_link": "Link für Nutzungsbedingungen",
+                    "subscription_duration": "Gesamtdauer"
                 },
                 "name": "Abonnement"
             },
@@ -14698,7 +14740,7 @@
                             "marketplace": "Studio",
                             "home": "Aktivitäten (Standard)",
                             "bookings": "Buchungen",
-                            "membership": "Kalender"
+                            "membership": "Kursplan"
                         },
                         "placeholder": "Eine Seite auswählen",
                         "helperText": "Mit dieser Option können Sie die Standardseite auswählen, die Nutzer beim Öffnen der App sehen.",
@@ -15528,7 +15570,13 @@
                 "marketplace_basket_summary_list_item": "Bestandteil der Liste der Artikel im Warenkorb (Warenkorbübersicht)",
                 "booker_module_offer_summary": "Session-Zusammenfassung",
                 "fabrique_typography": "Typografie",
-                "fabrique_card": "Karte"
+                "fabrique_card": "Karte",
+                "marketplace_spot_selector": "Platzreservierungswähler",
+                "fabrique_badge": "Abzeichen",
+                "marketplace_minimal_appbar": "Minimale AppBar",
+                "authentication_login": "Anmeldekomponente",
+                "authentication_login_form": "Anmeldeformular",
+                "authentication_reset_password_form": "Formular zum Passwort zurücksetzen"
             },
             "page": {
                 "calendar": "Kalender",
@@ -15537,7 +15585,9 @@
                 "pass": "Kurspass",
                 "common": "Gemeinsam",
                 "bookingPage": "Buchung",
-                "fabrique": "Fabrik"
+                "fabrique": "Fabrik",
+                "spot_scheduling": "Platzreservierung",
+                "authentication": "Authentifizierung"
             },
             "cssConfig": {
                 "configurationTitle": "Variationen",
@@ -15581,7 +15631,11 @@
                     "cardVariant": "Wählen Sie die zu verwendende Kartenvariante",
                     "componentType": "Container ist eine Schaltfläche",
                     "isRippleEnabled": "Ripple-Effekt der Schaltfläche deaktivieren",
-                    "square": "Abgerundete Ecken deaktivieren"
+                    "square": "Abgerundete Ecken deaktivieren",
+                    "color": "Farbe des Elements",
+                    "isError": "Befindet sich im Fehlerzustand",
+                    "hasEmailChoices": "Auswahl der E-Mail-Liste",
+                    "hasSent": "Das Formular wurde eingereicht"
                 },
                 "option": {
                     "activityName": "Aktivität",
@@ -15624,7 +15678,12 @@
                     "2": "Zwei",
                     "1": "Eins",
                     "elevated": "Erweitert",
-                    "rest": "Pause"
+                    "rest": "Pause",
+                    "warning": "Warnung",
+                    "onstrong": "Auf starkem Hintergrund",
+                    "grey": "Grau",
+                    "main": "Hauptseite",
+                    "isBlockedByMaxFutureBooking": "Maximale Anzahl an zukünftigen Buchungen erreicht"
                 }
             }
         },
@@ -16255,7 +16314,10 @@
                 "place": "Standort",
                 "walls": "Wände",
                 "edition": "Ausgabe",
-                "spivi": "Spivi-Integration"
+                "spivi": "Spivi-Integration",
+                "assets": "Ressourcen",
+                "editionAdvanced": "Fortgeschrittene Edition",
+                "editionHistory": "Historie der Edition"
             },
             "title": "Werkzeugkasten",
             "customIconLabel": "Standort-Symbole",
@@ -16266,7 +16328,12 @@
             "addSpotType": "Einen Spot-Typ hinzufügen",
             "helperText": "die Größe des Lehrkraftsymbols muss positiv sein",
             "requiredForSpivi": "Erforderlich für die Spivi-Integration",
-            "boxId": "Box ID"
+            "boxId": "Box ID",
+            "resize": "Skala",
+            "openAssetModal": "Umgang mit offenen Ressourcen",
+            "copier": "Duplikator",
+            "cssEditor": "CSS",
+            "advancedTool": "HTML"
         },
         "errorLessSpotThanEffectif": "Sparen ist nicht möglich. Der Sitzplan muss mehr Platz bieten als die Anzahl der Teilnehmer der Session, zu der er gehört",
         "saveError": "Fehler",
@@ -16372,6 +16439,15 @@
                 "title": "Oder einen neuen Platz auswählen"
             },
             "goBackToCheckout": "Zum Checkout zurückkehren"
+        },
+        "cssForm": {
+            "helper": "In diesem Abschnitt können Sie CSS-Regeln für Ihr Layout hinzufügen. Die gesamte Karte ist in eine svg-Datei mit der ID \"svg-canvas-display\" verpackt. Standardmäßig wird für jedes Element auf der Leinwand (wie Punkte, Rechtecke und Lehrer) automatisch ein Stylesheet erstellt. Sie können Ihre Änderungen schrittweise beobachten, indem Sie auf die Schaltfläche \"{{ buttonLabel }}\" klicken.",
+            "openPreview": "Voranschau"
+        },
+        "assetUpoadForm": {
+            "loadMore": "Mehr laden",
+            "submit": "Einreichen",
+            "description": "Sie können Bilder direkt von hier aus hochladen und verwenden. Sobald neue Bilder hochgeladen sind, können Sie sie in Ihre Karte einfügen."
         }
     },
     "franchise": {

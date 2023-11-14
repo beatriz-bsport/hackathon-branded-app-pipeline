@@ -1124,7 +1124,8 @@
                     "bookSingleInGroup": "Inscribir sólo en esta sesión",
                     "bookMoreInGroup": "Inscribir en otras sesiones de grupo",
                     "groupWarning": "Esta sesión forma parte del grupo de sesiones {{ name }}",
-                    "loadingData": "Carga de los datos de reserva"
+                    "loadingData": "Carga de los datos de reserva",
+                    "bookingLimitReached": "Límite de reservas alcanzado"
                 }
             }
         },
@@ -2484,7 +2485,7 @@
                         "options": {
                             "home": "Actividades (por defecto)",
                             "bookings": "Reservas",
-                            "membership": "Calendario",
+                            "membership": "Horario",
                             "profile": "Perfil",
                             "marketplace": "Mi espacio"
                         },
@@ -6067,7 +6068,8 @@
                 "isAlreadyOnWaitingList": "Está inscrito en la lista de espera, le informaremos por correo electrónico cuando haya una plaza disponible.",
                 "isAlreadyRegistered": "La sesión está llena, ¡felicidades, estás bien registrado!",
                 "waitingListOpen": "La sesión está completa, pero puede inscribirse en la lista de espera. Le informaremos por correo electrónico cuando haya una plaza disponible",
-                "waitingListLockedByPendingBookings": "Otras personas están reservando, la lista de espera no está disponible en este momento. Por favor, inténtelo de nuevo en unos minutos para ver si hay una plaza disponible."
+                "waitingListLockedByPendingBookings": "Otras personas están reservando, la lista de espera no está disponible en este momento. Por favor, inténtelo de nuevo en unos minutos para ver si hay una plaza disponible.",
+                "isBookingLimitReached": "Ya ha alcanzado su límite de reservas. Podrás volver a reservar cuando una sesión haya pasado o se haya cancelado."
             },
             "section": {
                 "paymentCombos": "Ofertas promocionales",
@@ -6275,7 +6277,8 @@
                 "startFromDate": {
                     "label": "Empieze la reserva recurrente el "
                 },
-                "groupWarning": "Tenga en cuenta que no es posible crear una repetición de reservas para grupos de sesiones"
+                "groupWarning": "Tenga en cuenta que no es posible crear una repetición de reservas para grupos de sesiones",
+                "permissionWarning": "No tiene permiso para crear reservas para esta actividad."
             },
             "recurrentRuleBooking": "Reserva recurrente",
             "item": {
@@ -6497,6 +6500,10 @@
                 "noPassAvailable": {
                     "title": "No hay ningún bono disponible",
                     "message": "No hay bonos disponibles para apuntarse a la lista de espera."
+                },
+                "isBookingLimitReached": {
+                    "message": "Ya ha alcanzado su límite de reservas. Podrás volver a reservar cuando una sesión haya pasado o se haya cancelado.",
+                    "title": "No se puede reservar"
                 }
             },
             "waitingListWarning": "Antes de inscribirse en la lista de espera, asegúrese de haber adquirido el bono, pack o suscripción correspondiente. Es obligatorio estar en posesión de un bono, pack o suscripción activo para tener garantizada una plaza en la lista de espera.",
@@ -6944,7 +6951,8 @@
                     "subscription_recurrent_price": "Cantidad mensual retirada",
                     "subscription_name": "Nombre de la suscripción",
                     "subscription_next_invoice_date": "Próxima fecha de facturación",
-                    "subscription_contract_terms_link": "Enlace al aviso legal"
+                    "subscription_contract_terms_link": "Enlace al aviso legal",
+                    "subscription_duration": "Duración total"
                 },
                 "name": "Suscripción"
             },
@@ -8917,7 +8925,8 @@
                 "12": "Smartlist",
                 "71": "Recibidos",
                 "70": "Enviados",
-                "15": "Cadencia"
+                "15": "Cadencia",
+                "16": "Franquicia"
             },
             "sendParameter": {
                 "placeholder": "Seleccione un parámetro de envío",
@@ -9313,10 +9322,10 @@
                 "hideCoach": "Ocultar los nombres de los profesores en el calendario del cliente",
                 "maxFutureBooking": {
                     "numberCheck": {
-                        "helperText": "Sus miembros no podrán tener más de este número de reservas en el futuro",
+                        "helperText": "Esta será la cantidad máxima de reservas futuras por socio, excluidas las reservas de talleres.",
                         "placeholder": "Número máximo"
                     },
-                    "label": "Limitar el número máximo de reservas previstas en el futuro por cliente"
+                    "label": "Limitar el número de reservas futuras por miembro"
                 },
                 "hiddenFromMarketplace": "Aparecer en la solicitud de bsport",
                 "schedule": {
@@ -9440,7 +9449,14 @@
                 },
                 "doubleBookingDisabledWithSpivi": "Doble reserva no compatible con la integración de Spivi",
                 "startWeekOnToday": "Inicie la agenda de sus socios en la fecha de hoy si la pantalla está en modo tarjeta vista semana",
-                "showPastSessionsCalendar": "Mostrar sesiones pasadas en el calendario de sus miembros"
+                "showPastSessionsCalendar": "Mostrar sesiones pasadas en el calendario de sus miembros",
+                "maxFutureWorkshop": {
+                    "label": "Limitar la cantidad de futuras sesiones de taller reservadas por socio",
+                    "numberCheck": {
+                        "placeholder": "Máximo",
+                        "helperText": "Esta será la cantidad máxima de futuras sesiones de taller reservadas por socio."
+                    }
+                }
             },
             "submit": "Guardar",
             "instagramURL": {
@@ -9585,7 +9601,8 @@
             "contractPaymentSuccess": "Cuando el usuario se ha suscrito",
             "contractShow": "Cuando el usuario muestra una suscripción",
             "contractPaymentShow": "Cuando el usuario está en la página de pago de una suscripción",
-            "workshopClick": "Cuando el usuario selecciona una fecha para un taller"
+            "workshopClick": "Cuando el usuario selecciona una fecha para un taller",
+            "bookingSuccess": "Cuando un usuario reserva una sesión (actividades de grupo)"
         },
         "signUpForm": {
             "error": "Ha surgido un problema",
@@ -10099,6 +10116,18 @@
                 "_label": "Menú de navegación",
                 "tag": {
                     "_label": "Etiquetas"
+                },
+                "marketing": {
+                    "tags": {
+                        "_label": "Etiquetas"
+                    },
+                    "campaigns": {
+                        "_label": "Campañas"
+                    },
+                    "emailTemplates": {
+                        "_label": "Emails"
+                    },
+                    "_label": "Marketing"
                 }
             }
         },
@@ -10199,7 +10228,7 @@
             },
             "reservation": {
                 "activity": {
-                    "_label": "Gestión de actividades en grupo",
+                    "_label": "Gestión de actividades de grupo",
                     "allowed_actions": {
                         "rollcall": {
                             "_label": "Validar el pase de lista"
@@ -10223,7 +10252,7 @@
                             "_label": "Añadir miembros a la lista de espera"
                         },
                         "editPerformance": {
-                            "_label": "Edición de los rendimientos del programa"
+                            "_label": "Editar el rendimiento del programa"
                         }
                     }
                 },
@@ -11206,7 +11235,7 @@
             "emailHasBeenSent": "Se ha enviado un email a {{email}} para recuperar tu contraseña",
             "explain2": "Te enviaremos instrucciones de recuperación",
             "explain1": "¿Cuál era el email de la cuenta?",
-            "noEmail": "Este email no está registrado",
+            "noEmail": "Este correo electrónico no existe en nuestra base de datos de miembros.",
             "title": "Recuperación de la contraseña",
             "contactUs": "Ponte en contacto con nosotros a través de ",
             "hasProblem": "¿Tienes problemas para reiniciar?"
@@ -12834,6 +12863,24 @@
         },
         "smartlistGetMembers": {
             "error": "Se ha producido un error: no se pueden recuperar los miembros"
+        },
+        "communicationSentGroupConfig": {
+            "duplicate": {
+                "error": "No se puede duplicar la campaña",
+                "success": "Campaña duplicada"
+            },
+            "delete": {
+                "error": "No se puede eliminar la campaña",
+                "success": "Campaña eliminada"
+            },
+            "update": {
+                "error": "No se puede guardar la campaña",
+                "success": "Campaña actualizada correctamente"
+            },
+            "create": {
+                "error": "No se puede crear la campaña",
+                "success": "Campaña creada con éxito"
+            }
         }
     },
     "paymentPack": {
@@ -14103,7 +14150,13 @@
                 "label": "Productos",
                 "giftcardTemplates": "Tarjetas de regalo"
             },
-            "tag": "Etiquetas"
+            "tag": "Etiquetas",
+            "marketing": {
+                "tags": "Etiquetas",
+                "emailTemplates": "Correos",
+                "campaigns": "Campañas",
+                "label": "Marketing"
+            }
         },
         "multiSession": {
             "current": "Sesión actual",
@@ -14207,6 +14260,10 @@
                 "customize": "Personalización",
                 "popups": "Ventana emergente de inicio",
                 "links": "Enlaces externos"
+            },
+            "communicationSentGroupConfig": {
+                "campaigns": "Campañas",
+                "general": "General"
             }
         }
     },
@@ -15030,7 +15087,8 @@
                 "confirm": "Suprimir",
                 "cancel": "Cancelar",
                 "content": "¿Seguro de que quieres suprimir esta smartlist? Esta operación es final",
-                "title": "Supresión smartlist"
+                "title": "Supresión smartlist",
+                "linkedToAFranchiseCommunication": "Esta smartlist es utilizada por su franquicia y no puede ser eliminada"
             },
             "validate": "Validar"
         },
@@ -15166,7 +15224,8 @@
         "downLoadSavedExport": "Descargar exportación anterior",
         "generateExport": "Generar la exportación",
         "generateHelperText": "Generar la exportación para descargar la smartlist",
-        "lastGenerated": "Última exportación generada el: {{-date}} {{time}}"
+        "lastGenerated": "Última exportación generada el: {{-date}} {{time}}",
+        "usedInFranchiseCommmunication": "Utilizado en una campaña de su franquicia"
     },
     "relationship": {
         "consumer_payment_pack_links": {
@@ -15535,7 +15594,12 @@
                     "2": "Dos",
                     "1": "Uno",
                     "elevated": "Elevado",
-                    "rest": "Pausa"
+                    "rest": "Pausa",
+                    "warning": "Atención",
+                    "onstrong": "Sobre un fondo sólido",
+                    "grey": "Gris",
+                    "main": "Principal",
+                    "isBlockedByMaxFutureBooking": "Límite máximo de reservas futuras alcanzado"
                 },
                 "title": {
                     "nextOffer": "Próxima sesión disponible",
@@ -15577,7 +15641,11 @@
                     "isRippleEnabled": "Desactivar el efecto de ondulación de los botones",
                     "square": "No se pueden redondear las esquinas",
                     "cardVariant": "Seleccione la variante de tarjeta que desea utilizar",
-                    "componentType": "El contenedor es un botón"
+                    "componentType": "El contenedor es un botón",
+                    "color": "Color del elemento",
+                    "isError": "Está en estado de error",
+                    "hasEmailChoices": "Opciones de listas de correo electrónico",
+                    "hasSent": "El formulario ha sido enviado"
                 },
                 "configurationTitle": "Variaciones"
             },
@@ -15588,7 +15656,9 @@
                 "pass": "Bonos",
                 "common": "Común",
                 "bookingPage": "Reserva",
-                "fabrique": "Fábrica"
+                "fabrique": "Fábrica",
+                "spot_scheduling": "Programación al contado",
+                "authentication": "Autenticación"
             },
             "components": {
                 "calendar": "Página del calendario",
@@ -15665,7 +15735,13 @@
                 "marketplace_item_quantity": "Cantidad de artículos de la cesta (resumen de la cesta)",
                 "booker_module_offer_summary": "Resumen de la sesión",
                 "fabrique_typography": "Tipografía",
-                "fabrique_card": "Tarjeta"
+                "fabrique_card": "Tarjeta",
+                "marketplace_spot_selector": "Selector de gestión de plazas",
+                "fabrique_badge": "Insignia",
+                "marketplace_minimal_appbar": "AppBar minimalista",
+                "authentication_login": "Componente de inicio de sesión",
+                "authentication_login_form": "Formulario de inicio de sesión",
+                "authentication_reset_password_form": "Formulario de restablecimiento de contraseña"
             },
             "customCss": {
                 "yourCode": "Su implementación complementaria:",
@@ -16387,7 +16463,10 @@
                 "place": "Ubicación",
                 "walls": "Paredes",
                 "edition": "Edición",
-                "spivi": "Integración de Spivi"
+                "spivi": "Integración de Spivi",
+                "assets": "Activos",
+                "editionAdvanced": "Edición avanzada",
+                "editionHistory": "Historia de edición"
             },
             "title": "Caja de herramientas",
             "customIconLabel": "Iconos de ubicación",
@@ -16398,7 +16477,12 @@
             "addSpotType": "Añadir un tipo de sitio",
             "helperText": "El tamaño del profesor debe ser estrictamente positivo",
             "requiredForSpivi": "Necesario para la integración de Spivi",
-            "boxId": "Box ID"
+            "boxId": "Box ID",
+            "resize": "Escala",
+            "openAssetModal": "Gestor de activos abiertos",
+            "copier": "Duplicador",
+            "cssEditor": "CSS",
+            "advancedTool": "HTML"
         },
         "spotImageDialog": {
             "helper": "Puede personalizar la forma de las ranuras importando sus propias imágenes. Para ello necesitamos 2 iconos diferentes. Uno para indicar que el lugar está disponible, otro cuando está reservado. Asegúrese de que son del mismo tamaño y no incluya ningún número en sus iconos.",
@@ -16504,6 +16588,15 @@
                 "title": "O seleccione un nuevo lugar"
             },
             "goBackToCheckout": "Volver a la caja"
+        },
+        "cssForm": {
+            "helper": "Puedes añadir reglas CSS para tu diseño en esta sección. Todo el mapa está envuelto en un svg con el ID 'svg-canvas-display'. Por defecto, se genera automáticamente una hoja de estilos dirigida a cada elemento del lienzo (como puntos, rectángulos y maestros). Puede observar sus cambios gradualmente haciendo clic en el botón '{{ buttonLabel }}'.",
+            "openPreview": "Vista previa"
+        },
+        "assetUpoadForm": {
+            "loadMore": "Cargar más",
+            "submit": "Enviar",
+            "description": "Puede cargar y utilizar imágenes directamente desde aquí. Una vez cargadas las nuevas imágenes, estarán disponibles para insertarlas en el mapa."
         }
     },
     "franchise": {
@@ -17928,6 +18021,53 @@
                 "label": "Activar enlace de referencia"
             },
             "title": "Referencia"
+        }
+    },
+    "campaign": {
+        "exportCampaign": "Exportar",
+        "save": "Guardar",
+        "schemaError": {
+            "nonEmptyEmailTemplate": "Elija una plantilla de correo",
+            "nonEmptyBody": "El cuerpo de su correo electrónico está vacío. Por favor, añada contenido antes de continuar.",
+            "nonEmptyToggle": "Seleccione los destinatarios antes de enviar el mensaje.",
+            "nonEmptySmartList": "Seleccione una smartlist"
+        },
+        "smartListOption": "Elige una smartlist",
+        "mail": {
+            "sendButton": "Enviar",
+            "customDomainNotDefined": "No has definido un dominio personalizado. \"Póngase en contacto con nuestro equipo para iniciar el proceso de configuración\".",
+            "example": "Ejemplo",
+            "customEmail": "Email personalizado",
+            "franchiseeMail": "Email del franquiciado",
+            "chooseSender": "Seleccione la dirección de correo electrónico que desea utilizar para el envío.",
+            "sendMail": "Enviar un mensaje"
+        },
+        "memberSelectionInfo": "Añade miembros a los destinatarios de tu campaña seleccionando un estudio y, a continuación, eligiendo una de sus smartlists. Si quieres añadir directamente a todos los miembros, también puedes hacer clic en \"Seleccionar a todos los miembros\".",
+        "noCampaign": "Envíe campañas a sus afiliados para mantenerlos al corriente de lo que ocurre en su franquicia.",
+        "historyTitle": "Historial de envíos",
+        "campaign": {
+            "add": "Añadir una campaña"
+        },
+        "memberSelectionTitle": "Selección de miembros",
+        "sendToAllMembers": "Enviar a todos los miembros",
+        "modal": {
+            "delete": {
+                "content": "Esta acción archivará permanentemente la campaña, y todos los datos asociados dejarán de ser accesibles. Está seguro de que desea proceder al archivo?",
+                "confirm": "Confirmar",
+                "cancel": "Cancelar",
+                "title": "Archivar una campaña"
+            }
+        },
+        "search": "Buscar una campaña",
+        "cancel": "Cancelar",
+        "delete": "Borrar",
+        "edit": "Editar",
+        "duplicate": "Duplicar",
+        "detail": {
+            "tab": {
+                "campaign": "Campañas",
+                "general": "General"
+            }
         }
     }
 }

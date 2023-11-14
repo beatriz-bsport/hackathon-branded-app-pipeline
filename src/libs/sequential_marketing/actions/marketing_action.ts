@@ -59,7 +59,7 @@ export const upsertStepMarketingActionsActions = {
   ),
 };
 
-export function upsertStepMarketingAtions(
+export function upsertStepMarketingAction(
   data: Partial<StepMarketingActions>,
   options?: OptionCallback<StepMarketingActions>,
 ) {

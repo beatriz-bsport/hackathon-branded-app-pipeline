@@ -30,7 +30,7 @@ import {
   updateCadenceStepName as updateCadenceStepNameAction,
   deleteCadenceStep as deleteCadenceStepAction,
   fetchMarketingActions as fetchMarketingActionsAction,
-  upsertStepMarketingAtions as upsertStepMarketingAtionsAction,
+  upsertStepMarketingAction as upsertStepMarketingActionAction,
   deleteStepMarketingAction as deleteStepMarketingActionAction,
   deleteConnectedTrigger as deleteConnectedTriggerAction,
   modifyStepMarketingActionsConfiguration as modifyStepMarketingActionsConfigurationAction,
@@ -283,7 +283,7 @@ export class CadenceDetailPage extends Component<Props> {
 
   handleUpsertStepMarketingAction = (
     marketingAction: Partial<StepMarketingActions>,
-  ) => this.props.upsertStepMarketingAtions(marketingAction);
+  ) => this.props.upsertStepMarketingAction(marketingAction);
 
   handleDoNotDisplayDeleteStepDialogAnymoreAction = () =>
     this.props.doNotDisplayDeleteStepDialogAnymore(this.props.cadence.id);
@@ -748,13 +748,13 @@ const mapWithHandlers = {
       }
     },
 
-  upsertStepMarketingAtions:
+  upsertStepMarketingAction:
     (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>
     (
       data: Partial<StepMarketingActions>,
       options?: OptionCallback<StepMarketingActions>,
     ) =>
-      data && props.upsertStepMarketingAtionsAction(data, options),
+      data && props.upsertStepMarketingActionAction(data, options),
 
   doNotDisplayDeleteStepDialogAnymore:
     (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>
@@ -821,29 +821,29 @@ const connector = connect(
   {
     push: pushRouter,
     // CADENCES
-    retrieveCadenceAction,
-    fetchCadenceStepListAction,
-    updateCadenceAction,
     activateCadenceAction,
-    shutOffCadenceAction,
-    setInitialCadenceConfigurationAction,
-    updateInitialCadenceConfigurationAction,
-    subscribeStepToStepAction,
-    updateConnectedTriggerAction,
-    updateCadenceStepCanvasPositionAction,
-    convertCadenceStepIntoExitAction,
-    updateCadenceStepConnectedTriggerCanvasPositionAction,
     convertCadenceExitIntoStepAction,
-    updateCadenceStepNameAction,
+    convertCadenceStepIntoExitAction,
     deleteCadenceStepAction,
-    fetchMarketingActionsAction,
-    upsertStepMarketingAtionsAction,
-    doNotDisplayDeleteStepDialogAnymoreAction,
-    doNotDisplayConvertStepIntoExitDialogAnymoreAction,
-    doNotDisplayPauseDialogAnymoreAction,
-    deleteStepMarketingActionAction,
     deleteConnectedTriggerAction,
+    deleteStepMarketingActionAction,
+    doNotDisplayConvertStepIntoExitDialogAnymoreAction,
+    doNotDisplayDeleteStepDialogAnymoreAction,
+    doNotDisplayPauseDialogAnymoreAction,
+    fetchCadenceStepListAction,
+    fetchMarketingActionsAction,
     modifyStepMarketingActionsConfigurationAction,
+    retrieveCadenceAction,
+    setInitialCadenceConfigurationAction,
+    shutOffCadenceAction,
+    subscribeStepToStepAction,
+    updateCadenceAction,
+    updateCadenceStepCanvasPositionAction,
+    updateCadenceStepConnectedTriggerCanvasPositionAction,
+    updateCadenceStepNameAction,
+    updateConnectedTriggerAction,
+    updateInitialCadenceConfigurationAction,
+    upsertStepMarketingActionAction,
     // SMARTLISTS
     fetchAllSmartLists,
     // EMAILS

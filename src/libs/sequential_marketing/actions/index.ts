@@ -75,7 +75,7 @@ import {
   fetchMarketingActions,
   // UPSERT
   upsertStepMarketingActionsActions,
-  upsertStepMarketingAtions,
+  upsertStepMarketingAction,
   // UPDATE LIST
   modifyStepMarketingActionsConfiguration,
   modifyStepMarketingActionsConfigurationActions,
@@ -133,7 +133,7 @@ export {
   fetchStepMarketingActions,
   fetchMarketingActions,
   upsertStepMarketingActionsActions,
-  upsertStepMarketingAtions,
+  upsertStepMarketingAction,
   modifyStepMarketingActionsConfigurationActions,
   modifyStepMarketingActionsConfiguration,
   deleteStepMarketingActionsActions,

@@ -55,13 +55,12 @@ const BookingOptionActionBar: React.FC<Props> = ({
     isChecked,
   ]);
 
-  const label = isChecked ? t('selector.unselectAll') : t('selector.selectAll');
-
   return (
     <Collapse in={!!selectedBookingOptionsCount && !isDisabled}>
       <ListItem divider>
         <div className={classes.actionRow}>
           <FormControlLabel
+            className={classes.controlLabel}
             control={
               <Checkbox
                 checked={isChecked}
@@ -69,13 +68,14 @@ const BookingOptionActionBar: React.FC<Props> = ({
                 onChange={handleOnChange}
               />
             }
-            label={label}
+            label={t('selector.indeterminate', {
+              count: selectedBookingOptionsCount,
+            })}
           />
           <Button
             color="primary"
             disabled={isButtonDisabled}
             onClick={onBook}
-            size="large"
             variant="outlined"
           >
             <AddIcon />
@@ -94,6 +94,13 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     width: '100%',
     padding: theme.spacing(1),
+    // Need this specific value to get aligned with the booking option checkboxes, wrapped into an Avatar
+    paddingLeft: '11px',
+    paddingRight: '56px',
+  },
+  controlLabel: {
+    // Need this specific value to get aligned with the booking option labels
+    gap: '13px',
   },
 }));
 

@@ -1,22 +1,27 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import type { ComponentStory, ComponentMeta } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
 
-import MarketingActionChip, {
-  MarketingActionChipProps,
-} from './MarketingActionChip.component';
+import MarketingActionChip from './MarketingActionChip.component';
 import { stepMarketingActionFactory } from '#libs/sequential_marketing/factories';
+import { tagWithoutGroupListFactory } from '#libs/tag/factory';
+import { companyEmailListFactory } from '#libs/email-editor/factories/EmailTemplateSummary';
 import {
   MarketingActionKind,
   MarketingActions,
 } from '#libs/sequential_marketing/constants';
-import { tagWithoutGroupListFactory } from '#libs/tag/factory';
-import { companyEmailListFactory } from '#libs/email-editor/factories/EmailTemplateSummary';
+
 import type { Tag } from '#libs/tag/types';
 import type { EmailTemplateSummary } from '#libs/email-editor/types';
+
+const actionData = {
+  onClick: action('onClick'),
+};
 
 export default {
   title: 'Components/Cadences/Chips/MarketingActionChip',
   component: MarketingActionChip,
+  args: { onClick: actionData.onClick },
   decorators: [
     (Story) => (
       <div
@@ -26,16 +31,14 @@ export default {
           justifyContent: 'center',
         }}
       >
-        <div>
-          <Story />
-        </div>
+        <Story />
       </div>
     ),
   ],
 } as ComponentMeta<typeof MarketingActionChip>;
 
 const Template: ComponentStory<typeof MarketingActionChip> = (
-  args: MarketingActionChipProps,
+  args: React.ComponentProps<typeof MarketingActionChip>,
 ) => <MarketingActionChip {...args} />;
 
 const tagsList = tagWithoutGroupListFactory(4);
@@ -97,4 +100,12 @@ TemplateEmail.args = {
     email_design: emailTemplateSummaryList[1].id,
   }),
   getEmailTemplate: getEmailTemplate,
+};
+
+export const UnclickableChip = Template.bind({});
+UnclickableChip.args = {
+  marketingAction: stepMarketingActionFactory({}),
+  getEmailTemplate: getEmailTemplate,
+  getTag: getTag,
+  onClick: null,
 };

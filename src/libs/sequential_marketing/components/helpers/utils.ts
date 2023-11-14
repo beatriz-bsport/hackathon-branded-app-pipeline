@@ -31,8 +31,9 @@ import type {
   StepMarketingActionsTagSpec,
   TriggerEventConfig,
 } from '#libs/sequential_marketing/types';
-import type { MarketingActionChipProps } from '#libs/sequential_marketing/components/graph/chips/MarketingActionChip.component';
 import type { SmartList } from '#libs/smart-list/types';
+import type { EmailTemplateSummary } from '#libs/email-editor/types';
+import type { Tag } from '#libs/tag/types';
 
 type TriggerIconProps = {
   connected_trigger_config: ConnectedTrigger;
@@ -292,7 +293,11 @@ export const getMarketingActionChipName = ({
   marketingAction,
   getTag,
   getEmailTemplate,
-}: Partial<MarketingActionChipProps>) => {
+}: {
+  marketingAction: StepMarketingActions;
+  getTag: (id: string) => Tag;
+  getEmailTemplate: (id: string) => EmailTemplateSummary;
+}) => {
   let actionSpec = marketingAction?.action_spec;
 
   switch (marketingAction?.kind) {

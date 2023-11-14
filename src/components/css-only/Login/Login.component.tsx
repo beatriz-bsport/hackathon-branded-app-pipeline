@@ -164,6 +164,7 @@ export class ConsumerLogin extends Component<Props, State> {
             hasError={error}
             hasFranchisor={!!this.props.franchisor}
             hrefLink={this.getHrefLink()}
+            isLoading={loading}
             onChangeField={this.onFormFieldChange}
             onOpenIntercomHelp={this.handleOpenIntercomHelp}
             onSubmit={this.doEmailLogin}

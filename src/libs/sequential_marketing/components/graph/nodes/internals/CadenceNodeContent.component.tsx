@@ -8,6 +8,8 @@ import {
   MarketingActions,
   SequentialMarketingColors,
 } from '#libs/sequential_marketing/constants';
+import { getMarketingActionType } from '#libs/sequential_marketing/components/form/marketing_actions/utils';
+
 import MarketingActionChip from '#libs/sequential_marketing/components/graph/chips/MarketingActionChip.component';
 import MenuSelectorTextButton from '#components/menu/text';
 import useMarketingActionOptions from '#libs/sequential_marketing/components/form/marketing_actions/hooks/useMarketingActionOptions.hook';
@@ -15,30 +17,37 @@ import useMarketingActionOptions from '#libs/sequential_marketing/components/for
 import type { StepMarketingActions } from '#libs/sequential_marketing/types';
 import type { Tag } from '#libs/tag/types';
 import type { EmailTemplateSummary } from '#libs/email-editor/types';
-import { getMarketingActionType } from '#libs/sequential_marketing/components/form/marketing_actions/utils';
 
 export type CadenceNodeContentProps = {
   marketingActionList?: StepMarketingActions[];
   disableAddMarketingAction?: boolean;
   addMarketingAction?: (type: MarketingActions) => void;
-  getTag?: (id: string) => Tag;
+  editMarketingAction?: (action: StepMarketingActions) => void;
   getEmailTemplate?: (id: string) => EmailTemplateSummary;
+  getTag?: (id: string) => Tag;
 };
 
 const CadenceNodeContent: React.FC<CadenceNodeContentProps> = ({
   marketingActionList,
   disableAddMarketingAction,
   addMarketingAction,
-  getTag,
+  editMarketingAction,
   getEmailTemplate,
+  getTag,
 }) => {
   const { t } = useTranslation('marketing');
   const classes = useStyles();
 
-  const isFullOfMarketingActions = React.useCallback(
-    (marketingActions: StepMarketingActions[]) =>
-      !!marketingActions &&
-      marketingActions?.reduce<StepMarketingActions[]>(
+  const handleEditMarketingAction = React.useCallback(
+    (marketingActions: StepMarketingActions) => () =>
+      editMarketingAction(marketingActions),
+    [editMarketingAction],
+  );
+
+  const areMarketingActionsFull = React.useMemo(
+    () =>
+      !!marketingActionList &&
+      marketingActionList?.reduce<StepMarketingActions[]>(
         (acc, currentMarketinAction) => {
           if (!currentMarketinAction?.disabled) {
             acc.push(currentMarketinAction);
@@ -47,7 +56,7 @@ const CadenceNodeContent: React.FC<CadenceNodeContentProps> = ({
         },
         [],
       )?.length >= CADENCE_MARKETING_ACTION_MAX_NUMBER,
-    [],
+    [marketingActionList],
   );
 
   const marketingActionOptions = useMarketingActionOptions({
@@ -69,6 +78,7 @@ const CadenceNodeContent: React.FC<CadenceNodeContentProps> = ({
                   getEmailTemplate={getEmailTemplate}
                   getTag={getTag}
                   marketingAction={marketingAction}
+                  onClick={handleEditMarketingAction(marketingAction)}
                 />
               ),
           )}
@@ -78,10 +88,7 @@ const CadenceNodeContent: React.FC<CadenceNodeContentProps> = ({
         <MenuSelectorTextButton
           actionList={marketingActionOptions}
           customColor={SequentialMarketingColors.INNER_STEP_COLOR}
-          isDisabled={
-            disableAddMarketingAction ||
-            isFullOfMarketingActions(marketingActionList)
-          }
+          isDisabled={disableAddMarketingAction || areMarketingActionsFull}
           label={`+ ${t('cadence.marketingAction.addAction')}`}
         />
       )}

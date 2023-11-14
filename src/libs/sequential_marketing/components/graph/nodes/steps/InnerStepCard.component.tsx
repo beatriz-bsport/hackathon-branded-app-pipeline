@@ -40,8 +40,9 @@ type InnerStepContentProps = {
   marketingActionList?: StepMarketingActions[];
   disableAddMarketingAction?: boolean;
   addMarketingAction?: (type: MarketingActions) => void;
-  getTag?: (id: string) => Tag;
+  editMarketingAction?: (action: StepMarketingActions) => void;
   getEmailTemplate?: (id: string) => EmailTemplateSummary;
+  getTag?: (id: string) => Tag;
 };
 
 const InnerStepHeader: React.FC<InnerStepHeaderProps> = React.memo(
@@ -65,8 +66,9 @@ const InnerStepContent: React.FC<InnerStepContentProps> = React.memo(
     marketingActionList,
     disableAddMarketingAction,
     addMarketingAction,
-    getTag,
+    editMarketingAction,
     getEmailTemplate,
+    getTag,
   }) => {
     const isMarctingActionFull =
       !!marketingActionList && marketingActionList.length >= 5;
@@ -77,6 +79,7 @@ const InnerStepContent: React.FC<InnerStepContentProps> = React.memo(
         disableAddMarketingAction={
           isMarctingActionFull || disableAddMarketingAction
         }
+        editMarketingAction={editMarketingAction}
         getEmailTemplate={getEmailTemplate}
         getTag={getTag}
         marketingActionList={!!marketingActionList && marketingActionList}
@@ -92,12 +95,13 @@ const InnerStepCard: React.FC<InnerStepCardProps> = ({
   disabled,
   disableAddMarketingAction,
   addMarketingAction,
-  getTag,
+  addNextStep,
+  editMarketingAction,
   getEmailTemplate,
-  onDelete,
+  getTag,
   handleConvertIntoExit,
   onCardClick,
-  addNextStep,
+  onDelete,
 }) => {
   const { t } = useTranslation('marketing');
 
@@ -174,6 +178,7 @@ const InnerStepCard: React.FC<InnerStepCardProps> = ({
               !!addMarketingAction && onClickNewMarketingAction
             }
             disableAddMarketingAction={disableAddMarketingAction}
+            editMarketingAction={editMarketingAction}
             getEmailTemplate={getEmailTemplate}
             getTag={getTag}
             marketingActionList={marketingActionList}

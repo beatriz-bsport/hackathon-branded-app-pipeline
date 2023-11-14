@@ -63,6 +63,7 @@ const OfferBookingWaitingList: React.FC<Props> = ({
   );
 
   const {
+    isBookingLimitReached,
     isWaitlistOpen,
     isWaitlistAlreadyBooked,
     isWaitlistFull,
@@ -73,16 +74,20 @@ const OfferBookingWaitingList: React.FC<Props> = ({
     !isWaitlistOpen &&
     !isWaitlistFull &&
     !isWaitlistAlreadyBooked &&
-    !isWaitingListLockedByPendingBookings;
+    !isWaitingListLockedByPendingBookings &&
+    !isBookingLimitReached;
 
   const isErrorIcon =
     !isWaitlistAlreadyBooked &&
     (isWaitlistFull ||
       isNoPassCompatibleForBooking ||
-      isWaitingListLockedByPendingBookings);
+      isWaitingListLockedByPendingBookings ||
+      isBookingLimitReached);
 
   const isBookingButtonHidden =
-    isNoPassCompatibleForBooking || isWaitingListLockedByPendingBookings;
+    isNoPassCompatibleForBooking ||
+    isWaitingListLockedByPendingBookings ||
+    isBookingLimitReached;
 
   const waitingListHeaderTitle = headerTitle || title;
 

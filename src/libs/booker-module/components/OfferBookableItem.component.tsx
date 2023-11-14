@@ -108,6 +108,7 @@ type OfferBookableItemProps = {
   offerSpotInformation?: SpotInformation;
   displayPositionInWaitingList?: boolean;
   waitingListPosition?: { member_position: number; waiting_list_size: number };
+  isBookingLimitReached?: boolean;
 };
 export const OfferBookableItem = (props: OfferBookableItemProps) => {
   const classes = useStyles();
@@ -200,6 +201,16 @@ export const OfferBookableItem = (props: OfferBookableItemProps) => {
           </Typography>
         </div>
       )}
+      {props.isBookingLimitReached && (
+        <div className={classes.hasRegisteredContainer}>
+          <Typography
+            className={classes.isBookingLimitReachedTypo}
+            variant="caption"
+          >
+            {t('booking:bookingModule.isBookingLimitReached')}
+          </Typography>
+        </div>
+      )}
     </>
   );
 };
@@ -256,6 +267,9 @@ const useStyles = makeStyles((theme) => ({
   },
   hasRegisteredTypo: {
     color: 'green',
+  },
+  isBookingLimitReachedTypo: {
+    color: 'red',
   },
 }));
 

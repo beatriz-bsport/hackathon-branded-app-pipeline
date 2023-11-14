@@ -707,6 +707,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
       isRegistered,
       isRegisteredWaitingList,
       blockedByTags,
+      isBookingLimitReached,
     } = getOfferFeature(
       this.props.offer,
       this.props.offerStatusById,
@@ -718,7 +719,10 @@ class OfferBooking extends React.PureComponent<Props, State> {
       !loading && this.props.offer && this.props.offer.meta_activity;
     if (
       offerIsReady &&
-      (!isBookable || this.state.blockByGroup || blockedByTags)
+      (!isBookable ||
+        this.state.blockByGroup ||
+        blockedByTags ||
+        isBookingLimitReached)
     ) {
       const { message, icon } = getMainOfferNotBookableReason(
         this.props.offer,

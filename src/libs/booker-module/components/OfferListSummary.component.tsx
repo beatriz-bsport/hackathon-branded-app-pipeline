@@ -107,13 +107,18 @@ class OfferListSummary extends React.PureComponent<Props> {
       );
     }
 
-    const { isBookable, isWaitingList, isRegistered, noInteraction } =
-      getOfferFeature(
-        offer,
-        this.props.offerStatusById,
-        this.props.acceptDoubleBooking,
-        this.props.acceptDoubleBookingWorkshop,
-      );
+    const {
+      isBookable,
+      isWaitingList,
+      isRegistered,
+      noInteraction,
+      isBookingLimitReached,
+    } = getOfferFeature(
+      offer,
+      this.props.offerStatusById,
+      this.props.acceptDoubleBooking,
+      this.props.acceptDoubleBookingWorkshop,
+    );
 
     const hasCustomLevel =
       this.props.offer.level !== this.props.offer?.custom_level;
@@ -179,6 +184,7 @@ class OfferListSummary extends React.PureComponent<Props> {
               disabled={offer.group ? false : noInteraction}
               hideCoach={this.props.hideCoach}
               isBookable={isBookable}
+              isBookingLimitReached={isBookingLimitReached}
               isRegistered={isRegistered}
               isWaitingList={isWaitingList}
               offer={offer}
@@ -221,6 +227,7 @@ class OfferListSummary extends React.PureComponent<Props> {
                     }
                     hideCoach={this.props.hideCoach}
                     isBookable={offerFeature.isBookable}
+                    isBookingLimitReached={offerFeature.isBookingLimitReached}
                     isRegistered={offerFeature.isRegistered}
                     isWaitingList={offerFeature.isWaitingList}
                     offer={offerData.offer}

@@ -107,7 +107,8 @@
           "title": "Info",
           "content": "Please note that this member doesn't have the required tags for this session. Do you want to book them in anyway?"
         }
-      }
+      },
+      "isBookingLimitReached": "You have reached your limit of bookings"
     },
     "details": {
       "pleaseSelectABooking": "Select a booking to display further details.",

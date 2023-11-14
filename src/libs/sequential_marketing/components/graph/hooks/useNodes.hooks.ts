@@ -165,6 +165,7 @@ type NodeRendererProps = {
     connectedTriggerUUID: string,
     sourceStepId: number,
   ) => void;
+  deleteStepMarketingAction: (data: { id: number; stepId: number }) => void;
   editConnectedTrigger: (
     data: ConnectedTrigger,
     options?: OptionCallback<ConnectedTrigger>,
@@ -215,6 +216,7 @@ export const useNodeElementsRecorder = ({
   convertCadenceStepIntoExit,
   deleteCadenceStep,
   deleteConnectedTrigger,
+  deleteStepMarketingAction,
   editConnectedTrigger,
   getEmailTemplate,
   getSmartlist,
@@ -400,12 +402,6 @@ export const useNodeElementsRecorder = ({
     onClickConnectedTrigger,
   ]);
 
-  const handleCreateNewMarketingAction = React.useCallback(
-    (newMarketingAction: Partial<StepMarketingActions>) =>
-      upsertMarketingAction(newMarketingAction),
-    [upsertMarketingAction],
-  );
-
   const handleConvertIntoExit = React.useCallback(
     (stepNode: StoredStep) => (status: DestinationStatus) =>
       stepNode?.id && convertCadenceStepIntoExit(stepNode.id, status),
@@ -437,7 +433,7 @@ export const useNodeElementsRecorder = ({
           isDeleteStepDialogHidden,
           isConvertStepIntoExitDialogHidden,
           addNextStep: handleAddNextStepTrigger(stepNode),
-          createNewMarketingAction: handleCreateNewMarketingAction,
+          upsertMarketingAction,
           endStepEdition: handleResetStepToEditId,
           getEmailTemplate,
           getTag,
@@ -450,6 +446,7 @@ export const useNodeElementsRecorder = ({
             doNotDisplayConvertStepIntoExitDialogCadenceIdsAction,
           submitMarketingActionForm,
           updateCadenceStepName,
+          deleteStepMarketingAction,
         },
       }));
     }
@@ -459,6 +456,7 @@ export const useNodeElementsRecorder = ({
     cadenceEditMode,
     storedSteps,
     stepToEditId,
+    deleteStepMarketingAction,
     doNotDisplayConvertStepIntoExitDialogCadenceIdsAction,
     doNotDisplayDeleteStepDialogCadenceIdsAction,
     getEmailTemplate,
@@ -466,6 +464,7 @@ export const useNodeElementsRecorder = ({
     handleResetStepToEditId,
     submitMarketingActionForm,
     updateCadenceStepName,
+    upsertMarketingAction,
   ]);
 
   const storedTriggersToOutside = React.useMemo(

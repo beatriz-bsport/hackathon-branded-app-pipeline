@@ -906,7 +906,12 @@
       },
       "requiredField": "This field is mandatory."
     },
-    "selector": { "validate": "Confirm", "unselectAll": "Unselect all", "selectAll": "Select all" },
+    "selector": {
+      "validate": "Confirm",
+      "unselectAll": "Unselect all",
+      "selectAll": "Select all",
+      "indeterminate": "Select all ({{count}} selected)"
+    },
     "cancel": "Cancel",
     "confirm": "Confirm",
     "disconnectInfo": "Return to Login Page",

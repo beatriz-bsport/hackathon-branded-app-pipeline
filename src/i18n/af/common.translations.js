@@ -17,6 +17,7 @@ exports.default = {
     validate: 'Confirm',
     unselectAll: 'Unselect all',
     selectAll: 'Select all',
+    indeterminate: 'Select all ({{count}} selected)',
   },
   cancel: 'Cancel',
   confirm: 'Confirm',

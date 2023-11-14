@@ -132,7 +132,9 @@ export const deleteStepMarketingActionsActions = {
     'CADENCE_WIP/MARKETING_ACTIONS/DELETE/IS_LOADING',
   ),
   error: createAction<Error>('CADENCE_WIP/MARKETING_ACTIONS/DELETE/ERROR'),
-  success: createAction<void>('CADENCE_WIP/MARKETING_ACTIONS/DELETE/SUCCESS'),
+  success: createAction<{ id: number; stepId: number }>(
+    'CADENCE_WIP/MARKETING_ACTIONS/DELETE/SUCCESS',
+  ),
 };
 
 export function deleteStepMarketingAction(
@@ -145,7 +147,7 @@ export function deleteStepMarketingAction(
 
     try {
       await deleteStepMarketingActionAPI(data.id);
-      dispatch(deleteStepMarketingActionsActions.success());
+      dispatch(deleteStepMarketingActionsActions.success(data));
       options && options.onSuccess && options.onSuccess();
     } catch (err) {
       console.error(err);

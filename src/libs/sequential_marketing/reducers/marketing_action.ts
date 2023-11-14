@@ -103,7 +103,12 @@ export default handleActions<ImmutableCadenceState, any>(
         .setIn(['byId', payload.id.toString()], payload)
         .setIn(
           ['byStepId', payload.cadence_step.toString()],
-          uniq([...(state.byStepId[payload.cadence_step] ?? []), payload]),
+          [
+            ...(state.byStepId[payload.cadence_step]?.filter(
+              (marketingAction) => marketingAction?.id !== payload?.id,
+            ) ?? []),
+            payload,
+          ],
         );
     },
     [modifyStepMarketingActionsConfigurationActions.isLoading.toString()]: (

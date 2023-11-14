@@ -8,13 +8,14 @@ import {
   MarketingActions,
   SequentialMarketingColors,
 } from '#libs/sequential_marketing/constants';
-import { getMarketingActionOptions } from '#libs/sequential_marketing/components/form/marketing_actions/utils';
 import MarketingActionChip from '#libs/sequential_marketing/components/graph/chips/MarketingActionChip.component';
 import MenuSelectorTextButton from '#components/menu/text';
+import useMarketingActionOptions from '#libs/sequential_marketing/components/form/marketing_actions/hooks/useMarketingActionOptions.hook';
 
 import type { StepMarketingActions } from '#libs/sequential_marketing/types';
 import type { Tag } from '#libs/tag/types';
 import type { EmailTemplateSummary } from '#libs/email-editor/types';
+import { getMarketingActionType } from '#libs/sequential_marketing/components/form/marketing_actions/utils';
 
 export type CadenceNodeContentProps = {
   marketingActionList?: StepMarketingActions[];
@@ -49,6 +50,13 @@ const CadenceNodeContent: React.FC<CadenceNodeContentProps> = ({
     [],
   );
 
+  const marketingActionOptions = useMarketingActionOptions({
+    addMarketingAction,
+    marketingActionToExclude: marketingActionList?.map((marketingAction) =>
+      getMarketingActionType(marketingAction),
+    ),
+  });
+
   return (
     <div className={classes.container}>
       {!!marketingActionList && marketingActionList.length > 0 && (
@@ -68,7 +76,7 @@ const CadenceNodeContent: React.FC<CadenceNodeContentProps> = ({
       )}
       {!!addMarketingAction && (
         <MenuSelectorTextButton
-          actionList={getMarketingActionOptions(t, addMarketingAction)}
+          actionList={marketingActionOptions}
           customColor={SequentialMarketingColors.INNER_STEP_COLOR}
           isDisabled={
             disableAddMarketingAction ||

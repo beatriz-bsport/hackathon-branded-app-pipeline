@@ -145,12 +145,10 @@ export const convertCadenceStepIntoExit = (
   );
 };
 
-export const updateCadenceStep = (id: number, { name }: { name: string }) => {
+export const updateCadenceStepName = (id: number, name: string) => {
   return putAuth<CadenceStep>(
     `${API_V1_URI}/sequential_marketing/cadence_step/${id}/`,
-    {
-      name,
-    },
+    { name },
   );
 };
 
@@ -161,11 +159,11 @@ export const deleteCadenceStep = (id: number) => {
 };
 
 export const modifyStepMarketingActionsConfiguration = async (
-  step_id: number,
+  stepId: number,
   list: StepMarketingActions[],
 ) => {
   return postAuth<{ result: StepMarketingActions[]; disabled: number[] }>(
-    `${API_V1_URI}/sequential_marketing/cadence_step/${step_id}/modify_marketing_actions_configuration/`,
+    `${API_V1_URI}/sequential_marketing/cadence_step/${stepId}/modify_marketing_actions_configuration/`,
     list,
   );
 };

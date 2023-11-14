@@ -11,7 +11,7 @@ import {
   fetchCadenceStepList as fetchCadenceStepListAPI,
   updateCadenceStepCanvasPosition as updateCadenceStepCanvasPositionAPI,
   convertCadenceStepIntoExit as convertCadenceStepIntoExitAPI,
-  updateCadenceStep as updateCadenceStepAPI,
+  updateCadenceStepName as updateCadenceStepNameAPI,
   deleteCadenceStep as deleteCadenceStepAPI,
 } from '#libs/sequential_marketing/api';
 
@@ -142,32 +142,32 @@ export function convertCadenceStepIntoExit(
   };
 }
 
-export const updateCadenceStepActions = {
+export const updateCadenceStepNameActions = {
   isLoading: createAction<boolean>('CADENCE_STEP_WIP/UPDATE/IS_LOADING'),
   error: createAction<Error>('CADENCE_STEP_WIP/UPDATE/ERROR'),
   success: createAction<CadenceStep>('CADENCE_STEP_WIP/UPDATE/SUCCESS'),
 };
 
-export function updateCadenceStep(
+export function updateCadenceStepName(
   id: number,
-  data: { name: string },
+  name: string,
   options?: OptionCallback<CadenceStep>,
 ) {
   return async (dispatch: Dispatch) => {
-    dispatch(updateCadenceStepActions.isLoading(true));
-    dispatch(updateCadenceStepActions.error(null));
+    dispatch(updateCadenceStepNameActions.isLoading(true));
+    dispatch(updateCadenceStepNameActions.error(null));
 
     try {
-      const response = await updateCadenceStepAPI(id, data);
-      dispatch(updateCadenceStepActions.success(response.data));
+      const response = await updateCadenceStepNameAPI(id, name);
+      dispatch(updateCadenceStepNameActions.success(response.data));
       options && options.onSuccess && options.onSuccess(response.data);
     } catch (err) {
       console.error(err);
-      dispatch(updateCadenceStepActions.error(err));
+      dispatch(updateCadenceStepNameActions.error(err));
       options && options.onError && options.onError();
     }
 
-    dispatch(updateCadenceStepActions.isLoading(false));
+    dispatch(updateCadenceStepNameActions.isLoading(false));
   };
 }
 

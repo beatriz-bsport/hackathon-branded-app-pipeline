@@ -27,7 +27,7 @@ import {
   convertCadenceExitIntoStep as convertCadenceExitIntoStepAction,
   subscribeStepToStep as subscribeStepToStepAction,
   updateConnectedTrigger as updateConnectedTriggerAction,
-  updateCadenceStep as updateCadenceStepAction,
+  updateCadenceStepName as updateCadenceStepNameAction,
   deleteCadenceStep as deleteCadenceStepAction,
   fetchMarketingActions as fetchMarketingActionsAction,
   upsertStepMarketingAtions as upsertStepMarketingAtionsAction,
@@ -526,7 +526,7 @@ const mapWithHandlers = {
     (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>
     (data: { name: string; stepId: number }, options?: OptionCallback) => {
       if (props.selectedStepIdForEdition) {
-        props.updateCadenceStepAction(data.stepId, data, {
+        props.updateCadenceStepNameAction(data.stepId, data.name, {
           onSuccess: () => {
             options?.onSuccess?.();
           },
@@ -714,7 +714,7 @@ const mapWithHandlers = {
 
   updateStepMarketingActionList:
     (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>
-    (data: { list: StepMarketingActions[]; step: number }) => {
+    (data: { list: StepMarketingActions[]; stepId: number }) => {
       props.modifyStepMarketingActionsConfigurationAction(data);
     },
 
@@ -845,7 +845,7 @@ const connector = connect(
     convertCadenceStepIntoExitAction,
     updateCadenceStepConnectedTriggerCanvasPositionAction,
     convertCadenceExitIntoStepAction,
-    updateCadenceStepAction,
+    updateCadenceStepNameAction,
     deleteCadenceStepAction,
     fetchMarketingActionsAction,
     upsertStepMarketingAtionsAction,

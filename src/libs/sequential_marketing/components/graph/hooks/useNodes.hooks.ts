@@ -25,12 +25,12 @@ import type {
   CadenceStep,
   GraphCanvas,
   StepMarketingActions,
+  MarketingActionEssentials,
 } from '#libs/sequential_marketing/types';
 import type { StoredStep, StoredTrigger } from './types';
 import type { SmartList } from '#libs/smart-list/types';
 import type { EmailTemplateSummary } from '#libs/email-editor/types';
 import type { Tag } from '#libs/tag/types';
-import type { StepEditionBubbleProps } from '../bubbles/StepEditionBubble.component';
 import type { OptionCallback } from '../../../../../state/types';
 
 export enum CustomNodesEnum {
@@ -139,7 +139,7 @@ type NodeRendererProps = {
   cadence: Cadence;
   cadenceEditMode: boolean;
   smartlists: Immutable.ImmutableArray<SmartList>;
-  stepBubbleProps: Omit<StepEditionBubbleProps, 'step'>;
+  marketingActionEssentials: MarketingActionEssentials;
   storedEntryStep: CadenceStep;
   storedSteps: StoredStep[];
   storedTriggers: Immutable.ImmutableArray<StoredTrigger>;
@@ -187,6 +187,11 @@ type NodeRendererProps = {
   ) => void;
   onClickEntryStep: (step: CadenceStep) => void;
   resetAllSelection: () => void;
+  submitMarketingActionForm: (data: {
+    list: StepMarketingActions[];
+    stepId: number;
+  }) => void;
+  updateCadenceStepName: (data: { name: string; stepId: number }) => void;
   upsertMarketingAction: (
     marketingAction: Partial<StepMarketingActions>,
   ) => void;
@@ -198,7 +203,7 @@ export const useNodeElementsRecorder = ({
   cadence,
   cadenceEditMode,
   smartlists,
-  stepBubbleProps,
+  marketingActionEssentials,
   storedEntryStep,
   storedSteps,
   storedTriggers,
@@ -223,6 +228,8 @@ export const useNodeElementsRecorder = ({
   upsertMarketingAction,
   doNotDisplayDeleteStepDialogCadenceIdsAction,
   doNotDisplayConvertStepIntoExitDialogCadenceIdsAction,
+  submitMarketingActionForm,
+  updateCadenceStepName,
 }: NodeRendererProps) => {
   const [stepToEditId, setStepToEditId] = React.useState<number | null>(null);
 
@@ -423,7 +430,7 @@ export const useNodeElementsRecorder = ({
           step: stepNode,
           disabled: !cadenceEditMode,
           marketingActionList: getStepMarketingActions?.(stepNode?.id),
-          bubble: stepBubbleProps,
+          marketingActionEssentials,
           stepToEditId,
           hideDeleteStepDialogCadenceIds,
           hideConvertStepIntoExitDialogCadenceIds,
@@ -441,6 +448,8 @@ export const useNodeElementsRecorder = ({
             doNotDisplayDeleteStepDialogCadenceIdsAction,
           addHideConvertStepIntoExitExitDialogCadenceIds:
             doNotDisplayConvertStepIntoExitDialogCadenceIdsAction,
+          submitMarketingActionForm,
+          updateCadenceStepName,
         },
       }));
     }
@@ -450,9 +459,13 @@ export const useNodeElementsRecorder = ({
     cadenceEditMode,
     storedSteps,
     stepToEditId,
+    doNotDisplayConvertStepIntoExitDialogCadenceIdsAction,
+    doNotDisplayDeleteStepDialogCadenceIdsAction,
     getEmailTemplate,
     getTag,
     handleResetStepToEditId,
+    submitMarketingActionForm,
+    updateCadenceStepName,
   ]);
 
   const storedTriggersToOutside = React.useMemo(

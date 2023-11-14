@@ -6,10 +6,11 @@ import { Popover } from '@material-ui/core';
 import InnerStepCard, {
   type InnerStepCardProps,
 } from './InnerStepCard.component';
-import StepEditionBubble, {
-  type StepEditionBubbleProps,
-} from '#libs/sequential_marketing/components/graph/bubbles/StepEditionBubble.component';
-import type { StepMarketingActions } from '#libs/sequential_marketing/types';
+import StepEditionBubble from '#libs/sequential_marketing/components/graph/bubbles/StepEditionBubble.component';
+import type {
+  MarketingActionEssentials,
+  StepMarketingActions,
+} from '#libs/sequential_marketing/types';
 
 import {
   LEFT_HANDLE_STYLE,
@@ -35,7 +36,7 @@ import CadencDialogUtility, {
 
 type FlowProps = {
   data: {
-    bubble: StepEditionBubbleProps;
+    marketingActionEssentials: MarketingActionEssentials;
     stepToEditId: number;
     isDeleteStepDialogHidden: boolean;
     isConvertStepIntoExitDialogHidden: boolean;
@@ -45,6 +46,11 @@ type FlowProps = {
     submitConvertIntoExit: (status: DestinationStatus) => void;
     addHideDeleteStepDialogCadenceIds: () => void;
     addHideConvertStepIntoExitExitDialogCadenceIds: () => void;
+    submitMarketingActionForm: (data: {
+      list: StepMarketingActions[];
+      stepId: number;
+    }) => void;
+    updateCadenceStepName: (data: { name: string; stepId: number }) => void;
   } & InnerStepCardProps;
 };
 
@@ -106,15 +112,15 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
 
   const handleSubmitForm = React.useCallback(
     (param: { list: StepMarketingActions[]; step: number }) => {
-      if (!!data?.bubble?.onConfirm && data?.step?.id)
-        data.bubble.onConfirm({
+      if (!!data?.submitMarketingActionForm && data?.step?.id)
+        data.submitMarketingActionForm({
           list:
             param?.list?.map((action) => ({
               ...action,
               cadence_step: data.step.id,
               name: t('cadence.form.marketing_action.defaultName'),
             })) ?? [],
-          step: data.step.id,
+          stepId: data.step.id,
         });
       isStepNew && data.endStepEdition();
     },
@@ -274,20 +280,12 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
         transformOrigin={transformOrigin}
       >
         <StepEditionBubble
-          emailDetailList={data.bubble.emailDetailList}
-          emailDetailListLoading={data.bubble.emailDetailListLoading}
-          emailSummaryList={data.bubble.emailSummaryList}
-          emailSummaryListLoading={data.bubble.emailSummaryListLoading}
-          fetchEmailSummaryList={data.bubble.fetchEmailSummaryList}
-          getEmailDetail={data.bubble.getEmailDetail}
+          {...data.marketingActionEssentials}
           marketingActions={data.marketingActionList}
           onCancel={handleCloseStepEditionBubble}
           onConfirm={handleSubmitForm}
-          resolvedGenericTags={data.bubble.resolvedGenericTags}
           step={data.step}
-          tagCategories={data.bubble.tagCategories}
-          tagList={data.bubble.tagList}
-          updateCadenceStepName={data.bubble.updateCadenceStepName}
+          updateCadenceStepName={data.updateCadenceStepName}
         />
       </Popover>
       <Popover
@@ -312,18 +310,10 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
         transformOrigin={transformOrigin}
       >
         <UniqueMarketingActionBubble
-          emailDetailList={data.bubble.emailDetailList}
-          emailDetailListLoading={data.bubble.emailDetailListLoading}
-          emailSummaryList={data.bubble.emailSummaryList}
-          emailSummaryListLoading={data.bubble.emailSummaryListLoading}
-          fetchEmailSummaryList={data.bubble.fetchEmailSummaryList}
-          getEmailDetail={data.bubble.getEmailDetail}
+          {...data.marketingActionEssentials}
           marketingAction={newMarketingAction}
           onClose={handleCloseUniqueMarketingActionBubble}
           onConfirm={handleCreateOneMarketingAction}
-          resolvedGenericTags={data.bubble.resolvedGenericTags}
-          tagCategories={data.bubble.tagCategories}
-          tagList={data.bubble.tagList}
         />
       </Popover>
       <CadencDialogUtility

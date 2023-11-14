@@ -85,7 +85,7 @@ type Props = {
   resetAllSelection: () => void;
   submitMarketingActionForm: (data: {
     list: StepMarketingActions[];
-    step: number;
+    stepId: number;
   }) => void;
   updateCadenceStepCanvasPosition: (
     id: number,
@@ -177,7 +177,9 @@ export const CadenceGraphFlow: React.FC<Props> = ({
     updateCadenceStepCanvasPosition,
     updateConnectedTriggerPosition,
     upsertMarketingAction,
-    stepBubbleProps: {
+    submitMarketingActionForm,
+    updateCadenceStepName,
+    marketingActionEssentials: {
       emailDetailList,
       emailDetailListLoading,
       emailSummaryList,
@@ -187,8 +189,6 @@ export const CadenceGraphFlow: React.FC<Props> = ({
       tagList,
       fetchEmailSummaryList,
       getEmailDetail,
-      onConfirm: submitMarketingActionForm,
-      updateCadenceStepName,
     },
     doNotDisplayDeleteStepDialogCadenceIdsAction,
     doNotDisplayConvertStepIntoExitDialogCadenceIdsAction:

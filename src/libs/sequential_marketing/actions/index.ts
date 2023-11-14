@@ -40,8 +40,8 @@ import {
   updateCadenceStepCanvasPositionActions,
   updateCadenceStepCanvasPosition,
   // UPDATE
-  updateCadenceStepActions,
-  updateCadenceStep,
+  updateCadenceStepNameActions,
+  updateCadenceStepName,
   // DELETE
   deleteCadenceStepActions,
   deleteCadenceStep,
@@ -112,8 +112,8 @@ export {
   fetchCadenceStepList,
   updateCadenceStepCanvasPositionActions,
   updateCadenceStepCanvasPosition,
-  updateCadenceStepActions,
-  updateCadenceStep,
+  updateCadenceStepNameActions,
+  updateCadenceStepName,
   deleteCadenceStepActions,
   deleteCadenceStep,
   convertCadenceStepIntoExitActions,

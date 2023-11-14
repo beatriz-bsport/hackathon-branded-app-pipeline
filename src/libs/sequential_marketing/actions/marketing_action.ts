@@ -101,7 +101,7 @@ export const modifyStepMarketingActionsConfigurationActions = {
 };
 
 export function modifyStepMarketingActionsConfiguration(
-  data: { list: StepMarketingActions[]; step: number },
+  data: { list: StepMarketingActions[]; stepId: number },
   options?: OptionCallback<StepMarketingActions[]>,
 ) {
   return async (dispatch: Dispatch) => {
@@ -110,7 +110,7 @@ export function modifyStepMarketingActionsConfiguration(
 
     try {
       const response = await modifyStepMarketingActionsConfigurationAPI(
-        data.step,
+        data.stepId,
         data.list,
       );
       dispatch(

@@ -7,7 +7,7 @@ import {
   deleteCadenceStepActions,
   fetchCadenceStepListActions,
   retrieveCadenceStepActions,
-  updateCadenceStepActions,
+  updateCadenceStepNameActions,
   updateCadenceStepCanvasPositionActions,
   // TRIGGERS
   convertCadenceExitIntoStepActions,
@@ -77,19 +77,19 @@ export default handleActions<ImmutableCadenceStepState, any>(
         .setIn(['byId', payload.id.toString()], payload);
     },
 
-    [updateCadenceStepActions.isLoading.toString()]: (
+    [updateCadenceStepNameActions.isLoading.toString()]: (
       state,
       { payload }: { payload: boolean },
     ) => {
       return state.set('loading', payload);
     },
-    [updateCadenceStepActions.error.toString()]: (
+    [updateCadenceStepNameActions.error.toString()]: (
       state,
       { payload }: { payload: Error | null },
     ) => {
       return state.set('error', payload);
     },
-    [updateCadenceStepActions.success.toString()]: (
+    [updateCadenceStepNameActions.success.toString()]: (
       state,
       { payload }: { payload: { id: number } },
     ) => {

@@ -33,15 +33,15 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-type Props = {
+export type Props = {
   isSetupIntent: boolean;
   onlySavePaymentMethod: boolean;
 };
 
-export const StripeTerminalPaymentSuccess = (props: Props) => {
+export const StripeTerminalSuccess: React.FC<Props> = (props) => {
   const classes = useStyles();
 
-  const { t } = useTranslation(['invoice']);
+  const { t } = useTranslation('invoice');
   let translationKey;
 
   if (!props.isSetupIntent) {
@@ -78,4 +78,4 @@ export const StripeTerminalPaymentSuccess = (props: Props) => {
   );
 };
 
-export default StripeTerminalPaymentSuccess;
+export default React.memo(StripeTerminalSuccess);

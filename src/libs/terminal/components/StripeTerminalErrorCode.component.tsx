@@ -22,7 +22,7 @@ type Props = {
 export const StripeTerminalPaymentError = (props: Props) => {
   const classes = useStyles();
 
-  const { t } = useTranslation(['invoice']);
+  const { t } = useTranslation(['invoice', 'stripe']);
 
   if (!props.error?.decline_code && !props.error?.code) return null;
   return (

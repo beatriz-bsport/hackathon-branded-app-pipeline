@@ -165,6 +165,12 @@ const getTranslations = async () => {
               content:
                 'If the terminal displays an error you can click on cancel and try to pay again. You may want to check your internet connection on both your laptop and terminal.',
             },
+            inactivity: {
+              title: 'Are you still here?',
+              content:
+                "We've detected that you have been inactive. Do you still want to pursue this operation? Without any response from you in the next 30 seconds, it will be automatically canceled.",
+              action: "Yes! I'm here",
+            },
             cancelError: {
               generic: {
                 title: 'An error occurred',
@@ -173,6 +179,21 @@ const getTranslations = async () => {
               readerBusy: {
                 title: 'Payment is being processed',
                 content: 'Please wait for the payment to be completed.',
+              },
+            },
+          },
+          processingSavePaymentMethod: {
+            title: 'Operation in progress',
+            content: 'Please follow the instructions on the Stripe terminal',
+            help: {
+              title: 'Are you encountering an issue ?',
+              content:
+                'If the terminal displays an error, you can click on cancel and try to save the payment method again. You may want to check your internet connection on both your laptop and terminal.',
+            },
+            cancelError: {
+              readerBusy: {
+                title: 'The payment method is being saved',
+                content: 'Please wait for the operation to be completed.',
               },
             },
           },

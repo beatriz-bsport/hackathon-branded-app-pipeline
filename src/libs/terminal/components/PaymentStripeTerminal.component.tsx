@@ -1,10 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import {
-  Terminal,
-  ISdkManagedPaymentIntent,
-  loadStripeTerminal,
-} from '@stripe/terminal-js';
-import * as Sentry from '@sentry/react';
+import React, { useEffect, useState, useCallback } from 'react';
 
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Button from '@material-ui/core/Button';
@@ -15,29 +9,50 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme, Typography } from '@material-ui/core';
 import classnames from 'classnames';
-import StripeTerminalConnectingLoading from './StripeTerminalConnectingLoading.component';
-import StripeTerminalConnectingError from './StripeTerminalConnectingError.component';
-import StripeTerminalConnectingSuccess from './StripeTerminalConnectingSuccess.component';
-import StripeTerminalPaymentSuccess from './StripeTerminalPaymentSuccess.component';
-import StripeTerminalUnexpectedDisconnect from './StripeTerminalUnexpectedDisconnect.component';
-import StripeTerminalPaymentError from './StripeTerminalPaymentError.component';
+import { captureException } from '@sentry/react';
+import StripeTerminalError from '#libs/terminal/components/StripeTerminalError';
+import StripeTerminalProcessing from '#libs/terminal/components/StripeTerminalProcessing';
+import StripeTerminalPaymentSuccess from '#libs/terminal/components/StripeTerminalSuccess';
 // @ts-expect-error
 import PriceInput from '../../../components/input/PriceInput.component';
+
 import {
-  capturePaymentIntent as capturePaymentIntentAPI,
-  fetchConnectionToken as fetchConnectionTokenAPI,
-} from '../api';
+  processPaymentIntent as processPaymentIntentAPI,
+  processSetupIntent as processSetupIntentPI,
+  retrieveReaderActionSumup as retrieveReaderActionSumupAPI,
+  cancelReaderAction as cancelReaderActionAPI,
+} from '#libs/terminal/api';
+import type { StripeAPIException } from '#libs/payment/types';
+import {
+  parseIntentIdFromClientSecret,
+  isSetupForFutureUsageAllowed,
+} from '#libs/terminal/utils';
 import {
   getCurrencyDisplayWithPrice,
   getCompanyCountry,
 } from '../../theme/selectors';
 import { updateIntentToSavePaymentMethod } from '#libs/payment/api';
 
+import { STRIPE_ERROR_CODE } from '#libs/constants';
 import type { OptionCallback } from '../../../state/types';
-import type { StripeReader } from '#libs/terminal/types';
+import type {
+  StripeReader,
+  CancelReaderActionErrorMessage,
+  ReaderActionSumup,
+} from '#libs/terminal/types';
+// eslint-disable-next-line no-duplicate-imports
+import { TerminalPaymentSteps } from '#libs/terminal/types';
+
+const POLL_RETRY_INACTIVITY_THRESHOLD = 60;
+const POLL_RETRY_DELAY_MS = 1000;
 
 const useStyles = makeStyles((theme: Theme) => ({
-  container: { minWidth: '20vw' },
+  container: {
+    maxWidth: '600px',
+    margin: 'auto',
+    width: '100%',
+    minWidth: '400px',
+  },
   actionRow: {
     display: 'flex',
     flexDirection: 'row',
@@ -107,8 +122,73 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   stripeTerminalContainer: {
     maxWidth: '650px',
+    margin: 'auto',
   },
 }));
+
+const recursivePoll = async (
+  selectedReader: string,
+  nbPreviousRetries: number,
+  onInactivityThresholdReachedCallback: () => void,
+  onActionSucceededCallback: () => void,
+  onActionFailedCallback: (readerActionSumup: ReaderActionSumup) => void,
+  setPollingTimeoutId: (id: ReturnType<typeof setTimeout>) => void,
+  inactivityThresholdExceeded: boolean = false,
+) => {
+  let nextInactivityThresholdExceeded = inactivityThresholdExceeded;
+  if (
+    nbPreviousRetries >= POLL_RETRY_INACTIVITY_THRESHOLD &&
+    !inactivityThresholdExceeded
+  ) {
+    onInactivityThresholdReachedCallback();
+    nextInactivityThresholdExceeded = true;
+  }
+  try {
+    const sumupResponse = await retrieveReaderActionSumupAPI(selectedReader);
+    const sumup = sumupResponse.data;
+
+    switch (sumup.status) {
+      case 'succeeded':
+        onActionSucceededCallback();
+        return;
+      case 'failed':
+        onActionFailedCallback(sumup);
+        return;
+      default:
+        setPollingTimeoutId(
+          setTimeout(
+            () =>
+              recursivePoll(
+                selectedReader,
+                nbPreviousRetries + 1,
+                onInactivityThresholdReachedCallback,
+                onActionSucceededCallback,
+                onActionFailedCallback,
+                setPollingTimeoutId,
+                nextInactivityThresholdExceeded,
+              ),
+            POLL_RETRY_DELAY_MS,
+          ),
+        );
+    }
+  } catch (err) {
+    setPollingTimeoutId(
+      setTimeout(
+        () =>
+          recursivePoll(
+            selectedReader,
+            nbPreviousRetries + 1,
+            onInactivityThresholdReachedCallback,
+            onActionSucceededCallback,
+            onActionFailedCallback,
+            setPollingTimeoutId,
+            nextInactivityThresholdExceeded,
+          ),
+        POLL_RETRY_DELAY_MS,
+      ),
+    );
+  }
+};
 
 export type Props = {
   stripeReaders: StripeReader[];
@@ -128,431 +208,279 @@ export type Props = {
   };
 };
 
-export const PaymentStripeTerminal: React.FC<Props> = (props) => {
+export const PaymentStripeTerminal: React.FC<Props> = ({
+  isSetupIntent,
+  clientSecret,
+  setProcessing,
+  stripeReaders,
+  customClasses,
+  children,
+  onCancel,
+  hideAmountToPay,
+  paymentGroupPriceCts,
+  updatePriceCts,
+  paymentGroupId,
+  onSuccess,
+  onlySavePaymentMethod,
+}) => {
   const companyCountry = getCompanyCountry();
+  const classes = useStyles();
+  const { t } = useTranslation('invoice');
 
-  const { setProcessing } = props;
-  const [terminal, setTerminal] = useState<Terminal | null>(null);
-  const [selectedReader, setSelectedReader] = useState(() => {
-    if (props.stripeReaders && props.stripeReaders.length === 1) {
-      return props.stripeReaders[0];
+  const [selectedReader, setSelectedReader] = useState<string | null>(() => {
+    if (stripeReaders && stripeReaders.length === 1) {
+      return stripeReaders[0].id;
     }
     return null;
   });
+
+  const [clientSecretOverride, setClientSecretOverride] = useState<
+    string | null
+  >(null);
+
+  const [pollingTimeoutId, setPollingTimeoutId] = useState<ReturnType<
+    typeof setTimeout
+  > | null>(null);
+
+  const [cancelReaderActionProcessing, setCancelReaderActionProcessing] =
+    useState(false);
+
   const [priceUpdaterOpen, setPriceUpdaterOpen] = useState(false);
+
   const [priceUpdateAmount, setPriceUpdateAmount] = useState(
-    props.paymentGroupPriceCts / 100,
+    paymentGroupPriceCts / 100,
   );
-  const [saveForLater, setSaveForLater] = useState(() => !!props.isSetupIntent);
-  // 'paymentSettings' | 'connecting' | 'connectionError'
-  // 'collecting' | 'processing' | 'paymentSuccess' | 'paymentError' | 'unexpectedDisconnect'
-  const [step, setStep] = useState('paymentSettings');
-  const [error, setError] = useState(null);
-  const [retryHandler, setRetryHandler] = useState(null);
-  const [cancelCollectHandler, setCancelCollectHandler] = useState(null);
-  const [errorWhenCancelling, setErrorWhenCancelling] = useState(false);
+  const [saveForLater, setSaveForLater] = useState(() => !!isSetupIntent);
+
+  const [step, setStep] = useState<TerminalPaymentSteps>(
+    TerminalPaymentSteps.SETTINGS,
+  );
+  const [error, setError] = useState<StripeAPIException | null>(null);
+
+  const [cancelErrorMessage, setCancelErrorMessage] =
+    useState<CancelReaderActionErrorMessage | null>();
+
+  const [shouldDisplayInactivityWarning, setShouldDisplayInactivityWarning] =
+    useState(false);
 
   useEffect(() => {
-    const instanciateTerminal = async () => {
-      const onFetchConnectionToken = async () => {
-        try {
-          const response = await fetchConnectionTokenAPI();
-          return response.data.secret;
-        } catch (err) {
-          console.error(err);
-          Sentry.captureException(err);
-          throw err;
-        }
-      };
-      const onUnexpectedReaderDisconnect = () => {
-        setProcessing && setProcessing(false);
-        setStep('unexpectedDisconnect');
-      };
+    return () => clearTimeout(pollingTimeoutId);
+  }, [pollingTimeoutId]);
 
+  const togglePriceUpdaterOpenHandler = useCallback(() => {
+    setPriceUpdaterOpen((previousValue) => !previousValue);
+  }, []);
+
+  const updatePriceHandler = useCallback(() => {
+    updatePriceCts(priceUpdateAmount * 100, {
+      onSuccess: togglePriceUpdaterOpenHandler,
+    });
+  }, [updatePriceCts, togglePriceUpdaterOpenHandler, priceUpdateAmount]);
+
+  const resetPoll = useCallback(() => {
+    clearTimeout(pollingTimeoutId);
+    setPollingTimeoutId(null);
+  }, [pollingTimeoutId]);
+
+  const redirectToStep = useCallback(
+    (targetStep: TerminalPaymentSteps) => {
+      resetPoll();
+      setStep(targetStep);
+    },
+    [resetPoll],
+  );
+
+  const handleGoBackToSettings = useCallback(() => {
+    setProcessing && setProcessing(false);
+    setError(null);
+    setSelectedReader(null);
+    redirectToStep(TerminalPaymentSteps.SETTINGS);
+  }, [setProcessing, redirectToStep]);
+
+  const onInactivityThresholdReached = useCallback(() => {
+    // Display inactivity warning, and starts countdown
+    // On countdown end: cancels the operation and go back to settings step
+    setShouldDisplayInactivityWarning(true);
+  }, []);
+
+  const onActionSucceeded = useCallback(() => {
+    redirectToStep(TerminalPaymentSteps.SUCCESS);
+    onSuccess();
+  }, [onSuccess, redirectToStep]);
+
+  const onActionFailed = useCallback(
+    (readerActionSumup: ReaderActionSumup) => {
+      setError({
+        code: readerActionSumup.failure_code,
+        message: readerActionSumup.failure_message,
+      });
+      redirectToStep(TerminalPaymentSteps.ERROR);
+    },
+    [redirectToStep],
+  );
+
+  const onClickIAmHere = useCallback(() => {
+    // removes the warning, and resets the API poll
+    setShouldDisplayInactivityWarning(false);
+    resetPoll();
+    recursivePoll(
+      selectedReader,
+      0,
+      onInactivityThresholdReached,
+      onActionSucceeded,
+      onActionFailed,
+      setPollingTimeoutId,
+    );
+  }, [
+    selectedReader,
+    onInactivityThresholdReached,
+    onActionFailed,
+    onActionSucceeded,
+    resetPoll,
+  ]);
+
+  // -- Initiates payment --
+  const onConnectHandler = useCallback(async () => {
+    let updatedSecret;
+    if (!isSetupIntent && saveForLater) {
       try {
-        const StripeTerminal = await loadStripeTerminal();
-        const terminalInstance = StripeTerminal.create({
-          onFetchConnectionToken,
-          onUnexpectedReaderDisconnect,
-        });
-        setTerminal(terminalInstance);
-      } catch (err) {
-        console.error(err);
-        Sentry.captureException(err);
-        throw err;
-      }
-    };
-    instanciateTerminal();
-  }, [setProcessing]);
-
-  const classes = useStyles();
-  const { t } = useTranslation(['invoice']);
-
-  const onConnectHandler = async () => {
-    let { clientSecret } = props;
-    if (!props.isSetupIntent && saveForLater) {
-      try {
-        const response = await updateIntentToSavePaymentMethod({
+        const updateIntentResponse = await updateIntentToSavePaymentMethod({
           save_for_later: true,
-          payment_group_id: props.paymentGroupId,
+          payment_group_id: paymentGroupId,
         });
-        clientSecret = response.data.client_secret;
+        updatedSecret = updateIntentResponse.data.client_secret;
+        setClientSecretOverride(updatedSecret);
       } catch (e) {
         console.error(e);
-        Sentry.captureException(e);
+        captureException(e);
+        redirectToStep(TerminalPaymentSteps.ERROR);
       }
     }
-    if (!props.isSetupIntent) initiatePayment(clientSecret);
-    else initiateSavePaymentMethod(clientSecret);
-  };
 
-  const initiatePayment = async (clientSecret: string) => {
-    try {
-      const isConnected = await connectToReader();
-      isConnected && (await collectAndProcessPayment(clientSecret));
-    } catch (err) {
-      Sentry.captureException(err);
-      console.error(err);
-      throw err;
-    }
-  };
-
-  const initiateSavePaymentMethod = async (clientSecret: string) => {
-    await connectToReader();
-    await collectAndConfirmSetup(clientSecret);
-  };
-
-  const connectToReader = async () => {
-    setError(null);
-    props.setProcessing && props.setProcessing(true);
-    setStep('connecting');
-
-    // const config = { simulated: true };
-    // terminal.setSimulatorConfiguration({
-    //   // https://stripe.com/docs/terminal/references/testing#simulated-test-cards
-    //   testCardNumber: '4000000000009995',
-    // });
-
-    const config = { simulated: false };
-
-    const discoverResult = await terminal.discoverReaders(config);
-    if ('error' in discoverResult) {
-      props.setProcessing && props.setProcessing(false);
-      setError(discoverResult.error);
-      if (discoverResult.error?.code === 'reader_error') {
-        // eslint-disable-next-line
-        console.log(discoverResult);
-        Sentry.captureException(discoverResult.error);
-      }
-      setStep('connectionError');
-      setRetryHandler(() => () => {
-        setError(null);
-        setStep('paymentSettings');
-      });
-      return false;
-    }
-
-    if (
-      !discoverResult.discoveredReaders.find(
-        (discoveredReader) =>
-          discoveredReader.serial_number === selectedReader.serial_number &&
-          discoveredReader.status === 'online',
-      )
-    ) {
-      setError({ code: 'reader_not_found' });
-      setStep('connectionError');
-      setRetryHandler(() => () => {
-        setError(null);
-        setStep('paymentSettings');
-      });
-      return false;
-    }
-    const connectResult = await terminal.connectReader(
-      discoverResult.discoveredReaders.find(
-        (discoveredReader) =>
-          discoveredReader.serial_number === selectedReader.serial_number,
-      ),
+    const intentId = parseIntentIdFromClientSecret(
+      updatedSecret || clientSecretOverride || clientSecret,
     );
-    if ('error' in connectResult) {
-      props.setProcessing && props.setProcessing(false);
-      setError(connectResult.error);
-      if (connectResult.error?.code === 'reader_error') {
-        Sentry.captureException(connectResult.error);
-      }
-      setStep('connectionError');
-      setRetryHandler(() => () => {
-        setError(null);
-        setStep('paymentSettings');
-      });
-      return false;
-    }
-    return true;
-  };
+    redirectToStep(TerminalPaymentSteps.PROCESSING);
 
-  // -------------------------- PAYMENT INTENT --------------------------
-  const collectAndProcessPayment = async (clientSecret: string) => {
-    props.setProcessing && props.setProcessing(true);
-    setError(null);
-    setStep('collecting');
-    terminal.collectPaymentMethod(clientSecret).then((resultCollect) => {
-      if ('error' in resultCollect) {
-        // When clicking on retry, we should try to collect payment method again
-        // eslint-disable-next-line
-        console.log(resultCollect);
-        props.setProcessing && props.setProcessing(false);
-        if (resultCollect.error.code === 'canceled') return;
-        setError(resultCollect.error);
-        if (resultCollect.error?.code === 'reader_error') {
-          Sentry.captureException(resultCollect.error);
-        }
-        setStep('paymentError');
-        setRetryHandler(() => () => {
-          collectAndProcessPayment(clientSecret);
-        });
-        return;
-      }
-      processPayment(clientSecret, resultCollect.paymentIntent);
-    });
-
-    // This line is immediately executed after terminal.collectPaymentMethod
-    // the cancelCollectHandler needs to be set when collectPaymentMethod is in progress
-    setCancelCollectHandler(() => async () => {
-      try {
-        const cancelResults = await terminal.cancelCollectPaymentMethod();
-        if ('error' in cancelResults) {
-          setErrorWhenCancelling(true);
-          return;
-        }
-        setErrorWhenCancelling(false);
-        terminal.disconnectReader();
-        setStep('paymentSettings');
-      } catch (err) {
-        console.error(err);
-        Sentry.captureException(err);
-        throw err;
-      }
-    });
-  };
-
-  const processPayment = async (
-    clientSecret: string,
-    paymentIntent: ISdkManagedPaymentIntent,
-  ) => {
-    props.setProcessing && props.setProcessing(true);
-    setError(null);
-    setErrorWhenCancelling(false);
-    setStep('processing');
-    const resultProcess = await terminal.processPayment(paymentIntent);
-
-    if (!('error' in resultProcess)) {
-      // Determine if interac payment: the data is deeply nested inside 'resultProcess'
-      // returned by the terminal SDK
-      const isInteracPresent =
-        resultProcess.paymentIntent.charges.data.length > 0
-          ? resultProcess.paymentIntent.charges.data[0].payment_method_details
-              .type === 'interac_present'
-          : false;
-
-      // Only capture the PaymentIntent when not interac payment
-      if (!isInteracPresent) {
-        try {
-          await capturePaymentIntentAPI({
-            payment_intent_id: resultProcess.paymentIntent.id,
-          });
-        } catch (err) {
-          console.error(err);
-          Sentry.captureException(err);
-          throw err;
-        }
-      }
-
-      setStep('paymentSuccess');
-      props.onSuccess();
-      return;
-    }
-
-    props.setProcessing && props.setProcessing(false);
-    setError(resultProcess.error);
-    // eslint-disable-next-line
-    console.log(resultProcess);
-    if (resultProcess.error?.code === 'reader_error') {
-      Sentry.captureException(resultProcess.error);
-    }
-    setStep('paymentError');
-
-    if (!resultProcess.error.payment_intent) {
-      // Request to Stripe timed out, unknown PaymentIntent status: Retry processing
-      // the original PaymentIntent.Don’t create a new one, as that could result
-      // in multiple authorizations for the cardholder.
-      setRetryHandler(() => () => {
-        processPayment(clientSecret, paymentIntent);
-      });
-      return;
-    }
-
-    if (
-      ['requires_payment_method', 'requires_source'].includes(
-        resultProcess.error.payment_intent.status,
-      )
-    ) {
-      // Payment method declined: Try collecting a different payment method
-      // by calling collectPaymentMethod again with the same PaymentIntent.
-      setRetryHandler(() => () => {
-        collectAndProcessPayment(clientSecret);
-      });
-      return;
-    }
-
-    if (resultProcess.error.payment_intent.status === 'requires_confirmation') {
-      // Temporary connectivity problem: call processPayment again
-      // with the same PaymentIntent to retry the request.
-      setRetryHandler(() => () => {
-        processPayment(clientSecret, paymentIntent);
-      });
-    }
-  };
-
-  // --------------------------------------------------------------------
-
-  // --------------------------- SETUP INTENT ---------------------------
-  const collectAndConfirmSetup = async (clientSecret: string) => {
-    props.setProcessing && props.setProcessing(true);
-    setError(null);
-    setStep('collecting');
-    terminal
-      .collectSetupIntentPaymentMethod(clientSecret, true)
-      .then((resultCollect) => {
-        if ('error' in resultCollect) {
-          // eslint-disable-next-line
-          console.log(resultCollect);
-          // When clicking on retry, we should try to collect payment method again
-          props.setProcessing && props.setProcessing(false);
-          if (resultCollect.error.code === 'canceled') return;
-          setError(resultCollect.error);
-          if (resultCollect.error?.code === 'reader_error') {
-            Sentry.captureException(resultCollect.error);
-          }
-          setStep('paymentError');
-          setRetryHandler(() => () => {
-            collectAndProcessPayment(clientSecret);
-          });
-          return;
-        }
-        confirmSetup(clientSecret, resultCollect.setupIntent);
-      })
-      .catch((err) => {
-        console.error(err);
-        throw err;
-      });
-
-    // This line is immediately executed after terminal.collectSetupIntentPaymentMethod
-    // the cancelCollectHandler needs to be set when collectSetupIntentPaymentMethod is in progress
-    setCancelCollectHandler(() => async () => {
-      try {
-        const cancelResults = await terminal.cancelCollectPaymentMethod();
-        if ('error' in cancelResults) {
-          setErrorWhenCancelling(true);
-          return;
-        }
-        setErrorWhenCancelling(false);
-        terminal.disconnectReader();
-        setStep('paymentSettings');
-      } catch (err) {
-        console.error(err);
-        Sentry.captureException(err);
-        throw err;
-      }
-    });
-  };
-
-  const confirmSetup = async (clientSecret: string, setupIntent: any) => {
     try {
-      props.setProcessing && props.setProcessing(true);
-      setErrorWhenCancelling(false);
-      setError(null);
-      setStep('processing');
-      const resultConfirm = await terminal.confirmSetupIntent(setupIntent);
-      if ('error' in resultConfirm) {
-        // eslint-disable-next-line
-        console.log(resultConfirm);
-        // call processPayment again with the same PaymentIntent to retry the request.
-        setError(resultConfirm.error);
-        if (resultConfirm.error?.code === 'reader_error') {
-          Sentry.captureException(resultConfirm.error);
-        }
-        props.setProcessing && props.setProcessing(false);
-        setStep('paymentError');
-        setRetryHandler(() => () => {
-          collectAndConfirmSetup(clientSecret);
-        });
-        return;
-      }
-
-      setStep('paymentSuccess');
-      props.setProcessing && props.setProcessing(false);
-      if (props.onSuccess) {
-        props.onSuccess();
-      }
+      await (isSetupIntent
+        ? processSetupIntentPI(selectedReader, { setup_intent_id: intentId })
+        : processPaymentIntentAPI(selectedReader, {
+            payment_intent_id: intentId,
+          }));
+      setProcessing && setProcessing(true);
+      recursivePoll(
+        selectedReader,
+        0,
+        onInactivityThresholdReached,
+        onActionSucceeded,
+        onActionFailed,
+        setPollingTimeoutId,
+      );
     } catch (err) {
-      console.error(err);
-      Sentry.captureException(err);
-      throw err;
+      if (err.response?.status === STRIPE_ERROR_CODE) {
+        setError(err.response.data);
+      }
+      redirectToStep(TerminalPaymentSteps.ERROR);
     }
+  }, [
+    clientSecret,
+    isSetupIntent,
+    selectedReader,
+    setProcessing,
+    clientSecretOverride,
+    paymentGroupId,
+    saveForLater,
+    redirectToStep,
+    onActionFailed,
+    onActionSucceeded,
+    onInactivityThresholdReached,
+  ]);
+  // -----------------------------
+
+  const cancelReaderActionHandler = async (options?: OptionCallback) => {
+    setCancelReaderActionProcessing(true);
+    try {
+      await cancelReaderActionAPI(selectedReader);
+      clearTimeout(pollingTimeoutId);
+      handleGoBackToSettings();
+      options?.onSuccess?.();
+    } catch (err) {
+      if (
+        err.response?.status === STRIPE_ERROR_CODE &&
+        err.response.data.code === 'terminal_reader_busy'
+      ) {
+        const translationKeyPath = `configuration.stripeTerminal.paymentDialog.${
+          onlySavePaymentMethod ? 'processingSavePaymentMethod' : 'processing'
+        }`;
+
+        setCancelErrorMessage({
+          title: `${translationKeyPath}.cancelError.readerBusy.title`,
+          content: `${translationKeyPath}.cancelError.readerBusy.content`,
+        });
+      } else {
+        setCancelErrorMessage({
+          title:
+            'configuration.stripeTerminal.paymentDialog.processing.cancelError.generic.title',
+          content:
+            'configuration.stripeTerminal.paymentDialog.processing.cancelError.generic.content',
+        });
+      }
+      options?.onError?.();
+    }
+    setCancelReaderActionProcessing(false);
   };
-  // --------------------------------------------------------------------
+
+  const onInactivityWarningFinish = () => {
+    cancelReaderActionHandler({
+      onSuccess: () => setShouldDisplayInactivityWarning(false),
+      onError: () => setShouldDisplayInactivityWarning(false),
+    });
+  };
 
   return (
-    <div
-      className={classnames(classes.container, props.customClasses?.container)}
-    >
-      {step === 'connecting' && <StripeTerminalConnectingLoading />}
-      {['collecting', 'processing'].includes(step) && (
-        <StripeTerminalConnectingSuccess
-          errorWhenCancelling={errorWhenCancelling}
-          isProcessing={step === 'processing'}
-          isSetupIntent={!!props.isSetupIntent}
-          onCancel={cancelCollectHandler}
+    <div className={classnames(classes.container, customClasses?.container)}>
+      {step === TerminalPaymentSteps.ERROR && (
+        <StripeTerminalError
+          error={error}
+          isSetupIntent={isSetupIntent}
+          onClose={handleGoBackToSettings}
         />
       )}
-      {step === 'paymentSuccess' && (
+
+      {step === TerminalPaymentSteps.SUCCESS && (
         <StripeTerminalPaymentSuccess
-          isSetupIntent={props.isSetupIntent}
-          onlySavePaymentMethod={!!props.onlySavePaymentMethod}
+          isSetupIntent={isSetupIntent}
+          onlySavePaymentMethod={!!onlySavePaymentMethod}
         />
       )}
-      {step === 'paymentError' && (
-        <StripeTerminalPaymentError
-          error={error}
-          isSetupIntent={!!props.isSetupIntent}
-          onCancel={props.onCancel}
-          onRetry={retryHandler}
+
+      {step === TerminalPaymentSteps.PROCESSING && (
+        <StripeTerminalProcessing
+          cancelErrorMessage={cancelErrorMessage}
+          cancelReaderActionProcessing={cancelReaderActionProcessing}
+          isSetupIntent={isSetupIntent}
+          onCancelReaderAction={cancelReaderActionHandler}
+          onClickIAmHere={onClickIAmHere}
+          onInactivityWarningFinish={onInactivityWarningFinish}
+          onlySavePaymentMethod={!!onlySavePaymentMethod}
+          // dirty but could not find another way
+          shouldDisplayInactivityWarning={
+            shouldDisplayInactivityWarning && !cancelErrorMessage
+          }
         />
       )}
-      {step === 'connectionError' && (
-        <StripeTerminalConnectingError
-          error={error}
-          onCancel={props.onCancel}
-          onRetry={retryHandler}
-        />
-      )}
-      {step === 'unexpectedDisconnect' && (
-        <StripeTerminalUnexpectedDisconnect
-          onCancel={props.onCancel}
-          onRetry={() => {
-            setStep('paymentSettings');
-          }}
-        />
-      )}
-      {step === 'paymentSettings' && (
+
+      {step === TerminalPaymentSteps.SETTINGS && (
         <div
           className={classnames(
             classes.stripeTerminalContainer,
-            props.customClasses?.stripeTerminalContainer,
+            customClasses?.stripeTerminalContainer,
           )}
         >
-          {!props.hideAmountToPay ? (
+          {!hideAmountToPay ? (
             <>
-              {!props.isSetupIntent && (
+              {!isSetupIntent && (
                 <Typography variant="h6">
                   {t('configuration.stripeTerminal.paymentDialog.amountToPay')}
                 </Typography>
@@ -565,29 +493,22 @@ export const PaymentStripeTerminal: React.FC<Props> = (props) => {
                     }
                     value={priceUpdateAmount}
                   />
-                  <IconButton
-                    color="primary"
-                    onClick={() =>
-                      props.updatePriceCts(priceUpdateAmount * 100, {
-                        onSuccess: () => setPriceUpdaterOpen(false),
-                      })
-                    }
-                  >
+                  <IconButton color="primary" onClick={updatePriceHandler}>
                     <SaveIcon />
                   </IconButton>
                 </div>
               )}
-              {!priceUpdaterOpen && !!props.paymentGroupPriceCts && (
+              {!priceUpdaterOpen && !!paymentGroupPriceCts && (
                 <div className={classes.priceContainer}>
                   <Typography variant="h5">
                     {`${getCurrencyDisplayWithPrice(
-                      (props.paymentGroupPriceCts / 100).toFixed(2),
+                      (paymentGroupPriceCts / 100).toFixed(2),
                     )}`}
                   </Typography>
-                  {!!props.updatePriceCts && (
+                  {!!updatePriceCts && (
                     <IconButton
                       color="primary"
-                      onClick={() => setPriceUpdaterOpen(true)}
+                      onClick={togglePriceUpdaterOpenHandler}
                     >
                       <EditIcon />
                     </IconButton>
@@ -602,33 +523,32 @@ export const PaymentStripeTerminal: React.FC<Props> = (props) => {
               {t('configuration.stripeTerminal.paymentDialog.radio')}
             </Typography>
             <div>
-              {props.stripeReaders.map((reader) => (
-                <>
+              {stripeReaders.map((reader) => (
+                <React.Fragment key={reader.id}>
                   <ButtonBase
-                    key={reader.id}
                     className={classnames(classes.readerItem, {
-                      [classes.selectedReader]:
-                        selectedReader && selectedReader.id === reader.id,
+                      [classes.selectedReader]: selectedReader === reader.id,
                     })}
-                    onClick={() => setSelectedReader(reader)}
+                    onClick={() => setSelectedReader(reader.id)}
                   >
                     <Typography classes={{ root: classes.readerLabel }}>
                       {reader.label}
                     </Typography>
                     <Typography>{reader.serial_number}</Typography>
                   </ButtonBase>
-                </>
+                </React.Fragment>
               ))}
             </div>
             {/* Save card for later when paying only available in US
               https://stripe.com/docs/terminal/features/saving-cards/save-after-payment */}
-            {(!!props.isSetupIntent ||
-              (!props.isSetupIntent && companyCountry === 'US')) && (
+            {(!!isSetupIntent ||
+              (!isSetupIntent &&
+                isSetupForFutureUsageAllowed(companyCountry))) && (
               <div className={classes.row}>
                 <Checkbox
                   checked={saveForLater}
                   color="primary"
-                  disabled={!!props.isSetupIntent}
+                  disabled={!!isSetupIntent}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     setSaveForLater(e.target.checked)
                   }
@@ -640,24 +560,21 @@ export const PaymentStripeTerminal: React.FC<Props> = (props) => {
             )}
           </>
 
-          {props.children ? props.children : null}
+          {children || null}
 
           <div
-            className={classnames(
-              classes.actionRow,
-              props.customClasses?.actionRow,
-            )}
+            className={classnames(classes.actionRow, customClasses?.actionRow)}
           >
             <Button
               color="primary"
-              disabled={!props.clientSecret || !selectedReader}
+              disabled={!clientSecret || !selectedReader}
               onClick={onConnectHandler}
               variant="contained"
             >
               {t('configuration.stripeTerminal.paymentDialog.connectAndPay')}
             </Button>
-            {props.onCancel && (
-              <Button onClick={props.onCancel}>
+            {onCancel && (
+              <Button onClick={onCancel}>
                 {t('paymentPanel.actions.cancel')}
               </Button>
             )}

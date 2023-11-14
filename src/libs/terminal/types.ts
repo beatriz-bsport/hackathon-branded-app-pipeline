@@ -44,3 +44,15 @@ export type ReaderActionSumup = {
   stripe_resource_id: string;
   stripe_timestamp_created: number;
 };
+
+export type CancelReaderActionErrorMessage = {
+  title: string;
+  content: string;
+};
+
+export enum TerminalPaymentSteps {
+  SETTINGS = 'settings',
+  PROCESSING = 'processing',
+  ERROR = 'error',
+  SUCCESS = 'success',
+}

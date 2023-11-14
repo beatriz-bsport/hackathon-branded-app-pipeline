@@ -144,7 +144,6 @@ export class ConsumerLoginPage extends Component<Props> {
             (franchisorId && step === STEPS.loginToFranchise)) && (
             <Login
               company={!!membership}
-              customConfiguration={this.props.customConfiguration}
               doEmailLogin={this.props.doEmailLogin}
               error={this.props.errorLogin}
               errorFields={this.props.errorFields}

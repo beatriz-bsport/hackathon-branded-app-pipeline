@@ -6,7 +6,6 @@ import { Popover } from '@material-ui/core';
 import InnerStepCard, {
   type InnerStepCardProps,
 } from './InnerStepCard.component';
-import StepEditionBubble from '#libs/sequential_marketing/components/graph/bubbles/StepEditionBubble.component';
 import type {
   MarketingActionEssentials,
   StepMarketingActions,
@@ -17,7 +16,6 @@ import {
   RIGHT_HANDLE_STYLE,
   HandleTypeChoices,
 } from '#libs/sequential_marketing/constants/steps';
-import ConvertIntoExitBubble from '#libs/sequential_marketing/components/graph/bubbles/ConvertIntoExitBubble.component';
 import {
   DestinationStatus,
   MarketingActions,
@@ -26,13 +24,15 @@ import {
 } from '#libs/sequential_marketing/constants';
 import { getMarketingActionPartialValues } from '#libs/sequential_marketing/components/form/marketing_actions/utils';
 
-import UniqueMarketingActionBubble from '#libs/sequential_marketing/components/graph/bubbles/UniqueMarketingActionBubble.component';
-import usePopoverBubble from '#libs/sequential_marketing/components/graph/nodes/hooks/usePopoverBubble.hook';
-import useConnectToStep from '#libs/sequential_marketing/components/graph/nodes/hooks/useConnectToStep.hook';
+import ConvertIntoExitBubble from '#libs/sequential_marketing/components/graph/bubbles/ConvertIntoExitBubble.component';
 import MenuSelectorOnly from '#components/menu/menu-only';
 import CadencDialogUtility, {
   type DialogVariant,
 } from '#libs/sequential_marketing/components/dialogs/DialogUtility';
+import StepNameEditionBubble from '#libs/sequential_marketing/components/graph/bubbles/StepNameEditionBubble.component';
+import UniqueMarketingActionBubble from '#libs/sequential_marketing/components/graph/bubbles/UniqueMarketingActionBubble.component';
+import useConnectToStep from '#libs/sequential_marketing/components/graph/nodes/hooks/useConnectToStep.hook';
+import usePopoverBubble from '#libs/sequential_marketing/components/graph/nodes/hooks/usePopoverBubble.hook';
 
 type FlowProps = {
   data: {
@@ -73,16 +73,9 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
     !!data.step?.id &&
     data.stepToEditId === data.step.id;
 
-  React.useEffect(() => {
-    isStepNew && setAnchorEl(stepCardRef?.current);
-  }, [isStepNew, setAnchorEl]);
-
-  const [anchorConvertIntoExit, setAnchorConvertIntoExit] =
-    React.useState<HTMLDivElement>(null);
-
-  // ======================= STEP EDITION BUBBLE =======================
+  // ==================== STEP NAME EDITION BUBBLE =====================
   /**
-   * @description The handleClick function is used to open the popover step edition bubble on card click
+   * @description The handleClick function is used to open the popover step name edition bubble on card click
    */
   const handleClick = React.useCallback(
     (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -92,13 +85,25 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
     [data, setAnchorEl],
   );
 
-  const handleCloseStepEditionBubble = React.useCallback(() => {
+  const handleCloseStepNameEditionBubble = React.useCallback(() => {
     setAnchorEl(null);
     isStepNew && data?.endStepEdition?.();
   }, [data, isStepNew, setAnchorEl]);
+
+  const handleEditStepName = React.useCallback(
+    (param: { name: string; stepId: number }) => {
+      data.updateCadenceStepName?.(param);
+      isStepNew && data.endStepEdition();
+      setAnchorEl(null);
+    },
+    [data, isStepNew, setAnchorEl],
+  );
   // ===================================================================
 
   // ==================== CONVERT INTO EXIT BUBBLE =====================
+  const [anchorConvertIntoExit, setAnchorConvertIntoExit] =
+    React.useState<HTMLDivElement>(null);
+
   const handleOpenConvertIntoExitBubble = React.useCallback(
     () => setAnchorConvertIntoExit(stepCardRef?.current),
     [],
@@ -109,23 +114,6 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
     [],
   );
   // ===================================================================
-
-  const handleSubmitForm = React.useCallback(
-    (param: { list: StepMarketingActions[]; step: number }) => {
-      if (!!data?.submitMarketingActionForm && data?.step?.id)
-        data.submitMarketingActionForm({
-          list:
-            param?.list?.map((action) => ({
-              ...action,
-              cadence_step: data.step.id,
-              name: t('cadence.form.marketing_action.defaultName'),
-            })) ?? [],
-          stepId: data.step.id,
-        });
-      isStepNew && data.endStepEdition();
-    },
-    [data, isStepNew, t],
-  );
 
   // =============== ADD UNIQUE MARKETING ACTION BUBBLE ================
   const [anchorAddMarketingAction, setAnchorAddMarketingAction] =
@@ -233,6 +221,10 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
 
   // ===================================================================
 
+  React.useEffect(() => {
+    isStepNew && setAnchorEl(stepCardRef?.current);
+  }, [isStepNew, setAnchorEl]);
+
   return (
     <>
       <Handle
@@ -274,18 +266,15 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
       <Popover
         anchorEl={anchorEl}
         anchorOrigin={anchorOrigin}
-        onClose={handleCloseStepEditionBubble}
+        onClose={handleCloseStepNameEditionBubble}
         open={!!anchorEl}
         PaperProps={popoverStyle}
         transformOrigin={transformOrigin}
       >
-        <StepEditionBubble
-          {...data.marketingActionEssentials}
-          marketingActions={data.marketingActionList}
-          onCancel={handleCloseStepEditionBubble}
-          onConfirm={handleSubmitForm}
+        <StepNameEditionBubble
+          onCancel={handleCloseStepNameEditionBubble}
+          onConfirm={handleEditStepName}
           step={data.step}
-          updateCadenceStepName={data.updateCadenceStepName}
         />
       </Popover>
       <Popover

@@ -524,18 +524,8 @@ const mapWithHandlers = {
 
   updateCadenceStepName:
     (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>
-    (data: { name: string; stepId: number }, options?: OptionCallback) => {
-      if (props.selectedStepIdForEdition) {
-        props.updateCadenceStepNameAction(data.stepId, data.name, {
-          onSuccess: () => {
-            options?.onSuccess?.();
-          },
-          onError: () => {
-            options?.onError?.();
-          },
-        });
-      }
-    },
+    (data: { name: string; stepId: number }) =>
+      props.updateCadenceStepNameAction(data.stepId, data.name),
 
   activateCadence:
     (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>

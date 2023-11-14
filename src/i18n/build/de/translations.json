@@ -7388,12 +7388,12 @@
             "subscription": {
                 "forms": {
                     "disable_pass_on_fail_subscription_payment": {
-                        "helperText": "Wenn die Zahlung des Abonnements scheitert oder für strittig erklärt wird, werden die Kurs- und Terminpässe für diese Rechnung deaktiviert, bis die Rechnung eingezogen wird",
+                        "helperText": "Wenn die Zahlung des Abonnements scheitert oder für strittig erklärt wird, werden die Kurs- und Terminpässe für diese Rechnung deaktiviert, bis die Rechnung eingezogen wird.",
                         "label": "Deaktivieren Sie Pässe, wenn die Zahlung scheitert"
                     },
                     "revert_bookings_on_fail_subscription_payment": {
-                        "helperText": "Wenn die Zahlung des Abonnements scheitert oder für strittig erklärt wird, werden die mit diesen Karten vorgenommenen Reservierungen storniert (und das Guthaben wieder gutgeschrieben)",
-                        "warning": "Achtung! Reservierungen werden nicht neu erstellt, wenn die Zahlung erfolgreich ist!",
+                        "helperText": "Wenn die Zahlung des Abonnements scheitert oder für strittig erklärt wird, werden die mit diesen Karten vorgenommenen Reservierungen storniert (und das Guthaben wieder gutgeschrieben).",
+                        "warning": "Achtung! Reservierungen werden nicht neu erstellt, wenn die Zahlung erfolgreich ist.",
                         "label": "Stornieren Sie Reservierungen, wenn die Zahlung scheitert"
                     },
                     "nbRetriesSubscriptionPayments": {
@@ -7528,13 +7528,13 @@
             "addInvoiceItem": "Zur Rechnung hinzufügen",
             "save": "Speichern",
             "goToPaymentEditor": "Zahlung",
-            "goToSubscription": "Das Abonnement anzeigen",
+            "goToSubscription": "Abonnement anzeigen",
             "revert": "Abbrechen",
             "invoiceReverted": "Rechnung storniert",
             "consumeBalance": "Zahle per Restguthaben",
             "explainPdfDraft": "Die Rechnung ist noch in Entwurfsform, das PDF ist nicht verfügbar.",
             "addFooter": "Fußnote dieser Rechnung anpassen",
-            "addCoupon": "Einen Promo-Code hinzufügen",
+            "addCoupon": "Promo-Code hinzufügen",
             "downloadReceipt": "Quittung über die Zahlung"
         },
         "invoice": {
@@ -7582,11 +7582,11 @@
         },
         "uneditableMessage": {
             "invoiceFinalizedThusNotEditable": "Die Rechnung wurde abgeschlossen und kann deswegen nicht mehr geändert werden",
-            "invoiceFromSubscriptionThusNotEditable": "Diese Rechnung ist Teil eines Abonnements und kann daher nicht bearbeitet werden. Bitte ändere das Abonnement direkt",
+            "invoiceFromSubscriptionThusNotEditable": "Diese Rechnung ist Teil eines Abonnements und kann daher nicht bearbeitet werden. Bitte ändern Sie das Abonnement direkt",
             "invoiceRevertedThusNotEditable": "Die Rechnung wurde storniert und kann nicht mehr geändert werden"
         },
         "creditAccountBalance": {
-            "current": "Aktuelles Restguthaben"
+            "current": "Aktuelles Guthaben"
         },
         "invoiceInfoDialog": {
             "actions": {
@@ -7603,8 +7603,8 @@
                     "0": "Direkte Rückerstattung"
                 },
                 "explain": {
-                    "2": "Wähle die Erstattungsmethode selbst. Verwende diese Methode für einen Scheck / eine manuelle Überweisung / eine Rückerstattung in bar.",
-                    "1": "Eine Gutschrift wird erstellt und wird dem Kundenguthaben entsprechend gutgeschrieben. Verwende diese Methode, um eine Gutschrift zu erstellen.",
+                    "2": "Wählen Sie selbst die Erstattungsmethode. Verwenden Sie diese Methode für einen Scheck / eine manuelle Überweisung / eine Rückerstattung in bar.",
+                    "1": "Eine Gutschrift wird erstellt und dem Kundenguthaben entsprechend gutgeschrieben. Verwende diese Methode, um eine Gutschrift zu erstellen.",
                     "0": "Kartenzahlungen / SEPA / etc... werden direkt auf das Konto des Kunden überwiesen. Verwenden Sie diese Methode, um eine direkte Erstattung nach einem Fehler zu machen."
                 },
                 "explainEmptyPayment": "Möchten Sie diese Rechnung wirklich stornieren?"
@@ -7621,7 +7621,7 @@
             },
             "autoDebitDialog": {
                 "helper": "Ihr Studio ist gerade dabei, Ihr Bsport-Konto zu schließen.\n\nWenn Sie auf Bestätigen klicken, wird die Rechnung zurückerstattet. Ihr Stripe-Guthaben wird mit {{refundAmount}} belastet. {{ currencyDisplay }}. Um Ihr Stripe-Guthaben jedoch auf 0 {{ currencyDisplay }} zurückzusetzen, wird der Differenzbetrag automatisch direkt von Ihrem unter Einstellungen > Unternehmen angegebenen Bankkonto abgebucht.\n\nWenn Sie Ihr Überziehungslimit nicht überschreiten wollen, können Sie warten, bis Ihr Stripe-Saldo wieder steigt.",
-                "title": "Unzureichendes Stripe-Guthaben"
+                "title": "Unzureichender Stripe-Saldo"
             },
             "blockedDialog": {
                 "title": "Unzureichender Stripe-Saldo",
@@ -7632,14 +7632,14 @@
         "balance": {
             "updaterDialog": {
                 "explainDecaissement": "Eine Auszahlung von {{amount}} {{currencyDisplay}} wird erfasst.",
-                "typeLabel": "Art der Zahlung",
-                "title": "Guthaben-Einstellungen",
+                "typeLabel": "Typ der Anpassung",
+                "title": "Anpassung des Saldos",
                 "actions": {
                     "cancel": "Abbrechen",
                     "submit": "Weiter"
                 },
-                "topup": "Eingegangene Zahlungen",
-                "debt": "Auszahlung",
+                "topup": "Hinzufügen",
+                "debt": "Abziehen",
                 "explainTopup": "Der Kontostand des Mitglieds erhöht sich um: {{ currencyDisplay }}{{ amount }}.",
                 "balanceValueLabel": "Betrag",
                 "withoutPaymentNote": {
@@ -7650,22 +7650,22 @@
         },
         "paymentMethod": {
             "label": {
-                "15": "Zahlungskarte (manuell)",
+                "15": "Karte (manuell - Kartenmaschine)",
                 "13": "Giropay",
                 "12": "EPS",
                 "11": "SOFORT",
                 "10": "iDEAL",
                 "9": "Bancontact",
-                "8": "Anderes",
+                "8": "Andere",
                 "7": "Überweisung",
                 "6": "Streitfall",
                 "5": "AMEX",
-                "4": "Reisescheck",
+                "4": "Urlaubs-Check",
                 "3": "Scheck",
                 "2": "SEPA",
-                "1": "Zahlungskarte",
+                "1": "Karte",
                 "0": "Bargeld",
-                "14": "Guthaben (Schulden)",
+                "14": "Guthaben (debit)",
                 "16": "Bacs-Lastschriftverfahren"
             },
             "select": {
@@ -7673,20 +7673,20 @@
             },
             "isInternalExplain": "Kundenzahlung (manuell): Jeden Monat wird automatisch ein Restguthaben auf dem Konto des Mitglieds erstellt.",
             "add": "Hinzufügen",
-            "edit": "Ändern",
+            "edit": "Bearbeiten",
             "title": "Zahlungsmethode",
-            "none": "Keine Zahlungsmethode gespeichert",
+            "none": "Keine Zahlungsmethode gespeichert.",
             "detach": {
                 "pm_associated_to_pi": "Unmöglich: Sie haben ein Abonnement, das mit dieser Zahlungsmethode verknüpft ist",
                 "pm_associated_to_registered_ppe": "Unmöglich: Sie haben ein Abonnement, das mit dieser Zahlungsmethode verknüpft ist",
                 "pm_associated_to_protected_bp": "Unmöglich: Sie haben ein Abonnement, das mit dieser Zahlungsmethode verknüpft ist",
-                "last_payment_method": "Sie können Ihre einzige Zahlungsmethode nicht löschen",
+                "last_payment_method": "Sie müssen über mindestens eine Zahlungsmethode verfügen",
                 "pm_deleted": "Gelöschte Zahlungsmethode"
             },
-            "inconsistent": "De-autorisierte Zahlungsmethode, bitte konfigurieren Sie sie neu. Der Kunde hat möglicherweise beantragt, seine Karte nicht mehr zu autorisieren, oder Sie haben zwei Mitglieder zusammengelegt; in beiden Fällen ist die Zahlungsmethode nicht mehr verwendbar.",
-            "isInternalExplainFuturePayments": "Die Fälligkeit wird automatisch von der Kundenanzahlung abgezogen. Wenn diese nicht ausreichend ist, wird eine negative Anzahlung erstellt.",
-            "addPaymentMethod": "Ein Zahlungsmittel hinzufügen",
-            "copyLink": "Link zum Hinzufügen eines Zahlungsmittels kopieren",
+            "inconsistent": "Diese Zahlungsmethode wurde für ungültig erklärt, bitte konfigurieren Sie sie neu. Der Kunde hat möglicherweise beantragt, seine Karte nicht mehr zu autorisieren, oder Sie haben zwei Mitglieder zusammengelegt. In beiden Fällen ist die Zahlungsmethode nicht mehr verwendbar.",
+            "isInternalExplainFuturePayments": "Das Fälligkeitsdatum wird automatisch von der Kundenanzahlung abgezogen. Wenn diese nicht ausreichend ist, wird eine negative Anzahlung erstellt.",
+            "addPaymentMethod": "Eine Zahlungsmethode hinzufügen",
+            "copyLink": "Link zum Hinzufügen einer Zahlungsmethode kopieren",
             "manual": "Manuell"
         },
         "table": {
@@ -7742,7 +7742,7 @@
                 }
             },
             "paymentList": {
-                "isEmpty": "Keine Zahlung",
+                "isEmpty": "Keine registrierte Zahlung anzuzeigen.",
                 "titleReverse": "Rückerstattung",
                 "title": "Zahlungen"
             },
@@ -7756,15 +7756,15 @@
                 "revert": "Abbrechen",
                 "pay": "Rechnung bezahlen",
                 "bill": "Einziehen",
-                "basketInconsistent": "Ihr Warenkorb wurde geändert, bitte aktualisieren Sie Ihre Seite, bevor Sie Ihre Zahlung bestätigen.\n Sie wurden nicht belastet.",
-                "billByInstalment": "Zahlung in Raten",
+                "basketInconsistent": "Ihr Warenkorb wurde geändert, bitte aktualisieren Sie Ihre Seite, bevor Sie Ihre Zahlung bestätigen.\nSie wurden nicht belastet.",
+                "billByInstalment": "Ratenzahlung",
                 "paymentLink": "Zahlungslink",
-                "generatePaymentLink": "Zahlungslinks erstellen",
+                "generatePaymentLink": "Zahlungslink erstellen",
                 "paymentSecurityInformation": "Sie können Ihre Zahlungsdaten und -informationen für zukünftige Einkäufe sicher und verschlüsselt speichern."
             },
             "sumup": {
                 "amountRemaining": "Ausstehender Betrag",
-                "amountPaid": "Eingegangene Zahlungen",
+                "amountPaid": "Bezahlt",
                 "amountDue": "Gesamt",
                 "title": "Zusammenfassung",
                 "amountBeingProcessed": "Betrag in Bearbeitung"
@@ -7774,14 +7774,14 @@
             },
             "paymentNote": {
                 "helperText": "(optional) Schecknummer, Einzugsdatum...",
-                "label": "Anmerkung"
+                "label": "Notiz"
             },
             "amount": {
                 "label": "Einzuziehender Betrag"
             },
-            "amountRemaining": "Restbetrag: {{amount}}",
-            "billingMoreThanNeeded": "Wenn mehr als der Rechnungsbetrag eingelöst wird, erhöht sich das Guthaben des Mitglieds um die Differenz",
-            "errorSecretExplain2": "Wenn das Problem weiterhin besteht, wenden Sie sich an dev+payment-intent@bsport.io",
+            "amountRemaining": "Ausstehender Betrag: {{amount}}",
+            "billingMoreThanNeeded": "Wenn mehr als der Rechnungsbetrag eingezogen wird, erhöht sich das Guthaben des Mitglieds um die Differenz",
+            "errorSecretExplain2": "Wenn das Problem weiterhin besteht, wenden Sie sich bitte an dev+payment-intent@bsport.io",
             "errorSecretExplain1": "Diese Zahlungsmethode ist derzeit nicht verfügbar",
             "plannedPaymentEvent": {
                 "title": "Geplante Zahlung",
@@ -7790,34 +7790,34 @@
         },
         "paymentEngine": {
             "label": {
-                "1": "Onlinebezahlung",
-                "0": "vor Ort Zahlung"
+                "1": "Online-Zahlung",
+                "0": "Manuelle Zahlung"
             }
         },
         "invoiceType": {
-            "reversed": "Rechnung (storniert)",
-            "return": "Rechnung zurücksenden",
+            "reversed": "Rechnung (zurückgeschickt)",
+            "return": "Zurückerstattete Rechnung",
             "credit_payment": "Quittung (Regelungssaldo)",
             "migration": "Migration",
             "regular": "Rechnung"
         },
         "invoiceInfo": {
-            "3": "Diese Rechnung ist das Ergebnis einer Migration. Wir können aus rechtlichen Gründen kein PDF bereitstellen oder stornieren.",
-            "2": "Dieser Zahlungsbeleg stellt die Kontostandkorrektur Deines Mitglieds dar."
+            "3": "Diese Rechnung ist das Ergebnis einer Migration. Wir können aus rechtlichen Gründen kein PDF davon bereitstellen oder sie stornieren.",
+            "2": "Dieser Zahlungsbeleg stellt die Kontostandkorrektur Ihres Mitglieds dar."
         },
         "plannedPaymentEvent": {
             "actions": {
                 "edit": "Bearbeiten",
                 "delete": "Abbrechen",
-                "registerNow": "Jetzt auszahlen",
+                "registerNow": "Jetzt einziehen",
                 "enable": "Termin verschieben",
                 "disable": "Deprogrammieren",
-                "changeMethod": "Zahlungsmethode ändern",
+                "changeMethod": "Zahlungsmethode wechseln",
                 "solveInvalidPaymentAttempt": "Regulieren"
             },
-            "nextRetryDate": "Die Zahlung wird verzögert bis {{ d }}",
+            "nextRetryDate": "Die Zahlung wird erneut versucht am {{ d }}",
             "lockedToday": "Die Zahlung ist heute fällig, Sie können sie nicht mehr ändern",
-            "registerNowInitialData": "Ursprünglich vorgesehene Zahlung am {{-date}}",
+            "registerNowInitialData": "Ursprünglich Zahlung fällig am {{-date}}",
             "dialog": {
                 "invalidMandate": {
                     "explainSituation": "Der mit dieser Zahlungsmethode verbundene Auftrag ist ausgelaufen. Dafür kann es verschiedene Gründe geben: zu viele fehlgeschlagene Zahlungen, eine einseitige Entscheidung der Bank, usw. Die Zahlungsmethode kann nicht mehr verwendet werden und Sie müssen eine neue registrieren",
@@ -7839,7 +7839,7 @@
             "address_line_2": "Ergänzung der Adresse",
             "phone": "Telefonnummer",
             "city": "Stadt",
-            "state": "Staat",
+            "state": "Bundesland",
             "country": "Land"
         },
         "paymentGroup": {
@@ -7852,25 +7852,25 @@
                     "title": "Fehler beim Versand Ihrer Rechnung",
                     "934006": "Diese Rechnung ist bereits in QuickBooks registriert",
                     "934005": "Ihre Rechnung kann nicht an QuickBooks gesendet werden",
-                    "934004": "Unmöglich, eine unbezahlte Rechnung in QuickBooks zu senden",
-                    "934003": "Stornierte Rechnungen können in QuickBooks nicht gesendet werden",
-                    "934002": "Stornierte Rechnungen können in QuickBooks nicht gesendet werden",
+                    "934004": "Es ist unmöglich, eine unbezahlte Rechnung an QuickBooks zu senden",
+                    "934003": "Unvollständige Rechnungen können nicht an QuickBooks gesendet werden",
+                    "934002": "Stornierte Rechnungen können nicht an QuickBooks gesendet werden",
                     "934001": "Es ist nicht möglich, eine Rechnung ohne zugehörige Artikel zu erstellen",
-                    "934000": "Die Rechnung enthält nicht die Mindestangaben, um in Quickbooks erstellt zu werden",
-                    "933102": "Fehler beim Erstellen der Rechnung in Quickbooks",
+                    "934000": "Die Rechnung enthält nicht die Mindestangaben, um in QuickBooks erstellt zu werden",
+                    "933102": "Fehler beim Erstellen der Rechnung in QuickBooks",
                     "933101": "Der Kunde, der mit dem Rechnungsmitglied verbunden ist, kann nicht erstellt werden",
                     "933100": "Der Kunde, der mit dem Rechnungsmitglied verbunden ist, kann nicht erstellt werden",
                     "933000": "Das Mitglied, das mit der Rechnung verbunden ist, verfügt nicht über die notwendigen Informationen, um in QuickBooks registriert zu werden",
-                    "932100": "Sie können nicht auf Ihre Quickbooks-Kontoinformationen zugreifen",
-                    "932001": "Ihr Konto ist bei Bsport nicht mehr authentifiziert",
-                    "932000": "Ihr Konto ist nicht mehr bei Bsport authentifiziert",
-                    "931101": "Quickbooks ist nicht in der Lage, uns Ihre Daten zu senden",
+                    "932100": "Sie können nicht auf Ihre QuickBooks-Kontoinformationen zugreifen",
+                    "932001": "Ihr Konto ist nicht mehr bei BSPORT authentifiziert",
+                    "932000": "Ihr Konto ist nicht mehr bei BSPORT authentifiziert",
+                    "931101": "QuickBooks ist nicht in der Lage, uns Ihre Daten zu senden",
                     "931100": "Fehler beim Aktualisieren von Authentifizierungsschlüsseln",
                     "931004": "Sie haben Ihre QuickBooks-Anwendung nicht konfiguriert",
                     "931003": "Abgelaufene Authentifizierungsschlüssel",
                     "931002": "Abgelaufene Authentifizierungsschlüssel",
                     "931001": "Fehler bei der Authentifizierung in Quickbooks",
-                    "931000": "Fehler bei der Authentifizierung in Quickbooks",
+                    "931000": "Fehler bei der Authentifizierung in QuickBooks",
                     "933103": "Ihre QuickBooks-Plattform unterstützt mehrere Währungen. Bitte geben Sie an, welche Steuer Sie verwenden möchten."
                 }
             },
@@ -7901,12 +7901,12 @@
             "giftcard": "Gutschein"
         },
         "invoiceFuturePaymentsDialog": {
-            "applyForAllFuturePayments": "Auf zukünftige Fälligkeiten dieser Rechnung anwenden"
+            "applyForAllFuturePayments": "Auf zukünftige Ratenzahlungen dieser Rechnung anwenden"
         },
         "status": {
             "1": "Fehlgeschlagen",
             "2": "Ausstehend",
-            "3": "Abbrechen",
+            "3": "Abgebrochen",
             "4": "in Bearbeitung",
             "0": "Erfolgreich"
         },
@@ -16725,9 +16725,9 @@
         "widget": "Gutscheine auswählen",
         "giftcardTemplate": {
             "template": {
-                "deleteInstanceContent1": "Durch die Deaktivierung dieses Studios für die gemeinsame Nutzung des Gutscheins können alle Mitglieder, die diese Karte besitzen und sie von einem Mitglied erhalten haben, das diese Karte in diesem Studio gekauft hat, diese weiterhin nutzen. Sie können sie jedoch nicht mehr in anderen Studios verwenden.",
+                "deleteInstanceContent1": "Durch die Deaktivierung dieses Studios für die gemeinsame Nutzung des Gutscheins können alle Mitglieder, die diesen besitzen und ihn von einem Mitglied erhalten haben, das diesen Gutschein in diesem Studio gekauft hat, ihn weiterhin nutzen. Sie können ihn jedoch nicht mehr in anderen Studios verwenden.",
                 "unlimited": "Unbegrenzt",
-                "deleteTemplateContent": "Durch die Deaktivierung eines gemeinsam genutzten Gutscheins können Mitglieder, die diese Karte besitzen, sie nur noch in dem Studio nutzen, in dem sie gekauft wurde.",
+                "deleteTemplateContent": "Durch die Deaktivierung eines gemeinsam genutzten Gutscheins können Mitglieder, die diesen besitzen, ihn nur noch in dem Studio nutzen, in dem er gekauft wurde.",
                 "deleteInstanceContent2": "Gutscheine, die in anderen Studios gekauft wurden, sind in dem deaktivierten Studio nicht mehr verwendbar, unabhängig davon, wann sie gekauft wurden.",
                 "validity": "{{count}} Tag gültig",
                 "validity_plural": "{{count}} Tage gültig",

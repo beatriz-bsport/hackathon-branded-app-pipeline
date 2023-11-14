@@ -7,27 +7,16 @@ import { templateEmailValidationSchema } from '#libs/sequential_marketing/compon
 import CommunicationSelectTemplate from '#libs/communication-v2/components/MessageSender/ModalTemplate/CommunicationSelectTemplate.component';
 
 import type {
-  EmailTemplateDetail,
-  EmailTemplateSummary,
-  ResolvedGenericTags,
-} from '#libs/email-editor/types';
-import type {
+  MarketingActionEssentials,
   StepMarketingActions,
   StepMarketingActionsCommunicationSpec,
 } from '#libs/sequential_marketing/types';
 
 export type Props = {
-  emailDetailList: Record<number, EmailTemplateDetail>;
-  emailDetailListLoading: boolean;
-  emailSummaryList: EmailTemplateSummary[];
-  emailSummaryListLoading: boolean;
   marketingAction: Partial<StepMarketingActions>;
-  resolvedGenericTags: ResolvedGenericTags;
   withoutValidation?: boolean;
-  fetchEmailSummaryList: () => void;
-  getEmailDetail: (id: number) => void;
   submit?: (data: Partial<StepMarketingActions>) => void;
-};
+} & Omit<MarketingActionEssentials, 'tagCategories' | 'tagList'>;
 
 const TemplateEmailForm: React.FC<Props> = ({
   emailDetailList,

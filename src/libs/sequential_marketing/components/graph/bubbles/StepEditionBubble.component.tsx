@@ -1,40 +1,29 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import isEqual from 'lodash/isEqual';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
-
-import type { StepMarketingActions } from '#libs/sequential_marketing/types';
-import type { Tag, TagGroupAPI } from '#libs/tag/types';
-import type {
-  EmailTemplateDetail,
-  EmailTemplateSummary,
-  ResolvedGenericTags,
-} from '#libs/email-editor/types';
 
 import { SequentialMarketingColors } from '#libs/sequential_marketing/constants';
-import CadenceBubble from './CadenceBubble.component';
+import CadenceBubble from '#libs/sequential_marketing/components/graph/bubbles/CadenceBubble.component';
+import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
 import MarketingActionsForm from '#libs/sequential_marketing/components/form/marketing_actions/MarketingActionForm.component';
+
+import type {
+  MarketingActionEssentials,
+  StepMarketingActions,
+} from '#libs/sequential_marketing/types';
 import type { StoredStep } from '../hooks/types';
 
 export type StepEditionBubbleProps = {
   step: StoredStep;
-  emailDetailList: Record<number, EmailTemplateDetail>;
-  emailDetailListLoading: boolean;
-  emailSummaryList: EmailTemplateSummary[];
-  emailSummaryListLoading: boolean;
-  tagCategories: { [tag_name: string]: string[] };
   marketingActions?: StepMarketingActions[];
-  resolvedGenericTags: ResolvedGenericTags;
-  tagList: Tag<TagGroupAPI>[];
-  fetchEmailSummaryList: () => void;
-  getEmailDetail: (id: number) => void;
   onCancel?: () => void;
   onConfirm: (data: { list: StepMarketingActions[]; step: number }) => void;
   updateCadenceStepName: (data: { name: string; stepId: number }) => void;
-};
+} & MarketingActionEssentials;
 
 type MarketingActionsTitleProps = { title: string };
 
@@ -124,11 +113,11 @@ const StepEditionBubble: React.FC<StepEditionBubbleProps> = ({
     onCancel?.();
   }, [
     marketingActionList,
+    stepName,
     marketingActions,
+    step,
     onCancel,
     onConfirm,
-    step,
-    stepName,
     updateCadenceStepName,
   ]);
 

@@ -11,13 +11,10 @@ import {
 } from '#libs/sequential_marketing/constants';
 
 import type { OptionCallback } from '../../../../../state/types';
-import type { StepMarketingActions } from '#libs/sequential_marketing/types';
-import type { Tag, TagGroupAPI } from '#libs/tag/types';
 import type {
-  EmailTemplateDetail,
-  EmailTemplateSummary,
-  ResolvedGenericTags,
-} from '#libs/email-editor/types';
+  MarketingActionEssentials,
+  StepMarketingActions,
+} from '#libs/sequential_marketing/types';
 
 import {
   getMarketingActionPartialValues,
@@ -28,18 +25,9 @@ import CollapsibleMarketingActionContent from './CollapsibleMarketingActionConte
 import useMarketingActionOptions from './hooks/useMarketingActionOptions.hook';
 
 type Props = {
-  emailDetailList: { [templateId: number]: EmailTemplateDetail };
-  emailDetailListLoading: boolean;
-  emailSummaryList: EmailTemplateSummary[];
-  emailSummaryListLoading: boolean;
-  tagCategories: { [tag_name: string]: string[] };
-  resolvedGenericTags: ResolvedGenericTags;
-  tagList: Tag<TagGroupAPI>[];
-  fetchEmailSummaryList: () => void;
-  getEmailDetail: (id: number) => void;
   updateMarketingActions: (values: Partial<StepMarketingActions>[]) => void;
   updateFormValidation: (isValid: boolean) => void;
-};
+} & MarketingActionEssentials;
 
 type FormValues = {
   marketingActions: StepMarketingActions[];

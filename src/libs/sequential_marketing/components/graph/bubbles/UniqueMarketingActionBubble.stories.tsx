@@ -2,9 +2,7 @@ import React from 'react';
 import { fakerEN as faker } from '@faker-js/faker';
 import type { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import UniqueMarketingActionBubble, {
-  type Props as UniqueMarketingActionBubbleProps,
-} from './UniqueMarketingActionBubble.component';
+import UniqueMarketingActionBubble from './UniqueMarketingActionBubble.component';
 import { getMarketingActionPartialValues } from '../../form/marketing_actions/utils';
 import {
   MarketingActionKind,
@@ -66,7 +64,7 @@ export default {
 } as ComponentMeta<typeof UniqueMarketingActionBubble>;
 
 const Template: ComponentStory<typeof UniqueMarketingActionBubble> = (
-  args: UniqueMarketingActionBubbleProps,
+  args: React.ComponentProps<typeof UniqueMarketingActionBubble>,
 ) => <UniqueMarketingActionBubble {...args} />;
 
 const fakeTagCategories = {

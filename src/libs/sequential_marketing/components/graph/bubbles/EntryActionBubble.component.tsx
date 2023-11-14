@@ -9,29 +9,16 @@ import { SequentialMarketingColors } from '#libs/sequential_marketing/constants'
 import MultipleMarketingActionForm from '../../form/marketing_actions/MultipleMarketingActionForm.component';
 
 import type {
-  EmailTemplateDetail,
-  EmailTemplateSummary,
-  ResolvedGenericTags,
-} from '#libs/email-editor/types';
-import type { StepMarketingActions } from '#libs/sequential_marketing/types';
-import type { Tag, TagGroupAPI } from '#libs/tag/types';
-import type { OptionCallback } from '../../../../../state/types';
+  MarketingActionEssentials,
+  StepMarketingActions,
+} from '#libs/sequential_marketing/types';
 
 type Props = {
-  emailDetailList: { [templateId: number]: EmailTemplateDetail };
-  emailDetailListLoading: boolean;
-  emailSummaryList: EmailTemplateSummary[];
-  emailSummaryListLoading: boolean;
-  tagCategories: { [tag_name: string]: string[] };
-  resolvedGenericTags: ResolvedGenericTags;
-  tagList: Tag<TagGroupAPI>[];
   isInitial?: boolean;
   marketingActions?: StepMarketingActions[];
-  fetchEmailSummaryList: () => void;
-  getEmailDetail: (id: number) => void;
-  onConfirm: (data: StepMarketingActions[], options?: OptionCallback) => void;
+  onConfirm: (data: StepMarketingActions[]) => void;
   onClose?: () => void;
-};
+} & MarketingActionEssentials;
 
 const EntryActionBubble: React.FC<Props> = ({
   emailDetailList,

@@ -16,13 +16,10 @@ import {
 } from '#libs/sequential_marketing/constants';
 
 import type { OptionCallback } from '../../../../../state/types';
-import type { StepMarketingActions } from '#libs/sequential_marketing/types';
 import type {
-  EmailTemplateDetail,
-  EmailTemplateSummary,
-  ResolvedGenericTags,
-} from '#libs/email-editor/types';
-import type { Tag, TagGroupAPI } from '#libs/tag/types';
+  MarketingActionEssentials,
+  StepMarketingActions,
+} from '#libs/sequential_marketing/types';
 
 import MarketingActionHeader from './MarketingFormHeader.component';
 import MarketingActionContent from './MarketingActionContent.component';
@@ -34,22 +31,13 @@ import {
 import { multipleMarketingActionsValidationSchema } from './validationSchemas';
 
 export type Props = {
-  emailDetailList: Record<number, EmailTemplateDetail>;
-  emailDetailListLoading: boolean;
-  emailSummaryList: EmailTemplateSummary[];
-  emailSummaryListLoading: boolean;
-  tagCategories: { [tag_name: string]: string[] };
   isAddActionEnabled?: boolean;
-  resolvedGenericTags: ResolvedGenericTags;
-  tagList: Tag<TagGroupAPI>[];
-  fetchEmailSummaryList: () => void;
-  getEmailDetail: (id: number) => void;
   onSubmit?: (
     values: StepMarketingActions[],
     options?: OptionCallback,
   ) => Promise<void>;
   updateMarketingActions: (values: StepMarketingActions[]) => void;
-};
+} & MarketingActionEssentials;
 
 type FormValues = {
   marketingActions: StepMarketingActions[];

@@ -4,13 +4,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import { MarketingActions } from '#libs/sequential_marketing/constants';
 import { getMarketingActionType } from './utils';
 
-import type { StepMarketingActions } from '#libs/sequential_marketing/types';
 import type {
-  EmailTemplateDetail,
-  EmailTemplateSummary,
-  ResolvedGenericTags,
-} from '#libs/email-editor/types';
-import type { Tag, TagGroupAPI } from '#libs/tag/types';
+  MarketingActionEssentials,
+  StepMarketingActions,
+} from '#libs/sequential_marketing/types';
 
 import NotificationForm from './communication_forms/NotificationForm';
 import SmsForm from './communication_forms/SmsForm';
@@ -20,18 +17,9 @@ import TagForm from './communication_forms/TagForm';
 
 type Props = {
   marketingAction: Partial<StepMarketingActions>;
-  emailDetailList: Record<number, EmailTemplateDetail>;
-  emailDetailListLoading: boolean;
-  emailSummaryList: EmailTemplateSummary[];
-  emailSummaryListLoading: boolean;
-  tagCategories: { [tag_name: string]: string[] };
-  resolvedGenericTags: ResolvedGenericTags;
-  tagList: Tag<TagGroupAPI>[];
   withoutValidation?: boolean;
-  fetchEmailSummaryList: () => void;
-  getEmailDetail: (id: number) => void;
   submit?: (data: Partial<StepMarketingActions>) => void;
-};
+} & MarketingActionEssentials;
 
 const MarketingActionContent: React.FC<Props> = ({
   emailDetailList,

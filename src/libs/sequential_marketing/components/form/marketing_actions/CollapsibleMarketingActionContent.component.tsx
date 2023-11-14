@@ -16,33 +16,21 @@ import { TRIGGER_FORM_DEFAULT_HEIGHT } from '#libs/sequential_marketing/constant
 import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
 import MarketingActionContent from './MarketingActionContent.component';
 
-import type { StepMarketingActions } from '#libs/sequential_marketing/types';
-import type { Tag, TagGroupAPI } from '#libs/tag/types';
 import type {
-  EmailTemplateDetail,
-  EmailTemplateSummary,
-  ResolvedGenericTags,
-} from '#libs/email-editor/types';
+  MarketingActionEssentials,
+  StepMarketingActions,
+} from '#libs/sequential_marketing/types';
 
 type Props = {
   color: string;
-  emailDetailList: { [templateId: number]: EmailTemplateDetail };
-  emailDetailListLoading: boolean;
-  emailSummaryList: EmailTemplateSummary[];
-  emailSummaryListLoading: boolean;
   isLast: boolean;
   isOpen: boolean;
   marketingAction: Partial<StepMarketingActions>;
-  resolvedGenericTags: ResolvedGenericTags;
-  tagCategories: { [tag_name: string]: string[] };
-  tagList: Tag<TagGroupAPI>[];
   withoutCollapseAnimation: boolean;
   deleteAction: () => void;
-  fetchEmailSummaryList: () => void;
-  getEmailDetail: (id: number) => void;
   openOrCloseAction: () => void;
   updateAction: (data: StepMarketingActions) => void;
-};
+} & MarketingActionEssentials;
 
 const CollapsibleMarketingActionContent: React.FC<Props> = ({
   color,

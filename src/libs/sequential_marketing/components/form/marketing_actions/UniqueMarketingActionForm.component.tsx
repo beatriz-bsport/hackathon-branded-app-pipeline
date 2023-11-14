@@ -5,34 +5,22 @@ import { useFormikContext, withFormik } from 'formik';
 import { makeStyles } from '@material-ui/core/styles';
 
 import type { OptionCallback } from '../../../../../state/types';
-import type { StepMarketingActions } from '#libs/sequential_marketing/types';
 import type {
-  EmailTemplateDetail,
-  EmailTemplateSummary,
-  ResolvedGenericTags,
-} from '#libs/email-editor/types';
-import type { Tag, TagGroupAPI } from '#libs/tag/types';
+  MarketingActionEssentials,
+  StepMarketingActions,
+} from '#libs/sequential_marketing/types';
 
 import MarketingActionContent from './MarketingActionContent.component';
 import { uniqueMarketingActionValidationSchema } from './validationSchemas';
 
 export type Props = {
-  emailDetailList: { [templateId: number]: EmailTemplateDetail };
-  emailDetailListLoading: boolean;
-  emailSummaryList: EmailTemplateSummary[];
-  emailSummaryListLoading: boolean;
-  tagCategories: { [tagName: string]: string[] };
-  resolvedGenericTags: ResolvedGenericTags;
-  tagList: Tag<TagGroupAPI>[];
-  fetchEmailSummaryList: () => void;
-  getEmailDetail: (id: number) => void;
   onSubmit?: (
     value: Partial<StepMarketingActions>,
     options?: OptionCallback,
   ) => void;
   updateFormValidation: (isValid: boolean) => void;
   updateMarketingAction: (value: Partial<StepMarketingActions>) => void;
-};
+} & MarketingActionEssentials;
 
 type FormValues = {
   marketingAction: Partial<StepMarketingActions>;

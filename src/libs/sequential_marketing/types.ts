@@ -1,5 +1,10 @@
+import type { Tag, TagGroupAPI } from '#libs/tag/types';
 import type { ErrorAndLoading } from '#libs/types';
-
+import type {
+  EmailTemplateDetail,
+  EmailTemplateSummary,
+  ResolvedGenericTags,
+} from '#libs/email-editor/types';
 import type {
   TriggerIdentifier,
   Events,
@@ -110,6 +115,18 @@ export type StepMarketingActions = {
   action_spec:
     | StepMarketingActionsCommunicationSpec
     | StepMarketingActionsTagSpec;
+};
+
+export type MarketingActionEssentials = {
+  emailDetailList: { [templateId: number]: EmailTemplateDetail };
+  emailDetailListLoading: boolean;
+  emailSummaryList: EmailTemplateSummary[];
+  emailSummaryListLoading: boolean;
+  resolvedGenericTags: ResolvedGenericTags;
+  tagCategories: { [tagName: string]: string[] };
+  tagList: Tag<TagGroupAPI>[];
+  fetchEmailSummaryList: () => void;
+  getEmailDetail: (id: number) => void;
 };
 
 /**

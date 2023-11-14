@@ -17,20 +17,17 @@ import {
 } from '#libs/sequential_marketing/utils';
 
 import type { OptionCallback } from '../../../../state/types';
+import type { EmailTemplateSummary } from '#libs/email-editor/types';
 import type { SmartList } from '#libs/smart-list/types';
-import type { Tag, TagGroupAPI } from '#libs/tag/types';
+import type { Tag } from '#libs/tag/types';
 import type {
   Cadence,
   CadenceStep,
   ConnectedTrigger,
   GraphCanvas,
+  MarketingActionEssentials,
   StepMarketingActions,
 } from '#libs/sequential_marketing/types';
-import type {
-  EmailTemplateDetail,
-  EmailTemplateSummary,
-  ResolvedGenericTags,
-} from '#libs/email-editor/types';
 
 const rfStyle = {
   backgroundColor: 'transparent',
@@ -44,13 +41,6 @@ type Props = {
     cadenceEntryConfigured: boolean;
   };
   cadenceEditMode: boolean;
-  tagList: Tag<TagGroupAPI>[];
-  emailSummaryListLoading: boolean;
-  emailSummaryList: EmailTemplateSummary[];
-  emailDetailListLoading: boolean;
-  emailDetailList: Record<number, EmailTemplateDetail>;
-  resolvedGenericTags: ResolvedGenericTags;
-  tagCategories: { [tag_name: string]: string[] };
   smartlists: Immutable.ImmutableArray<SmartList>;
   steps: CadenceStep[];
   hideDeleteStepDialogCadenceIds: number[];
@@ -78,8 +68,6 @@ type Props = {
     trigger: ConnectedTrigger,
     options?: OptionCallback<ConnectedTrigger>,
   ) => void;
-  fetchEmailSummaryList: () => void;
-  getEmailDetail: (id: number) => void;
   getEmailTemplate: (id: string) => EmailTemplateSummary;
   getSmartlist: (id: number) => SmartList;
   getStepMarketingActions: (stepId: number) => StepMarketingActions[];
@@ -113,7 +101,7 @@ type Props = {
   ) => void;
   doNotDisplayDeleteStepDialogCadenceIdsAction: () => void;
   doNotDisplayConvertStepIntoExitDialogAnymoreAction: () => void;
-};
+} & MarketingActionEssentials;
 
 export const CadenceGraphFlow: React.FC<Props> = ({
   cadence,

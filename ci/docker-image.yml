@@ -21,9 +21,10 @@
 
 Prepare Docker Builder Image Staging:
   extends: .Prepare Docker Builder Image Base
-  only:
-    refs:
-      - master
+  rules:
+    - if: $CI_COMMIT_REF_NAME == master
+      when: always
+    - when: never
   variables:
     S3BUCKETNAME: bsport-eu-cdn-staging
     ENVIRONMENT: staging
@@ -33,9 +34,10 @@ Prepare Docker Builder Image Staging:
 
 Prepare Docker Builder Image Production:
   extends: .Prepare Docker Builder Image Base
-  only:
-    refs:
-      - production
+  rules:
+    - if: $CI_COMMIT_REF_NAME == production
+      when: always
+    - when: never
   variables:
     S3BUCKETNAME: bsport-cdn
     ENVIRONMENT: production

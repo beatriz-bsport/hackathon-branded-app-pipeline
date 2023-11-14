@@ -1,8 +1,9 @@
 Build Deploy Staging:
   extends: .Build and deploy Base
-  only:
-    refs:
-      - master
+  rules:
+    - if: $CI_COMMIT_REF_NAME == master:
+      when: always
+    - when: never
   variables:
     S3BUCKETNAME: cdn-staging-sandbox
     ENVIRONMENT: staging
@@ -13,9 +14,10 @@ Build Deploy Staging:
 
 Build Deploy Production:
   extends: .Build and deploy Base
-  only:
-    refs:
-      - production
+  rules:
+    - if: $CI_COMMIT_REF_NAME == production:
+      when: always
+    - when: never
   variables:
     S3BUCKETNAME: bsport-cdn
     ENVIRONMENT: production
@@ -26,9 +28,10 @@ Build Deploy Production:
  
 Build Deploy Dev:
   extends: .Build and deploy Base
-  only:
-    refs:
-      - dev
+  rules:
+    - if: $CI_COMMIT_REF_NAME == dev:
+      when: always
+    - when: never
   variables:
     ENVIRONMENT: dev
     SLACK_WEBHOOK_URL: "${SLACK_DEV_WEBHOOK_URL}"
@@ -44,11 +47,6 @@ Build Deploy Dev:
   tags:
     - high-ram
     - cluster:bsport-tooling
-  only:
-    refs:
-      - dev
-      - master
-      - production
   script:
     - mv /app/node_modules .
     - echo "FAILED" > .job_status

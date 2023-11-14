@@ -30,7 +30,7 @@ import {
 } from '../../libs/snackbar/actions';
 
 import {
-  getEstablishmentBillingroup,
+  getEnabledEstablishmentBillinGroups,
   withEstablishment,
   getAvailableEstablishmentList,
 } from '../../libs/establishment/selectors';
@@ -180,9 +180,9 @@ const mapStateToProps = (state: RootState) => ({
   configuration: state.invoice.configuration.result,
   loading: state.invoice.configuration.loading,
   processing: state.invoice.configuration.updating,
-  establishmentBillingGroup: withEstablishment(getEstablishmentBillingroup)(
-    state,
-  ),
+  establishmentBillingGroup: withEstablishment(
+    getEnabledEstablishmentBillinGroups,
+  )(state),
   establishments: getAvailableEstablishmentList(state),
   stripeReaders: getStripeReaders(state),
 });

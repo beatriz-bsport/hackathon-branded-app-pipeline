@@ -191,3 +191,18 @@ export const getEstablishmentBillingroup = createSelector(
   (idsList, establishmentGroupData) =>
     idsList.map((id) => establishmentGroupData[id]),
 );
+
+/**
+ * Selects the enabled EstablishmentBillingGroup objects from the state.
+ *
+ * @param {RootState} state - The global state object.
+ * @returns {EstablishmentBillingGroup[]} - An array of enabled EstablishmentBillingGroup objects.
+ * @see getEstablishmentBillingroup
+ */
+export const getEnabledEstablishmentBillinGroups = createSelector(
+  [getEstablishmentBillingroup],
+  (establishmentGroupData) =>
+    establishmentGroupData.filter(
+      (establishmentBillingGroup) => !establishmentBillingGroup.disabled,
+    ),
+);

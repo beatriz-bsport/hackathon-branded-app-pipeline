@@ -30,7 +30,7 @@ export default {
       description: 'The variant to use.',
       control: 'radio',
       options: [
-        'active',
+        'activate',
         'delete-step',
         'archive-workflow',
         'convert-step-into-exit',

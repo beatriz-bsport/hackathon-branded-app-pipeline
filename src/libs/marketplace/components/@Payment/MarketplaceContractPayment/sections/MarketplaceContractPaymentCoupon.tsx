@@ -1,16 +1,16 @@
 import React from 'react';
 
-import { useTranslation } from 'react-i18next';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import MarketplaceCouponFormModal from '#marketplacecomponents/@Coupon/MarketplaceCouponFormModal';
-
-import { OptionCallback } from '../../../../../../state/types';
 
 import Button from '#components/css-only/Fabrique/Button';
 
+import CouponCodeInput from '#libs/checkout/components/new-checkout-flow/CouponCodeInput.component';
+import { CouponErrorCodes } from '#libs/coupon/constants';
+import type { OptionCallBackWithKeyedCallbacks } from '../../../../../../state/types';
+import type { Coupon } from '#libs/coupon/types';
 import '../styles.css';
 
 export type Props = {
@@ -18,13 +18,10 @@ export type Props = {
   couponCode: string | null;
   isLoading?: boolean;
   isContractLegalTermsAccepted: boolean;
-  isCouponFormOpen: boolean;
-  onOpenCouponForm: () => void;
   onDeleteCoupon: () => void;
-  onCancelCouponForm: () => void;
   onSubmitCouponForm: (
     formCouponCode: string,
-    options: OptionCallback & { onNotFound: () => void },
+    options: OptionCallBackWithKeyedCallbacks<Coupon, CouponErrorCodes>,
   ) => Promise<void>;
 };
 
@@ -34,24 +31,18 @@ const MarketplaceContractPaymentCoupon: React.FC<Props> = React.memo(
     couponCode,
     isLoading,
     isContractLegalTermsAccepted,
-    isCouponFormOpen,
-    onOpenCouponForm,
     onDeleteCoupon,
-    onCancelCouponForm,
     onSubmitCouponForm,
   }) => {
-    const { t } = useTranslation('coupon');
-
     return (
       <>
         {!voucher && (
-          <Button
-            classes={{ root: 'bs-contract-payment__pricing__promo__button' }}
-            isDisabled={isLoading || !isContractLegalTermsAccepted}
-            onClick={onOpenCouponForm}
-          >
-            {t('coupon:code.addCoupon.label')}
-          </Button>
+          <CouponCodeInput
+            isBasketModificationDisabled={
+              isLoading || !isContractLegalTermsAccepted
+            }
+            onSubmit={onSubmitCouponForm}
+          />
         )}
 
         {!!voucher && (
@@ -69,12 +60,6 @@ const MarketplaceContractPaymentCoupon: React.FC<Props> = React.memo(
             </Button>
           </div>
         )}
-
-        <MarketplaceCouponFormModal
-          isOpen={isCouponFormOpen}
-          onCancel={onCancelCouponForm}
-          onSubmit={onSubmitCouponForm}
-        />
       </>
     );
   },

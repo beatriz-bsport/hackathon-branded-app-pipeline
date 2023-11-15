@@ -33,7 +33,10 @@ import {
 } from '#libs/marketplace/types';
 import { Contract } from '#libs/subscription/types';
 import { PaymentMethod } from '#libs/payment/types';
-import { OptionCallback } from '../../../../../state/types';
+import {
+  OptionCallBackWithKeyedCallbacks,
+  OptionCallback,
+} from '../../../../../state/types';
 import { appliesToContract } from '#libs/coupon/api';
 import CircularProgress from '#components/css-only/CircularProgress';
 
@@ -44,6 +47,8 @@ import { updatePaymentMethodBillingDetails as updatePaymentMethodBillingDetailsA
 import Button, { ButtonType } from '#components/css-only/Fabrique/Button';
 
 import './styles.css';
+import { Coupon } from '#libs/coupon/types';
+import { CouponErrorCodes } from '#libs/coupon/constants';
 
 export type Props = {
   contract: Contract;
@@ -109,7 +114,6 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
       useState(false);
     const [voucher, setVoucher] = useState<number>(null);
     const [couponCode, setCouponCode] = useState<string>(null);
-    const [isCouponFormOpen, setIsCouponFormOpen] = useState(false);
     const [paymentMethod, setPaymentMethod] =
       useState<MarketplacePaymentMethods | null>(null);
     const defaultBillingDetailsValues = React.useMemo(() => {
@@ -332,7 +336,7 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
     const handleApplyCoupon = useCallback(
       async (
         formCouponCode: string,
-        options: OptionCallback & { onNotFound: () => void },
+        options: OptionCallBackWithKeyedCallbacks<Coupon, CouponErrorCodes>,
       ) => {
         await appliesToContract({
           coupon_code: formCouponCode,
@@ -344,12 +348,11 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
             if (data.can_be_applied) {
               setCouponCode(formCouponCode);
               setVoucher(data.voucher);
-              setIsCouponFormOpen(false);
               if (options && options.onSuccess) options.onSuccess();
             } else if (options && options.onError) options.onError();
           })
           .catch(() => {
-            if (options && options.onNotFound) options.onNotFound();
+            if (options && options.onError) options.onError();
           });
       },
       [contract?.id, contract?.month_billing_day, billingStartDate],
@@ -373,16 +376,6 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
       (event: React.ChangeEvent<HTMLInputElement>) =>
         setAcceptContractLegalTerms(event.target.checked),
       [setAcceptContractLegalTerms],
-    );
-
-    const handleOpenCouponForm = useCallback(
-      () => setIsCouponFormOpen(true),
-      [],
-    );
-
-    const handleCloseCouponForm = useCallback(
-      () => setIsCouponFormOpen(false),
-      [],
     );
 
     const handleSelectPaymentMethod = useCallback(
@@ -448,6 +441,15 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
             setBillingStartDate={setBillingStartDate}
           />
 
+          <MarketplaceContractPaymentCoupon
+            couponCode={couponCode}
+            isContractLegalTermsAccepted={isContractLegalTermsAccepted}
+            isLoading={isLoading}
+            onDeleteCoupon={handleDeleteCoupon}
+            onSubmitCouponForm={handleApplyCoupon}
+            voucher={voucher}
+          />
+
           <MarketplaceContractPaymentPricing
             billingStartDate={billingStartDate}
             contract={contract}
@@ -456,18 +458,6 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
           />
 
           <div className="bs-contract-payment__pricing">
-            <MarketplaceContractPaymentCoupon
-              couponCode={couponCode}
-              isContractLegalTermsAccepted={isContractLegalTermsAccepted}
-              isCouponFormOpen={isCouponFormOpen}
-              isLoading={isLoading}
-              onCancelCouponForm={handleCloseCouponForm}
-              onDeleteCoupon={handleDeleteCoupon}
-              onOpenCouponForm={handleOpenCouponForm}
-              onSubmitCouponForm={handleApplyCoupon}
-              voucher={voucher}
-            />
-
             {(enabledPaymentMethodsIds?.length > 1 ||
               enabledPaymentGroupMethodIdentifierIds?.length > 1) && (
               <div className="bs-contract-payment__payment__method__switcher">

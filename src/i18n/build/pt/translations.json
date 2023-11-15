@@ -8207,7 +8207,9 @@
             "last_booked_offer_meta_activity_name": "Atividade da última sessão reservada",
             "last_booked_offer_pass_name": "Passe usado para a última sessão reservada",
             "dst_company": "Uso de estúdio",
-            "src_company": "Compras do Estúdio"
+            "src_company": "Compras do Estúdio",
+            "waiting_list_max_size": "Capacidade da lista de espera",
+            "nb_option": "Em lista de espera"
         },
         "categories": {
             "activityByCoach": "Atividades e workshops por professor",
@@ -8752,7 +8754,8 @@
             "2003": "Já não é possível comprar este passe",
             "2012": "Este passe não é compatível com esta sessão",
             "8001": "O lugar que escolheu já não está disponível",
-            "2009": "Este passe não é compatível com a atividade desta categoria"
+            "2009": "Este passe não é compatível com a atividade desta categoria",
+            "23002": "Atingiu o número máximo de reservas futuras / lista de espera, não é possível registar mais"
         },
         "spivi": {
             "error": {
@@ -9637,7 +9640,12 @@
                         "placeholder": "Máximo",
                         "helperText": "Essa será a quantidade máxima de futuras sessões de workshop reservadas por membro"
                     }
-                }
+                },
+                "waitingListAccountsForMaxFutureBookings": {
+                    "helperText": "Se estiver ativado, o número de futuras reservas será reduzido pelo número de futuras faixas horárias em lista de espera registadas. As futuras faixas horárias da lista de espera também serão restringidas com base nesta mesma contagem, para evitar o excesso de reservas.",
+                    "label": "Incluir as vagas da lista de espera no número máximo de reservas/workshops futuros"
+                },
+                "bookingLimitation": "Restrições globais de reserva"
             },
             "warningColorBrightness": {
                 "save": "Guardar",
@@ -12937,7 +12945,7 @@
                     "title": "Tens a certeza?"
                 },
                 "loading": {
-                    "content": "Não actualize o separador nem saia desta página. Este processo pode demorar até 40 segundos",
+                    "content": "Não actualize o separador nem saia desta página. Este processo pode demorar alguns segundos",
                     "title": "Os membros estão a ser adicionados à sessão"
                 },
                 "info": {
@@ -12950,6 +12958,17 @@
                 "error": {
                     "content": "Não foi possível adicionar membros à sessão. Por favor, tente novamente",
                     "title": "A reserva automática falhou"
+                },
+                "incomplete": {
+                    "actions": {
+                        "bookThem": "Reservar manualmente",
+                        "ok": "OK"
+                    },
+                    "content": {
+                        "unregistered": "Os seguintes membros NÃO puderam ser registados, não foi possível encontrar um passe compatível",
+                        "registered": "Os seguintes membros foram registados, uma vez que foi encontrada uma compatibilidade:"
+                    },
+                    "title": "Finalizar a sua lista de espera"
                 }
             },
             "confirm": "Confirmar",
@@ -13003,6 +13022,10 @@
             },
             "display_member_position": {
                 "label": "Mostrar a posição na fila de espera"
+            },
+            "kick_if_no_pack_when_auto_consume": {
+                "label": "Retirar automaticamente o membro da lista de espera se, quando as suas faixas horárias ficarem disponíveis, já não tiver um passe válido",
+                "helper": "Um membro pode utilizar os seus créditos noutra sessão enquanto aguarda na lista de espera. Com esta definição activada, se isso acontecer, a sua vaga na lista de espera será automaticamente cancelada quando for a sua vez de se inscrever."
             }
         },
         "switchToDisable": "Desativar a lista de espera",

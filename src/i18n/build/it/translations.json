@@ -4174,7 +4174,12 @@
                         "placeholder": "Massimo",
                         "helperText": "Questo sarà il numero massimo di sessioni workshop prenotate in futuro per ogni membro."
                     }
-                }
+                },
+                "waitingListAccountsForMaxFutureBookings": {
+                    "helperText": "Se attivato, il numero di prenotazioni future consentito sarà diminuito del numero di posti futuri in lista d'attesa registrati. Anche i posti futuri in lista d'attesa saranno limitati in base a questo conteggio, per evitare l'overbooking.",
+                    "label": "Includere i posti della lista d'attesa nel conteggio del numero massimo di prenotazioni/workshop futuri"
+                },
+                "bookingLimitation": "Restrizioni generali sulle prenotazioni"
             },
             "instagramURL": {
                 "label": "URL di Instagram",
@@ -5201,7 +5206,8 @@
             "1122": "Questo pacchetto non può più essere acquistato perché la sua data di scadenza è passata",
             "11114": "Questo pass appuntamenti non può più essere acquistato perché la sua data di scadenza è passata",
             "23001": "Questo pass appuntamento non può più essere acquistato perché la sua data di scadenza è passata",
-            "2025": "Questo pass non può più essere acquistato perché la sua data di scadenza è passata"
+            "2025": "Questo pass non può più essere acquistato perché la sua data di scadenza è passata",
+            "23002": "Hai raggiunto il numero massimo di prenotazioni future/iscrizioni nella lista d'attesa, dunque non puoi registrarne altre"
         },
         "establishmentGroup": {
             "create": {
@@ -7528,7 +7534,9 @@
             "referred_discount_use_date": "Data di utilizzo dello sconto sulla sponsorizzazione",
             "referred_discount_applied": "Ricompensa ricevuta dal membro sponsorizzato",
             "purchased_products": "Prodotti",
-            "coupon_type": "Tipo"
+            "coupon_type": "Tipo",
+            "waiting_list_max_size": "Capienza lista d'attesa",
+            "nb_option": "Nella lista d'attesa"
         },
         "payment_method": {
             "dispute": "Contenzioso",
@@ -12190,6 +12198,10 @@
             },
             "display_member_position": {
                 "label": "Mostrare la posizione nella lista di attesa"
+            },
+            "kick_if_no_pack_when_auto_consume": {
+                "label": "Rimuovi automaticamente il membro dalla lista d'attesa se, quando i suoi posti diventano disponibili, non ha più un pass valido",
+                "helper": "Un membro potrebbe utilizzare i suoi crediti per un'altra sessione mentre è in lista d'attesa. Con questa impostazione attivata, se ciò accade, il suo posto in lista d'attesa verrà automaticamente cancellato quando sarà il suo turno di iscriversi."
             }
         },
         "switchToDisable": "Riattiva la lista di attesa",
@@ -12208,7 +12220,7 @@
                     "title": "Sei sicuro?"
                 },
                 "loading": {
-                    "content": "Non aggiornare la scheda e non lasciare la pagina. Questo processo può richiedere fino a 40 secondi",
+                    "content": "Non aggiornare la scheda e non lasciare la pagina. Questo processo può richiedere alcuni secondi.",
                     "title": "I membri stanno per essere aggiunti alla sessione"
                 },
                 "info": {
@@ -12221,6 +12233,17 @@
                 "error": {
                     "content": "Non è stato possibile aggiungere membri alla sessione. Riprova",
                     "title": "La prenotazione automatica non è andata a buon fine"
+                },
+                "incomplete": {
+                    "actions": {
+                        "bookThem": "Iscrivili manualmente",
+                        "ok": "OK"
+                    },
+                    "content": {
+                        "unregistered": "I seguenti membri NON possono essere registrati dato che non è stato possibile trovare un pass compatibile",
+                        "registered": "I seguenti membri sono stati registrati in quanto è stato trovato un pass compatibile:"
+                    },
+                    "title": "Completa la lista d'attesa"
                 }
             },
             "confirm": "Conferma",
@@ -17978,7 +18001,7 @@
         "smartListOption": "Seleziona una smartlist",
         "mail": {
             "sendButton": "Invia",
-            "customDomainNotDefined": "Non è stato definito un dominio personalizzato. \"Contatta il nostro team per avviare il processo di configurazione.\"",
+            "customDomainNotDefined": "Non è stato definito un dominio personalizzato.<1/>Contatta il nostro team per avviare il processo di configurazione.",
             "example": "Esempio",
             "customEmail": "Email personalizzata",
             "franchiseeMail": "Email del franchise",

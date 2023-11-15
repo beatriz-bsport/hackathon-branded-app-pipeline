@@ -4733,7 +4733,9 @@
             "referring_member_total_reward": "Recompensa recibida por el miembro referente",
             "referring_member_pk": "ID del miembro referente",
             "referring_member_first_name": "Nombre del miembro referente",
-            "coupon_type": "Tipo"
+            "coupon_type": "Tipo",
+            "waiting_list_max_size": "Capacidad de la lista de espera",
+            "nb_option": "En lista de espera"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -9456,7 +9458,12 @@
                         "placeholder": "Máximo",
                         "helperText": "Esta será la cantidad máxima de futuras sesiones de taller reservadas por socio."
                     }
-                }
+                },
+                "waitingListAccountsForMaxFutureBookings": {
+                    "helperText": "Si se activa, el número de reservas futuras se reducirá en función del número de plazas en lista de espera registradas. Las futuras plazas en lista de espera también se restringirán en función de este mismo recuento, para evitar el exceso de reservas.",
+                    "label": "Incluir las plazas en lista de espera en el recuento máximo de reservas/talleres futuros"
+                },
+                "bookingLimitation": "Restricciones globales de reserva"
             },
             "submit": "Guardar",
             "instagramURL": {
@@ -11643,7 +11650,7 @@
                     "title": "Está seguro?"
                 },
                 "loading": {
-                    "content": "No actualice la pestaña ni abandone esta página. Este proceso puede tardar hasta 40 segundos",
+                    "content": "No actualice la pestaña ni abandone esta página. Este proceso puede tardar unos segundos en ejecutarse.",
                     "title": "Se añaden miembros a la sesión"
                 },
                 "info": {
@@ -11656,6 +11663,17 @@
                 "error": {
                     "content": "No se han podido añadir miembros a la sesión. Vuelva a intentarlo",
                     "title": "La reserva automática ha fallado"
+                },
+                "incomplete": {
+                    "actions": {
+                        "bookThem": "Resérvelos manualmente",
+                        "ok": "OK"
+                    },
+                    "content": {
+                        "unregistered": "Los siguientes miembros NO han podido ser registrados, no se ha encontrado ningún pase compatible",
+                        "registered": "Se han registrado los siguientes miembros, ya que se ha encontrado uno compatible:"
+                    },
+                    "title": "Finalice su lista de espera"
                 }
             },
             "confirm": "Confirmar",
@@ -11711,6 +11729,10 @@
             },
             "display_member_position": {
                 "label": "Mostrar la posición en la lista de espera"
+            },
+            "kick_if_no_pack_when_auto_consume": {
+                "label": "Eliminar automáticamente al miembro de la lista de espera si, cuando sus plazas queden libres, ya no dispone de un pase válido.",
+                "helper": "Un miembro puede utilizar sus créditos en otra sesión mientras espera en la lista de espera. Con esta configuración activada, si eso ocurre, su plaza en la lista de espera se cancelará automáticamente cuando le toque inscribirse."
             }
         },
         "nbConvertible": "{{nbConvertible}} en espera de confirmación",
@@ -12567,7 +12589,8 @@
             "1122": "Este pase ya no se puede comprar porque ha llegado su fecha de caducidad.",
             "23001": "No hay ningún pase disponible para poder inscribirse en la lista de espera",
             "2025": "Este pase ya no se puede comprar porque ha llegado su fecha de caducidad.",
-            "11114": "Este pase de cita ya no puede comprarse porque ha llegado su fecha de caducidad."
+            "11114": "Este pase de cita ya no puede comprarse porque ha llegado su fecha de caducidad.",
+            "23002": "Ha alcanzado el máximo de futuras reservas / lista de espera, no puede registrar más"
         },
         "paymentRuleGroups": {
             "update": {
@@ -18035,7 +18058,7 @@
         "smartListOption": "Elige una smartlist",
         "mail": {
             "sendButton": "Enviar",
-            "customDomainNotDefined": "No has definido un dominio personalizado. \"Póngase en contacto con nuestro equipo para iniciar el proceso de configuración\".",
+            "customDomainNotDefined": "No ha definido un dominio personalizado.<1/>Póngase en contacto con nuestro equipo para iniciar el proceso de configuración.",
             "example": "Ejemplo",
             "customEmail": "Email personalizado",
             "franchiseeMail": "Email del franquiciado",

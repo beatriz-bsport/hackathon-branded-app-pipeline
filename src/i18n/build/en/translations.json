@@ -7536,6 +7536,13 @@
                 "confirm": "Delete",
                 "sendEmail": "Send a message of the removal",
                 "contentV2": "Are you sure you want to remove this member from the waitlist?"
+            },
+            "autoBooking": {
+                "incomplete": {
+                    "content": {
+                        "registered": "The following members have been registered, as a compatible pass was found:"
+                    }
+                }
             }
         },
         "member": {

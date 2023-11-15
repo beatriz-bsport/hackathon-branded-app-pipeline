@@ -2841,7 +2841,9 @@
             "referring_member_pk": "Lidmaatschapsnummer",
             "referred_member_pk": "Lidmaatschapsnummer",
             "referred_discount_use_date": "Gebruiksdatum promotiecode",
-            "coupon_type": "Type"
+            "coupon_type": "Type",
+            "waiting_list_max_size": "Wachtlijst capaciteit",
+            "nb_option": "Op de wachtlijst"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{name}}\" wilt verwijderen?"
@@ -10910,7 +10912,8 @@
             "1122": "Dit pakket kan niet meer worden gekocht omdat de houdbaarheidsdatum is verstreken",
             "2025": "Deze kaart kan niet meer worden gekocht omdat de vervaldatum is verstreken",
             "23001": "Zonder cursuskaart kunt u niet in de wachtrij voor deze activiteit worden geplaatst",
-            "11114": "Deze afsprakenkaart kan niet meer worden gekocht omdat de vervaldatum is verstreken"
+            "11114": "Deze afsprakenkaart kan niet meer worden gekocht omdat de vervaldatum is verstreken",
+            "23002": "U heeft het maximum aantal toekomstige boekingen / wachtlijsten bereikt, u kunt niet meer registreren"
         },
         "signup": {
             "failedCreation": "Het is momenteel niet mogelijk om je account aan te maken, probeer het later opnieuw",
@@ -12560,7 +12563,12 @@
                         "placeholder": "Maximum",
                         "helperText": "Dit is het maximum aantal toekomstige reserveringen voor workshop sessies per lid."
                     }
-                }
+                },
+                "waitingListAccountsForMaxFutureBookings": {
+                    "helperText": "Als dit geactiveerd is, wordt het aantal toekomstige boekingen in mindering gebracht op het aantal geregistreerde wachtlijstplaatsen. Toekomstige wachtlijstslots worden ook beperkt op basis van dezelfde telling om overboeking te voorkomen.",
+                    "label": "Neem wachtlijstplaatsen op in het maximale aantal toekomstige boekingen/workshops"
+                },
+                "bookingLimitation": "Globale boekingsbeperkingen"
             },
             "gtmId": {
                 "placeholder": "GTM-XXXXXX",
@@ -13575,6 +13583,10 @@
             },
             "display_member_position": {
                 "label": "De positie in de wachtrij weergeven"
+            },
+            "kick_if_no_pack_when_auto_consume": {
+                "label": "Het lid automatisch van de wachtlijst verwijderen als hij geen geldige pas meer heeft wanneer hij aan de beurt is",
+                "helper": "Een lid kan zijn credits gebruiken voor een andere sessie terwijl hij op de wachtlijst staat. Als deze instelling geactiveerd is, wordt zijn plaats op de wachtlijst automatisch geannuleerd als het zijn beurt is om te registreren."
             }
         },
         "explainWaitingListConf": "Voorbeeld: een lid die op de wachtlijst staat voor een sessie die over 3 uur begint heeft nog {{nbMinutesBeforeBookingOptionExpire}} minuten om de reservering te bevestigen voordat zij hun voorrangsplaats op de wachtlijst verliezen.",
@@ -13590,7 +13602,7 @@
             "autoBooking": {
                 "loading": {
                     "title": "Leden worden toegevoegd aan de sessie",
-                    "content": "Vernieuw het tabblad niet en verlaat deze pagina niet. Dit proces kan tot 40 seconden duren"
+                    "content": "Vernieuw het tabblad niet en verlaat deze pagina niet. Dit proces kan een aantal seconden duren"
                 },
                 "info": {
                     "content": "Leden met een geldige pas worden automatisch geboekt voor de sessie en ontvangen een bevestigingsmail. Het systeem zal automatisch de credits aftrekken van de passen die als eerst verlopen",
@@ -13606,6 +13618,17 @@
                 "warning": {
                     "content": "Als je het formulier sluit, wordt het geselecteerde lid niet toegevoegd aan de sessie. Als je meerdere leden hebt geselecteerd en alleen dit lid wilt afmelden, klik dan op annuleren op het ledenformulier",
                     "title": "Weet je het zeker?"
+                },
+                "incomplete": {
+                    "actions": {
+                        "bookThem": "Handmatig boeken",
+                        "ok": "Bevestigen"
+                    },
+                    "content": {
+                        "unregistered": "De volgende leden konden NIET worden geregistreerd, omdat er geen compatibele pas kon worden gevonden",
+                        "registered": "De volgende leden zijn geregistreerd, omdat er een compatibiliteit is gevonden:"
+                    },
+                    "title": "Voltooi uw wachtlijst"
                 }
             },
             "confirm": "Bevestig",
@@ -18000,7 +18023,7 @@
         "smartListOption": "Kies een smartlist",
         "mail": {
             "sendButton": "Verstuur",
-            "customDomainNotDefined": "U heeft geen aangepast domein gedefinieerd. \"Neem contact op met ons team om het configuratieproces te starten.\"",
+            "customDomainNotDefined": "U heeft geen aangepast domein gedefinieerd.<1/>Neem contact op met ons team om het configuratieproces te starten.",
             "example": "Voorbeeld",
             "customEmail": "Aangepaste email",
             "franchiseeMail": "E-mail franchisenemer",

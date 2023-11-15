@@ -9584,7 +9584,9 @@
             "shared_pass_ratio": "Pourcentage d'utilisation",
             "last_booked_offer_id": "ID de la dernière séance réservée",
             "last_booked_offer_date": "Date de la dernière séance réservée",
-            "last_booked_offer_meta_activity_name": "Nom de l'activité de la dernière séance réservée"
+            "last_booked_offer_meta_activity_name": "Nom de l'activité de la dernière séance réservée",
+            "waiting_list_max_size": "Capacité de la liste d'attente",
+            "nb_option": "Sur liste d'attente"
         },
         "yes": "Oui",
         "no": "Non",
@@ -12594,7 +12596,8 @@
             "45005": "La carte cadeau n'est plus disponible à la vente.",
             "85000": "Une réservation est déjà en cours, veuillez patienter quelques instants",
             "85101": "Impossible de réserver. Ce spot est en cours de réservation par un autre membre. Veuillez réessayer en choisissant un autre spot.",
-            "generic": "Impossible de réserver"
+            "generic": "Impossible de réserver",
+            "23002": "Vous avez atteint le nombre maximum de futures réservations / place sur liste d'attente, vous ne pouvez plus vous inscrire"
         },
         "offer": {
             "restore": {
@@ -13575,7 +13578,8 @@
                 "success": "Campagne supprimée"
             },
             "update": {
-                "error": "Impossible de sauvegarder la campagne"
+                "error": "Impossible de sauvegarder la campagne",
+                "success": "Campagne mise à jour avec succès"
             },
             "create": {
                 "error": "Impossible de créer la campagne",
@@ -14987,7 +14991,11 @@
                         "placeholder": "Maximum",
                         "helperText": "Il s'agit du nombre maximum de futures séances d'atelier réservées par membre."
                     }
-                }
+                },
+                "waitingListAccountsForMaxFutureBookings": {
+                    "label": "Inclure les places sur liste d'attente dans le nombre maximum de réservations/ateliers à venir"
+                },
+                "bookingLimitation": "Restrictions globales sur les réservations"
             },
             "cover": {
                 "label": "Logo",
@@ -16655,6 +16663,10 @@
             },
             "display_member_position": {
                 "label": "Afficher la position dans la liste d'attente"
+            },
+            "kick_if_no_pack_when_auto_consume": {
+                "label": "Retirer automatiquement le membre de la liste d'attente si, lorsque son créneau se libère, il n'a plus de carte de cours valide",
+                "helper": "Un membre peut utiliser ses crédits pour une autre séance pendant qu'il attend sur la liste d'attente. Avec ce paramètre activé, si cela se produit, sa place sur la liste d'attente sera automatiquement annulée lorsque ce sera à son tour de s'inscrire."
             }
         },
         "explainWaitingListConf": "ex: Il reste 3h avant la séance, l'élève dispose de {{ nbMinutesBeforeBookingOptionExpire }} minutes pour valider sa réservation avant de laisser sa place.",
@@ -16673,7 +16685,7 @@
                     "title": "Êtes-vous sûr ?"
                 },
                 "loading": {
-                    "content": "Merci de ne pas rafraîchir l'onglet ou de quitter cette page. Ce processus peut prendre jusqu'à 40 secondes",
+                    "content": "Merci de ne pas rafraîchir l'onglet ou de quitter cette page. Ce processus peut prendre quelques secondes.",
                     "title": "Les membres sont ajoutés à la séance"
                 },
                 "info": {
@@ -16686,6 +16698,17 @@
                 "error": {
                     "content": "Les membres n'ont pas pu être ajoutés à la séance. Veuillez réessayer",
                     "title": "L'inscription automatique a échoué"
+                },
+                "incomplete": {
+                    "actions": {
+                        "bookThem": "Inscrire manuellement",
+                        "ok": "OK"
+                    },
+                    "content": {
+                        "registered": "Les membres suivants ont été enregistrés, car une carte de cours compatible a été trouvée :",
+                        "unregistered": "Les membres suivants n'ont pas pu être enregistrés, aucune carte de cours compatible n'ayant pu être trouvée"
+                    },
+                    "title": "Finaliser votre liste d'attente"
                 }
             },
             "confirm": "Confirmer",
@@ -17740,7 +17763,7 @@
         "smartListOption": "Choisir une smartlist",
         "mail": {
             "sendButton": "Envoyer",
-            "customDomainNotDefined": "Vous n'avez pas défini de domaine personnalisé. Veuillez prendre contact avec notre équipe pour lancer le processus de configuration.",
+            "customDomainNotDefined": "Vous n'avez pas défini de domaine personnalisé. <1/>Veuillez prendre contact avec notre équipe pour lancer le processus de configuration.",
             "example": "Exemple",
             "customEmail": "Adresse électronique personnalisée",
             "franchiseeMail": "Adresse électronique du franchisé",

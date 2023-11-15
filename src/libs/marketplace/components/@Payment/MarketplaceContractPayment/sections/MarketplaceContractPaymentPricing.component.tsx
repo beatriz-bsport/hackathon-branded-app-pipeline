@@ -1,8 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 
 import { useTranslation } from 'react-i18next';
-import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
-import moment from 'moment-timezone';
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { computeProrataPriceForSubscription } from '#libs/subscription/utils';
@@ -47,26 +45,6 @@ const MarketplaceContractPaymentPricing: React.FC<Props> = React.memo(
       voucher,
     ]);
 
-    const contractPrice = useMemo(() => {
-      if (contract?.month_billing_day) {
-        const firstInvoiceProrataPrice = computeProrataPriceForSubscription(
-          billingStartDate,
-          contract?.month_billing_day,
-          contract.recurrent_price.toString(),
-        );
-        return Math.max(
-          parseFloat(firstInvoiceProrataPrice) - (voucher || 0),
-          0,
-        ).toFixed(2);
-      }
-      return (parseFloat(contract.recurrent_price) - (voucher || 0)).toFixed(2);
-    }, [
-      contract?.month_billing_day,
-      contract.recurrent_price,
-      billingStartDate,
-      voucher,
-    ]);
-
     const contractPriceExcludingTax = useMemo(
       () =>
         getCurrencyDisplayWithPrice(
@@ -95,24 +73,6 @@ const MarketplaceContractPaymentPricing: React.FC<Props> = React.memo(
 
     return (
       <>
-        {contract?.month_billing_day && (
-          <div className="bs-contract-payment__alert">
-            <InfoOutlinedIcon className="bs-contract-payment__alert__icon" />
-            <span className="bs-contract-payment__alert__text">
-              {t('subscription:subscription.prorata.helperOnSusscribe', {
-                priceWithCurrency: getCurrencyDisplayWithPrice(contractPrice),
-                firstBillingDate: moment(billingStartDate).format('L'),
-                recurrentPrice: `${getCurrencyDisplayWithPrice(
-                  parseFloat(
-                    (contract?.recurrent_price ?? 0).toString(),
-                  ).toFixed(2),
-                )}`,
-                monthBillingDay: contract.month_billing_day,
-              })}
-            </span>
-          </div>
-        )}
-
         <div className="bs-contract-payment__pricing">
           <div className="bs-contract-payment__price__tax__container">
             {isExcludingTax && (

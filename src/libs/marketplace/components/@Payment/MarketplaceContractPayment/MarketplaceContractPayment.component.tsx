@@ -46,9 +46,10 @@ import MarketplaceContractPaymentCoupon from './sections/MarketplaceContractPaym
 import { updatePaymentMethodBillingDetails as updatePaymentMethodBillingDetailsAPI } from '#libs/payment/api';
 import Button, { ButtonType } from '#components/css-only/Fabrique/Button';
 
-import './styles.css';
-import { Coupon } from '#libs/coupon/types';
 import { CouponErrorCodes } from '#libs/coupon/constants';
+import MarketplaceContractPaymentAlert from './sections/MarketplaceContractPaymentAlert.component';
+import type { Coupon } from '#libs/coupon/types';
+import './styles.css';
 
 export type Props = {
   contract: Contract;
@@ -439,6 +440,12 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
             isContractLegalTermsAccepted={isContractLegalTermsAccepted}
             onOpenContractTermsDialog={onOpenContractTermsDialog}
             setBillingStartDate={setBillingStartDate}
+          />
+
+          <MarketplaceContractPaymentAlert
+            billingStartDate={billingStartDate}
+            contract={contract}
+            voucher={voucher}
           />
 
           <MarketplaceContractPaymentCoupon

@@ -33,7 +33,7 @@ import type { Cadence } from '#libs/sequential_marketing/types';
 import CadenceList from '#libs/sequential_marketing/components/CadenceList.component';
 import CadenceManagerFab from '#libs/sequential_marketingDEPRECATED/components/CadenceManagerFab.components';
 import CadenceUtilityDialog, {
-  type DialogVariant,
+  DialogVariant,
 } from '#libs/sequential_marketing/components/dialogs/DialogUtility';
 
 const CADENCE_PAGE_SIZE = 100;

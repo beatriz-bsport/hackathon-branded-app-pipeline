@@ -13,7 +13,7 @@ import Button from '@material-ui/core/Button';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 // @ts-expect-error
-import { Submit, TextField } from '#components/forms';
+import { TextField } from '#components/forms';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 
 import type { Cadence } from '#libs/sequential_marketing/types';
@@ -42,7 +42,11 @@ export const CadenceCreateAndUpdateForm: React.FC<ComponentProps> = React.memo(
   ({ open, onCancel, loading, initial }) => {
     const { t } = useTranslation('marketing');
 
-    const { isSubmitting, isValid }: FormikValues = useFormikContext();
+    const {
+      isSubmitting,
+      isValid,
+      handleSubmit,
+    }: FormikValues & { handleSubmit: () => void } = useFormikContext();
 
     const title = useMemo(
       () =>
@@ -74,12 +78,15 @@ export const CadenceCreateAndUpdateForm: React.FC<ComponentProps> = React.memo(
             />
             <DialogActions>
               <Button onClick={onCancel}>{t('cadence.form.cancel')} </Button>
-              <Submit
+
+              <Button
                 color="primary"
                 disabled={isSubmitting || !isValid || loading}
+                onClick={handleSubmit}
+                variant="contained"
               >
                 {isSubmitting ? <CircularProgress /> : submitButtonText}
-              </Submit>
+              </Button>
             </DialogActions>
           </Form>
         </DialogContent>

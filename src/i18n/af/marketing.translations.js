@@ -542,7 +542,7 @@ exports.default = {
         [ONLY_TIMEOUT]: 'Delay',
       },
     },
-    cadenceCard: { lost: 'Lost', win: 'Won' },
+    cadenceCard: { lost: 'Lost', win: 'Won', outputRules: 'Output rules' },
     activate: {
       dialog: {
         cancel: 'Cancel',

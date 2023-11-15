@@ -494,10 +494,14 @@ const mapWithHandlers = {
             custom_form_field: [],
           },
           {
-            onSuccess: () => {
+            onSuccess: (createdCustomForm: CustomForm) => {
               if (options && options.onSuccess) options.onSuccess();
               props.setOpenCreateDialog(false);
               props.setLoading(false);
+              createdCustomForm?.id &&
+                props.push(
+                  `/custom-form/details/${createdCustomForm.id}/general`,
+                );
             },
             onError: () => {
               if (options && options.onError) options.onError();

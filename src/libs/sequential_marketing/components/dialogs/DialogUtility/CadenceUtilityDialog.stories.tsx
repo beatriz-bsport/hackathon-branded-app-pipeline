@@ -13,6 +13,7 @@ const actionData = {
 };
 
 CadenceUtility.args = {
+  variant: 'activate',
   open: true,
   onCancel: actionData.onClick,
   onConfirm: actionData.onClick,

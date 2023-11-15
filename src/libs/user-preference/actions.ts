@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { createAction } from 'redux-actions';
 import { Dispatch } from 'redux';
 import {
@@ -6,14 +5,8 @@ import {
   SortOption,
 } from '../payment-packs/components/PaymentPackFilterAndSortHeader.component';
 import type { OfferFilter } from '#libs/offer/types';
-import type {
-  PrivateBookingFilter,
-  ScheduleFilter,
-  doNotDisplayDeleteStepDialogCadenceIds,
-  doNotDisplayConvertStepIntoExitDialogCadenceIds,
-  doNotDisplayPauseDialogCadenceIds,
-} from './types';
-import type { OffersGroupFilter } from '#libs/meta-activity/types';
+import type { PrivateBookingFilter, ScheduleFilter } from './types';
+import type { OffersGroupFilter } from '#libs/group-offer/types';
 import type {
   ReplacementRequestFilter,
   ReplacementRequestOfferHistoryFilter,
@@ -65,18 +58,15 @@ export const userPreferenceActions = {
   setHideCoachNotAssociatedToPrivateServiceWarning: createAction<boolean>(
     'USER_PREFERANCE/HIDE_ASSOCIATED_COACH_WITHOUTH_PRIVATE_SERVICE_DIALOG',
   ),
-  doNotDisplayDeleteStepDialogAnymore:
-    createAction<doNotDisplayDeleteStepDialogCadenceIds>(
-      'USER_PREFERENCE/ADD_DO_NOT_DISPLAY_DELETE_STEP_DIALOG_CADENCE_IDS',
-    ),
-  doNotDisplayConvertStepIntoExitDialogAnymore:
-    createAction<doNotDisplayConvertStepIntoExitDialogCadenceIds>(
-      'USER_PREFERENCE/ADD_DO_NOT_DISPLAY_CONVERT_STEP_EXIT_DIALOG_CADENCE_IDS',
-    ),
-  doNotDisplayPauseDialogAnymore:
-    createAction<doNotDisplayPauseDialogCadenceIds>(
-      'USER_PREFERENCE/ADD_DO_NOT_DISPLAY_PAUSE_DIALOG_CADENCE_IDS',
-    ),
+  doNotDisplayDeleteStepDialogAnymore: createAction<number>(
+    'USER_PREFERENCE/ADD_DO_NOT_DISPLAY_DELETE_STEP_DIALOG_CADENCE_IDS',
+  ),
+  doNotDisplayConvertStepIntoExitDialogAnymore: createAction<number>(
+    'USER_PREFERENCE/ADD_DO_NOT_DISPLAY_CONVERT_STEP_EXIT_DIALOG_CADENCE_IDS',
+  ),
+  doNotDisplayPauseDialogAnymore: createAction<number>(
+    'USER_PREFERENCE/ADD_DO_NOT_DISPLAY_PAUSE_DIALOG_CADENCE_IDS',
+  ),
 };
 
 export function setPaymentPackSort(sortOption: SortOption) {
@@ -177,9 +167,12 @@ export function setMemberPrivateBookingFilter(filter: PrivateBookingFilter) {
 export function setWorkshopGroupFilter(filter: OffersGroupFilter) {
   return async (dispatch: Dispatch) => {
     Object.keys(filter)?.forEach((key) => {
+      // @ts-expect-error
       if (filter[key] === null || filter[key] === undefined) {
-        // eslint-disable-next-line no-param-reassign
+        /* eslint-disable no-param-reassign */
+        // @ts-expect-error
         delete filter[key];
+        /* eslint-disable no-param-reassign */
       }
     });
 
@@ -190,9 +183,12 @@ export function setWorkshopGroupFilter(filter: OffersGroupFilter) {
 export function setWorkshopDetailGroupFilter(filter: OffersGroupFilter) {
   return async (dispatch: Dispatch) => {
     Object.keys(filter)?.forEach((key) => {
+      // @ts-expect-error
       if (filter[key] === null || filter[key] === undefined) {
-        // eslint-disable-next-line no-param-reassign
+        /* eslint-disable no-param-reassign */
+        // @ts-expect-error
         delete filter[key];
+        /* eslint-disable no-param-reassign */
       }
     });
 

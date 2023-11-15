@@ -1,4 +1,3 @@
-// @ts-nocheck
 import Immutable from 'seamless-immutable';
 import moment from 'moment-timezone';
 import { handleActions } from 'redux-actions';
@@ -10,43 +9,46 @@ import {
 } from '../payment-packs/components/PaymentPackFilterAndSortHeader.component';
 import { defaultFilters } from './selectors';
 
-const initialState: Immutable.Immutable<UserPreference> = Immutable({
-  paymentPackSort: SortOption.customSort,
-  paymentPackCategoryFilter: [],
-  paymentPackManagerOnlyFilter: ManagerOnly.showAll,
-  privatePassSort: SortOption.customSort,
-  privatePassCategoryFilter: [],
-  privatePassManagerOnlyFilter: ManagerOnly.showAll,
-  scheduleTimerange: {
-    begin: '06:00:00',
-    end: '23:00:00',
-  },
-  calendarFilter: {},
-  scheduleFilter: defaultFilters,
-  coachesScheduleFilter: {},
-  establishmentsScheduleFilter: {},
-  privateServicesScheduleFilter: {},
-  memberPrivateBookingFilter: {},
-  workshopGroupFilter: {},
-  workshopDetailGroupFilter: {},
-  shrinkResponsiveDrawer: false,
-  replacementRequestManagerFilter: {
-    timePeriod: 'next_month',
-    min_date: moment().format('YYYY-MM-DD'),
-    max_date: moment().add(1, 'month').format('YYYY-MM-DD'),
-    offer_available: true,
-  },
-  replacementRequestOfferHistoryFilter: {
-    timePeriod: 'last_month',
-    min_date: moment().subtract(1, 'month').format('YYYY-MM-DD'),
-    max_date: moment().format('YYYY-MM-DD'),
-    offer_available: true,
-  },
-  hideCoachNotAssociatedToPrivateServiceWarning: false,
-  doNotDisplayedDeleteStepDialogCadenceIds: [],
-  doNotDisplayedConvertStepIntoExitDialogCadenceIds: [],
-  doNotDisplayedPauseDialogCadenceIds: [],
-});
+const initialState: Immutable.Immutable<UserPreference> =
+  Immutable<UserPreference>({
+    paymentPackSort: SortOption.customSort,
+    paymentPackCategoryFilter: [],
+    paymentPackManagerOnlyFilter: ManagerOnly.showAll,
+    privatePassSort: SortOption.customSort,
+    privatePassCategoryFilter: [],
+    privatePassManagerOnlyFilter: ManagerOnly.showAll,
+    scheduleTimerange: {
+      begin: '06:00:00',
+      end: '23:00:00',
+    },
+    calendarFilter: {},
+    scheduleFilter: defaultFilters,
+    coachesScheduleFilter: {},
+    establishmentsScheduleFilter: {},
+    privateServicesScheduleFilter: {},
+    memberPrivateBookingFilter: {},
+    workshopGroupFilter: {},
+    workshopDetailGroupFilter: {},
+    shrinkResponsiveDrawer: false,
+    replacementRequestManagerFilter: {
+      timePeriod: 'next_month',
+      // @ts-expect-error
+      min_date: moment().format('YYYY-MM-DD'),
+      max_date: moment().add(1, 'month').format('YYYY-MM-DD'),
+      offer_available: true,
+    },
+    replacementRequestOfferHistoryFilter: {
+      timePeriod: 'last_month',
+      min_date: moment().subtract(1, 'month').format('YYYY-MM-DD'),
+      max_date: moment().format('YYYY-MM-DD'),
+      // @ts-expect-error
+      offer_available: true,
+    },
+    hideCoachNotAssociatedToPrivateServiceWarning: false,
+    doNotDisplayedDeleteStepDialogCadenceIds: [],
+    doNotDisplayedConvertStepIntoExitDialogCadenceIds: [],
+    doNotDisplayedPauseDialogCadenceIds: [],
+  });
 
 export default handleActions<Immutable.Immutable<UserPreference>, any>(
   {

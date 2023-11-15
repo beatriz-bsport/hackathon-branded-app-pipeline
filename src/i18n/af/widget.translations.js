@@ -167,6 +167,8 @@ exports.default = {
           warning: 'Warning',
           error: 'Error',
         },
+        checkbox: 'Checkbox',
+        radio: 'Radio',
       },
       title: {
         nextOffer: 'Next session available',
@@ -242,6 +244,8 @@ exports.default = {
         isWaitingList: 'Is in Waitlist state',
         displayGuestName: 'Display the guest name',
         withLevel: 'Display the level',
+        type: 'Type of the component',
+        selected: 'Is selected',
       },
       configurationTitle: 'Variations',
       confirmationMessageComponentAlert:
@@ -364,6 +368,7 @@ exports.default = {
       marketplace_booking_item: 'Booking item',
       marketplace_offer_booking_list: 'Booking list',
       fabrique_alert: 'Alert',
+      fabrique_menu_item: 'Menu Item',
     },
     customCss: {
       yourCode: 'Your complementary implementation:',

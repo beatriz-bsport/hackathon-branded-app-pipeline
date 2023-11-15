@@ -13672,7 +13672,9 @@
             "waitingList": "Registered on waiting list",
             "purchaseWithPassesSuccess": "Payment confirmed"
           },
-          "alert": { "success": "Success", "info": "Info", "warning": "Warning", "error": "Error" }
+          "alert": { "success": "Success", "info": "Info", "warning": "Warning", "error": "Error" },
+          "checkbox": "Checkbox",
+          "radio": "Radio"
         },
         "title": {
           "nextOffer": "Next session available",
@@ -13747,7 +13749,9 @@
           "isChangePasswordLinkExpired": "Link is expired",
           "isWaitingList": "Is in Waitlist state",
           "displayGuestName": "Display the guest name",
-          "withLevel": "Display the level"
+          "withLevel": "Display the level",
+          "type": "Type of the component",
+          "selected": "Is selected"
         },
         "configurationTitle": "Variations",
         "confirmationMessageComponentAlert": "This component primarily manages booking and payment statuses. For customizing its appearance, we recommend utilizing its root components located in common section",
@@ -13854,7 +13858,8 @@
         "marketplace_checkout_items_payment_pack_list": "List of checkout items with passes",
         "marketplace_booking_item": "Booking item",
         "marketplace_offer_booking_list": "Booking list",
-        "fabrique_alert": "Alert"
+        "fabrique_alert": "Alert",
+        "fabrique_menu_item": "Menu Item"
       },
       "customCss": {
         "yourCode": "Your complementary implementation:",

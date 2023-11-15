@@ -103,4 +103,5 @@ export enum CssComponentsVariantIdentifiers {
   FABRIQUE_CHECKBOX = 'fabrique_checkbox',
   FABRIQUE_CHIP = 'fabrique_chip',
   FABRIQUE_ALERT = 'fabrique_alert',
+  FABRIQUE_MENU_ITEM = 'fabrique_menu_item',
 }

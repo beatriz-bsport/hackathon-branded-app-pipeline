@@ -336,6 +336,11 @@ import {
   MARKETPLACE_OFFER_BOOKING_LIST_PREVIEW,
 } from '#marketplacecomponents/@Booking/MarketplaceOfferBookingList';
 
+import {
+  FABRIQUE_MENU_ITEM_PREVIEW,
+  FABRIQUE_MENU_ITEM_CONFIGURATION,
+} from '#components/css-only/Fabrique/MenuItem';
+
 /* TEMPLATE
 
 {
@@ -428,6 +433,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
         FABRIQUE_CHECKBOX_CONFIGURATION,
         FABRIQUE_CHIP_CONFIGURATION,
         FABRIQUE_ALERT_CONFIGURATION,
+        FABRIQUE_MENU_ITEM_CONFIGURATION,
       ]
     : []),
 ];
@@ -592,6 +598,8 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
         FABRIQUE_CHECKBOX_PREVIEW,
       [CssComponentsVariantIdentifiers.FABRIQUE_CHIP]: FABRIQUE_CHIP_PREVIEW,
       [CssComponentsVariantIdentifiers.FABRIQUE_ALERT]: FABRIQUE_ALERT_PREVIEW,
+      [CssComponentsVariantIdentifiers.FABRIQUE_MENU_ITEM]:
+        FABRIQUE_MENU_ITEM_PREVIEW,
     }),
   });
 

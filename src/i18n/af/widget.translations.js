@@ -246,6 +246,8 @@ exports.default = {
         withLevel: 'Display the level',
         type: 'Type of the component',
         selected: 'Is selected',
+        showGroupTitle: 'Display the list with group title',
+        hasDivider: 'The list has a divider at the bottom',
       },
       configurationTitle: 'Variations',
       confirmationMessageComponentAlert:
@@ -369,6 +371,7 @@ exports.default = {
       marketplace_offer_booking_list: 'Booking list',
       fabrique_alert: 'Alert',
       fabrique_menu_item: 'Menu Item',
+      fabrique_menu_item_list: 'Menu Item List',
     },
     customCss: {
       yourCode: 'Your complementary implementation:',

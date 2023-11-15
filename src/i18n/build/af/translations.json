@@ -13751,7 +13751,9 @@
           "displayGuestName": "Display the guest name",
           "withLevel": "Display the level",
           "type": "Type of the component",
-          "selected": "Is selected"
+          "selected": "Is selected",
+          "showGroupTitle": "Display the list with group title",
+          "hasDivider": "The list has a divider at the bottom"
         },
         "configurationTitle": "Variations",
         "confirmationMessageComponentAlert": "This component primarily manages booking and payment statuses. For customizing its appearance, we recommend utilizing its root components located in common section",
@@ -13859,7 +13861,8 @@
         "marketplace_booking_item": "Booking item",
         "marketplace_offer_booking_list": "Booking list",
         "fabrique_alert": "Alert",
-        "fabrique_menu_item": "Menu Item"
+        "fabrique_menu_item": "Menu Item",
+        "fabrique_menu_item_list": "Menu Item List"
       },
       "customCss": {
         "yourCode": "Your complementary implementation:",

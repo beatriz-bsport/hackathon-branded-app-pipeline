@@ -117,7 +117,7 @@ const getTranslations = async () => {
           title: 'Finalize your waitlist',
           content: {
             registered:
-              'The following members have been registered, as a compatible was found:',
+              'The following members have been registered, as a compatible pass was found:',
             unregistered:
               'The following members could NOT be registered, no compatible pass could be found',
           },

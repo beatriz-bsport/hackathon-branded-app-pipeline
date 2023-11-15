@@ -13456,7 +13456,7 @@
         "incomplete": {
           "title": "Finalize your waitlist",
           "content": {
-            "registered": "The following members have been registered, as a compatible was found:",
+            "registered": "The following members have been registered, as a compatible pass was found:",
             "unregistered": "The following members could NOT be registered, no compatible pass could be found"
           },
           "actions": { "ok": "OK", "bookThem": "Book them manually" }

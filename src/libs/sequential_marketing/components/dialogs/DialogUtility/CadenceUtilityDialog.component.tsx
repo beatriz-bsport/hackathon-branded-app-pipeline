@@ -234,10 +234,9 @@ export const CadenceUtilityDialog: React.FC<Props> = ({
     : '';
   const [isChecked, setIsChecked] = React.useState<boolean>(false);
 
-  const handleCheck = React.useCallback(
-    () => setIsChecked(!isChecked),
-    [isChecked],
-  );
+  const handleCheck = React.useCallback(() => {
+    setIsChecked((prevIsChecked) => !prevIsChecked);
+  }, []);
 
   const handleOnConfirm = React.useCallback(
     () => onConfirm(isChecked),

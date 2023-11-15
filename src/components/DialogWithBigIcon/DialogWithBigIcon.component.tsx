@@ -168,6 +168,7 @@ const DialogWithBigIcon: React.FC<Props> = ({
   const classes = useStyles({ iconColor, withoutBackground });
 
   const displayCheckBox = !!checkBoxLabel && !!handleCheck;
+
   return (
     <Dialog
       BackdropProps={{
@@ -266,12 +267,7 @@ const DialogWithBigIcon: React.FC<Props> = ({
       {displayCheckBox && (
         <div className={classes.checkboxContainer}>
           <div className={classes.checkbox}>
-            <Checkbox
-              checked={isChecked}
-              disabled={false}
-              edge="end"
-              onChange={handleCheck}
-            />
+            <Checkbox checked={isChecked} edge="end" onChange={handleCheck} />
           </div>
           <Typography align="center" variant="body1">
             {checkBoxLabel}

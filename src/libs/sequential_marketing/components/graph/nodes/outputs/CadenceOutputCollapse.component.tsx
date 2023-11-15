@@ -1,12 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { type Theme, makeStyles } from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import Typography from '@material-ui/core/Typography';
-import {
-  OUTPUT_SECTION_HEIGHT,
-  OUTPUT_SECTION_WIDTH,
-} from '#libs/sequential_marketing/constants';
+import { OUTPUT_SECTION_WIDTH } from '#libs/sequential_marketing/constants';
 
 export type CadenceOutputCollapseProps = {
   children: React.ReactNode;
@@ -19,17 +17,28 @@ const CadenceOutputCollapse: React.FC<CadenceOutputCollapseProps> = ({
   isOpen,
   disabled,
 }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const classes = useStyles({ expand: isExpanded });
+  const { t } = useTranslation('marketing');
 
-  useEffect(() => {
-    setIsExpanded(isOpen);
-  }, [isOpen]);
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const textRef = React.useRef<HTMLSpanElement>(null);
+
+  const classes = useStyles({
+    expand: isExpanded,
+    textWidth:
+      (textRef?.current?.getBoundingClientRect().height -
+        textRef?.current?.getBoundingClientRect().width) /
+      2,
+  });
 
   const handleExpandClick = useCallback(
     () => !isOpen && setIsExpanded((previousIsExpended) => !previousIsExpended),
     [isOpen],
   );
+
+  useEffect(() => {
+    setIsExpanded(isOpen);
+  }, [isOpen]);
 
   return (
     <div className={classes.card}>
@@ -43,8 +52,10 @@ const CadenceOutputCollapse: React.FC<CadenceOutputCollapseProps> = ({
       >
         <div className={classes.output}>
           <KeyboardArrowLeftIcon className={classes.expandIcon} />
-          <div className={classes.title}>
-            <Typography variant="subtitle1">Output</Typography>
+          <div className={classes.label}>
+            <Typography ref={textRef} variant="subtitle1">
+              {t('cadence.cadenceCard.outputRules')}
+            </Typography>
           </div>
         </div>
       </ButtonBase>
@@ -52,12 +63,12 @@ const CadenceOutputCollapse: React.FC<CadenceOutputCollapseProps> = ({
   );
 };
 
-type StylesProps = { expand: boolean };
+type StylesProps = { expand: boolean; textWidth?: number };
 
 const useStyles = makeStyles<Theme, StylesProps>((theme) => ({
   container: {
-    borderRadius: theme.spacing(1),
-    alignItems: 'flex-start',
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
   },
   card: {
     display: 'inline-flex',
@@ -78,11 +89,11 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    gap: theme.spacing(1),
+    gap: theme.spacing(2),
     width: `${OUTPUT_SECTION_WIDTH}px`,
-    height: `${OUTPUT_SECTION_HEIGHT}px`,
     borderRadius: theme.spacing(1),
     padding: theme.spacing(2),
+    paddingBottom: theme.spacing(3),
   },
   expandIcon: {
     transform: ({ expand }) => expand && 'rotate(180deg)',
@@ -91,11 +102,12 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) => ({
       duration: theme.transitions.duration.shortest,
     }),
   },
-  title: {
+  label: {
     display: 'flex',
-    position: 'relative',
-    padding: theme.spacing(1),
+    paddingTop: ({ textWidth }) => `${textWidth}px`,
+    paddingBottom: ({ textWidth }) => `${textWidth}px`,
     transform: 'rotate(-90deg)',
+    whiteSpace: 'nowrap',
   },
 }));
 

@@ -11,12 +11,15 @@ import WarningIconRounded from '#components/icons/WarningIconRounded.component';
 import DialogWithBigIcon from '#components/DialogWithBigIcon';
 import type { Cadence } from '#libs/sequential_marketing/types';
 
-export type DialogVariant =
-  | 'active'
-  | 'delete-step'
-  | 'archive-workflow'
-  | 'convert-step-into-exit'
-  | 'pause-workflow';
+enum DialogVariantEnum {
+  ACTIVE = 'activate',
+  DELETE_STEP = 'delete-step',
+  ARCHIVE_WORKFLOW = 'archive-workflow',
+  CONVERT_STEP_INTO_EXIT = 'convert-step-into-exit',
+  PAUSE_WORKFLOW = 'pause-workflow',
+}
+
+export type DialogVariant = `${DialogVariantEnum}`;
 
 type Props = {
   open: boolean;
@@ -35,22 +38,22 @@ const useCadenceUtilityIcon = (
   color: string;
 } => {
   switch (variant) {
-    case 'active':
+    case DialogVariantEnum.ACTIVE:
       return { icon: 'PlayArrow', customIcon: null, color: green[500] };
-    case 'archive-workflow':
+    case DialogVariantEnum.ARCHIVE_WORKFLOW:
       return {
         icon: 'Delete',
         customIcon: null,
         color: theme.palette.error.main,
       };
-    case 'convert-step-into-exit':
-    case 'delete-step':
+    case DialogVariantEnum.CONVERT_STEP_INTO_EXIT:
+    case DialogVariantEnum.DELETE_STEP:
       return {
         icon: null,
         customIcon: WarningIconRounded,
         color: theme.palette.warning.main,
       };
-    case 'pause-workflow':
+    case DialogVariantEnum.PAUSE_WORKFLOW:
       return {
         icon: 'Pause',
         customIcon: null,
@@ -84,7 +87,7 @@ const useCadenceUtilityButtons = (
   );
 
   switch (variant) {
-    case 'active':
+    case DialogVariantEnum.ACTIVE:
       return [
         classicCancelButton,
         {
@@ -94,7 +97,7 @@ const useCadenceUtilityButtons = (
           onClick: onConfirm,
         },
       ];
-    case 'archive-workflow':
+    case DialogVariantEnum.ARCHIVE_WORKFLOW:
       return [
         classicCancelButton,
         {
@@ -104,8 +107,8 @@ const useCadenceUtilityButtons = (
           onClick: onConfirm,
         },
       ];
-    case 'convert-step-into-exit':
-    case 'delete-step':
+    case DialogVariantEnum.CONVERT_STEP_INTO_EXIT:
+    case DialogVariantEnum.DELETE_STEP:
       return [
         classicCancelButton,
         {
@@ -115,7 +118,7 @@ const useCadenceUtilityButtons = (
           onClick: onConfirm,
         },
       ];
-    case 'pause-workflow':
+    case DialogVariantEnum.PAUSE_WORKFLOW:
       return [
         classicCancelButton,
         {
@@ -147,7 +150,7 @@ const useCadenceUtilityTexts = (
 } => {
   const { t } = useTranslation('marketing');
   switch (variant) {
-    case 'active':
+    case DialogVariantEnum.ACTIVE:
       return {
         title: t('cadence.activate.dialog.title'),
         descriptions: [
@@ -155,7 +158,7 @@ const useCadenceUtilityTexts = (
           [t('cadence.activate.dialog.secondHelper')],
         ],
       };
-    case 'archive-workflow':
+    case DialogVariantEnum.ARCHIVE_WORKFLOW:
       return {
         title: t('cadence.archive.dialog.title'),
         descriptions: [
@@ -163,18 +166,18 @@ const useCadenceUtilityTexts = (
           [t('cadence.archive.dialog.helper', { name: cadenceName })],
         ],
       };
-    case 'convert-step-into-exit':
+    case DialogVariantEnum.CONVERT_STEP_INTO_EXIT:
       return {
         title: t('cadence.step.convertExit.dialog.title'),
         descriptions: [[t('cadence.step.convertExit.dialog.helper')]],
       };
-    case 'delete-step':
+    case DialogVariantEnum.DELETE_STEP:
       return {
         title: t('cadence.step.archive.dialog.title'),
         descriptions: [[t('cadence.step.archive.dialog.helper')]],
       };
 
-    case 'pause-workflow':
+    case DialogVariantEnum.PAUSE_WORKFLOW:
       return {
         title: t('cadence.pause.dialog.title'),
         descriptions: [[t('cadence.pause.dialog.helper')]],
@@ -190,13 +193,13 @@ const useCadenceUtilityTexts = (
 
 const useCadenceUtilityCheckbox = (variant: DialogVariant) => {
   switch (variant) {
-    case 'active':
-    case 'archive-workflow':
+    case DialogVariantEnum.ACTIVE:
+    case DialogVariantEnum.ARCHIVE_WORKFLOW:
       return { displayCheckBox: false };
 
-    case 'convert-step-into-exit':
-    case 'delete-step':
-    case 'pause-workflow':
+    case DialogVariantEnum.CONVERT_STEP_INTO_EXIT:
+    case DialogVariantEnum.DELETE_STEP:
+    case DialogVariantEnum.PAUSE_WORKFLOW:
       return { displayCheckBox: true };
 
     default:

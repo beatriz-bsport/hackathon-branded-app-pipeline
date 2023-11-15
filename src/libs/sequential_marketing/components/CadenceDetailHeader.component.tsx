@@ -21,9 +21,7 @@ import { isMinimalCadenceConfigurationCompleted } from '#libs/sequential_marketi
 
 import type { OptionCallback } from '../../../state/types';
 import type { Cadence } from '#libs/sequential_marketing/types';
-import CadenceUtilityDialog, {
-  type DialogVariant,
-} from '#libs/sequential_marketing/components/dialogs/DialogUtility';
+import CadenceUtilityDialog from '#libs/sequential_marketing/components/dialogs/DialogUtility';
 
 type Props = {
   cadence: Cadence;
@@ -269,8 +267,8 @@ export const CadenceDetailHeader: React.FC<Props> = ({
     [doNotDisplayPauseDialogAnymore, cadence.id, onShutOff],
   );
 
-  const activateDialogVariant: DialogVariant = 'active';
-  const pauseDialogVariant: DialogVariant = 'pause-workflow';
+  const activateDialogVariant = 'activate';
+  const pauseDialogVariant = 'pause-workflow';
 
   if (loading || !cadence) {
     return (

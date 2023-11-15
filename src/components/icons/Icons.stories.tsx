@@ -19,6 +19,7 @@ import CardRefusedIcon, {
 import WarningIcon from './WarningIcon.component';
 import TriggeredPersonIcon from './TriggeredPersonIcon.component';
 import WarningIconRounded from './WarningIconRounded.component';
+import { CustomStarIcon } from './CustomStarIcon.component';
 
 const FILL_CONTROL = { fill: { control: 'color' } };
 
@@ -99,6 +100,9 @@ export const WarningRounded = WarningIconRoundedTemplate.bind({});
 WarningRounded.args = {
   fill: '#FF9800',
 };
+
+const CustomStarIconTemplate = () => <CustomStarIcon />;
+export const CustomStar = CustomStarIconTemplate.bind({});
 
 export default {
   title: 'Components/Icons',

@@ -17,6 +17,13 @@ type Props = {
   showFullText: boolean,
   maxCharacterCount?: number,
   alignButtonRight: ?boolean,
+  whiteSpace?:
+    | 'normal'
+    | 'nowrap'
+    | 'pre'
+    | 'pre-wrap'
+    | 'pre-line'
+    | 'break-spaces',
 };
 
 export const TypographyWithShowMore = (props: Props) => {

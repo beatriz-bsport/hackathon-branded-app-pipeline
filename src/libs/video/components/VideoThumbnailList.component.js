@@ -51,6 +51,7 @@ export const VideoThumbnailList = (props: Props) => {
               multiline
               color="textSecondary"
               variant="body"
+              whiteSpace="pre-wrap"
             >
               {props.description}
             </TypographyWithShowMore>

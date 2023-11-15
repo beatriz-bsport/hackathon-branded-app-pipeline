@@ -137,7 +137,7 @@ type Props = {
   buttons?: ButtonProps[];
   customClasses?: { [className: string]: string };
   namespaces?: string | string[];
-  displayCheckBox?: boolean;
+  checkBoxLabel?: string;
   isChecked?: boolean;
   handleCheck?: () => void;
 };
@@ -159,7 +159,7 @@ const DialogWithBigIcon: React.FC<Props> = ({
   buttons,
   customClasses,
   namespaces,
-  displayCheckBox,
+  checkBoxLabel,
   isChecked,
   handleCheck,
 }) => {
@@ -167,6 +167,7 @@ const DialogWithBigIcon: React.FC<Props> = ({
 
   const classes = useStyles({ iconColor, withoutBackground });
 
+  const displayCheckBox = !!checkBoxLabel && !!handleCheck;
   return (
     <Dialog
       BackdropProps={{
@@ -273,7 +274,7 @@ const DialogWithBigIcon: React.FC<Props> = ({
             />
           </div>
           <Typography align="center" variant="body1">
-            {t('cadence.dialog.do_not_display_anymore')}
+            {checkBoxLabel}
           </Typography>
         </div>
       )}

@@ -213,10 +213,13 @@ export const CadenceUtilityDialog: React.FC<Props> = ({
 }) => {
   const classes = useStyles();
   const theme = useTheme();
-
+  const { t } = useTranslation('marketing');
   const { icon, customIcon, color } = useCadenceUtilityIcon(variant, theme);
   const displayCheckBox = useCadenceUtilityCheckbox(variant);
 
+  const checkBoxLabel = displayCheckBox.displayCheckBox
+    ? t('cadence.dialog.do_not_display_anymore')
+    : '';
   const [isChecked, setIsChecked] = React.useState<boolean>(false);
 
   const handleCheck = React.useCallback(
@@ -253,8 +256,8 @@ export const CadenceUtilityDialog: React.FC<Props> = ({
       namespaces="marketing"
       open={open}
       {...(descriptions?.length > 0 ? { subTexts: descriptions } : {})}
+      checkBoxLabel={checkBoxLabel}
       customClasses={customClasses}
-      displayCheckBox={displayCheckBox.displayCheckBox}
       handleCheck={handleCheck}
       isChecked={isChecked}
       title={title}

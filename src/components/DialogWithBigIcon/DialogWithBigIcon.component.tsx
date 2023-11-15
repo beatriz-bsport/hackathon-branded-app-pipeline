@@ -122,7 +122,7 @@ const Button: React.FC<ButtonComponentProps> = ({ button, customClasses }) => {
 
 type Props = {
   open: boolean;
-  onClose?: () => void;
+  onClose?: (ev?: React.MouseEvent, reason?: string) => void;
   maxWidth?: Breakpoint | false;
   CustomIcon?: React.FC<SVGProps<SVGElement>>;
   customIconHeight?: number | string;

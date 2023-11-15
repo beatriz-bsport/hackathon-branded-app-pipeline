@@ -93,7 +93,7 @@ const useCadenceUtilityButtons = (
         {
           title: t('cadence.activate.dialog.confirmButton'),
           fontColor: '',
-          backgroundColor: '',
+          backgroundColor: theme.palette.success.main,
           onClick: onConfirm,
         },
       ];
@@ -133,7 +133,7 @@ const useCadenceUtilityButtons = (
         {
           title: t('cadence.pause.dialog.confirmButton'),
           fontColor: '',
-          backgroundColor: '',
+          backgroundColor: theme.palette.success.main,
           onClick: onConfirm,
         },
       ];
@@ -258,6 +258,10 @@ export const CadenceUtilityDialog: React.FC<Props> = ({
 
   const customClasses = { button: classes.button };
 
+  const handleClose = (ev: React.MouseEvent, reason: string) => {
+    reason === 'backdropClick' && onCancel?.();
+  };
+
   return (
     <DialogWithBigIcon
       buttons={buttons}
@@ -272,6 +276,7 @@ export const CadenceUtilityDialog: React.FC<Props> = ({
       customClasses={customClasses}
       handleCheck={handleCheck}
       isChecked={isChecked}
+      onClose={handleClose}
       title={title}
     />
   );

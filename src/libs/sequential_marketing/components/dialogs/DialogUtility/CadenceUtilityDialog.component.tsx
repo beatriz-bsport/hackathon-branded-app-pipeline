@@ -42,9 +42,9 @@ const useCadenceUtilityIcon = (
       return { icon: 'PlayArrow', customIcon: null, color: green[500] };
     case DialogVariantEnum.ARCHIVE_WORKFLOW:
       return {
-        icon: 'Delete',
-        customIcon: null,
-        color: theme.palette.error.main,
+        icon: null,
+        customIcon: WarningIconRounded,
+        color: theme.palette.warning.main,
       };
     case DialogVariantEnum.CONVERT_STEP_INTO_EXIT:
     case DialogVariantEnum.DELETE_STEP:
@@ -76,7 +76,7 @@ const useCadenceUtilityButtons = (
 ): React.ComponentProps<typeof DialogWithBigIcon>['buttons'] => {
   const { t } = useTranslation('marketing');
 
-  const classicCancelButton = useMemo(
+  const defaultCancelButtonProps = useMemo(
     () => ({
       title: t('cadence.dialog.cancel'),
       fontColor: 'inherit',
@@ -89,9 +89,9 @@ const useCadenceUtilityButtons = (
   switch (variant) {
     case DialogVariantEnum.ACTIVE:
       return [
-        classicCancelButton,
+        defaultCancelButtonProps,
         {
-          title: t('cadence.activate.button'),
+          title: t('cadence.activate.dialog.confirmButton'),
           fontColor: '',
           backgroundColor: '',
           onClick: onConfirm,
@@ -99,20 +99,29 @@ const useCadenceUtilityButtons = (
       ];
     case DialogVariantEnum.ARCHIVE_WORKFLOW:
       return [
-        classicCancelButton,
+        defaultCancelButtonProps,
         {
-          title: t('cadence.dialog.confirm'),
+          title: t('cadence.archive.dialog.confirmButton'),
           fontColor: '',
-          backgroundColor: '',
+          backgroundColor: theme.palette.error.main,
           onClick: onConfirm,
         },
       ];
     case DialogVariantEnum.CONVERT_STEP_INTO_EXIT:
+      return [
+        defaultCancelButtonProps,
+        {
+          title: t('cadence.converStepToExit.dialog.confirmButton'),
+          fontColor: '',
+          backgroundColor: theme.palette.warning.main,
+          onClick: onConfirm,
+        },
+      ];
     case DialogVariantEnum.DELETE_STEP:
       return [
-        classicCancelButton,
+        defaultCancelButtonProps,
         {
-          title: t('cadence.dialog.confirm'),
+          title: t('cadence.deleteStep.dialog.confirmButton'),
           fontColor: '',
           backgroundColor: theme.palette.warning.main,
           onClick: onConfirm,
@@ -120,9 +129,9 @@ const useCadenceUtilityButtons = (
       ];
     case DialogVariantEnum.PAUSE_WORKFLOW:
       return [
-        classicCancelButton,
+        defaultCancelButtonProps,
         {
-          title: t('cadence.dialog.confirm'),
+          title: t('cadence.pause.dialog.confirmButton'),
           fontColor: '',
           backgroundColor: '',
           onClick: onConfirm,
@@ -130,7 +139,7 @@ const useCadenceUtilityButtons = (
       ];
     default:
       return [
-        classicCancelButton,
+        defaultCancelButtonProps,
         {
           title: t('cadence.dialog.confirm'),
           fontColor: '',
@@ -271,6 +280,7 @@ export const CadenceUtilityDialog: React.FC<Props> = ({
 const useStyles = makeStyles(() => ({
   button: {
     borderRadius: '4px',
+    width: '100%',
   },
 }));
 

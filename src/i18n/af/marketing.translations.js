@@ -547,8 +547,8 @@ exports.default = {
         secondHelper: 'You will not be able to edit it while it is launched.',
         firstHelper: 'Do you want to launch the cadence?',
         title: 'Launch the cadence',
+        confirmButton: 'Launch',
       },
-      button: 'Launch',
       setupBeforeActivationHelper:
         'Finish setting up your cadence and create your first marketing action to launch your cadence.',
     },
@@ -561,6 +561,7 @@ exports.default = {
           'Members currently in the cadence will automatically exit it. This cadence will be archived but you can reactivate it later.',
         beingArchived: 'You are about to delete {{ name }}.',
         title: 'Delete a cadence',
+        confirmButton: 'Archive',
       },
     },
     pause: {
@@ -568,6 +569,17 @@ exports.default = {
         title: 'Pause workflow',
         helper:
           'All member actions that happen during the pause will not be taken into account.',
+        confirmButton: 'Pause',
+      },
+    },
+    converStepToExit: {
+      dialog: {
+        confirmButton: 'Convert',
+      },
+    },
+    deleteStep: {
+      dialog: {
+        confirmButton: 'Delete',
       },
     },
     howTo: {

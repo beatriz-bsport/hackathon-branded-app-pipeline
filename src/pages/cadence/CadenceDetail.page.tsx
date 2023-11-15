@@ -113,6 +113,11 @@ import {
   fetchResolvedGenericTags as fetchResolvedGenericTagsAction,
   fetchTagList as fetchTagListAction,
 } from '#libs/notification-rule/actions';
+
+import UpsellBlocker from '#libs/platform-billing/components/UpsellBlocker.component';
+import { UPSELL_IDENTIFIER_CADENCE } from '#libs/platform-billing/upsell-identifiers';
+
+import CustomStarIcon from '#components/icons/CustomStarIcon.component';
 import { isMinimalCadenceConfigurationCompleted } from '#libs/sequential_marketing/utils';
 import {
   updateConnectedTriggerUuid,
@@ -336,6 +341,10 @@ export class CadenceDetailPage extends Component<Props> {
 
     return (
       <div className={classes.pageContainer}>
+        <UpsellBlocker
+          CustomIconComponent={<CustomStarIcon />}
+          upsellIdentifier={UPSELL_IDENTIFIER_CADENCE}
+        />
         <div className={classes.mainPanel}>
           <div className={classes.stickyTop}>
             <div
@@ -954,6 +963,7 @@ const styles = (theme: Theme) =>
       height: '100%',
       marginTop: -theme.spacing(2),
       backgroudColor: 'black',
+      position: 'relative',
     },
     whiteGreyBorderContainer: {
       backgroundColor: 'white',

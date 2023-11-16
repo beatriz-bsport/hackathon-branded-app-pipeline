@@ -6,55 +6,51 @@ import classNames from 'classnames';
 type Props = {
   value: number;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  required?: boolean;
   disabled?: boolean;
   error?: boolean;
   fullWidth?: boolean;
-  margin?: 'none' | 'normal' | 'dense';
-  label?: string;
-  InputProps: any;
   helperText?: string;
-  variant?: 'standard' | 'filled' | 'outlined';
-  isPositive?: boolean;
   id?: string;
-  name?: string;
-  size?: 'medium' | 'small';
-  placeholder?: string;
   inputClass?: string;
+  InputProps: any;
+  isPositive?: boolean;
+  label?: string;
+  margin?: 'none' | 'normal' | 'dense';
+  name?: string;
+  placeholder?: string;
+  required?: boolean;
+  size?: 'medium' | 'small';
+  variant?: 'standard' | 'filled' | 'outlined';
   onBlur?: FocusEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 };
 
-export function NumericInput(props: Props) {
-  const {
-    required,
-    disabled,
-    value,
-    label,
-    onChange,
-    error,
-    InputProps,
-    helperText,
-    variant,
-    isPositive,
-    onBlur,
-    id,
-    name,
-    size,
-    placeholder,
-    inputClass,
-  } = props;
-
+const NumericInput: React.FC<Props> = ({
+  value,
+  onChange,
+  disabled,
+  error,
+  fullWidth,
+  helperText,
+  id,
+  inputClass,
+  InputProps,
+  isPositive,
+  label,
+  margin,
+  name,
+  placeholder,
+  required,
+  size,
+  variant,
+  onBlur,
+}) => {
   const handleOnChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       if (onChange) {
         if (isPositive) {
-          return parseInt(event.target.value) >= 0
-            ? onChange(event)
-            : undefined;
-        }
-        return onChange(event);
+          parseInt(event.target.value) >= 0 && onChange(event);
+        } else onChange(event);
       }
-      return onChange;
     },
     [isPositive, onChange],
   );
@@ -64,12 +60,12 @@ export function NumericInput(props: Props) {
       className={classNames(inputClass)}
       disabled={disabled}
       error={error}
-      fullWidth={props.fullWidth}
+      fullWidth={fullWidth}
       helperText={helperText}
       id={id}
       InputProps={InputProps}
       label={label}
-      margin={props.margin}
+      margin={margin}
       name={name}
       onBlur={onBlur}
       onChange={handleOnChange}
@@ -81,6 +77,6 @@ export function NumericInput(props: Props) {
       variant={variant}
     />
   );
-}
+};
 
-export default NumericInput;
+export default React.memo(NumericInput);

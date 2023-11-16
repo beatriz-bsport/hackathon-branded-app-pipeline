@@ -10,9 +10,8 @@ import type {
   TriggerTimeoutConfig,
 } from '#libs/sequential_marketing/types';
 import useTimeOutContext from '../hooks/useTimeOutContext.hook';
-import { TRIGGER_DEFAULT_TIMEOUT_DAYS } from '#libs/sequential_marketing/constants';
 
-export type Props = {
+type Props = {
   trigger: ConnectedTrigger;
   updateValue: (trigger: ConnectedTrigger) => void;
 };
@@ -45,7 +44,7 @@ const TimeoutForm: React.FC<Props> = ({ trigger, updateValue }) => {
 
       let newTimeout: number;
       if (!inputValue) {
-        newTimeout = TRIGGER_DEFAULT_TIMEOUT_DAYS;
+        newTimeout = null;
       } else if (inputValue === '0') {
         newTimeout = 0;
       } else {
@@ -60,19 +59,15 @@ const TimeoutForm: React.FC<Props> = ({ trigger, updateValue }) => {
 
   React.useEffect(() => {
     const timeout = (trigger?.trigger_config as TriggerTimeoutConfig)?.timeout;
-    if (timeout) {
-      changeTimeOut(timeout);
-    } else if (timeoutValue) {
+    if (timeoutValue) {
       changeTimeOut(timeoutValue);
       handleUpdateTriggerWithNewTimeout(timeoutValue);
+    } else if (timeout || timeout === 0) {
+      changeTimeOut(timeout);
     }
-  }, [
-    changeTimeOut,
-    handleUpdateTriggerWithNewTimeout,
-    timeoutValue,
-    trigger,
-    updateValue,
-  ]);
+    // To prevent execution of useEffect when the trigger or timeout value changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [handleUpdateTriggerWithNewTimeout, changeTimeOut]);
 
   return (
     <>
@@ -86,7 +81,7 @@ const TimeoutForm: React.FC<Props> = ({ trigger, updateValue }) => {
           <NumericInput
             error={timeoutValue < 1}
             InputProps={{
-              inputProps: { step: 1, min: 1 },
+              inputProps: { step: 1, min: 0 },
             }}
             onChange={handleUpdateTimeout}
             value={timeoutValue}

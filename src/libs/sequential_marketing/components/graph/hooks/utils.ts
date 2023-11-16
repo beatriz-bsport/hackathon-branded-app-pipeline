@@ -3,6 +3,7 @@ import {
   DEFAULT_NODE_GAP,
   DestinationKind,
   FilterIdentifier,
+  TRIGGER_DEFAULT_TIMEOUT_DAYS,
   TRIGGER_TEMPORARY_ID,
   TriggerIdentifier,
   TriggerKind,
@@ -140,7 +141,7 @@ export const getConnectedTriggerDefaultValues = ({
         trigger_config: {
           uuid: TRIGGER_TEMPORARY_ID,
           identifier: TriggerIdentifier.TIMEOUT,
-          timeout: null,
+          timeout: TRIGGER_DEFAULT_TIMEOUT_DAYS,
         },
         destination_config: {
           source_id: source?.id || sourceId || null,
@@ -227,7 +228,7 @@ export const changeConnectedTriggerKind = (
         trigger_config: {
           uuid: connectedTrigger.trigger_config.uuid,
           identifier: TriggerIdentifier.TIMEOUT,
-          timeout: null,
+          timeout: TRIGGER_DEFAULT_TIMEOUT_DAYS,
         },
         filtering_config: {
           uuid: connectedTrigger.filtering_config.uuid,

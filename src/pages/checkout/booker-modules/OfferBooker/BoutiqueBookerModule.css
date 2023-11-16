@@ -66,6 +66,7 @@
     'main main';
   grid-template-rows: 5dvh calc(90dvh - 5dvh);
   gap: var(--spacing-4);
+  min-height: 0;
 }
 
 .bs-new-offer-booking__spot-selector__go-back-container {
@@ -193,6 +194,7 @@
     grid-area: main;
     overflow: scroll;
   }
+
   .bs-new-offer-booking__spot-selector__go-to-checkout {
     color: var(--color-primary-main);
     border-radius: var(--border-radius-4);

@@ -13735,7 +13735,8 @@
           "isRecommended": "Mark as recommended",
           "bookingOrPurchaseStatus": "Reservation and purchase status",
           "alertSeverity": "Severity",
-          "alertWithAction": "With button"
+          "alertWithAction": "With button",
+          "messageWithActions": "With buttons"
         },
         "configurationTitle": "Variations",
         "confirmationMessageComponentAlert": "This component primarily manages booking and payment statuses. For customizing its appearance, we recommend utilizing its root components located in common section"
@@ -13817,6 +13818,7 @@
         "marketplace_booker_module_buyable_item_contract": "Booking contract item",
         "marketplace_confirmation_checkout_message": "Booking confirmation message",
         "alert": "Alert",
+        "message_with_icon": "Message with icon",
         "fabrique_textfield": "TextField",
         "fabrique_action_tab": "Action tab",
         "fabrique_blanket": "Blanket",

@@ -232,6 +232,7 @@ exports.default = {
         bookingOrPurchaseStatus: 'Reservation and purchase status',
         alertSeverity: 'Severity',
         alertWithAction: 'With button',
+        messageWithActions: 'With buttons',
       },
       configurationTitle: 'Variations',
       confirmationMessageComponentAlert:
@@ -320,6 +321,7 @@ exports.default = {
       marketplace_booker_module_buyable_item_contract: 'Booking contract item',
       marketplace_confirmation_checkout_message: 'Booking confirmation message',
       alert: 'Alert',
+      message_with_icon: 'Message with icon',
       fabrique_textfield: 'TextField',
       fabrique_action_tab: 'Action tab',
       fabrique_blanket: 'Blanket',

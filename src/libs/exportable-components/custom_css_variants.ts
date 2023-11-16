@@ -258,6 +258,12 @@ import {
   CONFIRMATION_CHECKOUT_MESSAGE_PREVIEW,
 } from '#libs/checkout/components/ConfirmationMessage';
 import { ALERT_CONFIGURATION, ALERT_PREVIEW } from '#components/css-only/Alert';
+
+import {
+  MESSAGE_WITH_ICON_CONFIGURATION,
+  MESSAGE_WITH_ICON_PREVIEW,
+} from '#components/css-only/StatusMessageWithIcon';
+
 /* TEMPLATE
 
 {
@@ -322,6 +328,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
   BOOKER_MODULE_BUYABLE_ITEM_CONTRACT_CONFIGURATION,
   CONFIRMATION_CHECKOUT_MESSAGE_CONFIGURATION,
   ALERT_CONFIGURATION,
+  MESSAGE_WITH_ICON_CONFIGURATION,
   ...(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production'
     ? [
         FABRIQUE_TYPOGRAPHY_CONFIGURATION,
@@ -451,6 +458,8 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
     [CssComponentsVariantIdentifiers.CONFIRMATION_CHECKOUT_MESSAGE]:
       CONFIRMATION_CHECKOUT_MESSAGE_PREVIEW,
     [CssComponentsVariantIdentifiers.ALERT]: ALERT_PREVIEW,
+    [CssComponentsVariantIdentifiers.MESSAGE_WITHOUT_ICON]:
+      MESSAGE_WITH_ICON_PREVIEW,
     ...(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' && {
       [CssComponentsVariantIdentifiers.FABRIQUE_TYPOGRAPHY]:
         FABRIQUE_TYPOGRAPHY_PREVIEW,

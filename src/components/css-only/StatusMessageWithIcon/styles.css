@@ -11,6 +11,7 @@
   gap: var(--spacing-1);
   flex-direction: column;
   padding-bottom: var(--spacing-1);
+  align-items: center;
 }
 
 .bs-status-message-with-icon__title {

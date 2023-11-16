@@ -18,6 +18,7 @@ import {
   archiveCadence as archiveCadenceAction,
   restoreCadence as restoreCadenceAction,
 } from '#libs/sequential_marketing/actions';
+
 import {
   getEnabledCadencesList,
   getArchivedCadencesList,
@@ -28,6 +29,11 @@ import CadenceManagerFab from '#libs/sequential_marketingDEPRECATED/components/C
 import CadenceUtilityDialog, {
   DialogVariant,
 } from '#libs/sequential_marketing/components/dialogs/DialogUtility';
+
+import UpsellBlocker from '#libs/platform-billing/components/UpsellBlocker.component';
+import { UPSELL_IDENTIFIER_CADENCE } from '#libs/platform-billing/upsell-identifiers';
+
+import CustomStarIcon from '#components/icons/CustomStarIcon.component';
 import CadenceCreateAndUpdateForm from '#libs/sequential_marketing/components/form/CadenceCreateAndUpdateForm.component';
 
 import type { RootState } from '../../reducers';
@@ -127,6 +133,10 @@ export class CadenceDetailPage extends Component<Props> {
     ) {
       return (
         <div className={classes.centerHorizontal}>
+          <UpsellBlocker
+            CustomIconComponent={<CustomStarIcon />}
+            upsellIdentifier={UPSELL_IDENTIFIER_CADENCE}
+          />
           <div className={classes.centerVertical}>
             <Alert
               classes={{
@@ -162,6 +172,10 @@ export class CadenceDetailPage extends Component<Props> {
     return (
       <>
         <div className={classes.pageContainer}>
+          <UpsellBlocker
+            CustomIconComponent={<CustomStarIcon />}
+            upsellIdentifier={UPSELL_IDENTIFIER_CADENCE}
+          />
           <div className={classes.pageColumn}>
             <Alert
               classes={{
@@ -340,6 +354,9 @@ const styles = (theme: Theme) =>
     pageContainer: {
       display: 'flex',
       gap: theme.spacing(2),
+      height: '100%',
+      width: '100%',
+      position: 'relative',
     },
     pageColumn: {
       paddingTop: theme.spacing(2),

@@ -106,7 +106,7 @@ export const CONFIRMATION_CHECKOUT_MESSAGE_CONFIGURATION: MarketplaceCSSComponen
   {
     label: CssComponentsVariantIdentifiers.CONFIRMATION_CHECKOUT_MESSAGE,
     css: ConfirmationMessageCss,
-    pages: [MarketplacePage.BOOKING_PAGE],
+    pages: [MarketplacePage.CHECKOUT_CONFIRMATION],
     defaultState: {},
     variations: VariationRegistry,
   };

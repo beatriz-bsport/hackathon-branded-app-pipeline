@@ -158,6 +158,12 @@ exports.default = {
           purchaseWithPassesSuccess: 'Payment confirmed',
           purchaseWithItemsSuccess: '',
         },
+        alert: {
+          success: 'Success',
+          info: 'Info',
+          warning: 'Warning',
+          error: 'Error',
+        },
       },
       title: {
         nextOffer: 'Next session available',
@@ -224,6 +230,8 @@ exports.default = {
         displayCaptionText: 'Display the caption text',
         isRecommended: 'Mark as recommended',
         bookingOrPurchaseStatus: 'Reservation and purchase status',
+        alertSeverity: 'Severity',
+        alertWithAction: 'With button',
       },
       configurationTitle: 'Variations',
       confirmationMessageComponentAlert:
@@ -239,6 +247,7 @@ exports.default = {
       fabrique: 'Fabrique',
       authentication: 'Authentication',
       spot_scheduling: 'Spot scheduling',
+      checkoutConfirmationPage: 'Confirmation de paiment',
     },
     components: {
       calendar: 'Calendar page',
@@ -310,6 +319,7 @@ exports.default = {
       marketplace_booker_module_buyable_item_payment_pack: 'Booking pass item',
       marketplace_booker_module_buyable_item_contract: 'Booking contract item',
       marketplace_confirmation_checkout_message: 'Booking confirmation message',
+      alert: 'Alert',
       fabrique_textfield: 'TextField',
       fabrique_action_tab: 'Action tab',
       fabrique_blanket: 'Blanket',

@@ -23,9 +23,9 @@ const OfferBookingWaitingListStatusIcon: React.FC<Props> = ({ isError }) => {
         )}
       >
         {isError ? (
-          <Block style={{ fontSize: 40 }} />
+          <Block fontSize="large" />
         ) : (
-          <HourglassFull style={{ fontSize: 40 }} />
+          <HourglassFull fontSize="large" />
         )}
       </div>
     </div>

@@ -75,6 +75,7 @@ export enum CssComponentsVariantIdentifiers {
   BOOKER_MODULE_BUYABLE_ITEM_PAYMENT_COMBO = 'marketplace_booker_module_buyable_item_payment_combo',
   BOOKER_MODULE_BUYABLE_ITEM_PAYMENT_PACK = 'marketplace_booker_module_buyable_item_payment_pack',
   BOOKER_MODULE_BUYABLE_ITEM_CONTRACT = 'marketplace_booker_module_buyable_item_contract',
+  CONFIRMATION_CHECKOUT_MESSAGE = 'marketplace_confirmation_checkout_message',
   FABRIQUE_TYPOGRAPHY = 'fabrique_typography',
   FABRIQUE_CARD = 'fabrique_card',
   FABRIQUE_BADGE = 'fabrique_badge',

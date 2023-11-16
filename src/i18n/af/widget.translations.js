@@ -145,6 +145,19 @@ exports.default = {
         password: 'Password',
         contained: 'Contained',
         outlined: 'Outlined',
+        confirmationMessage: {
+          generic: 'Error while processing transaction',
+          genericOfferError: 'Reservation failed unexpectedly',
+          offerOnlyBookingError: 'Session cannot be booked anymore',
+          offerOnlySuccess: 'Successful reservation',
+          offerAndPurchaseSuccess: 'Reservation and purchases processed',
+          purchaseOnlySuccess: 'Purchase processed',
+          offerAndPurchaseGenericError:
+            'Reservation and purchase failed (retry)',
+          waitingList: 'Registered on waiting list',
+          purchaseWithPassesSuccess: 'Payment confirmed',
+          purchaseWithItemsSuccess: '',
+        },
       },
       title: {
         nextOffer: 'Next session available',
@@ -210,8 +223,11 @@ exports.default = {
         isInversed: "Element's color inversed",
         displayCaptionText: 'Display the caption text',
         isRecommended: 'Mark as recommended',
+        bookingOrPurchaseStatus: 'Reservation and purchase status',
       },
       configurationTitle: 'Variations',
+      confirmationMessageComponentAlert:
+        'This component primarily manages booking and payment statuses. For customizing its appearance, we recommend utilizing its root components located in common section',
     },
     page: {
       calendar: 'Calendar',
@@ -293,6 +309,7 @@ exports.default = {
       marketplace_booker_module_buyable_item_payment_combo: 'Booking pack item',
       marketplace_booker_module_buyable_item_payment_pack: 'Booking pass item',
       marketplace_booker_module_buyable_item_contract: 'Booking contract item',
+      marketplace_confirmation_checkout_message: 'Booking confirmation message',
       fabrique_textfield: 'TextField',
       fabrique_action_tab: 'Action tab',
       fabrique_blanket: 'Blanket',

@@ -60,12 +60,13 @@ export const EstablishmentBillingGroupTable = (props: Props) => {
               <TableRow key={group.id}>
                 <TableCell> {group.name}</TableCell>
                 <TableCell>
-                  {group.address || t('group.table.noAdress')}
+                  {group.address || t('group.table.noAddress')}
                 </TableCell>
                 <TableCell>
                   {group.establishments &&
                     group.establishments.map((est) => (
                       <Chip
+                        key={est.id}
                         avatar={
                           <Avatar alt={`${est.title}`} src={`${est.cover}`} />
                         }

@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import uniq from 'lodash/uniq';
+import uniqBy from 'lodash/uniqBy';
 import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
@@ -122,13 +123,13 @@ export function EstablishmentBillingGroupForm(props: Props) {
       return true;
     }
 
-    return establishments
-      .map((establishment_id) => establishmentDataById?.[establishment_id])
-      .map((establishment) => establishment.location.address)
-      .every(
-        (address) =>
-          address === establishmentDataById[establishments[0]].location.address,
-      );
+    return (
+      uniqBy(
+        establishments,
+        (establishmentId) =>
+          establishmentDataById?.[establishmentId]?.location?.address,
+      ).length === 1
+    );
   };
 
   return (
@@ -140,6 +141,7 @@ export function EstablishmentBillingGroupForm(props: Props) {
               establishments: [
                 ...props.initial.establishments.map((est) => est.id),
               ],
+              address: props.initial.address || '',
             }
           : {
               name: '',

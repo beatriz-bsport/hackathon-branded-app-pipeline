@@ -3,24 +3,34 @@
 set -e
 
 FEATURE_BRANCH_IDENTIFIER=$1
+echo "FEATURE_BRANCH_IDENTIFIER: $FEATURE_BRANCH_IDENTIFIER"
 
 echo cloning saas repo
 git clone https://${GIT_USERNAME}:${GIT_PASSWORD}@gitlab.com/bsport/bsport-saas.git /bsport-saas
 
 cd /bsport-saas
+
+SAAS_TO_CHECKOUT=$CI_COMMIT_REF_NAME
+
 if [ $CI_COMMIT_REF_NAME != "dev" ] && [ $CI_COMMIT_REF_NAME != "master" ] && [ $CI_COMMIT_REF_NAME != "production" ]
 then
-	if [ -z $CI_COMMIT_TAG ] # if there is no tag here, let's take dev
-	then
-	  CI_COMMIT_REF_NAME="dev"
-	fi
+	SAAS_TO_CHECKOUT="dev"
 fi
-echo checkout saas to $CI_COMMIT_REF_NAME
-git checkout $CI_COMMIT_REF_NAME
+
+if [ -z $FEATURE_BRANCH_IDENTIFIER ] # if there is tag here, let's take dev
+then
+	echo not feature branch
+else
+	echo feature branch ?
+	SAAS_TO_CHECKOUT=deploy-frontend-only-$FEATURE_BRANCH_IDENTIFIER
+fi
+
+echo checkout saas to $SAAS_TO_CHECKOUT
+git checkout $SAAS_TO_CHECKOUT
+
 rm -fr /bsport-saas/.git/
 mkdir -p ./build
 
-echo "FEATURE_BRANCH_IDENTIFIER: $FEATURE_BRANCH_IDENTIFIER"
 
 if [ -z $FEATURE_BRANCH_IDENTIFIER ]
 then

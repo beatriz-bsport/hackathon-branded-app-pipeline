@@ -1,3 +1,8 @@
+const {
+  UPSELL_IDENTIFIER_INBOX,
+  UPSELL_IDENTIFIER_CADENCE,
+} = require('#libs/platform-billing/upsell-identifiers');
+
 exports.default = {
   paymentMethod: {
     actions: { createCard: 'Add a card', createSepa: 'Add IBAN' },
@@ -31,10 +36,15 @@ exports.default = {
     seeMore: 'See more',
     sms: { explainBilling: '{{ price_cts }} / SMS' },
     lockDialog: {
-      33: {
+      [UPSELL_IDENTIFIER_INBOX]: {
         intro: 'Discover our new interface of direct chat with your members.',
         explain:
           "You'll find here all your direct discussions, chats linked to your sessions, and your smartlist campaigns. The chat is compatible with SMS, email and push notifications.",
+      },
+      [UPSELL_IDENTIFIER_CADENCE]: {
+        intro: 'Unlock Audience access',
+        explain:
+          'This feature is an add-on, please contact your account manager to get more information.',
       },
       requestAccess: 'Request access',
     },

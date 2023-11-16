@@ -320,7 +320,8 @@ export class ConfirmationCheckout extends React.PureComponent<Props, State> {
       this.props.isLevelLoading ||
       this.props.isCoachLoading ||
       this.props.arePassesLoading ||
-      this.props.isMetaActivityLoading
+      this.props.isMetaActivityLoading ||
+      this.props.isOfferStatusLoading
     );
   };
 
@@ -743,6 +744,7 @@ const mapStateToProps = (
   hideCoach: themeSelectors.getTheme(state).hideCoach,
   isBasketLoading: state.checkout.basket.loading,
   isOfferLoading: state.offer.bulk.loading,
+  isOfferStatusLoading: state.offer.offerStatus.loading,
   isEstablishmentLoading: state.establishment.loading,
   isLevelLoading: state.level.loading,
   isCoachLoading: state.coach.loading,

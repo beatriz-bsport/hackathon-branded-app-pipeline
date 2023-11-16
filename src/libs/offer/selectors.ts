@@ -430,7 +430,7 @@ const getBookableStatusData = (state: RootState) =>
 
 export const getOfferBookableStatus = createSelector(
   [getBookableStatusData, (_: RootState, offerId: number) => offerId],
-  (bookableStatusData, offerId) => bookableStatusData[offerId].bookable_status,
+  (bookableStatusData, offerId) => bookableStatusData[offerId]?.bookable_status,
 );
 
 export const withBookableStatus = memoize(

@@ -209,6 +209,7 @@ exports.default = {
         isChecked: 'Is in checked state',
         isInversed: "Element's color inversed",
         displayCaptionText: 'Display the caption text',
+        isRecommended: 'Mark as recommended',
       },
       configurationTitle: 'Variations',
     },
@@ -289,6 +290,7 @@ exports.default = {
       marketplace_spot_selector: 'Spot scheduling selector',
       marketplace_booker_module_buyable_items_list:
         'Booking pass selection (container)',
+      marketplace_booker_module_buyable_item_payment_combo: 'Booking pack item',
       fabrique_textfield: 'TextField',
       fabrique_action_tab: 'Action tab',
       fabrique_blanket: 'Blanket',

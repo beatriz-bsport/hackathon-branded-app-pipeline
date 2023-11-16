@@ -238,6 +238,11 @@ import {
   BOOKER_MODULE_BUYABLE_ITEMS_LIST_PREVIEW,
 } from '#marketplacecomponents/@BuyableItem/MarketplaceBookerModuleBuyableItems';
 
+import {
+  BOOKER_MODULE_BUYABLE_ITEM_PAYMENT_COMBO_CONFIGURATION,
+  BOOKER_MODULE_BUYABLE_ITEM_PAYMENT_COMBO_PREVIEW,
+} from '#marketplacecomponents/@BuyableItem/MarketplacePaymentComboBuyableItem';
+
 /* TEMPLATE
 
 {
@@ -297,6 +302,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
   MARKETPLACE_BOOKER_MODULE_OFFER_SUMMARY_CONFIGURATION,
   MARKETPLACE_SPOT_SELECTOR_CONFIGURATION,
   BOOKER_MODULE_BUYABLE_ITEMS_LIST_CONFIGURATION,
+  BOOKER_MODULE_BUYABLE_ITEM_PAYMENT_COMBO_CONFIGURATION,
   ...(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production'
     ? [
         FABRIQUE_TYPOGRAPHY_CONFIGURATION,
@@ -415,10 +421,10 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
       MARKETPLACE_BOOKER_MODULE_OFFER_SUMMARY_PREVIEW,
     [CssComponentsVariantIdentifiers.MARKETPLACE_SPOT_SELECTOR]:
       MARKETPLACE_SPOT_SELECTOR_PREVIEW,
-
     [CssComponentsVariantIdentifiers.BOOKER_MODULE_BUYABLE_ITEMS_LIST]:
       BOOKER_MODULE_BUYABLE_ITEMS_LIST_PREVIEW,
-
+    [CssComponentsVariantIdentifiers.BOOKER_MODULE_BUYABLE_ITEM_PAYMENT_COMBO]:
+      BOOKER_MODULE_BUYABLE_ITEM_PAYMENT_COMBO_PREVIEW,
     ...(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' && {
       [CssComponentsVariantIdentifiers.FABRIQUE_TYPOGRAPHY]:
         FABRIQUE_TYPOGRAPHY_PREVIEW,
@@ -439,5 +445,6 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
         FABRIQUE_RADIOBUTTON_PREVIEW,
     }),
   });
+
 export const CSS_COMPONENT_PAGES: Immutable.Immutable<MarketplacePage[]> =
   Immutable(Array.from(new Set(CSS_COMPONENTS.flatMap((c) => c.pages))));

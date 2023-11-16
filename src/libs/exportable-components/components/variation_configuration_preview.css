@@ -164,3 +164,7 @@ We need to brutally override some things from MUI.
   align-items: center;
   justify-content: center;
 }
+
+.bs-custom-css__component__preview .bs-payment-combo-buyable-item__card {
+  width: 100%;
+}

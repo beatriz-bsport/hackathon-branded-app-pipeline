@@ -71,6 +71,7 @@ export enum CssComponentsVariantIdentifiers {
   BOOKER_MODULE_OFFER_SUMMARY = 'booker_module_offer_summary',
   MARKETPLACE_MINIMAL_APPBAR = 'marketplace_minimal_appbar',
   MARKETPLACE_SPOT_SELECTOR = 'marketplace_spot_selector',
+  BOOKER_MODULE_BUYABLE_ITEMS_LIST = 'marketplace_booker_module_buyable_items_list',
   FABRIQUE_TYPOGRAPHY = 'fabrique_typography',
   FABRIQUE_CARD = 'fabrique_card',
   FABRIQUE_BADGE = 'fabrique_badge',

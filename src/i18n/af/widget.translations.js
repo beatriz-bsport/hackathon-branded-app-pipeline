@@ -287,6 +287,8 @@ exports.default = {
       marketplace_minimal_appbar: 'Minimal AppBar',
       fabrique_badge: 'Badge',
       marketplace_spot_selector: 'Spot scheduling selector',
+      marketplace_booker_module_buyable_items_list:
+        'Booking pass selection (container)',
       fabrique_textfield: 'TextField',
       fabrique_action_tab: 'Action tab',
       fabrique_blanket: 'Blanket',

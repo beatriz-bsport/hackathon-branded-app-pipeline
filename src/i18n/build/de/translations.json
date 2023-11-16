@@ -49,6 +49,10 @@
             },
             "display_member_position": {
                 "label": "Die Position in der Warteliste anzeigen"
+            },
+            "kick_if_no_pack_when_auto_consume": {
+                "label": "Automatisches Streichen des Mitglieds von der Warteliste, wenn es keinen gültigen Kurspass mehr hat, wenn sein Platz frei wird",
+                "helper": "Ein Mitglied könnte sein Guthaben für eine andere Sitzung verwenden, während es auf der Warteliste steht. Wenn diese Einstellung aktiviert ist, wird sein Platz auf der Warteliste automatisch gelöscht, wenn er an der Reihe ist, sich anzumelden."
             }
         },
         "explainWaitingListConf": "Z.B : Es sind noch drei Stunden bis zum Kursbeginn, der Schüler hat {{ nbMinutesBeforeBookingOptionExpire }} Minuten um seine Reservierung zu bestätigen, bevor er seinen Platz verlässt.",
@@ -67,7 +71,7 @@
                     "title": "Sind Sie sicher?"
                 },
                 "loading": {
-                    "content": "Bitte aktualisieren Sie nicht diese Seite oder verlassen diese. Dieser Prozess kann bis zu 40 Sekunden dauern",
+                    "content": "Bitte aktualisieren Sie nicht diese Seite oder verlassen diese. Dieser Prozess kann ein paar Sekunden dauern.",
                     "title": "Mitglieder werden zur Session hinzugefügt"
                 },
                 "info": {
@@ -80,6 +84,17 @@
                 "error": {
                     "content": "Die Mitglieder konnten nicht zur Session hinzugefügt werden. Bitte versuchen Sie es erneut",
                     "title": "Die automatische Buchung ist fehlgeschlagen"
+                },
+                "incomplete": {
+                    "actions": {
+                        "bookThem": "Manuell einbuchen",
+                        "ok": "Ok"
+                    },
+                    "content": {
+                        "unregistered": "Die folgenden Mitglieder konnten NICHT registriert werden, da kein kompatibler Kurspass gefunden werden konnte",
+                        "registered": "Die folgenden Mitglieder wurden registriert, da ein kompatibler Kurspass gefunden wurde:"
+                    },
+                    "title": "Schließen Sie Ihre Warteliste ab"
                 }
             },
             "confirm": "Bestätigen",
@@ -3000,7 +3015,12 @@
                         "placeholder": "Maximal",
                         "helperText": "Dies ist die Maximalanzahl der künftig gebuchten Workshop-Sessions pro Mitglied."
                     }
-                }
+                },
+                "waitingListAccountsForMaxFutureBookings": {
+                    "helperText": "Wenn aktiviert, wird die Anzahl der zukünftigen Buchungen um die Anzahl der registrierten zukünftigen Wartelistenplätze verringert. Künftige Wartelistenplätze werden ebenfalls auf der Grundlage dieser Anzahl eingeschränkt, um Überbuchungen zu vermeiden.",
+                    "label": "Wartelisteplätze in die Anzahl maximaler zukünftiger Buchungen/Workshops inkludieren"
+                },
+                "bookingLimitation": "Golabel Buchungsbeschränkungen"
             },
             "submit": "Speichern",
             "instagramURL": {
@@ -5955,7 +5975,9 @@
             "referred_discount_use_date": "Datum der Nutzung des Empfehlungsrabatts",
             "referred_member_email": "Email des geworbenen Miglieds",
             "referring_member_total_reward": "Belohnung vom werbenden Mitglied erhalten",
-            "coupon_type": "Typ"
+            "coupon_type": "Typ",
+            "waiting_list_max_size": "Wartelistenkapazität",
+            "nb_option": "Auf der Warteliste"
         },
         "no": "Nein",
         "yes": "Ja",
@@ -7058,7 +7080,8 @@
             "2025": "Dieser Pass kann nicht mehr gekauft werden, da sein Verfallsdatum überschritten wurde",
             "1122": "Dieses Paket kann nicht mehr gekauft werden, da das Gültigkeitsdatum abgelaufen ist",
             "11114": "Dieser Terminpass kann nicht mehr gekauft werden, da sein Gültigkeitsdatum abgelaufen ist",
-            "23001": "Es ist kein Pass für die Eintragung in die Warteliste verfügbar"
+            "23001": "Es ist kein Pass für die Eintragung in die Warteliste verfügbar",
+            "23002": "Sie haben die maximale Anzahl an zukünftigen Buchungen / Wartelistplätzen erreicht, Sie können nicht mehr registrieren"
         },
         "signup": {
             "emailAlreadyExists": "Diese E-Mail ist bereits in Gebrauch",
@@ -12034,7 +12057,7 @@
             "24": "Das Abonnement ist erstellt",
             "453": "Geänderte Uhrzeit (Schüler)",
             "452": "Neuer Termin (Schüler)",
-            "13": "Abmeldung von der Warteliste (Schüler)",
+            "13": "Ein Mitglied hat sich selbst von der Warteliste gestrichen",
             "6": "Anmeldung als Mitglied (Schüler)",
             "18": "Buchung storniert : Credits zurückerstattet",
             "17": "Buchung storniert : Credits werden nicht zurückerstattet",
@@ -12049,8 +12072,8 @@
             "21": "Neue Buchung",
             "403": "Geänderte Uhrzeit (Lehrkraft)",
             "26": "Abonnement unterbrochen",
-            "14": "Abmeldung von der Warteliste (Mitarbeiter)",
-            "9": "Die Warteliste verlassen : Buchung möglich",
+            "14": "Ein Mitglied wurde vom Studio von der Warteliste gestrichen",
+            "9": "Ein Buchungsplatz ist verfügbar",
             "10": "Der Wartelistenplatz ist abgelaufen",
             "300": "Kick (nicht zu oft rechtzeitig validiert)",
             "22": "Rechnungsbestätigung",
@@ -13565,31 +13588,31 @@
         "error": {
             "invalidEmail": "Diese E-Mail existiert nicht in unserer Datenbank",
             "authError": "Falsche E-Mail oder falsches Passwort",
-            "invalidPassword": "Das Passwort ist ungültig"
+            "invalidPassword": "Passwort ungültig"
         },
         "tempPassword": {
-            "explainRequest": "Frage nach einem temporären Passwort, das z.B 2 Stunden lang gültig ist, damit sich unser Team für einen begrenzten Zeitraum mit Deinem Konto verbinden kann. Dein Hauptpasswort bleibt unverändert.",
+            "explainRequest": "Fragen Sie nach einem temporären Passwort, das z.B. 2 Stunden lang gültig ist, damit sich unser Team für einen begrenzten Zeitraum mit Ihrem Konto verbinden kann. Ihr Hauptpasswort bleibt unverändert.",
             "explain": "Dieses Passwort ist bis {{expirationDate }} gültig. Ihr Hauptpasswort ändert sich nicht.",
-            "submit": "Erzeugen",
+            "submit": "Generieren",
             "title": "Provisorisches Passwort",
             "close": "Schließen",
             "copied": "Passwort kopiert",
-            "copy": "Kopiere das Passwort in die Zwischenablage"
+            "copy": "Passwort in die Zwischenablage kopieren"
         },
         "doubleLogin": {
-            "explain": "Deine Session ist abgelaufen. Du hast Dich bei zwei verschiedenen Konten gleichzeitig eingeloggt oder Du hast Dich von einer anderen Rubrik/einem anderen Fenster ausgeloggt.",
+            "explain": "Ihre Session ist abgelaufen. Sie haben sich bei zwei verschiedenen Konten gleichzeitig eingeloggt oder Sie haben sich von einer anderen Rubrik/einem anderen Fenster ausgeloggt.",
             "disconnect": "Erneut einloggen"
         },
         "signup": {
             "title": "Anmeldung"
         },
-        "contactUs": "Du bist als Studio-Manager an unserer Lösung interessiert? Dann kontaktiere uns.",
+        "contactUs": "Sie sind als Studio-Manager an unserer Lösung interessiert? \nBitte kontaktieren Sie uns.",
         "or": " oder ",
         "actions": {
             "signin": "Einloggen",
             "signup": {
                 "register": "Mich anmelden",
-                "noAccount": "Noch kein Konto?"
+                "noAccount": "Neues Konto erstellen"
             },
             "forgottenPassword": "Passwort vergessen?"
         },
@@ -13623,7 +13646,7 @@
             "CZ": "Tschechische Republik",
             "GR": "Griechenland",
             "IN": "Indien",
-            "MY": "Malaiisch",
+            "MY": "Malaysien",
             "LV": "Lettland",
             "LT": "Litauen",
             "NZ": "Neuseeland",
@@ -13643,7 +13666,7 @@
         "signupCompany": {
             "form": {
                 "next": "Bestätigen",
-                "previous": "Zurück",
+                "previous": "Vorherige",
                 "country": {
                     "label": "Land"
                 },
@@ -13655,14 +13678,14 @@
                     "label": "Passwort"
                 },
                 "email": {
-                    "errorExists": "Diese E-Mail existiert bereits, bitte wähle eine andere.",
+                    "errorExists": "Diese E-Mail existiert bereits, bitte wählen Sie eine andere.",
                     "placeholder": "me@bsport.io",
                     "label": "E-Mail"
                 },
                 "name": {
-                    "helperText": "Dieser Name ist für Deine Mitglieder sichtbar",
+                    "helperText": "Dieser Name ist für Ihre Mitglieder sichtbar",
                     "placeholder": "Yoga Shala",
-                    "label": "Name Deines Studios/Klubs/Unternehmens"
+                    "label": "Name Ihres Studios"
                 },
                 "title": "Meine Informationen",
                 "timezone": {
@@ -13671,36 +13694,36 @@
             },
             "welcome": {
                 "next": "Weiter",
-                "content": "Bsport ist ein Zusammenschluss von Enthusiasten, deren Ziel es ist, Deine IT-Tools zu vereinfachen und Dir ein besseres Verständnis Deiner Community zu ermöglichen.",
-                "title": "Herzlich Willkommen !"
+                "content": "Bsport ist ein Zusammenschluss von Enthusiasten, deren Ziel es ist, Ihre IT-Tools zu vereinfachen und Ihnen ein besseres Verständnis Ihrer Community zu ermöglichen.",
+                "title": "Herzlich Willkommen!"
             }
         },
         "emailValidation": {
             "disconnect": "Konto ändern",
             "goToLogin": "Zurück",
             "linkExpired": "Dein Bestätigungslink ist abgelaufen",
-            "hasSentAgain": "Die E-Mail wurde gesendet",
-            "sendAgain": "Eine Bestätigungs-E-Mail nochmals senden",
-            "success": "Deine E-Mail wurde bestätigt, Du wirst in wenigen Sekunden umgeleitet.",
-            "explain": "Wir haben Dir eine Bestätigungs-E-Mail geschickt!"
+            "hasSentAgain": "E-Mail gesendet",
+            "sendAgain": "Bestätigungs-E-Mail nochmal senden",
+            "success": "Ihre E-Mail wurde bestätigt, Sie werden in wenigen Sekunden weitergeleitet.",
+            "explain": "Wir haben Ihnen eine Bestätigungs-E-Mail geschickt!"
         },
         "language": {
-            "es": "spanisch",
-            "nl": "niederländisch",
-            "it": "italienisch",
-            "de": "deutsch",
-            "fr": "französisch",
+            "es": "Spanisch",
+            "nl": "Niederländisch",
+            "it": "Italienisch",
+            "de": "Deutsch",
+            "fr": "Französisch",
             "en": "Englisch",
-            "pt": "portugiesisch",
-            "cs": "tschechisch"
+            "pt": "Portugiesisch",
+            "cs": "Tschechisch"
         },
         "signin": {
-            "connect": "Melden Sie sich an, um fortzufahren.",
+            "connect": "Bitte melden Sie sich an, um fortzufahren.",
             "connection": "Verbindung",
-            "selectYourCurrentEmail": "Wählen Sie Ihre aktuelle Anmeldeadresse."
+            "selectYourCurrentEmail": "Wählen Sie Ihre aktuellen Anmeldedaten."
         },
         "accountConfiguration": {
-            "bankAccountSuccess": "Ihre IBAN ist validiert. Sie können diese Informationen später im Backoffice in den Unternehmenseinstellungen ändern.",
+            "bankAccountSuccess": "Ihre IBAN wurde validiert. Sie können diese Informationen später im Backoffice in den Unternehmenseinstellungen ändern.",
             "bankAccount": {
                 "owner_address": "Adresse des Eigentümers",
                 "address": "Adresse",
@@ -13716,7 +13739,7 @@
             "accountSuccess": "Ihr Stripe-Konto wurde erstellt. Sie können diese Informationen später im Backoffice in den Unternehmenseinstellungen ändern.",
             "welcomeDescription": "Wir freuen uns, Sie auf Ihrer neuen Plattform begrüßen zu dürfen. Bitte führen Sie die folgenden Schritte aus, um mit der Plattform zu beginnen.",
             "cardStep": "Zahlungsmethode",
-            "configureStripe": "Es ist erforderlich, Ihr Stripe-Konto zu konfigurieren, um fortzufahren.",
+            "configureStripe": "Es ist notwendig, Ihr Stripe-Konto zu konfigurieren, um fortzufahren.",
             "companyName": "Name des Unternehmens",
             "stripeConfiguration": "Stripe-Konfiguration",
             "stripeConfigurationExplain": "Sie werden zu Stripe weitergeleitet. Wenn Sie das Formular ausfüllen, kehren Sie zu Ihrem Back Office zurück, um die Konfiguration abzuschließen.",
@@ -13732,7 +13755,7 @@
             "finishStep": "Fertig!",
             "infoGoingBack": "Sie können dies später nachholen, wenn Sie diese Seite verlassen.",
             "configureMyStripeAccount": "Meinen Stripe-Account konfigurieren",
-            "welcomeTitle": "Willkommen bei Bsport",
+            "welcomeTitle": "Willkommen bei Bsport!",
             "goToBackoffice": "Klicken Sie auf \"Los geht's\", um zum Backoffice weitergeleitet zu werden.",
             "stripeStep": "Stripe-Konfiguration",
             "ibanStep": "IBAN",
@@ -13744,7 +13767,7 @@
             "textExplain": "Sie haben soeben eine Bestätigungs-E-Mail erhalten, um Ihre E-Mail-Adresse zu bestätigen. Um Ihre Anmeldung abzuschließen, klicken Sie auf den Link, um Ihr Konto zu aktivieren.",
             "dialog": {
                 "cannotBeResent": "Eine E-Mail wurde bereits versendet. Wenn Sie in {{timeLeftBeforeNewSent}} Minuten noch nichts erhalten haben, versuchen Sie es bitte erneut. Vergessen Sie nicht, Ihren Spam zu überprüfen.",
-                "title": "Senden Sie die Bestätigungsmail erneut",
+                "title": "Bestätigungsmail erneut senden",
                 "canBeResent": "Bevor Sie die Bestätigungsmail erneut versenden, überprüfen Sie bitte Ihren Spam-Ordner und laden Sie Ihre Mailbox neu. Wenn Sie nichts erhalten haben, klicken Sie bitte auf den Button \"Senden\".",
                 "send": "Senden",
                 "cancel": "Abbrechen",
@@ -13768,7 +13791,7 @@
             "stripeAccount": "Stripe-Account",
             "infoDateBlocked": "Bitte konfigurieren Sie Ihr Stripe-Konto vor {{ dateAccountIsBLockedFormattedLL }}, um weiterhin von den Diensten von Bsport zu profitieren.",
             "actionRegularize": "Stripe-Account konfigurieren",
-            "info": "Bitte konfigurieren Sie Ihr Stripe-Konto, um weiterhin die Dienste von Bsport nutzen zu können."
+            "info": "Bitte konfigurieren Sie Ihren Stripe-Account, um weiterhin die Dienste von Bsport nutzen zu können."
         },
         "regularizeInvoice": {
             "needPaymentMethod": {
@@ -15694,21 +15717,21 @@
     "marketing": {
         "newsletter": {
             "messages": {
-                "error": "Momentan kann die E-Mail nicht registriert werden",
-                "success": "Erfolg!"
+                "error": "Momentan kann die E-Mail nicht gespeichert werden",
+                "success": "Gespeichert!"
             },
             "form": {
                 "validate": "Bestätigen",
                 "lastName": "Nachname",
                 "firstName": "Vorname",
                 "email": "E-Mail-Adresse",
-                "title": "Abonniere unseren Newsletter"
+                "title": "Abonnieren Sie unseren Newsletter, um relevante Updates zu erhalten."
             }
         },
         "notifications": {
             "createNotificationFabLabel": "Benachrichtigung erstellen",
-            "notificationsEmpty": "Keine vorhandene Benachrichtigung für diese Gruppe",
-            "deleteDialogText": "Möchtest Du diese Regel wirklich löschen? Dieser Vorgang ist unwiderruflich",
+            "notificationsEmpty": "Keine automatischen Benachrichtigungen für diese Gruppe vorhanden.",
+            "deleteDialogText": "Möchten Sie diese Regel wirklich löschen? Dieser Vorgang ist unwiderruflich.",
             "deleteDialogTitle": "Regel löschen",
             "removeRule": "Regel löschen",
             "editRule": "Regel anpassen",
@@ -15717,9 +15740,9 @@
                 "validity": "Gültigkeit der Karte"
             },
             "groupTitle": {
-                "paymentPack": "Kurspass",
-                "privateBooking": "Termin",
-                "booking": "Buchung",
+                "paymentPack": "Kurspässe",
+                "privateBooking": "Termine",
+                "booking": "Gruppenaktivitäten",
                 "privatePass": "Terminpass",
                 "birthday": "Geburtstag",
                 "contract": "Abonnement"
@@ -15732,7 +15755,7 @@
                 "workshop": "Workshop",
                 "private_pass": "Terminpass",
                 "birthday": "Geburtstag",
-                "establishmentGroup": "Lokalisierung",
+                "establishmentGroup": "Standort",
                 "contract": "Abonnement"
             },
             "cancel": "Abbrechen",
@@ -15741,15 +15764,15 @@
             "selectIdentifierLabel": {
                 "payment_pack": "Einen Terminpass auswählen",
                 "private_service": "Einen Termin auswählen",
-                "establishment": "Wähle eine Einrichtung aus",
-                "meta_activity": "Wähle eine Aktivität aus",
-                "workshop": "Wählen Sie einen Workshop",
-                "private_pass": "Wählen Sie eine Terminpass aus",
-                "establishment_group": "Wählen Sie einen Ort aus",
-                "contract": "Wählen Sie ein Angebot"
+                "establishment": "Einrichtung auswählen",
+                "meta_activity": "Aktivität auswählen",
+                "workshop": "Workshop auswählen",
+                "private_pass": "Terminpass auswählen",
+                "establishment_group": "Standort auswählen",
+                "contract": "Abonnement auswählen"
             },
             "createNotification": "Benachrichtigung-Formular",
-            "selectNotificationRules": "Wähle eine Regel aus, um die Details anzuzeigen",
+            "selectNotificationRules": "Wählen Sie eine Regel aus, um mehr Details anzuzeigen.",
             "stats": {
                 "total_mail_opened": "Anzahl der geöffneten Mails",
                 "opened_rate": "Öffnungsrate",
@@ -17885,7 +17908,7 @@
         "smartListOption": "Wählen Sie eine Smartlist",
         "mail": {
             "sendButton": "Senden",
-            "customDomainNotDefined": "Sie haben keine benutzerdefinierte Domäne definiert. \"Bitte setzen Sie sich mit unserem Team in Verbindung, um den Konfigurationsprozess einzuleiten.\"",
+            "customDomainNotDefined": "Sie haben keine benutzerdefinierte Domäne definiert. <1/>Bitte setzen Sie sich mit unserem Team in Verbindung, um den Konfigurationsprozess einzuleiten.",
             "example": "Beispiel",
             "customEmail": "Benutzerdefinierte E-Mail",
             "franchiseeMail": "Franchisenehmer E-Mail",

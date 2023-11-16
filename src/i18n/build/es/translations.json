@@ -11671,7 +11671,7 @@
                     },
                     "content": {
                         "unregistered": "Los siguientes miembros NO han podido ser registrados, no se ha encontrado ningún pase compatible",
-                        "registered": "Se han registrado los siguientes miembros, ya que se ha encontrado uno compatible:"
+                        "registered": "Se han registrado los siguientes miembros, ya que se ha encontrado un bono compatible:"
                     },
                     "title": "Finalice su lista de espera"
                 }

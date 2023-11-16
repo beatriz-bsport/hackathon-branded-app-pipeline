@@ -2284,11 +2284,11 @@
             "6": "For newly enrolled members (for members)",
             "7": "Booking with pass",
             "8": "Booking + pass purchase",
-            "9": "A member has unsubscribed from the waitlist (opening up a spot)",
+            "9": "A booking spot is available",
             "10": "A member's spot on the waitlist has expired",
             "12": "A member joined the waitlist",
-            "13": "A member has unsubscribed from the waitlist (for members)",
-            "14": "A member has unsubscribed from the waiting list (for staff)",
+            "13": "A member has unsubscribed himself from the waitlist",
+            "14": "A member was removed from the waitlist by the studio",
             "16": "Modified session (for members)",
             "17": "Booking cancelled: credit not refunded (for members)",
             "18": "Booking cancelled: credit refunded (for members)",
@@ -17118,7 +17118,7 @@
                     "label": "Consider the member as"
                 },
                 "entryTrigger": {
-                    "addTrigger": "Add an entry trigger",
+                    "addTrigger": "Add an input trigger",
                     "helperText": "Please define when and who will enter this cadence with the selected criteria and triggers.",
                     "title": "Entry"
                 },

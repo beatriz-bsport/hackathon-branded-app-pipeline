@@ -5698,11 +5698,11 @@
             "6": "Inscription membre (élève)",
             "7": "Réservation via carte de cours",
             "8": "Réservation + achat carte de cours simultané",
-            "9": "Sortie de la liste d'attente : réservation possible",
+            "9": "Une place s'est libérée : réservation possible",
             "10": "La place en liste d'attente, convertible, a expiré pour ce tour",
             "12": "Inscription à la liste d'attente",
-            "13": "Désinscription de la liste d'attente (élève)",
-            "14": "Désinscription de la liste d'attente (manager)",
+            "13": "Un membre s'est désinscrit de la liste d'attente",
+            "14": "Un membre a été retiré de la liste d'attente par le studio",
             "16": "Séance modifiée (élèves)",
             "17": "Réservation annulée : crédit non remboursé (élèves)",
             "18": "Réservation annulée : crédit remboursé (élèves)",
@@ -13731,7 +13731,7 @@
                 "message": "La sélection précédente sera disponible aux autres membres.",
                 "title": "Ou sélectionnez un nouvel emplacement"
             },
-            "goBackToCheckout": "Retournez au payment"
+            "goBackToCheckout": "Finaliser mon achat"
         },
         "cssForm": {
             "helper": "Vous pouvez ajouter des règles CSS pour votre mise en page dans cette section. La carte entière est enveloppée dans un svg avec l'ID 'svg-canvas-display'. Par défaut, une feuille de style ciblant chaque élément du canevas (tels que les spots, les rectangles et les Professeurs) est automatiquement générée. Vous pouvez observer vos modifications au fur et à mesure en cliquant sur le bouton {{ buttonLabel }} button.",
@@ -14993,7 +14993,8 @@
                     }
                 },
                 "waitingListAccountsForMaxFutureBookings": {
-                    "label": "Inclure les places sur liste d'attente dans le nombre maximum de réservations/ateliers à venir"
+                    "label": "Inclure les places sur liste d'attente dans le nombre maximum de réservations/ateliers à venir",
+                    "helperText": "Si cette option est activée, les réservations futures comprendront à la fois les inscriptions sur liste d'attente et les réservations effectives. Lorsque la limite est atteinte, un membre ne peut ni s'inscrire sur une liste d'attente ni réserver une séance."
                 },
                 "bookingLimitation": "Restrictions globales sur les réservations"
             },

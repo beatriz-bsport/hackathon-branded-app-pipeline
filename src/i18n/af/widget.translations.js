@@ -292,6 +292,7 @@ exports.default = {
         'Booking pass selection (container)',
       marketplace_booker_module_buyable_item_payment_combo: 'Booking pack item',
       marketplace_booker_module_buyable_item_payment_pack: 'Booking pass item',
+      marketplace_booker_module_buyable_item_contract: 'Booking contract item',
       fabrique_textfield: 'TextField',
       fabrique_action_tab: 'Action tab',
       fabrique_blanket: 'Blanket',

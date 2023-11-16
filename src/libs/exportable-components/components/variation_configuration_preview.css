@@ -172,3 +172,7 @@ We need to brutally override some things from MUI.
 .bs-custom-css__component__preview .bs-payment-pack-buyable-item__card {
   width: 100%;
 }
+
+.bs-custom-css__component__preview .bs-contract-buyable-item__card {
+  width: 100%;
+}

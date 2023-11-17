@@ -45,7 +45,7 @@ import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
-import AccountTreeIcon from '@material-ui/icons/AccountTree';
+import SwitchHorizontalIcon from '#components/icons/SwitchHorizontalIcon.component';
 import TutorialIconWithAlertings from '#libs/platform-tutorial/components/TutorialIconWithAlertings.component';
 import Config from '../../../config';
 
@@ -436,7 +436,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
             ? [
                 {
                   to: '/cadence',
-                  icon: AccountTreeIcon,
+                  icon: SwitchHorizontalIcon,
                   text: t('backofficeMenu.cadences'),
                 } as DrawerItemDefault,
               ]

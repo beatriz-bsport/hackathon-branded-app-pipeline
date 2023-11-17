@@ -56,6 +56,12 @@ import { CadencePanelMode } from './panel';
 
 import { SequentialMarketingColors } from './colors';
 
+import {
+  AUDIENCE_FEATURE_NAME,
+  AUDIENCE_WORKFLOW_NAME,
+  AUDIENCE_WORKFLOW_NAME_PLURAL,
+} from './keywords';
+
 export {
   // EVENT
   EventsCategory,
@@ -105,6 +111,9 @@ export {
   HEADER_HEIGHT,
   OUTPUT_SECTION_HEIGHT,
   OUTPUT_SECTION_WIDTH,
+  AUDIENCE_FEATURE_NAME,
+  AUDIENCE_WORKFLOW_NAME,
+  AUDIENCE_WORKFLOW_NAME_PLURAL,
 };
 
 export const SEQUENTIAL_MARKETING_AUTHORIZED_COMPANY_IDS = [498];

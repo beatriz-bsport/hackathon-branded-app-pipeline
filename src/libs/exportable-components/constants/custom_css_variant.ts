@@ -79,6 +79,7 @@ export enum CssComponentsVariantIdentifiers {
   CONFIRMATION_CHECKOUT_MESSAGE = 'marketplace_confirmation_checkout_message',
   ALERT = 'alert',
   MESSAGE_WITHOUT_ICON = 'message_with_icon',
+  MINIMAL_SUBSCRIPTION_CARD = 'minimal_subscription_card',
   FABRIQUE_TYPOGRAPHY = 'fabrique_typography',
   FABRIQUE_CARD = 'fabrique_card',
   FABRIQUE_BADGE = 'fabrique_badge',

@@ -330,6 +330,9 @@ exports.default = {
       fabrique_tab: 'Tab',
       fabrique_radiobutton: 'Radio button',
       fabrique_checkbox: 'Checkbox',
+      fabrique_chip: 'Chip',
+      minimal_subscription_card: 'Minimal subscription card',
+      marketplace_product_item: 'Product Item',
     },
     customCss: {
       yourCode: 'Your complementary implementation:',

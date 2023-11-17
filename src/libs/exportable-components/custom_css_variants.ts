@@ -273,6 +273,11 @@ import {
   FABRIQUE_CHECKBOX_CONFIGURATION,
 } from '#components/css-only/Fabrique/Checkbox';
 
+import {
+  MINIMAL_SUBSCRIPTION_CARD_PREVIEW,
+  MINIMAL_SUBSCRIPTION_CARD_CONFIGURATION,
+} from '#marketplacecomponents/@Subscription/MinimalSubscriptionCard';
+
 /* TEMPLATE
 
 {
@@ -339,6 +344,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
   CONFIRMATION_CHECKOUT_MESSAGE_CONFIGURATION,
   ALERT_CONFIGURATION,
   MESSAGE_WITH_ICON_CONFIGURATION,
+  MINIMAL_SUBSCRIPTION_CARD_CONFIGURATION,
   ...(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production'
     ? [
         FABRIQUE_TYPOGRAPHY_CONFIGURATION,
@@ -473,6 +479,8 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
     [CssComponentsVariantIdentifiers.ALERT]: ALERT_PREVIEW,
     [CssComponentsVariantIdentifiers.MESSAGE_WITHOUT_ICON]:
       MESSAGE_WITH_ICON_PREVIEW,
+    [CssComponentsVariantIdentifiers.MINIMAL_SUBSCRIPTION_CARD]:
+      MINIMAL_SUBSCRIPTION_CARD_PREVIEW,
     ...(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' && {
       [CssComponentsVariantIdentifiers.FABRIQUE_TYPOGRAPHY]:
         FABRIQUE_TYPOGRAPHY_PREVIEW,

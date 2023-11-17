@@ -1,0 +1,35 @@
+import { Meta, Canvas, Story, Source } from '@storybook/addon-docs';
+import {ModalDialogStorybook as ModalDialog} from '.'
+
+<Meta title="Fabrique/ModalDialog/Doc" component={ModalDialog} />
+
+# Modal Dialog
+
+## Description
+The **`modalDialog`** component is a user interface element used to display content that temporarily blocks interactions with the main view of an application.
+Modals focus the user’s attention exclusively on one task or piece of information via a window that sits on top of the page content.
+
+### Color
+
+<Canvas withSource="none" withToolbar isExpanded>
+  <Story id="fabrique-modaldialog-stories--modaldialogprimary"/>
+  <Story id="fabrique-modaldialog-stories--modaldialoginfo"/>
+  <Story id="fabrique-modaldialog-stories--modaldialogsuccess"/>
+  <Story id="fabrique-modaldialog-stories--modaldialogwarning"/>
+  <Story id="fabrique-modaldialog-stories--modaldialogerror"/>
+</Canvas>
+
+#### Example
+<Source dark language='tsx' id="fabrique-modaldialog-stories--modaldialoginfo" />
+
+### Size
+
+<Canvas withSource="none" withToolbar isExpanded>
+  <Story id="fabrique-modaldialog-stories--modaldialogxs"/>
+  <Story id="fabrique-modaldialog-stories--modaldialogmd"/>
+  <Story id="fabrique-modaldialog-stories--modaldialoglg"/>
+  <Story id="fabrique-modaldialog-stories--modaldialogxl"/>
+</Canvas>
+
+#### Example
+<Source dark language='tsx' id="fabrique-modaldialog-stories--modaldialogmd" />

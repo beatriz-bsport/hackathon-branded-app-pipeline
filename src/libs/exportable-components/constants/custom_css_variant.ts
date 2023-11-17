@@ -108,4 +108,5 @@ export enum CssComponentsVariantIdentifiers {
   FABRIQUE_LIST_ITEM = 'fabrique_list_item',
   FABRIQUE_LIST = 'fabrique_list',
   FABRIQUE_MENU = 'fabrique_menu',
+  FABRIQUE_MODAL_DIALOG = 'fabrique_modal_dialog',
 }

@@ -1,0 +1,175 @@
+:root {
+  --bs-fabrique-modal-dialog-border-width: 1px;
+  --bs-fabrique-modal-dialog-size--xs: 320px;
+  --bs-fabrique-modal-dialog-size--md: 480px;
+  --bs-fabrique-modal-dialog-size--lg: 800px;
+  --bs-fabrique-modal-dialog-size--xl: 1000px;
+}
+
+.bs-fabrique-modal-dialog__root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bs-space-size-6);
+  padding: var(--bs-space-size-4) 0;
+  border-radius: var(--bs-border-radius-md);
+  background-color: var(--bs-color-background-light);
+  border: var(--bs-fabrique-modal-dialog-border-width) solid
+    var(--bs-color-border-weak);
+  box-shadow: var(--bs-shadow-l);
+  max-height: 80dvh;
+}
+
+.bs-fabrique-modal-dialog__root--xs {
+  max-width: var(--bs-fabrique-modal-dialog-size--xs);
+}
+
+.bs-fabrique-modal-dialog__root--md {
+  max-width: var(--bs-fabrique-modal-dialog-size--md);
+}
+
+.bs-fabrique-modal-dialog__root--lg {
+  max-width: var(--bs-fabrique-modal-dialog-size--lg);
+}
+
+.bs-fabrique-modal-dialog__root--xl {
+  max-width: var(--bs-fabrique-modal-dialog-size--xl);
+}
+
+.bs-fabrique-modal-dialog__root--full-width {
+  width: 100%;
+  max-width: none;
+}
+
+.bs-fabrique-modal-dialog__header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--bs-space-size-4);
+  padding: 0 var(--bs-space-size-4) var(--bs-space-size-4);
+  border-bottom: var(--bs-fabrique-modal-dialog-border-width) solid
+    var(--bs-color-border-weak);
+}
+
+.bs-fabrique-modal-dialog__header__left-icon {
+  width: var(--bs-icon-size-xl);
+  height: var(--bs-icon-size-xl);
+  padding-top: var(--bs-space-size-2);
+  box-sizing: content-box;
+}
+
+.bs-fabrique-modal-dialog__header__left-icon--hidden {
+  display: none;
+}
+
+.bs-fabrique-modal-dialog__header__left-icon svg {
+  width: var(--bs-icon-size-xl);
+  height: var(--bs-icon-size-xl);
+}
+
+.bs-fabrique-modal-dialog__root--primary
+  .bs-fabrique-modal-dialog__header__left-icon {
+  color: var(--bs-color-text-brand-main);
+}
+
+.bs-fabrique-modal-dialog__root--info
+  .bs-fabrique-modal-dialog__header__left-icon {
+  color: var(--bs-color-icon-status-info-weak);
+}
+
+.bs-fabrique-modal-dialog__root--success
+  .bs-fabrique-modal-dialog__header__left-icon {
+  color: var(--bs-color-icon-status-success-weak);
+}
+
+.bs-fabrique-modal-dialog__root--warning
+  .bs-fabrique-modal-dialog__header__left-icon {
+  color: var(--bs-color-icon-status-warning-weak);
+}
+
+.bs-fabrique-modal-dialog__root--error
+  .bs-fabrique-modal-dialog__header__left-icon {
+  color: var(--bs-color-icon-status-error-weak);
+}
+
+.bs-fabrique-modal-dialog__header__text {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.bs-fabrique-modal-dialog__header--hidden {
+  display: none;
+}
+
+/* .bs-fabrique-modal-dialog__header__text__title {} */
+
+.bs-fabrique-modal-dialog__header__text__title--hidden {
+  display: none;
+}
+
+.bs-fabrique-modal-dialog__header__text__subtitle {
+  color: var(--bs-color-text-weak);
+}
+
+.bs-fabrique-modal-dialog__header__text__subtitle--hidden {
+  display: none;
+}
+
+.bs-fabrique-modal-dialog__header__close {
+  height: fit-content;
+}
+
+.bs-fabrique-modal-dialog__header__close--hidden {
+  display: none;
+}
+
+/* .bs-fabrique-modal-dialog__header__close__icon {} */
+
+.bs-fabrique-modal-dialog__content {
+  padding: 0 var(--bs-space-size-4) var(--bs-space-size-4);
+  overflow-y: auto;
+}
+
+.bs-fabrique-modal-dialog__content--hidden {
+  display: none;
+}
+
+.bs-fabrique-modal-dialog__footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 var(--bs-space-size-4);
+}
+
+.bs-fabrique-modal-dialog__footer__actions {
+  display: flex;
+  width: fit-content;
+  gap: var(--bs-space-size-2);
+}
+
+.bs-fabrique-modal-dialog__root--xs .bs-fabrique-modal-dialog__footer__actions {
+  flex-direction: column-reverse;
+  flex: 1;
+}
+
+.bs-fabrique-modal-dialog__root--md .bs-fabrique-modal-dialog__footer__actions,
+.bs-fabrique-modal-dialog__root--md
+  .bs-fabrique-modal-dialog__footer__actions__cancel,
+.bs-fabrique-modal-dialog__root--md
+  .bs-fabrique-modal-dialog__footer__actions__confirm {
+  flex: 1;
+}
+
+.bs-fabrique-modal-dialog__footer__actions--hidden {
+  display: none;
+}
+
+/* .bs-fabrique-modal-dialog__footer__actions__cancel {} */
+
+.bs-fabrique-modal-dialog__footer__actions__cancel--hidden {
+  display: none;
+}
+
+/* .bs-fabrique-modal-dialog__footer__actions__confirm {} */
+
+.bs-fabrique-modal-dialog__footer__actions__confirm--hidden {
+  display: none;
+}

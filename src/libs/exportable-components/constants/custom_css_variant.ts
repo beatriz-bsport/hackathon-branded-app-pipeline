@@ -80,6 +80,8 @@ export enum CssComponentsVariantIdentifiers {
   ALERT = 'alert',
   MESSAGE_WITHOUT_ICON = 'message_with_icon',
   MINIMAL_SUBSCRIPTION_CARD = 'minimal_subscription_card',
+  MINIMAL_PRIVATE_PASS_CARD = 'minimal_private_pass_card',
+  MARKETPLACE_CHECKOUT_ITEMS_PRIVATE_PASS_LIST = 'marketplace_checkout_items_private_pass_list',
   MARKETPLACE_PRODUCT_ITEM = 'marketplace_product_item',
   MARKETPLACE_PRODUCT_ITEM_LIST = 'marketplace_product_item_list',
   FABRIQUE_TYPOGRAPHY = 'fabrique_typography',

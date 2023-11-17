@@ -240,6 +240,8 @@ exports.default = {
         'This component primarily manages booking and payment statuses. For customizing its appearance, we recommend utilizing its root components located in common section',
       marketplaceProductItemListAlert:
         'This component is a list of product items. To fine-tune individual {{component_name}} component, you can utilize the dedicated section within the editor.',
+      marketplaceCheckoutItemListPrivatePass:
+        'This component is a list of checkout items with private passes. To fine-tune individual {{component_name}} components, you can utilize the dedicated section located in {{page}} within the editor.',
     },
     page: {
       calendar: 'Calendar',
@@ -336,6 +338,9 @@ exports.default = {
       minimal_subscription_card: 'Minimal subscription card',
       marketplace_product_item: 'Product Item',
       marketplace_product_item_list: 'Product Item List',
+      minimal_private_pass_card: 'Minimal private pass card',
+      marketplace_checkout_items_private_pass_list:
+        'List of checkout items with private passes',
     },
     customCss: {
       yourCode: 'Your complementary implementation:',

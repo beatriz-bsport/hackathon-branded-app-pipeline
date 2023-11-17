@@ -267,7 +267,7 @@ const DialogWithBigIcon: React.FC<Props> = ({
       {displayCheckBox && (
         <div className={classes.checkboxContainer}>
           <div className={classes.checkbox}>
-            <Checkbox checked={isChecked} edge="end" onChange={handleCheck} />
+            <Checkbox checked={isChecked} edge="end" onClick={handleCheck} />
           </div>
           <Typography align="center" variant="body1">
             {checkBoxLabel}

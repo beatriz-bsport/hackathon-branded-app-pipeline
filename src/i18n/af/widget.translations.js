@@ -244,6 +244,8 @@ exports.default = {
         'This component is a list of checkout items with private passes. To fine-tune individual {{component_name}} components, you can utilize the dedicated section located in {{page}} within the editor.',
       marketplaceCheckoutItemListPaymentCombo:
         'This component is a list of checkout items with packs. To fine-tune individual {{component_name}} components, you can utilize the dedicated section located in {{page}} within the editor.',
+      marketplaceCheckoutItemListPaymentPack:
+        'This component is a list of checkout items with passes. To fine-tune individual {{component_name}}, you can utilize the dedicated section located in {{page}} within the editor.',
     },
     page: {
       calendar: 'Calendar',
@@ -342,10 +344,13 @@ exports.default = {
       marketplace_product_item_list: 'Product Item List',
       minimal_private_pass_card: 'Minimal private pass card',
       minimal_payment_combo_card: 'Minimal pack card',
+      minimal_payment_pack_card: 'Minimal pass card',
       marketplace_checkout_items_private_pass_list:
         'List of checkout items with private passes',
       marketplace_checkout_items_payment_combo_list:
         'List of checkout items with packs',
+      marketplace_checkout_items_payment_pack_list:
+        'List of checkout items with passes',
     },
     customCss: {
       yourCode: 'Your complementary implementation:',

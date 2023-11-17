@@ -278,6 +278,16 @@ import {
   MINIMAL_SUBSCRIPTION_CARD_CONFIGURATION,
 } from '#marketplacecomponents/@Subscription/MinimalSubscriptionCard';
 
+import {
+  MARKETPLACE_PRODUCT_ITEM_CONFIGURATION,
+  MARKETPLACE_PRODUCT_ITEM_PREVIEW,
+} from '#marketplacecomponents/@CheckoutItem/MarketplaceProductItem';
+
+import {
+  MARKETPLACE_PRODUCT_ITEM_LIST_CONFIGURATION,
+  MARKETPLACE_PRODUCT_ITEM_LIST_PREVIEW,
+} from '#marketplacecomponents/@CheckoutItem/MarketplaceProductItemList';
+
 /* TEMPLATE
 
 {
@@ -345,6 +355,8 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
   ALERT_CONFIGURATION,
   MESSAGE_WITH_ICON_CONFIGURATION,
   MINIMAL_SUBSCRIPTION_CARD_CONFIGURATION,
+  MARKETPLACE_PRODUCT_ITEM_CONFIGURATION,
+  MARKETPLACE_PRODUCT_ITEM_LIST_CONFIGURATION,
   ...(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production'
     ? [
         FABRIQUE_TYPOGRAPHY_CONFIGURATION,
@@ -481,6 +493,10 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
       MESSAGE_WITH_ICON_PREVIEW,
     [CssComponentsVariantIdentifiers.MINIMAL_SUBSCRIPTION_CARD]:
       MINIMAL_SUBSCRIPTION_CARD_PREVIEW,
+    [CssComponentsVariantIdentifiers.MARKETPLACE_PRODUCT_ITEM]:
+      MARKETPLACE_PRODUCT_ITEM_PREVIEW,
+    [CssComponentsVariantIdentifiers.MARKETPLACE_PRODUCT_ITEM_LIST]:
+      MARKETPLACE_PRODUCT_ITEM_LIST_PREVIEW,
     ...(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' && {
       [CssComponentsVariantIdentifiers.FABRIQUE_TYPOGRAPHY]:
         FABRIQUE_TYPOGRAPHY_PREVIEW,

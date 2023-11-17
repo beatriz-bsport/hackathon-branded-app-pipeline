@@ -8,7 +8,11 @@ import { ReportProblemOutlined as WarningIcon } from '@material-ui/icons';
 import { amber, red } from '@material-ui/core/colors';
 
 import TextFieldWithChildren from '#components/input/text-field/TextFieldWithChildren';
-import { MAX_LENGTH_SMS } from '#libs/communication-v2/constants';
+import { util } from '#libs/communication-v2/components/convertEncode.utils';
+import {
+  MAX_LENGTH_SMS,
+  MAX_LENGTH_AUTOMATIC_SMS,
+} from '#libs/communication-v2/constants';
 
 type Props = {
   children: React.ReactNode;
@@ -31,7 +35,12 @@ const CommunicationWriteSMS: React.FC<Props> = ({
 
   const classes = useStyles();
 
-  const nbSmsToSend = Math.ceil(smsContent?.length / MAX_LENGTH_SMS);
+  const smsMaxLength =
+    util.pickencoding(smsContent) === 'gsm'
+      ? MAX_LENGTH_SMS
+      : MAX_LENGTH_AUTOMATIC_SMS;
+
+  const nbSmsToSend = Math.ceil(smsContent?.length / smsMaxLength);
 
   return (
     <React.Fragment>
@@ -66,7 +75,7 @@ const CommunicationWriteSMS: React.FC<Props> = ({
                 })}
               </Typography>
               <Typography className={classes.warningText} variant="caption">
-                {`${smsContent?.length ?? 0}/${MAX_LENGTH_SMS}`}
+                {`${smsContent?.length ?? 0}/${smsMaxLength}`}
               </Typography>
             </div>
           ) : (
@@ -74,7 +83,7 @@ const CommunicationWriteSMS: React.FC<Props> = ({
               className={classes.textFieldLengthContent}
               variant="caption"
             >
-              {`${smsContent?.length ?? 0}/${MAX_LENGTH_SMS}`}
+              {`${smsContent?.length ?? 0}/${smsMaxLength}`}
             </Typography>
           )}
           {!minimalBottom && children}

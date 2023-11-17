@@ -20,6 +20,7 @@
           "#csscomponents": "./src/components/css-only",
           "#utils": "./src/utils",
           "#Fabrique": "./src/components/css-only/Fabrique",
+          "#untitledui": "./src/components/untitledui"
         },
         "extensions": [
           ".js",

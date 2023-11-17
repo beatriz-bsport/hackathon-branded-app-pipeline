@@ -33,7 +33,8 @@
       "#hooks/*": ["./src/hooks/*"],
       "#csscomponents/*": ["./src/components/css-only/*"],
       "#utils/*": ["./src/utils/*"],
-      "#Fabrique/*": ["./src/components/css-only/Fabrique/*"]
+      "#Fabrique/*": ["./src/components/css-only/Fabrique/*"],
+      "#untitledui/*": ["./src/components/untitledui/*"]
     }
   },
   "include": ["./src/**/*.ts*", "src/i18n/index.js"]

@@ -19,6 +19,7 @@
           "#hooks": "./src/hooks",
           "#utils": "./src/utils",
           "#Fabrique": "./src/components/css-only/Fabrique",
+          "#untitledui": "./src/components/untitledui"
         }
       }
     ]

@@ -181,6 +181,7 @@ exports.default = {
         isInputButton: 'Compact version',
         version: 'Version',
         hideCoach: 'Hide the teacher filter',
+        shouldDisplayAddGuestButton: 'Display the button to add a guest',
         isWorkshop: 'Is a workshop',
         showDate: 'Display the date',
         isOfferFull: 'The session is full',
@@ -234,6 +235,9 @@ exports.default = {
         messageWithActions: 'With buttons',
         isMultiple: 'Is in multiple state',
         isChangePasswordLinkExpired: 'Link is expired',
+        isWaitingList: 'Is in Waitlist state',
+        displayGuestName: 'Display the guest name',
+        withLevel: 'Display the level',
       },
       configurationTitle: 'Variations',
       confirmationMessageComponentAlert:
@@ -246,6 +250,8 @@ exports.default = {
         'This component is a list of checkout items with packs. To fine-tune individual {{component_name}} components, you can utilize the dedicated section located in {{page}} within the editor.',
       marketplaceCheckoutItemListPaymentPack:
         'This component is a list of checkout items with passes. To fine-tune individual {{component_name}}, you can utilize the dedicated section located in {{page}} within the editor.',
+      marketplaceOfferBookingList:
+        'This component is a list of booked sessions. To fine-tune individual {{component_name}} components, you can utilize the dedicated section within the editor.',
     },
     page: {
       calendar: 'Calendar',
@@ -351,6 +357,8 @@ exports.default = {
         'List of checkout items with packs',
       marketplace_checkout_items_payment_pack_list:
         'List of checkout items with passes',
+      marketplace_booking_item: 'Booking item',
+      marketplace_offer_booking_list: 'Booking list',
     },
     customCss: {
       yourCode: 'Your complementary implementation:',

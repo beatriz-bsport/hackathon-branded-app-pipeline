@@ -1,0 +1,171 @@
+import React from 'react';
+import { fakerEN as faker } from '@faker-js/faker';
+
+import { Alert } from '@material-ui/lab';
+import { useTranslation } from 'react-i18next';
+import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status';
+import MarketplaceOfferBookingList, { Props } from '.';
+
+// @ts-ignore
+// eslint-disable-next-line import/no-webpack-loader-syntax, import/no-unresolved
+import MarketplaceOfferBookingListCss from '!!raw-loader!./styles.css';
+
+import { CssComponentsVariantIdentifiers } from '#libs/exportable-components/constants';
+import {
+  MarketplaceCSSComponentConfig,
+  MarketplacePage,
+  VariationConfigurationChoice,
+} from '#libs/exportable-components/types';
+
+import { checkoutItemsFactory } from '#libs/checkout/factories';
+import { BuyableItemOptions, CheckoutItem } from '#libs/checkout/types';
+import themeFactoryBot from '#libs/theme/factories';
+
+import { offerFactory } from '#libs/offer/factories';
+import { levelFactory } from '#libs/level/factories';
+import type { OfferWithSpotInformation } from '#libs/offer/types';
+import { CompanyTheme } from '#libs/theme/types';
+
+const fakeCompanyTheme: CompanyTheme = themeFactoryBot.companyTheme.createOne();
+
+const checkoutPaymentComboItems: CheckoutItem[] = checkoutItemsFactory(
+  3,
+  BuyableItemOptions.BUYABLE_ITEM_COMBO_ITEM,
+);
+
+const offer = {
+  ...offerFactory({
+    withCoach: true,
+    withEstablishment: true,
+    withMetaActivity: true,
+  }),
+  level: levelFactory(),
+};
+
+const offerWaitingList = {
+  ...offerFactory({
+    withCoach: true,
+    withEstablishment: true,
+    withMetaActivity: true,
+    offerStatus: 'waitingList',
+  }),
+  level: levelFactory(),
+};
+
+const offerWithSpot = {
+  ...offerFactory({
+    withCoach: true,
+    withEstablishment: true,
+    withMetaActivity: true,
+  }),
+  spot_id: faker.number.int(),
+  spot_information: {
+    name: faker.word.noun(5),
+    prefix: faker.word.noun(5),
+    shape: faker.word.noun(5),
+    fill: faker.word.noun(5),
+    stroke: faker.word.noun(5),
+    indexType: faker.number.int(),
+  },
+  level: levelFactory(),
+};
+
+const offers: OfferWithSpotInformation[] = [
+  offer,
+  offerWaitingList,
+  offerWithSpot,
+];
+
+const marketplaceOfferBookingListRegistry = [
+  {
+    label: 'loading',
+    choices: [
+      {
+        label: 'true',
+        value: 'true',
+      },
+      {
+        label: 'false',
+        value: 'false',
+      },
+    ],
+    default: {
+      label: 'false',
+      value: 'false',
+    },
+  },
+  {
+    label: 'hideCoach',
+    choices: [
+      {
+        label: 'true',
+        value: 'true',
+      },
+      {
+        label: 'false',
+        value: 'false',
+      },
+    ],
+    default: {
+      label: 'false',
+      value: 'false',
+    },
+  },
+];
+
+const usePropsFromVariation = (
+  variationsSelected: Record<string, VariationConfigurationChoice>,
+): Omit<Props, 'getBookableStatus'> => {
+  const isLoading = variationsSelected?.loading?.value === 'true';
+  const hideCoach = variationsSelected?.hideCoach?.value === 'true';
+  const mockedGetIsAddGuestDisabled = (offerId: number) => offerId && false;
+  return {
+    isLoading,
+    offers,
+    checkoutItems: checkoutPaymentComboItems,
+    hideCoach,
+    getIsAddGuestDisabled: mockedGetIsAddGuestDisabled,
+    onOpenAddGuestModal: () => {},
+    companyTheme: fakeCompanyTheme,
+  };
+};
+
+export const MARKETPLACE_OFFER_BOOKING_LIST_CONFIGURATION: MarketplaceCSSComponentConfig =
+  {
+    label: CssComponentsVariantIdentifiers.MARKETPLACE_OFFER_BOOKING_LIST,
+    css: MarketplaceOfferBookingListCss,
+    pages: [MarketplacePage.CHECKOUT_CONFIRMATION],
+    defaultState: {},
+    variations: marketplaceOfferBookingListRegistry,
+  };
+
+export const MARKETPLACE_OFFER_BOOKING_LIST_PREVIEW: React.FC<{
+  variationsSelected: Record<string, VariationConfigurationChoice>;
+}> = React.memo(({ variationsSelected }) => {
+  const { t } = useTranslation('widget');
+  const componentProps = usePropsFromVariation(variationsSelected);
+  const mockedGetBookableStatus = (offerId: number) =>
+    offerId && OFFER_BOOKABLE_STATUS_BOOKABLE;
+
+  return (
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '20px',
+        justifyContent: 'center',
+        width: '100%',
+      }}
+    >
+      <Alert severity="info" style={{ alignItems: 'center' }}>
+        {t('widget.cssConfig.marketplaceOfferBookingList', {
+          component_name: t('widget.components.marketplace_booking_item'),
+        })}
+      </Alert>
+      <MarketplaceOfferBookingList
+        {...componentProps}
+        getBookableStatus={mockedGetBookableStatus}
+      />
+    </div>
+  );
+});

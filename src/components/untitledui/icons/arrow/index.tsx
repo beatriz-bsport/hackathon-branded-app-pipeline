@@ -913,7 +913,7 @@ export const FlipForward: FC<SVGComponentProps> = ({ pathProps, ...props }) => {
   );
 };
 
-export const Infinity: FC<SVGComponentProps> = ({ pathProps, ...props }) => {
+export const Infinity01: FC<SVGComponentProps> = ({ pathProps, ...props }) => {
   return (
     <SVG {...props}>
       <Path

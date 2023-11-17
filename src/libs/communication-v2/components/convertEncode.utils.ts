@@ -1,4 +1,4 @@
-export const unicodeToGsm = {
+const unicodeToGsm = {
   0x000a: [0x0a],
   0x000c: [0x1b, 0x0a],
   0x000d: [0x0d],
@@ -136,4 +136,35 @@ export const unicodeToGsm = {
   0x03a8: [0x17],
   0x03a9: [0x15],
   0x20ac: [0x1b, 0x65],
+};
+
+export const util = {
+  map: (sub: string, func: (x: string) => number) =>
+    [].map.apply(sub, [func]) as number[],
+
+  isHighSurrogate: (c: string | number) => {
+    const codeUnit = typeof c === 'string' ? c.charCodeAt(0) : c;
+    // const codeUnit = c.charCodeAt !== undefined ? c.charCodeAt(0) : c;
+    return codeUnit >= 0xd800 && codeUnit <= 0xdbff;
+  },
+
+  // take a string and return a list of the unicode codepoints
+  unicodeCodePoints: (s: string) => {
+    const charCodes = util.map(s, (x: string) => x.charCodeAt(0));
+    const result: number[] = [];
+    while (charCodes.length > 0) {
+      if (util.isHighSurrogate(charCodes[0])) {
+        const high = charCodes.shift();
+        const low = charCodes.shift();
+        result.push((high - 0xd800) * 0x400 + (low - 0xdc00) + 0x10000);
+      } else {
+        result.push(charCodes.shift());
+      }
+    }
+    return result;
+  },
+
+  // choose gsm if possible otherwise ucs2
+  pickencoding: (s: string) =>
+    util.unicodeCodePoints(s).every((x) => x in unicodeToGsm) ? 'gsm' : 'ucs2',
 };

@@ -5,7 +5,7 @@ import { withTranslation, TFunction } from 'react-i18next';
 import { compose } from 'recompose';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import { unicodeToGsm } from './convertEncode.utils';
+import { util } from '#libs/communication-v2/components/convertEncode.utils';
 
 type Props = {
   classes: Object,
@@ -35,50 +35,6 @@ export function WriteSMS(props: Props) {
     return nbMoreSms + 1;
   }
 
-  const util = {
-    map: (sub, func) => {
-      return [].map.apply(sub, [func]);
-    },
-    /* eslint-disable */
-
-    isHighSurrogate: (c) => {
-      const codeUnit = c.charCodeAt !== undefined ? c.charCodeAt(0) : c;
-      return codeUnit >= 0xd800 && codeUnit <= 0xdbff;
-    },
-
-    /**
-    take a string and return a list of the unicode codepoints
-    */
-    unicodeCodePoints: function (string) {
-      var charCodes = util.map(string, function (x) {
-        return x.charCodeAt(0);
-      });
-      var result = [];
-      while (charCodes.length > 0) {
-        if (util.isHighSurrogate(charCodes[0])) {
-          var high = charCodes.shift();
-          var low = charCodes.shift();
-          result.push((high - 0xd800) * 0x400 + (low - 0xdc00) + 0x10000);
-        } else {
-          result.push(charCodes.shift());
-        }
-      }
-      return result;
-    },
-
-    pickencoding: function (s) {
-      // choose gsm if possible otherwise ucs2
-      if (
-        util.unicodeCodePoints(s).every(function (x) {
-          return x in unicodeToGsm;
-        })
-      ) {
-        return 'gsm';
-      } else {
-        return 'ucs2';
-      }
-    },
-  };
   /* eslint-enable */
   let smsMaxLength;
   if (props.maxLengthContent) smsMaxLength = props.maxLengthContent;

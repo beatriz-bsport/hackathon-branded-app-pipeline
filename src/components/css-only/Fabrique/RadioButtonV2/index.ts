@@ -10,8 +10,8 @@ import {
 
 export {
   RadioButtonStorybook,
-  RadioButtonProps,
   FABRIQUE_RADIOBUTTON_CONFIGURATION,
   FABRIQUE_RADIOBUTTON_PREVIEW,
 };
+export type { RadioButtonProps };
 export default RadioButton;

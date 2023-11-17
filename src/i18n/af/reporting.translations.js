@@ -480,7 +480,7 @@ const getTranslations = async () => {
     },
     export: {
       category: 'Excel: {{category}}',
-      ready: 'Your report named "{{ name }}" is ready to be downloaded.',
+      ready: 'Your report named "{{-name}}" is ready to be downloaded.',
       generate: 'Generate',
       processing:
         "We're processing your Excel file. You'll be notified when it has been finished.",

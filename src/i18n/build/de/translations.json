@@ -8780,7 +8780,8 @@
                     "content": "Achtung, dieses Mitglied verfügt nicht über die notwendigen Tags, um für diese Session angemeldet zu werden. Möchten Sie es trotzdem anmelden?",
                     "title": "Informationen"
                 }
-            }
+            },
+            "isBookingLimitReached": "Sie haben Ihr Buchungslimit erreicht"
         },
         "statusCode": {
             "cancelledByOffer": "Kurs vom Studio abgesagt",
@@ -9663,7 +9664,8 @@
         "selector": {
             "validate": "Bestätigen",
             "unselectAll": "Alle abwählen",
-            "selectAll": "Alle auswählen"
+            "selectAll": "Alle auswählen",
+            "indeterminate": "Alle auswählen ({{count}} ausgewählt)"
         },
         "cancel": "Stornieren",
         "confirm": "Bestätigen",
@@ -11167,10 +11169,11 @@
                     "submit": "Bestätigen",
                     "frequenceHelper": "Diese Benachrichtigung wird für {{ max }} {{ event_kind }} an jedes Mitglied der Smartlist gesendet. Nach {{ max }} {{ event_kind }} werden die Mitglieder keine Nachricht mehr erhalten. Sie können diese Einstellung unter 'Erweitert' ändern.",
                     "maxCommunicationSentHelperText": {
-                        "1": "Standardmäßig wird die Nachricht nur beim ersten Verlassen der Smartlist durch ein Mitglied gesendet. Sie können die Einstellung so anpassen, dass beim zweiten oder dritten Verlassen der Smartlist durch das Mitglied weitere Nachrichten gesendet werden.",
-                        "0": "Standardmäßig wird die Nachricht nur beim ersten Eintrag eines Mitglieds in die Smartlist gesendet. Sie können die Einstellung so anpassen, dass beim zweiten oder dritten Eintrag des Mitglieds weitere Nachrichten gesendet werden können."
+                        "1": "Standardmäßig wird die Nachricht jedes mal wenn ein Mitglied die Smartlist verlässt gesendet. Wenn ein Mitglied wieder in die Smartlist eingetragen wird  oder erneut verlässt, wird die Nachricht wieder verschickt. Passen Sie die Einstellungen an, wenn Sie begränzen wollen, wie oft das gleiche Mitglied die Nachricht erhalten kann: einmal, zweimal oder dreimal.",
+                        "0": "Standardmäßig wird die Nachricht nur beim ersten Eintrag eines Mitglieds in die Smartlist gesendet. Wenn ein Mitglied die Smartliste verlässt oder erneut eingetragen wird, wird die Nachricht wieder verschickt. Passen Sie die Einstellungen an, wenn Sie begränzen wollen, wie oft das gleiche Mitglied die Nachricht erhalten kann: einmal, zweimal oder dreimal."
                     },
-                    "limitSection": "Limit"
+                    "limitSection": "Limit",
+                    "unlimited": "Kein Limit"
                 },
                 "activeSince": "Aktiv seit dem: {{-date}}",
                 "create": "Erstellung ",
@@ -14640,7 +14643,7 @@
         },
         "billing_group": {
             "header": "Abrechnungsgruppe",
-            "helperText": "Wenn Sie mehrere Studios unter verschiedenen Firmennamen haben, können Sie sie hier nach Abrechnungsgruppen gruppieren. Die Abrechnungsgruppen erscheinen in Ihren Berichten, um die Zuordnung jeder Rechnung zum richtigen Firmennamen zu erleichtern.",
+            "helperText": "\"Die Rechnungsgruppen erscheinen in Ihren Berichten, um jede Rechnung einfach mit dem richtigen Ort zu verknüpfen, und werden im Warenkorb von den Mitgliedern verwendet, um ihren bevorzugten Ort auszuwählen. Mindestens eine Rechnungsgruppe muss definiert sein, damit die Mitglieder Online-Einkäufe tätigen können. Wenn Sie mehrere Einrichtungen haben, die zu demselben Standort gehören, können Sie diese in derselben Rechnungsgruppe zusammenfassen",
             "add": "Gruppe hinzufügen"
         },
         "quickbooks": {
@@ -14923,7 +14926,9 @@
             "table": {
                 "name": "Name",
                 "establishment": "Einrichtungen",
-                "actions": "Aktion"
+                "actions": "Aktion",
+                "noAddress": "Keine Adresse ist mit dieser Rechnungsgruppe verbunden",
+                "address": "Adresse"
             },
             "modal": {
                 "delete": {
@@ -14960,14 +14965,15 @@
                 "delete": {
                     "confirm": "Löschen",
                     "cancel": "Abbrechen",
-                    "content": "Möchten Sie diese Abrechnungsgruppe löschen? Die Löschung dieser Gruppe erfolgt rückwirkend, weshalb sie nicht mehr in den zugehörigen Berichten erscheint.",
+                    "content": "Sind Sie sicher, dass Sie diese Rechnungsgruppe löschen möchten? Künftige Rechnungen können nicht mehr mit diesem Standort verknüpft werden und auch nicht mehr von den Mitgliedern als bevorzugter Standort ausgewählt werden, wenn sie einen Online-Einkauf tätigen. Bevor Sie die Rechnungsgruppe löschen, vergewissern Sie sich bitte, dass alle Ihre Einrichtungen mit bestehenden Rechnungsgruppen verknüpft sind",
                     "title": "Abrechnungsgruppe löschen"
                 }
             },
             "form": {
                 "error": {
                     "groupShouldHaveName": "Sie müssen dieser Abrechnungsgruppe einen Namen geben",
-                    "groupShouldContainsOneRoom": "Bitte wählen Sie mindestens eine Einrichtung"
+                    "groupShouldContainsOneRoom": "Bitte wählen Sie mindestens eine Einrichtung",
+                    "groupShouldHaveAddress": "Sie müssen dieser Rechnungsgruppe eine Adresse geben"
                 },
                 "dialog": {
                     "save": "Speichern",
@@ -14975,7 +14981,14 @@
                     "title": "Abrechnungsgruppe"
                 },
                 "associated_localizations": "Zugehörige Einrichtungen",
-                "name": "Name"
+                "name": "Name",
+                "address": {
+                    "helperText": "Adresse der Rechnungsgruppe eingeben.",
+                    "label": "Adresse"
+                },
+                "warning": {
+                    "groupHasSeveralLocations": "Beachten Sie, dass die von Ihnen ausgewählten Einrichtungen nicht dieselbe Adresse haben und möglicherweise nicht zu demselben Standort gehören"
+                }
             },
             "actions": "Aktionen",
             "name": " Name"
@@ -15599,7 +15612,22 @@
                 "marketplace_minimal_appbar": "Minimale AppBar",
                 "authentication_login": "Anmeldekomponente",
                 "authentication_login_form": "Anmeldeformular",
-                "authentication_reset_password_form": "Formular zum Passwort zurücksetzen"
+                "authentication_reset_password_form": "Formular zum Passwort zurücksetzen",
+                "fabrique_checkbox": "Checkbox",
+                "fabrique_radiobutton": "Radio-Schaltfläche",
+                "fabrique_tab": "Tab",
+                "fabrique_blanket": "Decke",
+                "fabrique_action_tab": "Aktions-Tab",
+                "fabrique_textfield": "Textfeld",
+                "message_with_icon": "Nachricht mit Symbol",
+                "alert": "Alarm",
+                "marketplace_confirmation_checkout_message": "Buchungsbestätigungsnachricht",
+                "marketplace_booker_module_buyable_item_contract": "Artikel des Buchungsvertrags",
+                "marketplace_booker_module_buyable_item_payment_pack": "Artikel des Buchungspasses",
+                "marketplace_booker_module_buyable_item_payment_combo": "Artikel des Buchungspakets",
+                "marketplace_booker_module_buyable_items_list": "Buchungspass-Auswahl (Container)",
+                "fabrique_icon_button": "Symbol Schaltfläche",
+                "fabrique_button": "Schaltfläche"
             },
             "page": {
                 "calendar": "Kalender",
@@ -15610,7 +15638,8 @@
                 "bookingPage": "Buchung",
                 "fabrique": "Fabrik",
                 "spot_scheduling": "Platzreservierung",
-                "authentication": "Authentifizierung"
+                "authentication": "Authentifizierung",
+                "checkoutConfirmationPage": "Zahlungsbestätigung"
             },
             "cssConfig": {
                 "configurationTitle": "Variationen",
@@ -15653,12 +15682,36 @@
                     "isBookingDisabled": "Buchungen sind deaktiviert",
                     "cardVariant": "Wählen Sie die zu verwendende Kartenvariante",
                     "componentType": "Container ist eine Schaltfläche",
-                    "isRippleEnabled": "Ripple-Effekt der Schaltfläche deaktivieren",
+                    "isRippleEnabled": "Ripple-Effekt aktivieren",
                     "square": "Abgerundete Ecken deaktivieren",
                     "color": "Farbe des Elements",
                     "isError": "Befindet sich im Fehlerzustand",
                     "hasEmailChoices": "Auswahl der E-Mail-Liste",
-                    "hasSent": "Das Formular wurde eingereicht"
+                    "hasSent": "Das Formular wurde eingereicht",
+                    "isMultiple": "Befindet sich in mehreren Zuständen",
+                    "messageWithActions": "Mit Schaltflächen",
+                    "alertWithAction": "Mit Schaltfläche",
+                    "alertSeverity": "Schweregrad",
+                    "bookingOrPurchaseStatus": "Buchungs- und Kaufstatus",
+                    "isRecommended": "Als empfohlen markieren",
+                    "displayCaptionText": "Beschriftungstext anzeigen",
+                    "isInversed": "Farbe des Elements invertiert",
+                    "isChecked": "Befindet sich im kontrollierten Zustand",
+                    "showTabSelect": "Der Tab enthält Optionen",
+                    "isTabSelected": "Der Tab wurde ausgewählt",
+                    "showBlanket": "Decke anzeigen",
+                    "hasBadge": "Anzeigeelement anzeigen",
+                    "isSelected": "Element wurde ausgewählt",
+                    "isIconButton": "Schaltfläche hat ein Symbol",
+                    "textFieldType": "Input Typ",
+                    "displayPlaceholder": "Platzhalter anzeigen",
+                    "displayLabel": "Label anzeigen",
+                    "displayHelperText": "Hilfstext anzeigen",
+                    "isDisabled": "Element ist deaktiviert",
+                    "displayRightIcon": "Rechtes Symbol anzeigen",
+                    "displayLeftIcon": "Linkes Symbol anzeigen",
+                    "size": "Elementgröße",
+                    "fabriqueVariant": "Elementvariante"
                 },
                 "option": {
                     "activityName": "Aktivität",
@@ -15706,8 +15759,40 @@
                     "onstrong": "Auf starkem Hintergrund",
                     "grey": "Grau",
                     "main": "Hauptseite",
-                    "isBlockedByMaxFutureBooking": "Maximale Anzahl an zukünftigen Buchungen erreicht"
-                }
+                    "isBlockedByMaxFutureBooking": "Maximale Anzahl an zukünftigen Buchungen erreicht",
+                    "alert": {
+                        "error": "Fehler",
+                        "warning": "Warnung",
+                        "info": "Info",
+                        "success": "Erfolg"
+                    },
+                    "confirmationMessage": {
+                        "purchaseWithPassesSuccess": "Zahlung bestätigt",
+                        "waitingList": "Auf der Warteliste registriert",
+                        "offerAndPurchaseGenericError": "Buchung und Kauf fehlgeschlagen (erneut versuchen)",
+                        "purchaseOnlySuccess": "Kauf verarbeitet",
+                        "offerAndPurchaseSuccess": "Buchung und Käufe verarbeitet",
+                        "offerOnlySuccess": "Buchung erfolgreich",
+                        "offerOnlyBookingError": "Session kann nicht mehr gebucht werden",
+                        "genericOfferError": "Buchung unerwartet fehlgeschlagen",
+                        "generic": "Fehler bei der Verarbeitung der Transaktion"
+                    },
+                    "outlined": "Konturiert",
+                    "contained": "Eingebunden",
+                    "password": "Passwort",
+                    "tel": "Telefonnummer",
+                    "email": "E-Mail",
+                    "text": "Text",
+                    "lg": "Groß",
+                    "md": "Mittel",
+                    "sm": "Klein",
+                    "error": "Fehler",
+                    "info": "Info",
+                    "white": "Weiß",
+                    "secondary": "Sekundär",
+                    "primary": "Primär"
+                },
+                "confirmationMessageComponentAlert": "Diese Komponente verwaltet hauptsächlich den Buchungs- und Zahlungsstatus. Für die Anpassung ihres Aussehens empfehlen wir die Verwendung ihrer Stammkomponenten, die sich im Allgemeinen Abschnitt befinden"
             }
         },
         "create": "Allgemein",
@@ -15762,8 +15847,8 @@
             "next": "Weiter",
             "paymentPackPlaceholder": "Kurspass",
             "selectIdentifierLabel": {
-                "payment_pack": "Einen Terminpass auswählen",
-                "private_service": "Einen Termin auswählen",
+                "payment_pack": "Terminpass auswählen",
+                "private_service": "Termin auswählen",
                 "establishment": "Einrichtung auswählen",
                 "meta_activity": "Aktivität auswählen",
                 "workshop": "Workshop auswählen",
@@ -15771,7 +15856,7 @@
                 "establishment_group": "Standort auswählen",
                 "contract": "Abonnement auswählen"
             },
-            "createNotification": "Benachrichtigung-Formular",
+            "createNotification": "Benachrichtigungs-Formular",
             "selectNotificationRules": "Wählen Sie eine Regel aus, um mehr Details anzuzeigen.",
             "stats": {
                 "total_mail_opened": "Anzahl der geöffneten Mails",
@@ -15780,15 +15865,15 @@
             },
             "mailTitle": "Vorschau der E-Mail",
             "mail": "E-Mail ",
-            "statisticDetails": "Statistik",
+            "statisticDetails": "Statistiken",
             "notificationDetails": "Details der Benachrichtigung",
             "notificationPreview": "Übersicht über die Benachrichtigung",
             "privatePassPlaceholder": "Terminpass",
-            "dialogTitle": "Eine Benachrichtigung erstellen",
+            "dialogTitle": "Benachrichtigung erstellen",
             "listTitle": "Benachrichtigungen",
-            "create": "Eine Benachrichtigung erstellen",
+            "create": "Benachrichtigung erstellen",
             "handleNotification": "Benachrichtigungen verwalten",
-            "noNotification": "Keine Benachrichtigung aktiviert",
+            "noNotification": "Es können keine aktivierten Benachrichtigungen angezeigt werden.",
             "contractKind": {
                 "contractEnd": "Ende des Abonnements",
                 "contractStart": "Start des Abonnements"
@@ -15874,7 +15959,7 @@
                 "check_box": "Kontrollkästchen",
                 "radio": "Mehrfachauswahl",
                 "long_answer": "Lange Antwort",
-                "short_answer": "Kurze Antwort auf die Frage",
+                "short_answer": "Kurze Antwort",
                 "paragraph": "Absatz",
                 "title": "Titel",
                 "isMandatoryOnSignUp": "Die Frage ist bei der Anmeldung obligatorisch",
@@ -16189,7 +16274,8 @@
                     "confirm": "Weiter",
                     "helper": "Die Mitglieder, die sich gerade in der Kadenz befinden, verlassen diese automatisch. Diese Kadenz wird archiviert, aber Sie können sie später wieder aktivieren.",
                     "cancel": "Stornieren",
-                    "title": "Löschen einer Kadenz"
+                    "title": "Löschen einer Kadenz",
+                    "confirmButton": "Archivieren"
                 },
                 "archivedHeader": "Kadenzen archivieren"
             },
@@ -16200,7 +16286,8 @@
                     "title": "Starten Sie die Kadenz",
                     "firstHelper": "Möchten Sie die Kadenz starten?",
                     "secondHelper": "Sie können sie nicht bearbeiten, während sie gestartet ist.",
-                    "cancel": "abbrechen"
+                    "cancel": "abbrechen",
+                    "confirmButton": "Launch"
                 }
             },
             "cadenceCard": {
@@ -16313,6 +16400,42 @@
                     "title": "Eingangsaktion",
                     "helperText": "Wählen Sie aus, was Sie tun möchten, wenn Ihre Mitglieder den Workflow betreten. Markieren Sie sie, senden Sie eine E-Mail... Das bleibt Ihnen überlassen. Sie können alternativ auch nichts tun, dieser Schritt ist optional.",
                     "addAction": "Aktion hinzufügen"
+                }
+            },
+            "dialog": {
+                "do_not_display_anymore": "Diese Nachricht nicht mehr anzeigen.",
+                "confirm": "Bestätigen",
+                "cancel": "Abbrechen"
+            },
+            "step": {
+                "convertExit": {
+                    "dialog": {
+                        "helper": "Der nächste verbundene Trigger wird ebenfalls gelöscht. Der Rest des Flows wird getrennt aber nicht gelöscht.",
+                        "title": "Diesen Schritt in einen Ausgang konvertieren"
+                    }
+                },
+                "archive": {
+                    "dialog": {
+                        "helper": "Diese Aktion kann nicht umgekehrt werden. Verbundene trigger werden ebenfalls gelöscht. Der Rest des Flows wird getrennt aber nicht gelöscht.",
+                        "title": "Sind Sie sicher, dass Sie diesen Schritt löschen wollen?"
+                    }
+                }
+            },
+            "deleteStep": {
+                "dialog": {
+                    "confirmButton": "Löschen"
+                }
+            },
+            "converStepToExit": {
+                "dialog": {
+                    "confirmButton": "Konvertieren"
+                }
+            },
+            "pause": {
+                "dialog": {
+                    "confirmButton": "Pausieren",
+                    "helper": "Alle Mitgliederaktionen, die während der Pause ablaufen werden nicht berücksichtigt.",
+                    "title": "Workflow pausieren"
                 }
             }
         }

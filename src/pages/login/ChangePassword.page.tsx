@@ -7,15 +7,9 @@ import {
   type Theme,
 } from '@material-ui/core';
 
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { push as pushRouter } from 'connected-react-router';
 import { withProps, compose } from 'recompose';
-import Paper from '@material-ui/core/Paper';
 import { RootState } from '../../reducers';
 import themeSelectors, { getIsUISimplified } from '#libs/theme/selectors';
 import { parseQueryString, buildUrlParams } from '../../http';
@@ -25,9 +19,8 @@ import { changePassword as changePasswordAPI } from '../../libs/login/api';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
 import { retrieveFranchise } from '../../libs/franchise/actions';
 import { getFranchisor } from '../../libs/franchise/selectors';
-
-// @ts-expect-error
-import B_ASSET from '../../public/images/b_dark.jpg';
+import ChangePasswordForm from '#components/css-only/ChangePasswordForm';
+import { Franchise } from '#libs/franchise/types';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -80,6 +73,11 @@ const styles = (theme: Theme) =>
     },
   });
 
+interface FranchiseWithCompany extends Franchise {
+  company_theme: CompanyTheme;
+  company_name: string;
+}
+
 type OwnProps = {
   match: {
     params: {
@@ -90,7 +88,7 @@ type OwnProps = {
   classes: Object;
   simplifyUI?: boolean;
   franchisorId?: number;
-  franchisor?: CompanyTheme;
+  franchisor?: FranchiseWithCompany;
   membership?: number;
 };
 
@@ -192,94 +190,31 @@ export class ChangePassword extends Component<Props, State> {
   };
 
   render() {
-    const { t, classes } = this.props;
+    const {
+      franchisor,
+      membership,
+      franchisorId,
+      simplifyUI,
+      requestResetLink,
+    } = this.props;
     const { processing, hasExpired, password1, error, password2 } = this.state;
-    const theme = this.props.theme || this.props.franchisor;
     return (
-      <Paper className={classes.container}>
-        <div className={classes.logoContainer}>
-          <div className={classes.logoWrapper}>
-            <img
-              alt={`${theme?.company_name || 'bsport'} logo`}
-              className={classes.bsportLogo}
-              src={theme?.cover || B_ASSET}
-            />
-          </div>
-        </div>
-        <div className={classes.content}>
-          <form className={classes.formContainer} onSubmit={this.onSubmit}>
-            <Grid container alignItems="center" direction="column" spacing={2}>
-              <Grid item>
-                <Typography variant="h6">
-                  {t('form.login.changePasswordTitle')}
-                </Typography>
-              </Grid>
-              {!hasExpired && (
-                <Grid item className={classes.fullWidth}>
-                  <TextField
-                    required
-                    className={classes.fullWidth}
-                    name="password"
-                    onChange={this.handlePassword1Change}
-                    placeholder={t('form.login.password')}
-                    type="password"
-                    value={password1}
-                  />
-                </Grid>
-              )}
-              {!hasExpired && (
-                <Grid item className={classes.fullWidth}>
-                  <TextField
-                    required
-                    className={classes.fullWidth}
-                    name="passwordConfirm"
-                    onChange={this.handlePassword2Change}
-                    placeholder={t('form.login.confirmPassword')}
-                    type="password"
-                    value={password2}
-                  />
-                </Grid>
-              )}
-              {error ? (
-                <Grid item className={classes.fullWidth}>
-                  <Typography color="error" variant="caption">
-                    {error}
-                  </Typography>
-                </Grid>
-              ) : null}
-              <Grid item className={classes.fullWidth}>
-                {!!processing && <CircularProgress />}
-                {!processing && !hasExpired && (
-                  <Button
-                    className={classes.button}
-                    color="primary"
-                    id="btn-new-password-confirm"
-                    type="submit"
-                    variant="contained"
-                  >
-                    {t('common.ok')}
-                  </Button>
-                )}
-                {!!hasExpired && (
-                  <Button
-                    className={classes.button}
-                    color="primary"
-                    onClick={() =>
-                      this.props.requestResetLink(
-                        this.props.membership,
-                        this.props.franchisorId,
-                      )
-                    }
-                    variant="contained"
-                  >
-                    {this.props.t('form.login.resetAgainPassword')}
-                  </Button>
-                )}
-              </Grid>
-            </Grid>
-          </form>
-        </div>
-      </Paper>
+      <ChangePasswordForm
+        companyTheme={this.props.theme}
+        error={error}
+        franchisor={franchisor}
+        franchisorId={franchisorId}
+        handlePassword1Change={this.handlePassword1Change}
+        handlePassword2Change={this.handlePassword2Change}
+        hasExpired={hasExpired}
+        membership={membership}
+        onSubmit={this.onSubmit}
+        password1={password1}
+        password2={password2}
+        processing={processing}
+        requestResetLink={requestResetLink}
+        simplifyUI={simplifyUI}
+      />
     );
   }
 }
@@ -320,7 +255,7 @@ const connector = connect(
 export default compose(
   withStyles(styles),
   withTranslation(['translation', 'common']),
-  withProps(({ location }) => {
+  withProps(({ location }: { location: Location }) => {
     const { membership, franchisor }: any = parseQueryString(
       location?.search || '',
     );

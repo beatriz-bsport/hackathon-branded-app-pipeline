@@ -180,20 +180,20 @@ export const TriggerSectionForm: React.FC<Props> = ({
 
   const alertInfotext = React.useMemo(() => {
     if (cadenceEntry) {
-      return t('cadence.form.trigger.helpers.cadence');
+      return t('audience.form.trigger.helpers.workflow');
     }
     if (cadenceExitSuccess) {
-      return t('cadence.form.trigger.helpers.exitSuccess');
+      return t('audience.form.trigger.helpers.exitSuccess');
     }
     if (cadenceExitFail) {
-      return t('cadence.form.trigger.helpers.exitFail');
+      return t('audience.form.trigger.helpers.exitFail');
     }
     return t('cadence.form.trigger.helpers.step');
   }, [cadenceEntry, cadenceExitSuccess, cadenceExitFail, t]);
 
   const triggerLabel = React.useMemo(() => {
     if (cadenceEntry) {
-      return t('cadence.form.trigger.labels.cadence');
+      return t('audience.form.trigger.labels.workflow');
     }
     if (cadenceExitSuccess) {
       return t('cadence.form.trigger.labels.exitSuccess');
@@ -209,9 +209,9 @@ export const TriggerSectionForm: React.FC<Props> = ({
       values.trigger_logic_between_event_and_smartlist ===
       RuleBetweenEntryEvent.AND_RULE_BETWEEN_ENTRY_EVENT
     ) {
-      return t('cadence.form.trigger.event_and_smartlist_helper');
+      return t('audience.form.trigger.event_and_smartlist_helper');
     }
-    return t('cadence.form.trigger.event_or_smartlist_helper');
+    return t('audience.form.trigger.event_or_smartlist_helper');
   }, [t, values.trigger_logic_between_event_and_smartlist]);
 
   if (!forceAndLogicForTriggerAndSmartList) {
@@ -328,7 +328,7 @@ export const TriggerSectionForm: React.FC<Props> = ({
       <div className={classes.alertContainer}>
         <Alert className={classes.alert} severity="info">
           {cadenceEntry
-            ? t('cadence.form.trigger.helpers.cadence')
+            ? t('audience.form.trigger.helpers.workflow')
             : t('cadence.form.trigger.helpers.step')}
         </Alert>
       </div>

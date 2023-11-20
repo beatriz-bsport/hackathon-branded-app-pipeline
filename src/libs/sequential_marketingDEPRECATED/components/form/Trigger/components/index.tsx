@@ -247,7 +247,7 @@ export const CadenceTriggerForm: React.FC<ComponentProps> = ({
             </div>
             <div className={classes.timeoutInpoutText}>
               <Typography variant="body1">
-                {t('cadence.form.trigger.trigger_timeout_select_label')}
+                {t('audience.form.trigger.trigger_timeout_select_label')}
               </Typography>
             </div>
           </div>
@@ -259,7 +259,7 @@ export const CadenceTriggerForm: React.FC<ComponentProps> = ({
             </div>
           )}
           <Typography color="textSecondary" variant="caption">
-            {t('cadence.form.trigger.trigger_timeout_explain_value_selected', {
+            {t('audience.form.trigger.trigger_timeout_explain_value_selected', {
               days: timeoutValue,
             })}
           </Typography>

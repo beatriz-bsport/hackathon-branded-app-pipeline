@@ -63,4 +63,13 @@ WithTooltip.args = {
   toolTip: true,
 };
 
+export const DisabledBlackText = Template.bind({});
+DisabledBlackText.args = {
+  name: 'Black Text',
+  icon: 'Timer',
+  color: 'rgba(243, 57, 60, 0.5)',
+  blackText: true,
+  disabled: true,
+};
+
 export const Empty = Template.bind({});

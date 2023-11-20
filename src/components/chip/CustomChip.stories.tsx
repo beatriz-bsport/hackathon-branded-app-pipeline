@@ -45,6 +45,23 @@ BackgroundHoverChip.args = {
   withBackgroundOnHover: true,
 };
 
+export const BlackTextChip = CustomChipTemplate.bind({});
+BlackTextChip.args = {
+  displayedValue: 'Black text',
+  mainColor: 'rgba(243, 57, 60, 1)',
+  icon: 'CheckCircle',
+  blackText: true,
+};
+
+export const DisabledBlackTextChip = CustomChipTemplate.bind({});
+DisabledBlackTextChip.args = {
+  displayedValue: 'Black text',
+  mainColor: 'rgba(243, 57, 60, 0.5)',
+  icon: 'CheckCircle',
+  blackText: true,
+  disabled: true,
+};
+
 export default {
   title: 'Components/Chip/CustomChip',
   component: CustomChip,
@@ -77,7 +94,11 @@ export default {
     },
     blackText: {
       description:
-        "(Optional) A boolean true if the color of the text is black and false if it's not.",
+        '(Optional) A boolean true to set the color of the text in black.',
+    },
+    disabled: {
+      description:
+        "(Optional) A boolean true to lighten the color of the text when it's black.",
     },
     toolTip: {
       description:
@@ -110,9 +131,7 @@ export default {
           justifyContent: 'center',
         }}
       >
-        <div>
-          <Story />
-        </div>
+        <Story />
       </div>
     ),
   ],

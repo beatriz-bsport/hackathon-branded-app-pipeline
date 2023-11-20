@@ -23,12 +23,14 @@ import type { SmartList } from '#libs/smart-list/types';
 export type ConnectedTriggerChipProps = {
   connectedTrigger: ConnectedTrigger;
   color: string;
+  disabled?: boolean;
   getSmartlist: (id: number) => SmartList;
 };
 
 const ConnectedTriggerChip: React.FC<ConnectedTriggerChipProps> = ({
   connectedTrigger,
   color,
+  disabled,
   getSmartlist,
 }) => {
   const classes = useStyles();
@@ -47,6 +49,7 @@ const ConnectedTriggerChip: React.FC<ConnectedTriggerChipProps> = ({
       return (
         <CadenceChip
           color={color}
+          disabled={disabled}
           icon={getTriggerSpecificIcon(connectedTrigger)}
           name={getTriggerLabel(
             connectedTrigger,
@@ -59,6 +62,7 @@ const ConnectedTriggerChip: React.FC<ConnectedTriggerChipProps> = ({
         <>
           <CadenceChip
             color={color}
+            disabled={disabled}
             icon={getEventCategoryIconAsString(
               (connectedTrigger?.trigger_config as TriggerEventConfig)
                 ?.event_type,
@@ -74,6 +78,7 @@ const ConnectedTriggerChip: React.FC<ConnectedTriggerChipProps> = ({
             />
             <CadenceChip
               color={color}
+              disabled={disabled}
               icon="People"
               name={
                 getSmartlist?.(connectedTrigger?.filtering_config?.smartlist_pk)

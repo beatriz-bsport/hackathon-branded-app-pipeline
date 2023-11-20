@@ -305,6 +305,7 @@ export const CadenceGraphViewPort: React.FC<Props> = ({
           <CadenceOutputCollapse isOpen={creationMode}>
             <div id="output_won">
               <CadenceOutput
+                disabled={!anchorWonTriggerBubble}
                 forceSelection={!!anchorWonTriggerBubble}
                 getSmartlist={getSmartlist}
                 status={DestinationStatus.WIN}
@@ -313,6 +314,7 @@ export const CadenceGraphViewPort: React.FC<Props> = ({
             </div>
             <div id="output_lost">
               <CadenceOutput
+                disabled={!anchorLostTriggerBubble}
                 forceSelection={!!anchorLostTriggerBubble}
                 getSmartlist={getSmartlist}
                 status={DestinationStatus.FAIL}

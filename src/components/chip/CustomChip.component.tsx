@@ -22,6 +22,7 @@ export type CustomChipProps = {
   withBackground?: boolean;
   withBackgroundOnHover?: boolean;
   blackText?: boolean;
+  disabled?: boolean;
   toolTip?: boolean;
   toolTipValue?: string;
   onDelete?: () => void;
@@ -41,6 +42,7 @@ type ChipWrapperProps = {
  * @param {string} mainColor - The global and main color of the chip.
  * @param {boolean} withBackground - True if there is a background.
  * @param {boolean} blackText - True if the text color is black.
+ * @param {boolean} disabled - True for having a grey text color if blackText.
  *
  * @returns {backgroundColor: string, textColor: string} - Returns a string tuple containing backgroundColor and textColor
  */
@@ -49,14 +51,21 @@ const _getColor = (
   mainColor?: string,
   withBackground?: boolean,
   blackText?: boolean,
+  disabled?: boolean,
 ) => {
+  const blackTextColor = disabled
+    ? theme.palette.grey[600]
+    : theme.palette.common.black;
+
   const textColor = blackText
-    ? theme.palette.common.black
+    ? blackTextColor
     : mainColor || theme.palette.grey[900];
+
   const backgroundColor = alpha(
     mainColor || theme.palette.grey[900],
     withBackground ? 0.1 : 0,
   );
+
   return { backgroundColor, textColor };
 };
 
@@ -101,6 +110,7 @@ const ChipWrapper: React.FC<ChipWrapperProps> = React.memo(
  * @param {boolean} withBackground - Determines if the chip has a background. Sets to true by default.
  * @param {boolean} withBackgroundOnHover - Controls the chip's background display on mouse-over event. Overrides the withBackground prop.
  * @param {boolean} blackText - Sets the chip's text color to black if true.
+ * @param {boolean} disabled - Sets the chip's text color to grey if true and blackText.
  * @param {boolean} toolTip - Enables the tooltip to appear when the mouse is over the chip, displaying the displayedValue.
  * @param {string} toolTipValue - The text shown in the chip's tooltip when the mouse is over it. Overrides the toolTip prop.
  * @param {string} mainColor - The main color of the chip (text and icon), used for background color computation. If null, the chip will be grey.
@@ -114,6 +124,7 @@ export const CustomChip: React.FC<CustomChipProps> = ({
   withBackground = true,
   withBackgroundOnHover,
   blackText,
+  disabled,
   toolTip,
   toolTipValue,
   mainColor,
@@ -158,9 +169,11 @@ export const CustomChip: React.FC<CustomChipProps> = ({
         mainColor,
         withBackgroundOnHover ? isBackgroundDisplayed : withBackground,
         blackText,
+        disabled,
       ),
     [
       blackText,
+      disabled,
       defaultTheme,
       isBackgroundDisplayed,
       mainColor,

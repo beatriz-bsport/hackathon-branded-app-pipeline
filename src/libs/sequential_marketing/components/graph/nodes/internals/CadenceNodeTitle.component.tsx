@@ -25,7 +25,6 @@ import type { SmartList } from '#libs/smart-list/types';
 
 type StylesProps = {
   color: string;
-  disabled?: boolean;
   squareIcon?: boolean;
   hasActions?: boolean;
 };
@@ -33,6 +32,7 @@ type StylesProps = {
 export type CadenceNodeTitleProps = {
   actions?: Immutable.ImmutableArray<Action | NestedAction>;
   hasNestedActions?: boolean;
+  disabled?: boolean;
   icon: string;
   name: string;
   triggerList?: ConnectedTrigger[];
@@ -55,7 +55,6 @@ const CadenceNodeTitle: React.FC<CadenceNodeTitleProps> = ({
 }) => {
   const classes = useStyles({
     color,
-    disabled,
     squareIcon,
     hasActions: !!actions,
   });
@@ -84,7 +83,11 @@ const CadenceNodeTitle: React.FC<CadenceNodeTitleProps> = ({
               />
             </div>
           </div>
-          <Typography className={classes.label} variant="subtitle2">
+          <Typography
+            className={classes.label}
+            color={disabled ? 'textSecondary' : 'textPrimary'}
+            variant="subtitle2"
+          >
             {name}
           </Typography>
         </div>
@@ -133,6 +136,7 @@ const CadenceNodeTitle: React.FC<CadenceNodeTitleProps> = ({
                 <ConnectedTriggerChip
                   color={disabled ? chroma(color).alpha(0.5).hex() : color}
                   connectedTrigger={connectedTrigger}
+                  disabled={disabled}
                   getSmartlist={getSmartlist}
                 />
               </div>
@@ -198,7 +202,6 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) => ({
     WebkitLineClamp: 2,
     WebkitBoxOrient: 'vertical',
     textAlign: 'left',
-    color: ({ disabled }) => (disabled ? theme.palette.grey[600] : 'default'),
   },
   actionSection: {
     display: 'flex',

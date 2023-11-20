@@ -63,7 +63,15 @@ Event.args = {
 export const Timeout = Template.bind({});
 Timeout.args = {
   connectedTrigger: triggerFactory(TriggerKind.ONLY_TIMEOUT),
-  color: SequentialMarketingColors.ENTRY_COLOR,
+  color: SequentialMarketingColors.LOSE_COLOR,
+  getSmartlist: getSmartlist,
+};
+
+export const DisabledTimeout = Template.bind({});
+DisabledTimeout.args = {
+  connectedTrigger: triggerFactory(TriggerKind.ONLY_TIMEOUT),
+  color: 'rgba(243, 57, 60, 0.5)',
+  disabled: true,
   getSmartlist: getSmartlist,
 };
 
@@ -87,4 +95,16 @@ EventForSmartlist.args = {
   smartlist: smartlist,
   color: SequentialMarketingColors.ENTRY_COLOR,
   getSmartlist: getSmartlist,
+};
+
+export const DisabledEventForSmartlist = Template.bind({});
+DisabledEventForSmartlist.args = {
+  connectedTrigger: triggerFactory(
+    TriggerKind.EVENT_TRIGGER_AND_SMARTLIST_FILTERING,
+    smartlist.id,
+  ),
+  smartlist: smartlist,
+  color: 'rgba(144, 190, 109, 0.5)',
+  getSmartlist: getSmartlist,
+  disabled: true,
 };

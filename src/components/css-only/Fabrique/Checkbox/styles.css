@@ -36,22 +36,30 @@
 }
 
 .bs-fabrique-checkbox__icon--unchecked {
-  fill: var(--bs-color-icon-weak);
+  stroke: var(--bs-color-icon-weak);
   transition: fill var(--bs-transition-duration-quick);
 }
 
 .bs-fabrique-checkbox__icon--checked,
 .bs-fabrique-checkbox__icon--multiple {
   fill: var(--bs-color-icon-brand-main);
+  fill-rule: evenodd;
   transition: fill var(--bs-transition-duration-quick);
+  stroke: transparent;
 }
 
 .bs-fabrique-checkbox__icon--inversed {
+  stroke: var(--bs-color-icon-inverse-default);
+}
+
+.bs-fabrique-checkbox__icon--inversed.bs-fabrique-checkbox__icon--checked,
+.bs-fabrique-checkbox__icon--inversed.bs-fabrique-checkbox__icon--multiple {
   fill: var(--bs-color-icon-inverse-default);
+  stroke: transparent;
 }
 
 .bs-fabrique-checkbox__icon--disabled {
-  fill: var(--bs-color-icon-on-button-disabled);
+  stroke: var(--bs-color-icon-on-button-disabled);
 }
 
 .bs-fabrique-checkbox__text-container {

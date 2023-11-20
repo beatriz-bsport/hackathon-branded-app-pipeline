@@ -185,17 +185,21 @@ const useCadenceUtilityTexts = (
   switch (variant) {
     case DialogVariant.ACTIVE:
       return {
-        title: t('cadence.activate.dialog.title'),
+        title: t('audience.activate.dialog.title'),
         descriptions: [
-          [t('cadence.activate.dialog.firstHelper')],
+          [t('audience.activate.dialog.firstHelper')],
           [t('cadence.activate.dialog.secondHelper')],
         ],
       };
     case DialogVariant.ARCHIVE_WORKFLOW:
       return {
-        title: t('cadence.archive.dialog.title'),
+        title: t('audience.archive.dialog.title'),
         descriptions: [
-          [t('cadence.archive.dialog.beingArchived', { name: cadenceName })],
+          [
+            t('audience.archive.dialog.beingArchived', {
+              name: cadenceName,
+            }),
+          ],
           [t('cadence.archive.dialog.helper', { name: cadenceName })],
         ],
       };

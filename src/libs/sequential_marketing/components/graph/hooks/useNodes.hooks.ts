@@ -581,6 +581,17 @@ export const useNodeElementsRecorder = ({
     [convertCadenceExitIntoStep],
   );
 
+  const handleEditCadenceExit = React.useCallback(
+    (trigger: ConnectedTrigger) => (status: DestinationStatus) => {
+      const updatedTrigger: ConnectedTrigger = {
+        ...trigger,
+        destination_config: { ...trigger?.destination_config, status },
+      };
+      editConnectedTrigger(updatedTrigger);
+    },
+    [editConnectedTrigger],
+  );
+
   // The exitNodeElements consumes the list of storedTriggersToOutside data to draw the ExitElements on the graph.
   const exitNodeElements = React.useMemo(() => {
     if (storedTriggersToOutside && storedTriggersToOutside?.length > 0) {
@@ -601,6 +612,7 @@ export const useNodeElementsRecorder = ({
           status: triggerNode?.trigger?.destination_config?.status,
           onDelete: handleDeleteConnectedTrigger(triggerNode?.trigger),
           submitConvertIntoStep: handleConvertIntoStep(triggerNode?.trigger),
+          editCadenceExit: handleEditCadenceExit(triggerNode?.trigger),
         },
       }));
     }
@@ -609,6 +621,7 @@ export const useNodeElementsRecorder = ({
     cadenceEditMode,
     handleConvertIntoStep,
     handleDeleteConnectedTrigger,
+    handleEditCadenceExit,
     storedTriggersToOutside,
   ]);
 

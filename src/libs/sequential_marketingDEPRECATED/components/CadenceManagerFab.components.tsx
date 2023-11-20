@@ -19,7 +19,7 @@ export const CadenceManagerFab: React.FC<Props> = ({ onAdd }) => {
     <div className={classes.bottomButtonContainer}>
       <Fab color="primary" onClick={onAdd} variant="extended">
         <AddIcon className={classes.leftIcon} />
-        {t('cadence.form.addACadence')}
+        {t('audience.form.addAWorkflow')}
       </Fab>
     </div>
   );

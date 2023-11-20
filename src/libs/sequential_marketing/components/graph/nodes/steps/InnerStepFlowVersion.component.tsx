@@ -284,6 +284,7 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
         customHoverBackgroundColor={
           SequentialMarketingColors.TRIGGER_BACKGROUND_COLOR
         }
+        informationText={t('cadence.steps.actions.nextStepTrigger')}
       />
       <Popover
         anchorEl={anchorEl}

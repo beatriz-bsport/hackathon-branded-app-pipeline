@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { Handle, Position } from 'react-flow-renderer';
 
@@ -21,6 +22,7 @@ type FlowProps = {
 };
 
 export const EntryStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
+  const { t } = useTranslation('marketing');
   const entryCardRef = React.useRef<HTMLDivElement | null>(null);
 
   const {
@@ -59,6 +61,7 @@ export const EntryStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
         customHoverBackgroundColor={
           SequentialMarketingColors.TRIGGER_BACKGROUND_COLOR
         }
+        informationText={t('cadence.steps.actions.nextStepTrigger')}
       />
     </>
   );

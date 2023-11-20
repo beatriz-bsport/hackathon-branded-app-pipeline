@@ -613,6 +613,7 @@ exports.default = {
         convertIntoStep: 'Convert into step',
         convertIntoExit: 'Convert into exit',
         delete: 'Delete',
+        edit: 'Edit',
         addNextStep: 'Add next step',
         nextStepTrigger: 'Trigger to next step',
       },

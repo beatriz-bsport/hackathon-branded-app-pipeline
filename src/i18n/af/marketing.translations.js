@@ -536,7 +536,7 @@ exports.default = {
       kinds: {
         [ONLY_EVENT_TRIGGER]: 'Event',
         [ONLY_SMARTLIST_FILTERING]: 'Smartlist',
-        [EVENT_TRIGGER_AND_SMARTLIST_FILTERING]: 'Event + Smartlist',
+        [EVENT_TRIGGER_AND_SMARTLIST_FILTERING]: 'Event & Smartlist',
         [ONLY_TIMEOUT]: 'Delay',
       },
     },

@@ -3534,7 +3534,7 @@
         "start": "Entry",
         "delete": "Delete",
         "changeKind": "Change to",
-        "kinds": { "0": "Event", "1": "Smartlist", "2": "Event + Smartlist", "3": "Delay" }
+        "kinds": { "0": "Event", "1": "Smartlist", "2": "Event & Smartlist", "3": "Delay" }
       },
       "cadenceCard": { "lost": "Lost", "win": "Won" },
       "activate": {

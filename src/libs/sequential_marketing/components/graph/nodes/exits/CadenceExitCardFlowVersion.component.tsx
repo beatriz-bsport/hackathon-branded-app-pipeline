@@ -6,20 +6,26 @@ import HiddenHandle from '#libs/sequential_marketing/components/graph/handles/Hi
 import CadenceExitCard, {
   CadenceExitCardProps,
 } from './CadenceExitCard.component';
-import { TRIGGER_LEFT_HANDLE_STYLE } from '#libs/sequential_marketing/constants/triggers';
+import {
+  DestinationStatus,
+  TRIGGER_LEFT_HANDLE_STYLE,
+} from '#libs/sequential_marketing/constants/triggers';
 import { HandleTypeChoices } from '#libs/sequential_marketing/constants/steps';
 import ConvertIntoStepBubble from '#libs/sequential_marketing/components/graph/bubbles/ConvertIntoStepBubble.component';
+import ConvertIntoExitBubble from '#libs/sequential_marketing/components/graph/bubbles/ConvertIntoExitBubble.component';
 import usePopoverBubble from '#libs/sequential_marketing/components/graph/nodes/hooks/usePopoverBubble.hook';
 
 type Props = {
   data: {
     submitConvertIntoStep: (stepName: string) => void;
-  } & Omit<CadenceExitCardProps, 'handleConvertIntoStep'>;
+    editCadenceExit: (status: DestinationStatus) => void;
+  } & Omit<CadenceExitCardProps, 'onEdit' | 'handleConvertIntoStep'>;
 };
 
 export const ExitCardFlowVersion: React.FC<Props> = ({ data }) => {
   const exitCardRef = React.useRef<HTMLDivElement | null>(null);
 
+  // ================== CONVERT INTO STEP BUBBLE ==================
   const { anchorOrigin, popoverStyle, transformOrigin, anchorEl, setAnchorEl } =
     usePopoverBubble();
 
@@ -40,6 +46,30 @@ export const ExitCardFlowVersion: React.FC<Props> = ({ data }) => {
     },
     [data, setAnchorEl],
   );
+  // ==============================================================
+
+  // ==================== EXIT EDITION BUBBLE =====================
+  const [anchorExitEdition, setAnchorExitEdition] =
+    React.useState<HTMLDivElement>(null);
+
+  const handleOpenExitEditionBubble = React.useCallback(
+    () => setAnchorExitEdition(exitCardRef?.current),
+    [],
+  );
+
+  const handleCloseExitEditionBubble = React.useCallback(
+    () => setAnchorExitEdition(null),
+    [],
+  );
+
+  const handleEditCadenceExit = React.useCallback(
+    (status: DestinationStatus) => {
+      data?.editCadenceExit?.(status);
+      handleCloseExitEditionBubble();
+    },
+    [data, handleCloseExitEditionBubble],
+  );
+  // ==============================================================
 
   return (
     <>
@@ -53,6 +83,7 @@ export const ExitCardFlowVersion: React.FC<Props> = ({ data }) => {
           handleConvertIntoStep={handleOpenConvertIntoStepBubble}
           isSelected={data.isSelected}
           onDelete={data.onDelete}
+          onEdit={handleOpenExitEditionBubble}
           status={data.status}
         />
       </div>
@@ -67,6 +98,19 @@ export const ExitCardFlowVersion: React.FC<Props> = ({ data }) => {
         <ConvertIntoStepBubble
           onCancel={handleCloseConvertIntoStepBubble}
           onConfirm={handleSubmitConvertIntoStep}
+        />
+      </Popover>
+      <Popover
+        anchorEl={anchorExitEdition}
+        anchorOrigin={anchorOrigin}
+        onClose={handleCloseExitEditionBubble}
+        open={!!anchorExitEdition}
+        PaperProps={popoverStyle}
+        transformOrigin={transformOrigin}
+      >
+        <ConvertIntoExitBubble
+          onCancel={handleCloseExitEditionBubble}
+          onConfirm={handleEditCadenceExit}
         />
       </Popover>
     </>

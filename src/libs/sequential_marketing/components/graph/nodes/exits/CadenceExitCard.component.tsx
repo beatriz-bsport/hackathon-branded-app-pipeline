@@ -12,6 +12,7 @@ import {
 export type CadenceExitCardProps = {
   status: DestinationStatus;
   onDelete: () => void;
+  onEdit: () => void;
   handleConvertIntoStep: () => void;
   isSelected?: boolean;
 };
@@ -25,6 +26,7 @@ const CadenceExitHeader: React.FC<CadenceExitHeaderProps> = React.memo(
   ({
     status,
     onDelete,
+    onEdit,
     handleConvertIntoStep,
     handleDisableRipple,
     handleEnableRipple,
@@ -43,6 +45,11 @@ const CadenceExitHeader: React.FC<CadenceExitHeaderProps> = React.memo(
       () =>
         Immutable([
           {
+            label: t('cadence.steps.actions.edit'),
+            icon: 'Create',
+            onClick: onClickAction(onEdit),
+          },
+          {
             label: t('cadence.steps.actions.convertIntoStep'),
             icon: 'Autorenew',
             onClick: onClickAction(handleConvertIntoStep),
@@ -53,7 +60,7 @@ const CadenceExitHeader: React.FC<CadenceExitHeaderProps> = React.memo(
             onClick: onClickAction(onDelete),
           },
         ]),
-      [handleConvertIntoStep, onClickAction, onDelete, t],
+      [handleConvertIntoStep, onClickAction, onDelete, onEdit, t],
     );
 
     return (
@@ -80,6 +87,7 @@ const CadenceExitHeader: React.FC<CadenceExitHeaderProps> = React.memo(
 const CadenceExitCard: React.FC<CadenceExitCardProps> = ({
   status,
   onDelete,
+  onEdit,
   handleConvertIntoStep,
   isSelected,
 }) => {
@@ -109,6 +117,7 @@ const CadenceExitCard: React.FC<CadenceExitCardProps> = ({
           handleDisableRipple={handleDisableRipple}
           handleEnableRipple={handleEnableRipple}
           onDelete={onDelete}
+          onEdit={onEdit}
           status={status}
         />
       }

@@ -48,7 +48,7 @@ export const CadenceStepForm: React.FC = () => {
       <Divider />
       <div className={classes.paddingTop3}>
         <Alert className={classes.alert} severity="info">
-          {t('cadence.form.cadenceStepHelper')}
+          {t('audience.form.audienceStepHelper')}
         </Alert>
         <div className={classes.form}>
           <Form>

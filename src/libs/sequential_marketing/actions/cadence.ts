@@ -43,12 +43,12 @@ export function createCadence(
     try {
       const response = await createCadenceAPI(data);
       dispatch(createCadenceActions.success(response.data));
-      dispatch(snackbarSuccess('cadence.create.success'));
+      dispatch(snackbarSuccess('audience.create.success'));
       options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
       dispatch(createCadenceActions.error(err));
-      dispatch(snackbarError('cadence.create.error'));
+      dispatch(snackbarError('audience.create.error'));
       options?.onError?.();
     }
 
@@ -74,11 +74,11 @@ export function updateCadence(
     try {
       const response = await updateCadenceAPI(id, data);
       dispatch(updateCadenceActions.success(response.data));
-      dispatch(snackbarSuccess('cadence.update.success'));
+      dispatch(snackbarSuccess('audience.update.success'));
       options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
-      dispatch(snackbarError('cadence.update.error'));
+      dispatch(snackbarError('audience.update.error'));
       dispatch(updateCadenceActions.error(err));
       options?.onError?.();
     }

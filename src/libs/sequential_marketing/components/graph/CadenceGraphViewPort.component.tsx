@@ -310,14 +310,14 @@ export const CadenceGraphViewPort: React.FC<Props> = ({
         {active && (
           <div className={classes.topAlert}>
             <Alert className={classes.alert} severity="info">
-              {t('cadence.graph.alert.cadenceIsActive')}
+              {t('audience.graph.alert.audienceIsActive')}
             </Alert>
           </div>
         )}
         {!creationMode && !editMode && !active && (
           <div className={classes.topAlert}>
             <Alert className={classes.alert} severity="info">
-              {t('cadence.graph.alert.switchToEditMode')}
+              {t('audience.graph.alert.switchToEditMode')}
             </Alert>
           </div>
         )}

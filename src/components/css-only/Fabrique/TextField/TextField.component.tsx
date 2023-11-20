@@ -32,6 +32,7 @@ export type Props = {
   inputId: string;
   inputTestId?: string;
   helperTextId?: string;
+  placeholder?: string;
   isError?: boolean;
   variant?: `${TextFieldVariant}`;
   withPasswordToggle?: boolean;
@@ -61,6 +62,7 @@ const TextField: React.FC<Props> = ({
   isError,
   variant = TextFieldVariant.OUTLINED,
   withPasswordToggle,
+  placeholder,
   onChange,
 }) => {
   const [isInputFocused, setIsInputFocused] = useState(false);
@@ -143,6 +145,7 @@ const TextField: React.FC<Props> = ({
           onBlur={onInputUnfocus}
           onChange={onChange}
           onFocus={onInputFocus}
+          placeholder={placeholder}
           required={isRequired}
           type={inputType}
           value={value}

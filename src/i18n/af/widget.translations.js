@@ -234,6 +234,7 @@ exports.default = {
         alertWithAction: 'With button',
         messageWithActions: 'With buttons',
         isMultiple: 'Is in multiple state',
+        isChangePasswordLinkExpired: 'Link is expired',
       },
       configurationTitle: 'Variations',
       confirmationMessageComponentAlert:
@@ -306,6 +307,7 @@ exports.default = {
       marketplace_prepaid_line_item: 'Prepaid line list item',
       marketplace_prepaid_line_list: 'Prepaid line list',
       authentication_reset_password_form: 'Reset password form',
+      authentication_change_password_form: 'Change password form',
       authentication_login_form: 'Login form',
       authentication_login: 'Login component',
       fabrique_typography: 'Typography',

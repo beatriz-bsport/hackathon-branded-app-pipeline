@@ -37,17 +37,21 @@ export const CadenceArchivedDialog: React.FC<Props> = ({
           </div>
         </div>
         <Typography className={classes.paddingBottom} variant="h6">
-          {t('cadence.archive.dialog.title')}
+          {t('audience.archive.dialog.title')}
         </Typography>
         <Typography align="center" variant="body1">
-          {t('cadence.archive.dialog.beingArchived', { name: cadence?.name })}
+          {t('cadence.archive.dialog.beingArchived', {
+            name: cadence?.name ?? '',
+          })}
         </Typography>
         <Typography
           align="center"
           className={classes.paddingBottom}
           variant="body1"
         >
-          {t('cadence.archive.dialog.helper', { name: cadence?.name })}
+          {t('audience.archive.dialog.helper', {
+            name: cadence?.name ?? '',
+          })}
         </Typography>
         <div className={classes.actions}>
           <Button onClick={onCancel} variant="text">

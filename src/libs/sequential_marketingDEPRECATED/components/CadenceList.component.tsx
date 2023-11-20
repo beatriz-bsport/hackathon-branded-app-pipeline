@@ -94,7 +94,7 @@ export const CadenceList: React.FC<Props> = ({
         >
           {collapseOpen ? <ExpandMoreIcon /> : <ExpandLessIcon />}
           <Typography color="textSecondary" variant="h5">
-            {`${t('cadence.archive.archivedHeader')}${'\u00A0'}(${
+            {`${t('audience.archive.archivedHeader')}${'\u00A0'}(${
               cadences?.length || 0
             })${'\u00A0'}`}
           </Typography>

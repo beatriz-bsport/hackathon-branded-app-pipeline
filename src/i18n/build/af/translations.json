@@ -12391,7 +12391,8 @@
       "marketingDashboard": "Dashboard",
       "marketingRule": "Marketing strategy",
       "notifications": "Notifications",
-      "cadence": "Cadence"
+      "cadence": "Cadence",
+      "audience": "{{ audienceCamelCase }}"
     },
     "planning": "Calendar",
     "settings": "Settings",

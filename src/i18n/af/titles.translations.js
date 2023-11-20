@@ -72,6 +72,7 @@ exports.default = {
     marketingRule: 'Marketing strategy',
     notifications: 'Notifications',
     cadence: 'Cadence',
+    audience: '{{ audienceCamelCase }}',
   },
   planning: 'Calendar',
   settings: 'Settings',

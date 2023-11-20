@@ -257,6 +257,7 @@ exports.default = {
         withListTitle: 'Display list title',
         inputType: 'Type of list display',
         isExpanded: 'Element is expanded',
+        isRequired: 'Is in required state',
       },
       configurationTitle: 'Variations',
       confirmationMessageComponentAlert:

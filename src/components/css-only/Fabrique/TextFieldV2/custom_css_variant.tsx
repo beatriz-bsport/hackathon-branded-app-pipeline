@@ -71,6 +71,14 @@ const fabriqueTextFieldVariationRegistry = [
     default: { label: 'false', value: 'false' },
   },
   {
+    label: 'isRequired',
+    choices: [
+      { label: 'true', value: 'true' },
+      { label: 'false', value: 'false' },
+    ],
+    default: { label: 'false', value: 'false' },
+  },
+  {
     label: 'displayLabel',
     choices: [
       { label: 'true', value: 'true' },

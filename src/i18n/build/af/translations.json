@@ -13845,6 +13845,7 @@
           "selected": "Is selected",
           "showGroupTitle": "Display the list with group title",
           "hasDivider": "The list has a divider at the bottom",
+          "isRequired": "Is in required state",
           "displayIcon": "Display with icon",
           "hasLeftAction": "Enable left action on the component",
           "isSelectable": "Enable select interaction with the component",

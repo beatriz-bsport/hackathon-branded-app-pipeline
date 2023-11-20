@@ -1,0 +1,37 @@
+import { Meta, Canvas, Story, Source } from '@storybook/addon-docs';
+
+import {TextFormStoryBook as TextForm} from '.'
+
+<Meta title="Fabrique/TextForm/Doc" component={TextForm} />
+
+# TextForm
+
+## Description
+The **`text form`** component is a standard input field where users can enter textual information. It is versatile and can be used for various types of textual input.
+
+### Usage
+Use the textForm component when users need to provide longer textual information, such as comments, descriptions, or detailed messages.
+Offers a larger input area for users to input multiple lines of text and paragraphs.
+Suitable for forms, feedback sections, or any scenario where users need to input extensive content.
+
+<Canvas withSource="none" isColumn withToolbar >
+   <Story id="fabrique-textform-stories--textformdefault" />
+</Canvas>
+
+#### Example
+<Source dark language='tsx' id="fabrique-textform-stories--textformdefault" />
+
+### Text Form different properties
+You can display a label, a placeholder, a maximum number of character, make the text area draggable and different state properties (required,error,disabled)
+<Canvas withSource="none" isColumn withToolbar>
+   <Story id="fabrique-textform-stories--textformrequired" />
+   <Story id="fabrique-textform-stories--textformerror" />
+   <Story id="fabrique-textform-stories--textformdisabled" />
+   <Story id="fabrique-textform-stories--textformdraggable" />
+   <Story id="fabrique-textform-stories--textformmaxcharacter" />
+   <Story id="fabrique-textform-stories--textformcaption" />
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-textform-stories--textformrequired" />

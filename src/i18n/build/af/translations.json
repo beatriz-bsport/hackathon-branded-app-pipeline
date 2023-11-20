@@ -13845,13 +13845,15 @@
           "selected": "Is selected",
           "showGroupTitle": "Display the list with group title",
           "hasDivider": "The list has a divider at the bottom",
-          "isRequired": "Is in required state",
           "displayIcon": "Display with icon",
           "hasLeftAction": "Enable left action on the component",
           "isSelectable": "Enable select interaction with the component",
           "withListTitle": "Display list title",
           "inputType": "Type of list display",
-          "isExpanded": "Element is expanded"
+          "isExpanded": "Element is expanded",
+          "isRequired": "Is in required state",
+          "isDraggable": "The element is extensible (by dragging)",
+          "withMaxCharacters": "With maximum characters length"
         },
         "configurationTitle": "Variations",
         "confirmationMessageComponentAlert": "This component primarily manages booking and payment statuses. For customizing its appearance, we recommend utilizing its root components located in common section",
@@ -13963,6 +13965,7 @@
         "fabrique_menu_item_list": "Menu Item List",
         "fabrique_list_item": "List item",
         "fabrique_list": "List",
+        "fabrique_textform": "Text form",
         "fabrique_menu": "Menu",
         "fabrique_modal_dialog": "Modal Dialog",
         "fabrique_bottom_drawer": "Bottom drawer"

@@ -258,6 +258,8 @@ exports.default = {
         inputType: 'Type of list display',
         isExpanded: 'Element is expanded',
         isRequired: 'Is in required state',
+        isDraggable: 'The element is extensible (by dragging)',
+        withMaxCharacters: 'With maximum characters length',
       },
       configurationTitle: 'Variations',
       confirmationMessageComponentAlert:
@@ -387,6 +389,7 @@ exports.default = {
       fabrique_menu: 'Menu',
       fabrique_modal_dialog: 'Modal Dialog',
       fabrique_bottom_drawer: 'Bottom drawer',
+      fabrique_textform: 'Text form',
     },
     customCss: {
       yourCode: 'Your complementary implementation:',

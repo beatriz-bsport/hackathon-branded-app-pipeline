@@ -292,7 +292,10 @@ import {
   FABRIQUE_CHECKBOX_PREVIEW,
   FABRIQUE_CHECKBOX_CONFIGURATION,
 } from '#components/css-only/Fabrique/Checkbox';
-
+import {
+  FABRIQUE_TEXTFORM_PREVIEW,
+  FABRIQUE_TEXTFORM_CONFIGURATION,
+} from '#Fabrique/TextForm';
 import {
   MINIMAL_SUBSCRIPTION_CARD_PREVIEW,
   MINIMAL_SUBSCRIPTION_CARD_CONFIGURATION,
@@ -467,6 +470,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
         FABRIQUE_MENU_CONFIGURATION,
         FABRIQUE_MODAL_DIALOG_CONFIGURATION,
         FABRIQUE_BOTTOM_DRAWER_CONFIGURATION,
+        FABRIQUE_TEXTFORM_CONFIGURATION,
       ]
     : []),
 ];
@@ -643,6 +647,8 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
         FABRIQUE_MODAL_DIALOG_PREVIEW,
       [CssComponentsVariantIdentifiers.FABRIQUE_BOTTOM_DRAWER]:
         FABRIQUE_BOTTOM_DRAWER_PREVIEW,
+      [CssComponentsVariantIdentifiers.FABRIQUE_TEXTFORM]:
+        FABRIQUE_TEXTFORM_PREVIEW,
     }),
   });
 

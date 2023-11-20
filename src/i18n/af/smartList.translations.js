@@ -653,6 +653,20 @@ const getTranslations = async () => {
       cancel: 'Close',
       title: 'Used in one of the cadences',
     },
+    audienceListDialog: {
+      title: 'List of the {{ workflowPluralLowerCase }}',
+    },
+    audience: {
+      content: 'Used in the {{ workflowLowerCase }}: {{ workflow_name }}',
+      content_plural: 'Used in {{ count }} {{ workflowPluralLowerCase }}',
+    },
+    cannotBeDeletedDialogAudience: {
+      content:
+        'You cannot delete this smartlist as long as it is used in the following {{ workflowLowerCase }}:',
+      content_plural:
+        'You cannot delete this smartlist as long as it is used in the following {{ workflowPluralLowerCase }}:',
+      title: 'Used in one of the {{ workflowPluralLowerCase }}',
+    },
     generateExport: 'Generate export',
     generateHelperText: 'Generate export to download smartlist',
     lastGenerated: 'Last export generated on : {{-date}} {{time}}',

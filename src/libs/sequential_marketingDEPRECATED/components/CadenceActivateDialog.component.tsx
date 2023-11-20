@@ -34,10 +34,10 @@ export const CadenceActivateDialog: React.FC<Props> = ({
           </div>
         </div>
         <Typography className={classes.paddingBottom} variant="h6">
-          {t('cadence.activate.dialog.title')}
+          {t('audience.activate.dialog.title')}
         </Typography>
         <Typography align="center" variant="body1">
-          {t('cadence.activate.dialog.firstHelper')}
+          {t('audience.activate.dialog.firstHelper')}
         </Typography>
         <Typography
           align="center"

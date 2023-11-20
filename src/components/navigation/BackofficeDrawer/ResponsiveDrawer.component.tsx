@@ -437,7 +437,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
                 {
                   to: '/cadence',
                   icon: SwitchHorizontalIcon,
-                  text: t('backofficeMenu.cadences'),
+                  text: t('backofficeMenu.audience'),
                 } as DrawerItemDefault,
               ]
             : []),

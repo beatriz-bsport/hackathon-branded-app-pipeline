@@ -446,7 +446,7 @@ export const useNodeElementsRecorder = ({
           submitConvertIntoExit: handleConvertIntoExit(stepNode),
           addHideDeleteStepDialogCadenceIds:
             doNotDisplayDeleteStepDialogCadenceIdsAction,
-          addHideConvertStepIntoExitExitDialogCadenceIds:
+          addHideConvertStepIntoExitDialogCadenceIds:
             doNotDisplayConvertStepIntoExitDialogCadenceIdsAction,
           submitMarketingActionForm,
           updateCadenceStepName,

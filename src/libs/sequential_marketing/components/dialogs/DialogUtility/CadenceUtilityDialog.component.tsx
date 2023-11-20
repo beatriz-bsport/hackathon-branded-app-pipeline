@@ -10,7 +10,6 @@ import WarningIconRounded from '#components/icons/WarningIconRounded.component';
 
 import DialogWithBigIcon from '#components/DialogWithBigIcon';
 import type { Cadence } from '#libs/sequential_marketing/types';
-import { DestinationStatus } from '#libs/sequential_marketing/constants';
 
 enum DialogVariantEnum {
   ACTIVE = 'activate',
@@ -25,7 +24,7 @@ export type DialogVariant = `${DialogVariantEnum}`;
 type Props = {
   open: boolean;
   onCancel: () => void;
-  onConfirm: (isCheked?: boolean, status?: DestinationStatus) => void;
+  onConfirm: (isCheked?: boolean) => void;
   variant: DialogVariant;
   cadence?: Cadence;
 };

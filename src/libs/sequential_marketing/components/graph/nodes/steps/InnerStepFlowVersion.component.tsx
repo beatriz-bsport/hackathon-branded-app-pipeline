@@ -54,6 +54,10 @@ type FlowProps = {
   } & InnerStepCardProps;
 };
 
+const deleteStepDialogVariant: DialogVariant = 'delete-step';
+const convertStepIntoExitDialogVariant: DialogVariant =
+  'convert-step-into-exit';
+
 export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
   const { t } = useTranslation('marketing');
 
@@ -180,8 +184,9 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
 
   const [openConvertStepIntoExitDialog, setOpenConvertStepIntoExitDialog] =
     React.useState(false);
+
   const [destinationStatus, setDestinationStatus] =
-    React.useState<DestinationStatus>(DestinationStatus.WIN);
+    React.useState<DestinationStatus | null>(null);
 
   const handleCloseConvertStepIntoExitDialog = React.useCallback(
     () => setOpenConvertStepIntoExitDialog(false),
@@ -203,19 +208,15 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
 
   const handleSubmitConvertIntoExit = React.useCallback(
     (status: DestinationStatus) => {
-      setDestinationStatus(status);
       if (data?.step.hasExits && !data?.isConvertStepIntoExitDialogHidden) {
+        setDestinationStatus(status);
         handleOpenConvertStepIntoExitDialog();
       } else {
-        data?.submitConvertIntoExit(destinationStatus);
+        data?.submitConvertIntoExit(status);
       }
     },
-    [data, destinationStatus, handleOpenConvertStepIntoExitDialog],
+    [data, handleOpenConvertStepIntoExitDialog],
   );
-
-  const deleteStepDialogVariant: DialogVariant = 'delete-step';
-  const convertStepIntoExitDialogVariant: DialogVariant =
-    'convert-step-into-exit';
 
   // ===================================================================
 

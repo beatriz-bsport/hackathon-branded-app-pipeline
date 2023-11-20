@@ -15,7 +15,7 @@ export const CadenceHowTo: React.FC = () => {
   return (
     <div>
       <Typography className={classes.paddingBottom3} variant="h6">
-        {t('cadence.howTo.title')}
+        {t('audience.howTo.title')}
       </Typography>
       <div className={classes.explain}>
         <div className={classes.alertContainer}>

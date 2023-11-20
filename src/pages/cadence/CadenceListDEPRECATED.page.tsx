@@ -134,7 +134,7 @@ export class CadenceDetailPage extends Component<Props> {
               severity="info"
               variant="outlined"
             >
-              {t('cadence.form.createCadenceHelper')}
+              {t('audience.form.createAudienceHelper')}
             </Alert>
             <Button
               color="secondary"
@@ -142,7 +142,7 @@ export class CadenceDetailPage extends Component<Props> {
               variant="outlined"
             >
               <AddIcon className={classes.addIcon} />
-              {t('cadence.form.addACadence')}
+              {t('audience.form.addAWorkflow')}
             </Button>
           </div>
           <CadenceCreateAndUpdateForm
@@ -166,7 +166,7 @@ export class CadenceDetailPage extends Component<Props> {
               severity="info"
               variant="outlined"
             >
-              {t('cadence.cadenceIndexHelper')}
+              {t('audience.audienceIndexHelper')}
             </Alert>
             <CadenceList
               cadenceLoading={cadenceLoading}
@@ -380,7 +380,7 @@ const styles = (theme: Theme) =>
 export default compose(
   withStyles(styles),
   withTranslation(['marketing']),
-  withTitle(({ t }) => t('titles:marketing.cadence')),
+  withTitle(({ t }) => t('titles:marketing.audience')),
   connector,
   withStateHandlers(StateHandlersInit, StateHandlersSetter),
   withHandlers(mapWithHandlers),

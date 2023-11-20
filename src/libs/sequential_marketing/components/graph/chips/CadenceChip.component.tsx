@@ -7,6 +7,7 @@ type CadenceChipProps = {
   name: string;
   icon: string;
   color: string;
+  toolTip?: boolean;
   toolTipValue?: string;
   withBackgroundOnHover?: boolean;
 };
@@ -15,6 +16,7 @@ export const CadenceChip: React.FC<CadenceChipProps> = ({
   name,
   icon,
   color,
+  toolTip,
   toolTipValue,
   withBackgroundOnHover,
 }) => {
@@ -24,12 +26,12 @@ export const CadenceChip: React.FC<CadenceChipProps> = ({
     <div className={classes.customChip}>
       <CustomChip
         blackText
-        toolTip
         displayedValue={name}
         icon={icon}
         iconColor={color}
         mainColor={color}
         maxWidth={CADENCE_CHIP_MAX_SIZE}
+        toolTip={toolTip}
         toolTipValue={toolTipValue}
         withBackgroundOnHover={withBackgroundOnHover}
       />

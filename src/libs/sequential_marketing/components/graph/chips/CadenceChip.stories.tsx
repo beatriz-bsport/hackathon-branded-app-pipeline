@@ -43,16 +43,24 @@ Trigger.args = {
 
 export const Marketing = Template.bind({});
 Marketing.args = {
-  name: '{ Email object}',
+  name: '{ Email object }',
   icon: 'Email',
   color: 'rgba(4, 109, 200, 1)',
 };
 
 export const MarketingSelected = Template.bind({});
 MarketingSelected.args = {
+  name: '{ Email object }',
+  icon: 'Email',
+  color: 'rgba(4, 109, 200, 1)',
+};
+
+export const WithTooltip = Template.bind({});
+WithTooltip.args = {
   name: '{ Email object}',
   icon: 'Email',
   color: 'rgba(4, 109, 200, 1)',
+  toolTip: true,
 };
 
 export const Empty = Template.bind({});

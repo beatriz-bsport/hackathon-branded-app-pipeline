@@ -145,6 +145,7 @@ export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
     return (
       <>
         {isOnlinePaymentAvailable && (
+          // @ts-expect-error
           <PaymentStripe
             ref={paymentStripeRef}
             allowConsumerToUseInternalAccount={

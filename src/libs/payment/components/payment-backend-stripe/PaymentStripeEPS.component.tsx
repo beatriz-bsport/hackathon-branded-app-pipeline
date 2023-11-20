@@ -27,7 +27,9 @@ type PaymentStripeEPSProps = {
     payment_group_method_identifier?: number;
   }) => void;
   setIsOnlinePaymentDisabled?: (isLoading: boolean) => void;
+  isEstablishmentBillingGroupSelected?: boolean;
   hasAddPaymentMethodPermission?: boolean;
+  children?: React.ReactNode;
 };
 
 export const PaymentStripeEPS = forwardRef(
@@ -43,6 +45,8 @@ export const PaymentStripeEPS = forwardRef(
       createPendingBookingsIfNecessary,
       setIsOnlinePaymentDisabled,
       hasAddPaymentMethodPermission = true,
+      isEstablishmentBillingGroupSelected,
+      children,
     }: PaymentStripeEPSProps,
     ref,
   ) => {
@@ -65,7 +69,8 @@ export const PaymentStripeEPS = forwardRef(
       [setPaymentProcessing],
     );
 
-    const isSubmitButtonDisabled = forceDisabled || !stripe;
+    const isSubmitButtonDisabled =
+      forceDisabled || !stripe || !isEstablishmentBillingGroupSelected;
 
     // This useEffect is required in the new checkout flow, in order to disable the 'Pay Now' button
     // if needed
@@ -198,7 +203,7 @@ export const PaymentStripeEPS = forwardRef(
             )}
           </div>
         )}
-
+        {children}
         {!isNewCheckoutFlow && (
           <div className={classes.actionRow}>
             {processing ? (

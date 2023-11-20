@@ -29,6 +29,8 @@ type PaymentStripeGiropayProps = {
   }) => void;
   setIsOnlinePaymentDisabled?: (isLoading: boolean) => void;
   hasAddPaymentMethodPermission?: boolean;
+  isEstablishmentBillingGroupSelected?: boolean;
+  children?: React.ReactNode;
 };
 
 export const PaymentStripeGiropay = forwardRef(
@@ -45,6 +47,8 @@ export const PaymentStripeGiropay = forwardRef(
       createPendingBookingsIfNecessary,
       setIsOnlinePaymentDisabled,
       hasAddPaymentMethodPermission = true,
+      isEstablishmentBillingGroupSelected,
+      children,
     }: PaymentStripeGiropayProps,
     ref,
   ) => {
@@ -189,7 +193,7 @@ export const PaymentStripeGiropay = forwardRef(
             )}
           </div>
         )}
-
+        {children}
         {!isNewCheckoutFlow && (
           <div className={classes.actionRow}>
             {processing ? (
@@ -198,7 +202,10 @@ export const PaymentStripeGiropay = forwardRef(
               <Button
                 color="primary"
                 disabled={
-                  forceDisabled || !stripe || !hasAddPaymentMethodPermission
+                  forceDisabled ||
+                  !stripe ||
+                  !hasAddPaymentMethodPermission ||
+                  !isEstablishmentBillingGroupSelected
                 }
                 type="submit"
                 variant="contained"

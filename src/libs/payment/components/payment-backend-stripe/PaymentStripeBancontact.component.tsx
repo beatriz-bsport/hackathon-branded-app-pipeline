@@ -36,7 +36,9 @@ type PaymentStripeBanContactProps = {
     payment_group_method_identifier?: number;
   }) => void;
   setIsOnlinePaymentDisabled: (isLoading: boolean) => void;
+  isEstablishmentBillingGroupSelected?: boolean;
   hasAddPaymentMethodPermission?: boolean;
+  children?: React.ReactNode;
 };
 
 export const PaymentStripeBancontact = forwardRef(
@@ -58,6 +60,8 @@ export const PaymentStripeBancontact = forwardRef(
       createPendingBookingsIfNecessary,
       setIsOnlinePaymentDisabled,
       hasAddPaymentMethodPermission = true,
+      isEstablishmentBillingGroupSelected,
+      children,
     }: PaymentStripeBanContactProps,
     ref,
   ) => {
@@ -89,6 +93,7 @@ export const PaymentStripeBancontact = forwardRef(
       forceDisabled ||
       !stripe ||
       !termsAndConditionsAccepted ||
+      !isEstablishmentBillingGroupSelected ||
       !hasAddPaymentMethodPermission;
 
     // This useEffect is required in the new checkout flow, in order to disable the 'Pay Now' button
@@ -274,7 +279,7 @@ export const PaymentStripeBancontact = forwardRef(
             </div>
           </>
         )}
-
+        {children}
         {!isNewCheckoutFlow && (
           <>
             <div className={classes.conditions}>

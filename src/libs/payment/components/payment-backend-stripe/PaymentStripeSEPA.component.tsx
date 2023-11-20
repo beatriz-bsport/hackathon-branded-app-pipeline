@@ -193,6 +193,7 @@ type PaymentStripeSEPAProps = {
   children?: React.ReactNode;
   forceButtonDisplay?: boolean;
   hideSaveForLater?: boolean;
+  isEstablishmentBillingGroupSelected?: boolean;
   hasAddPaymentMethodPermission?: boolean;
 };
 
@@ -221,6 +222,7 @@ export const PaymentStripeSEPA = forwardRef(
       applyBalanceLoading,
       forceSave,
       checkItemsBasket,
+      isEstablishmentBillingGroupSelected,
       setPaymentProcessing,
       createPendingBookingsIfNecessary,
       setIsOnlinePaymentDisabled,
@@ -341,6 +343,7 @@ export const PaymentStripeSEPA = forwardRef(
       forceDisabled ||
       !stripe ||
       !termsAndConditionsAccepted ||
+      !isEstablishmentBillingGroupSelected ||
       (!hasAddPaymentMethodPermission && !paymentMethodList.length);
 
     // This useEffect is required in the new checkout flow, in order to disable the 'Pay Now' button

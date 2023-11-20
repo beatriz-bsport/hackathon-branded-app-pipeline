@@ -51,6 +51,8 @@ import {
 } from '#libs/payment/api';
 import { TermsAndConditionType } from '#libs/payment/types';
 import type { Basket } from '#libs/checkout/types';
+import { EstablishmentBillingGroup } from '#libs/establishment/types';
+import CheckoutBillingGroupSelector from '#libs/marketplace/components/@Basket/CheckoutBillingGroupSelector.component';
 
 const stripePromise = loadStripe(getStripePkKey());
 
@@ -69,6 +71,7 @@ type PaymentStripeProps = {
   termsAndConditions?: string;
   setTermsAndConditionsAccepted: (termsAndConditionsAccepted: boolean) => void;
   termsAndConditionsAccepted: boolean;
+  isEstablishmentBillingGroupSelected: boolean;
   updatePriceCts?: (priceCts: number, options: OptionCallback) => void;
   detachPaymentMethodLoading: boolean;
   detachPaymentMethod: (pm_id: string) => void;
@@ -107,6 +110,15 @@ type PaymentStripeProps = {
   ref?: React.Ref<any>;
   stripeId: string | null;
   cardBillingDetailsMandatory: boolean;
+  enableMultiLocalization: boolean;
+  establishmentBillingGroups: EstablishmentBillingGroup[];
+  setSelectedEstablishmentBillingGroup: (
+    value: React.SetStateAction<EstablishmentBillingGroup>,
+  ) => void;
+  setIsEstablishmentBillingGroupSelected: (
+    isEstablishmentBillingGroupSelected: boolean,
+  ) => void;
+  selectedEstablishmentBillingGroup: EstablishmentBillingGroup;
 };
 
 type PaymentStripePropsNewCheckoutFlow = Omit<
@@ -156,6 +168,7 @@ const PaymentStripe: React.FC<
       termsAndConditions,
       setTermsAndConditionsAccepted,
       termsAndConditionsAccepted,
+      isEstablishmentBillingGroupSelected,
       updatePriceCts,
       detachPaymentMethodLoading,
       detachPaymentMethod,
@@ -188,6 +201,11 @@ const PaymentStripe: React.FC<
       setIsOnlinePaymentDisabled,
       stripeId,
       cardBillingDetailsMandatory,
+      enableMultiLocalization,
+      establishmentBillingGroups,
+      setSelectedEstablishmentBillingGroup,
+      setIsEstablishmentBillingGroupSelected,
+      selectedEstablishmentBillingGroup,
     },
     ref,
   ) => {
@@ -411,6 +429,9 @@ const PaymentStripe: React.FC<
                     hasAddPaymentMethodPermission={
                       hasAddPaymentMethodPermission
                     }
+                    isEstablishmentBillingGroupSelected={
+                      isEstablishmentBillingGroupSelected
+                    }
                     loading={loading || applyBalanceLoading}
                     memberId={memberId}
                     onCancel={onCancel}
@@ -427,7 +448,21 @@ const PaymentStripe: React.FC<
                     useInternalAccount={useInternalAccount}
                     userDefaultEmail={sepaDefaultEmail}
                     userDefaultName={sepaDefaultName}
-                  />
+                  >
+                    <CheckoutBillingGroupSelector
+                      enableMultiLocalization={enableMultiLocalization}
+                      establishmentBillingGroups={establishmentBillingGroups}
+                      selectedEstablishmentBillingGroup={
+                        selectedEstablishmentBillingGroup
+                      }
+                      setIsEstablishmentBillingGroupSelected={
+                        setIsEstablishmentBillingGroupSelected
+                      }
+                      setSelectedEstablishmentBillingGroup={
+                        setSelectedEstablishmentBillingGroup
+                      }
+                    />
+                  </StripePaymentMethodForm>
                 )}
               </ObjectLevelPermissionProvider>
             </Elements>

@@ -41,6 +41,7 @@ type Props = {
   onCancel: () => void;
   clientSecret: string;
   termsAndConditionsAccepted: boolean;
+  isEstablishmentBillingGroupSelected?: boolean;
   AcceptTermsAndConditionsComponent?: React.Component;
   forceDisabled?: boolean;
   detachPaymentMethodLoading: boolean;
@@ -145,6 +146,7 @@ const StripePaymentCard = forwardRef(
       cardBillingDetailsMandatory,
       companyCountry,
       hasAddPaymentMethodPermission = true,
+      isEstablishmentBillingGroupSelected,
     }: Props,
     ref,
   ) => {
@@ -339,6 +341,7 @@ const StripePaymentCard = forwardRef(
       !stripe ||
       !elements ||
       !clientSecret ||
+      !isEstablishmentBillingGroupSelected ||
       !termsAndConditionsAccepted ||
       !areBillingDetailsProvided ||
       (!hasAddPaymentMethodPermission && !paymentMethodList.length);

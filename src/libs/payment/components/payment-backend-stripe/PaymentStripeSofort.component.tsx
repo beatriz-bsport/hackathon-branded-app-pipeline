@@ -37,6 +37,8 @@ type PaymentStripeSofortProps = {
   }) => void;
   setIsOnlinePaymentDisabled: (isLoading: boolean) => void;
   hasAddPaymentMethodPermission?: boolean;
+  isEstablishmentBillingGroupSelected?: boolean;
+  children?: React.ReactNode;
 };
 
 export const PaymentStripeSofort = forwardRef(
@@ -58,6 +60,8 @@ export const PaymentStripeSofort = forwardRef(
       createPendingBookingsIfNecessary,
       setIsOnlinePaymentDisabled,
       hasAddPaymentMethodPermission = true,
+      isEstablishmentBillingGroupSelected,
+      children,
     }: PaymentStripeSofortProps,
     ref,
   ) => {
@@ -84,7 +88,11 @@ export const PaymentStripeSofort = forwardRef(
     );
 
     const isSubmitButtonDisabled =
-      loading || forceDisabled || !stripe || !termsAndConditionsAccepted;
+      loading ||
+      forceDisabled ||
+      !stripe ||
+      !termsAndConditionsAccepted ||
+      !isEstablishmentBillingGroupSelected;
 
     // This useEffect is required in the new checkout flow, in order to disable the 'Pay Now' button
     // if needed
@@ -266,7 +274,7 @@ export const PaymentStripeSofort = forwardRef(
             </div>
           </>
         )}
-
+        {children}
         {!isNewCheckoutFlow && (
           <>
             <div className={classes.conditions}>

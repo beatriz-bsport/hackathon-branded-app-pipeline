@@ -40,6 +40,7 @@ interface PaymentStripeBacsDebitProps {
   onSuccess: (callback?: () => void) => void;
   onError: () => void;
   termsAndConditionsAccepted: boolean;
+  isEstablishmentBillingGroupSelected?: boolean;
   AcceptTermsAndConditionsComponent: React.Component;
   forceDisabled?: boolean;
   loading?: boolean;
@@ -60,6 +61,7 @@ interface PaymentStripeBacsDebitProps {
   }) => void;
   setIsOnlinePaymentDisabled?: (isLoading: boolean) => void;
   hasAddPaymentMethodPermission?: boolean;
+  children?: React.ReactNode;
 }
 
 const PaymentStripeBacsDebit = forwardRef(
@@ -84,9 +86,11 @@ const PaymentStripeBacsDebit = forwardRef(
       detachPaymentMethod,
       saveForLaterBacsDebit,
       setSaveForLaterBacsDebit,
+      isEstablishmentBillingGroupSelected,
       createPendingBookingsIfNecessary,
       setIsOnlinePaymentDisabled,
       hasAddPaymentMethodPermission = true,
+      children,
     }: PaymentStripeBacsDebitProps,
     ref,
   ) => {
@@ -156,6 +160,7 @@ const PaymentStripeBacsDebit = forwardRef(
       forceDisabled ||
       !stripe ||
       !termsAndConditionsAccepted ||
+      !isEstablishmentBillingGroupSelected ||
       (!hasAddPaymentMethodPermission && !paymentMethodList.length);
 
     // This useEffect is required in the new checkout flow, in order to disable the 'Pay Now' button
@@ -448,6 +453,7 @@ const PaymentStripeBacsDebit = forwardRef(
           </div>
         )}
         {errorMessage && <Typography color="error">{errorMessage}</Typography>}
+        {children}
         {!isNewCheckoutFlow && (
           <>
             <div className={classes.conditionRow}>

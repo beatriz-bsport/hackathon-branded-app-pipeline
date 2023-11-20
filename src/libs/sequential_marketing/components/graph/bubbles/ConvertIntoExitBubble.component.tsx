@@ -32,11 +32,8 @@ const ConvertIntoExitBubble: React.FC<Props> = ({ onCancel, onConfirm }) => {
   );
 
   const handleSubmit = useCallback(() => {
-    if (onConfirm) {
-      onConfirm(value);
-      onCancel?.();
-    }
-  }, [onCancel, onConfirm, value]);
+    onConfirm?.(value);
+  }, [onConfirm, value]);
 
   return (
     <CadenceBubble

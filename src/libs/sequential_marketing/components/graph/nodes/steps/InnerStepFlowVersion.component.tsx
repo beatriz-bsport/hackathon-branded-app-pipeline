@@ -67,9 +67,6 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
 
   const stepCardRef = React.useRef<HTMLDivElement | null>(null);
 
-  const { anchorOrigin, popoverStyle, transformOrigin, anchorEl, setAnchorEl } =
-    usePopoverBubble();
-
   const {
     stepDestinationId,
     triggerChoicesToConnectStepToStep,
@@ -82,6 +79,9 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
     data.stepToEditId === data.step.id;
 
   // ==================== STEP NAME EDITION BUBBLE =====================
+  const { anchorOrigin, popoverStyle, transformOrigin, anchorEl, setAnchorEl } =
+    usePopoverBubble();
+
   /**
    * @description The handleClick function is used to open the popover step name edition bubble on card click
    */
@@ -173,12 +173,17 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
     },
     [data, handleCloseMarketingActionBubble, t],
   );
+  // ===================================================================
 
-  // =============== OPEN DELETE STEP DIALOG ================
-
+  // ======================= DELETE STEP DIALOG ========================
   const [openDeleteStepDialog, setOpenDeleteStepDialog] = React.useState(false);
 
-  const handleOpenDeleteStepDialog = React.useCallback(() => {
+  const handleCloseDeleteStepDialog = React.useCallback(
+    () => setOpenDeleteStepDialog(false),
+    [],
+  );
+
+  const handleDeleteStep = React.useCallback(() => {
     if (data?.isDeleteStepDialogHidden) {
       data?.onDelete();
     } else {
@@ -186,12 +191,7 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
     }
   }, [data]);
 
-  const handleCloseDeleteStepDialog = React.useCallback(
-    () => setOpenDeleteStepDialog(false),
-    [],
-  );
-
-  const handleDeleteStep = React.useCallback(
+  const handleConfirmDeleteStepDialog = React.useCallback(
     (isChecked: boolean) => {
       handleCloseDeleteStepDialog();
       isChecked && data?.addHideDeleteStepDialogCadenceIds();
@@ -199,13 +199,9 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
     },
     [data, handleCloseDeleteStepDialog],
   );
-
-  const handleOnDelete = React.useCallback(() => {
-    handleOpenDeleteStepDialog();
-  }, [handleOpenDeleteStepDialog]);
-
   // ===================================================================
 
+  // ================== CONVERT STEP INTO EXIT DIALOG ==================
   const [openConvertStepIntoExitDialog, setOpenConvertStepIntoExitDialog] =
     React.useState(false);
 
@@ -217,11 +213,20 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
     [],
   );
 
-  const handleOpenConvertStepIntoExitDialog = React.useCallback(() => {
-    setOpenConvertStepIntoExitDialog(true);
-  }, []);
-
   const handleConvertStepIntoExit = React.useCallback(
+    (status: DestinationStatus) => {
+      handleCloseConvertIntoExitBubble();
+      if (data?.step.hasExits && !data?.isConvertStepIntoExitDialogHidden) {
+        setDestinationStatus(status);
+        setOpenConvertStepIntoExitDialog(true);
+      } else {
+        data?.submitConvertIntoExit(status);
+      }
+    },
+    [data, handleCloseConvertIntoExitBubble],
+  );
+
+  const handleConfirmConvertStepIntoExitDialog = React.useCallback(
     (isChecked: boolean) => {
       handleCloseConvertStepIntoExitDialog();
       isChecked && data?.addHideConvertStepIntoExitDialogCadenceIds();
@@ -229,19 +234,6 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
     },
     [data, destinationStatus, handleCloseConvertStepIntoExitDialog],
   );
-
-  const handleSubmitConvertIntoExit = React.useCallback(
-    (status: DestinationStatus) => {
-      if (data?.step.hasExits && !data?.isConvertStepIntoExitDialogHidden) {
-        setDestinationStatus(status);
-        handleOpenConvertStepIntoExitDialog();
-      } else {
-        data?.submitConvertIntoExit(status);
-      }
-    },
-    [data, handleOpenConvertStepIntoExitDialog],
-  );
-
   // ===================================================================
 
   React.useEffect(() => {
@@ -270,7 +262,7 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
           isSelected={data.isSelected}
           marketingActionList={data.marketingActionList}
           onCardClick={handleClick}
-          onDelete={handleOnDelete}
+          onDelete={handleDeleteStep}
           step={data.step}
           stepMemberCount={data.stepMemberCount}
         />
@@ -314,7 +306,7 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
       >
         <ConvertIntoExitBubble
           onCancel={handleCloseConvertIntoExitBubble}
-          onConfirm={handleSubmitConvertIntoExit}
+          onConfirm={handleConvertStepIntoExit}
         />
       </Popover>
       <Popover
@@ -334,13 +326,13 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
       </Popover>
       <CadencDialogUtility
         onCancel={handleCloseDeleteStepDialog}
-        onConfirm={handleDeleteStep}
+        onConfirm={handleConfirmDeleteStepDialog}
         open={openDeleteStepDialog}
         variant={deleteStepDialogVariant}
       />
       <CadencDialogUtility
         onCancel={handleCloseConvertStepIntoExitDialog}
-        onConfirm={handleConvertStepIntoExit}
+        onConfirm={handleConfirmConvertStepIntoExitDialog}
         open={openConvertStepIntoExitDialog}
         variant={convertStepIntoExitDialogVariant}
       />

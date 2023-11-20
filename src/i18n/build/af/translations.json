@@ -8925,7 +8925,8 @@
           "notifications": { "_label": "Notifications" },
           "strategies": { "_label": "Strategies" },
           "tags": { "_label": "Tags" },
-          "cadence": { "_label": "Cadence" }
+          "cadence": { "_label": "Cadence" },
+          "audience": { "_label": "Audience" }
         },
         "payments": {
           "_label": "Transactions",

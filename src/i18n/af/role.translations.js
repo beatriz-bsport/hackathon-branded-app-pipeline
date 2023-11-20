@@ -184,6 +184,7 @@ const getTranslations = async () => {
           strategies: { _label: 'Strategies' },
           tags: { _label: 'Tags' },
           cadence: { _label: 'Cadence' },
+          audience: { _label: 'Audience' },
         },
         payments: {
           _label: 'Transactions',

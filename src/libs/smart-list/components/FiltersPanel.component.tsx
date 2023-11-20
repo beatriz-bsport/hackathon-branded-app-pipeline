@@ -502,10 +502,13 @@ export class FiltersPanel extends Component<Props, State> {
               onClick={this.openCadencesDialog}
             >
               <SwitchHorizontalIcon className={this.props.classes.leftIcon} />
-              {t('cadence.content', {
-                count: this.props.cadences.length,
-                cadence_name: this.props.cadences[0]?.name,
-              })}
+              {this.props.cadences.length > 1
+                ? t('audience.content_plural', {
+                    count: this.props.cadences.length,
+                  })
+                : t('audience.content', {
+                    workflow_name: this.props.cadences[0]?.name ?? '',
+                  })}
             </ButtonBase>
           </div>
         )}
@@ -619,7 +622,7 @@ export class FiltersPanel extends Component<Props, State> {
             content={this.props.cadences?.map((cadence) => cadence?.name)}
             onCancel={this.closeCadencesDialog}
             open={this.state.openCadenceListDialog}
-            title={t('cadenceListDialog.title')}
+            title={t('audienceListDialog.title')}
           />
         )}
       </div>

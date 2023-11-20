@@ -23,7 +23,9 @@
   background-color: inherit;
 }
 
-/* .bs-fabrique-chip__action--icon {} */
+.bs-fabrique-chip__root [class*='bs-fabrique-icon-button-root'] {
+  padding: 0;
+}
 
 /* ----- SIZE VARIANT CLASSES ----- */
 /* --- SM --- */
@@ -31,15 +33,14 @@
   padding: var(--bs-space-size-1);
 }
 
-.bs-fabrique-chip--sm .bs-fabrique-icon-button-root-sm {
-  width: 12px;
-  height: 12px;
-  padding: 0;
+.bs-fabrique-chip__icon--sm svg {
+  width: var(--bs-icon-size-sm);
+  height: var(--bs-icon-size-sm);
 }
 
-.bs-fabrique-chip--sm .bs-fabrique-icon-button-root-sm svg {
-  width: 8px;
-  height: 8px;
+.bs-fabrique-chip--sm .bs-fabrique-chip__action__icon {
+  width: var(--bs-icon-size-sm);
+  height: var(--bs-icon-size-sm);
 }
 
 /* --- LG --- */
@@ -47,15 +48,14 @@
   padding: var(--bs-space-size-1) var(--bs-space-size-2);
 }
 
-.bs-fabrique-chip--lg .bs-fabrique-icon-button-root-sm {
-  width: 16px;
-  height: 16px;
-  padding: 0;
+.bs-fabrique-chip__icon--lg svg {
+  width: var(--bs-icon-size-md);
+  height: var(--bs-icon-size-md);
 }
 
-.bs-fabrique-chip--lg .bs-fabrique-icon-button-root-sm svg {
-  width: 10px;
-  height: 10px;
+.bs-fabrique-chip--lg .bs-fabrique-chip__action__icon {
+  width: var(--bs-icon-size-md);
+  height: var(--bs-icon-size-md);
 }
 
 /* ----- STRONG VARIANT CLASSES ----- */
@@ -153,7 +153,7 @@
 .bs-fabrique-chip--weak-grey .bs-fabrique-icon-button-root-text--white:hover,
 .bs-fabrique-chip--weak-grey
   .bs-fabrique-icon-button-root-text--white:hover:active {
-  color: var(--bs-color-text-grey-weak);
+  color: var(--bs-color-text-weak);
 }
 
 /* --- INFO --- */

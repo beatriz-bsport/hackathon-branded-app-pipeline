@@ -7,6 +7,7 @@ import { TypographyVariant } from '#Fabrique/Typography/constants';
 import IconButton from '#Fabrique/IconButton';
 import { ChipColorEnum, ChipSizeEnum, ChipVariantEnum } from './constants';
 import type { ChipColor, ChipSize, ChipVariant } from '.';
+import { XClose } from '#components/untitledui';
 
 import './styles.css';
 
@@ -95,25 +96,6 @@ const ChipSizeTypographyVariant = {
   lg: TypographyVariant.BODY_SM,
 };
 
-/** TODO: REMOVE THIS TEMP ICON AND REPLACE FROM LIB */
-const CloseIcon: React.FC<{ className: string }> = ({ className }) => (
-  <svg
-    className={className}
-    fill="none"
-    height="10"
-    viewBox="0 0 10 10"
-    width="10"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      clipRule="evenodd"
-      d="M0.528514 0.528575C0.788864 0.268226 1.21097 0.268226 1.47132 0.528575L4.99992 4.05717L8.52851 0.528575C8.78886 0.268226 9.21097 0.268226 9.47132 0.528575C9.73167 0.788925 9.73167 1.21103 9.47132 1.47138L5.94273 4.99998L9.47132 8.52858C9.73167 8.78893 9.73167 9.21103 9.47132 9.47138C9.21097 9.73173 8.78886 9.73173 8.52851 9.47138L4.99992 5.94279L1.47132 9.47138C1.21097 9.73173 0.788864 9.73173 0.528514 9.47138C0.268165 9.21103 0.268165 8.78893 0.528514 8.52858L4.05711 4.99998L0.528514 1.47138C0.268165 1.21103 0.268165 0.788925 0.528514 0.528575Z"
-      fill="currentColor"
-      fillRule="evenodd"
-    />
-  </svg>
-);
-
 const Chip: React.FC<Props> = ({
   variant = ChipVariantEnum.STRONG,
   size = ChipSizeEnum.LG,
@@ -190,7 +172,10 @@ const Chip: React.FC<Props> = ({
           size="sm"
           variant="text"
         >
-          <CloseIcon className="bs-fabrique-chip__action-icon" />
+          <XClose
+            className="bs-fabrique-chip__action__icon"
+            stroke="currentColor"
+          />
         </IconButton>
       </div>
     </div>

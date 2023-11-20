@@ -492,6 +492,18 @@ export class ConsumerPackRowItem extends Component<Props, State> {
 
     if (!consumerPack) return null;
 
+    let listItemPrimaryText;
+    if (hideConsumer) {
+      listItemPrimaryText = paymentPack?.name || ' - ';
+    } else if (consumer?.name) {
+      listItemPrimaryText = consumer.name;
+    } else {
+      listItemPrimaryText =
+        `${consumer?.first_name || ''}${
+          consumer?.last_name ? ` ${consumer.last_name}` : ''
+        }` || ' - ';
+    }
+
     return (
       <div>
         <ListItem
@@ -517,22 +529,7 @@ export class ConsumerPackRowItem extends Component<Props, State> {
             primary={
               <div>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <Typography>
-                    {hideConsumer
-                      ? (paymentPack && paymentPack.name) || ' - '
-                      : `${
-                          // eslint-disable-next-line
-                          consumer && consumer.name
-                            ? consumer.name
-                            : consumer && consumer.first_name
-                            ? consumer.first_name
-                            : ' - '
-                        } ${
-                          consumer && consumer.last_name
-                            ? consumer.last_name
-                            : ''
-                        }`}
-                  </Typography>
+                  <Typography>{listItemPrimaryText}</Typography>
                   {consumer && consumer.archived && (
                     <Typography color="secondary" variant="caption">
                       {`(${t('member:archived')})`}

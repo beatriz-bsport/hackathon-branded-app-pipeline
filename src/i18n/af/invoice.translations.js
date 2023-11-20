@@ -294,6 +294,7 @@ const getTranslations = async () => {
         title: 'Purchases',
         titleReverse: 'Purchase breakdown',
         billing_establishment: 'Billing establishment*',
+        billingGroup: 'Billing group *',
         cannotCreateDiscount:
           'You do not have the required permission to add a discount.',
       },

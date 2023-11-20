@@ -76,6 +76,7 @@ exports.default = {
   localisation: 'Location',
   room: 'Establishment',
   billingGroup: 'Billing group',
+  billingGroupRequired: 'Billing group *',
   group: {
     name: ' Name',
     noGroupHelper:

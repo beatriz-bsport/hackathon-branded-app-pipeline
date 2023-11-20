@@ -207,6 +207,12 @@ const getTranslations = async () => {
         'Your spot reservation has expired, you can select it again or choose a different one.',
       refresh: 'Refresh',
     },
+    billingGroup: {
+      title: 'Preferred location',
+      placeholder: 'Location',
+      helperText:
+        'The preferred location is the one where you plan to use your purchase and will be used to issue your invoice.',
+    },
   };
 };
 

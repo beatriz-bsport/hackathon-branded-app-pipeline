@@ -678,6 +678,11 @@
       "title": "Your spot reservation has expired",
       "message": "Your spot reservation has expired, you can select it again or choose a different one.",
       "refresh": "Refresh"
+    },
+    "billingGroup": {
+      "title": "Preferred location",
+      "placeholder": "Location",
+      "helperText": "The preferred location is the one where you plan to use your purchase and will be used to issue your invoice."
     }
   },
   "clockIn": {
@@ -2201,6 +2206,7 @@
     "localisation": "Location",
     "room": "Establishment",
     "billingGroup": "Billing group",
+    "billingGroupRequired": "Billing group *",
     "group": {
       "name": " Name",
       "noGroupHelper": "Locations allow you to group several addresses together. If you have several studios in different cities, you can group the studios in the same city into one location. On the marketplace, the widget and the personalized application your students will be able to select the location they are most interested in to see only the classes near their home.",
@@ -2812,6 +2818,7 @@
         "title": "Purchases",
         "titleReverse": "Purchase breakdown",
         "billing_establishment": "Billing establishment*",
+        "billingGroup": "Billing group *",
         "cannotCreateDiscount": "You do not have the required permission to add a discount."
       }
     },

@@ -126,7 +126,7 @@ const CadenceDetailHeaderActions: React.FC<HeaderActionsProps> = React.memo(
                 title={
                   canBeActivated
                     ? t('cadence.activate.button')
-                    : t('cadence.activate.setupBeforeActivationHelper')
+                    : t('audience.activate.setupBeforeActivationHelper')
                 }
               >
                 <div>

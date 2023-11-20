@@ -51,8 +51,8 @@ export const CadenceCreateAndUpdateForm: React.FC<ComponentProps> = React.memo(
     const title = useMemo(
       () =>
         initial?.id && initial?.name
-          ? t('cadence.form.updateTitle')
-          : t('cadence.form.title'),
+          ? t('audience.form.updateTitle')
+          : t('audience.form.title'),
       [initial, t],
     );
 
@@ -73,7 +73,7 @@ export const CadenceCreateAndUpdateForm: React.FC<ComponentProps> = React.memo(
             <TextField
               fullWidth
               required
-              label={t('cadence.form.cadenceNameLabel')}
+              label={t('audience.form.audienceNameLabel')}
               name="name"
             />
             <DialogActions>

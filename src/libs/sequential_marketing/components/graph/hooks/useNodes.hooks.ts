@@ -427,6 +427,20 @@ export const useNodeElementsRecorder = ({
     ],
   );
 
+  const handleDeleteConnectedTrigger = React.useCallback(
+    (connectedTrigger: ConnectedTrigger) => () => {
+      cadence?.id &&
+        connectedTrigger?.trigger_config?.uuid &&
+        connectedTrigger.destination_config?.source_id &&
+        deleteConnectedTrigger(
+          cadence.id,
+          connectedTrigger.trigger_config.uuid,
+          connectedTrigger.destination_config.source_id,
+        );
+    },
+    [cadence?.id, deleteConnectedTrigger],
+  );
+
   // The tiggerNodeElements consumes the list of storedTriggers data to draw the ConnectedTriggerElements on the graph.
   const triggerNodeElements = React.useMemo(() => {
     if (storedTriggers) {
@@ -448,12 +462,7 @@ export const useNodeElementsRecorder = ({
             trigger: triggerNode?.trigger,
             onCardClick: () =>
               onClickConnectedTrigger(triggerNode?.step, triggerNode?.trigger),
-            onDelete: () =>
-              deleteConnectedTrigger(
-                cadence?.id,
-                triggerNode?.trigger?.trigger_config?.uuid,
-                triggerNode?.trigger?.destination_config?.source_id,
-              ),
+            onDelete: handleDeleteConnectedTrigger(triggerNode?.trigger),
             getSmartlist,
             disabled: !cadenceEditMode,
             bubble: {
@@ -469,11 +478,11 @@ export const useNodeElementsRecorder = ({
     // To prevent rerender issue coming from the react flow lib :
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    cadence,
     cadenceEditMode,
     storedTriggers,
     deleteConnectedTrigger,
     getSmartlist,
+    handleDeleteConnectedTrigger,
     handleResetFakerTrigger,
     onClickConnectedTrigger,
   ]);
@@ -590,13 +599,18 @@ export const useNodeElementsRecorder = ({
         data: {
           disabled: !cadenceEditMode,
           status: triggerNode?.trigger?.destination_config?.status,
-          onDelete: () => {},
+          onDelete: handleDeleteConnectedTrigger(triggerNode?.trigger),
           submitConvertIntoStep: handleConvertIntoStep(triggerNode?.trigger),
         },
       }));
     }
     return [];
-  }, [cadenceEditMode, handleConvertIntoStep, storedTriggersToOutside]);
+  }, [
+    cadenceEditMode,
+    handleConvertIntoStep,
+    handleDeleteConnectedTrigger,
+    storedTriggersToOutside,
+  ]);
 
   return { entryNode, triggerNodeElements, stepNodeElements, exitNodeElements };
 };

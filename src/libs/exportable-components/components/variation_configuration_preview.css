@@ -23,6 +23,17 @@ We need to brutally override some things from MUI.
   padding: 0;
 }
 
+/* ChangePasswordForm */
+.bs-custom-css__component__preview .bs-change-password-form__container {
+  position: relative;
+  transform: inherit;
+  top: inherit;
+  left: inherit;
+  padding: 0;
+  width: 100%;
+  max-width: 500px;
+}
+
 /* MarketPlaceContractCooldownModal */
 .bs-custom-css__component__preview .bs-contract-cooldown-dialog__backdrop {
   position: relative;

@@ -30,6 +30,7 @@ Template
 */
 export enum CssComponentsVariantIdentifiers {
   AUTHENTICATION_RESET_PASSWORD_FORM = 'authentication_reset_password_form',
+  AUTHENTICATION_CHANGE_PASSWORD_FORM = 'authentication_change_password_form',
   AUTHENTICATION_LOGIN_FORM = 'authentication_login_form',
   AUTHENTICATION_LOGIN = 'authentication_login',
   MARKETPLACE_ACTIVITY = 'marketplace_activity_summary',

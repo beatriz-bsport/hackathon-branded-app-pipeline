@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import {
-  withStyles,
-  createStyles,
-  type WithStyles,
-  type Theme,
-} from '@material-ui/core';
 
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { push as pushRouter } from 'connected-react-router';
@@ -14,6 +8,8 @@ import { RootState } from '../../reducers';
 import themeSelectors, { getIsUISimplified } from '#libs/theme/selectors';
 import { parseQueryString, buildUrlParams } from '../../http';
 import type { Theme as CompanyTheme } from '#libs/theme/types';
+import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
+import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '../../libs/exportable-components/actions';
 
 import { changePassword as changePasswordAPI } from '../../libs/login/api';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
@@ -21,57 +17,6 @@ import { retrieveFranchise } from '../../libs/franchise/actions';
 import { getFranchisor } from '../../libs/franchise/selectors';
 import ChangePasswordForm from '#components/css-only/ChangePasswordForm';
 import { Franchise } from '#libs/franchise/types';
-
-const styles = (theme: Theme) =>
-  createStyles({
-    formContainer: {
-      margin: theme.spacing(2),
-    },
-    button: (props: OwnProps) => ({
-      borderRadius: props.simplifyUI ? 24 : 8,
-      width: '100%',
-    }),
-    container: {
-      textAlign: 'center',
-      padding: 0,
-      position: 'fixed',
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%, -50%)',
-      width: '500px',
-      [theme.breakpoints.down('xs')]: {
-        width: '100%',
-        height: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-      },
-    },
-    bsportLogo: {
-      position: 'absolute',
-      objectFit: 'contain',
-      width: '100%',
-      height: '100%',
-      maxWidth: '250px',
-    },
-    content: {
-      padding: theme.spacing(1),
-    },
-    logoWrapper: {
-      position: 'relative',
-      paddingBottom: '56.2%',
-      textAlign: 'start',
-      display: 'flex',
-      justifyContent: 'center',
-    },
-    logoContainer: {
-      position: 'relative',
-      maxHeight: '250px',
-    },
-    fullWidth: {
-      width: '100%',
-    },
-  });
 
 interface FranchiseWithCompany extends Franchise {
   company_theme: CompanyTheme;
@@ -92,10 +37,7 @@ type OwnProps = {
   membership?: number;
 };
 
-type Props = OwnProps &
-  WithTranslation &
-  ConnectedProps<typeof connector> &
-  WithStyles<typeof styles>;
+type Props = OwnProps & WithTranslation & ConnectedProps<typeof connector>;
 
 type State = {
   password1: string | null;
@@ -128,17 +70,18 @@ export class ChangePassword extends Component<Props, State> {
           if (theme.franchisor) this.props.retrieveFranchise(theme.franchisor);
         },
       });
+      this.props.retrieveCompanyCssConfiguration(this.props.membership);
     }
     if (this.props.franchisor) {
       this.props.retrieveFranchise(this.props.franchisorId);
     }
   }
 
-  handlePassword1Change = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  handlePassword1Change = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ password1: event.target.value });
   };
 
-  handlePassword2Change = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  handlePassword2Change = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ password2: event.target.value });
   };
 
@@ -223,9 +166,11 @@ const connector = connect(
   (state: RootState, { membership }: { membership: number | null }) => ({
     theme: !!membership && themeSelectors.getTheme(state),
     simplifyUI: !!membership && getIsUISimplified(state),
+    customConfiguration: state.exportableComponents.customCss,
   }),
 
   {
+    retrieveCompanyCssConfiguration: retrieveCompanyCssConfigurationAction,
     fetchCompanyTheme,
     retrieveFranchise,
     requestResetLink: (
@@ -253,7 +198,6 @@ const connector = connect(
 );
 
 export default compose(
-  withStyles(styles),
   withTranslation(['translation', 'common']),
   withProps(({ location }: { location: Location }) => {
     const { membership, franchisor }: any = parseQueryString(
@@ -269,4 +213,5 @@ export default compose(
     franchisor:
       theme?.franchisor || franchisorId ? getFranchisor(state) : undefined,
   })),
+  WithCustomCssProvider,
 )(ChangePassword);

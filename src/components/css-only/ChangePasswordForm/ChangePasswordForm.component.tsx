@@ -1,19 +1,19 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core';
-import { Theme } from '@material-ui/core/styles';
+import classNames from 'classnames';
 
-import { CompanyTheme } from '#libs/theme/types';
-import { Franchise } from '#libs/franchise/types';
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import TextField from '#Fabrique/TextField';
+import Button, { ButtonColor, ButtonType } from '#Fabrique/Button';
+import CircularProgress from '#csscomponents/CircularProgress';
+
+import type { CompanyTheme } from '#libs/theme/types';
+import type { Franchise } from '#libs/franchise/types';
+import { TextFieldVariant } from '#Fabrique/TextField/types';
 
 // @ts-expect-error
 import B_ASSET from '../../../public/images/b_dark.jpg';
+import './styles.css';
 
 interface FranchiseWithCompany extends Franchise {
   company_theme: CompanyTheme;
@@ -35,64 +35,10 @@ export type Props = {
     membership: number | null,
     franchisorId: number | null,
   ) => void;
-  handlePassword1Change: (
-    event: React.ChangeEvent<HTMLTextAreaElement>,
-  ) => void;
-  handlePassword2Change: (
-    event: React.ChangeEvent<HTMLTextAreaElement>,
-  ) => void;
+  handlePassword1Change: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handlePassword2Change: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit: (event: React.FormEvent) => Promise<void>;
 };
-
-const useStyles = makeStyles<Theme, Pick<Props, 'simplifyUI'>>((theme) => ({
-  formContainer: {
-    margin: theme.spacing(2),
-  },
-  button: ({ simplifyUI }) => ({
-    borderRadius: simplifyUI ? 24 : 8,
-    width: '100%',
-  }),
-  container: {
-    textAlign: 'center',
-    padding: 0,
-    position: 'fixed',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: '500px',
-    [theme.breakpoints.down('xs')]: {
-      width: '100%',
-      height: '100vh',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-    },
-  },
-  bsportLogo: {
-    position: 'absolute',
-    objectFit: 'contain',
-    width: '100%',
-    height: '100%',
-    maxWidth: '250px',
-  },
-  content: {
-    padding: theme.spacing(1),
-  },
-  logoWrapper: {
-    position: 'relative',
-    paddingBottom: '56.2%',
-    textAlign: 'start',
-    display: 'flex',
-    justifyContent: 'center',
-  },
-  logoContainer: {
-    position: 'relative',
-    maxHeight: '250px',
-  },
-  fullWidth: {
-    width: '100%',
-  },
-}));
 
 const ChangePasswordForm: React.FC<Props> = ({
   companyTheme,
@@ -111,91 +57,114 @@ const ChangePasswordForm: React.FC<Props> = ({
   onSubmit,
 }) => {
   const { t } = useTranslation(['translation', 'common']);
-  const classes = useStyles({ simplifyUI });
 
   const theme = companyTheme || franchisor;
 
+  const handleRequestResetLink = useCallback(
+    () => requestResetLink(membership, franchisorId),
+    [franchisorId, membership, requestResetLink],
+  );
+
   return (
-    <Paper className={classes.container}>
-      <div className={classes.logoContainer}>
-        <div className={classes.logoWrapper}>
+    <div className="bs-change-password-form__container">
+      <div className="bs-change-password-form__logo-container">
+        <div className="bs-change-password-form__logo-container__wrapper">
           <img
             alt={`${theme?.company_name || 'bsport'} logo`}
-            className={classes.bsportLogo}
+            className="bs-change-password-form__logo-container__wrapper__logo"
             src={theme?.cover || B_ASSET}
           />
         </div>
       </div>
-      <div className={classes.content}>
-        <form className={classes.formContainer} onSubmit={onSubmit}>
-          <Grid container alignItems="center" direction="column" spacing={2}>
-            <Grid item>
-              <Typography variant="h6">
-                {t('form.login.changePasswordTitle')}
-              </Typography>
-            </Grid>
-            {!hasExpired && (
-              <Grid item className={classes.fullWidth}>
-                <TextField
-                  required
-                  className={classes.fullWidth}
-                  name="password"
-                  onChange={handlePassword1Change}
-                  placeholder={t('form.login.password')}
-                  type="password"
-                  value={password1}
-                />
-              </Grid>
+      <div className="bs-change-password-form__content">
+        <form className="bs-change-password-form__form" onSubmit={onSubmit}>
+          <h1 className="bs-change-password-form__form__title">
+            {t('translation:form.login.changePasswordTitle')}
+          </h1>
+          {!hasExpired && (
+            <>
+              <TextField
+                isFullWidth
+                isRequired
+                classes={{
+                  root: 'bs-change-password-form__form__new-password',
+                }}
+                id="change-password-new-pasword"
+                inputId="change-password-new-pasword-input"
+                name="password"
+                onChange={handlePassword1Change}
+                placeholder={t('translation:form.login.password')}
+                type="password"
+                value={password1}
+                variant={TextFieldVariant.STANDARD}
+              />
+              <TextField
+                isFullWidth
+                isRequired
+                classes={{
+                  root: 'bs-change-password-form__form__new-password-confirm',
+                }}
+                id="change-password-new-pasword-confirm"
+                inputId="change-password-new-pasword-input-confirm"
+                name="passwordConfirm"
+                onChange={handlePassword2Change}
+                placeholder={t('translation:form.login.confirmPassword')}
+                type="password"
+                value={password2}
+                variant={TextFieldVariant.STANDARD}
+              />
+            </>
+          )}
+          {error && (
+            <div className="bs-change-password-form__form__error">
+              <span className="bs-change-password-form__form__error__text">
+                {error}
+              </span>
+            </div>
+          )}
+          <div className="bs-change-password-form__form__actions">
+            {processing && <CircularProgress size="sm" />}
+            {!processing && !hasExpired && (
+              <Button
+                classes={{
+                  root: classNames(
+                    'bs-change-password-form__form__actions__submit',
+                    {
+                      'bs-change-password-form__form__actions__submit--simplify-ui':
+                        simplifyUI,
+                    },
+                  ),
+                }}
+                color={ButtonColor.PRIMARY}
+                id="btn-new-password-confirm"
+                type={ButtonType.SUBMIT}
+              >
+                {t('common:ok')}
+              </Button>
             )}
-            {!hasExpired && (
-              <Grid item className={classes.fullWidth}>
-                <TextField
-                  required
-                  className={classes.fullWidth}
-                  name="passwordConfirm"
-                  onChange={handlePassword2Change}
-                  placeholder={t('form.login.confirmPassword')}
-                  type="password"
-                  value={password2}
-                />
-              </Grid>
+            {hasExpired && (
+              <Button
+                classes={{
+                  root: classNames(
+                    'bs-change-password-form__form__actions__reset-again',
+                  ),
+                }}
+                color={ButtonColor.PRIMARY}
+                onClick={handleRequestResetLink}
+              >
+                {t('translation:form.login.resetAgainPassword')}
+              </Button>
             )}
-            {error ? (
-              <Grid item className={classes.fullWidth}>
-                <Typography color="error" variant="caption">
-                  {error}
-                </Typography>
-              </Grid>
-            ) : null}
-            <Grid item className={classes.fullWidth}>
-              {!!processing && <CircularProgress />}
-              {!processing && !hasExpired && (
-                <Button
-                  className={classes.button}
-                  color="primary"
-                  id="btn-new-password-confirm"
-                  type="submit"
-                  variant="contained"
-                >
-                  {t('common.ok')}
-                </Button>
-              )}
-              {!!hasExpired && (
-                <Button
-                  className={classes.button}
-                  color="primary"
-                  onClick={() => requestResetLink(membership, franchisorId)}
-                  variant="contained"
-                >
-                  {t('form.login.resetAgainPassword')}
-                </Button>
-              )}
-            </Grid>
-          </Grid>
+          </div>
         </form>
       </div>
-    </Paper>
+    </div>
   );
 };
+
+export const ChangePasswordFormStorybook =
+  marketplaceCssHoc<React.ComponentProps<typeof ChangePasswordForm>>()(
+    ChangePasswordForm,
+  );
 
 export default React.memo(ChangePasswordForm);

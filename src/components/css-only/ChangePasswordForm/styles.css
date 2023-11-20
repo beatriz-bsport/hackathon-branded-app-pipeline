@@ -1,0 +1,103 @@
+.bs-change-password-form__container {
+  text-align: center;
+  padding: 0;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  box-shadow: var(--bs-shadow-s);
+  border-radius: var(--border-radius-1);
+  background: var(--color-background-paper);
+}
+
+.bs-change-password-form__logo-container {
+  position: relative;
+  max-height: 250px;
+}
+
+.bs-change-password-form__logo-container__wrapper {
+  position: relative;
+  padding-bottom: 56.2%;
+  text-align: start;
+  display: flex;
+  justify-content: center;
+}
+
+.bs-change-password-form__logo-container__wrapper__logo {
+  position: absolute;
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+  max-width: 250px;
+}
+
+.bs-change-password-form__content {
+  padding: var(--spacing-1);
+}
+
+.bs-change-password-form__form {
+  margin: var(--spacing-2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.bs-change-password-form__form__title {
+  font-family: var(--h6-fontFamily);
+  font-size: var(--h6-fontSize);
+  font-weight: var(--h6-fontWeight);
+  line-height: var(--h6-lineHeight);
+}
+
+.bs-change-password-form__form__new-password {
+  display: flex;
+  border-color: var(--color-grey-600);
+}
+
+.bs-change-password-form__form__new-password-confirm {
+  display: flex;
+  border-color: var(--color-grey-600);
+}
+
+.bs-change-password-form__form__error {
+  width: 100%;
+}
+
+.bs-change-password-form__form__error__text {
+  color: var(--color-error-main);
+  font-family: var(--caption-fontFamily);
+  font-size: var(--caption-fontSize);
+  font-weight: var(--caption-fontWeight);
+  letter-spacing: var(--caption-letterSpacing);
+  line-height: var(--caption-lineHeight);
+}
+
+.bs-change-password-form__form__actions {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.bs-change-password-form__form__actions__submit {
+  width: 100%;
+}
+
+.bs-change-password-form__form__actions__submit--simplify-ui {
+  border-radius: var(--border-radius-3);
+}
+
+.bs-change-password-form__form__actions__reset-again {
+  width: 100%;
+}
+
+@media screen and (max-width: 600px) {
+  .bs-change-password-form__container {
+    width: 100%;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}

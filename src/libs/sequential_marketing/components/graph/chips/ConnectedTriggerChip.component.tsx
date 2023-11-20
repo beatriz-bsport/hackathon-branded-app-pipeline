@@ -10,9 +10,10 @@ import {
   TriggerKind,
   SequentialMarketingColors,
 } from '#libs/sequential_marketing/constants';
-import { CadenceChip } from './CadenceChip.component';
 import { CustomMuiIcon } from '#components/icons/CustomMuiIcon.component';
+import { CadenceChip } from './CadenceChip.component';
 import useConnectedTriggerChip from './useConnectedTriggerChip.hook';
+
 import type {
   ConnectedTrigger,
   TriggerEventConfig,
@@ -32,8 +33,7 @@ const ConnectedTriggerChip: React.FC<ConnectedTriggerChipProps> = ({
 }) => {
   const classes = useStyles();
 
-  const { getTriggerLabel, getEventTriggerDetailText } =
-    useConnectedTriggerChip();
+  const { getTriggerLabel } = useConnectedTriggerChip();
 
   const triggerKind = useMemo(
     () => getTriggerKind(connectedTrigger),
@@ -64,7 +64,6 @@ const ConnectedTriggerChip: React.FC<ConnectedTriggerChipProps> = ({
                 ?.event_type,
             )}
             name={getTriggerLabel(connectedTrigger)}
-            toolTipValue={getEventTriggerDetailText(connectedTrigger)}
           />
           <div className={classes.filter}>
             <CustomMuiIcon

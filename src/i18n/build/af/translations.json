@@ -10972,6 +10972,16 @@
       "create": { "error": "An error occurred when creating the cadence", "success": "A new cadence has been created" },
       "update": { "error": "An error occurred when editing the cadence", "success": "Your cadence has been updated" }
     },
+    "audience": {
+      "create": {
+        "error": "An error occurred when creating the {{ workflowLowerCase }}",
+        "success": "A new {{ workflowLowerCase }} has been created"
+      },
+      "update": {
+        "error": "An error occurred when editing the {{ workflowLowerCase }}",
+        "success": "Your {{ workflowLowerCase }} has been updated"
+      }
+    },
     "giftCard": { "notFound": "This giftcard has not been found. It may have been archived." },
     "modifyBasket": { "15004": "The basket is being processed. Please try again in a few minutes." },
     "quicksaleConfiguration": { "error": "An error has occurred during save", "updated": "Configuration saved" },

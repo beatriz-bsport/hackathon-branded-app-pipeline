@@ -1188,6 +1188,16 @@ const getTranslations = async () => {
         success: 'Your cadence has been updated',
       },
     },
+    audience: {
+      create: {
+        error: 'An error occurred when creating the {{ workflowLowerCase }}',
+        success: 'A new {{ workflowLowerCase }} has been created',
+      },
+      update: {
+        error: 'An error occurred when editing the {{ workflowLowerCase }}',
+        success: 'Your {{ workflowLowerCase }} has been updated',
+      },
+    },
     giftCard: {
       notFound: 'This giftcard has not been found. It may have been archived.',
     },

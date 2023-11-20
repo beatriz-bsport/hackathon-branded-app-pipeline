@@ -108,6 +108,7 @@ exports.default = {
     tutorialInfo: 'You can find our Getting Started Guide in the Tutorial tab.',
     tutorial: 'Tutorials',
     cadences: 'Cadences',
+    audience: '{{ audienceCamelCase }}',
     toggle: { expand: 'Expand', shrink: 'Collapse' },
     replacement: 'Substitution',
     inbox: 'Inbox',

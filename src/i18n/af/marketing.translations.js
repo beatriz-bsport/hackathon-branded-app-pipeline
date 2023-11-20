@@ -713,4 +713,67 @@ exports.default = {
       do_not_display_anymore: 'Do not display this message anymore.',
     },
   },
+
+  audience: {
+    form: {
+      updateTitle: 'Editing the name of the {{ workflowLowerCase }}',
+      trigger: {
+        helpers: {
+          exitFail:
+            'Define here the trigger that causes a member to be considered lost and to exit the {{ workflowLowerCase }}.',
+          exitSuccess:
+            'Define here the trigger that causes a member to be considered a winner and to exit the {{ workflowLowerCase }}.',
+          workflow:
+            'Define the triggers for entering the {{ workflowLowerCase }} here. Members will need to match the criteria listed below to begin the marketing sequence.',
+        },
+        trigger_timeout_explain_value_selected:
+          'If the member is still present in the {{ workflowLowerCase }} after {{ days }} days then it will automatically be removed from the {{ workflowLowerCase }} and considered lost.',
+        trigger_timeout_select_label:
+          'days maximum in the {{ workflowLowerCase }}',
+        event_and_smartlist_helper:
+          'Members will have to match the event and be part of the smartlist to get into the {{ workflowLowerCase }}',
+        labels: {
+          workflow: 'The entry in the {{ workflowLowerCase }} is done via :',
+        },
+        event_or_smartlist_helper:
+          'Members will have to match the event or be part of the smartlist to fit into the {{ workflowLowerCase }}',
+      },
+      audienceNameLabel: 'Name of the {{ workflowLowerCase }}',
+      audienceStepHelper:
+        'Set the name of the step here: this is where you will be able to see where the members are in the {{ workflowLowerCase }}.',
+      title: 'Create a {{ workflowLowerCase }}',
+      addAWorkflow: 'Add a {{ workflowLowerCase }}',
+      createAudienceHelper:
+        'Thanks to the {{ workflowPluralLowerCase }}, target the marketing actions you send to your members according to their behavior on the platform. Create a sequence of actions that your members must complete to obtain certain promotions or tags, for example.',
+    },
+    graph: {
+      alert: {
+        switchToEditMode:
+          'You are in view mode, click on EDIT to edit the {{ workflowLowerCase }}.',
+        audienceIsActive:
+          'Your {{ workflowLowerCase }} is ongoing, please pause it to modify.',
+      },
+    },
+    activate: {
+      dialog: {
+        firstHelper: 'Do you want to launch the {{ workflowLowerCase }}?',
+        title: 'Launch the {{ workflowLowerCase }}',
+      },
+      setupBeforeActivationHelper:
+        'Finish setting up your {{ workflowLowerCase }} and create your first marketing action to launch your {{ workflowLowerCase }}.',
+    },
+    archive: {
+      archivedHeader: 'Archived {{ workflowPluralLowerCase }}',
+      dialog: {
+        helper:
+          'Members currently in the {{ workflowLowerCase }} will automatically exit it. This {{ workflowLowerCase }} will be archived but you can reactivate it later.',
+        title: 'Delete a {{ workflowLowerCase }}',
+      },
+    },
+    howTo: {
+      title: 'How to edit your {{ workflowLowerCase }}',
+    },
+    audienceIndexHelper:
+      'The order of the {{ workflowPluralLowerCase }} defines the order of priority: if a member can enter 2 different {{ workflowPluralLowerCase }}, he will start with the highest in the list.',
+  },
 };

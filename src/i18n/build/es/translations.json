@@ -2083,7 +2083,9 @@
             "table": {
                 "actions": "Acciones",
                 "establishment": "Establecimientos",
-                "name": "Nombre"
+                "name": "Nombre",
+                "noAddress": "No hay ninguna dirección asociada a este grupo de facturación",
+                "address": "Dirección"
             }
         },
         "localisation": "Ubicación",
@@ -2098,14 +2100,15 @@
                 "delete": {
                     "confirm": "Borrar",
                     "cancel": "Cancelar",
-                    "content": "¿Desea borrar este grupo de facturación? La eliminación de este grupo será retroactiva, ya no aparecerá en los informes asociados.",
+                    "content": "¿Está seguro de que desea eliminar este grupo de facturación? Las facturas futuras ya no podrán vincularse a este establecimiento, ni ser seleccionadas por los afiliados como su establecimiento preferido al realizar una compra en línea. Antes de eliminar el grupo de facturación asegúrese de que todos sus establecimientos están vinculados a los grupos de facturación existentes",
                     "title": "Eliminación de un grupo de facturación"
                 }
             },
             "form": {
                 "error": {
                     "groupShouldHaveName": "Debe dar un nombre a este grupo de facturación",
-                    "groupShouldContainsOneRoom": "Seleccione al menos un establecimiento"
+                    "groupShouldContainsOneRoom": "Seleccione al menos un establecimiento",
+                    "groupShouldHaveAddress": "Debe dar una dirección a este grupo de facturación"
                 },
                 "dialog": {
                     "save": "Registrar",
@@ -2113,7 +2116,14 @@
                     "title": "Grupo de facturación"
                 },
                 "associated_localizations": "Establecimientos asociados",
-                "name": "Nombre"
+                "name": "Nombre",
+                "address": {
+                    "helperText": "Introduzca la dirección del grupo de facturación.",
+                    "label": "Dirección"
+                },
+                "warning": {
+                    "groupHasSeveralLocations": "Tenga en cuenta que los establecimientos que ha seleccionado no tienen la misma dirección y pueden no pertenecer a la misma localidad"
+                }
             },
             "actions": "acciones",
             "name": " Nombre"
@@ -2364,7 +2374,7 @@
         },
         "billing_group": {
             "header": "Grupos de facturación",
-            "helperText": "Si tiene varios estudios con diferentes nombres de empresa, puede agruparlos aquí por grupo de facturación. Los grupos de facturación aparecerán en sus informes para facilitar la vinculación de cada factura con el nombre de la empresa correcta.",
+            "helperText": "Los grupos de facturación aparecerán en sus informes para vincular fácilmente cada factura a la ubicación correcta y serán utilizados en la cesta por los miembros para elegir su ubicación preferida. Es necesario definir al menos un grupo de facturación para que los afiliados puedan realizar compras en línea. Si tiene varios establecimientos pertenecientes a la misma localidad, puede agruparlos dentro del mismo grupo de facturación",
             "add": "Añadir un grupo"
         },
         "quickbooks": {
@@ -6098,7 +6108,8 @@
                     "confirm": "Validar"
                 },
                 "unAuthorized": "No tienes los derechos necesarios para inscribirse en esta sesión."
-            }
+            },
+            "isBookingLimitReached": "Ha alcanzado su límite de reservas"
         },
         "filters": {
             "notRefunded": "No reembolsada",
@@ -8813,10 +8824,11 @@
                     "advancedSection": "Avanzado",
                     "submit": "Confirmar",
                     "maxCommunicationSentHelperText": {
-                        "1": "Por defecto, el mensaje sólo se envía cuando el usuario sale por primera vez de la smartlist. Puede ajustar la configuración para permitir mensajes posteriores a la segunda o tercera salida del miembro.",
-                        "0": "Por defecto, el mensaje sólo se envía cuando el usuario entra por primera vez en la lista. Puede ajustar la configuración para permitir mensajes posteriores a la segunda o tercera entrada del miembro."
+                        "1": "Por defecto, el mensaje se envía cada vez que un miembro sale de la smartlist. Si un miembro vuelve a entrar y más tarde sale de nuevo, el mensaje se envía de nuevo. Ajuste la configuración si desea limitar el número de veces que el mismo miembro puede recibir el mensaje: una, dos o tres veces.",
+                        "0": "Por defecto, el mensaje se envía cada vez que un miembro entra en la smartlist. Si un miembro sale y vuelve a entrar más tarde, el mensaje se envía de nuevo. Ajuste la configuración si desea limitar el número de veces que el mismo miembro puede recibir el mensaje: una, dos o tres veces."
                     },
-                    "limitSection": "Límite"
+                    "limitSection": "Límite",
+                    "unlimited": "Sin límites"
                 },
                 "activeSince": "Activo desde el {{-date}}",
                 "eventKind": {
@@ -11821,7 +11833,8 @@
         "selector": {
             "validate": "Validar",
             "unselectAll": "Deseleccionar todo",
-            "selectAll": "Seleccionar todo"
+            "selectAll": "Seleccionar todo",
+            "indeterminate": "Seleccionar todo ({{count}} seleccionado)"
         },
         "cancel": "Cancelar",
         "confirm": "Confirmar",
@@ -15622,7 +15635,38 @@
                     "onstrong": "Sobre un fondo sólido",
                     "grey": "Gris",
                     "main": "Principal",
-                    "isBlockedByMaxFutureBooking": "Límite máximo de reservas futuras alcanzado"
+                    "isBlockedByMaxFutureBooking": "Límite máximo de reservas futuras alcanzado",
+                    "alert": {
+                        "error": "Error",
+                        "warning": "Atención",
+                        "info": "Info",
+                        "success": "Éxito de la operación"
+                    },
+                    "confirmationMessage": {
+                        "purchaseWithPassesSuccess": "Pago confirmado",
+                        "waitingList": "Inscrito en lista de espera",
+                        "offerAndPurchaseGenericError": "Reserva y compra fallidas (reintentar)",
+                        "purchaseOnlySuccess": "Compra procesada",
+                        "offerAndPurchaseSuccess": "Reservas y compras tramitadas",
+                        "offerOnlySuccess": "Reserva con éxito",
+                        "offerOnlyBookingError": "La sesión ya no se puede reservar",
+                        "genericOfferError": "La reserva ha fallado inesperadamente",
+                        "generic": "Error al procesar la transacción"
+                    },
+                    "outlined": "Subrayado",
+                    "contained": "Contenido",
+                    "password": "Contraseña",
+                    "tel": "Número de teléfono",
+                    "email": "Email",
+                    "text": "Texto",
+                    "lg": "Grande",
+                    "md": "Medio",
+                    "sm": "Pequeño",
+                    "error": "Error",
+                    "info": "Info",
+                    "white": "Blanco",
+                    "secondary": "Secundario",
+                    "primary": "Principal"
                 },
                 "title": {
                     "nextOffer": "Próxima sesión disponible",
@@ -15661,16 +15705,41 @@
                     "isItemEditionDisabled": "Modificación de elementos desactivada",
                     "isAddingItemPossible": "Añadir más elementos activados",
                     "isBookingDisabled": "Reservas desactivadas",
-                    "isRippleEnabled": "Desactivar el efecto de ondulación de los botones",
+                    "isRippleEnabled": "Habilitar el efecto dominó",
                     "square": "No se pueden redondear las esquinas",
                     "cardVariant": "Seleccione la variante de tarjeta que desea utilizar",
                     "componentType": "El contenedor es un botón",
                     "color": "Color del elemento",
                     "isError": "Está en estado de error",
                     "hasEmailChoices": "Opciones de listas de correo electrónico",
-                    "hasSent": "El formulario ha sido enviado"
+                    "hasSent": "El formulario ha sido enviado",
+                    "isMultiple": "Se encuentra en varios estados",
+                    "messageWithActions": "Con botones",
+                    "alertWithAction": "Con botón",
+                    "alertSeverity": "Gravedad",
+                    "bookingOrPurchaseStatus": "Estado de la reserva y la compra",
+                    "isRecommended": "Marcar como recomendado",
+                    "displayCaptionText": "Mostrar el texto del pie de foto",
+                    "isInversed": "Color del elemento invertido",
+                    "isChecked": "Está en estado comprobado",
+                    "showTabSelect": "La pestaña tiene opciones de selección",
+                    "isTabSelected": "La pestaña está seleccionada",
+                    "showBlanket": "Mostrar la cubierta",
+                    "hasBadge": "Mostrar la insignia del elemento",
+                    "isSelected": "El elemento está seleccionado",
+                    "isIconButton": "El botón tiene un icono",
+                    "textFieldType": "Tipo de entrada",
+                    "displayPlaceholder": "Mostrar el marcador de posición",
+                    "displayLabel": "Mostrar la etiqueta",
+                    "displayHelperText": "Mostrar el texto de ayuda",
+                    "isDisabled": "Elemento desactivado",
+                    "displayRightIcon": "Mostrar el icono derecho",
+                    "displayLeftIcon": "Mostrar el icono izquierdo",
+                    "size": "Tamaño del elemento",
+                    "fabriqueVariant": "Variante del elemento"
                 },
-                "configurationTitle": "Variaciones"
+                "configurationTitle": "Variaciones",
+                "confirmationMessageComponentAlert": "Este componente gestiona principalmente los estados de reserva y pago. Para personalizar su apariencia, recomendamos utilizar sus componentes raíz situados en la sección común"
             },
             "page": {
                 "calendar": "Calendario",
@@ -15681,7 +15750,8 @@
                 "bookingPage": "Reserva",
                 "fabrique": "Fábrica",
                 "spot_scheduling": "Programación al contado",
-                "authentication": "Autenticación"
+                "authentication": "Autenticación",
+                "checkoutConfirmationPage": "Confirmación de pago"
             },
             "components": {
                 "calendar": "Página del calendario",
@@ -15764,7 +15834,22 @@
                 "marketplace_minimal_appbar": "AppBar minimalista",
                 "authentication_login": "Componente de inicio de sesión",
                 "authentication_login_form": "Formulario de inicio de sesión",
-                "authentication_reset_password_form": "Formulario de restablecimiento de contraseña"
+                "authentication_reset_password_form": "Formulario de restablecimiento de contraseña",
+                "fabrique_checkbox": "Casilla de verificación",
+                "fabrique_radiobutton": "Botón de opción",
+                "fabrique_tab": "Pestaña",
+                "fabrique_blanket": "Cubierta",
+                "fabrique_action_tab": "Pestaña de acción",
+                "fabrique_textfield": "Campo de texto",
+                "message_with_icon": "Mensaje con icono",
+                "alert": "Alerta",
+                "marketplace_confirmation_checkout_message": "Mensaje de confirmación de reserva",
+                "marketplace_booker_module_buyable_item_contract": "Artículo del contrato de reserva",
+                "marketplace_booker_module_buyable_item_payment_pack": "Artículo de bono de reserva",
+                "marketplace_booker_module_buyable_item_payment_combo": "Artículo del pack de reserva",
+                "marketplace_booker_module_buyable_items_list": "Selección de bonos de reserva (contenedor)",
+                "fabrique_icon_button": "Icono del botón",
+                "fabrique_button": "Botón"
             },
             "customCss": {
                 "yourCode": "Su implementación complementaria:",
@@ -16375,7 +16460,8 @@
                     "cancel": "Cancelar",
                     "firstHelper": "¿Desea iniciar la cadencia?",
                     "title": "Iniciar la cadencia",
-                    "secondHelper": "Una vez iniciada ya no podrá modificarla."
+                    "secondHelper": "Una vez iniciada ya no podrá modificarla.",
+                    "confirmButton": "Iniciar"
                 },
                 "button": "Iniciar",
                 "setupBeforeActivationHelper": "Termine de configurar su cadencia y cree su primera acción marketing para empezar su cadencia."
@@ -16387,7 +16473,8 @@
                     "cancel": "Cancelar",
                     "helper": "Los miembros actualmente en la cadencia saldrán automáticamente. Esta cadencia se archivará, podrá volver a activarla luego.",
                     "beingArchived": "Está a punto de eliminar {{ name }}.",
-                    "title": "Eliminar una cadencia"
+                    "title": "Eliminar una cadencia",
+                    "confirmButton": "Archivar"
                 }
             },
             "svgText": {
@@ -16462,6 +16549,42 @@
                     "title": "Acción de entrada",
                     "helperText": "Seleccione lo que desea hacer cuando sus miembros entren en el flujo de trabajo. Etiquételos, envíe un correo electrónico... Usted decide. O no hacer nada, este paso es opcional.",
                     "addAction": "Añade una acción"
+                }
+            },
+            "dialog": {
+                "do_not_display_anymore": "No mostrar más este mensaje.",
+                "confirm": "Confirmar",
+                "cancel": "Cancelar"
+            },
+            "step": {
+                "convertExit": {
+                    "dialog": {
+                        "helper": "El siguiente activador conectado también se borrará. El resto del flujo se desconectará pero no se eliminará.",
+                        "title": "Convertir este paso en una salida"
+                    }
+                },
+                "archive": {
+                    "dialog": {
+                        "helper": "Esta acción no se puede deshacer. Los desencadenantes conectados también se eliminarán. El resto del flujo se desconectará pero no se eliminará.",
+                        "title": "¿Está seguro de que desea eliminar este paso?"
+                    }
+                }
+            },
+            "deleteStep": {
+                "dialog": {
+                    "confirmButton": "Borrar"
+                }
+            },
+            "converStepToExit": {
+                "dialog": {
+                    "confirmButton": "Convertir"
+                }
+            },
+            "pause": {
+                "dialog": {
+                    "confirmButton": "Pausa",
+                    "helper": "Todas las acciones de los miembros que ocurran durante la pausa no se tendrán en cuenta.",
+                    "title": "Pausar el workflow"
                 }
             }
         }

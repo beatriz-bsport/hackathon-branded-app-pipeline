@@ -228,7 +228,8 @@
                     "title": "Information"
                 },
                 "unAuthorized": "Vous n’avez pas les droits nécessaires pour vous inscrire à cette séance."
-            }
+            },
+            "isBookingLimitReached": "Vous avez atteint votre limite de réservation"
         },
         "details": {
             "pleaseSelectABooking": "Sélectionnez une réservation pour voir le détails",
@@ -1065,7 +1066,8 @@
         "selector": {
             "selectAll": "Tout sélectionner",
             "unselectAll": "Tout désélectionner",
-            "validate": "Valider"
+            "validate": "Valider",
+            "indeterminate": "Tout sélectionner ({{count}} sélectionné(s))"
         },
         "showMore": "Afficher plus ({{count}})",
         "showLess": "Afficher moins",
@@ -1234,10 +1236,11 @@
                     },
                     "frequenceHelper": "Cette communication sera envoyée pour {{ max }} {{ event_kind }} de la smartlist pour chaque membre. Après {{ max }} {{ event_kind }} de la smartlist pour un même membre, il ne recevra plus cette communication. Vous pouvez changer ce paramètre dans 'Avancé'.",
                     "maxCommunicationSentHelperText": {
-                        "1": "Par défaut, le message n'est envoyé qu'à la première sortie de chaque membre de la smartlist. Vous pouvez modifier ce paramètre pour permettre l'envoi de messages ultérieurs lors de la deuxième ou de la troisième sortie du membre.",
-                        "0": "Par défaut, le message n'est envoyé que lors de la première entrée de chaque membre dans la smartlist. Vous pouvez modifier ce paramètre pour permettre l'envoi de messages ultérieurs lors de la deuxième ou de la troisième entrée du membre."
+                        "1": "Par défaut, le message est envoyé chaque fois qu'un membre quitte la smartlist. Si, à nouveau, un membre entre dans la smartlist et la quitte, le message est renvoyé. Vous pouvez ajuster le paramètre pour limiter à une, deux ou trois le nombre de fois qu'un même membre peut recevoir le message.",
+                        "0": "Par défaut, le message est envoyé chaque fois qu'un membre entre dans la smartlist. Si un membre quitte la smartlist et y revient plus tard, le message est envoyé à nouveau. Vous pouvez ajuster le paramètre pour limiter à une, deux ou trois le nombre de fois qu'un même membre peut recevoir le message."
                     },
-                    "limitSection": "Limite"
+                    "limitSection": "Limite",
+                    "unlimited": "Aucune limite"
                 },
                 "panel": {
                     "title": "Règle d'envoi automatique",
@@ -2488,7 +2491,9 @@
             "table": {
                 "actions": "Actions",
                 "establishment": "Etablissements",
-                "name": "Nom"
+                "name": "Nom",
+                "noAddress": "Aucune adresse n'est associée à ce groupe de facturation",
+                "address": "Adresse"
             }
         },
         "billing_group": {
@@ -2504,13 +2509,21 @@
                 },
                 "error": {
                     "groupShouldContainsOneRoom": "Veuillez sélectionner au moins une salle",
-                    "groupShouldHaveName": "Vous devez donner un nom à ce groupe de facturation"
+                    "groupShouldHaveName": "Vous devez donner un nom à ce groupe de facturation",
+                    "groupShouldHaveAddress": "Vous devez définir une adresse pour ce groupe de facturation"
+                },
+                "address": {
+                    "helperText": "Saisissez l'adresse du groupe de facturation.",
+                    "label": "Adresse"
+                },
+                "warning": {
+                    "groupHasSeveralLocations": "Notez que les établissements que vous avez sélectionnés n'ont pas la même adresse et peuvent ne pas faire partie de la même localisation"
                 }
             },
             "modal": {
                 "delete": {
                     "title": "Suppression d'un groupe de facturation",
-                    "content": "Voulez-vous supprimer ce groupe de facturation ? La suppression de ce groupe sera retro-active, il n'apparaitra plus dans les rapports associés.",
+                    "content": "Etes-vous sûr de vouloir supprimer ce groupe de facturation ? Les factures futures ne pourront plus être liées à cet établissement, ni être sélectionnées par les membres comme leur établissement préféré lorsqu'ils effectuent un achat en ligne. Avant de supprimer le groupe de facturation, assurez-vous que tous vos établissements sont liés à des groupes de facturation existants.",
                     "cancel": "Annuler",
                     "confirm": "Supprimer"
                 }
@@ -4269,7 +4282,8 @@
                     "beingArchived": "Vous vous apprêtez à supprimer {{ name }}.",
                     "helper": "Les membres actuellement dans la cadence en sortiront automatiquement. Cette cadence sera archivée, vous pourrez la réactiver ultérieurement.",
                     "cancel": "Annuler",
-                    "confirm": "Continuer"
+                    "confirm": "Continuer",
+                    "confirmButton": "Archiver"
                 },
                 "archivedHeader": "Cadences archivées"
             },
@@ -4280,7 +4294,8 @@
                     "title": "Lancer la cadence",
                     "firstHelper": "Voulez-vous lancer la candence ?",
                     "secondHelper": "Vous ne pourrez plus l'éditer tant qu'elle sera lancée.",
-                    "cancel": "Annuler"
+                    "cancel": "Annuler",
+                    "confirmButton": "Lancer"
                 }
             },
             "cadenceCard": {
@@ -4347,6 +4362,42 @@
                 "alert": {
                     "cadenceIsActive": "Votre cadence est en cours merci de mettre votre cadence en pause pour pouvoir la modifier.",
                     "switchToEditMode": "Vous êtes en mode vue, cliquez sur ÉDITER pour pouvoir éditer la cadence."
+                }
+            },
+            "dialog": {
+                "do_not_display_anymore": "Ne plus afficher ce message.",
+                "confirm": "Confirmer",
+                "cancel": "Annuler"
+            },
+            "step": {
+                "convertExit": {
+                    "dialog": {
+                        "helper": "Le déclencheur suivant sera également supprimé. Le reste du workflow sera déconnecté mais pas supprimé.",
+                        "title": "Convertir cette étape en sortie"
+                    }
+                },
+                "archive": {
+                    "dialog": {
+                        "helper": "Cette action ne peut pas être annulée. Les déclencheurs connectés à l'étape seront également supprimés. Le reste du workflow sera déconnecté mais pas supprimé.",
+                        "title": "Êtes-vous sûr de vouloir supprimer cette étape ?"
+                    }
+                }
+            },
+            "deleteStep": {
+                "dialog": {
+                    "confirmButton": "Supprimer"
+                }
+            },
+            "converStepToExit": {
+                "dialog": {
+                    "confirmButton": "Convertir"
+                }
+            },
+            "pause": {
+                "dialog": {
+                    "confirmButton": "Pause",
+                    "helper": "Toutes les actions des membres se produisant pendant la pause ne seront pas prises en compte.",
+                    "title": "Pauser le workflow"
                 }
             }
         }
@@ -11667,7 +11718,7 @@
         },
         "billing_group": {
             "add": "Ajouter un groupe",
-            "helperText": "Si vous disposez de plusieurs studios appartenants à différentes raisons sociales, vous pouvez les regrouper ici par groupe de facturation. Les groupes de facturations apparaitront sur vos rapports pour relier plus facilement chaque facture à la bonne raison sociale.",
+            "helperText": "Les groupes de facturation apparaîtront dans vos rapports pour relier facilement chaque facture au bon endroit et seront utilisés par les membres dans le panier pour choisir leur localisation préférée. Au moins un groupe de facturation doit être défini pour que les membres puissent effectuer des achats en ligne. Si vous avez plusieurs établissements appartenant à la même localisation, vous pouvez les regrouper au sein d'un même groupe de facturation.",
             "header": "Groupes de facturation"
         },
         "quickbooks": {
@@ -16894,7 +16945,22 @@
                 "marketplace_minimal_appbar": "AppBar minimal",
                 "authentication_login": "Composant de connexion",
                 "authentication_login_form": "Formulaire de connexion",
-                "authentication_reset_password_form": "Formulaire de réinitialisation du mot de passe"
+                "authentication_reset_password_form": "Formulaire de réinitialisation du mot de passe",
+                "fabrique_checkbox": "Checkbox",
+                "fabrique_radiobutton": "Bouton radio",
+                "fabrique_tab": "Onglet",
+                "fabrique_blanket": "Couverture",
+                "fabrique_action_tab": "Onglet Action",
+                "fabrique_textfield": "Champ texte",
+                "message_with_icon": "Message avec icône",
+                "alert": "Alerte",
+                "marketplace_confirmation_checkout_message": "Message de confirmation de réservation",
+                "marketplace_booker_module_buyable_item_contract": "Élément du contrat de réservation",
+                "marketplace_booker_module_buyable_item_payment_pack": "Élément de la carte de réservation",
+                "marketplace_booker_module_buyable_item_payment_combo": "Élément du pack de réservation",
+                "marketplace_booker_module_buyable_items_list": "Sélection du pass (conteneur)",
+                "fabrique_icon_button": "Bouton d'icône",
+                "fabrique_button": "Bouton"
             },
             "page": {
                 "common": "Commun",
@@ -16906,7 +16972,8 @@
                 "bookingPage": "Réservation",
                 "fabrique": "Fabrique",
                 "spot_scheduling": "Spot scheduling",
-                "authentication": "Authentification"
+                "authentication": "Authentification",
+                "checkoutConfirmationPage": "Confirmation de paiement"
             },
             "cssConfig": {
                 "configurationTitle": "Variations",
@@ -16947,14 +17014,38 @@
                     "showPrice": "Afficher le prix",
                     "showSpot": "Afficher l'emplacement",
                     "isBookingDisabled": "La réservation est désactivée",
-                    "isRippleEnabled": "Désactiver l'effet de ricochet des boutons",
+                    "isRippleEnabled": "Activer l'effet de ricochet",
                     "square": "Désactiver les coins arrondis",
                     "cardVariant": "Sélectionnez la variante de carte à utiliser",
                     "componentType": "Le conteneur est un bouton",
                     "color": "Couleur de l'élément",
                     "isError": "Est en état d'erreur",
                     "hasEmailChoices": "Choix de la liste d'adresses électroniques",
-                    "hasSent": "Le formulaire a été envoyé"
+                    "hasSent": "Le formulaire a été envoyé",
+                    "isMultiple": "Est dans plusieurs états",
+                    "messageWithActions": "Avec boutons",
+                    "alertWithAction": "Avec bouton",
+                    "alertSeverity": "Gravité",
+                    "bookingOrPurchaseStatus": "Statut de la réservation et de l'achat",
+                    "isRecommended": "Marquer comme recommandé",
+                    "displayCaptionText": "Afficher la légende",
+                    "isInversed": "Couleur de l'élément inversée",
+                    "isChecked": "Est en état coché",
+                    "showTabSelect": "L'onglet comporte des options de sélection",
+                    "isTabSelected": "L'onglet est sélectionné",
+                    "showBlanket": "Afficher la couverture",
+                    "hasBadge": "Afficher le badge de l'élément",
+                    "isSelected": "L'élément est sélectionné",
+                    "isIconButton": "Le bouton a une icône",
+                    "textFieldType": "Type de données",
+                    "displayPlaceholder": "Afficher le caractère générique",
+                    "displayLabel": "Afficher le libellé",
+                    "displayHelperText": "Afficher le texte d'aide",
+                    "isDisabled": "L'élément est désactivé",
+                    "displayRightIcon": "Afficher l'icône de droite",
+                    "displayLeftIcon": "Afficher l'icône de gauche",
+                    "size": "Taille de l'élément",
+                    "fabriqueVariant": "Variante de l'élément"
                 },
                 "option": {
                     "true": "Oui",
@@ -17002,8 +17093,40 @@
                     "warning": "Avertissement",
                     "grey": "Gris",
                     "main": "Principal",
-                    "isBlockedByMaxFutureBooking": "Limite maximale de réservations futures atteinte"
-                }
+                    "isBlockedByMaxFutureBooking": "Limite maximale de réservations futures atteinte",
+                    "alert": {
+                        "error": "Erreur",
+                        "warning": "Avertissement",
+                        "info": "Info",
+                        "success": "Succès"
+                    },
+                    "confirmationMessage": {
+                        "purchaseWithPassesSuccess": "Paiement confirmé",
+                        "waitingList": "Inscrit sur liste d'attente",
+                        "offerAndPurchaseGenericError": "Échec de la réservation et de l'achat (réessayer)",
+                        "purchaseOnlySuccess": "Achat effectué",
+                        "offerAndPurchaseSuccess": "Traitement des réservations et des achats",
+                        "offerOnlySuccess": "Réservation réussie",
+                        "offerOnlyBookingError": "La séance ne peut plus être réservée",
+                        "genericOfferError": "La réservation a échoué de manière inattendue",
+                        "generic": "Erreur lors du traitement de la transaction"
+                    },
+                    "outlined": "Aperçu",
+                    "contained": "Contenu",
+                    "password": "Mot de passe",
+                    "tel": "Numéro de téléphone",
+                    "email": "Email",
+                    "text": "Texte",
+                    "lg": "Grand",
+                    "md": "Moyen",
+                    "sm": "Petit",
+                    "error": "Erreur",
+                    "info": "Info",
+                    "white": "Blanc",
+                    "secondary": "Secondaire",
+                    "primary": "Primaire"
+                },
+                "confirmationMessageComponentAlert": "Ce composant gère principalement les statuts de réservation et de paiement. Pour personnaliser son apparence, nous recommandons d'utiliser ses composants racine situés dans la section commune"
             }
         },
         "create": "Général",

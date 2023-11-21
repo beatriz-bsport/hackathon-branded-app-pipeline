@@ -263,7 +263,8 @@
                     "confirm": "Confirmar"
                 },
                 "unAuthorized": "Não tem autorização para se registar nesta sessão."
-            }
+            },
+            "isBookingLimitReached": "Você atingiu o limite se reservas"
         },
         "details": {
             "consumerPaymentPackTitle": "Passe de aulas utilizado",
@@ -820,7 +821,8 @@
         "selector": {
             "selectAll": "Selecionar tudo",
             "unselectAll": "Desmarcar tudo",
-            "validate": "Confirmar"
+            "validate": "Confirmar",
+            "indeterminate": "Selecione todos {{count}} selecionados"
         },
         "monthly": "Mensal",
         "close": "Fechar",
@@ -915,9 +917,10 @@
                     "submit": "Confirmar",
                     "maxCommunicationSentHelperText": {
                         "1": "Por predefinição, a mensagem é enviada apenas aquando da primeira saída de cada membro da lista inteligente. Pode ajustar a definição para permitir mensagens subsequentes aquando da segunda ou terceira saída do membro.",
-                        "0": "Por predefinição, a mensagem é enviada apenas aquando da primeira entrada de cada membro a partir da lista inteligente. Pode ajustar a definição para permitir mensagens subsequentes aquando da segunda ou terceira entrada do membro."
+                        "0": "Por predefiniçãoa mensagem é enviada sempre que um membro entra na lista inteligente. Se um membro sair e mais tarde voltar a entrar, a mensagem é enviada novamente. Ajuste a definição se pretender limitar o número de vezes que o mesmo membro pode receber a mensagem: uma, duas ou três vezes."
                     },
-                    "limitSection": "Limite"
+                    "limitSection": "Limite",
+                    "unlimited": "Sem limite"
                 },
                 "panel": {
                     "title": "Regra de envio automático",
@@ -3314,7 +3317,8 @@
                     "confirm": "Continuar",
                     "cancel": "Cancelar",
                     "helper": "Os membros atualmente na sequência serão automaticamente removidos. Esta sequência será arquivada, pelo que poderá reactivá-la mais tarde.",
-                    "title": "Eliminar uma sequência"
+                    "title": "Eliminar uma sequência",
+                    "confirmButton": "Arquivo"
                 },
                 "archivedHeader": "Sequências arquivadas"
             },
@@ -3355,7 +3359,8 @@
                     "cancel": "Cancelar",
                     "secondHelper": "Não será possível editá-lo enquanto estiver a decorrer.",
                     "firstHelper": "Gostaria de lançar a sequência?",
-                    "title": "Definir o ritmo"
+                    "title": "Definir o ritmo",
+                    "confirmButton": "Lançamento"
                 },
                 "setupBeforeActivationHelper": "Termine de configurar a sua sequência e crie a primeira ação de marketing para lançar a mesma.",
                 "button": "Lançamento"
@@ -3432,6 +3437,42 @@
                     "title": "Ação de entrada",
                     "helperText": "Seleccione o que pretende fazer quando os seus membros entram no fluxo de trabalho. Marcá-los, enviar um e-mail... A decisão é sua. Ou não faça nada, este passo é opcional.",
                     "addAction": "Adicionar ação"
+                }
+            },
+            "dialog": {
+                "do_not_display_anymore": "Deixar de apresentar esta mensagem.",
+                "confirm": "Confirmar",
+                "cancel": "Cancelar"
+            },
+            "step": {
+                "convertExit": {
+                    "dialog": {
+                        "helper": "O próximo acionador conectado também será eliminado. O resto do fluxo será desligado mas não eliminado.",
+                        "title": "Converter esta etapa numa saída"
+                    }
+                },
+                "archive": {
+                    "dialog": {
+                        "helper": "Esta ação não pode ser anulada. Os accionadores ligados também serão eliminados. O resto do fluxo será desligado, mas não eliminado.",
+                        "title": "Tem a certeza de que pretende eliminar este passo?"
+                    }
+                }
+            },
+            "deleteStep": {
+                "dialog": {
+                    "confirmButton": "Deletar"
+                }
+            },
+            "converStepToExit": {
+                "dialog": {
+                    "confirmButton": "Converter"
+                }
+            },
+            "pause": {
+                "dialog": {
+                    "confirmButton": "Pausa",
+                    "helper": "Todas as acções dos membros que ocorram durante a pausa não serão tidas em conta.",
+                    "title": "Pausar workflow"
                 }
             }
         },
@@ -12607,7 +12648,7 @@
         },
         "billing_group": {
             "header": "Grupos de faturação",
-            "helperText": "Se tiver vários estúdios pertencentes a empresas diferentes, pode agrupá-los aqui por grupo de faturação. Os grupos de faturação aparecerão nos seus relatórios, facilitando a ligação de cada fatura ao nome correto da empresa.",
+            "helperText": "\"Os grupos de faturação aparecerão nos seus relatórios para ligar facilmente cada fatura à localização correcta e serão utilizados no cesto pelos membros para escolherem a sua localização preferida. Pelo menos um grupo de faturação deve ser definido para que os membros possam efetuar compras online. Se tiver vários estabelecimentos pertencentes à mesma localização, pode agrupá-los no mesmo grupo de faturação",
             "add": "Adicionar um grupo"
         }
     },
@@ -12660,7 +12701,38 @@
                     "onstrong": "Em uma base sólida",
                     "grey": "Cinza",
                     "main": "Principal",
-                    "isBlockedByMaxFutureBooking": "O limite máximo de reservas futuras foi atingido"
+                    "isBlockedByMaxFutureBooking": "O limite máximo de reservas futuras foi atingido",
+                    "text": "Texto",
+                    "lg": "Grande",
+                    "md": "Médio",
+                    "sm": "Pequeno",
+                    "error": "Erro",
+                    "info": "Info",
+                    "white": "Branco",
+                    "secondary": "Secundário",
+                    "primary": "Principal",
+                    "tel": "Número de telefone",
+                    "email": "Correio eletrónico",
+                    "password": "Palavra-Passe",
+                    "alert": {
+                        "error": "Erro",
+                        "warning": "Aviso",
+                        "info": "Info",
+                        "success": "Sucesso"
+                    },
+                    "confirmationMessage": {
+                        "purchaseWithPassesSuccess": "Pagamento confirmado",
+                        "waitingList": "Registrado em lista de espera",
+                        "offerAndPurchaseGenericError": "A reserva e a compra falharam (nova tentativa)",
+                        "purchaseOnlySuccess": "Compra processada",
+                        "offerAndPurchaseSuccess": "Reservas e compras processadas",
+                        "offerOnlySuccess": "Reserva bem sucedida",
+                        "offerOnlyBookingError": "A sessão já não pode ser reservada",
+                        "genericOfferError": "A reserva falhou inesperadamente",
+                        "generic": "Erro no processamento da transação"
+                    },
+                    "outlined": "Desenhado",
+                    "contained": "Contêm"
                 },
                 "title": {
                     "paymentMethodType": "Modo de pagamento",
@@ -12699,16 +12771,40 @@
                     "isItemEditionDisabled": "Modificação de itens desactivada",
                     "isAddingItemPossible": "Adicionar mais itens activados",
                     "isBookingDisabled": "A reserva está desactivada",
-                    "isRippleEnabled": "Não é possível ativar o efeito de ondulação do botão",
+                    "isRippleEnabled": "Ativar o efeito de ondulação",
                     "square": "Não é possível arredondar os cantos",
                     "cardVariant": "Selecionar a variante de cartão a utilizar",
                     "componentType": "O contentor é um botão",
                     "color": "Cor do elemento",
                     "isError": "Está em estado de erro",
                     "hasEmailChoices": "Opções de lista de e-mail",
-                    "hasSent": "O formulário foi enviado"
+                    "hasSent": "O formulário foi enviado",
+                    "isMultiple": "Está em vários estados",
+                    "messageWithActions": "Com botões",
+                    "alertWithAction": "Com botão",
+                    "alertSeverity": "Gravidade",
+                    "bookingOrPurchaseStatus": "Estado da reserva e da compra",
+                    "isRecommended": "Marcar como recomendado",
+                    "displayCaptionText": "Mostrar o texto da legenda",
+                    "isInversed": "Elemento de cor invertida",
+                    "isChecked": "Está no estado verificado",
+                    "showTabSelect": "O separador tem opções de seleção",
+                    "isTabSelected": "O separador está selecionado",
+                    "hasBadge": "Distintivo do elemento de visualização",
+                    "isSelected": "O elemento está selecionado",
+                    "isIconButton": "O botão tem um ícone",
+                    "textFieldType": "Tipo de entrada",
+                    "displayPlaceholder": "Mostrar o marcador de posição",
+                    "displayLabel": "Mostrar a marca",
+                    "displayHelperText": "Mostrar o texto de ajuda",
+                    "isDisabled": "O elemento está desativado",
+                    "displayRightIcon": "Mostrar o ícone direito",
+                    "displayLeftIcon": "Mostrar o ícone esquerdo",
+                    "size": "Tamanho do elemento",
+                    "fabriqueVariant": "Variante do elemento"
                 },
-                "configurationTitle": "Variações"
+                "configurationTitle": "Variações",
+                "confirmationMessageComponentAlert": "Este componente gere principalmente os estados da reserva e do pagamento. Para personalizar o seu aspeto, recomendamos a utilização dos seus componentes de raiz localizados na secção comum"
             },
             "components": {
                 "contractTermsModal": "Pop-up com a menções legais da subscrição",
@@ -12791,7 +12887,21 @@
                 "marketplace_minimal_appbar": "AppBar mínimo",
                 "authentication_login": "Componente de login",
                 "authentication_login_form": "Formulário de login",
-                "authentication_reset_password_form": "Formulário de redefinição de senha"
+                "authentication_reset_password_form": "Formulário de redefinição de senha",
+                "fabrique_checkbox": "Caixa de verificação",
+                "fabrique_radiobutton": "Botão de rádio",
+                "fabrique_tab": "Aba",
+                "fabrique_action_tab": "Aba de  Ação",
+                "fabrique_textfield": "Campo de texto",
+                "message_with_icon": "Mensagem com ícone",
+                "alert": "Alerta",
+                "marketplace_confirmation_checkout_message": "Mensagem de confirmação da reserva",
+                "marketplace_booker_module_buyable_item_contract": "Item do contrato de reserva",
+                "marketplace_booker_module_buyable_item_payment_pack": "Item do passe de reserva",
+                "marketplace_booker_module_buyable_item_payment_combo": "Item do pacote de reserva",
+                "marketplace_booker_module_buyable_items_list": "Seleção do cartão de reserva (contentor)",
+                "fabrique_icon_button": "Botão de ícone",
+                "fabrique_button": "Botão"
             },
             "cssEditor": {
                 "reset": "reposto",
@@ -12886,7 +12996,8 @@
                 "bookingPage": "Reserva",
                 "fabrique": "Fábrica",
                 "spot_scheduling": "Spot scheduling",
-                "authentication": "Autenticação"
+                "authentication": "Autenticação",
+                "checkoutConfirmationPage": "Confirmação de pagamento"
             },
             "customCss": {
                 "yourCode": "A sua implementação complementar:",
@@ -14698,7 +14809,7 @@
             "modal": {
                 "delete": {
                     "confirm": "Eliminar",
-                    "content": "Pretende eliminar este grupo de faturação ? A eliminação deste grupo terá efeitos retroactivos: deixará de aparecer nos relatórios associados.",
+                    "content": "Tem a certeza de que pretende eliminar este grupo de faturação? As futuras facturas deixarão de poder ser associadas a este local, nem ser seleccionadas pelos membros como o seu local preferido quando efectuarem uma compra em linha. Antes de eliminar o grupo de faturação, certifique-se de que todos os seus estabelecimentos estão ligados a grupos de faturação existentes",
                     "cancel": "Cancelar",
                     "title": "Eliminar um grupo de faturação"
                 }
@@ -14711,7 +14822,8 @@
             "form": {
                 "error": {
                     "groupShouldHaveName": "É necessário dar um nome a este grupo de faturação",
-                    "groupShouldContainsOneRoom": "Seleccione pelo menos uma sala"
+                    "groupShouldContainsOneRoom": "Seleccione pelo menos uma sala",
+                    "groupShouldHaveAddress": "É necessário indicar um endereço para este grupo de faturação"
                 },
                 "dialog": {
                     "save": "Registar",
@@ -14719,7 +14831,14 @@
                     "title": "Grupo de faturação"
                 },
                 "associated_localizations": "Salas associadas",
-                "name": "Nome"
+                "name": "Nome",
+                "address": {
+                    "helperText": "Introduza o endereço do grupo de faturação.",
+                    "label": "Endereço"
+                },
+                "warning": {
+                    "groupHasSeveralLocations": "Note que os estabelecimentos que seleccionou não têm o mesmo endereço e podem não fazer parte do mesmo local"
+                }
             },
             "actions": "Ações",
             "name": " Nome"
@@ -14736,7 +14855,9 @@
             "table": {
                 "name": "Nome",
                 "establishment": "Estabelecimentos",
-                "actions": "Ações"
+                "actions": "Ações",
+                "noAddress": "Nenhum endereço está associado a este grupo de faturação",
+                "address": "Endereço"
             },
             "form": {
                 "dialog": {

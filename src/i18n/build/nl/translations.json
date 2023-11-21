@@ -1871,10 +1871,11 @@
                     "advancedSection": "Geavanceerd",
                     "submit": "Bevestigen",
                     "maxCommunicationSentHelperText": {
-                        "1": "Standaard wordt het bericht alleen verzonden wanneer elk lid de smartlist voor de eerste keer verlaat. Je kunt de instelling aanpassen om volgende berichten toe te staan wanneer het lid de smartlist voor de tweede of derde keer verlaat.",
-                        "0": "Standaard wordt het bericht alleen verzonden bij de eerste invoer van elk lid op de smartlist. Je kunt de instelling aanpassen om volgende berichten toe te staan bij de tweede of derde invoer van het lid."
+                        "1": "Standaard wordt het bericht verzonden telkens als een lid de smartlist verlaat. Als een lid opnieuw de smartlist betreedt en deze later weer verlaat, dan wordt het bericht opnieuw verstuurd. Pas de instelling aan als u wilt beperken hoe vaak hetzelfde lid het bericht kan ontvangen: één, twee of drie keer.",
+                        "0": "Standaard wordt het bericht verzonden telkens wanneer een lid de smartlist betreedt. Als een lid de smartlist verlaat en later weer betreedt, dan wordt het bericht opnieuw verstuurd. Pas de instelling aan als u wilt beperken hoe vaak hetzelfde lid het bericht kan ontvangen: één, twee of drie keer."
                     },
-                    "limitSection": "Limiet"
+                    "limitSection": "Limiet",
+                    "unlimited": "Ongelimiteerd"
                 },
                 "activeSince": "Actief sinds: {{-date}}",
                 "eventKind": {
@@ -4217,7 +4218,9 @@
             "table": {
                 "name": "Naam",
                 "establishment": "Vestigingen",
-                "actions": "Acties"
+                "actions": "Acties",
+                "address": "Adres",
+                "noAddress": "Er is geen adres gekoppeld aan deze factureringsgroep"
             },
             "modal": {
                 "delete": {
@@ -4254,14 +4257,15 @@
                 "delete": {
                     "confirm": "Verwijderen",
                     "cancel": "Annuleren",
-                    "content": "Weet je zeker dat je deze groepsfacturatie wilt verwijderen? Het verwijderen van deze groepsfacturatie zal met terugwerkende kracht plaatsvinden en zal niet meer verschijnen in de bijbehorende rapportages.",
+                    "content": "Weet u zeker dat u deze factureringsgroep wilt verwijderen? Toekomstige facturen zullen niet meer aan deze locatie kunnen worden gekoppeld, of door de leden kunnen worden geselecteerd als hun voorkeurslocatie tijdens het doen van een online aankoop. Controleer voordat u de factureringsgroep verwijdert of al uw vestigingen zijn gekoppeld aan bestaande factureringsgroepen",
                     "title": "Een groepsfacturatie verwijderen"
                 }
             },
             "form": {
                 "error": {
                     "groupShouldContainsOneRoom": "Selecteer ten minste één vestiging",
-                    "groupShouldHaveName": "Voeg een naam toe"
+                    "groupShouldHaveName": "Voeg een naam toe",
+                    "groupShouldHaveAddress": "U moet een adres opgeven voor deze factureringsgroep"
                 },
                 "dialog": {
                     "save": "Opslaan",
@@ -4269,7 +4273,14 @@
                     "title": "Groepsfacturatie"
                 },
                 "associated_localizations": "Gekoppelde vestigingen",
-                "name": "Naam"
+                "name": "Naam",
+                "address": {
+                    "helperText": "Voer het adres in van de factureringsgroep.",
+                    "label": "Adres"
+                },
+                "warning": {
+                    "groupHasSeveralLocations": "De vestigingen die u heeft geselecteerd, hebben niet hetzelfde adres en maken mogelijk geen deel uit van dezelfde locatie."
+                }
             },
             "actions": "Acties",
             "name": " Naam"
@@ -6065,7 +6076,8 @@
                     "content": "Dit lid bezit niet de juiste tags voor deze sessie. Weet je zeker dat je dit lid alsnog wilt inboeken?",
                     "title": "Informatie"
                 }
-            }
+            },
+            "isBookingLimitReached": "Je hebt je reserveringslimiet bereikt"
         },
         "details": {
             "pleaseSelectABooking": "Selecteer een reservering om meer informatie te zien.",
@@ -8328,7 +8340,7 @@
         },
         "billing_group": {
             "header": "Groepsfacturatie",
-            "helperText": "Je kunt meerdere studio's en/of vestigingen die aan verschillende rechtspersonen verbonden zijn aan een groepsfacturatie toevoegen. Groepsfacturaties verschijnen op je facturen en maakt het makkelijker om facturen aan de juiste rechtspersonen/studio's te koppelen.",
+            "helperText": "\"De factureringsgroepen verschijnen op uw rapporten om iedere factuur eenvoudig aan de juiste locatie te koppelen en worden door de leden in het winkelmandje gebruikt om hun voorkeurslocatie te kiezen. Er moet ten minste één facturatiegroep zijn gedefinieerd voor de leden om online aankopen te kunnen doen. Als u meerdere vestigingen heeft die tot dezelfde locatie behoren, kunt u deze groeperen binnen dezelfde factureringsgroep.",
             "add": "Een groep toevoegen"
         },
         "quickbooks": {
@@ -12115,7 +12127,8 @@
         "selector": {
             "validate": "Bevestigen",
             "unselectAll": "Deselecteer alles",
-            "selectAll": "Selecteer alles"
+            "selectAll": "Selecteer alles",
+            "indeterminate": "Alles selecteren ({{count}})"
         },
         "cancel": "Annuleren",
         "confirm": "Bevestig",
@@ -13626,7 +13639,7 @@
                     },
                     "content": {
                         "unregistered": "De volgende leden konden NIET worden geregistreerd, omdat er geen compatibele pas kon worden gevonden",
-                        "registered": "De volgende leden zijn geregistreerd, omdat er een compatibiliteit is gevonden:"
+                        "registered": "De volgende leden zijn geregistreerd, omdat er een compatibele pas is gevonden:"
                     },
                     "title": "Voltooi uw wachtlijst"
                 }
@@ -15587,7 +15600,38 @@
                     "onstrong": "Sterke achtergrond",
                     "grey": "Grijs",
                     "main": "Hoofdpagina",
-                    "isBlockedByMaxFutureBooking": "Maximum aantal toekomstige boekingen bereikt"
+                    "isBlockedByMaxFutureBooking": "Maximum aantal toekomstige boekingen bereikt",
+                    "alert": {
+                        "error": "Fout",
+                        "warning": "Waarschuwing",
+                        "info": "Info",
+                        "success": "Succes"
+                    },
+                    "confirmationMessage": {
+                        "purchaseWithPassesSuccess": "Betaling bevestigd",
+                        "waitingList": "Ingeschreven op wachtlijst",
+                        "offerAndPurchaseGenericError": "Reservering en aankoop mislukt (opnieuw proberen)",
+                        "purchaseOnlySuccess": "Aankoop verwerkt",
+                        "offerAndPurchaseSuccess": "Reserveringen en aankopen verwerkt",
+                        "offerOnlySuccess": "Succesvolle reservering",
+                        "offerOnlyBookingError": "Sessie kan niet meer worden geboekt",
+                        "genericOfferError": "Reservering onverwacht mislukt",
+                        "generic": "Fout bij verwerken transactie"
+                    },
+                    "outlined": "Omlijnd",
+                    "contained": "Inbegrepen",
+                    "password": "Wachtwoord",
+                    "tel": "Telefoonnummer",
+                    "email": "Email",
+                    "text": "Tekst",
+                    "lg": "Large",
+                    "md": "Medium",
+                    "sm": "Small",
+                    "error": "Fout",
+                    "info": "Info",
+                    "white": "Wit",
+                    "secondary": "Secundair",
+                    "primary": "Primair"
                 },
                 "title": {
                     "nextOffer": "Volgende sessie beschikbaar",
@@ -15628,14 +15672,39 @@
                     "isBookingDisabled": "Boeking is uitgeschakeld",
                     "square": "Deselecteer afgeronde hoeken",
                     "cardVariant": "Selecteer de te gebruiken variant voor kaarten",
-                    "isRippleEnabled": "Het rimpeleffect van de knop is niet mogelijk",
+                    "isRippleEnabled": "Het rimpeleffect inschakelen",
                     "componentType": "Container is een knop",
                     "color": "Element kleur",
                     "isError": "Verkeert in foutstatus",
                     "hasEmailChoices": "Keuzes voor emaillijst",
-                    "hasSent": "Het formulier is verstuurd"
+                    "hasSent": "Het formulier is verstuurd",
+                    "isMultiple": "Is in meerdere staten",
+                    "messageWithActions": "Met knoppen",
+                    "alertWithAction": "Met knop",
+                    "alertSeverity": "Urgentie",
+                    "bookingOrPurchaseStatus": "Reservering en aankoopstatus",
+                    "isRecommended": "Markeer als aanbevolen",
+                    "displayCaptionText": "De bijschrifttekst weergeven",
+                    "isInversed": "Element kleur omgekeerd",
+                    "isChecked": "Is in gecontroleerde status",
+                    "showTabSelect": "Het tabblad heeft geselecteerde opties",
+                    "isTabSelected": "De tab is geselecteerd",
+                    "showBlanket": "Weergeven blanket",
+                    "hasBadge": "Weergave element badge",
+                    "isSelected": "Element is geselecteerd",
+                    "isIconButton": "Knop heeft een pictogram",
+                    "textFieldType": "Type invoer",
+                    "displayPlaceholder": "De plaatsaanduiding weergeven",
+                    "displayLabel": "Het label weergeven",
+                    "displayHelperText": "De helptekst weergeven",
+                    "isDisabled": "Element is uitgeschakeld",
+                    "displayRightIcon": "Het rechterpictogram weergeven",
+                    "displayLeftIcon": "Het linkerpictogram weergeven",
+                    "size": "Element grootte",
+                    "fabriqueVariant": "Element variant"
                 },
-                "configurationTitle": "Variaties"
+                "configurationTitle": "Variaties",
+                "confirmationMessageComponentAlert": "Deze component beheert voornamelijk boekings- en betalingsstatussen. Om het uiterlijk aan te passen, raden we aan de hoofdcomponenten te gebruiken in de gemeenschappelijke sectie"
             },
             "page": {
                 "calendar": "Agenda",
@@ -15646,7 +15715,8 @@
                 "bookingPage": "Boeking",
                 "fabrique": "Fabriek",
                 "spot_scheduling": "Spot planning",
-                "authentication": "Authenticatie"
+                "authentication": "Authenticatie",
+                "checkoutConfirmationPage": "Bevestiging van betaling"
             },
             "components": {
                 "calendar": "Agenda",
@@ -15729,7 +15799,22 @@
                 "marketplace_minimal_appbar": "Minimaal AppBar",
                 "authentication_login": "Aanmeldingscomponent",
                 "authentication_login_form": "Inlogformulier",
-                "authentication_reset_password_form": "Wachtwoord opnieuw instellen"
+                "authentication_reset_password_form": "Wachtwoord opnieuw instellen",
+                "fabrique_checkbox": "Selectievak",
+                "fabrique_radiobutton": "Keuzerondje",
+                "fabrique_tab": "Tabblad",
+                "fabrique_blanket": "Blanket",
+                "fabrique_action_tab": "Tabblad Actie",
+                "fabrique_textfield": "Tekstveld",
+                "message_with_icon": "Bericht met pictogram",
+                "alert": "Waarschuwing",
+                "marketplace_confirmation_checkout_message": "Bevestigingsbericht van reservering",
+                "marketplace_booker_module_buyable_item_contract": "Boekingscontract item",
+                "marketplace_booker_module_buyable_item_payment_pack": "Boekingspas item",
+                "marketplace_booker_module_buyable_item_payment_combo": "Boekingspakket item",
+                "marketplace_booker_module_buyable_items_list": "Selectie boekingspas (container)",
+                "fabrique_icon_button": "Pictogramknop",
+                "fabrique_button": "Knop"
             },
             "customCss": {
                 "yourCode": "Je aanvullende implementatie:",
@@ -16164,7 +16249,8 @@
                     "firstHelper": "Wil je de cadence activeren?",
                     "title": "Activatie",
                     "cancel": "Annuleren",
-                    "secondHelper": "Het is niet mogelijk om de cadence te wijzigen zodra de cadence geactiveerd is."
+                    "secondHelper": "Het is niet mogelijk om de cadence te wijzigen zodra de cadence geactiveerd is.",
+                    "confirmButton": "Lanceren"
                 },
                 "setupBeforeActivationHelper": "Voltooi het aanmaken van je eerste cadence door verschillende stappen en berichten toe te voegen.",
                 "button": "Activeren"
@@ -16176,7 +16262,8 @@
                     "title": "Een cadence verwijderen",
                     "confirm": "Vervolgen",
                     "cancel": "Annuleren",
-                    "beingArchived": "Je staat op het punt om \"{{ name }}\" te verwijderen."
+                    "beingArchived": "Je staat op het punt om \"{{ name }}\" te verwijderen.",
+                    "confirmButton": "Archiveren"
                 }
             },
             "howTo": {
@@ -16427,6 +16514,42 @@
                     "title": "Aanleiding",
                     "helperText": "(Optioneel) Selecteer de volgende stappen, zoals het toevoegen van tags of het versturen van een e-mail, zodra de lid in de cadence wordt gezet.",
                     "addAction": "Een actie toevoegen"
+                }
+            },
+            "dialog": {
+                "do_not_display_anymore": "Dit bericht niet meer weergeven.",
+                "confirm": "Bevestigen",
+                "cancel": "Annuleren"
+            },
+            "step": {
+                "convertExit": {
+                    "dialog": {
+                        "helper": "De volgende verbonden trigger wordt ook verwijderd. De rest van de flow wordt losgekoppeld, maar niet verwijderd.",
+                        "title": "Zet deze stap om in een exit"
+                    }
+                },
+                "archive": {
+                    "dialog": {
+                        "helper": "Deze actie kan niet ongedaan worden gemaakt. Aangesloten triggers worden ook verwijderd. De rest van de flow wordt losgekoppeld maar niet verwijderd.",
+                        "title": "Weet u zeker dat u deze stap wilt verwijderen?"
+                    }
+                }
+            },
+            "deleteStep": {
+                "dialog": {
+                    "confirmButton": "Verwijderen"
+                }
+            },
+            "converStepToExit": {
+                "dialog": {
+                    "confirmButton": "Converteren"
+                }
+            },
+            "pause": {
+                "dialog": {
+                    "confirmButton": "Pauzeer",
+                    "helper": "Alle acties van leden die plaatsvinden tijdens de pauze worden niet in acht genomen.",
+                    "title": "Pauzeer workflow"
                 }
             }
         }

@@ -2140,6 +2140,18 @@ export const Trash04: FC<SVGComponentProps> = ({ pathProps, ...props }) => {
   );
 };
 
+export const Union: FC<SVGComponentProps> = ({ pathProps, ...props }) => {
+  return (
+    <SVG {...props}>
+      <Path d="M19 12a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" {...pathProps} />
+      <Path
+        d="M12 1C5.925 1 1 5.925 1 12s4.925 11 11 11 11-4.925 11-11S18.075 1 12 1ZM3 12a9 9 0 1 1 18 0 9 9 0 0 1-18 0Z"
+        {...pathProps}
+      />
+    </SVG>
+  );
+};
+
 export const Upload01: FC<SVGComponentProps> = ({ pathProps, ...props }) => {
   return (
     <SVG {...props}>

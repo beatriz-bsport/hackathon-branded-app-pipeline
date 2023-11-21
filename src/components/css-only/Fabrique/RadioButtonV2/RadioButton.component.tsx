@@ -4,6 +4,7 @@ import classNames from 'classnames';
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import Typography from '#Fabrique/Typography';
+import { Circle, Union } from '#components/untitledui';
 import type { RadioButtonSize } from './types';
 import { RadioButtonSizeEnum } from './constants';
 
@@ -20,48 +21,28 @@ const RadioButtonIcon: React.FC<RadioButtonIconProps> = ({
   isChecked,
   className,
 }) => {
-  return (
-    // TODO: import ICONS from proper folder
-    <svg
+  return isChecked ? (
+    <Union
       className={classNames('bs-fabrique-radio__icon', className)}
-      fill="none"
-      viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      {isChecked ? (
-        <>
-          <path
-            className={classNames('bs-fabrique-radio--checked--main', {
-              'bs-fabrique-radio--checked--inversed': isInversed,
-              'bs-fabrique-radio--disabled': isDisabled,
-            })}
-            d="M19 12a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"
-            fill="none"
-          />
-          <path
-            className={classNames('bs-fabrique-radio--checked--main', {
-              'bs-fabrique-radio--checked--inversed': isInversed,
-              'bs-fabrique-radio--disabled': isDisabled,
-            })}
-            clipRule="evenodd"
-            d="M12 1C5.925 1 1 5.925 1 12s4.925 11 11 11 11-4.925 11-11S18.075 1 12 1ZM3 12a9 9 0 1 1 18 0 9 9 0 0 1-18 0Z"
-            fill="none"
-            fillRule="evenodd"
-          />
-        </>
-      ) : (
-        <path
-          className={classNames('bs-fabrique-radio--unchecked', {
-            'bs-fabrique-radio--unchecked--inversed': isInversed,
-            'bs-fabrique-radio--disabled': isDisabled,
-          })}
-          clipRule="evenodd"
-          d="M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18ZM1 12C1 5.925 5.925 1 12 1s11 4.925 11 11-4.925 11-11 11S1 18.075 1 12Z"
-          fill="none"
-          fillRule="evenodd"
-        />
-      )}
-    </svg>
+      pathProps={{
+        className: classNames('bs-fabrique-radio--checked--main', {
+          'bs-fabrique-radio--checked--inversed': isInversed,
+          'bs-fabrique-radio--disabled': isDisabled,
+        }),
+        fill: 'none',
+      }}
+    />
+  ) : (
+    <Circle
+      className={classNames('bs-fabrique-radio__icon', className)}
+      pathProps={{
+        className: classNames('bs-fabrique-radio--unchecked', {
+          'bs-fabrique-radio--unchecked--inversed': isInversed,
+          'bs-fabrique-radio--disabled': isDisabled,
+        }),
+        fill: 'none',
+      }}
+    />
   );
 };
 

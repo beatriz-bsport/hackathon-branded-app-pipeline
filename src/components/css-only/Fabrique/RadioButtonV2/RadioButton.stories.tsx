@@ -49,6 +49,7 @@ Radiochecked.args = {
 export const Radiocheckedinversed = RadioForStorybookTemplate.bind({});
 Radiocheckedinversed.args = {
   ...defaultArgs,
+  isChecked: true,
   isInversed: true,
   id: 'radio-checked-inversed',
   label: 'Checked inversed',

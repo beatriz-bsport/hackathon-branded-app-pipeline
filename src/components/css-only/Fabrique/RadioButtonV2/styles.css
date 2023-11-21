@@ -39,10 +39,11 @@
 /* DEFAULT VARIANT */
 .bs-fabrique-radio--checked--main {
   fill: var(--bs-color-icon-brand-main);
+  stroke-width: 0;
 }
 
 .bs-fabrique-radio--unchecked {
-  fill: var(--bs-color-icon-weak);
+  stroke: var(--bs-color-icon-weak);
 }
 
 .bs-fabrique-radio__label {
@@ -50,7 +51,6 @@
 }
 
 /* DISABLED VARIANT */
-
 .bs-fabrique-radio--disabled {
   fill: var(--bs-color-icon-disabled);
 }
@@ -60,10 +60,13 @@
 }
 
 /* INVERSED VARIANT */
-
-.bs-fabrique-radio--checked--inversed,
 .bs-fabrique-radio--unchecked--inversed {
+  stroke: var(--bs-color-icon-inverse-default);
+}
+
+.bs-fabrique-radio--checked--inversed {
   fill: var(--bs-color-icon-inverse-default);
+  stroke-width: 0;
 }
 
 .bs-fabrique-radio__text--inversed {

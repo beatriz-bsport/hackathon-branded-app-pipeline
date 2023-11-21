@@ -22,7 +22,6 @@ import Button from '@material-ui/core/Button';
 import SendIcon from '@material-ui/icons/Send';
 import SmartphoneIcon from '@material-ui/icons/Smartphone';
 import VisibilityIcon from '@material-ui/icons/Visibility';
-import AccountTreeIcon from '@material-ui/icons//AccountTree';
 import IconButton from '@material-ui/core/IconButton';
 
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
@@ -79,6 +78,7 @@ import { Cadence } from '#libs/sequential_marketingDEPRECATED/types';
 import GenericMuiDialog from '#components/genericDialog/GenericMuiDIalog';
 import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import SwitchHorizontalIcon from '#components/icons/SwitchHorizontalIcon.component';
 
 const { trackFormAdd, trackFormSubmitIntent, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(
@@ -501,7 +501,7 @@ export class FiltersPanel extends Component<Props, State> {
               disabled={this.props.cadences.length === 1}
               onClick={this.openCadencesDialog}
             >
-              <AccountTreeIcon className={this.props.classes.leftIcon} />
+              <SwitchHorizontalIcon className={this.props.classes.leftIcon} />
               {t('cadence.content', {
                 count: this.props.cadences.length,
                 cadence_name: this.props.cadences[0]?.name,

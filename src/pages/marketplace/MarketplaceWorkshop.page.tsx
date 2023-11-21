@@ -80,7 +80,7 @@ import { useWidth } from '../../hooks/useWidth';
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { getBookWorkshopUrl } from '#libs/marketplace/routing-utils';
-
+import withPostMessageOnPropsUpdate from '#hocs/postMessages/with-post-message-on-props-update';
 import './MarketplaceWorkshop.css';
 
 const BATCH_SIZE_FOR_META_ACTIVITY = 6;
@@ -475,5 +475,8 @@ export default compose(
     ['filtersOpen', 'date', 'onlyDay'],
     'otherParams',
     'setOtherParams',
+  ]),
+  withPostMessageOnPropsUpdate<Props>([
+    { propName: 'filters', messageType: 'bsport:workshop:filter:update' },
   ]),
 )(MarketplaceWorkshopBase);

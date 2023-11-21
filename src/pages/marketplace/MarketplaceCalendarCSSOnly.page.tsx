@@ -85,6 +85,8 @@ import GroupRulePopup from '#marketplacecomponents/@Offer/GroupRulePopup.dialog'
 import { Level } from '#libs/level/types';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import withQueryParamsToProps from '#hocs/query-params-to-props.hoc';
+
+import withPostMessageOnPropsUpdate from '#hocs/postMessages/with-post-message-on-props-update';
 import { getBookCalendarUrl } from '#libs/marketplace/routing-utils';
 
 type OwnProps = {
@@ -734,4 +736,7 @@ export default compose(
     t('titles:marketplace.marketplaceCalendar'),
   ),
   CalendarDataContainer,
+  withPostMessageOnPropsUpdate<FinalProps>([
+    { propName: 'filters', messageType: 'bsport:calendar:filter:update' },
+  ]),
 )(MarketplaceCalendar);

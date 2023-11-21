@@ -215,7 +215,7 @@ const MinimalSubscriptionCard: React.FC<Props> = ({
             columnStart={2}
             direction={Direction.ROW}
             justification={Justification.FLEX_END}
-            rowStart={4}
+            rowStart={5}
           >
             {!!subscription.nb_interval && (
               <div className="bs-minimal-subscription-card__planned-invoices">

@@ -16,18 +16,18 @@
 .bs-booking-item-grid {
   display: grid;
   grid-template-areas:
-    'guest-name guest-name'
-    'date-hour level'
-    'details details';
-  gap: 0;
-  grid-template-columns: 1fr auto;
+    'guest-name guest-name guest-name'
+    'date-hour waiting-list level'
+    'details details details';
+  gap: 0 var(--spacing-1);
+  grid-template-columns: 1fr auto auto;
 }
 
 .bs-booking-item-grid--with-guest {
   grid-template-areas:
-    'guest-name level'
-    'date-hour date-hour'
-    'details details';
+    'guest-name waiting-list level'
+    'date-hour date-hour date-hour'
+    'details details details';
 }
 
 .bs-booking-item-details-date {
@@ -44,7 +44,17 @@
 }
 
 .bs-booking-item-chip {
+  width: fit-content;
+  align-items: center;
+}
+
+.bs-booking-item-chip--level {
   grid-area: level;
+  width: fit-content;
+}
+
+.bs-booking-item-chip--status {
+  grid-area: waiting-list;
   width: fit-content;
 }
 
@@ -121,10 +131,10 @@
 
   .bs-booking-item-grid {
     grid-template-areas:
-      'guest-name'
-      'date-hour'
-      'level'
-      'details';
-    grid-template-columns: 1fr;
+      'guest-name guest-name guest-name'
+      'date-hour date-hour date-hour'
+      'waiting-list level .'
+      'details details details';
+    grid-template-columns: auto;
   }
 }

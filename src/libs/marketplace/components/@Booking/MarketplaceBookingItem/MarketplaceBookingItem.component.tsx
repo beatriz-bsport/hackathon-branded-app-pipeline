@@ -122,6 +122,7 @@ const MarketplaceBookingItem: React.FC<Props> = ({
           <GridItem
             classes={{
               'bs-booking-item-chip': 'bs-booking-item-chip',
+              'bs-booking-item-chip--status': 'bs-booking-item-chip--status',
               'bs-booking-item-chip--status-chip-mobile':
                 'bs-booking-item-chip--status-chip-mobile',
               ...(hasStatusChip
@@ -148,6 +149,7 @@ const MarketplaceBookingItem: React.FC<Props> = ({
           <GridItem
             classes={{
               'bs-booking-item-chip': 'bs-booking-item-chip',
+              'bs-booking-item-chip--level': 'bs-booking-item-chip--level',
               'bs-booking-item-chip--level-mobile':
                 'bs-booking-item-chip--level-mobile',
               ...(level

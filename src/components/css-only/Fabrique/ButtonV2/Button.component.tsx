@@ -22,7 +22,7 @@ type Props = {
   className?: string;
   isDisabled?: boolean;
   variant?: ButtonVariantType;
-  onClick: () => void;
+  onClick: (event?: React.MouseEvent<HTMLButtonElement>) => void;
   isRippleEnabled?: boolean;
   type?: ButtonHTMLType;
   size?: ButtonSizeType;

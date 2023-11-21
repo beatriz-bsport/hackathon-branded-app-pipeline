@@ -41,7 +41,7 @@
 
 /* CONTAINED BUTTON STYLES */
 
-/* ----- CONTAINED BRAND MAIN ----- */
+/* ----- CONTAINED BRAND PRIMARY ----- */
 .bs-fabrique-icon-button-root-contained--main {
   color: var(--bs-color-text-on-strong);
   background-color: var(--bs-color-action-brand-main);
@@ -156,7 +156,7 @@
 /* ----- CONTAINED DISABLED----- */
 .bs-fabrique-icon-button-root-contained--disabled {
   color: var(--bs-color-text-disabled);
-  /* TODO Why text var for backgroun --bs-color-text-disabled */
+  /* TODO Why text var for background --bs-color-text-disabled */
   background-color: var(--bs-color-text-disabled);
 }
 
@@ -417,7 +417,6 @@
 }
 
 /* ----- TEXT BUTTON ERROR----- */
-
 .bs-fabrique-icon-button-root-text--error {
   color: var(--bs-color-text-error-weak);
 }

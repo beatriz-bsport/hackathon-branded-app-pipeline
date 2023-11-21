@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import Typography from '#Fabrique/Typography';
 import ButtonBase from '#Fabrique/ButtonBaseV2';
+import { ChevronDown } from '#components/untitledui';
 import { TabColor } from './types';
 import { TabColorEnum } from './constants';
 
@@ -24,31 +25,13 @@ const tabColorClassNamesMap = {
   [TabColorEnum.GREY]: 'bs-fabrique-tab-root-grey--selected',
 };
 
-const ChevronIcon: React.FC<{ className: string }> = ({ className }) => (
-  <svg
-    className={className}
-    fill="none"
-    height="16"
-    viewBox="0 0 16 16"
-    width="16"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      clipRule="evenodd"
-      d="M3.52859 5.52851C3.78894 5.26816 4.21105 5.26816 4.4714 5.52851L8 9.05711L11.5286 5.52851C11.7889 5.26816 12.2111 5.26816 12.4714 5.52851C12.7317 5.78886 12.7317 6.21097 12.4714 6.47132L8.4714 10.4713C8.21105 10.7317 7.78894 10.7317 7.52859 10.4713L3.52859 6.47132C3.26824 6.21097 3.26824 5.78886 3.52859 5.52851Z"
-      fill="currentColor"
-      fillRule="evenodd"
-    />
-  </svg>
-);
-
 export const Tab: React.FC<Props> = ({
   classes,
   className,
   children,
   isSelected,
   hasSelect,
-  color = 'main',
+  color = TabColorEnum.MAIN,
   onClick,
 }) => {
   return (
@@ -70,7 +53,14 @@ export const Tab: React.FC<Props> = ({
         {children}
       </Typography>
 
-      {hasSelect && <ChevronIcon className="bs-fabrique-tab-select-icon" />}
+      {hasSelect && (
+        <ChevronDown
+          className="bs-fabrique-tab-select-icon"
+          pathProps={{
+            stroke: 'currentColor',
+          }}
+        />
+      )}
     </ButtonBase>
   );
 };

@@ -29,7 +29,7 @@ import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { Level } from '#libs/level/types';
 import MarketplaceOfferStatusChip from '../MarketplaceOfferStatusChip';
 import PopOver from '#components/Popover/Popover.component';
-
+import { generateUniqueOfferIdentifier } from '#marketplacecomponents/@Offer/utils';
 import './MarketplaceCardOfferCSSOnly.css';
 
 type OwnProps = {
@@ -230,6 +230,10 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
 
   const offerHours = useOfferHours(offer, establishment, metaActivity, theme);
 
+  const cardOfferId = React.useMemo(() => {
+    return generateUniqueOfferIdentifier(offer, 'bs-offer-card');
+  }, [offer]);
+
   return (
     <button
       className={classNames({
@@ -237,6 +241,7 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
         '--disabled': isCardDisabled,
       })}
       disabled={isBookingDisabled}
+      id={cardOfferId}
       onClick={handleClick}
       type="button"
     >

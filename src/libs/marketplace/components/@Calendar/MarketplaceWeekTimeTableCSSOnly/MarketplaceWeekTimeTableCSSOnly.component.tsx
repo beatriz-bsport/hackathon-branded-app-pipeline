@@ -27,6 +27,7 @@ import {
   isOfferInThePast,
   isOfferInGroupLockedByPreviousOfferInPast,
 } from '../../../utils';
+import { generateUniqueOfferIdentifier } from '#marketplacecomponents/@Offer/utils';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { Establishment } from '#libs/establishment/types';
 import { Coach } from '#libs/associated-coach/types';
@@ -226,8 +227,16 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
                   />
                 );
               }
+              const cardOfferId = generateUniqueOfferIdentifier(
+                o,
+                'bs-week__cardMode__offerRow__item',
+              );
+
               return (
-                <div className="bs-week__cardMode__offerRow__offer-wrapper">
+                <div
+                  className="bs-week__cardMode__offerRow__offer-wrapper"
+                  id={cardOfferId}
+                >
                   <MarketPlaceCardOfferV2
                     key={o.id}
                     activityLoading={this.props.activityLoading}

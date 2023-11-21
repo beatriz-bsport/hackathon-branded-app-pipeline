@@ -40,6 +40,7 @@ import FreeOfferChip from '#csscomponents/FreeOfferChip';
 import PopOver from '#components/Popover';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import MarketplaceOfferStatusChip from '../MarketplaceOfferStatusChip';
+import { generateUniqueOfferIdentifier } from '#marketplacecomponents/@Offer/utils';
 
 import './MarketplaceOfferListItemCSSOnly.css';
 
@@ -219,6 +220,11 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
     ],
   );
 
+  const cardListItemId = React.useMemo(
+    () => generateUniqueOfferIdentifier(offer, 'bs-offer-list-item'),
+    [offer],
+  );
+
   if (loading) {
     return (
       <Skeleton
@@ -285,6 +291,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
           isWorkshop && theme?.hide_book_button,
       })}
       disabled={isBookingDisabled}
+      id={cardListItemId}
       onClick={handleClick}
       style={{
         borderLeftWidth:

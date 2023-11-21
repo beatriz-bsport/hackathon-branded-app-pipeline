@@ -197,6 +197,7 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
                               <div
                                 key={subOption.value}
                                 className="bs-marketplace-filter__menu__list__sub-item"
+                                id={subOption.value}
                               >
                                 <Checkbox
                                   checked={selected.includes(subOption.value)}
@@ -217,6 +218,7 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
                       <div
                         key={simpleOption.value}
                         className="bs-marketplace-filter__menu__list__item"
+                        id={simpleOption.value}
                         style={
                           {
                             '--levelChipColor':

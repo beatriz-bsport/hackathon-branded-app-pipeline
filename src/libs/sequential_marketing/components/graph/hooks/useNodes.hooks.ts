@@ -441,6 +441,32 @@ export const useNodeElementsRecorder = ({
     [cadence?.id, deleteConnectedTrigger],
   );
 
+  /**
+   * @description Checks whether a connected trigger can be deleted by testing it against the existing stored triggers.
+   * @param {StoredTrigger} storedTriggerToTest - The connected trigger to be tested for deletion eligibility.
+   * @returns {boolean} - Returns true if another connected trigger is directing to the same destination step,
+   *                      allowing the provided connected trigger to be deleted.
+   *                      Returns false if no other connected trigger leads to its destination step, indicating deletion is not allowed.
+   *                      Also returns false if the connected trigger leads to an exit, indicating deletion is not allowed.
+   */
+  const connectedTriggerCanBeDeleted = React.useCallback(
+    (storedTriggerToTest: StoredTrigger) => {
+      if (!storedTriggerToTest?.trigger?.destination_config?.destination_id) {
+        return false;
+      }
+      return (
+        !!storedTriggers?.find(
+          (currentStoredTrigger) =>
+            storedTriggerToTest.trigger.trigger_config.uuid !==
+              currentStoredTrigger.trigger.trigger_config.uuid &&
+            storedTriggerToTest.trigger.destination_config.destination_id ===
+              currentStoredTrigger.trigger.destination_config.destination_id,
+        ) ?? false
+      );
+    },
+    [storedTriggers],
+  );
+
   // The tiggerNodeElements consumes the list of storedTriggers data to draw the ConnectedTriggerElements on the graph.
   const triggerNodeElements = React.useMemo(() => {
     if (storedTriggers) {
@@ -465,6 +491,7 @@ export const useNodeElementsRecorder = ({
             onDelete: handleDeleteConnectedTrigger(triggerNode?.trigger),
             getSmartlist,
             disabled: !cadenceEditMode,
+            canBeDeleted: connectedTriggerCanBeDeleted(triggerNode),
             bubble: {
               smartlists,
               onConfirm: handleConfirmTriggerBubble,
@@ -480,6 +507,7 @@ export const useNodeElementsRecorder = ({
   }, [
     cadenceEditMode,
     storedTriggers,
+    connectedTriggerCanBeDeleted,
     deleteConnectedTrigger,
     getSmartlist,
     handleDeleteConnectedTrigger,

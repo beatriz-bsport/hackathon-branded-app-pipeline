@@ -19,14 +19,37 @@ export const generateUniqueOfferIdentifier = (
   }
 
   // Determine the coach ID based on whether there is a coach override
-  const offerCoachId = offer?.coach_override
+  let offerCoachId = offer?.coach_override
     ? offer?.coach_override
     : offer?.coach;
+
+  if (offerCoachId && typeof offerCoachId === 'object') {
+    // @ts-expect-error
+    offerCoachId = offerCoachId?.id;
+  }
+
+  let establishmentId = offer?.establishment;
+  if (establishmentId && typeof establishmentId === 'object') {
+    // @ts-expect-error
+    establishmentId = establishmentId?.id;
+  }
+
+  let metaActivityId = offer?.meta_activity;
+  if (metaActivityId && typeof metaActivityId === 'object') {
+    // @ts-expect-error
+    metaActivityId = metaActivityId?.id;
+  }
+
+  let offerGroup = offer?.group;
+  if (offerGroup && typeof offerGroup === 'object') {
+    // @ts-expect-error
+    offerGroup = offerGroup?.id;
+  }
 
   // Construct the offer identifier with the relevant information
   return `bs-card-offer::offer_id-${offer?.id ?? null}::coach_id-${
     offerCoachId ?? null
-  }::establishment_id-${offer?.establishment ?? null}::activity_id-${
-    offer?.meta_activity ?? null
-  }::offer_group_id-${offer?.group ?? null}`;
+  }::establishment_id-${establishmentId ?? null}::activity_id-${
+    metaActivityId ?? null
+  }::offer_group_id-${offerGroup ?? null}`;
 };

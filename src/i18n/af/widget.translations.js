@@ -156,7 +156,6 @@ exports.default = {
             'Reservation and purchase failed (retry)',
           waitingList: 'Registered on waiting list',
           purchaseWithPassesSuccess: 'Payment confirmed',
-          purchaseWithItemsSuccess: '',
         },
         alert: {
           success: 'Success',

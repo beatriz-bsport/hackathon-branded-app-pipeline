@@ -160,9 +160,9 @@ const MinimalSubscriptionCard: React.FC<Props> = ({
               <div
                 ref={descriptionText.ref}
                 className={classNames(
-                  'bs-payment-pack-buyable-item__description',
+                  'bs-minimal-subscription-card__description',
                   {
-                    'bs-payment-pack-buyable-item__description--short':
+                    'bs-minimal-subscription-card__description--short':
                       !showAllDescription,
                   },
                 )}

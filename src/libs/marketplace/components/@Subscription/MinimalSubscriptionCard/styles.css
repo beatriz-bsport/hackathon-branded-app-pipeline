@@ -15,13 +15,16 @@
 */
 
 /* .bs-minimal-subscription-card__fees:{} 
-*/
+
 
 /* .bs-minimal-subscription-card__description-item:{} 
 */
 
 /* .bs-minimal-subscription-card__see-more-item:{} 
 */
+
+.bs-billing-interval {
+}
 
 .bs-minimal-subscription-card__title-item {
   font-size: var(--subtitle1-fontSize);
@@ -60,13 +63,20 @@
 }
 
 .bs-minimal-subscription-card__description {
-  max-height: var(--spacing-5);
-  overflow: hidden;
+  max-height: 600px;
   transition: max-height 0.5s ease;
 }
 
+.bs-minimal-subscription-card__description--short {
+  max-height: var(--spacing-5);
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  /* autoprefixer: off */
+  -webkit-box-orient: vertical;
+}
+
 .bs-minimal-subscription-card__description--expanded {
-  max-height: 600px;
   overflow: hidden;
 }
 

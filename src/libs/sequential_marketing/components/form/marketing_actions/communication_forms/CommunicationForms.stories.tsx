@@ -24,14 +24,14 @@ const fakeTagCategories = {
 };
 
 export default {
-  title: 'Components/Cadences/Communication/Forms',
+  title: 'Components/Cadences/Forms/Communication',
   component: NotificationForm,
   parameters: {
     docs: {
       page: null,
     },
     description: {
-      component: 'Forms for cadences',
+      component: 'Marketing action forms for Audience',
     },
   },
   argTypes: {

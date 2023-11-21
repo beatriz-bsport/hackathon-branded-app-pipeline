@@ -77,8 +77,10 @@ const defaultConfig = {
             test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
             loader: require.resolve('url-loader'),
             options: {
+              // uses url-loader for files under 10 000 bytes, else falls back on file-loader
               limit: 10000,
               name: 'static/media/[name].[hash:8].[ext]',
+              fallback: 'file-loader',
             },
           },
           {

@@ -129,6 +129,7 @@ export async function createQuick(invoiceData: {
   offerId: number;
   paymentPackId: number;
   keep_credits?: boolean;
+  establishment_billing_group_id?: number;
 }): Promise<AxiosResponse<InvoiceDetailsSerializer>> {
   return postAuth(`${API_V1_URI}/payment/invoices/quick_create/`, invoiceData);
 }

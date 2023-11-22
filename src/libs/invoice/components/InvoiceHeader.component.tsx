@@ -107,8 +107,8 @@ export const InvoiceHeader = (props: Props) => {
   }, [invoice, memberDefaultBillingEstablishment, t]);
 
   const onEditEstablishmentBillingGroup = useCallback(
-    (option) => {
-      editEstablishmentBillingGroup(option.value);
+    (establishmentBillingGroup: EstablishmentBillingGroup) => {
+      editEstablishmentBillingGroup(establishmentBillingGroup.id);
       setShowEstablishmentBillingGroupSelector(false);
     },
     [editEstablishmentBillingGroup, setShowEstablishmentBillingGroupSelector],

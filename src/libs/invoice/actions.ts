@@ -247,6 +247,7 @@ export function createQuickInvoice(
     offerId: number;
     paymentPackId: number;
     keep_credits?: boolean;
+    establishment_billing_group_id?: number;
   },
   options: OptionCallback<InvoiceDetailsSerializer>,
 ) {
@@ -1083,7 +1084,7 @@ export const editEstablishmentBillingGroupActions = {
  */
 export function editEstablishmentBillingGroup(
   uuid: string,
-  establishmentBillingGroupId: string,
+  establishmentBillingGroupId: number,
   options?: OptionCallback<InvoiceV1Serializer>,
 ) {
   return async (dispatch: Dispatch) => {

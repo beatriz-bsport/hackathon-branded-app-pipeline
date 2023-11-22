@@ -59,7 +59,7 @@ import {
   fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction,
 } from '#libs/establishment/actions';
 import { fetchStripeReaders } from '#libs/terminal/actions';
-import { getEnabledEstablishmentBillinGroups } from '#libs/establishment/selectors';
+import { getEnabledEstablishmentBillingGroups } from '#libs/establishment/selectors';
 import { getStripeReaders } from '#libs/terminal/selectors';
 import {
   updatePaymentGroupPriceCts,
@@ -222,7 +222,7 @@ type Props = {
     establishmentBillingGroupId: string,
     options?: OptionCallback<InvoiceV1Serializer>,
   ) => void,
-  fetchAllEstablishmentBillingGroup: () => void,
+  fetchAllEstablishmentBillingGroup: (params: { company: number }) => void,
   establishmentBillingGroups: EstablishmentBillingGroup[],
   editEstablishmentBillingGroupIsLoading: boolean,
 };
@@ -252,7 +252,9 @@ export class InvoiceDetail extends React.Component<Props, State> {
     this.props.refreshCompanyTheme();
     this.props.fetchStripeBalance();
     if (this.props.companyTheme.enable_multi_localization) {
-      this.props.fetchAllEstablishmentBillingGroup();
+      this.props.fetchAllEstablishmentBillingGroup({
+        params: { company: this.props.companyId },
+      });
     }
   }
 
@@ -880,7 +882,7 @@ export default compose(
       plannedPaymentEventLoading: state.invoice.planned_payment_event.loading,
       stripeBalanceSum: getStripeBalanceTotal(state),
       stripeReaders: getStripeReaders(state),
-      establishmentBillingGroups: getEnabledEstablishmentBillinGroups(state),
+      establishmentBillingGroups: getEnabledEstablishmentBillingGroups(state),
       editEstablishmentBillingGroupIsLoading:
         getEditEstablishmentBillingGroupIsLoading(state),
     }),
@@ -1054,6 +1056,14 @@ export default compose(
           );
         }
       },
+    editEstablishmentBillingGroup:
+      ({ editEstablishmentBillingGroup, invoice }) =>
+      (establishmentBillingGroupId: number, options?: OptionCallback) =>
+        editEstablishmentBillingGroup(
+          invoice.uuid,
+          establishmentBillingGroupId,
+          options,
+        ),
   }),
   withTitle(({ t, invoice }) => {
     return `${t('titles:invoice.invoiceEdit')} - ${getInvoiceIdentifier(

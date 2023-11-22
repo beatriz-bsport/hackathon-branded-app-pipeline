@@ -31,14 +31,10 @@ import {
   fetchGiftcardList,
   fetchGiftcardBackgroundImageList,
 } from '../../libs/giftcard/actions';
+import { fetchAllEstablishmentBillingGroup } from '../../libs/establishment/actions';
 import {
-  fetchEstablishments,
-  fetchAllEstablishmentBillingGroup,
-} from '../../libs/establishment/actions';
-import {
-  getEstablishmentBillingroup,
-  withEstablishment,
   getAvailableEstablishmentList,
+  getEnabledEstablishmentBillingGroups,
 } from '../../libs/establishment/selectors';
 import themeSelectors from '../../libs/theme/selectors';
 import {
@@ -50,7 +46,7 @@ import InvoiceFormV2 from '../../libs/invoice/components/InvoiceFormV2.component
 import InvoiceDateDialog from '../../libs/invoice/dialog/InvoiceDateDialog.component';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { withMemberBannerHOC } from '../../hocs/banner.hoc';
-import { Establishment } from '../../libs/establishment/types';
+import { EstablishmentBillingGroup } from '../../libs/establishment/types';
 import { Theme as CompanyThemeType } from '../../libs/theme/types';
 
 type Props = {
@@ -68,13 +64,13 @@ type Props = {
   fetchPrivatePassList: () => void,
   fetchGiftcardList: () => void,
   fetchPaymentComboList: () => void,
-  fetchEstablishments: () => void,
+  fetchAllEstablishmentBillingGroup: (params: { company: number }) => void,
   fetchGiftcardBackgroundImageList: () => void,
   initialItems: { withPrivatePass: ?string, withCredit: ?string },
 
   loading: boolean,
   availableBuyableItems: { [buyable_item_identifier: number]: Array<any> },
-  establishments: Array<Establishment>,
+  establishmentBillingGroups: EstablishmentBillingGroup[],
   establishmentLoading: boolean,
   companyTheme: CompanyThemeType,
   giftcardBackgroundImageList: Array<GiftcardBackgroundImage>,
@@ -97,7 +93,11 @@ export class InvoiceCreation extends Component<Props, State> {
     this.props.fetchPaymentPackList({ disabled: false, page_size: 7000 });
     this.props.fetchPrivatePassList();
     this.props.fetchPaymentComboList();
-    this.props.fetchEstablishments();
+    if (this.props.companyTheme.enable_multi_localization) {
+      this.props.fetchAllEstablishmentBillingGroup({
+        params: { company: this.props.companyTheme.company },
+      });
+    }
     this.props.fetchGiftcardList();
     this.props.fetchGiftcardBackgroundImageList(
       this.props.companyTheme.company,
@@ -160,8 +160,8 @@ export class InvoiceCreation extends Component<Props, State> {
           enableMultiLocalization={
             this.props.companyTheme.enable_multi_localization
           }
+          establishmentBillingGroups={this.props.establishmentBillingGroups}
           establishmentLoading={this.props.establishmentLoading}
-          establishments={this.props.establishments}
           giftcardBackgroundImageList={this.props.giftcardBackgroundImageList}
           goToMemberPage={() => goToMemberPage(memberId)}
           goToSubscription={this.props.goToSubscription}
@@ -200,9 +200,7 @@ export default compose(
       loading: state.member.loading,
       member: getMember(state, memberId),
       availableBuyableItems: getBuyableItem(state),
-      establishmentBillingGroups: withEstablishment(
-        getEstablishmentBillingroup,
-      )(state),
+      establishmentBillingGroups: getEnabledEstablishmentBillingGroups(state),
       establishments: getAvailableEstablishmentList(state),
       establishmentLoading:
         state.establishment.loading ||
@@ -224,8 +222,6 @@ export default compose(
       goToSubscription: (id) => pushRouter(`/subscription/${id}/`),
       fetchMember,
       goToInvoice: (uuid) => pushRouter(`/invoice/${uuid}/`),
-
-      fetchEstablishments,
       fetchGiftcardList,
       fetchAllEstablishmentBillingGroup,
     },

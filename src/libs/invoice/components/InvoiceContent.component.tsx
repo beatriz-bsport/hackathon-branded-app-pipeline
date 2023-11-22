@@ -26,73 +26,75 @@ import InvoiceItem from './InvoiceItem.component';
 // @ts-expect-error
 import PaymentItem from './PaymentItem.component';
 import CouponCodeForm from '#libs/coupon/components/CouponCodeForm.component';
-import EstablishmentSelector from '#libs/establishment/components/EstablishmentSelector.component';
 import { getReceiptUrl as getReceiptUrlAPI } from '../api';
-import type { Establishment } from '#libs/establishment/types';
+import type { EstablishmentBillingGroup } from '#libs/establishment/types';
 import type { OptionCallback } from '../../../state/types';
 import type { Invoice } from '../types';
 import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import EstablishmentBillingGroupSelector from '#libs/establishment/components/EstablishmentBillingGroupSelector';
 
 type Props = {
-  paymentItemList: PaymentItem[];
-  removeInvoiceItem: (id: number) => void;
-  removePaymentItem: (id: number) => void;
   amountInvoiceItem: number;
   amountPaymentItem: number;
-  returnPayment: (uuid: string) => void;
-  finalizeInvoice: () => void;
-  updatePaymentMethod: (uuid: string, paymentMethodId: number) => void;
-  isReturningPayment: boolean;
-  goToSubscription: (id: number) => void;
-  invoice?: Invoice;
-  invoiceItemLoading: boolean;
-  invoiceItemList: InvoiceItem[];
-  editCustomFooter: (footer: string, options?: OptionCallback) => void;
   couponList?: {
     coupon_code: string;
     coupon_voucher: number;
     compatible_items: number[];
   }[];
-  deleteCoupon?: (couponIndex: number) => void;
-  applyCoupon?: (couponCode: String, options: OptionCallback) => void;
-  disableCoupon: boolean;
   couponLoading: boolean;
-  withEstablishment: boolean;
-  establishmentLoading: boolean;
-  establishments: Establishment[];
-  setBillingEstablishment: (establishmentId: number | null) => void;
-  billing_establishment_id: number;
+  disableCoupon: boolean;
   enableMultiLocalization: boolean;
-  requiredEstablishmentIsMissing?: boolean;
+  establishmentBillingGroups: EstablishmentBillingGroup[];
+  establishmentLoading: boolean;
+  invoice?: Invoice;
+  invoiceItemLoading: boolean;
+  invoiceItemList: InvoiceItem[];
+  isReturningPayment: boolean;
+  paymentItemList: PaymentItem[];
+  requiredEstablishmentIsMissing: boolean;
+  selectedEstablishmentBillingGroup: EstablishmentBillingGroup;
+  withEstablishment: boolean;
+  applyCoupon?: (couponCode: String, options: OptionCallback) => void;
+  deleteCoupon?: (couponIndex: number) => void;
+  editCustomFooter: (footer: string, options?: OptionCallback) => void;
+  finalizeInvoice: () => void;
+  goToSubscription: (id: number) => void;
+  removeInvoiceItem: (id: number) => void;
+  removePaymentItem: (id: number) => void;
+  returnPayment: (uuid: string) => void;
+  setEstablishmentBillingGroup: (
+    establishmentBillingGroup: EstablishmentBillingGroup | null,
+  ) => void;
+  updatePaymentMethod: (uuid: string, paymentMethodId: number) => void;
 };
 
 export const InvoiceContent: React.FC<Props> = ({
-  paymentItemList,
-  removeInvoiceItem,
-  removePaymentItem,
   amountInvoiceItem,
   amountPaymentItem,
-  returnPayment,
-  finalizeInvoice,
-  updatePaymentMethod,
-  isReturningPayment,
-  goToSubscription,
+  couponList,
+  couponLoading,
+  disableCoupon,
+  enableMultiLocalization,
+  establishmentBillingGroups,
+  establishmentLoading,
   invoice,
   invoiceItemLoading,
   invoiceItemList,
-  editCustomFooter,
-  couponList,
-  deleteCoupon,
-  applyCoupon,
-  disableCoupon,
-  couponLoading,
-  withEstablishment,
-  establishmentLoading,
-  establishments,
-  setBillingEstablishment,
-  billing_establishment_id,
-  enableMultiLocalization,
+  isReturningPayment,
+  paymentItemList,
   requiredEstablishmentIsMissing,
+  selectedEstablishmentBillingGroup,
+  withEstablishment,
+  applyCoupon,
+  deleteCoupon,
+  editCustomFooter,
+  finalizeInvoice,
+  goToSubscription,
+  removeInvoiceItem,
+  removePaymentItem,
+  returnPayment,
+  setEstablishmentBillingGroup,
+  updatePaymentMethod,
 }) => {
   const classes = useStyles({
     amountPaymentItem,
@@ -107,6 +109,8 @@ export const InvoiceContent: React.FC<Props> = ({
     invoice ? invoice.custom_footer : '',
   );
 
+  // Unused state field, but its setter is used to force component re-rendering
+  // eslint-disable-next-line
   const [loading, setLoading] = React.useState(false);
 
   const is_reverse = invoice?.source_invoice;
@@ -157,9 +161,9 @@ export const InvoiceContent: React.FC<Props> = ({
     [invoice?.uuid],
   );
 
-  const handleSelectBillingEstablishment = useCallback(
-    async (item: { value: number; label: string }) => {
-      setBillingEstablishment(item ? item.value : null);
+  const handleSelectEstablishmentBillingGroup = useCallback(
+    async (item: EstablishmentBillingGroup) => {
+      setEstablishmentBillingGroup(item || null);
       setLoading(true);
       // loading is used to force re-render of the menuPortal to update
       // selected items
@@ -168,7 +172,7 @@ export const InvoiceContent: React.FC<Props> = ({
       });
       setLoading(false);
     },
-    [setBillingEstablishment],
+    [setEstablishmentBillingGroup],
   );
 
   const handleChangeCustomFooterValue = useCallback(
@@ -339,7 +343,7 @@ export const InvoiceContent: React.FC<Props> = ({
         {enableMultiLocalization && withEstablishment && (
           <>
             <Typography className={classes.sectionTitle} variant="h6">
-              {t('section.invoiceItemList.billing_establishment')}
+              {t('section.invoiceItemList.billingGroup')}
             </Typography>
             {establishmentLoading || invoiceItemLoading ? (
               <LinearProgress className={classes.divider} />
@@ -347,16 +351,16 @@ export const InvoiceContent: React.FC<Props> = ({
               <Divider className={classes.divider} />
             )}
             <div className={classes.sectionEstablishmentBilling}>
-              <EstablishmentSelector
+              <EstablishmentBillingGroupSelector
                 closeMenuOnSelect
                 isOptionDisabled
                 isRequired
-                noMulti
-                establishments={establishments}
-                isLoading={establishmentLoading || loading}
+                establishmentBillingGroups={establishmentBillingGroups}
                 requiredValueIsMissing={requiredEstablishmentIsMissing}
-                selectedEstablishments={[billing_establishment_id]}
-                selectOption={handleSelectBillingEstablishment}
+                selectedEstablishmentBillingGroup={
+                  selectedEstablishmentBillingGroup
+                }
+                selectOption={handleSelectEstablishmentBillingGroup}
               />
             </div>
           </>

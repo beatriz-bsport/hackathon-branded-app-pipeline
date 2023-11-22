@@ -21,7 +21,7 @@ import {
   OptionCallBackWithKeyedCallbacks,
 } from '../../../state/types';
 import { appliesToInvoice } from '#libs/coupon/api';
-import { Establishment } from '#libs/establishment/types';
+import { EstablishmentBillingGroup } from '#libs/establishment/types';
 import ConsumerGiftcardFormWithPreview from '#libs/giftcard/components/ConsumerGiftcardFormWithPreview.component';
 import { GiftcardBackgroundImage } from '#libs/giftcard/types';
 import { Member } from '#libs/member/types';
@@ -46,7 +46,7 @@ type OwnProps = {
   closeFinalizeInvoiceDialog: () => void;
   initialItems?: { withPrivatePass?: string; withCredit?: string };
   t: TFunction;
-  establishments: Array<Establishment>;
+  establishmentBillingGroups: EstablishmentBillingGroup[];
   establishmentLoading: boolean;
   enableMultiLocalization: boolean;
   imageCarouselChangeable: boolean;
@@ -63,7 +63,7 @@ type State = {
     compatible_items: Array<number>;
   }>;
   couponLoading: boolean;
-  billing_establishment_id: number | null;
+  selectedEstablishmentBillingGroup?: EstablishmentBillingGroup | null;
   giftcardToConfigureList: Array<number>;
   giftcardConfigList: Array<any>;
   requiredEstablishmentIsMissing: boolean;
@@ -81,7 +81,7 @@ export class InvoiceForm extends React.Component<Props, State> {
     invoiceItemList: [],
     coupon_list: [],
     couponLoading: false,
-    billing_establishment_id: null,
+    selectedEstablishmentBillingGroup: null,
     giftcardToConfigureList: [],
     giftcardConfigList: [],
     requiredEstablishmentIsMissing: false,
@@ -249,8 +249,8 @@ export class InvoiceForm extends React.Component<Props, State> {
   onSubmit = (giftcard_config_list: Array<any>) => {
     if (
       this.props.enableMultiLocalization &&
-      !this.state.billing_establishment_id &&
-      this.props.establishments?.length
+      !this.state.selectedEstablishmentBillingGroup &&
+      this.props.establishmentBillingGroups?.length
     ) {
       this.setState({ requiredEstablishmentIsMissing: true });
     } else {
@@ -259,7 +259,8 @@ export class InvoiceForm extends React.Component<Props, State> {
         coupon_codes: this.state.coupon_list.map(
           (coupon) => coupon.coupon_code,
         ),
-        billing_establishment_id: this.state.billing_establishment_id,
+        establishment_billing_group:
+          this.state.selectedEstablishmentBillingGroup?.id,
         giftcard_config_list,
       });
     }
@@ -307,14 +308,13 @@ export class InvoiceForm extends React.Component<Props, State> {
             withEstablishment
             amountInvoiceItem={invoiceItemAmount}
             applyCoupon={this.applyCoupon}
-            billing_establishment_id={this.state.billing_establishment_id}
             couponList={this.state.coupon_list}
             couponLoading={this.state.couponLoading}
             deleteCoupon={this.deleteCoupon}
             disableCoupon={this.invoiceItemIsEmpty()}
             enableMultiLocalization={this.props.enableMultiLocalization}
+            establishmentBillingGroups={this.props.establishmentBillingGroups}
             establishmentLoading={this.props.establishmentLoading}
-            establishments={this.props.establishments}
             invoiceItemList={[
               ...asEditable(false, this.props.invoiceItemList),
               ...asEditable(true, this.state.invoiceItemList),
@@ -323,10 +323,13 @@ export class InvoiceForm extends React.Component<Props, State> {
             requiredEstablishmentIsMissing={
               this.state.requiredEstablishmentIsMissing
             }
-            setBillingEstablishment={(billing_establishment_id) =>
+            selectedEstablishmentBillingGroup={
+              this.state.selectedEstablishmentBillingGroup
+            }
+            setEstablishmentBillingGroup={(establishmentBillingGroup) =>
               this.setState({
-                billing_establishment_id,
-                requiredEstablishmentIsMissing: !billing_establishment_id,
+                selectedEstablishmentBillingGroup: establishmentBillingGroup,
+                requiredEstablishmentIsMissing: !establishmentBillingGroup,
               })
             }
           />

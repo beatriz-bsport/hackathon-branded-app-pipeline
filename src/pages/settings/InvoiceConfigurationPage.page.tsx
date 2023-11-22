@@ -30,7 +30,7 @@ import {
 } from '../../libs/snackbar/actions';
 
 import {
-  getEnabledEstablishmentBillinGroups,
+  getEnabledEstablishmentBillingGroups,
   withEstablishment,
   getAvailableEstablishmentList,
 } from '../../libs/establishment/selectors';
@@ -74,7 +74,11 @@ type State = {};
 export class InvoiceConfigurationPage extends React.Component<Props, State> {
   componentDidMount() {
     this.props.fetchInvoiceConfiguration();
-    this.props.fetchAllEstablishmentBillingGroup();
+    if (this.props.theme.enable_multi_localization) {
+      this.props.fetchAllEstablishmentBillingGroup({
+        params: { company: this.props.theme.company },
+      });
+    }
     this.props.fetchEstablishments();
     this.props.fetchStripeReaders();
   }
@@ -181,7 +185,7 @@ const mapStateToProps = (state: RootState) => ({
   loading: state.invoice.configuration.loading,
   processing: state.invoice.configuration.updating,
   establishmentBillingGroup: withEstablishment(
-    getEnabledEstablishmentBillinGroups,
+    getEnabledEstablishmentBillingGroups,
   )(state),
   establishments: getAvailableEstablishmentList(state),
   stripeReaders: getStripeReaders(state),

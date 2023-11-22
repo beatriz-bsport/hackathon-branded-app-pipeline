@@ -80,6 +80,7 @@ const usePropsFromVariation = (
     companyId: '',
     cardBillingDetailsMandatory: true,
     paymentMethodFetchDone: true,
+    enableMultiLocalization: false,
   };
 };
 

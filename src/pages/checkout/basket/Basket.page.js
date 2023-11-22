@@ -237,7 +237,15 @@ export class BasketPage extends React.Component<Props> {
   }
 
   componentDidMount() {
-    this.props.fetchCompanyTheme(this.props.companyId);
+    this.props.fetchCompanyTheme(this.props.companyId, {
+      onSuccess: (theme) => {
+        if (theme.enable_multi_localization) {
+          this.props.fetchAllEstablishmentBillingGroup({
+            params: { company: this.props.companyId },
+          });
+        }
+      },
+    });
     if (this.props.auth.authenticated) {
       this.props.fetchProfile();
     }
@@ -255,9 +263,6 @@ export class BasketPage extends React.Component<Props> {
     if (this.props.companyId) {
       this.props.fetchPaymentMethod({ company: this.props.companyId });
     }
-    this.props.fetchAllEstablishmentBillingGroup({
-      params: { company: this.props.companyId },
-    });
   }
 
   componentDidUpdate(prevProps: Props) {

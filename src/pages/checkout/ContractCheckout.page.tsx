@@ -13,17 +13,18 @@ import { Stripe, loadStripe } from '@stripe/stripe-js';
 import classNames from 'classnames';
 import { CONTRACT_IS_ALREADY_SUBSCRIBED } from '@bsport/common/lib/master-data/error-codes/subscription';
 
-// @ts-ignore
+// @ts-expect-error
 import withQueryParams from '../../hocs/with-query-params.hoc';
 import { RootState } from '../../reducers';
 import themeSelectors, { getStripePkKey } from '#libs/theme/selectors';
-// @ts-ignore
+// @ts-expect-error
 import asyncComponent from '../../AsyncComponent';
 
 import {
   fetchPaymentPackBulk as fetchPaymentPackBulkAction,
   fetchMarketplacePacks,
 } from '#libs/payment-packs/actions';
+import { fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction } from '#libs/establishment/actions';
 import {
   fetchPrivatePassBulk as fetchPrivatePassBulkAction,
   fetchPrivatePassAsConsumerList,
@@ -31,8 +32,14 @@ import {
 import {
   getContract,
   getMarketplaceContractList,
-  // @ts-ignore
+  // @ts-expect-error
 } from '#libs/subscription/selectors';
+import {
+  getDefaultEstablishmentBillingGroup,
+  getEnabledEstablishmentBillingGroups,
+  withEstablishment,
+} from '#libs/establishment/selectors';
+import { fetchMembershipByCompany as fetchMembershipByCompanyAction } from '#libs/membership/actions';
 import {
   fetchMarketplaceContractList,
   fetchContractDetail,
@@ -48,7 +55,7 @@ import { getSavedPaymentMethodList } from '#libs/payment/selectors';
 import { getPaymentPack } from '#libs/payment-packs/selectors';
 import { getPrivatePass } from '#libs/private-service/selectors/private-pass';
 import { getPaymentCombo } from '#libs/payment-combo/selectors';
-// @ts-ignore
+// @ts-expect-error
 import Analytics from '#components/analytics/Analytics.component';
 import { snackbarWarning, snackbarSuccess } from '#libs/snackbar/actions';
 import WidgetUtils from '#libs/widget/WidgetUtils';
@@ -60,7 +67,7 @@ import type { Theme as CompanyTheme } from '#libs/theme/types';
 import type { PaymentMethod } from '#libs/payment/types';
 import type { OptionCallback } from '../../state/types';
 import { PaymentPack } from '#libs/payment-packs/types';
-// @ts-ignore
+// @ts-expect-error
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { fetchPaymentComboList } from '#libs/payment-combo/actions';
 import ConsumerAppBar from './ConsumerAppBar.container';
@@ -78,8 +85,15 @@ import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/action
 import Carousel from '#components/css-only/Carousel';
 import MarketplaceContractNotFound from '#marketplacecomponents/@Subscription/MarketplaceContractNotFound';
 import MemberShipValidationWrapper from '../consumer/MemberShipValidationWrapper.component';
+import { updateDefaultEstablishmentBillingGroup as updateDefaultEstablishmentBillingGroupAction } from '#libs/member/actions';
 
 import './styles.css';
+import { EstablishmentBillingGroup } from '#libs/establishment/types';
+import {
+  getMemberDetailData,
+  getMemberThroughMembership,
+} from '#libs/member/selectors';
+import { loadDefaultEstablishmentBillingGroup } from '#libs/marketplace/utils/booking';
 
 const MarketplaceContractPayment = asyncComponent(
   () => import('#marketplacecomponents/@Payment/MarketplaceContractPayment'),
@@ -118,6 +132,14 @@ type ownProps = {
   auth: any;
   onPayRequest: (date: string) => void;
   downloadContractTerms: (options: OptionCallback) => void;
+  fetchAllEstablishmentBillingGroup: () => void;
+  establishmentBillingGroups: EstablishmentBillingGroup[];
+  updateDefaultEstablishmentBillingGroup: (
+    id: number,
+    memberData: FormData,
+    options?: OptionCallback,
+  ) => void;
+  defaultEstablishmentBillingGroup: EstablishmentBillingGroup;
 };
 
 type ConnectedProps = ownProps &
@@ -134,6 +156,7 @@ type State = {
   isDirectBuyingLink: boolean;
   isContractLegalTermsAccepted: boolean;
   paymentMethodFetchDone: boolean;
+  isEstablishmentBillingGroupSelected: boolean;
 };
 
 export class MarketplaceSubscriptionPayment extends React.Component<
@@ -155,8 +178,11 @@ export class MarketplaceSubscriptionPayment extends React.Component<
       openContractTermsDialog: false,
       isContractLegalTermsAccepted: false,
       paymentMethodFetchDone: false,
+      isEstablishmentBillingGroupSelected: true,
     };
   }
+
+  defaultEstablishmentBillingGroup: EstablishmentBillingGroup = null;
 
   componentDidMount() {
     this.props.fetchContractList(this.props.companyId, {
@@ -177,7 +203,15 @@ export class MarketplaceSubscriptionPayment extends React.Component<
       },
     });
 
-    this.props.fetchCompanyTheme(this.props.companyId);
+    this.props.fetchCompanyTheme(this.props.companyId, {
+      onSuccess: (theme) => {
+        if (theme.enable_multi_localization) {
+          this.props.fetchAllEstablishmentBillingGroup({
+            params: { company: this.props.companyId },
+          });
+        }
+      },
+    });
 
     if (this.props.queryParams?.force === 'true' && this.props.contractId) {
       this.props.fetchContractDetail(parseInt(this.props.contractId, 10));
@@ -186,6 +220,7 @@ export class MarketplaceSubscriptionPayment extends React.Component<
     if (this.props.theme) {
       this.loadStripe();
     }
+    this.props.fetchMembershipByCompany(this.props.companyId);
   }
 
   loadStripe = () => {
@@ -215,7 +250,35 @@ export class MarketplaceSubscriptionPayment extends React.Component<
         block: 'center',
       });
     }
+    this.defaultEstablishmentBillingGroup =
+      loadDefaultEstablishmentBillingGroup(
+        this.props.theme.enable_multi_localization,
+        null,
+        () => {},
+        this.setIsEstablishmentBillingGroupSelected,
+        {
+          defaultEstablishmentBillingGroup:
+            prevProps.defaultEstablishmentBillingGroup,
+          establishmentBillingGroups: prevProps.establishmentBillingGroups,
+          basketOffers: null,
+        },
+        {
+          defaultEstablishmentBillingGroup:
+            this.props.defaultEstablishmentBillingGroup,
+          establishmentBillingGroups: this.props.establishmentBillingGroups,
+          basketOffers: null,
+        },
+      );
   }
+
+  setIsEstablishmentBillingGroupSelected = (
+    isEstablishmentBillingGroupSelected: boolean,
+  ) =>
+    this.setState({
+      isEstablishmentBillingGroupSelected:
+        isEstablishmentBillingGroupSelected ||
+        !this.props.theme.enable_multi_localization,
+    });
 
   handleCloseContractCooldownDialog = () => {
     this.setState({ isContractCooldownDialogOpen: false });
@@ -510,6 +573,9 @@ export class MarketplaceSubscriptionPayment extends React.Component<
                   }
                   companyId={this.props.companyId}
                   contract={contract}
+                  defaultEstablishmentBillingGroup={
+                    this.defaultEstablishmentBillingGroup
+                  }
                   detachPaymentMethod={this.props.detachPaymentMethod}
                   enabledPaymentGroupMethodIdentifierIds={
                     this.props.theme.payment_method_available_subscription
@@ -520,12 +586,22 @@ export class MarketplaceSubscriptionPayment extends React.Component<
                         this.props.theme.payment_method_available_subscription,
                     },
                   )}
+                  enableMultiLocalization={
+                    this.props.theme?.enable_multi_localization
+                  }
+                  establishmentBillingGroups={
+                    this.props.establishmentBillingGroups
+                  }
                   isContractLegalTermsAccepted={
                     this.state.isContractLegalTermsAccepted
+                  }
+                  isEstablishmentBillingGroupSelected={
+                    this.state.isEstablishmentBillingGroupSelected
                   }
                   isExcludingTax={this.getIsTaxExcluded()}
                   isLoading={this.state.processing}
                   isWidget={isWidget}
+                  memberId={this.props.member?.id}
                   onCancelContractPayment={this.handleCancelContractPayment}
                   onOpenContractTermsDialog={this.handleOpenContractTermsDialog}
                   onSubmitContractPayment={this.handleSubmitContractPayment}
@@ -541,6 +617,12 @@ export class MarketplaceSubscriptionPayment extends React.Component<
                     this.handleSetAcceptContractLegalTerms
                   }
                   setBillingStartDate={this.handleSetBillingStartDate}
+                  setIsEstablishmentBillingGroupSelected={
+                    this.setIsEstablishmentBillingGroupSelected
+                  }
+                  updateDefaultEstablishmentBillingGroup={
+                    this.props.updateDefaultEstablishmentBillingGroup
+                  }
                 />
               </div>
             )}
@@ -564,30 +646,45 @@ export class MarketplaceSubscriptionPayment extends React.Component<
 
 const mapStateToProps = (
   state: RootState,
-  { contractId }: { contractId: string },
-) => ({
-  getPaymentPackSelected: (id: number) => {
-    return getPaymentPack(state, id) as PaymentPack;
-  },
-  getPrivatePassSelected: (id: number) => {
-    return getPrivatePass(state, id);
-  },
-  getPaymentComboSelected: (id: number) => {
-    return getPaymentCombo(state, id);
-  },
-  contractList: getMarketplaceContractList(state),
-  contract: getContract(state, parseInt(contractId, 10)),
-  contractLoading: state.subscription.contract.byMarketplace.loading,
-  paymentPackLoading: state.paymentPack.loading,
-  privatePassLoading: state.privateService.privatePass.loading,
-  paymentComboLoading: state.paymentCombo.loading,
-  theme: themeSelectors.getTheme(state),
-  savedPaymentMethodList: getSavedPaymentMethodList(state),
-  detachPaymentMethodLoading: state.paymentBackend.detachPaymentMethod.loading,
-  contractTermsDownloadLoading:
-    state.subscription.contractTermsDownload.loading,
-  auth: state.auth,
-});
+  { companyId, contractId }: { companyId?: number; contractId: string },
+) => {
+  const member = getMemberThroughMembership(getMemberDetailData)(
+    state,
+    companyId,
+  );
+  return {
+    getPaymentPackSelected: (id: number) => {
+      return getPaymentPack(state, id) as PaymentPack;
+    },
+    getPrivatePassSelected: (id: number) => {
+      return getPrivatePass(state, id);
+    },
+    getPaymentComboSelected: (id: number) => {
+      return getPaymentCombo(state, id);
+    },
+    contractList: getMarketplaceContractList(state),
+    contract: getContract(state, parseInt(contractId, 10)),
+    contractLoading: state.subscription.contract.byMarketplace.loading,
+    paymentPackLoading: state.paymentPack.loading,
+    privatePassLoading: state.privateService.privatePass.loading,
+    paymentComboLoading: state.paymentCombo.loading,
+    theme: themeSelectors.getTheme(state),
+    savedPaymentMethodList: getSavedPaymentMethodList(state),
+    detachPaymentMethodLoading:
+      state.paymentBackend.detachPaymentMethod.loading,
+    contractTermsDownloadLoading:
+      state.subscription.contractTermsDownload.loading,
+    auth: state.auth,
+    establishmentBillingGroups: withEstablishment(
+      getEnabledEstablishmentBillingGroups,
+    )(state),
+    defaultEstablishmentBillingGroup: getDefaultEstablishmentBillingGroup(
+      state,
+      member?.id,
+    ),
+    member,
+  };
+};
 
 const mapDispatchToProps = {
   replace: replaceAction,
@@ -624,6 +721,10 @@ const mapDispatchToProps = {
   fetchPrivatePassAsConsumerList,
   downloadPDFContractTermsForContract:
     downloadPDFContractTermsForContractAction,
+  fetchAllEstablishmentBillingGroup: fetchAllEstablishmentBillingGroupAction,
+  updateDefaultEstablishmentBillingGroup:
+    updateDefaultEstablishmentBillingGroupAction,
+  fetchMembershipByCompany: fetchMembershipByCompanyAction,
 };
 
 export default compose<any, ownProps>(

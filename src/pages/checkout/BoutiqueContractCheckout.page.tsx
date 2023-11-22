@@ -84,7 +84,10 @@ import MarketplaceSubscriptionPayment from '#libs/checkout/components/new-checko
 import SubscriptionTerms from '#libs/subscription/components/new-checkout-flow/SubscriptionTerms';
 import SubscriptionBasketSummary from '#libs/subscription/components/new-checkout-flow/SubscriptionBasketSummary';
 import SubscriptionBillingInfo from '#libs/subscription/components/new-checkout-flow/SubscriptionBillingInfo';
-import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '#libs/establishment/actions';
+import {
+  fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction,
+  fetchEstablishmentBulk as fetchEstablishmentBulkAction,
+} from '#libs/establishment/actions';
 import { fetchMetaActivityDetails as fetchMetaActivityDetailsAction } from '#libs/meta-activity/actions';
 import { PrepaidLine } from '#libs/checkout/types';
 import MarketplaceContractTermsModal from '#marketplacecomponents/@Subscription/MarketplaceContractTermsModal';
@@ -99,6 +102,19 @@ import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
 import { buildUrlParams } from '../../http';
 
 import './BoutiqueContractCheckout.css';
+import { EstablishmentBillingGroup } from '#libs/establishment/types';
+import { getEnabledEstablishmentBillingGroups } from '#libs/establishment/selectors';
+import { MemberMap } from '#libs/member/utils';
+// @ts-expect-error
+import { mapFormData } from '../form.utils';
+import {
+  fetchMember as fetchMemberAction,
+  updateDefaultEstablishmentBillingGroup as updateDefaultEstablishmentBillingGroupAction,
+} from '#libs/member/actions';
+import CheckoutBillingGroupSelector from '#libs/marketplace/components/@Basket/CheckoutBillingGroupSelector.component';
+import { fetchMembershipByCompany as fetchMembershipByCompanyAction } from '#libs/membership/actions';
+import { getMembership } from '#libs/membership/selectors';
+import { loadDefaultEstablishmentBillingGroup } from '#libs/marketplace/utils/booking';
 
 type RouterProps = {
   companyId: number;
@@ -152,6 +168,8 @@ type State = {
   selectedSavedPaymentMethodId: string | null;
   registerBackgroundServerErrorOccured: boolean;
   userRegistrationserverErrorOccured: boolean;
+  isEstablishmentBillingGroupSelected: boolean;
+  selectedEstablishmentBillingGroup?: EstablishmentBillingGroup;
 };
 
 export class BoutiqueContractCheckout extends React.Component<Props, State> {
@@ -170,14 +188,40 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
       selectedSavedPaymentMethodId: null,
       registerBackgroundServerErrorOccured: false,
       userRegistrationserverErrorOccured: false,
+      selectedEstablishmentBillingGroup: null,
+      isEstablishmentBillingGroupSelected: true,
     };
   }
 
+  setIsEstablishmentBillingGroupSelected = (isSelected: boolean) => {
+    this.setState({ isEstablishmentBillingGroupSelected: isSelected });
+  };
+
+  setSelectedEstablishmentBillingGroup = (
+    establishmentBillingGroup: EstablishmentBillingGroup,
+  ) => {
+    this.setState({
+      selectedEstablishmentBillingGroup: establishmentBillingGroup,
+    });
+  };
+
   componentDidMount() {
     this.props.retrieveCompanyCssConfiguration(this.props.companyId);
-    this.props.fetchCompanyTheme(this.props.companyId);
+    this.props.fetchCompanyTheme(this.props.companyId, {
+      onSuccess: (theme) => {
+        if (theme.enable_multi_localization) {
+          this.props.fetchAllEstablishmentBillingGroup({
+            params: { company: this.props.companyId },
+          });
+        }
+      },
+    });
     this.props.fetchPaymentMethodList();
     this.props.retrieveOfferAndFetchStatus();
+
+    this.props.fetchMembershipByCompany(this.props.companyId, {
+      onSuccess: (data) => this.props.fetchMember(data.id),
+    });
 
     if (this.props.contractId) {
       this.props.fetchContractDetail(this.props.contractId, {
@@ -203,6 +247,10 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
     if (this.props.theme) {
       this.loadStripe();
     }
+
+    if (this.state.selectedEstablishmentBillingGroup) {
+      this.setIsEstablishmentBillingGroupSelected(true);
+    }
   }
 
   loadStripe = () => {
@@ -217,6 +265,22 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
     ) {
       this.loadStripe();
     }
+    loadDefaultEstablishmentBillingGroup(
+      this.props.theme.enable_multi_localization,
+      this.state.selectedEstablishmentBillingGroup,
+      this.setSelectedEstablishmentBillingGroup,
+      this.setIsEstablishmentBillingGroupSelected,
+      {
+        defaultEstablishmentBillingGroup: null,
+        establishmentBillingGroups: prevProps.establishmentBillingGroups,
+        basketOffers: [prevProps.offer],
+      },
+      {
+        defaultEstablishmentBillingGroup: null,
+        establishmentBillingGroups: this.props.establishmentBillingGroups,
+        basketOffers: [this.props.offer],
+      },
+    );
   }
 
   setSelectedSavedPaymentMethodId = (
@@ -399,6 +463,23 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
     });
   };
 
+  updateMemberDefaultEstablishmentBillingGroup = () => {
+    if (this.state.selectedEstablishmentBillingGroup) {
+      const formData = mapFormData(
+        {
+          default_establishment_billing_group:
+            this.state.selectedEstablishmentBillingGroup.id,
+        },
+        MemberMap,
+      );
+      formData.append('id', this.props.memberId.toString());
+      this.props.updateDefaultEstablishmentBillingGroup(
+        this.props.memberId,
+        formData,
+      );
+    }
+  };
+
   handleSubmitContractPayment = (
     _: unknown,
     payment_method_id: string,
@@ -408,6 +489,7 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
   ) => {
     Analytics.contractShowPayment(this.props.contractId);
     this.setState({ processing: true });
+    this.updateMemberDefaultEstablishmentBillingGroup();
     const first_billing_timestamp = moment(this.state.billingStartDate).unix();
     this.props.registerContractBackground(
       this.props.contractId,
@@ -563,6 +645,23 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
                       this.setSelectedSavedPaymentMethodId
                     }
                   />
+                  <CheckoutBillingGroupSelector
+                    enableMultiLocalization={
+                      this.props.theme.enable_multi_localization
+                    }
+                    establishmentBillingGroups={
+                      this.props.establishmentBillingGroups
+                    }
+                    selectedEstablishmentBillingGroup={
+                      this.state.selectedEstablishmentBillingGroup
+                    }
+                    setIsEstablishmentBillingGroupSelected={
+                      this.setIsEstablishmentBillingGroupSelected
+                    }
+                    setSelectedEstablishmentBillingGroup={
+                      this.setSelectedEstablishmentBillingGroup
+                    }
+                  />
                   <SubscriptionTerms
                     contractTerms={this.props.contract?.contract}
                     handleAcceptContract={this.handleAcceptContract}
@@ -590,6 +689,7 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
                     handleSubmitCouponCode={this.handleApplyCoupon}
                     isExcludingTax={this.getIsTaxExcluded()}
                     isPayButtonDisabled={
+                      !this.state.isEstablishmentBillingGroupSelected ||
                       !this.state.isContractLegalTermsAccepted ||
                       !this.state.selectedSavedPaymentMethodId
                     }
@@ -637,7 +737,11 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
 
 const mapStateToProps = (
   state: RootState,
-  { contractId, offerId }: { contractId: string; offerId: number },
+  {
+    contractId,
+    offerId,
+    companyId,
+  }: { contractId: string; offerId: number; companyId: number },
 ) => ({
   offer: withMetaActivity(withEstablishment(getOfferById))(state, offerId),
   contract: withPaymentPack(getContract)(state, contractId),
@@ -655,6 +759,8 @@ const mapStateToProps = (
   offerStatusById: state.offer.offerStatus.byId,
   paymentMethodLoading: state.paymentBackend.paymentMethod.loading,
   customConfiguration: state.exportableComponents.customCss,
+  establishmentBillingGroups: getEnabledEstablishmentBillingGroups(state),
+  memberId: getMembership(state, companyId).id,
 });
 
 const mapDispatchToProps = {
@@ -680,6 +786,11 @@ const mapDispatchToProps = {
   retrieveOffer: retrieveOfferAction,
   offerUserRegistration: offerUserRegistrationAction,
   retrieveCompanyCssConfiguration: retrieveCompanyCssConfigurationAction,
+  fetchAllEstablishmentBillingGroup: fetchAllEstablishmentBillingGroupAction,
+  updateDefaultEstablishmentBillingGroup:
+    updateDefaultEstablishmentBillingGroupAction,
+  fetchMembershipByCompany: fetchMembershipByCompanyAction,
+  fetchMember: fetchMemberAction,
 };
 
 const stripeHandlers = {

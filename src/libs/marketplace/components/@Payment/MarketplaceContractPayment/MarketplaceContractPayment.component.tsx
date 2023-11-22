@@ -50,6 +50,11 @@ import { CouponErrorCodes } from '#libs/coupon/constants';
 import MarketplaceContractPaymentAlert from './sections/MarketplaceContractPaymentAlert.component';
 import type { Coupon } from '#libs/coupon/types';
 import './styles.css';
+import CheckoutBillingGroupSelector from '#libs/marketplace/components/@Basket/CheckoutBillingGroupSelector.component';
+import { EstablishmentBillingGroup } from '#libs/establishment/types';
+import { MemberMap } from '#libs/member/utils';
+// @ts-expect-error
+import { mapFormData } from '../../../../../pages/form.utils';
 
 export type Props = {
   contract: Contract;
@@ -81,6 +86,17 @@ export type Props = {
   companyId: string;
   cardBillingDetailsMandatory: boolean;
   paymentMethodFetchDone: boolean;
+  defaultEstablishmentBillingGroup?: EstablishmentBillingGroup;
+  enableMultiLocalization: boolean;
+  establishmentBillingGroups?: EstablishmentBillingGroup[];
+  isEstablishmentBillingGroupSelected?: boolean;
+  setIsEstablishmentBillingGroupSelected?: (_: boolean) => void;
+  updateDefaultEstablishmentBillingGroup?: (
+    id: number,
+    memberData: FormData,
+    options?: OptionCallback,
+  ) => void;
+  memberId?: number;
 };
 
 const MarketplaceContractPayment: React.FC<Props> = React.memo(
@@ -107,6 +123,13 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
     companyId,
     cardBillingDetailsMandatory,
     paymentMethodFetchDone,
+    defaultEstablishmentBillingGroup,
+    enableMultiLocalization,
+    establishmentBillingGroups,
+    isEstablishmentBillingGroupSelected,
+    setIsEstablishmentBillingGroupSelected,
+    updateDefaultEstablishmentBillingGroup,
+    memberId,
   }) => {
     const companyCountry = getCompanyCountry() || '';
     const [selectedSavedPaymentMethodId, setSelectedSavedPaymentMethodId] =
@@ -139,6 +162,22 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
       useState<MarketplacePaymentMethodBillingDetails>(
         defaultBillingDetailsValues,
       );
+
+    const [
+      selectedEstablishmentBillingGroup,
+      setSelectedEstablishmentBillingGroup,
+    ] = useState<EstablishmentBillingGroup | null>(
+      defaultEstablishmentBillingGroup || null,
+    );
+
+    useEffect(() => {
+      setSelectedEstablishmentBillingGroup(defaultEstablishmentBillingGroup);
+      setIsEstablishmentBillingGroupSelected(true);
+    }, [
+      defaultEstablishmentBillingGroup,
+      setIsEstablishmentBillingGroupSelected,
+      setSelectedEstablishmentBillingGroup,
+    ]);
 
     const { t } = useTranslation([
       'common',
@@ -273,6 +312,15 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
     const handleOnSubmit: FormEventHandler<HTMLFormElement> = useCallback(
       async (event) => {
         event.preventDefault();
+        const formData = mapFormData(
+          {
+            default_establishment_billing_group:
+              selectedEstablishmentBillingGroup.id,
+          },
+          MemberMap,
+        );
+        formData.append('id', memberId.toString());
+        updateDefaultEstablishmentBillingGroup(memberId, formData);
         const isDateValid = moment(billingStartDate).isSameOrAfter(
           moment(),
           'month',
@@ -316,6 +364,9 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
         billingDetails,
         companyId,
         paymentMethod,
+        updateDefaultEstablishmentBillingGroup,
+        memberId,
+        selectedEstablishmentBillingGroup,
       ],
     );
 
@@ -418,6 +469,7 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
     const submitDisabled =
       !areBillingDetailsProvided ||
       !isContractLegalTermsAccepted ||
+      !isEstablishmentBillingGroupSelected ||
       isLoading ||
       !selectedSavedPaymentMethodId;
 
@@ -560,6 +612,20 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
               </Button>
             </div>
           )}
+
+          <CheckoutBillingGroupSelector
+            enableMultiLocalization={enableMultiLocalization}
+            establishmentBillingGroups={establishmentBillingGroups}
+            selectedEstablishmentBillingGroup={
+              selectedEstablishmentBillingGroup
+            }
+            setIsEstablishmentBillingGroupSelected={
+              setIsEstablishmentBillingGroupSelected
+            }
+            setSelectedEstablishmentBillingGroup={
+              setSelectedEstablishmentBillingGroup
+            }
+          />
 
           <div className="bs-contract-payment__actions">
             <Button

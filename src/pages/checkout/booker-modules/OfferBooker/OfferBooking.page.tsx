@@ -197,14 +197,18 @@ class OfferBooking extends React.PureComponent<Props, State> {
       onSuccess: (offer) => {
         this.props.fetchMetaActivityBulk([offer.meta_activity]);
         this.props.fetchMyRelatedMemberList(offer.company);
-        this.props.fetchCompanyTheme(offer.company);
+        this.props.fetchCompanyTheme(offer.company, {
+          onSuccess: (theme) => {
+            if (theme.enable_multi_localization) {
+              this.props.fetchAllEstablishmentBillingGroup({
+                params: { company: this.props.offer?.company },
+              });
+            }
+          },
+        });
         this.props.fetchBookingGuestNumber(offer.id);
         this.props.fetchCompanyWaitlistConfiguration(offer.company);
         this.props.fetchOfferWaitingListPosition(offer.id);
-        this.props.fetchAllEstablishmentBillingGroup({
-          params: { company: this.props.offer?.company },
-        });
-
         if (offer.group !== null) {
           this.props.getGroupOfferBookableStatus(offer.group);
           this.props.fetchGroup(offer.group, {

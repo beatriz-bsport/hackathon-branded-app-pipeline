@@ -101,7 +101,6 @@ type Props = {
   setDate?: (value: string) => void,
   withGeneralConditions: boolean,
   member?: Member,
-  withEstablishment: boolean,
   establishmentBillingGroups?: EstablishmentBillingGroup[],
   enableMultiLocalization: boolean,
   memberId?: number,
@@ -156,7 +155,6 @@ export class SubscriptionPayment extends React.Component<Props, State> {
       amountValuePastInvoices: 0,
       errorValuePastInvoices: false,
       theoricalAmountValuePastInvoices: null,
-      requiredEstablishmentIsMissing: false,
       contractTermsChecked: false,
       billingDetails: {
         name: '',
@@ -233,13 +231,13 @@ export class SubscriptionPayment extends React.Component<Props, State> {
       this.handleSelectedPaymentMethod();
     }
     if (
+      this.props.enableMultiLocalization &&
       prevProps.defaultBillingGroup !== this.props.defaultBillingGroup &&
       this.props.defaultBillingGroup &&
       this.props.defaultBillingGroup?.disabled === false
     ) {
       this.setState({
         selectedEstablishmentBillingGroup: this.props.defaultBillingGroup,
-        requiredEstablishmentIsMissing: false,
       });
     }
   }
@@ -288,10 +286,8 @@ export class SubscriptionPayment extends React.Component<Props, State> {
     if (
       this.props.forceEstablishmentSelection &&
       this.props.enableMultiLocalization &&
-      !this.state.selectedEstablishmentBillingGroup &&
-      this.props.establishments?.length
+      !this.state.selectedEstablishmentBillingGroup
     ) {
-      this.setState({ requiredEstablishmentIsMissing: true });
       return;
     }
     if (
@@ -761,9 +757,6 @@ export class SubscriptionPayment extends React.Component<Props, State> {
                 }
                 selectedEstablishmentBillingGroup={
                   this.state.selectedEstablishmentBillingGroup
-                }
-                setIsEstablishmentBillingGroupSelected={(bool: boolean) =>
-                  this.setState({ requiredEstablishmentIsMissing: bool })
                 }
                 setSelectedEstablishmentBillingGroup={(
                   establishmentBillingGroup: EstablishmentBillingGroup,

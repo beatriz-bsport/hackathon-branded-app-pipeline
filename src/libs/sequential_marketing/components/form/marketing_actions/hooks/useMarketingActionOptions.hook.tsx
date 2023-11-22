@@ -37,6 +37,9 @@ export const useMarketingActionOptions = ({
       onClick: handleAddMarketingAction(marketingActionKind),
       customColor:
         customColor || SequentialMarketingColors.MARKETING_ACTION_COLOR,
+      // MVP: for now we want to restrict access to SMS action
+      isDisabled:
+        marketingActionKind === MarketingActions.CADENCE_MARKETING_ACTION_SMS,
     })) ?? [];
 
   return Immutable(marketingActionList);

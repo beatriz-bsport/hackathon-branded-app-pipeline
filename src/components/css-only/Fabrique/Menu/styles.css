@@ -1,0 +1,52 @@
+:root {
+  --bs-fabrique-border-1: 1px;
+}
+
+.bs-fabrique-menu {
+  /*Reset css properties*/
+  outline: 0;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  vertical-align: middle;
+  text-decoration: none;
+  background-color: var(--bs-color-background-light);
+  border: var(--bs-fabrique-border-1) solid var(--bs-color-border-weak);
+  border-radius: var(--bs-border-radius-sm);
+  box-shadow: var(--bs-shadow-l);
+  /* The maximum height of a simple menu should be one or more rows less than the view
+  // height. This ensures a tappable area outside of the simple menu with which to dismiss
+  // the menu.*/
+  max-height: calc(100% - 32px);
+  max-width: calc(100% - 32px);
+  /* Add iOS momentum scrolling for iOS < 13.0*/
+  -webkit-overflow-scrolling: touch;
+  overflow-x: hidden;
+  overflow-y: auto;
+  transition: var(--bs-transition-duration-normal);
+  /*So we see the popover when it's empty.
+  It's most likely on issue on userland.*/
+  min-width: 16px;
+  min-height: 16px;
+  /*We disable the focus ring for mouse, touch and keyboard users.*/
+  outline: 0;
+
+  margin: 0;
+  padding: var(--bs-space-size-2) 0;
+  z-index: 999;
+  opacity: 1;
+  transition: opacity ease-in-out var(--bs-transition-duration-slow);
+}
+
+.bs-fabrique-menu--unpositioned {
+  opacity: 0;
+  transition: opacity ease-in-out var(--bs-transition-duration-slow);
+}
+
+.bs-fabrique-menu-content {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}

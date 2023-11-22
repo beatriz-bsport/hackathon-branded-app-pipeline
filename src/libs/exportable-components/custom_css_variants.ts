@@ -353,6 +353,12 @@ import {
   FABRIQUE_MENU_ITEM_LIST_CONFIGURATION,
   FABRIQUE_MENU_ITEM_LIST_PREVIEW,
 } from '#components/css-only/Fabrique/MenuItemList';
+
+import {
+  FABRIQUE_MENU_CONFIGURATION,
+  FABRIQUE_MENU_PREVIEW,
+} from '#components/css-only/Fabrique/Menu';
+
 /* TEMPLATE
 
 {
@@ -449,6 +455,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
         FABRIQUE_ALERT_CONFIGURATION,
         FABRIQUE_MENU_ITEM_CONFIGURATION,
         FABRIQUE_MENU_ITEM_LIST_CONFIGURATION,
+        FABRIQUE_MENU_CONFIGURATION,
       ]
     : []),
 ];
@@ -620,6 +627,7 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
         FABRIQUE_MENU_ITEM_PREVIEW,
       [CssComponentsVariantIdentifiers.FABRIQUE_MENU_ITEM_LIST]:
         FABRIQUE_MENU_ITEM_LIST_PREVIEW,
+      [CssComponentsVariantIdentifiers.FABRIQUE_MENU]: FABRIQUE_MENU_PREVIEW,
     }),
   });
 

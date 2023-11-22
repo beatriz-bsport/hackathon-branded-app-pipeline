@@ -379,6 +379,7 @@ exports.default = {
       fabrique_menu_item_list: 'Menu Item List',
       fabrique_list_item: 'List item',
       fabrique_list: 'List',
+      fabrique_menu: 'Menu',
     },
     customCss: {
       yourCode: 'Your complementary implementation:',

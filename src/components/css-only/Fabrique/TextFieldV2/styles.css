@@ -127,8 +127,8 @@
   box-sizing: content-box;
 }
 
-.bs-fabrique-textfield__icon--base svg {
-  fill: var(--bs-color-icon-weakest);
+.bs-fabrique-textfield__icon--base {
+  color: var(--bs-color-icon-weakest);
 }
 
 .bs-fabrique-textfield__icon--small svg {
@@ -155,12 +155,12 @@
 }
 
 .bs-fabrique-textfield__clear-button {
-  fill: var(--bs-color-icon-weakest);
+  color: var(--bs-color-icon-weakest);
 }
 
-.bs-fabrique-textfield__clear-button:hover svg,
-.bs-fabrique-textfield__clear-button:focus svg {
-  fill: black;
+.bs-fabrique-textfield__clear-button:hover,
+.bs-fabrique-textfield__clear-button:focus {
+  color: var(--bs-color-text-default);
 }
 
 .bs-fabrique-textfield__clear-button:disabled {

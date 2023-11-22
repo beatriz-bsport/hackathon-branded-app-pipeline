@@ -9,18 +9,9 @@ import { TextFieldSizeEnum, TextFieldTypeEnum } from './constants';
 import ButtonBase from '#Fabrique/ButtonBaseV2';
 import Typography from '../Typography';
 import { REQUIRED_SYMBOL } from '#Fabrique/constants';
+import { XClose } from '#components/untitledui';
 
 import './styles.css';
-
-const CLEARICON = (
-  <svg fill="none" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-    <path
-      clipRule="evenodd"
-      d="M3.52851 3.52876C3.78886 3.26841 4.21097 3.26841 4.47132 3.52876L7.99992 7.05735L11.5285 3.52876C11.7889 3.26841 12.211 3.26841 12.4713 3.52876C12.7317 3.78911 12.7317 4.21122 12.4713 4.47157L8.94273 8.00016L12.4713 11.5288C12.7317 11.7891 12.7317 12.2112 12.4713 12.4716C12.211 12.7319 11.7889 12.7319 11.5285 12.4716L7.99992 8.94297L4.47132 12.4716C4.21097 12.7319 3.78886 12.7319 3.52851 12.4716C3.26816 12.2112 3.26816 11.7891 3.52851 11.5288L7.05711 8.00016L3.52851 4.47157C3.26816 4.21122 3.26816 3.78911 3.52851 3.52876Z"
-      fillRule="evenodd"
-    />
-  </svg>
-);
 
 export type Props = {
   value: string;
@@ -193,7 +184,7 @@ const TextField: React.FC<Props> = ({
                 onClick={onClear}
                 type="button"
               >
-                {CLEARICON}
+                <XClose stroke="currentColor" />
               </ButtonBase>
             )}
             {!!rightIcon && (

@@ -19,7 +19,9 @@ import StopBuildIcon from '#components/icons/StopBuildIcon.component';
 
 import type { OptionCallback } from '../../../state/types';
 import type { Cadence } from '#libs/sequential_marketing/types';
-import CadenceUtilityDialog from '#libs/sequential_marketing/components/dialogs/DialogUtility';
+import CadenceUtilityDialog, {
+  DialogVariant,
+} from '#libs/sequential_marketing/components/dialogs/DialogUtility';
 
 type Props = {
   cadence: Cadence;
@@ -243,9 +245,6 @@ export const CadenceDetailHeader: React.FC<Props> = ({
     [doNotDisplayPauseDialogAnymore, cadence.id, onShutOff],
   );
 
-  const activateDialogVariant = 'activate';
-  const pauseDialogVariant = 'pause-workflow';
-
   if (loading || !cadence) {
     return (
       <div className={classes.centerVerticalContent}>
@@ -289,13 +288,13 @@ export const CadenceDetailHeader: React.FC<Props> = ({
         onCancel={handleCloseActivateDialog}
         onConfirm={handleActivate}
         open={openActivateDialog}
-        variant={activateDialogVariant}
+        variant={DialogVariant.ACTIVE}
       />
       <CadenceUtilityDialog
         onCancel={handleClosePauseDialog}
         onConfirm={handlePause}
         open={openPauseDialog}
-        variant={pauseDialogVariant}
+        variant={DialogVariant.PAUSE_WORKFLOW}
       />
     </>
   );

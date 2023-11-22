@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import { push as pushRouter } from 'connected-react-router';
 import { withTranslation, WithTranslation } from 'react-i18next';
@@ -55,7 +55,7 @@ type Props = ConnectedPropsAndState &
   StateHandlerType &
   WithTranslation;
 
-export class CadenceDetailPage extends Component<Props> {
+export class CadenceDetailPage extends React.Component<Props> {
   componentDidMount(): void {
     this.props.fetchCadenceList();
   }
@@ -124,7 +124,6 @@ export class CadenceDetailPage extends Component<Props> {
       cadenceLoading,
       cadencesList,
     } = this.props;
-    const archiveCadenceDialogVariant: DialogVariant = 'archive-workflow';
 
     if (
       !cadenceLoading &&
@@ -227,19 +226,21 @@ export class CadenceDetailPage extends Component<Props> {
           onCancel={this.handleResetCadenceToArchive}
           onConfirm={this.props.archiveCadence}
           open={!!cadenceToArchive}
-          variant={archiveCadenceDialogVariant}
+          variant={DialogVariant.ARCHIVE_WORKFLOW}
         />
         <CadenceManagerFab onAdd={this.handleOpenCreationForm} />
       </>
     );
   }
 }
+
 type StateHandlerInit = {
   openCreationForm: boolean;
   cadenceToEdit: Cadence | null;
   selectedCadence: Cadence | null;
   cadenceToArchive: Cadence | null;
 };
+
 const StateHandlersInit: StateHandlerInit = {
   openCreationForm: false,
   cadenceToEdit: null,

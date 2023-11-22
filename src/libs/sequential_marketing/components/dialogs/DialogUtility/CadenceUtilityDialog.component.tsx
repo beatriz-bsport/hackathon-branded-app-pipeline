@@ -11,15 +11,13 @@ import WarningIconRounded from '#components/icons/WarningIconRounded.component';
 import DialogWithBigIcon from '#components/DialogWithBigIcon';
 import type { Cadence } from '#libs/sequential_marketing/types';
 
-enum DialogVariantEnum {
+export enum DialogVariant {
   ACTIVE = 'activate',
   DELETE_STEP = 'delete-step',
   ARCHIVE_WORKFLOW = 'archive-workflow',
   CONVERT_STEP_INTO_EXIT = 'convert-step-into-exit',
   PAUSE_WORKFLOW = 'pause-workflow',
 }
-
-export type DialogVariant = `${DialogVariantEnum}`;
 
 type Props = {
   open: boolean;
@@ -38,22 +36,22 @@ const useCadenceUtilityIcon = (
   color: string;
 } => {
   switch (variant) {
-    case DialogVariantEnum.ACTIVE:
+    case DialogVariant.ACTIVE:
       return { icon: 'PlayArrow', customIcon: null, color: green[500] };
-    case DialogVariantEnum.ARCHIVE_WORKFLOW:
+    case DialogVariant.ARCHIVE_WORKFLOW:
       return {
         icon: null,
         customIcon: WarningIconRounded,
         color: theme.palette.warning.main,
       };
-    case DialogVariantEnum.CONVERT_STEP_INTO_EXIT:
-    case DialogVariantEnum.DELETE_STEP:
+    case DialogVariant.CONVERT_STEP_INTO_EXIT:
+    case DialogVariant.DELETE_STEP:
       return {
         icon: null,
         customIcon: WarningIconRounded,
         color: theme.palette.warning.main,
       };
-    case DialogVariantEnum.PAUSE_WORKFLOW:
+    case DialogVariant.PAUSE_WORKFLOW:
       return {
         icon: 'Pause',
         customIcon: null,
@@ -87,7 +85,7 @@ const useCadenceUtilityButtons = (
   );
 
   switch (variant) {
-    case DialogVariantEnum.ACTIVE:
+    case DialogVariant.ACTIVE:
       return [
         defaultCancelButtonProps,
         {
@@ -97,7 +95,7 @@ const useCadenceUtilityButtons = (
           onClick: onConfirm,
         },
       ];
-    case DialogVariantEnum.ARCHIVE_WORKFLOW:
+    case DialogVariant.ARCHIVE_WORKFLOW:
       return [
         defaultCancelButtonProps,
         {
@@ -107,7 +105,7 @@ const useCadenceUtilityButtons = (
           onClick: onConfirm,
         },
       ];
-    case DialogVariantEnum.CONVERT_STEP_INTO_EXIT:
+    case DialogVariant.CONVERT_STEP_INTO_EXIT:
       return [
         defaultCancelButtonProps,
         {
@@ -117,7 +115,7 @@ const useCadenceUtilityButtons = (
           onClick: onConfirm,
         },
       ];
-    case DialogVariantEnum.DELETE_STEP:
+    case DialogVariant.DELETE_STEP:
       return [
         defaultCancelButtonProps,
         {
@@ -127,7 +125,7 @@ const useCadenceUtilityButtons = (
           onClick: onConfirm,
         },
       ];
-    case DialogVariantEnum.PAUSE_WORKFLOW:
+    case DialogVariant.PAUSE_WORKFLOW:
       return [
         defaultCancelButtonProps,
         {
@@ -159,7 +157,7 @@ const useCadenceUtilityTexts = (
 } => {
   const { t } = useTranslation('marketing');
   switch (variant) {
-    case DialogVariantEnum.ACTIVE:
+    case DialogVariant.ACTIVE:
       return {
         title: t('cadence.activate.dialog.title'),
         descriptions: [
@@ -167,7 +165,7 @@ const useCadenceUtilityTexts = (
           [t('cadence.activate.dialog.secondHelper')],
         ],
       };
-    case DialogVariantEnum.ARCHIVE_WORKFLOW:
+    case DialogVariant.ARCHIVE_WORKFLOW:
       return {
         title: t('cadence.archive.dialog.title'),
         descriptions: [
@@ -175,18 +173,18 @@ const useCadenceUtilityTexts = (
           [t('cadence.archive.dialog.helper', { name: cadenceName })],
         ],
       };
-    case DialogVariantEnum.CONVERT_STEP_INTO_EXIT:
+    case DialogVariant.CONVERT_STEP_INTO_EXIT:
       return {
         title: t('cadence.step.convertExit.dialog.title'),
         descriptions: [[t('cadence.step.convertExit.dialog.helper')]],
       };
-    case DialogVariantEnum.DELETE_STEP:
+    case DialogVariant.DELETE_STEP:
       return {
         title: t('cadence.step.archive.dialog.title'),
         descriptions: [[t('cadence.step.archive.dialog.helper')]],
       };
 
-    case DialogVariantEnum.PAUSE_WORKFLOW:
+    case DialogVariant.PAUSE_WORKFLOW:
       return {
         title: t('cadence.pause.dialog.title'),
         descriptions: [[t('cadence.pause.dialog.helper')]],
@@ -202,13 +200,13 @@ const useCadenceUtilityTexts = (
 
 const useCadenceUtilityCheckbox = (variant: DialogVariant) => {
   switch (variant) {
-    case DialogVariantEnum.ACTIVE:
-    case DialogVariantEnum.ARCHIVE_WORKFLOW:
+    case DialogVariant.ACTIVE:
+    case DialogVariant.ARCHIVE_WORKFLOW:
       return { displayCheckBox: false };
 
-    case DialogVariantEnum.CONVERT_STEP_INTO_EXIT:
-    case DialogVariantEnum.DELETE_STEP:
-    case DialogVariantEnum.PAUSE_WORKFLOW:
+    case DialogVariant.CONVERT_STEP_INTO_EXIT:
+    case DialogVariant.DELETE_STEP:
+    case DialogVariant.PAUSE_WORKFLOW:
       return { displayCheckBox: true };
 
     default:

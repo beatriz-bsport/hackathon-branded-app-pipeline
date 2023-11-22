@@ -58,10 +58,6 @@ type FlowProps = {
   } & InnerStepCardProps;
 };
 
-const deleteStepDialogVariant: DialogVariant = 'delete-step';
-const convertStepIntoExitDialogVariant: DialogVariant =
-  'convert-step-into-exit';
-
 export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
   const { t } = useTranslation('marketing');
 
@@ -328,13 +324,13 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
         onCancel={handleCloseDeleteStepDialog}
         onConfirm={handleConfirmDeleteStepDialog}
         open={openDeleteStepDialog}
-        variant={deleteStepDialogVariant}
+        variant={DialogVariant.DELETE_STEP}
       />
       <CadencDialogUtility
         onCancel={handleCloseConvertStepIntoExitDialog}
         onConfirm={handleConfirmConvertStepIntoExitDialog}
         open={openConvertStepIntoExitDialog}
-        variant={convertStepIntoExitDialogVariant}
+        variant={DialogVariant.CONVERT_STEP_INTO_EXIT}
       />
     </>
   );

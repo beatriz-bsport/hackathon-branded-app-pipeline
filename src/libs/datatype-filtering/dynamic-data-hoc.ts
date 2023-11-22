@@ -11,7 +11,7 @@ import {
 import { getAllCoaches } from '#libs/associated-coach/selectors';
 import {
   getAllEstablishments,
-  getEstablishmentBillingroup,
+  getEstablishmentBillingroups,
 } from '#libs/establishment/selectors';
 import { getAllMembers } from '#libs/member/selectors';
 import { getPrivatePassListBase } from '#libs/private-service/selectors/private-pass';
@@ -94,7 +94,7 @@ const connector = connect(
     privateSlots: getAllPrivateSlots(state),
     giftCards: getAllGiftcardList(state),
     coupons: getAllCoupons(state),
-    billingGroups: getEstablishmentBillingroup(state),
+    billingGroups: getEstablishmentBillingroups(state),
     videos: getVideoList(state),
     contracts: getAvailableContractList(state),
     subshops: getSubShopsByCompany(state, getTheme(state).company),

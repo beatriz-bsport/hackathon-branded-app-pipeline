@@ -95,8 +95,12 @@ export async function deleteEstablishmentGroup(establishmentGroupId: number) {
     `${API_V1_URI}/establishment-group/${establishmentGroupId}`,
   );
 }
-export async function fetchAllEstablishmentBillingGroup() {
-  return getAuth(`${API_V1_URI}/establishment-billing-group/`);
+export function fetchAllEstablishmentBillingGroup(params: { company: number }) {
+  return getAuth<EstablishmentBillingGroup[]>(
+    `${API_V1_URI}/establishment-billing-group/${buildUrlParams({
+      ...params,
+    })}`,
+  );
 }
 
 export async function createEstablishmentBillingGroup(

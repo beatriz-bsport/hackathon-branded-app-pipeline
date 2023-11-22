@@ -478,9 +478,11 @@ export function upsertEstablishmentGroup(
 }
 
 export const deleteEstablishmentGroupActions = {
-  isLoading: createAction('ESTABLISHMENT_GROUP/DELETE/IS_LOADING'),
-  error: createAction('ESTABLISHMENT_GROUP/DELETE/ERROR'),
-  success: createAction('ESTABLISHMENT_GROUP/DELETE/SUCCESS'),
+  isLoading: createAction<boolean>('ESTABLISHMENT_GROUP/DELETE/IS_LOADING'),
+  error: createAction<Error | null>('ESTABLISHMENT_GROUP/DELETE/ERROR'),
+  success: createAction<EstablishmentBillingGroup[]>(
+    'ESTABLISHMENT_GROUP/DELETE/SUCCESS',
+  ),
 };
 
 export function deleteEstablishmentGroup(
@@ -510,12 +512,16 @@ export const fetchAllEstablishmentBillingGroupActions = {
   success: createAction('ESTABLISHMENT_BILLING_GROUP/GET/SUCCESS'),
 };
 
-export function fetchAllEstablishmentBillingGroup(options?: OptionCallback) {
+export function fetchAllEstablishmentBillingGroup(
+  options?: OptionCallback & { params?: { company?: number } },
+) {
   return async (dispatch: Dispatch) => {
     dispatch(fetchAllEstablishmentBillingGroupActions.isLoading(true));
     dispatch(fetchAllEstablishmentBillingGroupActions.error(null));
     try {
-      const response = await fetchAllEstablishmentBillingGroupAPI();
+      const response = await fetchAllEstablishmentBillingGroupAPI({
+        ...options?.params,
+      });
       dispatch(fetchAllEstablishmentBillingGroupActions.success(response.data));
       if (options && options.onSuccess) options.onSuccess(response.data);
     } catch (error) {

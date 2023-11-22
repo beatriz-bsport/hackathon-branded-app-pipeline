@@ -4,6 +4,7 @@ import Immutable from 'seamless-immutable';
 import memoize from 'memoize-one';
 import { RootState } from '../../reducers';
 import { withBookingNotification } from '#libs/marketing/selectors';
+import { getMemberDetail } from '#libs/member/selectors';
 import {
   AssociatedEstablishment,
   Establishment,
@@ -186,7 +187,7 @@ export const withEstablishment = memoize(
     ),
 );
 
-export const getEstablishmentBillingroup = createSelector(
+export const getEstablishmentBillingroups = createSelector(
   [getAllEstablishmentBillingGroupIds, getAllEstablishmentBillingGroupDict],
   (idsList, establishmentGroupData) =>
     idsList.map((id) => establishmentGroupData[id]),
@@ -197,12 +198,26 @@ export const getEstablishmentBillingroup = createSelector(
  *
  * @param {RootState} state - The global state object.
  * @returns {EstablishmentBillingGroup[]} - An array of enabled EstablishmentBillingGroup objects.
- * @see getEstablishmentBillingroup
+ * @see getEstablishmentBillingroups
  */
-export const getEnabledEstablishmentBillinGroups = createSelector(
-  [getEstablishmentBillingroup],
-  (establishmentGroupData) =>
-    establishmentGroupData.filter(
+export const getEnabledEstablishmentBillingGroups = createSelector(
+  [getEstablishmentBillingroups],
+  (establishmentGroupData) => {
+    return establishmentGroupData.filter(
       (establishmentBillingGroup) => !establishmentBillingGroup.disabled,
-    ),
+    );
+  },
+);
+
+export const getDefaultEstablishmentBillingGroup = createSelector(
+  [getAllEstablishmentBillingGroupDict, getMemberDetail],
+  (establishmentBillingGroupById, memberData) => {
+    if (!memberData) return null;
+    const defaultEstablishmentBillingGroup =
+      establishmentBillingGroupById?.[
+        memberData?.default_establishment_billing_group
+      ];
+    if (defaultEstablishmentBillingGroup?.disabled) return null;
+    return defaultEstablishmentBillingGroup;
+  },
 );

@@ -97,3 +97,6 @@ export const getStepMarketingActionsByStepId = createSelector(
   [_getStepMarketingActionsByStepId, (_: RootState, id: number) => id],
   (marketingActionbyStepId, id) => marketingActionbyStepId[id] ?? [],
 );
+
+// TODO: make it use actual information of the workflows
+export const getStepMemberCount = (state: RootState, id: number) => id * 200;

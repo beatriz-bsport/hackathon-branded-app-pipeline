@@ -25,9 +25,9 @@ export const listAsConsumerActions = {
 export const setActiveActions = createAction('MEMBERSHIP/SET_ACTIVE');
 
 export const retrieveActions = {
-  success: createAction('MEMBERSHIP/RETRIEVE/SUCCESS'),
-  isLoading: createAction('MEMBERSHIP/RETRIEVE/IS_LOADING'),
-  error: createAction('MEMBERSHIP/RETRIEVE/ERROR'),
+  success: createAction<Membership>('MEMBERSHIP/RETRIEVE/SUCCESS'),
+  isLoading: createAction<boolean>('MEMBERSHIP/RETRIEVE/IS_LOADING'),
+  error: createAction<Error | null>('MEMBERSHIP/RETRIEVE/ERROR'),
 };
 
 export function fetchMembershipListAsConsumer(
@@ -121,7 +121,7 @@ export function fetchMembership(
 
 export function fetchMembershipByCompany(
   companyId: number,
-  options?: OptionCallback,
+  options?: OptionCallback<Membership>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(retrieveActions.isLoading(true));

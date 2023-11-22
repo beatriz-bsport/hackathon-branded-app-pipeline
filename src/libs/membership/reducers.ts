@@ -89,7 +89,10 @@ export default handleActions<Immutable.Immutable<MembershipState>>(
     [retrieveActions.error.toString()]: (state, { payload }) => {
       return state.setIn(['retrieve', 'error'], payload);
     },
-    [retrieveActions.success.toString()]: (state, { payload }: any) => {
+    [retrieveActions.success.toString()]: (
+      state,
+      { payload }: { payload: Membership },
+    ) => {
       return state.setIn(['byId', payload.company], payload);
     },
     [linkActions.isLoading.toString()]: (state, { payload }) => {

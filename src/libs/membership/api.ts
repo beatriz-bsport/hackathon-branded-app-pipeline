@@ -1,5 +1,6 @@
 import { LinkToCompanyWithReferralPayload } from '#libs/referral/types';
 import { getAuth, postAuth, API_V1_URI, buildUrlParams } from '../../http';
+import { Membership } from './types';
 
 export const fetchMembershipList = async (params: any = {}) => {
   return getAuth(`${API_V1_URI}/membership/${buildUrlParams(params)}`);
@@ -13,7 +14,9 @@ export const fetchMembership = async (
 };
 
 export const fetchMembershipByCompany = async (companyId: number) => {
-  return getAuth(`${API_V1_URI}/membership/${companyId}/by_company/`);
+  return getAuth<Membership>(
+    `${API_V1_URI}/membership/${companyId}/by_company/`,
+  );
 };
 
 export const fetchMembershipByBasket = async (data: {

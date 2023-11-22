@@ -29,20 +29,21 @@ type StylesProps = {
   hasActions?: boolean;
 };
 
-export type CadenceNodeTitleProps = {
-  actions?: Immutable.ImmutableArray<MenuAction | NestedMenuAction>;
-  hasNestedActions?: boolean;
-  disabled?: boolean;
+type Props = {
   icon: string;
   name: string;
+  actions?: Immutable.ImmutableArray<MenuAction | NestedMenuAction>;
+  customIconForActions?: string;
+  disabled?: boolean;
+  hasNestedActions?: boolean;
   triggerList?: ConnectedTrigger[];
   getSmartlist?: (id: number) => SmartList;
   handleDisableRipple?: () => void;
-  handleEnableRipple?: () => void;
 } & Omit<StylesProps, 'hasActions'>;
 
-const CadenceNodeTitle: React.FC<CadenceNodeTitleProps> = ({
+const CadenceNodeTitle: React.FC<Props> = ({
   actions,
+  customIconForActions,
   hasNestedActions,
   color,
   disabled,
@@ -98,11 +99,13 @@ const CadenceNodeTitle: React.FC<CadenceNodeTitleProps> = ({
                 {hasNestedActions ? (
                   <NestedMenuSelectorIconButton
                     actionList={actions}
+                    customIcon={customIconForActions}
                     optionOnClick={handleDisableRipple}
                   />
                 ) : (
                   <MenuSelectorIconButton
                     actionList={actions}
+                    customIcon={customIconForActions}
                     optionOnClick={handleDisableRipple}
                   />
                 )}

@@ -1,11 +1,10 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import type { ComponentStory, ComponentMeta } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
 
-import CadenceNodeTitle, {
-  CadenceNodeTitleProps,
-} from './CadenceNodeTitle.component';
+import CadenceNodeTitle from './CadenceNodeTitle.component';
 import { triggerBatchFactory } from '#libs/sequential_marketing/factories';
-import { smartlistFactory } from '#libs/smart-list/factories';
+import { smartlistBatchFactory } from '#libs/smart-list/factories';
 
 export default {
   title: 'Components/Cadences/CadenceNodes/Title',
@@ -15,13 +14,48 @@ export default {
       page: null,
     },
     description: {
-      component: 'Title component used in cadences',
+      component: 'Title component used in cadence nodes.',
     },
   },
   argTypes: {
-    color: { control: 'color' },
-    disabled: { control: 'boolean' },
-    squareIcon: { control: 'boolean' },
+    icon: {
+      control: 'text',
+      description: 'The icon in the top left corner of the cadence node.',
+    },
+    color: { control: 'color', description: 'The color for the icon.' },
+    actions: {
+      control: 'object',
+      description:
+        'Array of actions or nested actions for the top left button menu of the cadence node.',
+    },
+    disabled: {
+      control: 'boolean',
+      description: 'Indicates whether the node is disabled.',
+    },
+    squareIcon: {
+      control: 'boolean',
+      description:
+        "Indicates the form of the icon's frame. If true, the icon is in a square; otherwise, it's in a diamond.",
+    },
+    hasNestedActions: {
+      control: 'boolean',
+      description: 'Indicates whether the action list is using nested actions.',
+    },
+    customIconForActions: {
+      control: 'text',
+      description:
+        'Custom icon to be displayed for the action menu associated with the cadence node.',
+    },
+    triggerList: {
+      control: 'object',
+      description:
+        'List of connected triggers associated with the cadence node.',
+    },
+    getSmartlist: {
+      action: 'getSmartlistAction',
+      description:
+        'Function to retrieve details about a SmartList based on its ID.',
+    },
   },
   decorators: [
     (Story) => (
@@ -41,12 +75,19 @@ export default {
 } as ComponentMeta<typeof CadenceNodeTitle>;
 
 const CadenceNodeTitleTemplate: ComponentStory<typeof CadenceNodeTitle> = (
-  args: CadenceNodeTitleProps,
+  args: React.ComponentProps<typeof CadenceNodeTitle>,
 ) => <CadenceNodeTitle {...args} />;
 
-const getSmartlist = (id: number) => smartlistFactory(id);
+const smartlists = smartlistBatchFactory(5);
+const smartlistIds = smartlists.map((smartlist) => smartlist.id);
+const getSmartlist = (id: number) =>
+  smartlists.find((smartlist) => smartlist.id === id);
 
-const handleClick = () => {};
+const actionData = {
+  addPhoto: action('addPhoto'),
+  localize: action('localize'),
+  delete: action('delete'),
+};
 
 export const Minimal = CadenceNodeTitleTemplate.bind({});
 Minimal.args = {
@@ -60,7 +101,7 @@ WithTrigger.args = {
   name: 'Cadence',
   icon: 'PlayArrow',
   color: 'rgba(144, 190, 109, 1)',
-  triggerList: triggerBatchFactory(1),
+  triggerList: triggerBatchFactory(1, smartlistIds),
   getSmartlist: getSmartlist,
 };
 
@@ -69,7 +110,7 @@ WithDelete.args = {
   name: 'Cadence',
   icon: 'PlayArrow',
   color: 'rgba(144, 190, 109, 1)',
-  actions: [{ label: 'Delete', icon: 'Delete', onClick: handleClick }],
+  actions: [{ label: 'Delete', icon: 'Delete', onClick: actionData.delete }],
 };
 
 export const WithMultipleActions = CadenceNodeTitleTemplate.bind({});
@@ -78,8 +119,8 @@ WithMultipleActions.args = {
   icon: 'PlayArrow',
   color: 'rgba(144, 190, 109, 1)',
   actions: [
-    { label: 'Photo', icon: 'AddAPhoto', onClick: handleClick },
-    { label: 'Hotel', icon: 'LocalHotel', onClick: handleClick },
+    { label: 'Photo', icon: 'AddAPhoto', onClick: actionData.addPhoto },
+    { label: 'Hotel', icon: 'LocalHotel', onClick: actionData.localize },
   ],
 };
 
@@ -88,6 +129,14 @@ WithTriggerList.args = {
   name: 'Cadence',
   icon: 'PlayArrow',
   color: 'rgba(144, 190, 109, 1)',
-  triggerList: triggerBatchFactory(3),
+  triggerList: triggerBatchFactory(3, smartlistIds),
   getSmartlist: getSmartlist,
+};
+
+export const CustomIconForActions = CadenceNodeTitleTemplate.bind({});
+CustomIconForActions.args = {
+  name: 'Cadence',
+  icon: 'Email',
+  color: 'purple',
+  customIconForActions: 'AcUnitRounded',
 };

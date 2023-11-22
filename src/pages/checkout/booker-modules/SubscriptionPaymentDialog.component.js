@@ -22,6 +22,7 @@ import Analytics from '../../../components/analytics/Analytics.component';
 import GenericDialogWithCountdownConfirm from '#components/genericDialog/GenericDialogWithCountdownConfirm.component';
 import { COUNTDOWN_BEFORE_ACTIVATION } from '../constants';
 import { getMarketplaceEnabledPaymentMethods } from '#libs/payment/utils';
+import type { EstablishmentBillingGroup } from '../../../libs/establishment/types';
 
 type Props = {
   t: TFunction,
@@ -40,6 +41,8 @@ type Props = {
     data: any,
     options: OptionCallback,
   ) => void,
+  establishmentBillingGroups?: EstablishmentBillingGroup[],
+  defaultBillingGroupFromOffer?: EstablishmentBillingGroup,
 };
 
 type State = {
@@ -146,6 +149,7 @@ export class SubscriptionContractBooking extends React.Component<Props, State> {
               this.props.companyTheme.force_billing_details_on_cards
             }
             contract={this.props.contract}
+            defaultBillingGroup={this.props.defaultBillingGroupFromOffer}
             enabledPaymentGroupMethodIdentifier={
               this.props.companyTheme.payment_method_available_subscription
             }
@@ -153,6 +157,10 @@ export class SubscriptionContractBooking extends React.Component<Props, State> {
               paymentMethodAvailableSubscription:
                 this.props.companyTheme.payment_method_available_subscription,
             })}
+            enableMultiLocalization={
+              this.props.companyTheme.enable_multi_localization
+            }
+            establishmentBillingGroups={this.props.establishmentBillingGroups}
             isExcludingTax={this.props?.isExcludingTax}
             onCancel={() => {
               this.setState({ firstBillingTimestamp: null });

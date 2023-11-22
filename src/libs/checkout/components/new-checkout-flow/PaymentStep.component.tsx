@@ -7,6 +7,7 @@ import PaymentStripe from '#libs/payment/components/payment-backend-stripe/Payme
 import { BasketNullPrice } from './BasketNullPrice.component';
 import type { Basket, PrepaidLine } from '#libs/checkout/types';
 import { verifyPriceBasket as verifyPriceBasketAPI } from '#libs/payment/api';
+import { EstablishmentBillingGroup } from '#libs/establishment/types';
 
 type PaymentStepProps = {
   allowConsumerToUseInternalAccount: boolean;
@@ -21,6 +22,7 @@ type PaymentStepProps = {
   detachPaymentMethod: (paymentMethodId: string) => void;
   detachPaymentMethodLoading: boolean;
   instalmentPaymentConfigurationList?: InstalmentPaymentApiWithBasketId[];
+  isEstablishmentBillingGroupSelected?: boolean;
   isOnlinePaymentAvailable: boolean;
   isPayLaterAvailable: boolean;
   isTotalPriceNull: boolean;
@@ -50,6 +52,15 @@ type PaymentStepProps = {
   validateUnpaid: (options: OptionCallback) => void;
   cardBillingDetailsMandatory: boolean;
   basketHasOffers: boolean;
+  enableMultiLocalization: boolean;
+  establishmentBillingGroups: EstablishmentBillingGroup[];
+  setSelectedEstablishmentBillingGroup: (
+    value: React.SetStateAction<EstablishmentBillingGroup>,
+  ) => void;
+  setIsEstablishmentBillingGroupSelected: (
+    isEstablishmentBillingGroupSelected: boolean,
+  ) => void;
+  selectedEstablishmentBillingGroup: EstablishmentBillingGroup;
 };
 
 export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
@@ -65,6 +76,7 @@ export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
       detachPaymentMethod,
       detachPaymentMethodLoading,
       instalmentPaymentConfigurationList,
+      isEstablishmentBillingGroupSelected,
       isOnlinePaymentAvailable,
       isPayLaterAvailable,
       isTotalPriceNull,
@@ -88,6 +100,11 @@ export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
       validateUnpaid,
       cardBillingDetailsMandatory,
       basketHasOffers,
+      enableMultiLocalization,
+      establishmentBillingGroups,
+      setSelectedEstablishmentBillingGroup,
+      setIsEstablishmentBillingGroupSelected,
+      selectedEstablishmentBillingGroup,
     },
     ref,
   ) => {
@@ -139,13 +156,21 @@ export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
         <BasketNullPrice
           areTermsAndConditionsAccepted={termsAndConditionsAccepted}
           basketHasOffers={basketHasOffers}
+          enableMultiLocalization={enableMultiLocalization}
+          establishmentBillingGroups={establishmentBillingGroups}
+          selectedEstablishmentBillingGroup={selectedEstablishmentBillingGroup}
+          setIsEstablishmentBillingGroupSelected={
+            setIsEstablishmentBillingGroupSelected
+          }
+          setSelectedEstablishmentBillingGroup={
+            setSelectedEstablishmentBillingGroup
+          }
         />
       );
 
     return (
       <>
         {isOnlinePaymentAvailable && (
-          // @ts-expect-error
           <PaymentStripe
             ref={paymentStripeRef}
             allowConsumerToUseInternalAccount={
@@ -162,10 +187,15 @@ export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
             creditAccountBalance={creditAccountBalance}
             detachPaymentMethod={detachPaymentMethod}
             detachPaymentMethodLoading={detachPaymentMethodLoading}
+            enableMultiLocalization={enableMultiLocalization}
+            establishmentBillingGroups={establishmentBillingGroups}
             instalmentPaymentConfigurationList={
               instalmentPaymentConfigurationList
             }
             instalmentPaymentSelectedId={basket?.instalment_payment}
+            isEstablishmentBillingGroupSelected={
+              isEstablishmentBillingGroupSelected
+            }
             loading={loading}
             memberId={basket.member}
             onSelectInstalmentPayment={onSelectInstalmentPayment}
@@ -173,10 +203,19 @@ export const PaymentStep: React.FC<PaymentStepProps> = forwardRef(
             paymentGroupId={paymentGroupId}
             paymentMethodChoices={paymentMethodChoices}
             paymentProcessing={paymentProcessing}
+            selectedEstablishmentBillingGroup={
+              selectedEstablishmentBillingGroup
+            }
             sepaDefaultEmail={sepaDefaultEmail}
             sepaDefaultName={sepaDefaultName}
+            setIsEstablishmentBillingGroupSelected={
+              setIsEstablishmentBillingGroupSelected
+            }
             setIsOnlinePaymentDisabled={setIsOnlinePaymentDisabled}
             setPaymentProcessing={setPaymentProcessing}
+            setSelectedEstablishmentBillingGroup={
+              setSelectedEstablishmentBillingGroup
+            }
             setTermsAndConditionsAccepted={setTermsAndConditionsAccepted}
             snackbarErrorMsg={snackbarErrorMsg}
             snackbarSuccessMsg={snackbarSuccessMsg}

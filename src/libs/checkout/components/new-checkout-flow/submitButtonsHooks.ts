@@ -14,6 +14,7 @@ export type UseSubmitButtonsDisabledStateProps = {
   basketLoading: boolean;
   isOnlinePaymentDisabled: boolean;
   termsAndConditionsAccepted: boolean;
+  isEstablishmentBillingGroupSelected: boolean;
 };
 
 export type UseSubmitButtonsProcessingStateProps = {
@@ -81,6 +82,7 @@ export const useSubmitButtonsDisabledState = ({
   currentStepId,
   isOnlinePaymentDisabled,
   termsAndConditionsAccepted,
+  isEstablishmentBillingGroupSelected,
 }: UseSubmitButtonsDisabledStateProps): { [key: number]: boolean } =>
   useMemo(() => {
     const submitButtonsDisabled: { [key: number]: boolean } = {};
@@ -97,13 +99,19 @@ export const useSubmitButtonsDisabledState = ({
             basketLoading ||
             paymentProcessing ||
             isOnlinePaymentDisabled ||
-            !termsAndConditionsAccepted
+            !termsAndConditionsAccepted ||
+            !isEstablishmentBillingGroupSelected
           )
             submitButtonsDisabled[button.id] = true;
           break;
         case SUBMIT_BUTTONS.PAY_LATER_BUTTON.id:
         case SUBMIT_BUTTONS.CONFIRM_BUTTON.id:
-          if (basketLoading || paymentProcessing || !termsAndConditionsAccepted)
+          if (
+            basketLoading ||
+            paymentProcessing ||
+            !termsAndConditionsAccepted ||
+            !isEstablishmentBillingGroupSelected
+          )
             submitButtonsDisabled[button.id] = true;
           break;
         default:
@@ -117,6 +125,7 @@ export const useSubmitButtonsDisabledState = ({
     isOnlinePaymentDisabled,
     termsAndConditionsAccepted,
     paymentProcessing,
+    isEstablishmentBillingGroupSelected,
   ]);
 
 export const useSubmitButtonsProcessingState = ({
@@ -167,7 +176,9 @@ export const useHandleSubmitButtonsCallbacks = ({
           submitButtonsCallbacks[button.id] = async (
             event: React.FormEvent<HTMLFormElement>,
           ) => {
+            checkoutStepsRef.current.updateMemberDefaultEstablishmentBillingGroup();
             checkoutStepsRef.current.onSubmit(event);
+
             setLastSubmitButtonClicked(button.id);
           };
           break;

@@ -26,6 +26,9 @@ import { getBasketTotalPriceExcludingTax } from '../utils';
 import BasketTaxInfo from './BasketTaxInfo.component';
 import { verifyPriceBasket as verifyPriceBasketAPI } from '#libs/payment/api';
 import { TermsAndConditionType } from '../../payment/types';
+import CheckoutBillingGroupSelector from '#libs/marketplace/components/@Basket/CheckoutBillingGroupSelector.component';
+import { MemberMap } from '#libs/member/utils';
+import { mapFormData } from '../../../pages/form.utils';
 
 export const ADDRESS_STEP = {
   id: 0,
@@ -61,6 +64,19 @@ type Props = {
   termsAndConditionsAccepted: boolean,
   setTermsAndConditionsAccepted: (boolean) => void,
   termsAndConditions: string,
+  selectedEstablishmentBillingGroup: EstablishmentBillingGroup,
+  setSelectedEstablishmentBillingGroup: (
+    value: React.SetStateAction<EstablishmentBillingGroup>,
+  ) => void,
+  enableMultiLocalization: boolean,
+  establishmentBillingGroups: EstablishmentBillingGroup[],
+  isEstablishmentBillingGroupSelected: boolean,
+  setIsEstablishmentBillingGroupSelected: (_: boolean) => void,
+  updateDefaultEstablishmentBillingGroup: (
+    id: number,
+    memberData: FormData,
+    options?: OptionCallback,
+  ) => void,
 };
 
 type State = {
@@ -79,6 +95,23 @@ export class BasketFinalizer extends React.Component<Props, State> {
       this.state = { steps: [PAYMENT_STEP], currentStep: PAYMENT_STEP.id };
     }
   }
+
+  updateMemberDefaultEstablishmentBillingGroup = () => {
+    if (this.props.selectedEstablishmentBillingGroup) {
+      const formData = mapFormData(
+        {
+          default_establishment_billing_group:
+            this.props.selectedEstablishmentBillingGroup.id,
+        },
+        MemberMap,
+      );
+      formData.append('id', this.props.basket.member.toString());
+      this.props.updateDefaultEstablishmentBillingGroup(
+        this.props.basket.member,
+        formData,
+      );
+    }
+  };
 
   renderStep = () => {
     switch (this.state.currentStep) {
@@ -109,52 +142,74 @@ export class BasketFinalizer extends React.Component<Props, State> {
           )
         ) {
           return (
-            <Button
-              color="primary"
-              disabled={this.props.selfProcessing}
-              onClick={async () => {
-                this.props.setProcessing(true);
-                const basketItemsChecked = await this.props.checkItemsBasket(
-                  this.props.basket.id,
-                );
-                if (!basketItemsChecked) {
-                  this.props.setProcessing(false);
-                  return;
+            <>
+              <CheckoutBillingGroupSelector
+                enableMultiLocalization={this.props.enableMultiLocalization}
+                establishmentBillingGroups={
+                  this.props.establishmentBillingGroups
                 }
-                const { data } = await verifyPriceBasketAPI(
-                  this.props.basket.id,
-                );
-                if (
-                  (!!this.props.basket.total_price_cts ||
-                    this.props.basket.total_price_cts === 0) &&
-                  this.props.basket.total_price_cts !== data
-                ) {
-                  this.props.setProcessing(false);
-                  // eslint-disable-next-line
-                  window.alert(
-                    this.props.t('myBasket.error.inconsistentBasket'),
+                selectedEstablishmentBillingGroup={
+                  this.props.selectedEstablishmentBillingGroup
+                }
+                setIsEstablishmentBillingGroupSelected={
+                  this.props.setIsEstablishmentBillingGroupSelected
+                }
+                setSelectedEstablishmentBillingGroup={
+                  this.props.setSelectedEstablishmentBillingGroup
+                }
+              />
+              <Button
+                className={this.props.classes.payZeroButton}
+                color="primary"
+                disabled={
+                  !this.props.isEstablishmentBillingGroupSelected ||
+                  this.props.selfProcessing
+                }
+                onClick={async () => {
+                  this.props.setProcessing(true);
+                  this.updateMemberDefaultEstablishmentBillingGroup();
+                  const basketItemsChecked = await this.props.checkItemsBasket(
+                    this.props.basket.id,
                   );
-                  window.location.reload();
-                  return;
-                }
-                this.props.validateUnpaid({
-                  onSuccess: () => {
+                  if (!basketItemsChecked) {
                     this.props.setProcessing(false);
-                  },
-                  onError: () => this.props.setProcessing(false),
-                });
-              }}
-              variant="contained"
-            >
-              {this.props.t('myBasket.actions.payZero')}
-              {this.props.selfProcessing && (
-                <CircularProgress
-                  className={this.props.classes.circularProgress}
-                  color="inherit"
-                  size={24}
-                />
-              )}
-            </Button>
+                    return;
+                  }
+                  const { data } = await verifyPriceBasketAPI(
+                    this.props.basket.id,
+                  );
+                  if (
+                    (!!this.props.basket.total_price_cts ||
+                      this.props.basket.total_price_cts === 0) &&
+                    this.props.basket.total_price_cts !== data
+                  ) {
+                    this.props.setProcessing(false);
+                    // eslint-disable-next-line
+                    window.alert(
+                      this.props.t('myBasket.error.inconsistentBasket'),
+                    );
+                    window.location.reload();
+                    return;
+                  }
+                  this.props.validateUnpaid({
+                    onSuccess: () => {
+                      this.props.setProcessing(false);
+                    },
+                    onError: () => this.props.setProcessing(false),
+                  });
+                }}
+                variant="contained"
+              >
+                {this.props.t('myBasket.actions.payZero')}
+                {this.props.selfProcessing && (
+                  <CircularProgress
+                    className={this.props.classes.circularProgress}
+                    color="inherit"
+                    size={24}
+                  />
+                )}
+              </Button>
+            </>
           );
         }
         return (
@@ -196,11 +251,13 @@ export class BasketFinalizer extends React.Component<Props, State> {
                 <Button
                   color="primary"
                   disabled={
+                    !this.props.isEstablishmentBillingGroupSelected ||
                     this.props.selfProcessing ||
                     !this.props.termsAndConditionsAccepted
                   }
                   onClick={async () => {
                     this.props.setProcessing(true);
+                    this.updateMemberDefaultEstablishmentBillingGroup();
                     const basketItemsChecked =
                       await this.props.checkItemsBasket(this.props.basket.id);
                     if (!basketItemsChecked) {
@@ -379,6 +436,9 @@ const styles = (theme) => ({
   payLaterContainer: {
     display: 'flex',
     justifyContent: 'center',
+  },
+  payZeroButton: {
+    marginTop: theme.spacing(2),
   },
 });
 

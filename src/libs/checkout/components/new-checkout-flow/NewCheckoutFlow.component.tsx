@@ -47,7 +47,10 @@ import { CheckoutSteps } from './CheckoutSteps.component';
 import type { CompanyTheme } from '#libs/theme/types';
 import CheckoutButtons from './CheckoutButtons.component';
 import type { Offer } from '#libs/offer/types';
-import type { Establishment } from '#libs/establishment/types';
+import type {
+  Establishment,
+  EstablishmentBillingGroup,
+} from '#libs/establishment/types';
 import type { MetaActivity } from '#libs/meta-activity/types';
 import EmptyBasket from '#libs/checkout/components/new-checkout-flow/EmptyBasket';
 import ExpiredSpotDialog from '#libs/checkout/components/new-checkout-flow/ExpiredSpotDialog';
@@ -89,8 +92,11 @@ type NewCheckoutFlowProps = {
   creditAccountBalance?: number | null;
   detachPaymentMethod: (paymentMethodId: string) => void;
   detachPaymentMethodLoading: boolean;
+  enableMultiLocalization?: boolean;
+  establishmentBillingGroups: EstablishmentBillingGroup[];
   goBack: () => void;
   instalmentPaymentConfigurationList: InstalmentPaymentApiWithBasketId[] | null;
+  isEstablishmentBillingGroupSelected: boolean;
   isExcludingTax: boolean;
   onPaymentSuccess: (callback?: () => void) => void;
   onRemoveInternalAccountPrepaidLine: () => void;
@@ -107,6 +113,9 @@ type NewCheckoutFlowProps = {
   ) => void;
   setPaymentProcessing: (iPaymentProcessing: boolean) => void;
   setTermsAndConditionsAccepted: (termsAndConditionsAccepted: boolean) => void;
+  setIsEstablishmentBillingGroupSelected: (
+    isEstablishmentBillingGroupSelected: boolean,
+  ) => void;
   snackbarErrorMsg: (msg: string) => void;
   snackbarSuccessMsg: (msg: string) => void;
   termsAndConditionsAccepted: boolean;
@@ -123,6 +132,15 @@ type NewCheckoutFlowProps = {
     pollOptionCallback?: APIPollOptionCallback,
   ) => void;
   refreshBasket: (options?: OptionCallback) => void;
+  updateDefaultEstablishmentBillingGroup: (
+    memberId: number,
+    formData: FormData,
+    options: OptionCallback,
+  ) => void;
+  selectedEstablishmentBillingGroup: EstablishmentBillingGroup;
+  setSelectedEstablishmentBillingGroup: (
+    establishmentBillingGroup: EstablishmentBillingGroup,
+  ) => void;
 };
 
 export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
@@ -137,11 +155,15 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
   clientSecret,
   companyId,
   createPendingBookingsIfNecessary,
+  updateDefaultEstablishmentBillingGroup,
   creditAccountBalance,
   detachPaymentMethod,
   detachPaymentMethodLoading,
+  enableMultiLocalization,
+  establishmentBillingGroups,
   goBack,
   instalmentPaymentConfigurationList,
+  isEstablishmentBillingGroupSelected,
   isExcludingTax,
   onPaymentSuccess,
   onRemoveInternalAccountPrepaidLine,
@@ -152,6 +174,7 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
   removeItemFromBasket,
   setPaymentProcessing,
   setTermsAndConditionsAccepted,
+  setIsEstablishmentBillingGroupSelected,
   snackbarErrorMsg,
   snackbarSuccessMsg,
   termsAndConditionsAccepted,
@@ -164,6 +187,8 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
   basketItemRemovalStatusLoading,
   monitorExpiredItemRemoval,
   refreshBasket,
+  selectedEstablishmentBillingGroup,
+  setSelectedEstablishmentBillingGroup,
 }) => {
   const { t } = useTranslation('checkout');
   const classes = useStyles();
@@ -191,6 +216,7 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
   const isBasketModificationDisabled = paymentProcessing || basketLoading;
 
   const checkoutStepsRef = React.useRef(null);
+  const billingGroupSelectorRef = React.useRef(null);
 
   //  STATE DEFINITION
 
@@ -264,6 +290,7 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
     currentStepId: currentStep.id,
     isOnlinePaymentDisabled,
     termsAndConditionsAccepted,
+    isEstablishmentBillingGroupSelected,
   });
 
   // Definition of the presence on the screen or not of each button
@@ -373,6 +400,7 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
               basket={basket}
               basketHasOffers={!noOfferInCheckoutItems}
               basketLoading={basketLoading}
+              billingGroupSelectorRef={billingGroupSelectorRef}
               cardBillingDetailsMandatory={theme.force_billing_details_on_cards}
               checkItemsBasket={checkItemsBasket}
               clientSecret={clientSecret}
@@ -385,9 +413,14 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
               currentStep={currentStep}
               detachPaymentMethod={detachPaymentMethod}
               detachPaymentMethodLoading={detachPaymentMethodLoading}
+              enableMultiLocalization={enableMultiLocalization}
+              establishmentBillingGroups={establishmentBillingGroups}
               instalmentPaymentConfigurationList={instalmentPaymentConfigurationList.filter(
                 (ipc) => ipc.basketId === basket?.id,
               )}
+              isEstablishmentBillingGroupSelected={
+                isEstablishmentBillingGroupSelected
+              }
               isOnlinePaymentAvailable={isOnlinePaymentAvailable}
               isPayLaterAvailable={isPayLaterAvailable}
               isTotalPriceNull={isTotalPriceNull}
@@ -401,9 +434,18 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
                 (theme.payment_method_available_basket || []).includes(pm),
               )}
               paymentProcessing={paymentProcessing}
+              selectedEstablishmentBillingGroup={
+                selectedEstablishmentBillingGroup
+              }
               setCurrentStep={setCurrentStep}
+              setIsEstablishmentBillingGroupSelected={
+                setIsEstablishmentBillingGroupSelected
+              }
               setIsOnlinePaymentDisabled={setIsOnlinePaymentDisabled}
               setPaymentProcessing={setPaymentProcessing}
+              setSelectedEstablishmentBillingGroup={
+                setSelectedEstablishmentBillingGroup
+              }
               setTermsAndConditionsAccepted={setTermsAndConditionsAccepted}
               snackbarErrorMsg={snackbarErrorMsg}
               snackbarSuccessMsg={snackbarSuccessMsg}
@@ -411,6 +453,9 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
               stripeId={theme.stripe_id}
               termsAndConditions={theme.general_terms_and_conditions}
               termsAndConditionsAccepted={termsAndConditionsAccepted}
+              updateDefaultEstablishmentBillingGroup={
+                updateDefaultEstablishmentBillingGroup
+              }
               useInternalAccount={useInternalAccount}
               validateUnpaid={validateUnpaid}
             />

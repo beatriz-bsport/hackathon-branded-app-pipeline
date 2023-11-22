@@ -114,9 +114,11 @@ export class SubscriptionList extends React.Component<Props, State> {
       ],
     });
     this.props.fetchEstablishments();
-    this.props.fetchAllEstablishmentBillingGroup({
-      params: { company: this.props.companyId },
-    });
+    if (this.props.theme.enable_multi_localization) {
+      this.props.fetchAllEstablishmentBillingGroup({
+        params: { company: this.props.companyId },
+      });
+    }
   }
 
   onClickContract = (id: number) => {

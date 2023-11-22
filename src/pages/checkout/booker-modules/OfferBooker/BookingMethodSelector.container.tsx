@@ -81,6 +81,8 @@ import type { Tag } from '../../../../libs/tag/types';
 import { CompanyTheme } from '#libs/theme/types';
 import { getTheme } from '#libs/theme/selectors';
 import { getSubscriptionValidationUrl } from '#libs/marketplace/routing-utils';
+import { EstablishmentBillingGroup } from '#libs/establishment/types';
+import { loadDefaultEstablishmentBillingGroupFromOffers } from '#libs/marketplace/utils/booking';
 
 type OwnProps = {
   offerId: number;
@@ -96,6 +98,7 @@ type OwnProps = {
   isExcludingTax: boolean;
   theme?: CompanyTheme;
   setGuestMaxNumber: (maxNumber: number) => void;
+  establishmentBillingGroups?: EstablishmentBillingGroup[];
 };
 
 type OwnAndConnectedProps = OwnProps &
@@ -113,6 +116,7 @@ type State = {
   consumerPacksMaxoutLoaded: boolean;
   paymentPacksLoaded: boolean;
   paymentComboPacksLoaded: boolean;
+  defaultBillingGroupFromOffer: EstablishmentBillingGroup;
 };
 
 export class BookingMethodSelectorContainer extends React.PureComponent<
@@ -124,6 +128,7 @@ export class BookingMethodSelectorContainer extends React.PureComponent<
     paymentComboPacksLoaded: false,
     paymentPacksLoaded: false,
     consumerPacksMaxoutLoaded: false,
+    defaultBillingGroupFromOffer: null,
   };
 
   componentDidMount() {
@@ -219,6 +224,20 @@ export class BookingMethodSelectorContainer extends React.PureComponent<
       this.props.paymentPackForBookingNextPage < 6
     )
       this.fetchPaymentPack(this.props.paymentPackForBookingNextPage);
+    if (
+      prevProps.establishmentBillingGroups !==
+        this.props.establishmentBillingGroups ||
+      prevProps.offer !== this.props.offer
+    ) {
+      this.setState({
+        defaultBillingGroupFromOffer:
+          loadDefaultEstablishmentBillingGroupFromOffers(
+            this.props.theme.enable_multi_localization,
+            this.props.establishmentBillingGroups,
+            [this.props.offer],
+          ),
+      });
+    }
   }
 
   requestSetupIntentSecret = () => {
@@ -368,6 +387,8 @@ export class BookingMethodSelectorContainer extends React.PureComponent<
         <SubscriptionContractBooking
           companyId={this.props.offer && this.props.offer.company}
           contract={this.props.openSubscriptionModal}
+          defaultBillingGroupFromOffer={this.state.defaultBillingGroupFromOffer}
+          establishmentBillingGroups={this.props.establishmentBillingGroups}
           isExcludingTax={this.props.isExcludingTax}
           onCancel={this.props.closeSubscripionModal}
           onSubmit={this.goToValidationPage}

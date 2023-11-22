@@ -17,6 +17,7 @@ import {
 } from '../../../state/types';
 import { Coupon } from '#libs/coupon/types';
 import { CouponErrorCodes } from '#libs/coupon/constants';
+import { EstablishmentBillingGroup } from '#libs/establishment/types';
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -84,6 +85,19 @@ type Props = {
   isExcludingTax: boolean;
 
   checkItemsBasket: (basketId: number) => void;
+  selectedEstablishmentBillingGroup: EstablishmentBillingGroup;
+  setSelectedEstablishmentBillingGroup: (
+    establishmentBillingGroup: EstablishmentBillingGroup,
+  ) => void;
+  enableMultiLocalization: boolean;
+  establishmentBillingGroups: EstablishmentBillingGroup[];
+  isEstablishmentBillingGroupSelected: boolean;
+  setIsEstablishmentBillingGroupSelected: (_: boolean) => void;
+  updateDefaultEstablishmentBillingGroup: (
+    id: number,
+    memberData: FormData,
+    options?: OptionCallback,
+  ) => void;
 };
 
 export const CheckoutFlow: React.FC<Props> = (props) => {
@@ -136,6 +150,14 @@ export const CheckoutFlow: React.FC<Props> = (props) => {
             checkItemsBasket={props.checkItemsBasket}
             companyCountry={props.companyCountry}
             creditAccountBalance={props.creditAccountBalance}
+            defaultEstablishmentBillingGroup={
+              props.defaultEstablishmentBillingGroup
+            }
+            enableMultiLocalization={props.enableMultiLocalization}
+            establishmentBillingGroups={props.establishmentBillingGroups}
+            isEstablishmentBillingGroupSelected={
+              props.isEstablishmentBillingGroupSelected
+            }
             isExcludingTax={props.isExcludingTax}
             loading={props.loading}
             onBasketFinalized={props.onBasketFinalized}
@@ -143,10 +165,22 @@ export const CheckoutFlow: React.FC<Props> = (props) => {
             paymentModule={props.paymentModule}
             processing={props.processing}
             savedPaymentMethodList={props.savedPaymentMethodList}
+            selectedEstablishmentBillingGroup={
+              props.selectedEstablishmentBillingGroup
+            }
+            setIsEstablishmentBillingGroupSelected={
+              props.setIsEstablishmentBillingGroupSelected
+            }
+            setSelectedEstablishmentBillingGroup={
+              props.setSelectedEstablishmentBillingGroup
+            }
             setTermsAndConditionsAccepted={props.setTermsAndConditionsAccepted}
             submitPayment={props.submitPayment}
             termsAndConditions={props.termsAndConditions}
             termsAndConditionsAccepted={props.termsAndConditionsAccepted}
+            updateDefaultEstablishmentBillingGroup={
+              props.updateDefaultEstablishmentBillingGroup
+            }
             useInternalAccount={props.useInternalAccount}
             validateUnpaid={props.validateUnpaid}
           />

@@ -98,7 +98,10 @@ import {
   resetOffersToBeBookedByGroup as resetOffersToBeBookedByGroupAction,
 } from '#libs/group-offer/actions';
 import { fetchCoachBulk } from '#libs/associated-coach/actions';
-import { fetchEstablishmentBulk } from '#libs/establishment/actions';
+import {
+  fetchEstablishmentBulk,
+  fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction,
+} from '#libs/establishment/actions';
 import { Offer_FULL, Offer } from '#libs/offer/types';
 import SimilarOffers from '#libs/booker-module/components/SimilarOfferSelector.component';
 import BookerModuleHeader from '#libs/booker-module/components/BookerModuleHeader.component';
@@ -126,6 +129,7 @@ import {
   getCheckoutValidationUrl,
 } from '#libs/marketplace/routing-utils';
 import { fetchCompanyConfiguration as fetchCompanyWaitlistConfigurationAction } from '#libs/waiting-list/actions';
+import { getEnabledEstablishmentBillingGroups } from '#libs/establishment/selectors';
 
 type OwnProps = { id: number; redirectedToFirstOfferToBeBooked: boolean };
 type ConnectedProps = ReturnType<typeof mapStateToProps> &
@@ -197,6 +201,9 @@ class OfferBooking extends React.PureComponent<Props, State> {
         this.props.fetchBookingGuestNumber(offer.id);
         this.props.fetchCompanyWaitlistConfiguration(offer.company);
         this.props.fetchOfferWaitingListPosition(offer.id);
+        this.props.fetchAllEstablishmentBillingGroup({
+          params: { company: this.props.offer?.company },
+        });
 
         if (offer.group !== null) {
           this.props.getGroupOfferBookableStatus(offer.group);
@@ -755,6 +762,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
     return (
       <BookingMethodSelector
         company={this.props.offer.company}
+        establishmentBillingGroups={this.props.establishmentBillingGroups}
         isExcludingTax={this.props.theme.is_tax_excluded_in_marketplace}
         loading={
           loading || !this.props.offer || !this.props.offer.meta_activity
@@ -1193,6 +1201,7 @@ const mapStateToProps = (state: RootState, props: OwnProps) => {
     waitingListConfiguration: getWaitingListConfigurationData(state),
     offerStatusWaitingListPositionById:
       getOfferStatusWaitingListPositionById(state),
+    establishmentBillingGroups: getEnabledEstablishmentBillingGroups(state),
   };
 };
 
@@ -1228,6 +1237,7 @@ const mapDispatchToProps = {
   setStoredOffersInGroups: setStoredOffersInGroupsAction,
   resetOffersToBeBookedByGroup: resetOffersToBeBookedByGroupAction,
   fetchOfferWaitingListPosition: fetchOfferWaitingListPositionAction,
+  fetchAllEstablishmentBillingGroup: fetchAllEstablishmentBillingGroupAction,
 };
 
 const mapWithHandlers = {

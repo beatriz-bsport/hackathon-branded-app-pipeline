@@ -38,28 +38,28 @@ import {
   assignInstalmentPayment as assignInstalmentPaymentAction,
   monitorExpiredItemRemoval,
 } from '../../../libs/checkout/actions';
-import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '../../../libs/establishment/actions';
-import { fetchInstalmentPaymentByBasket as fetchInstalmentPaymentByBasketAction } from '../../../libs/instalment-payment-configuration/actions';
-import { getInstalmentForBasketList } from '../../../libs/instalment-payment-configuration/selectors';
+import {
+  fetchEstablishmentBulk as fetchEstablishmentBulkAction,
+  fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction,
+} from '#libs/establishment/actions';
+import { fetchInstalmentPaymentByBasket as fetchInstalmentPaymentByBasketAction } from '#libs/instalment-payment-configuration/actions';
+import { getInstalmentForBasketList } from '#libs/instalment-payment-configuration/selectors';
 import withQueryParams from '../../../hocs/with-query-params.hoc';
 import Analytics from '../../../components/analytics/Analytics.component';
 import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
-import CheckoutFlow from '../../../libs/checkout/components/CheckoutFlow.component';
+import CheckoutFlow from '#libs/checkout/components/CheckoutFlow.component';
 import NewCheckoutFlow from '#libs/checkout/components/new-checkout-flow/NewCheckoutFlow.component';
 import {
   getCurrentBasket,
   getBasketOfferList,
   getCurrentBasketItemRemovalStatusLoading,
-} from '../../../libs/checkout/selectors';
-import {
-  withMetaActivity,
-  withEstablishment,
-} from '../../../libs/offer/selectors';
+} from '#libs/checkout/selectors';
+import { withMetaActivity, withEstablishment } from '#libs/offer/selectors';
 
-import { WidgetUtils } from '../../../libs/widget/WidgetUtils';
+import { WidgetUtils } from '#libs/widget/WidgetUtils';
 
-import themeSelectors from '../../../libs/theme/selectors';
-import { fetchCompanyTheme } from '../../../libs/theme/actions';
+import themeSelectors from '#libs/theme/selectors';
+import { fetchCompanyTheme } from '#libs/theme/actions';
 import { fetchOfferBulk as fetchOfferBulkAction } from '../../../libs/offer/actions';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../../libs/meta-activity/actions';
 import { getSavedPaymentMethodList } from '../../../libs/payment/selectors';
@@ -88,6 +88,10 @@ import {
 } from '../../../libs/snackbar/actions';
 
 import { fetchProfile } from '../../../libs/consumer-space/actions';
+import {
+  getDefaultEstablishmentBillingGroup,
+  getEnabledEstablishmentBillingGroups,
+} from '#libs/establishment/selectors';
 
 import CheckPaymentStatus from './CheckPaymentStatus.component';
 import ConsumerAppBarContainer from '../ConsumerAppBar.container';
@@ -97,7 +101,10 @@ import type {
   OptionCallBackWithKeyedCallbacks,
   APIPollOptionCallback,
 } from '../../../state/types';
-import { fetchMember } from '#libs/member/actions';
+import {
+  fetchMember,
+  updateDefaultEstablishmentBillingGroup as updateDefaultEstablishmentBillingGroupAction,
+} from '#libs/member/actions';
 import { BasketAddress } from '#libs/checkout/types';
 import { fetchMembership } from '#libs/membership/actions';
 import { CheckoutContext } from './CheckoutContext';
@@ -112,6 +119,8 @@ import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationActio
 import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
 
 import { isErrorWithCustomCode } from '#libs/utils';
+import { type EstablishmentBillingGroup } from '../../../libs/establishment/types';
+import { loadDefaultEstablishmentBillingGroup } from '#libs/marketplace/utils/booking';
 
 type Props = {
   basket: ?Basket,
@@ -193,6 +202,14 @@ type Props = {
   goToCalendar: () => void,
   goToMyProfile: () => void,
   retrieveCompanyCssConfiguration: (companyid: number) => void,
+  fetchAllEstablishmentBillingGroup: () => void,
+  establishmentBillingGroups: EstablishmentBillingGroup[],
+  updateDefaultEstablishmentBillingGroup: (
+    id: number,
+    memberData: FormData,
+    options?: OptionCallback,
+  ) => void,
+  defaultEstablishmentBillingGroup: EstablishmentBillingGroup,
 };
 
 export class BasketPage extends React.Component<Props> {
@@ -201,6 +218,16 @@ export class BasketPage extends React.Component<Props> {
     paymentGroupId: null,
     clientSecretLoading: false,
     nextPaymentIntentStatusCheckSeconds: 1.5,
+    isEstablishmentBillingGroupSelected: true,
+    selectedEstablishmentBillingGroup: null,
+  };
+
+  setSelectedEstablishmentBillingGroup = (
+    establishmentBillingGroup: EstablishmentBillingGroup,
+  ) => {
+    this.setState({
+      selectedEstablishmentBillingGroup: establishmentBillingGroup,
+    });
   };
 
   componentWillMount() {
@@ -228,6 +255,9 @@ export class BasketPage extends React.Component<Props> {
     if (this.props.companyId) {
       this.props.fetchPaymentMethod({ company: this.props.companyId });
     }
+    this.props.fetchAllEstablishmentBillingGroup({
+      params: { company: this.props.companyId },
+    });
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -246,14 +276,24 @@ export class BasketPage extends React.Component<Props> {
         this.props.fetchMembership(this.props.basket.member);
       }
     }
-    if (
-      !!this.props.basket &&
-      !!prevProps.basket &&
-      this.props.basket.total_price_cts !== prevProps.basket.total_price_cts &&
-      this.props.basket.total_price_cts
-    ) {
-      this.getSecret();
-    }
+    loadDefaultEstablishmentBillingGroup(
+      this.props.theme.enable_multi_localization,
+      this.state.selectedEstablishmentBillingGroup,
+      this.setSelectedEstablishmentBillingGroup,
+      this.setIsEstablishmentBillingGroupSelected,
+      {
+        defaultEstablishmentBillingGroup:
+          prevProps.defaultEstablishmentBillingGroup,
+        establishmentBillingGroups: prevProps.establishmentBillingGroups,
+        basketOffers: prevProps.basketOffers,
+      },
+      {
+        defaultEstablishmentBillingGroup:
+          this.props.defaultEstablishmentBillingGroup,
+        establishmentBillingGroups: this.props.establishmentBillingGroups,
+        basketOffers: this.props.basketOffers,
+      },
+    );
   }
 
   getSecret = () => {
@@ -378,6 +418,15 @@ export class BasketPage extends React.Component<Props> {
   setTermsAndConditionsAccepted = (termsAndConditionsAccepted) =>
     this.setState({ termsAndConditionsAccepted });
 
+  setIsEstablishmentBillingGroupSelected = (
+    isEstablishmentBillingGroupSelected,
+  ) =>
+    this.setState({
+      isEstablishmentBillingGroupSelected:
+        isEstablishmentBillingGroupSelected ||
+        !this.props.theme.enable_multi_localization,
+    });
+
   onSelectInstalmentPayment = (instalment_payment, options) => {
     if (this.props.basket?.id) {
       this.props.assignInstalmentPayment(
@@ -465,6 +514,15 @@ export class BasketPage extends React.Component<Props> {
                   basket={this.props.basket}
                   checkItemsBasket={this.props.checkItemsBasket}
                   companyCountry={this.props.companyCountry}
+                  enableMultiLocalization={
+                    this.props.theme?.enable_multi_localization
+                  }
+                  establishmentBillingGroups={
+                    this.props.establishmentBillingGroups
+                  }
+                  isEstablishmentBillingGroupSelected={
+                    this.state.isEstablishmentBillingGroupSelected
+                  }
                   isExcludingTax={
                     this.props.theme.is_tax_excluded_in_marketplace
                   }
@@ -499,11 +557,20 @@ export class BasketPage extends React.Component<Props> {
                       detachPaymentMethodLoading={
                         this.props.detachPaymentMethodLoading
                       }
+                      enableMultiLocalization={
+                        this.props.theme?.enable_multi_localization
+                      }
+                      establishmentBillingGroups={
+                        this.props.establishmentBillingGroups
+                      }
                       instalmentPaymentConfigurationList={this.props.instalmentPaymentConfigurationList.filter(
                         (ipc) => ipc.basketId === this.props.basket?.id,
                       )}
                       instalmentPaymentSelectedId={
                         this.props.basket?.instalment_payment
+                      }
+                      isEstablishmentBillingGroupSelected={
+                        this.state.isEstablishmentBillingGroupSelected
                       }
                       loading={
                         this.props.loading ||
@@ -523,9 +590,18 @@ export class BasketPage extends React.Component<Props> {
                         ).includes(pm),
                       )}
                       paymentProcessing={this.props.paymentProcessing}
+                      selectedEstablishmentBillingGroup={
+                        this.state.selectedEstablishmentBillingGroup
+                      }
                       sepaDefaultEmail={this.props.auth.username}
                       sepaDefaultName={this.props.auth.name}
+                      setIsEstablishmentBillingGroupSelected={
+                        this.setIsEstablishmentBillingGroupSelected
+                      }
                       setPaymentProcessing={this.props.setPaymentProcessing}
+                      setSelectedEstablishmentBillingGroup={
+                        this.setSelectedEstablishmentBillingGroup
+                      }
                       setTermsAndConditionsAccepted={
                         this.setTermsAndConditionsAccepted
                       }
@@ -542,6 +618,15 @@ export class BasketPage extends React.Component<Props> {
                   processing={this.props.processing}
                   removeItemFromBasket={this.props.removeItemFromBasket}
                   savedPaymentMethodList={this.props.savedPaymentMethodList}
+                  selectedEstablishmentBillingGroup={
+                    this.state.selectedEstablishmentBillingGroup
+                  }
+                  setIsEstablishmentBillingGroupSelected={
+                    this.setIsEstablishmentBillingGroupSelected
+                  }
+                  setSelectedEstablishmentBillingGroup={
+                    this.setSelectedEstablishmentBillingGroup
+                  }
                   setTermsAndConditionsAccepted={
                     this.setTermsAndConditionsAccepted
                   }
@@ -550,6 +635,9 @@ export class BasketPage extends React.Component<Props> {
                     this.props.theme.general_terms_and_conditions
                   }
                   termsAndConditionsAccepted={termsAndConditionsAccepted}
+                  updateDefaultEstablishmentBillingGroup={
+                    this.props.updateDefaultEstablishmentBillingGroup
+                  }
                   validateUnpaid={this.validateUnpaid}
                 />
               ) : (
@@ -580,6 +668,12 @@ export class BasketPage extends React.Component<Props> {
                   detachPaymentMethodLoading={
                     this.props.detachPaymentMethodLoading
                   }
+                  enableMultiLocalization={
+                    this.props.theme?.enable_multi_localization
+                  }
+                  establishmentBillingGroups={
+                    this.props.establishmentBillingGroups
+                  }
                   goBack={this.handleGoBack}
                   goToCalendar={this.props.goToCalendar}
                   goToMarketplace={this.props.goToMarketplace}
@@ -587,6 +681,9 @@ export class BasketPage extends React.Component<Props> {
                   instalmentPaymentConfigurationList={this.props.instalmentPaymentConfigurationList.filter(
                     (ipc) => ipc.basketId === this.props.basket?.id,
                   )}
+                  isEstablishmentBillingGroupSelected={
+                    this.state.isEstablishmentBillingGroupSelected
+                  }
                   isExcludingTax={
                     this.props.theme.is_tax_excluded_in_marketplace
                   }
@@ -603,7 +700,16 @@ export class BasketPage extends React.Component<Props> {
                   paymentProcessing={this.props.paymentProcessing}
                   refreshBasket={this.props.refreshBasket}
                   removeItemFromBasket={this.props.removeItemFromBasket}
+                  selectedEstablishmentBillingGroup={
+                    this.state.selectedEstablishmentBillingGroup
+                  }
+                  setIsEstablishmentBillingGroupSelected={
+                    this.setIsEstablishmentBillingGroupSelected
+                  }
                   setPaymentProcessing={this.props.setPaymentProcessing}
+                  setSelectedEstablishmentBillingGroup={
+                    this.setSelectedEstablishmentBillingGroup
+                  }
                   setTermsAndConditionsAccepted={
                     this.setTermsAndConditionsAccepted
                   }
@@ -611,6 +717,9 @@ export class BasketPage extends React.Component<Props> {
                   snackbarSuccessMsg={this.props.snackbarSuccessMsg}
                   termsAndConditionsAccepted={termsAndConditionsAccepted}
                   theme={this.props.theme}
+                  updateDefaultEstablishmentBillingGroup={
+                    this.props.updateDefaultEstablishmentBillingGroup
+                  }
                   useInternalAccount={this.props.useInternalAccount}
                   validateUnpaid={this.validateUnpaid}
                 />
@@ -671,27 +780,37 @@ export default compose(
   ]),
   withTranslation(['checkout', 'payment', 'invoice', 'login']),
   connect(
-    (state, { companyId }) => ({
-      auth: state.auth,
-      basket: getCurrentBasket(state),
-      loading: state.checkout.basket.current.loading,
-      processing: state.checkout.basket.current.updating,
-      companyThemeLoading: state.theme.loading,
-      theme: themeSelectors.getTheme(state),
-      companyCountry: state.theme.theme?.locale?.split('_')[1],
-      shopItemList: getShopItemFeaturedList(state),
-      savedPaymentMethodList: getSavedPaymentMethodList(state),
-      detachPaymentMethodLoading:
-        state.paymentBackend.detachPaymentMethod.loading,
-      creditAccountBalance: getUsableCreditAccountBalance(state, companyId),
-      instalmentPaymentConfigurationList: getInstalmentForBasketList(state),
-      basketOffers: withMetaActivity(
-        withEstablishment((state_) => getBasketOfferList(state_)),
-      )(state),
-      customConfiguration: state.exportableComponents.customCss,
-      basketItemRemovalStatusLoading:
-        getCurrentBasketItemRemovalStatusLoading(state),
-    }),
+    (state, { companyId }) => {
+      const basket = getCurrentBasket(state);
+      return {
+        auth: state.auth,
+        basket,
+        loading: state.checkout.basket.current.loading,
+        processing: state.checkout.basket.current.updating,
+        companyThemeLoading: state.theme.loading,
+        theme: themeSelectors.getTheme(state),
+        companyCountry: state.theme.theme?.locale?.split('_')[1],
+        shopItemList: getShopItemFeaturedList(state),
+        savedPaymentMethodList: getSavedPaymentMethodList(state),
+        detachPaymentMethodLoading:
+          state.paymentBackend.detachPaymentMethod.loading,
+        creditAccountBalance: getUsableCreditAccountBalance(state, companyId),
+        instalmentPaymentConfigurationList: getInstalmentForBasketList(state),
+        basketOffers: withMetaActivity(
+          withEstablishment((state_) => getBasketOfferList(state_)),
+        )(state),
+        customConfiguration: state.exportableComponents.customCss,
+        basketItemRemovalStatusLoading:
+          getCurrentBasketItemRemovalStatusLoading(state),
+        establishmentBillingGroups: withEstablishment(
+          getEnabledEstablishmentBillingGroups,
+        )(state),
+        defaultEstablishmentBillingGroup: getDefaultEstablishmentBillingGroup(
+          state,
+          basket?.member,
+        ),
+      };
+    },
     {
       disconnect: authActions.disconnect,
       goToUserSpace: (id) => pushRouter(getUserSpaceUrl(id)),
@@ -724,6 +843,10 @@ export default compose(
       fetchEstablishmentBulk: fetchEstablishmentBulkAction,
       retrieveCompanyCssConfiguration: retrieveCompanyCssConfigurationAction,
       monitorExpiredItemRemoval,
+      fetchAllEstablishmentBillingGroup:
+        fetchAllEstablishmentBillingGroupAction,
+      updateDefaultEstablishmentBillingGroup:
+        updateDefaultEstablishmentBillingGroupAction,
     },
   ),
   withHandlers({

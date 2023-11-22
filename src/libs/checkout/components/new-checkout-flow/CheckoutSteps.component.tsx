@@ -21,12 +21,17 @@ import {
 } from '../../types';
 import { PaymentStep } from './PaymentStep.component';
 import { TermsAndConditionType } from '#libs/payment/types';
+import { EstablishmentBillingGroup } from '#libs/establishment/types';
+// @ts-expect-error
+import { mapFormData } from '../../../../pages/form.utils';
+import { MemberMap } from '#libs/member/utils';
 
 type CheckoutStepsProps = {
   allowConsumerToUseInternalAccount: boolean;
   auth: any;
   basket: Basket<string, PrepaidLine>;
   basketLoading: boolean;
+  billingGroupSelectorRef: React.Ref<React.ReactNode>;
   checkItemsBasket: (basketId: string) => boolean;
   clientSecret: string | null;
   companyCountry?: string;
@@ -38,7 +43,10 @@ type CheckoutStepsProps = {
   currentStep: StepType;
   detachPaymentMethod: (pm_id: string) => void;
   detachPaymentMethodLoading: boolean;
+  enableMultiLocalization?: boolean;
+  establishmentBillingGroups: EstablishmentBillingGroup[];
   instalmentPaymentConfigurationList: InstalmentPaymentApiWithBasketId[] | null;
+  isEstablishmentBillingGroupSelected: boolean;
   isOnlinePaymentAvailable: boolean;
   isPayLaterAvailable: boolean;
   isTotalPriceNull: boolean;
@@ -53,6 +61,9 @@ type CheckoutStepsProps = {
   paymentMethodChoices: any;
   ref: React.Ref<any>;
   setCurrentStep: (step: StepType) => void;
+  setIsEstablishmentBillingGroupSelected: (
+    isEstablishmentBillingGroupSelected: boolean,
+  ) => void;
   setIsOnlinePaymentDisabled: (isLoading: boolean) => void;
   setPaymentProcessing: (isPaymentProcessing: boolean) => void;
   setTermsAndConditionsAccepted: (termsAndConditionsAccepted: boolean) => void;
@@ -66,6 +77,15 @@ type CheckoutStepsProps = {
   validateUnpaid: (options: OptionCallback) => void;
   cardBillingDetailsMandatory: boolean;
   basketHasOffers: boolean;
+  updateDefaultEstablishmentBillingGroup: (
+    memberId: number,
+    formData: FormData,
+    options?: OptionCallback,
+  ) => void;
+  selectedEstablishmentBillingGroup: EstablishmentBillingGroup;
+  setSelectedEstablishmentBillingGroup: (
+    establishmentBillinggroup: EstablishmentBillingGroup,
+  ) => void;
 };
 
 export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
@@ -79,12 +99,16 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
       clientSecret,
       companyCountry,
       companyId,
+      updateDefaultEstablishmentBillingGroup,
       createPendingBookingsIfNecessary,
       creditAccountBalance,
       currentStep,
       detachPaymentMethod,
       detachPaymentMethodLoading,
+      enableMultiLocalization,
+      establishmentBillingGroups,
       instalmentPaymentConfigurationList,
+      isEstablishmentBillingGroupSelected,
       isOnlinePaymentAvailable,
       isPayLaterAvailable,
       isTotalPriceNull,
@@ -95,6 +119,7 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
       paymentProcessing,
       paymentMethodChoices,
       setCurrentStep,
+      setIsEstablishmentBillingGroupSelected,
       setIsOnlinePaymentDisabled,
       setPaymentProcessing,
       setTermsAndConditionsAccepted,
@@ -108,6 +133,8 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
       validateUnpaid,
       cardBillingDetailsMandatory,
       basketHasOffers,
+      selectedEstablishmentBillingGroup,
+      setSelectedEstablishmentBillingGroup,
     },
     ref,
   ) => {
@@ -115,7 +142,6 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
 
     const basketDeliveryRef = React.useRef(null);
     const paymentStepRef = React.useRef(null);
-
     const classes = useStyles();
 
     useImperativeHandle(ref, () => {
@@ -130,6 +156,17 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
               break;
             default:
           }
+        },
+        updateMemberDefaultEstablishmentBillingGroup: () => {
+          const formData = mapFormData(
+            {
+              default_establishment_billing_group:
+                selectedEstablishmentBillingGroup.id,
+            },
+            MemberMap,
+          );
+          formData.append('id', basket.member.toString());
+          updateDefaultEstablishmentBillingGroup(basket.member, formData);
         },
         onPayLaterSubmit: paymentStepRef.current?.onPayLaterSubmit,
       };
@@ -177,8 +214,13 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
                 creditAccountBalance={creditAccountBalance}
                 detachPaymentMethod={detachPaymentMethod}
                 detachPaymentMethodLoading={detachPaymentMethodLoading}
+                enableMultiLocalization={enableMultiLocalization}
+                establishmentBillingGroups={establishmentBillingGroups}
                 instalmentPaymentConfigurationList={
                   instalmentPaymentConfigurationList
+                }
+                isEstablishmentBillingGroupSelected={
+                  isEstablishmentBillingGroupSelected
                 }
                 isOnlinePaymentAvailable={isOnlinePaymentAvailable}
                 isPayLaterAvailable={isPayLaterAvailable}
@@ -189,10 +231,19 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
                 paymentGroupId={paymentGroupId}
                 paymentMethodChoices={paymentMethodChoices}
                 paymentProcessing={paymentProcessing}
+                selectedEstablishmentBillingGroup={
+                  selectedEstablishmentBillingGroup
+                }
                 sepaDefaultEmail={auth.username}
                 sepaDefaultName={auth.name}
+                setIsEstablishmentBillingGroupSelected={
+                  setIsEstablishmentBillingGroupSelected
+                }
                 setIsOnlinePaymentDisabled={setIsOnlinePaymentDisabled}
                 setPaymentProcessing={setPaymentProcessing}
+                setSelectedEstablishmentBillingGroup={
+                  setSelectedEstablishmentBillingGroup
+                }
                 setTermsAndConditionsAccepted={setTermsAndConditionsAccepted}
                 snackbarErrorMsg={snackbarErrorMsg}
                 snackbarSuccessMsg={snackbarSuccessMsg}
@@ -228,6 +279,7 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
       currentStep.id,
       detachPaymentMethod,
       detachPaymentMethodLoading,
+      enableMultiLocalization,
       handleBasketDeliverySubmit,
       instalmentPaymentConfigurationList,
       isOnlinePaymentAvailable,
@@ -238,6 +290,7 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
       paymentGroupId,
       paymentMethodChoices,
       paymentProcessing,
+      selectedEstablishmentBillingGroup,
       setIsOnlinePaymentDisabled,
       setPaymentProcessing,
       setTermsAndConditionsAccepted,
@@ -250,6 +303,10 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
       validateUnpaid,
       cardBillingDetailsMandatory,
       basketHasOffers,
+      isEstablishmentBillingGroupSelected,
+      establishmentBillingGroups,
+      setIsEstablishmentBillingGroupSelected,
+      setSelectedEstablishmentBillingGroup,
     ]);
 
     return (

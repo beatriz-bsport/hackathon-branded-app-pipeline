@@ -29,6 +29,7 @@
   width: 100%;
   height: 100%;
   margin-top: 0;
+  max-width: 400px;
 }
 
 .bs-login-container--widget--simplifyUI {
@@ -38,6 +39,7 @@
   padding: var(--spacing-1);
   height: 100%;
   margin-top: 0;
+  max-width: 400px;
 }
 
 .bs-flex-column--default {

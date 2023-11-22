@@ -8,6 +8,7 @@ import {
 } from 'bsport-saas/src/pages/marketplace/MarketplaceCalendarCSSOnly.page';
 import { MarketplaceCalendarData } from 'bsport-saas/src/libs/marketplace/types';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
+import withPostMessageOnPropsUpdate from 'bsport-saas/src/hocs/postMessages/with-post-message-on-props-update';
 import { Theme } from 'bsport-saas/src/libs/theme/types';
 import {
   withStyles,
@@ -26,7 +27,11 @@ import {
 
 const DATE_FORMAT = 'YYYY-MM-DD';
 
-const MarketplaceCalendarStyled = themify(MarketplaceCalendar);
+const MarketplaceCalendarStyled = themify(
+  withPostMessageOnPropsUpdate([
+    { propName: 'filters', messageType: 'bsport:calendar:filter:update' },
+  ])(MarketplaceCalendar),
+);
 
 type OwnProps = {
   companyId: number,

@@ -8,6 +8,7 @@ import { MarketplaceWorkshopData } from 'bsport-saas/src/libs/marketplace/types'
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 import { Theme } from 'bsport-saas/src/libs/theme/types';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
+import withPostMessageOnPropsUpdate from 'bsport-saas/src/hocs/postMessages/with-post-message-on-props-update';
 
 import '../../vendor/map.css';
 
@@ -15,7 +16,11 @@ import { getEnv } from '../utils/env';
 import { bridgeRequestRegisteredOfferIdList } from '../libs/bridge/actions';
 import { RootState } from '../reducers';
 
-const MarketplaceWorkshopBaseStyled = themify(MarketplaceWorkshopBase);
+const MarketplaceWorkshopBaseStyled = themify(
+  withPostMessageOnPropsUpdate<Props & State>([
+    { propName: 'filters', messageType: 'bsport:workshop:filter:update' },
+  ])(MarketplaceWorkshopBase),
+);
 
 type OwnProps = {
   companyId: number,

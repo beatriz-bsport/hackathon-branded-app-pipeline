@@ -57,7 +57,7 @@ export function withPostMessageOnPropsUpdate<
             Config.REACT_APP_SENTRY_ENVIRONMENT,
           )
         )
-          window.addEventListener('message', this.logPostMessages);
+          window?.addEventListener('message', this.logPostMessages);
       }
 
       /**
@@ -69,7 +69,7 @@ export function withPostMessageOnPropsUpdate<
             Config.REACT_APP_SENTRY_ENVIRONMENT,
           )
         )
-          window.removeEventListener('message', this.logPostMessages);
+          window?.removeEventListener('message', this.logPostMessages);
       }
 
       /**
@@ -108,7 +108,7 @@ export function withPostMessageOnPropsUpdate<
               };
 
               // Send the postMessage
-              return window.postMessage(message, '*');
+              return window?.postMessage(message, '*');
             });
           }
         } catch (err) {

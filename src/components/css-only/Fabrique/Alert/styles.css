@@ -126,8 +126,7 @@
 /* ----- ALERT TEXT COLOR ----- */
 
 .bs-fabrique-alert__root--text-light .bs-fabrique-alert__left-icon {
-  color: transparent;
-  stroke: var(--bs-color-text-default);
+  color: var(--bs-color-text-default);
 }
 
 /* ----- TEXT STRONG VARIANT ----- */
@@ -138,13 +137,11 @@
 }
 
 .bs-fabrique-alert__root--strong-light .bs-fabrique-alert__left-icon {
-  color: transparent;
-  stroke: var(--bs-color-text-default);
+  color: var(--bs-color-text-default);
 }
 
 .bs-fabrique-alert__root--strong-grey .bs-fabrique-alert__left-icon {
-  color: transparent;
-  stroke: var(--bs-grey-0);
+  color: var(--bs-grey-0);
 }
 
 .bs-fabrique-alert__root--strong-light .bs-fabrique-alert__text__title,
@@ -154,11 +151,7 @@
 }
 
 /* ----- TEXT WEAK VARIANT ----- */
-.bs-fabrique-alert__root--weak-grey .bs-fabrique-alert__left-icon {
-  color: transparent;
-  stroke: var(--bs-color-text-default);
-}
-
+.bs-fabrique-alert__root--weak-grey .bs-fabrique-alert__left-icon,
 .bs-fabrique-alert__root--weak-grey .bs-fabrique-alert__text__title,
 .bs-fabrique-alert__root--weak-grey .bs-fabrique-alert__text__content {
   color: var(--bs-color-text-default);
@@ -201,15 +194,11 @@
 }
 
 /* ----- TEXT OUTLINED VARIANT ----- */
-.bs-fabrique-alert__root--outlined-grey .bs-fabrique-alert__left-icon {
-  color: transparent;
-  stroke: var(--bs-color-text-weak);
-}
-
 .bs-fabrique-alert__root--outlined-grey .bs-fabrique-alert__text__title {
   color: var(--bs-color-text-default);
 }
 
+.bs-fabrique-alert__root--outlined-grey .bs-fabrique-alert__left-icon,
 .bs-fabrique-alert__root--outlined-grey .bs-fabrique-alert__text__content {
   color: var(--bs-color-text-weak);
 }
@@ -251,15 +240,11 @@
 }
 
 /* ----- TEXT TEXT VARIANT ----- */
-.bs-fabrique-alert__root--text-grey .bs-fabrique-alert__left-icon {
-  color: transparent;
-  stroke: var(--bs-color-text-weak);
-}
-
 .bs-fabrique-alert__root--text-grey .bs-fabrique-alert__text__title {
   color: var(--bs-color-text-default);
 }
 
+.bs-fabrique-alert__root--text-grey .bs-fabrique-alert__left-icon,
 .bs-fabrique-alert__root--text-grey .bs-fabrique-alert__text__content {
   color: var(--bs-color-text-weak);
 }

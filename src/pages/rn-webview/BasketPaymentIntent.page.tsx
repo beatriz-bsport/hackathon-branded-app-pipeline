@@ -34,7 +34,7 @@ import {
 import { fetchPaymentMethodList } from '#libs/payment/actions';
 import { fetchCompanyTheme } from '#libs/theme/actions';
 import { getSavedPaymentMethodList } from '#libs/payment/selectors';
-import { getBasket } from '#libs/checkout/selectors';
+import { getBasket, getOffersListFromBasket } from '#libs/checkout/selectors';
 import { OptionCallback } from '../../state/types';
 import { PaymentMethod } from '#libs/payment/types';
 import { unauthenticatedRequestClientSecret as requestClientSecretAPI } from '#libs/invoice/api';
@@ -48,6 +48,10 @@ import { MaterialStyleType } from '../../utils/types';
 import { getBasketTotalPriceExcludingTax } from '#libs/checkout/utils';
 import BasketTaxInfo from '#libs/checkout/components/BasketTaxInfo.component';
 import { fetchMembershipByBasket } from '#libs/membership/actions';
+import {
+  fetchMember as fetchMemberAction,
+  updateDefaultEstablishmentBillingGroup as updateDefaultEstablishmentBillingGroupAction,
+} from '#libs/member/actions';
 import { validateUnpaid as validateUnpaidAPI } from '#libs/checkout/api';
 import { fetchInstalmentPaymentByBasket as fetchInstalmentPaymentByBasketAction } from '#libs/instalment-payment-configuration/actions';
 
@@ -56,6 +60,18 @@ import { getInstalmentForBasketList } from '#libs/instalment-payment-configurati
 import { InstalmentPayment } from '#libs/instalment-payment-configuration/types';
 
 import { isErrorWithCustomCode } from '#libs/utils';
+import {
+  fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction,
+  fetchEstablishmentBulk as fetchEstablishmentBulkAction,
+} from '#libs/establishment/actions';
+import {
+  getDefaultEstablishmentBillingGroup,
+  getEnabledEstablishmentBillingGroups,
+} from '#libs/establishment/selectors';
+import { withEstablishment, withMetaActivity } from '#libs/offer/selectors';
+import { EstablishmentBillingGroup } from '#libs/establishment/types';
+import { fetchOfferBulk as fetchOfferBulkAction } from '#libs/offer/actions';
+import { loadDefaultEstablishmentBillingGroup } from '#libs/marketplace/utils/booking';
 
 const PaymentStripe = asyncComponent(
   () =>
@@ -96,6 +112,8 @@ type State = {
   clientSecret: string | null;
   selfProcessing: boolean;
   paymentGroupId: number;
+  isEstablishmentBillingGroupSelected: boolean;
+  selectedEstablishmentBillingGroup: EstablishmentBillingGroup;
 };
 export class BasketPaymentIntent extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -106,27 +124,83 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
       clientSecret: null,
       selfProcessing: false,
       paymentGroupId: null,
+      isEstablishmentBillingGroupSelected: true,
+      selectedEstablishmentBillingGroup: null,
     };
   }
+
+  setSelectedEstablishmentBillingGroup = (
+    selectedEstablishmentBillingGroup: EstablishmentBillingGroup,
+  ) => {
+    this.setState({
+      selectedEstablishmentBillingGroup,
+    });
+  };
+
+  setIsEstablishmentBillingGroupSelected = (
+    isEstablishmentBillingGroupSelected,
+  ) => {
+    this.setState({
+      isEstablishmentBillingGroupSelected,
+    });
+  };
 
   componentDidMount() {
     this.props.fetchBasket(this.props.basketId, {
       onSuccess: (basket) => {
         this.props.fetchCompanyTheme(basket.company, {
-          onSuccess: (theme) => this.setState({ theme }),
+          onSuccess: (theme) => {
+            if (theme.enable_multi_localization) {
+              this.props.fetchAllEstablishmentBillingGroup({
+                params: { company: basket.company },
+              });
+            }
+            this.setState({ theme });
+          },
         });
 
         this.props.fetchInstalmentPaymentByBasket(this.props.basketId);
 
         if (!basket.is_finalized) {
           this.getSecret();
-          this.props.fetchMembershipByBasket({
-            basket_uuid: this.props.basketId,
-          });
+          this.props.fetchMembershipByBasket(
+            {
+              basket_uuid: this.props.basketId,
+            },
+            {
+              onSuccess: (data) => {
+                this.props.fetchMember(data.id, {
+                  onSuccess: () => {},
+                });
+              },
+            },
+          );
         }
       },
     });
     this.props.fetchPaymentMethodList({ basket: this.props.basketId });
+    this.props.refreshBasket();
+  }
+
+  componentDidUpdate(prevProps: Readonly<Props>): void {
+    loadDefaultEstablishmentBillingGroup(
+      this.state.theme?.enable_multi_localization,
+      this.state.selectedEstablishmentBillingGroup,
+      this.setSelectedEstablishmentBillingGroup,
+      this.setIsEstablishmentBillingGroupSelected,
+      {
+        defaultEstablishmentBillingGroup:
+          prevProps.defaultEstablishmentBillingGroup,
+        establishmentBillingGroups: prevProps.establishmentBillingGroups,
+        basketoffers: prevProps.basketOffers,
+      },
+      {
+        defaultEstablishmentBillingGroup:
+          this.props.defaultEstablishmentBillingGroup,
+        establishmentBillingGroups: this.props.establishmentBillingGroups,
+        basketOffers: this.props.basketOffers,
+      },
+    );
   }
 
   getSecret = () => {
@@ -353,10 +427,17 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
               this.createPendingBookingsIfNecessary
             }
             creditAccountBalance={this.props.creditAccountBalance}
+            enableMultiLocalization={
+              this.state.theme?.enable_multi_localization
+            }
+            establishmentBillingGroups={this.props.establishmentBillingGroups}
             instalmentPaymentConfigurationList={this.props.instalmentPaymentConfigurationList.filter(
               (ipc) => ipc.basketId === this.props.basket?.id,
             )}
             instalmentPaymentSelectedId={this.props.basket?.instalment_payment}
+            isEstablishmentBillingGroupSelected={
+              this.state.isEstablishmentBillingGroupSelected
+            }
             loading={
               this.props.loading ||
               this.props.processing ||
@@ -374,8 +455,20 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
               ),
             )}
             paymentProcessing={this.props.paymentProcessing}
+            selectedEstablishmentBillingGroup={
+              this.state.selectedEstablishmentBillingGroup
+            }
+            setIsEstablishmentBillingGroupSelected={
+              this.setIsEstablishmentBillingGroupSelected
+            }
             setPaymentProcessing={this.props.setPaymentProcessing}
+            setSelectedEstablishmentBillingGroup={
+              this.setSelectedEstablishmentBillingGroup
+            }
             stripeId={this.state.theme.stripe_id}
+            updateDefaultEstablishmentBillingGroup={
+              this.props.updateDefaultEstablishmentBillingGroup
+            }
             useInternalAccount={this.props.useInternalAccount}
             validateUnpaid={this.validateUnpaid}
           />
@@ -437,16 +530,31 @@ const connectUsablecreditAccount = connect(
   null,
 );
 const connector = connect(
-  (state: RootState, { basketId }: { basketId: string }) => ({
-    basket: getBasket(state, basketId),
-    savedPaymentMethodList: getSavedPaymentMethodList(state),
-    loading:
-      state.checkout.basket.current.loading || state.checkout.basket.loading,
-    processing: state.checkout.basket.current.updating,
-    instalmentPaymentConfigurationList: getInstalmentForBasketList(state),
-    cardBillingDetailsMandatory:
-      state.theme.theme.force_billing_details_on_cards,
-  }),
+  (state: RootState, { basketId }: { basketId: string }) => {
+    const basket = getBasket(state, basketId);
+    return {
+      basket,
+      savedPaymentMethodList: getSavedPaymentMethodList(state),
+      loading:
+        state.checkout.basket.current.loading || state.checkout.basket.loading,
+      processing: state.checkout.basket.current.updating,
+      instalmentPaymentConfigurationList: getInstalmentForBasketList(state),
+      cardBillingDetailsMandatory:
+        state.theme.theme.force_billing_details_on_cards,
+      establishmentBillingGroups: withEstablishment(
+        getEnabledEstablishmentBillingGroups,
+      )(state),
+      defaultEstablishmentBillingGroup: getDefaultEstablishmentBillingGroup(
+        state,
+        basket?.member,
+      ),
+      basketOffers: withMetaActivity(
+        withEstablishment((state_) =>
+          getOffersListFromBasket(state_, basketId),
+        ),
+      )(state),
+    };
+  },
   {
     fetchBasket: fetchBasketAction,
     attachPayment: attachPaymentAction,
@@ -459,6 +567,12 @@ const connector = connect(
     fetchMembershipByBasket,
     snackbarErrorMsg: snackbarWarning,
     snackbarSuccessMsg: snackbarSuccess,
+    fetchOfferBulk: fetchOfferBulkAction,
+    fetchEstablishmentBulk: fetchEstablishmentBulkAction,
+    fetchAllEstablishmentBillingGroup: fetchAllEstablishmentBillingGroupAction,
+    updateDefaultEstablishmentBillingGroup:
+      updateDefaultEstablishmentBillingGroupAction,
+    fetchMember: fetchMemberAction,
   },
 );
 export default compose(
@@ -484,11 +598,37 @@ export default compose(
       }),
   })),
   withHandlers({
+    fetchOfferWithEstablishmentAndActivityBulk:
+      ({ fetchOfferBulk, fetchEstablishmentBulk }) =>
+      (ids) => {
+        fetchOfferBulk(ids, {
+          onSuccess: (offerList) => {
+            fetchEstablishmentBulk([offerList.map((b) => b.establishment)]);
+          },
+        });
+      },
+  }),
+  withHandlers({
     refreshBasket:
-      ({ fetchBasket, basketId }) =>
+      ({ fetchBasket, basketId, fetchOfferWithEstablishmentAndActivityBulk }) =>
       (options: OptionCallback) =>
         fetchBasket(basketId, {
-          onSuccess: options && options.onSuccess,
+          onSuccess: (basket) => {
+            options?.onSuccess?.();
+            const offerIdsList = basket.checkout_items
+              ?.filter(
+                (checkoutItem) =>
+                  checkoutItem.extra_data?.offers_data &&
+                  checkoutItem.extra_data.offers_data.length,
+              )
+              .map((checkoutItem) =>
+                checkoutItem.extra_data.offers_data.map(
+                  (offerData) => offerData.offer_id,
+                ),
+              )
+              .flat();
+            fetchOfferWithEstablishmentAndActivityBulk(offerIdsList);
+          },
         }),
   }),
   withHandlers({

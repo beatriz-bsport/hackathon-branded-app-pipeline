@@ -84,3 +84,23 @@ export const getBasketOfferList = createSelector(
     );
   },
 );
+
+export const getOffersListFromBasket = createSelector(
+  [getBasket, _getOfferData],
+  (currentBasket, offerDataById) => {
+    return Immutable(
+      currentBasket?.checkout_items
+        ?.filter(
+          (checkoutItem) =>
+            checkoutItem.extra_data?.offers_data &&
+            checkoutItem.extra_data?.offers_data.length,
+        )
+        .map((checkoutItem) =>
+          checkoutItem.extra_data.offers_data.map(
+            (offerData) => offerDataById[offerData.offer_id],
+          ),
+        )
+        .flat(),
+    );
+  },
+);

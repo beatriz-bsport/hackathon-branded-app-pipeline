@@ -21,6 +21,21 @@ import { parseQueryString } from '../../http';
 import themeSelectors from '../../libs/theme/selectors';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
 import Analytics from '../../components/analytics/Analytics.component';
+import {
+  fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction,
+  fetchEstablishmentBulk as fetchEstablishmentBulkAction,
+} from '#libs/establishment/actions';
+import {
+  updateDefaultEstablishmentBillingGroup as updateDefaultEstablishmentBillingGroupAction,
+  fetchMember as fetchMemberAction,
+} from '#libs/member/actions';
+import {
+  getDefaultEstablishmentBillingGroup,
+  getEnabledEstablishmentBillingGroups,
+} from '#libs/establishment/selectors';
+import { withEstablishment } from '#libs/offer/selectors';
+import { EstablishmentBillingGroup } from '#libs/establishment/types';
+import { loadDefaultEstablishmentBillingGroup } from '../../libs/marketplace/utils/booking';
 
 const SubscriptionPayment = asyncComponent(() =>
   import('../../libs/subscription/components/SubscriptionPayment.component'),
@@ -46,18 +61,33 @@ type Props = {
     options: OptionCallback,
     auth: boolean,
   ) => void,
+  memberId: number,
+  defaultEstablishmentBillingGroup: EstablishmentBillingGroup,
+  fetchMember: (memberId: number) => void,
+  fetchAllEstablishmentBillingGroup: (params: { company: number }) => void,
+  establishmentBillingGroups: EstablishmentBillingGroup[],
+  updateDefaultEstablishmentBillingGroup: (
+    id: number,
+    memberData: FormData,
+    options?: OptionCallback,
+  ) => void,
 };
 
 type State = {
   processing: boolean,
   companyId?: number,
   theme: CompanyTheme,
+  isEstablishmentBillingGroupSelected: boolean,
+  selectedEstablishmentBillingGroup: EstablishmentBillingGroup,
 };
 
 export class ContractPayment extends React.Component<Props, State> {
   state = {
     companyId: null,
     theme: null,
+    isEstablishmentBillingGroupSelected: true,
+    selectedEstablishmentBillingGroup:
+      this.props.defaultEstablishmentBillingGroup || null,
   };
 
   componentDidMount() {
@@ -65,13 +95,41 @@ export class ContractPayment extends React.Component<Props, State> {
       onSuccess: (c) => {
         this.setState({ companyId: c.company });
         this.props.fetchCompanyTheme(c.company, {
-          onSuccess: (theme) =>
+          onSuccess: (theme) => {
+            if (theme.enable_multi_localization) {
+              this.props.fetchAllEstablishmentBillingGroup({
+                params: { company: c.company },
+              });
+            }
             this.setState({
               theme,
-            }),
+            });
+          },
         });
+        this.props.fetchMember();
       },
     });
+  }
+
+  componentDidUpdate(prevProps: Readonly<Props>): void {
+    loadDefaultEstablishmentBillingGroup(
+      this.state.theme?.enable_multi_localization,
+      this.state.selectedEstablishmentBillingGroup,
+      this.setSelectedEstablishmentBillingGroup,
+      this.setIsEstablishmentBillingGroupSelected,
+      {
+        defaultEstablishmentBillingGroup:
+          prevProps.defaultEstablishmentBillingGroup,
+        establishmentBillingGroups: prevProps.establishmentBillingGroups,
+        basketoffers: null,
+      },
+      {
+        defaultEstablishmentBillingGroup:
+          this.props.defaultEstablishmentBillingGroup,
+        establishmentBillingGroups: this.props.establishmentBillingGroups,
+        basketOffers: null,
+      },
+    );
   }
 
   state = { processing: false };
@@ -116,6 +174,22 @@ export class ContractPayment extends React.Component<Props, State> {
     );
   };
 
+  setSelectedEstablishmentBillingGroup = (
+    establishmentBillingGroup: EstablishmentBillingGroup,
+  ) => {
+    this.setState({
+      selectedEstablishmentBillingGroup: establishmentBillingGroup,
+    });
+  };
+
+  setIsEstablishmentBillingGroupSelected = (
+    isEstablishmentBillingGroupSelected,
+  ) => {
+    this.setState({
+      isEstablishmentBillingGroupSelected,
+    });
+  };
+
   render() {
     if (!this.state.companyId || !this.state.theme) {
       return (
@@ -135,8 +209,14 @@ export class ContractPayment extends React.Component<Props, State> {
             this.props.companyTheme.force_billing_details_on_cards
           }
           contract={this.props.contract}
+          defaultBillingGroup={this.props.defaultEstablishmentBillingGroup}
           enabledPaymentGroupMethodIdentifier={
             this.props.companyTheme.payment_method_available_subscription
+          }
+          enableMultiLocalization={this.state.theme?.enable_multi_localization}
+          establishmentBillingGroups={this.props.establishmentBillingGroups}
+          isEstablishmentBillingGroupSelected={
+            this.state.isEstablishmentBillingGroupSelected
           }
           isExcludingTax={this.state.theme?.is_tax_excluded_in_marketplace}
           memberId={this.props.memberId}
@@ -148,6 +228,15 @@ export class ContractPayment extends React.Component<Props, State> {
           }}
           requestSetupIntentSecret={this.props.requestSetupIntentSecret}
           savedPaymentMethodList={this.props.savedPaymentMethodList}
+          setIsEstablishmentBillingGroupSelected={
+            this.setIsEstablishmentBillingGroupSelected
+          }
+          setSelectedEstablishmentBillingGroup={
+            this.setSelectedEstablishmentBillingGroup
+          }
+          updateDefaultEstablishmentBillingGroup={
+            this.props.updateDefaultEstablishmentBillingGroup
+          }
         />
       </div>
     );
@@ -179,16 +268,29 @@ export default compose(
   withStyles(styles),
   routerParamsToProps({ contractId: 'contractId' }),
   connect(
-    (state, { contractId }) => ({
+    (state, { contractId, memberId }) => ({
       contract: getContract(state, parseInt(contractId, 10)),
       savedPaymentMethodList: getSavedPaymentMethodList(state),
       companyTheme: themeSelectors.getTheme(state),
+      establishmentBillingGroups: withEstablishment(
+        getEnabledEstablishmentBillingGroups,
+      )(state),
+      defaultEstablishmentBillingGroup: getDefaultEstablishmentBillingGroup(
+        state,
+        memberId,
+      ),
     }),
     {
       fetchContractDetail,
       fetchPaymentMethodList,
       fetchCompanyTheme,
       registerContractBackground,
+      fetchMember: fetchMemberAction,
+      fetchEstablishmentBulk: fetchEstablishmentBulkAction,
+      fetchAllEstablishmentBillingGroup:
+        fetchAllEstablishmentBillingGroupAction,
+      updateDefaultEstablishmentBillingGroup:
+        updateDefaultEstablishmentBillingGroupAction,
     },
   ),
   withHandlers({
@@ -196,6 +298,10 @@ export default compose(
       ({ memberId }) =>
       () =>
         requestSetupIntentSecretAPI(memberId),
+    fetchMember:
+      ({ fetchMember, memberId }) =>
+      () =>
+        fetchMember(memberId),
   }),
   withProps(() => ({
     onSuccess: () => {

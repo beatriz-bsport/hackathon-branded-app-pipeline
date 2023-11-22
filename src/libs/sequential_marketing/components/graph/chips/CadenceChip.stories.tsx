@@ -72,4 +72,12 @@ DisabledBlackText.args = {
   disabled: true,
 };
 
+export const Clickable = Template.bind({});
+Clickable.args = {
+  name: 'Click me !',
+  icon: 'Email',
+  color: 'rgba(4, 109, 200, 1)',
+  isClickable: true,
+};
+
 export const Empty = Template.bind({});

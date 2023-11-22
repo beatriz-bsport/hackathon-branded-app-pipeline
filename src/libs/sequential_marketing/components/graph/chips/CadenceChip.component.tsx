@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import makeStyles from '@material-ui/styles/makeStyles';
 import { CustomChip } from '#components/chip/CustomChip.component';
 import { CADENCE_CHIP_MAX_SIZE } from '#libs/sequential_marketing/constants/steps';
@@ -7,6 +8,7 @@ type CadenceChipProps = {
   name: string;
   icon: string;
   color: string;
+  isClickable?: boolean;
   toolTip?: boolean;
   toolTipValue?: string;
   withBackgroundOnHover?: boolean;
@@ -17,6 +19,7 @@ export const CadenceChip: React.FC<CadenceChipProps> = ({
   name,
   icon,
   color,
+  isClickable,
   toolTip,
   toolTipValue,
   withBackgroundOnHover,
@@ -25,20 +28,21 @@ export const CadenceChip: React.FC<CadenceChipProps> = ({
   const classes = useStyles();
 
   return (
-    <div className={classes.customChip}>
-      <CustomChip
-        blackText
-        disabled={disabled}
-        displayedValue={name}
-        icon={icon}
-        iconColor={color}
-        mainColor={color}
-        maxWidth={CADENCE_CHIP_MAX_SIZE}
-        toolTip={toolTip}
-        toolTipValue={toolTipValue}
-        withBackgroundOnHover={withBackgroundOnHover}
-      />
-    </div>
+    <CustomChip
+      blackText
+      chipClass={classNames(classes.customChip, {
+        [classes.clickableChip]: isClickable,
+      })}
+      disabled={disabled}
+      displayedValue={name}
+      icon={icon}
+      iconColor={color}
+      mainColor={color}
+      maxWidth={CADENCE_CHIP_MAX_SIZE}
+      toolTip={toolTip}
+      toolTipValue={toolTipValue}
+      withBackgroundOnHover={withBackgroundOnHover}
+    />
   );
 };
 
@@ -47,6 +51,10 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     alignItems: 'center',
     position: 'relative',
+    width: 'fit-content',
+  },
+  clickableChip: {
+    cursor: 'pointer',
   },
 }));
 

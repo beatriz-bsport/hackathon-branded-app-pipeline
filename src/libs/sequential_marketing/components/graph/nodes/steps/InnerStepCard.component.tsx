@@ -35,7 +35,6 @@ type InnerStepHeaderProps = {
   stepName: string;
   actions: Immutable.ImmutableArray<MenuAction>;
   handleDisableRipple: () => void;
-  handleEnableRipple: () => void;
 };
 
 type InnerStepContentProps = {
@@ -48,14 +47,13 @@ type InnerStepContentProps = {
 };
 
 const InnerStepHeader: React.FC<InnerStepHeaderProps> = React.memo(
-  ({ stepName, actions, handleDisableRipple, handleEnableRipple }) => {
+  ({ stepName, actions, handleDisableRipple }) => {
     return (
       <CadenceNodeTitle
         squareIcon
         actions={actions}
         color={SequentialMarketingColors.INNER_STEP_COLOR}
         handleDisableRipple={handleDisableRipple}
-        handleEnableRipple={handleEnableRipple}
         icon="DeviceHub"
         name={stepName}
       />
@@ -112,10 +110,6 @@ const InnerStepCard: React.FC<InnerStepCardProps> = ({
 
   const handleDisableRipple = useCallback(() => {
     setDisableRipple(true);
-  }, []);
-
-  const handleEnableRipple = useCallback(() => {
-    setDisableRipple(false);
   }, []);
 
   const onClickNewMarketingAction = useCallback(
@@ -195,7 +189,6 @@ const InnerStepCard: React.FC<InnerStepCardProps> = ({
         <InnerStepHeader
           actions={actions}
           handleDisableRipple={handleDisableRipple}
-          handleEnableRipple={handleEnableRipple}
           stepName={step?.name}
         />
       }

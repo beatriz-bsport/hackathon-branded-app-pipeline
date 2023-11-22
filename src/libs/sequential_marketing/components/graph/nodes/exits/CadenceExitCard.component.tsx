@@ -19,7 +19,6 @@ export type CadenceExitCardProps = {
 
 type CadenceExitHeaderProps = {
   handleDisableRipple: () => void;
-  handleEnableRipple: () => void;
 } & Omit<CadenceExitCardProps, 'isSelected'>;
 
 const CadenceExitHeader: React.FC<CadenceExitHeaderProps> = React.memo(
@@ -29,7 +28,6 @@ const CadenceExitHeader: React.FC<CadenceExitHeaderProps> = React.memo(
     onEdit,
     handleConvertIntoStep,
     handleDisableRipple,
-    handleEnableRipple,
   }) => {
     const { t } = useTranslation('marketing');
 
@@ -72,7 +70,6 @@ const CadenceExitHeader: React.FC<CadenceExitHeaderProps> = React.memo(
             : SequentialMarketingColors.LOSE_COLOR
         }
         handleDisableRipple={handleDisableRipple}
-        handleEnableRipple={handleEnableRipple}
         icon={status === DestinationStatus.WIN ? 'CheckCircle' : 'Cancel'}
         name={
           status === DestinationStatus.WIN
@@ -97,10 +94,6 @@ const CadenceExitCard: React.FC<CadenceExitCardProps> = ({
     setDisableRipple(true);
   }, []);
 
-  const handleEnableRipple = useCallback(() => {
-    setDisableRipple(false);
-  }, []);
-
   return (
     <StepCard
       maxWidth
@@ -115,7 +108,6 @@ const CadenceExitCard: React.FC<CadenceExitCardProps> = ({
         <CadenceExitHeader
           handleConvertIntoStep={handleConvertIntoStep}
           handleDisableRipple={handleDisableRipple}
-          handleEnableRipple={handleEnableRipple}
           onDelete={onDelete}
           onEdit={onEdit}
           status={status}

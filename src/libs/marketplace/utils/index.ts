@@ -23,6 +23,11 @@ import {
   getGroupOfferSetAsFullBookingOnlyStatus,
 } from './offer';
 
+import {
+  CalendarFilterValidationSchema,
+  CalendarOnlineFilterValidationSchema,
+} from './post-message-props-update';
+
 export {
   urlToMarketplace,
   urlToMarketplaceTab,
@@ -43,4 +48,6 @@ export {
   getPositionOfOfferInTheList,
   getOfferStatus,
   getGroupOfferSetAsFullBookingOnlyStatus,
+  CalendarFilterValidationSchema,
+  CalendarOnlineFilterValidationSchema,
 };

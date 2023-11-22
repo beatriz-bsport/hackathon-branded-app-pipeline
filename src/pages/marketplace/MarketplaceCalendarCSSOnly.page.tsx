@@ -30,7 +30,12 @@ import {
   getOffersListByGroup as getOffersListByGroupSelector,
   getGroupData,
 } from '#libs/group-offer/selectors';
-import { isOfferInThePast, doTextSearch } from '../../libs/marketplace/utils';
+import {
+  isOfferInThePast,
+  doTextSearch,
+  CalendarFilterValidationSchema,
+  CalendarOnlineFilterValidationSchema,
+} from '#libs/marketplace/utils';
 
 import {
   getAllEstablishments,
@@ -87,6 +92,7 @@ import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import withQueryParamsToProps from '#hocs/query-params-to-props.hoc';
 
 import withPostMessageOnPropsUpdate from '#hocs/postMessages/with-post-message-on-props-update';
+import withPostMessageToUpdateProps from '#hocs/postMessages/with-post-message-to-update-props';
 import { getBookCalendarUrl } from '#libs/marketplace/routing-utils';
 
 type OwnProps = {
@@ -764,6 +770,18 @@ export default compose(
     {
       propName: 'onlineFilter',
       messageType: 'bsport:calendar:filter:update',
+    },
+  ]),
+  withPostMessageToUpdateProps<FinalProps>([
+    {
+      propName: 'filters',
+      messageType: 'bsport:calendar:filter:control',
+      validationSchema: CalendarFilterValidationSchema,
+    },
+    {
+      propName: 'onlineFilter',
+      messageType: 'bsport:calendar:filter:control',
+      validationSchema: CalendarOnlineFilterValidationSchema,
     },
   ]),
 )(MarketplaceCalendar);

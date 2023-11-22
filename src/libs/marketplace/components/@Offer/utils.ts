@@ -47,9 +47,11 @@ export const generateUniqueOfferIdentifier = (
   }
 
   // Construct the offer identifier with the relevant information
-  return `bs-card-offer::offer_id-${offer?.id ?? null}::coach_id-${
-    offerCoachId ?? null
-  }::establishment_id-${establishmentId ?? null}::activity_id-${
-    metaActivityId ?? null
-  }::offer_group_id-${offerGroup ?? null}`;
+  return `${`${prefix ? `${prefix}::` : ''}`}offer_id-${
+    offer?.id ?? null
+  }::coach_id-${offerCoachId ?? null}::establishment_id-${
+    establishmentId ?? null
+  }::activity_id-${metaActivityId ?? null}::offer_group_id-${
+    offerGroup ?? null
+  }`;
 };

@@ -1,13 +1,15 @@
 import { Node as FlowNode } from 'react-flow-renderer';
+
 import { CustomNodesEnum } from './useNodes.hooks';
+
 import type {
   CadenceStep,
   ConnectedTrigger,
 } from '#libs/sequential_marketing/types';
-import { InnerStepCardProps } from '../nodes/steps/InnerStepCard.component';
-import { EntryStepCardProps } from '../nodes/steps/EntryStepCard.component';
-import { TriggerCardProps } from '../nodes/triggers/TriggerCard.component';
-import { CadenceExitCardProps } from '../nodes/exits/CadenceExitCard.component';
+import type { InnerStepCardProps } from '../nodes/steps/InnerStepCard.component';
+import type { EntryStepCardProps } from '../nodes/steps/EntryStepCard.component';
+import type { CadenceExitCardProps } from '../nodes/exits/CadenceExitCard.component';
+import type { TriggerCardProps } from '../nodes/triggers/TriggerCard.component';
 /* 
 Overidding some types coming from react-flow libs to ensure stronger typing
 */

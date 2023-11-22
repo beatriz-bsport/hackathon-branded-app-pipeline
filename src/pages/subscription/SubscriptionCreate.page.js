@@ -34,9 +34,15 @@ import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
 import { getPaymentComboList } from '../../libs/payment-combo/selectors';
 import { PaymentCombo } from '../../libs/payment-combo/types';
 import { fetchPaymentPackList as fetchPaymentPackListAction } from '../../libs/payment-packs/actions';
-import { fetchEstablishments } from '../../libs/establishment/actions';
-import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
-import type { Establishment } from '../../libs/establishment/types';
+import {
+  fetchEstablishments,
+  fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction,
+} from '../../libs/establishment/actions';
+import {
+  getAvailableEstablishmentList,
+  getEnabledEstablishmentBillingGroups,
+} from '../../libs/establishment/selectors';
+import type { EstablishmentBillingGroup } from '../../libs/establishment/types';
 import type { Theme as CompanyTheme } from '../../libs/theme/types';
 import themeSelectors from '../../libs/theme/selectors';
 import { withMemberBannerHOC } from '../../hocs/banner.hoc';
@@ -59,7 +65,8 @@ type Props = {
   paymentComboList: PaymentCombo[],
   fetchPaymentPackList: (params: any) => void,
   fetchEstablishments: () => void,
-  establishments: Array<Establishment>,
+  fetchAllEstablishmentBillingGroup: (params: { company: number }) => void,
+  establishmentBillingGroups: EstablishmentBillingGroup[],
   companyTheme: CompanyTheme,
   fetchStripeReaders: () => void,
   stripeReaders: StripeReader[],
@@ -83,6 +90,11 @@ export class SubscriptionCreate extends Component<Props, State> {
     this.props.fetchPaymentComboList();
     this.props.fetchEstablishments();
     this.props.fetchStripeReaders();
+    if (this.props.companyTheme.enable_multi_localization) {
+      this.props.fetchAllEstablishmentBillingGroup({
+        params: { company: this.props.companyId },
+      });
+    }
   }
 
   storeTempSubscription = (tempSubscription: ?SubscriptionData) => {
@@ -97,7 +109,7 @@ export class SubscriptionCreate extends Component<Props, State> {
     _callback,
     _voucher,
     _note,
-    billing_establishment_id: number,
+    establishment_billing_group_id?: number,
   ) => {
     this.setState({ processing: true });
     try {
@@ -107,7 +119,7 @@ export class SubscriptionCreate extends Component<Props, State> {
         payment_method_id,
         is_payment_method_for_past_invoices_saved,
         payment_method_past_invoices_id,
-        billing_establishment_id,
+        establishment_billing_group_id,
       });
       this.props.pushToSubscription(response.data.id);
     } catch (err) {
@@ -128,7 +140,7 @@ export class SubscriptionCreate extends Component<Props, State> {
             enableMultiLocalization={
               this.props.companyTheme.enable_multi_localization
             }
-            establishments={this.props.establishments}
+            establishmentBillingGroups={this.props.establishmentBillingGroups}
             member={this.props.member}
             onCancel={() => this.storeTempSubscription(null)}
             onlinePaymentEnabled={this.props.onlinePaymentEnabled}
@@ -192,6 +204,7 @@ export default compose(
       companyId: themeSelectors.getTheme(state).company,
       stripeReaders: getStripeReaders(state),
       onlinePaymentEnabled: state.theme.theme.online_payment_enabled,
+      establishmentBillingGroups: getEnabledEstablishmentBillingGroups(state),
     }),
     {
       fetchPaymentMethodList: fetchPaymentMethodListAction,
@@ -203,6 +216,8 @@ export default compose(
       fetchPaymentComboList,
       fetchEstablishments,
       fetchStripeReaders,
+      fetchAllEstablishmentBillingGroup:
+        fetchAllEstablishmentBillingGroupAction,
     },
   ),
   withHandlers({

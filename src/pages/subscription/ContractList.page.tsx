@@ -34,9 +34,12 @@ import { getSavedPaymentMethodList } from '../../libs/payment/selectors';
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
 import { fetchPrivatePassList } from '../../libs/private-service/actions';
 import { fetchPaymentComboList } from '../../libs/payment-combo/actions';
-import { fetchEstablishments } from '../../libs/establishment/actions';
+import {
+  fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction,
+  fetchEstablishments,
+} from '../../libs/establishment/actions';
 import { getPaymentComboList } from '../../libs/payment-combo/selectors';
-import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
+import { getEnabledEstablishmentBillingGroups } from '../../libs/establishment/selectors';
 
 import withTitle from '../../hocs/with-title.hoc';
 import { withContractNotification } from '#libs/marketing/selectors';
@@ -111,6 +114,9 @@ export class SubscriptionList extends React.Component<Props, State> {
       ],
     });
     this.props.fetchEstablishments();
+    this.props.fetchAllEstablishmentBillingGroup({
+      params: { company: this.props.companyId },
+    });
   }
 
   onClickContract = (id: number) => {
@@ -393,7 +399,9 @@ export class SubscriptionList extends React.Component<Props, State> {
                 enableMultiLocalization={
                   this.props.theme.enable_multi_localization
                 }
-                establishments={this.props.establishmentList}
+                establishmentBillingGroups={
+                  this.props.establishmentBillingGroups
+                }
                 generalTermsAndConditions={
                   this.props.theme.general_terms_and_conditions
                 }
@@ -508,7 +516,7 @@ const mapStateToProps = (state: RootState) => ({
   searchedMembers: getSearchedMembers(state),
   savedPaymentMethodList: getSavedPaymentMethodList(state),
   stripeReaders: getStripeReaders(state),
-  establishmentList: getAvailableEstablishmentList(state),
+  establishmentBillingGroups: getEnabledEstablishmentBillingGroups(state),
 });
 
 const mapDispatchToProps = {
@@ -531,6 +539,7 @@ const mapDispatchToProps = {
   registerContractBackground: registerContractBackgroundAction,
   displayBackgroundDialog: displayBackgroundDialogAction,
   deletebackgroundDialog: deletebackgroundDialogAction,
+  fetchAllEstablishmentBillingGroup: fetchAllEstablishmentBillingGroupAction,
 };
 
 const withStateHandlersInit: StateHandlerInit = {

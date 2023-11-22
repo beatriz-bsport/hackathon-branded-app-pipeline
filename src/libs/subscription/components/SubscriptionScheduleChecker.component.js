@@ -18,7 +18,7 @@ import SubscriptionSchedule from './SubscriptionSchedule.component';
 import type { SubscriptionData } from '../types';
 import { getBackofficeBillingPlanEnabledPaymentMethods } from '#libs/payment/utils';
 
-import type { Establishment } from '../../establishment/types';
+import type { EstablishmentBillingGroup } from '../../establishment/types';
 import type { StripeReader } from '#libs/terminal/types';
 
 type Props = {
@@ -33,7 +33,7 @@ type Props = {
   refreshSavedPaymentMethodList: (params: any) => void,
   savedPaymentMethodList: Array<PaymentMethod>,
   requestSetupIntentSecret: () => void,
-  establishments: Array<Establishment>,
+  establishmentBillingGroups: Array<EstablishmentBillingGroup>,
   enableMultiLocalization: boolean,
   companyTheme: CompanyTheme,
   stripeReaders: StripeReader[],
@@ -108,7 +108,7 @@ export class SubscriptionScheduleChecker extends Component<Props, State> {
             )}
             {!!companyCountry && !!stripeRegion && (
               <SubscriptionPayment
-                forceEstablishmentSelection
+                forceEstablishmentBillingGroupselection
                 withEstablishment
                 cardBillingDetailsMandatory={
                   this.props.cardBillingDetailsMandatory
@@ -125,7 +125,9 @@ export class SubscriptionScheduleChecker extends Component<Props, State> {
                   },
                 )}
                 enableMultiLocalization={this.props.enableMultiLocalization}
-                establishments={this.props.establishments}
+                establishmentBillingGroups={
+                  this.props.establishmentBillingGroups
+                }
                 member={this.props.member}
                 onCancel={this.props.onCancel}
                 onlinePaymentEnabled={this.props.onlinePaymentEnabled}

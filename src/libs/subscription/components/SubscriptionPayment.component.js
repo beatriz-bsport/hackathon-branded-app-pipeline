@@ -47,8 +47,8 @@ import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { appliesToContract } from '../../coupon/api';
 import CouponCodeForm from '../../coupon/components/CouponCodeForm.component';
 import { Moment } from '../../../i18n';
-import EstablishmentSelector from '../../establishment/components/EstablishmentSelector.component';
-import type { Establishment } from '../../establishment/types';
+import CheckoutBillingGroupSelector from '#libs/marketplace/components/@Basket/CheckoutBillingGroupSelector.component';
+import type { EstablishmentBillingGroup } from '../../establishment/types';
 import BasketTaxInfo from '#libs/checkout/components/BasketTaxInfo.component';
 import { getPrice, getTaxPrice } from '../../theme/utils';
 import type { SubscriptionData } from '../types';
@@ -102,8 +102,7 @@ type Props = {
   withGeneralConditions: boolean,
   member?: Member,
   withEstablishment: boolean,
-  establishments: Array<Establishment>,
-  establishmentLoading: boolean,
+  establishmentBillingGroups?: EstablishmentBillingGroup[],
   enableMultiLocalization: boolean,
   memberId?: number,
   isExcludingTax?: boolean,
@@ -118,6 +117,12 @@ type Props = {
   showContractTermsCheckbox?: boolean,
   openContractTermsDialog?: () => void,
   cardBillingDetailsMandatory: boolean,
+  defaultBillingGroup?: EstablishmentBillingGroup,
+  updateDefaultEstablishmentBillingGroup?: (
+    memberId: number,
+    payload: { default_establishment_billing_group: number },
+    options?: OptionCallback,
+  ) => void,
 };
 
 type State = {
@@ -126,7 +131,7 @@ type State = {
   loading: boolean,
   coupon_code: string,
   voucher: number | null,
-  billing_establishment_id: number | null,
+  selectedEstablishmentBillingGroup: EstablishmentBillingGroup | null,
   selectedSavedPaymentMethodId: number | null,
   processingTerminal: boolean,
   requiredEstablishmentIsMissing: boolean,
@@ -142,7 +147,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
       note: '',
       coupon_code: '',
       loading: false,
-      billing_establishment_id: null,
+      selectedEstablishmentBillingGroup: this.props.defaultBillingGroup || null,
       selectedSavedPaymentMethodId: null,
       processingTerminal: false,
       paymentMethodForPastInvoices: SAVED_PAYMENT_METHOD_FOR_PAST_INVOICES,
@@ -227,6 +232,16 @@ export class SubscriptionPayment extends React.Component<Props, State> {
     ) {
       this.handleSelectedPaymentMethod();
     }
+    if (
+      prevProps.defaultBillingGroup !== this.props.defaultBillingGroup &&
+      this.props.defaultBillingGroup &&
+      this.props.defaultBillingGroup?.disabled === false
+    ) {
+      this.setState({
+        selectedEstablishmentBillingGroup: this.props.defaultBillingGroup,
+        requiredEstablishmentIsMissing: false,
+      });
+    }
   }
 
   handleSelectedPaymentMethod = () => {
@@ -273,11 +288,24 @@ export class SubscriptionPayment extends React.Component<Props, State> {
     if (
       this.props.forceEstablishmentSelection &&
       this.props.enableMultiLocalization &&
-      !this.state.billing_establishment_id &&
+      !this.state.selectedEstablishmentBillingGroup &&
       this.props.establishments?.length
     ) {
       this.setState({ requiredEstablishmentIsMissing: true });
       return;
+    }
+    if (
+      this.props.enableMultiLocalization &&
+      this.state.selectedEstablishmentBillingGroup &&
+      this.props.updateDefaultEstablishmentBillingGroup
+    ) {
+      this.props.updateDefaultEstablishmentBillingGroup(
+        this.props.member?.id || this.props.memberId,
+        {
+          default_establishment_billing_group:
+            this.state.selectedEstablishmentBillingGroup.id,
+        },
+      );
     }
     this.setState({ lastConfirmDifferentMonth: false });
     if (savedBillingDetailsModified) {
@@ -301,7 +329,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
         null,
         (this.state.voucher && this.state.coupon_code) || null,
         this.state.note,
-        this.state.billing_establishment_id,
+        this.state.selectedEstablishmentBillingGroup?.id,
       );
     } else if (this.props.paymentMethod === 'terminal') {
       this.setState({ loading: true });
@@ -331,7 +359,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
         },
         (this.state.voucher && this.state.coupon_code) || null,
         this.state.note,
-        this.state.billing_establishment_id,
+        this.state.selectedEstablishmentBillingGroup?.id,
       );
     } else {
       this.setState({ loading: true });
@@ -358,7 +386,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
         },
         (this.state.voucher && this.state.coupon_code) || null,
         this.state.note,
-        this.state.billing_establishment_id,
+        this.state.selectedEstablishmentBillingGroup?.id,
       );
     }
   };
@@ -724,34 +752,27 @@ export class SubscriptionPayment extends React.Component<Props, State> {
           </>
         )}
         {this.props.enableMultiLocalization &&
-          this.props.withEstablishment &&
-          this.props.establishments?.length !== 0 && (
+          !!this.props?.establishmentBillingGroups?.length && (
             <div className={classes.establishmentSection}>
-              <Typography className={classes.sectionTitle} variant="h6">
-                {this.props.t(
-                  'invoice:section.invoiceItemList.billing_establishment',
-                )}
-              </Typography>
-              <Divider className={classes.divider} />
-              <EstablishmentSelector
-                closeMenuOnSelect
-                isOptionDisabled
-                noMulti
-                targetParentElement
-                establishments={this.props.establishments}
-                isClearable={!this.props.forceEstablishmentSelection}
-                isLoading={this.props.establishmentLoading}
-                isRequired={this.props.forceEstablishmentSelection}
-                requiredValueIsMissing={
-                  this.state.requiredEstablishmentIsMissing
+              <CheckoutBillingGroupSelector
+                enableMultiLocalization={this.props.enableMultiLocalization}
+                establishmentBillingGroups={
+                  this.props.establishmentBillingGroups
                 }
-                selectedEstablishments={[this.state.billing_establishment_id]}
-                selectOption={(item: { value: number, label: string }) => {
+                selectedEstablishmentBillingGroup={
+                  this.state.selectedEstablishmentBillingGroup
+                }
+                setIsEstablishmentBillingGroupSelected={(bool: boolean) =>
+                  this.setState({ requiredEstablishmentIsMissing: bool })
+                }
+                setSelectedEstablishmentBillingGroup={(
+                  establishmentBillingGroup: EstablishmentBillingGroup,
+                ) =>
                   this.setState({
-                    billing_establishment_id: item ? item.value : null,
-                    requiredEstablishmentIsMissing: !item,
-                  });
-                }}
+                    selectedEstablishmentBillingGroup:
+                      establishmentBillingGroup,
+                  })
+                }
               />
             </div>
           )}
@@ -871,7 +892,10 @@ export class SubscriptionPayment extends React.Component<Props, State> {
                 processing ||
                 (showContractTermsCheckbox &&
                   !this.state.contractTermsChecked) ||
-                !areBillingDetailsProvided
+                !areBillingDetailsProvided ||
+                (this.props.enableMultiLocalization &&
+                  this.props.establishmentBillingGroups?.length &&
+                  !this.state.selectedEstablishmentBillingGroup)
               }
               id="stripe-pay"
               onClick={() => {

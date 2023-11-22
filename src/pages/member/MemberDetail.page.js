@@ -60,10 +60,13 @@ import {
   getMemberCustomFormFilled,
   excludeDraftCustomFormFilled,
 } from '../../libs/custom-form/selectors';
-import { fetchEstablishments } from '../../libs/establishment/actions';
-import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
+import {
+  fetchEstablishments,
+  fetchAllEstablishmentBillingGroup as fetchEstablishmentBillingGroupAction,
+} from '../../libs/establishment/actions';
+import { getEnabledEstablishmentBillingGroups } from '../../libs/establishment/selectors';
 import type { CustomFormFilled } from '../../libs/custom-form/types';
-import type { Establishment } from '../../libs/establishment/types';
+import type { EstablishmentBillingGroup } from '../../libs/establishment/types';
 import type { OptionCallback } from '../../state/types';
 import MemberArchiveDialog from '../../libs/member/components/MemberArchiveDialog.component';
 import { withMemberBannerHOC } from '../../hocs/banner.hoc';
@@ -162,7 +165,7 @@ type Props = {
   customFormFilledList: Array<CustomFormFilled>,
   fetchMemberCustomFormFilled: (memberId: number) => void,
   fetchEstablishments: () => void,
-  establishmentList: Array<Establishment>,
+  fetchEstablishmentBillingGroup: () => void,
   fetchMember: (id: number) => void,
   setOpenArchiveDialog: (b: boolean) => void,
   interrogateMemberStatus: (id: number, options?: OptionCallback) => void,
@@ -188,6 +191,7 @@ type Props = {
   getUnreadAnswersCountAction: (params: CommunicationContext) => void,
   pageHeight: number,
   objectLevelPermissions: ObjectLevelPermissions,
+  establishmentBillingGroups?: EstablishmentBillingGroup,
 };
 
 const getTabsData = (
@@ -299,6 +303,13 @@ export class MemberDetail extends React.Component<Props> {
       this.props.fetchNumberVideoPurchase({ member_id: this.props.id });
       this.props.fetchMemberCustomFormFilled(this.props.id);
       this.props.fetchEstablishments();
+      if (this.props.theme.enable_multi_localization) {
+        this.props.fetchEstablishmentBillingGroup({
+          params: {
+            company: this.props.companyId,
+          },
+        });
+      }
       this.props.fetchMember(this.props.id);
 
       this.props.fetchProgram({
@@ -527,7 +538,7 @@ export class MemberDetail extends React.Component<Props> {
               },
             )}
             enableMultiLocalization={this.props.theme.enable_multi_localization}
-            establishments={this.props.establishmentList}
+            establishmentBillingGroups={this.props.establishmentBillingGroups}
             generalTermsAndConditions={
               this.props.theme.general_terms_and_conditions
             }
@@ -592,13 +603,13 @@ export default compose(
       customFormFilledList: excludeDraftCustomFormFilled(
         getMemberCustomFormFilled,
       )(state, id),
-      establishmentList: getAvailableEstablishmentList(state),
       memberArchiveStatus: getMemberArchiveStatus(state, id),
       memberArchiveLoading: state.member.archive.loading,
       memberToArchive: getMemberDetail(state, id),
       stripeReaders: getStripeReaders(state),
       numberOfUnreadAnswers: state.communicationV2.unreadAnswers.count,
       objectLevelPermissions: getObjectPermissions(state),
+      establishmentBillingGroups: getEnabledEstablishmentBillingGroups(state),
     }),
     {
       billMember: (id) => pushRouter(`/invoice/bill-member/${id}/`),
@@ -615,6 +626,7 @@ export default compose(
       fetchNumberVideoPurchase,
       fetchMemberCustomFormFilled,
       fetchEstablishments,
+      fetchEstablishmentBillingGroup: fetchEstablishmentBillingGroupAction,
       archiveMember,
       unArchiveMember,
       interrogateMemberStatus,

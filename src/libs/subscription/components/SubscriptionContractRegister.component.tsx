@@ -27,7 +27,7 @@ import MemberSearchModal from '../../member/components/MemberSearchModal.compone
 // @ts-expect-error
 import SubscriptionContractListItem from './SubscriptionContractListItem.component';
 import ContractTermsDialog from './contract/ContractTermsDialog.component';
-import type { Establishment } from '../../establishment/types';
+import type { EstablishmentBillingGroup } from '../../establishment/types';
 import type { StripeReader } from '#libs/terminal/types';
 import type { Contract } from '../types';
 import type { Member } from '../../member/types';
@@ -55,7 +55,7 @@ type OwnProps = {
   refreshSavedPaymentMethodList: () => void;
   waiver: string;
   generalTermsAndConditions: string;
-  establishments: Establishment[];
+  establishmentBillingGroups?: EstablishmentBillingGroup[];
   enableMultiLocalization: boolean;
   stripeReaders: StripeReader[];
   companyId?: number;
@@ -311,7 +311,7 @@ export const SubscriptionContractRegister = (props: Props) => {
           date={props.date}
           enabledPaymentMethods={props.enabledPaymentMethods}
           enableMultiLocalization={props.enableMultiLocalization}
-          establishments={props.establishments}
+          establishmentBillingGroups={props.establishmentBillingGroups}
           member={props.member}
           onCancel={props.onClose}
           onlinePaymentEnabled={props.onlinePaymentEnabled}
@@ -382,7 +382,7 @@ export default compose<Props, OwnProps>(
         options: OptionCallback | null,
         coupon: string | null,
         note: string | null,
-        billing_establishment_id: number | null,
+        establishment_billing_group_id: number | null,
       ) => {
         const first_billing_timestamp = moment(date, 'YYYY-MM-DD').unix();
 
@@ -397,7 +397,7 @@ export default compose<Props, OwnProps>(
           coupon,
           first_billing_timestamp,
           note,
-          billing_establishment_id,
+          establishment_billing_group_id,
           with_prorata: !!contract.month_billing_day,
         };
         registerContractBackground(contract.id, data, {

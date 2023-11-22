@@ -506,7 +506,6 @@ const QuicksaleInterface: React.FC<Props> = ({
           contract={contractToSubscribe}
           enabledPaymentMethods={enabledPaymentMethods ?? []}
           enableMultiLocalization={theme.enable_multi_localization}
-          establishments={establishmentList ?? []}
           generalTermsAndConditions={theme.general_terms_and_conditions}
           member={memberToSubscribe}
           onClose={closeSubscriptionContractModal}

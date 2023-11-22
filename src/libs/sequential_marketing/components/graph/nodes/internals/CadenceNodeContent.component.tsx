@@ -61,14 +61,14 @@ const CadenceNodeContent: React.FC<CadenceNodeContentProps> = ({
 
   const marketingActionOptions = useMarketingActionOptions({
     addMarketingAction,
-    marketingActionToExclude: marketingActionList?.map((marketingAction) =>
-      getMarketingActionType(marketingAction),
+    marketingActionToExclude: (marketingActionList ?? [])?.map(
+      (marketingAction) => getMarketingActionType(marketingAction),
     ),
   });
 
   return (
     <div className={classes.container}>
-      {!!marketingActionList && marketingActionList.length > 0 && (
+      {marketingActionList?.length > 0 && (
         <div className={classes.chipSection}>
           {marketingActionList.map(
             (marketingAction) =>

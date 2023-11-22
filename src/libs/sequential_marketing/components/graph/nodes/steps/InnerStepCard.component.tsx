@@ -72,8 +72,7 @@ const InnerStepContent: React.FC<InnerStepContentProps> = React.memo(
     getEmailTemplate,
     getTag,
   }) => {
-    const isMarctingActionFull =
-      !!marketingActionList && marketingActionList.length >= 5;
+    const isMarctingActionFull = marketingActionList?.length >= 5;
 
     return (
       <CadenceNodeContent
@@ -84,7 +83,7 @@ const InnerStepContent: React.FC<InnerStepContentProps> = React.memo(
         editMarketingAction={editMarketingAction}
         getEmailTemplate={getEmailTemplate}
         getTag={getTag}
-        marketingActionList={!!marketingActionList && marketingActionList}
+        marketingActionList={marketingActionList}
       />
     );
   },

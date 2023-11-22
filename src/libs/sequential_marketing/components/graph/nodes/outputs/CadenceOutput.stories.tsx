@@ -10,7 +10,7 @@ import {
   triggerBatchFactory,
   triggerFactory,
 } from '#libs/sequential_marketing/factories';
-import { smartlistFactory } from '#libs/smart-list/factories';
+import { smartlistBatchFactory } from '#libs/smart-list/factories';
 
 export default {
   title: 'Components/Cadences/CadenceNodes/Output',
@@ -48,7 +48,10 @@ const Template: ComponentStory<typeof CadenceOutput> = (
   args: CadenceOutputProps,
 ) => <CadenceOutput {...args} />;
 
-const getSmartlist = (id: number) => smartlistFactory(id);
+const smartlists = smartlistBatchFactory(5);
+const smartlistIds = smartlists.map((smartlist) => smartlist.id);
+const getSmartlist = (id: number) =>
+  smartlists.find((smartlist) => smartlist.id === id);
 
 export const EmptyWin = Template.bind({});
 EmptyWin.args = {
@@ -77,6 +80,6 @@ export const WithTriggersDisabled = Template.bind({});
 WithTriggersDisabled.args = {
   status: DestinationStatus.WIN,
   disabled: true,
-  triggerList: triggerBatchFactory(2),
+  triggerList: triggerBatchFactory(2, smartlistIds),
   getSmartlist: getSmartlist,
 };

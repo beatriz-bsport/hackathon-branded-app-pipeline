@@ -1,6 +1,5 @@
 import { faker } from '@faker-js/faker';
 
-import { smartlistFactory } from '#libs/smart-list/factories';
 import {
   FilterIdentifier,
   TriggerIdentifier,
@@ -135,7 +134,7 @@ export function triggerBatchFactory(
     )
       return triggerFactory(
         kind,
-        faker.helpers.arrayElement(smartlistIds) || smartlistFactory().id,
+        faker.helpers.arrayElement(smartlistIds) ?? 0,
       );
     return triggerFactory(kind);
   });

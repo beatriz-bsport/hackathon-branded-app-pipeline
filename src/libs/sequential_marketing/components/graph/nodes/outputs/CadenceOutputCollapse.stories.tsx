@@ -13,7 +13,7 @@ import {
   triggerBatchFactory,
   triggerFactory,
 } from '#libs/sequential_marketing/factories';
-import { smartlistFactory } from '#libs/smart-list/factories';
+import { smartlistBatchFactory } from '#libs/smart-list/factories';
 
 import type { SmartList } from '#libs/smart-list/types';
 import type { ConnectedTrigger } from '#libs/sequential_marketing/types';
@@ -57,7 +57,10 @@ type NewProps = CadenceOutputCollapseProps & {
   getSmartlist: (id: number) => SmartList;
 };
 
-const getSmartlist = (id: number) => smartlistFactory(id);
+const smartlists = smartlistBatchFactory(5);
+const smartlistIds = smartlists.map((smartlist) => smartlist.id);
+const getSmartlist = (id: number) =>
+  smartlists.find((smartlist) => smartlist.id === id);
 
 const CadenceTemplate = (args: NewProps) => (
   <CadenceOutputCollapse {...args}>
@@ -79,7 +82,7 @@ Simple.args = {
   isOpen: false,
   disabled: false,
   getSmartlist: getSmartlist,
-  triggerListWin: triggerBatchFactory(1),
+  triggerListWin: triggerBatchFactory(1, smartlistIds),
   triggerListFail: [triggerFactory(TriggerKind.ONLY_TIMEOUT)],
 };
 
@@ -88,6 +91,6 @@ MultipleTriggers.args = {
   isOpen: false,
   disabled: false,
   getSmartlist: getSmartlist,
-  triggerListWin: triggerBatchFactory(6),
-  triggerListFail: triggerBatchFactory(3),
+  triggerListWin: triggerBatchFactory(6, smartlistIds),
+  triggerListFail: triggerBatchFactory(3, smartlistIds),
 };

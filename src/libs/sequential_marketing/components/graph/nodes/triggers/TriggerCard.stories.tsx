@@ -1,7 +1,7 @@
 import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import type { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import TriggerCard, { type TriggerCardProps } from './TriggerCard.component';
+import TriggerCard from './TriggerCard.component';
 import { TriggerKind } from '#libs/sequential_marketing/constants';
 import { triggerFactory } from '#libs/sequential_marketing/factories';
 import { smartlistFactory } from '#libs/smart-list/factories';
@@ -18,9 +18,38 @@ export default {
     },
   },
   argTypes: {
+    trigger: {
+      control: { type: 'object' },
+      description: 'The connected trigger object.',
+    },
+    canBeDeleted: {
+      control: { type: 'boolean' },
+      description: 'Specifies whether the connected trigger can be deleted.',
+      defaultValue: true,
+    },
+    disabled: {
+      control: { type: 'boolean' },
+      description: 'Specifies whether the connected trigger is disabled.',
+    },
+    isSelected: {
+      control: { type: 'boolean' },
+      description: 'Specifies whether the connected trigger is selected.',
+    },
+    changeConnectedTriggerKind: {
+      action: 'changeConnectedTriggerKind',
+      description: 'Function to change the connected trigger kind.',
+    },
+    getSmartlist: {
+      action: 'getSmartlist',
+      description: 'Function to get the associated smartlist from its id.',
+    },
+    onCardClick: {
+      action: 'onCardClick',
+      description: 'Handler function for when the card is clicked.',
+    },
     onDelete: {
       action: 'onDelete',
-      description: 'Action to delete the trigger',
+      description: 'Handler function for trigger deletion.',
     },
   },
   decorators: [
@@ -39,7 +68,7 @@ export default {
 } as ComponentMeta<typeof TriggerCard>;
 
 const Template: ComponentStory<typeof TriggerCard> = (
-  args: TriggerCardProps,
+  args: React.ComponentProps<typeof TriggerCard>,
 ) => <TriggerCard {...args} />;
 
 const getSmartlist = (id: number) => smartlistFactory(id);

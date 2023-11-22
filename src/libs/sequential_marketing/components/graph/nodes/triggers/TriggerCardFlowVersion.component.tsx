@@ -23,6 +23,7 @@ type FlowProps = {
       React.ComponentProps<typeof UniqueTriggerBubble>,
       'onConfirm' | 'smartlists'
     >;
+    canBeDeleted: boolean;
     resetFakerTrigger: () => void;
   };
 };
@@ -44,7 +45,7 @@ export const TriggerCardFlowVersion: React.FC<FlowProps> = ({ data }) => {
 
   const handleClick = React.useCallback(
     (event: React.MouseEvent<HTMLButtonElement>) => {
-      data.onCardClick?.(event);
+      data?.onCardClick?.(event);
       setAnchorEl(event?.currentTarget);
     },
     [data, setAnchorEl],
@@ -57,10 +58,10 @@ export const TriggerCardFlowVersion: React.FC<FlowProps> = ({ data }) => {
 
   const handleSubmitForm = React.useCallback(
     (trigger: ConnectedTrigger) => {
-      data.bubble?.onConfirm?.(trigger);
+      data?.bubble?.onConfirm?.(trigger);
       setAnchorEl(null);
     },
-    [data.bubble, setAnchorEl],
+    [data?.bubble, setAnchorEl],
   );
 
   const handleChangeConnectedTriggerKind = React.useCallback(
@@ -80,14 +81,15 @@ export const TriggerCardFlowVersion: React.FC<FlowProps> = ({ data }) => {
       />
       <div ref={triggerCardRef}>
         <TriggerCard
+          canBeDeleted={data?.canBeDeleted}
           changeConnectedTriggerKind={handleChangeConnectedTriggerKind}
-          disabled={data.disabled}
-          getSmartlist={data.getSmartlist}
-          isSelected={data.isSelected}
+          disabled={data?.disabled}
+          getSmartlist={data?.getSmartlist}
+          isSelected={data?.isSelected}
           onCardClick={handleClick}
-          onDelete={data.onDelete}
-          step={data.step}
-          trigger={data.trigger}
+          onDelete={data?.onDelete}
+          step={data?.step}
+          trigger={data?.trigger}
         />
       </div>
       <HiddenHandle
@@ -109,8 +111,8 @@ export const TriggerCardFlowVersion: React.FC<FlowProps> = ({ data }) => {
           smartlists={data?.bubble?.smartlists}
           trigger={
             newTriggerKind !== null
-              ? changeConnectedTriggerKind(data.trigger, newTriggerKind)
-              : data.trigger
+              ? changeConnectedTriggerKind(data?.trigger, newTriggerKind)
+              : data?.trigger
           }
         />
       </Popover>

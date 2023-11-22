@@ -15,36 +15,37 @@ import {
   triggerIconByKind,
 } from '#libs/sequential_marketing/components/helpers/utils';
 
-import type {
-  CadenceStep,
-  ConnectedTrigger,
-} from '#libs/sequential_marketing/types';
+import type { ConnectedTrigger } from '#libs/sequential_marketing/types';
 import type { SmartList } from '#libs/smart-list/types';
 import type { MenuAction, NestedMenuAction } from '#components/menu/types';
+import type { StoredStep } from '#libs/sequential_marketing/components/graph/hooks/types';
 
 export type TriggerCardProps = {
-  step: CadenceStep;
+  step: StoredStep;
   trigger: ConnectedTrigger;
-  isSelected?: boolean;
+  canBeDeleted?: boolean;
   disabled?: boolean;
+  isSelected?: boolean;
   changeConnectedTriggerKind: (triggerKind: TriggerKind) => void;
   getSmartlist: (id: number) => SmartList;
   onCardClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  onDelete?: () => void;
+  onDelete: () => void;
 };
 
-type TriggerCardHeaderProps = {
+type HeaderProps = {
   actions: Immutable.ImmutableArray<NestedMenuAction>;
   name: string;
+  customIconForActions?: string;
 } & Pick<TriggerCardProps, 'trigger' | 'getSmartlist'>;
 
-const TriggerCardHeader: React.FC<TriggerCardHeaderProps> = React.memo(
-  ({ actions, name, trigger, getSmartlist }) => {
+const TriggerCardHeader: React.FC<HeaderProps> = React.memo(
+  ({ actions, name, trigger, customIconForActions, getSmartlist }) => {
     return (
       <CadenceNodeTitle
         hasNestedActions
         actions={actions}
         color={SequentialMarketingColors.TRIGGER_COLOR}
+        customIconForActions={customIconForActions}
         getSmartlist={getSmartlist}
         icon={getTriggerIcon(trigger)}
         name={name}
@@ -56,8 +57,9 @@ const TriggerCardHeader: React.FC<TriggerCardHeaderProps> = React.memo(
 
 const TriggerCard: React.FC<TriggerCardProps> = ({
   trigger,
-  isSelected,
+  canBeDeleted,
   disabled,
+  isSelected,
   changeConnectedTriggerKind,
   getSmartlist,
   onCardClick,
@@ -69,7 +71,7 @@ const TriggerCard: React.FC<TriggerCardProps> = ({
 
   const onClickDelete = useCallback(() => {
     setDisableRipple(true);
-    onDelete();
+    onDelete?.();
     setClickDone(true);
   }, [onDelete]);
 
@@ -91,7 +93,7 @@ const TriggerCard: React.FC<TriggerCardProps> = ({
       [changeConnectedTriggerKind, kind, t],
     );
 
-  const triggerActions: Immutable.ImmutableArray<NestedMenuAction> =
+  const connectedTriggerActions: Immutable.ImmutableArray<NestedMenuAction> =
     useMemo(() => {
       return Immutable([
         {
@@ -126,7 +128,12 @@ const TriggerCard: React.FC<TriggerCardProps> = ({
       disableRipple={disableRipple}
       header={
         <TriggerCardHeader
-          actions={triggerActions}
+          actions={
+            canBeDeleted && !!onDelete
+              ? connectedTriggerActions
+              : changeConnectedTriggerKindActions
+          }
+          customIconForActions={canBeDeleted && !!onDelete ? '' : 'Autorenew'}
           getSmartlist={getSmartlist}
           name={t(`cadence.triggers.kinds.${kind}`)}
           trigger={trigger}

@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import chroma from 'chroma-js';
 import Immutable from 'seamless-immutable';
+import classNames from 'classnames';
 
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import type { Theme } from '@material-ui/core/styles';
@@ -62,10 +63,11 @@ const MenuSelectorTextButton: React.FC<Props> = ({
   );
 
   const handleOnClickAction = useCallback(
-    (onClick: () => void) => (event: React.MouseEvent<HTMLElement>) => {
+    (action: MenuAction) => (event: React.MouseEvent<HTMLElement>) => {
       event.stopPropagation();
       event.preventDefault();
-      onClick?.();
+      !action?.isDisabled && setAnchorEl(null);
+      !action?.isDisabled && action?.onClick?.();
     },
     [],
   );
@@ -73,49 +75,54 @@ const MenuSelectorTextButton: React.FC<Props> = ({
   return (
     <div className={classes.container}>
       <ClickAwayListener onClickAway={handleClickAway}>
-        <Button
-          className={classes.button}
-          disabled={isDisabled}
-          onClick={handleClick}
-          variant="text"
-        >
-          {label}
-        </Button>
-      </ClickAwayListener>
-      <Menu
-        anchorEl={anchorEl}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-        getContentAnchorEl={null}
-        id="action-menu"
-        onClose={handleClickAway}
-        open={!!anchorEl}
-        PaperProps={{
-          style: {
-            marginTop: '4px',
-          },
-        }}
-        transformOrigin={{ vertical: 'top', horizontal: 'left' }}
-      >
-        {actionList.map((action) => (
-          <MenuItem
-            key={`${action.icon}_${action.label}`}
-            className={classes.menuItem}
-            onClick={handleOnClickAction(action.onClick)}
-            onContextMenu={handleRightClick}
-            value={action.label}
+        <>
+          <Button
+            className={classes.button}
+            disabled={isDisabled}
+            onClick={handleClick}
+            variant="text"
           >
-            <CustomMuiIcon
-              defaultBackGround
-              customColor={action.customColor || customColor}
-              icon={action.icon}
-              withBackground={false}
-            />
-            <Typography className={classes.label} variant="body1">
-              {action.label}
-            </Typography>
-          </MenuItem>
-        ))}
-      </Menu>
+            {label}
+          </Button>
+
+          <Menu
+            anchorEl={anchorEl}
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+            getContentAnchorEl={null}
+            id="action-menu"
+            onClose={handleClickAway}
+            open={!!anchorEl}
+            PaperProps={{
+              style: {
+                marginTop: '4px',
+              },
+            }}
+            transformOrigin={{ vertical: 'top', horizontal: 'left' }}
+          >
+            {actionList.map((action) => (
+              <MenuItem
+                key={`${action.icon}_${action.label}`}
+                className={classNames(classes.menuItem, {
+                  [classes.disabledAction]: !!action.isDisabled,
+                })}
+                onClick={handleOnClickAction(action)}
+                onContextMenu={handleRightClick}
+                value={action.label}
+              >
+                <CustomMuiIcon
+                  defaultBackGround
+                  customColor={action.customColor || customColor}
+                  icon={action.icon}
+                  withBackground={false}
+                />
+                <Typography className={classes.label} variant="body1">
+                  {action.label}
+                </Typography>
+              </MenuItem>
+            ))}
+          </Menu>
+        </>
+      </ClickAwayListener>
     </div>
   );
 };
@@ -154,6 +161,13 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) => ({
   },
   menuItem: {
     minHeight: theme.spacing(6),
+  },
+  disabledAction: {
+    opacity: 0.5,
+    cursor: 'default',
+    '&:hover': {
+      backgroundColor: 'inherit',
+    },
   },
 }));
 

@@ -5,6 +5,7 @@ export type MenuAction = {
   icon: string;
   onClick: () => void;
   customColor?: string;
+  isDisabled?: boolean;
 };
 
 export type NestedMenuAction = MenuAction & {

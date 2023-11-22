@@ -25,28 +25,30 @@ type ClickableChipProps = {
   onClick?: () => void;
 };
 
-const ClickableChip: React.FC<ClickableChipProps> = ({ onClick, children }) => {
-  const classes = useStyles();
+const ClickableChip: React.FC<ClickableChipProps> = React.memo(
+  ({ onClick, children }) => {
+    const classes = useStyles();
 
-  const handleClick = React.useCallback(
-    (event: React.MouseEvent<HTMLElement>) => {
-      event.stopPropagation();
-      event.preventDefault();
-      onClick();
-    },
-    [onClick],
-  );
-
-  if (onClick) {
-    return (
-      <ButtonBase className={classes.button} onClick={handleClick}>
-        {children}
-      </ButtonBase>
+    const handleClick = React.useCallback(
+      (event: React.MouseEvent<HTMLElement>) => {
+        event.stopPropagation();
+        event.preventDefault();
+        onClick();
+      },
+      [onClick],
     );
-  }
 
-  return <>{children} </>;
-};
+    if (onClick) {
+      return (
+        <ButtonBase className={classes.button} onClick={handleClick}>
+          {children}
+        </ButtonBase>
+      );
+    }
+
+    return <>{children}</>;
+  },
+);
 
 const MarketingActionChip: React.FC<Props> = ({
   marketingAction,
@@ -59,6 +61,7 @@ const MarketingActionChip: React.FC<Props> = ({
       withBackgroundOnHover
       color={SequentialMarketingColors.MARKETING_ACTION_COLOR}
       icon={getMarketingActionChipIcon(marketingAction)}
+      isClickable={!!onClick}
       name={getMarketingActionChipName({
         marketingAction,
         getTag,
@@ -69,7 +72,10 @@ const MarketingActionChip: React.FC<Props> = ({
 );
 
 const useStyles = makeStyles(() => ({
-  button: { justifyContent: 'flex-start' },
+  button: {
+    justifyContent: 'flex-start',
+    width: 'fit-content',
+  },
 }));
 
 export default React.memo(MarketingActionChip);

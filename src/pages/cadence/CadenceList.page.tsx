@@ -55,7 +55,7 @@ type Props = ConnectedPropsAndState &
   StateHandlerType &
   WithTranslation;
 
-export class CadenceDetailPage extends React.Component<Props> {
+export class CadenceListPage extends React.Component<Props> {
   componentDidMount(): void {
     this.props.fetchCadenceList();
   }
@@ -100,7 +100,7 @@ export class CadenceDetailPage extends React.Component<Props> {
         },
       });
     }
-    return this.props.updateCadence(data.id, data, {
+    return this.props.updateCadenceName(data.id, data.name, {
       onSuccess: () => {
         options?.onSuccess?.();
         this.handleCloseCreationForm();
@@ -287,18 +287,23 @@ const mapWithHandlers = {
       });
     },
 
-  updateCadence:
+  updateCadenceName:
     (props: ConnectedPropsAndState) =>
-    (id: number, data: { name: string }, options?: OptionCallback) => {
-      props.updateCadenceAction(id, data, {
-        onSuccess: () => {
-          options?.onSuccess?.();
+    (id: number, name: string, options?: OptionCallback) => {
+      props.updateCadenceAction(
+        id,
+        { name },
+        {
+          onSuccess: () => {
+            options?.onSuccess?.();
+          },
+          onError: () => {
+            options?.onError?.();
+          },
         },
-        onError: () => {
-          options?.onError?.();
-        },
-      });
+      );
     },
+
   updateCadencePriorityIndex:
     (props: ConnectedPropsAndState) =>
     (
@@ -316,6 +321,7 @@ const mapWithHandlers = {
         },
       });
     },
+
   archiveCadence: (props: ConnectedPropsAndState) => () => {
     if (props.cadenceToArchive) {
       props.archiveCadenceAction(props.cadenceToArchive?.id, {
@@ -413,4 +419,4 @@ export default compose(
   connector,
   withStateHandlers(StateHandlersInit, StateHandlersSetter),
   withHandlers(mapWithHandlers),
-)(CadenceDetailPage);
+)(CadenceListPage);

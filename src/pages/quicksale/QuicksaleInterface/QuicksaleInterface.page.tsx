@@ -69,8 +69,8 @@ import type { DynamicFilterDataType } from '#libs/datatype-filtering/types';
 
 import { getCompanyCountry, getStripeRegion } from '#libs/theme/selectors';
 
-import { getAvailableEstablishmentList } from '#libs/establishment/selectors';
-import { fetchEstablishments as fetchEstablishmentsAction } from '#libs/establishment/actions';
+import { getEnabledEstablishmentBillingGroups } from '#libs/establishment/selectors';
+import { fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction } from '#libs/establishment/actions';
 
 import { getStripeReaders } from '#libs/terminal/selectors';
 import { fetchStripeReaders as fetchStripeReadersAction } from '#libs/terminal/actions';
@@ -110,7 +110,7 @@ const QuicksaleInterface: React.FC<Props> = ({
   giftcardById,
   contractById,
   savedPaymentMethodList,
-  establishmentList,
+  establishmentBillingGroups,
   stripeReaders,
   giftcardBackgroundImageList,
   tagsById,
@@ -134,9 +134,9 @@ const QuicksaleInterface: React.FC<Props> = ({
   deletebackgroundDialog,
   registerContractBackground,
   fetchStripeReaders,
-  fetchEstablishments,
   fetchGiftcardBackgroundImageList,
   fetchAllTags,
+  fetchAllEstablishmentBillingGroup,
 }) => {
   const { t } = useTranslation('quicksale');
 
@@ -287,19 +287,21 @@ const QuicksaleInterface: React.FC<Props> = ({
     fetchShopItemList();
     handleGetDynamicDataForFilters('subshop');
     handleGetDynamicDataForFilters('giftcard');
-    fetchEstablishments();
     fetchAllTags();
+    if (theme.enable_multi_localization) {
+      fetchAllEstablishmentBillingGroup({ params: { company: theme.company } });
+    }
   }, [
     fetchOpenQuicksaleBaskets,
     fetchMembers,
     fetchPOSMember,
-    theme.company,
+    theme,
     fetchQuicksaleConfiguration,
     handleGetDynamicDataForFilters,
     fetchPaymentComboList,
     fetchShopItemList,
-    fetchEstablishments,
     fetchAllTags,
+    fetchAllEstablishmentBillingGroup,
   ]);
   // =====================================
 
@@ -506,6 +508,7 @@ const QuicksaleInterface: React.FC<Props> = ({
           contract={contractToSubscribe}
           enabledPaymentMethods={enabledPaymentMethods ?? []}
           enableMultiLocalization={theme.enable_multi_localization}
+          establishmentBillingGroups={establishmentBillingGroups ?? []}
           generalTermsAndConditions={theme.general_terms_and_conditions}
           member={memberToSubscribe}
           onClose={closeSubscriptionContractModal}
@@ -569,7 +572,7 @@ const connector = connect(
     giftcardById: getGiftcardData(state),
     contractById: getContractsById(state),
     savedPaymentMethodList: getSavedPaymentMethodList(state),
-    establishmentList: getAvailableEstablishmentList(state),
+    establishmentBillingGroups: getEnabledEstablishmentBillingGroups(state),
     stripeReaders: getStripeReaders(state),
     giftcardBackgroundImageList: getGiftcardBackgroundImageList(state),
     tagsById: getTagsDict(state),
@@ -595,7 +598,7 @@ const connector = connect(
     deletebackgroundDialog: deletebackgroundDialogAction,
     registerContractBackground: registerContractBackgroundAction,
     fetchStripeReaders: fetchStripeReadersAction,
-    fetchEstablishments: fetchEstablishmentsAction,
+    fetchAllEstablishmentBillingGroup: fetchAllEstablishmentBillingGroupAction,
     fetchGiftcardBackgroundImageList: fetchGiftcardBackgroundImageListAction,
     fetchAllTags: fetchAllTagsAction,
   },

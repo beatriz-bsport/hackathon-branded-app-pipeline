@@ -32,6 +32,25 @@ const convertParams = (params, mode) => {
     });
     return parsedParams;
   }
+
+  if (mode === 'boolean') {
+    const parsedParams = Object.entries(params).reduce(
+      (cleanedParsedParams, [currentKey, currentValue]) => {
+        if (
+          currentValue &&
+          typeof currentValue === 'string' &&
+          ['true', 'false'].includes(currentValue.toLowerCase())
+        ) {
+          cleanedParsedParams[currentKey] =
+            currentValue.toLowerCase() === 'true';
+        }
+        return cleanedParsedParams;
+      },
+      {},
+    );
+
+    return parsedParams;
+  }
 };
 
 export default function withQueryParams([

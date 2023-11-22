@@ -109,6 +109,9 @@ type OwnProps = {
     levels: number[];
     establishment_group__in: number[];
   };
+  onlineFilter: {
+    is_online: boolean | undefined;
+  };
   setOtherParams: (key: string) => (value: any) => void;
   setFilters: (key: string) => (value: any) => void;
   goToPackPayment?: (packId: number, offerId: number) => void;
@@ -215,6 +218,10 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       }
     }
 
+    if (typeof this.props.onlineFilter?.is_online === 'boolean') {
+      optionalParams.is_online = this.props.onlineFilter?.is_online;
+    }
+
     this.props.fetchMetaActivityBulk(this.props.filters.activity__in || []);
 
     this.props.fetchNextAvailableOffer({
@@ -249,6 +256,12 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
 
   componentDidUpdate(prevProps: Props, prevState: State) {
     const filtersPropsChanged = !isEqual(prevProps.filters, this.props.filters);
+
+    const onlineFilterPropsHasChanged = !isEqual(
+      prevProps.onlineFilter,
+      this.props.onlineFilter,
+    );
+
     const selectedWeekChanged = this.getStartCalendarWeekOnToday()
       ? !moment(prevProps.otherParams.date).isSame(
           moment(this.props.otherParams.date),
@@ -256,7 +269,11 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       : !moment(prevProps.otherParams.date)
           .startOf('week')
           .isSame(moment(this.props.otherParams.date).startOf('week'));
-    if (filtersPropsChanged || selectedWeekChanged) {
+    if (
+      filtersPropsChanged ||
+      selectedWeekChanged ||
+      onlineFilterPropsHasChanged
+    ) {
       this.fetchData();
     }
     const filtersEstablishmentsChanged = !isEqual(
@@ -719,6 +736,12 @@ export default compose(
     'arrayNumber',
   ]),
   withQueryParams([
+    ['is_online'],
+    'onlineFilter',
+    'setOnlineFilter',
+    'boolean',
+  ]),
+  withQueryParams([
     ['filtersOpen', 'date', 'onlyDay'],
     'otherParams',
     'setOtherParams',
@@ -738,5 +761,9 @@ export default compose(
   CalendarDataContainer,
   withPostMessageOnPropsUpdate<FinalProps>([
     { propName: 'filters', messageType: 'bsport:calendar:filter:update' },
+    {
+      propName: 'onlineFilter',
+      messageType: 'bsport:calendar:filter:update',
+    },
   ]),
 )(MarketplaceCalendar);

@@ -22,6 +22,7 @@ import { PAYMENT_STRIPE_TERMINAL_FAKE } from '#libs/payment/utils';
 import type { FeatureList } from '#libs/company/types';
 import { UPSELL_IDENTIFIER_STRIPE_TERMINAL } from '#libs/platform-billing/upsell-identifiers';
 import { hasUpsell } from '#libs/platform-billing/utils';
+import type { StripeReader } from '#libs/terminal/types';
 
 type OwnProps = {
   onChange: (param: string) => void;
@@ -30,6 +31,7 @@ type OwnProps = {
   enabledPaymentGroupMethodIdentifier?: Array<number>;
   disabled: boolean;
   onlinePaymentEnabled?: boolean;
+  stripeReaders?: StripeReader[];
 };
 type Props = OwnProps;
 export const PaymentMethodSwitcher: React.FC<Props> = (props) => {
@@ -127,7 +129,8 @@ export const PaymentMethodSwitcher: React.FC<Props> = (props) => {
               control={<Radio color="primary" />}
               disabled={
                 props.disabled ||
-                !hasUpsell(featureList, UPSELL_IDENTIFIER_STRIPE_TERMINAL)
+                !hasUpsell(featureList, UPSELL_IDENTIFIER_STRIPE_TERMINAL) ||
+                props.stripeReaders?.length === 0
               }
               label={t(
                 'invoice:configuration.stripeTerminal.paymentDialog.radio',

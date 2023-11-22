@@ -644,6 +644,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
               }}
               onlinePaymentEnabled={this.props.onlinePaymentEnabled}
               paymentMethod={paymentMethod}
+              stripeReaders={this.props.stripeReaders}
             />
             {!!((enabledPaymentMethods?.length || 0) > 1) && <Divider />}
             <div className={classes.cardContainer}>

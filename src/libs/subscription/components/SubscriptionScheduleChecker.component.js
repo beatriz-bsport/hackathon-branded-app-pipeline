@@ -121,6 +121,7 @@ export class SubscriptionScheduleChecker extends Component<Props, State> {
                     companyCountry,
                     withCredit: true,
                     stripeRegion,
+                    withTerminal: true,
                   },
                 )}
                 enableMultiLocalization={this.props.enableMultiLocalization}

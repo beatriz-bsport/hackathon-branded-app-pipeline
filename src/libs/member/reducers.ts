@@ -28,6 +28,7 @@ import {
   retrieveMinimalChangeEmailRequestActions,
   retrieveMemberPendingEmailRequestActions,
   updateSpiviPrivacySettingsActions,
+  updateDefaultEstablishmentBillingGroupActions,
 } from './actions';
 import { Member, MemberNote, MemberState } from './types';
 import {
@@ -124,6 +125,10 @@ const initialState: Immutable.Immutable<MemberState> = Immutable<MemberState>({
     minimal: null,
   },
   spivi_privacy_settings: {
+    error: null,
+    loading: false,
+  },
+  updateDefaultEstablishmentBillingGroup: {
     error: null,
     loading: false,
   },
@@ -607,7 +612,24 @@ export default handleActions<Immutable.Immutable<MemberState>, any>(
     [updateSpiviPrivacySettingsActions.error.toString()]: (state, action) => {
       return state.setIn(['spivi_privacy_settings', 'error'], action.payload);
     },
-
+    [updateDefaultEstablishmentBillingGroupActions.error.toString()]: (
+      state,
+      action,
+    ) => {
+      return state.setIn(
+        ['updateDefaultEstablishmentBillingGroup', 'error'],
+        action.payload,
+      );
+    },
+    [updateDefaultEstablishmentBillingGroupActions.loading.toString()]: (
+      state,
+      action,
+    ) => {
+      return state.setIn(
+        ['updateDefaultEstablishmentBillingGroup', 'loading'],
+        action.payload,
+      );
+    },
     ...GenericListReducer(membersListWithTagRepo),
     ...GenericListReducer(membersListWithoutTagRepo),
     ...GenericReducer(tagAllMemberRepo),

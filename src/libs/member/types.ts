@@ -109,6 +109,7 @@ export type Member<Tag = number, CA = number> = {
   archived: boolean;
   pending_email: string | null;
   default_billing_establishment: number | null;
+  default_establishment_billing_group: number | null;
   unsubscribe_link: string;
   spivi_privacy_settings_accepted: boolean;
   is_pos: boolean;

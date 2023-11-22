@@ -40,6 +40,7 @@ import {
   answerChangeEmailRequest as answerChangeEmailRequestAPI,
   retrievePendingEmail as retrievePendingEmailAPI,
   updateSpiviPrivacySettings as updateSpiviPrivacySettingsAPI,
+  updateDefaultEstablishmentBillingGroup as updateDefaultEstablishmentBillingGroupAPI,
 } from './api';
 import type {
   Member,
@@ -1209,3 +1210,53 @@ export function updateSpiviPrivacySettings(
     dispatch(updateSpiviPrivacySettingsActions.isLoading(false));
   };
 }
+
+export const updateDefaultEstablishmentBillingGroupActions = {
+  success: createAction<Member>(
+    'MEMBER/UPDATE_ESTABLISHMENT_BILLING_GROUP/SUCCESS',
+  ),
+  loading: createAction<boolean>(
+    'MEMBER/UPDATE_ESTABLISHMENT_BILLING_GROUP/LOADING',
+  ),
+  error: createAction<Error | null>(
+    'MEMBER/UPDATE_ESTABLISHMENT_BILLING_GROUP/ERROR',
+  ),
+};
+
+/**
+ * Updates the default establishment billing group of a member.
+ *
+ * @param {number} memberId - The ID of the member.
+ * @param {Object} payload - The payload containing the new default establishment billing group ID.
+ * @param {OptionCallback} [options] - Optional callbacks for success and error scenarios.
+ *
+ * @returns {Function} - Returns a Redux Thunk function.
+ */
+export const updateDefaultEstablishmentBillingGroup = (
+  memberId: number,
+  payload: { default_establishment_billing_group: number },
+  options?: OptionCallback<Member>,
+) => {
+  return async (dispatch: Dispatch) => {
+    dispatch(updateDefaultEstablishmentBillingGroupActions.loading(true));
+    try {
+      const response = await updateDefaultEstablishmentBillingGroupAPI(
+        memberId,
+        payload,
+      );
+      dispatch(
+        updateDefaultEstablishmentBillingGroupActions.success(response.data),
+      );
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      console.error(err);
+      dispatch(updateDefaultEstablishmentBillingGroupActions.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
+    }
+    dispatch(updateDefaultEstablishmentBillingGroupActions.loading(false));
+  };
+};

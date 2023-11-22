@@ -146,6 +146,7 @@ export function MemberFactory(
     archived: false,
     pending_email: null,
     default_billing_establishment: null,
+    default_establishment_billing_group: null,
     unsubscribe_link: faker.hacker.phrase(),
     spivi_privacy_settings_accepted: randomBoolean(),
     is_pos: Math.random() < 0.25,

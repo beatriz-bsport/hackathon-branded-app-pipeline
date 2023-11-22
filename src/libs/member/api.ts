@@ -16,6 +16,7 @@ import {
   MemberMinimal,
   MemberUploadedFile,
   FetchRecipientsParams,
+  Member,
 } from './types';
 
 const PAGE_SIZE = 300;
@@ -246,6 +247,16 @@ export async function updateSpiviPrivacySettings(
   return postAuth(
     `${API_V1_URI}/member/${memberId}/update_spivi_privacy_settings/`,
     { settings_accepted },
+  );
+}
+
+export function updateDefaultEstablishmentBillingGroup(
+  memberId: number,
+  payload: { default_establishment_billing_group: number },
+) {
+  return patchAuth<Member>(
+    `${API_V1_URI}/member/${memberId}/update_default_establishment_billing_group/`,
+    payload,
   );
 }
 

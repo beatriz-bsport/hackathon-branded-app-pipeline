@@ -263,6 +263,14 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
     setOpenNonCompatibleConsumerPass,
   ]);
 
+  const handleSelectEstablishmentBillingGroup = React.useCallback(
+    (item: { value: number, label: string }) => {
+      setBillingEstablishmentId(item ? item.value : null);
+      setRequiredEstablishmentIsMissing(!item);
+    },
+    [setBillingEstablishmentId, setRequiredEstablishmentIsMissing],
+  );
+
   const hasNoCompatiblePasses =
     !props.consumerPacksOrMaxoutLoading && props.consumerPacks.length === 0;
 
@@ -645,13 +653,7 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
                 isLoading={props.establishmentLoading}
                 requiredValueIsMissing={requiredEstablishmentIsMissing}
                 selectedEstablishments={[billingEstablishmentId]}
-                selectOption={async (item: {
-                  value: number,
-                  label: string,
-                }) => {
-                  setBillingEstablishmentId(item ? item.value : null);
-                  setRequiredEstablishmentIsMissing(!item);
-                }}
+                selectOption={handleSelectEstablishmentBillingGroup}
               />
             </div>
           )}

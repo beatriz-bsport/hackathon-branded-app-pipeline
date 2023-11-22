@@ -9,6 +9,7 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import IconButton from '@material-ui/core/IconButton';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
 
+import Config from '../../config';
 import {
   CARD_HEIGHT_IF_EMPTY,
   CARD_MAX_WIDTH,
@@ -23,6 +24,7 @@ import MenuSelectorCustomButton from '#components/menu/custom';
 import ToolTip from '#components/Tooltip.component';
 
 import type { MenuAction } from '#components/menu/types';
+import { StepMemberCountChip } from '#libs/sequential_marketing/components/graph/chips/StepMemberCountChip.component';
 
 const DEFAULT_ADD_BUTTON_COLOR = '#777';
 
@@ -50,6 +52,8 @@ export type StepCardProps = {
   isEmpty?: boolean;
   isSelected?: boolean;
   minHeight?: boolean;
+  cadenceEditMode?: boolean;
+  stepMemberCount?: number;
   onCardClick?: (event?: React.MouseEvent<HTMLButtonElement>) => void;
 } & Omit<StepCardStylesProps, 'heightSize' | 'selected'>;
 
@@ -88,6 +92,8 @@ const StepCard: React.FC<StepCardProps> = ({
   minHeight,
   selectedColor,
   withShadow,
+  cadenceEditMode,
+  stepMemberCount,
   onCardClick,
 }) => {
   const [selected, setSelected] = useState(false);
@@ -134,10 +140,23 @@ const StepCard: React.FC<StepCardProps> = ({
           disableRipple={disableRipple}
           onClick={handleClick}
         >
-          <div className={classes.card}>
-            <StepCardHeader>{header}</StepCardHeader>
-            {!!isDivided && <div className={classes.divider} />}
-            {!!content && <StepCardContent>{content}</StepCardContent>}
+          <div className={classes.stepbox}>
+            <div className={classes.stepContent}>
+              <div className={classes.card}>
+                <StepCardHeader>{header}</StepCardHeader>
+                {!!isDivided && <div className={classes.divider} />}
+                {!!content && <StepCardContent>{content}</StepCardContent>}
+              </div>
+            </div>
+            {!['staging', 'prodcution'].includes(
+              Config.REACT_APP_SENTRY_ENVIRONMENT,
+            ) &&
+              !cadenceEditMode &&
+              typeof stepMemberCount !== 'undefined' && (
+                <div className={classes.stepMemberCount}>
+                  <StepMemberCountChip isVisible count={stepMemberCount} />
+                </div>
+              )}
           </div>
         </ButtonBase>
       </ClickAwayListener>
@@ -239,6 +258,24 @@ const useStyles = makeStyles<Theme, StepCardStylesProps>((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  stepbox: {
+    display: 'flex',
+    flexDirection: 'column',
+    position: 'relative',
+    alignItems: 'center',
+  },
+  stepContent: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+  },
+  stepMemberCount: {
+    display: 'flex',
+    position: 'absolute',
+    transform: 'translateY(50%)',
+    bottom: 0,
   },
 }));
 

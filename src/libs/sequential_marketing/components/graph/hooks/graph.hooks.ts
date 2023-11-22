@@ -87,6 +87,7 @@ type Props = {
   deleteStepMarketingAction: (data: { id: number; stepId: number }) => void;
   getSmartlist: (id: number) => SmartList;
   getStepMarketingActions: (stepId: number) => StepMarketingActions[];
+  getStepMemberCountActions: (stepId: number) => number;
   getTag: (id: string) => Tag;
   getEmailTemplate: (id: string) => EmailTemplateSummary;
   submitMarketingActionForm: (data: {
@@ -128,6 +129,7 @@ export const useGraph = ({
   getEmailTemplate,
   getSmartlist,
   getStepMarketingActions,
+  getStepMemberCountActions,
   getTag,
   handleCreateNewStepWithTrigger,
   handleSelectedStepForEdition,
@@ -208,6 +210,7 @@ export const useGraph = ({
       getEmailTemplate,
       getSmartlist,
       getStepMarketingActions,
+      getStepMemberCountActions,
       getTag,
       handleCreateNewStepWithTrigger,
       handleGetNodeConnectedEgdes,

@@ -28,17 +28,20 @@ type EntryStepHeaderProps = {
 
 type EntryStepContentProps = {
   marketingActionList?: StepMarketingActions[];
+  stepMemberCount?: number;
   getEmailTemplate?: (id: string) => EmailTemplateSummary;
   getTag?: (id: string) => Tag;
   onClickNewMarketingAction?: () => void;
 };
 
 export type EntryStepCardProps = {
-  step: CadenceStep;
   disabled?: boolean;
   isFirstConfigurationMode?: boolean;
   isEntryFirstConfiguration?: boolean;
   isSelected?: boolean;
+  step: CadenceStep;
+  cadenceEditMode?: boolean;
+  stepMemberCount?: number;
   addMarketingAction?: () => void;
   addNextStep: (triggerKind: TriggerKind) => void;
   onCardClick: () => void;
@@ -87,6 +90,8 @@ const EntryStepCard: React.FC<EntryStepCardProps> = ({
   isSelected,
   marketingActionList,
   triggerList,
+  cadenceEditMode,
+  stepMemberCount,
   addMarketingAction,
   addNextStep,
   getEmailTemplate,
@@ -133,6 +138,7 @@ const EntryStepCard: React.FC<EntryStepCardProps> = ({
       addButtonActionList={!isFirstConfigurationMode && triggerActions}
       addButtonColor={SequentialMarketingColors.INNER_STEP_COLOR}
       addButtonLabel={t('cadence.steps.actions.addNextStep')}
+      cadenceEditMode={cadenceEditMode}
       color={SequentialMarketingColors.ENTRY_BORDER_COLOR}
       content={
         (marketingActionList?.length > 0 ||
@@ -163,6 +169,7 @@ const EntryStepCard: React.FC<EntryStepCardProps> = ({
       isSelected={isSelected}
       onCardClick={onCardClick}
       selectedColor={SequentialMarketingColors.ENTRY_COLOR}
+      stepMemberCount={stepMemberCount}
     />
   );
 };

@@ -141,6 +141,7 @@ export const EntryStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
         <EntryStepCard
           addMarketingAction={data.addMarketingAction}
           addNextStep={data.addNextStep}
+          cadenceEditMode={data.cadenceEditMode}
           disabled={data.disabled}
           getEmailTemplate={data.getEmailTemplate}
           getSmartlist={data.getSmartlist}
@@ -150,6 +151,7 @@ export const EntryStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
           marketingActionList={data.marketingActionList}
           onCardClick={data.onCardClick}
           step={data.step}
+          stepMemberCount={data.stepMemberCount}
           triggerList={data.triggerList}
         />
       </div>

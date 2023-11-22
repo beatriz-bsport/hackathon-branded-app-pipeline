@@ -23,6 +23,8 @@ export type InnerStepCardProps = {
   step: StoredStep;
   isSelected?: boolean;
   disabled?: boolean;
+  cadenceEditMode?: boolean;
+  stepMemberCount?: number;
   onDelete: () => void;
   handleConvertIntoExit: () => void;
   onCardClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
@@ -94,6 +96,8 @@ const InnerStepCard: React.FC<InnerStepCardProps> = ({
   isSelected,
   disabled,
   disableAddMarketingAction,
+  cadenceEditMode,
+  stepMemberCount,
   addMarketingAction,
   addNextStep,
   editMarketingAction,
@@ -169,6 +173,7 @@ const InnerStepCard: React.FC<InnerStepCardProps> = ({
       addButtonActionList={triggerActions}
       addButtonColor={SequentialMarketingColors.INNER_STEP_COLOR}
       addButtonLabel={t('cadence.steps.actions.addNextStep')}
+      cadenceEditMode={cadenceEditMode}
       color={SequentialMarketingColors.INNER_STEP_BORDER_COLOR}
       content={
         ((!!marketingActionList && marketingActionList.length > 0) ||
@@ -200,6 +205,7 @@ const InnerStepCard: React.FC<InnerStepCardProps> = ({
       isSelected={isSelected}
       onCardClick={onCardClick}
       selectedColor={SequentialMarketingColors.INNER_STEP_COLOR}
+      stepMemberCount={stepMemberCount}
     />
   );
 };

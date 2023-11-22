@@ -40,6 +40,8 @@ type FlowProps = {
     stepToEditId: number;
     isDeleteStepDialogHidden: boolean;
     isConvertStepIntoExitDialogHidden: boolean;
+    cadenceEditMode?: boolean;
+    stepMemberCount?: number;
     createNewMarketingAction: (value: Partial<StepMarketingActions>) => void;
     upsertMarketingAction: (value: Partial<StepMarketingActions>) => void;
     deleteStepMarketingAction: (data: { id: number; stepId: number }) => void;
@@ -258,6 +260,7 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
         <InnerStepCard
           addMarketingAction={handleCreateMarketingAction}
           addNextStep={data.addNextStep}
+          cadenceEditMode={data.cadenceEditMode}
           disableAddMarketingAction={data.disableAddMarketingAction}
           disabled={data.disabled}
           editMarketingAction={handleEditMarketingAction}
@@ -269,6 +272,7 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
           onCardClick={handleClick}
           onDelete={handleOnDelete}
           step={data.step}
+          stepMemberCount={data.stepMemberCount}
         />
       </div>
       <Handle

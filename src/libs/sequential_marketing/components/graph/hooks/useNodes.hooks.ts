@@ -178,6 +178,7 @@ type NodeRendererProps = {
   getEmailTemplate: (id: string) => EmailTemplateSummary;
   getSmartlist: (id: number) => SmartList;
   getStepMarketingActions: (stepId: number) => StepMarketingActions[];
+  getStepMemberCountActions: (stepId: number) => number;
   getTag: (id: string) => Tag;
   handleCreateNewStepWithTrigger: (
     connected_trigger: ConnectedTrigger,
@@ -233,6 +234,7 @@ export const useNodeElementsRecorder = ({
   getEmailTemplate,
   getSmartlist,
   getStepMarketingActions,
+  getStepMemberCountActions,
   getTag,
   handleCreateNewStepWithTrigger,
   handleResetFakerTrigger,
@@ -361,6 +363,8 @@ export const useNodeElementsRecorder = ({
             ...marketingActionEssentials,
             onConfirm: handleConfirmEntryActionBubble,
           },
+          cadenceEditMode,
+          stepMemberCount: getStepMemberCountActions?.(storedEntryStep?.id),
           addMarketingAction: () => {}, // TODO: code the newMA function
           addNextStep: handleAddNextStepTrigger(storedEntryStep),
           getEmailTemplate,
@@ -376,22 +380,25 @@ export const useNodeElementsRecorder = ({
     // To prevent rerender issue coming from the react flow lib :
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    cadenceEditMode,
-    isEntryActionBubbleOpen,
     storedEntryStep,
+    cadenceEditMode,
+    getStepMarketingActions,
+    getStepMemberCountActions,
+    isEntryActionBubbleOpen,
+    handleAddNextStepTrigger,
     smartlists,
     cadence.entries,
     isEntryFirstConfiguration,
     isFirstConfigurationMode,
     getEmailTemplate,
     getSmartlist,
-    getStepMarketingActions,
     getTag,
     handleAddNextStepTrigger,
     handleConfirmEntryActionBubble,
     handleConfirmEntryCriteriaBubble,
     onClickEntryStep,
     onConnectToInnerStep,
+    onClickEntryStep,
     setCurrentStepConfiguration,
   ]);
 
@@ -501,6 +508,8 @@ export const useNodeElementsRecorder = ({
           hideConvertStepIntoExitDialogCadenceIds,
           isDeleteStepDialogHidden,
           isConvertStepIntoExitDialogHidden,
+          cadenceEditMode,
+          stepMemberCount: getStepMemberCountActions?.(stepNode?.id),
           addNextStep: handleAddNextStepTrigger(stepNode),
           upsertMarketingAction,
           endStepEdition: handleResetStepToEditId,

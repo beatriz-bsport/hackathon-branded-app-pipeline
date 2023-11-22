@@ -71,6 +71,7 @@ type Props = {
   getEmailTemplate: (id: string) => EmailTemplateSummary;
   getSmartlist: (id: number) => SmartList;
   getStepMarketingActions: (stepId: number) => StepMarketingActions[];
+  getStepMemberCountActions: (stepId: number) => number;
   getTag: (id: string) => Tag;
   handleCreateNewStepWithTrigger: (
     connected_trigger: ConnectedTrigger,
@@ -137,6 +138,7 @@ export const CadenceGraphFlow: React.FC<Props> = ({
   getEmailTemplate,
   getSmartlist,
   getStepMarketingActions,
+  getStepMemberCountActions,
   getTag,
   handleCreateNewStepWithTrigger,
   handleSelectedStepForEdition,
@@ -207,6 +209,7 @@ export const CadenceGraphFlow: React.FC<Props> = ({
     getEmailTemplate,
     getSmartlist,
     getStepMarketingActions,
+    getStepMemberCountActions,
     getTag,
     handleCreateNewStepWithTrigger,
     handleSelectedStepForEdition,

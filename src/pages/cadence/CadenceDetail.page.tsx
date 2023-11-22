@@ -67,6 +67,7 @@ import {
   getStepMarketingActionsByStepId,
   getStepMarketingActionsLoading,
   getStepMarketingActionsUpsertLoading,
+  getStepMemberCount,
 } from '#libs/sequential_marketing/selectors';
 
 // This import stays on deprecated. Value will be completly different after refactor.
@@ -397,6 +398,7 @@ export class CadenceDetailPage extends Component<Props> {
               getEmailTemplate={this.props.getEmailTemplate}
               getSmartlist={this.props.getSmartlist}
               getStepMarketingActions={this.props.getStepMarketingActions}
+              getStepMemberCountActions={this.props.getStepMemberCountActions}
               getTag={this.props.getTag}
               handleCreateNewStepWithTrigger={
                 this.handleCreateNewStepWithTrigger
@@ -891,6 +893,8 @@ const connector = connect(
     stepMarketingActionsLoading: getStepMarketingActionsLoading(state),
     stepMarketingActionsUpsertLoading:
       getStepMarketingActionsUpsertLoading(state),
+    getStepMemberCountActions: (stepId: number) =>
+      getStepMemberCount(state, stepId),
     getStepMarketingActions: (stepId: number) =>
       getStepMarketingActionsByStepId(state, stepId),
     // SMARTLISTS

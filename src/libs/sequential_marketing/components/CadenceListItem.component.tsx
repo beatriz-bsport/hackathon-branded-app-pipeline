@@ -47,9 +47,9 @@ export const CadenceListItem: React.FC<Props> = ({
   const classes = useListItemStyles();
   const { listeners, attributes, setNodeRef, transform, transition } =
     useSortable({
-      id: cadence.priority_index?.toString(10),
+      id: cadence?.id?.toString(10),
       data: {
-        cadence_id: cadence.id,
+        cadencePriorityIndex: cadence?.priority_index,
       },
     });
 

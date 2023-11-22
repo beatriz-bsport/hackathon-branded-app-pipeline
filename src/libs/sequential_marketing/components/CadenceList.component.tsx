@@ -1,4 +1,5 @@
 import React from 'react';
+import uniq from 'lodash/uniq';
 
 import { useTranslation } from 'react-i18next';
 
@@ -14,12 +15,11 @@ import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import {
   DndContext,
   DragEndEvent,
-  useSensors,
   MouseSensor,
   TouchSensor,
   useSensor,
+  useSensors,
 } from '@dnd-kit/core';
-
 import {
   SortableContext,
   verticalListSortingStrategy,
@@ -34,13 +34,13 @@ import type { Cadence } from '#libs/sequential_marketing/types';
 type Props = {
   cadences: Cadence[];
   cadenceLoading: boolean;
-  onClickItem?: (cadence: Cadence) => void;
-  onShow?: (id: number) => void;
-  onEdit?: (cadence: Cadence) => void;
-  onDelete?: (cadence: Cadence) => void;
-  onRestore?: (id: number) => void;
   archivedVersion?: boolean;
   selectedId?: number;
+  onClickItem?: (cadence: Cadence) => void;
+  onDelete?: (cadence: Cadence) => void;
+  onEdit?: (cadence: Cadence) => void;
+  onRestore?: (id: number) => void;
+  onShow?: (id: number) => void;
   updateCadencePriorityIndex?: (
     id: number,
     data: { priority_index: number },
@@ -50,18 +50,21 @@ type Props = {
 export const CadenceList: React.FC<Props> = ({
   cadences,
   cadenceLoading,
-  onShow,
-  onEdit,
-  onDelete,
-  onRestore,
-  onClickItem,
   archivedVersion,
   selectedId,
+  onClickItem,
+  onDelete,
+  onEdit,
+  onRestore,
+  onShow,
   updateCadencePriorityIndex,
 }) => {
   const { t } = useTranslation('marketing');
   const classes = useStyles();
   const [collapseOpen, setCollapseOpen] = React.useState(false);
+  const [cadenceUpdatedList, setCadenceUpdatedList] = React.useState<Cadence[]>(
+    [],
+  );
 
   const handleEditCadence = React.useCallback(
     (cadence: Cadence) => onEdit(cadence),
@@ -99,21 +102,87 @@ export const CadenceList: React.FC<Props> = ({
     );
   }, [cadences]);
 
+  const cadenceSortableIndexes = React.useMemo(
+    () =>
+      cadenceSortableItems?.map((cadence) =>
+        cadence.priority_index?.toString(),
+      ),
+    [cadenceSortableItems],
+  );
+
+  const priorityIndexLoading =
+    cadenceSortableIndexes?.length !== uniq(cadenceSortableIndexes)?.length;
+
+  const getUpdatedCadenceList = React.useCallback(
+    (
+      activeCadenceId: number,
+      oldPriorityIndex: number,
+      newPriorityIndex: number,
+    ) => {
+      return cadenceSortableItems
+        .map((cadence) => {
+          if (newPriorityIndex > oldPriorityIndex) {
+            if (cadence.id === activeCadenceId) {
+              return { ...cadence, priority_index: newPriorityIndex };
+            }
+            if (
+              cadence.priority_index >= oldPriorityIndex + 1 &&
+              cadence.priority_index <= newPriorityIndex
+            ) {
+              return { ...cadence, priority_index: cadence.priority_index - 1 };
+            }
+          } else if (newPriorityIndex < oldPriorityIndex) {
+            if (cadence.id === activeCadenceId) {
+              return { ...cadence, priority_index: newPriorityIndex };
+            }
+            if (
+              cadence.priority_index >= newPriorityIndex &&
+              cadence.priority_index <= oldPriorityIndex - 1
+            ) {
+              return { ...cadence, priority_index: cadence.priority_index + 1 };
+            }
+          }
+          return cadence;
+        })
+        ?.sort((a, b) => a.priority_index - b.priority_index);
+    },
+    [cadenceSortableItems],
+  );
+
   const handleDragEnd = React.useCallback(
     (e: DragEndEvent) => {
       const { active, over } = e;
-      const activateCadenceId = active?.data.current?.cadence_id;
-      const overCadenceIndex = over?.id;
-      if (activateCadenceId && overCadenceIndex) {
-        updateCadencePriorityIndex(activateCadenceId, {
-          priority_index: parseInt(overCadenceIndex),
-        });
+
+      if (over?.id !== active?.id) {
+        const activeCadenceId = parseInt(active.id);
+        const activeCadenceIndex = active.data?.current?.cadencePriorityIndex;
+        const overCadenceIndex = over.data?.current?.cadencePriorityIndex;
+        if (activeCadenceId && overCadenceIndex) {
+          setCadenceUpdatedList(
+            getUpdatedCadenceList(
+              activeCadenceId,
+              activeCadenceIndex,
+              overCadenceIndex,
+            ),
+          );
+          updateCadencePriorityIndex(activeCadenceId, {
+            priority_index: overCadenceIndex,
+          });
+        }
       }
     },
-    [updateCadencePriorityIndex],
+    [getUpdatedCadenceList, updateCadencePriorityIndex],
   );
 
-  if (cadenceLoading || !cadences) {
+  React.useEffect(() => {
+    !priorityIndexLoading && setCadenceUpdatedList(cadenceSortableItems);
+  }, [cadenceSortableItems, priorityIndexLoading]);
+
+  if (
+    !archivedVersion &&
+    (cadenceLoading || !cadences) &&
+    !cadenceUpdatedList?.length
+  ) {
     return (
       <>
         {(cadences?.map((item) => item?.id) || [1, 2, 3]).map((_idx) => (
@@ -157,18 +226,19 @@ export const CadenceList: React.FC<Props> = ({
 
   return (
     <DndContext
+      autoScroll={false}
       modifiers={[restrictToVerticalAxis]}
       onDragEnd={handleDragEnd}
       sensors={sensors}
     >
       <List>
         <SortableContext
-          items={cadenceSortableItems?.map((cadence) =>
-            cadence.priority_index?.toString(),
+          items={cadenceUpdatedList?.map((cadence) =>
+            cadence?.id?.toString(10),
           )}
           strategy={verticalListSortingStrategy}
         >
-          {cadenceSortableItems.map((cadence) => (
+          {cadenceUpdatedList?.map((cadence) => (
             <CadenceListItem
               key={`cadence_enabled${cadence.id}`}
               sortable

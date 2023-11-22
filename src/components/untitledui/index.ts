@@ -1,4 +1,4 @@
-export { SVGComponentProps } from './template';
+export type { SVGComponentProps } from './template';
 export * from './icons/alerts';
 export * from './icons/arrow';
 export * from './icons/charts';

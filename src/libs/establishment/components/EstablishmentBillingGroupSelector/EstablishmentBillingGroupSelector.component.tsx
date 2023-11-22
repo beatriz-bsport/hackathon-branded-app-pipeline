@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import chroma from 'chroma-js';
 import { useTranslation } from 'react-i18next';
 import { colors } from '@bsport/common/lib/colors';
@@ -8,29 +8,30 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import { Checkbox, makeStyles, useTheme } from '@material-ui/core';
 import { GroupProps } from 'react-select/lib/components/Group';
 import { MenuProps } from 'react-select/lib/components/Menu';
-import type {
-  EstablishmentBillingGroup,
-  EstablishmentBillingGroupSelectOption,
-} from '../../types';
+import type { EstablishmentBillingGroup } from '../../types';
+
+type SelectorOption = {
+  value: number;
+  label: string;
+};
 
 type EstablishmentBillingGroupByAddress = {
   label: string;
-  options: [
-    {
-      value: number;
-      label: string;
-    },
-  ];
+  options: SelectorOption[];
 };
 
 type OwnProps = {
   closeMenuOnSelect: boolean;
   establishmentBillingGroups: EstablishmentBillingGroup[];
-  isDisabled?: boolean;
   isClearable?: boolean;
+  isDisabled?: boolean;
+  isRequired?: boolean;
+  isOptionDisabled?: boolean;
   placeholder?: string;
-  selectedEstablishmentBillingGroup: EstablishmentBillingGroupSelectOption | null;
-  selectOption: (value: EstablishmentBillingGroupSelectOption) => void;
+  requiredValueIsMissing?: boolean;
+  selectedEstablishmentBillingGroup: EstablishmentBillingGroup | null;
+  targetParentElement?: boolean;
+  selectOption: (value: EstablishmentBillingGroup) => void;
 };
 
 export type Props = OwnProps;
@@ -58,36 +59,32 @@ const getGroupedEstablishmentBillingGroupOptions = (
       return 1;
     },
   );
-  const establishmentBillingGroupByAddress: EstablishmentBillingGroupByAddress[] =
-    establishmentBillingGroups.reduce<
-      {
-        label: string;
-        options: [{ value: number; label: string }];
-      }[]
-    >((accumulator, establishmentBillingGroupItem) => {
-      const temp = accumulator.findIndex(
-        (group) =>
-          group.label.toUpperCase() ===
-          establishmentBillingGroupItem.address.toUpperCase(),
-      );
-      if (temp === -1) {
-        accumulator.push({
-          label: establishmentBillingGroupItem.address,
-          options: [
-            {
-              value: establishmentBillingGroupItem.id,
-              label: establishmentBillingGroupItem.name,
-            },
-          ],
-        });
-      } else {
-        accumulator[temp].options.push({
-          value: establishmentBillingGroupItem.id,
-          label: establishmentBillingGroupItem.name,
-        });
-      }
-      return accumulator;
-    }, []);
+  const establishmentBillingGroupByAddress = establishmentBillingGroups.reduce<
+    EstablishmentBillingGroupByAddress[]
+  >((accumulator, establishmentBillingGroupItem) => {
+    const temp = accumulator.findIndex(
+      (group) =>
+        group?.label?.toUpperCase() ===
+        establishmentBillingGroupItem?.address?.toUpperCase(),
+    );
+    if (temp === -1) {
+      accumulator.push({
+        label: establishmentBillingGroupItem.address,
+        options: [
+          {
+            value: establishmentBillingGroupItem.id,
+            label: establishmentBillingGroupItem.name,
+          },
+        ],
+      });
+    } else {
+      accumulator[temp].options.push({
+        value: establishmentBillingGroupItem.id,
+        label: establishmentBillingGroupItem.name,
+      });
+    }
+    return accumulator;
+  }, []);
   return establishmentBillingGroupByAddress;
 };
 
@@ -123,13 +120,10 @@ const GroupHeading: React.FC = ({ children, ...props }) => {
 /**
  * A functional component that renders a Menu component from react-select.
  *
- * @param {React.PropsWithChildren<MenuProps<EstablishmentBillingGroupSelectOption>>} props - The properties passed to the component.
+ * @param {React.PropsWithChildren<MenuProps<EstablishmentBillingGroupByAddress>>} props - The properties passed to the component.
  * @returns {JSX.Element} - A JSX element representing the Menu component.
  */
-const Menu: React.FC<MenuProps<EstablishmentBillingGroupSelectOption>> = ({
-  children,
-  ...props
-}) => {
+const Menu: React.FC<MenuProps<SelectorOption>> = ({ children, ...props }) => {
   if (props.selectProps.isLoading) {
     return <div />;
   }
@@ -139,10 +133,10 @@ const Menu: React.FC<MenuProps<EstablishmentBillingGroupSelectOption>> = ({
 /**
  * A functional component that renders a group of establishment billing group options with a checkbox.
  *
- * @param {React.PropsWithChildren<GroupProps<EstablishmentBillingGroupSelectOption>>} props - The properties passed to the component.
+ * @param {React.PropsWithChildren<GroupProps<EstablishmentBillingGroupByAddress>>} props - The properties passed to the component.
  * @returns {JSX.Element} - A JSX element representing the group of options.
  */
-const Group: React.FC<GroupProps<EstablishmentBillingGroupSelectOption>> = ({
+const Group: React.FC<GroupProps<SelectorOption>> = ({
   children,
   ...props
 }) => {
@@ -233,25 +227,26 @@ const establishmentBillingGroupStyles: StylesConfig = {
       groupHeading: ((base) => ({ ...base, margin: 0 })) as styleFn,
     };
   },
-  multiValue: (styles) => {
-    const color = chroma(colors.secondary);
-    return {
-      ...styles,
-      backgroundColor: color.alpha(0.1).css(),
-    };
-  },
-  multiValueLabel: (styles) => ({
-    ...styles,
-    color: colors.secondary,
-  }),
-  multiValueRemove: (styles) => ({
-    ...styles,
-    color: colors.secondary,
-    ':hover': {
-      backgroundColor: colors.secondary,
-      color: 'white',
-    },
-  }),
+};
+
+const controlStyle = (
+  controlError: boolean,
+  colorError: string,
+): StylesConfig => {
+  return controlError
+    ? {
+        control: (styles) => ({
+          ...styles,
+          backgroundColor: 'white',
+          borderColor: colorError,
+        }),
+      }
+    : {
+        control: (styles) => ({
+          ...styles,
+          backgroundColor: 'white',
+        }),
+      };
 };
 
 // For storybook
@@ -274,16 +269,43 @@ const useStyles = makeStyles(() => ({
  */
 export function EstablishmentBillingGroupSelector(props: Props) {
   const {
-    establishmentBillingGroups,
-    selectOption,
-    selectedEstablishmentBillingGroup,
     closeMenuOnSelect,
-    isDisabled,
+    establishmentBillingGroups,
     isClearable,
+    isDisabled,
+    isOptionDisabled,
+    isRequired,
     placeholder,
+    requiredValueIsMissing,
+    selectedEstablishmentBillingGroup,
+    targetParentElement,
+    selectOption,
   } = props;
   const classes = useStyles();
+  const theme = useTheme();
   const { t } = useTranslation('establishment');
+
+  const value: SelectorOption | null = useMemo(() => {
+    if (selectedEstablishmentBillingGroup) {
+      return {
+        label: selectedEstablishmentBillingGroup.name,
+        value: selectedEstablishmentBillingGroup.id,
+      };
+    }
+    return null;
+  }, [selectedEstablishmentBillingGroup]);
+
+  const handleChange = useCallback(
+    (option: SelectorOption) => {
+      selectOption(
+        establishmentBillingGroups.find(
+          (establishmentBillingGroup) =>
+            establishmentBillingGroup.id === option.value,
+        ),
+      );
+    },
+    [selectOption, establishmentBillingGroups],
+  );
 
   return (
     <Select
@@ -292,14 +314,29 @@ export function EstablishmentBillingGroupSelector(props: Props) {
       components={{ GroupHeading, Group, Menu }}
       isClearable={isClearable}
       isDisabled={isDisabled}
-      menuPortalTarget={document.querySelector('body')}
-      onChange={selectOption}
+      isOptionDisabled={
+        isOptionDisabled
+          ? (option: SelectorOption) =>
+              selectedEstablishmentBillingGroup?.id === option.value
+          : null
+      }
+      isRequired={isRequired}
+      menuPortalTarget={!targetParentElement && document.querySelector('body')}
+      onChange={handleChange}
       options={getGroupedEstablishmentBillingGroupOptions([
         ...establishmentBillingGroups,
       ])}
-      placeholder={placeholder || t('billingGroup')}
-      styles={establishmentBillingGroupStyles}
-      value={selectedEstablishmentBillingGroup}
+      placeholder={
+        placeholder || t(isRequired ? 'billingGroupRequired' : 'billingGroup')
+      }
+      styles={{
+        ...establishmentBillingGroupStyles,
+        ...controlStyle(
+          isRequired && requiredValueIsMissing,
+          theme.palette.error.main,
+        ),
+      }}
+      value={value}
     />
   );
 }

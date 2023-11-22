@@ -26,7 +26,6 @@ import type { Invoice, WithAuthor } from '../types';
 import type {
   Establishment,
   EstablishmentBillingGroup,
-  EstablishmentBillingGroupSelectOption,
   WithEstablishment,
   WithEstablishmentBillingGroup,
 } from '#libs/establishment/types';
@@ -108,7 +107,7 @@ export const InvoiceHeader = (props: Props) => {
   }, [invoice, memberDefaultBillingEstablishment, t]);
 
   const onEditEstablishmentBillingGroup = useCallback(
-    (option: EstablishmentBillingGroupSelectOption) => {
+    (option) => {
       editEstablishmentBillingGroup(option.value);
       setShowEstablishmentBillingGroupSelector(false);
     },

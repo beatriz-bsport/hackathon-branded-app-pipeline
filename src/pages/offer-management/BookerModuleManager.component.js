@@ -44,7 +44,10 @@ import {
   fetchSimilarGroupOffers as fetchSimilarGroupOffersAction,
 } from '#libs/group-offer/actions';
 import { getSimilarGroups } from '#libs/group-offer/selectors';
-import { getAvailableEstablishmentList } from '../../libs/establishment/selectors';
+import {
+  getAvailableEstablishmentList,
+  getEnabledEstablishmentBillingGroups,
+} from '../../libs/establishment/selectors';
 import BookingModuleManagerComponent from '../../libs/booking/components/booker-module/BookerModuleManager.component';
 import { RootState } from '../../reducers';
 import themeSelectors from '../../libs/theme/selectors';
@@ -77,6 +80,7 @@ export default compose(
       cppMaxoutBookingsByCpp: state.consumerPaymentPack.maxout_booking.byId,
       maxoutLoading: state.consumerPaymentPack.maxout_booking.loading,
       establishments: getAvailableEstablishmentList(state),
+      establishmentBillingGroups: getEnabledEstablishmentBillingGroups(state),
       companyTheme: themeSelectors.getTheme(state),
       companyId: state.theme.theme.company,
       similarOfferGroup: withMetaActivity(

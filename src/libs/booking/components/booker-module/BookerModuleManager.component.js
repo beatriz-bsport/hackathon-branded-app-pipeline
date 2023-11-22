@@ -38,7 +38,7 @@ import {
 } from '#libs/consumer-payment-pack/types';
 
 import type { WithIsSharedActive } from '../../../relationship/types';
-import type { Establishment } from '../../../establishment/types';
+import type { EstablishmentBillingGroup } from '../../../establishment/types';
 import type { Theme as CompanyTheme } from '../../../theme/types';
 import type { Role } from '../../../role/types';
 import type { OptionCallback } from '../../../../state/types';
@@ -91,7 +91,7 @@ type Props = {
       paymentPack?: PaymentPack,
     },
     voucher?: number,
-    billingEstablishmentId?: number,
+    establishmentBillingGroupId?: number,
   ) => void,
 
   backToRegistererChoice: () => void,
@@ -103,7 +103,7 @@ type Props = {
   cppMaxoutBookingsByCpp: { [key: string]: MaxoutBooking },
   fetchEstablishments: () => void,
   fetchAllEstablishmentBillingGroup: () => void,
-  establishments: Array<Establishment>,
+  establishmentBillingGroups: EstablishmentBillingGroup[],
   companyTheme: CompanyTheme,
   memberDetails: { [id: number]: Member },
 
@@ -177,8 +177,11 @@ export class BookerModuleManager extends PureComponent<Props, State> {
     this.props.fetchFutureBookingsByMember(this.props.member.id);
 
     this.props.fetchEstablishments();
-    this.props.fetchAllEstablishmentBillingGroup();
-
+    if (this.props.companyTheme.enable_multi_localization) {
+      this.props.fetchAllEstablishmentBillingGroup({
+        params: { company: this.props.companyId },
+      });
+    }
     this.props.fetchCompatiblePacks(this.props.offerId);
 
     this.props.resetIncompatibilitiesReasonsByOfferByConsumerPack();
@@ -438,7 +441,9 @@ export class BookerModuleManager extends PureComponent<Props, State> {
                   enableMultiLocalization={
                     this.props.companyTheme.enable_multi_localization
                   }
-                  establishments={this.props.establishments}
+                  establishmentBillingGroups={
+                    this.props.establishmentBillingGroups
+                  }
                   fetchIncompatibilitiesReasonsByOfferByConsumerPack={
                     this.props
                       .fetchIncompatibilitiesReasonsByOfferByConsumerPack
@@ -461,13 +466,13 @@ export class BookerModuleManager extends PureComponent<Props, State> {
                   registerToOffer={(
                     registererObject,
                     voucher?,
-                    billingEstablishmentId?,
+                    establishmentBillingGroupId?,
                   ) =>
                     this.props.registerToOffer(
                       this.props.offerId,
                       registererObject,
                       voucher,
-                      billingEstablishmentId,
+                      establishmentBillingGroupId,
                     )
                   }
                 />
@@ -592,7 +597,7 @@ export default compose(
         offerId,
         registererObjectOverride,
         voucher?,
-        billingEstablishmentId?,
+        establishmentBillingGroupId?,
       ) => {
         registerToOffer(
           member.id,
@@ -603,7 +608,7 @@ export default compose(
             keep_credits,
           },
           voucher,
-          billingEstablishmentId,
+          establishmentBillingGroupId,
         );
       },
   }),

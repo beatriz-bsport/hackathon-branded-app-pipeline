@@ -29,17 +29,18 @@ import ConsumerPackRowItem from '../../../consumer-payment-pack/components/Consu
 import ObjectLevelPermissionWrapper from '../../../role/permission-utils/ObjectLevelPermissionWrapper.component';
 import ObjectLevelPermissionProvider from '../../../role/permission-utils/ObjectLevelPermissionProvider.component';
 
-import { PaymentPack } from '../../../payment-packs/types';
+import type { PaymentPack } from '../../../payment-packs/types';
 import {
   MaxoutBooking,
   ConsumerPaymentPack,
 } from '../../../consumer-payment-pack/types';
-import { Offer } from '../../../offer/types';
-import EstablishmentSelector from '../../../establishment/components/EstablishmentSelector.component';
+import type { Offer } from '../../../offer/types';
+import EstablishmentBillingGroupSelector from '../../../establishment/components/EstablishmentBillingGroupSelector';
 import ModalConfirm from '../../../../components/ModalConfirm.component';
 import { paymentPackTagsAndMemberTagsCompatibilty } from '../../../payment-packs/utils';
-import { Member } from '../../../member/types';
-import { WithIsSharedActive } from '../../../relationship/types';
+import type { Member } from '../../../member/types';
+import type { WithIsSharedActive } from '../../../relationship/types';
+import type { EstablishmentBillingGroup } from '../../../establishment/types';
 
 type Props = {
   consumerPacks: Array<ConsumerPaymentPack>,
@@ -60,7 +61,7 @@ type Props = {
   offer?: Offer,
   cppMaxoutBookingsByCpp?: { [cpp_id: string]: MaxoutBooking },
   disableMultiBooking?: boolean,
-  establishments: Array<Establishment>,
+  establishmentBillingGroups: EstablishmentBillingGroup[],
   establishmentLoading: boolean,
   enableMultiLocalization: boolean,
   member: Member,
@@ -109,12 +110,17 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
 
   const [selectedPack, setSelectedPack] = useState<PaymentPack | null>(null);
 
-  const [billingEstablishmentId, setBillingEstablishmentId] = useState(null);
+  const [
+    selectedEstablishmentBillingGroup,
+    setSelectedEstablishmentBillingGroup,
+  ] = useState<EstablishmentBillingGroup | null>(null);
 
   const [warnManagerOnInvoice, setWarnManagerOnInvoice] = useState(false);
 
-  const [requiredEstablishmentIsMissing, setRequiredEstablishmentIsMissing] =
-    useState(false);
+  const [
+    requiredEstablishmentBillingGroupIsMissing,
+    setRequiredEstablishmentBillingGroupIsMissing,
+  ] = useState(false);
 
   const handlePackSelect = React.useCallback(
     (pack: PaymentPack) => {
@@ -208,21 +214,21 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
   const handleOnConfirmClick = () => {
     if (
       props.enableMultiLocalization &&
-      !billingEstablishmentId &&
-      props.establishments?.length
+      !selectedEstablishmentBillingGroup &&
+      props.establishmentBillingGroups?.length
     ) {
-      setRequiredEstablishmentIsMissing(true);
+      setRequiredEstablishmentBillingGroupIsMissing(true);
       return;
     }
     props.registerToOffer(
       { paymentPack: selectedPack },
-      parseFloat(voucher),
-      billingEstablishmentId,
+      voucher,
+      selectedEstablishmentBillingGroup?.id,
     );
     setSelectedPack(null);
     setVoucher('0,00');
     setFinalPricePreview('0,00');
-    setBillingEstablishmentId(null);
+    setSelectedEstablishmentBillingGroup(null);
   };
 
   const handleGoToPaymentPack = (paymentPackId) => () => {
@@ -264,11 +270,14 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
   ]);
 
   const handleSelectEstablishmentBillingGroup = React.useCallback(
-    (item: { value: number, label: string }) => {
-      setBillingEstablishmentId(item ? item.value : null);
-      setRequiredEstablishmentIsMissing(!item);
+    (item: EstablishmentBillingGroup) => {
+      setSelectedEstablishmentBillingGroup(item || null);
+      setRequiredEstablishmentBillingGroupIsMissing(!item);
     },
-    [setBillingEstablishmentId, setRequiredEstablishmentIsMissing],
+    [
+      setSelectedEstablishmentBillingGroup,
+      setRequiredEstablishmentBillingGroupIsMissing,
+    ],
   );
 
   const hasNoCompatiblePasses =
@@ -640,19 +649,23 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
           {props.enableMultiLocalization && (
             <div>
               <Typography className={classes.sectionTitle} variant="h6">
-                {t('invoice:section.invoiceItemList.billing_establishment')}
+                {t('invoice:section.invoiceItemList.billingGroup')}
               </Typography>
               <Divider className={classes.divider} />
 
-              <EstablishmentSelector
+              <EstablishmentBillingGroupSelector
                 closeMenuOnSelect
                 isOptionDisabled
                 isRequired
                 noMulti
-                establishments={props.establishments}
+                establishmentBillingGroups={props.establishmentBillingGroups}
                 isLoading={props.establishmentLoading}
-                requiredValueIsMissing={requiredEstablishmentIsMissing}
-                selectedEstablishments={[billingEstablishmentId]}
+                requiredValueIsMissing={
+                  requiredEstablishmentBillingGroupIsMissing
+                }
+                selectedEstablishmentBillingGroup={
+                  selectedEstablishmentBillingGroup
+                }
                 selectOption={handleSelectEstablishmentBillingGroup}
               />
             </div>

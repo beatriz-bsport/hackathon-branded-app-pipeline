@@ -1460,7 +1460,7 @@ export default compose(
           keep_credits,
         }: { notify_member: boolean, keep_credits: boolean },
         voucher?: number,
-        billingEstablishmentId?: number,
+        establishmentBillingGroupId?: number,
       ) => {
         if (!Array.isArray(offerId)) {
           let fullOfferConfirmation = false;
@@ -1511,7 +1511,7 @@ export default compose(
                   is_v2: true,
                   memberId,
                   voucher,
-                  billing_establishment_id: billingEstablishmentId,
+                  establishment_billing_group_id: establishmentBillingGroupId,
                 },
                 offerId,
               );
@@ -1576,7 +1576,7 @@ export default compose(
                 is_v2: true,
                 memberId,
                 voucher,
-                billing_establishment_id: billingEstablishmentId,
+                establishment_billing_group_id: establishmentBillingGroupId,
               },
               offerId,
             );

@@ -13,12 +13,14 @@ type Props = {
   addMarketingAction: (kind: MarketingActions) => void;
   marketingActionToExclude?: MarketingActions[];
   customColor?: string;
+  isPushNotificationUpsellActive?: boolean;
 };
 
 export const useMarketingActionOptions = ({
   addMarketingAction,
   marketingActionToExclude,
   customColor,
+  isPushNotificationUpsellActive,
 }: Props) => {
   const { t } = useTranslation('marketing');
 
@@ -39,7 +41,10 @@ export const useMarketingActionOptions = ({
         customColor || SequentialMarketingColors.MARKETING_ACTION_COLOR,
       // MVP: for now we want to restrict access to SMS action
       isDisabled:
-        marketingActionKind === MarketingActions.CADENCE_MARKETING_ACTION_SMS,
+        marketingActionKind === MarketingActions.CADENCE_MARKETING_ACTION_SMS ||
+        (marketingActionKind ===
+          MarketingActions.CADENCE_MARKETING_ACTION_PUSH_NOTIFICATION &&
+          !isPushNotificationUpsellActive),
     })) ?? [];
 
   return Immutable(marketingActionList);

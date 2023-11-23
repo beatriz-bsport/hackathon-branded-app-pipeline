@@ -40,6 +40,7 @@ type FlowProps = {
     stepToEditId: number;
     isDeleteStepDialogHidden: boolean;
     isConvertStepIntoExitDialogHidden: boolean;
+    isPushNotificationUpsellActive?: boolean;
     cadenceEditMode?: boolean;
     stepMemberCount?: number;
     createNewMarketingAction: (value: Partial<StepMarketingActions>) => void;
@@ -259,6 +260,7 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
           getEmailTemplate={data.getEmailTemplate}
           getTag={data.getTag}
           handleConvertIntoExit={handleOpenConvertIntoExitBubble}
+          isPushNotificationUpsellActive={data.isPushNotificationUpsellActive}
           isSelected={data.isSelected}
           marketingActionList={data.marketingActionList}
           onCardClick={handleClick}

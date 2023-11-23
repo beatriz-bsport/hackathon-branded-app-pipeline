@@ -21,6 +21,7 @@ import type { EmailTemplateSummary } from '#libs/email-editor/types';
 export type CadenceNodeContentProps = {
   marketingActionList?: StepMarketingActions[];
   disableAddMarketingAction?: boolean;
+  isPushNotificationUpsellActive?: boolean;
   addMarketingAction?: (type: MarketingActions) => void;
   editMarketingAction?: (action: StepMarketingActions) => void;
   getEmailTemplate?: (id: string) => EmailTemplateSummary;
@@ -30,6 +31,7 @@ export type CadenceNodeContentProps = {
 const CadenceNodeContent: React.FC<CadenceNodeContentProps> = ({
   marketingActionList,
   disableAddMarketingAction,
+  isPushNotificationUpsellActive,
   addMarketingAction,
   editMarketingAction,
   getEmailTemplate,
@@ -64,6 +66,7 @@ const CadenceNodeContent: React.FC<CadenceNodeContentProps> = ({
     marketingActionToExclude: (marketingActionList ?? [])?.map(
       (marketingAction) => getMarketingActionType(marketingAction),
     ),
+    isPushNotificationUpsellActive,
   });
 
   return (

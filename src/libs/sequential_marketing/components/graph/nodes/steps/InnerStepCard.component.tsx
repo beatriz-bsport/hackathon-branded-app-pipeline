@@ -23,6 +23,7 @@ export type InnerStepCardProps = {
   step: StoredStep;
   isSelected?: boolean;
   disabled?: boolean;
+  isPushNotificationUpsellActive?: boolean;
   cadenceEditMode?: boolean;
   stepMemberCount?: number;
   onDelete: () => void;
@@ -40,6 +41,7 @@ type InnerStepHeaderProps = {
 type InnerStepContentProps = {
   marketingActionList?: StepMarketingActions[];
   disableAddMarketingAction?: boolean;
+  isPushNotificationUpsellActive?: boolean;
   addMarketingAction?: (type: MarketingActions) => void;
   editMarketingAction?: (action: StepMarketingActions) => void;
   getEmailTemplate?: (id: string) => EmailTemplateSummary;
@@ -65,6 +67,7 @@ const InnerStepContent: React.FC<InnerStepContentProps> = React.memo(
   ({
     marketingActionList,
     disableAddMarketingAction,
+    isPushNotificationUpsellActive,
     addMarketingAction,
     editMarketingAction,
     getEmailTemplate,
@@ -81,6 +84,7 @@ const InnerStepContent: React.FC<InnerStepContentProps> = React.memo(
         editMarketingAction={editMarketingAction}
         getEmailTemplate={getEmailTemplate}
         getTag={getTag}
+        isPushNotificationUpsellActive={isPushNotificationUpsellActive}
         marketingActionList={marketingActionList}
       />
     );
@@ -93,6 +97,7 @@ const InnerStepCard: React.FC<InnerStepCardProps> = ({
   isSelected,
   disabled,
   disableAddMarketingAction,
+  isPushNotificationUpsellActive,
   cadenceEditMode,
   stepMemberCount,
   addMarketingAction,
@@ -179,6 +184,7 @@ const InnerStepCard: React.FC<InnerStepCardProps> = ({
             editMarketingAction={editMarketingAction}
             getEmailTemplate={getEmailTemplate}
             getTag={getTag}
+            isPushNotificationUpsellActive={isPushNotificationUpsellActive}
             marketingActionList={marketingActionList}
           />
         )

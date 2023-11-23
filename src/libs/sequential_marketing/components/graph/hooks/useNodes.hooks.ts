@@ -367,6 +367,7 @@ export const useNodeElementsRecorder = ({
           },
           cadenceEditMode,
           stepMemberCount: getStepMemberCountActions?.(storedEntryStep?.id),
+          isPushNotificationUpsellActive,
           addMarketingAction: () => {}, // TODO: code the newMA function
           addNextStep: handleAddNextStepTrigger(storedEntryStep),
           getEmailTemplate,
@@ -392,6 +393,7 @@ export const useNodeElementsRecorder = ({
     cadence.entries,
     isEntryFirstConfiguration,
     isFirstConfigurationMode,
+    isPushNotificationUpsellActive,
     getEmailTemplate,
     getSmartlist,
     getTag,

@@ -3,6 +3,7 @@ import React from 'react';
 import { useFormik } from 'formik';
 
 import { MarketingActions } from '#libs/sequential_marketing/constants';
+import { MAX_LENGTH_PUSH_CONTENT } from '#libs/communication-v2/constants';
 import { notificationValidationSchema } from '#libs/sequential_marketing/components/form/marketing_actions/validationSchemas';
 import CommunicationWriteNotification from '#libs/communication-v2/components/MessageSender/Writers/CommunicationWriteNotification.component';
 import HTMLTagMenuSelector from './components/HTMLTagMenuSelector.component';
@@ -71,11 +72,17 @@ const NotificationForm: React.FC<Props> = ({
 
   const onBaliseItemClick = React.useCallback(
     async (selectedItem: string) => {
-      await setFieldValue(
-        `action_spec.text_content`,
-        `${actionSpec?.text_content}{${selectedItem}}`,
-      );
-      handleSubmit?.();
+      const tagLength = selectedItem?.length + 2; // 2 for the brackets
+      if (
+        actionSpec?.text_content?.length + tagLength <=
+        MAX_LENGTH_PUSH_CONTENT
+      ) {
+        await setFieldValue(
+          `action_spec.text_content`,
+          `${actionSpec?.text_content}{${selectedItem}}`,
+        );
+        handleSubmit?.();
+      }
     },
     [actionSpec?.text_content, handleSubmit, setFieldValue],
   );

@@ -58,7 +58,6 @@ const TagForm: React.FC<Props> = ({
   return (
     <TagSelector
       closeMenuOnSelect
-      inScrollBar
       isClearable
       noMulti
       allTagsWithTagGroup={tagList}

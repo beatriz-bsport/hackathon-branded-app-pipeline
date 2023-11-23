@@ -42,8 +42,8 @@ const UniqueMarketingActionBubble: React.FC<Props> = ({
   const [isFormValid, setIsFormValid] = React.useState(false);
 
   const marketingActionType = React.useMemo(
-    () => getMarketingActionType(marketingAction),
-    [marketingAction],
+    () => getMarketingActionType(updatedMarketingAction),
+    [updatedMarketingAction],
   );
 
   const updateMarketingAction = React.useCallback(

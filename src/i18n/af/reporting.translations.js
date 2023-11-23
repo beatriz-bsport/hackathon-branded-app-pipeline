@@ -94,6 +94,7 @@ const getTranslations = async () => {
       date_start_time: 'Time',
       duration_minute: 'Duration (in minutes)',
       coach: 'Teacher',
+      offer_coach: 'Teacher',
       margin_value: 'Marginal value',
       effectif: 'Number of slots',
       total_payments: 'Total payments',

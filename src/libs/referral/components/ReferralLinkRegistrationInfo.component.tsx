@@ -3,10 +3,11 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import type { ReferralLinkStatus } from '../types';
 
-import './ReferralLinkRegistrationInfo.css';
 import { SadSmileyIcon } from '#components/icons/SadSmileyIcon.component';
 import { isReferralUsable } from '../utils';
 import Welcome from '#libs/login/components/Welcome.component';
+
+import './ReferralLinkRegistrationInfo.css';
 
 type Props = {
   referralLinkStatus: ReferralLinkStatus | null;
@@ -17,7 +18,7 @@ type Props = {
   simplifyUI: boolean;
 };
 
-const ReferralLinkRegistrationInfo = (props: Props) => {
+const ReferralLinkRegistrationInfo: React.FC<Props> = (props) => {
   const {
     referralLinkStatus,
     referralExceptionCode,

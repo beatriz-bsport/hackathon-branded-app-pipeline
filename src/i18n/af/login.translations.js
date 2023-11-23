@@ -220,6 +220,6 @@ exports.default = {
   },
   referral: {
     signUpNow:
-      "Merci d'avoir utilisé le lien de parrainage de {{ referringMemberFirstName }}. Inscrivez-vous dès maintenant pour obtenir une réduction sur votre premier panier !",
+      'Thank you for using the referral link of {{ referringMemberFirstName }}. Signup now to redeem a special voucher on your first basket!',
   },
 };

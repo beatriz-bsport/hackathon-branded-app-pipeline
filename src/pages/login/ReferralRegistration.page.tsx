@@ -8,7 +8,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 
 import { withTranslation, WithTranslation } from 'react-i18next';
-import { WithStyles, createStyles, withStyles } from '@material-ui/core';
 import {
   CUSTOM_FORM_FIELD_SIGN_UP_EMAIL,
   CUSTOM_FORM_FIELD_SIGN_UP_PASSWORD,
@@ -71,11 +70,6 @@ import './signup-page/SignupPageStyles.css';
 
 import { RootState } from '../../reducers';
 
-const styles = () =>
-  createStyles({
-    container: {},
-  });
-
 type OwnProps = {
   title: string;
   referralUuid: string; // coming from the router
@@ -93,7 +87,6 @@ type State = {
 type Props = OwnProps &
   StateHandlerType &
   ConnectedProps<typeof connector> &
-  WithStyles<typeof styles> &
   WithTranslation;
 
 export class ReferralRegistration extends Component<Props, State> {
@@ -365,7 +358,6 @@ const connector = connect(
 );
 
 export default compose(
-  withStyles(styles),
   withTranslation(['login', 'referral']),
   routerParamsToProps({ referralUuid: 'referralUuid' }),
   connector,

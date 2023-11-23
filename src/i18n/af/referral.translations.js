@@ -12,7 +12,7 @@ const getTranslations = async () => {
     '@bsport/common/lib/master-data/referral-exception-error-code'
   );
 
-  exports.default = {
+  return {
     form: {
       title: 'Referral',
       activateReferral: {
@@ -132,7 +132,7 @@ const getTranslations = async () => {
       },
       [COMPANY_MEMBER_ALREADY_EXISTING]: {
         title: 'Referral link unusable',
-        description: 'Vous êtes déjà membre de ce studio?',
+        description: 'You are already a member of this studio',
       },
       [TOO_HIGH_REFERRING_VOUCHER_CONSUMED]: {
         title: 'Referral link expired',

@@ -89,6 +89,9 @@ type OwnProps = {
   companyId: number;
   username: string;
   goToBook?: (offerId: number, companyId: number) => void;
+  onlineFilter: {
+    is_online: boolean | undefined;
+  };
 };
 
 type Props = OwnProps & ConnectedProps<typeof connector>;
@@ -102,6 +105,7 @@ const MAX_DATE = Moment()
 const MarketplaceWorkshopPage: React.FC<Props> = ({
   filters,
   setFilters,
+  onlineFilter,
   companyId,
   theme,
   workshopsLoading,
@@ -182,6 +186,9 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
           company: companyId,
           with_unique_offer_by_group: true,
           ...filters,
+          ...(typeof onlineFilter?.is_online === 'boolean'
+            ? { is_online: onlineFilter.is_online }
+            : {}),
           ...(theme && !theme.show_cancelled_offers_customer
             ? {
                 available: true,
@@ -228,12 +235,14 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
       filters,
       theme,
       username,
+      onlineFilter,
     ],
   );
 
   const metaActivityFilter = convertMarketplaceFilterForMetaActivityCall(
     companyId,
     filters,
+    onlineFilter,
   );
 
   useEffect(() => {
@@ -470,6 +479,12 @@ export default compose(
     'filters',
     'setFilters',
     'arrayNumber',
+  ]),
+  withQueryParams([
+    ['is_online'],
+    'onlineFilter',
+    'setOnlineFilter',
+    'boolean',
   ]),
   withQueryParams([
     ['filtersOpen', 'date', 'onlyDay'],

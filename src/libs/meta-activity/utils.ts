@@ -4,6 +4,7 @@ import { MetaActivityFilter } from './types';
 export const convertMarketplaceFilterForMetaActivityCall = (
   companyId: number,
   filters: MarketPlaceFilter,
+  onlineFilter?: { is_online: boolean | undefined },
 ): MetaActivityFilter => {
   return {
     company: companyId,
@@ -18,6 +19,9 @@ export const convertMarketplaceFilterForMetaActivityCall = (
     ...(filters.levels?.length > 0 ? { level__in: filters.levels } : {}),
     ...(filters.establishment_group__in?.length > 0
       ? { establishment_group__in: filters.establishment_group__in }
+      : {}),
+    ...(typeof onlineFilter?.is_online === 'boolean'
+      ? { is_online: onlineFilter.is_online }
       : {}),
   };
 };

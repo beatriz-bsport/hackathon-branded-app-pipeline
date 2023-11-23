@@ -177,7 +177,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
     (!this.props.compactMode &&
       (this.calendarRefContainer?.current?.clientWidth ?? 1200) < 1250);
 
-  // large calendar
+  // Large calendar
   getIsLarge = () =>
     (this.props.compactMode != null && this.props.compactMode === false) ||
     (this.props.compactMode == null &&

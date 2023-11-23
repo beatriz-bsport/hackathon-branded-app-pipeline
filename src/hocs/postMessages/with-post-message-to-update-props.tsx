@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import isEqual from 'lodash/isEqual';
+import pick from 'lodash/pick';
+import omitBy from 'lodash/omitBy';
+import isUndefined from 'lodash/isUndefined';
 import { ObjectSchema } from 'yup';
 import { BsportControlledPropsMessageType } from './types';
 
+const omitUndefinedValues = (object: object) => {
+  return omitBy(object, isUndefined);
+};
 /**
  * Represents a mapping between a prop name and its corresponding message type.
  *
@@ -52,6 +58,15 @@ export function withPostMessageToUpdateProps<
         );
 
       /**
+       * Returns an array of listened props.
+       *
+       */
+      listenedPropNames = () =>
+        PropsNamesWithMessageTypes.map(
+          (propNameWithMessageType) => propNameWithMessageType.propName,
+        );
+
+      /**
        * Event listener for handling postMessages.
        *
        * @param {MessageEvent<{ type: BsportControlledPropsMessageType; data: Partial<WrappedComponentProps>; }>} event - The postMessage event.
@@ -98,8 +113,7 @@ export function withPostMessageToUpdateProps<
                           );
 
                         if (providedPropDataIsValid) {
-                          // @ts-expect-error
-                          acc[currentPropName] = providedPropDataIsValid;
+                          acc[currentPropName] = providedPropData;
                         }
                       }
                     }
@@ -127,6 +141,62 @@ export function withPostMessageToUpdateProps<
       };
 
       /**
+       * Lifecycle method called after the component updates.
+       * It addresses a scenario where the Higher Order Component (HOC) retains control over certain props in its state,
+       * making it challenging for the wrapped component to update those props independently.
+       *
+       * The challenge arises because, when the HOC sets a key in its state, deleting that key from the state becomes
+       * problematic due to limitations in class-based components. Even attempts to delete a key using this.setState()
+       * prove ineffective. As a result, we monitor props provided by the HOC that are currently in the state
+       * and need to be synchronized with the wrapped component's props.
+       *
+       * If any of these watched props are updated by the wrapped component, indicating changes from another HOC or through
+       * a callback in props, we nullify their values in the HOC's state. Nullifying allows us to maintain control over
+       * the props and ensures that undefined values are cleared from the state before being passed to the wrapped component.
+       *
+       */
+      componentDidUpdate(prevProps: WrappedComponentProps) {
+        // Extract prop names that the HOC is monitoring
+        const listenedPropNames = this.listenedPropNames();
+
+        // Capture the HOC-controlled props from both previous and current props of the wrapped component
+        const prevHOCEDProps = pick(prevProps, listenedPropNames);
+        const currentHOCEDProps = pick(this.props, listenedPropNames);
+
+        // Identify keys in the HOC's state to be nullified
+        const keysToDeleteFromHOCState = listenedPropNames.reduce<
+          (keyof WrappedComponentProps)[]
+        >((keysToDelete, currentKeyCheck) => {
+          // Check if the HOC currently has control over the prop
+          const HOCHasControlOverProps = currentKeyCheck in this.state;
+
+          // Compare the previous and current values of the prop in the wrapped component
+          if (
+            HOCHasControlOverProps &&
+            !isEqual(
+              prevHOCEDProps?.[currentKeyCheck],
+              currentHOCEDProps?.[currentKeyCheck],
+            )
+          ) {
+            keysToDelete.push(currentKeyCheck);
+          }
+          return keysToDelete;
+        }, []);
+
+        // Nullify identified keys in the HOC's state
+        if (keysToDeleteFromHOCState?.length) {
+          this.setState(
+            keysToDeleteFromHOCState.reduce((newState, currentKey) => {
+              // Set the value to undefined to clear it from the state
+              // eslint-disable-next-line no-param-reassign
+              newState[currentKey] = undefined;
+              return newState;
+            }, {} as Partial<WrappedComponentProps>),
+          );
+        }
+      }
+
+      /**
        * Adds the postMessage event listener when the component mounts (in development environments).
        */
       componentDidMount(): void {
@@ -146,7 +216,12 @@ export function withPostMessageToUpdateProps<
        * @returns {React.ReactNode} - The rendered component.
        */
       render(): React.ReactNode {
-        return <WrappedComponent {...this.props} {...this.state} />;
+        return (
+          <WrappedComponent
+            {...this.props}
+            {...omitUndefinedValues(this.state)}
+          />
+        );
       }
     }
 

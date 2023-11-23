@@ -25,12 +25,17 @@ export type MarketplaceCommonFilter = {
   establishmentGroups?: number[];
 };
 
-export type MarketplaceCalendarData = MarketplaceCommonFilter & {
-  compactMode?: true | false | null;
-  todayOnly?: boolean;
-  variant?: MarketplaceCalendarVariant;
-  groupSessionByPeriod?: boolean;
+export type MarketplaceOnlineFiltering = {
+  onlineFilter?: { is_online?: boolean };
 };
+
+export type MarketplaceCalendarData = MarketplaceCommonFilter &
+  MarketplaceOnlineFiltering & {
+    compactMode?: true | false | null;
+    todayOnly?: boolean;
+    variant?: MarketplaceCalendarVariant;
+    groupSessionByPeriod?: boolean;
+  };
 
 export type MarketplaceCalendarVariant = 'activityName' | 'coach' | 'time';
 

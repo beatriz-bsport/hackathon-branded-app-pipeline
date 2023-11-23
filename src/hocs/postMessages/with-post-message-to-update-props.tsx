@@ -156,43 +156,47 @@ export function withPostMessageToUpdateProps<
        *
        */
       componentDidUpdate(prevProps: WrappedComponentProps) {
-        // Extract prop names that the HOC is monitoring
-        const listenedPropNames = this.listenedPropNames();
+        try {
+          // Extract prop names that the HOC is monitoring
+          const listenedPropNames = this.listenedPropNames();
 
-        // Capture the HOC-controlled props from both previous and current props of the wrapped component
-        const prevHOCEDProps = pick(prevProps, listenedPropNames);
-        const currentHOCEDProps = pick(this.props, listenedPropNames);
+          // Capture the HOC-controlled props from both previous and current props of the wrapped component
+          const prevHOCEDProps = pick(prevProps, listenedPropNames);
+          const currentHOCEDProps = pick(this.props, listenedPropNames);
 
-        // Identify keys in the HOC's state to be nullified
-        const keysToDeleteFromHOCState = listenedPropNames.reduce<
-          (keyof WrappedComponentProps)[]
-        >((keysToDelete, currentKeyCheck) => {
-          // Check if the HOC currently has control over the prop
-          const HOCHasControlOverProps = currentKeyCheck in this.state;
+          // Identify keys in the HOC's state to be nullified
+          const keysToDeleteFromHOCState = listenedPropNames.reduce<
+            (keyof WrappedComponentProps)[]
+          >((keysToDelete, currentKeyCheck) => {
+            // Check if the HOC currently has control over the prop
+            const HOCHasControlOverProps = currentKeyCheck in this.state;
 
-          // Compare the previous and current values of the prop in the wrapped component
-          if (
-            HOCHasControlOverProps &&
-            !isEqual(
-              prevHOCEDProps?.[currentKeyCheck],
-              currentHOCEDProps?.[currentKeyCheck],
-            )
-          ) {
-            keysToDelete.push(currentKeyCheck);
+            // Compare the previous and current values of the prop in the wrapped component
+            if (
+              HOCHasControlOverProps &&
+              !isEqual(
+                prevHOCEDProps?.[currentKeyCheck],
+                currentHOCEDProps?.[currentKeyCheck],
+              )
+            ) {
+              keysToDelete.push(currentKeyCheck);
+            }
+            return keysToDelete;
+          }, []);
+
+          // Nullify identified keys in the HOC's state
+          if (keysToDeleteFromHOCState?.length) {
+            this.setState(
+              keysToDeleteFromHOCState.reduce((newState, currentKey) => {
+                // Set the value to undefined to clear it from the state
+                // eslint-disable-next-line no-param-reassign
+                newState[currentKey] = undefined;
+                return newState;
+              }, {} as Partial<WrappedComponentProps>),
+            );
           }
-          return keysToDelete;
-        }, []);
-
-        // Nullify identified keys in the HOC's state
-        if (keysToDeleteFromHOCState?.length) {
-          this.setState(
-            keysToDeleteFromHOCState.reduce((newState, currentKey) => {
-              // Set the value to undefined to clear it from the state
-              // eslint-disable-next-line no-param-reassign
-              newState[currentKey] = undefined;
-              return newState;
-            }, {} as Partial<WrappedComponentProps>),
-          );
+        } catch (err) {
+          console.error(err);
         }
       }
 
@@ -200,14 +204,14 @@ export function withPostMessageToUpdateProps<
        * Adds the postMessage event listener when the component mounts (in development environments).
        */
       componentDidMount(): void {
-        window.addEventListener('message', this.handlePostMessages);
+        window?.addEventListener('message', this.handlePostMessages);
       }
 
       /**
        * Removes the postMessage event listener when the component unmounts.
        */
       componentWillUnmount(): void {
-        window.removeEventListener('message', this.handlePostMessages);
+        window?.removeEventListener('message', this.handlePostMessages);
       }
 
       /**

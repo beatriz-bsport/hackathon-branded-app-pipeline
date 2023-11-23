@@ -39,6 +39,7 @@ type Props = {
   hideDeleteStepDialogCadenceIds: number[];
   initialConfiguration: InitialConfigurationValues;
   isConvertStepIntoExitDialogHidden: boolean;
+  isPushNotificationUpsellActive: boolean;
   isDeleteStepDialogHidden: boolean;
   isEntryActionBubbleOpen: boolean;
   isEntryFirstConfiguration: boolean;
@@ -120,6 +121,7 @@ export const useGraph = ({
   hideConvertStepIntoExitDialogCadenceIds,
   isDeleteStepDialogHidden,
   isConvertStepIntoExitDialogHidden,
+  isPushNotificationUpsellActive,
   convertCadenceExitIntoStep,
   convertCadenceStepIntoExit,
   deleteCadenceStep,
@@ -201,6 +203,7 @@ export const useGraph = ({
       hideConvertStepIntoExitDialogCadenceIds,
       isDeleteStepDialogHidden,
       isConvertStepIntoExitDialogHidden,
+      isPushNotificationUpsellActive,
       convertCadenceExitIntoStep,
       convertCadenceStepIntoExit,
       deleteCadenceStep,

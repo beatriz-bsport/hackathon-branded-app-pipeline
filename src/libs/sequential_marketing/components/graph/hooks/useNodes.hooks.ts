@@ -153,6 +153,7 @@ type NodeRendererProps = {
   hideConvertStepIntoExitDialogCadenceIds: number[];
   isDeleteStepDialogHidden: boolean;
   isConvertStepIntoExitDialogHidden: boolean;
+  isPushNotificationUpsellActive: boolean;
   convertCadenceExitIntoStep: (
     triggerUuid: string,
     step: {
@@ -225,6 +226,7 @@ export const useNodeElementsRecorder = ({
   hideConvertStepIntoExitDialogCadenceIds,
   isDeleteStepDialogHidden,
   isConvertStepIntoExitDialogHidden,
+  isPushNotificationUpsellActive,
   convertCadenceExitIntoStep,
   convertCadenceStepIntoExit,
   deleteCadenceStep,
@@ -545,6 +547,7 @@ export const useNodeElementsRecorder = ({
           hideConvertStepIntoExitDialogCadenceIds,
           isDeleteStepDialogHidden,
           isConvertStepIntoExitDialogHidden,
+          isPushNotificationUpsellActive,
           cadenceEditMode,
           stepMemberCount: getStepMemberCountActions?.(stepNode?.id),
           addNextStep: handleAddNextStepTrigger(stepNode),

@@ -9,6 +9,7 @@ import createStyles from '@material-ui/core/styles/createStyles';
 import withStyles from '@material-ui/core/styles/withStyles';
 import type { Theme, WithStyles } from '@material-ui/core/styles';
 
+import Config from '../../config';
 import withTitle from '#hocs/with-title.hoc';
 // @ts-expect-error : Not typed hoc
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
@@ -117,8 +118,13 @@ import {
   fetchTagList as fetchTagListAction,
 } from '#libs/notification-rule/actions';
 
+import { hasUpsell } from '#libs/platform-billing/utils';
+import {
+  UPSELL_IDENTIFIER_PUSH_NOTIFICATION,
+  UPSELL_IDENTIFIER_CADENCE,
+} from '#libs/platform-billing/upsell-identifiers';
+
 import UpsellBlocker from '#libs/platform-billing/components/UpsellBlocker.component';
-import { UPSELL_IDENTIFIER_CADENCE } from '#libs/platform-billing/upsell-identifiers';
 import CadenceUtilityDialog, {
   DialogVariant,
 } from '#libs/sequential_marketing/components/dialogs/DialogUtility';
@@ -340,6 +346,11 @@ export class CadenceDetailPage extends Component<Props> {
     isChecked && this.props.doNotDisplayWelcomeDialogAnymore();
   };
 
+  isPushNotificationUpsellActive = () =>
+    Config.REACT_APP_SENTRY_ENVIRONMENT === 'production'
+      ? hasUpsell(this.props.featureList, UPSELL_IDENTIFIER_PUSH_NOTIFICATION)
+      : true;
+
   render() {
     const { classes } = this.props;
 
@@ -429,6 +440,7 @@ export class CadenceDetailPage extends Component<Props> {
                 this.props.cadence.id,
               )}
               isEntryFirstConfiguration={isEntryFirstConfiguration}
+              isPushNotificationUpsellActive={this.isPushNotificationUpsellActive()}
               onClickConnectedTrigger={this.handleClickConnectedTrigger}
               onClickEntryStep={this.props.onClickEntryStep}
               resetAllSelection={this.resetAllSelection}
@@ -943,6 +955,7 @@ const connector = connect(
     // TAGS (USED FOR MEMBERS)
     allTagsWithTagGroup: getAllTagsWithTagGroup(state),
     getTag: (id: string) => getTag(state, id),
+    featureList: state.company.feature.data,
   }),
   {
     push: pushRouter,

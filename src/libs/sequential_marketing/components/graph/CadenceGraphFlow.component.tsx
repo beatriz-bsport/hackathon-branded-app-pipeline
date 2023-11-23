@@ -46,6 +46,7 @@ type Props = {
   hideConvertStepIntoExitDialogCadenceIds: number[];
   isDeleteStepDialogHidden: boolean;
   isConvertStepIntoExitDialogHidden: boolean;
+  isPushNotificationUpsellActive: boolean;
   convertCadenceStepIntoExit: (
     stepId: number,
     status: DestinationStatus,
@@ -127,6 +128,7 @@ export const CadenceGraphFlow: React.FC<Props> = ({
   hideConvertStepIntoExitDialogCadenceIds,
   isDeleteStepDialogHidden,
   isConvertStepIntoExitDialogHidden,
+  isPushNotificationUpsellActive,
   convertCadenceExitIntoStep,
   convertCadenceStepIntoExit,
   deleteCadenceStep,
@@ -200,6 +202,7 @@ export const CadenceGraphFlow: React.FC<Props> = ({
     hideConvertStepIntoExitDialogCadenceIds,
     isDeleteStepDialogHidden,
     isConvertStepIntoExitDialogHidden,
+    isPushNotificationUpsellActive,
     convertCadenceExitIntoStep,
     convertCadenceStepIntoExit,
     deleteCadenceStep,

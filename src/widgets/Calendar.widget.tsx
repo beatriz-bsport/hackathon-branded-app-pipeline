@@ -9,6 +9,12 @@ import {
 import { MarketplaceCalendarData } from 'bsport-saas/src/libs/marketplace/types';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import withPostMessageOnPropsUpdate from 'bsport-saas/src/hocs/postMessages/with-post-message-on-props-update';
+import withPostMessageToUpdateProps from 'bsport-saas/src/hocs/postMessages/with-post-message-to-update-props';
+import {
+  CalendarFilterValidationSchema,
+  CalendarOnlineFilterValidationSchema,
+} from 'bsport-saas/src/libs/marketplace/utils';
+
 import { Theme } from 'bsport-saas/src/libs/theme/types';
 import {
   withStyles,
@@ -27,11 +33,28 @@ import {
 
 const DATE_FORMAT = 'YYYY-MM-DD';
 
-const MarketplaceCalendarStyled = themify(
+const MarketplaceCalendarStyled = compose(
+  themify,
   withPostMessageOnPropsUpdate([
     { propName: 'filters', messageType: 'bsport:calendar:filter:update' },
-  ])(MarketplaceCalendar),
-);
+    {
+      propName: 'onlineFilter',
+      messageType: 'bsport:calendar:filter:update',
+    },
+  ]),
+  withPostMessageToUpdateProps([
+    {
+      propName: 'filters',
+      messageType: 'bsport:calendar:filter:control',
+      validationSchema: CalendarFilterValidationSchema,
+    },
+    {
+      propName: 'onlineFilter',
+      messageType: 'bsport:calendar:filter:control',
+      validationSchema: CalendarOnlineFilterValidationSchema,
+    },
+  ]),
+)(MarketplaceCalendar);
 
 type OwnProps = {
   companyId: number,
@@ -55,6 +78,9 @@ type State = {
     levels: number[],
     establishment_group__in: number[],
   },
+  onlineFilter: {
+    is_online?: boolean | undefined,
+  },
   selectedDate: string,
 };
 
@@ -72,8 +98,11 @@ export class CalendarWidget extends Component<Props, State> {
       establishment_group__in: props.config.establishmentGroups || [],
     };
 
+    const onlineFilter = props.config.onlineFilter ?? {};
+
     this.state = {
       filters,
+      onlineFilter,
       selectedDate: Moment().format(DATE_FORMAT),
     };
   }
@@ -130,6 +159,7 @@ export class CalendarWidget extends Component<Props, State> {
         compactMode={
           this.props.config ? this.props.config.compactMode : undefined
         }
+        onlineFilter={this.state.onlineFilter}
         filters={this.state.filters}
         variant={this.props?.config?.variant}
         groupSessionByPeriod={this.props?.config?.groupSessionByPeriod}

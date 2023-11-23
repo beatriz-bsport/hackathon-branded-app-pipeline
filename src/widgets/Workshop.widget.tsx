@@ -9,6 +9,11 @@ import { MaterialStyleType } from 'bsport-saas/src/utils/types';
 import { Theme } from 'bsport-saas/src/libs/theme/types';
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 import withPostMessageOnPropsUpdate from 'bsport-saas/src/hocs/postMessages/with-post-message-on-props-update';
+import withPostMessageToUpdateProps from 'bsport-saas/src/hocs/postMessages/with-post-message-to-update-props';
+import {
+  CalendarFilterValidationSchema,
+  CalendarOnlineFilterValidationSchema,
+} from 'bsport-saas/src/libs/marketplace/utils';
 
 import '../../vendor/map.css';
 
@@ -16,12 +21,28 @@ import { getEnv } from '../utils/env';
 import { bridgeRequestRegisteredOfferIdList } from '../libs/bridge/actions';
 import { RootState } from '../reducers';
 
-const MarketplaceWorkshopBaseStyled = themify(
-  withPostMessageOnPropsUpdate<Props & State>([
-    { propName: 'filters', messageType: 'bsport:workshop:filter:update' },
-  ])(MarketplaceWorkshopBase),
-);
-
+const MarketplaceWorkshopBaseStyled = compose(
+  themify,
+  withPostMessageOnPropsUpdate([
+    { propName: 'filters', messageType: 'bsport:calendar:filter:update' },
+    {
+      propName: 'onlineFilter',
+      messageType: 'bsport:calendar:filter:update',
+    },
+  ]),
+  withPostMessageToUpdateProps([
+    {
+      propName: 'filters',
+      messageType: 'bsport:calendar:filter:control',
+      validationSchema: CalendarFilterValidationSchema,
+    },
+    {
+      propName: 'onlineFilter',
+      messageType: 'bsport:calendar:filter:control',
+      validationSchema: CalendarOnlineFilterValidationSchema,
+    },
+  ]),
+)(MarketplaceWorkshopBase);
 type OwnProps = {
   companyId: number,
   config: MarketplaceWorkshopData,

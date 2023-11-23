@@ -16787,7 +16787,7 @@
             },
             "configTitle": "Mon Widget",
             "listDisplay": "Vue hebdomadaire (liste)",
-            "calendarDisplay": "Vue hebdomadaire (card)",
+            "calendarDisplay": "Vue hebdomadaire (carte)",
             "responsiveDisplay": "Affichage responsive",
             "cancel": "Annuler",
             "show": "Visualiser",

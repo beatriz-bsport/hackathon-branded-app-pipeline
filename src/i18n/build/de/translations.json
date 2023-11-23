@@ -58,12 +58,12 @@
         "explainWaitingListConf": "Z.B : Es sind noch drei Stunden bis zum Kursbeginn, der Schüler hat {{ nbMinutesBeforeBookingOptionExpire }} Minuten um seine Reservierung zu bestätigen, bevor er seinen Platz verlässt.",
         "dialog": {
             "delete": {
-                "content": "Bist Du sicher, dass Du dieses Mitglied von der Warteliste entfernen möchtest? Dieses Mitglied wird per E-Mail benachrichtigt.",
+                "content": "Sind Sie sicher, dass Sie dieses Mitglied von der Warteliste entfernen möchten? Dieses Mitglied wird per E-Mail benachrichtigt.",
                 "cancel": "Abbrechen",
                 "confirm": "Löschen",
-                "title": "Löschung der Warteliste",
+                "title": "Von der Warteliste entfernen",
                 "contentV2": "Sind Sie sicher, dass Sie dieses Mitglied von der Warteliste streichen möchten?",
-                "sendEmail": "Senden Sie eine E-Mail zur Abmeldung"
+                "sendEmail": "Senden Sie eine E-Mail zur Entfernung"
             },
             "autoBooking": {
                 "warning": {
@@ -75,7 +75,7 @@
                     "title": "Mitglieder werden zur Session hinzugefügt"
                 },
                 "info": {
-                    "content": "Mitglieder mit gältigen Pässen werden automatisch in die Session eingebucht und erhalten eine Bestätigungs-E-Mail. Das System wird die Credits automatisch von dem Pass abziehen, der als nächstes abläuft",
+                    "content": "Mitglieder mit gültigen Pässen werden automatisch in die Session eingebucht und erhalten eine Bestätigungs-E-Mail. Das System wird die Credits automatisch von dem Pass abziehen, der als nächstes abläuft",
                     "title": "Automatische Buchungen für gültige Pässe"
                 },
                 "success": {
@@ -834,7 +834,7 @@
         },
         "register": {
             "dialog": {
-                "info": "Ihr Abonnement wird gerade angemeldet, wir werden Sie informieren, sobald es fertig ist.",
+                "info": "Ihr Abonnement wird gerade registriert. Wir werden Sie informieren, sobald es fertig ist.",
                 "success": "Ihr Abonnement {{- name }} wurde erfolgreich angemeldet.",
                 "error": "Die Anmeldung ist nicht möglich, bitte versuchen Sie es später erneut."
             }
@@ -979,7 +979,7 @@
             "pass": "Kurspässe",
             "checkout": {
                 "dialog": {
-                    "goToPayment": "Zahlen",
+                    "goToPayment": "Kaufen",
                     "goToDelivery": "Weiter",
                     "title": "Mein Warenkorb",
                     "cancel": "Zurück zum Shop"
@@ -988,8 +988,8 @@
             "shop": {
                 "isEmpty": "Derzeit sind keine Produkte im Shop erhältlich.",
                 "addToCard": "In den Warenkorb",
-                "tabName": "Shop",
-                "noDescription": "Keine Beschreibung"
+                "tabName": "Webshop",
+                "noDescription": "Keine Beschreibung verfügbar."
             },
             "workshop": "Workshops",
             "calendar": "Kalender",
@@ -999,7 +999,7 @@
                 "isPast": "Vergangen",
                 "notAvailable": "Storniert",
                 "notBookableYet": "Bald verfügbar",
-                "alreadyRegistered": "Buchen",
+                "alreadyRegistered": "Gebucht",
                 "full": "Vollständig",
                 "popOverTitle": {
                     "bookOption": "Die Session ist ausgebucht, eine Warteliste ist verfügbar.",
@@ -1011,7 +1011,7 @@
             },
             "passListTitle": "Kurspässe",
             "privatePassListTitle": "Terminpässe",
-            "noSessionToday": "Kein Kurs",
+            "noSessionToday": "Keine Sessions verfügbar.",
             "backToCalendar": "Zurück",
             "teacher": "Lehrkraft",
             "substituted": "Abwesend",
@@ -1022,11 +1022,11 @@
             },
             "vod": "VOD",
             "sessionThisDay": "Kurse an diesem Tag :",
-            "playlist": "Wiedergabeliste",
+            "playlist": "Playlists",
             "offers": "{{ count }} Sessions",
             "from_to": "von {{-from}} bis {{-to}}",
             "discover": "Entdecken",
-            "bookGroups": "Buchen Sie eine Gruppensession",
+            "bookGroups": "Events",
             "cancel": "Schließen",
             "book": "Buchen",
             "paymentComboListTitle": "Pakete"
@@ -1139,7 +1139,7 @@
             "restore": "Wiederherstellen",
             "share": "Teilen",
             "pickALanguage": "Sprache",
-            "disconnect": "Trennen der Verbindung",
+            "disconnect": "Abmelden",
             "emergencyContact": "Im Falle eines Notfalls",
             "vaccinationDontWantToCommunicate": "Möchte nicht antworten",
             "vaccinationNotDone": "Kein gültiger Gesundheitspass",
@@ -1154,18 +1154,18 @@
         },
         "openSchedule": "Stundenplan ansehen",
         "login": {
-            "loginAsConsumer": "Ein Schüler",
+            "loginAsConsumer": "Ein Mitglied",
             "error": {
-                "invalidEmail": "Diese E-Mail existiert nicht in unserer Datenbank",
-                "invalidPassword": "Das Passwort ist ungültig"
+                "invalidEmail": "Diese E-Mail existiert nicht in unserer Datenbank.",
+                "invalidPassword": "Das Passwort ist ungültig."
             },
             "forgottenPassword": "Passwort vergessen?",
-            "authError": "Falsche E-Mail oder falsches Passwort",
+            "authError": "Falsche E-Mail oder falsches Passwort.",
             "password": "Passwort",
-            "noAccount": "Noch kein Konto? Registriere Dich hier!",
-            "loginAsPro": "Ein Geschäftsleiter",
+            "noAccount": "Neues Konto erstellen",
+            "loginAsPro": "Ein Manager",
             "choseYourUserspace": "Ich bin",
-            "invalidPhone": "Unbekannte Telefonnummer",
+            "invalidPhone": "Unbekannte Telefonnummer.",
             "signUpConsumer": "Noch kein Konto ?",
             "welcome": "Herzlich Willkommen !"
         },
@@ -1398,7 +1398,7 @@
                 "changeDate": "Uhrzeit/Datum ändern",
                 "warningPackonEdit": "Änderungen an den Kursen können dazu führen, dass diese mit einigen Kursässen nicht mehr kompatibel sind. Bitte prüfe, ob sie mit den möglichen Orts-/Lehrkraftwechseln kompatibel bleiben.",
                 "levelChangeWarning": "Wenn das Level des Kurses geändert wird, wird diese Änderung für alle zukünftigen Sessions wirksam. Alle anderen hier aufgezeichneten Änderungen (Einrichtung, Preis, Wochentag usw.) werden daher auf alle Sessions angewendet.",
-                "explainPartnership": "Auf Marktplätzen (ClassPass, OneFit...)",
+                "explainPartnership": "Auf Marketplaces (ClassPass, OneFit...)",
                 "explainManagerOnly": "Verfügbar bei Buchung (Web+App)",
                 "advancedOptions": {
                     "tag": {
@@ -1441,7 +1441,7 @@
                     },
                     "barcode": "Barcode",
                     "deleteTitle": "Löschung",
-                    "marketplace_enabled": "Auf dem Web-Marketplace verfügbar",
+                    "marketplace_enabled": "Im Webshop verfügbar",
                     "unlimitedProvision": "Keine Verwaltung des Inventares",
                     "create": "Ein Produkt hinzufügen",
                     "featured": "Bei der Bestätigung des Warenkorbs in den Vordergrund stellen",
@@ -1487,7 +1487,7 @@
                 "totalPurchase": "Einkäufe"
             },
             "signup": {
-                "emailExistsInDB1": "Diese E-Mail ist bereits registriert, weil Du bereits in einem Club oder Studio mit bsport registriert bist. Du kannst dieselben Kontodaten verwenden.",
+                "emailExistsInDB1": "Diese E-Mail ist bereits registriert, weil Du bereits in einem Club oder Studio mit bsport registriert bist. Du kannst dieselben Anmeldedaten verwenden.",
                 "privacyPolicy": "Allgemeine Geschäftsbedingungen",
                 "signupButton": "Registrieren",
                 "communication": {
@@ -1495,7 +1495,7 @@
                     "email": "per E-Mail"
                 },
                 "confirmPassword": "Passwort",
-                "emailExistsInDB2": "Einloggen",
+                "emailExistsInDB2": "Anmelden",
                 "typePhone": "Handynummer *",
                 "iAcceptPrivacyPolicy": "Ich akzeptiere die ",
                 "rgpdTitle": "Wie möchten Sie von Lehrkräften aufgrund von Stornierungen/Zeitänderungen kontaktiert werden?",
@@ -1564,11 +1564,11 @@
             },
             "login": {
                 "confirmPassword": "Bestätigen",
-                "passwordChangedSuccess": "Passwort erfolgreich geändert!",
-                "passwordTooEasy": "Ihr Passwort muss mindestens 6 Zeichen enthalten und darunter eine Zahl und Buchstaben",
+                "passwordChangedSuccess": "Ihr Passwort wurde erfolgreich geändert!",
+                "passwordTooEasy": "Ihr Passwort muss mindestens 6 Zeichen enthalten und darunter eine Zahl und Buchstaben.",
                 "password": "Passwort",
                 "changePasswordTitle": "Passwort ändern",
-                "passwordMismatch": "Passwörter stimmen nicht überein",
+                "passwordMismatch": "Diese Passwörter stimmen nicht überein.",
                 "resetAgainPassword": "Antrag auf Zurücksetzung",
                 "tokenExpired": "Diese Seite ist abgelaufen, bitte fordere erneut eine Passwortänderung an"
             },
@@ -1665,7 +1665,7 @@
             "effectif": "Teilnehmeranzahl",
             "recurrence": "Wiederholung",
             "signInPhoneInstruction": "Bitte gib Deine Telefonnummer ein, ein Bestätigungscode wird per SMS geschickt",
-            "SMSSignInTitle": "SMS-Verbindung",
+            "SMSSignInTitle": "Über SMS anmelden",
             "code": "Code",
             "pleaseEnterYourSMSCode": "Bitte gib den per SMS gesendeten Code ein",
             "warningCreditChange": "PS : Frühere Buchungen berücksichtigen keine Änderungen der Credits",
@@ -1687,7 +1687,7 @@
             "warningAddEmail": "Diese E-Mail ist bereits hinzugefügt worden.",
             "emailHelper": "Um mehrere E-Mails hinzuzufügen, geben Sie nach jeder E-Mail ein Komma oder ein Leerzeichen ein.",
             "partner_max_booking_count": "Maximale Anzahl von Marketplace-Buchungen (nur OneFit)",
-            "noPartnershipIntegration": "Marktplatzreservierungen sind für Gruppensessions nicht möglich",
+            "noPartnershipIntegration": "Marketplace-Reservierungen sind für Gruppensessions nicht möglich",
             "noWaitingList": "Wartelisten sind für Gruppensessions nicht verfügbar",
             "tenMinutes": "10min",
             "period": {
@@ -1944,7 +1944,7 @@
                     "min_bookings_nb": "Anzahl der Buchung(en):",
                     "emailRecipients": "Diese E-Mail wird an Mitarbeiter mit der Rolle \"Leiter\" oder \"Administrator\" sowie an die Lehrkraft (oder Vertretungslehrkraft) des betreffenden Kurses gesendet.",
                     "checkbox": "Storniere den Kurs automatisch, wenn zu wenige Buchungen vorliegen",
-                    "explain": "Die Sitzung wird storniert und eine E-Mail-Benachrichtigung an die Schüler gesendet, wenn {{bookings_nb}} Reservierung(en) {{hours}} Stunde(n) vor Beginn der Session vorliegen."
+                    "explain": "Die Sitzung wird storniert, wenn weniger als {{bookings_nb}} Reservierung(en) {{hours}} Stunde(n) vor Beginn der Session vorliegen. Alle Mitglieder, die sich in diese Session eingebucht haben, werden über die Absage der Session informiert."
                 }
             }
         },
@@ -1986,7 +1986,7 @@
         "private_service": "Termine",
         "bookingConfirmed": "Buchung bestätigt",
         "button": {
-            "login": "Einloggen"
+            "login": "Anmelden"
         },
         "pageTitle": {
             "myAccount": "Mein Konto"
@@ -3375,7 +3375,7 @@
                         "_label": "Bsport Abonnement"
                     },
                     "marketplace": {
-                        "_label": "Einstellungen Marketplace"
+                        "_label": "Marketplace-Einstellungen"
                     },
                     "staffs": {
                         "_label": "Mitarbeiter"
@@ -5039,7 +5039,7 @@
                         "notAllowed": "Nicht erlaubt",
                         "allowedFor": "Zugelassen für",
                         "allowed": "Autorisiert",
-                        "helperText": "Verwenden Sie Tags, um den Pass nur für eine bestimmte Gruppe von Mitgliedern auf dem Marktplatz, im Widget und in der App sichtbar zu machen. Sie können Tags auswählen, um die Karte nur für Mitglieder mit einem ausgewählten Tag sichtbar zu machen. Oder Sie können Tags auswählen, um die Karte nur für Mitglieder mit einem der ausgewählten Tags unsichtbar zu machen. ",
+                        "helperText": "Verwenden Sie Tags, um den Pass nur für eine bestimmte Gruppe von Mitgliedern auf dem Marketplace, im Widget und in der App sichtbar zu machen. Sie können Tags auswählen, um die Karte nur für Mitglieder mit einem ausgewählten Tag sichtbar zu machen. Oder Sie können Tags auswählen, um die Karte nur für Mitglieder mit einem der ausgewählten Tags unsichtbar zu machen. ",
                         "header": "Tags"
                     },
                     "header": "Fortgeschrittene",
@@ -5261,7 +5261,7 @@
             },
             "form": {
                 "dialog": {
-                    "helper": "Die Kategorien werden auf dem Marktplatz und in der mobilen App für zum Verkauf stehende Pässen angezeigt.",
+                    "helper": "Die Kategorien werden auf dem Marketplace und in der mobilen App für zum Verkauf stehende Pässen angezeigt.",
                     "titleEdit": "Kategorie",
                     "titleNew": "Neue Kategorie",
                     "name": "Name der Kategorie",
@@ -5276,7 +5276,7 @@
         "noCategory": {
             "empty": "Keine Pässe in dieser Kategorie",
             "name": "Keine Kategorie",
-            "help": "Diese Pässe werden in einer unbenannten Kategorie auf dem Marktplatz erscheinen"
+            "help": "Diese Pässe werden in einer unbenannten Kategorie auf dem Marketplace erscheinen."
         },
         "noUnauthorizedTag": "Keine unerlaubten Tags",
         "noAuthorizedTag": "Keine Tags erlaubt",
@@ -5871,9 +5871,9 @@
             "billing_group": "Abrechnungsgruppe",
             "company_name": "Franchisenehmer",
             "reverted": "Abgesagt",
-            "sum_available_amount_non_expired": "Verbleibende Credits",
-            "sum_available_amount_expired": "Verwendete und abgelaufene Credits",
-            "sum_consumed_amount": "Verwendete Credits",
+            "sum_available_amount_non_expired": "Verbleibender Betrag",
+            "sum_available_amount_expired": "Abgelaufener Betrag",
+            "sum_consumed_amount": "Verwendeter Betrag",
             "nb_expired": "Anzahl der nicht aktivierten Gutscheine",
             "nb_non_activated": "Anzahl der nicht aktivierten Gutscheine",
             "nb_activated": "Anzahl der aktivierten Gutscheine",
@@ -7310,7 +7310,7 @@
                 "stripeTerminal": {
                     "deleteReader": {
                         "success": "Zahlungsterminal gelöscht",
-                        "error": "Dieses Zahlungsterminal kann nicht gelöscht werden"
+                        "error": "Dieser Zahlungsterminal kann nicht gelöscht werden"
                     }
                 },
                 "error": "Es ist ein Fehler aufgetreten. Bitte überprüfen Sie die angeforderten Einstellungen."
@@ -7322,7 +7322,7 @@
         },
         "clockIn": {
             "errors": {
-                "96002": "Dieser Benutzer ist bereits eingeloggt"
+                "96002": "Dieser Benutzer ist bereits eingestempelt"
             }
         },
         "refreshInternalAccountPrepaidLines": {
@@ -8184,7 +8184,7 @@
         "subscriptionPaymentDialog": {
             "error": {
                 "button_text": "Erneut versuchen",
-                "text_status": "Ihr Kauf konnte nicht erfolgreich sein!",
+                "text_status": "Ihr Kauf konnte nicht abgeschlossen werden!",
                 "text_content": "Ihr Kauf konnte nicht abgeschlossen werden. Sie können es noch einmal versuchen oder zu Ihrem Konto zurückkehren.",
                 "title": "Fehler bei der Zahlung",
                 "userSpace": "Mitgliederbereich"
@@ -8196,7 +8196,7 @@
                 "recap": "Zusammenfassung",
                 "title": "Herzlichen Glückwunsch!",
                 "text_content_funnel": "Ihr Kauf wurde berücksichtigt, klicken Sie auf Weiter, um Ihre Buchung abzuschließen. Der mit Ihrem Abonnement verbundene Pass wurde dem Abschnitt \"Meine Kurspässe\" hinzugefügt. Wählen Sie sie aus, um Ihre Buchung zu tätigen.",
-                "contract": "Mein Vertrag"
+                "contract": "Meine Mitgliedschaft (Vertrag)"
             },
             "title": "Ein Abonnement kaufen"
         },
@@ -8208,8 +8208,8 @@
         "stripeBalance": {
             "dialog": {
                 "firstPart": "Bei bsport verwenden wir den Stripe-Service, um alle Ihre Online-Zahlungen zu verwalten. Die Beträge dieser werden bei Stripe gespeichert und dann auf Ihr Konto zurücküberwiesen (Abschnitt \"Meine Zahlungseingänge\").",
-                "secondPart": "Ihr \"verfügbares Restguthaben\" entspricht also dem Betrag der Online-Zahlungen, der Ihnen noch nicht ausgezahlt wurde.",
-                "thirdPart": "Ihr \"Restguthaben in Bearbeitung\" entspricht dem Betrag, der auf Ihr verfügbares Guthaben eingehen wird.",
+                "secondPart": "Ihr \"verfügbares Saldo\" entspricht also dem Betrag der Online-Zahlungen, der Ihnen noch nicht ausgezahlt wurde.",
+                "thirdPart": "Ihr \"Saldo in Bearbeitung\" entspricht dem Betrag, der auf Ihr verfügbares Saldo eingehen wird.",
                 "alert": "Beachten Sie, dass bei einer direkten Rückerstattung dieses Geld direkt von Ihrem Stripe-Konto abgebucht wird. Dadurch kann es ins Minus rutschen.",
                 "close": "Schließen"
             },
@@ -8410,7 +8410,7 @@
             "detail": {
                 "onsite_payment_available": "Zahlung vor Ort",
                 "is_deliverable": "Versandkosten",
-                "marketplace_enabled": "Auf Web-Marketplace verfügbar",
+                "marketplace_enabled": "Im Webshop verfügbar",
                 "supplier_price": "Einkaufspreis",
                 "parameters": "Einstellungen",
                 "provisionHistory": "Entwicklung des Inventares",
@@ -9230,7 +9230,7 @@
         "exists": {
             "goTo": "Mitglied ansehen",
             "merge": "Zusammenlegen",
-            "linkUser": "Den Benutzer verbinden",
+            "linkUser": "Benutzer verbinden",
             "quicksale": "Dieses Mitglied auswählen"
         },
         "forms": {
@@ -9240,21 +9240,21 @@
                 "title": "Mitglieder zusammenlegen",
                 "srcMember": "Dieses Konto wird zusammengelegt und gelöscht",
                 "error": "Es ist unmöglich, diese Mitglieder zusammenzulegen",
-                "success": "Zusammengelegte Mitglieder",
+                "success": "Mitglieder zusammengelegt",
                 "dstMember": "Dieses Konto wird gespeichert",
-                "explainCredit": "Die interne Anzahlung des Mitglieds wird übertragen",
-                "explainTags": "Tags des gelöschten Mitglieders werden nicht übertragen",
+                "explainCredit": "Der interne Kontostand des Mitglieds wird übertragen",
+                "explainTags": "Tags des gelöschten Mitglieds werden nicht übertragen",
                 "cancel": "Abbrechen",
                 "explainBookingsAndPassAndInvoiceAndNotes": "Kurspässe, Buchungen, Rechnungen und Anmerkungen werden übertragen.",
                 "emailWillBeSend": "An beide Adressen wird eine E-Mail geschickt, um die Mitglieder zu benachrichtigen."
             },
             "update": {
-                "title": "Änderung der Informationen",
-                "success": "Mitglied erfolgreich geändert"
+                "title": "Mitgliedinformationen aktualisiert",
+                "success": "Mitglied erfolgreich aktualisiert"
             },
             "create": {
                 "title": "Neues Mitglied",
-                "success": "Mitglied erfolgreich erstellt"
+                "success": "Mitglied hinzugefügt"
             },
             "error": "Es ist unmöglich, dieses Mitglied zu speichern",
             "phone": {
@@ -9262,49 +9262,49 @@
             },
             "needInformationValidation": {
                 "legend": {
-                    "memberOfCompany": "Um mit dem Browsen fortzufahren, füllen Sie bitte die folgenden Informationen aus",
-                    "notMemberYet": "Möchten Sie Ihre Anmeldedaten übermitteln? "
+                    "memberOfCompany": "Um mit dem Browsen fortzufahren, füllen Sie bitte die folgenden Informationen aus.",
+                    "notMemberYet": "Haben Sie diese Informationen korrekt ausgefüllt und möchten Sie den Anmeldevorgang abschließen? "
                 },
                 "welcome": "Hallo {{firstname}}",
                 "subtitle": {
-                    "notMemberYet": "Es scheint, dass Sie sich zum ersten Mal mit diesem Studio verbinden",
-                    "memberOfCompany": "Erzählen Sie uns mehr über sich."
+                    "notMemberYet": "Sieht so aus, als würden Sie unser Studio zum ersten Mal besuchen.",
+                    "memberOfCompany": "Bitte füllen Sie das folgende Formular aus."
                 },
                 "button": {
                     "memberOfCompany": "Meine Informationen vervollständigen",
                     "notMemberYet": "Weitergabe von Informationen"
                 }
             },
-            "title": "Informationen für den Benutzer",
-            "newMemberOnlyHelperText": "Ein Mitglied gilt als \"neu\", solange es keinen Kauf von mehr als {{ currency }}0 getätigt hat. Bitte beachten Sie, dass jeder Kauf eines bezahlten Artikels mit einer 100%igen Preisreduzierung zum Verlust des Status \"Neues Mitglied\" führt."
+            "title": "[Form] Anmeldung",
+            "newMemberOnlyHelperText": "Ein Mitglied gilt als \"neu\", solange es keinen Kauf von mehr als 0{{ currency }} getätigt hat. Bitte beachten Sie, dass jeder Kauf eines bezahlten Artikels mit einer Preisreduzierung von 100% zum Verlust des Status \"Neues Mitglied\" führt."
         },
         "showSubscriptions": "Abonnements ansehen",
         "showInvoices": "Rechnungen ansehen",
-        "showPaymentPack": "Kurspässe ansehen",
+        "showPaymentPack": "Kurspass ansehen",
         "showPreviousBooking": "Bisherige Buchungen ansehen",
         "showNextBooking": "Zukünftige Buchungen ansehen",
         "table": {
             "show": "Anzeigen"
         },
         "member": {
-            "existsWithEmail": "Ein Mitglied mit dieser E-Mail-Adresse {{email}} gibt es bereits.",
-            "existsWithPhone": "Ein Mitglied mit der {{phonenumber}} Telefonnummer existiert bereits.",
+            "existsWithEmail": "Ein Mitglied mit der E-Mail-Adresse {{email}} gibt es bereits.",
+            "existsWithPhone": "Ein Mitglied mit der Telefonnummer {{phonenumber}} existiert bereits.",
             "existsWithEmailButNotConfirmed": "Ein Benutzer mit der E-Mail-Adresse {{email}} existiert bereits, muss aber noch bestätigt werden. Wenn Sie diesen Benutzer registrieren, wird die E-Mail-Adresse automatisch verifiziert.",
             "existsWithPhoneButNotConfirmed": "Ein Benutzer mit der Telefonnummer {{phonenumber}} existiert bereits, aber die E-Mail-Adresse ({{email}}) muss noch bestätigt werden. Durch die Registrierung dieses Benutzers wird die E-Mail-Adresse automatisch verifiziert."
         },
         "user": {
-            "existsWithEmail": "Ein Benutzer mit dieser E-Mail-Adresse {{email}} gibt es bereits.",
-            "existsWithPhone": "Ein Benutzer mit der {{phonenumber}} Telefonnummer existiert bereits.",
+            "existsWithEmail": "Einen Benutzer mit der E-Mail-Adresse {{email}} gibt es bereits.",
+            "existsWithPhone": "Ein Benutzer mit der Telefonnummer {{phonenumber}} existiert bereits.",
             "existsWithEmailButNotConfirmed": "Ein Benutzer mit der E-Mail-Adresse {{email}} existiert bereits, muss aber noch bestätigt werden. Wenn Sie diesen Benutzer registrieren, wird die E-Mail-Adresse automatisch verifiziert.",
             "existsWithPhoneButNotConfirmed": "Ein Benutzer mit der Telefonnummer {{phonenumber}} existiert bereits, aber die E-Mail-Adresse ({{email}}) muss noch bestätigt werden. Durch die Registrierung dieses Benutzers wird die E-Mail-Adresse automatisch verifiziert."
         },
         "menu": {
             "bookings": "Buchungen",
             "privateConsumerPass": "Terminpässe",
-            "privateBooking": "Termin",
+            "privateBooking": "Termine",
             "payment": "Rechnungsstellung",
             "contact": "Kontakt",
-            "invoices": "Rechnungen und Abonnements",
+            "invoices": "Rechnungen & Abonnements",
             "paymentPack": "Kurspässe",
             "relation": "Beziehungen",
             "info": "Allgemein",
@@ -9312,7 +9312,7 @@
             "form": "Formulare",
             "giftcard": "Gutschein",
             "programs": "Programme",
-            "basket": "Korb"
+            "basket": "Warenkorb"
         },
         "merge": "Zusammenlegen",
         "paymentAction": {
@@ -9322,51 +9322,51 @@
         "row": {
             "update": "Ändern",
             "headers": {
-                "actions": "Aktion",
+                "actions": "Aktionen",
                 "newsletter_email": "E-Mails akzeptieren"
             },
             "no": "Nein",
             "yes": "Ja"
         },
         "relation": {
-            "pleaseSelectRelation": "Wähle eine Beziehung aus, um geteilte Kurspässe anzuzeigen"
+            "pleaseSelectRelation": "Wähle eine Beziehung aus, um mehr Informationen zu den geteilten Kurspässe anzuzeigen."
         },
-        "regularizeBalance": "Ausgleichen",
+        "regularizeBalance": "Zahlung abschließen",
         "file": {
-            "drop_file": "Du musst ziehen und ablegen oder klicken, um ein Dokument hinzuzufügen",
+            "drop_file": "Klicken Sie hier, um ein Dokument hinzuzufügen.",
             "name": "Name",
             "cancel": "Abbrechen",
-            "upload_file": "Ein Dokument hinzufügen",
-            "nofileSaved": "Kein gespeichertes Dokument",
+            "upload_file": "Dokument hochladen",
+            "nofileSaved": "Kein gespeicherten Dokumente.",
             "submit": "Hinzufügen",
             "add": "Ein Dokument hinzufügen",
             "confirm": "Bestätigen",
             "deleteFileMessage": "Bist Du Dir sicher, dass Du dieses Dokument löschen möchtest?",
-            "title": "Meine Dokumente",
-            "imported": "Dokument importiert !",
+            "title": "Dokumente",
+            "imported": "Das Dokument wurde erfolgreich hochgeladen.",
             "deletion": "Löschung",
-            "addButtonBlocked": "Lösche Dokumente, um Neue hinzuzufügen"
+            "addButtonBlocked": "Löschen Sie Dokumente, um Neue hinzuzufügen"
         },
         "note": {
             "is_medical": "Wichtige Anmerkung",
-            "healthNotes": "Wichtige Informationen",
-            "myNotes": "Meine Anmerkungen",
+            "healthNotes": "Warnungen",
+            "myNotes": "Anmerkungen",
             "addNote": "Eine Anmerkung hinzufügen",
-            "noNoteSaved": "Keine gespeicherte Information"
+            "noNoteSaved": "Keine gespeicherten Anmerkungen."
         },
-        "memberList": "Liste der Mitglieder",
-        "addMember": "Ein Mitgliederprofil hinzufügen",
+        "memberList": "Übersicht",
+        "addMember": "Ein Mitglied hinzufügen",
         "engagement": "Engagement",
         "nextBooking": "nächste : ",
-        "memberSince": "Angemeldet am ",
+        "memberSince": "Anmeldedatum ",
         "barcode": {
-            "display": "Barcode ansehen",
-            "code": "Karten-Code",
-            "none": "Keine",
+            "display": "Barcode anzeigen",
+            "code": "Barcode",
+            "none": "keine",
             "label": "Barcode"
         },
         "bornIn": "Geboren am ",
-        "pass_owner": "Gültiger Pass",
+        "pass_owner": "Nicht gültig",
         "subscriptionTitle": "Abonnements",
         "invoiceTitle": "Rechnungen",
         "date_joined": "Anmeldungsdatum",
@@ -9375,12 +9375,12 @@
             "cancel": "Abbrechen",
             "confirm": "Ich bestätige",
             "title": "Einen bereits existierenden Benutzer verbinden",
-            "content": "Dieses Konto wurde ursprünglich in einem anderen Studio verwendet, es wird nun mit einem neuen Studio verbunden."
+            "content": "Dieses Konto wurde ursprünglich in einem anderen Studio erstellt. Es wird nun mit dem derzeitig ausgewählten Studio verbunden."
         },
-        "cashoutBalance": "Auszahlen",
-        "creditAccountBalance": "Restguthaben",
+        "cashoutBalance": "Auszahlungssaldo",
+        "creditAccountBalance": "Mitgliedskontostand",
         "pastBooking": "letzte : ",
-        "offers_joined": "Anzahl der registrierten Kurse",
+        "offers_joined": "Aktivitäten, an denen teilgenommen wurde",
         "search": {
             "cancel": "Schließen",
             "createMember": "Ein Mitglied hinzufügen"
@@ -9388,26 +9388,26 @@
         "birth": {
             "unknown_F": "Geboren am -",
             "unknown": "Geboren am -",
-            "bornIn_F": "Geboren am {{-date}} - {{age}} Jahre",
-            "bornIn": "Geboren am {{-date}} - {{age}} Jahre"
+            "bornIn_F": "Geboren am {{-date}} {{age}}",
+            "bornIn": "Geboren am {{-date}} - {{age}} Jahre alt"
         },
-        "memberTermsAccepted": " wurden am {{- date}} akzeptiert",
-        "termsAndConditions": "Die allgemeinen Geschäftsbedingungen",
+        "memberTermsAccepted": " wurden am {{- date}} akzeptiert.",
+        "termsAndConditions": "Die Allgemeinen Geschäftsbedingungen",
         "applyBalanceToUnpaidInvoices": "Kontostand des Mitglieds verwenden, um unbezahlte Rechnungen zu begleichen",
-        "adjustBalance": "Guthaben einstellen",
+        "adjustBalance": "Kontostand anpassen",
         "unpaidInvoiceTitle": "Unbezahlte Rechnung",
         "unpaidInvoiceTitle_plural": "Unbezahlte Rechnungen",
         "vaccinationStatus": {
-            "unknown": "Status Sanitärpass unbekannt",
-            "notDone": "Kein gültiger Gesundheitspass",
-            "done": "Gültiger Gesundheitspass"
+            "unknown": "Sanitärpassstatus unbekannt",
+            "notDone": "Ich besitze keinen gültigen COVID-19 Sanitätspass",
+            "done": "Ich besitze einen gültigen COVID-19 Sanitätspass"
         },
         "archive": {
-            "archivedMember": "Mitglied Archiviert : {{name}}",
+            "archivedMember": "Archiviertes Mitglied: {{name}}",
             "dialog": {
                 "title": "Mitglied archivieren",
                 "actions": {
-                    "confirm": "Konfirmand",
+                    "confirm": "Bestätigen",
                     "close": "Schließen"
                 },
                 "warning": {
@@ -9420,11 +9420,11 @@
                     "1": "Unbezahlte Rechnung(en)",
                     "0": "Negativer interner Kontostand"
                 },
-                "helper_text_2": "Ce membre n'apparaitra plus dans la liste de vos membres.",
+                "helper_text_2": "Dieses Mitglied wird nicht mehr in Ihrer Datenbank aufgeführt.",
                 "helper_text_1": "Sind Sie sicher, dass Sie dieses Mitglied archivieren möchten?"
             }
         },
-        "termsOfUse": "Les conditions générales d'utilisation",
+        "termsOfUse": "Die Allgemeinen Geschäftsbedingungen",
         "archived": "Archiviert",
         "restoreMember": "Restaurieren",
         "noMember": "Derzeit gibt es keine Mitglieder, die angezeigt werden können.",
@@ -9437,17 +9437,17 @@
                     "title": "Unautorisierter Zugriff"
                 },
                 "generalError": {
-                    "contactCompany": "Wir haben jedoch einen Fehler in der aktuellen Anfrage entdeckt. Aus Sicherheitsgründen ist diese Anfrage nun deaktiviert. Um diese Anfrage neu zu generieren, oder wenn Sie nicht der Verursacher sind, wenden Sie sich bitte direkt an Ihr Studio.",
+                    "contactCompany": "Es wurde ein Fehler bei der aktuellen Anfrage festgestellt. Diese Anfrage wurde als Sicherheitsmaßnahme deaktiviert. Bitte wenden Sie sich direkt an das Studio, um diesen Vorgang zu erneuern, wenn Sie nicht der Initiator dieser Anfrage sind.",
                     "helper": "{{- company}} hat Sie aufgefordert, Ihre Anmelde-E-Mail-Adresse für Ihr Konto zu ändern:",
-                    "title": "Ungültige Anmeldemail ändern"
+                    "title": "Ungültige Anmelde-E-Mail-Adresse ändern"
                 },
                 "requestingStudio": "{{- company}} hat die Änderung Ihrer Anmelde-E-Mail-Adresse für Ihr Konto beantragt:",
                 "actions": {
                     "continue": "Weiter",
                     "confirmFusion": "Kontozusammenlegung akzeptieren",
                     "deniedFusion": "Kontenzusammenlegung ablehnen",
-                    "cancel": "Meine Adresse behalten",
-                    "confirm": "Meine neue Adresse bestätigen"
+                    "cancel": "Meine aktuelle E-Mail-Adresse verwenden",
+                    "confirm": "Meine neue E-Mail-Adresse bestätigen"
                 },
                 "linkAccount": {
                     "error": {
@@ -9464,7 +9464,7 @@
                     },
                     "submit": {
                         "denied": {
-                            "content": "Ihr Konto wurde nicht mit {{ new_email }} zusammengelegt. Bitte verwenden Sie weiterhin Ihre derzeitigen mit \"{{ old_email}}\" verknüpften Anmeldedaten für Ihr Konto.",
+                            "content": "Ihr Konto wurde nicht mit \"{{ new_email }}\" zusammengelegt. Bitte verwenden Sie weiterhin Ihre derzeitigen mit \"{{ old_email}}\" verknüpften Anmeldedaten für Ihr Konto.",
                             "title": "Zusammenlegung wurde abgelehnt"
                         },
                         "accept": {
@@ -9487,48 +9487,48 @@
                         "acceptRequestHelper": "Bitte melden Sie sich mit {{ email }} an, um die Zusammenlegung Ihrer Konten zu bestätigen.",
                         "requestExplanation": "Diese E-Mail-Adresse \"{{ email }}\" wird bereits von einem anderen Studio verwendet. {{- company }} hat Ihr Konto mit diesem bestehenden Konto beantragt. Wenn Sie die beiden Konten zusammenlegen, können Sie die Anmeldedaten (E-Mail und Passwort) des Kontos verwenden, das mit dem Konto von {{ email }} verbunden ist. Sie können diese Anmeldedaten für jedes Studio verwenden, das unsere Softwarelösung einsetzt."
                     },
-                    "title": "Kontos zusammenlegen"
+                    "title": "Kontos, die zusammengelegt werden"
                 },
                 "simpleEmailChange": {
                     "error": {
                         "emailTaken": {
-                            "contactCompany": "Es wurde bereits ein Konto mit \"{{ email }}\" als Login-E-Mail-Adresse erstellt. Bitte wenden Sie sich direkt an das Studio, falls diese E-Mail-Adresse Ihnen gehört, Sie aber kein Konto mit dieser E-Mail-Adresse erstellt haben.",
+                            "contactCompany": "Es wurde bereits ein Konto mit \"{{ email }}\" als Anmelde-E-Mail-Adresse erstellt. Bitte wenden Sie sich direkt an das Studio, falls diese E-Mail-Adresse Ihnen gehört, Sie aber kein Konto mit dieser E-Mail-Adresse erstellt haben.",
                             "helper": "{{- company}} hat Sie aufgefordert, die Anmelde-E-Mail-Adresse für Ihr Konto zu ändern:",
-                            "title": "Anmelde-E-Mail bereits genommen"
+                            "title": "Anmelde-E-Mail-Adresse bereits in Verwendung."
                         },
                         "delayExceeded": {
                             "contactCompany": "Wenn Sie erneut eine Änderung Ihrer Anmeldeadresse beantragen möchten, wenden Sie sich bitte an Ihr Studio.",
                             "helper": "Das Studio {{- company}} hatte Ihnen eine Anfrage zur Bestätigung der Änderung Ihrer Anmelde-E-Mail geschickt. Die siebentägige Gültigkeitsdauer dieser Anfrage ist abgelaufen.",
-                            "title": "Änderung deiner Anmelde-E-Mail"
+                            "title": "Änderung Ihrer Anmelde-E-Mail-Adresse"
                         },
                         "renewed": {
-                            "contactCompany": "Wenn Sie diese neue Anfrage nicht finden können, wenden Sie sich bitte an Ihr Studio.",
-                            "helper": "Kürzlich hat Ihnen {{- company }} eine Bestätigungs-E-Mail geschickt, um Ihre Login-E-Mail-Adresse zu ändern. Bitte überprüfen Sie Ihren Posteingang und Ihre Spam-Mails auf die neueste Anfrage, da diese nun ungültig ist.",
-                            "title": "Änderung Ihrer Anmelde-E-Mail"
+                            "contactCompany": "Bitte wenden Sie sich direkt an Ihr Studio, wenn Sie die letzte E-Mail zur Validierung der Anfrage nicht erhalten haben oder nicht finden können.",
+                            "helper": "Kürzlich hat Ihnen {{- company }} eine Bestätigungs-E-Mail geschickt, um Ihre Anmelde-E-Mail-Adresse zu ändern. Bitte überprüfen Sie Ihren Posteingang und Ihre Spam-Mails auf die neueste Anfrage, da diese nun ungültig ist.",
+                            "title": "Änderung Ihrer Anmelde-E-Mail-Adresse"
                         },
                         "alreadyDenied": {
-                            "currentEmail": "Ihre aktuelle Anmelde-E-Mail lautet: {{ email }}.",
+                            "currentEmail": "Aktuelle Anmelde-E-Mail-Adresse: \"{{ email }}\"",
                             "contactCompany": "Wenn Sie diese Änderung nicht selbst herbeigeführt haben oder Ihre Entscheidung ändern möchten, wenden Sie sich bitte direkt an Ihr Studio.",
-                            "helper": "Sie haben bereits eine Login-E-Mail-Adresse bei {{- company }} ausgewählt, Ihre Entscheidung wurde berücksichtigt.",
-                            "title": "Sie haben diesen Antrag bereits abgelehnt"
+                            "helper": "Sie haben bereits eine Anmelde-E-Mail-Adresse bei {{- company }} ausgewählt, Ihre Entscheidung wurde berücksichtigt.",
+                            "title": "Sie haben diesen Antrag bereits abgelehnt."
                         },
                         "alreadyAccepted": {
-                            "currentEmail": "Ihre aktuelle Anmelde-E-Mail lautet: {{ email }}.",
-                            "contactCompany": "Wenn Sie diese Änderung nicht selbst herbeigeführt haben oder Ihre Entscheidung ändern möchten, wenden Sie sich bitte direkt an Ihr Studio.",
-                            "helper": "Sie haben bereits eine Login-E-Mail-Adresse in {{- company }} ausgewählt, Ihre Entscheidung wurde berücksichtigt.",
-                            "title": "Sie haben diesen Antrag bereits bestätigt"
+                            "currentEmail": "Aktuelle Anmelde-E-Mail-Adresse: \"{{ email }}\"",
+                            "contactCompany": "Wenden Sie sich bitte direkt an Ihr Studio, wenn Sie die Anfrage zur Änderung Ihrer Anmelde-E-Mail-Adresse nicht initiiert haben.",
+                            "helper": "Sie haben bereits eine Anmelde-E-Mail-Adresse in {{- company }} ausgewählt, Ihre Entscheidung wurde berücksichtigt.",
+                            "title": "Sie haben diesen Antrag bereits bestätigt."
                         }
                     },
                     "submit": {
-                        "emailPreservedTo": "Ihre Anmeldeadresse bleibt {{ email }}}",
-                        "emailUpatedTo": "Ihre Anmeldeadresse wurde tatsächlich von {{ email }} geändert. Verwenden Sie diese Adresse als neue Anmeldekennung.",
-                        "deniedTitle": "Anmeldeadresse bleibt erhalten",
-                        "acceptedTitle": "Geänderte Anmeldeadresse"
+                        "emailPreservedTo": "Ihre Anmelde-E-Mail-Adresse bleibt \"{{ email }}}\".",
+                        "emailUpatedTo": "Ihre Anmelde-E-Mail-Adresse wurde zu \"{{ email }}\" geändert.",
+                        "deniedTitle": "E-Mail-Adresse bleibt erhalten",
+                        "acceptedTitle": "E-Mail-Adresse wurde geändert"
                     },
-                    "multipleCompanyHelper": "Diese E-Mail-Adresse wird für alle Ihre Konten verwendet, die mit Studios verbunden sind, die BSPORT Solution nutzen. Das bedeutet, dass die Änderungen für jedes Studio gelten, bei dem Sie sich angemeldet haben und das mit unserer Softwarelösung verbunden ist. Ihr Login wird bei den folgenden Studios geändert:",
-                    "deniedRequestHelper": "Wenn diese Anfrage nicht von Ihnen stammt oder Sie Ihre Adresse nicht ändern möchten, klicken Sie bitte auf \"Meine Adresse behalten\"",
-                    "acceptRequestHelper": "Wenn Sie Ihre Adresse tatsächlich auf diese neue E-Mail-Adresse ändern möchten, klicken Sie bitte auf \"Meine neue Adresse bestätigen\".",
-                    "title": "Änderung Ihrer Anmelde-E-Mail"
+                    "multipleCompanyHelper": "Diese E-Mail-Adresse wird für alle Ihre Konten verwendet, die mit Studios verbunden sind, die BSPORT Solution nutzen. Das bedeutet, dass die Änderungen für jedes Studio gelten, bei dem Sie sich angemeldet haben und das mit unserer Softwarelösung verbunden ist. Ihre Anmeldedaten werden bei den folgenden Studios geändert:",
+                    "deniedRequestHelper": "Wählen Sie \"Aktuelle E-Mail-Adresse verwenden\", wenn Sie keine Änderungen vornehmen möchten.",
+                    "acceptRequestHelper": "Klicken Sie auf \"Meine neue E-Mail-Adresse bestätigen\", um die E-Mail-Änderungsanfrage zu bearbeiten.",
+                    "title": "Änderung Ihrer Anmelde-E-Mail-Adresse"
                 }
             },
             "dialog": {
@@ -9537,28 +9537,28 @@
                     "close": "Abbrechen"
                 },
                 "cancelHelperText": "Wenn Sie die E-Mail des Mitglieds nicht ändern möchten, klicken Sie auf \"Abbrechen\".",
-                "securityHelperText": "Aus Sicherheitsgründen werden wir ihm eine E-Mail schicken, um diese Änderung zu bestätigen.",
-                "expiryText": "Nach dem Absenden läuft der Änderungsantrag innerhalb von 7 Tagen ab",
-                "newEmail": "Neue Adresse: {{ email }}",
-                "oldEmail": "Ehemalige E-Mail-Adresse: {{ email }}",
+                "securityHelperText": "Aus Sicherheitsgründen wird an diese Adresse eine Bestätigungs-E-Mail geschickt.",
+                "expiryText": "Nach dem Absenden wird der Antrag innerhalb von 7 Tagen bearbeitet.",
+                "newEmail": "Neue E-Mail-Adresse: \"{{ email }}\"",
+                "oldEmail": "Vorherige E-Mail-Adresse: \"{{ email }}\"",
                 "mergeMember": {
-                    "unchangedEmail": "Wenn Sie auf Bestätigen klicken, wird das Mitglied {{ new_email }} die Rechnungen, Buchungen, den Kontostand und die Einkäufe von {{ old_email }} abrufen. Das Mitglied {{ old_email }} wird gelöscht. An beide Adressen wird eine E-Mail gesendet, um die Mitglieder zu benachrichtigen.",
-                    "warning": "Achtung, Sie versuchen, diese beiden Mitglieder Ihres Studios zu verschmelzen :"
+                    "unchangedEmail": "Nach der Bestätigung werden alle Rechnungen, Buchungen, Salden und Käufe von der vorherigen E-Mail-Adresse (\"{{ old_email }}\") auf die neue E-Mail-Adresse (\"{{ new_email }}\") übertragen. Die vorherige E-Mail-Adresse (\"{{ old_email }}\") wird gelöscht und beide E-Mail-Adressen werden per E-Mail benachrichtigt.",
+                    "warning": "Achtung, Sie versuchen, diese beiden Mitglieder Ihres Studios zu verbinden:"
                 },
                 "linkMember": {
-                    "notIncompany": "Die E-Mail {{ new_email }} gehört einem Mitglied eines anderen Studios.",
-                    "unchangedEmail": "In der Zwischenzeit wird {{ old_email }} seine alte E-Mail behalten und die Mitglieder werden nicht verknüpft.",
-                    "warning": "Achtung, Sie versuchen, diese beiden Mitglieder zu verknüpfen :"
+                    "notIncompany": "Die E-Mail (\"{{ new_email }}\") gehört einem Mitglied eines anderen Studios.",
+                    "unchangedEmail": "In der Zwischenzeit wird die vorherige E-Mail-Adresse (\"{{ old_email }}\") beibehalten.",
+                    "warning": "Achtung, Sie versuchen, diese beiden Mitglieder zu verbinden:"
                 },
                 "simpleChange": {
-                    "unchangedEmail": "In der Zwischenzeit wird er seine alte E-Mail behalten.",
-                    "warning": "Achtung, Sie werden die Anmelde-E-Mail dieses Mitglieds ändern :",
-                    "informativeHelperText": "Zu Informationszwecken werden wir ihm eine E-Mail schicken, um ihn über diese Änderung zu informieren."
+                    "unchangedEmail": "In der Zwischenzeit wird die vorherige E-Mail-Adresse beibehalten.",
+                    "warning": "Achtung! Sie haben die Anmelde-E-Mail dieses Mitglieds geändert:",
+                    "informativeHelperText": "Die Änderungen werden in einer Mitteilung bekannt gegeben."
                 },
                 "titleMerge": " Mitgliederkonten zusammenlegen",
-                "title": "Änderung der E-Mail"
+                "title": "Änderung der E-Mail-Adresse"
             },
-            "pendingValidation": "Ausstehende Änderung: {{ email }}}"
+            "pendingValidation": "Die Anfrage zur Änderung der E-Mail-Adresse \"{{ email }}\" wird derzeit geprüft."
         },
         "archiveMember": "Archivieren",
         "actions": "Aktionen",
@@ -9571,11 +9571,11 @@
                 "sourceManager": "Der Manager {{ managerName }}"
             },
             "member-basket_paid": {
-                "filter": "Bezahlter Warenkorb",
-                "primaryText": "Ein Warenkorb von {{ amount }} wurde bezahlt "
+                "filter": "Warenkorb bezahlt",
+                "primaryText": "Ein Warenkorb in der Höhe von {{ amount }} wurde bezahlt. "
             },
             "member-login_successful": {
-                "filter": "Login erfolgreich",
+                "filter": "Anmeldungen erfolgreich",
                 "primaryText": "Es wurde eine erfolgreiche Anmeldung {{ source }} registriert.",
                 "sourceApp": "über die mobile App",
                 "sourceMarketplace": "über den Marketplace"
@@ -9589,8 +9589,8 @@
                 "primaryText": "Der Gutschein {{- giftcardName }} wurde aktiviert."
             },
             "member-invoice_paid": {
-                "filter": "Bezahlte Rechnungen",
-                "primaryText": "Die Rechnung Nr. {{ invoiceUUID }} wurde in Höhe von {{ amount }} bezahlt."
+                "filter": "Rechnungen bezahlt",
+                "primaryText": "Die Rechnung Nr.{{ invoiceUUID }} wurde in Höhe von {{ amount }} bezahlt."
             },
             "member-private_booking_registered": {
                 "filter": "Termin",
@@ -9801,7 +9801,7 @@
                 "blacklist_tags": "Nicht erlaubt",
                 "whitelist_tags": "Erlaubt",
                 "tags": "Tags",
-                "tagInfo": "Verwenden Sie Tags, um den Coupon nur für eine bestimmte Gruppe von Mitgliedern auf dem Marktplatz, im Widget und in der App nutzbar zu machen. Sie können Tags auswählen, damit der Gutschein nur von Mitgliedern mit einem der ausgewählten Tags verwendet werden kann. Oder Sie können Tags auswählen, um den Gutschein nur für Mitglieder mit einem der ausgewählten Tags unbrauchbar zu machen. "
+                "tagInfo": "Verwenden Sie Tags, um den Coupon nur für eine bestimmte Gruppe von Mitgliedern auf dem Marketplace, im Widget und in der App nutzbar zu machen. Sie können Tags auswählen, damit der Gutschein nur von Mitgliedern mit einem der ausgewählten Tags verwendet werden kann. Oder Sie können Tags auswählen, um den Gutschein nur für Mitglieder mit einem der ausgewählten Tags unbrauchbar zu machen. "
             },
             "selectorPlaceholder": {
                 "paymentPack": "Kurspässe auswählen (gültig für alle Pässe, wenn keiner ausgewählt wurde)",
@@ -10971,7 +10971,7 @@
             }
         },
         "marketplace": {
-            "isEmpty": "Kein Termin angeboten"
+            "isEmpty": "Keine verfügbaren Termine."
         },
         "popup": {
             "end": "Endzeit",
@@ -11994,7 +11994,7 @@
             },
             "title": "Passwort wiederherstellen",
             "emailHasBeenSent": "Eine E-Mail wurde an \"{{email}}\" gesendet, um Ihr Passwort wiederherzustellen.",
-            "explain1": "Welche E-Mail verwenden Sie zum Einloggen?",
+            "explain1": "Welche E-Mail verwenden Sie zum Anmelden?",
             "noEmail": "Diese E-Mail existiert nicht in unserer Mitgliederdatenbank.",
             "explain2": "Wir senden Ihnen Anweisungen zur Wiederherstellung Ihres Passworts.",
             "contactUs": "Kontaktieren Sie uns via ",
@@ -12281,9 +12281,9 @@
             },
             "EmailChange": {
                 "tags": {
-                    "login_link": "Login-Link persönlicher Bereich",
-                    "new_email": "Neue Login-E-Mail",
-                    "old_email": "Alte Login-E-Mail",
+                    "login_link": "Anmeldelink persönlicher Bereich",
+                    "new_email": "Neue Anmelde-E-Mail",
+                    "old_email": "Alte Anmelde-E-Mail",
                     "manage_changing_email_link": "Link zur Verwaltung von E-Mail-Änderungen"
                 },
                 "name": "Account bearbeiten"
@@ -12292,8 +12292,8 @@
                 "message_is_from": "Mitglied, das die Geschenkkarte versendet",
                 "reset_password_url": "Link zum Zurücksetzen des Passworts",
                 "email_confirmation_url": "Link zur Bestätigung der E-Mail-Adresse",
-                "new_email": "Neue Login-E-Mail",
-                "old_email": "Alte Login-E-Mail",
+                "new_email": "Neue Anmelde-E-Mail",
+                "old_email": "Alte Anmelde-E-Mail",
                 "activate_giftcard_url": "Aktivierungslink für den Gutschein",
                 "giftcard_message": "Gutschein-Nachricht",
                 "giftcard_value": "Wert des Gutscheins",
@@ -12582,7 +12582,7 @@
             "marketplacePass": "Kurspässe",
             "marketplaceCalendar": "Kalender",
             "marketplaceWorkshop": "Workshops",
-            "marketplaceShop": "Shop",
+            "marketplaceShop": "Webshop",
             "marketplaceGiftcard": "Gutscheine"
         },
         "establishment": {
@@ -13166,7 +13166,7 @@
         },
         "connectedAs": {
             "title": "Anmelden als",
-            "info": "Loggen Sie sich in das Konto eines Ihrer Bekannten ein.",
+            "info": "Melden Sie sich bei einem Ihrer verbundenen Konten an.",
             "wichUser": "Auf welches Konto möchten Sie zugreifen?",
             "selectRelation": "Eine Beziehung auswählen"
         }
@@ -13603,18 +13603,18 @@
             "copy": "Passwort in die Zwischenablage kopieren"
         },
         "doubleLogin": {
-            "explain": "Ihre Session ist abgelaufen. Sie haben sich bei zwei verschiedenen Konten gleichzeitig eingeloggt oder Sie haben sich von einer anderen Rubrik/einem anderen Fenster ausgeloggt.",
-            "disconnect": "Erneut einloggen"
+            "explain": "Ihre Session ist abgelaufen. Sie haben sich bei zwei verschiedenen Konten gleichzeitig angemeldet oder Sie haben sich von einer anderen Rubrik/einem anderen Fenster abgemeldet.",
+            "disconnect": "Erneut anmelden"
         },
         "signup": {
-            "title": "Anmeldung"
+            "title": "Registrierung"
         },
         "contactUs": "Sie sind als Studio-Manager an unserer Lösung interessiert? \nBitte kontaktieren Sie uns.",
         "or": " oder ",
         "actions": {
-            "signin": "Einloggen",
+            "signin": "Anmelden",
             "signup": {
-                "register": "Mich anmelden",
+                "register": "Registrieren",
                 "noAccount": "Neues Konto erstellen"
             },
             "forgottenPassword": "Passwort vergessen?"
@@ -13722,7 +13722,7 @@
         },
         "signin": {
             "connect": "Bitte melden Sie sich an, um fortzufahren.",
-            "connection": "Verbindung",
+            "connection": "Anmeldung",
             "selectYourCurrentEmail": "Wählen Sie Ihre aktuellen Anmeldedaten."
         },
         "accountConfiguration": {
@@ -13782,7 +13782,7 @@
             "title": "Sie sind bereits registriert",
             "clickHere": "Hier klicken",
             "helperToSendOnceAgain": "um die Bestätigungsmail erneut zu senden",
-            "backToLogin": "Zurück zur Login-Seite",
+            "backToLogin": "Zurück zur Anmelde-Seite",
             "notReceived": "Sie haben noch nichts erhalten?"
         },
         "welcome": {
@@ -13824,21 +13824,21 @@
                 "loadMore": "Mehr Sessions",
                 "bookTitle": "Übersicht"
             },
-            "noWorkshopAvailable": "Kein Event ist momentan geplant",
+            "noWorkshopAvailable": "Momentan sind keine kommenden Workshops geplant.",
             "warningBookingRedirectToFirstOffer": "Sie wurden zum Buchungsbildschirm der Gruppe {{name}} weitergeleitet. Die gemeinsam zu buchenden Sessions werden auf Ihrem Buchungsbildschirm aufgelistet.",
             "loadMore": "Mehr dazu",
             "cancel": "Abbrechen",
             "confirm": "Weiter",
-            "warningPartialBooking": "Sie buchen eine Gruppe von Sessions. Sie sind jedoch nicht verpflichtet, an allen Sessions dieser Gruppe teilzunehmen. Sie können die Session auswählen, die Sie besuchen möchten.",
+            "warningPartialBooking": "Sie buchen eine Gruppe von Sessions. Sie sind jedoch nicht verpflichtet, an allen Sessions dieser Gruppe teilzunehmen. Sie können die Sessions auswählen, an denen Sie teilnehmen möchten.",
             "warningFullBooking": "Sie buchen gerade eine Gruppe von Sessions. Sie werden für alle {{count}} Sessions dieser Gruppe angemeldet."
         },
         "warning": {
             "disconnect": "Abmelden",
-            "isManager": "Du bist als Admin eingeloggt, um auf die Kunden-Sicht zu gelangen, melde Dich bitte ab",
-            "backToBackoffice": "Admin Website"
+            "isManager": "Sie sind mit einem Mitarbeiterkonto angemeldet. Melden Sie sich ab, um die Kundenansicht zu öffnen oder kehren Sie zum Back Office zurück.",
+            "backToBackoffice": "Zum Back Office zurückkehren"
         },
         "paymentCombo": {
-            "addToCart": "In den Warenkorb"
+            "addToCart": "Zum Warenkorb hinzufügen"
         },
         "selector": {
             "establishment": {
@@ -13856,7 +13856,7 @@
             }
         },
         "calendar": {
-            "registered": "Bereits registriert",
+            "registered": "Buchung bestätigt",
             "broadcast": "Online",
             "description": "Beschreibung",
             "conditions": "Konditionen",
@@ -13864,8 +13864,8 @@
         },
         "genericCardDetails": {
             "compatibility": {
-                "establishments": "Raum {{ count }}",
-                "establishments_plural": "Räume {{ count }}",
+                "establishments": "{{ count }} Raum",
+                "establishments_plural": "{{ count }} Räume",
                 "packs": {
                     "activities": "Kompatibel mit {{ count }} Aktivität",
                     "activities_plural": "Kompatibel mit {{ count }} Aktivitäten",
@@ -13896,8 +13896,8 @@
                 },
                 "categories": "{{ count }} Kategorie",
                 "categories_plural": "{{ count }} Kategorien",
-                "activities": "Aktivität: {{ count }}",
-                "activities_plural": "Aktivitäten: {{ count }}"
+                "activities": "{{ count }} Aktivität",
+                "activities_plural": "{{ count }} Aktivitäten"
             },
             "includedElements": {
                 "restrictions": {
@@ -13915,11 +13915,11 @@
                     "maxPerMonth_plural": "Maximale Nutzungen pro Monat : <strong>{{count}}</strong>",
                     "title": "Beschränkungen der Nutzung"
                 },
-                "fullVodAccess": "kompatibel mit VOD",
+                "fullVodAccess": "Kompatibel mit VOD",
                 "isUniversalPass": "Universalpass",
                 "newMemberOnly": "Nur für Neumitglieder",
                 "penalty": {
-                    "days": "{{penalty_days}} der Sperrung nach {{penalty_cancellations}} aus Zeit über einen {{penalty_days_period}} Zeitraum",
+                    "days": "{{penalty_days}} der Sperrung nach {{penalty_cancellations}} in einer Zeit über einen Zeitraum von {{penalty_days_period}}",
                     "amount": "{{penalty_amount}} wird nach {{penalty_cancellations}} über einen Zeitraum von {{penalty_days_period}} abgezogen",
                     "penaltyDay": "{{count}} Tag",
                     "penaltyDay_plural": "{{count}} Tage"
@@ -13927,8 +13927,8 @@
                 "maxPurchasePerMember": "{{count}} Kauf pro Mitglied",
                 "maxPurchasePerMember_plural": "{{count}} Käufe pro Mitglied",
                 "onsitePaymentAvailable": "Bezahlung vor Ort möglich",
-                "onlyVodAccess": "Nur als VOD verfügbar",
-                "compatibleWithEverything": "kompatibel mit Allem",
+                "onlyVodAccess": "Nur für VOD verfügbar",
+                "compatibleWithEverything": "Kompatibel mit Allem",
                 "see": "Siehe",
                 "cancellation": "{{count}} Kündigung",
                 "cancellation_plural": "{{count}} Kündigungen",
@@ -13941,7 +13941,7 @@
                     "penaltyDay_plural": "{{count}} Tage"
                 },
                 "offPeakRestrictions": {
-                    "title": "Nur in bestimmten Zeitfenstern vereinbar"
+                    "title": "Nur mit bestimmten Zeitfenstern kompatibel"
                 }
             },
             "credits": {
@@ -13950,21 +13950,21 @@
                 "availableCredit_plural": "{{count}} Credits"
             },
             "restrictions": "Beschränkungen",
-            "compatibleTimeSlot": "Vereinbarte Zeitfenster"
+            "compatibleTimeSlot": "Kompatible Zeitfenster"
         },
         "contractCard": {
-            "chooseButton": "auswählen",
+            "chooseButton": "Auswählen",
             "fees": "Anmeldegebühr: {{ fees }}",
             "registerButton": "Abonnieren",
-            "seeMore": "mehr anzeigen",
-            "seeLess": "weniger anzeigen",
+            "seeMore": "Mehr anzeigen",
+            "seeLess": "Weniger anzeigen",
             "legalContract": "Impressum",
             "autoRenewal": "Automatische Verlängerung",
             "billingInterval": {
                 "month": "Monat",
                 "month_plural": "Alle {{ count }} Monate",
                 "week": "Woche",
-                "week_plural": "Every {{ count }} weeks",
+                "week_plural": "Alle {{ count }} Wochen",
                 "year": "Jahr",
                 "year_plural": "Alle {{ count }} Jahre",
                 "day": "Tag",
@@ -14008,7 +14008,7 @@
                 "day_plural": "{{count}} Tage"
             },
             "title": {
-                "universalPassMessage": "Universalpässe, könn für Gruppenaktivitäten und Termine verwendet werden",
+                "universalPassMessage": "Universalpässe, können für Gruppenaktivitäten und Termine verwendet werden",
                 "autoRenewal": "Automatische Verlängerung"
             }
         },
@@ -14036,7 +14036,7 @@
             "filters": {
                 "placeholder": {
                     "categories": "Kategorien",
-                    "type": "Typ"
+                    "type": "Tippen"
                 },
                 "type": {
                     "privatePass": "Terminpass",
@@ -14068,7 +14068,7 @@
         },
         "requestDialog": {
             "close": "Verstanden",
-            "explain": "Die Integration von bsport X classpass wurde beantragt. Dein Kundenbetreuer wird sich mit Dir in Verbindung setzen, um diesen Vorgang zu bestätigen"
+            "explain": "Die Integration von bsport X ClassPass wurde beantragt. Ihr Kundenbetreuer wird sich mit Ihnen in Verbindung setzen, um diesen Vorgang zu bestätigen"
         },
         "pageTitle": "Partnerschaft",
         "configurationType": {
@@ -14576,15 +14576,15 @@
         "pageTitle": "Einstellungen",
         "marketplaceSettings": {
             "createDialog": {
-                "dialogTitle": "Registerkarte Bearbeiten",
-                "noPlaylistError": "Bitte wähle eine Wiedergabeliste",
-                "noServiceError": "Bitte wähle einen Service",
-                "noTitleError": "Bitte gib einen Titel ein",
-                "noComponentTypeError": "Bitte wähle eine Komponente aus",
+                "dialogTitle": "Tab bearbeiten",
+                "noPlaylistError": "Eine Playlist auswählen",
+                "noServiceError": "Einen Termintyp auswählen",
+                "noTitleError": "Einen Titel angeben",
+                "noComponentTypeError": "Komponente auswählen",
                 "submit": "Bestätigen",
                 "cancel": "Abbrechen",
                 "inputTitle": "Tab-Name",
-                "selectPlaylist": "Wähle eine Wiedergabeliste",
+                "selectPlaylist": "Wähle eine Playlist",
                 "selectPrivateService": "Wähle eine Dienstleistung",
                 "selectActivity": "Wähle eine Aktivität",
                 "selectEstablishment": "Wähle eine Einrichtung",
@@ -14593,19 +14593,19 @@
                 "showAdvanced": "Weitere Optionen anzeigen",
                 "selectVideo": "Wähle ein Video",
                 "selectPrivateServiceGroups": "Wähle Deine Kategorien",
-                "selectPrivateServiceTypeDetail": "Mein Termin",
+                "selectPrivateServiceTypeDetail": "Meine Termine",
                 "selectPrivateServiceTypeList": "Alle Termine",
                 "selectPrivateServiceType": "Typ",
                 "hidePrivatePass": "Terminpässe nicht anzeigen",
                 "hidePaymentCombo": "Pakete nicht anzeigen",
                 "hidePaymentPack": "Kurspässe nicht anzeigen",
                 "todayOnly": "Nur die heutigen Kurse anzeigen",
-                "titleCaption": "{{max}} Zeichen max ( {{count}} / {{max}} )",
+                "titleCaption": "max. {{max}} Zeichen ( {{count}} / {{max}} )",
                 "hideFilters": "Suchleiste und Filter nicht anzeigen"
             },
             "componentType": {
-                "playlist": "Playlist",
-                "shop": "Shop",
+                "playlist": "Playlists",
+                "shop": "Webshop",
                 "subscription": "Abonnement",
                 "vod": "VOD",
                 "pass": "Pässe",
@@ -14613,16 +14613,16 @@
                 "workshop": "Workshops",
                 "calendar": "Kalender",
                 "newsletter": "Newsletter",
-                "loginButton": "Login-Button",
+                "loginButton": "Anmelde-Schaltfläche",
                 "giftcard": "Gutscheine",
                 "paymentPackTemplate": "Geteilte Kurspässe",
                 "calendarV2": "Kalender"
             },
             "preview": "Vorschau",
             "saveButton": "Speichern",
-            "link": "Greife auf den Marketplace zu (Du wirst ausgeloggt)",
-            "explainMarketplace": "Deine Mitglieder können online über einen Computer, ein Tablet oder ein Telefon auf Deinen Marktplatz (Kalender, Geschäft, VoD ...) zugreifen. Personalisiere Deine Seite hier!",
-            "addButton": "Füge eine Registerkarte hinzu"
+            "link": "Melden Sie sich ab und öffnen Sie den Marketplace",
+            "explainMarketplace": "Ihre Mitglieder können online über einen Computer, ein Tablet oder ein Telefon auf Ihren Marketplace (Kalender, Geschäft, VoD ...) zugreifen. Personalisieren Sie Ihre Seite hier!",
+            "addButton": "Einen Tab hinzufügen"
         },
         "companyOnboarding": {
             "error": "Diese Information kann nicht geändert werden"
@@ -14643,17 +14643,17 @@
         },
         "billing_group": {
             "header": "Abrechnungsgruppe",
-            "helperText": "Die Rechnungsgruppen erscheinen in Ihren Berichten, um jede Rechnung einfach mit dem richtigen Ort zu verknüpfen, und werden im Warenkorb von den Mitgliedern verwendet, um ihren bevorzugten Ort auszuwählen. Mindestens eine Rechnungsgruppe muss definiert sein, damit die Mitglieder Online-Einkäufe tätigen können. Wenn Sie mehrere Einrichtungen haben, die zu demselben Standort gehören, können Sie diese in derselben Rechnungsgruppe zusammenfassen",
+            "helperText": "Die Rechnungsgruppen erscheinen in Ihren Berichten, um jede Rechnung leicht mit dem richtigen Ort zu verknüpfen, und werden im Warenkorb von den Mitgliedern verwendet, um ihren bevorzugten Ort auszuwählen. Mindestens eine Rechnungsgruppe muss definiert sein, damit die Mitglieder Online-Einkäufe tätigen können. Wenn Sie mehrere Einrichtungen haben, die zu demselben Standort gehören, können Sie diese in derselben Rechnungsgruppe zusammenfassen",
             "add": "Gruppe hinzufügen"
         },
         "quickbooks": {
             "confirmDialog": {
-                "text": "Sind Sie sicher, dass Sie Bsport den Zugriff auf Ihre Anwendung erlauben wollen?",
+                "text": "Sind Sie sicher, dass Sie Bsport den Zugriff auf Ihre App erlauben wollen?",
                 "title": "QuickBooks Verbindung"
             },
             "buttonRevoke": "Quickbooks deaktivieren",
             "buttonReConnect": "Meine Verbindung aktualisieren",
-            "buttonConnect": "Verbindung zu Quickbooks",
+            "buttonConnect": "Bei Quickbooks anmelden",
             "explainEnable": "Übertragen Sie alle Ihre Rechnungen direkt in QuickBooks. Die Rechnungen werden alle 24 Stunden übermittel.",
             "submit": "Speichern Sie",
             "enable": "Aktivieren Sie die Quickbooks-Integration",
@@ -14934,7 +14934,7 @@
                 "delete": {
                     "confirm": "Löschen",
                     "cancel": "Abbrechen",
-                    "content": "Dieser Ort wird in den Filtern, Widgets und benutzerdefinierten Apps nicht mehr angezeigt.",
+                    "content": "Diese Einrichtung wird nicht mehr in den verfügbaren Filtern auf dem Marketplace, im Widget und in der mobilen Marken-App erscheinen.",
                     "title": "Einen Standort löschen"
                 }
             },
@@ -14947,7 +14947,7 @@
                 "associated_localizations": "Verbundene Einrichtungen",
                 "name": "Name"
             },
-            "noGroupHelper": "Standorte werden verwendet, um mehrere Adressen zu gruppieren. Wenn Sie mehrere Studios in verschiedenen Städten haben, können Sie Studios aus derselben Stadt an einem Ort gruppieren. Auf dem Markt, dem Widget und der personalisierten Anwendung können Ihre Kunden den Standort auswählen, der sie am meisten interessiert, um nur die Kurse in ihrer Nähe zu sehen.",
+            "noGroupHelper": "Standorte werden verwendet, um mehrere Adressen zu gruppieren. Wenn Sie mehrere Studios in verschiedenen Städten haben, können Sie Studios aus derselben Stadt an einem Ort gruppieren. Auf dem Marketplace, dem Widget und der personalisierten Anwendung können Ihre Kunden den Standort auswählen, der sie am meisten interessiert, um nur die Kurse in ihrer Nähe zu sehen.",
             "actions": "Aktion",
             "name": " Name",
             "addLocalisation": "Ort hinzufügen",
@@ -15443,12 +15443,12 @@
             "creationPageInfo": "Passe die Widgets an und integriere es in Deine Website",
             "dialogMode": {
                 "iframe": "Auf der Seite bleiben",
-                "popup": "Neues Fenster",
+                "popup": "Neues Fenster öffnen",
                 "tab": "Neuer Tab",
                 "stayInContainerBetaTag": "(beta)",
                 "stayInContainer": "Kein Popup"
             },
-            "dialogModeLabel": "Art des Popups (Login, Zahlung, Reservierung)",
+            "dialogModeLabel": "Art des Popups (Anmeldung, Zahlung, Reservierung)",
             "showFabLabel": "Floating-Taste für die Kundenschnittstelle",
             "browserLanguage": "Browsersprache",
             "languageHelper": "Das Widget verwendet standardmäßig die hier ausgewählte Sprache. Wähle \"Browsersprache\", damit Dz die Sprache des Widgets automatisch an die Sprache Deines Kunden anpasst.",
@@ -15568,10 +15568,10 @@
                 "bookingButton": "Buchungs-Button",
                 "activityCardDialog": "Detail der Aktivität (modal)",
                 "activityCard": "Details der Aktivität",
-                "marketplace_booking_blocked_reason": "Reservierung nicht möglich",
-                "marketplace_booking_button": "Schaltfläche für die Reservierung",
-                "marketplace_activity_summary_dialog": "Detail der Aktivität (modal)",
-                "marketplace_activity_summary": "Detail der Aktivität",
+                "marketplace_booking_blocked_reason": "Buchung nicht möglich",
+                "marketplace_booking_button": "Schaltfläche für Buchungen",
+                "marketplace_activity_summary_dialog": "Details der Aktivität (modal)",
+                "marketplace_activity_summary": "Details der Aktivität",
                 "marketplace_collect_payment_method": "Hinzufügen von Zahlungsmethoden",
                 "marketplace_contract_payment": "Modul zur Bezahlung von Abonnements",
                 "marketplace_contract_not_found_modal": "Abonnementwarnung nicht gefunden",
@@ -15627,7 +15627,20 @@
                 "marketplace_booker_module_buyable_item_payment_combo": "Artikel des Buchungspakets",
                 "marketplace_booker_module_buyable_items_list": "Buchungspass-Auswahl (Container)",
                 "fabrique_icon_button": "Symbol Schaltfläche",
-                "fabrique_button": "Schaltfläche"
+                "fabrique_button": "Schaltfläche",
+                "marketplace_offer_booking_list": "Buchungsliste",
+                "marketplace_booking_item": "Buchungsartikel",
+                "marketplace_checkout_items_payment_pack_list": "Liste der Kassenartikel mit Kurspässen",
+                "marketplace_checkout_items_payment_combo_list": "Liste der Kassenartikel mit Paketen",
+                "marketplace_checkout_items_private_pass_list": "Liste der Kassenartikel mit Terminpässen",
+                "minimal_payment_pack_card": "Minimal-Kurspasskarte",
+                "minimal_payment_combo_card": "Minimal-Paketkarte",
+                "minimal_private_pass_card": "Minimal-Terminpasskarte",
+                "marketplace_product_item_list": "Produkt Artikelliste",
+                "marketplace_product_item": "Produkt Artikel",
+                "minimal_subscription_card": "Minimal-Abonnementkarte",
+                "fabrique_chip": "Chip",
+                "authentication_change_password_form": "Passwortform ändern"
             },
             "page": {
                 "calendar": "Kalender",
@@ -15711,7 +15724,12 @@
                     "displayRightIcon": "Rechtes Symbol anzeigen",
                     "displayLeftIcon": "Linkes Symbol anzeigen",
                     "size": "Elementgröße",
-                    "fabriqueVariant": "Elementvariante"
+                    "fabriqueVariant": "Elementvariante",
+                    "withLevel": "Niveau anzeigen",
+                    "displayGuestName": "Name des Gasts anzeigen",
+                    "isWaitingList": "Befindet sich auf der Warteliste",
+                    "isChangePasswordLinkExpired": "Der Link ist abgelaufen",
+                    "shouldDisplayAddGuestButton": "Schaltfläche für das Hinzufügen eines Gasts anzeigen"
                 },
                 "option": {
                     "activityName": "Aktivität",
@@ -15792,7 +15810,12 @@
                     "secondary": "Sekundär",
                     "primary": "Primär"
                 },
-                "confirmationMessageComponentAlert": "Diese Komponente verwaltet hauptsächlich den Buchungs- und Zahlungsstatus. Für die Anpassung ihres Aussehens empfehlen wir die Verwendung ihrer Stammkomponenten, die sich im Allgemeinen Abschnitt befinden"
+                "confirmationMessageComponentAlert": "Diese Komponente verwaltet hauptsächlich den Buchungs- und Zahlungsstatus. Für die Anpassung ihres Aussehens empfehlen wir die Verwendung ihrer Stammkomponenten, die sich im Allgemeinen Abschnitt befinden",
+                "marketplaceOfferBookingList": "Diese Komponente ist eine Liste der gebuchten Sitzungen. Zur Feinabstimmung einzelner {{component_name}}-Komponenten können Sie den entsprechenden Abschnitt im Editor verwenden.",
+                "marketplaceCheckoutItemListPaymentPack": "Diese Komponente ist eine Liste von Kassenartikeln mit Passierscheinen. Zur Feinabstimmung einzelner {{component_name}} können Sie den entsprechenden Abschnitt unter {{page}} im Editor verwenden.",
+                "marketplaceCheckoutItemListPaymentCombo": "Diese Komponente ist eine Liste von Kassenartikeln mit Paketen. Für die Feinabstimmung einzelner {{component_name}}-Komponenten können Sie den entsprechenden Abschnitt unter {{page}} im Editor verwenden.",
+                "marketplaceCheckoutItemListPrivatePass": "Diese Komponente ist eine Liste von Kassenartikeln mit privaten Pässen. Für die Feinabstimmung einzelner {{component_name}}-Komponenten können Sie den entsprechenden Abschnitt unter {{page}} im Editor verwenden.",
+                "marketplaceProductItemListAlert": "Diese Komponente ist eine Liste von Produktartikeln. Zur Feinabstimmung der einzelnen {{component_name}}-Komponente können Sie den entsprechenden Bereich im Editor verwenden."
             }
         },
         "create": "Allgemein",
@@ -16059,8 +16082,8 @@
                         "modify": "Bearbeiten",
                         "cancel": "Abbrechen",
                         "create": "Hinzufügen",
-                        "helperTextNewMembers": "Das Formular erscheint als Pop-up auf dem Marktplatz und dem Widget nach dem Anmeldeformular.",
-                        "helperTextRegisteredMembers": "Dieses Formular wird als Pop-up auf dem Marktplatz und im Widget für alle betroffenen Mitglieder angezeigt.",
+                        "helperTextNewMembers": "Das Formular erscheint als Pop-up auf dem Marketplace und dem Widget nach dem Anmeldeformular.",
+                        "helperTextRegisteredMembers": "Dieses Formular wird als Pop-up auf dem Marketplace und im Widget für alle betroffenen Mitglieder angezeigt.",
                         "subTitle": "Welche Mitglieder wollen Sie ansprechen?",
                         "title": "Regeln anzeigen"
                     }
@@ -16382,7 +16405,7 @@
                 },
                 "entryTrigger": {
                     "title": "Eingangskriterium",
-                    "addTrigger": "Einen Eingangs-Trigger hinzufügen",
+                    "addTrigger": "Einen Eingangs-Auslöser hinzufügen",
                     "helperText": "Zuerst wird festgelegt wie viele Mitglieder dem Workflow beitreten. Wählen Sie eine oder mehrere Events oder Smartlists. Wenn das Mitglied einem dieser entspricht, wird er/sie dem Workflow beitreten."
                 },
                 "step": {
@@ -16410,13 +16433,13 @@
             "step": {
                 "convertExit": {
                     "dialog": {
-                        "helper": "Der nächste verbundene Trigger wird ebenfalls gelöscht. Der Rest des Flows wird getrennt aber nicht gelöscht.",
+                        "helper": "Der nächste verbundene Auslöser wird ebenfalls gelöscht. Der Rest des Flows wird getrennt aber nicht gelöscht.",
                         "title": "Diesen Schritt in einen Ausgang konvertieren"
                     }
                 },
                 "archive": {
                     "dialog": {
-                        "helper": "Diese Aktion kann nicht umgekehrt werden. Verbundene trigger werden ebenfalls gelöscht. Der Rest des Flows wird getrennt aber nicht gelöscht.",
+                        "helper": "Diese Aktion kann nicht umgekehrt werden. Verbundene Auslöser werden ebenfalls gelöscht. Der Rest des Flows wird getrennt aber nicht gelöscht.",
                         "title": "Sind Sie sicher, dass Sie diesen Schritt löschen wollen?"
                     }
                 }
@@ -16495,7 +16518,7 @@
                 "submit": "Bestätigen Sie"
             },
             "title": "Passen Sie Ihre Standorte an",
-            "freeImageLabel": "Standort verfügbar"
+            "freeImageLabel": "Verfügbare Plätze"
         },
         "toolbar": {
             "save": "Speichern",
@@ -16568,7 +16591,7 @@
         "spiviDialog": {
             "spiviIdentifiers": "Spivi-IDs",
             "bsportIdentifiers": "bsport-IDs",
-            "spotCorrespondence": "Übereinstimmung der Spots"
+            "spotCorrespondence": "Entsprechende Plätze"
         },
         "spotSelector": {
             "legend": "Legende",
@@ -16641,10 +16664,10 @@
             "searchPlaceholder": "Suche nach einer Vorlage"
         },
         "login": {
-            "disconnect": "Mich abmelden",
+            "disconnect": "Abmelden",
             "previous": "Zurück",
-            "connect": "Mich anmelden",
-            "signUp": "Mich anmelden"
+            "connect": "Anmelden",
+            "signUp": "Anmelden"
         },
         "companyGroup": {
             "explain": "Kategorien dienen dazu, Ihre Lizenzen unter einem gemeinsamen Namen zu gruppieren (z. B. Studios Paris) und werden insbesondere in der mobilen Anwendung angezeigt",

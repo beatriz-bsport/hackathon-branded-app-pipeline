@@ -15701,10 +15701,20 @@
                     "displayRightIcon": "Het rechterpictogram weergeven",
                     "displayLeftIcon": "Het linkerpictogram weergeven",
                     "size": "Element grootte",
-                    "fabriqueVariant": "Element variant"
+                    "fabriqueVariant": "Element variant",
+                    "withLevel": "Toon het niveau",
+                    "displayGuestName": "Toon de naam van de uitgenodigde gast",
+                    "isWaitingList": "Staat in de wachtlijst",
+                    "isChangePasswordLinkExpired": "Deze link is verlopen",
+                    "shouldDisplayAddGuestButton": "Toon de knop om gasten toe te voegen"
                 },
                 "configurationTitle": "Variaties",
-                "confirmationMessageComponentAlert": "Deze component beheert voornamelijk boekings- en betalingsstatussen. Om het uiterlijk aan te passen, raden we aan de hoofdcomponenten te gebruiken in de gemeenschappelijke sectie"
+                "confirmationMessageComponentAlert": "Deze component beheert voornamelijk boekings- en betalingsstatussen. Om het uiterlijk aan te passen, raden we aan de hoofdcomponenten te gebruiken in de gemeenschappelijke sectie",
+                "marketplaceOfferBookingList": "Dit onderdeel bevat een lijst van gereserveerde sessies. Verfijn het onderdeel \"{{component_name}}\" binnen het specifieke onderdeel van deze Bewerker.",
+                "marketplaceCheckoutItemListPaymentPack": "Dit onderdeel bevat een lijst van leskaarten. Verfijn het onderdeel \"{{component_name}}\" binnen het specifieke onderdeel van deze Bewerker binnen het tabblad \"{{page}}\".",
+                "marketplaceCheckoutItemListPaymentCombo": "Dit onderdeel bevat een lijst van pakketten. Verfijn het onderdeel \"{{component_name}}\" binnen het specifieke onderdeel van deze Bewerker binnen het tabblad \"{{page}}\".",
+                "marketplaceCheckoutItemListPrivatePass": "Dit onderdeel bevat een lijst van afspraakkaarten. Verfijn het onderdeel \"{{component_name}}\" binnen het specifieke onderdeel van deze Bewerker binnen het tabblad \"{{page}}\".",
+                "marketplaceProductItemListAlert": "Dit onderdeel bevat een lijst van producten. Verfijn het onderdeel \"{{component_name}}\" binnen het specifieke onderdeel van deze Bewerker."
             },
             "page": {
                 "calendar": "Agenda",
@@ -15814,7 +15824,19 @@
                 "marketplace_booker_module_buyable_item_payment_combo": "Boekingspakket item",
                 "marketplace_booker_module_buyable_items_list": "Selectie boekingspas (container)",
                 "fabrique_icon_button": "Pictogramknop",
-                "fabrique_button": "Knop"
+                "fabrique_button": "Knop",
+                "marketplace_offer_booking_list": "Reserveerlijst",
+                "marketplace_checkout_items_payment_pack_list": "Lijst van leskaarten in de check-out",
+                "marketplace_checkout_items_payment_combo_list": "Lijst van pakketten in de check-out",
+                "marketplace_checkout_items_private_pass_list": "Lijst van afspraakkaarten in de check-out",
+                "minimal_payment_pack_card": "Leskaart (geminimaliseerd)",
+                "minimal_payment_combo_card": "Pakket (geminimaliseerd)",
+                "minimal_private_pass_card": "Afspraakkaart (geminimaliseerd)",
+                "marketplace_product_item_list": "Productlijst",
+                "marketplace_product_item": "Product",
+                "minimal_subscription_card": "Abonnementskaart (geminimaliseerd)",
+                "fabrique_chip": "Chip",
+                "authentication_change_password_form": "Formulier voor wachtwoordwijzigingen"
             },
             "customCss": {
                 "yourCode": "Je aanvullende implementatie:",

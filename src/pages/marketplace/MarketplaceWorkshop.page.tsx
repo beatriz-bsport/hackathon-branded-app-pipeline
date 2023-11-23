@@ -81,6 +81,12 @@ import { useWidth } from '../../hooks/useWidth';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { getBookWorkshopUrl } from '#libs/marketplace/routing-utils';
 import withPostMessageOnPropsUpdate from '#hocs/postMessages/with-post-message-on-props-update';
+import withPostMessageToUpdateProps from '#hocs/postMessages/with-post-message-to-update-props';
+import {
+  CalendarFilterValidationSchema,
+  CalendarOnlineFilterValidationSchema,
+} from '#libs/marketplace/utils';
+
 import './MarketplaceWorkshop.css';
 
 const BATCH_SIZE_FOR_META_ACTIVITY = 6;
@@ -493,5 +499,21 @@ export default compose(
   ]),
   withPostMessageOnPropsUpdate<Props>([
     { propName: 'filters', messageType: 'bsport:workshop:filter:update' },
+    {
+      propName: 'onlineFilter',
+      messageType: 'bsport:calendar:filter:update',
+    },
+  ]),
+  withPostMessageToUpdateProps<Props>([
+    {
+      propName: 'filters',
+      messageType: 'bsport:workshop:filter:control',
+      validationSchema: CalendarFilterValidationSchema,
+    },
+    {
+      propName: 'onlineFilter',
+      messageType: 'bsport:workshop:filter:control',
+      validationSchema: CalendarOnlineFilterValidationSchema,
+    },
   ]),
 )(MarketplaceWorkshopBase);

@@ -257,6 +257,7 @@ export function fetchCommunicationsPaginatedMembers(
   options?: OptionCallback,
 ) {
   return async (dispatch: Dispatch) => {
+    dispatch(memberListForCommunicationActions.error(null));
     dispatch(memberListForCommunicationActions.isLoading(true));
     try {
       if (params?.reset) {

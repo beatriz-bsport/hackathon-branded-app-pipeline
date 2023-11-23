@@ -562,6 +562,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
           resolvedGenericTags={this.props.resolvedGenericTags}
         />
         <CommunicationDrawerDEPRECATED
+          companyId={this.props.companyId}
           countTotal={this.props.members.countTotal}
           countWithEmail={this.props.members.countWithEmail}
           countWithPhone={this.props.members.countWithPhone}
@@ -598,6 +599,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
           }
           membersByPageLoading={this.props.members.loading}
           membersToDisplay={this.props.members.displayItems}
+          memberToDisplayError={this.props.members.error}
           onCancel={() => {
             this.props.setOpenSendEmail(false);
             this.setState({ resetMembersFetchForCommunication: true });
@@ -745,6 +747,7 @@ const connector = connect(
       countWithPhone: state.member.communication.countWithPhone,
       countWithEmail: state.member.communication.countWithEmail,
       loading: state.member.communication.loading,
+      error: state.member.communication.error,
     },
     member_filters: { smartlist: id },
     // TAGS

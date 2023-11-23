@@ -9,7 +9,7 @@ import { compose } from 'recompose';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Typography from '@material-ui/core/Typography';
-
+import Alert from '@material-ui/lab/Alert';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import Radio from '@material-ui/core/Radio';
@@ -42,6 +42,10 @@ const SELECT_EMAIL = 1;
 const SEND_SMS = 2;
 const SEND_PUSH_NOTIFICATION = 3;
 
+const COMPANY_ALLOWED_TO_SEND_SMARTLIST_COMMUNICATION_WITH_DB_ERROR = [
+  1149, 1150, 1148, 1151, 1147, 1146, 1860, 1557, 1861, 1152, 1145, 1144, 1143,
+  1155, 1142, 1141, 1153, 1399, 1140, 1139, 1138, 1136, 1134, 1154, 1135,
+];
 type Props = {
   receiversNotEditable: boolean,
   onCancel: () => void,
@@ -78,6 +82,8 @@ type Props = {
   countTotal: number | null,
   resolvedGenericTags: ResolvedGenericTags,
   hideAutoResend?: boolean,
+  memberToDisplayError?: Error | null,
+  companyId?: number,
 };
 
 type State = {
@@ -353,6 +359,15 @@ export class CommunicationDrawer extends Component<Props, State> {
       resendConfigurationIsValid =
         this.state.resendCount > 0 && this.state.resendDelay > 0;
     }
+    const companyAllowedToSendCommunicationWithError =
+      COMPANY_ALLOWED_TO_SEND_SMARTLIST_COMMUNICATION_WITH_DB_ERROR.includes(
+        this.props.companyId,
+      );
+
+    // TODO : DIRTY HOTFIX TO Be ABLE TO SEND COMMUNICATION EVEN WHEN MEMBER PREVIEW FAILS
+    const disregardMemberCount =
+      !!this.props.memberToDisplayError &&
+      companyAllowedToSendCommunicationWithError;
 
     switch (this.state.actionType) {
       case WRITE_EMAIL:
@@ -360,28 +375,31 @@ export class CommunicationDrawer extends Component<Props, State> {
           !resendConfigurationIsValid ||
           this.state.mailContent === '' ||
           this.state.mailTitle === '' ||
-          !(
-            this.props.countWithEmail >
-            (this.state.unCheckedMembers.email?.length || 0)
-          )
+          (!disregardMemberCount &&
+            !(
+              this.props.countWithEmail >
+              (this.state.unCheckedMembers.email?.length || 0)
+            ))
         );
       case SEND_SMS:
         return (
           this.state.smsContent === '' ||
-          !(
-            this.props.countWithPhone >
-            (this.state.unCheckedMembers.phone?.length || 0)
-          )
+          (!disregardMemberCount &&
+            !(
+              this.props.countWithPhone >
+              (this.state.unCheckedMembers.phone?.length || 0)
+            ))
         );
       case SELECT_EMAIL:
         return (
           !resendConfigurationIsValid ||
           !this.state.selectedTemplate ||
           this.state.mailTitle === '' ||
-          !(
-            this.props.countWithEmail >
-            (this.state.unCheckedMembers.email?.length || 0)
-          )
+          (!disregardMemberCount &&
+            !(
+              this.props.countWithEmail >
+              (this.state.unCheckedMembers.email?.length || 0)
+            ))
         );
       case SEND_PUSH_NOTIFICATION:
         if (
@@ -662,7 +680,16 @@ export class CommunicationDrawer extends Component<Props, State> {
                     </div>
                   </div>
                 )}
-
+              {/* TODO translate */}
+              {!!this.props.memberToDisplayError &&
+                !this.props.membersByPageLoading && (
+                  <Alert className={classes.alertCentered} severity="warning">
+                    {`We are currently encountering a problem loading the members
+                    within this smart list. Please note that you won't be able
+                    to preview the number of members that will be reached by
+                    this communication.`}
+                  </Alert>
+                )}
               <DialogActions>
                 <Button
                   color="secondary"
@@ -746,6 +773,9 @@ const styles = (theme) => ({
     marginTop: theme.spacing(4),
     paddingLeft: theme.spacing(1),
     paddingRight: theme.spacing(1),
+  },
+  alertCentered: {
+    alignItems: 'center',
   },
 });
 

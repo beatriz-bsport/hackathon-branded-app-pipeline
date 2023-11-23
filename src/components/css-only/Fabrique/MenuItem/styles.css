@@ -42,7 +42,8 @@
     background-color var(--bs-transition-duration-quick);
 }
 
-.bs-fabrique-menu-item__left-icon {
+.bs-fabrique-menu-item__left-icon,
+.bs-fabrique-menu-item__left-icon svg {
   display: inline-flex;
   width: var(--bs-icon-size-md);
   height: var(--bs-icon-size-md);

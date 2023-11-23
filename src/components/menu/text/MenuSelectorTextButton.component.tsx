@@ -10,12 +10,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
-import type { Action } from '../icon';
+import type { MenuAction } from '#components/menu/types';
 
 type StylesProps = { color: string; open: boolean };
 
 type Props = {
-  actionList: Immutable.ImmutableArray<Action> | Action[];
+  actionList: Immutable.ImmutableArray<MenuAction> | MenuAction[];
   label: string;
   customColor?: string;
   isDisabled?: boolean;

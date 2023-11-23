@@ -7,7 +7,7 @@ import {
   TriggerKind,
 } from '#libs/sequential_marketing/constants';
 import { triggerIconByKind } from '#libs/sequential_marketing/components/helpers/utils';
-import type { Action } from '#components/menu/icon';
+import type { MenuAction } from '#components/menu/types';
 
 type Props = {
   addConnectedTrigger: (kind: TriggerKind) => void;
@@ -27,7 +27,7 @@ export const useConnectedTriggerChoices = ({
     [addConnectedTrigger],
   );
 
-  const connectedTriggerList: Action[] =
+  const connectedTriggerList: MenuAction[] =
     TRIGGER_KIND_CHOICES.filter(
       (triggerKind) => !connectedTriggersToExclude.includes(triggerKind),
     )?.map((triggerKind) => ({

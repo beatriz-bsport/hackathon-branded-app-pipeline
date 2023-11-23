@@ -1,0 +1,1 @@
+export const MULTIPLE_ACTION_BUTTON_MAX_SIZE = '32px';

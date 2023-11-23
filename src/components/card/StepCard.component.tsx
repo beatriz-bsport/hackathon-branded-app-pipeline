@@ -19,9 +19,10 @@ import {
   HEADER_FONT_SIZE,
   HEADER_MIN_HEIGHT,
 } from '#libs/sequential_marketing/constants/steps';
-import type { Action } from '#components/menu/icon';
 import MenuSelectorCustomButton from '#components/menu/custom';
 import ToolTip from '#components/Tooltip.component';
+
+import type { MenuAction } from '#components/menu/types';
 
 const DEFAULT_ADD_BUTTON_COLOR = '#777';
 
@@ -37,7 +38,7 @@ type StepCardStylesProps = {
 export type StepCardProps = {
   header: React.ReactElement;
   content?: React.ReactElement;
-  addButtonActionList?: Immutable.ImmutableArray<Action>;
+  addButtonActionList?: Immutable.ImmutableArray<MenuAction>;
   actionListColor?: string;
   actionListLabel?: string;
   addButtonColor?: string;

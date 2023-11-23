@@ -7,7 +7,7 @@ import {
   SequentialMarketingColors,
 } from '#libs/sequential_marketing/constants';
 import { marketingActionIconDict } from '#libs/sequential_marketing/components/helpers/utils';
-import type { Action } from '#components/menu/icon';
+import type { MenuAction } from '#components/menu/types';
 
 type Props = {
   addMarketingAction: (kind: MarketingActions) => void;
@@ -27,7 +27,7 @@ export const useMarketingActionOptions = ({
     [addMarketingAction],
   );
 
-  const marketingActionList: Action[] =
+  const marketingActionList: MenuAction[] =
     CADENCE_MARKETING_ACTION_CHOICES.filter(
       (marketingActionKind) =>
         !marketingActionToExclude.includes(marketingActionKind),

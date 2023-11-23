@@ -9,10 +9,10 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
-import type { Action } from '../icon';
+import type { MenuAction } from '#components/menu/types';
 
 export type Props = {
-  actionList: Immutable.ImmutableArray<Action> | Action[];
+  actionList: Immutable.ImmutableArray<MenuAction> | MenuAction[];
   children: React.ReactElement;
   customColor?: string;
   customHoverBackgroundColor?: string;

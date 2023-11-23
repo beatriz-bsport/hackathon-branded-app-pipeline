@@ -11,19 +11,13 @@ import Typography from '@material-ui/core/Typography';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
 
-export type Action = {
-  label: string;
-  icon: string;
-  onClick: () => void;
-  customColor?: string;
-};
-
-export const MULTIPLE_ACTION_BUTTON_MAX_SIZE = '32px';
+import { MULTIPLE_ACTION_BUTTON_MAX_SIZE } from '#components/menu/constants';
+import type { MenuAction } from '#components/menu/types';
 
 type StylesProps = { color: string; open: boolean };
 
 type Props = {
-  actionList: Immutable.ImmutableArray<Action> | Action[];
+  actionList: Immutable.ImmutableArray<MenuAction> | MenuAction[];
   customIcon?: string;
   customColor?: string;
   optionOnClick?: () => void;

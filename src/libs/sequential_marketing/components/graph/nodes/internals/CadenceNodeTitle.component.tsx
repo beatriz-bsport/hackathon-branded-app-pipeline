@@ -9,10 +9,8 @@ import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
 
 import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
-import MenuSelectorIconButton, { Action } from '#components/menu/icon';
-import NestedMenuSelectorIconButton, {
-  NestedAction,
-} from '#components/menu/nested';
+import MenuSelectorIconButton from '#components/menu/icon';
+import NestedMenuSelectorIconButton from '#components/menu/nested';
 import ConnectedTriggerChip from '#libs/sequential_marketing/components/graph/chips/ConnectedTriggerChip.component';
 import { isTriggerValid } from '#libs/sequential_marketing/components/helpers/utils';
 import {
@@ -23,6 +21,7 @@ import {
 
 import type { ConnectedTrigger } from '#libs/sequential_marketing/types';
 import type { SmartList } from '#libs/smart-list/types';
+import type { MenuAction, NestedMenuAction } from '#components/menu/types';
 
 type StylesProps = {
   color: string;
@@ -31,7 +30,7 @@ type StylesProps = {
 };
 
 export type CadenceNodeTitleProps = {
-  actions?: Immutable.ImmutableArray<Action | NestedAction>;
+  actions?: Immutable.ImmutableArray<MenuAction | NestedMenuAction>;
   hasNestedActions?: boolean;
   disabled?: boolean;
   icon: string;

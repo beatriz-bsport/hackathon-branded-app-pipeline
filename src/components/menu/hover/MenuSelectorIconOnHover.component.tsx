@@ -8,12 +8,14 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
-import { MULTIPLE_ACTION_BUTTON_MAX_SIZE, Action } from '../icon';
+
+import { MULTIPLE_ACTION_BUTTON_MAX_SIZE } from '#components/menu/constants';
+import type { MenuAction } from '#components/menu/types';
 
 type StylesProps = { color: string; open: boolean };
 
 type Props = {
-  actionList: Immutable.ImmutableArray<Action> | Action[];
+  actionList: Immutable.ImmutableArray<MenuAction> | MenuAction[];
   customIcon?: string;
   customColor?: string;
   optionOnClick?: () => void;

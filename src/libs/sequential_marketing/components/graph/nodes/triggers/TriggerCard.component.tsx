@@ -20,8 +20,7 @@ import type {
   ConnectedTrigger,
 } from '#libs/sequential_marketing/types';
 import type { SmartList } from '#libs/smart-list/types';
-import type { Action } from '#components/menu/icon';
-import type { NestedAction } from '#components/menu/nested';
+import type { MenuAction, NestedMenuAction } from '#components/menu/types';
 
 export type TriggerCardProps = {
   step: CadenceStep;
@@ -35,7 +34,7 @@ export type TriggerCardProps = {
 };
 
 type TriggerCardHeaderProps = {
-  actions: Immutable.ImmutableArray<NestedAction>;
+  actions: Immutable.ImmutableArray<NestedMenuAction>;
   name: string;
 } & Pick<TriggerCardProps, 'trigger' | 'getSmartlist'>;
 
@@ -76,7 +75,7 @@ const TriggerCard: React.FC<TriggerCardProps> = ({
 
   const kind = useMemo(() => getTriggerKind(trigger), [trigger]);
 
-  const changeConnectedTriggerKindActions: Immutable.ImmutableArray<Action> =
+  const changeConnectedTriggerKindActions: Immutable.ImmutableArray<MenuAction> =
     useMemo(
       () =>
         Immutable(
@@ -92,24 +91,25 @@ const TriggerCard: React.FC<TriggerCardProps> = ({
       [changeConnectedTriggerKind, kind, t],
     );
 
-  const triggerActions: Immutable.ImmutableArray<NestedAction> = useMemo(() => {
-    return Immutable([
-      {
-        label: t('cadence.triggers.changeKind'),
-        icon: 'Autorenew',
-        onClick: null,
-        customColor: SequentialMarketingColors.ACTION_BUTTON_COLOR,
-        actionList: changeConnectedTriggerKindActions,
-      },
-      {
-        label: t('cadence.triggers.delete'),
-        icon: 'Delete',
-        onClick: onClickDelete,
-        customColor: SequentialMarketingColors.ACTION_BUTTON_COLOR,
-        actionList: null,
-      },
-    ]);
-  }, [changeConnectedTriggerKindActions, onClickDelete, t]);
+  const triggerActions: Immutable.ImmutableArray<NestedMenuAction> =
+    useMemo(() => {
+      return Immutable([
+        {
+          label: t('cadence.triggers.changeKind'),
+          icon: 'Autorenew',
+          onClick: null,
+          customColor: SequentialMarketingColors.ACTION_BUTTON_COLOR,
+          actionList: changeConnectedTriggerKindActions,
+        },
+        {
+          label: t('cadence.triggers.delete'),
+          icon: 'Delete',
+          onClick: onClickDelete,
+          customColor: SequentialMarketingColors.ACTION_BUTTON_COLOR,
+          actionList: null,
+        },
+      ]);
+    }, [changeConnectedTriggerKindActions, onClickDelete, t]);
 
   useEffect(() => {
     if (clickDone) {

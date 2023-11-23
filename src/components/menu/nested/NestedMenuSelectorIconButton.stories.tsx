@@ -2,8 +2,8 @@ import React from 'react';
 import Immutable from 'seamless-immutable';
 import type { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import NestedMenuSelectorIconButton, { type NestedAction } from '.';
-import type { Action } from '../icon';
+import NestedMenuSelectorIconButton from '.';
+import type { MenuAction, NestedMenuAction } from '#components/menu/types';
 
 export default {
   title: 'Components/Buttons/NestedMenuSelectorIconButton',
@@ -42,7 +42,7 @@ const Template: ComponentStory<typeof NestedMenuSelectorIconButton> = (
   args: React.ComponentProps<typeof NestedMenuSelectorIconButton>,
 ) => <NestedMenuSelectorIconButton {...args} />;
 
-const nestedActions: Immutable.ImmutableArray<Action> = Immutable([
+const nestedActions: Immutable.ImmutableArray<MenuAction> = Immutable([
   {
     label: 'Nest 1',
     icon: 'Delete',
@@ -57,7 +57,7 @@ const nestedActions: Immutable.ImmutableArray<Action> = Immutable([
   },
 ]);
 
-const actions: Immutable.ImmutableArray<NestedAction> = Immutable([
+const actions: Immutable.ImmutableArray<NestedMenuAction> = Immutable([
   {
     label: 'Action 1',
     icon: 'Delete',

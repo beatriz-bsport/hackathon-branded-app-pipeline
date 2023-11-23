@@ -17,16 +17,13 @@ import Popper from '@material-ui/core/Popper';
 import Typography from '@material-ui/core/Typography';
 
 import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
-import { Action, MULTIPLE_ACTION_BUTTON_MAX_SIZE } from '../icon';
-
-export type NestedAction = Action & {
-  actionList?: Immutable.ImmutableArray<Action>;
-};
+import { MULTIPLE_ACTION_BUTTON_MAX_SIZE } from '#components/menu/constants';
+import type { MenuAction, NestedMenuAction } from '#components/menu/types';
 
 type StylesProps = { color: string; open: boolean };
 
 type Props = {
-  actionList: Immutable.ImmutableArray<NestedAction>;
+  actionList: Immutable.ImmutableArray<NestedMenuAction>;
   customIcon?: string;
   customColor?: string;
   optionOnClick?: () => void;
@@ -85,7 +82,7 @@ const NestedMenuSelectorIconButton: React.FC<Props> = ({
   );
 
   const handleOpenNestedMenu = useCallback(
-    (nestedActions: Immutable.ImmutableArray<Action>) =>
+    (nestedActions: Immutable.ImmutableArray<MenuAction>) =>
       (event: React.PointerEvent<HTMLElement>) => {
         const current = event.currentTarget;
         if (nestedActions) {
@@ -126,7 +123,7 @@ const NestedMenuSelectorIconButton: React.FC<Props> = ({
         open={!!anchorEl}
         transformOrigin={{ vertical: 'top', horizontal: 'left' }}
       >
-        {(actionList ?? ([] as NestedAction[])).map((mainAction, index) => (
+        {(actionList ?? ([] as NestedMenuAction[])).map((mainAction, index) => (
           <>
             <ListItem
               key={`${index}-${mainAction.label}`}

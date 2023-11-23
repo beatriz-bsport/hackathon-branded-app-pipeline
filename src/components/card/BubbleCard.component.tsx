@@ -1,5 +1,6 @@
 import React from 'react';
-import { makeStyles, type Theme } from '@material-ui/core/styles';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import type { Theme } from '@material-ui/core/styles';
 
 type StylesProps = {
   customColor?: string;

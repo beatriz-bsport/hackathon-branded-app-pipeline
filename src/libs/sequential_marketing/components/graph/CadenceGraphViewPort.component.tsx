@@ -9,10 +9,10 @@ import {
   ControlButton,
 } from 'react-flow-renderer';
 
-import Popover, { type PopoverOrigin } from '@material-ui/core/Popover';
-import Typography from '@material-ui/core/Typography';
-import makeStyles from '@material-ui/styles/makeStyles';
 import type { Theme } from '@material-ui/core/styles';
+import makeStyles from '@material-ui/styles/makeStyles';
+import Popover, { PopoverOrigin } from '@material-ui/core/Popover';
+import Typography from '@material-ui/core/Typography';
 import MapIcon from '@material-ui/icons/Map';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';

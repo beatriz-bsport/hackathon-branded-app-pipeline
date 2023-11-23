@@ -2,12 +2,13 @@ import React, { useCallback, useState } from 'react';
 import chroma from 'chroma-js';
 import Immutable from 'seamless-immutable';
 
-import { makeStyles, type Theme } from '@material-ui/core/styles';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import type { Theme } from '@material-ui/core/styles';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
-import { MULTIPLE_ACTION_BUTTON_MAX_SIZE, type Action } from '../icon';
+import { MULTIPLE_ACTION_BUTTON_MAX_SIZE, Action } from '../icon';
 
 type StylesProps = { color: string; open: boolean };
 

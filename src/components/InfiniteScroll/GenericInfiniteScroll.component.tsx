@@ -1,6 +1,7 @@
 import React, { JSX } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { type Theme, makeStyles } from '@material-ui/core/styles';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import type { Theme } from '@material-ui/core/styles';
 
 type GenericInfiniteScrollProps = {
   endMessage: React.ReactNode;

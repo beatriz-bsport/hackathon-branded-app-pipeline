@@ -2,7 +2,8 @@ import React, { useCallback, useState } from 'react';
 import chroma from 'chroma-js';
 import Immutable from 'seamless-immutable';
 
-import { makeStyles, type Theme } from '@material-ui/core/styles';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import type { Theme } from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';

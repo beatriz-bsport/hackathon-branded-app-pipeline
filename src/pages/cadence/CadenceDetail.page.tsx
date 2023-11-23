@@ -4,12 +4,11 @@ import { connect, ConnectedProps } from 'react-redux';
 import { push as pushRouter } from 'connected-react-router';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import classNames from 'classnames';
-import {
-  type Theme,
-  type WithStyles,
-  createStyles,
-  withStyles,
-} from '@material-ui/core';
+
+import createStyles from '@material-ui/core/styles/createStyles';
+import withStyles from '@material-ui/core/styles/withStyles';
+import type { Theme, WithStyles } from '@material-ui/core/styles';
+
 import withTitle from '#hocs/with-title.hoc';
 // @ts-expect-error : Not typed hoc
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';

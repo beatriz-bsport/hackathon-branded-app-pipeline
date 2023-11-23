@@ -26,7 +26,7 @@ import {
 import CadenceList from '#libs/sequential_marketing/components/CadenceList.component';
 import CadenceManagerFab from '#libs/sequential_marketingDEPRECATED/components/CadenceManagerFab.components';
 import CadenceUtilityDialog, {
-  type DialogVariant,
+  DialogVariant,
 } from '#libs/sequential_marketing/components/dialogs/DialogUtility';
 import CadenceCreateAndUpdateForm from '#libs/sequential_marketing/components/form/CadenceCreateAndUpdateForm.component';
 

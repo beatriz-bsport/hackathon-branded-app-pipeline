@@ -27,7 +27,7 @@ import { getMarketingActionPartialValues } from '#libs/sequential_marketing/comp
 import ConvertIntoExitBubble from '#libs/sequential_marketing/components/graph/bubbles/ConvertIntoExitBubble.component';
 import MenuSelectorOnly from '#components/menu/menu-only';
 import CadencDialogUtility, {
-  type DialogVariant,
+  DialogVariant,
 } from '#libs/sequential_marketing/components/dialogs/DialogUtility';
 import StepNameEditionBubble from '#libs/sequential_marketing/components/graph/bubbles/StepNameEditionBubble.component';
 import UniqueMarketingActionBubble from '#libs/sequential_marketing/components/graph/bubbles/UniqueMarketingActionBubble.component';

@@ -2,15 +2,16 @@ import React, { useCallback } from 'react';
 import chroma from 'chroma-js';
 import Immutable from 'seamless-immutable';
 
-import { makeStyles, type Theme } from '@material-ui/core/styles';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import type { Theme } from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
 import Tooltip from '@material-ui/core/Tooltip';
 
 import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
-import MenuSelectorIconButton, { type Action } from '#components/menu/icon';
+import MenuSelectorIconButton, { Action } from '#components/menu/icon';
 import NestedMenuSelectorIconButton, {
-  type NestedAction,
+  NestedAction,
 } from '#components/menu/nested';
 import ConnectedTriggerChip from '#libs/sequential_marketing/components/graph/chips/ConnectedTriggerChip.component';
 import { isTriggerValid } from '#libs/sequential_marketing/components/helpers/utils';

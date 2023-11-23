@@ -2,7 +2,8 @@ import React, { useCallback, useState } from 'react';
 import chroma from 'chroma-js';
 import Immutable from 'seamless-immutable';
 
-import { makeStyles, type Theme } from '@material-ui/core/styles';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import type { Theme } from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import ChevronRight from '@material-ui/icons/ChevronRight';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
@@ -16,7 +17,7 @@ import Popper from '@material-ui/core/Popper';
 import Typography from '@material-ui/core/Typography';
 
 import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
-import { type Action, MULTIPLE_ACTION_BUTTON_MAX_SIZE } from '../icon';
+import { Action, MULTIPLE_ACTION_BUTTON_MAX_SIZE } from '../icon';
 
 export type NestedAction = Action & {
   actionList?: Immutable.ImmutableArray<Action>;

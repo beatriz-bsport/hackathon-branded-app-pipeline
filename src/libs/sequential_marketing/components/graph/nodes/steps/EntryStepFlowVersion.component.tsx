@@ -19,7 +19,7 @@ import {
 import {
   InitialConfigurationStep,
   SequentialMarketingColors,
-  type TriggerKind,
+  TriggerKind,
 } from '#libs/sequential_marketing/constants';
 import type {
   ConnectedTrigger,

@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import chroma from 'chroma-js';
-import { makeStyles, type Theme } from '@material-ui/core/styles';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import type { Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';

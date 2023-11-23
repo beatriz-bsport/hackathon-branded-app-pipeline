@@ -13,7 +13,7 @@ import type {
   UpdatedTrigger,
   UpdatedTriggersList,
 } from './types';
-import { InitialConfigurationStep, type DestinationStatus } from './constants';
+import { InitialConfigurationStep, DestinationStatus } from './constants';
 
 import {
   API_V1_URI,

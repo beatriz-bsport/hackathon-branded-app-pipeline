@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
-import { makeStyles, type Theme } from '@material-ui/core';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import type { Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';

@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { makeStyles, type Theme } from '@material-ui/core';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import type { Theme } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';

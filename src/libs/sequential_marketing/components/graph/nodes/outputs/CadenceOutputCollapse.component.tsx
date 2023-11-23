@@ -1,9 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { type Theme, makeStyles } from '@material-ui/core/styles';
+
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import type { Theme } from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import Typography from '@material-ui/core/Typography';
+
 import { OUTPUT_SECTION_WIDTH } from '#libs/sequential_marketing/constants';
 
 export type CadenceOutputCollapseProps = {

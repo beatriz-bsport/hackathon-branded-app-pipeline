@@ -2,6 +2,7 @@ import React from 'react';
 // eslint-disable-next-line bsport/no-redux-in-component
 import { connect } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import uniq from 'lodash/uniq';
 
 import green from '@material-ui/core/colors/green';
 import amber from '@material-ui/core/colors/amber';
@@ -74,11 +75,27 @@ export const SnackbarPile: React.FC<Props> = ({
     [deleteBottomSnackbar],
   );
 
+  const uniqTopMessages = React.useMemo(
+    () =>
+      uniq(topMessages?.map((snack) => snack.id))?.map((snackId) =>
+        topMessages?.find((snack) => snack.id === snackId),
+      ) ?? [],
+    [topMessages],
+  );
+
+  const uniqBottomMessages = React.useMemo(
+    () =>
+      uniq(bottomMessages?.map((snack) => snack.id))?.map((snackId) =>
+        bottomMessages?.find((snack) => snack.id === snackId),
+      ) ?? [],
+    [bottomMessages],
+  );
+
   return (
     <div>
-      {topMessages.map((snack) => (
+      {uniqTopMessages?.map((snack) => (
         <Snackbar
-          key={snack.id}
+          key={`topMessage-${snack.id}-${snack.message}`}
           open
           anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         >
@@ -98,9 +115,9 @@ export const SnackbarPile: React.FC<Props> = ({
           />
         </Snackbar>
       ))}
-      {bottomMessages.map((snack) => (
+      {uniqBottomMessages?.map((snack) => (
         <Snackbar
-          key={snack.id}
+          key={`bottomMessage-${snack.id}-${snack.message}`}
           open
           anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         >

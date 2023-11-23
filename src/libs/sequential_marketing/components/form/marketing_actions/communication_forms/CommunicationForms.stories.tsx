@@ -13,6 +13,10 @@ import WrittenEmailForm, {
   Props as WrittenEmailFormProps,
 } from './WrittenEmailForm';
 
+import {
+  MarketingActionKind,
+  MarketingActions,
+} from '#libs/sequential_marketing/constants';
 import type { StepMarketingActions } from '#libs/sequential_marketing/types';
 import { stepMarketingActionFactory } from '#libs/sequential_marketing/factories';
 import { tagListFactory } from '#libs/tag/factory';
@@ -56,14 +60,10 @@ export default {
   ],
 } as ComponentMeta<typeof NotificationForm>;
 
-let marketingAction = stepMarketingActionFactory({});
-
-const updateMarketingAction = (action: StepMarketingActions) => {
-  marketingAction = action;
-};
-
 const [emailTemplateDetailList, emailTemplateSummaryList] =
   EmailTemplateDetailSummaryListsFactory(6);
+
+// NOTIFICATIONS PUSH
 
 const NotificationTemplate: ComponentStory<typeof NotificationForm> = (
   args: NotificationFormProps,
@@ -73,50 +73,93 @@ const NotificationTemplate: ComponentStory<typeof NotificationForm> = (
   </div>
 );
 
-export const Notification = NotificationTemplate.bind({});
-Notification.args = {
-  marketingAction: marketingAction,
-  tagCategories: fakeTagCategories,
-  submit: updateMarketingAction,
+let notification = stepMarketingActionFactory({
+  communication_kind:
+    MarketingActions.CADENCE_MARKETING_ACTION_PUSH_NOTIFICATION,
+  kind: MarketingActionKind.COMMUNICATION,
+});
+
+const updateNotification = (action: StepMarketingActions) => {
+  notification = action;
 };
 
+export const Notification = NotificationTemplate.bind({});
+Notification.args = {
+  marketingAction: notification,
+  tagCategories: fakeTagCategories,
+  submit: updateNotification,
+};
+
+// SMS
+
 const SmsTemplate: ComponentStory<typeof SmsForm> = (args: SmsFormProps) => (
-  <div>
-    <SmsForm {...args} />
-  </div>
+  <SmsForm {...args} />
 );
+
+let sms = stepMarketingActionFactory({
+  communication_kind: MarketingActions.CADENCE_MARKETING_ACTION_SMS,
+  kind: MarketingActionKind.COMMUNICATION,
+});
+
+const updateSms = (action: StepMarketingActions) => {
+  sms = action;
+};
 
 export const Sms = SmsTemplate.bind({});
 Sms.args = {
-  marketingAction: marketingAction,
+  marketingAction: sms,
   tagCategories: fakeTagCategories,
-  submit: updateMarketingAction,
+  submit: updateSms,
 };
+
+// TAG
 
 const TagTemplate: ComponentStory<typeof TagForm> = (args: TagFormProps) => (
   <TagForm {...args} />
 );
 
+let tag = stepMarketingActionFactory({
+  communication_kind: MarketingActions.CADENCE_MARKETING_ACTION_TAG_MANAGEMENT,
+  kind: MarketingActionKind.TAG,
+});
+
+const updateTag = (action: StepMarketingActions) => {
+  tag = action;
+};
+
 export const Tag = TagTemplate.bind({});
 Tag.args = {
-  marketingAction: marketingAction,
+  marketingAction: tag,
   tagList: tagListFactory(4),
-  submit: updateMarketingAction,
+  submit: updateTag,
 };
+
+// EMAIL TEMPLATE
 
 const TemplateEmailTemplate: ComponentStory<typeof TemplateEmailForm> = (
   args: TemplateEmailFormProps,
 ) => <TemplateEmailForm {...args} />;
 
+let templateEmail = stepMarketingActionFactory({
+  communication_kind: MarketingActions.CADENCE_MARKETING_ACTION_EMAIL_TEMPLATE,
+  kind: MarketingActionKind.COMMUNICATION,
+});
+
+const updateTemplateEmail = (action: StepMarketingActions) => {
+  templateEmail = action;
+};
+
 export const TemplateEmail = TemplateEmailTemplate.bind({});
 TemplateEmail.args = {
-  marketingAction: marketingAction,
+  marketingAction: templateEmail,
   emailDetailList: emailTemplateDetailList,
   emailDetailListLoading: false,
   emailSummaryList: emailTemplateSummaryList,
   emailSummaryListLoading: false,
-  submit: updateMarketingAction,
+  submit: updateTemplateEmail,
 };
+
+// WRITTEN EMAIL
 
 const WrittenEmailTemplate: ComponentStory<typeof WrittenEmailForm> = (
   args: WrittenEmailFormProps,
@@ -126,9 +169,18 @@ const WrittenEmailTemplate: ComponentStory<typeof WrittenEmailForm> = (
   </div>
 );
 
+let writtenEmail = stepMarketingActionFactory({
+  communication_kind: MarketingActions.CADENCE_MARKETING_ACTION_WRITTEN_EMAIL,
+  kind: MarketingActionKind.COMMUNICATION,
+});
+
+const updateWrittenEmail = (action: StepMarketingActions) => {
+  writtenEmail = action;
+};
+
 export const WrittenEmail = WrittenEmailTemplate.bind({});
 WrittenEmail.args = {
-  marketingAction: marketingAction,
+  marketingAction: writtenEmail,
   tagCategories: fakeTagCategories,
-  submit: updateMarketingAction,
+  submit: updateWrittenEmail,
 };

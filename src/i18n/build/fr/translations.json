@@ -9548,9 +9548,9 @@
             "nb_activated": "Nb de cartes activées",
             "nb_non_activated": "Nb de cartes non activées",
             "nb_expired": "Nb de cartes expirées",
-            "sum_consumed_amount": "Crédits offerts",
-            "sum_available_amount_expired": "Crédits offerts et expirés",
-            "sum_available_amount_non_expired": "Crédits offerts toujours disponibles",
+            "sum_consumed_amount": "Montant utilisé",
+            "sum_available_amount_expired": "Montant expiré",
+            "sum_available_amount_non_expired": "Montant encore disponible",
             "reverted": "Annulé",
             "price_bought": "Prix d`'achat",
             "is_rent": "Location",
@@ -11697,7 +11697,7 @@
                 "hidePaymentPack": "Ne pas afficher les cartes de cours",
                 "hidePrivatePass": "Ne pas afficher les cartes de rendez-vous",
                 "hidePaymentCombo": "Ne pas afficher les packs",
-                "todayOnly": "Vision séances du jour",
+                "todayOnly": "Vue quotidienne",
                 "hideFilters": "Ne pas afficher la barre de recherche et les filtres",
                 "titleCaption": "{{max}} caractères max ({{count}}/{{max}})"
             }
@@ -15375,7 +15375,7 @@
                 },
                 "autoDiscard": {
                     "checkbox": "Annuler les séances trop peu remplies",
-                    "explain": "Annuler la séance et Envoyer une notification par mail aux élèves s'il y a {{bookings_nb}} réservation(s) ou moins {{hours}}h avant le début de la séance.",
+                    "explain": "Annuler la séance et envoyer une notification par mail aux élèves s'il y a {{bookings_nb}} réservation(s) ou moins {{hours}}h avant le début de la séance.",
                     "emailRecipients": "Ce mail sera envoyé aux comptes ayant le rôle Owner ou Admin, ainsi qu'au professeur (ou professeur remplaçant) de la séance en question. Vous pouvez aussi configurer un mail à envoyer aux élèves.",
                     "min_bookings_nb": "Nombre de réservation(s) :",
                     "hours_before_start": "Heure(s) avant la séance :"
@@ -16786,8 +16786,8 @@
                 "title": "Configuration générale"
             },
             "configTitle": "Mon Widget",
-            "listDisplay": "Vision semaine liste",
-            "calendarDisplay": "Vision semaine card (calendrier)",
+            "listDisplay": "Vue hebdomadaire (liste)",
+            "calendarDisplay": "Vue hebdomadaire (card)",
             "responsiveDisplay": "Affichage responsive",
             "cancel": "Annuler",
             "show": "Visualiser",

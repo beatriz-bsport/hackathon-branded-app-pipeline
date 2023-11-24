@@ -58,4 +58,5 @@ export type UserPreference = {
   doNotDisplayDeleteStepDialogCadenceIds: number[];
   doNotDisplayConvertStepIntoExitDialogCadenceIds: number[];
   doNotDisplayPauseDialogCadenceIds: number[];
+  doNotDisplayCadenceWelcomeDialog: boolean;
 };

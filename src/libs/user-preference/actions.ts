@@ -67,6 +67,9 @@ export const userPreferenceActions = {
   doNotDisplayPauseDialogAnymore: createAction<number>(
     'USER_PREFERENCE/ADD_DO_NOT_DISPLAY_PAUSE_DIALOG_CADENCE_IDS',
   ),
+  doNotDisplayWelcomeDialogAnymore: createAction(
+    'USER_PREFERENCE/DO_NOT_DISPLAY_CADENCE_WELCOME_DIALOG',
+  ),
 };
 
 export function setPaymentPackSort(sortOption: SortOption) {
@@ -255,5 +258,11 @@ export function doNotDisplayConvertStepIntoExitDialogAnymore(
 export function doNotDisplayPauseDialogAnymore(cadenceId: number) {
   return async (dispatch: Dispatch) => {
     dispatch(userPreferenceActions.doNotDisplayPauseDialogAnymore(cadenceId));
+  };
+}
+
+export function doNotDisplayWelcomeDialogAnymore() {
+  return async (dispatch: Dispatch) => {
+    dispatch(userPreferenceActions.doNotDisplayWelcomeDialogAnymore());
   };
 }

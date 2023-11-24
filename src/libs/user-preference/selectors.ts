@@ -58,3 +58,6 @@ export const getDoNotDisplayConvertStepIntoExitDialogCadenceIds = (
 
 export const getDoNotDisplayPauseDialogCadenceIds = (state: RootState) =>
   state.userPreference.doNotDisplayPauseDialogCadenceIds || [];
+
+export const getDoNotDisplayCadenceWelcomeDialog = (state: RootState) =>
+  state.userPreference.doNotDisplayCadenceWelcomeDialog;

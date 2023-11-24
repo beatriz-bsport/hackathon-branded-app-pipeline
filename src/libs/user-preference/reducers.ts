@@ -45,9 +45,10 @@ const initialState: Immutable.Immutable<UserPreference> =
       offer_available: true,
     },
     hideCoachNotAssociatedToPrivateServiceWarning: false,
-    doNotDisplayedDeleteStepDialogCadenceIds: [],
-    doNotDisplayedConvertStepIntoExitDialogCadenceIds: [],
-    doNotDisplayedPauseDialogCadenceIds: [],
+    doNotDisplayDeleteStepDialogCadenceIds: [],
+    doNotDisplayConvertStepIntoExitDialogCadenceIds: [],
+    doNotDisplayPauseDialogCadenceIds: [],
+    doNotDisplayCadenceWelcomeDialog: false,
   });
 
 export default handleActions<Immutable.Immutable<UserPreference>, any>(
@@ -203,6 +204,11 @@ export default handleActions<Immutable.Immutable<UserPreference>, any>(
         ...(state.doNotDisplayPauseDialogCadenceIds || []),
         payload,
       ]);
+    },
+    [userPreferenceActions.doNotDisplayWelcomeDialogAnymore.toString()]: (
+      state,
+    ) => {
+      return state.set('doNotDisplayCadenceWelcomeDialog', true);
     },
   },
   initialState,

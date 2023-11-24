@@ -139,6 +139,10 @@ const defaultConfig = {
         __dirname,
         './node_modules/bsport-saas/src/components/css-only/Fabrique',
       ),
+      '#untitledui': path.resolve(
+        __dirname,
+        './node_modules/bsport-saas/src/components/untitledui',
+      ),
     },
   },
 };

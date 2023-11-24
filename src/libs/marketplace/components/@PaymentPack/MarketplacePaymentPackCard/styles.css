@@ -114,11 +114,12 @@
 
 .bs-paymentpack-card__left-button {
   border-radius: var(--border-radius-10);
+  min-width: min-content;
+  margin-right: var(--spacing-2);
 }
 
 .bs-paymentpack-card__left-button__content {
   color: var(--color-primary-main);
-  margin-right: var(--spacing-1);
   align-items: center;
 }
 
@@ -129,6 +130,13 @@
 .bs-paymentpack-card__right-button {
   border-radius: var(--border-radius-10);
   padding: var(--spacing-1) var(--spacing-2);
+}
+
+.bs-paymentpack-card__right-button .bs-button__text {
+  display: block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .bs-pass-card__footer {

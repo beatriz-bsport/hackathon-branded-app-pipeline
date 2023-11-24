@@ -229,14 +229,16 @@ export const omit_list = (offerFilters: OfferFilter, available: boolean) => {
   return list;
 };
 
-export const getDayOffers = memoize((events) => {
+export const getDayOffers = memoize((events, showCancelledOffers = false) => {
   const events_ = {};
   events?.forEach((o) => {
     const midnight = moment(o.date_start).startOf('day');
     if (!events_[midnight]) {
       events_[midnight] = [];
     }
-    events_[midnight].push(o);
+    if (showCancelledOffers || o.available) {
+      events_[midnight].push(o);
+    }
   });
   return events_;
 });
@@ -1185,7 +1187,12 @@ export class Planning extends PureComponent<Props, State> {
       selectedOffer,
       hybridOfferLinkedToSelectedOffer,
     } = this.props;
-    const events_ = getDayOffers(events);
+    const showCancelledOffers =
+      this.props.offerFilters.available === undefined
+        ? this.props.theme.show_cancelled_offers_manager
+        : !this.props.offerFilters.available;
+
+    const events_ = getDayOffers(events, showCancelledOffers);
 
     return (
       <ObjectLevelPermissionProvider
@@ -1271,12 +1278,7 @@ export class Planning extends PureComponent<Props, State> {
                               setShowCancelledOffers={
                                 this.props.setShowCancelledOffers
                               }
-                              showCancelledOffers={
-                                this.props.offerFilters.available === undefined
-                                  ? this.props.theme
-                                      .show_cancelled_offers_manager
-                                  : !this.props.offerFilters.available
-                              }
+                              showCancelledOffers={showCancelledOffers}
                             />
                           )}
                         </PermissionContext.Consumer>
@@ -1296,11 +1298,7 @@ export class Planning extends PureComponent<Props, State> {
                           setShowCancelledOffers={
                             this.props.setShowCancelledOffers
                           }
-                          showCancelledOffers={
-                            this.props.offerFilters.available === undefined
-                              ? this.props.theme.show_cancelled_offers_manager
-                              : !this.props.offerFilters.available
-                          }
+                          showCancelledOffers={showCancelledOffers}
                         />
                       )}
                       <TimeTable

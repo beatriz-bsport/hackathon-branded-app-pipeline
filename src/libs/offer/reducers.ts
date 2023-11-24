@@ -289,6 +289,10 @@ export default handleActions<Immutable.Immutable<OfferState>>(
       const items = state.calendar.filter((o) => o.id !== payload);
       return state.set('calendar', items);
     },
+    [disableOfferActions.success.toString()]: (state, { payload }) => {
+      const items = state.calendar.filter((o) => o.id !== payload.id);
+      return state.set('calendar', items);
+    },
     [offerByDay.isLoading.toString()]: (state, { payload }) => {
       return state.setIn(['byDay', 'loading'], payload);
     },

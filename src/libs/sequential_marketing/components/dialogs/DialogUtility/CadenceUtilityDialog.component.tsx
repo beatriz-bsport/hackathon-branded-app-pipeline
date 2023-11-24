@@ -4,7 +4,8 @@ import { useTranslation } from 'react-i18next';
 
 import makeStyles from '@material-ui/styles/makeStyles';
 import green from '@material-ui/core/colors/green';
-import { useTheme, type Theme } from '@material-ui/core/styles';
+import useTheme from '@material-ui/core/styles/useTheme';
+import type { Theme } from '@material-ui/core/styles';
 
 import WarningIconRounded from '#components/icons/WarningIconRounded.component';
 
@@ -261,19 +262,19 @@ export const CadenceUtilityDialog: React.FC<Props> = ({
 
   return (
     <DialogWithBigIcon
-      buttons={buttons}
-      CustomIcon={customIcon}
-      icon={icon}
-      iconColor={color}
-      maxWidth="xs"
-      namespaces="marketing"
-      open={open}
       {...(descriptions?.length > 0 ? { subTexts: descriptions } : {})}
+      buttons={buttons}
       checkBoxLabel={checkBoxLabel}
       customClasses={customClasses}
+      CustomIcon={customIcon}
       handleCheck={handleCheck}
+      icon={icon}
+      iconColor={color}
       isChecked={isChecked}
+      maxWidth="xs"
+      namespaces="marketing"
       onClose={handleClose}
+      open={open}
       title={title}
     />
   );

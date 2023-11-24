@@ -20,7 +20,7 @@ CadenceUtility.args = {
 };
 
 export default {
-  title: 'Components/Cadences/Dialogs',
+  title: 'Components/Cadences/Dialogs/Utility',
   parameters: {
     docs: {
       page: null,

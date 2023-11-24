@@ -3592,6 +3592,14 @@
           "confirmButton": "Archive"
         }
       },
+      "welcome": {
+        "dialog": {
+          "title": "Welcome to Audience!",
+          "helper": "Let's start setting up your workflow together! First, we'll define the criteria for your members to enter the workflow. Then, we'll determine the conditions under which your members will exit the workflow as 'Won' or 'Lost' based on their actions.",
+          "confirm": "Start",
+          "return": "Go back"
+        }
+      },
       "pause": {
         "dialog": {
           "title": "Pause workflow",

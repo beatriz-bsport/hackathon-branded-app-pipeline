@@ -33,7 +33,8 @@ const StepNameEditionBubble: React.FC<Props> = ({
     !isStepNameUnchanged &&
       !isStepNameEmpty &&
       onConfirm?.({ name: stepName, stepId: step?.id });
-  }, [stepName, step?.name, step?.id, onConfirm]);
+    onCancel();
+  }, [stepName, step?.name, step?.id, onConfirm, onCancel]);
 
   const updateStepName = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {

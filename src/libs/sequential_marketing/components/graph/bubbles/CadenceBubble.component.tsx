@@ -25,20 +25,20 @@ type Props = {
   minimalIcon?: boolean;
   smallTitle?: boolean;
   squareIcon?: boolean;
-  withDeleteIcon?: boolean;
   withoutBottomActions?: boolean;
   withUpwardPointingTail?: boolean;
   onCancelClick?: () => void;
   onConfirmClick?: () => void;
+  onCrossClick?: () => void;
 };
 
 type CadenceBubbleHeaderProps = Pick<
   Props,
-  'title' | 'smallTitle' | 'icon' | 'color' | 'minimalIcon' | 'onCancelClick'
+  'title' | 'smallTitle' | 'icon' | 'color' | 'minimalIcon' | 'onCrossClick'
 >;
 
 const CadenceBubbleHeader: React.FC<CadenceBubbleHeaderProps> = React.memo(
-  ({ color, icon, minimalIcon, smallTitle, title, onCancelClick }) => {
+  ({ color, icon, minimalIcon, smallTitle, title, onCrossClick }) => {
     const classes = useStyles({ color });
     return (
       <div className={classes.title}>
@@ -70,10 +70,10 @@ const CadenceBubbleHeader: React.FC<CadenceBubbleHeaderProps> = React.memo(
               {title}
             </Typography>
           </div>
-          {onCancelClick && (
+          {!!onCrossClick && (
             <IconButton
-              className={classes.deleteButton}
-              onClick={onCancelClick}
+              className={classes.crossButton}
+              onClick={onCrossClick}
               size="small"
             >
               <CustomMuiIcon
@@ -100,23 +100,23 @@ const CadenceBubble: React.FC<Props> = ({
   onConfirmText,
   smallTitle,
   squareIcon,
-  withDeleteIcon,
   withoutBottomActions,
   withUpwardPointingTail,
   onCancelClick,
   onConfirmClick,
+  onCrossClick,
 }) => {
   const { t } = useTranslation('marketing');
 
   const bottomButtonPosition = useMemo(() => {
-    if ((!onCancelClick || withDeleteIcon) && onConfirmClick) {
+    if (!onCancelClick && onConfirmClick) {
       return 'flex-end';
     }
     if (onCancelClick && !onConfirmClick) {
       return 'flex-start';
     }
     return 'space-between';
-  }, [onCancelClick, onConfirmClick, withDeleteIcon]);
+  }, [onCancelClick, onConfirmClick]);
 
   const classes = useStyles({ color, bottomButtonPosition, squareIcon });
 
@@ -131,7 +131,7 @@ const CadenceBubble: React.FC<Props> = ({
           color={color}
           icon={icon}
           minimalIcon={minimalIcon}
-          onCancelClick={withDeleteIcon ? onCancelClick : null}
+          onCrossClick={onCrossClick}
           smallTitle={smallTitle}
           title={title}
         />
@@ -139,7 +139,7 @@ const CadenceBubble: React.FC<Props> = ({
       {!!children && children}
       {!withoutBottomActions && (
         <div className={classes.footer}>
-          {!withDeleteIcon && !!onCancelClick && (
+          {!!onCancelClick && (
             <Button
               className={classes.button}
               color="default"
@@ -240,7 +240,7 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) => ({
         ? 'translate(-45%,-45%)'
         : 'translate(-45%,-45%) rotate(-45deg)',
   },
-  deleteButton: {
+  crossButton: {
     position: 'absolute',
     right: 0,
   },

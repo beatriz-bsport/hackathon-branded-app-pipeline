@@ -14,8 +14,9 @@ import { marketingActionIconDict } from '#libs/sequential_marketing/components/h
 
 type Props = {
   marketingAction?: Partial<StepMarketingActions>;
-  onCancel?: () => void;
   onConfirm: (data: Partial<StepMarketingActions>) => void;
+  onCancel?: () => void;
+  onDelete?: () => void;
 } & MarketingActionEssentials;
 
 const UniqueMarketingActionBubble: React.FC<Props> = ({
@@ -29,8 +30,9 @@ const UniqueMarketingActionBubble: React.FC<Props> = ({
   tagList,
   fetchEmailSummaryList,
   getEmailDetail,
-  onCancel,
   onConfirm,
+  onCancel,
+  onDelete,
 }) => {
   const { t } = useTranslation('marketing');
 
@@ -71,9 +73,10 @@ const UniqueMarketingActionBubble: React.FC<Props> = ({
       color={SequentialMarketingColors.INNER_STEP_COLOR}
       icon={marketingActionIconDict[marketingActionType]}
       isSubmissionForbidden={!isFormValid}
-      onCancelClick={onCancel}
+      onCancelClick={isEdition ? onDelete : onCancel}
       onCancelText={isEdition ? t(`cadence.bubble.delete`) : ''}
       onConfirmClick={handleSubmit}
+      onCrossClick={onCancel}
       title={t(`cadence.form.marketing_action.${marketingActionType}`)}
     >
       <UniqueMarketingActionForm

@@ -40,6 +40,10 @@ export default {
       action: 'onConfirmClicked',
       description: 'Confirm button',
     },
+    onDelete: {
+      action: 'onDeleteClicked',
+      description: 'Delete button',
+    },
     fetchEmailTemplateDetail: {
       action: 'fetchEmailTemplateDetail',
       description: 'Email template fetch',

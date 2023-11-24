@@ -48,6 +48,10 @@ export default {
       action: 'onConfirmClicked',
       description: 'Confirm button',
     },
+    onCrossClick: {
+      action: 'onCrossClicked',
+      description: 'Top right cross button',
+    },
     onCancelText: {
       control: 'text',
       description: 'String describing the cancel action',
@@ -91,6 +95,9 @@ LeftPointing.args = {
   color: '#60caff',
   onCancelText: 'Cancel',
   onConfirmText: 'Confirm',
+  minimalIcon: false,
+  withoutBottomActions: false,
+  onCrossClick: null,
 };
 
 export const UpwardPointing = Template.bind({});
@@ -111,4 +118,14 @@ SquareIcon.args = {
   onCancelText: 'No',
   onConfirmText: 'Yes',
   squareIcon: true,
+  onCrossClick: null,
+};
+
+export const WithCrossButton = Template.bind({});
+WithCrossButton.args = {
+  title: 'Cross button is here →',
+  icon: 'AdUnits',
+  color: '#8577e0',
+  onCancelText: 'Delete',
+  onConfirmText: 'Save',
 };

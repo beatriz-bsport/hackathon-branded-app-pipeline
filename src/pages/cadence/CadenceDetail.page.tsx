@@ -39,11 +39,13 @@ import {
   doNotDisplayDeleteStepDialogAnymore as doNotDisplayDeleteStepDialogAnymoreAction,
   doNotDisplayConvertStepIntoExitDialogAnymore as doNotDisplayConvertStepIntoExitDialogAnymoreAction,
   doNotDisplayPauseDialogAnymore as doNotDisplayPauseDialogAnymoreAction,
+  doNotDisplayWelcomeDialogAnymore as doNotDisplayWelcomeDialogAnymoreAction,
 } from '#libs/user-preference/actions';
 import {
   getDoNotDisplayDeleteStepDialogCadenceIds,
   getDoNotDisplayConvertStepIntoExitDialogCadenceIds,
   getDoNotDisplayPauseDialogCadenceIds,
+  getDoNotDisplayCadenceWelcomeDialog,
 } from '#libs/user-preference/selectors';
 
 import {
@@ -117,6 +119,9 @@ import {
 
 import UpsellBlocker from '#libs/platform-billing/components/UpsellBlocker.component';
 import { UPSELL_IDENTIFIER_CADENCE } from '#libs/platform-billing/upsell-identifiers';
+import CadenceUtilityDialog, {
+  DialogVariant,
+} from '#libs/sequential_marketing/components/dialogs/DialogUtility';
 
 import CustomStarIcon from '#components/icons/CustomStarIcon.component';
 import { isMinimalCadenceConfigurationCompleted } from '#libs/sequential_marketing/utils';
@@ -172,6 +177,10 @@ export class CadenceDetailPage extends Component<Props> {
       this.props.setCadenceMinimalConfigurationState(minimalConfigration);
       this.props.setCurrentStepConfigurationFromCadenceMinimalConfiguration(
         minimalConfigration,
+      );
+      this.props.setIsWelcomeDialogOpen(
+        !this.props.cadence.initialized &&
+          !this.props.doNotDisplayWelcomeDialog,
       );
       if (
         !minimalConfigration.cadenceWinConfigured ||
@@ -326,19 +335,21 @@ export class CadenceDetailPage extends Component<Props> {
     marketingAction: Partial<StepMarketingActions>,
   ) => this.props.upsertStepMarketingAction(marketingAction);
 
-  handleDoNotDisplayDeleteStepDialogAnymoreAction = () =>
-    this.props.doNotDisplayDeleteStepDialogAnymore(this.props.cadence.id);
-
-  handleDoNotDisplayConvertStepIntoExitDialogAnymoreAction = () =>
-    this.props.doNotDisplayConvertStepIntoExitDialogAnymore(
-      this.props.cadence.id,
-    );
-
-  handleDoNotDisplayPauseDialogAnymoreAction = () =>
-    this.props.doNotDisplayPauseDialogAnymore(this.props.cadence.id);
+  closeWelcomeDialog = (isChecked?: boolean) => {
+    this.props.setIsWelcomeDialogOpen(false);
+    isChecked && this.props.doNotDisplayWelcomeDialogAnymore();
+  };
 
   render() {
     const { classes } = this.props;
+
+    // If isWelcomeDialogOpen is set to null, it indicates that it hasn't been defined yet,
+    // and we don't want the configuration to start without determining whether the dialog should appear or not.
+    const isEntryFirstConfiguration =
+      this.props.isWelcomeDialogOpen !== null &&
+      !this.props.isWelcomeDialogOpen &&
+      !this.props.cadence.initialized &&
+      !this.props.cadenceMinimalConfigurationState.cadenceEntryConfigured;
 
     return (
       <div className={classes.pageContainer}>
@@ -358,7 +369,7 @@ export class CadenceDetailPage extends Component<Props> {
                 cadence={this.props.cadence}
                 cadenceEditMode={this.props.cadenceEditMode}
                 doNotDisplayPauseDialogAnymore={
-                  this.handleDoNotDisplayPauseDialogAnymoreAction
+                  this.props.doNotDisplayPauseDialogAnymore
                 }
                 goBack={this.props.backtoCadenceList}
                 hidePauseDialogCadenceIds={
@@ -383,10 +394,10 @@ export class CadenceDetailPage extends Component<Props> {
               deleteConnectedTrigger={this.props.deleteConnectedTriggerAction}
               deleteStepMarketingAction={this.props.deleteStepMarketingAction}
               doNotDisplayConvertStepIntoExitDialogAnymoreAction={
-                this.handleDoNotDisplayConvertStepIntoExitDialogAnymoreAction
+                this.props.doNotDisplayConvertStepIntoExitDialogAnymore
               }
               doNotDisplayDeleteStepDialogCadenceIdsAction={
-                this.handleDoNotDisplayDeleteStepDialogAnymoreAction
+                this.props.doNotDisplayDeleteStepDialogAnymore
               }
               editConnectedTrigger={this.handleEditConnectedTrigger}
               emailDetailList={this.props.emailDetailList}
@@ -417,11 +428,7 @@ export class CadenceDetailPage extends Component<Props> {
               isDeleteStepDialogHidden={this.props.doNotDisplayDeleteStepDialogCadenceIds.includes(
                 this.props.cadence.id,
               )}
-              isEntryFirstConfiguration={
-                !this.props.cadence.initialized &&
-                !this.props.cadenceMinimalConfigurationState
-                  .cadenceEntryConfigured
-              }
+              isEntryFirstConfiguration={isEntryFirstConfiguration}
               onClickConnectedTrigger={this.handleClickConnectedTrigger}
               onClickEntryStep={this.props.onClickEntryStep}
               resetAllSelection={this.resetAllSelection}
@@ -448,6 +455,12 @@ export class CadenceDetailPage extends Component<Props> {
             />
           </div>
         </div>
+        <CadenceUtilityDialog
+          onCancel={this.props.backtoCadenceList}
+          onConfirm={this.closeWelcomeDialog}
+          open={this.props.isWelcomeDialogOpen}
+          variant={DialogVariant.WELCOME}
+        />
       </div>
     );
   }
@@ -469,6 +482,7 @@ type StateHandlerInit = {
     step: CadenceStep | null;
   };
   cadenceEditMode: boolean;
+  isWelcomeDialogOpen: boolean | null;
 };
 
 const StateHandlersInit: StateHandlerInit = {
@@ -498,6 +512,7 @@ const StateHandlersInit: StateHandlerInit = {
   currentStepConfiguration: null,
   triggerForEdition: { trigger: null, step: null },
   cadenceEditMode: false,
+  isWelcomeDialogOpen: null,
 };
 
 const StateHandlersSetter = {
@@ -573,11 +588,17 @@ const StateHandlersSetter = {
         },
       };
     },
+
   setCadenceEditMode: () => (cadenceEditMode: boolean) => ({
     cadenceEditMode,
   }),
+
   setSelectedStepIdForEdition: () => (selectedStepIdForEdition: number) => ({
     selectedStepIdForEdition,
+  }),
+
+  setIsWelcomeDialogOpen: () => (isWelcomeDialogOpen: boolean) => ({
+    isWelcomeDialogOpen,
   }),
 };
 
@@ -857,21 +878,23 @@ const mapWithHandlers = {
       data && props.upsertStepMarketingActionAction(data, options),
 
   doNotDisplayDeleteStepDialogAnymore:
-    (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>
-    (cadenceId: number) => {
-      props.doNotDisplayDeleteStepDialogAnymoreAction(cadenceId);
+    (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) => () => {
+      props.doNotDisplayDeleteStepDialogAnymoreAction(props.cadenceId);
     },
 
   doNotDisplayConvertStepIntoExitDialogAnymore:
-    (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>
-    (cadenceId: number) => {
-      props.doNotDisplayConvertStepIntoExitDialogAnymoreAction(cadenceId);
+    (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) => () => {
+      props.doNotDisplayConvertStepIntoExitDialogAnymoreAction(props.cadenceId);
     },
 
   doNotDisplayPauseDialogAnymore:
-    (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>
-    (cadenceId: number) => {
-      props.doNotDisplayPauseDialogAnymoreAction(cadenceId);
+    (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) => () => {
+      props.doNotDisplayPauseDialogAnymoreAction(props.cadenceId);
+    },
+
+  doNotDisplayWelcomeDialogAnymore:
+    (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) => () => {
+      props.doNotDisplayWelcomeDialogAnymoreAction();
     },
 
   deleteStepMarketingAction:
@@ -905,6 +928,7 @@ const connector = connect(
       getDoNotDisplayConvertStepIntoExitDialogCadenceIds(state),
     doNotDisplayPauseDialogCadenceIds:
       getDoNotDisplayPauseDialogCadenceIds(state),
+    doNotDisplayWelcomeDialog: getDoNotDisplayCadenceWelcomeDialog(state),
     smartlistById: getSmartListDict(state),
     getSmartlist: (id: number) => getSmartList(state, id),
     // EMAILS
@@ -932,6 +956,7 @@ const connector = connect(
     doNotDisplayConvertStepIntoExitDialogAnymoreAction,
     doNotDisplayDeleteStepDialogAnymoreAction,
     doNotDisplayPauseDialogAnymoreAction,
+    doNotDisplayWelcomeDialogAnymoreAction,
     fetchCadenceStepListAction,
     fetchMarketingActionsAction,
     modifyStepMarketingActionsConfigurationAction,

@@ -35,94 +35,144 @@ type SubTextsProps = {
   customClasses?: { [className: string]: string };
 };
 
-const SubText: React.FC<SubTextsProps> = ({
-  subText,
-  index,
-  customClasses,
-}) => {
-  const { t } = useTranslation();
+const SubText: React.FC<SubTextsProps> = React.memo(
+  ({ subText, index, customClasses }) => {
+    const { t } = useTranslation();
 
-  const classes = useStyles({});
+    const classes = useStyles({});
 
-  if (subText.length === 1) {
+    if (subText?.length === 1) {
+      return (
+        <Typography
+          className={classNames(classes.subText, customClasses?.subText)}
+          variant="body1"
+        >
+          {typeof subText[0] === 'string'
+            ? t(subText[0])
+            : t(subText[0].translationKey, {
+                ...subText[0].options,
+                interpolation: { escapeValue: false },
+              })}
+        </Typography>
+      );
+    }
+
     return (
-      <Typography
-        className={classNames(classes.subText, customClasses?.subText)}
-        variant="body1"
+      <ul
+        className={classNames(classes.subTextList, customClasses?.subTextList)}
       >
-        {typeof subText[0] === 'string'
-          ? t(subText[0])
-          : t(subText[0].translationKey, {
-              ...subText[0].options,
-              interpolation: { escapeValue: false },
-            })}
-      </Typography>
+        {subText?.map((line, subIndex) => (
+          <li key={`${index}-${subIndex}-${line}`}>
+            <Typography
+              className={classNames(
+                classes.subTextListItem,
+                customClasses?.subTextListItem,
+              )}
+              variant="body1"
+            >
+              {typeof line === 'string'
+                ? t(line)
+                : t(line.translationKey, {
+                    ...line.options,
+                    interpolation: { escapeValue: false },
+                  })}
+            </Typography>
+          </li>
+        ))}
+      </ul>
     );
-  }
-  return (
-    <ul className={classNames(classes.subTextList, customClasses?.subTextList)}>
-      {subText?.map((line, subIndex) => (
-        <li key={`${index}-${subIndex}-${line}`}>
-          <Typography
-            className={classNames(
-              classes.subTextListItem,
-              customClasses?.subTextListItem,
-            )}
-            variant="body1"
-          >
-            {typeof line === 'string'
-              ? t(line)
-              : t(line.translationKey, {
-                  ...line.options,
-                  interpolation: { escapeValue: false },
-                })}
-          </Typography>
-        </li>
-      ))}
-    </ul>
-  );
-};
+  },
+);
 
 type ButtonComponentProps = {
   button: ButtonProps;
   customClasses?: { [className: string]: string };
 };
 
-const Button: React.FC<ButtonComponentProps> = ({ button, customClasses }) => {
-  const { t } = useTranslation();
+const Button: React.FC<ButtonComponentProps> = React.memo(
+  ({ button, customClasses }) => {
+    const { t } = useTranslation();
 
-  const classes = useStyles({});
+    const classes = useStyles({});
 
-  const {
-    title: buttonTitle,
-    fontColor,
-    backgroundColor,
-    ...buttonProps
-  } = button;
+    const {
+      title: buttonTitle,
+      fontColor,
+      backgroundColor,
+      ...buttonProps
+    } = button;
 
-  return (
-    <MUIButton
-      {...buttonProps}
-      className={classNames(classes.button, customClasses?.button)}
-      style={{
-        color: fontColor,
-        backgroundColor:
-          buttonProps.variant === 'text' ? 'transparent' : backgroundColor,
-      }}
-    >
-      {typeof buttonTitle === 'string'
-        ? t(buttonTitle)
-        : t(buttonTitle.translationKey, {
-            ...buttonTitle.options,
-            interpolation: { escapeValue: false },
-          })}
-    </MUIButton>
-  );
+    return (
+      <MUIButton
+        {...buttonProps}
+        className={classNames(classes.button, customClasses?.button)}
+        style={{
+          color: fontColor,
+          backgroundColor:
+            buttonProps?.variant === 'text' ? 'transparent' : backgroundColor,
+        }}
+      >
+        {typeof buttonTitle === 'string'
+          ? t(buttonTitle)
+          : t(buttonTitle.translationKey, {
+              ...buttonTitle.options,
+              interpolation: { escapeValue: false },
+            })}
+      </MUIButton>
+    );
+  },
+);
+
+type BottomActionsProps = {
+  buttons?: ButtonProps[];
+  checkBoxLabel?: string;
+  customClasses?: { [className: string]: string };
+  isChecked?: boolean;
+  handleCheck?: () => void;
 };
+
+const BottomActions: React.FC<BottomActionsProps> = React.memo(
+  ({ buttons, checkBoxLabel, customClasses, isChecked, handleCheck }) => {
+    const classes = useStyles({});
+
+    const displayCheckBox = !!checkBoxLabel && !!handleCheck;
+
+    return (
+      <>
+        {displayCheckBox && (
+          <div className={classes.checkboxContainer}>
+            <div className={classes.checkbox}>
+              <Checkbox checked={isChecked} edge="end" onClick={handleCheck} />
+            </div>
+            <Typography align="center" variant="body1">
+              {checkBoxLabel}
+            </Typography>
+          </div>
+        )}
+
+        {buttons?.length && (
+          <DialogActions
+            className={classNames(
+              classes.dialogActions,
+              customClasses?.dialogActions,
+            )}
+          >
+            {buttons?.map((button, index) => (
+              <Button
+                key={index}
+                button={button}
+                customClasses={customClasses}
+              />
+            ))}
+          </DialogActions>
+        )}
+      </>
+    );
+  },
+);
 
 type Props = {
   open: boolean;
-  onClose?: (ev?: React.MouseEvent, reason?: string) => void;
   maxWidth?: Breakpoint | false;
   CustomIcon?: React.FC<SVGProps<SVGElement>>;
   customIconHeight?: number | string;
@@ -134,40 +184,34 @@ type Props = {
   withCross?: boolean;
   title?: TranslationProps; // this must be a translation key
   subTexts?: TranslationProps[][]; // these must be translation keys
-  buttons?: ButtonProps[];
-  customClasses?: { [className: string]: string };
   namespaces?: string | string[];
-  checkBoxLabel?: string;
-  isChecked?: boolean;
-  handleCheck?: () => void;
-};
+  onClose?: (ev?: React.MouseEvent, reason?: string) => void;
+} & BottomActionsProps;
 
 const DialogWithBigIcon: React.FC<Props> = ({
   open,
-  onClose,
-  maxWidth,
+  buttons,
+  checkBoxLabel,
+  customClasses,
   CustomIcon,
+  customIconFillOpacity,
   customIconHeight,
   customIconWidth,
-  customIconFillOpacity,
   icon,
   iconColor,
-  withoutBackground,
-  withCross,
-  title,
-  subTexts,
-  buttons,
-  customClasses,
-  namespaces,
-  checkBoxLabel,
   isChecked,
+  maxWidth,
+  namespaces,
+  subTexts,
+  title,
+  withCross,
+  withoutBackground,
+  onClose,
   handleCheck,
 }) => {
   const { t } = useTranslation(namespaces);
 
   const classes = useStyles({ iconColor, withoutBackground });
-
-  const displayCheckBox = !!checkBoxLabel && !!handleCheck;
 
   return (
     <Dialog
@@ -264,29 +308,13 @@ const DialogWithBigIcon: React.FC<Props> = ({
         ))}
       </DialogContent>
 
-      {displayCheckBox && (
-        <div className={classes.checkboxContainer}>
-          <div className={classes.checkbox}>
-            <Checkbox checked={isChecked} edge="end" onClick={handleCheck} />
-          </div>
-          <Typography align="center" variant="body1">
-            {checkBoxLabel}
-          </Typography>
-        </div>
-      )}
-
-      {buttons?.length && (
-        <DialogActions
-          className={classNames(
-            classes.dialogActions,
-            customClasses?.dialogActions,
-          )}
-        >
-          {buttons?.map((button, index) => (
-            <Button key={index} button={button} customClasses={customClasses} />
-          ))}
-        </DialogActions>
-      )}
+      <BottomActions
+        buttons={buttons}
+        checkBoxLabel={checkBoxLabel}
+        customClasses={customClasses}
+        handleCheck={handleCheck}
+        isChecked={isChecked}
+      />
     </Dialog>
   );
 };
@@ -372,6 +400,11 @@ const useStyles = makeStyles<
       backgroundColor: theme.palette.primary.dark,
     },
     color: 'white',
+  },
+  inlineBottom: {
+    display: 'flex',
+    gap: theme.spacing(2),
+    justifyContent: 'space-between',
   },
 }));
 

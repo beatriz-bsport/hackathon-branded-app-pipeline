@@ -99,7 +99,9 @@ DialogWithoutCrossWithButtonsAndSubTextList.args = {
 
 export const DialogWithCheckbox = Template.bind({});
 DialogWithCheckbox.args = {
-  displayCheckBox: true,
+  isChecked: false,
+  handleCheck: action('handleCheck'),
+  checkBoxLabel: 'Click here to check/uncheck',
   title: 'A dialog with checkbox',
   subTexts: [['Here is a sbutext.']],
   icon: 'Person',

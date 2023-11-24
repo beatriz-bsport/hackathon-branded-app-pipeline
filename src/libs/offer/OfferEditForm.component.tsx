@@ -251,6 +251,7 @@ export const OfferEditForm = (props: Props) => {
         >
           {t('offer:form.groupedOffer.warning', {
             name: offer?.group.name,
+            interpolation: { escapeValue: false },
           })}
         </Alert>
       )}

@@ -359,7 +359,7 @@ exports.default = {
     },
     groupedOffer: {
       warning:
-        'Be careful this session is part of the  group of sessions {{ name }}',
+        'Be careful this session is part of the group of sessions {{ name }}',
     },
     stepper: { step: { SETTINGS: 'Modification settings', INFOS: 'Session' } },
   },

@@ -35,7 +35,7 @@ import type { WithHandlerType } from '../../utils/types';
 import type { OptionCallback } from '../../state/types';
 import type { Cadence } from '#libs/sequential_marketing/types';
 
-const CADENCE_PAGE_SIZE = 100;
+const CADENCE_PAGE_SIZE = 500;
 
 type StateHandlerType = typeof StateHandlersInit &
   WithHandlerType<typeof StateHandlersSetter>;

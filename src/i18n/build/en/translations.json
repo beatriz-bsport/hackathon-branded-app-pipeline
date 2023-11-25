@@ -7542,6 +7542,9 @@
                     "content": {
                         "registered": "The following members have been registered, as a compatible pass was found:"
                     }
+                },
+                "warning": {
+                    "title": "Weet u het zeker?"
                 }
             }
         },

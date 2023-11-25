@@ -188,11 +188,11 @@
             "18": "Kosteloze annuleringen (leden)",
             "17": "Late-annulering (leden)",
             "16": "Gewijzigde sessies (leden)",
-            "14": "Een lid is door de studio van de wachtlijst verwijderd",
-            "13": "Een lid heeft zichzelf uitgeschreven van de wachtlijst",
+            "14": "Een lid is door de studio van de wachtlijst verwijderd (voor medewerkers)",
+            "13": "Een lid heeft zichzelf uitgeschreven van de wachtlijst (voor leden)",
             "12": "Wanneer een lid zich op de wachtlijst inschrijft",
             "10": "Verlopen plaats van een lid op de wachtlijst",
-            "9": "Er is een boekingsplaats beschikbaar",
+            "9": "Een lid heeft zich uitgeschreven van de wachtlijst (boekingsplaats vrijgekomen)",
             "8": "Reservering + aankoop via leskaart",
             "7": "Reservering met leskaarten",
             "6": "Welkomsbericht (voor nieuwe leden)",
@@ -255,7 +255,7 @@
             },
             "ConsumerPaymentPack": {
                 "tags": {
-                    "pass_credit_left": "Resterende credits",
+                    "pass_credit_left": "Resterende kredieten",
                     "pass_expiration": "Vervaldatum van de leskaart",
                     "pass_starting_date": "Startdatum van de leskaart",
                     "pass_name": "Naam van de leskaart",
@@ -277,7 +277,7 @@
             },
             "PrivateConsumerPass": {
                 "tags": {
-                    "pass_credit_left": "Resterende credits",
+                    "pass_credit_left": "Resterende kredieten",
                     "pass_expiration": "Vervaldatum van de leskaart",
                     "pass_starting_date": "Startdatum van de leskaart",
                     "pass_name": "Naam van de leskaart",
@@ -3386,7 +3386,7 @@
                 "selectToShowPreview": "Selecteer een e-mail om de voorvertoning te zien.",
                 "mailTitle": "Selecteer de te versturen e-mailsjabloon",
                 "typeTitle": "Evenement",
-                "creditType": "Resterende credits",
+                "creditType": "Resterende kredieten",
                 "daysType": "Resterende geldigheid",
                 "mailSelection": "Selecteer een e-mailsjabloon",
                 "smartListSelection": "(Optioneel) Smartlist(s) selecteren",
@@ -8236,7 +8236,7 @@
                 "CLIENT_WON": "Maak een gebruikersaccount voor BSPORT Solution aan wanneer een deal als \"WON\" is gemarkeerd",
                 "helpContent": "De onderstaande acties vinden plaats zodra de bijbehorende gebeurtenis plaatsvindt op ActiveCampaign.",
                 "title": "Integreer ActiveCampaign met BSPORT Solution",
-                "CONTACT_TAG": "Maak een gebruikersaccount voor BSPORT Solution aan wanneer een prospect als “WON” is gemarkeerd op ActiveCampaign",
+                "CONTACT_TAG": "Maak een gebruikersaccount op bsport aan wanneer een prospect als “WON” is gemarkeerd op ActiveCampaign",
                 "helpTitle": "Hoe werkt synchronisatie?"
             },
             "link": {

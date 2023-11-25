@@ -2249,7 +2249,7 @@
                 "helpTitle": "¿Cómo funciona la sincronización?"
             },
             "webhooks": {
-                "CONTACT_TAG": "Crear una cuenta de cliente en bsport cuando el prospecto esté etiquetado en 'won' en ActiveCampaign",
+                "CONTACT_TAG": "Crear una cuenta de cliente en bsport cuando un cliente potencial es etiquetado como \"ganado\" en ActiveCampaign.",
                 "CLIENT_WON": "Crear una cuenta de cliente en bsport cuando el prospecto se establece en el estado \"WON\" en un trato",
                 "title": "Integrar las informaciones de ActiveCampaign en bsport",
                 "helpContent": "Las siguientes acciones tienen lugar tan pronto como se produce el evento asociado en ActiveCampaign.",
@@ -4481,7 +4481,7 @@
             "member_identifier": "Identificador",
             "payment_date": "Fecha de compra",
             "payment_method": "Modo de pago",
-            "payment_identifier": "Identificador de compra",
+            "payment_identifier": "Identificador de factura",
             "product": "Productos",
             "product_names": "Productos",
             "product_type": "Tipo de productos",
@@ -4639,9 +4639,9 @@
             "billing_group": "Grupo de facturación",
             "company_name": "Franquicia",
             "reverted": "Cancelado",
-            "sum_available_amount_non_expired": "Créditos ofrecidos todavía disponibles",
-            "sum_available_amount_expired": "Créditos ofrecidos y expirados",
-            "sum_consumed_amount": "Créditos ofrecidos",
+            "sum_available_amount_non_expired": "Importe aún disponible",
+            "sum_available_amount_expired": "Importe caducado",
+            "sum_consumed_amount": "Importe utilizado",
             "nb_expired": "Número de tarjetas caducadas",
             "nb_non_activated": "Número de tarjetas no activadas",
             "nb_activated": "Número de tarjetas activadas",
@@ -11662,7 +11662,7 @@
                     "title": "Está seguro?"
                 },
                 "loading": {
-                    "content": "No actualice la pestaña ni abandone esta página. Este proceso puede tardar unos segundos en ejecutarse.",
+                    "content": "No actualice esta página ni salga de ella. Este proceso puede tardar unos segundos.",
                     "title": "Se añaden miembros a la sesión"
                 },
                 "info": {

@@ -1,4 +1,6 @@
 import React from 'react';
+
+import classNames from 'classnames';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import { withStyles, Modal, createStyles } from '@material-ui/core';
@@ -97,16 +99,38 @@ class UserInteractionPortal extends React.PureComponent<Props> {
         );
       }
       return (
-        <Modal open={!!this.props.url} className={classes.container}>
-          <div className={classes.innerContainer}>
-            <div className={classes.topBar}>
-              <IconButton onClick={this.props.onClose}>
+        <Modal
+          open={!!this.props.url}
+          className={classNames(
+            classes.container,
+            'bsport-user-interaction-modal__container',
+          )}
+        >
+          <div
+            className={classNames(
+              classes.innerContainer,
+              'bsport-user-interaction-modal__innerContainer',
+            )}
+          >
+            <div
+              className={classNames(
+                classes.topBar,
+                'bsport-user-interaction-modal__topBar',
+              )}
+            >
+              <IconButton
+                onClick={this.props.onClose}
+                className="bsport-user-interaction-modal__closeIcon"
+              >
                 <CloseIcon fontSize="large" />
               </IconButton>
             </div>
             <iframe
               title="bsport-inner-modal"
-              className={classes.iframe}
+              className={classNames(
+                classes.iframe,
+                'bsport-user-interaction-modal__iframe',
+              )}
               src={this.props.url}
             />
           </div>
@@ -118,16 +142,38 @@ class UserInteractionPortal extends React.PureComponent<Props> {
       return null;
 
     return (
-      <Modal open={!!this.props.url} className={classes.container}>
-        <div className={classes.innerContainer}>
-          <div className={classes.topBar}>
-            <IconButton onClick={this.props.onClose}>
+      <Modal
+        open={!!this.props.url}
+        className={classNames(
+          classes.container,
+          'bsport-user-interaction-modal__container',
+        )}
+      >
+        <div
+          className={classNames(
+            classes.innerContainer,
+            'bsport-user-interaction-modal__innerContainer',
+          )}
+        >
+          <div
+            className={classNames(
+              classes.topBar,
+              'bsport-user-interaction-modal__topBar',
+            )}
+          >
+            <IconButton
+              onClick={this.props.onClose}
+              className="bsport-user-interaction-modal__closeIcon"
+            >
               <CloseIcon fontSize="large" />
             </IconButton>
           </div>
           <iframe
             title="bsport-inner-modal"
-            className={classes.iframe}
+            className={classNames(
+              classes.iframe,
+              'bsport-user-interaction-modal__iframe',
+            )}
             src={this.props.url}
           />
         </div>

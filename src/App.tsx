@@ -86,7 +86,7 @@ const NewsletterWidget = asyncComponent(
   () => import('./widgets/Newsletter.widget'),
 );
 const UserInteractionPortal = asyncComponent(
-  () => import('./libs/modal/UserInteractionModal.component'),
+  () => import('./libs/modal/UserInteractionPortal.component'),
 );
 const LoginButtonWidget = asyncComponent(
   () => import('./widgets/LoginButton.widget'),

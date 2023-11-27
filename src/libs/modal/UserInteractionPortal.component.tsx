@@ -1,0 +1,264 @@
+import React from 'react';
+
+import classNames from 'classnames';
+import CloseIcon from '@material-ui/icons/Close';
+import IconButton from '@material-ui/core/IconButton';
+import { withStyles, Modal, createStyles, makeStyles } from '@material-ui/core';
+import { compose } from 'recompose';
+import { MaterialStyleType } from 'bsport-saas/src/utils/types';
+import ApplyCustomCssStyles from 'bsport-saas/src/libs/widget/components/ApplyCustomCssStyles.component';
+
+import ApplyCustomTheme from 'bsport-saas/src/libs/exportable-components/ApplyCustomTheme.component';
+import {
+  DIALOG_MODE_IFRAME,
+  DIALOG_MODE_POPUP,
+  DIALOG_MODE_TAB,
+  DIALOG_MODE_DEACTIVATED,
+} from '@bsport/common/lib/master-data/widget-dialog-mode';
+import WidgetPortalSlidingContainer from '../../components/PortalContainer';
+
+interface OwnProps {
+  url?: string;
+  dialogMode: 0 | 1 | 2 | 3;
+  onClose: () => void;
+  fullScreenPopup: boolean;
+  allowNoPopup?: boolean;
+  parentElement: string;
+  styles: string;
+  customConfiguration: string;
+}
+
+type Props = OwnProps & MaterialStyleType<ReturnType<typeof styles>>;
+
+type UserInteractionModalProps = {
+  url: string,
+  styles: string,
+  customConfiguration: string,
+  onClose: () => void,
+};
+
+const UserInteractionModal: React.FC<UserInteractionModalProps> = ({
+  url,
+  styles,
+  customConfiguration,
+  onClose,
+}) => {
+  const classes = useModalStyles();
+  return (
+    <Modal
+      open={!!url}
+      className={classNames(
+        classes.container,
+        'bsport-user-interaction-modal__container',
+      )}
+    >
+      <>
+        <ApplyCustomTheme styles={styles} />
+        {!!customConfiguration && (
+          <ApplyCustomCssStyles
+            customConfiguration={customConfiguration}
+            fromWidget
+          />
+        )}
+        <div
+          className={classNames(
+            classes.innerContainer,
+            'bsport-user-interaction-modal__innerContainer',
+          )}
+        >
+          <div
+            className={classNames(
+              classes.topBar,
+              'bsport-user-interaction-modal__topBar',
+            )}
+          >
+            <IconButton
+              onClick={onClose}
+              className="bsport-user-interaction-modal__closeIcon"
+            >
+              <CloseIcon fontSize="large" />
+            </IconButton>
+          </div>
+          <iframe
+            title="bsport-inner-modal"
+            className={classNames(
+              classes.iframe,
+              'bsport-user-interaction-modal__iframe',
+            )}
+            src={url}
+          />
+        </div>
+      </>
+    </Modal>
+  );
+};
+class UserInteractionPortal extends React.PureComponent<Props> {
+  popupWindow: any = null;
+
+  openPopup = () => {
+    const width = window.screen.width * 0.75;
+    const height = window.screen.height * 0.75;
+    const left = window.screen.width / 2 - width / 2;
+    const top = window.screen.height / 2 - height / 2;
+    const fullScreen = `width=${window.screen.width}, height=${window.screen.height}`;
+    const nonFullScreen = `width=${width}, height=${height}, top=${top}, left=${left}`;
+    const params = `
+      scrollbars=no,
+      resizable=no,
+      status=no,
+      location=no,
+      toolbar=no,
+      menubar=no,
+      ${
+        window.screen.width <= 600 ||
+        window.screen.height <= 600 ||
+        this.props.fullScreenPopup
+          ? fullScreen
+          : nonFullScreen
+      }
+    `;
+
+    return window.open(this.props.url, '_blank', params);
+  };
+
+  openTab = () => {
+    window.open(this.props.url, '_blank');
+  };
+
+  componentDidUpdate(prevProps: Props) {
+    if (prevProps.url !== this.props.url && this.props.url) {
+      if (this.props.url) {
+        switch (this.props.dialogMode) {
+          case DIALOG_MODE_POPUP:
+            this.openPopup();
+            break;
+          case DIALOG_MODE_TAB:
+            this.openTab();
+            break;
+          default:
+            break;
+        }
+      }
+
+      if (!this.props.url) {
+        this.popupWindow && this.popupWindow.close();
+      }
+    }
+  }
+
+  render() {
+    const { classes } = this.props;
+    if (!!this.props.url && this.props.dialogMode === DIALOG_MODE_DEACTIVATED) {
+      if (this.props.allowNoPopup) {
+        return (
+          <WidgetPortalSlidingContainer
+            isOpen={!!this.props.url}
+            parentElement={this.props.parentElement}
+          >
+            <iframe
+              title="bsport-inner-modal"
+              className={classes.iframe}
+              src={this.props.url}
+            />
+          </WidgetPortalSlidingContainer>
+        );
+      }
+      return (
+        <UserInteractionModal
+          url={this.props.url}
+          styles={this.props.styles}
+          customConfiguration={this.props.customConfiguration}
+          onClose={this.props.onClose}
+        />
+      );
+    }
+
+    if (!this.props.url || this.props.dialogMode !== DIALOG_MODE_IFRAME)
+      return null;
+
+    return (
+      <UserInteractionModal
+        url={this.props.url}
+        styles={this.props.styles}
+        customConfiguration={this.props.customConfiguration}
+        onClose={this.props.onClose}
+      />
+    );
+  }
+}
+
+const styles = () =>
+  createStyles({
+    iframe: {
+      borderTopWidth: 0,
+      borderRightWidth: 0,
+      borderBottomWidth: 0,
+      borderLeftWidth: 0,
+      borderRadius: 12,
+
+      height: '100%',
+      width: '100%',
+    },
+  });
+
+const useModalStyles = makeStyles(() => ({
+  container: {
+    display: 'flex',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 2147483647,
+    position: 'fixed',
+    width: '100vw',
+    minHeight: '100vh -webkit-fill-available',
+    /* mobile viewport bug fix */
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: 'rgba(0,0,0,.2)',
+    overflow: 'hidden',
+  },
+  innerContainer: {
+    display: 'flex',
+    flex: 1,
+    flexDirection: 'column',
+    width: '100%',
+    height: '100%',
+    overflow: 'hidden',
+    backgroundColor: 'white',
+    boxShadow: '3px 10px 44px 9px rgba(0,0,0,0.17)',
+    borderRadius: 12,
+    '@media (min-width: 600px)': {
+      maxHeight: (props: any) =>
+        props.fullScreenPopup ? window.innerHeight : window.innerHeight * 0.75,
+      maxWidth: (props: any) =>
+        props.fullScreenPopup ? window.innerWidth : window.innerWidth * 0.75,
+    },
+  },
+  topBar: {
+    display: 'flex',
+    backgroundColor: 'white',
+    padding: 8,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    borderRadius: 12,
+    '@media (max-width: 600px), (max-height: 600px)': {
+      maxHeight: 25,
+    },
+  },
+  iframe: {
+    borderTopWidth: 0,
+    borderRightWidth: 0,
+    borderBottomWidth: 0,
+    borderLeftWidth: 0,
+    borderRadius: 12,
+
+    height: '100%',
+    width: '100%',
+  },
+}));
+
+export default compose<any, OwnProps>(withStyles(styles))(
+  UserInteractionPortal,
+);

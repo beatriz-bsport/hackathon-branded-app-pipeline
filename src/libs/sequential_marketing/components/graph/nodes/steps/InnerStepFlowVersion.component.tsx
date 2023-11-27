@@ -41,7 +41,8 @@ type FlowProps = {
     isDeleteStepDialogHidden: boolean;
     isConvertStepIntoExitDialogHidden: boolean;
     isPushNotificationUpsellActive?: boolean;
-    createNewMarketingAction: (value: Partial<StepMarketingActions>) => void;
+    cadenceEditMode?: boolean;
+    stepMemberCount?: number;
     upsertMarketingAction: (value: Partial<StepMarketingActions>) => void;
     deleteStepMarketingAction: (data: { id: number; stepId: number }) => void;
     endStepEdition: () => void;

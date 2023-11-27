@@ -20,6 +20,7 @@ interface OwnProps {
   onClose: () => void;
   fullScreenPopup: boolean;
   allowNoPopup?: boolean;
+  parentElement: string;
 }
 
 type Props = OwnProps & MaterialStyleType<ReturnType<typeof styles>>;
@@ -83,7 +84,10 @@ class UserInteractionPortal extends React.PureComponent<Props> {
     if (!!this.props.url && this.props.dialogMode === DIALOG_MODE_DEACTIVATED) {
       if (this.props.allowNoPopup) {
         return (
-          <WidgetPortalSlidingContainer isOpen={!!this.props.url}>
+          <WidgetPortalSlidingContainer
+            isOpen={!!this.props.url}
+            parentElement={this.props.parentElement}
+          >
             <iframe
               title="bsport-inner-modal"
               className={classes.iframe}

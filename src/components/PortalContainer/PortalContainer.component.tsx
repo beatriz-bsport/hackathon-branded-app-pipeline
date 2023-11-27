@@ -37,14 +37,37 @@ export const SlidingContainer: React.FC<SlidingContainerProps> = ({
 
 type PortalSlidingContainerProps = SlidingContainerProps & {
   containerElementID: string,
-  children: React.ReactElement,
+  parentElement: string,
+  children: Element,
 };
 export const PortalSlidingContainer: React.FC<PortalSlidingContainerProps> = ({
   isOpen,
   containerElementID,
+  parentElement,
   children,
 }) => {
-  const containerSetUpVariable = document.getElementById(containerElementID);
+  // Get the container element based on the containerElementID
+  let containerSetUpVariable: HTMLElement | Element = document.getElementById(
+    containerElementID,
+  );
+
+  // Get the parent element based on the parentElement ID
+  const widgetContainerElement = document.getElementById(parentElement);
+
+  // Check if the parentElement and widgetContainerElement exist
+  if (parentElement && widgetContainerElement) {
+    // Find the child container with ID 'bs-setup-derived-variable'
+    const childContainerSetUpVariable = widgetContainerElement.querySelector(
+      '#bs-setup-derived-variable',
+    );
+
+    // If the child container is found, update the containerSetUpVariable
+    if (childContainerSetUpVariable) {
+      containerSetUpVariable = childContainerSetUpVariable;
+    }
+  }
+
+  // Render the sliding container using ReactDOM.createPortal
   return ReactDOM.createPortal(
     <SlidingContainer isOpen={isOpen}>{children}</SlidingContainer>,
     containerSetUpVariable,
@@ -54,10 +77,14 @@ export const PortalSlidingContainer: React.FC<PortalSlidingContainerProps> = ({
 // Important component to make absolutly sure that in the widget we insert the container
 // at the "highest" possible point which is the div just after where we inject the css variables
 export const WidgetPortalSlidingContainer: React.FC<
-  SlidingContainerProps & { children: React.ReactElement },
-> = ({ isOpen, children }) => {
+  SlidingContainerProps & {
+    children: React.ReactElement,
+    parentElement: string,
+  },
+> = ({ isOpen, children, parentElement }) => {
   return (
     <PortalSlidingContainer
+      parentElement={parentElement}
       containerElementID="bs-setup-derived-variable"
       isOpen={isOpen}
     >

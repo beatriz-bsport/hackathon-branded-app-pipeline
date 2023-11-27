@@ -170,7 +170,8 @@ class BsportWidget extends Component<Props> {
   onWindowOpen = (url: string) => {
     const uri = URI(url)
       .addQuery('context', 'widget')
-      .addQuery('dialogMode', this.props.dialogMode);
+      .addQuery('dialogMode', this.props.dialogMode)
+      .addQuery('parentElementId', this.props.parentElement);
     this.props.openUserInteractionPortal({
       url: uri.toString(),
       dialogMode: this.props.dialogMode,
@@ -190,6 +191,7 @@ class BsportWidget extends Component<Props> {
       franchisor,
       styles,
       isBackofficePreview,
+      parentElement,
     } = this.props;
     if (
       !this.props.theme ||
@@ -255,6 +257,7 @@ class BsportWidget extends Component<Props> {
               onClose={this.props.closeUserInteractionPortal}
               fullScreenPopup={this.props.fullScreenPopup}
               allowNoPopup={allowNoPopup}
+              parentElement={this.props.parentElement}
             />
             <WidgetBridge
               companyId={companyId}

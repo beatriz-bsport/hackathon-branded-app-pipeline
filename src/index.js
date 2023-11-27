@@ -20,7 +20,9 @@ export default class BsportWidget {
     ) {
       import('../vendor/reset.css');
     }
-    const component = <Root initialParams={initialParams} />;
+    const component = (
+      <Root initialParams={{ ...initialParams, parentElement }} />
+    );
     function doRender() {
       const el = document.createElement('div');
 

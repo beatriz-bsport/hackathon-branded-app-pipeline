@@ -1,10 +1,4 @@
 import { createAction } from 'redux-actions';
-import {
-  OptionCallback,
-  Dispatch,
-  OptionPaginatedCallback,
-  PaginatedResponse,
-} from '../../../state/types';
 
 import {
   retrieveCadenceStep as retrieveCadenceStepAPI,
@@ -14,13 +8,19 @@ import {
   updateCadenceStepName as updateCadenceStepNameAPI,
   deleteCadenceStep as deleteCadenceStepAPI,
 } from '#libs/sequential_marketing/api';
+import { DestinationStatus } from '#libs/sequential_marketing/constants';
 
+import type {
+  OptionCallback,
+  Dispatch,
+  OptionPaginatedCallback,
+  PaginatedResponse,
+} from '../../../state/types';
 import type {
   CadenceStep,
   CadenceStepQueryParams,
   UpdatedTriggersList,
 } from '#libs/sequential_marketing/types';
-import { DestinationStatus } from '../constants';
 
 export const retrieveCadenceStepActions = {
   isLoading: createAction<boolean>('CADENCE_STEP_WIP/RETRIEVE/IS_LOADING'),

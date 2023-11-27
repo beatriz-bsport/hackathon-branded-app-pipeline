@@ -94,11 +94,22 @@ export const setInitialCadenceConfiguration = (
   );
 };
 
-export const patchInitialCadenceConfiguration = (id: number, data: any) => {
+export const patchInitialCadenceConfiguration = (
+  id: number,
+  data: InitialConfigurationValues,
+) => {
   return putAuth<Cadence>(
     `${API_V1_URI}/sequential_marketing/cadence/${id}/initial_config/`,
     {
-      ...data,
+      entry_list:
+        data[InitialConfigurationStep.CADENCE_ENTRY_STEP]?.connectedTriggers ||
+        [],
+      win_exit_list:
+        data[InitialConfigurationStep.CADENCE_WIN_STEP]?.connectedTriggers ||
+        [],
+      lose_exit_list:
+        data[InitialConfigurationStep.CADENCE_LOSE_STEP]?.connectedTriggers ||
+        [],
     },
   );
 };

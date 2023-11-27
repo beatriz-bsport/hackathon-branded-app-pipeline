@@ -1,10 +1,4 @@
 import { createAction } from 'redux-actions';
-import {
-  OptionCallback,
-  Dispatch,
-  OptionPaginatedCallback,
-  PaginatedResponse,
-} from '../../../state/types';
 
 import {
   retrieveCadence as retrieveCadenceAPI,
@@ -18,16 +12,19 @@ import {
   setInitialCadenceConfiguration as setInitialCadenceConfigurationAPI,
   patchInitialCadenceConfiguration as patchInitialCadenceConfigurationAPI,
 } from '#libs/sequential_marketing/api';
+import { snackbarError, snackbarSuccess } from '#libs/snackbar/actions';
 
+import type {
+  OptionCallback,
+  Dispatch,
+  OptionPaginatedCallback,
+  PaginatedResponse,
+} from '../../../state/types';
 import type {
   Cadence,
   CadenceQueryParams,
   InitialConfigurationValues,
 } from '#libs/sequential_marketing/types';
-
-import { snackbarError, snackbarSuccess } from '#libs/snackbar/actions';
-
-import type { FormValues } from '#libs/sequential_marketingDEPRECATED/serializers/types';
 
 export const createCadenceActions = {
   isLoading: createAction<boolean>('CADENCE_WIP/CREATE/IS_LOADING'),
@@ -221,7 +218,7 @@ export function setInitialCadenceConfiguration(
 
 export function updateInitialCadenceConfiguration(
   id: number,
-  data: FormValues,
+  data: InitialConfigurationValues,
   options?: OptionCallback<Cadence>,
 ) {
   return async (dispatch: Dispatch) => {

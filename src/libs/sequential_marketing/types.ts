@@ -214,7 +214,7 @@ export type CadenceConfigurationState = {
 };
 
 export type InitialConfigurationValues = {
-  [key in InitialConfigurationStep]: {
+  [key in InitialConfigurationStep]?: {
     connectedTriggers: ConnectedTrigger[];
     marketingActions?: StepMarketingActions[];
   };

@@ -1,10 +1,4 @@
 import { createAction } from 'redux-actions';
-import {
-  OptionCallback,
-  Dispatch,
-  OptionPaginatedCallback,
-  PaginatedResponse,
-} from '../../../state/types';
 
 import {
   fetchMarketingActions as fetchMarketingActionsAPI,
@@ -14,6 +8,12 @@ import {
   deleteStepMarketingAction as deleteStepMarketingActionAPI,
 } from '#libs/sequential_marketing/api';
 
+import type {
+  OptionCallback,
+  Dispatch,
+  OptionPaginatedCallback,
+  PaginatedResponse,
+} from '../../../state/types';
 import type {
   StepMarketingActionsParams,
   StepMarketingActions,

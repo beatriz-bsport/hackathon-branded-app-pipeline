@@ -42,13 +42,11 @@ export const STATUS_CHIPS = [
 
 export const CONDITION_CHIPS = [
   'available_credits',
-  'amortized_price',
   'rate_attendance',
   'nb_non_activated',
   'unpaid_amount',
   'rate_non_attendance',
   'cancel_rate',
-  'sum_margin_value',
   'stock',
 ];
 

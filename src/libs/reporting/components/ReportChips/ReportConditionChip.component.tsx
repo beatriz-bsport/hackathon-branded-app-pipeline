@@ -12,39 +12,13 @@ type Props = {
   chipClass?: string;
 };
 
-const getSpecs = (
-  theme: Theme,
-  credits: number | null,
-  price: number | null,
-) => {
+const getSpecs = (theme: Theme, credits: number | null) => {
   const green = theme.palette.success;
   const yellow = { main: '#FF9800', dark: '#C77700' };
   const orange = { main: '#FF5C00', dark: '#C94800' };
   const red = theme.palette.error;
 
   const specs: { [key: string]: StepperConfig } = {
-    amortized_price: {
-      low: {
-        value: 0,
-        color: green.dark,
-        icon: 'CheckCircle',
-        iconColor: green.main,
-      },
-      lmed: null,
-      medium: {
-        range: [0, price - 1],
-        color: orange.dark,
-        icon: 'Error',
-        iconColor: orange.main,
-      },
-      high: {
-        value: price,
-        color: red.dark,
-        icon: 'Cancel',
-        iconColor: red.main,
-      },
-      defaultRange: 'medium',
-    },
     available_credits: {
       low: {
         value: 0,
@@ -190,23 +164,6 @@ const getSpecs = (
       },
       defaultRange: 'medium',
     },
-    sum_margin_value: {
-      low: {
-        value: 0,
-        color: red.dark,
-        icon: 'Cancel',
-        iconColor: red.main,
-      },
-      lmed: null,
-      medium: null,
-      high: {
-        range: [0, Infinity],
-        color: green.dark,
-        icon: 'CheckCircle',
-        iconColor: green.main,
-      },
-      defaultRange: 'low',
-    },
     stock: {
       low: {
         range: [-Infinity, -1],
@@ -243,11 +200,7 @@ const ReportConditionChip: React.FC<Props> = ({
   const theme = useTheme();
 
   if (row_extra_data) {
-    const specs = getSpecs(
-      theme,
-      Number(row_extra_data?.credits),
-      Number(row_extra_data?.price),
-    );
+    const specs = getSpecs(theme, Number(row_extra_data?.credits));
 
     if (specs[datatype]) {
       const config = specs[datatype];

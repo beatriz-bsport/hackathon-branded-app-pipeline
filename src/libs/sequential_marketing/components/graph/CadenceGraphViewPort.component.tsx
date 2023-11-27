@@ -108,23 +108,27 @@ export const CadenceGraphViewPort: React.FC<Props> = ({
   const [anchorLostTriggerBubble, setAnchorLostTriggerBubble] =
     React.useState<HTMLElement | null>(null);
 
-  const openWonCriteriaBubble = React.useCallback(
-    () =>
+  const openWonCriteriaBubble = React.useCallback((timeout?: number) => {
+    const outputWon = document.getElementById('output_won');
+    if (timeout) {
       setTimeout(() => {
-        const outputWon = document.getElementById('output_won');
         setAnchorWonTriggerBubble(outputWon);
-      }, 200),
-    [],
-  );
+      }, timeout);
+    } else {
+      setAnchorWonTriggerBubble(outputWon);
+    }
+  }, []);
 
-  const openLostCriteriaBubble = React.useCallback(
-    () =>
+  const openLostCriteriaBubble = React.useCallback((timeout?: number) => {
+    const outputLost = document.getElementById('output_lost');
+    if (timeout) {
       setTimeout(() => {
-        const outputLost = document.getElementById('output_lost');
         setAnchorLostTriggerBubble(outputLost);
-      }, 200),
-    [],
-  );
+      }, timeout);
+    } else {
+      setAnchorWonTriggerBubble(outputLost);
+    }
+  }, []);
 
   const wonConnectedTriggers = React.useMemo(
     () =>
@@ -157,30 +161,47 @@ export const CadenceGraphViewPort: React.FC<Props> = ({
   );
 
   const submitWonCriteriaBubble = React.useCallback(
-    (value: ConnectedTrigger[]) =>
-      setInitialConfig({
-        ...initialConfiguration,
-        [InitialConfigurationStep.CADENCE_WIN_STEP]: {
-          ...initialConfiguration[InitialConfigurationStep.CADENCE_WIN_STEP],
-          connectedTriggers: value,
-        },
-      }),
-    [initialConfiguration, setInitialConfig],
+    (value: ConnectedTrigger[]) => {
+      const configuration = !creationMode
+        ? {
+            [InitialConfigurationStep.CADENCE_WIN_STEP]: {
+              connectedTriggers: value,
+            },
+          }
+        : {
+            ...initialConfiguration,
+            [InitialConfigurationStep.CADENCE_WIN_STEP]: {
+              ...initialConfiguration[
+                InitialConfigurationStep.CADENCE_WIN_STEP
+              ],
+              connectedTriggers: value,
+            },
+          };
+      setInitialConfig(configuration);
+    },
+    [creationMode, initialConfiguration, setInitialConfig],
   );
 
   const submitLostCriteriaBubble = React.useCallback(
-    (value: ConnectedTrigger[], save?: boolean) =>
-      setInitialConfig(
-        {
-          ...initialConfiguration,
-          [InitialConfigurationStep.CADENCE_LOSE_STEP]: {
-            ...initialConfiguration[InitialConfigurationStep.CADENCE_LOSE_STEP],
-            connectedTriggers: value,
-          },
-        },
-        save,
-      ),
-    [initialConfiguration, setInitialConfig],
+    (value: ConnectedTrigger[], save?: boolean) => {
+      const configuration = !creationMode
+        ? {
+            [InitialConfigurationStep.CADENCE_LOSE_STEP]: {
+              connectedTriggers: value,
+            },
+          }
+        : {
+            ...initialConfiguration,
+            [InitialConfigurationStep.CADENCE_LOSE_STEP]: {
+              ...initialConfiguration[
+                InitialConfigurationStep.CADENCE_LOSE_STEP
+              ],
+              connectedTriggers: value,
+            },
+          };
+      setInitialConfig(configuration, save);
+    },
+    [creationMode, initialConfiguration, setInitialConfig],
   );
 
   // ================= WON CRITERIA BUBBLE ==================
@@ -212,7 +233,7 @@ export const CadenceGraphViewPort: React.FC<Props> = ({
       submitWonCriteriaBubble(value);
       setAnchorWonTriggerBubble(null);
       if (isFirstOutputConfiguration) {
-        openLostCriteriaBubble();
+        openLostCriteriaBubble(200);
         setCurrentStepConfiguration(InitialConfigurationStep.CADENCE_LOSE_STEP);
       }
     },
@@ -226,7 +247,7 @@ export const CadenceGraphViewPort: React.FC<Props> = ({
 
   React.useEffect(() => {
     closeEntryActionBubble();
-    isFirstOutputConfiguration && openWonCriteriaBubble();
+    isFirstOutputConfiguration && openWonCriteriaBubble(200);
   }, [
     isFirstOutputConfiguration,
     closeEntryActionBubble,
@@ -243,7 +264,7 @@ export const CadenceGraphViewPort: React.FC<Props> = ({
     (value: ConnectedTrigger[]) => {
       setAnchorLostTriggerBubble(null);
       if (isFirstOutputConfiguration) {
-        openWonCriteriaBubble();
+        openWonCriteriaBubble(200);
         submitLostCriteriaBubble(value);
         setCurrentStepConfiguration(InitialConfigurationStep.CADENCE_WIN_STEP);
       }
@@ -305,18 +326,20 @@ export const CadenceGraphViewPort: React.FC<Props> = ({
           <CadenceOutputCollapse isOpen={creationMode}>
             <div id="output_won">
               <CadenceOutput
-                disabled={!anchorWonTriggerBubble}
+                disabled={creationMode && !anchorWonTriggerBubble}
                 forceSelection={!!anchorWonTriggerBubble}
                 getSmartlist={getSmartlist}
+                onCardClick={openWonCriteriaBubble}
                 status={DestinationStatus.WIN}
                 triggerList={wonConnectedTriggers}
               />
             </div>
             <div id="output_lost">
               <CadenceOutput
-                disabled={!anchorLostTriggerBubble}
+                disabled={creationMode && !anchorLostTriggerBubble}
                 forceSelection={!!anchorLostTriggerBubble}
                 getSmartlist={getSmartlist}
+                onCardClick={openLostCriteriaBubble}
                 status={DestinationStatus.FAIL}
                 triggerList={lostConnectedTriggers}
               />

@@ -18,9 +18,13 @@ export type CadenceOutputProps = {
   forceSelection?: boolean;
   isSelected?: boolean;
   getSmartlist: (id: number) => SmartList;
+  onCardClick?: () => void;
 };
 
-type CadenceOutputHeaderProps = Omit<CadenceOutputProps, 'isSelected'>;
+type CadenceOutputHeaderProps = Omit<
+  CadenceOutputProps,
+  'isSelected' | 'onCardClick'
+>;
 
 const CadenceOutputHeader: React.FC<CadenceOutputHeaderProps> = React.memo(
   ({ status, triggerList, disabled, getSmartlist }) => {
@@ -53,6 +57,7 @@ const CadenceOutput: React.FC<CadenceOutputProps> = ({
   forceSelection,
   isSelected,
   getSmartlist,
+  onCardClick,
 }) => {
   return (
     <StepCard
@@ -73,6 +78,7 @@ const CadenceOutput: React.FC<CadenceOutputProps> = ({
       }
       isEmpty={!triggerList}
       isSelected={isSelected}
+      onCardClick={onCardClick}
       selectedColor={
         status === DestinationStatus.WIN
           ? SequentialMarketingColors.ENTRY_COLOR

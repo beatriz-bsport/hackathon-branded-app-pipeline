@@ -258,6 +258,8 @@ class BsportWidget extends Component<Props> {
               fullScreenPopup={this.props.fullScreenPopup}
               allowNoPopup={allowNoPopup}
               parentElement={this.props.parentElement}
+              styles={styles || this.props.theme.widget_theme}
+              customConfiguration={this.props.customConfiguration}
             />
             <WidgetBridge
               companyId={companyId}

@@ -7,7 +7,9 @@ import { withStyles, Modal, createStyles } from '@material-ui/core';
 
 import { compose } from 'recompose';
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';
+import ApplyCustomCssStyles from 'bsport-saas/src/libs/widget/components/ApplyCustomCssStyles.component';
 
+import ApplyCustomTheme from 'bsport-saas/src/libs/exportable-components/ApplyCustomTheme.component';
 import {
   DIALOG_MODE_IFRAME,
   DIALOG_MODE_POPUP,
@@ -23,6 +25,8 @@ interface OwnProps {
   fullScreenPopup: boolean;
   allowNoPopup?: boolean;
   parentElement: string;
+  styles: string;
+  customConfiguration: string;
 }
 
 type Props = OwnProps & MaterialStyleType<ReturnType<typeof styles>>;
@@ -106,6 +110,66 @@ class UserInteractionPortal extends React.PureComponent<Props> {
             'bsport-user-interaction-modal__container',
           )}
         >
+          <>
+            <ApplyCustomTheme styles={this.props.styles} />
+            {!!this.props.customConfiguration && (
+              <ApplyCustomCssStyles
+                customConfiguration={this.props.customConfiguration}
+                fromWidget
+              />
+            )}
+            <div
+              className={classNames(
+                classes.innerContainer,
+                'bsport-user-interaction-modal__innerContainer',
+              )}
+            >
+              <div
+                className={classNames(
+                  classes.topBar,
+                  'bsport-user-interaction-modal__topBar',
+                )}
+              >
+                <IconButton
+                  onClick={this.props.onClose}
+                  className="bsport-user-interaction-modal__closeIcon"
+                >
+                  <CloseIcon fontSize="large" />
+                </IconButton>
+              </div>
+              <iframe
+                title="bsport-inner-modal"
+                className={classNames(
+                  classes.iframe,
+                  'bsport-user-interaction-modal__iframe',
+                )}
+                src={this.props.url}
+              />
+            </div>
+          </>
+        </Modal>
+      );
+    }
+
+    if (!this.props.url || this.props.dialogMode !== DIALOG_MODE_IFRAME)
+      return null;
+
+    return (
+      <Modal
+        open={!!this.props.url}
+        className={classNames(
+          classes.container,
+          'bsport-user-interaction-modal__container',
+        )}
+      >
+        <>
+          <ApplyCustomTheme styles={this.props.styles} />
+          {!!this.props.customConfiguration && (
+            <ApplyCustomCssStyles
+              customConfiguration={this.props.customConfiguration}
+              fromWidget
+            />
+          )}
           <div
             className={classNames(
               classes.innerContainer,
@@ -134,49 +198,7 @@ class UserInteractionPortal extends React.PureComponent<Props> {
               src={this.props.url}
             />
           </div>
-        </Modal>
-      );
-    }
-
-    if (!this.props.url || this.props.dialogMode !== DIALOG_MODE_IFRAME)
-      return null;
-
-    return (
-      <Modal
-        open={!!this.props.url}
-        className={classNames(
-          classes.container,
-          'bsport-user-interaction-modal__container',
-        )}
-      >
-        <div
-          className={classNames(
-            classes.innerContainer,
-            'bsport-user-interaction-modal__innerContainer',
-          )}
-        >
-          <div
-            className={classNames(
-              classes.topBar,
-              'bsport-user-interaction-modal__topBar',
-            )}
-          >
-            <IconButton
-              onClick={this.props.onClose}
-              className="bsport-user-interaction-modal__closeIcon"
-            >
-              <CloseIcon fontSize="large" />
-            </IconButton>
-          </div>
-          <iframe
-            title="bsport-inner-modal"
-            className={classNames(
-              classes.iframe,
-              'bsport-user-interaction-modal__iframe',
-            )}
-            src={this.props.url}
-          />
-        </div>
+        </>
       </Modal>
     );
   }

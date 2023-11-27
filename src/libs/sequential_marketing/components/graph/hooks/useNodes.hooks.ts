@@ -305,15 +305,25 @@ export const useNodeElementsRecorder = ({
   );
 
   const handleConfirmEntryCriteriaBubble = React.useCallback(
-    (value: ConnectedTrigger[]) =>
-      setInitialConfig({
-        ...initialConfiguration,
-        [InitialConfigurationStep.CADENCE_ENTRY_STEP]: {
-          ...initialConfiguration[InitialConfigurationStep.CADENCE_ENTRY_STEP],
-          connectedTriggers: value,
-        },
-      }),
-    [initialConfiguration, setInitialConfig],
+    (value: ConnectedTrigger[]) => {
+      const configuration = cadence.initialized
+        ? {
+            [InitialConfigurationStep.CADENCE_ENTRY_STEP]: {
+              connectedTriggers: value,
+            },
+          }
+        : {
+            ...initialConfiguration,
+            [InitialConfigurationStep.CADENCE_ENTRY_STEP]: {
+              ...initialConfiguration[
+                InitialConfigurationStep.CADENCE_ENTRY_STEP
+              ],
+              connectedTriggers: value,
+            },
+          };
+      setInitialConfig(configuration);
+    },
+    [cadence.initialized, initialConfiguration, setInitialConfig],
   );
 
   const handleConfirmEntryActionBubble = React.useCallback(
@@ -357,24 +367,23 @@ export const useNodeElementsRecorder = ({
           isFirstConfigurationMode,
           isEntryActionBubbleOpen,
           isEntryFirstConfiguration,
+          isPushNotificationUpsellActive,
           connectedTriggersBubble: {
             smartlists,
             onConfirm: handleConfirmEntryCriteriaBubble,
           },
-          marketingActionsBubble: {
-            ...marketingActionEssentials,
-            onConfirm: handleConfirmEntryActionBubble,
-          },
+          cadenceEditMode,
           stepMemberCount: getStepMemberCountActions?.(storedEntryStep?.id),
-          isPushNotificationUpsellActive,
-          addMarketingAction: () => {}, // TODO: code the newMA function
+          marketingActionEssentials,
           addNextStep: handleAddNextStepTrigger(storedEntryStep),
+          deleteStepMarketingAction,
           getEmailTemplate,
           getSmartlist,
           getTag,
-          onCardClick: () => onClickEntryStep(storedEntryStep), // TODO: code the onClickEntryStep function
           onConnectToStep: onConnectToInnerStep(storedEntryStep),
           setCurrentStepConfiguration,
+          submitMultipleMarketingActions: handleConfirmEntryActionBubble,
+          upsertMarketingAction,
         },
       };
     }
@@ -386,10 +395,11 @@ export const useNodeElementsRecorder = ({
     cadenceEditMode,
     isEntryActionBubbleOpen,
     isEntryFirstConfiguration,
+    isPushNotificationUpsellActive,
     smartlists,
     storedEntryStep,
     isFirstConfigurationMode,
-    isPushNotificationUpsellActive,
+    deleteStepMarketingAction,
     getEmailTemplate,
     getSmartlist,
     getStepMarketingActions,
@@ -403,6 +413,7 @@ export const useNodeElementsRecorder = ({
     onClickEntryStep,
     onConnectToInnerStep,
     setCurrentStepConfiguration,
+    upsertMarketingAction,
   ]);
 
   const handleConfirmTriggerBubble = React.useCallback(
@@ -551,20 +562,16 @@ export const useNodeElementsRecorder = ({
           isPushNotificationUpsellActive,
           stepMemberCount: getStepMemberCountActions?.(stepNode?.id),
           addNextStep: handleAddNextStepTrigger(stepNode),
-          upsertMarketingAction,
+          deleteStepMarketingAction,
           endStepEdition: handleResetStepToEditId,
           getEmailTemplate,
           getTag,
           onConnectToStep: onConnectToInnerStep(stepNode),
           onDelete: () => deleteCadenceStep(stepNode?.id),
           submitConvertIntoExit: handleConvertIntoExit(stepNode),
-          addHideDeleteStepDialogCadenceIds:
-            doNotDisplayDeleteStepDialogCadenceIdsAction,
-          addHideConvertStepIntoExitDialogCadenceIds:
-            doNotDisplayConvertStepIntoExitDialogCadenceIdsAction,
           submitMarketingActionForm,
           updateCadenceStepName,
-          deleteStepMarketingAction,
+          upsertMarketingAction,
         },
       }));
     }

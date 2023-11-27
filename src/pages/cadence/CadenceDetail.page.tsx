@@ -74,7 +74,6 @@ import {
 } from '#libs/sequential_marketing/selectors';
 
 // This import stays on deprecated. Value will be completly different after refactor.
-import type { Values } from '#libs/sequential_marketingDEPRECATED/components/form/Trigger/components';
 import type { WithHandlerType } from '../../utils/types';
 import type { OptionCallback } from '../../state/types';
 import type { RootState } from '../../reducers';
@@ -91,11 +90,6 @@ import type {
 import CadenceDetailHeader from '#libs/sequential_marketing/components/CadenceDetailHeader.component';
 import { fetchAllSmartLists } from '#libs/smart-list/actions';
 import CadenceGraphFlow from '#libs/sequential_marketing/components/graph/CadenceGraphFlow.component';
-import {
-  CADENCE_STEPPER_ENTRY_STEP,
-  CADENCE_STEPPER_WIN_STEP,
-  CADENCE_STEPPER_LOSE_STEP,
-} from '#libs/sequential_marketingDEPRECATED/components/form/CadenceSettingsFormStepper.component';
 import {
   emailTemplatesSummaries,
   emailTemplateDetail,
@@ -297,44 +291,54 @@ export class CadenceDetailPage extends Component<Props> {
     initialConfig: InitialConfigurationValues,
     save?: boolean,
   ) => {
-    this.props.setInitialConfigurationState(initialConfig);
-    this.props.setCadenceMinimalConfigurationState({
-      cadenceWinConfigured:
-        initialConfig[InitialConfigurationStep.CADENCE_WIN_STEP]
-          .connectedTriggers?.length > 0,
-      cadenceLoseConfigured:
-        initialConfig[InitialConfigurationStep.CADENCE_LOSE_STEP]
-          .connectedTriggers?.length > 0,
-      cadenceEntryConfigured:
-        initialConfig[InitialConfigurationStep.CADENCE_ENTRY_STEP]
-          .connectedTriggers?.length > 0,
-    });
-    isMinimalCadenceConfigurationCompleted(
-      this.props.cadenceMinimalConfigurationState,
-    ) &&
-      save &&
-      this.props.setInitialCadenceConfiguration(initialConfig, {
-        onSuccess: (entryStepId: number) => {
-          this.props.updateStepMarketingActionList(
-            {
-              list:
-                initialConfig[
-                  InitialConfigurationStep.CADENCE_ENTRY_STEP
-                ].marketingActions?.map((action) => ({
-                  ...action,
-                  id: null,
-                  cadence_step: entryStepId,
-                })) ?? [],
-              stepId: entryStepId,
-            },
-            {
-              onSuccess: () => this.props.retrieveCadence(),
-              onError: () => this.props.retrieveCadence(),
-            },
-          );
-        },
+    if (this.props.cadence.initialized) {
+      this.props.updateInitialCadenceConfiguration(initialConfig, {
+        onSuccess: () => this.props.retrieveCadence(),
         onError: () => this.props.retrieveCadence(),
       });
+    } else {
+      this.props.setInitialConfigurationState(initialConfig);
+      this.props.setCadenceMinimalConfigurationState({
+        cadenceWinConfigured:
+          initialConfig[InitialConfigurationStep.CADENCE_WIN_STEP]
+            .connectedTriggers?.length > 0,
+        cadenceLoseConfigured:
+          initialConfig[InitialConfigurationStep.CADENCE_LOSE_STEP]
+            .connectedTriggers?.length > 0,
+        cadenceEntryConfigured:
+          initialConfig[InitialConfigurationStep.CADENCE_ENTRY_STEP]
+            .connectedTriggers?.length > 0,
+      });
+      if (
+        isMinimalCadenceConfigurationCompleted(
+          this.props.cadenceMinimalConfigurationState,
+        ) &&
+        save
+      ) {
+        this.props.setInitialCadenceConfiguration(initialConfig, {
+          onSuccess: (entryStepId: number) => {
+            this.props.updateStepMarketingActionList(
+              {
+                list:
+                  initialConfig[
+                    InitialConfigurationStep.CADENCE_ENTRY_STEP
+                  ].marketingActions?.map((action) => ({
+                    ...action,
+                    id: null,
+                    cadence_step: entryStepId,
+                  })) ?? [],
+                stepId: entryStepId,
+              },
+              {
+                onSuccess: () => this.props.retrieveCadence(),
+                onError: () => this.props.retrieveCadence(),
+              },
+            );
+          },
+          onError: () => this.props.retrieveCadence(),
+        });
+      }
+    }
   };
 
   handleUpsertStepMarketingAction = (
@@ -714,21 +718,17 @@ const mapWithHandlers = {
   updateInitialCadenceConfiguration:
     (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>
     (
-      data: {
-        [CADENCE_STEPPER_ENTRY_STEP]?: Values | {};
-        [CADENCE_STEPPER_WIN_STEP]?: Values | {};
-        [CADENCE_STEPPER_LOSE_STEP]?: Values | {};
-      },
-      options?: OptionCallback,
+      initialConfiguration: InitialConfigurationValues,
+      options?: OptionCallback<number>,
     ) => {
-      props.updateInitialCadenceConfigurationAction(props.cadenceId, data, {
-        onSuccess: () => {
-          options?.onSuccess?.();
+      props.updateInitialCadenceConfigurationAction(
+        props.cadenceId,
+        initialConfiguration,
+        {
+          onSuccess: () => options?.onSuccess?.(),
+          onError: () => options?.onError?.(),
         },
-        onError: () => {
-          options?.onError?.();
-        },
-      });
+      );
     },
 
   updateCadenceStepCanvasPosition:

@@ -38,7 +38,6 @@ type EntryStepContentProps = {
 export type EntryStepCardProps = {
   disabled?: boolean;
   isFirstConfigurationMode?: boolean;
-  isEntryFirstConfiguration?: boolean;
   isSelected?: boolean;
   step: CadenceStep;
   cadenceEditMode?: boolean;

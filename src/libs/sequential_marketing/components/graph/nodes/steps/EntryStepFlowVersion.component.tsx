@@ -37,6 +37,7 @@ type FlowProps = {
       React.ComponentProps<typeof EntryActionBubble>,
       'onCancel' | 'isInitial' | 'marketingActions'
     >;
+    isEntryFirstConfiguration?: boolean;
     onConnectToStep: (destinationId: number, triggerKind: TriggerKind) => void;
     setCurrentStepConfiguration: (
       currentStepConfiguration: InitialConfigurationStep,
@@ -54,7 +55,7 @@ export const EntryStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
     handleConnectStepWithLink,
   } = useConnectToStep(data.onConnectToStep);
 
-  // ================= ENTRY CRITERIA & ACTION BUBBLES ==================
+  // ================= ENTRY CRITERIA & ACTION BUBBLES ON CREATION =================
   const { anchorOrigin, popoverStyle, transformOrigin, anchorEl, setAnchorEl } =
     usePopoverBubble();
 
@@ -133,7 +134,16 @@ export const EntryStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
   React.useEffect(() => {
     data.isEntryActionBubbleOpen && openEntryActionBubble();
   }, [data.isEntryActionBubbleOpen, openEntryActionBubble]);
-  // ====================================================================
+  // ===============================================================================
+
+  // ======================== ENTRY CRITERIA EDITION BUBBLE ========================
+  /**
+   * @description The handleClick function is used to open the criteria edition bubble on card click
+   */
+  const handleClick = React.useCallback(() => {
+    setAnchorEl(entryCardRef?.current);
+  }, [setAnchorEl]);
+  // ===============================================================================
 
   return (
     <>
@@ -150,7 +160,7 @@ export const EntryStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
           isPushNotificationUpsellActive={data.isPushNotificationUpsellActive}
           isSelected={data.isSelected}
           marketingActionList={data.marketingActionList}
-          onCardClick={data.onCardClick}
+          onCardClick={handleClick}
           step={data.step}
           stepMemberCount={data.stepMemberCount}
           triggerList={data.triggerList}

@@ -24,7 +24,6 @@ export type InnerStepCardProps = {
   isSelected?: boolean;
   disabled?: boolean;
   isPushNotificationUpsellActive?: boolean;
-  cadenceEditMode?: boolean;
   stepMemberCount?: number;
   onDelete: () => void;
   handleConvertIntoExit: () => void;
@@ -98,7 +97,6 @@ const InnerStepCard: React.FC<InnerStepCardProps> = ({
   disabled,
   disableAddMarketingAction,
   isPushNotificationUpsellActive,
-  cadenceEditMode,
   stepMemberCount,
   addMarketingAction,
   addNextStep,
@@ -171,7 +169,6 @@ const InnerStepCard: React.FC<InnerStepCardProps> = ({
       addButtonActionList={triggerActions}
       addButtonColor={SequentialMarketingColors.INNER_STEP_COLOR}
       addButtonLabel={t('cadence.steps.actions.addNextStep')}
-      cadenceEditMode={cadenceEditMode}
       color={SequentialMarketingColors.INNER_STEP_BORDER_COLOR}
       content={
         ((!!marketingActionList && marketingActionList.length > 0) ||

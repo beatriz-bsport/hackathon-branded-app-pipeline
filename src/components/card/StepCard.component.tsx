@@ -52,7 +52,6 @@ export type StepCardProps = {
   isEmpty?: boolean;
   isSelected?: boolean;
   minHeight?: boolean;
-  cadenceEditMode?: boolean;
   stepMemberCount?: number;
   onCardClick?: (event?: React.MouseEvent<HTMLButtonElement>) => void;
 } & Omit<StepCardStylesProps, 'heightSize' | 'selected'>;
@@ -92,7 +91,6 @@ const StepCard: React.FC<StepCardProps> = ({
   minHeight,
   selectedColor,
   withShadow,
-  cadenceEditMode,
   stepMemberCount,
   onCardClick,
 }) => {
@@ -148,11 +146,11 @@ const StepCard: React.FC<StepCardProps> = ({
                 {!!content && <StepCardContent>{content}</StepCardContent>}
               </div>
             </div>
-            {!['staging', 'prodcution'].includes(
+            {!['staging', 'production'].includes(
               Config.REACT_APP_SENTRY_ENVIRONMENT,
             ) &&
-              !cadenceEditMode &&
-              typeof stepMemberCount !== 'undefined' && (
+              disabled &&
+              (!!stepMemberCount || stepMemberCount === 0) && (
                 <div className={classes.stepMemberCount}>
                   <StepMemberCountChip isVisible count={stepMemberCount} />
                 </div>

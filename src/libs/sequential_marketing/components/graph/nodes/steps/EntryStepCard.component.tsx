@@ -94,7 +94,6 @@ const EntryStepCard: React.FC<EntryStepCardProps> = ({
   marketingActionList,
   triggerList,
   isPushNotificationUpsellActive,
-  cadenceEditMode,
   stepMemberCount,
   addMarketingAction,
   addNextStep,
@@ -142,7 +141,6 @@ const EntryStepCard: React.FC<EntryStepCardProps> = ({
       addButtonActionList={!isFirstConfigurationMode && triggerActions}
       addButtonColor={SequentialMarketingColors.INNER_STEP_COLOR}
       addButtonLabel={t('cadence.steps.actions.addNextStep')}
-      cadenceEditMode={cadenceEditMode}
       color={SequentialMarketingColors.ENTRY_BORDER_COLOR}
       content={
         (marketingActionList?.length > 0 ||

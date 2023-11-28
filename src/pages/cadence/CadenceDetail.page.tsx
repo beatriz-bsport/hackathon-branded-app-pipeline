@@ -149,6 +149,48 @@ type Props = OwnProps &
   StateHandlerType &
   WithTranslation;
 
+/**
+ * Component for handling different cases where the detail shouldn't be accessed.
+ */
+const ContentWrapper = ({
+  children,
+  cadence,
+  loading,
+  cadenceRetrieveError,
+  cadenceId,
+}: {
+  cadenceId: number;
+  cadence: Cadence;
+  loading: boolean;
+  cadenceRetrieveError: Error | null;
+  children: React.JSX.Element;
+}) => {
+  // If still loading, render the children
+  if (loading) {
+    return children;
+  }
+  // If cadence retrieval encountered an error or cadenceId is not a number, block access
+  if (cadenceRetrieveError || Number.isNaN(cadenceId)) {
+    return (
+      <CadenceUtilityDialog
+        open
+        variant={DialogVariant.BLOCK_UNACCESSIBLE_WORKFLOW}
+      />
+    );
+  }
+
+  // If cadence is archived, block access
+  if (cadence?.archived) {
+    return (
+      <CadenceUtilityDialog
+        open
+        variant={DialogVariant.BLOCK_ARCHIVED_WORKFLOW}
+      />
+    );
+  }
+
+  return <>{children}</>;
+};
 export class CadenceDetailPage extends Component<Props> {
   componentDidMount(): void {
     if (this.props.cadenceId) {
@@ -372,111 +414,133 @@ export class CadenceDetailPage extends Component<Props> {
           CustomIconComponent={<CustomStarIcon />}
           upsellIdentifier={UPSELL_IDENTIFIER_CADENCE}
         />
-        <div className={classes.mainPanel}>
-          <div className={classes.stickyTop}>
-            <div
-              className={classNames(
-                classes.whiteGreyBorderContainer,
-                classes.header,
-              )}
-            >
-              <CadenceDetailHeader
-                cadence={this.props.cadence}
-                cadenceEditMode={this.props.cadenceEditMode}
-                doNotDisplayPauseDialogAnymore={
-                  this.props.doNotDisplayPauseDialogAnymore
-                }
-                goBack={this.props.backtoCadenceList}
-                hidePauseDialogCadenceIds={
-                  this.props.doNotDisplayPauseDialogCadenceIds
-                }
-                loading={this.props.loading}
-                onActivate={this.props.activateCadence}
-                onEdit={this.props.updateCadenceName}
-                onShutOff={this.props.shutOffCadence}
-                switchCadenceEditMode={this.switchCadenceEditMode}
-              />
+        <ContentWrapper
+          cadence={this.props.cadence}
+          cadenceId={this.props.cadenceId}
+          cadenceRetrieveError={this.props.cadenceRetrieveError}
+          loading={this.props.loading}
+        >
+          <>
+            <div className={classes.mainPanel}>
+              <div className={classes.stickyTop}>
+                <div
+                  className={classNames(
+                    classes.whiteGreyBorderContainer,
+                    classes.header,
+                  )}
+                >
+                  <CadenceDetailHeader
+                    cadence={this.props.cadence}
+                    cadenceEditMode={this.props.cadenceEditMode}
+                    doNotDisplayPauseDialogAnymore={
+                      this.props.doNotDisplayPauseDialogAnymore
+                    }
+                    goBack={this.props.backtoCadenceList}
+                    hidePauseDialogCadenceIds={
+                      this.props.doNotDisplayPauseDialogCadenceIds
+                    }
+                    loading={this.props.loading}
+                    onActivate={this.props.activateCadence}
+                    onEdit={this.props.updateCadenceName}
+                    onShutOff={this.props.shutOffCadence}
+                    switchCadenceEditMode={this.switchCadenceEditMode}
+                  />
+                </div>
+              </div>
+
+              <div className={classes.mainPanelContent}>
+                <CadenceGraphFlow
+                  cadence={this.props.cadence}
+                  cadenceEditMode={this.props.cadenceEditMode}
+                  convertCadenceExitIntoStep={
+                    this.props.convertCadenceExitIntoStep
+                  }
+                  convertCadenceStepIntoExit={
+                    this.props.convertCadenceStepIntoExit
+                  }
+                  currentStepConfiguration={this.props.currentStepConfiguration}
+                  deleteCadenceStep={this.props.deleteCadenceStep}
+                  deleteConnectedTrigger={
+                    this.props.deleteConnectedTriggerAction
+                  }
+                  deleteStepMarketingAction={
+                    this.props.deleteStepMarketingAction
+                  }
+                  doNotDisplayConvertStepIntoExitDialogAnymoreAction={
+                    this.props.doNotDisplayConvertStepIntoExitDialogAnymore
+                  }
+                  doNotDisplayDeleteStepDialogCadenceIdsAction={
+                    this.props.doNotDisplayDeleteStepDialogAnymore
+                  }
+                  editConnectedTrigger={this.handleEditConnectedTrigger}
+                  emailDetailList={this.props.emailDetailList}
+                  emailDetailListLoading={this.props.emailDetailListLoading}
+                  emailSummaryList={this.props.emailSummaryList}
+                  emailSummaryListLoading={this.props.emailSummaryListLoading}
+                  fetchEmailSummaryList={this.props.fetchEmailSummaryList}
+                  getEmailDetail={this.props.fetchEmailDetail}
+                  getEmailTemplate={this.props.getEmailTemplate}
+                  getSmartlist={this.props.getSmartlist}
+                  getStepMarketingActions={this.props.getStepMarketingActions}
+                  getStepMemberCountActions={
+                    this.props.getStepMemberCountActions
+                  }
+                  getTag={this.props.getTag}
+                  handleCreateNewStepWithTrigger={
+                    this.handleCreateNewStepWithTrigger
+                  }
+                  handleSelectedStepForEdition={
+                    this.handleSelectedStepForEdition
+                  }
+                  hideConvertStepIntoExitDialogCadenceIds={
+                    this.props.doNotDisplayConvertStepIntoExitDialogCadenceIds
+                  }
+                  hideDeleteStepDialogCadenceIds={
+                    this.props.doNotDisplayDeleteStepDialogCadenceIds
+                  }
+                  initialConfiguration={this.props.initialConfigurationValues}
+                  isConvertStepIntoExitDialogHidden={this.props.doNotDisplayConvertStepIntoExitDialogCadenceIds.includes(
+                    this.props.cadence.id,
+                  )}
+                  isDeleteStepDialogHidden={this.props.doNotDisplayDeleteStepDialogCadenceIds.includes(
+                    this.props.cadence.id,
+                  )}
+                  isEntryFirstConfiguration={isEntryFirstConfiguration}
+                  isPushNotificationUpsellActive={this.isPushNotificationUpsellActive()}
+                  onClickConnectedTrigger={this.handleClickConnectedTrigger}
+                  onClickEntryStep={this.props.onClickEntryStep}
+                  resetAllSelection={this.resetAllSelection}
+                  resolvedGenericTags={this.props.resolvedGenericTags}
+                  setCurrentStepConfiguration={
+                    this.props.setCurrentStepConfigurationState
+                  }
+                  setInitialConfig={this.setCadenceInitialConfiguration}
+                  smartlists={this.props.smartlists}
+                  steps={this.props.steps}
+                  submitMarketingActionForm={
+                    this.props.updateStepMarketingActionList
+                  }
+                  tagCategories={this.props.tagCategories}
+                  tagList={this.props.allTagsWithTagGroup}
+                  updateCadenceStepCanvasPosition={
+                    this.props.updateCadenceStepCanvasPosition
+                  }
+                  updateCadenceStepName={this.props.updateCadenceStepName}
+                  updateConnectedTriggerPosition={
+                    this.props.updateCadenceStepConnectedTriggerCanvasPosition
+                  }
+                  upsertMarketingAction={this.handleUpsertStepMarketingAction}
+                />
+              </div>
             </div>
-          </div>
-          <div className={classes.mainPanelContent}>
-            <CadenceGraphFlow
-              cadence={this.props.cadence}
-              cadenceEditMode={this.props.cadenceEditMode}
-              convertCadenceExitIntoStep={this.props.convertCadenceExitIntoStep}
-              convertCadenceStepIntoExit={this.props.convertCadenceStepIntoExit}
-              currentStepConfiguration={this.props.currentStepConfiguration}
-              deleteCadenceStep={this.props.deleteCadenceStep}
-              deleteConnectedTrigger={this.props.deleteConnectedTriggerAction}
-              deleteStepMarketingAction={this.props.deleteStepMarketingAction}
-              doNotDisplayConvertStepIntoExitDialogAnymoreAction={
-                this.props.doNotDisplayConvertStepIntoExitDialogAnymore
-              }
-              doNotDisplayDeleteStepDialogCadenceIdsAction={
-                this.props.doNotDisplayDeleteStepDialogAnymore
-              }
-              editConnectedTrigger={this.handleEditConnectedTrigger}
-              emailDetailList={this.props.emailDetailList}
-              emailDetailListLoading={this.props.emailDetailListLoading}
-              emailSummaryList={this.props.emailSummaryList}
-              emailSummaryListLoading={this.props.emailSummaryListLoading}
-              fetchEmailSummaryList={this.props.fetchEmailSummaryList}
-              getEmailDetail={this.props.fetchEmailDetail}
-              getEmailTemplate={this.props.getEmailTemplate}
-              getSmartlist={this.props.getSmartlist}
-              getStepMarketingActions={this.props.getStepMarketingActions}
-              getStepMemberCountActions={this.props.getStepMemberCountActions}
-              getTag={this.props.getTag}
-              handleCreateNewStepWithTrigger={
-                this.handleCreateNewStepWithTrigger
-              }
-              handleSelectedStepForEdition={this.handleSelectedStepForEdition}
-              hideConvertStepIntoExitDialogCadenceIds={
-                this.props.doNotDisplayConvertStepIntoExitDialogCadenceIds
-              }
-              hideDeleteStepDialogCadenceIds={
-                this.props.doNotDisplayDeleteStepDialogCadenceIds
-              }
-              initialConfiguration={this.props.initialConfigurationValues}
-              isConvertStepIntoExitDialogHidden={this.props.doNotDisplayConvertStepIntoExitDialogCadenceIds.includes(
-                this.props.cadence.id,
-              )}
-              isDeleteStepDialogHidden={this.props.doNotDisplayDeleteStepDialogCadenceIds.includes(
-                this.props.cadence.id,
-              )}
-              isEntryFirstConfiguration={isEntryFirstConfiguration}
-              isPushNotificationUpsellActive={this.isPushNotificationUpsellActive()}
-              onClickConnectedTrigger={this.handleClickConnectedTrigger}
-              onClickEntryStep={this.props.onClickEntryStep}
-              resetAllSelection={this.resetAllSelection}
-              resolvedGenericTags={this.props.resolvedGenericTags}
-              setCurrentStepConfiguration={
-                this.props.setCurrentStepConfigurationState
-              }
-              setInitialConfig={this.setCadenceInitialConfiguration}
-              smartlists={this.props.smartlists}
-              steps={this.props.steps}
-              submitMarketingActionForm={
-                this.props.updateStepMarketingActionList
-              }
-              tagCategories={this.props.tagCategories}
-              tagList={this.props.allTagsWithTagGroup}
-              updateCadenceStepCanvasPosition={
-                this.props.updateCadenceStepCanvasPosition
-              }
-              updateCadenceStepName={this.props.updateCadenceStepName}
-              updateConnectedTriggerPosition={
-                this.props.updateCadenceStepConnectedTriggerCanvasPosition
-              }
-              upsertMarketingAction={this.handleUpsertStepMarketingAction}
+            <CadenceUtilityDialog
+              onCancel={this.props.backtoCadenceList}
+              onConfirm={this.closeWelcomeDialog}
+              open={this.props.isWelcomeDialogOpen}
+              variant={DialogVariant.WELCOME}
             />
-          </div>
-        </div>
-        <CadenceUtilityDialog
-          onCancel={this.props.backtoCadenceList}
-          onConfirm={this.closeWelcomeDialog}
-          open={this.props.isWelcomeDialogOpen}
-          variant={DialogVariant.WELCOME}
-        />
+          </>
+        </ContentWrapper>
       </div>
     );
   }
@@ -958,6 +1022,7 @@ const connector = connect(
     allTagsWithTagGroup: getAllTagsWithTagGroup(state),
     getTag: (id: string) => getTag(state, id),
     featureList: state.company.feature.data,
+    cadenceRetrieveError: state.cadenceWIP.cadence.error,
   }),
   {
     push: pushRouter,

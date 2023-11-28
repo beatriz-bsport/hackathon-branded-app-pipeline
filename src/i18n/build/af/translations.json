@@ -3748,6 +3748,20 @@
           "title": "Delete a {{ workflowLowerCase }}"
         }
       },
+      "block": {
+        "archived": {
+          "dialog": {
+            "title": "{{ workflowCamelCase }} archived",
+            "helper": "The {{ workflowLowerCase }} is now archived. To restore it, navigate to the {{ workflowPluralLowerCase }} list page and unarchive it from the archived list."
+          }
+        },
+        "unrecognized": {
+          "dialog": {
+            "title": "{{ workflowCamelCase }} unrecognized",
+            "helper": "The {{ workflowLowerCase }} you are attempeting to access cannot be found."
+          }
+        }
+      },
       "howTo": { "title": "How to edit your {{ workflowLowerCase }}" },
       "audienceIndexHelper": "The order of the {{ workflowPluralLowerCase }} defines the order of priority: if a member can enter 2 different {{ workflowPluralLowerCase }}, he will start with the highest in the list."
     }

@@ -770,6 +770,22 @@ exports.default = {
         title: 'Delete a {{ workflowLowerCase }}',
       },
     },
+    block: {
+      archived: {
+        dialog: {
+          title: '{{ workflowCamelCase }} archived',
+          helper:
+            'The {{ workflowLowerCase }} is now archived. To restore it, navigate to the {{ workflowPluralLowerCase }} list page and unarchive it from the archived list.',
+        },
+      },
+      unrecognized: {
+        dialog: {
+          title: '{{ workflowCamelCase }} unrecognized',
+          helper:
+            'The {{ workflowLowerCase }} you are attempeting to access cannot be found.',
+        },
+      },
+    },
     howTo: {
       title: 'How to edit your {{ workflowLowerCase }}',
     },

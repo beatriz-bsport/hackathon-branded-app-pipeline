@@ -233,7 +233,7 @@ export function sendGroupedCommunication(
     dispatch(sendGroupedCommunicationAction.error(null));
     try {
       await sendGroupedCommunicationAPI(data);
-      dispatch(snackbarSuccess('communication:mail.success'));
+      dispatch(snackbarSuccess('communication.success'));
 
       options?.onSuccess();
     } catch (error) {

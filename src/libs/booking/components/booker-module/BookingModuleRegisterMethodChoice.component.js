@@ -89,7 +89,9 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
     containerHasFetchedNonCompatiblePasses,
   } = props;
 
-  const [voucher, setVoucher] = useState(0);
+  const [voucher, setVoucher] = useState('0,00');
+  const [voucherPercentage, setVoucherPercentage] = useState('0,00');
+  const [finalPricePreview, setFinalPricePreview] = useState('0,00');
 
   const [openConfirmation, setOpenConfirmation] = useState(false);
 
@@ -114,22 +116,133 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
   const [requiredEstablishmentIsMissing, setRequiredEstablishmentIsMissing] =
     useState(false);
 
-  const handlePackSelect = (pack: PaymentPack) => {
-    setSelectedPack(pack);
-    if (!pack) {
-      return setWarnManagerOnInvoice(false);
+  const handlePackSelect = React.useCallback(
+    (pack: PaymentPack) => {
+      setSelectedPack(pack);
+      if (!pack) {
+        return setWarnManagerOnInvoice(false);
+      }
+      const memberTags = props.memberDetails[props.member.id]?.tags;
+      return setWarnManagerOnInvoice(
+        paymentPackTagsAndMemberTagsCompatibilty(pack, memberTags),
+      );
+    },
+    [props.member.id, props.memberDetails],
+  );
+
+  const handleOnChangeVoucherCredit = React.useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const newVoucher = event.target.value;
+      const newVoucherNumber = parseFloat(parseFloat(newVoucher).toFixed(2));
+      setVoucher(newVoucher);
+      setVoucherPercentage(
+        selectedPack && selectedPack?.price
+          ? parseFloat(
+              (newVoucherNumber / parseFloat(selectedPack.price)) * 100,
+            ).toFixed(2)
+          : '0,00',
+      );
+      setFinalPricePreview(
+        selectedPack
+          ? (selectedPack.price - newVoucherNumber).toFixed(2)
+          : '0.00',
+      );
+    },
+    [selectedPack],
+  );
+
+  const handleOnChangeVoucherPercentage = React.useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const newVoucher =
+        Math.round(parseFloat(event.target.value) * selectedPack.price) / 100;
+      setVoucher(selectedPack ? newVoucher.toString() : voucher);
+      setVoucherPercentage(event.target.value);
+      setFinalPricePreview(
+        selectedPack ? (selectedPack.price - newVoucher).toFixed(2) : '0.00',
+      );
+    },
+    [selectedPack, voucher],
+  );
+
+  const handleOnChangeFinalPricePreview = React.useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const pricePreview = event.target.value;
+      const roundedPricePreviewNumber = parseFloat(
+        parseFloat(event.target.value).toFixed(2),
+      );
+      const newVoucher = selectedPack
+        ? (selectedPack.price - roundedPricePreviewNumber).toFixed(2)
+        : voucher;
+      setFinalPricePreview(pricePreview);
+      setVoucher(newVoucher);
+      setVoucherPercentage(
+        selectedPack && selectedPack?.price
+          ? parseFloat(
+              (newVoucher / parseFloat(selectedPack.price)) * 100,
+            ).toFixed(2)
+          : '0,00',
+      );
+    },
+    [selectedPack, voucher],
+  );
+  const handleVoucherCreditOnBlur = React.useCallback(() => {
+    setVoucher((prevState) => parseFloat(prevState).toFixed(2));
+  }, []);
+
+  const handleFinalPricePreviewOnBlur = React.useCallback(() => {
+    // Depending on how you change the state, prevState and toFixed might not exist
+    setFinalPricePreview((prevState) => parseFloat(prevState).toFixed(2));
+  }, []);
+
+  const handleOnCancelClick = React.useCallback(() => {
+    setSelectedPack(null);
+    setVoucherDialogOpen(false);
+    setVoucher('0,00');
+    setFinalPricePreview('0,00');
+  }, []);
+
+  const handleOnConfirmClick = () => {
+    if (
+      props.enableMultiLocalization &&
+      !billingEstablishmentId &&
+      props.establishments?.length
+    ) {
+      setRequiredEstablishmentIsMissing(true);
+      return;
     }
-    const memberTags = props.memberDetails[props.member.id]?.tags;
-    return setWarnManagerOnInvoice(
-      paymentPackTagsAndMemberTagsCompatibilty(pack, memberTags),
+    props.registerToOffer(
+      { paymentPack: selectedPack },
+      parseFloat(voucher),
+      billingEstablishmentId,
     );
+    setSelectedPack(null);
+    setVoucher('0,00');
+    setFinalPricePreview('0,00');
+    setBillingEstablishmentId(null);
   };
+
   const handleGoToPaymentPack = (paymentPackId) => () => {
     if (!paymentPackId) {
       return;
     }
     props.goToPaymentPack(paymentPackId);
   };
+
+  const handleOnBookOneClick = React.useCallback(
+    (pack: PaymentPack) => () => {
+      handlePackSelect(pack);
+      // We don't trust offer.is_full field, as it takes into account the waiting list's convertible options.
+      // The relevant figure in this case is the real number of available bookings left.
+      if (props.offer.nb_bookings >= props.offer.effectif) {
+        setOpenConfirmation(true);
+      } else {
+        setVoucherDialogOpen(true);
+        setFinalPricePreview(pack.price.toFixed(2));
+      }
+    },
+    [handlePackSelect, props.offer.nb_bookings, props.offer.effectif],
+  );
+
   const handleRegisterToOffer = (consumerPaymentPack) => () =>
     props.registerToOffer({ consumerPaymentPack });
 
@@ -369,16 +482,7 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
                           ? undefined
                           : () => props.onBookMultiple({ paymentPack: pack })
                       }
-                      onBookOne={() => {
-                        handlePackSelect(pack);
-                        // We don't trust offer.is_full field, as it takes into account the waiting list's convertible options.
-                        // The relevant figure in this case is the real number of available bookings left.
-                        if (props.offer.nb_bookings >= props.offer.effectif) {
-                          setOpenConfirmation(true);
-                        } else {
-                          setVoucherDialogOpen(true);
-                        }
-                      }}
+                      onBookOne={handleOnBookOneClick(pack)}
                       pack={pack}
                     />
                   ))}
@@ -465,19 +569,16 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
                       error={
                         Number.isNaN(voucher) ||
                         voucher < 0 ||
-                        (selectedPack ? selectedPack.price < voucher : true)
+                        (selectedPack ? selectedPack.price < voucher : false)
                       }
                       invalid={
                         Number.isNaN(voucher) ||
-                        (selectedPack ? selectedPack.price < voucher : true) ||
+                        (selectedPack ? selectedPack.price < voucher : false) ||
                         voucher < 0
                       }
                       label={t('translation:payment.voucher')}
-                      onChange={(ev) =>
-                        setVoucher(
-                          Math.round(parseFloat(ev.target.value) * 100) / 100,
-                        )
-                      }
+                      onBlur={handleVoucherCreditOnBlur}
+                      onChange={handleOnChangeVoucherCredit}
                       value={voucher}
                       variant="outlined"
                     />
@@ -485,32 +586,33 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
                       error={
                         Number.isNaN(voucher) ||
                         voucher < 0 ||
-                        (selectedPack ? selectedPack.price < voucher : true)
+                        (selectedPack ? selectedPack.price < voucher : false)
                       }
                       invalid={
-                        (selectedPack ? selectedPack.price < voucher : true) ||
+                        (selectedPack ? selectedPack.price < voucher : false) ||
                         voucher < 0
                       }
                       label={t('translation:payment.voucher')}
-                      onChange={(ev) =>
-                        setVoucher(
-                          selectedPack
-                            ? Math.round(
-                                parseFloat(ev.target.value) *
-                                  selectedPack.price,
-                              ) / 100
-                            : voucher,
-                        )
-                      }
+                      onChange={handleOnChangeVoucherPercentage}
                       style={{ minWidth: 480 }}
-                      value={
-                        selectedPack
-                          ? parseInt(
-                              (voucher / selectedPack.price) * 100 + 0.5,
-                              10,
-                            )
-                          : 0
+                      value={voucherPercentage}
+                      variant="outlined"
+                    />
+                    <PriceInput
+                      error={
+                        Number.isNaN(voucher) ||
+                        voucher < 0 ||
+                        (selectedPack ? selectedPack.price < voucher : false)
                       }
+                      invalid={
+                        Number.isNaN(voucher) ||
+                        (selectedPack ? selectedPack.price < voucher : false) ||
+                        voucher < 0
+                      }
+                      label={t('invoice:invoiceItem.finalPricePreview')}
+                      onBlur={handleFinalPricePreviewOnBlur}
+                      onChange={handleOnChangeFinalPricePreview}
+                      value={finalPricePreview}
                       variant="outlined"
                     />
                   </div>
@@ -550,13 +652,7 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
           )}
         </DialogContent>
         <DialogActions>
-          <Button
-            onClick={() => {
-              setSelectedPack(null);
-              setVoucherDialogOpen(false);
-              setVoucher(0);
-            }}
-          >
+          <Button onClick={handleOnCancelClick}>
             {t('translation:common.cancel')}
           </Button>
           <Button
@@ -566,24 +662,7 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
               voucher < 0 ||
               (selectedPack ? selectedPack.price < voucher : true)
             }
-            onClick={() => {
-              if (
-                props.enableMultiLocalization &&
-                !billingEstablishmentId &&
-                props.establishments?.length
-              ) {
-                setRequiredEstablishmentIsMissing(true);
-                return;
-              }
-              props.registerToOffer(
-                { paymentPack: selectedPack },
-                voucher,
-                billingEstablishmentId,
-              );
-              setSelectedPack(null);
-              setVoucher(0);
-              setBillingEstablishmentId(null);
-            }}
+            onClick={handleOnConfirmClick}
           >
             {t('translation:common.confirm')}
           </Button>

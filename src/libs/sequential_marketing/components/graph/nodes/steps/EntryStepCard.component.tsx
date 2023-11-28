@@ -7,6 +7,7 @@ import CadenceNodeTitle from '#libs/sequential_marketing/components/graph/nodes/
 import StepCard from '#components/card/StepCard.component';
 import { triggerIconByKind } from '#libs/sequential_marketing/components/helpers/utils';
 import {
+  MarketingActions,
   SequentialMarketingColors,
   TRIGGER_KIND_CHOICES,
   TriggerKind,
@@ -27,12 +28,13 @@ type EntryStepHeaderProps = {
 };
 
 type EntryStepContentProps = {
+  isPushNotificationUpsellActive?: boolean;
   marketingActionList?: StepMarketingActions[];
   stepMemberCount?: number;
   getEmailTemplate?: (id: string) => EmailTemplateSummary;
   getTag?: (id: string) => Tag;
-  onClickNewMarketingAction?: () => void;
-  isPushNotificationUpsellActive?: boolean;
+  onClickNewMarketingAction?: (type: MarketingActions) => void;
+  editMarketingAction?: (action: StepMarketingActions) => void;
 };
 
 export type EntryStepCardProps = {
@@ -42,7 +44,7 @@ export type EntryStepCardProps = {
   step: CadenceStep;
   cadenceEditMode?: boolean;
   stepMemberCount?: number;
-  addMarketingAction?: () => void;
+  addMarketingAction?: (type: MarketingActions) => void;
   addNextStep: (triggerKind: TriggerKind) => void;
   onCardClick: () => void;
 } & Omit<EntryStepHeaderProps, 'onClickNewMarketingAction'> &
@@ -68,6 +70,7 @@ const EntryStepContent: React.FC<EntryStepContentProps> = React.memo(
   ({
     marketingActionList,
     isPushNotificationUpsellActive,
+    editMarketingAction,
     getEmailTemplate,
     getTag,
     onClickNewMarketingAction,
@@ -77,6 +80,7 @@ const EntryStepContent: React.FC<EntryStepContentProps> = React.memo(
         addMarketingAction={
           !!onClickNewMarketingAction && onClickNewMarketingAction
         }
+        editMarketingAction={editMarketingAction}
         getEmailTemplate={getEmailTemplate}
         getTag={getTag}
         isPushNotificationUpsellActive={isPushNotificationUpsellActive}
@@ -96,6 +100,7 @@ const EntryStepCard: React.FC<EntryStepCardProps> = ({
   stepMemberCount,
   addMarketingAction,
   addNextStep,
+  editMarketingAction,
   getEmailTemplate,
   getSmartlist,
   getTag,
@@ -113,11 +118,14 @@ const EntryStepCard: React.FC<EntryStepCardProps> = ({
     }
   }, [clickDone]);
 
-  const onClickNewMarketingAction = useCallback(() => {
-    setDisableRipple(true);
-    addMarketingAction?.();
-    setClickDone(true);
-  }, [addMarketingAction]);
+  const onClickNewMarketingAction = useCallback(
+    (type: MarketingActions) => {
+      setDisableRipple(true);
+      addMarketingAction?.(type);
+      setClickDone(true);
+    },
+    [addMarketingAction],
+  );
 
   const triggerActions = React.useMemo(
     () =>
@@ -153,6 +161,7 @@ const EntryStepCard: React.FC<EntryStepCardProps> = ({
         (marketingActionList?.length > 0 ||
           (!isFirstConfigurationMode && !!addMarketingAction)) && (
           <EntryStepContent
+            editMarketingAction={editMarketingAction}
             getEmailTemplate={getEmailTemplate}
             getTag={getTag}
             isPushNotificationUpsellActive={isPushNotificationUpsellActive}

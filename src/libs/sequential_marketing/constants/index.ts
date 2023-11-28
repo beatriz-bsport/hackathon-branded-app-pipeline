@@ -31,11 +31,13 @@ import {
 } from './triggers';
 
 import {
+  HandleTypeChoices,
   DEFAULT_X_FOR_ENTRYSTEP,
   DEFAULT_X_FOR_EXIT,
   DEFAULT_X_FOR_INNERSTEP,
   DEFAULT_X_FOR_TRIGGER,
   MAX_LENGTH_CADENCE_STEP_NAME,
+  RIGHT_HANDLE_STYLE,
 } from './steps';
 
 import {
@@ -88,11 +90,13 @@ export {
   // COLORS
   SequentialMarketingColors,
   // STEPS
+  HandleTypeChoices,
   DEFAULT_X_FOR_ENTRYSTEP,
   DEFAULT_X_FOR_EXIT,
   DEFAULT_X_FOR_INNERSTEP,
   DEFAULT_X_FOR_TRIGGER,
   MAX_LENGTH_CADENCE_STEP_NAME,
+  RIGHT_HANDLE_STYLE,
   // GRAPH
   InitialConfigurationStep,
   DEFAULT_NODE_GAP,

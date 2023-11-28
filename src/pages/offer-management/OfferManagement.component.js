@@ -1669,6 +1669,7 @@ export default compose(
                 );
               } else {
                 openAutoBookingDialog(AUTOBOOKING_DIALOGS.feedBack);
+                setUnregisteredSelectedBookingOptions([]);
               }
             },
             onError: () => {

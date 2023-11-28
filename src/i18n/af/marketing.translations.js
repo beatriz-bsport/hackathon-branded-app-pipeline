@@ -18,6 +18,16 @@ exports.default = {
       email: 'Email address',
       title: 'Sign up for our newsletter below to receive relevant updates.',
     },
+    formV2: {
+      validate: 'Submit',
+      email: 'Email',
+      title: 'Subscribe to our newsletter',
+      subtitle: 'Get exclusive offers and hear about our latest news',
+      error: {
+        emailRequired: 'Please enter an email address.',
+        invalidEmail: 'Please enter a valid email address.',
+      },
+    },
   },
   notifications: {
     selectNotificationRules:

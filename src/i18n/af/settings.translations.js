@@ -166,6 +166,7 @@ exports.default = {
       workshop: 'Workshops',
       calendar: 'Calendar',
       newsletter: 'Newsletter',
+      newsletterV2: 'Newsletter (new)',
       loginButton: 'Login button',
       giftcard: 'Gift cards',
       paymentPackTemplate: 'Shared passes',

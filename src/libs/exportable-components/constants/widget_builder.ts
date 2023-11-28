@@ -8,6 +8,7 @@ export const EXPORTABLE_COMPONENT_TYPE_LOGIN_BUTTON = 'loginButton';
 export const EXPORTABLE_COMPONENT_TYPE_PLAYLIST = 'playlist';
 export const EXPORTABLE_COMPONENT_TYPE_SHOP = 'shop';
 export const EXPORTABLE_COMPONENT_TYPE_SUBSCRIPTION = 'subscription';
+export const EXPORTABLE_COMPONENT_TYPE_NEWSLETTER_V2 = 'newsletterV2';
 export const EXPORTABLE_COMPONENT_TYPE_NEWSLETTER = 'newsletter';
 export const EXPORTABLE_COMPONENT_TYPE_GIFTCARD = 'giftcard';
 export const EXPORTABLE_COMPONENT_TYPE_PAYMENT_PACK_TEMPLATE =
@@ -99,6 +100,19 @@ export const EXPORTABLE_COMPONENTS = [
   {
     identifier: EXPORTABLE_COMPONENT_TYPE_NEWSLETTER,
     label: 'newsletter',
+  },
+  {
+    identifier: EXPORTABLE_COMPONENT_TYPE_NEWSLETTER_V2,
+    label: 'newsletter',
+    defaultConfig: {
+      fieldsType: 'fullNameAndEmail',
+      // @ts-ignore
+      title: null,
+      showTitle: true,
+      // @ts-ignore
+      subtitle: null,
+      showSubtitle: true,
+    },
   },
   {
     identifier: EXPORTABLE_COMPONENT_TYPE_GIFTCARD,

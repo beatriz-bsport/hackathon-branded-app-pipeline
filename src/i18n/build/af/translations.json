@@ -3123,6 +3123,13 @@
         "firstName": "First name",
         "email": "Email address",
         "title": "Sign up for our newsletter below to receive relevant updates."
+      },
+      "formV2": {
+        "validate": "Submit",
+        "email": "Email",
+        "title": "Subscribe to our newsletter",
+        "subtitle": "Get exclusive offers and hear about our latest news",
+        "error": { "emailRequired": "Please enter an email address.", "invalidEmail": "Please enter a valid email address." }
       }
     },
     "notifications": {
@@ -9782,6 +9789,7 @@
         "workshop": "Workshops",
         "calendar": "Calendar",
         "newsletter": "Newsletter",
+        "newsletterV2": "Newsletter (new)",
         "loginButton": "Login button",
         "giftcard": "Gift cards",
         "paymentPackTemplate": "Shared passes",
@@ -13764,6 +13772,17 @@
         "stayInContainerBetaTag": "(beta)",
         "stayInContainer": "No Popup"
       },
+      "newsletterV2": {
+        "newsletterFieldsType": "Informations asked",
+        "fullNameAndEmail": "Full name and email",
+        "firstNameAndEmail": "First name and email",
+        "emailOnly": "Email only",
+        "advancedSettings": "Toggle advanced settings",
+        "title": "Title",
+        "showTitle": "Show title",
+        "subtitle": "Subtitle",
+        "showSubtitle": "Show subtitle"
+      },
       "dialogModeLabel": "Popup type",
       "widgetPreviewError": "Please finish the settings",
       "dialogTitle": "Widget personalization",
@@ -13890,7 +13909,10 @@
           },
           "alert": { "success": "Success", "info": "Info", "warning": "Warning", "error": "Error" },
           "checkbox": "Checkbox",
-          "radio": "Radio"
+          "radio": "Radio",
+          "fullNameAndEmail": "Full name and email",
+          "firstNameAndEmail": "First name and email",
+          "emailOnly": "Email only"
         },
         "title": {
           "nextOffer": "Next session available",
@@ -13979,7 +14001,10 @@
           "isExpanded": "Element is expanded",
           "isRequired": "Is in required state",
           "isDraggable": "The element is extensible (by dragging)",
-          "withMaxCharacters": "With maximum characters length"
+          "withMaxCharacters": "With maximum characters length",
+          "newsletterV2FieldsType": "Informations asked",
+          "showTitle": "Show title",
+          "showSubtitle": "Show subtitle"
         },
         "configurationTitle": "Variations",
         "confirmationMessageComponentAlert": "This component primarily manages booking and payment statuses. For customizing its appearance, we recommend utilizing its root components located in common section",
@@ -14000,7 +14025,8 @@
         "fabrique": "Fabrique",
         "authentication": "Authentication",
         "spot_scheduling": "Spot scheduling",
-        "checkoutConfirmationPage": "Confirmation de paiment"
+        "checkoutConfirmationPage": "Confirmation de paiment",
+        "marketing": "Marketing"
       },
       "components": {
         "calendar": "Calendar page",
@@ -14097,7 +14123,8 @@
         "fabrique_bottom_drawer": "Bottom drawer",
         "fabrique_textform": "Text form",
         "selector": "Selector",
-        "selector_input": "Selector Input"
+        "selector_input": "Selector Input",
+        "marketing_newsletter_form_v2": "Newsletter form"
       },
       "customCss": {
         "yourCode": "Your complementary implementation:",

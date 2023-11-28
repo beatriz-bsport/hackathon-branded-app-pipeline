@@ -13,6 +13,7 @@ import {
 import { PrivatePassCategoryWithPasses } from '#libs/private-service/types';
 import { WidgetCustomCSS } from '#libs/theme/types';
 import { ErrorAndLoading } from '#libs/types';
+import { NewsletterV2FieldsKind } from './constants';
 
 /**
  * The available components we can use in the marketplace
@@ -70,6 +71,14 @@ export type MarketplaceVODData = {
 
 export type MarketplacePlaylistData = {
   playlistId?: number;
+};
+
+export type MarketplaceNewsletterV2Data = {
+  fieldsType?: `${NewsletterV2FieldsKind}`;
+  showTitle?: boolean;
+  title?: string;
+  showSubtitle?: boolean;
+  subtitle?: string;
 };
 
 export type MarketplaceComponentConfig = {

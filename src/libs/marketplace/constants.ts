@@ -132,3 +132,9 @@ export const OFFER_HOURS_SEPARATOR = ' - ';
  * date • time
  */
 export const OFFER_DATE_HOURS_SEPARATOR = ' • ';
+
+export enum NewsletterV2FieldsKind {
+  FULL_NAME_AND_EMAIL = 'fullNameAndEmail',
+  FIRST_NAME_AND_EMAIL = 'firstNameAndEmail',
+  EMAIL_ONLY = 'emailOnly',
+}

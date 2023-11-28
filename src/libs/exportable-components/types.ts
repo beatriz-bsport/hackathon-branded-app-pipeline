@@ -99,6 +99,7 @@ export enum MarketplacePage {
   SPOT_SCHEDULING = 'spot_scheduling',
   CHECKOUT_CONFIRMATION = 'checkoutConfirmationPage',
   FABRIQUE = 'fabrique',
+  MARKETING = 'marketing',
 }
 
 export type VariationConfigurationChoice = {

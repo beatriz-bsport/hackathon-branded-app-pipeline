@@ -113,4 +113,5 @@ export enum CssComponentsVariantIdentifiers {
   FABRIQUE_TEXTFORM = 'fabrique_textform',
   SELECTOR = 'selector',
   SELECTOR_INPUT = 'selector_input',
+  MARKETING_NEWSLETTER_FORM_V2 = 'marketing_newsletter_form_v2',
 }

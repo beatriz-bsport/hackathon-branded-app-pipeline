@@ -18,6 +18,7 @@ exports.default = {
     listDisplay: 'Week view (list)',
     codeInfo: 'Integrate this code into your website',
     linkToConfig: 'Link for this configuration',
+
     creationPageInfo:
       'Configure and personalize your widgets to your brand and to your liking. Afterwards, simply copy-paste the specific code on your website.',
     dialogMode: {
@@ -26,6 +27,17 @@ exports.default = {
       tab: 'Open a new tab',
       stayInContainerBetaTag: '(beta)',
       stayInContainer: 'No Popup',
+    },
+    newsletterV2: {
+      newsletterFieldsType: 'Informations asked',
+      fullNameAndEmail: 'Full name and email',
+      firstNameAndEmail: 'First name and email',
+      emailOnly: 'Email only',
+      advancedSettings: 'Toggle advanced settings',
+      title: 'Title',
+      showTitle: 'Show title',
+      subtitle: 'Subtitle',
+      showSubtitle: 'Show subtitle',
     },
     dialogModeLabel: 'Popup type',
     widgetPreviewError: 'Please finish the settings',
@@ -171,6 +183,9 @@ exports.default = {
         },
         checkbox: 'Checkbox',
         radio: 'Radio',
+        fullNameAndEmail: 'Full name and email',
+        firstNameAndEmail: 'First name and email',
+        emailOnly: 'Email only',
       },
       title: {
         nextOffer: 'Next session available',
@@ -260,6 +275,9 @@ exports.default = {
         isRequired: 'Is in required state',
         isDraggable: 'The element is extensible (by dragging)',
         withMaxCharacters: 'With maximum characters length',
+        newsletterV2FieldsType: 'Informations asked',
+        showTitle: 'Show title',
+        showSubtitle: 'Show subtitle',
       },
       configurationTitle: 'Variations',
       confirmationMessageComponentAlert:
@@ -288,6 +306,7 @@ exports.default = {
       authentication: 'Authentication',
       spot_scheduling: 'Spot scheduling',
       checkoutConfirmationPage: 'Confirmation de paiment',
+      marketing: 'Marketing',
     },
     components: {
       calendar: 'Calendar page',
@@ -394,6 +413,7 @@ exports.default = {
       fabrique_textform: 'Text form',
       selector: 'Selector',
       selector_input: 'Selector Input',
+      marketing_newsletter_form_v2: 'Newsletter form',
     },
     customCss: {
       yourCode: 'Your complementary implementation:',

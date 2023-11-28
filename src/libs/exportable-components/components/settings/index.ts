@@ -6,6 +6,7 @@ import ExportablePrivateServiceSettings from './ExportablePrivateServiceSettings
 import ExportableWorkshopSettings from './ExportableWorkshopSettings.form';
 import ExportableGiftcardSettings from './ExportableGiftcardSettings.form';
 import ExportablePaymentPackTemplateSettings from './ExportablePaymentPackTemplateSettings.form';
+import ExportableNewsletterV2Settings from './ExportableNewsletterV2Settings.form';
 
 import {
   EXPORTABLE_COMPONENT_TYPE_PLAYLIST,
@@ -17,6 +18,7 @@ import {
   EXPORTABLE_COMPONENT_TYPE_GIFTCARD,
   EXPORTABLE_COMPONENT_TYPE_PAYMENT_PACK_TEMPLATE,
   EXPORTABLE_COMPONENT_TYPE_CALENDAR,
+  EXPORTABLE_COMPONENT_TYPE_NEWSLETTER_V2,
 } from '../../constants';
 
 export const EXPORTABLE_COMPONENT_SETTINGS_BY_TYPE = {
@@ -30,6 +32,7 @@ export const EXPORTABLE_COMPONENT_SETTINGS_BY_TYPE = {
   [EXPORTABLE_COMPONENT_TYPE_GIFTCARD]: ExportableGiftcardSettings,
   [EXPORTABLE_COMPONENT_TYPE_PAYMENT_PACK_TEMPLATE]:
     ExportablePaymentPackTemplateSettings,
+  [EXPORTABLE_COMPONENT_TYPE_NEWSLETTER_V2]: ExportableNewsletterV2Settings,
 };
 
 export default EXPORTABLE_COMPONENT_SETTINGS_BY_TYPE;

@@ -393,6 +393,7 @@ exports.default = {
       fabrique_bottom_drawer: 'Bottom drawer',
       fabrique_textform: 'Text form',
       selector: 'Selector',
+      selector_input: 'Selector Input',
     },
     customCss: {
       yourCode: 'Your complementary implementation:',

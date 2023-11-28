@@ -14037,7 +14037,8 @@
         "fabrique_modal_dialog": "Modal Dialog",
         "fabrique_bottom_drawer": "Bottom drawer",
         "fabrique_textform": "Text form",
-        "selector": "Selector"
+        "selector": "Selector",
+        "selector_input": "Selector Input"
       },
       "customCss": {
         "yourCode": "Your complementary implementation:",

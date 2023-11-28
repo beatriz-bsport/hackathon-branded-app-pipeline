@@ -1,6 +1,8 @@
 import SelectorInput, {
   SelectorInputProps,
   SelectorInputClasses,
+  FABRIQUE_SELECTOR_INPUT_CONFIGURATION,
+  FABRIQUE_SELECTOR_INPUT_PREVIEW,
 } from './SelectorInput';
 import SelectorValues, {
   SelectorValuesProps,
@@ -28,5 +30,7 @@ export {
   SelectorStorybook,
   FABRIQUE_SELECTOR_CONFIGURATION,
   FABRIQUE_SELECTOR_PREVIEW,
+  FABRIQUE_SELECTOR_INPUT_CONFIGURATION,
+  FABRIQUE_SELECTOR_INPUT_PREVIEW,
 };
 export default Selector;

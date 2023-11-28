@@ -374,6 +374,8 @@ import {
 import {
   FABRIQUE_SELECTOR_CONFIGURATION,
   FABRIQUE_SELECTOR_PREVIEW,
+  FABRIQUE_SELECTOR_INPUT_CONFIGURATION,
+  FABRIQUE_SELECTOR_INPUT_PREVIEW,
 } from '#Fabrique/Selector';
 
 /* TEMPLATE
@@ -477,6 +479,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
         FABRIQUE_BOTTOM_DRAWER_CONFIGURATION,
         FABRIQUE_TEXTFORM_CONFIGURATION,
         FABRIQUE_SELECTOR_CONFIGURATION,
+        FABRIQUE_SELECTOR_INPUT_CONFIGURATION,
       ]
     : []),
 ];
@@ -656,6 +659,8 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
       [CssComponentsVariantIdentifiers.FABRIQUE_TEXTFORM]:
         FABRIQUE_TEXTFORM_PREVIEW,
       [CssComponentsVariantIdentifiers.SELECTOR]: FABRIQUE_SELECTOR_PREVIEW,
+      [CssComponentsVariantIdentifiers.SELECTOR_INPUT]:
+        FABRIQUE_SELECTOR_INPUT_PREVIEW,
     }),
   });
 

@@ -10,12 +10,14 @@ import GenericResponsiveDialog from '#components/genericDialog/GenericResponsive
 
 type Props = {
   open: boolean;
+  isLoading?: boolean;
   onClose: () => void;
   onConfirm: () => void;
 };
 
 const WaitinglistAutoBookingInfoDialog: React.FC<Props> = ({
   open,
+  isLoading,
   onClose,
   onConfirm,
 }) => {
@@ -38,7 +40,7 @@ const WaitinglistAutoBookingInfoDialog: React.FC<Props> = ({
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>{t('dialog.cancel')}</Button>
-        <Button color="primary" onClick={onConfirm}>
+        <Button color="primary" disabled={isLoading} onClick={onConfirm}>
           {t('dialog.confirm')}
         </Button>
       </DialogActions>

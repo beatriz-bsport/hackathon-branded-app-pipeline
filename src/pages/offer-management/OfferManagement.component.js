@@ -289,6 +289,7 @@ type Props = {
   closeAllAutoBookingDialogs: () => void,
   registerMultipleOptions: (bookingOptionsIds: number[]) => void,
   isAutoBookingError: boolean,
+  isAutoBookingLoading: Boolean,
   setUnregisteredSelectedBookingOptions: (bookingOptionsIds: number[]) => void,
   unregisteredSelectedBookingOptions: number[],
   getBookingOptionToRegisterData: () => void,
@@ -824,6 +825,7 @@ export class OfferManagement extends Component<Props, State> {
     return (
       <Grid container direction="row" spacing={2}>
         <WaitinglistAutoBookingInfoDialog
+          isLoading={this.props.isAutoBookingLoading}
           onClose={this.onCloseAutoBookingDialogs}
           onConfirm={this.handleAutoBook}
           open={isAutoBookingInfoDialogOpened}
@@ -1252,6 +1254,7 @@ export default compose(
   withState('bookerInAvanceDialog', 'setBookerInAvanceDialog', false),
   withState('memberToRegister', 'setMemberToRegister', null),
   withState('voucher', 'setVoucher', 0),
+  withState('isAutoBookingLoading', 'setIsAutoBookingLoading', false),
   withState('isAutoBookingError', 'setIsAutoBookingError', false),
   withState(
     'unregisteredSelectedBookingOptions',
@@ -1612,6 +1615,7 @@ export default compose(
 
     registerMultipleOptions:
       ({
+        setIsAutoBookingLoading,
         setIsAutoBookingError,
         registerMultipleOptionsBackground,
         setRegisteredSelectedBookingOptions,
@@ -1627,6 +1631,7 @@ export default compose(
       }) =>
       (bookingOptionsIds: number[]) => {
         if (!Array.isArray(bookingOptionsIds)) return;
+        setIsAutoBookingLoading(true);
         if (offer.room_blueprint) {
           setUnregisteredSelectedBookingOptions(bookingOptionsIds);
           const bookingOptionBeingProcessed =
@@ -1644,6 +1649,7 @@ export default compose(
             });
           }
           closeAllAutoBookingDialogs();
+          setIsAutoBookingLoading(false);
         } else {
           registerMultipleOptionsBackground(bookingOptionsIds, {
             onSuccess: () => {
@@ -1651,6 +1657,7 @@ export default compose(
             },
             onBackgroundSuccess: (returnedValue) => {
               closeAllAutoBookingDialogs();
+              setIsAutoBookingLoading(false);
               fetchOfferData(booking_ordering);
               if (returnedValue?.unregistered_booking_options?.length) {
                 openAutoBookingDialog(AUTOBOOKING_DIALOGS.incomplete);
@@ -1665,12 +1672,14 @@ export default compose(
               }
             },
             onError: () => {
+              setIsAutoBookingLoading(false);
               setIsAutoBookingError(
                 true,
                 openAutoBookingDialog(AUTOBOOKING_DIALOGS.feedBack),
               );
             },
             onBackgroundError: () => {
+              setIsAutoBookingLoading(false);
               setIsAutoBookingError(
                 true,
                 openAutoBookingDialog(AUTOBOOKING_DIALOGS.feedBack),

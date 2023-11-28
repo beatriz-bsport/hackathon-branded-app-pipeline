@@ -3569,7 +3569,7 @@
         "dateTitle": "Intervallo di date",
         "remuneration": "Retribuzione",
         "pricePerOffer": "Importo per sessione",
-        "bookingThresholdLabel": "Minimo quantitativo di prenotazioni",
+        "bookingThresholdLabel": "Regola di attivazione della soglia di prenotazione",
         "pricePerAdditionalBookingLabel": "Variabile su prenotazione",
         "cachedData": {
             "leavePreviewMode": "Uscire dalla modalità preview",
@@ -7431,10 +7431,10 @@
             "billing_group": "Gruppo di fatturazione",
             "company_name": "Franchisee",
             "reverted": "Cancellato",
-            "sum_available_amount_non_expired": "Crediti rimanenti",
-            "sum_available_amount_expired": "Crediti utilizzati e scaduti",
-            "sum_consumed_amount": "Crediti utilizzati",
-            "nb_expired": "Numero di carte scadute",
+            "sum_available_amount_non_expired": "Quantità disponibile",
+            "sum_available_amount_expired": "Quantità di crediti scaduti",
+            "sum_consumed_amount": "Quantità utilizzata",
+            "nb_expired": "Numero di pass scaduti",
             "nb_non_activated": "Numero di carte non attivate",
             "nb_activated": "Numero di carte attivate",
             "nb_purchase": "Numero di acquisti",
@@ -7537,7 +7537,8 @@
             "purchased_products": "Prodotti",
             "coupon_type": "Tipo",
             "waiting_list_max_size": "Capienza lista d'attesa",
-            "nb_option": "Nella lista d'attesa"
+            "nb_option": "Nella lista d'attesa",
+            "offer_coach": "Insegnante"
         },
         "payment_method": {
             "dispute": "Contenzioso",
@@ -7655,7 +7656,7 @@
         },
         "export": {
             "category": "Excel: {{category}}",
-            "ready": "Il tuo report \"{{ name }}\" è pronto per il download.",
+            "ready": "Il report \"{{-name}}\" è pronto per essere scaricato.",
             "generate": "Genera",
             "processing": "La tua richiesta di report Excel è in fase di elaborazione. Sarai avvisato non appena sarà pronto.",
             "continue": "Continua a navigare",
@@ -9707,7 +9708,7 @@
                 },
                 "sendAfterMail": "Invia l'email al membro prima della sessione interessata dalla notifica",
                 "sendBeforeMail": "Invia l'email al membro prima della sessione interessata dalla notifica",
-                "eventNb": "Notifica il membro durante l'evento n °:",
+                "eventNb": "Seleziona la prenotazione che fa inviare la notifica:",
                 "settingTitle": "Impostazioni",
                 "typeTitle": "Tipo di notifica",
                 "title": "Form di notifica",
@@ -9716,7 +9717,7 @@
                     "refunded": "Cancellazione rimborsata",
                     "absence": "Assenza del membro dalla sessione",
                     "attendance": "Presenza del membro ad una sessione",
-                    "title": "Evento che fa scattare la notifica"
+                    "title": "Evento scatenante"
                 },
                 "chooseStatus": {
                     "cancelled": "Prenotazione cancellata dal cliente",
@@ -9741,7 +9742,7 @@
                 "bookingNumberAll": "Tutte le prenotazioni",
                 "addVariable": "Aggiungere un'etichetta",
                 "pushHelper": "Attenzione, le notifiche push dovrebbero essere usate con parsimonia. Troppe notifiche push possono portare alcuni membri a disinstallare l'applicazione.",
-                "needPushUpsell": "Non hai sottoscritto l'add-on di notifica push",
+                "needPushUpsell": "Non hai acquistato il componente aggiuntivo per le notifiche push",
                 "push": "Notifica push",
                 "mail": "Posta",
                 "sendingMethod": "Metodo di invio",
@@ -11616,7 +11617,7 @@
             "40": "iDEAL",
             "30": "Sofort",
             "20": "Bancontact",
-            "disputeWon": "Risolto",
+            "disputeWon": "Risolta",
             "70": "Bacs Direct Debit"
         },
         "bookAnotherOption": "Iscrivimi nuovamente nella lista di attesa",
@@ -12592,7 +12593,8 @@
         "back": "Indietro",
         "recommended": "Consigliato",
         "day": "giorno",
-        "day_plural": "giorni"
+        "day_plural": "giorni",
+        "subscribe": "Iscriviti"
     },
     "titles": {
         "metaActivity": {
@@ -15650,7 +15652,23 @@
                 "marketplace_booker_module_buyable_item_payment_combo": "Oggetto del pacchetto di prenotazione",
                 "marketplace_booker_module_buyable_items_list": "Selezione del pass (contenitore)",
                 "fabrique_icon_button": "Icona del pulsante",
-                "fabrique_button": "Pulsante"
+                "fabrique_button": "Pulsante",
+                "fabrique_menu_item_list": "Oggetto voci del menù",
+                "fabrique_menu_item": "Oggetto menù",
+                "fabrique_alert": "Avviso",
+                "marketplace_offer_booking_list": "Lista prenotazione",
+                "marketplace_booking_item": "Oggetto prenotazione",
+                "marketplace_checkout_items_payment_pack_list": "Elenco degli articoli di pagamento con pass",
+                "marketplace_checkout_items_payment_combo_list": "Elenco degli articoli di pagamento con pacchetti",
+                "marketplace_checkout_items_private_pass_list": "Elenco degli articoli di pagamento con pass privati",
+                "minimal_payment_pack_card": "Carta minimale pass",
+                "minimal_payment_combo_card": "Carta minimale pacchetto",
+                "minimal_subscription_card": "Carta minimale abbonamento",
+                "minimal_private_pass_card": "Carta minimale pass privato",
+                "marketplace_product_item": "Articolo prodotto",
+                "marketplace_product_item_list": "Elenco articoli prodotto",
+                "fabrique_chip": "Chip",
+                "authentication_change_password_form": "Modulo per il cambio password"
             },
             "cssConfig": {
                 "title": {
@@ -15721,7 +15739,16 @@
                     "displayRightIcon": "Mostra l'icona di destra",
                     "displayLeftIcon": "Mostra l'icona di sinistra",
                     "size": "DImensione dell'alemento",
-                    "fabriqueVariant": "Variante"
+                    "fabriqueVariant": "Variante",
+                    "hasDivider": "L'elenco ha un divisore in basso",
+                    "showGroupTitle": "Visualizzare l'elenco con il titolo del gruppo",
+                    "selected": "È selezionato",
+                    "type": "Tipo di componente",
+                    "withLevel": "Mostra il livello",
+                    "displayGuestName": "Mostra il nome dell'ospite",
+                    "isWaitingList": "È in lista d'attesa",
+                    "isChangePasswordLinkExpired": "Il collegamento è scaduto",
+                    "shouldDisplayAddGuestButton": "Visualizza il pulsante per invitare un ospite"
                 },
                 "option": {
                     "false": "No",
@@ -15800,10 +15827,21 @@
                     "info": "Info",
                     "white": "Bianco",
                     "secondary": "Secondario",
-                    "primary": "Primario"
+                    "primary": "Primario",
+                    "radio": "Radio",
+                    "checkbox": "Checkbox",
+                    "weak": "Debole",
+                    "strong": "Intenso",
+                    "light": "Chiaro",
+                    "success": "Successo"
                 },
                 "configurationTitle": "Variazioni",
-                "confirmationMessageComponentAlert": "Questo componente gestisce principalmente gli stati di prenotazione e di pagamento. Per personalizzarne l'aspetto, si consiglia di utilizzare i suoi componenti principali, situati nella sezione comune"
+                "confirmationMessageComponentAlert": "Questo componente gestisce principalmente gli stati di prenotazione e di pagamento. Per personalizzarne l'aspetto, si consiglia di utilizzare i suoi componenti principali, situati nella sezione comune",
+                "marketplaceOfferBookingList": "Questo componente è un elenco di sessioni prenotate. Per ottimizzare i singoli componenti di {{component_name}}, puoi utilizzare la sezione dedicata all'interno dell'editor.",
+                "marketplaceProductItemListAlert": "Questo componente è un elenco di elementi di pagamento con prodotti. Per mettere a punto il singolo componente {{component_name}}, si può utilizzare la sezione dedicata all'interno dell'editor.",
+                "marketplaceCheckoutItemListPrivatePass": "Questo componente è un elenco di elementi di pagamento con pass privati. Per mettere a punto i singoli componenti {{component_name}}, si può utilizzare la sezione dedicata situata in {{page}} all'interno dell'editor.",
+                "marketplaceCheckoutItemListPaymentCombo": "Questo componente è un elenco di elementi di pagamento con pacchetti. Per mettere a punto i singoli componenti {{component_name}}, si può utilizzare la sezione dedicata situata in {{page}} all'interno dell'editor.",
+                "marketplaceCheckoutItemListPaymentPack": "Questo componente è un elenco di elementi di pagamento con pass. Per ottimizzare i singoli {{component_name}}, puoi utilizzare la sezione dedicata situata in {{page}} all'interno dell'editor."
             },
             "page": {
                 "workshop": "Workshop",
@@ -15851,8 +15889,8 @@
             "vod": {
                 "explainBilling": "  +1 {{currencyDisplay }} /cliente attivo"
             },
-            "otherAddonTitle": "Add-ons disponibili",
-            "myAddonTitle": "I miei Add-ons",
+            "otherAddonTitle": "Componenti Aggiuntivi disponibili",
+            "myAddonTitle": "I miei Componenti Aggiuntivi",
             "knowMore": "Più informazioni",
             "billRecurrent": "{{ price_cts }} / mese",
             "billOnce": "{{ price_cts }}",
@@ -15865,7 +15903,17 @@
                     "explain": "Qui si trovano tutte le discussioni dirette, le chat legate alle sessioni e le campagne smartlist. La chat è compatibile con SMS, e-mail e notifiche push."
                 },
                 "requestAccess": "RIchiedi accesso"
-            }
+            },
+            "subscriptionForm": {
+                "commitmentMessage": "Nota bene: l'abbonamento comporta un periodo di adempimento di 12 mesi",
+                "confirmationMessage": "Acquisto del componente {{ name }} avvenuto con successo",
+                "info": "Contatta il supporto clienti",
+                "infoHelper": "Maggiori informazioni?",
+                "priceHelper": "Questo prezzo verrà aggiunto al piano mensile.",
+                "confirmHelper": "Conferma di volerti abbonare a questo componente aggiuntivo",
+                "title": "Iscriviti al pacchetto"
+            },
+            "seeMore": "Mostra di più"
         },
         "paymentMethod": {
             "actions": {
@@ -16275,7 +16323,7 @@
                 },
                 "exit": {
                     "exit_fail_label": "Perso",
-                    "exit_success_label": "Vinto",
+                    "exit_success_label": "Membro acquisito",
                     "title": "Uscita"
                 },
                 "trigger": {
@@ -16314,7 +16362,7 @@
                 "next": "Seguente",
                 "previous": "Precedente",
                 "lose_step": "Perso",
-                "win_step": "Vinto",
+                "win_step": "Membro acquisito",
                 "entry_step": "Ingresso",
                 "modify_name_label": "Modifica il nome",
                 "cadenceNameLabel": "Nome della scadenza",
@@ -16330,7 +16378,9 @@
                 "cancel": "Cancella",
                 "error": {
                     "triggerCannotBeEmpty": "È necessario selezionare un tipo di voce.",
-                    "timeoutMustBeStrictPositive": "Il limite di tempo deve essere di almeno 1 giorno."
+                    "timeoutMustBeStrictPositive": "Il limite di tempo deve essere di almeno 1 giorno.",
+                    "maximumConnectedTrigger": "Non puoi impostare più di cinque eventi scatenanti.",
+                    "minimumConnectedTrigger": "Devi selezionare almeno un evento scatenante."
                 },
                 "delete": "Elimina",
                 "updateSubmit": "Conferma"
@@ -16381,7 +16431,9 @@
                 },
                 "timeout": {
                     "timout_days_chip": "{{ days }} giorno",
-                    "timout_days_chip_plural": "{{ days }} giorni"
+                    "timout_days_chip_plural": "{{ days }} giorni",
+                    "timeout_days_chip": "{{ count }} giorno",
+                    "timeout_days_chip_plural": "{{ count }} giorni"
                 },
                 "trigger": "Trigger",
                 "exit": "Uscita",
@@ -16389,7 +16441,7 @@
                 "delete": "Elimina",
                 "kinds": {
                     "3": "Ritardo",
-                    "2": "Evento + Smartlist",
+                    "2": "Evento & Smartlist",
                     "1": "Smartlist",
                     "0": "Evento"
                 },
@@ -16397,7 +16449,7 @@
             },
             "cadenceCard": {
                 "lost": "Perso",
-                "win": "Vinto"
+                "win": "Membro acquisito"
             },
             "activate": {
                 "dialog": {
@@ -16493,6 +16545,34 @@
                     "title": "Azione di ingresso",
                     "helperText": "Seleziona cosa volete fare quando i membri entrano nel workflow. Taggarli, inviare un'e-mail... sta a te decidere. Oppure non fare nulla, questo passaggio è facoltativo.",
                     "addAction": "Aggiungi un'azione"
+                },
+                "requiredField": "È richiesto questo campo per continuare.",
+                "finish": "Termina",
+                "delete": "Elimina",
+                "lostTrigger": {
+                    "title": "Criterio di perdita",
+                    "helperText": "Ora definiamo ciò che si considera un fallimento, in modo che il membro lasci il flusso di lavoro come \"perso\"",
+                    "addTrigger": "Aggiungi un evento di uscita dal flusso",
+                    "timeout": {
+                        "helperText": "Se un membro è ancora presente in questo flusso di lavoro dopo il limite di tempo selezionato, il membro sarà considerato \"Perso\".",
+                        "label": "Giorni nel flusso di lavoro",
+                        "title": "Tempo limite"
+                    }
+                },
+                "lostAction": {
+                    "title": "Azione in seguito alla perdita",
+                    "helperText": "Seleziona cosa si vuole fare quando i membri escono dal flusso di lavoro come persi. Etichettali, invia un'e-mail... Sta a te decidere. Oppure non fare nulla, questo passaggio è facoltativo.",
+                    "addAction": "Aggiungi un'azione"
+                },
+                "wonTrigger": {
+                    "addTrigger": "Aggiungi un evento scatenante di uscita",
+                    "title": "Criterio di acquisizione",
+                    "helperText": "Definisci le regole generali di uscita. Come per l'ingresso, bisogna indicare quali eventi faranno uscire i membri dal flusso di lavoro. Ovunque si trovi il membro, se si verifica questo evento, il membro lascerà il flusso di lavoro. Per prima cosa, definisci ciò che considererete un successo per contrassegnare il membro come \"Acquisito\" all'uscita dal flusso di lavoro."
+                },
+                "wonAction": {
+                    "title": "Azione in seguito all'acquisizione",
+                    "helperText": "Selezionate cosa fare quando i membri escono dal flusso di lavoro come acquisiti. Etichettarli, inviare un'e-mail... Sta a te decidere. Oppure non fare nulla, questo passaggio è facoltativo",
+                    "addAction": "Aggiungi un'azione"
                 }
             },
             "dialog": {
@@ -16530,6 +16610,9 @@
                     "helper": "Tutte le azioni dei membri che si verificano durante la pausa non saranno prese in considerazione.",
                     "title": "Pausa"
                 }
+            },
+            "trigger": {
+                "addTrigger": "Aggiungi un evento scatenante"
             }
         }
     },
@@ -17727,22 +17810,22 @@
     "tutorial": {
         "lessonList": {
             "shareLesson": "Condividi la lezione",
-            "addOn": "Add-on",
+            "addOn": "Componente aggiuntivo",
             "new": "Nuovo",
             "missingUpsell": "Non disponi di questa funzione, contatta il tuo account manager.",
             "start": "Inizio",
             "share": "Condividi"
         },
         "sectionList": {
-            "addOn": "Add-on",
+            "addOn": "Componente aggiuntivo",
             "missingUpsell": "Alcune funzionalità non sono disponibili in questa sezione. Si prega di contattare il gestore dell'account.",
             "shareSection": "Condividi la sezione",
             "new": "Nuovo"
         },
         "lessonHeader": {
-            "addOn": "Add-on",
+            "addOn": "Componente aggiuntivo",
             "backToList": "Torna alla lista",
-            "warning": "Questa funzione è un add-on. Non disponi di questa funzione, contatta il tuo account manager."
+            "warning": "Questo è un componente aggiuntivo. Non disponi di questa funzione, contatta il tuo account manager."
         },
         "welcomeDialog": {
             "infoText": "Benvenuto nella tua nuova piattaforma di gestione. Impariamo insieme a scoprire tutte le funzionalità di Bsport per avviare il tuo studio nelle migliori condizioni.",

@@ -5977,7 +5977,8 @@
             "referring_member_total_reward": "Belohnung vom werbenden Mitglied erhalten",
             "coupon_type": "Typ",
             "waiting_list_max_size": "Wartelistenkapazität",
-            "nb_option": "Auf der Warteliste"
+            "nb_option": "Auf der Warteliste",
+            "offer_coach": "Lehrkraft"
         },
         "no": "Nein",
         "yes": "Ja",
@@ -5993,19 +5994,19 @@
             "total": "Gesamt"
         },
         "categories": {
-            "first_attendance": "Erstbesuch (Gruppe)",
-            "first_booking": "Erster Kurs (Gruppe)",
+            "first_attendance": "Erster Besuch (Gruppenaktivitäten)",
+            "first_booking": "Erste Buchung (Gruppe)",
             "activityByEst": "Aktivitäten und Workshops nach Einrichtung",
-            "dayBookings": "Buchungen (Kurs) pro Tag",
+            "dayBookings": "Buchungen pro Tag (Gruppenaktivitäten)",
             "privateServiceEst": "Termine pro Einrichtung",
             "privateServiceCoach": "Termine pro Lehrkraft",
             "cashbook": "Kassenbuch",
-            "first_privatebooking": "Erstes Termine",
+            "first_privatebooking": "Erste Buchung (Termin)",
             "privateService": "Termine",
             "activityByCoach": "Aktivitäten und Workshops pro Lehrkraft",
             "private_bookings": "Buchungen (Termine)",
             "payments": "Zahlungen",
-            "bookings": "Buchungen (Kurse)",
+            "bookings": "Buchungen (Gruppenaktivitäten)",
             "offers": "Kurse",
             "members": "Neue Mitglieder",
             "on_spot_payments": "Zahlungen vor Ort",
@@ -6050,7 +6051,7 @@
         },
         "export": {
             "category": "Excel-Report: {{category}}",
-            "ready": "Dein Report \"{{name}}\" kann heruntergeladen werden.",
+            "ready": "Dein \"{{name}}\" Bericht kann heruntergeladen werden.",
             "generate": "Erstellen",
             "processing": "Deine Excel-Report wird bearbeitet. Du wirst benachrichtigt, sobald der Prozess abgeschlossen ist.",
             "continue": "Weiter surfen",
@@ -9713,7 +9714,8 @@
         "back": "Zurück",
         "recommended": "Empfehlung",
         "day": "Tag",
-        "day_plural": "Tage"
+        "day_plural": "Tage",
+        "subscribe": "Abonnieren"
     },
     "coupon": {
         "detail": {
@@ -15391,7 +15393,17 @@
                     "intro": "Entdecken Sie unser neues Interface für den direkten Chat mit Ihren Mitgliedern."
                 },
                 "requestAccess": "Zugang beantragen"
-            }
+            },
+            "subscriptionForm": {
+                "commitmentMessage": "Bitte beachten Sie: Ein Abonnement ist mit einer 12-monatigen Verpflichtung verbunden",
+                "confirmationMessage": "Sie haben erfolgreich {{ name }} abonniert",
+                "info": "Kundenservice kontaktieren",
+                "infoHelper": "Brauchen Sie mehr Informationen?",
+                "confirmHelper": "Bitte bestätigen Sie, dass Sie dieses Add-on abonnieren möchten",
+                "priceHelper": "Dieser Preis wird zu Ihrem monatlichen Plan hinzugefügt.",
+                "title": "Das Add-On abonnieren"
+            },
+            "seeMore": "Mehr anzeigen"
         },
         "paymentMethod": {
             "actions": {
@@ -15640,7 +15652,10 @@
                 "marketplace_product_item": "Produkt Artikel",
                 "minimal_subscription_card": "Minimal-Abonnementkarte",
                 "fabrique_chip": "Chip",
-                "authentication_change_password_form": "Passwortform ändern"
+                "authentication_change_password_form": "Passwortform ändern",
+                "fabrique_menu_item_list": "Menüpunkteliste",
+                "fabrique_menu_item": "Menüpunkt",
+                "fabrique_alert": "Alarm"
             },
             "page": {
                 "calendar": "Kalender",
@@ -15729,7 +15744,11 @@
                     "displayGuestName": "Name des Gasts anzeigen",
                     "isWaitingList": "Befindet sich auf der Warteliste",
                     "isChangePasswordLinkExpired": "Der Link ist abgelaufen",
-                    "shouldDisplayAddGuestButton": "Schaltfläche für das Hinzufügen eines Gasts anzeigen"
+                    "shouldDisplayAddGuestButton": "Schaltfläche für das Hinzufügen eines Gasts anzeigen",
+                    "hasDivider": "Die Liste hat am unteren Rand eine Trennlinie",
+                    "showGroupTitle": "Liste mit Gruppentitel anzeigen",
+                    "selected": "Ist ausgewählt",
+                    "type": "Typ der Komponente"
                 },
                 "option": {
                     "activityName": "Aktivität",
@@ -15808,7 +15827,13 @@
                     "info": "Info",
                     "white": "Weiß",
                     "secondary": "Sekundär",
-                    "primary": "Primär"
+                    "primary": "Primär",
+                    "radio": "Radio",
+                    "checkbox": "Kontrollkästchen",
+                    "weak": "Schwach",
+                    "strong": "Stark",
+                    "light": "Leicht",
+                    "success": "Erfolg"
                 },
                 "confirmationMessageComponentAlert": "Diese Komponente verwaltet hauptsächlich den Buchungs- und Zahlungsstatus. Für die Anpassung ihres Aussehens empfehlen wir die Verwendung ihrer Stammkomponenten, die sich im Allgemeinen Abschnitt befinden",
                 "marketplaceOfferBookingList": "Diese Komponente ist eine Liste der gebuchten Sitzungen. Zur Feinabstimmung einzelner {{component_name}}-Komponenten können Sie den entsprechenden Abschnitt im Editor verwenden.",
@@ -16257,7 +16282,9 @@
                 },
                 "error": {
                     "triggerCannotBeEmpty": "Sie müssen eine Eingabeart auswählen.",
-                    "timeoutMustBeStrictPositive": "Die Frist muss mindestens einen Tag betragen."
+                    "timeoutMustBeStrictPositive": "Die Frist muss mindestens einen Tag betragen.",
+                    "maximumConnectedTrigger": "Sie können nicht mehr als fünf Auslöser einrichten.",
+                    "minimumConnectedTrigger": "Sie müssen mindestens einen Auslöser auswählen."
                 },
                 "modify_name_label": "Name bearbeiten",
                 "entry_step": "Eingang",
@@ -16321,7 +16348,9 @@
                 "trigger": "Auslöser",
                 "timeout": {
                     "timout_days_chip": "{{ days }} Tag",
-                    "timout_days_chip_plural": "{{ days }} Tage"
+                    "timout_days_chip_plural": "{{ days }} Tage",
+                    "timeout_days_chip": "{{ count }} Tag",
+                    "timeout_days_chip_plural": "{{ count }} Tage"
                 },
                 "events": {
                     "book_chip": "Buchung",
@@ -16339,7 +16368,7 @@
                 "delete": "Löschen",
                 "kinds": {
                     "3": "Verspätung",
-                    "2": "Event + Smartlist",
+                    "2": "Event & Smartlist",
                     "0": "Event",
                     "1": "Smartlist"
                 },
@@ -16423,6 +16452,34 @@
                     "title": "Eingangsaktion",
                     "helperText": "Wählen Sie aus, was Sie tun möchten, wenn Ihre Mitglieder den Workflow betreten. Markieren Sie sie, senden Sie eine E-Mail... Das bleibt Ihnen überlassen. Sie können alternativ auch nichts tun, dieser Schritt ist optional.",
                     "addAction": "Aktion hinzufügen"
+                },
+                "requiredField": "Dieses Feld muss ausgefüllt werden, um fortfahren zu können.",
+                "finish": "Fertigstellen",
+                "delete": "Löschen",
+                "lostAction": {
+                    "title": "\"Verloren\" Aktion",
+                    "helperText": "Wählen Sie aus, was Sie tun möchten, wenn Ihre Mitglieder den Workflow als verloren verlassen. Markieren Sie sie, senden Sie eine E-Mail... Das bleibt Ihnen überlassen. Sie können auch nichts tun, dieser Schritt ist optional.",
+                    "addAction": "Aktion hinzufügen"
+                },
+                "lostTrigger": {
+                    "title": "Kriterium für \"Verloren\"",
+                    "helperText": "Lassen Sie uns nun definieren, was Sie als Fehlschlag betrachten, so dass Ihr Mitglied den Workflow als \"Verloren\" verlässt",
+                    "addTrigger": "Ausgangsauslöser hinzufügen",
+                    "timeout": {
+                        "helperText": "Wenn ein Mitglied nach dem gewählten Zeitlimit immer noch in diesem Workflow vorhanden ist, wird das Mitglied als \"Verloren\" betrachtet.",
+                        "label": "Tage im Workflow",
+                        "title": "Zeitlimit"
+                    }
+                },
+                "wonAction": {
+                    "title": "\"Gewonnen\" Aktion",
+                    "helperText": "Wählen Sie aus, was Sie tun möchten, wenn Ihre Mitglieder den Workflow als gewonnen verlassen. Markieren Sie sie, senden Sie eine E-Mail... Das liegt ganz bei Ihnen. Oder nichts tun, dieser Schritt ist optional",
+                    "addAction": "Aktion hinzufügen"
+                },
+                "wonTrigger": {
+                    "title": "Kriterium für \"Gewonnen\"",
+                    "helperText": "Definieren wir die allgemeinen Austrittsregeln. Genau wie beim Eintritt geben Sie an, welche Ereignisse dazu führen, dass Ihre Mitglieder den Workflow verlassen. Wo auch immer sich das Mitglied befindet, wenn dieses Ereignis eintritt, wird es den Workflow verlassen. Legen Sie zunächst fest, was Sie als Erfolg ansehen, um das Mitglied beim Verlassen des Workflows als \"Gewonnen\" zu kennzeichnen.",
+                    "addTrigger": "Ausgangsauslöser hinzufügen"
                 }
             },
             "dialog": {
@@ -16460,6 +16517,9 @@
                     "helper": "Alle Mitgliederaktionen, die während der Pause ablaufen werden nicht berücksichtigt.",
                     "title": "Workflow pausieren"
                 }
+            },
+            "trigger": {
+                "addTrigger": "Einen Auslöser hinzufügen"
             }
         }
     },

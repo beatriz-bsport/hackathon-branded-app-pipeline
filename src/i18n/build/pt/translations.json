@@ -843,7 +843,8 @@
         "params": "Parâmetros",
         "day": "Dia",
         "day_plural": "Dias",
-        "recommended": "Recomendado"
+        "recommended": "Recomendado",
+        "subscribe": "Subscrever"
     },
     "communication": {
         "mail": {
@@ -3236,7 +3237,9 @@
                 },
                 "error": {
                     "timeoutMustBeStrictPositive": "O prazo deve ser de, pelo menos, 1 dia.",
-                    "triggerCannotBeEmpty": "É necessário selecionar um tipo de entrada."
+                    "triggerCannotBeEmpty": "É necessário selecionar um tipo de entrada.",
+                    "maximumConnectedTrigger": "Não é possível definir mais de cinco accionadores.",
+                    "minimumConnectedTrigger": "É necessário selecionar pelo menos um acionador."
                 },
                 "event": {
                     "billing_plan-renew": "Renovar",
@@ -3325,7 +3328,9 @@
             "triggers": {
                 "timeout": {
                     "timout_days_chip": "{{ days }} dia",
-                    "timout_days_chip_plural": "{{ days }} dias"
+                    "timout_days_chip_plural": "{{ days }} dias",
+                    "timeout_days_chip": "{{ count }} dia",
+                    "timeout_days_chip_plural": "{{ count }} dias"
                 },
                 "trigger": "Acionador",
                 "exit": "Saída",
@@ -3336,7 +3341,7 @@
                 },
                 "kinds": {
                     "3": "Prazo",
-                    "2": "Evento + Lista Inteligente",
+                    "2": "Evento &  Lista Inteligente",
                     "1": "Lista Inteligente",
                     "0": "Evento"
                 },
@@ -3437,6 +3442,34 @@
                     "title": "Ação de entrada",
                     "helperText": "Seleccione o que pretende fazer quando os seus membros entram no fluxo de trabalho. Marcá-los, enviar um e-mail... A decisão é sua. Ou não faça nada, este passo é opcional.",
                     "addAction": "Adicionar ação"
+                },
+                "requiredField": "Este campo é obrigatório para continuar.",
+                "finish": "Finalizar",
+                "delete": "Eliminar",
+                "lostAction": {
+                    "title": "Ação perdida",
+                    "helperText": "Seleccione o que pretende fazer quando os seus membros deixam workflow como perdidos. Marcá-los, enviar um e-mail... A decisão é sua. Ou não faça nada, este passo é opcional.",
+                    "addAction": "Adicionar ação"
+                },
+                "lostTrigger": {
+                    "title": "Critérios perdidos",
+                    "helperText": "Vamos agora definir o que considera como uma falha, de modo a que o seu membro saia do workflow como \"perdido\"",
+                    "addTrigger": "Adicionar um acionador de saída",
+                    "timeout": {
+                        "helperText": "Se um membro ainda estiver presente neste workflow após o Limite de tempo selecionado, o membro será considerado como \"Perdido\".",
+                        "label": "Dias no workflow",
+                        "title": "Tempo limite"
+                    }
+                },
+                "wonAction": {
+                    "title": "Ação ganha",
+                    "helperText": "Seleccione o que pretende fazer quando os seus membros saírem do workflow como ganhos. Marcá-los, enviar um e-mail... A decisão é sua. Ou não faça nada, este passo é opcional",
+                    "addAction": "Adicionar ação"
+                },
+                "wonTrigger": {
+                    "title": "Critérios de ganho",
+                    "helperText": "Vamos definir as regras gerais de saída. Tal como para a entrada, indique quais os eventos que vão fazer com que os seus membros abandonem o workflow. Onde quer que o membro se encontre, se este evento ocorrer, o membro sairá do fluxo de trabalho. Primeiro, defina o que vai considerar como um sucesso para marcar o membro como \"Vencido\" ao sair do workflow.",
+                    "addTrigger": "Adicionar um acionador de saída"
                 }
             },
             "dialog": {
@@ -3474,6 +3507,9 @@
                     "helper": "Todas as acções dos membros que ocorram durante a pausa não serão tidas em conta.",
                     "title": "Pausar workflow"
                 }
+            },
+            "trigger": {
+                "addTrigger": "Adicionar um acionador"
             }
         },
         "notifications": {
@@ -7813,7 +7849,7 @@
             }
         },
         "export": {
-            "ready": "O relatório \"{{ name }}\" está pronto para ser descarregado.",
+            "ready": "O relatório com o nome {{-name}} está pronto para ser descarregado.",
             "generate": "Gerar",
             "processing": "O pedido relativamente ao relatório Excel está a ser processado. Será notificado assim que estiver pronto.",
             "continue": "Continuar a pesquisar",
@@ -7988,9 +8024,9 @@
             "supplier": "Fornecedor",
             "supplier_price": "Preço de revendedor",
             "sum_margin_value": "Contribuição",
-            "sum_consumed_amount": "Créditos oferecidos",
-            "sum_available_amount_non_expired": "Créditos disponíveis oferecidos",
-            "sum_available_amount_expired": "Créditos oferecidos e expirados",
+            "sum_consumed_amount": "Créditos consumidos",
+            "sum_available_amount_non_expired": "Quantia ainda disponível",
+            "sum_available_amount_expired": "Quantia expirada",
             "sum_attendance": "Número de presenças",
             "sum__non_attendance": "Número de ausências",
             "subshop_name": "Categoria",
@@ -8219,7 +8255,7 @@
             "payment_method_bacs_debit": "Débito Direto",
             "payment_method_amex": "AMEX",
             "payment_legal_identifier": "Identificador legal da fatura",
-            "payment_identifier": "Identificador da fatura",
+            "payment_identifier": "ID da Fatura",
             "payment_date": "Data do pagamento completo",
             "payment_date_time": "Hora do pagamento",
             "payment_date_date": "Data do pagamento",
@@ -8250,7 +8286,8 @@
             "dst_company": "Uso de estúdio",
             "src_company": "Compras do Estúdio",
             "waiting_list_max_size": "Capacidade da lista de espera",
-            "nb_option": "Em lista de espera"
+            "nb_option": "Em lista de espera",
+            "offer_coach": "Professor"
         },
         "categories": {
             "activityByCoach": "Atividades e workshops por professor",
@@ -12414,7 +12451,7 @@
                 "dialogTitle": "Alterar um link de lista"
             },
             "webhooks": {
-                "CONTACT_TAG": "Criar uma conta de membro na bsport quando o potencial aluno em \"ganho\" na ActiveCampaign",
+                "CONTACT_TAG": "Criar uma conta de cliente na bsport quando um potencial cliente é marcado como \"ganho\" na ActiveCampaign",
                 "CLIENT_WON": "Criar uma conta de membro na bsport quando o potencial aluno tiver alcançado o estatuto de \"GANHO\" numa estratégia",
                 "title": "Integrar as informações da ActiveCampaign na bsport",
                 "helpContent": "As ações abaixo ficam ativadas assim que o evento associado ocorre no ActiveCampaign.",
@@ -12732,7 +12769,13 @@
                         "generic": "Erro no processamento da transação"
                     },
                     "outlined": "Desenhado",
-                    "contained": "Contêm"
+                    "contained": "Contêm",
+                    "radio": "Radio",
+                    "checkbox": "Caixa de verificação",
+                    "weak": "Fraco",
+                    "strong": "Forte",
+                    "light": "Luz",
+                    "success": "Sucesso"
                 },
                 "title": {
                     "paymentMethodType": "Modo de pagamento",
@@ -12801,10 +12844,25 @@
                     "displayRightIcon": "Mostrar o ícone direito",
                     "displayLeftIcon": "Mostrar o ícone esquerdo",
                     "size": "Tamanho do elemento",
-                    "fabriqueVariant": "Variante do elemento"
+                    "fabriqueVariant": "Variante do elemento",
+                    "showBlanket": "Mostrar blanket",
+                    "hasDivider": "A lista tem um separador na parte inferior",
+                    "showGroupTitle": "Apresentar a lista com o título do grupo",
+                    "selected": "Está selecionado",
+                    "type": "Tipo do componente",
+                    "withLevel": "Visualizar o nível",
+                    "displayGuestName": "Mostrar o nome do convidado",
+                    "isWaitingList": "Está em estado de lista de espera",
+                    "isChangePasswordLinkExpired": "O link expirou",
+                    "shouldDisplayAddGuestButton": "Mostrar o botão para adicionar um convidado"
                 },
                 "configurationTitle": "Variações",
-                "confirmationMessageComponentAlert": "Este componente gere principalmente os estados da reserva e do pagamento. Para personalizar o seu aspeto, recomendamos a utilização dos seus componentes de raiz localizados na secção comum"
+                "confirmationMessageComponentAlert": "Este componente gere principalmente os estados da reserva e do pagamento. Para personalizar o seu aspeto, recomendamos a utilização dos seus componentes de raiz localizados na secção comum",
+                "marketplaceOfferBookingList": "Este componente é uma lista de sessões marcadas. Para ajustar as sessões individuais {{component_name}} pode utilizar a secção dedicada no editor.",
+                "marketplaceCheckoutItemListPaymentPack": "Este componente é uma lista de itens de checkout com passes. Para ajustar o {{component_name}} individual, pode utilizar a secção dedicada localizada em {{page}} no editor",
+                "marketplaceCheckoutItemListPaymentCombo": "Este componente é uma lista de itens de checkout com pacotes. Para ajustar os {{component_name}} pode utilizar a secção dedicada localizada em {{page}} no editor",
+                "marketplaceCheckoutItemListPrivatePass": "Este componente é uma lista de itens de checkout com passes privados. Para afinar os passes individuais {{component_name}} pode utilizar a secção dedicada localizada em {{page}} no editor.",
+                "marketplaceProductItemListAlert": "Este componente é uma lista de artigos de produtos. Para ajustar os {{component_name}} pode utilizar a secção dedicada no editor."
             },
             "components": {
                 "contractTermsModal": "Pop-up com a menções legais da subscrição",
@@ -12901,7 +12959,24 @@
                 "marketplace_booker_module_buyable_item_payment_combo": "Item do pacote de reserva",
                 "marketplace_booker_module_buyable_items_list": "Seleção do cartão de reserva (contentor)",
                 "fabrique_icon_button": "Botão de ícone",
-                "fabrique_button": "Botão"
+                "fabrique_button": "Botão",
+                "fabrique_chip": "Chip",
+                "fabrique_blanket": "Blanket",
+                "fabrique_menu_item_list": "Lista de itens de menu",
+                "fabrique_menu_item": "Item de Menu",
+                "fabrique_alert": "Alerta",
+                "marketplace_offer_booking_list": "Lista de reserva",
+                "marketplace_booking_item": "Item de reserva",
+                "marketplace_checkout_items_payment_pack_list": "Lista de artigos de checkout com passes",
+                "marketplace_checkout_items_payment_combo_list": "Lista de artigos de checkout com pacotes",
+                "marketplace_checkout_items_private_pass_list": "Lista de artigos de checkout com passes privados",
+                "minimal_payment_pack_card": "Cartão de passe mínimo",
+                "minimal_payment_combo_card": "Cartão mínimo de pacote",
+                "minimal_private_pass_card": "Cartão  mínimo de passe privado",
+                "marketplace_product_item_list": "Lista de itens do produto",
+                "marketplace_product_item": "Item do produto",
+                "minimal_subscription_card": "Cartão de subscrição mínimo",
+                "authentication_change_password_form": "Formulário de alteração da palavra-passe"
             },
             "cssEditor": {
                 "reset": "reposto",
@@ -13053,10 +13128,10 @@
             "autoBooking": {
                 "warning": {
                     "content": "Ao fechar o formulário, o(s) membro(s) selecionado(s) não será(ão) adicionado(s) à sessão. Se seleccionou vários membros e pretende anular a seleção apenas deste membro, clique em cancelar no formulário de membro",
-                    "title": "Tens a certeza?"
+                    "title": "Tens certeza?"
                 },
                 "loading": {
-                    "content": "Não actualize o separador nem saia desta página. Este processo pode demorar alguns segundos",
+                    "content": "Não atualize o separador nem saia desta página. Este processo pode demorar alguns segundos",
                     "title": "Os membros estão a ser adicionados à sessão"
                 },
                 "info": {
@@ -17515,7 +17590,17 @@
                     "explain": "Você encontrará aqui todas as suas discussões diretas, bate-papos vinculados às suas sessões e suas campanhas de lista inteligente. O bate-papo é compatível com SMS, e-mail e notificações por push.",
                     "intro": "Descubra nossa nova interface de bate-papo direto com seus membros."
                 }
-            }
+            },
+            "subscriptionForm": {
+                "commitmentMessage": "Nota: A subscrição implica um período de compromisso de 12 meses",
+                "confirmationMessage": "Inscreveu-se com êxito no {{ name }}",
+                "info": "Contactar a assistência ao cliente",
+                "infoHelper": "Precisa de mais informações?",
+                "confirmHelper": "Confirme que pretende subscrever este suplemento",
+                "priceHelper": "Este preço será acrescentado ao seu plano mensal.",
+                "title": "Subscrever  ao add-on"
+            },
+            "seeMore": "Ver mais"
         },
         "paymentMethod": {
             "info": {

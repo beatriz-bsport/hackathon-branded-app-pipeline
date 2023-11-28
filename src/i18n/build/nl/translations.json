@@ -2844,7 +2844,8 @@
             "referred_discount_use_date": "Gebruiksdatum promotiecode",
             "coupon_type": "Type",
             "waiting_list_max_size": "Wachtlijst capaciteit",
-            "nb_option": "Op de wachtlijst"
+            "nb_option": "Op de wachtlijst",
+            "offer_coach": "Instructeur"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{name}}\" wilt verwijderen?"
@@ -2913,7 +2914,7 @@
         },
         "export": {
             "category": "Excel: {{category}}",
-            "ready": "Je kunt \"{{ name }}\" nu downloaden.",
+            "ready": "Uw rapport \"{{ name }}\" is gereed om te downloaden.",
             "generate": "Aanmaken",
             "processing": "We zijn bezig met het aanmaken van je Excel-bestand. Je krijgt een melding zodra het klaar is.",
             "continue": "Verder",
@@ -12176,7 +12177,8 @@
         "back": "Terug",
         "recommended": "Aanbevolen",
         "day": "dag",
-        "day_plural": "dagen"
+        "day_plural": "dagen",
+        "subscribe": "Abonneer"
     },
     "workshop": {
         "modal": {
@@ -15631,7 +15633,13 @@
                     "info": "Info",
                     "white": "Wit",
                     "secondary": "Secundair",
-                    "primary": "Primair"
+                    "primary": "Primair",
+                    "light": "Licht",
+                    "success": "Succes",
+                    "radio": "Radio",
+                    "checkbox": "Checkbox",
+                    "weak": "Zwak",
+                    "strong": "Sterk"
                 },
                 "title": {
                     "nextOffer": "Volgende sessie beschikbaar",
@@ -15674,7 +15682,7 @@
                     "cardVariant": "Selecteer de te gebruiken variant voor kaarten",
                     "isRippleEnabled": "Het rimpeleffect inschakelen",
                     "componentType": "Container is een knop",
-                    "color": "Element kleur",
+                    "color": "Elementskleur",
                     "isError": "Verkeert in foutstatus",
                     "hasEmailChoices": "Keuzes voor emaillijst",
                     "hasSent": "Het formulier is verstuurd",
@@ -15706,7 +15714,11 @@
                     "displayGuestName": "Toon de naam van de uitgenodigde gast",
                     "isWaitingList": "Staat in de wachtlijst",
                     "isChangePasswordLinkExpired": "Deze link is verlopen",
-                    "shouldDisplayAddGuestButton": "Toon de knop om gasten toe te voegen"
+                    "shouldDisplayAddGuestButton": "Toon de knop om gasten toe te voegen",
+                    "selected": "Geselecteerd",
+                    "hasDivider": "De lijst heeft een verdeler onderaan",
+                    "showGroupTitle": "De lijst met groepstitel weergeven",
+                    "type": "Type van het component"
                 },
                 "configurationTitle": "Variaties",
                 "confirmationMessageComponentAlert": "Deze component beheert voornamelijk boekings- en betalingsstatussen. Om het uiterlijk aan te passen, raden we aan de hoofdcomponenten te gebruiken in de gemeenschappelijke sectie",
@@ -15836,7 +15848,11 @@
                 "marketplace_product_item": "Product",
                 "minimal_subscription_card": "Abonnementskaart (geminimaliseerd)",
                 "fabrique_chip": "Chip",
-                "authentication_change_password_form": "Formulier voor wachtwoordwijzigingen"
+                "authentication_change_password_form": "Formulier voor wachtwoordwijzigingen",
+                "fabrique_menu_item_list": "Menu Item Lijst",
+                "fabrique_menu_item": "Menu Item",
+                "fabrique_alert": "Alert",
+                "marketplace_booking_item": "Boeking item"
             },
             "customCss": {
                 "yourCode": "Je aanvullende implementatie:",
@@ -15908,7 +15924,17 @@
                     "intro": "Ontdek de nieuwe live chatbox met leden!",
                     "explain": "Hier staan alle gesprekken met individuele personen, maar ook gesprekken uit Sessies en Smartlists. Deze Inbox is compatibel met e-mails, sms'jes en push-notificaties."
                 }
-            }
+            },
+            "subscriptionForm": {
+                "commitmentMessage": "Houd rekening met het feit dat er een termijn van 12 maanden hierop van toepassing is.",
+                "confirmationMessage": "Deze optie ({{ name }}) is succesvol toegevoegd!",
+                "info": "Contacteer onze klantenservice",
+                "infoHelper": "Verdere vragen?",
+                "confirmHelper": "Bevestig of je deze aanvullende dienst aan je pakket wilt toevoegen.",
+                "priceHelper": "Dit bedrag komt bovenop je huidige maandelijkse pakket.",
+                "title": "Aanvullende dienst activeren"
+            },
+            "seeMore": "Toon meer"
         },
         "paymentMethod": {
             "actions": {
@@ -16389,7 +16415,9 @@
                 },
                 "error": {
                     "triggerCannotBeEmpty": "U moet een invoertype kiezen.",
-                    "timeoutMustBeStrictPositive": "De termijn moet minstens 1 dag bedragen."
+                    "timeoutMustBeStrictPositive": "De termijn moet minstens 1 dag bedragen.",
+                    "maximumConnectedTrigger": "Je kunt maximaal vijf Aanleidingen instellen.",
+                    "minimumConnectedTrigger": "Selecteer ten minste één Aanleiding."
                 },
                 "next": "Volgende",
                 "previous": "Terug",
@@ -16447,7 +16475,9 @@
                 },
                 "timeout": {
                     "timout_days_chip": "{{ days }} dag(en)",
-                    "timout_days_chip_plural": "{{ days }} dagen"
+                    "timout_days_chip_plural": "{{ days }} dagen",
+                    "timeout_days_chip": "{{ count }} dag(en)",
+                    "timeout_days_chip_plural": "{{ count }} dagen"
                 },
                 "trigger": "Trigger",
                 "exit": "Einde",
@@ -16536,6 +16566,34 @@
                     "title": "Aanleiding",
                     "helperText": "(Optioneel) Selecteer de volgende stappen, zoals het toevoegen van tags of het versturen van een e-mail, zodra de lid in de cadence wordt gezet.",
                     "addAction": "Een actie toevoegen"
+                },
+                "requiredField": "Dit veld is verplicht.",
+                "finish": "Beëindigen",
+                "delete": "Verwijderen",
+                "lostAction": {
+                    "addAction": "Actie toevoegen",
+                    "title": "Verloren actie",
+                    "helperText": "Selecteer wat u wilt doen als uw leden de workflow als verloren verlaten. Tag ze, stuur een e-mail... De keuze is aan u. Of doe niets, deze stap is optioneel."
+                },
+                "lostTrigger": {
+                    "title": "Verloren",
+                    "timeout": {
+                        "helperText": "Leden worden als 'Verloren' beschouwen wanneer zij nog in de Cadence staan zodra het tijdslimiet verstreken is.",
+                        "title": "Tijdslimiet",
+                        "label": "Dagen in de workflow"
+                    },
+                    "helperText": "Laten we nu definiëren wat u als een \"mislukking\" beschouwt, zodat uw lid de workflow als \"verloren\" verlaat",
+                    "addTrigger": "Een uitgangstrigger toevoegen"
+                },
+                "wonAction": {
+                    "helperText": "(Optioneel) Selecteer wat er moet gebeuren zodra leden de Cadence als 'gewonnen' verlaten. Je kunt deze personen bijvoorbeeld e-mailen of taggen.",
+                    "addAction": "Actie toevoegen",
+                    "title": "Gewonnen actie"
+                },
+                "wonTrigger": {
+                    "title": "Gewonnen",
+                    "helperText": "Laten we de algemene vertrekregels definiëren. Net als bij het binnenkomen, geeft u aan welke gebeurtenissen ervoor zorgen dat uw leden de workflow verlaten. Waar het lid ook is, als deze gebeurtenis plaatsvindt, zal het lid de workflow verlaten. Definieer eerst wat u als een succes beschouwt om het lid als \"gewonnen\" te markeren bij het verlaten van de workflow.",
+                    "addTrigger": "Een uitgangstrigger toevoegen"
                 }
             },
             "dialog": {
@@ -16573,6 +16631,9 @@
                     "helper": "Alle acties van leden die plaatsvinden tijdens de pauze worden niet in acht genomen.",
                     "title": "Pauzeer workflow"
                 }
+            },
+            "trigger": {
+                "addTrigger": "Aanleiding toevoegen"
             }
         }
     },

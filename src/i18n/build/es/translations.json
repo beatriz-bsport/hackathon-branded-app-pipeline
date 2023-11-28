@@ -2374,7 +2374,7 @@
         },
         "billing_group": {
             "header": "Grupos de facturación",
-            "helperText": "Los grupos de facturación aparecerán en sus informes para vincular fácilmente cada factura a la ubicación correcta y serán utilizados en la cesta por los miembros para elegir su ubicación preferida. Es necesario definir al menos un grupo de facturación para que los afiliados puedan realizar compras en línea. Si tiene varios establecimientos pertenecientes a la misma localidad, puede agruparlos dentro del mismo grupo de facturación",
+            "helperText": "Los grupos de facturación aparecerán en sus informes para vincular fácilmente cada factura a la ubicación correcta y serán utilizados en la cesta por los miembros para elegir su ubicación preferida. Es necesario definir al menos un grupo de facturación para que los miembros puedan realizar compras en línea. Si tiene varios establecimientos pertenecientes a la misma localidad, puede agruparlos dentro del mismo grupo de facturación",
             "add": "Añadir un grupo"
         },
         "quickbooks": {
@@ -4745,7 +4745,8 @@
             "referring_member_first_name": "Nombre del miembro referente",
             "coupon_type": "Tipo",
             "waiting_list_max_size": "Capacidad de la lista de espera",
-            "nb_option": "En lista de espera"
+            "nb_option": "En lista de espera",
+            "offer_coach": "Profesor"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -4863,7 +4864,7 @@
         },
         "export": {
             "category": "Informe en Excel : {{category}}",
-            "ready": "Su informe \"{{ name }}\" está listo para ser descargado.",
+            "ready": "Su informe \"{{-name }}\" está listo para ser descargado.",
             "generate": "Generar",
             "processing": "Su solicitud de informe en Excel está siendo procesada. Se le notificará tan pronto como esté listo.",
             "continue": "Seguir navegando",
@@ -11882,7 +11883,8 @@
         "back": "Volver",
         "recommended": "Recomendado",
         "day": "día",
-        "day_plural": "días"
+        "day_plural": "días",
+        "subscribe": "Suscribir"
     },
     "snackbar": {
         "invoice": {
@@ -15666,7 +15668,13 @@
                     "info": "Info",
                     "white": "Blanco",
                     "secondary": "Secundario",
-                    "primary": "Principal"
+                    "primary": "Principal",
+                    "radio": "Radio",
+                    "checkbox": "Casilla de verificación",
+                    "weak": "Débil",
+                    "strong": "Intenso",
+                    "light": "Claro",
+                    "success": "Éxito"
                 },
                 "title": {
                     "nextOffer": "Próxima sesión disponible",
@@ -15736,10 +15744,24 @@
                     "displayRightIcon": "Mostrar el icono derecho",
                     "displayLeftIcon": "Mostrar el icono izquierdo",
                     "size": "Tamaño del elemento",
-                    "fabriqueVariant": "Variante del elemento"
+                    "fabriqueVariant": "Variante del elemento",
+                    "hasDivider": "La lista tiene un separador en la parte inferior",
+                    "showGroupTitle": "Mostrar la lista con el título del grupo",
+                    "selected": "Está seleccionado",
+                    "type": "Tipo de componente",
+                    "withLevel": "Mostrar el nivel",
+                    "displayGuestName": "Mostrar el nombre del invitado",
+                    "isWaitingList": "Está en lista de espera",
+                    "isChangePasswordLinkExpired": "El enlace ha caducado",
+                    "shouldDisplayAddGuestButton": "Mostrar el botón para añadir un invitado"
                 },
                 "configurationTitle": "Variaciones",
-                "confirmationMessageComponentAlert": "Este componente gestiona principalmente los estados de reserva y pago. Para personalizar su apariencia, recomendamos utilizar sus componentes raíz situados en la sección común"
+                "confirmationMessageComponentAlert": "Este componente gestiona principalmente los estados de reserva y pago. Para personalizar su apariencia, recomendamos utilizar sus componentes raíz situados en la sección común",
+                "marketplaceOfferBookingList": "Este componente es una lista de sesiones reservadas. Para ajustar los componentes individuales {{component_name}}, puede utilizar la sección dedicada dentro del editor.",
+                "marketplaceCheckoutItemListPaymentPack": "Este componente es una lista de artículos de compra con pases. Para ajustar individualmente {{component_name}}, puede utilizar la sección dedicada situada en {{page}} dentro del editor.",
+                "marketplaceCheckoutItemListPaymentCombo": "Este componente es una lista de artículos de compra con paquetes. Para ajustar los componentes individuales {{component_name}}, puede utilizar la sección dedicada situada en {{page}} dentro del editor.",
+                "marketplaceCheckoutItemListPrivatePass": "Este componente es una lista de artículos de compra con pases privados. Para ajustar los componentes individuales {{component_name}}, puede utilizar la sección dedicada situada en {{page}} dentro del editor.",
+                "marketplaceProductItemListAlert": "Este componente es una lista de artículos del producto. Para ajustar el componente {{component_name}} individual, puede utilizar la sección dedicada dentro del editor."
             },
             "page": {
                 "calendar": "Calendario",
@@ -15849,7 +15871,23 @@
                 "marketplace_booker_module_buyable_item_payment_combo": "Artículo del pack de reserva",
                 "marketplace_booker_module_buyable_items_list": "Selección de bonos de reserva (contenedor)",
                 "fabrique_icon_button": "Icono del botón",
-                "fabrique_button": "Botón"
+                "fabrique_button": "Botón",
+                "fabrique_menu_item_list": "Lista de elementos del menú",
+                "fabrique_menu_item": "Elemento del menú",
+                "fabrique_alert": "Alerta",
+                "marketplace_offer_booking_list": "Lista de reservas",
+                "marketplace_booking_item": "Artículo de reserva",
+                "marketplace_checkout_items_payment_pack_list": "Lista de artículos de caja con bonos",
+                "marketplace_checkout_items_payment_combo_list": "Lista de artículos de caja con packs",
+                "marketplace_checkout_items_private_pass_list": "Lista de artículos de caja con pases privados",
+                "minimal_payment_pack_card": "Tarjeta pase mínimo",
+                "minimal_payment_combo_card": "Tarjeta de paquete mínimo",
+                "minimal_private_pass_card": "Tarjeta de acceso privado mínimo",
+                "marketplace_product_item_list": "Lista de artículos del producto",
+                "marketplace_product_item": "Artículo del producto",
+                "minimal_subscription_card": "Tarjeta de suscripción mínima",
+                "fabrique_chip": "Chip",
+                "authentication_change_password_form": "Formulario de cambio de contraseña"
             },
             "customCss": {
                 "yourCode": "Su implementación complementaria:",
@@ -15898,7 +15936,17 @@
                     "explain": "Aquí encontrarás todas tus conversaciones directas, los chats vinculados a tus sesiones y tus campañas smartlist. El chat es compatible con SMS, correo electrónico y notificaciones push."
                 },
                 "requestAccess": "Solicitar acceso"
-            }
+            },
+            "subscriptionForm": {
+                "commitmentMessage": "Nota: La suscripción implica un compromiso de 12 meses.",
+                "confirmationMessage": "Te has suscrito con éxito a {{ name }}",
+                "info": "Contactar con el servicio de atención al cliente",
+                "infoHelper": "¿Necesita más información?",
+                "confirmHelper": "Confirme que desea suscribirse a este suplemento",
+                "priceHelper": "Este precio se añadirá a su plan mensual.",
+                "title": "Suscribirse al suplemento"
+            },
+            "seeMore": "Ver más"
         },
         "featureRequest": {
             "close": "Cerrar",
@@ -16372,7 +16420,9 @@
                 "cancel": "Cancelar",
                 "error": {
                     "triggerCannotBeEmpty": "Tiene que seleccionar un tipo de ingreso.",
-                    "timeoutMustBeStrictPositive": "El plazo debe ser de al menos 1 día."
+                    "timeoutMustBeStrictPositive": "El plazo debe ser de al menos 1 día.",
+                    "maximumConnectedTrigger": "No se pueden configurar más de cinco activadores.",
+                    "minimumConnectedTrigger": "Debe seleccionar al menos un activador."
                 },
                 "marketing_action": {
                     "form": {
@@ -16437,7 +16487,9 @@
                 },
                 "timeout": {
                     "timout_days_chip": "{{ days }} día",
-                    "timout_days_chip_plural": "{{ days }} días"
+                    "timout_days_chip_plural": "{{ days }} días",
+                    "timeout_days_chip": "{{ count }} día",
+                    "timeout_days_chip_plural": "{{ count }} días"
                 },
                 "trigger": "Desencadenante",
                 "exit": "Salida",
@@ -16445,7 +16497,7 @@
                 "delete": "Borrar",
                 "kinds": {
                     "3": "Demora",
-                    "2": "Evento + Smartlist",
+                    "2": "Evento & Smartlist",
                     "1": "Smartlist",
                     "0": "Evento"
                 },
@@ -16549,6 +16601,34 @@
                     "title": "Acción de entrada",
                     "helperText": "Seleccione lo que desea hacer cuando sus miembros entren en el flujo de trabajo. Etiquételos, envíe un correo electrónico... Usted decide. O no hacer nada, este paso es opcional.",
                     "addAction": "Añade una acción"
+                },
+                "requiredField": "Este campo es obligatorio para continuar.",
+                "finish": "Terminar",
+                "delete": "Borrar",
+                "lostAction": {
+                    "title": "Acción perdida",
+                    "helperText": "Seleccione lo que desea hacer cuando sus miembros abandonan el flujo de trabajo como perdidos. Etiquételos, envíe un correo electrónico... Usted decide. O no hacer nada, este paso es opcional.",
+                    "addAction": "Añadir acción"
+                },
+                "lostTrigger": {
+                    "title": "Criterios perdidos",
+                    "helperText": "Ahora vamos a definir lo que consideras un fallo, para que tu miembro abandone el flujo de trabajo como \"perdido\"",
+                    "addTrigger": "Añadir un activador de salida",
+                    "timeout": {
+                        "helperText": "Si un miembro sigue presente en este flujo de trabajo después del Límite de tiempo seleccionado, el miembro será considerado como 'Perdido'.",
+                        "label": "Días en el flujo de trabajo",
+                        "title": "Límite de tiempo"
+                    }
+                },
+                "wonAction": {
+                    "title": "Acción ganada",
+                    "helperText": "Seleccione lo que desea hacer cuando sus miembros abandonen el flujo de trabajo como ganados. Etiquételos, envíe un correo electrónico... Usted decide. O no hacer nada, este paso es opcional",
+                    "addAction": "Añadir acción"
+                },
+                "wonTrigger": {
+                    "title": "Criterios ganados",
+                    "helperText": "Definamos las reglas generales de salida. Al igual que para la entrada, indique qué eventos van a hacer que sus miembros abandonen el flujo de trabajo. Esté donde esté el miembro, si se produce este evento, el miembro abandonará el flujo de trabajo. En primer lugar, defina lo que considerará un éxito para marcar al miembro como \"Ganado\" al abandonar el flujo de trabajo.",
+                    "addTrigger": "Añadir un activador de salida"
                 }
             },
             "dialog": {
@@ -16586,6 +16666,9 @@
                     "helper": "Todas las acciones de los miembros que ocurran durante la pausa no se tendrán en cuenta.",
                     "title": "Pausar el workflow"
                 }
+            },
+            "trigger": {
+                "addTrigger": "Añadir un activador"
             }
         }
     },

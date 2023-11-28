@@ -1116,7 +1116,8 @@
         "ok": "OK",
         "recommended": "Recommandé",
         "day": "jour",
-        "day_plural": "jours"
+        "day_plural": "jours",
+        "subscribe": "Souscrire"
     },
     "communication": {
         "table": {
@@ -4140,6 +4141,34 @@
                     "title": "Action de saisie",
                     "helperText": "Sélectionnez ce que vous voulez faire lorsque vos membres entrent dans le workflow. Les taguer, leur envoyer un email... C'est à vous de décider. Ou ne rien faire, cette étape est facultative.",
                     "addAction": "Ajouter une action"
+                },
+                "requiredField": "Ce champ est obligatoire pour continuer.",
+                "finish": "Terminer",
+                "delete": "Supprimer",
+                "lostAction": {
+                    "title": "Action perdu",
+                    "helperText": "Sélectionnez ce que vous souhaitez faire lorsque vos membres quittent le workflow comme étant perdus. Taguez-les, envoyez un e-mail... C'est vous qui décidez. Ou ne rien faire, cette étape est facultative.",
+                    "addAction": "Ajouter une action"
+                },
+                "lostTrigger": {
+                    "title": "Critère perdu",
+                    "helperText": "Définissons maintenant ce que vous considérez comme un échec, de sorte que votre membre quitte le workflow comme \"perdu\"",
+                    "addTrigger": "Ajouter un déclencheur de sortie",
+                    "timeout": {
+                        "helperText": "Si un membre est toujours présent dans ce workflow après la limite de temps sélectionnée, il sera considéré comme \"perdu\".",
+                        "label": "Jours dans le workflow",
+                        "title": "Délai"
+                    }
+                },
+                "wonAction": {
+                    "title": "Action gagné",
+                    "helperText": "Sélectionnez ce que vous souhaitez faire lorsque vos membres quittent le workflow en tant que gagnés. Taguez-les, envoyez un e-mail... C'est vous qui décidez. Ou ne rien faire, cette étape est facultative",
+                    "addAction": "Ajouter une action"
+                },
+                "wonTrigger": {
+                    "title": "Critère gagné",
+                    "helperText": "Définissons les règles générales de sortie. Tout comme pour l'entrée, indiquez quels événements feront sortir vos membres du workflow. Peut importe la position du membre, si cet événement se produit, il quittera le workflow. Tout d'abord, définissez ce que vous considérerez comme un succès pour marquer le membre comme \"Gagné\" lorsqu'il quittera le workflow.",
+                    "addTrigger": "Ajouter un déclencheur de sortie"
                 }
             },
             "back": "Retour",
@@ -4261,7 +4290,9 @@
                 },
                 "error": {
                     "triggerCannotBeEmpty": "Vous devez sélectionner un type d'entrée.",
-                    "timeoutMustBeStrictPositive": "La limite de temps doit être d'au moins 1 jour."
+                    "timeoutMustBeStrictPositive": "La limite de temps doit être d'au moins 1 jour.",
+                    "maximumConnectedTrigger": "Vous ne pouvez pas définir plus de cinq déclencheurs.",
+                    "minimumConnectedTrigger": "Vous devez sélectionner au moins un déclencheur."
                 }
             },
             "marketingAction": {
@@ -4308,7 +4339,9 @@
                 "trigger": "Déclencheur",
                 "timeout": {
                     "timout_days_chip": "{{ days }} jour",
-                    "timout_days_chip_plural": "{{ days }} jours"
+                    "timout_days_chip_plural": "{{ days }} jours",
+                    "timeout_days_chip": "{{ count }} jour",
+                    "timeout_days_chip_plural": "{{ count }} jours"
                 },
                 "events": {
                     "purchase_chip": "Achat",
@@ -4321,7 +4354,7 @@
                 "kinds": {
                     "0": "Évènement",
                     "1": "Smartlist",
-                    "2": "Évènement + Smartlist",
+                    "2": "Évènement & Smartlist",
                     "3": "Délai"
                 },
                 "smartlist": {
@@ -4399,6 +4432,9 @@
                     "helper": "Toutes les actions des membres se produisant pendant la pause ne seront pas prises en compte.",
                     "title": "Pauser le workflow"
                 }
+            },
+            "trigger": {
+                "addTrigger": "Ajouter un déclencheur"
             }
         }
     },
@@ -7895,7 +7931,17 @@
                     "explain": "Vous retrouverez ici toutes vos discussions directes, les chat liés à vos séances, ainsi que vos campagnes smartlists. Le chat est compatible avec les SMS, emails et push notification."
                 },
                 "requestAccess": "Demander un accès"
-            }
+            },
+            "subscriptionForm": {
+                "commitmentMessage": "Remarque : l'abonnement implique une période d'engagement de 12 mois",
+                "confirmationMessage": "Vous vous êtes inscrit avec succès à {{ name }}",
+                "info": "Contacter le service clientèle",
+                "infoHelper": "Besoin de plus d'informations ?",
+                "confirmHelper": "Veuillez confirmer que vous souhaitez vous abonner à cet add-on",
+                "priceHelper": "Ce prix sera ajouté à votre forfait mensuel.",
+                "title": "S'abonner à l'add-on"
+            },
+            "seeMore": "Voir plus"
         },
         "platformBillingGroup": {
             "myGroup": "Mon forfait",
@@ -9637,7 +9683,8 @@
             "last_booked_offer_date": "Date de la dernière séance réservée",
             "last_booked_offer_meta_activity_name": "Nom de l'activité de la dernière séance réservée",
             "waiting_list_max_size": "Capacité de la liste d'attente",
-            "nb_option": "Sur liste d'attente"
+            "nb_option": "Sur liste d'attente",
+            "offer_coach": "Professeur"
         },
         "yes": "Oui",
         "no": "Non",
@@ -9707,7 +9754,7 @@
             "continue": "Poursuivre la navigation",
             "processing": "Votre demande de rapport Excel est en cours de traitement. Vous serez notifié dès qu'il sera prêt.",
             "generate": "Générer",
-            "ready": "Votre rapport \"{{ name }}\" est prêt à être télécharger.",
+            "ready": "Votre rapport \"{{-name}}\" est prêt à être télécharger.",
             "category": "Rapport Excel  : {{category}}"
         },
         "filter": {
@@ -16960,7 +17007,23 @@
                 "marketplace_booker_module_buyable_item_payment_combo": "Élément du pack de réservation",
                 "marketplace_booker_module_buyable_items_list": "Sélection du pass (conteneur)",
                 "fabrique_icon_button": "Bouton d'icône",
-                "fabrique_button": "Bouton"
+                "fabrique_button": "Bouton",
+                "fabrique_menu_item_list": "Liste des éléments du menu",
+                "fabrique_menu_item": "Élément du menu",
+                "fabrique_alert": "Alerte",
+                "marketplace_offer_booking_list": "Liste de réservation",
+                "marketplace_booking_item": "Élément de réservation",
+                "marketplace_checkout_items_payment_pack_list": "Liste des articles avec des cartes de cours",
+                "marketplace_checkout_items_payment_combo_list": "Liste des articles avec des packs",
+                "marketplace_checkout_items_private_pass_list": "Listes de articles avec des cartes de rendez-vous",
+                "minimal_payment_pack_card": "Carte de carte de cours minimale",
+                "minimal_payment_combo_card": "Carte de pack minimale",
+                "minimal_private_pass_card": "Carte de rendez-vous minimale",
+                "marketplace_product_item_list": "Liste des produits",
+                "marketplace_product_item": "Produit",
+                "minimal_subscription_card": "Carte d'abonnement minimale",
+                "fabrique_chip": "Puce",
+                "authentication_change_password_form": "Formulaire de modification du mot de passe"
             },
             "page": {
                 "common": "Commun",
@@ -17045,7 +17108,16 @@
                     "displayRightIcon": "Afficher l'icône de droite",
                     "displayLeftIcon": "Afficher l'icône de gauche",
                     "size": "Taille de l'élément",
-                    "fabriqueVariant": "Variante de l'élément"
+                    "fabriqueVariant": "Variante de l'élément",
+                    "hasDivider": "La liste comporte un séparateur en bas",
+                    "showGroupTitle": "Afficher la liste avec l'intitulé du groupe",
+                    "selected": "Est sélectionné",
+                    "type": "Type du composant",
+                    "withLevel": "Afficher le niveau",
+                    "displayGuestName": "Afficher le nom de l'invité",
+                    "isWaitingList": "Est sur liste d'attente",
+                    "isChangePasswordLinkExpired": "Le lien a expiré",
+                    "shouldDisplayAddGuestButton": "Afficher le bouton pour ajouter un invité"
                 },
                 "option": {
                     "true": "Oui",
@@ -17124,9 +17196,20 @@
                     "info": "Info",
                     "white": "Blanc",
                     "secondary": "Secondaire",
-                    "primary": "Primaire"
+                    "primary": "Primaire",
+                    "success": "Succès",
+                    "radio": "Radio",
+                    "checkbox": "Checkbox",
+                    "weak": "Faible",
+                    "strong": "Intense",
+                    "light": "Clair"
                 },
-                "confirmationMessageComponentAlert": "Ce composant gère principalement les statuts de réservation et de paiement. Pour personnaliser son apparence, nous recommandons d'utiliser ses composants racine situés dans la section commune"
+                "confirmationMessageComponentAlert": "Ce composant gère principalement les statuts de réservation et de paiement. Pour personnaliser son apparence, nous recommandons d'utiliser ses composants racine situés dans la section commune",
+                "marketplaceOfferBookingList": "Ce composant est une liste de séances réservées. Pour affiner les composants de {{component_name}}, vous pouvez utiliser la section dédiée dans l'éditeur.",
+                "marketplaceCheckoutItemListPaymentPack": "Ce composant est une liste d'articles avec des cartes de cours. Pour affiner {{component_name}}, vous pouvez utiliser la section dédiée située dans {{page}} au sein de l'éditeur.",
+                "marketplaceCheckoutItemListPrivatePass": "Ce composant est une liste d'articles avec des cartes de rendez-vous. Pour affiner les composants de {{component_name}}, vous pouvez utiliser la section dédiée située dans {{page}} au sein de l'éditeur.",
+                "marketplaceCheckoutItemListPaymentCombo": "Ce composant est une liste d'articles avec des packs. Pour affiner les composants de {{component_name}}, vous pouvez utiliser la section dédiée située dans {{page}} au sein de l'éditeur.",
+                "marketplaceProductItemListAlert": "Ce composant est une liste d'articles de produits. Pour peaufiner le composant {{component_name}}, vous pouvez utiliser la section dédiée dans l'éditeur."
             }
         },
         "create": "Général",

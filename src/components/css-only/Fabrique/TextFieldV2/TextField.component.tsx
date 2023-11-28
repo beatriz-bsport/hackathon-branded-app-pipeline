@@ -107,11 +107,17 @@ const TextField: React.FC<Props> = ({
               variant={isSmall ? 'body-sm' : 'body-md'}
             >
               {label}
-              {isRequired && (
-                <span className="bs-fabrique-textfield__label--required">
-                  {REQUIRED_SYMBOL}
-                </span>
-              )}
+              <span
+                className={classNames(
+                  'bs-fabrique-textfield__label--required',
+                  {
+                    'bs-fabrique-textfield__label--disabled': isDisabled,
+                    'bs-fabrique-textfield__label--empty': !isRequired,
+                  },
+                )}
+              >
+                {REQUIRED_SYMBOL}
+              </span>
             </Typography>
           </label>
         )}

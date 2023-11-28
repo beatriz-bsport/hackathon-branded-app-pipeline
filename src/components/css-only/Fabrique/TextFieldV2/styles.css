@@ -35,6 +35,9 @@
   color: var(--bs-color-text-disabled);
 }
 
+.bs-fabrique-textfield__label--empty {
+  display: none;
+}
 /* INPUT CONTAINER WITH INPUT AND ICONS*/
 .bs-fabrique-textfield__input__container {
   display: inline-flex;

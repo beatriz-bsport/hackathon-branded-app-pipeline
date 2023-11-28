@@ -144,6 +144,7 @@ const TextForm: React.FC<Props> = forwardRef(
                   'bs-fabrique-text-form__label--required',
                   {
                     'bs-fabrique-text-form__label--empty': !isRequired,
+                    'bs-fabrique-text-form__label--disabled': isDisabled,
                   },
                 )}
               >

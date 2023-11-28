@@ -111,10 +111,7 @@ const BottomBarIcons: React.FC<Props> = ({
               <IconButton
                 className={classes.iconButton}
                 color={actionType === WRITE_SMS ? 'primary' : 'default'}
-                disabled={
-                  Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
-                  !hasUpsell(featureList, UPSELL_IDENTIFIER_SMS)
-                }
+                disabled={!hasUpsell(featureList, UPSELL_IDENTIFIER_SMS)}
                 onClick={() => setActionType(WRITE_SMS)}
               >
                 {actionType === WRITE_SMS ? <SmsIcon /> : <SmsOutlinedIcon />}

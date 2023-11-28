@@ -600,7 +600,6 @@ export class SmartListDetailMember extends React.Component<Props, State> {
         {(Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
           Config.REACT_APP_SENTRY_ENVIRONMENT === 'local' ||
           Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ||
-          Config.REACT_APP_SENTRY_ENVIRONMENT === 'pool' ||
           this.props.companyId === 498) && (
           <ObjectLevelPermissionWrapper
             forcedBehavior="hidden"

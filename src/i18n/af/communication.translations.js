@@ -325,6 +325,13 @@ const getTranslations = async () => {
         content: 'Message',
       },
       writeCommunication: 'Send a message',
+      smsCostReminderModal: {
+        title: 'SMS cost reminder',
+        content:
+          'Sending SMS to a large group of members can be costly. You can check the price per SMS in your contract. Are you sure you want to send this communication?',
+        cancel: 'Cancel',
+        confirm: 'Confirm',
+      },
     },
     resendSection: {
       dialogTitle: 'Auto-resend unread email',

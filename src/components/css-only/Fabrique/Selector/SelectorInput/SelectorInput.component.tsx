@@ -7,7 +7,7 @@ import { ChevronDown, ChevronUp, XClose } from '#components/untitledui';
 import Typography from '#Fabrique/Typography';
 import './selector-input-styles.css';
 
-type SelectorInputClasses = {
+export type SelectorInputClasses = {
   clearButton?: string;
   container?: string;
   leftIcon?: string;

@@ -1,0 +1,26 @@
+.bs-fabrique-selector {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bs-space-size-1);
+}
+
+.bs-fabrique-selector__label {
+}
+
+.bs-fabrique-selector__label--hidden {
+  display: none;
+}
+
+.bs-fabrique-selector__label--disabled {
+  color: var(--bs-color-text-disabled);
+}
+
+.bs-fabrique-textfield__label--required {
+}
+
+.bs-fabrique-selector__caption-text {
+}
+
+.bs-fabrique-selector__caption-text--hidden {
+  display: none;
+}

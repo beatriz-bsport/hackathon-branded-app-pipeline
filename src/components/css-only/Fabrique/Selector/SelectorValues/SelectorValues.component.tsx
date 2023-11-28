@@ -4,7 +4,7 @@ import Typography from '#Fabrique/Typography';
 import Chip from '#Fabrique/Chip';
 import './selector-values-styles.css';
 
-type SelectorValuesClasses = {
+export type SelectorValuesClasses = {
   typography?: string;
   values?: string;
   chip?: string;

@@ -133,6 +133,14 @@ const EntryStepCard: React.FC<EntryStepCardProps> = ({
     [addNextStep, t],
   );
 
+  const displayedStepMemberCount = React.useMemo(() => {
+    if (isFirstConfigurationMode) {
+      // Hide the displayed member count for Cadences not yet configured.
+      return null;
+    }
+    return stepMemberCount;
+  }, [isFirstConfigurationMode, stepMemberCount]);
+
   return (
     <StepCard
       maxWidth
@@ -172,7 +180,7 @@ const EntryStepCard: React.FC<EntryStepCardProps> = ({
       isSelected={isSelected}
       onCardClick={onCardClick}
       selectedColor={SequentialMarketingColors.ENTRY_COLOR}
-      stepMemberCount={stepMemberCount}
+      stepMemberCount={displayedStepMemberCount}
     />
   );
 };

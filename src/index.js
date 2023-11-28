@@ -16,7 +16,8 @@ export default class BsportWidget {
   }: { parentElement: HTMLElement } & WidgetConfig = {}) {
     if (
       initialParams?.widgetType === 'pass' ||
-      initialParams?.widgetType === 'subscription'
+      initialParams?.widgetType === 'subscription' ||
+      initialParams?.widgetType === 'newsletterV2'
     ) {
       import('../vendor/reset.css');
     }

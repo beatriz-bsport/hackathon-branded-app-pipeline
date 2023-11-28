@@ -1,0 +1,159 @@
+import { Meta, Canvas, Story , Description, ArgsTable, Source} from '@storybook/addon-docs';
+
+import * as SelectorStories from './Selector.stories'
+
+import {SelectorStorybook as Selector} from '.'
+
+<Meta title="Fabrique/Selector/Doc" component={Selector} />
+
+## Selector
+
+### Description
+
+The **`selector`** component presents users with a list of options, allowing them to choose one. It is commonly used for dropdown menus or selection lists.
+
+### Properties:
+
+- **captionText:** Text to display at the bottom of the selector.
+- **children:** The options you want to display inside the menu. Usually MenuItems or MenuItemLists.
+- **className:** Override or extend the styles applied to the component.
+- **getSelectedItemLabel:** Callback function to extract the value we want to display in the selector from an item.
+- **getSelectedItemValue:** Callback function to extract the value from an item. This value will be used to remove a selected item.
+- **id:** The id of the selector.
+- **isDisabled:** If true the element is disabled.
+- **isError:** If true, the element will indicate an error.
+- **isRequired:** If true, this field is required.
+- **label:** Represents the selector label.
+- **leftIcon:** The icon displayed on the left of the selector.
+- **menuId:** The id of the menu.
+- **multiple:** Boolean - allows users to choose more than one option from the list.
+- **onRemoveItem:** Callback fired when clicking on the chip's clear icon button.
+- **onClear:** Callback fired when clicking on the clear icon button.
+- **placeholder:** Text to display as the default option when nothing is selected.
+- **selectedItems:** The value(s) represented in the selector input.
+- **size:** **`sm`** (small), **`md`** (medium)
+
+### Usage
+Ideal for presenting a list of categories, countries, or any other options for users to choose from.
+Provides a structured way for users to make selections from predefined options.
+
+### Single selector
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-selector-stories--defaultsingle"/>  
+</Canvas>
+
+#### Example
+<Source dark language='tsx' id="fabrique-selector-stories--defaultsingle" />
+
+
+### Multi selector
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-selector-stories--defaultmulti"/>  
+</Canvas>
+
+#### Example
+<Source dark language='tsx' id="fabrique-selector-stories--defaultmulti" />
+
+
+### With label
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-selector-stories--singlewithlabel"/>  
+  <Story id="fabrique-selector-stories--multiwithlabel"/>  
+</Canvas>
+
+#### Example (single)
+<Source dark language='tsx' id="fabrique-selector-stories--singlewithlabel" />
+
+#### Example (multiple)
+<Source dark language='tsx' id="fabrique-selector-stories--multiwithlabel" />
+
+
+### With placeholder
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-selector-stories--singlewithplaceholder"/>  
+  <Story id="fabrique-selector-stories--multiwithplaceholder"/>  
+</Canvas>
+
+#### Example (single)
+<Source dark language='tsx' id="fabrique-selector-stories--singlewithplaceholder" />
+
+#### Example (multiple)
+<Source dark language='tsx' id="fabrique-selector-stories--multiwithplaceholder" />
+
+
+### With caption text
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-selector-stories--singlewithplaceholdercaptiontextandlabel"/>  
+  <Story id="fabrique-selector-stories--multiwithplaceholdercaptiontextandlabel"/>  
+</Canvas>
+
+#### Example (single)
+<Source dark language='tsx' id="fabrique-selector-stories--singlewithplaceholdercaptiontextandlabel" />
+
+#### Example (multiple)
+<Source dark language='tsx' id="fabrique-selector-stories--multiwithplaceholdercaptiontextandlabel" />
+
+
+### Large
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-selector-stories--singlewithlabellarge"/>  
+  <Story id="fabrique-selector-stories--multiwithlabellarge"/>  
+</Canvas>
+
+#### Example (single)
+<Source dark language='tsx' id="fabrique-selector-stories--singlewithlabellarge" />
+
+#### Example (multiple)
+<Source dark language='tsx' id="fabrique-selector-stories--multiwithlabellarge" />
+
+
+### With Left Icon
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-selector-stories--singlewithlabelandicon"/>  
+  <Story id="fabrique-selector-stories--multiwithlabelandicon"/>  
+</Canvas>
+
+#### Example (single)
+<Source dark language='tsx' id="fabrique-selector-stories--singlewithlabelandicon" />
+
+#### Example (multiple)
+<Source dark language='tsx' id="fabrique-selector-stories--multiwithlabelandicon" />
+
+
+### Required
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-selector-stories--singlerequired"/>  
+  <Story id="fabrique-selector-stories--multirequired"/>  
+</Canvas>
+
+#### Example (single)
+<Source dark language='tsx' id="fabrique-selector-stories--singlerequired" />
+
+#### Example (multiple)
+<Source dark language='tsx' id="fabrique-selector-stories--multirequired" />
+
+
+### Error
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-selector-stories--singlewitherror"/>  
+  <Story id="fabrique-selector-stories--multiwitherror"/>  
+</Canvas>
+
+#### Example (single)
+<Source dark language='tsx' id="fabrique-selector-stories--singlewitherror" />
+
+#### Example (multiple)
+<Source dark language='tsx' id="fabrique-selector-stories--multiwitherror" />
+
+
+### Disabled
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-selector-stories--singledisabled"/>  
+  <Story id="fabrique-selector-stories--multidisabled"/>  
+</Canvas>
+
+#### Example (single)
+<Source dark language='tsx' id="fabrique-selector-stories--singledisabled" />
+
+#### Example (multiple)
+<Source dark language='tsx' id="fabrique-selector-stories--multidisabled" />

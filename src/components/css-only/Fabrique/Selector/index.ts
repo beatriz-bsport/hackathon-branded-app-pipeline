@@ -10,6 +10,10 @@ import Selector, {
   SelectorStorybook,
   SelectorProps,
 } from './Selector.component';
+import {
+  FABRIQUE_SELECTOR_CONFIGURATION,
+  FABRIQUE_SELECTOR_PREVIEW,
+} from './custom_css_variant';
 
 export type {
   SelectorInputProps,
@@ -18,5 +22,11 @@ export type {
   SelectorValuesClasses,
   SelectorInputClasses,
 };
-export { SelectorValues, SelectorInput, SelectorStorybook };
+export {
+  SelectorValues,
+  SelectorInput,
+  SelectorStorybook,
+  FABRIQUE_SELECTOR_CONFIGURATION,
+  FABRIQUE_SELECTOR_PREVIEW,
+};
 export default Selector;

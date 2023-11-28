@@ -13928,7 +13928,8 @@
         "marketplaceCheckoutItemListPrivatePass": "This component is a list of checkout items with private passes. To fine-tune individual {{component_name}} components, you can utilize the dedicated section located in {{page}} within the editor.",
         "marketplaceCheckoutItemListPaymentCombo": "This component is a list of checkout items with packs. To fine-tune individual {{component_name}} components, you can utilize the dedicated section located in {{page}} within the editor.",
         "marketplaceCheckoutItemListPaymentPack": "This component is a list of checkout items with passes. To fine-tune individual {{component_name}}, you can utilize the dedicated section located in {{page}} within the editor.",
-        "marketplaceOfferBookingList": "This component is a list of booked sessions. To fine-tune individual {{component_name}} components, you can utilize the dedicated section within the editor."
+        "marketplaceOfferBookingList": "This component is a list of booked sessions. To fine-tune individual {{component_name}} components, you can utilize the dedicated section within the editor.",
+        "selector": "This component composed by a label and input, and a caption text. For customizing the {{component_name}} appearance, we recommand utilizing its root component"
       },
       "page": {
         "calendar": "Calendar",
@@ -14035,7 +14036,8 @@
         "fabrique_menu": "Menu",
         "fabrique_modal_dialog": "Modal Dialog",
         "fabrique_bottom_drawer": "Bottom drawer",
-        "fabrique_textform": "Text form"
+        "fabrique_textform": "Text form",
+        "selector": "Selector"
       },
       "customCss": {
         "yourCode": "Your complementary implementation:",

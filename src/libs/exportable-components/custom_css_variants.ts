@@ -371,6 +371,11 @@ import {
   FABRIQUE_BOTTOM_DRAWER_PREVIEW,
 } from '#components/css-only/Fabrique/BottomDrawer';
 
+import {
+  FABRIQUE_SELECTOR_CONFIGURATION,
+  FABRIQUE_SELECTOR_PREVIEW,
+} from '#Fabrique/Selector';
+
 /* TEMPLATE
 
 {
@@ -471,6 +476,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
         FABRIQUE_MODAL_DIALOG_CONFIGURATION,
         FABRIQUE_BOTTOM_DRAWER_CONFIGURATION,
         FABRIQUE_TEXTFORM_CONFIGURATION,
+        FABRIQUE_SELECTOR_CONFIGURATION,
       ]
     : []),
 ];
@@ -649,6 +655,7 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
         FABRIQUE_BOTTOM_DRAWER_PREVIEW,
       [CssComponentsVariantIdentifiers.FABRIQUE_TEXTFORM]:
         FABRIQUE_TEXTFORM_PREVIEW,
+      [CssComponentsVariantIdentifiers.SELECTOR]: FABRIQUE_SELECTOR_PREVIEW,
     }),
   });
 

@@ -24,7 +24,7 @@ type Props = {
   leftIcon?: React.ReactNode;
   isDisabled?: boolean;
   children: React.ReactNode;
-  onClose?: () => void;
+  onClose?: (event?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 };
 
 const ChipBackgroundClassNameMap = {

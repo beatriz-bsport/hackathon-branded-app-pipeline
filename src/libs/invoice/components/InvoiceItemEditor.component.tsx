@@ -154,7 +154,7 @@ const InvoiceItemEditor: React.FC<Props> = ({
   const [quantity, setQuantity] = useState(1);
 
   const [voucher, setVoucher] = useState<number | null>(null);
-
+  const [errors, setErrors] = useState(false);
   const [voucherPercent, setVoucherPercent] = useState<number | null>(null);
 
   const [warnMamangerOnInvoice, setWarnManagerOnInvoice] = useState(false);
@@ -166,21 +166,36 @@ const InvoiceItemEditor: React.FC<Props> = ({
     return currentItem?.price || 0;
   }, [availableBuyableItems, buyableItemId, buyableItemIdentifier]);
 
+  const [finalPricePreview, setFinalPricePreview] = useState<number | null>(
+    null,
+  );
+
   const handleChangeTab = useCallback(
     (_: React.SyntheticEvent, value: string) => {
       setBuyableItemId(null);
       setVoucher(null);
       setVoucherPercent(null);
+      setErrors(false);
+      setFinalPricePreview(null);
       setBuyableItemIdentifier(parseInt(value, 10));
     },
     [],
   );
 
-  const handleSelectBuyableItem = useCallback((item_id: number) => {
-    setBuyableItemId(item_id);
-    setVoucher(null);
-    setVoucherPercent(null);
-  }, []);
+  const handleSelectBuyableItem = useCallback(
+    (item_id: number) => {
+      setBuyableItemId(item_id);
+      setVoucher(null);
+      setVoucherPercent(null);
+      setErrors(false);
+      setFinalPricePreview(
+        availableBuyableItems[buyableItemIdentifier].find(
+          (buyableItem) => buyableItem.id === item_id,
+        )?.price || '0.00',
+      );
+    },
+    [buyableItemIdentifier, availableBuyableItems],
+  );
 
   const handleSetQuantity = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
@@ -224,8 +239,11 @@ const InvoiceItemEditor: React.FC<Props> = ({
 
   const onChangeVoucherCredit = useCallback(
     (value: number) => {
-      setVoucher(value);
-
+      const newVoucher = Math.round(parseFloat(value) * 100) / 100;
+      setVoucher(newVoucher);
+      setErrors(
+        value < 0 || (buyableItemId ? buyableItemPrice < newVoucher : false),
+      );
       if (
         buyableItemIdentifier &&
         buyableItemId !== null &&
@@ -238,12 +256,18 @@ const InvoiceItemEditor: React.FC<Props> = ({
         if (item) {
           const price = getPriceForItem(item, buyableItemIdentifier);
           const priceNumber = parseInt(price).toFixed(2);
-          const percent = ((value / priceNumber) * 100).toFixed(2);
+          const percent = ((newVoucher / priceNumber) * 100).toFixed(2);
           setVoucherPercent(percent);
+          setFinalPricePreview((price - newVoucher).toFixed(2));
         }
       }
     },
-    [buyableItemIdentifier, buyableItemId, availableBuyableItems],
+    [
+      buyableItemIdentifier,
+      buyableItemId,
+      availableBuyableItems,
+      buyableItemPrice,
+    ],
   );
 
   const handleOnChangeVoucherCredit = useCallback(
@@ -252,6 +276,11 @@ const InvoiceItemEditor: React.FC<Props> = ({
     },
     [onChangeVoucherCredit],
   );
+
+  const handleOnBlurVoucherCredit = useCallback(() => {
+    // Depending on how you change the state, prevState and toFixed might not exist
+    setVoucher((prevState) => prevState?.toFixed?.(2));
+  }, []);
 
   const onChangeVoucherPercent = useCallback(
     (percent: number) => {
@@ -271,10 +300,20 @@ const InvoiceItemEditor: React.FC<Props> = ({
           const priceNumber = parseFloat(price).toFixed(2);
           const newVoucher = ((priceNumber * percent) / 100).toFixed(2);
           setVoucher(newVoucher);
+          setErrors(
+            newVoucher < 0 ||
+              (buyableItemId ? buyableItemPrice < newVoucher : false),
+          );
+          setFinalPricePreview((price - newVoucher).toFixed(2));
         }
       }
     },
-    [buyableItemIdentifier, buyableItemId, availableBuyableItems],
+    [
+      buyableItemIdentifier,
+      buyableItemId,
+      buyableItemPrice,
+      availableBuyableItems,
+    ],
   );
 
   const handleOnChangeVoucherPercent = useCallback(
@@ -283,6 +322,48 @@ const InvoiceItemEditor: React.FC<Props> = ({
     },
     [onChangeVoucherPercent],
   );
+
+  const handleOnChangeFinalPricePreview = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const finalPrice =
+        Math.round(parseFloat(event.target.value) * 100) / 100 || 0;
+      setFinalPricePreview(finalPrice);
+
+      if (
+        buyableItemIdentifier &&
+        buyableItemId !== null &&
+        availableBuyableItems[buyableItemIdentifier]
+      ) {
+        const item = availableBuyableItems[buyableItemIdentifier].find(
+          (b) => b.id === buyableItemId,
+        );
+        if (item) {
+          const itemPrice = getPriceForItem(item, buyableItemIdentifier);
+          const newPercent = parseFloat(
+            ((1 - finalPrice / itemPrice) * 100).toFixed(2),
+          );
+          const newVoucher = (itemPrice - finalPrice).toFixed(2);
+          setVoucher(newVoucher);
+          setErrors(
+            newVoucher < 0 ||
+              (buyableItemId ? buyableItemPrice < newVoucher : false),
+          );
+          setVoucherPercent(newPercent);
+        }
+      }
+    },
+    [
+      buyableItemIdentifier,
+      buyableItemId,
+      buyableItemPrice,
+      availableBuyableItems,
+    ],
+  );
+
+  const handleFinalPricePreviewOnBlur = useCallback(() => {
+    // Depending on how you change the state, prevState and toFixed might not exist
+    setFinalPricePreview((prevState) => prevState?.toFixed?.(2));
+  }, []);
 
   React.useEffect(() => {
     if (!buyableItemId || !buyableItemIdentifier || !member) {
@@ -381,6 +462,7 @@ const InvoiceItemEditor: React.FC<Props> = ({
                     <NumericInput
                       fullWidth
                       disabled={buyableItemId === null}
+                      error={errors}
                       InputProps={{
                         inputProps: {
                           max: buyableItemPrice,
@@ -396,15 +478,16 @@ const InvoiceItemEditor: React.FC<Props> = ({
                       label={`${t(
                         'invoiceItem.discount',
                       )} (${getCurrencyDisplay()})`}
+                      onBlur={handleOnBlurVoucherCredit}
                       onChange={handleOnChangeVoucherCredit}
                       value={voucher === null ? '0.00' : voucher}
                       variant="outlined"
                     />
-
                     <div className={classes.percentDiscountWrapper}>
                       <NumericInput
                         fullWidth
                         disabled={buyableItemId === null}
+                        error={errors}
                         InputProps={{
                           inputProps: {
                             min: 0,
@@ -423,6 +506,34 @@ const InvoiceItemEditor: React.FC<Props> = ({
                         variant="outlined"
                       />
                     </div>
+                    <div className={classes.percentDiscountWrapper}>
+                      <NumericInput
+                        fullWidth
+                        disabled={buyableItemId === null}
+                        error={errors}
+                        InputProps={{
+                          inputProps: {
+                            min: 0,
+                            max: buyableItemPrice,
+                            step: 1,
+                          },
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              {getCurrencyDisplay()}
+                            </InputAdornment>
+                          ),
+                        }}
+                        label={t('invoiceItem.finalPricePreview')}
+                        onBlur={handleFinalPricePreviewOnBlur}
+                        onChange={handleOnChangeFinalPricePreview}
+                        value={
+                          finalPricePreview === null
+                            ? '0.00'
+                            : finalPricePreview
+                        }
+                        variant="outlined"
+                      />
+                    </div>
                   </div>
                 )}
               </div>
@@ -432,7 +543,7 @@ const InvoiceItemEditor: React.FC<Props> = ({
               {!warnMamangerOnInvoice ? (
                 <Button
                   color="primary"
-                  disabled={!buyableItemId}
+                  disabled={!buyableItemId || errors}
                   onClick={onClickAddInvoiceItem}
                   variant="contained"
                 >
@@ -442,6 +553,7 @@ const InvoiceItemEditor: React.FC<Props> = ({
               ) : (
                 <ButtonAddWithWarning
                   color="primary"
+                  disabled={!buyableItemId || errors}
                   onClick={onClickAddInvoiceItem}
                   variant="contained"
                 >

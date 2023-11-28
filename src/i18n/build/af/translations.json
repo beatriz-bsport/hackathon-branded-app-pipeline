@@ -2660,7 +2660,8 @@
       "quantity": "Quantity",
       "credit": { "label": "Credit" },
       "buyableItemIdentifier": { "1": "Passes", "2": "Webshop", "3": "Credit", "9": "Appointment passes", "10": "Packs", "11": "Gift cards" },
-      "discount": "Discount"
+      "discount": "Discount",
+      "finalPricePreview": "Preview total"
     },
     "invoiceInfoDialog": {
       "actions": { "close": "Close", "show": "See invoice" },

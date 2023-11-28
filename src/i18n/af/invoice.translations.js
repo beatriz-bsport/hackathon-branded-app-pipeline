@@ -310,6 +310,7 @@ const getTranslations = async () => {
         [BUYABLE_ITEM_CREDIT]: 'Credit',
       },
       discount: 'Discount',
+      finalPricePreview: 'Preview total',
     },
     invoiceInfoDialog: {
       actions: { close: 'Close', show: 'See invoice' },

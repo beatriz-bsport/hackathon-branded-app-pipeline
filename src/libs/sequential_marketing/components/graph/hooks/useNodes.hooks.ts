@@ -372,7 +372,6 @@ export const useNodeElementsRecorder = ({
             smartlists,
             onConfirm: handleConfirmEntryCriteriaBubble,
           },
-          cadenceEditMode,
           stepMemberCount: getStepMemberCountActions?.(storedEntryStep?.id),
           marketingActionEssentials,
           addNextStep: handleAddNextStepTrigger(storedEntryStep),
@@ -581,6 +580,7 @@ export const useNodeElementsRecorder = ({
   }, [
     cadenceEditMode,
     storedSteps,
+    isPushNotificationUpsellActive,
     stepToEditId,
     deleteStepMarketingAction,
     doNotDisplayConvertStepIntoExitDialogCadenceIdsAction,

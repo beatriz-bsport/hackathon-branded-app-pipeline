@@ -92,11 +92,11 @@ const InnerStepContent: React.FC<InnerStepContentProps> = React.memo(
 
 const InnerStepCard: React.FC<InnerStepCardProps> = ({
   step,
-  marketingActionList,
-  isSelected,
-  disabled,
   disableAddMarketingAction,
+  disabled,
   isPushNotificationUpsellActive,
+  isSelected,
+  marketingActionList,
   stepMemberCount,
   addMarketingAction,
   addNextStep,

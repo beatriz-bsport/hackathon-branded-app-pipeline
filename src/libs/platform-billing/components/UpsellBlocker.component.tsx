@@ -17,6 +17,8 @@ import Config from '../../../config';
 import type { Dispatch } from '../../../state/types';
 import type { RootState } from '../../../reducers';
 import { UpsellPackage } from '#libs/company/types';
+// @ts-expect-error
+import FeatureRequestDialog from '#libs/platform-billing/components/FeatureRequestDialog.component';
 
 const useStyles = makeStyles((theme) => ({
   blockerFrame: {
@@ -91,6 +93,18 @@ const UpsellBlocker = ({
 
   const allow = hasUpsell(featureList, upsellIdentifier);
 
+  const [isFeatureRequestDialogOpen, setIsFeatureRequestDialogOpen] =
+    React.useState(false);
+
+  const handleCloseFeatureRequestDialog = React.useCallback(() => {
+    setIsFeatureRequestDialogOpen(false);
+  }, []);
+
+  const handleRequestUpsellPackage = React.useCallback(() => {
+    requestUpsellPackage(upsellIdentifier);
+    setIsFeatureRequestDialogOpen(true);
+  }, [requestUpsellPackage, upsellIdentifier]);
+
   if (allow || Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production') {
     return null;
   }
@@ -121,7 +135,7 @@ const UpsellBlocker = ({
               {!handleOpenSubscriptionForm && (
                 <Button
                   className={classes.knowMoreButton}
-                  onClick={() => requestUpsellPackage(upsellIdentifier)}
+                  onClick={handleRequestUpsellPackage}
                 >
                   {t('upsellPackage.lockDialog.requestAccess')}
                 </Button>
@@ -140,6 +154,10 @@ const UpsellBlocker = ({
           </div>
         </Paper>
       </div>
+      <FeatureRequestDialog
+        onClose={handleCloseFeatureRequestDialog}
+        open={isFeatureRequestDialogOpen}
+      />
     </div>
   );
 };

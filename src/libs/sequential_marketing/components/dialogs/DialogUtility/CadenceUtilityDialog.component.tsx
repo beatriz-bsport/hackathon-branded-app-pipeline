@@ -21,13 +21,15 @@ export enum DialogVariant {
   ARCHIVE_WORKFLOW = 'archive-workflow',
   CONVERT_STEP_INTO_EXIT = 'convert-step-into-exit',
   PAUSE_WORKFLOW = 'pause-workflow',
+  BLOCK_ARCHIVED_WORKFLOW = 'block-archived-workflow',
+  BLOCK_UNACCESSIBLE_WORKFLOW = 'block-unaccessible-workflow',
   WELCOME = 'welcome',
 }
 
 type Props = {
   open: boolean;
-  onCancel: () => void;
-  onConfirm: (isCheked?: boolean) => void;
+  onCancel?: () => void;
+  onConfirm?: (isCheked?: boolean) => void;
   variant: DialogVariant;
   cadence?: Cadence;
 };
@@ -68,6 +70,18 @@ const useCadenceUtilityIcon = (
         customIcon: WelcomeIcon,
         color: SequentialMarketingColors.WELCOME_COLOR,
       };
+    case DialogVariant.BLOCK_ARCHIVED_WORKFLOW:
+      return {
+        icon: 'Block',
+        customIcon: null,
+        color: theme.palette.error.main,
+      };
+    case DialogVariant.BLOCK_UNACCESSIBLE_WORKFLOW:
+      return {
+        icon: 'HelpOutline',
+        customIcon: null,
+        color: theme.palette.error.main,
+      };
     default:
       return {
         icon: 'Error',
@@ -80,8 +94,8 @@ const useCadenceUtilityIcon = (
 const useCadenceUtilityButtons = (
   variant: DialogVariant,
   theme: Theme,
-  onClose: () => void,
-  onConfirm: (ignoreFutureWarning?: boolean) => void,
+  onClose?: () => void,
+  onConfirm?: (ignoreFutureWarning?: boolean) => void,
 ): React.ComponentProps<typeof DialogWithBigIcon>['buttons'] => {
   const { t } = useTranslation('marketing');
 
@@ -161,6 +175,9 @@ const useCadenceUtilityButtons = (
           onClick: onConfirm,
         },
       ];
+    case DialogVariant.BLOCK_ARCHIVED_WORKFLOW:
+    case DialogVariant.BLOCK_UNACCESSIBLE_WORKFLOW:
+      return null;
     default:
       return [
         defaultCancelButtonProps,
@@ -223,6 +240,16 @@ const useCadenceUtilityTexts = (
         title: t('cadence.welcome.dialog.title'),
         descriptions: [[t('cadence.welcome.dialog.helper')]],
       };
+    case DialogVariant.BLOCK_ARCHIVED_WORKFLOW:
+      return {
+        title: t('audience.block.archived.dialog.title'),
+        descriptions: [[t('audience.block.archived.dialog.helper')]],
+      };
+    case DialogVariant.BLOCK_UNACCESSIBLE_WORKFLOW:
+      return {
+        title: t('audience.block.unrecognized.dialog.title'),
+        descriptions: [[t('audience.block.unrecognized.dialog.helper')]],
+      };
     default:
       return {
         title: '',
@@ -235,6 +262,8 @@ const useCadenceUtilityCheckbox = (variant: DialogVariant) => {
   switch (variant) {
     case DialogVariant.ACTIVE:
     case DialogVariant.ARCHIVE_WORKFLOW:
+    case DialogVariant.BLOCK_ARCHIVED_WORKFLOW:
+    case DialogVariant.BLOCK_UNACCESSIBLE_WORKFLOW:
       return false;
 
     case DialogVariant.CONVERT_STEP_INTO_EXIT:

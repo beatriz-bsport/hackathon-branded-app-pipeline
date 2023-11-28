@@ -1,5 +1,7 @@
 import React from 'react';
-import CadenceUtilityDialog from './CadenceUtilityDialog.component';
+import CadenceUtilityDialog, {
+  DialogVariant,
+} from './CadenceUtilityDialog.component';
 import { action } from '@storybook/addon-actions';
 
 const CadenceUtilityDialogTemplate = (
@@ -30,13 +32,7 @@ export default {
     variant: {
       description: 'The variant to use.',
       control: 'radio',
-      options: [
-        'activate',
-        'delete-step',
-        'archive-workflow',
-        'convert-step-into-exit',
-        'pause-workflow',
-      ],
+      options: Object.values(DialogVariant),
     },
   },
 };

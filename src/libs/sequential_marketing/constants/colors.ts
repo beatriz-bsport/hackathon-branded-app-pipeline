@@ -19,4 +19,6 @@ export enum SequentialMarketingColors {
   ACTION_BUTTON_COLOR = 'rgba(0, 0, 0, 0.54)',
 
   GREY_FILTER_COLOR = 'rgba(189, 189, 189, 1)',
+
+  WELCOME_COLOR = 'rgba(33, 150, 243, 1)',
 }

@@ -8,8 +8,11 @@ import useTheme from '@material-ui/core/styles/useTheme';
 import type { Theme } from '@material-ui/core/styles';
 
 import WarningIconRounded from '#components/icons/WarningIconRounded.component';
+import WelcomeIcon from '#components/icons/WelcomeIcon.component';
 
 import DialogWithBigIcon from '#components/DialogWithBigIcon';
+import { SequentialMarketingColors } from '#libs/sequential_marketing/constants';
+
 import type { Cadence } from '#libs/sequential_marketing/types';
 
 export enum DialogVariant {
@@ -18,6 +21,7 @@ export enum DialogVariant {
   ARCHIVE_WORKFLOW = 'archive-workflow',
   CONVERT_STEP_INTO_EXIT = 'convert-step-into-exit',
   PAUSE_WORKFLOW = 'pause-workflow',
+  WELCOME = 'welcome',
 }
 
 type Props = {
@@ -57,6 +61,12 @@ const useCadenceUtilityIcon = (
         icon: 'Pause',
         customIcon: null,
         color: theme.palette.info.main,
+      };
+    case DialogVariant.WELCOME:
+      return {
+        icon: null,
+        customIcon: WelcomeIcon,
+        color: SequentialMarketingColors.WELCOME_COLOR,
       };
     default:
       return {
@@ -136,6 +146,21 @@ const useCadenceUtilityButtons = (
           onClick: onConfirm,
         },
       ];
+    case DialogVariant.WELCOME:
+      return [
+        {
+          title: t('cadence.welcome.dialog.return'),
+          fontColor: 'inherit',
+          backgroundColor: 'inherit',
+          onClick: onClose,
+        },
+        {
+          title: t('cadence.welcome.dialog.confirm'),
+          fontColor: '',
+          backgroundColor: theme.palette.primary.main,
+          onClick: onConfirm,
+        },
+      ];
     default:
       return [
         defaultCancelButtonProps,
@@ -184,13 +209,16 @@ const useCadenceUtilityTexts = (
         title: t('cadence.step.archive.dialog.title'),
         descriptions: [[t('cadence.step.archive.dialog.helper')]],
       };
-
     case DialogVariant.PAUSE_WORKFLOW:
       return {
         title: t('cadence.pause.dialog.title'),
         descriptions: [[t('cadence.pause.dialog.helper')]],
       };
-
+    case DialogVariant.WELCOME:
+      return {
+        title: t('cadence.welcome.dialog.title'),
+        descriptions: [[t('cadence.welcome.dialog.helper')]],
+      };
     default:
       return {
         title: '',
@@ -203,15 +231,31 @@ const useCadenceUtilityCheckbox = (variant: DialogVariant) => {
   switch (variant) {
     case DialogVariant.ACTIVE:
     case DialogVariant.ARCHIVE_WORKFLOW:
-      return { displayCheckBox: false };
+      return false;
 
     case DialogVariant.CONVERT_STEP_INTO_EXIT:
     case DialogVariant.DELETE_STEP:
     case DialogVariant.PAUSE_WORKFLOW:
-      return { displayCheckBox: true };
+    case DialogVariant.WELCOME:
+      return true;
 
     default:
-      return { displayCheckBox: false };
+      return false;
+  }
+};
+
+const useCadenceUtilitySize = (variant: DialogVariant) => {
+  switch (variant) {
+    case DialogVariant.WELCOME:
+      return 'sm';
+
+    case DialogVariant.ACTIVE:
+    case DialogVariant.ARCHIVE_WORKFLOW:
+    case DialogVariant.CONVERT_STEP_INTO_EXIT:
+    case DialogVariant.DELETE_STEP:
+    case DialogVariant.PAUSE_WORKFLOW:
+    default:
+      return 'xs';
   }
 };
 
@@ -223,14 +267,16 @@ export const CadenceUtilityDialog: React.FC<Props> = ({
   cadence,
 }) => {
   const classes = useStyles();
-  const theme = useTheme();
+  const theme = useTheme?.();
   const { t } = useTranslation('marketing');
   const { icon, customIcon, color } = useCadenceUtilityIcon(variant, theme);
   const displayCheckBox = useCadenceUtilityCheckbox(variant);
+  const size = useCadenceUtilitySize(variant);
 
-  const checkBoxLabel = displayCheckBox.displayCheckBox
+  const checkBoxLabel = displayCheckBox
     ? t('cadence.dialog.do_not_display_anymore')
     : '';
+
   const [isChecked, setIsChecked] = React.useState<boolean>(false);
 
   const handleCheck = React.useCallback(() => {
@@ -271,7 +317,7 @@ export const CadenceUtilityDialog: React.FC<Props> = ({
       icon={icon}
       iconColor={color}
       isChecked={isChecked}
-      maxWidth="xs"
+      maxWidth={size}
       namespaces="marketing"
       onClose={handleClose}
       open={open}

@@ -1,7 +1,7 @@
 const {
   UPSELL_IDENTIFIER_INBOX,
   UPSELL_IDENTIFIER_CADENCE,
-} = require('#libs/platform-billing/upsell-identifiers');
+} = require('../../libs/platform-billing/upsell-identifiers-for-translation.ts');
 
 exports.default = {
   paymentMethod: {

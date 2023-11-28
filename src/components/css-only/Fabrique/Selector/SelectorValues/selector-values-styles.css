@@ -1,0 +1,9 @@
+.bs-fabrique-selector-values {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--bs-space-size-1);
+}
+
+.bs-fabrique-selector-values__chip {
+}

@@ -1,0 +1,106 @@
+import React from 'react';
+import classNames from 'classnames';
+import Typography from '#Fabrique/Typography';
+import Chip from '#Fabrique/Chip';
+import './selector-values-styles.css';
+
+type SelectorValuesClasses = {
+  typography?: string;
+  values?: string;
+  chip?: string;
+};
+
+export type SelectorValuesProps = {
+  /**
+   * Override the style of the nested elements in this component
+   */
+  classes?: SelectorValuesClasses;
+  /**
+   * Callback function to extract the value we want to display in the selector from an item
+   */
+  getSelectedItemLabel: (item: unknown) => string | number;
+  /**
+   * Callback function to extract the value from an item. This value will be used to remove a selected item
+   */
+  getSelectedItemValue: (item: unknown) => string | number;
+  /**
+   * If true, apply the small variant corresponding style
+   */
+  isSmall?: boolean;
+  /**
+   * If true, values are displayed as chip.
+   */
+  multiple?: boolean;
+  /**
+   * Callback fired when clicking on the cross button of a chip element
+   */
+  onRemoveValue?: (value: number | string) => void;
+  /**
+   * The selected values.
+   */
+  selectedItems?: unknown;
+};
+
+const SelectorValues: React.FC<SelectorValuesProps> = ({
+  classes,
+  getSelectedItemLabel,
+  getSelectedItemValue,
+  isSmall = false,
+  multiple = false,
+  onRemoveValue,
+  selectedItems,
+}) => {
+  const handleRemove = React.useCallback(
+    (itemToRemove: number | string) =>
+      (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        event?.stopPropagation();
+        const value = getSelectedItemValue?.(itemToRemove);
+        onRemoveValue?.(value);
+      },
+    [onRemoveValue, getSelectedItemValue],
+  );
+
+  if (!multiple && !Array.isArray(selectedItems)) {
+    return (
+      <Typography
+        className={classNames(
+          'bs-fabrique-selector-values',
+          classes?.typography,
+        )}
+        variant={isSmall ? 'body-sm' : 'body-md'}
+      >
+        {getSelectedItemLabel?.(selectedItems)}
+      </Typography>
+    );
+  }
+  if (Array.isArray(selectedItems)) {
+    return (
+      <div
+        className={classNames('bs-fabrique-selector-values', classes?.values)}
+      >
+        {selectedItems.map((item) => {
+          const itemLabel = getSelectedItemLabel?.(item);
+          const itemValue = getSelectedItemValue?.(item);
+          return (
+            <Chip
+              key={itemValue}
+              className={classNames(
+                'bs-fabrique-selector-values__chip',
+                classes?.chip,
+              )}
+              color="grey"
+              onClose={handleRemove?.(item)}
+              size="sm"
+              variant="weak"
+            >
+              {itemLabel}
+            </Chip>
+          );
+        })}
+      </div>
+    );
+  }
+  return null;
+};
+
+export default React.memo(SelectorValues);

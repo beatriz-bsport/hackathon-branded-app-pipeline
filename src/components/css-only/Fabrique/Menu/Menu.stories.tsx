@@ -91,22 +91,13 @@ export default {
 
 const Template: ComponentStory<typeof Menu> = (args: MenuProps) => {
   const [isOpen, setIsOpen] = React.useState(false);
-  const [isOpen2, setIsOpen2] = React.useState(false);
 
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement>(null);
-  const [anchorEl2, setAnchorEl2] = React.useState<HTMLElement>(null);
   const handleOnClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const currentTarget = event.currentTarget;
     const id = currentTarget.getAttribute('id');
-    console.log(id);
     setAnchorEl(currentTarget);
     setIsOpen(true);
-  };
-
-  const handleOnClick2 = (event: React.MouseEvent<HTMLButtonElement>) => {
-    const currentTarget = event.currentTarget;
-    setAnchorEl2(currentTarget);
-    setIsOpen2(true);
   };
 
   const handleOnClose = () => {
@@ -114,25 +105,10 @@ const Template: ComponentStory<typeof Menu> = (args: MenuProps) => {
     setIsOpen(false);
   };
 
-  const handleOnClose2 = () => {
-    setAnchorEl(null);
-    setIsOpen2(false);
-  };
-
   const [itemsSelected, setItemsSelected] = React.useState<number[]>([]);
-  const [itemsSelected2, setItemsSelected2] = React.useState<number[]>([]);
 
   const handleClick = (id: number) => () => {
     setItemsSelected((prevState) => {
-      const isSelected = prevState.includes(id);
-      return isSelected
-        ? prevState.filter((selected) => selected !== id)
-        : [...prevState, id];
-    });
-  };
-
-  const handleClick2 = (id: number) => () => {
-    setItemsSelected2((prevState) => {
       const isSelected = prevState.includes(id);
       return isSelected
         ? prevState.filter((selected) => selected !== id)
@@ -166,34 +142,6 @@ const Template: ComponentStory<typeof Menu> = (args: MenuProps) => {
               label={menuItem.label}
               type="checkbox"
               selected={itemsSelected.includes(menuItem.id)}
-            />
-          ))}
-        </MenuItemListStorybook>
-      </MenuStorybook>
-      <ButtonBaseStorybook
-        aria-haspopup="true"
-        aria-controls={isOpen2 ? 'basic-menu-toto' : undefined}
-        onClick={handleOnClick2}
-        isDisabled={isOpen2}
-        style={{ border: '2px solid black', padding: '16px' }}
-      >
-        <Typography variant="body-lg">Open Menu</Typography>
-      </ButtonBaseStorybook>
-      <MenuStorybook
-        isOpen={isOpen2}
-        anchorEl={anchorEl2}
-        id="basic-menu-toto"
-        onClose={handleOnClose2}
-        {...args}
-      >
-        <MenuItemListStorybook>
-          {menuItemData.map((menuItem) => (
-            <MenuItemStorybook
-              key={menuItem.id}
-              onClick={handleClick2(menuItem.id)}
-              label={menuItem.label}
-              type="checkbox"
-              selected={itemsSelected2.includes(menuItem.id)}
             />
           ))}
         </MenuItemListStorybook>

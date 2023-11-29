@@ -156,6 +156,7 @@ export type EstablishmentBillingGroup = {
   company_id: number;
   establishments: Array<Establishment>;
   address: string;
+  disabled: boolean;
 };
 
 export type EstablishmentBillingGroupAPI = {
@@ -164,6 +165,7 @@ export type EstablishmentBillingGroupAPI = {
   company_id: number;
   establishments: Array<number>;
   address: string;
+  disabled: boolean;
 };
 
 export type WithEstablishment<T> = T & { establishment: Establishment };

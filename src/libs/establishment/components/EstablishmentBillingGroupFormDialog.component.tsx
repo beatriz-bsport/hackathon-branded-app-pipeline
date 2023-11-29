@@ -34,7 +34,7 @@ type InitialValues = {
 };
 type OwnProps = InitialValues & {
   onSubmit: (
-    data: Omit<EstablishmentBillingGroupAPI, 'id' | 'company_id'>,
+    data: Omit<EstablishmentBillingGroupAPI, 'id' | 'company_id' | 'disabled'>,
   ) => void;
   isSubmitting: boolean;
   open: boolean;

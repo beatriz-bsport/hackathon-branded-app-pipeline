@@ -177,5 +177,6 @@ export function establishmentBillingGroupFactory(
     establishments: withEstablishment
       ? establishment_factory(faker.number.int({ min: 1, max: 10 }))
       : [],
+    disabled: false,
   }));
 }

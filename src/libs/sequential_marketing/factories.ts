@@ -9,6 +9,7 @@ import {
   DESTINATION_STATUS_CHOICES,
 } from './constants';
 import type {
+  Cadence,
   CadenceStep,
   ConnectedTrigger,
   DestinationConfig,
@@ -237,3 +238,35 @@ export function stepMarketingActionBatchFactory(
     });
   });
 }
+
+export function workflowFactory({
+  id,
+  company,
+  name,
+  active,
+  archived,
+  priority_index,
+  entries,
+  cadence_exits,
+  steps,
+  entrypoint_step_id,
+  initialized,
+}: Partial<Cadence>): Cadence {
+  return {
+    id: id || faker.number.int(),
+    company: company || faker.number.int(100),
+    name: name || faker.lorem.word(),
+    active: active || true,
+    archived: archived || true,
+    priority_index: priority_index || faker.number.int(),
+    entries: entries || [],
+    cadence_exits: cadence_exits || [],
+    steps: steps || [],
+    entrypoint_step_id: entrypoint_step_id || faker.number.int(),
+    initialized: initialized || true,
+  };
+}
+
+export const listWorkflowFactory = (count: number) => {
+  return faker.helpers.multiple(() => workflowFactory({}), { count });
+};

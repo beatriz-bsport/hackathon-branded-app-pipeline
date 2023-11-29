@@ -1,14 +1,14 @@
 import Immutable from 'seamless-immutable';
 import type {
   Cadence,
-  CadenceConfigurationState,
+  CadenceInitialConfigurationState,
   CadenceStep,
   ConnectedTrigger,
 } from '#libs/sequential_marketing/types';
 import { DestinationStatus } from '#libs/sequential_marketing/constants';
 
-export const isMinimalCadenceConfigurationCompleted = (
-  cadenceMinimalConfigurationState: CadenceConfigurationState,
+export const isCadenceInitialConfigurationCompleted = (
+  cadenceMinimalConfigurationState: CadenceInitialConfigurationState,
 ) => {
   return (
     cadenceMinimalConfigurationState?.cadenceLoseConfigured &&

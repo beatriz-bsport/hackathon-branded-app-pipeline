@@ -25,7 +25,7 @@ import type {
   CadenceStep,
   ConnectedTrigger,
   GraphCanvas,
-  InitialConfigurationValues,
+  CadenceInitialConfiguration,
   StepMarketingActions,
   MarketingActionEssentials,
 } from '#libs/sequential_marketing/types';
@@ -140,7 +140,7 @@ export const useStepsAndTriggersRecorder = ({
 type NodeRendererProps = {
   cadence: Cadence;
   cadenceEditMode: boolean;
-  initialConfiguration: InitialConfigurationValues;
+  initialConfiguration: CadenceInitialConfiguration;
   isEntryActionBubbleOpen: boolean;
   isEntryFirstConfiguration: boolean;
   smartlists: Immutable.ImmutableArray<SmartList>;
@@ -205,7 +205,7 @@ type NodeRendererProps = {
   ) => void;
   doNotDisplayDeleteStepDialogCadenceIdsAction: () => void;
   doNotDisplayConvertStepIntoExitDialogCadenceIdsAction: () => void;
-  setInitialConfig: (data: InitialConfigurationValues) => void;
+  setInitialConfig: (data: CadenceInitialConfiguration) => void;
   setCurrentStepConfiguration: (
     currentStepConfiguration: InitialConfigurationStep,
   ) => void;

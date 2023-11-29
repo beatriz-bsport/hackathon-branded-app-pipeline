@@ -7,7 +7,7 @@ import type {
   CadenceStepQueryParams,
   ConnectedTrigger,
   GraphCanvas,
-  InitialConfigurationValues,
+  CadenceInitialConfiguration,
   StepMarketingActions,
   StepMarketingActionsParams,
   UpdatedTrigger,
@@ -77,9 +77,9 @@ export const shutOffCadence = (id: number) => {
   );
 };
 
-export const setInitialCadenceConfiguration = (
+export const setCadenceInitialConfiguration = (
   id: number,
-  data: InitialConfigurationValues,
+  data: CadenceInitialConfiguration,
 ) => {
   return postAuth<Cadence>(
     `${API_V1_URI}/sequential_marketing/cadence/${id}/initial_config/`,
@@ -94,9 +94,9 @@ export const setInitialCadenceConfiguration = (
   );
 };
 
-export const patchInitialCadenceConfiguration = (
+export const patchCadenceInitialConfiguration = (
   id: number,
-  data: InitialConfigurationValues,
+  data: CadenceInitialConfiguration,
 ) => {
   return putAuth<Cadence>(
     `${API_V1_URI}/sequential_marketing/cadence/${id}/initial_config/`,

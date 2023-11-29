@@ -16,7 +16,7 @@ import type {
   ConnectedTrigger,
   GraphCanvas,
   MarketingActionEssentials,
-  InitialConfigurationValues,
+  CadenceInitialConfiguration,
   StepMarketingActions,
 } from '#libs/sequential_marketing/types';
 import type { CustomNode, StoredTrigger } from './types';
@@ -37,7 +37,7 @@ type Props = {
   marketingActionEssentials: MarketingActionEssentials;
   hideConvertStepIntoExitDialogCadenceIds: number[];
   hideDeleteStepDialogCadenceIds: number[];
-  initialConfiguration: InitialConfigurationValues;
+  initialConfiguration: CadenceInitialConfiguration;
   isConvertStepIntoExitDialogHidden: boolean;
   isPushNotificationUpsellActive: boolean;
   isDeleteStepDialogHidden: boolean;
@@ -101,7 +101,7 @@ type Props = {
   ) => void;
   doNotDisplayDeleteStepDialogCadenceIdsAction: () => void;
   doNotDisplayConvertStepIntoExitDialogCadenceIdsAction: () => void;
-  setInitialConfig: (data: InitialConfigurationValues) => void;
+  setInitialConfig: (data: CadenceInitialConfiguration) => void;
   setCurrentStepConfiguration: (
     currentStepConfiguration: InitialConfigurationStep,
   ) => void;

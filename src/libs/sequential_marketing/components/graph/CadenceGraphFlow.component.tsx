@@ -26,7 +26,7 @@ import type {
   ConnectedTrigger,
   GraphCanvas,
   MarketingActionEssentials,
-  InitialConfigurationValues,
+  CadenceInitialConfiguration,
   StepMarketingActions,
 } from '#libs/sequential_marketing/types';
 
@@ -39,7 +39,7 @@ type Props = {
   cadenceEditMode: boolean;
   currentStepConfiguration: InitialConfigurationStep;
   smartlists: Immutable.ImmutableArray<SmartList>;
-  initialConfiguration: InitialConfigurationValues;
+  initialConfiguration: CadenceInitialConfiguration;
   isEntryFirstConfiguration: boolean;
   steps: CadenceStep[];
   hideDeleteStepDialogCadenceIds: number[];
@@ -88,7 +88,7 @@ type Props = {
   setCurrentStepConfiguration: (
     currentStepConfiguration: InitialConfigurationStep,
   ) => void;
-  setInitialConfig: (data: InitialConfigurationValues, save?: boolean) => void;
+  setInitialConfig: (data: CadenceInitialConfiguration, save?: boolean) => void;
   submitMarketingActionForm: (data: {
     list: StepMarketingActions[];
     stepId: number;

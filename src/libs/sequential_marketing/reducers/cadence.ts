@@ -10,7 +10,7 @@ import {
   restoreCadenceActions,
   activateCadenceActions,
   shutOffCadenceActions,
-  upsertInitialCadenceConfigurationActions,
+  upsertCadenceInitialConfigurationActions,
 } from '#libs/sequential_marketing/actions';
 
 import { Cadence, CadenceState } from '#libs/sequential_marketing/types';
@@ -70,19 +70,19 @@ export default handleActions<ImmutableCadenceState, any>(
       return state.setIn(['byId', payload.id.toString()], payload);
     },
 
-    [upsertInitialCadenceConfigurationActions.isLoading.toString()]: (
+    [upsertCadenceInitialConfigurationActions.isLoading.toString()]: (
       state,
       { payload }: { payload: boolean },
     ) => {
       return state.set('loading', payload);
     },
-    [upsertInitialCadenceConfigurationActions.error.toString()]: (
+    [upsertCadenceInitialConfigurationActions.error.toString()]: (
       state,
       { payload }: { payload: Error | null },
     ) => {
       return state.set('error', payload);
     },
-    [upsertInitialCadenceConfigurationActions.success.toString()]: (
+    [upsertCadenceInitialConfigurationActions.success.toString()]: (
       state,
       { payload }: { payload: Cadence },
     ) => {

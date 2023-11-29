@@ -36,7 +36,7 @@ import {
 
 import type {
   ConnectedTrigger,
-  InitialConfigurationValues,
+  CadenceInitialConfiguration,
 } from '#libs/sequential_marketing/types';
 import type { SmartList } from '#libs/smart-list/types';
 
@@ -50,14 +50,14 @@ type Props = {
   loseTriggers: ConnectedTrigger[];
   winTriggers: ConnectedTrigger[];
   smartlists: Immutable.ImmutableArray<SmartList>;
-  initialConfiguration: InitialConfigurationValues;
+  initialConfiguration: CadenceInitialConfiguration;
   getSmartlist: (id: number) => SmartList;
   closeEntryActionBubble: () => void;
   openEntryActionBubble: () => void;
   setCurrentStepConfiguration: (
     currentStepConfiguration: InitialConfigurationStep,
   ) => void;
-  setInitialConfig: (data: InitialConfigurationValues, save?: boolean) => void;
+  setInitialConfig: (data: CadenceInitialConfiguration, save?: boolean) => void;
   switchDisplayDisabledNodes: () => void;
 };
 

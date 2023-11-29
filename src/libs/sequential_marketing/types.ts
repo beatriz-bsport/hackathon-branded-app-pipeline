@@ -207,13 +207,13 @@ export type GlobalCadenceChip = {
 };
 
 // ========== INITIAL CONFIGURATION ==========
-export type CadenceConfigurationState = {
+export type CadenceInitialConfigurationState = {
   cadenceWinConfigured: boolean;
   cadenceLoseConfigured: boolean;
   cadenceEntryConfigured: boolean;
 };
 
-export type InitialConfigurationValues = {
+export type CadenceInitialConfiguration = {
   [key in InitialConfigurationStep]?: {
     connectedTriggers: ConnectedTrigger[];
     marketingActions?: StepMarketingActions[];

@@ -9,8 +9,8 @@ import {
   restoreCadence as restoreCadenceAPI,
   activateCadence as activateCadenceAPI,
   shutOffCadence as shutOffCadenceAPI,
-  setInitialCadenceConfiguration as setInitialCadenceConfigurationAPI,
-  patchInitialCadenceConfiguration as patchInitialCadenceConfigurationAPI,
+  setCadenceInitialConfiguration as setCadenceInitialConfigurationAPI,
+  patchCadenceInitialConfiguration as patchCadenceInitialConfigurationAPI,
 } from '#libs/sequential_marketing/api';
 import { snackbarError, snackbarSuccess } from '#libs/snackbar/actions';
 
@@ -23,7 +23,7 @@ import type {
 import type {
   Cadence,
   CadenceQueryParams,
-  InitialConfigurationValues,
+  CadenceInitialConfiguration,
 } from '#libs/sequential_marketing/types';
 
 export const createCadenceActions = {
@@ -187,55 +187,55 @@ export function shutOffCadence(id: number, options?: OptionCallback<Cadence>) {
   };
 }
 
-export const upsertInitialCadenceConfigurationActions = {
+export const upsertCadenceInitialConfigurationActions = {
   isLoading: createAction<boolean>('CADENCE_WIP/SETUP_CONFIG/IS_LOADING'),
   error: createAction<Error>('CADENCE_WIP/SETUP_CONFIG/ERROR'),
   success: createAction<Cadence>('CADENCE_WIP/SETUP_CONFIG/SUCCESS'),
 };
 
-export function setInitialCadenceConfiguration(
+export function setCadenceInitialConfiguration(
   id: number,
-  data: InitialConfigurationValues,
+  data: CadenceInitialConfiguration,
   options?: OptionCallback<Cadence>,
 ) {
   return async (dispatch: Dispatch) => {
-    dispatch(upsertInitialCadenceConfigurationActions.isLoading(true));
-    dispatch(upsertInitialCadenceConfigurationActions.error(null));
+    dispatch(upsertCadenceInitialConfigurationActions.isLoading(true));
+    dispatch(upsertCadenceInitialConfigurationActions.error(null));
 
     try {
-      const response = await setInitialCadenceConfigurationAPI(id, data);
-      dispatch(upsertInitialCadenceConfigurationActions.success(response.data));
+      const response = await setCadenceInitialConfigurationAPI(id, data);
+      dispatch(upsertCadenceInitialConfigurationActions.success(response.data));
       options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
-      dispatch(upsertInitialCadenceConfigurationActions.error(err));
+      dispatch(upsertCadenceInitialConfigurationActions.error(err));
       options?.onError?.();
     }
 
-    dispatch(upsertInitialCadenceConfigurationActions.isLoading(false));
+    dispatch(upsertCadenceInitialConfigurationActions.isLoading(false));
   };
 }
 
-export function updateInitialCadenceConfiguration(
+export function updateCadenceInitialConfiguration(
   id: number,
-  data: InitialConfigurationValues,
+  data: CadenceInitialConfiguration,
   options?: OptionCallback<Cadence>,
 ) {
   return async (dispatch: Dispatch) => {
-    dispatch(upsertInitialCadenceConfigurationActions.isLoading(true));
-    dispatch(upsertInitialCadenceConfigurationActions.error(null));
+    dispatch(upsertCadenceInitialConfigurationActions.isLoading(true));
+    dispatch(upsertCadenceInitialConfigurationActions.error(null));
 
     try {
-      const response = await patchInitialCadenceConfigurationAPI(id, data);
-      dispatch(upsertInitialCadenceConfigurationActions.success(response.data));
+      const response = await patchCadenceInitialConfigurationAPI(id, data);
+      dispatch(upsertCadenceInitialConfigurationActions.success(response.data));
       options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
-      dispatch(upsertInitialCadenceConfigurationActions.error(err));
+      dispatch(upsertCadenceInitialConfigurationActions.error(err));
       options?.onError?.();
     }
 
-    dispatch(upsertInitialCadenceConfigurationActions.isLoading(false));
+    dispatch(upsertCadenceInitialConfigurationActions.isLoading(false));
   };
 }
 

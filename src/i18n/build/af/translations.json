@@ -13965,10 +13965,10 @@
         "fabrique_menu_item_list": "Menu Item List",
         "fabrique_list_item": "List item",
         "fabrique_list": "List",
-        "fabrique_textform": "Text form",
         "fabrique_menu": "Menu",
         "fabrique_modal_dialog": "Modal Dialog",
-        "fabrique_bottom_drawer": "Bottom drawer"
+        "fabrique_bottom_drawer": "Bottom drawer",
+        "fabrique_textform": "Text form"
       },
       "customCss": {
         "yourCode": "Your complementary implementation:",

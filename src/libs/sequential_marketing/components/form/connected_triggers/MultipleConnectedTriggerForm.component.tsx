@@ -11,7 +11,7 @@ import type { SmartList } from '#libs/smart-list/types';
 import {
   DestinationKind,
   DestinationStatus,
-  LOST_OUTPUT_TIMEOUT_TRIGGER_ID,
+  TriggerIdentifier,
   TriggerKind,
 } from '#libs/sequential_marketing/constants';
 import { getConnectedTriggerDefaultValues } from '#libs/sequential_marketing/components/graph/hooks/utils';
@@ -87,7 +87,8 @@ const MultipleConnectedTriggerForm: React.FC<Props> = ({
     () =>
       values?.connectedTriggers?.find(
         (trigger) =>
-          trigger?.trigger_config?.uuid === LOST_OUTPUT_TIMEOUT_TRIGGER_ID,
+          !trigger?.disabled &&
+          trigger.trigger_config?.identifier === TriggerIdentifier.TIMEOUT,
       ),
     [values.connectedTriggers],
   );
@@ -102,7 +103,7 @@ const MultipleConnectedTriggerForm: React.FC<Props> = ({
     () =>
       values?.connectedTriggers?.filter(
         (trigger) =>
-          trigger?.trigger_config?.uuid !== LOST_OUTPUT_TIMEOUT_TRIGGER_ID,
+          trigger?.trigger_config?.identifier !== TriggerIdentifier.TIMEOUT,
       ),
     [values.connectedTriggers],
   );
@@ -177,7 +178,8 @@ const MultipleConnectedTriggerForm: React.FC<Props> = ({
     (updatedTrigger: ConnectedTrigger) =>
       updateConnectedTriggerList(
         values.connectedTriggers.map((trigger) =>
-          trigger?.trigger_config?.uuid === LOST_OUTPUT_TIMEOUT_TRIGGER_ID
+          !trigger?.disabled &&
+          trigger.trigger_config?.identifier === TriggerIdentifier.TIMEOUT
             ? updatedTrigger
             : trigger,
         ),
@@ -264,7 +266,8 @@ const withFormikWrapper = withFormik<HOCProps, FormValues>({
     multipleTriggersValidationSchema(
       !!connectedTriggers?.find(
         (trigger) =>
-          trigger?.trigger_config?.uuid === LOST_OUTPUT_TIMEOUT_TRIGGER_ID,
+          !trigger?.disabled &&
+          trigger.trigger_config?.identifier === TriggerIdentifier.TIMEOUT,
       ) && 6,
     ),
 });

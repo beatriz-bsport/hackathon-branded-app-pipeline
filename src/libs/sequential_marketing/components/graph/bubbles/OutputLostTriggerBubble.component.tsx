@@ -92,7 +92,7 @@ const OutputLostTriggerBubble: React.FC<Props> = ({
       title={t('cadence.bubble.lostTrigger.title')}
     >
       <div className={classes.content}>
-        <Alert severity="info">
+        <Alert className={classes.alert} severity="info">
           {t('cadence.bubble.lostTrigger.helperText')}
         </Alert>
         <MultipleConnectedTriggerForm
@@ -115,6 +115,9 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     gap: theme.spacing(4),
+  },
+  alert: {
+    alignItems: 'center',
   },
 }));
 

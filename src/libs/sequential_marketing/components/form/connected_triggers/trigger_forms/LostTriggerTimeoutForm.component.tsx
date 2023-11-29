@@ -103,6 +103,11 @@ const LostTriggerTimeoutForm: React.FC<Props> = ({ trigger, updateValue }) => {
           />
         </div>
       </div>
+      {timeoutValue < 1 && (
+        <Typography color="error" variant="caption">
+          {t('cadence.form.error.timeoutMustBeStrictPositive')}
+        </Typography>
+      )}
       <Typography className={classes.helperText} variant="caption">
         {t('cadence.bubble.lostTrigger.timeout.helperText')}
       </Typography>

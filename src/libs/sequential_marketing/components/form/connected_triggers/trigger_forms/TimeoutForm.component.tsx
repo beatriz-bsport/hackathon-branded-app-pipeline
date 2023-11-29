@@ -72,7 +72,7 @@ const TimeoutForm: React.FC<Props> = ({ trigger, updateValue }) => {
 
   return (
     <>
-      <div className={classes.timeoutSelectorContainer}>
+      <div className={classes.selectorContainer}>
         <Typography variant="body1">
           {t('cadence.form.trigger.triggerTimeoutLabel')}
         </Typography>
@@ -86,7 +86,7 @@ const TimeoutForm: React.FC<Props> = ({ trigger, updateValue }) => {
             value={timeoutValue}
           />
         </div>
-        <div className={classes.timeoutInputTextEnd}>
+        <div className={classes.inputEndText}>
           <Typography variant="body1">
             {t('cadence.form.trigger.triggerTimeoutDays', {
               count: timeoutValue,
@@ -95,7 +95,7 @@ const TimeoutForm: React.FC<Props> = ({ trigger, updateValue }) => {
         </div>
       </div>
       {timeoutValue < 1 && (
-        <div className={classes.timeoutInputErrorText}>
+        <div className={classes.inputErrorText}>
           <Typography color="error" variant="caption">
             {t('cadence.form.error.timeoutMustBeStrictPositive')}
           </Typography>
@@ -106,7 +106,7 @@ const TimeoutForm: React.FC<Props> = ({ trigger, updateValue }) => {
 };
 
 const useStyles = makeStyles((theme) => ({
-  timeoutSelectorContainer: {
+  selectorContainer: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -116,10 +116,10 @@ const useStyles = makeStyles((theme) => ({
     minWidth: theme.spacing(6),
     flex: 1,
   },
-  timeoutInputTextEnd: {
+  inputEndText: {
     flex: 9,
   },
-  timeoutInputErrorText: {
+  inputErrorText: {
     padding: theme.spacing(0),
     paddingBottom: theme.spacing(1),
     margin: theme.spacing(0),

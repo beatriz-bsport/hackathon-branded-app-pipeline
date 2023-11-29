@@ -27,6 +27,7 @@ import SwitchHorizontalSquareFramedIcon from './SwitchHorizontalSquareFramedIcon
 import SwitchHorizontalDiamondFramedIcon from './SwitchHorizontalDiamondFramedIcon.component';
 import type { SvgIconProps } from '@material-ui/core/SvgIcon';
 import { CustomStarIcon } from './CustomStarIcon.component';
+import TrophyIcon from './TrophyIcon.component';
 
 const FILL_CONTROL = { fill: { control: 'color' } };
 
@@ -146,6 +147,10 @@ SwitchHorizontalDiamondFramed.argTypes = {
 
 const CustomStarIconTemplate = () => <CustomStarIcon />;
 export const CustomStar = CustomStarIconTemplate.bind({});
+
+const TrophyTemplate = (args: SvgIconProps) => <TrophyIcon {...args} />;
+export const Trophy = TrophyTemplate.bind({});
+Trophy.argTypes = { fill: { control: 'color' } };
 
 export default {
   title: 'Components/Icons',

@@ -39,10 +39,8 @@
 
 .bs-calendar-search__input {
   font-family: var(--body2-fontFamily);
-  /* to disable autofocus on safari, font-size needs to be 16px minimum 
-  we're trying text-size adjust instead of hardcoding 16px for now
-  */
-  /* font-size: 16px; */
+  /* to disable autofocus on safari, font-size needs to be 16px minimum */
+  font-size: 16px;
   text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;

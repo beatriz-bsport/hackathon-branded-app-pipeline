@@ -322,7 +322,7 @@ const connector = connect(
     updateCadenceAction,
     archiveCadenceAction,
     restoreCadenceAction,
-    goToCadencePage: (id: number) => pushRouter(`/cadence/${id}`),
+    goToCadencePage: (id: number) => pushRouter(`/audience/${id}`),
   },
 );
 const styles = (theme: Theme) =>

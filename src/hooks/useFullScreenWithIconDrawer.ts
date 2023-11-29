@@ -26,8 +26,8 @@ function usePrevious<T = Location>(value: T) {
  *
  * @example
  * useFullScreenWithIconDrawer({
- *  onEnter: "^/cadence/.*",
- *  ignoredPaths: ["/cadence/wip"],
+ *  onEnter: "^/audience/.*",
+ *  ignoredPaths: ["/audience/wip"],
  *  forceFullDrawer: !displayLeftMenu || mobileOpen,
  *  initialDrawerIconsOnly: displayLeftMenu && shrinkResponsiveDrawer,
  * })

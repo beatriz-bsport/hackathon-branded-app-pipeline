@@ -406,7 +406,7 @@ const BackofficeRoute = withSentryErrorReporting((props) => {
       <Route component={WorkshopActivity} path="/workshop-activity" />
       <Route component={Establishment} path="/establishment" />
       <Route component={SmartList} path="/smart-list" />
-      <Route component={Cadence} path="/cadence" />
+      <Route component={Cadence} path="/audience" />
       <Route component={CustomForm} path="/custom-form" />
       <Route component={PerformanceTracking} path="/performance-tracking" />
       <Route component={Replacement} path="/replacement/:tab" />
@@ -857,7 +857,7 @@ export class Backoffice extends Component<Props, State> {
                       this.props.location.pathname.includes(
                         '/spot-scheduling',
                       ) ||
-                      this.props.location.pathname.includes('/cadence/') ||
+                      this.props.location.pathname.includes('/audience/') ||
                       this.props.location.pathname.includes('/inbox/'),
                   })}
                 >

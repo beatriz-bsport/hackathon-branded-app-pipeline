@@ -771,7 +771,7 @@ const connector = connect(
     updateInitialCadenceConfigurationAction,
     subscribeStepToStepAction,
     updateConnectedTriggerAction,
-    backtoCadenceList: () => pushRouter('/cadence'),
+    backtoCadenceList: () => pushRouter('/audience'),
     fetchAllSmartLists,
     updateCadenceStepCanvasPositionAction,
     updateCadenceStepConnectedTriggerCanvasPositionAction,

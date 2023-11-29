@@ -412,7 +412,7 @@ export type ProtectedUrls =
   | '/activity'
   | '/activity/add'
   | '/add-offers'
-  | '/cadence'
+  | '/audience'
   | '/calendar'
   | '/clock-in/history'
   | '/clock-in/real-time'

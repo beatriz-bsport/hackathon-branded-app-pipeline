@@ -254,8 +254,8 @@ export const BackOfficeDrawer: React.FC<Props> = ({
 
   const { drawerIconsOnly, hideAppBar, setDrawerIconsOnly } =
     useFullScreenWithIconDrawer({
-      onEnter: '^/cadence/.*',
-      ignoredPaths: ['/cadence/wip'],
+      onEnter: '^/audience/.*',
+      ignoredPaths: ['/audience/wip'],
       forceFullDrawer: !displayLeftMenu || mobileOpen,
       initialDrawerIconsOnly: displayLeftMenu && shrinkResponsiveDrawer,
     });
@@ -951,12 +951,12 @@ export const BackOfficeDrawer: React.FC<Props> = ({
             className={classnames({
               [classes.fullContent]:
                 location.pathname.includes('/spot-scheduling') ||
-                /\/cadence\/\d+/.test(location.pathname) ||
-                /\/cadence\/wip\/\d+/.test(location.pathname),
+                /\/audience\/\d+/.test(location.pathname) ||
+                /\/audience\/wip\/\d+/.test(location.pathname),
               [classes.content]: !(
                 location.pathname.includes('/spot-scheduling') ||
-                /\/cadence\/\d+/.test(location.pathname) ||
-                /\/cadence\/wip\/\d+/.test(location.pathname) ||
+                /\/audience\/\d+/.test(location.pathname) ||
+                /\/audience\/wip\/\d+/.test(location.pathname) ||
                 location.pathname.includes('/inbox/')
               ),
               [classes.contentWithoutPadding]:

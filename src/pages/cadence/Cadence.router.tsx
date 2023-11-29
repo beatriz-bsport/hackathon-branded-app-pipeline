@@ -17,18 +17,18 @@ const CadenceDetailPage = asyncComponent(() => import('./CadenceDetail.page'));
 export default function CadenceRouter() {
   return (
     <Switch>
-      <Route exact component={CadenceListPage} path="/cadence/wip" />
+      <Route exact component={CadenceListPage} path="/audience/wip" />
       <Route
         exact
         component={CadenceDetailPageDEPRECATED}
-        path="/cadence/:cadenceId"
+        path="/audience/:cadenceId"
       />
       <Route
         exact
         component={CadenceDetailPage}
-        path="/cadence/wip/:cadenceId"
+        path="/audience/wip/:cadenceId"
       />
-      <Route component={CadenceListPageDEPRECATED} path="/cadence" />
+      <Route component={CadenceListPageDEPRECATED} path="/audience" />
     </Switch>
   );
 }

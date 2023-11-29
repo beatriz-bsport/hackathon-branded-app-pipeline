@@ -435,7 +435,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
           hasUpsellIdentifier(UPSELL_IDENTIFIER_CADENCE)
             ? [
                 {
-                  to: '/cadence',
+                  to: '/audience',
                   icon: SwitchHorizontalIcon,
                   text: t('backofficeMenu.audience'),
                 } as DrawerItemDefault,

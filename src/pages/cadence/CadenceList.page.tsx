@@ -268,7 +268,7 @@ const StateHandlersSetter = {
 
 const mapWithHandlers = {
   goToCadencePage: (props: ConnectedPropsAndState) => (id: number) =>
-    props.push(`/cadence/wip/${id}`),
+    props.push(`/audience/wip/${id}`),
 
   fetchCadenceList: (props: ConnectedPropsAndState) => () => {
     props.fetchCadenceListAction({ page_size: CADENCE_PAGE_SIZE });

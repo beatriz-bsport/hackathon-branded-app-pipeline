@@ -20,12 +20,13 @@ import {
   SequentialMarketingColors,
   TriggerKind,
 } from '#libs/sequential_marketing/constants';
+import { getMarketingActionPartialValues } from '#libs/sequential_marketing/components/form/marketing_actions/utils';
+
 import type {
   ConnectedTrigger,
   MarketingActionEssentials,
   StepMarketingActions,
 } from '#libs/sequential_marketing/types';
-import { getMarketingActionPartialValues } from '#libs/sequential_marketing/components/form/marketing_actions/utils';
 
 type FlowProps = {
   data: {
@@ -173,14 +174,18 @@ export const EntryStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
 
   const handleCancelMarketingActionBubble = React.useCallback(() => {
     handleCloseMarketingActionBubble();
+    setMarketingAction(null);
+  }, [handleCloseMarketingActionBubble]);
+
+  const handleDeleteMarketingAction = React.useCallback(() => {
     !!marketingAction?.id &&
-      data?.step?.id &&
+      !!data?.step?.id &&
       data.deleteStepMarketingAction?.({
         stepId: data.step.id,
         id: marketingAction.id,
       });
-    setMarketingAction(null);
-  }, [data, handleCloseMarketingActionBubble, marketingAction?.id]);
+    handleCancelMarketingActionBubble();
+  }, [data, handleCancelMarketingActionBubble, marketingAction?.id]);
 
   const handleUpsertMarketingAction = React.useCallback(
     (action: Partial<StepMarketingActions>) => {
@@ -280,6 +285,7 @@ export const EntryStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
           marketingAction={marketingAction}
           onCancel={handleCancelMarketingActionBubble}
           onConfirm={handleUpsertMarketingAction}
+          onDelete={handleDeleteMarketingAction}
         />
       </Popover>
     </>

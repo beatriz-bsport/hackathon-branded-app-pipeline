@@ -360,8 +360,22 @@ exports.default = {
             'By choosing this option an online session will be created with a default membership of {{ onlineOfferDefaultEffectif }}. You will be able to edit the information of the online offer after it has been created (Broadcast link, membership, price, etc.)',
           hybridLabel: 'This session is both on site and online.',
           hybridSection: 'Hybrid session',
+          metaActivity: 'Activity',
         },
         title: 'Characteristics',
+      },
+      nameDescriptionOverride: {
+        setButton: 'Set custom name',
+        hideButton: 'Hide custom name',
+        showButton: 'Show custom name',
+        name: {
+          label: 'Name',
+          captionText: 'Add a custom name to this session',
+        },
+        description: {
+          label: 'Description',
+          captionText: 'Add a custom description to this session',
+        },
       },
     },
     groupedOffer: {

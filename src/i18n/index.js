@@ -9,6 +9,12 @@ import config from '../config';
 import languages from './languages.json';
 import { getCurrencyDisplay } from '../libs/theme/selectors';
 
+import {
+  AUDIENCE_FEATURE_NAME,
+  AUDIENCE_WORKFLOW_NAME,
+  AUDIENCE_WORKFLOW_NAME_PLURAL,
+} from '#libs/sequential_marketing/constants';
+
 import 'moment/locale/fr';
 import 'moment/locale/de';
 import 'moment/locale/nl';
@@ -79,7 +85,14 @@ i18n
     supportedLngs: languages,
 
     interpolation: {
-      defaultVariables: { currencyDisplay: getCurrencyDisplay() },
+      defaultVariables: {
+        currencyDisplay: getCurrencyDisplay(),
+        audienceCamelCase: AUDIENCE_FEATURE_NAME,
+        workflowCamelCase: AUDIENCE_WORKFLOW_NAME,
+        workflowLowerCase: AUDIENCE_WORKFLOW_NAME.toLowerCase(),
+        workflowPluralCamelCase: AUDIENCE_WORKFLOW_NAME_PLURAL,
+        workflowPluralLowerCase: AUDIENCE_WORKFLOW_NAME_PLURAL.toLowerCase(),
+      },
       format(value, format) {
         if (format === 'uuid' && typeof value === 'string') {
           return value.slice(0, 8);

@@ -87,31 +87,33 @@ const MenuSelectorCustomButton: React.FC<Props> = ({
           },
         }}
       >
-        {!!informationText && informationText.length > 0 && (
-          <>
-            <MenuItem key="text-info" disabled className={classes.labelInfo}>
-              <Typography variant="body1">{informationText}</Typography>
+        <div>
+          {!!informationText && informationText.length > 0 && (
+            <>
+              <MenuItem key="text-info" disabled className={classes.labelInfo}>
+                <Typography variant="body1">{informationText}</Typography>
+              </MenuItem>
+              <Divider />
+            </>
+          )}
+          {actionList.map((action, index) => (
+            <MenuItem
+              key={`${index}${action.label}`}
+              className={classes.menuItem}
+              onClick={handleOnClickAction(action.onClick)}
+              onContextMenu={handleRightClick}
+              value={action.label}
+            >
+              <CustomMuiIcon
+                defaultBackGround
+                customColor={action.customColor || customColor}
+                icon={action.icon}
+                withBackground={false}
+              />
+              <Typography variant="body1">{action.label}</Typography>
             </MenuItem>
-            <Divider />
-          </>
-        )}
-        {actionList.map((action, index) => (
-          <MenuItem
-            key={`${index}${action.label}`}
-            className={classes.menuItem}
-            onClick={handleOnClickAction(action.onClick)}
-            onContextMenu={handleRightClick}
-            value={action.label}
-          >
-            <CustomMuiIcon
-              defaultBackGround
-              customColor={action.customColor || customColor}
-              icon={action.icon}
-              withBackground={false}
-            />
-            <Typography variant="body1">{action.label}</Typography>
-          </MenuItem>
-        ))}
+          ))}
+        </div>
       </Menu>
     </div>
   );

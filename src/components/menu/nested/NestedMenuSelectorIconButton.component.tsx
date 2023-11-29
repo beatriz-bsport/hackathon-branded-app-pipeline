@@ -124,7 +124,7 @@ const NestedMenuSelectorIconButton: React.FC<Props> = ({
         transformOrigin={{ vertical: 'top', horizontal: 'left' }}
       >
         {(actionList ?? ([] as NestedMenuAction[])).map((mainAction, index) => (
-          <>
+          <div>
             <ListItem
               key={`${index}-${mainAction.label}`}
               button
@@ -191,7 +191,7 @@ const NestedMenuSelectorIconButton: React.FC<Props> = ({
                 </Grow>
               )}
             </Popper>
-          </>
+          </div>
         ))}
       </Menu>
     </div>

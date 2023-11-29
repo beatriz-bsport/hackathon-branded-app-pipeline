@@ -44,30 +44,32 @@ const MenuSelectorOnly: React.FC<Props> = ({
           },
         }}
       >
-        {!!informationText && (
-          <>
-            <MenuItem key="text-info" disabled className={classes.labelInfo}>
-              <Typography variant="body1">{informationText}</Typography>
+        <div>
+          {!!informationText && (
+            <>
+              <MenuItem key="text-info" disabled className={classes.labelInfo}>
+                <Typography variant="body1">{informationText}</Typography>
+              </MenuItem>
+              <Divider />
+            </>
+          )}
+          {actionList.map((action, index) => (
+            <MenuItem
+              key={`${index}-${action.label}`}
+              className={classes.menuItem}
+              onClick={action.onClick}
+              value={action.label}
+            >
+              <CustomMuiIcon
+                defaultBackGround
+                customColor={action.customColor || customColor}
+                icon={action.icon}
+                withBackground={false}
+              />
+              <Typography variant="body1">{action.label}</Typography>
             </MenuItem>
-            <Divider />
-          </>
-        )}
-        {actionList.map((action, index) => (
-          <MenuItem
-            key={`${index}-${action.label}`}
-            className={classes.menuItem}
-            onClick={action.onClick}
-            value={action.label}
-          >
-            <CustomMuiIcon
-              defaultBackGround
-              customColor={action.customColor || customColor}
-              icon={action.icon}
-              withBackground={false}
-            />
-            <Typography variant="body1">{action.label}</Typography>
-          </MenuItem>
-        ))}
+          ))}
+        </div>
       </Menu>
     </div>
   );

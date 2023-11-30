@@ -804,6 +804,7 @@ export const getSingleValueLabel = (
     case ReportFilterableDataType.ACTIVITY:
     case ReportFilterableDataType.BILLING_ESTABLISHMENT:
     case ReportFilterableDataType.BILLING_GROUP:
+    case ReportFilterableDataType.BILLING_GROUP_ADDRESS:
     case ReportFilterableDataType.COACH:
     case ReportFilterableDataType.COMPANY:
     case ReportFilterableDataType.CONTRACT:

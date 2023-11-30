@@ -200,9 +200,11 @@ export default function withDatatypeDynamicData(
                 break;
 
               case ReportFilterableDataType.BILLING_GROUP:
+              case ReportFilterableDataType.BILLING_GROUP_ADDRESS:
                 props.fetchAllEstablishmentBillingGroup({
                   onSuccess: () => {
                     props.setDynamicDataHasBeenLoaded('billing_group');
+                    props.setDynamicDataHasBeenLoaded('billing_group_address');
                   },
                 });
                 break;
@@ -405,6 +407,12 @@ export default function withDatatypeDynamicData(
                     billingGroup.id.toString() === stringifiedValue,
                 )?.name;
 
+              case ReportFilterableDataType.BILLING_GROUP_ADDRESS:
+                return props.billingGroups.find(
+                  (billingGroup) =>
+                    billingGroup.id.toString() === stringifiedValue,
+                )?.address;
+
               case ReportFilterableDataType.CONTRACT:
                 return props.contracts.find(
                   (contract) => contract.id.toString() === stringifiedValue,
@@ -525,6 +533,12 @@ export default function withDatatypeDynamicData(
             case ReportFilterableDataType.BILLING_GROUP:
               return props.billingGroups.map((bg) => ({
                 label: bg.name,
+                value: bg.id,
+                columnName,
+              }));
+            case ReportFilterableDataType.BILLING_GROUP_ADDRESS:
+              return props.billingGroups.map((bg) => ({
+                label: bg.address,
                 value: bg.id,
                 columnName,
               }));

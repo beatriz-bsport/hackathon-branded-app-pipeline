@@ -172,6 +172,7 @@ const ReportFilterChip: React.FC<ReportFilterChipProps> = forwardRef(
           return <ShoppingCartIcon />;
         case ReportFilterableDataType.BILLING_ESTABLISHMENT:
         case ReportFilterableDataType.BILLING_GROUP:
+        case ReportFilterableDataType.BILLING_GROUP_ADDRESS:
           return <ReceiptIcon />;
         case ReportFilterableDataType.ACTIVITY:
           return <Star />;

@@ -437,6 +437,7 @@ const DatatypeFilterConfigValueList: React.FC<{
       case 'activity':
       case 'billing_establishment':
       case 'billing_group':
+      case 'billing_group_address':
       case 'coach':
       case 'company':
       case 'contract':
@@ -687,6 +688,7 @@ const DatatypeFilterConfigValueList: React.FC<{
       'coach',
       'establishment',
       'billing_group',
+      'billing_group_address',
       'private_pass',
       'private_service',
       'private_slot',

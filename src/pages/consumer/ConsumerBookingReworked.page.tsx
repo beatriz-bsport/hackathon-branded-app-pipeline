@@ -2,7 +2,6 @@ import React from 'react';
 import { compose, withHandlers } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
 import { push } from 'connected-react-router';
-
 // @ts-expect-error
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { urlToMarketplace } from '#libs/marketplace/utils';
@@ -51,19 +50,24 @@ import LinearProgress from '#components/navigation/BackofficeLinearProgress.comp
 import type { Booking } from '#libs/booking/types';
 import type { MarketplaceTabConfig } from '#libs/marketplace/types';
 import type { RootState } from '../../reducers';
+import type { WithHandlerType } from '../../utils/types';
 
 type OwnProps = {};
 type ParamsProps = {
   companyId: number;
 };
 
+type OwnAndConnectedProps = OwnProps &
+  ParamsProps &
+  ConnectedProps<typeof connector>;
+
 type Props = {
   // Keeping for typing only
   bookings: Array<Booking>;
   fetchBookingList: (member: number, page: number, page_size: number) => void;
   goToCalendar: (companyName: string, companyId: number) => void;
-} & ParamsProps &
-  ConnectedProps<typeof connector>;
+} & WithHandlerType<typeof mapWithHandlers> &
+  OwnAndConnectedProps;
 
 export class ConsumerBooking extends React.Component<Props> {
   componentDidMount() {
@@ -154,60 +158,52 @@ const connector = connect(
   },
 );
 
+const mapWithHandlers = {
+  fetchBookingList:
+    ({
+      fetchBookingsAsConsumer,
+      retrieveConsumerPackBulk,
+      fetchPaymentPackBulk,
+      fetchOfferBulk,
+    }: OwnAndConnectedProps) =>
+    (member: number, page: number, page_size: number) =>
+      fetchBookingsAsConsumer(member, page, page_size, {
+        onSuccess: (bookings) => {
+          fetchOfferBulk(bookings.map((b) => b.offer).filter((o) => !!o));
+          retrieveConsumerPackBulk(
+            bookings.map((b) => b.consumer_payment_pack),
+            {
+              onSuccess: (consumerPacks) =>
+                fetchPaymentPackBulk(
+                  consumerPacks.map((cpp) => cpp.payment_pack),
+                ),
+            },
+          );
+        },
+      }),
+  goToCalendar:
+    ({ push: pushAction, marketplaceSettings }: OwnAndConnectedProps) =>
+    (companyName: string, companyId: number) => {
+      const index =
+        marketplaceSettings && marketplaceSettings.config
+          ? marketplaceSettings.config.findIndex(
+              (tab) => tab.component_type === 'calendar',
+            )
+          : -1;
+      if (index > -1) {
+        const tabConfig: MarketplaceTabConfig =
+          marketplaceSettings.config[index];
+        // @ts-expect-error
+        const path = fromConfigToUrl(tabConfig, { tabSelected: index });
+
+        pushAction(getMarketplaceRoute(companyName, companyId, path));
+      } else {
+        pushAction(urlToMarketplace(companyName, `${companyId}`));
+      }
+    },
+};
 export default compose(
   routerParamsToProps({ companyId: 'companyId:number' }),
   connector,
-  withHandlers({
-    fetchBookingList:
-      ({
-        fetchBookingsAsConsumer,
-
-        retrieveConsumerPackBulk,
-
-        fetchPaymentPackBulk,
-        fetchOfferBulk,
-      }) =>
-      // @ts-expect-error
-
-      (member, page, page_size) =>
-        fetchBookingsAsConsumer(member, page, page_size, {
-          onSuccess: (bookings) => {
-            // @ts-expect-error
-
-            fetchOfferBulk(bookings.map((b) => b.offer).filter((o) => !!o));
-            retrieveConsumerPackBulk(
-              // @ts-expect-error
-
-              bookings.map((b) => b.consumer_payment_pack),
-              {
-                onSuccess: (consumerPacks) =>
-                  fetchPaymentPackBulk(
-                    // @ts-expect-error
-                    consumerPacks.map((cpp) => cpp.payment_pack),
-                  ),
-              },
-            );
-          },
-        }),
-    goToCalendar:
-      (props: Props) => (companyName: string, companyId: string) => {
-        const index =
-          props.marketplaceSettings && props.marketplaceSettings.config
-            ? props.marketplaceSettings.config.findIndex(
-                (tab) => tab.component_type === 'calendar',
-              )
-            : -1;
-        if (index > -1) {
-          const tabConfig: MarketplaceTabConfig =
-            props.marketplaceSettings.config[index];
-          // @ts-expect-error
-
-          const path = fromConfigToUrl(tabConfig, { tabSelected: index });
-
-          props.push(getMarketplaceRoute(companyName, props.companyId, path));
-        } else {
-          props.push(urlToMarketplace(companyName, companyId));
-        }
-      },
-  }),
+  withHandlers(mapWithHandlers),
 )(ConsumerBooking);

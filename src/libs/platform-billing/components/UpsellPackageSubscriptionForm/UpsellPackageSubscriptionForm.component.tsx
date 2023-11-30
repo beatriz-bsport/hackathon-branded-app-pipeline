@@ -85,7 +85,9 @@ const UpsellPackageSubscriptionForm: React.FC<Props> = ({
           </Typography>
           <Typography variant="h5">
             {t('upsellPackage.billRecurrent', {
-              price_cts: getCurrencyDisplayWithPrice(upsellPackage.price_cts),
+              price_cts: getCurrencyDisplayWithPrice(
+                upsellPackage.price_cts / 100,
+              ),
             })}
           </Typography>
         </div>

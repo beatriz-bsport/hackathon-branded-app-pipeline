@@ -28,7 +28,7 @@ import {
   requestMembershipValidation,
   fetchMembershipListAsConsumer,
 } from '../../libs/membership/actions';
-
+import Config from '../../config';
 import { getOfferWithRelated } from '../../libs/offer/selectors';
 
 import { fetchBasketGeneratedObjects as fetchBasketGeneratedObjectsAction } from '../../libs/checkout/actions';
@@ -68,6 +68,9 @@ const ConsumerGiftcard = asyncComponent(() =>
   import('./ConsumerGiftcard.page'),
 );
 const ConsumerBooking = asyncComponent(() => import('./ConsumerBooking.page'));
+const ConsumerBookingReworked = asyncComponent(() =>
+  import('./ConsumerBookingReworked.page'),
+);
 const ConsumerVOD = asyncComponent(() => import('./ConsumerVOD.page'));
 const ConsumerBookingBroadcast = asyncComponent(() =>
   import('./ConsumerBookingBroadcast.page'),
@@ -247,10 +250,22 @@ export class ConsumerHome extends React.Component<Props> {
                 />
                 <div className={this.props.classes.container}>
                   <Switch>
-                    <Route
-                      path="/c/:companyId/booking/"
-                      render={this.attachConsumerProps(ConsumerBooking)}
-                    />
+                    {!['staging', 'production'].includes(
+                      Config.REACT_APP_SENTRY_ENVIRONMENT,
+                    ) ? (
+                      <Route
+                        path="/c/:companyId/booking/"
+                        render={this.attachConsumerProps(
+                          ConsumerBookingReworked,
+                        )}
+                      />
+                    ) : (
+                      <Route
+                        path="/c/:companyId/booking/"
+                        render={this.attachConsumerProps(ConsumerBooking)}
+                      />
+                    )}
+
                     <Route
                       path="/c/:companyId/vod/"
                       render={this.attachConsumerProps(ConsumerVOD)}

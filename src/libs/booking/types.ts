@@ -219,3 +219,16 @@ export type Notification = {
   email_design: number;
   hours: number;
 };
+
+export type BookingFilterParams = {
+  mine?: boolean;
+  member?: number;
+  offer_id?: number;
+  id__in?: number[];
+  ids_in?: number[];
+  future_booking?: boolean;
+  past_booking?: boolean;
+  offer_is_workshop?: boolean;
+  page: number;
+  page_size: number;
+};

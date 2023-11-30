@@ -8,17 +8,26 @@ import {
   deleteAuth,
   patchAuth,
 } from '../../http';
-import { Booking } from './types';
+import { Booking, BookingREST, BookingFilterParams } from './types';
 
 export const fetchFilteredBookingOptions = async (params: any) => {
   return getAuth(
     `${API_V1_URI}/waiting-list/booking-option/${buildUrlParams(params)}`,
   );
 };
-
+/**
+ * @deprecated This version is not type safe.
+ */
 export const fetchBookingList = async (params: any) => {
   const cleanedParams = cleanParams(params);
   return getAuth<PaginatedResponse<Booking>>(
+    `${API_V1_URI}/booking/${buildUrlParams(cleanedParams)}`,
+  );
+};
+
+export const fetchBookingListV2 = (params: BookingFilterParams) => {
+  const cleanedParams = cleanParams(params);
+  return getAuth<PaginatedResponse<BookingREST>>(
     `${API_V1_URI}/booking/${buildUrlParams(cleanedParams)}`,
   );
 };

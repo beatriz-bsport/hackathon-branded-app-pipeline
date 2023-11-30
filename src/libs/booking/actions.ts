@@ -13,7 +13,7 @@ import {
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 
 import {
-  fetchBookingList as fetchBookingListAPI,
+  fetchBookingListV2 as fetchBookingListAPI,
   fetchOfferGroupRelatedBookings as fetchOfferGroupRelatedBookingsAPI,
   retrieveBooking as retrieveBookingAPI,
   confirmAttendance as confirmAttendanceAPI,
@@ -30,7 +30,7 @@ import {
 } from './api';
 
 import type { Dispatch, OptionCallback, ThunkAction } from '../../state/types';
-import { Booking, BookingREST } from './types';
+import type { Booking, BookingREST } from './types';
 import { EXCEPTION_STAFF_ROLE_OVERBOOKING_NOT_ALLOWED } from '#libs/role/constants';
 
 import { isErrorWithCustomCode } from '#libs/utils';

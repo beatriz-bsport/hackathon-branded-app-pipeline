@@ -12,19 +12,19 @@ import TodayIcon from '@material-ui/icons/Today';
 import moment from 'moment-timezone';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
-import { WidgetUtils } from '../../widget/WidgetUtils';
+import { WidgetUtils } from '../../../widget/WidgetUtils';
 
-import BookingCancellationDialog from '../../booking/components/BookingCancellationDialog.component';
-import BookingItemForManagerV2 from '../../booking/components/BookingItemForManagerV2.component';
+import BookingCancellationDialog from '../../../booking/components/BookingCancellationDialog.component';
+import BookingItemForManagerV2 from '../../../booking/components/BookingItemForManagerV2.component';
 
-import PrivateBookingListItem from '../../private-service/components/booking/PrivateBookingListItem.component';
+import PrivateBookingListItem from '../../../private-service/components/booking/PrivateBookingListItem.component';
 
-import PaginatedListStateful from '../../../components/PaginatedListStateful.component';
-import PaginatedListBase from '../../../components/PaginatedListBase.component';
+import PaginatedListStateful from '../../../../components/PaginatedListStateful.component';
+import PaginatedListBase from '../../../../components/PaginatedListBase.component';
 
-import type { Membership } from '../../membership/types';
-import type { Booking } from '../../booking/types';
-import type { PrivateBooking } from '../../private-service/types';
+import type { Membership } from '../../../membership/types';
+import type { Booking } from '../../../booking/types';
+import type { PrivateBooking } from '../../../private-service/types';
 
 const BOOKING_PAGE_SIZE = 10;
 

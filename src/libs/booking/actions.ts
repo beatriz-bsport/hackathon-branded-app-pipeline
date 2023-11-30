@@ -260,7 +260,7 @@ export function fetchBookingsAsConsumer(
   member: number,
   page: number,
   page_size: number,
-  options: OptionCallback,
+  options: OptionCallback<Booking[]>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(asConsumerActions.isLoading(true));

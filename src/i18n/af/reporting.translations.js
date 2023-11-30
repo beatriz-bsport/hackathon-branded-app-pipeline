@@ -274,6 +274,7 @@ const getTranslations = async () => {
       payment_amount_by_payment_method:
         'Total amount of transactions per payment method',
       billing_establishment: 'Address',
+      billing_group_address: 'Address',
       billing_group: 'Billing group',
       company_name: 'Studio',
       nb_non_activated: 'Number of unactivated cards',

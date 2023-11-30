@@ -23,7 +23,6 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import AddIcon from '@material-ui/icons/Add';
-
 import {
   push as pushRouter,
   goBack as goBackRouter,
@@ -36,6 +35,9 @@ import {
   BOOKING_STATUS_CANCELLED_BY_CONSUMER,
   BOOKING_STATUS_CANCELLED_BY_OFFER,
 } from '@bsport/common/lib/master-data/booking_status_code';
+import { hasUpsell } from '#libs/platform-billing/utils';
+import { UPSELL_IDENTIFIER_SUBTEACHER_TOOL } from '#libs/platform-billing/upsell-identifiers';
+import { useOldPermissions } from '../../config';
 
 import withTitle from '#hocs/with-title.hoc';
 
@@ -160,7 +162,6 @@ import { TUTORIAL_WELCOME_DIALOG_OPEN_QUERY_PARAMS } from '#libs/platform-tutori
 import { platformTutorialActivated } from '#libs/platform-tutorial/utils';
 import GenericResponsiveDialog from '../../components/genericDialog/GenericResponsiveDialog';
 import type { ReplacementRequestFilter } from '../../libs/replacement-request/types';
-
 import { redirectIfAllowed as redirectIfAllowedAction } from '../../libs/role/actions';
 
 import { retrieveConsumerPackBulk as retrieveConsumerPackBulkAction } from '#libs/consumer-payment-pack/actions';
@@ -171,7 +172,6 @@ import ConfirmationRollCallDialog from '#libs/offer/components/ConfirmationRollC
 import OfferEditForm from '#libs/offer/OfferEditForm.component';
 
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import { useOldPermissions } from '../../config';
 
 const styles = (theme) => ({
   container: {
@@ -416,6 +416,7 @@ type Props = {
   retrieveOfferAsManager: (offerId: number) => void,
   bookingsWithConsumerPack: Array<Booking>,
   rollCallLoading: boolean,
+  featureList: FeatureList,
 };
 
 type State = {
@@ -729,6 +730,9 @@ export class Planning extends PureComponent<Props, State> {
       this.props.theme.allow_guest_activatable && this.props.theme.allow_guest
     );
   };
+
+  getShowSubTeacherFilter = () =>
+    hasUpsell(this.props.featureList, UPSELL_IDENTIFIER_SUBTEACHER_TOOL);
 
   renderEditModal = () => {
     const {
@@ -1251,6 +1255,7 @@ export class Planning extends PureComponent<Props, State> {
                   this.selectSubTeacherRequestFilter
                 }
                 setCalendarFilter={this.setCalendarFilter}
+                showSubTeacherFilter={this.getShowSubTeacherFilter()}
                 theme={this.props.theme}
               />
               <Grid container className={classes.innerContainer} spacing={3}>
@@ -1576,6 +1581,7 @@ export default compose(
       replacementRequestManagerFilter:
         state.userPreference.replacementRequestManagerFilter,
       rollCallLoading: state.offer.rollCall.loading,
+      featureList: state.company.feature.data,
     }),
     {
       goBack: goBackRouter,

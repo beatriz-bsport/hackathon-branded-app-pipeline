@@ -60,6 +60,7 @@ type Props = {
     }>,
   ) => void;
   selectedRollCallStatus: number;
+  showSubTeacherFilter: boolean;
 };
 
 const OfferSearchBar = ({
@@ -78,6 +79,7 @@ const OfferSearchBar = ({
   selectRollCallFilter,
   selectSubTeacherRequestFilter,
   selectedRollCallStatus,
+  showSubTeacherFilter,
 }: Props) => {
   const classes = useStyles();
 
@@ -213,19 +215,21 @@ const OfferSearchBar = ({
           />
         </Grid>
       )}
-      <Grid
-        item
-        className={classes.selector}
-        md={mediumSize as GridSize}
-        xs={6}
-      >
-        <SubTeacherRequestSelector
-          selectedFilter={
-            filterVerification && offerFilters.has_active_sub_teacher_request
-          }
-          selectSubTeacherRequestFilter={selectSubTeacherRequestFilter}
-        />
-      </Grid>
+      {showSubTeacherFilter && (
+        <Grid
+          item
+          className={classes.selector}
+          md={mediumSize as GridSize}
+          xs={6}
+        >
+          <SubTeacherRequestSelector
+            selectedFilter={
+              filterVerification && offerFilters.has_active_sub_teacher_request
+            }
+            selectSubTeacherRequestFilter={selectSubTeacherRequestFilter}
+          />
+        </Grid>
+      )}
     </Grid>
   );
 };

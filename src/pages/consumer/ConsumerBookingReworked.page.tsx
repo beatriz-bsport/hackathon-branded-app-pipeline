@@ -36,11 +36,13 @@ import {
   getConsumerBookingListWithConsumerPack,
   withOfferFull as withOffer,
 } from '../../libs/booking/selectors';
+
+// @ts-expect-error
 import ConsumerBookingPageReworked from '#libs/consumer-space/components/reworked/ConsumerBookingPageReworked.component';
 
-import type { Membership } from '../membership/types';
-import type { Booking } from '../booking/types';
-import type { PrivateBooking } from '../private-service/types';
+import type { Membership } from '#libs/membership/types';
+import type { Booking } from '#libs/booking/types';
+import type { PrivateBooking } from '#libs/private-service/types';
 import { urlToMarketplace } from '../../libs/marketplace/utils';
 import { RootState } from '../../reducers';
 import type { MarketplaceTabConfig } from '../../libs/marketplace/types';
@@ -49,38 +51,38 @@ import {
   getMarketplaceRoute,
 } from '../../libs/marketplace/routing-utils';
 import { showVaccinationStatus } from '../../libs/custom-form/selectors';
+import type { OptionCallback } from '../../state/types';
+import type { OffersGroup } from '#libs/group-offer/types';
 
 type Props = {
-  timezone: string,
-  membership: Membership,
+  timezone: string;
+  membership: Membership;
+  bookings: Array<Booking>;
+  bookingCount: number;
+  bookingsLoading: boolean;
+  bookingCurrentPage: number;
+  fetchBookingList: (member: number, page: number, page_size: number) => void;
+  cancelBooking: (id: number) => void;
 
-  bookings: Array<Booking>,
-  bookingCount: number,
-  bookingsLoading: boolean,
-  bookingCurrentPage: number,
-  fetchBookingList: (member: number, page: number, page_size: number) => void,
-  cancelBooking: (number) => void,
-
-  privateBookingsLoading: boolean,
-  private_booking_list: Array<PrivateBooking>,
-  fetchPrivateBookings: ({ member: number }) => void,
-  goToCalendar: (string, number) => void,
-  showVaccinationStatus: boolean,
-
-  similarBookings: Booking[],
+  privateBookingsLoading: boolean;
+  private_booking_list: Array<PrivateBooking>;
+  fetchPrivateBookings: ({ member }: { member: number }) => void;
+  goToCalendar: (companyName: string, companyId: number) => void;
+  showVaccinationStatus: boolean;
+  similarBookings: Booking[];
   fetchSimilarFuturBookingInGroup: (
     bookingId: number,
     options: OptionCallback,
-  ) => void,
-  fetchOfferBulk: (ids: number) => void,
-  fetchCoachBulk: (ids: number) => void,
-  companyId: number,
-  fetchLevelList: ({ company: number }) => void,
-  resetGroupOffer: () => void,
-  fetchGroupOffer: (id: number) => void,
-  fetchMetaActivityBulk: (ids: number[]) => void,
-  group: OffersGroup,
-  similarBookingsLoading: boolean,
+  ) => void;
+  fetchOfferBulk: (ids: number) => void;
+  fetchCoachBulk: (ids: number) => void;
+  companyId: number;
+  fetchLevelList: ({ company }: { company: number }) => void;
+  resetGroupOffer: () => void;
+  fetchGroupOffer: (id: number) => void;
+  fetchMetaActivityBulk: (ids: number[]) => void;
+  group: OffersGroup;
+  similarBookingsLoading: boolean;
 };
 
 export class ConsumerBooking extends React.Component<Props> {
@@ -97,7 +99,7 @@ export class ConsumerBooking extends React.Component<Props> {
     }
 
     return (
-      <ConsumerBookingPage
+      <ConsumerBookingPageReworked
         bookingCount={this.props.bookingCount}
         bookingCurrentPage={this.props.bookingCurrentPage}
         bookings={this.props.bookings}
@@ -173,20 +175,37 @@ export default compose(
   withHandlers({
     fetchBookingList:
       ({
+        // @ts-expect-error
         fetchBookingsAsConsumer,
+        // @ts-expect-error
+
         retrieveConsumerPackBulk,
+        // @ts-expect-error
+
         fetchPaymentPackBulk,
         fetchOfferBulk,
       }) =>
+      // @ts-expect-error
+
       (member, page, page_size) =>
         fetchBookingsAsConsumer(member, page, page_size, {
+          // @ts-expect-error
+
           onSuccess: (bookings) => {
+            // @ts-expect-error
+
             fetchOfferBulk(bookings.map((b) => b.offer).filter((o) => !!o));
             retrieveConsumerPackBulk(
+              // @ts-expect-error
+
               bookings.map((b) => b.consumer_payment_pack),
               {
+                // @ts-expect-error
+
                 onSuccess: (consumerPacks) =>
                   fetchPaymentPackBulk(
+                    // @ts-expect-error
+
                     consumerPacks.map((cpp) => cpp.payment_pack),
                   ),
               },
@@ -196,18 +215,31 @@ export default compose(
     goToCalendar:
       (props: Props) => (companyName: string, companyId: string) => {
         const index =
+          // @ts-expect-error
+
           props.marketplaceSettings && props.marketplaceSettings.config
-            ? props.marketplaceSettings.config.findIndex(
+            ? // @ts-expect-error
+
+              props.marketplaceSettings.config.findIndex(
+                // @ts-expect-error
+
                 (tab) => tab.component_type === 'calendar',
               )
             : -1;
         if (index > -1) {
           const tabConfig: MarketplaceTabConfig =
+            // @ts-expect-error
+
             props.marketplaceSettings.config[index];
+          // @ts-expect-error
+
           const path = fromConfigToUrl(tabConfig, { tabSelected: index });
+          // @ts-expect-error
 
           props.push(getMarketplaceRoute(companyName, props.companyId, path));
         } else {
+          // @ts-expect-error
+
           props.push(urlToMarketplace(companyName, companyId));
         }
       },

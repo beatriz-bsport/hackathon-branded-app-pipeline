@@ -21,4 +21,8 @@ export enum SequentialMarketingColors {
   GREY_FILTER_COLOR = 'rgba(189, 189, 189, 1)',
 
   WELCOME_COLOR = 'rgba(33, 150, 243, 1)',
+
+  WORKFLOW_METRICS_GREY = 'rgba(117, 117, 117, 1)',
+  WORKFLOW_METRICS_ORANGE = 'rgba(252, 186, 3, 1)',
+  WORKFLOW_METRICS_GREEN = 'rgba(144, 190, 109, 1)',
 }

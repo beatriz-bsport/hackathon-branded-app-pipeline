@@ -131,6 +131,7 @@ import OfferSearchBar, {
   FILTER_ESTABLISHMENT_GROUP,
   FILTER_ACTIVITY,
   FILTER_ROLLCALL,
+  FILTER_SUB_REQUEST_TEACHER,
 } from '#libs/offer/components/OfferSearchBar.component';
 import OfferFormWithActivity from '#libs/offer/OfferFormWithActivity.component';
 import DeleteOfferForm from '#libs/offer/DeleteOfferForm.component';
@@ -1067,12 +1068,25 @@ export class Planning extends PureComponent<Props, State> {
           roll_call_needs_validation: newValues?.value,
         });
         break;
+      case FILTER_SUB_REQUEST_TEACHER:
+        this.props.setCalendarFilter({
+          ...this.props.offerFilters,
+          has_active_sub_teacher_request: newValues?.value,
+        });
+        break;
       default:
         break;
     }
   };
 
   selectRollCallFilter = (ev) => this.setCalendarFilter(ev, FILTER_ROLLCALL);
+
+  selectSubTeacherRequestFilter = (
+    value: ValueType<{
+      value: string,
+      label: string,
+    }>,
+  ) => this.setCalendarFilter(value, FILTER_SUB_REQUEST_TEACHER);
 
   fetchOffersOfDate = (date) => {
     this.props.fetchOffersByDay({
@@ -1233,6 +1247,9 @@ export class Planning extends PureComponent<Props, State> {
                 metaActivities={this.props.metaActivities}
                 offerFilters={this.props.offerFilters}
                 selectRollCallFilter={this.selectRollCallFilter}
+                selectSubTeacherRequestFilter={
+                  this.selectSubTeacherRequestFilter
+                }
                 setCalendarFilter={this.setCalendarFilter}
                 theme={this.props.theme}
               />

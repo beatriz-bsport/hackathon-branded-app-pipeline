@@ -1,14 +1,16 @@
 import React from 'react';
 import { makeStyles, Theme } from '@material-ui/core';
 
-import Grid from '@material-ui/core/Grid';
+import Grid, { GridSize } from '@material-ui/core/Grid';
 import Immutable from 'seamless-immutable';
+import type { ValueType } from 'react-select/lib/types';
 import CoachSelector from '#libs/associated-coach/components/coach-selector/CoachSelector.component';
 import EstablishmentSelector from '#libs/establishment/components/EstablishmentSelector.component';
 // @ts-ignore
 import MetaActivitySelector from '#libs/meta-activity/components/MetaActivitySelector.component';
 import EstablishmentGroupSelector from '#libs/establishment/components/EstablishmentGroupSelector.component';
 import RollCallSelector from '#libs/offer/components/RollCallSelector.component';
+import SubTeacherRequestSelector from '#libs/offer/components/SubTeacherRequestSelector.component';
 
 import type { Coach } from '#libs/associated-coach/types';
 import type {
@@ -24,6 +26,7 @@ export const FILTER_ESTABLISHMENT = 1;
 export const FILTER_ACTIVITY = 2;
 export const FILTER_ROLLCALL = 3;
 export const FILTER_ESTABLISHMENT_GROUP = 4;
+export const FILTER_SUB_REQUEST_TEACHER = 5;
 
 const useStyles = makeStyles((theme: Theme) => ({
   selector: {
@@ -50,6 +53,12 @@ type Props = {
     filterType: number,
   ) => void;
   selectRollCallFilter: (ev: React.SyntheticEvent) => void;
+  selectSubTeacherRequestFilter: (
+    value: ValueType<{
+      value: string;
+      label: string;
+    }>,
+  ) => void;
   selectedRollCallStatus: number;
 };
 
@@ -67,6 +76,7 @@ const OfferSearchBar = ({
   filterVerification,
   setCalendarFilter,
   selectRollCallFilter,
+  selectSubTeacherRequestFilter,
   selectedRollCallStatus,
 }: Props) => {
   const classes = useStyles();
@@ -203,6 +213,19 @@ const OfferSearchBar = ({
           />
         </Grid>
       )}
+      <Grid
+        item
+        className={classes.selector}
+        md={mediumSize as GridSize}
+        xs={6}
+      >
+        <SubTeacherRequestSelector
+          selectedFilter={
+            filterVerification && offerFilters.has_active_sub_teacher_request
+          }
+          selectSubTeacherRequestFilter={selectSubTeacherRequestFilter}
+        />
+      </Grid>
     </Grid>
   );
 };

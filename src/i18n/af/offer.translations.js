@@ -162,6 +162,11 @@ exports.default = {
   },
   recurrenceIndex: 'Recurrence: {{ index }}',
   pendingReplacementRequest: 'A request for substitution is open',
+  subTeacherRequestFilter: {
+    placeholder: 'Sub-request',
+    true: 'Sub-request pending',
+    false: 'No sub-request',
+  },
   rollCall: {
     drawer: {
       listMembers: 'List of registered members',

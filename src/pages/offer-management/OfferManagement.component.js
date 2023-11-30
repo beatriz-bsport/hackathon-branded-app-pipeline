@@ -44,6 +44,10 @@ import type { Booking, BookingOption } from '#libs/booking/types';
 import type { Member } from '#libs/member/types';
 import type { Invoice } from '#libs/invoice/types';
 import type { WaitingListConfiguration } from '#libs/waiting-list/type';
+import type {
+  Establishment,
+  EstablishmentBillingGroup,
+} from '#libs/establishment/types';
 import type { OfferEdit, Offer, OfferStatus } from '../../libs/offer/types';
 import type {
   AssetForBlueprint,
@@ -303,6 +307,10 @@ type Props = {
   setIsAutoBookingError: (isAutoBookingError: boolean) => void,
 
   registeredSelectedBookingOptions: Array<number>,
+  fetchAllEstablishmentBillingGroup: (_: {
+    params: { company: number },
+  }) => void,
+  establishmentBillingGroups: EstablishmentBillingGroup[],
   updateInternalNote: (
     offerId: number,
     data: OfferEdit,
@@ -356,6 +364,11 @@ export class OfferManagement extends Component<Props, State> {
     this.props.fetchCompanyWaitlistConfiguration(
       this.props.company_theme.company,
     );
+    if (this.props.company_theme.enable_multi_localization) {
+      this.props.fetchAllEstablishmentBillingGroup({
+        params: { company: this.props.companyId },
+      });
+    }
   }
 
   fetchOfferAndData = () => {
@@ -1097,7 +1110,7 @@ export class OfferManagement extends Component<Props, State> {
             enableMultiLocalization={
               this.props.company_theme.enable_multi_localization
             }
-            establishments={this.props.establishmentList}
+            establishmentBillingGroups={this.props.establishmentBillingGroups}
             getInvoicePaymentGroupIsProcessing={
               this.props.getInvoicePaymentGroupIsProcessing
             }

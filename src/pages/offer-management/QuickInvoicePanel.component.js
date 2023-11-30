@@ -16,7 +16,7 @@ import PaymentDialog from '../../libs/payment/components/PaymentDialog.component
 import InvoiceTable from '../../libs/invoice/components/InvoiceTable.component';
 import { requestClientSecret as requestClientSecretAPI } from '../../libs/invoice/api';
 import ObjectLevelPermissionProvider from '../../libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import type { Establishment } from '../../libs/establishment/types';
+import type { EstablishmentBillingGroup } from '#libs/establishment/types';
 import type { Member } from '#libs/member/types';
 import type { Invoice } from '#libs/invoice/types';
 import type { ConsumerGiftcard, Giftcard } from '#libs/giftcard/types';
@@ -40,7 +40,7 @@ type Props = {
   refreshInvoice: (invoiceUuid: string) => void,
   availablePaymentMethodList: number[],
   className: {},
-  establishments: Array<Establishment>,
+  establishmentBillingGroups: Array<EstablishmentBillingGroup>,
   snackbarSuccess: (string) => void,
   stripeId: string | null,
   companyId: number,
@@ -217,7 +217,9 @@ export class QuickInvoicePanel extends React.PureComponent<Props, State> {
                       enableMultiLocalization={
                         this.props.enableMultiLocalization
                       }
-                      establishments={this.props.establishments}
+                      establishmentBillingGroups={
+                        this.props.establishmentBillingGroups
+                      }
                       member={quickInvoice.member}
                       memberCreditAccountBalance={
                         quickInvoice.creditAccount || 0.0

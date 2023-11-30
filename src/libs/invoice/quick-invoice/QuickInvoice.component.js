@@ -16,8 +16,11 @@ import CreditMemberBadge from '../../member/components/CreditMemberBadge.compone
 
 import InvoiceItem from '../components/InvoiceItem.component';
 import InvoiceItemEditor from '../components/InvoiceItemEditor.component';
-import EstablishmentSelector from '../../establishment/components/EstablishmentSelector.component';
-import type { Establishment } from '../../establishment/types';
+import EstablishmentBillingGroupSelector from '#libs/establishment/components/EstablishmentBillingGroupSelector';
+import type {
+  Establishment,
+  EstablishmentBillingGroup,
+} from '../../establishment/types';
 
 type Props = {
   quickInvoiceTitle: string,
@@ -32,7 +35,7 @@ type Props = {
     [buyable_item_identifier: number]: Array<BuyableItem>,
   },
   uneditableInvoiceItems: Array<InvoiceItem>,
-  establishments: Array<Establishment>,
+  establishmentBillingGroups: Array<Establishment>,
   establishmentLoading: boolean,
   enableMultiLocalization: boolean,
   memberDetails: { [id: number]: Member },
@@ -42,8 +45,8 @@ type State = {
   showInvoiceItemSelector: boolean,
   invoiceItemList: Array<InvoiceItem>,
   processing: boolean,
-  billingEstablishmentId: number | null,
-  requiredEstablishmentIsMissing: boolean,
+  selectedEstablishmentBillingGroup: EstablishmentBillingGroup | null,
+  requiredEstablishmentBillingGroupIsMissing: boolean,
 };
 
 export class QuickInvoice extends PureComponent<Props, State> {
@@ -53,8 +56,8 @@ export class QuickInvoice extends PureComponent<Props, State> {
       showInvoiceItemSelector: !props.editMode,
       invoiceItemList: [],
       processing: false,
-      billingEstablishmentId: null,
-      requiredEstablishmentIsMissing: false,
+      selectedEstablishmentBillingGroup: null,
+      requiredEstablishmentBillingGroupIsMissing: false,
     };
   }
 
@@ -71,14 +74,15 @@ export class QuickInvoice extends PureComponent<Props, State> {
       is_v2: true,
       buyable_items: this.state.invoiceItemList,
       member: quickInvoice.memberId,
-      billing_establishment_id: this.state.billingEstablishmentId,
+      establishment_billing_group:
+        this.state.selectedEstablishmentBillingGroup?.id,
     };
     if (
       this.props.enableMultiLocalization &&
-      !this.state.billingEstablishmentId &&
-      this.props.establishments?.length
+      !this.state.selectedEstablishmentBillingGroup &&
+      this.props.establishmentBillingGroups?.length
     ) {
-      this.setState({ requiredEstablishmentIsMissing: true });
+      this.setState({ requiredEstablishmentBillingGroupIsMissing: true });
       return;
     }
     if (this.props.editMode) {
@@ -208,30 +212,29 @@ export class QuickInvoice extends PureComponent<Props, State> {
             {this.props.enableMultiLocalization && (
               <div className={classes.establishmentSection}>
                 <Typography className={classes.sectionTitle} variant="h6">
-                  {this.props.t(
-                    'invoice:section.invoiceItemList.billing_establishment',
-                  )}
+                  {this.props.t('invoice:section.invoiceItemList.billingGroup')}
                 </Typography>
                 <Divider className={classes.divider} />
-                <EstablishmentSelector
+                <EstablishmentBillingGroupSelector
                   closeMenuOnSelect
                   isOptionDisabled
                   isRequired
                   noMulti
-                  establishments={this.props.establishments}
+                  establishmentBillingGroups={
+                    this.props.establishmentBillingGroups
+                  }
                   isLoading={this.props.establishmentLoading}
                   requiredValueIsMissing={
                     this.props.enableMultiLocalization &&
-                    this.state.requiredEstablishmentIsMissing
+                    this.state.requiredEstablishmentBillingGroupIsMissing
                   }
-                  selectedEstablishments={[this.state.billingEstablishmentId]}
-                  selectOption={async (item: {
-                    value: number,
-                    label: string,
-                  }) => {
+                  selectedEstablishmentBillingGroup={
+                    this.state.selectedEstablishmentBillingGroup
+                  }
+                  selectOption={(item: EstablishmentBillingGroup) => {
                     this.setState({
-                      billingEstablishmentId: item ? item.value : null,
-                      requiredEstablishmentIsMissing: !item,
+                      selectedEstablishmentBillingGroup: item || null,
+                      requiredEstablishmentBillingGroupIsMissing: !item,
                     });
                   }}
                 />

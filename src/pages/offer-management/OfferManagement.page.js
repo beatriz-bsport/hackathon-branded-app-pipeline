@@ -87,8 +87,14 @@ import {
   emailTemplatesSummaries as fetchEmailTemplatesSummaries,
 } from '#libs/email-editor/actions';
 
-import { fetchEstablishments } from '#libs/establishment/actions';
-import { getAvailableEstablishmentList } from '#libs/establishment/selectors';
+import {
+  fetchEstablishments,
+  fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction,
+} from '#libs/establishment/actions';
+import {
+  getAvailableEstablishmentList,
+  getEnabledEstablishmentBillingGroups,
+} from '#libs/establishment/selectors';
 
 import {
   getAllEmailTemplatesSummaries,
@@ -262,6 +268,8 @@ export default compose(
 
       getInvoicePaymentGroupIsProcessing: (invoiceUuid: string) =>
         getInvoicePaymentGroupIsProcessing(state, invoiceUuid),
+
+      establishmentBillingGroups: getEnabledEstablishmentBillingGroups(state),
     }),
     {
       fetchOffer: fetchOfferByIdAction,
@@ -370,6 +378,9 @@ export default compose(
       // PaymentGroup
       submitInternalPaymentInBackground:
         submitInternalPaymentInBackgroundAction,
+
+      fetchAllEstablishmentBillingGroup:
+        fetchAllEstablishmentBillingGroupAction,
       updateInternalNote: updateInternalNoteAction,
     },
   ),

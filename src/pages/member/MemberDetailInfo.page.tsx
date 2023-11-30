@@ -96,8 +96,12 @@ import {
 import {
   fetchEstablishments,
   fetchAllEstablishmentGroup,
+  fetchAllEstablishmentBillingGroup as fetchAllEstablishmentBillingGroupAction,
 } from '#libs/establishment/actions';
-import { getAvailableEstablishmentList } from '#libs/establishment/selectors';
+import {
+  getAvailableEstablishmentList,
+  getEnabledEstablishmentBillingGroups,
+} from '#libs/establishment/selectors';
 import themeSelectors, {
   getStripeRegion,
   getCompanyCountry,
@@ -200,6 +204,13 @@ export class MemberDetailPage extends React.PureComponent<Props> {
       this.props.fetchTaskListByMember();
       this.props.fetchInvoiceListUnpaid();
       this.props.fetchEstablishments();
+      if (this.props.companyTheme.enable_multi_localization) {
+        this.props.fetchAllEstablishmentBillingGroup({
+          params: {
+            company: this.props.companyId,
+          },
+        });
+      }
       this.props.fetchAllEstablishmentGroup();
       this.props.fetchModelBasedAnswer({
         memberId: this.props.id,
@@ -489,6 +500,9 @@ export class MemberDetailPage extends React.PureComponent<Props> {
                 enableMultiLocalization={
                   this.props.companyTheme.enable_multi_localization
                 }
+                establishmentBillingGroups={
+                  this.props.establishmentBillingGroups
+                }
                 establishments={this.props.establishmentList}
                 fetchInvoiceListUnpaid={this.fetchInvoiceListUnpaid}
                 forceOnlyInternal={this.props.onlinePaymentEnabled === false}
@@ -704,6 +718,7 @@ const connector = connect(
     // Referral
     referralProgram: getTheReferralProgram(state),
     referralMemberStatus: getReferralMemberStatusWithMemberId(state, props.id),
+    establishmentBillingGroups: getEnabledEstablishmentBillingGroups(state),
   }),
   {
     fetchInvoiceList: fetchInvoiceListAction,
@@ -756,6 +771,7 @@ const connector = connect(
     snackbarErrorMsg: snackbarWarning,
     snackbarSuccessMsg: snackbarSuccess,
     fetchEstablishments,
+    fetchAllEstablishmentBillingGroup: fetchAllEstablishmentBillingGroupAction,
     fetchAllEstablishmentGroup,
     fetchModelBasedAnswer,
     retrieveMemberPendingEmail,

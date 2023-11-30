@@ -17,8 +17,11 @@ import Divider from '@material-ui/core/Divider';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import PriceInput from '#components/input/PriceInput.component';
 import { getCurrencyDisplay } from '#libs/theme/selectors';
-import EstablishmentSelector from '#libs/establishment/components/EstablishmentSelector.component';
-import type { Establishment } from '#libs/establishment/types';
+import type {
+  Establishment,
+  EstablishmentBillingGroup,
+} from '#libs/establishment/types';
+import EstablishmentBillingGroupSelector from '#libs/establishment/components/EstablishmentBillingGroupSelector';
 
 type Props = {
   onSubmit: (amount: number, withoutPaymentNote: boolean) => void;
@@ -26,47 +29,63 @@ type Props = {
   onClose: () => void;
   initialValue?: string;
   asManager: boolean;
-  establishments: Array<Establishment>;
-  establishmentLoading: boolean;
-  setBillingEstablishmentId: (establishmentId: number) => void;
-  billingEstablishmentId: number;
+  establishmentBillingGroups: Array<Establishment>;
+  establishmentBillingGroupsLoading: boolean;
+  setSelectedEstablishmentBillingGroup: (establishmentId: number) => void;
+  selectedEstablishmentBillingGroup: number;
   enableMultiLocalization: boolean;
 };
 
-export const MemberBalanceUpdaterDialog = (props: Props) => {
+export const MemberBalanceUpdaterDialog: React.FC<Props> = (props) => {
+  const {
+    asManager,
+    enableMultiLocalization,
+    establishmentBillingGroups,
+    establishmentBillingGroupsLoading,
+    initialValue,
+    onSubmit,
+    onClose,
+    open,
+    selectedEstablishmentBillingGroup,
+    setSelectedEstablishmentBillingGroup,
+  } = props;
   const classes = useStyles();
   const { t } = useTranslation('invoice');
 
   const [balanceUpdateType, selectBalanceUpdateType] = React.useState(
-    parseFloat(props.initialValue) < 0 ? 'topup' : 'decaissement',
+    parseFloat(initialValue) < 0 ? 'topup' : 'decaissement',
   );
   const [balanceUpdateValue, selectBalanceUpdateValue] = React.useState(
-    Math.abs(parseFloat(props.initialValue)),
+    Math.abs(parseFloat(initialValue)),
   );
   const [withoutPaymentNote, setWithoutPaymentNote] = React.useState(false);
   const [missingValue, setMissingValue] = React.useState(false);
 
+  const handleSelectEstablishmentBillingGroup = React.useCallback(
+    (item: EstablishmentBillingGroup) => {
+      setSelectedEstablishmentBillingGroup(item || null);
+      setMissingValue(!item);
+    },
+    [setMissingValue, setSelectedEstablishmentBillingGroup],
+  );
+
   return (
-    <GenericResponsiveDialog
-      maxWidth="xs"
-      onClose={props.onClose}
-      open={props.open}
-    >
+    <GenericResponsiveDialog maxWidth="xs" onClose={onClose} open={open}>
       <form
         onSubmit={(ev) => {
           ev.preventDefault();
           if (
             !withoutPaymentNote &&
-            props.asManager &&
-            props.enableMultiLocalization &&
-            !props.billingEstablishmentId &&
-            props.establishments?.length
+            asManager &&
+            enableMultiLocalization &&
+            !selectedEstablishmentBillingGroup &&
+            establishmentBillingGroups?.length
           ) {
             setMissingValue(true);
           } else if (balanceUpdateType === 'decaissement') {
-            props.onSubmit(-parseFloat(balanceUpdateValue), withoutPaymentNote);
+            onSubmit(-parseFloat(balanceUpdateValue), withoutPaymentNote);
           } else {
-            props.onSubmit(parseFloat(balanceUpdateValue), withoutPaymentNote);
+            onSubmit(parseFloat(balanceUpdateValue), withoutPaymentNote);
           }
         }}
       >
@@ -118,30 +137,27 @@ export const MemberBalanceUpdaterDialog = (props: Props) => {
                 </Typography>
               </div>
             )}
-            {!withoutPaymentNote &&
-              props.asManager &&
-              props.enableMultiLocalization && (
-                <div>
-                  <Typography variant="h6">
-                    {t('section.invoiceItemList.billing_establishment')}
-                  </Typography>
-                  <Divider className={classes.divider} />
-                  <EstablishmentSelector
-                    closeMenuOnSelect
-                    isOptionDisabled
-                    isRequired
-                    noMulti
-                    establishments={props.establishments}
-                    isLoading={props.establishmentLoading}
-                    requiredValueIsMissing={missingValue}
-                    selectedEstablishments={[props.billingEstablishmentId]}
-                    selectOption={(item: { value: number; label: string }) => {
-                      props.setBillingEstablishmentId(item ? item.value : null);
-                      setMissingValue(!item);
-                    }}
-                  />
-                </div>
-              )}
+            {!withoutPaymentNote && asManager && enableMultiLocalization && (
+              <div>
+                <Typography variant="h6">
+                  {t('section.invoiceItemList.billingGroup')}
+                </Typography>
+                <Divider className={classes.divider} />
+                <EstablishmentBillingGroupSelector
+                  closeMenuOnSelect
+                  isOptionDisabled
+                  isRequired
+                  noMulti
+                  establishmentBillingGroups={establishmentBillingGroups}
+                  isLoading={establishmentBillingGroupsLoading}
+                  requiredValueIsMissing={missingValue}
+                  selectedEstablishmentBillingGroup={
+                    selectedEstablishmentBillingGroup
+                  }
+                  selectOption={handleSelectEstablishmentBillingGroup}
+                />
+              </div>
+            )}
           </FormControl>
 
           <DialogContentText>
@@ -161,7 +177,7 @@ export const MemberBalanceUpdaterDialog = (props: Props) => {
           </DialogContentText>
         </div>
         <DialogActions>
-          <Button onClick={props.onClose}>
+          <Button onClick={onClose}>
             {t('balance.updaterDialog.actions.cancel')}
           </Button>
           <Button color="primary" disabled={!balanceUpdateValue} type="submit">

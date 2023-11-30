@@ -24,10 +24,13 @@ import InvoiceTable from '../../invoice/components/InvoiceTable.component';
 import { requestClientSecret as requestClientSecretAPI } from '../../invoice/api';
 import {
   getPaymentGroupStatus as getPaymentGroupStatusAPI,
-  setBillingEstablishmentOnCompletedPaymentGroupStatus as setBillingEstablishmentOnCompletedPaymentGroupStatusAPI,
+  setEstablishmentBillingGroupOnCompletedPaymentGroupStatus as setEstablishmentBillingGroupOnCompletedPaymentGroupStatusAPI,
 } from '../../payment/api';
 import type { Member } from '../types';
-import type { Establishment } from '../../establishment/types';
+import type {
+  Establishment,
+  EstablishmentBillingGroup,
+} from '../../establishment/types';
 import type { Invoice } from '#libs/invoice/types';
 import type { ConsumerGiftcard, Giftcard } from '#libs/giftcard/types';
 import type { OptionCallback } from '../../../state/types';
@@ -51,6 +54,7 @@ type Props = {
   snackbarErrorMsg: (msg: string) => void;
   snackbarSuccessMsg: (msg: string) => void;
   establishments: Array<Establishment>;
+  establishmentBillingGroups: EstablishmentBillingGroup[];
   enableMultiLocalization: boolean;
   selectedInvoiceId: string;
   companyId?: number;
@@ -106,8 +110,10 @@ export const MemberBillingProblemCard = (props: Props) => {
   const [regularizeFullDebt, setRegularizeFullDebt] =
     React.useState<boolean>(false);
   const [amountToBill, setAmountToBill] = React.useState<string | null>(null);
-  const [billingEstablishmentId, setBillingEstablishmentId] =
-    React.useState(null);
+  const [
+    selectedEstablishmentBillingGroup,
+    setSelectedEstablishmentBillingGroup,
+  ] = React.useState<EstablishmentBillingGroup>(null);
   const [paymentGroupCompletedCheckSeconds] = React.useState<number>(0.5);
   const [retryPaymentGroupStatus, setRetryPaymentGroupStatus] =
     React.useState<number>(0);
@@ -149,9 +155,9 @@ export const MemberBillingProblemCard = (props: Props) => {
         }
         if (r.data >= PAYMENT_INTENT_STATUS_SUCCESS) {
           setTimeout(() => {
-            setBillingEstablishmentOnCompletedPaymentGroupStatusAPI(
+            setEstablishmentBillingGroupOnCompletedPaymentGroupStatusAPI(
               paymentGroupId,
-              billingEstablishmentId,
+              selectedEstablishmentBillingGroup?.id,
             );
             if (callback) callback();
           }, 2000);
@@ -325,9 +331,8 @@ export const MemberBillingProblemCard = (props: Props) => {
               <MemberBalanceUpdaterDialog
                 open
                 asManager={props.asConsumer === false}
-                billingEstablishmentId={billingEstablishmentId}
                 enableMultiLocalization={props.enableMultiLocalization}
-                establishments={props.establishments}
+                establishmentBillingGroups={props.establishmentBillingGroups}
                 initialValue={parseFloat(props.balance)}
                 onClose={() => setAdjustBalanceDialogOpen(false)}
                 onSubmit={(arg, withoutPaymentNote) => {
@@ -339,7 +344,12 @@ export const MemberBillingProblemCard = (props: Props) => {
                     setAdjustBalanceDialogOpen(false);
                   }
                 }}
-                setBillingEstablishmentId={setBillingEstablishmentId}
+                selectedEstablishmentBillingGroup={
+                  selectedEstablishmentBillingGroup
+                }
+                setSelectedEstablishmentBillingGroup={
+                  setSelectedEstablishmentBillingGroup
+                }
               />
             )}
             {(!!invoiceToBill || !!amountToBill || !!regularizeFullDebt) && (

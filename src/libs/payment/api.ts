@@ -95,6 +95,19 @@ export const getPaymentGroupStatus = async (id: number) => {
   return getAuth(`${API_V1_URI}/payment/payment_group/${id}/status/`);
 };
 
+export const setEstablishmentBillingGroupOnCompletedPaymentGroupStatus = async (
+  paymentGroupId: number,
+  establishmentBillingGroupId: number,
+) => {
+  return postAuth(
+    `${API_V1_URI}/payment/payment_group/set_establishment_billing_group/`,
+    {
+      payment_group_id: paymentGroupId,
+      establishment_billing_group_id: establishmentBillingGroupId,
+    },
+  );
+};
+
 export const setBillingEstablishmentOnCompletedPaymentGroupStatus = async (
   paymentGroupId: number,
   establishmentId: number,
@@ -107,6 +120,7 @@ export const setBillingEstablishmentOnCompletedPaymentGroupStatus = async (
     },
   );
 };
+
 export const getPaymentGroupStatusBySecret = async (
   _payment_backend_id: string,
 ) => {

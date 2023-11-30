@@ -74,34 +74,33 @@ import type { RootState } from '../../reducers';
 // ----- TYPES
 
 type Props = {
-  timezone: string;
-  membership: Membership;
-  bookings: Array<Booking>;
   bookingCount: number;
-  bookingsLoading: boolean;
   bookingCurrentPage: number;
-  fetchBookingList: (member: number, page: number, page_size: number) => void;
+  bookings: Array<Booking>;
+  bookingsLoading: boolean;
   cancelBooking: (id: number) => void;
-
-  privateBookingsLoading: boolean;
-  private_booking_list: Array<PrivateBooking>;
+  companyId: number;
+  fetchBookingList: (member: number, page: number, page_size: number) => void;
+  fetchCoachBulk: (ids: number) => void;
+  fetchGroupOffer: (id: number) => void;
+  fetchLevelList: ({ company }: { company: number }) => void;
+  fetchMetaActivityBulk: (ids: number[]) => void;
+  fetchOfferBulk: (ids: number) => void;
   fetchPrivateBookings: ({ member }: { member: number }) => void;
-  goToCalendar: (companyName: string, companyId: number) => void;
-  showVaccinationStatus: boolean;
-  similarBookings: Booking[];
   fetchSimilarFuturBookingInGroup: (
     bookingId: number,
     options: OptionCallback,
   ) => void;
-  fetchOfferBulk: (ids: number) => void;
-  fetchCoachBulk: (ids: number) => void;
-  companyId: number;
-  fetchLevelList: ({ company }: { company: number }) => void;
-  resetGroupOffer: () => void;
-  fetchGroupOffer: (id: number) => void;
-  fetchMetaActivityBulk: (ids: number[]) => void;
+  goToCalendar: (companyName: string, companyId: number) => void;
   group: OffersGroup;
+  membership: Membership;
+  private_booking_list: Array<PrivateBooking>;
+  privateBookingsLoading: boolean;
+  resetGroupOffer: () => void;
+  showVaccinationStatus: boolean;
+  similarBookings: Booking[];
   similarBookingsLoading: boolean;
+  timezone: string;
 };
 
 export class ConsumerBooking extends React.Component<Props> {

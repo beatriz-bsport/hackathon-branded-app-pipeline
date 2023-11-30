@@ -3,7 +3,20 @@ import { compose, withHandlers } from 'recompose';
 import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 
-import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
+// ----- OFFER -----
+import { fetchOfferBulk as fetchOfferBulkAction } from '#libs/offer/actions';
+import { withCoach, withMetaActivity } from '#libs/offer/selectors';
+import {
+  resetGroupOffer as resetGroupOfferAction,
+  fetchGroupOffer as fetchGroupOfferAction,
+} from '#libs/group-offer/actions';
+import { retrieveGroupOffer } from '#libs/group-offer/selectors';
+// ----- OFFER -----
+
+// ----- LEVEL
+import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
+import { withCustomLevel } from '#libs/level/selectors';
+// ----- BOOKING -----
 import {
   cancelBooking as cancelBookingAction,
   discardAttendance as discardBookingAttendanceAction,
@@ -11,48 +24,54 @@ import {
   fetchBookingsAsConsumer as fetchBookingsAsConsumerAction,
   retrieveBooking,
   fetchSimilarFuturBookingInGroup as fetchSimilarFuturBookingInGroupAction,
-} from '../../libs/booking/actions';
+} from '#libs/booking/actions';
 
-import { retrieveConsumerPackBulk as retrieveConsumerPackBulkAction } from '../../libs/consumer-payment-pack/actions';
-import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '../../libs/payment-packs/actions';
-
-import { getConsumerPack } from '../../libs/consumer-payment-pack/selectors';
-import { getPrivateBookingListBase } from '../../libs/private-service/selectors/private-booking';
-import { fetchPrivateBookings } from '../../libs/private-service/actions';
-
-import { fetchOfferBulk as fetchOfferBulkAction } from '../../libs/offer/actions';
-import { withCoach, withMetaActivity } from '../../libs/offer/selectors';
-import { fetchLevelList as fetchLevelListAction } from '../../libs/level/actions';
-import { withCustomLevel } from '../../libs/level/selectors';
-import { fetchCoachBulk as fetchCoachBulkAction } from '../../libs/associated-coach/actions';
-import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
-import {
-  resetGroupOffer as resetGroupOfferAction,
-  fetchGroupOffer as fetchGroupOfferAction,
-} from '../../libs/group-offer/actions';
-import { retrieveGroupOffer } from '../../libs/group-offer/selectors';
 import {
   getSimilarBookingList,
   getConsumerBookingListWithConsumerPack,
   withOfferFull as withOffer,
-} from '../../libs/booking/selectors';
+} from '#libs/booking/selectors';
 
+// ----- BOOKING -----
+
+// ----- PAYMENT-PACK AND CONSUMER-PAYMENT-PACK
+import { retrieveConsumerPackBulk as retrieveConsumerPackBulkAction } from '#libs/consumer-payment-pack/actions';
+import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '#libs/payment-packs/actions';
+import { getConsumerPack } from '#libs/consumer-payment-pack/selectors';
+
+// ----- PRIVATE-BOOKING
+import { getPrivateBookingListBase } from '#libs/private-service/selectors/private-booking';
+import { fetchPrivateBookings } from '#libs/private-service/actions';
+
+// ---- COACH
+import { fetchCoachBulk as fetchCoachBulkAction } from '#libs/associated-coach/actions';
+import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#libs/meta-activity/actions';
+
+// GENERAL AND UTILS
+import { showVaccinationStatus } from '#libs/custom-form/selectors';
+import { urlToMarketplace } from '#libs/marketplace/utils';
+import {
+  fromConfigToUrl,
+  getMarketplaceRoute,
+} from '#libs/marketplace/routing-utils';
+
+// / ----- COMPONENTS
 // @ts-expect-error
 import ConsumerBookingPageReworked from '#libs/consumer-space/components/reworked/ConsumerBookingPageReworked.component';
+import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
+// / ----- COMPONENTS
+
+// / ----- TYPES
 
 import type { Membership } from '#libs/membership/types';
 import type { Booking } from '#libs/booking/types';
 import type { PrivateBooking } from '#libs/private-service/types';
-import { urlToMarketplace } from '../../libs/marketplace/utils';
-import { RootState } from '../../reducers';
-import type { MarketplaceTabConfig } from '../../libs/marketplace/types';
-import {
-  fromConfigToUrl,
-  getMarketplaceRoute,
-} from '../../libs/marketplace/routing-utils';
-import { showVaccinationStatus } from '../../libs/custom-form/selectors';
-import type { OptionCallback } from '../../state/types';
+import type { MarketplaceTabConfig } from '#libs/marketplace/types';
 import type { OffersGroup } from '#libs/group-offer/types';
+import type { OptionCallback } from '../../state/types';
+import type { RootState } from '../../reducers';
+
+// ----- TYPES
 
 type Props = {
   timezone: string;

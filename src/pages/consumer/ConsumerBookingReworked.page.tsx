@@ -67,7 +67,10 @@ type Props = {
 
 export class ConsumerBooking extends React.Component<Props> {
   componentDidMount() {
-    this.props.fetchPrivateBookings({ member: this.props.membership.id });
+    this.props.fetchPrivateBookings({
+      member: this.props.membership.id,
+      page: 1,
+    });
     this.props.fetchLevelList({
       company: this.props.companyId,
     });

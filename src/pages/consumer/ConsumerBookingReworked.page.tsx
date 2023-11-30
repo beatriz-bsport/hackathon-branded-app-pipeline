@@ -160,12 +160,9 @@ export default compose(
   withHandlers({
     fetchBookingList:
       ({
-        // @ts-expect-error
         fetchBookingsAsConsumer,
-        // @ts-expect-error
 
         retrieveConsumerPackBulk,
-        // @ts-expect-error
 
         fetchPaymentPackBulk,
         fetchOfferBulk,
@@ -174,8 +171,6 @@ export default compose(
 
       (member, page, page_size) =>
         fetchBookingsAsConsumer(member, page, page_size, {
-          // @ts-expect-error
-
           onSuccess: (bookings) => {
             // @ts-expect-error
 
@@ -185,12 +180,9 @@ export default compose(
 
               bookings.map((b) => b.consumer_payment_pack),
               {
-                // @ts-expect-error
-
                 onSuccess: (consumerPacks) =>
                   fetchPaymentPackBulk(
                     // @ts-expect-error
-
                     consumerPacks.map((cpp) => cpp.payment_pack),
                   ),
               },
@@ -200,31 +192,20 @@ export default compose(
     goToCalendar:
       (props: Props) => (companyName: string, companyId: string) => {
         const index =
-          // @ts-expect-error
-
           props.marketplaceSettings && props.marketplaceSettings.config
-            ? // @ts-expect-error
-
-              props.marketplaceSettings.config.findIndex(
-                // @ts-expect-error
-
+            ? props.marketplaceSettings.config.findIndex(
                 (tab) => tab.component_type === 'calendar',
               )
             : -1;
         if (index > -1) {
           const tabConfig: MarketplaceTabConfig =
-            // @ts-expect-error
-
             props.marketplaceSettings.config[index];
           // @ts-expect-error
 
           const path = fromConfigToUrl(tabConfig, { tabSelected: index });
-          // @ts-expect-error
 
           props.push(getMarketplaceRoute(companyName, props.companyId, path));
         } else {
-          // @ts-expect-error
-
           props.push(urlToMarketplace(companyName, companyId));
         }
       },

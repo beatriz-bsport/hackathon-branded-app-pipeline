@@ -404,6 +404,11 @@ const formikFormWrapper = withFormik<
     waitingListMaxSize: props.offer?.waiting_list_max_size,
     is_hybrid: !!props.offer?.linked_hybrid_offer_id,
     syncOfferOnSpivi: props.offer?.sync_on_spivi,
+    nameOverride: props.offer?.name_override ?? '',
+    descriptionOverride: props.offer?.description_override ?? '',
+    /* This value is only here to check if the custom name / description has changed. We use it to compare the field values to the  
+    chosenMetaActivity.name and chosenMetaActivity.description */
+    chosenMetaActivity: props.offer?.meta_activity,
   }),
   enableReinitialize: true,
   validationSchema: OfferEditFormValidationSchema,
@@ -440,10 +445,26 @@ const formikFormWrapper = withFormik<
       partnerMaxBookingCount,
       isOfferInGroup,
       syncOfferOnSpivi,
+      nameOverride,
+      descriptionOverride,
+      chosenMetaActivity,
     } = values;
 
     const isAllSimilarOfferSelected =
       similarOffers.length === selectedSimilarOffers.length;
+
+    const didNameOrDescriptionChange = !(
+      nameOverride === chosenMetaActivity?.name &&
+      descriptionOverride === chosenMetaActivity?.description
+    );
+
+    const sanitizedNameOverride = didNameOrDescriptionChange
+      ? nameOverride
+      : '';
+
+    const sanitizedDescriptionOverride = didNameOrDescriptionChange
+      ? descriptionOverride
+      : '';
 
     const offerData: OfferEdit = {
       establishment,
@@ -474,6 +495,8 @@ const formikFormWrapper = withFormik<
       date_start: dateIntervalStart,
       partner_max_booking_count: isOfferInGroup ? 0 : partnerMaxBookingCount,
       sync_on_spivi: syncOfferOnSpivi,
+      name_override: sanitizedNameOverride,
+      description_override: sanitizedDescriptionOverride,
     };
 
     if (offer.credit_price !== undefined && credits !== offer.credit_price) {

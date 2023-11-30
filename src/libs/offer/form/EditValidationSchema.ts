@@ -125,6 +125,8 @@ const OfferEditFormValidationSchema = Yup.object().shape({
         return true;
       },
     }),
+  nameOverride: Yup.string().max(500),
+  descriptionOverride: Yup.string(),
 });
 
 export default OfferEditFormValidationSchema;

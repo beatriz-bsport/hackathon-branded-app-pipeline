@@ -352,6 +352,11 @@ export type OfferFormValues = {
   coachOverridePropagateMode?: number;
   is_hybrid: boolean;
   syncOfferOnSpivi?: boolean;
+  nameOverride?: string;
+  descriptionOverride?: string;
+  /* This value is only here to check if the custom name / description has changed. We use it to compare the field values to the  
+  chosenMetaActivity.name and chosenMetaActivity.description */
+  chosenMetaActivity?: MetaActivity;
 };
 
 export type OfferFormRecurrenceWeekDay =
@@ -403,6 +408,8 @@ export type OfferEdit = Omit<OfferCreate, 'dates' | 'credits' | 'is_hybrid'> & {
   coach_override: number | null;
   credits?: number;
   additional_coaches: number[];
+  name_override?: string;
+  description_override?: string;
 };
 
 export enum MarketplaceOfferStatus {

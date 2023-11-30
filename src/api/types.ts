@@ -147,6 +147,8 @@ export type Offer = {
   linked_hybrid_offer_id: number | null;
   sync_on_spivi: boolean;
   internal_note: string;
+  name_override?: string;
+  description_override?: string;
 };
 
 export type MetaActivity = {

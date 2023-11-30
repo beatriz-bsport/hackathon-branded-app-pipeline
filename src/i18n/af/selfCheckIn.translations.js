@@ -22,6 +22,7 @@ exports.default = {
     title: 'Change Establishment',
     description:
       'To ensure security, please authenticate your identity by entering your password before proceeding with the establishment change.',
+    error: 'The password you entered is not valid',
   },
   offerDetail: {
     emptyList: 'There are bo bookings to display.',

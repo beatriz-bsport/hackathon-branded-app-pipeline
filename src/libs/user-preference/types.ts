@@ -59,4 +59,5 @@ export type UserPreference = {
   doNotDisplayConvertStepIntoExitDialogCadenceIds: number[];
   doNotDisplayPauseDialogCadenceIds: number[];
   doNotDisplayCadenceWelcomeDialog: boolean;
+  isCheckInFilterLocked: boolean;
 };

@@ -49,6 +49,7 @@ const initialState: Immutable.Immutable<UserPreference> =
     doNotDisplayConvertStepIntoExitDialogCadenceIds: [],
     doNotDisplayPauseDialogCadenceIds: [],
     doNotDisplayCadenceWelcomeDialog: false,
+    isCheckInFilterLocked: true,
   });
 
 export default handleActions<Immutable.Immutable<UserPreference>, any>(
@@ -209,6 +210,12 @@ export default handleActions<Immutable.Immutable<UserPreference>, any>(
       state,
     ) => {
       return state.set('doNotDisplayCadenceWelcomeDialog', true);
+    },
+    [userPreferenceActions.lockCheckInFilter.toString()]: (state) => {
+      return state.set('isCheckInFilterLocked', true);
+    },
+    [userPreferenceActions.unlockCheckInFilter.toString()]: (state) => {
+      return state.set('isCheckInFilterLocked', false);
     },
   },
   initialState,

@@ -70,6 +70,8 @@ export const userPreferenceActions = {
   doNotDisplayWelcomeDialogAnymore: createAction(
     'USER_PREFERENCE/DO_NOT_DISPLAY_CADENCE_WELCOME_DIALOG',
   ),
+  lockCheckInFilter: createAction('USER_PREFERENCE/LOCK_CHECK_IN_FILTER'),
+  unlockCheckInFilter: createAction('USER_PREFERENCE/UNLOCK_CHECK_IN_FILTER'),
 };
 
 export function setPaymentPackSort(sortOption: SortOption) {
@@ -264,5 +266,17 @@ export function doNotDisplayPauseDialogAnymore(cadenceId: number) {
 export function doNotDisplayWelcomeDialogAnymore() {
   return async (dispatch: Dispatch) => {
     dispatch(userPreferenceActions.doNotDisplayWelcomeDialogAnymore());
+  };
+}
+
+export function lockCheckInFilter() {
+  return (dispatch: Dispatch) => {
+    dispatch(userPreferenceActions.lockCheckInFilter());
+  };
+}
+
+export function unlockCheckInFilter() {
+  return (dispatch: Dispatch) => {
+    dispatch(userPreferenceActions.unlockCheckInFilter());
   };
 }

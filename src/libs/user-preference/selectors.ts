@@ -85,3 +85,6 @@ export const getIsPauseDialogHidden = createSelector(
 
 export const getDoNotDisplayCadenceWelcomeDialog = (state: RootState) =>
   state.userPreference.doNotDisplayCadenceWelcomeDialog;
+
+export const getIsCheckInFilterLocked = (state: RootState) =>
+  state.userPreference.isCheckInFilterLocked;

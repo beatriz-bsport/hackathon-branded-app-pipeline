@@ -224,15 +224,17 @@ export function fetchAccessLevelWithoutConnect(
 export function requestLogin(
   username: string,
   password: string,
-  options: ?{
+  options?: {
     company: string,
     goNext?: (values: {
       is_manager: Boolean,
       is_consumer: Boolean,
       is_franchisor: Boolean,
     }) => ThunkAction,
-    onDone: ?() => void,
+    onDone?: () => void,
+    onError?: () => void,
   },
+  noStorageClearOnError?: boolean,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(initiatedLogin(username));
@@ -245,24 +247,29 @@ export function requestLogin(
         throw new Error('No token');
       }
       dispatch(fetchAccessLevel(token, options));
+
+      options?.onDone?.(response.data);
     } catch (err) {
-      dispatch(
-        errorLogin({
-          email:
-            err.response &&
-            err.response.data &&
-            err.response.data.errors &&
-            err.response.data.errors.email,
-          password:
-            err.response &&
-            err.response.data &&
-            err.response.data.errors &&
-            err.response.data.errors.password,
-        }),
-      );
+      if (!noStorageClearOnError) {
+        dispatch(
+          errorLogin({
+            email:
+              err.response &&
+              err.response.data &&
+              err.response.data.errors &&
+              err.response.data.errors.email,
+            password:
+              err.response &&
+              err.response.data &&
+              err.response.data.errors &&
+              err.response.data.errors.password,
+          }),
+        );
+      }
       if (!err.status) {
         dispatch(networkError(err));
       }
+      options?.onError?.();
       if (options && options.onDone) options.onDone();
     }
   };

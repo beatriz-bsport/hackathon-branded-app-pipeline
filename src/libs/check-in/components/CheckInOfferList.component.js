@@ -13,6 +13,10 @@ import Fab from '@material-ui/core/Fab';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import Immutable from 'seamless-immutable';
 import Moment from 'moment-timezone';
+import { components } from 'react-select';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import LockIcon from '@material-ui/icons/Lock';
+import Button from '@material-ui/core/Button';
 
 import Countdown from '../../../components/Countdown.component';
 import OfferItemBase from '../../offer/components/OfferListItem.component';
@@ -30,8 +34,11 @@ type Props = {
   refreshData: () => void,
   offerFilters: OfferFilter,
   establishments: Array<Establishment>,
+  isCheckInFilterLocked: boolean,
   setFilters: (OfferFilter) => null,
   setOpen: () => null,
+  onOpenAuthenticationDialog: () => void,
+  onLockCheckInFilter: () => void,
 };
 
 const offerListItemStyle = () => {
@@ -46,6 +53,19 @@ const offerListItemStyle = () => {
     },
   };
 };
+
+const DropdownIndicator: React.FC<
+  ReturnType<typeof components.DropdownIndicator>,
+> = React.memo((props) => (
+  <components.DropdownIndicator {...props}>
+    {/* eslint-disable-next-line react/prop-types */}
+    {props.selectProps.isDisabled ? (
+      <LockIcon fontSize="small" />
+    ) : (
+      <ExpandMoreIcon fontSize="small" />
+    )}
+  </components.DropdownIndicator>
+));
 
 const CheckInOfferListItem = withTranslation(['selfCheckIn'])(
   withStyles(offerListItemStyle)((props) => {
@@ -130,7 +150,8 @@ export class CheckInOfferList extends Component<Props, State> {
   }
 
   render() {
-    const { classes, offersLoading, offers, t } = this.props;
+    const { classes, offersLoading, offers, t, onOpenAuthenticationDialog } =
+      this.props;
 
     if (offersLoading && !(this.props.offers || []).length) {
       return <LinearProgress />;
@@ -141,17 +162,39 @@ export class CheckInOfferList extends Component<Props, State> {
     return (
       <div className={classes.rootContainer}>
         <div className={classes.header}>
-          <div className={classes.establishmentSelector}>
-            <EstablishmentSelector
-              establishments={Immutable(establishmentList)}
-              selectedEstablishments={this.props.offerFilters.establishments}
-              selectOption={(ev) => {
-                this.props.setFilters({
-                  ...this.props.offerFilters,
-                  establishments: ev.map((e) => e.value),
-                });
-              }}
-            />
+          <div className={classes.headerFiltersContainer}>
+            <div
+              aria-hidden="true"
+              className={classes.establishmentSelector}
+              onClick={
+                this.props.isCheckInFilterLocked && onOpenAuthenticationDialog
+              }
+              role="button"
+            >
+              <EstablishmentSelector
+                disabled={this.props.isCheckInFilterLocked}
+                establishments={Immutable(establishmentList)}
+                selectComponents={{
+                  DropdownIndicator,
+                }}
+                selectedEstablishments={this.props.offerFilters.establishments}
+                selectOption={(ev) => {
+                  this.props.setFilters({
+                    ...this.props.offerFilters,
+                    establishments: ev.map((e) => e.value),
+                  });
+                }}
+              />
+            </div>
+            {!this.props.isCheckInFilterLocked && (
+              <Button
+                color="primary"
+                onClick={this.props.onLockCheckInFilter}
+                variant="outlined"
+              >
+                {t('common:save')}
+              </Button>
+            )}
           </div>
           <Fab
             aria-label="refresh"
@@ -229,6 +272,12 @@ const styles = (theme) => ({
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
+  },
+  headerFiltersContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    flex: 1,
+    gap: theme.spacing(1),
   },
 });
 

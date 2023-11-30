@@ -187,7 +187,7 @@ const getDisplayPropsForOneGraph = (
     const { group_by, group_by_value } = partialGraph.graph_params;
     const groupByDatatype = graphMetadata?.metadata?.find(
       (m) => m.identifier === group_by,
-    ).datatype;
+    )?.datatype;
 
     let translationKey = null;
     if (DATATYPE_PRESET_INTEGER_VALUE.includes(groupByDatatype)) {

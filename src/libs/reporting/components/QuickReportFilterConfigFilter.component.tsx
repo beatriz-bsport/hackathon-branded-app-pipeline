@@ -191,7 +191,7 @@ const QuickReportFilterConfigFilter: React.FC<
                   withoutConfirmButton
                   closeMenuOnSelect={false}
                   comparator={
-                    values.config.groups[0].filters_data[index].comparator
+                    values.config.groups[0].filters_data[index]?.comparator
                   }
                   filterItem={values.config.groups[0].filters_data[index]}
                   getDataByType={getDataByType}

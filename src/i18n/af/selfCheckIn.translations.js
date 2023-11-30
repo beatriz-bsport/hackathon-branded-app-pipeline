@@ -18,6 +18,11 @@ exports.default = {
     signout: 'Disconnect',
     form: { username: { label: 'Email' }, password: { label: 'Password' } },
   },
+  authenticationDialog: {
+    title: 'Change Establishment',
+    description:
+      'To ensure security, please authenticate your identity by entering your password before proceeding with the establishment change.',
+  },
   offerDetail: {
     emptyList: 'There are bo bookings to display.',
     noConsumerPaymentPack:

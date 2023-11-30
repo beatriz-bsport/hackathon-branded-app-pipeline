@@ -11,6 +11,7 @@ import { useTheme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Checkbox from '@material-ui/core/Checkbox';
 import classNames from 'classnames';
+import type { SelectComponents } from 'react-select/lib/components';
 import type { Establishment, EstablishmentSelectOption } from '../types';
 
 const GroupHeading = ({ children, ...props }) => {
@@ -251,6 +252,7 @@ export type OwnProps = {
   name?: string;
   selectorClass?: string;
   hideError?: boolean;
+  selectComponents?: Partial<SelectComponents<any>>;
 };
 
 type Props = OwnProps & WithTranslation;
@@ -276,6 +278,7 @@ export function EstablishmentSelector(props: Props) {
     selectorClass,
     hideError,
     id,
+    selectComponents,
     onBlur,
   } = props;
   const roomsSelected =
@@ -290,7 +293,7 @@ export function EstablishmentSelector(props: Props) {
       <Select
         className={classNames(selectorClass)}
         closeMenuOnSelect={!!closeMenuOnSelect}
-        components={{ GroupHeading, Group, Menu }}
+        components={{ GroupHeading, Group, Menu, ...selectComponents }}
         id={id}
         isClearable={!!isClearable}
         isDisabled={disabled}

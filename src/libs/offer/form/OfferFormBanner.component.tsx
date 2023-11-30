@@ -33,7 +33,9 @@ const OfferFormBanner = (props: Props) => {
 
   return (
     <div
-      className={classes.container}
+      className={classNames(classes.container, {
+        [classes.containerWithoutName]: !name,
+      })}
       id="offer-form-banner"
       style={{ backgroundImage }}
     >
@@ -126,6 +128,9 @@ const useStyles = makeStyles((theme) => ({
       paddingRight: theme.spacing(3),
       height: 'auto',
     },
+  },
+  containerWithoutName: {
+    justifyContent: 'center',
   },
   gradientContainer: {
     zIndex: 0,

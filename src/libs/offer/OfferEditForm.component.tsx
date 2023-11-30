@@ -232,7 +232,6 @@ export const OfferEditForm = (props: Props) => {
       {!hideBanner && (
         <OfferFormBanner
           isEditOffer
-          name={offer?.meta_activity.name ?? metaActivity?.name}
           onBannerGoBack={onBannerGoBack}
           onCancel={onCancel}
           picture={offer?.meta_activity.cover_main ?? metaActivity?.cover_main}

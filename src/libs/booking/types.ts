@@ -4,6 +4,7 @@ import type {
   StaffModificationHistory,
   BookingModificationActionIdentifier,
 } from '#libs/role/types';
+import type { SpotInformation } from '#libs/spot-scheduling/types';
 
 export type BroadcastInfo = {
   id: number;
@@ -62,6 +63,50 @@ export type Booking<Offer = number, Member = number, PP = number> = {
   date_no_show_registered: string;
   roll_call_attendance: boolean;
   date_roll_call_last_modified: string;
+};
+
+/**
+ * @description Represents a Booking following the REST API payload structure, excluding deprecated redux-selector pattern.
+ */
+export type BookingREST = {
+  attendance: boolean;
+  attendance_date_updated: string | null;
+  booking_status_code: number;
+  coach: number;
+  coach_override: number | null;
+  consumer: number;
+  consumer_payment_pack: number;
+  credit_consumed: number;
+  custom_level: number;
+  date: string;
+  date_canceled: string;
+  date_no_show_registered: string | null;
+  date_roll_call_last_modified: string | null;
+  establishment: number;
+  first_in_company: boolean;
+  has_spivi_error: boolean | null;
+  id: number;
+  is_deleted: boolean;
+  is_discardable: boolean;
+  is_no_show: boolean;
+  level: number;
+  member: number;
+  meta_activity: number;
+  name: string;
+  no_show_penalty_applied: boolean;
+  offer: number;
+  offer_date_start: string;
+  offer_duration_minute: number;
+  recurrence_rule_booking: number | null;
+  roll_call_attendance: boolean | null;
+  roll_call_attendance_date_updated: string | null;
+  roll_call_needs_validation: boolean;
+  source: number;
+  source_member: number | null;
+  spot_id: number | null;
+  spot_information: SpotInformation | {};
+  staff_history: StaffModificationHistory<BookingModificationActionIdentifier>[];
+  was_refunded: boolean;
 };
 
 export type BookingOption<O = Offer> = {

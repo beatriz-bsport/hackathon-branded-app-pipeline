@@ -30,7 +30,7 @@ import {
 } from './api';
 
 import type { Dispatch, OptionCallback, ThunkAction } from '../../state/types';
-import { Booking } from './types';
+import { Booking, BookingREST } from './types';
 import { EXCEPTION_STAFF_ROLE_OVERBOOKING_NOT_ALLOWED } from '#libs/role/constants';
 
 import { isErrorWithCustomCode } from '#libs/utils';
@@ -260,7 +260,7 @@ export function fetchBookingsAsConsumer(
   member: number,
   page: number,
   page_size: number,
-  options: OptionCallback<Booking[]>,
+  options: OptionCallback<BookingREST[]>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(asConsumerActions.isLoading(true));

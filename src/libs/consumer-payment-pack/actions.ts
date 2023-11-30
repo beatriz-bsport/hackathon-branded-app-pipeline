@@ -444,7 +444,7 @@ export const retrieveBulk = {
 
 export function retrieveConsumerPackBulk(
   ids: Array<number>,
-  options: OptionCallback,
+  options: OptionCallback<ConsumerPaymentPack[]>,
 ) {
   return async (dispatch: Dispatch) => {
     if (!ids || ids.length === 0) return;

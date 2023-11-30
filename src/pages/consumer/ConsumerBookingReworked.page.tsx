@@ -47,7 +47,7 @@ import { showVaccinationStatus } from '#libs/custom-form/selectors';
 import ConsumerBookingPageReworked from '#libs/consumer-space/components/reworked/ConsumerBookingPageReworked.component';
 import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 
-import type { Booking } from '#libs/booking/types';
+import type { BookingREST } from '#libs/booking/types';
 import type { MarketplaceTabConfig } from '#libs/marketplace/types';
 import type { RootState } from '../../reducers';
 import type { WithHandlerType } from '../../utils/types';
@@ -63,7 +63,7 @@ type OwnAndConnectedProps = OwnProps &
 
 type Props = {
   // Keeping for typing only
-  bookings: Array<Booking>;
+  bookings: Array<BookingREST>;
   fetchBookingList: (member: number, page: number, page_size: number) => void;
   goToCalendar: (companyName: string, companyId: number) => void;
 } & WithHandlerType<typeof mapWithHandlers> &
@@ -168,7 +168,7 @@ const mapWithHandlers = {
     }: OwnAndConnectedProps) =>
     (member: number, page: number, page_size: number) =>
       fetchBookingsAsConsumer(member, page, page_size, {
-        onSuccess: (bookings) => {
+        onSuccess: (bookings: BookingREST[]) => {
           fetchOfferBulk(bookings.map((b) => b.offer).filter((o) => !!o));
           retrieveConsumerPackBulk(
             bookings.map((b) => b.consumer_payment_pack),

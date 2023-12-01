@@ -390,6 +390,8 @@ export type OfferCreate = {
   room_blueprint?: number;
   is_hybrid: boolean;
   sync_on_spivi?: boolean;
+  name_override?: string;
+  description_override?: string;
 };
 
 export type OfferEdit = Omit<OfferCreate, 'dates' | 'credits' | 'is_hybrid'> & {

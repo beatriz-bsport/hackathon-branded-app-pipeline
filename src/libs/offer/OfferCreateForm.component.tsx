@@ -299,6 +299,8 @@ const formikFormWrapper = withFormik<
       selectedWhitelistTags: [],
       waitingListMaxSize: props.isOfferInGroup ? 0 : null,
       selectedMetaActivity: props.metaActivity?.id,
+      nameOverride: '',
+      descriptionOverride: '',
     };
   },
   enableReinitialize: false,
@@ -306,7 +308,7 @@ const formikFormWrapper = withFormik<
   validateOnBlur: false,
   handleSubmit: (
     values,
-    { props: { timezone, creditScaleFactor, onSubmit } },
+    { props: { timezone, creditScaleFactor, onSubmit, metaActivity } },
   ) => {
     const {
       level,
@@ -328,7 +330,22 @@ const formikFormWrapper = withFormik<
       allowGuestOffer,
       is_hybrid,
       syncOfferOnSpivi,
+      nameOverride,
+      descriptionOverride,
     } = values;
+
+    const didNameOrDescriptionChange = !(
+      nameOverride === metaActivity?.name &&
+      descriptionOverride === metaActivity?.description
+    );
+
+    const sanitizedNameOverride = didNameOrDescriptionChange
+      ? nameOverride
+      : '';
+
+    const sanitizedDescriptionOverride = didNameOrDescriptionChange
+      ? descriptionOverride
+      : '';
 
     const offer: OfferCreate = {
       dates: getOfferRecurrenceDates(
@@ -358,6 +375,8 @@ const formikFormWrapper = withFormik<
       allow_guest_offer: allowGuestOffer,
       is_hybrid,
       sync_on_spivi: syncOfferOnSpivi,
+      name_override: sanitizedNameOverride,
+      description_override: sanitizedDescriptionOverride,
     };
 
     if (roomBlueprint) {

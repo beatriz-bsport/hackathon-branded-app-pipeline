@@ -44,6 +44,23 @@ const UserInteractionModal: React.FC<UserInteractionModalProps> = ({
   onClose,
 }) => {
   const classes = useModalStyles();
+
+  /* This workaround addresses the issue with the Material-UI (mui) Modal. 
+  When the modal is mounted and opened, mui Modal sets the document's overflow to 'hidden.' 
+  The problem arises when it fails to reset the overflow on unmount. Instead, it invokes a hook that again sets it to 'hidden.' 
+  Consequently, we need to manually set the overflow to 'auto' and use a setTimeout to ensure our setting takes place after mui's, preventing it from being overridden.
+
+  Another alternative found in the mui repository is to use "disableScrollLock". 
+  However, this option provides a suboptimal user experience: scrolling on the body is possible when the modal is open, while scrolling inside the modal becomes impossible. */
+
+  React.useEffect(() => {
+    return () => {
+      setTimeout(() => {
+        document.body.style.setProperty('overflow', 'auto');
+      }, 200);
+    };
+  }, []);
+
   return (
     <Modal
       open={!!url}

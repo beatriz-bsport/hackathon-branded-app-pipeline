@@ -105,6 +105,7 @@ const MenuSelectorTextButton: React.FC<Props> = ({
                 className={classNames(classes.menuItem, {
                   [classes.disabledAction]: !!action.isDisabled,
                 })}
+                disableRipple={!!action.isDisabled}
                 onClick={handleOnClickAction(action)}
                 onContextMenu={handleRightClick}
                 value={action.label}

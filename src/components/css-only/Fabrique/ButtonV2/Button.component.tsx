@@ -20,12 +20,21 @@ import './styles.css';
 type Props = {
   color?: ButtonColorType;
   className?: string;
+  /** Optional classes passed to the icon container elements */
+  classes?: {
+    leftIcon?: string;
+    rightIcon?: string;
+  };
   isDisabled?: boolean;
   variant?: ButtonVariantType;
   onClick: (event?: React.MouseEvent<HTMLButtonElement>) => void;
   isRippleEnabled?: boolean;
   type?: ButtonHTMLType;
   size?: ButtonSizeType;
+  /** Optional slot for an icon displayed left to the label */
+  leftIcon?: React.ReactNode;
+  /** Optional slot for an icon displayed right to the label */
+  rightIcon?: React.ReactNode;
   children: React.ReactNode;
 };
 
@@ -145,12 +154,15 @@ const useButtonClassNames = (
 export const Button: React.FC<Props> = ({
   color = ButtonColor.PRIMARY,
   className,
+  classes,
   isDisabled,
   variant = ButtonVariant.CONTAINED,
   onClick,
   isRippleEnabled,
   type = 'button',
   size = ButtonSize.LG,
+  leftIcon,
+  rightIcon,
   children,
 }) => {
   const buttonClassNames = useButtonClassNames(
@@ -167,7 +179,25 @@ export const Button: React.FC<Props> = ({
       onClick={onClick}
       type={type}
     >
+      <div
+        className={classNames(
+          'bs-fabrique-button-root__left-icon',
+          { 'bs-fabrique-button-root__left-icon--hidden': !leftIcon },
+          classes?.leftIcon,
+        )}
+      >
+        {leftIcon}
+      </div>
       {children}
+      <div
+        className={classNames(
+          'bs-fabrique-button-root__right-icon',
+          { 'bs-fabrique-button-root__right-icon--hidden': !rightIcon },
+          classes?.rightIcon,
+        )}
+      >
+        {rightIcon}
+      </div>
     </ButtonBase>
   );
 };

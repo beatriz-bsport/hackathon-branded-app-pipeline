@@ -19,6 +19,7 @@ import {
   MarketplacePage,
   VariationConfigurationChoice,
 } from '#libs/exportable-components/types';
+import { Star06 } from '#components/untitledui';
 
 const fabriqueButtonVariationRegistry = [
   {
@@ -36,6 +37,22 @@ const fabriqueButtonVariationRegistry = [
   },
   {
     label: 'isDisabled',
+    choices: [
+      { label: 'true', value: 'true' },
+      { label: 'false', value: 'false' },
+    ],
+    default: { label: 'false', value: 'false' },
+  },
+  {
+    label: 'displayLeftIcon',
+    choices: [
+      { label: 'true', value: 'true' },
+      { label: 'false', value: 'false' },
+    ],
+    default: { label: 'false', value: 'false' },
+  },
+  {
+    label: 'displayRightIcon',
     choices: [
       { label: 'true', value: 'true' },
       { label: 'false', value: 'false' },
@@ -75,6 +92,10 @@ const usePropsFromVariation = (
 ): Omit<ButtonProps, 'children'> => {
   const colorSelected = variationsSelected?.color?.value as ButtonColorType;
   const isDisabledSelected = variationsSelected?.isDisabled?.value === 'true';
+  const isDisplayLeftIcon =
+    variationsSelected?.displayLeftIcon?.value === 'true';
+  const isDisplayRightIcon =
+    variationsSelected?.displayRightIcon?.value === 'true';
   const variantSelected = variationsSelected?.fabriqueVariant
     ?.value as ButtonVariantType;
   const isRippleEnabledSelected =
@@ -88,6 +109,8 @@ const usePropsFromVariation = (
     isRippleEnabled: isRippleEnabledSelected,
     type: 'button',
     size: sizeSelected,
+    leftIcon: isDisplayLeftIcon && <Star06 />,
+    rightIcon: isDisplayRightIcon && <Star06 />,
   };
 };
 

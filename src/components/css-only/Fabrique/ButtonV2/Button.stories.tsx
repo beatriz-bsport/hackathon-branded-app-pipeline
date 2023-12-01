@@ -4,6 +4,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { ButtonStorybook } from './Button.component';
 
 import { ButtonColor, ButtonVariant, ButtonSize } from './constants';
+import { ChevronRight, ShoppingCart03 } from '#components/untitledui';
 const ButtonStorybookTemplate: ComponentStory<typeof ButtonStorybook> = (
   args,
 ) => <ButtonStorybook {...args}>{args.children}</ButtonStorybook>;
@@ -159,6 +160,18 @@ Buttontexterror.args = {
   children: 'Error',
 };
 
+export const Buttonwithlefticon = ButtonStorybookTemplate.bind({});
+Buttonwithlefticon.args = {
+  children: 'Buy pass',
+  leftIcon: <ShoppingCart03 />,
+};
+
+export const Buttonwithrighticon = ButtonStorybookTemplate.bind({});
+Buttonwithrighticon.args = {
+  children: 'See details',
+  rightIcon: <ChevronRight />,
+};
+
 export default {
   title: 'Fabrique/Button/Stories',
   component: ButtonStorybook,
@@ -166,6 +179,12 @@ export default {
     children: {
       description: 'The text to be displayed',
       control: 'text',
+    },
+    leftIcon: {
+      description: 'Optional icon to be displayed left to the label',
+    },
+    rightIcon: {
+      description: 'Optional icon to be displayed right to the label',
     },
     size: {
       description: 'The button size',

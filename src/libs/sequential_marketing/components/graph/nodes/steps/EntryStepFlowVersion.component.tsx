@@ -267,6 +267,7 @@ export const EntryStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
         <EntryActionBubble
           {...data.marketingActionEssentials}
           isInitial={data.isFirstConfigurationMode}
+          isPushNotificationUpsellActive={data.isPushNotificationUpsellActive}
           marketingActions={data.marketingActionList}
           onCancel={handleCancelActionBubble}
           onConfirm={handleConfirmActionBubble}

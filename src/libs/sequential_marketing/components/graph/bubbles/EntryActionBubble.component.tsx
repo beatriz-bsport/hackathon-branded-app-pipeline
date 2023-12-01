@@ -14,6 +14,7 @@ import type {
 
 type Props = {
   isInitial?: boolean;
+  isPushNotificationUpsellActive?: boolean;
   marketingActions?: StepMarketingActions[];
   onConfirm: (data: StepMarketingActions[]) => void;
   onCancel?: (value?: StepMarketingActions[]) => void;
@@ -28,6 +29,7 @@ const EntryActionBubble: React.FC<Props> = ({
   tagCategories,
   tagList,
   isInitial,
+  isPushNotificationUpsellActive,
   marketingActions,
   fetchEmailSummaryList,
   getEmailDetail,
@@ -98,6 +100,7 @@ const EntryActionBubble: React.FC<Props> = ({
           emailSummaryListLoading={emailSummaryListLoading}
           fetchEmailSummaryList={fetchEmailSummaryList}
           getEmailDetail={getEmailDetail}
+          isPushNotificationUpsellActive={isPushNotificationUpsellActive}
           marketingActions={marketingActionList}
           resolvedGenericTags={resolvedGenericTags}
           tagCategories={tagCategories}

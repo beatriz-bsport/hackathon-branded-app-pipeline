@@ -26,6 +26,7 @@ import useMarketingActionOptions from './hooks/useMarketingActionOptions.hook';
 
 type Props = {
   addActionLabel?: string;
+  isPushNotificationUpsellActive?: boolean;
   updateMarketingActions: (values: Partial<StepMarketingActions>[]) => void;
   updateFormValidation: (isValid: boolean) => void;
 } & MarketingActionEssentials;
@@ -46,6 +47,7 @@ const MultipleMarketingActionForm: React.FC<Props> = ({
   resolvedGenericTags,
   tagList,
   addActionLabel,
+  isPushNotificationUpsellActive,
   fetchEmailSummaryList,
   getEmailDetail,
   updateMarketingActions,
@@ -109,6 +111,7 @@ const MultipleMarketingActionForm: React.FC<Props> = ({
     marketingActionToExclude: values.marketingActions?.map((marketingAction) =>
       getMarketingActionType(marketingAction),
     ),
+    isPushNotificationUpsellActive,
   });
 
   React.useEffect(() => {

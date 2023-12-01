@@ -817,5 +817,32 @@ exports.default = {
     },
     audienceIndexHelper:
       'The order of the {{ workflowPluralLowerCase }} sets the order of priority: if a member can enter 2 different {{ workflowPluralLowerCase }} at the same time, they will start with the highest in the list.',
+    workflowMetrics: {
+      cards: {
+        members: {
+          title: 'Members',
+          description:
+            'Number of members that entered the {{ workflowLowerCase }}.',
+          label: 'members entered',
+        },
+        success: {
+          title: 'Success',
+          description: 'Percentage of people considered as won.',
+          label: 'success rate',
+        },
+        averageTime: {
+          title: 'Average time',
+          description:
+            'Average period of time needed for a member to be considered as won.',
+          label: 'days on average',
+        },
+        tags: {
+          title: 'Tags',
+          description:
+            'Number of tags applied to the members in the {{ workflowLowerCase }}.',
+          label: 'tags',
+        },
+      },
+    },
   },
 };

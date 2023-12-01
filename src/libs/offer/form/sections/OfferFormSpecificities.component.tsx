@@ -3,10 +3,13 @@ import React, { useCallback, useMemo, useState } from 'react';
 import Info from '@material-ui/icons/Info';
 import People from '@material-ui/icons/People';
 import { useTheme } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Alert from '@material-ui/lab/Alert';
+import AddIcon from '@material-ui/icons/Add';
+import RemoveIcon from '@material-ui/icons/Remove';
 import { useFormikContext } from 'formik';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
@@ -42,6 +45,7 @@ import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
 import { UPSELL_IDENTIFIER_SPIVI } from '#libs/platform-billing/upsell-identifiers';
 import { hasUpsell } from '#libs/platform-billing/utils';
 import { FeatureList } from '#libs/company/types';
+import NameDescriptionOverride from '#libs/offer/components/NameDescriptionOverride.component';
 
 type Props = {
   activeCustomLevels: Level[];
@@ -198,11 +202,76 @@ const OfferFormSpecificities = (props: Props) => {
     [],
   );
 
+  const [isNameDescriptionOverrideOpen, setIsNameDescriptionOverrideOpen] =
+    useState(false);
+
+  const [selectedActivity, setSelectedActivity] = useState<MetaActivity>(null);
+
+  const metaActivityButtonLabel = (() => {
+    if (isNameDescriptionOverrideOpen)
+      return t('form.section.nameDescriptionOverride.hideButton');
+    if (values?.nameOverride || values?.descriptionOverride)
+      return t('form.section.nameDescriptionOverride.showButton');
+    return t('form.section.nameDescriptionOverride.setButton');
+  })();
+
+  const openNameDescriptionOverride = useCallback(() => {
+    if (!selectedActivity) {
+      const metaActivityId = values?.selectedMetaActivity;
+      const metaActivity =
+        metaActivities?.find((activity) => activity?.id === metaActivityId) ??
+        ({} as MetaActivity);
+      !selectedActivity && setSelectedActivity(metaActivity);
+      if (!values.nameOverride || !values.descriptionOverride) {
+        setFieldValue('nameOverride', metaActivity.name);
+        setFieldValue('descriptionOverride', metaActivity.description);
+      }
+    } else if (
+      selectedActivity &&
+      (!values.nameOverride || !values.descriptionOverride)
+    ) {
+      setFieldValue('nameOverride', selectedActivity.name);
+      setFieldValue('descriptionOverride', selectedActivity.description);
+    }
+    setIsNameDescriptionOverrideOpen(true);
+  }, [
+    metaActivities,
+    setFieldValue,
+    values?.selectedMetaActivity,
+    selectedActivity,
+    values?.descriptionOverride,
+    values?.nameOverride,
+  ]);
+
+  const closeNameDescriptionOverride = useCallback(() => {
+    if (
+      values.nameOverride === selectedActivity.name &&
+      values.descriptionOverride === selectedActivity.description
+    ) {
+      setFieldValue('nameOverride', '');
+      setFieldValue('descriptionOverride', '');
+    }
+    setIsNameDescriptionOverrideOpen(false);
+  }, [
+    selectedActivity?.description,
+    selectedActivity?.name,
+    setFieldValue,
+    values?.nameOverride,
+    values?.descriptionOverride,
+  ]);
+
   const handleSelectMetaActivity = useCallback(
     ({ value }: { value: number }) => {
+      const metaActivity =
+        metaActivities?.find((activity) => activity?.id === value) ??
+        ({} as MetaActivity);
+      setSelectedActivity(metaActivity);
       setFieldValue('selectedMetaActivity', value);
+      setIsNameDescriptionOverrideOpen(false);
+      setFieldValue('nameOverride', '');
+      setFieldValue('descriptionOverride', '');
     },
-    [setFieldValue],
+    [setFieldValue, metaActivities],
   );
 
   return (
@@ -214,19 +283,50 @@ const OfferFormSpecificities = (props: Props) => {
       sectionTitle={t('form.section.specificities.title')}
     >
       {isEditOffer && (
-        <MetaActivitySelector
-          closeMenuOnSelect
-          noMulti
-          controlBackground={isOfferInGroup && '#F2F2F2'}
-          disabled={isOfferInGroup || is_hybrid}
-          id="offer-form-edit-meta-activity-selector"
-          metaActivities={metaActivities ?? []}
-          selectedMetaActivities={
-            selectedMetaActivity ? [selectedMetaActivity] : undefined
-          }
-          selectOption={handleSelectMetaActivity}
-        />
+        <OfferFormField
+          id="offer-form-name-description-override-field"
+          label={t('form.section.specificities.field.metaActivity')}
+        >
+          <div className={classes.metaActivitySection}>
+            <div
+              className={classNames({
+                [classes.bigWidth]: !isMobile,
+              })}
+            >
+              <MetaActivitySelector
+                closeMenuOnSelect
+                noMulti
+                controlBackground={isOfferInGroup && '#F2F2F2'}
+                disabled={isOfferInGroup || is_hybrid}
+                id="offer-form-edit-meta-activity-selector"
+                metaActivities={metaActivities ?? []}
+                selectedMetaActivities={
+                  selectedMetaActivity ? [selectedMetaActivity] : undefined
+                }
+                selectOption={handleSelectMetaActivity}
+              />
+            </div>
+            <Button
+              className={classes.addCustomNameButton}
+              color="primary"
+              disabled={(is_hybrid && isBroadcast) || isOfferInGroup}
+              onClick={
+                isNameDescriptionOverrideOpen
+                  ? closeNameDescriptionOverride
+                  : openNameDescriptionOverride
+              }
+              variant="text"
+            >
+              {isNameDescriptionOverrideOpen ? <RemoveIcon /> : <AddIcon />}
+              {metaActivityButtonLabel}
+            </Button>
+          </div>
+        </OfferFormField>
       )}
+      <NameDescriptionOverride
+        isOpen={isNameDescriptionOverrideOpen}
+        onChange={handleChange}
+      />
 
       <div className={classes.formFieldColumns}>
         <OfferFormField

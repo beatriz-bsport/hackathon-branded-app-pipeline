@@ -252,6 +252,29 @@ const useOfferFormStyles = (
     alert: {
       alignItems: 'center',
     },
+    label: {
+      fontSize: '0.9rem',
+      fontWeight: 400,
+      marginBottom: -6,
+    },
+    metaActivitySection: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: theme.spacing(1),
+      [theme.breakpoints.down('xs')]: {
+        flexDirection: 'column',
+        alignItems: 'stretch',
+        width: '100%',
+      },
+    },
+    addCustomNameButton: {
+      padding: 0,
+      textTransform: 'none',
+      fontWeight: 400,
+      [theme.breakpoints.down('xs')]: {
+        width: 'fit-content',
+      },
+    },
   }));
 
   const classes = useStyles();

@@ -30,7 +30,31 @@ type Props = OwnProps &
 class PassWidget extends Component<Props> {
   componentDidMount() {
     this.props.bridgeRequestMemberTag();
+    window?.addEventListener('message', this.handleAddToCartPostMessages);
   }
+
+  handleAddToCartPostMessages = (event: MessageEvent) => {
+    let object_id = null;
+    let trigger_action = null;
+    switch (event?.data?.type) {
+      case 'bsport:pass:add-to-cart:payment-pack':
+        trigger_action = this.addPaymentPackToCart;
+        object_id = event?.data?.data?.payment_pack_id;
+        break;
+      case 'bsport:pass:add-to-cart:payment-combo':
+        trigger_action = this.addComboToCart;
+        object_id = event?.data?.data?.payment_combo_id;
+        break;
+      case 'bsport:pass:add-to-cart:private-pass':
+        trigger_action = this.addPrivatePassToCart;
+        object_id = event?.data?.data?.private_pass_id;
+        break;
+      default:
+        break;
+    }
+
+    if (object_id && trigger_action) trigger_action(object_id);
+  };
 
   componentDidUpdate(prevProps: Props) {
     if (
@@ -39,6 +63,10 @@ class PassWidget extends Component<Props> {
     ) {
       this.props.bridgeRequestMemberTag();
     }
+  }
+
+  componentWillUnmount(): void {
+    window?.removeEventListener('message', this.handleAddToCartPostMessages);
   }
 
   addComboToCart = (comboId: number) => {

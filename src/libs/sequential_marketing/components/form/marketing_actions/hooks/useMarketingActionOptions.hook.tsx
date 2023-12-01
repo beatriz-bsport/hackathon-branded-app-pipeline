@@ -1,6 +1,9 @@
 import React from 'react';
 import Immutable from 'seamless-immutable';
 import { useTranslation } from 'react-i18next';
+
+import Config from '../../../../../../config';
+
 import {
   CADENCE_MARKETING_ACTION_CHOICES,
   MarketingActions,
@@ -41,7 +44,9 @@ export const useMarketingActionOptions = ({
         customColor || SequentialMarketingColors.MARKETING_ACTION_COLOR,
       // MVP: for now we want to restrict access to SMS action
       isDisabled:
-        marketingActionKind === MarketingActions.CADENCE_MARKETING_ACTION_SMS ||
+        (marketingActionKind ===
+          MarketingActions.CADENCE_MARKETING_ACTION_SMS &&
+          Config.REACT_APP_SENTRY_ENVIRONMENT === 'production') ||
         (marketingActionKind ===
           MarketingActions.CADENCE_MARKETING_ACTION_PUSH_NOTIFICATION &&
           !isPushNotificationUpsellActive),

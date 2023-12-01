@@ -304,6 +304,7 @@ export const OfferEditForm = (props: Props) => {
             isOfferInGroup={isOfferInGroup}
             isWherebyIntegrationEnabled={isWherebyIntegrationEnabled}
             metaActivities={metaActivities}
+            metaActivity={metaActivity}
             roomBlueprints={roomBlueprints}
             updateLevel={updateLevel}
             zoomAppDetail={zoomAppDetail}

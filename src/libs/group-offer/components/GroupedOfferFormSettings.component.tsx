@@ -694,6 +694,7 @@ const OfferDialogs: React.FC<{
       >
         <OfferCreateForm
           editableCoachPaymentRule
+          hideActivitySection
           isOfferInGroup
           availableEstablishments={availableEstablishments}
           coaches={coaches}

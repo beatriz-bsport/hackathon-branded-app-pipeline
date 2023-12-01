@@ -2,8 +2,7 @@ import React, { useCallback, useState } from 'react';
 
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
-import { Theme } from '@material-ui/core/styles';
-import makeStyles from '@material-ui/styles/makeStyles';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Moment } from 'moment-timezone';
 
 import { OfferCreate } from '#libs/offer/types';
@@ -147,10 +146,12 @@ export const OfferFormWithActivity: React.FC<Props> = ({
       fetchLevelList={fetchLevelList}
       isLoading={coachesLoading || establishmentsLoading}
       isWherebyIntegrationEnabled={is_whereby_integration_enabled}
+      metaActivities={metaActivities}
       metaActivity={selectedMetaActivity}
       onBannerGoBack={handleGoBack}
       onCancel={handleGoBack}
       onCancelText={t('common:back')}
+      onSelectMetaActivity={handleSelectActivity}
       onSubmit={handleSubmit}
       processing={processing}
       roomBlueprints={roomBlueprints}
@@ -164,7 +165,7 @@ export const OfferFormWithActivity: React.FC<Props> = ({
   );
 };
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((theme) => ({
   container: {
     display: 'flex',
     flexDirection: 'column',

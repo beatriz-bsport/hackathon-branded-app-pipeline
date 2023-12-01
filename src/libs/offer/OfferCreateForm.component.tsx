@@ -34,6 +34,7 @@ import { OFFER_RECURRENCE } from '#libs/offer/constants';
 
 type ComponentProps = {
   metaActivity: MetaActivity<number>;
+  metaActivities?: MetaActivity[];
   isOfferInGroup?: boolean;
   activeCustomLevels?: Level[];
   allCustomLevels?: Level[];
@@ -51,6 +52,7 @@ type ComponentProps = {
   processing: boolean;
   isLoading?: boolean;
   hideBanner?: boolean;
+  hideActivitySection?: boolean;
   onCancelText?: string;
   isForbidden?: boolean;
   fetchLevelList?: (
@@ -69,6 +71,7 @@ type ComponentProps = {
   // @ts-ignore
   // eslint-disable-next-line
   creditScaleFactor: number;
+  onSelectMetaActivity?: (activity: MetaActivity) => void;
 };
 
 type FormProps = {
@@ -101,6 +104,7 @@ const ForbiddenLayout: FC<{
 export const OfferCreateForm = (props: Props) => {
   const {
     metaActivity,
+    metaActivities,
     isOfferInGroup,
     activeCustomLevels,
     allCustomLevels,
@@ -118,6 +122,7 @@ export const OfferCreateForm = (props: Props) => {
     processing,
     isLoading,
     hideBanner,
+    hideActivitySection,
     onCancelText,
     fetchLevelList,
     updateLevel,
@@ -125,6 +130,7 @@ export const OfferCreateForm = (props: Props) => {
     deleteLevel,
     onCancel,
     onBannerGoBack,
+    onSelectMetaActivity,
   } = props;
   const { t } = useTranslation('common');
   const classes = useOfferFormStyles();
@@ -197,9 +203,13 @@ export const OfferCreateForm = (props: Props) => {
         createLevel={createLevel}
         deleteLevel={handleDeleteLevel}
         fetchLevelList={fetchLevelList}
+        hideActivitySection={hideActivitySection}
         isBroadcast={metaActivity?.is_broadcast}
         isOfferInGroup={isOfferInGroup}
         isWherebyIntegrationEnabled={isWherebyIntegrationEnabled}
+        metaActivities={metaActivities}
+        metaActivity={metaActivity}
+        onSelectMetaActivity={onSelectMetaActivity}
         roomBlueprints={roomBlueprints}
         updateLevel={updateLevel}
         zoomAppDetail={zoomAppDetail}
@@ -288,6 +298,7 @@ const formikFormWrapper = withFormik<
       selectedBlacklistTags: [],
       selectedWhitelistTags: [],
       waitingListMaxSize: props.isOfferInGroup ? 0 : null,
+      selectedMetaActivity: props.metaActivity?.id,
     };
   },
   enableReinitialize: false,

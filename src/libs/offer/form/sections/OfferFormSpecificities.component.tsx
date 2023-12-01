@@ -57,7 +57,9 @@ type Props = {
   roomBlueprints: RoomBlueprint[];
   isOfferInGroup?: boolean;
   isEditOffer?: boolean;
+  hideActivitySection?: boolean;
   metaActivities?: MetaActivity[];
+  metaActivity?: MetaActivity;
   initialOfferCredits?: number;
   fetchLevelList: (
     params?: LevelFilterSet,
@@ -70,6 +72,7 @@ type Props = {
   ) => void;
   createLevel: (data: Level, options?: OptionCallback<Level>) => void;
   deleteLevel: (id: number, options?: OptionCallback) => void;
+  onSelectMetaActivity?: (activity: MetaActivity) => void;
 };
 
 const OfferFormSpecificities = (props: Props) => {
@@ -109,12 +112,15 @@ const OfferFormSpecificities = (props: Props) => {
     isWherebyIntegrationEnabled,
     isOfferInGroup,
     isEditOffer,
+    hideActivitySection,
+    metaActivity,
     metaActivities,
     initialOfferCredits,
     fetchLevelList,
     updateLevel,
     createLevel,
     deleteLevel,
+    onSelectMetaActivity,
   } = props;
 
   const selectedEstablishment = useMemo(() => {
@@ -217,11 +223,7 @@ const OfferFormSpecificities = (props: Props) => {
 
   const openNameDescriptionOverride = useCallback(() => {
     if (!selectedActivity) {
-      const metaActivityId = values?.selectedMetaActivity;
-      const metaActivity =
-        metaActivities?.find((activity) => activity?.id === metaActivityId) ??
-        ({} as MetaActivity);
-      !selectedActivity && setSelectedActivity(metaActivity);
+      setSelectedActivity(metaActivity);
       if (!values.nameOverride || !values.descriptionOverride) {
         setFieldValue('nameOverride', metaActivity.name);
         setFieldValue('descriptionOverride', metaActivity.description);
@@ -235,9 +237,8 @@ const OfferFormSpecificities = (props: Props) => {
     }
     setIsNameDescriptionOverrideOpen(true);
   }, [
-    metaActivities,
+    metaActivity,
     setFieldValue,
-    values?.selectedMetaActivity,
     selectedActivity,
     values?.descriptionOverride,
     values?.nameOverride,
@@ -262,17 +263,29 @@ const OfferFormSpecificities = (props: Props) => {
 
   const handleSelectMetaActivity = useCallback(
     ({ value }: { value: number }) => {
-      const metaActivity =
+      const chosenMetaActivity =
         metaActivities?.find((activity) => activity?.id === value) ??
         ({} as MetaActivity);
-      setSelectedActivity(metaActivity);
+      setSelectedActivity(chosenMetaActivity);
+      onSelectMetaActivity?.(chosenMetaActivity);
       setFieldValue('selectedMetaActivity', value);
+      /* This value is only here to check if the custom name / description has changed. We use it to compare the field values to the  
+        chosenMetaActivity.name and chosenMetaActivity.description */
+      setFieldValue('chosenMetaActivity', chosenMetaActivity);
       setIsNameDescriptionOverrideOpen(false);
       setFieldValue('nameOverride', '');
       setFieldValue('descriptionOverride', '');
     },
-    [setFieldValue, metaActivities],
+    [setFieldValue, onSelectMetaActivity, metaActivities],
   );
+
+  const isMetaActivitySelectorDisabled =
+    !metaActivities?.length || isOfferInGroup || is_hybrid;
+
+  const metaActivitiesOptions = useMemo(() => {
+    const metaActivityAsOption = metaActivity ? [metaActivity] : [];
+    return metaActivities ?? metaActivityAsOption;
+  }, [metaActivities, metaActivity]);
 
   return (
     <FormSection
@@ -282,7 +295,7 @@ const OfferFormSpecificities = (props: Props) => {
       sectionIconContainerStyle={classes.sectionIconContainer}
       sectionTitle={t('form.section.specificities.title')}
     >
-      {isEditOffer && (
+      {!hideActivitySection && (
         <OfferFormField
           id="offer-form-name-description-override-field"
           label={t('form.section.specificities.field.metaActivity')}
@@ -297,9 +310,9 @@ const OfferFormSpecificities = (props: Props) => {
                 closeMenuOnSelect
                 noMulti
                 controlBackground={isOfferInGroup && '#F2F2F2'}
-                disabled={isOfferInGroup || is_hybrid}
+                disabled={isMetaActivitySelectorDisabled}
                 id="offer-form-edit-meta-activity-selector"
-                metaActivities={metaActivities ?? []}
+                metaActivities={metaActivitiesOptions}
                 selectedMetaActivities={
                   selectedMetaActivity ? [selectedMetaActivity] : undefined
                 }
@@ -323,6 +336,7 @@ const OfferFormSpecificities = (props: Props) => {
           </div>
         </OfferFormField>
       )}
+
       <NameDescriptionOverride
         isOpen={isNameDescriptionOverrideOpen}
         onChange={handleChange}

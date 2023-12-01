@@ -196,6 +196,7 @@ export class MetaActivityCreateDrawer extends Component<Props> {
       disableCoachSelectorFocus
       disableEstablishmentSelectorFocus
       editableCoachPaymentRule
+      hideActivitySection
       hideBanner
       activeCustomLevels={this.props.activeCustomLevels}
       allCustomLevels={this.props.allCustomLevels}

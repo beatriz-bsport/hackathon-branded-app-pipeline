@@ -4106,7 +4106,7 @@
             },
             "bubble": {
                 "step": {
-                    "name": "Name"
+                    "name": "Nom de l'étape"
                 },
                 "cancel": "Annuler",
                 "confirm": "Sauvegarder",

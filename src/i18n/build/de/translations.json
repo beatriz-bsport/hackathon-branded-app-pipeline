@@ -1123,8 +1123,8 @@
             "delete": "Löschen",
             "buy": "Kaufen",
             "minuteSmall": "Min.",
-            "daySmall": "Tag(e)",
-            "hourSmall": "Std.",
+            "daySmall": "Tg",
+            "hourSmall": "Std",
             "download": "Downloaden",
             "invoices": "Rechnungen",
             "description": "Beschreibung",
@@ -1579,20 +1579,20 @@
             "oneWeek": "1 Woche",
             "twoDays": "2 Tage",
             "oneDay": "1 Tage",
-            "twelveHour": "12 Std.",
-            "eightHour": "8 Std.",
-            "sixHour": "6 Std.",
-            "fourHour": "4 Std.",
-            "threeHour": "3 Std.",
-            "twoHour": "2 Std.",
-            "oneHourAndHalf": "1 Std. 30 Min",
+            "twelveHour": "12 Std",
+            "eightHour": "8 Std",
+            "sixHour": "6 Std",
+            "fourHour": "4 Std",
+            "threeHour": "3 Std",
+            "twoHour": "2 Std",
+            "oneHourAndHalf": "1 Std 30 Min",
             "halfHour": "30 Min",
             "twentyMinutes": "20 Min",
             "quarterHour": "15 Min",
             "zeroMinute": "0 Min",
             "halfAndQuarterHour": "45 Min",
-            "oneHour": "1 Std.",
-            "oneHourFifteen": "1 Std. 15 Min",
+            "oneHour": "1 Std",
+            "oneHourFifteen": "1 Std 15 Min",
             "default_price": "Preis",
             "SCT": "Kategorie",
             "name": "Name",
@@ -5788,7 +5788,7 @@
             "amount_off": "Fixer Rabatt",
             "last_booking": "Vorherige Buchung",
             "payment_date_time": "Zeitpunkt der Zahlung",
-            "payment_identifier": "Zahlungs-ID",
+            "payment_identifier": "Rechnungs-ID",
             "payment_method_subscription_cb": "Abonnement",
             "total_discount": "Gesamter Rabatt",
             "total_uses": "Anzahl der Verwendungen",
@@ -8469,22 +8469,22 @@
             "oneWeek": "1 Woche",
             "twoDays": "2 Tage",
             "oneDay": "1 Tag",
-            "twelveHour": "12 Std.",
-            "eightHour": "8 Std.",
-            "sixHour": "6 Std.",
-            "fourHour": "4 Std.",
-            "threeHour": "3 Std.",
-            "twoHour": "2 Std.",
-            "oneHourAndHalf": "1 Std. 30 Min",
-            "oneHourFifteen": "1 Std. 15 Min.",
-            "oneHour": "1 Std.",
+            "twelveHour": "12 Std",
+            "eightHour": "8 Std",
+            "sixHour": "6 Std",
+            "fourHour": "4 Std",
+            "threeHour": "3 Std",
+            "twoHour": "2 Std",
+            "oneHourAndHalf": "1 Std 30 Min",
+            "oneHourFifteen": "1 Std 15 Min",
+            "oneHour": "1 Std",
             "halfAndQuarterHour": "45 Min",
             "halfHour": "30 Min",
             "twentyMinutes": "20 Min",
             "quarterHour": "15 Min",
             "zeroMinute": "0 Min",
-            "fiftyMinutes": "50 Min.",
-            "tenMinutes": "10 Min."
+            "fiftyMinutes": "50 Min",
+            "tenMinutes": "10 Min"
         },
         "time": {
             "monthShort": {
@@ -9591,7 +9591,7 @@
             },
             "member-invoice_paid": {
                 "filter": "Rechnungen bezahlt",
-                "primaryText": "Die Rechnung Nr.{{ invoiceUUID }} wurde in Höhe von {{ amount }} bezahlt."
+                "primaryText": "Die Rechnung mit der Nummer {{ invoiceUUID }} in Höhe von {{ amount }} wurde bezahlt."
             },
             "member-private_booking_registered": {
                 "filter": "Termin",
@@ -9622,7 +9622,7 @@
         "resetPassword": {
             "dialogTitle": "Passwort zurücksetzen",
             "dialogContent": "Sie sind dabei, die Anweisungen zum Zurücksetzen des Passworts an {{memberEmail}} zu senden",
-            "confirmation": "Anweisungen korrekt an {{memberEmail}} gesendet",
+            "confirmation": "Anweisungen an {{memberEmail}} gesendet",
             "button": "Passwort zurücksetzen",
             "error": "Fehler beim Senden der Anweisungen zum Zurücksetzen des Passworts"
         },
@@ -10308,14 +10308,14 @@
                     "title": "Einrichtung"
                 },
                 "last_discard_minutes": {
-                    "explain": "Die letzte erstattungsfähige Stornierung ist möglich {{ days }} Tag(e) {{ hours }} Std. {{ minutes }} Min vor dem Termin"
+                    "explain": "Die letzte erstattungsfähige Stornierung ist möglich {{ days }} Tag(e) {{ hours }} Std {{ minutes }} Min vor dem Termin"
                 },
                 "coaches": {
                     "is_empty": "Keine Lehrkraft ist erforderlich",
                     "title": "Lehrkraft"
                 },
                 "last_booking_minutes": {
-                    "explain": "Die letzte mögliche Buchung ist möglich {{ days }} Tag(e) {{ hours }} Std. {{ minutes }} Min vor dem Termin"
+                    "explain": "Die letzte mögliche Buchung ist möglich {{ days }} Tag(e) {{ hours }} Std {{ minutes }} Min vor dem Termin"
                 }
             },
             "selector": {
@@ -10423,7 +10423,7 @@
                 },
                 "name": {
                     "label": "Name des Kurses",
-                    "placeholder": "Doppelkurs (2 Std.)"
+                    "placeholder": "Doppelkurs (2 Std)"
                 },
                 "title": "Kurs",
                 "duration_minutes": {
@@ -10679,7 +10679,7 @@
                     "title": "Verlängerung löschen"
                 },
                 "addedOn": "Hinzugefügt, am ",
-                "nbDaysAdded": "+ {{nb_days}} Tag(e)",
+                "nbDaysAdded": "+ {{nb_days}} Tg",
                 "options": {
                     "selectNewEndDate": "Setzen Sie ein neues Enddatum für die Gültigkeit",
                     "addNumberOfDays": "Verlängern Sie die Gültigkeit um eine Anzahl von Tagen"
@@ -11610,42 +11610,42 @@
     },
     "metaActivity": {
         "settings": {
-            "lastDiscardBeforeMinutes": "Letzte mögliche Stornierung {{m}} vor Beginn der Aktivität",
-            "lastBookingBeforeMinutes": "Buchungen für diese Aktivität sind bis zu {{m}} vor Beginn des Kurses möglich",
+            "lastDiscardBeforeMinutes": "Mitglieder können bis zu {{m}} vor Beginn der Session kostenlos stornieren.",
+            "lastBookingBeforeMinutes": "Mitglieder können bis zu {{m}} vor Beginn der Session buchen.",
             "title": "Einstellungen",
-            "firstBookingMinutesUntil": "Buchungen werden {{m}} vor dem Beginn der Session blockiert",
-            "conditions": "Bedingungen",
-            "autoDiscard": "Der Kurs wird abgebrochen, wenn {{nb_bookings}} Buhchungen oder weniger, {{hours}} h vor Beginn des Kurses vorliegen",
+            "firstBookingMinutesUntil": "Mitglieder können Sitzungen für bis zu {{m}} in der Zukunft buchen.",
+            "conditions": "Stornierungsbedingungen",
+            "autoDiscard": "Die Session wird abgesagt, wenn es {{nb_bookings}} Buchung(en) oder weniger {{hours}}h vor Beginn der Session gibt.",
             "firstBookingMinutesUntilHeader": "Öffnung des Buchungsfensters",
-            "lastBookingBeforeMinutesHeader": "Letzte Möglichkeit der Buchung vor Beginn des Kurses",
+            "lastBookingBeforeMinutesHeader": "Letzte Möglichkeit der Buchung vor Beginn der Session",
             "lastBookingBeforeMinutesFull": "Letzte Buchungen möglich bis {{m}} vor Beginn der Session",
             "restrictionsHeader": "Benutzerdefinierte Einschränkungen",
             "restrictions": " Benutzerdefinierte Einschränkung: {{ count }}",
             "seeRestrictions": "Siehe",
             "lastDiscardBeforeMinutesHeader": "Stornierungsbedingungen",
-            "autoDiscardHeader": "Die Session wird abgebrochen, wenn",
-            "lastDiscardBeforeMinutesFull": "Stornierungen sind bis {{m}} vor Beginn der Session möglich"
+            "autoDiscardHeader": "Die Session wird storniert, wenn",
+            "lastDiscardBeforeMinutesFull": "Stornierungen sind bis {{m}} vor Beginn der Sitzung möglich"
         },
         "modal": {
             "delete": {
                 "confirm": "Löschen",
                 "cancel": "Abbrechen",
-                "content": "Bist Du Dir sicher, dass Du diese Aktivität löschen möchtest? Die Kurse und Buchungen werden von der Löschung nicht betroffen. Diese Aktion ist unwiderruflich.",
-                "title": "Löschung der Aktivität"
+                "content": "Sind Sie sich sicher, dass Sie diese Aktivität löschen möchten? Die Buchungen und Sessions werden nicht geändert. Dieser Vorgang ist nicht rückgängig zu machen.",
+                "title": "Aktivität löschen"
             }
         },
-        "addOffers": "Kurse hinzufügen",
-        "category": "Kategorie",
+        "addOffers": "Sessions hinzufügen",
+        "category": "Sport",
         "name": "Name",
         "detail": {
             "tab": {
                 "pack": "Kompatible Kurspässe",
                 "general": "Allgemein",
-                "group": "Gruppensession"
+                "group": "Gruppierte Sessions"
             },
             "pack": {
                 "paymentPacks": "Kompatible Kurspässe",
-                "consumerPacks": "Kurspässe, die Mitglieder besitzen",
+                "consumerPacks": "Gekauft von",
                 "noCompatiblePass": "Kein kompatibler Kurspass"
             }
         },
@@ -11656,25 +11656,25 @@
                     "cancel": "Abbrechen"
                 },
                 "content": {
-                    "cannotDelete": "Kurse sind in der Zukunft geplant. Prüfe, ob sie gelöscht und nicht nur storniert sind.",
-                    "canDelete": "Bist Du Dir sicher, dass Du diese Aktivität löschen möchtest? Die Kurse und Buchungen werden von der Löschung nicht betroffen. Diese Aktion ist unwiderruflich."
+                    "cannotDelete": "Für diese Aktivität sind weitere Sessions geplant. Prüfen Sie, ob sie abgesagt wurden.",
+                    "canDelete": "Sind Sie sich sicher, dass Sie diese Aktivität löschen möchten? Die Sessions und vergangenen Buchungen werden nicht geändert. Diese Aktion kann nicht rückgängig gemacht werden."
                 },
-                "title": "Löschung der Aktivität"
+                "title": "Eine Aktivität löschen"
             },
             "create": {
                 "steps": {
-                    "workshop_form": "Erstellung eines Kurses",
+                    "workshop_form": "Workshop hinzufügen",
                     "offer_form": "Sessions hinzufügen (optional)",
                     "pass_list": "Fertigstellung",
-                    "pass_form": "Erstellung eines Kurspasses (optional)",
+                    "pass_form": "Kurspass hinzufügen (optional)",
                     "activity_form": "Erstellung der Aktivität"
                 },
                 "compatible_packs": {
                     "goToActivity": "Zur Aktivität",
                     "createPass": "Einen Kurspass erstellen",
                     "seeMore": "Mehr anzeigen",
-                    "noCompatiblePass": "Kein Kurspass ist mit dieser Aktivität vereinbar, vergesse nicht eine zu erstellen",
-                    "passHelperText": "Die folgenden Kurspässe sind mit der erstellten Aktivität vereinbar :"
+                    "noCompatiblePass": "Für diese Aktivität ist kein Kurspass verfügbar. Denken Sie daran einen zu erstellen",
+                    "passHelperText": "Diese Pässe sind für die erstellte Aktivität erhältlich:"
                 }
             },
             "warning": {
@@ -11687,35 +11687,35 @@
         },
         "actions": {
             "search": "Eine Aktivität suchen",
-            "addActivity": "Eine Aktivität hinzufügen"
+            "addActivity": "Eine Gruppenaktivität hinzufügen"
         },
-        "search": "Eine Aktivität suchen",
+        "search": "Eine Gruppenaktivität suchen",
         "metaActivity": "Aktivität",
         "description": "Beschreibung",
         "reviews": "Kundenbenachrichtigungen : ",
-        "offersThisDay": "Heutige Kurse :",
-        "packsAvailable": "Für Kurspässe berechtigt :",
-        "noActivities": "Verwalte hier Deine Aktivitäten, eine Aktivität ermöglicht es Dir, eine Reihe von Kursen, derselben Disziplin gemeinsam zu organisieren.",
-        "disabledMetaActivities": "Archivierte Aktivitäten",
+        "offersThisDay": "Heutige Sessions:",
+        "packsAvailable": "Verfügbarer Kurspass für diese Aktivität :",
+        "noActivities": "Mit diesem Modul können Sie alle Ihre Gruppenaktivitäten hinzufügen, verwalten, bearbeiten oder löschen.",
+        "disabledMetaActivities": "Archivierte Gruppenaktivitäten",
         "workshop": "Workshop",
         "groupedOption": {
             "modal": {
                 "form": {
                     "delete": {
-                        "content": "Die Streichung dieses Ereignisses hat zur Folge, dass alle Buchungen der angemeldeten Mitglieder storniert werden. Diese Aktion kann nicht rückgängig gemacht werden",
+                        "content": "Das Löschen dieses Ereignisses führt zur Stornierung aller Buchungen der angemeldeten Mitglieder. Diese Aktion kann nicht rückgängig gemacht werden.",
                         "title": "Unterdrückung",
                         "applyRecursive": "Andere ähnliche Gruppen stornieren",
                         "selectGroup": "Andere ähnliche Gruppen stornieren",
                         "selectHeader": "Wählen Sie die Gruppen, die geändert werden sollen",
                         "firstSession": "Die erste anstehende Session ist am: {{-day}}",
-                        "missingOffer": "Kein Angebot in der Gruppe"
+                        "missingOffer": "Keine Angebote in der Gruppe"
                     },
-                    "submit": "Bestätigen",
-                    "impossibleState": "Die eingegebenen Einstellungen lassen die Erstellung einer Gruppe nicht zu",
-                    "recurrenceNumberPrefix": "Wiederholung aller",
+                    "submit": "Validieren",
+                    "impossibleState": "Die eingegebenen Parameter lassen die Erstellung einer Gruppe nicht zu",
+                    "recurrenceNumberPrefix": "Wiederholung alle",
                     "subtitle": "Allgemein",
                     "subtitleOffers": "Sessions",
-                    "addOffers": "Session hinzufügen",
+                    "addOffers": "Sessions hinzufügen",
                     "subtitleSettings": "Einstellungen",
                     "subtitleRecurrence": "Wiederholung",
                     "name": "Name",
@@ -11723,7 +11723,7 @@
                     "allowBookingAfterStartCaption": "Standardmäßig ist es für Mitglieder nicht möglich, sich für Veranstaltungen anzumelden, die bereits begonnen haben. Aktivieren Sie diese Option, um Anmeldungen für die verbleibenden Veranstaltungen zuzulassen.",
                     "marketPlaceAvailable": "Verfügbar für Buchungen (Web+App)",
                     "withRecurrence": "Wiederholung aktivieren",
-                    "nameCaption": "Name der Gruppensession",
+                    "nameCaption": "Veranstaltungsname",
                     "timeStartHelper": "Wählen Sie das Datum der ersten Session dieser Veranstaltung. Alle zukünftigen Sessions werden der Veranstaltung nach diesem Datum zugeordnet.",
                     "timeStart": "Anfangsdatum",
                     "recurrenceCount": "Anzahl der Wiederholungen",
@@ -11733,28 +11733,28 @@
                     "recurrence": "Wiederholung",
                     "daily": "Jeden Tag",
                     "groupName": "Name",
-                    "uncreatedGroupsTitle": "Keine Gruppen erstellt",
-                    "creationError": "Erstellen nicht möglich",
+                    "uncreatedGroupsTitle": "Gruppen nicht erstellt",
+                    "creationError": "Unmöglich zu erstellen",
                     "next": "Weiter",
-                    "required": "Mindestens eine Gruppe ist erforderlich",
+                    "required": "Mindestens eine Gruppe wird benötigt",
                     "copyRecurrence": "Künftige Gruppenwiederholungen ebenfalls duplizieren",
                     "save": "speichern",
                     "back": "Vorherige",
-                    "allowGuest": "Kompatibel mit der Buchung für einen Gast",
-                    "allowGuestUnavailable": "Diese Funktion ist für Gruppensessions nicht verfügbar.",
+                    "allowGuest": "Kompatibel mit der Gastbuchungs-Funktion",
+                    "allowGuestUnavailable": "Diese Funktion ist für gruppierte Sessions nicht verfügbar.",
                     "allowBookingAfterStart": "Erlauben Sie die Einschreibung unterwegs",
                     "recurrenceUntilHelper2": "Nach diesem Datum ist es nicht mehr möglich, Sessions hinzuzufügen.",
                     "fullBookingOnly": "Alle Sessions der Gruppe auf einmal buchen",
                     "syncOnSpivi": "An Spivi senden",
                     "spiviWarningHelperText": "Achtung: Wenn Sessions mit Spivi verknüpft sind, werden ihre Kopien nicht mit Spivi verknüpft."
                 },
-                "title": "Gruppensessions",
+                "title": "Gruppierte Sessions",
                 "subtitleMetaActivitySelect": "Konfiguration",
-                "subtitlePreview": "Vorschau",
+                "subtitlePreview": "Vorschau der Wiederholung",
                 "duplicate": "Gruppe duplizieren"
             },
             "errors": {
-                "offers_length": "Sie haben nur eine Session erstellt. Um eine Gruppe von Sessions zu erstellen, müssen Sie mindestens zwei Sessions hinzufügen. Wenn Sie eine einzelne Sessions erstellen möchten, können Sie dies direkt über den betreffenden Workshop oder die Registerkarte \"Kalender\" tun."
+                "offers_length": "Sie haben nur eine Session erstellt. Um eine Gruppe von Sessions zu erstellen, müssen Sie mindestens zwei Sessions hinzufügen. Wenn Sie eine einzelne Session erstellen möchten, können Sie dies direkt über den betreffenden Workshop oder die Registerkarte \"Kalender\" tun."
             },
             "intervalLabel": {
                 "day": "Jeden Tag",
@@ -11765,37 +11765,37 @@
                     "year": "Jedes Jahr bis zum {{-until}} ",
                     "year_plural": "Alle {{ count }} Jahre bis zum {{-until}} ",
                     "month": "Jeden Monat bis {{-until}} ",
-                    "month_plural": "Alle Monate von {{ count }} bis {{-until}} ",
+                    "month_plural": "Jeden Monat von {{ count }} bis {{-until}} ",
                     "week": "Jede Woche bis {{-until}} ",
                     "week_plural": "Alle {{ count }} Wochen bis {{-until}} "
                 },
                 "month": "Jeden Monat",
                 "month_plural": "Alle {{ count }} Monate",
                 "year": "Jedes Jahr",
-                "year_plural": "Jedes {{ count }} Jahre",
+                "year_plural": "Alle {{ count }} Jahre",
                 "week": "Jede Woche",
                 "week_plural": "Alle {{ count }} Wochen"
             },
             "helperText": {
-                "month": "Diese Gruppe beginnt am {{-day}}, jeden Monat",
-                "month_plural": "Diese Gruppe beginnt am {{-day}}, jeden {{ count }} Monat",
+                "month": "Diese Veranstaltung beginnt jeden Monat am: {{-day}}",
+                "month_plural": "Diese Veranstaltung beginnt jeden Monat am: {{-day}} für {{ count }} Monat(e)",
                 "week": "Diese Gruppe beginnt am {{-day}}, jede Woche",
                 "week_plural": "Diese Gruppe beginnt am {{-day}}, alle {{ count }} Wochen",
                 "day": "Diese Gruppe wird täglich trainiert",
                 "day_plural": "Diese Gruppe wird alle {{ count }} Tage wiederholt",
-                "year": "Diese Gruppe beginnt {{-day}}, von {{-mont}} jedes Jahr",
-                "year_plural": "Diese Gruppe beginnt {{-day}}, von {{-month}} alle {{ count }} Jahre"
+                "year": "Diese Veranstaltung beginnt jedes Jahr am: {{-day}}{{-mont}}",
+                "year_plural": "Diese Veranstaltung beginnt jedes Jahr am: {{-day}}{{-month}} für {{ count }} Jahr(e)"
             },
             "last": "letzte",
             "offerDescription": "{{ count }} Session(s) von {{- firstSession }} bis {{- lastSession }}",
             "warning": {
                 "uncreatedGroups": "Bitte beachten Sie, dass einige Gruppen nicht erstellt werden können. \nSie finden sie im Abschnitt \"Nicht erstellte Gruppen\" am Ende dieser Liste",
-                "groupsWithOutOfTheRangeOffers": "Die folgenden Gruppen von Sessions werden nicht erstellt, weil\n ... sie Sessions beinhalten, die in mehr als drei Jahren stattfinden"
+                "groupsWithOutOfTheRangeOffers": "Die folgenden Sessionsgruppen werden nicht erstellt, da sie Sessions enthalten, die mehr als 3 Jahre entfernt sind"
             }
         },
         "edit": "Bearbeiten",
         "close": "Schließen",
-        "workshopSelect": "Suche nach einem Workshop",
+        "workshopSelect": "Nach einem Workshop suchen",
         "cancelledOffers": "{{count}} Stornierungen"
     },
     "coachPerformance": {
@@ -12435,7 +12435,7 @@
     },
     "membership": {
         "selector": {
-            "explainConsumer": "Mit <1> BSPORT Solution</2> hast du alle deine Informationen in einem einzigen Konto!",
+            "explainConsumer": "Mit <1> BSPORT Solution</2> haben Sie alle Ihre Informationen in einem einzigen Konto!",
             "placeholder": "Ein Studio/Raum/Klub/usw. suchen...",
             "noMatchingCompany": "Kein Ergebnis",
             "fetchMore": "Mehr sehen"
@@ -13176,11 +13176,11 @@
     "navigation": {
         "backofficeMenu": {
             "email_template": "E-Mails",
-            "activity": "Meine Aktivitäten",
+            "activity": "Gruppenaktivitäten",
             "consumer": {
                 "bookings": "Meine Buchungen ",
                 "pass": "Kurspässe",
-                "profile": "Mein Profil",
+                "profile": "Mein Konto",
                 "order": "Meine Bestellungen",
                 "subscriptions": "Meine Abonnements",
                 "myAccount": "Mein Konto"
@@ -13216,30 +13216,30 @@
                 "waitingList": "Warteliste",
                 "invoice": "Rechnungsstellung",
                 "company": "Unternehmen",
-                "paymentRules": "Gehaltsregulation",
-                "notificationRule": "Transaktions-E-Mails",
+                "paymentRules": "Lohnbuchhaltung",
+                "notificationRule": "Transaktions-Benachrichtigungen",
                 "broadcast": "Videokonferenz",
                 "general": "Allgemein",
                 "platform_billing": "Bsport-Abonnement",
-                "marketplaceSettings": "Marketplace-Eintellungen",
+                "marketplaceSettings": "Marketplace-Einstellungen",
                 "widget": "Widget",
                 "paymentMethod": "Zahlungsmethoden",
                 "forms": "Formular für Mitglieder",
                 "quickbooks": "QuickBooks",
-                "mobilePersonalization": "Personalisierung App",
-                "coachUserspace": "Lehrkräfteansicht",
+                "mobilePersonalization": "Branded App",
+                "coachUserspace": "Lehrkraftansicht",
                 "quicksale": "Verkaufsschnittstelle",
                 "referral": "Empfehlung"
             },
             "myClub": "Mein Studio",
-            "subscription": "Automatische Abbuchungen",
-            "contract": "Abonnement",
+            "subscription": "Direkte Abbuchungen",
+            "contract": "Abonnements",
             "coaches": "Lehrkräfte",
             "coachPerformance": "Lehrkräfte",
             "requestTempPassword": "Zugang erlauben",
             "smart_list": "Smartlists",
             "alpha": "in Entwicklung",
-            "reporting": "Berichte",
+            "reporting": "Berichterstellung",
             "search": "Suchen",
             "dashboard": "Dashboard",
             "calendar": "Kalender",
@@ -13250,7 +13250,7 @@
             "goBack": "Zurück",
             "pass": "Kurspässe",
             "establishment": "Einrichtungen",
-            "payment": "Zahlungen",
+            "payment": "Transaktionen",
             "cashBook": {
                 "at": "um",
                 "of": "Von",
@@ -17112,7 +17112,7 @@
                 "month": "Monat(e)",
                 "until": "Bis",
                 "year": "Jahr(e)",
-                "day": "Tag(e)",
+                "day": "Tg",
                 "repeatEvery": "Wiederholt alle",
                 "repeatMonth": "Jeden Monat am",
                 "repeatMonth_nb": "Alle {{ nb }} Monate am",

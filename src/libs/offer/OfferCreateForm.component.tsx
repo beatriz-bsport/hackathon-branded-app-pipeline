@@ -189,7 +189,6 @@ export const OfferCreateForm = (props: Props) => {
 
       {!hideBanner && (
         <OfferFormBanner
-          name={metaActivity?.name}
           onBannerGoBack={onBannerGoBack}
           onCancel={onCancel}
           picture={metaActivity?.cover_main}

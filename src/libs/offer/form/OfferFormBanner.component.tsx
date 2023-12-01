@@ -4,6 +4,8 @@ import { makeStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
+
 import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
@@ -46,17 +48,31 @@ const OfferFormBanner = (props: Props) => {
           [classes.whiteText]: picture,
         })}
       >
-        <Tooltip title={t('cancel')}>
-          <IconButton
-            classes={{
-              root: classes.cancelButtonRoot,
-              label: picture ? classes.whiteText : null,
-            }}
-            onClick={onCancel}
-          >
-            <HighlightOffIcon className={classes.cancelButtonIcon} />
-          </IconButton>
-        </Tooltip>
+        {!isEditOffer && onBannerGoBack ? (
+          <Tooltip title={t('back')}>
+            <IconButton
+              classes={{
+                root: classes.cancelButtonRoot,
+                label: picture ? classes.whiteText : null,
+              }}
+              onClick={onBannerGoBack}
+            >
+              <KeyboardArrowLeft className={classes.cancelButtonIcon} />
+            </IconButton>
+          </Tooltip>
+        ) : (
+          <Tooltip title={t('cancel')}>
+            <IconButton
+              classes={{
+                root: classes.cancelButtonRoot,
+                label: picture ? classes.whiteText : null,
+              }}
+              onClick={onCancel}
+            >
+              <HighlightOffIcon className={classes.cancelButtonIcon} />
+            </IconButton>
+          </Tooltip>
+        )}
         <div className={classes.titleContainerText}>
           <Typography variant="h4">{t('translation:common.offers')}</Typography>
           <Typography variant="body1">
@@ -144,7 +160,7 @@ const useStyles = makeStyles((theme) => ({
   },
   titleContainer: {
     display: 'flex',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     gap: theme.spacing(2),
     zIndex: 1,
   },

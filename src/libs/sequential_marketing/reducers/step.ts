@@ -16,7 +16,10 @@ import {
   updateCadenceStepConnectedTriggerCanvasPositionActions,
   updateConnectedTriggerActions,
 } from '#libs/sequential_marketing/actions';
-import { updatedSourceStep } from '#libs/sequential_marketing/utils';
+import {
+  updatedSourceStep,
+  updatedSourceStepWithDisabledConnectedTrigger,
+} from '#libs/sequential_marketing/utils';
 
 import type {
   CadenceStep,
@@ -117,40 +120,60 @@ export default handleActions<ImmutableCadenceStepState, any>(
       state,
       { payload }: { payload: UpdatedTriggersList },
     ) => {
-      if (payload.triggers && payload.step)
-        return (
-          state
-            .set(
-              'allIds',
-              state.allIds.filter((id) => id !== payload.step.id),
-            )
-            // Revising the 'exits' property for each ConnectedTrigger source step,
-            // as this is where all the ConnectedTriggers are retrieved.
-            .merge(
-              {
-                byId: payload.triggers.reduce<{ [id: number]: CadenceStep }>(
-                  (acc, updatedTrigger) => {
-                    if (updatedTrigger?.destination_config?.source_id)
-                      return {
-                        ...acc,
-                        [updatedTrigger.destination_config.source_id]:
-                          updatedSourceStep(
-                            updatedTrigger,
-                            state.byId[
-                              updatedTrigger.destination_config.source_id
-                            ],
-                            acc[updatedTrigger.destination_config.source_id]
-                              ?.exits,
-                          ),
-                      };
-                    return acc;
-                  },
-                  {},
-                ),
+      if (payload.triggers && payload.step) {
+        const updatedState = state
+          .set(
+            'allIds',
+            state.allIds.filter((id) => id !== payload.step.id),
+          )
+          // Revising the 'exits' property for each ConnectedTrigger source step,
+          // as this is where all the ConnectedTriggers are retrieved.
+          .merge(
+            {
+              byId: payload.triggers.reduce<{ [id: number]: CadenceStep }>(
+                (acc, updatedTrigger) => {
+                  if (updatedTrigger?.destination_config?.source_id)
+                    return {
+                      ...acc,
+                      [updatedTrigger.destination_config.source_id]:
+                        updatedSourceStep(
+                          updatedTrigger,
+                          state.byId[
+                            updatedTrigger.destination_config.source_id
+                          ],
+                          acc[updatedTrigger.destination_config.source_id]
+                            ?.exits,
+                        ),
+                    };
+                  return acc;
+                },
+                {},
+              ),
+            },
+            { deep: true },
+          );
+        return updatedState.merge(
+          {
+            byId: payload.disabled.reduce<{ [id: number]: CadenceStep }>(
+              (acc, disabledTrigger) => {
+                const sourceStep =
+                  updatedState.byId[disabledTrigger.source_step];
+                return {
+                  ...acc,
+                  [disabledTrigger.source_step]:
+                    updatedSourceStepWithDisabledConnectedTrigger(
+                      disabledTrigger.uuid,
+                      sourceStep,
+                      acc[disabledTrigger.source_step]?.exits,
+                    ),
+                };
               },
-              { deep: true },
-            )
+              {},
+            ),
+          },
+          { deep: true },
         );
+      }
       return state;
     },
 
@@ -294,17 +317,30 @@ export default handleActions<ImmutableCadenceStepState, any>(
     },
     [updateConnectedTriggerActions.success.toString()]: (
       state,
-      { payload }: { payload: ConnectedTrigger },
+      {
+        payload,
+      }: {
+        payload: {
+          updatedConnectedTrigger: ConnectedTrigger;
+          disabledUuid: string;
+        };
+      },
     ) => {
-      if (payload?.destination_config?.source_id)
+      if (payload?.updatedConnectedTrigger?.destination_config?.source_id)
         return state.setIn(
-          ['byId', payload.destination_config.source_id.toString(), 'exits'],
           [
-            ...(state.byId[payload.destination_config.source_id].exits.filter(
+            'byId',
+            payload.updatedConnectedTrigger.destination_config.source_id.toString(),
+            'exits',
+          ],
+          [
+            ...(state.byId[
+              payload.updatedConnectedTrigger.destination_config.source_id
+            ].exits.filter(
               (trigger) =>
-                trigger?.trigger_config?.uuid !== payload.trigger_config?.uuid,
+                trigger?.trigger_config?.uuid !== payload.disabledUuid,
             ) ?? []),
-            payload,
+            payload.updatedConnectedTrigger,
           ],
         );
       return state;
@@ -323,32 +359,41 @@ export default handleActions<ImmutableCadenceStepState, any>(
     },
     [convertCadenceExitIntoStepActions.success.toString()]: (
       state,
-      { payload }: { payload: UpdatedTrigger },
+      {
+        payload,
+      }: {
+        payload: {
+          updatedTrigger: UpdatedTrigger;
+          disabledTriggerUuid: string;
+        };
+      },
     ) => {
       if (
-        !!payload?.trigger?.destination_config?.source_id ||
-        payload.trigger.destination_config.source_id === 0
+        !!payload?.updatedTrigger?.trigger?.destination_config?.source_id ||
+        payload.updatedTrigger.trigger.destination_config.source_id === 0
       ) {
         return state
-          .set('allIds', [...state.allIds, payload.step.id])
+          .set('allIds', [...state.allIds, payload.updatedTrigger.step.id])
           .setIn(
             [
               'byId',
-              payload.trigger.destination_config.source_id.toString(),
+              payload.updatedTrigger.trigger.destination_config.source_id.toString(),
               'exits',
             ],
             [
               ...(state.byId[
-                payload.trigger.destination_config.source_id
+                payload.updatedTrigger.trigger.destination_config.source_id
               ].exits.filter(
                 (trigger) =>
-                  trigger?.trigger_config?.uuid !==
-                  payload.trigger?.trigger_config?.uuid,
+                  trigger?.trigger_config?.uuid !== payload.disabledTriggerUuid,
               ) ?? []),
-              payload.trigger,
+              payload.updatedTrigger.trigger,
             ],
           )
-          .setIn(['byId', payload.step.id.toString()], payload.step);
+          .setIn(
+            ['byId', payload.updatedTrigger.step.id.toString()],
+            payload.updatedTrigger.step,
+          );
       }
       return state;
     },

@@ -49,7 +49,7 @@ export const getCadenceWinOrLoseConnectedTriggers = (
  *
  * @param {ConnectedTrigger} updatedTrigger - The updated ConnectedTrigger that will replace the old version.
  * @param {CadenceStep} sourceStep - The source step of the ConnectedTrigger.
- * @param {ConnectedTrigger[]} updatedExits - The the 'exits' property of the source step already partially updated.
+ * @param {ConnectedTrigger[]} updatedExits - The 'exits' property of the source step already partially updated.
  * @returns {CadenceStep} The source step with its 'exits' property updated with updatedTrigger.
  */
 export const updatedSourceStep = (
@@ -59,13 +59,29 @@ export const updatedSourceStep = (
 ): CadenceStep => {
   return {
     ...sourceStep,
+    exits: [...(updatedExits || sourceStep.exits), updatedTrigger],
+  };
+};
+
+/** Updates the source step 'exits' property by removing the disabled connected trigger.
+
+@param {string} disabledTriggerUuid - The UUID of the disabled ConnectedTrigger.
+@param {Immutable.ImmutableObject<CadenceStep>} sourceStep - The source step of the ConnectedTrigger.
+@param {ConnectedTrigger[]} updatedExits - The 'exits' property of the source step already partially updated.
+@returns {CadenceStep} The source step with its 'exits' property updated.
+*/
+export const updatedSourceStepWithDisabledConnectedTrigger = (
+  disabledTriggerUuid: string,
+  sourceStep: Immutable.ImmutableObject<CadenceStep>,
+  updatedExits?: ConnectedTrigger[],
+): CadenceStep => {
+  return {
+    ...sourceStep,
     exits: [
-      ...((updatedExits || sourceStep.exits).filter(
-        (trigger) =>
-          trigger?.trigger_config?.uuid !==
-          updatedTrigger?.trigger_config?.uuid,
+      ...((updatedExits || sourceStep?.exits)?.filter(
+        (connectedTrigger) =>
+          connectedTrigger.trigger_config.uuid !== disabledTriggerUuid,
       ) ?? []),
-      updatedTrigger,
     ],
   };
 };

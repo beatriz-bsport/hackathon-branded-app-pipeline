@@ -144,10 +144,12 @@ export type UpdatedTrigger = {
 /**
  *  @description [TYPE] Object returned by convertCadenceStepIntoExit API call
  *  @param {ConnectedTrigger[]} triggers : List of the connected triggers which had step as destination and have been updated
+ *  @param {{ uuid: string; source_step: number }[]} disabled : List of the disabled connected trigger uuids and their source steps
  *  @param {CadenceStep} step : The step disabled to be replaced by exits
  */
 export type UpdatedTriggersList = {
   triggers: ConnectedTrigger[];
+  disabled: { uuid: string; source_step: number }[];
   step: CadenceStep;
 };
 

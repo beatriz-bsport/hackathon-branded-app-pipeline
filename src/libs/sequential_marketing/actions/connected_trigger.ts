@@ -107,9 +107,10 @@ export const convertCadenceExitIntoStepActions = {
     'CADENCE_STEP_WIP/CONVERT_INTO_STEP/IS_LOADING',
   ),
   error: createAction<Error | null>('CADENCE_STEP_WIP/CONVERT_INTO_STEP/ERROR'),
-  success: createAction<UpdatedTrigger>(
-    'CADENCE_STEP_WIP/CONVERT_INTO_STEP/SUCCESS',
-  ),
+  success: createAction<{
+    updatedTrigger: UpdatedTrigger;
+    disabledTriggerUuid: string;
+  }>('CADENCE_STEP_WIP/CONVERT_INTO_STEP/SUCCESS'),
 };
 
 export function convertCadenceExitIntoStep(
@@ -128,7 +129,12 @@ export function convertCadenceExitIntoStep(
         triggerUuid,
         step,
       );
-      dispatch(convertCadenceExitIntoStepActions.success(response.data));
+      dispatch(
+        convertCadenceExitIntoStepActions.success({
+          updatedTrigger: response.data,
+          disabledTriggerUuid: triggerUuid,
+        }),
+      );
       options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
@@ -142,9 +148,10 @@ export function convertCadenceExitIntoStep(
 export const updateConnectedTriggerActions = {
   isLoading: createAction<boolean>('CONNECTED_TRIGGER_WIP/UPDATE/IS_LOADING'),
   error: createAction<Error>('CONNECTED_TRIGGER_WIP/UPDATE/ERROR'),
-  success: createAction<ConnectedTrigger>(
-    'CONNECTED_TRIGGER_WIP/UPDATE/SUCCESS',
-  ),
+  success: createAction<{
+    updatedConnectedTrigger: ConnectedTrigger;
+    disabledUuid: string;
+  }>('CONNECTED_TRIGGER_WIP/UPDATE/SUCCESS'),
 };
 
 export function updateConnectedTrigger(
@@ -163,7 +170,12 @@ export function updateConnectedTrigger(
         connectedTriggerUUID,
         connectedTrigger,
       );
-      dispatch(updateConnectedTriggerActions.success(response.data));
+      dispatch(
+        updateConnectedTriggerActions.success({
+          updatedConnectedTrigger: response.data,
+          disabledUuid: connectedTriggerUUID,
+        }),
+      );
       options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);

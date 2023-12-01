@@ -22,7 +22,6 @@ import DirectionsBikeIcon from '@material-ui/icons/DirectionsBike';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 import TimerIcon from '@material-ui/icons/Timer';
-
 import Typography from '@material-ui/core/Typography';
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 
@@ -49,6 +48,7 @@ import {
   UPSELL_IDENTIFIER_PREMIUM_SUPPORT,
 } from '../upsell-identifiers';
 import { UpsellPackage } from '#libs/company/types';
+import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 
 type Props = {
   upsellPackage: UpsellPackage;
@@ -59,6 +59,7 @@ type Props = {
 const useStyles = makeStyles((theme) => ({
   paperContainer: {
     padding: theme.spacing(2),
+    gap: theme.spacing(2),
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
@@ -99,10 +100,16 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    width: '100%',
     '&>*': {
       marginLeft: theme.spacing(1),
     },
+  },
+  bottomContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
   },
   iframe: {
     height: '100%',
@@ -165,22 +172,31 @@ const createUpsellPackageComponent = memoize(
               </div>
             </div>
           </div>
-          <div className={classes.buttonContainer}>
-            {onKnowMore && !canSubscribe && (
-              <Button onClick={showMoreUpsellInformation} variant="outlined">
-                <HelpOutlinedIcon className={classes.iconLeft} />
-                {t('upsellPackage.knowMore')}
-              </Button>
-            )}
-            {canSubscribe && (
-              <Button
-                color="primary"
-                onClick={showSubscribe}
-                variant="contained"
-              >
-                {t('upsellPackage.seeMore')}
-              </Button>
-            )}
+          <div className={classes.bottomContainer}>
+            <Typography variant="h6">
+              {t('upsellPackage.billRecurrent', {
+                price_cts: getCurrencyDisplayWithPrice(
+                  upsellPackage.price_cts / 100,
+                ),
+              })}
+            </Typography>
+            <div className={classes.buttonContainer}>
+              {onKnowMore && !canSubscribe && (
+                <Button onClick={showMoreUpsellInformation} variant="outlined">
+                  <HelpOutlinedIcon className={classes.iconLeft} />
+                  {t('upsellPackage.knowMore')}
+                </Button>
+              )}
+              {canSubscribe && (
+                <Button
+                  color="primary"
+                  onClick={showSubscribe}
+                  variant="contained"
+                >
+                  {t('upsellPackage.seeMore')}
+                </Button>
+              )}
+            </div>
           </div>
         </Paper>
       );

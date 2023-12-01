@@ -68,7 +68,7 @@ export const AlarmClock: FC<SVGComponentProps> = ({ pathProps, ...props }) => {
   );
 };
 
-export const CalenderCheck01: FC<SVGComponentProps> = ({
+export const CalendarCheck01: FC<SVGComponentProps> = ({
   pathProps,
   ...props
 }) => {
@@ -82,7 +82,7 @@ export const CalenderCheck01: FC<SVGComponentProps> = ({
   );
 };
 
-export const CalenderCheck02: FC<SVGComponentProps> = ({
+export const CalendarCheck02: FC<SVGComponentProps> = ({
   pathProps,
   ...props
 }) => {
@@ -96,7 +96,7 @@ export const CalenderCheck02: FC<SVGComponentProps> = ({
   );
 };
 
-export const CalenderDate: FC<SVGComponentProps> = ({
+export const CalendarDate: FC<SVGComponentProps> = ({
   pathProps,
   ...props
 }) => {
@@ -110,7 +110,7 @@ export const CalenderDate: FC<SVGComponentProps> = ({
   );
 };
 
-export const CalenderHeart01: FC<SVGComponentProps> = ({
+export const CalendarHeart01: FC<SVGComponentProps> = ({
   pathProps,
   ...props
 }) => {
@@ -124,7 +124,7 @@ export const CalenderHeart01: FC<SVGComponentProps> = ({
   );
 };
 
-export const CalenderHeart02: FC<SVGComponentProps> = ({
+export const CalendarHeart02: FC<SVGComponentProps> = ({
   pathProps,
   ...props
 }) => {
@@ -138,7 +138,7 @@ export const CalenderHeart02: FC<SVGComponentProps> = ({
   );
 };
 
-export const CalenderMinus01: FC<SVGComponentProps> = ({
+export const CalendarMinus01: FC<SVGComponentProps> = ({
   pathProps,
   ...props
 }) => {
@@ -166,7 +166,7 @@ export const CalendarMinus02: FC<SVGComponentProps> = ({
   );
 };
 
-export const CalenderPlus01: FC<SVGComponentProps> = ({
+export const CalendarPlus01: FC<SVGComponentProps> = ({
   pathProps,
   ...props
 }) => {
@@ -180,7 +180,7 @@ export const CalenderPlus01: FC<SVGComponentProps> = ({
   );
 };
 
-export const CalenderPlus02: FC<SVGComponentProps> = ({
+export const CalendarPlus02: FC<SVGComponentProps> = ({
   pathProps,
   ...props
 }) => {
@@ -194,7 +194,7 @@ export const CalenderPlus02: FC<SVGComponentProps> = ({
   );
 };
 
-export const Calender: FC<SVGComponentProps> = ({ pathProps, ...props }) => {
+export const Calendar: FC<SVGComponentProps> = ({ pathProps, ...props }) => {
   return (
     <SVG {...props}>
       <Path

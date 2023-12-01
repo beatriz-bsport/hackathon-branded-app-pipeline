@@ -4,6 +4,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import { push } from 'connected-react-router';
 // @ts-expect-error
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 import { fetchOfferBulk as fetchOfferBulkAction } from '#libs/offer/actions';
 import { fetchGroupOffer as fetchGroupOfferAction } from '#libs/group-offer/actions';
@@ -22,7 +23,6 @@ import {
   getMyFutureBookingsState,
 } from '#libs/consumer-space/selectors';
 
-// @ts-expect-error
 import ConsumerBookingPageReworked from '#libs/consumer-space/components/reworked/ConsumerBookingPageReworked.component';
 
 import type { BookingREST } from '#libs/booking/types';
@@ -93,4 +93,5 @@ export default compose(
   routerParamsToProps({ companyId: 'companyId:number' }),
   connector,
   withHandlers(mapWithHandlers),
+  marketplaceCssHoc(),
 )(ConsumerBooking);

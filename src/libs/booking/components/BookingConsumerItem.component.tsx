@@ -61,7 +61,7 @@ export const BookingConsumerItem = (props: Props) => {
     <div className={classes.container}>
       <div className={classes.header}>
         <Typography variant="h5">
-          {meta_activity ? meta_activity.name : ' - '}
+          {offer?.name_override || meta_activity?.name || ' - '}
         </Typography>
         <Avatar
           className={classes.largeAvatar}

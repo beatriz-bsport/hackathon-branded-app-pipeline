@@ -51,7 +51,10 @@ class BookingOptionItem extends React.PureComponent<Props> {
         selected={selectedBookingOption?.id === bookingOption.id}
       >
         <ListItemText
-          primary={bookingOption.offer.activity.name}
+          primary={
+            bookingOption.offer.name_override ||
+            bookingOption.offer.activity.name
+          }
           secondary={
             <div>
               <div>

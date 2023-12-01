@@ -178,7 +178,8 @@ export const ReplacementRequestCoachAnswerDialog: React.FC<Props> = ({
       </div>
       <div className={classes.spaceBetween}>
         <Typography className={classes.weight500} variant="subtitle1">
-          {replacementRequest.offer.meta_activity.name}
+          {replacementRequest?.offer?.name_override ||
+            replacementRequest?.offer?.meta_activity.name}
         </Typography>
         <div className={classes.chipContainer}>
           <LevelChip

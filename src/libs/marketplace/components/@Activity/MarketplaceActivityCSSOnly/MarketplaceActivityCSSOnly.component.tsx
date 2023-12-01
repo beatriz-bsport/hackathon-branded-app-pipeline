@@ -175,7 +175,7 @@ export const MarketplaceActivityV2 = (props: Props) => {
       >
         <div className="bs-activity__top__content">
           <div className="bs-activity__top__content__title">
-            {metaActivity?.name}
+            {offer?.name_override || metaActivity?.name}
           </div>
           <div className="bs-activity__top__content__time">
             <div className="bs-activity__top__content__time__day">
@@ -239,7 +239,7 @@ export const MarketplaceActivityV2 = (props: Props) => {
               {t('marketplace:calendar.description')}
             </div>
             <div className="bs-activity__middle__top__description__full">
-              {metaActivity?.description}
+              {offer?.description_override || metaActivity?.description}
             </div>
           </div>
         </div>

@@ -34,6 +34,7 @@ type Props = {
   noDivider: ?boolean,
   t: (x: string) => string,
   classes: Object,
+  offer: Offer,
 };
 
 // prettier-disable-next-line
@@ -50,6 +51,7 @@ export function ActivityMinimalSummary(props: Props) {
     noDivider,
     t,
     classes,
+    offer,
   } = props;
   const { name, id, parent_category, level, etablissement, next_slot, coach } =
     activity;
@@ -80,7 +82,10 @@ export function ActivityMinimalSummary(props: Props) {
             <Sport noname parentCategory={parent_category} />
           </IconButton>
         )}
-        <ListItemText primary={name} secondary={dateToShow} />
+        <ListItemText
+          primary={offer?.name_override || name}
+          secondary={dateToShow}
+        />
         {additionalInfo ? (
           <ListItemText
             primary={additionalInfo}

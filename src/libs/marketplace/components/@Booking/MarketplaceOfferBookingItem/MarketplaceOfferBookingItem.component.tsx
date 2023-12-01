@@ -88,7 +88,7 @@ const MarketplaceOfferBookingItem: React.FC<Props> = ({
           offer.spot_information?.indexType
         }`
       }
-      title={offer.meta_activity?.name}
+      title={offer?.name_override || offer.meta_activity?.name}
     />
   );
 };

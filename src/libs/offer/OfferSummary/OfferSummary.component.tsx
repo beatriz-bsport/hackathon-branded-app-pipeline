@@ -157,7 +157,9 @@ const OfferSummary: React.FC<Props> = ({
           </div>
         )}
         <div className={classes.columnGap1}>
-          <Typography variant="h6">{metaActivity?.name}</Typography>
+          <Typography variant="h6">
+            {offer?.name_override || metaActivity?.name}
+          </Typography>
 
           <Typography className={classes.grey}>
             {formatAsDateWithWeekday(

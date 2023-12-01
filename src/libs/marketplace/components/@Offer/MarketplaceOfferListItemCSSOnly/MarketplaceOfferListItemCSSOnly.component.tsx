@@ -325,7 +325,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                     onClick={handleClick}
                     type="button"
                   >
-                    {metaActivity?.name}
+                    {offer?.name_override || metaActivity?.name}
                   </button>
                 ) : (
                   <div
@@ -347,7 +347,7 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
                         )
                       }
                     >
-                      {metaActivity?.name}
+                      {offer?.name_override || metaActivity?.name}
                     </PopOver>
                   </div>
                 )}

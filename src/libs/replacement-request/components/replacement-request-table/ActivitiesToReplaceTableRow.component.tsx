@@ -237,7 +237,8 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
                   classes.weight500,
                 )}
               >
-                {replacementRequest.offer?.meta_activity?.name}
+                {replacementRequest.offer?.name_override ||
+                  replacementRequest.offer?.meta_activity?.name}
               </Typography>
               <Typography className={classes.mobileSmallFont}>
                 {replacementRequest.offer?.establishment?.title}
@@ -354,7 +355,8 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
         ].includes(replacementDisplay) ? (
           <TableCell className={classes.tableCell}>
             <Typography className={classes.weight500} variant="subtitle1">
-              {replacementRequest.offer?.meta_activity?.name}
+              {replacementRequest.offer?.name_override ||
+                replacementRequest.offer?.meta_activity?.name}
             </Typography>
             <Typography className={classes.weight500} variant="subtitle2">
               {formatAsDatetimeAdapted(offerDateStartAsMoment, 'll', timezone)}
@@ -388,7 +390,8 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
             </Hidden>
             <TableCell className={classes.tableCell}>
               <Typography className={classes.weight500} variant="subtitle1">
-                {replacementRequest.offer?.meta_activity?.name}
+                {replacementRequest.offer?.name_override ||
+                  replacementRequest.offer?.meta_activity?.name}
               </Typography>
             </TableCell>
           </>

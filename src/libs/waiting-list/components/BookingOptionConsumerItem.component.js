@@ -122,6 +122,7 @@ export class BookingOptionConsumerItem extends Component<Props> {
                     ? offer.activity.establishment.tzname
                     : 'Europe/Paris',
                 )}
+                offer={offer}
               />
             ) : (
               <CircularProgress />

@@ -187,7 +187,7 @@ const BookerModuleOfferSummary: React.FC<Props> = ({
             justification={Justification.FLEX_START}
             rowStart={2}
           >
-            {metaActivity?.name}
+            {offer?.name_override || metaActivity?.name}
           </GridItem>
           <GridItem
             alignment={Alignment.CENTER}

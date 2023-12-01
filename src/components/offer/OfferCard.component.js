@@ -93,6 +93,7 @@ export class OfferCard extends Component<Props, State> {
       credit_price_override,
       meta_activity,
       linked_hybrid_offer_id,
+      name_override,
     } = offer;
 
     return (
@@ -105,13 +106,20 @@ export class OfferCard extends Component<Props, State> {
             />
           </ListItemIcon>
           <ListItemText
-            primary={name || meta_activity?.name}
+            primary={name_override || name || meta_activity?.name}
             secondary={
-              credit_price_override !== 1 * creditScaleFactor
-                ? `${credit_price_override / (creditScaleFactor || 1)} ${t(
-                    'offer:credit_price',
-                  )}`
-                : null
+              <div className={classes.nameAndCredits}>
+                {name_override && (
+                  <Typography component="span" variant="body2">
+                    {meta_activity?.name && `${meta_activity.name}`}
+                  </Typography>
+                )}
+                {credit_price_override !== 1 * creditScaleFactor
+                  ? `${credit_price_override / (creditScaleFactor || 1)} ${t(
+                      'offer:credit_price',
+                    )}`
+                  : null}
+              </div>
             }
           />
           {available ? null : (
@@ -559,6 +567,10 @@ const styles = (theme) => ({
   },
   offerDetailContainer: {
     padding: theme.spacing(2),
+  },
+  nameAndCredits: {
+    display: 'flex',
+    flexDirection: 'column',
   },
 });
 

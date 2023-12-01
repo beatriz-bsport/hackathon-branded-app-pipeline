@@ -266,7 +266,7 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
                 onClick={handleClick}
                 type="button"
               >
-                {metaActivity?.name}
+                {offer?.name_override || metaActivity?.name}
               </button>
             ) : (
               <div
@@ -283,7 +283,7 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
                     t('marketplace.bookButton.popOverTitle.isPast')
                   }
                 >
-                  {metaActivity?.name}
+                  {offer?.name_override || metaActivity?.name}
                 </PopOver>
               </div>
             )}

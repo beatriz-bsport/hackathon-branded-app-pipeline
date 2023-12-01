@@ -188,6 +188,7 @@ export function OfferMinimalSummary(props: Props) {
     blacklist_tags,
     credit_price,
     credit_price_override,
+    name_override,
   } = offer;
 
   const disabledAvatarProps = {
@@ -197,7 +198,7 @@ export function OfferMinimalSummary(props: Props) {
     },
   };
 
-  let formattedName = name;
+  let formattedName = name_override || name;
   if (!available) {
     formattedName += ` - ${t('offer:disabled')}`;
   }

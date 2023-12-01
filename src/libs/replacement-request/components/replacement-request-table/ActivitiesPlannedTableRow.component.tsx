@@ -210,7 +210,7 @@ export const ActivitiesPlannedTableRow: React.FC<Props> = ({
             <Typography
               className={classnames(classes.mobileSmallFont, classes.weight500)}
             >
-              {offer.meta_activity.name}
+              {offer?.name_override || offer?.meta_activity?.name}
             </Typography>
             <Typography className={classes.mobileSmallFont}>
               {offer.establishment.title}
@@ -300,7 +300,7 @@ export const ActivitiesPlannedTableRow: React.FC<Props> = ({
       </Hidden>
       <TableCell className={classes.tableCell}>
         <Typography className={classes.weight500} variant="subtitle1">
-          {offer.meta_activity.name}
+          {offer?.name_override || offer.meta_activity.name}
         </Typography>
       </TableCell>
       <TableCell className={classes.tableCell}>

@@ -103,6 +103,8 @@ export type OfferDetail = {
   is_full: boolean;
   is_waiting_list_full: boolean;
   timezone_name: boolean;
+  name_override?: string;
+  description_override?: string;
 };
 
 export type Offer<
@@ -161,6 +163,8 @@ export type Offer<
   tax?: number;
   broadcast_info?: BroadcastInfo;
   internal_note?: string;
+  name_override?: string;
+  description_override?: string;
 };
 
 export type Offer_FULL = Offer<

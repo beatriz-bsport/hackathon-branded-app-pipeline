@@ -41,7 +41,7 @@ class ActivitySummary extends React.PureComponent<Props> {
         <Hidden smDown>
           <div className={classes.imageContainer}>
             <img
-              alt={offer.meta_activity.name}
+              alt={offer?.name_override || offer.meta_activity.name}
               className={classes.image}
               src={offer.meta_activity.cover_main}
             />
@@ -50,7 +50,7 @@ class ActivitySummary extends React.PureComponent<Props> {
 
         <div className={classes.content}>
           <Typography color="textPrimary" variant="h6">
-            {meta_activity.name}
+            {offer?.name_override || meta_activity.name}
           </Typography>
           <div className={classes.centerBottom}>
             <div className={classes.row}>

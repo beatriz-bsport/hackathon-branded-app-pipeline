@@ -62,9 +62,9 @@ export const OfferListItem = (props: Props) => {
         primary={
           <div>
             <Typography inline>
-              {offer && offer.meta_activity
-                ? offer.meta_activity.name
-                : offer.name}
+              {offer?.name_override ||
+                offer?.meta_activity?.name ||
+                offer?.name}
             </Typography>
             <Typography inline variant="caption">
               {formatAsDatetimeAdapted(

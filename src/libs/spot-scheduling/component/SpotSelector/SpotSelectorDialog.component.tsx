@@ -250,7 +250,8 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
                   {t('spotSelectorDialog.title')}
                 </Typography>
                 <Typography className={classes.metaActivityName} variant="h6">
-                  {this.props.offer?.meta_activity?.name}
+                  {this.props.offer?.name_override ||
+                    this.props.offer?.meta_activity?.name}
                 </Typography>
                 <div className={classes.dateContainer}>
                   <Typography variant="subtitle1">
@@ -395,7 +396,8 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
             </div>
 
             <Typography className={classes.metaActivityNameMobile} variant="h6">
-              {this.props.offer?.meta_activity?.name}
+              {this.props.offer?.name_override ||
+                this.props.offer?.meta_activity?.name}
             </Typography>
             <div className={classes.dateContainer}>
               <Typography variant="subtitle1">

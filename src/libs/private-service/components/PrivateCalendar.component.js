@@ -194,7 +194,7 @@ const offerAsEvent =
       end: moment(offer.date_start)
         .add(offer.duration_minute, 'minutes')
         .format(),
-      title: offer.meta_activity ? offer.meta_activity.name : '',
+      title: offer?.name_override || offer?.meta_activity?.name || '',
       editable: false,
       extendedProps: {
         offer: offer.id,

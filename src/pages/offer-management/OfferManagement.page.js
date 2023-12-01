@@ -176,8 +176,8 @@ const formatTitle = (offer: Offer, offerLoading: boolean) => {
     return ' - ';
   }
   if (offer && offer.name) {
-    const { coach, coach_override } = offer;
-    return `${offer.name} - ${
+    const { coach, coach_override, name_override } = offer;
+    return `${name_override || offer.name} - ${
       coach_override ? coach_override.name : coach.name
     }`;
   }

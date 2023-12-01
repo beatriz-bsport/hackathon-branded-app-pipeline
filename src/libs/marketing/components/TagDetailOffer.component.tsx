@@ -123,7 +123,11 @@ const TagDetailOffers = (props: Props) => {
                       primary={
                         <div className={classes.primaryInfo}>
                           <Typography>
-                            {`${item?.meta_activity?.name || '-'}\u00A0-\u00A0`}
+                            {`${
+                              item?.name_override ||
+                              item?.meta_activity?.name ||
+                              '-'
+                            }\u00A0-\u00A0`}
                           </Typography>
                           <Typography color="secondary">
                             {`${

@@ -430,11 +430,11 @@
             "edit": "Ändern",
             "buy": "Kaufen",
             "scheduledStop": {
-                "title": "Plane die Beendigung des Abonnements",
+                "title": "Dieses Abonnement kündigen",
                 "explain": "Wähle die letzte Zahlung für das Abonnement.",
                 "listItem": "Geplante Kündigung des Abonnements",
-                "summary": "Die zuletzt programmierte Zahlung ist mit {{-date}} datiert und entspricht der zuletzt gültigen Karte.",
-                "notePlaceholder": "Begründung"
+                "summary": "Die letzte Zahlung wird am {{-date}} verarbeitet, das dem letzten gültigen Ausweis entspricht.",
+                "notePlaceholder": "Grund"
             },
             "invoice": {
                 "label": "Rechnung {{uuid}}: {{price}}"
@@ -558,8 +558,8 @@
             "sortCode": "Sortiercode"
         },
         "schedule": {
-            "provisionalTitle": "Zeitplanprognose",
-            "paymentMethodTitle": "Abbuchungsmethode"
+            "provisionalTitle": "Vorläufiger Wochenplan",
+            "paymentMethodTitle": "Zahlungsmethode"
         },
         "form": {
             "cancel": "Abbrechen",
@@ -600,7 +600,7 @@
         },
         "scheduledStop": {
             "unscheduleStop": "Halte den Stop an",
-            "label": "Geplanter Stop"
+            "label": "Terminiert"
         },
         "end": {
             "renew": "Automatische Verlängerung",
@@ -886,7 +886,7 @@
                 "details": "Zahlungsdetails"
             },
             "subscriptionBasketSummary": {
-                "message": "Sie können Ihr Abonnement auf Ihrer Profilseite sehen",
+                "message": "Sie können Ihr Abonnement in Ihrem Mitgliederprofil einsehen",
                 "payNow": "Jetzt bezahlen"
             },
             "terms": {
@@ -938,14 +938,14 @@
                 "invoiceList": "Meine Transaktionen",
                 "invoiceCreatePage": "In Rechnung stellen",
                 "coachFormPage": "Lehrkräfte-Formular",
-                "coachPerformance": "Leistung der Lehrkraft",
+                "coachPerformance": "Lohnabrechnung",
                 "offerFormPage": "Erstellung eines Workshops",
                 "metaActivityFormPage": "Aktivität-Formular",
                 "metaActivityEditForm": "Aktivität-Formular",
                 "WorkshopActivityFormPage": "Workshop-Formular",
                 "workshopActivityList": "Workshops",
                 "coachList": "Lehrkräfte",
-                "shopManager": "Mein Shop",
+                "shopManager": "Webshop",
                 "settings": "Einstellungen",
                 "searchResults": "Suche",
                 "marketingDashboard": "Marketing",
@@ -953,11 +953,11 @@
                 "metaActivity": "Aktivitäten",
                 "offerManagement": "Buchungen",
                 "mergeMember": "Mitglieder zusammenlegen",
-                "allCoachPerformance": "Übersicht der Lehrkräfte",
+                "allCoachPerformance": "Lohnabrechnung",
                 "orderDetail": "Details der Bestellung",
                 "orderList": "Bestellungen",
                 "reportingDashboard": "Berichte",
-                "planning": "Kalender",
+                "planning": "Wochenplan",
                 "invoiceFormPage": "Änderung der Rechnung"
             }
         },
@@ -986,7 +986,7 @@
                 }
             },
             "shop": {
-                "isEmpty": "Derzeit sind keine Produkte im Shop erhältlich.",
+                "isEmpty": "Derzeit sind keine Produkte im Webshop erhältlich.",
                 "addToCard": "In den Warenkorb",
                 "tabName": "Webshop",
                 "noDescription": "Keine Beschreibung verfügbar."
@@ -1048,7 +1048,7 @@
             "showMore": "+ {{ total}} zusätzlicher Kurs / zusätzliche Kurse",
             "event": "Kurs",
             "time": "Uhrzeit",
-            "agenda": "Agenda",
+            "agenda": "Wochenplan",
             "canDeleteWithBooking": "(Stornierte) Reservierungen oder Wartelisten wurden gespeichert und können nicht gelöscht werden."
         },
         "common": {
@@ -1152,7 +1152,7 @@
             "filter": "Filtern",
             "information": "Details"
         },
-        "openSchedule": "Stundenplan ansehen",
+        "openSchedule": "Wochenplan ansehen",
         "login": {
             "loginAsConsumer": "Ein Mitglied",
             "error": {
@@ -1258,7 +1258,7 @@
                 "services": "Termine",
                 "title": "Termine"
             },
-            "schedule": "Stundenplan",
+            "schedule": "Wochenplan",
             "invoice": "Rechnungen",
             "workshopActivities": "Event",
             "order": "Bestellungen",
@@ -1284,7 +1284,7 @@
             "member": "Mitglieder",
             "reporting": "Berichte",
             "digital": "Digitales Angebot",
-            "playlist": "Playlist"
+            "playlist": "Playlists"
         },
         "offer": {
             "noncompatibleConsumerPaymentPacksAre": "DU besitzt die folgenden Pass, der nicht mit diesem Kurs kompatibel sind:",
@@ -1391,8 +1391,8 @@
                 "establishmentLabel": "Einrichtung",
                 "coachLabel": "Lehrkraft",
                 "substituteCoachLabel": "Vertretung",
-                "establishmentChangeWarning": "Die Bearbeitung der Einrichtung wirkt sich auf alle zukünftigen Sitzungen aus. Sie können auch das Feld \"Vertretungseinrichtung\" verwenden. Alle anderen Änderungen (Lehrer, Preis, etc.) werden ebenfalls für alle Veranstaltungen übernommen.",
-                "coachChangeWarning": "Die Bearbeitung der Lehrkraft wirkt sich auf alle zukünftigen Sitzungen aus. Sie können auch das Feld \"Vertretungslehrer\" verwenden.  Alle anderen Änderungen (Einrichtung, Preis usw.) werden ebenfalls für alle Sitzungen übernommen.",
+                "establishmentChangeWarning": "Die Bearbeitung der Einrichtung wirkt sich auf alle zukünftigen Sitzungen aus. Sie können auch das Feld \"Vertretungseinrichtung\" verwenden. Alle anderen Änderungen (Lehrkraft, Preis, etc.) werden ebenfalls für alle Veranstaltungen übernommen.",
+                "coachChangeWarning": "Die Bearbeitung der Lehrkraft wirkt sich auf alle zukünftigen Sitzungen aus. Sie können auch das Feld \"Vertretungslehrkraft\" verwenden.  Alle anderen Änderungen (Einrichtung, Preis usw.) werden ebenfalls für alle Sitzungen übernommen.",
                 "explainRecursiveOfferEdit": "Möchtest Du ALLE ähnlichen Kurse an diesen neuen Bedingungen anpassen?",
                 "explainRecursiveOfferDelete": "Möchtest Du ALLE ähnlichen Kurse löschen?",
                 "changeDate": "Uhrzeit/Datum ändern",
@@ -1703,7 +1703,7 @@
                 "rangeError": "Es ist nicht möglich, Sessions zu erstellen, die in mehr als drei Jahren stattfinden"
             },
             "workingDateSection": "Zeitraum der Aktivität im Studio",
-            "descriptionHelperText": "Die Beschreibung des Lehrers wird für die Mitglieder bei der Buchung sichtbar sein",
+            "descriptionHelperText": "Die Beschreibung der Lehrkraft wird für die Mitglieder bei der Buchung sichtbar sein",
             "notesHelperText": "Notizen sind privat: Sie erscheinen nur im Backoffice für Mitarbeiter, die berechtigt sind, sie zu bearbeiten",
             "startWorking": "Startdatum",
             "endWorking": "Enddatum",
@@ -1802,7 +1802,7 @@
             },
             "supplier_price": "Einkaufspreis",
             "noProvisionUpdates": "Kein Inventar",
-            "myShop": "Mein Shop",
+            "myShop": "Webshop",
             "ht": "Ausschließlich Steuern"
         },
         "offerManagement": {
@@ -1881,7 +1881,7 @@
             "explainFinalize": "Achtung! Eine abgeschlossene Rechnung kann nicht mehr geändert werden und alle Zahlungen, die zum Einzug bereitgehalten werden, werden als eingelöst betrachtet. Sobald die Rechnung fertig gestellt ist, kannst Du sie als PDF-Datei exportieren",
             "finalize": "Die Rechnung abschließen",
             "invoiceReverted": "Die Rechnung wurde storniert",
-            "revertExplainShop": "Einkäufe im Shop werden storniert und das Inventar zurückgesetzt.",
+            "revertExplainShop": "Einkäufe im Webshop werden storniert und das Inventar zurückgesetzt.",
             "revertExplainPacks": "Kurspässe werden zusammen mit ALLEN damit verbundenen Buchungen storniert",
             "explainDateChoser": "Bitte wähle das Rechnungsdatum. Zahlungen per Kreditkarte werden unabhängig vom gewählten Datum sofort eingelöst.",
             "choseDate": "Rechnungsdatum",
@@ -2038,7 +2038,7 @@
         "metaActivityNotificationToolTip": "Benachrichtigungen sind für diese Buchungen aktiviert",
         "quickInvoiceNoVoucher": "Lasse den Wert dieses Feldes auf 0, wenn Du keinen Rabatt anwenden möchtest",
         "metaActivityCategory": {
-            "explain": "Diese Kategorien dienen lediglich dazu, die Aktivitäten im Backoffice nach Ihren Wünschen zu ordnen. Sie haben keine Auswirkungen auf die Kundenseite",
+            "explain": "Diese Kategorien werden verwendet, um die Gruppenaktivitäten in der von Ihnen bevorzugten Darstellung in der Management-Ansicht zu ordnen und zu sortieren. Die Mitglieder werden durch Ihre Anzeigeentscheidungen nicht beeinträchtigt.",
             "sctExplain": "Diese Kategorien geben die Art der Aktivität an. Sie werden auf dem Marketplace und in der App angezeigt."
         },
         "restrictions": {
@@ -2196,7 +2196,7 @@
             },
             "isEmpty": "Kein Filter wurde eingerichtet. Diese Smartlist enthält also die gesamte Mitgliederdatenbank",
             "23": {
-                "explanation": "Buchte seinen/ihren ersten Kurs am...",
+                "explanation": "Eine Übersicht über die erste Buchung aller Mitglieder anzeigen",
                 "name": "Erste Buchung"
             },
             "22": {
@@ -2206,7 +2206,7 @@
                     "second": "Uhr und"
                 },
                 "first": "Buchte",
-                "explanation": "Hat X Kurse von A in der Einrichtung B mit dem Kurspass C gebucht ...",
+                "explanation": "Anzeige einer Übersicht der Mitglieder, die X Klassen der Aktivität A in Betrieb X mit Ausweis Z gebucht haben",
                 "name": "Anzahl der Buchungen",
                 "coach": {
                     "first": "mit den Lehrkräften"
@@ -2248,7 +2248,7 @@
                 "second_plural": ". Kurs",
                 "second_singular": ". Kurs",
                 "first": "Buchte seinen/ihren ",
-                "explanation": "Hat seinen/ihren X. Kurs von A in der Einrichtung B gebucht...",
+                "explanation": "Anzeige einer Übersicht aller Mitglieder mit X Buchungen der Aktivität Y im Betrieb Z",
                 "name": "Buchungsnummer",
                 "coach": {
                     "first": "mit den Lehrkräften"
@@ -2268,7 +2268,7 @@
                 },
                 "third": "{{ currencyDisplay }}",
                 "first": "Hat einen Warenkorb aufgegeben im Wert von",
-                "explanation": "Hat einen Warenkorb aufgegeben, im Wert von ...",
+                "explanation": "Anzeige einer Übersicht der Mitglieder mit offenen Warenkörben, die noch nicht bezahlt haben",
                 "name": "Aufgegebene Warenkörbe",
                 "second": "um",
                 "between": "und"
@@ -2327,7 +2327,7 @@
                 "canceled": "storniert"
             },
             "18": {
-                "explanation": "Ist dem Studio beigetreten, am...",
+                "explanation": "Eine Übersicht über alle Mitglieder anzeigen, die sich eingeschrieben haben am ...",
                 "first": "Ist dem Studio beigetreten   ",
                 "name": "Anmeldungsdatum"
             },
@@ -2342,11 +2342,11 @@
                 "private_pass": "Privatkurse",
                 "combo": "Package",
                 "pack": "Kurspass",
-                "shop": "Shop",
+                "shop": "Webshop",
                 "explanation": "Hat die Produkte A und B gekauft"
             },
             "11": {
-                "explanation": "Besitzt die Markierungen A und B",
+                "explanation": "Anzeige einer Übersicht über alle Mitglieder, die mit A und B gekennzeichnet sind",
                 "name": "Markierungen",
                 "first": "Nach folgenden Markierungen sortieren"
             },
@@ -2370,14 +2370,14 @@
                 "between": "und",
                 "combo": "Package",
                 "pack": "Kurspass",
-                "shop": "Shop",
-                "explanation": "Hat die Produkte A und B gekauft",
+                "shop": "Webshop",
+                "explanation": "Eine Übersicht der Mitglieder, die die Produkte A und B gekauft haben",
                 "date": {
                     "first": "durchgeführte Käufe"
                 }
             },
             "501": {
-                "explanation": "Buchte seinen/ihren letzten Kurs vor...",
+                "explanation": "Eine Übersicht über die letzte Buchung der Mitglieder anzeigen",
                 "second": "Tagen statt, und keine andere Buchung ist in der Zukunft geplant.",
                 "first": "Der letzte gebucht Kurs fand vor mehr als",
                 "name": "Datum des letzten gebuchten Kurses"
@@ -2405,7 +2405,7 @@
                 },
                 "first": "gebucht",
                 "second": "Termin",
-                "explanation": "X  gebuchte Termine mit Professor A an Platz B mit dem Terminpass C...",
+                "explanation": "Übersicht der Mitglieder, die X Termine bei Lehrer A in Einrichtung Y mit Ausweis Z gebucht haben anzeigen",
                 "name": "Anzahl der Termine",
                 "private_service": {
                     "first": "mit den Terminen"
@@ -2445,7 +2445,7 @@
                 "does_not_own": "Keine gesicherte Zahlungsmethode vorhanden",
                 "labelFirst": "Nur Teile filtern",
                 "title": "Verfahren zur gesicherten Bezahlung",
-                "explanation": "Filtern nach gespeichertem Zahlungsmittel und Ablaufdatum",
+                "explanation": "Übersicht über die gespeicherten Zahlungsmethoden der Mitglieder und deren Ablaufdatum anzeigen",
                 "name": "Zahlungsmittel"
             },
             "27": {
@@ -2769,7 +2769,19 @@
         "generateExport": "Export generieren",
         "generateHelperText": "Generieren Sie den Export zum Herunterladen der Smartlist",
         "lastGenerated": "Letzter generierter Export am: {{-date}} {{time}}",
-        "usedInFranchiseCommmunication": "In einer Kampagne von Ihrem Franchise verwendet"
+        "usedInFranchiseCommmunication": "In einer Kampagne von Ihrem Franchise verwendet",
+        "cannotBeDeletedDialogAudience": {
+            "content": "Sie können diese Smartlist nicht löschen, solange sie im folgenden {{ workflowLowerCase }} verwendet wird:",
+            "content_plural": "Sie können diese Smartlist nicht löschen, solange sie in den folgenden {{ workflowPluralLowerCase }} verwendet wird:",
+            "title": "Wird in einem der {{ workflowPluralLowerCase }} verwendet"
+        },
+        "audienceListDialog": {
+            "title": "Liste der {{ workflowPluralLowerCase }}"
+        },
+        "audience": {
+            "content": "Verwendet im {{ workflowLowerCase }}:{{ workflow_name }}",
+            "content_plural": "Verwendet in {{ count }}{{ workflowPluralLowerCase }}"
+        }
     },
     "theme": {
         "forms": {
@@ -2783,9 +2795,9 @@
                 "label": "URL Facebook"
             },
             "scheduleURL": {
-                "placeholder": "https://studio.com/calendar/",
-                "helperText": "Standard-Link Deines Kalenders",
-                "label": "URL-Planning"
+                "placeholder": "https://studio.com/wochenplan/",
+                "helperText": "Verwenden Sie dieses Feld für Ihren Wochenplan.",
+                "label": "Link zum Wochenplan"
             },
             "websiteURL": {
                 "placeholder": "https://studio.com/",
@@ -2888,15 +2900,15 @@
                 },
                 "hiddenFromMarketplace": "Erscheint in der bsport-App",
                 "schedule": {
-                    "alert": "Die Anfangszeit des Fahrplans sollte vor der Endzeit liegen",
+                    "alert": "Die Anfangszeit des Wochenplans sollte vor der Endzeit liegen",
                     "end": "Endzeit",
                     "begin": "Startzeit",
-                    "title": "Aufstellung des Zeitplans"
+                    "title": "Wochenplan"
                 },
                 "coach_can_edit_attendance": "In der mobilen Anwendung kann die Lehrkraft die An-/Abwesenheit ändern",
                 "internalAccount": "Restguthaben Kunde",
                 "internalAccountWarningTitle": "Berücksichtigen Sie die aktuellen internen Kontostände der Mitglieder.",
-                "internalAccountWarning2": "Um einen Bericht über Kundensalden zu erstellen, gehen Sie auf die Registerkarte 'Berichte' und wählen Sie bei der Erstellung des neuen Berichts in der Kategorie 'Zahlungen' 'Credits' aus.",
+                "internalAccountWarning2": "Um einen Bericht über Kundensalden zu erstellen, gehen Sie auf den Tab 'Berichte' und wählen Sie bei der Erstellung des neuen Berichts in der Kategorie 'Zahlungen' 'Credits' aus.",
                 "internalAccountWarning1": "Wir empfehlen dringend, einen Bericht über die internen Kontostände der Mitglieder zu erstellen, bevor Sie diese Funktion aktivieren.",
                 "goToReports": "Seite mit Berichten",
                 "allowConsumerToUseInternalAccount": "Mitglieder können ihr internes Kontoguthaben nutzen, um Zahlungen für ihren Warenkorb und/oder ausstehende Rechnungen zu leisten",
@@ -2911,16 +2923,16 @@
                     },
                     "daysBeforeReplacementClosingAcceptance": {
                         "helperText": "Anmeldeschluss für Vertretungen",
-                        "description": "Ihre Lehrer können keine Vertretungen mehr an {{count}} Tag vor Kursbeginn akzeptieren.",
-                        "description_plural": "Ihre Lehrer können keine Vertretungen mehr an {{count}} Tagen vor Kursbeginn akzeptieren.",
+                        "description": "Ihre Lehrkraft können keine Vertretungen mehr an {{count}} Tag vor Kursbeginn akzeptieren.",
+                        "description_plural": "Ihre Lehrkräfte können keine Vertretungen mehr an {{count}} Tagen vor Kursbeginn akzeptieren.",
                         "placeholder": "Anzahl an Tagen"
                     },
                     "enableReplacement": "Vertretung",
                     "access": "Zugang",
-                    "enableRemuneration": "Gehaltsabrechnung",
+                    "enableRemuneration": "Lohnabrechnung",
                     "description": "Passen Sie die Lehrkräfteansicht im Web an. Bitte beachten Sie, dass die Einstellungen hier keinen Einfluss auf die Ansicht der Anwendung durch die Lehrkraft haben.",
                     "isLateReplacementRequestLimited": "Limit für verspätete Anfragen",
-                    "enableSchedule": "Stundenplan",
+                    "enableSchedule": "Wochenplan",
                     "daysBeforeReplacementClosing": {
                         "interval": "Intervall",
                         "description": "Vertretungsanträge, die {{count}} Tag oder mehr vor Beginn der Sitzung gestellt werden, werden als spät gekennzeichnet.",
@@ -2988,7 +3000,7 @@
                     "onlyShowStartingTime": "Nur Startzeit anzeigen",
                     "showDuration": "Dauer anzeigen",
                     "showEndingTime": "Endzeit anzeigen",
-                    "label": "Optionen für die Anzeige von Zeitplänen"
+                    "label": "Optionen für die Anzeige von Wochenplänen"
                 },
                 "showLevel": "Anzeige des Levels",
                 "showEstablishment": "Anzeige der Einrichtung",
@@ -2997,7 +3009,7 @@
                     "showCoachFullNameWithoutPicture": "Vollständiger Name ohne Bild",
                     "onlyShowCoachFirstName": "Nur Vorname der Lehrkraft",
                     "showCoachFullNameWithPicture": "Vollständiger Name und Bild",
-                    "label": "Optionen für die Anzeige der Lehrerinfo"
+                    "label": "Optionen für die Anzeige der Lehrkraftinformationen"
                 },
                 "acceptDoubleBookingMetaActivity": "Doppelte Buchungen für Aktivitäten akzeptieren",
                 "acceptDoubleBookingWorkshop": "Doppelte Buchungen für Workshops akzeptieren",
@@ -3122,7 +3134,7 @@
             "showPass": "Wenn der Nutzer auf einen Pass klickt",
             "addPackToCart": "Wenn der Benutzer eine Package in den Warenkorb legt",
             "addPrivatePassToCart": "Wenn der Benutzer eines Terminpasses in den Warenkorb legt",
-            "addShopItemToCart": "Wenn der Benutzer einen Artikel aus dem Shop in den Warenkorb legt",
+            "addShopItemToCart": "Wenn der Benutzer einen Artikel aus dem Webshop in den Warenkorb legt",
             "paymentSuccess": "Wenn der Benutzer die Zahlung erfolgreich abgeschlossen hat",
             "signupSuccess": "Wenn der Benutzer ein Konto erstellt hat",
             "sessionShow": "Wenn der Benutzer eine Kurs auswählt",
@@ -3179,7 +3191,7 @@
             "customQuestionDialog": {
                 "confirm": "Ein Formular erstellen",
                 "cancel": "Abbrechen",
-                "content": "Um dem Anmeldeformular neue Fragen hinzuzufügen, können Sie auf der Registerkarte Marketing > Formulare ein neues Formular erstellen. Fügen Sie Ihre Fragen hinzu und fügen Sie dieses Formular dann dem Anmeldeformular hinzu, indem Sie die Bedingung \"Neue Mitglieder ansprechen\" auswählen.",
+                "content": "Um dem Anmeldeformular neue Fragen hinzuzufügen, können Sie auf dem Tab Marketing > Formulare ein neues Formular erstellen. Fügen Sie Ihre Fragen hinzu und fügen Sie dieses Formular dann dem Anmeldeformular hinzu, indem Sie die Bedingung \"Neue Mitglieder ansprechen\" auswählen.",
                 "title": "Maßgeschneiderte Fragen"
             },
             "addQuestions": "Hinzufügen von Fragen",
@@ -3301,7 +3313,7 @@
                             "close": "Schließen"
                         },
                         "steps": {
-                            "masterAccount": "Zugang Master-Account",
+                            "masterAccount": "Master-Account Zugang",
                             "franchisee": "Franchise-Zugang"
                         }
                     }
@@ -3327,7 +3339,7 @@
                 "name": "Eingeschränktes Check-In"
             },
             "1": {
-                "description": "Kann Kurse (Änderung und Stornierungen) und Mitglieder verwalten, hat Zugang zum Check-In.",
+                "description": "Mit Check-in | Wide können Mitarbeiter Sitzungen bearbeiten (Zeit, Vetretung, Absage usw.), Ihre Mitgliederdatenbank einsehen und Mitglieder einchecken.",
                 "name": "Erweitertes Check-In"
             },
             "0": {
@@ -3396,7 +3408,7 @@
                         "_label": "Livestreamen"
                     },
                     "teacherPayrollRules": {
-                        "_label": "Gehaltsabrechnung"
+                        "_label": "Lohnabrechnungsregeln"
                     },
                     "paymentMethods": {
                         "_label": "Bezahlmethode"
@@ -3454,6 +3466,9 @@
                     },
                     "cadence": {
                         "_label": "Kadenz"
+                    },
+                    "audience": {
+                        "_label": "Audience"
                     }
                 },
                 "payments": {
@@ -3538,7 +3553,7 @@
                     }
                 },
                 "schedule": {
-                    "_label": "Stundenplan"
+                    "_label": "Wochenplan"
                 },
                 "calendar": {
                     "_label": "Kalender"
@@ -3867,7 +3882,7 @@
                         "_label": "Abonnements exportieren"
                     },
                     "payroll": {
-                        "_label": "Lehrervergütung exportieren"
+                        "_label": "Lohnabrechnung der Lehrkraft exportieren"
                     },
                     "report": {
                         "_label": "Berichte exportieren"
@@ -4745,7 +4760,7 @@
                             "_label": "Löschen"
                         },
                         "readPayroll": {
-                            "_label": "Vergütung ansehen"
+                            "_label": "Lohnabrechnung ansehen"
                         },
                         "substitution": {
                             "_label": "Vertretungen verwalten"
@@ -4896,8 +4911,8 @@
                 "unlimited": "Unbegrenzte Credits",
                 "activities": "Aktivität",
                 "update": {
-                    "error": "Kurspass : Fehler bei der Aktion",
-                    "success": "Kurspass : Aktion erfolgreich abgeschlossen"
+                    "error": "Kurspass : Vorgang fehlgeschlagen",
+                    "success": "Kurspass: Vorgang erfolgreich"
                 },
                 "noneMeansAll": "Leer lassen, um alles zuzulassen",
                 "restrictionsTitle": "Einschränkungen",
@@ -4930,7 +4945,7 @@
                 },
                 "theoricalMarginValue": {
                     "label": "Theoretischer marginaler Beitrag einschließlich Steuer (nur bei unbegrenzter Karte)",
-                    "helperText": "Wird zur Berechnung des Lehrkraftgehalts verwendet. 10{{currency}} bedeutet, dass eine mit dieser Karte vorgenommene Buchung mit 10{{currency}} vergütet wird. Wenn leer oder 0{{currency}} wird die Einbringung einer Karte PREIS/NB_RESERVATION"
+                    "helperText": "Wird zur Berechnung der Lehrkraft-Lohnabrechnung verwendet. 10{{currency}} bedeutet, dass eine mit dieser Karte vorgenommene Buchung mit 10{{currency}} vergütet wird. Wenn leer oder 0{{currency}} wird die Einbringung einer Karte PREIS/NB_RESERVATION"
                 },
                 "maxBookingPerWeek": {
                     "label": "Maximale Nutzung pro Woche",
@@ -5044,8 +5059,8 @@
                     },
                     "header": "Fortgeschrittene",
                     "appliesForPayroll": {
-                        "label": "Session, die bei der Berechnung der Vergütung der Lehrkraft berücksichtigt werden",
-                        "helperText": "Standardmäßig werden die Sessions dem Studio in Rechnung gestellt und in die Gehaltsabrechnung der Lehrkraft und die Vergütung durch das Studio aufgenommen. Wenn Sie diese Einstellung deaktivieren, erscheinen die mit diesem Pass verbundenen Sessions nicht mehr in der Gehaltsabrechnung der Lehrkraft."
+                        "label": "Sessions, die bei der Berechnung der Lohnabrechnung der Lehrkraft berücksichtigt werden",
+                        "helperText": "Standardmäßig werden die Sessions dem Studio in Rechnung gestellt und in die Lohnabrechnung der Lehrkraft und die Vergütung durch das Studio aufgenommen. Wenn Sie diese Einstellung deaktivieren, erscheinen die mit diesem Pass verbundenen Sessions nicht mehr in der Lohnabrechnung der Lehrkraft."
                     }
                 },
                 "universalPass": {
@@ -5173,7 +5188,7 @@
                 "nbDays": {
                     "label": "Anzahl der zusätzlichen Tage"
                 },
-                "warning": "Prüfe, ob das neue Datum nicht dazu führt, dass dieser Kurspass in einer neuen Finanzperiode überschreitet. Wenn dies der Fall ist, erkundige dich bei Deinem Buchhalter, ob dies angemessen ist.",
+                "warning": "Bitte prüfen Sie, ob das neue Datum in dasselbe Geschäftsjahr fällt wie das alte. Ist dies nicht der Fall, überprüfen Sie bitte mit Ihrer Buchhaltung, ob dieser Vorgang korrekt ist.",
                 "title": "Verlängerung einer Karte",
                 "cancel": "Abbrechen",
                 "submit": "Erstellen",
@@ -5243,7 +5258,7 @@
             "maxDate": "Spätestens",
             "minDate": "Nicht früher als",
             "dateHelpText": "Verlängere nur Kurspässe, die dazwischen ablaufen",
-            "helpText": "Hier kannst du alle Kurspässe deiner Mitglieder verlängern. Dieser Vorgang ist reversibel."
+            "helpText": "Hier können Sie alle Kurspässe Ihrer Mitglieder verlängern. Dieser Vorgang kann nicht rückgängig gemacht werden."
         },
         "section": {
             "massExtension": "Verlängerung"
@@ -5381,7 +5396,7 @@
             "penalityInfo": "Eine Strafe wird erhoben, wenn es innerhalb eines Zeitraums von {{penalityNumberCancel}} Tagen {{penalityNumberDay}} außerterminliche Stornierungen gibt",
             "penalityNumberDay": "Anzahl der Tage",
             "penalityNumberCancel": "Anzahl der Absagen",
-            "marginalContributionHelperText": "Wird verwendet, um die Vergütung von Lehrern zu berechnen. 10{{ currencyDisplay }} bedeutet, dass eine mit diesem Pass vorgenommene Buchung mit 10{{ currencyDisplay }} vergütet wird. Wenn leer oder 0{{ currencyDisplay }}, wird die Einbringung einer Karte PREIS/NB_RESERVATION",
+            "marginalContributionHelperText": "Wird verwendet, um die Lohnabrechnung von Lehrkräften zu berechnen. 10{{ currencyDisplay }} bedeutet, dass eine mit diesem Pass vorgenommene Buchung mit 10{{ currencyDisplay }} vergütet wird. Wenn leer oder 0{{ currencyDisplay }}, wird die Einbringung einer Karte PREIS/NB_RESERVATION",
             "marginalContribution": "Theoretischer Grenzertrag TTC",
             "expirationDateHelper": "Wenn der Kurspass innerhalb dieser Anzahl an Tagen nicht zum ersten Mal verbraucht wird, wird sie ungültig",
             "expirationDate": "Verfall, wenn keine ursprüngliche Buchung",
@@ -5424,7 +5439,7 @@
             "requiredField": "Dieses Feld ist erforderlich",
             "creditWarning": "Wenn Sie die Anzahl der Credits ändern, sind alle bestehenden Karten davon betroffen.",
             "migration": "Dieser Kurspass stammt aus einer Migration, einige Felder sind nicht bearbeitbar, um die Historie zu respektieren. Kompatible Aktivitäten/Kategorien bleiben bearbeitbar.",
-            "franchise": "Dieser Pass ist eine Karte, die vom Franchisegeber-Konto gemeinsam genutzt wird. Einige Elemente wurden vom Franchisegeber-Konto festgelegt und können nicht geändert werden",
+            "franchise": "Dieser Pass ist eine Karte, die vom Master Account gemeinsam genutzt wird. Einige Elemente wurden vom Master Account festgelegt und können nicht geändert werden",
             "penalityModeFranchisor": {
                 "buyer": {
                     "explain": "Das Mitgliedskonto wird nur bei dem Franchisenehmer, bei dem der Pass gekauft wurde, mit {{ price }} belastet.",
@@ -5518,7 +5533,7 @@
                 "title": "Meine Studios konfigurieren"
             },
             "consumerPaymentPackSharedFromOtherFranchisee": "Geteilt seit Franchisenehmer",
-            "paymentPackSharedFromFranchisor": "Franchise-Karte"
+            "paymentPackSharedFromFranchisor": "Master Account Kurspass"
         },
         "universalPass": {
             "restore": {
@@ -5654,7 +5669,7 @@
             "private_pass": "Terminpass",
             "payment_combo": "Package",
             "fee": "Gebühren",
-            "shop_item": "Shop",
+            "shop_item": "Webshop",
             "payment_pack": "Kurspass",
             "refund": "Rückerstattung der Credits",
             "top_up": "Kredit des Kundes aktualiseren",
@@ -5764,7 +5779,7 @@
             "total_basket": "Gesamter Warenkorb",
             "couponName": "Werbeaktion",
             "supplier_price": "Preis des Händlers",
-            "marketplace_enabled": "Auf dem Marketplace verfügbar",
+            "marketplace_enabled": "Im Webshop verfügbar",
             "date_offer": "Datum und Uhrzeit des Kurses",
             "products": "Inhalt des Warenkorbs",
             "ca": "Erzeugter Umsatz",
@@ -5798,7 +5813,7 @@
             "nb_interval": "Anzahl der Wiederholungen",
             "interval": "Kategorie der Wiederholung",
             "contract": "Vertrag",
-            "shop": "Shop",
+            "shop": "Webshop",
             "stock": "Aktuelles Inventar",
             "stock_variation": "Änderung im Inventar",
             "author": "Autor",
@@ -6014,7 +6029,7 @@
             "activities": "Aktivitäten",
             "subscription": "Rechnungen für Abonnements",
             "discount": "Werbeaktionen",
-            "shop": "Shop",
+            "shop": "Webshop",
             "private_cpasses": "Terminpass",
             "payment_sumup": "Gesamte Zahlungen",
             "credit": "Restguthaben des Kundenkontos",
@@ -6308,7 +6323,7 @@
             "subscription": "Rechnungen werden nach ihrem Fälligkeitsdatum gefiltert.",
             "offers": "Die Sessions werden nach dem Datum gefiltert, an dem sie stattfinden.",
             "workshop": "Es werden nur die Workshops angezeigt, für die im ausgewählten Datumsbereich eine Session geplant ist.",
-            "activityByCoach": "Die Aktivitäten und Lehrer, die angezeigt werden, sind diejenigen, für die eine Session im ausgewählten Datumsbereich geplant ist.",
+            "activityByCoach": "Die Aktivitäten und Lehrkräfte, die angezeigt werden, sind diejenigen, für die eine Session im ausgewählten Datumsbereich geplant ist.",
             "activityByEst": "Es werden nur die Aktivitäten und Einrichtungen angezeigt, für die im ausgewählten Datumsbereich eine Session geplant ist.",
             "activities": "Es werden nur die Aktivitäten angezeigt, für die im ausgewählten Datumsbereich eine Session geplant ist.",
             "members": "Die Mitglieder werden nach ihrem Anmeldedatum gefiltert.",
@@ -6651,7 +6666,7 @@
         },
         "role": {
             "error": {
-                "errorEmail": "Diese E-Mail wird bereits für ein Lehrer- oder Mitgliedskonto verwendet",
+                "errorEmail": "Diese E-Mail wird bereits für ein Lehrkraft- oder Mitgliedskonto verwendet",
                 "generic": "Es ist unmöglich, dieses Erlaubnis zu ändern",
                 "errorCommission": "Der von Ihnen eingegebene Wert muss zwischen 0 und 100 liegen"
             },
@@ -6967,7 +6982,7 @@
         "subscriptionScheduledStop": {
             "create": {
                 "success": "Geplante Abonnementbeendigung",
-                "error": "Die Beendigung des Abonnements kann nicht programmiert werden"
+                "error": "Die Kündigung des Abonnements kann nicht programmiert werden"
             },
             "delete": {
                 "success": "Die geplante Kündigung des Abonnements wurde entfernt",
@@ -7327,7 +7342,7 @@
             }
         },
         "refreshInternalAccountPrepaidLines": {
-            "15002": "Eine Bearbeitung ist bereits im Gange, bitte warten Sie einen Moment"
+            "15002": "Eine Vorgang ist bereits im Gange, bitte warten Sie einen Moment"
         },
         "requestCurrentBasket": {
             "15002": "Das Abrufen der Informationen aus dem Warenkorb ist bereits im Gange"
@@ -7394,6 +7409,16 @@
             "create": {
                 "error": "Erstellung der Kampagne nicht möglich",
                 "success": "Kampagne erfolgreich erstellt"
+            }
+        },
+        "audience": {
+            "create": {
+                "error": "Bei der Erstellung von {{ workflowLowerCase }} ist ein Fehler aufgetreten",
+                "success": "Ein neuer {{ workflowLowerCase }} wurde erstellt"
+            },
+            "update": {
+                "error": "Beim Bearbeiten des {{ workflowLowerCase }} ist ein Fehler aufgetreten",
+                "success": "Ihr {{ workflowLowerCase }} wurde aktualisiert"
             }
         }
     },
@@ -7478,13 +7503,50 @@
                         },
                         "title": {
                             "paymentIntent": "Zahlung fehlgeschlagen",
-                            "setupIntent": "Operation fehlgeschlagen"
+                            "setupIntent": "Vorgang fehlgeschlagen"
                         }
                     },
                     "minAmountInfo": "Der Mindesteinkaufsbetrag für die Nutzung des Terminals ist {{amountString}}.",
                     "disconnect": {
                         "title": "Trennen",
                         "content": "Die Verbindung wurde unterbrochen. Bitte versuchen Sie es erneut"
+                    },
+                    "processing": {
+                        "help": {
+                            "title": "Ist ein Problem aufgetreten?",
+                            "content": "Wenn das Terminal eine Fehlermeldung anzeigt, können Sie auf Abbrechen klicken und erneut versuchen zu bezahlen. Überprüfen Sie Ihre Internetverbindung auf Ihrem Laptop und Ihrem Terminal."
+                        },
+                        "inactivity": {
+                            "title": "Sind Sie noch hier?",
+                            "content": "Wir haben festgestellt, dass Sie inaktiv waren. Möchten Sie diesen Vorgang immer noch fortsetzen? Wenn Sie innerhalb der nächsten 30 Sekunden keine Antwort geben, wird der Vorgang automatisch abgebrochen.",
+                            "action": "Ja! Ich bin hier"
+                        },
+                        "title": "Transaktion in Bearbeitung",
+                        "content": "Bitte folgen Sie den Anweisungen auf dem Stripe-Terminal",
+                        "cancelError": {
+                            "generic": {
+                                "title": "Es ist ein Fehler aufgetreten",
+                                "content": "Der Vorgang kann nicht abgebrochen werden"
+                            },
+                            "readerBusy": {
+                                "title": "Zahlung wird verarbeitet",
+                                "content": "Bitte warten Sie, bis die Zahlung abgeschlossen ist."
+                            }
+                        }
+                    },
+                    "processingSavePaymentMethod": {
+                        "title": "Vorgang im Gange",
+                        "cancelError": {
+                            "readerBusy": {
+                                "content": "Bitte warten Sie, bis der Vorgang abgeschlossen ist.",
+                                "title": "Die Zahlungsmethode wird gespeichert"
+                            }
+                        },
+                        "content": "Bitte folgen Sie den Anweisungen auf dem Stripe-Terminal",
+                        "help": {
+                            "title": "Ist ein Problem aufgetreten?",
+                            "content": "Wenn der Terminal einen Fehler anzeigt, können Sie auf Abbrechen klicken und versuchen, die Zahlungsmethode erneut zu speichern. Überprüfen Sie die Internetverbindung auf Ihrem Laptop und Ihrem Terminal."
+                        }
                     }
                 },
                 "deleteDialog": {
@@ -8227,12 +8289,12 @@
             "pick_a_month": "Wählen Sie einen Monat"
         },
         "select": {
-            "placeholderOverride": "Standard-Regel für den Coach",
+            "placeholderOverride": "Standard-Lohnabrechnungsregel für den Coach",
             "placeholder": "Wähle eine Berechnungsmethode aus",
             "coachPaymentRuleForPrivateService": "Privatkurs",
             "coachPaymentRuleForSessions": "Gruppenkurse",
-            "reset": "Verwenden Sie die Standardregel des Trainers",
-            "group": "Vergütungsgruppe",
+            "reset": "Standard-Lohnabrechnungsregel der Lehrkraft verwenden",
+            "group": "Lohnabrechnungsgruppe",
             "coachPaymentRuleForWorkshops": "Workshops"
         },
         "addNew": "Neue Gehaltseinrichtung",
@@ -8250,12 +8312,12 @@
                 "confirm": "Bestätigen",
                 "cancel": "Abbrechen",
                 "title": "Eine Regel löschen",
-                "content": "Durch die Abschaffung dieser Regel wird sie von allen Lehrkräften und Kursen getrennt, denen sie derzeit zugeordnet ist"
+                "content": "Durch die Abschaffung dieser Lohnabrechnungsregel wird sie von allen Lehrkräften und Kursen getrennt, denen sie derzeit zugeordnet ist"
             }
         },
-        "setPaymentRuleSetForCoachFirst": "Weise dieser Lehrkraft zunächst eine Standardregel für das Gehalt zu.",
+        "setPaymentRuleSetForCoachFirst": "Bitte ordnen Sie diese Lohnabrechnungsregel mindestens einer Lehrkraft zu.",
         "coaches": "Lehrkräfte",
-        "label": "Gehaltsregulation",
+        "label": "Lohnabrechnungsregel",
         "calculate": "Berechnen",
         "calculation_methods": {
             "margin_value": "Auf marginalem Wert jeder Buchung",
@@ -8268,7 +8330,7 @@
         "only_attendant": "Beschränkung des Buchungsnachweises auf die anwesenden Schüler",
         "bookingThreshold": "Buchungsgrenze (ausgeschlossen)",
         "title": "Lohnausstellung der Lehrkraft {{name}}",
-        "pageTitle": "Gehaltsregulation",
+        "pageTitle": "Lohnabrechnung",
         "coach_payment_rules": {
             "Simulator": {
                 "student_did_not_attend": "Abwesender Student",
@@ -8307,10 +8369,10 @@
                 "invalidMaximum": "Die maximale Vergütung muss höher sein als die Mindestvergütung",
                 "invalidMinimum": "Die Mindestvergütung muss gleich oder höher als die feste Basis sein",
                 "nameRequired": "Der Name ist ein Pflichtfeld.",
-                "invalidCoachPaymentRule": "Es muss ein Vergütungssystem gewählt werden",
+                "invalidCoachPaymentRule": "Es muss ein Lohnabrechnungsregel gewählt werden",
                 "invalidPrivateSlot": "Ein Termin muss ausgewählt werden",
                 "uniqueRuleForPrivateSlot": "Dieser Termin ist mehrfach aufgeführt",
-                "oneRuleRequired": "Sie müssen mindestens eine Kompensationsregel definieren, um eine Gruppe zu erstellen",
+                "oneRuleRequired": "Sie müssen mindestens eine Lohnabrechnungsregel definieren, um eine Gruppe zu erstellen",
                 "privateSlotAlreadySelected": "Für diesen Termin ist bereits eine Vergütungsregel definiert"
             },
             "Bonuses": {
@@ -8326,7 +8388,7 @@
             "paymentPackPlaceHolder": "Kurspässe auswählen",
             "excludePaymentPack": {
                 "title": "Buchungen für bestimmte Pässe ausschließen",
-                "warning": "Wenn Sie mit dem Parameter 'Bei der Abrechnung der Lehrkraft berücksichtigte Sessions' bereits Durchgänge von der Abrechnung ausgeschlossen haben, müssen Sie diese hier nicht erneut angeben."
+                "warning": "Wenn Sie mit dem Parameter 'Bei der Lohnabrechnung der Lehrkraft berücksichtigte Sitzungen' bereits Durchgänge von der Lohnabrechnung ausgeschlossen haben, müssen Sie diese hier nicht erneut angeben."
             },
             "bonusForEachReservationInInterval": "Einen Bonus für jede Reservierung im Intervall hinzufügen",
             "fixedBonusbyInterval": "Fügen Sie einen festen Bonus pro Intervall hinzu",
@@ -8338,7 +8400,7 @@
             "max_remuneration": "Maximum",
             "min_remuneration": "Minimum",
             "remunerationLimits": "Vergütungsgrenzen",
-            "differentRemunerationForCancellation": "Wenden Sie unterschiedliche Bonusregeln für das Zählen abwesender Kunden oder das Stornieren aus der Zeit an ",
+            "differentRemunerationForCancellation": "Anwendung unterschiedlicher Lohnabrechnungsregeln für abwesende Mitarbeiter und verspätete Stornierungen ",
             "addRemunerationOnCancellation": "Bezahlung der Lehrkraft bei verspäteter Absage oder Abwesenheit",
             "percentage_base": "Addieren Sie einen Prozentsatz des Grenzwerts von Reservierungen",
             "base_remuneration_helper": "Dieser Betrag wird immer auf die Sessions-/Termingebühr aufgeschlagen",
@@ -8356,19 +8418,19 @@
             "all": "Alle Kurse",
             "appointment": "Privatkurs",
             "session": "Gruppenkurse & Workshops",
-            "groups": "Vergütungsgruppe",
+            "groups": "Lohnabrechnungsgruppe",
             "groupActivity": "Gruppenkurse",
             "workshop": "Workshops"
         },
         "fabButton": {
             "addNewForRDV": "Privatkurs",
             "addNewForSession": "Gruppenkurse & Workshops",
-            "addNewPaymentRuleGroup": "Vergütungsgruppe",
+            "addNewPaymentRuleGroup": "Lohnabrechnungsgruppe",
             "addNewForGroupActivity": "Gruppenkurse",
             "addNewForWorkshop": "Workshops"
         },
         "paymentRules": "Vergütungsregeln",
-        "search": "Suche nach einem Vergütungssystem (optional)",
+        "search": "Eine Lohnabrechnungsregel anwenden (optional)",
         "coach_payment_rule_groups": {
             "subtitle": {
                 "helper": "Sie können Ihre Vergütungsregeln für Tätigkeiten, Workshops und Termine zusammenfassen. Wenn Sie eine Lehrkraft zu einer Gruppe hinzufügen, werden alle Vergütungsregeln der Gruppe automatisch auf die Lehrkraft angewendet. Alle Änderungen an der Gruppe werden auch für alle Lehrkräfte der Gruppe übernommen.",
@@ -8379,14 +8441,14 @@
             "workshop": "Workshops",
             "session": "Gruppenkurse",
             "fields": {
-                "addPrivateSlot": "Eine Regel hinzufügen",
+                "addPrivateSlot": "Eine Lohnabrechnungsregel hinzufügen",
                 "private_service": "Termine",
-                "coach_payment_rule": "Vergütungsregel",
+                "coach_payment_rule": "Lohnabrechnungsregel",
                 "private_service_name": "Name der Session",
                 "activity": "Aktivitäten",
                 "workshop": "Workshops"
             },
-            "dissociate": "Anpassen der Regeln",
+            "dissociate": "Benutzerdefinierte Lohnabrechnung",
             "modal": {
                 "delete": {
                     "title": "Eine Gruppe löschen",
@@ -8395,7 +8457,7 @@
                     "content": "Wenn Sie diese Gruppe löschen, wird sie von allen Lehrkräften getrennt, denen sie derzeit zugeordnet ist"
                 }
             },
-            "dialogTitle": "Vergütungsgruppe",
+            "dialogTitle": "Lohnabrechnungsgruppe",
             "private_service": "Termine"
         },
         "simulate": "Simulieren Sie",
@@ -8424,7 +8486,7 @@
                 "placeholder": "Suche nach Namen oder Strichcode"
             },
             "form": {
-                "title": "Ladenartikel"
+                "title": "Webshopartikel"
             }
         },
         "provision": {
@@ -8444,7 +8506,7 @@
         },
         "dialog": {
             "delete": {
-                "explain": "Bist Du Dir sicher, dass Du dieses Produkt löschen möchtest? Diese Aktion ist unwiderruflich. Du wirst keinen Zugang mehr auf den Inventarverlauf haben.",
+                "explain": "Sind Sie sich sicher, dass Sie dieses Produkt aus dem Webshop löschen möchten? Diese Aktion ist unwiderruflich.",
                 "confirm": "Löschen",
                 "cancel": "Abbrechen",
                 "title": "{{shopitem.name}} löschen",
@@ -9887,7 +9949,7 @@
             }
         },
         "couponTemplate": {
-            "notEditable": "Dieser Coupon ist ein Coupon, der vom Franchisegeber-Konto freigegeben wurde. Die Elemente wurden vom Franchisegeberkonto festgelegt und können nicht geändert werden.",
+            "notEditable": "Dieser Coupon ist ein Coupon, der vom Master Account freigegeben wurde. Die Elemente wurden vom Master Account festgelegt und können nicht geändert werden.",
             "warningDialog": {
                 "content1": "Achtung, Sie möchten die Einstellungen für die Anwendung der gemeinsamen Aktionen auf bestimmte Kurs- oder Terminpässe ändern.",
                 "content2": "Dadurch wird die Liste der Studios, mit denen die Aktion geteilt wird, zurückgesetzt.",
@@ -9905,7 +9967,7 @@
                 "alertInfo": "Gutscheine sind einmalige Codes, die dem Mitglied einen 100%igen Rabatt auf ein bestimmtes Produkt bieten. Diese Codes werden nicht von der Plattform selbst generiert, sondern müssen hier als CSV-Datei hochgeladen werden. Diese Funktion ist besonders nützlich, wenn Sie mit einem externen Unternehmen wie Groupon eine Werbekampagne durchgeführt haben. In diesem Fall generiert und verkauft Groupon (oder ein ähnliches Unternehmen) die Gutscheine im Namen Ihres Studios.",
                 "alertWarning": "Gilt nicht für Abonnements",
                 "couponCostForCompany": {
-                    "helperText": "Die Einnahmen, die Sie vom Kampagnenpartner für jeden verkauften Gutschein erhalten. Sie werden bei der Berechnung des Grenzwerts für die Wiederbezahlung der Lehrer sowie in den Berichten verwendet. Bei allen Berechnungen, die den Grenzwert nicht berücksichtigen, wird in den Berichten dieser gegebene Preis ignoriert und diese Aktion als 100% Rabatt behandelt.",
+                    "helperText": "Die Einnahmen, die Sie vom Kampagnenpartner für jeden verkauften Gutschein erhalten. Sie werden bei der Berechnung des Grenzwerts für die Wiederbezahlung der Lehrkräfte sowie in den Berichten verwendet. Bei allen Berechnungen, die den Grenzwert nicht berücksichtigen, wird in den Berichten dieser gegebene Preis ignoriert und diese Aktion als 100% Rabatt behandelt.",
                     "label": "Preis inkl. MwSt"
                 },
                 "usage_per_member": {
@@ -10330,7 +10392,7 @@
             },
             "detail": {
                 "tab": {
-                    "calendar": "Kalender",
+                    "calendar": "Wochenplan",
                     "general": "Allgemein"
                 }
             },
@@ -10392,7 +10454,7 @@
             "establishment": "Einrichtung",
             "coach": "Lehrkraft",
             "detail": {
-                "openHours": "Zeitpläne",
+                "openHours": "Wochenpläne",
                 "ok": "OK",
                 "slotBoundaries": "Von {{date_start}} bis {{date_end}}",
                 "availableEverywhere": "Verfügbar in allen Standorten",
@@ -10403,11 +10465,11 @@
             },
             "notAssociatedDialog": {
                 "title": "Keine zugehörigen Termine",
-                "info": "Die Verfügbarkeit wurde gespeichert. Diese Lehrkraft ist jedoch mit keinem Termin verknüpft.\nUm einen neuen Termin mit dieser Lehrkraft zu verknüpfen, verknüpfen Sie sie/ihn mit dem gewünschten Termin auf der Registerkarte \"Termine\".",
+                "info": "Die Verfügbarkeit wurde gespeichert. Diese Lehrkraft ist jedoch mit keinem Termin verknüpft.\nUm einen neuen Termin mit dieser Lehrkraft zu verknüpfen, verknüpfen Sie sie/ihn mit dem gewünschten Termin auf dem Tab \"Termine\".",
                 "checkbox": "Nicht mehr erinnern",
                 "close": "Schließen"
             },
-            "notAssociatedWarning": "Achtung, diese Lehrkraft ist mit keinem Termin verbunden. Um einen neuen Termin mit dieser Lehrkraft zu verknüpfen, verknüpfen Sie sie/ihn mit dem gewünschten Termin auf der Registerkarte \"Termine\".",
+            "notAssociatedWarning": "Achtung, diese Lehrkraft ist mit keinem Termin verbunden. Um einen neuen Termin mit dieser Lehrkraft zu verknüpfen, verknüpfen Sie sie/ihn mit dem gewünschten Termin auf dem Tab \"Termine\".",
             "specificAvailabilityForm": {
                 "switchLabel": "Nur für bestimmte Standorte hinzufügen",
                 "info": "Standardmäßig wird Ihre Lehrkraft in allen Ihren Einrichtungen als verfügbar angezeigt. Wenn Sie diese Option aktivieren, können Sie auswählen, in welchen Einrichtungen Ihre Lehrkraft für dieses Zeitfenster verfügbar sein soll.",
@@ -10564,7 +10626,7 @@
                 "selector": {
                     "privateService": "Einen kompatiblen Termin hinzufügen"
                 },
-                "franchise": "Diese Karte ist eine Karte, die vom Franchisegeber-Konto gemeinsam genutzt wird. Einige Elemente wurden vom Franchisegeber-Konto festgelegt und können nicht geändert werden",
+                "franchise": "Diese Karte ist eine Karte, die vom Master Account gemeinsam genutzt wird. Einige Elemente wurden vom Master Account festgelegt und können nicht geändert werden",
                 "universalPass": {
                     "helperText": "Universalpässe können zur Buchung von Gruppenkursen UND Terminen verwendet werden. Sobald ein Pass erstellt wurde, wird ein Zwillingspass in den Kurspässe erstellt. Die Anzahl der Guthaben auf beiden Pässe wird verknüpft. Beim Kauf einer der beiden Pässe wird die andere automatisch dem Mitglied hinzugefügt (ohne zusätzliche Kosten).",
                     "warningIsUniversalPass": "Dieser Pass ist ein Universalpass, ein Zwillingspass wurde in den Kurspässen erstellt. Alle Felder, die auf diesem Pass geändert werden, werden auch auf dem Zwillingspass geändert (außer der Kategorie). Dasselbe gilt für Benachrichtigungen, Erweiterungen und Änderungen von Guthaben.",
@@ -10572,8 +10634,8 @@
                     "deativatedTags": "Deaktiviert für Universalpässe"
                 },
                 "appliesForPayroll": {
-                    "helperText": "Standardmäßig werden die Termine dem Studio in Rechnung gestellt und in die Zusammenfassung und die Gehaltsabrechnung der Lehrkraft aufgenommen. Wenn Sie diese Einstellung deaktivieren, werden die mit diesem Pass verbundenen Termine nicht mehr in der Zusammenfassung der Lehrkraft angezeigt.",
-                    "label": "Termine, die bei der Berechnung der Gehälter der Lehrkräfte berücksichtigt werden"
+                    "helperText": "Standardmäßig werden die Termine dem Studio in Rechnung gestellt und in die Zusammenfassung und die Lohnabrechnung der Lehrkraft aufgenommen. Wenn Sie diese Einstellung deaktivieren, werden die mit diesem Pass verbundenen Termine nicht mehr in der Zusammenfassung der Lehrkraft angezeigt.",
+                    "label": "Termine, die bei der Berechnung der Lohnabrechnung der Lehrkräfte berücksichtigt werden"
                 },
                 "onBehalfOfTeacher": {
                     "helperText": "Mit dieser Einstellung können Sie angeben, dass die Einnahmen im Zusammenhang mit Terminen auf diesem Ausweis vollständig an die Lehrkraft gezahlt werden. Diese Information wird in Ihren Einkaufsberichten (CA) in der Spalte \"Zahlung vollständig an die Lehrkraft\" sichtbar sein.",
@@ -10978,7 +11040,7 @@
         "popup": {
             "end": "Endzeit",
             "begin": "Startzeit",
-            "button": "Fahrplan",
+            "button": "Wochenplan",
             "validate": "Bestätigen Sie"
         },
         "searshAppointmentPass": "Suche nach einer RDV-Karte",
@@ -11001,7 +11063,7 @@
         },
         "seeAll": "Alles sehen",
         "privatePassTemplateInstance": {
-            "privatePassSharedFromFranchisor": "Franchise-Karte",
+            "privatePassSharedFromFranchisor": "Master Account Kurspass",
             "privateConsumerPassSharedFromOtherFranchisee": "Geteilt seit Franchisenehmer",
             "form": {
                 "title": "Meine Studios einrichten",
@@ -11056,8 +11118,8 @@
             }
         },
         "specificAvailabilitiesCalendar": {
-            "infoBoxContent": "Sie befinden sich im Verfügbarkeitsmodus für eine bestimmte Einrichtung. Standardmäßig sind Ihre Lehrkräfte in allen Einrichtungen verfügbar, wenn Sie eine Verfügbarkeit erstellen. Auf dieser Seite können Sie spezifische Verfügbarkeiten für bestimmte Einrichtungen festlegen, damit Ihre Lehrkraft nur in diesen Einrichtungen verfügbar ist. Um eine spezifische Verfügbarkeit zu erstellen, müssen Sie eine allgemeine Verfügbarkeit auf dem Stundenplan Ihrer Lehrkraft erstellen.",
-            "goToRegularCalendar": "Zurück zum Zeitplan",
+            "infoBoxContent": "Sie befinden sich im Verfügbarkeitsmodus für eine bestimmte Einrichtung. Standardmäßig sind Ihre Lehrkräfte in allen Einrichtungen verfügbar, wenn Sie eine Verfügbarkeit erstellen. Auf dieser Seite können Sie spezifische Verfügbarkeiten für bestimmte Einrichtungen festlegen, damit Ihre Lehrkraft nur in diesen Einrichtungen verfügbar ist. Um eine spezifische Verfügbarkeit zu erstellen, müssen Sie eine allgemeine Verfügbarkeit auf dem Wochenplan Ihrer Lehrkraft erstellen.",
+            "goToRegularCalendar": "Zurück zum Wochenplan",
             "filters": "Filter",
             "establishment": "Niederlassung"
         },
@@ -11144,7 +11206,7 @@
                 "0": "E-Mail",
                 "2": "Push-Benachrichtigung"
             },
-            "unavailableMail": "Voranschau nicht verfügbar",
+            "unavailableMail": "Vorschau nicht verfügbar",
             "automated": {
                 "panel": {
                     "add": "Hinzufügen",
@@ -11754,7 +11816,7 @@
                 "duplicate": "Gruppe duplizieren"
             },
             "errors": {
-                "offers_length": "Sie haben nur eine Session erstellt. Um eine Gruppe von Sessions zu erstellen, müssen Sie mindestens zwei Sessions hinzufügen. Wenn Sie eine einzelne Session erstellen möchten, können Sie dies direkt über den betreffenden Workshop oder die Registerkarte \"Kalender\" tun."
+                "offers_length": "Sie haben nur eine Session erstellt. Um eine Gruppe von Sessions zu erstellen, müssen Sie mindestens zwei Sessions hinzufügen. Wenn Sie eine einzelne Session erstellen möchten, können Sie dies direkt über den betreffenden Workshop oder den Tab \"Kalender\" tun."
             },
             "intervalLabel": {
                 "day": "Jeden Tag",
@@ -11804,19 +11866,19 @@
         "addBonus": "Eine Regel hinzufügen",
         "table": {
             "download": "Downloaden",
-            "downloadAll": "Zusammenfassung",
+            "downloadAll": "Lohnabrechnung exportieren",
             "downloadPDF": "Download (.pdf)",
             "downloadCSV": "Download (.csv)"
         },
         "fields": {
-            "rule": "Regel für die Entlohnung der Session",
+            "rule": "Lohnabrechnungsregel",
             "date": "Datum",
             "name": "Name der Session",
             "duration": "Dauer",
             "base": "Basis",
             "bonus": "Bonus",
             "nb_bookings": "Buchungen",
-            "error": "Es scheint, dass einige Kurse keine zugehörige Lohnregel haben. Sie müssen eine Abrechnungsregel mit diesen Kursen verknüpfen oder eine Abrechnungsregel mit dem Trainer verknüpfen.",
+            "error": "Es scheint, dass einige Kurse keine zugehörige Lohnabrechnungsregel haben. Bitte konfigurieren Sie Ihre Aktivitäten und Ausbilder korrekt, um die Lohnabrechnung zu nutzen.",
             "total": "Gesamtvergütung",
             "cancelled_bookings": "Stornierte Buchungen",
             "confirmed_bookings": "Teilnehmer",
@@ -11841,12 +11903,12 @@
         "fixedPriceForAdditionalBookingLabel": "Pro Kurs festgelegt",
         "fixedPriceForAdditionalBookingHelper": "Fixbetrag, der für jeden Kurs mit genügend Teilnehmern ausgezahlt wird",
         "cachedData": {
-            "leavePreviewMode": "Den Preview-Modus verlassen",
-            "previewModeTitle": "Preview-Modus",
+            "leavePreviewMode": "Vorschau-Modus beenden",
+            "previewModeTitle": "Vorschau-Modus",
             "downloadMySavedData": "Download",
-            "enterPreviewMode": "In den Preview-Modus wechseln",
-            "unresolvedDaterange": "Ungültiges Lohnintervall",
-            "dateRange": "Lohnauszüge des {{- startDate }} bis {{- endDate }}",
+            "enterPreviewMode": "In den Vorschau-Modus wechseln",
+            "unresolvedDaterange": "Ungültige Lohnabrechnungsregel",
+            "dateRange": "Lohnabrechnung des {{- startDate }} bis {{- endDate }}",
             "dateSaved": "Daten erzeugt am: {{ date }}",
             "title": "Gespeicherte Daten ({{ count }})",
             "undeterminedOldestUpdate": "Keine vorherigen Updates verfügbar",
@@ -11854,8 +11916,8 @@
         },
         "export": {
             "completed": {
-                "message": "Die Exportdatei für die Lehrkraftgehälter ist verfügbar. Sie können diese Daten auch unter 'Gespeicherte Daten' abrufen.",
-                "title": "Excel-Export der Lehrkraftgehälter"
+                "message": "Die Exportdatei für die Lehrkraft-Lohnabrechnung ist verfügbar. Sie können diese Daten auch unter 'Gespeicherte Daten' abrufen.",
+                "title": "Lohnabrechnung exportieren"
             },
             "dialog": {
                 "buttonText": "Bestätigen",
@@ -11874,12 +11936,12 @@
             }
         },
         "advancedFilters": {
-            "byCoachPaymentRules": "Nach Vergütungsregeln filtern (für Lehrkräfte ohne Vergütungsgruppe)",
-            "byCoachPaymentruleGroups": "Nach Gehaltsgruppen filtern",
+            "byCoachPaymentRules": "Nach Lohnabrechnungsregeln filtern (für Lehrkräfte ohne Lohnabrechnungsgruppe)",
+            "byCoachPaymentruleGroups": "Nach Lohnabrechnungsgruppen filtern",
             "privateserviceCoachPaymentRuleSelector": "Termin",
             "workshopCoachPaymentRuleSelctor": "Workshops",
             "sessionCoachPaymentRuleSelctor": "Gruppenaktivitäten ",
-            "coachPaymentRuleGroupSelector": "Gehaltsgruppen",
+            "coachPaymentRuleGroupSelector": "Lohnabrechnungsgruppen",
             "coachSelector": "Wählen Sie Lehrkräfte aus",
             "reset": "Filter zurücksetzen",
             "apply": "Filter anwenden",
@@ -11894,7 +11956,7 @@
             "selectorPlaceholder": {
                 "paymentPack": "Kurspässe",
                 "privatePass": "Terminpass",
-                "shopitem": "Shop"
+                "shopitem": "Webshop"
             },
             "content": "Inhalt",
             "actions": {
@@ -11952,7 +12014,7 @@
             "buttons": {
                 "add": "Ein Paket erstellen"
             },
-            "explainIfEmpty": "Hier können die Pakete erstellt werden, die von Kunden gekauft werden können und die Kurspässe, Produkte des Shops, usw. enthalten können...",
+            "explainIfEmpty": "Hier können die Pakete erstellt werden, die von Kunden gekauft werden können und die Kurspässe, Produkte des Webshops, usw. enthalten können...",
             "section": {
                 "availableOnline": "Zum Verkauf verfügbar",
                 "unavailableOnline": "Nicht zum Verkauf verfügbar"
@@ -12126,9 +12188,9 @@
                     "option_expiration_date": "Ablaufdatum für einen Wartelistenplatz",
                     "option_payment_url": "Buchungslink",
                     "address": "Adresse",
-                    "establishment_practical_info": "Zugang zum Raum",
+                    "establishment_practical_info": "Zugangsinformationen zur Einrichtung",
                     "establishment": "Einrichtung",
-                    "date": "Uhrzeit/Datum des Kurses",
+                    "date": "Uhrzeit und Datum",
                     "coach": "Lehrkraft",
                     "activity": "Aktivität",
                     "waiting_list_size": "Größe der Warteliste",
@@ -12138,17 +12200,17 @@
             },
             "Booking": {
                 "tags": {
-                    "ics_calendar_link": "Ics-Kalender-Link",
+                    "ics_calendar_link": "ICS-Kalender-Link",
                     "address": "Adresse",
-                    "establishment_practical_info": "Zugang zum Raum",
+                    "establishment_practical_info": "Zugangsinformationen zu der Einrichtung",
                     "establishment": "Einrichtung",
-                    "date": "Uhrzeit/Datum des Kurses",
+                    "date": "Uhrzeit und Datum",
                     "coach": "Lehrkraft",
                     "activity": "Aktivität",
                     "spot": "Platz",
                     "canceled_grouped_session": "Stornierte Buchungsgruppe"
                 },
-                "name": "Buchung",
+                "name": "Aktivität",
                 "subtitles": {
                     "meta_activity": "Aktivität",
                     "establishment": "Einrichtung",
@@ -12172,13 +12234,13 @@
             },
             "User": {
                 "tags": {
-                    "lastname": "Nachname des Schülers",
-                    "firstname": "Vorname des Schülers",
-                    "unsubscribe_link": "Abmeldung vom Newsletter",
+                    "lastname": "Nachname",
+                    "firstname": "Vorname",
+                    "unsubscribe_link": "Vom Newsletter abmelden",
                     "reset_password_url": "Link zum Zurücksetzen des Passwortes",
                     "email_confirmation_url": "Link zur Bestätigung der E-Mail-Adresse"
                 },
-                "name": "Teilnehmer"
+                "name": "Mitglied"
             },
             "ConsumerPaymentPack": {
                 "tags": {
@@ -12193,10 +12255,10 @@
             "PrivateConsumerPass": {
                 "tags": {
                     "pass_credit_left": "Anzahl der verbleibenden Credits",
-                    "pass_expiration": "Enddatum des Terminpasses",
+                    "pass_expiration": "Ablaufdatum des Terminpasses",
                     "pass_starting_date": "Beginndatum des Terminpasses",
                     "pass_name": "Name des Terminpasses",
-                    "pass_price": "Preis des Terminpasses"
+                    "pass_price": "Dies ist der Verkaufspreis."
                 },
                 "name": "Terminpass"
             },
@@ -12204,24 +12266,24 @@
                 "tags": {
                     "establishment_practical_info": "Informationen über den Zugang zur Einrichtung (optional)",
                     "address": "Adresse",
-                    "date": "Uhrzeit/Datum",
-                    "coach": "Lehrkraft (optional)",
+                    "date": "Uhrzeit und Datum",
+                    "coach": "Lehrkraft",
                     "activity": "Aktivität",
                     "establishment": "Einrichtung",
-                    "ics_calendar_link": "Link ics Kalender"
+                    "ics_calendar_link": "ICS-Kalender-Link"
                 },
                 "name": "Termin"
             },
             "Offer": {
                 "tags": {
                     "address": "Adresse",
-                    "establishment_practical_info": "Zugang zum Raum",
-                    "establishment": "Einrichtung",
-                    "date": "Uhrzeit/Datum des Kurses",
+                    "establishment_practical_info": "Zugangsinformationen zu der Einrichtung",
+                    "establishment": "Einrichtungen",
+                    "date": "Uhrzeit und Datum",
                     "coach": "Lehrkraft",
-                    "activity": "Aktivität"
+                    "activity": "Gruppenaktivitäten"
                 },
-                "name": "Kurs"
+                "name": "Sessions"
             },
             "Birthday": {
                 "name": "Geburtstag"
@@ -12244,13 +12306,13 @@
                     "company_logo": "Firmenlogo",
                     "company": "Unternehmensname",
                     "login_url": "URL-Verbindung",
-                    "company_scheduleURL": "Zeitplan-URL",
-                    "company_instagramURL": "URL Instagram",
-                    "company_facebookURL": "URL Facebook",
+                    "company_scheduleURL": "Wochenplan-URL",
+                    "company_instagramURL": "Instagram URL",
+                    "company_facebookURL": "Facebook URL",
                     "ios_app_URL": "iOS App URL",
                     "android_app_URL": "Android App URL",
-                    "company_info": "Angaben zum Unternehmen",
-                    "company_websiteURL": "URL Website"
+                    "company_info": "Informationen zum Studio",
+                    "company_websiteURL": "Webseiten-URL"
                 }
             },
             "ReplacementRequest": {
@@ -12330,20 +12392,20 @@
         },
         "emailDesign": {
             "closePreview": "Schließen",
-            "placeholder": "Von bsport erzeugt",
-            "birthdayPlaceholder": "Wählen Sie eine E-Mail"
+            "placeholder": "Standard bsport Vorlage",
+            "birthdayPlaceholder": "Wählen Sie eine E-Mail um eine Vorschau dieser zu sehen."
         },
         "ruleGroup": {
-            "subscription": "Abonnement",
+            "subscription": "Abonnements",
             "member": "Erstellung eines Kundenkontos",
-            "private_booking": "Termin",
-            "waiting-list": "Warteliste",
-            "offer": "Kurs",
-            "booking": "Buchung",
+            "private_booking": "Termine",
+            "waiting-list": "Wartelisten",
+            "offer": "Sessions",
+            "booking": "Buchungen",
             "marketing": "Marketing",
-            "invoice": "Abrechnung",
-            "payment_pack": "Strafe",
-            "recurrent_private_booking": "Wiederkehrende Verabredung",
+            "invoice": "Rechnungsstellung",
+            "payment_pack": "Strafen",
+            "recurrent_private_booking": "Wiederkehrende Termine",
             "replacement_request": "Vertretung",
             "giftcard": "Gutscheine",
             "performance": "Performance"
@@ -12358,7 +12420,7 @@
         "marketingNotification": {
             "birthday": "Geburtstags-E-Mail"
         },
-        "franchiseOwned": "Ihr Franchisegeber bearbeitet derzeit diese Transaktions-E-Mail",
+        "franchiseOwned": "Ihr Master Account bearbeitet derzeit diese Transaktions-E-Mail",
         "franchise": {
             "delete": {
                 "delete": "Löschen",
@@ -12544,7 +12606,7 @@
             "modal": {
                 "delete": {
                     "confirm": "Löschen",
-                    "content": "Vorsicht ! Diese Aktion ist unwiderruflich. Die bereits getätigten Bestellungen, die diese Gebühren benutzten, werden nicht geändert.",
+                    "content": "Vorsicht ! Diese Vorgang ist nicht rückgängig zu machen. Die bereits getätigten Bestellungen. Alte Bestellungen, die diese Gebühr verwenden, werden nicht geändert.",
                     "cancel": "Abbrechen",
                     "title": "Versandkosten löschen"
                 }
@@ -12604,8 +12666,8 @@
         "coach": {
             "coachFormPage": "Lehrkraft-Formular",
             "coachList": "Lehrkräfte",
-            "allCoachPerformance": "Übersicht der Lehrkräfte",
-            "coachPerformance": "Lohnausstellung der Lehrkraft {{name}}"
+            "allCoachPerformance": "Lohnabrechnung",
+            "coachPerformance": "Lohnabrechnung: {{name}}"
         },
         "invoice": {
             "invoiceCreate": "In Rechnung stellen",
@@ -12646,7 +12708,8 @@
             "marketingDashboard": "Dashboard",
             "marketingRule": "Marketing-Kampagnen",
             "notifications": "Benachrichtigungen",
-            "cadence": "Kadenz"
+            "cadence": "Kadenz",
+            "audience": "{{ audienceCamelCase }}"
         },
         "searchResults": "Suche",
         "settings": "Einstellungen",
@@ -12662,13 +12725,13 @@
             "workshopActivityFormSubtitle": "Workshop erstellen"
         },
         "planning": "Kalender",
-        "shop": "Mein Shop",
+        "shop": "Webshop",
         "offerFormPage": "Erstellung eines Kurses",
         "expense": {
             "expenseList": "Meine Ausgaben"
         },
         "coachUserSpace": {
-            "performance": "Bezahlung",
+            "performance": "Lohnabrechnung",
             "replacement": "Vertretung"
         },
         "replacement": "Vertretung",
@@ -12742,7 +12805,10 @@
             "invalid_bank_account": "Das angegebene Bankkonto ist ungültig.",
             "invalid_bank_account_account_number": "Die Kontonummer ist ungültig.",
             "email_invalid": "Die E-Mail Adresse ist ungültig.",
-            "none": " "
+            "none": " ",
+            "terminal_reader_offline": "Das Lesegerät ist derzeit offline. Bitte stellen Sie sicher, dass das Lesegerät eingeschaltet und mit dem Internet verbunden ist, bevor Sie Ihre Anfrage erneut versuchen.",
+            "terminal_reader_busy": "Das Lesegerät ist gerade mit der Bearbeitung einer anderen Anfrage beschäftigt oder führt ein Update durch.",
+            "terminal_reader_timeout": "Beim Senden dieses Befehls an das Lesegerät kam es zu einer Zeitüberschreitung."
         }
     },
     "dashboard": {
@@ -12930,7 +12996,7 @@
                 "bar": "Histogramm"
             },
             "placeholders": {
-                "aggregationSelector": "Wählen Sie eine Operation",
+                "aggregationSelector": "Wählen Sie einen Vorgang",
                 "dashboardGraphIdentifier": "Wählen Sie einen Datentyp"
             },
             "labels": {
@@ -13175,7 +13241,7 @@
     },
     "navigation": {
         "backofficeMenu": {
-            "email_template": "E-Mails",
+            "email_template": "Vorlagen",
             "activity": "Gruppenaktivitäten",
             "consumer": {
                 "bookings": "Meine Buchungen ",
@@ -13186,17 +13252,17 @@
                 "myAccount": "Mein Konto"
             },
             "coupon": "Werbeaktionen",
-            "video": "Videothek",
-            "playlist": "Playlist",
+            "video": "Videos & eBooks",
+            "playlist": "Playlists",
             "podcast": "Podcasts",
             "digital": "Digitales Angebot",
             "combo": "Pakete",
-            "sequence": "Automation",
+            "sequence": "Strategien",
             "order": "Bestellungen",
             "workshopActivities": "Workshops",
             "invoice": "Rechnungen",
             "marketing_automation": "Automatisches Marketing",
-            "schedule": "Stundenplan",
+            "schedule": "Wochenplan",
             "privateService": {
                 "services": "Termine",
                 "pass": "Terminpässe",
@@ -13212,19 +13278,19 @@
                 "webhook": "WebHook",
                 "personalization": "Personalisierung",
                 "role": "Mitarbeiter",
-                "shop": "Shop",
+                "shop": "Webshop",
                 "waitingList": "Warteliste",
                 "invoice": "Rechnungsstellung",
                 "company": "Unternehmen",
-                "paymentRules": "Lohnbuchhaltung",
+                "paymentRules": "Lohnabrechnung",
                 "notificationRule": "Transaktions-Benachrichtigungen",
                 "broadcast": "Videokonferenz",
                 "general": "Allgemein",
                 "platform_billing": "Bsport-Abonnement",
                 "marketplaceSettings": "Marketplace-Einstellungen",
-                "widget": "Widget",
+                "widget": "Widgets",
                 "paymentMethod": "Zahlungsmethoden",
-                "forms": "Formular für Mitglieder",
+                "forms": "Formulare für Mitglieder",
                 "quickbooks": "QuickBooks",
                 "mobilePersonalization": "Branded App",
                 "coachUserspace": "Lehrkraftansicht",
@@ -13235,10 +13301,10 @@
             "subscription": "Direkte Abbuchungen",
             "contract": "Abonnements",
             "coaches": "Lehrkräfte",
-            "coachPerformance": "Lehrkräfte",
-            "requestTempPassword": "Zugang erlauben",
+            "coachPerformance": "Lohnabrechnung",
+            "requestTempPassword": "Vorläufiges Passwort",
             "smart_list": "Smartlists",
-            "alpha": "in Entwicklung",
+            "alpha": " in Entwicklung ",
             "reporting": "Berichterstellung",
             "search": "Suchen",
             "dashboard": "Dashboard",
@@ -13255,10 +13321,10 @@
                 "at": "um",
                 "of": "Von",
                 "amount": "Gewinn des Tages:",
-                "expectedAmount": "Zu erwartender Betrag: ",
-                "todayEndAmount": "Betrag am Ende des Tages",
+                "expectedAmount": "Berechneter Betrag: ",
+                "todayEndAmount": "Abschlussbetrag im Kassenbuchs",
                 "save": "Registrieren",
-                "onSpotPaymentReport": "Greife auf den Zahlungsbericht zu",
+                "onSpotPaymentReport": "Zahlungsbericht anzeigen",
                 "lastUpdated": "Zuletzt geändert am",
                 "cashDialogTitle": "Kassenbuch",
                 "close": "Schließen",
@@ -13271,39 +13337,40 @@
             "addMemberTooltip": "Mitglied hinzufügen",
             "cashBookTooltip": "Kassenbuch",
             "redirecting": "Sie werden zu Ihrer Seite weitergeleitet",
-            "backToFranchiseWorskpace": "Rückkehr zum Stammkonto",
+            "backToFranchiseWorskpace": "Rückkehr zum Master Account",
             "franchiseConnectedAs": "Sie sind derzeit verbunden als: {{- name}}",
             "giftcard": "Gutscheine",
             "programs": "Programme",
             "expenses": "Ausgaben",
-            "instalmentPayment": "Zahlungsmittel",
-            "coachPayroll": "Bezahlung",
+            "instalmentPayment": "Zahlungsmöglichkeiten",
+            "coachPayroll": "Lohnabrechnung",
             "clockIn": "Stundenstempel",
             "toggle": {
-                "expand": "Expand",
+                "expand": "Erweitern",
                 "shrink": "Zusammenklappen"
             },
             "replacement": "Vertretung",
             "tutorial": "Tutorial",
-            "tutorialInfo": "Sie finden unser Handbuch \"Erste Schritte\" auf der Registerkarte \"Tutorial\".",
+            "tutorialInfo": "Sie finden unser Handbuch \"Erste Schritte\" auf dem Tab \"Tutorial\".",
             "help": "Hilfe",
             "cadences": "Kadenz",
-            "inbox": "Posteingang"
+            "inbox": "Posteingang",
+            "audience": "{{ audienceCamelCase }}"
         },
         "deprecatedNavigator": {
             "close": "Schließen",
-            "downloadChrome": "Downloade kostenlos Google Chrome",
-            "downloadFirefox": "Downloade Mozilla Firefox kostenlos",
-            "navigatorError": "Es scheint, dass Dein Browser nicht auf dem neusten Stand ist, um unsere Dienste zu nutzen. Fehler können auftreten. Wir empfehlen Dir, eine neuere Version herunterzuladen, beispielsweise: "
+            "downloadChrome": "Lade Google Chrome kostenlos herunter",
+            "downloadFirefox": "Lade Mozilla Firefox kostenlos herunter",
+            "navigatorError": "Es scheint, dass Ihr Browser nicht auf dem neusten Stand ist, um unsere Dienste zu nutzen, weshalb Fehler auftreten können. Wir empfehlen Ihnen, eine neuere Version herunterzuladen, beispielsweise: "
         },
         "paymentMethodMissing": {
-            "banner": "Sie haben keine Zahlungsmethode für Ihr bsport-Abonnement angegeben. Bitte klicken Sie hier.",
+            "banner": "Sie haben noch keine Zahlungsmethode für Ihr bsport-Abonnement angegeben. Bitte klicken Sie hier.",
             "explain": "Sie haben keine gültige Zahlungsmethode eingegeben, bitte bestätigen Sie diese, um Ihr bsport-Abonnement weiter zu nutzen.",
             "closeModal": "Schließen"
         },
         "franchiseMenu": {
             "members": "Mitglieder",
-            "franchises": "Franchises",
+            "franchises": "Studios",
             "reporting": "Berichte",
             "paymentPack": "Kurskarten",
             "widget": "Widget",
@@ -13331,15 +13398,15 @@
             "current": "Aktuelle Session",
             "previous": "Vorherige Session",
             "manager": "Manager",
-            "franchisor": "Franchisegeber",
-            "continue": "Weiter mit dieser Session",
+            "franchisor": "Master Account",
+            "continue": "Mit diesem Konto fortfahren",
             "currentSession": "Sie sind derzeit als {{name}} angemeldet",
-            "restore": "Diese Session wiederherstellen",
+            "restore": "Fortfahren mit dem vorherigen Konto",
             "previousSession": " Sie waren angemeldet als {{name}}",
-            "title": " Sie scheinen mehrere Tabs gleichzeitig zu verwenden"
+            "title": " Sie scheinen mehrere Tabs gleichzeitig zu verwenden."
         },
         "stripeOnboardingPending": {
-            "banner": "Wenn Sie die Einrichtung der Rechnungsstellung nicht abgeschlossen haben, sind Online-Zahlungen möglicherweise deaktiviert. Klicken Sie hier, um Ihre Einrichtung abzuschließen."
+            "banner": "Klicken Sie hier, um Ihre Rechnungsstellung abzuschließen und Online-Zahlungen zu aktivieren."
         },
         "tab": {
             "member": {
@@ -13355,7 +13422,7 @@
                 "programs_plural": "Programme ({{number}})",
                 "info": "Allgemein",
                 "info_plural": "Allgemein ({{number}})",
-                "relation": "Beziehung",
+                "relation": "Beziehungen",
                 "relation_plural": "Beziehungen ({{number}})",
                 "bookings": "Buchung",
                 "bookings_plural": "Buchungen ({{number}})",
@@ -13364,11 +13431,11 @@
                 "paymentPack": "Kurspass",
                 "paymentPack_plural": "Kurspässe ({{number}})",
                 "contact": "Kontakt",
-                "contact_plural": "Contact ({{number}})",
+                "contact_plural": "Kontakt ({{number}})",
                 "basket": "Warenkorb",
                 "basket_plural": "Warenkörbe ({{number}})",
                 "payment": "Rechnung",
-                "payment_plural": "Rechnung ({{number}})",
+                "payment_plural": "Rechnungen ({{number}})",
                 "privateBooking": "Termine",
                 "privateBooking_plural": "Termine ({{number}})"
             },
@@ -13384,7 +13451,7 @@
             "metaActivity": {
                 "general": "Allgemein",
                 "pack": "Kompatible Pässe",
-                "group": "Gruppensession"
+                "group": "Gruppierte Session"
             },
             "establishment": {
                 "general": "Allgemein",
@@ -13407,7 +13474,7 @@
             },
             "replacement": {
                 "management": "Verwaltung",
-                "disciplineGroup": "Disziplingruppen"
+                "disciplineGroup": "Disziplinargruppen"
             },
             "franchise": {
                 "staff": {
@@ -13422,7 +13489,7 @@
                 "statistics": "Statistiken"
             },
             "quicksale": {
-                "configuration": "Kategorien anpassen",
+                "configuration": "Personalisierung der Kategorien",
                 "access": "Zugang erstellen"
             },
             "appSettings": {
@@ -13464,7 +13531,7 @@
         "modification_date": "Zuletzt bearbeitet am",
         "templateListEmpty": "Auf diesem Tab können Sie mit unserem Drag-&-Drop-E-Mail-Editor schöne und personalisierte E-Mail-Vorlagen entwerfen. Sie können diese direkt an Mitglieder senden und mit automatischen Benachrichtigungen verknüpfen, um Ihre Mitgliederinteraktion zu optimieren.",
         "create": "Vorlage erstellen",
-        "selectToShowPreview": "Eine Vorlage auswählen",
+        "selectToShowPreview": "Wählen Sie eine E-Mail aus, um eine Vorschau zu sehen.",
         "detail": "Ausführliche Informationen",
         "search": "Eine Vorlage suchen",
         "createTitle": "Erstellung der Vorlage",
@@ -13486,7 +13553,7 @@
         "edit": "Bearbeiten",
         "allCompanies": "Alle Franchisenehmer",
         "seeAll": "Alle ansehen",
-        "franchiseEmails": "Franchise-Vorlagen",
+        "franchiseEmails": "[Master Account] E-Mail-Vorlagen",
         "companieEmails": "Meine Vorlagen",
         "infoBsportTemplateEmails": "Wenn Sie Benachrichtigungen versenden oder die Vorlagen in diesem Abschnitt bearbeiten möchten, müssen Sie eine Kopie der gewünschten Vorlage erstellen. Wählen Sie dann die Kopie der E-Mail aus, wenn Sie eine Benachrichtigung versenden.",
         "bsportTemplateEmails": "Bsport-Templates"
@@ -13517,11 +13584,11 @@
             },
             "create": {
                 "title": "Neue Lehrkraft",
-                "success": "Lehrkraft erstellt"
+                "success": "Lehrkraft hinzugefügt"
             },
             "update": {
-                "success": "Lehrkraftdetails geändert",
-                "title": "Informationen bearbeiten",
+                "success": "Lehrkraftdetails aktualisiert",
+                "title": "Lehrkraft aktualisieren",
                 "errors": {
                     "emailAlreadyInUse": "Die eingegebene E-Mail existiert bereits in der Datenbank. Sie können diese E-Mail nur dann mit einer Lehrkraft verknüpfen, wenn Sie eine neue Lehrkraft erstellen."
                 }
@@ -13532,7 +13599,7 @@
         "showActivities": "Aktivitäten anzeigen",
         "performance": {
             "nbBookings": "Buchungen",
-            "payment": "Lohn",
+            "payment": "Lohnabrechnung",
             "calculate": "Berechnen",
             "pricePerAdditionalBooking": "Betrag pro Buchung",
             "pricePerOffer": "Betrag pro Kurs",
@@ -13565,22 +13632,22 @@
         "coach": "Lehrkraft",
         "detail": {
             "tab": {
-                "calendar": "Kalender",
+                "calendar": "Wochenplan",
                 "general": "Profil"
             },
-            "coachSpaceInfo": "In diesem Bereich kann Ihre Lehrkraft auf dessen Abrechnungsübersicht pro Session zugreifen und dessen Stundenplan einsehen. Er/Sie kann auch seine/ihre Verfügbarkeiten hinzufügen.",
-            "coachSpace": "Lehrkräftebereich",
-            "noPaymentRule": "Achtung, für diese Lehrkraft wurden keine Gehaltsregulation festgelegt."
+            "coachSpaceInfo": "Die Lehrkräfte können in diesem Bereich ihre Lohnabrechnung pro Sitzung einsehen, ihren Wochenplan einsehen und ihre Verfügbarkeiten verwalten.",
+            "coachSpace": "Lehrkraftansicht",
+            "noPaymentRule": "Achtung, für diese Lehrkraft wurde keine Lohnabrechnung festgelegt."
         },
-        "showPerformance": "Lohn ausstellen",
+        "showPerformance": "Lohnabrechnung anzeigen",
         "noCoach": "Zur Zeit gibt es keine registrierten Lehrkräfte",
         "noCoachs": "Keine registrierten Lehrkräfte. Verwalten Sie hier die Lehrkräfte, Referenten und deren Gehälter.",
         "inactiveCoaches": "Archivierte Lehrkräfte",
-        "paymentRule": "Entlohnung",
+        "paymentRule": "Lohnabrechnung",
         "coachAccess": {
             "teacher": "Lehrkraft",
             "student": "Mitglied",
-            "info": "Wir haben festgestellt, dass Sie Lehrkraft in diesem Studio sind. Möchten Sie Zugang zu Ihrem Kundenbereich oder Ihrem Lehrkraftbereich?",
+            "info": "Wir haben festgestellt, dass Sie Lehrkraft in diesem Studio sind. Möchten Sie Zugang zu der Mitgliederansicht oder der Lehrkraftansicht?",
             "access": "Zugang"
         },
         "numberCoaches": "{{ number }} Lehrkräfte",
@@ -14192,12 +14259,12 @@
                 "continue": "Weiter"
             },
             "explainLoading": "Bitte warten",
-            "explainWarning": "VORSICHT diese Aktion ist unwiderruflich.",
+            "explainWarning": "VORSICHT: Dieser Vorgang ist nicht umkehrbar.",
             "explain": "Wähle das Datumsintervall, über das Du Deine Kurse stornieren möchtest. Mitglieder, die gebucht haben, werden per E-Mail benachrichtigt und ihre Credits werden automatisch auf den entsprechenden Kurspass zurückerstattet.",
             "title": "Kollektive Stornierung",
             "secondWarningConfirm": "Bist du dir sicher, dass du weitermachen willst?",
             "secondWarning": "Wenn Du auf \"BESTÄTIGEN\" klickst, werden die im ausgewählten Intervall enthaltenen Kurse storniert und Du kannst sie nicht mehr wiederherstellen.",
-            "warning": "ACHTUNG diese Operation kann nicht rückgängig gemacht werden",
+            "warning": "Diese Aktion kann nicht rückgängig gemacht werden.",
             "info": "Wählen Sie die Daten aus, zwischen denen Sie alle Sessions absagen möchten. Die gewählten Daten werden eingeschlossen.",
             "endDateLabel": "Enddatum (einschließlich)",
             "startDateLabel": "Startdatum (einschließlich)",
@@ -14356,14 +14423,14 @@
             },
             "section": {
                 "coachOverride": {
-                    "info": "Wenn Sie dieses Kästchen ankreuzen, werden die Änderungen, die für den Vertretungslehrer in dieser Session vorgenommen wurden, auf alle ähnlichen Sessions angewandt. Andernfalls werden sie nur auf diese Session angewandt.",
+                    "info": "Wenn Sie dieses Kästchen ankreuzen, werden die Änderungen, die für die Vertretungslehrkraft in dieser Session vorgenommen wurden, auf alle ähnlichen Sessions angewandt. Andernfalls werden sie nur auf diese Session angewandt.",
                     "field": {
-                        "isCoachOverridePropagate": "Änderungen am Vertretungslehrer auf die ausgewählten Sessions anwenden"
+                        "isCoachOverridePropagate": "Übertragen Sie die Änderungen der Vertretungslehrkraft auf die ausgewählten Sitzungen"
                     },
-                    "title": "Wechsel des Vertretungslehrers"
+                    "title": "Wechsel der Vertretungslehrkraft"
                 },
                 "similarOffers": {
-                    "info": "Änderungen an den Sessions können dazu führen, dass sie mit einigen Pässen nicht kompatibel sind. Nach der Änderung nehmen Sie sich bitte die Zeit, um zu überprüfen, ob sie mit allen Änderungen in der Einrichtung / Lehrer kompatibel bleiben.",
+                    "info": "Änderungen an den Sitzungen können dazu führen, dass sie mit einigen Pässen nicht kompatibel sind. Nach der Änderung nehmen Sie sich bitte die Zeit, um zu überprüfen, ob sie mit allen Änderungen in der Einrichtung / Lehrkräften kompatibel bleiben.",
                     "unselectAll": "Alle deselektieren",
                     "selectAll": "Alle auswählen",
                     "title": "Wählen Sie die Sessions aus, die geändert werden sollen"
@@ -14398,18 +14465,18 @@
                     "field": {
                         "coachPaymentRule": {
                             "placeholder": "Regel auswählen",
-                            "title": "Gehaltsregulation"
+                            "title": "Lohnabrechnungsregeln"
                         },
                         "coachOverride": {
                             "placeholder": "Vertretung auswählen",
                             "title": "Vertretung"
                         },
                         "coach": {
-                            "placeholder": "Lehrer auswählen",
-                            "title": "Lehrer"
+                            "placeholder": "Lehrkraft auswählen",
+                            "title": "Lehrkraft"
                         }
                     },
-                    "title": "Lehrer",
+                    "title": "Lehrkraft",
                     "additionalCoaches": {
                         "title": "Zusätzliche Lehrkraft(en)",
                         "field": {
@@ -14471,7 +14538,7 @@
                 }
             },
             "groupedOffer": {
-                "warning": "Achtung diese Session ist Teil der Gruppensession {{ name }}"
+                "warning": "Achtung diese Session ist Teil der Gruppe von Sessions {{ name }}"
             },
             "stepper": {
                 "step": {
@@ -14564,11 +14631,11 @@
             "webhook": "WebHook",
             "personalization": "Personalisierung",
             "role": "Mitarbeiter",
-            "shop": "Shop",
+            "shop": "Webshop",
             "active_campaign": "ActiveCampaign",
             "general": "Allgemein",
             "waitingList": "Warteliste",
-            "paymentRules": "Gehaltsregulation",
+            "paymentRules": "Lohnabrechnungsregeln für Lehrkräfte",
             "broadcast": "Videokonferenz",
             "notificationRule": "Transaktions-E-Mails",
             "company": "Unternehmen",
@@ -14690,23 +14757,23 @@
                 "popupPreview": {
                     "membershipCard": {
                         "paymentPack": "Kurspässe",
-                        "consumerPaymentPack": "Meine Pässe",
+                        "consumerPaymentPack": "Meine Kurspässe",
                         "invoice": "Meine Rechnungen",
-                        "contract": "Abonnement",
-                        "paymentPackEmpty": "Keine Karte zu sehen",
-                        "privatePassListEmpty": "Keine Terminpässe zu sehen",
+                        "contract": "Abonnements",
+                        "paymentPackEmpty": "Es werden keine Kurspässe angezeigt.",
+                        "privatePassListEmpty": "Es werden keine Terminpässe angezeigt.",
                         "vod": "Video on Demand",
-                        "contractEmpty": "Es werden keine Abonnements zum Kauf angeboten",
-                        "invoiceEmpty": "Keine Rechnungen",
-                        "giftcardSubtitle": "Hier finden Sie alle Gutscheinkarten in Ihrem Studio",
-                        "paymentComboEmpty": "Kein Angebot vorgeschlagen",
-                        "privateConsumerPassListEmpty": "Sie besitzen noch keinen Terminpass",
+                        "contractEmpty": "Es werden keine Abonnements angezeigt.",
+                        "invoiceEmpty": "Es werden keine Rechnungen angezeigt.",
+                        "giftcardSubtitle": "Stöbern Sie in unseren Geschenkkarten.",
+                        "paymentComboEmpty": "Es sind keine Pakete zu sehen.",
+                        "privateConsumerPassListEmpty": "Sie besitzen noch keinen Terminpass.",
                         "mySubscription": "Meine\nAbonnements",
-                        "paymentPackSubtitle": "Entdecken Sie das gesamte Angebot dieses Studios",
-                        "contractSubtitle": "Wählen Sie das Abonnement, das am besten zu Ihnen passt",
-                        "consumerPaymentPackEmpty": "Sie besitzen noch keinen Pass",
-                        "vodSubtitle": "Sehen Sie sich Ihre Lieblingsvideos überall und jederzeit an",
-                        "paymentComboSubtitle": "Hier finden Sie alle Angebote in Ihrem Studio"
+                        "paymentPackSubtitle": "Entdecken Sie das gesamte Angebot dieses Studios.",
+                        "contractSubtitle": "Wählen Sie das Abonnement, das am besten zu Ihnen passt.",
+                        "consumerPaymentPackEmpty": "Sie besitzen noch keinen Kurspass.",
+                        "vodSubtitle": "Sehen Sie sich Ihre Lieblingsvideos überall und jederzeit an.",
+                        "paymentComboSubtitle": "Werfen Sie einen Blick auf alle unsere aktuellen Pakete."
                     },
                     "title": "Vorschau",
                     "category": {
@@ -14719,7 +14786,7 @@
                     "cancel": "Schließen",
                     "inventory": "Mein Inventar"
                 },
-                "helperText": "Sie können in der App externe Links hinzufügen, um Ihre Kunden auf Ihre Website oder eine andere Plattform weiterzuleiten. Die Links werden auf der Registerkarte \"Einkauf\" der mobilen App angezeigt.",
+                "helperText": "Sie können in der App externe Links hinzufügen, um Ihre Kunden auf Ihre Website oder eine andere Plattform weiterzuleiten. Die Links werden auf dem Tab \"Einkauf\" der mobilen App angezeigt.",
                 "deleteModal": {
                     "title": "Löschen",
                     "confirm": "Löschen",
@@ -14768,7 +14835,7 @@
                             "marketplace": "Studio",
                             "home": "Aktivitäten (Standard)",
                             "bookings": "Buchungen",
-                            "membership": "Kursplan"
+                            "membership": "Wochenplan"
                         },
                         "placeholder": "Eine Seite auswählen",
                         "helperText": "Mit dieser Option können Sie die Standardseite auswählen, die Nutzer beim Öffnen der App sehen.",
@@ -14844,7 +14911,7 @@
         },
         "detail": {
             "tab": {
-                "calendar": "Kalender",
+                "calendar": "Wochenplan",
                 "general": "Allgemein"
             }
         },
@@ -15217,7 +15284,7 @@
                 "delete": {
                     "submit": "Löschen",
                     "title": "Löschen",
-                    "explain": "Vorsicht, diese Markierung wird bei ALLEN Mitgliedern entfernt. Diese Aktion ist unwiderruflich",
+                    "explain": "Seien Sie vorsichtig! Dieser Tag wird für alle Mitglieder gelöscht. Sind Sie sicher, dass Sie das wollen? Dieser Vorgang ist nicht rückgängig zu machen.",
                     "cancel": "Abbrechen"
                 },
                 "namePlaceholder": "Name der Markierung",
@@ -15392,7 +15459,11 @@
                     "explain": "Hier finden Sie alle Ihre direkten Unterhaltungen, die mit Ihren Sitzungen verbundenen Chats sowie Ihre Smartlist-Kampagnen. Der Chat ist kompatibel mit SMS, E-Mails und Push-Benachrichtigungen.",
                     "intro": "Entdecken Sie unser neues Interface für den direkten Chat mit Ihren Mitgliedern."
                 },
-                "requestAccess": "Zugang beantragen"
+                "requestAccess": "Zugang beantragen",
+                "31": {
+                    "intro": "Audience Zugang freischalten",
+                    "explain": "Bei dieser Funktion handelt es sich um ein Add-on. Bitte wenden Sie sich an Ihren Account Manager, um weitere Informationen zu erhalten."
+                }
             },
             "subscriptionForm": {
                 "commitmentMessage": "Bitte beachten Sie: Ein Abonnement ist mit einer 12-monatigen Verpflichtung verbunden",
@@ -15508,7 +15579,7 @@
             "variantOption": {
                 "activityName": "Aktivität",
                 "coach": "Die Lehrkraft",
-                "time": "Stundenplan"
+                "time": "Wochenplan"
             },
             "configDialog": {
                 "title": "Widget-Einstellungen",
@@ -15655,7 +15726,13 @@
                 "authentication_change_password_form": "Passwortform ändern",
                 "fabrique_menu_item_list": "Menüpunkteliste",
                 "fabrique_menu_item": "Menüpunkt",
-                "fabrique_alert": "Alarm"
+                "fabrique_alert": "Alarm",
+                "fabrique_list_item": "Listenartikel",
+                "fabrique_list": "Liste",
+                "fabrique_menu": "Menü",
+                "fabrique_modal_dialog": "Modaler Dialog",
+                "fabrique_bottom_drawer": "Untere Navigationsleiste",
+                "fabrique_textform": "Textform"
             },
             "page": {
                 "calendar": "Kalender",
@@ -15683,7 +15760,7 @@
                     "isExcludingTax": "Vor Steuern",
                     "paymentMethodType": "Zahlungsmethode",
                     "isContractLegalTermsAccepted": "Abo-Impressum akzeptiert",
-                    "hideCoach": "Lehrerfilter ausblenden",
+                    "hideCoach": "Lehrkraftfilter ausblenden",
                     "showDate": "Datum anzeigen",
                     "withoutBookButton": "Reservierungsschaltfläche ausblenden",
                     "version": "Version",
@@ -15748,7 +15825,17 @@
                     "hasDivider": "Die Liste hat am unteren Rand eine Trennlinie",
                     "showGroupTitle": "Liste mit Gruppentitel anzeigen",
                     "selected": "Ist ausgewählt",
-                    "type": "Typ der Komponente"
+                    "type": "Typ der Komponente",
+                    "showBottomDrawer": "Untere Navigationsleiste anzeigen",
+                    "displayIcon": "Mit Icon anzeigen",
+                    "hasLeftAction": "Aktivieren Sie die Links-Aktion für die Komponente",
+                    "isSelectable": "Aktivieren der Auswahl-Interaktion mit der Komponente",
+                    "withListTitle": "Titel der Liste anzeigen",
+                    "inputType": "Art der Listenanzeige",
+                    "isExpanded": "Element ist erweitert",
+                    "isRequired": "Befindet sich im \"Erforderlich\" Zustand",
+                    "isDraggable": "Das Element ist erweiterbar (durch Ziehen)",
+                    "withMaxCharacters": "Mit maximaler Zeichenlänge"
                 },
                 "option": {
                     "activityName": "Aktivität",
@@ -15761,7 +15848,7 @@
                     "bookable": "Buchbar",
                     "future": "Noch nicht zur Buchung freigegeben",
                     "currentWeek": "Diese Woche",
-                    "time": "Aus dem Stundenplan",
+                    "time": "Aus dem Wochenplan",
                     "past": "Verpasst",
                     "none": "Keine",
                     "sepa_debit": "SEPA-Lastschriftverfahren",
@@ -15833,7 +15920,9 @@
                     "weak": "Schwach",
                     "strong": "Stark",
                     "light": "Leicht",
-                    "success": "Erfolg"
+                    "success": "Erfolg",
+                    "xs": "Sehr klein",
+                    "xl": "Sehr groß"
                 },
                 "confirmationMessageComponentAlert": "Diese Komponente verwaltet hauptsächlich den Buchungs- und Zahlungsstatus. Für die Anpassung ihres Aussehens empfehlen wir die Verwendung ihrer Stammkomponenten, die sich im Allgemeinen Abschnitt befinden",
                 "marketplaceOfferBookingList": "Diese Komponente ist eine Liste der gebuchten Sitzungen. Zur Feinabstimmung einzelner {{component_name}}-Komponenten können Sie den entsprechenden Abschnitt im Editor verwenden.",
@@ -16342,7 +16431,8 @@
             },
             "cadenceCard": {
                 "lost": "Verloren",
-                "win": "Gewonnen"
+                "win": "Gewonnen",
+                "outputRules": "Regeln für die Ausgabe"
             },
             "triggers": {
                 "trigger": "Auslöser",
@@ -16408,7 +16498,8 @@
                     "addNextStep": "Nächsten Schritt hinzufügen",
                     "nextStepTrigger": "Auslöser für den nächsten Schritt",
                     "convertIntoExit": "Umrechnen in Ausgang",
-                    "convertIntoStep": "Umrechnen in Schritt"
+                    "convertIntoStep": "Umrechnen in Schritt",
+                    "edit": "Bearbeiten"
                 },
                 "defaultName": "Autostep"
             },
@@ -16520,7 +16611,63 @@
             },
             "trigger": {
                 "addTrigger": "Einen Auslöser hinzufügen"
+            },
+            "welcome": {
+                "dialog": {
+                    "title": "Willkommen bei Audience!",
+                    "helper": "Lassen Sie uns gemeinsam mit der Einrichtung Ihres Workflows beginnen! Zunächst legen wir die Kriterien fest, nach denen Ihre Mitglieder in den Workflow eintreten können. Dann legen wir die Bedingungen fest, unter denen Ihre Mitglieder den Workflow als \"Gewonnen\" oder \"Verloren\" verlassen, basierend auf ihren Aktionen.",
+                    "confirm": "Start",
+                    "return": "Zurück"
+                }
             }
+        },
+        "audience": {
+            "form": {
+                "updateTitle": "Den Namen des {{ workflowLowerCase }} bearbeiten",
+                "trigger": {
+                    "helpers": {
+                        "exitFail": "Definieren Sie hier den Auslöser, der dazu führt, dass ein Mitglied als \"Verloren\" gilt und den {{ workflowLowerCase }} verlässt.",
+                        "exitSuccess": "Definieren Sie hier den Auslöser, der bewirkt, dass ein Mitglied als \"Gewonnen\" betrachtet wird und den {{ workflowLowerCase }} verlässt.",
+                        "workflow": "Definieren Sie hier die Auslöser für den Eintritt in den {{ workflowLowerCase }}. Die Mitglieder müssen die unten aufgeführten Kriterien erfüllen, um die Marketingsequenz zu starten."
+                    },
+                    "trigger_timeout_explain_value_selected": "Wenn das Mitglied nach {{ days }} Tagen immer noch im {{ workflowLowerCase }} vorhanden ist, wird es automatisch aus dem {{ workflowLowerCase }} entfernt und gilt als \"Verloren\".",
+                    "trigger_timeout_select_label": "Tage maximal im {{ workflowLowerCase }}",
+                    "event_and_smartlist_helper": "Die Mitglieder müssen dem Ereignis entsprechen und Teil der Smartlist sein, um in den {{ workflowLowerCase }}",
+                    "labels": {
+                        "workflow": "Der Eintrag in den {{ workflowLowerCase }} erfolgt über :"
+                    },
+                    "event_or_smartlist_helper": "Die Mitglieder müssen dem Ereignis entsprechen oder Teil der Smartlist sein, um in den {{ workflowLowerCase }} zu passen"
+                },
+                "audienceNameLabel": "Name des {{ workflowLowerCase }}",
+                "audienceStepHelper": "Legen Sie hier den Namen des Schritts fest: Hier können Sie sehen, wo sich die Mitglieder im {{ workflowLowerCase }} befinden.",
+                "title": "Einen {{ workflowLowerCase }} erstellen",
+                "addAWorkflow": "Einen {{ workflowLowerCase }} hinzufügen",
+                "createAudienceHelper": "Dank der {{ workflowPluralLowerCase }} können Sie die Marketingaktionen, die Sie an Ihre Mitglieder senden, auf deren Verhalten auf der Plattform abstimmen. Erstellen Sie eine Abfolge von Aktionen, die Ihre Mitglieder ausführen müssen, um z. B. bestimmte Aktionen oder Tags zu erhalten."
+            },
+            "graph": {
+                "alert": {
+                    "switchToEditMode": "Sie befinden sich im Ansichtsmodus, klicken Sie auf BEARBEITEN, um den {{ workflowLowerCase }} zu bearbeiten.",
+                    "audienceIsActive": "Ihr {{ workflowLowerCase }} ist im Gange, bitte unterbrechen Sie ihn zum Ändern."
+                }
+            },
+            "activate": {
+                "dialog": {
+                    "firstHelper": "Möchten Sie den {{ workflowLowerCase }} starten?",
+                    "title": "{{ workflowLowerCase }} starten"
+                },
+                "setupBeforeActivationHelper": "Beenden Sie die Einrichtung Ihres {{ workflowLowerCase }} und erstellen Sie Ihre erste Marketingaktion, um Ihren {{ workflowLowerCase }} zu starten."
+            },
+            "archive": {
+                "archivedHeader": "Archivierte {{ workflowPluralLowerCase }}",
+                "dialog": {
+                    "helper": "Mitglieder, die sich derzeit im {{ workflowLowerCase }} befinden, verlassen diesen automatisch. Dieser {{ workflowLowerCase }} wird archiviert, aber Sie können ihn später wieder aktivieren.",
+                    "title": "Einen {{ workflowLowerCase }} löschen"
+                }
+            },
+            "howTo": {
+                "title": "So bearbeiten Sie Ihren {{ workflowLowerCase }}"
+            },
+            "audienceIndexHelper": "Die Reihenfolge der {{ workflowPluralLowerCase }} legt die Reihenfolge der Priorität fest: Wenn ein Mitglied in zwei verschiedene {{ workflowPluralLowerCase }} eitreten kann, beginnt es mit dem höchsten in der Liste."
         }
     },
     "spotScheduling": {
@@ -16670,7 +16817,7 @@
             "goBackToCheckout": "Zum Checkout zurückkehren"
         },
         "cssForm": {
-            "helper": "In diesem Abschnitt können Sie CSS-Regeln für Ihr Layout hinzufügen. Die gesamte Karte ist in eine svg-Datei mit der ID \"svg-canvas-display\" verpackt. Standardmäßig wird für jedes Element auf der Leinwand (wie Punkte, Rechtecke und Lehrer) automatisch ein Stylesheet erstellt. Sie können Ihre Änderungen schrittweise beobachten, indem Sie auf die Schaltfläche \"{{ buttonLabel }}\" klicken.",
+            "helper": "In diesem Abschnitt können Sie CSS-Regeln für Ihr Layout hinzufügen. Die gesamte Karte ist in eine svg-Datei mit der ID \"svg-canvas-display\" verpackt. Standardmäßig wird für jedes Element auf der Leinwand (wie Punkte, Rechtecke und Lehrkraft) automatisch ein Stylesheet erstellt. Sie können Ihre Änderungen schrittweise beobachten, indem Sie auf die Schaltfläche \"{{ buttonLabel }}\" klicken.",
             "openPreview": "Voranschau"
         },
         "assetUpoadForm": {
@@ -16716,7 +16863,7 @@
             "franchised": "Franchisenehmer",
             "groupBy": "Gruppieren nach",
             "pageTitle": "Vorlage",
-            "companiesEmails": "Franchise-Vorlagen",
+            "companiesEmails": "[Master Account] E-Mail-Vorlagen",
             "create": "Eine Vorlage erstellen",
             "franchiseEmails": "Meine Vorlagen",
             "emptyStateDescription": "Wählen Sie eine Vorlage, um eine Vorschau zu sehen.",
@@ -16783,7 +16930,7 @@
             }
         },
         "staff": {
-            "explainStaff": "Mit dem Mitarbeiterzugang des Masterkontos wählen Sie aus, welche Franchisenehmer Zugang zu Ihren Mitarbeitern haben und welche Aktionen sie in ihnen durchführen können. Der Mitarbeiterzugang erlaubt es nicht, sich mit der mobilen App zu verbinden.",
+            "explainStaff": "Mit dem Mitarbeiterzugang des Master Accounts wählen Sie aus, welche Franchisenehmer Zugang zu Ihren Mitarbeitern haben und welche Aktionen sie in ihnen durchführen können. Der Mitarbeiterzugang erlaubt es nicht, sich mit der mobilen App zu verbinden.",
             "roleTabTitle": "Aufgaben",
             "staffAccountTabTitle": "Mitarbeiter-Accounts"
         }
@@ -17241,9 +17388,9 @@
             "giftcardAvailableForALl": "Alle kompatiblen Gutscheine",
             "giftcardAvailable": "{{length}} kompatibler Gutschein",
             "giftcardAvailable_plural": "{{length}} kompatible Gutscheine",
-            "shopItemAvailableForALl": "Alle Produkte aus dem kompatiblen Shop",
-            "shopItemAvailable": "{{length}} Produkt aus dem kompatiblen Magazin",
-            "shopItemAvailable_plural": "{{length}} kompatible Produkte aus den Geschäften",
+            "shopItemAvailableForALl": "Alle kompatiblen Webshop-Produkte",
+            "shopItemAvailable": "{{length}} kompatibles Webshop-Produkt",
+            "shopItemAvailable_plural": "{{length}} kompatible Webshop-Produkte",
             "onlyWhenAllAvailable": "Nur vorgeschlagen, wenn alle Objekte im Korb kompatibel sind",
             "whenOneAvailable": "Vorgeschlagen, sobald ein Objekt im Warenkorb kompatibel ist",
             "noCompability": "Ihre Ratenzahlung ist nicht kompatibel"
@@ -17297,7 +17444,7 @@
                 "selectPack": "Kurspass auswählen",
                 "selectPrivatePass": "Terminpässe auswählen",
                 "selectCombo": "Wählen Sie ein Paket aus",
-                "selectShopItem": "Wählen Sie ein Produkt aus",
+                "selectShopItem": "Wählen Sie ein Webshop-Produkt aus",
                 "selectGiftcard": "Einen Gutscheine auswählen",
                 "allPass": "Kompatibel mit allen Kurspässen",
                 "pack": "Kurspass",
@@ -17305,8 +17452,8 @@
                 "allPrivateBooking": "Kompatibel mit allen Terminpässen",
                 "combo": "Paket",
                 "allCombo": "Mit allen Paketen kompatibel",
-                "shopItem": "Produkte im Laden",
-                "allShopItem": "Kompatibel mit allen Produkten im Laden",
+                "shopItem": "Webshop-Produkte",
+                "allShopItem": "Kompatibel mit allen Webshop-Produkten",
                 "giftcard": "Gutscheine",
                 "allGiftcard": "Kompatibel mit allen Gutscheinen"
             },
@@ -17414,7 +17561,7 @@
             "subtitleSuccess": "Ihre Zeiterfassung wurde erfolgreich abgeschlossen. Sie können eine neue Zeiterfassung starten, wenn Sie dieses Fenster das nächste Mal öffnen.",
             "clockInForOther": "für einen anderen Mitarbeiter ausstempeln",
             "subtitleClockOut": "Jetzt geht es los! Um erneut auszustempeln und den Stundenzähler zu stoppen, klicken Sie bitte auf \"Clock-Out\".",
-            "subtitleClockIn": "Hallo {{ name }}, klicken Sie auf \"Clock-In\", um mit der Stempelung Ihres Tages zu beginnen.",
+            "subtitleClockIn": "Hallo {{ name }}, klicken Sie auf \"Clock-In\", um mit der Zeiterfassung Ihres Tages zu beginnen.",
             "lastClockOut": "Ankunftszeit: ",
             "lastClockIn": "Letzter Clock-In: {{- date }} - {{ hour }}",
             "clockOut": "Clock-Out",
@@ -17438,7 +17585,7 @@
             "cancel": "Abbrechen",
             "startingTime": "Uhrzeit des Beginns",
             "endingTime": "Uhrzeit des Endes",
-            "title": "Stundenplanänderung"
+            "title": "Wochenplanänderung"
         },
         "modal": {
             "delete": {
@@ -17478,7 +17625,7 @@
             "helperTextLimited_plural": "<strong>{{requestsLeft}}</strong> auf <strong>{{requestsMax}}</strong> verbleibende späte Anfragen bis {{-dateEnd}}. Alle Anträge auf Vertretung, die innerhalb von {{count}} Tagen vor Beginn der Session gestellt werden, werden als spät betrachtet.",
             "helperTextNotLimited": "Alle Anträge auf Vertretung, die innerhalb von {{count}} Tag vor Beginn der Session gestellt werden, werden als spät betrachtet.",
             "helperTextNotLimited_plural": "Alle Anträge auf Vertretung, die innerhalb von {{count}} Tagen vor Beginn der Session gestellt werden, werden als spät betrachtet.",
-            "title": "Mein Kalender",
+            "title": "Mein Wochenplan",
             "description": "Hier finden Sie alle Ihre Gruppenaktivitäten."
         },
         "unavailableReplacement": {
@@ -17527,8 +17674,8 @@
             "offerCancelled": "Storniert"
         },
         "askForReplacement": {
-            "requestSentDescription": "Ihr Vertretungsantrag wurde berücksichtigt. Gehen Sie auf die Registerkarte \"Meine Anträge\", um die Bearbeitung zu verfolgen.",
-            "requestSentDescription_plural": "Ihre Ersatzanträge wurden berücksichtigt. Gehen Sie auf die Registerkarte \"Meine Anträge\", um die Bearbeitung zu verfolgen.",
+            "requestSentDescription": "Ihr Vertretungsantrag wurde berücksichtigt. Gehen Sie auf den Tab \"Meine Anträge\", um die Bearbeitung zu verfolgen.",
+            "requestSentDescription_plural": "Ihre Ersatzanträge wurden berücksichtigt. Gehen Sie auf den Tab \"Meine Anträge\", um die Bearbeitung zu verfolgen.",
             "lateRequestTypo": "Achtung: Ihr Antrag auf einen Ersatztermin verspätet sich. Sie haben {{daysBeforeOffer}} Tage vor Kursbeginn Zeit, um Ihren Antrag rechtzeitig zu stellen.",
             "lateRequestTypo_plural": "Achtung: Ihr Antrag auf einen Ersatztermin verspätet sich. Sie haben {{daysBeforeOffer}}. Tage vor Kursbeginn Zeit, um Ihren Antrag rechtzeitig zu stellen.",
             "lateRequestCounterInfo": "<strong>{{requestsLeft}}</strong> auf <strong>{{requestsMax}}</strong> verbleibende späte Anfrage bis {{-dateEnd}}.",
@@ -17673,7 +17820,7 @@
         },
         "compatibleCoaches": {
             "title": "Verfügbare Lehrkräfte nach Fachrichtung",
-            "compatibleCoaches": "{{count}} kompatibler Lehrerkraft",
+            "compatibleCoaches": "{{count}} kompatible Lehrkraft",
             "compatibleCoaches_plural": "{{count}} kompatible Lehrkräfte",
             "nextSlot": "Nächste Session am {{date}} - {{hour}}",
             "activities": "Aktivitäten",

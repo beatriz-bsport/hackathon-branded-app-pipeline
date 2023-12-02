@@ -15917,7 +15917,7 @@
         },
         "paymentMethod": {
             "actions": {
-                "createCard": "Aggiungi una carte",
+                "createCard": "Aggiungi una carta",
                 "createSepa": "Aggiungi un IBAN"
             },
             "sectionTitle": "Metodo di pagamento",

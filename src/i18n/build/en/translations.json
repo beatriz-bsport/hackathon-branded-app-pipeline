@@ -13020,7 +13020,7 @@
             },
             "member-basket_paid": {
                 "filter": "Basket paid",
-                "primaryText": "Un basket of {{amount}} has been paid. "
+                "primaryText": "A basket of {{amount}} has been paid. "
             },
             "member-booking_registered": {
                 "primaryText": "{{ source }} has booked session {{- offerName }} the {{- offerDate }}.",

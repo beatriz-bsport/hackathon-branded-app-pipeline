@@ -6,7 +6,7 @@ import makeStyles from '@material-ui/styles/makeStyles';
 import green from '@material-ui/core/colors/green';
 import useTheme from '@material-ui/core/styles/useTheme';
 import type { Theme } from '@material-ui/core/styles';
-
+import type { DialogProps } from '@material-ui/core/Dialog';
 import WarningIconRounded from '#components/icons/WarningIconRounded.component';
 import WelcomeIcon from '#components/icons/WelcomeIcon.component';
 
@@ -32,6 +32,9 @@ type Props = {
   onConfirm?: (isCheked?: boolean) => void;
   variant: DialogVariant;
   cadence?: Cadence;
+  dialogContainer?: HTMLElement;
+  BackdropProps?: DialogProps['BackdropProps'];
+  PaperProps?: DialogProps['PaperProps'];
 };
 
 const useCadenceUtilityIcon = (
@@ -298,6 +301,9 @@ export const CadenceUtilityDialog: React.FC<Props> = ({
   onConfirm,
   variant,
   cadence,
+  dialogContainer,
+  BackdropProps,
+  PaperProps,
 }) => {
   const classes = useStyles();
   const theme = useTheme?.();
@@ -342,10 +348,12 @@ export const CadenceUtilityDialog: React.FC<Props> = ({
   return (
     <DialogWithBigIcon
       {...(descriptions?.length > 0 ? { subTexts: descriptions } : {})}
+      BackdropProps={BackdropProps}
       buttons={buttons}
       checkBoxLabel={checkBoxLabel}
       customClasses={customClasses}
       CustomIcon={customIcon}
+      dialogContainer={dialogContainer}
       handleCheck={handleCheck}
       icon={icon}
       iconColor={color}
@@ -354,6 +362,7 @@ export const CadenceUtilityDialog: React.FC<Props> = ({
       namespaces="marketing"
       onClose={handleClose}
       open={open}
+      PaperProps={PaperProps}
       title={title}
     />
   );

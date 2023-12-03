@@ -165,6 +165,10 @@ const ContentWrapper = ({
   cadenceRetrieveError: Error | null;
   children: React.JSX.Element;
 }) => {
+  const dialogContainer = document?.getElementById(
+    'cadence-detail-page-container',
+  );
+
   // If still loading, render the children
   if (loading) {
     return children;
@@ -174,6 +178,10 @@ const ContentWrapper = ({
     return (
       <CadenceUtilityDialog
         open
+        BackdropProps={{
+          style: { position: 'absolute' },
+        }}
+        dialogContainer={dialogContainer}
         variant={DialogVariant.BLOCK_UNACCESSIBLE_WORKFLOW}
       />
     );
@@ -184,6 +192,8 @@ const ContentWrapper = ({
     return (
       <CadenceUtilityDialog
         open
+        BackdropProps={{ style: { position: 'absolute' } }}
+        dialogContainer={dialogContainer}
         variant={DialogVariant.BLOCK_ARCHIVED_WORKFLOW}
       />
     );
@@ -409,7 +419,7 @@ export class CadenceDetailPage extends Component<Props> {
       !this.props.cadenceMinimalConfigurationState.cadenceEntryConfigured;
 
     return (
-      <div className={classes.pageContainer}>
+      <div className={classes.pageContainer} id="cadence-detail-page-container">
         <UpsellBlocker
           CustomIconComponent={<CustomStarIcon />}
           upsellIdentifier={UPSELL_IDENTIFIER_CADENCE}

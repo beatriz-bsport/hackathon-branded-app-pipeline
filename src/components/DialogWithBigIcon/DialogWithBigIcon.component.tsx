@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import chroma from 'chroma-js';
 
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import Dialog from '@material-ui/core/Dialog';
+import Dialog, { DialogProps } from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -186,6 +186,9 @@ type Props = {
   subTexts?: TranslationProps[][]; // these must be translation keys
   namespaces?: string | string[];
   onClose?: (ev?: React.MouseEvent, reason?: string) => void;
+  dialogContainer?: HTMLElement;
+  BackdropProps?: DialogProps['BackdropProps'];
+  PaperProps?: DialogProps['PaperProps'];
 } & BottomActionsProps;
 
 const DialogWithBigIcon: React.FC<Props> = ({
@@ -208,6 +211,9 @@ const DialogWithBigIcon: React.FC<Props> = ({
   withoutBackground,
   onClose,
   handleCheck,
+  dialogContainer,
+  BackdropProps,
+  PaperProps,
 }) => {
   const { t } = useTranslation(namespaces);
 
@@ -216,18 +222,29 @@ const DialogWithBigIcon: React.FC<Props> = ({
   return (
     <Dialog
       BackdropProps={{
-        className: customClasses?.backdrop,
+        ...BackdropProps,
+        className: classNames(
+          BackdropProps?.className,
+          customClasses?.backdrop,
+        ),
       }}
       classes={{
         root: customClasses?.root,
       }}
       className={customClasses?.dialog}
+      container={dialogContainer}
       maxWidth={maxWidth ?? 'xs'}
       onClose={onClose}
       open={open}
       PaperProps={{
-        className: classNames(classes.dialogPaper, customClasses?.dialogPaper),
+        ...PaperProps,
+        className: classNames(
+          classes.dialogPaper,
+          PaperProps?.className,
+          customClasses?.dialogPaper,
+        ),
       }}
+      style={{ position: 'absolute' }}
     >
       {withCross && (
         <DialogTitle

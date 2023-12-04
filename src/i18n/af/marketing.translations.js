@@ -843,6 +843,11 @@ exports.default = {
           label: 'tags',
         },
       },
+      communication: {
+        title: 'Communications sent',
+        knowMore: 'More information about {{ upsellName }} upsell',
+        availableSoon: 'Available soon',
+      },
     },
   },
 };

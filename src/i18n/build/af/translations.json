@@ -3810,6 +3810,11 @@
             "description": "Number of tags applied to the members in the {{ workflowLowerCase }}.",
             "label": "tags"
           }
+        },
+        "communication": {
+          "title": "Communications sent",
+          "knowMore": "More information about {{ upsellName }} upsell",
+          "availableSoon": "Available soon"
         }
       }
     }

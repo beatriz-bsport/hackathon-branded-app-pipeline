@@ -5,141 +5,111 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
-import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { makeStyles } from '@material-ui/core/styles';
-import PersonIcon from '@material-ui/icons/Person';
-import Tooltip from '../../../components/Tooltip.component';
-import TypographyMultiline from '../../../components/typo/TypographyMultiline.component';
-import { getCustomCurrencyDisplayWithPrice } from '../../theme/utils';
-import {
+import TypographyMultiline from '#components/typo/TypographyMultiline.component';
+import { getCustomCurrencyDisplayWithPrice } from '#libs/theme/utils';
+import type {
   PlatformBillingGroup,
   PlatformBillingPlan,
   PlatformBillingStage,
 } from '#libs/platform-billing/type';
 
-const PlatformBillingStageCard = (props: {
-  platformBillingStage: PlatformBillingStage;
-  couponCts: number;
-  defaultCurrencyDisplay: string;
-}) => {
-  const { price_cts, max_booking_per_month } = props.platformBillingStage;
-  const { t } = useTranslation(['platformBilling']);
-  const classes = useStyles();
-  return (
-    <Paper className={classes.stageCard}>
-      {!!props.couponCts && (
-        <Typography
-          noWrap
-          color="error"
-          style={{ textDecoration: 'line-through' }}
-          variant="h6"
-        >
+const PlatformBillingStageCard = React.memo(
+  (props: {
+    platformBillingStage: PlatformBillingStage;
+    couponCts: number;
+    defaultCurrencyDisplay: string;
+  }) => {
+    const { price_cts, max_booking_per_month } = props.platformBillingStage;
+    const { t } = useTranslation('platformBilling');
+    const classes = useStyles();
+    return (
+      <Paper className={classes.stageCard}>
+        {!!props.couponCts && (
+          <Typography
+            noWrap
+            color="error"
+            style={{ textDecoration: 'line-through' }}
+            variant="h6"
+          >
+            {t('platformBillingStage.monthlyPrice', {
+              price: getCustomCurrencyDisplayWithPrice(
+                price_cts / 100,
+                props.defaultCurrencyDisplay,
+              ),
+            })}
+          </Typography>
+        )}
+        <Typography noWrap variant="h6">
           {t('platformBillingStage.monthlyPrice', {
             price: getCustomCurrencyDisplayWithPrice(
-              price_cts / 100,
+              (price_cts - props.couponCts) / 100,
               props.defaultCurrencyDisplay,
             ),
           })}
         </Typography>
-      )}
-      <Typography noWrap variant="h6">
-        {t('platformBillingStage.monthlyPrice', {
-          price: getCustomCurrencyDisplayWithPrice(
-            (price_cts - props.couponCts) / 100,
-            props.defaultCurrencyDisplay,
-          ),
-        })}
-      </Typography>
-      <Typography
-        noWrap
-        className={classes.stageFooterBooking}
-        variant="subtitle2"
-      >
-        {t('platformBillingStage.maxBooking', { max_booking_per_month })}
-      </Typography>
-    </Paper>
-  );
-};
+        <Typography
+          noWrap
+          className={classes.stageFooterBooking}
+          variant="subtitle2"
+        >
+          {t('platformBillingStage.maxBooking', { max_booking_per_month })}
+        </Typography>
+      </Paper>
+    );
+  },
+);
 
-const PlatformBillingPlanCard = (props: {
-  platformBillingPlan: PlatformBillingPlan;
-  currentPlatformBillingStageId: number;
-  couponCts: number;
-  defaultCurrencyDisplay: string;
-}) => {
-  const { platformBillingPlan } = props;
-  const { t } = useTranslation(['platformBilling']);
-  const classes = useStyles();
-  if (!platformBillingPlan) return <CircularProgress />;
-  return (
-    <Paper className={classes.planInner}>
-      <Typography className={classes.planTitle} variant="h4">
-        {platformBillingPlan.name}
-      </Typography>
-      <Divider />
-      <div className={classes.planDescription}>
-        {platformBillingPlan.description_html ? (
-          <iframe
-            className={classes.iframe}
-            frameBorder="0"
-            srcDoc={platformBillingPlan.description_html}
-            title="platform-billing-plan-card-iframe"
-          />
-        ) : (
-          <TypographyMultiline>
-            {platformBillingPlan.description}
-          </TypographyMultiline>
-        )}
-      </div>
-
-      {false && !!platformBillingPlan.max_coach && (
-        <div className={classes.planMaxRow}>
-          <div className={classes.planRowLeft}>
-            <PersonIcon className={classes.iconLeft} fontSize="large" />
-            <Typography>
-              {t('platformBillingPlan.max_coach.label', {
-                max_coach: platformBillingPlan.max_coach,
-              })}
-            </Typography>
-          </div>
-          <Tooltip title={t('platformBillingPlan.max_coach.help')}>
-            <InfoOutlinedIcon className={classes.iconRight} />
-          </Tooltip>
+const PlatformBillingPlanCard = React.memo(
+  (props: {
+    platformBillingPlan: PlatformBillingPlan;
+    currentPlatformBillingStageId: number;
+    couponCts: number;
+    defaultCurrencyDisplay: string;
+  }) => {
+    const { platformBillingPlan } = props;
+    const classes = useStyles();
+    if (!platformBillingPlan) return <CircularProgress />;
+    return (
+      <Paper className={classes.planInner}>
+        <Typography className={classes.planTitle} variant="h4">
+          {platformBillingPlan.name}
+        </Typography>
+        <Divider />
+        <div className={classes.planDescription}>
+          {platformBillingPlan.description_html ? (
+            <iframe
+              className={classes.iframe}
+              frameBorder="0"
+              srcDoc={platformBillingPlan.description_html}
+              title="platform-billing-plan-card-iframe"
+            />
+          ) : (
+            <TypographyMultiline>
+              {platformBillingPlan.description}
+            </TypographyMultiline>
+          )}
         </div>
-      )}
-      {false && !!platformBillingPlan.max_establishment && (
-        <div className={classes.planMaxRow}>
-          <LocationOnIcon className={classes.iconLeft} fontSize="large" />
-          <Typography>
-            {t('platformBillingPlan.max_establishment.label', {
-              max_establishment: platformBillingPlan.max_establishment,
-            })}
-          </Typography>
-          <Tooltip title={t('platformBillingPlan.max_establishment.help')}>
-            <InfoOutlinedIcon className={classes.iconRight} />
-          </Tooltip>
+        <div className={classes.billingStageContainer}>
+          {platformBillingPlan.platform_billing_stages
+            .filter((ps: PlatformBillingStage) => !!ps)
+            .map((ps: PlatformBillingStage) => (
+              <div key={ps.id}>
+                <PlatformBillingStageCard
+                  couponCts={props.couponCts}
+                  defaultCurrencyDisplay={props.defaultCurrencyDisplay}
+                  isSelected={props.currentPlatformBillingStageId === ps.id}
+                  platformBillingStage={ps}
+                />
+              </div>
+            ))}
         </div>
-      )}
-      <div className={classes.billingStageContainer}>
-        {platformBillingPlan.platform_billing_stages
-          .filter((ps: PlatformBillingStage) => !!ps)
-          .map((ps: PlatformBillingStage) => (
-            <div key={ps.id}>
-              <PlatformBillingStageCard
-                couponCts={props.couponCts}
-                defaultCurrencyDisplay={props.defaultCurrencyDisplay}
-                isSelected={props.currentPlatformBillingStageId === ps.id}
-                platformBillingStage={ps}
-              />
-            </div>
-          ))}
-      </div>
-    </Paper>
-  );
-};
+      </Paper>
+    );
+  },
+);
 
-const PlatformBillingPlanGroup = (props: {
+const PlatformBillingPlanGroupCard = (props: {
   platformBillingGroup: PlatformBillingGroup;
   currentPlatformBillingPlanId: number;
   currentPlatformBillingStageId: number;
@@ -172,7 +142,12 @@ const useStyles = makeStyles((theme) => ({
   billingStageContainer: {
     display: 'flex',
     flexDirection: 'row',
-    overflowX: 'scroll',
+    overflowX: 'auto',
+    '-ms-overflow-style': 'none' /* for Internet Explorer, Edge */,
+    scrollbarWidth: 'none' /* for Firefox */,
+    '&::-webkit-scrollbar': {
+      display: 'none' /* for Chrome, Safari, and Opera */,
+    },
     paddingLeft: theme.spacing(0.5),
     paddingBottom: theme.spacing(3),
     paddingTop: theme.spacing(0.5),
@@ -186,21 +161,25 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     alignItems: 'stretch',
     width: '100%',
+    overflowX: 'auto',
     marginTop: theme.spacing(3),
     paddingLeft: theme.spacing(0.5),
-    overflowX: 'auto',
+    paddingRight: theme.spacing(0.5),
     paddingBottom: theme.spacing(5),
   },
   planCard: {
     flex: 1,
-    maxWidth: '30%',
+    [theme.breakpoints.up('lg')]: {
+      maxWidth: '32%',
+    },
+    [theme.breakpoints.down('lg')]: {
+      width: '100%',
+    },
     height: '100%',
     marginRight: theme.spacing(2),
   },
   planInner: {
     padding: theme.spacing(2),
-    paddingRight: 0,
-    maxWidth: 800,
   },
   planTitle: {
     marginBottom: theme.spacing(2),
@@ -237,4 +216,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default PlatformBillingPlanGroup;
+export default React.memo(PlatformBillingPlanGroupCard);

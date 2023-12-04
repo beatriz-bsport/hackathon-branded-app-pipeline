@@ -23,7 +23,6 @@ type Props = {
     button?: string;
     icon?: string;
     textWrapper?: string;
-    wrapper?: string;
     container?: string;
     radio?: string;
     checkbox?: string;
@@ -79,72 +78,65 @@ export const ListItem: React.FC<Props> = ({
         >
           <div
             className={classNames(
-              'bs-fabrique-listitem__wrapper',
-              classes?.wrapper,
+              'bs-fabrique-listitem__container',
+              classes?.container,
             )}
           >
-            <div
-              className={classNames(
-                'bs-fabrique-listitem__container',
-                classes?.container,
-              )}
-            >
-              {type === ListItemTypeEnum.RADIO && (
-                <RadioButton
-                  captionText={captionText}
-                  classes={{
-                    label: classNames(
-                      'bs-fabrique-listitem__label',
-                      classes?.label,
-                    ),
-                    captionText: classNames(
-                      'bs-fabrique-listitem__captiontext',
-                      classes?.captionText,
-                    ),
-                  }}
-                  className={classNames(
-                    'bs-fabrique-listitem__radio',
-                    classes?.radio,
-                  )}
-                  id={inputId}
-                  isChecked={isSelected}
-                  isDisabled={isDisabled}
-                  isInversed={isSelected}
-                  label={label}
-                  onClick={onClick}
-                  size={isSmall ? 'sm' : 'lg'}
-                />
-              )}
-              {type === ListItemTypeEnum.CHECKBOX && (
-                <Checkbox
-                  captionText={captionText}
-                  classes={{
-                    label: classNames(
-                      'bs-fabrique-listitem__label',
-                      {
-                        'bs-fabrique-listitem__checkbox__label--selected':
-                          isSelected,
-                      },
-                      classes?.label,
-                    ),
-                    captionText: classNames(
-                      'bs-fabrique-listitem__captiontext',
-                      classes?.captionText,
-                    ),
-                  }}
-                  className={classNames(
-                    'bs-fabrique-listitem__checkbox',
-                    classes?.checkbox,
-                  )}
-                  id={inputId}
-                  isChecked={isSelected}
-                  isDisabled={isDisabled}
-                  label={label}
-                  onClick={onClick}
-                  size={isSmall ? 'sm' : 'lg'}
-                />
-              )}
-            </div>
+            {type === ListItemTypeEnum.RADIO && (
+              <RadioButton
+                captionText={captionText}
+                classes={{
+                  label: classNames(
+                    'bs-fabrique-listitem__label',
+                    classes?.label,
+                  ),
+                  captionText: classNames(
+                    'bs-fabrique-listitem__captiontext',
+                    classes?.captionText,
+                  ),
+                }}
+                className={classNames(
+                  'bs-fabrique-listitem__radio',
+                  classes?.radio,
+                )}
+                id={inputId}
+                isChecked={isSelected}
+                isDisabled={isDisabled}
+                isInversed={isSelected}
+                label={label}
+                onClick={onClick}
+                size={isSmall ? 'sm' : 'lg'}
+              />
+            )}
+            {type === ListItemTypeEnum.CHECKBOX && (
+              <Checkbox
+                captionText={captionText}
+                classes={{
+                  label: classNames(
+                    'bs-fabrique-listitem__label',
+                    {
+                      'bs-fabrique-listitem__checkbox__label--selected':
+                        isSelected,
+                    },
+                    classes?.label,
+                  ),
+                  captionText: classNames(
+                    'bs-fabrique-listitem__captiontext',
+                    classes?.captionText,
+                  ),
+                }}
+                className={classNames(
+                  'bs-fabrique-listitem__checkbox',
+                  classes?.checkbox,
+                )}
+                id={inputId}
+                isChecked={isSelected}
+                isDisabled={isDisabled}
+                label={label}
+                onClick={onClick}
+                size={isSmall ? 'sm' : 'lg'}
+              />
+            )}
           </div>
         </ButtonBase>
       </li>
@@ -161,57 +153,50 @@ export const ListItem: React.FC<Props> = ({
     >
       <div
         className={classNames(
-          'bs-fabrique-listitem__wrapper',
-          classes?.wrapper,
+          'bs-fabrique-listitem__container',
+          classes?.container,
         )}
       >
-        <div
+        <span
           className={classNames(
-            'bs-fabrique-listitem__container',
-            classes?.container,
+            'bs-fabrique-listitem__icon',
+            {
+              'bs-fabrique-listitem__icon--sm': isSmall,
+              'bs-fabrique-listitem__icon--lg': !isSmall,
+              'bs-fabrique-listitem__icon--hidden': !icon,
+            },
+            classes?.icon,
           )}
         >
-          <span
-            className={classNames(
-              'bs-fabrique-listitem__icon',
-              {
-                'bs-fabrique-listitem__icon--sm': isSmall,
-                'bs-fabrique-listitem__icon--lg': !isSmall,
-                'bs-fabrique-listitem__icon--hidden': !icon,
-              },
-              classes?.icon,
-            )}
-          >
-            {icon}
-          </span>
+          {icon}
+        </span>
 
-          <div
+        <div
+          className={classNames(
+            'bs-fabrique-listitem__textwrapper',
+            classes?.textWrapper,
+          )}
+        >
+          <Typography
+            align="left"
             className={classNames(
-              'bs-fabrique-listitem__textwrapper',
-              classes?.textWrapper,
+              'bs-fabrique-listitem__label',
+              classes?.label,
             )}
+            variant={isSmall ? 'body-sm' : 'body-md'}
           >
-            <Typography
-              align="left"
-              className={classNames(
-                'bs-fabrique-listitem__label',
-                classes?.label,
-              )}
-              variant={isSmall ? 'body-sm' : 'body-md'}
-            >
-              {label}
-            </Typography>
-            <Typography
-              align="left"
-              className={classNames(
-                'bs-fabrique-listitem__captiontext',
-                classes?.captionText,
-              )}
-              variant="body-xs"
-            >
-              {captionText}
-            </Typography>
-          </div>
+            {label}
+          </Typography>
+          <Typography
+            align="left"
+            className={classNames(
+              'bs-fabrique-listitem__captiontext',
+              classes?.captionText,
+            )}
+            variant="body-xs"
+          >
+            {captionText}
+          </Typography>
         </div>
       </div>
     </li>

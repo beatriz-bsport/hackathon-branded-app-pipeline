@@ -7,16 +7,10 @@
   width: 100%;
 }
 
-.bs-fabrique-listitem__wrapper {
+.bs-fabrique-listitem__container {
   display: inline-flex;
   align-items: center;
-  justify-content: space-between;
   width: 100%;
-}
-
-.bs-fabrique-listitem__container {
-  display: flex;
-  align-items: center;
   gap: var(--bs-space-size-2);
 }
 

@@ -36,6 +36,64 @@ type Props = {
   inputId?: string;
 };
 
+type ListItemTextProps = Required<
+  Pick<Props, 'label' | 'classes' | 'icon' | 'captionText'>
+> & { isSmall: boolean };
+
+const ListItemTextContainer: React.FC<ListItemTextProps> = ({
+  label,
+  classes,
+  icon,
+  captionText,
+  isSmall,
+}) => (
+  <div
+    className={classNames(
+      'bs-fabrique-listitem__container',
+      classes?.container,
+    )}
+  >
+    <span
+      className={classNames(
+        'bs-fabrique-listitem__icon',
+        {
+          'bs-fabrique-listitem__icon--sm': isSmall,
+          'bs-fabrique-listitem__icon--lg': !isSmall,
+          'bs-fabrique-listitem__icon--hidden': !icon,
+        },
+        classes?.icon,
+      )}
+    >
+      {icon}
+    </span>
+
+    <div
+      className={classNames(
+        'bs-fabrique-listitem__textwrapper',
+        classes?.textWrapper,
+      )}
+    >
+      <Typography
+        align="left"
+        className={classNames('bs-fabrique-listitem__label', classes?.label)}
+        variant={isSmall ? 'body-sm' : 'body-md'}
+      >
+        {label}
+      </Typography>
+      <Typography
+        align="left"
+        className={classNames(
+          'bs-fabrique-listitem__captiontext',
+          classes?.captionText,
+        )}
+        variant="body-xs"
+      >
+        {captionText}
+      </Typography>
+    </div>
+  </div>
+);
+
 // TO BE USED WITH <List> for valid HTML structure
 export const ListItem: React.FC<Props> = ({
   isDisabled,
@@ -52,6 +110,42 @@ export const ListItem: React.FC<Props> = ({
   inputId,
 }) => {
   const isSmall = size === ListItemSizeEnum.SM;
+  if (type === ListItemTypeEnum.CLICKABLETEXT) {
+    return (
+      <li
+        className={classNames(
+          'bs-fabrique-listitem__root',
+          { 'bs-fabrique-listitem__root--spacing--sm': isSmall },
+          { 'bs-fabrique-listitem__root--spacing--lg': !isSmall },
+          className,
+        )}
+      >
+        <ButtonBase
+          className={classNames(
+            'bs-fabrique-listitem__button-clickable-text',
+            classes?.button,
+          )}
+          isRippleEnabled={isRippleEnabled}
+          onClick={onClick}
+        >
+          <ListItemTextContainer
+            captionText={captionText}
+            classes={{
+              ...classes,
+              label: classNames(
+                classes?.label,
+                'bs-fabrique-listitem__clickable-text__label',
+              ),
+            }}
+            icon={icon}
+            isSmall={isSmall}
+            label={label}
+          />
+        </ButtonBase>
+      </li>
+    );
+  }
+
   if (type !== ListItemTypeEnum.TEXT) {
     return (
       <li
@@ -151,54 +245,13 @@ export const ListItem: React.FC<Props> = ({
         className,
       )}
     >
-      <div
-        className={classNames(
-          'bs-fabrique-listitem__container',
-          classes?.container,
-        )}
-      >
-        <span
-          className={classNames(
-            'bs-fabrique-listitem__icon',
-            {
-              'bs-fabrique-listitem__icon--sm': isSmall,
-              'bs-fabrique-listitem__icon--lg': !isSmall,
-              'bs-fabrique-listitem__icon--hidden': !icon,
-            },
-            classes?.icon,
-          )}
-        >
-          {icon}
-        </span>
-
-        <div
-          className={classNames(
-            'bs-fabrique-listitem__textwrapper',
-            classes?.textWrapper,
-          )}
-        >
-          <Typography
-            align="left"
-            className={classNames(
-              'bs-fabrique-listitem__label',
-              classes?.label,
-            )}
-            variant={isSmall ? 'body-sm' : 'body-md'}
-          >
-            {label}
-          </Typography>
-          <Typography
-            align="left"
-            className={classNames(
-              'bs-fabrique-listitem__captiontext',
-              classes?.captionText,
-            )}
-            variant="body-xs"
-          >
-            {captionText}
-          </Typography>
-        </div>
-      </div>
+      <ListItemTextContainer
+        captionText={captionText}
+        classes={classes}
+        icon={icon}
+        isSmall={isSmall}
+        label={label}
+      />
     </li>
   );
 };

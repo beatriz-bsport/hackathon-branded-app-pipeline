@@ -189,6 +189,7 @@ exports.default = {
         fullNameAndEmail: 'Full name and email',
         firstNameAndEmail: 'First name and email',
         emailOnly: 'Email only',
+        clickableText: 'Clickable text',
       },
       title: {
         nextOffer: 'Next session available',

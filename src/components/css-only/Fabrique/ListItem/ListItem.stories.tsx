@@ -49,15 +49,28 @@ Listitemicon.args = {
 export const Listitemradio = ListItemStorybookNotTextTemplate.bind({});
 Listitemradio.args = {
   ...defaultArgs,
-  type: 'radio',
+  type: ListItemTypeEnum.RADIO,
   inputId: 'radioId',
 };
 
 export const Listitemcheckbox = ListItemStorybookNotTextTemplate.bind({});
 Listitemcheckbox.args = {
   ...defaultArgs,
-  type: 'checkbox',
+  type: ListItemTypeEnum.CHECKBOX,
   inputId: 'checkboxId',
+};
+
+export const Listitemclickabletext = ListItemStorybookTemplate.bind({});
+Listitemclickabletext.args = {
+  ...defaultArgs,
+  type: ListItemTypeEnum.CLICKABLETEXT,
+};
+
+export const Listitemclickabletexticon = ListItemStorybookTemplate.bind({});
+Listitemclickabletexticon.args = {
+  ...defaultArgs,
+  type: ListItemTypeEnum.CLICKABLETEXT,
+  icon: <ArrowBlockLeft />,
 };
 
 export default {
@@ -84,6 +97,7 @@ export default {
         ListItemTypeEnum.CHECKBOX,
         ListItemTypeEnum.RADIO,
         ListItemTypeEnum.TEXT,
+        ListItemTypeEnum.CLICKABLETEXT,
       ],
     },
   },

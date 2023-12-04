@@ -43,6 +43,11 @@
   background: var(--bs-color-action-inverse-pressed);
 }
 
+/* ListItem button for clickable text */
+
+/* .bs-fabrique-listitem__button-clickable-text {
+} */
+
 /* ListItem icon size */
 
 .bs-fabrique-listitem__icon {
@@ -85,6 +90,11 @@
 
 .bs-fabrique-listitem__radio__captiontext--selected {
   color: var(--bs-color-text-inverse-default);
+}
+
+.bs-fabrique-listitem__clickable-text__label {
+  text-decoration: underline;
+  font-weight: 700;
 }
 
 /* .bs-fabrique-listitem__textwrapper {

@@ -38,6 +38,10 @@ const fabriqueListItemVariationRegistry = [
       { label: ListItemTypeEnum.CHECKBOX, value: ListItemTypeEnum.CHECKBOX },
       { label: ListItemTypeEnum.RADIO, value: ListItemTypeEnum.RADIO },
       { label: ListItemTypeEnum.TEXT, value: ListItemTypeEnum.TEXT },
+      {
+        label: ListItemTypeEnum.CLICKABLETEXT,
+        value: ListItemTypeEnum.CLICKABLETEXT,
+      },
     ],
     default: { label: ListItemTypeEnum.TEXT, value: ListItemTypeEnum.TEXT },
   },

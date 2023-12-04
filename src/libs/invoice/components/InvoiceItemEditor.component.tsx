@@ -255,7 +255,7 @@ const InvoiceItemEditor: React.FC<Props> = ({
 
         if (item) {
           const price = getPriceForItem(item, buyableItemIdentifier);
-          const priceNumber = parseInt(price).toFixed(2);
+          const priceNumber = parseFloat(price).toFixed(2);
           const percent = ((newVoucher / priceNumber) * 100).toFixed(2);
           setVoucherPercent(percent);
           setFinalPricePreview((price - newVoucher).toFixed(2));

@@ -7,46 +7,47 @@ import Divider from '@material-ui/core/Divider';
 
 import getUpsellPackageComponent from './UpsellPackage.component';
 
-import { type UpsellPackage } from '#libs/company/types';
-
-import { PlatformSubscription } from '../type';
+import type { UpsellPackage } from '#libs/company/types';
+import type { PlatformSubscription } from '../type';
 
 import PlatformBillingPlanGroupCard from './PlatformBillingPlanGroupCard.component';
 
-const UpsellPackageList = (props: {
-  upsellPackageList: UpsellPackage[];
-  onKnowMore: (upsellIdentifier: number) => void;
-  handleSubscribe?: (upsellPackage: UpsellPackage) => void;
-}) => {
-  const classes = useStyles();
-  return (
-    <Grid container alignItems="stretch">
-      {props.upsellPackageList
-        .filter((up) => !!up)
-        .map((up) => {
-          const UpsellPackageComponent = getUpsellPackageComponent(
-            up.upsell_identifier,
-          );
-          return (
-            <Grid
-              key={up.id}
-              item
-              className={classes.upsellPackageItemContainer}
-              lg={4}
-              md={6}
-              sm={12}
-            >
-              <UpsellPackageComponent
-                handleSubscribe={props.handleSubscribe}
-                onKnowMore={props.onKnowMore}
-                upsellPackage={up}
-              />
-            </Grid>
-          );
-        })}
-    </Grid>
-  );
-};
+const UpsellPackageList = React.memo(
+  (props: {
+    upsellPackageList: UpsellPackage[];
+    onKnowMore: (upsellIdentifier: number) => void;
+    handleSubscribe?: (upsellPackage: UpsellPackage) => void;
+  }) => {
+    const classes = useStyles();
+    return (
+      <Grid container alignItems="stretch">
+        {props.upsellPackageList
+          .filter((up) => !!up)
+          .map((up) => {
+            const UpsellPackageComponent = getUpsellPackageComponent(
+              up.upsell_identifier,
+            );
+            return (
+              <Grid
+                key={up.id}
+                item
+                className={classes.upsellPackageItemContainer}
+                lg={4}
+                md={6}
+                sm={12}
+              >
+                <UpsellPackageComponent
+                  handleSubscribe={props.handleSubscribe}
+                  onKnowMore={props.onKnowMore}
+                  upsellPackage={up}
+                />
+              </Grid>
+            );
+          })}
+      </Grid>
+    );
+  },
+);
 
 type Props = {
   onKnowMore: (upsellIdentifier: number) => void;
@@ -56,13 +57,13 @@ type Props = {
   nonSubscribedUpsellPackages: UpsellPackage[];
 };
 
-export const CompanyPlatformBillinGroupDetail = ({
+export const CompanyPlatformBillinGroupDetail: React.FC<Props> = ({
   onKnowMore,
   handleSubscribe,
   platformSubscription,
   subscribedUpsellPackages,
   nonSubscribedUpsellPackages,
-}: Props) => {
+}) => {
   const classes = useStyles();
   const { t } = useTranslation(['platformBilling']);
 
@@ -74,12 +75,14 @@ export const CompanyPlatformBillinGroupDetail = ({
   if (!platformSubscription) {
     return null;
   }
+
   const { platformBillingGroup } = platformSubscription;
   if (!platformBillingGroup) {
     return null;
   }
+
   return (
-    <div className={classes.container}>
+    <>
       {subscribedUpsellPackages?.length > 0 && (
         <React.Fragment>
           <Typography variant="h5">
@@ -124,14 +127,11 @@ export const CompanyPlatformBillinGroupDetail = ({
         defaultCurrencyDisplay={platformSubscription?.default_currency_display}
         platformBillingGroup={platformBillingGroup}
       />
-    </div>
+    </>
   );
 };
 
 const useStyles = makeStyles((theme) => ({
-  container: {
-    padding: theme.spacing(4),
-  },
   upsellSection: {
     marginTop: theme.spacing(4),
   },
@@ -139,51 +139,13 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(2),
   },
-  planContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'stretch',
-    marginTop: theme.spacing(3),
-  },
-  planCard: {
-    flex: 1,
-    marginRight: '-20%',
-    paddingRight: '20%',
-  },
-  planInner: {
-    padding: theme.spacing(2),
-    maxWidth: 800,
-  },
-  planTitle: {
-    marginBottom: theme.spacing(2),
-  },
-  planDescription: {
-    marginBottom: theme.spacing(2),
-    marginTop: theme.spacing(3),
-  },
-  planMaxRow: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    width: '100%',
-  },
-  planRowLeft: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-  },
-  iconLeft: {
-    marginRight: theme.spacing(1),
-  },
-  iconRight: {
-    marginLeft: theme.spacing(2),
-  },
   upsellPackageItemContainer: {
     paddingRight: theme.spacing(2),
     paddingBottom: theme.spacing(2),
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+    },
   },
 }));
 
-export default CompanyPlatformBillinGroupDetail;
+export default React.memo(CompanyPlatformBillinGroupDetail);

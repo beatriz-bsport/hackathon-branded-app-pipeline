@@ -135,9 +135,6 @@ const useStyles = makeStyles((theme) => ({
   divider: {
     marginBottom: theme.spacing(2),
   },
-  container: {
-    padding: theme.spacing(4),
-  },
   sectionTitle: {
     marginBottom: theme.spacing(2),
   },

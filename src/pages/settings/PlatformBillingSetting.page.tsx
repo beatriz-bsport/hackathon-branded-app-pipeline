@@ -1,5 +1,6 @@
 import React from 'react';
 import withStyles, { ClassNameMap } from '@material-ui/core/styles/withStyles';
+import createStyles from '@material-ui/core/styles/createStyles';
 import { compose, withHandlers, withState } from 'recompose';
 import { connect } from 'react-redux';
 
@@ -8,14 +9,14 @@ import { withTranslation } from 'react-i18next';
 import { push as pushAction } from 'connected-react-router';
 import Grid from '@material-ui/core/Grid';
 
-import { Theme } from '@material-ui/core';
-import { UniqueIdentifier } from '@dnd-kit/core';
-import { TFunction } from 'i18next';
+import type { Theme } from '@material-ui/core/styles';
+import type { UniqueIdentifier } from '@dnd-kit/core';
+import type { TFunction } from 'i18next';
 
+import type { OptionCallback } from '../../state/types';
+import type { RootState } from '../../reducers';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { OptionCallback } from '../../state/types';
-import { RootState } from '../../reducers';
 import {
   fetchPlatformInvoiceList as fetchPlatformInvoiceListAction,
   payNowInvoice as payNowInvoiceAction,
@@ -58,12 +59,12 @@ import PayoutList from '#libs/payment/components/PayoutList.component';
 // import StripeBalance from '#libs/payment/components/StripeBalance.component';
 import { fetchCompanyTheme as fetchCompanyThemeAction } from '#libs/theme/actions';
 
-import type { PaymentMethod, Payout } from '#libs/payment/types';
 import type {
   PlatformInvoice,
   PlatformSubscription,
 } from '#libs/platform-billing/type';
-import { UpsellPackage } from '#libs/company/types';
+import type { PaymentMethod, Payout } from '#libs/payment/types';
+import type { UpsellPackage } from '#libs/company/types';
 import UpsellPackageSubscriptionDrawer from '#libs/platform-billing/components/UpsellPackageSubscriptionDrawer.component';
 
 const { trackFormAdd, trackFormSubmitIntent, trackFormSuccess } =
@@ -127,7 +128,7 @@ type State = {
   upsellSubscriptionLoading: boolean;
 };
 
-export class PlatformBillingSettings extends React.Component<Props, State> {
+export class PlatformBillingSetting extends React.Component<Props, State> {
   state: State = {
     openSubscribeModal: false,
     selectedUpsellPackage: null,
@@ -201,7 +202,7 @@ export class PlatformBillingSettings extends React.Component<Props, State> {
 
     return (
       <div className={classes.container}>
-        <Grid container className={classes.container} direction="row">
+        <Grid container direction="row">
           <Grid item className={classes.leftColumn} md={6} xs={12}>
             <PayoutList
               fetchMorePayoutList={this.props.fetchPayoutList}
@@ -258,18 +259,25 @@ export class PlatformBillingSettings extends React.Component<Props, State> {
   }
 }
 
-const styles = (theme: Theme) => ({
-  isEmpty: {
-    marginTop: theme.spacing(4),
-  },
-  container: {
-    padding: theme.spacing(4),
-  },
-  leftColumn: {
-    paddingRight: theme.spacing(2),
-    paddingBottom: theme.spacing(2),
-  },
-});
+const styles = (theme: Theme) =>
+  createStyles({
+    isEmpty: {
+      marginTop: theme.spacing(4),
+    },
+    container: {
+      padding: theme.spacing(4),
+      [theme.breakpoints.down('sm')]: {
+        padding: theme.spacing(2),
+      },
+      display: 'flex',
+      flexDirection: 'column',
+      gap: theme.spacing(2),
+    },
+    leftColumn: {
+      paddingRight: theme.spacing(2),
+      paddingBottom: theme.spacing(2),
+    },
+  });
 
 export default compose(
   withTranslation(['platformBilling']),
@@ -358,4 +366,4 @@ export default compose(
         requestUpsellPackage(upsellIdentifier);
       },
   }),
-)(PlatformBillingSettings);
+)(PlatformBillingSetting);

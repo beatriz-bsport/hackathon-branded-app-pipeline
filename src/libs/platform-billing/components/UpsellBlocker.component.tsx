@@ -160,11 +160,16 @@ export const UpsellBlockerDialog = React.memo(
                 </Typography>
               </div>
               <div className={classes.buttonsContainer}>
-                {!handleOpenSubscriptionForm && (
-                  <Button onClick={handleRequestUpsellPackage}>
-                    {t('upsellPackage.lockDialog.requestAccess')}
-                  </Button>
-                )}
+                {requestUpsellPackage &&
+                  handleRequestUpsellPackage &&
+                  !handleOpenSubscriptionForm && (
+                    <Button
+                      color="primary"
+                      onClick={handleRequestUpsellPackage}
+                    >
+                      {t('upsellPackage.lockDialog.requestAccess')}
+                    </Button>
+                  )}
                 {handleOpenSubscriptionForm && (
                   <Button
                     color="primary"

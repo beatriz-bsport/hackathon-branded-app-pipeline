@@ -52,16 +52,14 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
   },
   pseudoDialog: {
-    padding: theme.spacing(4),
+    padding: theme.spacing(1),
   },
   innerPaper: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    '&>*': {
-      marginBottom: theme.spacing(4),
-    },
+    gap: theme.spacing(2),
     maxWidth: 500,
   },
   buttonsContainer: {
@@ -71,6 +69,9 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     marginBottom: 0,
   },
+  iconContainer: {
+    padding: theme.spacing(1),
+  },
   largeIconContainer: {
     display: 'flex',
     alignItems: 'center',
@@ -78,6 +79,10 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '100%',
     width: '110px',
     height: '110px',
+  },
+  textContainer: {
+    paddingRight: theme.spacing(1),
+    paddingLeft: theme.spacing(1),
   },
 }));
 
@@ -131,23 +136,29 @@ export const UpsellBlockerDialog = React.memo(
         <div className={classes.pseudoDialogContainer}>
           <Paper className={classes.pseudoDialog} elevation={3}>
             <div className={classes.innerPaper}>
-              {CustomIconComponent ? (
-                <div className={classes.largeIconContainer}>
-                  {CustomIconComponent}
-                </div>
-              ) : (
-                <WelcomeIcon
-                  fill={theme.palette.primary.main}
-                  height={96}
-                  width={96}
-                />
-              )}
-              <Typography align="center" variant="h6">
-                {t(`upsellPackage.lockDialog.${upsellIdentifier}.intro`)}
-              </Typography>
-              <Typography align="center">
-                {t(`upsellPackage.lockDialog.${upsellIdentifier}.explain`)}
-              </Typography>
+              <div className={classes.iconContainer}>
+                {CustomIconComponent ? (
+                  <div className={classes.largeIconContainer}>
+                    {CustomIconComponent}
+                  </div>
+                ) : (
+                  <WelcomeIcon
+                    fill={theme.palette.primary.main}
+                    height={96}
+                    width={96}
+                  />
+                )}
+              </div>
+              <div className={classes.textContainer}>
+                <Typography align="center" variant="h6">
+                  {t(`upsellPackage.lockDialog.${upsellIdentifier}.intro`)}
+                </Typography>
+              </div>
+              <div className={classes.textContainer}>
+                <Typography align="center">
+                  {t(`upsellPackage.lockDialog.${upsellIdentifier}.explain`)}
+                </Typography>
+              </div>
               <div className={classes.buttonsContainer}>
                 {!handleOpenSubscriptionForm && (
                   <Button onClick={handleRequestUpsellPackage}>

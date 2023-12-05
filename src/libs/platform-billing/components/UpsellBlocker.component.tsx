@@ -69,6 +69,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     width: '100%',
+    marginBottom: 0,
   },
   knowMoreButton: {
     color: theme.palette.grey[700],

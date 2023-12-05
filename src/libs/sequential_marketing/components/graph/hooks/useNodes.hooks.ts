@@ -149,8 +149,6 @@ type NodeRendererProps = {
   storedSteps: StoredStep[];
   storedTriggers: Immutable.ImmutableArray<StoredTrigger>;
   fakerTrigger?: StoredTrigger;
-  hideDeleteStepDialogCadenceIds: number[];
-  hideConvertStepIntoExitDialogCadenceIds: number[];
   isDeleteStepDialogHidden: boolean;
   isConvertStepIntoExitDialogHidden: boolean;
   isPushNotificationUpsellActive: boolean;
@@ -203,8 +201,8 @@ type NodeRendererProps = {
   upsertMarketingAction: (
     marketingAction: Partial<StepMarketingActions>,
   ) => void;
-  doNotDisplayDeleteStepDialogCadenceIdsAction: () => void;
-  doNotDisplayConvertStepIntoExitDialogCadenceIdsAction: () => void;
+  doNotDisplayDeleteStepDialogAnymore: () => void;
+  doNotDisplayConvertStepIntoExitDialogAnymore: () => void;
   setInitialConfig: (data: CadenceInitialConfiguration) => void;
   setCurrentStepConfiguration: (
     currentStepConfiguration: InitialConfigurationStep,
@@ -222,8 +220,6 @@ export const useNodeElementsRecorder = ({
   storedEntryStep,
   storedSteps,
   storedTriggers,
-  hideDeleteStepDialogCadenceIds,
-  hideConvertStepIntoExitDialogCadenceIds,
   isDeleteStepDialogHidden,
   isConvertStepIntoExitDialogHidden,
   isPushNotificationUpsellActive,
@@ -246,8 +242,8 @@ export const useNodeElementsRecorder = ({
   setCurrentStepConfiguration,
   setInitialConfig,
   upsertMarketingAction,
-  doNotDisplayDeleteStepDialogCadenceIdsAction,
-  doNotDisplayConvertStepIntoExitDialogCadenceIdsAction,
+  doNotDisplayDeleteStepDialogAnymore,
+  doNotDisplayConvertStepIntoExitDialogAnymore,
   submitMarketingActionForm,
   updateCadenceStepName,
 }: NodeRendererProps) => {
@@ -554,14 +550,14 @@ export const useNodeElementsRecorder = ({
           marketingActionList: getStepMarketingActions?.(stepNode?.id),
           marketingActionEssentials,
           stepToEditId,
-          hideDeleteStepDialogCadenceIds,
-          hideConvertStepIntoExitDialogCadenceIds,
           isDeleteStepDialogHidden,
           isConvertStepIntoExitDialogHidden,
           isPushNotificationUpsellActive,
           stepMemberCount: getStepMemberCountActions?.(stepNode?.id),
           addNextStep: handleAddNextStepTrigger(stepNode),
           deleteStepMarketingAction,
+          doNotDisplayConvertStepIntoExitDialogAnymore,
+          doNotDisplayDeleteStepDialogAnymore,
           endStepEdition: handleResetStepToEditId,
           getEmailTemplate,
           getTag,
@@ -581,10 +577,12 @@ export const useNodeElementsRecorder = ({
     cadenceEditMode,
     storedSteps,
     isPushNotificationUpsellActive,
+    isDeleteStepDialogHidden,
+    isConvertStepIntoExitDialogHidden,
     stepToEditId,
     deleteStepMarketingAction,
-    doNotDisplayConvertStepIntoExitDialogCadenceIdsAction,
-    doNotDisplayDeleteStepDialogCadenceIdsAction,
+    doNotDisplayConvertStepIntoExitDialogAnymore,
+    doNotDisplayDeleteStepDialogAnymore,
     getEmailTemplate,
     getStepMemberCountActions,
     getTag,

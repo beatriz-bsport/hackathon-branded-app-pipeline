@@ -36,17 +36,15 @@ const rfStyle = {
 
 type Props = {
   cadence: Cadence;
-  cadenceEditMode: boolean;
-  currentStepConfiguration: InitialConfigurationStep;
-  smartlists: Immutable.ImmutableArray<SmartList>;
-  initialConfiguration: CadenceInitialConfiguration;
-  isEntryFirstConfiguration: boolean;
   steps: CadenceStep[];
-  hideDeleteStepDialogCadenceIds: number[];
-  hideConvertStepIntoExitDialogCadenceIds: number[];
-  isDeleteStepDialogHidden: boolean;
+  currentStepConfiguration: InitialConfigurationStep;
+  initialConfiguration: CadenceInitialConfiguration;
+  cadenceEditMode: boolean;
   isConvertStepIntoExitDialogHidden: boolean;
+  isDeleteStepDialogHidden: boolean;
+  isEntryFirstConfiguration: boolean;
   isPushNotificationUpsellActive: boolean;
+  smartlists: Immutable.ImmutableArray<SmartList>;
   convertCadenceStepIntoExit: (
     stepId: number,
     status: DestinationStatus,
@@ -65,6 +63,8 @@ type Props = {
     sourceStepId: number,
   ) => void;
   deleteStepMarketingAction: (data: { id: number; stepId: number }) => void;
+  doNotDisplayConvertStepIntoExitDialogAnymore: () => void;
+  doNotDisplayDeleteStepDialogAnymore: () => void;
   editConnectedTrigger: (
     trigger: ConnectedTrigger,
     options?: OptionCallback<ConnectedTrigger>,
@@ -105,8 +105,6 @@ type Props = {
   upsertMarketingAction: (
     marketingAction: Partial<StepMarketingActions>,
   ) => void;
-  doNotDisplayDeleteStepDialogCadenceIdsAction: () => void;
-  doNotDisplayConvertStepIntoExitDialogAnymoreAction: () => void;
 } & MarketingActionEssentials;
 
 export const CadenceGraphFlow: React.FC<Props> = ({
@@ -118,17 +116,15 @@ export const CadenceGraphFlow: React.FC<Props> = ({
   emailSummaryList,
   emailSummaryListLoading,
   initialConfiguration,
+  isConvertStepIntoExitDialogHidden,
+  isDeleteStepDialogHidden,
   isEntryFirstConfiguration,
+  isPushNotificationUpsellActive,
   resolvedGenericTags,
   smartlists,
   steps,
   tagCategories,
   tagList,
-  hideDeleteStepDialogCadenceIds,
-  hideConvertStepIntoExitDialogCadenceIds,
-  isDeleteStepDialogHidden,
-  isConvertStepIntoExitDialogHidden,
-  isPushNotificationUpsellActive,
   convertCadenceExitIntoStep,
   convertCadenceStepIntoExit,
   deleteCadenceStep,
@@ -154,8 +150,8 @@ export const CadenceGraphFlow: React.FC<Props> = ({
   updateCadenceStepName,
   updateConnectedTriggerPosition,
   upsertMarketingAction,
-  doNotDisplayDeleteStepDialogCadenceIdsAction,
-  doNotDisplayConvertStepIntoExitDialogAnymoreAction,
+  doNotDisplayConvertStepIntoExitDialogAnymore,
+  doNotDisplayDeleteStepDialogAnymore,
 }) => {
   const [displayDisabledTriggers, setDisplayDisabledTriggers] =
     React.useState(false);
@@ -198,8 +194,6 @@ export const CadenceGraphFlow: React.FC<Props> = ({
     isEntryFirstConfiguration,
     smartlists,
     steps,
-    hideDeleteStepDialogCadenceIds,
-    hideConvertStepIntoExitDialogCadenceIds,
     isDeleteStepDialogHidden,
     isConvertStepIntoExitDialogHidden,
     isPushNotificationUpsellActive,
@@ -237,9 +231,8 @@ export const CadenceGraphFlow: React.FC<Props> = ({
       fetchEmailSummaryList,
       getEmailDetail,
     },
-    doNotDisplayDeleteStepDialogCadenceIdsAction,
-    doNotDisplayConvertStepIntoExitDialogCadenceIdsAction:
-      doNotDisplayConvertStepIntoExitDialogAnymoreAction,
+    doNotDisplayConvertStepIntoExitDialogAnymore,
+    doNotDisplayDeleteStepDialogAnymore,
   });
 
   const winTriggers = React.useMemo(

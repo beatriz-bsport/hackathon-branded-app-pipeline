@@ -40,19 +40,19 @@ type FlowProps = {
     stepToEditId: number;
     isDeleteStepDialogHidden: boolean;
     isConvertStepIntoExitDialogHidden: boolean;
-    isPushNotificationUpsellActive?: boolean;
-    upsertMarketingAction: (value: Partial<StepMarketingActions>) => void;
+    isPushNotificationUpsellActive: boolean;
     deleteStepMarketingAction: (data: { id: number; stepId: number }) => void;
+    doNotDisplayConvertStepIntoExitDialogAnymore: () => void;
+    doNotDisplayDeleteStepDialogAnymore: () => void;
     endStepEdition: () => void;
     onConnectToStep: (destinationId: number, triggerKind: TriggerKind) => void;
     submitConvertIntoExit: (status: DestinationStatus) => void;
-    addHideDeleteStepDialogCadenceIds: () => void;
-    addHideConvertStepIntoExitDialogCadenceIds: () => void;
     submitMarketingActionForm: (data: {
       list: StepMarketingActions[];
       stepId: number;
     }) => void;
     updateCadenceStepName: (data: { name: string; stepId: number }) => void;
+    upsertMarketingAction: (value: Partial<StepMarketingActions>) => void;
   } & InnerStepCardProps;
 };
 
@@ -192,7 +192,7 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
   const handleConfirmDeleteStepDialog = React.useCallback(
     (isChecked: boolean) => {
       handleCloseDeleteStepDialog();
-      isChecked && data?.addHideDeleteStepDialogCadenceIds();
+      isChecked && data?.doNotDisplayDeleteStepDialogAnymore?.();
       data?.onDelete();
     },
     [data, handleCloseDeleteStepDialog],
@@ -227,7 +227,7 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
   const handleConfirmConvertStepIntoExitDialog = React.useCallback(
     (isChecked: boolean) => {
       handleCloseConvertStepIntoExitDialog();
-      isChecked && data?.addHideConvertStepIntoExitDialogCadenceIds();
+      isChecked && data?.doNotDisplayConvertStepIntoExitDialogAnymore?.();
       data?.submitConvertIntoExit(destinationStatus);
     },
     [data, destinationStatus, handleCloseConvertStepIntoExitDialog],

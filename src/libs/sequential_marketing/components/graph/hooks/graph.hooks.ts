@@ -35,8 +35,6 @@ type Props = {
   cadenceEditMode: boolean;
   displayDisabledTriggers: boolean;
   marketingActionEssentials: MarketingActionEssentials;
-  hideConvertStepIntoExitDialogCadenceIds: number[];
-  hideDeleteStepDialogCadenceIds: number[];
   initialConfiguration: CadenceInitialConfiguration;
   isConvertStepIntoExitDialogHidden: boolean;
   isPushNotificationUpsellActive: boolean;
@@ -99,8 +97,8 @@ type Props = {
   upsertMarketingAction: (
     marketingAction: Partial<StepMarketingActions>,
   ) => void;
-  doNotDisplayDeleteStepDialogCadenceIdsAction: () => void;
-  doNotDisplayConvertStepIntoExitDialogCadenceIdsAction: () => void;
+  doNotDisplayDeleteStepDialogAnymore: () => void;
+  doNotDisplayConvertStepIntoExitDialogAnymore: () => void;
   setInitialConfig: (data: CadenceInitialConfiguration) => void;
   setCurrentStepConfiguration: (
     currentStepConfiguration: InitialConfigurationStep,
@@ -109,24 +107,24 @@ type Props = {
 
 export const useGraph = ({
   cadence,
+  steps,
   cadenceEditMode,
   displayDisabledTriggers,
   initialConfiguration,
+  isConvertStepIntoExitDialogHidden,
+  isDeleteStepDialogHidden,
   isEntryActionBubbleOpen,
   isEntryFirstConfiguration,
-  smartlists,
-  marketingActionEssentials,
-  steps,
-  hideDeleteStepDialogCadenceIds,
-  hideConvertStepIntoExitDialogCadenceIds,
-  isDeleteStepDialogHidden,
-  isConvertStepIntoExitDialogHidden,
   isPushNotificationUpsellActive,
+  marketingActionEssentials,
+  smartlists,
   convertCadenceExitIntoStep,
   convertCadenceStepIntoExit,
   deleteCadenceStep,
   deleteConnectedTrigger,
   deleteStepMarketingAction,
+  doNotDisplayConvertStepIntoExitDialogAnymore,
+  doNotDisplayDeleteStepDialogAnymore,
   editConnectedTrigger,
   getEmailTemplate,
   getSmartlist,
@@ -138,15 +136,13 @@ export const useGraph = ({
   onClickConnectedTrigger,
   onClickEntryStep,
   resetAllSelection,
-  submitMarketingActionForm,
   setCurrentStepConfiguration,
   setInitialConfig,
+  submitMarketingActionForm,
   updateCadenceStepCanvasPosition,
   updateCadenceStepName,
   updateConnectedTriggerPosition,
   upsertMarketingAction,
-  doNotDisplayDeleteStepDialogCadenceIdsAction,
-  doNotDisplayConvertStepIntoExitDialogCadenceIdsAction,
 }: Props) => {
   const [nodes, setNodes] = React.useState([]);
   const [edges, setEdges] = React.useState([]);
@@ -199,8 +195,6 @@ export const useGraph = ({
       storedEntryStep,
       storedSteps,
       storedTriggers,
-      hideDeleteStepDialogCadenceIds,
-      hideConvertStepIntoExitDialogCadenceIds,
       isDeleteStepDialogHidden,
       isConvertStepIntoExitDialogHidden,
       isPushNotificationUpsellActive,
@@ -209,6 +203,8 @@ export const useGraph = ({
       deleteCadenceStep,
       deleteConnectedTrigger,
       deleteStepMarketingAction,
+      doNotDisplayConvertStepIntoExitDialogAnymore,
+      doNotDisplayDeleteStepDialogAnymore,
       editConnectedTrigger,
       getEmailTemplate,
       getSmartlist,
@@ -223,13 +219,11 @@ export const useGraph = ({
       onClickConnectedTrigger,
       onClickEntryStep,
       resetAllSelection,
-      submitMarketingActionForm,
-      updateCadenceStepName,
       setCurrentStepConfiguration,
       setInitialConfig,
+      submitMarketingActionForm,
+      updateCadenceStepName,
       upsertMarketingAction,
-      doNotDisplayDeleteStepDialogCadenceIdsAction,
-      doNotDisplayConvertStepIntoExitDialogCadenceIdsAction,
     });
 
   const onNodeDragStop = React.useCallback(

@@ -25,39 +25,39 @@ import CadenceUtilityDialog, {
 
 type Props = {
   cadence: Cadence;
-  loading: boolean;
   cadenceEditMode: boolean;
-  hidePauseDialogCadenceIds: number[];
+  isPauseDialogHidden: boolean;
+  loading: boolean;
+  doNotDisplayPauseDialogAnymore: () => void;
   goBack: () => void;
-  onEdit: (data: { name: string }, options: OptionCallback) => void;
   onActivate: (options?: OptionCallback) => void;
+  onEdit: (data: { name: string }, options: OptionCallback) => void;
   onShutOff: (options?: OptionCallback) => void;
   switchCadenceEditMode: () => void;
-  doNotDisplayPauseDialogAnymore: (cadenceId: number) => void;
 };
 
 type HeaderActionsProps = {
   cadence: Cadence;
-  loading: boolean;
-  hidePauseDialogCadenceIds: number[];
   cadenceEditMode: boolean;
+  isPauseDialogHidden: boolean;
+  loading: boolean;
   goBack: () => void;
-  setOpenEditDialog: (open: boolean) => void;
+  handleOpenPauseDialog: () => void;
+  handlePause: (isChecked?: boolean) => void;
   setOpenActivateDialog: (open: boolean) => void;
-  openPauseDialog: () => void;
+  setOpenEditDialog: (open: boolean) => void;
   switchCadenceEditMode: () => void;
-  handlePause: (isChecked: boolean) => void;
 };
 
 const CadenceDetailHeaderActions: React.FC<HeaderActionsProps> = React.memo(
   ({
     cadence,
     cadenceEditMode,
-    hidePauseDialogCadenceIds,
+    isPauseDialogHidden,
     loading,
     goBack,
     handlePause,
-    openPauseDialog,
+    handleOpenPauseDialog,
     setOpenActivateDialog,
     setOpenEditDialog,
     switchCadenceEditMode,
@@ -77,13 +77,13 @@ const CadenceDetailHeaderActions: React.FC<HeaderActionsProps> = React.memo(
       [setOpenActivateDialog],
     );
 
-    const handleOpenPauseDialog = React.useCallback(() => {
-      if (!hidePauseDialogCadenceIds.includes(cadence.id)) {
-        openPauseDialog?.();
+    const handlePauseDialog = React.useCallback(() => {
+      if (isPauseDialogHidden) {
+        handlePause?.();
       } else {
-        handlePause(false);
+        handleOpenPauseDialog?.();
       }
-    }, [cadence.id, handlePause, hidePauseDialogCadenceIds, openPauseDialog]);
+    }, [handlePause, isPauseDialogHidden, handleOpenPauseDialog]);
 
     return (
       <>
@@ -115,7 +115,7 @@ const CadenceDetailHeaderActions: React.FC<HeaderActionsProps> = React.memo(
               <Button
                 color="primary"
                 disabled={loading || cadenceEditMode}
-                onClick={handleOpenPauseDialog}
+                onClick={handlePauseDialog}
                 variant="contained"
               >
                 <PauseIcon className={classes.leftIcon} />
@@ -178,7 +178,7 @@ const CadenceDetailHeaderActions: React.FC<HeaderActionsProps> = React.memo(
 export const CadenceDetailHeader: React.FC<Props> = ({
   cadence,
   cadenceEditMode,
-  hidePauseDialogCadenceIds,
+  isPauseDialogHidden,
   loading,
   doNotDisplayPauseDialogAnymore,
   goBack,
@@ -235,14 +235,14 @@ export const CadenceDetailHeader: React.FC<Props> = ({
   }, [onActivate]);
 
   const handlePause = React.useCallback(
-    (isChecked: boolean) => {
+    (isChecked?: boolean) => {
       onShutOff?.({
         onSuccess: () => setOpenPauseDialog(false),
         onError: () => setOpenPauseDialog(false),
       });
-      isChecked && doNotDisplayPauseDialogAnymore(cadence.id);
+      isChecked && doNotDisplayPauseDialogAnymore?.();
     },
-    [doNotDisplayPauseDialogAnymore, cadence.id, onShutOff],
+    [doNotDisplayPauseDialogAnymore, onShutOff],
   );
 
   if (loading || !cadence) {
@@ -265,10 +265,10 @@ export const CadenceDetailHeader: React.FC<Props> = ({
             cadence={cadence}
             cadenceEditMode={cadenceEditMode}
             goBack={goBack}
+            handleOpenPauseDialog={handleOpenPauseDialog}
             handlePause={handlePause}
-            hidePauseDialogCadenceIds={hidePauseDialogCadenceIds}
+            isPauseDialogHidden={isPauseDialogHidden}
             loading={loading}
-            openPauseDialog={handleOpenPauseDialog}
             setOpenActivateDialog={setOpenActivateDialog}
             setOpenEditDialog={setOpenEditDialog}
             switchCadenceEditMode={switchCadenceEditMode}

@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 
 import { WithTranslation, withTranslation } from 'react-i18next';
 
-import { Theme } from '@material-ui/core';
+import { Paper, Theme } from '@material-ui/core';
 import { WithStyles, createStyles } from '@material-ui/styles';
 // @ts-expect-error
 import BroadcastRoomJitsi from './BroadcastJitsi.component';
@@ -100,54 +100,53 @@ export class BroadcastRoom extends React.Component<Props, State> {
     }
 
     return (
-      <div>
-        <div className={this.props.classes.container}>
-          {this.state.hasStarted ? null : (
-            <React.Fragment>
-              <HourglassEmptyIcon style={{ height: '30vh', width: '30vh' }} />
-              <div className={this.props.classes.captionsContainer}>
-                <Typography>
-                  {minutesLeft === 0 ? this.props.t('video.loadingSoon') : null}
-                  {minutesLeft +
-                    this.props.duration_minute +
-                    MINUTES_AFTER_END_DEACTIVATED <=
-                  0
-                    ? this.props.t('video.hasEnded', {
-                        minutesLeft,
-                      })
-                    : null}
-                  {minutesLeft > 0
-                    ? this.props.t('video.startingSoon', {
-                        minutesLeft,
-                      })
-                    : null}
-                </Typography>
-                <Typography
-                  className={this.props.classes.caption}
-                  variant="caption"
-                >
-                  {this.props.t('video.isAutoRefresh')}
-                </Typography>
-              </div>
-            </React.Fragment>
-          )}
-        </div>
-      </div>
+      <Paper className={this.props.classes.root}>
+        {!this.state.hasStarted && (
+          <div className={this.props.classes.container}>
+            <HourglassEmptyIcon style={{ height: '48px', width: '48px' }} />
+            <div className={this.props.classes.captionsContainer}>
+              <Typography variant="body2">
+                {minutesLeft === 0 ? this.props.t('video.loadingSoon') : null}
+                {minutesLeft +
+                  this.props.duration_minute +
+                  MINUTES_AFTER_END_DEACTIVATED <=
+                0
+                  ? this.props.t('video.hasEnded', {
+                      minutesLeft,
+                    })
+                  : null}
+                {minutesLeft > 0
+                  ? this.props.t('video.startingSoon', {
+                      minutesLeft,
+                    })
+                  : null}
+              </Typography>
+              <Typography color="textSecondary" variant="body2">
+                {this.props.t('video.isAutoRefresh')}
+              </Typography>
+            </div>
+          </div>
+        )}
+      </Paper>
     );
   }
 }
 
 const styles = (theme: Theme) =>
   createStyles({
+    root: {
+      marginBottom: theme.spacing(2),
+      paddingTop: theme.spacing(1),
+      paddingBottom: theme.spacing(1),
+    },
     container: {
-      height: '80vh',
-      width: '100%',
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'center',
-    },
-    caption: {
-      marginTop: theme.spacing(1),
+      gap: theme.spacing(2),
+      paddingTop: theme.spacing(3),
+      paddingBottom: theme.spacing(3),
+      paddingLeft: theme.spacing(2),
+      paddingRight: theme.spacing(2),
     },
     captionsContainer: {
       display: 'flex',
@@ -156,6 +155,6 @@ const styles = (theme: Theme) =>
   });
 
 export default compose<Props, OwnProps>(
-  withTranslation(['offer']),
+  withTranslation('offer'),
   withStyles(styles),
 )(BroadcastRoom);

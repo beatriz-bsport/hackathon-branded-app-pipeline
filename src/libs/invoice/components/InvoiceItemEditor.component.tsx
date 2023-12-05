@@ -283,7 +283,7 @@ const InvoiceItemEditor: React.FC<Props> = ({
 
   const handleOnBlurVoucherCredit = useCallback(() => {
     // Depending on how you change the state, prevState and toFixed might not exist
-    setVoucher((prevState) => parseFloat(prevState)?.toFixed?.(2));
+    setVoucher((prevState) => parseFloat(prevState).toFixed(2));
   }, []);
 
   const onChangeVoucherPercent = useCallback(
@@ -335,9 +335,12 @@ const InvoiceItemEditor: React.FC<Props> = ({
 
   const handleOnChangeFinalPricePreview = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
-      const finalPrice =
-        Math.round(parseFloat(event.target.value) * 100) / 100 || 0;
-      setFinalPricePreview(finalPrice.toString());
+      const pricePreview = event.target.value;
+      const pricePreviewNumber = parseFloat(pricePreview) || 0;
+      const roundedPricePreviewNumber = parseFloat(
+        pricePreviewNumber.toFixed(2),
+      );
+      setFinalPricePreview(pricePreview);
 
       if (
         buyableItemIdentifier &&
@@ -351,9 +354,15 @@ const InvoiceItemEditor: React.FC<Props> = ({
           const itemPrice = getPriceForItem(item, buyableItemIdentifier);
           const priceNumber = parseFloat(itemPrice);
           const newPercent = priceNumber
-            ? parseFloat(((1 - finalPrice / priceNumber) * 100).toFixed(2))
-            : '0,00';
-          const newVoucher = parseFloat((priceNumber - finalPrice).toFixed(2));
+            ? parseFloat(
+                ((1 - roundedPricePreviewNumber / priceNumber) * 100).toFixed(
+                  2,
+                ),
+              )
+            : 0;
+          const newVoucher = parseFloat(
+            (priceNumber - roundedPricePreviewNumber).toFixed(2),
+          );
           setVoucher(newVoucher.toFixed(2));
           setErrors(
             newVoucher < 0 ||
@@ -375,7 +384,7 @@ const InvoiceItemEditor: React.FC<Props> = ({
 
   const handleFinalPricePreviewOnBlur = useCallback(() => {
     // Depending on how you change the state, prevState and toFixed might not exist
-    setFinalPricePreview((prevState) => parseFloat(prevState)?.toFixed?.(2));
+    setFinalPricePreview((prevState) => parseFloat(prevState).toFixed(2));
   }, []);
 
   React.useEffect(() => {

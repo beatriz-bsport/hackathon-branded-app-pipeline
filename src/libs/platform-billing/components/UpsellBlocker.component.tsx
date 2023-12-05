@@ -71,10 +71,6 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     marginBottom: 0,
   },
-  knowMoreButton: {
-    color: theme.palette.grey[700],
-    marginRight: theme.spacing(2),
-  },
   largeIconContainer: {
     display: 'flex',
     alignItems: 'center',
@@ -154,10 +150,7 @@ export const UpsellBlockerDialog = React.memo(
               </Typography>
               <div className={classes.buttonsContainer}>
                 {!handleOpenSubscriptionForm && (
-                  <Button
-                    className={classes.knowMoreButton}
-                    onClick={handleRequestUpsellPackage}
-                  >
+                  <Button onClick={handleRequestUpsellPackage}>
                     {t('upsellPackage.lockDialog.requestAccess')}
                   </Button>
                 )}
@@ -166,7 +159,6 @@ export const UpsellBlockerDialog = React.memo(
                     color="primary"
                     disabled={!upsellPackage}
                     onClick={handleOpenSubscriptionForm}
-                    variant="contained"
                   >
                     {t('upsellPackage.seeMore')}
                   </Button>

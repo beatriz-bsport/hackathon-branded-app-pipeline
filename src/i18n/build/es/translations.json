@@ -8980,7 +8980,7 @@
                 "12": "Smartlist",
                 "71": "Recibidos",
                 "70": "Enviados",
-                "15": "Cadencia",
+                "15": "{{ audienceCamelCase }}",
                 "16": "Franquicia"
             },
             "sendParameter": {

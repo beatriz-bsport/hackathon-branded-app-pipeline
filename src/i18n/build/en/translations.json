@@ -2889,7 +2889,7 @@
                 "12": "Smartlist",
                 "71": "Received",
                 "70": "Sent",
-                "15": "Cadence"
+                "15": "{{ audienceCamelCase }}"
             },
             "sendParameter": {
                 "placeholder": "Select a setting",

@@ -1014,7 +1014,7 @@
                 "70": "Enviado para",
                 "71": "Receitas",
                 "14": "Email transacional",
-                "15": "Sequência",
+                "15": "{{ audienceCamelCase }}",
                 "13": "Notificação",
                 "30": "Agendamento",
                 "31": "Marcações canceladas",

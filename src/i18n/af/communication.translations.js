@@ -245,7 +245,7 @@ const getTranslations = async () => {
         [COMMUNICATION_SEND_PARAMETER_MANUAL]: 'Manual',
         [COMMUNICATION_SRC_OR_DST_SENT]: 'Sent',
         [COMMUNICATION_SRC_OR_DST_RECEIVED]: 'Received',
-        [COMMUNICATION_CHANNEL_CADENCE]: 'Cadence',
+        [COMMUNICATION_CHANNEL_CADENCE]: '{{ audienceCamelCase }}',
         [COMMUNICATION_CHANNEL_FRANCHISE]: 'Franchise',
       },
       sendParameter: { placeholder: 'Select a setting', title: 'Settings' },

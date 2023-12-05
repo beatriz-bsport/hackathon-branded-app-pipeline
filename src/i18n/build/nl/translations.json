@@ -1949,7 +1949,7 @@
                 "12": "Smartlist",
                 "71": "Ontvangen",
                 "70": "Verzonden",
-                "15": "Cadence",
+                "15": "{{ audienceCamelCase }}",
                 "16": "Franchise"
             },
             "sendParameter": {

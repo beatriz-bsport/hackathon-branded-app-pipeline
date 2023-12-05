@@ -11479,7 +11479,7 @@
                 "2": "Push-Benachrichtigung",
                 "1": "SMS",
                 "0": "E-Mail",
-                "15": "Kadenz",
+                "15": "{{ audienceCamelCase }}",
                 "16": "Franchise"
             },
             "srcOrDst": {

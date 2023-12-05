@@ -50,6 +50,7 @@ import { fetchPaymentComboList as fetchPaymentComboListAction } from '#libs/paym
 import { getPaymentComboList } from '#libs/payment-combo/selectors';
 import { fetchContractList as fetchContractListAction } from '#libs/subscription/actions';
 import { getAvailableContractListCustomer } from '#libs/subscription/selectors';
+import CheckInTabletSettingsForm from '#libs/theme/components/CheckInTabletSettingsForm.component';
 
 type Props = {
   theme: CompanyTheme,
@@ -183,6 +184,13 @@ export class ThemePersonalize extends Component<Props> {
                 </>
               )}
             </div>
+          </Paper>
+          <Paper className={classes.paper}>
+            <CheckInTabletSettingsForm
+              company={theme.company}
+              minute={theme.checkin_tablet_visible_session_cutoff_minute}
+              onSubmit={submitTheme}
+            />
           </Paper>
         </div>
       </>

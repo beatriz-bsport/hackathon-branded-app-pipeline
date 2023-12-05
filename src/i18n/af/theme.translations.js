@@ -391,6 +391,14 @@ const getTranslations = async () => {
           subTitle: 'Product order',
         },
       },
+      checkInPersonalization: {
+        title: 'Checkin tablet',
+        settings: {
+          beforeStartTime:
+            'Past sessions are still displayed <0/> hour(s) and <1/> minute(s) after their start time',
+          save: 'Save',
+        },
+      },
     },
     pageTitles: {
       theme: 'General',

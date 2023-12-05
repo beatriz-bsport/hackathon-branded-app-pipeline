@@ -124,6 +124,7 @@ export type Theme = {
   display_bubble_background: boolean;
   show_past_sessions_calendar: boolean;
   mobile_app_default_page: DefaultPageOption;
+  checkin_tablet_visible_session_cutoff_minute: number;
 };
 
 export type ThemeState = {

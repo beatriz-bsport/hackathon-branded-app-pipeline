@@ -72,3 +72,9 @@ export const getCustomCurrencyDisplayWithPrice = (
 };
 
 export const MAX_COLOR_BRIGHTNESS = 210;
+
+export const minsToHrMins = (minutesToConvert: number) => {
+  const hours = Math.floor(minutesToConvert / 60);
+  const minutes = minutesToConvert % 60;
+  return { hours, minutes };
+};

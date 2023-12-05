@@ -1,15 +1,11 @@
 // @flow
 import React from 'react';
 import { withTranslation, TFunction } from 'react-i18next';
+import type { BroadcastInfo } from '../../booking/types';
 
 type Props = {
   t: TFunction,
-  broadcast_info: {
-    // TODO TYPES, use BookingBroadCastRoom type
-    room: string,
-    domain: string,
-    provider: string,
-  },
+  broadcast_info: BroadcastInfo,
 };
 export class BroadcastRoomWhereby extends React.Component<Props> {
   openLink = () => {

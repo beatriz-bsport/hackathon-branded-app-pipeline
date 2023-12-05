@@ -5,7 +5,7 @@ import type {
   BookingModificationActionIdentifier,
 } from '#libs/role/types';
 
-export type BookingBroadCastRoom = {
+export type BroadcastInfo = {
   id: number;
   room: string;
   domain: string;
@@ -97,7 +97,7 @@ type WithPagination = {
 export type BookingsState = {
   byId: { [key: string]: Booking };
   broadcast: ErrorAndLoading & {
-    byId: { [key: string]: BookingBroadCastRoom };
+    byId: { [key: string]: BroadcastInfo };
   };
   byMember: ErrorAndLoading & WithPagination & { allIds: number[] };
   asConsumer: ErrorAndLoading & WithPagination & { allIds: number[] };

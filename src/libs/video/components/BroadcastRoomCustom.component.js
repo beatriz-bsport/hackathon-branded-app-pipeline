@@ -6,14 +6,11 @@ import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
 import WarningIcon from '@material-ui/icons/Warning';
 import Typography from '@material-ui/core/Typography';
+import type { BroadcastInfo } from '../../booking/types';
 
 type Props = {
   t: TFunction,
-  broadcast_info: {
-    room: string,
-    domain: string,
-    provider: string,
-  },
+  broadcast_info: BroadcastInfo,
 };
 
 class ErrorCatcher extends React.Component<

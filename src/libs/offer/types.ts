@@ -31,6 +31,7 @@ import { OffersGroup } from '#libs/group-offer/types';
 import { OFFER_RECURRENCE } from './constants';
 import { SpotInformation } from '#libs/spot-scheduling/types';
 import { Level } from '#libs/level/types';
+import { BroadcastInfo } from '#libs/booking/types';
 
 export type OfferFilter = {
   establishments?: number[];
@@ -158,6 +159,7 @@ export type Offer<
   is_broadcast: boolean;
   source: number;
   tax?: number;
+  broadcast_info?: BroadcastInfo;
 };
 
 export type Offer_FULL = Offer<

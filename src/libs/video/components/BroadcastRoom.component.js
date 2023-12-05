@@ -11,14 +11,11 @@ import { withTranslation, TFunction } from 'react-i18next';
 import BroadcastRoomJitsi from './BroadcastJitsi.component';
 import BroadcastRoomWhereby from './BroadcastRoomWhereby.component';
 import BroadcastRoomCustom from './BroadcastRoomCustom.component';
+import type { BroadcastInfo } from '../../booking/types';
 
 type Props = {
   t: TFunction,
-  broadcast_info: {
-    room: string,
-    domain: string,
-    provider: string,
-  },
+  broadcast_info: BroadcastInfo,
   classes: Object,
   date_start: string,
   duration_minute: number,

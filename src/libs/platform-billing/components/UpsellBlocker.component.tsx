@@ -91,101 +91,122 @@ type Props = {
   CustomIconComponent?: JSX.Element;
 } & ConnectedProps<typeof connector>;
 
-const UpsellBlocker = ({
-  upsellIdentifier,
-  CustomIconComponent,
-  featureList,
-  requestUpsellPackage,
-  handleOpenSubscriptionForm,
-  upsellPackage,
-}: Props) => {
-  const classes = useStyles();
-  const theme = useTheme();
-  const { t } = useTranslation('platformBilling');
+export const UpsellBlockerDialog = React.memo(
+  ({
+    upsellIdentifier,
+    CustomIconComponent,
+    requestUpsellPackage,
+    handleOpenSubscriptionForm,
+    upsellPackage,
+  }: Omit<Props, 'featureList' | 'subscribeUpsellPackage'>) => {
+    const classes = useStyles();
+    const theme = useTheme();
+    const { t } = useTranslation('platformBilling');
 
-  const allow = hasUpsell(featureList, upsellIdentifier);
+    const location = useLocation();
 
-  const location = useLocation();
+    const [isFeatureRequestDialogOpen, setIsFeatureRequestDialogOpen] =
+      React.useState(false);
 
-  const [isFeatureRequestDialogOpen, setIsFeatureRequestDialogOpen] =
-    React.useState(false);
+    const handleCloseFeatureRequestDialog = React.useCallback(() => {
+      setIsFeatureRequestDialogOpen(false);
+    }, []);
 
-  const handleCloseFeatureRequestDialog = React.useCallback(() => {
-    setIsFeatureRequestDialogOpen(false);
-  }, []);
+    const handleRequestUpsellPackage = React.useCallback(() => {
+      requestUpsellPackage(upsellIdentifier);
+      setIsFeatureRequestDialogOpen(true);
+    }, [requestUpsellPackage, upsellIdentifier]);
 
-  const handleRequestUpsellPackage = React.useCallback(() => {
-    requestUpsellPackage(upsellIdentifier);
-    setIsFeatureRequestDialogOpen(true);
-  }, [requestUpsellPackage, upsellIdentifier]);
+    const isPageContent = !(
+      location.pathname.includes('/spot-scheduling') ||
+      /\/audience\/\d+/.test(location.pathname) ||
+      location.pathname.includes('/inbox/')
+    );
 
-  if (allow || Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production') {
-    return null;
-  }
-
-  const isPageContent = !(
-    location.pathname.includes('/spot-scheduling') ||
-    /\/audience\/\d+/.test(location.pathname) ||
-    /\/audience\/wip\/\d+/.test(location.pathname) ||
-    location.pathname.includes('/inbox/')
-  );
-
-  return (
-    <div
-      className={classNames(classes.blockerFrame, {
-        [classes.blockerFrameForContentPages]: isPageContent,
-      })}
-    >
-      <div className={classes.pseudoDialogContainer}>
-        <Paper className={classes.pseudoDialog} elevation={3}>
-          <div className={classes.innerPaper}>
-            {CustomIconComponent ? (
-              <div className={classes.largeIconContainer}>
-                {CustomIconComponent}
+    return (
+      <div
+        className={classNames(classes.blockerFrame, {
+          [classes.blockerFrameForContentPages]: isPageContent,
+        })}
+      >
+        <div className={classes.pseudoDialogContainer}>
+          <Paper className={classes.pseudoDialog} elevation={3}>
+            <div className={classes.innerPaper}>
+              {CustomIconComponent ? (
+                <div className={classes.largeIconContainer}>
+                  {CustomIconComponent}
+                </div>
+              ) : (
+                <WelcomeIcon
+                  fill={theme.palette.primary.main}
+                  height={96}
+                  width={96}
+                />
+              )}
+              <Typography align="center" variant="h6">
+                {t(`upsellPackage.lockDialog.${upsellIdentifier}.intro`)}
+              </Typography>
+              <Typography align="center">
+                {t(`upsellPackage.lockDialog.${upsellIdentifier}.explain`)}
+              </Typography>
+              <div className={classes.buttonsContainer}>
+                {!handleOpenSubscriptionForm && (
+                  <Button
+                    className={classes.knowMoreButton}
+                    onClick={handleRequestUpsellPackage}
+                  >
+                    {t('upsellPackage.lockDialog.requestAccess')}
+                  </Button>
+                )}
+                {handleOpenSubscriptionForm && (
+                  <Button
+                    color="primary"
+                    disabled={!upsellPackage}
+                    onClick={handleOpenSubscriptionForm}
+                    variant="contained"
+                  >
+                    {t('upsellPackage.seeMore')}
+                  </Button>
+                )}
               </div>
-            ) : (
-              <WelcomeIcon
-                fill={theme.palette.primary.main}
-                height={96}
-                width={96}
-              />
-            )}
-            <Typography align="center" variant="h6">
-              {t(`upsellPackage.lockDialog.${upsellIdentifier}.intro`)}
-            </Typography>
-            <Typography align="center">
-              {t(`upsellPackage.lockDialog.${upsellIdentifier}.explain`)}
-            </Typography>
-            <div className={classes.buttonsContainer}>
-              {!handleOpenSubscriptionForm && (
-                <Button
-                  className={classes.knowMoreButton}
-                  onClick={handleRequestUpsellPackage}
-                >
-                  {t('upsellPackage.lockDialog.requestAccess')}
-                </Button>
-              )}
-              {handleOpenSubscriptionForm && (
-                <Button
-                  color="primary"
-                  disabled={!upsellPackage}
-                  onClick={handleOpenSubscriptionForm}
-                  variant="contained"
-                >
-                  {t('upsellPackage.seeMore')}
-                </Button>
-              )}
             </div>
-          </div>
-        </Paper>
+          </Paper>
+        </div>
+        <FeatureRequestDialog
+          onClose={handleCloseFeatureRequestDialog}
+          open={isFeatureRequestDialogOpen}
+        />
       </div>
-      <FeatureRequestDialog
-        onClose={handleCloseFeatureRequestDialog}
-        open={isFeatureRequestDialogOpen}
+    );
+  },
+);
+
+const UpsellBlocker = React.memo(
+  ({
+    upsellIdentifier,
+    CustomIconComponent,
+    featureList,
+    requestUpsellPackage,
+    handleOpenSubscriptionForm,
+    upsellPackage,
+  }: Props) => {
+    const allow = hasUpsell(featureList, upsellIdentifier);
+
+    if (allow || Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production') {
+      return null;
+    }
+
+    return (
+      <UpsellBlockerDialog
+        CustomIconComponent={CustomIconComponent}
+        handleOpenSubscriptionForm={handleOpenSubscriptionForm}
+        requestUpsellPackage={requestUpsellPackage}
+        upsellIdentifier={upsellIdentifier}
+        upsellPackage={upsellPackage}
       />
-    </div>
-  );
-};
+    );
+  },
+);
 
 const connector = connect(
   (state: RootState) => ({

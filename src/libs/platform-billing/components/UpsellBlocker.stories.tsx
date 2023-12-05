@@ -1,5 +1,5 @@
 import React from 'react';
-import UpsellBlocker from './UpsellBlocker.component';
+import { UpsellBlockerDialog } from './UpsellBlocker.component';
 import type { ComponentMeta } from '@storybook/react';
 
 import { action } from '@storybook/addon-actions';
@@ -10,34 +10,63 @@ const actionData = {
   onClick: action('onClick'),
 };
 
-const CustomUpsellBlockerTemplate = (
-  args: React.ComponentProps<typeof UpsellBlocker>,
-) => <UpsellBlocker {...args} />;
+const CustomUpsellBlockerDialogTemplate = (
+  args: React.ComponentProps<typeof UpsellBlockerDialog>,
+) => <UpsellBlockerDialog {...args} />;
 
-export const CadenceBlocker = CustomUpsellBlockerTemplate.bind({});
-CadenceBlocker.args = {
+export const AudienceBlocker = CustomUpsellBlockerDialogTemplate.bind({});
+AudienceBlocker.args = {
   upsellIdentifier: 31,
   CustomIconComponent: <CustomStarIcon />,
-  onClick: actionData.onClick,
+  requestUpsellPackage: actionData.onClick,
 };
 
-export const DefaultIconBlocker = CustomUpsellBlockerTemplate.bind({});
-DefaultIconBlocker.args = {
+export const SubscribableUpsellBlocker = CustomUpsellBlockerDialogTemplate.bind(
+  {},
+);
+SubscribableUpsellBlocker.args = {
   upsellIdentifier: 33,
-  onClick: actionData.onClick,
+  handleOpenSubscriptionForm: actionData.onClick,
+  upsellPackage: true,
+};
+
+export const RequestAccessUpsellBlocker =
+  CustomUpsellBlockerDialogTemplate.bind({});
+RequestAccessUpsellBlocker.args = {
+  upsellIdentifier: 33,
+  requestUpsellPackage: actionData.onClick,
+};
+
+export const DefaultUpsellBlocker = CustomUpsellBlockerDialogTemplate.bind({});
+DefaultUpsellBlocker.args = {
+  upsellIdentifier: 33,
 };
 
 export default {
-  title: 'Library/PlatformBilling/UpsellBlocker',
-  component: UpsellBlocker,
+  title: 'Library/PlatformBilling/UpsellBlockerDialog',
+  component: UpsellBlockerDialog,
   argTypes: {
     upsellIdentifier: {
       control: 'number',
       description:
         'Identifier of the upsell. It will determine the action when clicking and the texts.',
     },
+    featureList: {
+      description:
+        'List of the upsells the company has. Used to know if the dialog has to be displayed.',
+    },
     CustomIconComponent: {
-      description: 'Icon of the dialog.',
+      description: '(Optional) Icon of the dialog.',
+    },
+    requestUpsellPackage: {
+      description: '(Optional) Action to request upsell package.',
+    },
+    handleOpenSubscriptionForm: {
+      description: '(Optional) Action to have no information about the upsell.',
+    },
+    upsellPackage: {
+      description:
+        '(Optional) Upsell package corresponding to the upsellIdentifier.',
     },
   },
   parameters: {
@@ -48,4 +77,4 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof UpsellBlocker>;
+} as ComponentMeta<typeof UpsellBlockerDialog>;

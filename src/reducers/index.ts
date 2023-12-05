@@ -152,6 +152,7 @@ import { ExportableComponentsState } from '#libs/exportable-components/types';
 import { QuicksaleState } from '#libs/quicksale/types';
 import { SubscriptionState } from '#libs/subscription/types';
 import { ReferralState } from '#libs/referral/types';
+import { ZoomAppState } from '#libs/zoom-app/types';
 
 const rootReducer = (history: any) =>
   combineReducers({
@@ -316,7 +317,7 @@ export type RootState = {
   video: VideoState;
   waitingList: WaitingListState;
   webhook: any;
-  zoomApp: any;
+  zoomApp: ZoomAppState;
   terminal: TerminalState;
   datatypeFiltering: DatatypeFilteringState;
   cadence: CadenceState;

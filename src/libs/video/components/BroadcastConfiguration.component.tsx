@@ -1,5 +1,3 @@
-// @flow
-
 import React, { Component } from 'react';
 import Switch from '@material-ui/core/Switch';
 import Typography from '@material-ui/core/Typography';
@@ -7,43 +5,104 @@ import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { compose } from 'recompose';
-import withStyles from '@material-ui/core/styles/withStyles';
+import { withStyles, Theme, WithStyles, createStyles } from '@material-ui/core';
 import CheckIcon from '@material-ui/icons/Check';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import Paper from '@material-ui/core/Paper';
-import { withTranslation, TFunction } from 'react-i18next';
+import { withTranslation, WithTranslation } from 'react-i18next';
 
-import FeatureListProvider from '../../company/hocs/feature-list-provider.hoc';
-import CustomColorButton from '../../../components/button/CustomColorButton.component';
-import RedButton from '../../../components/button/RedButton.component';
+// @ts-expect-error
+import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
+// @ts-expect-error
+import CustomColorButton from '#components/button/CustomColorButton.component';
+import RedButton from '#components/button/RedButton.component';
 
-import type { Theme } from '../../theme/types';
-import type { ZoomApp } from '../../zoom-app/types';
+import type { Theme as CompanyTheme } from '../../theme/types';
+import type { ZoomApp } from '#libs/zoom-app/types';
 import { FeatureList } from '#libs/company/types';
 import { UPSELL_IDENTIFIER_ZOOM_APP } from '#libs/platform-billing/upsell-identifiers';
 import { hasUpsell } from '#libs/platform-billing/utils';
 
-type Props = {
-  theme: Theme,
-  onSubmitTheme: (id: number, data: *) => void,
-  processing: boolean,
-  t: TFunction,
-  classes: Object,
-  zoomApp?: ZoomApp,
-  revokeZoomApp: () => void,
-  onSubmitZoomApp?: (data: *) => void,
-  connectZoom: () => void,
-  zoomLoading: boolean,
+const styles = (theme: Theme) =>
+  createStyles({
+    horizontalInput: {
+      marginRight: theme.spacing(3),
+    },
+    inputContainer: {
+      display: 'flex',
+      flexDirection: 'row',
+      marginBottom: theme.spacing(1),
+      alignItems: 'center',
+    },
+    buttonContainer: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginTop: theme.spacing(2),
+    },
+    progress: {
+      marginLeft: theme.spacing(1),
+    },
+    verticalInput: {
+      marginBottom: theme.spacing(2),
+    },
+    explainContainer: {
+      display: 'flex',
+      flexDirection: 'row',
+      marginLeft: theme.spacing(2),
+      alignItems: 'center',
+    },
+    subInputContainer: {
+      marginLeft: theme.spacing(2),
+      marginBottom: theme.spacing(1),
+    },
+    namesHeader: {
+      display: 'flex',
+      alignItems: 'center',
+      flexDirection: 'row',
+    },
+    paperContainer: {
+      padding: theme.spacing(2),
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      marginBottom: theme.spacing(1),
+    },
+    iconLeft: {
+      marginRight: theme.spacing(1),
+    },
+    rowActions: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      '&>*': {
+        marginRight: theme.spacing(1),
+      },
+    },
+  });
+
+type OuterProps = {
+  theme: CompanyTheme;
+  connectZoom: () => void;
+  onSubmitTheme: (id: number, data: any) => void;
+  onSubmitZoomApp: (data: any) => void;
+  processing: boolean;
+  revokeZoomApp: () => void;
+  zoomApp: ZoomApp;
+  zoomLoading: boolean;
 };
+
+type InnerProps = OuterProps & WithTranslation & WithStyles<typeof styles>;
 
 type State = {
-  theme: Theme,
-  zoomApp?: ZoomApp,
+  theme: CompanyTheme;
+  zoomApp?: Partial<ZoomApp>;
 };
 
-export class BroadcastConfigurationForm extends Component<Props, State> {
-  constructor(props: Props) {
+export class BroadcastConfigurationForm extends Component<InnerProps, State> {
+  constructor(props: InnerProps) {
     super(props);
     this.state = {
       theme: props.theme,
@@ -51,7 +110,7 @@ export class BroadcastConfigurationForm extends Component<Props, State> {
     };
   }
 
-  componentDidUpdate(prevProps: Props) {
+  componentDidUpdate(prevProps: InnerProps) {
     if (prevProps.theme !== this.props.theme) {
       this.setState({ theme: this.props.theme });
     }
@@ -88,6 +147,7 @@ export class BroadcastConfigurationForm extends Component<Props, State> {
   onSubmit = () => {
     const new_theme = new FormData();
     ['is_whereby_integration_enabled'].map((key) =>
+      // @ts-ignore | I don't know what's this
       new_theme.append(key, this.state.theme[key]),
     );
     this.props.onSubmitTheme(this.props.theme.company, new_theme);
@@ -95,6 +155,7 @@ export class BroadcastConfigurationForm extends Component<Props, State> {
     if (this.props.zoomApp && this.props.onSubmitZoomApp) {
       const zoom_conf = new FormData();
       ['is_disabled'].map((key) =>
+        // @ts-ignore | I don't know what's this
         zoom_conf.append(key, this.state.zoomApp[key]),
       );
       this.props.onSubmitZoomApp(zoom_conf);
@@ -142,7 +203,7 @@ export class BroadcastConfigurationForm extends Component<Props, State> {
                     variant="contained"
                   >
                     {is_configured ? (
-                      <CheckIcon className={classes.leftIcon} />
+                      <CheckIcon className={classes.iconLeft} />
                     ) : (
                       <VideocamIcon className={classes.iconLeft} />
                     )}
@@ -164,7 +225,7 @@ export class BroadcastConfigurationForm extends Component<Props, State> {
                       to="/settings/platform-billing"
                     >
                       <Button variant="outlined">
-                        <ArrowForwardIcon className={classes.leftIcon} />
+                        <ArrowForwardIcon className={classes.iconLeft} />
                         {t('broadcast.seeUpsell')}
                       </Button>
                     </Link>
@@ -192,65 +253,7 @@ export class BroadcastConfigurationForm extends Component<Props, State> {
   }
 }
 
-const styles = (theme) => ({
-  horizontalInput: {
-    marginRight: theme.spacing(3),
-  },
-  inputContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    marginBottom: theme.spacing(1),
-    alignItems: 'center',
-  },
-  buttonContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: theme.spacing(2),
-  },
-  progress: {
-    marginLeft: theme.spacing(1),
-  },
-  verticalInput: {
-    marginBottom: theme.spacing(2),
-  },
-  explainContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    marginLeft: theme.spacing(2),
-    alignItems: 'center',
-  },
-  subInputContainer: {
-    marginLeft: theme.spacing(2),
-    marginBottom: theme.spacing(1),
-  },
-  namesHeader: {
-    display: 'flex',
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  paperContainer: {
-    padding: theme.spacing(2),
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    marginBottom: theme.spacing(1),
-  },
-  iconLeft: {
-    marginRight: theme.spacing(1),
-  },
-  rowActions: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    '&>*': {
-      marginRight: theme.spacing(1),
-    },
-  },
-});
-
-export default compose(
+export default compose<InnerProps, OuterProps>(
   withStyles(styles),
-  withTranslation(['settings']),
+  withTranslation('settings'),
 )(BroadcastConfigurationForm);

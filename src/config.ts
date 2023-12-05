@@ -19,6 +19,7 @@ type ConfigType = {
   REACT_APP_RUDDERSTACK_KEY: string;
   REACT_APP_RUDDERSTACK_DATAPLANEURL: string;
   REACT_APP_DEBUGGER_MODE: string;
+  REACT_APP_ZOOM_CLIENT_ID: string;
 };
 export const Config = {} as ConfigType;
 

@@ -1,51 +1,43 @@
-// @flow
 import React, { Component } from 'react';
-import { withTranslation, TFunction } from 'react-i18next';
-import withStyles from '@material-ui/core/styles/withStyles';
-import { connect } from 'react-redux';
+import { withTranslation, WithTranslation } from 'react-i18next';
+import { WithStyles, withStyles, Theme } from '@material-ui/core';
+import { connect, ConnectedProps } from 'react-redux';
 import { compose, withProps, withHandlers } from 'recompose';
 
 import { replace as replaceRouter } from 'connected-react-router';
 import { withRouter } from 'react-router';
-import type { Theme } from '../../libs/theme/types';
 import withTitle from '../../hocs/with-title.hoc';
 import Config from '../../config';
 import { buildUrlParams, parseQueryString } from '../../http';
 
-import BroadcastConfigurationForm from '../../libs/video/components/BroadcastConfiguration.component';
+import BroadcastConfigurationForm from '#libs/video/components/BroadcastConfiguration.component';
 import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
-import {
-  updateCompanyTheme,
-  fetchCompanyTheme,
-} from '../../libs/theme/actions';
-import themeSelectors from '../../libs/theme/selectors';
-import zoomAppSelectors from '../../libs/zoom-app/selectors';
+import { updateCompanyTheme, fetchCompanyTheme } from '#libs/theme/actions';
+import themeSelectors from '#libs/theme/selectors';
+import zoomAppSelectors from '#libs/zoom-app/selectors';
 import {
   updateZoomApp,
   fetchZoomApp as fetchZoomAppAction,
   revokeZoomApp as revokeZoomAppAction,
-} from '../../libs/zoom-app/actions';
-import { snackbarSuccess, snackbarError } from '../../libs/snackbar/actions';
-import { requestZoomAccessToken as requestZoomAccessTokenAPI } from '../../libs/zoom-app/api';
-import { showDeleteDialog } from '../../components/genericDialog/CustomDialogs';
+} from '#libs/zoom-app/actions';
+import { snackbarSuccess, snackbarError } from '#libs/snackbar/actions';
+import { requestZoomAccessToken as requestZoomAccessTokenAPI } from '#libs/zoom-app/api';
+import { showDeleteDialog } from '#components/genericDialog/CustomDialogs';
+import type { RootState } from '../../reducers';
+import type { WithHandlerType } from '../../utils/types';
 
-type Props = {
-  t: TFunction,
-  theme: Theme,
-  loading: boolean,
-  revokeZoomApp: (companyId: number) => void,
-  processing: boolean,
-  submitTheme: (companyId: number, data: *) => void,
-  fetchCompanyTheme: () => void,
-  classes: any,
-  zoomApp: any,
-  submitZoomApp: (data: *) => void,
-  fetchZoomApp: (companyId: number) => void,
-  removeUrlCode: () => void,
-  snackbarSuccess: (string) => void,
-  snackbarError: (string) => void,
-  zoomCode: string,
-};
+const styles = (theme: Theme) => ({
+  container: {
+    padding: theme.spacing(2),
+  },
+  paperContainer: {
+    padding: theme.spacing(2),
+  },
+});
+
+type Props = WithStyles<typeof styles> &
+  ConnectedProps<typeof connector> &
+  WithTranslation & { zoomCode: string } & WithHandlerType<typeof mapHandlers>;
 
 export class BroadcastConfiguration extends Component<Props> {
   componentDidMount() {
@@ -57,7 +49,7 @@ export class BroadcastConfiguration extends Component<Props> {
     }
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: Props) {
     if (this.props.zoomCode && !prevProps.zoomCode) {
       this.requestZoomConnect();
     }
@@ -125,61 +117,61 @@ export class BroadcastConfiguration extends Component<Props> {
   }
 }
 
-const styles = (theme) => ({
-  container: {
-    padding: theme.spacing(2),
+const connector = connect(
+  (state: RootState) => ({
+    theme: themeSelectors.getTheme(state),
+    loading: state.theme.loading && state.zoomApp.loading,
+    processing:
+      state.theme.createOrUpdate.loading && state.zoomApp.update.loading,
+    zoomApp: zoomAppSelectors.getZoomApp(state),
+  }),
+  {
+    fetchCompanyTheme,
+    submitTheme: updateCompanyTheme,
+    fetchZoomApp: fetchZoomAppAction,
+    submitZoomApp: updateZoomApp,
+    replace: replaceRouter,
+    snackbarSuccess,
+    snackbarError,
+    revokeZoomApp: revokeZoomAppAction,
   },
-  paperContainer: {
-    padding: theme.spacing(2),
-  },
-});
+);
+
+const mapHandlers = {
+  removeUrlCode:
+    ({ replace }: ConnectedProps<typeof connector>) =>
+    () => {
+      replace(window.location.pathname);
+    },
+  revokeZoomApp:
+    ({ revokeZoomApp, theme }: ConnectedProps<typeof connector>) =>
+    () => {
+      revokeZoomApp(theme.company);
+    },
+  submitZoomApp:
+    ({
+      submitZoomApp,
+      fetchZoomApp,
+      theme,
+    }: ConnectedProps<typeof connector>) =>
+    (zoomAppData: any) => {
+      submitZoomApp(theme.company, zoomAppData, {
+        onSuccess: () => {
+          fetchZoomApp(theme.company);
+        },
+      });
+    },
+};
 
 export default compose(
-  connect(
-    (state) => ({
-      theme: themeSelectors.getTheme(state),
-      loading: state.theme.loading && state.zoomApp.loading,
-      processing:
-        state.theme.createOrUpdate.loading && state.zoomApp.update.loading,
-      zoomApp: zoomAppSelectors.getZoomApp(state),
-    }),
-    {
-      fetchCompanyTheme,
-      submitTheme: updateCompanyTheme,
-      fetchZoomApp: fetchZoomAppAction,
-      submitZoomApp: updateZoomApp,
-      replace: replaceRouter,
-      snackbarSuccess,
-      snackbarError,
-      revokeZoomApp: revokeZoomAppAction,
-    },
-  ),
-  withHandlers({
-    removeUrlCode:
-      ({ replace }) =>
-      () => {
-        replace(window.location.pathname);
-      },
-    revokeZoomApp:
-      ({ revokeZoomApp, theme }) =>
-      () => {
-        revokeZoomApp(theme.company);
-      },
-    submitZoomApp:
-      ({ submitZoomApp, fetchZoomApp, theme }) =>
-      (zoomAppData) => {
-        submitZoomApp(theme.company, zoomAppData, {
-          onSuccess: () => {
-            fetchZoomApp(theme.company);
-          },
-        });
-      },
-  }),
+  connector,
+  withHandlers(mapHandlers),
   withRouter,
   withProps(({ location }) => ({
-    zoomCode: parseQueryString(location.search).code,
+    zoomCode:
+      (parseQueryString(location.search) as { code?: string })?.code || null,
   })),
   withStyles(styles),
-  withTranslation(['theme']),
+  withTranslation('theme'),
   withTitle(({ t }) => t('pageTitles.broadcast')),
 )(BroadcastConfiguration);

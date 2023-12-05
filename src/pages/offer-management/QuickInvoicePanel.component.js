@@ -7,6 +7,10 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import { withTranslation, TFunction } from 'react-i18next';
 import { PAYMENT_INTENT_TYPE_INVOICE } from '@bsport/common/lib/master-data/payment-group';
+import { Collapse, ButtonBase } from '@material-ui/core';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import classNames from 'classnames';
 import QuickInvoice from '../../libs/invoice/quick-invoice/QuickInvoice.component';
 import PaymentDialog from '../../libs/payment/components/PaymentDialog.component';
 import InvoiceTable from '../../libs/invoice/components/InvoiceTable.component';
@@ -69,6 +73,7 @@ type State = {
   clientSecret: ?string,
   paymentGroupId: ?number,
   paymentGroupPriceCts: ?number,
+  isOpen: boolean,
 };
 
 export class QuickInvoicePanel extends React.PureComponent<Props, State> {
@@ -77,6 +82,19 @@ export class QuickInvoicePanel extends React.PureComponent<Props, State> {
     clientSecret: null,
     paymentGroupId: null,
     paymentGroupPriceCts: null,
+    isOpen: false,
+  };
+
+  componentDidUpdate = (prevProps) => {
+    if (
+      (this.props.quickInvoices?.length ||
+        this.props.unevenSavedInvoices?.length) &&
+      (prevProps.quickInvoices?.length !== this.props.quickInvoices?.length ||
+        prevProps.unevenSavedInvoices?.length !==
+          this.props.unevenSavedInvoices?.length)
+    ) {
+      this.setIsOpen(true);
+    }
   };
 
   requestClientSecret = (paymentEngine: number, params?: any) => {
@@ -153,6 +171,11 @@ export class QuickInvoicePanel extends React.PureComponent<Props, State> {
     }
   };
 
+  setIsOpen = (value: boolean) => this.setState({ isOpen: value });
+
+  toggleIsOpen = () =>
+    this.setState(({ isOpen: previousValue }) => ({ isOpen: !previousValue }));
+
   render() {
     const {
       classes,
@@ -166,58 +189,83 @@ export class QuickInvoicePanel extends React.PureComponent<Props, State> {
     return (
       <ObjectLevelPermissionProvider requiredPermission="billing.allowed_actions.readInvoices">
         {(hasReadInvoicePermission) => (
-          <Paper className={className}>
-            <Typography className={classes.bookingsHeader} variant="h6">
-              {t('offer.myOpenedInvoices')}
-            </Typography>
+          <Paper className={classNames(classes.root, className)}>
+            <ButtonBase
+              className={classes.titleContainer}
+              onClick={this.toggleIsOpen}
+            >
+              <Typography variant="h6">
+                {t('offer.myOpenedInvoices')}
+              </Typography>
+              {this.state.isOpen ? (
+                <KeyboardArrowUpIcon />
+              ) : (
+                <KeyboardArrowDownIcon />
+              )}
+            </ButtonBase>
             <Divider />
-            {quickInvoices.length ? (
-              quickInvoices.map((qi, idx) => (
-                <QuickInvoice
-                  key={`${qi.memberId}:${idx}`}
-                  availableBuyableItems={this.props.availableBuyableItems}
-                  createInvoice={this.handleCreateInvoiceAndOpenBillingModal}
-                  enableMultiLocalization={this.props.enableMultiLocalization}
-                  establishments={this.props.establishments}
-                  member={qi.member}
-                  memberCreditAccountBalance={qi.creditAccount || 0.0}
-                  memberDetails={this.props.memberDetails}
-                  onClose={closeQuickInvoice}
-                  quickInvoice={qi}
-                  quickInvoiceTitle={qi.memberName}
-                />
-              ))
-            ) : (
-              <div className={classes.emptyTextContainer}>
-                <Typography color="textSecondary" variant="caption">
-                  {t('offer.noQuickInvoiceOpened')}
-                </Typography>
+            <Collapse in={this.state.isOpen}>
+              <div className={classes.marginTop}>
+                {quickInvoices?.length ? (
+                  quickInvoices.map((quickInvoice, index) => (
+                    <QuickInvoice
+                      key={`${quickInvoice.memberId}:${index}`}
+                      availableBuyableItems={this.props.availableBuyableItems}
+                      createInvoice={
+                        this.handleCreateInvoiceAndOpenBillingModal
+                      }
+                      enableMultiLocalization={
+                        this.props.enableMultiLocalization
+                      }
+                      establishments={this.props.establishments}
+                      member={quickInvoice.member}
+                      memberCreditAccountBalance={
+                        quickInvoice.creditAccount || 0.0
+                      }
+                      memberDetails={this.props.memberDetails}
+                      onClose={closeQuickInvoice}
+                      quickInvoice={quickInvoice}
+                      quickInvoiceTitle={quickInvoice.memberName}
+                    />
+                  ))
+                ) : (
+                  <div className={classes.emptyTextContainer}>
+                    <Typography color="textSecondary" variant="caption">
+                      {t('offer.noQuickInvoiceOpened')}
+                    </Typography>
+                  </div>
+                )}
+                {hasReadInvoicePermission &&
+                  unevenSavedInvoices &&
+                  !!unevenSavedInvoices?.length && (
+                    <React.Fragment>
+                      <Typography
+                        className={classes.bookingsHeader}
+                        variant="h6"
+                      >
+                        {t('offer.unpaidInvoices')}
+                      </Typography>
+                      <Divider />
+                      <InvoiceTable
+                        compactMode
+                        hidePagination
+                        showOpenInvoiceNested
+                        applyGiftcardOnInvoice={
+                          this.props.applyGiftcardOnInvoice
+                        }
+                        companyId={this.props.companyId}
+                        consumerGiftcardList={this.props.consumerGiftcardList}
+                        getInvoicePaymentGroupIsProcessing={
+                          this.props.getInvoicePaymentGroupIsProcessing
+                        }
+                        invoiceList={unevenSavedInvoices}
+                        onBill={this.props.setInvoiceToBill}
+                        snackbarSuccess={this.props.snackbarSuccess}
+                      />
+                    </React.Fragment>
+                  )}
               </div>
-            )}
-            {hasReadInvoicePermission &&
-            unevenSavedInvoices &&
-            unevenSavedInvoices.length ? (
-              <React.Fragment>
-                <Typography className={classes.bookingsHeader} variant="h6">
-                  {t('offer.unpaidInvoices')}
-                </Typography>
-                <Divider />
-                <InvoiceTable
-                  compactMode
-                  hidePagination
-                  showOpenInvoiceNested
-                  applyGiftcardOnInvoice={this.props.applyGiftcardOnInvoice}
-                  companyId={this.props.companyId}
-                  consumerGiftcardList={this.props.consumerGiftcardList}
-                  getInvoicePaymentGroupIsProcessing={
-                    this.props.getInvoicePaymentGroupIsProcessing
-                  }
-                  invoiceList={unevenSavedInvoices}
-                  onBill={this.props.setInvoiceToBill}
-                  snackbarSuccess={this.props.snackbarSuccess}
-                />
-              </React.Fragment>
-            ) : null}
+            </Collapse>
             {!!this.props.invoiceToBill &&
               !!this.props.invoiceToBill.member && (
                 <PaymentDialog
@@ -274,13 +322,21 @@ export class QuickInvoicePanel extends React.PureComponent<Props, State> {
 }
 
 const styles = (theme) => ({
+  root: { padding: theme.spacing(2) },
   bookingsHeader: {
     padding: theme.spacing(2),
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1),
   },
-  emptyTextContainer: {
-    padding: theme.spacing(2),
+  titleContainer: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+  },
+  marginTop: {
+    marginTop: theme.spacing(1),
   },
 });
 

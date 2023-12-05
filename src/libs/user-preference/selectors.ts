@@ -1,4 +1,5 @@
-import { RootState } from '../../reducers';
+import { createSelector } from 'reselect';
+import type { RootState } from '../../reducers';
 import type { ScheduleFilter } from './types';
 
 export const defaultFilters: ScheduleFilter = {
@@ -49,15 +50,38 @@ export const getWorkshopDetailGroupFilter = (state: RootState) =>
 export const getShrinkResponsiveDrawer = (state: RootState) =>
   state.userPreference.shrinkResponsiveDrawer || false;
 
-export const getDoNotDisplayDeleteStepDialogCadenceIds = (state: RootState) =>
+// For Audience purpose :
+
+const _getDoNotDisplayDeleteStepDialogCadenceIds = (state: RootState) =>
   state.userPreference.doNotDisplayDeleteStepDialogCadenceIds || [];
 
-export const getDoNotDisplayConvertStepIntoExitDialogCadenceIds = (
+const _getDoNotDisplayConvertStepIntoExitDialogCadenceIds = (
   state: RootState,
 ) => state.userPreference.doNotDisplayConvertStepIntoExitDialogCadenceIds || [];
 
-export const getDoNotDisplayPauseDialogCadenceIds = (state: RootState) =>
+const _getDoNotDisplayPauseDialogCadenceIds = (state: RootState) =>
   state.userPreference.doNotDisplayPauseDialogCadenceIds || [];
+
+export const getIsDeleteStepDialogHidden = createSelector(
+  [
+    _getDoNotDisplayDeleteStepDialogCadenceIds,
+    (_: RootState, id: number) => id,
+  ],
+  (cadenceIds, id) => cadenceIds?.includes(id) ?? false,
+);
+
+export const getIsConvertStepIntoExitDialogHidden = createSelector(
+  [
+    _getDoNotDisplayConvertStepIntoExitDialogCadenceIds,
+    (_: RootState, id: number) => id,
+  ],
+  (cadenceIds, id) => cadenceIds?.includes(id) ?? false,
+);
+
+export const getIsPauseDialogHidden = createSelector(
+  [_getDoNotDisplayPauseDialogCadenceIds, (_: RootState, id: number) => id],
+  (cadenceIds, id) => cadenceIds?.includes(id) ?? false,
+);
 
 export const getDoNotDisplayCadenceWelcomeDialog = (state: RootState) =>
   state.userPreference.doNotDisplayCadenceWelcomeDialog;

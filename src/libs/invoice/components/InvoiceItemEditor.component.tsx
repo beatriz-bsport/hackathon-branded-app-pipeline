@@ -109,7 +109,7 @@ type Props = {
 const getPriceForItem = (
   item: BuyableItemTypes,
   identifier: QuicksaleBasketItem,
-) => {
+): string => {
   if (identifier === BUYABLE_ITEM_PASS) {
     return item.base_price;
   }
@@ -124,7 +124,7 @@ const getPriceForItem = (
     return item.price;
   }
 
-  return 0;
+  return '0';
 };
 
 const ButtonAddWithWarning = withConfirm(Button, 'onClick', {
@@ -153,20 +153,20 @@ const InvoiceItemEditor: React.FC<Props> = ({
 
   const [quantity, setQuantity] = useState(1);
 
-  const [voucher, setVoucher] = useState<number | null>(null);
+  const [voucher, setVoucher] = useState<string | null>(null);
   const [errors, setErrors] = useState(false);
-  const [voucherPercent, setVoucherPercent] = useState<number | null>(null);
+  const [voucherPercent, setVoucherPercent] = useState<string | null>(null);
 
   const [warnMamangerOnInvoice, setWarnManagerOnInvoice] = useState(false);
 
-  const buyableItemPrice = useMemo(() => {
+  const buyableItemPrice: string = useMemo(() => {
     const currentItem = availableBuyableItems[buyableItemIdentifier].find(
       (buyableItem) => buyableItem.id === buyableItemId,
     );
-    return currentItem?.price || 0;
+    return currentItem?.price || '0';
   }, [availableBuyableItems, buyableItemId, buyableItemIdentifier]);
 
-  const [finalPricePreview, setFinalPricePreview] = useState<number | null>(
+  const [finalPricePreview, setFinalPricePreview] = useState<string | null>(
     null,
   );
 
@@ -238,11 +238,13 @@ const InvoiceItemEditor: React.FC<Props> = ({
   ]);
 
   const onChangeVoucherCredit = useCallback(
-    (value: number) => {
-      const newVoucher = Math.round(parseFloat(value) * 100) / 100;
-      setVoucher(newVoucher);
+    (value: string) => {
+      setVoucher(value);
       setErrors(
-        value < 0 || (buyableItemId ? buyableItemPrice < newVoucher : false),
+        parseFloat(value) < 0 ||
+          (buyableItemId
+            ? parseFloat(buyableItemPrice) < parseFloat(value)
+            : false),
       );
       if (
         buyableItemIdentifier &&
@@ -255,10 +257,12 @@ const InvoiceItemEditor: React.FC<Props> = ({
 
         if (item) {
           const price = getPriceForItem(item, buyableItemIdentifier);
-          const priceNumber = parseFloat(price).toFixed(2);
-          const percent = ((newVoucher / priceNumber) * 100).toFixed(2);
+          const priceNumber = parseFloat(price);
+          const percent = priceNumber
+            ? ((parseFloat(value) / priceNumber) * 100).toFixed(2)
+            : '0,00';
           setVoucherPercent(percent);
-          setFinalPricePreview((price - newVoucher).toFixed(2));
+          setFinalPricePreview((priceNumber - parseFloat(value)).toFixed(2));
         }
       }
     },
@@ -272,18 +276,18 @@ const InvoiceItemEditor: React.FC<Props> = ({
 
   const handleOnChangeVoucherCredit = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
-      onChangeVoucherCredit(parseFloat(event.target.value) || 0);
+      onChangeVoucherCredit(event.target.value || '0,00');
     },
     [onChangeVoucherCredit],
   );
 
   const handleOnBlurVoucherCredit = useCallback(() => {
     // Depending on how you change the state, prevState and toFixed might not exist
-    setVoucher((prevState) => prevState?.toFixed?.(2));
+    setVoucher((prevState) => parseFloat(prevState)?.toFixed?.(2));
   }, []);
 
   const onChangeVoucherPercent = useCallback(
-    (percent: number) => {
+    (percent: string) => {
       setVoucherPercent(percent);
 
       if (
@@ -297,14 +301,20 @@ const InvoiceItemEditor: React.FC<Props> = ({
 
         if (item) {
           const price = getPriceForItem(item, buyableItemIdentifier);
-          const priceNumber = parseFloat(price).toFixed(2);
-          const newVoucher = ((priceNumber * percent) / 100).toFixed(2);
+          const priceNumber = parseFloat(price);
+          const newVoucher = (
+            (priceNumber * parseFloat(percent)) /
+            100
+          ).toFixed(2);
+          const floatVoucher = parseFloat(newVoucher);
           setVoucher(newVoucher);
           setErrors(
-            newVoucher < 0 ||
-              (buyableItemId ? buyableItemPrice < newVoucher : false),
+            floatVoucher < 0 ||
+              (buyableItemId
+                ? parseFloat(buyableItemPrice) < floatVoucher
+                : false),
           );
-          setFinalPricePreview((price - newVoucher).toFixed(2));
+          setFinalPricePreview((parseFloat(price) - floatVoucher).toFixed(2));
         }
       }
     },
@@ -318,7 +328,7 @@ const InvoiceItemEditor: React.FC<Props> = ({
 
   const handleOnChangeVoucherPercent = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
-      onChangeVoucherPercent(parseFloat(event.target.value) || 0);
+      onChangeVoucherPercent(event.target.value || '0.00');
     },
     [onChangeVoucherPercent],
   );
@@ -327,7 +337,7 @@ const InvoiceItemEditor: React.FC<Props> = ({
     (event: ChangeEvent<HTMLInputElement>) => {
       const finalPrice =
         Math.round(parseFloat(event.target.value) * 100) / 100 || 0;
-      setFinalPricePreview(finalPrice);
+      setFinalPricePreview(finalPrice.toString());
 
       if (
         buyableItemIdentifier &&
@@ -339,16 +349,19 @@ const InvoiceItemEditor: React.FC<Props> = ({
         );
         if (item) {
           const itemPrice = getPriceForItem(item, buyableItemIdentifier);
-          const newPercent = parseFloat(
-            ((1 - finalPrice / itemPrice) * 100).toFixed(2),
-          );
-          const newVoucher = (itemPrice - finalPrice).toFixed(2);
-          setVoucher(newVoucher);
+          const priceNumber = parseFloat(itemPrice);
+          const newPercent = priceNumber
+            ? parseFloat(((1 - finalPrice / priceNumber) * 100).toFixed(2))
+            : '0,00';
+          const newVoucher = parseFloat((priceNumber - finalPrice).toFixed(2));
+          setVoucher(newVoucher.toFixed(2));
           setErrors(
             newVoucher < 0 ||
-              (buyableItemId ? buyableItemPrice < newVoucher : false),
+              (buyableItemId
+                ? parseFloat(buyableItemPrice) < newVoucher
+                : false),
           );
-          setVoucherPercent(newPercent);
+          setVoucherPercent(newPercent.toFixed(2));
         }
       }
     },
@@ -362,7 +375,7 @@ const InvoiceItemEditor: React.FC<Props> = ({
 
   const handleFinalPricePreviewOnBlur = useCallback(() => {
     // Depending on how you change the state, prevState and toFixed might not exist
-    setFinalPricePreview((prevState) => prevState?.toFixed?.(2));
+    setFinalPricePreview((prevState) => parseFloat(prevState)?.toFixed?.(2));
   }, []);
 
   React.useEffect(() => {
@@ -480,6 +493,7 @@ const InvoiceItemEditor: React.FC<Props> = ({
                       )} (${getCurrencyDisplay()})`}
                       onBlur={handleOnBlurVoucherCredit}
                       onChange={handleOnChangeVoucherCredit}
+                      // @ts-ignore it needs to be a string (for the decimals)
                       value={voucher === null ? '0.00' : voucher}
                       variant="outlined"
                     />
@@ -500,6 +514,7 @@ const InvoiceItemEditor: React.FC<Props> = ({
                         }}
                         label={`${t('invoiceItem.discount')} (%)`}
                         onChange={handleOnChangeVoucherPercent}
+                        // @ts-ignore it needs to be a string (for the decimals)
                         value={
                           voucherPercent === null ? '0.00' : voucherPercent
                         }
@@ -526,6 +541,7 @@ const InvoiceItemEditor: React.FC<Props> = ({
                         label={t('invoiceItem.finalPricePreview')}
                         onBlur={handleFinalPricePreviewOnBlur}
                         onChange={handleOnChangeFinalPricePreview}
+                        // @ts-ignore it needs to be a string (for the decimals)
                         value={
                           finalPricePreview === null
                             ? '0.00'

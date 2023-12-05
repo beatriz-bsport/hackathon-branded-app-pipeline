@@ -93,7 +93,7 @@ export function CoachPerformancePrivateServiceTable(props: Props) {
                         t('fields.date'),
                         t('fields.duration'),
                         t('fields.confirmed_bookings'),
-                        t('fields.cancelled_bookings'),
+                        t('fields.noShowsAndLateCancellations'),
                         t('fields.base'),
                         t('fields.bonus'),
                         t('fields.total'),
@@ -151,7 +151,7 @@ export function CoachPerformancePrivateServiceTable(props: Props) {
                   {t('fields.confirmed_bookings')}
                 </TableCell>
                 <TableCell align="right">
-                  {t('fields.cancelled_bookings')}
+                  {t('fields.noShowsAndLateCancellations')}
                 </TableCell>
                 <TableCell align="right">{t('fields.base')}</TableCell>
                 <TableCell align="right">{t('fields.bonus')}</TableCell>

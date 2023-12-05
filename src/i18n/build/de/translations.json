@@ -12118,31 +12118,31 @@
             "450": "Termin storniert - nach Ablauf (Schüler)",
             "401": "Termin storniert - zurückgezahlt (Lehrkraft)",
             "400": "Termin storniert - nach Ablauf (Lehrkraft)",
-            "29": "Erinnerung für den Onlinekurs in 15 Minuten",
+            "29": "Erinnerung für den Onlinekurs in 15 Minuten (für Mitglieder)",
             "28": "Zahlung erhalten",
             "27": "Abonnement gestoppt oder beendet",
-            "24": "Das Abonnement ist erstellt",
+            "24": "Gekauftes Abonnement (für Mitglieder)",
             "453": "Geänderte Uhrzeit (Schüler)",
             "452": "Neuer Termin (Schüler)",
             "13": "Ein Mitglied hat sich selbst von der Warteliste gestrichen",
             "6": "Anmeldung als Mitglied (Schüler)",
-            "18": "Buchung storniert : Credits zurückerstattet",
-            "17": "Buchung storniert : Credits werden nicht zurückerstattet",
+            "18": "Buchung storniert : Credits zurückerstattet (für Mitglieder)",
+            "17": "Buchung storniert : Credits werden nicht zurückerstattet (für Mitglieder)",
             "402": "Neuer Termin (Lehrkraft)",
             "25": "Änderung der Zahlungsmethode",
             "19": "Anmeldung als Mitglied (Mitarbeiter)",
-            "16": "Geänderter Kurs",
+            "16": "Geänderter Kurs (für Mitglieder)",
             "12": "Anmeldung zur Warteliste",
-            "8": "Buchung + gleichzeitiger Kauf von Kurspässen",
+            "8": "Buchung + Kauf von Kurspässen",
             "7": "Buchung per Kurspass",
             "3": "Stornierung des Kurses",
-            "21": "Neue Buchung",
+            "21": "Neue Buchung (für Mitglieder)",
             "403": "Geänderte Uhrzeit (Lehrkraft)",
-            "26": "Abonnement unterbrochen",
+            "26": "Abonnement pausiert",
             "14": "Ein Mitglied wurde vom Studio von der Warteliste gestrichen",
             "9": "Ein Buchungsplatz ist verfügbar",
             "10": "Der Wartelistenplatz ist abgelaufen",
-            "300": "Kick (nicht zu oft rechtzeitig validiert)",
+            "300": "Ein Mitglied, das nicht rechtzeitig geantwortet hat und von der Warteliste gestrichen wurde",
             "22": "Rechnungsbestätigung",
             "601": "Zu wenige Buchungen N Stunden vor Beginn des Kurses",
             "701": "Nicht fristgerechte Stornierung: Pass gesperrt (für Mitglieder)",
@@ -12294,9 +12294,9 @@
                     "activity": "Aktivität",
                     "address": "Adresse",
                     "coach": "Lehrkraft",
-                    "date": "Stunde/Datum",
-                    "establishment": "Raum",
-                    "establishment_practical_info": "Zugang zum Raum",
+                    "date": "Zeit und Datum",
+                    "establishment": "Einrichtung",
+                    "establishment_practical_info": "Zugangsinformationen zur Einrichtung",
                     "recurring_booking_fail_reason": "Grund für wiederholte Buchungsfehler"
                 }
             },
@@ -12318,7 +12318,7 @@
             "ReplacementRequest": {
                 "name": "Vertretung",
                 "tags": {
-                    "closing_date": "Einsendeschluss",
+                    "closing_date": "Abschlusstermin",
                     "sub_teacher": "Vertretungslehrkraft"
                 }
             },
@@ -12339,13 +12339,13 @@
                     "activate_giftcard_url": "Link zur Aktivierung des Gutscheins",
                     "message_is_from": "Mitglied, das den Gutschein versendet",
                     "message_is_for": "Empfänger des Gutscheins",
-                    "giftcard_value": "Wert des Gutscheins",
-                    "giftcard_name": "Name des Gutscheins"
+                    "giftcard_value": "Gutscheinwert",
+                    "giftcard_name": "Gutscheinname"
                 }
             },
             "EmailChange": {
                 "tags": {
-                    "login_link": "Anmeldelink persönlicher Bereich",
+                    "login_link": "Anmeldelink für persönlichen Bereich",
                     "new_email": "Neue Anmelde-E-Mail",
                     "old_email": "Alte Anmelde-E-Mail",
                     "manage_changing_email_link": "Link zur Verwaltung von E-Mail-Änderungen"
@@ -12353,14 +12353,14 @@
                 "name": "Account bearbeiten"
             },
             "requiredTags": {
-                "message_is_from": "Mitglied, das die Geschenkkarte versendet",
+                "message_is_from": "Mitglied, das den Gutschein versendet",
                 "reset_password_url": "Link zum Zurücksetzen des Passworts",
                 "email_confirmation_url": "Link zur Bestätigung der E-Mail-Adresse",
                 "new_email": "Neue Anmelde-E-Mail",
                 "old_email": "Alte Anmelde-E-Mail",
                 "activate_giftcard_url": "Aktivierungslink für den Gutschein",
                 "giftcard_message": "Gutschein-Nachricht",
-                "giftcard_value": "Wert des Gutscheins",
+                "giftcard_value": "Gutscheinwert",
                 "manage_changing_email_link": "Link zur Verwaltung von E-Mail-Änderungen"
             },
             "SpiviPerformance": {

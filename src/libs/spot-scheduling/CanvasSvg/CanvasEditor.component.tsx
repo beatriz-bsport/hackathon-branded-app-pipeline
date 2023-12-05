@@ -415,10 +415,6 @@ const styles = (theme: Theme) => ({
     flex: 1,
     height: '100%',
     zIndex: 1,
-    borderColor: '#CCC',
-    borderWidth: 0,
-    borderTopWidth: 1,
-    borderStyle: 'solid',
     margin: 0,
   },
   containerIsMobile: {

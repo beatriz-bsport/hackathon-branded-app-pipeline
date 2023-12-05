@@ -5,6 +5,11 @@ import { compose } from 'recompose';
 import withStyles from '@material-ui/styles/withStyles';
 import { Theme } from '@material-ui/core/styles';
 
+import Collapse from '@material-ui/core/Collapse';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import Divider from '@material-ui/core/Divider';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import CanvasPreview from '#libs/spot-scheduling/component/SpotPreview/CanvasPreview.component';
 import { getCoachOrSubstitute } from '../../libs/offer/utils';
 import type {
@@ -28,7 +33,18 @@ interface OwnProps {
 
 type Props = OwnProps & MaterialStyleType<ReturnType<typeof styles>>;
 
-class OfferManagementRoomBlueprint extends React.PureComponent<Props> {
+type State = {
+  isOpen: boolean;
+};
+
+class OfferManagementRoomBlueprint extends React.PureComponent<Props, State> {
+  state = {
+    isOpen: false,
+  };
+
+  toggleIsOpen = () =>
+    this.setState(({ isOpen: previousValue }) => ({ isOpen: !previousValue }));
+
   render() {
     const { classes } = this.props;
 
@@ -41,20 +57,30 @@ class OfferManagementRoomBlueprint extends React.PureComponent<Props> {
 
     return (
       <Paper className={classes.container}>
-        <div className={classes.titleContainer}>
+        <ButtonBase
+          className={classes.titleContainer}
+          onClick={this.toggleIsOpen}
+        >
           <Typography variant="h6">{roomBlueprint?.name || ''}</Typography>
-        </div>
-
-        <CanvasPreview
-          assets={
-            this.props.assetsForBlueprintById[this.props.offer.room_blueprint]
-          }
-          coach={getCoachOrSubstitute(this.props.offer)}
-          fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
-          roomBlueprint={roomBlueprint}
-          spotTypes={this.props?.spotTypes}
-          takenSpot={takenSpot}
-        />
+          {this.state.isOpen ? (
+            <KeyboardArrowUpIcon />
+          ) : (
+            <KeyboardArrowDownIcon />
+          )}
+        </ButtonBase>
+        <Divider />
+        <Collapse in={this.state.isOpen}>
+          <CanvasPreview
+            assets={
+              this.props.assetsForBlueprintById[this.props.offer.room_blueprint]
+            }
+            coach={getCoachOrSubstitute(this.props.offer)}
+            fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
+            roomBlueprint={roomBlueprint}
+            spotTypes={this.props.spotTypes}
+            takenSpot={takenSpot}
+          />
+        </Collapse>
       </Paper>
     );
   }
@@ -64,10 +90,15 @@ const styles = (theme: Theme) => ({
   container: {
     marginBottom: theme.spacing(2),
     maxHeight: '100%',
+    padding: theme.spacing(2),
   },
   titleContainer: {
-    padding: theme.spacing(1),
-    paddingLeft: theme.spacing(2),
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+    width: '100%',
   },
 });
 

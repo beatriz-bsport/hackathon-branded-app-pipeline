@@ -1554,7 +1554,10 @@
             "invalid_bank_account": "La cuenta bancaria facilitada no es válida.",
             "email_invalid": "La dirección de correo electrónico no es válida.",
             "invalid_bank_account_account_number": "El número de cuenta bancaria no es válido.",
-            "invalid_bank_account_routing_number": "El Sort code facilitado no es válido."
+            "invalid_bank_account_routing_number": "El Sort code facilitado no es válido.",
+            "terminal_reader_busy": "El lector está ocupado procesando otra solicitud o está realizando una actualización.",
+            "terminal_reader_offline": "El lector está actualmente fuera de línea, por favor asegúrese de que el lector está encendido y conectado a Internet antes de reintentar su solicitud.",
+            "terminal_reader_timeout": "Se ha producido un tiempo de espera al enviar este comando al lector."
         },
         "error_code": {
             "payment_intent_authentication_failure": "El pago ha sido rechazado por tu banco.",
@@ -3076,6 +3079,43 @@
                             "setupOnly": "Método de pago registrado",
                             "setupAndPlan": "Pago registrado",
                             "payment": "Pago aceptado"
+                        }
+                    },
+                    "processing": {
+                        "title": "Transacción en curso",
+                        "content": "Siga las instrucciones del terminal de Stripe",
+                        "help": {
+                            "title": "¿Tiene algún problema?",
+                            "content": "Si el terminal muestra un error, puede hacer clic en cancelar e intentar pagar de nuevo. Es posible que desee comprobar su conexión a Internet tanto en su ordenador portátil como en el terminal."
+                        },
+                        "inactivity": {
+                            "title": "¿Sigues aquí?",
+                            "content": "Hemos detectado que has estado inactivo. ¿Aún desea continuar con esta operación? Sin ninguna respuesta por su parte en los próximos 30 segundos, se cancelará automáticamente.",
+                            "action": "¡Sí! Estoy aquí."
+                        },
+                        "cancelError": {
+                            "generic": {
+                                "title": "Se ha producido un error",
+                                "content": "La operación no puede cancelarse"
+                            },
+                            "readerBusy": {
+                                "title": "Se está tramitando el pago",
+                                "content": "Espere a que se complete el pago."
+                            }
+                        }
+                    },
+                    "processingSavePaymentMethod": {
+                        "title": "Operación en curso",
+                        "content": "Siga las instrucciones del terminal de Stripe",
+                        "help": {
+                            "title": "¿Tiene algún problema?",
+                            "content": "Si el terminal muestra un error, puede hacer clic en cancelar e intentar guardar el método de pago de nuevo. Es posible que desee comprobar su conexión a Internet tanto en su ordenador portátil como en el terminal."
+                        },
+                        "cancelError": {
+                            "readerBusy": {
+                                "title": "Se está guardando el método de pago",
+                                "content": "Espere a que finalice la operación."
+                            }
                         }
                     }
                 }
@@ -5589,7 +5629,7 @@
                 }
             },
             "groupedOffer": {
-                "warning": "Atención, esta sesión forma parte del grupo de sesiones {{ name }}."
+                "warning": "Cuidado, esta sesión forma parte del grupo de sesiones {{ name }}"
             },
             "stepper": {
                 "step": {
@@ -9943,6 +9983,9 @@
                     },
                     "cadence": {
                         "_label": "Cadencia"
+                    },
+                    "audience": {
+                        "_label": "Audiencia"
                     }
                 },
                 "payments": {
@@ -12919,6 +12962,16 @@
                 "error": "No se puede crear la campaña",
                 "success": "Campaña creada con éxito"
             }
+        },
+        "audience": {
+            "create": {
+                "error": "Se ha producido un error al crear el {{ workflowLowerCase }}",
+                "success": "Se ha creado un nuevo {{ workflowLowerCase }}"
+            },
+            "update": {
+                "error": "Se ha producido un error al editar el {{ workflowLowerCase }}",
+                "success": "Su {{ workflowLowerCase }} ha sido actualizado"
+            }
         }
     },
     "paymentPack": {
@@ -14157,7 +14210,8 @@
             },
             "cadences": "Cadencias",
             "replacement": "Sustitución",
-            "inbox": "Bandeja de entrada"
+            "inbox": "Bandeja de entrada",
+            "audience": "{{ audienceCamelCase }}"
         },
         "deprecatedNavigator": {
             "close": "Cerrar",
@@ -15263,7 +15317,19 @@
         "generateExport": "Generar la exportación",
         "generateHelperText": "Generar la exportación para descargar la smartlist",
         "lastGenerated": "Última exportación generada el: {{-date}} {{time}}",
-        "usedInFranchiseCommmunication": "Utilizado en una campaña de su franquicia"
+        "usedInFranchiseCommmunication": "Utilizado en una campaña de su franquicia",
+        "cannotBeDeletedDialogAudience": {
+            "content": "No puede eliminar esta smartlist mientras se utilice en el siguiente {{ workflowLowerCase }}:",
+            "content_plural": "No puede eliminar esta smartlist mientras se utilice en el siguiente {{ workflowPluralLowerCase }}:",
+            "title": "Utilizado en uno de los {{ workflowPluralLowerCase }}"
+        },
+        "audienceListDialog": {
+            "title": "Lista de los {{ workflowPluralLowerCase }}"
+        },
+        "audience": {
+            "content": "Se utiliza en el {{ workflowLowerCase }}: {{ workflow_name }}",
+            "content_plural": "Usado en {{ count }} {{ workflowPluralLowerCase }}"
+        }
     },
     "relationship": {
         "consumer_payment_pack_links": {
@@ -15414,7 +15480,8 @@
             "marketingRule": "Estrategias marketing",
             "marketingDashboard": "Dashboard",
             "notifications": "Notificaciones",
-            "cadence": "Cadencia"
+            "cadence": "Cadencia",
+            "audience": "{{ audienceCamelCase }}"
         },
         "paymentPack": {
             "paymentPackList": "Bonos",
@@ -15674,7 +15741,9 @@
                     "weak": "Débil",
                     "strong": "Intenso",
                     "light": "Claro",
-                    "success": "Éxito"
+                    "success": "Éxito",
+                    "xl": "Extra grande",
+                    "xs": "Extra pequeño"
                 },
                 "title": {
                     "nextOffer": "Próxima sesión disponible",
@@ -15753,7 +15822,17 @@
                     "displayGuestName": "Mostrar el nombre del invitado",
                     "isWaitingList": "Está en lista de espera",
                     "isChangePasswordLinkExpired": "El enlace ha caducado",
-                    "shouldDisplayAddGuestButton": "Mostrar el botón para añadir un invitado"
+                    "shouldDisplayAddGuestButton": "Mostrar el botón para añadir un invitado",
+                    "showBottomDrawer": "Mostrar cajón inferior",
+                    "displayIcon": "Pantalla con icono",
+                    "hasLeftAction": "Activar la acción izquierda en el componente",
+                    "isSelectable": "Permitir la interacción selectiva con el componente",
+                    "withListTitle": "Mostrar el título de la lista",
+                    "isExpanded": "Se amplía el elemento",
+                    "isRequired": "Está en el estado requerido",
+                    "isDraggable": "El elemento es extensible (arrastrándolo)",
+                    "withMaxCharacters": "Con longitud máxima de caracteres",
+                    "inputType": "Tipo de visualización de la lista"
                 },
                 "configurationTitle": "Variaciones",
                 "confirmationMessageComponentAlert": "Este componente gestiona principalmente los estados de reserva y pago. Para personalizar su apariencia, recomendamos utilizar sus componentes raíz situados en la sección común",
@@ -15887,7 +15966,13 @@
                 "marketplace_product_item": "Artículo del producto",
                 "minimal_subscription_card": "Tarjeta de suscripción mínima",
                 "fabrique_chip": "Chip",
-                "authentication_change_password_form": "Formulario de cambio de contraseña"
+                "authentication_change_password_form": "Formulario de cambio de contraseña",
+                "fabrique_list_item": "Elemento de la lista",
+                "fabrique_list": "Lista",
+                "fabrique_menu": "Menu",
+                "fabrique_modal_dialog": "Diálogo modal",
+                "fabrique_bottom_drawer": "Cajón inferior",
+                "fabrique_textform": "Formulario de texto"
             },
             "customCss": {
                 "yourCode": "Su implementación complementaria:",
@@ -15935,7 +16020,11 @@
                     "intro": "Descubra nuestra nueva interfaz de chat directo con sus miembros.",
                     "explain": "Aquí encontrarás todas tus conversaciones directas, los chats vinculados a tus sesiones y tus campañas smartlist. El chat es compatible con SMS, correo electrónico y notificaciones push."
                 },
-                "requestAccess": "Solicitar acceso"
+                "requestAccess": "Solicitar acceso",
+                "31": {
+                    "intro": "Desbloquear el acceso de la audiencia",
+                    "explain": "Esta función es un complemento. Póngase en contacto con su gestor de cuenta para obtener más información."
+                }
             },
             "subscriptionForm": {
                 "commitmentMessage": "Nota: La suscripción implica un compromiso de 12 meses.",
@@ -16505,7 +16594,8 @@
             },
             "cadenceCard": {
                 "lost": "Perdido",
-                "win": "Ganado"
+                "win": "Ganado",
+                "outputRules": "Reglas de salida"
             },
             "activate": {
                 "dialog": {
@@ -16557,7 +16647,8 @@
                     "addNextStep": "Añadir el paso siguiente",
                     "nextStepTrigger": "Activación de la siguiente etapa",
                     "convertIntoExit": "Convertir en salida",
-                    "convertIntoStep": "Convertir en paso"
+                    "convertIntoStep": "Convertir en paso",
+                    "edit": "Editar"
                 },
                 "defaultName": "Autostep"
             },
@@ -16669,6 +16760,62 @@
             },
             "trigger": {
                 "addTrigger": "Añadir un activador"
+            },
+            "welcome": {
+                "dialog": {
+                    "helper": "Empecemos a configurar juntos su flujo de trabajo. En primer lugar, definiremos los criterios para que sus miembros entren en el flujo de trabajo. Luego, determinaremos las condiciones bajo las cuales sus miembros saldrán del flujo de trabajo como 'Ganado' o 'Perdido' basado en sus acciones.",
+                    "title": "¡Bienvenido a Audience!",
+                    "confirm": "Inicio",
+                    "return": "Regresar"
+                }
+            }
+        },
+        "audience": {
+            "form": {
+                "trigger": {
+                    "helpers": {
+                        "workflow": "Defina aquí los desencadenantes para entrar en el {{ workflowLowerCase }}. Los miembros tendrán que coincidir con los criterios enumerados a continuación para iniciar la secuencia de comercialización.",
+                        "exitFail": "Defina aquí el desencadenante que hace que un miembro se considere perdido y salga del {{ workflowLowerCase }}.",
+                        "exitSuccess": "Defina aquí el desencadenante que hace que un miembro se considere ganador y salga del {{ workflowLowerCase }}."
+                    },
+                    "event_or_smartlist_helper": "Los miembros tendrán que coincidir con el evento o formar parte de la smartlist para encajar en el {{ workflowLowerCase }}",
+                    "trigger_timeout_explain_value_selected": "Si el miembro sigue presente en el {{ workflowLowerCase }} después de {{ days }} días, se eliminará automáticamente del {{ workflowLowerCase }} y se considerará perdido.",
+                    "trigger_timeout_select_label": "días máximo en el {{ workflowLowerCase }}",
+                    "event_and_smartlist_helper": "Los miembros tendrán que coincidir con el evento y ser parte de la lista inteligente para entrar en el {{ workflowLowerCase }}",
+                    "labels": {
+                        "workflow": "La entrada en el {{ workflowLowerCase }} se realiza a través de:"
+                    }
+                },
+                "createAudienceHelper": "Gracias al {{ workflowPluralLowerCase }}, dirija las acciones de marketing que envía a sus miembros en función de su comportamiento en la plataforma. Cree una secuencia de acciones que sus miembros deban completar para obtener determinadas promociones o etiquetas, por ejemplo.",
+                "updateTitle": "Editar el nombre del {{ workflowLowerCase }}",
+                "audienceNameLabel": "Nombre del {{ workflowLowerCase }}",
+                "audienceStepHelper": "Establezca aquí el nombre del paso: aquí es donde podrá ver dónde se encuentran los miembros en el {{ workflowLowerCase }}.",
+                "title": "Crear un {{ workflowLowerCase }}",
+                "addAWorkflow": "Añade un {{ workflowLowerCase }}"
+            },
+            "audienceIndexHelper": "El orden de las {{ workflowPluralLowerCase }} define el orden de prioridad: si un miembro puede introducir 2 {{ workflowPluralLowerCase }} diferentes, empezará por el más alto de la lista.",
+            "graph": {
+                "alert": {
+                    "switchToEditMode": "Usted está en el modo de vista, haga clic en EDITAR para editar el {{ workflowLowerCase }}.",
+                    "audienceIsActive": "Su {{ workflowLowerCase }} está en curso, por favor, páuselo para modificarlo."
+                }
+            },
+            "activate": {
+                "dialog": {
+                    "firstHelper": "¿Desea iniciar el {{ workflowLowerCase }}?",
+                    "title": "Inicie el {{ workflowLowerCase }}"
+                },
+                "setupBeforeActivationHelper": "Termine de configurar su {{ workflowLowerCase }} y cree su primera acción de marketing para lanzar su {{ workflowLowerCase }}."
+            },
+            "archive": {
+                "archivedHeader": "Archivado {{ workflowPluralLowerCase }}",
+                "dialog": {
+                    "helper": "Los miembros que se encuentren actualmente en el {{ workflowLowerCase }} saldrán automáticamente de él. Este {{ workflowLowerCase }} se archivará, pero podrá reactivarlo más adelante.",
+                    "title": "Eliminar un {{ workflowLowerCase }}"
+                }
+            },
+            "howTo": {
+                "title": "Cómo editar su {{ workflowLowerCase }}"
             }
         }
     },

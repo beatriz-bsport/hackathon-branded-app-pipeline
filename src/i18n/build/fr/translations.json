@@ -3371,6 +3371,28 @@
                     "disconnect": {
                         "title": "Déconnexion",
                         "content": "La connexion a été perdue. Veuillez réessayer"
+                    },
+                    "processing": {
+                        "title": "Transaction en cours",
+                        "content": "Veuillez suivre les instructions sur le terminal Stripe",
+                        "help": {
+                            "title": "Vous rencontrez un problème ?",
+                            "content": "Si le terminal affiche une erreur, vous pouvez cliquer sur annuler et procéder à nouveau au paiement. Pensez également à vérifier votre connexion internet sur votre ordinateur portable et sur le terminal."
+                        },
+                        "inactivity": {
+                            "title": "Êtes-vous toujours là ?",
+                            "content": "Nous avons détecté une inactivité de votre part. Voulez-vous toujours poursuivre cette opération ? Sans réponse de votre part dans les 30 prochaines secondes, elle sera automatiquement annulée.",
+                            "action": "Oui, je suis là !"
+                        },
+                        "cancelError": {
+                            "generic": {
+                                "title": "Une erreur s'est produite",
+                                "content": "L'opération ne peut pas être annulée"
+                            },
+                            "readerBusy": {
+                                "title": "Le paiement est en cours de traitement"
+                            }
+                        }
                     }
                 }
             }

@@ -43,9 +43,9 @@ import {
   doNotDisplayWelcomeDialogAnymore as doNotDisplayWelcomeDialogAnymoreAction,
 } from '#libs/user-preference/actions';
 import {
-  getDoNotDisplayDeleteStepDialogCadenceIds,
-  getDoNotDisplayConvertStepIntoExitDialogCadenceIds,
-  getDoNotDisplayPauseDialogCadenceIds,
+  getIsDeleteStepDialogHidden,
+  getIsConvertStepIntoExitDialogHidden,
+  getIsPauseDialogHidden,
   getDoNotDisplayCadenceWelcomeDialog,
 } from '#libs/user-preference/selectors';
 
@@ -446,9 +446,7 @@ export class CadenceDetailPage extends Component<Props> {
                       this.props.doNotDisplayPauseDialogAnymore
                     }
                     goBack={this.props.backtoCadenceList}
-                    hidePauseDialogCadenceIds={
-                      this.props.doNotDisplayPauseDialogCadenceIds
-                    }
+                    isPauseDialogHidden={this.props.isPauseDialogHidden}
                     loading={this.props.loading}
                     onActivate={this.props.activateCadence}
                     onEdit={this.props.updateCadenceName}
@@ -457,7 +455,6 @@ export class CadenceDetailPage extends Component<Props> {
                   />
                 </div>
               </div>
-
               <div className={classes.mainPanelContent}>
                 <CadenceGraphFlow
                   cadence={this.props.cadence}
@@ -476,10 +473,10 @@ export class CadenceDetailPage extends Component<Props> {
                   deleteStepMarketingAction={
                     this.props.deleteStepMarketingAction
                   }
-                  doNotDisplayConvertStepIntoExitDialogAnymoreAction={
+                  doNotDisplayConvertStepIntoExitDialogAnymore={
                     this.props.doNotDisplayConvertStepIntoExitDialogAnymore
                   }
-                  doNotDisplayDeleteStepDialogCadenceIdsAction={
+                  doNotDisplayDeleteStepDialogAnymore={
                     this.props.doNotDisplayDeleteStepDialogAnymore
                   }
                   editConnectedTrigger={this.handleEditConnectedTrigger}
@@ -502,19 +499,11 @@ export class CadenceDetailPage extends Component<Props> {
                   handleSelectedStepForEdition={
                     this.handleSelectedStepForEdition
                   }
-                  hideConvertStepIntoExitDialogCadenceIds={
-                    this.props.doNotDisplayConvertStepIntoExitDialogCadenceIds
-                  }
-                  hideDeleteStepDialogCadenceIds={
-                    this.props.doNotDisplayDeleteStepDialogCadenceIds
-                  }
                   initialConfiguration={this.props.initialConfigurationValues}
-                  isConvertStepIntoExitDialogHidden={this.props.doNotDisplayConvertStepIntoExitDialogCadenceIds.includes(
-                    this.props.cadence.id,
-                  )}
-                  isDeleteStepDialogHidden={this.props.doNotDisplayDeleteStepDialogCadenceIds.includes(
-                    this.props.cadence.id,
-                  )}
+                  isConvertStepIntoExitDialogHidden={
+                    this.props.isConvertStepIntoExitDialogHidden
+                  }
+                  isDeleteStepDialogHidden={this.props.isDeleteStepDialogHidden}
                   isEntryFirstConfiguration={isEntryFirstConfiguration}
                   isPushNotificationUpsellActive={this.isPushNotificationUpsellActive()}
                   onClickConnectedTrigger={this.handleClickConnectedTrigger}
@@ -543,14 +532,14 @@ export class CadenceDetailPage extends Component<Props> {
                 />
               </div>
             </div>
-            <CadenceUtilityDialog
-              onCancel={this.props.backtoCadenceList}
-              onConfirm={this.closeWelcomeDialog}
-              open={this.props.isWelcomeDialogOpen}
-              variant={DialogVariant.WELCOME}
-            />
           </>
         </ContentWrapper>
+        <CadenceUtilityDialog
+          onCancel={this.props.backtoCadenceList}
+          onConfirm={this.closeWelcomeDialog}
+          open={this.props.isWelcomeDialogOpen}
+          variant={DialogVariant.WELCOME}
+        />
       </div>
     );
   }
@@ -1010,12 +999,12 @@ const connector = connect(
       getStepMarketingActionsByStepId(state, stepId),
     // SMARTLISTS
     smartlists: getAllSmartList(state),
-    doNotDisplayDeleteStepDialogCadenceIds:
-      getDoNotDisplayDeleteStepDialogCadenceIds(state),
-    doNotDisplayConvertStepIntoExitDialogCadenceIds:
-      getDoNotDisplayConvertStepIntoExitDialogCadenceIds(state),
-    doNotDisplayPauseDialogCadenceIds:
-      getDoNotDisplayPauseDialogCadenceIds(state),
+    isDeleteStepDialogHidden: getIsDeleteStepDialogHidden(state, cadenceId),
+    isConvertStepIntoExitDialogHidden: getIsConvertStepIntoExitDialogHidden(
+      state,
+      cadenceId,
+    ),
+    isPauseDialogHidden: getIsPauseDialogHidden(state, cadenceId),
     doNotDisplayWelcomeDialog: getDoNotDisplayCadenceWelcomeDialog(state),
     smartlistById: getSmartListDict(state),
     getSmartlist: (id: number) => getSmartList(state, id),

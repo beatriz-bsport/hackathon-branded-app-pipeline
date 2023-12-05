@@ -72,7 +72,9 @@ const getBookingButtonTraductionForOfferGroupSetAsFullBookingOnly = (
     if (moment(first_offer_date).isSameOrBefore(moment())) {
       text = t('translation:marketplace.bookButton.isPast');
     }
-    if (
+    if (!metaActivity.first_booking_minutes_until) {
+      text = t('translation:marketplace.bookButton.book');
+    } else if (
       !moment(first_offer_date)
         .subtract(metaActivity.first_booking_minutes_until, 'minutes')
         .isSameOrBefore(moment())

@@ -87,6 +87,8 @@ const useStyles = makeStyles((theme) => ({
 type Props = {
   upsellIdentifier: number;
   handleOpenSubscriptionForm?: () => void;
+  // Since the upsell package subscription form component content is dynamic (title, icon etc.), it depends on its upsell package data.
+  // That is why the 'open form' button should be disabled as long as redux hasn't fetched the corresponding data in the API.
   upsellPackage?: UpsellPackage;
   CustomIconComponent?: JSX.Element;
 } & ConnectedProps<typeof connector>;

@@ -1,4 +1,3 @@
-// @flow
 import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'recompose';
@@ -6,36 +5,55 @@ import moment from 'moment-timezone';
 import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
 import Typography from '@material-ui/core/Typography';
 
-import { withTranslation, TFunction } from 'react-i18next';
+import { WithTranslation, withTranslation } from 'react-i18next';
 
+import { Theme } from '@material-ui/core';
+import { WithStyles, createStyles } from '@material-ui/styles';
+// @ts-expect-error
 import BroadcastRoomJitsi from './BroadcastJitsi.component';
+// @ts-expect-error
 import BroadcastRoomWhereby from './BroadcastRoomWhereby.component';
+// @ts-expect-error
 import BroadcastRoomCustom from './BroadcastRoomCustom.component';
 import type { BroadcastInfo } from '../../booking/types';
 
-type Props = {
-  t: TFunction,
-  broadcast_info: BroadcastInfo,
-  classes: Object,
-  date_start: string,
-  duration_minute: number,
+type OwnProps = {
+  broadcast_info: BroadcastInfo;
+  date_start: string;
+  duration_minute: number;
+  userType: string;
+};
+type Props = OwnProps & WithStyles<typeof styles> & WithTranslation;
+
+type State = {
+  hasStarted: boolean;
+  minutesLeft: number;
+  checker: ReturnType<typeof setInterval>;
 };
 
-const BRODCAST_PROVIDERS = {
-  jitsi: BroadcastRoomJitsi,
-  whereby: BroadcastRoomWhereby,
-  custom: BroadcastRoomCustom,
+const getBroadcastProvider = (key: string) => {
+  if (key === 'jitsi') return BroadcastRoomJitsi;
+  if (key === 'whereby') return BroadcastRoomWhereby;
+  if (key === 'custom') return BroadcastRoomCustom;
+  return null;
 };
 
 const MINUTES_BEFORE_START_ACTIVATED = 15;
 const MINUTES_AFTER_END_DEACTIVATED = 10;
 
-export class BroadcastRoom extends React.Component<Props> {
-  state = { hasStarted: false, minutesLeft: 0 };
+export class BroadcastRoom extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = { hasStarted: false, minutesLeft: 0, checker: null };
+  }
 
   componentDidMount() {
     this.checkCountDown();
-    this.checker = setInterval(this.checkCountDown, 1000);
+    this.setState({ checker: setInterval(this.checkCountDown, 1000) });
+  }
+
+  componentWillUnmount(): void {
+    clearInterval(this.state.checker);
   }
 
   checkCountDown = () => {
@@ -45,9 +63,12 @@ export class BroadcastRoom extends React.Component<Props> {
     this.setState({
       minutesLeft:
         1 +
-        moment.duration(
-          moment(this.props.date_start).diff(moment(), 'minutes'),
-        ),
+        moment
+          .duration(
+            moment(this.props.date_start).diff(moment(), 'minutes'),
+            'minutes',
+          )
+          .asMinutes(),
     });
 
     if (
@@ -68,8 +89,9 @@ export class BroadcastRoom extends React.Component<Props> {
   render() {
     const { minutesLeft } = this.state;
     if (this.state.hasStarted) {
-      const BroadcastProvider =
-        BRODCAST_PROVIDERS[this.props.broadcast_info.provider];
+      const BroadcastProvider = getBroadcastProvider(
+        this.props.broadcast_info.provider,
+      );
       return (
         <div className={this.props.classes.container}>
           <BroadcastProvider {...this.props} />
@@ -84,7 +106,7 @@ export class BroadcastRoom extends React.Component<Props> {
             <React.Fragment>
               <HourglassEmptyIcon style={{ height: '30vh', width: '30vh' }} />
               <div className={this.props.classes.captionsContainer}>
-                <Typography variant="subtitle">
+                <Typography>
                   {minutesLeft === 0 ? this.props.t('video.loadingSoon') : null}
                   {minutesLeft +
                     this.props.duration_minute +
@@ -115,24 +137,25 @@ export class BroadcastRoom extends React.Component<Props> {
   }
 }
 
-const styles = (theme) => ({
-  container: {
-    height: '80vh',
-    width: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  caption: {
-    marginTop: theme.spacing(1),
-  },
-  captionsContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-});
+const styles = (theme: Theme) =>
+  createStyles({
+    container: {
+      height: '80vh',
+      width: '100%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    caption: {
+      marginTop: theme.spacing(1),
+    },
+    captionsContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+    },
+  });
 
-export default compose(
+export default compose<Props, OwnProps>(
   withTranslation(['offer']),
   withStyles(styles),
 )(BroadcastRoom);

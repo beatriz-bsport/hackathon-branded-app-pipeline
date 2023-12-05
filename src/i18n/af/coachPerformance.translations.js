@@ -11,6 +11,7 @@ exports.default = {
       'It appears that certain activities are not yet associated to a payroll rule. Please correctly configure your activities and instructors to use the payroll.',
     total: 'Total payout',
     cancelled_bookings: 'Cancelled bookings',
+    noShowsAndLateCancellations: 'No shows and late cancellations',
     confirmed_bookings: 'Attendees',
     unpaid_private_booking: 'Unpaid appointments.',
     coachName: 'Teacher',

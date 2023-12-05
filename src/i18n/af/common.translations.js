@@ -67,4 +67,5 @@ exports.default = {
   recommended: 'Recommended',
   day: 'day',
   day_plural: 'days',
+  discard: 'Discard',
 };

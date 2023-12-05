@@ -9,7 +9,9 @@ exports.default = {
     isAutoRefresh:
       'You will be redirected to the video 10 min before the start of the class',
     loadingSoon: 'Loading...',
-    activateVideo: 'Connect to the livestream',
+    activateVideo: 'Connect',
+    livestream: 'Livestream',
+    description: 'Start your online session',
   },
   disabled: 'Cancelled',
   credit_price: ' Credit(s)',
@@ -374,4 +376,14 @@ exports.default = {
   additionalCoaches: '{{count}} additional teacher',
   additionalCoaches_plural: '{{count}} additional teachers',
   allCoaches: '{{count}} teachers',
+  notePad: {
+    title: 'Notes',
+    placeholder: 'Leave a note about this session…',
+    loading: 'Loading…',
+    modal: {
+      title: 'Unsaved changes',
+      description:
+        'You have unsaved notes on this page. Do you want to save them before leaving?',
+    },
+  },
 };

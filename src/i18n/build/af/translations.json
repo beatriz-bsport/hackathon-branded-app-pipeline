@@ -961,7 +961,8 @@
     "back": "Back",
     "recommended": "Recommended",
     "day": "day",
-    "day_plural": "days"
+    "day_plural": "days",
+    "discard": "Discard"
   },
   "communication": {
     "table": { "columns": { "member": "Member", "title": "Preview", "date_created": "Date", "status": "Status" } },
@@ -5089,7 +5090,9 @@
       "hasEnded": "This session has ended",
       "isAutoRefresh": "You will be redirected to the video 10 min before the start of the class",
       "loadingSoon": "Loading...",
-      "activateVideo": "Connect to the livestream"
+      "activateVideo": "Connect",
+      "livestream": "Livestream",
+      "description": "Start your online session"
     },
     "disabled": "Cancelled",
     "credit_price": " Credit(s)",
@@ -5368,7 +5371,18 @@
     "broadcast": "Videoconferencing",
     "additionalCoaches": "{{count}} additional teacher",
     "additionalCoaches_plural": "{{count}} additional teachers",
-    "allCoaches": "{{count}} teachers"
+    "allCoaches": "{{count}} teachers",
+    "notePad": {
+      "title": "Notes",
+      "placeholder": "Leave a note about this session…",
+      "loading": "Loading…",
+      "modal": {
+        "title": "Unsaved changes",
+        "description": "You have unsaved notes on this page. Do you want to save them before leaving?"
+      },
+      "success": "Session note successfully updated !",
+      "error": "Sorry, something went wrong. Please retry."
+    }
   },
   "order": {
     "products": { "nbProducts": "items" },

@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -7,10 +6,14 @@ import withStyles from '@material-ui/styles/withStyles';
 import { Theme } from '@material-ui/core/styles';
 
 import CanvasPreview from '#libs/spot-scheduling/component/SpotPreview/CanvasPreview.component';
-import { AssetForBlueprint, RoomBlueprint } from '#libs/spot-scheduling/types';
-import { Offer, OfferStatus } from '#libs/offer/types';
 import { getCoachOrSubstitute } from '../../libs/offer/utils';
-import { MaterialStyleType } from '../../utils/types';
+import type {
+  AssetForBlueprint,
+  RoomBlueprint,
+  SpotType,
+} from '#libs/spot-scheduling/types';
+import type { Offer, OfferStatus } from '#libs/offer/types';
+import type { MaterialStyleType } from '../../utils/types';
 
 interface OwnProps {
   offer: Offer;
@@ -19,6 +22,8 @@ interface OwnProps {
     [key: string]: { [key: string]: AssetForBlueprint };
   };
   offerStatusById: { [key: string]: OfferStatus };
+  fetchSpotForBlueprint: () => void;
+  spotTypes: SpotType[];
 }
 
 type Props = OwnProps & MaterialStyleType<ReturnType<typeof styles>>;

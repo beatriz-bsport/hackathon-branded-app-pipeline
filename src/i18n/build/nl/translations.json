@@ -5017,7 +5017,19 @@
         "lastGenerated": "Laatste export gegenereerd op: {{-date}} {{time}}",
         "generateHelperText": "Genereer de export om de smartlist te downloaden",
         "generateExport": "Genereer export",
-        "usedInFranchiseCommmunication": "Gebruikt in een campagne door uw franchise"
+        "usedInFranchiseCommmunication": "Gebruikt in een campagne door uw franchise",
+        "audienceListDialog": {
+            "title": "Lijst van de {{ workflowPluralLowerCase }}"
+        },
+        "audience": {
+            "content": "Gebruikt in de {{ workflowLowerCase }}: {{ workflow_name }}",
+            "content_plural": "Gebruikt in {{ count }} {{ workflowPluralLowerCase }}"
+        },
+        "cannotBeDeletedDialogAudience": {
+            "content": "U kunt deze smartlist niet verwijderen zolang deze wordt gebruikt in de volgende {{ workflowLowerCase }}:",
+            "content_plural": "U kunt deze smartlist niet verwijderen zolang deze wordt gebruikt in de volgende {{ workflowPluralLowerCase }}:",
+            "title": "Gebruikt in een van de {{ workflowPluralLowerCase }}"
+        }
     },
     "metaActivity": {
         "forms": {
@@ -5546,7 +5558,7 @@
                 }
             },
             "groupedOffer": {
-                "warning": "Deze sessie is onderdeel van de groepsessie \"{{ name }}\"."
+                "warning": "Deze sessie is onderdeel van de de groep \"{{ name }}\""
             },
             "stepper": {
                 "step": {
@@ -6934,7 +6946,8 @@
             "marketingDashboard": "Campagnes",
             "marketingRule": "Marketingcampagnes",
             "notifications": "Meldingen",
-            "cadence": "Cadences"
+            "cadence": "Cadences",
+            "audience": "{{ audienceCamelCase }}"
         },
         "settings": "Instellingen",
         "shop": "Webshop",
@@ -11223,6 +11236,16 @@
                 "error": "De campagne kan niet worden aangemaakt",
                 "success": "Campagne succesvol aangemaakt"
             }
+        },
+        "audience": {
+            "create": {
+                "error": "Er is een fout opgetreden bij het maken van de {{ workflowLowerCase }}",
+                "success": "Er is een nieuwe {{ workflowLowerCase }} gemaakt"
+            },
+            "update": {
+                "error": "Er is een fout opgetreden bij het bewerken van de {{ workflowLowerCase }}",
+                "success": "Uw {{ workflowLowerCase }} is bijgewerkt"
+            }
         }
     },
     "coach": {
@@ -11742,7 +11765,10 @@
             "invalid_bank_account_routing_number": "De opgegeven spellingscode is ongeldig.",
             "invalid_bank_account": "De opgegeven bankrekening is ongeldig.",
             "invalid_bank_account_account_number": "Het rekeningnummer is ongeldig.",
-            "email_invalid": "Het e-mailadres is ongeldig."
+            "email_invalid": "Het e-mailadres is ongeldig.",
+            "terminal_reader_offline": "De reader is momenteel offline. Zorg ervoor dat de reader aan staat en verbinding heeft met het internet voordat je je verzoek opnieuw probeert.",
+            "terminal_reader_busy": "De lezer is momenteel bezig met een ander verzoek of met een update.",
+            "terminal_reader_timeout": "Er is een time-out opgetreden bij het verzenden van deze opdracht naar de lezer."
         },
         "error_code": {
             "payment_intent_authentication_failure": "De betaling is door uw bank geweigerd.",
@@ -13129,6 +13155,43 @@
                     "disconnect": {
                         "title": "Verbreken",
                         "content": "De verbinding is onderbroken. Probeer het opnieuw."
+                    },
+                    "processing": {
+                        "title": "Transactie in behandeling",
+                        "content": "Volg de instructies op de Stripe Terminal",
+                        "help": {
+                            "title": "Ervaar je problemen?",
+                            "content": "Als de terminal een foutmelding geeft, kun je op annuleren klikken en opnieuw proberen te betalen. Misschien wil je je internetverbinding controleren op zowel je laptop als je terminal."
+                        },
+                        "inactivity": {
+                            "title": "Ben je er nog?",
+                            "content": "We hebben ontdekt dat je inactief bent geweest. Wil je deze werking nog steeds voortzetten? Als je niet binnen de volgende 30 seconden reageert, wordt deze automatisch geannuleerd.",
+                            "action": "Ja! Ik ben er"
+                        },
+                        "cancelError": {
+                            "generic": {
+                                "title": "Er is een fout opgetreden",
+                                "content": "De handeling kan niet worden geannuleerd"
+                            },
+                            "readerBusy": {
+                                "title": "Betaling wordt verwerkt",
+                                "content": "Wacht tot de betaling is voltooid."
+                            }
+                        }
+                    },
+                    "processingSavePaymentMethod": {
+                        "content": "Volg de instructies op de Stripe-terminal",
+                        "help": {
+                            "content": "Als de terminal een fout weergeeft, kun je op annuleren klikken en de betaalmethode opnieuw proberen op te slaan. Controleer eventueel je internetverbinding op zowel je laptop als je terminal.",
+                            "title": "Heb je een probleem?"
+                        },
+                        "title": "Bezig met bewerking",
+                        "cancelError": {
+                            "readerBusy": {
+                                "title": "De betalingsmethode wordt opgeslagen",
+                                "content": "Wacht tot de bewerking is voltooid."
+                            }
+                        }
                     }
                 },
                 "title": "Pinapparaat",
@@ -13909,6 +13972,9 @@
                     },
                     "cadence": {
                         "_label": "Kadens"
+                    },
+                    "audience": {
+                        "_label": "Doelgroep"
                     }
                 },
                 "payments": {
@@ -15321,7 +15387,8 @@
             },
             "cadences": "Cadences",
             "replacement": "Vervanging",
-            "inbox": "Inbox"
+            "inbox": "Inbox",
+            "audience": "{{ audienceCamelCase }}"
         },
         "deprecatedNavigator": {
             "close": "Sluiten",
@@ -15639,7 +15706,9 @@
                     "radio": "Radio",
                     "checkbox": "Checkbox",
                     "weak": "Zwak",
-                    "strong": "Sterk"
+                    "strong": "Sterk",
+                    "xs": "Extra klein",
+                    "xl": "Extra groot"
                 },
                 "title": {
                     "nextOffer": "Volgende sessie beschikbaar",
@@ -15718,7 +15787,17 @@
                     "selected": "Geselecteerd",
                     "hasDivider": "De lijst heeft een verdeler onderaan",
                     "showGroupTitle": "De lijst met groepstitel weergeven",
-                    "type": "Type van het component"
+                    "type": "Type van het component",
+                    "isSelectable": "Selecteer interactie met het component inschakelen",
+                    "showBottomDrawer": "Toon onderste lade",
+                    "displayIcon": "Weergave met pictogram",
+                    "hasLeftAction": "Linkse actie op de component inschakelen",
+                    "withListTitle": "Titel van lijst weergeven",
+                    "inputType": "Type lijstweergave",
+                    "isExpanded": "Element wordt uitgebreid",
+                    "isRequired": "Is in vereiste staat",
+                    "isDraggable": "Het element is uitbreidbaar (door slepen)",
+                    "withMaxCharacters": "Met maximale tekenlengte"
                 },
                 "configurationTitle": "Variaties",
                 "confirmationMessageComponentAlert": "Deze component beheert voornamelijk boekings- en betalingsstatussen. Om het uiterlijk aan te passen, raden we aan de hoofdcomponenten te gebruiken in de gemeenschappelijke sectie",
@@ -15852,7 +15931,13 @@
                 "fabrique_menu_item_list": "Menu Item Lijst",
                 "fabrique_menu_item": "Menu Item",
                 "fabrique_alert": "Alert",
-                "marketplace_booking_item": "Boeking item"
+                "marketplace_booking_item": "Boeking item",
+                "fabrique_modal_dialog": "Modaal dialoogvenster",
+                "fabrique_list_item": "Lijst item",
+                "fabrique_list": "Lijst",
+                "fabrique_menu": "Menu",
+                "fabrique_bottom_drawer": "Onderste lade",
+                "fabrique_textform": "Tekstvorm"
             },
             "customCss": {
                 "yourCode": "Je aanvullende implementatie:",
@@ -15923,6 +16008,10 @@
                 "33": {
                     "intro": "Ontdek de nieuwe live chatbox met leden!",
                     "explain": "Hier staan alle gesprekken met individuele personen, maar ook gesprekken uit Sessies en Smartlists. Deze Inbox is compatibel met e-mails, sms'jes en push-notificaties."
+                },
+                "31": {
+                    "intro": "Toegang voor doelgroep ontgrendelen",
+                    "explain": "Deze functie is een add-on, neem contact op met je accountmanager voor meer informatie."
                 }
             },
             "subscriptionForm": {
@@ -16493,7 +16582,8 @@
             },
             "cadenceCard": {
                 "lost": "Verloren",
-                "win": "Gewonnen"
+                "win": "Gewonnen",
+                "outputRules": "Uitvoerregels"
             },
             "svgText": {
                 "push_notification": "Push-notificatie",
@@ -16522,7 +16612,8 @@
                     "addNextStep": "Volgende stap toevoegen",
                     "nextStepTrigger": "Trigger",
                     "convertIntoExit": "Omzetten in uitgang",
-                    "convertIntoStep": "Omzetten in stap"
+                    "convertIntoStep": "Omzetten in stap",
+                    "edit": "Bewerk"
                 },
                 "defaultName": "Autostap"
             },
@@ -16634,6 +16725,62 @@
             },
             "trigger": {
                 "addTrigger": "Aanleiding toevoegen"
+            },
+            "welcome": {
+                "dialog": {
+                    "helper": "Laten we samen beginnen met het opzetten van je workflow! Eerst definiëren we de criteria waaraan je leden moeten voldoen om in de workflow te komen. Daarna bepalen we de voorwaarden waaronder je leden de workflow verlaten als 'Gewonnen' of 'Verloren' op basis van hun acties.",
+                    "title": "Welkom bij Audience!",
+                    "confirm": "Start",
+                    "return": "Ga terug"
+                }
+            }
+        },
+        "audience": {
+            "form": {
+                "trigger": {
+                    "helpers": {
+                        "exitFail": "Definieer hier de trigger die ervoor zorgt dat een lid als verloren wordt beschouwd en de {{ workflowLowerCase }} verlaat.",
+                        "exitSuccess": "Definieer hier de trigger die ervoor zorgt dat een lid als winnaar wordt beschouwd en de {{ workflowLowerCase }} verlaat.",
+                        "workflow": "Definieer hier de triggers voor het invoeren van de {{ workflowLowerCase }}. Leden moeten voldoen aan de onderstaande criteria om de marketingreeks te starten."
+                    },
+                    "trigger_timeout_explain_value_selected": "Als het lid na {{ dagen }} dagen nog steeds aanwezig is in {{ workflowLowerCase }} dan wordt het automatisch verwijderd uit {{ workflowLowerCase }} en als verloren beschouwd.",
+                    "trigger_timeout_select_label": "dagen maximaal in de {{ workflowLowerCase }}",
+                    "event_and_smartlist_helper": "Leden moeten overeenkomen met de gebeurtenis en deel uitmaken van de smartlist om in de {{ workflowLowerCase }}",
+                    "labels": {
+                        "workflow": "De invoer in de {{ workflowLowerCase }} wordt gedaan via :"
+                    },
+                    "event_or_smartlist_helper": "Leden moeten overeenkomen met de gebeurtenis of deel uitmaken van de smartlist om in de {{ workflowLowerCase }}"
+                },
+                "audienceStepHelper": "Stel hier de naam van de stap in: hier kunt u zien waar de leden zich bevinden in de {{ workflowLowerCase }}.",
+                "createAudienceHelper": "Dankzij {{ workflowPluralLowerCase }} kun je de marketingacties die je naar je leden stuurt richten op basis van hun gedrag op het platform. Maak bijvoorbeeld een reeks acties die je leden moeten voltooien om bepaalde promoties of tags te krijgen.",
+                "updateTitle": "De naam van de {{ workflowLowerCase }} bewerken",
+                "audienceNameLabel": "Naam van de {{ workflowLowerCase }}",
+                "title": "Maak een {{ workflowLowerCase }}",
+                "addAWorkflow": "Voeg een {{ workflowLowerCase }} toe."
+            },
+            "graph": {
+                "alert": {
+                    "switchToEditMode": "U bevindt zich in de weergavemodus. Klik op EDIT om de {{ workflowLowerCase }} te bewerken.",
+                    "audienceIsActive": "Uw {{ workflowLowerCase }} is bezig, onderbreek het om het aan te passen."
+                }
+            },
+            "activate": {
+                "setupBeforeActivationHelper": "Voltooi het instellen van uw {{ workflowLowerCase }} en maak uw eerste marketingactie om uw {{ workflowLowerCase }} te starten.",
+                "dialog": {
+                    "firstHelper": "Wilt u de {{ workflowLowerCase }} starten?",
+                    "title": "Start de {{ workflowLowerCase }}"
+                }
+            },
+            "audienceIndexHelper": "De volgorde van de {{ workflowPluralLowerCase }} bepaalt de volgorde van prioriteit: als een lid 2 verschillende {{ workflowPluralLowerCase }} kan invoeren, begint hij met de hoogste in de lijst.",
+            "archive": {
+                "archivedHeader": "Gearchiveerd {{ workflowPluralLowerCase }}",
+                "dialog": {
+                    "helper": "Leden die zich momenteel in de {{ workflowLowerCase }} bevinden, verlaten deze automatisch. Deze {{ workflowLowerCase }} wordt gearchiveerd, maar u kunt deze later weer activeren.",
+                    "title": "Verwijder een {{ workflowLowerCase }}"
+                }
+            },
+            "howTo": {
+                "title": "Hoe bewerk je {{ workflowLowerCase }}"
             }
         }
     },

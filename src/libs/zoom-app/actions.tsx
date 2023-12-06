@@ -1,4 +1,5 @@
 import { createAction } from 'redux-actions';
+import { snackbarError, snackbarSuccess } from '../../actions/snackbar.actions';
 import {
   fetchZoomApp as fetchZoomAppAPI,
   updateZoomApp as updateZoomAppAPI,
@@ -18,6 +19,7 @@ import type {
 } from '../../state/types';
 import { UPSELL_IDENTIFIER_ZOOM_APP } from '#libs/platform-billing/upsell-identifiers';
 import { hasUpsell } from '#libs/platform-billing/utils';
+import { CUSTOM_ERROR_CODE } from '#libs/constants';
 import type {
   ZoomApp,
   ZoomMember,
@@ -31,7 +33,10 @@ export const zoomAppDetailAction = {
   loading: createAction<boolean>('ZOOM_APP/DETAIL/IS_LOADING'),
 };
 
-export function fetchZoomApp(companyId: number) {
+export function fetchZoomApp(
+  companyId: number,
+  options?: OptionCallback<ZoomApp>,
+) {
   return async (dispatch: Dispatch, getState: () => State) => {
     dispatch(zoomAppDetailAction.error(null));
     dispatch(zoomAppDetailAction.loading(true));
@@ -52,10 +57,12 @@ export function fetchZoomApp(companyId: number) {
       } else {
         const response = await fetchZoomAppAPI(companyId);
         dispatch(zoomAppDetailAction.success(response.data));
+        options?.onSuccess?.(response.data);
       }
     } catch (error) {
       console.error(error);
       dispatch(zoomAppDetailAction.error(error));
+      options?.onError?.();
     }
     dispatch(zoomAppDetailAction.loading(false));
   };
@@ -157,14 +164,22 @@ export const updateZoomGroupId = (
     try {
       const response = await updateZoomGroupIdAPI(companyId, data);
       dispatch(zoomAppUpdateAction.success(response.data));
+      dispatch(snackbarSuccess('zoom.setGroupId.success'));
       if (options && options.onSuccess) {
         options.onSuccess(response.data);
       }
     } catch (error) {
-      console.error(error);
-      dispatch(zoomAppUpdateAction.error(error));
-      if (options && options.onError) {
-        options.onError(error);
+      if (
+        error.response?.status === CUSTOM_ERROR_CODE &&
+        error.response.data?.error_code === 'ZOOM RETRIEVE GROUP EXCEPTION'
+      ) {
+        dispatch(snackbarError('zoom.setGroupId.error'));
+      } else {
+        console.error(error);
+        dispatch(zoomAppUpdateAction.error(error));
+        if (options && options.onError) {
+          options.onError(error);
+        }
       }
     }
     dispatch(zoomAppUpdateAction.loading(false));
@@ -272,6 +287,7 @@ export const bulkEditZoomEstablishments = (
     try {
       const response = await bulkEditZoomEstablishmentsAPI(data);
       dispatch(updateZoomEstablishmentActions.success(response.data));
+      dispatch(snackbarSuccess('zoom.bulkEditZoomEstablishments.success'));
       if (options && options.onSuccess) {
         options.onSuccess();
       }

@@ -17,9 +17,17 @@ import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
 // @ts-expect-error
 import CustomColorButton from '#components/button/CustomColorButton.component';
 import RedButton from '#components/button/RedButton.component';
+import ZoomMultiUserSupportForm from '#libs/zoom-app/components/ZoomMultiUserSupportForm.component';
 
 import type { Theme as CompanyTheme } from '../../theme/types';
-import type { ZoomApp } from '#libs/zoom-app/types';
+import type {
+  ZoomApp,
+  ZoomEstablishment,
+  ZoomMember,
+  ZoomEstablishmentBulkEditData,
+} from '#libs/zoom-app/types';
+import type { OptionCallback } from '../../../state/types';
+import type { Establishment } from '#libs/establishment/types';
 import { FeatureList } from '#libs/company/types';
 import { UPSELL_IDENTIFIER_ZOOM_APP } from '#libs/platform-billing/upsell-identifiers';
 import { hasUpsell } from '#libs/platform-billing/utils';
@@ -92,6 +100,22 @@ type OuterProps = {
   revokeZoomApp: () => void;
   zoomApp: ZoomApp;
   zoomLoading: boolean;
+  toggleMultiZoomUserSupport: (options?: OptionCallback<ZoomApp>) => void;
+  updateZoomGroupId: (
+    data: { zoom_group_id: string },
+    options?: OptionCallback<ZoomApp>,
+  ) => void;
+  resetZoomEstablishments: (options?: OptionCallback) => void;
+  fetchZoomMembersAndEstablishments: () => void;
+  zoomEstablishmentTableDataLoading: boolean;
+  zoomEstablishments: ZoomEstablishment[];
+  zoomMembersById: Record<string, ZoomMember>;
+  establishmentsById: Record<number, Establishment>;
+  bulkEditZoomEstablishments: (
+    data: ZoomEstablishmentBulkEditData,
+    options?: OptionCallback<ZoomEstablishment[]>,
+  ) => void;
+  zoomAppUpdateLoading: boolean;
 };
 
 type InnerProps = OuterProps & WithTranslation & WithStyles<typeof styles>;
@@ -231,6 +255,30 @@ export class BroadcastConfigurationForm extends Component<InnerProps, State> {
                     </Link>
                   )}
                 </div>
+
+                {hasZoom && (
+                  <ZoomMultiUserSupportForm
+                    bulkEditZoomEstablishments={
+                      this.props.bulkEditZoomEstablishments
+                    }
+                    establishmentsById={this.props.establishmentsById}
+                    fetchZoomMembersAndEstablishments={
+                      this.props.fetchZoomMembersAndEstablishments
+                    }
+                    resetZoomEstablishments={this.props.resetZoomEstablishments}
+                    toggleMultiZoomUserSupport={
+                      this.props.toggleMultiZoomUserSupport
+                    }
+                    updateZoomGroupId={this.props.updateZoomGroupId}
+                    zoomApp={this.props.zoomApp}
+                    zoomAppUpdateLoading={this.props.zoomAppUpdateLoading}
+                    zoomEstablishments={this.props.zoomEstablishments}
+                    zoomEstablishmentTableDataLoading={
+                      this.props.zoomEstablishmentTableDataLoading
+                    }
+                    zoomMembersById={this.props.zoomMembersById}
+                  />
+                )}
               </Paper>
             );
           }}

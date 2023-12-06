@@ -750,6 +750,14 @@ const getTranslations = async () => {
         success: 'Zoom account successfully linked',
         error: 'Error while linking the Zoom account',
       },
+      setGroupId: {
+        success: 'Zoom group linked successfully',
+        error:
+          'Impossible to connect this group. Make sure the ID is correct and that it is available on the Zoom account linked to bsport.',
+      },
+      bulkEditZoomEstablishments: {
+        success: 'Changes have been saved',
+      },
     },
     consumerPass: { success: 'Your purchase has been successfully saved !' },
     copied: 'Copied to the clipboard',

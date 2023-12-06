@@ -30,12 +30,12 @@ const initialState: Immutable.Immutable<ZoomAppState> = Immutable<ZoomAppState>(
     loading: false,
     error: null,
     detail: zoomAppDetailDefaultState,
-    update: {
+    edit: {
       loading: false,
       error: null,
     },
     zoomMembers: {
-      data: [],
+      byId: {},
       loading: false,
       error: null,
     },
@@ -43,7 +43,7 @@ const initialState: Immutable.Immutable<ZoomAppState> = Immutable<ZoomAppState>(
       data: [],
       loading: false,
       error: null,
-      update: {
+      edit: {
         error: null,
         loading: false,
       },
@@ -78,13 +78,13 @@ export default handleActions<Immutable.Immutable<ZoomAppState>, any>(
       state,
       { payload }: { payload: Error | null },
     ) => {
-      return state.setIn(['update', 'error'], payload);
+      return state.setIn(['edit', 'error'], payload);
     },
     [zoomAppUpdateAction.loading.toString()]: (
       state,
       { payload }: { payload: boolean },
     ) => {
-      return state.setIn(['update', 'loading'], payload);
+      return state.setIn(['edit', 'loading'], payload);
     },
     [zoomAppUpdateAction.success.toString()]: (
       state,
@@ -108,7 +108,16 @@ export default handleActions<Immutable.Immutable<ZoomAppState>, any>(
       state,
       { payload }: { payload: ZoomMember[] },
     ) => {
-      return state.setIn(['zoomMembers', 'data'], payload);
+      return state.setIn(
+        ['zoomMembers', 'byId'],
+        payload.reduce(
+          (acc, zoomMember) => ({
+            ...acc,
+            [zoomMember.id]: zoomMember,
+          }),
+          {},
+        ),
+      );
     },
     [fetchZoomEstablishmentActions.error.toString()]: (
       state,
@@ -132,13 +141,13 @@ export default handleActions<Immutable.Immutable<ZoomAppState>, any>(
       state,
       { payload }: { payload: Error | null },
     ) => {
-      return state.setIn(['zoomEstablishments', 'update', 'error'], payload);
+      return state.setIn(['zoomEstablishments', 'edit', 'error'], payload);
     },
     [updateZoomEstablishmentActions.loading.toString()]: (
       state,
       { payload }: { payload: boolean },
     ) => {
-      return state.setIn(['zoomEstablishments', 'update', 'loading'], payload);
+      return state.setIn(['zoomEstablishments', 'edit', 'loading'], payload);
     },
     [updateZoomEstablishmentActions.reset.toString()]: (state) => {
       return state.setIn(['zoomEstablishments', 'data'], []);

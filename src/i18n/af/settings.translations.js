@@ -56,6 +56,35 @@ exports.default = {
         "We automatically generate your Zoom Meetings 15 minutes before the start of your livestreams. Relevant members will also be automatically notified 15 minutes beforehand so they can join your Meeting Room straight away. Check if you've got a valid Zoom Account. Important: Zoom only allows one connection per licence and non-Premium Zoom Accounts are limited to 40 minute sessions.",
       explainInvalid: 'Invalid account',
       revoke: 'Deactivate Zoom',
+      multiZoomUserSupport: {
+        switchLabel: 'Enable the multi zoom user support',
+        explain:
+          'Launch multiple live streams simultaneously by associating your bsport establishments with different users of your Zoom account.',
+      },
+      zoomGroupId: 'Zoom group ID',
+      groupActionButton: {
+        save: 'Save',
+        reset: 'Reset',
+      },
+      establishmentTable: {
+        headers: {
+          establishment: 'Establishment',
+          user: 'User',
+          type: 'Type',
+          add: 'Add',
+        },
+        emptySelect: 'Select',
+        removeAction: 'Remove',
+      },
+      memberType: {
+        1: 'Basic',
+        2: 'Licensed',
+      },
+      save: 'Save changes',
+      resetConfirmationDialog: {
+        title: 'Are you sure you want to reset your group ID ?',
+        content: 'All of your establishments will be reset as well.',
+      },
     },
   },
   active_campaign: {

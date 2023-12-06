@@ -12,6 +12,7 @@ export type ZoomApp = {
 };
 
 export type ZoomEstablishment = {
+  id: number;
   company: number;
   zoom_app: number;
   establishment: number;
@@ -40,14 +41,14 @@ export type ZoomEstablishmentBulkEditData = {
 
 export type ZoomAppState = {
   detail: ZoomApp;
-  update: ErrorAndLoading;
+  edit: ErrorAndLoading;
   loading: boolean;
   error?: Error;
   zoomMembers: {
-    data: ZoomMember[];
+    byId: Record<string, ZoomMember>;
   } & ErrorAndLoading;
   zoomEstablishments: {
     data: ZoomEstablishment[];
-    update: ErrorAndLoading;
+    edit: ErrorAndLoading;
   } & ErrorAndLoading;
 };

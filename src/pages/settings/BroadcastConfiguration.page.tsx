@@ -19,11 +19,21 @@ import {
   updateZoomApp,
   fetchZoomApp as fetchZoomAppAction,
   revokeZoomApp as revokeZoomAppAction,
+  toggleMultiZoomUserSupport as toggleMultiZoomUserSupportAction,
+  updateZoomGroupId as updateZoomGroupIdAction,
+  resetZoomEstablishments as resetZoomEstablishmentsAction,
+  fetchZoomGroupMembers as fetchZoomGroupMembersAction,
+  listZoomEstablishments as listZoomEstablishmentsAction,
+  bulkEditZoomEstablishments,
 } from '#libs/zoom-app/actions';
+import { fetchEstablishments as fetchEstablishmentsAction } from '#libs/establishment/actions';
+import { getAllEstablishmentsDict } from '#libs/establishment/selectors';
 import { snackbarSuccess, snackbarError } from '#libs/snackbar/actions';
 import { requestZoomAccessToken as requestZoomAccessTokenAPI } from '#libs/zoom-app/api';
 import { showDeleteDialog } from '#components/genericDialog/CustomDialogs';
+import type { ZoomApp } from '#libs/zoom-app/types';
 import type { RootState } from '../../reducers';
+import type { OptionCallback } from '../../state/types';
 import type { WithHandlerType } from '../../utils/types';
 
 const styles = (theme: Theme) => ({
@@ -42,7 +52,18 @@ type Props = WithStyles<typeof styles> &
 export class BroadcastConfiguration extends Component<Props> {
   componentDidMount() {
     this.props.fetchCompanyTheme();
-    this.props.fetchZoomApp(this.props.theme.company);
+    this.props.fetchZoomApp(this.props.theme.company, {
+      onSuccess: (zoomApp) => {
+        if (
+          !zoomApp.is_disabled &&
+          zoomApp.is_configured &&
+          zoomApp.multi_zoom_user_support_enabled &&
+          zoomApp.zoom_group_id
+        ) {
+          this.props.fetchZoomMembersAndEstablishments();
+        }
+      },
+    });
 
     if (this.props.zoomCode) {
       this.requestZoomConnect();
@@ -103,14 +124,32 @@ export class BroadcastConfiguration extends Component<Props> {
     return (
       <div className={classes.container}>
         <BroadcastConfigurationForm
+          bulkEditZoomEstablishments={this.props.bulkEditZoomEstablishments}
           connectZoom={this.connectZoom}
+          establishmentsById={this.props.establishmentsById}
+          fetchZoomMembersAndEstablishments={
+            this.props.fetchZoomMembersAndEstablishments
+          }
           onSubmitTheme={this.props.submitTheme}
           onSubmitZoomApp={this.props.submitZoomApp}
           processing={this.props.processing}
+          resetZoomEstablishments={
+            this.props.resetZoomEstablishmentsAndRefreshZoomApp
+          }
           revokeZoomApp={this.props.revokeZoomApp}
           theme={this.props.theme}
+          toggleMultiZoomUserSupport={
+            this.props.toggleMultiZoomUserSupportForCompany
+          }
+          updateZoomGroupId={this.props.updateZoomGroupIdForCompany}
           zoomApp={this.props.zoomApp}
+          zoomAppUpdateLoading={this.props.zoomAppUpdateLoading}
+          zoomEstablishments={this.props.zoomEstablishments}
+          zoomEstablishmentTableDataLoading={
+            this.props.zoomEstablishmentTableDataLoading
+          }
           zoomLoading={!!this.props.zoomCode}
+          zoomMembersById={this.props.zoomMembersById}
         />
       </div>
     );
@@ -120,10 +159,19 @@ export class BroadcastConfiguration extends Component<Props> {
 const connector = connect(
   (state: RootState) => ({
     theme: themeSelectors.getTheme(state),
-    loading: state.theme.loading && state.zoomApp.loading,
+    loading: state.theme.loading || state.zoomApp.loading,
     processing:
-      state.theme.createOrUpdate.loading && state.zoomApp.update.loading,
+      state.theme.createOrUpdate.loading || state.zoomApp.edit.loading,
     zoomApp: zoomAppSelectors.getZoomApp(state),
+    establishmentsById: getAllEstablishmentsDict(state),
+    zoomMembersById: state.zoomApp.zoomMembers.byId,
+    zoomEstablishments: state.zoomApp.zoomEstablishments.data,
+    zoomAppUpdateLoading: state.zoomApp.edit.loading,
+    zoomEstablishmentTableDataLoading:
+      state.establishment.loading ||
+      state.zoomApp.zoomEstablishments.loading ||
+      state.zoomApp.zoomEstablishments.edit.loading ||
+      state.zoomApp.zoomMembers.loading,
   }),
   {
     fetchCompanyTheme,
@@ -134,6 +182,13 @@ const connector = connect(
     snackbarSuccess,
     snackbarError,
     revokeZoomApp: revokeZoomAppAction,
+    toggleMultiZoomUserSupport: toggleMultiZoomUserSupportAction,
+    updateZoomGroupId: updateZoomGroupIdAction,
+    resetZoomEstablishments: resetZoomEstablishmentsAction,
+    fetchZoomGroupMembers: fetchZoomGroupMembersAction,
+    listZoomEstablishments: listZoomEstablishmentsAction,
+    fetchEstablishments: fetchEstablishmentsAction,
+    bulkEditZoomEstablishments,
   },
 );
 
@@ -160,6 +215,43 @@ const mapHandlers = {
           fetchZoomApp(theme.company);
         },
       });
+    },
+  toggleMultiZoomUserSupportForCompany:
+    ({ toggleMultiZoomUserSupport, theme }: ConnectedProps<typeof connector>) =>
+    (options?: OptionCallback<ZoomApp>) => {
+      toggleMultiZoomUserSupport(theme.company, options);
+    },
+  updateZoomGroupIdForCompany:
+    ({ updateZoomGroupId, theme }: ConnectedProps<typeof connector>) =>
+    (data: { zoom_group_id: string }, options?: OptionCallback<ZoomApp>) => {
+      updateZoomGroupId(theme.company, data, options);
+    },
+  resetZoomEstablishmentsAndRefreshZoomApp:
+    ({
+      resetZoomEstablishments,
+      theme,
+      fetchZoomApp,
+    }: ConnectedProps<typeof connector>) =>
+    (options?: OptionCallback) => {
+      resetZoomEstablishments({
+        onSuccess: () => {
+          fetchZoomApp(theme.company);
+          options?.onSuccess?.();
+        },
+        onError: options?.onError,
+      });
+    },
+  fetchZoomMembersAndEstablishments:
+    ({
+      fetchZoomGroupMembers,
+      listZoomEstablishments,
+      fetchEstablishments,
+      theme,
+    }: ConnectedProps<typeof connector>) =>
+    () => {
+      fetchZoomGroupMembers(theme.company);
+      listZoomEstablishments();
+      fetchEstablishments({ disabled: false });
     },
 };
 

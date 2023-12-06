@@ -63,55 +63,108 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 type PrivateServiceListProps = {
-  privateServiceList: PrivateService[];
+  deletePrivateService: (id: number) => void;
   goToPrivateService: (id: number) => void;
   hasDeletePermission: boolean;
   hasEditPermission: boolean;
-  deletePrivateService: (id: number) => void;
+  privateServiceGroupId?: number;
+  privateServiceList: PrivateService[];
   setOpenEditForm: (privateService: PrivateService) => void;
 };
 
-const PrivateServiceList: React.FC<PrivateServiceListProps> = ({
-  privateServiceList,
-  goToPrivateService,
-  deletePrivateService,
-  hasDeletePermission,
-  hasEditPermission,
-  setOpenEditForm,
-}) => {
-  const handleGoToPrivateService = React.useCallback(
-    (id: number) => goToPrivateService(id),
-    [goToPrivateService],
-  );
+const PrivateServiceList: React.FC<PrivateServiceListProps> = React.memo(
+  ({
+    deletePrivateService,
+    goToPrivateService,
+    hasDeletePermission,
+    hasEditPermission,
+    privateServiceGroupId,
+    privateServiceList,
+    setOpenEditForm,
+  }) => {
+    const handleGoToPrivateService = React.useCallback(
+      (id: number) => goToPrivateService(id),
+      [goToPrivateService],
+    );
 
-  const handleDeletePrivateService = useCallback(
-    (privateService: PrivateService) =>
-      hasDeletePermission
-        ? () => deletePrivateService(privateService.id)
-        : null,
-    [deletePrivateService, hasDeletePermission],
-  );
+    const handleDeletePrivateService = useCallback(
+      (privateService: PrivateService) =>
+        hasDeletePermission
+          ? () => deletePrivateService(privateService.id)
+          : null,
+      [deletePrivateService, hasDeletePermission],
+    );
 
-  const handleEditPrivateService = useCallback(
-    (privateService: PrivateService) =>
-      hasEditPermission ? () => setOpenEditForm(privateService) : null,
-    [setOpenEditForm, hasEditPermission],
-  );
+    const handleEditPrivateService = useCallback(
+      (privateService: PrivateService) =>
+        hasEditPermission ? () => setOpenEditForm(privateService) : null,
+      [setOpenEditForm, hasEditPermission],
+    );
 
-  return (
-    <>
-      {(privateServiceList || []).map((privateService) => (
-        <PrivateServiceListItem
-          key={`private-service-${privateService.id}`}
-          onClick={handleGoToPrivateService}
-          onDelete={handleDeletePrivateService(privateService)}
-          onEdit={handleEditPrivateService(privateService)}
-          privateService={privateService}
-        />
-      ))}
-    </>
-  );
+    return (
+      <>
+        {(privateServiceList || []).map((privateService) => (
+          <PrivateServiceListItem
+            key={`private-service-group-${
+              privateServiceGroupId ?? null
+            }private-services-${privateService.id}`}
+            onClick={handleGoToPrivateService}
+            onDelete={handleDeletePrivateService(privateService)}
+            onEdit={handleEditPrivateService(privateService)}
+            privateService={privateService}
+          />
+        ))}
+      </>
+    );
+  },
+);
+
+type PrivateServiceGroupListSectionProps = {
+  deletePrivateService: (id: number) => void;
+  goToPrivateService: (id: number) => void;
+  hasDeletePermission: boolean;
+  hasEditPermission: boolean;
+  privateServiceGroup: PrivateServiceGroupWithService;
+  setOpenEditForm: (privateService: PrivateService) => void;
 };
+const PrivateServiceGroupListSection: React.FC<PrivateServiceGroupListSectionProps> =
+  React.memo(
+    ({
+      deletePrivateService,
+      goToPrivateService,
+      hasDeletePermission,
+      hasEditPermission,
+      privateServiceGroup,
+      setOpenEditForm,
+    }) => {
+      const classes = useStyles();
+      const { t } = useTranslation('privateService');
+      if (!privateServiceGroup?.private_services?.length) {
+        return (
+          <div className={classes.rowIsEmpty}>
+            <InfoOutlineIcon className={classes.leftIcon} />
+            <Typography color="textSecondary">
+              {t('serviceGroup.isEmpty')}
+            </Typography>
+          </div>
+        );
+      }
+
+      return (
+        <Paper className={classes.serviceListPaperGroup}>
+          <PrivateServiceList
+            deletePrivateService={deletePrivateService}
+            goToPrivateService={goToPrivateService}
+            hasDeletePermission={hasDeletePermission}
+            hasEditPermission={hasEditPermission}
+            privateServiceGroupId={privateServiceGroup.id}
+            privateServiceList={privateServiceGroup.private_services}
+            setOpenEditForm={setOpenEditForm}
+          />
+        </Paper>
+      );
+    },
+  );
 
 export const PrivateServiceListWithGroup: React.FC<Props> = ({
   openServiceGroupToEdit,
@@ -177,25 +230,14 @@ export const PrivateServiceListWithGroup: React.FC<Props> = ({
                   )}
                 </div>
                 <Divider className={classes.divider} />
-                {privateServiceGroup.private_services.length > 0 ? (
-                  <Paper className={classes.serviceListPaperGroup}>
-                    <PrivateServiceList
-                      deletePrivateService={deletePrivateService}
-                      goToPrivateService={goToPrivateService}
-                      hasDeletePermission={hasDeletePermission}
-                      hasEditPermission={hasEditPermission}
-                      privateServiceList={privateServiceGroup.private_services}
-                      setOpenEditForm={setOpenEditForm}
-                    />
-                  </Paper>
-                ) : (
-                  <div className={classes.rowIsEmpty}>
-                    <InfoOutlineIcon className={classes.leftIcon} />
-                    <Typography color="textSecondary">
-                      {t('serviceGroup.isEmpty')}
-                    </Typography>
-                  </div>
-                )}
+                <PrivateServiceGroupListSection
+                  deletePrivateService={deletePrivateService}
+                  goToPrivateService={goToPrivateService}
+                  hasDeletePermission={hasDeletePermission}
+                  hasEditPermission={hasEditPermission}
+                  privateServiceGroup={privateServiceGroup}
+                  setOpenEditForm={setOpenEditForm}
+                />
               </div>
             ))}
             <Paper className={classes.serviceListPaperGroup}>

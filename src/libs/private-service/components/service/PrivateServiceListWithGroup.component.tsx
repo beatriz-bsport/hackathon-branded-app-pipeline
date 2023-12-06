@@ -9,7 +9,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
-
+import { VariableSizeList } from 'react-window';
+import AutoSizer from 'react-virtualized-auto-sizer';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core';
 import PrivateServiceListItem from './PrivateServiceListItem.component';
@@ -31,37 +32,6 @@ type Props = {
   privateServiceAvailableByGroup: PrivateServiceGroupWithService[];
 };
 
-const useStyles = makeStyles((theme) => ({
-  leftIcon: {
-    marginRight: theme.spacing(1),
-  },
-  titleRow: {
-    display: 'flex',
-    flexDirection: 'row',
-    width: '100%',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  serviceListPaperGroup: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(4),
-    overflow: 'hidden',
-  },
-  rowIsEmpty: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    margin: theme.spacing(1),
-    marginBottom: theme.spacing(4),
-  },
-  sectionTitle: {
-    marginBottom: theme.spacing(1),
-  },
-  divider: {
-    marginBottom: theme.spacing(2),
-  },
-}));
-
 type PrivateServiceListProps = {
   deletePrivateService: (id: number) => void;
   goToPrivateService: (id: number) => void;
@@ -71,53 +41,112 @@ type PrivateServiceListProps = {
   privateServiceList: PrivateService[];
   setOpenEditForm: (privateService: PrivateService) => void;
 };
+interface VirtualProps {
+  itemCount: number;
+  variableItemSize: (index: number) => number;
+  itemSize: number;
+  minItemsDisplaid?: number;
+  renderRow: (index: number) => React.ReactChild;
+}
 
-const PrivateServiceList: React.FC<PrivateServiceListProps> = React.memo(
-  ({
-    deletePrivateService,
-    goToPrivateService,
-    hasDeletePermission,
-    hasEditPermission,
-    privateServiceGroupId,
-    privateServiceList,
-    setOpenEditForm,
-  }) => {
-    const handleGoToPrivateService = React.useCallback(
-      (id: number) => goToPrivateService(id),
-      [goToPrivateService],
-    );
+const Row: React.FC<{
+  style: React.CSSProperties;
+  children: React.ReactChild;
+}> = ({ style, children }) => <div style={style}>{children}</div>;
 
-    const handleDeletePrivateService = useCallback(
-      (privateService: PrivateService) =>
-        hasDeletePermission
-          ? () => deletePrivateService(privateService.id)
-          : null,
-      [deletePrivateService, hasDeletePermission],
-    );
+const VirtualizedVariableList: React.FC<VirtualProps> = ({
+  itemCount,
+  itemSize = 100,
+  variableItemSize,
+  minItemsDisplaid = 1,
+  renderRow,
+}) => {
+  const minHeight = React.useMemo(() => {
+    return Math.min(itemCount, minItemsDisplaid) * itemSize;
+  }, [itemCount, minItemsDisplaid, itemSize]);
 
-    const handleEditPrivateService = useCallback(
-      (privateService: PrivateService) =>
-        hasEditPermission ? () => setOpenEditForm(privateService) : null,
-      [setOpenEditForm, hasEditPermission],
-    );
+  return (
+    <div
+      style={{
+        flex: 1,
+        minHeight,
+        height: '100%',
+      }}
+    >
+      <AutoSizer>
+        {(dimensions: { height: number; width: number }) => (
+          <VariableSizeList
+            height={dimensions.height}
+            itemCount={itemCount}
+            itemSize={variableItemSize}
+            width={dimensions.width}
+          >
+            {(props: { index: number; style: React.CSSProperties }) => (
+              <Row key={props.index} style={props.style}>
+                {renderRow(props.index)}
+              </Row>
+            )}
+          </VariableSizeList>
+        )}
+      </AutoSizer>
+    </div>
+  );
+};
 
-    return (
-      <>
-        {(privateServiceList || []).map((privateService) => (
-          <PrivateServiceListItem
-            key={`private-service-group-${
-              privateServiceGroupId ?? null
-            }private-services-${privateService.id}`}
-            onClick={handleGoToPrivateService}
-            onDelete={handleDeletePrivateService(privateService)}
-            onEdit={handleEditPrivateService(privateService)}
-            privateService={privateService}
-          />
-        ))}
-      </>
-    );
-  },
-);
+const VirtualizedPrivateServiceList: React.FC<PrivateServiceListProps> =
+  React.memo(
+    ({
+      deletePrivateService,
+      goToPrivateService,
+      hasDeletePermission,
+      hasEditPermission,
+      privateServiceGroupId,
+      privateServiceList,
+      setOpenEditForm,
+    }) => {
+      const handleGoToPrivateService = React.useCallback(
+        (id: number) => goToPrivateService(id),
+        [goToPrivateService],
+      );
+
+      const handleDeletePrivateService = useCallback(
+        (privateService: PrivateService) =>
+          hasDeletePermission
+            ? () => deletePrivateService(privateService.id)
+            : null,
+        [deletePrivateService, hasDeletePermission],
+      );
+
+      const handleEditPrivateService = useCallback(
+        (privateService: PrivateService) =>
+          hasEditPermission ? () => setOpenEditForm(privateService) : null,
+        [setOpenEditForm, hasEditPermission],
+      );
+
+      return (
+        <VirtualizedVariableList
+          itemCount={privateServiceList?.length || 0}
+          itemSize={70}
+          minItemsDisplaid={20}
+          renderRow={(index: number) => {
+            const privateService = privateServiceList[index];
+            return (
+              <PrivateServiceListItem
+                key={`private-service-group-${
+                  privateServiceGroupId ?? null
+                }private-services-${privateService.id}`}
+                onClick={handleGoToPrivateService}
+                onDelete={handleDeletePrivateService(privateService)}
+                onEdit={handleEditPrivateService(privateService)}
+                privateService={privateService}
+              />
+            );
+          }}
+          variableItemSize={() => 70}
+        />
+      );
+    },
+  );
 
 type PrivateServiceGroupListSectionProps = {
   deletePrivateService: (id: number) => void;
@@ -151,17 +180,19 @@ const PrivateServiceGroupListSection: React.FC<PrivateServiceGroupListSectionPro
       }
 
       return (
-        <Paper className={classes.serviceListPaperGroup}>
-          <PrivateServiceList
-            deletePrivateService={deletePrivateService}
-            goToPrivateService={goToPrivateService}
-            hasDeletePermission={hasDeletePermission}
-            hasEditPermission={hasEditPermission}
-            privateServiceGroupId={privateServiceGroup.id}
-            privateServiceList={privateServiceGroup.private_services}
-            setOpenEditForm={setOpenEditForm}
-          />
-        </Paper>
+        <div className={classes.serviceListPaperGroupContainer}>
+          <Paper className={classes.serviceListPaperGroup}>
+            <VirtualizedPrivateServiceList
+              deletePrivateService={deletePrivateService}
+              goToPrivateService={goToPrivateService}
+              hasDeletePermission={hasDeletePermission}
+              hasEditPermission={hasEditPermission}
+              privateServiceGroupId={privateServiceGroup.id}
+              privateServiceList={privateServiceGroup.private_services}
+              setOpenEditForm={setOpenEditForm}
+            />
+          </Paper>
+        </div>
       );
     },
   );
@@ -240,16 +271,20 @@ export const PrivateServiceListWithGroup: React.FC<Props> = ({
                 />
               </div>
             ))}
-            <Paper className={classes.serviceListPaperGroup}>
-              <PrivateServiceList
-                deletePrivateService={deletePrivateService}
-                goToPrivateService={goToPrivateService}
-                hasDeletePermission={hasDeletePermission}
-                hasEditPermission={hasEditPermission}
-                privateServiceList={privateServiceAvailableWithoutGroup}
-                setOpenEditForm={setOpenEditForm}
-              />
-            </Paper>
+            {privateServiceAvailableWithoutGroup?.length > 0 && (
+              <div className={classes.serviceListPaperGroupContainer}>
+                <Paper className={classes.serviceListPaperGroup}>
+                  <VirtualizedPrivateServiceList
+                    deletePrivateService={deletePrivateService}
+                    goToPrivateService={goToPrivateService}
+                    hasDeletePermission={hasDeletePermission}
+                    hasEditPermission={hasEditPermission}
+                    privateServiceList={privateServiceAvailableWithoutGroup}
+                    setOpenEditForm={setOpenEditForm}
+                  />
+                </Paper>
+              </div>
+            )}
             <Menu
               anchorEl={menuOpen[0]}
               onClose={handleCloseMenu}
@@ -277,5 +312,44 @@ export const PrivateServiceListWithGroup: React.FC<Props> = ({
     </div>
   );
 };
+
+const useStyles = makeStyles((theme) => ({
+  leftIcon: {
+    marginRight: theme.spacing(1),
+  },
+  titleRow: {
+    display: 'flex',
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  serviceListPaperGroup: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(4),
+    overflow: 'hidden',
+  },
+  serviceListPaperGroupContainer: {
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
+    [theme.breakpoints.down('sm')]: {
+      paddingLeft: theme.spacing(1),
+      paddingRight: theme.spacing(1),
+    },
+  },
+  rowIsEmpty: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    margin: theme.spacing(1),
+    marginBottom: theme.spacing(4),
+  },
+  sectionTitle: {
+    marginBottom: theme.spacing(1),
+  },
+  divider: {
+    marginBottom: theme.spacing(2),
+  },
+}));
 
 export default React.memo(PrivateServiceListWithGroup);

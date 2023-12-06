@@ -1,4 +1,3 @@
-// @flow
 import React, { useCallback, useState } from 'react';
 import MenuItem from '@material-ui/core/MenuItem';
 import InfoOutlineIcon from '@material-ui/icons/InfoOutlined';
@@ -63,6 +62,57 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+type PrivateServiceListProps = {
+  privateServiceList: PrivateService[];
+  goToPrivateService: (id: number) => void;
+  hasDeletePermission: boolean;
+  hasEditPermission: boolean;
+  deletePrivateService: (id: number) => void;
+  setOpenEditForm: (privateService: PrivateService) => void;
+};
+
+const PrivateServiceList: React.FC<PrivateServiceListProps> = ({
+  privateServiceList,
+  goToPrivateService,
+  deletePrivateService,
+  hasDeletePermission,
+  hasEditPermission,
+  setOpenEditForm,
+}) => {
+  const handleGoToPrivateService = React.useCallback(
+    (id: number) => goToPrivateService(id),
+    [goToPrivateService],
+  );
+
+  const handleDeletePrivateService = useCallback(
+    (privateService: PrivateService) =>
+      hasDeletePermission
+        ? () => deletePrivateService(privateService.id)
+        : null,
+    [deletePrivateService, hasDeletePermission],
+  );
+
+  const handleEditPrivateService = useCallback(
+    (privateService: PrivateService) =>
+      hasEditPermission ? () => setOpenEditForm(privateService) : null,
+    [setOpenEditForm, hasEditPermission],
+  );
+
+  return (
+    <>
+      {(privateServiceList || []).map((privateService) => (
+        <PrivateServiceListItem
+          key={`private-service-${privateService.id}`}
+          onClick={handleGoToPrivateService}
+          onDelete={handleDeletePrivateService(privateService)}
+          onEdit={handleEditPrivateService(privateService)}
+          privateService={privateService}
+        />
+      ))}
+    </>
+  );
+};
+
 export const PrivateServiceListWithGroup: React.FC<Props> = ({
   openServiceGroupToEdit,
   deleteServiceGroup,
@@ -86,20 +136,6 @@ export const PrivateServiceListWithGroup: React.FC<Props> = ({
       (event: React.MouseEvent<HTMLButtonElement>) =>
         setMenuOpen([event.currentTarget, privateServiceGroup]),
     [],
-  );
-
-  const handleDeletePrivateService = useCallback(
-    (hasDeletePermission: boolean, privateService: PrivateService) =>
-      hasDeletePermission
-        ? () => deletePrivateService(privateService.id)
-        : null,
-    [deletePrivateService],
-  );
-
-  const handleEditPrivateService = useCallback(
-    (hasEditPermission: boolean, privateService: PrivateService) =>
-      hasEditPermission ? () => setOpenEditForm(privateService) : null,
-    [setOpenEditForm],
   );
 
   const handleCloseMenu = useCallback(() => setMenuOpen([null, null]), []);
@@ -143,23 +179,14 @@ export const PrivateServiceListWithGroup: React.FC<Props> = ({
                 <Divider className={classes.divider} />
                 {privateServiceGroup.private_services.length > 0 ? (
                   <Paper className={classes.serviceListPaperGroup}>
-                    {privateServiceGroup.private_services.map(
-                      (privateService) => (
-                        <PrivateServiceListItem
-                          key={privateService.id}
-                          onClick={goToPrivateService}
-                          onDelete={handleDeletePrivateService(
-                            hasDeletePermission,
-                            privateService,
-                          )}
-                          onEdit={handleEditPrivateService(
-                            hasEditPermission,
-                            privateService,
-                          )}
-                          privateService={privateService}
-                        />
-                      ),
-                    )}
+                    <PrivateServiceList
+                      deletePrivateService={deletePrivateService}
+                      goToPrivateService={goToPrivateService}
+                      hasDeletePermission={hasDeletePermission}
+                      hasEditPermission={hasEditPermission}
+                      privateServiceList={privateServiceGroup.private_services}
+                      setOpenEditForm={setOpenEditForm}
+                    />
                   </Paper>
                 ) : (
                   <div className={classes.rowIsEmpty}>
@@ -172,21 +199,14 @@ export const PrivateServiceListWithGroup: React.FC<Props> = ({
               </div>
             ))}
             <Paper className={classes.serviceListPaperGroup}>
-              {privateServiceAvailableWithoutGroup.map((privateService) => (
-                <PrivateServiceListItem
-                  key={privateService.id}
-                  onClick={goToPrivateService}
-                  onDelete={handleDeletePrivateService(
-                    hasDeletePermission,
-                    privateService,
-                  )}
-                  onEdit={handleEditPrivateService(
-                    hasEditPermission,
-                    privateService,
-                  )}
-                  privateService={privateService}
-                />
-              ))}
+              <PrivateServiceList
+                deletePrivateService={deletePrivateService}
+                goToPrivateService={goToPrivateService}
+                hasDeletePermission={hasDeletePermission}
+                hasEditPermission={hasEditPermission}
+                privateServiceList={privateServiceAvailableWithoutGroup}
+                setOpenEditForm={setOpenEditForm}
+              />
             </Paper>
             <Menu
               anchorEl={menuOpen[0]}

@@ -11,14 +11,7 @@ import {
   resetZoomEstablishments as resetZoomEstablishmentsAPI,
   bulkEditZoomEstablishments as bulkEditZoomEstablishmentsAPI,
 } from './api';
-import type {
-  Dispatch,
-  ThunkAction,
-  OptionCallback,
-  State,
-} from '../../state/types';
-import { UPSELL_IDENTIFIER_ZOOM_APP } from '#libs/platform-billing/upsell-identifiers';
-import { hasUpsell } from '#libs/platform-billing/utils';
+import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
 import { CUSTOM_ERROR_CODE } from '#libs/constants';
 import type {
   ZoomApp,
@@ -37,13 +30,17 @@ export function fetchZoomApp(
   companyId: number,
   options?: OptionCallback<ZoomApp>,
 ) {
-  return async (dispatch: Dispatch, getState: () => State) => {
+  return async (dispatch: Dispatch) => {
     dispatch(zoomAppDetailAction.error(null));
     dispatch(zoomAppDetailAction.loading(true));
     try {
-      const featureList = getState().company.feature.data;
-      const hasZoom = hasUpsell(featureList, UPSELL_IDENTIFIER_ZOOM_APP);
-      if (!hasZoom) {
+      const response = await fetchZoomAppAPI(companyId);
+      dispatch(zoomAppDetailAction.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      // 404 means the zoom app does not exist, this means there's no
+      // active zoom upsell package
+      if (error.response?.status === 404) {
         dispatch(
           zoomAppDetailAction.success({
             id: null,
@@ -55,15 +52,13 @@ export function fetchZoomApp(
           }),
         );
       } else {
-        const response = await fetchZoomAppAPI(companyId);
-        dispatch(zoomAppDetailAction.success(response.data));
-        options?.onSuccess?.(response.data);
+        dispatch(zoomAppDetailAction.error(error));
+        console.error(error);
+        dispatch(zoomAppDetailAction.error(error));
+        options?.onError?.();
       }
-    } catch (error) {
-      console.error(error);
-      dispatch(zoomAppDetailAction.error(error));
-      options?.onError?.();
     }
+
     dispatch(zoomAppDetailAction.loading(false));
   };
 }

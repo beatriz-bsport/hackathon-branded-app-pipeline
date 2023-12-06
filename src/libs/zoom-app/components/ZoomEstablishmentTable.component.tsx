@@ -60,6 +60,7 @@ type Props = {
   zoomEstablishments: ZoomEstablishment[];
   zoomEstablishmentBulkEdit: (data: ZoomEstablishmentBulkEditData) => void;
   loading: boolean;
+  disabled: boolean;
 };
 
 export const ZoomEstablishmentTable: React.FC<Props> = ({
@@ -68,6 +69,7 @@ export const ZoomEstablishmentTable: React.FC<Props> = ({
   zoomEstablishments,
   zoomEstablishmentBulkEdit,
   loading,
+  disabled,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation('settings');
@@ -239,6 +241,11 @@ export const ZoomEstablishmentTable: React.FC<Props> = ({
               <Button
                 className={classes.row}
                 color="primary"
+                disabled={
+                  disabled ||
+                  availableEstablishmentList.length === 0 ||
+                  availableZoomUserList.length === 0
+                }
                 onClick={addNewZoomEstablishmentEntry}
                 variant="outlined"
               >
@@ -262,6 +269,7 @@ export const ZoomEstablishmentTable: React.FC<Props> = ({
                 <TableCell>
                   <Select
                     hideSelectedOptions
+                    isDisabled={disabled}
                     onChange={getEstablishmentChangeHandler(entry.id)}
                     options={Object.values(
                       establishmentSelectionOptionsByValue,
@@ -276,6 +284,7 @@ export const ZoomEstablishmentTable: React.FC<Props> = ({
                 <TableCell>
                   <Select
                     hideSelectedOptions
+                    isDisabled={disabled}
                     onChange={getZoomUserChangeHandler(entry.id)}
                     options={Object.values(zoomUserSelectOptionsByValue)}
                     value={zoomUserSelectOptionsByValue[entry.zoom_user_id]}
@@ -295,6 +304,7 @@ export const ZoomEstablishmentTable: React.FC<Props> = ({
                 <TableCell>
                   <Button
                     className={classNames(classes.row, classes.textSecondary)}
+                    disabled={disabled}
                     onClick={getRemoveZoomEstablishmentEntryHandler(entry.id)}
                     variant="outlined"
                   >
@@ -313,7 +323,7 @@ export const ZoomEstablishmentTable: React.FC<Props> = ({
       <Button
         className={classes.submitButton}
         color="primary"
-        disabled={loading || !wasUpdated}
+        disabled={disabled || loading || !wasUpdated}
         onClick={submitZoomEstablishments}
         variant="contained"
       >

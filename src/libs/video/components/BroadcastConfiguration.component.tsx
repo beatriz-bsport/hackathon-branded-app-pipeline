@@ -94,8 +94,6 @@ const styles = (theme: Theme) =>
 type OuterProps = {
   theme: CompanyTheme;
   connectZoom: () => void;
-  onSubmitTheme: (id: number, data: any) => void;
-  onSubmitZoomApp: (data: any) => void;
   processing: boolean;
   revokeZoomApp: () => void;
   zoomApp: ZoomApp;
@@ -116,76 +114,12 @@ type OuterProps = {
     options?: OptionCallback<ZoomEstablishment[]>,
   ) => void;
   zoomAppUpdateLoading: boolean;
+  toggleDisableZoomApp: () => void;
 };
 
 type InnerProps = OuterProps & WithTranslation & WithStyles<typeof styles>;
 
-type State = {
-  theme: CompanyTheme;
-  zoomApp?: Partial<ZoomApp>;
-};
-
-export class BroadcastConfigurationForm extends Component<InnerProps, State> {
-  constructor(props: InnerProps) {
-    super(props);
-    this.state = {
-      theme: props.theme,
-      zoomApp: props.zoomApp || { id: null },
-    };
-  }
-
-  componentDidUpdate(prevProps: InnerProps) {
-    if (prevProps.theme !== this.props.theme) {
-      this.setState({ theme: this.props.theme });
-    }
-    if (this.props.zoomApp && prevProps.zoomApp !== this.props.zoomApp) {
-      this.setState({ zoomApp: this.props.zoomApp });
-    }
-  }
-
-  handleChange = (key: string) => (value: any) => {
-    this.setState((prevState) => ({
-      theme: { ...prevState.theme, [key]: value },
-    }));
-  };
-
-  handleChangeZoom = (key: string) => (value: any) => {
-    this.setState((prevState) => ({
-      zoomApp: { ...prevState.zoomApp, [key]: value },
-    }));
-  };
-
-  checkChange = () => {
-    let check_zoomApp = true;
-    if (this.props.zoomApp) {
-      check_zoomApp =
-        this.state.zoomApp.is_disabled === this.props.zoomApp.is_disabled;
-    }
-    return (
-      check_zoomApp &&
-      this.state.theme.is_whereby_integration_enabled ===
-        this.props.theme.is_whereby_integration_enabled
-    );
-  };
-
-  onSubmit = () => {
-    const new_theme = new FormData();
-    ['is_whereby_integration_enabled'].map((key) =>
-      // @ts-ignore | I don't know what's this
-      new_theme.append(key, this.state.theme[key]),
-    );
-    this.props.onSubmitTheme(this.props.theme.company, new_theme);
-
-    if (this.props.zoomApp && this.props.onSubmitZoomApp) {
-      const zoom_conf = new FormData();
-      ['is_disabled'].map((key) =>
-        // @ts-ignore | I don't know what's this
-        zoom_conf.append(key, this.state.zoomApp[key]),
-      );
-      this.props.onSubmitZoomApp(zoom_conf);
-    }
-  };
-
+export class BroadcastConfigurationForm extends Component<InnerProps> {
   render() {
     const { t, classes } = this.props;
     return (
@@ -201,10 +135,8 @@ export class BroadcastConfigurationForm extends Component<InnerProps, State> {
                   <Switch
                     checked={!is_disabled}
                     disabled={!hasZoom || !is_configured}
-                    onChange={(ev) => {
-                      this.handleChangeZoom('is_disabled')(!ev.target.checked);
-                    }}
-                    value={!this.state.zoomApp.is_disabled}
+                    onChange={this.props.toggleDisableZoomApp}
+                    value={!this.props.zoomApp}
                   />
                   <Typography
                     color={
@@ -283,19 +215,6 @@ export class BroadcastConfigurationForm extends Component<InnerProps, State> {
             );
           }}
         </FeatureListProvider>
-        <div className={classes.buttonContainer}>
-          <Button
-            color="primary"
-            disabled={this.checkChange() || this.props.processing}
-            onClick={() => this.onSubmit()}
-            variant="contained"
-          >
-            {t('broadcast.submit')}
-          </Button>
-          {this.props.processing ? (
-            <CircularProgress className={classes.progress} />
-          ) : null}
-        </div>
       </div>
     );
   }

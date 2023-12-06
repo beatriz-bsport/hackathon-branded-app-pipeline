@@ -159,7 +159,7 @@ export const ZoomMultiUserSupportForm: React.FC<Props> = ({
         <FormControlLabel
           checked={zoomApp.multi_zoom_user_support_enabled}
           classes={{ root: classes.noMarginLeft }}
-          control={<Switch color="primary" />}
+          control={<Switch color="secondary" />}
           disabled={zoomApp.is_disabled || !zoomApp.is_configured}
           label={t('broadcast.zoom.multiZoomUserSupport.switchLabel')}
           labelPlacement="end"
@@ -171,7 +171,7 @@ export const ZoomMultiUserSupportForm: React.FC<Props> = ({
             <div className={classes.groupConfiguration}>
               <TextField
                 className={classes.groupInput}
-                disabled={!!zoomApp.zoom_group_id}
+                disabled={zoomApp.is_disabled || !!zoomApp.zoom_group_id}
                 label={t('broadcast.zoom.zoomGroupId')}
                 onChange={handleZoomGroupIdChange}
                 value={
@@ -184,7 +184,7 @@ export const ZoomMultiUserSupportForm: React.FC<Props> = ({
 
               <Button
                 color="primary"
-                disabled={zoomAppUpdateLoading}
+                disabled={zoomApp.is_disabled || zoomAppUpdateLoading}
                 onClick={handleZoomGroupActionButtonClick}
                 variant="contained"
               >
@@ -197,6 +197,7 @@ export const ZoomMultiUserSupportForm: React.FC<Props> = ({
             {zoomApp.zoom_group_id && (
               <ZoomEstablishmentTable
                 key={tableRefreshKey}
+                disabled={zoomApp.is_disabled}
                 establishmentsById={establishmentsById}
                 loading={zoomEstablishmentTableDataLoading}
                 zoomEstablishmentBulkEdit={bulkEditZoomEstablishments}

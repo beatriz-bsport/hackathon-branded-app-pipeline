@@ -3,6 +3,7 @@ import { snackbarError, snackbarSuccess } from '../../actions/snackbar.actions';
 import {
   fetchZoomApp as fetchZoomAppAPI,
   updateZoomApp as updateZoomAppAPI,
+  toggleDisableZoomApp as toggleDisableZoomAppAPI,
   revokeZoomApp as revokeZoomAppAPI,
   toggleMultiZoomUserSupport as toggleMultiZoomUserSupportAPI,
   updateZoomGroupId as updateZoomGroupIdAPI,
@@ -79,6 +80,30 @@ export function updateZoomApp(
     dispatch(zoomAppUpdateAction.loading(true));
     try {
       const response = await updateZoomAppAPI(companyId, data);
+      dispatch(zoomAppDetailAction.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch(zoomAppUpdateAction.error(error));
+      if (options && options.onError) {
+        options.onError(error);
+      }
+    }
+    dispatch(zoomAppUpdateAction.loading(false));
+  };
+}
+
+export function toggleDisableZoomApp(
+  companyId: number,
+  options?: OptionCallback<ZoomApp>,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(zoomAppUpdateAction.error(null));
+    dispatch(zoomAppUpdateAction.loading(true));
+    try {
+      const response = await toggleDisableZoomAppAPI(companyId);
       dispatch(zoomAppDetailAction.success(response.data));
       if (options && options.onSuccess) {
         options.onSuccess(response.data);

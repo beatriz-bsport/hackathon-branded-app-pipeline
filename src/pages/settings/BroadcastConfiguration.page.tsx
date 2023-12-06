@@ -12,11 +12,11 @@ import { buildUrlParams, parseQueryString } from '../../http';
 
 import BroadcastConfigurationForm from '#libs/video/components/BroadcastConfiguration.component';
 import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
-import { updateCompanyTheme, fetchCompanyTheme } from '#libs/theme/actions';
+import { fetchCompanyTheme } from '#libs/theme/actions';
 import themeSelectors from '#libs/theme/selectors';
 import zoomAppSelectors from '#libs/zoom-app/selectors';
 import {
-  updateZoomApp,
+  toggleDisableZoomApp as toggleDisableZoomAppAction,
   fetchZoomApp as fetchZoomAppAction,
   revokeZoomApp as revokeZoomAppAction,
   toggleMultiZoomUserSupport as toggleMultiZoomUserSupportAction,
@@ -130,14 +130,13 @@ export class BroadcastConfiguration extends Component<Props> {
           fetchZoomMembersAndEstablishments={
             this.props.fetchZoomMembersAndEstablishments
           }
-          onSubmitTheme={this.props.submitTheme}
-          onSubmitZoomApp={this.props.submitZoomApp}
           processing={this.props.processing}
           resetZoomEstablishments={
             this.props.resetZoomEstablishmentsAndRefreshZoomApp
           }
           revokeZoomApp={this.props.revokeZoomApp}
           theme={this.props.theme}
+          toggleDisableZoomApp={this.props.toggleDisableZoomAppForCompany}
           toggleMultiZoomUserSupport={
             this.props.toggleMultiZoomUserSupportForCompany
           }
@@ -175,9 +174,7 @@ const connector = connect(
   }),
   {
     fetchCompanyTheme,
-    submitTheme: updateCompanyTheme,
     fetchZoomApp: fetchZoomAppAction,
-    submitZoomApp: updateZoomApp,
     replace: replaceRouter,
     snackbarSuccess,
     snackbarError,
@@ -189,6 +186,7 @@ const connector = connect(
     listZoomEstablishments: listZoomEstablishmentsAction,
     fetchEstablishments: fetchEstablishmentsAction,
     bulkEditZoomEstablishments,
+    toggleDisableZoomApp: toggleDisableZoomAppAction,
   },
 );
 
@@ -202,19 +200,6 @@ const mapHandlers = {
     ({ revokeZoomApp, theme }: ConnectedProps<typeof connector>) =>
     () => {
       revokeZoomApp(theme.company);
-    },
-  submitZoomApp:
-    ({
-      submitZoomApp,
-      fetchZoomApp,
-      theme,
-    }: ConnectedProps<typeof connector>) =>
-    (zoomAppData: any) => {
-      submitZoomApp(theme.company, zoomAppData, {
-        onSuccess: () => {
-          fetchZoomApp(theme.company);
-        },
-      });
     },
   toggleMultiZoomUserSupportForCompany:
     ({ toggleMultiZoomUserSupport, theme }: ConnectedProps<typeof connector>) =>
@@ -252,6 +237,11 @@ const mapHandlers = {
       fetchZoomGroupMembers(theme.company);
       listZoomEstablishments();
       fetchEstablishments({ disabled: false });
+    },
+  toggleDisableZoomAppForCompany:
+    ({ toggleDisableZoomApp, theme }: ConnectedProps<typeof connector>) =>
+    () => {
+      toggleDisableZoomApp(theme.company);
     },
 };
 

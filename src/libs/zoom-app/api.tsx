@@ -24,6 +24,13 @@ export const updateZoomApp = (companyId: number, data: Partial<ZoomApp>) => {
   );
 };
 
+export const toggleDisableZoomApp = (companyId: number) => {
+  return patchAuth<ZoomApp>(
+    `${API_V1_URI}/zoom_app/company/${companyId}/toggle_disable/`,
+    {},
+  );
+};
+
 export const requestZoomAccessToken = (
   companyId: number,
   code: string,

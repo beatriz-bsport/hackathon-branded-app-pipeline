@@ -28,7 +28,6 @@ import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLev
 import {
   getAvailablePrivateServicesWithoutGroup,
   getPrivateServiceListByGroup,
-  getPrivateServiceById,
   getPrivateServiceGroupList,
   getAvailablePrivateServices,
 } from '#libs/private-service/selectors/private-service';
@@ -155,7 +154,7 @@ export class PrivateServiceList extends React.Component<Props, State> {
   trueifinclude = () => {};
 
   render() {
-    const { classes, t, selectedPrivateService } = this.props;
+    const { classes, t } = this.props;
 
     return (
       <div>
@@ -233,7 +232,6 @@ export class PrivateServiceList extends React.Component<Props, State> {
           privateServiceAvailableWithoutGroup={
             this.props.privateServiceAvailableWithoutGroup
           }
-          selectedPrivateService={selectedPrivateService}
           setOpenEditForm={this.props.setOpenEditForm}
         />
         {(this.props.serviceGroupToEdit ||
@@ -385,7 +383,7 @@ const StateHandlersSetter = {
 };
 
 const connector = connect(
-  (state: RootState, { privateServiceId }: ParamsToProps) => ({
+  (state: RootState) => ({
     privateServiceAvailableWithoutGroup: withPrivateBookingNotification(
       getAvailablePrivateServicesWithoutGroup,
     )(state),
@@ -399,7 +397,6 @@ const connector = connect(
     availableEstablishments: getAvailableEstablishmentsWithAssociatedId(state),
     allEstablishments: getAllEstablishmentsWithAssociatedId(state),
     privateServiceAvailableByGroup: getPrivateServiceListByGroup(state),
-    selectedPrivateService: getPrivateServiceById(state, privateServiceId),
     allCoaches: getAllCoaches(state),
     allTagsWithTagGroup: getAllTagsWithTagGroup(state),
   }),

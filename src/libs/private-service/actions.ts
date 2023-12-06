@@ -704,7 +704,7 @@ export const privateServiceCreateOrUpdateActions = {
 
 export function createOrUpdatePrivateService(
   data: any,
-  options?: OptionCallback,
+  options?: OptionCallback<PrivateService>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(privateServiceCreateOrUpdateActions.isLoading(true));
@@ -759,7 +759,7 @@ export function deleteServiceGroup(
 
 export function deletePrivateService(
   id: number,
-  options: OptionCallback,
+  options?: OptionCallback,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(privateServiceCreateOrUpdateActions.isLoading(true));

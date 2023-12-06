@@ -119,7 +119,7 @@ export const getPrivateServiceListByGroup = createSelector(
 );
 export const getPrivateServiceById: (
   state: RootState,
-  id: string,
+  id: string | number,
 ) => PrivateService<Coach, Establishment, PrivateSlot> = (
   state: RootState,
   id,

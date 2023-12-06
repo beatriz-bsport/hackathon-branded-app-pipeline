@@ -30,8 +30,8 @@ export const PrivateBookingAttachCoachDialog = (props: Props) => {
               key={c.id}
               noEdit
               coach={c}
-              onCoachSelected={() => {
-                props.onSubmit({ coach: c.id });
+              onCoachSelected={(coachId) => {
+                props.onSubmit({ coach: coachId });
               }}
             />
           ))}

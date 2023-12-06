@@ -41,6 +41,7 @@ import CoachListItem, {
 } from '../../libs/associated-coach/components/CoachListItem.component';
 import CoachDeleteModal from '../../libs/associated-coach/components/CoachDeleteModal.component';
 import { canDeleteCoach as canDeleteCoachAPI } from '../../libs/associated-coach/api';
+import VirtualizedCoachList from '#libs/associated-coach/components/VirtualizedCoachList.component';
 
 type Props = {
   loading: boolean,
@@ -89,10 +90,6 @@ export class CoachList extends React.Component<Props, State> {
   onShowDisabled = () => {
     this.setState((prevState) => ({ showDisabled: !prevState.showDisabled }));
   };
-
-  goToCoachDetailPage(coach: Coach) {
-    if (!coach.disabled) this.props.goToCoachDetail(coach.id);
-  }
 
   render() {
     const { t } = this.props;
@@ -172,13 +169,11 @@ export class CoachList extends React.Component<Props, State> {
                           coach={coach}
                           deleteCoach={
                             hasDeletePermission
-                              ? () => this.props.setDeleteCoachId(coach.id)
+                              ? this.props.setDeleteCoachId
                               : null
                           }
                           onCoachSelected={
-                            !coach.disabled
-                              ? () => this.goToCoachDetailPage(coach)
-                              : null
+                            !coach.disabled ? this.props.goToCoachDetail : null
                           }
                         />
                       ))
@@ -197,26 +192,18 @@ export class CoachList extends React.Component<Props, State> {
                 'management.coach.allowed_actions.delete',
               ]}
             >
-              {([hasEditPermission, hasDeletePermission]) =>
-                coachesList.map((coach) => (
-                  <CoachListItem
-                    key={coach.id}
-                    divider
-                    coach={coach}
-                    deleteCoach={
-                      hasDeletePermission
-                        ? () => this.props.setDeleteCoachId(coach.id)
-                        : null
-                    }
-                    onCoachSelected={() => this.goToCoachDetailPage(coach)}
-                    onEditCoach={
-                      hasEditPermission
-                        ? () => this.props.goToCoachEdit(coach.id)
-                        : null
-                    }
-                  />
-                ))
-              }
+              {([hasEditPermission, hasDeletePermission]) => (
+                <VirtualizedCoachList
+                  coachList={coachesList}
+                  deleteCoach={
+                    hasDeletePermission ? this.props.setDeleteCoachId : null
+                  }
+                  onCoachSelected={this.props.goToCoachDetail}
+                  onEditCoach={
+                    hasEditPermission ? this.props.goToCoachEdit : null
+                  }
+                />
+              )}
             </ObjectLevelPermissionProvider>
           </List>
           <CoachDeleteModal
@@ -262,16 +249,29 @@ export class CoachList extends React.Component<Props, State> {
             >
               <Paper>
                 <List dense disablePadding component="nav">
-                  {inactiveCoachesList.map((coach) => (
-                    <CoachListItem
-                      key={coach.id}
-                      divider
-                      coach={coach}
-                      deleteCoach={() => this.props.setDeleteCoachId(coach.id)}
-                      onCoachSelected={() => this.goToCoachDetailPage(coach)}
-                      restoreCoach={() => this.props.restoreCoach(coach.id)}
-                    />
-                  ))}
+                  <ObjectLevelPermissionProvider
+                    requiredPermission={[
+                      'management.coach.allowed_actions.edit',
+                      'management.coach.allowed_actions.delete',
+                    ]}
+                  >
+                    {([hasEditPermission, hasDeletePermission]) => (
+                      <VirtualizedCoachList
+                        coachList={inactiveCoachesList}
+                        deleteCoach={
+                          hasDeletePermission
+                            ? this.props.setDeleteCoachId
+                            : null
+                        }
+                        onCoachSelected={this.props.goToCoachDetail}
+                        restoreCoach={
+                          hasEditPermission && hasDeletePermission
+                            ? this.props.restoreCoach
+                            : null
+                        }
+                      />
+                    )}
+                  </ObjectLevelPermissionProvider>
                 </List>
               </Paper>
             </Collapse>

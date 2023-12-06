@@ -30,13 +30,15 @@ import DEFAULT_PROFILE_PICTURE_URL from '../../../assets/constants';
 
 type Props = {
   coach: Coach;
-  onCoachSelected?: () => void;
-  deleteCoach?: () => void;
+  onCoachSelected?: (id: number) => void;
+  deleteCoach?: (id: number) => void;
   restoreCoach?: (id: number) => void;
   divider?: boolean;
-  onEditCoach?: () => void;
+  onEditCoach?: (id: number) => void;
   selected?: boolean;
   hasEditPermission?: boolean;
+  // eslint-disable-next-line
+  index?: number;
 };
 
 type PropsSkeleton = {
@@ -57,7 +59,7 @@ export const CoachListSkeleton: React.FC<PropsSkeleton> = React.memo(
   ({ numberItems }) => {
     const classes = useStyles();
     return (
-      <List dense disablePadding>
+      <List dense disablePadding className={classes.container}>
         {Array.from(Array(numberItems).keys()).map((key) => (
           <ListItem key={key}>
             <Skeleton
@@ -123,39 +125,54 @@ export const CoachListItem: React.FC<Props> = ({
     [coach.phone],
   );
 
-  const handleClick = React.useCallback(() => {
+  const handleRestore = React.useCallback(() => {
     restoreCoach(coach.id);
   }, [restoreCoach, coach.id]);
+
+  const handleClick = React.useCallback(
+    () => onCoachSelected(coach.id),
+    [onCoachSelected, coach.id],
+  );
+
+  const handleEdit = React.useMemo(
+    () => (onEditCoach ? () => onEditCoach(coach.id) : null),
+    [onEditCoach, coach.id],
+  );
+
+  const handleDelete = React.useMemo(
+    () => (deleteCoach ? () => deleteCoach(coach.id) : null),
+    [deleteCoach, coach.id],
+  );
 
   const actionsList = React.useMemo(
     () =>
       Immutable([
         !coach.disabled &&
-          onEditCoach &&
+          handleEdit &&
           hasEditPermission && {
             icon: EditIcon,
             label: t('common.edit'),
             color: 'primary',
-            onClick: onEditCoach,
+            onClick: handleEdit,
           },
         !coach.disabled &&
-          deleteCoach && {
+          handleDelete && {
             icon: DeleteIcon,
             label: t('common.delete'),
-            onClick: deleteCoach,
+            onClick: handleDelete,
           },
         coach.disabled && {
           icon: RestoreFromTrashIcon,
           label: t('common.restore'),
-          onClick: handleClick,
+          onClick: handleRestore,
         },
       ]),
     [
       coach.disabled,
       hasEditPermission,
-      handleClick,
-      deleteCoach,
-      onEditCoach,
+      handleRestore,
+      handleDelete,
+      handleEdit,
       t,
     ],
   ) as Immutable.ImmutableArray<ActionOption>;
@@ -164,9 +181,10 @@ export const CoachListItem: React.FC<Props> = ({
     <ListItem
       key={coach.id}
       button
+      className={classes.container}
       divider={divider}
       id="button_teacher"
-      onClick={onCoachSelected}
+      onClick={handleClick}
       selected={selected}
     >
       <ListItemAvatar>
@@ -214,6 +232,9 @@ export const CoachListItem: React.FC<Props> = ({
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
+  container: {
+    height: '81px',
+  },
   avatar: {
     width: theme.spacing(7),
     height: theme.spacing(7),

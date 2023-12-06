@@ -5,6 +5,7 @@ import { createAction } from 'redux-actions';
 import type { AxiosResponse } from 'axios';
 
 import * as Sentry from '@sentry/react';
+import type { RootState } from '../../reducers/types';
 import { snackbarError, snackbarSuccess } from '../snackbar/actions';
 import {
   fetchMyUserProfileAPI,
@@ -48,14 +49,15 @@ import type {
   ChangeEmailRequest,
   FetchRecipientsParams,
 } from './types';
-
-import type { Dispatch, OptionCallback, ThunkAction } from '../../state/types';
 import {
+  areAllInCache,
   GenericAsyncAction,
   GenericListAsyncAction,
   GenericListRepo,
   GenericRepo,
 } from '../../utils/reduxHelper';
+
+import type { Dispatch, OptionCallback, ThunkAction } from '../../state/types';
 import { COMPANY_EVENTS } from './events.utils';
 import { fetchEventList } from '#libs/event/actions';
 import { EventListParams } from '#libs/event/types';
@@ -217,18 +219,30 @@ export function fetchMemberBulk(
   };
 }
 
-export function fetchMemberBulkById(ids: Array<number>) {
-  return async (dispatch: Dispatch) => {
+export function fetchMemberBulkById(
+  ids: Array<number>,
+  options?: OptionCallback<Member[]>,
+  useCacheMilliseconds?: number,
+) {
+  return async (dispatch: Dispatch, getState: () => RootState) => {
     const id_uniq = uniq(ids);
     if (!id_uniq.length) return;
+
+    if (useCacheMilliseconds) {
+      const cachedIds = getState().member.cachedIds;
+      if (areAllInCache(id_uniq, cachedIds, useCacheMilliseconds)) return;
+    }
+
     dispatch(memberBulkActions.isLoading(true));
     try {
       const response = await fetchFilteredMembersAPI({ id__in: id_uniq });
       dispatch(memberBulkActions.success(response.data.results));
+      options?.onSuccess?.(response.data.results);
     } catch (err) {
       console.error(err);
       dispatch(memberBulkActions.error(err));
       dispatch(memberBulkActions.error(err));
+      options?.onError?.(err);
     }
     dispatch(memberBulkActions.isLoading(false));
   };

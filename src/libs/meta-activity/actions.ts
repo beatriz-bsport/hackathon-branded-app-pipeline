@@ -32,6 +32,7 @@ import {
 } from './api/common';
 
 import { fetchMetaActivities as fetchMetaActivitiesAPI } from './api/workshop-activity';
+import { areAllInCache } from '../../utils/reduxHelper';
 
 import {
   MetaActivity,
@@ -51,6 +52,7 @@ export const metaActivityBulkActions = {
 export function fetchMetaActivityBulk(
   ids: Array<number>,
   options?: OptionCallback<MetaActivity[]>,
+  useCacheMilliseconds?: number,
 ): ThunkAction {
   return async (dispatch: Dispatch, getState) => {
     const freshIdList = getFreshPureMetaActivityList(getState());
@@ -61,6 +63,12 @@ export function fetchMetaActivityBulk(
     if (ids_uniq.length === 0) {
       return;
     }
+
+    if (useCacheMilliseconds) {
+      const cachedIds = getState().metaActivity.cachedIds;
+      if (areAllInCache(ids_uniq, cachedIds, useCacheMilliseconds)) return;
+    }
+
     dispatch(metaActivityBulkActions.isLoading(true));
     dispatch(metaActivityBulkActions.error(null));
 

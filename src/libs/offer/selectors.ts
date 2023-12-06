@@ -2,6 +2,7 @@
 import groupBy from 'lodash/groupBy';
 import createCachedSelector from 're-reselect';
 import { createSelector } from 'reselect';
+import Immutable from 'seamless-immutable';
 
 import moment from 'moment-timezone';
 import memoize from 'memoize-one';
@@ -11,6 +12,7 @@ import { getAllTagsWithTagGroup } from '../tag/selectors';
 import { getAllCoachesDict } from '../associated-coach/selectors';
 import {
   getWorkshopActivitiesDict,
+  getMetaActivitiesDict,
   getMetaActivityAbstractDict,
 } from '../meta-activity/selectors';
 import { getAllEstablishmentsDict } from '../establishment/selectors';
@@ -373,13 +375,28 @@ const _getOfferEventList = (state: RootState) => state.offer.calendar;
 const periodFilterExtractor = (state, params, periodFilter) => periodFilter;
 
 export const getOfferAsEventList = createSelector(
-  [_getOfferEventList, periodFilterExtractor],
-  (offerList, { start, end }) => {
-    return offerList.filter(
-      (o) =>
-        moment(o.date_start).isSameOrBefore(moment(end), 'day') &&
-        moment(o.date_start).isSameOrAfter(moment(start), 'day'),
-    );
+  [
+    _getOfferEventList,
+    periodFilterExtractor,
+    getMetaActivitiesDict,
+    getWorkshopActivitiesDict,
+  ],
+  (offerList, { start, end }, metaActivityData, workshopData) => {
+    return offerList
+      .filter(
+        (o) =>
+          moment(o.date_start).isSameOrBefore(moment(end), 'day') &&
+          moment(o.date_start).isSameOrAfter(moment(start), 'day'),
+      )
+      .map((o) =>
+        Immutable({
+          ...o,
+          meta_activity:
+            metaActivityData[o.meta_activity] ||
+            workshopData[o.meta_activity] ||
+            o.meta_activity,
+        }),
+      );
   },
 );
 

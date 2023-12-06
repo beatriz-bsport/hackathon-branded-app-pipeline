@@ -30,7 +30,6 @@ import {
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#libs/meta-activity/actions';
 import {
   getOfferAsEventList,
-  withMetaActivity,
   getOfferHasPendingReplacementRequest,
 } from '#libs/offer/selectors';
 import { setScheduleFilter as setScheduleFilterAction } from '#libs/user-preference/actions';
@@ -320,7 +319,7 @@ const connector = connect(
       null,
       periodFilter,
     ),
-    offerList: withMetaActivity(getOfferAsEventList)(state, null, periodFilter),
+    offerList: getOfferAsEventList(state, null, periodFilter),
     getHasPendingReplacementRequest:
       getOfferHasPendingReplacementRequest(state),
     loading:

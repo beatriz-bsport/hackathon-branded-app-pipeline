@@ -58,6 +58,7 @@ export type MetaActivityCategoryWithActivities = MetaActivityCategory & {
 };
 
 export type MetaActivityState = ErrorAndLoading & {
+  cachedIds: { [key: number]: number };
   byId: { [key: string]: MetaActivity };
   allIds: number[];
   favorite: ErrorAndLoading & {

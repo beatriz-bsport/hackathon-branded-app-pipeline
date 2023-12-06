@@ -24,9 +24,11 @@ import {
 } from './actions';
 import { MetaActivity, MetaActivityState } from './types';
 import { PaginatedResponse } from '../../state/types';
+import { prepareCacheKeys } from '../../utils/reduxHelper';
 
 const initialState: Immutable.Immutable<MetaActivityState> =
   Immutable<MetaActivityState>({
+    cachedIds: {},
     byId: {},
     allIds: [],
     loading: false,
@@ -122,7 +124,8 @@ export default handleActions<Immutable.Immutable<MetaActivityState>, any>(
             ),
           },
           { deep: true },
-        );
+        )
+        .merge({ cachedIds: prepareCacheKeys(payload) }, { deep: true });
     },
     [metaActivityDetailActions.isLoading.toString()]: (state, { payload }) => {
       return state.set('loading', payload);
@@ -134,18 +137,20 @@ export default handleActions<Immutable.Immutable<MetaActivityState>, any>(
       return state.merge({ byId: payload }, { deep: true });
     },
     [metaActivityBulkActions.success.toString()]: (state, { payload }) => {
-      return state.merge(
-        {
-          byId: payload.reduce(
-            (acc: MetaActivityState['byId'], ps: MetaActivity) => {
-              acc[ps.id] = ps;
-              return acc;
-            },
-            {},
-          ),
-        },
-        { deep: true },
-      );
+      return state
+        .merge(
+          {
+            byId: payload.reduce(
+              (acc: MetaActivityState['byId'], ps: MetaActivity) => {
+                acc[ps.id] = ps;
+                return acc;
+              },
+              {},
+            ),
+          },
+          { deep: true },
+        )
+        .merge({ cachedIds: prepareCacheKeys(payload) }, { deep: true });
     },
     [metaActivityBulkActions.isLoading.toString()]: (state, { payload }) => {
       return state.set('loading', payload);

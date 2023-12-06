@@ -23,10 +23,7 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import PrivateCalendarWithControls from '../../libs/private-service/components/PrivateCalendarWithControls.component';
 
 import { fetchAllOffers as fetchAllOffersAction } from '../../libs/offer/actions';
-import {
-  getOfferAsEventList,
-  withMetaActivity,
-} from '../../libs/offer/selectors';
+import { getOfferAsEventList } from '../../libs/offer/selectors';
 import type { ScheduleFilter } from '../../libs/user-preference/types';
 import { setEstablishmentScheduleFilter as setEstablishmentScheduleFilterAction } from '../../libs/user-preference/actions';
 import { getEstablishmentScheduleFilter } from '../../libs/user-preference/selectors';
@@ -283,11 +280,7 @@ export default compose(
         null,
         periodFilter,
       ),
-      offerList: withMetaActivity(getOfferAsEventList)(
-        state,
-        null,
-        periodFilter,
-      ),
+      offerList: getOfferAsEventList(state, null, periodFilter),
       loading:
         state.privateService.availabilitySlot.loading ||
         state.privateService.privateBooking.loading,

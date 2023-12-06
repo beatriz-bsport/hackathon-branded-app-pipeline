@@ -30,12 +30,17 @@ import {
   updateSpiviPrivacySettingsActions,
 } from './actions';
 import { Member, MemberNote, MemberState } from './types';
-import { GenericListReducer, GenericReducer } from '../../utils/reduxHelper';
+import {
+  GenericListReducer,
+  GenericReducer,
+  prepareCacheKeys,
+} from '../../utils/reduxHelper';
 import { GenericPaginationResults } from '../types';
 
 const initialState: Immutable.Immutable<MemberState> = Immutable<MemberState>({
   loading: false,
   error: null,
+  cachedIds: {},
   allIds: [], // all the members
   listCount: 0,
   quickFetched: [],
@@ -146,6 +151,12 @@ export default handleActions<Immutable.Immutable<MemberState>, any>(
               },
               {},
             ),
+          },
+          { deep: true },
+        )
+        .merge(
+          {
+            cachedIds: prepareCacheKeys(action.payload),
           },
           { deep: true },
         )

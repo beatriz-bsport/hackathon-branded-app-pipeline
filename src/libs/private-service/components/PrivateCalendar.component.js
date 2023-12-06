@@ -9,6 +9,7 @@ import itLocale from '@fullcalendar/core/locales/it';
 import deLocale from '@fullcalendar/core/locales/de';
 import nlLocale from '@fullcalendar/core/locales/nl';
 import withStyles from '@material-ui/core/styles/withStyles';
+import Immutable from 'seamless-immutable';
 import TodayIcon from '@material-ui/icons/Today';
 import Popover from '@material-ui/core/Popover';
 import CancelIcon from '@material-ui/icons/Cancel';
@@ -55,6 +56,15 @@ import RecurrentAvailabilityFormDialog from './RecurrentAvailabilityFormDialog.c
 import { DATE_FORMAT } from '../../../utils/datetime';
 
 const EVENT_DEFAULT_COLOR = '#8fdf82';
+
+const SUPPORTED_LOCALES = Immutable([frLocale, itLocale, deLocale, nlLocale]);
+const SUPPORTED_PLUGINS = Immutable([
+  interactionPlugin,
+  timeGridPlugin,
+  resourceTimeGrid,
+  dayGridPlugin,
+  // momentTimezonePlugin,
+]);
 
 const renderEventContent = (eventInfo) => {
   if (eventInfo.event._def.groupId === 'specific-availability') {
@@ -406,7 +416,7 @@ type State = {
   eventSlotSelected: ?EventSlot,
 };
 
-export class PrivateCalendar extends React.Component<Props, State> {
+export class PrivateCalendar extends React.PureComponent<Props, State> {
   calendarRef = React.createRef();
 
   state = {
@@ -500,7 +510,7 @@ export class PrivateCalendar extends React.Component<Props, State> {
       resourceDatatypeView: ?string,
       customEventList?: Array<CustomEvent>,
     ) => {
-      const events = [
+      const events = Immutable([
         ...availabilitySlots.map(availabilitySlotAsEvent(resourceDatatypeView)),
         ...(offerList || []).map(
           offerAsEvent(
@@ -512,9 +522,11 @@ export class PrivateCalendar extends React.Component<Props, State> {
         ...(customEventList || []).map(
           customEventAsEvent(resourceDatatypeView),
         ),
-      ];
+      ]);
 
-      const allDaySlot = !!events.reduce((acc, v) => acc || v.allDay, false);
+      const allDaySlot = Immutable(
+        !!events.reduce((acc, v) => acc || v.allDay, false),
+      );
 
       return {
         events,
@@ -654,25 +666,27 @@ export class PrivateCalendar extends React.Component<Props, State> {
     }
   };
 
-  hideCancelledPrivateBookings = (privateBookings, hideCancelledEvents) => {
-    if (hideCancelledEvents !== undefined) {
-      if (hideCancelledEvents === true) {
-        return privateBookings.filter(
-          (pb) => pb.booking_status_code === BOOKING_STATUS_OK.id,
-        );
+  hideCancelledPrivateBookings = memoize(
+    (privateBookings, hideCancelledEvents) => {
+      if (hideCancelledEvents !== undefined) {
+        if (hideCancelledEvents === true) {
+          return privateBookings.filter(
+            (pb) => pb.booking_status_code === BOOKING_STATUS_OK.id,
+          );
+        }
       }
-    }
-    return privateBookings;
-  };
+      return privateBookings;
+    },
+  );
 
-  hideCancelledOffers = (offerList, hideCancelledEvents) => {
+  hideCancelledOffers = memoize((offerList, hideCancelledEvents) => {
     if (hideCancelledEvents !== undefined) {
       if (hideCancelledEvents === true) {
         return offerList.filter((offer) => offer.available === true);
       }
     }
     return offerList;
-  };
+  });
 
   getSimilarDateDisplayAsFullCalendar = () => {
     const dateStart = moment(this.state.date_start);
@@ -706,8 +720,70 @@ export class PrivateCalendar extends React.Component<Props, State> {
     return <div style={{ display: 'none' }} />;
   };
 
-  render = () => {
-    const { classes, t } = this.props;
+  getCustomButtons = memoize(() =>
+    Immutable({
+      zoomIn: {
+        text: '+',
+        click: this.zoomIn,
+      },
+      zoomOut: {
+        text: '-',
+        click: this.zoomOut,
+      },
+      datePicker: {
+        text: this.props.t('calendar.header.dateSelector'),
+        click: this.openDatePicker,
+      },
+    }),
+  );
+
+  getHeaderToolbar = () => {
+    // no need to memoize : non-nested object
+    return {
+      left: 'prev,next today',
+      center: isWidthUp('sm', this.props.width) ? 'title' : '',
+      right: this.props.resourceDatatypeView
+        ? 'datePicker zoomOut,zoomIn resourceTimeGridDay,resourceTimeGridThreeDays,resourceTimeGridWeek'
+        : 'datePicker zoomOut,zoomIn timeGridDay,timeGridWeek,dayGridMonth',
+    };
+  };
+
+  getViews = memoize(() =>
+    Immutable({
+      resourceTimeGridThreeDays: {
+        type: 'resourceTimeGrid',
+        duration: { days: 3 },
+        buttonText: this.props.t('calendar.header.threeDaysView'),
+      },
+      resourceTimeGridDay: {
+        titleFormat: {
+          weekday: 'long',
+          month: 'long',
+          day: 'numeric',
+          year: 'numeric',
+        },
+      },
+    }),
+  );
+
+  getInitialView: () => string = () => {
+    if (window.innerWidth < 400) {
+      if (this.props.resourceDatatypeView) {
+        return 'resourceTimeGridDay';
+      }
+      return 'timeGridDay';
+    }
+    if (
+      this.props.resourceDatatypeView &&
+      !this.props.scheduleFilter.timeGrid.startsWith('resource')
+    ) {
+      return 'resourceTimeGridThreeDays';
+    }
+    return this.props.scheduleFilter.timeGrid;
+  };
+
+  render() {
+    const { classes } = this.props;
     const { events, allDaySlot } = this.getAvailableSlotAsEvents(
       this.props.availabilitySlots,
       this.hideCancelledPrivateBookings(
@@ -721,19 +797,7 @@ export class PrivateCalendar extends React.Component<Props, State> {
       this.props.resourceDatatypeView,
       this.props.customEventList,
     );
-    let initialView = this.props.scheduleFilter.timeGrid;
-    if (window.innerWidth < 400) {
-      initialView = 'timeGridDay';
 
-      if (this.props.resourceDatatypeView) {
-        initialView = 'resourceTimeGridDay';
-      }
-    } else if (
-      this.props.resourceDatatypeView &&
-      !initialView.startsWith('resource')
-    ) {
-      initialView = 'resourceTimeGridThreeDays';
-    }
     return (
       <div className={classes.container}>
         {!isWidthUp('sm', this.props.width) && (
@@ -770,43 +834,18 @@ export class PrivateCalendar extends React.Component<Props, State> {
           filterResourcesWithEvents
           selectable
           allDaySlot={allDaySlot}
-          customButtons={{
-            zoomIn: {
-              text: '+',
-              click: this.zoomIn,
-            },
-            zoomOut: {
-              text: '-',
-              click: this.zoomOut,
-            },
-            datePicker: {
-              text: t('calendar.header.dateSelector'),
-              click: this.openDatePicker,
-            },
-          }}
+          customButtons={this.getCustomButtons()}
           dateClick={this.dateClick}
           datesSet={this.handleIntervalChange}
           eventClick={this.handleEventClick}
           eventContent={renderEventContent}
           events={events}
           firstDay={Moment.localeData()._week.dow}
-          headerToolbar={{
-            left: 'prev,next today',
-            center: isWidthUp('sm', this.props.width) ? 'title' : '',
-            right: this.props.resourceDatatypeView
-              ? 'datePicker zoomOut,zoomIn resourceTimeGridDay,resourceTimeGridThreeDays,resourceTimeGridWeek'
-              : 'datePicker zoomOut,zoomIn timeGridDay,timeGridWeek,dayGridMonth',
-          }}
-          initialView={initialView}
+          headerToolbar={this.getHeaderToolbar()}
+          initialView={this.getInitialView()}
           locale={i18n.language === 'en' ? 'en-GB' : i18n.language}
-          locales={[frLocale, itLocale, deLocale, nlLocale]}
-          plugins={[
-            interactionPlugin,
-            timeGridPlugin,
-            resourceTimeGrid,
-            dayGridPlugin,
-            // momentTimezonePlugin,
-          ]}
+          locales={SUPPORTED_LOCALES}
+          plugins={SUPPORTED_PLUGINS}
           resources={this.props.resources}
           schedulerLicenseKey="0617518912-fcs-1639035029"
           select={this.select}
@@ -826,21 +865,7 @@ export class PrivateCalendar extends React.Component<Props, State> {
               : '06:00:00'
           }
           timeZone={this.props.timezone}
-          views={{
-            resourceTimeGridThreeDays: {
-              type: 'resourceTimeGrid',
-              duration: { days: 3 },
-              buttonText: t('calendar.header.threeDaysView'),
-            },
-            resourceTimeGridDay: {
-              titleFormat: {
-                weekday: 'long',
-                month: 'long',
-                day: 'numeric',
-                year: 'numeric',
-              },
-            },
-          }}
+          views={this.getViews()}
         />
         {this.props.disableAvailabilitySlotDisplay ? null : (
           <Popover
@@ -931,7 +956,7 @@ export class PrivateCalendar extends React.Component<Props, State> {
         )}
       </div>
     );
-  };
+  }
 }
 
 export default compose(

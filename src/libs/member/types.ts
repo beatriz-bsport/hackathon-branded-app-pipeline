@@ -119,6 +119,7 @@ export type Member<Tag = number, CA = number> = {
 
 export type MemberState = ErrorAndLoading &
   ModelReducerI<Member> & {
+    cachedIds: { [key: number]: number };
     allIds: Array<number>;
     detailData: { [key: string]: Member };
     listData: { [key: string]: Member };

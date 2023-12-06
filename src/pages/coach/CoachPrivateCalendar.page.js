@@ -25,7 +25,6 @@ import {
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
 import {
   getOfferAsEventList,
-  withMetaActivity,
   getOfferHasPendingReplacementRequest,
 } from '../../libs/offer/selectors';
 
@@ -412,11 +411,7 @@ export default compose(
         null,
         periodFilter,
       ),
-      offerList: withMetaActivity(getOfferAsEventList)(
-        state,
-        null,
-        periodFilter,
-      ),
+      offerList: getOfferAsEventList(state, null, periodFilter),
       getHasPendingReplacementRequest:
         getOfferHasPendingReplacementRequest(state),
       loading:

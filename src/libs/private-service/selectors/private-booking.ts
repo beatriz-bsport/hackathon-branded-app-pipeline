@@ -1,5 +1,6 @@
 // @ts-nocheck
 import moment from 'moment-timezone';
+import Immutable from 'seamless-immutable';
 import { createSelector } from 'reselect';
 import memoize from 'memoize-one';
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
@@ -115,7 +116,7 @@ export const withRelatedFields = memoize((selector) =>
     ) => {
       if (!bookings) return null;
       if (!Array.isArray(bookings)) {
-        return {
+        return Immutable({
           ...bookings,
           coach: coachData[bookings.coach],
           establishment: estalbishmentData[bookings.establishment],
@@ -139,31 +140,33 @@ export const withRelatedFields = memoize((selector) =>
               }),
             ),
           },
-        };
+        });
       }
-      return bookings.map((b) => ({
-        ...b,
-        coach: coachData[b.coach],
-        establishment: estalbishmentData[b.establishment],
-        private_service: serviceData[b.private_service],
-        private_slot: slotData[b.private_slot],
-        member: {
-          ...memberData[b.member],
-          tags: memberData[b.member]?.tags?.map((tag_id: number) => ({
-            ...tagDict[tag_id],
-            group: tagGroupData[tagDict[tag_id]?.group],
-          })),
-        } || {
-          ...memberDetailData[b.member],
-          tags: memberDetailData[b.member]?.tags?.map((tag_id: number) => ({
-            ...tagDict[tag_id],
-            group: tagGroupData[tagDict[tag_id]?.group],
-          })),
-        },
-        private_consumer_pass:
-          privateConsumerPassData[b.private_consumer_pass] ||
-          b.private_consumer_pass,
-      }));
+      return bookings.map((b) =>
+        Immutable({
+          ...b,
+          coach: coachData[b.coach],
+          establishment: estalbishmentData[b.establishment],
+          private_service: serviceData[b.private_service],
+          private_slot: slotData[b.private_slot],
+          member: {
+            ...memberData[b.member],
+            tags: memberData[b.member]?.tags?.map((tag_id: number) => ({
+              ...tagDict[tag_id],
+              group: tagGroupData[tagDict[tag_id]?.group],
+            })),
+          } || {
+            ...memberDetailData[b.member],
+            tags: memberDetailData[b.member]?.tags?.map((tag_id: number) => ({
+              ...tagDict[tag_id],
+              group: tagGroupData[tagDict[tag_id]?.group],
+            })),
+          },
+          private_consumer_pass:
+            privateConsumerPassData[b.private_consumer_pass] ||
+            b.private_consumer_pass,
+        }),
+      );
     },
   ),
 );
@@ -337,21 +340,23 @@ const paramFilter: (
 export const getPrivateBookingListFiltered = createSelector(
   [getPrivateBookingDict, paramFilter],
   (bookingData, [params, { start, end }]) => {
-    return Object.values(bookingData).filter(
-      (b) =>
-        (!params ||
-          Object.entries(params).reduce(
-            (
-              acc,
-              [k, v]: [
-                keyof PrivateBooking,
-                PrivateBooking[keyof PrivateBooking],
-              ],
-            ) => b[k] === v && acc,
-            true,
-          )) &&
-        moment(b.date_end).isSameOrAfter(start, 'day') &&
-        moment(b.date_start).isSameOrBefore(end, 'day'),
+    return Immutable(
+      Object.values(bookingData).filter(
+        (b) =>
+          (!params ||
+            Object.entries(params).reduce(
+              (
+                acc,
+                [k, v]: [
+                  keyof PrivateBooking,
+                  PrivateBooking[keyof PrivateBooking],
+                ],
+              ) => b[k] === v && acc,
+              true,
+            )) &&
+          moment(b.date_end).isSameOrAfter(start, 'day') &&
+          moment(b.date_start).isSameOrBefore(end, 'day'),
+      ),
     );
   },
 );

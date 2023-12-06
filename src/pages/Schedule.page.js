@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import memoize from 'memoize-one';
+import Immutable from 'seamless-immutable';
 
 import { compose, withStateHandlers, withState, withHandlers } from 'recompose';
 import uniq from 'lodash/uniq';
@@ -34,7 +35,6 @@ import {
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../libs/meta-activity/actions';
 import {
   getOfferAsEventList,
-  withMetaActivity,
   getOfferHasPendingReplacementRequest,
 } from '../libs/offer/selectors';
 import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '../libs/member/actions';
@@ -48,7 +48,6 @@ import { getCustomEventList } from '../libs/private-service/selectors/custom-eve
 import CustomEvenFormDialog from '../libs/private-service/components/custom-event/CustomEventFormDialog.component';
 import {
   getFilteredAvailabilitySlots,
-  withResourceColor,
   getResourceDataList,
 } from '../libs/private-service/selectors/availability-slot';
 import { getPrivateServices } from '#libs/private-service/selectors/private-service';
@@ -301,7 +300,7 @@ export class CoachPrivateCalendar extends React.Component<Props> {
                   coachResource.resource_id,
                 ),
             );
-            return filteredResourceData;
+            return Immutable(filteredResourceData);
           }
           return resourceData;
         },
@@ -433,7 +432,7 @@ export default compose(
     (state, { periodFilter, resourceFiltersArray }) => ({
       companyTheme: getTheme(state),
       companyId: getTheme(state)?.company,
-      availabilitySlots: withResourceColor(getFilteredAvailabilitySlots)(
+      availabilitySlots: getFilteredAvailabilitySlots(
         state,
         periodFilter,
         resourceFiltersArray,
@@ -464,11 +463,7 @@ export default compose(
         null,
         periodFilter,
       ),
-      offerList: withMetaActivity(getOfferAsEventList)(
-        state,
-        null,
-        periodFilter,
-      ).filter((o) => {
+      offerList: getOfferAsEventList(state, null, periodFilter).filter((o) => {
         if (!state.theme.theme.show_cancelled_offers_manager) {
           return o.available;
         }
@@ -554,7 +549,11 @@ export default compose(
           },
           {
             onSuccess: (offers) => {
-              fetchMetaActivityBulk(offers.map((o) => o.meta_activity));
+              fetchMetaActivityBulk(
+                offers.map((o) => o.meta_activity),
+                null,
+                60 * 10 * 1000,
+              );
               listOffersWithPendingReplacementRequestIds(
                 offers.map((o) => o.id),
                 true,
@@ -583,7 +582,11 @@ export default compose(
           {
             onSuccess: (bookingList) => {
               if (bookingList.length) {
-                fetchMemberBulkById(uniq(bookingList.map((b) => b.member)));
+                fetchMemberBulkById(
+                  uniq(bookingList.map((b) => b.member)),
+                  null,
+                  120 * 1000, // cache
+                );
               }
             },
           },
@@ -614,6 +617,7 @@ export default compose(
               }
             },
           },
+          60 * 10 * 1000, // cache
         );
       },
   }),

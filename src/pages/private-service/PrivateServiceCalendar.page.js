@@ -26,7 +26,6 @@ import PrivateCalendarWithControls from '../../libs/private-service/components/P
 
 import {
   getFilteredAvailabilitySlots,
-  withResourceColor,
   getPrivateServiceResourceData,
 } from '../../libs/private-service/selectors/availability-slot';
 import AvailabilityUpdateResourceChoserDialog from '../../libs/private-service/components/resource/AvailabilityUpdateResourceChoserDialog.component';
@@ -350,7 +349,7 @@ export default compose(
 
   connect(
     (state, { id, periodFilter, resourceFiltersArray }) => ({
-      availabilitySlots: withResourceColor(getFilteredAvailabilitySlots)(
+      availabilitySlots: getFilteredAvailabilitySlots(
         state,
         periodFilter,
         resourceFiltersArray,

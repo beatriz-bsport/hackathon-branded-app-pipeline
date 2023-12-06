@@ -8,6 +8,26 @@ interface GenericActionI {
   success: any;
 }
 
+export const areAllInCache = (
+  ids: number[],
+  cachedIds: { [key: number]: number },
+  expirationMilliseconds: number,
+) => {
+  const idsToRefresh = (ids || []).filter(
+    (id) =>
+      !cachedIds[id] || Date.now() - cachedIds[id] > expirationMilliseconds,
+  );
+  return !!idsToRefresh?.length;
+};
+
+export const prepareCacheKeys = (objectArray: any[]) => {
+  const now = Date.now();
+  return objectArray.reduce((acc, m) => {
+    acc[m.id] = now;
+    return acc;
+  }, {});
+};
+
 type AsyncActionArgument<F extends Function> = F extends (
   ...args: infer A
 ) => any

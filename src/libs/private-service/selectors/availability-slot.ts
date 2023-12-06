@@ -1,6 +1,5 @@
 // @ts-nocheck
 import moment from 'moment-timezone';
-import memoize from 'memoize-one';
 import pickBy from 'lodash/pickBy';
 import groupBy from 'lodash/groupBy';
 import flatten from 'lodash/flatten';
@@ -56,13 +55,15 @@ export const getAvailabilitySlots = createSelector(
   [_getAvailabilitySlotsData, periodFilterExtractor],
   (slotsData, periodFilter) => {
     if (periodFilter) {
-      return Object.values(slotsData).filter(
-        (v: any) =>
-          moment(v.date_start).isSameOrAfter(periodFilter.start) &&
-          moment(v.date_start).isSameOrBefore(periodFilter.end),
+      return Immutable(
+        Object.values(slotsData).filter(
+          (v: any) =>
+            moment(v.date_start).isSameOrAfter(periodFilter.start) &&
+            moment(v.date_start).isSameOrBefore(periodFilter.end),
+        ),
       );
     }
-    return Object.values(slotsData);
+    return Immutable(Object.values(slotsData));
   },
 );
 
@@ -123,16 +124,6 @@ export const getResourceDataList = createSelector(
   (data, ids) => groupByResourceDatatype(ids.map((id) => data[id])),
 );
 
-export const withResourceColor = memoize((selector) =>
-  createSelector([selector, _getResourceData], (slots, resourceData) =>
-    // @ts-ignore
-    slots.map((s) => {
-      const resource = resourceData[s.resource_identifier];
-      return { ...s, color: resource ? resource.color : '' };
-    }),
-  ),
-);
-
 // @ts-ignore
 export const getEstablishmentAvailabilitySlots: (
   State,
@@ -167,15 +158,24 @@ export const getFilteredAvailabilitySlots = createSelector(
   [
     getAvailabilitySlots,
     (state, periodFilter, resourceIdentifierList) => resourceIdentifierList,
+    _getResourceData,
   ],
-  (slotsData, resourceIdentifierList) => {
+  (slotsData, resourceIdentifierList, resourceData) => {
     if (resourceIdentifierList) {
-      return slotsData.filter((slot) =>
-        // @ts-ignore
-        resourceIdentifierList.includes(slot.resource_identifier),
-      );
+      return slotsData
+        .filter((slot) =>
+          // @ts-ignore
+          resourceIdentifierList.includes(slot.resource_identifier),
+        )
+        .map((s) => {
+          const resource = resourceData[s.resource_identifier];
+          return Immutable({ ...s, color: resource ? resource.color : '' });
+        });
     }
-    return slotsData;
+    return slotsData.map((s) => {
+      const resource = resourceData[s.resource_identifier];
+      return Immutable({ ...s, color: resource ? resource.color : '' });
+    });
   },
 );
 

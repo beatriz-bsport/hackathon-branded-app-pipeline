@@ -116,6 +116,15 @@ export const PrivateCalendarWithControls = (props: Props) => {
       [filterName]: !props.scheduleFilter[filterName],
     });
 
+  const { onDateChange, setPrivateCalendarDateStart } = props;
+  const handleDateChange = React.useCallback(
+    (data) => {
+      onDateChange(data);
+      setPrivateCalendarDateStart(data);
+    },
+    [onDateChange, setPrivateCalendarDateStart],
+  );
+
   return (
     <div className={props.classes.container}>
       <Paper square className={props.classes.header}>
@@ -279,10 +288,7 @@ export const PrivateCalendarWithControls = (props: Props) => {
             props.scheduleFilter?.showOfferList ? props.offerList || [] : []
           }
           onBookRequest={props.isCoach ? null : props.onRequestPrivateBooking}
-          onDateChange={(data) => {
-            props.onDateChange(data);
-            props.setPrivateCalendarDateStart(data);
-          }}
+          onDateChange={handleDateChange}
           onEventClick={props.handleEventClick}
           privateBookings={
             props.scheduleFilter?.showPrivateBookings
@@ -392,6 +398,7 @@ const styles = (theme) => ({
 });
 
 export default compose(
+  React.memo,
   withTranslation(['privateService']),
   withStyles(styles),
   withStateHandlers(

@@ -6,7 +6,6 @@ import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Alert from '@material-ui/lab/Alert';
 import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -14,6 +13,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 
+import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import ZoomEstablishmentTable from '#libs/zoom-app/components/ZoomEstablishmentTable.component';
 
 import type {
@@ -213,7 +213,7 @@ export const ZoomMultiUserSupportForm: React.FC<Props> = ({
         )}
       </div>
 
-      <Dialog maxWidth="sm" open={resetConfirmationDialogOpen}>
+      <GenericResponsiveDialog maxWidth="sm" open={resetConfirmationDialogOpen}>
         <DialogTitle>
           {t('broadcast.zoom.resetConfirmationDialog.title')}
         </DialogTitle>
@@ -231,7 +231,7 @@ export const ZoomMultiUserSupportForm: React.FC<Props> = ({
             {t('common:confirm')}
           </Button>
         </DialogActions>
-      </Dialog>
+      </GenericResponsiveDialog>
     </>
   );
 };

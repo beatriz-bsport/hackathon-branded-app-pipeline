@@ -10,6 +10,8 @@ import CheckIcon from '@material-ui/icons/Check';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import VideocamIcon from '@material-ui/icons/Videocam';
 import Paper from '@material-ui/core/Paper';
+import Chip from '@material-ui/core/Chip';
+import EmailIcon from '@material-ui/icons/Email';
 import { withTranslation, WithTranslation } from 'react-i18next';
 
 // @ts-expect-error
@@ -89,6 +91,9 @@ const styles = (theme: Theme) =>
         marginRight: theme.spacing(1),
       },
     },
+    radius: {
+      borderRadius: theme.spacing(0.5),
+    },
   });
 
 type OuterProps = {
@@ -128,7 +133,8 @@ export class BroadcastConfigurationForm extends Component<InnerProps> {
           {(featureList: FeatureList) => {
             const hasZoom = hasUpsell(featureList, UPSELL_IDENTIFIER_ZOOM_APP);
             // Even if zoom app does not exist, default values for this.props.zoomApp (see zoom-app/reducers.tsx)
-            const { is_configured, is_disabled } = this.props.zoomApp;
+            const { is_configured, is_disabled, zoom_user_email } =
+              this.props.zoomApp;
             return (
               <Paper className={classes.paperContainer}>
                 <div className={classes.inputContainer}>
@@ -150,21 +156,29 @@ export class BroadcastConfigurationForm extends Component<InnerProps> {
                   {t('broadcast.zoom.explainValid')}
                 </Typography>
                 <div className={classes.rowActions}>
-                  <CustomColorButton
-                    color="#2d8cff"
-                    disabled={
-                      this.props.zoomLoading || !hasZoom || is_configured
-                    }
-                    onClick={this.props.connectZoom}
-                    variant="contained"
-                  >
-                    {is_configured ? (
-                      <CheckIcon className={classes.iconLeft} />
-                    ) : (
-                      <VideocamIcon className={classes.iconLeft} />
-                    )}
-                    CONNECT ZOOM
-                  </CustomColorButton>
+                  {hasZoom && is_configured && zoom_user_email ? (
+                    <Chip
+                      classes={{ root: classes.radius }}
+                      icon={<EmailIcon />}
+                      label={zoom_user_email}
+                    />
+                  ) : (
+                    <CustomColorButton
+                      color="#2d8cff"
+                      disabled={
+                        this.props.zoomLoading || !hasZoom || is_configured
+                      }
+                      onClick={this.props.connectZoom}
+                      variant="contained"
+                    >
+                      {is_configured ? (
+                        <CheckIcon className={classes.iconLeft} />
+                      ) : (
+                        <VideocamIcon className={classes.iconLeft} />
+                      )}
+                      CONNECT ZOOM
+                    </CustomColorButton>
+                  )}
                   {is_configured && hasZoom && (
                     <RedButton
                       disabled={this.props.zoomLoading}

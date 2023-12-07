@@ -173,14 +173,17 @@ const ContentWrapper = ({
   if (loading) {
     return children;
   }
+
   // If cadence retrieval encountered an error or cadenceId is not a number, block access
-  if (cadenceRetrieveError || Number.isNaN(cadenceId)) {
+  if (
+    cadenceRetrieveError ||
+    Number.isNaN(cadenceId) ||
+    cadence?.id !== cadenceId
+  ) {
     return (
       <CadenceUtilityDialog
         open
-        BackdropProps={{
-          style: { position: 'absolute' },
-        }}
+        BackdropProps={{ style: { position: 'absolute' } }}
         dialogContainer={dialogContainer}
         variant={DialogVariant.BLOCK_UNACCESSIBLE_WORKFLOW}
       />
@@ -199,7 +202,7 @@ const ContentWrapper = ({
     );
   }
 
-  return <>{children}</>;
+  return children;
 };
 export class CadenceDetailPage extends Component<Props> {
   componentDidMount(): void {
@@ -229,10 +232,18 @@ export class CadenceDetailPage extends Component<Props> {
       this.props.setCurrentStepConfigurationFromCadenceMinimalConfiguration(
         minimalConfigration,
       );
+
+      const isCadenceArchivedOrUndefined =
+        Number.isNaN(this.props?.cadenceId) ||
+        this.props.cadence?.id !== this.props?.cadenceId ||
+        this.props.cadence.archived ||
+        this.props.cadenceRetrieveError;
       this.props.setIsWelcomeDialogOpen(
         !this.props.cadence.initialized &&
-          !this.props.doNotDisplayWelcomeDialog,
+          !this.props.doNotDisplayWelcomeDialog &&
+          !isCadenceArchivedOrUndefined,
       );
+
       if (
         !minimalConfigration.cadenceWinConfigured ||
         !minimalConfigration.cadenceLoseConfigured
@@ -1068,10 +1079,10 @@ const styles = (theme: Theme) =>
     pageContainer: {
       display: 'flex',
       width: '100%',
-      height: '100%',
-      marginTop: -theme.spacing(2),
-      backgroudColor: 'black',
+      height: '100vh',
       position: 'relative',
+      marginTop: -theme.spacing(2),
+      overflow: 'hidden',
     },
     whiteGreyBorderContainer: {
       backgroundColor: 'white',

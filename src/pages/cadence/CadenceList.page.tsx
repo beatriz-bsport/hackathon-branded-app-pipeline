@@ -168,6 +168,7 @@ export class CadenceListPage extends React.Component<Props> {
         </div>
       );
     }
+
     return (
       <>
         <div className={classes.pageContainer}>

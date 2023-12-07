@@ -129,6 +129,7 @@ const LoginForm: React.FC<Props> = ({
             classes={{
               root: 'bs-login-container__text-field',
               label: 'bs-login-container__text-field__label',
+              input: 'bs-login-container__text-field__input',
             }}
             id="bs-login-email-container"
             inputId="bs-login-email-input"
@@ -149,6 +150,7 @@ const LoginForm: React.FC<Props> = ({
           classes={{
             root: 'bs-login-container__text-field',
             label: 'bs-login-container__text-field__label',
+            input: 'bs-login-container__text-field__input',
           }}
           id="bs-login-password-container"
           inputId="bs-login-password-input"

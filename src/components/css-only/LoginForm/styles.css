@@ -147,6 +147,10 @@
   font-size: 1rem;
 }
 
+.bs-login-container__text-field__input {
+  color: var(--color-grey-dark);
+}
+
 .bs-login-container__error-message {
   margin-left: calc(var(--spacing-1) * 2.5);
   align-self: center;

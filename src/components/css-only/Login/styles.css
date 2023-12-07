@@ -30,6 +30,7 @@
 }
 
 .bs-login-container__body2-text {
+  color: var(--color-grey-dark);
   font-size: var(--body2-fontSize);
   font-weight: var(--body2-fontWeight);
   letter-spacing: var(--body2-letterSpacing);
@@ -91,12 +92,13 @@
 }
 
 .bs-login-container__connection {
+  color: var(--color-grey-dark);
   font-size: 36px;
   font-weight: 700;
 }
 
 .bs-login-container__connect {
-  color: rgba(0, 0, 0, 0.7);
+  color: var(--color-grey-dark);
   width: 100%;
   padding-left: var(--spacing-2);
   padding-right: var(--spacing-2);
@@ -107,7 +109,8 @@
 
 .bs-login-container__register-button {
   border-radius: var(--border-radius-6);
-  border: 1px solid #4d4d4d;
+  color: var(--color-primary-main);
+  border: 1px solid var(--color-primary-main);
   min-width: 200px;
   min-height: 46px;
 }

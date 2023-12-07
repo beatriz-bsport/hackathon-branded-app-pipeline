@@ -8,7 +8,7 @@ import AddPaymentMethod from './AddPaymentMethodWebview';
 import BasketPaymentIntent from './BasketPaymentIntent.page';
 import ContractPayment from './ContractPayment.page';
 import SubscriptionPaymentMethod from './SubscriptionPaymentMethod';
-
+import SpotSchedulingSelector from './SpotSchedulingSelector.page';
 import namespaces from '../../i18n/namespaces.json';
 
 export const RNWebView = () => {
@@ -37,6 +37,11 @@ export const RNWebView = () => {
         exact
         component={AddPaymentMethod}
         path="/rn-webview/add-payment-method"
+      />
+      <Route
+        exact
+        component={SpotSchedulingSelector}
+        path="/rn-webview/spot-scheduling-selector/:companyId/:offerId/"
       />
     </Switch>
   );

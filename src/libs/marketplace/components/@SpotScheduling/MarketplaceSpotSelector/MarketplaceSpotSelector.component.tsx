@@ -106,6 +106,7 @@ type Props = {
   expirationDatetime?: string;
   spotCurrentlyInBasket?: string;
   goToCheckout?: () => void;
+  forceCloseOnSelectForMobile?: boolean;
 };
 
 const MarketplaceSpotSelector: React.FC<Props> = (props) => {
@@ -227,7 +228,11 @@ const MarketplaceSpotSelector: React.FC<Props> = (props) => {
         fetchSpotForBlueprint={props.fetchSpotForBlueprint}
         isMobile={isMobile}
         onMouseOverSpot={onMouseOverSpot}
-        onSelectSpot={isMobile ? onSelectSpot : onSelectSpotAndCloseSelector}
+        onSelectSpot={
+          isMobile && !props.forceCloseOnSelectForMobile
+            ? onSelectSpot
+            : onSelectSpotAndCloseSelector
+        }
         roomBlueprint={roomBlueprint}
         selectedSpot={props.selectedSpot}
         spotTypesOfBlueprint={spotTypesOfBlueprint}

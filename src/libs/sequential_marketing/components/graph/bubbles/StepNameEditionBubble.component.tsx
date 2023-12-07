@@ -24,14 +24,11 @@ const StepNameEditionBubble: React.FC<Props> = ({
   const { t } = useTranslation('marketing');
 
   const [stepName, setStepName] = React.useState('');
-  const [isEmpty, setIsEmpty] = React.useState(false);
 
   const handleSubmit = React.useCallback(() => {
     const isStepNameUnchanged = stepName === step?.name;
-    const isStepNameEmpty = !stepName;
-    setIsEmpty(isStepNameEmpty);
     !isStepNameUnchanged &&
-      !isStepNameEmpty &&
+      !!stepName &&
       onConfirm?.({ name: stepName, stepId: step?.id });
     onCancel();
   }, [stepName, step?.name, step?.id, onConfirm, onCancel]);
@@ -39,11 +36,10 @@ const StepNameEditionBubble: React.FC<Props> = ({
   const updateStepName = React.useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       const value = event.target.value;
-      isEmpty && setIsEmpty(!value);
       event.preventDefault();
       setStepName(value);
     },
-    [isEmpty],
+    [],
   );
 
   React.useEffect(() => setStepName(step?.name ?? ''), [step?.name]);
@@ -53,6 +49,7 @@ const StepNameEditionBubble: React.FC<Props> = ({
       squareIcon
       color={SequentialMarketingColors.INNER_STEP_COLOR}
       icon="DeviceHub"
+      isSubmissionForbidden={!stepName}
       onCancelClick={onCancel}
       onConfirmClick={handleSubmit}
       title={t('cadence.form.cadenceStep')}
@@ -60,8 +57,8 @@ const StepNameEditionBubble: React.FC<Props> = ({
       <TextField
         fullWidth
         required
-        error={isEmpty}
-        helperText={isEmpty && t('cadence.bubble.requiredField')}
+        error={!stepName}
+        helperText={!stepName && t('cadence.bubble.requiredField')}
         inputProps={{ maxLength: MAX_LENGTH_CADENCE_STEP_NAME }}
         label={t('cadence.bubble.step.name')}
         name="stepName"

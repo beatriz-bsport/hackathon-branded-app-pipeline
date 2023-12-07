@@ -5532,7 +5532,7 @@
                 "explain1": "Die folgenden Studios haben diesen Pass automatisch zum Verkauf zur Verfügung. Sie können weder den Preis noch die Anzahl der Guthaben ändern.",
                 "title": "Meine Studios konfigurieren"
             },
-            "consumerPaymentPackSharedFromOtherFranchisee": "Geteilt seit Franchisenehmer",
+            "consumerPaymentPackSharedFromOtherFranchisee": "Geteilt mit einem Studio",
             "paymentPackSharedFromFranchisor": "Master Account Kurspass"
         },
         "universalPass": {
@@ -5884,7 +5884,7 @@
             "last_payment_date": "Datum der letzten Zahlung",
             "billing_establishment": "Adresse",
             "billing_group": "Abrechnungsgruppe",
-            "company_name": "Franchisenehmer",
+            "company_name": "Studio",
             "reverted": "Abgesagt",
             "sum_available_amount_non_expired": "Verbleibender Betrag",
             "sum_available_amount_expired": "Abgelaufener Betrag",
@@ -9412,7 +9412,7 @@
         },
         "note": {
             "is_medical": "Wichtige Anmerkung",
-            "healthNotes": "Warnungen",
+            "healthNotes": "Wichtige Informationen",
             "myNotes": "Anmerkungen",
             "addNote": "Eine Anmerkung hinzufügen",
             "noNoteSaved": "Keine gespeicherten Anmerkungen."
@@ -11064,7 +11064,7 @@
         "seeAll": "Alles sehen",
         "privatePassTemplateInstance": {
             "privatePassSharedFromFranchisor": "Master Account Kurspass",
-            "privateConsumerPassSharedFromOtherFranchisee": "Geteilt seit Franchisenehmer",
+            "privateConsumerPassSharedFromOtherFranchisee": "Geteilt von einem Franchisenehmer",
             "form": {
                 "title": "Meine Studios einrichten",
                 "explain2": "Wenn ein Mitglied diese Karte in einem der kompatiblen Studios kauft, kann es sie auch in den anderen Studios verwenden, die Sie festgelegt haben.",
@@ -12122,7 +12122,7 @@
             "28": "Zahlung erhalten",
             "27": "Abonnement gestoppt oder beendet",
             "24": "Gekauftes Abonnement (für Mitglieder)",
-            "453": "Geänderte Uhrzeit (Schüler)",
+            "453": "Geänderter Wochenplan (Mitglieder)",
             "452": "Neuer Termin (Schüler)",
             "13": "Ein Mitglied hat sich selbst von der Warteliste gestrichen",
             "6": "Anmeldung als Mitglied (Schüler)",
@@ -12137,30 +12137,30 @@
             "7": "Buchung per Kurspass",
             "3": "Stornierung des Kurses",
             "21": "Neue Buchung (für Mitglieder)",
-            "403": "Geänderte Uhrzeit (Lehrkraft)",
+            "403": "Änderung des Wochenplans (Lehrkraft)",
             "26": "Abonnement pausiert",
             "14": "Ein Mitglied wurde vom Studio von der Warteliste gestrichen",
             "9": "Ein Buchungsplatz ist verfügbar",
             "10": "Der Wartelistenplatz ist abgelaufen",
             "300": "Ein Mitglied, das nicht rechtzeitig geantwortet hat und von der Warteliste gestrichen wurde",
             "22": "Rechnungsbestätigung",
-            "601": "Zu wenige Buchungen N Stunden vor Beginn des Kurses",
-            "701": "Nicht fristgerechte Stornierung: Pass gesperrt (für Mitglieder)",
+            "601": "Wenn unterbelegte Sitzungen automatisch abgesagt werden (Lehrer)",
+            "701": "Nicht fristgerechte Stornierung: Pass temporär gesperrt (für Mitglieder)",
             "702": "Verspätete Stornierung: dem internen Kontostand wurde eine Geldstrafe hinzugefügt (für Mitglieder)",
             "530": "Streit über die Zahlung eines Abonnements",
             "520": "Die Zahlung eines fehlgeschlagenen Abonnements wird erneut versucht",
             "515": "Kurspass des Abonnements automatisch deaktiviert",
             "510": "Fehlgeschlagene Abonnement-Zahlung",
-            "481": "Wiederkehrende Verabredung wegen mangelnder Verfügbarkeit abgesagt (Schüler/in)",
-            "480": "Wiederkehrendes Treffen wegen mangelnder Verfügbarkeit abgesagt (Lehrkraft)",
+            "481": "Wiederkehrender Termin wegen mangelnder Verfügbarkeit abgesagt (Schüler/in)",
+            "480": "Wiederkehrender Termin wegen mangelnder Verfügbarkeit abgesagt (Lehrkraft)",
             "987": "Versuch, eine Ratenzahlung einzulösen",
             "101": "Erinnerung daran, dass der Livestream in 15 Minuten beginnt (für Lehrkräfte)",
             "102": "Abgesagte Sessions (Lehrkräfte)",
             "103": "Geänderte Sessions (Lehrkräfte)",
             "801": "Abgesagte Termingruppe",
             "902": "Vertretungsantrag storniert (Vertretung)",
-            "602": "Automatische Stornierung von nicht ausgelasteten Sessions (Mitglieder)",
-            "703": "Abwesenheit: Pass gesperrt (Mitglied)",
+            "602": "Wenn unterbelegte Sitzungen automatisch storniert werden (Mitglieder)",
+            "703": "Abwesenheit: Pass temporär gesperrt (Mitglied)",
             "704": "Abwesenheit: dem internen Kontostand wurde eine Geldstrafe hinzugefügt (für Mitglieder)",
             "705": "Benachrichtigung über Abwesenheit",
             "901": "Vertretungslehrkraft gefunden (Lehrkraft)",
@@ -12172,10 +12172,10 @@
             "20": "Anfrage zum Herunterladen einer Rechnung",
             "301": "Passwort für Mitglied zurücksetzen",
             "302": "E-Mail-Überprüfung für Mitglieder",
-            "303": "Zusammenlegung von zwei Konten des Studios",
-            "304": "Aktivierung der Geschenkkarte",
+            "303": "Zusammenlegung von zwei Studiokonten",
+            "304": "Aktivierung des Gutscheins",
             "305": "Änderung der Mitglieds-E-Mail aus dem Backoffice",
-            "1002": "Leistung der Spinning-Sitzung",
+            "1002": "Leistung der Spinning-Session",
             "1001": "Spivi-Konto erstellt (für Mitglieder)",
             "1003": "Spivi-Konto erstellt (Lehrkraft)",
             "31": "Buchung für einen Gast (für Gast)",
@@ -12410,50 +12410,50 @@
             "giftcard": "Gutscheine",
             "performance": "Performance"
         },
-        "pageTitle": "Transaktions-E-Mails",
+        "pageTitle": "Transaktions-Benachrichtigungen",
         "caption": {
             "event": "Veranstaltung",
             "emailDesign": "Zu versendende E-Mail",
             "sendCopy": "Erhalte eine Kopie der E-Mail",
-            "active": "Aktiviert"
+            "active": "Aktivieren"
         },
         "marketingNotification": {
-            "birthday": "Geburtstags-E-Mail"
+            "birthday": "Alles Gute Zum Geburtstag!"
         },
         "franchiseOwned": "Ihr Master Account bearbeitet derzeit diese Transaktions-E-Mail",
         "franchise": {
             "delete": {
                 "delete": "Löschen",
                 "content": "Sind Sie sicher, dass Sie diese Konfiguration löschen wollen? Die ausgewählten Einstellungen und E-Mail-Vorlagen werden auf ihre ursprünglichen Werte zurückgesetzt.",
-                "title": "Löschung"
+                "title": "Löschen"
             },
             "card": {
-                "carbonCopy": "Sie erhalten eine Kopie der E-Mail",
-                "deactivated": "Aus",
+                "carbonCopy": "Sie erhalten Kopien der E-Mail",
+                "deactivated": "Deaktiviert",
                 "activated": "Aktiviert",
-                "companies": "Franchisenehmer",
-                "parameters": "Parameter",
+                "companies": "Studios",
+                "parameters": "Einstellungen",
                 "template": "Vorlage"
             },
             "form": {
                 "error": {
                     "email_design": "Wählen Sie eine Vorlage",
-                    "selectCompanies": "Mindestens einen Franchisenehmer auswählen",
-                    "name": "Bitte geben Sie einen Namen ein"
+                    "selectCompanies": "Mindestens ein Studio auswählen",
+                    "name": "Wählen Sie einen Namen aus"
                 },
                 "save": "Speichern",
                 "cancel": "Abbrechen",
                 "mailSelection": "Wählen Sie eine Vorlage",
                 "receiveCarbonCopySubtitle": "Sie erhalten eine Kopie von jeder gesendeten E-Mail",
-                "receiveCC": "Sie erhalten eine Kopie der E-Mail",
+                "receiveCC": "Sie erhalten Kopien der E-Mail",
                 "activateSubtitleDeactivate": "Transaktions-E-Mails sind deaktiviert, sie werden nicht an Mitglieder gesendet",
-                "activateSubtitleActivate": "Die transnationale E-Mail ist aktiviert und wird an die Mitglieder gesendet",
-                "activate": "Aktiviert",
-                "parameters": "Parameter",
-                "useFor": "Verwendung für ",
+                "activateSubtitleActivate": "Die Transaktions-E-Mail ist aktiviert und wird an die Mitglieder gesendet",
+                "activate": "Aktivieren",
+                "parameters": "Einstellungen",
+                "useFor": "Verwenden für ",
                 "pickTemplate": "Wählen Sie eine Vorlage",
                 "name": "Name",
-                "description": "Die gewählte Vorlage wird für die Transaktions-E-Mail \"{{-name}}\" für alle hier ausgewählten Franchisenehmer verwendet.",
+                "description": "Die gewählte Vorlage wird für die Transaktions-E-Mail \"{{-name}}\" für alle hier ausgewählten Studios verwendet.",
                 "title": "Konfiguration",
                 "restrictedAccess": "Diese Konfiguration wird für Franchisenehmer eingerichtet, auf die Sie keinen Zugriff haben. Einige Felder sind nicht bearbeitbar"
             },
@@ -13515,7 +13515,7 @@
             "save": "Speichern",
             "title": "Name der Vorlage",
             "exportHtml": "HTML exportieren",
-            "selectorPlaceholder": "Auswahl der Franchisenehmer",
+            "selectorPlaceholder": "Studios auswählen",
             "shareWithHelper": "Die Vorlage kann von den Franchisenehmern nicht geändert werden",
             "shareWith": "Teilen mit",
             "showRequiredTags": "Variablen anzeigen",
@@ -13551,7 +13551,7 @@
         "leaveAlert": "Möchten Sie diese Seite wirklich verlassen?",
         "delete": "Löschen",
         "edit": "Bearbeiten",
-        "allCompanies": "Alle Franchisenehmer",
+        "allCompanies": "Alle Studios",
         "seeAll": "Alle ansehen",
         "franchiseEmails": "[Master Account] E-Mail-Vorlagen",
         "companieEmails": "Meine Vorlagen",
@@ -16828,7 +16828,7 @@
     },
     "franchise": {
         "companies": {
-            "pageTitle": "Franchisenehmer",
+            "pageTitle": "Studios",
             "navigateToCompany": "Anmeldung Franchisenehmer-Konto",
             "membersEmptyState": "Keine Mitglieder in diesem Studio",
             "establishmentEmptyState": "Keine Einrichtungen in diesem Studio.",
@@ -16853,14 +16853,14 @@
             "pageTitle": "Mitglieder",
             "see": "Siehe",
             "actions": "Aktionen",
-            "franchised": "Franchisenehmer",
+            "franchised": "Studios",
             "name": "Name"
         },
         "emails": {
             "chooseGroup": "Wählen Sie eine Gruppe",
             "copy": "kopieren",
             "groupByPlaceholder": "Gruppieren nach",
-            "franchised": "Franchisenehmer",
+            "franchised": "Studio",
             "groupBy": "Gruppieren nach",
             "pageTitle": "Vorlage",
             "companiesEmails": "[Master Account] E-Mail-Vorlagen",
@@ -18264,7 +18264,7 @@
             "customDomainNotDefined": "Sie haben keine benutzerdefinierte Domäne definiert. <1/>Bitte setzen Sie sich mit unserem Team in Verbindung, um den Konfigurationsprozess einzuleiten.",
             "example": "Beispiel",
             "customEmail": "Benutzerdefinierte E-Mail",
-            "franchiseeMail": "Franchisenehmer E-Mail",
+            "franchiseeMail": "Franchisenehmer-E-Mail",
             "chooseSender": "Bitte wählen Sie die E-Mail-Adresse , die zum Versenden verwenden möchten.",
             "sendMail": "Nachricht schicken"
         },

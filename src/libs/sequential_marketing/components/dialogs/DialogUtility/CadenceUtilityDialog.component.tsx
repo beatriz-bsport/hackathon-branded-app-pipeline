@@ -342,7 +342,9 @@ export const CadenceUtilityDialog: React.FC<Props> = ({
   const customClasses = { button: classes.button };
 
   const handleClose = (ev: React.MouseEvent, reason: string) => {
-    reason === 'backdropClick' && onCancel?.();
+    reason === 'backdropClick' &&
+      variant !== DialogVariant.WELCOME &&
+      onCancel?.();
   };
 
   return (

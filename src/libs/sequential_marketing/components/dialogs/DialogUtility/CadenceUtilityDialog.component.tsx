@@ -220,7 +220,7 @@ const useCadenceUtilityTexts = (
               name: cadenceName,
             }),
           ],
-          [t('cadence.archive.dialog.helper', { name: cadenceName })],
+          [t('audience.archive.dialog.helper')],
         ],
       };
     case DialogVariant.CONVERT_STEP_INTO_EXIT:

@@ -3594,15 +3594,15 @@
       },
       "welcome": {
         "dialog": {
-          "title": "Welcome to Audience!",
-          "helper": "Let's start setting up your workflow together! First, we'll define the criteria for your members to enter the workflow. Then, we'll determine the conditions under which your members will exit the workflow as 'Won' or 'Lost' based on their actions.",
+          "title": "Welcome to {{ audienceCamelCase }}!",
+          "helper": "Let's begin setting up your {{ workflowLowerCase }} together! First, we'll define the rules for your members to enter the {{ workflowLowerCase }}. Next, we'll decide when your members are considered 'Won' or 'Lost' based on their actions.",
           "confirm": "Start",
           "return": "Go back"
         }
       },
       "pause": {
         "dialog": {
-          "title": "Pause workflow",
+          "title": "Pause {{ workflowLowerCase }}",
           "helper": "All member actions that happen during the pause will not be taken into account.",
           "confirmButton": "Pause"
         }
@@ -3647,37 +3647,39 @@
         "convertIntoExit": { "title": "Exit", "label": "Consider the member as" },
         "entryTrigger": {
           "addTrigger": "Add an input trigger",
-          "helperText": "First let's decide how your members are going to enter the workflow. Select one or mutiple events or smartlists, if the member corresponds to one of them, he/she will enter the worflow.",
-          "title": "Entry criteria"
+          "helperText": "First let's decide how your members are going to enter the {{ workflowLowerCase }}. Select one or mutiple events or smartlists, if the member corresponds to one of them, he/she will enter the {{ workflowLowerCase }}.",
+          "title": "Entry criteria",
+          "editionHelper": "Edit the criteria for your members to enter the {{ workflowLowerCase }}. You can pick one or more events or smartlists. If a member fits any of these, they'll join the {{ workflowLowerCase }}.",
+          "creationHelper": "First, decide the criteria for your members to enter the {{ workflowLowerCase }}. Pick one or more events or smartlists. If a member fits any of these, they'll join the {{ workflowLowerCase }}."
         },
         "entryAction": {
           "addAction": "Add action",
-          "helperText": "Select what you want to do when your members enter the workflow. Tag them, send an email... It's up to you. Or do nothing, this step is optional.",
+          "helperText": "Decide what happens when the members enter the {{ workflowLowerCase }}. You can tag them, send them an email, or choose any other action that suits your needs. You can also choose to do nothing; this step is optional.",
           "title": "Entry action"
         },
         "wonTrigger": {
           "addTrigger": "Add an output trigger",
-          "helperText": "Let's define the general exit rules. Just like for the entry, indicate which events are going to make your members leave the workflow. Wherever the member is, if this event happens, the member will leave the workflow. First, define what you'll consider as a success to mark the member as \"Won\" upon leaving the workflow.",
+          "helperText": "Set the basic rules for when members should exit the {{ workflowLowerCase }}. If a member meets any of the triggers, they'll exit, no matter the step they are in. First, select the 'success' triggers that will mark a member as 'Won' when they exit the {{ workflowLowerCase }}.",
           "title": "Won criteria"
         },
         "wonAction": {
           "addAction": "Add action",
-          "helperText": "Select what you want to do when your members leave the workflow as won. Tag them, send an email... It's up to you. Or do nothing, this step is optional",
+          "helperText": "Decide what happens when the members leave the {{ workflowLowerCase }} as 'Won'. You can tag them, send them an email, or choose any other action that suits your needs. You can also choose to do nothing; this step is optional.",
           "title": "Won action"
         },
         "lostTrigger": {
           "timeout": {
             "title": "Time limit",
-            "label": "Days in the workflow",
-            "helperText": "If a member is still present in this workflow after the selected Time Limit, the member will be considered as 'Lost'."
+            "label": "Days in the {{ workflowLowerCase }}",
+            "helperText": "If a member is still present in this {{ workflowLowerCase }} after the selected time limit, the member will be considered as 'Lost'."
           },
           "addTrigger": "Add an output trigger",
-          "helperText": "Now let's define what you consider as a failure, so that your member leaves the workflow as \"lost\"",
+          "helperText": "Define what is considered a failure, the member will be marked as 'Lost' upon leaving the {{ workflowLowerCase }}. Also set the maximum time a member can be present in the {{ workflowLowerCase }}.",
           "title": "Lost criteria"
         },
         "lostAction": {
           "addAction": "Add action",
-          "helperText": "Select what you want to do when your members leave the workflow as lost. Tag them, send an email... It's up to you. Or do nothing, this step is optional.",
+          "helperText": "Decide what happens when the members leave the {{ workflowLowerCase }} as 'Lost'. You can tag them, send them an email, or choose any other action that suits your needs. You can also choose to do nothing; this step is optional.",
           "title": "Lost action"
         },
         "convertIntoStep": { "default": "Step label", "label": "Step label" },

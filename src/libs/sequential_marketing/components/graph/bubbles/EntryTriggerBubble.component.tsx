@@ -72,7 +72,9 @@ const EntryTriggerBubble: React.FC<Props> = ({
     >
       <div className={classes.content}>
         <Alert className={classes.alert} severity="info">
-          {t('cadence.bubble.entryTrigger.helperText')}
+          {isInitial
+            ? t('cadence.bubble.entryTrigger.creationHelper')
+            : t('cadence.bubble.entryTrigger.editionHelper')}
         </Alert>
         <MultipleConnectedTriggerForm
           isEntrystep

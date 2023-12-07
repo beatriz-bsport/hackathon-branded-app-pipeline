@@ -25,7 +25,7 @@
   border-style: none;
 }
 
-.bs-fabrique-button-base-root--disabled {
+.bs-fabrique-button-base-root:disabled {
   pointer-events: none;
   cursor: default;
   color: var(--bs-color-text-disabled);

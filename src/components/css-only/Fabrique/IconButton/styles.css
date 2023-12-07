@@ -154,7 +154,7 @@
 }
 
 /* ----- CONTAINED DISABLED----- */
-.bs-fabrique-icon-button-root-contained--disabled {
+[class*='bs-fabrique-icon-button-root-contained--disabled']:disabled {
   color: var(--bs-color-text-disabled);
   /* TODO Why text var for background --bs-color-text-disabled */
   background-color: var(--bs-color-text-disabled);
@@ -303,10 +303,10 @@
 }
 
 /* ----- OUTLINED DISABLED----- */
-.bs-fabrique-icon-button-root-outlined--disabled {
+[class*='bs-fabrique-icon-button-root-outlined']:disabled {
   color: var(--bs-color-text-disabled);
   /* TODO FIGMA WRONG */
-  background-color: var(--bs-color-border-disabled);
+  background-color: transparent;
   border-color: var(--bs-color-action-disabled);
 }
 
@@ -433,7 +433,7 @@
 }
 
 /* ----- TEXT BUTTON DISABLED----- */
-.bs-fabrique-icon-button-root-text--disabled {
+[class*='bs-fabrique-icon-button-root-text']:disabled {
   color: var(--bs-color-text-disabled);
   background-color: transparent;
 }

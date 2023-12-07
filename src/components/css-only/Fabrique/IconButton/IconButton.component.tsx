@@ -25,7 +25,6 @@ const useIconButtonClassNames = (
   size: ButtonSizeType,
   color: ButtonColorType,
   variant: ButtonVariantType,
-  isDisabled: boolean,
 ) => {
   const iconButtonSizeClassName = React.useMemo(() => {
     switch (size) {
@@ -43,90 +42,77 @@ const useIconButtonClassNames = (
   const joinedVariantWithColor = joinWithSeparator('-')(variant, color);
 
   const iconButtonVariantAndColorClassName = React.useMemo(() => {
-    if (isDisabled) {
-      switch (variant) {
-        case 'contained':
-          return ['bs-fabrique-icon-button-root-contained--disabled'];
-        case 'outlined':
-          return ['bs-fabrique-icon-button-root-outlined--disabled'];
-        case 'text':
-          return ['bs-fabrique-icon-button-root-text--disabled'];
-        default:
-          return ['bs-fabrique-icon-button-root-contained--disabled'];
-      }
-    } else {
-      switch (joinedVariantWithColor) {
-        // Contained
-        case 'contained-primary':
-          return ['bs-fabrique-icon-button-root-contained--main'];
-        case 'contained-secondary':
-          return ['bs-fabrique-icon-button-root-contained--secondary'];
-        case 'contained-error':
-          return ['bs-fabrique-icon-button-root-contained--error'];
-        case 'contained-warning':
-          return ['bs-fabrique-icon-button-root-contained--warning'];
-        case 'contained-grey':
-          return ['bs-fabrique-icon-button-root-contained--grey'];
-        case 'contained-info':
-          return ['bs-fabrique-icon-button-root-contained--info'];
-        case 'contained-white':
-          return ['bs-fabrique-icon-button-root-contained--white'];
-        // Outlined
-        case 'outlined-primary':
-          return [
-            'bs-fabrique-icon-button-root-outlined',
-            'bs-fabrique-icon-button-root-outlined--main',
-          ];
-        case 'outlined-secondary':
-          return [
-            'bs-fabrique-icon-button-root-outlined',
-            'bs-fabrique-icon-button-root-outlined--secondary',
-          ];
-        case 'outlined-error':
-          return [
-            'bs-fabrique-icon-button-root-outlined',
-            'bs-fabrique-icon-button-root-outlined--error',
-          ];
-        case 'outlined-warning':
-          return [
-            'bs-fabrique-icon-button-root-outlined',
-            'bs-fabrique-icon-button-root-outlined--warning',
-          ];
-        case 'outlined-grey':
-          return [
-            'bs-fabrique-icon-button-root-outlined',
-            'bs-fabrique-icon-button-root-outlined--grey',
-          ];
-        case 'outlined-info':
-          return [
-            'bs-fabrique-icon-button-root-outlined',
-            'bs-fabrique-icon-button-root-outlined--info',
-          ];
-        case 'outlined-white':
-          return [
-            'bs-fabrique-icon-button-root-outlined',
-            'bs-fabrique-icon-button-root-outlined--white',
-          ];
-        // Text
-        case 'text-primary':
-          return ['bs-fabrique-icon-button-root-text--main'];
-        case 'text-secondary':
-          return ['bs-fabrique-icon-button-root-text--secondary'];
-        case 'text-error':
-          return ['bs-fabrique-icon-button-root-text--error'];
-        case 'text-warning':
-          return ['bs-fabrique-icon-button-root-text--warning'];
-        case 'text-grey':
-          return ['bs-fabrique-icon-button-root-text--grey'];
-        case 'text-info':
-          return ['bs-fabrique-icon-button-root-text--info'];
-        case 'text-white':
-          return ['bs-fabrique-icon-button-root-text--white'];
-        default:
-          return ['bs-fabrique-icon-button-root-contained--main'];
-      }
+    switch (joinedVariantWithColor) {
+      // Contained
+      case 'contained-primary':
+        return ['bs-fabrique-icon-button-root-contained--main'];
+      case 'contained-secondary':
+        return ['bs-fabrique-icon-button-root-contained--secondary'];
+      case 'contained-error':
+        return ['bs-fabrique-icon-button-root-contained--error'];
+      case 'contained-warning':
+        return ['bs-fabrique-icon-button-root-contained--warning'];
+      case 'contained-grey':
+        return ['bs-fabrique-icon-button-root-contained--grey'];
+      case 'contained-info':
+        return ['bs-fabrique-icon-button-root-contained--info'];
+      case 'contained-white':
+        return ['bs-fabrique-icon-button-root-contained--white'];
+      // Outlined
+      case 'outlined-primary':
+        return [
+          'bs-fabrique-icon-button-root-outlined',
+          'bs-fabrique-icon-button-root-outlined--main',
+        ];
+      case 'outlined-secondary':
+        return [
+          'bs-fabrique-icon-button-root-outlined',
+          'bs-fabrique-icon-button-root-outlined--secondary',
+        ];
+      case 'outlined-error':
+        return [
+          'bs-fabrique-icon-button-root-outlined',
+          'bs-fabrique-icon-button-root-outlined--error',
+        ];
+      case 'outlined-warning':
+        return [
+          'bs-fabrique-icon-button-root-outlined',
+          'bs-fabrique-icon-button-root-outlined--warning',
+        ];
+      case 'outlined-grey':
+        return [
+          'bs-fabrique-icon-button-root-outlined',
+          'bs-fabrique-icon-button-root-outlined--grey',
+        ];
+      case 'outlined-info':
+        return [
+          'bs-fabrique-icon-button-root-outlined',
+          'bs-fabrique-icon-button-root-outlined--info',
+        ];
+      case 'outlined-white':
+        return [
+          'bs-fabrique-icon-button-root-outlined',
+          'bs-fabrique-icon-button-root-outlined--white',
+        ];
+      // Text
+      case 'text-primary':
+        return ['bs-fabrique-icon-button-root-text--main'];
+      case 'text-secondary':
+        return ['bs-fabrique-icon-button-root-text--secondary'];
+      case 'text-error':
+        return ['bs-fabrique-icon-button-root-text--error'];
+      case 'text-warning':
+        return ['bs-fabrique-icon-button-root-text--warning'];
+      case 'text-grey':
+        return ['bs-fabrique-icon-button-root-text--grey'];
+      case 'text-info':
+        return ['bs-fabrique-icon-button-root-text--info'];
+      case 'text-white':
+        return ['bs-fabrique-icon-button-root-text--white'];
+      default:
+        return ['bs-fabrique-icon-button-root-contained--main'];
     }
-  }, [joinedVariantWithColor, isDisabled, variant]);
+  }, [joinedVariantWithColor]);
 
   return classNames(
     'bs-fabrique-icon-button-root',
@@ -145,12 +131,7 @@ export const IconButton: React.FC<ButtonProps> = ({
   size = ButtonSize.LG,
   children,
 }) => {
-  const iconButtonClassNames = useIconButtonClassNames(
-    size,
-    color,
-    variant,
-    isDisabled,
-  );
+  const iconButtonClassNames = useIconButtonClassNames(size, color, variant);
   return (
     <ButtonBase
       className={classNames(iconButtonClassNames, className)}

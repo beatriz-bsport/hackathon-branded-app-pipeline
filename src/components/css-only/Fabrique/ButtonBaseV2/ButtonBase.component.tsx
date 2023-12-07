@@ -31,12 +31,12 @@ export const ButtonBase: React.FC<Props> = ({
       className={classNames(
         'bs-fabrique-button-base-root',
         {
-          'bs-fabrique-button-base-root--disabled': isDisabled,
           'bs-fabrique-button-base-ripple': isRippleEnabled,
         },
         className,
         classes,
       )}
+      disabled={isDisabled}
       onClick={onClick}
       // eslint-disable-next-line react/button-has-type
       type={type}

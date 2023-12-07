@@ -951,12 +951,12 @@ export const BackOfficeDrawer: React.FC<Props> = ({
             className={classnames({
               [classes.fullContent]:
                 location.pathname.includes('/spot-scheduling') ||
-                /\/audience\/\d+/.test(location.pathname) ||
-                /\/audience\/wip\/\d+/.test(location.pathname),
+                /\/audience\/.+?wip/.test(location.pathname) ||
+                /\/audience\/wip\/.+/.test(location.pathname),
               [classes.content]: !(
                 location.pathname.includes('/spot-scheduling') ||
-                /\/audience\/\d+/.test(location.pathname) ||
-                /\/audience\/wip\/\d+/.test(location.pathname) ||
+                /\/audience\/.+?wip/.test(location.pathname) ||
+                /\/audience\/wip\/.+/.test(location.pathname) ||
                 location.pathname.includes('/inbox/')
               ),
               [classes.contentWithoutPadding]:

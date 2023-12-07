@@ -1,4 +1,5 @@
 import React, { JSX } from 'react';
+import { useLocation } from 'react-router';
 
 // eslint-disable-next-line bsport/no-redux-in-component
 import { connect, ConnectedProps } from 'react-redux';
@@ -6,6 +7,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { Paper, Button, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 
+import classNames from 'classnames';
 import WelcomeIcon from '#components/icons/WelcomeIcon.component';
 import { hasUpsell } from '#libs/platform-billing/utils';
 import {
@@ -16,7 +18,7 @@ import {
 import Config from '../../../config';
 import type { Dispatch } from '../../../state/types';
 import type { RootState } from '../../../reducers';
-import { UpsellPackage } from '#libs/company/types';
+import type { UpsellPackage } from '#libs/company/types';
 // @ts-expect-error
 import FeatureRequestDialog from '#libs/platform-billing/components/FeatureRequestDialog.component';
 
@@ -31,6 +33,16 @@ const useStyles = makeStyles((theme) => ({
     backdropFilter: 'blur(3px)',
     userSelect:
       'none' /* prevents double clicking from highlighting entire page */,
+  },
+  blockerFrameForContentPages: {
+    width: 'auto',
+    height: 'auto',
+    bottom: `-${theme.spacing(1)}px`,
+    top: `-${theme.spacing(2)}px`,
+    [theme.breakpoints.up('md')]: {
+      left: `-${theme.spacing(3)}px`,
+      right: `-${theme.spacing(3)}px`,
+    },
   },
   pseudoDialogContainer: {
     width: '100%',
@@ -93,6 +105,8 @@ const UpsellBlocker = ({
 
   const allow = hasUpsell(featureList, upsellIdentifier);
 
+  const location = useLocation();
+
   const [isFeatureRequestDialogOpen, setIsFeatureRequestDialogOpen] =
     React.useState(false);
 
@@ -109,8 +123,19 @@ const UpsellBlocker = ({
     return null;
   }
 
+  const isPageContent = !(
+    location.pathname.includes('/spot-scheduling') ||
+    /\/audience\/\d+/.test(location.pathname) ||
+    /\/audience\/wip\/\d+/.test(location.pathname) ||
+    location.pathname.includes('/inbox/')
+  );
+
   return (
-    <div className={classes.blockerFrame}>
+    <div
+      className={classNames(classes.blockerFrame, {
+        [classes.blockerFrameForContentPages]: isPageContent,
+      })}
+    >
       <div className={classes.pseudoDialogContainer}>
         <Paper className={classes.pseudoDialog} elevation={3}>
           <div className={classes.innerPaper}>

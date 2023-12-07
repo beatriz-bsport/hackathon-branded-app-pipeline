@@ -780,7 +780,7 @@ exports.default = {
         dialog: {
           title: '{{ workflowCamelCase }} archived',
           helper:
-            'The {{ workflowLowerCase }} is now archived. To restore it, navigate to the {{ workflowPluralLowerCase }} list page and unarchive it from the archived list.',
+            'The {{ workflowLowerCase }} is now archived. To restore it, go back to the main page and unarchive the {{ workflowLowerCase }} from the list.',
         },
       },
       unrecognized: {

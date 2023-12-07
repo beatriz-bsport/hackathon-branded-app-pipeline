@@ -700,14 +700,14 @@ exports.default = {
         dialog: {
           title: 'Are you sure you want to delete this step?',
           helper:
-            'This action cannot be undone. Connected triggers will also be deleted. The rest of the flow will be disconnected but not deleted.',
+            'The triggers linked to this step will be deleted as well. The rest of the {{ workflowLowerCase }} will be disconnected but not deleted.',
         },
       },
       convertExit: {
         dialog: {
           title: 'Convert this step into an exit',
           helper:
-            'The next connected trigger will also be deleted. The rest of the flow will be disconnected but not deleted.',
+            'The triggers following this step will be deleted as well. The rest of the {{ workflowLowerCase }} will be disconnected but not deleted.',
         },
       },
     },

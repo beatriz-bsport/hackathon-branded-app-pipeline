@@ -72,6 +72,12 @@ export const fetchZoomGroupMembers = (companyId: number) => {
   );
 };
 
+export const fetchAllZoomMembers = (companyId: number) => {
+  return getAuth<ZoomMember[]>(
+    `${API_V1_URI}/zoom_app/company/${companyId}/list_all_members/`,
+  );
+};
+
 export const listZoomEstablishments = () => {
   return getAuth<ZoomEstablishment[]>(`${API_V1_URI}/zoom_app/establishments/`);
 };

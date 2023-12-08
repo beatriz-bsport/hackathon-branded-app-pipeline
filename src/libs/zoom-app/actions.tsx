@@ -11,6 +11,7 @@ import {
   listZoomEstablishments as listZoomEstablishmentsAPI,
   resetZoomEstablishments as resetZoomEstablishmentsAPI,
   bulkEditZoomEstablishments as bulkEditZoomEstablishmentsAPI,
+  fetchAllZoomMembers as fetchAllZoomMembersAPI,
 } from './api';
 import type { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
 import { CUSTOM_ERROR_CODE } from '#libs/constants';
@@ -221,6 +222,30 @@ export const fetchZoomGroupMembers = (
     dispatch(ZoomGroupMemberActions.loading(true));
     try {
       const response = await fetchZoomGroupMembersAPI(companyId);
+      dispatch(ZoomGroupMemberActions.success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+      dispatch(ZoomGroupMemberActions.error(error));
+      if (options && options.onError) {
+        options.onError(error);
+      }
+    }
+    dispatch(ZoomGroupMemberActions.loading(false));
+  };
+};
+
+export const fetchAllZoomMembers = (
+  companyId: number,
+  options?: OptionCallback<ZoomMember[]>,
+): ThunkAction => {
+  return async (dispatch: Dispatch) => {
+    dispatch(ZoomGroupMemberActions.error(null));
+    dispatch(ZoomGroupMemberActions.loading(true));
+    try {
+      const response = await fetchAllZoomMembersAPI(companyId);
       dispatch(ZoomGroupMemberActions.success(response.data));
       if (options && options.onSuccess) {
         options.onSuccess(response.data);

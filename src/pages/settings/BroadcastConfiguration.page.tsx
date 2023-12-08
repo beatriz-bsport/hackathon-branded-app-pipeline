@@ -23,6 +23,7 @@ import {
   updateZoomGroupId as updateZoomGroupIdAction,
   resetZoomEstablishments as resetZoomEstablishmentsAction,
   fetchZoomGroupMembers as fetchZoomGroupMembersAction,
+  fetchAllZoomMembers as fetchAllZoomMembersAction,
   listZoomEstablishments as listZoomEstablishmentsAction,
   bulkEditZoomEstablishments,
 } from '#libs/zoom-app/actions';
@@ -57,8 +58,8 @@ export class BroadcastConfiguration extends Component<Props> {
         if (
           !zoomApp.is_disabled &&
           zoomApp.is_configured &&
-          zoomApp.multi_zoom_user_support_enabled &&
-          zoomApp.zoom_group_id
+          zoomApp.multi_zoom_user_support_enabled
+          // && zoomApp.zoom_group_id
         ) {
           this.props.fetchZoomMembersAndEstablishments();
         }
@@ -166,6 +167,7 @@ const connector = connect(
     zoomMembersById: state.zoomApp.zoomMembers.byId,
     zoomEstablishments: state.zoomApp.zoomEstablishments.data,
     zoomAppUpdateLoading: state.zoomApp.edit.loading,
+    zoomMembersLoading: state.zoomApp.zoomMembers.loading,
     zoomEstablishmentTableDataLoading:
       state.establishment.loading ||
       state.zoomApp.zoomEstablishments.loading ||
@@ -183,6 +185,7 @@ const connector = connect(
     updateZoomGroupId: updateZoomGroupIdAction,
     resetZoomEstablishments: resetZoomEstablishmentsAction,
     fetchZoomGroupMembers: fetchZoomGroupMembersAction,
+    fetchAllZoomMembers: fetchAllZoomMembersAction,
     listZoomEstablishments: listZoomEstablishmentsAction,
     fetchEstablishments: fetchEstablishmentsAction,
     bulkEditZoomEstablishments,
@@ -228,13 +231,15 @@ const mapHandlers = {
     },
   fetchZoomMembersAndEstablishments:
     ({
-      fetchZoomGroupMembers,
+      // fetchZoomGroupMembers,
+      fetchAllZoomMembers,
       listZoomEstablishments,
       fetchEstablishments,
       theme,
     }: ConnectedProps<typeof connector>) =>
     () => {
-      fetchZoomGroupMembers(theme.company);
+      // fetchZoomGroupMembers(theme.company);
+      fetchAllZoomMembers(theme.company);
       listZoomEstablishments();
       fetchEstablishments({ disabled: false });
     },

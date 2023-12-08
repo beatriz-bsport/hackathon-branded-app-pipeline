@@ -211,13 +211,13 @@ export class BroadcastConfigurationForm extends Component<InnerProps> {
                     fetchZoomMembersAndEstablishments={
                       this.props.fetchZoomMembersAndEstablishments
                     }
-                    resetZoomEstablishments={this.props.resetZoomEstablishments}
+                    // resetZoomEstablishments={this.props.resetZoomEstablishments}
                     toggleMultiZoomUserSupport={
                       this.props.toggleMultiZoomUserSupport
                     }
-                    updateZoomGroupId={this.props.updateZoomGroupId}
+                    // updateZoomGroupId={this.props.updateZoomGroupId}
                     zoomApp={this.props.zoomApp}
-                    zoomAppUpdateLoading={this.props.zoomAppUpdateLoading}
+                    // zoomAppUpdateLoading={this.props.zoomAppUpdateLoading}
                     zoomEstablishments={this.props.zoomEstablishments}
                     zoomEstablishmentTableDataLoading={
                       this.props.zoomEstablishmentTableDataLoading

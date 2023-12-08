@@ -59,7 +59,11 @@ const MarketplacePrivatePassCard: React.FC<Props> = ({
   );
 
   return (
-    <Card classes={{ 'bs-pass-card': 'bs-pass-card' }} size={CardSize.AUTO}>
+    <Card
+      classes={{ 'bs-pass-card': 'bs-pass-card' }}
+      id={`private-pass-${privatePass?.id}`}
+      size={CardSize.AUTO}
+    >
       <CardContent
         padding
         classes={{ 'bs-pass-card-content': 'bs-pass-card-content' }}

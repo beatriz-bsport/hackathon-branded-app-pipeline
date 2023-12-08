@@ -12,10 +12,11 @@ export type Props = {
   customRef?: React.RefObject<HTMLDivElement>;
   onClick?: () => void;
   isSelected?: boolean;
+  id?: string;
 };
 
 export const Container: React.FC<Props> = React.memo(
-  ({ children, size, classes, customRef, onClick, isSelected }) => {
+  ({ children, size, classes, customRef, onClick, isSelected, id }) => {
     return (
       <div
         ref={customRef}
@@ -26,6 +27,7 @@ export const Container: React.FC<Props> = React.memo(
           [`size-${size}`]: size,
           ...classes,
         })}
+        id={id}
         onClick={onClick}
       >
         {children}

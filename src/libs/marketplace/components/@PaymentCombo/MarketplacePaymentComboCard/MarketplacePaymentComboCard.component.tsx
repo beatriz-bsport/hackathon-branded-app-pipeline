@@ -42,6 +42,7 @@ const MarketplacePaymentComboCard: React.FC<Props> = ({
   return (
     <Card
       classes={{ 'bs-pack-card': 'bs-pack-card' }}
+      id={`payment-combo-${paymentCombo?.id}`}
       onClick={onClick}
       size={CardSize.AUTO}
     >

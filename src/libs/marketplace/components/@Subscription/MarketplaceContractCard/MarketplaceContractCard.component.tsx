@@ -58,6 +58,7 @@ const MarketplaceContractCard: React.FC<Props> = ({
   return (
     <Card
       classes={{ 'bs-contract-card': 'bs-contract-card' }}
+      id={`contract-${contract?.id}`}
       size={CardSize.AUTO}
     >
       <CardContent padding>

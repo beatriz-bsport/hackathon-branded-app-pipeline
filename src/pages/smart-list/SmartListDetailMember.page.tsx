@@ -562,6 +562,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
           resolvedGenericTags={this.props.resolvedGenericTags}
         />
         <CommunicationDrawerDEPRECATED
+          hideMemberList
           companyId={this.props.companyId}
           countTotal={this.props.members.countTotal}
           countWithEmail={this.props.members.countWithEmail}
@@ -570,29 +571,10 @@ export class SmartListDetailMember extends React.Component<Props, State> {
           emailDetails={this.props.email_templates_details}
           emailListLoading={this.props.emailListLoading}
           emails={this.props.email_templates_list}
-          fetchNextPage={(page: number, page_size: number) =>
-            this.fetchPaginatedMembers(
-              page > parseInt(this.props.members.countTotal / page_size, 10)
-                ? 1
-                : page + 1,
-              page_size,
-            )
-          }
-          fetchPreviousPage={(page: number, page_size: number) =>
-            this.fetchPaginatedMembers(
-              page - 1
-                ? page - 1
-                : parseInt(this.props.members.countTotal / page_size, 10) + 1,
-              page_size,
-            )
-          }
           genericTags={this.props.genericTags}
           getEmailDetail={this.props.fetchEmailTemplateDetail}
           getEmails={this.props.fetchEmailTemplatesSummaries}
           hideAutoResend={this.getHideAutoResend()}
-          initMembers={(page: number, page_size: number) =>
-            this.fetchPaginatedMembers(page, page_size)
-          }
           membersAllLoading={
             this.state.resetMembersFetchForCommunication &&
             this.props.members.loading

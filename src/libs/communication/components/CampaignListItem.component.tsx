@@ -22,6 +22,7 @@ import {
   SEND_COMMUNICATION_ON_JOIN,
   SEND_COMMUNICATION_ON_LEFT,
 } from '@bsport/common/lib/master-data/smart-list';
+import { COMMUNICATION_SEND_STATUS_PROCESSING } from '../constant';
 import { Campaign, Recipient } from '../types';
 import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 
@@ -36,8 +37,9 @@ const MultiRecipientStat: React.FC<{
   total_read: number;
   total_click: number;
   total_recipients: number;
+  isProcessing: boolean;
   kind: number;
-}> = ({ total_read, total_click, total_recipients, kind }) => {
+}> = ({ total_read, total_click, total_recipients, kind, isProcessing }) => {
   const classes = useStyles();
   const { t } = useTranslation(['communication']);
 
@@ -47,7 +49,12 @@ const MultiRecipientStat: React.FC<{
         <div className={classes.countersContainer}>
           <div className={classes.counters}>
             <Typography variant="subtitle2">
-              {`${((total_read / total_recipients) * 100).toFixed(1)}%`}
+              {isProcessing
+                ? t('campaign.processing')
+                : `${(
+                    ((total_read || 0) / (total_recipients || 1)) *
+                    100
+                  ).toFixed(1)}%`}
             </Typography>
             <Typography color="textSecondary">
               {t('campaign.readCount')}
@@ -55,7 +62,12 @@ const MultiRecipientStat: React.FC<{
           </div>
           <div className={classes.counters}>
             <Typography variant="subtitle2">
-              {`${((total_click / total_recipients) * 100).toFixed(1)}%`}
+              {isProcessing
+                ? t('campaign.processing')
+                : `${(
+                    ((total_click || 0) / (total_recipients || 1)) *
+                    100
+                  ).toFixed(1)}%`}
             </Typography>
             <Typography color="textSecondary">
               {t('campaign.clickCount')}
@@ -69,13 +81,15 @@ const MultiRecipientStat: React.FC<{
 
 const MultiRecipientStatAction: React.FC<{
   onClickReport: () => void;
-}> = ({ onClickReport }) => {
+  campaign: Campaign;
+}> = ({ onClickReport, campaign }) => {
   const classes = useStyles();
   const { t } = useTranslation(['communication']);
 
   return (
     <Button
       className={classes.button}
+      disabled={campaign.status === COMMUNICATION_SEND_STATUS_PROCESSING}
       onClick={onClickReport}
       variant="outlined"
     >
@@ -171,6 +185,8 @@ export const CampaignListItem: React.FC<Props> = ({
 
   const handleClickShow = () => onClickShow(interpolate(body || campaign.text));
 
+  const isProcessing = campaign.status === COMMUNICATION_SEND_STATUS_PROCESSING;
+
   return (
     <>
       <div className={classes.container}>
@@ -212,7 +228,11 @@ export const CampaignListItem: React.FC<Props> = ({
                     </Typography>
                   ) : (
                     <Typography>
-                      {t('campaign.recipientCount', { total_recipients })}
+                      {t('campaign.recipientCount', {
+                        total_recipients: isProcessing
+                          ? t('campaign.processing')
+                          : total_recipients,
+                      })}
                     </Typography>
                   )}
                   <Typography color="textSecondary">
@@ -261,6 +281,7 @@ export const CampaignListItem: React.FC<Props> = ({
             <SingleRecipientInfo kind={kind} recipient={singleRecipientData} />
           ) : (
             <MultiRecipientStat
+              isProcessing={isProcessing}
               kind={kind}
               total_click={total_click}
               total_read={total_read}
@@ -279,7 +300,10 @@ export const CampaignListItem: React.FC<Props> = ({
               onClickShow={handleClickShow}
             />
           ) : (
-            <MultiRecipientStatAction onClickReport={onClickReport} />
+            <MultiRecipientStatAction
+              campaign={campaign}
+              onClickReport={onClickReport}
+            />
           )}
         </div>
       </div>

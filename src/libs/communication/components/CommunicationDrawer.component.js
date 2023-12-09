@@ -68,10 +68,11 @@ type Props = {
   showSmsConsentWarning?: boolean,
 
   // members list
+  hideMemberList?: boolean,
   membersToDisplay: Array<Member>,
-  fetchPreviousPage: (page: number, page_size: number) => void,
-  fetchNextPage: (page: number, page_size: number) => void,
-  initMembers: () => void,
+  fetchPreviousPage?: (page: number, page_size: number) => void,
+  fetchNextPage?: (page: number, page_size: number) => void,
+  initMembers?: () => void,
   page: number,
   page_size: number,
   membersByPageLoading: boolean,
@@ -366,8 +367,9 @@ export class CommunicationDrawer extends Component<Props, State> {
 
     // TODO : DIRTY HOTFIX TO Be ABLE TO SEND COMMUNICATION EVEN WHEN MEMBER PREVIEW FAILS
     const disregardMemberCount =
-      !!this.props.memberToDisplayError &&
-      companyAllowedToSendCommunicationWithError;
+      (!!this.props.memberToDisplayError &&
+        companyAllowedToSendCommunicationWithError) ||
+      this.props.hideMemberList;
 
     switch (this.state.actionType) {
       case WRITE_EMAIL:
@@ -500,6 +502,7 @@ export class CommunicationDrawer extends Component<Props, State> {
       resolvedGenericTags,
       classes,
       hideAutoResend,
+      hideMemberList,
     } = this.props;
 
     return (
@@ -546,23 +549,29 @@ export class CommunicationDrawer extends Component<Props, State> {
               </GenericResponsiveDialog>
               {this.renderCommunicationTypeChoice()}
               {this.renderConsentWarning()}
-              <ReceiversCollapseItem
-                fetchNextPage={() => fetchNextPage(page, this.state.page_size)}
-                fetchPreviousPage={() =>
-                  fetchPreviousPage(page, this.state.page_size)
-                }
-                handleToggle={this.handleToggle}
-                keyword={this.state.actionType === SEND_SMS ? 'phone' : 'email'}
-                loading={membersAllLoading}
-                members={membersToDisplay}
-                membersByPageLoading={membersByPageLoading}
-                membersCount={this.props.countTotal}
-                openMemberPage={this.openMemberPage}
-                page={page}
-                page_size={this.state.page_size}
-                receiversNotEditable={receiversNotEditable}
-                uncheckedMembers={this.getUncheckedMember()}
-              />
+              {!hideMemberList && (
+                <ReceiversCollapseItem
+                  fetchNextPage={() =>
+                    fetchNextPage(page, this.state.page_size)
+                  }
+                  fetchPreviousPage={() =>
+                    fetchPreviousPage(page, this.state.page_size)
+                  }
+                  handleToggle={this.handleToggle}
+                  keyword={
+                    this.state.actionType === SEND_SMS ? 'phone' : 'email'
+                  }
+                  loading={membersAllLoading}
+                  members={membersToDisplay}
+                  membersByPageLoading={membersByPageLoading}
+                  membersCount={this.props.countTotal}
+                  openMemberPage={this.openMemberPage}
+                  page={page}
+                  page_size={this.state.page_size}
+                  receiversNotEditable={receiversNotEditable}
+                  uncheckedMembers={this.getUncheckedMember()}
+                />
+              )}
               {this.state.actionType === SELECT_EMAIL && !hideTemplateMail && (
                 <SelectTemplate
                   emailDetailLoading={emailDetailLoading}

@@ -106,6 +106,7 @@ const getTranslations = async () => {
       canceledReservation: 'Cancellations',
     },
     campaign: {
+      processing: 'Being sent...',
       recipientCount: 'Recipients: {{ total_recipients }}',
       sentAt: 'Sent on: {{ date_created }}',
       readCount: 'Opened',

@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Form, Formik } from 'formik';
+import { Form, Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
@@ -55,6 +55,12 @@ export type Props = {
   ) => void;
 };
 
+type Values = {
+  email: string;
+  firstName: string;
+  lastName: string;
+};
+
 const NewsletterFormV2: React.FC<Props> = ({
   fieldsType,
   title,
@@ -66,22 +72,25 @@ const NewsletterFormV2: React.FC<Props> = ({
   const { t } = useTranslation('marketing');
 
   const handleSubmit = useCallback(
-    (values: typeof initialValues) =>
-      onSubmit(
+    (values: Values, formikHelpers: FormikHelpers<Values>) => {
+      return onSubmit(
         {
           email: values.email,
           first_name: values.firstName,
           last_name: values.lastName,
         },
         {
-          onSuccess: () =>
-            Analytics.leadAcquisitionSuccess({
+          onSuccess: () => {
+            formikHelpers?.resetForm();
+            Analytics.newsletterSubmitSuccess({
               email: values.email,
               first_name: values.firstName,
               last_name: values.lastName,
-            }),
+            });
+          },
         },
-      ),
+      );
+    },
     [onSubmit],
   );
 

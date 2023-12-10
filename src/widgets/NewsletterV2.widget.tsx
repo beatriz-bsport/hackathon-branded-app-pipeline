@@ -12,6 +12,7 @@ import {
 import themify from 'bsport-saas/src/hocs/company-themifier.hoc';
 
 import { MarketplaceNewsletterV2Data } from 'bsport-saas/src/libs/marketplace/types';
+import { OptionCallback } from 'bsport-saas/src/state/types';
 
 const NewsletterFormV2Styled = themify(NewsletterFormBase);
 
@@ -26,7 +27,18 @@ type ConnectProps = ReturnType<typeof mapStateToProps> &
 type Props = OwnProps & ConnectProps;
 
 export class NewsletterWidget extends Component<Props> {
-  onSubmit = async (email: string, first_name: string, last_name: string) => {
+  onSubmit = async (
+    {
+      email,
+      first_name,
+      last_name,
+    }: {
+      email: string,
+      first_name: string,
+      last_name: string,
+    },
+    options: OptionCallback,
+  ) => {
     const res = await createNewsletterMember({
       email,
       first_name,
@@ -35,6 +47,7 @@ export class NewsletterWidget extends Component<Props> {
     });
 
     if (res.status === 200) {
+      options?.onSuccess && options?.onSuccess?.();
       this.props.snackbarSuccess('marketing:newsletter.messages.success');
     } else {
       this.props.snackbarError('marketing:newsletter.messages.error');

@@ -421,6 +421,8 @@ const getTranslations = async () => {
         'When a user is on the payment page for a subscription',
       workshopClick: 'When a user selects a date for a workshop',
       bookingSuccess: 'When a user books a session (group activities)',
+      leadAcquisitionSuccess:
+        'When a user sucessfully submit the acquisition widget',
     },
     signUpForm: {
       error: 'Error when saving form',

@@ -142,6 +142,22 @@ class Analytics extends React.Component<Props> {
     this.applyMethod('bookingSuccess', offer);
   }
 
+  static leadAcquisitionSuccess({
+    email,
+    first_name,
+    last_name,
+  }: {
+    email: string,
+    first_name?: string,
+    last_name?: string,
+  }) {
+    this.applyMethod('leadAcquisitionSuccess', {
+      email,
+      first_name,
+      last_name,
+    });
+  }
+
   render() {
     return null;
   }

@@ -389,3 +389,21 @@ GoogleAnalytics.addMethod(
     ['coach', 'gtm.bookingSuccess.coach'],
   ],
 );
+
+GoogleAnalytics.addMethod(
+  'leadAcquisitionSuccess',
+  'bsport:lead-acquisition:success',
+  ({ email, first_name, last_name }) => ({
+    event: 'bsport:lead-acquisition:success',
+    data: {
+      email,
+      first_name,
+      last_name,
+    },
+  }),
+  [
+    ['email', 'gtm.leadAcquisitionSuccess.email'],
+    ['first_name', 'gtm.leadAcquisitionSuccess.first_name'],
+    ['last_name', 'gtm.leadAcquisitionSuccess.last_name'],
+  ],
+);

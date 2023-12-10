@@ -12,6 +12,10 @@ import { emailValidationRegExp } from '#libs/custom-form/constants';
 import { NewsletterV2FieldsKind } from '#libs/marketplace/constants';
 
 import './styles.css';
+import { OptionCallback } from '../../../state/types';
+
+// @ts-expect-error
+import Analytics from '#components/analytics/Analytics.component';
 
 const NewsletterFormSchema = Yup.object({
   firstName: Yup.string().nullable(),
@@ -37,7 +41,18 @@ export type Props = {
   /** If `true`, displays the subtitle. If no custom text provided, a default one is provided as fallback. */
   showSubtitle?: boolean;
   /** The action to perform once the form is submitted. The field values from formik are passed into the handler. */
-  onSubmit: (email: string, first_name: string, last_name: string) => void;
+  onSubmit: (
+    {
+      email,
+      first_name,
+      last_name,
+    }: {
+      email: string;
+      first_name: string;
+      last_name: string;
+    },
+    options: OptionCallback,
+  ) => void;
 };
 
 const NewsletterFormV2: React.FC<Props> = ({
@@ -52,7 +67,21 @@ const NewsletterFormV2: React.FC<Props> = ({
 
   const handleSubmit = useCallback(
     (values: typeof initialValues) =>
-      onSubmit(values.email, values.firstName, values.lastName),
+      onSubmit(
+        {
+          email: values.email,
+          first_name: values.firstName,
+          last_name: values.lastName,
+        },
+        {
+          onSuccess: () =>
+            Analytics.leadAcquisitionSuccess({
+              email: values.email,
+              first_name: values.firstName,
+              last_name: values.lastName,
+            }),
+        },
+      ),
     [onSubmit],
   );
 

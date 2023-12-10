@@ -179,3 +179,21 @@ FacebookPixel.addMethod(
 );
 
 FacebookPixel.addMethod('signupSuccess', 'CompleteRegistration', () => {}, []);
+
+FacebookPixel.addMethod(
+  'leadAcquisitionSuccess',
+  'leadAcquisition',
+  ({ email, first_name, last_name }) => ({
+    event: 'bsport:lead-acquisition:success',
+    data: {
+      email,
+      first_name,
+      last_name,
+    },
+  }),
+  [
+    ['email', 'fbp.leadAcquisitionSuccess.email'],
+    ['first_name', 'fbp.leadAcquisitionSuccess.first_name'],
+    ['last_name', 'fbp.leadAcquisitionSuccess.last_name'],
+  ],
+);

@@ -104,6 +104,8 @@ const WidgetCustomizationPreview: React.FC<Props> = ({
           privatePassCategories={[]}
           privateServices={[]}
           serviceGroupList={[]}
+          tagList={[]}
+          tagsLoading={false}
           videos={[]}
         />
       </div>

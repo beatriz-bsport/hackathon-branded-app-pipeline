@@ -79,6 +79,7 @@ export type MarketplaceNewsletterV2Data = {
   title?: string;
   showSubtitle?: boolean;
   subtitle?: string;
+  tag_id?: number;
 };
 
 export type MarketplaceComponentConfig = {

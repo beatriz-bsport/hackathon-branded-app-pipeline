@@ -42,6 +42,7 @@ import {
 } from '../../payment-packs/types';
 import { Level } from '#libs/level/types';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
+import type { Tag, TagGroupAPI } from '#libs/tag/types';
 
 type Props = {
   componentType: string;
@@ -70,6 +71,8 @@ type Props = {
   cssOnly?: boolean;
   previewDialog?: boolean;
   customLevels: Level[];
+  tagList: Array<Tag<TagGroupAPI>>;
+  tagsLoading: boolean;
 };
 
 export const WidgetComponentConfigBuilder = (props: Props) => {
@@ -168,6 +171,8 @@ export const WidgetComponentConfigBuilder = (props: Props) => {
                 privatePassCategories={props.privatePassCategories}
                 privateServices={props.privateServices}
                 serviceGroupList={props.serviceGroupList}
+                tagList={props.tagList}
+                tagsLoading={props.tagsLoading}
                 videos={props.videos}
               />
             </DialogContent>
@@ -209,6 +214,8 @@ export const WidgetComponentConfigBuilder = (props: Props) => {
           privatePassCategories={props.privatePassCategories}
           privateServices={props.privateServices}
           serviceGroupList={props.serviceGroupList}
+          tagList={props.tagList}
+          tagsLoading={props.tagsLoading}
           videos={props.videos}
         />
       )}

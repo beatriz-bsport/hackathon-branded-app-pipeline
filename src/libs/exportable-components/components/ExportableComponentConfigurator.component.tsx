@@ -18,6 +18,7 @@ import {
   PaymentPackTemplate,
 } from '../../payment-packs/types';
 import { Level } from '#libs/level/types';
+import type { Tag, TagGroupAPI } from '#libs/tag/types';
 
 type Props = {
   componentType: string;
@@ -38,6 +39,8 @@ type Props = {
   giftcards: Array<Giftcard>;
   paymentPackTemplateListAvailable: Array<PaymentPackTemplate>;
   customLevels: Level[];
+  tagList: Array<Tag<TagGroupAPI>>;
+  tagsLoading: boolean;
 };
 
 const useStyles = makeStyles(() => ({
@@ -82,6 +85,8 @@ export const ExportableComponentConfigurator = (props: Props) => {
         privatePassCategories={props.privatePassCategories}
         privateServices={props.privateServices}
         serviceGroupList={props.serviceGroupList}
+        tagList={props.tagList}
+        tagsLoading={props.tagsLoading}
         videos={props.videos}
       />
     </div>

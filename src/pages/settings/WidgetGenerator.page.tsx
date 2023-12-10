@@ -69,6 +69,7 @@ import { getFranchiseId } from '#libs/franchise/selectors';
 
 import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
 import { getActiveCustomLevels } from '#libs/level/selectors';
+import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 
 type OwnProps = {
   defaultValue?: {
@@ -316,6 +317,8 @@ class WidgetGeneratorPage extends React.PureComponent<Props, State> {
               privateServiceError={this.state.error.privateServiceError}
               privateServices={this.props.privateServices}
               serviceGroupList={this.props.serviceGroupList}
+              tagList={this.props.allTagsWithTagGroup}
+              tagsLoading={this.props.tagsLoading}
               videos={this.props.videoList}
             />
           </fieldset>
@@ -404,6 +407,8 @@ const mapStateToProps = (state: RootState) => ({
   giftcards: getGiftcardListEnabled(state),
   paymentPackTemplateListAvailable: getPaymentPackTemplateListAvailable(state),
   customLevels: getActiveCustomLevels(state),
+  allTagsWithTagGroup: getAllTagsWithTagGroup(state),
+  tagsLoading: state.tag.tag.loading || state.tag.group.loading,
 });
 
 const mapDispatchToProps = {

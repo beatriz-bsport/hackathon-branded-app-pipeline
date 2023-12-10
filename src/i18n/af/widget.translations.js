@@ -30,6 +30,7 @@ exports.default = {
     },
     newsletterV2: {
       newsletterFieldsType: 'Informations asked',
+      tagToApply: 'Tag to apply on submission',
       fullNameAndEmail: 'Full name and email',
       firstNameAndEmail: 'First name and email',
       emailOnly: 'Email only',

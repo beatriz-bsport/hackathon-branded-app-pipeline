@@ -1,30 +1,34 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
+import classNames from 'classnames';
+import omit from 'lodash/omit';
 import { makeStyles } from '@material-ui/core';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import Collapse from '@material-ui/core/Collapse';
-import Button from '@material-ui/core/Button';
 import Switch from '@material-ui/core/Switch';
 import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { useTranslation } from 'react-i18next';
-
-import { ExpandLess, ExpandMore } from '@material-ui/icons';
+import TagSelector from '#libs/tag/components/TagSelector.selector';
 import type { MarketplaceNewsletterV2Data } from '#libs/marketplace/types';
 import { NewsletterV2FieldsKind } from '#libs/marketplace/constants';
+import type { Tag, TagGroupAPI } from '#libs/tag/types';
 
 interface Props {
   config?: MarketplaceNewsletterV2Data;
   onChange: (newsletterData: MarketplaceNewsletterV2Data) => void;
+  tagList: Array<Tag<TagGroupAPI>>;
+  tagsLoading: boolean;
 }
 
 const MarketplaceCalendarV2SettingsForm: React.FC<Props> = ({
   config = {},
   onChange,
+  tagList,
+  tagsLoading,
 }) => {
-  const [isAdvancedOptionsOpen, setIsAdvancedOptionsOpen] = useState(false);
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -60,6 +64,27 @@ const MarketplaceCalendarV2SettingsForm: React.FC<Props> = ({
     },
     [config, onChange],
   );
+  const setTag = useCallback(
+    (value: number) => {
+      const newConfig: MarketplaceNewsletterV2Data = {
+        ...config,
+        tag_id: value ?? null,
+      };
+      onChange(newConfig);
+    },
+    [config, onChange],
+  );
+
+  const handleSetTag = useCallback(
+    (option) => {
+      option?.value && setTag(option.value);
+    },
+    [setTag],
+  );
+
+  const handleDeleteTag = useCallback(() => {
+    onChange(omit(config, ['tag_id']));
+  }, [config, onChange]);
 
   const setShowTitle = useCallback(
     (value: boolean) => {
@@ -89,11 +114,6 @@ const MarketplaceCalendarV2SettingsForm: React.FC<Props> = ({
       setFieldsType(eventTarget.value as NewsletterV2FieldsKind);
     },
     [setFieldsType],
-  );
-
-  const toggleShowAdvancedOptions = useCallback(
-    () => setIsAdvancedOptionsOpen((state) => !state),
-    [],
   );
 
   const handleSetTitle = useCallback(
@@ -147,59 +167,55 @@ const MarketplaceCalendarV2SettingsForm: React.FC<Props> = ({
         </Select>
       </FormControl>
 
-      <Button
-        classes={{ label: classes.settingsLabel }}
-        className={classes.fieldContainer}
-        color="primary"
-        onClick={toggleShowAdvancedOptions}
-        variant="text"
-      >
-        {t('widget:widget.newsletterV2.advancedSettings')}
-        {isAdvancedOptionsOpen ? <ExpandLess /> : <ExpandMore />}
-      </Button>
+      <div className={classNames(classes.fieldContainer, classes.tagForm)}>
+        <Typography color="textSecondary" variant="caption">
+          {t('widget:widget.newsletterV2.tagToApply')}
+        </Typography>
+        <TagSelector
+          closeMenuOnSelect
+          inScrollBar
+          isClearable
+          noMulti
+          allTagsWithTagGroup={tagList}
+          isDisabled={tagsLoading}
+          onChange={handleSetTag}
+          onDeleteTag={handleDeleteTag}
+          selectedTags={[config?.tag_id]}
+        />
+      </div>
 
-      <Collapse
-        classes={{ wrapperInner: classes.flexCol }}
-        className={classes.fieldContainer}
-        in={isAdvancedOptionsOpen}
-      >
-        <TextField
-          className={classes.fieldContainer}
-          label={t('widget:widget.newsletterV2.title')}
-          onChange={handleSetTitle}
-          value={config?.title}
-        />
-        <FormControlLabel
-          className={classes.fieldContainer}
-          control={
-            <Switch
-              checked={config?.showTitle}
-              color="primary"
-              onChange={toggleShowTitle}
-            />
-          }
-          label={t('widget:widget.newsletterV2.showTitle')}
-        />
+      <TextField
+        label={t('widget:widget.newsletterV2.title')}
+        onChange={handleSetTitle}
+        value={config?.title}
+      />
+      <FormControlLabel
+        control={
+          <Switch
+            checked={config?.showTitle}
+            color="primary"
+            onChange={toggleShowTitle}
+          />
+        }
+        label={t('widget:widget.newsletterV2.showTitle')}
+      />
 
-        <TextField
-          className={classes.fieldContainer}
-          label={t('widget:widget.newsletterV2.subtitle')}
-          onChange={handleSetSubtitle}
-          value={config?.subtitle}
-        />
+      <TextField
+        label={t('widget:widget.newsletterV2.subtitle')}
+        onChange={handleSetSubtitle}
+        value={config?.subtitle}
+      />
 
-        <FormControlLabel
-          className={classes.fieldContainer}
-          control={
-            <Switch
-              checked={config?.showSubtitle}
-              color="primary"
-              onChange={toggleShowSubtitle}
-            />
-          }
-          label={t('widget:widget.newsletterV2.showSubtitle')}
-        />
-      </Collapse>
+      <FormControlLabel
+        control={
+          <Switch
+            checked={config?.showSubtitle}
+            color="primary"
+            onChange={toggleShowSubtitle}
+          />
+        }
+        label={t('widget:widget.newsletterV2.showSubtitle')}
+      />
     </div>
   );
 };
@@ -219,6 +235,9 @@ const useStyles = makeStyles((theme) => ({
   settingsLabel: {
     alignItems: 'initial',
     gap: theme.spacing(0.5),
+  },
+  tagForm: {
+    paddginTop: theme.spacing(1),
   },
 }));
 

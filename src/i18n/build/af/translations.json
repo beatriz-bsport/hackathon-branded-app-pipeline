@@ -9789,7 +9789,7 @@
         "workshop": "Workshops",
         "calendar": "Calendar",
         "newsletter": "Newsletter",
-        "newsletterV2": "Newsletter (new)",
+        "newsletterV2": "Lead acquisition",
         "loginButton": "Login button",
         "giftcard": "Gift cards",
         "paymentPackTemplate": "Shared passes",
@@ -13775,6 +13775,7 @@
       },
       "newsletterV2": {
         "newsletterFieldsType": "Informations asked",
+        "tagToApply": "Tag to apply on submission",
         "fullNameAndEmail": "Full name and email",
         "firstNameAndEmail": "First name and email",
         "emailOnly": "Email only",

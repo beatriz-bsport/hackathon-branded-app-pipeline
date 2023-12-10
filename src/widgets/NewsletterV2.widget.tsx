@@ -44,6 +44,9 @@ export class NewsletterWidget extends Component<Props> {
       first_name,
       last_name,
       company: this.props.companyId,
+      ...(this.props.config?.tag_id
+        ? { tag_id: this.props.config?.tag_id }
+        : {}),
     });
 
     if (res.status === 200) {

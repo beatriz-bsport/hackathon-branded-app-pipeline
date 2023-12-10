@@ -713,7 +713,7 @@ const mapRefreshAllHandler = {
 const mapWithHandlers = {
   backtoCadenceList:
     (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) => () =>
-      props.push('/audience/wip'),
+      props.push('/audience'),
 
   updateCadenceName:
     (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>

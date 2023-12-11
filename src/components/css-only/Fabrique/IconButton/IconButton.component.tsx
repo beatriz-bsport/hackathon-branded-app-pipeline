@@ -130,16 +130,20 @@ export const IconButton: React.FC<ButtonProps> = ({
   isRippleEnabled,
   type = 'button',
   size = ButtonSize.LG,
+  href,
+  target,
   children,
 }) => {
   const iconButtonClassNames = useIconButtonClassNames(size, color, variant);
   return (
     <ButtonBase
       className={classNames(iconButtonClassNames, className)}
+      href={href}
       isDisabled={isDisabled}
       isRippleEnabled={isRippleEnabled}
       onClick={onClick}
       onMouseDown={onMouseDown}
+      target={target}
       type={type}
     >
       <span

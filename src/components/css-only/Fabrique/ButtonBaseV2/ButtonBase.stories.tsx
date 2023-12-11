@@ -1,5 +1,6 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { fakerEN as faker } from '@faker-js/faker';
 
 import { ButtonBaseStorybook } from '.';
 
@@ -17,6 +18,13 @@ export const Demonbuttonbase = ButtonBaseStorybookTemplate.bind({});
 Demonbuttonbase.args = {
   isDisabled: false,
   isRippleEnabled: false,
+};
+
+export const Demobuttonhrefbase = ButtonBaseStorybookTemplate.bind({});
+Demobuttonhrefbase.args = {
+  isDisabled: false,
+  isRippleEnabled: false,
+  href: faker.internet.url(),
 };
 
 export default {

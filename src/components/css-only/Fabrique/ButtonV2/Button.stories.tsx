@@ -213,6 +213,10 @@ export default {
         ButtonColor.WARNING,
       ],
     },
+    href: {
+      description: 'Link URL to be redirected to if provided',
+      control: 'text',
+    },
     isDisabled: {
       description: 'Whether or not the button is disabled',
       control: 'boolean',

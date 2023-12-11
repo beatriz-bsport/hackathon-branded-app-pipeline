@@ -38,7 +38,9 @@ export type MenuItemProps = {
    * A callback function to be triggered when clicked.
    */
   onClick?: (
-    event?: React.MouseEvent<HTMLButtonElement | HTMLInputElement>,
+    event?: React.MouseEvent<
+      HTMLAnchorElement | HTMLButtonElement | HTMLInputElement
+    >,
   ) => void;
   /**
    * If true, the component is selected

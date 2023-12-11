@@ -27,6 +27,7 @@ type Props = {
   };
   isDisabled?: boolean;
   variant?: ButtonVariantType;
+  /** Optional click handler action to fire once button has been clicked */
   onClick?: (event?: React.MouseEvent<HTMLButtonElement>) => void;
   onMouseDown?: (event?: React.MouseEvent<HTMLButtonElement>) => void;
   isRippleEnabled?: boolean;
@@ -36,6 +37,10 @@ type Props = {
   leftIcon?: React.ReactNode;
   /** Optional slot for an icon displayed right to the label */
   rightIcon?: React.ReactNode;
+  /** Optional href to set the button as an anchor */
+  href?: string;
+  /** Anchor target passed when `href` prop is defined */
+  target?: string;
   children: React.ReactNode;
 };
 
@@ -151,16 +156,20 @@ export const Button: React.FC<Props> = ({
   size = ButtonSize.LG,
   leftIcon,
   rightIcon,
+  href,
+  target,
   children,
 }) => {
   const buttonClassNames = useButtonClassNames(size, color, variant);
   return (
     <ButtonBase
       className={classNames(buttonClassNames, className)}
+      href={href}
       isDisabled={isDisabled}
       isRippleEnabled={isRippleEnabled}
       onClick={onClick}
       onMouseDown={onMouseDown}
+      target={target}
       type={type}
     >
       <div

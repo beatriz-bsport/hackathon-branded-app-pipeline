@@ -50,6 +50,8 @@ type Props = {
   cancelLabel?: string;
   /** Action to perform on cancel button click */
   onCancel?: () => void;
+  /** If `true` the confirm button is disabled */
+  isSubmitLoading?: boolean;
   /** The text to display inside the confirm button. Fallback to 'Confirm' if not provided */
   confirmLabel?: string;
   /** Action to perform on confirm button click */
@@ -84,6 +86,7 @@ export const ModalDialog: React.FC<Props> = ({
   onClose,
   cancelLabel,
   onCancel,
+  isSubmitLoading,
   confirmLabel,
   onConfirm,
 }) => {
@@ -207,13 +210,14 @@ export const ModalDialog: React.FC<Props> = ({
           )}
         >
           <Button
-            className={
-              (classNames('bs-fabrique-modal-dialog__footer__actions__cancel', {
+            className={classNames(
+              'bs-fabrique-modal-dialog__footer__actions__cancel',
+              {
                 'bs-fabrique-modal-dialog__footer__actions__cancel--hidden':
                   !onCancel,
-              }),
-              classes?.cancel)
-            }
+              },
+              classes?.cancel,
+            )}
             color="grey"
             onClick={onCancel}
             size="md"
@@ -231,6 +235,7 @@ export const ModalDialog: React.FC<Props> = ({
               classes?.confirm,
             )}
             color={confirmButtonColor}
+            isDisabled={isSubmitLoading}
             onClick={onConfirm}
             size="md"
             variant="contained"

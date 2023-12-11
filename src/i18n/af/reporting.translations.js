@@ -139,9 +139,9 @@ const getTranslations = async () => {
       membership_duration: 'Duration',
       membership_name: 'Subscription',
       membership_ID: 'Member ID',
-      expired_amortized_price: 'Deferred revenue (incl. VAT / Sales Tax)',
+      expired_amortized_price: 'Earned from expiration (incl. VAT / Sales Tax)',
       expired_amortized_price_tax_excluded:
-        'Deferred revenue (excl. VAT / Sales Tax)',
+        'Earned from expiration (excl. VAT / Sales Tax)',
       amortized_price: 'Deferred revenue (incl. VAT / Sales Tax)',
       amortized_price_tax_excluded: 'Deferred revenue (excl. VAT / Sales Tax)',
       end_date: 'Expiry date',

@@ -40,6 +40,7 @@ import type { RootState } from '../../reducers';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import type { Offer } from '#libs/offer/types';
 import { fetchLevelList as fetchLevelListAction } from '#libs/level/actions';
+// @ts-ignore
 import { requestLogin as requestLoginAction } from '../../actions/auth.actions';
 import { withCustomLevel } from '#libs/level/selectors';
 import type { Dispatch } from '../../state/types';
@@ -53,7 +54,7 @@ type State = {
   authenticationDialog: {
     isOpen: boolean;
     password: string;
-    hasError: false;
+    hasError: boolean;
   };
 };
 
@@ -61,13 +62,15 @@ type OwnProps = {
   selectedOffers: Array<Offer>;
 };
 type ConnectedProps = ReturnType<typeof mapStateToProps> &
-  typeof mapDispatchToProps;
+  typeof mapDispatchToProps &
+  ReturnType<typeof loginDispatchToProps>;
 
 type Props = OwnProps &
   ConnectedProps &
   WithHandlerType<typeof mapWithHandlers> &
   MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation;
+
 export class CheckInOfferListPage extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -153,6 +156,7 @@ export class CheckInOfferListPage extends React.Component<Props, State> {
             authenticationDialog: {
               password: '',
               isOpen: false,
+              hasError: false,
             },
           });
         },
@@ -247,7 +251,7 @@ const styles = (theme: Theme) => ({
   },
 });
 
-const loginConnector = connect(null, (dispatch: Dispatch) => ({
+const loginDispatchToProps = (dispatch: Dispatch) => ({
   requestLogin(
     email: string,
     password: string,
@@ -273,7 +277,9 @@ const loginConnector = connect(null, (dispatch: Dispatch) => ({
   unlockCheckInFilter: () => {
     dispatch(unlockCheckInFilterAction());
   },
-}));
+});
+
+const loginConnector = connect(null, loginDispatchToProps);
 
 const mapStateToProps = (state: RootState) => ({
   offersLoading: state.offer.byDay.loading,

@@ -1,0 +1,7 @@
+.bs-consumer-payment-pack-credit-status {
+  text-wrap: nowrap;
+}
+
+.bs-consumer-payment-pack-credit-status--error {
+  color: var(--bs-color-text-error-strong);
+}

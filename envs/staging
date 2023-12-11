@@ -1,30 +1,28 @@
 window.runtime = window.runtime || { env: {} };
-const { env } = window.runtime;
+var env = window.runtime.env;
 
 // ENV
-env.REACT_APP_SENTRY_DSN =
-  'https://88b735c4d80f4f83b12e79ed072f8f4e@sentry.io/1331952';
+env.REACT_APP_SENTRY_DSN = 'https://88b735c4d80f4f83b12e79ed072f8f4e@sentry.io/1331952';
 env.REACT_APP_STRIPE_PK_KEY = 'pk_test_lFB5CxcyTCaQcS00MiE1ebEO';
 env.REACT_APP_STRIPE_PK_KEY_US = 'pk_test_f40unREf611uut2oTtz4Qqfl00UCO6tZr5';
 env.REACT_APP_GOOGLE_MAPS_API_KEY = 'AIzaSyAbzA85WpiYY6qyYE9NkNwQbFGiLITvIZI';
 env.REACT_APP_BASE_URI = 'https://api.staging.bsport.io';
-env.REACT_APP_API_URI = 'https://api.staging.bsport.io/api-v0';
-env.REACT_APP_RECAPTCHA_V2 = '6Lds67IZAAAAAFaPGpfl_ALgtV2t6Re63MBtCshi';
-env.REACT_APP_RECAPTCHA_V3 = '6LeC6rIZAAAAAKYaI_lnf52u6epeWY9fdsaAfWom';
+env.REACT_APP_API_URI='https://api.staging.bsport.io/api-v0'
+env.REACT_APP_RECAPTCHA_V2='6Lds67IZAAAAAFaPGpfl_ALgtV2t6Re63MBtCshi'
+env.REACT_APP_RECAPTCHA_V3='6LeC6rIZAAAAAKYaI_lnf52u6epeWY9fdsaAfWom'
 
-env.REACT_APP_ZOOM_CLIENT_ID = 'yH89hIkYRhGb7bJFVPYYHA';
+env.REACT_APP_ZOOM_CLIENT_ID='yH89hIkYRhGb7bJFVPYYHA';
 env.REACT_APP_CDN_DOMAIN = 'cdn.staging.bsport.io';
 
 env.REACT_APP_SENTRY_ENVIRONMENT = 'staging';
-env.NODE_ENV = 'production';
+env.NODE_ENV='production'
 env.REACT_APP_INTERCOM_APP_ID = 'q6foivp2';
 env.PUBLIC_URL = 'https://backoffice.staging.bsport.io';
 env.I18N_TRANSLATION_DOMAIN = '';
 
-env.REACT_APP_QUICKBOOKS_CLIENT_ID =
-  'ABuHQoP5mP22ZN6teCzIcZykd2w8MqtKXmAdj444TLIm9UX3ax';
-env.REACT_APP_SEGMENT_API_KEY = 'UllYsk6FCXwV1vGqz4BG72Bc3dLkO88K';
+env.REACT_APP_QUICKBOOKS_CLIENT_ID='ABuHQoP5mP22ZN6teCzIcZykd2w8MqtKXmAdj444TLIm9UX3ax';
+env.REACT_APP_SEGMENT_API_KEY='UllYsk6FCXwV1vGqz4BG72Bc3dLkO88K'
 
-env.REACT_APP_RUDDERSTACK_KEY = '2CUc2V0pItsDduWmzaR8WY14fv4';
-env.REACT_APP_RUDDERSTACK_DATAPLANEURL =
-  'https://bsportteczue.dataplane.rudderstack.com';
+env.REACT_APP_RUDDERSTACK_KEY='2CUc2V0pItsDduWmzaR8WY14fv4'
+env.REACT_APP_RUDDERSTACK_DATAPLANEURL='https://bsportteczue.dataplane.rudderstack.com'
+

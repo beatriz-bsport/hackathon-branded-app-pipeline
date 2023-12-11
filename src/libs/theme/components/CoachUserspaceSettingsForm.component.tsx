@@ -24,6 +24,7 @@ interface FormikValues {
   is_coach_access_enabled_by_default: boolean;
   has_coach_access_to_calendar: boolean;
   has_coach_access_to_compensation: boolean;
+  has_coach_access_to_compensation_downloading: boolean;
   has_coach_access_to_replacement_request: boolean;
 }
 type Props = {
@@ -106,12 +107,23 @@ const CoachUserspaceSettingsForm: React.FC<FormikProps<FormikValues>> = ({
                   )}
                   name="has_coach_access_to_calendar"
                 />
-                <SwitchField
-                  label={t(
-                    'forms.themePersonalization.coachUserspace.enableRemuneration',
-                  )}
-                  name="has_coach_access_to_compensation"
-                />
+                <div>
+                  <SwitchField
+                    label={t(
+                      'forms.themePersonalization.coachUserspace.enableRemuneration',
+                    )}
+                    name="has_coach_access_to_compensation"
+                  />
+                  <div className={classes.withBorderLeftSpacing}>
+                    <SwitchField
+                      disabled={!values.has_coach_access_to_compensation}
+                      label={t(
+                        'forms.themePersonalization.coachUserspace.enableRemunerationDownload',
+                      )}
+                      name="has_coach_access_to_compensation_downloading"
+                    />
+                  </div>
+                </div>
                 <SwitchField
                   disabled={
                     !hasUpsell(featureList, UPSELL_IDENTIFIER_SUBTEACHER_TOOL)
@@ -207,12 +219,18 @@ const useStyles = makeStyles((theme: Theme) => ({
   periodContainer: { alignItems: 'center', marginTop: theme.spacing(1) },
   nbPeriods: { marginRight: theme.spacing(2), flex: 1, maxWidth: '200px' },
   error: { color: theme.palette.error.main },
+  withBorderLeftSpacing: {
+    borderLeft: `1px solid ${theme.palette.primary.main}`,
+    paddingLeft: theme.spacing(2),
+    marginLeft: theme.spacing(2),
+  },
 }));
 
 const ThemePersonalizeFormSchema = Yup.object().shape({
   is_coach_access_enabled_by_default: Yup.boolean(),
   has_coach_access_to_calendar: Yup.boolean(),
   has_coach_access_to_compensation: Yup.boolean(),
+  has_coach_access_to_compensation_downloading: Yup.boolean(),
   has_coach_access_to_replacement_request: Yup.boolean().test(
     'at-least-one-toggle-activated',
     'forms.themePersonalization.coachUserspace.errors.restrictionToggles',
@@ -240,6 +258,8 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
         has_coach_access_to_calendar: theme.has_coach_access_to_calendar,
         has_coach_access_to_compensation:
           theme.has_coach_access_to_compensation,
+        has_coach_access_to_compensation_downloading:
+          theme.has_coach_access_to_compensation_downloading,
         has_coach_access_to_replacement_request:
           theme.has_coach_access_to_replacement_request,
       };
@@ -248,6 +268,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
       is_coach_access_enabled_by_default: false,
       has_coach_access_to_calendar: true,
       has_coach_access_to_compensation: true,
+      has_coach_access_to_compensation_downloading: false,
       has_coach_access_to_replacement_request: false,
     };
   },
@@ -258,6 +279,9 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
         values.is_coach_access_enabled_by_default,
       has_coach_access_to_calendar: values.has_coach_access_to_calendar,
       has_coach_access_to_compensation: values.has_coach_access_to_compensation,
+      has_coach_access_to_compensation_downloading:
+        values.has_coach_access_to_compensation_downloading &&
+        values.has_coach_access_to_compensation,
       has_coach_access_to_replacement_request:
         values.has_coach_access_to_replacement_request,
     };

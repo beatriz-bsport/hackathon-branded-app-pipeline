@@ -223,9 +223,7 @@ const OfferSearchBar = ({
           xs={6}
         >
           <SubTeacherRequestSelector
-            selectedFilter={
-              filterVerification && offerFilters.has_active_sub_teacher_request
-            }
+            selectedFilter={offerFilters.has_active_sub_teacher_request}
             selectSubTeacherRequestFilter={selectSubTeacherRequestFilter}
           />
         </Grid>

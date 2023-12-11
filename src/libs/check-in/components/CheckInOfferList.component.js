@@ -24,7 +24,7 @@ import OfferItemBase from '../../offer/components/OfferListItem.component';
 import EstablishmentSelector from '../../establishment/components/EstablishmentSelector.component';
 import { minsToHrMins } from '#libs/theme/utils';
 
-const OFFERS_REFRESH_DURATION = 1000 * 60 * 10;
+const OFFERS_REFRESH_DURATION = 1000 * 60;
 
 type Props = {
   classes: any,

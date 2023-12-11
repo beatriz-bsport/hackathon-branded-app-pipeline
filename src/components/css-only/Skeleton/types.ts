@@ -1,13 +1,5 @@
-enum SkeletonVariant {
-  TEXT = 'text',
-  CIRCLE = 'circle',
-  RECTANGLE = 'rectangle',
-}
+const SkeletonVariantTypes = ['text', 'circle', 'rectangle'] as const;
+const SkeletonAnimationTypes = ['pulse', 'wave', 'none'] as const;
 
-enum SkeletonAnimation {
-  PULSE = 'pulse',
-  WAVE = 'wave',
-  NONE = 'none',
-}
-
-export { SkeletonVariant, SkeletonAnimation };
+export type SkeletonVariant = (typeof SkeletonVariantTypes)[number];
+export type SkeletonAnimation = (typeof SkeletonAnimationTypes)[number];

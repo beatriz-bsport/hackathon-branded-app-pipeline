@@ -160,7 +160,7 @@ import Button, {
   ButtonColor,
   ButtonVariant,
 } from '#components/css-only/Fabrique/Button';
-import Skeleton, { SkeletonVariant } from '#components/css-only/Skeleton';
+import Skeleton from '#components/css-only/Skeleton';
 import BookingConfirmButtonWithOfferSummary from '#libs/booking/components/BookingConfirmButtonWithOfferSummary.component';
 import CountDown from '#components/time/CountDown.component';
 import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#libs/exportable-components/actions';
@@ -960,10 +960,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
         <div className="bs-new-offer-booking-page__pricing_container">
           <div className="bs-new-offer-booking-header">
             {this.getIsLoading() ? (
-              <Skeleton
-                className="bs-new-offer-booking__header--loading"
-                variant={SkeletonVariant.RECTANGLE}
-              />
+              <Skeleton className="bs-new-offer-booking__header--loading" />
             ) : (
               <>
                 <Button

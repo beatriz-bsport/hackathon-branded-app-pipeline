@@ -2,7 +2,7 @@ import React from 'react';
 
 import { ComponentMeta } from '@storybook/react';
 
-import Skeleton, { Props, SkeletonAnimation, SkeletonVariant } from '.';
+import Skeleton, { Props, SkeletonAnimationEnum } from '.';
 import { MuiThemeToCssVarsHOC } from '#hocs/marketplace-css.hoc';
 
 import './styles-storybook.css';
@@ -12,14 +12,10 @@ const SkeletonAvatarTemplate = (args: Props) => (
     <div className="bs-skeleton-storybook-avatar__container">
       <Skeleton variant="circle" {...args} />
       <div className="bs-skeleton-storybook-avatar__container__text">
-        <Skeleton
-          className="bs-skeleton-storybook__title"
-          variant={SkeletonVariant.RECTANGLE}
-          {...args}
-        />
+        <Skeleton className="bs-skeleton-storybook__title" {...args} />
         <Skeleton
           className="bs-skeleton-storybook__subtitle"
-          variant={SkeletonVariant.TEXT}
+          variant="text"
           {...args}
         />
       </div>
@@ -33,22 +29,22 @@ const SkeletonParagraphTemplate = (args: Props) => (
       <div className="bs-skeleton-storybook__paragraph__container">
         <Skeleton
           className="bs-skeleton-storybook__paragraph__row"
-          variant={SkeletonVariant.TEXT}
+          variant="text"
           {...args}
         />
         <Skeleton
           className="bs-skeleton-storybook__paragraph__row"
-          variant={SkeletonVariant.TEXT}
+          variant="text"
           {...args}
         />
         <Skeleton
           className="bs-skeleton-storybook__paragraph__row"
-          variant={SkeletonVariant.TEXT}
+          variant="text"
           {...args}
         />
         <Skeleton
           className="bs-skeleton-storybook__paragraph__row"
-          variant={SkeletonVariant.TEXT}
+          variant="text"
           {...args}
         />
       </div>
@@ -56,22 +52,22 @@ const SkeletonParagraphTemplate = (args: Props) => (
       <div className="bs-skeleton-storybook__paragraph__container">
         <Skeleton
           className="bs-skeleton-storybook__paragraph__row"
-          variant={SkeletonVariant.TEXT}
+          variant="text"
           {...args}
         />
         <Skeleton
           className="bs-skeleton-storybook__paragraph__row"
-          variant={SkeletonVariant.TEXT}
+          variant="text"
           {...args}
         />
         <Skeleton
           className="bs-skeleton-storybook__paragraph__row"
-          variant={SkeletonVariant.TEXT}
+          variant="text"
           {...args}
         />
         <Skeleton
           className="bs-skeleton-storybook__paragraph__row"
-          variant={SkeletonVariant.TEXT}
+          variant="text"
           {...args}
         />
       </div>
@@ -89,11 +85,11 @@ export default {
   argTypes: {
     animation: {
       description: 'The animation to use when something is loading',
-      defaultValue: { summary: SkeletonAnimation.PULSE },
+      defaultValue: { summary: SkeletonAnimationEnum.PULSE },
       options: [
-        SkeletonAnimation.PULSE,
-        SkeletonAnimation.WAVE,
-        SkeletonAnimation.NONE,
+        SkeletonAnimationEnum.PULSE,
+        SkeletonAnimationEnum.WAVE,
+        SkeletonAnimationEnum.NONE,
         undefined,
       ],
       control: { type: 'select' },

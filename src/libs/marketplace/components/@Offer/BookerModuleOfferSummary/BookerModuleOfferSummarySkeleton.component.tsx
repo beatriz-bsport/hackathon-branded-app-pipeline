@@ -9,7 +9,7 @@ import GridItem, {
 } from '#components/css-only/Grid/GridItem';
 import { CardSize } from '#components/css-only/Card/types';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import Skeleton, { SkeletonVariant } from '#components/css-only/Skeleton';
+import Skeleton from '#components/css-only/Skeleton';
 
 import './styles-skeleton.css';
 
@@ -29,7 +29,7 @@ const BookerModuleOfferSummarySkeleton: React.FC = () => {
           >
             <Skeleton
               className="bs-booker-module-skeleton__header-text"
-              variant={SkeletonVariant.TEXT}
+              variant="text"
             />
           </GridItem>
           <GridItem
@@ -40,7 +40,7 @@ const BookerModuleOfferSummarySkeleton: React.FC = () => {
           >
             <Skeleton
               className="bs-booker-module-skeleton__header-text"
-              variant={SkeletonVariant.TEXT}
+              variant="text"
             />
           </GridItem>
           <GridItem
@@ -57,11 +57,11 @@ const BookerModuleOfferSummarySkeleton: React.FC = () => {
           >
             <Skeleton
               className="bs-booker-module-skeleton__circle"
-              variant={SkeletonVariant.CIRCLE}
+              variant="circle"
             />
             <Skeleton
               className="bs-booker-module-skeleton__text"
-              variant={SkeletonVariant.TEXT}
+              variant="text"
             />
           </GridItem>
           <GridItem
@@ -76,11 +76,11 @@ const BookerModuleOfferSummarySkeleton: React.FC = () => {
           >
             <Skeleton
               className="bs-booker-module-skeleton__circle"
-              variant={SkeletonVariant.CIRCLE}
+              variant="circle"
             />
             <Skeleton
               className="bs-booker-module-skeleton__text"
-              variant={SkeletonVariant.TEXT}
+              variant="text"
             />
           </GridItem>
           <GridItem
@@ -95,11 +95,11 @@ const BookerModuleOfferSummarySkeleton: React.FC = () => {
           >
             <Skeleton
               className="bs-booker-module-skeleton__circle"
-              variant={SkeletonVariant.CIRCLE}
+              variant="circle"
             />
             <Skeleton
               className="bs-booker-module-skeleton__text"
-              variant={SkeletonVariant.TEXT}
+              variant="text"
             />
           </GridItem>
           <GridItem
@@ -114,11 +114,11 @@ const BookerModuleOfferSummarySkeleton: React.FC = () => {
           >
             <Skeleton
               className="bs-booker-module-skeleton__text"
-              variant={SkeletonVariant.TEXT}
+              variant="text"
             />
             <Skeleton
               className="bs-booker-module-skeleton__price"
-              variant={SkeletonVariant.TEXT}
+              variant="text"
             />
           </GridItem>
           <GridItem
@@ -127,10 +127,7 @@ const BookerModuleOfferSummarySkeleton: React.FC = () => {
             justification={Justification.CENTER}
             rowStart={7}
           >
-            <Skeleton
-              className="bs-booker-module-skeleton__button"
-              variant={SkeletonVariant.RECTANGLE}
-            />
+            <Skeleton className="bs-booker-module-skeleton__button" />
           </GridItem>
         </Grid>
       </CardContent>

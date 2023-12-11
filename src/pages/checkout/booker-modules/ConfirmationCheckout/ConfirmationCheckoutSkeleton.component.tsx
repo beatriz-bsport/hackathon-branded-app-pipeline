@@ -1,6 +1,6 @@
 import React from 'react';
 import { StatusMessageWithIconSkeleton } from '#components/css-only/StatusMessageWithIcon';
-import Skeleton, { SkeletonVariant } from '#components/css-only/Skeleton';
+import Skeleton from '#components/css-only/Skeleton';
 import { MarketplaceOfferBookingItemSkeleton } from '#marketplacecomponents/@Booking/MarketplaceOfferBookingItem';
 import MinimalCardSkeleton from '#marketplacecomponents/MinimalCardSkeleton';
 
@@ -13,23 +13,23 @@ const ConfirmationCheckoutSkeleton: React.FC = () => {
         <StatusMessageWithIconSkeleton />
       </div>
       <div className="bs-confirmation-checkout-skeleton__section">
-        <Skeleton variant={SkeletonVariant.RECTANGLE} />
+        <Skeleton />
         <MarketplaceOfferBookingItemSkeleton />
       </div>
       <div className="bs-confirmation-checkout-skeleton__section">
-        <Skeleton variant={SkeletonVariant.RECTANGLE} />
+        <Skeleton />
         <MarketplaceOfferBookingItemSkeleton />
       </div>
       <div className="bs-confirmation-checkout-skeleton__section">
-        <Skeleton variant={SkeletonVariant.RECTANGLE} />
+        <Skeleton />
         <MinimalCardSkeleton />
       </div>
       <div className="bs-confirmation-checkout-skeleton__section">
-        <Skeleton variant={SkeletonVariant.RECTANGLE} />
+        <Skeleton />
         <MinimalCardSkeleton />
       </div>
       <div className="bs-confirmation-checkout-skeleton__section">
-        <Skeleton variant={SkeletonVariant.RECTANGLE} />
+        <Skeleton />
         <MinimalCardSkeleton />
       </div>
     </div>

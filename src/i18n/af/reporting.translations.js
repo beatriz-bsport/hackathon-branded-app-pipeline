@@ -96,6 +96,8 @@ const getTranslations = async () => {
       coach: 'Teacher',
       offer_coach: 'Teacher',
       margin_value: 'Marginal value (incl. VAT / Sales Tax)',
+      margin_value_incl_tax: 'Marginal value (incl. VAT / Sales Tax)',
+      margin_value_excl_tax: 'Marginal value (excl. VAT / Sales Tax)',
       margin_value_pre_tax: 'Marginal value (excl. VAT / Sales Tax)',
       effectif: 'Number of slots',
       total_payments: 'Total payments',
@@ -137,6 +139,9 @@ const getTranslations = async () => {
       membership_duration: 'Duration',
       membership_name: 'Subscription',
       membership_ID: 'Member ID',
+      expired_amortized_price: 'Deferred revenue (incl. VAT / Sales Tax)',
+      expired_amortized_price_tax_excluded:
+        'Deferred revenue (excl. VAT / Sales Tax)',
       amortized_price: 'Deferred revenue (incl. VAT / Sales Tax)',
       amortized_price_tax_excluded: 'Deferred revenue (excl. VAT / Sales Tax)',
       end_date: 'Expiry date',

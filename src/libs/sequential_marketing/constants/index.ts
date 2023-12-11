@@ -56,6 +56,8 @@ import { CadencePanelMode } from './panel';
 
 import { SequentialMarketingColors } from './colors';
 
+import { SequentialMarketingWorkflowMetricsSizes } from './workflowMetrics';
+
 import {
   AUDIENCE_FEATURE_NAME,
   AUDIENCE_WORKFLOW_NAME,
@@ -95,6 +97,8 @@ export {
   CadencePanelMode,
   // COLORS
   SequentialMarketingColors,
+  // WORKFLOW ANALYISIS
+  SequentialMarketingWorkflowMetricsSizes,
   // STEPS
   HandleTypeChoices,
   DEFAULT_X_FOR_ENTRYSTEP,

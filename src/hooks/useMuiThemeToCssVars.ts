@@ -328,6 +328,36 @@ export const useMuiThemeToCssVars = () => {
 
     /* FABRIQUE ICON SIZE */
     --bs-icon-size-xs: 8px;
+
+    /* FABRIQUE TEMPORARY VARIABLES */
+    --bs-fabrique-alert-min-height: 64px;
+    --bs-fabrique-alert-border-width: 2px;
+    --bs-fabrique-badge-font-weight-onstrong: 700;
+    --bs-fabrique-button-border-width: 1.5px;
+    --bs-fabrique-font-size-action-lg: 1.125rem;
+    --bs-fabrique-font-size-action-md: 1rem;
+    --bs-fabrique-font-size-action-sm: 0.875rem;
+    --bs-fabrique-font-weight-action-bold: 600;
+    --bs-fabrique-font-weight-action-bolder: 700;
+    --bs-fabrique-line-height-action-lg: 1.5rem;
+    --bs-fabrique-line-height-action-md: 1.25rem;
+    --bs-fabrique-line-height-action-sm: 1rem;
+    --bs-fabrique-border-1: 1px;
+    --bs-fabrique-border-2: 2px;
+    --bs-fabrique-border-4: 4px;
+    --bs-fabrique-icon-button-border-width: 1px;
+    --bs-fabrique-modal-dialog-border-width: 1px;
+    --bs-fabrique-modal-dialog-size--xs: 320px;
+    --bs-fabrique-modal-dialog-size--md: 480px;
+    --bs-fabrique-modal-dialog-size--lg: 800px;
+    --bs-fabrique-modal-dialog-size--xl: 1000px;
+    --bs-fabrique-offset-1: -1px;
+    --bs-fabrique-tab-border-width: 1px;
+    --bs-fabrique-tab-vertical-padding: 3px;
+    --bs-fabrique-textfield-border-width-default: 1px;
+    --bs-fabrique-textfield-border-left-width: 1px;
+    --bs-fabrique-textfield-offset: -1px;
+    --bs-border-width-default: 1px;
   `;
 
   // Inside the 'id' section, we define styles that will be applied to the 'div' element with the id 'bs-setup-derived-variable'.

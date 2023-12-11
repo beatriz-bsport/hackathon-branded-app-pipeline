@@ -1,7 +1,3 @@
-:root {
-  --bs-fabrique-border-2: 2px;
-}
-
 .bs-fabrique-card-root {
   display: inline-flex;
   align-items: center;

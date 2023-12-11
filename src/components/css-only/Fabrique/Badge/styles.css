@@ -1,7 +1,3 @@
-:root {
-  --bs-fabrique-badge-font-weight-onstrong: 700;
-}
-
 .bs-fabrique-badge-root {
   display: inline-flex;
   justify-content: center;

@@ -1,10 +1,3 @@
-:root {
-  --bs-fabrique-textfield-border-width-default: 1px;
-  --bs-fabrique-textfield-border-left-width: 1px;
-  /* The offset is here because there is a thin line between the border and the outline ONLY on the corners (due to border-radius) */
-  --bs-fabrique-textfield-offset: -1px;
-}
-
 /* TEXTFIELD WRAPPER INCLUDING LABEL INPUT AND HELPER TEXT*/
 .bs-fabrique-textfield__wrapper {
   display: flex;

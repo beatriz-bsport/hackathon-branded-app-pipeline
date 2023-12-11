@@ -1,7 +1,3 @@
-:root {
-  --bs-fabrique-icon-button-border-width: 1px;
-}
-
 .bs-fabrique-icon-button-root {
   transition: background-color var(--bs-transition-duration-slow) ease-in-out,
     color var(--bs-transition-duration-slow) ease-in-out,

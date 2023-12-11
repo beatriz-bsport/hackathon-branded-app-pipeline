@@ -1,9 +1,3 @@
-:root {
-  /* AWAITING BORDER WIDTH VAR */
-  --bs-fabrique-tab-border-width: 1px;
-  --bs-fabrique-tab-vertical-padding: 3px;
-}
-
 .bs-fabrique-tab-root {
   display: inline-flex;
   align-items: center;

@@ -1,11 +1,3 @@
-:root {
-  --bs-fabrique-modal-dialog-border-width: 1px;
-  --bs-fabrique-modal-dialog-size--xs: 320px;
-  --bs-fabrique-modal-dialog-size--md: 480px;
-  --bs-fabrique-modal-dialog-size--lg: 800px;
-  --bs-fabrique-modal-dialog-size--xl: 1000px;
-}
-
 .bs-fabrique-modal-dialog__root {
   display: flex;
   flex-direction: column;

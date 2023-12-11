@@ -1,15 +1,3 @@
-:root {
-  --bs-fabrique-button-border-width: 1.5px;
-  --bs-fabrique-font-size-action-lg: 1.125rem;
-  --bs-fabrique-font-size-action-md: 1rem;
-  --bs-fabrique-font-size-action-sm: 0.875rem;
-  --bs-fabrique-font-weight-action-bold: 600;
-  --bs-fabrique-font-weight-action-bolder: 700;
-  --bs-fabrique-line-height-action-lg: 1.5rem;
-  --bs-fabrique-line-height-action-md: 1.25rem;
-  --bs-fabrique-line-height-action-sm: 1rem;
-}
-
 .bs-fabrique-button-root {
   transition: background-color var(--bs-transition-duration-slow) ease-in-out,
     color var(--bs-transition-duration-slow) ease-in-out,

@@ -21,6 +21,23 @@ class SubscriptionWidget extends Component<Props> {
     selected: null,
   };
 
+  componentDidMount() {
+    window?.addEventListener('message', this.handleAddToCartPostMessages);
+  }
+
+  componentWillUnmount() {
+    window?.removeEventListener('message', this.handleAddToCartPostMessages);
+  }
+
+  handleAddToCartPostMessages = (event: MessageEvent) => {
+    if (
+      event?.data?.type === 'bsport:subscription:add-to-cart:contract' &&
+      event?.data?.data?.contract_id
+    ) {
+      this.addToCart(event.data.data.contract_id);
+    }
+  };
+
   addToCart = (contractId: number) => {
     const { PUBLIC_URL } = getEnv();
     const url = `${PUBLIC_URL}/checkout/${this.props.companyId}/subscription/${contractId}`;

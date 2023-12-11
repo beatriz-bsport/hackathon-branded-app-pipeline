@@ -1404,6 +1404,27 @@
             "waitingList": "Your position in the waitlist is: {{ waitingListPosition }}",
             "spotSchedulingPosition": "Spot {{ spotSchedulingPosition }}"
           }
+        },
+        "detailsCard": {
+          "cancelled": {
+            "title": "Cancelled",
+            "cancelledFromMember": "Cancelled by you",
+            "cancelledFromManager": "Cancelled by studio manager",
+            "creditsToRefund": "{{count}} credit will be refunded",
+            "creditsToRefund_plural": "{{count}} credits will be refunded",
+            "refundWarning": "No credit refunds for late cancellations"
+          },
+          "relatedPass": { "title": "Related Pass" },
+          "location": { "title": "Location" },
+          "description": { "title": "Description" },
+          "cancellationPolicy": {
+            "title": "Cancellation policy",
+            "noDuration": "Cancellations are always possible without any charges.",
+            "maxDuration": "Cancellations are possible without any charges up to {{days}} day(s), {{hours}} hour(s) and {{minutes}} minute(s)."
+          },
+          "waitlist": { "position": "Your position in the waitlist is: {{position}}" },
+          "teacher": { "title": "Teacher", "absent": "Absent", "subtitutedBy": "Subtituted by" },
+          "workshop": { "title": "Grouped with this workshop" }
         }
       }
     }
@@ -14163,7 +14184,12 @@
           "displayWaitingListPosition": "Display waiting list position",
           "isCancellable": "Booking is cancellable",
           "isBookableForAGuest": "Booking is bookable for a guest",
-          "isMoreDisplayed": "Secondary buttons are hidden in a menu"
+          "isMoreDisplayed": "Secondary buttons are hidden in a menu",
+          "showEstablishmentRoom": "Show establishment room",
+          "showCancellationPolicy": "Show cancellation policy",
+          "showWaitlistPosition": "Show waitlist position",
+          "hasCoachOverride": "The teacher is absent",
+          "showWorkshopLinkedOffers": "The session is from a workshop"
         },
         "configurationTitle": "Variations",
         "confirmationMessageComponentAlert": "This component primarily manages booking and payment statuses. For customizing its appearance, we recommend utilizing its root components located in common section",

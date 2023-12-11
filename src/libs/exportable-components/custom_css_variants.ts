@@ -392,6 +392,12 @@ import {
   CONSUMER_BOOKING_CARD_PREVIEW,
   CONSUMER_BOOKING_CARD_CONFIGURATION,
 } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingCard';
+
+import {
+  CONSUMER_BOOKING_DETAILS_CARD_CONFIGURATION,
+  CONSUMER_BOOKING_DETAILS_CARD_PREVIEW,
+} from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingDetailsCard/custom_css_variant';
+
 /* TEMPLATE
 
 {
@@ -497,6 +503,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
         FABRIQUE_SELECTOR_CONFIGURATION,
         FABRIQUE_SELECTOR_INPUT_CONFIGURATION,
         CONSUMER_BOOKING_CARD_CONFIGURATION,
+        CONSUMER_BOOKING_DETAILS_CARD_CONFIGURATION,
       ]
     : []),
 ];
@@ -684,6 +691,8 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
         FABRIQUE_SELECTOR_INPUT_PREVIEW,
       [CssComponentsVariantIdentifiers.CONSUMER_BOOKING_CARD]:
         CONSUMER_BOOKING_CARD_PREVIEW,
+      [CssComponentsVariantIdentifiers.CONSUMER_BOOKING_DETAILS_CARD]:
+        CONSUMER_BOOKING_DETAILS_CARD_PREVIEW,
     }),
   });
 

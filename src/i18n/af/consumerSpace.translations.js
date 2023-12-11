@@ -136,6 +136,34 @@ exports.default = {
           spotSchedulingPosition: 'Spot {{ spotSchedulingPosition }}',
         },
       },
+      detailsCard: {
+        cancelled: {
+          title: 'Cancelled',
+          cancelledFromMember: 'Cancelled by you',
+          cancelledFromManager: 'Cancelled by studio manager',
+          creditsToRefund: '{{count}} credit will be refunded',
+          creditsToRefund_plural: '{{count}} credits will be refunded',
+          refundWarning: 'No credit refunds for late cancellations',
+        },
+        relatedPass: { title: 'Related Pass' },
+        location: { title: 'Location' },
+        description: { title: 'Description' },
+        cancellationPolicy: {
+          title: 'Cancellation policy',
+          noDuration: 'Cancellations are always possible without any charges.',
+          maxDuration:
+            'Cancellations are possible without any charges up to {{days}} day(s), {{hours}} hour(s) and {{minutes}} minute(s).',
+        },
+        waitlist: {
+          position: 'Your position in the waitlist is: {{position}}',
+        },
+        teacher: {
+          title: 'Teacher',
+          absent: 'Absent',
+          subtitutedBy: 'Subtituted by',
+        },
+        workshop: { title: 'Grouped with this workshop' },
+      },
     },
   },
 };

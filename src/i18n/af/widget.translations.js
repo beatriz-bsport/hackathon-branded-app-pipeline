@@ -300,6 +300,11 @@ exports.default = {
         isCancellable: 'Booking is cancellable',
         isBookableForAGuest: 'Booking is bookable for a guest',
         isMoreDisplayed: 'Secondary buttons are hidden in a menu',
+        showEstablishmentRoom: 'Show establishment room',
+        showCancellationPolicy: 'Show cancellation policy',
+        showWaitlistPosition: 'Show waitlist position',
+        hasCoachOverride: 'The teacher is absent',
+        showWorkshopLinkedOffers: 'The session is from a workshop',
       },
       configurationTitle: 'Variations',
       confirmationMessageComponentAlert:

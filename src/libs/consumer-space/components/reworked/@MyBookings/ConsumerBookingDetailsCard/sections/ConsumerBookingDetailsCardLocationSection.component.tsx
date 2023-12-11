@@ -1,0 +1,50 @@
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import classNames from 'classnames';
+
+import { Building01, MarkerPin04 } from '#components/untitledui';
+import ConsumerCardSection from '#libs/consumer-space/components/reworked/common/ConsumerCardSection';
+import List from '#Fabrique/List';
+import ListItem from '#Fabrique/ListItem';
+
+type Props = {
+  establishmentRoomName?: string;
+  establishmentAddress: string;
+};
+
+const ConsumerBookingDetailsCardLocationSection: React.FC<Props> = ({
+  establishmentRoomName,
+  establishmentAddress,
+}) => {
+  const { t } = useTranslation('consumerSpace');
+
+  return (
+    <ConsumerCardSection
+      className="bs-consumer-booking-details-card__location-section"
+      title={t('consumerSpace:reworked.myBookings.detailsCard.location.title')}
+    >
+      <List className="bs-consumer-booking-details-card__location-section__list">
+        <ListItem
+          className={classNames(
+            'bs-consumer-booking-details-card__location-section__list__item',
+            {
+              'bs-consumer-booking-details-card__location-section__list__item--hidden':
+                !establishmentRoomName,
+            },
+          )}
+          icon={<Building01 stroke="currentColor" />}
+          label={establishmentRoomName}
+          size="sm"
+        />
+        <ListItem
+          className="bs-consumer-booking-details-card__location-section__list__item"
+          icon={<MarkerPin04 stroke="currentColor" />}
+          label={establishmentAddress}
+          size="sm"
+        />
+      </List>
+    </ConsumerCardSection>
+  );
+};
+
+export default React.memo(ConsumerBookingDetailsCardLocationSection);

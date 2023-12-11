@@ -9574,7 +9574,7 @@
             "date_start": "Date complète",
             "date_start_date": "Date",
             "date_start_time": "Heure",
-            "margin_value": "Valeur marginale (incluant TVA / Taxe sur les ventes)",
+            "margin_value": "Apport marginal TTC",
             "duration_minute": "Durée (minutes)",
             "attendance": "Présent",
             "coach": "Professeur",
@@ -9813,7 +9813,10 @@
             "private_booking_date_created": "Date et heure de la réservation",
             "booking_date_created": "Date et heure de la réservation",
             "sum_margin_value_excluding_sales_tax": "Valeur marginale (hors TVA / Taxe sur les ventes)",
-            "margin_value_pre_tax": "Valeur marginale (hors TVA / Taxe sur les ventes)"
+            "margin_value_pre_tax": "Valeur marginale (hors TVA / Taxe sur les ventes)",
+            "margin_value_incl_tax": "Valeur marginale (y compris TVA / Taxe de vente)",
+            "expired_amortized_price_tax_excluded": "PCA HT",
+            "expired_amortized_price": "PCA TTC"
         },
         "yes": "Oui",
         "no": "Non",
@@ -11740,7 +11743,9 @@
             "headOnIn": "Tout est prêt !"
         },
         "authenticationDialog": {
-            "title": "Modifier l'établissement"
+            "title": "Modifier l'établissement",
+            "error": "Le mot de passe saisi n'est pas valide",
+            "description": "Pour garantir la sécurité, veuillez authentifier votre identité en saisissant votre mot de passe avant de procéder au changement d'établissement."
         }
     },
     "settings": {
@@ -11798,7 +11803,29 @@
                 "revoke": "Désactiver ZOOM",
                 "label": "Configuration des comptes ZOOM",
                 "explainValid": "Compte valide: Les liens des réunions ZOOM seront créés pour chaque séance 15 minutes avant qu'elles ne démarrent automatiquement. Le professeur recevra un lien pour accueillir la réunion tandis que les inscrits recevront un autre lien pour rejoindre la réunion. Notez que si le compte ZOOM est impayé, la réunion ZOOM est limitée à 40 minutes",
-                "explainInvalid": "Compte invalide"
+                "explainInvalid": "Compte invalide",
+                "establishmentTable": {
+                    "removeAction": "Supprimer",
+                    "emptySelect": "Sélectionner",
+                    "headers": {
+                        "add": "Ajouter",
+                        "type": "Type",
+                        "user": "Utilisateur",
+                        "establishment": "Établissement"
+                    }
+                },
+                "groupActionButton": {
+                    "reset": "Réinitialiser",
+                    "save": "Enregistrer"
+                },
+                "zoomGroupId": "ID du groupe Zoom",
+                "multiZoomUserSupport": {
+                    "explain": "Lancez plusieurs sessions en visio-conférence en simultané en associant vos établissements bsport à différents utilisateurs de votre compte Zoom.",
+                    "switchLabel": "Activer le support multi-utilisateurs de Zoom"
+                },
+                "memberType": {
+                    "1": "Basique"
+                }
             }
         },
         "active_campaign": {

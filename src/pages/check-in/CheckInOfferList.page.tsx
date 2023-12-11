@@ -1,6 +1,3 @@
-// @ts-nocheck
-// @flow
-//
 import React from 'react';
 
 import { compose, withHandlers } from 'recompose';
@@ -15,6 +12,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
 import { WithTranslation, withTranslation } from 'react-i18next';
+import { Theme } from '@material-ui/core';
+import { fetchCompanyTheme as fetchCompanyThemeAction } from '../../libs/theme/actions';
 
 import {
   fetchOffersByDay as fetchOffersByDayAction,
@@ -34,7 +33,7 @@ import {
   fetchEstablishmentBulk as fetchEstablishmentBulkAction,
 } from '#libs/establishment/actions';
 import { fetchCoachBulk as fetchCoachBulkAction } from '#libs/associated-coach/actions';
-
+// @ts-ignore
 import CheckInOfferList from '#libs/check-in/components/CheckInOfferList.component';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import type { RootState } from '../../reducers';
@@ -175,6 +174,7 @@ export class CheckInOfferListPage extends React.Component<Props, State> {
         <CheckInOfferList
           establishments={this.props.establishments}
           isCheckInFilterLocked={this.props.isCheckInFilterLocked}
+          minutesToConvert={this.props.totalCheckInCutOffMinutes}
           offerFilters={this.props.offerFilters}
           offers={this.props.offers}
           offersLoading={this.props.offersLoading}
@@ -234,7 +234,7 @@ export class CheckInOfferListPage extends React.Component<Props, State> {
   }
 }
 
-const styles = (theme) => ({
+const styles = (theme: Theme) => ({
   container: {
     padding: theme.spacing(2),
     width: '100%',
@@ -287,6 +287,8 @@ const mapStateToProps = (state: RootState) => ({
   companyId: state.theme.theme.company,
   email: state.auth.username,
   isCheckInFilterLocked: getIsCheckInFilterLocked(state),
+  totalCheckInCutOffMinutes:
+    state.theme.theme.checkin_tablet_visible_session_cutoff_minute,
 });
 const mapDispatchToProps = {
   fetchEstablishments,
@@ -299,6 +301,7 @@ const mapDispatchToProps = {
   setOpen: offersFilterActions.setOpen,
   toogleFilter: toogleFilterAction,
   fetchLevelList: fetchLevelListAction,
+  fetchCompanyTheme: fetchCompanyThemeAction,
 };
 const mapWithHandlers = {
   fetchOffersByDay:

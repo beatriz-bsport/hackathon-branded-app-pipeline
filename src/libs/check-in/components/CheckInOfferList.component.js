@@ -12,7 +12,7 @@ import Alert from '@material-ui/lab/Alert/Alert';
 import Fab from '@material-ui/core/Fab';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import Immutable from 'seamless-immutable';
-import Moment from 'moment-timezone';
+import moment from 'moment-timezone';
 import { components } from 'react-select';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import LockIcon from '@material-ui/icons/Lock';
@@ -22,6 +22,7 @@ import Countdown from '../../../components/Countdown.component';
 import OfferItemBase from '../../offer/components/OfferListItem.component';
 
 import EstablishmentSelector from '../../establishment/components/EstablishmentSelector.component';
+import { minsToHrMins } from '#libs/theme/utils';
 
 const OFFERS_REFRESH_DURATION = 1000 * 60 * 10;
 
@@ -39,6 +40,7 @@ type Props = {
   setOpen: () => null,
   onOpenAuthenticationDialog: () => void,
   onLockCheckInFilter: () => void,
+  minutesToConvert: number,
 };
 
 const offerListItemStyle = () => {
@@ -70,18 +72,18 @@ const DropdownIndicator: React.FC<
 const CheckInOfferListItem = withTranslation(['selfCheckIn'])(
   withStyles(offerListItemStyle)((props) => {
     // dates : start, end and moment
-    const momentDate = Moment();
-    const dateStart = Moment(props.offer.date_start);
-    const dateEnd = Moment(props.offer.date_start).add(
+    const momentDate = moment();
+    const dateStart = moment(props.offer.date_start);
+    const dateEnd = moment(props.offer.date_start).add(
       props.offer.duration_minute,
       'minutes',
     );
 
     // boolean : if the activity has started yet or is in progress
-    const notStartedYet = !!momentDate.isBefore(Moment(props.offer.date_start));
+    const notStartedYet = !!momentDate.isBefore(moment(props.offer.date_start));
     const inProgress = !!momentDate.isBetween(
-      Moment(props.offer.date_start),
-      Moment(props.offer.date_start).add(
+      moment(props.offer.date_start),
+      moment(props.offer.date_start).add(
         props.offer.duration_minute,
         'minutes',
       ),
@@ -149,6 +151,15 @@ export class CheckInOfferList extends Component<Props, State> {
     clearInterval(this.countdownInterval);
   }
 
+  getOffersToDisplay = () => {
+    const { hours, minutes } = minsToHrMins(this.props.minutesToConvert);
+    return this.props.offers.filter((o) =>
+      moment(o.date_start).isAfter(
+        moment().subtract(hours, 'hour').subtract(minutes, 'minute'),
+      ),
+    );
+  };
+
   render() {
     const { classes, offersLoading, offers, t, onOpenAuthenticationDialog } =
       this.props;
@@ -158,6 +169,7 @@ export class CheckInOfferList extends Component<Props, State> {
     }
 
     const establishmentList = this.props.establishments;
+    const offersToDisplay = this.getOffersToDisplay();
 
     return (
       <div className={classes.rootContainer}>
@@ -210,34 +222,14 @@ export class CheckInOfferList extends Component<Props, State> {
         {offers && offers.length ? (
           <Paper>
             <List disablePadding>
-              {offers
-                .filter((o) =>
-                  Moment(o.date_start)
-                    .add('minutes', o.duration_minute)
-                    .isAfter(Moment()),
-                )
-                .map((offer) => (
-                  <CheckInOfferListItem
-                    key={offer.id}
-                    classes={this.props.classes}
-                    offer={offer}
-                    onClick={this.props.onOfferSelected}
-                  />
-                ))}
-              {offers
-                .filter((o) =>
-                  Moment(o.date_start)
-                    .add('minutes', o.duration_minute)
-                    .isBefore(Moment()),
-                )
-                .map((offer) => (
-                  <CheckInOfferListItem
-                    key={offer.id}
-                    classes={this.props.classes}
-                    offer={offer}
-                    onClick={this.props.onOfferSelected}
-                  />
-                ))}
+              {offersToDisplay.map((offer) => (
+                <CheckInOfferListItem
+                  key={offer.id}
+                  classes={this.props.classes}
+                  offer={offer}
+                  onClick={this.props.onOfferSelected}
+                />
+              ))}
             </List>
           </Paper>
         ) : (

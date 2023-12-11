@@ -1255,7 +1255,8 @@
                     "title": "Suppresion",
                     "content": "Êtes-vous sûr de vouloir supprimer cette règle d'envoi automatique ? Cette action est définitive."
                 }
-            }
+            },
+            "processing": "Envoi en cours..."
         },
         "recipient": {
             "readCount": "Ouverture",
@@ -3426,7 +3427,8 @@
             },
             "quantity": "Quantité",
             "voucher": "Réduction: {{ voucher }}",
-            "discount": "Réduction"
+            "discount": "Réduction",
+            "finalPricePreview": "Aperçu du total"
         },
         "section": {
             "invoiceItemList": {
@@ -4164,7 +4166,9 @@
                 "entryTrigger": {
                     "title": "Critères d'entrée",
                     "addTrigger": "Ajouter un déclencheur d'entrée",
-                    "helperText": "Tout d'abord, définissez la manière dont vos membres entrerons dans le workflow. Sélectionnez un ou plusieurs événements ou smartlists et si le membre correspond à l'un d'entre eux, il entrera dans le workflow."
+                    "helperText": "Tout d'abord, définissez la manière dont vos membres entrerons dans le {{ workflowLowerCase }}. Sélectionnez un ou plusieurs événements ou smartlists et si le membre correspond à l'un d'entre eux, il entrera dans le {{ workflowLowerCase }}.",
+                    "creationHelper": "Tout d'abord, déterminez les critères d'entrée de vos membres dans le {{ workflowLowerCase }}. Choisissez un ou plusieurs événements ou smartlists. Si un membre correspond à l'un de ces éléments, il rejoindra le {{ workflowLowerCase }}.",
+                    "editionHelper": "Modifiez les critères d'entrée de vos membres dans le {{ workflowLowerCase }}. Vous pouvez choisir un ou plusieurs événements ou smartlists. Si un membre correspond à l'un de ces critères, il rejoindra le {{ workflowLowerCase }}."
                 },
                 "convertIntoStep": {
                     "label": "Intitulé de l'étape",
@@ -4176,7 +4180,7 @@
                 },
                 "entryAction": {
                     "title": "Action de saisie",
-                    "helperText": "Sélectionnez ce que vous voulez faire lorsque vos membres entrent dans le workflow. Les taguer, leur envoyer un email... C'est à vous de décider. Ou ne rien faire, cette étape est facultative.",
+                    "helperText": "Décidez de ce qu'il se passe lorsque les membres entrent dans le {{ workflowLowerCase }}. Vous pouvez les taguer, leur envoyer un email ou choisir une autre action qui vous convient. Vous pouvez également choisir de ne rien faire ; cette étape est facultative.",
                     "addAction": "Ajouter une action"
                 },
                 "requiredField": "Ce champ est obligatoire pour continuer.",
@@ -4184,27 +4188,27 @@
                 "delete": "Supprimer",
                 "lostAction": {
                     "title": "Action perdu",
-                    "helperText": "Sélectionnez ce que vous souhaitez faire lorsque vos membres quittent le workflow comme étant perdus. Taguez-les, envoyez un e-mail... C'est vous qui décidez. Ou ne rien faire, cette étape est facultative.",
+                    "helperText": "Décidez de ce qu'il se passe lorsque les membres quittent le {{ workflowLowerCase }} avec la mention \"Perdu\". Vous pouvez les taguer, leur envoyer un email, ou choisir une autre action qui vous convient. Vous pouvez également choisir de ne rien faire ; cette étape est facultative.",
                     "addAction": "Ajouter une action"
                 },
                 "lostTrigger": {
                     "title": "Critère perdu",
-                    "helperText": "Définissons maintenant ce que vous considérez comme un échec, de sorte que votre membre quitte le workflow comme \"perdu\"",
+                    "helperText": "Définissez ce qui est considéré comme un échec, le membre sera alors marqué comme \"perdu\" lorsqu'il quittera le {{ workflowLowerCase }}. Définissez également la durée maximale pendant laquelle un membre peut être présent dans le {{ workflowLowerCase }}.",
                     "addTrigger": "Ajouter un déclencheur de sortie",
                     "timeout": {
-                        "helperText": "Si un membre est toujours présent dans ce workflow après la limite de temps sélectionnée, il sera considéré comme \"perdu\".",
-                        "label": "Jours dans le workflow",
+                        "helperText": "Si un membre est toujours présent dans ce {{ workflowLowerCase }} après la limite de temps sélectionnée, il sera considéré comme \"perdu\".",
+                        "label": "Jours dans le {{ workflowLowerCase }}",
                         "title": "Délai"
                     }
                 },
                 "wonAction": {
                     "title": "Action gagné",
-                    "helperText": "Sélectionnez ce que vous souhaitez faire lorsque vos membres quittent le workflow en tant que gagnés. Taguez-les, envoyez un e-mail... C'est vous qui décidez. Ou ne rien faire, cette étape est facultative",
+                    "helperText": "Décidez de ce qu'il se passe lorsque les membres quittent le {{ workflowLowerCase }} avec la mention \"Gagné\". Vous pouvez les taguer, leur envoyer un email, ou choisir une autre action qui vous convient. Vous pouvez également choisir de ne rien faire ; cette étape est facultative.",
                     "addAction": "Ajouter une action"
                 },
                 "wonTrigger": {
                     "title": "Critère gagné",
-                    "helperText": "Définissons les règles générales de sortie. Tout comme pour l'entrée, indiquez quels événements feront sortir vos membres du workflow. Peut importe la position du membre, si cet événement se produit, il quittera le workflow. Tout d'abord, définissez ce que vous considérerez comme un succès pour marquer le membre comme \"Gagné\" lorsqu'il quittera le workflow.",
+                    "helperText": "Définissez les règles générales de sortie des membres du {{ workflowLowerCase }}. Si un membre correspond à l'un des déclencheurs, il quittera le workflow, quelle que soit l'étape à laquelle il se trouve. Commencez par sélectionner les déclencheurs de \"succès\" qui marqueront un membre comme \"Gagné\" lorsqu'il quittera le {{ workflowLowerCase }}.",
                     "addTrigger": "Ajouter un déclencheur de sortie"
                 }
             },
@@ -4347,7 +4351,7 @@
             "archive": {
                 "dialog": {
                     "title": "Suppression d'une cadence",
-                    "beingArchived": "Vous vous apprêtez à supprimer {{ name }}.",
+                    "beingArchived": "Vous êtes sur le point d'archiver {{ name }}.",
                     "helper": "Les membres actuellement dans la cadence en sortiront automatiquement. Cette cadence sera archivée, vous pourrez la réactiver ultérieurement.",
                     "cancel": "Annuler",
                     "confirm": "Continuer",
@@ -4444,13 +4448,13 @@
             "step": {
                 "convertExit": {
                     "dialog": {
-                        "helper": "Le déclencheur suivant sera également supprimé. Le reste du workflow sera déconnecté mais pas supprimé.",
+                        "helper": "Les déclencheurs qui suivent cette étape seront également supprimés. Le reste du {{ workflowLowerCase }} sera déconnecté mais pas supprimé.",
                         "title": "Convertir cette étape en sortie"
                     }
                 },
                 "archive": {
                     "dialog": {
-                        "helper": "Cette action ne peut pas être annulée. Les déclencheurs connectés à l'étape seront également supprimés. Le reste du workflow sera déconnecté mais pas supprimé.",
+                        "helper": "Les déclencheurs liés à cette étape seront également supprimés. Le reste du {{ workflowLowerCase }} sera déconnecté mais pas supprimé.",
                         "title": "Êtes-vous sûr de vouloir supprimer cette étape ?"
                     }
                 }
@@ -4469,7 +4473,7 @@
                 "dialog": {
                     "confirmButton": "Pause",
                     "helper": "Toutes les actions des membres se produisant pendant la pause ne seront pas prises en compte.",
-                    "title": "Pauser le workflow"
+                    "title": "Pauser le {{ workflowLowerCase }}"
                 }
             },
             "trigger": {
@@ -4477,8 +4481,8 @@
             },
             "welcome": {
                 "dialog": {
-                    "title": "Bienvenu sur Audience !",
-                    "helper": "Commençons ensemble à construire votre workflow ! Tout d'abord, nous allons définir les critères d'entrée de vos membres dans le workflow. Ensuite, nous déterminerons les conditions dans lesquelles vos membres quitteront le workflow en étant considérés comme \"Gagnés\" ou \"Perdus\" en fonction de leurs actions.",
+                    "title": "Bienvenu sur {{ audienceCamelCase }}!",
+                    "helper": "Commençons à construire votre {{ workflowLowerCase }} ensemble ! Tout d'abord, nous allons définir les critères d'entrée de vos membres dans le {{ workflowLowerCase }}. Ensuite, nous déterminerons quand vos membres seront considérés comme \"gagnants\" ou \"perdants\" en fonction de leurs actions.",
                     "confirm": "Commencer",
                     "return": "Annuler"
                 }
@@ -4523,14 +4527,29 @@
             "archive": {
                 "archivedHeader": "{{ workflowPluralLowerCase }} archivés",
                 "dialog": {
-                    "helper": "Les membres actuellement dans le {{ workflowLowerCase }} en sortiront automatiquement. Le {{ workflowLowerCase }} sera archivé mais vous pouvez la réactiver ultérieurement.",
-                    "title": "Supprimer un {{ workflowLowerCase }}"
+                    "helper": "Les membres actuellement dans le {{ workflowLowerCase }} en sortiront automatiquement. Le {{ workflowLowerCase }} sera mis sur pause et archivé mais vous pouvez le réactiver ultérieurement.",
+                    "title": "Supprimer un {{ workflowLowerCase }}",
+                    "beingArchived": "Vous êtes sur le point d'archiver \"{{ name }}\"."
                 }
             },
             "howTo": {
                 "title": "Comment éditer votre {{ workflowLowerCase }}"
             },
-            "audienceIndexHelper": "L'ordre des {{ workflowPluralLowerCase }} définit l'ordre de priorité : si un membre peut entrer dans deux {{ workflowPluralLowerCase }} différents, il commencera par le premier de la liste."
+            "audienceIndexHelper": "L'ordre des {{ workflowPluralLowerCase }} détermine la priorité : si un membre peut entrer dans deux {{ workflowPluralLowerCase }} différents, il commencera par le premier de la liste.",
+            "block": {
+                "unrecognized": {
+                    "dialog": {
+                        "helper": "Le {{ workflowLowerCase }} que vous tentez d'accéder est introuvable.",
+                        "title": "{{ workflowCamelCase }} non reconnu"
+                    }
+                },
+                "archived": {
+                    "dialog": {
+                        "helper": "Le {{ workflowLowerCase }} est maintenant archivé. Pour le restaurer, revenez à la page principale et récupérez le {{ workflowLowerCase }} de la liste.",
+                        "title": "{{ workflowCamelCase }} archivé"
+                    }
+                }
+            }
         }
     },
     "marketplace": {
@@ -6370,6 +6389,11 @@
                 "editOfferInitialCredits": "Les réservations anciennes ne prennent pas en compte les modifications des crédits"
             },
             "forbidden": "Vous n'avez pas la permission d'ajouter des séances à cette activité. Veuillez contacter votre responsable pour obtenir les droits nécessaires."
+        },
+        "subTeacherRequestFilter": {
+            "false": "Aucune demande de substitution",
+            "true": "Demande de substitution en attente",
+            "placeholder": "Demande de substitution"
         }
     },
     "order": {
@@ -9550,7 +9574,7 @@
             "date_start": "Date complète",
             "date_start_date": "Date",
             "date_start_time": "Heure",
-            "margin_value": "Apport marginal",
+            "margin_value": "Valeur marginale (incluant TVA / Taxe sur les ventes)",
             "duration_minute": "Durée (minutes)",
             "attendance": "Présent",
             "coach": "Professeur",
@@ -9558,7 +9582,7 @@
             "nb_attendance": "Présents",
             "disabled": "Annulé",
             "nb_non_attendance": "Absents",
-            "sum_margin_value": "Apport marginal",
+            "sum_margin_value": "Valeur marginale (incluant TVA / Taxe sur les ventes)",
             "nb_bookings_same_pass": "Nb résa via même pass",
             "checkout_items": "Contenu du panier",
             "credit_consumed": "Crédit consommé",
@@ -9598,7 +9622,7 @@
             "membership_name": "Abonnement",
             "membership_ID": "ID member",
             "pk": "ID",
-            "amortized_price": "Restant dû",
+            "amortized_price": "Recettes différées (y compris TVA / Taxe sur les ventes)",
             "end_date": "Fin de validité",
             "credits": "Crédits totaux",
             "available_credits": "Crédits disponible PCA",
@@ -9784,7 +9808,12 @@
             "last_booked_offer_meta_activity_name": "Nom de l'activité de la dernière séance réservée",
             "waiting_list_max_size": "Capacité de la liste d'attente",
             "nb_option": "Sur liste d'attente",
-            "offer_coach": "Professeur"
+            "offer_coach": "Professeur",
+            "amortized_price_tax_excluded": "Recettes différées (hors TVA / taxe sur les ventes)",
+            "private_booking_date_created": "Date et heure de la réservation",
+            "booking_date_created": "Date et heure de la réservation",
+            "sum_margin_value_excluding_sales_tax": "Valeur marginale (hors TVA / Taxe sur les ventes)",
+            "margin_value_pre_tax": "Valeur marginale (hors TVA / Taxe sur les ventes)"
         },
         "yes": "Oui",
         "no": "Non",
@@ -11709,6 +11738,9 @@
             "expires": "Expire",
             "signIn": "Enregistré",
             "headOnIn": "Tout est prêt !"
+        },
+        "authenticationDialog": {
+            "title": "Modifier l'établissement"
         }
     },
     "settings": {

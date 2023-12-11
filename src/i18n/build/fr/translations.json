@@ -7191,7 +7191,7 @@
                 },
                 "unlimited": "Crédits illimités",
                 "theoricalMarginValue": {
-                    "label": "Apport marginal théorique TTC (carte illimité seulement)",
+                    "label": "Apport marginal théorique TTC (carte illimitée seulement)",
                     "helperText": "Utilisée pour calculer la rémunération des professeurs, 10{{currency}} signifie qu'une réservation faite avec cette carte est rémunérée 10{{currency}}. Si vide ou 0{{currency}} l'apport d'une carte sera PRIX/NB_RESERVATION"
                 },
                 "credits": {
@@ -9582,7 +9582,7 @@
             "nb_attendance": "Présents",
             "disabled": "Annulé",
             "nb_non_attendance": "Absents",
-            "sum_margin_value": "Valeur marginale (incluant TVA / Taxe sur les ventes)",
+            "sum_margin_value": "Apport marginal TTC",
             "nb_bookings_same_pass": "Nb résa via même pass",
             "checkout_items": "Contenu du panier",
             "credit_consumed": "Crédit consommé",
@@ -9812,11 +9812,12 @@
             "amortized_price_tax_excluded": "PCA HT",
             "private_booking_date_created": "Date et heure de la réservation",
             "booking_date_created": "Date et heure de la réservation",
-            "sum_margin_value_excluding_sales_tax": "Valeur marginale (hors TVA / Taxe sur les ventes)",
-            "margin_value_pre_tax": "Valeur marginale (hors TVA / Taxe sur les ventes)",
-            "margin_value_incl_tax": "Valeur marginale (y compris TVA / Taxe de vente)",
+            "sum_margin_value_excluding_sales_tax": "Apport marginal HT",
+            "margin_value_pre_tax": "Apport marginal HT",
+            "margin_value_incl_tax": "Apport marginal TTC",
             "expired_amortized_price_tax_excluded": "PCA HT",
-            "expired_amortized_price": "PCA TTC"
+            "expired_amortized_price": "PCA TTC",
+            "margin_value_excl_tax": "Apport marginal HT"
         },
         "yes": "Oui",
         "no": "Non",
@@ -11824,8 +11825,14 @@
                     "switchLabel": "Activer le support multi-utilisateurs de Zoom"
                 },
                 "memberType": {
-                    "1": "Basique"
-                }
+                    "1": "Basique",
+                    "2": "Licence"
+                },
+                "resetConfirmationDialog": {
+                    "content": "Tous vos établissements seront également réinitialisés.",
+                    "title": "Êtes-vous sûr de vouloir réinitialiser l'ID de groupe ?"
+                },
+                "save": "Enregistrer les modifications"
             }
         },
         "active_campaign": {
@@ -12954,6 +12961,13 @@
             "created": {
                 "success": "Compte Zoom lié avec succès",
                 "error": "Erreur lors du lien du compte Zoom"
+            },
+            "bulkEditZoomEstablishments": {
+                "success": "Modifications enregistrées"
+            },
+            "setGroupId": {
+                "error": "Impossible de connecter ce groupe. Assurez-vous que l'identifiant est correct et qu'il est disponible sur le compte Zoom lié à bsport.",
+                "success": "Le groupe Zoom a été connecté avec succès"
             }
         },
         "copied": "Copié dans le presse-papier",
@@ -17217,7 +17231,9 @@
                 "fabrique_menu": "Menu",
                 "fabrique_modal_dialog": "Dialogue Modale",
                 "fabrique_bottom_drawer": "Tiroir du bas",
-                "fabrique_textform": "Formulaire de texte"
+                "fabrique_textform": "Formulaire de texte",
+                "selector_input": "Entrée du sélecteur",
+                "selector": "Sélecteur"
             },
             "page": {
                 "common": "Commun",
@@ -17415,7 +17431,8 @@
                 "marketplaceCheckoutItemListPaymentPack": "Ce composant est une liste d'articles avec des cartes de cours. Pour affiner {{component_name}}, vous pouvez utiliser la section dédiée située dans {{page}} au sein de l'éditeur.",
                 "marketplaceCheckoutItemListPrivatePass": "Ce composant est une liste d'articles avec des cartes de rendez-vous. Pour affiner les composants de {{component_name}}, vous pouvez utiliser la section dédiée située dans {{page}} au sein de l'éditeur.",
                 "marketplaceCheckoutItemListPaymentCombo": "Ce composant est une liste d'articles avec des packs. Pour affiner les composants de {{component_name}}, vous pouvez utiliser la section dédiée située dans {{page}} au sein de l'éditeur.",
-                "marketplaceProductItemListAlert": "Ce composant est une liste d'articles de produits. Pour peaufiner le composant {{component_name}}, vous pouvez utiliser la section dédiée dans l'éditeur."
+                "marketplaceProductItemListAlert": "Ce composant est une liste d'articles de produits. Pour peaufiner le composant {{component_name}}, vous pouvez utiliser la section dédiée dans l'éditeur.",
+                "selector": "Ce composant est composé d'une étiquette et d'une entrée, ainsi que d'un texte de légende. Pour personnaliser l'apparence du {{nom_du_composant}}, nous recommandons d'utiliser son composant racine"
             }
         },
         "create": "Général",

@@ -150,7 +150,7 @@ export class InvoiceForm extends React.Component<Props, State> {
   };
 
   getInvoiceItemAmount = () => {
-    return [
+    const amount = [
       ...(this.props.invoiceItemList || []),
       ...this.state.invoiceItemList,
     ]
@@ -159,6 +159,7 @@ export class InvoiceForm extends React.Component<Props, State> {
         (acc, v) => acc + parseFloat(v.price) - parseFloat(v.voucher || 0),
         -this.state.coupon_list.reduce((acc, v) => acc + v.coupon_voucher, 0),
       );
+    return amount < 0 ? 0 : amount;
   };
 
   invoiceItemIsEmpty = () => {

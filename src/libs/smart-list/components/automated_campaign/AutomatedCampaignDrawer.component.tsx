@@ -60,6 +60,7 @@ import {
 } from '#libs/platform-billing/upsell-identifiers';
 import { hasUpsell } from '#libs/platform-billing/utils';
 import { UNLIMITED_AUTOMATIC_MESSAGING } from '#libs/smart-list/components/constants';
+import CommunicationSMSCostReminderModal from '#libs/communication-v2/CommunicationSMSCostReminderModal.component';
 
 const WRITTEN_EMAIL_KIND = 0;
 const TEMPLATE_EMAIL_KIND = 1;
@@ -175,12 +176,29 @@ export const AutomatedCommunicationDrawer: React.FC<
   alreadyConfiguredCommunicationKind,
   resolvedGenericTags,
   hideAutoResend,
+  handleSubmit,
 }) => {
   const { t } = useTranslation(['communication', 'common']);
   const classes = useStyles();
   const [openRefreshDialog, setOpenRefreshDialog] = React.useState(false);
   const [openedAdvancedSection, setOpenedAdvancedSection] =
     React.useState(false);
+  const [isSmsCostReminderModalOpen, setIsSmsCostReminderModalOpen] =
+    React.useState(false);
+
+  const handleCostReminderModalOnClose = React.useCallback(
+    () => setIsSmsCostReminderModalOpen(false),
+    [],
+  );
+  const handleCostReminderModalOpen = React.useCallback(
+    () => setIsSmsCostReminderModalOpen(true),
+    [],
+  );
+
+  const handleSmsSending = React.useCallback(() => {
+    handleSubmit();
+    setIsSmsCostReminderModalOpen(false);
+  }, [handleSubmit]);
 
   const handleChangeTemplate = useCallback(
     (id: number) => {
@@ -339,8 +357,7 @@ export const AutomatedCommunicationDrawer: React.FC<
                       values.communication_kind === COMMUNICATION_KIND_SMS
                     }
                     disabled={
-                      (Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
-                        !hasUpsell(featureList, UPSELL_IDENTIFIER_SMS)) ||
+                      !hasUpsell(featureList, UPSELL_IDENTIFIER_SMS) ||
                       (alreadyConfiguredCommunicationKind || []).includes(
                         COMMUNICATION_KIND_SMS,
                       ) ||
@@ -533,14 +550,30 @@ export const AutomatedCommunicationDrawer: React.FC<
           <Button onClick={handleClose}>
             {t('translation:common.cancel')}
           </Button>
-          <Submit color="primary" disabled={isSubmitting || !isValid}>
-            {isSubmitting ? (
-              <CircularProgress />
-            ) : (
-              t('campaign.automated.form.submit')
-            )}
-          </Submit>
+          {values.communication_kind === COMMUNICATION_KIND_SMS ? (
+            <Button
+              color="primary"
+              disabled={isSubmitting || !isValid}
+              onClick={handleCostReminderModalOpen}
+              variant="contained"
+            >
+              {t('campaign.automated.form.submit')}
+            </Button>
+          ) : (
+            <Submit color="primary" disabled={isSubmitting || !isValid}>
+              {isSubmitting ? (
+                <CircularProgress />
+              ) : (
+                t('campaign.automated.form.submit')
+              )}
+            </Submit>
+          )}
         </div>
+        <CommunicationSMSCostReminderModal
+          handleClose={handleCostReminderModalOnClose}
+          open={isSmsCostReminderModalOpen}
+          sendMessageOnClick={handleSmsSending}
+        />
       </Form>
     </GenericResponsiveDrawer>
   );

@@ -1887,7 +1887,8 @@
                 "onJoin": "Wanneer een lid in een Smartlist gezet wordt"
             },
             "automatedTitle": "Automatische berichtgevingen",
-            "manualTitle": "Handmatige berichtgevingen"
+            "manualTitle": "Handmatige berichtgevingen",
+            "processing": "Wordt verzonden..."
         },
         "recipient": {
             "readCount": "Aantal keer geopend",
@@ -2584,14 +2585,14 @@
             "date_start": "Volledige datum",
             "date_start_date": "Datum",
             "date_start_time": "Starttijd",
-            "margin_value": "Marginale bijdrage",
+            "margin_value": "Marginale waarde (incl. btw / omzetbelasting)",
             "duration_minute": "Duur (in minuten)",
             "attendance": "Aanwezig",
             "coach": "Instructeur",
             "effectif": "Aantal plaatsen",
             "disabled": "Annuleringen",
             "nb_non_attendance": "Afwezigen",
-            "sum_margin_value": "Marginale bijdrage",
+            "sum_margin_value": "Marginale waarde (incl. btw / omzetbelasting)",
             "checkout_items": "Inhoud van de winkelmand",
             "total_payments": "Totaal aantal betalingen",
             "name": "Naam",
@@ -2620,7 +2621,7 @@
             "membership_duration": "Geldigheidsduur",
             "membership_name": "Abonnement",
             "membership_ID": "Lidmaatschapsnummer",
-            "amortized_price": "Resterende schulden",
+            "amortized_price": "Uitgestelde opbrengsten (incl. btw / omzetbelasting)",
             "end_date": "Vervaldatum",
             "credits": "Credits (totaal)",
             "available_credits": "Overige credits",
@@ -2845,7 +2846,16 @@
             "coupon_type": "Type",
             "waiting_list_max_size": "Wachtlijst capaciteit",
             "nb_option": "Op de wachtlijst",
-            "offer_coach": "Instructeur"
+            "offer_coach": "Instructeur",
+            "expired_amortized_price_tax_excluded": "Inkomsten uit verkoop (excl. btw/omzetbelasting)",
+            "expired_amortized_price": "Inkomsten uit verkoop (incl. btw/omzetbelasting)",
+            "private_booking_date_created": "Datum en tijd van boeking",
+            "booking_date_created": "Datum en tijd van boeking",
+            "sum_margin_value_excluding_sales_tax": "Marginale waarde (excl. btw / omzetbelasting)",
+            "margin_value_pre_tax": "Marginale waarde (excl. btw / omzetbelasting)",
+            "margin_value_excl_tax": "Marginale waarde (excl. btw / omzetbelasting)",
+            "margin_value_incl_tax": "Marginale waarde (incl. btw / omzetbelasting)",
+            "amortized_price_tax_excluded": "Uitgestelde opbrengsten (excl. btw / omzetbelasting)"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{name}}\" wilt verwijderen?"
@@ -5573,7 +5583,12 @@
         "onSite": "In de studio",
         "allCoaches": "{{count}} instructeurs",
         "additionalCoaches": "{{count}} aanvullende instructeur",
-        "additionalCoaches_plural": "{{count}} aanvullende instructeurs"
+        "additionalCoaches_plural": "{{count}} aanvullende instructeurs",
+        "subTeacherRequestFilter": {
+            "false": "Geen subaanvraag",
+            "true": "Subaanvraag in behandeling",
+            "placeholder": "Subaanvraag"
+        }
     },
     "emailTemplate": {
         "editTitle": "E-mail bewerken",
@@ -13230,7 +13245,8 @@
                 "undefined": "Cadeaubon",
                 "11": "Cadeaubonnen"
             },
-            "discount": "Korting"
+            "discount": "Korting",
+            "finalPricePreview": "Voorbeeld totaal"
         },
         "actions": {
             "finalize": "Afronden (PDF)",
@@ -16399,7 +16415,7 @@
                     "title": "Een cadence verwijderen",
                     "confirm": "Vervolgen",
                     "cancel": "Annuleren",
-                    "beingArchived": "Je staat op het punt om \"{{ name }}\" te verwijderen.",
+                    "beingArchived": "U staat op het punt om \"{{ name }}\" te archiveren.",
                     "confirmButton": "Archiveren"
                 }
             },
@@ -16624,7 +16640,9 @@
                 "entryTrigger": {
                     "addTrigger": "Selecteer een aanleiding",
                     "title": "Aanleiding",
-                    "helperText": "Ten eerste moet de werking van de cadence bepaald worden. Selecteer één of meerdere evenementen of Smartlists waar om een lid in de cadence te zetten."
+                    "helperText": "Laten we eerst beslissen hoe uw leden de {{ workflowLowerCase }} gaan invoeren. Selecteer een of meerdere gebeurtenissen of smartlists, als het lid overeenkomt met een van hen, komt hij/zij in de {{ workflowLowerCase }}.",
+                    "creationHelper": "Bepaal eerst de criteria voor uw leden om de {{ workflowLowerCase }} in te voeren. Kies een of meer evenementen of smartlists. Als een lid aan een van deze criteria voldoet, wordt hij of zij lid van {{ workflowLowerCase }}.",
+                    "editionHelper": "Bewerk de criteria voor uw leden om de {{ workflowLowerCase }} in te voeren. U kunt een of meer gebeurtenissen of smartlists kiezen. Als een lid aan een van deze criteria voldoet, wordt het lid van {{ workflowLowerCase }}."
                 },
                 "marketingAction": {
                     "label": "Selecteer een marketingactie",
@@ -16655,7 +16673,7 @@
                 },
                 "entryAction": {
                     "title": "Aanleiding",
-                    "helperText": "(Optioneel) Selecteer de volgende stappen, zoals het toevoegen van tags of het versturen van een e-mail, zodra de lid in de cadence wordt gezet.",
+                    "helperText": "Bepaal wat er gebeurt als de leden de {{ workflowLowerCase }} binnenkomen. U kunt ze taggen, een e-mail sturen of een andere actie kiezen die aan uw behoeften voldoet. U kunt er ook voor kiezen om niets te doen; deze stap is optioneel.",
                     "addAction": "Een actie toevoegen"
                 },
                 "requiredField": "Dit veld is verplicht.",
@@ -16664,26 +16682,26 @@
                 "lostAction": {
                     "addAction": "Actie toevoegen",
                     "title": "Verloren actie",
-                    "helperText": "Selecteer wat u wilt doen als uw leden de workflow als verloren verlaten. Tag ze, stuur een e-mail... De keuze is aan u. Of doe niets, deze stap is optioneel."
+                    "helperText": "Bepaal wat er gebeurt als leden de {{ workflowLowerCase }} als 'Verloren' verlaten. U kunt ze taggen, een e-mail sturen of een andere actie kiezen die aan uw behoeften voldoet. U kunt er ook voor kiezen om niets te doen; deze stap is optioneel."
                 },
                 "lostTrigger": {
                     "title": "Verloren",
                     "timeout": {
-                        "helperText": "Leden worden als 'Verloren' beschouwen wanneer zij nog in de Cadence staan zodra het tijdslimiet verstreken is.",
+                        "helperText": "Als een lid nog steeds aanwezig is in deze {{ workflowLowerCase }} na de geselecteerde tijdslimiet, wordt het lid beschouwd als 'Verloren'.",
                         "title": "Tijdslimiet",
-                        "label": "Dagen in de workflow"
+                        "label": "Dagen in de {{ workflowLowerCase }}"
                     },
-                    "helperText": "Laten we nu definiëren wat u als een \"mislukking\" beschouwt, zodat uw lid de workflow als \"verloren\" verlaat",
+                    "helperText": "Definieer wat wordt beschouwd als een mislukking, het lid wordt gemarkeerd als 'Verloren' bij het verlaten van de {{ workflowLowerCase }}. Stel ook de maximale tijd in dat een lid aanwezig kan zijn in {{ workflowLowerCase }}.",
                     "addTrigger": "Een uitgangstrigger toevoegen"
                 },
                 "wonAction": {
-                    "helperText": "(Optioneel) Selecteer wat er moet gebeuren zodra leden de Cadence als 'gewonnen' verlaten. Je kunt deze personen bijvoorbeeld e-mailen of taggen.",
+                    "helperText": "Bepaal wat er gebeurt als de leden de {{ workflowLowerCase }} verlaten als 'Gewonnen'. U kunt ze taggen, een e-mail sturen of een andere actie kiezen die aan uw behoeften voldoet. U kunt er ook voor kiezen om niets te doen; deze stap is optioneel.",
                     "addAction": "Actie toevoegen",
                     "title": "Gewonnen actie"
                 },
                 "wonTrigger": {
                     "title": "Gewonnen",
-                    "helperText": "Laten we de algemene vertrekregels definiëren. Net als bij het binnenkomen, geeft u aan welke gebeurtenissen ervoor zorgen dat uw leden de workflow verlaten. Waar het lid ook is, als deze gebeurtenis plaatsvindt, zal het lid de workflow verlaten. Definieer eerst wat u als een succes beschouwt om het lid als \"gewonnen\" te markeren bij het verlaten van de workflow.",
+                    "helperText": "Stel de basisregels in voor wanneer leden de {{ workflowLowerCase }} moeten verlaten. Als een lid aan een van de triggers voldoet, verlaat het {{ workflowLowerCase }}, ongeacht de stap waarin het zich bevindt. Selecteer eerst de 'succes' triggers die een lid als 'Gewonnen' markeren als ze de {{ workflowLowerCase }} verlaten.",
                     "addTrigger": "Een uitgangstrigger toevoegen"
                 }
             },
@@ -16695,13 +16713,13 @@
             "step": {
                 "convertExit": {
                     "dialog": {
-                        "helper": "De volgende verbonden trigger wordt ook verwijderd. De rest van de flow wordt losgekoppeld, maar niet verwijderd.",
+                        "helper": "De triggers na deze stap worden ook verwijderd. De rest van de {{ workflowLowerCase }} wordt losgekoppeld maar niet verwijderd.",
                         "title": "Zet deze stap om in een exit"
                     }
                 },
                 "archive": {
                     "dialog": {
-                        "helper": "Deze actie kan niet ongedaan worden gemaakt. Aangesloten triggers worden ook verwijderd. De rest van de flow wordt losgekoppeld maar niet verwijderd.",
+                        "helper": "De triggers die aan deze stap zijn gekoppeld worden ook verwijderd. De rest van {{ workflowLowerCase }} wordt losgekoppeld maar niet verwijderd.",
                         "title": "Weet u zeker dat u deze stap wilt verwijderen?"
                     }
                 }
@@ -16720,7 +16738,7 @@
                 "dialog": {
                     "confirmButton": "Pauzeer",
                     "helper": "Alle acties van leden die plaatsvinden tijdens de pauze worden niet in acht genomen.",
-                    "title": "Pauzeer workflow"
+                    "title": "Pauzeer {{ workflowLowerCase }}"
                 }
             },
             "trigger": {
@@ -16728,8 +16746,8 @@
             },
             "welcome": {
                 "dialog": {
-                    "helper": "Laten we samen beginnen met het opzetten van je workflow! Eerst definiëren we de criteria waaraan je leden moeten voldoen om in de workflow te komen. Daarna bepalen we de voorwaarden waaronder je leden de workflow verlaten als 'Gewonnen' of 'Verloren' op basis van hun acties.",
-                    "title": "Welkom bij Audience!",
+                    "helper": "Laten we samen beginnen met het opzetten van uw {{ workflowLowerCase }}! Eerst definiëren we de regels voor het betreden van de {{ workflowLowerCase }} door je leden. Vervolgens bepalen we wanneer je leden als 'Gewonnen' of 'Verloren' worden beschouwd op basis van hun acties.",
+                    "title": "Welkom bij {{ audienceCamelCase }}!",
                     "confirm": "Start",
                     "return": "Ga terug"
                 }
@@ -16753,7 +16771,7 @@
                 },
                 "audienceStepHelper": "Stel hier de naam van de stap in: hier kunt u zien waar de leden zich bevinden in de {{ workflowLowerCase }}.",
                 "createAudienceHelper": "Dankzij {{ workflowPluralLowerCase }} kun je de marketingacties die je naar je leden stuurt richten op basis van hun gedrag op het platform. Maak bijvoorbeeld een reeks acties die je leden moeten voltooien om bepaalde promoties of tags te krijgen.",
-                "updateTitle": "De naam van de {{ workflowLowerCase }} bewerken",
+                "updateTitle": "Bewerk de naam van de {{ workflowLowerCase }}",
                 "audienceNameLabel": "Naam van de {{ workflowLowerCase }}",
                 "title": "Maak een {{ workflowLowerCase }}",
                 "addAWorkflow": "Voeg een {{ workflowLowerCase }} toe."
@@ -16771,16 +16789,31 @@
                     "title": "Start de {{ workflowLowerCase }}"
                 }
             },
-            "audienceIndexHelper": "De volgorde van de {{ workflowPluralLowerCase }} bepaalt de volgorde van prioriteit: als een lid 2 verschillende {{ workflowPluralLowerCase }} kan invoeren, begint hij met de hoogste in de lijst.",
+            "audienceIndexHelper": "De volgorde van de {{ workflowPluralLowerCase }} bepaalt de prioriteit; als een lid in aanmerking komt om twee verschillende {{ workflowPluralLowerCase }} in te voeren, begint het met de hoogste in de lijst.",
             "archive": {
                 "archivedHeader": "Gearchiveerd {{ workflowPluralLowerCase }}",
                 "dialog": {
-                    "helper": "Leden die zich momenteel in de {{ workflowLowerCase }} bevinden, verlaten deze automatisch. Deze {{ workflowLowerCase }} wordt gearchiveerd, maar u kunt deze later weer activeren.",
-                    "title": "Verwijder een {{ workflowLowerCase }}"
+                    "helper": "Leden die zich momenteel in de {{ workflowLowerCase }} bevinden, verlaten deze automatisch. De {{ workflowLowerCase }} wordt gepauzeerd en gearchiveerd, maar u kunt deze later eenvoudig weer activeren.",
+                    "title": "Verwijder een {{ workflowLowerCase }}",
+                    "beingArchived": "U staat op het punt om \"{{ naam }}\" te archiveren."
                 }
             },
             "howTo": {
                 "title": "Hoe bewerk je {{ workflowLowerCase }}"
+            },
+            "block": {
+                "unrecognized": {
+                    "dialog": {
+                        "helper": "De {{ workflowLowerCase }} die u probeert te openen kan niet worden gevonden.",
+                        "title": "{{ workflowCamelCase }} niet herkend"
+                    }
+                },
+                "archived": {
+                    "dialog": {
+                        "helper": "De {{ workflowLowerCase }} is nu gearchiveerd. Om het te herstellen, ga terug naar de hoofdpagina en unarchiveer de {{ workflowLowerCase }} uit de lijst.",
+                        "title": "{{ workflowCamelCase }} gearchiveerd"
+                    }
+                }
             }
         }
     },

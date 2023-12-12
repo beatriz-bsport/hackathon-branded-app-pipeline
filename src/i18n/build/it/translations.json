@@ -1911,7 +1911,8 @@
                 }
             },
             "automatedTitle": "Invio automatico",
-            "manualTitle": "Invio manuale"
+            "manualTitle": "Invio manuale",
+            "processing": "In fase di invio..."
         },
         "recipient": {
             "readCount": "Apertura",
@@ -5103,6 +5104,13 @@
             "created": {
                 "error": "Errore durante il collegamento dell'account Zoom",
                 "success": "Account Zoom collegato con successo"
+            },
+            "bulkEditZoomEstablishments": {
+                "success": "Le modifiche sono state salvate"
+            },
+            "setGroupId": {
+                "error": "Impossibile collegare questo gruppo. Assicurarsi che l'ID sia corretto e che sia disponibile sull'account Zoom collegato a bsport.",
+                "success": "Il gruppo Zoom è stato collegato con successo"
             }
         },
         "consumerPass": {
@@ -5528,7 +5536,35 @@
                 "explainValid": "Account valido: I link delle riunioni ZOOM verranno creati per ogni sessione 15 minuti prima dell'avvio automatico. l'insegnante riceverà un link per ospitare la riunione, mentre gli iscritti riceveranno un altro link per partecipare alla riunione. Si noti che se l'account ZOOM non è pagato, la riunione ZOOM è limitata a 40 minuti.",
                 "label": "Impostazioni degli account ZOOM",
                 "enabled": "Abilitare l'integrazione di ZOOM",
-                "revoke": "Disattivare ZOOM"
+                "revoke": "Disattivare ZOOM",
+                "resetConfirmationDialog": {
+                    "content": "Tutti gli stabilimenti saranno ripristinati.",
+                    "title": "Sei sicuro di voler reimpostare l'ID del gruppo?"
+                },
+                "save": "Salva le modifiche",
+                "memberType": {
+                    "2": "Licenza",
+                    "1": "Basico"
+                },
+                "establishmentTable": {
+                    "removeAction": "Rimuovi",
+                    "emptySelect": "Seleziona",
+                    "headers": {
+                        "add": "Aggiungi",
+                        "type": "Tipo",
+                        "user": "Utente",
+                        "establishment": "Stabilimento"
+                    }
+                },
+                "groupActionButton": {
+                    "reset": "Reset",
+                    "save": "Salva"
+                },
+                "zoomGroupId": "ID gruppo zoom",
+                "multiZoomUserSupport": {
+                    "explain": "Avvia più live stream contemporaneamente associando i vostri stabilimenti bsport a diversi utenti del vostro account Zoom.",
+                    "switchLabel": "Abilita il supporto multi zoom per l'utente"
+                }
             },
             "seeUpsell": "Saperne di più"
         },
@@ -6002,7 +6038,8 @@
             "credit": {
                 "label": "Credito"
             },
-            "discount": "Riduzione"
+            "discount": "Riduzione",
+            "finalPricePreview": "Anteprima totale"
         },
         "actions": {
             "finalize": "Finalizza (PDF)",
@@ -7300,11 +7337,11 @@
         "columns": {
             "amount_off": "Riduzione fissa",
             "nb_non_attendance": "Assente",
-            "sum_margin_value": "Contributo marginale",
+            "sum_margin_value": "Valore marginale (IVA incl.)",
             "fee": "Spesa",
             "activity_name": "Attività",
             "booking_status_code": "Stato",
-            "amortized_price": "Il resto di",
+            "amortized_price": "Risconti passivi (IVA incl.)",
             "end_date": "Fine della validità",
             "credits": "Saldo totale cliente",
             "payment_method_readable_identifier": "Metodo di pagamento",
@@ -7390,7 +7427,7 @@
             "date_start": "Data completa",
             "date_start_date": "Data",
             "date_start_time": "Ora",
-            "margin_value": "Contributo marginale",
+            "margin_value": "Valore marginale (IVA incl.)",
             "duration_minute": "Durata (minuti)",
             "attendance": "Presente",
             "coach": "Insegnante",
@@ -7589,7 +7626,16 @@
             "coupon_type": "Tipo",
             "waiting_list_max_size": "Capienza lista d'attesa",
             "nb_option": "Nella lista d'attesa",
-            "offer_coach": "Insegnante"
+            "offer_coach": "Insegnante",
+            "amortized_price_tax_excluded": "Risconti passivi (IVA escl)",
+            "expired_amortized_price_tax_excluded": "Guadagno alla scadenza (IVA escl.)",
+            "expired_amortized_price": "Guadagno alla scadenza (IVA incl.)",
+            "private_booking_date_created": "Data e ora della prenotazione",
+            "booking_date_created": "Data e ora della prenotazione",
+            "sum_margin_value_excluding_sales_tax": "Valore marginale (IVA escl.)",
+            "margin_value_pre_tax": "Valore marginale (IVA escl.)",
+            "margin_value_excl_tax": "Valore marginale (IVA escl.)",
+            "margin_value_incl_tax": "Valore marginale (IVA incl.)"
         },
         "payment_method": {
             "dispute": "Contenzioso",
@@ -11953,6 +11999,11 @@
         },
         "filter": {
             "establishment": "Filtra per posizione"
+        },
+        "authenticationDialog": {
+            "error": "La password inserita non è valida",
+            "description": "Per garantire la sicurezza, si prega di autenticarsi inserendo la password prima di procedere alla modifica dello stabilimento.",
+            "title": "Cambia stabilimento"
         }
     },
     "workshop": {
@@ -13962,7 +14013,12 @@
         "onSite": "Nello studio",
         "allCoaches": "{{count}} insegnanti",
         "additionalCoaches": "{{count}} insegnante aggiuntivo",
-        "additionalCoaches_plural": "{{count}} insegnanti aggiuntivi"
+        "additionalCoaches_plural": "{{count}} insegnanti aggiuntivi",
+        "subTeacherRequestFilter": {
+            "false": "Nessuna richiesta di sostituzione",
+            "true": "Richiesta di sostituzione in attesa",
+            "placeholder": "Richiesta di sostituzione"
+        }
     },
     "role": {
         "userRoles": "Contabilità del personale",
@@ -15741,7 +15797,9 @@
                 "fabrique_list_item": "Voce dell'elenco",
                 "fabrique_list": "Elenco",
                 "fabrique_menu": "Menù",
-                "fabrique_textform": "Testo"
+                "fabrique_textform": "Testo",
+                "selector_input": "Input del selettore",
+                "selector": "Selettore"
             },
             "cssConfig": {
                 "title": {
@@ -15926,7 +15984,8 @@
                 "marketplaceProductItemListAlert": "Questo componente è un elenco di elementi di pagamento con prodotti. Per mettere a punto il singolo componente {{component_name}}, si può utilizzare la sezione dedicata all'interno dell'editor.",
                 "marketplaceCheckoutItemListPrivatePass": "Questo componente è un elenco di elementi di pagamento con pass privati. Per mettere a punto i singoli componenti {{component_name}}, si può utilizzare la sezione dedicata situata in {{page}} all'interno dell'editor.",
                 "marketplaceCheckoutItemListPaymentCombo": "Questo componente è un elenco di elementi di pagamento con pacchetti. Per mettere a punto i singoli componenti {{component_name}}, si può utilizzare la sezione dedicata situata in {{page}} all'interno dell'editor.",
-                "marketplaceCheckoutItemListPaymentPack": "Questo componente è un elenco di elementi di pagamento con pass. Per ottimizzare i singoli {{component_name}}, puoi utilizzare la sezione dedicata situata in {{page}} all'interno dell'editor."
+                "marketplaceCheckoutItemListPaymentPack": "Questo componente è un elenco di elementi di pagamento con pass. Per ottimizzare i singoli {{component_name}}, puoi utilizzare la sezione dedicata situata in {{page}} all'interno dell'editor.",
+                "selector": "Questo componente è composto da un'etichetta, un input e un testo di didascalia. Per personalizzare l'aspetto di {{component_name}}, si consiglia di utilizzare il suo componente principale"
             },
             "page": {
                 "workshop": "Workshop",
@@ -16558,7 +16617,7 @@
                     "confirm": "Continua",
                     "cancel": "Cancella",
                     "helper": "I membri attualmente in cadenza usciranno automaticamente. Questa tariffa verrà archiviata, potrai riattivarla in seguito.",
-                    "beingArchived": "Stai per eliminare {{ name }}.",
+                    "beingArchived": "Stai per archiviare {{ name }}.",
                     "title": "Eliminazione di una cadenza",
                     "confirmButton": "Archivia"
                 }
@@ -16601,9 +16660,11 @@
             },
             "bubble": {
                 "entryTrigger": {
-                    "helperText": "Per prima cosa stabilisci come i tuoi membri entreranno nel workflow. Seleziona uno o più eventi o smartlist, se il membro corrisponde a uno di essi entrerà nel flusso di lavoro.",
+                    "helperText": "Innanzitutto, decidiamo come i membri entreranno nel {{ workflowLowerCase }}. Seleziona uno o più eventi o smartlist; se il membro corrisponde a uno di essi, entrerà nel {{ workflowLowerCase }}.",
                     "addTrigger": "Aggiungi un trigger di ingresso",
-                    "title": "Criterio di ingresso"
+                    "title": "Criterio di ingresso",
+                    "creationHelper": "Per prima cosa, decidi i criteri di accesso dei vostri membri al {{ workflowLowerCase }}. Scegli uno o più eventi o smartlist. Se un membro rientra in uno di questi criteri, si unirà al {{ workflowLowerCase }}.",
+                    "editionHelper": "Modifica i criteri di ingresso dei membri nel {{ workflowLowerCase }}. È possibile scegliere uno o più eventi o smartlist. Se un membro rientra in uno di questi criteri, si unirà al {{ workflowLowerCase }}."
                 },
                 "marketingAction": {
                     "label": "Seleziona un'azione di marketing",
@@ -16634,7 +16695,7 @@
                 },
                 "entryAction": {
                     "title": "Azione di ingresso",
-                    "helperText": "Seleziona cosa volete fare quando i membri entrano nel workflow. Taggarli, inviare un'e-mail... sta a te decidere. Oppure non fare nulla, questo passaggio è facoltativo.",
+                    "helperText": "Decidi cosa succede quando i membri entrano nel {{ workflowLowerCase }}. È possibile etichettarli, inviare loro un'email o scegliere qualsiasi altra azione adatta alle proprie esigenze. Si può anche scegliere di non fare nulla; questo passaggio è facoltativo.",
                     "addAction": "Aggiungi un'azione"
                 },
                 "requiredField": "È richiesto questo campo per continuare.",
@@ -16642,27 +16703,27 @@
                 "delete": "Elimina",
                 "lostTrigger": {
                     "title": "Criterio di perdita",
-                    "helperText": "Ora definiamo ciò che si considera un fallimento, in modo che il membro lasci il flusso di lavoro come \"perso\"",
+                    "helperText": "Definisci ciò che è considerato un fallimento; il membro sarà contrassegnato come \"Perso\" quando lascia il {{ workflowLowerCase }}. Imposta anche il tempo massimo di presenza di un membro nel {{ workflowLowerCase }}.",
                     "addTrigger": "Aggiungi un evento di uscita dal flusso",
                     "timeout": {
-                        "helperText": "Se un membro è ancora presente in questo flusso di lavoro dopo il limite di tempo selezionato, il membro sarà considerato \"Perso\".",
-                        "label": "Giorni nel flusso di lavoro",
+                        "helperText": "Se un membro è ancora presente in questo {{ workflowLowerCase }} dopo il limite di tempo selezionato, il membro sarà considerato \"Perso\".",
+                        "label": "Giorni nel {{ workflowLowerCase }}",
                         "title": "Tempo limite"
                     }
                 },
                 "lostAction": {
                     "title": "Azione in seguito alla perdita",
-                    "helperText": "Seleziona cosa si vuole fare quando i membri escono dal flusso di lavoro come persi. Etichettali, invia un'e-mail... Sta a te decidere. Oppure non fare nulla, questo passaggio è facoltativo.",
+                    "helperText": "Decidi cosa succede quando i membri lasciano il {{ workflowLowerCase }} come 'Persi'. È possibile etichettarli, inviare loro un'e-mail o scegliere qualsiasi altra azione adatta alle proprie esigenze. Si può anche scegliere di non fare nulla; questo passaggio è facoltativo.",
                     "addAction": "Aggiungi un'azione"
                 },
                 "wonTrigger": {
                     "addTrigger": "Aggiungi un evento scatenante di uscita",
                     "title": "Criterio di acquisizione",
-                    "helperText": "Definisci le regole generali di uscita. Come per l'ingresso, bisogna indicare quali eventi faranno uscire i membri dal flusso di lavoro. Ovunque si trovi il membro, se si verifica questo evento, il membro lascerà il flusso di lavoro. Per prima cosa, definisci ciò che considererete un successo per contrassegnare il membro come \"Acquisito\" all'uscita dal flusso di lavoro."
+                    "helperText": "Imposta le regole di base per l'uscita dei membri dal {{ workflowLowerCase }}. Se un membro soddisfa uno dei trigger, uscirà, indipendentemente dalla fase in cui si trova. Per prima cosa, seleziona i trigger di \"successo\" che segneranno un membro come \"Acquisito\" quando esce dal {{ workflowLowerCase }}."
                 },
                 "wonAction": {
                     "title": "Azione in seguito all'acquisizione",
-                    "helperText": "Selezionate cosa fare quando i membri escono dal flusso di lavoro come acquisiti. Etichettarli, inviare un'e-mail... Sta a te decidere. Oppure non fare nulla, questo passaggio è facoltativo",
+                    "helperText": "Decidi cosa succede quando i membri lasciano il {{ workflowLowerCase }} come 'Guadagnato'. È possibile etichettarli, inviare loro un'e-mail o scegliere qualsiasi altra azione adatta alle proprie esigenze. Si può anche scegliere di non fare nulla; questo passaggio è facoltativo.",
                     "addAction": "Aggiungi un'azione"
                 }
             },
@@ -16674,13 +16735,13 @@
             "step": {
                 "convertExit": {
                     "dialog": {
-                        "helper": "Anche il trigger successivo collegato verrà eliminato. Il resto del flusso verrà disconnesso, ma non cancellato.",
+                        "helper": "Anche i trigger successivi a questo passaggio verranno eliminati. Il resto del {{ workflowLowerCase }} verrà disconnesso ma non eliminato.",
                         "title": "Converti questo step in un'uscita dal flusso"
                     }
                 },
                 "archive": {
                     "dialog": {
-                        "helper": "Questa azione non può essere annullata. Anche i trigger collegati verranno eliminati. Il resto del flusso verrà disconnesso, ma non cancellato.",
+                        "helper": "Anche i trigger collegati a questa fase verranno eliminati. Il resto del {{ workflowLowerCase }} verrà disconnesso ma non eliminato.",
                         "title": "Sei sicuro di eliminare questo step?"
                     }
                 }
@@ -16699,7 +16760,7 @@
                 "dialog": {
                     "confirmButton": "Pausa",
                     "helper": "Tutte le azioni dei membri che si verificano durante la pausa non saranno prese in considerazione.",
-                    "title": "Pausa"
+                    "title": "Pausa {{ workflowLowerCase }}"
                 }
             },
             "trigger": {
@@ -16707,10 +16768,10 @@
             },
             "welcome": {
                 "dialog": {
-                    "title": "Benvenuto in Audience!",
+                    "title": "Benvenuto in {{ audienceCamelCase }}!",
                     "confirm": "Inizio",
                     "return": "Indietro",
-                    "helper": "Iniziamo a configurare il flusso di lavoro! Per prima cosa, definiremo i criteri di ingresso dei vostri membri nel flusso di lavoro. Quindi, determineremo le condizioni in base alle quali i membri usciranno dal flusso di lavoro come \"acquisiti\" o \"persi\", in base alle loro azioni."
+                    "helper": "Iniziamo a configurare insieme il {{ workflowLowerCase }}! Per prima cosa, definiremo le regole per l'ingresso dei membri nel {{ workflowLowerCase }}. Poi, decideremo quando i membri sono considerati \"acquisiti\" o \"persi\" in base alle loro azioni."
                 }
             }
         },
@@ -16744,7 +16805,7 @@
                     "title": "Avvia il {{ workflowLowerCase }}"
                 }
             },
-            "audienceIndexHelper": "L'ordine dei {{ workflowPluralLowerCase }} definisce l'ordine di priorità: se un membro può inserire 2 diversi {{ workflowPluralLowerCase }}, inizierà con il più alto nell'elenco.",
+            "audienceIndexHelper": "L'ordine dei {{ workflowPluralLowerCase }} determina la priorità; se un membro ha diritto a inserire due diversi {{ workflowPluralLowerCase }}, inizierà da quello più alto nell'elenco.",
             "graph": {
                 "alert": {
                     "switchToEditMode": "In modalità di visualizzazione, fare clic su MODIFICA per modificare il {{ workflowLowerCase }}.",
@@ -16754,12 +16815,27 @@
             "archive": {
                 "archivedHeader": "{{ workflowPluralLowerCase }} archiviato",
                 "dialog": {
-                    "helper": "I membri che si trovano nel {{ workflowLowerCase }} ne usciranno automaticamente. Questo {{ workflowLowerCase }} verrà archiviato, ma potrà essere riattivato in seguito.",
-                    "title": "Elimina un {{ workflowLowerCase }}"
+                    "helper": "I membri che si trovano nel {{ workflowLowerCase }} ne usciranno automaticamente. Il {{ workflowLowerCase }} verrà messo in pausa e archiviato, ma sarà possibile riattivarlo facilmente in seguito.",
+                    "title": "Elimina un {{ workflowLowerCase }}",
+                    "beingArchived": "Stai per archiviare \"{{ name }}\"."
                 }
             },
             "howTo": {
                 "title": "Come modificare il tuo {{ workflowLowerCase }}"
+            },
+            "block": {
+                "unrecognized": {
+                    "dialog": {
+                        "helper": "Il {{ workflowLowerCase }} a cui si sta tentando di accedere non può essere trovato.",
+                        "title": "{{ workflowCamelCase }} non riconosciuto"
+                    }
+                },
+                "archived": {
+                    "dialog": {
+                        "helper": "Il {{ workflowLowerCase }} è ora archiviato. Per ripristinarlo, torna alla pagina principale e disarchiviare il {{ workflowLowerCase }} dall'elenco.",
+                        "title": "{{ workflowCamelCase }} archiviato"
+                    }
+                }
             }
         }
     },

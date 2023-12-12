@@ -13489,7 +13489,8 @@
       "totalBookings": "{{nb}} booking in total",
       "totalBookings_plural": "{{nb}} bookings in total",
       "offerFilteredBookingRecap": "Session: {{date}}",
-      "weekOverview": "Weekly overview"
+      "weekOverview": "Weekly overview",
+      "totalOffers": "{{ nb_offers }} total sessions"
     },
     "metaActivityNotificationToolTip": "There are automatic notifications set up for this item",
     "show_cancelled_offers": "Show cancelled sessions",

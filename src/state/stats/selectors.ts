@@ -1,4 +1,3 @@
-// @ts-nocheck
 import groupBy from 'lodash/groupBy';
 import moment, { Moment } from 'moment-timezone';
 import { createSelector } from 'reselect';
@@ -12,6 +11,7 @@ import {
   DAILY_DURATION_DISPLAY_LIMIT,
   WEEKLY_DURATION_DISPLAY_LIMIT,
   MONTHLY_DURATION_DISPLAY_LIMIT_60_DAYS,
+  // @ts-ignore
 } from '#libs/statistics/utils';
 
 export const mainChartSelector = (state: State) => state.stats.mainChart;
@@ -24,10 +24,14 @@ export const dateRangeSelector = createSelector(
   }),
 );
 
-const selectCreatedBookings = (state: State) =>
+const selectCreatedBookings = (
+  state: State,
+): Immutable.Immutable<Array<StatisticPoint>> =>
   state.stats.stats.createdBookings?.data;
 
-const selectCancelledBookings = (state: State) =>
+const selectCancelledBookings = (
+  state: State,
+): Immutable.Immutable<Array<StatisticPoint>> =>
   state.stats.stats.cancelledBookings?.data;
 
 const selectStart = (state: State, start: string) => start;
@@ -41,58 +45,20 @@ export const getStats: (
 ) => {
   createdBookings: Immutable.Immutable<Array<StatisticPoint>>;
   cancelledBookings: Immutable.Immutable<Array<StatisticPoint>>;
+  offersCount: number;
   start: Moment;
   end: Moment;
 } = createSelector(
   [selectCreatedBookings, selectCancelledBookings, selectStart, selectEnd],
   (createdBookings, cancelledBookings, start, end) => {
-    if (createdBookings && cancelledBookings) {
-      if (start && end) {
-        const startMoment = moment(start);
-        const endMoment = moment(end);
-        return {
-          createdBookings,
-          cancelledBookings,
-          start: startMoment,
-          end: endMoment,
-        };
-      }
-      if (createdBookings.length === 0) {
-        const startYearBefore = moment().subtract(1, 'year');
-        const endNow = moment();
-        return {
-          createdBookings,
-          cancelledBookings,
-          start: startYearBefore,
-          end: endNow,
-        };
-      }
-      if (cancelledBookings.length === 0) {
-        const startBooking = moment(createdBookings[0].d);
-        const endBooking = moment(
-          createdBookings[createdBookings.length - 1].d,
-        );
-        return {
-          createdBookings,
-          cancelledBookings,
-          start: startBooking,
-          end: endBooking,
-        };
-      }
-      const startMinBooking = moment(
-        Math.min(createdBookings[0].d, cancelledBookings[0].d),
-      );
-      const endMaxBooking = moment(
-        Math.max(
-          createdBookings[createdBookings.length - 1].d,
-          cancelledBookings[cancelledBookings.length - 1].d,
-        ),
-      );
+    if (createdBookings && cancelledBookings && start && end) {
+      const startMoment = moment(start);
+      const endMoment = moment(end);
       return {
         createdBookings,
         cancelledBookings,
-        start: startMinBooking,
-        end: endMaxBooking,
+        start: startMoment,
+        end: endMoment,
       };
     }
     return null;

@@ -25,6 +25,6 @@ export type StatisticPointTable = {
 };
 
 export type StatisticPoint = {
-  d?: string;
+  d?: number;
   v: number;
 };

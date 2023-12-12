@@ -1115,6 +1115,7 @@ exports.default = {
     totalBookings_plural: '{{nb}} bookings in total',
     offerFilteredBookingRecap: 'Session: {{date}}',
     weekOverview: 'Weekly overview',
+    totalOffers: '{{ nb_offers }} total sessions',
   },
   metaActivityNotificationToolTip:
     'There are automatic notifications set up for this item',

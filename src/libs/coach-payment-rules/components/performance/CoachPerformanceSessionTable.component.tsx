@@ -94,12 +94,13 @@ export function CoachPerformanceSessionTable(props: Props) {
                         t('fields.name'),
                         t('fields.date'),
                         t('fields.duration'),
-                        t('fields.confirmed_bookings'),
-                        t('fields.noShowsAndLateCancellations'),
-                        t('fields.base'),
-                        t('fields.bonus'),
+                        !props.asCoach && t('fields.confirmed_bookings'),
+                        !props.asCoach &&
+                          t('fields.noShowsAndLateCancellations'),
+                        !props.asCoach && t('fields.base'),
+                        !props.asCoach && t('fields.bonus'),
                         t('fields.total'),
-                        t('fields.rule'),
+                        !props.asCoach && t('fields.rule'),
                       ],
                       performances.map((session) => [
                         session.session_name,
@@ -107,16 +108,19 @@ export function CoachPerformanceSessionTable(props: Props) {
                           'L',
                         )} ${formatAsTime(session.date_start)}`,
                         session.duration_minute,
-                        session.confirmed_bookings,
-                        session.cancelled_bookings,
-                        session.base_remuneration,
-                        session.coach_bonus,
+                        !props.asCoach && session.confirmed_bookings,
+                        !props.asCoach && session.cancelled_bookings,
+                        !props.asCoach && session.base_remuneration,
+                        !props.asCoach && session.coach_bonus,
                         session.coach_total_payment,
-                        (
-                          coachPaymentRulesList.find(
-                            (cpr) => cpr.id === session.coach_payment_rule,
-                          ) || { name: 'default' }
-                        ).name,
+                        !props.asCoach &&
+                          (
+                            coachPaymentRulesList.find(
+                              (coachPaymentRule) =>
+                                coachPaymentRule.id ===
+                                session.coach_payment_rule,
+                            ) || { name: 'default' }
+                          ).name,
                       ]),
                       'payroll.csv',
                     )

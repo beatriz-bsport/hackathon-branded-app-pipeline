@@ -5,7 +5,7 @@ import createCachedSelector from 're-reselect';
 
 import { Dictionary } from 'lodash/index';
 import Immutable from 'seamless-immutable';
-import type { State } from '../types';
+import type { RootState } from 'src/reducers';
 import { DateRange, StatisticPoint, StatisticPointTable } from './types';
 import {
   DAILY_DURATION_DISPLAY_LIMIT,
@@ -14,9 +14,9 @@ import {
   // @ts-ignore
 } from '#libs/statistics/utils';
 
-export const mainChartSelector = (state: State) => state.stats.mainChart;
+export const mainChartSelector = (state: RootState) => state.stats.mainChart;
 export const dateRangeSelector = createSelector(
-  (state: State) => state.stats.dateRange,
+  (state: RootState) => state.stats.dateRange,
   (dateRange) => ({
     start: moment(dateRange.start),
     end: moment(dateRange.end),
@@ -24,39 +24,67 @@ export const dateRangeSelector = createSelector(
   }),
 );
 
+const selectOffersFromCalendar = (state: RootState) => state.offer.calendar;
+
 const selectCreatedBookings = (
-  state: State,
-): Immutable.Immutable<Array<StatisticPoint>> =>
+  state: RootState,
+): Immutable.ImmutableArray<Immutable.Immutable<StatisticPoint>> =>
   state.stats.stats.createdBookings?.data;
 
 const selectCancelledBookings = (
-  state: State,
-): Immutable.Immutable<Array<StatisticPoint>> =>
+  state: RootState,
+): Immutable.ImmutableArray<Immutable.Immutable<StatisticPoint>> =>
   state.stats.stats.cancelledBookings?.data;
 
-const selectStart = (state: State, start: string) => start;
+const selectStart = (state: RootState, start: string) => start;
 
-const selectEnd = (state: State, start: string, end: string) => end;
+const selectEnd = (state: RootState, start: string, end: string) => end;
 
 export const getStats: (
-  state: State,
+  state: RootState,
   start: string,
   end: string,
 ) => {
-  createdBookings: Immutable.Immutable<Array<StatisticPoint>>;
-  cancelledBookings: Immutable.Immutable<Array<StatisticPoint>>;
-  offersCount: number;
+  createdBookings: Immutable.ImmutableArray<
+    Immutable.Immutable<StatisticPoint>
+  >;
+  cancelledBookings: Immutable.ImmutableArray<
+    Immutable.Immutable<StatisticPoint>
+  >;
+  offers: Immutable.ImmutableArray<Immutable.Immutable<StatisticPoint>>;
   start: Moment;
   end: Moment;
 } = createSelector(
-  [selectCreatedBookings, selectCancelledBookings, selectStart, selectEnd],
-  (createdBookings, cancelledBookings, start, end) => {
+  [
+    selectCreatedBookings,
+    selectCancelledBookings,
+    selectOffersFromCalendar,
+    selectStart,
+    selectEnd,
+  ],
+  (createdBookings, cancelledBookings, offers, start, end) => {
     if (createdBookings && cancelledBookings && start && end) {
       const startMoment = moment(start);
       const endMoment = moment(end);
+      const formattedOffers = offers
+        .filter(
+          (offer) =>
+            offer.available &&
+            moment(offer.date_start, 'YYYY-MM-DD HH').isBetween(
+              startMoment,
+              endMoment,
+            ),
+        )
+        .map((offer) => {
+          return Immutable({
+            d: moment(offer.date_start, 'YYYY-MM-DD HH').valueOf(),
+            v: 1,
+          });
+        });
       return {
         createdBookings,
         cancelledBookings,
+        offers: formattedOffers,
         start: startMoment,
         end: endMoment,
       };
@@ -210,9 +238,9 @@ function discretizeByAndFillMissing(
   return finalTable;
 }
 
-const selectDateRange = (state: State) => state.stats.dateRange;
+const selectDateRange = (state: RootState) => state.stats.dateRange;
 const selectData: (
-  state: State,
+  state: RootState,
   smartList: number,
   statistic: number,
 ) => StatisticPointTable = (state, smartList, statistic) => {
@@ -259,7 +287,7 @@ export const smartlistStatSelector = createCachedSelector(
 });
 
 export const getStatisticLoading = (
-  state: State,
+  state: RootState,
   smartList: number,
   statistic: number,
 ) => {
@@ -273,7 +301,7 @@ export const getStatisticLoading = (
 };
 
 export const getBookingRelatedStatisticLoading = (
-  state: State,
+  state: RootState,
   statistic: string,
 ) => {
   if (state.stats.stats && state.stats.stats[statistic]) {

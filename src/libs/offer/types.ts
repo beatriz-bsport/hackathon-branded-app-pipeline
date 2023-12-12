@@ -22,6 +22,7 @@ import {
   OFFER_BOOKABLE_STATUS_ALREADY_BOOKED,
   OFFER_BOOKABLE_STATUS_TOO_MANY_IN_FUTURE,
 } from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
+import type { ImmutableArray } from 'seamless-immutable';
 import { ErrorAndLoading } from '../types';
 import { Establishment } from '../establishment/types';
 import { MetaActivity } from '../meta-activity/types';
@@ -217,7 +218,7 @@ export type OfferState = ErrorAndLoading & {
     filters: OfferFilter;
   };
   byId: { [key: string]: Offer };
-  calendar: [];
+  calendar: ImmutableArray<Partial<Offer>>;
   paginatedCalendar: {
     next_page: number;
     page: number;

@@ -28,7 +28,6 @@ type Props = {
   colorA: string,
   yKeyB: string,
   colorB: string,
-
   xLabel?: string,
   yLabel?: string,
   yAxisAllowDecimals?: boolean,

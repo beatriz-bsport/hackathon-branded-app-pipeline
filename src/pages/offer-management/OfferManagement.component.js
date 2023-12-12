@@ -44,31 +44,38 @@ import type { Booking, BookingOption } from '#libs/booking/types';
 import type { Member } from '#libs/member/types';
 import type { Invoice } from '#libs/invoice/types';
 import type { WaitingListConfiguration } from '#libs/waiting-list/type';
-import { Offer, OfferStatus } from '#libs/offer/types';
-import { AssetForBlueprint, RoomBlueprint } from '#libs/spot-scheduling/types';
+import type { OfferEdit, Offer, OfferStatus } from '../../libs/offer/types';
+import type {
+  AssetForBlueprint,
+  RoomBlueprint,
+} from '#libs/spot-scheduling/types';
 import OfferManagementRoomBlueprint from './OfferManagementRoomBlueprint.component';
 import AsyncSpotSelector, {
   asyncSelectSpotForBlueprint,
 } from '#libs/spot-scheduling/component/SpotSelector/AsyncSpotSelector.container';
 import DiscardBookingOptionDialogV2 from '#libs/waiting-list/components/DiscardBookingOptionDialogV2.component';
 import { MemberMap } from '#libs/member/utils';
-import { Tag, TagGroup } from '#libs/tag/types';
+import type { Tag, TagGroup } from '#libs/tag/types';
 import GenericDialog from '#components/genericDialog/GenericDialog';
 import { showDeleteDialog } from '#components/genericDialog/CustomDialogs';
-import { OptionCallback, OptionBackgroundCallback } from '../../state/types';
+import type {
+  OptionCallback,
+  OptionBackgroundCallback,
+} from '../../state/types';
 import CommunicationDrawer from '#libs/communication-v2/components/CommunicationDrawer.component';
 import { CONTEXT_OFFER } from '#libs/communication-v2/constants';
 import { getOfferCategories } from '#libs/communication-v2/utils';
-import { DEFAULT_SPOT_TYPE } from '#libs/spot-scheduling/utils';
-import { ResolvedGenericTags } from '#libs/email-editor/types';
+import type { DEFAULT_SPOT_TYPE } from '#libs/spot-scheduling/utils';
+import type { ResolvedGenericTags } from '#libs/email-editor/types';
 import type { StripeReader } from '#libs/terminal/types';
 import Config from '../../config';
 import MemberProgramDetailDialog from '#libs/performance-tracking/components/member-program/MemberProgramDetail.dialog';
 import ConfirmationRollCallDialog from '#libs/offer/components/ConfirmationRollCallDialog.component';
-import { InternalPaymentPayload } from '../../libs/payment/types';
+import type { InternalPaymentPayload } from '../../libs/payment/types';
 import ObjectLevelPermissionWrapper from '../../libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import { getActivityWorkshopPermission } from '../../libs/role/permission-utils/utils';
+import SessionNotePad from '#libs/offer/components/SessionNotePad';
 
 const RECURRENT_BOOKING_PAGE_SIZE = 10;
 
@@ -296,6 +303,11 @@ type Props = {
   setIsAutoBookingError: (isAutoBookingError: boolean) => void,
 
   registeredSelectedBookingOptions: Array<number>,
+  updateInternalNote: (
+    offerId: number,
+    data: OfferEdit,
+    options: OptionCallback<Offer>,
+  ) => void,
 };
 
 type State = {
@@ -778,6 +790,17 @@ export class OfferManagement extends Component<Props, State> {
       ),
     );
 
+  handleEditInternalNote = (
+    values: { internalNote: string },
+    options: OptionCallback,
+  ) => {
+    this.props.updateInternalNote(
+      this.props.offerId,
+      { internal_note: values.internalNote },
+      options,
+    );
+  };
+
   render() {
     const {
       offer,
@@ -1033,6 +1056,14 @@ export class OfferManagement extends Component<Props, State> {
             !!this.props.offer.broadcast_info && (
               <OfferBroadcastHelper offer={this.props.offer} />
             )}
+
+          <SessionNotePad
+            withPaper
+            initialValue={this.props.offer?.internal_note}
+            isLoading={this.props.offerLoading}
+            onSubmit={this.handleEditInternalNote}
+            // TODO: permissions
+          />
 
           {!!this.props.offer.room_blueprint && (
             <OfferManagementRoomBlueprint

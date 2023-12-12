@@ -23,6 +23,7 @@ import {
   toggleWaitingListFreeze as toggleWaitingListFreezeAction,
   fetchOfferStatus as fetchOfferStatusAction,
   postRollCall as postRollCallAction,
+  updateInternalNote as updateInternalNoteAction,
 } from '#libs/offer/actions';
 import { getDetailedOffer, withSpecificCoach } from '#libs/offer/selectors';
 import { getStripeReaders } from '#libs/terminal/selectors';
@@ -369,6 +370,7 @@ export default compose(
       // PaymentGroup
       submitInternalPaymentInBackground:
         submitInternalPaymentInBackgroundAction,
+      updateInternalNote: updateInternalNoteAction,
     },
   ),
   withHandlers({

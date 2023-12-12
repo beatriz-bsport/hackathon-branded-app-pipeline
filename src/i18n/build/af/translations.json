@@ -5379,9 +5379,7 @@
       "modal": {
         "title": "Unsaved changes",
         "description": "You have unsaved notes on this page. Do you want to save them before leaving?"
-      },
-      "success": "Session note successfully updated !",
-      "error": "Sorry, something went wrong. Please retry."
+      }
     }
   },
   "order": {

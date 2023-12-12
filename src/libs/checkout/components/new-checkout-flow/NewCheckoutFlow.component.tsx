@@ -114,6 +114,7 @@ type NewCheckoutFlowProps = {
   useInternalAccount?: (amount: number) => void;
   validateUnpaid: (options: OptionCallback) => void;
   goToMarketplace: () => void;
+  goToCalendar: () => void;
   basketItemRemovalStatusLoading: boolean;
   monitorExpiredItemRemoval: (
     companyId: number,
@@ -157,6 +158,7 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
   useInternalAccount,
   validateUnpaid,
   goToMarketplace,
+  goToCalendar,
   basketItemRemovalStatusLoading,
   monitorExpiredItemRemoval,
   refreshBasket,
@@ -338,7 +340,10 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
   if (!basketLoading && basket?.checkout_items?.length === 0) {
     return (
       <div className={classes.container}>
-        <EmptyBasket goToMarketplace={goToMarketplace} />
+        <EmptyBasket
+          goToCalendar={goToCalendar}
+          goToMarketplace={goToMarketplace}
+        />
       </div>
     );
   }

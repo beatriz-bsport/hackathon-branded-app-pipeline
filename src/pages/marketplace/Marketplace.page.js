@@ -524,6 +524,7 @@ export class MarketPlace extends Component<Props, State> {
               }
               handleTabChange={this.handleTabChange}
               hideAppBar={this.props.hideAppBar}
+              hideNavigation={this.props.hideNavigation}
               isRelationNavigation={
                 !!window.localStorage.getItem(
                   'bsport:relatedMemberMaster:http:token',
@@ -760,6 +761,7 @@ export default compose(
   }),
   withProps(({ location }) => ({
     hideAppBar: location.search.includes('hideAppBar=true'),
+    hideNavigation: location.search.includes('hideNavigation=true'),
     tabSelected: parseQueryString(location.search).tabSelected,
   })),
   connect(

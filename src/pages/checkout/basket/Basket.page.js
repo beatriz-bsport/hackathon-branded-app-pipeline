@@ -189,6 +189,7 @@ type Props = {
   isNewCheckoutFlow?: boolean,
   fetchInstalmentPaymentByBasket: (basketId: string) => void,
   goToMarketplace: () => void,
+  goToCalendar: () => void,
   retrieveCompanyCssConfiguration: (companyid: number) => void,
 };
 
@@ -578,6 +579,7 @@ export class BasketPage extends React.Component<Props> {
                     this.props.detachPaymentMethodLoading
                   }
                   goBack={this.handleGoBack}
+                  goToCalendar={this.props.goToCalendar}
                   goToMarketplace={this.props.goToMarketplace}
                   instalmentPaymentConfigurationList={this.props.instalmentPaymentConfigurationList.filter(
                     (ipc) => ipc.basketId === this.props.basket?.id,
@@ -948,6 +950,22 @@ export default compose(
       ({ companyId, theme, push }) =>
       () => {
         push(getMarketplaceRoute(theme.company_name, companyId));
+      },
+    /** WIDGET ONLY
+     *
+     * When having an empty basket the redirect should be to calendar.\
+     * We also want to hide the navgation app bar since widget
+     */
+    goToCalendar:
+      ({ companyId, theme, push }) =>
+      () => {
+        push(
+          getMarketplaceRoute(
+            theme.company_name,
+            companyId,
+            'calendar?hideNavigation=true',
+          ),
+        );
       },
   }),
   withState('basketError', 'setBasketError', null),

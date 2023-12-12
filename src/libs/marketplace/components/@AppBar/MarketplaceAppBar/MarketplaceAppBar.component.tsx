@@ -45,6 +45,7 @@ type Props = {
   withNavigation?: boolean;
   onlyNavigation?: boolean;
   hideAppBar?: boolean;
+  hideNavigation?: boolean;
   handleTabChange?: (
     event: React.SyntheticEvent<HTMLElement>,
     value: number,
@@ -74,6 +75,7 @@ export const MarketplaceAppBar: React.FC<Props> = ({
   withNavigation,
   onlyNavigation,
   hideAppBar,
+  hideNavigation,
   handleTabChange,
   tabSelected,
   settings,
@@ -105,7 +107,7 @@ export const MarketplaceAppBar: React.FC<Props> = ({
     requestLogin();
   };
 
-  if (!theme) {
+  if (!theme || hideNavigation) {
     return null;
   }
 

@@ -51,6 +51,7 @@ import {
   UPSELL_IDENTIFIER_SMS,
 } from '#libs/platform-billing/upsell-identifiers';
 import { hasUpsell } from '#libs/platform-billing/utils';
+import CommunicationSMSCostReminderModal from '#libs/communication-v2/CommunicationSMSCostReminderModal.component';
 
 type Props = {
   actionType: number;
@@ -62,7 +63,7 @@ type Props = {
   memberListLoading: boolean;
   onBaliseItemClick: (item: string) => void;
   selectedRecipientsCount: number;
-  sendMessage: (data: any) => void;
+  sendMessage: () => void;
   setActionType: (actionType: number) => void;
   tags: Record<string, Array<string>>;
   validity: number;
@@ -91,8 +92,23 @@ const BottomBarIcons: React.FC<Props> = ({
   const classes = useStyles();
   const [menuAnchorEl, setMenuAnchorEl] = useState(null);
   const [menuBalisesAnchorEl, setMenuBalisesAnchorEl] = useState(null);
+  const [isSmsCostReminderModalOpen, setIsSmsCostReminderModalOpen] =
+    useState(false);
   const handleCloseMenu = () => setMenuAnchorEl(null);
   const handleCloseMenuBalises = () => setMenuBalisesAnchorEl(null);
+  const handleCostReminderModalOnClose = React.useCallback(
+    () => setIsSmsCostReminderModalOpen(false),
+    [],
+  );
+  const handleCostReminderModalOpen = React.useCallback(
+    () => setIsSmsCostReminderModalOpen(true),
+    [],
+  );
+  const handleSendSmsOnClick = React.useCallback(() => {
+    sendMessage();
+    setIsSmsCostReminderModalOpen(false);
+  }, [sendMessage]);
+
   return (
     <Toolbar className={classes.bottomActionsContainer}>
       <div className={classes.bottomFlexContainer}>
@@ -107,16 +123,23 @@ const BottomBarIcons: React.FC<Props> = ({
         </Tooltip>
         <FeatureListProvider>
           {(featureList: FeatureList) => (
-            <Tooltip placement="top" title={t('sendMessage.icons.sms')}>
-              <IconButton
-                className={classes.iconButton}
-                color={actionType === WRITE_SMS ? 'primary' : 'default'}
-                disabled={!hasUpsell(featureList, UPSELL_IDENTIFIER_SMS)}
-                onClick={() => setActionType(WRITE_SMS)}
-              >
-                {actionType === WRITE_SMS ? <SmsIcon /> : <SmsOutlinedIcon />}
-              </IconButton>
-            </Tooltip>
+            <>
+              <Tooltip placement="top" title={t('sendMessage.icons.sms')}>
+                <IconButton
+                  className={classes.iconButton}
+                  color={actionType === WRITE_SMS ? 'primary' : 'default'}
+                  disabled={!hasUpsell(featureList, UPSELL_IDENTIFIER_SMS)}
+                  onClick={() => setActionType(WRITE_SMS)}
+                >
+                  {actionType === WRITE_SMS ? <SmsIcon /> : <SmsOutlinedIcon />}
+                </IconButton>
+              </Tooltip>
+              <CommunicationSMSCostReminderModal
+                handleClose={handleCostReminderModalOnClose}
+                open={isSmsCostReminderModalOpen}
+                sendMessageOnClick={handleSendSmsOnClick}
+              />
+            </>
           )}
         </FeatureListProvider>
         <FeatureListProvider>
@@ -290,7 +313,15 @@ const BottomBarIcons: React.FC<Props> = ({
           </ButtonBase>
         )}
         {validity === CAN_SEND_MESSAGE ? (
-          <Button color="primary" onClick={sendMessage} variant="contained">
+          <Button
+            color="primary"
+            onClick={
+              actionType === WRITE_SMS
+                ? handleCostReminderModalOpen
+                : sendMessage
+            }
+            variant="contained"
+          >
             <Hidden xsDown>
               <p className={classes.buttonSendText}>
                 {t('sendMessage.buttons.send')}

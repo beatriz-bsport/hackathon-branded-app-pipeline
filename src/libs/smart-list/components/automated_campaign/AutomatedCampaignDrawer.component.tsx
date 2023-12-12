@@ -177,6 +177,7 @@ export const AutomatedCommunicationDrawer: React.FC<
   resolvedGenericTags,
   hideAutoResend,
   handleSubmit,
+  validateForm,
 }) => {
   const { t } = useTranslation(['communication', 'common']);
   const classes = useStyles();
@@ -203,10 +204,14 @@ export const AutomatedCommunicationDrawer: React.FC<
   const handleChangeTemplate = useCallback(
     (id: number) => {
       setFieldValue('email_design', id);
-      setFieldValue(
-        'title',
-        emails.find((email) => email.id === id)?.subject ?? '',
-      );
+      // Introducing a setTimeout to handle validation asynchronously.
+      // This ensures that the state remains synchronized with the previous setFieldValue.
+      setTimeout(() => {
+        setFieldValue(
+          'title',
+          emails.find((email) => email.id === id)?.subject ?? '',
+        );
+      });
     },
     [setFieldValue, emails],
   );
@@ -225,8 +230,9 @@ export const AutomatedCommunicationDrawer: React.FC<
   React.useEffect(() => {
     if (open) {
       getEmails();
+      validateForm();
     }
-  }, [open, getEmails]);
+  }, [open, getEmails, validateForm]);
 
   const handleTextChange = (text: string) => setFieldValue('text', text);
   const handleTitleChange = (title: string) => setFieldValue('title', title);
@@ -685,23 +691,34 @@ type Values = {
 const AutomatedCampaignValidationSchema = Yup.object().shape({
   event_kind: Yup.number().required(),
   communication_kind: Yup.number().required(),
-  text: Yup.string().test(
-    'content_max_length_for_sms_and_psuh_notification',
-    'error_content_length',
-    function checkContentLength(item) {
-      if (!item) return true;
-      if (
-        this.parent.communication_kind === COMMUNICATION_KIND_PUSH_NOTIFICATION
-      ) {
-        return item.length <= MAX_LENGTH_PUSH_CONTENT;
-      }
-      if (this.parent.communication_kind === COMMUNICATION_KIND_SMS) {
-        return item.length <= MAX_LENGTH_AUTOMATIC_SMS;
-      }
-
-      return true;
-    },
-  ),
+  text: Yup.string()
+    .when('email_kind', {
+      is: (email_kind: number) => email_kind !== TEMPLATE_EMAIL_KIND,
+      then: Yup.string().min(1).required(),
+      otherwise: Yup.string().nullable(),
+    })
+    .test(
+      'content_max_length_for_sms_and_psuh_notification',
+      'error_content_length',
+      function checkContentLength(item) {
+        if (!item) return true;
+        if (
+          this.parent.communication_kind ===
+          COMMUNICATION_KIND_PUSH_NOTIFICATION
+        ) {
+          return item.length <= MAX_LENGTH_PUSH_CONTENT;
+        }
+        if (this.parent.communication_kind === COMMUNICATION_KIND_SMS) {
+          return item.length <= MAX_LENGTH_AUTOMATIC_SMS;
+        }
+        return true;
+      },
+    ),
+  email_design: Yup.mixed().when('email_kind', {
+    is: (email_kind: number) => email_kind === TEMPLATE_EMAIL_KIND,
+    then: Yup.number().required(),
+    otherwise: Yup.number().nullable(),
+  }),
   title: Yup.string().test(
     'title_max_length_for_push_notification',
     'error_title_length',

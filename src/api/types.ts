@@ -146,6 +146,7 @@ export type Offer = {
   allow_guest_offer: boolean;
   linked_hybrid_offer_id: number | null;
   sync_on_spivi: boolean;
+  internal_note: string;
 };
 
 export type MetaActivity = {

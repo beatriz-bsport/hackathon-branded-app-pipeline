@@ -1,15 +1,18 @@
 import React, { memo } from 'react';
+import classNames from 'classnames';
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 import './styles.css';
 
 export type Props = {
+  classes?: { content?: string };
   isExpanded: boolean;
   children: React.ReactElement | React.ReactNode | React.ReactNode[];
   collapsedHeight?: number;
 };
 export const Collapse: React.FC<Props> = ({
+  classes,
   isExpanded,
   children,
   collapsedHeight,
@@ -45,7 +48,10 @@ export const Collapse: React.FC<Props> = ({
 
   return (
     <div ref={collapseRef} className="bs-collapse">
-      <div ref={contentRef} className="bs-content">
+      <div
+        ref={contentRef}
+        className={classNames('bs-content', classes?.content)}
+      >
         {children}
       </div>
     </div>

@@ -332,6 +332,7 @@ exports.default = {
       checkoutConfirmationPage: 'Confirmation de paiment',
       marketing: 'Marketing',
       consumer_space: 'Consumer space',
+      memberProfile: 'Member profile',
     },
     components: {
       calendar: 'Calendar page',
@@ -441,6 +442,7 @@ exports.default = {
       selector_input: 'Selector Input',
       marketing_newsletter_form_v2: 'Newsletter form',
       consumer_booking_card: 'Consumer booking card',
+      consumer_booking_details_card: 'Booking details card (for member)',
     },
     customCss: {
       yourCode: 'Your complementary implementation:',

@@ -159,6 +159,8 @@ export const PaymentComboForm: React.FC<Props> = ({
               {f.form.values.payment_pack_ids.map((id: number, i: number) => (
                 <PaymentPackListItem
                   key={`${id}-${i}`}
+                  dense
+                  isPaperVariant
                   onDelete={() => f.remove(i)}
                   pack={paymentPackList.find((pp) => pp.id === id)}
                 />
@@ -187,6 +189,7 @@ export const PaymentComboForm: React.FC<Props> = ({
                 <ShopItemListItem
                   key={`${id}-${i}`}
                   dense
+                  isPaperVariant
                   onDelete={() => remove(i)}
                   shopitem={shopItemList.find((si) => si.id === id)}
                 />

@@ -38,6 +38,7 @@ import {
   postRollCallActions,
   postRollCallBulkActions,
   offerStatusWaitingListPositionActions,
+  updateInternalNoteActions,
 } from './actions';
 import { OfferState } from './types';
 import {
@@ -186,6 +187,10 @@ const initialState: Immutable.Immutable<OfferState> = Immutable<OfferState>({
     error: null,
   },
   rollCallBulk: {
+    loading: false,
+    error: null,
+  },
+  updateInternalNote: {
     loading: false,
     error: null,
   },
@@ -751,6 +756,12 @@ export default handleActions<Immutable.Immutable<OfferState>>(
         ['byId', payload.id, 'date_roll_call_last_modified'],
         payload.date_roll_call_last_modified,
       );
+    },
+    [updateInternalNoteActions.loading.toString()]: (state, { payload }) => {
+      return state.setIn(['updateInternalNote', 'loading'], payload);
+    },
+    [updateInternalNoteActions.error.toString()]: (state, { payload }) => {
+      return state.setIn(['updateInternalNote', 'error'], payload);
     },
   },
   initialState,

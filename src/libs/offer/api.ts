@@ -1,3 +1,4 @@
+import { Offer as OfferAPI } from '../../api/types';
 import {
   API_URI,
   API_V1_URI,
@@ -289,6 +290,16 @@ export const invalidatePendingBooking = (offerId: number) =>
     `${API_V1_URI}/offer/${offerId}/invalidate_pending_booking_for_billing_plan/`,
     {},
   );
+
+export const updateInternalNote = (
+  offerId: number,
+  data: { internal_note: string },
+) => {
+  return patchAuth<OfferAPI>(
+    `${API_V1_URI}/offer/${offerId}/update_internal_note/`,
+    data,
+  );
+};
 
 export default {
   fetchAllEvents,

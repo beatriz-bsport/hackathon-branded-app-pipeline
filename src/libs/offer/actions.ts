@@ -43,6 +43,7 @@ import {
   postRollCallBulk as postRollCallBulkAPI,
   fetchOfferWaitingListPosition as fetchOfferWaitingListPositionAPI,
   fetchOfferWaitingListPositionList as fetchOfferWaitingListPositionListAPI,
+  updateInternalNote as updateInternalNoteAPI,
 } from './api';
 import { monitorBackgroundTask } from '../background-task/actions';
 import { UPSELL_IDENTIFIER_SUBTEACHER_TOOL } from '#libs/platform-billing/upsell-identifiers';
@@ -1534,5 +1535,29 @@ export function fetchOfferWaitingListPositionList(
     }
 
     dispatch(offerStatusWaitingListPositionActions.isLoading(false));
+  };
+}
+
+export const updateInternalNoteActions = {
+  loading: createAction<boolean>('OFFER/UPDATE_INTERNAL_NOTE/LOADING'),
+  error: createAction<Error | null>('OFFER/UPDATE_INTERNAL_NOTE/ERROR'),
+};
+export function updateInternalNote(
+  offerId: number,
+  data: { internal_note: string },
+  options: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(updateInternalNoteActions.loading(true));
+    try {
+      const response = await updateInternalNoteAPI(offerId, data);
+      options?.onSuccess(response.data);
+      dispatch(retrieveActions.success(response.data));
+      dispatch(snackbarSuccess('dashboard.save.success'));
+    } catch (error) {
+      dispatch(updateInternalNoteActions.error(error));
+      dispatch(snackbarError('dashboard.save.error'));
+    }
+    dispatch(updateInternalNoteActions.loading(false));
   };
 }

@@ -206,6 +206,8 @@ const getTranslations = async () => {
           replacementSettings: 'Substitution settings',
           enableReplacement: 'Substitution',
           enableRemuneration: 'Payroll',
+          enableRemunerationDownload:
+            'Allow teachers to download their payroll',
           enableSchedule: 'Schedule',
           restrictionsDescription:
             'Indicate which tabs your teachers will have access to',

@@ -1,22 +1,25 @@
-// @flow
 import React from 'react';
 
 import moment, { Moment } from 'moment-timezone';
 import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import { discretizeByAndFillMissing } from '../../../state/stats/utils';
-import TwoStackedAreasChart from '../../../components/graph/TwoStackedAreasChart.component';
 import StackedBarChart from '../../../components/graph/StackedBarChart.component';
 
 type Props = {
   bookingStatistics: {
-    createdBookings: Array<any>,
-    cancelledBookings: Array<any>,
+    createdBookings: Immutable.ImmutableArray<
+      Immutable.Immutable<StatisticPoint>,
+    >,
+    cancelledBookings: Immutable.ImmutableArray<
+      Immutable.Immutable<StatisticPoint>,
+    >,
+    offers: Immutable.ImmutableArray<Immutable.Immutable<StatisticPoint>>,
     start: Moment,
     end: Moment,
   },
@@ -53,46 +56,42 @@ export function BookingStatisticsCard(props: Props) {
     end,
   );
 
-  const data = [];
-  let allBookingsCount = 0;
-  let cancelledBookingsCount = 0;
+  const tableOffers = discretizeByAndFillMissing(
+    bookingStatistics.offers,
+    start,
+    end,
+  );
 
-  if (props.offerId) {
-    for (
-      let i = 0;
-      i < tableBookingCreated.length && i < tableBookingCancelled.length;
-      i += 1
-    ) {
-      allBookingsCount += tableBookingCreated[i].v;
-      cancelledBookingsCount += tableBookingCancelled[i].v;
-      data.push({
-        d: tableBookingCreated[i].d,
-        [t('bookingStatistics.keys.created')]:
-          allBookingsCount - cancelledBookingsCount,
-        [t('bookingStatistics.keys.cancelled')]: cancelledBookingsCount,
-      });
-    }
-  } else {
-    for (
-      let i = 0;
-      i < tableBookingCreated.length && i < tableBookingCancelled.length;
-      i += 1
-    ) {
-      data.push({
-        d: tableBookingCreated[i].d,
-        [t('bookingStatistics.keys.created')]:
-          tableBookingCreated[i].v - tableBookingCancelled[i].v,
-        [t('bookingStatistics.keys.cancelled')]: tableBookingCancelled[i].v,
-      });
-    }
-    allBookingsCount = tableBookingCreated.reduce(
-      (acc, dataPoint) => acc + dataPoint.v,
-      0,
-    );
-    cancelledBookingsCount = tableBookingCancelled.reduce(
-      (acc, dataPoint) => acc + dataPoint.v,
-      0,
-    );
+  const allOffersCount = tableOffers.reduce(
+    (acc, dataPoint) => acc + dataPoint.v,
+    0,
+  );
+
+  const allBookingsCount = tableBookingCreated.reduce(
+    (acc, dataPoint) => acc + dataPoint.v,
+    0,
+  );
+
+  const cancelledBookingsCount = tableBookingCancelled.reduce(
+    (acc, dataPoint) => acc + dataPoint.v,
+    0,
+  );
+
+  const data = [];
+
+  // Here, we build data with every day of the week
+  for (
+    let i = 0;
+    i < tableBookingCreated.length && i < tableBookingCancelled.length;
+    i += 1
+  ) {
+    data.push({
+      d: tableBookingCreated[i].d,
+      [t('bookingStatistics.keys.created')]:
+        tableBookingCreated[i].v - tableBookingCancelled[i].v,
+      [t('bookingStatistics.keys.cancelled')]: tableBookingCancelled[i].v,
+      [t('bookingStatistics.keys.offers')]: tableOffers[i].v,
+    });
   }
 
   return (
@@ -133,37 +132,20 @@ export function BookingStatisticsCard(props: Props) {
             </Typography>
           </div>
         </div>
-        {props.offerId ? (
-          <div className={classes.chart}>
-            <TwoStackedAreasChart
-              colorA={theme.palette.primary.main}
-              colorB="#E05123"
-              data={data}
-              domain={[start, end]}
-              height={300}
-              refreshKey={`${start}:${end}`}
-              width={600}
-              xKey="d"
-              yKeyA={t('bookingStatistics.keys.created')}
-              yKeyB={t('bookingStatistics.keys.cancelled')}
-            />
-          </div>
-        ) : (
-          <div className={classes.chart}>
-            <StackedBarChart
-              colorA={theme.palette.primary.main}
-              colorB="#E05123"
-              data={data}
-              domain={[start, end]}
-              height={300}
-              refreshKey={`${start}:${end}`}
-              width={600}
-              xKey="d"
-              yKeyA={t('bookingStatistics.keys.created')}
-              yKeyB={t('bookingStatistics.keys.cancelled')}
-            />
-          </div>
-        )}
+        <div className={classes.chart}>
+          <StackedBarChart
+            colorA={theme.palette.primary.main}
+            colorB="#E05123"
+            data={data}
+            domain={[start, end]}
+            height={300}
+            refreshKey={`${start}:${end}`}
+            width={600}
+            xKey="d"
+            yKeyA={t('bookingStatistics.keys.created')}
+            yKeyB={t('bookingStatistics.keys.cancelled')}
+          />
+        </div>
       </Paper>
     </div>
   );

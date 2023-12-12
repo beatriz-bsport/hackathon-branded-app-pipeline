@@ -279,12 +279,17 @@ type Props = {
   establishmentGroupList: EstablishmentGroup[],
   availableEstablishments: Array<Establishment>,
   allEstablishments: Array<Establishment>,
-  bookingStatistics: {
-    createdBookings: Array<any>,
-    cancelledBookings: Array<any>,
+  bookingStatistics: Immutable.Immutable<{
+    createdBookings: Immutable.ImmutableArray<
+      Immutable.Immutable<StatisticPoint>,
+    >,
+    cancelledBookings: Immutable.ImmutableArray<
+      Immutable.Immutable<StatisticPoint>,
+    >,
+    offers: Immutable.ImmutableArray<Immutable.Immutable<StatisticPoint>>,
     start: Moment,
     end: Moment,
-  },
+  }>,
   companyId: number,
 
   goToOfferManagement: () => void,

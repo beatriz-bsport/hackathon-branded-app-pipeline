@@ -1106,7 +1106,7 @@ exports.default = {
   onlyNewMember: 'Only accept bookings from passes of new customers.',
   bookingStatistics: {
     weekOf: 'Week: {{date}}',
-    keys: { cancelled: 'Cancellations', created: 'Bookings' },
+    keys: { cancelled: 'Cancellations', created: 'Bookings', offers: 'Offers' },
     maintenedBookings: '{{nb}} booking',
     maintenedBookings_plural: '{{nb}} bookings',
     cancelledBookings: '{{nb}} cancellation',
@@ -1115,7 +1115,13 @@ exports.default = {
     totalBookings_plural: '{{nb}} bookings in total',
     offerFilteredBookingRecap: 'Session: {{date}}',
     weekOverview: 'Weekly overview',
-    totalOffers: '{{ nb_offers }} total sessions',
+    totalOffers: '{{ nb_offers }} <0/> total session',
+    totalOffers_plural: '{{ nb_offers }} <0/> total sessions',
+    chartsItemLabel: {
+      numberOfConfirmedBookings: 'Confirmed bookings',
+      numberOfCancelledBookings: 'Cancelled bookings',
+      numberOfSessions: 'Sessions',
+    },
   },
   metaActivityNotificationToolTip:
     'There are automatic notifications set up for this item',

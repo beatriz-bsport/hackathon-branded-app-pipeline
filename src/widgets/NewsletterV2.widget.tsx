@@ -21,9 +21,7 @@ type OwnProps = {
   companyId: number,
 };
 
-type ConnectProps = ReturnType<typeof mapStateToProps> &
-  typeof mapDispatchToProps;
-
+type ConnectProps = typeof mapDispatchToProps;
 type Props = OwnProps & ConnectProps;
 
 export class NewsletterWidget extends Component<Props> {
@@ -75,13 +73,11 @@ export class NewsletterWidget extends Component<Props> {
   }
 }
 
-const mapStateToProps = () => ({});
-
 const mapDispatchToProps = {
   snackbarSuccess,
   snackbarError,
 };
 
-export default compose<any, OwnProps>(
-  connect(mapStateToProps, mapDispatchToProps),
-)(NewsletterWidget);
+export default compose<Props, OwnProps>(connect(null, mapDispatchToProps))(
+  NewsletterWidget,
+);

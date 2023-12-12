@@ -850,7 +850,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
         this.props.theme.accept_double_booking)
     ) {
       return (
-        <div className="bs-new-offer-booking-page">
+        <div className="bs-new-offer-booking-page--spot-selector">
           <div className="bs-new-offer-booking__spot-selector__container">
             <div className="bs-new-offer-booking__spot-selector__go-back-container">
               <Button

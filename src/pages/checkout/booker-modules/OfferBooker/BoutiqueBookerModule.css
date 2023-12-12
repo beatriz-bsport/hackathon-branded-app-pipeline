@@ -59,6 +59,18 @@
 
 /* SPOT SCHEDULING */
 
+.bs-new-offer-booking-page--spot-selector {
+  width: 100%;
+  height: 100%;
+  /* APP BAR HEIHGT */
+  max-height: calc(100dvh - 48px);
+  container: bsOfferBookingPageSpotSelector / inline-size;
+  display: flex;
+  overflow: auto;
+  align-items: center;
+  flex-direction: column;
+}
+
 .bs-new-offer-booking__spot-selector__container {
   display: grid;
   grid-template:
@@ -67,6 +79,7 @@
   grid-template-rows: 5dvh calc(90dvh - 5dvh);
   gap: var(--spacing-4);
   min-height: 0;
+  width: 70%;
 }
 
 .bs-new-offer-booking__spot-selector__go-back-container {
@@ -92,6 +105,42 @@
   border-radius: var(--border-radius-4);
   flex: 1;
   max-height: 48px;
+}
+
+@container bsOfferBookingPageSpotSelector (width < 950px) {
+  .bs-new-offer-booking__spot-selector__container {
+    display: grid;
+    grid-template:
+      'header'
+      'main';
+    gap: var(--spacing-2);
+    width: 100%;
+  }
+  .bs-new-offer-booking__spot-selector__confirm {
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-1);
+    justify-content: flex-end;
+    padding: var(--spacing-1) var(--spacing-2);
+    width: 100%;
+    position: sticky;
+    bottom: 0;
+  }
+  .bs-new-offer-booking__spot-selector__go-back-container {
+    grid-area: header;
+    padding: 0 var(--spacing-2);
+  }
+  .bs-new-offer-booking__spot-selector__blueprint {
+    grid-area: main;
+    overflow: scroll;
+  }
+
+  .bs-new-offer-booking__spot-selector__go-to-checkout {
+    color: var(--color-primary-main);
+    border-radius: var(--border-radius-4);
+    flex: 1;
+  }
 }
 
 .bs-new-offer-booking__header--loading {
@@ -167,37 +216,5 @@
     border-bottom-width: 0;
     border-radius: 0;
     border-top-width: 2px;
-  }
-  .bs-new-offer-booking__spot-selector__container {
-    display: grid;
-    grid-template:
-      'header'
-      'main';
-    gap: var(--spacing-2);
-  }
-  .bs-new-offer-booking__spot-selector__confirm {
-    background-color: #fff;
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-1);
-    justify-content: flex-end;
-    padding: var(--spacing-1) var(--spacing-2);
-    width: 100%;
-    position: sticky;
-    bottom: 0;
-  }
-  .bs-new-offer-booking__spot-selector__go-back-container {
-    grid-area: header;
-    padding: 0 var(--spacing-2);
-  }
-  .bs-new-offer-booking__spot-selector__blueprint {
-    grid-area: main;
-    overflow: scroll;
-  }
-
-  .bs-new-offer-booking__spot-selector__go-to-checkout {
-    color: var(--color-primary-main);
-    border-radius: var(--border-radius-4);
-    flex: 1;
   }
 }

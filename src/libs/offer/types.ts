@@ -160,6 +160,7 @@ export type Offer<
   source: number;
   tax?: number;
   broadcast_info?: BroadcastInfo;
+  internal_note?: string;
 };
 
 export type Offer_FULL = Offer<

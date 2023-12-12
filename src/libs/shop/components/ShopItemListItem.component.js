@@ -9,6 +9,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Avatar from '@material-ui/core/Avatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Paper from '@material-ui/core/Paper';
+import ConditionalWrapper from '#components/ConditionnalWrapper.component';
 
 import type { ShopItem } from '../types';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
@@ -21,46 +23,57 @@ type Props = {
   additionalActions?: any,
   dense?: boolean,
   isFocused?: boolean,
+  isPaperVariant?: boolean,
 };
 
 export default (props: Props) => {
   if (!props.shopitem) {
     return (
-      <ListItem dense={props.dense} divider={props.divider}>
-        <CircularProgress />
-      </ListItem>
+      <ConditionalWrapper
+        condition={props.isPaperVariant}
+        WrapperComponent={Paper}
+      >
+        <ListItem dense={props.dense} divider={props.divider}>
+          <CircularProgress />
+        </ListItem>
+      </ConditionalWrapper>
     );
   }
   return (
-    <ListItem
-      divider
-      button={!!props.onClick}
-      dense={props.dense}
-      onClick={props.onClick}
-      style={props.isFocused ? { backgroundColor: '#EFEFEF' } : {}}
+    <ConditionalWrapper
+      condition={props.isPaperVariant}
+      WrapperComponent={Paper}
     >
-      {!!props.shopitem.cover && (
-        <ListItemIcon>
-          <Avatar
-            src={props.shopitem.cover}
-            style={{ height: 60, width: 60, marginRight: 8 }}
-          />
-        </ListItemIcon>
-      )}
-      <ListItemText
-        primary={`${props.shopitem.name} - ${getCurrencyDisplayWithPrice(
-          props.shopitem.price,
-        )}`}
-        secondary={props.shopitem.subtitle || props.shopitem.name}
-      />
-      {props.additionalActions}
-      {props.onDelete ? (
-        <ListItemSecondaryAction>
-          <IconButton onClick={props.onDelete}>
-            <DeleteIcon />
-          </IconButton>
-        </ListItemSecondaryAction>
-      ) : null}
-    </ListItem>
+      <ListItem
+        divider
+        button={!!props.onClick}
+        dense={props.dense}
+        onClick={props.onClick}
+        style={props.isFocused ? { backgroundColor: '#EFEFEF' } : {}}
+      >
+        {!!props.shopitem.cover && (
+          <ListItemIcon>
+            <Avatar
+              src={props.shopitem.cover}
+              style={{ height: 60, width: 60, marginRight: 8 }}
+            />
+          </ListItemIcon>
+        )}
+        <ListItemText
+          primary={`${props.shopitem.name} - ${getCurrencyDisplayWithPrice(
+            props.shopitem.price,
+          )}`}
+          secondary={props.shopitem.subtitle || props.shopitem.name}
+        />
+        {props.additionalActions}
+        {props.onDelete ? (
+          <ListItemSecondaryAction>
+            <IconButton onClick={props.onDelete}>
+              <DeleteIcon />
+            </IconButton>
+          </ListItemSecondaryAction>
+        ) : null}
+      </ListItem>
+    </ConditionalWrapper>
   );
 };

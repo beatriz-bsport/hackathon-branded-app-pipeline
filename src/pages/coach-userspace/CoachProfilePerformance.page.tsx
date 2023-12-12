@@ -19,6 +19,7 @@ import { withCoachPerformance } from '#libs/coach-payment-rules/selectors';
 import {
   fetchCoachSessionPerformanceAction,
   fetchCoachPrivateServicePerformanceAction,
+  exportPdfPerformance,
 } from '#libs/coach-payment-rules/actions';
 import withTitle from '#hocs/with-title.hoc';
 import { OptionCallback } from '../../state/types';
@@ -67,6 +68,7 @@ export const CoachProfilePerformance: React.FC<Props> = (props: Props) => {
     handleDateFiltersChange,
     changeDate,
     has_coach_access_to_compensation_downloading,
+    handlePdfExportation,
   } = props;
 
   return (
@@ -92,6 +94,7 @@ export const CoachProfilePerformance: React.FC<Props> = (props: Props) => {
               asCoach
               hideRuleSetter
               coachWithPerformance={coachWithPerformance}
+              handlePdfExportation={handlePdfExportation}
               has_coach_access_to_compensation_downloading={
                 has_coach_access_to_compensation_downloading
               }
@@ -158,6 +161,21 @@ const mapWithHandlers = {
     ({ setFormDates }: OwnAndConnectedProps & stateHandlerType) =>
     (dateStart: number, dateEnd: number) =>
       setFormDates({ dateStart, dateEnd }),
+
+  handlePdfExportation:
+    ({
+      exportPdfPerformanceAction,
+      formDates,
+    }: OwnAndConnectedProps & stateHandlerType) =>
+    (associatedCoachId: number, dataToExport: number) => {
+      const params = {
+        start_timestamp: formDates.dateStart.valueOf(),
+        end_timestamp: formDates.dateEnd.valueOf(),
+        associated_coaches_in: [associatedCoachId],
+        data_to_export: dataToExport,
+      };
+      exportPdfPerformanceAction(params);
+    },
 };
 const connector = connect(
   (state: RootState) => ({
@@ -172,6 +190,7 @@ const connector = connect(
     fetchCoachSessionPerformance: fetchCoachSessionPerformanceAction,
     fetchCoachPrivateServicePerformance:
       fetchCoachPrivateServicePerformanceAction,
+    exportPdfPerformanceAction: exportPdfPerformance,
   },
 );
 

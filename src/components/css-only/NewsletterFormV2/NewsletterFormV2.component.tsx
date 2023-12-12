@@ -197,7 +197,6 @@ const NewsletterFormV2: React.FC<Props> = ({
                 className="bs-newsletter-form__root__form__submit"
                 color="primary"
                 isDisabled={!!formik.errors.email || !formik.values.email}
-                onClick={() => {}}
                 type="submit"
                 variant="contained"
               >

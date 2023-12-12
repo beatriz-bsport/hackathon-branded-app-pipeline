@@ -27,7 +27,7 @@ type Props = {
   };
   isDisabled?: boolean;
   variant?: ButtonVariantType;
-  onClick: (event?: React.MouseEvent<HTMLButtonElement>) => void;
+  onClick?: (event?: React.MouseEvent<HTMLButtonElement>) => void;
   isRippleEnabled?: boolean;
   type?: ButtonHTMLType;
   size?: ButtonSizeType;

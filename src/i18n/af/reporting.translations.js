@@ -98,6 +98,8 @@ const getTranslations = async () => {
       margin_value: 'Marginal value (incl. VAT / Sales Tax)',
       margin_value_incl_tax: 'Marginal value (incl. VAT / Sales Tax)',
       margin_value_excl_tax: 'Marginal value (excl. VAT / Sales Tax)',
+      margin_value_excluding_sales_tax:
+        'Marginal value (excl. VAT / Sales Tax)',
       margin_value_pre_tax: 'Marginal value (excl. VAT / Sales Tax)',
       effectif: 'Number of slots',
       total_payments: 'Total payments',

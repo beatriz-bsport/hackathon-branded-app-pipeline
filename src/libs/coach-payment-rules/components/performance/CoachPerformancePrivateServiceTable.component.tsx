@@ -37,6 +37,7 @@ type Props = {
   displayChip?: boolean;
   handlePdfExportation?: () => void;
   disablePdfButton?: boolean;
+  has_coach_access_to_compensation_downloading?: boolean;
 };
 
 export function CoachPerformancePrivateServiceTable(props: Props) {
@@ -47,6 +48,7 @@ export function CoachPerformancePrivateServiceTable(props: Props) {
     performances,
     handlePdfExportation,
     disablePdfButton,
+    has_coach_access_to_compensation_downloading,
   } = props;
   const { t } = useTranslation('coachPerformance');
   const classes = useStyles(!!props.displayChip);
@@ -79,7 +81,7 @@ export function CoachPerformancePrivateServiceTable(props: Props) {
         <ObjectLevelPermissionProviderComponent requiredPermission="export.allowed_actions.payroll">
           {(hasPermission) =>
             hasPermission &&
-            !props.asCoach &&
+            !(props.asCoach && !has_coach_access_to_compensation_downloading) &&
             !props.displayChip && (
               <div className={classes.downloadButtonsContainer}>
                 <Button

@@ -41,6 +41,7 @@ const styles = (theme: Theme) =>
 
 type OwnProps = {
   performanceLoading: boolean;
+  has_coach_access_to_compensation_downloading: boolean;
 };
 
 type stateHandlerType = {
@@ -65,6 +66,7 @@ export const CoachProfilePerformance: React.FC<Props> = (props: Props) => {
     performanceLoading,
     handleDateFiltersChange,
     changeDate,
+    has_coach_access_to_compensation_downloading,
   } = props;
 
   return (
@@ -90,6 +92,9 @@ export const CoachProfilePerformance: React.FC<Props> = (props: Props) => {
               asCoach
               hideRuleSetter
               coachWithPerformance={coachWithPerformance}
+              has_coach_access_to_compensation_downloading={
+                has_coach_access_to_compensation_downloading
+              }
             />
           </Paper>
         </>
@@ -160,6 +165,8 @@ const connector = connect(
       state,
     ),
     loading: state.coachPaymentRules.performance.loading,
+    has_coach_access_to_compensation_downloading:
+      state.theme.theme.has_coach_access_to_compensation_downloading,
   }),
   {
     fetchCoachSessionPerformance: fetchCoachSessionPerformanceAction,

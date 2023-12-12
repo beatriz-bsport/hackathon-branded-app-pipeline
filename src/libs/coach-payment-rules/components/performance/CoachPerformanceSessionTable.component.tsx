@@ -37,6 +37,7 @@ type Props = {
   displayChip?: boolean;
   handlePdfExportation?: () => void;
   disablePdfButton?: boolean;
+  has_coach_access_to_compensation_downloading?: boolean;
 };
 
 export function CoachPerformanceSessionTable(props: Props) {
@@ -47,6 +48,7 @@ export function CoachPerformanceSessionTable(props: Props) {
     performances,
     handlePdfExportation,
     disablePdfButton,
+    has_coach_access_to_compensation_downloading,
   } = props;
   const { t } = useTranslation('coachPerformance');
   const classes = useStyles(!!props.displayChip);
@@ -58,7 +60,9 @@ export function CoachPerformanceSessionTable(props: Props) {
       <div
         className={clx([
           classes.flexHeaderContainer,
-          props.asCoach && props.displayChip
+          props.asCoach &&
+          props.displayChip &&
+          !has_coach_access_to_compensation_downloading
             ? classes.flexStartContainer
             : null,
         ])}
@@ -77,7 +81,7 @@ export function CoachPerformanceSessionTable(props: Props) {
         )}
         <ObjectLevelPermissionProviderComponent requiredPermission="export.allowed_actions.payroll">
           {(hasPermission) =>
-            !props.asCoach &&
+            !(props.asCoach && !has_coach_access_to_compensation_downloading) &&
             hasPermission && (
               <div className={classes.downloadButtonsContainer}>
                 <Button

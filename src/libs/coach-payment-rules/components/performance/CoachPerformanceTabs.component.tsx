@@ -47,6 +47,7 @@ type TabPanelProps = {
   coachPaymentRulesByKind: { [kind: number]: Array<CoachPaymentRule> };
   hideRuleSetter?: boolean;
   asCoach?: boolean;
+  has_coach_access_to_compensation_downloading: boolean;
   handlePdfExportation?: (
     associatedCoachId: number,
     dataToExport: number,
@@ -134,6 +135,9 @@ export const CoachPerformanceTabPanel = (props: TabPanelProps) => {
         coachPaymentRulesList={coachSessionPaymentRulesList}
         disablePdfButton={!handlePdfExportation}
         handlePdfExportation={handlePdfExportationSession}
+        has_coach_access_to_compensation_downloading={
+          props.has_coach_access_to_compensation_downloading
+        }
         hideRuleSetter={props.hideRuleSetter}
         performances={
           props.coachWithPerformance?.performance[COACH_PERFORMANCE_FOR_SESSION]
@@ -150,6 +154,9 @@ export const CoachPerformanceTabPanel = (props: TabPanelProps) => {
         coachPaymentRulesList={coachGroupActivityPaymentRulesList}
         disablePdfButton={!handlePdfExportation}
         handlePdfExportation={handlePdfExportationSession}
+        has_coach_access_to_compensation_downloading={
+          props.has_coach_access_to_compensation_downloading
+        }
         hideRuleSetter={props.hideRuleSetter}
         performances={coachGroupActivityPerformances}
         setSessionCoachPaymentRule={props.setSessionCoachPaymentRule}
@@ -164,6 +171,9 @@ export const CoachPerformanceTabPanel = (props: TabPanelProps) => {
         coachPaymentRulesList={coachWorkshopPaymentRulesList}
         disablePdfButton={!handlePdfExportation}
         handlePdfExportation={handlePdfExportationSession}
+        has_coach_access_to_compensation_downloading={
+          props.has_coach_access_to_compensation_downloading
+        }
         hideRuleSetter={props.hideRuleSetter}
         performances={coachWorkshopPerformances}
         setSessionCoachPaymentRule={props.setSessionCoachPaymentRule}
@@ -178,6 +188,9 @@ export const CoachPerformanceTabPanel = (props: TabPanelProps) => {
         coachPaymentRulesList={coachPrivateServicePaymentRulesList}
         disablePdfButton={!handlePdfExportation}
         handlePdfExportation={handlePdfExportationAppointment}
+        has_coach_access_to_compensation_downloading={
+          props.has_coach_access_to_compensation_downloading
+        }
         hideRuleSetter={props.hideRuleSetter}
         performances={
           props.coachWithPerformance?.performance[
@@ -200,6 +213,9 @@ export const CoachPerformanceTabPanel = (props: TabPanelProps) => {
           coachPaymentRulesList={coachSessionPaymentRulesList}
           disablePdfButton={!handlePdfExportation}
           handlePdfExportation={handlePdfExportationAll}
+          has_coach_access_to_compensation_downloading={
+            props.has_coach_access_to_compensation_downloading
+          }
           hideRuleSetter={props.hideRuleSetter}
           performances={
             props.coachWithPerformance?.performance[
@@ -214,6 +230,9 @@ export const CoachPerformanceTabPanel = (props: TabPanelProps) => {
           asCoach={props.asCoach}
           coach={props.coachWithPerformance}
           coachPaymentRulesList={coachPrivateServicePaymentRulesList}
+          has_coach_access_to_compensation_downloading={
+            props.has_coach_access_to_compensation_downloading
+          }
           hideRuleSetter={props.hideRuleSetter}
           performances={
             props.coachWithPerformance?.performance[
@@ -283,12 +302,17 @@ type TabProps = {
   asCoach?: boolean;
   loading?: boolean;
   displayLastUpdate?: boolean;
+  has_coach_access_to_compensation_downloading?: boolean;
   handlePdfExportation?: (coachId: number, dataToExport: number) => void;
 } & CoachPaymentRuleTabsActions &
   CoachPaymentRuleObjects;
 
 export const CoachPerformanceTabs = (props: TabProps) => {
-  const { coachWithPerformance, loading } = props;
+  const {
+    coachWithPerformance,
+    loading,
+    has_coach_access_to_compensation_downloading,
+  } = props;
   const { performance } = coachWithPerformance;
   const { t } = useTranslation(['paymentRules', 'coachPerformance']);
   const classes = useStyles();
@@ -410,6 +434,9 @@ export const CoachPerformanceTabs = (props: TabProps) => {
         coachPaymentRulesByKind={props.coachPaymentRulesByKind}
         coachWithPerformance={props.coachWithPerformance}
         handlePdfExportation={props.handlePdfExportation ?? undefined}
+        has_coach_access_to_compensation_downloading={
+          has_coach_access_to_compensation_downloading
+        }
         hideRuleSetter={props.hideRuleSetter}
         setSessionCoachPaymentRule={props.setSessionCoachPaymentRule}
         updatePrivateBookingCoachPaymentRule={

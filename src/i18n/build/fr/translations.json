@@ -9817,7 +9817,8 @@
             "margin_value_incl_tax": "Apport marginal TTC",
             "expired_amortized_price_tax_excluded": "Revenu d’expiration HT",
             "expired_amortized_price": "Revenu d’expiration TTC",
-            "margin_value_excl_tax": "Apport marginal HT"
+            "margin_value_excl_tax": "Apport marginal HT",
+            "margin_value_excluding_sales_tax": "Apport marginal HT"
         },
         "yes": "Oui",
         "no": "Non",

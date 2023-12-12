@@ -8414,7 +8414,8 @@
             "sum_margin_value_excluding_sales_tax": "Valor marginal (sem IVA / imposto sobre vendas)",
             "margin_value_pre_tax": "Valor marginal (sem IVA / imposto sobre vendas)",
             "margin_value_excl_tax": "Valor marginal (sem IVA / imposto sobre vendas)",
-            "margin_value_incl_tax": "Valor marginal (incl. IVA / imposto sobre vendas)"
+            "margin_value_incl_tax": "Valor marginal (incl. IVA / imposto sobre vendas)",
+            "margin_value_excluding_sales_tax": "Valor marginal (sem IVA / imposto sobre vendas)"
         },
         "categories": {
             "activityByCoach": "Atividades e workshops por professor",

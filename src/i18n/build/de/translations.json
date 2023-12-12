@@ -6002,7 +6002,8 @@
             "expired_amortized_price_tax_excluded": "Gewinn aus dem Ablauf (ohne MwSt./Umsatzsteuer)",
             "expired_amortized_price": "Gewinn aus Ablauf (inkl. MwSt./Umsatzsteuer)",
             "private_booking_date_created": "Datum und Zeit der Buchung",
-            "booking_date_created": "Datum und Zeit der Buchung"
+            "booking_date_created": "Datum und Zeit der Buchung",
+            "margin_value_excluding_sales_tax": "Marginaler Wert (ohne MwSt./Umsatzsteuer)"
         },
         "no": "Nein",
         "yes": "Ja",

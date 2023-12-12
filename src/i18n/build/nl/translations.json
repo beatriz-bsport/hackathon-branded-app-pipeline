@@ -2855,7 +2855,8 @@
             "margin_value_pre_tax": "Marginale waarde (excl. btw / omzetbelasting)",
             "margin_value_excl_tax": "Marginale waarde (excl. btw / omzetbelasting)",
             "margin_value_incl_tax": "Marginale waarde (incl. btw / omzetbelasting)",
-            "amortized_price_tax_excluded": "Uitgestelde opbrengsten (excl. btw / omzetbelasting)"
+            "amortized_price_tax_excluded": "Uitgestelde opbrengsten (excl. btw / omzetbelasting)",
+            "margin_value_excluding_sales_tax": "Marginale waarde (excl. btw / omzetbelasting)"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{name}}\" wilt verwijderen?"
@@ -6884,6 +6885,11 @@
             "signIn": "Ingecheckt",
             "headOnIn": "Gereed!",
             "visitsLeft": "Resterende bezoeken"
+        },
+        "authenticationDialog": {
+            "error": "Het ingevoerde wachtwoord is ongeldig",
+            "title": "Wijzigen Vestiging",
+            "description": "Om de veiligheid te garanderen, dient u uw identiteit te verifiëren door uw wachtwoord in te voeren voordat u verdergaat met het wijzigen van de vestiging."
         }
     },
     "titles": {
@@ -8296,7 +8302,35 @@
                 "enabled": "Activeer de automatische Zoom-integratie",
                 "label": "Zoom configureren",
                 "explainInvalid": "Ongeldig account",
-                "revoke": "Zoom uitschakelen"
+                "revoke": "Zoom uitschakelen",
+                "establishmentTable": {
+                    "headers": {
+                        "establishment": "Vestiging",
+                        "add": "Toevoegen",
+                        "user": "Gebruiker",
+                        "type": "Type"
+                    },
+                    "emptySelect": "Selecteren",
+                    "removeAction": "Verwijderen"
+                },
+                "memberType": {
+                    "1": "Basis",
+                    "2": "Erkend"
+                },
+                "save": "Wijzigingen opslaan",
+                "resetConfirmationDialog": {
+                    "title": "Weet u zeker dat u uw groeps-ID opnieuw wilt instellen?",
+                    "content": "Al uw vestigingen worden ook gereset."
+                },
+                "multiZoomUserSupport": {
+                    "switchLabel": "Multi-zoom gebruikersondersteuning inschakelen",
+                    "explain": "Start meerdere livestreams tegelijk door uw bsport-vestigingen te koppelen aan verschillende gebruikers van uw Zoom-account."
+                },
+                "zoomGroupId": "Zoom groep ID",
+                "groupActionButton": {
+                    "save": "Opslaan",
+                    "reset": "Reset"
+                }
             },
             "seeUpsell": "Meer informatie"
         },
@@ -10850,6 +10884,13 @@
             "created": {
                 "success": "Zoom-account succesvol gekoppeld",
                 "error": "Fout bij het koppelen van je Zoom-account"
+            },
+            "setGroupId": {
+                "error": "Het is niet mogelijk om deze groep te verbinden. Controleer of het ID correct is en of het beschikbaar is op het Zoom-account dat gekoppeld is aan bsport.",
+                "success": "Zoomgroep succesvol gekoppeld"
+            },
+            "bulkEditZoomEstablishments": {
+                "success": "Wijzigingen zijn opgeslagen"
             }
         },
         "consumerPass": {
@@ -15821,7 +15862,8 @@
                 "marketplaceCheckoutItemListPaymentPack": "Dit onderdeel bevat een lijst van leskaarten. Verfijn het onderdeel \"{{component_name}}\" binnen het specifieke onderdeel van deze Bewerker binnen het tabblad \"{{page}}\".",
                 "marketplaceCheckoutItemListPaymentCombo": "Dit onderdeel bevat een lijst van pakketten. Verfijn het onderdeel \"{{component_name}}\" binnen het specifieke onderdeel van deze Bewerker binnen het tabblad \"{{page}}\".",
                 "marketplaceCheckoutItemListPrivatePass": "Dit onderdeel bevat een lijst van afspraakkaarten. Verfijn het onderdeel \"{{component_name}}\" binnen het specifieke onderdeel van deze Bewerker binnen het tabblad \"{{page}}\".",
-                "marketplaceProductItemListAlert": "Dit onderdeel bevat een lijst van producten. Verfijn het onderdeel \"{{component_name}}\" binnen het specifieke onderdeel van deze Bewerker."
+                "marketplaceProductItemListAlert": "Dit onderdeel bevat een lijst van producten. Verfijn het onderdeel \"{{component_name}}\" binnen het specifieke onderdeel van deze Bewerker.",
+                "selector": "Deze component bestaat uit een label en invoer en een onderschrift. Om het uiterlijk van {{component_name}} aan te passen, raden we aan de hoofdcomponent te gebruiken"
             },
             "page": {
                 "calendar": "Agenda",
@@ -15953,7 +15995,9 @@
                 "fabrique_list": "Lijst",
                 "fabrique_menu": "Menu",
                 "fabrique_bottom_drawer": "Onderste lade",
-                "fabrique_textform": "Tekstvorm"
+                "fabrique_textform": "Tekstvorm",
+                "selector": "Selector",
+                "selector_input": "Selector Input"
             },
             "customCss": {
                 "yourCode": "Je aanvullende implementatie:",

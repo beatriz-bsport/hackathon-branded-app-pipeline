@@ -4824,7 +4824,8 @@
             "sum_margin_value_excluding_sales_tax": "Valor marginal (sin IVA)",
             "margin_value_pre_tax": "Valor marginal (sin IVA)",
             "margin_value_excl_tax": "Valor marginal (sin IVA)",
-            "margin_value_incl_tax": "Valor marginal (IVA / IVA incluido)"
+            "margin_value_incl_tax": "Valor marginal (IVA / IVA incluido)",
+            "margin_value_excluding_sales_tax": "Valor marginal (sin IVA)"
         },
         "payment_method": {
             "cash": "Efectivo",

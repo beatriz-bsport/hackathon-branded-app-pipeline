@@ -7635,7 +7635,8 @@
             "sum_margin_value_excluding_sales_tax": "Valore marginale (IVA escl.)",
             "margin_value_pre_tax": "Valore marginale (IVA escl.)",
             "margin_value_excl_tax": "Valore marginale (IVA escl.)",
-            "margin_value_incl_tax": "Valore marginale (IVA incl.)"
+            "margin_value_incl_tax": "Valore marginale (IVA incl.)",
+            "margin_value_excluding_sales_tax": "Valore marginale (IVA escl.)"
         },
         "payment_method": {
             "dispute": "Contenzioso",

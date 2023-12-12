@@ -17,7 +17,7 @@ export const areAllInCache = (
     (id) =>
       !cachedIds[id] || Date.now() - cachedIds[id] > expirationMilliseconds,
   );
-  return !!idsToRefresh?.length;
+  return !idsToRefresh?.length;
 };
 
 export const prepareCacheKeys = (objectArray: any[]) => {

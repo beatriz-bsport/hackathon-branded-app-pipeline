@@ -36,6 +36,7 @@ import {
 } from '#libs/platform-billing/upsell-identifiers';
 import { FeatureList } from '#libs/company/types';
 import { hasUpsell } from '#libs/platform-billing/utils';
+import CommunicationSMSCostReminderModal from '#libs/communication-v2/CommunicationSMSCostReminderModal.component';
 
 const WRITE_EMAIL = 0;
 const SELECT_EMAIL = 1;
@@ -104,6 +105,7 @@ type State = {
   page_size: number,
   resendCount: number,
   resendDelay: number,
+  isSmsCostReminderModalOpen: boolean,
 };
 const MEMBER_PAGE_SIZE = 5;
 
@@ -123,6 +125,7 @@ export class CommunicationDrawer extends Component<Props, State> {
       page_size: props.page_size || MEMBER_PAGE_SIZE,
       resendCount: 0,
       resendDelay: 0,
+      isSmsCostReminderModalOpen: false,
     };
   }
 
@@ -195,6 +198,21 @@ export class CommunicationDrawer extends Component<Props, State> {
     });
   };
 
+  handleCostReminderModalOnClose = () =>
+    this.setState({ isSmsCostReminderModalOpen: false });
+
+  handleSmsSendingOnClick = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    event.preventDefault();
+    this.props.send({
+      member_blacklist: this.state.unCheckedMembers.phone,
+      sms: this.state.smsContent,
+    });
+    this.onClose();
+    this.props.onCancel();
+  };
+
   renderCommunicationTypeChoice = () => {
     const { classes, t } = this.props;
     return (
@@ -246,11 +264,7 @@ export class CommunicationDrawer extends Component<Props, State> {
               control={
                 <Radio
                   checked={this.state.actionType === SEND_SMS}
-                  disabled={
-                    Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
-                    (!this.props.countWithPhone ||
-                      !hasUpsell(featureList, UPSELL_IDENTIFIER_SMS))
-                  }
+                  disabled={!hasUpsell(featureList, UPSELL_IDENTIFIER_SMS)}
                   onChange={() =>
                     this.setState({
                       actionType: SEND_SMS,
@@ -343,6 +357,7 @@ export class CommunicationDrawer extends Component<Props, State> {
       smsContent: '',
       notificationTitle: '',
       notificationContent: '',
+      isSmsCostReminderModalOpen: false,
     });
   };
 
@@ -433,12 +448,11 @@ export class CommunicationDrawer extends Component<Props, State> {
           email_resend_count: this.state.resendCount,
           email_resend_delay: this.state.resendDelay,
         });
+        this.onClose();
+        this.props.onCancel();
         break;
       case SEND_SMS:
-        this.props.send({
-          member_blacklist: this.state.unCheckedMembers.phone,
-          sms: this.state.smsContent,
-        });
+        this.setState({ isSmsCostReminderModalOpen: true });
         break;
       case SELECT_EMAIL:
         this.props.send({
@@ -448,6 +462,8 @@ export class CommunicationDrawer extends Component<Props, State> {
           email_resend_count: this.state.resendCount,
           email_resend_delay: this.state.resendDelay,
         });
+        this.onClose();
+        this.props.onCancel();
         break;
       case SEND_PUSH_NOTIFICATION:
         this.props.send({
@@ -455,12 +471,14 @@ export class CommunicationDrawer extends Component<Props, State> {
           notification_title: this.state.notificationTitle,
           notification_content: this.state.notificationContent,
         });
+        this.onClose();
+        this.props.onCancel();
         break;
       default:
+        this.onClose();
+        this.props.onCancel();
         break;
     }
-    this.onClose();
-    this.props.onCancel();
   };
 
   getUncheckedMember = () => {
@@ -506,222 +524,234 @@ export class CommunicationDrawer extends Component<Props, State> {
     } = this.props;
 
     return (
-      <GenericResponsiveDrawer
-        onClose={() => {
-          this.onClose();
-          onCancel();
-        }}
-        open={open}
-        title={t('mail.dialogTitle')}
-      >
-        <>
-          <div>
-            <form onSubmit={this.onSubmit}>
-              <GenericResponsiveDialog
-                maxWidth="sm"
-                open={this.state.openRefreshDialog}
-              >
-                <DialogContent>
-                  <p>
-                    {this.state.actionType === SEND_SMS
-                      ? t('mail.refreshTextPhone')
-                      : t('mail.refreshText')}
-                  </p>
-                  <DialogActions>
-                    <Button
-                      color="secondary"
-                      onClick={() =>
-                        this.setState({ openRefreshDialog: false })
-                      }
-                    >
-                      {t('common.cancel')}
-                    </Button>
-                    <Button
-                      color="primary"
-                      onClick={() => document.location.reload(true)}
-                      type="submit"
-                      variant="outlined"
-                    >
-                      {t('common.refresh')}
-                    </Button>
-                  </DialogActions>
-                </DialogContent>
-              </GenericResponsiveDialog>
-              {this.renderCommunicationTypeChoice()}
-              {this.renderConsentWarning()}
-              {!hideMemberList && (
-                <ReceiversCollapseItem
-                  fetchNextPage={() =>
-                    fetchNextPage(page, this.state.page_size)
-                  }
-                  fetchPreviousPage={() =>
-                    fetchPreviousPage(page, this.state.page_size)
-                  }
-                  handleToggle={this.handleToggle}
-                  keyword={
-                    this.state.actionType === SEND_SMS ? 'phone' : 'email'
-                  }
-                  loading={membersAllLoading}
-                  members={membersToDisplay}
-                  membersByPageLoading={membersByPageLoading}
-                  membersCount={this.props.countTotal}
-                  openMemberPage={this.openMemberPage}
-                  page={page}
-                  page_size={this.state.page_size}
-                  receiversNotEditable={receiversNotEditable}
-                  uncheckedMembers={this.getUncheckedMember()}
-                />
-              )}
-              {this.state.actionType === SELECT_EMAIL && !hideTemplateMail && (
-                <SelectTemplate
-                  emailDetailLoading={emailDetailLoading}
-                  emailDetails={emailDetails}
-                  emailListLoading={emailListLoading}
-                  emails={emails.filter(
-                    (email) => !email.is_default_bsport_template,
-                  )}
-                  getEmailDetail={getEmailDetail}
-                  getEmails={getEmails}
-                  mailDefaultTitle={mailDefaultTitle}
-                  onCancel={onCancel}
-                  onChangeTemplate={(id) => {
-                    this.setState({
-                      selectedTemplate: id,
-                      mailTitle: id
-                        ? emails.find((email) => email.id === id).subject
-                        : '',
-                    });
-                  }}
-                  onChangeTitle={(text) => this.setState({ mailTitle: text })}
-                  resolvedGenericTags={resolvedGenericTags}
-                  selectedMail={this.state.selectedTemplate}
-                  title={this.state.mailTitle}
-                />
-              )}
-              {this.state.actionType === WRITE_EMAIL && !hideWrittenMail && (
-                <WriteEmail
-                  mailContent={this.state.mailContent}
-                  onChangeContent={(text) =>
-                    this.setState({ mailContent: text })
-                  }
-                  onChangeTitle={(text) => this.setState({ mailTitle: text })}
-                  title={this.state.mailTitle}
-                />
-              )}
-              {this.state.actionType === SEND_SMS && (
-                <WriteSMS
-                  countReceivers={
-                    this.props.countWithPhone -
-                      this.state.unCheckedMembers.phone?.length || 0
-                  }
-                  onChangeContent={(text) =>
-                    this.setState({ smsContent: text })
-                  }
-                  smsContent={this.state.smsContent}
-                />
-              )}
-              {this.state.actionType === SEND_PUSH_NOTIFICATION && (
-                <WriteNotification
-                  notificationContent={this.state.notificationContent}
-                  notificationTitle={this.state.notificationTitle}
-                  onNotificationContentChange={(text) => {
-                    this.setState({ notificationContent: text });
-                  }}
-                  onNotificationTitleChange={(text) => {
-                    this.setState({ notificationTitle: text });
-                  }}
-                />
-              )}
-
-              {!hideAutoResend &&
-                [WRITE_EMAIL, SELECT_EMAIL].includes(this.state.actionType) && (
-                  <div className={classes.resendSectionContainer}>
-                    <div className={classes.sectionTitle}>
-                      <RepeatIcon className={classes.sectionTitleIcon} />
-                      <Typography variant="h6">
-                        {t('resendSection.title')}
-                      </Typography>
-                    </div>
-                    <div className={classes.inputContainer}>
-                      <TextField
-                        fullWidth
-                        helperText={t('resendSection.resendCount.helperText')}
-                        inputProps={{ min: 0, max: 5 }}
-                        label={t('resendSection.resendCount.label')}
-                        onChange={this.getInputChangeHandler(
-                          'resendCount',
-                          0,
-                          5,
-                        )}
-                        type="number"
-                        value={this.state.resendCount}
-                      />
-                    </div>
-
-                    <div className={classes.inputContainer}>
-                      <TextField
-                        fullWidth
-                        helperText={t('resendSection.resendDelay.helperText')}
-                        InputProps={{
-                          endAdornment: (
-                            <InputAdornment
-                              className={classes.adornment}
-                              position="end"
-                            >
-                              <Typography>
-                                {t('common:day', {
-                                  count: this.state.resendDelay,
-                                })}
-                              </Typography>
-                            </InputAdornment>
-                          ),
-                          inputProps: { min: 0, max: 180 },
-                        }}
-                        label={t('resendSection.resendDelay.label')}
-                        onChange={this.getInputChangeHandler(
-                          'resendDelay',
-                          0,
-                          180,
-                        )}
-                        type="number"
-                        value={this.state.resendDelay}
-                      />
-                    </div>
-                  </div>
+      <>
+        <GenericResponsiveDrawer
+          onClose={() => {
+            this.onClose();
+            onCancel();
+          }}
+          open={open}
+          title={t('mail.dialogTitle')}
+        >
+          <>
+            <div>
+              <form onSubmit={this.onSubmit}>
+                <GenericResponsiveDialog
+                  maxWidth="sm"
+                  open={this.state.openRefreshDialog}
+                >
+                  <DialogContent>
+                    <p>
+                      {this.state.actionType === SEND_SMS
+                        ? t('mail.refreshTextPhone')
+                        : t('mail.refreshText')}
+                    </p>
+                    <DialogActions>
+                      <Button
+                        color="secondary"
+                        onClick={() =>
+                          this.setState({ openRefreshDialog: false })
+                        }
+                      >
+                        {t('common.cancel')}
+                      </Button>
+                      <Button
+                        color="primary"
+                        onClick={() => document.location.reload(true)}
+                        type="submit"
+                        variant="outlined"
+                      >
+                        {t('common.refresh')}
+                      </Button>
+                    </DialogActions>
+                  </DialogContent>
+                </GenericResponsiveDialog>
+                {this.renderCommunicationTypeChoice()}
+                {this.renderConsentWarning()}
+                {!hideMemberList && (
+                  <ReceiversCollapseItem
+                    fetchNextPage={() =>
+                      fetchNextPage(page, this.state.page_size)
+                    }
+                    fetchPreviousPage={() =>
+                      fetchPreviousPage(page, this.state.page_size)
+                    }
+                    handleToggle={this.handleToggle}
+                    keyword={
+                      this.state.actionType === SEND_SMS ? 'phone' : 'email'
+                    }
+                    loading={membersAllLoading}
+                    members={membersToDisplay}
+                    membersByPageLoading={membersByPageLoading}
+                    membersCount={this.props.countTotal}
+                    openMemberPage={this.openMemberPage}
+                    page={page}
+                    page_size={this.state.page_size}
+                    receiversNotEditable={receiversNotEditable}
+                    uncheckedMembers={this.getUncheckedMember()}
+                  />
                 )}
-              {/* TODO translate */}
-              {!!this.props.memberToDisplayError &&
-                !this.props.membersByPageLoading && (
-                  <Alert className={classes.alertCentered} severity="warning">
-                    {`We are currently encountering a problem loading the members
+                {this.state.actionType === SELECT_EMAIL &&
+                  !hideTemplateMail && (
+                    <SelectTemplate
+                      emailDetailLoading={emailDetailLoading}
+                      emailDetails={emailDetails}
+                      emailListLoading={emailListLoading}
+                      emails={emails.filter(
+                        (email) => !email.is_default_bsport_template,
+                      )}
+                      getEmailDetail={getEmailDetail}
+                      getEmails={getEmails}
+                      mailDefaultTitle={mailDefaultTitle}
+                      onCancel={onCancel}
+                      onChangeTemplate={(id) => {
+                        this.setState({
+                          selectedTemplate: id,
+                          mailTitle: id
+                            ? emails.find((email) => email.id === id).subject
+                            : '',
+                        });
+                      }}
+                      onChangeTitle={(text) =>
+                        this.setState({ mailTitle: text })
+                      }
+                      resolvedGenericTags={resolvedGenericTags}
+                      selectedMail={this.state.selectedTemplate}
+                      title={this.state.mailTitle}
+                    />
+                  )}
+                {this.state.actionType === WRITE_EMAIL && !hideWrittenMail && (
+                  <WriteEmail
+                    mailContent={this.state.mailContent}
+                    onChangeContent={(text) =>
+                      this.setState({ mailContent: text })
+                    }
+                    onChangeTitle={(text) => this.setState({ mailTitle: text })}
+                    title={this.state.mailTitle}
+                  />
+                )}
+                {this.state.actionType === SEND_SMS && (
+                  <WriteSMS
+                    countReceivers={
+                      this.props.countWithPhone -
+                        this.state.unCheckedMembers.phone?.length || 0
+                    }
+                    onChangeContent={(text) =>
+                      this.setState({ smsContent: text })
+                    }
+                    smsContent={this.state.smsContent}
+                  />
+                )}
+                {this.state.actionType === SEND_PUSH_NOTIFICATION && (
+                  <WriteNotification
+                    notificationContent={this.state.notificationContent}
+                    notificationTitle={this.state.notificationTitle}
+                    onNotificationContentChange={(text) => {
+                      this.setState({ notificationContent: text });
+                    }}
+                    onNotificationTitleChange={(text) => {
+                      this.setState({ notificationTitle: text });
+                    }}
+                  />
+                )}
+
+                {!hideAutoResend &&
+                  [WRITE_EMAIL, SELECT_EMAIL].includes(
+                    this.state.actionType,
+                  ) && (
+                    <div className={classes.resendSectionContainer}>
+                      <div className={classes.sectionTitle}>
+                        <RepeatIcon className={classes.sectionTitleIcon} />
+                        <Typography variant="h6">
+                          {t('resendSection.title')}
+                        </Typography>
+                      </div>
+                      <div className={classes.inputContainer}>
+                        <TextField
+                          fullWidth
+                          helperText={t('resendSection.resendCount.helperText')}
+                          inputProps={{ min: 0, max: 5 }}
+                          label={t('resendSection.resendCount.label')}
+                          onChange={this.getInputChangeHandler(
+                            'resendCount',
+                            0,
+                            5,
+                          )}
+                          type="number"
+                          value={this.state.resendCount}
+                        />
+                      </div>
+
+                      <div className={classes.inputContainer}>
+                        <TextField
+                          fullWidth
+                          helperText={t('resendSection.resendDelay.helperText')}
+                          InputProps={{
+                            endAdornment: (
+                              <InputAdornment
+                                className={classes.adornment}
+                                position="end"
+                              >
+                                <Typography>
+                                  {t('common:day', {
+                                    count: this.state.resendDelay,
+                                  })}
+                                </Typography>
+                              </InputAdornment>
+                            ),
+                            inputProps: { min: 0, max: 180 },
+                          }}
+                          label={t('resendSection.resendDelay.label')}
+                          onChange={this.getInputChangeHandler(
+                            'resendDelay',
+                            0,
+                            180,
+                          )}
+                          type="number"
+                          value={this.state.resendDelay}
+                        />
+                      </div>
+                    </div>
+                  )}
+                {/* TODO translate */}
+                {!!this.props.memberToDisplayError &&
+                  !this.props.membersByPageLoading && (
+                    <Alert className={classes.alertCentered} severity="warning">
+                      {`We are currently encountering a problem loading the members
                     within this smart list. Please note that you won't be able
                     to preview the number of members that will be reached by
                     this communication.`}
-                  </Alert>
-                )}
-              <DialogActions>
-                <Button
-                  color="secondary"
-                  onClick={() => {
-                    this.onClose();
-                    onCancel();
-                  }}
-                >
-                  {t('common.cancel')}
-                </Button>
-                <Button
-                  color="primary"
-                  disabled={this.checkErrors()}
-                  type="submit"
-                  variant="outlined"
-                >
-                  {t('common.submit')}
-                </Button>
-              </DialogActions>
-            </form>
-          </div>
-        </>
-      </GenericResponsiveDrawer>
+                    </Alert>
+                  )}
+                <DialogActions>
+                  <Button
+                    color="secondary"
+                    onClick={() => {
+                      this.onClose();
+                      onCancel();
+                    }}
+                  >
+                    {t('common.cancel')}
+                  </Button>
+                  <Button
+                    color="primary"
+                    disabled={this.checkErrors()}
+                    type="submit"
+                    variant="outlined"
+                  >
+                    {t('common.submit')}
+                  </Button>
+                </DialogActions>
+              </form>
+            </div>
+          </>
+        </GenericResponsiveDrawer>
+        <CommunicationSMSCostReminderModal
+          handleClose={this.handleCostReminderModalOnClose}
+          open={this.state.isSmsCostReminderModalOpen}
+          sendMessageOnClick={this.handleSmsSendingOnClick}
+        />
+      </>
     );
   }
 }

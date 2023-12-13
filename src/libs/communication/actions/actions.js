@@ -9,13 +9,18 @@ import {
   fetchPushNotificationAvailableMember as fetchPushNotificationAvailableMemberAPI,
   fetchRecipientListExport as fetchRecipientListExportAPI,
   fetchRecipientListExportLink as fetchRecipientListExportLinkAPI,
+  fetchRecipientsNumberAllCampaignsIncluded as fetchRecipientsNumberAllCampaignsIncludedAPI,
+  exportSmartlistCampaignsBackgroundTask as exportSmartlistCampaignsBackgroundTaskAPI,
+  fetchLatestCampaignExportLink as fetchLatestCampaignExportLinkAPI,
 } from '../api';
 
 import type {
   Dispatch,
   ThunkAction,
   OptionCallback,
+  OptionBackgroundCallback,
 } from '../../../state/types';
+import type { CampaignExportStartEndDates } from '../types';
 
 import { snackbarSuccess, snackbarError } from '../../snackbar/actions';
 import { monitorBackgroundTask } from '../../background-task/actions';
@@ -396,5 +401,124 @@ export function fetchRecipientListExportLink(id, options) {
       }
     }
     dispatch(fetchRecipientListExportLinkActions.isLoading(false));
+  };
+}
+
+export const fetchRecipientsNumberAllCampaignsIncludedActions = {
+  error: createAction(
+    'SMART-LIST/FETCH_RECIPIENTS_NUMBER_ALL_CAMPAIGNS_INCLUDED/ERROR',
+  ),
+  isLoading: createAction(
+    'SMART-LIST/FETCH_RECIPIENTS_NUMBER_ALL_CAMPAIGNS_INCLUDED/LOADING',
+  ),
+  success: createAction(
+    'SMART-LIST/FETCH_RECIPIENTS_NUMBER_ALL_CAMPAIGNS_INCLUDED/SUCCESS',
+  ),
+};
+
+export function fetchRecipientsNumberAllCampaignsIncluded(
+  data: { smartlistId: number, dates: CampaignExportStartEndDates },
+  options: OptionCallback<boolean>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchRecipientsNumberAllCampaignsIncludedActions.isLoading(true));
+    dispatch(fetchRecipientsNumberAllCampaignsIncludedActions.error(null));
+    try {
+      const response = await fetchRecipientsNumberAllCampaignsIncludedAPI(data);
+      dispatch(
+        fetchRecipientsNumberAllCampaignsIncludedActions.success(
+          response?.data,
+        ),
+      );
+      options?.onSuccess?.({
+        isExportable: response?.data?.xlsx_exportable,
+      });
+      dispatch(
+        fetchRecipientsNumberAllCampaignsIncludedActions.isLoading(false),
+      );
+    } catch (error) {
+      dispatch(fetchRecipientsNumberAllCampaignsIncludedActions.error(error));
+      console.error(error);
+      options?.onError?.(error);
+    }
+    dispatch(fetchRecipientsNumberAllCampaignsIncludedActions.isLoading(false));
+  };
+}
+
+export const exportSmartlistCampaignsBackgroundTaskActions = {
+  error: createAction(
+    'SMART-LIST/ALL_CAMPAIGNS_REPORT_EXPORT_BACKGROUND/ERROR',
+  ),
+  isLoading: createAction(
+    'SMART-LIST/ALL_CAMPAIGNS_REPORT_EXPORT_BACKGROUND/LOADING',
+  ),
+  success: createAction(
+    'SMART-LIST/ALL_CAMPAIGNS_REPORT_EXPORT_BACKGROUND/SUCCESS',
+  ),
+};
+
+export function exportSmartlistCampaignsBackgroundTask(
+  data: { smartlistId: number, dates: CampaignExportStartEndDates },
+  options?: OptionBackgroundCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(exportSmartlistCampaignsBackgroundTaskActions.isLoading(true));
+    dispatch(exportSmartlistCampaignsBackgroundTaskActions.error(null));
+    try {
+      const response = await exportSmartlistCampaignsBackgroundTaskAPI(data);
+      const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+      dispatch(
+        monitorBackgroundTask(backgroundTaskUuid, {
+          onSuccess: options?.onBackgroundSuccess,
+          onError: (error) => {
+            dispatch(
+              exportSmartlistCampaignsBackgroundTaskActions.error(error),
+            );
+            options?.onBackgroundError?.();
+          },
+        }),
+      );
+      dispatch(exportSmartlistCampaignsBackgroundTaskActions.success());
+      options?.onSuccess();
+    } catch (err) {
+      dispatch(exportSmartlistCampaignsBackgroundTaskActions.error(err));
+      options?.onError?.(err);
+    }
+    dispatch(exportSmartlistCampaignsBackgroundTaskActions.isLoading(false));
+  };
+}
+
+export const fetchLatestCampaignExportLinkActions = {
+  error: createAction('SMART-LIST/LATEST_CAMPAIGN_EXPORT_LINK/ERROR'),
+  isLoading: createAction('SMART-LIST/LATEST_CAMPAIGN_EXPORT_LINK/LOADING'),
+  success: createAction('SMART-LIST/LATEST_CAMPAIGN_EXPORT_LINK/SUCCESS'),
+};
+
+export function fetchLatestCampaignExportLink(
+  smartlistId: number,
+  options?: OptionCallback<string>,
+) {
+  // the data is formatted with the date of the generation of the csv in this format 'date_created|export_link'
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchLatestCampaignExportLinkActions.isLoading(true));
+    dispatch(fetchLatestCampaignExportLinkActions.error(null));
+    try {
+      const response = await fetchLatestCampaignExportLinkAPI(smartlistId);
+      if (response.data.includes('|')) {
+        const dateAndLink = response.data.split('|');
+        dispatch(
+          fetchLatestCampaignExportLinkActions.success({
+            date: dateAndLink[0],
+            link: dateAndLink[1],
+          }),
+        );
+      }
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      dispatch(fetchLatestCampaignExportLinkActions.error(err));
+      console.error(err);
+      options?.onError?.(err);
+    }
+    dispatch(fetchLatestCampaignExportLinkActions.isLoading(false));
   };
 }

@@ -1,4 +1,4 @@
-import { PaginatedResponse } from '../../state/types';
+import type { PaginatedResponse } from '../../state/types';
 import {
   API_V1_URI,
   postAuth,
@@ -15,6 +15,8 @@ import type {
   FetchRecipientListByCommunicationSentGroupRealParams,
   FetchCommunicationSentGroupConfigCommunicationSentGroupParams,
   Recipient,
+  RecipientsNumberAndExportable,
+  CampaignExportStartEndDates,
 } from './types';
 
 export const sendCommunication = (data: any) => {
@@ -174,5 +176,39 @@ export const fetchCommunicationSentGroupRecipientListExportLink = (
 ) => {
   return getAuth<string>(
     `${API_V1_URI}/communication/communication-sent-group/${id}/get-export/`,
+  );
+};
+
+export const fetchRecipientsNumberAllCampaignsIncluded = ({
+  smartlistId,
+  dates,
+}: {
+  smartlistId: number;
+  dates: CampaignExportStartEndDates;
+}) => {
+  return getAuth<RecipientsNumberAndExportable>(
+    `${API_V1_URI}/smartlist/group/${smartlistId}/recipient-count/${buildUrlParams(
+      dates,
+    )}`,
+  );
+};
+
+export const exportSmartlistCampaignsBackgroundTask = ({
+  smartlistId,
+  dates,
+}: {
+  smartlistId: number;
+  dates: CampaignExportStartEndDates;
+}) => {
+  return postAuth(
+    `${API_V1_URI}/smartlist/group/${smartlistId}/export-campaigns-background/${buildUrlParams(
+      dates,
+    )}`,
+  );
+};
+
+export const fetchLatestCampaignExportLink = (smartlistId: number) => {
+  return getAuth<string>(
+    `${API_V1_URI}/smartlist/group/${smartlistId}/latest_campaign_export_link/`,
   );
 };

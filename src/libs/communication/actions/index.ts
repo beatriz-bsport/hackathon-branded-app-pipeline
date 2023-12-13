@@ -9,6 +9,9 @@ import {
   fetchNotificationRecipientBulk,
   fetchRecipientListExport,
   fetchRecipientListExportLink,
+  fetchRecipientsNumberAllCampaignsIncluded,
+  exportSmartlistCampaignsBackgroundTask,
+  fetchLatestCampaignExportLink,
   fetchCampaignByMember,
   fetchCampaignSmartlistAutomated,
   fetchRecipientByCampaign,
@@ -25,6 +28,9 @@ import {
   marketingNotificationCampaignDetailActions,
   pushNotificationRecipientBulkActions,
   fetchRecipientListExportLinkActions,
+  fetchRecipientsNumberAllCampaignsIncludedActions,
+  exportSmartlistCampaignsBackgroundTaskActions,
+  fetchLatestCampaignExportLinkActions,
   // @ts-expect-error
 } from './actions';
 
@@ -73,6 +79,9 @@ export {
   fetchNotificationRecipientBulk,
   fetchRecipientListExport,
   fetchRecipientListExportLink,
+  fetchRecipientsNumberAllCampaignsIncluded,
+  exportSmartlistCampaignsBackgroundTask,
+  fetchLatestCampaignExportLink,
   fetchCampaignByMember,
   fetchCampaignSmartlistAutomated,
   fetchRecipientByCampaign,
@@ -89,6 +98,9 @@ export {
   marketingNotificationCampaignDetailActions,
   pushNotificationRecipientBulkActions,
   fetchRecipientListExportLinkActions,
+  fetchRecipientsNumberAllCampaignsIncludedActions,
+  exportSmartlistCampaignsBackgroundTaskActions,
+  fetchLatestCampaignExportLinkActions,
 
   // CommunicationSentGroupConfig communication actions
   sendGroupedCommunication,

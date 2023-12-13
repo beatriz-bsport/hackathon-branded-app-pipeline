@@ -157,3 +157,23 @@ export const getAllCommunicationSentGroup = createSelector(
 export const getCommunicationSentGroupReport = (state: RootState) =>
   _getCommunicationSentGroupConfigState(state).communicationSentGroup.report
     .data;
+
+export const _getReportExportState = (state: RootState) =>
+  state.communication.reportExport;
+
+export const getCsvExportAllCampaignsLink = (state: RootState): string | null =>
+  _getReportExportState(state)?.exportLink;
+
+export const getCsvExportAllCampaignsDate = (state: RootState): string | null =>
+  _getReportExportState(state)?.exportDate;
+
+export const getCsvExportAllCampaignsRecipientCount = (
+  state: RootState,
+): number | null => _getReportExportState(state)?.recipientsCount;
+
+export const getCsvExportAllCampaignsIsXlsxExportable = (
+  state: RootState,
+): boolean => _getReportExportState(state)?.isExportable;
+
+export const getCsvExportAllCampaignsIsLoading = (state: RootState): boolean =>
+  _getReportExportState(state)?.loading;

@@ -65,21 +65,14 @@ export type Report = {
 
 export type MailState = {
   recipient: {
-    isloading: boolean;
-    error?: Error;
     byId: { [id: number]: Recipient };
-    bulk: {
-      loading: boolean;
-      error?: Error;
-    };
+    bulk: ErrorAndLoading;
     byCampaign: {
       allIds: Array<number>;
-      loading: boolean;
-      error?: Error;
       page?: number;
       count: number;
-    };
-  };
+    } & ErrorAndLoading;
+  } & ErrorAndLoading;
   marketingNotification: ErrorAndLoading & {
     byId: { [key: string]: MarketingNotificationMailStat };
   };
@@ -87,25 +80,19 @@ export type MailState = {
     byId: { [uuid: string]: Campaign };
     report: {
       data?: Report;
-      loading: boolean;
-      error?: Error;
-    };
+    } & ErrorAndLoading;
     bySmartlist: {
       allIds: Array<string>;
-      loading: boolean;
-      error?: Error;
       page?: number;
       next_page?: number;
       count: number;
-    };
+    } & ErrorAndLoading;
     byMember: {
       allIds: Array<string>;
-      loading: boolean;
-      error?: Error;
       page?: number;
       next_page?: number;
       count: number;
-    };
+    } & ErrorAndLoading;
     export: {
       link: string | null;
     } & ErrorAndLoading;
@@ -114,15 +101,19 @@ export type MailState = {
     byId: { [uuid: string]: Campaign };
     bySmartlist: {
       allIds: Array<string>;
-      loading: boolean;
-      error?: Error;
       page?: number;
       next_page?: number;
       count: number;
-    };
+    } & ErrorAndLoading;
   };
   availablePushNotificationRecipient: {
     allIds: number[];
+  } & ErrorAndLoading;
+  reportExport: {
+    recipientsCount?: number;
+    isExportable?: boolean;
+    exportLink?: string;
+    exportDate?: string;
   } & ErrorAndLoading;
 };
 
@@ -251,4 +242,14 @@ export type FetchRecipientListByCommunicationSentGroupRealParams = {
 export type CommunicationSentGroupReport = {
   last_open?: string;
   top_links: { [key: string]: number };
+};
+
+export type CampaignExportStartEndDates = {
+  start_date: string;
+  end_date: string;
+};
+
+export type RecipientsNumberAndExportable = {
+  recipient_count: number;
+  xlsx_exportable: boolean;
 };

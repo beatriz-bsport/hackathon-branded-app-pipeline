@@ -14,9 +14,12 @@ import {
   marketingNotificationCampaignDetailActions,
   pushNotificationRecipientBulkActions,
   fetchRecipientListExportLinkActions,
+  fetchRecipientsNumberAllCampaignsIncludedActions,
+  exportSmartlistCampaignsBackgroundTaskActions,
+  fetchLatestCampaignExportLinkActions,
 } from '../actions';
 
-import type { MailState } from '../types';
+import type { MailState, RecipientsNumberAndExportable } from '../types';
 
 const initialState: MailState = Immutable({
   recipient: {
@@ -85,6 +88,14 @@ const initialState: MailState = Immutable({
     allIds: [],
     loading: false,
     error: null,
+  },
+  reportExport: {
+    loading: false,
+    error: null,
+    recipientsCount: 0,
+    isExportable: false,
+    exportLink: null,
+    exportDate: null,
   },
 });
 
@@ -311,6 +322,65 @@ export default handleActions(
       { payload },
     ) => {
       return state.setIn(['campaign', 'export', 'link'], payload);
+    },
+
+    [fetchRecipientsNumberAllCampaignsIncludedActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['reportExport', 'loading'], payload);
+    },
+    [fetchRecipientsNumberAllCampaignsIncludedActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['reportExport', 'error'], payload);
+    },
+    [fetchRecipientsNumberAllCampaignsIncludedActions.success.toString()]: (
+      state,
+      { payload }: { payload: RecipientsNumberAndExportable },
+    ) => {
+      return state
+        .setIn(['reportExport', 'recipientsCount'], payload.recipient_count)
+        .setIn(['reportExport', 'isExportable'], payload.xlsx_exportable);
+    },
+    [exportSmartlistCampaignsBackgroundTaskActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['reportExport', 'loading'], payload);
+    },
+    [exportSmartlistCampaignsBackgroundTaskActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['reportExport', 'error'], payload);
+    },
+    [exportSmartlistCampaignsBackgroundTaskActions.success.toString()]: (
+      state,
+    ) => {
+      return state.setIn(['reportExport', 'error'], null);
+    },
+
+    [fetchLatestCampaignExportLinkActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['reportExport', 'loading'], payload);
+    },
+    [fetchLatestCampaignExportLinkActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['reportExport', 'error'], payload);
+    },
+    [fetchLatestCampaignExportLinkActions.success.toString()]: (
+      state,
+      { payload }: { payload: { link: string, date: string } },
+    ) => {
+      return state
+        .setIn(['reportExport', 'exportDate'], payload.date)
+        .setIn(['reportExport', 'exportLink'], payload.link);
     },
   },
   initialState,

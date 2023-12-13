@@ -107,6 +107,7 @@ import {
   deletePrivatePassTemplate as deletePrivatePassTemplateAPI,
   createPrivatePassTemplateInstance as createPrivatePassTemplateInstanceAPI,
   deletePrivatePassTemplateInstance as deletePrivatePassTemplateInstanceAPI,
+  updatePrivateBooking as updatePrivateBookingAPI,
 } from './api';
 
 import { monitorBackgroundTask } from '../background-task/actions';
@@ -2943,5 +2944,26 @@ export function checkPrivateSlotUnpaidBookingEligibility(
       if (options && options.onError) options.onError();
     }
     dispatch(privateSlotCheckUnpaidBookingEligibilityActions.isLoading(false));
+  };
+}
+
+export function updatePrivateBooking(
+  privateBookingId: number,
+  data: Partial<PrivateBooking>,
+  options?: OptionCallback,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(privateBookingCreateOrUpdateActions.isLoading(true));
+    try {
+      const response = await updatePrivateBookingAPI(privateBookingId, data);
+      dispatch(privateBookingCreateOrUpdateActions.success(response.data));
+      dispatch(snackbarSuccess('dashboard.save.success'));
+      options?.onSuccess(response.data);
+    } catch (error) {
+      dispatch(privateBookingCreateOrUpdateActions.error(error));
+      dispatch(snackbarError('dashboard.save.error'));
+      options?.onError(error);
+    }
+    dispatch(privateBookingCreateOrUpdateActions.isLoading(false));
   };
 }

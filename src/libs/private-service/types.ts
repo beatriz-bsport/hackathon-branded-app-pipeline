@@ -255,6 +255,7 @@ export type PrivateBooking<
   is_unpaid: boolean;
   recurrence_rule_private_booking: RecurrenceRulePrivateBooking;
   staff_history: StaffHistory;
+  internal_note?: string;
 };
 
 export type PrivateBookingPreview = {

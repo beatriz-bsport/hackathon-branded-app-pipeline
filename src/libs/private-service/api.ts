@@ -10,7 +10,7 @@ import {
   API_V1_URI,
   postBaseAuth,
 } from '../../http';
-import { PrivatePassCategory } from './types';
+import type { PrivateBooking, PrivatePassCategory } from './types';
 
 export const fetchAvailabilitySlots = (params: any = {}) => {
   return getAuth(
@@ -786,5 +786,15 @@ export async function deletePrivatePassTemplateInstance(id: number) {
 export async function deletePrivatePassTemplate(id: number) {
   return deleteAuth(
     `${API_V1_URI}/private_service/private-pass-template/${id}/`,
+  );
+}
+
+export async function updatePrivateBooking(
+  id: number,
+  data: Partial<PrivateBooking>,
+) {
+  return patchAuth<PrivateBooking>(
+    `${API_V1_URI}/private_service/private_booking/${id}/`,
+    data,
   );
 }

@@ -235,9 +235,14 @@ export const PrivateBookingCard = (props: Props) => {
         requiredPermission={[
           'reservation.privateBooking.allowed_actions.edit',
           'billing.allowed_actions.readInvoices',
+          'session.privateSlot.allowed_actions.viewNotes',
         ]}
       >
-        {([hasEditPrivateBookingPermission, hasReadInvoicePermission]) => (
+        {([
+          hasEditPrivateBookingPermission,
+          hasReadInvoicePermission,
+          hasEditNotesPermission,
+        ]) => (
           <div className={classes.container}>
             <div className={classes.header}>
               <div className={classes.headerLeft}>
@@ -371,10 +376,10 @@ export const PrivateBookingCard = (props: Props) => {
                 noDivider
                 initialValue={props.private_booking?.internal_note}
                 onSubmit={props.editInternalNote}
-                // TODO: PERMISSIONS
+                permissionType="privateSlot"
               />
             </div>
-            <Divider className={classes.divider} />
+            {hasEditNotesPermission && <Divider className={classes.divider} />}
             {hasReadInvoicePermission &&
             props.unpaidInvoiceList &&
             props.unpaidInvoiceList.length ? (

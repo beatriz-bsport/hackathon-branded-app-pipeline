@@ -1062,7 +1062,12 @@ export class OfferManagement extends Component<Props, State> {
             initialValue={this.props.offer?.internal_note}
             isLoading={this.props.offerLoading}
             onSubmit={this.handleEditInternalNote}
-            // TODO: permissions
+            permissionType={
+              this.props.getOfferMetaActivity(this.props.offer.meta_activity_id)
+                ?.is_workshop
+                ? 'workshop'
+                : 'activity'
+            }
           />
 
           {!!this.props.offer.room_blueprint && (

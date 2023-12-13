@@ -176,10 +176,32 @@ export const UUID_REGEX = `[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA
 
 export const DEFAULT_OBJECT_LEVEL_PERMISSIONS: ObjectLevelPermissions = {
   session: {
-    activity: { allowed_actions: { create: true, edit: true, delete: true } },
-    workshop: { allowed_actions: { create: true, edit: true, delete: true } },
+    activity: {
+      allowed_actions: {
+        create: true,
+        edit: true,
+        delete: true,
+        viewNotes: true,
+        editNotes: true,
+      },
+    },
+    workshop: {
+      allowed_actions: {
+        create: true,
+        edit: true,
+        delete: true,
+        viewNotes: true,
+        editNotes: true,
+      },
+    },
     privateSlot: {
-      allowed_actions: { create: true, edit: true, delete: true },
+      allowed_actions: {
+        create: true,
+        edit: true,
+        delete: true,
+        viewNotes: true,
+        editNotes: true,
+      },
     },
   },
   member: {

@@ -132,13 +132,31 @@ export type RolePermission = {
 export type ObjectLevelPermissions = {
   session: {
     activity: {
-      allowed_actions: { create: boolean; edit: boolean; delete: boolean };
+      allowed_actions: {
+        create: boolean;
+        edit: boolean;
+        delete: boolean;
+        viewNotes: boolean;
+        editNotes: boolean;
+      };
     };
     workshop: {
-      allowed_actions: { create: boolean; edit: boolean; delete: boolean };
+      allowed_actions: {
+        create: boolean;
+        edit: boolean;
+        delete: boolean;
+        viewNotes: boolean;
+        editNotes: boolean;
+      };
     };
     privateSlot: {
-      allowed_actions: { create: boolean; edit: boolean; delete: boolean };
+      allowed_actions: {
+        create: boolean;
+        edit: boolean;
+        delete: boolean;
+        viewNotes: boolean;
+        editNotes: boolean;
+      };
     };
   };
   member: {

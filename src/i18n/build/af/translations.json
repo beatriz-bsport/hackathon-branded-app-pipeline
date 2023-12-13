@@ -9144,15 +9144,33 @@
       },
       "session": {
         "privateSlot": {
-          "allowed_actions": { "delete": { "_label": "Delete" }, "edit": { "_label": "Edit" }, "create": { "_label": "Create" } },
+          "allowed_actions": {
+            "delete": { "_label": "Delete" },
+            "edit": { "_label": "Edit" },
+            "create": { "_label": "Create" },
+            "viewNotes": { "_label": "View notes" },
+            "editNotes": { "_label": "Edit notes" }
+          },
           "_label": "Appointment slots"
         },
         "workshop": {
-          "allowed_actions": { "delete": { "_label": "Delete" }, "edit": { "_label": "Edit" }, "create": { "_label": "Create" } },
+          "allowed_actions": {
+            "delete": { "_label": "Delete" },
+            "edit": { "_label": "Edit" },
+            "create": { "_label": "Create" },
+            "viewNotes": { "_label": "View notes" },
+            "editNotes": { "_label": "Edit notes" }
+          },
           "_label": "Workshops"
         },
         "activity": {
-          "allowed_actions": { "delete": { "_label": "Delete" }, "edit": { "_label": "Edit" }, "create": { "_label": "Create" } },
+          "allowed_actions": {
+            "delete": { "_label": "Delete" },
+            "edit": { "_label": "Edit" },
+            "create": { "_label": "Create" },
+            "viewNotes": { "_label": "View notes" },
+            "editNotes": { "_label": "Edit notes" }
+          },
           "_label": "Activities"
         },
         "_label": "Session management"

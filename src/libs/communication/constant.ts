@@ -7,3 +7,7 @@ export enum SenderEmailKind {
   franchisee = 'franchisee',
   customEmail = 'customEmail',
 }
+
+export const ONE_MILLION = 1000000;
+export const TEN_THOUSANDS = 10000;
+export const ONE_HUNDRED = 1000000;

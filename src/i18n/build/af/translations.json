@@ -1087,7 +1087,15 @@
         "onJoin": "When joining a Smartlist"
       },
       "automatedTitle": "Automatic submissions",
-      "manualTitle": "Manual submissions"
+      "manualTitle": "Manual submissions",
+      "exportCampaigns": {
+        "title": "Export Campaigns",
+        "dialogTitle": "Recipient Limit Exceeded",
+        "dialogContent": "This report has ~{{ count }} million recipient rows, surpassing the xlsx sheet limit of 1 million. To include recipients, please decrease the date range to reduce the count.",
+        "dialogContentSurplus": "The limit is exceeded by {{ difference_count }} rows.",
+        "dialogContentAlternative": "Alternatively, click 'generate anyway' to generate the report without the recipients sheet.",
+        "dialogButtonGenerateAnyway": "Generate anyway"
+      }
     },
     "recipient": {
       "readCount": "Opened",
@@ -10812,7 +10820,9 @@
     },
     "generateExport": "Generate export",
     "generateHelperText": "Generate export to download smartlist",
-    "lastGenerated": "Last export generated on : {{-date}} {{time}}"
+    "lastGenerated": "Last export generated on : {{-date}} {{time}}",
+    "generateReport": "Generate report",
+    "downloadReport": "Download report"
   },
   "snackbar": {
     "communication": { "error": "Error while sending email", "success": "Mail being sent" },
@@ -13754,7 +13764,8 @@
     "errors": {
       "start_after_end": "The start date must occur before the end date.",
       "end_before_start": "The end date must occur after the start date.",
-      "invalidUrl": "Invalid URL (requested format: http://www.test.com)"
+      "invalidUrl": "Invalid URL (requested format: http://www.test.com)",
+      "endBeforeCurrent": "The end date must occur before the current date."
     },
     "paymentMethod": {
       "OTHER": "Other",

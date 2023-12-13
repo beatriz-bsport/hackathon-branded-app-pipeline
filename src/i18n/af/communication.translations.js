@@ -192,6 +192,17 @@ const getTranslations = async () => {
       },
       automatedTitle: 'Automatic submissions',
       manualTitle: 'Manual submissions',
+      exportCampaigns: {
+        title: 'Export Campaigns',
+        dialogTitle: 'Recipient Limit Exceeded',
+        dialogContent:
+          'This report has ~{{ count }} million recipient rows, surpassing the xlsx sheet limit of 1 million. To include recipients, please decrease the date range to reduce the count.',
+        dialogContentSurplus:
+          'The limit is exceeded by {{ difference_count }} rows.',
+        dialogContentAlternative:
+          "Alternatively, click 'generate anyway' to generate the report without the recipients sheet.",
+        dialogButtonGenerateAnyway: 'Generate anyway',
+      },
     },
     recipient: {
       readCount: 'Opened',

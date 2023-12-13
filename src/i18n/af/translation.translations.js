@@ -1036,6 +1036,7 @@ exports.default = {
     start_after_end: 'The start date must occur before the end date.',
     end_before_start: 'The end date must occur after the start date.',
     invalidUrl: 'Invalid URL (requested format: http://www.test.com)',
+    endBeforeCurrent: 'The end date must occur before the current date.',
   },
   paymentMethod: {
     OTHER: 'Other',

@@ -670,6 +670,8 @@ const getTranslations = async () => {
     generateExport: 'Generate export',
     generateHelperText: 'Generate export to download smartlist',
     lastGenerated: 'Last export generated on : {{-date}} {{time}}',
+    generateReport: 'Generate report',
+    downloadReport: 'Download report',
   };
 };
 

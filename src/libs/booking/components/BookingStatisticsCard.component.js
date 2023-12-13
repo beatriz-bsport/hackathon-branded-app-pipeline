@@ -7,7 +7,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
+import { useMediaQuery } from '@material-ui/core';
 import { discretizeByAndFillMissing } from '../../../state/stats/utils';
 import StackedBarChart from '../../../components/graph/StackedBarChart.component';
 
@@ -33,6 +33,7 @@ export function BookingStatisticsCard(props: Props) {
   const theme = useTheme();
   const { t } = useTranslation();
   const { bookingStatistics, loading } = props;
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
 
   if (!bookingStatistics || loading) {
     return (
@@ -105,31 +106,61 @@ export function BookingStatisticsCard(props: Props) {
       </Typography>
       <Paper>
         <div className={classes.statContainer}>
-          <div className={classNames(classes.rightBorder, classes.stat)}>
-            <div>
-              <Typography align="center">
-                {t('bookingStatistics.totalBookings', {
-                  nb: allBookingsCount,
-                  count: allBookingsCount,
-                })}
+          <div className={classes.nbOffersContainer}>
+            <Typography align="center" variant="body1">
+              <Trans
+                components={[<br />]}
+                count={allOffersCount}
+                i18nKey="bookingStatistics.totalOffers"
+                values={{ nb_offers: allOffersCount }}
+              />
+            </Typography>
+          </div>
+          <div className={classes.bookingsStats}>
+            <div className={classes.totalBookingStatsContainer}>
+              <Typography align="center" variant="body1">
+                <Trans
+                  components={isMobile ? [<br />] : []}
+                  count={allBookingsCount}
+                  i18nKey="bookingStatistics.bookingsTotalCount"
+                  values={{ nb: allBookingsCount }}
+                />
               </Typography>
             </div>
-          </div>
-          <div className={classes.stat}>
-            <Typography align="center" className={classes.greenText}>
-              {t('bookingStatistics.maintenedBookings', {
-                nb: allBookingsCount - cancelledBookingsCount,
-                count: allBookingsCount - cancelledBookingsCount,
-              })}
-            </Typography>
-          </div>
-          <div className={classNames(classes.rightBorder, classes.stat)}>
-            <Typography align="center" color="error">
-              {t('bookingStatistics.cancelledBookings', {
-                nb: cancelledBookingsCount,
-                count: cancelledBookingsCount,
-              })}
-            </Typography>
+            <div className={classes.bookingsConfirmationStatsWrapper}>
+              <div className={classes.bookingsConfirmationStatsContainer}>
+                <Typography
+                  align="center"
+                  className={classes.bookingsLabel}
+                  variant="body1"
+                >
+                  <span
+                    className={classNames(
+                      classes.square,
+                      classes.confirmedSquare,
+                    )}
+                  />
+                  {t('bookingStatistics.confirmedBookings', {
+                    nb: allBookingsCount - cancelledBookingsCount,
+                  })}
+                </Typography>
+                <Typography
+                  align="center"
+                  className={classes.bookingsLabel}
+                  variant="body1"
+                >
+                  <span
+                    className={classNames(
+                      classes.square,
+                      classes.cancelledSquare,
+                    )}
+                  />
+                  {t('bookingStatistics.bookingsCancelled', {
+                    nb: cancelledBookingsCount,
+                  })}
+                </Typography>
+              </div>
+            </div>
           </div>
         </div>
         <div className={classes.chart}>
@@ -152,25 +183,74 @@ export function BookingStatisticsCard(props: Props) {
 }
 
 const useStyles = makeStyles((theme) => ({
-  stat: {
-    flex: 3,
+  bookingsConfirmationStatsWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    flex: 1,
+  },
+  bookingsConfirmationStatsContainer: {
+    display: 'flex',
+    [theme.breakpoints.up('sm')]: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: theme.spacing(5),
+    },
+    [theme.breakpoints.down('xs')]: {
+      flexDirection: 'column',
+      padding: theme.spacing(2, 2),
+      alignItems: 'flex-start',
+    },
+    justifyContent: 'center',
+    alignSelf: 'stretch',
+  },
+  bookingsStats: {
+    display: 'flex',
+    [theme.breakpoints.up('sm')]: { flexDirection: 'column' },
+    [theme.breakpoints.down('xs')]: { flexDirection: 'row' },
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flex: 2,
+    alignSelf: 'stretch',
+  },
+  nbOffersContainer: {
+    flex: 1,
     paddingBottom: theme.spacing(2),
     paddingTop: theme.spacing(2),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-between',
-    borderBottom: '1px solid #EEEEEE',
+    [theme.breakpoints.up('sm')]: { borderRight: '1px solid #EEEEEE' },
+    [theme.breakpoints.down('xs')]: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      alignSelf: 'stretch',
+      borderBottom: '1px solid #EEEEEE',
+    },
   },
   rightBorder: {
     borderRight: '1px solid #EEEEEE',
   },
+  bottomBorder: { borderBottom: '1px solid #EEEEEE' },
   statContainer: {
     display: 'flex',
-    flexDirection: 'row',
+    [theme.breakpoints.up('sm')]: { flexDirection: 'row' },
+    [theme.breakpoints.down('xs')]: { flexDirection: 'column' },
     alignItems: 'center',
     borderTop: '1px solid #EEEEEE',
     marginBottom: theme.spacing(2),
+    borderBottom: '1px solid #EEEEEE',
+  },
+  totalBookingStatsContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+    alignSelf: 'stretch',
+    flex: 1,
+    [theme.breakpoints.up('sm')]: { borderBottom: '1px solid #EEEEEE' },
+    [theme.breakpoints.down('xs')]: { borderRight: '1px solid #EEEEEE' },
   },
   title: {
     padding: theme.spacing(2),
@@ -187,6 +267,14 @@ const useStyles = makeStyles((theme) => ({
   chart: {
     marginBottom: theme.spacing(2),
   },
+  bookingsLabel: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: theme.spacing(1),
+  },
+  square: { height: theme.spacing(1.875), width: theme.spacing(1.875) },
+  confirmedSquare: { backgroundColor: theme.palette.primary.main },
+  cancelledSquare: { backgroundColor: '#E05123' },
 }));
 
-export default BookingStatisticsCard;
+export default React.memo(BookingStatisticsCard);

@@ -1,5 +1,5 @@
 // @flow
-import React, { memo } from 'react';
+import React, { memo, useCallback } from 'react';
 import moment from 'moment-timezone';
 import { compose, withStateHandlers } from 'recompose';
 import { useTranslation } from 'react-i18next';
@@ -29,6 +29,10 @@ import WarningIcon from '@material-ui/icons/Warning';
 import CloseIcon from '@material-ui/icons/Close';
 import Hidden from '@material-ui/core/Hidden';
 
+import Collapse from '@material-ui/core/Collapse';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import KeyboardArrowUp from '@material-ui/icons/KeyboardArrowUp';
+import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import MemberMinimalListItem from '../../../member/components/MemberMinimalListItem.component';
 import type { PrivateBookingWithRelatedFields } from '../../types';
 import RedButton from '../../../../components/button/RedButton.component';
@@ -42,9 +46,11 @@ import InvoiceTable from '#libs/invoice/components/InvoiceTable.component';
 import PaymentDialog from '#libs/payment/components/PaymentDialog.component';
 import type { ConsumerGiftcard, Giftcard } from '#libs/giftcard/types';
 import type { PerformanceTrackingProgram } from '#libs/performance-tracking/types';
+import type { OptionCallback } from '../../../../state/types';
 import { getPrivateBookingStatusCodeForCalendar } from '../../../booking/utils';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import SessionNotePad from '#libs/offer/components/SessionNotePad';
 
 type Props = {
   private_booking: PrivateBookingWithRelatedFields,
@@ -93,6 +99,12 @@ type Props = {
   onlinePaymentEnabled?: boolean,
   onClose: () => void,
   cardBillingDetailsMandatory: boolean,
+  editInternalNote: (
+    _: {
+      internal_note: string,
+    },
+    options?: OptionCallback,
+  ) => void,
 };
 
 export const PrivateBookingCard = (props: Props) => {
@@ -111,6 +123,8 @@ export const PrivateBookingCard = (props: Props) => {
   }, [private_booking?.member?.id]);
 
   const [openAllocationModal, setOpenAllocationModal] = React.useState(false);
+  const [unpaidInvoicesSectionOpened, setUnpaidInvoicesSectionOpened] =
+    React.useState(true);
 
   const applyGiftcardOnInvoice = (
     invoiceUuid: string,
@@ -149,6 +163,11 @@ export const PrivateBookingCard = (props: Props) => {
         setOpenAllocationModal(false);
       },
     });
+
+  const handleOpenUnpaidInvoicesSection = useCallback(
+    () => setUnpaidInvoicesSectionOpened((previousValue) => !previousValue),
+    [setUnpaidInvoicesSectionOpened],
+  );
 
   if (
     loading ||
@@ -346,17 +365,39 @@ export const PrivateBookingCard = (props: Props) => {
                 establishment={private_booking.establishment}
               />
             ) : null}
+            <Divider className={classes.divider} />
+            <div className={classes.notePadContainer}>
+              <SessionNotePad
+                noDivider
+                initialValue={props.private_booking?.internal_note}
+                onSubmit={props.editInternalNote}
+                // TODO: PERMISSIONS
+              />
+            </div>
+            <Divider className={classes.divider} />
             {hasReadInvoicePermission &&
             props.unpaidInvoiceList &&
             props.unpaidInvoiceList.length ? (
-              <>
-                <Typography className={classes.bookingsHeader} variant="h6">
-                  {t('member:unpaidInvoiceTitle', {
-                    count: props.unpaidInvoiceList.length,
-                  })}
-                </Typography>
-                <div className={classes.invoiceTable}>
-                  <Divider />
+              <div className={classes.unpaidInvoicesContainer}>
+                <ButtonBase
+                  className={classes.unpaidInvoicesTitle}
+                  onClick={handleOpenUnpaidInvoicesSection}
+                >
+                  <Typography className={classes.bookingsHeader} variant="h6">
+                    {t('member:unpaidInvoiceTitle', {
+                      count: props.unpaidInvoiceList.length,
+                    })}
+                  </Typography>
+                  {unpaidInvoicesSectionOpened ? (
+                    <KeyboardArrowUp />
+                  ) : (
+                    <KeyboardArrowDown />
+                  )}
+                </ButtonBase>
+                <Collapse
+                  className={classes.invoiceTable}
+                  in={unpaidInvoicesSectionOpened}
+                >
                   <InvoiceTable
                     compactMode
                     hideMemberName
@@ -369,9 +410,10 @@ export const PrivateBookingCard = (props: Props) => {
                     onBill={props.setInvoiceToBill}
                     snackbarSuccess={props.snackbarSuccess}
                   />
-                </div>
-              </>
+                </Collapse>
+              </div>
             ) : null}
+            <Divider className={classes.divider} />
           </div>
         )}
       </ObjectLevelPermissionProvider>
@@ -383,7 +425,7 @@ export const PrivateBookingCard = (props: Props) => {
             forcedBehavior="hidden"
             requiredPermission="reservation.privateBooking.allowed_actions.cancel"
           >
-            <RedButton onClick={props.onDelete}>
+            <RedButton onClick={props.onDelete} variant="outlined">
               {t('privateBooking.discard')}
             </RedButton>
           </ObjectLevelPermissionWrapper>
@@ -396,7 +438,7 @@ export const PrivateBookingCard = (props: Props) => {
             </Button>
           )}
           {props.onDelete && (
-            <RedButton onClick={props.onDelete}>
+            <RedButton onClick={props.onDelete} variant="outlined">
               {t('privateBooking.hardDelete')}
             </RedButton>
           )}
@@ -440,6 +482,7 @@ export const PrivateBookingCard = (props: Props) => {
 const useStyles = makeStyles((theme) => ({
   container: {
     padding: theme.spacing(2),
+    paddingBottom: theme.spacing(0),
     width: '100%',
   },
   header: {
@@ -464,8 +507,8 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'flex-end',
     alignItems: 'center',
     width: '100%',
-    paddingTop: theme.spacing(1),
-    paddingRight: theme.spacing(2),
+    padding: theme.spacing(3),
+    paddingTop: theme.spacing(5),
   },
   updatedTimeExplain: {
     marginTop: theme.spacing(1),
@@ -481,6 +524,28 @@ const useStyles = makeStyles((theme) => ({
   invoiceTable: {
     maxHeight: '300px',
     overflow: 'auto',
+  },
+  divider: {
+    marginLeft: theme.spacing(-2),
+    marginRight: theme.spacing(-2),
+  },
+  unpaidInvoicesContainer: {
+    padding: theme.spacing(3),
+    marginLeft: theme.spacing(-2),
+    marginRight: theme.spacing(-2),
+  },
+  unpaidInvoicesTitle: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+  },
+  notePadContainer: {
+    marginRight: theme.spacing(-1),
+    marginLeft: theme.spacing(-1),
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
   },
 }));
 

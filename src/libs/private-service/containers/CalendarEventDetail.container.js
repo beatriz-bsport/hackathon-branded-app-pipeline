@@ -56,6 +56,7 @@ import {
   updatePrivateBookingDatetime as updatePrivateBookingDatetimeAction,
   updatePrivateBookingCoach as updatePrivateBookingCoachAction,
   deleteCustomEvent as deleteCustomEventAction,
+  updatePrivateBooking as updatePrivateBookingAction,
 } from '../actions';
 import {
   fetchMetaActivityBulk as fetchMetaActivityBulkAction,
@@ -270,6 +271,10 @@ type Props = {
   getHasPendingReplacementRequest: (offerId: number) => boolean,
   fetchZoomApp: (companyId: number) => void,
   zoomAppDetail: ZoomApp,
+  editInternalNote: (
+    data: { internalNote: string },
+    options: OptionCallback,
+  ) => void,
 };
 
 type State = {
@@ -411,6 +416,7 @@ export class CalendarEventDetail extends React.Component<Props, State> {
           createMemberProgram={
             this.props.isCoach ? null : this.props.createMemberProgram
           }
+          editInternalNote={this.props.editInternalNote}
           fetchConsumerGiftcardReceivedList={
             this.props.fetchConsumerGiftcardReceivedList
           }
@@ -893,6 +899,7 @@ const PrivateBookingCancellatorContainer = compose(
     disablePrivateBooking: disablePrivateBookingAction,
     deletePrivateBooking: deletePrivateBookingAction,
     restorePrivateBooking: restorePrivateBookingAction,
+    updatePrivateBooking: updatePrivateBookingAction,
   }),
   withStateHandlers(
     {
@@ -949,6 +956,15 @@ const PrivateBookingCancellatorContainer = compose(
         restorePrivateBooking(privateBookingId, {
           onSuccess: () => onClose(),
         });
+      },
+    editInternalNote:
+      ({ updatePrivateBooking, privateBookingId }) =>
+      (data: { internalNote: string }, options?: OptionCallback) => {
+        updatePrivateBooking(
+          privateBookingId,
+          { internal_note: data?.internalNote },
+          options,
+        );
       },
   }),
 );

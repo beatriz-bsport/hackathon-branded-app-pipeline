@@ -384,6 +384,8 @@ export const useMuiThemeToCssVars = () => {
     --bs-fabrique-offset-1: -1px;
     --bs-fabrique-tab-vertical-padding: 3px;
     --bs-fabrique-textfield-offset: -1px;
+    --bs-consumer-booking-details-card-header-height: 160px;
+    --bs-fabrique-avatar-padding: 20%;
   `;
 
   // Inside the 'id' section, we define styles that will be applied to the 'div' element with the id 'bs-setup-derived-variable'.

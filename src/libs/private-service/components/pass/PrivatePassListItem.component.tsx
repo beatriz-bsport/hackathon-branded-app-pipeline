@@ -47,10 +47,7 @@ export const PrivatePassListItem = (props: Props) => {
   const dateInfo = getValidityInfo(props.pass, t);
 
   return (
-    <ConditionalWrapper
-      condition={!props.removePaper}
-      wrapper={(children) => <Paper>{children}</Paper>}
-    >
+    <ConditionalWrapper condition={!props.removePaper} WrapperComponent={Paper}>
       <ListItem
         button={!!props.onClick}
         dense={props.dense}

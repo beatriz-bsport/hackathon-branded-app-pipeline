@@ -3727,9 +3727,9 @@
     "audience": {
       "form": {
         "formTitle": {
-          "updateNameTitle": "Edit the name of the {{ workflowLowerCase }}",
+          "updateNameTitle": "Edit the name of your {{ workflowLowerCase }}",
           "createTitle": "Create a {{ workflowLowerCase }}",
-          "updateTitle": "Edition of your {{ workflowLowerCase }}"
+          "updateTitle": "Edit your {{ workflowLowerCase }}"
         },
         "trigger": {
           "helpers": {

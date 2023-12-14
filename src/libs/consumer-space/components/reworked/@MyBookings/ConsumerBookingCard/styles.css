@@ -8,3 +8,46 @@
 
 /* .bs-consumer__booking-card__header__chips-wrapper {
 } */
+
+/* CONSUMER BOOKING CARD BODY CLASSNAMES */
+
+/* .bs-consumer-booking-card__body__container {
+} */
+
+.bs-consumer-booking-card__list-item {
+  padding: 0;
+}
+
+.bs-consumer-booking-card__icon--size svg {
+  width: var(--bs-icon-size-lg);
+  height: var(--bs-icon-size-lg);
+}
+
+.bs-consumer-booking-card__icon--size img,
+.bs-consumer-booking-card__icon--size {
+  width: var(--bs-icon-size-lg);
+  height: var(--bs-icon-size-lg);
+  border-radius: var(--bs-border-radius-circle);
+}
+
+/* SEE DETAILS BUTTON CSS STYLES */
+.bs-consumer-booking-card__body__button {
+  display: inline-flex;
+  gap: var(--bs-space-size-2);
+  width: fit-content;
+  padding: var(--bs-space-size-2) 0;
+}
+
+.bs-consumer-booking-card__body__button__label {
+  color: var(--bs-color-text-brand-main);
+  font-weight: 700;
+}
+
+.bs-consumer-booking-card__body__button:hover
+  .bs-consumer-booking-card__body__button__label {
+  color: var(--bs-color-text-brand-main-strong);
+}
+
+.bs-consumer-booking-card__field--hidden {
+  display: none;
+}

@@ -11,9 +11,11 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import LinearProgress from '@material-ui/core/LinearProgress';
-
+import SettingsIcon from '@material-ui/icons/Settings';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core';
 // @ts-expect-error
-import { TextField } from '#components/forms';
+import { TextField, SwitchField } from '#components/forms';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 
 import type { Cadence } from '#libs/sequential_marketing/types';
@@ -24,6 +26,7 @@ export type ComponentProps = {
   open: boolean;
   loading: boolean;
   initial?: Cadence;
+  displayParametersSection?: boolean;
 };
 
 export type FormProps = {
@@ -34,27 +37,29 @@ export type FormProps = {
 export type Values = {
   id?: number;
   name: string;
+  is_multiple_visit_allowed?: boolean;
 };
 
 type FormikValues = FormikProps<Values>;
 
 export const CadenceCreateAndUpdateForm: React.FC<ComponentProps> = React.memo(
-  ({ open, onCancel, loading, initial }) => {
+  ({ open, onCancel, loading, initial, displayParametersSection }) => {
     const { t } = useTranslation('marketing');
-
+    const classes = useStyles();
     const {
       isSubmitting,
       isValid,
       handleSubmit,
     }: FormikValues & { handleSubmit: () => void } = useFormikContext();
 
-    const title = useMemo(
-      () =>
-        initial?.id && initial?.name
-          ? t('audience.form.updateTitle')
-          : t('audience.form.title'),
-      [initial, t],
-    );
+    const title = useMemo(() => {
+      if (!displayParametersSection) {
+        return initial?.id && initial?.name
+          ? t('audience.form.formTitle.updateNameTitle')
+          : t('audience.form.formTitle.createTitle');
+      }
+      return t('audience.form.formTitle.updateTitle');
+    }, [initial, t, displayParametersSection]);
 
     const submitButtonText = useMemo(
       () =>
@@ -76,6 +81,23 @@ export const CadenceCreateAndUpdateForm: React.FC<ComponentProps> = React.memo(
               label={t('audience.form.audienceNameLabel')}
               name="name"
             />
+            {displayParametersSection && (
+              <div className={classes.parametersSection}>
+                <div className={classes.parametersTitleContainer}>
+                  <SettingsIcon />
+                  <Typography className={classes.parametersTitle} variant="h6">
+                    {t('audience.form.cadenceParameters')}
+                  </Typography>
+                </div>
+                <SwitchField
+                  helperText={t('audience.form.multipleVisit.helperText')}
+                  label={t(
+                    'audience.form.multipleVisit.isMultipleVisitAllowedLabel',
+                  )}
+                  name="is_multiple_visit_allowed"
+                />
+              </div>
+            )}
             <DialogActions>
               <Button onClick={onCancel}>{t('cadence.form.cancel')} </Button>
 
@@ -95,22 +117,46 @@ export const CadenceCreateAndUpdateForm: React.FC<ComponentProps> = React.memo(
   },
 );
 
+const useStyles = makeStyles((theme) => ({
+  parametersSection: {
+    paddingTop: theme.spacing(2),
+  },
+  parametersTitleContainer: {
+    display: 'flex',
+    flexdirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    gap: theme.spacing(1),
+  },
+  parametersTitle: {
+    '&:first-letter': {
+      textTransform: 'capitalize',
+    },
+  },
+}));
 const CadenceCreationSchema = Yup.object().shape({
   id: Yup.number().nullable(true),
   name: Yup.string().required(),
 });
 
 const formikFormWrapper = withFormik<ComponentProps & FormProps, Values>({
-  mapPropsToValues: ({ initial }: ComponentProps & FormProps) => {
+  mapPropsToValues: ({
+    initial,
+    displayParametersSection,
+  }: ComponentProps & FormProps) => {
     if (initial) {
       return {
         id: initial.id,
         name: initial.name,
+        ...(displayParametersSection
+          ? { is_multiple_visit_allowed: initial.is_multiple_visit_allowed }
+          : {}),
       };
     }
     return {
       id: null,
       name: '',
+      ...(displayParametersSection ? { is_multiple_visit_allowed: false } : {}),
     };
   },
   enableReinitialize: true,

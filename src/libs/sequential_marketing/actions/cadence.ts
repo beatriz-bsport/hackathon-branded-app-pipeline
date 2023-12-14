@@ -64,7 +64,11 @@ export const updateCadenceActions = {
 
 export function updateCadence(
   id: number,
-  data: { name?: string; priority_index?: number },
+  data: {
+    name?: string;
+    priority_index?: number;
+    is_multiple_visit_allowed?: boolean;
+  },
   options?: OptionCallback<Cadence>,
 ) {
   return async (dispatch: Dispatch) => {

@@ -251,6 +251,7 @@ export function workflowFactory({
   steps,
   entrypoint_step_id,
   initialized,
+  is_multiple_visit_allowed,
 }: Partial<Cadence>): Cadence {
   return {
     id: id || faker.number.int(),
@@ -264,6 +265,7 @@ export function workflowFactory({
     steps: steps || [],
     entrypoint_step_id: entrypoint_step_id || faker.number.int(),
     initialized: initialized || true,
+    is_multiple_visit_allowed: is_multiple_visit_allowed || false,
   };
 }
 

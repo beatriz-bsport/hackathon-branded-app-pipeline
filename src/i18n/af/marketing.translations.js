@@ -730,7 +730,11 @@ exports.default = {
 
   audience: {
     form: {
-      updateTitle: 'Edit the name of the {{ workflowLowerCase }}',
+      formTitle: {
+        updateNameTitle: 'Edit the name of the {{ workflowLowerCase }}',
+        createTitle: 'Create a {{ workflowLowerCase }}',
+        updateTitle: 'Edition of your {{ workflowLowerCase }}',
+      },
       trigger: {
         helpers: {
           exitFail:
@@ -753,9 +757,16 @@ exports.default = {
           'Members will have to match the event or be part of the smartlist to fit into the {{ workflowLowerCase }}',
       },
       audienceNameLabel: 'Name of the {{ workflowLowerCase }}',
+      multipleVisit: {
+        isMultipleVisitAllowedLabel:
+          'Members can pass through this {{ workflowLowerCase }} multiple times.',
+        helperText:
+          "When activated, members can enter this {{ workflowLowerCase }} multiple times, regardless of whether they previously exited it as 'lost' or 'win'.",
+      },
+      cadenceParameters: '{{ workflowLowerCase }} parameters',
       audienceStepHelper:
         'Set the name of the step here: this is where you will be able to see where the members are in the {{ workflowLowerCase }}.',
-      title: 'Create a {{ workflowLowerCase }}',
+
       addAWorkflow: 'Add a {{ workflowLowerCase }}',
       createAudienceHelper:
         'Thanks to the {{ workflowPluralLowerCase }}, target the marketing actions you send to your members according to their behavior on the platform. Create a sequence of actions that your members must complete to obtain certain promotions or tags, for example.',

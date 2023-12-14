@@ -86,7 +86,7 @@ export class CadenceListPage extends React.Component<Props> {
     this.props.setCadenceToEdit(cadence);
 
   handleUpsertCadence = (
-    data: { id?: number; name: string },
+    data: { id?: number; name: string; is_multiple_visit_allowed?: boolean },
     options?: OptionCallback,
   ) => {
     if (!data?.id) {
@@ -100,15 +100,22 @@ export class CadenceListPage extends React.Component<Props> {
         },
       });
     }
-    return this.props.updateCadenceName(data.id, data.name, {
-      onSuccess: () => {
-        options?.onSuccess?.();
-        this.handleCloseCreationForm();
+    return this.props.updateCadence(
+      data.id,
+      {
+        name: data.name,
+        is_multiple_visit_allowed: data.is_multiple_visit_allowed,
       },
-      onError: () => {
-        options?.onError?.();
+      {
+        onSuccess: () => {
+          options?.onSuccess?.();
+          this.handleCloseCreationForm();
+        },
+        onError: () => {
+          options?.onError?.();
+        },
       },
-    });
+    );
   };
 
   handleGoToCadencePage = (cadence: Cadence) => {
@@ -160,6 +167,7 @@ export class CadenceListPage extends React.Component<Props> {
             </Button>
           </div>
           <CadenceCreateAndUpdateForm
+            displayParametersSection
             loading={this.props.cadenceLoading}
             onCancel={this.handleCloseCreationForm}
             onSubmit={this.handleUpsertCadence}
@@ -216,6 +224,7 @@ export class CadenceListPage extends React.Component<Props> {
           />
         </div>
         <CadenceCreateAndUpdateForm
+          displayParametersSection
           initial={this.props.cadenceToEdit}
           loading={this.props.cadenceLoading}
           onCancel={this.handleCloseCreationForm}
@@ -288,21 +297,21 @@ const mapWithHandlers = {
       });
     },
 
-  updateCadenceName:
+  updateCadence:
     (props: ConnectedPropsAndState) =>
-    (id: number, name: string, options?: OptionCallback) => {
-      props.updateCadenceAction(
-        id,
-        { name },
-        {
-          onSuccess: () => {
-            options?.onSuccess?.();
-          },
-          onError: () => {
-            options?.onError?.();
-          },
+    (
+      id: number,
+      data: { name: string; is_multiple_visit_allowed?: boolean },
+      options?: OptionCallback,
+    ) => {
+      props.updateCadenceAction(id, data, {
+        onSuccess: () => {
+          options?.onSuccess?.();
         },
-      );
+        onError: () => {
+          options?.onError?.();
+        },
+      });
     },
 
   updateCadencePriorityIndex:

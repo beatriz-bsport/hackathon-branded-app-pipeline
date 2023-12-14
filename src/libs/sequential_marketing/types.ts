@@ -29,6 +29,7 @@ export type Cadence = {
   steps: number[];
   entrypoint_step_id: number;
   initialized: boolean;
+  is_multiple_visit_allowed: boolean;
 };
 
 export type CadenceStep = {

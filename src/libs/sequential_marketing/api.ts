@@ -45,11 +45,20 @@ export const createCadence = ({ name }: { name: string }) => {
 
 export const updateCadence = (
   id: number,
-  { name, priority_index }: { name?: string; priority_index?: number },
+  {
+    name,
+    priority_index,
+    is_multiple_visit_allowed,
+  }: {
+    name?: string;
+    priority_index?: number;
+    is_multiple_visit_allowed?: boolean;
+  },
 ) => {
   return putAuth<Cadence>(`${API_V1_URI}/sequential_marketing/cadence/${id}/`, {
     name,
     priority_index,
+    is_multiple_visit_allowed,
   });
 };
 

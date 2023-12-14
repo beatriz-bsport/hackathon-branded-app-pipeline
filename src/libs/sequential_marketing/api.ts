@@ -37,9 +37,16 @@ export const fetchCadenceList = (params: CadenceQueryParams) => {
   );
 };
 
-export const createCadence = ({ name }: { name: string }) => {
+export const createCadence = ({
+  name,
+  is_multiple_visit_allowed,
+}: {
+  name: string;
+  is_multiple_visit_allowed?: boolean;
+}) => {
   return postAuth<Cadence>(`${API_V1_URI}/sequential_marketing/cadence/`, {
     name,
+    is_multiple_visit_allowed,
   });
 };
 

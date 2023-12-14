@@ -33,7 +33,7 @@ export const createCadenceActions = {
 };
 
 export function createCadence(
-  data: { name: string },
+  data: { name: string; is_multiple_visit_allowed?: boolean },
   options?: OptionCallback<Cadence>,
 ) {
   return async (dispatch: Dispatch) => {

@@ -80,6 +80,7 @@ export const CadenceCreateAndUpdateForm: React.FC<ComponentProps> = React.memo(
               required
               label={t('audience.form.audienceNameLabel')}
               name="name"
+              variant="outlined"
             />
             {displayParametersSection && (
               <div className={classes.parametersSection}>

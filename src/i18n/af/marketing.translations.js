@@ -761,7 +761,7 @@ exports.default = {
         isMultipleVisitAllowedLabel:
           'Members can pass through this {{ workflowLowerCase }} multiple times.',
         helperText:
-          "When activated, members can enter this {{ workflowLowerCase }} multiple times, regardless of whether they previously exited it as 'lost' or 'win'.",
+          "When activated, members matching entry criteria can enter this {{ workflowLowerCase }} multiple times, regardless of whether they previously exited it as 'lost' or 'win'.",
       },
       cadenceParameters: '{{ workflowLowerCase }} parameters',
       audienceStepHelper:

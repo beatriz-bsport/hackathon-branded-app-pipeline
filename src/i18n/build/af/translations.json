@@ -2373,7 +2373,7 @@
     "link": { "copyLink": "Copy the direct link to the gift card", "activationLink": "Copy activation link" },
     "consumerGiftcard": {
       "form": {
-        "footer": "The gift card will be sent to the recipient at {{- hour_send }}. It'll be valid for {{ expiration_days }} day(s) after sending this message and the recipient's account will be topped up with {{- price }}.",
+        "footer": "The gift card will be sent to the recipient at {{- hour_send }}. It’ll be valid for {{ expiration_days }} day(s) after activation and the recipient’s account will be topped up with {{- price }}.",
         "actions": { "submit": "Add to basket", "cancel": "Cancel" },
         "date_send": { "label": "Date of sending the email" },
         "recipients": { "label": "Recipient's email" },
@@ -2393,7 +2393,7 @@
         "giftcard_amount": "[Amount of the giftcard]"
       },
       "sendTo": "Resend the invitation",
-      "notAttributedYet": "Not validated",
+      "notAttributedYet": "Not activated",
       "expiresOn": "Expires on {{- d }}",
       "willInviteOn": "Invitation will be sent on {{- d }}",
       "invitedOn": "Sent on {{- d }}",

@@ -706,6 +706,10 @@ const getTranslations = async () => {
       billing_plan: 'Subscriptions are filtered on the first billing date.',
       invoices:
         'Purchases are filtered on the date of issue of the associated invoice.',
+      invoicesAccrualMethod:
+        'This report displays purchases based on the accrual method of accounting. That is, transfers of money to the internal account balance and purchases of gift cards are not included. <0>See our help sheet for more information.</0> To track gift card purchases, use the {{ purchasedGiftcardReport }} report.',
+      invoicesAccrualMethodLink:
+        'https://intercom.help/bsport-helpcenter/articles/8320705',
       video_purchase: 'Videos are filtered by date of purchase.',
       payment_installments: 'Payments are filtered by due date.',
       dispute: 'Disputes are filtered on the date of the transaction.',

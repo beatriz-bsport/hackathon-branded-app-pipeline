@@ -6,7 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import { makeStyles, Theme } from '@material-ui/core';
 
 import Alert from '@material-ui/lab/Alert';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 import ReportGenerationForm from './ReportGenerationForm.component';
 import ReportTable from './ReportTable.component';
 import ReportTableHeaders from './ReportTableHeaders.component';
@@ -75,6 +75,14 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   alert: {
     marginBottom: theme.spacing(2),
+  },
+  infoLink: {
+    color: 'inherit',
+    textDecorationLine: 'underline',
+    '&:link, &:visited, &:hover, &:active, &:focus': {
+      color: 'inherit',
+      textDecorationLine: 'underline',
+    },
   },
 }));
 
@@ -175,6 +183,33 @@ const ReportGeneration: React.FC<Props> = ({
         reportHeaders={reportHeaders}
         reportHeadersLoading={reportHeadersLoading}
       />
+      {report.category === 'invoices' && (
+        <Alert
+          classes={{ root: classes.alertIcon }}
+          className={classes.alert}
+          severity="info"
+        >
+          <Trans
+            components={[
+              <a
+                className={classes.infoLink}
+                href={t('reporting:helperText.invoicesAccrualMethodLink')}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                .
+              </a>,
+            ]}
+            i18nKey="reporting:helperText.invoicesAccrualMethod"
+            t={t}
+            values={{
+              purchasedGiftcardReport: t(
+                'reporting:categories.consumer_giftcard',
+              ),
+            }}
+          />
+        </Alert>
+      )}
       {reportStoreRowsLoading || resultLoading ? <LinearProgress /> : null}
       {!report.loading && !!reportStoreRows && (
         <Paper>

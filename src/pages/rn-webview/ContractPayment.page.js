@@ -115,6 +115,7 @@ export class ContractPayment extends React.Component<Props, State> {
     loadDefaultEstablishmentBillingGroup(
       this.state.theme?.enable_multi_localization,
       this.state.selectedEstablishmentBillingGroup,
+      this.state.isEstablishmentBillingGroupSelected,
       this.setSelectedEstablishmentBillingGroup,
       this.setIsEstablishmentBillingGroupSelected,
       {

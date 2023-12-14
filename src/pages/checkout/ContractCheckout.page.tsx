@@ -254,6 +254,7 @@ export class MarketplaceSubscriptionPayment extends React.Component<
       loadDefaultEstablishmentBillingGroup(
         this.props.theme.enable_multi_localization,
         null,
+        this.state.isEstablishmentBillingGroupSelected,
         () => {},
         this.setIsEstablishmentBillingGroupSelected,
         {

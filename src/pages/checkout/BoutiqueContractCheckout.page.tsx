@@ -268,6 +268,7 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
     loadDefaultEstablishmentBillingGroup(
       this.props.theme.enable_multi_localization,
       this.state.selectedEstablishmentBillingGroup,
+      this.state.isEstablishmentBillingGroupSelected,
       this.setSelectedEstablishmentBillingGroup,
       this.setIsEstablishmentBillingGroupSelected,
       {

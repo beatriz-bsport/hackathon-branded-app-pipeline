@@ -284,6 +284,7 @@ export class BasketPage extends React.Component<Props> {
     loadDefaultEstablishmentBillingGroup(
       this.props.theme.enable_multi_localization,
       this.state.selectedEstablishmentBillingGroup,
+      this.state.isEstablishmentBillingGroupSelected,
       this.setSelectedEstablishmentBillingGroup,
       this.setIsEstablishmentBillingGroupSelected,
       {

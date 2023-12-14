@@ -223,6 +223,7 @@ export const loadDefaultEstablishmentBillingGroupFromOffers = (
  *
  * @param enableMultilocalisation - A flag indicating whether multilocalisation is enabled. If false, or undefined, the function does nothing.
  * @param selectedEstablishmentBillingGroup - The currently selected establishment billing group.
+ * @param isEstablishmentBillingGroupSelected - A state variable, telling if the establishment billing group is selected or not.
  * @param setSelectedEstablishmentBillingGroup - A function to set the selected establishment billing group.
  * @param setIsEstablishmentBillingGroupSelected - A function to set whether an establishment billing group is selected.
  * @param prevProps - The previous properties, including the default establishment billing group, the establishment billing groups, and the basket offers.
@@ -237,6 +238,7 @@ export const loadDefaultEstablishmentBillingGroupFromOffers = (
 export const loadDefaultEstablishmentBillingGroup = (
   enableMultilocalisation: boolean,
   selectedEstablishmentBillingGroup: EstablishmentBillingGroup,
+  isEstablishmentBillingGroupSelected: boolean,
   setSelectedEstablishmentBillingGroup: (_: EstablishmentBillingGroup) => void,
   setIsEstablishmentBillingGroupSelected: (_: boolean) => void,
   prevProps: {
@@ -268,13 +270,14 @@ export const loadDefaultEstablishmentBillingGroup = (
         newProps.establishmentBillingGroups,
         newProps.basketOffers,
       );
-    if (defaultBillingGroupFromOffers) {
+    if (defaultBillingGroupFromOffers && !isEstablishmentBillingGroupSelected) {
       setSelectedEstablishmentBillingGroup(defaultBillingGroupFromOffers);
-      setIsEstablishmentBillingGroupSelected(!!defaultBillingGroupFromOffers);
+      setIsEstablishmentBillingGroupSelected(true);
       return defaultBillingGroupFromOffers;
     }
     // ---- 2ND STEP : LOOK AT THE MEMBER'S DEFAULT ESTABLISHMENT BILLING ----
     if (
+      !isEstablishmentBillingGroupSelected &&
       newProps.defaultEstablishmentBillingGroup &&
       newProps.defaultEstablishmentBillingGroup?.disabled === false
     ) {
@@ -287,7 +290,8 @@ export const loadDefaultEstablishmentBillingGroup = (
     // ---- FINAL STEP : IF NO ESTABLISHMENT BILLING GROUP SELECTED OR PRE-SELECTED ----
     if (
       newProps.establishmentBillingGroups.length &&
-      !selectedEstablishmentBillingGroup
+      !selectedEstablishmentBillingGroup &&
+      isEstablishmentBillingGroupSelected
     ) {
       setIsEstablishmentBillingGroupSelected(false);
     }

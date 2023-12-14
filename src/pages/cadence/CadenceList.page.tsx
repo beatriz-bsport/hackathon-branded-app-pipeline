@@ -64,7 +64,8 @@ export class CadenceListPage extends React.Component<Props> {
 
   handleCloseCreationForm = () => {
     this.props.setOpenCreationForm(false);
-    this.handleResetCadenceToEdit();
+    // Using a timeout here to avoid resetting the form information before its closing
+    setTimeout(this.handleResetCadenceToEdit, 200);
   };
 
   handleCloseCreationFormAndGoToCadencePage = (id: number) => {
@@ -82,8 +83,10 @@ export class CadenceListPage extends React.Component<Props> {
 
   handleResetCadenceToArchive = () => this.props.setCadenceToArchive(null);
 
-  handleSetCadenceToEdit = (cadence: Cadence) =>
+  handleSetCadenceToEdit = (cadence: Cadence) => {
     this.props.setCadenceToEdit(cadence);
+    this.props.setOpenCreationForm(true);
+  };
 
   handleUpsertCadence = (
     data: { id?: number; name: string; is_multiple_visit_allowed?: boolean },
@@ -107,8 +110,11 @@ export class CadenceListPage extends React.Component<Props> {
         is_multiple_visit_allowed: data.is_multiple_visit_allowed,
       },
       {
-        onSuccess: () => {
+        onSuccess: (cadence) => {
           options?.onSuccess?.();
+          // Updating the value of cadenceToEdit to avoid displaying previous
+          // cadence value in the update form before its closing
+          this.props.setCadenceToEdit(cadence);
           this.handleCloseCreationForm();
         },
         onError: () => {
@@ -118,9 +124,8 @@ export class CadenceListPage extends React.Component<Props> {
     );
   };
 
-  handleGoToCadencePage = (cadence: Cadence) => {
+  handleGoToCadencePage = (cadence: Cadence) =>
     cadence?.id && this.props.goToCadencePage(cadence.id);
-  };
 
   render() {
     const {
@@ -229,7 +234,7 @@ export class CadenceListPage extends React.Component<Props> {
           loading={this.props.cadenceLoading}
           onCancel={this.handleCloseCreationForm}
           onSubmit={this.handleUpsertCadence}
-          open={this.props.openCreationForm || !!this.props.cadenceToEdit}
+          open={this.props.openCreationForm}
         />
         <CadenceUtilityDialog
           cadence={cadenceToArchive}
@@ -286,7 +291,10 @@ const mapWithHandlers = {
 
   createCadence:
     (props: ConnectedPropsAndState) =>
-    (data: { name: string }, options?: OptionCallback<number>) => {
+    (
+      data: { name: string; is_multiple_visit_allowed?: boolean },
+      options?: OptionCallback<number>,
+    ) => {
       props.createCadenceAction(data, {
         onSuccess: (cadence) => {
           options?.onSuccess?.(cadence?.id);
@@ -302,11 +310,11 @@ const mapWithHandlers = {
     (
       id: number,
       data: { name: string; is_multiple_visit_allowed?: boolean },
-      options?: OptionCallback,
+      options?: OptionCallback<Cadence>,
     ) => {
       props.updateCadenceAction(id, data, {
-        onSuccess: () => {
-          options?.onSuccess?.();
+        onSuccess: (cadence) => {
+          options?.onSuccess?.(cadence);
         },
         onError: () => {
           options?.onError?.();

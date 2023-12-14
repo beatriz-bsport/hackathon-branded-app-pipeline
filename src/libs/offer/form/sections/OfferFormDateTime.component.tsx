@@ -535,4 +535,4 @@ const OfferFormDateTime = (props: Props) => {
   );
 };
 
-export default OfferFormDateTime;
+export default React.memo(OfferFormDateTime);

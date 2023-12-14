@@ -263,4 +263,4 @@ const OfferFormCoach = (props: Props) => {
   );
 };
 
-export default OfferFormCoach;
+export default React.memo(OfferFormCoach);

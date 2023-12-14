@@ -160,4 +160,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default OfferFormRecurrencePreview;
+export default React.memo(OfferFormRecurrencePreview);

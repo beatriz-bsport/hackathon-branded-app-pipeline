@@ -386,4 +386,4 @@ const formikFormWrapper = withFormik<
   },
 });
 
-export default formikFormWrapper(OfferCreateForm);
+export default React.memo(formikFormWrapper(OfferCreateForm));

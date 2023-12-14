@@ -142,4 +142,4 @@ const OfferFormTags = (props: Props) => {
   );
 };
 
-export default OfferFormTags;
+export default React.memo(OfferFormTags);

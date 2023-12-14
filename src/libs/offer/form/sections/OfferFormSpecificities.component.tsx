@@ -639,4 +639,4 @@ const OfferFormSpecificities = (props: Props) => {
   );
 };
 
-export default OfferFormSpecificities;
+export default React.memo(OfferFormSpecificities);

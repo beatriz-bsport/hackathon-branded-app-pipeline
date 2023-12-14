@@ -211,4 +211,4 @@ const OfferFormSettings = (props: Props) => {
   );
 };
 
-export default OfferFormSettings;
+export default React.memo(OfferFormSettings);

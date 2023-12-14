@@ -210,4 +210,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default OfferFormBanner;
+export default React.memo(OfferFormBanner);

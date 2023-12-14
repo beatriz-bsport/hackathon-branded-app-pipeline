@@ -3,4 +3,8 @@
 export enum SequentialMarketingWorkflowMetricsSizes {
   ICON_CONTAINER_SIZE = '36px',
   ICON_SIZE = '20px',
+
+  PROGRESS_BAR_CONTAINER_GAP = '20px',
+  DISABLED_PROGRESS_BAR_OPEN_IN_NEW_ICON_WIDTH = '16px',
+  PROGRESS_LIST_CONTAINER_BORDER_RADIUS = '8px',
 }

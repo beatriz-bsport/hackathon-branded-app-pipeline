@@ -4,6 +4,7 @@ import Immutable from 'seamless-immutable';
 import memoize from 'memoize-one';
 import { filterUnaccessiblePaymentPack } from '@bsport/common/lib/master-data/payment-pack';
 
+import type { SCT } from '#libs/category/types';
 import { getSCTs, getEditableSCTs } from '../category/selectors';
 import { getAllEstablishmentsDict as getEstablishmentData } from '../establishment/selectors';
 import { getMetaActivityAbstractDict as getMetaActivityData } from '../meta-activity/selectors';
@@ -106,9 +107,11 @@ export const withSCT = memoize((selector: PaymentPackSelector) =>
 
       return validPaymentPacks.map((pp) => ({
         ...pp,
-        categories: pp.categories?.map((c: number) =>
-          SCTs.find((sct) => sct.id === c),
-        ),
+        categories: pp.categories?.map((category: number | SCT) => {
+          return category?.id
+            ? category
+            : SCTs.find((sct) => sct.id === category);
+        }),
       }));
     }
     if (paymentPacks) {
@@ -116,7 +119,11 @@ export const withSCT = memoize((selector: PaymentPackSelector) =>
         ...paymentPacks,
         categories: (
           paymentPacks as Immutable.Immutable<PaymentPack>
-        ).categories?.map((c: number) => SCTs.find((sct) => sct.id === c)),
+        ).categories?.map((category: number | SCT) => {
+          return category?.id
+            ? category
+            : SCTs.find((sct) => sct.id === category);
+        }),
       };
     }
     return paymentPacks;

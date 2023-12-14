@@ -334,7 +334,7 @@
                 },
                 "title": "Formulário de notificação",
                 "typeTitle": "Tipo de notificação",
-                "settingTitle": "Parâmetros",
+                "settingTitle": "Configurações",
                 "eventNb": "Notificar o membro do evento n.º :",
                 "notifyAllEvents": "Notificar o membro de cada evento",
                 "sendBeforeMail": "Enviar a mensagem de email ao membro antes da sessão que diz respeito à notificação",
@@ -840,7 +840,7 @@
         "delete": "Eliminar",
         "saveRecord": "Guardar",
         "download": "Descarregar",
-        "params": "Parâmetros",
+        "params": "Configurações",
         "day": "Dia",
         "day_plural": "Dias",
         "recommended": "Recomendado",
@@ -1033,7 +1033,7 @@
                 "placeholder": "Selecionar um estado de reserva"
             },
             "sendParameter": {
-                "title": "Padrão de envio",
+                "title": "Configurações",
                 "placeholder": "Seleccionar um padrão de envio"
             },
             "srcOrDst": {
@@ -1138,7 +1138,7 @@
             "recipient_plural": "destinatários"
         },
         "forms": {
-            "title": "Definições do chat",
+            "title": "Configurações do chat",
             "submit": "Guardar",
             "twoWayEmail": {
                 "title": "Receber respostas por e-mail na plataforma",
@@ -1279,12 +1279,12 @@
         },
         "payment": {
             "total": "Total com IVA",
-            "globalTotal": "Total",
+            "globalTotal": "Total a pagar agora",
             "flat_fee": "Taxas de inscrições",
             "taxExcluded": "Subtotal insento de imposto",
             "tax": "Impostos",
             "internalAccount": "Conta interna",
-            "totalHiddingTax": "Total",
+            "totalHiddingTax": "Total a pagar agora",
             "deliveryFee": "Despesas de envio",
             "title": "Pagamento",
             "flatFeeSubscription": "Taxa de Inscrição"
@@ -1338,7 +1338,7 @@
                 "back": "Anterior",
                 "widgetContinue": "Continuar",
                 "confirmPriceNull": "Confirmar",
-                "payNow": "Pagar",
+                "payNow": "Pagar agora",
                 "goToCalendar": "Voltar ao calendário",
                 "myBookings": "Minhas Reservas",
                 "retry": "Tentar novamente",
@@ -1541,7 +1541,7 @@
                 "pay": "Pagar esta fatura",
                 "revert": "Cancelar",
                 "basketInconsistent": "O seu cesto foi alterado, actualize a sua página antes de validar o seu pagamento. Não foi debitado.",
-                "bill": "Aceitar",
+                "bill": "Cobrar o pagamento",
                 "showInvoice": "Ver a fatura",
                 "saveForLater": "Guardar este método de pagamento",
                 "billByInstalment": "Pagamento em prestações",
@@ -1991,7 +1991,7 @@
         },
         "invoiceItem": {
             "buyableItemIdentifier": {
-                "11": "passe de oferta",
+                "11": "Cartões de presente",
                 "10": "Pack",
                 "1": "Passe de aulas",
                 "9": "Passe de Marcações",
@@ -2139,7 +2139,7 @@
             "doUnsubscribe": "Cancelar a subscrição"
         },
         "navigation": {
-            "giftcard": "Passes de oferta",
+            "giftcard": "Cartões-presente",
             "subscription": "Subscrição",
             "logoff": "Desconectar",
             "profile": "Perfil",
@@ -2226,7 +2226,7 @@
                 "general": "Geral",
                 "whitelist_tags": "Autorizado",
                 "blacklist_tags": "Não - Autorizado",
-                "applies_to": "Parâmetros",
+                "applies_to": "Configurações",
                 "advanced": "Avançado",
                 "tags": "Etiquetas",
                 "availability": "Disponibilidade",
@@ -2745,14 +2745,14 @@
     },
     "giftcard": {
         "search": "Procurar um passe de oferta",
-        "widget": "Escolher passe de oferta",
+        "widget": "Escolher Cartões de presente",
         "giftcardTemplate": {
             "template": {
                 "validity": "Válido {{count}} dia",
                 "validity_plural": "Válido {{count}} dias",
                 "deleteTemplateContent": "Ao desativar um passe de oferta partilhado, os membros que possuem este passe só o poderão utilizar no estabelecimento onde foi comprado.",
                 "deleteInstanceContent1": "Ao desativar este estabelecimento da partilha de passes de oferta, todos os membros que possuem este passe e o receberam de um membro que comprou o passe neste estabelecimento continuarão a poder utilizá-lo. No entanto, deixarão de o poder utilizar noutros estabelecimentos.",
-                "deleteInstanceContent2": "Por fim, os passes comprados noutros estabelecimentos deixam de poder ser utilizados no estabelecimento desativado, independentemente da data em que foram compradas.",
+                "deleteInstanceContent2": "Por fim, os cartões de presente comprados noutros estabelecimentos deixam de poder ser utilizados no estabelecimento desativado, independentemente da data em que foram compradas.",
                 "unlimited": "Ilimitado",
                 "withoutTax": "Isento de impostos",
                 "validityDetail": "Validade antes da caducidade : {{count}} dia",
@@ -2767,13 +2767,13 @@
             "sharedCard": "Partilhado com outro franchisado"
         },
         "list": {
-            "explainIfEmpty": "Os passes de oferta permitem que os seus membros ofereçam aos seus convidados uma quantia em dinheiro para gastar no seu estabelecimento.",
-            "activeTitle": "Disponível para venda",
-            "unavailableForSaleTitle": "Indisponível para venda",
-            "archivedTitle": "Arquivado",
-            "isEmpty": "Não estão disponíveis passes de oferta",
+            "explainIfEmpty": "Os Cartões de presente permitem que os seus membros ofereçam aos seus convidados uma quantia em dinheiro para gastar no seu estabelecimento.",
+            "activeTitle": "Cartões de presente Disponíveis",
+            "unavailableForSaleTitle": "Cartões de presente Indisponíveis",
+            "archivedTitle": "Cartões de presentes Arquivados",
+            "isEmpty": "Não existem cartões de presente para apresentar.",
             "actions": {
-                "goToGiftcard": "Ver todos os passes de oferta",
+                "goToGiftcard": "Ver todos os Cartões de presente",
                 "create": "Criar um passe de oferta"
             },
             "validity": "Válido {{ duration }} dias",
@@ -2801,7 +2801,7 @@
                 },
                 "content": "Pode alterar os destinatários do passe de oferta. Se a mensagem do e-mail não tiver sido recebida, pode também enviar esta ligação de ativação:"
             },
-            "isEmpty": "Sem passes de oferta",
+            "isEmpty": "Não existem cartões de presente para apresentar.",
             "isFor": "À atenção de ",
             "value": "Valor",
             "previewPlaceholder": {
@@ -2840,8 +2840,8 @@
                 }
             },
             "list": {
-                "myPurchases": "Passes de oferta comprados",
-                "myGifted": "Passes de oferta recebidos"
+                "myPurchases": "Cartões de presente comprados",
+                "myGifted": "cartões de presente recebidos"
             },
             "expiresOn": "Caduca em {{- d }}",
             "notAttributedYet": "Não validado",
@@ -2869,7 +2869,7 @@
                 },
                 "section": {
                     "parameters": {
-                        "title": "Parâmetros"
+                        "title": "Configurações"
                     }
                 },
                 "title": "Passe de oferta",
@@ -2891,7 +2891,7 @@
         },
         "backgroundImage": {
             "dialog": {
-                "explain": "Adicione imagens para permitir que os seus membros personalizem o seu passe de oferta. Ao criar o passe, os membros poderão escolher uma imagem de fundo para o passe de oferta.",
+                "explain": "Adicione imagens para permitir que os seus membros personalizem o seu cartão-presente. Ao criar o cartão-presente, os membros poderão escolher uma imagem de fundo para o cartão-presente",
                 "actions": {
                     "close": "Fechar"
                 },
@@ -2912,7 +2912,7 @@
             "configurationTitle": "Passe de oferta",
             "detail": {
                 "availablePaymentMethods": "Métodos de pagamento disponíveis",
-                "manager_only": "Não disponível para venda online",
+                "manager_only": "cartões-presente indisponíveis",
                 "expirationDate": "Validade antes de expirar : {{ expiration_days }} dias"
             },
             "delete": {
@@ -3000,7 +3000,7 @@
                         "helperTextNewMembers": "O formulário aparecerá como um pop-up no marketplace e o widget após o formulário de inscrição.",
                         "cancel": "Cancelar",
                         "modify": "Alterar",
-                        "advancedOptions": "Definições avançadas",
+                        "advancedOptions": "Configurações avançadas",
                         "snoozeOptionLabel": "Tempo de adiamento (horas)"
                     },
                     "errors": {
@@ -3289,8 +3289,8 @@
                     "basket-finalize": "Carrinho pago",
                     "basket-additem": "Adicionar ao carrinho",
                     "basket-created": "Criar",
-                    "booking-attendance": "Frequência de sessões de grupo",
-                    "booking-create": "Aulas",
+                    "booking-attendance": "Frequência das aulas de grupo",
+                    "booking-create": "Aulas de grupo",
                     "private_consumer_pass-create": "Passe de Marcações",
                     "consumer_payment_pack-create": "Passe de aulas",
                     "104": "Subscrição",
@@ -3309,7 +3309,7 @@
                     "6": "Anular Marcações",
                     "5": "Marcações",
                     "4": "Frequência das aulas em grupo",
-                    "3": "Sessões em grupo",
+                    "3": "Aulas em grupo",
                     "2": "Passe de Marcações",
                     "1": "Passe de aulas",
                     "private_booking-cancel": "Cancelar Marcações",
@@ -3603,7 +3603,7 @@
                 "private_service": "Marcação",
                 "establishment": "Sala",
                 "workshop": "Workshop",
-                "meta_activity": "Atividade",
+                "meta_activity": "Aulas em grupo",
                 "birthday": "Aniversário",
                 "establishmentGroup": "Localização"
             },
@@ -3991,14 +3991,14 @@
             },
             "merge": {
                 "seeMemberPage": " Ver página dos membros",
-                "error": "Impossível unir membros",
-                "srcMember": "Membro a unir (eliminado)",
+                "error": "Impossível fundir membros",
+                "srcMember": "Esta conta será fundida e eliminada",
                 "dstMember": "Membro a manter",
                 "explainBookingsAndPassAndInvoiceAndNotes": "Os passes ativos, as reservas, as faturas e as notas serão transferidos.",
                 "explainCredit": "O depósito interno do membro será transferido",
                 "emailWillBeSend": "Será enviado um e-mail para ambos os endereços para informar os membros.",
-                "title": "Membro agregado",
-                "success": "Membros agregados",
+                "title": "Membros fundidos",
+                "success": "Membros fundidos",
                 "explainTags": "As etiquetas de membro eliminadas não serão transferidas",
                 "cancel": "Cancelar",
                 "submit": "Fundir"
@@ -4022,7 +4022,7 @@
             "toSubscribe": "Subscrever",
             "toBill": "Fatura"
         },
-        "merge": "Unir",
+        "merge": "Fundir",
         "accountBalance": "Saldo",
         "unpaidInvoiceTitle": "Fatura não paga",
         "unpaidInvoiceTitle_plural": "Faturas não pagas",
@@ -4212,8 +4212,8 @@
                     },
                     "dstUser": {
                         "deniedRequestHelper": "Se não pretender fundir estas contas ou se não tiver iniciado este pedido, clique em \"recusar fusão\". Isto impedirá que as contas sejam unidas e o utilizador não será registado na {{- company}}.",
-                        "requestingStudio": "O estúdio {{- company}} solicitou a fusão da conta {{ new_email }} com a conta {{ old_email }}.",
-                        "acceptRequestHelper": "Para aceitar a fusão de contas, clique em \"aceitar a fusão\".",
+                        "requestingStudio": "{{- company}} solicitou a fusão da conta {{ new_email }} com a conta {{ old_email }}.",
+                        "acceptRequestHelper": "Para aceitar a fusão de contas, clique em \"aceitar a fusão de conta\".",
                         "notMemberYet": "Apercebemo-nos que ainda não faz parte do estúdio {{- company}}. Se concordar em fundir as duas contas, será registado no estúdio {{- company}} e recuperará as informações e reservas da conta {{ old_email }}. Manterá os seus dados de início de sessão atuais em {{ new_email }}. Poderá gerir todos os estúdios em que está registado a partir deste email."
                     },
                     "submit": {
@@ -4222,27 +4222,27 @@
                             "content": "A sua conta não foi fundida com {{ new_email }}. O seu email de início de sessão continuará a ser {{ old_email}}."
                         },
                         "accepted": {
-                            "title": "Fusão Aceite",
+                            "title": "Fusão Aceita",
                             "content": "A sua conta foi fundida com a conta {{ old_email }}. É agora um membro do estúdio {{- company}}. Utilize o novo email para se conectar."
                         }
                     },
                     "error": {
                         "denied": {
                             "title": "Fusão recusada",
-                            "helper": "Já optou por recusar o pedido de fusão ao estúdio {{- company}}, a sua decisão foi tida em conta.",
-                            "contactCompany": "Se pretender solicitar novamente a fusão da sua conta, ou se não recusou o pedido de fusão, contacte diretamente o seu estúdio."
+                            "helper": "Já rejeitou o pedido de fusão da {{- company }}",
+                            "contactCompany": "Contacte diretamente o estúdio se pretender voltar a fundir as suas contas."
                         },
                         "accepted": {
                             "helper": "O seu e-mail de início de sessão atual é : {{ email }}",
-                            "contactCompany": "Se desejar alterar a sua escolha ou se este pedido não tiver sido feito por si, contacte o seu estúdio.",
-                            "title": "Fusão aceite"
+                            "contactCompany": "Contacte diretamente o estúdio se pretender fundir as suas contas ou se não tiver iniciado este pedido.",
+                            "title": "A fusão foi aceita"
                         }
                     },
                     "title": "Unir a sua conta"
                 },
                 "actions": {
                     "continue": "Continuar",
-                    "confirmFusion": "Aceitar a fusão",
+                    "confirmFusion": "Aceitar a fusão de contas",
                     "deniedFusion": "Recusar a fusão",
                     "cancel": "Guardar o meu email",
                     "confirm": "Confirmar o meu novo email"
@@ -4250,14 +4250,14 @@
                 "generalError": {
                     "contactCompany": "Deteta-mos um erro no pedido atual. Por razões de segurança, este pedido foi desativado. Para voltar a gerar este pedido, ou se não for o autor, contacte diretamente o seu estúdio.",
                     "helper": "O estúdio {{- company}} fez um pedido para alterar o seu email de início de sessão para o seu espaço pessoal:",
-                    "title": "Alteração do email de ligação inválido"
+                    "title": "Alterar um endereço de correio eletrónico de início de sessão inválido"
                 },
                 "unAuthorizedAccess": {
                     "helper": "Não está autenticado na conta que pode aceder a este pedido, por favor ligue-se à conta associada ao email de confirmação enviado.",
                     "contactCompany": "Se não puder atender a este pedido, contacte diretamente o seu estúdio.",
                     "title": "Acesso não autorizado"
                 },
-                "requestingStudio": "O estúdio {{- company}} gostaria de alterar o seu email de início de sessão para o seu espaço pessoal :"
+                "requestingStudio": "{{- company }} solicitou a alteração do endereço eletrónico de início de sessão da sua conta:"
             },
             "dialog": {
                 "actions": {
@@ -4274,7 +4274,7 @@
                     "warning": "Atenção, está a tentar fundir estes dois membros do seu estúdio :",
                     "unchangedEmail": "Ao clicar em confirmar, o membro {{ new_email }} recuperará as faturas, reservas, saldo e compras de {{ old_email }}. O membro {{ old_email }} será eliminado. Será enviada uma mensagem pelo email para ambos os endereços para notificar os membros."
                 },
-                "titleMerge": " Agregar membro",
+                "titleMerge": " Fundir contas de membros",
                 "linkMember": {
                     "unchangedEmail": "Entretanto, {{ old_email }} manterá o seu email antigo e os membros não serão ligados.",
                     "notIncompany": "O email {{ new_email }} pertence a um membro de outro estúdio.",
@@ -4363,7 +4363,7 @@
             "conditions": "Condições",
             "lastDiscardBeforeMinutesHeader": "Antes do início da aula, último cancelamento possível",
             "lastBookingBeforeMinutesFull": "Últimas reservas possíveis até {{m}} antes do início da sessão",
-            "title": "Parâmetros",
+            "title": "Configurações",
             "lastDiscardBeforeMinutes": "Até {{m}} antes do início da sessão"
         },
         "groupedOption": {
@@ -4373,7 +4373,7 @@
                     "allowBookingAfterStartCaption": "Por defeito, se uma sessão de grupo já tiver começado, os seus membros já não poderão registar-se nela. Ao ativar esta função, os membros poderão continuar a inscrever-se nas restantes sessões.",
                     "timeStartHelper": "Seleccione a data da primeira sessão da cópia de grupo. As outras sessões do grupo serão copiadas e remarcadas de acordo com esta data.",
                     "daily": "Todos os dias",
-                    "subtitleSettings": "Parâmetros",
+                    "subtitleSettings": "Configurações",
                     "subtitleRecurrence": "Periodicidade",
                     "recurrenceUntil": "Repetir até",
                     "recurrence": "Periodicidade",
@@ -4463,7 +4463,7 @@
         },
         "packsAvailable": "Elegível para :",
         "reviews": "Comentários dos alunos ",
-        "disabledMetaActivities": "Atividades arquivadas",
+        "disabledMetaActivities": "Atividades de grupo arquivadas",
         "cancelledOffers": "{{count}} cancelamentos",
         "modal": {
             "delete": {
@@ -4560,9 +4560,9 @@
                 "paymentRules": "Regras de remuneração",
                 "partnership": "Parceria",
                 "personalization": "Personalização",
-                "settings": "Parâmetros",
+                "settings": "Configurações",
                 "platform_billing": "Subscrição bsport",
-                "notificationRule": "E-mails trocados",
+                "notificationRule": "Notificações transaccionais",
                 "webhook": "Alerta",
                 "active_campaign": "Campanha ativa",
                 "forms": "Formulário de adesão",
@@ -4570,7 +4570,7 @@
                 "paymentMethod": "Métodos de pagamento",
                 "company": "Empresa",
                 "quicksale": "Área de vendas",
-                "marketplaceSettings": "Parâmetros marketplace",
+                "marketplaceSettings": "Configurações Marketplace",
                 "broadcast": "Videoconferência",
                 "general": "Geral",
                 "widget": "Widget",
@@ -4592,7 +4592,7 @@
             "tags": "Etiquetas",
             "franchiseConnectedAs": "Registado como: {{- name}}",
             "replacement": "Substituição",
-            "giftcard": "Passes de oferta",
+            "giftcard": "Cartões de presente",
             "combo": "Packs",
             "pass": "Passes de aulas",
             "consumer": {
@@ -4631,11 +4631,11 @@
             "establishment": "Estabelecimentos",
             "logoff": "Logout",
             "requestTempPassword": "Autorizar o acesso",
-            "order": "Controlos",
+            "order": "Encomendas",
             "expenses": "Despesas",
             "coaches": "Professores",
             "sequence": "Estratégias",
-            "activity": "As minhas atividades",
+            "activity": "Aulas de grupo",
             "smart_list": "Lista inteligente",
             "email_template": "Emails",
             "alpha": "em desenvolvimento",
@@ -4669,7 +4669,7 @@
             "staff": "Staff",
             "products": {
                 "label": "Produtos",
-                "giftcardTemplates": "Passes de oferta",
+                "giftcardTemplates": "Cartões de presente",
                 "couponTemplates": "Promoções",
                 "paymentPackTemplates": "Passes de aulas",
                 "privatePassTemplates": "Passe de marcação"
@@ -4679,8 +4679,8 @@
             "tag": "Etiquetas",
             "members": "Membros",
             "emailTemplates": "E-mails",
-            "notificationRules": "E-mails trocados",
-            "settings": "Parâmetros",
+            "notificationRules": "Notificações transaccionais",
+            "settings": "Configurações",
             "marketing": {
                 "tags": "Etiquetas",
                 "emailTemplates": "E-mails",
@@ -4733,8 +4733,8 @@
                 "form_plural": "Formulários ({{number}})",
                 "relation": "Associados",
                 "relation_plural": "Associados ({{number}})",
-                "contact": "Subscrição",
-                "contact_plural": "Subscrição ({{number}})",
+                "contact": "Contato",
+                "contact_plural": "Contatos({{number}})",
                 "bookings": "Reserva",
                 "bookings_plural": "Reservas ({{number}})",
                 "giftcard": "Passe de oferta",
@@ -4920,7 +4920,7 @@
                     "company_info": "Informações sobre o estúdio",
                     "company_logo": "Logo da empresa",
                     "company": "Nome da empresa",
-                    "login_url": "URL de ligação",
+                    "login_url": "URL de Login",
                     "company_facebookURL": "URL Facebook",
                     "company_websiteURL": "URL da página web",
                     "company_instagramURL": "URL Instagram",
@@ -4944,7 +4944,7 @@
                     "establishment": "Sala",
                     "establishment_practical_info": "Acesso à sala",
                     "address": "Endereço",
-                    "activity": "Atividade",
+                    "activity": "Aulas de grupo",
                     "coach": "Professor",
                     "date": "Hora/Data"
                 }
@@ -5099,7 +5099,7 @@
             "replacement_request": "Substituição",
             "booking": "Reserva",
             "waiting-list": "Lista de espera",
-            "giftcard": "Passes de oferta",
+            "giftcard": "Cartões de presente",
             "member": "Criar uma conta de aluno",
             "performance": "Performance"
         },
@@ -5109,7 +5109,7 @@
             "bookingConcerned": "a sessão abrangida pela notificação",
             "hours": "Horas"
         },
-        "pageTitle": "E-mails trocados",
+        "pageTitle": "Notificações transaccionais",
         "franchise": {
             "delete": {
                 "delete": "Eliminar",
@@ -5122,7 +5122,7 @@
                 "name": "Nome",
                 "title": "Configuração",
                 "description": "O modelo escolhido será utilizado para o email transacional \"{{-name}}\" para todos os franchisados selecionados aqui.",
-                "parameters": "Parâmetros",
+                "parameters": "Configurações",
                 "useFor": "Utilizar para ",
                 "activate": "Ativado",
                 "receiveCC": "Receber uma cópia da mensagem",
@@ -5144,7 +5144,7 @@
             "card": {
                 "companies": "Franqueados",
                 "template": "Modelo",
-                "parameters": "Parâmetros",
+                "parameters": "Configurações",
                 "deactivated": "Desativar",
                 "carbonCopy": "Receber uma cópia da mensagem do email",
                 "activated": "Ativar"
@@ -5194,7 +5194,7 @@
                         "title": "Penalizações eliminadas"
                     },
                     "noShowDialog": {
-                        "alert": "Pode definir as condições de não comparência nas definições de personalização.",
+                        "alert": "Pode definir as condições de não comparência nas configurações de personalização.",
                         "text": "Acabou de criar as penalizações por falta de comparência.  Acabámos de ativar a função \"chamada\", pelo que agora é necessário fazer a chamada para cada disciplina para ativar as penalizações.",
                         "title": "Penalizações por não comparência"
                     },
@@ -5214,11 +5214,11 @@
                     "nb_days": "Número de dias :",
                     "nb_cancellations": "Número de cancelamentos :",
                     "explain": "Será aplicada uma penalização se houver {{nb_cancellations}} cancelamentos tardios num período de {{nb_days}} dias.",
-                    "penaltyParams": "Parâmetros das penalizações",
+                    "penaltyParams": "Configuração das penalizações",
                     "cancellationsCheckbox": "Demasiados cancelamentos fora de tempo",
                     "errorNoPenaltyRule": "Não é possível guardar as alterações, é necessário escolher uma penalização ou desativar penalizações para continuar",
                     "noShowPenaltyTitle": "Penalizações por falta de comparência",
-                    "noShowPenaltyAlert": "Para definir quando um membro é considerado ausente (não comparência), vá a Definições>Personalização",
+                    "noShowPenaltyAlert": "Para definir quando um membro é considerado ausente (não comparência), vá a Configurações > Personalização",
                     "bothPenaltiesNumber": "Número de cancelamentos e ausências",
                     "penaltyParamsText": "Aplicar a mesma regra para os cancelamentos tardios e as não comparências",
                     "noShowPenaltyNumber": "Número de ausências",
@@ -5441,7 +5441,7 @@
                 "cancel": "Cancelar",
                 "submit": "Confirmar",
                 "hideMail": "Ocultar e-mail",
-                "settingTitle": "Definições",
+                "settingTitle": "Configurações",
                 "showMail": "Ver o e-mail",
                 "smartListSelection": "Selecionar listas (opcional)",
                 "mailSelection": "Selecionar um e-mail",
@@ -5452,7 +5452,7 @@
                 "creditType": "Créditos restantes",
                 "contractTitle": "Subscrição",
                 "typeTitle": "Tipo de notificação",
-                "pushTitle": "Definições de notificação",
+                "pushTitle": "Configuração de notificação",
                 "mailTitle": "E-mail a enviar",
                 "mailSettings": "Definições do e-mail",
                 "selectToShowPreview": "Selecionar um e-mail para pré-visualização",
@@ -5484,7 +5484,7 @@
             }
         },
         "notificationToolTip": "As notificações são definidas para este passe",
-        "noPaymentPack": "Os passes ativos permitem aos membros inscreverem-se nas atividades. É necessário um passe para se inscrever.",
+        "noPaymentPack": "Os membros necessitam de um passe válido para reservar as suas actividades de grupo e workshops.",
         "consumerPaymentPack": {
             "maxout": {
                 "dialog_message": "Este cartão já atingiu o limite de validade de {{count}} reservas por {{unit}}. Gostaria de reservar com este passe ? ",
@@ -5534,7 +5534,7 @@
             },
             "scaleUp": "Multiplicar",
             "scaleDown": "Dividir",
-            "parameterLegend": "Definições",
+            "parameterLegend": "Configurações",
             "explain": "Pode multiplicar os créditos do passe (3/7 x2 torna-se 6/14) ou dividi-los em caso de erro (3/7 ÷2 torna-se 1/3): arredondar para baixo.",
             "title": "Alterar o crédito total"
         },
@@ -5864,7 +5864,7 @@
             }
         },
         "cardDetails": {
-            "universalPass": "Compatível com aulas em grupo e particulares.",
+            "universalPass": "O Passe Universal é compatível com aulas em grupo e particulares.",
             "packBlocking2": " anuladas fora de prazo durante uma semana",
             "packBlocking1": " dias de bloqueios após ",
             "maxPurchasePerMember": "Número máximo de compras : ",
@@ -6407,7 +6407,7 @@
                     "quicksale": {
                         "_label": "Interface de venda rápida"
                     },
-                    "_label": "Parámetros",
+                    "_label": "Configurações",
                     "generals": {
                         "_label": "Geral"
                     },
@@ -6445,7 +6445,7 @@
                         "_label": "Método de pagamento"
                     },
                     "marketplace": {
-                        "_label": "Parámetros do marketplace"
+                        "_label": "Configurações do marketplace"
                     },
                     "widgets": {
                         "_label": "Ferramenta"
@@ -6480,13 +6480,13 @@
                         "_label": "Workshops"
                     },
                     "activities": {
-                        "_label": "Atividades"
+                        "_label": "Aulas de grupo"
                     },
                     "_label": "Meu Estúdio"
                 },
                 "products": {
                     "giftcards": {
-                        "_label": "Passes de oferta"
+                        "_label": "Cartões de presente"
                     },
                     "paymentPack": {
                         "_label": "Passes de aulas"
@@ -6629,7 +6629,7 @@
                     "_label": "E-mails"
                 },
                 "settings": {
-                    "_label": "Parâmetros"
+                    "_label": "Configurações"
                 },
                 "_label": "Menu de pesquisa",
                 "franchises": {
@@ -6781,15 +6781,15 @@
         "pageTitle": "Staff",
         "roleDescription": {
             "0": {
-                "name": "Administrador(a)",
-                "description": "Acesso de administrador sem restrições, pode criar contas do staff"
+                "name": "Proprietária(o)",
+                "description": "O Proprietário tem sempre acesso a todas as funcionalidades, pode substituir sem quaisquer restrições e pode adicionar contas de Funcionários."
             },
             "2": {
-                "description": "Acesso apenas no momento do check-in.",
-                "name": "Check-in restrito"
+                "description": "Com Check-in | Limitado, o seu Staff só poderá efetuar o check-in de membros.",
+                "name": "Check-in | Limitado"
             },
             "3": {
-                "name": "Check-in",
+                "name": "Check-in | Tablet",
                 "description": "Conta para aplicação de auto-checkin (contacte o seu gestor de conta bsport)"
             },
             "-1": {
@@ -6797,8 +6797,8 @@
                 "name": "Check-in para o interface de vendas"
             },
             "1": {
-                "name": "Check-in alargado",
-                "description": "Acesso à gestão de sessões (modificação e cancelamento), membros e check-in."
+                "name": "Check-in | Amplo",
+                "description": "Com o Check-in | Amplo, o pessoal pode editar sessões (hora, substituição, cancelamento, etc.), visualizar a base de dados de membros e efetuar o check-in de membros."
             },
             "5": {
                 "name": "Relatórios",
@@ -7913,7 +7913,7 @@
             "expense": "As despesas são filtradas por data de vencimento.",
             "cashbook": "Durante o período selecionado, é possível ver a evolução diária do capital.",
             "shop": "Para cada um dos seus artigos, consiga perceber a variação de stock entre a data de início e a data de fim, no intervalo selecionado.",
-            "consumer_giftcard": "Os passes de oferta são filtrados pela data em que foram comprados.",
+            "consumer_giftcard": "Os Cartões de presente são filtrados pela data em que foram comprados.",
             "discount": "As promoções são filtradas pela data em que foram utilizadas.",
             "universal_passes": "Os passes universais apresentados são os válidos nessa data.",
             "private_cpasses": "Os passes que aparecem são os válidos nessa data.",
@@ -8426,8 +8426,8 @@
             "universal_passes": "Passes Universais",
             "expense": "Despesas",
             "payment_installments": "Pagamentos em prestações",
-            "consumer_giftcard": "Passes de oferta comprados",
-            "giftcard": "Passe de oferta",
+            "consumer_giftcard": "Cartões de presente comprados",
+            "giftcard": "Cartões de presente",
             "video_purchase": "Compra do vídeo",
             "video": "Vídeo",
             "dayBookings": "Reservas (aulas de grupo) por dia",
@@ -8439,7 +8439,7 @@
             "activities": "Atividades",
             "first_privatebooking": "Primeira aula privada",
             "first_attendance": "Primeira presença",
-            "first_booking": "Primeira sessão (em grupo)",
+            "first_booking": "Primeira reserva (em aulas de grupo)",
             "subscription": "Facturas de subscrição",
             "billing_plan": "Subscrição",
             "discount": "Promoções",
@@ -8838,7 +8838,7 @@
         "privateRecurrentRule": {
             "createOrUpdate": {
                 "success": "Marcação periódica bem sucedido",
-                "locked": "Já existe uma regra de recorrência com estes parâmetros",
+                "locked": "Já existe uma regra de recorrência com estas configurações",
                 "error": "Não é possível registar marcações recorrentes"
             },
             "delete": {
@@ -8902,10 +8902,10 @@
                 "success": "Membros fundidos",
                 "explainTags": "As etiquetas de membro eliminadas não serão transferidas",
                 "cancel": "Cancelar",
-                "submit": "Agregar",
-                "srcMember": "Membro a fundir (eliminado)",
+                "submit": "Fundir",
+                "srcMember": "Membro a fundir",
                 "dstMember": "Membro a manter",
-                "title": "Agregar membro",
+                "title": "Fundir",
                 "explainCredit": "O depósito interno do membro será transferido"
             },
             "link": {
@@ -8980,7 +8980,7 @@
                 "50007": "Não é possível criar estes pedidos de substituição: não existem pedidos em atraso suficientes.",
                 "50020": "Este pedido de substituição foi recusado: não pode ser eliminado",
                 "500004": "Já é um substituto para esta sessão",
-                "80003": "Parâmetros em falta para os limites dos pedidos tardios.",
+                "80003": "Falta Configurações para os limites dos pedidos tardios.",
                 "80002": "O valor \"Número de dias de atraso de registo\" deve ser superior ao valor \"Número de dias de encerramento do registo\".",
                 "50021": "Não é possível especificar estabelecimentos e localizações ao mesmo tempo.",
                 "50012": "O professor respondeu que não queria ser suplente nessa sessão.",
@@ -9024,7 +9024,7 @@
                         "success": "Terminal de pagamento removido"
                     }
                 },
-                "error": "Ocorreu um erro. Por favor, verifique os parâmetros solicitados."
+                "error": "Ocorreu um erro. Por favor, verifique as configurações solicitados."
             }
         },
         "customFormDisplayRule": {
@@ -9354,7 +9354,7 @@
             },
             "upsert": {
                 "errors": {
-                    "84006": "É necessário definir uma declaração de isenção de responsabilidade em Definições > Geral para conseguir adicionar a pergunta \"Isenção de responsabilidade\"."
+                    "84006": "É necessário definir uma declaração de isenção de responsabilidade em Configurações > Geral para conseguir adicionar a pergunta \"Isenção de responsabilidade\"."
                 }
             }
         },
@@ -9584,7 +9584,7 @@
         "settings": {
             "update": {
                 "error": "Não foi possível atualizar, tente novamente mais tarde",
-                "success": "Parâmetros atualizados"
+                "success": "Configurações atualizadas"
             }
         },
         "requestCurrentBasket": {
@@ -9680,7 +9680,7 @@
                     "title": "Ausente (não compareceu)",
                     "alert": "Estas definições só se aplicam a penalizações de não comparência em passes ilimitados. Para ativar as seguintes contagens, é necessário validar a chamada para cada aula.",
                     "sendMail": "Enviar uma mensagem de e-mail <0/> <1/> após a chamada para avisar o membro de que terá uma falta de comparência se for indicado como ausente.",
-                    "sendMailHelpText": "Para ativar/desativar o e-mail, vá as Definições> Correio eletrónico transacional> Penalização> Notificação de ausência"
+                    "sendMailHelpText": "Para ativar/desativar o e-mail, vá as Configurações > Correio eletrónico transacional> Penalização> Notificação de ausência"
                 },
                 "coachUserspace": {
                     "daysBeforeReplacementClosingAcceptance": {
@@ -9703,7 +9703,7 @@
                         "placeholder": "Número de dias",
                         "helperText": "Pedido tardio"
                     },
-                    "replacementSettings": "Parâmetros de substituição",
+                    "replacementSettings": "Configurações de substituição",
                     "enableReplacement": "Substituição",
                     "requestLimitationPeriods": {
                         "placeholder": "Selecionar um periodo",
@@ -9711,7 +9711,7 @@
                         "month": "Mês",
                         "year": "Ano"
                     },
-                    "description": "Personalizar a área do professor na Web. Atenção, todas as definições aqui não irão afetar a área do professor da aplicação.",
+                    "description": "Personalizar a área do professor na Web. Atenção, todas as configurações aqui não irão afetar a área do professor da aplicação.",
                     "enable": "Ativar a área de professores predefinida",
                     "maxNbRequestPerPeriod": {
                         "helperText": "Número máximo de pedidos tardios",
@@ -9988,7 +9988,7 @@
             }
         },
         "marketingEmail": {
-            "caption": "As cópias dos e-mails trocados serão enviados para este e-mail se o parâmetro estiver ativado.",
+            "caption": "As cópias das Notificações transaccionais  serão enviados para este e-mail se o parâmetro estiver ativado.",
             "placeholder": "E-mail",
             "label": "E-mail de seguimento"
         },
@@ -10122,7 +10122,7 @@
                 "dateEnd": "Data de fim"
             },
             "toogle": {
-                "showOfferList": "Aulas de grupo",
+                "showOfferList": "Aulas de grupo & Worskshops",
                 "title": "Ver os filtros",
                 "showPrivateBookings": "Marcações",
                 "hideCancelledEvents": "Ver os cancelamentos",
@@ -10182,7 +10182,7 @@
                         "before": "hora(s) antes da sessão",
                         "after": "hora(s) após a sessão"
                     },
-                    "title": "Parâmetros"
+                    "title": "Configurações"
                 },
                 "ifKind": {
                     "notRefunded": "Se a reserva tiver sido cancelada após o prazo",
@@ -11596,7 +11596,7 @@
             "dissociate": "Personalizar as regras",
             "dialogTitle": "Grupo de remuneração",
             "fields": {
-                "activity": "Atividades",
+                "activity": "Aulas de grupo",
                 "addPrivateSlot": "Adicionar uma regra",
                 "private_service": "Marcações",
                 "coach_payment_rule": "Regra de remuneração",
@@ -12461,7 +12461,7 @@
             "marketingDashboard": "Marketing"
         },
         "marketplace": {
-            "marketplaceGiftcard": "Passes caducados",
+            "marketplaceGiftcard": "Cartões de presente",
             "marketplacePass": "Passes de aulas",
             "marketplaceCalendar": "Calendário",
             "marketplaceWorkshop": "Workshops",
@@ -12503,7 +12503,7 @@
         },
         "member": {
             "memberFormPage": "Formulário",
-            "mergeMember": "Agregar membro",
+            "mergeMember": "Fundir membro",
             "members": "Membros",
             "memberForm": "Adicionar um membro"
         },
@@ -12525,7 +12525,7 @@
         "offerManagement": "Reservas",
         "shop": "A minha loja",
         "planning": "Planear",
-        "settings": "Parâmetros",
+        "settings": "Configurações",
         "marketing": {
             "cadence": "Sequência",
             "notifications": "Notificações",
@@ -12547,8 +12547,8 @@
     "settings": {
         "marketplaceSettings": {
             "componentType": {
-                "giftcard": "Passe de oferta",
-                "loginButton": "Início de sessão",
+                "giftcard": "Cartões de presente",
+                "loginButton": "Botão Início de sessão",
                 "newsletter": "Newsletter",
                 "playlist": "Playlist",
                 "shop": "Loja",
@@ -12749,13 +12749,13 @@
                 },
                 "popupPreview": {
                     "category": {
-                        "giftcard": "Passes de oferta",
+                        "giftcard": "Cartões de presente",
                         "contract": "Subscrições",
                         "paymentPack": "Todos os passes",
                         "paymentCombo": "Ofertas promocionais"
                     },
                     "membershipCard": {
-                        "giftcardSubtitle": "Encontre todos os passes de oferta do seu estúdio aqui",
+                        "giftcardSubtitle": "Encontre todos os Cartões de presente do seu estúdio aqui",
                         "paymentPack": "Passes de aulas",
                         "consumerPaymentPackEmpty": "Nenhum passe disponível",
                         "privateConsumerPassListEmpty": "Nenhum passe de marcação disponível",
@@ -12820,7 +12820,7 @@
         "companyOnboarding": {
             "error": "Não é possível alterar esta informação"
         },
-        "pageTitle": "Parâmetros",
+        "pageTitle": "Configurações",
         "paymentMethods": {
             "methodPaymentBasketHelper": "Autorizar pagamentos para o cesto de compras, liquidação de dívidas e pagamentos pendentes... apenas através de",
             "title": "Pagamento em linha",
@@ -13208,7 +13208,7 @@
                     "confirm": "Confirmar",
                     "cancel": "Cancelar",
                     "content": "Atenção: está prestes a anular todos os campos que já foram personalizados.",
-                    "title": "Repor definições"
+                    "title": "Redefinir configurações"
                 },
                 "submit": "Registo",
                 "selectAlert": "Atualmente, a personalização de widgets só está disponível para workshops, calendários, subscrições e cartões"
@@ -13217,7 +13217,7 @@
             "configDialog": {
                 "cancel": "Fechar",
                 "submit": "Confirmar",
-                "title": "Definições do widget"
+                "title": "Configurações do widget"
             },
             "variantOption": {
                 "time": "Horário",
@@ -13804,7 +13804,7 @@
                 },
                 "typePhone": "Telemóvel",
                 "emailExistsInDB1": "Este e-mail já está registado porque está inscrito num clube ou num estúdio que utiliza o bsport. Pode utilizar o mesmo login.",
-                "emailExistsInDB2": "Conectar",
+                "emailExistsInDB2": "Iniciar sessão",
                 "confirmPasswordLabel": "Confirmar",
                 "confirmPassword": "Senha",
                 "rgpdTitle": "Como prefere que os professores o contactem sobre cancelamentos/alterações de horário ?",
@@ -14095,8 +14095,8 @@
             "showDetails": "Ver detalhes",
             "show_more": "Ver mais",
             "email": "E-mail",
-            "activities": "Workshops",
-            "merge": "Agregar",
+            "activities": "Atividades de grupo",
+            "merge": "Fundir",
             "edit": "Alterar",
             "filterBy": "Filtrar por : ",
             "sport": "Categoria",
@@ -14108,7 +14108,7 @@
             "status": "Estado",
             "recipients": "Destinatários",
             "recipient": "Destinatário",
-            "emergencyContact": "Em caso de urgência",
+            "emergencyContact": "Contato de Emergência",
             "name": "Nome",
             "confirm": "Confirmar",
             "disconnect": "Desligar",
@@ -14210,7 +14210,7 @@
             },
             "bank_details": "Informações bancárias",
             "address": "Morada",
-            "owner_address": "Endereço do gestor",
+            "owner_address": "Endereço do Proprietário",
             "general": "Geral"
         },
         "metaActivity": {
@@ -14243,7 +14243,7 @@
         "onlyNewMember": "Bloquear a inscrição de novos alunos nos passes de aulas",
         "openSchedule": "Ver o calendário",
         "button": {
-            "login": "Ligação"
+            "login": "Iniciar sessão"
         },
         "bookingConfirmed": "Reserva confirmada",
         "activityUpdated": "Atividade alterada",
@@ -14253,7 +14253,7 @@
             "title": {
                 "paymentPackList": "Passes de aulas",
                 "paymentPackFormPage": "Criar um passe de aulas",
-                "metaActivityList": "Atividades",
+                "metaActivityList": "Atividades de gupo",
                 "memberFormPage": "Formulário de membro",
                 "mergeMember": "Fusão de membros",
                 "dashboard": "Painel de controlo",
@@ -14272,7 +14272,7 @@
                 "allCoachPerformance": "Resumo do professor",
                 "coachList": "Professores",
                 "offerManagement": "Reservas",
-                "metaActivity": "Actividades",
+                "metaActivity": "Atividade de grupo",
                 "WorkshopActivityFormPage": "Formulário do workshop",
                 "metaActivityEditForm": "Formulário de inscrição",
                 "metaActivityFormPage": "Formulário de Atividade",
@@ -14282,7 +14282,7 @@
                 "establishmentList": "Salas",
                 "establishmentFormPage": "Formulário da sala",
                 "marketingDashboard": "Marketing",
-                "settings": "Parâmetros",
+                "settings": "Configurações",
                 "orderList": "Permissões",
                 "orderDetail": "Detalhes da encomenda"
             }
@@ -14331,7 +14331,7 @@
             "reporting": "Relatórios",
             "search": "Pesquisar",
             "dashboard": "Dashboard",
-            "activity": "Minhas atividades",
+            "activity": "Atividades de grupo",
             "establishment": "Estabelecimentos",
             "payment": "Pagamentos",
             "logoff": "Desligar",
@@ -14343,7 +14343,7 @@
             "digital": "Oferta digital",
             "beta": "beta",
             "calendar": "Calendário",
-            "settings": "Parâmetros",
+            "settings": "Configurações",
             "myClub": "Meu Estúdio",
             "subscription": "Subscrições",
             "coupon": "Promoções",
@@ -14405,7 +14405,7 @@
             }
         },
         "metaActivityCategory": {
-            "explain": "Estas categorias são apenas utilizadas para organizar as atividades de backoffice como entender. Não têm qualquer impacto no lado do cliente",
+            "explain": "Estas categorias são apenas utilizadas para organizar as atividades de grupo do backoffice como entender. Não têm qualquer impacto no lado do cliente",
             "sctExplain": "Estas categorias indicam o tipo de atividade. Aparecerão no mercado e na aplicação."
         },
         "activity": {
@@ -14415,7 +14415,7 @@
             "addOffers": "Adicionar sessões",
             "name": "Título",
             "nextSlotAt": "Próxima reunião em ",
-            "settings": "Parâmetros",
+            "settings": "Configurações",
             "is_broadcast": "Aulas de transmissão online",
             "firstMinutesBookingUntilWarning": "Um valor de zero significa que não foram estabelecidos limites. As reservas estarão sempre abertas para as sessões desta atividade.",
             "totalCustomers": "Total de reservas",
@@ -14607,7 +14607,7 @@
                         "isNotifyConsumers": "Gostaria de informar os seus alunos sobre esta alteração ?",
                         "syncOfferOnSpivi": "Enviar para Spivi"
                     },
-                    "title": "Parâmetros"
+                    "title": "Configurações"
                 },
                 "similarOffers": {
                     "info": "As alterações das sessões podem torná-las incompatíveis com determinados passes. Após a modificação, verifique se as sessões continuarão a ser compatíveis com eventuais mudanças de local / professor.",
@@ -14687,7 +14687,7 @@
             },
             "stepper": {
                 "step": {
-                    "SETTINGS": "Parâmetros de alteração",
+                    "SETTINGS": "Configurações de alteração",
                     "INFOS": "Sessão"
                 }
             },
@@ -15271,8 +15271,8 @@
                 "selectShopItem": "Selecionar um produto",
                 "allPrivateBooking": "Compatível com todos os passes de marcações",
                 "privateBooking": "Passe de marcações",
-                "giftcard": "Passe oferta",
-                "allGiftcard": "Compatível com todos os passes oferta",
+                "giftcard": "Cartões de presente",
+                "allGiftcard": "Compatível com todos os cartões de presente",
                 "allShopItem": "Compatível com todos os produtos da loja",
                 "combo": "Pack",
                 "allCombo": "Compatível com todos os packs"
@@ -15346,9 +15346,9 @@
             "packAvailableForAll": "Todos os passes de aulas compatíveis",
             "paymentPack": "Passes de aulas",
             "onlyWhenAllAvailable": "Apenas disponível quando todos os artigos do carrinho são compatíveis",
-            "giftcardAvailable": "{{length}} passe oferta compatível",
-            "giftcardAvailable_plural": "{{length}} passes de oferta compatíveis",
-            "giftcard": "Passe de oferta",
+            "giftcardAvailable": "{{length}} Cartão  de presente compatível",
+            "giftcardAvailable_plural": "{{length}} Cartões  de presente compatíveis",
+            "giftcard": "Cartões de presente",
             "title": "Detalhes da configuração",
             "shopItem": "Produtos",
             "fee": "Taxas fixas",
@@ -15357,7 +15357,7 @@
             "duration": "Todos os {{frequency}} {{recurrency}} para {{number_of_billing}} {{recurrency_ponderate_by_number_of_billing}}",
             "privatePassAvailableForAll": "Todos os passes de marcações compatíveis",
             "comboAvailableForAll": "Todos os packs compatíveis",
-            "giftcardAvailableForALl": "Todos os passes oferta compatíveis",
+            "giftcardAvailableForALl": "Todos os Cartões de presente compatíveis",
             "shopItemAvailableForALl": "Todos os produtos da loja compatíveis",
             "combo": "Packs",
             "privatePass": "Passes de marcações",
@@ -15889,7 +15889,7 @@
                     "label": "Renovação tácita"
                 },
                 "settings": {
-                    "title": "Parâmetros"
+                    "title": "Configurações"
                 },
                 "unusableByStaff": {
                     "label": "Invisível para o staff"
@@ -16221,11 +16221,11 @@
             },
             "subtitle": "Subscrição",
             "emailNotification": {
-                "parameters": "Parâmetros de e-mail",
+                "parameters": "Configurações de e-mail",
                 "emailToSend": "E-mail a enviar"
             },
             "notificationPush": {
-                "parameters": "Parâmetros da notificação",
+                "parameters": "Configurações da notificação",
                 "addTag": "Adicionar uma etiqueta",
                 "title": "Título",
                 "content": "Conteúdo",
@@ -16317,7 +16317,7 @@
                 "0": "Cartão",
                 "paymentOnline": "Pagamento em linha"
             },
-            "parameters": "Parâmetros",
+            "parameters": "Configurações",
             "autoRenew": "Renovação automática",
             "note": "Aviso",
             "stopNote": "Aviso de cancelamento",
@@ -16429,7 +16429,7 @@
                 "label": "Nota"
             },
             "check": "Verificar",
-            "submit": "Fatura",
+            "submit": "Pague agora",
             "cancel": "Cancelar"
         },
         "scheduledStop": {
@@ -16530,7 +16530,7 @@
             },
             "detail": {
                 "enabled": "Sim",
-                "parameters": "Parâmetros",
+                "parameters": "Configurações",
                 "disabled": "Não",
                 "provisionHistory": "Evolução do stock",
                 "is_deliverable": "Taxas de envio",
@@ -17260,7 +17260,7 @@
             "confirm": "Continuar",
             "cancel": "Cancelar",
             "content": "As definições dos vários separadores voltam aos seus valores predefinidos. Deseja continuar ?",
-            "title": "Repor definições"
+            "title": "Redefinir configurações"
         },
         "save": "Guardar",
         "showMoreLegend": "+ {{count}} legenda",
@@ -17368,9 +17368,9 @@
     },
     "login": {
         "accountConfiguration": {
-            "bankAccountSuccess": "O seu IBAN foi validado. Pode alterar esta informação mais tarde no backoffice, nas definições da empresa.",
-            "accountSuccess": "A sua conta Stripe foi criada. Pode alterar esta informação mais tarde no backoffice, nas definições da empresa.",
-            "paymentMethodSuccess": "O método de pagamento indicado é válido. Pode sempre alterá-lo nas definições de subscrição da Bsport.",
+            "bankAccountSuccess": "O seu IBAN foi validado. Pode alterar esta informação mais tarde no backoffice, nas configurações da empresa.",
+            "accountSuccess": "A sua conta Stripe foi criada. Pode alterar esta informação mais tarde no backoffice, nas Configurações da empresa.",
+            "paymentMethodSuccess": "O método de pagamento indicado é válido. Pode sempre alterá-lo nas Configuraçõe de subscrição da Bsport.",
             "welcomeDescription": "Temos o prazer de o receber na sua nova plataforma. Antes de começar a sua experiência, faltam-nos algumas informações.",
             "bankAccount": {
                 "address": "Endereço",
@@ -17500,7 +17500,7 @@
                 "register": "Registar",
                 "noAccount": "Ainda não tem conta ?"
             },
-            "signin": "Ligar-me",
+            "signin": "Iniciar sessão",
             "forgottenPassword": "Esqueceu-se da sua palavra-passe ?"
         },
         "needStripe": {
@@ -17577,7 +17577,7 @@
         "signin": {
             "connection": "Aceder",
             "connect": "Iniciar sessão para continuar.",
-            "selectYourCurrentEmail": "Seleccione o seu email de ligação atual."
+            "selectYourCurrentEmail": "Seleccione as suas credenciais de início de sessão actuais."
         },
         "or": " ou ",
         "error": {

@@ -58,7 +58,9 @@ export const CadenceCreateAndUpdateForm: React.FC<ComponentProps> = React.memo(
           ? t('audience.form.formTitle.updateNameTitle')
           : t('audience.form.formTitle.createTitle');
       }
-      return t('audience.form.formTitle.updateTitle');
+      return initial?.id && initial?.name
+        ? t('audience.form.formTitle.updateTitle')
+        : t('audience.form.formTitle.createTitle');
     }, [initial, t, displayParametersSection]);
 
     const submitButtonText = useMemo(

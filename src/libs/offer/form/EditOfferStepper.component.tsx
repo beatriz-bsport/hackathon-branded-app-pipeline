@@ -27,7 +27,7 @@ enum EDIT_STEPS {
   SETTINGS = 'SETTINGS',
 }
 
-const InfoStepIcon = (props: StepProps) => {
+const InfoStepIcon = React.memo((props: StepProps) => {
   const { active } = props;
   const classes = useOfferFormStyles(true, !active);
   return (
@@ -35,9 +35,9 @@ const InfoStepIcon = (props: StepProps) => {
       <EventIcon className={classes.sectionIcon} />
     </div>
   );
-};
+});
 
-const SettingsStepIcon = (props: StepProps) => {
+const SettingsStepIcon = React.memo((props: StepProps) => {
   const { active } = props;
   const classes = useOfferFormStyles(true, !active);
   return (
@@ -45,7 +45,7 @@ const SettingsStepIcon = (props: StepProps) => {
       <Settings className={classes.sectionIcon} />
     </div>
   );
-};
+});
 
 const StepperConnector = withStyles((theme: Theme) =>
   createStyles({
@@ -61,7 +61,7 @@ const StepperConnector = withStyles((theme: Theme) =>
   }),
 )(StepConnector);
 
-const EditOfferStepper = (props: Props) => {
+const EditOfferStepper = React.memo((props: Props) => {
   const { t } = useTranslation('offer');
   const { activeStep } = props;
 
@@ -84,6 +84,6 @@ const EditOfferStepper = (props: Props) => {
       </Step>
     </Stepper>
   );
-};
+});
 
-export default EditOfferStepper;
+export default React.memo(EditOfferStepper);

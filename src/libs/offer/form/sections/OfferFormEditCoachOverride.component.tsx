@@ -134,4 +134,4 @@ const OfferFormEditCoachOverride = (props: Props) => {
   );
 };
 
-export default OfferFormEditCoachOverride;
+export default React.memo(OfferFormEditCoachOverride);

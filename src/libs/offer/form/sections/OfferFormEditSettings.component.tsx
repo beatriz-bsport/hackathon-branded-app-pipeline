@@ -45,4 +45,4 @@ const OfferFormEditSettings = (props: Props) => {
   );
 };
 
-export default OfferFormEditSettings;
+export default React.memo(OfferFormEditSettings);

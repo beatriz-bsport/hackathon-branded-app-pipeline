@@ -89,4 +89,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default OfferFormEditSimilarOffers;
+export default React.memo(OfferFormEditSimilarOffers);

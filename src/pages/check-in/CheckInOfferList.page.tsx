@@ -23,6 +23,7 @@ import {
 } from '#libs/offer/actions';
 import {
   getAvailableOffersFiltered,
+  getManagerFilters,
   withCoach,
   withEstablishment,
 } from '#libs/offer/selectors';
@@ -49,6 +50,13 @@ import {
   unlockCheckInFilter as unlockCheckInFilterAction,
 } from '#libs/user-preference/actions';
 import { getIsCheckInFilterLocked } from '#libs/user-preference/selectors';
+import {
+  updateLocalStorageFilters,
+  getOfferFilters,
+  updateLocalStorageEstablishementList,
+  getLocalStorageEstablishementList,
+  isLocalStorageEstablishementListValid,
+} from '#libs/check-in/utils';
 
 type State = {
   authenticationDialog: {
@@ -83,7 +91,13 @@ export class CheckInOfferListPage extends React.Component<Props, State> {
     };
   }
 
+  componentDidUpdate(prevProps: Props) {
+    if (this.props.establishments !== prevProps.establishments)
+      updateLocalStorageEstablishementList(this.props.establishments);
+  }
+
   componentWillMount() {
+    this.props.setFilters(getOfferFilters(this.props.offerFilters));
     this.refreshData();
     this.handleFetchLevel();
   }
@@ -172,17 +186,28 @@ export class CheckInOfferListPage extends React.Component<Props, State> {
     );
   };
 
+  handleLockCheckInFilter = () => {
+    updateLocalStorageFilters(this.props.offerFilters);
+    this.props.lockCheckInFilter();
+  };
+
+  establishmentList =
+    this.props.establishments?.length === 0 &&
+    isLocalStorageEstablishementListValid()
+      ? getLocalStorageEstablishementList()
+      : this.props.establishments;
+
   render() {
     return (
       <div className={this.props.classes.container}>
         <CheckInOfferList
-          establishments={this.props.establishments}
+          establishments={this.establishmentList}
           isCheckInFilterLocked={this.props.isCheckInFilterLocked}
           minutesToConvert={this.props.totalCheckInCutOffMinutes}
           offerFilters={this.props.offerFilters}
           offers={this.props.offers}
           offersLoading={this.props.offersLoading}
-          onLockCheckInFilter={this.props.lockCheckInFilter}
+          onLockCheckInFilter={this.handleLockCheckInFilter}
           onOfferSelected={this.props.onOfferSelected}
           onOpenAuthenticationDialog={this.handleOpenAuthenticationDialog}
           refreshData={this.refreshData}
@@ -286,7 +311,7 @@ const mapStateToProps = (state: RootState) => ({
   establishments: withCoach(withEstablishment(getAvailableEstablishmentList))(
     state,
   ),
-  offerFilters: state.offer.managerFilter.filters,
+  offerFilters: getManagerFilters(state),
   offers: withCustomLevel(
     withCoach(withEstablishment(getAvailableOffersFiltered)),
   )(state),

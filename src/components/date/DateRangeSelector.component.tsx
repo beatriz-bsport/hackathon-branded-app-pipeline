@@ -116,13 +116,15 @@ export type Props = {
   isDisabled?: boolean;
   futureOnly?: boolean;
   timePeriod: DateFilterRangeEnum;
+  isEndDateBeforeCurrentDate?: boolean;
   onSubmit: (values: Values) => void;
 };
 
-type Values = {
+export type Values = {
   dateStart: Moment;
   dateEnd: Moment;
   timePeriod: DateFilterRangeEnum;
+  isEndDateBeforeCurrentDate: boolean;
 };
 
 const DateRangeSelectorSchema = Yup.object().shape({
@@ -136,6 +138,18 @@ const DateRangeSelectorSchema = Yup.object().shape({
         const { dateStart } = this.parent;
 
         return moment(dateStart).isSameOrBefore(dateEnd);
+      },
+    )
+    .test(
+      'is-end-before-current',
+      'errors.endBeforeCurrent',
+      function checkIsEndDateBeforeCurrentDate(dateEnd) {
+        const { isEndDateBeforeCurrentDate } = this.parent;
+
+        if (isEndDateBeforeCurrentDate) {
+          return moment(dateEnd).isSameOrBefore(moment().endOf('day'));
+        }
+        return true;
       },
     ),
   timePeriod: Yup.string(),
@@ -367,14 +381,24 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export default compose<any, Props>(
-  withFormik({
-    mapPropsToValues: ({ date_start, date_end, timePeriod }) => {
+  withFormik<Props, Values>({
+    mapPropsToValues: ({
+      date_start,
+      date_end,
+      timePeriod,
+      isEndDateBeforeCurrentDate,
+    }) => {
       const { dateStart, dateEnd } = getStartEndDates(
         timePeriod,
         date_start,
         date_end,
       );
-      return { dateStart, dateEnd, timePeriod };
+      return {
+        dateStart,
+        dateEnd,
+        timePeriod,
+        isEndDateBeforeCurrentDate,
+      };
     },
     validationSchema: DateRangeSelectorSchema,
     handleSubmit: defaultHandleSubmit,

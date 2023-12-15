@@ -295,10 +295,11 @@ exports.default = {
         isAtHome: 'At home booking indicator',
         isNoShow: 'No show booking indicator',
         isCancelDisabled: 'Cancel button is disabled',
-        displaySpotSchedulePosition: 'Display spot schedule position',
+        displayspotSchedulingPosition: 'Display spot schedule position',
         displayWaitingListPosition: 'Display waiting list position',
         isCancellable: 'Booking is cancellable',
         isBookableForAGuest: 'Booking is bookable for a guest',
+        isMoreDisplayed: 'Secondary buttons are hidden in a menu',
       },
       configurationTitle: 'Variations',
       confirmationMessageComponentAlert:
@@ -330,6 +331,7 @@ exports.default = {
       spot_scheduling: 'Spot scheduling',
       checkoutConfirmationPage: 'Confirmation de paiment',
       marketing: 'Marketing',
+      consumer_space: 'Consumer space',
     },
     components: {
       calendar: 'Calendar page',
@@ -438,6 +440,7 @@ exports.default = {
       selector: 'Selector',
       selector_input: 'Selector Input',
       marketing_newsletter_form_v2: 'Newsletter form',
+      consumer_booking_card: 'Consumer booking card',
     },
     customCss: {
       yourCode: 'Your complementary implementation:',

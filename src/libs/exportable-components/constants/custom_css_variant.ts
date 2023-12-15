@@ -115,4 +115,5 @@ export enum CssComponentsVariantIdentifiers {
   SELECTOR = 'selector',
   SELECTOR_INPUT = 'selector_input',
   MARKETING_NEWSLETTER_FORM_V2 = 'marketing_newsletter_form_v2',
+  CONSUMER_BOOKING_CARD = 'consumer_booking_card',
 }

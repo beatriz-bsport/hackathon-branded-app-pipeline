@@ -387,6 +387,11 @@ import {
   AUTHENTICATION_TEXTFIELD_CONFIGURATION,
   AUTHENTICATION_TEXTFIELD_PREVIEW,
 } from '#components/css-only/Fabrique/TextField';
+
+import {
+  CONSUMER_BOOKING_CARD_PREVIEW,
+  CONSUMER_BOOKING_CARD_CONFIGURATION,
+} from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingCard';
 /* TEMPLATE
 
 {
@@ -491,6 +496,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
         FABRIQUE_TEXTFORM_CONFIGURATION,
         FABRIQUE_SELECTOR_CONFIGURATION,
         FABRIQUE_SELECTOR_INPUT_CONFIGURATION,
+        CONSUMER_BOOKING_CARD_CONFIGURATION,
       ]
     : []),
 ];
@@ -676,6 +682,8 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
       [CssComponentsVariantIdentifiers.SELECTOR]: FABRIQUE_SELECTOR_PREVIEW,
       [CssComponentsVariantIdentifiers.SELECTOR_INPUT]:
         FABRIQUE_SELECTOR_INPUT_PREVIEW,
+      [CssComponentsVariantIdentifiers.CONSUMER_BOOKING_CARD]:
+        CONSUMER_BOOKING_CARD_PREVIEW,
     }),
   });
 

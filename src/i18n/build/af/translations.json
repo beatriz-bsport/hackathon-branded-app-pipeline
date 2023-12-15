@@ -14137,10 +14137,11 @@
           "isAtHome": "At home booking indicator",
           "isNoShow": "No show booking indicator",
           "isCancelDisabled": "Cancel button is disabled",
-          "displaySpotSchedulePosition": "Display spot schedule position",
+          "displayspotSchedulingPosition": "Display spot schedule position",
           "displayWaitingListPosition": "Display waiting list position",
           "isCancellable": "Booking is cancellable",
-          "isBookableForAGuest": "Booking is bookable for a guest"
+          "isBookableForAGuest": "Booking is bookable for a guest",
+          "isMoreDisplayed": "Secondary buttons are hidden in a menu"
         },
         "configurationTitle": "Variations",
         "confirmationMessageComponentAlert": "This component primarily manages booking and payment statuses. For customizing its appearance, we recommend utilizing its root components located in common section",
@@ -14163,7 +14164,8 @@
         "authentication": "Authentication",
         "spot_scheduling": "Spot scheduling",
         "checkoutConfirmationPage": "Confirmation de paiment",
-        "marketing": "Marketing"
+        "marketing": "Marketing",
+        "consumer_space": "Consumer space"
       },
       "components": {
         "calendar": "Calendar page",
@@ -14262,7 +14264,8 @@
         "fabrique_textform": "Text form",
         "selector": "Selector",
         "selector_input": "Selector Input",
-        "marketing_newsletter_form_v2": "Newsletter form"
+        "marketing_newsletter_form_v2": "Newsletter form",
+        "consumer_booking_card": "Consumer booking card"
       },
       "customCss": {
         "yourCode": "Your complementary implementation:",

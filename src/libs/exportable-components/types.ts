@@ -100,6 +100,7 @@ export enum MarketplacePage {
   CHECKOUT_CONFIRMATION = 'checkoutConfirmationPage',
   FABRIQUE = 'fabrique',
   MARKETING = 'marketing',
+  CONSUMER_SPACE = 'consumer_space',
 }
 
 export type VariationConfigurationChoice = {

@@ -23,6 +23,8 @@ import { Star06 } from '#components/untitledui';
 
 const PLACEHOLDER = generateRandomName(faker);
 
+const ERROR_MESSAGE = faker.lorem.sentence(1);
+
 const menuItemLabels = generateRandomNames(faker, { count: 5 });
 
 const menuItemData = menuItemLabels.map((label) => ({
@@ -107,7 +109,12 @@ const usePropsFromVariation = (
   variationsSelected: Record<string, VariationConfigurationChoice>,
 ): Pick<
   SelectorProps,
-  'placeholder' | 'isDisabled' | 'isError' | 'size' | 'leftIcon'
+  | 'placeholder'
+  | 'isDisabled'
+  | 'isError'
+  | 'size'
+  | 'leftIcon'
+  | 'errorMessage'
 > => {
   const displayPlaceholder =
     variationsSelected?.displayPlaceholder?.value === 'true';
@@ -121,6 +128,7 @@ const usePropsFromVariation = (
     size,
     isDisabled,
     isError,
+    errorMessage: isError && ERROR_MESSAGE,
   };
 };
 

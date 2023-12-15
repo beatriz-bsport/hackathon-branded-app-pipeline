@@ -24,3 +24,10 @@
 .bs-fabrique-selector__caption-text--hidden {
   display: none;
 }
+
+.bs-fabrique-selector__error-message {
+}
+
+.bs-fabrique-selector__error-message--hidden {
+  display: none;
+}

@@ -8,6 +8,7 @@ import Selector, { SelectorStorybook, type SelectorProps } from '.';
 import { MenuItemStorybook } from '#Fabrique/MenuItem';
 import { SelectorSizeEnum } from './constants';
 import { Star06 } from '#components/untitledui';
+import { ErrorMessage } from 'formik';
 
 MenuItemStorybook.displayName = 'Selector';
 
@@ -21,6 +22,8 @@ const menuItemData = menuItemLabels.map((label) => ({
 const fakePlaceholder = generateRandomName(faker);
 
 const fakeCaptionText = faker.lorem.sentence();
+
+const fakeErrorMessage = faker.lorem.sentence(1);
 
 const fakeLabel = generateRandomName(faker);
 
@@ -49,6 +52,11 @@ export default {
     },
     captionText: {
       description: 'Represents a caption text value.',
+      control: { type: 'text' },
+      defaultValue: '',
+    },
+    errorMessage: {
+      description: 'Represents an error message.',
       control: { type: 'text' },
       defaultValue: '',
     },
@@ -214,6 +222,7 @@ Singlewithplaceholder.args = {
 export const Singlewitherror = SingleSelectTemplate.bind({});
 Singlewitherror.args = {
   isError: true,
+  errorMessage: fakeErrorMessage,
 };
 
 export const Singledisabled = SingleSelectTemplate.bind({});
@@ -286,6 +295,7 @@ Multiwithplaceholdercaptiontextandlabel.args = {
 export const Multiwitherror = SingleSelectTemplate.bind({});
 Multiwitherror.args = {
   isError: true,
+  errorMessage: fakeErrorMessage,
 };
 
 export const Multidisabled = SingleSelectTemplate.bind({});

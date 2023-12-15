@@ -26,6 +26,8 @@ const LABEL = faker.lorem.word();
 
 const CAPTION_TEXT = generateRandomName(faker);
 
+const ERROR_MESSAGE = faker.lorem.sentence(1);
+
 const menuItemLabels = generateRandomNames(faker, { count: 5 });
 
 const menuItemData = menuItemLabels.map((label) => ({
@@ -50,6 +52,20 @@ const fabriqueSelectorVariationRegistry = [
   },
   {
     label: 'isRequired',
+    choices: [
+      {
+        label: 'true',
+        value: 'true',
+      },
+      {
+        label: 'false',
+        value: 'false',
+      },
+    ],
+    default: { label: 'false', value: 'false' },
+  },
+  {
+    label: 'isError',
     choices: [
       {
         label: 'true',
@@ -94,17 +110,23 @@ const fabriqueSelectorVariationRegistry = [
 
 const usePropsFromVariation = (
   variationsSelected: Record<string, VariationConfigurationChoice>,
-): Pick<SelectorProps, 'label' | 'captionText' | 'size' | 'isRequired'> => {
+): Pick<
+  SelectorProps,
+  'label' | 'captionText' | 'size' | 'isRequired' | 'isError' | 'errorMessage'
+> => {
   const displayLabel = variationsSelected?.displayLabel?.value === 'true';
   const displayCaptionText =
     variationsSelected?.displayCaptionText?.value === 'true';
   const size = variationsSelected?.size?.value as SelectorSize;
   const isRequired = variationsSelected?.isRequired?.value === 'true';
+  const isError = variationsSelected?.isError?.value === 'true';
   return {
     label: displayLabel && LABEL,
     captionText: displayCaptionText && CAPTION_TEXT,
     size,
     isRequired,
+    isError,
+    errorMessage: isError && ERROR_MESSAGE,
   };
 };
 

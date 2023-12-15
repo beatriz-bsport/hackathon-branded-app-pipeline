@@ -20,6 +20,7 @@ export type SelectorClasses = {
   label?: string;
   captionText?: string;
   menu?: string;
+  errorMessage?: string;
 } & SelectorInputClasses &
   SelectorValuesClasses;
 
@@ -44,6 +45,10 @@ export type SelectorProps = {
    *Override or extend the styles applied to the component.
    */
   className?: string;
+  /**
+   *Represents an error message.
+   */
+  errorMessage?: string;
   /**
    * Callback function to extract the value we want to display in the selector from an item
    */
@@ -111,6 +116,7 @@ const Selector: React.FC<SelectorProps> = ({
   children,
   classes,
   className,
+  errorMessage,
   getSelectedItemLabel,
   getSelectedItemValue,
   id,
@@ -228,6 +234,19 @@ const Selector: React.FC<SelectorProps> = ({
         variant={isSmall ? 'body-xs' : 'body-sm'}
       >
         {captionText}
+      </Typography>
+      <Typography
+        className={classNames(
+          'bs-fabrique-selector__error-message',
+          {
+            'bs-fabrique-selector__error-message--hidden': !errorMessage,
+          },
+          classes?.errorMessage,
+        )}
+        color="error"
+        variant={isSmall ? 'body-xs' : 'body-sm'}
+      >
+        {errorMessage}
       </Typography>
       <Menu
         anchorEl={anchorEl}

@@ -48,18 +48,10 @@ export default class SpotSchedulingHelper {
     return roomBlueprint;
   };
 
-  static getSpotCount = (roomBlueprint: RoomBlueprint) => {
-    if (
-      roomBlueprint &&
-      roomBlueprint.canvas &&
-      roomBlueprint.canvas.elements
-    ) {
-      return roomBlueprint.canvas.elements.filter((el) => el.type === 'spot')
-        .length;
-    }
-
-    return null;
-  };
+  static getSpotCount = (roomBlueprint: RoomBlueprint) =>
+    roomBlueprint?.canvas?.elements?.filter(
+      (element) => element?.type === 'spot' || element?.data?.type === 'spot',
+    )?.length ?? 0;
 
   static getInitialRoomBlueprintSpots = (
     roomBlueprint: number | null,

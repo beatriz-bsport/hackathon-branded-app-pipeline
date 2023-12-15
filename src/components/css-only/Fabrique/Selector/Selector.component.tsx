@@ -90,6 +90,10 @@ export type SelectorProps = {
    */
   multiple?: boolean;
   /**
+   * The name of the field, will be used inside form
+   */
+  name?: string;
+  /**
    * Callback fired when clicking on the chip's clear icon button.
    */
   onRemoveItem?: (value: number | string) => void;
@@ -127,6 +131,7 @@ const Selector: React.FC<SelectorProps> = ({
   leftIcon,
   menuId,
   multiple,
+  name,
   onRemoveItem,
   onClear,
   placeholder,
@@ -203,6 +208,7 @@ const Selector: React.FC<SelectorProps> = ({
         isError={isError}
         isMenuOpen={!isDisabled && isOpen}
         leftIcon={leftIcon}
+        name={name}
         onClear={!isDisabled && handleClear}
         onClick={!isDisabled && handleClick}
         // @ts-ignore

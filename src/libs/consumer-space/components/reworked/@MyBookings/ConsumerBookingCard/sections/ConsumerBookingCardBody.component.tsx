@@ -42,7 +42,7 @@ const ConsumerBookingCardBody: React.FC<Props> = ({
   isBookingCancelled,
   onSpotSchedulingClick,
 }) => {
-  const { t } = useTranslation('booking');
+  const { t } = useTranslation('consumerSpace');
   return (
     <ConsumerGenericCardBodyContainer className="bs-consumer-booking-card__container">
       <List
@@ -88,7 +88,7 @@ const ConsumerBookingCardBody: React.FC<Props> = ({
           })}
           icon={<MarkerPin06 />}
           label={t(
-            'modernMemberBooking.listItemLabels.spotSchedulingPosition',
+            'reworked.myBookings.consumerBookingCard.listItemLabels.spotSchedulingPosition',
             {
               spotSchedulingPosition,
             },
@@ -105,9 +105,12 @@ const ConsumerBookingCardBody: React.FC<Props> = ({
               !waitingListPosition || isBookingCancelled,
           })}
           icon={<HourGlass03 />}
-          label={t('modernMemberBooking.listItemLabels.waitingList', {
-            waitingListPosition,
-          })}
+          label={t(
+            'reworked.myBookings.consumerBookingCard.listItemLabels.waitingList',
+            {
+              waitingListPosition,
+            },
+          )}
         />
       </List>
       <Button
@@ -124,7 +127,7 @@ const ConsumerBookingCardBody: React.FC<Props> = ({
           className="bs-consumer-booking-card__body__button__label"
           variant="body-md"
         >
-          {t('modernMemberBooking.buttonsLabel.seeDetails')}
+          {t('reworked.myBookings.consumerBookingCard.buttonsLabel.seeDetails')}
         </Typography>
       </Button>
     </ConsumerGenericCardBodyContainer>

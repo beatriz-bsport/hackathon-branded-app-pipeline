@@ -5,7 +5,7 @@ import type { ConsumerBookingCardProps } from '..';
 import { ConsumerGenericCardFooter } from '#libs/consumer-space/components/reworked/common/ConsumerCard';
 
 import {
-  Calender,
+  Calendar,
   CalendarMinus02,
   UserPlus01,
   VideoRecorder,
@@ -47,7 +47,7 @@ const ConsumerBookingCardFooter: React.FC<Props> = ({
   onJoinOnlineClick,
   menuId,
 }) => {
-  const { t } = useTranslation('booking');
+  const { t } = useTranslation('consumerSpace');
   const secondaryButtonsList = React.useMemo(
     () => [
       {
@@ -57,7 +57,7 @@ const ConsumerBookingCardFooter: React.FC<Props> = ({
         leftIcon: <CalendarMinus02 stroke="currentColor" />,
         variant: 'outlined' as ButtonVariant,
         isDisabled: isCancelDisabled,
-        label: t('modernMemberBooking.buttonsLabel.cancel'),
+        label: t('reworked.myBookings.consumerBookingCard.buttonsLabel.cancel'),
         buttonClassName: 'bs-consumer-booking-card__footer__secondary-button',
         typographyClassName:
           'bs-consumer-booking-card__footer__secondary-button__label',
@@ -72,10 +72,10 @@ const ConsumerBookingCardFooter: React.FC<Props> = ({
         shouldDisplay: isBookable,
         color: 'primary' as ButtonColor,
         onClick: onBookClick,
-        leftIcon: <Calender stroke="currentColor" />,
+        leftIcon: <Calendar stroke="currentColor" />,
         variant: 'contained' as ButtonVariant,
         isDisabled: isBookableDisabled,
-        label: t('modernMemberBooking.buttonsLabel.book'),
+        label: t('reworked.myBookings.consumerBookingCard.buttonsLabel.book'),
         buttonClassName: 'bs-consumer-booking-card__footer__primary-button',
         typographyClassName:
           'bs-consumer-booking-card__footer__primary-button__label',
@@ -87,7 +87,9 @@ const ConsumerBookingCardFooter: React.FC<Props> = ({
         leftIcon: <VideoRecorder stroke="currentColor" />,
         variant: 'contained' as ButtonVariant,
         isDisabled: isJoinableOnlineDisabled,
-        label: t('modernMemberBooking.buttonsLabel.joinOnline'),
+        label: t(
+          'reworked.myBookings.consumerBookingCard.buttonsLabel.joinOnline',
+        ),
         buttonClassName: 'bs-consumer-booking-card__footer__primary-button',
         typographyClassName:
           'bs-consumer-booking-card__footer__primary-button__label',
@@ -110,14 +112,16 @@ const ConsumerBookingCardFooter: React.FC<Props> = ({
       {
         menuItemClassName: 'bs-consumer-booking-card__menu-item',
         shouldDisplay: isBookableForAGuest,
-        label: t('modernMemberBooking.buttonsLabel.bookForAGuest'),
+        label: t(
+          'reworked.myBookings.consumerBookingCard.buttonsLabel.bookForAGuest',
+        ),
         leftIcon: <UserPlus01 stroke="currentColor" />,
         onClick: onBookingForAGuestClick,
       },
       {
         menuItemClassName: 'bs-consumer-booking-card__menu-item',
         shouldDisplay: isCancellable,
-        label: t('modernMemberBooking.buttonsLabel.cancel'),
+        label: t('reworked.myBookings.consumerBookingCard.buttonsLabel.cancel'),
         leftIcon: <CalendarMinus02 stroke="currentColor" />,
         onClick: onBookingCancelClick,
       },
@@ -136,7 +140,9 @@ const ConsumerBookingCardFooter: React.FC<Props> = ({
       isMenuButtonDisabled={isMoreDisabled}
       mainButtonsList={mainButtonsList}
       menuButtonClassName="bs-consumer__booking-card__footer__menu-button"
-      menuButtonLabel={t('modernMemberBooking.buttonsLabel.more')}
+      menuButtonLabel={t(
+        'reworked.myBookings.consumerBookingCard.buttonsLabel.more',
+      )}
       menuClassName="bs-consumer__booking-card__footer__menu"
       menuId={menuId}
       menuItemsList={menuItemsList}

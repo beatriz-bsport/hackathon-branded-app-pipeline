@@ -109,6 +109,31 @@ exports.default = {
         past: 'Past',
         onWaitlist: 'On waitlist',
       },
+      consumerBookingCard: {
+        chip: {
+          online: 'Online',
+          atHome: 'At home',
+          noShow: 'No Show',
+          status: {
+            unpaid: 'Unpaid',
+            bookedForAGuest: 'Booked for a guest',
+            cancelled: 'Cancelled',
+          },
+        },
+        buttonsLabel: {
+          cancel: 'Cancel',
+          more: 'More',
+          seeDetails: 'See details',
+          book: 'Book',
+          joinOnline: 'Join online',
+          bookForAGuest: 'Book for a guest',
+        },
+        listItemLabels: {
+          waitingList:
+            'Your position in the waitlist is: {{ waitingListPosition }}',
+          spotSchedulingPosition: 'Spot {{ spotSchedulingPosition }}',
+        },
+      },
     },
   },
 };

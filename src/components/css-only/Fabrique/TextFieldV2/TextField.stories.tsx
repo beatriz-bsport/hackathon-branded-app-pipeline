@@ -101,6 +101,7 @@ export const Textfielderror = TextFieldStorybookTemplate.bind({});
 Textfielderror.args = {
   ...baseArgs,
   helperText: faker.lorem.sentences(2),
+  errorMessage: faker.lorem.sentences(2),
   isError: true,
 };
 
@@ -210,6 +211,10 @@ export default {
     },
     helperText: {
       description: 'Caption below the textfield',
+      control: 'text',
+    },
+    errorMessage: {
+      description: 'Error message displayed below the textfield',
       control: 'text',
     },
   },

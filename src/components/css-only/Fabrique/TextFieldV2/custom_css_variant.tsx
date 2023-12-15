@@ -19,6 +19,8 @@ import { CompanyTheme } from '#libs/theme/types';
 
 const HELPER_TEXT = faker.lorem.sentences(1);
 
+const ERROR_MESSAGE = faker.lorem.sentences(1);
+
 const starIcon = <Star06 stroke="currentColor" />;
 
 const fabriqueTextFieldVariationRegistry = [
@@ -152,6 +154,7 @@ const usePropsFromVariation = (
     isError,
     isRippleEnabled,
     type,
+    errorMessage: isError && ERROR_MESSAGE,
   };
 };
 

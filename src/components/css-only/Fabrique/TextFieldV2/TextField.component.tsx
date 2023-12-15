@@ -28,6 +28,7 @@ export type Props = {
     clearButton?: string;
     leftIcon?: string;
     rightIcon?: string;
+    errorMessage?: string;
   };
   isDisabled?: boolean;
   type?: TextFieldType;
@@ -44,6 +45,7 @@ export type Props = {
   onBlur?: () => void;
   onFocus?: () => void;
   isRippleEnabled?: boolean;
+  errorMessage?: string;
 };
 
 const TextField: React.FC<Props> = ({
@@ -67,6 +69,7 @@ const TextField: React.FC<Props> = ({
   onBlur,
   onFocus,
   isRippleEnabled,
+  errorMessage,
 }) => {
   const [isInputFocused, setIsInputFocused] = React.useState(false);
 
@@ -218,6 +221,15 @@ const TextField: React.FC<Props> = ({
           variant={isSmall ? 'body-sm' : 'body-md'}
         >
           {helperText}
+        </Typography>
+      )}
+      {!!errorMessage && (
+        <Typography
+          className={classes?.errorMessage}
+          color="error"
+          variant={isSmall ? 'body-sm' : 'body-md'}
+        >
+          {errorMessage}
         </Typography>
       )}
     </div>

@@ -22,7 +22,7 @@ type Props = {
   onClickCancel: (r: RoomBlueprint) => void;
 };
 
-const RoomBlueprintsListItem = (props: Props) => {
+const RoomBlueprintListItem = (props: Props) => {
   const { t } = useTranslation(['spotScheduling']);
   return (
     <ListItem
@@ -65,4 +65,4 @@ const RoomBlueprintsListItem = (props: Props) => {
   );
 };
 
-export default RoomBlueprintsListItem;
+export default RoomBlueprintListItem;

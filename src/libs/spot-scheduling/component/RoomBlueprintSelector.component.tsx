@@ -9,7 +9,7 @@ import { compose } from 'recompose';
 
 import FuzeSearch from '../../../components/FuzeSearch.component';
 import { RoomBlueprint } from '../types';
-import RoomBlueprintsListItem from './RoomBlueprintListItem.component';
+import RoomBlueprintListItem from './RoomBlueprintListItem.component';
 
 type Props = {
   classes: Object;
@@ -63,7 +63,7 @@ export class RoomBlueprintSelectorComponent extends Component<Props, State> {
       <div>
         {this.props.value ? (
           <div>
-            <RoomBlueprintsListItem
+            <RoomBlueprintListItem
               onClickCancel={() => {
                 this.props.onChange(null);
                 this.setState({
@@ -98,7 +98,7 @@ export class RoomBlueprintSelectorComponent extends Component<Props, State> {
                   in={this.state.displayList && this.state.searchResult}
                 >
                   {this.state.searchResult.map((roomBlueprint) => (
-                    <RoomBlueprintsListItem
+                    <RoomBlueprintListItem
                       key={roomBlueprint.id}
                       onClick={this.props.onChange}
                       roomBlueprint={roomBlueprint}

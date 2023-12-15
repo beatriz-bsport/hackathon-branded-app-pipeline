@@ -2,7 +2,11 @@ import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 
 import { TypographyStorybook } from './Typography.component';
-import { TypographyTextAlign, TypographyVariant } from './constants';
+import {
+  TypographyTextAlign,
+  TypographyVariant,
+  TypographyColor,
+} from './constants';
 const TypographyStorybookTemplate: ComponentStory<
   typeof TypographyStorybook
 > = (args) => (
@@ -108,6 +112,12 @@ export default {
         TypographyTextAlign.RIGHT,
         TypographyTextAlign.JUSTIFY,
       ],
+    },
+    color: {
+      description: 'The color applied to the typography',
+      control: { type: 'inline-radio' },
+      options: [TypographyColor.DEFAULT, TypographyColor.ERROR],
+      defaultValue: TypographyColor.DEFAULT,
     },
   },
 } as ComponentMeta<typeof TypographyStorybook>;

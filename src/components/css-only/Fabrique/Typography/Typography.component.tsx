@@ -2,8 +2,16 @@ import React from 'react';
 import classNames from 'classnames';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
-import { TypographyVariant, TypographyTextAlign } from './constants';
-import type { TypographyVariantType, TypographyTextAlignType } from './types';
+import {
+  TypographyVariant,
+  TypographyTextAlign,
+  TypographyColor,
+} from './constants';
+import type {
+  TypographyVariantType,
+  TypographyTextAlignType,
+  TypographyColorType,
+} from './types';
 
 import './styles.css';
 
@@ -12,6 +20,7 @@ type Props = {
   align?: TypographyTextAlignType;
   className?: string;
   children: React.ReactNode;
+  color?: TypographyColorType;
 };
 
 const TypographyVariantComponentMap = {
@@ -50,11 +59,19 @@ const TypographyTextAlignClassNameMap = {
   [TypographyTextAlign.JUSTIFY]: 'bs-typography-text-align-justify',
 };
 
+const TypographyColorClassNameMap = {
+  [TypographyColor.DEFAULT]: 'bs-typography-color-default',
+  [TypographyColor.ERROR]: 'bs-typography-color-error',
+  [TypographyColor.PRIMARY]: 'bs-typography-color-primary',
+  [TypographyColor.SECONDARY]: 'bs-typography-color-secondary',
+};
+
 export const Typography: React.FC<Props> = ({
   variant = TypographyVariant.BODY_MD,
   className,
   align = TypographyTextAlign.INHERIT,
   children,
+  color = TypographyColor.DEFAULT,
 }) => {
   const Component =
     TypographyVariantComponentMap[variant] ?? ('p' as React.ElementType);
@@ -63,9 +80,16 @@ export const Typography: React.FC<Props> = ({
 
   const TextAlignClassName = TypographyTextAlignClassNameMap[align];
 
+  const ColorClassName = TypographyColorClassNameMap[color];
+
   return (
     <Component
-      className={classNames(ComponentClassName, TextAlignClassName, className)}
+      className={classNames(
+        ComponentClassName,
+        TextAlignClassName,
+        ColorClassName,
+        className,
+      )}
     >
       {children}
     </Component>

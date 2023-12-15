@@ -33,3 +33,10 @@ export enum TypographyTextAlign {
   RIGHT = 'right',
   JUSTIFY = 'justify',
 }
+
+export enum TypographyColor {
+  DEFAULT = 'default',
+  ERROR = 'error',
+  PRIMARY = 'primary',
+  SECONDARY = 'secondary',
+}

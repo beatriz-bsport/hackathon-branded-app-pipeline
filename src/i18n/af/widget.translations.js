@@ -149,6 +149,7 @@ exports.default = {
         light: 'Light',
         info: 'Info',
         error: 'Error',
+        default: 'Default',
         onstrong: 'On strong background',
         warning: 'Warning',
         xs: 'Extra small',

@@ -2,6 +2,7 @@ import {
   TypographyTextAlign,
   TypographyVariantRoot,
   TypographySize,
+  TypographyColor,
 } from './constants';
 
 export type TypographyTextAlignType =
@@ -23,3 +24,9 @@ export type TypographyVariantType =
   | `${TypographyVariantRoot.BODY}-${TypographySize.SM}`
   | `${TypographyVariantRoot.BODY}-${TypographySize.XS}`
   | `${TypographyVariantRoot.BODY}-${TypographySize.TWOXS}`;
+
+export type TypographyColorType =
+  | `${TypographyColor.DEFAULT}`
+  | `${TypographyColor.ERROR}`
+  | `${TypographyColor.PRIMARY}`
+  | `${TypographyColor.SECONDARY}`;

@@ -1,5 +1,4 @@
 .bs-typography-display-lg {
-  color: var(--bs-color-text-default);
   font-family: var(--bs-font-family);
   font-size: var(--bs-font-size-display-lg);
   font-style: normal;
@@ -11,7 +10,6 @@
 }
 
 .bs-typography-display-md {
-  color: var(--bs-color-text-default);
   font-family: var(--bs-font-family);
   font-size: var(--bs-font-size-display-md);
   font-style: normal;
@@ -22,7 +20,6 @@
 }
 
 .bs-typography-display-sm {
-  color: var(--bs-color-text-default);
   font-family: var(--bs-font-family);
   font-size: var(--bs-font-size-display-sm);
   font-style: normal;
@@ -33,7 +30,6 @@
 }
 
 .bs-typography-title-lg {
-  color: var(--bs-color-text-default);
   font-family: var(--bs-font-family);
   font-size: var(--bs-font-size-title-lg);
   font-style: normal;
@@ -44,7 +40,6 @@
 }
 
 .bs-typography-title-md {
-  color: var(--bs-color-text-default);
   font-family: var(--bs-font-family);
   font-size: var(--bs-font-size-title-md);
   font-style: normal;
@@ -55,7 +50,6 @@
 }
 
 .bs-typography-title-sm {
-  color: var(--bs-color-text-default);
   font-family: var(--bs-font-family);
   font-size: var(--bs-font-size-title-sm);
   font-style: normal;
@@ -66,7 +60,6 @@
 }
 
 .bs-typography-body-lg {
-  color: var(--bs-color-text-default);
   font-family: var(--bs-font-family);
   font-size: var(--bs-font-size-body-lg);
   font-style: normal;
@@ -77,7 +70,6 @@
 }
 
 .bs-typography-body-md {
-  color: var(--bs-color-text-default);
   font-family: var(--bs-font-family);
   font-size: var(--bs-font-size-body-md);
   font-style: normal;
@@ -88,7 +80,6 @@
 }
 
 .bs-typography-body-sm {
-  color: var(--bs-color-text-default);
   font-family: var(--bs-font-family);
   font-size: var(--bs-font-size-body-sm);
   font-style: normal;
@@ -99,7 +90,6 @@
 }
 
 .bs-typography-body-xs {
-  color: var(--bs-color-text-default);
   font-family: var(--bs-font-family);
   font-size: var(--bs-font-size-body-xs);
   font-style: normal;
@@ -110,7 +100,6 @@
 }
 
 .bs-typography-body-2xs {
-  color: var(--bs-color-text-default);
   font-family: var(--bs-font-family);
   font-size: var(--bs-font-size-body-2xs);
   font-style: normal;
@@ -118,6 +107,22 @@
   line-height: 1rem;
   word-break: break-word;
   margin: 0;
+}
+
+.bs-typography-color-default {
+  color: var(--bs-color-text-default);
+}
+
+.bs-typography-color-error {
+  color: var(--bs-color-text-error-weak);
+}
+
+.bs-typography-color-primary {
+  color: var(--bs-color-text-brand-main);
+}
+
+.bs-typography-color-secondary {
+  color: var(--bs-color-text-brand-secondary);
 }
 
 .bs-typography-text-align-inherit {

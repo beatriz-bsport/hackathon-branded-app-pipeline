@@ -255,7 +255,6 @@ type Props = {
 
   theme: ?CompanyTheme,
 
-  timetableLoading: boolean,
   coachesLoading: boolean,
   establishmentsLoading: boolean,
   similarOfferLoading: boolean,
@@ -1204,7 +1203,6 @@ export class Planning extends PureComponent<Props, State> {
       offers,
       events,
       classes,
-      timetableLoading,
       offerByDayLoading,
       width,
       selectedOffer,
@@ -1340,10 +1338,7 @@ export class Planning extends PureComponent<Props, State> {
                         isRollCallMandatory={
                           this.props.theme.is_roll_call_mandatory
                         }
-                        loading={
-                          offerByDayLoading ||
-                          (timetableLoading && (offers || []).length === 0)
-                        }
+                        loading={offerByDayLoading}
                         offers={offers}
                         onModifyTags={this.onModifyTags}
                         onOfferSelected={this.selectOffer}
@@ -1420,7 +1415,8 @@ export class Planning extends PureComponent<Props, State> {
                         bookingStatistics={this.props.bookingStatistics}
                         loading={
                           this.props.createdBookingStatsLoading ||
-                          this.props.cancelledBookingStatsLoading
+                          this.props.cancelledBookingStatsLoading ||
+                          offerByDayLoading
                         }
                       />
                     </Grid>
@@ -1520,8 +1516,6 @@ export default compose(
       creatingOffers: state.offer.create.loading,
       editOfferProcessing: state.offer.edit.loading,
       events: state.offer.calendar,
-      timetableLoading: state.offer.byDay.loading,
-
       coaches: getActiveCoaches(state),
       coachesLoading: state.coach.loading,
       coachesSelectedInRole: getCoachesSelectedInRole(state),

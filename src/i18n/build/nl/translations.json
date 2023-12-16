@@ -1717,7 +1717,8 @@
             "weekOf": "Week van {{date}}",
             "keys": {
                 "cancelled": "Geannuleerde reserveringen",
-                "created": "Geldige reserveringen"
+                "created": "Geldige reserveringen",
+                "offers": "Promo's"
             },
             "maintenedBookings": "{{nb}} reservering",
             "maintenedBookings_plural": "{{nb}} reserveringen",
@@ -1726,7 +1727,14 @@
             "totalBookings": "{{nb}} reservering in totaal",
             "totalBookings_plural": "{{nb}} reserveringen in totaal",
             "offerFilteredBookingRecap": "Sessie van {{date}}",
-            "weekOverview": "Weekoverzicht"
+            "weekOverview": "Weekoverzicht",
+            "chartsItemLabel": {
+                "numberOfSessions": "Sessies",
+                "numberOfCancelledBookings": "Geannuleerde reserveringen",
+                "numberOfConfirmedBookings": "Bevestigde reserveringen"
+            },
+            "bookingsCancelled": "Geannuleerd: {{nb}}",
+            "confirmedBookings": "Bevestigd: {{nb}}"
         },
         "show_cancelled_offers": "Toon de geannuleerde sessies",
         "quickInvoiceNoVoucher": "Laat de waarde van dit veld op 0 staan als je geen korting wilt toepassen",
@@ -2037,7 +2045,12 @@
                 "mail": "E-mail",
                 "autoResend": "Automatisch opnieuw verzenden"
             },
-            "writeCommunication": "Een bericht versturen"
+            "writeCommunication": "Een bericht versturen",
+            "smsCostReminderModal": {
+                "confirm": "Bevestigen",
+                "cancel": "Annuleren",
+                "title": "Herinnering sms-kosten"
+            }
         },
         "communication": "Bericht",
         "generic": {
@@ -5655,7 +5668,7 @@
         "note": {
             "addNote": "Een notitie toevoegen",
             "myNotes": "Notities",
-            "is_medical": "Medische informatie",
+            "is_medical": "Essentiële informatie",
             "noNoteSaved": "Er is geen informatie om weer te geven.",
             "healthNotes": "Alerts"
         },
@@ -12783,6 +12796,12 @@
                     "label": "Gepersonaliseerde rangschikking",
                     "subTitle": "Rangschikking"
                 }
+            },
+            "checkInPersonalization": {
+                "settings": {
+                    "save": "Opslaan"
+                },
+                "title": "Check-in Tablet"
             }
         },
         "pageTitles": {
@@ -15765,7 +15784,10 @@
                     "weak": "Zwak",
                     "strong": "Sterk",
                     "xs": "Extra klein",
-                    "xl": "Extra groot"
+                    "xl": "Extra groot",
+                    "emailOnly": "Alleen e-mail",
+                    "firstNameAndEmail": "Voornaam en e-mail",
+                    "fullNameAndEmail": "Volledige naam en e-mail"
                 },
                 "title": {
                     "nextOffer": "Volgende sessie beschikbaar",
@@ -15854,7 +15876,9 @@
                     "isExpanded": "Element wordt uitgebreid",
                     "isRequired": "Is in vereiste staat",
                     "isDraggable": "Het element is uitbreidbaar (door slepen)",
-                    "withMaxCharacters": "Met maximale tekenlengte"
+                    "withMaxCharacters": "Met maximale tekenlengte",
+                    "showSubtitle": "Toon ondertitel",
+                    "showTitle": "Toon titel"
                 },
                 "configurationTitle": "Variaties",
                 "confirmationMessageComponentAlert": "Deze component beheert voornamelijk boekings- en betalingsstatussen. Om het uiterlijk aan te passen, raden we aan de hoofdcomponenten te gebruiken in de gemeenschappelijke sectie",
@@ -15875,7 +15899,8 @@
                 "fabrique": "Fabriek",
                 "spot_scheduling": "Spot planning",
                 "authentication": "Authenticatie",
-                "checkoutConfirmationPage": "Bevestiging van betaling"
+                "checkoutConfirmationPage": "Bevestiging van betaling",
+                "marketing": "Marketing"
             },
             "components": {
                 "calendar": "Agenda",
@@ -15997,7 +16022,8 @@
                 "fabrique_bottom_drawer": "Onderste lade",
                 "fabrique_textform": "Tekstvorm",
                 "selector": "Selector",
-                "selector_input": "Selector Input"
+                "selector_input": "Selector Input",
+                "marketing_newsletter_form_v2": "Nieuwsbrief formulier"
             },
             "customCss": {
                 "yourCode": "Je aanvullende implementatie:",
@@ -16021,6 +16047,15 @@
                 "element": "Element",
                 "preview": "Voorbeeld - {{-name}}",
                 "CSS": "CSS"
+            },
+            "newsletterV2": {
+                "showSubtitle": "Toon ondertitel",
+                "subtitle": "Ondertitel",
+                "showTitle": "Toon titel",
+                "title": "Titel",
+                "emailOnly": "Alleen e-mail",
+                "firstNameAndEmail": "Voornaam en e-mail",
+                "fullNameAndEmail": "Volledige naam en e-mail"
             }
         },
         "customize": "Personalisering",
@@ -16122,6 +16157,16 @@
                 "firstName": "Voornaam",
                 "email": "E-mailadres",
                 "title": "Schrijf je hieronder in voor onze nieuwsbrief en ontvang interessante updates en artikelen."
+            },
+            "formV2": {
+                "error": {
+                    "invalidEmail": "Voer gelieve een geldig e-mailadres in.",
+                    "emailRequired": "Voer gelieve je e-mailadres in."
+                },
+                "subtitle": "Ontvang exclusieve promo's en blijf altijd up-to-date",
+                "title": "Abonneer op onze nieuwsbrief",
+                "email": "E-mail",
+                "validate": "Versturen"
             }
         },
         "notifications": {
@@ -16818,7 +16863,11 @@
                 "updateTitle": "Bewerk de naam van de {{ workflowLowerCase }}",
                 "audienceNameLabel": "Naam van de {{ workflowLowerCase }}",
                 "title": "Maak een {{ workflowLowerCase }}",
-                "addAWorkflow": "Voeg een {{ workflowLowerCase }} toe."
+                "addAWorkflow": "Voeg een {{ workflowLowerCase }} toe.",
+                "cadenceParameters": "Instellingen van \"{{ workflowLowerCase }}\"",
+                "formTitle": {
+                    "updateNameTitle": "Bewerk de naam van \"{{ workflowLowerCase }}\""
+                }
             },
             "graph": {
                 "alert": {
@@ -16838,7 +16887,7 @@
                 "archivedHeader": "Gearchiveerd {{ workflowPluralLowerCase }}",
                 "dialog": {
                     "helper": "Leden die zich momenteel in de {{ workflowLowerCase }} bevinden, verlaten deze automatisch. De {{ workflowLowerCase }} wordt gepauzeerd en gearchiveerd, maar u kunt deze later eenvoudig weer activeren.",
-                    "title": "Verwijder een {{ workflowLowerCase }}",
+                    "title": "Weet je zeker dat je \"{{ workflowLowerCase }}\" wilt archiveren?",
                     "beingArchived": "U staat op het punt om \"{{ naam }}\" te archiveren."
                 }
             },

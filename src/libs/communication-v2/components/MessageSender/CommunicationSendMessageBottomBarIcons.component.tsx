@@ -45,6 +45,7 @@ import {
   CAN_SEND_MESSAGE,
   MAX_DISPLAY,
   CONTEXT_SMARTLIST,
+  CONTEXT_MEMBER,
 } from '#libs/communication-v2/constants';
 import {
   UPSELL_IDENTIFIER_PUSH_NOTIFICATION,
@@ -316,7 +317,7 @@ const BottomBarIcons: React.FC<Props> = ({
           <Button
             color="primary"
             onClick={
-              actionType === WRITE_SMS
+              actionType === WRITE_SMS && contextIdentifier !== CONTEXT_MEMBER
                 ? handleCostReminderModalOpen
                 : sendMessage
             }

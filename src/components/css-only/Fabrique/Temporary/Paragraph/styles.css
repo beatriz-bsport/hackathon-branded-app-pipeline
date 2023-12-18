@@ -1,0 +1,11 @@
+.bs-fabrique-paragraph-container {
+  padding-top: var(--bs-space-size-4);
+  padding-bottom: var(--bs-space-size-4);
+}
+
+.bs-fabrique-paragraph-wrapper {
+  overflow-wrap: break-word;
+}
+
+.bs-fabrique-paragraph {
+}

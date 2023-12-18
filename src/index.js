@@ -24,6 +24,16 @@ export default class BsportWidget {
     const component = (
       <Root initialParams={{ ...initialParams, parentElement }} />
     );
+
+    function postMessageOnRenderCompleted() {
+      const messageType = 'bsport:widget:mount:done';
+      const data = { ...initialParams, parentElement };
+
+      setTimeout(() => {
+        window?.postMessage({ type: messageType, data }, '*');
+      }, 1000);
+    }
+
     function doRender() {
       const el = document.createElement('div');
 
@@ -34,7 +44,7 @@ export default class BsportWidget {
         return;
       }
 
-      ReactDOM.render(component, el);
+      ReactDOM.render(component, el, postMessageOnRenderCompleted);
       BsportWidget.el_list_id.push(parentElementId);
 
       logWidgetConfigUsage(parentElementId, initialParams);

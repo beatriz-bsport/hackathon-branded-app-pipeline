@@ -1,0 +1,38 @@
+.bs-fabrique-radio-group-field {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: var(--bs-space-size-1);
+  margin-bottom: var(--bs-space-size-2);
+}
+
+.bs-fabrique-radio-group-field__label {
+  display: inline-flex;
+  gap: var(--bs-space-size-2);
+}
+
+.bs-fabrique-radio-group-field__label--disabled {
+  color: var(--bs-color-text-disabled);
+}
+
+.bs-fabrique-radio-group-field__label--required {
+  color: var(--bs-color-text-error-strong);
+}
+
+.bs-fabrique-radio-group-field__label--empty {
+  display: none;
+}
+
+.bs-fabrique-radio-group-field__capion-text {
+}
+
+.bs-fabrique-radio-group-field__capion-text--hidden {
+  display: none;
+}
+
+.bs-fabrique-radio-group-field__error-message {
+}
+
+.bs-fabrique-radio-group-field__error-message--hidden {
+  display: none;
+}

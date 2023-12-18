@@ -5036,8 +5036,8 @@
                     "penaltyParamsText": "Wenden Sie die gleiche Abrechnung für nicht fristgerechte Stornierungen und Abwesenheiten (no show) an",
                     "noShowPenaltyInfo": "Eine Strafe wird verhängt, wenn {{penalityNumberNoShow}} innerhalb eines Zeitraums von {{penalityNumberDay}} Tag nicht erscheint",
                     "noShowPenaltyInfo_plural": "Eine Strafe wird verhängt, wenn {{penalityNumberNoShow}} innerhalb eines Zeitraums von {{penalityNumberDay}} Tagen nicht erscheint",
-                    "bothPenaltiesInfo": "Eine Strafe wird erhoben, wenn es innerhalb eines Zeitraums von {{penalityNumberNoShow}} Tagen {{penalityNumberDay}} nicht fristgerechte Stornierungen oder Abwesenheit (no show) gibt",
-                    "bothPenaltiesInfo_plural": "Eine Strafe wird erhoben, wenn es in einem Zeitraum von {{penalityNumberNoShow}} Tagen {{penalityNumberDay}} nicht fristgerechte Stornierungen oder Abwesenheiten (no show) gibt",
+                    "bothPenaltiesInfo": "Eine Strafe wird erhoben, wenn es {{penalityNumberDay}} nicht fristgerechte Stornierungen oder Abwesenheit (no show) innerhalb eines Zeitraums von {{penalityNumberNoShow}} Tagen gibt",
+                    "bothPenaltiesInfo_plural": "Eine Strafe wird erhoben, wenn es {{penalityNumberDay}} nicht fristgerechte Stornierungen oder Abwesenheiten (no show) in einem Zeitraum von {{penalityNumberNoShow}} Tagen gibt",
                     "noShowDialog": {
                         "text": "Sie haben soeben Strafen für Abwesenheit erstellt.  Wir haben die Funktion \"Namensaufruf\" aktiviert. Sie müssen nun für jede Session einen Namensaufruf durchführen, um die Strafe zu aktivieren.",
                         "title": "Strafen bei Abwesenheit",
@@ -5413,7 +5413,7 @@
             "penalityType": "Art der zu verhängenden Strafe",
             "penalityAccount": "Kontostand des Mitglieds belasten",
             "penalityBlock": "Kurspass vorübergehend sperren",
-            "penalityInfo": "Eine Strafe wird erhoben, wenn es innerhalb eines Zeitraums von {{penalityNumberCancel}} Tagen {{penalityNumberDay}} außerterminliche Stornierungen gibt",
+            "penalityInfo": "Eine Strafe wird erhoben, wenn es {{penalityNumberDay}} außerterminliche Stornierungen innerhalb eines Zeitraums von {{penalityNumberCancel}} Tagen gibt.",
             "penalityNumberDay": "Anzahl der Tage",
             "penalityNumberCancel": "Anzahl der Absagen",
             "marginalContributionHelperText": "Wird verwendet, um die Lohnabrechnung von Lehrkräften zu berechnen. 10{{ currencyDisplay }} bedeutet, dass eine mit diesem Pass vorgenommene Buchung mit 10{{ currencyDisplay }} vergütet wird. Wenn leer oder 0{{ currencyDisplay }}, wird die Einbringung einer Karte PREIS/NB_RESERVATION",
@@ -12467,7 +12467,7 @@
         "marketingNotification": {
             "birthday": "Alles Gute Zum Geburtstag!"
         },
-        "franchiseOwned": "Ihr Master Account bearbeitet derzeit diese Transaktions-E-Mail",
+        "franchiseOwned": "Ihr Master Account bearbeitet derzeit diese Transaktions-E-Mail.",
         "franchise": {
             "delete": {
                 "delete": "Löschen",
@@ -12491,31 +12491,31 @@
                 "save": "Speichern",
                 "cancel": "Abbrechen",
                 "mailSelection": "Wählen Sie eine Vorlage",
-                "receiveCarbonCopySubtitle": "Sie erhalten eine Kopie von jeder gesendeten E-Mail",
-                "receiveCC": "Sie erhalten Kopien der E-Mail",
-                "activateSubtitleDeactivate": "Transaktions-E-Mails sind deaktiviert, sie werden nicht an Mitglieder gesendet",
-                "activateSubtitleActivate": "Die Transaktions-E-Mail ist aktiviert und wird an die Mitglieder gesendet",
+                "receiveCarbonCopySubtitle": "Sie erhalten eine Kopie von jeder gesendeten E-Mail.",
+                "receiveCC": "Sie erhalten Kopien dieser E-Mail",
+                "activateSubtitleDeactivate": "Transaktions-E-Mails sind deaktiviert und sie werden nicht an relevante Mitglieder gesendet",
+                "activateSubtitleActivate": "Die Transaktions-E-Mail ist aktiviert und wird an die relevanten Mitglieder gesendet",
                 "activate": "Aktivieren",
                 "parameters": "Einstellungen",
                 "useFor": "Verwenden für ",
                 "pickTemplate": "Wählen Sie eine Vorlage",
                 "name": "Name",
                 "description": "Die gewählte Vorlage wird für die Transaktions-E-Mail \"{{-name}}\" für alle hier ausgewählten Studios verwendet.",
-                "title": "Konfiguration",
+                "title": "[Formular] Konfiguration",
                 "restrictedAccess": "Diese Konfiguration wird für Franchisenehmer eingerichtet, auf die Sie keinen Zugriff haben. Einige Felder sind nicht bearbeitbar"
             },
-            "emptyStateConfiguration": "Erstellen Sie eine Konfiguration, um die Verwendung von E-Mail-Vorlagen für jeden Ihrer Franchisenehmer zu erzwingen.",
-            "addConfiguration": "Hinzufügen einer Konfiguration",
-            "emptySelect": "Wählen Sie eine Transaktions-E-Mail aus, um zu sehen, für welchen Franchisenehmer sie bestimmt ist und von wem sie verwendet wird."
+            "emptyStateConfiguration": "Fügen Sie eine Benachrichtigung hinzu, um die Verwendung von bestimmten E-Mail-Vorlagen zu erzwingen.",
+            "addConfiguration": "Konfiguration der Benachrichtigung",
+            "emptySelect": "Wählen Sie eine Transaktionsmeldung aus, um anzuzeigen, mit welchen Studios sie geteilt wurde und welche Studios sie verwenden."
         },
         "listItem": {
-            "createTransactionnalNotification": "die Push-Benachrichtigung einrichten",
-            "modifyTransactionnalNotification": "die Push-Benachrichtigung ändern",
-            "sendTransactionnalNotification": "Eine Push-Benachrichtigung senden",
+            "createTransactionnalNotification": "Push-Benachrichtigung einrichten",
+            "modifyTransactionnalNotification": "Push-Benachrichtigung ändern",
+            "sendTransactionnalNotification": "Push-Benachrichtigung senden",
             "transactionnalNotification": "Push-Benachrichtigung",
-            "mailToSend": "Zu sendende E-Mail",
+            "mailToSend": "Wählen Sie die E-Mail aus, die gesendet werden soll",
             "copyCarbon": "Eine Kopie der E-Mail erhalten",
-            "sendTransactionnalEmail": "Senden einer Transaktions-E-Mail",
+            "sendTransactionnalEmail": "Transaktions-E-Mail senden",
             "transactionnalEmail": "Transaktions-E-Mail",
             "infoBoxErrorMessageLastLine": "Stellen Sie sicher, dass Sie sie zu Ihrer Vorlage hinzufügen, damit sie gespeichert werden können",
             "infoBoxErrorMessageFirstLine": "Diese E-Mail muss die folgenden Variablen enthalten:"
@@ -12523,15 +12523,15 @@
         "preview": {
             "email": "E-Mail",
             "notification": "Push",
-            "emptyStateNotification": "Um Ihre Vorschau zu sehen, richten Sie Ihre Push-Benachrichtigung ein",
+            "emptyStateNotification": "Um eine Vorschau zu sehen, richten Sie Ihre Push-Benachrichtigung ein",
             "emptyState": "Um die Vorschauen zu sehen, klicken Sie auf eine der Kategorien",
             "title": "Übersicht"
         },
         "goBackToMenu": "Vorherige",
         "configureNotif": "Einrichten",
-        "countNotification": "{{nbr}} aktivierte Push-Benachrichtigungen",
-        "countEmail": "{{nbr}} aktivierte Transaktionsmails",
-        "countElements": "{{nbr}} Elemente",
+        "countNotification": "Anzahl der aktivierten Push-Benachrichtigungen: {{nbr}}",
+        "countEmail": "Anzahl der aktivierten Transaktionsmails: {{nbr}}",
+        "countElements": "{{nbr}} Element(e)",
         "type": {
             "sendNotification": "Benachrichtigung senden",
             "bookingConcerned": "die von der Benachrichtigung betroffene Session",
@@ -14268,13 +14268,13 @@
             "copyLink": "Kopiere den Link zur Buchungsseite"
         },
         "video": {
-            "redirectLink": "Wenn Du nicht automatisch weitergeleitet wirst, benutze diesen Link:",
-            "cantOpenLink": "Der Link zur Konferenz scheint falsch zu sein, bitte kontaktiere Deinen Studio {{ contact_email }}",
-            "startingSoon": "Ihr Kurs beginnt in {{ minutesLeft }} Minuten",
-            "hasEnded": "Dieser Kurs ist abgeschlossen",
-            "isAutoRefresh": "Du wirst 15 Minuten vor Beginn des Kurses automatisch zur Videokonferenz weitergeleitet",
+            "redirectLink": "Wenn Sie nicht automatisch weitergeleitet werden, benutzen Sie diesen Link:",
+            "cantOpenLink": "Der Link zur Konferenz scheint falsch zu sein, bitte kontaktieren Sie Ihr Studio {{ contact_email }}",
+            "startingSoon": "Ihre Session beginnt in {{ minutesLeft }} Minuten",
+            "hasEnded": "Diese Session ist beendet",
+            "isAutoRefresh": "Sie werden 10 Minuten vor Beginn des Kurses automatisch zur Videokonferenz weitergeleitet",
             "loadingSoon": "Es lädt...",
-            "activateVideo": "Starte Video"
+            "activateVideo": "Mit dem Livestream verbinden"
         },
         "forms": {
             "old_date": "Alte Zeit :",
@@ -14284,7 +14284,7 @@
             }
         },
         "substitute": "Vertretung",
-        "credit_price": " Credits",
+        "credit_price": " Credit(s)",
         "calendar": {
             "modifyOffer": "Ändern",
             "deleteOffer": "Löschen",
@@ -14299,8 +14299,8 @@
         "disabled": "Storniert",
         "extraordinaryEstablishment": "(provisorische Einrichtung)",
         "booking": {
-            "fillRate": "Austlastung",
-            "confirmed": "Bestätigt",
+            "fillRate": "Auslastung",
+            "confirmed": "Buchungen",
             "waiting": "Warteliste",
             "comesFromMigration": "Diese Session stammt aus einer Migration"
         },

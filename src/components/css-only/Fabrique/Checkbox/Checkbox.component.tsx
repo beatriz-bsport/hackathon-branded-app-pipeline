@@ -23,8 +23,11 @@ export type Props = {
   classes?: {
     label?: string;
     captionText?: string;
+    errorMessage?: string;
   };
+  errorMessage?: string;
   id: string;
+  isError?: boolean;
   label?: string;
   name?: string;
   onClick?: (event?: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
@@ -79,8 +82,10 @@ const Checkbox: React.FC<Props> = ({
   id,
   className,
   onClick,
+  errorMessage,
   label,
   classes,
+  isError,
   isInversed,
   isDisabled,
   captionText,
@@ -130,11 +135,27 @@ const Checkbox: React.FC<Props> = ({
           align="left"
           className={classNames(
             'bs-fabrique-checkbox-captiontext',
+            { 'bs-fabrique-checkbox-captiontext--hidden': !captionText },
             classes?.captionText,
           )}
           variant="body-xs"
         >
           {captionText}
+        </Typography>
+        <Typography
+          align="left"
+          className={classNames(
+            'bs-fabrique-checkbox-error-message',
+            {
+              'bs-fabrique-checkbox-error-message--hidden':
+                !isError || !errorMessage,
+            },
+            classes?.errorMessage,
+          )}
+          color="error"
+          variant="body-xs"
+        >
+          {errorMessage}
         </Typography>
       </div>
     </label>

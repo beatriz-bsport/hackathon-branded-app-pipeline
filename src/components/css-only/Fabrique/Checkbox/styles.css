@@ -85,3 +85,14 @@
 .bs-fabrique-checkbox-captiontext {
   color: var(--bs-color-text-weaker);
 }
+
+.bs-fabrique-checkbox-captiontext--hidden {
+  display: none;
+}
+
+.bs-fabrique-checkbox-error-message {
+}
+
+.bs-fabrique-checkbox-error-message--hidden {
+  display: none;
+}

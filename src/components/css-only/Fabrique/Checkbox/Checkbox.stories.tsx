@@ -1,4 +1,6 @@
 import React from 'react';
+import { fakerEN as faker } from '@faker-js/faker';
+
 import { ComponentStory, Meta } from '@storybook/react';
 
 import Checkbox, { CheckboxStorybook, type CheckboxProps } from '.';
@@ -8,6 +10,8 @@ CheckboxStorybook.displayName = 'Checkbox';
 const defaultArgs = {
   id: 'checkbox-id',
 };
+
+const fakeErrorMessage = faker.lorem.sentence(1);
 
 const Template: ComponentStory<typeof Checkbox> = (args: CheckboxProps) => {
   const [checked, setChecked] = React.useState(false);
@@ -59,6 +63,13 @@ Withcaptiontext.args = {
   ...defaultArgs,
   label: 'Label',
   captionText: 'Caption text',
+};
+
+export const Witherrormessage = Template.bind({});
+Witherrormessage.args = {
+  ...defaultArgs,
+  label: 'Label',
+  errorMessage: fakeErrorMessage,
 };
 
 export const Multiple = TemplateMultiple.bind({});
@@ -122,6 +133,12 @@ export default {
         'When set to true, the component appears with inversed colours.',
       control: 'boolean',
       defaultValue: false,
+    },
+    errorMessage: {
+      description:
+        'Additional text providing context or guidance related to the checkbox error.',
+      control: 'text',
+      defaultValue: '',
     },
   },
 } as Meta<typeof CheckboxStorybook>;

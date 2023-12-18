@@ -2740,7 +2740,7 @@
             "create": "Erstelle eine Regel",
             "tag_on_join_and_untag_on_left": "Tag, falls in der Smartlist vorhanden",
             "type_of_rule": "Regeltyp",
-            "tag_group": "Main Tag",
+            "tag_group": "Haupttag",
             "tag_name": "Sub Tag",
             "display_tag_rules": "Markierungsregeln anzeigen",
             "tag_on_left": "Markieren, wenn von der Smartliste genommen wird",
@@ -9942,8 +9942,8 @@
                 "select": {
                     "error": "Der gleiche Sub Tag kann nicht in beiden Listen vorhanden sein",
                     "empty_tag_list": "Kein Sub Tag ausgewählt",
-                    "tag": "Wählen Sie einen Main Tag",
-                    "tag_group": "Wählen Sie einen Main Tag"
+                    "tag": "Wählen Sie einen Haupttag",
+                    "tag_group": "Wählen Sie einen Haupttag"
                 },
                 "tag": "Sub Tag",
                 "tag_group": "Gruppe"
@@ -15395,14 +15395,14 @@
             "group": {
                 "delete": {
                     "title": "Löschen",
-                    "explain": "Achtung: Dieser Main Tag wird für alle Mitglieder gelöscht. Sind Sie sicher, dass Sie fortfahren möchten? Diese Aktion kann nicht rückgängig gemacht werden.",
+                    "explain": "Achtung: Dieser Haupttag wird für alle Mitglieder gelöscht. Sind Sie sicher, dass Sie fortfahren möchten? Diese Aktion kann nicht rückgängig gemacht werden.",
                     "submit": "Löschen",
                     "cancel": "Abbrechen"
                 },
-                "namePlaceholder": "Main Tag hinzufügen",
-                "addTagGroup": "Main Tag erstellen",
+                "namePlaceholder": "Haupttag hinzufügen",
+                "addTagGroup": "Haupttag erstellen",
                 "edit": "Markierungen ändern",
-                "deleteCategory": "Main Tag löschen"
+                "deleteCategory": "Haupttag löschen"
             }
         },
         "panel": {
@@ -15446,17 +15446,17 @@
                 "noTag": "Wählen Sie einen Sub Tag aus, um eine detailliertere Übersicht zu sehen."
             },
             "createGroupDialog": {
-                "helper": "Beispiel: Fügen Sie ein Main Tag mit dem Namen \"VIP\" hinzu, fügen Sie die Sub Tags \"Ja\" und \"Nein\" hinzu, und schon haben Sie eine Übersicht über alle Ihre aktuellen VIPs.",
-                "field": "Nachname",
-                "title": "Main Tag"
+                "helper": "Beispiel: Fügen Sie ein Haupttag mit dem Namen \"VIP\" hinzu, fügen Sie die Sub Tags \"Ja\" und \"Nein\" hinzu, und schon haben Sie eine Übersicht über alle Ihre aktuellen VIPs.",
+                "field": "Name",
+                "title": "Haupttag"
             },
             "deleteTagDialog": {
                 "text": "Möchten Sie diesen Sub Tag wirklich entfernen? Alle mit diesem Tag verknüpften Regeln werden entfernt.",
                 "title": "Entfernen von Tags"
             },
             "deleteTagGroupDialog": {
-                "text": "Möchten Sie diesen Main Tag wirklich löschen? Alle in der Kategorie enthaltenen Sub Tags werden ebenfalls entfernt. ",
-                "title": "Main Tag löschen"
+                "text": "Möchten Sie diesen Haupttag wirklich löschen? Alle in der Kategorie enthaltenen Sub Tags werden ebenfalls entfernt. ",
+                "title": "Haupttag löschen"
             },
             "tagColumn": {
                 "actions": "Aktionen ",
@@ -15469,14 +15469,14 @@
             "submit": "Bestätigen",
             "cancel": "Abbrechen",
             "form": {
-                "tagGroupEmpty": "Mit diesem Main Tag sind keine Sub Tags verbunden.",
-                "tagGroupName": "Nachname",
-                "groupRename": "Main Tag"
+                "tagGroupEmpty": "Mit diesem Haupttag sind keine Sub Tags verbunden.",
+                "tagGroupName": "Name",
+                "groupRename": "Haupttag"
             },
             "delete": "Löschen",
             "rename": "Umbenennen",
             "addTag": "Einen Sub Tag hinzufügen",
-            "addGroup": "Einen Main Tag erstellen",
+            "addGroup": "Einen Haupttag erstellen",
             "offerDetail": {
                 "detailTable": {
                     "tagInWhiteList": "Buchbar für Mitglieder mit diesem Tag",
@@ -16202,7 +16202,7 @@
             "field": {
                 "choice_warning": "Alle Optionen, die beim Speichern des Formulars gespeichert werden, können nicht mehr bearbeitet werden. Sie können sie immer noch löschen oder neue hinzufügen.",
                 "tag_name": "Sub Tag",
-                "tag_group": "Main Tag",
+                "tag_group": "Haupttag",
                 "link_to_tag_popover": "Verknüpfen Sie ein Tag mit dieser Option",
                 "signature": "Signatur",
                 "text_size_limit": "Maximale Antwortlänge: {{count}} Zeichen.",

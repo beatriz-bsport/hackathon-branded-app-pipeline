@@ -3885,8 +3885,8 @@
                     "tag": {
                         "helper": "Use Tag Management to make certain reservations only available to specific segments of your member data base. All members tagged as \"Approved\" may complete an unpaid booking, while those tagged as \"Refused\" won't be able to.",
                         "header": "Tags",
-                        "allowed": "Approved",
-                        "notAllowed": "Refused",
+                        "allowed": "Allowed",
+                        "notAllowed": "Not allowed",
                         "doNotSelectToAllowAllMembers": "Leave this field empty to make it available to all members."
                     },
                     "label": "Accept unpaid bookings",
@@ -11560,9 +11560,9 @@
                 },
                 "advancedOptions": {
                     "tag": {
-                        "notAllowedFor": "Refused for",
-                        "notAllowed": "Refused",
-                        "allowedFor": "Approved for",
+                        "notAllowedFor": "Not allowed for",
+                        "notAllowed": "Not allowed",
+                        "allowedFor": "Allowed for",
                         "allowed": "Allowed",
                         "header": "Tags",
                         "doNotSelectToAllowAllMembers": "Leave empty to allow all members",

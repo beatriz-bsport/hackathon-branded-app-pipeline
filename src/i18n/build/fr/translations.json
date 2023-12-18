@@ -1481,7 +1481,13 @@
                 "missingPhoneInDirectMember": "Cet utilisateur n'a pas de numéro de téléphone"
             },
             "refresh": "Pour voir apparaître la nouvelle version de votre template, merci de cliquer sur le bouton rafraîchir.",
-            "writeCommunication": "Envoyer un message"
+            "writeCommunication": "Envoyer un message",
+            "smsCostReminderModal": {
+                "confirm": "Confirmer",
+                "cancel": "Annuler",
+                "content": "L'envoi de SMS à un grand nombre de membres peut être coûteux. Vous pouvez vérifier le prix par SMS dans votre contrat. Etes-vous sûr de vouloir envoyer cette communication ?",
+                "title": "Rappel des frais par SMS"
+            }
         },
         "sentStatus": {
             "processing": "La communication est en cours d'envoi",
@@ -2870,7 +2876,7 @@
             "invitedOn": "Envoyée le {{- d }}",
             "willInviteOn": "Invitation à envoyer le {{- d }}",
             "expiresOn": "Expire le {{- d }}",
-            "notAttributedYet": "Non validée",
+            "notAttributedYet": "Non-activée",
             "sendTo": "Renvoyer l'invitation",
             "previewPlaceholder": {
                 "name": "[Nom de la carte]",
@@ -2904,7 +2910,7 @@
                     "submit": "Ajouter au panier",
                     "cancel": "Annuler"
                 },
-                "footer": "La carte sera envoyée par mail le {{- date_send }} à {{- hour_send }} aux adresses indiquées. Elle sera valide pendant {{ expiration_days }} jours après l’envoi du mail. Le compte du destinataire sera crédité de {{- price }} pour les prochains achats.",
+                "footer": "La carte sera envoyée par mail le {{- date_send }} à {{- hour_send }} aux adresses indiquées. Elle sera valide pendant {{ expiration_days }} jours après activation. Le compte du destinataire sera crédité de {{- price }} pour les prochains achats.",
                 "footerUnlimited": "La carte sera envoyée par mail le {{- date_send }} à {{- hour_send }} aux adresses indiquées. Elle ne contient pas de date d'expiration. Le compte du destinataire sera crédité de {{- price }} pour les prochains achats."
             }
         },
@@ -3813,6 +3819,16 @@
             "messages": {
                 "error": "Impossible d'enregistrer votre email pour le moment",
                 "success": "C'est enregistré !"
+            },
+            "formV2": {
+                "error": {
+                    "invalidEmail": "Veuillez saisir une adresse électronique valide.",
+                    "emailRequired": "Veuillez saisir une adresse électronique."
+                },
+                "subtitle": "Recevez des offres exclusives et découvrez nos dernières nouvelles.",
+                "title": "S'abonner à notre newsletter",
+                "email": "Email",
+                "validate": "Soumettre"
             }
         },
         "notifications": {
@@ -4448,13 +4464,13 @@
             "step": {
                 "convertExit": {
                     "dialog": {
-                        "helper": "Les déclencheurs qui suivent cette étape seront également supprimés. Le reste du {{ workflowLowerCase }} sera déconnecté mais pas supprimé.",
+                        "helper": "Les déclencheurs qui suivent directement cette étape seront supprimés. Le reste du {{ workflowLowerCase }} sera déconnecté mais pas supprimé.",
                         "title": "Convertir cette étape en sortie"
                     }
                 },
                 "archive": {
                     "dialog": {
-                        "helper": "Les déclencheurs liés à cette étape seront également supprimés. Le reste du {{ workflowLowerCase }} sera déconnecté mais pas supprimé.",
+                        "helper": "Les déclencheurs directement liés à cette étape seront également supprimés. Le reste du {{ workflowLowerCase }} sera déconnecté mais pas supprimé.",
                         "title": "Êtes-vous sûr de vouloir supprimer cette étape ?"
                     }
                 }
@@ -4509,7 +4525,17 @@
                 "audienceStepHelper": "Définissez le nom de l'étape : vous pourrez voir ici le positionnement des membres dans le {{ workflowLowerCase }}.",
                 "title": "Créer un {{ workflowLowerCase }}",
                 "addAWorkflow": "Ajouter un {{ workflowLowerCase }}",
-                "createAudienceHelper": "Grâce aux {{ workflowPluralLowerCase }}, cibler les actions marketing envoyées à vos membres en fonction de leur comportement sur la plateforme. Créez une séquence d'actions que vos membres doivent accomplir pour obtenir certaines promotions ou certains tags, par exemple."
+                "createAudienceHelper": "Grâce aux {{ workflowPluralLowerCase }}, cibler les actions marketing envoyées à vos membres en fonction de leur comportement sur la plateforme. Créez une séquence d'actions que vos membres doivent accomplir pour obtenir certaines promotions ou certains tags, par exemple.",
+                "cadenceParameters": "Paramètres du {{ workflowLowerCase }}",
+                "multipleVisit": {
+                    "helperText": "Si activé, les membres qui répondent aux critères d'entrée pourront entrer dans ce {{ workflowLowerCase }} plusieurs fois, indépendamment du fait qu'ils en soient sortis précédemment comme \"perdants\" ou \"gagnants\".",
+                    "isMultipleVisitAllowedLabel": "Les membres peuvent passer plusieurs fois par ce {{ workflowLowerCase }}."
+                },
+                "formTitle": {
+                    "updateTitle": "Modifiez votre {{ workflowLowerCase }}",
+                    "createTitle": "Créer un {{ workflowLowerCase }}",
+                    "updateNameTitle": "Modifiez le nom de votre {{ workflowLowerCase }}"
+                }
             },
             "graph": {
                 "alert": {
@@ -4528,14 +4554,14 @@
                 "archivedHeader": "{{ workflowPluralLowerCase }} archivés",
                 "dialog": {
                     "helper": "Les membres actuellement dans le {{ workflowLowerCase }} en sortiront automatiquement. Le {{ workflowLowerCase }} sera mis sur pause et archivé mais vous pouvez le réactiver ultérieurement.",
-                    "title": "Supprimer un {{ workflowLowerCase }}",
+                    "title": "Êtes-vous sûr de vouloir archiver le {{ workflowLowerCase }} ?",
                     "beingArchived": "Vous êtes sur le point d'archiver \"{{ name }}\"."
                 }
             },
             "howTo": {
                 "title": "Comment éditer votre {{ workflowLowerCase }}"
             },
-            "audienceIndexHelper": "L'ordre des {{ workflowPluralLowerCase }} détermine la priorité : si un membre peut entrer dans deux {{ workflowPluralLowerCase }} différents, il commencera par le premier de la liste.",
+            "audienceIndexHelper": "L'ordre des {{ workflowPluralLowerCase }} détermine la priorité : si un membre peut entrer dans deux {{ workflowPluralLowerCase }} différents en même temps, il commencera par le premier de la liste.",
             "block": {
                 "unrecognized": {
                     "dialog": {
@@ -10126,7 +10152,9 @@
             "dispute": "Les litiges sont filtrés sur la date de la transaction.",
             "payment_installments": "Les paiements sont filtrés sur leur date d'échéance.",
             "video_purchase": "Les vidéos sont filtrées sur leur date d'achat.",
-            "invoices": "Les achats sont filtrés sur la date d'émission de la facture associée."
+            "invoices": "Les achats sont filtrés sur la date d'émission de la facture associée.",
+            "invoicesAccrualMethodLink": "https://intercom.help/bsport-helpcenter/articles/8320705",
+            "invoicesAccrualMethod": "Ce rapport affiche les achats sur la base de la méthode de comptabilité d'exercice. En d'autres termes, les transferts d'argent vers le solde client et les achats de cartes-cadeaux ne sont pas inclus. <0> Voir notre fiche d'aide pour plus d'informations.</0> Pour suivre les achats de carte cadeaux, utilisez le rapport {{ purchasedGiftcardReport }}."
         }
     },
     "role": {
@@ -11888,7 +11916,8 @@
                 "loginButton": "Bouton login",
                 "giftcard": "Carte cadeau",
                 "paymentPackTemplate": "Carte de cours partagée",
-                "calendarV2": "Calendrier"
+                "calendarV2": "Calendrier",
+                "newsletterV2": "Acquisition de prospects"
             },
             "createDialog": {
                 "showAdvanced": "Voir plus d'options",
@@ -15406,6 +15435,13 @@
                 "text": "Une des couleurs sélectionnées est très claire et risque d'être difficilement visible",
                 "cancel": "Annuler",
                 "save": "Sauvegarder"
+            },
+            "checkInPersonalization": {
+                "title": "Checkin tablet",
+                "settings": {
+                    "save": "Enregistrer",
+                    "beforeStartTime": "Les séances passées sont encore affichées <0/> heure(s) et <1/> minute(s) après leur heure de début"
+                }
             }
         },
         "analytics": {
@@ -15429,7 +15465,8 @@
             "contractShow": "Lorsque l'utilisateur affiche un abonnement",
             "contractPaymentShow": "Lorsque l'utilisateur est sur la page de paiement d'un abonnement",
             "workshopClick": "Lorsque l'utilisateur selectionne une date d'un atelier",
-            "bookingSuccess": "Lorsqu'un utilisateur réserve une séance (activités de groupe)"
+            "bookingSuccess": "Lorsqu'un utilisateur réserve une séance (activités de groupe)",
+            "leadAcquisitionSuccess": "Lorsqu'un utilisateur soumet avec succès le widget d'acquisition"
         },
         "zoom": {
             "confirmDialog": {
@@ -16713,9 +16750,21 @@
             "maintenedBookings_plural": "{{nb}} réservations maintenues",
             "keys": {
                 "created": "Réservations maintenues",
-                "cancelled": "Réservations annulées"
+                "cancelled": "Réservations annulées",
+                "offers": "Offres"
             },
-            "weekOf": "Semaine du {{date}}"
+            "weekOf": "Semaine du {{date}}",
+            "chartsItemLabel": {
+                "numberOfSessions": "Séances",
+                "numberOfCancelledBookings": "Réservations annulées",
+                "numberOfConfirmedBookings": "Réservations enregistrées"
+            },
+            "bookingsTotalCount": "{{nb}} <0/> réservation au total",
+            "bookingsTotalCount_plural": "{{nb}} <0/> réservations au total",
+            "totalOffers": "{{ nb_offers }} <0/> session au total",
+            "totalOffers_plural": "{{ nb_offers }} <0/> sessions au total",
+            "bookingsCancelled": "{{nb}} annulées",
+            "confirmedBookings": "{{nb}} confirmées"
         },
         "quickInvoiceVoucher": "Choisissez la réduction à appliquer lors de la facturation du pass suivant",
         "quickInvoiceNoVoucher": "Laissez la valeur de ce champ à 0 si vous ne souhaitez pas appliquer de réduction",
@@ -17234,7 +17283,8 @@
                 "fabrique_bottom_drawer": "Tiroir du bas",
                 "fabrique_textform": "Formulaire de texte",
                 "selector_input": "Entrée du sélecteur",
-                "selector": "Sélecteur"
+                "selector": "Sélecteur",
+                "marketing_newsletter_form_v2": "Formulaire de la newsletter"
             },
             "page": {
                 "common": "Commun",
@@ -17247,7 +17297,8 @@
                 "fabrique": "Fabrique",
                 "spot_scheduling": "Spot scheduling",
                 "authentication": "Authentification",
-                "checkoutConfirmationPage": "Confirmation de paiement"
+                "checkoutConfirmationPage": "Confirmation de paiement",
+                "marketing": "Marketing"
             },
             "cssConfig": {
                 "configurationTitle": "Variations",
@@ -17338,7 +17389,10 @@
                     "isExpanded": "L'élément est développé",
                     "isRequired": "Se trouve dans l'état requis",
                     "isDraggable": "L'élément est extensible (par glissement)",
-                    "withMaxCharacters": "Avec une longueur de caractères maximum"
+                    "withMaxCharacters": "Avec une longueur de caractères maximum",
+                    "showSubtitle": "Afficher le sous-titre",
+                    "showTitle": "Afficher le titre",
+                    "newsletterV2FieldsType": "Renseignements demandés"
                 },
                 "option": {
                     "true": "Oui",
@@ -17425,7 +17479,10 @@
                     "strong": "Intense",
                     "light": "Clair",
                     "xs": "Très petit",
-                    "xl": "Très grand"
+                    "xl": "Très grand",
+                    "emailOnly": "Adresse électronique uniquement",
+                    "firstNameAndEmail": "Prénom et adresse électronique",
+                    "fullNameAndEmail": "Nom complet et adresse électronique"
                 },
                 "confirmationMessageComponentAlert": "Ce composant gère principalement les statuts de réservation et de paiement. Pour personnaliser son apparence, nous recommandons d'utiliser ses composants racine situés dans la section commune",
                 "marketplaceOfferBookingList": "Ce composant est une liste de séances réservées. Pour affiner les composants de {{component_name}}, vous pouvez utiliser la section dédiée dans l'éditeur.",
@@ -17434,6 +17491,18 @@
                 "marketplaceCheckoutItemListPaymentCombo": "Ce composant est une liste d'articles avec des packs. Pour affiner les composants de {{component_name}}, vous pouvez utiliser la section dédiée située dans {{page}} au sein de l'éditeur.",
                 "marketplaceProductItemListAlert": "Ce composant est une liste d'articles de produits. Pour peaufiner le composant {{component_name}}, vous pouvez utiliser la section dédiée dans l'éditeur.",
                 "selector": "Ce composant est composé d'une étiquette et d'une entrée, ainsi que d'un texte de légende. Pour personnaliser l'apparence du {{nom_du_composant}}, nous recommandons d'utiliser son composant racine"
+            },
+            "newsletterV2": {
+                "showSubtitle": "Afficher le sous-titre",
+                "subtitle": "Sous-titre",
+                "showTitle": "Afficher le titre",
+                "title": "Titre",
+                "advancedSettings": "Bouton paramètres avancés",
+                "emailOnly": "Adresse électronique uniquement",
+                "firstNameAndEmail": "Prénom et adresse électronique",
+                "fullNameAndEmail": "Nom complet et adresse électronique",
+                "tagToApply": "Tag à appliquer lors de la soumission",
+                "newsletterFieldsType": "Renseignements demandés"
             }
         },
         "create": "Général",

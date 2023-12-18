@@ -1734,7 +1734,11 @@
                 "numberOfConfirmedBookings": "Bevestigde reserveringen"
             },
             "bookingsCancelled": "Geannuleerd: {{nb}}",
-            "confirmedBookings": "Bevestigd: {{nb}}"
+            "confirmedBookings": "Bevestigd: {{nb}}",
+            "totalOffers": "{{ nb_offers }} <0/> totale sessie",
+            "totalOffers_plural": "{{ nb_offers }} <0/> totale sessies",
+            "bookingsTotalCount": "{{nb}} <0/>totale boeking",
+            "bookingsTotalCount_plural": "{{nb}} <0/>totale boekingen"
         },
         "show_cancelled_offers": "Toon de geannuleerde sessies",
         "quickInvoiceNoVoucher": "Laat de waarde van dit veld op 0 staan als je geen korting wilt toepassen",
@@ -2049,7 +2053,8 @@
             "smsCostReminderModal": {
                 "confirm": "Bevestigen",
                 "cancel": "Annuleren",
-                "title": "Herinnering sms-kosten"
+                "title": "Herinnering sms-kosten",
+                "content": "SMS'en naar een grote groep leden kan duur zijn. Je kunt de prijs per sms controleren in je contract. Weet u zeker dat u deze communicatie wilt versturen?"
             }
         },
         "communication": "Bericht",
@@ -3200,7 +3205,9 @@
             "activityByEst": "De activiteiten en vestigingen die verschijnen zijn die waarvoor een sessie is gepland in het geselecteerde datumbereik.",
             "activities": "De activiteiten die verschijnen zijn die waarvoor een sessie is gepland in het geselecteerde datumbereik.",
             "members": "De leden worden gefilterd op datum van inschrijving.",
-            "referral_grant": "Doorverwijzingslinks worden gefilterd aan de hand van de inschrijfdatum van de ontvanger"
+            "referral_grant": "Doorverwijzingslinks worden gefilterd aan de hand van de inschrijfdatum van de ontvanger",
+            "invoicesAccrualMethodLink": "https://intercom.help/bsport-helpcenter/articles/8320705",
+            "invoicesAccrualMethod": "Dit rapport geeft aankopen weer op basis van de boekhoudmethode op transactiebasis. Dat wil zeggen dat overschrijvingen van geld naar het interne rekeningsaldo en aankopen van cadeaubonnen niet worden meegenomen. <0>Zie onze hulppagina voor meer informatie.</0> Gebruik het rapport {{ purchasedGiftcardReport }} om aankopen van cadeaubonnen bij te houden."
         },
         "franchiseWarning": {
             "part2": "U kunt het rapport nu exporteren en daarna in Excel verwerken. Bij de export wordt rekening gehouden met de aangegeven data en de toegepaste gefilterde weergave.",
@@ -8389,7 +8396,8 @@
                 "loginButton": "Inlogknop",
                 "giftcard": "Cadeaubonnen",
                 "paymentPackTemplate": "Gedeelde leskaarten",
-                "calendarV2": "Agenda"
+                "calendarV2": "Agenda",
+                "newsletterV2": "Lead-acquisitie"
             },
             "preview": "Voorvertoning",
             "saveButton": "Opslaan",
@@ -12799,7 +12807,8 @@
             },
             "checkInPersonalization": {
                 "settings": {
-                    "save": "Opslaan"
+                    "save": "Opslaan",
+                    "beforeStartTime": "Sessies uit het verleden worden nog steeds weergegeven <0/> uur(en) en <1/> minuten(s) na hun starttijd"
                 },
                 "title": "Check-in Tablet"
             }
@@ -12830,7 +12839,8 @@
             "signinShow": "Wanneer een gebruiker de inlogpagina opent",
             "sessionShow": "Wanneer een gebruiker een sessie selecteert",
             "workshopClick": "Wanneer een lid een datum van een workshop selecteert",
-            "bookingSuccess": "Wanneer een gebruiker een sessie boekt (groepsactiviteiten)"
+            "bookingSuccess": "Wanneer een gebruiker een sessie boekt (groepsactiviteiten)",
+            "leadAcquisitionSuccess": "Wanneer een gebruiker de aankoopwidget met succes indient"
         },
         "zoom": {
             "confirmDialog": {
@@ -15878,7 +15888,8 @@
                     "isDraggable": "Het element is uitbreidbaar (door slepen)",
                     "withMaxCharacters": "Met maximale tekenlengte",
                     "showSubtitle": "Toon ondertitel",
-                    "showTitle": "Toon titel"
+                    "showTitle": "Toon titel",
+                    "newsletterV2FieldsType": "Informatie gevraagd"
                 },
                 "configurationTitle": "Variaties",
                 "confirmationMessageComponentAlert": "Deze component beheert voornamelijk boekings- en betalingsstatussen. Om het uiterlijk aan te passen, raden we aan de hoofdcomponenten te gebruiken in de gemeenschappelijke sectie",
@@ -16055,7 +16066,10 @@
                 "title": "Titel",
                 "emailOnly": "Alleen e-mail",
                 "firstNameAndEmail": "Voornaam en e-mail",
-                "fullNameAndEmail": "Volledige naam en e-mail"
+                "fullNameAndEmail": "Volledige naam en e-mail",
+                "advancedSettings": "Geavanceerde instellingen inschakelen",
+                "tagToApply": "Label toepassen bij indiening",
+                "newsletterFieldsType": "Informatie gevraagd"
             }
         },
         "customize": "Personalisering",
@@ -16802,13 +16816,13 @@
             "step": {
                 "convertExit": {
                     "dialog": {
-                        "helper": "De triggers na deze stap worden ook verwijderd. De rest van de {{ workflowLowerCase }} wordt losgekoppeld maar niet verwijderd.",
+                        "helper": "De triggers die direct op deze stap volgen worden verwijderd. De rest van de {{ workflowLowerCase }} wordt losgekoppeld maar niet verwijderd.",
                         "title": "Zet deze stap om in een exit"
                     }
                 },
                 "archive": {
                     "dialog": {
-                        "helper": "De triggers die aan deze stap zijn gekoppeld worden ook verwijderd. De rest van {{ workflowLowerCase }} wordt losgekoppeld maar niet verwijderd.",
+                        "helper": "De triggers die direct gekoppeld zijn aan deze stap worden ook verwijderd. De rest van {{ workflowLowerCase }} wordt losgekoppeld maar niet verwijderd.",
                         "title": "Weet u zeker dat u deze stap wilt verwijderen?"
                     }
                 }
@@ -16866,7 +16880,13 @@
                 "addAWorkflow": "Voeg een {{ workflowLowerCase }} toe.",
                 "cadenceParameters": "Instellingen van \"{{ workflowLowerCase }}\"",
                 "formTitle": {
-                    "updateNameTitle": "Bewerk de naam van \"{{ workflowLowerCase }}\""
+                    "updateNameTitle": "Bewerk de naam van \"{{ workflowLowerCase }}\"",
+                    "updateTitle": "Bewerk uw {{ workflowLowerCase }}",
+                    "createTitle": "Maak een {{ workflowLowerCase }}"
+                },
+                "multipleVisit": {
+                    "helperText": "Indien geactiveerd, kunnen leden die voldoen aan de invoercriteria deze {{ workflowLowerCase }} meerdere keren betreden, ongeacht of ze deze eerder hebben verlaten als 'verloren' of 'gewonnen'.",
+                    "isMultipleVisitAllowedLabel": "Leden kunnen deze {{ workflowLowerCase }} meerdere keren doorlopen."
                 }
             },
             "graph": {
@@ -16882,7 +16902,7 @@
                     "title": "Start de {{ workflowLowerCase }}"
                 }
             },
-            "audienceIndexHelper": "De volgorde van de {{ workflowPluralLowerCase }} bepaalt de prioriteit; als een lid in aanmerking komt om twee verschillende {{ workflowPluralLowerCase }} in te voeren, begint het met de hoogste in de lijst.",
+            "audienceIndexHelper": "De volgorde van de {{ workflowPluralLowerCase }} bepaalt de volgorde van prioriteit: als een lid 2 verschillende {{ workflowPluralLowerCase }} tegelijk kan invoeren, dan beginnen ze met de hoogste in de lijst.",
             "archive": {
                 "archivedHeader": "Gearchiveerd {{ workflowPluralLowerCase }}",
                 "dialog": {
@@ -17263,7 +17283,7 @@
         },
         "consumerGiftcard": {
             "form": {
-                "footer": "De cadeaubon heeft een waarde van {{- price }} en wordt op {{- date_send }} om {{- hour_send }} naar de ontvanger verstuurd. Vervolgens heeft de ontvanger {{ expiration_days }} dag(en) om de cadeaubon te gebruiken, voordat het vervalt.",
+                "footer": "De cadeaubon wordt naar de ontvanger verzonden op {{- hour_send}}. De cadeaubon is geldig tot {{ expiration_days }} dag(en) na activering en het account van de ontvanger wordt opgewaardeerd met {{- price }}.",
                 "actions": {
                     "submit": "Toevoegen aan winkelmandje",
                     "cancel": "Annuleer"
@@ -17298,7 +17318,7 @@
                 "giftcard_amount": "[Bedrag van de cadeaubon]"
             },
             "sendTo": "Opnieuw de uitnodiging versturen",
-            "notAttributedYet": "Niet gevalideerd",
+            "notAttributedYet": "Niet geactiveerd",
             "expiresOn": "Vervaldatum: {{- d }}",
             "willInviteOn": "De uitnodiging is op {{- d }} verstuurd",
             "invitedOn": "Verstuurd op: {{- d }}",

@@ -1099,7 +1099,8 @@
             "weekOf": "Settimana del {{date}}",
             "keys": {
                 "cancelled": "Prenotazioni annullate",
-                "created": "Prenotazioni mantenute"
+                "created": "Prenotazioni mantenute",
+                "offers": "Offerte"
             },
             "maintenedBookings": "{{nb}} prenotazione mantenuta",
             "maintenedBookings_plural": "{{nb}} prenotazioni mantenute",
@@ -1108,7 +1109,18 @@
             "cancelledBookings": "{{nb}} prenotazione annullata",
             "cancelledBookings_plural": "{{nb}} prenotazioni annullate",
             "offerFilteredBookingRecap": "Sessione del {{date}}",
-            "weekOverview": "Panoramica della tua settimana"
+            "weekOverview": "Panoramica della tua settimana",
+            "chartsItemLabel": {
+                "numberOfSessions": "Sessioni",
+                "numberOfCancelledBookings": "Prenotazioni cancellate",
+                "numberOfConfirmedBookings": "Prenotazioni confermate"
+            },
+            "totalOffers": "{{ nb_offers }} <0/> sessione totale",
+            "totalOffers_plural": "{{ nb_offers }} <0/> sessioni totali",
+            "bookingsTotalCount": "{{nb}} <0/>prenotazione totale",
+            "bookingsTotalCount_plural": "{{nb}} <0/>prenotazioni totali",
+            "bookingsCancelled": "{{nb}} cancellate",
+            "confirmedBookings": "{{nb}} confermate"
         },
         "show_cancelled_offers": "Mostra sessioni annullate",
         "quickInvoiceNoVoucher": "Lascia il valore di questo campo uguale a 0 se non vuoi applicare uno sconto",
@@ -2086,6 +2098,12 @@
                 "sms": "SMS",
                 "mail": "Email",
                 "autoResend": "Reinvio automatico"
+            },
+            "smsCostReminderModal": {
+                "confirm": "Conferma",
+                "cancel": "Cancella",
+                "content": "L'invio di SMS a un grande gruppo di utenti può essere costoso. È possibile verificare il prezzo per SMS nel vostro contratto. Siete sicuri di voler inviare questa comunicazione?",
+                "title": "Promemoria dei costi per l'invio di SMS"
             }
         },
         "dialogRecipients": {
@@ -4293,6 +4311,13 @@
                     "label": "Ordine personalizzato",
                     "subTitle": "Ordine del prodotto"
                 }
+            },
+            "checkInPersonalization": {
+                "settings": {
+                    "save": "Salva",
+                    "beforeStartTime": "Le sessioni passate vengono ancora visualizzate <0/> ora/e e <1/> minuto/i dopo il loro orario di inizio"
+                },
+                "title": "Tablet per il check-in"
             }
         },
         "pageTitles": {
@@ -4321,7 +4346,8 @@
             "gtmEvent": "GTM Nome dell'evento",
             "eventDesc": "Descrizione dell'evento",
             "showAnalyticsInformation": "Mostra gli eventi tracciati",
-            "bookingSuccess": "Quando un membro prenota una sessione (lezioni di gruppo)"
+            "bookingSuccess": "Quando un membro prenota una sessione (lezioni di gruppo)",
+            "leadAcquisitionSuccess": "Quando l'utente invia con successo il widget di acquisizione"
         },
         "signUpForm": {
             "error": "Si è verificato un problema",
@@ -5681,7 +5707,8 @@
                 "loginButton": "Pulsante di accesso",
                 "giftcard": "Gift card",
                 "paymentPackTemplate": "Pass condiviso",
-                "calendarV2": "Calendario"
+                "calendarV2": "Calendario",
+                "newsletterV2": "Acquisizione contatti"
             },
             "preview": "Anteprima",
             "saveButton": "Salva",
@@ -8020,7 +8047,9 @@
             "activityByEst": "Le attività e gli stabilimenti che appaiono sono quelli per i quali è programmata una sessione nell'intervallo di date selezionato.",
             "activities": "Le attività visualizzate sono quelle per le quali è pianificata una sessione nell'intervallo di date selezionato.",
             "members": "I membri sono filtrati in base alla loro data di iscrizione.",
-            "referral_grant": "I link di sponsorizzazione sono filtrati in base alla data di creazione del membro sponsorizzato"
+            "referral_grant": "I link di sponsorizzazione sono filtrati in base alla data di creazione del membro sponsorizzato",
+            "invoicesAccrualMethodLink": "https://intercom.help/bsport-helpcenter/articles/8320705",
+            "invoicesAccrualMethod": "Questo report visualizza gli acquisti in base al metodo di contabilità per competenza. Non sono quindi inclusi i trasferimenti di denaro al saldo del conto interno e gli acquisti di gift card. <0>Per monitorare gli acquisti di gift card, utilizzare il report {{ purchasedGiftcardReport }}."
         },
         "last_invoice_status": {
             "": [
@@ -15800,7 +15829,8 @@
                 "fabrique_menu": "Menù",
                 "fabrique_textform": "Testo",
                 "selector_input": "Input del selettore",
-                "selector": "Selettore"
+                "selector": "Selettore",
+                "marketing_newsletter_form_v2": "Form della newsletter"
             },
             "cssConfig": {
                 "title": {
@@ -15890,7 +15920,10 @@
                     "isExpanded": "L'elemento è ampliato",
                     "isRequired": "Si trova nello stato richiesto",
                     "isDraggable": "L'elemento è estendibile (mediante trascinamento)",
-                    "withMaxCharacters": "Con lunghezza massima dei caratteri"
+                    "withMaxCharacters": "Con lunghezza massima dei caratteri",
+                    "showSubtitle": "Mostra sottotitolo",
+                    "showTitle": "Mostra titolo",
+                    "newsletterV2FieldsType": "Informazioni richieste"
                 },
                 "option": {
                     "false": "No",
@@ -15977,7 +16010,10 @@
                     "light": "Chiaro",
                     "success": "Successo",
                     "xs": "Extra small",
-                    "xl": "Extra large"
+                    "xl": "Extra large",
+                    "emailOnly": "Solo email",
+                    "firstNameAndEmail": "Nome ed email",
+                    "fullNameAndEmail": "Nome completo ed email"
                 },
                 "configurationTitle": "Variazioni",
                 "confirmationMessageComponentAlert": "Questo componente gestisce principalmente gli stati di prenotazione e di pagamento. Per personalizzarne l'aspetto, si consiglia di utilizzare i suoi componenti principali, situati nella sezione comune",
@@ -15999,7 +16035,20 @@
                 "fabrique": "Fabbrica",
                 "spot_scheduling": "Gestione dei posti",
                 "authentication": "Autenticazione",
-                "checkoutConfirmationPage": "Conferma di pagamento"
+                "checkoutConfirmationPage": "Conferma di pagamento",
+                "marketing": "Marketing"
+            },
+            "newsletterV2": {
+                "showSubtitle": "Mostra sottotitolo",
+                "subtitle": "Sottotitolo",
+                "showTitle": "Mostra titolo",
+                "title": "Titolo",
+                "advancedSettings": "Impostazioni avanzate",
+                "emailOnly": "Solo email",
+                "firstNameAndEmail": "Nome ed email",
+                "fullNameAndEmail": "Nome completo ed email",
+                "tagToApply": "Tag da applicare all'invio",
+                "newsletterFieldsType": "Informazioni richeste"
             }
         },
         "create": "Generale",
@@ -16101,6 +16150,16 @@
                 "firstName": "Nome",
                 "email": "Indirizzo e mail",
                 "title": "Inscriviti alle newsletter"
+            },
+            "formV2": {
+                "error": {
+                    "invalidEmail": "Inserire un indirizzo email valido.",
+                    "emailRequired": "Inserire un indirizzo email."
+                },
+                "subtitle": "Ricevi offerte esclusive e conosci le nostre ultime novità",
+                "title": "Iscriviti alla newsletter",
+                "email": "Email",
+                "validate": "Invia"
             }
         },
         "notifications": {
@@ -16736,13 +16795,13 @@
             "step": {
                 "convertExit": {
                     "dialog": {
-                        "helper": "Anche i trigger successivi a questo passaggio verranno eliminati. Il resto del {{ workflowLowerCase }} verrà disconnesso ma non eliminato.",
+                        "helper": "I trigger che seguono direttamente questo passaggio verranno eliminati. Il resto del {{ workflowLowerCase }} verrà disconnesso ma non eliminato.",
                         "title": "Converti questo step in un'uscita dal flusso"
                     }
                 },
                 "archive": {
                     "dialog": {
-                        "helper": "Anche i trigger collegati a questa fase verranno eliminati. Il resto del {{ workflowLowerCase }} verrà disconnesso ma non eliminato.",
+                        "helper": "Anche i trigger direttamente collegati a questa fase verranno eliminati. Il resto del {{ workflowLowerCase }} verrà disconnesso ma non eliminato.",
                         "title": "Sei sicuro di eliminare questo step?"
                     }
                 }
@@ -16797,7 +16856,17 @@
                 "audienceNameLabel": "Nome del {{ workflowLowerCase }}",
                 "audienceStepHelper": "Imposta qui il nome dello step: qui si potrà vedere dove si trovano i membri nel {{ workflowLowerCase }}.",
                 "title": "Crea un {{ workflowLowerCase }}",
-                "addAWorkflow": "Aggiungi un {{ workflowLowerCase }}"
+                "addAWorkflow": "Aggiungi un {{ workflowLowerCase }}",
+                "cadenceParameters": "Parametri del {{ workflowLowerCase }}",
+                "multipleVisit": {
+                    "helperText": "Quando è attivata, i membri che corrispondono ai criteri di ingresso possono entrare in questo {{ workflowLowerCase }} più volte, indipendentemente dal fatto che ne siano usciti in precedenza come \"perso\" o \"guadagnato\".",
+                    "isMultipleVisitAllowedLabel": "I membri possono passare attraverso questo {{ workflowLowerCase }} più volte."
+                },
+                "formTitle": {
+                    "updateTitle": "Modifica il {{ workflowLowerCase }}",
+                    "createTitle": "Crea un {{ workflowLowerCase }}",
+                    "updateNameTitle": "Modifica il nome del {{ workflowLowerCase }}"
+                }
             },
             "activate": {
                 "setupBeforeActivationHelper": "Termina la configurazione del {{ workflowLowerCase }} e crea la prima azione di marketing per lanciare il {{ workflowLowerCase }}.",
@@ -16806,7 +16875,7 @@
                     "title": "Avvia il {{ workflowLowerCase }}"
                 }
             },
-            "audienceIndexHelper": "L'ordine dei {{ workflowPluralLowerCase }} determina la priorità; se un membro ha diritto a inserire due diversi {{ workflowPluralLowerCase }}, inizierà da quello più alto nell'elenco.",
+            "audienceIndexHelper": "L'ordine dei {{ workflowPluralLowerCase }} stabilisce l'ordine di priorità: se un membro può inserire 2 diversi {{ workflowPluralLowerCase }} contemporaneamente, inizierà dal più alto nell'elenco.",
             "graph": {
                 "alert": {
                     "switchToEditMode": "In modalità di visualizzazione, fare clic su MODIFICA per modificare il {{ workflowLowerCase }}.",
@@ -16817,7 +16886,7 @@
                 "archivedHeader": "{{ workflowPluralLowerCase }} archiviato",
                 "dialog": {
                     "helper": "I membri che si trovano nel {{ workflowLowerCase }} ne usciranno automaticamente. Il {{ workflowLowerCase }} verrà messo in pausa e archiviato, ma sarà possibile riattivarlo facilmente in seguito.",
-                    "title": "Elimina un {{ workflowLowerCase }}",
+                    "title": "Si è sicuri di voler archiviare il {{ workflowLowerCase }}?",
                     "beingArchived": "Stai per archiviare \"{{ name }}\"."
                 }
             },
@@ -17178,7 +17247,7 @@
         },
         "consumerGiftcard": {
             "form": {
-                "footer": "La carta sarà inviata via email il {{- date_send }} alle {{- hour_send }} agli indirizzi indicati. Sarà valido per {{ expiration_days }} giorni dopo l'invio dell'email. L'account del destinatario sarà accreditato con {{- price }} per gli acquisti futuri.",
+                "footer": "La carta regalo verrà inviata al destinatario alle {{- hour_send }}. Sarà valida per {{ expiration_days }} giorni dopo l'attivazione e il conto del destinatario sarà ricaricato con {{- price }}.",
                 "actions": {
                     "submit": "Aggiungi al carrello",
                     "cancel": "Cancella"
@@ -17213,7 +17282,7 @@
                 "giftcard_amount": "[Importo della carta]"
             },
             "sendTo": "Rispedire l'invito",
-            "notAttributedYet": "Non convalidato",
+            "notAttributedYet": "Non attivata",
             "expiresOn": "Scade il {{- d }}",
             "willInviteOn": "Invito da inviare su {{- d }}",
             "invitedOn": "Inviato il {{- d }}",

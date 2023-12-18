@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export const downloadAsCsv = (
   headers: Array<string>,
-  data: Array<Array<string>>,
+  data: Array<Array<string | number>>,
   filename: string,
 ) => {
   const csvContent = `data:text/csv;charset=utf-8,\uFEFF${[headers, ...data]

@@ -3,6 +3,8 @@ exports.default = {
     bonus: 'Bonus',
     base: 'Flat base',
     duration: 'Duration',
+    establishment: 'Establishment',
+    location: 'Location',
     nb_bookings: 'Bookings',
     name: 'Session name',
     date: 'Date',

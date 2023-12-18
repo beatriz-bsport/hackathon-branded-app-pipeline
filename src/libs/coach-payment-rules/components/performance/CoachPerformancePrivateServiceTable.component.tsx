@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import moment from 'moment-timezone';
 import amber from '@material-ui/core/colors/amber';
@@ -15,6 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 import clx from 'classnames';
+// @ts-ignore
 import CoachPaymentRuleSelector from '../coach-payment-rule-selector/CoachPaymentRuleSelector.component';
 import type { CoachPaymentRule, CoachPerformance } from '../../types';
 import { downloadAsCsv } from '../../../../utils/downloader';
@@ -38,6 +38,7 @@ type Props = {
   handlePdfExportation?: () => void;
   disablePdfButton?: boolean;
   has_coach_access_to_compensation_downloading?: boolean;
+  isMultiLocalizationEnabled: boolean;
 };
 
 export function CoachPerformancePrivateServiceTable(props: Props) {
@@ -49,6 +50,7 @@ export function CoachPerformancePrivateServiceTable(props: Props) {
     handlePdfExportation,
     disablePdfButton,
     has_coach_access_to_compensation_downloading,
+    isMultiLocalizationEnabled,
   } = props;
   const { t } = useTranslation('coachPerformance');
   const classes = useStyles(!!props.displayChip);
@@ -56,6 +58,7 @@ export function CoachPerformancePrivateServiceTable(props: Props) {
     performances && performances.find((perf) => perf.error && !perf.is_unpaid);
   const unpaid_private_booking_exists =
     performances && performances.find((perf) => perf.is_unpaid);
+
   return (
     <div>
       <div
@@ -94,6 +97,8 @@ export function CoachPerformancePrivateServiceTable(props: Props) {
                         t('fields.name'),
                         t('fields.date'),
                         t('fields.duration'),
+                        t('fields.establishment'),
+                        isMultiLocalizationEnabled && t('fields.location'),
                         !props.asCoach && t('fields.confirmed_bookings'),
                         !props.asCoach &&
                           t('fields.noShowsAndLateCancellations'),
@@ -108,6 +113,9 @@ export function CoachPerformancePrivateServiceTable(props: Props) {
                           'L',
                         )} ${formatAsTime(session.date_start)}`,
                         session.duration_minute,
+                        session.establishment_title,
+                        isMultiLocalizationEnabled &&
+                          session.establishment_group_names?.join(', '),
                         !props.asCoach && session.confirmed_bookings,
                         !props.asCoach && session.cancelled_bookings,
                         !props.asCoach && session.base_remuneration,
@@ -151,6 +159,10 @@ export function CoachPerformancePrivateServiceTable(props: Props) {
             <TableCell align="left">{t('fields.name')}</TableCell>
             <TableCell align="right">{t('fields.date')}</TableCell>
             <TableCell align="right">{t('fields.duration')}</TableCell>
+            <TableCell align="right">{t('fields.establishment')}</TableCell>
+            {isMultiLocalizationEnabled && (
+              <TableCell align="right">{t('fields.location')}</TableCell>
+            )}
             {!props.asCoach && (
               <>
                 <TableCell align="right">
@@ -220,6 +232,14 @@ export function CoachPerformancePrivateServiceTable(props: Props) {
                 <TableCell align="right">
                   {formatMinutes(private_service_perf.duration_minute, t)}
                 </TableCell>
+                <TableCell align="right">
+                  {private_service_perf.establishment_title}
+                </TableCell>
+                {isMultiLocalizationEnabled && (
+                  <TableCell align="right">
+                    {private_service_perf.establishment_group_names?.join(', ')}
+                  </TableCell>
+                )}
                 {!props.asCoach && (
                   <>
                     <TableCell align="right">

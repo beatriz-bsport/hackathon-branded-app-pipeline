@@ -52,6 +52,7 @@ import { WithHandlerType } from '../../utils/types';
 import CoachPerformanceTable from '#libs/coach-payment-rules/components/performance/CoachPerformanceTable.component';
 import CoachPerformanceAdvancedFilters from '#libs/coach-payment-rules/components/performance/filters/CoachPerformanceAvancedFilters.component';
 import type { Coach } from '#libs/associated-coach/types';
+import { getTheme } from '#libs/theme/selectors';
 
 const PAGINATION_PAGE_LENGTH = 25;
 const styles = (theme: Theme) =>
@@ -274,6 +275,9 @@ export class AllCoachPerformancePage extends Component<Props, State> {
           coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
           endTimestamp={this.state.endTimestamp}
           exportPdfPerformance={this.props.exportPdfPerformance}
+          isMultiLocalizationEnabled={
+            this.props.companyTheme?.enable_multi_localization
+          }
           leavePreviewMode={this.leavePreviewMode}
           loading={
             this.props.coachLoading ||
@@ -323,6 +327,7 @@ const connector = connect(
         coachesPaginated[coachPaginationState.page],
         selectedCachedTimestamp,
       ),
+    companyTheme: getTheme(state),
   }),
   {
     setSessionCoachPaymentRuleAction: setSessionCoachPaymentRule,

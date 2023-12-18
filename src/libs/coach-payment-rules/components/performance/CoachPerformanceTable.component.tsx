@@ -94,6 +94,7 @@ export type CoachPerformanceTableRowProps = {
     associatedCoachId: number,
     dataToExport: number,
   ) => void;
+  isMultiLocalizationEnabled: boolean;
 } & CoachPaymentRuleObjects &
   CoachPaymentRuleActions;
 
@@ -115,6 +116,7 @@ export const CoachPerformanceTableRow = (
     setCoachWorkShopPaymentRule,
     setCoachPaymentRuleGroup,
     handlePdfExportation,
+    isMultiLocalizationEnabled,
   } = props;
   const [openCollapse, setOpenCollapse] = React.useState<boolean>(false);
   const classes = useStyles();
@@ -285,6 +287,7 @@ export const CoachPerformanceTableRow = (
               coachPaymentRulesByKind={coachPaymentRulesByKind}
               coachWithPerformance={coachWithPerformance}
               handlePdfExportation={handlePdfExportation}
+              isMultiLocalizationEnabled={isMultiLocalizationEnabled}
               setCoachPaymentRule={setCoachPaymentRule}
               setCoachPaymentRuleGroup={setCoachPaymentRuleGroup}
               setCoachPrivatePaymentRule={setCoachPrivatePaymentRule}
@@ -325,6 +328,7 @@ type OwnProps = {
   ) => void;
   startTimestamp: number;
   endTimestamp: number;
+  isMultiLocalizationEnabled: boolean;
 } & CoachPaymentRuleObjects &
   CoachPaymentRuleActions;
 
@@ -345,6 +349,7 @@ export const CoachPerformanceTable = (props: Props) => {
     setCoachWorkShopPaymentRule,
     setCoachPaymentRuleGroup,
     exportPdfPerformance,
+    isMultiLocalizationEnabled,
   } = props;
   const [oldestUpdate, setOldestUpdate] = React.useState<number | null>(null);
   const { t } = useTranslation(['coachPerformance', 'coach', 'paymentRules']);
@@ -483,6 +488,7 @@ export const CoachPerformanceTable = (props: Props) => {
               coachPaymentRulesByKind={props.coachPaymentRulesByKind}
               coachWithPerformance={perf}
               handlePdfExportation={handlePdfExportation}
+              isMultiLocalizationEnabled={isMultiLocalizationEnabled}
               previewMode={props.previewMode}
               setCoachPaymentRule={setCoachPaymentRule}
               setCoachPaymentRuleGroup={setCoachPaymentRuleGroup}

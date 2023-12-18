@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Tabs from '@material-ui/core/Tabs';
@@ -52,6 +51,7 @@ type TabPanelProps = {
     associatedCoachId: number,
     dataToExport: number,
   ) => void;
+  isMultiLocalizationEnabled: boolean;
 } & CoachPaymentRuleTabPanelActions;
 
 export const CoachPerformanceTabPanel = (props: TabPanelProps) => {
@@ -139,6 +139,7 @@ export const CoachPerformanceTabPanel = (props: TabPanelProps) => {
           props.has_coach_access_to_compensation_downloading
         }
         hideRuleSetter={props.hideRuleSetter}
+        isMultiLocalizationEnabled={props.isMultiLocalizationEnabled}
         performances={
           props.coachWithPerformance?.performance[COACH_PERFORMANCE_FOR_SESSION]
         }
@@ -158,6 +159,7 @@ export const CoachPerformanceTabPanel = (props: TabPanelProps) => {
           props.has_coach_access_to_compensation_downloading
         }
         hideRuleSetter={props.hideRuleSetter}
+        isMultiLocalizationEnabled={props.isMultiLocalizationEnabled}
         performances={coachGroupActivityPerformances}
         setSessionCoachPaymentRule={props.setSessionCoachPaymentRule}
       />
@@ -175,6 +177,7 @@ export const CoachPerformanceTabPanel = (props: TabPanelProps) => {
           props.has_coach_access_to_compensation_downloading
         }
         hideRuleSetter={props.hideRuleSetter}
+        isMultiLocalizationEnabled={props.isMultiLocalizationEnabled}
         performances={coachWorkshopPerformances}
         setSessionCoachPaymentRule={props.setSessionCoachPaymentRule}
       />
@@ -192,6 +195,7 @@ export const CoachPerformanceTabPanel = (props: TabPanelProps) => {
           props.has_coach_access_to_compensation_downloading
         }
         hideRuleSetter={props.hideRuleSetter}
+        isMultiLocalizationEnabled={props.isMultiLocalizationEnabled}
         performances={
           props.coachWithPerformance?.performance[
             COACH_PAYMENT_RULE_FOR_APPOINTMENT
@@ -217,6 +221,7 @@ export const CoachPerformanceTabPanel = (props: TabPanelProps) => {
             props.has_coach_access_to_compensation_downloading
           }
           hideRuleSetter={props.hideRuleSetter}
+          isMultiLocalizationEnabled={props.isMultiLocalizationEnabled}
           performances={
             props.coachWithPerformance?.performance[
               COACH_PAYMENT_RULE_FOR_SESSION
@@ -234,6 +239,7 @@ export const CoachPerformanceTabPanel = (props: TabPanelProps) => {
             props.has_coach_access_to_compensation_downloading
           }
           hideRuleSetter={props.hideRuleSetter}
+          isMultiLocalizationEnabled={props.isMultiLocalizationEnabled}
           performances={
             props.coachWithPerformance?.performance[
               COACH_PAYMENT_RULE_FOR_APPOINTMENT
@@ -304,6 +310,7 @@ type TabProps = {
   displayLastUpdate?: boolean;
   has_coach_access_to_compensation_downloading?: boolean;
   handlePdfExportation?: (coachId: number, dataToExport: number) => void;
+  isMultiLocalizationEnabled: boolean;
 } & CoachPaymentRuleTabsActions &
   CoachPaymentRuleObjects;
 
@@ -438,6 +445,7 @@ export const CoachPerformanceTabs = (props: TabProps) => {
           has_coach_access_to_compensation_downloading
         }
         hideRuleSetter={props.hideRuleSetter}
+        isMultiLocalizationEnabled={props.isMultiLocalizationEnabled}
         setSessionCoachPaymentRule={props.setSessionCoachPaymentRule}
         updatePrivateBookingCoachPaymentRule={
           props.updatePrivateBookingCoachPaymentRule

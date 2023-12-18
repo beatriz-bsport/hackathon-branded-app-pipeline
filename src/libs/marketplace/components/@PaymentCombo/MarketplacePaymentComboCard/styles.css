@@ -120,6 +120,8 @@
 
 .bs-pack-card__footer__button__left {
   border-radius: var(--border-radius-10);
+  min-width: min-content;
+  margin-right: var(--spacing-2);
 }
 
 .bs-pack-card__footer__left__button__content {
@@ -139,6 +141,14 @@
 .bs-pack-card__footer__button__right:hover,
 .bs-pack-card__footer__button__right:focus {
   background: var(--color-primary-dark);
+}
+
+/* Crop text for combo card buy button, same behavior than payment pack/private pass cards */
+.bs-pack-card__footer__button__right .bs-button__text {
+  display: block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 @container bsPassPage (width > 750px) {

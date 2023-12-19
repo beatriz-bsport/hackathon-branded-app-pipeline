@@ -126,6 +126,7 @@ export const IconButton: React.FC<ButtonProps> = ({
   isDisabled,
   variant = ButtonVariant.CONTAINED,
   onClick,
+  onMouseDown,
   isRippleEnabled,
   type = 'button',
   size = ButtonSize.LG,
@@ -138,6 +139,7 @@ export const IconButton: React.FC<ButtonProps> = ({
       isDisabled={isDisabled}
       isRippleEnabled={isRippleEnabled}
       onClick={onClick}
+      onMouseDown={onMouseDown}
       type={type}
     >
       <span

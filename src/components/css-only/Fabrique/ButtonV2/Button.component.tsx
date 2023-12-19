@@ -28,6 +28,7 @@ type Props = {
   isDisabled?: boolean;
   variant?: ButtonVariantType;
   onClick?: (event?: React.MouseEvent<HTMLButtonElement>) => void;
+  onMouseDown?: (event?: React.MouseEvent<HTMLButtonElement>) => void;
   isRippleEnabled?: boolean;
   type?: ButtonHTMLType;
   size?: ButtonSizeType;
@@ -143,6 +144,7 @@ export const Button: React.FC<Props> = ({
   classes,
   isDisabled,
   variant = ButtonVariant.CONTAINED,
+  onMouseDown,
   onClick,
   isRippleEnabled,
   type = 'button',
@@ -158,6 +160,7 @@ export const Button: React.FC<Props> = ({
       isDisabled={isDisabled}
       isRippleEnabled={isRippleEnabled}
       onClick={onClick}
+      onMouseDown={onMouseDown}
       type={type}
     >
       <div

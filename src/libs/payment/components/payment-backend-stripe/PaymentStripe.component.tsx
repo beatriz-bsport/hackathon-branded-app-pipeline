@@ -449,19 +449,21 @@ const PaymentStripe: React.FC<
                     userDefaultEmail={sepaDefaultEmail}
                     userDefaultName={sepaDefaultName}
                   >
-                    <CheckoutBillingGroupSelector
-                      enableMultiLocalization={enableMultiLocalization}
-                      establishmentBillingGroups={establishmentBillingGroups}
-                      selectedEstablishmentBillingGroup={
-                        selectedEstablishmentBillingGroup
-                      }
-                      setIsEstablishmentBillingGroupSelected={
-                        setIsEstablishmentBillingGroupSelected
-                      }
-                      setSelectedEstablishmentBillingGroup={
-                        setSelectedEstablishmentBillingGroup
-                      }
-                    />
+                    <div className={classes.billingGroupSelector}>
+                      <CheckoutBillingGroupSelector
+                        enableMultiLocalization={enableMultiLocalization}
+                        establishmentBillingGroups={establishmentBillingGroups}
+                        selectedEstablishmentBillingGroup={
+                          selectedEstablishmentBillingGroup
+                        }
+                        setIsEstablishmentBillingGroupSelected={
+                          setIsEstablishmentBillingGroupSelected
+                        }
+                        setSelectedEstablishmentBillingGroup={
+                          setSelectedEstablishmentBillingGroup
+                        }
+                      />
+                    </div>
                   </StripePaymentMethodForm>
                 )}
               </ObjectLevelPermissionProvider>
@@ -491,6 +493,10 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  billingGroupSelector: {
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
   },
 }));
 

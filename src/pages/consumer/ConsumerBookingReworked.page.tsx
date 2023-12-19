@@ -2,6 +2,7 @@ import React from 'react';
 import { compose, withHandlers } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
 import { push } from 'connected-react-router';
+import uniq from 'lodash/uniq';
 // @ts-expect-error
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
@@ -15,7 +16,12 @@ import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#libs/meta
 import {
   fetchMyPastBookingAsMember as fetchMyPastBookingAsMemberAction,
   fetchMyFutureBookingAsMember as fetchMyFutureBookingAsMemberAction,
+  fetchMyPastBookingWorkshopAsMember as fetchMyPastBookingWorkshopAsMemberAction,
+  fetchMyFutureBookingWorkshopAsMember as fetchMyFutureBookingWorkshopAsMemberAction,
 } from '#libs/consumer-space/actions';
+import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '#libs/establishment/actions';
+import { fetchRoomBlueprints as fetchRoomBlueprintsAction } from '#libs/spot-scheduling/actions';
+import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '#libs/payment-packs/actions';
 
 import { getMembership } from '#libs/membership/selectors';
 import {
@@ -48,11 +54,94 @@ type Props = {
 
 export class ConsumerBooking extends React.Component<Props> {
   componentDidMount() {
-    this.props.fetchMyFutureBookingAsMember({
-      member: this.props.membership.id,
-    });
-    this.props.fetchMyPastBookingAsMember({ member: this.props.membership.id });
+    this.fetchPastBookings();
+    this.fetchFutureBookings();
   }
+
+  fetchAssociatedBookingsObjects = (bookings: BookingREST[]) => {
+    const bookingsOfferList = uniq(bookings.map((booking) => booking.offer));
+    const bookingsCoachList = uniq(bookings.map((booking) => booking.coach));
+    const bookingsCoachOverrideList = uniq(
+      bookings.map((booking) => booking.coach_override),
+    );
+    const bookingsLevelList = uniq(bookings.map((booking) => booking.level));
+    const bookingsMetaActivityList = uniq(
+      bookings.map((booking) => booking.meta_activity),
+    );
+    const bookingsEstablishmentList = uniq(
+      bookings.map((booking) => booking.establishment),
+    );
+    const bookingsConsumerPackList = uniq(
+      bookings.map((booking) => booking.consumer_payment_pack),
+    );
+    this.props.fetchOfferBulk(bookingsOfferList, {
+      onSuccess: () => {
+        this.props.fetchRoomBlueprints({
+          establishment__in: bookingsEstablishmentList,
+        });
+      },
+    });
+    this.props.fetchCoachBulk([
+      ...bookingsCoachList,
+      ...bookingsCoachOverrideList,
+    ]);
+    // @ts-expect-error
+    this.props.fetchLevelList(bookingsLevelList);
+    this.props.fetchMetaActivityBulk(bookingsMetaActivityList);
+    this.props.fetchEstablishmentBulk(bookingsEstablishmentList);
+    this.props.retrieveConsumerPackBulk(bookingsConsumerPackList, {
+      onSuccess: (consumerPackList) =>
+        this.props.fetchPaymentPackBulk(
+          uniq(
+            consumerPackList.map((consumerPack) => consumerPack.payment_pack),
+          ),
+        ),
+    });
+  };
+
+  fetchPastBookings = () => {
+    !!this.props.membership?.id &&
+      this.props.fetchMyPastBookingAsMember(
+        { member: this.props.membership.id },
+        {
+          onSuccess: this.fetchAssociatedBookingsObjects,
+        },
+      );
+  };
+
+  fetchFutureBookings = () => {
+    !!this.props.membership?.id &&
+      this.props.fetchMyFutureBookingAsMember(
+        {
+          member: this.props.membership.id,
+        },
+        {
+          onSuccess: this.fetchAssociatedBookingsObjects,
+        },
+      );
+  };
+
+  fetchPastBookingsWorkshop = () => {
+    !!this.props.membership?.id &&
+      this.props.fetchMyPastBookingWorkshopAsMember(
+        { member: this.props.membership.id },
+        {
+          onSuccess: this.fetchAssociatedBookingsObjects,
+        },
+      );
+  };
+
+  fetchFutureBookingsWorkshop = () => {
+    !!this.props.membership?.id &&
+      this.props.fetchMyFutureBookingWorkshopAsMember(
+        {
+          member: this.props.membership.id,
+        },
+        {
+          onSuccess: this.fetchAssociatedBookingsObjects,
+        },
+      );
+  };
 
   render() {
     return (
@@ -79,11 +168,18 @@ const connector = connect(
     fetchLevelList: fetchLevelListAction,
     fetchMetaActivityBulk: fetchMetaActivityBulkAction,
     fetchOfferBulk: fetchOfferBulkAction,
+    fetchEstablishmentBulk: fetchEstablishmentBulkAction,
     push,
     retrieveConsumerPackBulk: retrieveConsumerPackBulkAction,
+    fetchPaymentPackBulk: fetchPaymentPackBulkAction,
+    fetchRoomBlueprints: fetchRoomBlueprintsAction,
     // REWORKED
     fetchMyPastBookingAsMember: fetchMyPastBookingAsMemberAction,
     fetchMyFutureBookingAsMember: fetchMyFutureBookingAsMemberAction,
+    fetchMyPastBookingWorkshopAsMember:
+      fetchMyPastBookingWorkshopAsMemberAction,
+    fetchMyFutureBookingWorkshopAsMember:
+      fetchMyFutureBookingWorkshopAsMemberAction,
   },
 );
 

@@ -180,6 +180,8 @@ export const getGuestBookingName = (
  * The function first checks if multilocalisation is enabled and if there are any basket offers and establishment billing groups.
  * If these conditions are met, it then tries to find a billing group in the offers. If it finds one and it's not disabled, it returns this as the default billing group.
  * If it doesn't find one, it returns null.
+ * The billing group must match all the offers from the basket: of some offers have different billing groups, then it returns null.
+ *
  */
 export const loadDefaultEstablishmentBillingGroupFromOffers = (
   enableMultiLocalisation: boolean,
@@ -208,9 +210,15 @@ export const loadDefaultEstablishmentBillingGroupFromOffers = (
       }),
       {},
     );
-    const defaultBillingGroupFromOffers = basketEstablishmentIds
+    const billingGroupFromOffers = basketEstablishmentIds
       .map((id) => establishmentBillingGroupsByEstablishment?.[id])
-      .find((establishmentBillingGroup) => !!establishmentBillingGroup);
+      .filter((establishmentBillingGroup) => !!establishmentBillingGroup);
+    const defaultBillingGroupFromOffers = billingGroupFromOffers.every(
+      (establishmentBillingGroup) =>
+        establishmentBillingGroup.id === billingGroupFromOffers[0].id,
+    )
+      ? billingGroupFromOffers[0]
+      : null;
     if (defaultBillingGroupFromOffers?.disabled === false) {
       return defaultBillingGroupFromOffers;
     }

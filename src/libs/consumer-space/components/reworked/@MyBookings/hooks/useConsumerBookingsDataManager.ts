@@ -23,6 +23,7 @@ export default function useConsumerBookingsDataManager({
   pastBookingsWorkshopList,
   futureBookingsWorkshopState,
   futureBookingsWorkshopList,
+  getIsBookingsLoading,
   fetchPastBookings,
   fetchFutureBookings,
   fetchPastBookingsWorkshop,
@@ -36,6 +37,7 @@ export default function useConsumerBookingsDataManager({
   pastBookingsWorkshopList: ConsumerBooking[];
   futureBookingsWorkshopState: ConsumerBookingReworked;
   futureBookingsWorkshopList: ConsumerBooking[];
+  getIsBookingsLoading: (selectedTab: BookingTab) => boolean;
   fetchPastBookings: () => void;
   fetchFutureBookings: () => void;
   fetchPastBookingsWorkshop: () => void;
@@ -151,6 +153,10 @@ export default function useConsumerBookingsDataManager({
   const bookingList = useMemo(
     () => bookingsListMap[`${selectedTab}-${selectedFilterTab}`] || [],
     [bookingsListMap, selectedFilterTab, selectedTab],
+  );
+  const isBookingsLoading = useMemo(
+    () => getIsBookingsLoading(selectedTab),
+    [getIsBookingsLoading, selectedTab],
   );
 
   /**
@@ -314,6 +320,7 @@ export default function useConsumerBookingsDataManager({
     handleJoinOnlineBooking,
     handleShowSpotDetails,
     // COMPUTED STATE
+    isBookingsLoading,
     futureItemsCount,
     nextPage,
     bookingList,

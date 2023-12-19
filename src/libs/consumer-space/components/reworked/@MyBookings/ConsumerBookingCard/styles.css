@@ -55,3 +55,21 @@
 .bs-consumer-booking-card__field--hidden {
   display: none;
 }
+
+/* SKELETON */
+.bs-consumer__booking-card__title--loading {
+  width: 100%;
+  height: 32px;
+  margin-bottom: var(--bs-space-size-4);
+}
+
+.bs-consumer__booking-card__subtitle--loading {
+  width: 40cqw;
+  height: 16px;
+}
+
+.bs-consumer-booking-card__body__container--loading {
+  width: 60cqw;
+  height: 24px;
+  margin: var(--bs-space-size-4) 0;
+}

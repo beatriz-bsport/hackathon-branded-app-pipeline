@@ -28,7 +28,10 @@ import type { PrivateBooking } from '#libs/private-service/types';
 import type { PaymentPack } from '#libs/payment-packs/types';
 import type { ConsumerPaymentPack } from '#libs/consumer-payment-pack/types';
 import type { BookingFilterTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/types';
+import type { BookingTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
+
 import { BookingFilterTabEnum } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/constants';
+import { BookingTabEnum } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/constants';
 
 const getAllBookingAndPrivateBookingWithIds = (state: RootState) => {
   return state.consumer.bookingAndPrivateBooking.allObj;
@@ -240,5 +243,45 @@ export const getRelatedConsumerBookingsInGroup = createSelector(
     };
     const bookings = bookingsMap[filterTab];
     return bookings.filter((booking) => booking.offer?.group === groupId);
+  },
+);
+
+export const getConsumerBookingsLoading = createSelector(
+  [
+    getMyPastBookingsState,
+    getMyFutureBookingsState,
+    getMyPastBookingsWorkshopState,
+    getMyFutureBookingsWorkshopState,
+    (state: RootState) => state,
+    (_: RootState, selectedTab: BookingTab) => selectedTab,
+  ],
+  (
+    pastBookingsState,
+    futureBookingsState,
+    pastBookingsWorkshopState,
+    futureBookingsWorkshopState,
+    state,
+    selectedTab,
+  ) => {
+    const bookingsLoadingMap = {
+      [BookingTabEnum.ACTIVITY]:
+        pastBookingsState.loading ||
+        futureBookingsState.loading ||
+        state.level.loading ||
+        state.metaActivity.loading ||
+        state.consumerPaymentPack.loading ||
+        state.paymentPack.loading,
+      [BookingTabEnum.WORKSHOP]:
+        pastBookingsWorkshopState.loading ||
+        futureBookingsWorkshopState.loading ||
+        state.level.loading ||
+        state.metaActivity.loading ||
+        state.consumerPaymentPack.loading ||
+        state.paymentPack.loading,
+    };
+
+    return (state.coach.loading ||
+      state.establishment.loading ||
+      bookingsLoadingMap[selectedTab]) as boolean; // Payment pack state not typed
   },
 );

@@ -36,6 +36,7 @@ import {
   getMyPastBookingsWorkshopList,
   getMyFutureBookingsWorkshopState,
   getMyFutureBookingsWorkshopList,
+  getConsumerBookingsLoading,
 } from '#libs/consumer-space/selectors';
 
 import ConsumerBookingPageReworked from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingPageReworked';
@@ -43,6 +44,7 @@ import ConsumerBookingPageReworked from '#libs/consumer-space/components/reworke
 import type { BookingREST } from '#libs/booking/types';
 import type { RootState } from '../../reducers';
 import type { WithHandlerType } from '../../utils/types';
+import type { BookingTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
 
 type OwnProps = {};
 type ParamsProps = {
@@ -170,7 +172,9 @@ export class ConsumerBooking extends React.Component<Props> {
     return (
       <ConsumerBookingPageReworked
         futureBookingsState={this.props.myFutureBookingsState}
+        getIsBookingsLoading={this.props.getIsBookingsLoading}
         handleBookASessionClick={this.handleBookASessionClick}
+        pastBookingsList={this.props.myPastBookingsList}
         pastBookingsState={this.props.myPastBookingsState}
       />
     );
@@ -184,6 +188,7 @@ const connector = connect(
     timezone: state.theme.theme.timezone_name,
     theme: getTheme(state),
     marketplaceSettings: state.marketplace.settings,
+    sessionTimeDisplay: state.theme.theme.session_time_display,
     // REWORKED
     myPastBookingsState: getMyPastBookingsState(state),
     myPastBookingsList: getMyPastBookingsList(state),
@@ -193,6 +198,8 @@ const connector = connect(
     myPastBookingsWorkshopList: getMyPastBookingsWorkshopList(state),
     myFutureBookingsWorkshopState: getMyFutureBookingsWorkshopState(state),
     myFutureBookingsWorkshopList: getMyFutureBookingsWorkshopList(state),
+    getIsBookingsLoading: (selectedTab: BookingTab) =>
+      getConsumerBookingsLoading(state, selectedTab),
   }),
   {
     fetchCoachBulk: fetchCoachBulkAction,

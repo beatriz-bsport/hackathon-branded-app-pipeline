@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 import Card from '#Fabrique/Card';
+import ConsumerBookingCardSkeleton from './ConsumerBookingCardSkeleton.component';
 
 import {
   ConsumerBookingCardHeader,
@@ -14,6 +15,7 @@ import {
 import './styles.css';
 
 type Props = {
+  isLoading?: boolean;
   offerDate?: string;
   activityName?: string;
   coachPhoto?: string;
@@ -50,6 +52,7 @@ type Props = {
 };
 
 const ConsumerBookingCard: React.FC<Props> = ({
+  isLoading,
   offerDate,
   coachName,
   className,
@@ -84,10 +87,15 @@ const ConsumerBookingCard: React.FC<Props> = ({
   isMoreDisplayed,
   isSelected,
 }) => {
+  if (isLoading) {
+    return <ConsumerBookingCardSkeleton />;
+  }
+
   return (
     <Card
       className={classNames(
         'bs-consumer-booking-card__root',
+        'bs-consumer-page-root__bookings__list__item',
         {
           'bs-consumer-booking-card__root--canceled': isBookingCancelled,
         },

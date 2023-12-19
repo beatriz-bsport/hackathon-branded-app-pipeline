@@ -47,7 +47,6 @@ import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import { appliesToContract } from '../../coupon/api';
 import CouponCodeForm from '../../coupon/components/CouponCodeForm.component';
 import { Moment } from '../../../i18n';
-import CheckoutBillingGroupSelector from '#libs/marketplace/components/@Basket/CheckoutBillingGroupSelector.component';
 import type { EstablishmentBillingGroup } from '../../establishment/types';
 import BasketTaxInfo from '#libs/checkout/components/BasketTaxInfo.component';
 import { getPrice, getTaxPrice } from '../../theme/utils';
@@ -62,6 +61,7 @@ import {
   MarketplacePaymentMethods,
 } from '../../marketplace/types';
 import { updatePaymentMethodBillingDetails as updatePaymentMethodBillingDetailsAPI } from '#libs/payment/api';
+import EstablishmentBillingGroupSelector from '../../establishment/components/EstablishmentBillingGroupSelector';
 
 const MANUAL_PAYMENT_METHOD_FOR_PAST_INVOICES = '0';
 const SAVED_PAYMENT_METHOD_FOR_PAST_INVOICES = '1';
@@ -456,6 +456,13 @@ export class SubscriptionPayment extends React.Component<Props, State> {
     !!billingDetails?.address.city &&
     !!billingDetails?.address.country;
 
+  handleSelectBillingGroup = (
+    establishmentBillingGroup: EstablishmentBillingGroup,
+  ) =>
+    this.setState({
+      selectedEstablishmentBillingGroup: establishmentBillingGroup,
+    });
+
   render() {
     const {
       paymentMethod,
@@ -750,22 +757,18 @@ export class SubscriptionPayment extends React.Component<Props, State> {
         {this.props.enableMultiLocalization &&
           !!this.props?.establishmentBillingGroups?.length && (
             <div className={classes.establishmentSection}>
-              <CheckoutBillingGroupSelector
-                enableMultiLocalization={this.props.enableMultiLocalization}
+              <Typography className={classes.sectionTitle} variant="h6">
+                {this.props.t('invoice:section.invoiceItemList.billingGroup')}
+              </Typography>
+              <Divider className={classes.divider} />
+              <EstablishmentBillingGroupSelector
                 establishmentBillingGroups={
                   this.props.establishmentBillingGroups
                 }
                 selectedEstablishmentBillingGroup={
                   this.state.selectedEstablishmentBillingGroup
                 }
-                setSelectedEstablishmentBillingGroup={(
-                  establishmentBillingGroup: EstablishmentBillingGroup,
-                ) =>
-                  this.setState({
-                    selectedEstablishmentBillingGroup:
-                      establishmentBillingGroup,
-                  })
-                }
+                selectOption={this.handleSelectBillingGroup}
               />
             </div>
           )}

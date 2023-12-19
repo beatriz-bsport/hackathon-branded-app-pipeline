@@ -70,6 +70,7 @@ export const CoachProfilePerformance: React.FC<Props> = (props: Props) => {
     changeDate,
     has_coach_access_to_compensation_downloading,
     handlePdfExportation,
+    companyTheme,
   } = props;
 
   return (
@@ -98,6 +99,9 @@ export const CoachProfilePerformance: React.FC<Props> = (props: Props) => {
               handlePdfExportation={handlePdfExportation}
               has_coach_access_to_compensation_downloading={
                 has_coach_access_to_compensation_downloading
+              }
+              isMultiLocalizationEnabled={
+                companyTheme?.enable_multi_localization
               }
             />
           </Paper>
@@ -189,6 +193,7 @@ const connector = connect(
     has_coach_access_to_compensation_downloading:
       state.theme.theme.has_coach_access_to_compensation_downloading,
     companyId: getTheme(state).company,
+    companyTheme: getTheme(state),
   }),
   {
     fetchCoachSessionPerformance: fetchCoachSessionPerformanceAction,

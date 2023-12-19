@@ -20,6 +20,7 @@ import {
   fetchMyFutureBookingAsMember as fetchMyFutureBookingAsMemberAction,
   fetchMyPastBookingWorkshopAsMember as fetchMyPastBookingWorkshopAsMemberAction,
   fetchMyFutureBookingWorkshopAsMember as fetchMyFutureBookingWorkshopAsMemberAction,
+  cancelBookingAsMember as cancelBookingAsMemberAction,
 } from '#libs/consumer-space/actions';
 import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '#libs/establishment/actions';
 import { fetchRoomBlueprints as fetchRoomBlueprintsAction } from '#libs/spot-scheduling/actions';
@@ -37,6 +38,7 @@ import {
   getMyFutureBookingsWorkshopState,
   getMyFutureBookingsWorkshopList,
   getConsumerBookingsLoading,
+  getRelatedConsumerBookingsInGroup,
 } from '#libs/consumer-space/selectors';
 
 import ConsumerBookingPageReworked from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingPageReworked';
@@ -45,6 +47,7 @@ import type { BookingREST } from '#libs/booking/types';
 import type { RootState } from '../../reducers';
 import type { WithHandlerType } from '../../utils/types';
 import type { BookingTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
+import type { BookingFilterTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/types';
 
 type OwnProps = {};
 type ParamsProps = {
@@ -171,6 +174,7 @@ export class ConsumerBooking extends React.Component<Props> {
   render() {
     return (
       <ConsumerBookingPageReworked
+        cancelBooking={this.props.cancelBookingAsMember}
         fetchFutureBookings={this.fetchFutureBookings}
         fetchFutureBookingsWorkshop={this.fetchFutureBookingsWorkshop}
         fetchPastBookings={this.fetchPastBookings}
@@ -180,6 +184,9 @@ export class ConsumerBooking extends React.Component<Props> {
         futureBookingsWorkshopList={this.props.myFutureBookingsWorkshopList}
         futureBookingsWorkshopState={this.props.myFutureBookingsWorkshopState}
         getIsBookingsLoading={this.props.getIsBookingsLoading}
+        getRelatedConsumerBookingsInGroup={
+          this.props.getRelatedConsumerBookingsInGroup
+        }
         handleBookASessionClick={this.handleBookASessionClick}
         pastBookingsList={this.props.myPastBookingsList}
         pastBookingsState={this.props.myPastBookingsState}
@@ -211,6 +218,10 @@ const connector = connect(
     myFutureBookingsWorkshopList: getMyFutureBookingsWorkshopList(state),
     getIsBookingsLoading: (selectedTab: BookingTab) =>
       getConsumerBookingsLoading(state, selectedTab),
+    getRelatedConsumerBookingsInGroup: (
+      groupId: number,
+      filterTab: BookingFilterTab,
+    ) => getRelatedConsumerBookingsInGroup(state, groupId, filterTab),
   }),
   {
     fetchCoachBulk: fetchCoachBulkAction,
@@ -230,6 +241,7 @@ const connector = connect(
       fetchMyPastBookingWorkshopAsMemberAction,
     fetchMyFutureBookingWorkshopAsMember:
       fetchMyFutureBookingWorkshopAsMemberAction,
+    cancelBookingAsMember: cancelBookingAsMemberAction,
   },
 );
 

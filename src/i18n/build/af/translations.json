@@ -1432,6 +1432,20 @@
           "waitlist": { "position": "Your position in the waitlist is: {{position}}" },
           "teacher": { "title": "Teacher", "absent": "Absent", "subtitutedBy": "Subtituted by" },
           "workshop": { "title": "Grouped with this workshop" }
+        },
+        "cancelModal": {
+          "title": "Cancel session",
+          "creditsWillBeRefunded": "{{count}} credit will be refunded.",
+          "creditsWillBeRefunded_plural": "{{count}} credits will be refunded.",
+          "noRefund": "Your credit(s) won't be refunded for late cancellation.",
+          "group": {
+            "message": "This booking is part of a group.\nYou'll be automatically unsubscribed from all future sessions that are associated to this event. The credits will be refunded and can be used again.",
+            "alert": {
+              "title": "All bookings for this event will be cancelled",
+              "message": "Contact the studio if you wish to cancel a single session."
+            },
+            "listTitle": "Bookings that will be canceled:"
+          }
         }
       }
     }

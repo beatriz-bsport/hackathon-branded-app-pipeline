@@ -7,10 +7,17 @@ import ConsumerBookingHeader from '#libs/consumer-space/components/reworked/@MyB
 import ConsumerBookingTabs from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs';
 import ConsumerBookingFilters from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters';
 import ConsumerBookingListContainer from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingListContainer';
+import ConsumerBookingCancelModal from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingCancelModal';
 
 import type { BookingTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
 import type { ConsumerBookingReworked } from '#libs/consumer-space/types';
-import type { ConsumerBooking } from '#libs/booking/types';
+import type {
+  ConsumerBooking,
+  BookingREST,
+  CancelBookingFilterParams,
+} from '#libs/booking/types';
+import type { BookingFilterTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/types';
+import type { OptionCallback } from '../../../../../../state/types';
 
 import './styles.css';
 
@@ -31,6 +38,15 @@ type Props = {
   fetchFutureBookings: () => void;
   fetchPastBookingsWorkshop: () => void;
   fetchFutureBookingsWorkshop: () => void;
+  cancelBooking: (
+    bookingId: number,
+    params: CancelBookingFilterParams,
+    options?: OptionCallback<BookingREST>,
+  ) => void;
+  getRelatedConsumerBookingsInGroup: (
+    groupId: number,
+    filterTab: BookingFilterTab,
+  ) => ConsumerBooking[];
 };
 
 export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
@@ -50,20 +66,29 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
   fetchFutureBookings,
   fetchPastBookingsWorkshop,
   fetchFutureBookingsWorkshop,
+  cancelBooking,
+  getRelatedConsumerBookingsInGroup,
 }) => {
   const {
     selectedTab,
     selectedFilterTab,
     selectedBooking,
+    selectedBookingForCancelation,
+    isCancelBookingModalOpen,
+    isCancellingBooking,
     futureItemsCount,
     nextPage,
     bookingList,
     isBookingsLoading,
+    relatedBookingsInGroup,
     handleSetSelectedTab,
     handleSetSelectedFilterTab,
     handleSetSelectedBooking,
+    handleSelectBookingForCancelation,
+    handleToggleCancelBookingModal,
     handlePaginationFetchMore,
     handleJoinOnlineBooking,
+    handleCancelBooking,
   } = useConsumerBookingsDataManager({
     pastBookingsState,
     pastBookingsList,
@@ -78,6 +103,8 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
     fetchFutureBookings,
     fetchPastBookingsWorkshop,
     fetchFutureBookingsWorkshop,
+    getRelatedConsumerBookingsInGroup,
+    cancelBooking,
   });
 
   const emptyFn = () => {};
@@ -85,6 +112,18 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
   return (
     <MarketplacePageContent>
       <div className="bs-consumer-booking-page__root">
+        {isCancelBookingModalOpen && !!selectedBookingForCancelation && (
+          <ConsumerBookingCancelModal
+            booking={selectedBookingForCancelation}
+            cancelBooking={handleCancelBooking}
+            isLoading={isCancellingBooking}
+            onClose={handleToggleCancelBookingModal}
+            relatedBookings={relatedBookingsInGroup}
+            sessionTimeDisplay={sessionTimeDisplay}
+            timezone={timezone}
+          />
+        )}
+
         <ConsumerBookingHeader onBookSessionClick={handleBookASessionClick} />
 
         <ConsumerBookingTabs
@@ -103,9 +142,11 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
           bookingList={bookingList}
           handleJoinOnlineBooking={handleJoinOnlineBooking}
           handlePaginationFetchMore={handlePaginationFetchMore}
+          handleSelectBookingForCancelation={handleSelectBookingForCancelation}
           hasNextPage={!!nextPage}
           isLoading={isBookingsLoading}
           onBookingCardClick={handleSetSelectedBooking}
+          relatedBookingsInGroup={relatedBookingsInGroup}
           selectedBooking={selectedBooking}
           selectedFilterTab={selectedFilterTab}
           selectedTab={selectedTab}

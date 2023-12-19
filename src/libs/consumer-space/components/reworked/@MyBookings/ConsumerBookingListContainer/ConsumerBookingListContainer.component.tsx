@@ -30,6 +30,7 @@ type Props = {
   selectedFilterTab: BookingFilterTab;
   onBookingCardClick: (bookingId: number) => void;
   handlePaginationFetchMore: () => void;
+  handleSelectBookingForCancelation: (bookingId: number) => void;
   handleJoinOnlineBooking: (
     bookingBroadcastURL: string,
     isMetaActivityBroadcast: boolean,
@@ -46,6 +47,7 @@ type BookingListCardItemProps = Pick<
   | 'timezone'
   | 'onBookingCardClick'
   | 'handleJoinOnlineBooking'
+  | 'handleSelectBookingForCancelation'
 > & {
   item: ConsumerBooking;
   isSelected?: boolean;
@@ -59,6 +61,7 @@ const BookingListCardItem: React.FC<BookingListCardItemProps> = ({
   timezone,
   onBookingCardClick,
   handleJoinOnlineBooking,
+  handleSelectBookingForCancelation,
 }) => {
   const selectedBookingDate = useConsumerBookingDateTime({
     offerDateStart: item?.offer?.date_start,
@@ -90,6 +93,11 @@ const BookingListCardItem: React.FC<BookingListCardItemProps> = ({
       item.offer_date_start,
       timezone,
     ],
+  );
+
+  const handleCancelBookingClick = useCallback(
+    () => handleSelectBookingForCancelation(item.id),
+    [handleSelectBookingForCancelation, item.id],
   );
 
   const offerIsInThePast = isOfferInThePast(item.offer);
@@ -150,6 +158,7 @@ const BookingListCardItem: React.FC<BookingListCardItemProps> = ({
       isSelected={isSelected}
       menuId={item.id.toString()}
       offerDate={selectedBookingDate}
+      onBookingCancelClick={handleCancelBookingClick}
       onDetailsClick={handleSeeDetailsClick}
       onJoinOnlineClick={handleJoinOnlineClick}
       spotSchedulingPosition={item.spot_id?.toString()}
@@ -169,6 +178,7 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
   selectedFilterTab,
   onBookingCardClick,
   handlePaginationFetchMore,
+  handleSelectBookingForCancelation,
   handleJoinOnlineBooking,
 }) => {
   const { t } = useTranslation('consumerSpace');

@@ -4,7 +4,12 @@ import moment from 'moment-timezone';
 import type { BookingTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
 import type { BookingFilterTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/types';
 import type { ConsumerBookingReworked } from '#libs/consumer-space/types';
-import type { ConsumerBooking } from '#libs/booking/types';
+import type {
+  BookingREST,
+  CancelBookingFilterParams,
+  ConsumerBooking,
+} from '#libs/booking/types';
+import type { OptionCallback } from '../../../../../../state/types';
 import type {
   RoomBlueprint,
   SpotInformation,
@@ -28,6 +33,8 @@ export default function useConsumerBookingsDataManager({
   fetchFutureBookings,
   fetchPastBookingsWorkshop,
   fetchFutureBookingsWorkshop,
+  cancelBooking,
+  getRelatedConsumerBookingsInGroup,
 }: {
   pastBookingsState: ConsumerBookingReworked;
   pastBookingsList: ConsumerBooking[];
@@ -42,6 +49,15 @@ export default function useConsumerBookingsDataManager({
   fetchFutureBookings: () => void;
   fetchPastBookingsWorkshop: () => void;
   fetchFutureBookingsWorkshop: () => void;
+  cancelBooking: (
+    bookingId: number,
+    params: CancelBookingFilterParams,
+    options?: OptionCallback<BookingREST>,
+  ) => void;
+  getRelatedConsumerBookingsInGroup: (
+    groupId: number,
+    filterTab: BookingFilterTab,
+  ) => ConsumerBooking[];
 }) {
   /* PAGE STATES */
   const [selectedTab, setSelectedTab] = useState<BookingTab>(
@@ -59,6 +75,9 @@ export default function useConsumerBookingsDataManager({
 
   const [selectedBookingForCancelation, setSelectedBookingForCancelation] =
     useState<ConsumerBooking | null>(null);
+
+  const [isCancellingBooking, setIsCancellingBooking] =
+    useState<boolean>(false);
 
   const [isOnlineWarningModalOpen, setIsOnlineWarningModalOpen] =
     useState<boolean>(false);
@@ -150,13 +169,25 @@ export default function useConsumerBookingsDataManager({
   const currentState = currentStateMap[`${selectedTab}-${selectedFilterTab}`];
   const futureItemsCount = futureBookingsCountMap[selectedTab] || 0;
   const nextPage = currentState.next_page;
-  const bookingList = useMemo(
+  const bookingList: ConsumerBooking[] = useMemo(
     () => bookingsListMap[`${selectedTab}-${selectedFilterTab}`] || [],
     [bookingsListMap, selectedFilterTab, selectedTab],
   );
   const isBookingsLoading = useMemo(
     () => getIsBookingsLoading(selectedTab),
     [getIsBookingsLoading, selectedTab],
+  );
+  const relatedBookingsInGroup = useMemo(
+    () =>
+      getRelatedConsumerBookingsInGroup(
+        selectedBookingForCancelation?.offer?.group,
+        selectedFilterTab,
+      ),
+    [
+      getRelatedConsumerBookingsInGroup,
+      selectedBookingForCancelation?.offer?.group,
+      selectedFilterTab,
+    ],
   );
 
   /**
@@ -240,6 +271,33 @@ export default function useConsumerBookingsDataManager({
   );
 
   /**
+   * Handles the cancel button action for a booking
+   * Tries to cancel a booking from an ID and refetch the tab data on success
+   */
+  const handleCancelBooking = useCallback(
+    (bookingId: number) => {
+      setIsCancellingBooking(true);
+      cancelBooking(bookingId, null, {
+        onSuccess: () => {
+          handleFetchTabData(selectedTab);
+          setIsCancellingBooking(false);
+          handleToggleCancelBookingModal();
+        },
+        onError: () => {
+          setIsCancellingBooking(false);
+          handleToggleCancelBookingModal();
+        },
+      });
+    },
+    [
+      cancelBooking,
+      handleFetchTabData,
+      handleToggleCancelBookingModal,
+      selectedTab,
+    ],
+  );
+
+  /**
    * Toggle display the booking cancellation modal dialog
    */
   const handleToggleOnlineWarningModal = useCallback(() => {
@@ -307,6 +365,7 @@ export default function useConsumerBookingsDataManager({
     isSpotSchedulingModalOpen,
     onlineWarningModalOfferDate,
     selectedBookingSpotDetails,
+    isCancellingBooking,
     // STATE HANDLERS
     handleSetSelectedTab,
     handleSetSelectedFilterTab,
@@ -319,10 +378,12 @@ export default function useConsumerBookingsDataManager({
     handlePaginationFetchMore,
     handleJoinOnlineBooking,
     handleShowSpotDetails,
+    handleCancelBooking,
     // COMPUTED STATE
     isBookingsLoading,
     futureItemsCount,
     nextPage,
     bookingList,
+    relatedBookingsInGroup,
   };
 }

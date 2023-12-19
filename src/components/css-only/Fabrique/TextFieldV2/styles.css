@@ -175,3 +175,11 @@
 .bs-fabrique-textfield__clear-button:focus {
   color: var(--bs-color-text-default);
 }
+
+.bs-fabrique-textfield__clear-button:disabled {
+  cursor: default;
+}
+
+input::-webkit-calendar-picker-indicator {
+  display: none;
+}

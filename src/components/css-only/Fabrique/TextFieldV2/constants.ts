@@ -8,6 +8,7 @@ enum TextFieldTypeEnum {
   EMAIL = 'email',
   TEL = 'tel',
   PASSWORD = 'password',
+  DATE = 'date',
 }
 
 export { TextFieldSizeEnum, TextFieldTypeEnum };

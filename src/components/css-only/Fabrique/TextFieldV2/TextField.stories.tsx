@@ -191,7 +191,7 @@ export default {
       control: {
         type: 'inline-radio',
       },
-      options: ['text', 'email', 'tel', 'password'],
+      options: ['text', 'email', 'tel', 'password', 'date'],
     },
     isError: {
       description: 'If true, displays input field as if there is an error',

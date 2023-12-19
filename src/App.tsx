@@ -176,6 +176,7 @@ class BsportWidget extends Component<Props> {
     const uri = URI(url)
       .addQuery('context', 'widget')
       .addQuery('dialogMode', this.props.dialogMode)
+      .addQuery('widgetType', this.props.widgetType)
       .addQuery('parentElementId', this.props.parentElement);
     this.props.openUserInteractionPortal({
       url: uri.toString(),

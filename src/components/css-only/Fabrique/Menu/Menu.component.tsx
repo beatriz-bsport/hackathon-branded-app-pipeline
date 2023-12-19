@@ -37,6 +37,12 @@ export type MenuProps = {
    */
   className?: string;
   /**
+   *Override or extend the styles applied to the a targeted element.
+   */
+  classes?: {
+    menuContent: string;
+  };
+  /**
    *If true, the component is shown.
    */
   isOpen: boolean;
@@ -82,6 +88,7 @@ const Menu: React.FC<MenuProps> = ({
   anchorOriginVertical = VerticalEnum.BOTTOM,
   isOpen,
   children,
+  classes,
   className,
   targetElementId,
   transformOriginHorizontal = HorizontalEnum.LEFT,
@@ -264,7 +271,12 @@ const Menu: React.FC<MenuProps> = ({
           )}
           id={id}
         >
-          <div className={classNames('bs-fabrique-menu-content')}>
+          <div
+            className={classNames(
+              'bs-fabrique-menu-content',
+              classes?.menuContent,
+            )}
+          >
             {children}
           </div>
         </div>

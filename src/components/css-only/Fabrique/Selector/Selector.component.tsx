@@ -20,6 +20,7 @@ export type SelectorClasses = {
   label?: string;
   captionText?: string;
   menu?: string;
+  menuContent?: string;
   errorMessage?: string;
 } & SelectorInputClasses &
   SelectorValuesClasses;
@@ -287,6 +288,7 @@ const Selector: React.FC<SelectorProps> = ({
       </Typography>
       <Menu
         anchorEl={anchorEl}
+        classes={{ menuContent: classes?.menuContent }}
         className={classes?.menu}
         id={menuId}
         isOpen={!isDisabled && isOpen}

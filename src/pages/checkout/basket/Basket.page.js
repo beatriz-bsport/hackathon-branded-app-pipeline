@@ -105,6 +105,7 @@ import {
   getCheckoutValidationUrl,
   getUserSpaceUrl,
   getMarketplaceRoute,
+  getMemberProfileRoute,
 } from '../../../libs/marketplace/routing-utils';
 import { CouponErrorCodes } from '#libs/coupon/constants';
 import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#libs/exportable-components/actions';
@@ -190,6 +191,7 @@ type Props = {
   fetchInstalmentPaymentByBasket: (basketId: string) => void,
   goToMarketplace: () => void,
   goToCalendar: () => void,
+  goToMyProfile: () => void,
   retrieveCompanyCssConfiguration: (companyid: number) => void,
 };
 
@@ -581,6 +583,7 @@ export class BasketPage extends React.Component<Props> {
                   goBack={this.handleGoBack}
                   goToCalendar={this.props.goToCalendar}
                   goToMarketplace={this.props.goToMarketplace}
+                  goToMyProfile={this.props.goToMyProfile}
                   instalmentPaymentConfigurationList={this.props.instalmentPaymentConfigurationList.filter(
                     (ipc) => ipc.basketId === this.props.basket?.id,
                   )}
@@ -966,6 +969,11 @@ export default compose(
             'calendar?hideNavigation=true',
           ),
         );
+      },
+    goToMyProfile:
+      ({ companyId, push }) =>
+      () => {
+        push(getMemberProfileRoute(companyId));
       },
   }),
   withState('basketError', 'setBasketError', null),

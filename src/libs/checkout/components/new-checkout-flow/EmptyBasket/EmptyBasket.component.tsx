@@ -4,33 +4,58 @@ import { useTranslation } from 'react-i18next';
 import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
 import StatusMessageWithIcon from '#components/css-only/StatusMessageWithIcon';
 import { WidgetUtils } from '#libs/widget/WidgetUtils';
+import { EXPORTABLE_COMPONENT_TYPE_LOGIN_BUTTON } from '#libs/exportable-components/constants';
 
 import './styles.css';
 
 export type Props = {
   goToMarketplace: () => void;
   goToCalendar: () => void;
+  goToMyProfile: () => void;
 };
 
-const EmptyBasket: React.FC<Props> = ({ goToMarketplace, goToCalendar }) => {
+const EmptyBasket: React.FC<Props> = ({
+  goToMarketplace,
+  goToCalendar,
+  goToMyProfile,
+}) => {
   const { t } = useTranslation('checkout');
 
   const isWidget = WidgetUtils.isWidget();
 
-  const emptyBasketCancelAction = isWidget
-    ? {
+  const isLoginWidget =
+    WidgetUtils.getWidgetType() === EXPORTABLE_COMPONENT_TYPE_LOGIN_BUTTON;
+
+  const getEmptyBasketCancelAction = React.useCallback(() => {
+    if (isLoginWidget) {
+      return {
+        label: t('validation.actions.backToMyProfile'),
+        onClick: goToMyProfile,
+      };
+    }
+    if (isWidget) {
+      return {
         label: t('validation.actions.goToCalendar'),
         onClick: goToCalendar,
-      }
-    : {
-        label: t('myBasket.goToMarketplace'),
-        onClick: goToMarketplace,
       };
+    }
+    return {
+      label: t('myBasket.goToMarketplace'),
+      onClick: goToMarketplace,
+    };
+  }, [
+    goToCalendar,
+    goToMarketplace,
+    goToMyProfile,
+    isLoginWidget,
+    isWidget,
+    t,
+  ]);
 
   return (
     <StatusMessageWithIcon
       actions={{
-        cancel: emptyBasketCancelAction,
+        cancel: getEmptyBasketCancelAction(),
       }}
       icon={
         <CustomMuiIcon

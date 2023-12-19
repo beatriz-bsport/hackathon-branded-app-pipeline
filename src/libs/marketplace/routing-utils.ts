@@ -20,6 +20,10 @@ export const getMarketplaceRoute = (
   return `/m/${encodeURI(companyName)}/${companyId}/${tab || ''}`;
 };
 
+export const getMemberProfileRoute = (companyId: number) => {
+  return `/c/${companyId}/profile/`;
+};
+
 export const fromConfigToUrl = (
   tabConfig: {
     component_type: string;

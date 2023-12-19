@@ -144,6 +144,7 @@ const getTranslations = async () => {
         retry: 'Try again',
         myBookings: 'My bookings',
         goToCalendar: 'Back to calendar',
+        backToMyProfile: 'Back to my profile',
       },
       bookingItem: {
         bookingItemStatus: { unpaid: 'Unpaid', waitingList: 'Waiting list' },

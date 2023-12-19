@@ -37,37 +37,35 @@ const MenuItemList: React.FC<MenuItemListProps> = ({
   groupTitle,
 }) => {
   return (
-    <li className={classNames('bs-fabrique-menu-item-list-root', className)}>
-      <ul className="bs-fabrique-menu-item-list__container">
-        <li
+    <ul className={classNames('bs-fabrique-menu-item-list-root', className)}>
+      <li
+        className={classNames(
+          'bs-fabrique-menu-item-list__group-title__container',
+          {
+            'bs-fabrique-menu-item-list__group-title__container--hidden':
+              !groupTitle,
+          },
+        )}
+      >
+        <Typography
           className={classNames(
-            'bs-fabrique-menu-item-list__group-title__container',
-            {
-              'bs-fabrique-menu-item-list__group-title__container--hidden':
-                !groupTitle,
-            },
+            'bs-fabrique-menu-item-list__group-title',
+            classes?.groupTitle,
           )}
+          variant="body-xs"
         >
-          <Typography
-            className={classNames(
-              'bs-fabrique-menu-item-list__group-title',
-              classes?.groupTitle,
-            )}
-            variant="body-xs"
-          >
-            {groupTitle}
-          </Typography>
-        </li>
-        {children}
-        <li
-          className={classNames(
-            'bs-fabrique-menu-item-list__divider',
-            { 'bs-fabrique-menu-item-list__divider--hidden': !hasDivider },
-            classes?.divider,
-          )}
-        />
-      </ul>
-    </li>
+          {groupTitle}
+        </Typography>
+      </li>
+      {children}
+      <li
+        className={classNames(
+          'bs-fabrique-menu-item-list__divider',
+          { 'bs-fabrique-menu-item-list__divider--hidden': !hasDivider },
+          classes?.divider,
+        )}
+      />
+    </ul>
   );
 };
 

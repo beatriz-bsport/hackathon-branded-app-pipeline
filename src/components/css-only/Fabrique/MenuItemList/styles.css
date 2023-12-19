@@ -3,13 +3,6 @@
   list-style: none;
   margin: 0;
   padding: 0;
-}
-
-.bs-fabrique-menu-item-list__container {
-  /* Reset li / ul css properties*/
-  list-style: none;
-  margin: 0;
-  padding: 0;
   width: max-content;
 }
 

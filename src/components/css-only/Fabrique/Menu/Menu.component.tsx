@@ -264,7 +264,9 @@ const Menu: React.FC<MenuProps> = ({
           )}
           id={id}
         >
-          <ul className="bs-fabrique-menu-content">{children}</ul>
+          <div className={classNames('bs-fabrique-menu-content')}>
+            {children}
+          </div>
         </div>
       </div>
     </PortalContainer>

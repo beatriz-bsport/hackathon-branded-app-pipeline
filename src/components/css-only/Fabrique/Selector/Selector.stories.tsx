@@ -8,7 +8,7 @@ import Selector, { SelectorStorybook, type SelectorProps } from '.';
 import { MenuItemStorybook } from '#Fabrique/MenuItem';
 import { SelectorSizeEnum } from './constants';
 import { Star06 } from '#components/untitledui';
-import { ErrorMessage } from 'formik';
+import { MenuItemListStorybook } from '../MenuItemList';
 
 MenuItemStorybook.displayName = 'Selector';
 
@@ -123,14 +123,16 @@ const SingleSelectTemplate: ComponentStory<typeof Selector> = (
       getSelectedItemValue={getSelectedItemValue}
       {...args}
     >
-      {menuItemData.map((menuItem) => (
-        <MenuItemStorybook
-          key={menuItem.id}
-          label={menuItem.label}
-          onClick={handleClick(menuItem.id)}
-          selected={itemSelected?.id === menuItem.id}
-        />
-      ))}
+      <MenuItemListStorybook>
+        {menuItemData.map((menuItem) => (
+          <MenuItemStorybook
+            key={menuItem.id}
+            label={menuItem.label}
+            onClick={handleClick(menuItem.id)}
+            selected={itemSelected?.id === menuItem.id}
+          />
+        ))}
+      </MenuItemListStorybook>
     </SelectorStorybook>
   );
 };
@@ -180,15 +182,17 @@ const MultiSelectTemplate: ComponentStory<typeof Selector> = (
       getSelectedItemValue={getSelectedItemValue}
       {...args}
     >
-      {menuItemData.map((menuItem) => (
-        <MenuItemStorybook
-          key={menuItem.id}
-          label={menuItem.label}
-          onClick={handleClick(menuItem.id)}
-          selected={itemsSelected.some((item) => item.id === menuItem.id)}
-          type="checkbox"
-        />
-      ))}
+      <MenuItemListStorybook>
+        {menuItemData.map((menuItem) => (
+          <MenuItemStorybook
+            key={menuItem.id}
+            label={menuItem.label}
+            onClick={handleClick(menuItem.id)}
+            selected={itemsSelected.some((item) => item.id === menuItem.id)}
+            type="checkbox"
+          />
+        ))}
+      </MenuItemListStorybook>
     </SelectorStorybook>
   );
 };

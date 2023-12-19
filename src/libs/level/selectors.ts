@@ -47,3 +47,5 @@ export const withCustomLevel = memoize(
       };
     }),
 );
+
+export const getLevel = (state: RootState, id: number) => state.level.byId[id];

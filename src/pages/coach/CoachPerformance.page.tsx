@@ -37,6 +37,7 @@ import CoachPerformanceTabs from '#libs/coach-payment-rules/components/performan
 import { Coach } from '../../libs/associated-coach/types';
 import type { RootState } from '../../reducers';
 import { WithHandlerType } from '../../utils/types';
+import { getTheme } from '#libs/theme/selectors';
 
 type OwnProps = {
   associatedCoachId: number;
@@ -74,7 +75,9 @@ export class CoachPerformance extends React.Component<Props> {
       coachPaymentRulesByKind,
       coachWithPerformance,
       handleDateFiltersChange,
+      companyTheme,
     } = this.props;
+
     return (
       <div className={classes.container}>
         <AppBar className={classes.bar} color="default" position="static">
@@ -98,6 +101,9 @@ export class CoachPerformance extends React.Component<Props> {
                 coachPaymentRulesByKind={coachPaymentRulesByKind}
                 coachWithPerformance={coachWithPerformance}
                 handlePdfExportation={this.props.handlePdfExportation}
+                isMultiLocalizationEnabled={
+                  companyTheme?.enable_multi_localization
+                }
                 loading={this.props.loading || this.props.performanceLoading}
                 setSessionCoachPaymentRule={(data) => {
                   this.props.setSessionCoachPaymentRule(data);
@@ -172,6 +178,7 @@ const connector = connect(
         )
       : null,
     coachPaymentRulesByKind: CoachPaymentRuleByKindSelector(state),
+    companyTheme: getTheme(state),
   }),
   {
     fetchAllCoachPaymentRules,

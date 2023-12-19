@@ -122,6 +122,12 @@ export class Root extends Component<Props> {
          */
         WidgetUtils.setDialogMode(parseInt(query.dialogMode));
       }
+      if (query.widgetType) {
+        /**
+         * injected by the widget
+         */
+        WidgetUtils.setWidgetType(query.widgetType);
+      }
     }
   }
 

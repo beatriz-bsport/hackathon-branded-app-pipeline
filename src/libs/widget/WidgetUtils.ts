@@ -27,6 +27,17 @@ export class WidgetUtils {
     return window?.env?.WIDGET_DIALOG_MODE ?? null;
   }
 
+  static setWidgetType(widgetType: number) {
+    window.env = {
+      ...(window.env || {}),
+      WIDGET_TYPE: widgetType,
+    };
+  }
+
+  static getWidgetType() {
+    return window?.env?.WIDGET_TYPE ?? null;
+  }
+
   static handleGoBackNavigation() {
     // 0 DIALOG_MODE_TAB : This mode opens a new tab. We are losing the context on the widget.
     // 1 DIALOG_MODE_IFRAME : we should close

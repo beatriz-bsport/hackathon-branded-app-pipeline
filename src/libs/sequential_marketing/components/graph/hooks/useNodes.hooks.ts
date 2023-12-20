@@ -45,10 +45,6 @@ export enum CustomNodesEnum {
   TriggerCardFlowVersionNode = 'TriggerCardFlowVersion',
 }
 
-export enum NodeIdentifiersEnum {
-  EXIT_NODE_IDENTIFIER = 'exit_node_element',
-}
-
 export const useNodeTypes = () => {
   // Memo mandatory
   // [DOCUMENTATION] : https://reactflow.dev/docs/guides/custom-nodes/#adding-the-node-type
@@ -531,6 +527,12 @@ export const useNodeElementsRecorder = ({
     [convertCadenceStepIntoExit],
   );
 
+  const handleDeleteCadenceStep = React.useCallback(
+    (stepNode: StoredStep) => () =>
+      stepNode?.id && deleteCadenceStep(stepNode.id),
+    [deleteCadenceStep],
+  );
+
   // The stepNodeElements consumes the storedSteps data to draw the steps
   const stepNodeElements = React.useMemo(() => {
     if (storedSteps && storedSteps.length !== 0) {
@@ -563,7 +565,7 @@ export const useNodeElementsRecorder = ({
           getEmailTemplate,
           getTag,
           onConnectToStep: onConnectToInnerStep(stepNode),
-          onDelete: () => deleteCadenceStep(stepNode?.id),
+          onDelete: handleDeleteCadenceStep(stepNode),
           submitConvertIntoExit: handleConvertIntoExit(stepNode),
           submitMarketingActionForm,
           updateCadenceStepName,

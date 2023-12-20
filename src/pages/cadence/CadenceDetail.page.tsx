@@ -13,6 +13,10 @@ import Config from '../../config';
 import withTitle from '#hocs/with-title.hoc';
 // @ts-expect-error : Not typed hoc
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+
+import CustomStarIcon from '#components/icons/CustomStarIcon.component';
+
+// ================= SEQUENTIAL MARKETING =================
 import {
   retrieveCadence as retrieveCadenceAction,
   fetchCadenceStepList as fetchCadenceStepListAction,
@@ -35,25 +39,6 @@ import {
   deleteConnectedTrigger as deleteConnectedTriggerAction,
   modifyStepMarketingActionsConfiguration as modifyStepMarketingActionsConfigurationAction,
 } from '#libs/sequential_marketing/actions';
-
-import {
-  doNotDisplayDeleteStepDialogAnymore as doNotDisplayDeleteStepDialogAnymoreAction,
-  doNotDisplayConvertStepIntoExitDialogAnymore as doNotDisplayConvertStepIntoExitDialogAnymoreAction,
-  doNotDisplayPauseDialogAnymore as doNotDisplayPauseDialogAnymoreAction,
-  doNotDisplayWelcomeDialogAnymore as doNotDisplayWelcomeDialogAnymoreAction,
-} from '#libs/user-preference/actions';
-import {
-  getIsDeleteStepDialogHidden,
-  getIsConvertStepIntoExitDialogHidden,
-  getIsPauseDialogHidden,
-  getDoNotDisplayCadenceWelcomeDialog,
-} from '#libs/user-preference/selectors';
-
-import {
-  getAllSmartList,
-  getSmartList,
-  getSmartListDict,
-} from '#libs/smart-list/selectors';
 import {
   CadencePanelMode,
   DestinationStatus,
@@ -76,6 +61,74 @@ import {
   getStepMemberCount,
 } from '#libs/sequential_marketing/selectors';
 
+import { getHorizontalPositionFromSource } from '#libs/sequential_marketing/components/graph/hooks';
+import { isCadenceInitialConfigurationCompleted } from '#libs/sequential_marketing/utils';
+import CadenceDetailHeader from '#libs/sequential_marketing/components/CadenceDetailHeader.component';
+import CadenceGraphFlow from '#libs/sequential_marketing/components/graph/CadenceGraphFlow.component';
+import CadenceUtilityDialog, {
+  DialogVariant,
+} from '#libs/sequential_marketing/components/dialogs/DialogUtility';
+import {
+  refreshConnectedTriggerUuid,
+  getConnectedTriggerDefaultValues,
+} from '#libs/sequential_marketing/components/graph/hooks/utils';
+
+// =================== USER PREFERENCE ====================
+import {
+  doNotDisplayDeleteStepDialogAnymore as doNotDisplayDeleteStepDialogAnymoreAction,
+  doNotDisplayConvertStepIntoExitDialogAnymore as doNotDisplayConvertStepIntoExitDialogAnymoreAction,
+  doNotDisplayPauseDialogAnymore as doNotDisplayPauseDialogAnymoreAction,
+  doNotDisplayWelcomeDialogAnymore as doNotDisplayWelcomeDialogAnymoreAction,
+} from '#libs/user-preference/actions';
+import {
+  getIsDeleteStepDialogHidden,
+  getIsConvertStepIntoExitDialogHidden,
+  getIsPauseDialogHidden,
+  getDoNotDisplayCadenceWelcomeDialog,
+} from '#libs/user-preference/selectors';
+
+// ====================== SMARTLIST =======================
+import {
+  getAllSmartList,
+  getSmartList,
+  getSmartListDict,
+} from '#libs/smart-list/selectors';
+import { fetchAllSmartLists } from '#libs/smart-list/actions';
+
+// ========================= TAG ==========================
+import { getAllTagsWithTagGroup, getTag } from '#libs/tag/selectors';
+
+// ================== NOTIFICATION RULE ===================
+import {
+  getResolvedGenericTags,
+  getTagCategories,
+} from '#libs/notification-rule/selectors';
+import {
+  fetchResolvedGenericTags as fetchResolvedGenericTagsAction,
+  fetchTagList as fetchTagListAction,
+} from '#libs/notification-rule/actions';
+
+// =================== PLATFORM BILLING ===================
+import { hasUpsell } from '#libs/platform-billing/utils';
+import {
+  UPSELL_IDENTIFIER_PUSH_NOTIFICATION,
+  UPSELL_IDENTIFIER_CADENCE,
+} from '#libs/platform-billing/upsell-identifiers';
+import UpsellBlocker from '#libs/platform-billing/components/UpsellBlocker.component';
+
+// ===================== EMAIL EDITOR =====================
+import {
+  emailTemplatesSummaries,
+  emailTemplateDetail,
+  emailTemplateComplete,
+} from '#libs/email-editor/actions';
+import {
+  getAllEmailTemplatesSummaries,
+  getEmailTemplatesDetail,
+  getEmailTemplateSummary,
+} from '#libs/email-editor/selectors';
+
+// ======================== TYPES =========================
 import type { WithHandlerType } from '../../utils/types';
 import type { OptionCallback } from '../../state/types';
 import type { RootState } from '../../reducers';
@@ -88,49 +141,6 @@ import type {
   CadenceInitialConfigurationState,
   CadenceInitialConfiguration,
 } from '#libs/sequential_marketing/types';
-
-import CadenceDetailHeader from '#libs/sequential_marketing/components/CadenceDetailHeader.component';
-import { fetchAllSmartLists } from '#libs/smart-list/actions';
-import CadenceGraphFlow from '#libs/sequential_marketing/components/graph/CadenceGraphFlow.component';
-import {
-  emailTemplatesSummaries,
-  emailTemplateDetail,
-  emailTemplateComplete,
-} from '#libs/email-editor/actions';
-import {
-  getAllEmailTemplatesSummaries,
-  getEmailTemplatesDetail,
-  getEmailTemplateSummary,
-} from '#libs/email-editor/selectors';
-import { getAllTagsWithTagGroup, getTag } from '#libs/tag/selectors';
-
-import { getHorizontalPositionFromSource } from '#libs/sequential_marketing/components/graph/hooks';
-import {
-  getResolvedGenericTags,
-  getTagCategories,
-} from '#libs/notification-rule/selectors';
-import {
-  fetchResolvedGenericTags as fetchResolvedGenericTagsAction,
-  fetchTagList as fetchTagListAction,
-} from '#libs/notification-rule/actions';
-
-import { hasUpsell } from '#libs/platform-billing/utils';
-import {
-  UPSELL_IDENTIFIER_PUSH_NOTIFICATION,
-  UPSELL_IDENTIFIER_CADENCE,
-} from '#libs/platform-billing/upsell-identifiers';
-
-import UpsellBlocker from '#libs/platform-billing/components/UpsellBlocker.component';
-import CadenceUtilityDialog, {
-  DialogVariant,
-} from '#libs/sequential_marketing/components/dialogs/DialogUtility';
-
-import CustomStarIcon from '#components/icons/CustomStarIcon.component';
-import { isCadenceInitialConfigurationCompleted } from '#libs/sequential_marketing/utils';
-import {
-  refreshConnectedTriggerUuid,
-  getConnectedTriggerDefaultValues,
-} from '#libs/sequential_marketing/components/graph/hooks/utils';
 
 type OwnProps = {
   cadenceId: number;

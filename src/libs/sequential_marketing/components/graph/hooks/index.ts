@@ -4,7 +4,6 @@ import {
   useNodeTypes,
   useStepsAndTriggersRecorder,
   CustomNodesEnum,
-  NodeIdentifiersEnum,
 } from './useNodes.hooks';
 import { getHorizontalPositionFromSource } from './utils';
 
@@ -15,5 +14,4 @@ export {
   useNodeTypes,
   useStepsAndTriggersRecorder,
   CustomNodesEnum,
-  NodeIdentifiersEnum,
 };

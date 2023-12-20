@@ -1,11 +1,11 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 
 import GenericDialogWithIconHeaderMUI from '#components/genericDialog/GenericDialogWithIconHeaderMUI.component';
 
 import WarningIcon from '#components/icons/WarningIcon.component';
-import { Cadence } from '#libs/sequential_marketingDEPRECATED/types';
+import type { Cadence } from '#libs/sequential_marketing/types';
 
 export type Props = {
   onCancel: () => void;

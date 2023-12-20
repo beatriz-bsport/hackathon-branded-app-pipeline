@@ -16,7 +16,7 @@ import withConfirm from '../../../hocs/with-confirm.hoc';
 
 import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
 import { SmartListCannotBeDeletedDialog } from './SmartListCannotBeDeletedDialog.component';
-import type { Cadence } from '../../sequential_marketingDEPRECATED/types';
+import { Cadence } from '../../sequential_marketing/types';
 
 type Props = {
   smartlist: SmartList,
@@ -240,4 +240,4 @@ const useStyles = makeStyles((theme) => ({
   actions: { display: 'flex' },
 }));
 
-export default SmartListItem;
+export default React.memo(SmartListItem);

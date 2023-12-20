@@ -27,7 +27,7 @@ import BackofficeLinearProgress from '../../components/navigation/BackofficeLine
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import withQueryParams from '../../hocs/with-query-params.hoc';
 import withTitle from '../../hocs/with-title.hoc';
-import { fetchCadenceList } from '../../libs/sequential_marketingDEPRECATED/actions';
+import { fetchCadenceList } from '../../libs/sequential_marketing/actions';
 import {
   smartListDelete,
   fetchAllSmartLists,
@@ -44,11 +44,11 @@ import SmartListEditDialog from '../../libs/smart-list/components/SmartListFormD
 import type { OptionCallback } from '../../state/types';
 import SmartListCard from '../../libs/smart-list/components/SmartlistCard.component';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
-import { isSequentialMarketingAuthorized } from '../../libs/sequential_marketingDEPRECATED/utils';
+import { isSequentialMarketingAuthorized } from '../../libs/sequential_marketing/utils';
 import type {
   Cadence,
   CadenceQueryParams,
-} from '../../libs/sequential_marketingDEPRECATED/types';
+} from '../../libs/sequential_marketing/types';
 import { getTheme } from '../../libs/theme/selectors';
 
 type Props = {

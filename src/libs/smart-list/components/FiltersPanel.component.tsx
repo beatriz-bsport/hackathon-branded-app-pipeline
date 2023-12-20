@@ -2,10 +2,13 @@
 import React, { Component } from 'react';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import memoize from 'memoize-one';
-import withStyles from '@material-ui/core/styles/withStyles';
-import { Chip, createStyles, Theme } from '@material-ui/core';
-import Menu from '@material-ui/core/Menu';
 import { compose } from 'recompose';
+
+import type { Theme } from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
+import createStyles from '@material-ui/core/styles/createStyles';
+import Chip from '@material-ui/core/Chip';
+import Menu from '@material-ui/core/Menu';
 import moment from 'moment-timezone';
 import List from '@material-ui/core/List';
 import Collapse from '@material-ui/core/Collapse';
@@ -23,10 +26,11 @@ import SendIcon from '@material-ui/icons/Send';
 import SmartphoneIcon from '@material-ui/icons/Smartphone';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import IconButton from '@material-ui/core/IconButton';
-
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import EmailIcon from '@material-ui/icons/Email';
 import CircularProgress from '@material-ui/core/CircularProgress';
+
 import {
   CREDIT_ACCOUNT_FILTER_IDENTIFIER,
   GENDER_FILTER_IDENTIFIER,
@@ -54,31 +58,31 @@ import {
   TERMS_AND_CONDITIONS_FILTER_IDENTIFIER,
 } from '@bsport/common/lib/master-data/smart-list';
 
-import EmailIcon from '@material-ui/icons/Email';
-import type { Establishment } from '../../establishment/types';
-import type { PrivatePass, PrivateService } from '../../private-service/types';
-import type { OptionCallback } from '../../../state/types';
-import FilterCard from './FilterListItem.component';
-import MemberBaseFilter from './filters/MemberBaseFilter.component';
-import type { SmartList } from '#libs/smart-list/types';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
-import { getCurrencyDisplay } from '../../theme/selectors';
-import { PaymentPack } from '#libs/payment-packs/types';
-import { Level } from '#libs/level/types';
-import { CustomForm } from '#libs/custom-form/types';
 import { createUrl } from '../../../utils/createUrlHandlers';
-import CustomMobilePopupDialogDialog from '#libs/settings/components/CustomMobilePopupDialog.dialog';
-import SmartListPopupSendingDrawerComponent from '#libs/communication-v2/components/SmartListPopupSendingDrawer.component';
-import { SmartListPopupSending } from '#libs/communication-v2/types';
-import { FetchRecipientsParams, Member } from '#libs/member/types';
-import { UpsellSumup } from '#libs/company/types';
+import { getCurrencyDisplay } from '#libs/theme/selectors';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { UPSELL_IDENTIFIER_CUSTOM_APP } from '#libs/platform-billing/upsell-identifiers';
-import { Cadence } from '#libs/sequential_marketingDEPRECATED/types';
+import CustomMobilePopupDialogDialog from '#libs/settings/components/CustomMobilePopupDialog.dialog';
+import FilterCard from './FilterListItem.component';
 import GenericMuiDialog from '#components/genericDialog/GenericMuiDIalog';
+import MemberBaseFilter from './filters/MemberBaseFilter.component';
 import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
+import SmartListPopupSendingDrawerComponent from '#libs/communication-v2/components/SmartListPopupSendingDrawer.component';
 import SwitchHorizontalIcon from '#components/icons/SwitchHorizontalIcon.component';
+
+import type { Cadence } from '#libs/sequential_marketing/types';
+import type { CustomForm } from '#libs/custom-form/types';
+import type { Establishment } from '#libs/establishment/types';
+import type { FetchRecipientsParams, Member } from '#libs/member/types';
+import type { Level } from '#libs/level/types';
+import type { OptionCallback } from '../../../state/types';
+import type { PaymentPack } from '#libs/payment-packs/types';
+import type { PrivatePass, PrivateService } from '#libs/private-service/types';
+import type { SmartList } from '#libs/smart-list/types';
+import type { SmartListPopupSending } from '#libs/communication-v2/types';
+import type { UpsellSumup } from '#libs/company/types';
 
 const { trackFormAdd, trackFormSubmitIntent, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(

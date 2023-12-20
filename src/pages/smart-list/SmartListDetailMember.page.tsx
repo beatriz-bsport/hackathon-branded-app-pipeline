@@ -178,8 +178,8 @@ import {
 import Config from '../../config';
 import { getSmartListPopupSendingList } from '#libs/communication-v2/selectors';
 // CADENCES
-import { SEQUENTIAL_MARKETING_AUTHORIZED_COMPANY_IDS } from '#libs/sequential_marketingDEPRECATED/constants';
-import { fetchCadenceList } from '../../libs/sequential_marketingDEPRECATED/actions';
+import { SEQUENTIAL_MARKETING_AUTHORIZED_COMPANY_IDS } from '#libs/sequential_marketing/constants';
+import { fetchCadenceList } from '#libs/sequential_marketing/actions';
 import { UPSELL_IDENTIFIER_CADENCE } from '#libs/platform-billing/upsell-identifiers';
 
 type OwnProps = {

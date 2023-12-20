@@ -4,7 +4,7 @@ import { createSelector } from 'reselect';
 import Immutable from 'seamless-immutable';
 import type { AutoTagRule, SmartList } from './types';
 import type { RootState } from '../../reducers';
-import { getEnabledCadencesList } from '#libs/sequential_marketingDEPRECATED/selectors';
+import { getEnabledCadencesList } from '#libs/sequential_marketing/selectors';
 
 // SMARTLIST
 export const getSmartListDict = (state: RootState) => state.smartList.byId;

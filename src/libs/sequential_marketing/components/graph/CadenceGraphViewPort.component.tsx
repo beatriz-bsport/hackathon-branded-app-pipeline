@@ -452,6 +452,7 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) => ({
     flex: 1,
     width: '100%',
     justifyContent: 'space-between',
+    pointerEvents: 'none',
   },
   viewportInfo: {
     display: 'flex',
@@ -462,6 +463,7 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) => ({
   outputSection: {
     display: 'flex',
     padding: theme.spacing(2),
+    pointerEvents: 'auto',
   },
   topAlert: {
     display: 'flex',

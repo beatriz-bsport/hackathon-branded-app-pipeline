@@ -1,0 +1,32 @@
+import { Meta, Canvas, Story, Source } from '@storybook/addon-docs';
+
+import {DatePickerStorybook as DatePicker} from '.'
+
+<Meta title="Fabrique/DatePicker/Doc" component={DatePicker} />
+
+# DatePicker
+
+## Description
+The **`date picker`** component is a **`Menu`** component containing a calendar that allows the user to pick a date.
+
+### Usage
+Thanks to it's verstalitiy, the **`date picker`** component can be used inside any context where the user need to set or use a date (filters, date field, etc...)
+
+### Enable past
+When **`enablePast`** is set to true, the user can select dates from the past.
+<Canvas withSource="none" isColumn withToolbar >
+   <Story id="fabrique-datepicker-stories--enablepast" />
+</Canvas>
+
+#### Example
+<Source dark language='tsx' id="fabrique-datepicker-stories--enablepast" />
+
+
+### Disable past
+When **`enablePast`** is set to false, the user can't select dates from the past.
+<Canvas withSource="none" isColumn withToolbar >
+   <Story id="fabrique-datepicker-stories--disablepast" />
+</Canvas>
+
+#### Example
+<Source dark language='tsx' id="fabrique-datepicker-stories--disablepast" />

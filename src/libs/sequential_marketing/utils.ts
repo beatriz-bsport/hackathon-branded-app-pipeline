@@ -1,11 +1,15 @@
 import Immutable from 'seamless-immutable';
+import Config from '../../config';
 import type {
   Cadence,
   CadenceInitialConfigurationState,
   CadenceStep,
   ConnectedTrigger,
 } from '#libs/sequential_marketing/types';
-import { DestinationStatus } from '#libs/sequential_marketing/constants';
+import {
+  DestinationStatus,
+  SEQUENTIAL_MARKETING_AUTHORIZED_COMPANY_IDS,
+} from '#libs/sequential_marketing/constants';
 
 export const isCadenceInitialConfigurationCompleted = (
   cadenceMinimalConfigurationState: CadenceInitialConfigurationState,
@@ -84,4 +88,21 @@ export const updatedSourceStepWithDisabledConnectedTrigger = (
       ) ?? []),
     ],
   };
+};
+
+/** Checks if sequential marketing is authorized for a given company.
+ *
+ * @param {number} companyId - The ID of the company.
+ * @param {boolean} hasUpsell - Indicates whether the company has the upsell ot not.
+ * @returns {boolean} True if sequential marketing is authorized, otherwise false.
+ */
+export const isSequentialMarketingAuthorized = (
+  companyId: number,
+  hasUpsell: boolean,
+) => {
+  return (
+    Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
+    SEQUENTIAL_MARKETING_AUTHORIZED_COMPANY_IDS.includes(companyId) ||
+    hasUpsell
+  );
 };

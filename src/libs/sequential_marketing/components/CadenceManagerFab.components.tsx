@@ -2,8 +2,7 @@ import React from 'react';
 
 import { useTranslation } from 'react-i18next';
 
-import type { Theme } from '@material-ui/core/styles';
-import makeStyles from '@material-ui/styles/makeStyles';
+import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 
@@ -25,7 +24,7 @@ export const CadenceManagerFab: React.FC<Props> = ({ onAdd }) => {
   );
 };
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((theme) => ({
   bottomButtonContainer: {
     position: 'fixed',
     bottom: theme.spacing(2),

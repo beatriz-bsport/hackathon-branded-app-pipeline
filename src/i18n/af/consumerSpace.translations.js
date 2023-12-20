@@ -234,6 +234,67 @@ exports.default = {
           seeDetails: 'See details',
         },
       },
+      consumerPassDetailsCard: {
+        header: {
+          credits: '{{ creditsLeft }}/{{ totalCredits }} credits',
+          unlimited: 'Unlimited',
+        },
+        availability: {
+          active: 'Valid from {{ startDate }} to {{ expirationDate }}',
+          suspended: 'Suspended',
+          suspendedUntil: 'Suspended until {{ endDate }}',
+          expired: 'Expired on {{ expirationDate }}',
+          future: 'Starts on {{ startDate }}',
+          validUntil: 'Valid until {{ expirationDate }}',
+        },
+        description: {
+          title: 'Description',
+          showMore: 'Show more',
+          showLess: 'Show less',
+        },
+        compatibility: {
+          titles: {
+            studios: 'Compatible studios',
+            activity: 'Activities compatibility',
+            appointment: 'Appointment compatibility',
+            main: 'Compatibility',
+          },
+          subtitles: {
+            activity: 'Compatible activities',
+            timeSlots: 'Compatible time slots',
+            sessions: 'Compatible sessions',
+          },
+          contents: {
+            allActivities: 'Compatible with all activities of the studio',
+            allTimeSlots: 'Compatible with all the time slots',
+            vod: 'Can be used for <strong>Videos on demand</strong>',
+            bookingForGuest: 'Can be used to <strong>Invite a guest</strong>',
+            noAppointments: 'No compatible appointments',
+            allSessions: 'Compatible with all sessions',
+            sessions: 'Compatible sessions: {{ sessionsList }}',
+          },
+          labels: {
+            category: 'Categories',
+            activity: 'Activities',
+            room: 'Rooms',
+          },
+        },
+        restriction: {
+          title: 'Restrictions on use',
+          frequencyDaily: 'Can only be used {{ amount }} time per day.',
+          frequencyDaily_plural: 'Can only be used {{ amount }} times per day.',
+          frequencyWeekly: 'Can only be used {{ amount }} time per week.',
+          frequencyWeekly_plural:
+            'Can only be used {{ amount }} times per week.',
+          frequencyMonthly: 'Can only be used {{ amount }} time per month.',
+          frequencyMonthly_plural:
+            'Can only be used {{ amount }} times per month.',
+        },
+        shared: {
+          with: 'Shared with',
+          by: 'Shared by',
+        },
+      },
     },
   },
 };

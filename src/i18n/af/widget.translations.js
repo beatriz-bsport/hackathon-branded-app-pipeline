@@ -190,6 +190,9 @@ exports.default = {
         firstNameAndEmail: 'First name and email',
         emailOnly: 'Email only',
         clickableText: 'Clickable text',
+        activityPass: 'Activity pass',
+        appointmentPass: 'Appointment pass',
+        universalPass: 'Universal pass',
       },
       title: {
         nextOffer: 'Next session available',
@@ -309,6 +312,9 @@ exports.default = {
         isSuspended: 'Pass is suspended',
         isUnlimited: 'Pass is unlimited',
         expiresSoon: 'Pass will expire soon',
+        isExpired: 'Pass is expired',
+        isFuture: 'Pass is not active yet',
+        passKind: 'Pass kind',
       },
       configurationTitle: 'Variations',
       confirmationMessageComponentAlert:
@@ -453,6 +459,11 @@ exports.default = {
       consumer_booking_card: 'Consumer booking card',
       consumer_booking_details_card: 'Booking details card (for member)',
       consumer_pass_card: 'Consumer pass card',
+      consumer_payment_pack_details_card:
+        'Activity pass details card (for member)',
+      private_consumer_pass_details_card:
+        'Appointment pass details card (for member)',
+      universal_pass_details_card: 'Universal pass details card (for member)',
     },
     customCss: {
       yourCode: 'Your complementary implementation:',

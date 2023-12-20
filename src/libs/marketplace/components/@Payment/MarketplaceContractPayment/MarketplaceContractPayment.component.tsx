@@ -416,13 +416,7 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
       !selectedSavedPaymentMethodId;
 
     return (
-      <form
-        className={classNames({
-          'bs-contract-payment__form':
-            !areInitialBillingDetailsNecessary && selectedSavedPaymentMethodId,
-        })}
-        onSubmit={handleOnSubmit}
-      >
+      <form className="bs-contract-payment__form" onSubmit={handleOnSubmit}>
         <div
           className={classNames(
             {

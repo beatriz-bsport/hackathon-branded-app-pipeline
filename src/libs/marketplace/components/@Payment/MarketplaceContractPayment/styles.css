@@ -15,7 +15,11 @@
 }
 
 .bs-contract-payment__form {
-  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  height: fit-content;
+  max-height: 100%;
 }
 
 .bs-contract-payment__general_conditions,

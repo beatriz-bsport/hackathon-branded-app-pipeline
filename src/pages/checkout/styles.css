@@ -76,13 +76,6 @@
   max-width: 1400px;
 }
 
-.bs-contract-payment-page form {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .bs-contract-payment-page .bs-contract-payment__container {
   height: 100%;
   width: 100%;

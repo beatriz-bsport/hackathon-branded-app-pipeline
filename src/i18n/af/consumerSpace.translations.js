@@ -195,6 +195,12 @@ exports.default = {
           listTitle: 'Bookings that will be canceled:',
         },
       },
+      onlineWarningModal: {
+        title: 'Online activity',
+        subtitle: 'The session will begin on {{- date}} at {{hour}}',
+        message:
+          'You will be able to open this link 15 minutes before the session.',
+      },
     },
   },
 };

@@ -8,6 +8,7 @@ import ConsumerBookingTabs from '#libs/consumer-space/components/reworked/@MyBoo
 import ConsumerBookingFilters from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters';
 import ConsumerBookingListContainer from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingListContainer';
 import ConsumerBookingCancelModal from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingCancelModal';
+import ConsumerBookingOnlineWarningModal from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingOnlineWarningModal';
 
 import type { BookingTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
 import type { ConsumerBookingReworked } from '#libs/consumer-space/types';
@@ -76,6 +77,8 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
     selectedBookingForCancelation,
     isCancelBookingModalOpen,
     isCancellingBooking,
+    isOnlineWarningModalOpen,
+    onlineWarningModalOfferDate,
     futureItemsCount,
     nextPage,
     bookingList,
@@ -89,6 +92,7 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
     handlePaginationFetchMore,
     handleJoinOnlineBooking,
     handleCancelBooking,
+    handleToggleOnlineWarningModal,
   } = useConsumerBookingsDataManager({
     pastBookingsState,
     pastBookingsList,
@@ -121,6 +125,12 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
             relatedBookings={relatedBookingsInGroup}
             sessionTimeDisplay={sessionTimeDisplay}
             timezone={timezone}
+          />
+        )}
+        {isOnlineWarningModalOpen && !!onlineWarningModalOfferDate && (
+          <ConsumerBookingOnlineWarningModal
+            offerDateStart={onlineWarningModalOfferDate}
+            onClose={handleToggleOnlineWarningModal}
           />
         )}
 

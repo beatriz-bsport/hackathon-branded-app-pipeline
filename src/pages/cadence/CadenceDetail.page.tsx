@@ -125,7 +125,7 @@ import CadenceUtilityDialog, {
 import CustomStarIcon from '#components/icons/CustomStarIcon.component';
 import { isCadenceInitialConfigurationCompleted } from '#libs/sequential_marketing/utils';
 import {
-  updateConnectedTriggerUuid,
+  refreshConnectedTriggerUuid,
   getConnectedTriggerDefaultValues,
 } from '#libs/sequential_marketing/components/graph/hooks/utils';
 
@@ -774,7 +774,7 @@ const mapWithHandlers = {
               InitialConfigurationStep.CADENCE_LOSE_STEP
             ].connectedTriggers?.map((trigger) =>
               trigger?.trigger_config?.uuid === LOST_OUTPUT_TIMEOUT_TRIGGER_ID
-                ? updateConnectedTriggerUuid(trigger)
+                ? refreshConnectedTriggerUuid(trigger)
                 : trigger,
             ),
           },
@@ -999,7 +999,7 @@ const connector = connect(
     // CADENCES
     cadence: getCadenceOnlyActiveCTs(state, cadenceId),
     steps: getCadenceStepList(state, cadenceId),
-    loading: state.cadenceWIP.cadence.loading || state.cadenceWIP.step.loading,
+    loading: state.cadence.cadence.loading || state.cadence.step.loading,
     stepForEdition: getCadenceStep(state, selectedStepIdForEdition),
     stepMarketingActionsLoading: getStepMarketingActionsLoading(state),
     stepMarketingActionsUpsertLoading:
@@ -1032,7 +1032,7 @@ const connector = connect(
     allTagsWithTagGroup: getAllTagsWithTagGroup(state),
     getTag: (id: string) => getTag(state, id),
     featureList: state.company.feature.data,
-    cadenceRetrieveError: state.cadenceWIP.cadence.error,
+    cadenceRetrieveError: state.cadence.cadence.error,
   }),
   {
     push: pushRouter,

@@ -24,17 +24,16 @@ import {
   getArchivedCadencesList,
 } from '#libs/sequential_marketing/selectors';
 
+import CadenceCreateAndUpdateForm from '#libs/sequential_marketing/components/form/CadenceCreateAndUpdateForm.component';
 import CadenceList from '#libs/sequential_marketing/components/CadenceList.component';
-import CadenceManagerFab from '#libs/sequential_marketingDEPRECATED/components/CadenceManagerFab.components';
+import CadenceManagerFab from '#libs/sequential_marketing/components/CadenceManagerFab.components';
 import CadenceUtilityDialog, {
   DialogVariant,
 } from '#libs/sequential_marketing/components/dialogs/DialogUtility';
 
-import UpsellBlocker from '#libs/platform-billing/components/UpsellBlocker.component';
 import { UPSELL_IDENTIFIER_CADENCE } from '#libs/platform-billing/upsell-identifiers';
-
+import UpsellBlocker from '#libs/platform-billing/components/UpsellBlocker.component';
 import CustomStarIcon from '#components/icons/CustomStarIcon.component';
-import CadenceCreateAndUpdateForm from '#libs/sequential_marketing/components/form/CadenceCreateAndUpdateForm.component';
 
 import type { RootState } from '../../reducers';
 import type { WithHandlerType } from '../../utils/types';
@@ -173,7 +172,7 @@ export class CadenceListPage extends React.Component<Props> {
           </div>
           <CadenceCreateAndUpdateForm
             displayParametersSection
-            loading={this.props.cadenceLoading}
+            loading={cadenceLoading}
             onCancel={this.handleCloseCreationForm}
             onSubmit={this.handleUpsertCadence}
             open={this.props.openCreationForm}
@@ -231,7 +230,7 @@ export class CadenceListPage extends React.Component<Props> {
         <CadenceCreateAndUpdateForm
           displayParametersSection
           initial={this.props.cadenceToEdit}
-          loading={this.props.cadenceLoading}
+          loading={cadenceLoading}
           onCancel={this.handleCloseCreationForm}
           onSubmit={this.handleUpsertCadence}
           open={this.props.openCreationForm}
@@ -358,9 +357,10 @@ const mapWithHandlers = {
   restoreCadence: (props: ConnectedPropsAndState) => (id: number) =>
     props.restoreCadenceAction(id),
 };
+
 const connector = connect(
   (state: RootState) => ({
-    cadenceLoading: state.cadenceWIP.cadence.loading,
+    cadenceLoading: state.cadence.cadence.loading,
     stepLoading: state.cadence.step.loading,
     cadencesList: getEnabledCadencesList(state),
     cadenceArchivedList: getArchivedCadencesList(state),
@@ -374,6 +374,7 @@ const connector = connect(
     restoreCadenceAction,
   },
 );
+
 const styles = (theme: Theme) =>
   createStyles({
     pageContainer: {

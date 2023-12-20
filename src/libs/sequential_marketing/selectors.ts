@@ -2,22 +2,21 @@ import { createSelector } from 'reselect';
 
 import type { RootState } from '../../reducers';
 
-const _getCadenceAllIds = (state: RootState) => state.cadenceWIP.cadence.allIds;
-const _getCadencebyId = (state: RootState) => state.cadenceWIP.cadence.byId;
-const _getStepAllIIds = (state: RootState) => state.cadenceWIP.step.allIds;
-const _getStepById = (state: RootState) => state.cadenceWIP.step.byId;
+const _getCadenceAllIds = (state: RootState) => state.cadence.cadence.allIds;
+const _getCadencebyId = (state: RootState) => state.cadence.cadence.byId;
+const _getStepAllIIds = (state: RootState) => state.cadence.step.allIds;
+const _getStepById = (state: RootState) => state.cadence.step.byId;
 const _getStepMarketingActionsAllIds = (state: RootState) =>
-  state.cadenceWIP.marketingActions.allIds;
+  state.cadence.marketingActions.allIds;
 const _getStepMarketingActionsById = (state: RootState) =>
-  state.cadenceWIP.marketingActions.byId;
+  state.cadence.marketingActions.byId;
 const _getStepMarketingActionsByStepId = (state: RootState) =>
-  state.cadenceWIP.marketingActions.byStepId;
+  state.cadence.marketingActions.byStepId;
 
 export const getCadenceLoading = (state: RootState) =>
-  state.cadenceWIP.cadence.loading;
+  state.cadence.cadence.loading;
 
-export const getStepLoading = (state: RootState) =>
-  state.cadenceWIP.step.loading;
+export const getStepLoading = (state: RootState) => state.cadence.step.loading;
 
 export const getCadencesList = createSelector(
   [_getCadenceAllIds, _getCadencebyId],
@@ -72,9 +71,9 @@ export const getDisabledStepsList = createSelector([getStepsList], (stepList) =>
 );
 
 export const getStepMarketingActionsLoading = (state: RootState) =>
-  state.cadenceWIP.marketingActions.loading;
+  state.cadence.marketingActions.loading;
 export const getStepMarketingActionsUpsertLoading = (state: RootState) =>
-  state.cadenceWIP.marketingActions.upsert.loading;
+  state.cadence.marketingActions.upsert.loading;
 
 export const getMarketingActionsList = createSelector(
   [_getStepMarketingActionsAllIds, _getStepMarketingActionsById],

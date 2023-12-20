@@ -77,8 +77,7 @@ import zoomAppReducers from '#libs/zoom-app/reducers';
 import terminalReducers from '#libs/terminal/reducers';
 import datatypeFilteringReducers from '#libs/datatype-filtering/reducers';
 import tutorialReducers from '#libs/platform-tutorial/reducers';
-import CadenceReducers from '#libs/sequential_marketingDEPRECATED/reducers';
-import CadenceWIPReducers from '#libs/sequential_marketing/reducers';
+import CadenceReducers from '#libs/sequential_marketing/reducers';
 import exportableComponentsReducers from '#libs/exportable-components/reducers';
 import quicksaleReducers from '#libs/quicksale/reducers';
 import referralReducers from '#libs/referral/reducers';
@@ -144,8 +143,7 @@ import type { DatatypeFilteringState } from '#libs/datatype-filtering/types';
 import type { TutorialState } from '#libs/platform-tutorial/types';
 import type { ReplacementRequestState } from '#libs/replacement-request/types';
 import type { PaymentComboState } from '#libs/payment-combo/types';
-import type { CadenceState } from '#libs/sequential_marketingDEPRECATED/types';
-import type { SequentialMarketingState as SequentialMarketingStateWIP } from '#libs/sequential_marketing/types';
+import type { SequentialMarketingState } from '#libs/sequential_marketing/types';
 import type { WaitingListState } from '#libs/waiting-list/types';
 import type { InvoiceState } from '#libs/invoice/types';
 import type { ExportableComponentsState } from '#libs/exportable-components/types';
@@ -234,7 +232,6 @@ const rootReducer = (history: any) =>
     tutorial: tutorialReducers,
     replacementRequest: replacementRequestReducer,
     cadence: CadenceReducers,
-    cadenceWIP: CadenceWIPReducers,
     exportableComponents: exportableComponentsReducers,
     quicksale: quicksaleReducers,
     referral: referralReducers,
@@ -320,8 +317,7 @@ export type RootState = {
   zoomApp: ZoomAppState;
   terminal: TerminalState;
   datatypeFiltering: DatatypeFilteringState;
-  cadence: CadenceState;
-  cadenceWIP: SequentialMarketingStateWIP;
+  cadence: SequentialMarketingState;
   exportableComponents: ExportableComponentsState;
 };
 

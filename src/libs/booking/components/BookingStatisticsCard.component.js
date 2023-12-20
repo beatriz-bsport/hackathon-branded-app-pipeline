@@ -91,7 +91,7 @@ export function BookingStatisticsCard(props: Props) {
       [t('bookingStatistics.keys.created')]:
         tableBookingCreated[i].v - tableBookingCancelled[i].v,
       [t('bookingStatistics.keys.cancelled')]: tableBookingCancelled[i].v,
-      [t('bookingStatistics.keys.offers')]: tableOffers[i].v,
+      [t('bookingStatistics.keys.offers')]: tableOffers?.[i]?.v || 0,
     });
   }
 

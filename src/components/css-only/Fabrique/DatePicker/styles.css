@@ -1,0 +1,267 @@
+/*  */
+/* Date picker */
+/*  */
+
+@keyframes rotateIconOnOpen {
+  from {
+    transform: rotate(180deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes rotateIconOnClose {
+  from {
+    transform: rotate(180deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.bs-fabrique-date-picker__menu__header__buttons__left,
+.bs-fabrique-date-picker__menu__header__buttons__right {
+  color: var(--color-grey-dark);
+  background-color: transparent;
+  border: none;
+  position: relative;
+  cursor: pointer;
+  padding: 0px;
+  height: var(--spacing-3);
+  width: var(--spacing-3);
+}
+
+.bs-fabrique-date-picker__menu__header__buttons__left,
+.bs-fabrique-date-picker__menu__header__buttons__right {
+  color: var(--color-primary-main);
+}
+
+.bs-fabrique-date-picker__menu__calendar__day::before,
+.bs-fabrique-date-picker__menu__header__buttons__left::before,
+.bs-fabrique-date-picker__menu__header__buttons__right::before {
+  transition: 0.2s background-color;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.1;
+}
+
+.bs-fabrique-date-picker__menu__calendar__day::before,
+.bs-fabrique-date-picker__menu__header__buttons__left::before,
+.bs-fabrique-date-picker__menu__header__buttons__right::before {
+  border-radius: 50%;
+}
+
+.bs-fabrique-date-picker__menu__header__buttons__left:active::before,
+.bs-fabrique-date-picker__menu__header__buttons__right:active::before {
+  background-color: var(--color-primary-main);
+}
+
+.bs-fabrique-date-picker__menu {
+  width: 420px;
+  overflow: hidden;
+  padding-top: var(--spacing-2);
+  padding-bottom: var(--spacing-2);
+  padding-left: var(--spacing-4);
+  padding-right: var(--spacing-4);
+}
+
+.bs-fabrique-date-picker__menu__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-right: var(--spacing-1);
+  padding-left: 12px;
+}
+
+.bs-fabrique-date-picker__menu__header__date {
+  font-family: var(--h6-fontFamily);
+  font-size: var(--h6-fontSize);
+  font-weight: var(--h6-fontWeight);
+  letter-spacing: var(--h6-letterSpacing);
+  line-height: var(--h6-lineHeight);
+  color: var(--color-grey-dark);
+  text-transform: capitalize;
+}
+
+.bs-fabrique-date-picker__menu__header__date__icon {
+  padding: var(--bs-space-size-2);
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  appearance: none;
+  border: none;
+  margin: 0;
+  box-sizing: content-box;
+}
+
+.bs-fabrique-date-picker__menu__header__date__icon--year-picker-open {
+  animation: rotateIconOnOpen var(--bs-transition-duration-normal) ease-in-out;
+}
+
+.bs-fabrique-date-picker__menu__header__date__icon--year-picker-close {
+  animation: rotateIconOnClose var(--bs-transition-duration-normal) ease-in-out;
+}
+
+.bs-fabrique-date-picker__menu__header__buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-1);
+}
+
+.bs-fabrique-date-picker__menu__header__buttons--hidden {
+  display: none;
+}
+
+.bs-fabrique-date-picker__year-picker--hidden {
+  display: none;
+}
+
+.bs-fabrique-date-picker__menu__calendar {
+  margin-top: var(--spacing-2);
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-auto-rows: 1fr;
+  row-gap: var(--spacing-1);
+  column-gap: var(--spacing-1);
+}
+
+.bs-fabrique-date-picker__menu__calendar--hidden {
+  display: none;
+}
+
+.bs-fabrique-date-picker__menu__calendar__day {
+  text-transform: uppercase;
+  color: var(--color-grey-dark);
+  font-size: var(--subtitle1-fontSize);
+  font-weight: var(--subtitle1-fontWeight);
+  line-height: var(--subtitle1-lineHeight);
+  letter-spacing: var(--subtitle1-letterSpacing);
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+  background-color: inherit;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--border-radius-5);
+  justify-content: center;
+  align-items: center;
+  width: var(--spacing-4);
+  height: var(--spacing-4);
+}
+
+.bs-fabrique-date-picker__menu__calendar__day--header {
+  cursor: inherit;
+  justify-self: center;
+}
+
+.bs-fabrique-date-picker__menu__calendar__day--header::before {
+  display: none;
+}
+
+.bs-fabrique-date-picker__menu__calendar__day:active::before {
+  background-color: var(--color-primary-main);
+  opacity: 0.2;
+}
+
+.bs-fabrique-date-picker__menu__calendar__day--header {
+  color: var(--color-primary-main);
+}
+
+.bs-fabrique-date-picker__menu__calendar__day__number {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--border-radius-5);
+  width: var(--spacing-4);
+  height: var(--spacing-4);
+}
+.bs-fabrique-date-picker__menu__calendar__day__number:hover {
+  background-color: var(--color-grey-light);
+}
+
+.bs-fabrique-date-picker__menu__calendar__day--selected {
+  background-color: var(--color-primary-main);
+  color: var(--color-primary-contrastText);
+}
+
+.bs-fabrique-date-picker__menu__calendar__day--disabled {
+  color: var(--color-grey-main);
+}
+
+.bs-fabrique-date-picker__menu__calendar__day--disabled:hover::before {
+  background-color: var(--color-grey-main);
+}
+
+.bs-fabrique-date-picker__menu__calendar__day--disabled:active::before {
+  background-color: var(--color-grey-main);
+}
+
+.bs-fabrique-date-picker__menu__calendar__day--disabled-past {
+  color: var(--color-disabled);
+  background: none;
+}
+
+.bs-fabrique-date-picker__menu__calendar__day--disabled-past:hover {
+  color: inherit;
+  background: none;
+}
+
+.bs-fabrique-date-picker__menu__calendar__day--disabled-past:hover::before {
+  background: none;
+}
+
+.bs-fabrique-date-picker__menu__calendar__day__dots {
+  color: var(--color-primary-main);
+  display: flex;
+  justify-content: center;
+  line-height: var(--body1-lineHeight);
+}
+.bs-fabrique-date-picker__menu__calendar__day__dots__dot--hidden {
+  visibility: hidden;
+}
+
+.bs-fabrique-date-picker__menu__calendar__day__dots__dot--none {
+  display: none;
+}
+
+.bs-fabrique-date-picker__menu__calendar__day:hover {
+  background-color: var(--color-grey-200);
+}
+
+.bs-fabrique-date-picker__menu__calendar__day--header:hover {
+  background-color: var(--color-background-paper);
+}
+
+.bs-fabrique-date-picker__menu__calendar__day::before {
+  transition: 0.2s background-color;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.1;
+}
+
+.bs-fabrique-date-picker__menu__calendar__day--disabled:hover {
+  background-color: var(--color-grey-100);
+}
+
+.bs-fabrique-date-picker__menu__calendar__day--selected:hover {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary-contrastText);
+}
+
+@media (max-width: 570px) {
+  .bs-fabrique-date-picker__menu__calendar {
+    row-gap: 0;
+  }
+}

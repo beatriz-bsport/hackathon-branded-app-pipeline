@@ -71,7 +71,7 @@ import ToolTip from '#components/Tooltip.component';
 import ResponsiveDrawerItem from './ResponsiveDrawerItem.component';
 
 import { hasObjectLevelPermission } from '#libs/role/permission-utils/utils';
-import { SEQUENTIAL_MARKETING_AUTHORIZED_COMPANY_IDS } from '#libs/sequential_marketingDEPRECATED/constants';
+import { SEQUENTIAL_MARKETING_AUTHORIZED_COMPANY_IDS } from '#libs/sequential_marketing/constants';
 
 // Temporary condition to hide the referral page while the feature is not finished
 // Condition will be removed once the feature is finished

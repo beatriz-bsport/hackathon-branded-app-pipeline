@@ -49,33 +49,24 @@ const ConsumerPassCardBody: React.FC<Props> = ({
 
     if (availability === 'active') {
       setAvailabilityInfo(
-        t(
-          'reworked.myPasses.reworked.myPasses.consumerPassCard.availability.active',
-          {
-            expirationDate: formatedExpirationDate,
-            interpolation: { escapeValue: false },
-          },
-        ),
+        t('reworked.myPasses.consumerPassCard.availability.active', {
+          expirationDate: formatedExpirationDate || '',
+          interpolation: { escapeValue: false },
+        }),
       );
     } else if (availability === 'expired') {
       setAvailabilityInfo(
-        t(
-          'reworked.myPasses.reworked.myPasses.consumerPassCard.availability.expired',
-          {
-            expirationDate: formatedExpirationDate,
-            interpolation: { escapeValue: false },
-          },
-        ),
+        t('reworked.myPasses.consumerPassCard.availability.expired', {
+          expirationDate: formatedExpirationDate || '',
+          interpolation: { escapeValue: false },
+        }),
       );
     } else if (availability === 'future') {
       setAvailabilityInfo(
-        t(
-          'reworked.myPasses.reworked.myPasses.consumerPassCard.availability.future',
-          {
-            startDate: formatedStartDate,
-            interpolation: { escapeValue: false },
-          },
-        ),
+        t('reworked.myPasses.consumerPassCard.availability.future', {
+          startDate: formatedStartDate || '',
+          interpolation: { escapeValue: false },
+        }),
       );
     }
 

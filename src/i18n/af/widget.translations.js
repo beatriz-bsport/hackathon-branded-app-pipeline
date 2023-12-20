@@ -305,6 +305,10 @@ exports.default = {
         showWaitlistPosition: 'Show waitlist position',
         hasCoachOverride: 'The teacher is absent',
         showWorkshopLinkedOffers: 'The session is from a workshop',
+        isShared: 'Pass is shared',
+        isSuspended: 'Pass is suspended',
+        isUnlimited: 'Pass is unlimited',
+        expiresSoon: 'Pass will expire soon',
       },
       configurationTitle: 'Variations',
       confirmationMessageComponentAlert:
@@ -448,6 +452,7 @@ exports.default = {
       marketing_newsletter_form_v2: 'Newsletter form',
       consumer_booking_card: 'Consumer booking card',
       consumer_booking_details_card: 'Booking details card (for member)',
+      consumer_pass_card: 'Consumer pass card',
     },
     customCss: {
       yourCode: 'Your complementary implementation:',

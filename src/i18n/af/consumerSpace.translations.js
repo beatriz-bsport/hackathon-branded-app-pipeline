@@ -206,5 +206,27 @@ exports.default = {
         subtitle: 'Quickly find your spot in class',
       },
     },
+    myPasses: {
+      consumerPassCard: {
+        unlimited: 'Unlimited',
+        credits: '{{ creditsLeft }}/{{ totalCredits }} credits',
+        chip: {
+          suspended: 'Suspended',
+          shared: 'Shared',
+          multiStudio: 'Multi-studios',
+        },
+        availability: {
+          active: 'Expires: {{ expirationDate }}',
+          expired: 'Expired: {{ expirationDate }}',
+          future: 'Starts: {{ startDate }}',
+          expiresIn_plural: '{{ daysRemaining }} days left',
+          expiresIn: '{{ daysRemaining }} day left',
+          expiresToday: 'Last day',
+        },
+        buttonsLabel: {
+          seeDetails: 'See details',
+        },
+      },
+    },
   },
 };

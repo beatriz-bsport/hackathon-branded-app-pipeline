@@ -1,0 +1,23 @@
+.bs-consumer-card-description__collapse-content {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  /* autoprefixer: off */
+  -webkit-box-orient: vertical;
+}
+
+.bs-consumer-card-description__collapse-content--expanded {
+  display: inherit;
+  -webkit-line-clamp: inherit;
+  -webkit-box-orient: inherit;
+}
+
+.bs-consumer-card-description__show-more {
+  text-decoration: underline;
+  padding: 0;
+}
+
+.bs-consumer-card-description__show-more:hover,
+.bs-consumer-card-description__show-more:focus-visible,
+.bs-consumer-card-description__show-more:hover:active {
+  background-color: transparent;
+}

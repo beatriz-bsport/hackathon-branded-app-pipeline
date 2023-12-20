@@ -96,6 +96,8 @@ exports.default = {
     settingsTitle: 'Spinning data',
   },
   reworked: {
+    showMore: 'Show more',
+    showLess: 'Show less',
     myBookings: {
       title: 'My bookings',
       bookASession: 'Book a session',

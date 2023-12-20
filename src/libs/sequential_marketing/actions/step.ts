@@ -39,11 +39,11 @@ export function retrieveCadenceStep(
     try {
       const response = await retrieveCadenceStepAPI(id);
       dispatch(retrieveCadenceStepActions.success(response.data));
-      options && options.onSuccess && options.onSuccess(response.data);
+      options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
       dispatch(retrieveCadenceStepActions.error(err));
-      options && options.onError && options.onError();
+      options?.onError?.();
     }
 
     dispatch(retrieveCadenceStepActions.isLoading(false));
@@ -69,11 +69,11 @@ export function fetchCadenceStepList(
     try {
       const response = await fetchCadenceStepListAPI(params);
       dispatch(fetchCadenceStepListActions.success(response.data));
-      options && options.onSuccess && options.onSuccess(response.data);
+      options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
       dispatch(fetchCadenceStepListActions.error(err));
-      options && options.onError && options.onError();
+      options?.onError?.();
     }
 
     dispatch(fetchCadenceStepListActions.isLoading(false));
@@ -98,11 +98,11 @@ export function updateCadenceStepCanvasPosition(
     try {
       const response = await updateCadenceStepCanvasPositionAPI(id, position);
       dispatch(updateCadenceStepCanvasPositionActions.success(response.data));
-      options && options.onSuccess && options.onSuccess(response.data);
+      options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
       dispatch(updateCadenceStepCanvasPositionActions.error(err));
-      options && options.onError && options.onError();
+      options?.onError?.();
     }
 
     dispatch(updateCadenceStepCanvasPositionActions.isLoading(false));
@@ -160,11 +160,11 @@ export function updateCadenceStepName(
     try {
       const response = await updateCadenceStepNameAPI(id, name);
       dispatch(updateCadenceStepNameActions.success(response.data));
-      options && options.onSuccess && options.onSuccess(response.data);
+      options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
       dispatch(updateCadenceStepNameActions.error(err));
-      options && options.onError && options.onError();
+      options?.onError?.();
     }
 
     dispatch(updateCadenceStepNameActions.isLoading(false));
@@ -185,11 +185,11 @@ export function deleteCadenceStep(id: number, options?: OptionCallback) {
     try {
       await deleteCadenceStepAPI(id);
       dispatch(deleteCadenceStepActions.success({ id }));
-      options && options.onSuccess && options.onSuccess();
+      options?.onSuccess?.();
     } catch (err) {
       console.error(err);
       dispatch(deleteCadenceStepActions.error(err));
-      options && options.onError && options.onError();
+      options?.onError?.();
     }
 
     dispatch(deleteCadenceStepActions.isLoading(false));

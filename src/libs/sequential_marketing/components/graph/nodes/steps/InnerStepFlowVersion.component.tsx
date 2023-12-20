@@ -26,7 +26,7 @@ import { getMarketingActionPartialValues } from '#libs/sequential_marketing/comp
 
 import ConvertIntoExitBubble from '#libs/sequential_marketing/components/graph/bubbles/ConvertIntoExitBubble.component';
 import MenuSelectorOnly from '#components/menu/menu-only';
-import CadencDialogUtility, {
+import CadenceUtilityDialog, {
   DialogVariant,
 } from '#libs/sequential_marketing/components/dialogs/DialogUtility';
 import StepNameEditionBubble from '#libs/sequential_marketing/components/graph/bubbles/StepNameEditionBubble.component';
@@ -323,13 +323,13 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
           onDelete={handleDeleteMarketingAction}
         />
       </Popover>
-      <CadencDialogUtility
+      <CadenceUtilityDialog
         onCancel={handleCloseDeleteStepDialog}
         onConfirm={handleConfirmDeleteStepDialog}
         open={openDeleteStepDialog}
         variant={DialogVariant.DELETE_STEP}
       />
-      <CadencDialogUtility
+      <CadenceUtilityDialog
         onCancel={handleCloseConvertStepIntoExitDialog}
         onConfirm={handleConfirmConvertStepIntoExitDialog}
         open={openConvertStepIntoExitDialog}

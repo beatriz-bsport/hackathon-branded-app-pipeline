@@ -154,7 +154,7 @@ export type UpdatedTriggersList = {
   step: CadenceStep;
 };
 
-// ========== API QUERY PARAMS ==========
+// ============ API QUERY PARAMS =============
 export type CadenceQueryParams = {
   id__in?: number[];
   page_size?: number;
@@ -171,7 +171,7 @@ export type StepMarketingActionsParams = {
   kind?: MarketingActionKind;
 };
 
-// ========== REDUX STATE ==========
+// =============== REDUX STATE ===============
 export type SequentialMarketingState = {
   cadence: CadenceState;
 } & { step: CadenceStepState } & {
@@ -203,7 +203,7 @@ export type TriggerState = {
   byId: { [id: number]: ConnectedTrigger };
 } & ErrorAndLoading;
 
-// ========== COMPONENT TYPES ==========
+// ============= COMPONENT TYPES =============
 export type GlobalCadenceChip = {
   name: string;
   icon: string;

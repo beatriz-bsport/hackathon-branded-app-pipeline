@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 
-import { RootState } from '../../reducers';
+import type { RootState } from '../../reducers';
 
 const _getCadenceAllIds = (state: RootState) => state.cadenceWIP.cadence.allIds;
 const _getCadencebyId = (state: RootState) => state.cadenceWIP.cadence.byId;

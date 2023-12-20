@@ -1,4 +1,4 @@
-import { Node as FlowNode } from 'react-flow-renderer';
+import type { Node as FlowNode } from 'react-flow-renderer';
 
 import { CustomNodesEnum } from './useNodes.hooks';
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import omit from 'lodash/omit';
 import Immutable from 'seamless-immutable';
+
 import EntryStepFlowVersion from '../nodes/steps/EntryStepFlowVersion.component';
 import InnerStepFlowVersion from '../nodes/steps/InnerStepFlowVersion.component';
 import TriggerCardFlowVersion from '../nodes/triggers/TriggerCardFlowVersion.component';

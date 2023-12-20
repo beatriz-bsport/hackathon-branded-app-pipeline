@@ -4,7 +4,6 @@ import {
   MarketingActions,
   CADENCE_MARKETING_ACTION_CHOICES,
 } from '#libs/sequential_marketing/constants';
-import { CADENCE_MARKETING_ACTION_KIND_CHOICES } from '#libs/sequential_marketing/constants/marketing_actions';
 
 export const notificationValidationSchema = Yup.object().shape({
   id: Yup.number().nullable(),
@@ -104,7 +103,7 @@ export const writtenEmailValidationSchema = Yup.object().shape({
 const marketingActionValidationSchema = Yup.object().shape({
   id: Yup.number().nullable(),
   name: Yup.string().nullable(),
-  kind: Yup.string().oneOf(CADENCE_MARKETING_ACTION_KIND_CHOICES).required(),
+  kind: Yup.string().oneOf(Object.values(MarketingActionKind)).required(),
   action_spec: Yup.object()
     .when('kind', {
       is: MarketingActionKind.TAG,

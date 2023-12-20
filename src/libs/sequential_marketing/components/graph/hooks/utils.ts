@@ -28,8 +28,7 @@ export const getHorizontalPositionFromSource = (sourceCanvas: GraphCanvas) =>
  * @param {number} b - The value of the second parameter.
  * @returns {string} - The average position as a string.
  */
-export const getMiddlePosition = (a: number, b: number) =>
-  ((a + b) / 2).toString();
+const _getMiddlePosition = (a: number, b: number) => ((a + b) / 2).toString();
 
 /** Determines the optimal position for the new ConnectedTrigger based on its source step and destination step positions.
  *
@@ -40,18 +39,18 @@ export const getMiddlePosition = (a: number, b: number) =>
  * @param {StoredStep} destination - The destination step of the ConnectedTrigger, if connecting step to step.
  * @returns {GraphCanvas} - The calculated position for the ConnectedTrigger.
  */
-export const getConnectedTriggerPosition = (
+const _getConnectedTriggerPosition = (
   source: StoredStep,
   destination?: StoredStep,
 ): GraphCanvas => {
   if (destination?.canvas?.position && source?.canvas?.position)
     return {
       position: {
-        x: getMiddlePosition(
+        x: _getMiddlePosition(
           parseFloat(source.canvas.position.x),
           parseFloat(destination.canvas.position.x),
         ),
-        y: getMiddlePosition(
+        y: _getMiddlePosition(
           parseFloat(source.canvas.position.y),
           parseFloat(destination.canvas.position.y),
         ),
@@ -101,7 +100,7 @@ export const getConnectedTriggerDefaultValues = ({
   triggerUuid,
   isTemporary,
 }: TriggerDefaultValuesParameters): ConnectedTrigger => {
-  const position = getConnectedTriggerPosition(source, destination);
+  const position = _getConnectedTriggerPosition(source, destination);
 
   const triggerConfigUuid =
     triggerUuid ||
@@ -253,7 +252,7 @@ export const changeConnectedTriggerKind = (
  * @param {ConnectedTrigger} connectedTrigger - The connected trigger to modify.
  * @returns {ConnectedTrigger} - A modified connected trigger with a new trigger_config uuid.
  */
-export const updateConnectedTriggerUuid = (
+export const refreshConnectedTriggerUuid = (
   connectedTrigger: ConnectedTrigger,
 ): ConnectedTrigger => ({
   ...connectedTrigger,

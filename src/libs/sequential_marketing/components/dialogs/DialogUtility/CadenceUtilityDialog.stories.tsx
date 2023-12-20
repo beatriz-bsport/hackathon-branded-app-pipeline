@@ -1,7 +1,5 @@
 import React from 'react';
-import CadenceUtilityDialog, {
-  DialogVariant,
-} from './CadenceUtilityDialog.component';
+import CadenceUtilityDialog, { DialogVariant } from '.';
 import { action } from '@storybook/addon-actions';
 
 const CadenceUtilityDialogTemplate = (

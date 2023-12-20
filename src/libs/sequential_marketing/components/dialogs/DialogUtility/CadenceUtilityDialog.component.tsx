@@ -2,16 +2,16 @@ import React, { useMemo } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
-import makeStyles from '@material-ui/styles/makeStyles';
 import green from '@material-ui/core/colors/green';
+import makeStyles from '@material-ui/styles/makeStyles';
 import useTheme from '@material-ui/core/styles/useTheme';
-import type { Theme } from '@material-ui/core/styles';
 import type { DialogProps } from '@material-ui/core/Dialog';
+import type { Theme } from '@material-ui/core/styles';
+
+import { SequentialMarketingColors } from '#libs/sequential_marketing/constants';
+import DialogWithBigIcon from '#components/DialogWithBigIcon';
 import WarningIconRounded from '#components/icons/WarningIconRounded.component';
 import WelcomeIcon from '#components/icons/WelcomeIcon.component';
-
-import DialogWithBigIcon from '#components/DialogWithBigIcon';
-import { SequentialMarketingColors } from '#libs/sequential_marketing/constants';
 
 import type { Cadence } from '#libs/sequential_marketing/types';
 

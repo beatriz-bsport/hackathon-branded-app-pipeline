@@ -7,6 +7,9 @@ import {
   CADENCE_EVENT_ALL_CHOICES,
   DESTINATION_KIND_CHOICES,
   DESTINATION_STATUS_CHOICES,
+  CADENCE_MARKETING_ACTION_CHOICES,
+  MarketingActionKind,
+  MarketingActions,
 } from './constants';
 import type {
   Cadence,
@@ -22,12 +25,6 @@ import type {
   TriggerEventConfig,
   TriggerTimeoutConfig,
 } from './types';
-import {
-  CADENCE_MARKETING_ACTION_KIND_CHOICES,
-  CADENCE_MARKETING_ACTION_CHOICES,
-  MarketingActionKind,
-  MarketingActions,
-} from './constants/marketing_actions';
 
 function TriggerEmptyConfigFactory(): TriggerEmptyConfig {
   return {
@@ -198,7 +195,7 @@ export function stepMarketingActionFactory({
   tag_id,
 }: StepMarketingActionFactoryProps): Partial<StepMarketingActions> {
   const factoryKind =
-    kind || faker.helpers.arrayElement(CADENCE_MARKETING_ACTION_KIND_CHOICES);
+    kind || faker.helpers.arrayElement(Object.values(MarketingActionKind));
 
   const factoryActionSpec =
     factoryKind === MarketingActionKind.TAG

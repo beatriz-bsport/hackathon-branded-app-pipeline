@@ -16,6 +16,9 @@ const _getStepMarketingActionsByStepId = (state: RootState) =>
 export const getCadenceLoading = (state: RootState) =>
   state.cadence.cadence.loading;
 
+export const getCadenceError = (state: RootState) =>
+  state.cadence.cadence.error;
+
 export const getStepLoading = (state: RootState) => state.cadence.step.loading;
 
 export const getCadencesList = createSelector(

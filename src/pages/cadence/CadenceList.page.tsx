@@ -22,6 +22,8 @@ import {
 import {
   getEnabledCadencesList,
   getArchivedCadencesList,
+  getCadenceLoading,
+  getStepLoading,
 } from '#libs/sequential_marketing/selectors';
 
 import CadenceCreateAndUpdateForm from '#libs/sequential_marketing/components/form/CadenceCreateAndUpdateForm.component';
@@ -360,8 +362,8 @@ const mapWithHandlers = {
 
 const connector = connect(
   (state: RootState) => ({
-    cadenceLoading: state.cadence.cadence.loading,
-    stepLoading: state.cadence.step.loading,
+    cadenceLoading: getCadenceLoading(state),
+    stepLoading: getStepLoading(state),
     cadencesList: getEnabledCadencesList(state),
     cadenceArchivedList: getArchivedCadencesList(state),
   }),
@@ -433,7 +435,7 @@ const styles = (theme: Theme) =>
 
 export default compose(
   withStyles(styles),
-  withTranslation(['marketing']),
+  withTranslation('marketing'),
   withTitle(({ t }) => t('titles:marketing.audience')),
   connector,
   withStateHandlers(StateHandlersInit, StateHandlersSetter),

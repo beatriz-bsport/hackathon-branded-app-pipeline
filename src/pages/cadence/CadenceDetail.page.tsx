@@ -64,9 +64,12 @@ import {
   DestinationKind,
 } from '#libs/sequential_marketing/constants';
 import {
+  getCadenceError,
+  getCadenceLoading,
   getCadenceOnlyActiveCTs,
-  getCadenceStepList,
   getCadenceStep,
+  getCadenceStepList,
+  getStepLoading,
   getStepMarketingActionsByStepId,
   getStepMarketingActionsLoading,
   getStepMarketingActionsUpsertLoading,
@@ -999,7 +1002,8 @@ const connector = connect(
     // CADENCES
     cadence: getCadenceOnlyActiveCTs(state, cadenceId),
     steps: getCadenceStepList(state, cadenceId),
-    loading: state.cadence.cadence.loading || state.cadence.step.loading,
+    loading: getCadenceLoading(state) || getStepLoading(state),
+    cadenceRetrieveError: getCadenceError(state),
     stepForEdition: getCadenceStep(state, selectedStepIdForEdition),
     stepMarketingActionsLoading: getStepMarketingActionsLoading(state),
     stepMarketingActionsUpsertLoading:
@@ -1032,7 +1036,6 @@ const connector = connect(
     allTagsWithTagGroup: getAllTagsWithTagGroup(state),
     getTag: (id: string) => getTag(state, id),
     featureList: state.company.feature.data,
-    cadenceRetrieveError: state.cadence.cadence.error,
   }),
   {
     push: pushRouter,

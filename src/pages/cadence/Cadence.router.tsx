@@ -1,7 +1,7 @@
-// @ts-nocheck
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
+// @ts-expect-error
 import asyncComponent from '../../AsyncComponent';
 
 const CadenceListPage = asyncComponent(() => import('./CadenceList.page'));

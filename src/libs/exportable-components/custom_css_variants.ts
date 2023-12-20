@@ -398,6 +398,11 @@ import {
   CONSUMER_BOOKING_DETAILS_CARD_PREVIEW,
 } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingDetailsCard/custom_css_variant';
 
+import {
+  CONSUMER_PASS_CARD_PREVIEW,
+  CONSUMER_PASS_CARD_CONFIGURATION,
+} from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassCard';
+
 /* TEMPLATE
 
 {
@@ -504,6 +509,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
         FABRIQUE_SELECTOR_INPUT_CONFIGURATION,
         CONSUMER_BOOKING_CARD_CONFIGURATION,
         CONSUMER_BOOKING_DETAILS_CARD_CONFIGURATION,
+        CONSUMER_PASS_CARD_CONFIGURATION,
       ]
     : []),
 ];
@@ -693,6 +699,8 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
         CONSUMER_BOOKING_CARD_PREVIEW,
       [CssComponentsVariantIdentifiers.CONSUMER_BOOKING_DETAILS_CARD]:
         CONSUMER_BOOKING_DETAILS_CARD_PREVIEW,
+      [CssComponentsVariantIdentifiers.CONSUMER_PASS_CARD]:
+        CONSUMER_PASS_CARD_PREVIEW,
     }),
   });
 

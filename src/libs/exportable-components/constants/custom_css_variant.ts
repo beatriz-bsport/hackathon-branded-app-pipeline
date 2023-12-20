@@ -117,4 +117,5 @@ export enum CssComponentsVariantIdentifiers {
   MARKETING_NEWSLETTER_FORM_V2 = 'marketing_newsletter_form_v2',
   CONSUMER_BOOKING_CARD = 'consumer_booking_card',
   CONSUMER_BOOKING_DETAILS_CARD = 'consumer_booking_details_card',
+  CONSUMER_PASS_CARD = 'consumer_pass_card',
 }

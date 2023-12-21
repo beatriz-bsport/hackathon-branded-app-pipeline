@@ -7,7 +7,10 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
 import Typography from '@material-ui/core/Typography';
 
-import { OUTPUT_SECTION_WIDTH } from '#libs/sequential_marketing/constants';
+import {
+  OUTPUT_SECTION_WIDTH,
+  OUTPUT_SECTION_BUTTON_BORDER_RADIUS,
+} from '#libs/sequential_marketing/constants';
 
 export type CadenceOutputCollapseProps = {
   children: React.ReactNode;
@@ -72,6 +75,7 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) => ({
   container: {
     flexDirection: 'column',
     justifyContent: 'flex-start',
+    borderRadius: `${OUTPUT_SECTION_BUTTON_BORDER_RADIUS}px`,
   },
   card: {
     display: 'inline-flex',
@@ -107,8 +111,8 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) => ({
   },
   label: {
     display: 'flex',
-    paddingTop: ({ textWidth }) => `${textWidth}px`,
-    paddingBottom: ({ textWidth }) => `${textWidth}px`,
+    paddingTop: ({ textWidth }) => textWidth && `${textWidth}px`,
+    paddingBottom: ({ textWidth }) => textWidth && `${textWidth}px`,
     transform: 'rotate(-90deg)',
     whiteSpace: 'nowrap',
   },

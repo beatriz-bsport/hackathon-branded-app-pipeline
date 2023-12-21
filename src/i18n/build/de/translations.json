@@ -6359,7 +6359,7 @@
             "members": "Die Mitglieder werden nach ihrem Anmeldedatum gefiltert.",
             "referral_grant": "Empfehlungslinks werden nach dem Erstellungsdatum des gesponserten Mitglieds gefiltert",
             "invoicesAccrualMethodLink": "https://intercom.help/bsport-helpcenter/articles/8320705",
-            "invoicesAccrualMethod": "In diesem Bericht werden die Einkäufe nach der Methode der periodengerechten Buchführung ausgewiesen. Das heißt, Überweisungen auf den internen Kontostand und Käufe von Geschenkkarten sind nicht enthalten. <0>Weitere Informationen finden Sie in unserer Hilfe.</0> Um den Kauf von Gutscheinen zu verfolgen, verwenden Sie den Bericht {{ purchasedGiftcardReport }}."
+            "invoicesAccrualMethod": "In diesem Bericht werden die Einkäufe nach der Methode der periodengerechten Buchführung ausgewiesen. Das heißt, Überweisungen auf den internen Kontostand und Käufe von Geschenkkarten sind nicht enthalten. <0>Weitere Informationen finden Sie in unserem Hilfe-Zentrum.</0> Um den Kauf von Gutscheinen zu verfolgen, verwenden Sie den Bericht {{ purchasedGiftcardReport }}."
         },
         "franchiseWarning": {
             "part1": "Aufgrund der großen Datenmenge kann es einige Minuten dauern, bis der Bericht erstellt wird.",
@@ -11479,7 +11479,7 @@
             "smsCostReminderModal": {
                 "confirm": "Bestätigen",
                 "cancel": "Abbrechen",
-                "content": "Eine SMS an eine grße Nummer von Mitgliedern zu schicken kann teuer sein. Sie können den Preis pro SMS in Ihrem Vertrag nachschauen. Sind SIe sicher, dass Sie diese Nahcricht verschicken wollen?",
+                "content": "Eine SMS an eine große Anzahl von Mitgliedern zu schicken kann teuer sein. Sie können den Preis pro SMS in Ihrem Vertrag nachschauen. Sind SIe sicher, dass Sie diese Nahcricht verschicken wollen?",
                 "title": "Erinnerung für SMS-Kosten"
             }
         },
@@ -14261,7 +14261,7 @@
                 "lastname": "Nach Nachnamen sortieren",
                 "date": "Nach Datum sortieren"
             },
-            "unevenQuickInvoices": "Rechnungen ohne Zahlungsmethode werden auf dieser Seite geöffnet. Bist Du Dir sicher, dass Du den Vorgang abbrechen möchtest?"
+            "unevenQuickInvoices": "Auf dieser Seite befinden sich offene Rechnungen ohne jegliche Zahlungsmethode. Sind Sie sich sicher, dass Sie den Vorgang abbrechen möchten?"
         },
         "card": {
             "copied": "Link kopiert",
@@ -14312,48 +14312,48 @@
             },
             "explainLoading": "Bitte warten",
             "explainWarning": "VORSICHT: Dieser Vorgang ist nicht umkehrbar.",
-            "explain": "Wähle das Datumsintervall, über das Du Deine Kurse stornieren möchtest. Mitglieder, die gebucht haben, werden per E-Mail benachrichtigt und ihre Credits werden automatisch auf den entsprechenden Kurspass zurückerstattet.",
+            "explain": "Wählen Sie das Datumsintervall, über das Sie Ihre Kurse stornieren möchten. Mitglieder, die gebucht haben, werden per E-Mail benachrichtigt und ihre Credits werden automatisch auf den entsprechenden Kurspass zurückerstattet.",
             "title": "Kollektive Stornierung",
-            "secondWarningConfirm": "Bist du dir sicher, dass du weitermachen willst?",
-            "secondWarning": "Wenn Du auf \"BESTÄTIGEN\" klickst, werden die im ausgewählten Intervall enthaltenen Kurse storniert und Du kannst sie nicht mehr wiederherstellen.",
+            "secondWarningConfirm": "Sind Sie sicher, dass Sie fortfahren wollen?",
+            "secondWarning": "Wenn Sie auf \"BESTÄTIGEN\" klicken, werden die im ausgewählten Intervall enthaltenen Kurse storniert und Sie können sie nicht mehr wiederherstellen.",
             "warning": "Diese Aktion kann nicht rückgängig gemacht werden.",
-            "info": "Wählen Sie die Daten aus, zwischen denen Sie alle Sessions absagen möchten. Die gewählten Daten werden eingeschlossen.",
-            "endDateLabel": "Enddatum (einschließlich)",
-            "startDateLabel": "Startdatum (einschließlich)",
+            "info": "Wählen Sie die Daten aus, an denen Sie die Sessions absagen möchten.",
+            "endDateLabel": "Enddatum",
+            "startDateLabel": "Startdatum",
             "sure": "Sind Sie sicher, dass Sie diese Aktion bestätigen möchten?",
-            "confirmInfo": "Sie sind dabei, alle Sessions zwischen dem {{start_date}} und dem {{end_date}} (einschließlich). Das bedeutet, dass {{number_of_deleted_offer}} Session abgesagt wird.",
-            "confirmInfo_plural": "Sie sind dabei, alle Sessions zwischen dem {{start_date}} und dem {{end_date}} (einschließlich). Das bedeutet, dass {{number_of_deleted_offer}} Sessions abgesagt werden.",
-            "confirm": "Bestätigen",
-            "successInfo": "Die Löschung aller Sessions zwischen {{start_date}} und {{end_date}} wurde korrekt berücksichtigt.",
+            "confirmInfo": "Sie sind dabei, alle Sessions zwischen dem {{start_date}} und dem {{end_date}} zu stornieren. Das bedeutet, dass {{number_of_deleted_offer}} Session abgesagt wird.",
+            "confirmInfo_plural": "Sie sind dabei, alle Sessions zwischen dem {{start_date}} und dem {{end_date}} zu stornieren. Das bedeutet, dass {{number_of_deleted_offer}} Sessions abgesagt werden.",
+            "confirm": "Speichern",
+            "successInfo": "Die Löschung aller Sessions zwischen {{start_date}} und {{end_date}} wurde berücksichtigt.",
             "iConfirm": "ICH BESTÄTIGE",
             "confirmationExplain": "Bitte schreiben Sie unten in Großbuchstaben \"ICH BESTÄTIGE\".",
-            "success": "Bestätigte Absage",
+            "success": "Absage bestätigt",
             "warningOfferGroup": "Bitte beachten Sie, dass die folgenden Sessions nicht abgesagt werden können, da sie Teil einer Gruppensession sind. Um sie zu stornieren, stornieren Sie bitte die entsprechende Gruppe.",
-            "offers": "Nicht stornierbare Sessions",
-            "warningOfferGroupTitle": "Nicht abgesagte Sessions",
-            "activityOnly": "Da Sie nicht die Erlaubnis haben Workshopsessions zu stornieren wird diese Aktion nur Gruppenaktivitätssessions stornieren.",
-            "workshopOnly": "Da Sie nicht die Erlaubnis haben Gruppenaktivitäten zu stornieren wird diese Aktion nur Workshopsessions stornieren."
+            "offers": "Unkündbar Sessions",
+            "warningOfferGroupTitle": "Zulässige Sessions",
+            "activityOnly": "Da Sie nicht die Erlaubnis haben Workshopsessions zu stornieren, wird diese Aktion nur Gruppenaktivitätssessions stornieren.",
+            "workshopOnly": "Da Sie nicht die Erlaubnis haben Gruppenaktivitäten zu stornieren, wird diese Aktion nur Workshopsessions stornieren."
         },
         "bookingListEmpty": "Keine Buchung",
         "bookingList": "Buchungen",
         "liveOfferEdit": {
             "select": "Wählen Sie die Sessions aus, die geändert werden sollen",
-            "editSimilarOffers": "Möchtest Du ALLE ähnlichen Kurse an diese neuen Bedingungen anpassen?",
+            "editSimilarOffers": "Wählen Sie die Sitzungen, die geändert werden sollen",
             "unselectAll": "Alle abwählen",
             "selectAll": "Alles auswählen",
             "noSimilarOffer": "Keine ähnlichen Kurse gefunden. Nur dieser Kurs ist betroffen.",
             "selectCancel": "Wähle die Kurse aus, die storniert werden sollen",
-            "cancelSimilarOffers": "Möchtest Du ähnliche Kurse stornieren?",
-            "selectDelete": "Wähle die Kurse aus, die gelöscht werden sollen",
-            "deleteSimilarOffers": "Möchtest Du ALLE ähnlichen Kurse löschen?",
-            "selectEdit": "Wähle die Kurse aus, die geändert werden sollen",
-            "editSimilarOffersGroup": "Die Sessions auf zukünftige Gruppenwiederholungen ändern?",
+            "cancelSimilarOffers": "Ähnliche Kurse stornieren",
+            "selectDelete": "Wählen Sie die Kurse aus, die gelöscht werden sollen",
+            "deleteSimilarOffers": "Möchten Sie ähnliche Sitzungen löschen?",
+            "selectEdit": "Wählen Sie die Kurse aus, die geändert werden sollen",
+            "editSimilarOffersGroup": "Bearbeiten Sie auch die zukünftigen Sitzungen dieser Veranstaltung",
             "editSubteacher": {
                 "propagateToSimilarOffers": {
-                    "checkboxInfo": "Wenn Sie dieses Kästchen ankreuzen, werden die Änderungen, die für die Vertretungslehrkraft dieser Session gelten, auf alle ähnlichen Sessions angewendet. Andernfalls werden sie nur auf diese Session angewandt.",
-                    "warning": "Für die folgenden ähnlichen Sessions gibt es bereits eine andere Vertretungslehrkraft. Was möchten Sie tun?",
+                    "checkboxInfo": "Wenn Sie dieses Kästchen ankreuzen, werden die Änderungen, die für den Vertretungslehrer dieser Lerneinheit gelten, auf alle ähnlichen Lerneinheiten angewandt. Andernfalls werden sie nur auf diese Sitzung angewandt.",
+                    "warning": "Für die folgenden ähnlichen Sitzungen gibt es bereits einen anderen Vertretungslehrer. Was würden Sie gerne tun?",
                     "mode": {
-                        "offersWithSameCoachOverrideOnly": "Behalten Sie die derzeitige Vertretung in dieser Session bei",
+                        "offersWithSameCoachOverrideOnly": "Behalten Sie die derzeitige Vertretung für diese Sessions bei",
                         "all": "Verteilen Sie die Änderungen in Bezug auf die Vertretungslehrkraft auf diese Sessions"
                     },
                     "checkboxLabel": "Übertragen Sie die Änderungen an der Vertretungslehrkraft auf die ausgewählten Sessions"
@@ -14361,17 +14361,17 @@
                 "title": "Wechsel der Vertretungslehrkraft"
             },
             "deleteSimilarOffersGroups": "Möchten Sie zukünftige Wiederholungen der Gruppe löschen",
-            "cancelSimilarOffersGroup": "Die Sessions in anderen Gruppenwiederholungen abbrechen?"
+            "cancelSimilarOffersGroup": "Andere Sitzungen, die mit diesem Ereignis verbunden sind, stornieren"
         },
         "deleteImpossibleText": "Dieser Kurs kann nicht gelöscht werden, da offene Buchungen vorhanden sind.",
-        "deleteImpossibleTitle": "Die Session kann nicht gelöscht werden",
+        "deleteImpossibleTitle": "Diese Session kann nicht gelöscht werden",
         "menu": {
             "download": "Zusammenfassung",
             "massDisable": "Massenstornierungen",
             "hideCancelled": "Stornierungen ausblenden",
             "showCancelled": "Stornierungen anzeigen",
-            "showWeek": "Woche anzeigen",
-            "showMonth": "Monat anzeigen"
+            "showWeek": "Wochenansicht",
+            "showMonth": "Monatsansicht"
         },
         "close": "Schließen",
         "restoreOffer": "Kurs wiederherstellen",
@@ -14381,14 +14381,14 @@
         "levels": {
             "modal": {
                 "name": "Name",
-                "title": "Stufe ändern",
+                "title": "Niveaus ändern",
                 "color": "Farbcode",
-                "nameCaption": "{{max}}max. Zeichen{{count}}/{{max}}",
+                "nameCaption": "{{max}}max. Zeichen {{count}}/{{max}}",
                 "submit": "Speichern",
                 "cancel": "Abbrechen"
             },
             "select": {
-                "add": "Eine Niveau hinzufügen",
+                "add": "Ein Niveau hinzufügen",
                 "title": "Niveau",
                 "placeholder": "Niveau"
             },
@@ -14401,7 +14401,7 @@
             "customs": "Persönlich",
             "delete": "Löschen"
         },
-        "tagManagementInfo": "{{authorized}} erlaubte(r) tag(s), {{unauthorized}} nicht zugelassene(s) Tag(s)",
+        "tagManagementInfo": "{{authorized}} erlaubte(r) Tag(s), {{unauthorized}} nicht zugelassene(s) Tag(s)",
         "rollCall": {
             "warningText": {
                 "notValidatedRollCall": "Der Anruf wurde nicht freigegeben",

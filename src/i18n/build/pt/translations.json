@@ -1982,18 +1982,18 @@
         },
         "applyGiftcard": {
             "actions": {
-                "apply": "Pagamento com passe de oferta",
+                "apply": "Pagamento com  cartão presente",
                 "confirm": "Confirmar",
                 "cancel": "Fechar"
             },
             "form": {
-                "usedGiftcard": "Passe de oferta utilizado",
-                "amountToPay": "Montante pago com o passe de oferta",
+                "usedGiftcard": "cartão presente utilizado",
+                "amountToPay": "Montante pago com cartão presente",
                 "errors": {
                     "errorAmount": "Montante inválido."
                 }
             },
-            "giftcard": "Passe de oferta"
+            "giftcard": "Cartão presente"
         },
         "invoiceItem": {
             "buyableItemIdentifier": {
@@ -2750,13 +2750,13 @@
         }
     },
     "giftcard": {
-        "search": "Procurar um passe de oferta",
+        "search": "Procurar um  cartão presente",
         "widget": "Escolher Cartões de presente",
         "giftcardTemplate": {
             "template": {
                 "validity": "Válido {{count}} dia",
                 "validity_plural": "Válido {{count}} dias",
-                "deleteTemplateContent": "Ao desativar um passe de oferta partilhado, os membros que possuem este passe só o poderão utilizar no estabelecimento onde foi comprado.",
+                "deleteTemplateContent": "Ao desativar um  cartão presente partilhado, os membros que possuem este passe só o poderão utilizar no estabelecimento onde foi comprado.",
                 "deleteInstanceContent1": "Ao desativar este estabelecimento da partilha de passes de oferta, todos os membros que possuem este passe e o receberam de um membro que comprou o passe neste estabelecimento continuarão a poder utilizá-lo. No entanto, deixarão de o poder utilizar noutros estabelecimentos.",
                 "deleteInstanceContent2": "Por fim, os cartões de presente comprados noutros estabelecimentos deixam de poder ser utilizados no estabelecimento desativado, independentemente da data em que foram compradas.",
                 "unlimited": "Ilimitado",
@@ -2766,10 +2766,10 @@
             },
             "listPage": {
                 "emptyLabel": "Não foram registados passes de oferta partilhados",
-                "addButton": "Criar um passe de oferta partilhado",
-                "fuzzyPlaceholder": "Procurar um passe de oferta"
+                "addButton": "Criar um cartão presente compartilhado",
+                "fuzzyPlaceholder": "Procurar um  cartão presente"
             },
-            "giftcard": "Passe de oferta",
+            "giftcard": "Cartão presente",
             "sharedCard": "Partilhado com outro franchisado"
         },
         "list": {
@@ -2780,7 +2780,7 @@
             "isEmpty": "Não existem cartões de presente para apresentar.",
             "actions": {
                 "goToGiftcard": "Ver todos os Cartões de presente",
-                "create": "Criar um passe de oferta"
+                "create": "Adicionar um cartão presente"
             },
             "validity": "Válido {{ duration }} dias",
             "unlimited": "Ilimitado",
@@ -2789,23 +2789,23 @@
         },
         "consumerGiftcard": {
             "activation": {
-                "activate": "Ativar o meu passe de oferta",
-                "alreadyActivated": "Este passe de oferta já foi utilizado por outro utilizador",
+                "activate": "Ativar o meu Cartão-presente",
+                "alreadyActivated": "Este  Cartão-presente já foi utilizado",
                 "title": "Alguém quere-te fazer feliz !",
-                "content1withDate": "O valor do seu passe de oferta {{price}} é compatível com todos os produtos da nossa loja. Este passe caduca {{ expiration_days }} dias após a ativação, mime-se!",
-                "content2": "Será automaticamente adicionado como método de pagamento ao seu cesto. Pode encontrar todos os detalhes do seu passe de oferta no seu perfil.",
-                "content3": "Se não tiver sessão iniciada na conta atual, termine a sessão para se ligar à mesma. Se este passe de oferta não se destina a si, não o valide.",
+                "content1withDate": "O seu cartão de presente{{price}} pode ser utilizado em qualquer um dos nossos produtos. Tenha em atenção que o seu cartão de presente expira em {{ expiration_days }} dia(s) após a ativação. Diverte-te!",
+                "content2": "O cartão de presente será automaticamente adicionado como método de pagamento ao seu cesto. Todas as informações relacionadas com o cartão de presente são guardadas no seu perfil.",
+                "content3": "Se iniciou sessão com a conta incorrecta, pedimos-lhe gentilmente que não valide este cartão de presente e não for destinado a você. Por favor, volte a conectar-se com a conta correcta.",
                 "subtitle": "Parece que alguém o surpreendeu.",
-                "content1": "O valor do seu passe de oferta {{price}} é compatível com todos os produtos da nossa loja. Este passe não tem prazo de validade, por isso, ofereça-o a si próprio!"
+                "content1": "O seu cartão de presente de {{price}} é compatível com todos os produtos da nossa loja e não tem data de validade. Diverte-te!"
             },
             "invitationForm": {
-                "activationCodeLink": "O convite enviado por e-mail já não pode ser alterado, se não tiver chegado ao destinatário certo, pode enviar esta ligação de ativação para oferecer o passe de oferta : ",
+                "activationCodeLink": "O convite por correio eletrónico foi enviado e já não pode ser editado. Se o destinatário correto não tiver recebido a mensagem, pode enviar este link: ",
                 "title": "Enviar um convite por e-mail",
                 "actions": {
                     "submit": "Enviar",
                     "close": "Fechar"
                 },
-                "content": "Pode alterar os destinatários do passe de oferta. Se a mensagem do e-mail não tiver sido recebida, pode também enviar esta ligação de ativação:"
+                "content": "Pode alterar os destinatários do Cartão-presente. Se a mensagem do e-mail não tiver sido recebida, pode também enviar esta ligação de ativação:"
             },
             "isEmpty": "Não existem cartões de presente para apresentar.",
             "isFor": "À atenção de ",
@@ -2870,7 +2870,7 @@
                     "label": "Preço de venda"
                 },
                 "expiration_days": {
-                    "helperText": "O passe é válido a partir da data de envio do e-mail do passe de oferta.",
+                    "helperText": "A validade do cartão presente começa na data de envio do convite",
                     "label": "Período de validade em dias"
                 },
                 "section": {
@@ -2878,7 +2878,7 @@
                         "title": "Configurações"
                     }
                 },
-                "title": "Passe de oferta",
+                "title": "Cartão-presente",
                 "unlimited": {
                     "label": "Ilimitado"
                 },
@@ -2893,7 +2893,7 @@
                     "label": "Métodos de pagamento disponíveis"
                 }
             },
-            "canNotUpdateBecauseShared": "Este passe de oferta é partilhado pela conta do franchisador. Foi definido pela conta do franchisador e não pode ser modificado."
+            "canNotUpdateBecauseShared": "Este Cartão-presente é partilhado pela conta do franchisador. Foi definido pela conta do franchisador e não pode ser modificado."
         },
         "backgroundImage": {
             "dialog": {
@@ -2909,13 +2909,13 @@
             "activationLink": "Copiar o link de ativação"
         },
         "delete": {
-            "title": "Arquivar o passe de oferta",
-            "content": "Quer mesmo arquivar este passe de oferta? Deixará de ser faturado através do back office. Pode ser reativado mais tarde.",
+            "title": "Arquivar o  cartão presente",
+            "content": "Tem a certeza de que pretende arquivar este cartão presente? Deixará de aparecer no seu Back Office, mas pode reactivá-lo no futuro.",
             "cancel": "Cancelar",
             "submit": "Confirmar"
         },
         "giftcard": {
-            "configurationTitle": "Passe de oferta",
+            "configurationTitle": "Cartão-presente",
             "detail": {
                 "availablePaymentMethods": "Métodos de pagamento disponíveis",
                 "manager_only": "cartões-presente indisponíveis",
@@ -3988,7 +3988,7 @@
             "privateConsumerPass": "Passes de marcações",
             "info": "Geral",
             "invoices": "Facturas e subscrições",
-            "giftcard": "Passe de oferta",
+            "giftcard": "Cartão presente",
             "payment": "Faturas",
             "form": "Formulários",
             "contact": "Contacto",
@@ -4117,7 +4117,7 @@
         "creditAccountBalance": "Montante do cliente",
         "events": {
             "member-giftcard_used": {
-                "primaryText": "O passe de oferta {{- giftcardName }} está ativado.",
+                "primaryText": "O  cartão presente  {{- giftcardName }} está ativado.",
                 "filter": "Passes de oferta utilizados"
             },
             "member-login_successful": {
@@ -4763,8 +4763,8 @@
                 "contact_plural": "Contatos({{number}})",
                 "bookings": "Reserva",
                 "bookings_plural": "Reservas ({{number}})",
-                "giftcard": "Passe de oferta",
-                "giftcard_plural": "Passes de oferta ({{number}})",
+                "giftcard": "Cartão presente",
+                "giftcard_plural": "Cartões de presente ({{number}})",
                 "privateConsumerPass": "Passe de marcação",
                 "privateConsumerPass_plural": "Passe de marcações ({{number}})"
             },
@@ -4866,7 +4866,7 @@
                     "giftcard_name": "Nome do passe de oferta",
                     "giftcard_value": "Valor do passe de oferta",
                     "message_is_for": "Destinatário do passe de oferta",
-                    "giftcard_message": "Mensagem do passe de oferta",
+                    "giftcard_message": "Mensagem do cartão presente",
                     "activate_giftcard_url": "Link para ativar o passe de oferta",
                     "message_is_from": "Membro que envia o passe de oferta"
                 },
@@ -10162,10 +10162,10 @@
                 "title": "Ver os filtros",
                 "showPrivateBookings": "Marcações",
                 "hideCancelledEvents": "Ver os cancelamentos",
-                "showCustomEvents": "Marcação pessoalmente"
+                "showCustomEvents": "Tarefas / Compromissos pessoais"
             },
             "selectCoachToModifyAvailability": "Selecionar um professor",
-            "createCustomEvent": "Criar uma Marcação manualmente",
+            "createCustomEvent": "Adicionar uma Tarefa / Compromisso pessoal",
             "addBooking": "Registar uma marcação",
             "showAvailabilityDetails": "Detalhes das disponibilidades"
         },
@@ -10306,7 +10306,7 @@
                     "placeholder": "Marcações acumuladas",
                     "label": "Nome"
                 },
-                "title": "Marcações pessoais",
+                "title": "Compromisso pessoal",
                 "actions": {
                     "cancel": "Cancelar",
                     "submit": "Registar"

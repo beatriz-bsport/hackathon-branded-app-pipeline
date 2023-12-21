@@ -69,6 +69,7 @@ const BottomDrawerCardDetailsStorybookTemplate: ComponentStory<
 };
 
 const defaultArgs = {
+  showPlaceholder: false,
   isLoading: false,
   establishmentTimezoneName: 'Europe/London',
   establishmentRoomName: 'Cycling Room',
@@ -101,6 +102,9 @@ const defaultArgs = {
 
 export const DetailsCardLoading = CardDetailsStorybookTemplate.bind({});
 DetailsCardLoading.args = { ...defaultArgs, isLoading: true };
+
+export const DetailsCardPlaceholder = CardDetailsStorybookTemplate.bind({});
+DetailsCardPlaceholder.args = { ...defaultArgs, showPlaceholder: true };
 
 export const DetailsCardSelectedBooking = CardDetailsStorybookTemplate.bind({});
 DetailsCardSelectedBooking.args = { ...defaultArgs };
@@ -144,6 +148,10 @@ export default {
     className: {
       description: 'Optional CSS class name to pass to the root element',
       control: 'text',
+    },
+    showPlaceholder: {
+      description: 'If `true` the placeholder will be displayed instead',
+      control: 'boolean',
     },
     isLoading: {
       description: 'Whether the card is in loading state or not',

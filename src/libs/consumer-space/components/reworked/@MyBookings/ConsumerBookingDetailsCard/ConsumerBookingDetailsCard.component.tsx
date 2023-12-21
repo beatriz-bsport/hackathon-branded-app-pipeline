@@ -1,10 +1,12 @@
 import React from 'react';
 import classNames from 'classnames';
+import { useTranslation } from 'react-i18next';
 import { MarketPlaceSessionTimeDisplay } from '@bsport/common/lib/master-data/personalization';
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import Card from '#Fabrique/Card';
 
+import ConsumerCardPlaceholder from '#libs/consumer-space/components/reworked/common/ConsumerCardPlaceholder';
 import ConsumerBookingDetailsCardSkeleton from './ConsumerBookingDetailsCardSkeleton.component';
 import ConsumerBookingDetailsCardHeaderSection from './sections/ConsumerBookingDetailsCardHeaderSection.component';
 import ConsumerBookingDetailsCardCancelledSection from './sections/ConsumerBookingDetailsCardCancelledSection.component';
@@ -23,6 +25,8 @@ import './styles.css';
 export type Props = {
   /**  Optional CSS class name to pass to the root element */
   className?: string;
+  /** If `true` the placeholder will be displayed instead */
+  showPlaceholder?: boolean;
   /** Whether the card is in loading state or not */
   isLoading?: boolean;
   /** The formatted date of the offer */
@@ -95,6 +99,7 @@ export type Props = {
 
 const ConsumerBookingDetailsCard: React.FC<Props> = ({
   className,
+  showPlaceholder,
   isLoading,
   date,
   sessionTimeDisplay,
@@ -130,6 +135,16 @@ const ConsumerBookingDetailsCard: React.FC<Props> = ({
   coachInstagramURL,
   workshopLinkedOffers,
 }) => {
+  const { t } = useTranslation('consumerSpace');
+
+  if (showPlaceholder) {
+    return (
+      <ConsumerCardPlaceholder
+        message={t('consumerSpace:reworked.placeholderCard.myBookings')}
+      />
+    );
+  }
+
   if (isLoading) {
     return <ConsumerBookingDetailsCardSkeleton />;
   }

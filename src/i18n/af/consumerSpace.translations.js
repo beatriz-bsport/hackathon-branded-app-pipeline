@@ -98,6 +98,9 @@ exports.default = {
   reworked: {
     showMore: 'Show more',
     showLess: 'Show less',
+    placeholderCard: {
+      myBookings: 'Choose a session to see more details',
+    },
     myBookings: {
       title: 'My bookings',
       bookASession: 'Book a session',
@@ -111,6 +114,7 @@ exports.default = {
         past: 'Past',
         onWaitlist: 'On waitlist',
       },
+
       consumerBookingCard: {
         chip: {
           online: 'Online',

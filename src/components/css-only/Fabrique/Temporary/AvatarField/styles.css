@@ -1,0 +1,17 @@
+.bs-fabrique-avatar-field__wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.bs-fabrique-avatar-field {
+  position: relative;
+  height: var(--bs-icon-size-3xl);
+  width: var(--bs-icon-size-3xl);
+}
+
+.bs-fabrique-avatar-field__button {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}

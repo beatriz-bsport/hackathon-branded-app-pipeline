@@ -16,9 +16,9 @@ export type Props = {
   classes?: ClassesType;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   isDisabled?: boolean;
+  isRequired?: boolean;
   name: string;
   id: string;
-  inputId: string;
 };
 
 type ActionButtonProps = {
@@ -81,9 +81,9 @@ const PictureUploader: React.FC<Props> = ({
   classes,
   onChange,
   isDisabled,
+  isRequired,
   name,
   id,
-  inputId,
 }) => {
   const fileInputRef = useRef(null);
 
@@ -104,18 +104,18 @@ const PictureUploader: React.FC<Props> = ({
   return (
     <div
       className={classNames('bs-fabrique-picture-loader__wrapper', classeName)}
-      id={id}
     >
       <input
         ref={fileInputRef}
         accept="image/*"
         className="bs-fabrique-picture-loader__input"
-        id={inputId}
+        id={id}
         name={name}
         onChange={handleChange}
+        required={isRequired}
         type="file"
       />
-      <label htmlFor={inputId}>
+      <label htmlFor={id}>
         <ActionButton
           action={action}
           classes={classes}

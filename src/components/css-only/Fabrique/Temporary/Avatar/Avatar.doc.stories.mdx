@@ -1,0 +1,64 @@
+import { Meta, Canvas, Story , Description, ArgsTable, Source} from '@storybook/addon-docs';
+
+import * as AvatarStories from './Avatar.stories'
+
+import {AvatarStorybook as Avatar} from '.'
+
+import dedent from 'ts-dedent';
+
+<Meta title="Fabrique/Avatar/Doc" component={Avatar} />
+
+
+# Avatar
+
+## Description
+
+The `Avatar` component displays a user's profile picture in different sizes. It allows customization of the picture, size, and additional styling.
+
+## Properties
+- **picture:** The picture's path you want to use for your avatar.
+- **size:** **`sm`** (small), **`md`** (medium), **`lg`** (large)
+- **type:** Will define the default picture used as placeholder **`user`** (User), **`place`** (Place)
+- **className:** Override or extend the styles applied to the component.
+
+#### Medium / Default size
+
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-avatar-stories--mediumavatar" parameters={{layout: 'centered'}}/>  
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-avatar-stories--mediumavatar" />
+
+#### Small
+
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-avatar-stories--smallavatar" parameters={{layout: 'centered'}}/>  
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-avatar-stories--mediumavatar" />
+
+#### Large size
+
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-avatar-stories--largeavatar" parameters={{layout: 'centered'}}/>  
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-avatar-stories--largeavatar" />
+
+
+#### Extra Large size
+
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-avatar-stories--extralargeavatar" parameters={{layout: 'centered'}}/>  
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-avatar-stories--extralargeavatar" />
+

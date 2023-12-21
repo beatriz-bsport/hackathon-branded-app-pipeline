@@ -612,6 +612,7 @@ export const useMuiThemeToCssVars = () => {
     --bs-icon-size-lg: calc(var(--bs-icon-size-xs) * 3);
     --bs-icon-size-xl: calc(var(--bs-icon-size-xs) * 4);
     --bs-icon-size-xxl: calc(var(--bs-icon-size-xs) * 9);
+    --bs-icon-size-3xl: calc(var(--bs-icon-size-xs) * 12);
 
     font-family: var(--fontFamily);
     width: 100%;

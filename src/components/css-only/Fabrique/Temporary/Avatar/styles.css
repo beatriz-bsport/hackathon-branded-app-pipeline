@@ -1,0 +1,53 @@
+.bs-fabrique-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  object-fit: cover;
+  border: solid var(--bs-color-border-weak) var(--bs-fabrique-border-2);
+  border-radius: var(--bs-border-radius-circle);
+  background-color: var(--bs-color-background-grey-weak);
+}
+
+.bs-fabrique-avatar__icon {
+  stroke: var(--bs-color-icon-weak);
+}
+
+.bs-fabrique-avatar--lg {
+  width: var(--bs-icon-size-xl);
+  height: var(--bs-icon-size-xl);
+}
+
+.bs-fabrique-avatar--md {
+  width: var(--bs-icon-size-lg);
+  height: var(--bs-icon-size-lg);
+}
+
+.bs-fabrique-avatar--xl {
+  width: var(--bs-icon-size-3xl);
+  height: var(--bs-icon-size-3xl);
+}
+
+.bs-fabrique-avatar--sm {
+  width: var(--bs-icon-size-md);
+  height: var(--bs-icon-size-md);
+}
+
+.bs-fabrique-avatar__icon--lg {
+  width: var(--bs-icon-size-lg);
+  height: var(--bs-icon-size-lg);
+}
+
+.bs-fabrique-avatar__icon--md {
+  width: var(--bs-icon-size-md);
+  height: var(--bs-icon-size-md);
+}
+
+.bs-fabrique-avatar__icon--xl {
+  width: var(--bs-icon-size-xxl);
+  height: var(--bs-icon-size-xxl);
+}
+
+.bs-fabrique-avatar__icon--sm {
+  width: var(--bs-icon-size-sm);
+  height: var(--bs-icon-size-sm);
+}

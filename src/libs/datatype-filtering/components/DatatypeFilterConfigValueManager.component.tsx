@@ -369,7 +369,7 @@ const DatatypeFilterConfigValueFloat: React.FC<{
   datatype: 'price' | 'number' | 'percent' | 'cts' | 'int';
   isPreview?: boolean;
 }> = ({ name, datatype, isPreview }) => {
-  if (datatype === 'price') {
+  if (datatype === 'price' || datatype === 'cts') {
     return (
       <PriceField
         castAsNumber

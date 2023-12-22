@@ -19,17 +19,19 @@ export type CheckboxIconProps = {
 };
 
 export type Props = {
-  captionText?: string;
+  captionText?: string | React.ReactNode;
   classes?: {
     label?: string;
     captionText?: string;
     errorMessage?: string;
   };
-  errorMessage?: string;
+  errorMessage?: string | React.ReactNode;
   id: string;
   isError?: boolean;
-  label?: string;
+  isRequired?: boolean;
+  label?: string | React.ReactNode;
   name?: string;
+  onChange?: (event?: React.ChangeEvent<HTMLInputElement>) => void;
   onClick?: (event?: React.MouseEvent<HTMLInputElement, MouseEvent>) => void;
   size?: CheckboxSize;
 } & CheckboxIconProps;
@@ -90,6 +92,8 @@ const Checkbox: React.FC<Props> = ({
   isDisabled,
   captionText,
   multiple,
+  isRequired,
+  onChange,
   name,
   size = CheckboxSizeEnum.SM,
 }) => {
@@ -106,7 +110,9 @@ const Checkbox: React.FC<Props> = ({
         disabled={isDisabled}
         id={id}
         name={name ?? ''}
+        onChange={onChange}
         onClick={onClick}
+        required={isRequired}
         type="checkbox"
       />
 

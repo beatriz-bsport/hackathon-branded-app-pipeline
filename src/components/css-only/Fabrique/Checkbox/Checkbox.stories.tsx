@@ -29,7 +29,7 @@ const TemplateMultiple: ComponentStory<typeof Checkbox> = (
   const [checked, setChecked] = React.useState(false);
   const [multiple, setMultiple] = React.useState(true);
 
-  const handleChange = () => {
+  const handleClick = () => {
     if (multiple) {
       setMultiple((prevState) => !prevState);
       return setChecked((prevState) => !prevState);
@@ -39,12 +39,13 @@ const TemplateMultiple: ComponentStory<typeof Checkbox> = (
     }
     return setMultiple((prevState) => !prevState);
   };
+
   return (
     <CheckboxStorybook
       {...args}
       multiple={multiple}
       isChecked={checked}
-      onClick={handleChange}
+      onClick={handleClick}
     />
   );
 };

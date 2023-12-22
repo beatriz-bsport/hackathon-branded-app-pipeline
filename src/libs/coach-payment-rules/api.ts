@@ -184,14 +184,38 @@ export const exportAsyncCoachPerformancePdf = async (params: {
   associated_coaches_in?: Array<number>;
   data_to_export?: number;
   company_id?: number;
+  establishmentFilterIds?: number[];
+  establismentGroupFilterNames?: string[];
+  establishmentFilterNames?: string[];
 }) => {
-  const { associated_coaches_in, data_to_export, company_id, ...urlParams } =
-    params;
+  const {
+    associated_coaches_in,
+    data_to_export,
+    company_id,
+    establishmentFilterIds,
+    establismentGroupFilterNames,
+    establishmentFilterNames,
+    ...urlParams
+  } = params;
   const export_format = COACH_PERFORMANCE_EXPORT_PDF;
   return postAuth(
     `${API_V1_URI}/coach_payment_rules/export_data/${buildUrlParams(
       urlParams,
     )}`,
-    { associated_coaches_in, data_to_export, company_id, export_format },
+    {
+      associated_coaches_in,
+      data_to_export,
+      company_id,
+      export_format,
+      ...(establishmentFilterIds && {
+        establishment_ids_filter: establishmentFilterIds,
+      }),
+      ...(establismentGroupFilterNames && {
+        establishment_group_names_filter: establismentGroupFilterNames,
+      }),
+      ...(establishmentFilterNames && {
+        establishment_names_filter: establishmentFilterNames,
+      }),
+    },
   );
 };

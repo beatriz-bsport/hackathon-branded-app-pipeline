@@ -7,8 +7,12 @@ import {
 } from '@bsport/common/lib/master-data/coach_payment_rule';
 import axios from 'axios';
 
+import type { ImmutableArray } from 'seamless-immutable';
 import type { CoachwithPerformance } from '#libs/coach-payment-rules/types';
-import type { EstablishmentGroupAPI } from '#libs/establishment/types';
+import type {
+  Establishment,
+  EstablishmentGroupAPI,
+} from '#libs/establishment/types';
 
 export const bonusCoachPaymentRuleConstructor = (
   coach_payment_rule_id: number | null,
@@ -187,4 +191,33 @@ export const getFilteredEstablishments = (
     );
   }
   return [];
+};
+
+export const getEstablishmentGroupNames = (
+  establishmentGroupList: EstablishmentGroupAPI[],
+  selectedLocations: number[],
+) => {
+  const establishmentsGroupsNames =
+    establishmentGroupList
+      ?.filter((establishmentGroup) =>
+        selectedLocations?.includes(establishmentGroup.id),
+      )
+      ?.map((establishmentGroup) => establishmentGroup.name) || [];
+
+  return establishmentsGroupsNames;
+};
+
+export const getEstablishmentNames = (
+  establishments: ImmutableArray<Establishment>,
+  selectedEstablishments: number[],
+) => {
+  const establishmentsNames = establishments
+    ? [...establishments]
+        .filter((establishment) =>
+          selectedEstablishments?.includes(establishment.id),
+        )
+        .map((establishment) => establishment.title)
+    : [];
+
+  return establishmentsNames;
 };

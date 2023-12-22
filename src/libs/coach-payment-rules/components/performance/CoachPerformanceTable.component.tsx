@@ -315,6 +315,8 @@ type OwnProps = {
       score_timestamp?: number;
       associated_coaches_in?: Array<number>;
       data_to_export?: number;
+      establishmentFilterIds?: number[];
+      establismentGroupFilterNames?: string[];
     },
     options?: OptionCallback,
   ) => void;
@@ -322,6 +324,8 @@ type OwnProps = {
   endTimestamp: number;
   isMultiLocalizationEnabled: boolean;
   selectedEstablishments: number[];
+  selectedEstablishmentGroupNames: string[];
+  selectedEstablishmentsNames: string[];
 } & CoachPaymentRuleObjects &
   CoachPaymentRuleActions;
 
@@ -344,6 +348,8 @@ export const CoachPerformanceTable = (props: Props) => {
     exportPdfPerformance,
     isMultiLocalizationEnabled,
     selectedEstablishments,
+    selectedEstablishmentGroupNames,
+    selectedEstablishmentsNames,
   } = props;
   const [oldestUpdate, setOldestUpdate] = React.useState<number | null>(null);
   const { t } = useTranslation(['coachPerformance', 'coach', 'paymentRules']);
@@ -358,6 +364,9 @@ export const CoachPerformanceTable = (props: Props) => {
       end_timestamp: props.endTimestamp,
       associated_coaches_in: [associatedCoachId],
       data_to_export: dataToExport,
+      establishmentFilterIds: selectedEstablishments,
+      establismentGroupFilterNames: selectedEstablishmentGroupNames,
+      establishmentFilterNames: selectedEstablishmentsNames,
     };
     exportPdfPerformance(params);
   };

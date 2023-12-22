@@ -93,5 +93,8 @@ exports.default = {
     locations: 'Locations',
     establishments: 'Establishments',
   },
-  form: { ifEmptyAllowAll: 'Ignore this filter by leaving it blank' },
+  form: {
+    ifEmptyAllowAll: 'Ignore this filter by leaving it blank',
+    selectEstablishments: 'Select establishments',
+  },
 };

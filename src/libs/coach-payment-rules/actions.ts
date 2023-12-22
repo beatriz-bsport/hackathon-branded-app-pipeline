@@ -570,6 +570,9 @@ export function exportPdfPerformance(
     associated_coaches_in?: Array<number>;
     data_to_export?: number;
     company_id?: number;
+    establishmentFilterIds?: number[];
+    establismentGroupFilterNames?: string[];
+    establishmentFilterNames?: string[];
   },
   options?: OptionCallback,
 ) {

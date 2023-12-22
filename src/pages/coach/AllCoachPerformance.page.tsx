@@ -63,7 +63,11 @@ import {
   getAssociatedEstablishmentGroup,
 } from '#libs/establishment/selectors';
 
-import { getFilteredEstablishments } from '#libs/coach-payment-rules/utils';
+import {
+  getFilteredEstablishments,
+  getEstablishmentGroupNames,
+  getEstablishmentNames,
+} from '#libs/coach-payment-rules/utils';
 
 const PAGINATION_PAGE_LENGTH = 25;
 const styles = (theme: Theme) =>
@@ -325,10 +329,18 @@ export class AllCoachPerformancePage extends Component<Props, State> {
           }
           pagination={this.props.coachPaginationState}
           previewMode={isInPreviewMode}
+          selectedEstablishmentGroupNames={getEstablishmentGroupNames(
+            this.props.establishmentGroupList,
+            this.state.selectedLocations,
+          )}
           selectedEstablishments={getFilteredEstablishments(
             this.state.selectedEstablishments,
             this.state.selectedLocations,
             this.props.establishmentGroupList,
+          )}
+          selectedEstablishmentsNames={getEstablishmentNames(
+            this.props.establishments,
+            this.state.selectedEstablishments,
           )}
           setCoachPaymentRule={this.props.setCoachPaymentRule}
           setCoachPaymentRuleGroup={this.props.setCoachPaymentRuleGroup}

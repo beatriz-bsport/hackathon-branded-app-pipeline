@@ -896,7 +896,7 @@
       "locations": "Locations",
       "establishments": "Establishments"
     },
-    "form": { "ifEmptyAllowAll": "Ignore this filter by leaving it blank" }
+    "form": { "ifEmptyAllowAll": "Ignore this filter by leaving it blank", "selectEstablishments": "Select establishments" }
   },
   "common": {
     "text": { "showLessText": "Show less", "showMoreText": "Show more" },

@@ -104,7 +104,7 @@ export function BookingStatisticsCard(props: Props) {
             })
           : t('bookingStatistics.weekOverview')}
       </Typography>
-      <Paper>
+      <Paper className={classes.paperContainer}>
         <div className={classes.statContainer}>
           <div className={classes.nbOffersContainer}>
             <Typography align="center" variant="body1">
@@ -183,6 +183,9 @@ export function BookingStatisticsCard(props: Props) {
 }
 
 const useStyles = makeStyles((theme) => ({
+  paperContainer: {
+    paddingBottom: theme.spacing(2),
+  },
   bookingsConfirmationStatsWrapper: {
     display: 'flex',
     justifyContent: 'center',
@@ -197,7 +200,7 @@ const useStyles = makeStyles((theme) => ({
     },
     [theme.breakpoints.down('xs')]: {
       flexDirection: 'column',
-      padding: theme.spacing(2, 2),
+      padding: theme.spacing(2),
       alignItems: 'flex-start',
     },
     justifyContent: 'center',
@@ -214,8 +217,8 @@ const useStyles = makeStyles((theme) => ({
   },
   nbOffersContainer: {
     flex: 1,
-    paddingBottom: theme.spacing(2),
-    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(3),
+    paddingTop: theme.spacing(3),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -248,6 +251,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'space-evenly',
     alignSelf: 'stretch',
+    padding: theme.spacing(1, 0),
     flex: 1,
     [theme.breakpoints.up('sm')]: { borderBottom: '1px solid #EEEEEE' },
     [theme.breakpoints.down('xs')]: { borderRight: '1px solid #EEEEEE' },
@@ -263,9 +267,6 @@ const useStyles = makeStyles((theme) => ({
   },
   greenText: {
     color: theme.palette.primary.main,
-  },
-  chart: {
-    marginBottom: theme.spacing(2),
   },
   bookingsLabel: {
     display: 'flex',

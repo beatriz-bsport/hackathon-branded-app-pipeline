@@ -1,5 +1,6 @@
 import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { fakerEN as faker } from '@faker-js/faker';
 
 import InnerStepCard, { InnerStepCardProps } from './InnerStepCard.component';
 import {
@@ -141,6 +142,16 @@ Full.args = {
 export const WithAddStep = InnerStepCardTemplate.bind({});
 WithAddStep.args = {
   step: basicStep,
+  marketingActionList: marketingActionList,
+  addMarketingAction: () => {},
+  addNextStep: () => {},
+};
+
+export const WithMembersCountChipStep = InnerStepCardTemplate.bind({});
+WithMembersCountChipStep.args = {
+  step: basicStep,
+  stepMemberCount: faker.number.int(),
+  disabled: true,
   marketingActionList: marketingActionList,
   addMarketingAction: () => {},
   addNextStep: () => {},

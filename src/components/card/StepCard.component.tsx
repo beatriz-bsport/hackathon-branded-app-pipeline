@@ -9,7 +9,6 @@ import AddCircleIcon from '@material-ui/icons/AddCircle';
 import IconButton from '@material-ui/core/IconButton';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
 
-import Config from '../../config';
 import {
   CARD_HEIGHT_IF_EMPTY,
   CARD_MAX_WIDTH,
@@ -146,15 +145,11 @@ const StepCard: React.FC<StepCardProps> = ({
                 {!!content && <StepCardContent>{content}</StepCardContent>}
               </div>
             </div>
-            {!['staging', 'production'].includes(
-              Config.REACT_APP_SENTRY_ENVIRONMENT,
-            ) &&
-              disabled &&
-              (!!stepMemberCount || stepMemberCount === 0) && (
-                <div className={classes.stepMemberCount}>
-                  <StepMemberCountChip isVisible count={stepMemberCount} />
-                </div>
-              )}
+            {disabled && (!!stepMemberCount || stepMemberCount === 0) && (
+              <div className={classes.stepMemberCount}>
+                <StepMemberCountChip isVisible count={stepMemberCount} />
+              </div>
+            )}
           </div>
         </ButtonBase>
       </ClickAwayListener>

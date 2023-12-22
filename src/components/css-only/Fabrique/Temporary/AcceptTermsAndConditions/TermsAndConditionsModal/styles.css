@@ -1,0 +1,18 @@
+.bs-fabrique-terms-and-conditions-blanket-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.bs-fabrique-terms-and-conditions-blanket {
+  z-index: 9999;
+}
+
+.bs-fabrique-terms-and-conditions-modal {
+}
+
+.bs-fabrique-terms-and-conditions-modal__text {
+  white-space: pre-line;
+}

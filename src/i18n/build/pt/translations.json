@@ -13447,7 +13447,7 @@
                     "overallExplainSmart": "Se houver um lugar disponível, o aluno tem {{ autokick_delay }} lembretes em intervalos de {{ smart_delay_percentage }} do tempo restante antes do início da sessão para se registar. Por exemplo, se houver {{ example_hours_before }} h antes da sessão, tem {{ example_computed_delay_one }} minutos para se registar e depois {{ example_computed_delay_two }} minutos após o primeiro reinício, e assim sucessivamente, antes de dar lugar ao aluno seguinte.",
                     "overallExplainSimple": "Se houver um lugar disponível, o aluno tem {{ autokick_delay }} lembretes em intervalos de {{ dumb_delay_minutes }} minutos para se inscrever antes de ceder o seu lugar ao aluno seguinte.",
                     "settingsDelay": "Tempo entre lembretes",
-                    "label": "Alternativa"
+                    "label": "Um por um"
                 }
             },
             "check_credit": {
@@ -14283,7 +14283,7 @@
                     "min_bookings_nb": "Número de reserva(s) :",
                     "emailRecipients": "Este e-mail será enviado para contas com o papel de Proprietário ou Administrador, bem como para o professor (ou professor substituto) da sessão em questão. Também pode configurar um e-mail para ser enviado aos alunos.",
                     "explain": "Cancelar a sessão e enviar uma notificação por email aos alunos se houver {{bookings_nb}} reserva(s) em menos de {{hours}}h antes do início da sessão.",
-                    "checkbox": "Cancelar sessões demasiado cheias"
+                    "checkbox": "Cancelar automaticamente sessões não ocupadas"
                 },
                 "create": {
                     "error": "Erro ao registar a atividade",
@@ -14514,7 +14514,7 @@
             "lastBookingBeforeMinutes": "Última reserva",
             "header": "Restrições",
             "lastDiscardBeforeMinutes": "Último cancelamento",
-            "firstBookingMinutesUntil": "Reservas abertas",
+            "firstBookingMinutesUntil": "Abertura da janela de reserva",
             "add": "Adicionar regras diferentes ({{ count }}/{{ max }})",
             "personnalizedRestrictionsIndex": "Número de restrições personalizadas {{ count }}",
             "next": "Seguinte",

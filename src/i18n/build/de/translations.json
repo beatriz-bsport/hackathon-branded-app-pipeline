@@ -1687,7 +1687,7 @@
             "warningAddEmail": "Diese E-Mail ist bereits hinzugefügt worden.",
             "emailHelper": "Um mehrere E-Mails hinzuzufügen, geben Sie nach jeder E-Mail ein Komma oder ein Leerzeichen ein.",
             "partner_max_booking_count": "Maximale Anzahl von Marketplace-Buchungen (nur OneFit)",
-            "noPartnershipIntegration": "Marketplace-Reservierungen sind für Gruppensessions nicht möglich",
+            "noPartnershipIntegration": "Marketplace-Reservierungen sind für geschlossene Kurse nicht möglich",
             "noWaitingList": "Wartelisten sind für Gruppensessions nicht verfügbar",
             "tenMinutes": "10min",
             "period": {
@@ -4418,7 +4418,7 @@
                                 "_label": "Erstellen"
                             }
                         },
-                        "_label": "Buchungen (Gruppenkurs)"
+                        "_label": "Buchungen (Geschlossene Kurse)"
                     },
                     "first_booking": {
                         "allowed_actions": {
@@ -4452,7 +4452,7 @@
                                 "_label": "Erstellen"
                             }
                         },
-                        "_label": "Buchungen (Gruppenkurs) pro Tag"
+                        "_label": "Buchungen (Geschlossene Kurse) pro Tag"
                     },
                     "_label": "Buchungen"
                 },
@@ -8332,7 +8332,7 @@
             "placeholderOverride": "Standard-Lohnabrechnungsregel für den Coach",
             "placeholder": "Wähle eine Berechnungsmethode aus",
             "coachPaymentRuleForPrivateService": "Privatkurs",
-            "coachPaymentRuleForSessions": "Gruppenkurse",
+            "coachPaymentRuleForSessions": "Gruppenaktivitäten",
             "reset": "Standard-Lohnabrechnungsregel der Lehrkraft verwenden",
             "group": "Lohnabrechnungsgruppe",
             "coachPaymentRuleForWorkshops": "Workshops"
@@ -8457,14 +8457,14 @@
         "tabs": {
             "all": "Alle Kurse",
             "appointment": "Privatkurs",
-            "session": "Gruppenkurse & Workshops",
+            "session": "Gruppenaktivitäten & Workshops",
             "groups": "Lohnabrechnungsgruppe",
             "groupActivity": "Gruppenkurse",
             "workshop": "Workshops"
         },
         "fabButton": {
             "addNewForRDV": "Privatkurs",
-            "addNewForSession": "Gruppenkurse & Workshops",
+            "addNewForSession": "Gruppenaktivitäten & Workshops",
             "addNewPaymentRuleGroup": "Lohnabrechnungsgruppe",
             "addNewForGroupActivity": "Gruppenkurse",
             "addNewForWorkshop": "Workshops"
@@ -8479,7 +8479,7 @@
                 "coaches": "Assoziierte Professoren"
             },
             "workshop": "Workshops",
-            "session": "Gruppenkurse",
+            "session": "Gruppenaktivitäten",
             "fields": {
                 "addPrivateSlot": "Eine Lohnabrechnungsregel hinzufügen",
                 "private_service": "Termine",
@@ -11750,7 +11750,7 @@
             "tab": {
                 "pack": "Kompatible Kurspässe",
                 "general": "Allgemein",
-                "group": "Gruppierte Sessions"
+                "group": "Geschlossene Kurse"
             },
             "pack": {
                 "paymentPacks": "Kompatible Kurspässe",
@@ -11850,14 +11850,14 @@
                     "save": "speichern",
                     "back": "Vorherige",
                     "allowGuest": "Kompatibel mit der Gastbuchungs-Funktion",
-                    "allowGuestUnavailable": "Diese Funktion ist für gruppierte Sessions nicht verfügbar.",
+                    "allowGuestUnavailable": "Diese Funktion ist für geschlossene Kurse nicht verfügbar.",
                     "allowBookingAfterStart": "Erlauben Sie die Einschreibung unterwegs",
                     "recurrenceUntilHelper2": "Nach diesem Datum ist es nicht mehr möglich, Sessions hinzuzufügen.",
                     "fullBookingOnly": "Alle Sessions der Gruppe auf einmal buchen",
                     "syncOnSpivi": "An Spivi senden",
                     "spiviWarningHelperText": "Achtung: Wenn Sessions mit Spivi verknüpft sind, werden ihre Kopien nicht mit Spivi verknüpft."
                 },
-                "title": "Gruppierte Sessions",
+                "title": "Geschlossene Kurse",
                 "subtitleMetaActivitySelect": "Konfiguration",
                 "subtitlePreview": "Vorschau der Wiederholung",
                 "duplicate": "Gruppe duplizieren"
@@ -11899,7 +11899,7 @@
             "offerDescription": "{{ count }} Session(s) von {{- firstSession }} bis {{- lastSession }}",
             "warning": {
                 "uncreatedGroups": "Bitte beachten Sie, dass einige Gruppen nicht erstellt werden können. \nSie finden sie im Abschnitt \"Nicht erstellte Gruppen\" am Ende dieser Liste",
-                "groupsWithOutOfTheRangeOffers": "Die folgenden Sessionsgruppen werden nicht erstellt, da sie Sessions enthalten, die mehr als 3 Jahre entfernt sind"
+                "groupsWithOutOfTheRangeOffers": "Die folgenden Sessiongruppen werden nicht erstellt, da sie Sessions enthalten, die mehr als 3 Jahre entfernt sind"
             }
         },
         "edit": "Bearbeiten",
@@ -13503,7 +13503,7 @@
             "metaActivity": {
                 "general": "Allgemein",
                 "pack": "Kompatible Pässe",
-                "group": "Gruppierte Session"
+                "group": "Geschlossener Kurs"
             },
             "establishment": {
                 "general": "Allgemein",
@@ -14972,7 +14972,7 @@
         "actions": {
             "search": "Workshop suchen",
             "addWorkshopActivity": "Einen Workshop hinzufügen",
-            "addWorkshopGroup": "Gruppensession hinzufügen"
+            "addWorkshopGroup": "Event hinzufügen"
         },
         "search": "Workshop suchen",
         "noWorkshops": "Verwalte Deine Workshops hier. Ein Workshop ist eine Veranstaltung, deren Datum im Voraus festgelegt wird.",
@@ -14985,7 +14985,7 @@
             "emptyState": "Mit Gruppensessions können Ihre Kunden alle in der Gruppe enthaltenen Sessions auf einmal buchen. Verwenden Sie die Gruppensessions zum Beispiel, um Einführungsworkshops mit mehreren Sessions zu erstellen. "
         },
         "tabList": "Workshops",
-        "tabGroups": "Gruppensessions"
+        "tabGroups": "Geschlossene Kurse"
     },
     "establishment": {
         "capacity": {
@@ -15705,7 +15705,7 @@
                 "bookButton": "Buchungs-Button",
                 "datePicker": "Datumswahl",
                 "activity": "Popup mit Details zur Aktivität",
-                "groupOfferListItem": "Details zur Gruppen-Session",
+                "groupOfferListItem": "Details zum geschlossenen Kurs",
                 "cardOffer": "Details zur Session (Kalenderansicht)",
                 "calendar": "Kalender-Seite",
                 "vodTag": "Chip VOD",

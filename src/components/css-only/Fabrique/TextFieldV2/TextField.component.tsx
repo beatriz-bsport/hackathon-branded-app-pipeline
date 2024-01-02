@@ -42,8 +42,8 @@ export type Props = {
   onClear?: () => void;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
-  onBlur?: () => void;
-  onFocus?: () => void;
+  onBlur?: (event?: React.FocusEvent<any>) => void;
+  onFocus?: (event?: React.FocusEvent<any>) => void;
   isRippleEnabled?: boolean;
   errorMessage?: string;
 };
@@ -78,10 +78,13 @@ const TextField: React.FC<Props> = ({
     onFocus?.();
   }, [onFocus]);
 
-  const onInputUnfocus = React.useCallback(() => {
-    setIsInputFocused(false);
-    onBlur?.();
-  }, [onBlur]);
+  const onInputUnfocus = React.useCallback(
+    (event?: React.FocusEvent<any>) => {
+      setIsInputFocused(false);
+      event && onBlur?.(event);
+    },
+    [onBlur],
+  );
 
   const isSmall = size === TextFieldSizeEnum.SM;
   const isLarge = size === TextFieldSizeEnum.LG;
@@ -223,7 +226,7 @@ const TextField: React.FC<Props> = ({
           {helperText}
         </Typography>
       )}
-      {!!errorMessage && (
+      {isError && !!errorMessage && (
         <Typography
           className={classes?.errorMessage}
           color="error"

@@ -645,6 +645,7 @@ export class CalendarEventDetail extends React.Component<Props, State> {
             vertical: 'center',
             horizontal: 'center',
           }}
+          className={this.props.classes.popover}
           onClose={this.props.onClose}
           open={!!this.props.popoverAnchor}
           transformOrigin={{
@@ -768,6 +769,9 @@ export class CalendarEventDetail extends React.Component<Props, State> {
 }
 
 const styles = (theme) => ({
+  popover: {
+    maxHeight: '80dvh',
+  },
   loadingContainer: {
     minWidth: 400,
     padding: theme.spacing(4),

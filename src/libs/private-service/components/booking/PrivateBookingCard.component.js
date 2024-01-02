@@ -399,10 +399,7 @@ export const PrivateBookingCard = (props: Props) => {
                     <KeyboardArrowDown />
                   )}
                 </ButtonBase>
-                <Collapse
-                  className={classes.invoiceTable}
-                  in={unpaidInvoicesSectionOpened}
-                >
+                <Collapse in={unpaidInvoicesSectionOpened}>
                   <InvoiceTable
                     compactMode
                     hideMemberName
@@ -525,10 +522,6 @@ const useStyles = makeStyles((theme) => ({
   },
   chipContainer: {
     paddingLeft: theme.spacing(3),
-  },
-  invoiceTable: {
-    maxHeight: '300px',
-    overflow: 'auto',
   },
   divider: {
     marginLeft: theme.spacing(-2),

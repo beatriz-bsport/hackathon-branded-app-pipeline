@@ -45,7 +45,8 @@ const initialState = Immutable({
     loading: false,
     allIds: [],
     byId: {},
-    nextPage: 1,
+    startingAfter: null,
+    hasMore: true,
   },
   incrementalPayout: {
     error: null,

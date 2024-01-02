@@ -1,8 +1,8 @@
-// @ts-nocheck
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import chroma from 'chroma-js';
-import { useTranslation } from 'react-i18next';
+
 import { makeStyles } from '@material-ui/core/styles';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import Collapse from '@material-ui/core/Collapse';
@@ -12,6 +12,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+import HelpIcon from '@material-ui/icons/Help';
+
 import {
   PAYOUT_STATUS_PENDING,
   PAYOUT_STATUS_CANCELED,
@@ -19,26 +21,146 @@ import {
   PAYOUT_STATUS_SUCCESS,
   PAYOUT_STATUS_TRANSIT,
 } from '@bsport/common/lib/master-data/payout-status';
+
+import moment from 'moment-timezone';
+// @ts-expect-error
 import PaymentListItemV2 from '../../invoice/components/PaymentListItemV2.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
-import { Payout } from '../types';
+import type { StripePayout } from '../types';
 import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 
+import CustomMuiDialog from '#components/genericDialog/CustomMuiDialog.component';
+
 type Props = {
-  payout: Payout;
+  stripePayout: StripePayout;
   isOpen: boolean;
   tooglePayoutOpen: (id: number) => void;
-  openInvoice: (uuid: string) => void;
+  openInvoice?: (uuid: string) => void;
 };
 
-export const PayoutListItem: React.FC<Props> = ({
-  payout,
+const PayoutListItem: React.FC<Props> = ({
+  stripePayout,
   isOpen,
   tooglePayoutOpen,
   openInvoice,
 }) => {
-  const { t } = useTranslation(['payment']);
-  const classes = useStyles({ payout });
+  const { t } = useTranslation('payment');
+  const classes = useStyles({ stripePayout });
+  const bsportPayout = stripePayout.bsport_payout_object;
+
+  const [openDialog, setOpenDialog] = React.useState(false);
+  const handleOpenDialog = React.useCallback(
+    () => setOpenDialog(true),
+    [setOpenDialog],
+  );
+  const handleCloseDialog = React.useCallback(
+    () => setOpenDialog(false),
+    [setOpenDialog],
+  );
+
+  const dialogButtons = [
+    {
+      variant: 'text',
+      onClick: handleCloseDialog,
+      commonLabel: 'close',
+    },
+  ];
+
+  if (bsportPayout) {
+    return (
+      <div className={classes.container}>
+        <div className={classes.innerContainer}>
+          <div className={classes.leftPart}>
+            <Typography>
+              {`${formatAsDatetimeAdapted(
+                bsportPayout.date_created,
+                'LL',
+              )} - ${getCurrencyDisplayWithPrice(
+                (stripePayout.amount_cts / 100).toFixed(2),
+              )}${
+                bsportPayout.amount_cts_from_previous_included_payouts > 0
+                  ? ` (${t('payout.payoutAmountFromIncludedPayouts', {
+                      price: getCurrencyDisplayWithPrice(
+                        (
+                          bsportPayout.amount_cts_from_previous_included_payouts /
+                          100
+                        ).toFixed(2),
+                      ),
+                    })})`
+                  : ''
+              }`}
+            </Typography>
+            {!!bsportPayout.is_included_in_payout && (
+              <div className={classes.row}>
+                <InfoOutlinedIcon
+                  className={classes.iconLeft}
+                  fontSize="small"
+                />
+                <Typography className={classes.info} variant="caption">
+                  {t('payout.payoutIsIncludedInOther', {
+                    date: formatAsDatetimeAdapted(
+                      bsportPayout.is_included_in_payout.date_created,
+                      'LL',
+                    ),
+                    readable_identifier:
+                      bsportPayout.is_included_in_payout.readable_identifier,
+                  })}
+                </Typography>
+              </div>
+            )}
+            {bsportPayout.automatic === false && (
+              <div className={classes.row}>
+                <InfoOutlinedIcon
+                  className={classes.iconLeft}
+                  fontSize="small"
+                />
+                <Typography className={classes.info} variant="caption">
+                  {t('payout.payoutIsManual')}
+                </Typography>
+              </div>
+            )}
+            {!bsportPayout.is_included_in_payout &&
+              !(bsportPayout.automatic === false) && (
+                <Typography color="textSecondary" variant="caption">
+                  {t('payout.paymentNb', {
+                    nb: (bsportPayout.payments || []).length,
+                  })}
+                </Typography>
+              )}
+            <Typography variant="body2">
+              {bsportPayout.readable_identifier}
+            </Typography>
+          </div>
+          <div className={classes.rightPart}>
+            <Typography className={classes.status}>
+              {t(`payout.status.${stripePayout.status}`)}
+            </Typography>
+            <IconButton
+              disabled={!!bsportPayout.is_included_in_payout}
+              onClick={() => tooglePayoutOpen(stripePayout.stripe_id)}
+            >
+              {isOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+            </IconButton>
+          </div>
+        </div>
+        <Collapse in={isOpen}>
+          <div className={classes.paymentContainer}>
+            {(bsportPayout.payments || []).map((p) => (
+              <div key={p.id} className={classes.paymentRow}>
+                <div style={{ width: '100%' }}>
+                  <PaymentListItemV2 paymentItem={p} />
+                </div>
+                <Button onClick={() => openInvoice(p.invoice)}>
+                  {t('payout.invoice', { uuid: p.invoice.slice(0, 8) })}
+                  <ArrowForwardIcon className={classes.iconRight} />
+                </Button>
+              </div>
+            ))}
+          </div>
+        </Collapse>
+      </div>
+    );
+  }
 
   return (
     <div className={classes.container}>
@@ -46,81 +168,30 @@ export const PayoutListItem: React.FC<Props> = ({
         <div className={classes.leftPart}>
           <Typography>
             {`${formatAsDatetimeAdapted(
-              payout.date_created,
+              moment.unix(stripePayout.date_created),
               'LL',
             )} - ${getCurrencyDisplayWithPrice(
-              (payout.amount_cts / 100).toFixed(2),
-            )}${
-              payout.amount_cts_from_previous_included_payouts > 0
-                ? ` (${t('payout.payoutAmountFromIncludedPayouts', {
-                    price: getCurrencyDisplayWithPrice(
-                      (
-                        payout.amount_cts_from_previous_included_payouts / 100
-                      ).toFixed(2),
-                    ),
-                  })})`
-                : ''
-            }`}
+              (stripePayout.amount_cts / 100).toFixed(2),
+            )}`}
           </Typography>
-          {!!payout.is_included_in_payout && (
-            <div className={classes.row}>
-              <InfoOutlinedIcon className={classes.iconLeft} fontSize="small" />
-              <Typography className={classes.info} variant="caption">
-                {t('payout.payoutIsIncludedInOther', {
-                  date: formatAsDatetimeAdapted(
-                    payout.is_included_in_payout.date_created,
-                    'LL',
-                  ),
-                  readable_identifier:
-                    payout.is_included_in_payout.readable_identifier,
-                })}
-              </Typography>
-            </div>
-          )}
-          {payout.automatic === false && (
-            <div className={classes.row}>
-              <InfoOutlinedIcon className={classes.iconLeft} fontSize="small" />
-              <Typography className={classes.info} variant="caption">
-                {t('payout.payoutIsManual')}
-              </Typography>
-            </div>
-          )}
-          {!payout.is_included_in_payout && !(payout.automatic === false) && (
-            <Typography color="textSecondary" variant="caption">
-              {t('payout.paymentNb', {
-                nb: (payout.payments || []).length,
-              })}
-            </Typography>
-          )}
-          <Typography variant="body2">{payout.readable_identifier}</Typography>
         </div>
         <div className={classes.rightPart}>
           <Typography className={classes.status}>
-            {t(`payout.status.${payout.status}`)}
+            {t(`payout.status.${stripePayout.status}`)}
           </Typography>
-          <IconButton
-            disabled={!!payout.is_included_in_payout}
-            onClick={() => tooglePayoutOpen(payout.id)}
-          >
-            {isOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+          <IconButton onClick={handleOpenDialog}>
+            <HelpIcon />
           </IconButton>
         </div>
       </div>
-      <Collapse in={isOpen}>
-        <div className={classes.paymentContainer}>
-          {(payout.payments || []).map((p) => (
-            <div key={p.id} className={classes.paymentRow}>
-              <div style={{ width: '100%' }}>
-                <PaymentListItemV2 paymentItem={p} />
-              </div>
-              <Button onClick={() => openInvoice(p.invoice)}>
-                {t('payout.invoice', { uuid: p.invoice.slice(0, 8) })}
-                <ArrowForwardIcon className={classes.iconRight} />
-              </Button>
-            </div>
-          ))}
-        </div>
-      </Collapse>
+      <CustomMuiDialog
+        buttons={dialogButtons}
+        content={t('payout.dialog.content')}
+        contentColor="textSecondary"
+        fullScreenBreakpoint="xs"
+        open={openDialog}
+        title={t('payout.dialog.title')}
+      />
     </div>
   );
 };
@@ -167,9 +238,9 @@ const useStyles = makeStyles((theme) => ({
   info: { color: chroma(theme.palette.info.dark).darken(1.5).hex() },
   row: { display: 'flex', alignItems: 'center' },
   iconLeft: { marginRight: theme.spacing(0.5) },
-  status: ({ payout }: { payout: Payout }) => {
+  status: ({ stripePayout }: { stripePayout: StripePayout }) => {
     let color = 'black';
-    switch (payout.status) {
+    switch (stripePayout.status) {
       case PAYOUT_STATUS_TRANSIT:
         color = 'blue';
         break;
@@ -195,4 +266,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default PayoutListItem;
+export default React.memo(PayoutListItem);

@@ -44,10 +44,11 @@ import {
   fetchPayoutList as fetchPayoutListAction,
   // fetchStripeBalance as fetchStripeBalanceAction,
   setPaymentMethodAsDefault as setPaymentMethodAsDefaultAction,
+  fetchStripePayoutList as fetchStripePayoutListAction,
 } from '#libs/payment/actions';
 import {
   getSavedPaymentMethodList,
-  getPayoutList,
+  getStripePayoutList,
 } from '#libs/payment/selectors';
 import BackofficeLinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 // @ts-expect-error
@@ -63,7 +64,7 @@ import type {
   PlatformInvoice,
   PlatformSubscription,
 } from '#libs/platform-billing/type';
-import type { PaymentMethod, Payout } from '#libs/payment/types';
+import type { PaymentMethod, StripePayout } from '#libs/payment/types';
 import type { UpsellPackage } from '#libs/company/types';
 import UpsellPackageSubscriptionDrawer from '#libs/platform-billing/components/UpsellPackageSubscriptionDrawer.component';
 import { getTheme } from '#libs/theme/selectors';
@@ -99,8 +100,9 @@ type Props = {
   setOpenFeatureRequest: (b: boolean) => void;
 
   fetchPayoutList: (options?: { page?: number }) => void;
+  fetchStripePayoutList: () => void;
   hasMorePayout: boolean;
-  payoutList: Array<Payout>;
+  stripePayoutList: Array<StripePayout>;
   payoutLoading: boolean;
   onOpenInvoice: (uuid: string) => void;
 
@@ -149,6 +151,7 @@ export class PlatformBillingSetting extends React.Component<Props, State> {
     this.props.fetchUpsellPackageSubscribedIds();
     this.props.fetchPayoutList({ page: 1 });
     // this.props.fetchStripeBalance();
+    this.props.fetchStripePayoutList();
   }
 
   handleOpenSubscriptionForm = (upsellPackage: UpsellPackage) => {
@@ -207,11 +210,11 @@ export class PlatformBillingSetting extends React.Component<Props, State> {
         <Grid container direction="row">
           <Grid item className={classes.leftColumn} md={6} xs={12}>
             <PayoutList
-              fetchMorePayoutList={this.props.fetchPayoutList}
+              fetchMorePayoutList={this.props.fetchStripePayoutList}
               hasMorePayout={this.props.hasMorePayout}
               loading={this.props.payoutLoading}
               openInvoice={this.props.onOpenInvoice}
-              payoutList={this.props.payoutList}
+              stripePayoutList={this.props.stripePayoutList}
             />
           </Grid>
           {/* <Grid item xs={12} md={6} className={classes.leftColumn}>
@@ -291,9 +294,9 @@ export default compose(
       platformInvoiceList: getPlatformInvoiceList(state),
       loading: state.paymentBackend.paymentMethod.loading,
       platformSubscription: getPlatformSubscription(state),
-      payoutList: getPayoutList(state),
-      hasMorePayout: !!state.paymentBackend.payout.nextPage,
-      payoutLoading: state.paymentBackend.payout.loading,
+      stripePayoutList: getStripePayoutList(state),
+      hasMorePayout: !!state.paymentBackend.stripePayout.hasMore,
+      payoutLoading: state.paymentBackend.stripePayout.loading,
       // stripeBalanceAvailable: state.paymentBackend.balance.amountAvailable,
       // stripeBalancePending: state.paymentBackend.balance.amountPending,
       // stripeBalanceLoading: state.paymentBackend.balance.isLoading,
@@ -317,6 +320,7 @@ export default compose(
       requestUpsellPackage: requestUpsellPackageAction,
       fetchCompanyTheme: fetchCompanyThemeAction,
       fetchPayoutList: fetchPayoutListAction,
+      fetchStripePayoutList: fetchStripePayoutListAction,
       payNowInvoice: payNowInvoiceAction,
       push: pushAction,
       subscribeUpsellPackage: subscribeUpsellPackageAction,
@@ -351,6 +355,10 @@ export default compose(
       ({ fetchPayoutList }) =>
       (params: any, options: OptionCallback) =>
         fetchPayoutList({ ...(params || {}), page_size: 3 }, options),
+    fetchStripePayoutList:
+      ({ fetchStripePayoutList }) =>
+      (params: any, options: OptionCallback) =>
+        fetchStripePayoutList({ ...(params || {}), page_size: 3 }, options),
     requestSetupIntentSecret: () => () =>
       requestSetupIntentSecretAPI(null, null, true),
     fetchPaymentMethodList:

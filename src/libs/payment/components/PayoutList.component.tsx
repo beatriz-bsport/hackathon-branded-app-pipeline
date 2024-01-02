@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { Divider } from '@material-ui/core';
-import { Payout } from '../types';
+import type { StripePayout } from '../types';
 import PayoutListItem from './PayoutListItem.component';
 
 const useToogle = () => {
@@ -23,15 +23,15 @@ const useToogle = () => {
 };
 
 interface Props {
-  payoutList: Array<Payout>;
+  stripePayoutList: Array<StripePayout>;
   hasMorePayout: boolean;
   fetchMorePayoutList: () => void;
   loading: boolean;
   openInvoice: (uuid: string) => void;
 }
 
-export const PayoutList: React.FC<Props> = ({
-  payoutList,
+const PayoutList: React.FC<Props> = ({
+  stripePayoutList,
   hasMorePayout,
   fetchMorePayoutList,
   loading,
@@ -53,7 +53,7 @@ export const PayoutList: React.FC<Props> = ({
       </Typography>
       <Divider className={classes.divider} />
 
-      {!loading && !payoutList.length && (
+      {!loading && !stripePayoutList.length && (
         <div>
           <Typography color="textSecondary" variant="body2">
             {t('payout.isEmpty')}
@@ -64,12 +64,12 @@ export const PayoutList: React.FC<Props> = ({
         </div>
       )}
       <Paper>
-        {payoutList.map((po) => (
+        {stripePayoutList?.map((po) => (
           <PayoutListItem
-            key={po.id}
-            isOpen={po.id === openedPayoutId}
+            key={po.stripe_id}
+            isOpen={po.stripe_id === openedPayoutId}
             openInvoice={openInvoice}
-            payout={po}
+            stripePayout={po}
             tooglePayoutOpen={tooglePayoutOpen}
           />
         ))}
@@ -110,4 +110,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default PayoutList;
+export default React.memo(PayoutList);

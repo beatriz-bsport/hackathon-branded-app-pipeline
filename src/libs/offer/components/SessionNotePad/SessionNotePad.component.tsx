@@ -190,7 +190,7 @@ const useStyles = makeStyles((theme) => ({
     lineHeight: '150%',
     marginBottom: theme.spacing(1.5),
     width: '100%',
-    resize: 'vertical',
+    resize: 'none',
   },
   paper: {
     marginBottom: theme.spacing(2),

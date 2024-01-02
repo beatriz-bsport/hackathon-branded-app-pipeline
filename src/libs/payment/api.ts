@@ -7,7 +7,13 @@ import {
   postAuth,
   buildUrlParams,
 } from '../../http';
-import { PaymentGroup, PaymentMethod, InternalPaymentPayload } from './types';
+import type {
+  PaymentGroup,
+  PaymentMethod,
+  InternalPaymentPayload,
+  StripePayout,
+  StripeBalance,
+} from './types';
 import type { BillingDetails } from '#libs/marketplace/types';
 
 export const fetchPaymentMethodList = async (
@@ -218,8 +224,19 @@ export const createPendingBookings = async (
   );
 };
 
+// -------------- STRIPE --------------
+
 export const fetchStripeBalance = async () => {
-  return getAuth(
+  return getAuth<StripeBalance[]>(
     `${API_V1_URI}/payment_backend/stripe/company/retrieve_stripe_balance`,
+  );
+};
+
+export const fetchStripePayoutList = async (params: {
+  page_size: number;
+  starting_after?: string;
+}) => {
+  return getAuth<StripePayout[]>(
+    `${API_V1_URI}/payment/stripe/payout${buildUrlParams(params)}`,
   );
 };

@@ -1,7 +1,21 @@
 import Immutable from 'seamless-immutable';
+import {
+  START_ON_PURCHASE,
+  START_ON_FIRST_BOOKING,
+  START_ON_FIRST_ATTENDANCE,
+} from '@bsport/common/lib/master-data/payment-pack';
+
 import { ErrorAndLoading } from '../../state/types';
 import { Company } from '../company/types';
 import type { CompatiblePrivateService } from '#libs/private-service/types';
+
+const startDateMethodsTypes = [
+  `${START_ON_PURCHASE}`,
+  `${START_ON_FIRST_BOOKING}`,
+  `${START_ON_FIRST_ATTENDANCE}`,
+] as const;
+
+type StartDateMethodType = (typeof startDateMethodsTypes)[number] | number;
 
 export type ConsumerPaymentPackExtension = {
   note: string;
@@ -247,7 +261,7 @@ export type PaymentPackFormValues<LPP = number> = {
   duration_days?: number;
   duration_months?: number;
   duration_years?: number;
-  start_date_method?: 'billing' | 'booking' | 'attendance' | number;
+  start_date_method?: StartDateMethodType;
   timeType?: string;
   expiration_days_before_first_use?: number;
   penalty_nb_late_cancellations?: number;
@@ -324,7 +338,8 @@ export type PaymentPackTemplateFormValues = {
   duration_days?: number;
   duration_months?: number;
   duration_years?: number;
-  start_date_method?: 'billing' | 'booking' | 'attendance' | number;
+  start_date_method?: StartDateMethodType;
+
   expiration_days_before_first_use?: number;
   penalty_nb_late_cancellations?: number;
   penalty_nb_days?: number;

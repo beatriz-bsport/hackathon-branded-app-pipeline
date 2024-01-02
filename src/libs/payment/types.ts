@@ -37,6 +37,24 @@ export type Payout = {
   automatic: boolean;
 };
 
+export type StripePayout = {
+  id: string;
+  loading: boolean;
+  error: Error | null;
+  stripe_id: number;
+  amount_cts: number;
+  status: number;
+  date_created: string;
+  bsport_payout_object: Payout;
+};
+
+export type StripeBalance = {
+  isLoading: boolean;
+  error: Error | null;
+  amountAvailable: number;
+  amountPending: number;
+};
+
 export type PaymentInstalmentData = {
   nb_interval: number;
   recurrence_basis: number;

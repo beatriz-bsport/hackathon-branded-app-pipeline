@@ -30,10 +30,21 @@ interface Props {
   openInvoice: (uuid: string) => void;
 }
 
-export const PayoutList = (props: Props) => {
+export const PayoutList: React.FC<Props> = ({
+  payoutList,
+  hasMorePayout,
+  fetchMorePayoutList,
+  loading,
+  openInvoice,
+}) => {
   const [openedPayoutId, tooglePayoutOpen] = useToogle();
   const { t } = useTranslation(['payment']);
   const classes = useStyles();
+
+  const handleFetchMorePayoutList = React.useCallback(
+    () => fetchMorePayoutList(),
+    [fetchMorePayoutList],
+  );
 
   return (
     <>
@@ -42,7 +53,7 @@ export const PayoutList = (props: Props) => {
       </Typography>
       <Divider className={classes.divider} />
 
-      {!props.loading && !props.payoutList.length && (
+      {!loading && !payoutList.length && (
         <div>
           <Typography color="textSecondary" variant="body2">
             {t('payout.isEmpty')}
@@ -53,28 +64,28 @@ export const PayoutList = (props: Props) => {
         </div>
       )}
       <Paper>
-        {props.payoutList.map((po) => (
+        {payoutList.map((po) => (
           <PayoutListItem
             key={po.id}
             isOpen={po.id === openedPayoutId}
-            openInvoice={props.openInvoice}
+            openInvoice={openInvoice}
             payout={po}
             tooglePayoutOpen={tooglePayoutOpen}
           />
         ))}
       </Paper>
-      {props.hasMorePayout && !props.loading && (
+      {hasMorePayout && !loading && (
         <div className={classes.centeredButton}>
           <Button
             color="primary"
-            onClick={() => props.fetchMorePayoutList()}
+            onClick={handleFetchMorePayoutList}
             variant="outlined"
           >
             {t('payout.seeMore')}
           </Button>
         </div>
       )}
-      {props.loading && (
+      {loading && (
         <div className={classes.centeredButton}>
           <CircularProgress />
         </div>

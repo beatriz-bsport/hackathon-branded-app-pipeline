@@ -20,12 +20,15 @@ import {
   detachPaymentMethod as detachPaymentMethodAPI,
   setPaymentMethodAsDefault as setPaymentMethodAsDefaultAPI,
   submitInternalPaymentInBackground as submitInternalPaymentInBackgroundAPI,
+  fetchStripePayoutList as fetchStripePayoutListAPI,
 } from './api';
 import type {
   PaymentGroup,
   PaymentMethod,
   Payout,
   InternalPaymentPayload,
+  StripePayout,
+  StripeBalance,
 } from './types';
 
 import { isErrorWithCustomCode } from '#libs/utils';
@@ -248,27 +251,6 @@ export function fetchPayoutList(
   };
 }
 
-export const stripeBalanceActions = {
-  isLoading: createAction('STRIPE_BALANCE/LOADING'),
-  error: createAction('STRIPE_BALANCE/ERROR'),
-  success: createAction('STRIP_BALANCE/SUCCESS'),
-};
-
-export function fetchStripeBalance(): ThunkAction {
-  return async (dispatch: Dispatch) => {
-    dispatch(stripeBalanceActions.isLoading(true));
-    dispatch(stripeBalanceActions.error(null));
-    try {
-      const response = await fetchStripeBalanceAPI();
-
-      dispatch(stripeBalanceActions.success(response.data));
-    } catch (err) {
-      dispatch(stripeBalanceActions.error(err));
-    }
-    dispatch(stripeBalanceActions.isLoading(false));
-  };
-}
-
 export const updatePaymentGroupPriceCtsActions = {
   isLoading: createAction('PAYMENT_GROUP/UPDATE_PRICE/LOADING'),
   error: createAction('PAYMENT_GROUP/UPDATE_PRICE/ERROR'),
@@ -372,5 +354,68 @@ export function submitInternalPaymentInBackground(
       );
       if (options && options.onError) options.onError(error);
     }
+  };
+}
+
+// -------------- STRIPE --------------
+
+export const stripeBalanceActions = {
+  isLoading: createAction<boolean>('STRIPE_BALANCE/LOADING'),
+  error: createAction<Error | null>('STRIPE_BALANCE/ERROR'),
+  success: createAction<StripeBalance>('STRIPE_BALANCE/SUCCESS'),
+};
+
+export function fetchStripeBalance(
+  options?: OptionCallback<StripeBalance[]>,
+): ThunkAction {
+  return async (dispatch) => {
+    dispatch(stripeBalanceActions.isLoading(true));
+    dispatch(stripeBalanceActions.error(null));
+    try {
+      const response = await fetchStripeBalanceAPI();
+
+      dispatch(stripeBalanceActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(stripeBalanceActions.error(err));
+      options?.onError?.(err);
+    }
+    dispatch(stripeBalanceActions.isLoading(false));
+  };
+}
+
+export const listStripePayoutActions = {
+  isLoading: createAction<boolean>('STRIPE_PAYOUT/LIST/LOADING'),
+  error: createAction<Error | null>('STRIPE_PAYOUT/LIST/ERROR'),
+  success: createAction<StripePayout>('STRIPE_PAYOUT/LIST/SUCCESS'),
+};
+
+export function fetchStripePayoutList(
+  params: {
+    page_size: number;
+    starting_after?: string;
+  },
+  options?: OptionCallback<Payout[]>,
+): ThunkAction {
+  return async (dispatch, getState: () => RootState) => {
+    dispatch(listStripePayoutActions.isLoading(true));
+    dispatch(listStripePayoutActions.error(null));
+    const { startingAfter } = getState().paymentBackend.stripePayout;
+
+    try {
+      const response = await fetchStripePayoutListAPI({
+        ...(params || {}),
+        ...(startingAfter ? { starting_after: startingAfter } : {}),
+      });
+
+      dispatch(listStripePayoutActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(listStripePayoutActions.error(err));
+      options?.onError?.(err);
+    }
+    dispatch(listStripePayoutActions.isLoading(false));
   };
 }

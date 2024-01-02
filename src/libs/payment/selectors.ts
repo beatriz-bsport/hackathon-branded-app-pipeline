@@ -1,7 +1,7 @@
 import Immutable from 'seamless-immutable';
 import { createSelector } from 'reselect';
 import { RootState } from '../../reducers';
-import { Payout } from './types';
+import type { Payout, StripePayout } from './types';
 import { PaymentGroup } from '#libs/invoice/types';
 
 const EMPTY_LIST = Immutable([]);
@@ -94,4 +94,19 @@ export const getInvoicePaymentGroupIsProcessing = createSelector(
       paymentGroupBeingProcessed?.byInvoiceUuid?.[invoiceUuid]?.loading ?? false
     );
   },
+);
+
+// -------------- STRIPE --------------
+
+const _getStripePayoutAllIds = (
+  state: RootState,
+): Immutable.Immutable<Array<number>> =>
+  state.paymentBackend.stripePayout.allIds;
+const _getStripePayoutData = (
+  state: RootState,
+): { [id: number]: StripePayout } => state.paymentBackend.stripePayout.byId;
+
+export const getStripePayoutList = createSelector(
+  [_getStripePayoutAllIds, _getStripePayoutData],
+  (ids, data) => (ids ?? []).map((id) => data[id]).filter((payout) => !!payout),
 );

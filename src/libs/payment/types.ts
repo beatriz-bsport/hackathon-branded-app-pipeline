@@ -44,8 +44,10 @@ export type StripePayout = {
   stripe_id: number;
   amount_cts: number;
   status: number;
-  date_created: string;
+  date_created: number;
   bsport_payout_object: Payout;
+  startingAfter: string | null;
+  hasMore: boolean;
 };
 
 export type StripeBalance = {

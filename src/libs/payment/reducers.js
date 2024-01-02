@@ -2,6 +2,7 @@
 
 import { handleActions } from 'redux-actions';
 import Immutable from 'seamless-immutable';
+import uniq from 'lodash/uniq';
 
 import {
   listSavedPaymentMethodListActions,
@@ -12,6 +13,7 @@ import {
   detachPaymentMethodActions,
   stripeBalanceActions,
   submitInternalPaymentInBackgroundActions,
+  listStripePayoutActions,
 } from './actions';
 
 const initialState = Immutable({
@@ -32,6 +34,13 @@ const initialState = Immutable({
     byId: {},
   },
   payout: {
+    error: null,
+    loading: false,
+    allIds: [],
+    byId: {},
+    nextPage: 1,
+  },
+  stripePayout: {
     error: null,
     loading: false,
     allIds: [],
@@ -63,7 +72,7 @@ const initialState = Immutable({
 
 export default handleActions(
   {
-    [listPayoutActions.success]: (state, { payload }) => {
+    [listPayoutActions.success.toString()]: (state, { payload }) => {
       const newIds = payload.results.map((po) => po.id);
       return state
         .setIn(
@@ -89,7 +98,7 @@ export default handleActions(
     [listPayoutActions.error]: (state, { payload }) => {
       return state.setIn(['payout', 'error'], payload);
     },
-    [incrementalListPayoutActions.success]: (state, { payload }) => {
+    [incrementalListPayoutActions.success.toString()]: (state, { payload }) => {
       const newIds = payload.results.map((po) => po.id);
       return state
         .setIn(
@@ -122,7 +131,10 @@ export default handleActions(
       return state.setIn(['incrementalPayout', 'error'], payload);
     },
 
-    [listSavedPaymentMethodListActions.success]: (state, { payload }) => {
+    [listSavedPaymentMethodListActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
       return state.setIn(['paymentMethod', 'items'], payload);
     },
     [listSavedPaymentMethodListActions.isLoading]: (state, { payload }) => {
@@ -131,7 +143,7 @@ export default handleActions(
     [listSavedPaymentMethodListActions.error]: (state, { payload }) => {
       return state.setIn(['paymentMethod', 'error'], payload);
     },
-    [detachPaymentMethodActions.success]: (state, { payload }) => {
+    [detachPaymentMethodActions.success.toString()]: (state, { payload }) => {
       return state.setIn(['detachPaymentMethod', 'msg'], payload);
     },
     [detachPaymentMethodActions.isLoading]: (state, { payload }) => {
@@ -140,7 +152,7 @@ export default handleActions(
     [detachPaymentMethodActions.error]: (state, { payload }) => {
       return state.setIn(['detachPaymentMethod', 'error'], payload);
     },
-    [onSpotPaymentReportActions.success]: (state, { payload }) => {
+    [onSpotPaymentReportActions.success.toString()]: (state, { payload }) => {
       return state.setIn(['onSpotPaymentReport', 'id'], payload[0].id);
     },
     [onSpotPaymentReportActions.isLoading]: (state, { payload }) => {
@@ -155,7 +167,7 @@ export default handleActions(
     [listPaymentGroupActions.isLoading]: (state, { payload }) => {
       return state.setIn(['paymentGroup', 'loading'], payload);
     },
-    [listPaymentGroupActions.success]: (state, { payload }) => {
+    [listPaymentGroupActions.success.toString()]: (state, { payload }) => {
       return state
         .setIn(
           ['paymentGroup', 'allIds'],
@@ -173,7 +185,7 @@ export default handleActions(
           { deep: true },
         );
     },
-    [stripeBalanceActions.success]: (state, { payload }) => {
+    [stripeBalanceActions.success.toString()]: (state, { payload }) => {
       return state
         .setIn(['balance', 'amountAvailable'], payload.balance_available)
         .setIn(['balance', 'amountPending'], payload.balance_pending);
@@ -212,6 +224,36 @@ export default handleActions(
         ],
         payload.error,
       );
+    },
+    [listStripePayoutActions.success.toString()]: (state, { payload }) => {
+      const newIds = payload.results.map((po) => po.stripe_id);
+      return state
+        .setIn(
+          ['stripePayout', 'allIds'],
+          uniq([...state.stripePayout.allIds, ...newIds]),
+        )
+        .setIn(
+          ['stripePayout', 'startingAfter'],
+          payload.next_page.starting_after,
+        )
+        .setIn(['stripePayout', 'hasMore'], payload.has_more)
+        .merge(
+          {
+            stripePayout: {
+              byId: payload.results.reduce((acc, v) => {
+                acc[v.stripe_id] = v;
+                return acc;
+              }, {}),
+            },
+          },
+          { deep: true },
+        );
+    },
+    [listStripePayoutActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['stripePayout', 'loading'], payload);
+    },
+    [listStripePayoutActions.error]: (state, { payload }) => {
+      return state.setIn(['stripePayout', 'error'], payload);
     },
   },
   initialState,

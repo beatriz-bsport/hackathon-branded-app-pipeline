@@ -100,11 +100,7 @@ const PromptOnPageLeave: React.FC<Props> = ({
         <Button onClick={handleLeaveWithoutSaving}>
           {leaveWithoutSavingText}
         </Button>
-        <Button
-          color="primary"
-          onClick={handleSaveAndLeave}
-          variant="contained"
-        >
+        <Button color="primary" onClick={handleSaveAndLeave}>
           {leaveWithSavingText}
         </Button>
       </DialogActions>

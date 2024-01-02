@@ -52,12 +52,6 @@ import type {
 } from '#libs/private-service/types';
 import { ALMOST_100 } from '../../../../constants';
 
-const validityDict = {
-  [START_ON_PURCHASE]: 'billing',
-  [START_ON_FIRST_BOOKING]: 'booking',
-  [START_ON_FIRST_ATTENDANCE]: 'attendance',
-};
-
 const penaltyKindDict = {
   [PENALTY_KIND_BLOCK_CPP]: 'block',
   [PENALTY_KIND_NEGATIVE_ACCOUNT]: 'account',
@@ -269,8 +263,9 @@ export const PaymentPackForm: React.FC<Props> = ({
                       lower: now,
                       upper: oneMonthLater,
                     },
-                start_date_method:
-                  validityDict[initial?.start_date_method] || 'billing',
+                start_date_method: `${
+                  initial?.start_date_method ?? START_ON_PURCHASE
+                }`,
                 penalty_kind: penaltyKindDict[initial?.penalty_kind] || 'block',
                 no_show_penalty_kind:
                   penaltyKindDict[initial?.no_show_penalty_kind] || 'block',
@@ -309,7 +304,7 @@ export const PaymentPackForm: React.FC<Props> = ({
                 duration_days: 0,
                 duration_months: 1,
                 duration_years: 0,
-                start_date_method: 'billing',
+                start_date_method: `${START_ON_PURCHASE}`,
                 expiration_days_before_first_use: 365,
                 theorical_margin_value: 0,
                 penalty_nb_late_cancellations: 3,
@@ -369,17 +364,6 @@ export const PaymentPackForm: React.FC<Props> = ({
             sanitizedValues.duration_days = values.duration_days || 0;
             sanitizedValues.duration_months = values.duration_months || 0;
             sanitizedValues.duration_years = values.duration_years || 0;
-          }
-          switch (values.start_date_method) {
-            case 'billing':
-              sanitizedValues.start_date_method = START_ON_PURCHASE;
-              break;
-            case 'booking':
-              sanitizedValues.start_date_method = START_ON_FIRST_BOOKING;
-              break;
-            default:
-              sanitizedValues.start_date_method = START_ON_FIRST_ATTENDANCE;
-              break;
           }
           switch (values.penalty_kind) {
             case 'block':
@@ -812,8 +796,8 @@ const paymentPackSchema = Yup.object().shape({
       'paymentPack:addPaymentPack.requiredField',
       function testExpirationDate(item) {
         if (
-          this.parent.start_date_method === 'booking' ||
-          this.parent.start_date_method === 'attendance'
+          this.parent.start_date_method === `${START_ON_FIRST_BOOKING}` ||
+          this.parent.start_date_method === `${START_ON_FIRST_ATTENDANCE}`
         ) {
           return typeof item === 'number';
         }

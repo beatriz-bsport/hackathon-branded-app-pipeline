@@ -176,8 +176,8 @@ export const PaymentPackFormValidity: React.FC = () => {
                 ))}
               </RadioGroup>
             </Grid>
-            {values.start_date_method === 'booking' ||
-            values.start_date_method === 'attendance' ? (
+            {values.start_date_method === `${START_ON_FIRST_BOOKING}` ||
+            values.start_date_method === `${START_ON_FIRST_ATTENDANCE}` ? (
               <Grid item xs={6}>
                 <TextFieldEnhancedLabelWithError
                   fullWidth

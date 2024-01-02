@@ -9,6 +9,11 @@ import { FormControlLabel, FormLabel, Grid, Radio } from '@material-ui/core';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import { Add } from '@material-ui/icons';
+import {
+  START_ON_PURCHASE,
+  START_ON_FIRST_BOOKING,
+  START_ON_FIRST_ATTENDANCE,
+} from '@bsport/common/lib/master-data/payment-pack';
 import { PaymentPack, PaymentPackFormValues } from '../../types';
 import {
   TextFieldEnhancedLabelWithError,
@@ -41,10 +46,16 @@ export const PaymentPackFormValidity = (props: Props) => {
   const START_DATE_CHOICE = [
     {
       label: t('addPaymentPack.billing'),
-      value: 'billing',
+      value: `${START_ON_PURCHASE}`,
     },
-    { label: t('addPaymentPack.firstBooking'), value: 'booking' },
-    { label: t('addPaymentPack.attendance'), value: 'attendance' },
+    {
+      label: t('addPaymentPack.firstBooking'),
+      value: `${START_ON_FIRST_BOOKING}`,
+    },
+    {
+      label: t('addPaymentPack.attendance'),
+      value: `${START_ON_FIRST_ATTENDANCE}`,
+    },
   ];
   return (
     <>
@@ -188,8 +199,8 @@ export const PaymentPackFormValidity = (props: Props) => {
                 ))}
               </RadioGroup>
             </Grid>
-            {values.start_date_method === 'booking' ||
-            values.start_date_method === 'attendance' ? (
+            {values.start_date_method === `${START_ON_FIRST_BOOKING}` ||
+            values.start_date_method === `${START_ON_FIRST_ATTENDANCE}` ? (
               <Grid item xs={6}>
                 <TextFieldEnhancedLabelWithError
                   fullWidth

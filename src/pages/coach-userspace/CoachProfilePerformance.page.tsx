@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import moment, { Moment as MomentType } from 'moment-timezone';
 import { connect, ConnectedProps } from 'react-redux';
@@ -6,11 +5,10 @@ import { compose, withStateHandlers, withState, withHandlers } from 'recompose';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Paper from '@material-ui/core/Paper';
 import withStyles from '@material-ui/core/styles/withStyles';
-import AppBar from '@material-ui/core/AppBar';
 import { WithStyles, createStyles, Theme } from '@material-ui/core';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import type { TFunction } from 'i18next';
-import CoachPerformanceDateFilter from '#libs/coach-payment-rules/components/performance/filters/CoachPerformanceDateFilter.component';
+import CoachPerformanceDateAndEstablishmentFilter from '#libs/coach-payment-rules/components/performance/filters/CoachPerformanceDateAndEstablishmentFilter.component';
 import CoachPerformanceSummaryHeader from '#libs/coach-payment-rules/components/performance/CoachPerformanceSummaryHeader.component';
 import CoachPerformanceTabs from '#libs/coach-payment-rules/components/performance/CoachPerformanceTabs.component';
 import { getMyAssociatedCoachProfile } from '#libs/associated-coach/selectors';
@@ -25,17 +23,22 @@ import withTitle from '#hocs/with-title.hoc';
 import { OptionCallback } from '../../state/types';
 import { WithHandlerType } from '../../utils/types';
 import { getTheme } from '#libs/theme/selectors';
+import {
+  fetchEstablishments as fetchEstablishmentsAction,
+  fetchAllEstablishmentGroup as fetchAllEstablishmentGroupAction,
+} from '#libs/establishment/actions';
+import {
+  getAllEstablishments,
+  getAssociatedEstablishmentGroup,
+} from '#libs/establishment/selectors';
+import type { CoachwithPerformance } from '#libs/coach-payment-rules/types';
+import {
+  getFilteredAssociatedCoachWithPerformance,
+  getFilteredEstablishments,
+} from '#libs/coach-payment-rules/utilstsx';
 
 const styles = (theme: Theme) =>
   createStyles({
-    bar: {
-      width: `calc(100% + ${theme.spacing(6)}px)`,
-      marginTop: theme.spacing(-2),
-      marginRight: theme.spacing(-3),
-      marginLeft: theme.spacing(-3),
-      marginBottom: theme.spacing(3),
-      padding: theme.spacing(2),
-    },
     container: {
       marginBottom: theme.spacing(32),
     },
@@ -71,31 +74,85 @@ export const CoachProfilePerformance: React.FC<Props> = (props: Props) => {
     has_coach_access_to_compensation_downloading,
     handlePdfExportation,
     companyTheme,
+    establishmentGroupList,
+    establishmentGroupListLoading,
+    establishments,
+    establishmentsLoading,
+    fetchAllEstablishmentGroup,
+    fetchEstablishments,
   } = props;
+  const [selectedEstablishments, setSelectedEstablishments] = React.useState<
+    number[]
+  >([]);
+  const [selectedLocations, setSelectedLocations] = React.useState<number[]>(
+    [],
+  );
+
+  const setSelectedEstablishmentFilter = React.useCallback(
+    (establishmentsIds: number[], locationsIds: number[]) => {
+      setSelectedEstablishments(establishmentsIds);
+      setSelectedLocations(locationsIds);
+    },
+    [],
+  );
+
+  React.useEffect(() => {
+    fetchEstablishments({ company: companyTheme.company });
+    companyTheme.enable_multi_localization &&
+      fetchAllEstablishmentGroup(companyTheme.company);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const filteredAssociatedCoachWithPerformance = React.useMemo(() => {
+    const establishmentIds = getFilteredEstablishments(
+      selectedEstablishments,
+      selectedLocations,
+      establishmentGroupList,
+    );
+    if (establishmentIds && establishmentIds?.length) {
+      return getFilteredAssociatedCoachWithPerformance(
+        establishmentIds,
+        coachWithPerformance,
+      );
+    }
+    return coachWithPerformance;
+  }, [
+    selectedEstablishments,
+    selectedLocations,
+    coachWithPerformance,
+    establishmentGroupList,
+  ]);
 
   return (
     <div className={classes.container}>
-      <AppBar className={classes.bar} color="default" position="static">
-        <CoachPerformanceDateFilter
-          hideExport
-          handleDateFiltersChange={handleDateFiltersChange}
-          loading={loading || performanceLoading}
-          onSubmit={onSubmit}
-          updateStateDate={changeDate}
-        />
-      </AppBar>
+      <CoachPerformanceDateAndEstablishmentFilter
+        establishmentGroupList={establishmentGroupList}
+        establishmentGroupListLoading={establishmentGroupListLoading}
+        establishments={establishments}
+        establishmentsLoading={establishmentsLoading}
+        handleDateFiltersChange={handleDateFiltersChange}
+        isMultiLocalizationEnabled={companyTheme.enable_multi_localization}
+        loading={loading || performanceLoading}
+        onSubmit={onSubmit}
+        selectedEstablishments={selectedEstablishments}
+        selectedLocations={selectedLocations}
+        setSelectedEstablishmentFilter={setSelectedEstablishmentFilter}
+        updateStateDate={changeDate}
+      />
       {coachWithPerformance ? (
         <>
           <CoachPerformanceSummaryHeader
             isCoach
-            performances={coachWithPerformance.performance}
+            performances={
+              filteredAssociatedCoachWithPerformance?.performance || {}
+            }
           />
           <Paper>
             {loading || performanceLoading ? <LinearProgress /> : null}
             <CoachPerformanceTabs
               asCoach
               hideRuleSetter
-              coachWithPerformance={coachWithPerformance}
+              coachWithPerformance={filteredAssociatedCoachWithPerformance}
               handlePdfExportation={handlePdfExportation}
               has_coach_access_to_compensation_downloading={
                 has_coach_access_to_compensation_downloading
@@ -188,18 +245,25 @@ const connector = connect(
   (state: RootState) => ({
     coachWithPerformance: withCoachPerformance(getMyAssociatedCoachProfile)(
       state,
-    ),
+    ) as CoachwithPerformance,
     loading: state.coachPaymentRules.performance.loading,
     has_coach_access_to_compensation_downloading:
       state.theme.theme.has_coach_access_to_compensation_downloading,
     companyId: getTheme(state).company,
     companyTheme: getTheme(state),
+    establishments: getAllEstablishments(state),
+    establishmentsLoading: state.establishment.loading,
+    establishmentGroupList: getAssociatedEstablishmentGroup(state),
+    establishmentGroupListLoading:
+      state.establishment.establishmentGroup.loading,
   }),
   {
     fetchCoachSessionPerformance: fetchCoachSessionPerformanceAction,
     fetchCoachPrivateServicePerformance:
       fetchCoachPrivateServicePerformanceAction,
     exportPdfPerformanceAction: exportPdfPerformance,
+    fetchEstablishments: fetchEstablishmentsAction,
+    fetchAllEstablishmentGroup: fetchAllEstablishmentGroupAction,
   },
 );
 

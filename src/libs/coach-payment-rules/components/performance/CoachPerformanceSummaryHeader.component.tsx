@@ -18,7 +18,7 @@ import { formatMinutes } from '../../../../utils/datetime';
 
 type Props = {
   performances: Object<Array<CoachPerformance>>;
-  isCoach: boolean;
+  isCoach?: boolean;
 };
 
 export function CoachPerformanceSummary(props: Props) {

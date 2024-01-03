@@ -102,6 +102,10 @@ export type SelectorProps = {
    */
   onClear?: () => void;
   /**
+   * Callback fired on change events.
+   */
+  onChange?: (event?: React.ChangeEvent<HTMLInputElement>) => void;
+  /**
    * Represents a placeholder text value.
    */
   placeholder?: string;
@@ -136,7 +140,8 @@ const Selector: React.FC<SelectorProps> = ({
   onClear,
   placeholder,
   selectedItems,
-  size,
+  size = SelectorSizeEnum.SM,
+  onChange,
 }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement>(null);
@@ -156,7 +161,13 @@ const Selector: React.FC<SelectorProps> = ({
   );
 
   const handleKeyDown = React.useCallback((event: KeyboardEvent) => {
-    if (event.key === 'Enter') setIsOpen(true);
+    if (event.key === 'Enter') {
+      const currentTarget = event.currentTarget as HTMLElement;
+      setAnchorEl((prevState) =>
+        prevState === currentTarget ? null : currentTarget,
+      );
+      setIsOpen(true);
+    }
   }, []);
 
   const handleOnClose = React.useCallback(() => {
@@ -179,7 +190,7 @@ const Selector: React.FC<SelectorProps> = ({
   }
 
   return (
-    <div className={classNames('bs-fabrique-selector', className)}>
+    <div className={classNames('bs-fabrique-selector', className)} id={id}>
       <Typography
         className={classNames(
           'bs-fabrique-selector__label',
@@ -189,7 +200,7 @@ const Selector: React.FC<SelectorProps> = ({
           },
           classes?.label,
         )}
-        variant="body-sm"
+        variant={isSmall ? 'body-sm' : 'body-md'}
       >
         {label}
         {isRequired && (
@@ -203,12 +214,12 @@ const Selector: React.FC<SelectorProps> = ({
         aria-expanded={!isDisabled && isOpen ? 'true' : 'false'}
         aria-haspopup="listbox"
         classes={classes}
-        id={id}
         isDisabled={isDisabled}
         isError={isError}
         isMenuOpen={!isDisabled && isOpen}
         leftIcon={leftIcon}
         name={name}
+        onChange={!isDisabled && onChange}
         onClear={!isDisabled && handleClear}
         onClick={!isDisabled && handleClick}
         // @ts-ignore
@@ -245,7 +256,8 @@ const Selector: React.FC<SelectorProps> = ({
         className={classNames(
           'bs-fabrique-selector__error-message',
           {
-            'bs-fabrique-selector__error-message--hidden': !errorMessage,
+            'bs-fabrique-selector__error-message--hidden':
+              !isError || !errorMessage,
           },
           classes?.errorMessage,
         )}

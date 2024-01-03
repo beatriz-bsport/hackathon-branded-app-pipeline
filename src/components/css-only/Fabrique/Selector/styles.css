@@ -5,6 +5,8 @@
 }
 
 .bs-fabrique-selector__label {
+  display: inline-flex;
+  gap: var(--bs-space-size-2);
 }
 
 .bs-fabrique-selector__label--hidden {

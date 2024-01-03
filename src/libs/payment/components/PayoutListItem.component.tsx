@@ -31,10 +31,14 @@ type Props = {
   openInvoice: (uuid: string) => void;
 };
 
-const PayoutListItem = (props: Props) => {
-  const { payout } = props;
+export const PayoutListItem: React.FC<Props> = ({
+  payout,
+  isOpen,
+  tooglePayoutOpen,
+  openInvoice,
+}) => {
   const { t } = useTranslation(['payment']);
-  const classes = useStyles(props);
+  const classes = useStyles({ payout });
 
   return (
     <div className={classes.container}>
@@ -96,20 +100,20 @@ const PayoutListItem = (props: Props) => {
           </Typography>
           <IconButton
             disabled={!!payout.is_included_in_payout}
-            onClick={() => props.tooglePayoutOpen(payout.id)}
+            onClick={() => tooglePayoutOpen(payout.id)}
           >
-            {props.isOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+            {isOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           </IconButton>
         </div>
       </div>
-      <Collapse in={props.isOpen}>
+      <Collapse in={isOpen}>
         <div className={classes.paymentContainer}>
           {(payout.payments || []).map((p) => (
             <div key={p.id} className={classes.paymentRow}>
               <div style={{ width: '100%' }}>
                 <PaymentListItemV2 paymentItem={p} />
               </div>
-              <Button onClick={() => props.openInvoice(p.invoice)}>
+              <Button onClick={() => openInvoice(p.invoice)}>
                 {t('payout.invoice', { uuid: p.invoice.slice(0, 8) })}
                 <ArrowForwardIcon className={classes.iconRight} />
               </Button>

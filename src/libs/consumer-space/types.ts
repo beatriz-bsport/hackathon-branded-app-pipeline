@@ -1,6 +1,9 @@
-import type { PrivateBooking } from '../private-service/types';
-import type { Booking, BookingREST } from '../booking/types';
+import React from 'react';
+
+import type { PrivateBooking } from '#libs/private-service/types';
+import type { Booking, BookingREST } from '#libs/booking/types';
 import type { ErrorAndLoading } from '../types';
+import { ChipColor, ChipVariant } from '#Fabrique/Chip';
 
 export type Profile = {
   name: string;
@@ -89,4 +92,13 @@ export type ConsumerStateReworked = {
       past: ConsumerBookingReworked;
     };
   };
+};
+
+export type ChipData = {
+  shouldDisplay?: boolean;
+  chipColor: ChipColor;
+  leftIcon?: React.ReactNode;
+  variant?: ChipVariant;
+  text: string;
+  chipClassName: string;
 };

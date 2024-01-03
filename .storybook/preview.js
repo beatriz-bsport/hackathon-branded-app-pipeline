@@ -1,5 +1,9 @@
 import React from 'react';
 import { configure } from '@storybook/react';
+import {
+  INITIAL_VIEWPORTS,
+  MINIMAL_VIEWPORTS,
+} from '@storybook/addon-viewport';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { Provider } from 'react-redux';
 
@@ -77,5 +81,11 @@ export const parameters = {
         value: '#ffffff',
       },
     ],
+  },
+  viewport: {
+    viewports: {
+      ...INITIAL_VIEWPORTS,
+      ...MINIMAL_VIEWPORTS,
+    },
   },
 };

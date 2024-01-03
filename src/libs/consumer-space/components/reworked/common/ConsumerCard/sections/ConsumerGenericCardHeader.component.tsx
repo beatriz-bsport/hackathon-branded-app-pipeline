@@ -3,21 +3,16 @@ import React from 'react';
 import classNames from 'classnames';
 
 import Typography from '#Fabrique/Typography';
-import Chip, { ChipColor, ChipVariant } from '#Fabrique/Chip';
+import Chip from '#Fabrique/Chip';
+
+import type { ChipData } from '#libs/consumer-space/types';
 
 import '../styles.css';
 
 type Props = {
   title: string;
   subtitle: string;
-  chipsDataList: {
-    shouldDisplay: boolean;
-    chipColor: ChipColor;
-    leftIcon: React.ReactNode;
-    variant?: ChipVariant;
-    text: string;
-    chipClassName: string;
-  }[];
+  chipsDataList: ChipData[];
   className: string;
   chipsWrapperClassName: string;
 };

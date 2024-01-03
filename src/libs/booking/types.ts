@@ -1,10 +1,18 @@
-import { Offer, OfferDetail } from '../offer/types';
-import type { ConsumerPaymentPack } from '../payment-packs/types';
+import type { Offer, OfferDetail, OfferREST } from '../offer/types';
+import type { PaymentPack } from '../payment-packs/types';
 import type {
   StaffModificationHistory,
   BookingModificationActionIdentifier,
 } from '#libs/role/types';
-import type { SpotInformation } from '#libs/spot-scheduling/types';
+import type {
+  RoomBlueprint,
+  SpotInformation,
+} from '#libs/spot-scheduling/types';
+import type { Establishment } from '#libs/establishment/types';
+import type { Coach } from '#libs/associated-coach/types';
+import type { MetaActivity } from '#libs/meta-activity/types';
+import type { Level } from '#libs/level/types';
+import type { ConsumerPaymentPack } from '#libs/consumer-payment-pack/types';
 
 export type BroadcastInfo = {
   id: number;
@@ -36,10 +44,10 @@ export type RecurrenceRuleBooking = {
   notify_if_booked: boolean;
 };
 
-export type Booking<Offer = number, Member = number, PP = number> = {
+export type Booking<BookingOffer = number, Member = number, PP = number> = {
   name: string;
   nb_bookings: number;
-  offer: Offer;
+  offer: BookingOffer;
   id: number;
   member: Member;
   booking_status_code: number;
@@ -238,4 +246,25 @@ export type CancelBookingFilterParams = {
   force_refund?: boolean;
   activity_group?: number;
   bookings_in_same_group?: number[];
+};
+
+/** Transformed Booking for the consumer page by including full objects */
+export type ConsumerBooking = Omit<
+  BookingREST,
+  | 'establishment'
+  | 'coach'
+  | 'coach_override'
+  | 'meta_activity'
+  | 'level'
+  | 'offer'
+  | 'consumer_payment_pack'
+> & {
+  establishment: Establishment;
+  coach: Coach;
+  coach_override: Coach;
+  meta_activity: MetaActivity;
+  level: Level;
+  offer: OfferREST;
+  consumer_payment_pack: ConsumerPaymentPack<PaymentPack>;
+  room_blueprint?: RoomBlueprint;
 };

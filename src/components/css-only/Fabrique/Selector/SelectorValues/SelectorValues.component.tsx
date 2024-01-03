@@ -24,10 +24,6 @@ export type SelectorValuesProps = {
    */
   getSelectedItemValue: (item: unknown) => string | number;
   /**
-   * If true, apply the small variant corresponding style
-   */
-  isSmall?: boolean;
-  /**
    * If true, values are displayed as chip.
    */
   multiple?: boolean;
@@ -45,7 +41,6 @@ const SelectorValues: React.FC<SelectorValuesProps> = ({
   classes,
   getSelectedItemLabel,
   getSelectedItemValue,
-  isSmall = false,
   multiple = false,
   onRemoveValue,
   selectedItems,
@@ -67,7 +62,7 @@ const SelectorValues: React.FC<SelectorValuesProps> = ({
           'bs-fabrique-selector-values',
           classes?.typography,
         )}
-        variant={isSmall ? 'body-sm' : 'body-md'}
+        variant="body-md"
       >
         {getSelectedItemLabel?.(selectedItems)}
       </Typography>

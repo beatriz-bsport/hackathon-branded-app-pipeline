@@ -149,26 +149,27 @@ const TextField: React.FC<Props> = ({
               {leftIcon}
             </span>
           )}
-          <input
-            className={classNames(
-              'bs-fabrique-textfield__input',
-              {
-                'bs-fabrique-textfield__input--small': isSmall,
-                'bs-fabrique-textfield__input--large': isLarge,
-              },
-              classes?.input,
-            )}
-            disabled={isDisabled}
-            id={inputId}
-            name={name}
-            onBlur={onInputUnfocus}
-            onChange={onChange}
-            onFocus={onInputFocus}
-            placeholder={placeholder}
-            required={isRequired}
-            type={type}
-            value={value}
-          />
+          <Typography
+            className="bs-fabrique-textfield__input__text"
+            variant="body-md"
+          >
+            <input
+              className={classNames(
+                'bs-fabrique-textfield__input',
+                classes?.input,
+              )}
+              disabled={isDisabled}
+              id={inputId}
+              name={name}
+              onBlur={onInputUnfocus}
+              onChange={onChange}
+              onFocus={onInputFocus}
+              placeholder={placeholder}
+              required={isRequired}
+              type={type}
+              value={value}
+            />
+          </Typography>
           <div
             className={classNames(
               'bs-fabrique-textfield__right-icons__wrapper',

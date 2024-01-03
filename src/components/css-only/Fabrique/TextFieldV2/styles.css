@@ -73,13 +73,20 @@
 
 /* INPUT CSS PROPERTIES */
 .bs-fabrique-textfield__input {
-  font-family: var(--bs-font-family);
-  font-size: var(--bs-font-size-body-md);
-  font-style: normal;
-  font-weight: 400;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  font-style: inherit;
+  font-weight: inherit;
+  word-break: inherit;
+  margin: inherit;
+  padding: 0;
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
   border: 0 transparent var(--bs-color-border-default);
   outline: none;
-  color: var(--bs-color-text-default);
   width: 100%;
   -webkit-user-select: text; /* Chrome, Opera, Safari */
   -moz-user-select: text; /* Firefox 2+ */
@@ -93,6 +100,10 @@
   background-color: transparent;
 }
 
+.bs-fabrique-textfield__input__text {
+  width: 100%;
+}
+
 /* DIFFERENT SIZE */
 
 .bs-fabrique-textfield__input__container--small {
@@ -103,14 +114,6 @@
 .bs-fabrique-textfield__input__container--large {
   border-radius: var(--bs-border-radius-md);
   padding: var(--bs-space-size-3) var(--bs-space-size-4);
-}
-
-.bs-fabrique-textfield__input--small {
-  font-size: var(--bs-font-size-body-sm);
-}
-
-.bs-fabrique-textfield__input--large {
-  font-size: var(--bs-font-size-body-md);
 }
 
 .bs-fabrique-textfield__input::placeholder {

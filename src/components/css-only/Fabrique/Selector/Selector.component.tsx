@@ -211,7 +211,6 @@ const Selector: React.FC<SelectorProps> = ({
           classes={classes}
           getSelectedItemLabel={getSelectedItemLabel}
           getSelectedItemValue={getSelectedItemValue}
-          isSmall={isSmall}
           multiple={multiple}
           onRemoveValue={onRemoveItem}
           selectedItems={selectedItems}

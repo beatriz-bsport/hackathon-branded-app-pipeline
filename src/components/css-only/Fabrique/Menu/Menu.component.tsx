@@ -100,6 +100,8 @@ const Menu: React.FC<MenuProps> = ({
 }) => {
   const menuRef = React.useRef<HTMLDivElement>(null);
 
+  const contentRef = React.useRef<HTMLDivElement>(null);
+
   const [isPositioned, setIsPositioned] = React.useState(isOpen);
 
   const handleOnClose = React.useCallback(() => {
@@ -248,6 +250,29 @@ const Menu: React.FC<MenuProps> = ({
     }
   });
 
+  React.useEffect(() => {
+    if (isOpen && isPositioned && contentRef.current) {
+      // Focus on the menu or the first item when the menu is open
+      contentRef.current.focus();
+    }
+  }, [isOpen, isPositioned]);
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'Tab' && contentRef.current) {
+      // Get all focusable elements inside the menu
+      const focusableElements = contentRef.current.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+      ) as NodeListOf<HTMLDivElement>;
+      const lastFocusable = focusableElements[focusableElements.length - 1];
+
+      if (document.activeElement === lastFocusable) {
+        // When Tab pressed on the last element, move focus to the first
+        event.preventDefault();
+        focusableElements[0].focus();
+      }
+    }
+  };
+
   // TODO: need to create a debounce function to listen to the window size
 
   if (!isOpen) return null;
@@ -272,10 +297,14 @@ const Menu: React.FC<MenuProps> = ({
           id={id}
         >
           <div
+            ref={contentRef}
             className={classNames(
               'bs-fabrique-menu-content',
               classes?.menuContent,
             )}
+            onKeyDown={handleKeyDown}
+            role="menu"
+            tabIndex={0}
           >
             {children}
           </div>

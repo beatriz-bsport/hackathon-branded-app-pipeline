@@ -58,9 +58,9 @@ const usePropsFromVariation = (
 ): NewsletterFormProps => {
   const fieldsTypeSelected = variationsSelected?.newsletterV2FieldsType
     ?.value as `${NewsletterV2FieldsKind}`;
-  const isShowTitleSelected = variationsSelected?.showTitle.value === 'true';
+  const isShowTitleSelected = variationsSelected?.showTitle?.value === 'true';
   const isShowSubtitleSelected =
-    variationsSelected?.showSubtitle.value === 'true';
+    variationsSelected?.showSubtitle?.value === 'true';
   return {
     fieldsType: fieldsTypeSelected,
     showTitle: isShowTitleSelected,

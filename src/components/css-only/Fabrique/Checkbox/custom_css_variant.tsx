@@ -16,20 +16,6 @@ import {
 
 const fabriqueCheckboxVariationRegistry = [
   {
-    label: 'isChecked',
-    choices: [
-      {
-        label: 'true',
-        value: 'true',
-      },
-      {
-        label: 'false',
-        value: 'false',
-      },
-    ],
-    default: { label: 'false', value: 'false' },
-  },
-  {
     label: 'isDisabled',
     choices: [
       {
@@ -117,24 +103,22 @@ const fabriqueCheckboxVariationRegistry = [
 
 const usePropsFromVariation = (
   variationsSelected: Record<string, VariationConfigurationChoice>,
-): CheckboxProps => {
+): Omit<CheckboxProps, 'isChecked'> => {
   const displayCaptionText =
     variationsSelected?.displayCaptionText?.value === 'true';
   const isDisabled = variationsSelected?.isDisabled?.value === 'true';
   const isInversed = variationsSelected?.isInversed?.value === 'true';
-  const isChecked = variationsSelected?.isChecked?.value === 'true';
   const size = variationsSelected?.size?.value as CheckboxSize;
   const displayLabel = variationsSelected?.displayLabel?.value === 'true';
   const multiple = variationsSelected?.isMultiple?.value === 'true';
   return {
     captionText: displayCaptionText && 'captionText',
     isDisabled,
-    isChecked,
     isInversed,
     label: displayLabel && 'Label',
     size,
     multiple,
-    id: 'radio-button-preview-id',
+    id: 'radio-checkbox-preview-id',
   };
 };
 
@@ -149,7 +133,19 @@ export const FABRIQUE_CHECKBOX_CONFIGURATION: MarketplaceCSSComponentConfig = {
 export const FABRIQUE_CHECKBOX_PREVIEW: React.FC<{
   variationsSelected: Record<string, VariationConfigurationChoice>;
 }> = React.memo(({ variationsSelected }) => {
-  // TODO : Had a react state here to handle the select state, it's better for user
-  const componentProps = usePropsFromVariation(variationsSelected);
-  return <Checkbox {...componentProps} />;
+  const { multiple, ...componentProps } =
+    usePropsFromVariation(variationsSelected);
+  const [checked, setChecked] = React.useState(false);
+  const handleOnClick = () => {
+    setChecked((prevState) => !prevState);
+  };
+
+  return (
+    <Checkbox
+      {...componentProps}
+      isChecked={!multiple && checked}
+      multiple={multiple && checked}
+      onClick={handleOnClick}
+    />
+  );
 });

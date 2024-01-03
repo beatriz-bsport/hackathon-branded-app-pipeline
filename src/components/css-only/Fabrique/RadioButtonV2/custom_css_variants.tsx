@@ -14,20 +14,6 @@ import {
 
 const fabriqueRadiobuttonVariationRegistry = [
   {
-    label: 'isChecked',
-    choices: [
-      {
-        label: 'true',
-        value: 'true',
-      },
-      {
-        label: 'false',
-        value: 'false',
-      },
-    ],
-    default: { label: 'false', value: 'false' },
-  },
-  {
     label: 'isDisabled',
     choices: [
       {
@@ -87,17 +73,15 @@ const fabriqueRadiobuttonVariationRegistry = [
 
 const usePropsFromVariation = (
   variationsSelected: Record<string, VariationConfigurationChoice>,
-): RadioButtonProps => {
+): Omit<RadioButtonProps, 'isChecked'> => {
   const displayCaptionText =
     variationsSelected?.displayCaptionText?.value === 'true';
   const isDisabled = variationsSelected?.isDisabled?.value === 'true';
   const isInversed = variationsSelected?.square?.value === 'true';
-  const isChecked = variationsSelected?.isChecked?.value === 'true';
   const size = variationsSelected?.size?.value as RadioButtonSize;
   return {
     captionText: displayCaptionText && 'captionText',
     isDisabled,
-    isChecked,
     isInversed,
     label: 'Label',
     size,
@@ -117,7 +101,16 @@ export const FABRIQUE_RADIOBUTTON_CONFIGURATION: MarketplaceCSSComponentConfig =
 export const FABRIQUE_RADIOBUTTON_PREVIEW: React.FC<{
   variationsSelected: Record<string, VariationConfigurationChoice>;
 }> = React.memo(({ variationsSelected }) => {
-  // TODO: add a isChecked state for better user experience
+  const [checked, setChecked] = React.useState(false);
+  const handleOnClick = () => {
+    setChecked((prevState) => !prevState);
+  };
   const componentProps = usePropsFromVariation(variationsSelected);
-  return <RadioButton {...componentProps} />;
+  return (
+    <RadioButton
+      isChecked={checked}
+      onClick={handleOnClick}
+      {...componentProps}
+    />
+  );
 });

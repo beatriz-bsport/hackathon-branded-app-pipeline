@@ -7,9 +7,12 @@ import { withTranslation, WithTranslation } from 'react-i18next';
 import type { TFunction } from 'i18next';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Paper from '@material-ui/core/Paper';
-import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
-
-import { OptionCallback } from '../../state/types';
+import TableContainer from '@material-ui/core/TableContainer';
+import createStyles from '@material-ui/core/styles/createStyles';
+import withStyles from '@material-ui/core/styles/withStyles';
+import type { WithStyles } from '@material-ui/styles';
+import type { Theme } from '@material-ui/core/styles';
+import type { OptionCallback } from '../../state/types';
 // @ts-ignore
 import mapParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { associatedCoachSelector } from '../../libs/associated-coach/selectors';
@@ -34,7 +37,7 @@ import withTitle from '../../hocs/with-title.hoc';
 import CoachPerformanceDateAndEstablishmentFilter from '#libs/coach-payment-rules/components/performance/filters/CoachPerformanceDateAndEstablishmentFilter.component';
 import CoachPerformanceSummaryHeader from '#libs/coach-payment-rules/components/performance/CoachPerformanceSummaryHeader.component';
 import CoachPerformanceTabs from '#libs/coach-payment-rules/components/performance/CoachPerformanceTabs.component';
-import { Coach } from '../../libs/associated-coach/types';
+import type { Coach } from '#libs/associated-coach/types';
 import type { RootState } from '../../reducers';
 import { WithHandlerType } from '../../utils/types';
 import { getTheme } from '#libs/theme/selectors';
@@ -183,7 +186,7 @@ export class CoachPerformance extends React.Component<Props> {
                 this.getFilteredAssociatedCoachWithPerformance().performance
               }
             />
-            <Paper>
+            <TableContainer component={Paper}>
               {loading || performanceLoading ? <LinearProgress /> : null}
               <CoachPerformanceTabs
                 displayLastUpdate
@@ -201,7 +204,7 @@ export class CoachPerformance extends React.Component<Props> {
                   this.props.updatePrivateBookingCoachPaymentRule(data)
                 }
               />
-            </Paper>
+            </TableContainer>
           </>
         ) : (
           <LinearProgress />

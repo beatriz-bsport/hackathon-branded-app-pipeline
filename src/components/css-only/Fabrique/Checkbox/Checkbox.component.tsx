@@ -30,6 +30,10 @@ export type Props = {
   id: string;
   isError?: boolean;
   isRequired?: boolean;
+  /**
+   * The ReactNode type enables, among other things, getting i18next <Trans/> component.
+   * This component is meant to manage specific bold or italic words inside a text.
+   */
   label?: string | React.ReactNode;
   name?: string;
   onChange?: (event?: React.ChangeEvent<HTMLInputElement>) => void;

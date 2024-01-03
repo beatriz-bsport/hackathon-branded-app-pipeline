@@ -14,7 +14,11 @@ import './styles.css';
 
 type Props = {
   isDisabled?: boolean;
-  label: string;
+  /**
+   * The ReactNode type enables, among other things, getting i18next <Trans/> component.
+   * This component is meant to manage specific bold or italic words inside a text.
+   */
+  label: string | React.ReactElement;
   size?: ListItemSize;
   className?: string;
   classes?: {

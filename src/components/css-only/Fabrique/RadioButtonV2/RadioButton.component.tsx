@@ -63,7 +63,11 @@ export type Props = {
     captionText?: string;
     icon?: string;
   };
-  label?: string;
+  /**
+   * The ReactNode type enables, among other things, getting i18next <Trans/> component.
+   * This component is meant to manage specific bold or italic words inside a text.
+   */
+  label?: string | React.ReactElement;
   captionText?: string;
   name?: string;
 };

@@ -29,6 +29,10 @@ import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '#libs/paymen
 import { fetchPrivateBookings } from '#libs/private-service/actions';
 import { fetchCoachBulk as fetchCoachBulkAction } from '#libs/associated-coach/actions';
 import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#libs/meta-activity/actions';
+import {
+  fetchMyPastBookingAsMember as fetchMyPastBookingAsMemberAction,
+  fetchMyFutureBookingAsMember as fetchMyFutureBookingAsMemberAction,
+} from '#libs/consumer-space/actions';
 
 import { withCoach, withMetaActivity } from '#libs/offer/selectors';
 import { retrieveGroupOffer } from '#libs/group-offer/selectors';
@@ -41,6 +45,10 @@ import {
   getConsumerBookingListWithConsumerPack,
   withOfferFull as withOffer,
 } from '#libs/booking/selectors';
+import {
+  getMyPastBookingsState,
+  getMyFutureBookingsState,
+} from '#libs/consumer-space/selectors';
 import { showVaccinationStatus } from '#libs/custom-form/selectors';
 
 // @ts-expect-error
@@ -71,13 +79,10 @@ type Props = {
 
 export class ConsumerBooking extends React.Component<Props> {
   componentDidMount() {
-    this.props.fetchPrivateBookings({
+    this.props.fetchMyFutureBookingAsMember({
       member: this.props.membership.id,
-      page: 1,
     });
-    this.props.fetchLevelList({
-      company: this.props.companyId,
-    });
+    this.props.fetchMyPastBookingAsMember({ member: this.props.membership.id });
   }
 
   render() {
@@ -136,6 +141,9 @@ const connector = connect(
     )(state),
     similarBookingsLoading: state.booking.similar.loading,
     timezone: state.theme.theme.timezone_name,
+    // REWORKED
+    myPastBookingsState: getMyPastBookingsState(state),
+    myFutureBookingsState: getMyFutureBookingsState(state),
   }),
   {
     cancelBooking: cancelBookingAction,
@@ -155,6 +163,9 @@ const connector = connect(
     resetGroupOffer: resetGroupOfferAction,
     retrieveBooking,
     retrieveConsumerPackBulk: retrieveConsumerPackBulkAction,
+    // REWORKED
+    fetchMyPastBookingAsMember: fetchMyPastBookingAsMemberAction,
+    fetchMyFutureBookingAsMember: fetchMyFutureBookingAsMemberAction,
   },
 );
 

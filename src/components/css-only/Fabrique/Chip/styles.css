@@ -3,6 +3,7 @@
   align-items: center;
   border-radius: var(--bs-border-radius-xs);
   width: fit-content;
+  max-width: 220px;
 }
 
 .bs-fabrique-chip__icon {
@@ -12,6 +13,9 @@
 .bs-fabrique-chip__content {
   user-select: none;
   padding: 0 var(--bs-space-size-2);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .bs-fabrique-chip__action-container {
@@ -31,6 +35,7 @@
 /* --- SM --- */
 .bs-fabrique-chip--sm {
   padding: var(--bs-space-size-1);
+  height: var(--bs-component-height-chip-sm);
 }
 
 .bs-fabrique-chip__icon--sm svg {
@@ -46,6 +51,7 @@
 /* --- LG --- */
 .bs-fabrique-chip--lg {
   padding: var(--bs-space-size-1) var(--bs-space-size-2);
+  height: var(--bs-component-height-chip-lg);
 }
 
 .bs-fabrique-chip__icon--lg svg {

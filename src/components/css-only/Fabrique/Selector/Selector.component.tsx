@@ -214,6 +214,7 @@ const Selector: React.FC<SelectorProps> = ({
           multiple={multiple}
           onRemoveValue={onRemoveItem}
           selectedItems={selectedItems}
+          size={size}
         />
       </SelectorInput>
       <Typography

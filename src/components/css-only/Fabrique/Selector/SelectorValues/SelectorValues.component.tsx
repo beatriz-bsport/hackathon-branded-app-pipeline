@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import Typography from '#Fabrique/Typography';
 import Chip from '#Fabrique/Chip';
 import './selector-values-styles.css';
+import type { SelectorSize } from '../types';
 
 export type SelectorValuesClasses = {
   typography?: string;
@@ -35,6 +36,10 @@ export type SelectorValuesProps = {
    * The selected values.
    */
   selectedItems?: unknown;
+  /**
+   * Size of the component.
+   */
+  size: SelectorSize;
 };
 
 const SelectorValues: React.FC<SelectorValuesProps> = ({
@@ -44,6 +49,7 @@ const SelectorValues: React.FC<SelectorValuesProps> = ({
   multiple = false,
   onRemoveValue,
   selectedItems,
+  size,
 }) => {
   const handleRemove = React.useCallback(
     (itemToRemove: number | string) =>
@@ -85,7 +91,7 @@ const SelectorValues: React.FC<SelectorValuesProps> = ({
               )}
               color="grey"
               onClose={handleRemove?.(item)}
-              size="sm"
+              size={size}
               variant="weak"
             >
               {itemLabel}

@@ -358,6 +358,9 @@ export const useMuiThemeToCssVars = () => {
     --bs-component-height-selector-sm: 2.5rem;
     --bs-component-height-selector-lg: 3rem;
 
+    --bs-component-height-chip-sm: 1.25rem;
+    --bs-component-height-chip-lg: 1.5rem;
+
     /* FABRIQUE TEMPORARY VARIABLES */
     --bs-fabrique-alert-min-height: 64px;
     --bs-fabrique-font-size-action-lg: 1.125rem;

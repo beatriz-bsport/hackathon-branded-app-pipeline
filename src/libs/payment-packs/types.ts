@@ -8,6 +8,7 @@ import {
 import { ErrorAndLoading } from '../../state/types';
 import { Company } from '../company/types';
 import type { CompatiblePrivateService } from '#libs/private-service/types';
+import type { ConsumerPaymentPack } from '#libs/consumer-payment-pack/types';
 
 const startDateMethodsTypes = [
   `${START_ON_PURCHASE}`,
@@ -105,17 +106,6 @@ export type PaymentPack<LPP = number | null, PPCategories = Array<number>> = {
   applies_for_payroll: boolean;
   off_peak_schedule: Record<string, string[][]>;
   highlighted_as_recommended: boolean;
-};
-
-export type ConsumerPaymentPack = {
-  id: number;
-  bookings_this_week: number;
-  ending_date: string;
-  starting_date: string;
-  available_credits: number;
-  date_bought: string;
-  payment_pack_id: string;
-  linked_private_consumer_pass: number | null;
 };
 
 export type PaymentPackTemplateInstance = {

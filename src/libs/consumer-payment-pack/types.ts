@@ -11,27 +11,28 @@ export type ConsumerPaymentPackExtension = {
 };
 
 export type ConsumerPaymentPack<PP = number> = {
-  id: number;
-  used_credits: number;
   available_credits: number;
-  payment_pack_id: string;
-  bookings: string[];
-  starting_date: string;
-  ending_date: string;
-  member_id: number;
   bookings_this_week: number;
-  payment_pack: PP;
+  bookings: number[];
+  consumer_payment_pack_source: number | null;
+  date_bought: string;
   disabled: boolean;
-  reverted: boolean;
-  invoice: string;
-  src_consumer_payment_pack: number[];
   dst_consumer_payment_pack: number | null;
-  track_modified_credit: number[][];
+  ending_date: string;
+  id: number;
+  invoice: string;
+  is_universal_consumer_pass_source: boolean;
+  linked_private_consumer_pass: number | null;
+  member_id: number;
+  payment_pack_id: string;
+  payment_pack: PP;
   penalty_disabled_from: string | null;
   penalty_disabled_until: string | null;
-  consumer_payment_pack_source: number;
-  linked_private_consumer_pass: number | null;
-  consumer: Consumer;
+  reverted: boolean;
+  src_consumer_payment_pack: number[];
+  starting_date: string;
+  track_modified_credit: number[][];
+  used_credits: number;
 };
 
 export type MaxoutBookingData = {

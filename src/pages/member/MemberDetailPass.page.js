@@ -84,8 +84,10 @@ import { hasPaymentPackManagementPermission } from '#libs/payment-packs/utils';
 import { getOfferById } from '#libs/offer/selectors';
 
 import type { Member } from '../../libs/member/types';
-import type { ConsumerPaymentPack } from '../../libs/payment-packs/types';
-import type { ConsumerPaymentPackPenalty } from '../../libs/consumer-payment-pack/types';
+import type {
+  ConsumerPaymentPack,
+  ConsumerPaymentPackPenalty,
+} from '../../libs/consumer-payment-pack/types';
 import type { Invoice } from '../../libs/invoice/types';
 import type { Booking } from '../../libs/booking/types';
 import { showVaccinationStatus } from '../../libs/custom-form/selectors';

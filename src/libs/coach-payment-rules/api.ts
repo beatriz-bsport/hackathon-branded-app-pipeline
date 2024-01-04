@@ -183,13 +183,15 @@ export const exportAsyncCoachPerformancePdf = async (params: {
   score_timestamp?: number;
   associated_coaches_in?: Array<number>;
   data_to_export?: number;
+  company_id?: number;
 }) => {
-  const { associated_coaches_in, data_to_export, ...urlParams } = params;
+  const { associated_coaches_in, data_to_export, company_id, ...urlParams } =
+    params;
   const export_format = COACH_PERFORMANCE_EXPORT_PDF;
   return postAuth(
     `${API_V1_URI}/coach_payment_rules/export_data/${buildUrlParams(
       urlParams,
     )}`,
-    { associated_coaches_in, data_to_export, export_format },
+    { associated_coaches_in, data_to_export, company_id, export_format },
   );
 };

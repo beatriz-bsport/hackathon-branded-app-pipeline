@@ -569,6 +569,7 @@ export function exportPdfPerformance(
     score_timestamp?: number;
     associated_coaches_in?: Array<number>;
     data_to_export?: number;
+    company_id?: number;
   },
   options?: OptionCallback,
 ) {

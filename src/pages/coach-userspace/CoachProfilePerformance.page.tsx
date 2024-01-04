@@ -24,6 +24,7 @@ import {
 import withTitle from '#hocs/with-title.hoc';
 import { OptionCallback } from '../../state/types';
 import { WithHandlerType } from '../../utils/types';
+import { getTheme } from '#libs/theme/selectors';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -166,6 +167,7 @@ const mapWithHandlers = {
     ({
       exportPdfPerformanceAction,
       formDates,
+      companyId,
     }: OwnAndConnectedProps & stateHandlerType) =>
     (associatedCoachId: number, dataToExport: number) => {
       const params = {
@@ -173,6 +175,7 @@ const mapWithHandlers = {
         end_timestamp: formDates.dateEnd.valueOf(),
         associated_coaches_in: [associatedCoachId],
         data_to_export: dataToExport,
+        company_id: companyId,
       };
       exportPdfPerformanceAction(params);
     },
@@ -185,6 +188,7 @@ const connector = connect(
     loading: state.coachPaymentRules.performance.loading,
     has_coach_access_to_compensation_downloading:
       state.theme.theme.has_coach_access_to_compensation_downloading,
+    companyId: getTheme(state).company,
   }),
   {
     fetchCoachSessionPerformance: fetchCoachSessionPerformanceAction,

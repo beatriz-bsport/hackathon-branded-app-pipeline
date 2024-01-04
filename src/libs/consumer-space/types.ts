@@ -1,6 +1,6 @@
-import { PrivateBooking } from '../private-service/types';
-import { Booking } from '../booking/types';
-import { ErrorAndLoading } from '../types';
+import type { PrivateBooking } from '../private-service/types';
+import type { Booking, BookingREST } from '../booking/types';
+import type { ErrorAndLoading } from '../types';
 
 export type Profile = {
   name: string;
@@ -49,5 +49,29 @@ export type ConsumerState = {
     allObj: Array<BookingAndPrivateBookingId>;
     count: number;
     hasMore: boolean;
+  };
+};
+
+export type ConsumerBookingReworked = {
+  page: number;
+  next_page: number | null;
+  previous_page: number | null;
+  count: number;
+  bookings: {
+    allIds: number[];
+    byId: { [key: number]: BookingREST };
+  };
+} & ErrorAndLoading;
+
+export type ConsumerStateReworked = {
+  myBookings: {
+    bookings: {
+      future: ConsumerBookingReworked;
+      past: ConsumerBookingReworked;
+    };
+    bookingsWorkshop: {
+      future: ConsumerBookingReworked;
+      past: ConsumerBookingReworked;
+    };
   };
 };

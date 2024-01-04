@@ -19,6 +19,7 @@ import communicationV2Reducers from '#libs/communication-v2/reducers';
 import company from '#libs/company/reducers';
 import consumerPaymentPackReducers from '#libs/consumer-payment-pack/reducers';
 import consumerReducers from '#libs/consumer-space/reducers';
+import consumerReducersReworked from '#libs/consumer-space/reducersReworked';
 import couponReducers from '#libs/coupon/reducers';
 import CustomFormReducer from '#libs/custom-form/reducers';
 import dashboardSettings from '#libs/dashboard/reducers';
@@ -96,7 +97,10 @@ import type { CoachState } from '#libs/associated-coach/types';
 import type { CommunicationState } from '#libs/communication-v2/types';
 import type { CompanyState } from '#libs/company/types';
 import type { ConsumerPaymentPackState } from '#libs/consumer-payment-pack/types';
-import type { ConsumerState } from '#libs/consumer-space/types';
+import type {
+  ConsumerState,
+  ConsumerStateReworked,
+} from '#libs/consumer-space/types';
 import type { CouponState } from '#libs/coupon/types';
 import type { CustomFormState } from '#libs/custom-form/types';
 import type { EmailTemplateState } from '#libs/email-editor/types';
@@ -163,6 +167,7 @@ const rootReducer = (history: any) =>
     clockIn: ClockinReducer,
     coachPaymentRules: CoachPaymentRuleReducer,
     consumer: consumerReducers,
+    consumerReworked: consumerReducersReworked,
     auth: authReducers,
     establishment: establishmentReducers,
     booking: bookingReducers,
@@ -255,6 +260,7 @@ export type RootState = {
   communicationV2: CommunicationState;
   company: CompanyState;
   consumer: ConsumerState;
+  consumerReworked: ConsumerStateReworked;
   consumerPaymentPack: ConsumerPaymentPackState;
   coupon: CouponState;
   customForm: CustomFormState;

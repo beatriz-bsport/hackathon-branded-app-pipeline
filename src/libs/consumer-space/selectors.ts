@@ -59,3 +59,9 @@ export const getAllBookingAndPrivateBooking = (state: RootState) => {
 
   return all;
 };
+
+export const getMyPastBookingsState = (state: RootState) =>
+  state.consumerReworked.myBookings.bookings.past;
+
+export const getMyFutureBookingsState = (state: RootState) =>
+  state.consumerReworked.myBookings.bookings.future;

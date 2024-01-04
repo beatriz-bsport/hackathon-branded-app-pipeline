@@ -1,16 +1,31 @@
-// @ts-nocheck
 import moment from 'moment-timezone';
+import { createAction } from 'redux-actions';
+import { AxiosResponse } from 'axios';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 import api from './api';
-import { Booking, BookingOption } from '../booking/types';
-import { ConsumerPaymentPack } from '../consumer-payment-pack/types';
-import { BookingOrPrivateBooking, Profile } from './types';
-import { Dispatch, OptionCallback, ThunkAction } from '../../state/types';
 import { RootState } from '../../reducers';
-import { PrivateBooking } from '../private-service/types';
-import { fetchBookingList as fetchBookingListAPI } from '../booking/api';
+import {
+  cancelBookingV2 as cancelBookingV2API,
+  fetchBookingListV2 as fetchBookingListAPI,
+} from '../booking/api';
 import { fetchPrivateBookings } from '../private-service/api';
+
+import type {
+  Dispatch,
+  OptionCallback,
+  ThunkAction,
+  PaginatedResponse,
+} from '../../state/types';
+import type { PrivateBooking } from '../private-service/types';
+import type { ConsumerPaymentPack } from '../consumer-payment-pack/types';
+import type { BookingOrPrivateBooking, Profile } from './types';
+import type {
+  Booking,
+  BookingOption,
+  BookingREST,
+  CancelBookingFilterParams,
+} from '#libs/booking/types';
 
 export const actionsType = {
   CONSUMER_HAS_FETCHED_OPTIONS: 'CONSUMER_HAS_FETCHED_OPTIONS_SUCCESS',
@@ -80,9 +95,11 @@ export function fetchBookings() {
 
     try {
       const response = await api.fetchFutureBookings();
+      // @ts-expect-error
       const futureBookings = response.data.results;
 
       const response_ = await api.fetchPastBookings();
+      // @ts-expect-error
       const pastBookings = response_.data.results;
       dispatch(fetchedBookings({ futureBookings, pastBookings }));
     } catch (err) {
@@ -113,6 +130,7 @@ export function fetchOptions() {
       const response = await api.fetchOptions();
       const bookingOptions = response.data;
 
+      // @ts-expect-error
       dispatch(fetchedOptions(bookingOptions));
     } catch (err) {
       dispatch(errorFetchingOptions(err));
@@ -176,6 +194,7 @@ export function fetchConsumerPaymentPacks() {
       const response = await api.fetchConsumerPaymentPacks();
       const consumerPaymentPacks = response.data;
 
+      // @ts-expect-error
       dispatch(fetchedConsumerPaymentPacks(consumerPaymentPacks));
     } catch (err) {
       dispatch(errorFetchingConsumerPaymentPacks(err));
@@ -206,7 +225,9 @@ export function fetchProfile(options?: OptionCallback) {
     try {
       const response = await api.fetchProfile();
       const profile = response.data;
+      // @ts-expect-error
       dispatch(fetchedProfile(profile));
+      // @ts-expect-error
       if (options && options.onSuccess) options.onSuccess(profile);
     } catch (err) {
       dispatch(errorFetchingProfile(err));
@@ -471,6 +492,7 @@ export function fetchBookingsAndPrivateBookings(args: {
 
       await dispatch(consumerBookingAndPrivateBookingSuccess(payload));
       if (args.options && args.options.onSuccess) {
+        // @ts-expect-error
         args.options.onSuccess(payload);
       }
     } catch (err) {
@@ -479,5 +501,225 @@ export function fetchBookingsAndPrivateBookings(args: {
     }
 
     dispatch(consumerBookingAndPrivateBookingLoading(false));
+  };
+}
+
+export const fetchMyPastBookingAsMemberActions = {
+  success: createAction<AxiosResponse<PaginatedResponse<BookingREST>>>(
+    'BOOKING/PAST/AS_MEMBER/SUCCESS',
+  ),
+  isLoading: createAction<boolean>('BOOKING/PAST/AS_MEMBER/IS_LOADING'),
+  error: createAction<Error | null>('BOOKING/PAST/AS_MEMBER/ERROR'),
+};
+
+export function fetchMyPastBookingAsMember(
+  // TODO : For franchise we must remove member and add franchise params in back-end
+  {
+    member,
+    page_size = 30,
+  }: {
+    member: number;
+    page_size?: number;
+  },
+  options?: OptionCallback<BookingREST[]>,
+): ThunkAction {
+  return async (dispatch: Dispatch, getState) => {
+    dispatch(fetchMyPastBookingAsMemberActions.isLoading(true));
+    dispatch(fetchMyPastBookingAsMemberActions.error(null));
+
+    const currentState = getState().consumerReworked.myBookings.bookings.past;
+    const nextPage = currentState.next_page ?? 1;
+    try {
+      const response = await fetchBookingListAPI({
+        // TODO : For franchise we must remove member and add franchise params in back-end
+        member,
+        page: nextPage,
+        page_size,
+        mine: true,
+        past_booking: true,
+        offer_is_workshop: false,
+      });
+      dispatch(fetchMyPastBookingAsMemberActions.success(response));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results);
+      }
+    } catch (err) {
+      dispatch(fetchMyPastBookingAsMemberActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(fetchMyPastBookingAsMemberActions.isLoading(false));
+  };
+}
+
+export const fetchMyFutureBookingAsMemberActions = {
+  success: createAction<AxiosResponse<PaginatedResponse<BookingREST>>>(
+    'BOOKING/FUTURE/AS_MEMBER/SUCCESS',
+  ),
+  isLoading: createAction<boolean>('BOOKING/FUTURE/AS_MEMBER/IS_LOADING'),
+  error: createAction<Error | null>('BOOKING/FUTURE/AS_MEMBER/ERROR'),
+};
+
+export function fetchMyFutureBookingAsMember(
+  // TODO : For franchise we must remove member and add franchise params in back-end
+  {
+    member,
+    page_size = 30,
+  }: {
+    member: number;
+    page_size?: number;
+  },
+  options?: OptionCallback<BookingREST[]>,
+): ThunkAction {
+  return async (dispatch: Dispatch, getState) => {
+    dispatch(fetchMyFutureBookingAsMemberActions.isLoading(true));
+    dispatch(fetchMyFutureBookingAsMemberActions.error(null));
+
+    const currentState = getState().consumerReworked.myBookings.bookings.future;
+    const nextPage = currentState.next_page ?? 1;
+    try {
+      const response = await fetchBookingListAPI({
+        // TODO : For franchise we must remove member and add franchise params in back-end
+        member,
+        page: nextPage,
+        page_size,
+        mine: true,
+        future_booking: true,
+        offer_is_workshop: false,
+      });
+      dispatch(fetchMyFutureBookingAsMemberActions.success(response));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results);
+      }
+    } catch (err) {
+      dispatch(fetchMyFutureBookingAsMemberActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(fetchMyFutureBookingAsMemberActions.isLoading(false));
+  };
+}
+
+export const fetchMyPastBookingWorkshopAsMemberActions = {
+  success: createAction<AxiosResponse<PaginatedResponse<BookingREST>>>(
+    'WORKSHOP/PAST/AS_MEMBER/SUCCESS',
+  ),
+  isLoading: createAction<boolean>('WORKSHOP/PAST/AS_MEMBER/IS_LOADING'),
+  error: createAction<Error | null>('WORKSHOP/PAST/AS_MEMBER/ERROR'),
+};
+
+export function fetchMyPastBookingWorkshopAsMember(
+  // TODO : For franchise we must remove member and add franchise params in back-end
+  {
+    member,
+    page_size = 30,
+  }: {
+    member: number;
+    page_size?: number;
+  },
+  options?: OptionCallback<BookingREST[]>,
+): ThunkAction {
+  return async (dispatch: Dispatch, getState) => {
+    dispatch(fetchMyPastBookingWorkshopAsMemberActions.isLoading(true));
+    dispatch(fetchMyPastBookingWorkshopAsMemberActions.error(null));
+
+    const currentState =
+      getState().consumerReworked.myBookings.bookingsWorkshop.past;
+    const nextPage = currentState.next_page ?? 1;
+    try {
+      const response = await fetchBookingListAPI({
+        // TODO : For franchise we must remove member and add franchise params in back-end
+        member,
+        page: nextPage,
+        page_size,
+        mine: true,
+        past_booking: true,
+        offer_is_workshop: true,
+      });
+      dispatch(fetchMyPastBookingWorkshopAsMemberActions.success(response));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results);
+      }
+    } catch (err) {
+      dispatch(fetchMyPastBookingWorkshopAsMemberActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(fetchMyPastBookingWorkshopAsMemberActions.isLoading(false));
+  };
+}
+
+export const fetchMyFutureBookingWorkshopAsMemberActions = {
+  success: createAction<AxiosResponse<PaginatedResponse<BookingREST>>>(
+    'WORKSHOP/FUTURE/AS_MEMBER/SUCCESS',
+  ),
+  isLoading: createAction<boolean>('WORKSHOP/FUTURE/AS_MEMBER/IS_LOADING'),
+  error: createAction<Error | null>('WORKSHOP/FUTURE/AS_MEMBER/ERROR'),
+};
+
+export function fetchMyFutureBookingWorkshopAsMember(
+  // TODO : For franchise we must remove member and add franchise params in back-end
+  {
+    member,
+    page_size = 30,
+  }: {
+    member: number;
+    page_size?: number;
+  },
+  options?: OptionCallback<BookingREST[]>,
+): ThunkAction {
+  return async (dispatch: Dispatch, getState) => {
+    dispatch(fetchMyFutureBookingWorkshopAsMemberActions.isLoading(true));
+    dispatch(fetchMyFutureBookingWorkshopAsMemberActions.error(null));
+
+    const currentState =
+      getState().consumerReworked.myBookings.bookingsWorkshop.future;
+    const nextPage = currentState.next_page ?? 1;
+    try {
+      const response = await fetchBookingListAPI({
+        // TODO : For franchise we must remove member and add franchise params in back-end
+        member,
+        page: nextPage,
+        page_size,
+        mine: true,
+        future_booking: true,
+        offer_is_workshop: true,
+      });
+      dispatch(fetchMyFutureBookingWorkshopAsMemberActions.success(response));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results);
+      }
+    } catch (err) {
+      dispatch(fetchMyFutureBookingWorkshopAsMemberActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(fetchMyFutureBookingWorkshopAsMemberActions.isLoading(false));
+  };
+}
+
+export const cancelBookingAsMemberActions = {
+  success: createAction<AxiosResponse<BookingREST>>(
+    'BOOKING/CANCEL/AS_MEMBER/SUCCESS',
+  ),
+  isLoading: createAction<boolean>('BOOKING/CANCEL/AS_MEMBER/IS_LOADING'),
+  error: createAction<Error | null>('BOOKING/CANCEL/AS_MEMBER/ERROR'),
+};
+
+export function cancelBookingAsMember(
+  id: number,
+  params: CancelBookingFilterParams,
+  options?: OptionCallback<BookingREST>,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(cancelBookingAsMemberActions.isLoading(true));
+    dispatch(cancelBookingAsMemberActions.error(null));
+
+    try {
+      const response = await cancelBookingV2API(id, params);
+      dispatch(cancelBookingAsMemberActions.success(response));
+
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      dispatch(cancelBookingAsMemberActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(cancelBookingAsMemberActions.isLoading(false));
   };
 }

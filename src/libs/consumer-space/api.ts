@@ -1,5 +1,7 @@
 import { API_URI, API_V1_URI, getAuth, postAuth, deleteAuth } from '../../http';
 
+import type { BookingREST } from '#libs/booking/types';
+
 export async function fetchConsumerOptions() {
   return getAuth(`${API_URI}/waiting-list/booking-option/?with_offer=true`);
 }
@@ -35,6 +37,13 @@ export async function hasBookingOptionInOffer(offerId: number) {
 export async function discardBooking(bookingId: number) {
   return deleteAuth(`${API_URI}/booking/${bookingId}/discard`);
 }
+
+export const cancelConsumerBooking = async (
+  id: number,
+  data: { bookings_in_same_group?: BookingREST[] } = {},
+) => {
+  return postAuth<BookingREST>(`${API_V1_URI}/booking/${id}/cancel/`, data);
+};
 
 export default {
   fetchFutureBookings: fetchConsumerFutureBookings,

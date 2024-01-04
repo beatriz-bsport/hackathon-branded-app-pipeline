@@ -8,7 +8,12 @@ import {
   deleteAuth,
   patchAuth,
 } from '../../http';
-import { Booking, BookingREST, BookingFilterParams } from './types';
+import {
+  Booking,
+  BookingREST,
+  BookingFilterParams,
+  CancelBookingFilterParams,
+} from './types';
 
 export const fetchFilteredBookingOptions = async (params: any) => {
   return getAuth(
@@ -59,6 +64,13 @@ export const confirmAttendance = async (id: number) => {
 
 export const cancelBooking = async (id: number, data: any = {}) => {
   return postAuth(`${API_V1_URI}/booking/${id}/cancel/`, data);
+};
+
+export const cancelBookingV2 = (
+  id: number,
+  params: CancelBookingFilterParams,
+) => {
+  return postAuth<BookingREST>(`${API_V1_URI}/booking/${id}/cancel/`, params);
 };
 
 export const cancelMultipleBooking = async (data: any = {}) => {

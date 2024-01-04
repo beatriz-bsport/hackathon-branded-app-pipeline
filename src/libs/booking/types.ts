@@ -232,3 +232,10 @@ export type BookingFilterParams = {
   page: number;
   page_size: number;
 };
+
+export type CancelBookingFilterParams = {
+  force_notify?: boolean;
+  force_refund?: boolean;
+  activity_group?: number;
+  bookings_in_same_group?: number[];
+};

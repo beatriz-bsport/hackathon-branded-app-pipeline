@@ -1,5 +1,7 @@
 // @ts-nocheck
 import React from 'react';
+import orderBy from 'lodash/orderBy';
+import moment from 'moment-timezone';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
@@ -26,7 +28,7 @@ import {
   PRIVATE_BOOKING_CANCELLED_BY_STAFF,
   RECURRENT_PRIVATE_BOOKING_CANCELLED_BY_STAFF,
 } from '#libs/private-service/components/constants';
-import type { Booking } from './types';
+import type { Booking, ConsumerBooking } from './types';
 import { UserRoleData } from '#libs/role/types';
 import { PrivateBooking } from '#libs/private-service/types';
 
@@ -205,3 +207,21 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginRight: theme.spacing(1),
   },
 }));
+
+/**
+ * Filters the consumer bookings by start date (most recent first)
+ * @param bookingList The list of consumer bookings
+ * @param order Future bookings will need ASC sorting while Past need DESC
+ * @example
+ * const futureBookings = filterBookingListByOfferDate(bookings, 'asc');
+ * const pastBookings = filterBookingListByOfferDate(bookings, 'desc');
+ */
+export const filterBookingListByOfferDate = (
+  bookingList: ConsumerBooking[],
+  order: 'asc' | 'desc',
+) =>
+  orderBy(
+    bookingList,
+    (booking) => moment(booking.offer_date_start).unix(),
+    order,
+  );

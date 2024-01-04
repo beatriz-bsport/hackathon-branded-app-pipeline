@@ -30,6 +30,12 @@ import { getMembership } from '#libs/membership/selectors';
 import {
   getMyPastBookingsState,
   getMyFutureBookingsState,
+  getMyPastBookingsList,
+  getMyFutureBookingsList,
+  getMyPastBookingsWorkshopState,
+  getMyPastBookingsWorkshopList,
+  getMyFutureBookingsWorkshopState,
+  getMyFutureBookingsWorkshopList,
 } from '#libs/consumer-space/selectors';
 
 import ConsumerBookingPageReworked from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingPageReworked';
@@ -180,7 +186,13 @@ const connector = connect(
     marketplaceSettings: state.marketplace.settings,
     // REWORKED
     myPastBookingsState: getMyPastBookingsState(state),
+    myPastBookingsList: getMyPastBookingsList(state),
     myFutureBookingsState: getMyFutureBookingsState(state),
+    myFutureBookingsList: getMyFutureBookingsList(state),
+    myPastBookingsWorkshopState: getMyPastBookingsWorkshopState(state),
+    myPastBookingsWorkshopList: getMyPastBookingsWorkshopList(state),
+    myFutureBookingsWorkshopState: getMyFutureBookingsWorkshopState(state),
+    myFutureBookingsWorkshopList: getMyFutureBookingsWorkshopList(state),
   }),
   {
     fetchCoachBulk: fetchCoachBulkAction,

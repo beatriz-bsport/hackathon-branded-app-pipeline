@@ -61,12 +61,12 @@
   -ms-user-select: none;
 }
 
-.bs-fabrique-listitem__icon--sm {
+.bs-fabrique-listitem__icon--sm svg {
   width: var(--bs-icon-size-sm);
   height: var(--bs-icon-size-sm);
 }
 
-.bs-fabrique-listitem__icon--lg {
+.bs-fabrique-listitem__icon--lg svg {
   width: var(--bs-icon-size-md);
   height: var(--bs-icon-size-md);
 }

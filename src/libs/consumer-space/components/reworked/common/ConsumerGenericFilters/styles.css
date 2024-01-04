@@ -1,0 +1,26 @@
+.bs-consumer-generic-filters {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  align-items: center;
+  height: fit-content;
+}
+
+.bs-consumer-generic-filters__tabs {
+  flex: 1;
+  background-color: var(--bs-color-action-light);
+  border-radius: var(--bs-border-radius-sm);
+  padding: var(--bs-space-size-2);
+}
+
+.bs-consumer-generic-filters__tabs__tab {
+  margin-right: var(--bs-space-size-1);
+}
+
+.bs-consumer-generic-filters__tabs__tab--hidden {
+  display: none;
+}
+
+.bs-consumer-generic-filters__date-picker {
+  margin-left: var(--bs-space-size-2);
+}

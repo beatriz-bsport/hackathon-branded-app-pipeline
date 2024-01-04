@@ -500,6 +500,8 @@ export const useMuiThemeToCssVars = () => {
     --bs-color-background-error-default: var(--bs-red-500);
     --bs-color-background-error-weak: var(--bs-red-100);
 
+    --bs-color-background-page: var(--bs-grey-50);
+
     /* FABRIQUE DERIVED VARIABLES - BORDER COLORS */
     --bs-color-border-brand-main: var(--bs-brand-main);
     --bs-color-border-brand-main-strong: var(--bs-brand-main-strong);

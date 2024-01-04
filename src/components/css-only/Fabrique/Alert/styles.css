@@ -94,27 +94,26 @@
 
 /* ----- BACKGROUND OUTLINED VARIANT ----- */
 .bs-fabrique-alert__root--outlined-grey {
-  border: var(--bs-fabrique-alert-border-width) solid
-    var(--bs-color-border-strong);
+  border: var(--bs-border-width-regular) solid var(--bs-color-border-strong);
 }
 
 .bs-fabrique-alert__root--outlined-info {
-  border: var(--bs-fabrique-alert-border-width) solid
+  border: var(--bs-border-width-regular) solid
     var(--bs-color-border-status-info-weak);
 }
 
 .bs-fabrique-alert__root--outlined-success {
-  border: var(--bs-fabrique-alert-border-width) solid
+  border: var(--bs-border-width-regular) solid
     var(--bs-color-border-status-success-weak);
 }
 
 .bs-fabrique-alert__root--outlined-warning {
-  border: var(--bs-fabrique-alert-border-width) solid
+  border: var(--bs-border-width-regular) solid
     var(--bs-color-border-status-warning-weak);
 }
 
 .bs-fabrique-alert__root--outlined-error {
-  border: var(--bs-fabrique-alert-border-width) solid
+  border: var(--bs-border-width-regular) solid
     var(--bs-color-border-status-error-weak);
 }
 

@@ -46,7 +46,7 @@
   align-items: flex-start;
   align-self: stretch;
   border-radius: var(--bs-border-radius-md);
-  border: var(--bs-border-width-default) solid var(--bs-color-border-default);
+  border: var(--bs-border-width-thin) solid var(--bs-color-border-default);
 }
 
 .bs-fabrique-text-form__textarea__container--draggable {
@@ -62,20 +62,14 @@
 .bs-fabrique-text-form__textarea__container--focused {
   border-color: var(--bs-color-border-strong);
   outline: var(--bs-color-border-strong) solid
-    calc(
-      var(--bs-fabrique-textfield-border-width-default) -
-        var(--bs-fabrique-textfield-offset)
-    );
+    calc(var(--bs-border-width-thin) - var(--bs-fabrique-textfield-offset));
   outline-offset: var(--bs-fabrique-textfield-offset);
 }
 
 .bs-fabrique-text-form__textarea__container--error {
   border-color: var(--bs-color-border-status-error-weak);
   outline: var(--bs-color-border-status-error-weak) solid
-    calc(
-      var(--bs-fabrique-textfield-border-width-default) -
-        var(--bs-fabrique-textfield-offset)
-    );
+    calc(var(--bs-border-width-thin) - var(--bs-fabrique-textfield-offset));
   outline-offset: var(--bs-fabrique-textfield-offset);
 }
 

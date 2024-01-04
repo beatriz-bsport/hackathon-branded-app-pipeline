@@ -36,8 +36,7 @@
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  border: var(--bs-fabrique-textfield-border-width-default) solid
-    var(--bs-color-border-default);
+  border: var(--bs-border-width-thin) solid var(--bs-color-border-default);
   gap: var(--bs-space-size-2);
   box-sizing: border-box;
   width: 300px;
@@ -53,10 +52,7 @@
   border-color: var(--bs-color-border-strong);
   /* doing a calc for outline width to take into account the negative offset */
   outline: var(--bs-color-border-strong) solid
-    calc(
-      var(--bs-fabrique-textfield-border-width-default) -
-        var(--bs-fabrique-textfield-offset)
-    );
+    calc(var(--bs-border-width-thin) - var(--bs-fabrique-textfield-offset));
   outline-offset: var(--bs-fabrique-textfield-offset);
 }
 
@@ -64,10 +60,7 @@
   border-color: var(--bs-color-border-status-error-weak);
   /* doing a calc for outline width to take into account the negative offset */
   outline: var(--bs-color-border-status-error-weak) solid
-    calc(
-      var(--bs-fabrique-textfield-border-width-default) -
-        var(--bs-fabrique-textfield-offset)
-    );
+    calc(var(--bs-border-width-thin) - var(--bs-fabrique-textfield-offset));
   outline-offset: var(--bs-fabrique-textfield-offset);
 }
 
@@ -171,8 +164,7 @@
 }
 
 .bs-fabrique-textfield__right-icon {
-  border-left: var(--bs-fabrique-textfield-border-left-width) solid
-    var(--bs-color-border-disabled);
+  border-left: var(--bs-border-width-thin) solid var(--bs-color-border-disabled);
   padding-left: var(--bs-space-size-2);
 }
 

@@ -203,7 +203,7 @@
 
 /* OUTLINED ROOT */
 .bs-fabrique-button-root-outlined {
-  border-width: var(--bs-fabrique-button-border-width);
+  border-width: var(--bs-border-width-regular);
   background-color: var(--bs-color-action-light);
   border-style: solid;
 }

@@ -160,7 +160,7 @@
 
 /* OUTLINED ROOT */
 .bs-fabrique-icon-button-root-outlined {
-  border-width: var(--bs-fabrique-icon-button-border-width);
+  border-width: var(--bs-border-width-thin);
   background-color: var(--bs-color-action-light);
   border-style: solid;
 }

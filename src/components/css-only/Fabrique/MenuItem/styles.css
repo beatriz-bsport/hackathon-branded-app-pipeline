@@ -18,13 +18,13 @@
   border: 0px;
   gap: var(--bs-space-size-2);
   justify-content: flex-start;
-  border-right: var(--bs-fabrique-border-4) solid transparent;
+  border-right: var(--bs-border-width-bold) solid transparent;
 }
 
 .bs-fabrique-menu-item__button:hover,
 .bs-fabrique-menu-item__button:focus-visible {
   background-color: var(--bs-color-action-grey-weak-hovered);
-  border-right: var(--bs-fabrique-border-4) solid
+  border-right: var(--bs-border-width-bold) solid
     var(--bs-color-border-brand-main);
   transition: border-right var(--bs-transition-duration-quick),
     background-color var(--bs-transition-duration-quick);
@@ -32,7 +32,7 @@
 
 .bs-fabrique-menu-item__button:active:hover {
   background-color: var(--bs-color-action-grey-weak-pressed);
-  border-right: var(--bs-fabrique-border-4) solid
+  border-right: var(--bs-border-width-bold) solid
     var(--bs-color-border-brand-main);
   transition: border-right var(--bs-transition-duration-quick),
     background-color var(--bs-transition-duration-quick);

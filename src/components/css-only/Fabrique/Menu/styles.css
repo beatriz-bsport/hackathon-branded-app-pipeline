@@ -9,7 +9,7 @@
   vertical-align: middle;
   text-decoration: none;
   background-color: var(--bs-color-background-light);
-  border: var(--bs-fabrique-border-1) solid var(--bs-color-border-weak);
+  border: var(--bs-border-width-thin) solid var(--bs-color-border-weak);
   border-radius: var(--bs-border-radius-sm);
   box-shadow: var(--bs-shadow-l);
   /* The maximum height of a simple menu should be one or more rows less than the view

@@ -3,7 +3,7 @@
   align-items: center;
   padding: var(--bs-fabrique-tab-vertical-padding) var(--bs-space-size-2);
   border-radius: var(--bs-border-radius-sm);
-  border-width: var(--bs-fabrique-tab-border-width);
+  border-width: var(--bs-border-width-thin);
   border-style: solid;
   border-color: transparent;
 }

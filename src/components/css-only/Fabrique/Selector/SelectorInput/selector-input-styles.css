@@ -28,7 +28,7 @@
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  border: var(--bs-fabrique-border-1) solid var(--bs-color-border-default);
+  border: var(--bs-border-width-thin) solid var(--bs-color-border-default);
   gap: var(--bs-space-size-2);
   box-sizing: border-box;
   height: auto;
@@ -50,7 +50,7 @@
   border-color: var(--bs-color-border-strong);
   /* doing a calc for outline width to take into account the negative offset */
   outline: var(--bs-color-border-strong) solid
-    calc(var(--bs-fabrique-border-1) - var(--bs-fabrique-offset-1));
+    calc(var(--bs-border-width-thin) - var(--bs-fabrique-offset-1));
   outline-offset: var(--bs-fabrique-offset-1);
   box-shadow: var(--bs-shadow-m);
 }
@@ -59,7 +59,7 @@
   border-color: var(--bs-color-border-status-error-weak);
   /* doing a calc for outline width to take into account the negative offset */
   outline: var(--bs-color-border-status-error-weak) solid
-    calc(var(--bs-fabrique-border-1) - var(--bs-fabrique-offset-1));
+    calc(var(--bs-border-width-thin) - var(--bs-fabrique-offset-1));
   outline-offset: var(--bs-fabrique-offset-1);
   box-shadow: var(--bs-shadow-m);
 }
@@ -69,7 +69,7 @@
   border-color: var(--bs-color-border-strong);
   /* doing a calc for outline width to take into account the negative offset */
   outline: var(--bs-color-border-strong) solid
-    calc(var(--bs-fabrique-border-1) - var(--bs-fabrique-offset-1));
+    calc(var(--bs-border-width-thin) - var(--bs-fabrique-offset-1));
   outline-offset: var(--bs-fabrique-offset-1);
 }
 
@@ -142,7 +142,7 @@
 
 .bs-fabrique-selector-input__icon-separator {
   height: var(--bs-space-size-6);
-  border-left: var(--bs-fabrique-border-1) solid var(--bs-color-border-disabled);
+  border-left: var(--bs-border-width-thin) solid var(--bs-color-border-disabled);
 }
 .bs-fabrique-selector-input__icon-separator--small {
   height: var(--bs-icon-size-sm);

@@ -35,11 +35,11 @@
 }
 
 .bs-fabrique-card--rest {
-  border: var(--bs-fabrique-border-2) solid var(--bs-color-border-weak);
+  border: var(--bs-border-width-regular) solid var(--bs-color-border-weak);
 }
 
 .bs-fabrique-card--elevated {
-  border: var(--bs-fabrique-border-2) solid var(--bs-color-border-strong);
+  border: var(--bs-border-width-regular) solid var(--bs-color-border-strong);
   box-shadow: var(--bs-shadow-m);
 }
 

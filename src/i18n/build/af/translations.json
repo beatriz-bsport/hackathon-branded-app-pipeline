@@ -5866,7 +5866,11 @@
       "title": "My payouts",
       "payoutAmountFromIncludedPayouts": "of which {{price}} is from previous payouts",
       "payoutIsIncludedInOther": "This transfer was included in the transfer of {{date}} with the identifier {{readable_identifier}}",
-      "payoutIsManual": "This Payout transfer has been triggered manually by the bsport team to accelerate the transfer of your funds. In this case the detail of the linked payments is not available. Please get in touch with our team for more information."
+      "payoutIsManual": "This Payout transfer has been triggered manually by the bsport team to accelerate the transfer of your funds. In this case the detail of the linked payments is not available. Please get in touch with our team for more information.",
+      "dialog": {
+        "title": "Payment Syncing Notification",
+        "content": "There has been a syncing issue between Stripe and bsport. We are unable to display the details of this payout at the moment. However, rest assured that it will be processed and transferred to your bank account as per the usual procedure. To obtain more information about the amount sent, you can refer to the payment report covering the period between the date of this payout and the previous one."
+      }
     },
     "instalment": {
       "form": {

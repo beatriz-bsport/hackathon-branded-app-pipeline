@@ -116,7 +116,7 @@ The tests are if not the most important tool for continous integration and conti
 
 > “More than the act of testing, the act of designing tests is one of the best bug preventers known. The thinking that must be done to create a useful test can discover and eliminate bugs before they are coded – indeed, test-design thinking can discover and eliminate bugs at every stage in the creation of software, from conception to specification, to design, coding and the rest.” – Boris Beizer
 
-### There is 4 existing type of test:
+### There are 4 existing types of test:
 
 ### - Unit testing:
 

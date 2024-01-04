@@ -6,6 +6,7 @@ import {
   AlertTriangle,
   AnnotationInfo,
   CheckCircle,
+  InfoCircle,
 } from '#components/untitledui';
 
 /**
@@ -23,6 +24,6 @@ export const useAlertDefaultLeftIcon = (color: AlertColor) => {
     case AlertColorEnum.ERROR:
       return <AlertCircle stroke="currentColor" />;
     default:
-      return <AlertCircle stroke="currentColor" />;
+      return <InfoCircle stroke="currentColor" />;
   }
 };

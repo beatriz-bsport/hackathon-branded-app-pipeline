@@ -5,7 +5,7 @@ import Button, { Props as ButtonProps } from '#Fabrique/ButtonV2';
 
 import './styles.css';
 
-type HeaderButton = Pick<
+export type HeaderButton = Pick<
   ButtonProps,
   'color' | 'leftIcon' | 'rightIcon' | 'variant' | 'onClick'
 > & {

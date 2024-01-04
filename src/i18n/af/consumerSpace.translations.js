@@ -95,4 +95,20 @@ exports.default = {
     settings: 'Display my data in real time',
     settingsTitle: 'Spinning data',
   },
+  reworked: {
+    myBookings: {
+      title: 'My bookings',
+      bookASession: 'Book a session',
+      tab: {
+        activities: 'Activities',
+        appointments: 'Appointments',
+        workshops: 'Workshops',
+      },
+      filter: {
+        upcoming: 'Upcoming',
+        past: 'Past',
+        onWaitlist: 'On waitlist',
+      },
+    },
+  },
 };

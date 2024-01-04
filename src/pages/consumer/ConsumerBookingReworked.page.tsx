@@ -23,7 +23,7 @@ import {
   getMyFutureBookingsState,
 } from '#libs/consumer-space/selectors';
 
-import ConsumerBookingPageReworked from '#libs/consumer-space/components/reworked/ConsumerBookingPageReworked.component';
+import ConsumerBookingPageReworked from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingPageReworked';
 
 import type { BookingREST } from '#libs/booking/types';
 import type { RootState } from '../../reducers';
@@ -58,7 +58,6 @@ export class ConsumerBooking extends React.Component<Props> {
     return (
       <ConsumerBookingPageReworked
         futureBookingsState={this.props.myFutureBookingsState}
-        membership={this.props.membership}
         pastBookingsState={this.props.myPastBookingsState}
       />
     );

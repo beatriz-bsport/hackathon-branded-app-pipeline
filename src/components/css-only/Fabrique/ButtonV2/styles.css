@@ -195,8 +195,8 @@
 /* ----- CONTAINED DISABLED----- */
 [class*='bs-fabrique-button-root-contained']:disabled {
   color: var(--bs-color-text-disabled);
-  /* TODO Why text var for backgroun --bs-color-text-disabled */
-  background-color: var(--bs-color-text-disabled);
+  background-color: var(--bs-color-background-disabled);
+  border-color: var(--bs-color-border-disabled);
 }
 
 /* OUTLINED BUTTON STYLES */
@@ -344,9 +344,8 @@
 /* ----- OUTLINED DISABLED----- */
 [class*='bs-fabrique-button-root-outlined']:disabled {
   color: var(--bs-color-text-disabled);
-  /* TODO FIGMA WRONG */
-  background-color: transparent;
-  border-color: var(--bs-color-action-disabled);
+  background-color: var(--bs-color-background-disabled);
+  border-color: var(--bs-color-border-disabled);
 }
 
 /* TEXT BUTTON STYLES */
@@ -475,5 +474,6 @@
 /* ----- TEXT BUTTON DISABLED----- */
 [class*='bs-fabrique-button-root-text']:disabled {
   color: var(--bs-color-text-disabled);
-  background-color: transparent;
+  background-color: var(--bs-color-background-disabled);
+  border-color: var(--bs-color-border-disabled);
 }

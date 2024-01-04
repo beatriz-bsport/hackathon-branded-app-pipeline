@@ -39,6 +39,7 @@ import {
   fetchBookingsByConsumerPack,
 } from '../../libs/booking/actions';
 import { getInvoice } from '../../libs/invoice/selectors';
+import { fetchOfferBulk as fetchOfferBulkAction } from '#libs/offer/actions';
 import { fetchMember as fetchMemberAction } from '../../libs/member/actions';
 import {
   resetConsumerPackByMember as resetConsumerPackByMemberAction,
@@ -80,6 +81,7 @@ import ConsumerPackDetail from '../../libs/consumer-payment-pack/components/Cons
 import RevertBookingDialog from '../../libs/booking/components/RevertBookingDialog.component';
 import ConsumerPaymentPackFilters from '../../libs/payment-packs/components/ConsumerPaymentPackFilters.component';
 import { hasPaymentPackManagementPermission } from '#libs/payment-packs/utils';
+import { getOfferById } from '#libs/offer/selectors';
 
 import type { Member } from '../../libs/member/types';
 import type { ConsumerPaymentPack } from '../../libs/payment-packs/types';
@@ -201,6 +203,13 @@ type Props = {
   passExtensionCreationLoading: boolean,
   consumerPaymentPacksLoadingById: { [key: string]: boolean },
   theme: Theme,
+  getBookingOffer: (offerId: number) => void,
+  fetchOfferBulk: (
+    ids: Array<number>,
+    options?: OptionCallback<Offer[]> & { onCacheUsed?: () => void },
+    useCache?: boolean,
+    ignoreManagerOnly?: boolean,
+  ) => void,
 };
 
 type State = {
@@ -347,6 +356,14 @@ export class MemberDetailPass extends Component<Props, State> {
       this.props.selectedConsumerPass.id,
       page,
       page_size,
+      {
+        onSuccess: (bookings) => {
+          retrieveConsumerPackBulk(
+            bookings.map((booking) => booking.consumer_payment_pack),
+          );
+          this.props.fetchOfferBulk(bookings.map((booking) => booking.offer));
+        },
+      },
     );
   };
 
@@ -537,6 +554,7 @@ export class MemberDetailPass extends Component<Props, State> {
                   discardBookingAttendance={this.props.discardBookingAttendance}
                   extensions={this.props.passExtensions}
                   extensionsLoading={this.props.passExtensionsLoading}
+                  getBookingOffer={this.props.getBookingOffer}
                   handleRevert={(bookingToRevert) =>
                     this.setState({ bookingToRevert })
                   }
@@ -717,6 +735,7 @@ export default compose(
       userFiltersLoading:
         state.dashboardSettings.managerFiltersSettings.loading,
       showVaccinationStatus: showVaccinationStatus(state),
+      getBookingOffer: (offerId: number) => getOfferById(state, offerId),
     }),
     {
       goToInvoice: (uuid) => push(`/invoice/${uuid}`),
@@ -774,6 +793,7 @@ export default compose(
       fetchConsumerPaymentPackPenalty: fetchConsumerPaymentPackPenaltyAction,
       fetchConsumerPaymentPackLinks: fetchConsumerPaymentPackLinksAction,
       fetchInvoiceByInvoiceItem: fetchInvoiceByInvoiceItemAction,
+      fetchOfferBulk: fetchOfferBulkAction,
     },
   ),
   withProps(({ userFilters }) => ({

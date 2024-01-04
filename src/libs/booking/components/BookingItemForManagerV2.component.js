@@ -612,12 +612,13 @@ export class BookingItemForManager extends Component<Props, State> {
 
   getHeading = () => {
     const { heading, booking, timezone, getBookingOffer } = this.props;
-    const bookingOffer = getBookingOffer?.(booking.offer);
     switch (heading) {
-      case 'date_start':
+      case 'date_start': {
+        const bookingOffer = getBookingOffer?.(booking.offer);
         return `${
           bookingOffer?.name_override || booking.name || ''
         } - ${formatAsDatetime(booking.offer_date_start, timezone)}`;
+      }
       default:
         return this.props.member ? this.props.member.name : '';
     }

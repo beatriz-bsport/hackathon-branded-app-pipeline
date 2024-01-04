@@ -77,6 +77,7 @@ type Props = {
   onClickNoShowChip: () => void;
   isRollCallMandatory: boolean;
   onClickWarningIcon: () => void;
+  getBookingOffer: (offerId: number) => void;
 };
 
 export const ConsumerPaymentPackDetail: React.FC<Props> = (props) => {
@@ -196,6 +197,7 @@ export const ConsumerPaymentPackDetail: React.FC<Props> = (props) => {
               discardBookingAttendance={() =>
                 props.discardBookingAttendance(b.id)
               }
+              getBookingOffer={props.getBookingOffer}
               handleRevert={() => props.handleRevert(b)}
               heading="date_start"
               isRollCallMandatory={props.isRollCallMandatory}

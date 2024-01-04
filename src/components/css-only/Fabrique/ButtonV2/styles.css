@@ -38,6 +38,7 @@
   font-weight: var(--bs-font-weight-strong);
   line-height: var(--bs-fabrique-line-height-action-lg);
   font-style: normal;
+  height: var(--bs-component-height-button-lg);
 }
 
 .bs-fabrique-button-root-lg .bs-fabrique-button-root__right-icon svg,
@@ -54,6 +55,7 @@
   font-weight: var(--bs-font-weight-strong);
   line-height: var(--bs-fabrique-line-height-action-md);
   font-style: normal;
+  height: var(--bs-component-height-button-md);
 }
 
 .bs-fabrique-button-root-md .bs-fabrique-button-root__right-icon svg,
@@ -70,6 +72,7 @@
   font-weight: var(--bs-font-weight-strong);
   line-height: var(--bs-fabrique-line-height-action-sm);
   font-style: normal;
+  height: var(--bs-component-height-button-sm);
 }
 
 .bs-fabrique-button-root-sm .bs-fabrique-button-root__right-icon svg,

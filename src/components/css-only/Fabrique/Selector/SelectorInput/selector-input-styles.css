@@ -28,11 +28,15 @@
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  border: var(--bs-border-width-thin) solid var(--bs-color-border-default);
+  border: 0px;
+  -webkit-box-shadow: var(--bs-border-shadow) var(--bs-border-width-thin)
+    var(--bs-color-border-default);
+  -moz-box-shadow: var(--bs-border-shadow) var(--bs-border-width-thin)
+    var(--bs-color-border-default);
+  box-shadow: var(--bs-border-shadow) var(--bs-border-width-thin)
+    var(--bs-color-border-default);
   gap: var(--bs-space-size-2);
   box-sizing: border-box;
-  height: auto;
-  min-height: 2em; /* Required for select\text-field height consistency*/
   overflow: hidden;
   cursor: pointer;
   padding: var(--bs-space-size-2) var(--bs-space-size-4);
@@ -44,43 +48,58 @@
   color: var(--bs-color-text-disabled);
   cursor: default;
   background-color: var(--bs-color-action-disabled);
+  -webkit-box-shadow: var(--bs-border-shadow) var(--bs-border-width-thin)
+    var(--bs-color-border-disabled);
+  -moz-box-shadow: var(--bs-border-shadow) var(--bs-border-width-thin)
+    var(--bs-color-border-disabled);
+  box-shadow: var(--bs-border-shadow) var(--bs-border-width-thin)
+    var(--bs-color-border-disabled);
 }
 
 .bs-fabrique-selector-input--selected {
-  border-color: var(--bs-color-border-strong);
-  /* doing a calc for outline width to take into account the negative offset */
-  outline: var(--bs-color-border-strong) solid
-    calc(var(--bs-border-width-thin) - var(--bs-fabrique-offset-1));
-  outline-offset: var(--bs-fabrique-offset-1);
-  box-shadow: var(--bs-shadow-m);
+  -webkit-box-shadow: var(--bs-border-shadow) var(--bs-border-width-thin)
+      var(--bs-color-border-strong),
+    var(--bs-shadow-input-field-focused);
+  -moz-box-shadow: var(--bs-border-shadow),
+    var(--bs-border-width-thin) var(--bs-color-border-strong),
+    var(--bs-shadow-input-field-focused);
+  box-shadow: var(--bs-border-shadow) var(--bs-border-width-thin)
+      var(--bs-color-border-strong),
+    var(--bs-shadow-input-field-focused);
 }
 
 .bs-fabrique-selector-input--error {
-  border-color: var(--bs-color-border-status-error-weak);
-  /* doing a calc for outline width to take into account the negative offset */
-  outline: var(--bs-color-border-status-error-weak) solid
-    calc(var(--bs-border-width-thin) - var(--bs-fabrique-offset-1));
-  outline-offset: var(--bs-fabrique-offset-1);
-  box-shadow: var(--bs-shadow-m);
+  -webkit-box-shadow: var(--bs-border-shadow) var(--bs-border-width-thin)
+      var(--bs-color-border-status-error-weak),
+    var(--bs-shadow-input-field-error);
+  -moz-box-shadow: var(--bs-border-shadow) var(--bs-border-width-thin)
+      var(--bs-color-border-status-error-weak),
+    var(--bs-shadow-input-field-error);
+  box-shadow: var(--bs-border-shadow) var(--bs-border-width-thin)
+      var(--bs-color-border-status-error-weak),
+    var(--bs-shadow-input-field-error);
 }
 
 .bs-fabrique-selector-input--small:focus-visible,
 .bs-fabrique-selector-input--large:focus-visible {
-  border-color: var(--bs-color-border-strong);
-  /* doing a calc for outline width to take into account the negative offset */
-  outline: var(--bs-color-border-strong) solid
-    calc(var(--bs-border-width-thin) - var(--bs-fabrique-offset-1));
-  outline-offset: var(--bs-fabrique-offset-1);
+  -webkit-box-shadow: var(--bs-border-shadow) var(--bs-border-width-thin)
+    var(--bs-color-border-strong);
+  -moz-box-shadow: var(--bs-border-shadow) var(--bs-border-width-thin)
+    var(--bs-color-border-strong);
+  box-shadow: var(--bs-border-shadow) var(--bs-border-width-thin)
+    var(--bs-color-border-strong);
 }
 
 .bs-fabrique-selector-input--small {
   border-radius: var(--bs-border-radius-sm);
   padding: var(--bs-space-size-2) var(--bs-space-size-3);
+  min-height: var(--bs-component-height-selector-sm);
 }
 
 .bs-fabrique-selector-input--large {
   border-radius: var(--bs-border-radius-md);
   padding: var(--bs-space-size-3) var(--bs-space-size-4);
+  min-height: var(--bs-component-height-selector-lg);
 }
 
 .bs-fabrique-selector-input__icon--base {
@@ -114,8 +133,7 @@
 
 .bs-fabrique-selector-input__values-container {
   width: 100%;
-  height: auto;
-  min-height: 2em; /* Required for select\text-field height consistency*/
+  min-height: var(--bs-component-height-input);
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;

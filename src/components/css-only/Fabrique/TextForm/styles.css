@@ -46,7 +46,13 @@
   align-items: flex-start;
   align-self: stretch;
   border-radius: var(--bs-border-radius-md);
-  border: var(--bs-border-width-thin) solid var(--bs-color-border-default);
+  border: 0px;
+  -webkit-box-shadow: var(--bs-border-shadow) var(--bs-border-width-thin)
+    var(--bs-color-border-default);
+  -moz-box-shadow: var(--bs-border-shadow) var(--bs-border-width-thin)
+    var(--bs-color-border-default);
+  box-shadow: var(--bs-border-shadow) var(--bs-border-width-thin)
+    var(--bs-color-border-default);
 }
 
 .bs-fabrique-text-form__textarea__container--draggable {
@@ -55,22 +61,37 @@
 }
 
 .bs-fabrique-text-form__textarea__container--disabled {
-  border-color: var(--bs-color-border-disabled);
+  -webkit-box-shadow: var(--bs-border-shadow) var(--bs-border-width-thin)
+    var(--bs-color-border-disabled);
+  -moz-box-shadow: var(--bs-border-shadow) var(--bs-border-width-thin)
+    var(--bs-color-border-disabled);
+  box-shadow: var(--bs-border-shadow) var(--bs-border-width-thin)
+    var(--bs-color-border-disabled);
   cursor: default;
 }
 
 .bs-fabrique-text-form__textarea__container--focused {
-  border-color: var(--bs-color-border-strong);
-  outline: var(--bs-color-border-strong) solid
-    calc(var(--bs-border-width-thin) - var(--bs-fabrique-textfield-offset));
-  outline-offset: var(--bs-fabrique-textfield-offset);
+  -webkit-box-shadow: var(--bs-border-shadow) var(--bs-border-width-thin)
+      var(--bs-color-border-strong),
+    var(--bs-shadow-input-field-focused);
+  -moz-box-shadow: var(--bs-border-shadow),
+    var(--bs-border-width-thin) var(--bs-color-border-strong),
+    var(--bs-shadow-input-field-focused);
+  box-shadow: var(--bs-border-shadow) var(--bs-border-width-thin)
+      var(--bs-color-border-strong),
+    var(--bs-shadow-input-field-focused);
 }
 
 .bs-fabrique-text-form__textarea__container--error {
-  border-color: var(--bs-color-border-status-error-weak);
-  outline: var(--bs-color-border-status-error-weak) solid
-    calc(var(--bs-border-width-thin) - var(--bs-fabrique-textfield-offset));
-  outline-offset: var(--bs-fabrique-textfield-offset);
+  -webkit-box-shadow: var(--bs-border-shadow) var(--bs-border-width-thin)
+      var(--bs-color-border-status-error-weak),
+    var(--bs-shadow-input-field-error);
+  -moz-box-shadow: var(--bs-border-shadow) var(--bs-border-width-thin)
+      var(--bs-color-border-status-error-weak),
+    var(--bs-shadow-input-field-error);
+  box-shadow: var(--bs-border-shadow) var(--bs-border-width-thin)
+      var(--bs-color-border-status-error-weak),
+    var(--bs-shadow-input-field-error);
 }
 
 .bs-fabrique-text-form__max-character__container {

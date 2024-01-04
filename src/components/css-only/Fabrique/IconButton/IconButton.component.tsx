@@ -140,7 +140,15 @@ export const IconButton: React.FC<ButtonProps> = ({
       onClick={onClick}
       type={type}
     >
-      {children}
+      <span
+        className={classNames({
+          'bs-fabrique-icon-button__svg-container--sm': size === ButtonSize.SM,
+          'bs-fabrique-icon-button__svg-container--md': size === ButtonSize.MD,
+          'bs-fabrique-icon-button__svg-container--lg': size === ButtonSize.LG,
+        })}
+      >
+        {children}
+      </span>
     </ButtonBase>
   );
 };

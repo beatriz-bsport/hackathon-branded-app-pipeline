@@ -324,8 +324,10 @@ export const useMuiThemeToCssVars = () => {
     --bs-shadow-m:  0px 4px 8px rgba(0, 0, 0, 0.06), 0px 0px 4px rgba(0, 0, 0, 0.04);
     --bs-shadow-l:  0px 8px 16px rgba(0, 0, 0, 0.08), 0px 0px 4px rgba(0, 0, 0, 0.04);
     --bs-footer-shadow:  0px 4px 8px rgba(0, 0, 0, 0.06), 0px -4px 4px rgba(0, 0, 0, 0.04);
-    
     --bs-border-shadow: inset 0px 0px 0px;
+    
+    --bs-shadow-input-field-focused: 0px 0px 2px 0px var(--bs-grey-alpha-500a);
+    --bs-shadow-input-field-error: 0px 0px 3px 0px var(--bs-red-500);
 
     /* FABRIQUE TRANSITIONS */
     --bs-transition-duration-quick:50ms;
@@ -339,6 +341,22 @@ export const useMuiThemeToCssVars = () => {
     /* FABRIQUE FONT WEIGHT */
     --bs-font-weight-weak: 400;
     --bs-font-weight-strong:700;
+
+    /* FABRIQUE COMPONENTS HEIGHT */
+    --bs-component-height-button-sm: 1.5rem;
+    --bs-component-height-button-md: 2rem;
+    --bs-component-height-button-lg: 3rem;
+    --bs-component-width-button-sm: 1.5rem;
+    --bs-component-width-button-md: 2rem;
+    --bs-component-width-button-lg: 3rem;
+    
+    --bs-component-height-input: 1.5rem;
+
+    --bs-component-height-textfield-sm: 2.5rem;
+    --bs-component-height-textfield-lg: 3rem;
+
+    --bs-component-height-selector-sm: 2.5rem;
+    --bs-component-height-selector-lg: 3rem;
 
     /* FABRIQUE TEMPORARY VARIABLES */
     --bs-fabrique-alert-min-height: 64px;

@@ -50,18 +50,18 @@
 
 .bs-fabrique-textfield__input__container--focused {
   border-color: var(--bs-color-border-strong);
-  /* doing a calc for outline width to take into account the negative offset */
-  outline: var(--bs-color-border-strong) solid
-    calc(var(--bs-border-width-thin) - var(--bs-fabrique-textfield-offset));
-  outline-offset: var(--bs-fabrique-textfield-offset);
+  -webkit-box-shadow: var(--bs-shadow-input-field-focused);
+  -moz-box-shadow: var(--bs-shadow-input-field-focused);
+  box-shadow: var(--bs-shadow-input-field-focused);
+  outline: 0;
 }
 
 .bs-fabrique-textfield__input__container--error {
   border-color: var(--bs-color-border-status-error-weak);
-  /* doing a calc for outline width to take into account the negative offset */
-  outline: var(--bs-color-border-status-error-weak) solid
-    calc(var(--bs-border-width-thin) - var(--bs-fabrique-textfield-offset));
-  outline-offset: var(--bs-fabrique-textfield-offset);
+  -webkit-box-shadow: var(--bs-shadow-input-field-error);
+  -moz-box-shadow: var(--bs-shadow-input-field-error);
+  box-shadow: var(--bs-shadow-input-field-error);
+  outline: 0;
 }
 
 /* INPUT CSS PROPERTIES */
@@ -86,6 +86,7 @@
   -ms-user-select: text; /* IE 10+ */
   user-select: text; /* Standard syntax */
   background: inherit;
+  height: var(--bs-component-height-input);
 }
 
 .bs-fabrique-textfield__input:disabled {
@@ -100,11 +101,13 @@
 /* DIFFERENT SIZE */
 
 .bs-fabrique-textfield__input__container--small {
+  height: var(--bs-component-height-textfield-sm);
   border-radius: var(--bs-border-radius-sm);
   padding: var(--bs-space-size-2) var(--bs-space-size-3);
 }
 
 .bs-fabrique-textfield__input__container--large {
+  height: var(--bs-component-height-textfield-lg);
   border-radius: var(--bs-border-radius-md);
   padding: var(--bs-space-size-3) var(--bs-space-size-4);
 }

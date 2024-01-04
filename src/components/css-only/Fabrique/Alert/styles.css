@@ -94,26 +94,47 @@
 
 /* ----- BACKGROUND OUTLINED VARIANT ----- */
 .bs-fabrique-alert__root--outlined-grey {
-  border: var(--bs-border-width-regular) solid var(--bs-color-border-strong);
+  -webkit-box-shadow: var(--bs-border-shadow) var(--bs-border-width-regular)
+    var(--bs-color-border-strong);
+  -moz-box-shadow: var(--bs-border-shadow) var(--bs-border-width-regular)
+    var(--bs-color-border-strong);
+  box-shadow: var(--bs-border-shadow) var(--bs-border-width-regular)
+    var(--bs-color-border-strong);
 }
 
 .bs-fabrique-alert__root--outlined-info {
-  border: var(--bs-border-width-regular) solid
+  -webkit-box-shadow: var(--bs-border-shadow) var(--bs-border-width-regular)
+    var(--bs-color-border-status-info-weak);
+  -moz-box-shadow: var(--bs-border-shadow) var(--bs-border-width-regular)
+    var(--bs-color-border-status-info-weak);
+  box-shadow: var(--bs-border-shadow) var(--bs-border-width-regular)
     var(--bs-color-border-status-info-weak);
 }
 
 .bs-fabrique-alert__root--outlined-success {
-  border: var(--bs-border-width-regular) solid
+  -webkit-box-shadow: var(--bs-border-shadow) var(--bs-border-width-regular)
+    var(--bs-color-border-status-success-weak);
+  -moz-box-shadow: var(--bs-border-shadow) var(--bs-border-width-regular)
+    var(--bs-color-border-status-success-weak);
+  box-shadow: var(--bs-border-shadow) var(--bs-border-width-regular)
     var(--bs-color-border-status-success-weak);
 }
 
 .bs-fabrique-alert__root--outlined-warning {
-  border: var(--bs-border-width-regular) solid
+  -webkit-box-shadow: var(--bs-border-shadow) var(--bs-border-width-regular)
+    var(--bs-color-border-status-warning-weak);
+  -moz-box-shadow: var(--bs-border-shadow) var(--bs-border-width-regular)
+    var(--bs-color-border-status-warning-weak);
+  box-shadow: var(--bs-border-shadow) var(--bs-border-width-regular)
     var(--bs-color-border-status-warning-weak);
 }
 
 .bs-fabrique-alert__root--outlined-error {
-  border: var(--bs-border-width-regular) solid
+  -webkit-box-shadow: var(--bs-border-shadow) var(--bs-border-width-regular)
+    var(--bs-color-border-status-error-weak);
+  -moz-box-shadow: var(--bs-border-shadow) var(--bs-border-width-regular)
+    var(--bs-color-border-status-error-weak);
+  box-shadow: var(--bs-border-shadow) var(--bs-border-width-regular)
     var(--bs-color-border-status-error-weak);
 }
 

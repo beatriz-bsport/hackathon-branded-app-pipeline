@@ -324,6 +324,8 @@ export const useMuiThemeToCssVars = () => {
     --bs-shadow-m:  0px 4px 8px rgba(0, 0, 0, 0.06), 0px 0px 4px rgba(0, 0, 0, 0.04);
     --bs-shadow-l:  0px 8px 16px rgba(0, 0, 0, 0.08), 0px 0px 4px rgba(0, 0, 0, 0.04);
     --bs-footer-shadow:  0px 4px 8px rgba(0, 0, 0, 0.06), 0px -4px 4px rgba(0, 0, 0, 0.04);
+    
+    --bs-border-shadow: inset 0px 0px 0px;
 
     /* FABRIQUE TRANSITIONS */
     --bs-transition-duration-quick:50ms;

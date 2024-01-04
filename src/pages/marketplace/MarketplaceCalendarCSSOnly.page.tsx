@@ -441,16 +441,22 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
         ? this.state.filteredEstablishments
         : this.props.establishments;
 
-      const [searchedCoaches, searchedEstablishments, searchedMetaActivities] =
-        doTextSearch(
-          searchText,
-          this.props.coaches,
-          establishments,
-          Object.values(metaActivities),
-        );
+      const [
+        searchedCoaches,
+        searchedEstablishments,
+        searchedMetaActivities,
+        searchedOffers,
+      ] = doTextSearch(
+        searchText,
+        this.props.coaches,
+        establishments,
+        Object.values(metaActivities),
+        this.props.offers,
+      );
 
       const searchResult = this.props.offers.filter(
         (offer) =>
+          searchedOffers.includes(offer.id) ||
           searchedEstablishments.includes(offer.establishment) ||
           searchedMetaActivities.includes(offer.meta_activity) ||
           searchedCoaches.includes(offer.coach),

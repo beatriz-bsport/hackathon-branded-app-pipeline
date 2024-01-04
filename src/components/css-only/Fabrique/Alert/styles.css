@@ -20,7 +20,7 @@
 }
 
 .bs-fabrique-alert__text__title {
-  font-weight: 700;
+  font-weight: var(--bs-font-weight-strong);
 }
 
 .bs-fabrique-alert__text__title--hidden {

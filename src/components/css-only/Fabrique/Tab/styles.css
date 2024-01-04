@@ -32,7 +32,7 @@
 }
 
 .bs-fabrique-tab-root--selected .bs-fabrique-tab-text {
-  font-weight: 700;
+  font-weight: var(--bs-font-weight-strong);
 }
 
 .bs-fabrique-tab-root:hover {

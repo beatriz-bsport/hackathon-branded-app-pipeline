@@ -35,7 +35,7 @@
   padding: var(--bs-space-size-3) var(--bs-space-size-4);
   border-radius: var(--bs-border-radius-pill);
   font-size: var(--bs-fabrique-font-size-action-lg);
-  font-weight: var(--bs-fabrique-font-weight-action-bolder);
+  font-weight: var(--bs-font-weight-strong);
   line-height: var(--bs-fabrique-line-height-action-lg);
   font-style: normal;
 }
@@ -51,7 +51,7 @@
   border-radius: var(--bs-border-radius-pill);
   font-size: var(--bs-fabrique-font-size-action-md);
   font-family: var(--bs-font-family);
-  font-weight: var(--bs-fabrique-font-weight-action-bolder);
+  font-weight: var(--bs-font-weight-strong);
   line-height: var(--bs-fabrique-line-height-action-md);
   font-style: normal;
 }
@@ -67,7 +67,7 @@
   border-radius: var(--bs-border-radius-pill);
   font-size: var(--bs-fabrique-font-size-action-sm);
   font-family: var(--bs-font-family);
-  font-weight: var(--bs-fabrique-font-weight-action-bold);
+  font-weight: var(--bs-font-weight-strong);
   line-height: var(--bs-fabrique-line-height-action-sm);
   font-style: normal;
 }

@@ -334,14 +334,15 @@ export const useMuiThemeToCssVars = () => {
     /* FABRIQUE ICON SIZE */
     --bs-icon-size-xs: 8px;
 
+    /* FABRIQUE FONT WEIGHT */
+    --bs-font-weight-weak: 400;
+    --bs-font-weight-strong:700;
+
     /* FABRIQUE TEMPORARY VARIABLES */
     --bs-fabrique-alert-min-height: 64px;
-    --bs-fabrique-badge-font-weight-onstrong: 700;
     --bs-fabrique-font-size-action-lg: 1.125rem;
     --bs-fabrique-font-size-action-md: 1rem;
     --bs-fabrique-font-size-action-sm: 0.875rem;
-    --bs-fabrique-font-weight-action-bold: 600;
-    --bs-fabrique-font-weight-action-bolder: 700;
     --bs-fabrique-line-height-action-lg: 1.5rem;
     --bs-fabrique-line-height-action-md: 1.25rem;
     --bs-fabrique-line-height-action-sm: 1rem;

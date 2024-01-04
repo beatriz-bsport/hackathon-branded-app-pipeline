@@ -81,12 +81,12 @@
 
 /* TEXT STYLES */
 .bs-fabrique-listitem__radio__label--selected {
-  font-weight: 700;
+  font-weight: var(--bs-font-weight-strong);
   color: var(--bs-color-text-inverse-default);
 }
 
 .bs-fabrique-listitem__checkbox__label--selected {
-  font-weight: 700;
+  font-weight: var(--bs-font-weight-strong);
 }
 
 .bs-fabrique-listitem__radio__captiontext--selected {

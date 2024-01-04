@@ -28,7 +28,7 @@
 
 .bs-fabrique-badge-content-typography {
   white-space: nowrap;
-  font-weight: var(--bs-fabrique-badge-font-weight-onstrong);
+  font-weight: var(--bs-font-weight-strong);
 }
 
 /* Badge content text color */

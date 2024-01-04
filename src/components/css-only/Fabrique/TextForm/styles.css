@@ -86,7 +86,7 @@
   font-family: var(--bs-font-family);
   font-size: var(--bs-font-size-body-md);
   font-style: normal;
-  font-weight: 400;
+  font-weight: var(--bs-font-weight-weak);
   border: 0 transparent var(--bs-color-border-default);
   outline: none;
   color: var(--bs-color-text-default);

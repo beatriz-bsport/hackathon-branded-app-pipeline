@@ -101,6 +101,7 @@ exports.default = {
     placeholderCard: {
       myBookings: 'Choose a session to see more details',
       mySubscriptions: 'Choose a subscription to see more details',
+      myPasses: 'Choose a pass to see more details',
     },
     myBookings: {
       title: 'My bookings',
@@ -233,6 +234,19 @@ exports.default = {
       },
     },
     myPasses: {
+      title: 'My passes',
+      tab: {
+        activity: 'Activities',
+        appointment: 'Appointments',
+        universal: 'Universal',
+      },
+      filters: {
+        active: 'Active',
+        expired: 'Expired',
+        future: 'Future',
+      },
+      buyANewPass: 'Buy a new pass',
+      bookASession: 'Book a session',
       consumerPassCard: {
         unlimited: 'Unlimited',
         credits: '{{ creditsLeft }}/{{ totalCredits }} credits',

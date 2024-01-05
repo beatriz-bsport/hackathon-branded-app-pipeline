@@ -53,6 +53,7 @@
     var(--bs-color-border-default);
   box-shadow: var(--bs-border-shadow) var(--bs-border-width-thin)
     var(--bs-color-border-default);
+  background-color: var(--bs-color-background-light);
 }
 
 .bs-fabrique-text-form__textarea__container--draggable {

@@ -40,6 +40,7 @@
   gap: var(--bs-space-size-2);
   box-sizing: border-box;
   width: 300px;
+  background-color: var(--bs-color-background-light);
 }
 
 .bs-fabrique-textfield__input__container--disabled {

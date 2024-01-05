@@ -5,12 +5,12 @@ import { connect, ConnectedProps } from 'react-redux';
 import { compose, withProps, withHandlers, withStateHandlers } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import type { TFunction } from 'i18next';
-import AppBar from '@material-ui/core/AppBar';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Paper from '@material-ui/core/Paper';
 import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
 
 import { OptionCallback } from '../../state/types';
+// @ts-ignore
 import mapParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { associatedCoachSelector } from '../../libs/associated-coach/selectors';
 import {
@@ -31,13 +31,29 @@ import {
 import { fetchAssociatedCoachesList } from '../../libs/associated-coach/actions';
 import withTitle from '../../hocs/with-title.hoc';
 
-import CoachPerformanceDateFilter from '#libs/coach-payment-rules/components/performance/filters/CoachPerformanceDateFilter.component';
+import CoachPerformanceDateAndEstablishmentFilter from '#libs/coach-payment-rules/components/performance/filters/CoachPerformanceDateAndEstablishmentFilter.component';
 import CoachPerformanceSummaryHeader from '#libs/coach-payment-rules/components/performance/CoachPerformanceSummaryHeader.component';
 import CoachPerformanceTabs from '#libs/coach-payment-rules/components/performance/CoachPerformanceTabs.component';
 import { Coach } from '../../libs/associated-coach/types';
 import type { RootState } from '../../reducers';
 import { WithHandlerType } from '../../utils/types';
 import { getTheme } from '#libs/theme/selectors';
+import {
+  fetchEstablishments as fetchEstablishmentsAction,
+  fetchAllEstablishmentGroup as fetchAllEstablishmentGroupAction,
+} from '#libs/establishment/actions';
+import {
+  getAllEstablishments,
+  getAssociatedEstablishmentGroup,
+} from '#libs/establishment/selectors';
+import type { CoachwithPerformance } from '#libs/coach-payment-rules/types';
+
+import {
+  getFilteredAssociatedCoachWithPerformance,
+  getFilteredEstablishments,
+  getEstablishmentGroupNames,
+  getEstablishmentNames,
+} from '#libs/coach-payment-rules/utils';
 
 type OwnProps = {
   associatedCoachId: number;
@@ -53,6 +69,7 @@ type Props = OwnAndConnectedProps &
   WithHandlerType<typeof mapWithHandlers> &
   WithStyles<typeof styles> &
   WithTranslation;
+type State = { selectedEstablishments: number[]; selectedLocations: number[] };
 
 export class CoachPerformance extends React.Component<Props> {
   componentDidMount() {
@@ -60,10 +77,69 @@ export class CoachPerformance extends React.Component<Props> {
     this.props.fetchAssociatedCoachesList({
       associated_coach__in: this.props.associatedCoachId,
     });
+    this.props.fetchEstablishments();
+    this.props.companyTheme?.enable_multi_localization &&
+      this.props.fetchAllEstablishmentGroup();
   }
 
   changeDate = (dateStart: number, dateEnd: number) => {
     this.props.setFormDates({ dateStart, dateEnd });
+  };
+
+  state: State = { selectedEstablishments: [], selectedLocations: [] };
+
+  setSelectedEstablishmentFilter = (
+    selectedEstablishments: number[],
+    selectedLocations: number[],
+  ) => {
+    this.setState({ selectedEstablishments, selectedLocations });
+  };
+
+  establishmentsOptions = ([...this.props.establishments] || []).map(
+    (establishment) => {
+      return { value: establishment?.id, label: establishment?.title };
+    },
+  );
+
+  establishmentGroupLocationsOptions = (
+    [...this.props.establishmentGroupList] || []
+  ).map((establishmentGroup) => {
+    return { value: establishmentGroup.id, label: establishmentGroup.name };
+  });
+
+  getFilteredAssociatedCoachWithPerformance = () => {
+    const establishmentIds = getFilteredEstablishments(
+      this.state.selectedEstablishments,
+      this.state.selectedLocations,
+      this.props.establishmentGroupList,
+    );
+    if (establishmentIds && establishmentIds?.length) {
+      return getFilteredAssociatedCoachWithPerformance(
+        establishmentIds,
+        this.props.coachWithPerformance,
+      );
+    }
+    return this.props.coachWithPerformance;
+  };
+
+  handlePdfExportation = (associatedCoachId: number, dataToExport: number) => {
+    this.props.handlePdfExportation(
+      associatedCoachId,
+      dataToExport,
+      getFilteredEstablishments(
+        this.state.selectedEstablishments,
+        this.state.selectedLocations,
+        this.props.establishmentGroupList,
+      ),
+      getEstablishmentGroupNames(
+        this.props.establishmentGroupList,
+        this.state.selectedLocations,
+      ),
+      getEstablishmentNames(
+        this.props.establishments,
+        this.state.selectedEstablishments,
+      ),
+    );
   };
 
   render() {
@@ -76,31 +152,44 @@ export class CoachPerformance extends React.Component<Props> {
       coachWithPerformance,
       handleDateFiltersChange,
       companyTheme,
+      establishments,
+      establishmentsLoading,
+      establishmentGroupList,
+      establishmentGroupListLoading,
     } = this.props;
 
     return (
       <div className={classes.container}>
-        <AppBar className={classes.bar} color="default" position="static">
-          <CoachPerformanceDateFilter
-            hideExport
-            handleDateFiltersChange={handleDateFiltersChange}
-            loading={loading || performanceLoading}
-            onSubmit={onSubmit}
-            updateStateDate={this.changeDate}
-          />
-        </AppBar>
+        <CoachPerformanceDateAndEstablishmentFilter
+          establishmentGroupList={establishmentGroupList}
+          establishmentGroupListLoading={establishmentGroupListLoading}
+          establishments={establishments}
+          establishmentsLoading={establishmentsLoading}
+          handleDateFiltersChange={handleDateFiltersChange}
+          isMultiLocalizationEnabled={
+            this.props.companyTheme?.enable_multi_localization
+          }
+          loading={loading || performanceLoading}
+          onSubmit={onSubmit}
+          selectedEstablishments={this.state.selectedEstablishments}
+          selectedLocations={this.state.selectedLocations}
+          setSelectedEstablishmentFilter={this.setSelectedEstablishmentFilter}
+          updateStateDate={this.changeDate}
+        />
         {coachWithPerformance && coachPaymentRulesByKind ? (
           <>
             <CoachPerformanceSummaryHeader
-              performances={coachWithPerformance.performance}
+              performances={
+                this.getFilteredAssociatedCoachWithPerformance().performance
+              }
             />
             <Paper>
               {loading || performanceLoading ? <LinearProgress /> : null}
               <CoachPerformanceTabs
                 displayLastUpdate
                 coachPaymentRulesByKind={coachPaymentRulesByKind}
-                coachWithPerformance={coachWithPerformance}
-                handlePdfExportation={this.props.handlePdfExportation}
+                coachWithPerformance={this.getFilteredAssociatedCoachWithPerformance()}
+                handlePdfExportation={this.handlePdfExportation}
                 isMultiLocalizationEnabled={
                   companyTheme?.enable_multi_localization
                 }
@@ -124,14 +213,6 @@ export class CoachPerformance extends React.Component<Props> {
 
 const styles = (theme: Theme) =>
   createStyles({
-    bar: {
-      width: `calc(100% + ${theme.spacing(6)}px)`,
-      marginTop: theme.spacing(-2),
-      marginRight: theme.spacing(-3),
-      marginLeft: theme.spacing(-3),
-      marginBottom: theme.spacing(3),
-      padding: theme.spacing(2),
-    },
     container: {
       marginBottom: theme.spacing(32),
     },
@@ -165,7 +246,7 @@ const connector = connect(
     coachWithPerformance: withCoachPerformance(associatedCoachSelector.get)(
       state,
       props.associatedCoachId,
-    ),
+    ) as CoachwithPerformance,
     loading: state.coachPaymentRules.performance.loading,
     coachPaymentRule: associatedCoachSelector.get(
       state,
@@ -179,6 +260,11 @@ const connector = connect(
       : null,
     coachPaymentRulesByKind: CoachPaymentRuleByKindSelector(state),
     companyTheme: getTheme(state),
+    establishments: getAllEstablishments(state),
+    establishmentsLoading: state.establishment.loading,
+    establishmentGroupList: getAssociatedEstablishmentGroup(state),
+    establishmentGroupListLoading:
+      state.establishment.establishmentGroup.loading,
   }),
   {
     fetchAllCoachPaymentRules,
@@ -193,6 +279,8 @@ const connector = connect(
     fetchBulkPrivateServicePerformanceAction:
       fetchBulkPrivateServicePerformance,
     exportPdfPerformanceAction: exportPdfPerformance,
+    fetchEstablishments: fetchEstablishmentsAction,
+    fetchAllEstablishmentGroup: fetchAllEstablishmentGroupAction,
   },
 );
 
@@ -336,12 +424,21 @@ const mapWithHandlers = {
     },
   handlePdfExportation:
     ({ exportPdfPerformanceAction, formDates }: OwnAndConnectedProps) =>
-    (associatedCoachId: number, dataToExport: number) => {
+    (
+      associatedCoachId: number,
+      dataToExport: number,
+      establishmentFilterIds: number[],
+      establismentGroupFilterNames: string[],
+      establishmentFilterNames: string[],
+    ) => {
       const params = {
         start_timestamp: formDates.dateStart,
         end_timestamp: formDates.dateEnd,
         associated_coaches_in: [associatedCoachId],
         data_to_export: dataToExport,
+        establishmentFilterIds,
+        establismentGroupFilterNames,
+        establishmentFilterNames,
       };
       exportPdfPerformanceAction(params);
     },

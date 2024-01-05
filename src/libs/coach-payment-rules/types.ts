@@ -1,3 +1,7 @@
+import {
+  COACH_PERFORMANCE_FOR_APPOINTMENT,
+  COACH_PERFORMANCE_FOR_SESSION,
+} from '@bsport/common/lib/master-data/coach_payment_rule';
 import { ErrorAndLoading } from '#libs/types';
 import type { Coach } from '../associated-coach/types';
 
@@ -125,3 +129,11 @@ export type CoachPaymentRuleState = {
     byId: { [key: number]: CoachPaymentRuleGroup };
   } & ErrorAndLoading;
 } & ErrorAndLoading;
+
+export type CoachwithPerformance = Coach & {
+  performanceLoading: boolean;
+  performance: {
+    [COACH_PERFORMANCE_FOR_SESSION]: Array<CoachPerformance>;
+    [COACH_PERFORMANCE_FOR_APPOINTMENT]: Array<CoachPerformance>;
+  };
+};

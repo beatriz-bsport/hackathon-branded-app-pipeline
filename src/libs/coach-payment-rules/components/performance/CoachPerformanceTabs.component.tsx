@@ -19,11 +19,10 @@ import { makeStyles } from '@material-ui/core';
 import CoachPerformanceSessionTable from './CoachPerformanceSessionTable.component';
 import CoachPerformancePrivateServiceTable from './CoachPerformancePrivateServiceTable.component';
 import type {
-  CoachPerformance,
+  CoachwithPerformance,
   CoachPaymentRuleGroup,
   CoachPaymentRule,
 } from '#libs/coach-payment-rules/types';
-import type { Coach } from '#libs/associated-coach/types';
 import CoachPerformanceRuleSetter from './CoachPerformanceRuleSetter.component';
 import { formatAsDatetimeAdapted } from '../../../../utils/datetime';
 
@@ -292,14 +291,6 @@ type CoachPaymentRuleObjects = {
   coachPaymentRulesByKind?: { [kind: number]: Array<CoachPaymentRule> };
   coachPaymentRuleGroups?: Array<CoachPaymentRuleGroup>;
   coachPaymentRuleGroupsDict?: { [groupId: number]: CoachPaymentRuleGroup };
-};
-
-type CoachwithPerformance = Coach & {
-  performanceLoading: boolean;
-  performance: {
-    [COACH_PERFORMANCE_FOR_SESSION]: Array<CoachPerformance>;
-    [COACH_PERFORMANCE_FOR_APPOINTMENT]: Array<CoachPerformance>;
-  };
 };
 
 type TabProps = {

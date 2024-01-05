@@ -91,7 +91,7 @@ export type EstablishmentState = {
   };
   updated: boolean;
   establishmentGroup: {
-    byId: { [key: number]: EstablishmentGroup };
+    byId: { [key: number]: EstablishmentGroupAPI };
     allIds: Array<number>;
     loading: boolean;
     error?: Error;

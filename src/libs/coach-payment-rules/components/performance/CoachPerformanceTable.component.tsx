@@ -23,24 +23,15 @@ import Typography from '@material-ui/core/Typography';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import Tooltip from '#components/Tooltip.component';
 import { MaterialStyleType } from '../../../../utils/types';
-import type { Coach } from '#libs/associated-coach/types';
 import type {
-  CoachPerformance,
   CoachPaymentRuleGroup,
   CoachPaymentRule,
+  CoachwithPerformance,
 } from '#libs/coach-payment-rules/types';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import CoachPerformanceTabs from '#libs/coach-payment-rules/components/performance/CoachPerformanceTabs.component';
 import AllCoachPerformancePagination from '#libs/coach-payment-rules/components/performance/AllCoachPerformancePagination.component';
 import type { OptionCallback } from '../../../../state/types';
-
-type CoachwithPerformance = Coach & {
-  performanceLoading: boolean;
-  performance: {
-    [COACH_PERFORMANCE_FOR_SESSION]: Array<CoachPerformance>;
-    [COACH_PERFORMANCE_FOR_APPOINTMENT]: Array<CoachPerformance>;
-  };
-};
 
 interface HeadersProps {
   title: string;
@@ -413,7 +404,7 @@ export const CoachPerformanceTable = (props: Props) => {
   React.useEffect(() => {
     if (!loading && associatedCoachWithPerformance) {
       const minUpdateTimeState = associatedCoachWithPerformance?.reduce(
-        (acc: number, coachesWithPerf: CoachwithPerformance) => {
+        (acc: number, coachesWithPerf) => {
           const last_updated_date = coachesWithPerf?.performance[
             COACH_PERFORMANCE_FOR_SESSION
           ]?.map((coachPerf) => coachPerf.last_update);

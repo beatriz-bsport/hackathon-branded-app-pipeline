@@ -90,6 +90,8 @@ exports.default = {
     reset: 'Reset filters',
     apply: 'Apply filters',
     header: 'Advanced filters',
+    locations: 'Locations',
+    establishments: 'Establishments',
   },
   form: { ifEmptyAllowAll: 'Ignore this filter by leaving it blank' },
 };

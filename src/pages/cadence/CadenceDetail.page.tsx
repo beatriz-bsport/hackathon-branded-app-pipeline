@@ -38,6 +38,7 @@ import {
   deleteStepMarketingAction as deleteStepMarketingActionAction,
   deleteConnectedTrigger as deleteConnectedTriggerAction,
   modifyStepMarketingActionsConfiguration as modifyStepMarketingActionsConfigurationAction,
+  fetchCadenceStepMemberIds as fetchCadenceStepMemberIdsAction,
 } from '#libs/sequential_marketing/actions';
 import {
   CadencePanelMode,
@@ -724,7 +725,12 @@ const mapRefreshAllHandler = {
           props.fetchMarketingActionsAction({ cadence: cadence.id });
           props.fetchCadenceStepListAction(
             { id__in: cadence.steps },
-            { onSuccess: () => options?.onSuccess?.() },
+            {
+              onSuccess: () => {
+                options?.onSuccess?.();
+                props.fetchCadenceStepMemberIdsAction(cadence.id);
+              },
+            },
           );
         },
       });
@@ -1090,6 +1096,7 @@ const connector = connect(
     updateConnectedTriggerAction,
     updateCadenceInitialConfigurationAction,
     upsertStepMarketingActionAction,
+    fetchCadenceStepMemberIdsAction,
     // SMARTLISTS
     fetchAllSmartLists,
     // EMAILS

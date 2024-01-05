@@ -38,6 +38,8 @@ type Props = {
   variant?: AlertVariant;
   /** Optional custom left icon. If none provided a default one is displayed according to color */
   leftIcon?: React.ReactNode;
+  /** Whether the left icon should be hidden or not */
+  hideLeftIcon?: boolean;
   /** Alert title - displayed above content */
   title?: string;
   /** Text displayed in the action button */
@@ -106,6 +108,7 @@ const Alert: React.FC<Props> = ({
   color = AlertColorEnum.LIGHT,
   variant = AlertVariantEnum.TEXT,
   leftIcon,
+  hideLeftIcon,
   title,
   actionText,
   onActionClick,
@@ -141,9 +144,8 @@ const Alert: React.FC<Props> = ({
         className={classNames(
           'bs-fabrique-alert__left-icon',
           {
-            'bs-fabrique-alert__left-icon--hidden': !(
-              leftIcon || defaultLeftIcon
-            ),
+            'bs-fabrique-alert__left-icon--hidden':
+              !(leftIcon || defaultLeftIcon) || hideLeftIcon,
           },
           classes?.leftIcon,
         )}
@@ -206,7 +208,7 @@ const Alert: React.FC<Props> = ({
           className={classNames(
             'bs-fabrique-alert__actions__close',
             {
-              'bs-fabrique-alert__actions--hidden': !title,
+              'bs-fabrique-alert__actions--hidden': !onClose,
             },
             classes?.closeAction,
           )}

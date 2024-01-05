@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import moment, { Moment as MomentType } from 'moment-timezone';
 import * as Yup from 'yup';
@@ -23,19 +22,23 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import CalendarToday from '@material-ui/icons/CalendarToday';
 import {
+  CircularProgress,
   FormControlLabel,
   InputAdornment,
   Radio,
   RadioGroup,
 } from '@material-ui/core';
+// @ts-ignore
 import { Submit, DateField } from '#components/forms';
 import RedButton from '#components/button/RedButton.component';
 import type { OptionCallback } from '../../../../../state/types';
 import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { MaterialUiMultiSelectorField } from '#libs/custom-form/components/GenericFormik.input';
 
 type InitialValues = {
   dateStart: MomentType;
-  frequency: 'w' | 'M';
+  frequency: 'w' | 'M'; // comes from moment.unitOfTime.Base
+  establishmentsSelected: number[];
 };
 
 type Props = {
@@ -43,7 +46,7 @@ type Props = {
   disabled?: boolean;
   loading: boolean;
   hideExport?: boolean;
-  exportExcelPerformance: (
+  exportExcelPerformance?: (
     params: {
       start_timestamp: number;
       end_timestamp: number;
@@ -66,11 +69,37 @@ type Props = {
   updateStateDate: (start: number, end: number) => void;
   startTimestamp?: number;
   endTimestamp?: number;
-} & FormikProps<InitialValues>;
+  isEstablishmentFilterEmbedded?: boolean;
+  // eslint-disable-next-line react/no-unused-prop-types
+  onSubmit: (
+    data: {
+      dateStart: MomentType;
+      dateEnd: MomentType;
+    },
+    options?: OptionCallback,
+  ) => Promise<void>;
+  establishmentsOptions?: {
+    value: number;
+    label: string;
+  }[];
+  establishmentsLoading?: boolean;
+  setSelectedEstablishmentFilter: (
+    selectedEstablishments: number[],
+    selectedLocations: number[],
+  ) => void;
+};
 
 export function CoachPerformanceForm(props: Props) {
-  const { isSubmitting, loading, handleDateFiltersChange, updateStateDate } =
-    props;
+  const {
+    isSubmitting,
+    loading,
+    handleDateFiltersChange,
+    updateStateDate,
+    isEstablishmentFilterEmbedded,
+    establishmentsOptions,
+    establishmentsLoading,
+    setSelectedEstablishmentFilter,
+  } = props;
   const [openExportDialog, setOpenExportDialog] = React.useState<boolean>();
   const { values, setSubmitting, initialValues }: FormikProps<InitialValues> =
     useFormikContext();
@@ -108,6 +137,9 @@ export function CoachPerformanceForm(props: Props) {
       (previousValues?.frequency !== values.frequency ||
         previousValues?.dateStart !== values.dateStart)
     ) {
+      if (isEstablishmentFilterEmbedded) {
+        setSelectedEstablishmentFilter(values.establishmentsSelected, []);
+      }
       setSubmitting(true);
       setPreviousValues(values);
       handleDateFiltersChange(
@@ -133,6 +165,8 @@ export function CoachPerformanceForm(props: Props) {
     loading,
     previousValues,
     updateStateDate,
+    isEstablishmentFilterEmbedded,
+    setSelectedEstablishmentFilter,
   ]);
   return (
     <>
@@ -140,6 +174,7 @@ export function CoachPerformanceForm(props: Props) {
         <div className={classes.date}>
           <DateField
             required
+            className={classes.dateField}
             disabled={isSubmitting || loading}
             id="textfield_remuneration_beginning"
             InputProps={{
@@ -177,6 +212,20 @@ export function CoachPerformanceForm(props: Props) {
               </RadioGroup>
             )}
           </Field>
+          {isEstablishmentFilterEmbedded &&
+            (establishmentsLoading ? (
+              <CircularProgress />
+            ) : (
+              <MaterialUiMultiSelectorField
+                isMenuListVirtualized
+                className={classes.establishmentsFilter}
+                defaultNumberShown={1}
+                isDisabled={loading}
+                name="establishmentsSelected"
+                options={establishmentsOptions}
+                placeholder={t('coachPerformance:form.selectEstablishments')}
+              />
+            ))}
         </div>
         <>
           <Submit
@@ -242,32 +291,53 @@ const useStyles = makeStyles((theme: Theme) => ({
   flexSection: {
     display: 'flex',
     gap: theme.spacing(2),
-    justifyContent: 'sapce-between',
+    justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
   },
-
   input: {
     backgroundColor: 'white',
     color: '#868686',
   },
+  establishmentsFilter: {
+    display: 'flex',
+    justifyContent: 'center',
+    width: '30%',
+  },
+  dateField: { display: 'flex', justifyContent: 'center' },
 }));
+
 const CoachPerformanceSchema = Yup.object().shape({
   dateStart: Yup.date(),
+  establishmentsSelected: Yup.array().of(Yup.number()),
 });
 
 export default compose<any, Props>(
-  withFormik({
+  withFormik<Props, InitialValues>({
     mapPropsToValues: () => ({
       dateStart: moment().startOf('month'),
-      frequency: 'M' as moment.unitOfTime.DurationConstructor,
+      frequency: 'M',
+      establishmentsSelected: [],
     }),
     validationSchema: CoachPerformanceSchema,
-    handleSubmit: (values, { props: { onSubmit }, setSubmitting }) => {
+    handleSubmit: (
+      values,
+      {
+        props: {
+          onSubmit,
+          isEstablishmentFilterEmbedded,
+          setSelectedEstablishmentFilter,
+        },
+        setSubmitting,
+      },
+    ) => {
       const timeIntervalValue = {
         ...values,
         dateEnd: moment(values.dateStart).add(1, values.frequency),
       };
+      if (isEstablishmentFilterEmbedded) {
+        setSelectedEstablishmentFilter(values.establishmentsSelected, []);
+      }
       onSubmit(timeIntervalValue, {
         onError: () => setSubmitting(false),
         onSuccess: () => {

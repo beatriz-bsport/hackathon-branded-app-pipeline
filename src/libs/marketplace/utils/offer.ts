@@ -3,13 +3,18 @@ import moment from 'moment-timezone';
 
 import type { MetaActivity } from '#libs/meta-activity/types';
 import type { OffersGroup } from '#libs/group-offer/types';
-import { Offer, MarketplaceOfferStatus, Offer_FULL } from '#libs/offer/types';
+import {
+  Offer,
+  MarketplaceOfferStatus,
+  Offer_FULL,
+  OfferREST,
+} from '#libs/offer/types';
 import {
   OFFER_DATE_HOURS_SEPARATOR,
   OFFER_HOURS_SEPARATOR,
 } from '../constants';
 
-export function isOfferInThePast(offer: Offer | Offer_FULL) {
+export function isOfferInThePast(offer: Offer | Offer_FULL | OfferREST) {
   if (!offer) return false;
   return moment(offer.date_start).isBefore(moment());
 }

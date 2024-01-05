@@ -167,6 +167,58 @@ export type Offer<
   description_override?: string;
 };
 
+/**
+ * @description Represents an Offer following the REST API payload structure, excluding deprecated redux-selector pattern.
+ */
+export type OfferREST = {
+  activity: number;
+  additional_coaches: number[];
+  allow_guest_offer: boolean;
+  available_on_partnership: boolean;
+  available: boolean;
+  blacklist_tags: number[];
+  broadcast_link: string;
+  category: number;
+  coach_override: number | null;
+  coach_payment_rule_id: number | null;
+  coach: number;
+  credit_price_override: number;
+  credit_price: number;
+  custom_level: number;
+  date_roll_call_last_modified: string | null;
+  date_start: string;
+  duration_minute: number;
+  effectif: number;
+  establishment_override: number | null;
+  establishment: number;
+  full: boolean;
+  group: number | null;
+  has_spivi_booking_error: boolean;
+  has_spivi_error: boolean;
+  id: number;
+  is_broadcast: boolean;
+  level: number;
+  manager_only: boolean;
+  meta_activity_color: string | null;
+  meta_activity: number;
+  name: string;
+  name_override: string | null;
+  nb_attendant: number;
+  nb_bookings: number;
+  nb_non_attendant: number;
+  nb_option: number;
+  parent_category: number;
+  partner_max_booking_count: number;
+  roll_call_needs_validation: boolean;
+  room_blueprint: number | null;
+  source: number;
+  sync_on_spivi: boolean;
+  timezone_name: string;
+  waiting_list_disabled: boolean;
+  waiting_list_max_size: number;
+  whitelist_tags: number[];
+};
+
 export type Offer_FULL = Offer<
   Coach,
   Establishment,
@@ -224,8 +276,8 @@ export type OfferState = ErrorAndLoading & {
     open: boolean;
     filters: OfferFilter;
   };
-  byId: { [key: string]: Offer };
-  calendar: ImmutableArray<Partial<Offer>>;
+  byId: { [key: string]: OfferREST };
+  calendar: ImmutableArray<Partial<OfferREST>>;
   paginatedCalendar: {
     next_page: number;
     page: number;
@@ -238,16 +290,16 @@ export type OfferState = ErrorAndLoading & {
   };
   lastFetched: Date;
   byDay: ErrorAndLoading & { allIds: number[] };
-  retrieve: ErrorAndLoading & { data: Offer | null };
+  retrieve: ErrorAndLoading & { data: OfferREST | null };
   bulk: ErrorAndLoading;
   similarOffers: ErrorAndLoading & {
     count: number;
-    items: Offer[];
+    items: OfferREST[];
     lastFetched: Date | null;
     next_page: number;
   };
   next: ErrorAndLoading & {
-    item?: Offer;
+    item?: OfferREST;
   };
   compatiblePacks: ErrorAndLoading & { items: any[]; lastFetched: Date | null };
   marketplace: ErrorAndLoading & {

@@ -54,6 +54,17 @@ import CoachPerformanceAdvancedFilters from '#libs/coach-payment-rules/component
 import type { Coach } from '#libs/associated-coach/types';
 import { getTheme } from '#libs/theme/selectors';
 
+import {
+  fetchEstablishments as fetchEstablishmentsAction,
+  fetchAllEstablishmentGroup as fetchAllEstablishmentGroupAction,
+} from '#libs/establishment/actions';
+import {
+  getAllEstablishments,
+  getAssociatedEstablishmentGroup,
+} from '#libs/establishment/selectors';
+
+import { getFilteredEstablishments } from '#libs/coach-payment-rules/utils';
+
 const PAGINATION_PAGE_LENGTH = 25;
 const styles = (theme: Theme) =>
   createStyles({
@@ -120,6 +131,8 @@ type Props = OwnAndConnectedProps &
 type State = {
   startTimestamp: number;
   endTimestamp: number;
+  selectedEstablishments: number[];
+  selectedLocations: number[];
 };
 
 export class AllCoachPerformancePage extends Component<Props, State> {
@@ -128,6 +141,8 @@ export class AllCoachPerformancePage extends Component<Props, State> {
     this.state = {
       startTimestamp: moment().startOf('month').unix(),
       endTimestamp: moment().endOf('month').unix(),
+      selectedEstablishments: [],
+      selectedLocations: [],
     };
   }
 
@@ -144,6 +159,10 @@ export class AllCoachPerformancePage extends Component<Props, State> {
     );
     this.props.fetchAllCoachPaymentRuleGroups();
     this.props.fetchCoachPerformanceCachedDataAction({ max_range: 10 });
+    this.props.fetchEstablishments();
+
+    this.props.companyTheme?.enable_multi_localization &&
+      this.props.fetchAllEstablishmentGroup();
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -191,6 +210,13 @@ export class AllCoachPerformancePage extends Component<Props, State> {
     });
   };
 
+  setSelectedEstablishmentFilter = (
+    selectedEstablishments: number[],
+    selectedLocations: number[],
+  ) => {
+    this.setState({ selectedEstablishments, selectedLocations });
+  };
+
   leavePreviewMode = () => {
     this.props.setSelectedCachedTimestamp(null);
     this.props.setCoachesPaginated(
@@ -227,6 +253,7 @@ export class AllCoachPerformancePage extends Component<Props, State> {
       !!this.props.selectedCachedTimestamp &&
       !!this.props
         .associatedCoachWithCoachPaymentRuleAndPerformanceFromCachedData;
+
     return (
       <div className={classes.container}>
         <AppBar className={classes.bar} color="default" position="static">
@@ -252,12 +279,24 @@ export class AllCoachPerformancePage extends Component<Props, State> {
           coachPaymentRuleGroupsDict={this.props.coachPaymentRuleGroupsDict}
           coachPaymentRulesByKind={this.props.coachPaymentRulesByKind}
           disabled={isInPreviewMode}
+          establishmentGroupList={this.props.establishmentGroupList}
+          establishmentGroupListLoading={
+            this.props.establishmentGroupListLoading
+          }
+          establishments={this.props.establishments}
+          establishmentsLoading={this.props.establishmentsLoading}
+          isMultiLocalizationEnabled={
+            this.props.companyTheme?.enable_multi_localization
+          }
           loading={
             this.props.coachLoading ||
             this.props.performanceLoading ||
             this.props.isSubmitLoading
           }
           onSubmit={this.props.onSubmitFilters}
+          selectedEstablishments={this.state.selectedEstablishments}
+          selectedLocations={this.state.selectedLocations}
+          setSelectedEstablishmentFilter={this.setSelectedEstablishmentFilter}
         />
         <CoachPerformanceCachedDataList
           cachedDataList={this.props.coachPerformanceCachedDataList}
@@ -286,6 +325,11 @@ export class AllCoachPerformancePage extends Component<Props, State> {
           }
           pagination={this.props.coachPaginationState}
           previewMode={isInPreviewMode}
+          selectedEstablishments={getFilteredEstablishments(
+            this.state.selectedEstablishments,
+            this.state.selectedLocations,
+            this.props.establishmentGroupList,
+          )}
           setCoachPaymentRule={this.props.setCoachPaymentRule}
           setCoachPaymentRuleGroup={this.props.setCoachPaymentRuleGroup}
           setCoachPrivatePaymentRule={this.props.setCoachPrivatePaymentRule}
@@ -328,6 +372,11 @@ const connector = connect(
         selectedCachedTimestamp,
       ),
     companyTheme: getTheme(state),
+    establishments: getAllEstablishments(state),
+    establishmentsLoading: state.establishment.loading,
+    establishmentGroupList: getAssociatedEstablishmentGroup(state),
+    establishmentGroupListLoading:
+      state.establishment.establishmentGroup.loading,
   }),
   {
     setSessionCoachPaymentRuleAction: setSessionCoachPaymentRule,
@@ -351,6 +400,8 @@ const connector = connect(
     exportExcelPerformanceAction: exportExcelPerformance,
     fetchCoachPerformanceCachedDataAction: fetchCoachPerformanceCachedData,
     exportPdfPerformanceAction: exportPdfPerformance,
+    fetchEstablishments: fetchEstablishmentsAction,
+    fetchAllEstablishmentGroup: fetchAllEstablishmentGroupAction,
   },
 );
 
@@ -446,6 +497,9 @@ const mapWithHandlers = {
         score_timestamp?: number;
         associated_coaches_in?: Array<number>;
         data_to_export?: number;
+        establishmentFilterIds?: number[];
+        establismentGroupFilterNames?: string[];
+        establishmentFilterNames?: string[];
       },
       options?: OptionCallback,
     ) => {

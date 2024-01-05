@@ -52,6 +52,7 @@ export type CoachPerformance = {
   is_workshop?: boolean;
   establishment_title?: string;
   establishment_group_names?: string[];
+  establishment_id?: number;
 };
 
 export type CoachPaymentRulesByKind = {

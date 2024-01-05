@@ -7,6 +7,9 @@ import {
 } from '@bsport/common/lib/master-data/coach_payment_rule';
 import axios from 'axios';
 
+import type { CoachwithPerformance } from '#libs/coach-payment-rules/types';
+import type { EstablishmentGroupAPI } from '#libs/establishment/types';
+
 export const bonusCoachPaymentRuleConstructor = (
   coach_payment_rule_id: number | null,
   params: {
@@ -128,4 +131,60 @@ export const openPdfDocument = (response) => {
       link.click();
       window.URL.revokeObjectURL(url);
     });
+};
+
+export const getFilteredAssociatedCoachWithPerformance = (
+  selectedEstablishments: number[],
+  coachWithPerformance: CoachwithPerformance,
+) => {
+  return {
+    ...coachWithPerformance,
+    performance: {
+      [COACH_PERFORMANCE_FOR_SESSION]:
+        coachWithPerformance?.performance[
+          COACH_PERFORMANCE_FOR_SESSION
+        ]?.filter((performance) =>
+          selectedEstablishments?.includes(performance.establishment_id),
+        ) || [],
+      [COACH_PERFORMANCE_FOR_APPOINTMENT]:
+        coachWithPerformance?.performance[
+          COACH_PERFORMANCE_FOR_APPOINTMENT
+        ]?.filter((performance) =>
+          selectedEstablishments?.includes(performance.establishment_id),
+        ) || [],
+    },
+  };
+};
+
+export const getEstablishmentIdsByEstablishmentGroupLocations = (
+  selectedLocations: number[],
+  establishmentGroupList: EstablishmentGroupAPI[],
+) => {
+  return (
+    selectedLocations?.reduce((acc: number[], establishmentGroupId) => {
+      const establishmentsFromGroup = establishmentGroupList?.find(
+        (establishmentGroup) => establishmentGroup.id === establishmentGroupId,
+      );
+      return [
+        ...new Set(acc.concat(establishmentsFromGroup?.establishment || [])),
+      ];
+    }, []) || []
+  );
+};
+
+export const getFilteredEstablishments = (
+  selectedEstablishments: number[],
+  selectedLocations: number[],
+  establishmentGroupList: EstablishmentGroupAPI[],
+) => {
+  if (selectedEstablishments && selectedEstablishments.length) {
+    return selectedEstablishments;
+  }
+  if (selectedLocations && selectedLocations.length) {
+    return getEstablishmentIdsByEstablishmentGroupLocations(
+      selectedLocations,
+      establishmentGroupList,
+    );
+  }
+  return [];
 };

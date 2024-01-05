@@ -32,6 +32,7 @@ import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import CoachPerformanceTabs from '#libs/coach-payment-rules/components/performance/CoachPerformanceTabs.component';
 import AllCoachPerformancePagination from '#libs/coach-payment-rules/components/performance/AllCoachPerformancePagination.component';
 import type { OptionCallback } from '../../../../state/types';
+import { getFilteredAssociatedCoachWithPerformance } from '#libs/coach-payment-rules/utils';
 
 interface HeadersProps {
   title: string;
@@ -320,6 +321,7 @@ type OwnProps = {
   startTimestamp: number;
   endTimestamp: number;
   isMultiLocalizationEnabled: boolean;
+  selectedEstablishments: number[];
 } & CoachPaymentRuleObjects &
   CoachPaymentRuleActions;
 
@@ -341,6 +343,7 @@ export const CoachPerformanceTable = (props: Props) => {
     setCoachPaymentRuleGroup,
     exportPdfPerformance,
     isMultiLocalizationEnabled,
+    selectedEstablishments,
   } = props;
   const [oldestUpdate, setOldestUpdate] = React.useState<number | null>(null);
   const { t } = useTranslation(['coachPerformance', 'coach', 'paymentRules']);
@@ -421,6 +424,21 @@ export const CoachPerformanceTable = (props: Props) => {
       setOldestUpdate(minUpdateTimeState);
     }
   }, [associatedCoachWithPerformance, loading]);
+
+  const filteredAssociatedCoachWithPerformance = React.useMemo(() => {
+    if (selectedEstablishments?.length) {
+      return (
+        associatedCoachWithPerformance?.map((coachWithPerformance) => {
+          return getFilteredAssociatedCoachWithPerformance(
+            selectedEstablishments,
+            coachWithPerformance,
+          );
+        }) || []
+      );
+    }
+    return associatedCoachWithPerformance;
+  }, [associatedCoachWithPerformance, selectedEstablishments]);
+
   return (
     <TableContainer component={Paper}>
       {props.loading && <LinearProgress />}
@@ -472,7 +490,7 @@ export const CoachPerformanceTable = (props: Props) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {associatedCoachWithPerformance?.map((perf) => (
+          {filteredAssociatedCoachWithPerformance?.map((perf) => (
             <CoachPerformanceTableRow
               coachPaymentRuleGroups={coachPaymentRuleGroups}
               coachPaymentRuleGroupsDict={coachPaymentRuleGroupsDict}
@@ -506,6 +524,7 @@ export const CoachPerformanceTable = (props: Props) => {
     </TableContainer>
   );
 };
+
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     '& > *': {

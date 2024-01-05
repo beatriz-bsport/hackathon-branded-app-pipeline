@@ -55,7 +55,7 @@ const Path: FC<PathProps> = forwardRef<SVGPathElement, PathProps>(
         stroke={props.stroke ? props.stroke : 'inherit'}
         strokeLinecap={props.strokeLinecap ? props.strokeLinecap : 'round'}
         strokeLinejoin={props.strokeLinejoin ? props.strokeLinejoin : 'round'}
-        strokeWidth={props.width ? props.width : 'inherit'}
+        strokeWidth={props.width ? props.width : 2}
       />
     );
   },

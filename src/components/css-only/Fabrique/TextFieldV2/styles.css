@@ -89,7 +89,7 @@
   height: var(--bs-component-height-input);
 }
 
-.bs-fabrique-textfield__input:disabled {
+[class*='bs-fabrique-textfield__input']:disabled {
   color: var(--bs-color-text-disabled);
   background-color: transparent;
 }
@@ -112,24 +112,20 @@
   padding: var(--bs-space-size-3) var(--bs-space-size-4);
 }
 
-.bs-fabrique-textfield__input::placeholder {
+[class*='bs-fabrique-textfield__input']::placeholder {
   color: var(--bs-color-text-weakest);
 }
 
-.bs-fabrique-textfield__input:disabled::placeholder {
+[class*='bs-fabrique-textfield__input']:disabled::-webkit-input-placeholder {
   color: var(--bs-color-text-disabled);
 }
 
-.bs-fabrique-textfield__input:disabled::-webkit-input-placeholder {
-  color: var(--bs-color-text-disabled);
-}
-
-.bs-fabrique-textfield__input:disabled::placeholder {
+[class*='bs-fabrique-textfield__input']:disabled::placeholder {
   color: var(--bs-color-text-disabled);
   opacity: 1; /* Firefox */
 }
 
-.bs-fabrique-textfield__input:disabled::-ms-input-placeholder {
+[class*='bs-fabrique-textfield__input']:disabled::-ms-input-placeholder {
   /* Edge 12 -18 */
   color: var(--bs-color-text-disabled);
 }
@@ -178,8 +174,4 @@
 .bs-fabrique-textfield__clear-button:hover,
 .bs-fabrique-textfield__clear-button:focus {
   color: var(--bs-color-text-default);
-}
-
-.bs-fabrique-textfield__clear-button:disabled {
-  cursor: default;
 }

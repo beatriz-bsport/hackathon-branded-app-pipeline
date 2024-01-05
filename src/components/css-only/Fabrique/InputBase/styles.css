@@ -10,12 +10,12 @@
   width: '100%';
 }
 
-.bs-fabrique-input-base:invalid {
+[class*='bs-fabrique-input-base']:invalid {
   /* Reset Firefox invalid required input style */
   box-shadow: 'none';
 }
 
-.bs-fabrique-input-base:disabled {
+[class*='bs-fabrique-input-base']:disabled {
   /* Reset iOs opacity */
   opacity: 1;
 }

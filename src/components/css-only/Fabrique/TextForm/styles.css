@@ -120,11 +120,12 @@
   resize: none;
   flex: 1;
 }
-.bs-fabrique-text-form__textarea:disabled {
+
+[class*='bs-fabrique-text-form__textarea']:disabled {
   color: var(--bs-color-text-disabled);
 }
 
-.bs-fabrique-text-form__textarea::placeholder {
+[class*='bs-fabrique-text-form__textarea']::placeholder {
   color: var(--bs-color-text-weakest);
 }
 

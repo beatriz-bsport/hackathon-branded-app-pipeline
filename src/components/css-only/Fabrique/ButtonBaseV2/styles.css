@@ -20,24 +20,23 @@
   color: inherit;
 }
 
-.bs-fabrique-button-base-root::-moz-focus-inner {
+[class*='bs-fabrique-button-base-root']::-moz-focus-inner {
   border: 0;
   border-style: none;
 }
 
-.bs-fabrique-button-base-root:disabled {
+[class*='bs-fabrique-button-base-root']:disabled {
   pointer-events: none;
   cursor: default;
   color: var(--bs-color-text-disabled);
 }
-
 .bs-fabrique-button-base-ripple {
   position: relative;
   overflow: hidden;
   transform: translate3d(0, 0, 0);
 }
 
-.bs-fabrique-button-base-ripple:after {
+[class*='bs-fabrique-button-base-ripple']:after {
   content: '';
   display: block;
   position: absolute;
@@ -58,7 +57,7 @@
   transition: transform 0.5s, opacity 1s;
 }
 
-.bs-fabrique-button-base-ripple:active:after {
+[class*='bs-fabrique-button-base-ripple']:active:after {
   transform: scale(0, 0);
   opacity: 0.3;
   transition: 0s;

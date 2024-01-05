@@ -15,29 +15,29 @@
   background-color: var(--color-secondary-light);
 }
 
-.bs-linear_progess::-webkit-progress-bar {
+[class*='bs-linear_progess']::-webkit-progress-bar {
   background-color: transparent;
 }
 
 /* Determinate */
-.bs-linear_progess::-webkit-progress-value {
+[class*='bs-linear_progess']::-webkit-progress-value {
   background-color: currentColor;
   transition: all 0.2s;
 }
 
-.bs-linear_progess::-moz-progress-bar {
+[class*='bs-linear_progess']::-moz-progress-bar {
   background-color: currentColor;
   transition: all 0.2s;
 }
 
-.bs-linear_progess::-ms-fill {
+[class*='bs-linear_progess']::-ms-fill {
   border: none;
   background-color: currentColor;
   transition: all 0.2s;
 }
 
 /* Indeterminate */
-.bs-linear_progess:indeterminate {
+[class*='bs-linear_progess']:indeterminate {
   background-size: 200% 100%;
   background-image: linear-gradient(
     to right,
@@ -53,11 +53,11 @@
   animation: bs-linear_progess 2s infinite linear;
 }
 
-.bs-linear_progess:indeterminate::-moz-progress-bar {
+[class*='bs-linear_progess']:indeterminate::-moz-progress-bar {
   background-color: transparent;
 }
 
-.bs-linear_progess:indeterminate::-ms-fill {
+[class*='bs-linear_progess']:indeterminate::-ms-fill {
   animation-name: none;
 }
 

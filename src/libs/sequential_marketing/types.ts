@@ -189,6 +189,9 @@ export type CadenceStepState = {
   subscribe: ErrorAndLoading;
   position: ErrorAndLoading;
   trigger: TriggerState;
+  memberIdsInStepByStepId: {
+    data: { [id: number]: number[] };
+  } & ErrorAndLoading;
 } & ErrorAndLoading;
 
 export type MarketingActionState = {

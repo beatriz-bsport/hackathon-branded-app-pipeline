@@ -204,6 +204,12 @@ export const modifyStepMarketingActionsConfiguration = async (
   );
 };
 
+export const fetchCadenceStepMemberIds = (cadenceId: number) => {
+  return getAuth<{ [id: number]: number[] }>(
+    `${API_V1_URI}/sequential_marketing/cadence/${cadenceId}/get_member_ids_in_steps/`,
+  );
+};
+
 // CONNNECTED TRIGGERS
 
 export const subscribeStepToStep = (

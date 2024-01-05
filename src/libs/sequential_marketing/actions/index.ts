@@ -48,7 +48,9 @@ import {
   // CONVERT INTO EXIT
   convertCadenceStepIntoExitActions,
   convertCadenceStepIntoExit,
-  // SUBSCRIBE
+  // MEMBERS IN STEP
+  fetchCadenceStepMemberIdsActions,
+  fetchCadenceStepMemberIds,
 } from './step';
 
 import {
@@ -120,6 +122,8 @@ export {
   convertCadenceStepIntoExit,
   subscribeStepToStepActions,
   subscribeStepToStep,
+  fetchCadenceStepMemberIdsActions,
+  fetchCadenceStepMemberIds,
   // CONNECTED TRIGGER
   updateConnectedTriggerActions,
   updateConnectedTrigger,

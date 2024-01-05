@@ -100,5 +100,5 @@ export const getStepMarketingActionsByStepId = createSelector(
   (marketingActionbyStepId, id) => marketingActionbyStepId[id] ?? [],
 );
 
-// TODO: make it use actual information of the workflows
-export const getStepMemberCount = (state: RootState, id: number) => id * 200;
+export const getStepMemberCount = (state: RootState, stepId: number) =>
+  state.cadence.step.memberIdsInStepByStepId?.data[stepId]?.length ?? 0;

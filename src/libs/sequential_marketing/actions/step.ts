@@ -7,6 +7,7 @@ import {
   convertCadenceStepIntoExit as convertCadenceStepIntoExitAPI,
   updateCadenceStepName as updateCadenceStepNameAPI,
   deleteCadenceStep as deleteCadenceStepAPI,
+  fetchCadenceStepMemberIds as fetchCadenceStepMemberIdsAPI,
 } from '#libs/sequential_marketing/api';
 import { DestinationStatus } from '#libs/sequential_marketing/constants';
 
@@ -193,5 +194,35 @@ export function deleteCadenceStep(id: number, options?: OptionCallback) {
     }
 
     dispatch(deleteCadenceStepActions.isLoading(false));
+  };
+}
+
+export const fetchCadenceStepMemberIdsActions = {
+  isLoading: createAction<boolean>('CADENCE_STEP/MEMBER_IDS_LIST/IS_LOADING'),
+  error: createAction<Error>('CADENCE_STEP/MEMBER_IDS_LIST/ERROR'),
+  success: createAction<{ [id: number]: number[] }>(
+    'CADENCE_STEP/MEMBER_IDS_LIST/SUCCESS',
+  ),
+};
+
+export function fetchCadenceStepMemberIds(
+  cadenceId: number,
+  options?: OptionCallback<{ [id: number]: number[] }>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(fetchCadenceStepMemberIdsActions.isLoading(true));
+    dispatch(fetchCadenceStepMemberIdsActions.error(null));
+
+    try {
+      const response = await fetchCadenceStepMemberIdsAPI(cadenceId);
+      dispatch(fetchCadenceStepMemberIdsActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(fetchCadenceStepMemberIdsActions.error(err));
+      options?.onError?.();
+    }
+
+    dispatch(fetchCadenceStepMemberIdsActions.isLoading(false));
   };
 }

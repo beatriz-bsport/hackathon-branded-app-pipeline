@@ -9,6 +9,7 @@ import {
   retrieveCadenceStepActions,
   updateCadenceStepNameActions,
   updateCadenceStepCanvasPositionActions,
+  fetchCadenceStepMemberIdsActions,
   // TRIGGERS
   convertCadenceExitIntoStepActions,
   deleteConnectedTriggerActions,
@@ -55,6 +56,7 @@ export const initialCadenceStepState: ImmutableCadenceStepState =
       loading: false,
       error: null,
     },
+    memberIdsInStepByStepId: { data: {}, loading: false, error: null },
   });
 
 export default handleActions<ImmutableCadenceStepState, any>(
@@ -428,6 +430,25 @@ export default handleActions<ImmutableCadenceStepState, any>(
           return trigger;
         }),
       );
+    },
+
+    [fetchCadenceStepMemberIdsActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['memberIdsInStepByStepId', 'loading'], payload);
+    },
+    [fetchCadenceStepMemberIdsActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['memberIdsInStepByStepId', 'error'], payload);
+    },
+    [fetchCadenceStepMemberIdsActions.success.toString()]: (
+      state,
+      { payload }: { payload: { [id: number]: number[] } },
+    ) => {
+      return state.setIn(['memberIdsInStepByStepId', 'data'], payload);
     },
   },
   initialCadenceStepState,

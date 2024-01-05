@@ -1386,6 +1386,12 @@
         "bookASession": "Book a session",
         "tab": { "activities": "Activities", "appointments": "Appointments", "workshops": "Workshops" },
         "filter": { "upcoming": "Upcoming", "past": "Past", "onWaitlist": "On waitlist" },
+        "listContainer": {
+          "placeholder": {
+            "activity": { "past": "No past activities to show.", "future": "No upcoming activities scheduled." },
+            "workshop": { "past": "No past workshops to show.", "future": "No upcoming workshops scheduled." }
+          }
+        },
         "consumerBookingCard": {
           "chip": {
             "online": "Online",

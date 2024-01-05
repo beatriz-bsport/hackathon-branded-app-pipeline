@@ -127,7 +127,7 @@ type BaseProps<T = unknown> = {
   renderItem: ({ item, index }: { item: T; index?: number }) => JSX.Element;
 };
 
-const GenericInfiniteScrollEnhancedCssOnly = <T extends unknown>({
+export const GenericInfiniteScrollEnhancedCssOnly = <T extends unknown>({
   hasMore,
   items,
   endMessage,

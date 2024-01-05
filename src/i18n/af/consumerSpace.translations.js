@@ -114,7 +114,18 @@ exports.default = {
         past: 'Past',
         onWaitlist: 'On waitlist',
       },
-
+      listContainer: {
+        placeholder: {
+          activity: {
+            past: 'No past activities to show.',
+            future: 'No upcoming activities scheduled.',
+          },
+          workshop: {
+            past: 'No past workshops to show.',
+            future: 'No upcoming workshops scheduled.',
+          },
+        },
+      },
       consumerBookingCard: {
         chip: {
           online: 'Online',

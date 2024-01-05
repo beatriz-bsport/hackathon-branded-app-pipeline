@@ -13,16 +13,3 @@
   border: 2px solid var(--color-primary-light);
   border-radius: var(--spacing-1);
 }
-
-.scroll-component__specific-item-style {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: var(--spacing-4);
-  margin: var(--spacing-1);
-  padding: var(--spacing-1);
-  border-radius: var(--spacing-2);
-  background-color: var(--color-primary-light);
-  color: var(--color-primary-contrastText);
-  font-weight: bold;
-}

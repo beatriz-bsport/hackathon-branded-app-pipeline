@@ -1,0 +1,24 @@
+.bs-consumer-page-root__bookings {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--bs-space-size-4);
+  width: 100%;
+  margin-top: var(--bs-space-size-6);
+}
+
+.bs-consumer-page-root__bookings--empty {
+  text-align: center;
+}
+
+.bs-consumer-page-root__bookings__list {
+  padding: 0;
+  margin: 0;
+  flex: 1;
+}
+
+.bs-consumer-page-root__bookings__list__item {
+  width: 100%;
+  margin-bottom: var(--bs-space-size-4);
+}
+
+/* .bs-consumer-page-root__bookings__booking-details {} */

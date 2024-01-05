@@ -171,11 +171,22 @@ export class ConsumerBooking extends React.Component<Props> {
   render() {
     return (
       <ConsumerBookingPageReworked
+        fetchFutureBookings={this.fetchFutureBookings}
+        fetchFutureBookingsWorkshop={this.fetchFutureBookingsWorkshop}
+        fetchPastBookings={this.fetchPastBookings}
+        fetchPastBookingsWorkshop={this.fetchPastBookingsWorkshop}
+        futureBookingsList={this.props.myFutureBookingsList}
         futureBookingsState={this.props.myFutureBookingsState}
+        futureBookingsWorkshopList={this.props.myFutureBookingsWorkshopList}
+        futureBookingsWorkshopState={this.props.myFutureBookingsWorkshopState}
         getIsBookingsLoading={this.props.getIsBookingsLoading}
         handleBookASessionClick={this.handleBookASessionClick}
         pastBookingsList={this.props.myPastBookingsList}
         pastBookingsState={this.props.myPastBookingsState}
+        pastBookingsWorkshopList={this.props.myPastBookingsWorkshopList}
+        pastBookingsWorkshopState={this.props.myPastBookingsWorkshopState}
+        sessionTimeDisplay={this.props.sessionTimeDisplay}
+        timezone={this.props.timezone}
       />
     );
   }

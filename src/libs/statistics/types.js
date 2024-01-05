@@ -11,3 +11,15 @@ export type Graph = {
   dataFilters?: { [string]: string },
   aggregate: boolean | undefined,
 };
+
+export type WaitingListStatisticsParams = {
+  min_date: string,
+  max_date: string,
+  date_field: string,
+  kind: string,
+  activity__in?: number[],
+  establishments?: number[],
+  establishment_group__in?: number[],
+  with_number_of_people_in_waiting_list?: boolean,
+  has_active_sub_teacher_request?: boolean,
+};

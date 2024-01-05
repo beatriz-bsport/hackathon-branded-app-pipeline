@@ -39,6 +39,12 @@ export async function fetchBookingTimeslotStatistics(params) {
   );
 }
 
+export async function fetchOffersWaitingListStatistics(params) {
+  return getJSONAuth(
+    `${API_URI}/statistics/offer-waiting-list/${buildUrlParams(params)}`,
+  );
+}
+
 export async function fetchMemberStatistics(params) {
   return getJSONAuth(`${API_URI}/statistics/member/${buildUrlParams(params)}`);
 }
@@ -77,4 +83,5 @@ export default {
   bookingStatistics,
   fetchBookingStatistics,
   fetchPrivateBookingStatistics,
+  fetchOffersWaitingListStatistics,
 };

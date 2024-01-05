@@ -36,6 +36,11 @@ const selectCancelledBookings = (
 ): Immutable.ImmutableArray<Immutable.Immutable<StatisticPoint>> =>
   state.stats.stats.cancelledBookings?.data;
 
+const selectOffersWaitingList = (
+  state: RootState,
+): Immutable.ImmutableArray<Immutable.Immutable<StatisticPoint>> =>
+  state.stats.stats.waitingLists?.data;
+
 const selectStart = (state: RootState, start: string) => start;
 
 const selectEnd = (state: RootState, start: string, end: string) => end;
@@ -52,6 +57,7 @@ export const getStats: (
     Immutable.Immutable<StatisticPoint>
   >;
   offers: Immutable.ImmutableArray<Immutable.Immutable<StatisticPoint>>;
+  waitingLists: Immutable.ImmutableArray<Immutable.Immutable<StatisticPoint>>;
   start: Moment;
   end: Moment;
 } = createSelector(
@@ -59,10 +65,11 @@ export const getStats: (
     selectCreatedBookings,
     selectCancelledBookings,
     selectOffersFromCalendar,
+    selectOffersWaitingList,
     selectStart,
     selectEnd,
   ],
-  (createdBookings, cancelledBookings, offers, start, end) => {
+  (createdBookings, cancelledBookings, offers, waitingLists, start, end) => {
     if (createdBookings && cancelledBookings && start && end) {
       const startMoment = moment(start);
       const endMoment = moment(end);
@@ -85,6 +92,7 @@ export const getStats: (
         createdBookings,
         cancelledBookings,
         offers: formattedOffers,
+        waitingLists,
         start: startMoment,
         end: endMoment,
       };

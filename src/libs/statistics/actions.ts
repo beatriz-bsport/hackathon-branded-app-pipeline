@@ -16,6 +16,7 @@ import statsAPI, {
 
 import { fetchDataSourceDashboardStatistics as fetchDataSourceDashboardStatisticsAPI } from './api';
 import type { DataSourceDashboardGraph } from '#libs/dashboard/types';
+import type { WaitingListStatisticsParams } from '#libs/statistics/types';
 
 export const dateRangeChange = createAction('STATISTICS/DATE_RANGE/CHANGE');
 export const statIsLoading = createAction('STATISTICS/IS_LOADING');
@@ -70,6 +71,20 @@ export function fetchBookingStatistics(identifier: string, params: any) {
       dispatch,
       identifier,
       statsAPI.fetchBookingStatistics,
+      params,
+    );
+  };
+}
+
+export function fetchOffersWaitingListStatistics(
+  identifier: string,
+  params: WaitingListStatisticsParams,
+) {
+  return async (dispatch: Dispatch) => {
+    fetchStatsWithTime(
+      dispatch,
+      identifier,
+      statsAPI.fetchOffersWaitingListStatistics,
       params,
     );
   };

@@ -40,7 +40,7 @@
   overflow: hidden;
   cursor: pointer;
   padding: var(--bs-space-size-2) var(--bs-space-size-4);
-  background-color: var(--bs-color-action-light);
+  background-color: var(--bs-color-background-light);
 }
 
 .bs-fabrique-selector-input--disabled {

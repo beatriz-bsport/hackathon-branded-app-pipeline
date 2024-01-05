@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import {
   COACH_PERFORMANCE_FOR_SESSION,
@@ -21,6 +20,9 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import Button from '@material-ui/core/Button';
 import { FormControlLabel, Radio, RadioGroup } from '@material-ui/core';
+import Divider from '@material-ui/core/Divider';
+import type { ImmutableArray } from 'seamless-immutable';
+// @ts-ignore
 import { Submit } from '#components/forms';
 import type { OptionCallback } from '../../../../../state/types';
 import { MaterialUiMultiSelectorField } from '#libs/custom-form/components/GenericFormik.input';
@@ -29,6 +31,11 @@ import {
   CoachPaymentRuleGroup,
   CoachPaymentRulesByKind,
 } from '#libs/coach-payment-rules/types';
+import CoachPerformanceLocationEstablishmentFilter from './CoachPerformanceLocationEstablishmentFilter.component';
+import type {
+  Establishment,
+  EstablishmentGroupAPI,
+} from '#libs/establishment/types';
 
 type InitialValues = {
   by_coach_payment_rule_group: boolean;
@@ -37,6 +44,9 @@ type InitialValues = {
   session_coach_payment_rules: Array<number>;
   workshop_coach_payment_rules: Array<number>;
   private_service_coach_payment_rules: Array<number>;
+  byLocation: boolean;
+  locationsSelected: number[];
+  establishmentsSelected: number[];
 };
 
 type Props = {
@@ -46,12 +56,42 @@ type Props = {
   loading: boolean;
   coachPaymentRuleGroups: Array<CoachPaymentRuleGroup>;
   coachPaymentRulesByKind: CoachPaymentRulesByKind;
+  isMultiLocalizationEnabled: boolean;
+  establishments: ImmutableArray<Establishment>;
+  setSelectedEstablishmentFilter: (
+    selectedEstablishments: number[],
+    selectedLocations: number[],
+  ) => void;
+  establishmentGroupList: EstablishmentGroupAPI[];
+  establishmentsLoading: boolean;
+  establishmentGroupListLoading: boolean;
 } & FormikProps<InitialValues>;
+
+type FormProps = {
+  selectedLocations: number[];
+  selectedEstablishments: number[];
+  onSubmit: (
+    data: {
+      coaches: number[];
+    },
+    options: OptionCallback,
+  ) => void;
+};
 
 export function CoachPerformanceForm(props: Props) {
   const [openSection, setOptionSection] = React.useState<boolean>(false);
 
-  const { isSubmitting } = props;
+  const {
+    isSubmitting,
+    isMultiLocalizationEnabled,
+    establishments,
+    establishmentsLoading,
+    establishmentGroupList,
+    establishmentGroupListLoading,
+    resetForm,
+    setSelectedEstablishmentFilter,
+  } = props;
+
   const classes = useStyles();
   const { t } = useTranslation([
     'paymentRules',
@@ -65,6 +105,28 @@ export function CoachPerformanceForm(props: Props) {
       setOptionSection(false);
     }
   }, [setOptionSection, disableFilters]);
+
+  const establishmentsOptions = React.useMemo(
+    () =>
+      ([...establishments] || []).map((establishment) => {
+        return { value: establishment.id, label: establishment.title };
+      }),
+    [establishments],
+  );
+
+  const establishmentGroupLocationsOptions = React.useMemo(
+    () =>
+      ([...establishmentGroupList] || []).map((establishmentGroup) => {
+        return { value: establishmentGroup.id, label: establishmentGroup.name };
+      }),
+    [establishmentGroupList],
+  );
+
+  const handleResetForm = React.useCallback(() => {
+    resetForm();
+    setSelectedEstablishmentFilter([], []);
+  }, [resetForm, setSelectedEstablishmentFilter]);
+
   return (
     <div className={classes.outterContainer}>
       <Form>
@@ -88,6 +150,7 @@ export function CoachPerformanceForm(props: Props) {
               {(fieldProps: FieldProps) => (
                 <RadioGroup
                   row
+                  className={classes.radioGroup}
                   name="payment_rule_filter_radio_group"
                   value={fieldProps.field.value}
                 >
@@ -232,11 +295,24 @@ export function CoachPerformanceForm(props: Props) {
               />
             </div>
 
+            <Divider className={classes.divider} />
+
+            <CoachPerformanceLocationEstablishmentFilter
+              areFiltersDisabled={disableFilters}
+              establishmentGroupListLoading={establishmentGroupListLoading}
+              establishmentsLoading={establishmentsLoading}
+              establishmentsOptions={establishmentsOptions}
+              isMultiLocalizationEnabled={isMultiLocalizationEnabled}
+              locationsOptions={establishmentGroupLocationsOptions}
+            />
+
+            <Divider className={classes.divider} />
+
             <div className={classes.bottomActions}>
               <Button
                 color="secondary"
                 disabled={isSubmitting || !!props.disabled || props.loading}
-                onClick={() => props.resetForm()}
+                onClick={handleResetForm}
                 variant="outlined"
               >
                 {t('coachPerformance:advancedFilters.reset')}
@@ -266,7 +342,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   innerContainer: {
     paddingRight: theme.spacing(2),
-    paddingLeft: theme.spacing(2),
     paddingBottom: theme.spacing(2),
     [theme.breakpoints.down('md')]: {
       paddingRight: theme.spacing(0),
@@ -284,44 +359,46 @@ const useStyles = makeStyles((theme: Theme) => ({
   bottomActions: {
     width: '100%',
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
     alignItems: 'center',
-    gap: theme.spacing(2),
-    paddingTop: theme.spacing(2),
   },
+  divider: { margin: theme.spacing(2, 0) },
+  radioGroup: { paddingBottom: theme.spacing(2) },
 }));
+
 const CoachPerformanceSchema = Yup.object().shape({
   dateStart: Yup.date(),
 });
 
 export default compose<any, Props>(
-  withFormik({
-    mapPropsToValues: () => ({
+  withFormik<Props & FormProps, InitialValues>({
+    mapPropsToValues: ({
+      selectedLocations,
+      selectedEstablishments,
+      isMultiLocalizationEnabled,
+    }) => ({
       by_coach_payment_rule_group: true,
       coaches_selected: [],
       coach_payment_rule_groups: [],
       session_coach_payment_rules: [],
       workshop_coach_payment_rules: [],
       private_service_coach_payment_rules: [],
+      establishmentsSelected: selectedEstablishments,
+      locationsSelected: selectedLocations,
+      byLocation: isMultiLocalizationEnabled
+        ? selectedEstablishments?.length === 0
+        : false,
     }),
     validationSchema: CoachPerformanceSchema,
+    enableReinitialize: true,
     handleSubmit: (
       values,
       {
-        props: { onSubmit, coaches },
+        props: { onSubmit, coaches, setSelectedEstablishmentFilter },
         setSubmitting,
-      }: {
-        props: Props & {
-          onSubmit: (
-            data: { coaches: Array<number> },
-            options: OptionCallback,
-          ) => void;
-        };
-        setSubmitting: (submitting: boolean) => void;
       },
     ) => {
       let coachesFiltered = coaches;
-
       if (values.coaches_selected.length !== 0) {
         coachesFiltered = coachesFiltered.filter((coach) =>
           values.coaches_selected.includes(coach.associated_coach_id),
@@ -362,6 +439,14 @@ export default compose<any, Props>(
             ),
           );
         }
+      }
+
+      if (!values.byLocation && values.establishmentsSelected?.length !== 0) {
+        setSelectedEstablishmentFilter(values.establishmentsSelected, []);
+      } else if (values.byLocation && values.locationsSelected?.length !== 0) {
+        setSelectedEstablishmentFilter([], values.locationsSelected);
+      } else {
+        setSelectedEstablishmentFilter([], []);
       }
 
       onSubmit(

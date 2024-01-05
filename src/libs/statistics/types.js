@@ -20,6 +20,6 @@ export type WaitingListStatisticsParams = {
   activity__in?: number[],
   establishments?: number[],
   establishment_group__in?: number[],
-  with_number_of_people_in_waiting_list?: boolean,
+  active?: boolean,
   has_active_sub_teacher_request?: boolean,
 };

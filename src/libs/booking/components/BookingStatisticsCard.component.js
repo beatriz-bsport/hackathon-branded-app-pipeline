@@ -20,6 +20,7 @@ type Props = {
       Immutable.Immutable<StatisticPoint>,
     >,
     offers: Immutable.ImmutableArray<Immutable.Immutable<StatisticPoint>>,
+    waitingLists: Immutable.ImmutableArray<Immutable.Immutable<StatisticPoint>>,
     start: Moment,
     end: Moment,
   },
@@ -63,6 +64,12 @@ export function BookingStatisticsCard(props: Props) {
     end,
   );
 
+  const tableWaitingLists = discretizeByAndFillMissing(
+    bookingStatistics.waitingLists,
+    start,
+    end,
+  );
+
   const allOffersCount = tableOffers.reduce(
     (acc, dataPoint) => acc + dataPoint.v,
     0,
@@ -74,6 +81,11 @@ export function BookingStatisticsCard(props: Props) {
   );
 
   const cancelledBookingsCount = tableBookingCancelled.reduce(
+    (acc, dataPoint) => acc + dataPoint.v,
+    0,
+  );
+
+  const allWaitingListCount = tableWaitingLists.reduce(
     (acc, dataPoint) => acc + dataPoint.v,
     0,
   );
@@ -92,6 +104,8 @@ export function BookingStatisticsCard(props: Props) {
         tableBookingCreated[i].v - tableBookingCancelled[i].v,
       [t('bookingStatistics.keys.cancelled')]: tableBookingCancelled[i].v,
       [t('bookingStatistics.keys.offers')]: tableOffers?.[i]?.v || 0,
+      [t('bookingStatistics.keys.waitingLists')]:
+        tableWaitingLists?.[i]?.v || 0,
     });
   }
 
@@ -127,8 +141,38 @@ export function BookingStatisticsCard(props: Props) {
                 />
               </Typography>
             </div>
-            <div className={classes.bookingsConfirmationStatsWrapper}>
-              <div className={classes.bookingsConfirmationStatsContainer}>
+            <div className={classes.bookingsConfirmationStatsContainer}>
+              <Typography
+                align="center"
+                className={classes.bookingsLabel}
+                variant="body1"
+              >
+                <span
+                  className={classNames(
+                    classes.square,
+                    classes.confirmedSquare,
+                  )}
+                />
+                {t('bookingStatistics.confirmedBookings', {
+                  nb: allBookingsCount - cancelledBookingsCount,
+                })}
+              </Typography>
+              <Typography
+                align="center"
+                className={classes.bookingsLabel}
+                variant="body1"
+              >
+                <span
+                  className={classNames(
+                    classes.square,
+                    classes.cancelledSquare,
+                  )}
+                />
+                {t('bookingStatistics.bookingsCancelled', {
+                  nb: cancelledBookingsCount,
+                })}
+              </Typography>
+              {isMobile && (
                 <Typography
                   align="center"
                   className={classes.bookingsLabel}
@@ -137,13 +181,17 @@ export function BookingStatisticsCard(props: Props) {
                   <span
                     className={classNames(
                       classes.square,
-                      classes.confirmedSquare,
+                      classes.waitingListSquare,
                     )}
                   />
-                  {t('bookingStatistics.confirmedBookings', {
-                    nb: allBookingsCount - cancelledBookingsCount,
+                  {t('bookingStatistics.waitingListSize', {
+                    nb: allWaitingListCount,
                   })}
                 </Typography>
+              )}
+            </div>
+            {!isMobile && (
+              <div className={classes.waitingListStatsContainer}>
                 <Typography
                   align="center"
                   className={classes.bookingsLabel}
@@ -152,21 +200,21 @@ export function BookingStatisticsCard(props: Props) {
                   <span
                     className={classNames(
                       classes.square,
-                      classes.cancelledSquare,
+                      classes.waitingListSquare,
                     )}
                   />
-                  {t('bookingStatistics.bookingsCancelled', {
-                    nb: cancelledBookingsCount,
+                  {t('bookingStatistics.waitingListSize', {
+                    nb: allWaitingListCount,
                   })}
                 </Typography>
               </div>
-            </div>
+            )}
           </div>
         </div>
         <div className={classes.chart}>
           <StackedBarChart
-            colorA={theme.palette.primary.main}
-            colorB="#E05123"
+            colorA={theme.palette.success.main}
+            colorB={theme.palette.error.dark}
             data={data}
             domain={[start, end]}
             height={300}
@@ -186,17 +234,15 @@ const useStyles = makeStyles((theme) => ({
   paperContainer: {
     paddingBottom: theme.spacing(2),
   },
-  bookingsConfirmationStatsWrapper: {
-    display: 'flex',
-    justifyContent: 'center',
-    flex: 1,
-  },
   bookingsConfirmationStatsContainer: {
     display: 'flex',
+    flex: 1,
     [theme.breakpoints.up('sm')]: {
       flexDirection: 'row',
       alignItems: 'center',
       gap: theme.spacing(5),
+      padding: theme.spacing(1, 0),
+      borderBottom: '1px solid #EEEEEE',
     },
     [theme.breakpoints.down('xs')]: {
       flexDirection: 'column',
@@ -217,20 +263,25 @@ const useStyles = makeStyles((theme) => ({
   },
   nbOffersContainer: {
     flex: 1,
-    paddingBottom: theme.spacing(3),
-    paddingTop: theme.spacing(3),
+    padding: theme.spacing(1, 0),
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     [theme.breakpoints.up('sm')]: { borderRight: '1px solid #EEEEEE' },
     [theme.breakpoints.down('xs')]: {
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      alignSelf: 'stretch',
       borderBottom: '1px solid #EEEEEE',
     },
+    alignSelf: 'stretch',
+  },
+  waitingListStatsContainer: {
+    display: 'flex',
+    flex: 1,
+    padding: theme.spacing(1, 0),
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'stretch',
   },
   rightBorder: {
     borderRight: '1px solid #EEEEEE',
@@ -274,8 +325,9 @@ const useStyles = makeStyles((theme) => ({
     gap: theme.spacing(1),
   },
   square: { height: theme.spacing(1.875), width: theme.spacing(1.875) },
-  confirmedSquare: { backgroundColor: theme.palette.primary.main },
-  cancelledSquare: { backgroundColor: '#E05123' },
+  confirmedSquare: { backgroundColor: theme.palette.success.main },
+  cancelledSquare: { backgroundColor: theme.palette.error.dark },
+  waitingListSquare: { backgroundColor: theme.palette.warning.main },
 }));
 
 export default React.memo(BookingStatisticsCard);

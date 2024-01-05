@@ -115,7 +115,10 @@ import {
   getOfferBookingListWithConsumerPack,
 } from '#libs/booking/selectors';
 
-import { fetchBookingStatistics as fetchBookingStatisticsAction } from '#libs/statistics/actions';
+import {
+  fetchBookingStatistics as fetchBookingStatisticsAction,
+  fetchOffersWaitingListStatistics as fetchOffersWaitingListStatisticsAction,
+} from '#libs/statistics/actions';
 
 import {
   getBookingRelatedStatisticLoading,
@@ -1629,6 +1632,7 @@ export default compose(
       postRollCall: postRollCallAction,
       postRollCallBulk: postRollCallBulkAction,
       retrieveOfferAsManager: retrieveOfferAsManagerAction,
+      fetchOffersWaitingListStatistics: fetchOffersWaitingListStatisticsAction,
     },
   ),
   withHandlers({
@@ -1688,7 +1692,12 @@ export default compose(
         });
       },
     fetchBookingStatsOfTheWeek:
-      ({ date, fetchBookingStatistics, offerFilters }) =>
+      ({
+        date,
+        fetchBookingStatistics,
+        offerFilters,
+        fetchOffersWaitingListStatistics,
+      }) =>
       () => {
         fetchBookingStatistics('createdBookings', {
           min_date: moment(date).startOf('week').format('YYYY-MM-DD'),
@@ -1708,6 +1717,14 @@ export default compose(
           ...omit(offerFilters || {}, omit_list(offerFilters, true)),
           date_field: 'offer__date_start',
           kind: 'count',
+        });
+        fetchOffersWaitingListStatistics('waitingLists', {
+          min_date: moment(date).startOf('week').format('YYYY-MM-DD'),
+          max_date: moment(date).endOf('week').format('YYYY-MM-DD'),
+          date_field: 'offer__date_start',
+          kind: 'count',
+          ...omit(offerFilters || {}, omit_list(offerFilters, true)),
+          active: true,
         });
       },
     goToReplacementRequestManagementPage:

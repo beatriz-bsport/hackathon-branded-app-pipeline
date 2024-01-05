@@ -1106,13 +1106,19 @@ exports.default = {
   onlyNewMember: 'Only accept bookings from passes of new customers.',
   bookingStatistics: {
     weekOf: 'Week: {{date}}',
-    keys: { cancelled: 'Cancellations', created: 'Bookings', offers: 'Offers' },
+    keys: {
+      cancelled: 'Cancellations',
+      created: 'Bookings',
+      offers: 'Offers',
+      waitingLists: 'WaitingLists',
+    },
     confirmedBookings: '{{nb}} confirmed',
     bookingsCancelled: '{{nb}} cancelled',
     maintenedBookings: '{{nb}} booking',
     maintenedBookings_plural: '{{nb}} bookings',
     cancelledBookings: '{{nb}} cancellation',
     cancelledBookings_plural: '{{nb}} cancellations',
+    waitingListSize: '{{nb}} on waitlist',
     totalBookings: '{{nb}} booking in total',
     totalBookings_plural: '{{nb}} bookings in total',
     bookingsTotalCount: '{{nb}} <0/>total booking',
@@ -1125,6 +1131,7 @@ exports.default = {
       numberOfConfirmedBookings: 'Confirmed bookings',
       numberOfCancelledBookings: 'Cancelled bookings',
       numberOfSessions: 'Sessions',
+      waitingListSize: 'On waitlist',
     },
   },
   metaActivityNotificationToolTip:

@@ -54,6 +54,7 @@ type ContentPayload = {
     Bookings: number,
     Cancellations: number,
     Offers: number,
+    WaitingLists: number,
   },
 };
 
@@ -61,6 +62,34 @@ type CustomTooltipProps = {
   active: boolean,
   payload: ContentPayload[],
 };
+
+const translationMapping = {
+  sessions: {
+    label: 'bookingStatistics.chartsItemLabel.numberOfSessions',
+    payloadKey: 'bookingStatistics.keys.offers',
+  },
+  confirmedBookings: {
+    label: 'bookingStatistics.chartsItemLabel.numberOfConfirmedBookings',
+    payloadKey: 'bookingStatistics.keys.created',
+  },
+  cancelledBookings: {
+    label: 'bookingStatistics.chartsItemLabel.numberOfCancelledBookings',
+    payloadKey: 'bookingStatistics.keys.cancelled',
+  },
+  waitingList: {
+    label: 'bookingStatistics.chartsItemLabel.waitingListSize',
+    payloadKey: 'bookingStatistics.keys.waitingLists',
+  },
+};
+
+const getToolTipRowLabel = (
+  payload: ContentPayload[],
+  type: 'sessions' | 'confirmedBookings' | 'cancelledBookings' | 'waitingList',
+  t: TFunction,
+) =>
+  `${t(translationMapping[`${type}`].label)}: ${
+    payload[0].payload[`${t(`${translationMapping[`${type}`].payloadKey}`)}`]
+  }`;
 
 const CustomTooltip: React.FC<CustomTooltipProps> = React.memo(
   ({ active, payload }: CustomTooltipProps) => {
@@ -73,31 +102,28 @@ const CustomTooltip: React.FC<CustomTooltipProps> = React.memo(
           <Typography variant="body2">{payload[0].payload.d}</Typography>
 
           <Typography variant="body2">
-            {`${t('bookingStatistics.chartsItemLabel.numberOfSessions')}: ${
-              payload[0].payload[`${t('bookingStatistics.keys.offers')}`]
-            }`}
+            {getToolTipRowLabel(payload, 'sessions', t)}
           </Typography>
 
           <Typography className={classes.bookingsLabel} variant="body2">
             <span
               className={classNames(classes.square, classes.confirmedSquare)}
             />
-            {`${t(
-              'bookingStatistics.chartsItemLabel.numberOfConfirmedBookings',
-            )}: ${
-              payload[0].payload[`${t('bookingStatistics.keys.created')}`]
-            }`}
+            {getToolTipRowLabel(payload, 'confirmedBookings', t)}
           </Typography>
 
           <Typography className={classes.bookingsLabel} variant="body2">
             <span
               className={classNames(classes.square, classes.cancelledSquare)}
             />
-            {`${t(
-              'bookingStatistics.chartsItemLabel.numberOfCancelledBookings',
-            )}: ${
-              payload[0].payload[`${t('bookingStatistics.keys.cancelled')}`]
-            }`}
+            {getToolTipRowLabel(payload, 'cancelledBookings', t)}
+          </Typography>
+
+          <Typography className={classes.bookingsLabel} variant="body2">
+            <span
+              className={classNames(classes.square, classes.waitingListSquare)}
+            />
+            {getToolTipRowLabel(payload, 'waitingList', t)}
           </Typography>
         </Paper>
       );
@@ -188,8 +214,9 @@ const useStyles = makeStyles((theme) => ({
     gap: theme.spacing(1),
   },
   square: { height: theme.spacing(1.875), width: theme.spacing(1.875) },
-  confirmedSquare: { backgroundColor: theme.palette.primary.main },
-  cancelledSquare: { backgroundColor: '#E05123' },
+  confirmedSquare: { backgroundColor: theme.palette.success.main },
+  cancelledSquare: { backgroundColor: theme.palette.error.dark },
+  waitingListSquare: { backgroundColor: theme.palette.warning.main },
 }));
 
 export default React.memo(StackedBarChart);

@@ -8147,11 +8147,11 @@
             "BACS_DEBIT": "Bacs-Lastschriftverfahren"
         },
         "paymentComboSectionTitle": "Package",
-        "hasOneOrMoreOption": "Du bist bereits auf der Warteliste",
+        "hasOneOrMoreOption": "Sie sind bereits auf der Warteliste",
         "goBack": "Zurück",
         "bookAnotherOption": "Mich erneut auf die Warteliste einschreiben",
         "bookAnOption": "Mich auf die Warteliste einschreiben",
-        "explainOption": "Sobald ein Platz frei wird, wirst Du per E-Mail benachrichtigt",
+        "explainOption": "Sobald ein Platz frei wird, werden Sie per E-Mail benachrichtigt",
         "availablePaymentPacks": "Kompatible Kurspässe : ",
         "actions": {
             "addThisPaymentItem": "Diese Zahlungsmethode hinzufügen"
@@ -11938,7 +11938,8 @@
             "totalNetGain": "Gesamtnettogewinn",
             "netGain": "Nettogewinn",
             "marginValue": "Marginaler Wert",
-            "nb_private_bookings": " "
+            "nb_private_bookings": " ",
+            "noShowsAndLateCancellations": "Abwesenheiten und verspätete Absagen"
         },
         "checkboxIncludeABonus": "Einen Leistungsbonus integrieren",
         "pricePerOffer": "Betrag pro Session",
@@ -12658,7 +12659,7 @@
             "modal": {
                 "delete": {
                     "confirm": "Löschen",
-                    "content": "Vorsicht ! Diese Vorgang ist nicht rückgängig zu machen. Die bereits getätigten Bestellungen. Alte Bestellungen, die diese Gebühr verwenden, werden nicht geändert.",
+                    "content": "Bitte beachten Sie, dass dieser Vorgang nicht rückgängig gemacht werden kann. Alte Bestellungen, die diese Gebühr verwenden, werden nicht geändert.",
                     "cancel": "Abbrechen",
                     "title": "Versandkosten löschen"
                 }
@@ -12668,15 +12669,15 @@
                 "title": "Versandkosten-Formular",
                 "feeLabel": "Versandkosten",
                 "nameLabel": "Name",
-                "freeThresholdHelper": "Wenn der Bestellbetrag diesen Betrag übersteigt, sind die Versandkosten kostenlos",
-                "freeThresholdLabel": "Geschenkt ab",
+                "freeThresholdHelper": "Wenn der Bestellbetrag diesen Betrag übersteigt, ist der Versand kostenlos",
+                "freeThresholdLabel": "Kostenlose Lieferung ab",
                 "onCancel": "Abbrechen",
                 "onSubmit": "Speichern"
             },
-            "free_threshold": "Geschenkt ab",
+            "free_threshold": "Kaufbetragsminimum für kostenlose Lieferung",
             "name": "Name",
             "fee": "Versandkosten",
-            "offeredAboveAmount": "Geschenkt ab {{ free_threshold, price }}"
+            "offeredAboveAmount": "Kostenlose Lieferung ab {{ free_threshold, price }}"
         },
         "configuration": {
             "deliveryFee": "Versandkosten",
@@ -14173,17 +14174,17 @@
             "requestPartnership": "Integration aktivieren"
         },
         "parameters": {
-            "allEstablishment": "Alle Räume",
+            "allEstablishment": "Alle Einrichtungen",
             "establishmentId": "Deine Raum-IDs sind : {{ establishmentIdList }}",
             "enabled": "Aktiv",
             "companyId": "Deine Klub-ID lautet: {{ company }}",
-            "pleaseChoseEstablishment": "Bitte wählen Sie eine Einrichtung aus",
+            "pleaseChoseEstablishment": "Bitte wählen Sie eine Einrichtung aus.",
             "add": "Hinzufügen",
-            "establishmentMergeMaster": "In dieser Einrichtung zusammenführen ⬇️",
+            "establishmentMergeMaster": "Mit dieser Einrichtung zusammenführen :",
             "establishmentMergedAs": "Diese Einrichtungen zusammenlegen",
             "partnerId": "PartnerID: {{ company }}",
             "venueIds": "VenueIDs: {{ establishmentIdList }}",
-            "pleaseChoseEstablishmentMany": "Bitte wählen Sie mindestens eine Einrichtung aus",
+            "pleaseChoseEstablishmentMany": "Bitte wählen Sie mindestens eine Einrichtung aus.",
             "establishment": "Einrichtung",
             "configurationTitle": "Konfigurieren Sie Ihre Integration"
         },
@@ -14195,15 +14196,15 @@
         "configurationType": {
             "2": {
                 "label": "Alle Einrichtungen zusammenlegen",
-                "helperText": "Alle Schulen werden als eine einzige Schule erscheinen"
+                "helperText": "Alle zusammengeführten EInrichtungen werden als eine einzige Schule erscheinen."
             },
             "3": {
                 "label": "Fortgeschrittene",
-                "helperText": "Ähnliche Einrichtungen nach Adresse gruppieren"
+                "helperText": "Ähnliche Einrichtungen nach Adresse gruppieren."
             },
             "1": {
                 "label": "Unabhängige Einrichtungen",
-                "helperText": "Jede Schule wird in ClassPass als eigenständiger Ort angezeigt"
+                "helperText": "Jeder Standort wird in ClassPass als eigenständiger Ort angezeigt."
             }
         }
     },
@@ -14404,31 +14405,31 @@
         "tagManagementInfo": "{{authorized}} erlaubte(r) Tag(s), {{unauthorized}} nicht zugelassene(s) Tag(s)",
         "rollCall": {
             "warningText": {
-                "notValidatedRollCall": "Der Anruf wurde nicht freigegeben",
-                "rollCallsLeftToValidate": "{{ number }} Anruf erfordert eine Bestätigung",
-                "rollCallsLeftToValidate_plural": "{{ number }} Anrufe erfordern eine Bestätigung",
-                "modifiedRollCall": "Der Anruf wurde bearbeitet, Sie müssen ihn erneut freigeben",
-                "validatedDate": "Freigegeben am {{- date }} um {{ time }}",
-                "noRollCallLeft": "Alle Anrufe wurden freigegeben",
-                "lastValidatedRollCall": "Letzter freigegebener Aufruf am {{- date }} {{ time }}"
+                "notValidatedRollCall": "Der Namensaufruf wurde nicht validiert",
+                "rollCallsLeftToValidate": "{{ number }} Namensaufruf erfordert eine Bestätigung",
+                "rollCallsLeftToValidate_plural": "{{ number }} Namensaufrufe erfordern eine Bestätigung",
+                "modifiedRollCall": "Der Namensaufruf wurde bearbeitet, Sie müssen ihn erneut validieren",
+                "validatedDate": "Validiert am {{- date }} um {{ time }}",
+                "noRollCallLeft": "Alle Aufrufe wurden validiert",
+                "lastValidatedRollCall": "Letzter validierter Aufruf am {{- date }} {{ time }}"
             },
             "dialog": {
                 "confirmationRollCall": "Bitte beachten Sie, dass Mitglieder, die als abwesend gekennzeichnet sind und einen unbegrenzten Ausweis besitzen, der mit Sanktionen belegt ist, bestraft werden. Sind Sie sicher, dass Sie den Aufruf bestätigen möchten?",
                 "confirmationRollCall_plural": "Sie sind dabei, den Aufruf für alle Sitzungen des Tages zu validieren. Bitte beachten Sie, dass Mitglieder, die als abwesend gekennzeichnet sind und einen unbegrenzten Ausweis besitzen, der mit Sanktionen belegt ist, bestraft werden. Sind Sie sicher, dass Sie alle Aufrufe bestätigen wollen?",
-                "validationRollCall": "Anruf freigeben",
-                "validatedRollCall": "Anruf freigegeben",
-                "validatedRollCall_plural": "Anrufe freigegeben",
+                "validationRollCall": "Aufruf validieren",
+                "validatedRollCall": "Validierter Aufruf",
+                "validatedRollCall_plural": "Validierte Aufrufe",
                 "savedRollCall": "Der Anruf wurde erfolgreich aufgezeichnet.",
                 "savedRollCall_plural": "Der Anrufe wurden erfolgreich aufgezeichnet."
             },
             "warningIcon": {
-                "stateChangedTitle": "Status nicht freigegeben",
-                "stateChanged": "Der Status wurde geändert, aber nicht freigegeben"
+                "stateChangedTitle": "Status nicht validiert",
+                "stateChanged": "Der Status wurde geändert, aber nicht validiert"
             },
             "button": {
-                "validationRollCall": "Anruf freigeben",
-                "validationRollCall_plural": "Anrufe freigeben",
-                "validationRollCallZero": "Anruf freigeben"
+                "validationRollCall": "Aufruf validieren",
+                "validationRollCall_plural": "Aufrufe validieren",
+                "validationRollCallZero": "Namensaufruf validieren"
             },
             "chip": {
                 "notValidatedRollCall": "Anruf nicht freigegeben",
@@ -14440,9 +14441,9 @@
                 "listMembers": "Liste der eingeschriebenen Mitglieder"
             },
             "filter": {
-                "validated": "Anruf freigegeben",
-                "notValidated": "Anruf nicht freigegeben",
-                "placeholder": "Status des Anrufs"
+                "validated": "Namensaufruf validiert",
+                "notValidated": "Namensaufruf wurde nicht validiert",
+                "placeholder": "Status des Namensaufrufs"
             }
         },
         "recurrenceIndex": "Wiederholung: {{ index }}",
@@ -14463,14 +14464,14 @@
                     "durationMinuteSpivi": "Die Dauer einer Session auf Spivi sollte zwischen 20 Minuten und 4 Stunden betragen"
                 },
                 "dateTooFar": "Es ist nicht möglich, Sessions zu erstellen, die in mehr als 3 Jahren stattfinden",
-                "dateFormat": "Ungültiges Format",
+                "dateFormat": "Ungültiges Datumsformat",
                 "minTwo": "Der Wert muss größer als oder gleich 2 sein",
                 "minZero": "Der Wert muss größer als oder gleich 0 sein",
                 "positiveNumber": "Der Wert muss größer als 0 sein",
                 "required": "Unvollständiges Feld"
             },
             "dialog": {
-                "createLevel": "Level erstellen",
+                "createLevel": "Niveau erstellen",
                 "recurrencePreview": "Vorschau"
             },
             "section": {
@@ -14482,8 +14483,8 @@
                     "title": "Wechsel der Vertretungslehrkraft"
                 },
                 "similarOffers": {
-                    "info": "Änderungen an den Sitzungen können dazu führen, dass sie mit einigen Pässen nicht kompatibel sind. Nach der Änderung nehmen Sie sich bitte die Zeit, um zu überprüfen, ob sie mit allen Änderungen in der Einrichtung / Lehrkräften kompatibel bleiben.",
-                    "unselectAll": "Alle deselektieren",
+                    "info": "Änderungen an den Sitzungen können dazu führen, dass sie mit einigen Pässen nicht mehr kompatibel sind. Nach der Änderung nehmen Sie sich bitte die Zeit, um zu überprüfen, ob sie mit allen Änderungen in der Einrichtung / Lehrkräften kompatibel bleiben.",
+                    "unselectAll": "Alle abwählen",
                     "selectAll": "Alle auswählen",
                     "title": "Wählen Sie die Sessions aus, die geändert werden sollen"
                 },
@@ -14498,7 +14499,7 @@
                 },
                 "settings": {
                     "field": {
-                        "isModifyRecursively": "Möchten Sie ähnliche Sitzungen gemäß diesen neuen Bedingungen ändern?",
+                        "isModifyRecursively": "Möchten Sie ähnliche Sitzungen gemäß dieser neuen Bedingungen ändern?",
                         "isNotifyConsumers": "Möchten Sie Ihre Kunden über diese Änderung informieren?",
                         "partnership": {
                             "partnerMaxBookingCount": "Maximale Anzahl von Marketplace-Buchungen (nur OneFit + Urban Sports Club)",
@@ -14530,7 +14531,7 @@
                     },
                     "title": "Lehrkraft",
                     "additionalCoaches": {
-                        "title": "Zusätzliche Lehrkraft(en)",
+                        "title": "Zusätzliche Lehrkraft/Lehrkräfte",
                         "field": {
                             "placeHolder": "Zusätzliche Lehrkräfte auswählen"
                         }
@@ -14567,7 +14568,7 @@
                     "tooltip": {
                         "roomBlueprint": "Ermöglicht Ihren Schülern, den von ihnen gewünschten Platz im Raum zu buchen",
                         "credits": "Anzahl der für die Buchung erforderlichen Kurspass-Credits",
-                        "broadcastLink": "Der Link wird automatisch für ZOOM von bsport generiert"
+                        "broadcastLink": "Der Link für ZOOM wird automatisch von bsport generiert"
                     },
                     "field": {
                         "roomBlueprint": {
@@ -14583,7 +14584,7 @@
                         "hybridLabel": "Diese Session findet sowohl vor Ort als auch online statt.",
                         "hybridHelper": "Wenn Sie diese Option wählen, wird eine Online-Session mit einer Standardbesetzung von {{ onlineOfferDefaultEffectif }} erstellt. Sie können die Informationen des Onlineangebots nach der Erstellung bearbeiten (Verbreitungslink, Mitgliederzahl, Preis, etc.)",
                         "hybridSection": "Hybrid-Session",
-                        "hybridEditHelper": "Sie bearbeiten eine Online-Session, die mit einer Vor-Ort-Session verknüpft ist. Um einige Informationen zu ändern, müssen Sie die Vor-Ort-Session bearbeiten.",
+                        "hybridEditHelper": "Sie bearbeiten eine Online-Session, die mit einer Vor-Ort-Session verknüpft ist. Um manche Informationen zu ändern, müssen Sie die Vor-Ort-Session bearbeiten.",
                         "hybridManagementHelper": "Sie können die Buchungen, die mit dieser Partnerschaftssitzung verbunden sind, sowohl im Raum als auch online verwalten, indem Sie auf das Symbol unten klicken, um eine neue Verwaltungsseite zu öffnen."
                     },
                     "title": "Eigenschaften"
@@ -14594,11 +14595,11 @@
             },
             "stepper": {
                 "step": {
-                    "SETTINGS": "Ändern der EInstellungen",
+                    "SETTINGS": "Ändern der Einstellungen",
                     "INFOS": "Session"
                 }
             },
-            "forbidden": "Sie habne nicht die Erlaubnis Sessions zu dieser Aktivität hinzuzufügen. Bitte kontaktieren Sie Ihren Manager, um die notwendigen Rechte zu erhalten."
+            "forbidden": "Sie haben nicht die Erlaubnis Sessions zu dieser Aktivität hinzuzufügen. Bitte kontaktieren Sie Ihren Manager, um die notwendigen Rechte zu erhalten."
         },
         "broadcast": "Videokonferenzen",
         "onSite": "Im Studio",
@@ -17695,7 +17696,7 @@
                 "content": "Sind Sie sicher, dass Sie diese Kategorie löschen möchten? Alle Elemente, die sie enthält, werden in den Abschnitt ohne Kategorie verschoben"
             },
             "add": "Kategorie hinzufügen",
-            "empty": "Diese Kategorie ist leer",
+            "empty": "Diese Kategorie ist leer.",
             "noAvailable": "Keine Elemente, die den gewählten Filtern entsprechen",
             "selector": "Name der Kategorie"
         },

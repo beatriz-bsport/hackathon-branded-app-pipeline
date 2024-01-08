@@ -276,7 +276,7 @@ export const useMuiThemeToCssVars = () => {
     --bs-brand-secondary-stronger: ${chroma(theme.palette.primary.dark).darken(
       1,
     )};
-    --bs-brand-secondary-strongest ${chroma(theme.palette.primary.dark).darken(
+    --bs-brand-secondary-strongest: ${chroma(theme.palette.primary.dark).darken(
       1,
     )};
     --bs-brand-secondary-weak: ${theme.palette.secondary.light};
@@ -360,6 +360,14 @@ export const useMuiThemeToCssVars = () => {
 
     --bs-component-height-chip-sm: 1.25rem;
     --bs-component-height-chip-lg: 1.5rem;
+
+    /* FABRIQUE SCROLLBAR */
+    --bs-scrollbar-width: var(--bs-space-size-3);
+    --bs-scrollbar-border-radius: var(--bs-border-radius-pill);
+    --bs-scrollbar-background: var(--bs-grey-100);
+    --bs-scrollbar-background-hovered: var(--bs-grey-500);
+    --bs-scrollbar-background-pressed: var(--bs-grey-900);
+    --bs-scrollbar-track-hovered: var(--bs-grey-50);
 
     /* FABRIQUE TEMPORARY VARIABLES */
     --bs-fabrique-alert-min-height: 64px;

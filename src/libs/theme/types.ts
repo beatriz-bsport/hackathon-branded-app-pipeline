@@ -97,6 +97,7 @@ export type Theme = {
   is_coach_access_enabled_by_default: boolean;
   has_coach_access_to_calendar: boolean;
   has_coach_access_to_compensation: boolean;
+  has_coach_access_to_compensation_downloading: boolean;
   has_coach_access_to_replacement_request: boolean;
   churn_last_paid_month: Date;
   confirm_email_url_redirection: string;

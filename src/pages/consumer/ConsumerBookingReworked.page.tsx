@@ -6,6 +6,8 @@ import uniq from 'lodash/uniq';
 // @ts-expect-error
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import WidgetUtils from '#libs/widget/WidgetUtils';
+import { urlToMarketplaceSessionTab } from '#libs/marketplace/utils/navigation';
 
 import { fetchOfferBulk as fetchOfferBulkAction } from '#libs/offer/actions';
 import { fetchGroupOffer as fetchGroupOfferAction } from '#libs/group-offer/actions';
@@ -23,6 +25,7 @@ import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '#libs/es
 import { fetchRoomBlueprints as fetchRoomBlueprintsAction } from '#libs/spot-scheduling/actions';
 import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '#libs/payment-packs/actions';
 
+import { getTheme } from '#libs/theme/selectors';
 import { getMembership } from '#libs/membership/selectors';
 import {
   getMyPastBookingsState,
@@ -99,6 +102,20 @@ export class ConsumerBooking extends React.Component<Props> {
     });
   };
 
+  handleBookASessionClick = () => {
+    const marketplaceTabPath = urlToMarketplaceSessionTab(
+      this.props.marketplaceSettings?.config,
+      this.props.theme.company_name,
+      this.props.theme.company.toString(),
+    );
+    if (WidgetUtils.isWidget()) {
+      WidgetUtils.closeModal();
+      window?.close();
+    } else {
+      this.props.push(marketplaceTabPath);
+    }
+  };
+
   fetchPastBookings = () => {
     !!this.props.membership?.id &&
       this.props.fetchMyPastBookingAsMember(
@@ -147,6 +164,7 @@ export class ConsumerBooking extends React.Component<Props> {
     return (
       <ConsumerBookingPageReworked
         futureBookingsState={this.props.myFutureBookingsState}
+        handleBookASessionClick={this.handleBookASessionClick}
         pastBookingsState={this.props.myPastBookingsState}
       />
     );
@@ -158,6 +176,8 @@ const connector = connect(
     companyId: state.theme.theme.company,
     membership: getMembership(state, companyId),
     timezone: state.theme.theme.timezone_name,
+    theme: getTheme(state),
+    marketplaceSettings: state.marketplace.settings,
     // REWORKED
     myPastBookingsState: getMyPastBookingsState(state),
     myFutureBookingsState: getMyFutureBookingsState(state),

@@ -373,3 +373,25 @@ export const getCustomFormFieldMaxLength = (kind?: number) => {
       return MAX_LENGTH_FOR_SHORT_ANSWER;
   }
 };
+
+export const generateUniqueCustomFormFieldIdentifier = (
+  field: CustomFormField,
+  label?: string,
+  prefix?: string,
+): string => {
+  // Check if the field is not provided
+  if (!field) {
+    // Return a default identifier with null values
+    return `${`${
+      prefix ? `${prefix}::` : ''
+    }`}field_id-${null}::label-${null}::custom_form_id-${null}::kind-${null}::signup_question_kind-${null}::disabled-${null}::mandatory-${null}`;
+  }
+  const fieldLabel = label ?? (field.label || null);
+  return `${`${prefix ? `${prefix}::` : ''}`}field_id-${
+    field.id ?? null
+  }::label-${fieldLabel}::custom_form_id-${
+    field.custom_form_id ?? null
+  }::kind-${field.kind ?? null}::signup_question_kind-${
+    field.signup_question_kind ?? null
+  }::disabled-${field.disabled ?? null}::mandatory-${field.disabled ?? null}`;
+};

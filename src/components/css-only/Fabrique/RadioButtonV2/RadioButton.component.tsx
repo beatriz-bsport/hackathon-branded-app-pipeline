@@ -7,6 +7,7 @@ import Typography from '#Fabrique/Typography';
 import { Circle, Union } from '#components/untitledui';
 import type { RadioButtonSize } from './types';
 import { RadioButtonSizeEnum } from './constants';
+import InputBase from '#Fabrique/InputBase';
 
 import './styles.css';
 
@@ -87,12 +88,11 @@ export const RadioButton: React.FC<Props> = ({
       className={classNames('bs-fabrique-radio--root', className)}
       htmlFor={id}
     >
-      {/* TODO: Use InputBase instead of input tag */}
-      <input
-        checked={isChecked}
+      <InputBase
         className={classNames('bs-fabrique-radio__input', classes?.input)}
-        disabled={isDisabled}
         id={id}
+        isChecked={isChecked}
+        isDisabled={isDisabled}
         name={name}
         onClick={onClick}
         type="radio"

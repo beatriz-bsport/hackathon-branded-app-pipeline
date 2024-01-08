@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 import Typography from '#Fabrique/Typography';
+import InputBase from '#Fabrique/InputBase';
 import { CheckboxSizeEnum } from './constants';
 import { CheckSquare01, MinusSquare01, Square } from '#components/untitledui';
 import type { CheckboxSize } from './types';
@@ -103,16 +104,15 @@ const Checkbox: React.FC<Props> = ({
       className={classNames('bs-fabrique-checkbox-root', className)}
       htmlFor={id}
     >
-      {/* TODO: Consider passing input props */}
-      <input
-        checked={isChecked}
+      <InputBase
         className="bs-fabrique-checkbox__input"
-        disabled={isDisabled}
         id={id}
+        isChecked={isChecked}
+        isDisabled={isDisabled}
+        isRequired={isRequired}
         name={name ?? ''}
         onChange={onChange}
         onClick={onClick}
-        required={isRequired}
         type="checkbox"
       />
 

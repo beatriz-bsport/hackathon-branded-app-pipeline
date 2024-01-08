@@ -7,8 +7,10 @@ import type { TextFieldSize, TextFieldType } from './types';
 import { TextFieldSizeEnum, TextFieldTypeEnum } from './constants';
 
 import ButtonBase from '#Fabrique/ButtonBaseV2';
-import Typography from '../Typography';
+import Typography from '#Fabrique/Typography';
+import InputBase from '#Fabrique/InputBase';
 import { REQUIRED_SYMBOL } from '#Fabrique/constants';
+
 import { XClose } from '#components/untitledui';
 
 import './styles.css';
@@ -159,19 +161,19 @@ const TextField: React.FC<Props> = ({
             className="bs-fabrique-textfield__input__text"
             variant="body-md"
           >
-            <input
+            <InputBase
               className={classNames(
                 'bs-fabrique-textfield__input',
                 classes?.input,
               )}
-              disabled={isDisabled}
               id={inputId}
+              isDisabled={isDisabled}
+              isRequired={isRequired}
               name={name}
               onBlur={onInputUnfocus}
               onChange={onChange}
               onFocus={onInputFocus}
               placeholder={placeholder}
-              required={isRequired}
               type={type}
               value={value}
             />

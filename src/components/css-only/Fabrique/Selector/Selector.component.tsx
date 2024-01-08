@@ -46,6 +46,15 @@ export type SelectorProps = {
    */
   className?: string;
   /**
+   * In case of multiple select, it should be set to false.
+   * In case of single select, it should be set within a state handler where the selector is called
+   */
+  closeOnSelect: boolean;
+  /**
+   * The state handler callback to update closeOnSelect. Used in Selector to reset the value to false.
+   */
+  setCloseOnSelect?: React.Dispatch<React.SetStateAction<boolean>>;
+  /**
    *Represents an error message.
    */
   errorMessage?: string;
@@ -124,6 +133,8 @@ const Selector: React.FC<SelectorProps> = ({
   children,
   classes,
   className,
+  closeOnSelect,
+  setCloseOnSelect,
   errorMessage,
   getSelectedItemLabel,
   getSelectedItemValue,
@@ -147,6 +158,13 @@ const Selector: React.FC<SelectorProps> = ({
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement>(null);
 
   const isSmall = size === SelectorSizeEnum.SM;
+
+  React.useEffect(() => {
+    if (closeOnSelect && !multiple) {
+      setIsOpen(false);
+      setCloseOnSelect?.(false);
+    }
+  }, [closeOnSelect, setCloseOnSelect, multiple]);
 
   const handleClick = React.useCallback(
     (event: React.MouseEvent<HTMLDivElement>) => {
@@ -173,7 +191,8 @@ const Selector: React.FC<SelectorProps> = ({
   const handleOnClose = React.useCallback(() => {
     setAnchorEl(null);
     setIsOpen(false);
-  }, []);
+    !multiple && setCloseOnSelect?.(false);
+  }, [setCloseOnSelect, multiple]);
 
   const handleClear = React.useCallback(
     (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {

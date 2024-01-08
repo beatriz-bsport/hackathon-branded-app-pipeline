@@ -92,9 +92,12 @@ const SingleSelectTemplate: ComponentStory<typeof Selector> = (
     label: string;
   }>(null);
 
+  const [closeOnSelect, setCloseOnSelect] = React.useState(false);
+
   const handleClick = (id: number) => () => {
     const selectedItem = menuItemData.find((menuItem) => menuItem.id === id);
     setItemSelected(selectedItem);
+    setCloseOnSelect(true);
   };
 
   const handleClear = () => {
@@ -114,6 +117,8 @@ const SingleSelectTemplate: ComponentStory<typeof Selector> = (
       id="bs-fabrique-selector-storybook"
       selectedItems={itemSelected}
       onClear={handleClear}
+      closeOnSelect={closeOnSelect}
+      setCloseOnSelect={setCloseOnSelect}
       getSelectedItemLabel={getSelectedItemLabel}
       getSelectedItemValue={getSelectedItemValue}
       {...args}

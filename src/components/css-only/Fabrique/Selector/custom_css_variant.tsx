@@ -149,9 +149,12 @@ export const FABRIQUE_SELECTOR_PREVIEW: React.FC<{
     label: string;
   }>(null);
 
+  const [closeOnSelect, setCloseOnSelect] = React.useState(false);
+
   const handleClick = (id: number) => () => {
     const selectedItem = menuItemData.find((menuItem) => menuItem.id === id);
     setItemSelected(selectedItem);
+    setCloseOnSelect(true);
   };
 
   const handleClear = () => {
@@ -182,11 +185,13 @@ export const FABRIQUE_SELECTOR_PREVIEW: React.FC<{
         })}
       </Alert>
       <Selector
+        closeOnSelect={closeOnSelect}
         getSelectedItemLabel={getSelectedItemLabel}
         getSelectedItemValue={getSelectedItemValue}
         id="bs-fabrique-selector-custom-css"
         onClear={handleClear}
         selectedItems={itemSelected}
+        setCloseOnSelect={setCloseOnSelect}
         {...componentProps}
       >
         {menuItemData.map((menuItem) => (

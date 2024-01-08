@@ -4,7 +4,7 @@ import type { Dispatch, OptionCallback, ThunkAction } from '../../state/types';
 
 import * as api from './api';
 import { DeepPartial } from '../../utils/types';
-import { RoomBlueprint } from './types';
+import { RoomBlueprint, RoomBlueprintFilters } from './types';
 
 export const roomBlueprintActions = {
   success: createAction('SPOTSCHEDULING/ROOMBLUEPRINT/SUCCESS'),
@@ -47,7 +47,7 @@ export const deleteSpotForBlueprintActions = {
 };
 
 export function fetchRoomBlueprints(
-  data?: any,
+  data?: RoomBlueprintFilters,
   options?: OptionCallback<RoomBlueprint[]>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {

@@ -1,0 +1,3 @@
+import ConsumerBookingSpotSchedulingModal from './ConsumerBookingSpotSchedulingModal.component';
+
+export default ConsumerBookingSpotSchedulingModal;

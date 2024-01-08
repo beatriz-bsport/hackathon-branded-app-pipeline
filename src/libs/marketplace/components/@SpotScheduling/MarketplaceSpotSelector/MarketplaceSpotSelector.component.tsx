@@ -7,8 +7,13 @@ import { useMediaQuery, useTheme } from '@material-ui/core';
 
 import type { OptionCallback } from '../../../../../state/types';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { type OfferStatus, type Offer_FULL } from '#libs/offer/types';
+import {
+  OfferREST,
+  type OfferStatus,
+  type Offer_FULL,
+} from '#libs/offer/types';
 import type { CompanyTheme } from '#libs/theme/types';
+import type { Establishment } from '#libs/establishment/types';
 import type {
   AssetForBlueprint,
   RoomBlueprint,
@@ -22,6 +27,7 @@ import { DEFAULT_SPOT_TYPE_ID } from '#libs/spot-scheduling/utils';
 import { CanvasElement } from '#libs/spot-scheduling/CanvasSvg/tools/BaseClasses/Base.tool';
 import BookerModuleOfferSummary from '#libs/marketplace/components/@Offer/BookerModuleOfferSummary';
 import Countdown from '#components/time/CountDown.component';
+import type { MetaActivity } from '#libs/meta-activity/types';
 
 import './styles.css';
 
@@ -83,7 +89,7 @@ const SpotLegend: React.FC<SpotLegendProps> = (props) => {
 };
 
 type Props = {
-  offer: Offer_FULL;
+  offer: Offer_FULL | OfferREST;
   theme: CompanyTheme;
   roomBlueprintsById: { [key: string]: RoomBlueprint };
   assetByIdBlueprintByIdentifier: {
@@ -107,6 +113,13 @@ type Props = {
   spotCurrentlyInBasket?: string;
   goToCheckout?: () => void;
   forceCloseOnSelectForMobile?: boolean;
+  /** optional props to avoid passing state/actions */
+  offerRoomBlueprint?: RoomBlueprint;
+  establishment?: Establishment;
+  metaActivity?: MetaActivity;
+  assetForBlueprint?: {
+    [identifier: string]: AssetForBlueprint;
+  };
 };
 
 const MarketplaceSpotSelector: React.FC<Props> = (props) => {
@@ -142,8 +155,12 @@ const MarketplaceSpotSelector: React.FC<Props> = (props) => {
     [onSelectSpot, closeSpotSelector],
   );
 
-  const roomBlueprint = props.roomBlueprintsById[props.offer.room_blueprint];
-  const assets = props.assetByIdBlueprintByIdentifier[roomBlueprint?.id];
+  const roomBlueprint =
+    props.offerRoomBlueprint ||
+    props.roomBlueprintsById[props.offer.room_blueprint];
+  const assets =
+    props.assetForBlueprint ||
+    props.assetByIdBlueprintByIdentifier[roomBlueprint?.id];
   const offerStatus = props.offerStatusById[props.offer.id];
 
   const takenSpots = offerStatus?.taken_spots || [];
@@ -170,10 +187,13 @@ const MarketplaceSpotSelector: React.FC<Props> = (props) => {
           fromSpotSelector
           noStyledContainer
           companyTheme={props.theme}
-          establishment={props.offer?.establishment}
+          // @ts-expect-error
+          establishment={props.establishment || props.offer?.establishment}
           expirationDatetime={props.expirationDatetime}
           goToCheckout={props.goToCheckout}
-          metaActivity={props.offer?.meta_activity}
+          // @ts-expect-error
+          metaActivity={props.metaActivity || props.offer?.meta_activity}
+          // @ts-expect-error
           offer={props.offer}
           spotId={props.spotCurrentlyInBasket}
         />

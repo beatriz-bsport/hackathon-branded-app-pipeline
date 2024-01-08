@@ -23,7 +23,11 @@ import {
   cancelBookingAsMember as cancelBookingAsMemberAction,
 } from '#libs/consumer-space/actions';
 import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '#libs/establishment/actions';
-import { fetchRoomBlueprints as fetchRoomBlueprintsAction } from '#libs/spot-scheduling/actions';
+import {
+  fetchRoomBlueprints as fetchRoomBlueprintsAction,
+  fetchAssetForBlueprint as fetchAssetForBlueprintAction,
+  fetchSpotForBlueprint as fetchSpotForBlueprintAction,
+} from '#libs/spot-scheduling/actions';
 import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '#libs/payment-packs/actions';
 
 import { getTheme } from '#libs/theme/selectors';
@@ -40,6 +44,11 @@ import {
   getConsumerBookingsLoading,
   getRelatedConsumerBookingsInGroup,
 } from '#libs/consumer-space/selectors';
+import {
+  getAssetByBlueprintByIdentifier,
+  getAssetByIdentifier,
+  getSpotTypesOfCompany,
+} from '#libs/spot-scheduling/selector';
 
 import ConsumerBookingPageReworked from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingPageReworked';
 
@@ -71,6 +80,14 @@ export class ConsumerBooking extends React.Component<Props> {
     this.fetchPastBookings();
     this.fetchFutureBookings();
   }
+
+  fetchAssociatedBlueprintObjects = (blueprintId: number) => {
+    this.props.fetchAssetForBlueprint({ blueprint: blueprintId });
+    this.props.fetchSpotForBlueprint({
+      company: this.props.companyId,
+      blueprint: blueprintId,
+    });
+  };
 
   fetchAssociatedBookingsObjects = (bookings: BookingREST[]) => {
     const bookingsOfferList = uniq(bookings.map((booking) => booking.offer));
@@ -175,6 +192,8 @@ export class ConsumerBooking extends React.Component<Props> {
     return (
       <ConsumerBookingPageReworked
         cancelBooking={this.props.cancelBookingAsMember}
+        companyTheme={this.props.theme}
+        fetchAssociatedBlueprintObjects={this.fetchAssociatedBlueprintObjects}
         fetchFutureBookings={this.fetchFutureBookings}
         fetchFutureBookingsWorkshop={this.fetchFutureBookingsWorkshop}
         fetchPastBookings={this.fetchPastBookings}
@@ -193,6 +212,7 @@ export class ConsumerBooking extends React.Component<Props> {
         pastBookingsWorkshopList={this.props.myPastBookingsWorkshopList}
         pastBookingsWorkshopState={this.props.myPastBookingsWorkshopState}
         sessionTimeDisplay={this.props.sessionTimeDisplay}
+        spotTypes={this.props.spotTypes}
         timezone={this.props.timezone}
       />
     );
@@ -207,6 +227,9 @@ const connector = connect(
     theme: getTheme(state),
     marketplaceSettings: state.marketplace.settings,
     sessionTimeDisplay: state.theme.theme.session_time_display,
+    spotTypes: getSpotTypesOfCompany(state),
+    assetByIdBlueprintByIdentifier: getAssetByBlueprintByIdentifier(state),
+    roomBlueprintsById: state.spotScheduling.roomBlueprint.byId,
     // REWORKED
     myPastBookingsState: getMyPastBookingsState(state),
     myPastBookingsList: getMyPastBookingsList(state),
@@ -222,6 +245,8 @@ const connector = connect(
       groupId: number,
       filterTab: BookingFilterTab,
     ) => getRelatedConsumerBookingsInGroup(state, groupId, filterTab),
+    getBlueprintAssetByIdentifier: (blueprintId: number) =>
+      getAssetByIdentifier(state, blueprintId),
   }),
   {
     fetchCoachBulk: fetchCoachBulkAction,
@@ -234,6 +259,8 @@ const connector = connect(
     retrieveConsumerPackBulk: retrieveConsumerPackBulkAction,
     fetchPaymentPackBulk: fetchPaymentPackBulkAction,
     fetchRoomBlueprints: fetchRoomBlueprintsAction,
+    fetchSpotForBlueprint: fetchSpotForBlueprintAction,
+    fetchAssetForBlueprint: fetchAssetForBlueprintAction,
     // REWORKED
     fetchMyPastBookingAsMember: fetchMyPastBookingAsMemberAction,
     fetchMyFutureBookingAsMember: fetchMyFutureBookingAsMemberAction,

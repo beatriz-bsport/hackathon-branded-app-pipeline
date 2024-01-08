@@ -201,6 +201,10 @@ exports.default = {
         message:
           'You will be able to open this link 15 minutes before the session.',
       },
+      spotSchedulingModal: {
+        title: 'Spot schedule',
+        subtitle: 'Quickly find your spot in class',
+      },
     },
   },
 };

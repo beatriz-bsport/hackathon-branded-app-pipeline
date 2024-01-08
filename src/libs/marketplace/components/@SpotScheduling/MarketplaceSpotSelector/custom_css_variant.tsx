@@ -46,6 +46,7 @@ const usePropsFromVariation = (): Omit<
         company: 1,
         establishment: offer.establishment.id,
         canvas: {
+          coachHeight: faker.number.int({ min: 1, max: 3 }),
           elements: [
             {
               type: 'rect',

@@ -9,6 +9,7 @@ import ConsumerBookingFilters from '#libs/consumer-space/components/reworked/@My
 import ConsumerBookingListContainer from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingListContainer';
 import ConsumerBookingCancelModal from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingCancelModal';
 import ConsumerBookingOnlineWarningModal from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingOnlineWarningModal';
+import ConsumerBookingSpotSchedulingModal from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingSpotSchedulingModal';
 
 import type { BookingTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
 import type { ConsumerBookingReworked } from '#libs/consumer-space/types';
@@ -19,6 +20,8 @@ import type {
 } from '#libs/booking/types';
 import type { BookingFilterTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/types';
 import type { OptionCallback } from '../../../../../../state/types';
+import type { SpotType } from '#libs/spot-scheduling/types';
+import type { CompanyTheme } from '#libs/theme/types';
 
 import './styles.css';
 
@@ -33,6 +36,8 @@ type Props = {
   futureBookingsWorkshopList: ConsumerBooking[];
   timezone: string;
   sessionTimeDisplay: MarketPlaceSessionTimeDisplay;
+  spotTypes: SpotType[];
+  companyTheme: CompanyTheme;
   getIsBookingsLoading: (selectedTab: BookingTab) => boolean;
   handleBookASessionClick: () => void;
   fetchPastBookings: () => void;
@@ -48,6 +53,7 @@ type Props = {
     groupId: number,
     filterTab: BookingFilterTab,
   ) => ConsumerBooking[];
+  fetchAssociatedBlueprintObjects: (blueprintId: number) => void;
 };
 
 export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
@@ -61,6 +67,8 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
   futureBookingsWorkshopList,
   timezone,
   sessionTimeDisplay,
+  spotTypes,
+  companyTheme,
   getIsBookingsLoading,
   handleBookASessionClick,
   fetchPastBookings,
@@ -69,6 +77,7 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
   fetchFutureBookingsWorkshop,
   cancelBooking,
   getRelatedConsumerBookingsInGroup,
+  fetchAssociatedBlueprintObjects,
 }) => {
   const {
     selectedTab,
@@ -78,7 +87,9 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
     isCancelBookingModalOpen,
     isCancellingBooking,
     isOnlineWarningModalOpen,
+    isSpotSchedulingModalOpen,
     onlineWarningModalOfferDate,
+    selectedBookingSpotDetails,
     futureItemsCount,
     nextPage,
     bookingList,
@@ -93,6 +104,8 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
     handleJoinOnlineBooking,
     handleCancelBooking,
     handleToggleOnlineWarningModal,
+    handleShowSpotDetails,
+    handleToggleSpotSchedulingModal,
   } = useConsumerBookingsDataManager({
     pastBookingsState,
     pastBookingsList,
@@ -109,6 +122,7 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
     fetchFutureBookingsWorkshop,
     getRelatedConsumerBookingsInGroup,
     cancelBooking,
+    fetchAssociatedBlueprintObjects,
   });
 
   const emptyFn = () => {};
@@ -133,6 +147,15 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
             onClose={handleToggleOnlineWarningModal}
           />
         )}
+        {isSpotSchedulingModalOpen && !!selectedBookingSpotDetails && (
+          <ConsumerBookingSpotSchedulingModal
+            bookingOffer={selectedBooking?.offer}
+            bookingSpotDetails={selectedBookingSpotDetails}
+            companyTheme={companyTheme}
+            onClose={handleToggleSpotSchedulingModal}
+            spotTypes={spotTypes}
+          />
+        )}
 
         <ConsumerBookingHeader onBookSessionClick={handleBookASessionClick} />
 
@@ -153,6 +176,7 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
           handleJoinOnlineBooking={handleJoinOnlineBooking}
           handlePaginationFetchMore={handlePaginationFetchMore}
           handleSelectBookingForCancelation={handleSelectBookingForCancelation}
+          handleShowSpotDetails={handleShowSpotDetails}
           hasNextPage={!!nextPage}
           isLoading={isBookingsLoading}
           onBookingCardClick={handleSetSelectedBooking}

@@ -38,6 +38,7 @@ type Props = {
     timezone: string,
   ) => void;
   relatedBookingsInGroup: ConsumerBooking[];
+  handleShowSpotDetails: (booking: ConsumerBooking) => void;
 };
 
 type BookingListCardItemProps = Pick<
@@ -48,6 +49,7 @@ type BookingListCardItemProps = Pick<
   | 'onBookingCardClick'
   | 'handleJoinOnlineBooking'
   | 'handleSelectBookingForCancelation'
+  | 'handleShowSpotDetails'
 > & {
   item: ConsumerBooking;
   isSelected?: boolean;
@@ -62,6 +64,7 @@ const BookingListCardItem: React.FC<BookingListCardItemProps> = ({
   onBookingCardClick,
   handleJoinOnlineBooking,
   handleSelectBookingForCancelation,
+  handleShowSpotDetails,
 }) => {
   const selectedBookingDate = useConsumerBookingDateTime({
     offerDateStart: item?.offer?.date_start,
@@ -98,6 +101,11 @@ const BookingListCardItem: React.FC<BookingListCardItemProps> = ({
   const handleCancelBookingClick = useCallback(
     () => handleSelectBookingForCancelation(item.id),
     [handleSelectBookingForCancelation, item.id],
+  );
+
+  const handleSpotSchedulingClick = useCallback(
+    () => handleShowSpotDetails(item),
+    [handleShowSpotDetails, item],
   );
 
   const offerIsInThePast = isOfferInThePast(item.offer);
@@ -161,6 +169,7 @@ const BookingListCardItem: React.FC<BookingListCardItemProps> = ({
       onBookingCancelClick={handleCancelBookingClick}
       onDetailsClick={handleSeeDetailsClick}
       onJoinOnlineClick={handleJoinOnlineClick}
+      onSpotSchedulingClick={handleSpotSchedulingClick}
       spotSchedulingPosition={item.spot_id?.toString()}
     />
   );
@@ -180,6 +189,7 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
   handlePaginationFetchMore,
   handleSelectBookingForCancelation,
   handleJoinOnlineBooking,
+  handleShowSpotDetails,
 }) => {
   const { t } = useTranslation('consumerSpace');
 

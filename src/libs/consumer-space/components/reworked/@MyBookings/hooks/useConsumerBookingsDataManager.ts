@@ -14,9 +14,11 @@ import type {
   RoomBlueprint,
   SpotInformation,
 } from '#libs/spot-scheduling/types';
+import { BookingFilterTabEnum } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/constants';
+import type { Establishment } from '#libs/establishment/types';
+import type { MetaActivity } from '#libs/meta-activity/types';
 
 import { BookingTabEnum } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/constants';
-import { BookingFilterTabEnum } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/constants';
 
 /** Provides all of the necessary data and fetch handlers for consumer booking page */
 export default function useConsumerBookingsDataManager({
@@ -35,6 +37,7 @@ export default function useConsumerBookingsDataManager({
   fetchFutureBookingsWorkshop,
   cancelBooking,
   getRelatedConsumerBookingsInGroup,
+  fetchAssociatedBlueprintObjects,
 }: {
   pastBookingsState: ConsumerBookingReworked;
   pastBookingsList: ConsumerBooking[];
@@ -58,6 +61,7 @@ export default function useConsumerBookingsDataManager({
     groupId: number,
     filterTab: BookingFilterTab,
   ) => ConsumerBooking[];
+  fetchAssociatedBlueprintObjects: (blueprintid: number) => void;
 }) {
   /* PAGE STATES */
   const [selectedTab, setSelectedTab] = useState<BookingTab>(
@@ -91,6 +95,8 @@ export default function useConsumerBookingsDataManager({
   const [selectedBookingSpotDetails, setSelectedBookingSpotDetails] = useState<{
     spotInformation: SpotInformation;
     roomBlueprint: RoomBlueprint;
+    establishment: Establishment;
+    metaActivity: MetaActivity;
   } | null>(null);
 
   const fetchMoreDataHandlerMap = useMemo(
@@ -345,13 +351,23 @@ export default function useConsumerBookingsDataManager({
   }, []);
 
   const handleShowSpotDetails = useCallback(
-    (spotInformation: SpotInformation, roomBlueprint: RoomBlueprint) => {
-      if (spotInformation.name && roomBlueprint) {
-        setSelectedBookingSpotDetails({ spotInformation, roomBlueprint });
+    (booking: ConsumerBooking) => {
+      if (
+        (booking.spot_information as SpotInformation).name &&
+        booking.room_blueprint
+      ) {
+        fetchAssociatedBlueprintObjects(booking.room_blueprint.id);
+        setSelectedBooking(booking);
+        setSelectedBookingSpotDetails({
+          spotInformation: booking.spot_information as SpotInformation,
+          roomBlueprint: booking.room_blueprint,
+          establishment: booking.establishment,
+          metaActivity: booking.meta_activity,
+        });
         setIsSpotSchedulingModalOpen((state) => !state);
       }
     },
-    [],
+    [fetchAssociatedBlueprintObjects],
   );
 
   return {

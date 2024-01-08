@@ -6,13 +6,20 @@ import {
   patchAuth,
   deleteAuth,
 } from '../../http';
-import { RoomBlueprint } from './types';
-import { DeepPartial } from '../../utils/types';
+import type {
+  AssetForBlueprint,
+  SpotType,
+  RoomBlueprint,
+  RoomBlueprintFilters,
+} from '#libs/spot-scheduling/types';
+import type { DeepPartial } from '../../utils/types';
 
 const API = `${API_V1_URI}/spot-scheduling`;
 
-export const fetchRoomBlueprints = async (params: any) => {
-  return getAuth(`${API}/room-blueprint/${buildUrlParams(params)}`);
+export const fetchRoomBlueprints = async (params: RoomBlueprintFilters) => {
+  return getAuth<RoomBlueprint>(
+    `${API}/room-blueprint/${buildUrlParams(params)}`,
+  );
 };
 
 export const fetchRoomBlueprintDetail = async (id: number) => {
@@ -34,16 +41,23 @@ export const deleteRoomBlueprint = (id: number) => {
   return deleteAuth(`${API}/room-blueprint/${id}/`);
 };
 
-export const fetchAssetForBlueprint = async (params: any) => {
-  return getAuth(`${API}/asset-for-blueprint/${buildUrlParams(params)}`);
+export const fetchAssetForBlueprint = (params: { blueprint: number }) => {
+  return getAuth<AssetForBlueprint[]>(
+    `${API}/asset-for-blueprint/${buildUrlParams(params)}`,
+  );
 };
 
 export const createAssetForBlueprint = async (data: FormData) => {
   return postAuth(`${API}/asset-for-blueprint/`, data);
 };
 
-export const fetchSpotForBlueprint = async (params: any) => {
-  return getAuth(`${API}/spot-for-blueprint/${buildUrlParams(params)}`);
+export const fetchSpotForBlueprint = (params: {
+  company: number;
+  blueprint: number;
+}) => {
+  return getAuth<SpotType[]>(
+    `${API}/spot-for-blueprint/${buildUrlParams(params)}`,
+  );
 };
 
 export const createSpotForBlueprint = async (data: FormData) => {

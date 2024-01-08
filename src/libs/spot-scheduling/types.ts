@@ -8,6 +8,7 @@ export type RoomBlueprint = {
   company: number;
   establishment: number;
   canvas: {
+    coachHeight: number;
     elements: CanvasElement<any>[];
   };
   spivi_box_id?: number;
@@ -91,4 +92,14 @@ export type SpotInformation = {
   fill: string;
   stroke: string;
   indexType: number;
+};
+
+export type RoomBlueprintFilters = {
+  establishment?: number;
+  establishment__in?: number[];
+};
+
+export type SpotForBlueprintFilters = {
+  company: number;
+  blueprint: number;
 };

@@ -1,5 +1,7 @@
 import React, { useCallback, useState } from 'react';
 
+import { Alert } from '@material-ui/lab';
+import { useTranslation } from 'react-i18next';
 import ResetPasswordForm, { Props as ResetPasswordFormProps } from '.';
 
 // @ts-ignore
@@ -61,6 +63,8 @@ export const AUTHENTICATION_RESET_PASSWORD_FORM_PREVIEW: React.FC<{
   theme: CompanyTheme;
   variationsSelected: Record<string, VariationConfigurationChoice>;
 }> = React.memo(({ variationsSelected }) => {
+  const { t } = useTranslation('widget');
+
   const [email, setEmail] = useState('');
   const componentProps = { ...usePropsFromVariation(variationsSelected) };
 
@@ -71,7 +75,21 @@ export const AUTHENTICATION_RESET_PASSWORD_FORM_PREVIEW: React.FC<{
   );
 
   return (
-    <div style={{ flex: 1 }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '20px',
+        justifyContent: 'center',
+        width: '100%',
+      }}
+    >
+      <Alert severity="info" style={{ alignItems: 'center' }}>
+        {t('widget.cssConfig.authenticationTextField', {
+          component_name: t('widget.components.authentication_textfield'),
+          page: t('widget.page.authentication'),
+        })}
+      </Alert>
       <ResetPasswordForm
         {...componentProps}
         email={email}

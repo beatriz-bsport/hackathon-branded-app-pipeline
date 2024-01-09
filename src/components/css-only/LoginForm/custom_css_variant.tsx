@@ -1,6 +1,8 @@
 import React, { useCallback, useState } from 'react';
 import { fakerEN as faker } from '@faker-js/faker';
 
+import Alert from '@material-ui/lab/Alert';
+import { useTranslation } from 'react-i18next';
 import LoginForm, { Props as LoginFormProps } from '.';
 
 // @ts-ignore
@@ -82,6 +84,8 @@ export const AUTHENTICATION_LOGIN_FORM_PREVIEW: React.FC<{
   theme: CompanyTheme;
   variationsSelected: Record<string, VariationConfigurationChoice>;
 }> = React.memo(({ variationsSelected, theme }) => {
+  const { t } = useTranslation('widget');
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const componentProps = {
@@ -100,7 +104,21 @@ export const AUTHENTICATION_LOGIN_FORM_PREVIEW: React.FC<{
   );
 
   return (
-    <div style={{ flex: 1 }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '20px',
+        justifyContent: 'center',
+        width: '100%',
+      }}
+    >
+      <Alert severity="info" style={{ alignItems: 'center' }}>
+        {t('widget.cssConfig.authenticationTextField', {
+          component_name: t('widget.components.authentication_textfield'),
+          page: t('widget.page.authentication'),
+        })}
+      </Alert>
       <LoginForm
         {...componentProps}
         email={email}

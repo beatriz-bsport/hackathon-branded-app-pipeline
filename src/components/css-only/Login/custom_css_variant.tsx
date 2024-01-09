@@ -1,6 +1,8 @@
 import React from 'react';
 import { fakerEN as faker } from '@faker-js/faker';
 
+import { Alert } from '@material-ui/lab';
+import { useTranslation } from 'react-i18next';
 import Login, { Props as LoginProps } from '.';
 
 // @ts-ignore
@@ -91,12 +93,28 @@ export const AUTHENTICATION_LOGIN_PREVIEW: React.FC<{
   theme: CompanyTheme;
   variationsSelected: Record<string, VariationConfigurationChoice>;
 }> = React.memo(({ variationsSelected, theme }) => {
+  const { t } = useTranslation('widget');
+
   const componentProps = {
     ...usePropsFromVariation(variationsSelected, theme),
   };
 
   return (
-    <div style={{ flex: 1 }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '20px',
+        justifyContent: 'center',
+        width: '100%',
+      }}
+    >
+      <Alert severity="info" style={{ alignItems: 'center' }}>
+        {t('widget.cssConfig.authenticationTextField', {
+          component_name: t('widget.components.authentication_textfield'),
+          page: t('widget.page.authentication'),
+        })}
+      </Alert>
       <Login {...componentProps} />
     </div>
   );

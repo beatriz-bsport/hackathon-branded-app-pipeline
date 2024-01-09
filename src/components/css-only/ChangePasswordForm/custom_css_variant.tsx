@@ -1,6 +1,8 @@
 import React, { ChangeEvent, useCallback, useState } from 'react';
 import { fakerEN as faker } from '@faker-js/faker';
 
+import { Alert } from '@material-ui/lab';
+import { useTranslation } from 'react-i18next';
 import ChangePasswordForm, { Props as ChangePasswordFormProps } from '.';
 
 // @ts-ignore
@@ -87,6 +89,8 @@ export const AUTHENTICATION_CHANGE_PASSWORD_FORM_PREVIEW: React.FC<{
   theme: CompanyTheme;
   variationsSelected: Record<string, VariationConfigurationChoice>;
 }> = React.memo(({ theme, variationsSelected }) => {
+  const { t } = useTranslation('widget');
+
   const componentProps = { ...usePropsFromVariation(variationsSelected) };
   const [password1, setPassword1] = useState('');
   const [password2, setPassword2] = useState('');
@@ -106,7 +110,21 @@ export const AUTHENTICATION_CHANGE_PASSWORD_FORM_PREVIEW: React.FC<{
   );
 
   return (
-    <div style={{ display: 'flex', flex: 1, justifyContent: 'center' }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '20px',
+        justifyContent: 'center',
+        width: '100%',
+      }}
+    >
+      <Alert severity="info" style={{ alignItems: 'center' }}>
+        {t('widget.cssConfig.authenticationTextField', {
+          component_name: t('widget.components.authentication_textfield'),
+          page: t('widget.page.authentication'),
+        })}
+      </Alert>
       <ChangePasswordForm
         {...componentProps}
         companyTheme={theme}

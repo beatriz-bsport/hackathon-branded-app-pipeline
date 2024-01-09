@@ -13,6 +13,7 @@ import {
   listRelatedMembersActions,
   consumerPackLinksActions,
   listControlableMembersActions,
+  fetchRelatedMembersNamesByConsumerPaymentPackLinksActions,
 } from './actions';
 
 import type { ConsumerPaymentPackLink, RelationshipState } from './types';
@@ -44,6 +45,9 @@ const initialState: RelationshipState = Immutable({
     error: null,
     items: [],
     byId: {},
+    // Weird naming, to insist on the fact that this allIds field should ONLY be used in my passes page of member profile.
+    // Some actions just fetch consumer_payment_pack_links and put them in items field.
+    allIdsMyPasses: [],
     createOrUpdate: {
       loading: false,
       error: null,
@@ -183,6 +187,32 @@ export default handleActions(
         payload,
       );
     },
+    [fetchRelatedMembersNamesByConsumerPaymentPackLinksActions.error.toString()]:
+      (state, { payload }: { payload: Error }) => {
+        return state.setIn(['consumer_payment_pack_link', 'error'], payload);
+      },
+    [fetchRelatedMembersNamesByConsumerPaymentPackLinksActions.isLoading.toString()]:
+      (state, { payload }: { payload: boolean }) => {
+        return state.setIn(['consumer_payment_pack_link', 'loading'], payload);
+      },
+    [fetchRelatedMembersNamesByConsumerPaymentPackLinksActions.success.toString()]:
+      (state, { payload }: { payload: ConsumerPaymentPackLink[] }) => {
+        return state.merge(
+          {
+            consumer_payment_pack_link: {
+              byId: payload.reduce(
+                (acc: { [id: number]: ConsumerPaymentPackLink[] }, curr) => {
+                  acc[curr.id] = curr;
+                  return acc;
+                },
+                {},
+              ),
+              allIdsMyPasses: payload.map(({ id }) => id),
+            },
+          },
+          { deep: true },
+        );
+      },
   },
   initialState,
 );

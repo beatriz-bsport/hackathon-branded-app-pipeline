@@ -3,12 +3,17 @@
 
 import memoize from 'memoize-one';
 import { createSelector } from 'reselect';
-import { RootState } from '../../reducers';
-import { ConsumerPaymentPackLink, MemberRelation } from './types';
 
-import { getMemberDetailData, getMemberListData } from '../member/selectors';
-import { getConsumerPacksWithPaymentPack } from '../consumer-payment-pack/selectors';
-import { getPrivateConsumerPassList } from '../private-service/selectors/private-consumer-pass';
+import type { RootState } from 'src/reducers';
+import { getMemberDetailData, getMemberListData } from '#libs/member/selectors';
+import { getConsumerPacksWithPaymentPack } from '#libs/consumer-payment-pack/selectors';
+import { getPrivateConsumerPassList } from '#libs/private-service/selectors/private-consumer-pass';
+
+import type {
+  ConsumerPaymentPackLink,
+  ConsumerPaymentPackLinkWithRelatedMemberNames,
+  MemberRelation,
+} from './types';
 
 const _getMemberRelations = (state: RootState): Array<MemberRelation> =>
   state.relationship.member_relation.items;
@@ -71,8 +76,9 @@ export const getAllSharedConsumerPaymentPacks = createSelector(
 
 const _getConsumerPackWithLinks = (
   state: RootState,
-): Array<ConsumerPaymentPackLink> =>
-  state.relationship.consumer_payment_pack_link.byId;
+): Array<
+  ConsumerPaymentPackLink | ConsumerPaymentPackLinkWithRelatedMemberNames
+> => state.relationship.consumer_payment_pack_link.byId;
 
 export const withIsSharedActive = memoize((selector) =>
   createSelector([selector, _getConsumerPackWithLinks], (cppList, links) =>
@@ -128,3 +134,8 @@ export const getMyRelatedMemberList = (state: RootState) =>
 
 export const getMyControlableMemberList = (state: RootState) =>
   state.relationship.my_controlable_members.list;
+
+export const getConsumerPaymentPackLink = createSelector(
+  [_getConsumerPackWithLinks, (_: RootState, id: number) => id],
+  (consumerPackLinks, id) => consumerPackLinks[id],
+);

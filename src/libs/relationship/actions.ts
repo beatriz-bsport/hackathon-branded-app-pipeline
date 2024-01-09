@@ -19,12 +19,14 @@ import {
   deleteRelation as deleteRelationAPI,
   fetchRelatedMemberList as fetchRelatedMemberListAPI,
   fetchControlableMemberList as fetchControlableMemberListAPI,
+  fetchRelatedMembersNamesByConsumerPaymentPackLinks as fetchRelatedMembersNamesByConsumerPaymentPackLinksAPI,
 } from './api';
 
 import { Dispatch, OptionCallback } from '../../state/types';
 import { MEISUNDEFINED } from './constants';
 
 import { isErrorWithCustomCode } from '#libs/utils';
+import type { ConsumerPaymentPackLinkWithRelatedMemberNames } from './types';
 
 export const memberRelationCreateOrUpdateActions = {
   isLoading: createAction('MEMBER_RELATION/CREATE_OR_UPDATE/LOADING'),
@@ -445,3 +447,49 @@ export function fetchMyControlableMemberList(
     dispatch(listControlableMembersActions.isLoading(false));
   };
 }
+
+export const fetchRelatedMembersNamesByConsumerPaymentPackLinksActions = {
+  isLoading: createAction<boolean>(
+    'RELATIONSHIP/RELATED_MEMBER_BY_CONSUMER_PACK_LINK/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'RELATIONSHIP/RELATED_MEMBER_BY_CONSUMER_PACK_LINK/ERROR',
+  ),
+  success: createAction<ConsumerPaymentPackLinkWithRelatedMemberNames>(
+    'RELATIONSHIP/RELATED_MEMBER_BY_CONSUMER_PACK_LINK/SUCCESS',
+  ),
+};
+
+export const fetchRelatedMembersNamesByConsumerPaymentPackLinks =
+  (consumerPackLinks: number[], options?: OptionCallback) =>
+  async (dispatch: Dispatch) => {
+    dispatch(
+      fetchRelatedMembersNamesByConsumerPaymentPackLinksActions.isLoading(true),
+    );
+    dispatch(
+      fetchRelatedMembersNamesByConsumerPaymentPackLinksActions.error(null),
+    );
+    try {
+      const response =
+        await fetchRelatedMembersNamesByConsumerPaymentPackLinksAPI({
+          id__in: consumerPackLinks,
+        });
+
+      dispatch(
+        fetchRelatedMembersNamesByConsumerPaymentPackLinksActions.success(
+          response.data,
+        ),
+      );
+      if (options && options.onSuccess) options.onSuccess(response);
+    } catch (err) {
+      dispatch(
+        fetchRelatedMembersNamesByConsumerPaymentPackLinksActions.error(err),
+      );
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(
+      fetchRelatedMembersNamesByConsumerPaymentPackLinksActions.isLoading(
+        false,
+      ),
+    );
+  };

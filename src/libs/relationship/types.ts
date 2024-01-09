@@ -19,6 +19,12 @@ export type ConsumerPaymentPackLink = {
   member_relation: number;
 };
 
+export type ConsumerPaymentPackLinkWithRelatedMemberNames =
+  ConsumerPaymentPackLink & {
+    src_member_name?: string;
+    dst_member_name?: string;
+  };
+
 export type WithIsSharedActive<T> = T & {
   isSharedActive: boolean;
 };

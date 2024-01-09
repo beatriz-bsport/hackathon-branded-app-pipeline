@@ -3,7 +3,7 @@ import type { Establishment } from '#libs/establishment/types';
 import type { MetaActivity } from '#libs/meta-activity/types';
 import type { PaymentPack } from '#libs/payment-packs/types';
 import type { PrivateConsumerPass } from '#libs/private-service/types';
-import type { ConsumerPaymentPackLink } from '#libs/relationship/types';
+import type { ConsumerPaymentPackLinkWithRelatedMemberNames } from '#libs/relationship/types';
 import type { Consumer } from '../../api/types';
 import type { ErrorAndLoading, WithPagination } from '../types';
 
@@ -161,6 +161,6 @@ export type ConsumerPaymentPackReworked = Omit<
     SCTs: SCT[];
     metaActivities: MetaActivity[];
   };
-  dst_consumer_payment_pack?: Required<ConsumerPaymentPackLink>;
-  src_consumer_payment_pack?: Required<ConsumerPaymentPackLink>[];
+  dst_consumer_payment_pack?: Required<ConsumerPaymentPackLinkWithRelatedMemberNames>;
+  src_consumer_payment_pack?: Required<ConsumerPaymentPackLinkWithRelatedMemberNames>[];
 };

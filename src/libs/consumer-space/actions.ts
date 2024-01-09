@@ -18,6 +18,7 @@ import {
   fetchFilteredBookingOptionsPaginated as fetchFilteredBookingOptionsPaginatedAPI,
   discardBookingOption as discardBookingOptionAPI,
 } from '#libs/waiting-list/api';
+import { fetchConsumerPackList as fetchConsumerPaymentPackListAPI } from '#libs/consumer-payment-pack/api';
 
 import type {
   Dispatch,
@@ -29,7 +30,6 @@ import type {
   PrivateBooking,
   PrivateBookingFilterParams,
 } from '#libs/private-service/types';
-import type { ConsumerPaymentPack } from '../consumer-payment-pack/types';
 import type { BookingOrPrivateBooking, Profile } from './types';
 import type {
   Booking,
@@ -43,6 +43,10 @@ import type {
   WaitingListBookingOption,
   WaitingListBookingOptionPaginatedQueryParams,
 } from '#libs/waiting-list/types';
+import type {
+  ConsumerPaymentPack,
+  ConsumerPaymentPackREST,
+} from '#libs/consumer-payment-pack/types';
 
 export const actionsType = {
   CONSUMER_HAS_FETCHED_OPTIONS: 'CONSUMER_HAS_FETCHED_OPTIONS_SUCCESS',
@@ -976,3 +980,151 @@ export function cancelBookingOptionAsMember(
     dispatch(cancelBookingOptionAsMemberActions.isLoading(false));
   };
 }
+
+/** MY PASSES ACTIONS */
+
+export const fetchMyActiveConsumerPaymentPacksAsMemberActions = {
+  success: createAction<
+    AxiosResponse<PaginatedResponse<ConsumerPaymentPackREST>>
+  >('REWORKED/CONSUMER_PAYMENT_PACK/ACTIVE/AS_MEMBER/SUCCESS'),
+  isLoading: createAction<boolean>(
+    'REWORKED/CONSUMER_PAYMENT_PACK/ACTIVE/AS_MEMBER/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'REWORKED/CONSUMER_PAYMENT_PACK/ACTIVE/AS_MEMBER/ERROR',
+  ),
+};
+
+type BaseMemberFetchOptions = {
+  memberId: number;
+  page_size?: number;
+};
+
+export const fetchMyActiveConsumerPaymentPacksAsMember = (
+  { memberId, page_size = 30 }: BaseMemberFetchOptions,
+  options?: OptionCallback<ConsumerPaymentPackREST[]>,
+): ThunkAction => {
+  return async (dispatch, getState) => {
+    dispatch(fetchMyActiveConsumerPaymentPacksAsMemberActions.isLoading(true));
+    dispatch(fetchMyActiveConsumerPaymentPacksAsMemberActions.error(null));
+    const currentState =
+      getState().consumerReworked.myPasses.consumerPaymentPack.active;
+    const nextPage = currentState.next_page ?? 1;
+    try {
+      const response = await fetchConsumerPaymentPackListAPI({
+        member: memberId,
+        page: nextPage,
+        page_size,
+        is_valid_today: true,
+        is_universal: false,
+      });
+      dispatch(
+        fetchMyActiveConsumerPaymentPacksAsMemberActions.success(response),
+      );
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results);
+      }
+    } catch (err) {
+      dispatch(fetchMyActiveConsumerPaymentPacksAsMemberActions.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
+    }
+    dispatch(fetchMyActiveConsumerPaymentPacksAsMemberActions.isLoading(false));
+  };
+};
+
+export const fetchMyExpiredConsumerPaymentPacksAsMemberActions = {
+  success: createAction<
+    AxiosResponse<PaginatedResponse<ConsumerPaymentPackREST>>
+  >('REWORKED/CONSUMER_PAYMENT_PACK/EXPIRED/AS_MEMBER/SUCCESS'),
+  isLoading: createAction<boolean>(
+    'REWORKED/CONSUMER_PAYMENT_PACK/EXPIRED/AS_MEMBER/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'REWORKED/CONSUMER_PAYMENT_PACK/EXPIRED/AS_MEMBER/ERROR',
+  ),
+};
+
+export const fetchMyExpiredConsumerPaymentPacksAsMember = (
+  { memberId, page_size = 30 }: BaseMemberFetchOptions,
+  options?: OptionCallback<ConsumerPaymentPackREST[]>,
+): ThunkAction => {
+  return async (dispatch, getState) => {
+    dispatch(fetchMyExpiredConsumerPaymentPacksAsMemberActions.isLoading(true));
+    dispatch(fetchMyExpiredConsumerPaymentPacksAsMemberActions.error(null));
+    const currentState =
+      getState().consumerReworked.myPasses.consumerPaymentPack.expired;
+    const nextPage = currentState.next_page ?? 1;
+    try {
+      const response = await fetchConsumerPaymentPackListAPI({
+        member: memberId,
+        page: nextPage,
+        page_size,
+        is_expired: true,
+        is_universal: false,
+      });
+      dispatch(
+        fetchMyExpiredConsumerPaymentPacksAsMemberActions.success(response),
+      );
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results);
+      }
+    } catch (err) {
+      dispatch(fetchMyExpiredConsumerPaymentPacksAsMemberActions.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
+    }
+    dispatch(
+      fetchMyExpiredConsumerPaymentPacksAsMemberActions.isLoading(false),
+    );
+  };
+};
+
+export const fetchMyFutureConsumerPaymentPacksAsMemberActions = {
+  success: createAction<
+    AxiosResponse<PaginatedResponse<ConsumerPaymentPackREST>>
+  >('REWORKED/CONSUMER_PAYMENT_PACK/FUTURE/AS_MEMBER/SUCCESS'),
+  isLoading: createAction<boolean>(
+    'REWORKED/CONSUMER_PAYMENT_PACK/FUTURE/AS_MEMBER/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'REWORKED/CONSUMER_PAYMENT_PACK/FUTURE/AS_MEMBER/ERROR',
+  ),
+};
+
+export const fetchMyFutureConsumerPaymentPacksAsMember = (
+  { memberId, page_size = 30 }: BaseMemberFetchOptions,
+  options?: OptionCallback<ConsumerPaymentPackREST[]>,
+): ThunkAction => {
+  return async (dispatch, getState) => {
+    dispatch(fetchMyFutureConsumerPaymentPacksAsMemberActions.isLoading(true));
+    dispatch(fetchMyFutureConsumerPaymentPacksAsMemberActions.error(null));
+    const currentState =
+      getState().consumerReworked.myPasses.consumerPaymentPack.future;
+    const nextPage = currentState.next_page ?? 1;
+    try {
+      const response = await fetchConsumerPaymentPackListAPI({
+        member: memberId,
+        page: nextPage,
+        page_size,
+        is_expired: false,
+        is_valid_today: false,
+        is_universal: false,
+      });
+      dispatch(
+        fetchMyFutureConsumerPaymentPacksAsMemberActions.success(response),
+      );
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results);
+      }
+    } catch (err) {
+      dispatch(fetchMyFutureConsumerPaymentPacksAsMemberActions.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
+    }
+    dispatch(fetchMyFutureConsumerPaymentPacksAsMemberActions.isLoading(false));
+  };
+};

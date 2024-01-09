@@ -21,6 +21,8 @@ import { getRoomBlueprint } from '#libs/spot-scheduling/selector';
 import { getPrivateConsumerPass } from '#libs/private-service/selectors/private-consumer-pass';
 import { getPrivateService } from '#libs/private-service/selectors/private-service';
 import { getPrivateSlot } from '#libs/private-service/selectors/private-slot';
+import { getSCTs } from '#libs/category/selectors';
+import { getConsumerPaymentPackLink } from '#libs/relationship/selectors';
 
 import type {
   Booking,
@@ -31,7 +33,11 @@ import type {
 } from '#libs/booking/types';
 import type { PrivateBooking } from '#libs/private-service/types';
 import type { PaymentPack } from '#libs/payment-packs/types';
-import type { ConsumerPaymentPack } from '#libs/consumer-payment-pack/types';
+import type {
+  ConsumerPaymentPack,
+  ConsumerPaymentPackREST,
+  ConsumerPaymentPackReworked,
+} from '#libs/consumer-payment-pack/types';
 import type { BookingFilterTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/types';
 import type { BookingTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
 
@@ -531,4 +537,134 @@ export const getMyExpiredSubscriptionsList = createSelector(
   (ids, data) => {
     return ids.map((subscriptionId) => data[subscriptionId]);
   },
+);
+
+/** Get full object for consumer payment packs */
+const _getConsumerPaymentPackList = createSelector(
+  [
+    (state: RootState) => state,
+    getSCTs,
+    (_, consumerPaymentPacks: ConsumerPaymentPackREST[]) =>
+      consumerPaymentPacks,
+  ],
+  (state, allSCTs, consumerPaymentPacks) => {
+    const consumerPaymentPackList = consumerPaymentPacks.map(
+      (consumerPaymentPack) => {
+        const payment_pack = getPaymentPack(
+          state,
+          parseInt(consumerPaymentPack.payment_pack_id),
+        ) as PaymentPack;
+        const establishments = payment_pack?.establishments?.map(
+          (establishmentId) => getEstablishment(state, establishmentId),
+        );
+        const SCTs = allSCTs.filter((sct) =>
+          payment_pack?.SCTs?.includes(sct.id),
+        );
+        const metaActivities = payment_pack?.metaActivities?.map(
+          (metaActivityId) => getMetaActivity(state, metaActivityId),
+        );
+        const dst_consumer_payment_pack = getConsumerPaymentPackLink(
+          state,
+          consumerPaymentPack?.dst_consumer_payment_pack,
+        );
+        const src_consumer_payment_pack =
+          consumerPaymentPack?.src_consumer_payment_pack?.map(
+            (consumerPaymentPackLink) =>
+              getConsumerPaymentPackLink(state, consumerPaymentPackLink),
+          );
+        return {
+          ...consumerPaymentPack,
+          linked_private_consumer_pass: null,
+          payment_pack: {
+            ...payment_pack,
+            establishments,
+            SCTs,
+            metaActivities,
+          },
+          dst_consumer_payment_pack,
+          src_consumer_payment_pack,
+        } as ConsumerPaymentPackReworked;
+      },
+    );
+    return consumerPaymentPackList;
+  },
+);
+
+export const getMyActiveConsumerPaymentPacksState = (state: RootState) =>
+  state.consumerReworked.myPasses.consumerPaymentPack.active;
+
+const getMyActiveConsumerPaymentPacksAllIds = (state: RootState) =>
+  state.consumerReworked.myPasses.consumerPaymentPack.active.passes.allIds;
+
+const getMyActiveConsumerPaymentPacksById = (state: RootState) =>
+  state.consumerReworked.myPasses.consumerPaymentPack.active.passes.byId;
+
+export const getMyActiveConsumerPaymentPacksList = createSelector(
+  [
+    getMyActiveConsumerPaymentPacksAllIds,
+    getMyActiveConsumerPaymentPacksById,
+    (state) => state,
+  ],
+  (ids, data, state) => {
+    const consumerPaymentPacks = ids.map((id) => data[id]);
+    return _getConsumerPaymentPackList(state, consumerPaymentPacks);
+  },
+);
+
+export const getMyFutureConsumerPaymentPacksState = (state: RootState) =>
+  state.consumerReworked.myPasses.consumerPaymentPack.future;
+
+const getMyFutureConsumerPaymentPacksAllIds = (state: RootState) =>
+  state.consumerReworked.myPasses.consumerPaymentPack.future.passes.allIds;
+
+const getMyFutureConsumerPaymentPacksById = (state: RootState) =>
+  state.consumerReworked.myPasses.consumerPaymentPack.future.passes.byId;
+
+export const getMyFutureConsumerPaymentPacksList = createSelector(
+  [
+    getMyFutureConsumerPaymentPacksAllIds,
+    getMyFutureConsumerPaymentPacksById,
+    (state) => state,
+  ],
+  (ids, data, state) => {
+    const consumerPaymentPacks = ids.map((id) => data[id]);
+    return _getConsumerPaymentPackList(state, consumerPaymentPacks);
+  },
+);
+
+export const getMyExpiredConsumerPaymentPacksState = (state: RootState) =>
+  state.consumerReworked.myPasses.consumerPaymentPack.expired;
+
+const getMyExpiredConsumerPaymentPacksAllIds = (state: RootState) =>
+  state.consumerReworked.myPasses.consumerPaymentPack.expired.passes.allIds;
+
+const getMyExpiredConsumerPaymentPacksById = (state: RootState) =>
+  state.consumerReworked.myPasses.consumerPaymentPack.expired.passes.byId;
+
+export const getMyExpiredConsumerPaymentPacksList = createSelector(
+  [
+    getMyExpiredConsumerPaymentPacksAllIds,
+    getMyExpiredConsumerPaymentPacksById,
+    (state) => state,
+  ],
+  (ids, data, state) => {
+    const consumerPaymentPacks = ids.map((id) => data[id]);
+    return _getConsumerPaymentPackList(state, consumerPaymentPacks);
+  },
+);
+
+export const getConsumerPassesLoading = createSelector(
+  [
+    getMyActiveConsumerPaymentPacksState,
+    getMyFutureConsumerPaymentPacksState,
+    getMyExpiredConsumerPaymentPacksState,
+  ],
+  (
+    activeConsumerPaymentPacksState,
+    futureConsumerPaymentPacksState,
+    expiredConsumerPaymentPacksState,
+  ) =>
+    activeConsumerPaymentPacksState.loading ||
+    futureConsumerPaymentPacksState.loading ||
+    expiredConsumerPaymentPacksState.loading,
 );

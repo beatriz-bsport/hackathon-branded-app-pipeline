@@ -8,17 +8,17 @@ type Props = {
   invalid: boolean,
 };
 
-export default function PriceInput(props: Props) {
+export default function PercentInput(props: Props) {
   return (
     <NumericInput
+      isPositive
       InputProps={{
         inputProps: {
           step: 1,
           max: 100,
-          min: 0,
           style: { color: props.invalid ? 'red' : 'black' },
         },
-        endAdornment: <InputAdornment position="end">%</InputAdornment>,
+        startAdornment: <InputAdornment position="start">%</InputAdornment>,
       }}
       {...props}
     />

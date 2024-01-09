@@ -194,6 +194,10 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
     setFinalPricePreview((prevState) => parseFloat(prevState).toFixed(2));
   }, []);
 
+  const handleVoucherPercentageOnBlur = React.useCallback(() => {
+    setVoucherPercentage((prevState) => parseFloat(prevState).toFixed(2));
+  }, []);
+
   const handleOnCancelClick = React.useCallback(() => {
     setSelectedPack(null);
     setVoucherDialogOpen(false);
@@ -593,6 +597,7 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
                         voucher < 0
                       }
                       label={t('translation:payment.voucher')}
+                      onBlur={handleVoucherPercentageOnBlur}
                       onChange={handleOnChangeVoucherPercentage}
                       style={{ minWidth: 480 }}
                       value={voucherPercentage}

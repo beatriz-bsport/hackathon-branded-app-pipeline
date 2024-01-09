@@ -165,6 +165,7 @@ exports.default = {
         outlined: 'Outlined',
         strong: 'Strong',
         weak: 'Weak',
+        standard: 'Standard',
         confirmationMessage: {
           generic: 'Error while processing transaction',
           genericOfferError: 'Reservation failed unexpectedly',
@@ -296,6 +297,8 @@ exports.default = {
         'This component is a list of booked sessions. To fine-tune individual {{component_name}} components, you can utilize the dedicated section within the editor.',
       selector:
         'This component composed by a label and input, and a caption text. For customizing the {{component_name}} appearance, we recommand utilizing its root component',
+      authenticationTextField:
+        'This component uses a textfield component. To fine-tune individual {{component_name}}, you can use the dedicated section located in {{page}} within the editor.',
     },
     page: {
       calendar: 'Calendar',
@@ -368,6 +371,7 @@ exports.default = {
       authentication_change_password_form: 'Change password form',
       authentication_login_form: 'Login form',
       authentication_login: 'Login component',
+      authentication_textfield: 'Authentication textfield',
       fabrique_typography: 'Typography',
       fabrique_card: 'Card',
       fabrique_button: 'Button',

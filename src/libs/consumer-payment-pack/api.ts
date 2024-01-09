@@ -6,6 +6,8 @@ import {
   buildUrlParams,
 } from '../../http';
 import { cleanParams } from '../../utils/createUrlHandlers';
+import type { PaginatedResponse } from '../../state/types';
+import type { ConsumerPaymentPackREST } from './types';
 
 export async function fetchByOfferByMember(offer: any, data: any = {}) {
   return postAuth(
@@ -50,7 +52,7 @@ export async function fetchIncompatibilitiesReasonsByOfferByConsumerPack(
 
 export async function fetchConsumerPackList(params: any = {}) {
   const cleanedParams = cleanParams(params);
-  return getAuth(
+  return getAuth<PaginatedResponse<ConsumerPaymentPackREST>>(
     `${API_V1_URI}/payment-pack/consumer-payment-pack/${buildUrlParams({
       ...(cleanedParams || {}),
     })}`,

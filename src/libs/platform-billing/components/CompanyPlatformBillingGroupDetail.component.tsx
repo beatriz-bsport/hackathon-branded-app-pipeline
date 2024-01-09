@@ -12,6 +12,9 @@ import type { PlatformSubscription } from '../type';
 
 import PlatformBillingPlanGroupCard from './PlatformBillingPlanGroupCard.component';
 
+import { BETA_UPSELL_IDS } from '#libs/platform-billing/constant';
+import Config from '../../../config';
+
 const UpsellPackageList = React.memo(
   (props: {
     upsellPackageList: UpsellPackage[];
@@ -68,7 +71,13 @@ export const CompanyPlatformBillinGroupDetail: React.FC<Props> = ({
   const { t } = useTranslation(['platformBilling']);
 
   const nonSubscribedUpsellPackagesToShow = useMemo(
-    () => nonSubscribedUpsellPackages.filter((ups) => !ups.hidden),
+    () =>
+      (nonSubscribedUpsellPackages || []).filter(
+        (upsellPackage: UpsellPackage) =>
+          !upsellPackage.hidden &&
+          (Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
+            !BETA_UPSELL_IDS.includes(upsellPackage.upsell_identifier)),
+      ) ?? [],
     [nonSubscribedUpsellPackages],
   );
 

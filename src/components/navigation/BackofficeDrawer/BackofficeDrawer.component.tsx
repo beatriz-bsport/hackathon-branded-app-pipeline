@@ -845,6 +845,9 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                     companyId={companyId}
                     disconnect={disconnect}
                     featureList={featureList}
+                    hasLimitedAccesToAudience={
+                      theme?.has_limited_access_to_sequential_marketing
+                    }
                     iconsOnly={drawerIconsOnly}
                     location={location}
                     logo={logo}
@@ -869,6 +872,9 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                     disconnect={disconnect}
                     featureList={featureList}
                     handleUserSetDrawerIconsOnly={handleUserSetDrawerIconsOnly}
+                    hasLimitedAccesToAudience={
+                      theme?.has_limited_access_to_sequential_marketing
+                    }
                     iconsOnly={drawerIconsOnly}
                     location={location}
                     logo={logo}
@@ -905,6 +911,9 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                 companyId={companyId}
                 disconnect={disconnect}
                 featureList={featureList}
+                hasLimitedAccesToAudience={
+                  theme?.has_limited_access_to_sequential_marketing
+                }
                 iconsOnly={drawerIconsOnly}
                 location={location}
                 logo={logo}

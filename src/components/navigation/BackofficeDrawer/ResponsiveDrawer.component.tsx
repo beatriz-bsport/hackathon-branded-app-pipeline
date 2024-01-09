@@ -109,6 +109,7 @@ type Props = {
   iconsOnly?: boolean;
   setDrawerIconsOnly?: (isIconOnly: boolean) => void;
   handleUserSetDrawerIconsOnly?: (isIconOnly: boolean) => void;
+  hasLimitedAccesToAudience?: boolean;
 };
 
 export type DrawerItemDefault = {
@@ -166,6 +167,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
   iconsOnly,
   setDrawerIconsOnly,
   handleUserSetDrawerIconsOnly,
+  hasLimitedAccesToAudience,
 }) => {
   const { t } = useTranslation(['navigation']);
   const classes = useStyles({ iconsOnly });
@@ -433,7 +435,8 @@ const ResponsiveDrawer: React.FC<Props> = ({
             text: t('backofficeMenu.tags'),
           } as DrawerItemDefault,
           ...(SEQUENTIAL_MARKETING_AUTHORIZED_COMPANY_IDS.includes(companyId) ||
-          hasUpsellIdentifier(UPSELL_IDENTIFIER_CADENCE)
+          hasUpsellIdentifier(UPSELL_IDENTIFIER_CADENCE) ||
+          hasLimitedAccesToAudience
             ? [
                 {
                   to: '/audience',
@@ -654,6 +657,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
     permissions,
     setDrawerIconsOnly,
     objectLevelPermissions,
+    hasLimitedAccesToAudience,
     t,
   ]);
 

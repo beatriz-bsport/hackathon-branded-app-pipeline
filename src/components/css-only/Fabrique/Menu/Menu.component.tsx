@@ -80,6 +80,12 @@ export type MenuProps = {
    * @default {'bs-fabrique-portal-container'}
    */
   wrapperId?: string;
+  /**
+   * The ref used to identify the div element wrapping the menu
+   *
+   * @type {React.MutableRefObject<HTMLDivElement>}
+   */
+  openMenuRef?: React.MutableRefObject<HTMLDivElement>;
 };
 
 const Menu: React.FC<MenuProps> = ({
@@ -97,19 +103,27 @@ const Menu: React.FC<MenuProps> = ({
   wrapperId,
   onClose,
   id,
+  openMenuRef,
 }) => {
   const menuRef = React.useRef<HTMLDivElement>(null);
 
   const contentRef = React.useRef<HTMLDivElement>(null);
 
   const [isPositioned, setIsPositioned] = React.useState(isOpen);
-
   const handleOnClose = React.useCallback(() => {
     onClose && onClose();
     setIsPositioned(false);
   }, [onClose]);
 
-  const { modalRef } = useCloseModal({ onClose: handleOnClose });
+  const setPositionedToFalse = React.useCallback(() => {
+    setIsPositioned(false);
+  }, []);
+
+  const { modalRef } = useCloseModal({
+    onClose: handleOnClose,
+    openMenuRef,
+    setPositionedToFalse,
+  });
 
   const isBelowAnchorElement =
     anchorOriginVertical === VerticalEnum.BOTTOM &&

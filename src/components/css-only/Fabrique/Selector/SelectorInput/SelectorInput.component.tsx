@@ -59,6 +59,7 @@ export type SelectorInputProps = {
   placeholder?: string;
   selectedItems: unknown;
   size?: SelectorSize;
+  selectorRef: React.MutableRefObject<HTMLDivElement | null>;
 } & React.AnchorHTMLAttributes<HTMLDivElement>;
 
 const SelectorInput: React.FC<SelectorInputProps> = ({
@@ -74,6 +75,7 @@ const SelectorInput: React.FC<SelectorInputProps> = ({
   placeholder,
   selectedItems,
   size = SelectorSizeEnum.SM,
+  selectorRef,
   ...anchorDivProps
 }) => {
   const isSmall = size === SelectorSizeEnum.SM;
@@ -98,6 +100,7 @@ const SelectorInput: React.FC<SelectorInputProps> = ({
       )}
       id={id}
       {...anchorDivProps}
+      ref={selectorRef}
     >
       <span
         className={classNames(

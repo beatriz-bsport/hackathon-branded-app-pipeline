@@ -158,6 +158,8 @@ const Selector: React.FC<SelectorProps> = ({
   const [isOpen, setIsOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement>(null);
 
+  const selectorRef = React.useRef<HTMLDivElement | null>(null);
+
   const isSmall = size === SelectorSizeEnum.SM;
 
   React.useEffect(() => {
@@ -174,7 +176,7 @@ const Selector: React.FC<SelectorProps> = ({
       setAnchorEl((prevState) =>
         prevState === currentTarget ? null : currentTarget,
       );
-      setIsOpen(true);
+      setIsOpen((prevState) => !prevState);
     },
     [],
   );
@@ -247,6 +249,7 @@ const Selector: React.FC<SelectorProps> = ({
         placeholder={placeholder}
         role="combobox"
         selectedItems={selectedItems}
+        selectorRef={selectorRef}
         size={size}
         tabIndex={0}
       >
@@ -293,6 +296,7 @@ const Selector: React.FC<SelectorProps> = ({
         id={menuId}
         isOpen={!isDisabled && isOpen}
         onClose={!isDisabled && handleOnClose}
+        openMenuRef={selectorRef}
       >
         {children}
       </Menu>

@@ -27,6 +27,7 @@ const AddGuestFormEmailWarningStep: React.FC = () => {
       />
 
       <TextField
+        hasWhiteBackground
         isFullWidth
         helperText={t(errors.email)}
         id="add-guest-modal-warning-email"

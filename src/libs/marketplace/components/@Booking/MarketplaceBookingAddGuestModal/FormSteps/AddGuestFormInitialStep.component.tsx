@@ -44,6 +44,7 @@ const AddGuestFormInitialStep: React.FC<Props> = ({
       )}
 
       <TextField
+        hasWhiteBackground
         isFullWidth
         isRequired
         helperText={t(errors.firstName)}
@@ -58,6 +59,7 @@ const AddGuestFormInitialStep: React.FC<Props> = ({
         value={values.firstName}
       />
       <TextField
+        hasWhiteBackground
         isFullWidth
         id="add-guest-modal-last-name"
         inputId="add-guest-modal-last-name-input"
@@ -68,6 +70,7 @@ const AddGuestFormInitialStep: React.FC<Props> = ({
         value={values.lastName}
       />
       <TextField
+        hasWhiteBackground
         isFullWidth
         helperText={t(errors.email)}
         helperTextId="add-guest-modal-email-helper-text"

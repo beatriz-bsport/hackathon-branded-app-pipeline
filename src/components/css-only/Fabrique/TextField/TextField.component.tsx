@@ -37,6 +37,7 @@ export type Props = {
   variant?: `${TextFieldVariant}`;
   withPasswordToggle?: boolean;
   onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  hasWhiteBackground?: boolean;
 };
 
 const TextFieldContainerClassNameMap = {
@@ -64,6 +65,7 @@ const TextField: React.FC<Props> = ({
   withPasswordToggle,
   placeholder,
   onChange,
+  hasWhiteBackground,
 }) => {
   const [isInputFocused, setIsInputFocused] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -113,7 +115,10 @@ const TextField: React.FC<Props> = ({
               {
                 'bs-text-field__label--disabled': isDisabled,
                 'bs-text-field__label--error': isError,
-                'bs-text-field__label--top': isInputFocused || value,
+                'bs-text-field__label--top':
+                  (isInputFocused || value) && !hasWhiteBackground,
+                'bs-text-field__label--top-white':
+                  (isInputFocused || value) && hasWhiteBackground,
                 'bs-text-field__label--small': size === TextFieldSize.SMALL,
                 'bs-text-field__label--large': size === TextFieldSize.LARGE,
               },

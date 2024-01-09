@@ -25,6 +25,12 @@ const exceptionMessageRegexpToIgnore = [
    */
   /\[CF\] failed to load config files/i,
   /\[CF\] failed to load configs, check api key/i,
+  /**
+   * Ignore undefined jQuery variable $ for widget context (Google Tag Manager)
+   * https://bsport-cg.sentry.io/issues/4802227038
+   */
+  /Can't find variable: \$/,
+  /\$ is not defined/,
 ];
 
 Sentry.init({

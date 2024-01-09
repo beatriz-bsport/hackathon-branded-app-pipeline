@@ -39,7 +39,7 @@
   transform: translate(0, -50%);
   display: inline-flex;
   line-height: 1;
-  background: #fff;
+  background: transparent;
   height: min-content;
   transition: top 125ms ease-in-out;
 }
@@ -61,6 +61,12 @@
 
 .bs-text-field-outlined__container .bs-text-field__label--top {
   top: 0;
+  background-color: var(--bs-grey-50);
+}
+
+.bs-text-field-outlined__container .bs-text-field__label--top-white {
+  top: 0;
+  background-color: var(--bs-color-background-light);
 }
 
 .bs-text-field-standard__container .bs-text-field__label--top {
@@ -75,12 +81,12 @@
   letter-spacing: var(--body1-letterSpacing);
   line-height: var(--body1-lineHeight);
   padding: 0;
-  outline: none;
   border: none;
   background: none;
   width: 100%;
   z-index: 2;
   position: relative;
+  outline: none;
 }
 
 .bs-text-field__standard-input--with-password-toggle {

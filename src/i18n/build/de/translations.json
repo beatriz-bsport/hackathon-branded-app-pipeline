@@ -5917,7 +5917,7 @@
             "id": "ID",
             "dst_gender": "Geschlecht des Empfängers",
             "dst_phonenumber": "Telefon des Empfängers",
-            "dst_email": "Empfangender Zahnschmelz",
+            "dst_email": "E-Mail des Empfängers",
             "dst_lastname": "Name des Empfängers",
             "dst_firstname": "Vorname des Empfängers",
             "src_gender": "Geschlecht des Käufers",

@@ -14660,7 +14660,8 @@
             "totalNetGain": "Ganancia neta total",
             "netGain": "Ganancia neta",
             "marginValue": "Contribución marginal",
-            "nb_private_bookings": " "
+            "nb_private_bookings": " ",
+            "noShowsAndLateCancellations": "Ausencias y cancelaciones fuera de plazo"
         },
         "cachedData": {
             "leavePreviewMode": "Salir del modo de vista previa",

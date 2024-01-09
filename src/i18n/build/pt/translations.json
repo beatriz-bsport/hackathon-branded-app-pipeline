@@ -451,7 +451,7 @@
             "mainButton": {
                 "numberOfBook": "{{count}} inscrição",
                 "numberOfBook_plural": "{{count}} inscrições",
-                "book": "Agendado",
+                "book": "Agendar",
                 "registerWaitingList": "Quero estar na lista de espera"
             },
             "similarOffer": {
@@ -702,7 +702,8 @@
             "total_on_sessions": "Remuneração das aulas em grupo",
             "total_on_appointments": "Compensação por  referência",
             "total": "Remuneração total",
-            "totalNetGain": "Ganho líquido total"
+            "totalNetGain": "Ganho líquido total",
+            "noShowsAndLateCancellations": "Não comparência e cancelamentos tardios"
         },
         "advancedFilters": {
             "apply": "Aplicar filtros",
@@ -8055,7 +8056,7 @@
             "bancontact": "Contactless",
             "other": "Diversos",
             "credit_account": "Crédito do cliente",
-            "subscription_cb": "Pagamento agendado (subscrição)",
+            "subscription_cb": "Subscrição",
             "none": "Não",
             "event_brite": "EventBrite",
             "bank_transfer": "Transferência",

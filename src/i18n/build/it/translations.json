@@ -74,7 +74,7 @@
             "paymentMethod": "Metodo di pagamento",
             "activity": "Attività",
             "datetime": "Allenamento",
-            "paymentPack": "Pass",
+            "paymentPack": "Pacchetti",
             "amount": "Importo",
             "continue": "Continua",
             "credit_s": "Crediti",
@@ -134,8 +134,8 @@
             "information": "Dettagli"
         },
         "offer": {
-            "noPackAvailableForOfferPurchase": "Nessun pass compatibile con questa sessione!",
-            "noConsumerPackAvailableForPurchase": "Nessun pass compatibile è posseduta da questo membro!",
+            "noPackAvailableForOfferPurchase": "Nessun pacchetto compatibile con questa sessione!",
+            "noConsumerPackAvailableForPurchase": "Questo membro non possiede alcun pacchetto compatibile per questa prenotazione.",
             "attendant": "Presente/i",
             "nonAttendant": "Assente/i",
             "maxBookingsNb": "posti",
@@ -144,14 +144,14 @@
             "sizeOfWaitingList": "Dimensione della lista d'attesa",
             "offersPendingChange": "Sessioni da modificare:",
             "offersPendingDelete": "Sessioni da eliminare:",
-            "noncompatibleConsumerPaymentPacksAre": "Pass posseduto(i) non compatibile(i)",
+            "noncompatibleConsumerPaymentPacksAre": "Pacchetto/i posseduto/i non compatibile/i",
             "backToCalendar": "Calendario",
             "previousOffer": "Sessione precedente",
             "nextOffer": "Sessione successiva",
             "disabled": "disattivato",
             "substitute": "Rimpiazza",
-            "compatiblePacks": "Carte compatibili",
-            "noCompatiblePacks": "Nessun pass è compatibile con questa sessione",
+            "compatiblePacks": "Pacchetti compatibili",
+            "noCompatiblePacks": "Nessun pachetto è compatibile con questa sessione.",
             "extraordinaryEstablishment": "(sede temporanea)",
             "addInvoice": "Ricevuta",
             "myBookings": "Prenotazioni",
@@ -171,7 +171,7 @@
             },
             "unpaidInvoices": "Ricevute non pagate",
             "partner_max_booking_count": "Numero massimo di prenotazioni nel marketplace (solo OneFit)",
-            "noInConsumerPackAvailableForPurchase": "Nessun pass incompatibile posseduto da questo membro!"
+            "noInConsumerPackAvailableForPurchase": "Questo membro non possiede alcun pacchetto incompatibile per questa prenotazione."
         },
         "companies": {
             "general": "Generale",
@@ -312,7 +312,7 @@
                 "coachLabel": "Insegnante",
                 "establishmentLabel": "Struttura",
                 "substituteEstablishmentLabel": "Stabilimento (luogo temporaneo)",
-                "warningPackonEdit": "Le modifiche alle sessioni potrebbero renderle incompatibili con determinati pass. Dopo la modifica, prenditi il tempo necessario per verificare che rimangano compatibili con eventuali cambiamenti di posizione / insegnante.",
+                "warningPackonEdit": "Le modifiche alle sessioni potrebbero renderle incompatibili con determinati pacchetti. Dopo la modifica, prenditi il tempo necessario per verificare che rimangano compatibili con eventuali cambiamenti di posizione / insegnante.",
                 "deleteTitle": "Elimina sessione",
                 "cancelTitle": "Annulla la sessione",
                 "changeDate": "Cambia l'ora / la data",
@@ -327,8 +327,8 @@
                 "explainNotificationOnEdit": "Vuoi informare i tuoi clienti di questo cambiamento?",
                 "delete": {
                     "buttonHardDelete": "Rimuovi",
-                    "explainHardDelete": "Rimuovere la sessione dall'elenco? Si noti che questo diventerà invisibile, questa operazione è irreversibile! Se la sessione contiene prenotazioni, non verrà eliminata.",
-                    "explainCreditBack": "Restituire ai clienti i crediti spesi sul pass",
+                    "explainHardDelete": "Sei sicuro di voler eliminare questa sessione? Diventerà invisibile. Questa azione non può essere annullata.",
+                    "explainCreditBack": "Restituire ai clienti i crediti spesi sul pacchetto",
                     "explainNotify": "Invia un avviso ai clienti che hanno prenotato",
                     "explainModalities": "Questa modifica è definitiva. La tua sessione non sarà più visibile ai clienti finali. Puoi ancora accedervi.",
                     "explainForceDanger": "Attenzione ! Le prenotazione saranno cancellate definitivamente. Se non hai rimborsato il credito, perderai ogni traccia del suo utilizzo. Ti preghiamo di controllare lo stato delle tue prenotazioni e delle tue tessere prima della cancellazione.",
@@ -360,10 +360,10 @@
             "invoice": {
                 "paymentLabel": "Aggiungi una transazione",
                 "offerHelper": "Questa sessione verrà accreditata al membro",
-                "paymentPackHelper": "Questa carta verrà accreditata al membro",
+                "paymentPackHelper": "Questo pacchetto sarà attribuito al membro.",
                 "noPayedObject": "Nessuno",
                 "objectTypeLabel": "Oggetto da accreditare",
-                "dateStartPaymentPack": "Data di inizio del pass",
+                "dateStartPaymentPack": "La data di inizio di questo pacchetto è:",
                 "backToInvoiceItemList": "Torna all'elenco",
                 "title": "Salva un pagamento",
                 "activityHelper": "Scegli l'attività, quindi la sessione",
@@ -587,8 +587,8 @@
                 "areYouSureCancelBookingOption": "Sei sicuro di voler annullare la tua scelta?",
                 "explainCancelBookingOption": "L'eliminazione è definitiva, se si sceglie un'altra opzione in questa sessione, il posto nella lista di attesa verrà reinizializzato."
             },
-            "myPaymentPacks": "I miei pass",
-            "myPrivatePass": "I miei pass per appuntamenti",
+            "myPaymentPacks": "I miei pacchetti",
+            "myPrivatePass": "I miei pacchetti per appuntamenti",
             "company": "Club",
             "booking": {
                 "myPrivateBooking": "Appuntamento",
@@ -622,13 +622,13 @@
             "podcast": "Podcast",
             "sequence": "Strategie",
             "consumer": {
-                "pass": "Pass",
+                "pass": "I miai pacchetti",
                 "bookings": "Le mie prenotazioni ",
                 "profile": "Il mio profilo",
                 "order": "I miei ordini"
             },
             "reporting": "Report",
-            "beta": "beta",
+            "beta": "Beta",
             "combo": "Pacchetti combinati",
             "video": "Videoteca",
             "digital": "Offerta digitale",
@@ -644,7 +644,7 @@
             "privateService": {
                 "title": "Su appuntamento",
                 "services": "Su appuntamento",
-                "pass": "Pass per appuntamenti"
+                "pass": "Pacchetti per appuntamenti"
             },
             "coachPerformance": "Insegnanti",
             "search": "Ricerca",
@@ -658,7 +658,7 @@
             "logoff": "Disconnettiti",
             "refresh": "Ricarica",
             "goBack": "Indietro",
-            "pass": "Pass",
+            "pass": "Pacchetti",
             "settings": "Impostazioni",
             "myClub": "Il mio club",
             "subscription": "Abbonamenti ricorrenti",
@@ -685,7 +685,7 @@
             "paymentMethodStripe": "Carta di credito",
             "payment": "Pagamento",
             "credit": "Credito",
-            "privatePass": "Pass per appuntamenti",
+            "privatePass": "Pacchetti per appuntamenti",
             "return": "Rimborso",
             "paymentCombo": "Pacchetto combinato",
             "products": "articoli",
@@ -695,9 +695,9 @@
             "actions": "Azioni",
             "bookWithUnlimitedPack": "Prenota",
             "noCreditLeft": "Credito insufficiente",
-            "noBookingsLeftOnPack": "La tessera è esaurita per questa settimana",
+            "noBookingsLeftOnPack": "Questo pacchetto non può più essere utilizzato per questa settimana.",
             "yourBasket": "Il tuo acquisto",
-            "availablePaymentPacks": " Pass compatibile",
+            "availablePaymentPacks": " Pacchetti compatibili",
             "pay": "Pagamento",
             "type": "Tipo",
             "amount": "Importo",
@@ -707,7 +707,7 @@
             "object": "Descrizione",
             "addInvoiceItem": "Aggiungi alla ricevuta",
             "addOffer": "Allenamento",
-            "addPaymentPack": "Pass",
+            "addPaymentPack": "Pacchetti",
             "voucher": "Voucher",
             "total": "TOTALE",
             "paymentMethodCheck": "Assegno bancario",
@@ -732,7 +732,7 @@
             "toSubscribe": "Abbonati",
             "goToSubscription": "Vedi l'abbonamento ricorrente",
             "invoiceFromSubscriptionThusNotEditable": "Questa ricevuta fa parte di un abbonamento ricorrente e pertanto non è modificabile, si prega di modificare direttamente l'abbonamento",
-            "noBookingsLeftOnPackInMonth": "Pass terminato per questo mese"
+            "noBookingsLeftOnPackInMonth": "Questo pacchetto non può più essere utilizzato per questo mese."
         },
         "shop": {
             "supplier_price": "Prezzo fornitore",
@@ -755,16 +755,16 @@
             "revertImpossibleExplainSubscription": "Questa ricevuta fa parte di un abbonamento ricorrente, non è possibile annullare una ricevuta collegata a un abbonamento, ma è possibile interrompere l'abbonamento.",
             "revertExplainPayment": "I pagamenti con carta verranno rimborsati sul conto del membro. Tutti gli altri metodi di pagamento verranno eliminati.",
             "revertExplainCredits": "Addebiti / crediti sul conto del membro verranno annullati.",
-            "revertExplainPacks": "I pass saranno cancellati così come TUTTE le prenotazioni associate",
+            "revertExplainPacks": "Tutti i pacchetti e le prenotazioni associate saranno annullati.",
             "revertExplainShop": "Gli acquisti dallo shop verranno annullati e l'inventario ripristinato.",
             "invoiceReverted": "Ricevuta annullata",
             "finalize": "Finalizza la ricevuta",
-            "explainFinalize": "Attenzione! Una ricevuta finalizzata non può più essere modificata e tutti i pagamenti contrassegnati in attesa di incasso verranno considerati come riscossi. Una volta finalizzata la ricevuta, è possibile esportarla come PDF"
+            "explainFinalize": "Attenzione: una ricevuta finalizzata non può essere modificata. Una volta che è stata finalizzata, sarà possibile scaricarla in formato PDF."
         },
         "activity": {
             "totalCustomers": "Totale prenotazioni",
             "noOfferThisDay": "Nessuna sessione, selezionare un'altra data sul calendario",
-            "packsAvailable": "Idoneo per pass:",
+            "packsAvailable": "Pacchetti compatibili:",
             "addOffers": "Aggiungi sessioni",
             "addActivity": "Aggiungi un'attività",
             "firstBookingMinutesUntil": "Le sessioni future possono essere prenotate se iniziano in meno di ",
@@ -812,7 +812,7 @@
                 "offerIsNotAvailable": "La prenotazione sarà eliminata. La sessione è già stata annullata e i crediti non verranno rimborsati se non si è verificato il \"rimborso\" con l'annullamento",
                 "offerIsAvailableChoiceRefund": "Sei sicuro di voler eliminare questa prenotazione?"
             },
-            "revertBookingWithInvoiceImpossibleExplain": "Questa prenotazione è già stata pagata dal membro e non può essere cancellata. Tuttavia è possibile passare la prenotazione in \"Assente\"",
+            "revertBookingWithInvoiceImpossibleExplain": "Questa prenotazione è già stata pagata dal membro e non può essere cancellata. Tuttavia è possibile passare la prenotazione in \"Assente\".",
             "sources": {
                 "MAN": "Manuale",
                 "MOB": "Telefono",
@@ -934,7 +934,7 @@
             }
         },
         "marketplace": {
-            "passListTitle": "Pass",
+            "passListTitle": "Pacchetti",
             "shop": {
                 "noDescription": "Nessuna descrizione",
                 "addToCard": "Aggiungi al carrello",
@@ -955,8 +955,8 @@
             "teacher": "Insegnante",
             "backToCalendar": "Precedente",
             "showMarketplace": "Vedi il calendario di ",
-            "noSessionToday": "Nessuna sessione",
-            "privatePassListTitle": "Pass per appuntamenti",
+            "noSessionToday": "Nessuna sessione da mostrare.",
+            "privatePassListTitle": "Pacchetti per appuntamenti",
             "bookButton": {
                 "book": "Prenota",
                 "bookOption": "Lista d'attesa",
@@ -993,7 +993,7 @@
                 }
             },
             "buyPack": "Comprare",
-            "pass": "Pass",
+            "pass": "Pacchetti",
             "playlist": "Playlist",
             "offers": "{{ count }} sessioni",
             "from_to": "da {{-from}} a {{-to}}",
@@ -1020,7 +1020,7 @@
                 "shopManager": "Il mio shop",
                 "coachList": "Insegnanti",
                 "WorkshopActivityFormPage": "Form del workshop",
-                "paymentPackList": "Pass",
+                "paymentPackList": "Pacchetti",
                 "metaActivity": "Attività",
                 "workshopActivityList": "Workshop",
                 "metaActivityEditForm": "Form dell'attività",
@@ -1032,7 +1032,7 @@
                 "invoiceFormPage": "Ricevuta",
                 "invoiceCreatePage": "Ricevuta",
                 "invoiceList": "Le mie transazioni",
-                "paymentPackFormPage": "Crea un pass",
+                "paymentPackFormPage": "Crea un pacchetto",
                 "members": "Membri",
                 "member": "Membro",
                 "memberFormPage": "Formulario",
@@ -1054,8 +1054,8 @@
                 "register": {
                     "forceNotify": "Invia un'email di conferma",
                     "registerToOffer": "Registrati per la sessione",
-                    "passOwnedByMember": "Pass di proprietà del membro",
-                    "passCompatibleNotOwnedByMember": "Acquista un nuovo pass",
+                    "passOwnedByMember": "Pacchetti di proprietà del membro",
+                    "passCompatibleNotOwnedByMember": "Acquista un nuovo pacchetto",
                     "doNotConsumeCredit": "Non detrarre crediti ai membri per la registrazione",
                     "groupWarning": "Questa sessione fa parte del gruppo di sessioni {{ name }}",
                     "loadingData": "Caricamento dati prenotazione",
@@ -1090,11 +1090,11 @@
             "gender": "Sesso",
             "sport": "Sport"
         },
-        "blockBooking": "Blocca le prenotazioni eseguite con i pass dei nuovi iscritti",
+        "blockBooking": "Blocca le prenotazioni eseguite con i pacchetti dei nuovi iscritti",
         "languageToolTip": "Disponibile sul marketplace",
         "visibilityOfIconToolTip": "Non visibile",
         "replaceCoach": "Cambia insegnante",
-        "onlyNewMember": "Blocca la prenotazione per i nuovi pass del cliente",
+        "onlyNewMember": "Sono accettate solo prenotazioni da pacchetti di nuovi clienti.",
         "bookingStatistics": {
             "weekOf": "Settimana del {{date}}",
             "keys": {
@@ -1124,10 +1124,10 @@
         },
         "show_cancelled_offers": "Mostra sessioni annullate",
         "quickInvoiceNoVoucher": "Lascia il valore di questo campo uguale a 0 se non vuoi applicare uno sconto",
-        "quickInvoiceVoucher": "Scegli lo sconto da applicare al momento del pagamento del pass successivo",
+        "quickInvoiceVoucher": "Scegli lo sconto da applicare al momento del pagamento del pacchetti successivo",
         "metaActivityNotificationToolTip": "Le notifiche sono impostate per le prenotazioni relative a questo elemento",
         "metaActivityCategory": {
-            "explain": "Queste categorie servono solo per ordinare le attività sul back office come vuoi tu. Non hanno alcun impatto sul lato client",
+            "explain": "Queste categorie vengono utilizzate per ordinare e classificare le attività del gruppo in base alla visualizzazione preferita nella Vista di gestione. I membri non saranno influenzati dalle vostre decisioni di visualizzazione.",
             "sctExplain": "Queste categorie appariranno sul MarketPlace e sull'App mobile e rappresentano i diversi tipi di attività."
         },
         "restrictions": {
@@ -1411,8 +1411,8 @@
             "102": "Annullamento della sessione (insegnanti)",
             "101": "Promemoria corso online in 15 min (insegnanti)",
             "705": "Avviso di assenza",
-            "704": "Assenza: addebito conto cliente (studenti)",
-            "703": "No show: pacchetto bloccato (studenti)",
+            "704": "Assenze (no-show): addebito conto cliente (studenti)",
+            "703": "Assenze (no-show): pacchetto bloccato (studenti)",
             "303": "Unire due account studio",
             "20": "Richiesta di download della ricevuta",
             "301": "Reimpostazione della password utente",
@@ -1643,7 +1643,7 @@
                 "title": "Sessioni"
             },
             "packs": {
-                "title": "Pass"
+                "title": "Pacchetti"
             },
             "closeMemberMatch": "Stai cercando questo membro?",
             "archived": "Membri archiviati"
@@ -2354,7 +2354,7 @@
             "isFromDisabledShare": "Condivisione interrotta",
             "isOwnerOfShares": "Condividere (master card per appuntamenti)",
             "isFromShare": "Condividere da un altro account",
-            "warningShareUniversal": "Questa carta è universale, si prega di condividere il pacchetto associato"
+            "warningShareUniversal": "Questo pacchetto è universale, si prega di condividere il pacchetto associato"
         },
         "availabilitySlot": {
             "form": {
@@ -2802,7 +2802,7 @@
                 "unusable": "Inutilizzabile"
             },
             "form": {
-                "title": "Carta d'appuntamento",
+                "title": "[Form] Pacchetto per appuntamenti",
                 "tax": {
                     "label": "I.V.A."
                 },
@@ -2811,13 +2811,13 @@
                     "helperText": "Periodo in giorni per i quali la carta sarà valida dopo l'acquisto "
                 },
                 "durationMonths": {
-                    "helperText": "Si aggiunge al numero di giorni",
+                    "helperText": "Si aggiunge al numero di giorni.",
                     "label": "Durata della validità in mesi"
                 },
                 "available_payment_method_identifiers": {
-                    "helperText": "Seleziona almeno un metodo di pagamento. Se il carrello del membro contiene articoli per i quali i mezzi di pagamento sono incompatibili, verrà offerto il pagamento attraverso carta.",
+                    "helperText": "Selezionare almeno un metodo di pagamento. Se non ne viene selezionato nessuno, il pagamento con carta sarà offerto per impostazione predefinita.",
                     "label": "Mezzi di pagamento autorizzati",
-                    "warning": "Rendi la tua carta visibile ai clienti in modo che possano selezionare i metodi di pagamento."
+                    "warning": "Rendi il tuo pacchetto visibile ai clienti in modo che possano selezionare i metodi di pagamento."
                 },
                 "actions": {
                     "submit": "Salva",
@@ -2825,7 +2825,7 @@
                 },
                 "price": {
                     "label": "Prezzo IVA inclusa",
-                    "helperText": "Prezzo della carta per il cliente"
+                    "helperText": "Questo è il prezzo di vendita per i membri."
                 },
                 "durationYears": {
                     "label": "Durata della validità in anni",
@@ -2840,18 +2840,18 @@
                 },
                 "credits": {
                     "label": "Numero di crediti inclusi",
-                    "helperText": "Ogni sessione costa un certo numero di crediti"
+                    "helperText": "Ogni sessione costa un certo numero di crediti."
                 },
                 "full_vod_access": {
                     "label": "Fornisce l'accesso al VOD"
                 },
                 "expirationDaysBeforeFirstUse": {
-                    "helperText": "Se la carta del corso non viene usata una volta entro questo numero di giorni, sarà resa invalida.",
-                    "label": "Scade se nessuna prenotazione iniziale"
+                    "helperText": "Il pacchetto per appuntamenti scade automaticamente se non viene effettuata alcuna prenotazione entro un numero di giorni X.",
+                    "label": "Data di scadenza automatica:"
                 },
                 "start_date_method": {
-                    "on_attendance": "Alla 1a partecipazione",
-                    "on_booking": "Alla 1a prenotazione",
+                    "on_attendance": "Valido a partire dalla 1ª presenza",
+                    "on_booking": "Valido a partire dalla 1ª prenotazione",
                     "on_purchase": "Valido dalla data di contabilizzazione"
                 },
                 "new_member_only": {
@@ -2877,7 +2877,7 @@
                 "category": "Nome della categoria",
                 "categoryTitle": {
                     "compatibility": "Compatibilità",
-                    "validity": "Validità della carta",
+                    "validity": "Validità",
                     "paymentMeans": "Informazioni generali",
                     "info": "Informazioni generali",
                     "compatibilityAppointment": "Compatibilità degli appuntamenti"
@@ -2887,21 +2887,21 @@
                 },
                 "franchise": "Il pacchetto appuntamenti è condiviso attraverso l'Account Master. Alcune impostazioni sono state predefinite da tale Account Master e non possono essere modificate.",
                 "universalPass": {
-                    "deativatedTags": "Disabili per le carte universali",
-                    "helperText": "Le carte universali possono essere utilizzate per prenotare lezioni di gruppo E appuntamenti. Una volta creata la carta, verrà creata una carta gemella nelle carte del corso. Il numero di crediti su entrambe le carte sarà collegato. Quando si acquista una delle due carte, l'altra sarà automaticamente aggiunta al membro (senza costi aggiuntivi).",
-                    "label": "Carta universale",
-                    "warningIsUniversalPass": "Questa carta è una carta universale, una carta gemella è stata creata nelle mappe del corso. Tutti i campi modificati su questa carta saranno modificati anche sulla carta gemella (tranne la categoria). Lo stesso vale per le notifiche, le estensioni e le modifiche di credito."
+                    "deativatedTags": "Disattivare per i pacchetti universali",
+                    "helperText": "I pacchetti universali possono essere utilizzati per attività di gruppo e appuntamenti. Per ogni pacchetto universale vengono creati due pacchetti gemelli per collegare il numero di crediti. Una volta acquistato uno di questi pacchetti, l'altro verrà aggiunto automaticamente senza costi aggiuntivi.",
+                    "label": "Pacchetto universale",
+                    "warningIsUniversalPass": "I pacchetti gemelli vengono creati automaticamente per un pacchetto universale. Tutti i campi modificati qui saranno modificati anche sui pacchetti gemelli, tranne le categorie. Questo vale anche per le notifiche, le estensioni di validità e le modifiche del credito."
                 },
                 "appliesForPayroll": {
-                    "helperText": "Di default, gli appuntamenti vengono contabilizzati allo studio e conteggiati nel riepilogo e nel compenso del docente. Disattivando questa impostazione, gli appuntamenti associati a questo pass non appariranno più nel riepilogo del docente.",
+                    "helperText": "Di default, gli appuntamenti vengono contabilizzati allo studio e conteggiati nel riepilogo e nel compenso del docente. Disattivando questa impostazione, gli appuntamenti associati a questo pacchetto non appariranno più nel riepilogo del docente.",
                     "label": "Appuntamenti presi in considerazione nel calcolo della retribuzione del docente"
                 },
                 "onBehalfOfTeacher": {
                     "label": "Pagamento interamente trasferito all'insegnante",
-                    "helperText": "Questo parametro permette di indicare che il reddito associato agli appuntamenti di questo pass andrà interamente al docente. Queste informazioni saranno visibili nella colonna \"Pagamento interamente pagato all'insegnante\" dei tuoi report relativi agli acquisti."
+                    "helperText": "Questa impostazione consente di indicare che le entrate associate agli appuntamenti di questo pacchetto saranno pagate interamente all'insegnante. Questa informazione sarà visibile nei rapporti di acquisto nella colonna \"Pagamento pagato interamente all'insegnante\"."
                 },
                 "expiration_date": {
-                    "tooltip": "Dopo la data selezionata, il pass appuntamenti non apparirà più in vendita ai clienti.",
+                    "tooltip": "Dopo la data selezionata, il pacchetto per appuntamenti non apparirà più in vendita ai clienti.",
                     "helperText": "Disponibile fino al",
                     "label": "Data limite di acquisto"
                 },
@@ -2910,10 +2910,10 @@
                 }
             },
             "delete": {
-                "explain": "Sei sicuro di voler eliminare questa scheda? Le persone che hanno ancora dei crediti possono ancora usarli.",
+                "explain": "Sei sicuro di voler eliminare questo pacchetto? Le persone che hanno ancora dei crediti possono ancora usarli.",
                 "cancel": "Annulla",
                 "submit": "Conferma",
-                "title": "Cancellazione della carta",
+                "title": "Cancella il pacchetto",
                 "delete": "Rimuovi",
                 "warning": "Attenzione! L'eliminazione di questo pacchetto per appuntamenti lo renderà anche non disponibile per l'acquisto dei pacchetti combinati per cui è stato utilizzato."
             },
@@ -2932,7 +2932,7 @@
                 "unusableByStaff": "Non visibile per lo staff"
             },
             "edit": "Modifica",
-            "disabledTitle": "Pass per appuntamenti archiviati",
+            "disabledTitle": "Pacchetti per appuntamenti archiviati",
             "detailTitles": {
                 "paymentMeans": "Mezzi di pagamento",
                 "privateServiceCompatibility": "Appuntamenti compatibili",
@@ -3077,7 +3077,7 @@
                     },
                     "label": "Autorizza la prenotazione senza pagamento",
                     "title": "Paga più tardi",
-                    "helperText": "Attivando questa funzione i tuoi membri saranno in grado di prenotare questo appuntamento senza dover acquistare/utilizzare una carta. Il numero di crediti per l'appuntamento sarà automaticamente addebitato sulla prossima carta compatibile acquistata."
+                    "helperText": "Attivare questa funzione per consentire ai membri di completare le prenotazioni senza pagamenti diretti. I crediti utilizzati saranno automaticamente detratti da qualsiasi pacchetto per appuntamenti futuro acquistato dai membri."
                 },
                 "pad_before_booking": {
                     "label": "Da prendere in considerazione anche prima di prenotare"
@@ -3113,11 +3113,11 @@
                 }
             },
             "navigation": {
-                "goToPrivatePass": "Pass per appuntamenti"
+                "goToPrivatePass": "Pacchetti per appuntamenti"
             }
         },
         "noPrivateService": "Un appuntamento è prenotabile nello slot che hai scelto, dal membro.",
-        "noPrivatePass": "I pass per gli appuntamenti consentono ai membri di fissare un appuntamento, definire prezzi e condizioni.",
+        "noPrivatePass": "I membri possono utilizzare i pacchetti per appuntamenti per prenotare appuntamenti (ad esempio, personal training, duo, affitto di sale, massaggi, ecc.) Promemoria: non dimenticate di impostare correttamente la compatibilità di tutti i vostri pacchetti per appuntamenti.",
         "customEvent": {
             "form": {
                 "actions": {
@@ -3142,7 +3142,7 @@
                 "delete": "Rimuovi"
             }
         },
-        "noPrivateConsumerPass": "Nessuno ha questa carta per appuntamenti",
+        "noPrivateConsumerPass": "Non ci sono membri con questo pacchetto per appuntamenti.",
         "filters": {
             "hasCreditNull": "Senza credito",
             "hasCreditLeft": "Con credito",
@@ -3153,7 +3153,7 @@
             "notReverted": "Ricevuta non annullata",
             "credits": "Credito",
             "expiration": "Validità",
-            "all": "Tutti i pass",
+            "all": "Tutti i pacchetti",
             "isValidToday": "Valido"
         },
         "recurrenceRule": {
@@ -3257,11 +3257,11 @@
                     "refunded": "Se la prenotazione è stata cancellata in tempo",
                     "valid": "Se la prenotazione è valida"
                 },
-                "subtitle": "Pass per appuntamenti"
+                "subtitle": "Pacchetti per appuntamenti"
             }
         },
         "marketplace": {
-            "isEmpty": "Nessun appuntamento registrato"
+            "isEmpty": "Nessun appuntamento registrato."
         },
         "popup": {
             "end": "Tempo di fine",
@@ -3271,8 +3271,8 @@
         },
         "searshAppointmentPass": "Cercare una scheda RDV",
         "search": "Cerca un appuntamento",
-        "categoryTitle": "Categorie di carte d'appuntamento",
-        "disabledPacksTitle": "Carte d'appuntamento archiviate",
+        "categoryTitle": "Categorie di pacchetti per appuntamento",
+        "disabledPacksTitle": "Pacchetti per appuntamenti archiviati",
         "notification": {
             "listItem": {
                 "smartListInclude": "Smartlist inclusa(e)",
@@ -3288,7 +3288,7 @@
             "addButton": "Aggiungere una notifica"
         },
         "privatePassTemplate": {
-            "isEmptyExplain": "Le carte per le lezioni condivise sono disponibili negli studi di vostra scelta e permettono ai vostri membri di usare i loro crediti in qualsiasi studio voi scegliate.",
+            "isEmptyExplain": "I membri possono acquistare e utilizzare questo pacchetto in qualsiasi studio associato.",
             "specification": {
                 "companySharedWithTitle": "Shared with the studios:"
             },
@@ -3297,7 +3297,7 @@
                 "titleManagerOnly": "Non disponibile per la vendita"
             },
             "form": {
-                "title": "Pass condiviso",
+                "title": "[Form] Pacchetto per appuntamenti condiviso",
                 "close": "Chiudere",
                 "submit": "Convalidare",
                 "actions": {
@@ -3307,38 +3307,38 @@
             },
             "deleteForm": {
                 "title": "Disattivazione",
-                "content": "Disattivando un pass condiviso, i membri con quel pass potranno utilizzarlo solo nello studio dove l'hanno acquistato.",
+                "content": "Disattivando un pacchetto condiviso, i membri con quel pacchetto potranno utilizzarlo solo nello studio dove l'hanno acquistato.",
                 "actions": {
                     "close": "Chiudere",
                     "submit": "Disattivare la condivisione"
                 }
             },
             "actions": {
-                "create": "Aggiungi un pass condiviso"
+                "create": "Aggiungi un pacchetto condiviso"
             }
         },
         "seeAll": "Vedi tutti",
         "privatePassTemplateInstance": {
-            "privatePassSharedFromFranchisor": "Pass del franchising",
+            "privatePassSharedFromFranchisor": "Pacchetto del franchising",
             "privateConsumerPassSharedFromOtherFranchisee": "Condiviso dal franchisee",
             "form": {
                 "title": "Allestire i miei studi",
-                "explain1": "I seguenti studi avranno automaticamente questa carta disponibile per la vendita. Non potranno cambiare il prezzo o il numero di crediti.",
-                "explain2": "Se un membro acquista questa carta in uno degli studi compatibili, potrà utilizzarla anche negli altri studi che hai definito.",
+                "explain1": "I seguenti studios offriranno automaticamente questo pacchetto, ma non potranno modificare il prezzo o il numero di crediti.",
+                "explain2": "Se un membro acquista questo pacchetto in uno degli studi compatibili, potrà utilizzarlo anche negli altri studi che hai definito.",
                 "actions": {
-                    "close": "Chiudere",
-                    "submit": "Registra"
+                    "close": "Chiudi",
+                    "submit": "Salva"
                 }
             },
             "deleteForm": {
                 "title": "Disattivazione",
-                "content": "Disattivando questo studio dalla condivisione della mappa, tutti i membri che possiedono questa mappa e l'hanno acquistata in questo studio potranno ancora utilizzarla. Tuttavia, non potranno più usarlo in altri studi. Infine, le carte acquistate in altri studi non saranno più utilizzabili nello studio disattivato, indipendentemente da quando sono state acquistate.",
+                "content": "I membri che hanno acquistato un pacchetto in questo studio potranno continuare a utilizzarlo in altri studi compatibili, anche dopo la disattivazione di questo studio specifico. Gli altri pacchetti condivisi non saranno più utilizzabili presso lo studio disattivato.",
                 "actions": {
                     "close": "Chiudere",
                     "submit": "Disattivare la condivisione"
                 }
             },
-            "companyEmpty": "Nessuno studio è configurato per accettare questa carta di corso",
+            "companyEmpty": "Non ci sono studi che offrano questo pacchetto.",
             "actions": {
                 "addCompany": "Aggiungere uno studio"
             }
@@ -3346,8 +3346,8 @@
         "universalPass": {
             "delete": {
                 "dialog": {
-                    "warningText": "Attenzione! L'eliminazione di un pass universale comporta anche l'eliminazione dei suoi pass gemelli.",
-                    "title": "Elimina il pass"
+                    "warningText": "Attenzione! L'eliminazione di un pacchetto universale comporta anche l'eliminazione dei suoi pacchetti gemelli.",
+                    "title": "Elimina il pacchetto"
                 }
             }
         },
@@ -3450,8 +3450,8 @@
                     "file": "Documento",
                     "urlExplain": "Il tuo video è già disponibile su Youtube ma vuoi monetizzarlo tramite il sistema di carte di bsport.",
                     "fileExplain": "Hai il file video (mp4, avi, mov...), usa questo metodo per caricare il tuo video direttamente sui server di bsport.",
-                    "youtubeExplain": "Il tuo video è già disponibile su Youtube ma vuoi monetizzarlo tramite il sistema di tessere bsport.",
-                    "vimeoExplain": "Il tuo video è già disponibile su Youtube ma vuoi monetizzarlo tramite il sistema di tessere bsport.",
+                    "youtubeExplain": "Hai un video su Youtube e vuoi monetizzarlo tramite bsport.",
+                    "vimeoExplain": "Hai un video Vimeo e vuoi monetizzarlo tramite bsport.",
                     "vimeo": "Vimeo",
                     "youtube": "Youtube",
                     "ebookExplain": "Se hai un ebook in formato pdf o immagine (png, jpg), usa questo metodo per caricare il tuo ebook. Una volta sbloccato, i tuoi membri potranno scaricarlo.",
@@ -3470,7 +3470,7 @@
             "lock": {
                 "accessDenied": "Non hai accesso a questo video",
                 "pleaseAuthenticated": "Devi accedere per accedere a questo video",
-                "buyPass": "Compra un pass",
+                "buyPass": "Compra un pacchetto",
                 "useConsumerPass": "Sblocca accesso",
                 "accessDeniedEbook": "Non hai accesso a questo ebook"
             },
@@ -3501,8 +3501,8 @@
             },
             "creditPrice": "Costo",
             "register": {
-                "noPassAvailable": "Non hai un pass compatibile",
-                "buyPass": "Compra un pass",
+                "noPassAvailable": "Ancora non possiedi nessun pacchetto compatibile.",
+                "buyPass": "Compra un pacchetto",
                 "title": "Inizia"
             },
             "manager_only_helper": "Il video non sarà disponibile per l'acquisto, sarà visibile solo ai manager",
@@ -3542,7 +3542,7 @@
             "playlist": "Playlist"
         },
         "details": {
-            "consumerPaymentPackTitle": "Pass utilizzato",
+            "consumerPaymentPackTitle": "Pacchetto utilizzato",
             "invoiceTitle": "Ricevuta associata",
             "pleaseSelectVod": "Selezionare un acquisto per vedere i dettagli",
             "title": "Dettagli del video"
@@ -3581,7 +3581,8 @@
             "totalNetGain": "Totale guadagno netto",
             "netGain": "Guadagno netto",
             "marginValue": "Contributo marginale",
-            "nb_private_bookings": " "
+            "nb_private_bookings": " ",
+            "noShowsAndLateCancellations": "Assenze (no-show) e cancellazioni tardive"
         },
         "bonus": "Bonus",
         "addBonus": "Aggiungi un bonus",
@@ -3905,7 +3906,7 @@
     },
     "stripe": {
         "errors": {
-            "invalid_expiry_year_past": "La data di scadenza della tua carta è passata.",
+            "invalid_expiry_year_past": "La tua carta è scaduta.",
             "processing_error": "Si è verificato un errore durante la registrazione del pagamento. Riprova tra qualche istante.",
             "invalid_expiry_year": "La data di scadenza della carta non è valida.",
             "incomplete_cvc": "Il codice di sicurezza della tua carta è incompleto.",
@@ -3997,9 +3998,9 @@
                 "acceptDoubleBooking": "Accetta la doppia prenotazione",
                 "calendar": {
                     "offerCard": {
-                        "helperText": "Cambia lo stile dei pass",
+                        "helperText": "Cambia lo stile dei pacchetti",
                         "placeholder": "Inserisci il codice CSS",
-                        "label": "Pass"
+                        "label": "Pacchetti"
                     },
                     "police": {
                         "placeholder": "Inserisci il codice CSS",
@@ -4087,7 +4088,7 @@
                 "errorURL": "Inserisci un URL valido prima di salvare il form",
                 "hideSessionWithTagsNotEligible": "Non visualizzare le sessioni a cui il membro non ha accesso con i tag",
                 "hideMemberForCoach": "Nascondere le informazioni di contatto del cliente nel calendario dell'insegnante",
-                "hideBuyablePassIfSuperfluous": "Nascondi pass, abbonamenti ricorrenti e pacchetti combinati nel flusso di prenotazione se il membro possiede già un prodotto compatibile",
+                "hideBuyablePassIfSuperfluous": "Nascondi pacchetti, abbonamenti ricorrenti e pacchetti combinati nel flusso di prenotazione se il membro possiede già un prodotto compatibile",
                 "attendanceTitle": "Presenza",
                 "bookingTitle": "Prenotazione",
                 "coachUserspace": {
@@ -4153,12 +4154,12 @@
                     "errorValidatedTime": "Il tempo trascorso prima di considerare un membro come no-show deve essere maggiore di 0",
                     "errorEmailTime": "Il tempo trascorso prima dell'invio dell'email per avvisare il membro che non si presenterà deve essere maggiore di 0",
                     "title": "Assenza (no-show)",
-                    "notAvailable": "La gestione delle assenze (no-show) non è disponibile. Per attivarla devi prima creare un pass illimitato con sanzioni per assenze (no show).",
-                    "alert": "Queste impostazioni si applicano solo alle sanzioni per assenze (no-show) su pass illimitati. Per attivare i seguenti conteggi, è necessario convalidare l'appello per ogni corso.",
+                    "notAvailable": "La gestione delle assenze (no-show) non è disponibile. Per attivarla devi prima creare un pacchetto illimitato con sanzioni per assenze (no show).",
+                    "alert": "Queste impostazioni si applicano solo alle sanzioni per assenze (no-show) su pacchetti illimitati. Per attivare i seguenti conteggi, è necessario convalidare l'appello per ogni corso.",
                     "daysBeforeNoShow": "Considerare l'iscritto come (no-show) <0/> <1/> dopo l'appello nelle sedute in cui è indicato come assente.",
-                    "daysBeforeNoShowHelpText": "Tale parametro consente di applicare sanzioni sulle assenze dei membri con pass illimitato.",
+                    "daysBeforeNoShowHelpText": "Tale parametro consente di applicare sanzioni sulle assenze dei membri con pacchetto illimitato.",
                     "sendMailHelpText": "Per attivare/disattivare l'email, vai su Impostazioni> Email transazionali> Penalità> Notifica assenza",
-                    "error": "L'email di notifica dell'assenza non può essere inviata dopo che il membro è considerato no show."
+                    "error": "L'email di notifica dell'assenza non può essere inviata dopo che il membro è considerato assente (no-show)."
                 },
                 "daysFormatSelector": {
                     "oneLetter": "1 lettera",
@@ -4187,7 +4188,7 @@
                 "acceptDoubleBookingMetaActivity": "Accetta la doppia prenotazione per le attività",
                 "hideBookButton": {
                     "switchLabel": "Nascondi il pulsante \"{{-bookButtonTranslation}}\"",
-                    "dialogDescription": "Nascondendo il pulsante \"{{-bookButtonTranslation}}\", potrai cliccare sul pass per prenotare la sessione."
+                    "dialogDescription": "Nascondendo il pulsante \"{{-bookButtonTranslation}}\", potrai cliccare sul pacchetto per prenotare la sessione."
                 },
                 "doubleBookingDisabledWithSpivi": "La doppia prenotazione non è compatibile con l'integrazione Spivi",
                 "startWeekOnToday": "Mostrare come prima data del calendario quella odierna se la visualizzazione è settimanale",
@@ -4298,7 +4299,7 @@
             },
             "productsThemePersonalization": {
                 "credits": {
-                    "description": "Abilita o disabilita la visualizzazione dei crediti del pass per i clienti",
+                    "description": "Abilita o disabilita la visualizzazione dei crediti del pacchetto per i clienti",
                     "label": "Nascondi i crediti",
                     "subTitle": "Crediti"
                 },
@@ -4306,7 +4307,7 @@
                 "productsOrdering": {
                     "itemNumberCaption": "{{count}} prodotto",
                     "itemNumberCaption_plural": "{{count}} prodotti",
-                    "description": "Organizza i tuoi prodotti in modo che siano visibili ai vostri clienti quando prenotano un'attività e hanno bisogno di un pass, di un pacchetto combinato o di un abbonamento ricorrente.",
+                    "description": "Organizza i tuoi prodotti in modo che siano visibili ai vostri clienti quando prenotano un'attività e hanno bisogno di pacchetti, di un pacchetto combinato o di un abbonamento ricorrente.",
                     "reset": "Reset",
                     "label": "Ordine personalizzato",
                     "subTitle": "Ordine del prodotto"
@@ -4336,10 +4337,10 @@
             "signinShow": "Quando l'utente arriva sulla pagina di accesso",
             "paymentSuccess": "Quando l'utente ha completato il pagamento con successo",
             "addShopItemToCart": "Quando l'utente aggiunge un prodotto dallo shop nel suo carrello",
-            "addPrivatePassToCart": "Quando l'utente aggiunge un pass per appuntamento nella sua cesta",
+            "addPrivatePassToCart": "Quando l'utente aggiunge un pacchetto per appuntamenti nella sua cesta",
             "addPackToCart": "Quando l'utente aggiunge un pacchetto combinato alla sua cesta",
-            "addPassToCart": "Quando l'utente aggiunge un pass alla sua cesta",
-            "showPass": "Quando l'utente visualizza un pass",
+            "addPassToCart": "Quando l'utente aggiunge un pacchetto alla sua cesta",
+            "showPass": "Quando l'utente visualizza un pacchetto",
             "showBasket": "Quando l'utente visualizza la sua cesta",
             "cancel": "Annulla",
             "fbPixelEvent": "FB Pixel Nome dell'evento",
@@ -4541,7 +4542,7 @@
                 "error": "Impossibile modificare il metodo di pagamento"
             },
             "switchPack": {
-                "error": "Impossibile modificare il pass",
+                "error": "Impossibile modificare il pacchetto",
                 "success": "Metodo di pagamento modificato"
             },
             "youSubscribed": {
@@ -4565,8 +4566,8 @@
                 }
             },
             "switchPrivatePass": {
-                "error": "Impossibile modificare il pass per appuntamenti",
-                "success": "Carta d'appuntamento modificata"
+                "error": "Impossibile modificare il pacchetto per appuntamenti",
+                "success": "Il pacchetto per appuntamenti è stato modificato"
             },
             "switchPaymentCombo": {
                 "success": "Pacchetto combinato modificato",
@@ -4574,13 +4575,13 @@
             },
             "switchItemsErrors": {
                 "paymentPack": {
-                    "63003": "Impossibile: la sostituzione di pass condivisi tra franchise non è consentita"
+                    "63003": "Impossibile: la sostituzione di pacchetti condivisi tra franchise non è consentita"
                 },
                 "paymentCombo": {
-                    "63003": "Impossibile: il cambio di pacchetto combinato condiviso tra franchisee non è autorizzato"
+                    "63003": "Impossibile: La modifica del pacchetto condiviso tra i franchising non è consentita"
                 },
                 "privatePass": {
-                    "63003": "Impossibile: il cambio di pass per appuntamenti condiviso tra i franchise non è autorizzato"
+                    "63003": "Impossibile: il cambio di pacchetto per appuntamenti condiviso tra i franchise non è autorizzato"
                 }
             },
             "register": {
@@ -4663,10 +4664,10 @@
             "consumer_payment_pack_links": {
                 "create": {
                     "error": {
-                        "90004": "Questa carta è condivisa da un altro account",
-                        "generic": "Impossibile condividere questo pass"
+                        "90004": "Questo pacchetto è condiviso da un altro account",
+                        "generic": "Impossibile condividere questo pacchetto"
                     },
-                    "success": "Carta condivisa"
+                    "success": "Pacchetto condiviso"
                 },
                 "unlink": {
                     "error": "Impossibile eliminare questa condivisione",
@@ -4674,7 +4675,7 @@
                 },
                 "relink": {
                     "success": "Condivisione registrata",
-                    "error": "Impossibile condividere questa carta"
+                    "error": "Impossibile condividere questo pacchetto"
                 }
             },
             "createOrUpdate": {
@@ -4682,8 +4683,8 @@
             },
             "private_consumer_pass_links": {
                 "relink": {
-                    "error": "Non è possibile condividere questo pass",
-                    "success": "Pass condiviso"
+                    "error": "Non è possibile condividere questo pacchetto",
+                    "success": "Pacchetto condiviso"
                 },
                 "unlink": {
                     "error": "Impossibile eliminare questa condivisione",
@@ -4691,10 +4692,10 @@
                 },
                 "create": {
                     "error": {
-                        "90005": "Questa pass per appuntamenti è condiviso da un altro account",
-                        "generic": "Impossibile condividere questo pass per appuntamenti"
+                        "90005": "Questo pacchetto per appuntamenti è condiviso da un altro account",
+                        "generic": "Impossibile condividere questo pacchetto per appuntamenti"
                     },
-                    "success": "Card comune di appuntamento"
+                    "success": "Pacchetto per appuntamenti condiviso"
                 }
             },
             "delete": {
@@ -4724,20 +4725,20 @@
         },
         "paymentPack": {
             "createOrUpdate": {
-                "success": "Pass registrato",
-                "fail": "Errore durante il salvataggio della carta"
+                "success": "Pacchetto registrato",
+                "fail": "Errore durante il salvataggio del pacchetto"
             },
             "paymentPackDisabled": {
-                "success": "Pass disabilitato",
-                "error": "Impossibile disattivare il pass"
+                "success": "Pacchetto disabilitato",
+                "error": "Impossibile disattivare il pacchetto"
             },
             "credit": {
                 "updated": "Crediti aggiornati",
                 "error": "Errore durante il salvataggio"
             },
             "paymentPackEnabled": {
-                "error": "Impossibile ripristinare il pass",
-                "success": "Pass ripristinato"
+                "error": "Impossibile ripristinare il pacchetto",
+                "success": "Pacchetto ripristinato"
             },
             "category": {
                 "create": {
@@ -4929,7 +4930,7 @@
                 "success": "Soci accorpati",
                 "srcMember": "Socio da accorpare (eliminato)",
                 "dstMember": "Socio da tenere",
-                "explainBookingsAndPassAndInvoiceAndNotes": "I pass, le prenotazioni, le ricevute e le annotazioni verranno trasferiti.",
+                "explainBookingsAndPassAndInvoiceAndNotes": "I pacchetti, le prenotazioni, le ricevute e le annotazioni verranno trasferiti.",
                 "seeMemberPage": " Vedi la pagina dei soci",
                 "error": "Impossibile accorpare i soci",
                 "title": "Accorpa soci",
@@ -4967,7 +4968,7 @@
                 "success": "Crediti aggiornati"
             },
             "nonCompatible": {
-                "error": "Si è verificato un errore durante il caricamento di pass incompatibili"
+                "error": "Si è verificato un errore durante il caricamento di pacchetti incompatibili"
             },
             "incompatibilitiesReasons": {
                 "error": "Si è verificato un errore durante il caricamento dei motivi delle incompatibilità del pass"
@@ -5030,7 +5031,7 @@
                 "success": "L'insegnante è stato modificato"
             },
             "restore": {
-                "error": "Non è possibile ripristinare l'appuntamento, non ci sono abbastanza crediti su questo pass di appuntamento.",
+                "error": "Non è possibile ripristinare l'appuntamento, non ci sono abbastanza crediti su questo pacchetto di appuntamento",
                 "success": "L'appuntamento è stato ripristinato"
             },
             "register": {
@@ -5052,12 +5053,12 @@
         },
         "privatePass": {
             "del": {
-                "error": "Impossibile eliminare questo pass per appuntamento",
-                "success": "Pass per appuntamento eliminato"
+                "error": "Impossibile eliminare questo pacchetto per appuntamento",
+                "success": "Pacchetto per appuntamento eliminato"
             },
             "restore": {
-                "error": "Impossibile ripristinare questo pass per appuntamento",
-                "success": "Pass per appuntamento ripristinato"
+                "error": "Impossibile ripristinare questo pacchetto per appuntamenti",
+                "success": "Pacchetto per appuntamenti ripristinato"
             }
         },
         "metaActivity": {
@@ -5157,7 +5158,7 @@
         },
         "bookerModule": {
             "pass": {
-                "nothingAvailable": "Nessun pass permette di prenotare queste sessioni allo stesso tempo",
+                "nothingAvailable": "Nessun pacchetto permette di prenotare queste sessioni allo stesso tempo",
                 "changed": "La mappa del corso per la prenotazione ha dovuto essere modificata"
             }
         },
@@ -5210,17 +5211,17 @@
             "8001": "Lo spot che hai scelto non è più disponibile",
             "6003": "Sei già registrato nella lista d'attesa",
             "6002": "La lista d'attesa è piena",
-            "2012": "Questo pass non è compatibile con questa sessione",
-            "2011": "Questo pass non permette di prenotare sessione (solo VOD)",
-            "2010": "Questo pass non è compatibile con questa struttura",
-            "2009": "Questo pass non è compatibile con questa categoria di attività",
-            "2008": "Questo pass non è compatibile con questa attività",
-            "2007": "Questo pass non è compatibile con questa sessione",
-            "2006": "Questo pass non è compatibile con una prenotazione nella data scelta",
-            "2005": "Questo pass non è disponibile alla vendita",
-            "2004": "Questo pass non è disponibile alla vendita",
-            "2003": "Non è più possibile acquistare questo pass",
-            "2002": "Questo pass è disponibile solo per i nuovi membri",
+            "2012": "Questo pacchetto non è compatibile con questa sessione",
+            "2011": "Questo pacchetto non permette di prenotare sessione (solo VOD)",
+            "2010": "Questo pacchetto non è compatibile con questa struttura",
+            "2009": "Questo pacchetto non è compatibile con questa categoria di attività",
+            "2008": "Questo pacchetto non è compatibile con questa attività",
+            "2007": "Questo pacchetto non è compatibile con questa sessione",
+            "2006": "Questo pacchetto non è compatibile con una prenotazione nella data scelta",
+            "2005": "Questo pacchetto non è disponibile alla vendita",
+            "2004": "Questo pacchetto non è disponibile alla vendita",
+            "2003": "Non è più possibile acquistare questo pacchetto",
+            "2002": "Questo pacchetto è disponibile solo per i nuovi membri",
             "1114": "Non puoi più comprare questo pacchetto combinato",
             "1113": "Questo pacchetto combinato è disponibile solo per i nuovi membri",
             "7": "Lo squilibrio donne/uomini è troppo importante, prenotazione impossibile",
@@ -5232,10 +5233,10 @@
             "1": "La sessione non è ancora aperta per la prenotazione",
             "undefined": "La tessera non ti permette più di prenotare quest'anno",
             "9": "Cerchi di prenotare più sessioni future di quelle consentite dal tuo club",
-            "2016": "Il pass non è più valido per prenotare in questo mese",
-            "2017": "Il pass non è più valido per prenotare quest'anno",
-            "2014": "Il pass non è più valido per prenotare in quel giorno",
-            "2015": "Il pass non è più valido per prenotare in questa settimana",
+            "2016": "Il pacchetto non è più valido per prenotare in questo mese",
+            "2017": "Il pacchetto non è più valido per prenotare quest'anno",
+            "2014": "Il pacchetto non è più valido per prenotare in quel giorno",
+            "2015": "Il pacchetto non è più valido per prenotare in questa settimana",
             "10001": "Stock insufficiente",
             "85000": "Una prenotazione è già in corso, attendi qualche istante",
             "45004": "La gift card non è più disponibile per la vendita.",
@@ -5243,9 +5244,9 @@
             "85101": "Impossibile prenotare. Questo posto è stato prenotato da un altro membro. Si prega di riprovare scegliendo un altro punto.",
             "15002": "L'articolo è già stato aggiunto al carrello, attendere",
             "1122": "Questo pacchetto combinato non può più essere acquistato perché la sua data di scadenza è passata",
-            "11114": "Questo pass appuntamenti non può più essere acquistato perché la sua data di scadenza è passata",
-            "23001": "Questo pass appuntamento non può più essere acquistato perché la sua data di scadenza è passata",
-            "2025": "Questo pass non può più essere acquistato perché la sua data di scadenza è passata",
+            "11114": "Questo pacchetto per appuntamenti non può più essere acquistato perché la sua data di scadenza è passata",
+            "23001": "Questo pacchetto appuntamento non può più essere acquistato perché la sua data di scadenza è passata",
+            "2025": "Questo pacchetto non può più essere acquistato perché la sua data di scadenza è passata",
             "23002": "Hai raggiunto il numero massimo di prenotazioni future/iscrizioni nella lista d'attesa, dunque non puoi registrarne altre"
         },
         "establishmentGroup": {
@@ -5689,8 +5690,8 @@
                 "selectVideo": "Scegliere un video",
                 "todayOnly": "Vista sessioni quotidiane",
                 "hidePaymentCombo": "Non mostrare i pacchetti combinati",
-                "hidePrivatePass": "Non mostrare i Pass per appuntamenti",
-                "hidePaymentPack": "Non mostrare i Pass",
+                "hidePrivatePass": "Non mostrare i pacchetti per appuntamenti",
+                "hidePaymentPack": "Non mostrare i pacchetti",
                 "titleCaption": "{{max}} caratteri max ({{count}}/{{max}})",
                 "hideFilters": "Non mostrare barra di ricerca e filtri"
             },
@@ -5699,14 +5700,14 @@
                 "shop": "Shop",
                 "subscription": "Iscrizioni",
                 "vod": "VOD (Video on Demand)",
-                "pass": "Pass",
+                "pass": "Pacchetti",
                 "privateService": "Appuntamenti",
                 "workshop": "Workshop",
                 "calendar": "Calendario",
                 "newsletter": "Newsletter",
                 "loginButton": "Pulsante di accesso",
                 "giftcard": "Gift card",
-                "paymentPackTemplate": "Pass condiviso",
+                "paymentPackTemplate": "Pacchetti condivisi",
                 "calendarV2": "Calendario",
                 "newsletterV2": "Acquisizione contatti"
             },
@@ -5801,26 +5802,26 @@
                         "giftcard": "Gift card",
                         "contract": "Abbonamenti ricorrenti",
                         "paymentCombo": "Offerte promozionali",
-                        "paymentPack": "Tutti i passaggi"
+                        "paymentPack": "Pacchetti"
                     },
                     "membershipCard": {
-                        "giftcardSubtitle": "Trova tutte le gift card dello studio qui",
-                        "paymentComboSubtitle": "Trova qui tutte le offerte promozionali del tuo studio",
-                        "vodSubtitle": "Trova qui tutta l'offerta di video on demand del tuo studio",
+                        "giftcardSubtitle": "Trova tutte le gift card dello studio qui.",
+                        "paymentComboSubtitle": "Trova qui tutte le offerte promozionali del tuo studio.",
+                        "vodSubtitle": "Trova qui tutta l'offerta di video on demand del tuo studio.",
                         "contractSubtitle": "Scegli l'abbonamento ricorrente più adatto a te.",
                         "paymentPackSubtitle": "Trova qui tutte le mappe del tuo studio",
                         "mySubscription": "I miei\nabbonamenti ricorrenti",
                         "paymentComboEmpty": "Nessuna offerta proposta",
                         "contractEmpty": "Non ci sono abbonamenti ricorrenti in vendita",
                         "invoiceEmpty": "Nessuna ricevuta",
-                        "privateConsumerPassListEmpty": "Nessuna carta RDV in possesso",
-                        "vod": "Accesso al VOD",
-                        "consumerPaymentPackEmpty": "Nessun passo posseduto",
+                        "privateConsumerPassListEmpty": "Non siete ancora in possesso di un pacchetto per appuntamenti.",
+                        "vod": "Video su richiesta",
+                        "consumerPaymentPackEmpty": "Non possiedi ancora alcun pacchetto.",
                         "privatePassListEmpty": "Nessun appuntamento offerto",
-                        "paymentPackEmpty": "Nessun pass offerto",
+                        "paymentPackEmpty": "Non ci sono pacchetti da visualizzare.",
                         "invoice": "Le mie ricevute",
-                        "consumerPaymentPack": "Le mie carte",
-                        "paymentPack": "Pass",
+                        "consumerPaymentPack": "I miei pacchetti",
+                        "paymentPack": "Pacchetti",
                         "contract": "Abbonamenti ricorrenti"
                     },
                     "title": "Panoramica"
@@ -5898,7 +5899,7 @@
                     "revert_bookings_on_fail_subscription_payment": {
                         "label": "Annullare le prenotazioni se il pagamento fallisce.",
                         "warning": "Attenzione, le prenotazioni non saranno ricreate se il pagamento va a buon fine!",
-                        "helperText": "Se il pagamento dell'abbonamento fallisce o viene dichiarato contestato, le prenotazioni effettuate con queste carte saranno annullate (e il credito riaccreditato)"
+                        "helperText": "Il sistema rimborserà automaticamente i crediti e cancellerà le prenotazioni associate ai pacchetti bloccati per gli abbonamenti i cui pagamenti non sono andati a buon fine o sono stati contestati."
                     },
                     "disable_pass_on_fail_subscription_payment": {
                         "label": "Disabilita i pacchetti se il pagamento fallisce",
@@ -6560,7 +6561,7 @@
         "subscription": {
             "freeze": {
                 "form": {
-                    "explain": "Il prossimo pagamento verrà posticipato di altrettanti giorni, lo stesso per i futuri pass",
+                    "explain": "Indicare il numero di giorni con cui verranno posticipati i pagamenti successivi e futuri.",
                     "title": "Metti in pausa",
                     "name": {
                         "label": "Motivo",
@@ -6581,17 +6582,17 @@
             "pauseSection": "Pausa",
             "switchPack": {
                 "form": {
-                    "title": "Cambio pass",
+                    "title": "Modifica del pacchetto",
                     "submit": "Salva",
                     "cancel": "Annulla",
                     "warning": "La contabilizzazione rimarrà la stessa, se si desidera aumentare / ridurre l'importo mensile, modificare ogni pagamento mensile separatamente.",
-                    "explain": "Questo pass verrà aggiunto su tutte le ricevute future, in sostituzione del precedente. Le sessioni prenotate con il pass precedente saranno trasferite sul nuovo, anche se questo potrebbe non essere compatibile."
+                    "explain": "Questo pacchetto verrà aggiunto su tutte le ricevute future, in sostituzione del precedente. Le sessioni prenotate con il pass precedente saranno trasferite sul nuovo, anche se questo potrebbe non essere compatibile."
                 }
             },
             "actions": {
                 "switchPaymentMethod": "Modifica il metodo di pagamento",
                 "freeze": "Mettere in pausa",
-                "switchPack": "Modifica il pass",
+                "switchPack": "Modifica il pacchetto",
                 "advanceTime": "Anticipa la ricevuta",
                 "postPone": "Posticipa la ricevuta",
                 "changeDate": "Cambiare la data",
@@ -6611,7 +6612,7 @@
             "edit": "Modifica",
             "buy": "Compra",
             "scheduledStop": {
-                "summary": "L'ultimo incasso programmato sarà datato al {{-date}}, che corrisponderà all'ultimo pass valido.",
+                "summary": "L'ultimo incasso programmato sarà datato al {{-date}}, che corrisponderà all'ultimo pacchetto valido.",
                 "title": "Programma la risoluzione dell'iscrizione",
                 "explain": "Scegli l'ultimo pagamento dell'iscrizione.",
                 "listItem": "Risoluzione dell'iscrizione programmata",
@@ -6628,8 +6629,8 @@
             "switchPrivatePass": {
                 "form": {
                     "cancel": "Cancella",
-                    "title": "Cambio di pass per appuntamenti",
-                    "explain": "Questo pass per appuntamenti sarà addebitato al posto di quello vecchio su tutte le ricevute future. Le sessioni prenotate con il vecchio pass saranno trasferite al nuovo, anche se il nuovo non dovrebbe essere compatibile.",
+                    "title": "Cambio del pacchetto per appuntamenti",
+                    "explain": "Questo pacchetto per appuntamenti sarà addebitato al posto di quello vecchio su tutte le ricevute future. Le sessioni prenotate con il vecchio pacchetto saranno trasferite al nuovo, anche se il nuovo non dovrebbe essere compatibile.",
                     "warning": "La contabilizzazione rimarrà la stessa, se volete aumentare/diminuire l'importo mensile, cambiate ogni pagamento mensile separatamente.",
                     "submit": "Registra"
                 }
@@ -6680,17 +6681,17 @@
             "nbInterval": "Numero di collezioni",
             "recurrent_price": "Pagamento ricorrente",
             "flat_fee": "Spese amministrative",
-            "paymentPack": "Pass",
+            "paymentPack": "Pacchetto",
             "dateStart": "Prima contabilizzazione",
             "firstBilling": "Primo incasso",
-            "payment_pack": "Pass",
+            "payment_pack": "Pacchetto",
             "status": "Status",
             "subscribeAgain": "Iscriviti di nuovo",
             "voucher": "Offerta speciale",
             "trial_nb": "Numero di ricevute gratuite",
             "recurrent_voucher": "Sconto su ogni ricevuta",
-            "private_pass": "Pass per appuntamenti",
-            "privatePass": "Pass per appuntamenti",
+            "private_pass": "Pacchetto per appuntamenti",
+            "privatePass": "Pacchetto per appuntamenti",
             "note": "Nota",
             "payment_method_group": {
                 "14": "Credito",
@@ -6719,7 +6720,7 @@
                 "iAcceptCondition": "Accetto le condizioni di cui sopra",
                 "iAcceptGeneralCondition": " Accetto l'avviso legale",
                 "iAcceptContractTerms": "Accetto i<0>termini legali</0>.",
-                "alertPastDateSameMonth": "Nota che hai scelto una data passata, se l'abbonamento ricorrente contiene un pass, la sua validità inizierà dalla data selezionata. Nel caso di una validità di un mese, il tuo membro perderà {{lostDays}} giorni di validità.",
+                "alertPastDateSameMonth": "Nota che hai scelto una data passata, se l'abbonamento ricorrente contiene un pacchetto, la sua validità inizierà dalla data selezionata. Nel caso di una validità di un mese, il tuo membro perderà {{lostDays}} giorni di validità.",
                 "title": "Data passata",
                 "acceptContractTerms": "Accetta <0>termini e condizioni<0>"
             },
@@ -6767,8 +6768,8 @@
                     "label": "Rinnovo tacito"
                 },
                 "object_type": {
-                    "paymentPack": "Pass",
-                    "privatePass": "Pass per appuntamenti",
+                    "paymentPack": "Pacchetti",
+                    "privatePass": "Pacchetti per appuntamenti",
                     "label": "Contenuto",
                     "paymentCombo": "Pacchetto combinato"
                 },
@@ -6857,10 +6858,10 @@
                 "content": "Sei sicuro di voler eliminare questo contratto ?",
                 "title": "Cancellazione del contratto"
             },
-            "paymentPack": "Pass associato",
+            "paymentPack": "Pacchetto associato",
             "no": "No",
             "yes": "Sì",
-            "privatePass": "Pass appuntamento associato",
+            "privatePass": "Pacchetto per appuntamenti associato",
             "interval": {
                 "week": "settimana",
                 "week_plural": "settimane",
@@ -6892,7 +6893,7 @@
             "billingFrequency": "Frequenza di contabilizzazione",
             "paymentCombo": "Pacchetto combinato associato",
             "pastDate": {
-                "alertSameMonth": "Nota che hai scelto una data passata, se l'abbonamento ricorrente contiene un pass, la sua validità inizierà dalla data selezionata. Nel caso di una validità di un mese, il tuo membro perderà {{lostDays}} giorni di validità.",
+                "alertSameMonth": "Nota che hai scelto una data passata, se l'abbonamento ricorrente contiene un pacchetto, la sua validità inizierà dalla data selezionata. Nel caso di una validità di un mese, il tuo membro perderà {{lostDays}} giorni di validità.",
                 "payment": {
                     "manualInfo": "Le ricevute passate saranno indicate come pagate manualmente e quelle future saranno addebitate sul metodo di pagamento inserito dal membro.",
                     "pastInvoicesPayment": "Pagamento di ricevute passate",
@@ -6921,7 +6922,7 @@
             }
         },
         "events": {
-            "billing_plan-update_payment_pack": "Pass modificato",
+            "billing_plan-update_payment_pack": "Pacchetti modificato",
             "billing_plan-update_payment_method": "Metodo di pagamento modificato",
             "billing_plan-renew": "Rinnovo",
             "billing_plan-payment_dispute": "Contenzioso",
@@ -6933,7 +6934,7 @@
             "billing_plan-stop": "Stop",
             "billing_plan-payment_success": "Pagamento andato a buon fine",
             "billing_plan-payment_failure": "Pagamento rifiutato",
-            "billing_plan-update_private_pass": "Carta d'appuntamento modificata",
+            "billing_plan-update_private_pass": "Pacchetti per appuntamenti modificato",
             "billing_plan-update_payment_combo": "Pacchetto combinato modificato",
             "billing_plan-pause_deleted": "Pausa annullata",
             "billing_plan-update": "Abbonamento ricorrente modificato"
@@ -6999,7 +7000,7 @@
         },
         "action": {
             "stopExplain": "I pagamenti successivi verranno annullati e le relative ricevute verranno eliminate. Se una prenotazione è stata registrata con un abbonamento ricorrente, per il quale la ricevuta è stata annullata, verrà annullata.",
-            "revertCurrentExplain": "Annulla l'ultima ricevuta registrata e blocca il pass",
+            "revertCurrentExplain": "Annulla l'ultima ricevuta registrata e blocca il pacchetto",
             "revertCurrentExplainHelper": "Se il pagamento è valido, verrà creato un credito, è possibile rimborsarlo al cliente inserendo la ricevuta e facendo clic su \"Rimborso\". Se il pagamento non è andato a buon fine, il debito verrà cancellato.",
             "stop": "Stop",
             "planStop": "Programma la risoluzione dell'iscrizione"
@@ -7113,7 +7114,7 @@
                 "warningHourLast": "Il numero di ore indicato è relativo alla data dell'ultima ricevuta a mezzanotte"
             },
             "smartLists": {
-                "warning": "Non selezionando alcuna smartlist rischi di avvisare i membri che hanno già acquistato un altro pass",
+                "warning": "Non selezionando alcuna smartlist rischi di avvisare i membri che hanno già acquistato un altro pacchetto.",
                 "smartListHelperInclude": "Invia una mail solo se l'iscritto appartiene ad una delle seguenti liste",
                 "smartListSelection": "Scegli liste (facoltativo)",
                 "advanced": "Avanzato",
@@ -7170,9 +7171,9 @@
             "contractPause": {
                 "form": {
                     "firstStep": {
-                        "information1": "Gli abbonamenti ricorrenti verranno sospesi dal {{- fromDate}} al {{- untilDate}} incluso. La prossima ricevuta sarà posticipata di {{count}} giorno, così come tutte le ricevute e i pass futuri.",
-                        "information1_plural": "Gli abbonamenti ricorrenti verranno sospesi dal {{- fromDate}} al {{- untilDate}} incluso. La prossima ricevuta sarà posticipata di {{count}} giorni, così come tutte le ricevute e i pass futuri.",
-                        "information2": "La data di scadenza del pass sarà posticipata del numero di giorni di pausa e il pass rimarrà valido durante questo periodo.",
+                        "information1": "Gli abbonamenti ricorrenti verranno sospesi dal {{- fromDate}} al {{- untilDate}} incluso. La prossima ricevuta sarà posticipata di {{count}} giorno, così come tutte le ricevute e i pacchetti futuri.",
+                        "information1_plural": "Gli abbonamenti ricorrenti verranno sospesi dal {{- fromDate}} al {{- untilDate}} incluso. La prossima ricevuta sarà posticipata di {{count}} giorni, così come tutte le ricevute e i pacchetti futuri.",
+                        "information2": "La data di scadenza del pacchetto sarà posticipata del numero di giorni di pausa e il pacchetto rimarrà valido durante questo periodo.",
                         "titleCreation": "Interruzione globale",
                         "titleUpdate": "Cambia interruzione globale"
                     },
@@ -7248,7 +7249,7 @@
                         "information1_plural": "L'abbonamento ricorrente verrà messo in pausa dal {{- fromDate}} al {{- untilDate}} incluso. La successiva ricevuta dopo l'interruzione sarà posticipata di {{count}} giorni, lo stesso per tutte le ricevute future.",
                         "titleCreation": "Pausa",
                         "titleUpdate": "Modifica pausa",
-                        "information2": "La data di scadenza del pass sarà posticipata del numero di giorni di pausa e il pass rimarrà valido durante la pausa."
+                        "information2": "La data di scadenza del pacchetto sarà posticipata del numero di giorni di pausa e il pacchetto rimarrà valido durante la pausa."
                     },
                     "successStep": {
                         "content": "L'abbonamento ricorrente {{- subscriptionName}} di {{subscriberName}} è stato messo in pausa con successo dal {{- fromDate}} al {{- untilDate}} compreso.",
@@ -7450,7 +7451,7 @@
             "last_booking": "Prenotazione precedente",
             "next_booking": "Prossima prenotazione",
             "concatenated_notes": "Annotazioni",
-            "pass": "Pass",
+            "pass": "Pacchetto",
             "date_start": "Data completa",
             "date_start_date": "Data",
             "date_start_time": "Ora",
@@ -7464,7 +7465,7 @@
             "email": "Email",
             "phonenumber": "Telefono",
             "date_joined": "Data di registrazione",
-            "payment_pack": "Pass",
+            "payment_pack": "Pacchetto",
             "activity_duration": "Durata",
             "payment_method": "Metodo di pagamento",
             "product": "Prodotto",
@@ -7476,7 +7477,7 @@
             "payment_price": "Prezzo",
             "name": "Nome",
             "payment_method_amex": "AMEX (American Express)",
-            "nb_bookings_same_pass": "Nb prenotazione tramite lo stesso pass",
+            "nb_bookings_same_pass": "Nb prenotazione tramite lo stesso pacchetto",
             "author": "Autore",
             "credit_consumed": "Credito utilizzato",
             "effectif_rate": "Tasso di riempimento",
@@ -7503,7 +7504,7 @@
             "birthday": "Data di nascita",
             "full_address": "Indirizzo completo",
             "note": "Nota",
-            "private_pass": "Pass per appuntamento",
+            "private_pass": "Pacchetto per appuntamenti",
             "views_total": "Visualizzazioni",
             "video_status": "Status",
             "level_activity": "Livello",
@@ -7549,7 +7550,7 @@
             "sum_available_amount_non_expired": "Quantità disponibile",
             "sum_available_amount_expired": "Quantità di crediti scaduti",
             "sum_consumed_amount": "Quantità utilizzata",
-            "nb_expired": "Numero di pass scaduti",
+            "nb_expired": "Numero di pacchetti scaduti",
             "nb_non_activated": "Numero di carte non attivate",
             "nb_activated": "Numero di carte attivate",
             "nb_purchase": "Numero di acquisti",
@@ -7633,7 +7634,7 @@
             "nb_invoice_items": "Numero di prodotti acquistati",
             "date_canceled": "Data di cancellazione",
             "price_invoice_items": "Importo totale dei prodotti acquistati",
-            "last_booked_offer_pass_name": "Pass utilizzato per l'ultima sessione prenotata",
+            "last_booked_offer_pass_name": "Pacchetto utilizzato per l'ultima sessione prenotata",
             "last_booked_offer_meta_activity_name": "Nome dell'attività dell'ultima sessione prenotata",
             "last_booked_offer_date": "Data dell'ultima sessione prenotata",
             "last_booked_offer_id": "ID dell'ultima sessione prenotata",
@@ -7697,10 +7698,10 @@
             "shop_item": "Shop",
             "fee": "Spesa",
             "refund": "Rimborso del credito",
-            "payment_pack": "Pass",
+            "payment_pack": "Pacchetto",
             "top_up": "Ricarica del credito del cliente",
             "payment_combo": "Pacchetto combinato",
-            "private_pass": "Pass per appuntamenti",
+            "private_pass": "Pacchetto per appuntamenti",
             "booking": "Prenotazione",
             "coupon": "Promozione",
             "giftcard": "Gift card"
@@ -7739,11 +7740,11 @@
             "discount": "Promozioni",
             "private_bookings": "Prenotazioni (appuntamento)",
             "shop": "Shop",
-            "private_cpasses": "Pass per appuntamenti",
+            "private_cpasses": "Pacchetto per appuntamenti",
             "payment_sumup": "Totale pagamenti",
             "credit": "Saldo totale cliente",
             "basket": "Carrello",
-            "memberships": "Pass",
+            "memberships": "Pacchetti",
             "invoices": "Acquisti",
             "products": "Prodotti",
             "payments": "Pagamenti",
@@ -7760,11 +7761,11 @@
             "unpaid_private_bookings": "Prenotazioni non pagate (appuntamenti)",
             "payment_installments": "Pagamenti a rate",
             "expense": "Spese",
-            "expired_pass": "Crediti scaduti della carta dei corsi",
-            "private_cpasses_expired": "Crediti d'appuntamento scaduti",
-            "universal_passes": "Carte universali",
+            "expired_pass": "Crediti scaduti (pacchetti)",
+            "private_cpasses_expired": "Crediti scaduti (pacchetti per appuntamenti)",
+            "universal_passes": "Pacchetti universali",
             "dispute": "Controversia sul pagamento",
-            "franchise_shared_pass": "Utilizzo di pass condivisi",
+            "franchise_shared_pass": "Utilizzo del pacchetto condiviso",
             "billing_plan": "Abbonamento ricorrente",
             "members_purchase": "Acquisti dei membri",
             "referral_grant": "Referral"
@@ -7827,7 +7828,7 @@
             "user": "Membro",
             "boolean": "Vero/Falso",
             "private_service": "Appuntamento",
-            "private_pass": "Pass appuntamenti",
+            "private_pass": "Pacchetto per appuntamenti",
             "private_slot": "Tipo di appuntamento",
             "subshop": "Categoria",
             "billing_establishment": "Stabilimento di contabilizzazione",
@@ -7851,15 +7852,15 @@
             "coach": "Insegnante",
             "giftcard": "Gift card",
             "video": "Video",
-            "payment_pack": "Pass",
+            "payment_pack": "Pacchetti",
             "int": "Numero",
             "number": "Numero",
             "percent": "Percentuale",
             "invoice_status": "Stato dell'ultimo pagamento",
             "billing_plan_status": "Stato dell'abbonamento ricorrente",
             "payment_method_with_credit_account": "Metodo di pagamento",
-            "payment_pack_category": "Categoria di pass",
-            "private_pass_category": "Categoria di pass per appuntamenti",
+            "payment_pack_category": "Categoria di pacchetti",
+            "private_pass_category": "Categoria di pacchetti per appuntamenti",
             "coupon_type_excluding_referrals": "Tipo di promozione"
         },
         "presetValuesByDatatype": {
@@ -7868,7 +7869,7 @@
                 "8": "Event brite",
                 "0": "Carta di credito",
                 "2": "Check",
-                "3": "Pass",
+                "3": "Pacchetto",
                 "4": "Carta (manuale)",
                 "5": "Controllo ferie",
                 "6": "AMEX",
@@ -8013,7 +8014,7 @@
             "part2": "Ora puoi esportare il report ed elaborarlo successivamente in Excel. Le date indicate e la visualizzazione filtrata applicata verranno prese in considerazione nell'esportazione."
         },
         "helperText": {
-            "franchise_shared_pass": "Questo report consente di analizzare le prenotazioni effettuate con pass condivisi nel periodo selezionato. Quando viene acquistata un pass condiviso in uno studio, il report mostra il numero di prenotazioni effettuate con questo pass in un altro studio. Il numero di sessioni prenotate include prenotazioni per lezioni di gruppo, workshop e appuntamenti.",
+            "franchise_shared_pass": "Questo report consente di analizzare le prenotazioni effettuate con pacchetti condivisi nel periodo selezionato. Quando viene acquistata un pacchetti condiviso in uno studio, il report mostra il numero di prenotazioni effettuate con questo pacchetto in un altro studio. Il numero di sessioni prenotate include prenotazioni per lezioni di gruppo, workshop e appuntamenti.",
             "billing_plan": "Gli abbonamenti ricorrenti vengono filtrati alla data della prima contabilizzazione.",
             "invoices": "Gli acquisti vengono filtrati in base alla data di emissione della relativa ricevuta.",
             "video_purchase": "I video vengono filtrati in base alla data di acquisto.",
@@ -8027,11 +8028,11 @@
             "shop": "Per ciascuno dei tuoi articoli, trova lo sviluppo del loro stock tra la data di inizio e la data di fine dell'intervallo selezionato.",
             "consumer_giftcard": "Le gift card vengono filtrate in base alla data in cui sono state acquistate.",
             "discount": "Le promozioni vengono filtrate in base alla data in cui sono state utilizzate.",
-            "universal_passes": "I pass universali che compaiono sono quelli validi in quella data.",
-            "private_cpasses": "I pass per appuntamenti che compaiono sono quelli validi in quella data.",
-            "memberships": "I pass che compaiono sono quelli validi in quella data.",
-            "expired_pass": "I pass scaduti vengono filtrati in base alla data di scadenza.",
-            "private_cpasses_expired": "I pass per appuntamenti scaduti vengono filtrati in base alla data di scadenza.",
+            "universal_passes": "I pacchetti universali che compaiono sono quelli validi in quella data.",
+            "private_cpasses": "I pacchetti per appuntamenti che compaiono sono quelli validi in quella data.",
+            "memberships": "I pacchetti che compaiono sono quelli validi in quella data.",
+            "expired_pass": "I pacchetti scaduti vengono filtrati in base alla data di scadenza.",
+            "private_cpasses_expired": "I pacchetti per appuntamenti scaduti vengono filtrati in base alla data di scadenza.",
             "unpaid_private_bookings": "Le prenotazioni non pagate vengono filtrate in base alla data della sessione corrispondente.",
             "private_bookings": "Le prenotazioni vengono filtrate in base alla data dell'appuntamento corrispondente.",
             "first_privatebooking": "Le prime prenotazioni vengono filtrate in base alla data dell'appuntamento corrispondente.",
@@ -8481,8 +8482,8 @@
                     "bothPenaltiesInfo_plural": "Verrà applicata una saznione in caso di {{penalityNumberNoShow}} cancellazioni tardive o assenze (no show) per un periodo di {{penalityNumberDay}} giorni",
                     "noShowDialog": {
                         "text": "Hai appena creato delle sanzioni sulle assenze (no-show). Abbiamo appena attivato la funzione “appello”, ora devi effettuare l'appello per ogni corso per poter attivare le sanzioni.",
-                        "alert": "È possibile impostare  condizioni di no show nelle impostazioni di personalizzazione.",
-                        "title": "Sanzioni per no show"
+                        "alert": "È possibile impostare le condizioni di assenza (no-show) nelle impostazioni di personalizzazione.",
+                        "title": "Sanzioni per le assenze (no show)"
                     },
                     "label": "Applica una sanzione",
                     "helperText": "Applicare sanzioni per assenze o troppe cancellazioni tardive",
@@ -8830,7 +8831,7 @@
             "endBeforeStart": "La data di fine deve essere maggiore della data di inizio",
             "toDate": "Fino a",
             "fromDate": "Dal",
-            "availabilitySlot": "Rendere la carta valida solo per un intervallo di date",
+            "availabilitySlot": "Rendere il pacchetto valido solo per un intervallo di date",
             "availabilityGivenNumber": "Rendere il pacchetto valido solo per un certo numero di giorni (dopo la data di acquisto)",
             "penalityRule": "Si può applicare una penalità solo se il numero di crediti è illimitato",
             "penality": "Applicare una penalità per troppe cancellazioni dopo la scadenza",
@@ -9721,7 +9722,7 @@
             "source": "Canale di prenotazione",
             "cancelledOn": "Annullato il ",
             "by": "Da",
-            "noShow": "No-show "
+            "noShow": "Assenze "
         },
         "source": {
             "web": "Web",
@@ -10080,7 +10081,7 @@
         "place": "Posto",
         "unlimited": "Illimitato",
         "noShowChip": {
-            "title": "no-show",
+            "title": "assenze",
             "message": "Il membro è stato annotato come assente dopo la sessione"
         },
         "warning": "Attenzione",
@@ -10171,9 +10172,9 @@
         },
         "filters": {
             "8": {
-                "explanation": "Hai un pass X utilizzabile",
-                "name": "Validità della carta del corso",
-                "first": "Hai un pass",
+                "explanation": "Hai un pacchetto X utilizzabile",
+                "name": "Validità del pacchetto",
+                "first": "Pacchetti",
                 "second": "utilizzabile (con crediti o illimitato e non scaduto)"
             },
             "2": {
@@ -10190,11 +10191,11 @@
                 "women": "donna"
             },
             "14": {
-                "workshop": "Pass speciale per workshop",
+                "workshop": "Pacchetti per workshop",
                 "first": "Ha speso",
                 "explanation": "Prodotti acquistati: A e B",
                 "shop": "Shop",
-                "pack": "Pass",
+                "pack": "Pacchetti",
                 "combo": "Pacchetto combinato",
                 "private_pass": "Lezioni private",
                 "name": "Spese",
@@ -10220,12 +10221,12 @@
                 },
                 "name": "Numero di prenotazioni",
                 "payment_pack": {
-                    "first": "con le carte"
+                    "first": "con i pacchetti"
                 },
                 "coach": {
                     "first": "con gli insegnanti"
                 },
-                "explanation": "Ho prenotato X allenamenti dell'attività A, nella posizione B, con il pass C ...",
+                "explanation": "Ho prenotato X allenamenti dell'attività A, nella posizione B, con il pacchetto C",
                 "first": "Ha prenotato",
                 "second": "sessioni",
                 "between": "e",
@@ -10246,15 +10247,15 @@
                 "has_not": "Non possiede",
                 "second": "e",
                 "third": "di",
-                "explanation": "Carta del corso acquistata A alla data Y, con X crediti",
+                "explanation": "Visualizzare tutti i membri che hanno acquistato il pacchetto X alla data Y con Z crediti residui",
                 "credits": {
                     "first": "crediti:",
                     "second": "e"
                 },
-                "infoIcon": "I pass illimitati saranno sempre inclusi",
+                "infoIcon": "I pacchetti illimitati saranno sempre inclusi",
                 "name": "Generale",
-                "first": "una delle carte del corso",
-                "has": "possiede",
+                "first": "uno dei seguenti pacchetti",
+                "has": "Possiede",
                 "date_bought": {
                     "first": "data di acquisto"
                 }
@@ -10426,7 +10427,7 @@
                     "first": "con gli insegnanti"
                 },
                 "payment_pack": {
-                    "first": "con le carte"
+                    "first": "con i pacchetti"
                 },
                 "attendance": "con lo status",
                 "level": {
@@ -10477,11 +10478,11 @@
                 "second": "{{ currencyDisplay }} per i prodotti",
                 "first": "Ha speso",
                 "name": "Spese",
-                "workshop": "Pass speciale per workshop",
+                "workshop": "Pacchetti per workshop",
                 "private_pass": "Lezioni private",
                 "between": "e",
                 "combo": "Pacchetto combinato",
-                "pack": "Pass",
+                "pack": "Pacchetti",
                 "shop": "Shop",
                 "explanation": "Prodotti acquistati A e B"
             },
@@ -10504,7 +10505,7 @@
                     "first": "con gli insegnanti"
                 },
                 "private_pass": {
-                    "first": "con il pass per appuntamenti"
+                    "first": "con il pacchetto per appuntamenti"
                 },
                 "establishment": {
                     "third": "a casa",
@@ -10514,7 +10515,7 @@
                 "between": "e",
                 "second": "appuntamento",
                 "first": "Hai prenotato",
-                "explanation": "Ha prenotato X appuntamenti con l'insegnante A, nel posto B, con il pass C..",
+                "explanation": "Ha prenotato X appuntamenti con l'insegnante A, nel posto B, con il pacchetto C",
                 "name": "Numero di appuntamenti",
                 "private_service": {
                     "first": "con gli appuntamenti"
@@ -10536,9 +10537,9 @@
                 "second": "e",
                 "has_not": "Non hai",
                 "has": "Hai",
-                "first": "uno dei pass per appuntamenti",
-                "name": "Pass (appuntamenti)",
-                "explanation": "Hai comprato un pass per appuntamenti X alla data Y, con Z crediti rimasti"
+                "first": "uno dei pacchetti per appuntamenti",
+                "name": "Pacchetti (appuntamenti)",
+                "explanation": "Hai comprato un pacchetto per appuntamenti X alla data Y, con Z crediti rimasti"
             },
             "attendanceTrue": "presente",
             "attendanceFalse": "assente",
@@ -10558,14 +10559,14 @@
                 "name": "Metodo di pagamento"
             },
             "27": {
-                "explanation": "Ha X pass o pass per appuntamenti validi",
-                "name": "Pass validi",
+                "explanation": "Ha X pacchetti o pacchetti per appuntamenti validi",
+                "name": "Pacchetti validi",
                 "first": "Ha",
                 "between": "e",
-                "second": "tessere lezione o tessere appuntamento valide oggi. Tra",
+                "second": "pacchetti lezione o pacchetti per appuntamenti valide oggi. Tra",
                 "third": "o",
                 "fourth": "(combinato)",
-                "info": "Vengono prese in considerazione anche i pass e i pass per appuntamenti bloccati"
+                "info": "Vengono prese in considerazione anche i pacchetti e i pacchetti per appuntamenti bloccati"
             },
             "104": {
                 "info": "Le cosiddette note mediche corrispondono a quelle che figurano nella sezione \"Informazioni Essenziali\" del fascicolo di appartenenza",
@@ -10580,10 +10581,10 @@
                 "explanation": "Ha almeno una nota medica (o meno)"
             },
             "105": {
-                "consumerPrivatePasses": "dei pass per appuntamenti",
+                "consumerPrivatePasses": "dei pacchetti per appuntamenti",
                 "info": {
-                    "consumerPaymentPacks": "\"valido\" significa che il pass può essere utilizzato ora per prenotare una lezione di gruppo",
-                    "consumerPrivatePasses": "\"valido\" significa che il pass può essere utilizzato ora per prenotare un appuntamento"
+                    "consumerPaymentPacks": "\"valido\" significa che il pacchetto può essere utilizzato ora per prenotare una lezione di gruppo",
+                    "consumerPrivatePasses": "\"valido\" significa che il pacchetto può essere utilizzato ora per prenotare un appuntamento"
                 },
                 "name": "Relazioni",
                 "date": {
@@ -10595,8 +10596,8 @@
                 "second": "relazioni che rispettano i filtri selezionati:",
                 "third": "il membro ha condiviso con la relazione un numero",
                 "fourth": "la relazione ha riservato un numero",
-                "consumerPaymentPacks": "dei pass",
-                "bookings": "lezioni di gruppo e appuntamenti grazie ad un pass condiviso dall'iscritto",
+                "consumerPaymentPacks": "dei pacchetti",
+                "bookings": "lezioni di gruppo e appuntamenti grazie ad un pacchetto condiviso dall'iscritto",
                 "valid": "valido",
                 "validOrNot": "valido o meno",
                 "receiveCopyOfEmail": {
@@ -10617,7 +10618,7 @@
                     "false": "non accettato",
                     "second": "email"
                 },
-                "explanation": "Ha X relazioni e Y pass o pass per appuntamenti o prenotazioni condivisi"
+                "explanation": "Ha X relazioni e Y pacchetti o pacchetti per appuntamenti o prenotazioni condivisi"
             },
             "101": {
                 "name": "Età",
@@ -10714,7 +10715,7 @@
         },
         "filterCategory": {
             "1": "Informazioni sui soci",
-            "2": "Pass",
+            "2": "Pacchetti",
             "4": "Acquisti",
             "3": "Prenotazioni"
         },
@@ -10729,11 +10730,11 @@
             "selectAll": "Seleziona tutto",
             "selectNothing": "Deseleziona tutto",
             "paymentPacks": {
-                "helperText": "seleziona le carte dei corsi",
-                "helperSelectedText": "carte del corso selezionate",
-                "textFieldPlaceholder": "Cerca un pass",
-                "helperAllSelectedText": "tutti i pass",
-                "warning": "Seleziona almeno un pass"
+                "helperText": "seleziona i pacchetti",
+                "helperSelectedText": "pacchetti selezionati",
+                "textFieldPlaceholder": "Cerca un pacchetto",
+                "helperAllSelectedText": "tutti i pacchetti",
+                "warning": "Seleziona almeno un pacchetto"
             },
             "metaActivities": {
                 "warning": "Seleziona almeno un'attività",
@@ -10756,11 +10757,11 @@
                 "helperText": "seleziona categorie"
             },
             "privatePass": {
-                "warning": "Seleziona almeno un pass per appuntamenti",
-                "helperAllSelectedText": "Tutti i pass per appuntamenti",
-                "textFieldPlaceholder": "Trova un pass per appuntamenti",
-                "helperSelectedText": "pass per appuntamenti selezionato",
-                "helperText": "Seleziona pass per appuntamenti"
+                "warning": "Seleziona almeno un pacchetto per appuntamenti",
+                "helperAllSelectedText": "Tutti i pacchetti per appuntamenti",
+                "textFieldPlaceholder": "Trova un pacchetto per appuntamenti",
+                "helperSelectedText": "pacchetti per appuntamenti selezionato",
+                "helperText": "seleziona pacchetti per appuntamenti"
             },
             "privateServices": {
                 "warning": "Seleziona almeno un appuntamento",
@@ -10785,9 +10786,9 @@
                 "warning": "Seleziona almeno un form"
             },
             "activePasses": {
-                "paymentPackHelperText": "nessun pass",
-                "privatePassHelperText": "nessun pass per appuntamenti",
-                "warning": "Seleziona almeno un pass o un pass per appuntamenti"
+                "paymentPackHelperText": "nessun pacchetto",
+                "privatePassHelperText": "Nessun pacchetto per appuntamenti da mostrare.",
+                "warning": "Seleziona almeno un pacchetto o un pacchetto per appuntamenti"
             },
             "userMarketingNotifications": {
                 "warning": "Attiva almeno una delle due opzioni"
@@ -10911,7 +10912,7 @@
             "list": {
                 "title": "Relazioni",
                 "isEmpty": "Nessuna relazione è stata ancora creata",
-                "pleaseSelectOne": "Seleziona una relazione per visualizzare le lezioni condivise",
+                "pleaseSelectOne": "Seleziona una relazione per visualizzare le lezioni condivise.",
                 "actions": {
                     "create": "Aggiungi relazione"
                 }
@@ -10919,15 +10920,15 @@
         },
         "consumer_payment_pack_links": {
             "list": {
-                "title": "Pass condivisi",
-                "create": "Condividi un pass",
-                "isEmpty": "Nessun pass condiviso da visualizzare"
+                "title": "Pacchetti condivisi",
+                "create": "Condividi un pacchetto",
+                "isEmpty": "Nessun pacchetto condiviso da visualizzare."
             },
             "form": {
                 "create": {
-                    "title": "Condividi un pass",
-                    "noConsumerPackToLink": "Nessuna carta condivisibile",
-                    "explain": "Questo pass sarà condiviso tra i due membri, i crediti possono essere utilizzati dall'uno o dall'altro.",
+                    "title": "Condividi un pacchetto",
+                    "noConsumerPackToLink": "Non ci sono pacchetti che possono essere condivisi da mostrare.",
+                    "explain": "Questo pacchetto sarà condiviso tra i due membri, i crediti possono essere utilizzati dall'uno o dall'altro.",
                     "cancel": "Annulla",
                     "previous": "Indietro",
                     "submit": "Condividi",
@@ -10937,7 +10938,7 @@
                     "title": "Smetti di condividere",
                     "submit": "Stop",
                     "cancel": "Annulla",
-                    "explain": "La condivisione verrà interrotta. La carta principale rimane valida"
+                    "explain": "La condivisione verrà interrotta, ma il pacchetto Master rimarrà utilizzabile."
                 },
                 "relink": {
                     "cancel": "Annulla",
@@ -10950,13 +10951,13 @@
         "private_consumer_pass_links": {
             "form": {
                 "create": {
-                    "explain": "Questo pass sarà condiviso da due membri, entrambi possono usare i crediti.",
-                    "noConsumerPackToLink": "Pass non condivisibili",
+                    "explain": "Questo pacchetto sarà condiviso da due membri, entrambi possono usare i crediti.",
+                    "noConsumerPackToLink": "Non ci sono pacchetti per appuntamenti che possono essere condivisi per la visualizzazione.",
                     "linkButton": "Condividi",
                     "submit": "Condividi",
                     "previous": "Precedente",
                     "cancel": "Annullare",
-                    "title": "Condivisione pass"
+                    "title": "Condividi il pacchetto per l'appuntamento"
                 },
                 "relink": {
                     "cancel": "Annulla",
@@ -10967,19 +10968,19 @@
                 "unlink": {
                     "cancel": "Annulla",
                     "submit": "Stop",
-                    "explain": "La condivisione verrà annullata. Il pass sarà ancora utilizzabile",
+                    "explain": "La condivisione verrà annullata. Il pacchetto sarà ancora utilizzabile.",
                     "title": "Stop condivisione"
                 }
             },
             "list": {
-                "isEmpty": "Pass non condivisi",
-                "create": "Condividi un pass",
-                "title": "Pass lezioni condivisi"
+                "isEmpty": "Non ci sono pacchetti per appuntamenti condivisi da visualizzare.",
+                "create": "Condividi un pacchetto per appuntamenti",
+                "title": "Pacchetti lezioni condivisi"
             }
         },
         "relationship": {
             "delete": {
-                "content": "Attenzione questa azione è irreversibile, le carte condivise non saranno più condivise.",
+                "content": "Sei sicuro di voler rimuovere questa relazione? I pacchetti condivisi saranno disabilitati immediatamente. Questa azione non può essere annullata.",
                 "cancel": "Cancella",
                 "submit": "Elimina",
                 "title": "Elimina relazione",
@@ -11789,7 +11790,7 @@
             "3": "Pacchetto",
             "2": "Check",
             "1": "Contante",
-            "0": "Card",
+            "0": "Carta",
             "70": "Bacs Direct Debit",
             "BACS_DEBIT": "Bacs Direct Debit"
         },
@@ -12002,7 +12003,7 @@
         },
         "signout": {
             "signout": "Disconnetti",
-            "explain": "Per disconnettersi, inserire la password dell'account del CheckIn",
+            "explain": "Per disconnettersi, inserire la password dell'account del Check-In.",
             "form": {
                 "password": {
                     "label": "Password"
@@ -12043,7 +12044,7 @@
             "addWorkshopGroup": "Aggiungi un gruppo di sessioni"
         },
         "navigation": {
-            "goToPaymentPack": "Pass"
+            "goToPaymentPack": "Pacchetti"
         },
         "modal": {
             "delete": {
@@ -12320,8 +12321,8 @@
                 "title": "Gestione della lista d'attesa"
             },
             "auto_consume_pack": {
-                "helper": "Se il membro ha un pass valido quando un posto diventa disponibile, viene automaticamente registrato e il suo pass viene addebitato. Il pass che scade prima, e quello con meno credito disponibile, vengono utilizzati per primi.",
-                "label": "Addebita automaticamente un pass e registra il membro quando si libera un posto."
+                "helper": "Se il membro ha un pacchetto valido quando un posto diventa disponibile, viene automaticamente registrato e il suo pacchetto viene addebitato. Il pacchetto che scade prima, e quello con meno credito disponibile, vengono utilizzati per primi.",
+                "label": "Prenotate automaticamente un membro dalla lista d'attesa quando si libera un posto e deducete il credito da un pacchetto valido."
             },
             "is_option_blocking": {
                 "helper": "Finché un membro è nella lista d'attesa, un posto viene tenuto bloccato per lui mentre si aspetta che si registri.",
@@ -12346,18 +12347,18 @@
                 }
             },
             "last_delay_before_auto_consume": {
-                "helper": "Se la sessione ha luogo troppo presto nel futuro, il membro non sarà registrato anche se ha un pass valido",
+                "helper": "Se la sessione ha luogo troppo presto nel futuro, il membro non sarà registrato anche se ha un pacchetto valido",
                 "label": "Non accettare prenotazioni automatiche se una sessione si svolge in meno di "
             },
             "check_credit": {
-                "label": "Verificare che il cliente sia in possesso di un pass compatibile con l'offerta e sufficientemente accreditato",
-                "helper": "Un cliente non può essere aggiunto a una lista di attesa fino a quando non dispone di un pass compatibile con l'offerta in questione e di un credito sufficiente per effettuare la prenotazione"
+                "label": "Verificare che il cliente sia in possesso di un pacchetto compatibile con l'offerta e sufficientemente accreditato",
+                "helper": "Un cliente non può essere aggiunto a una lista di attesa fino a quando non dispone di un pacchetto compatibile con l'offerta in questione e di un credito sufficiente per effettuare la prenotazione"
             },
             "display_member_position": {
                 "label": "Mostrare la posizione nella lista di attesa"
             },
             "kick_if_no_pack_when_auto_consume": {
-                "label": "Rimuovi automaticamente il membro dalla lista d'attesa se, quando i suoi posti diventano disponibili, non ha più un pass valido",
+                "label": "Rimuovi automaticamente il membro dalla lista d'attesa se, quando i suoi posti diventano disponibili, non ha più un pacchetto valido",
                 "helper": "Un membro potrebbe utilizzare i suoi crediti per un'altra sessione mentre è in lista d'attesa. Con questa impostazione attivata, se ciò accade, il suo posto in lista d'attesa verrà automaticamente cancellato quando sarà il suo turno di iscriversi."
             }
         },
@@ -12381,8 +12382,8 @@
                     "title": "I membri stanno per essere aggiunti alla sessione"
                 },
                 "info": {
-                    "content": "I membri con pass validi saranno automaticamente prenotati per la sessione e riceveranno un'e-mail di conferma. Il sistema dedurrà automaticamente i crediti dai pass che scadono prima",
-                    "title": "Prenotazioni automatiche per i pass validi"
+                    "content": "I membri con pacchetti validi saranno automaticamente prenotati per la sessione e riceveranno un'e-mail di conferma. Il sistema dedurrà automaticamente i crediti dai pacchetti che scadono prima",
+                    "title": "Prenotazioni automatiche per i pacchetti validi"
                 },
                 "success": {
                     "title": "I membri sono stati aggiunti con successo alla sessione"
@@ -12397,8 +12398,8 @@
                         "ok": "OK"
                     },
                     "content": {
-                        "unregistered": "I seguenti membri NON possono essere registrati dato che non è stato possibile trovare un pass compatibile",
-                        "registered": "I seguenti membri sono stati registrati in quanto è stato trovato un pass compatibile:"
+                        "unregistered": "I seguenti membri NON possono essere registrati dato che non è stato possibile trovare un pacchetto compatibile",
+                        "registered": "I seguenti membri sono stati registrati in quanto è stato trovato un pacchetto compatibile:"
                     },
                     "title": "Completa la lista d'attesa"
                 }
@@ -12761,8 +12762,8 @@
             "couponList": "Codici promozionali"
         },
         "paymentPack": {
-            "paymentPackList": "Pass",
-            "paymentPackFormPage": "Form del corso"
+            "paymentPackList": "Pacchetti",
+            "paymentPackFormPage": "[Form] Pacchetto"
         },
         "video": {
             "videoList": "Videoteca"
@@ -12801,7 +12802,7 @@
         },
         "marketplace": {
             "marketplaceWorkshop": "Workshop",
-            "marketplacePass": "Pass",
+            "marketplacePass": "Pacchetti",
             "marketplaceShop": "Shop",
             "marketplaceCalendar": "Calendario",
             "marketplaceGiftcard": "Gift card"
@@ -14348,10 +14349,10 @@
                         "_label": "Shop"
                     },
                     "privatePass": {
-                        "_label": "Carte d'appuntamento"
+                        "_label": "Pacchetti per appuntamenti"
                     },
                     "paymentPack": {
-                        "_label": "Carte dei corsi"
+                        "_label": "Pacchetti"
                     }
                 },
                 "myClub": {
@@ -14456,10 +14457,10 @@
                 "products": {
                     "_label": "Prodotti",
                     "paymentPackTemplates": {
-                        "_label": "Pass"
+                        "_label": "Pacchetto"
                     },
                     "privatePassTemplates": {
-                        "_label": "Pass per appuntamenti"
+                        "_label": "Pacchetti per appuntamenti"
                     },
                     "couponTemplates": {
                         "_label": "Promozioni"
@@ -15251,7 +15252,7 @@
                         }
                     },
                     "expired_pass": {
-                        "_label": "Crediti del pass scaduti",
+                        "_label": "Crediti del pacchetto scaduti",
                         "allowed_actions": {
                             "create": {
                                 "_label": "Crea"
@@ -15268,7 +15269,7 @@
                         }
                     },
                     "memberships": {
-                        "_label": "Pass",
+                        "_label": "Pacchetti",
                         "allowed_actions": {
                             "create": {
                                 "_label": "Crea"
@@ -15285,7 +15286,7 @@
                         }
                     },
                     "private_cpasses": {
-                        "_label": "Pass per appuntamenti",
+                        "_label": "Pacchetti per appuntamenti",
                         "allowed_actions": {
                             "create": {
                                 "_label": "Crea"
@@ -15316,7 +15317,7 @@
                                 "_label": "Crea"
                             }
                         },
-                        "_label": "Pass Universali"
+                        "_label": "Pacchetti Universali"
                     },
                     "discount": {
                         "_label": "Promozioni",
@@ -15458,10 +15459,10 @@
                             "_label": "Aggiungi un'estensione di validità"
                         },
                         "block": {
-                            "_label": "Blocca il pass di un membro"
+                            "_label": "Blocca il pacchetto di un membro"
                         }
                     },
-                    "_label": "Pass"
+                    "_label": "Pacchetti"
                 },
                 "privatePass": {
                     "allowed_actions": {
@@ -15484,7 +15485,7 @@
                             "_label": "Gestione delle compatibilità"
                         }
                     },
-                    "_label": "Pass per appuntamenti"
+                    "_label": "Pacchetti per appuntamenti"
                 },
                 "contract": {
                     "allowed_actions": {
@@ -15513,7 +15514,7 @@
                             "_label": "Terminare un abbonamento ricorrente"
                         },
                         "editPassBillingPlan": {
-                            "_label": "Modificare i pass di un abbonamento ricorrente"
+                            "_label": "Modificare i pacchetti di un abbonamento ricorrente"
                         },
                         "editInvoiceDateBillingPlan": {
                             "_label": "Modifica i dati di contabilizzazione"
@@ -15672,7 +15673,7 @@
                 "spacingHelper": "La spaziatura è basata su multipli di {{base}}px",
                 "roundingHelper": "Gli angoli hanno un arrotondamento in multipli di {{base}}px",
                 "preview": "Anteprima",
-                "selectAlert": "La personalizzazione dei widget è al momento disponibile solo per workshop, calendario, abbonamenti ricorrenti e pass",
+                "selectAlert": "La personalizzazione dei widget è al momento disponibile solo per workshop, calendario, abbonamenti ricorrenti e pacchetto",
                 "submit": "Registrare",
                 "dialog": {
                     "title": "Ripristina le impostazioni",
@@ -15760,12 +15761,12 @@
                 "marketplace_contract_detail_modal": "Popup dei dettagli dell'abbonamento ricorrente",
                 "marketplace_contract_checkout": "Scheda abbonamento ricorrente (pagamento)",
                 "marketplace_contract_card": "Scheda abbonamenti ricorrenti",
-                "marketplace_private_pass_compatibility_modal": "Popup di compatibilità (Pass per appuntamenti)",
-                "marketplace_private_pass_card": "Scheda Pass appuntamenti",
-                "marketplace_payment_pack_offpeack_restriction_modal": "Popup di restrizione dell'orario (Pass)",
-                "marketplace_payment_pack_restriction_modal": "Popup delle restrizioni (Pass)",
-                "marketplace_payment_pack_compatibility_modal": "Popup di compatibilità (Pass)",
-                "marketplace_payment_pack_card": "Scheda Pass",
+                "marketplace_private_pass_compatibility_modal": "Popup di compatibilità (Pacchetti per appuntamenti)",
+                "marketplace_private_pass_card": "Scheda Pacchetti per appuntamenti",
+                "marketplace_payment_pack_offpeack_restriction_modal": "Popup di restrizione dell'orario (pacchetto)",
+                "marketplace_payment_pack_restriction_modal": "Popup delle restrizioni (pacchetto)",
+                "marketplace_payment_pack_compatibility_modal": "Popup di compatibilità (pacchetto)",
+                "marketplace_payment_pack_card": "Scheda Pacchetto",
                 "marketplace_payment_combo_card": "Scheda Pack",
                 "marketplace_date_picker": "Seleziona data",
                 "marketplace_offer_card": "Dettagli della sessione (vista calendario)",
@@ -15801,9 +15802,9 @@
                 "alert": "Avviso",
                 "marketplace_confirmation_checkout_message": "Messaggio di conferma della prenotazione",
                 "marketplace_booker_module_buyable_item_contract": "Oggetto del contratto di prenotazione",
-                "marketplace_booker_module_buyable_item_payment_pack": "Oggetto del pass di prenotazione",
+                "marketplace_booker_module_buyable_item_payment_pack": "Oggetto del pacchetto di prenotazione",
                 "marketplace_booker_module_buyable_item_payment_combo": "Oggetto del pacchetto combinato di prenotazione",
-                "marketplace_booker_module_buyable_items_list": "Selezione del pass (contenitore)",
+                "marketplace_booker_module_buyable_items_list": "Selezione del pacchetto di prenotazione (contenitore)",
                 "fabrique_icon_button": "Icona del pulsante",
                 "fabrique_button": "Pulsante",
                 "fabrique_menu_item_list": "Oggetto voci del menù",
@@ -15811,13 +15812,13 @@
                 "fabrique_alert": "Avviso",
                 "marketplace_offer_booking_list": "Lista prenotazione",
                 "marketplace_booking_item": "Oggetto prenotazione",
-                "marketplace_checkout_items_payment_pack_list": "Elenco degli articoli di pagamento con pass",
+                "marketplace_checkout_items_payment_pack_list": "Elenco degli articoli di pagamento con pacchetti",
                 "marketplace_checkout_items_payment_combo_list": "Elenco degli articoli di pagamento con pacchetti combinati",
-                "marketplace_checkout_items_private_pass_list": "Elenco degli articoli di pagamento con pass privati",
-                "minimal_payment_pack_card": "Carta minimale pass",
-                "minimal_payment_combo_card": "Scheda pacchetto combinato minimale",
+                "marketplace_checkout_items_private_pass_list": "Elenco degli articoli di pagamento con pacchetti privati",
+                "minimal_payment_pack_card": "Tessera pacchetto minimale",
+                "minimal_payment_combo_card": "Tessera pacchetto combinato minimale",
                 "minimal_subscription_card": "Carta minimale abbonamento ricorrente",
-                "minimal_private_pass_card": "Carta minimale pass privato",
+                "minimal_private_pass_card": "Tessera pacchetto privato minimale",
                 "marketplace_product_item": "Articolo prodotto",
                 "marketplace_product_item_list": "Elenco articoli prodotto",
                 "fabrique_chip": "Chip",
@@ -15939,7 +15940,7 @@
                     "nextWeek": "Prossima settimana",
                     "true": "SI",
                     "none": "Nessuno",
-                    "card": "Pass",
+                    "card": "Pacchetto",
                     "sepa_debit": "Addebito diretto SEPA",
                     "bacs_debit": "Bacs Direct debit",
                     "sepa": "Addebito diretto SEPA",
@@ -15947,8 +15948,8 @@
                     "establishment": "Dello stabilimento",
                     "activity": "Filtri attività",
                     "workshop": "Filtri workshop",
-                    "passTypeFilter": "FIltri pass",
-                    "subscriptionCountrySelect": "Selettore del paese",
+                    "passTypeFilter": "FIltri per pacchetti",
+                    "subscriptionCountrySelect": "Seleziona il Paese",
                     "isWaitingListOpen": "Sessione completa",
                     "isAlreadyInWaitingList": "Già in lista d'attesa",
                     "isWaitingListFull": "Lista di attesa piena",
@@ -16019,16 +16020,16 @@
                 "confirmationMessageComponentAlert": "Questo componente gestisce principalmente gli stati di prenotazione e di pagamento. Per personalizzarne l'aspetto, si consiglia di utilizzare i suoi componenti principali, situati nella sezione comune",
                 "marketplaceOfferBookingList": "Questo componente è un elenco di sessioni prenotate. Per ottimizzare i singoli componenti di {{component_name}}, puoi utilizzare la sezione dedicata all'interno dell'editor.",
                 "marketplaceProductItemListAlert": "Questo componente è un elenco di elementi di pagamento con prodotti. Per mettere a punto il singolo componente {{component_name}}, si può utilizzare la sezione dedicata all'interno dell'editor.",
-                "marketplaceCheckoutItemListPrivatePass": "Questo componente è un elenco di elementi di pagamento con pass privati. Per mettere a punto i singoli componenti {{component_name}}, si può utilizzare la sezione dedicata situata in {{page}} all'interno dell'editor.",
+                "marketplaceCheckoutItemListPrivatePass": "Questo componente è un elenco di elementi di pagamento con pacchetti privati. Per mettere a punto i singoli componenti {{component_name}}, si può utilizzare la sezione dedicata situata in {{page}} all'interno dell'editor.",
                 "marketplaceCheckoutItemListPaymentCombo": "Questo componente è un elenco di elementi di pagamento con pacchetti combinati. Per mettere a punto i singoli componenti {{component_name}}, si può utilizzare la sezione dedicata situata in {{page}} all'interno dell'editor.",
-                "marketplaceCheckoutItemListPaymentPack": "Questo componente è un elenco di elementi di pagamento con pass. Per ottimizzare i singoli {{component_name}}, puoi utilizzare la sezione dedicata situata in {{page}} all'interno dell'editor.",
+                "marketplaceCheckoutItemListPaymentPack": "Questo componente è un elenco di articoli in cassa con i pacchetti. Per mettere a punto i singoli {{component_name}}, si può utilizzare la sezione dedicata situata in {{page}} all'interno dell'editor.",
                 "selector": "Questo componente è composto da un'etichetta, un input e un testo di didascalia. Per personalizzare l'aspetto di {{component_name}}, si consiglia di utilizzare il suo componente principale"
             },
             "page": {
                 "workshop": "Workshop",
                 "calendar": "Calendario",
                 "subscription": "Abbonamenti ricorrenti",
-                "pass": "Pass",
+                "pass": "Pacchetti",
                 "common": "Comune",
                 "basket": "Carrello",
                 "bookingPage": "Prenotazione",
@@ -17193,11 +17194,11 @@
                     "label": "Illimitato"
                 },
                 "expiration_days": {
-                    "helperText": "La validità della gift card inizia dalla data di invio dell'e-mail relativa",
+                    "helperText": "La validità della gift card inizia dalla data di invio dell'e-mail relativa.",
                     "label": "Durata della validità in giorni"
                 },
                 "price": {
-                    "helperText": "Imposta il valore della carta offerta",
+                    "helperText": "Questo definirà il valore della gift card.",
                     "label": "Prezzo di vendita"
                 },
                 "section": {
@@ -17346,7 +17347,7 @@
                 "validityDetail_plural": "Validità prima della scadenza : {{count}} giorni",
                 "validity": "Valido {{count}} giorno",
                 "validity_plural": "Valido {{count}} giorni",
-                "deleteInstanceContent2": "Infine, le card acquistate negli altri studi non saranno più utilizzabili nello studio disattivato, indipendentemente dalla data di acquisto.",
+                "deleteInstanceContent2": "Infine, le gift card acquistate negli altri studi non saranno più utilizzabili nello studio disattivato, indipendentemente dalla data di acquisto.",
                 "deleteInstanceContent1": "Disabilitando questo studio dalla condivisione della gift card, tutti i membri che possiedono questa card e l'hanno ricevuta da un membro che la ha acquistata in questo studio potranno comunque utilizzarla. Non potranno invece più utilizzarlo negli altri studi.",
                 "deleteTemplateContent": "Disattivando una gift card condivisa, i membri potranno utilizzarla solo nello studio in cui è stata acquistata."
             },
@@ -17604,8 +17605,8 @@
             "noConfiguration": "Seleziona una configurazione per vedere i suoi dettagli",
             "title": "Dettagli della configurazione",
             "giftcard": "Gift card",
-            "paymentPack": "Pass",
-            "privatePass": "Pass per appuntamenti",
+            "paymentPack": "Pacchetti",
+            "privatePass": "Pacchetti per appuntamenti",
             "shopItem": "Prodotti",
             "combo": "Pacchetti combinati",
             "recurrency": "Ricorrenza",
@@ -17618,11 +17619,11 @@
             "compatibility": "Compatibilità",
             "seeAll": "vedere tutti",
             "packAvailableForAll": "Tutte le schede di corso compatibili",
-            "packAvailable": "{{length}} pass compatibile",
-            "packAvailable_plural": "{{length}} pass compatibili",
-            "privatePassAvailableForAll": "Tutti i pass per appuntamenti compatibili",
-            "privatePassAvailable": "{{length}} pass per appuntamenti compatibile",
-            "privatePassAvailable_plural": "{{length}} pass per appuntamenti compatibili",
+            "packAvailable": "{{length}} pacchetto compatibile",
+            "packAvailable_plural": "{{length}} pacchetti compatibili",
+            "privatePassAvailableForAll": "Tutti i pacchetti per appuntamenti compatibili",
+            "privatePassAvailable": "{{length}} pacchetto per appuntamenti compatibile",
+            "privatePassAvailable_plural": "{{length}} pacchetti per appuntamenti compatibili",
             "comboAvailableForAll": "Tutti i pacchetti combinati compatibili",
             "comboAvailable": "{{length}} pacchetto combinato compatibile",
             "comboAvailable_plural": "{{length}} pacchetti combinati compatibili",
@@ -17720,15 +17721,15 @@
                 "annual": "Annuale"
             },
             "compability": {
-                "selectPack": "Selezionare un pass",
-                "selectPrivatePass": "Selezionare un pass per appuntamenti",
+                "selectPack": "Selezionare un pacchetto",
+                "selectPrivatePass": "Selezionare un pacchetto per appuntamenti",
                 "selectCombo": "Seleziona un pacchetto combinato",
                 "selectShopItem": "Selezionare un prodotto",
                 "selectGiftcard": "Seleziona una gift card",
-                "allPass": "Compatibile con tutti i pass",
-                "pack": "Pass",
-                "privateBooking": "Pass per appuntamenti",
-                "allPrivateBooking": "Compatibile con tutti i pass per appuntamenti",
+                "allPass": "Compatibile con tutti i pacchetti",
+                "pack": "Pacchetto",
+                "privateBooking": "Pacchetto per appuntamenti",
+                "allPrivateBooking": "Compatibile con tutti i pacchetti per appuntamenti",
                 "combo": "Pacchetto combinato",
                 "allCombo": "Compatibile con tutte le confezioni",
                 "shopItem": "Prodotti nello shop",
@@ -18198,8 +18199,8 @@
                 "subscription": "Abbonamento ricorrente",
                 "paymentCombo": "Pacchetto combinato",
                 "shopProduct": "Prodotto",
-                "privatePass": "Pass per appuntamenti",
-                "paymentPack": "Pass",
+                "privatePass": "Pacchetto per appuntamenti",
+                "paymentPack": "Pacchetto",
                 "product": "prodotto",
                 "product_plural": "prodotti",
                 "credit": "credito",
@@ -18441,7 +18442,7 @@
             },
             "redirectLink": {
                 "placeholder": "URL di reindirizzamento",
-                "description": "Dopo la registrazione, il nuovo membro sarà reindirizzato alla pagina indicata dal vostro URL. Se si lascia la casella vuota, il nuovo membro verrà indirizzato alla pagina di acquisto del pass",
+                "description": "Dopo la registrazione, il nuovo membro sarà reindirizzato alla pagina indicata dal vostro URL. Se si lascia la casella vuota, il nuovo membro verrà indirizzato alla pagina di acquisto del pacchetto",
                 "title": "Link di reindirizzamento"
             },
             "tag": {

@@ -976,7 +976,8 @@
             "unpaid_private_booking": "Des rendez-vous sont impayés.",
             "marginValue": "Apport marginal",
             "netGain": "Gain net",
-            "totalNetGain": "Gain net total"
+            "totalNetGain": "Gain net total",
+            "noShowsAndLateCancellations": "Absences et annulations tardives"
         },
         "table": {
             "download": "Télécharger",

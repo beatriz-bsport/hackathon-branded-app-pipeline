@@ -1,7 +1,9 @@
 import React, { JSX } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import './styles.css';
+import classNames from 'classnames';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+
+import './styles.css';
 
 type GenericInfiniteScrollProps = {
   endMessage: React.ReactNode;
@@ -111,6 +113,7 @@ const GenericInfiniteScrollCssOnly: React.FC<GenericInfiniteScrollProps> = ({
 };
 
 type BaseProps<T = unknown> = {
+  className?: string;
   hasMore: boolean;
   items: T[];
   endMessage: React.ReactNode;
@@ -128,6 +131,7 @@ type BaseProps<T = unknown> = {
 };
 
 export const GenericInfiniteScrollEnhancedCssOnly = <T extends unknown>({
+  className,
   hasMore,
   items,
   endMessage,
@@ -152,7 +156,7 @@ export const GenericInfiniteScrollEnhancedCssOnly = <T extends unknown>({
 
   return (
     <InfiniteScroll
-      className="scroll-component"
+      className={classNames('scroll-component', className)}
       dataLength={items.length}
       endMessage={endMessage}
       hasMore={hasMore}

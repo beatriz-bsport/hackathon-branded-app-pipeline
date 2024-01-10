@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React from 'react';
+import React, { useMemo } from 'react';
 import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { Theme } from '@material-ui/core/styles';
@@ -28,6 +28,7 @@ import {
 import {
   MAX_LENGTH_FOR_SHORT_ANSWER,
   MAX_LENGTH_FOR_LONG_ANSWER,
+  generateUniqueCustomFormFieldIdentifier,
 } from '../../utils';
 
 import { MaterialStyleType } from '../../../../utils/types';
@@ -48,6 +49,13 @@ import {
 
 import CustomFormFieldSignUpInput from './CustomFormField.signup-input';
 import CustomFormFieldLocationInput from './CustomFormField.location-input';
+import FabriqueTitle from '#Fabrique/Temporary/Title';
+import FabriqueParagraph from '#Fabrique/Temporary/Paragraph';
+import FabriqueTextfield from '#Fabrique/Temporary/Textfield';
+import FabriqueTextFormField from '#Fabrique/Temporary/TextFormField';
+import FabriqueRadioGroupfield from '#Fabrique/Temporary/RadioGroupfield';
+import FabriqueMultipleCheckboxfield from '#Fabrique/Temporary/MultipleCheckboxfield';
+import FabriqueSelectfield from '#Fabrique/Temporary/Selectfield';
 
 type OwnProps = {
   field: CustomFormField;
@@ -58,13 +66,14 @@ type OwnProps = {
   values: FormikCustomFormFilled;
   layouts: ResponsiveLayouts;
   waiver?: string;
+  isCssVariantActivated?: boolean;
 };
 type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation;
 
 export const CustomFormConsumerInput = (props: Props) => {
-  const { t, classes } = props;
+  const { t, classes, isCssVariantActivated } = props;
   const [openSignatureCanvas, setOpenSignatureCanvas] = React.useState(false);
   const setImageAnswer = (ImageDataUrl: string) => {
     props.setFieldValue(
@@ -72,8 +81,31 @@ export const CustomFormConsumerInput = (props: Props) => {
       ImageDataUrl || null,
     );
   };
+  const memoizedChoices = useMemo(
+    () =>
+      props.field.choices?.map((choice: string) => ({
+        optionLabel: choice,
+        value: choice,
+      })) ?? [],
+    [props.field.choices],
+  );
+
+  const memoizedSuggestions = useMemo(
+    () =>
+      props.field.choices?.map((choice: string) => ({
+        label: choice,
+        value: choice,
+      })) ?? [],
+    [props.field.choices],
+  );
+  const uniqueCustomFormFieldIdentifier =
+    generateUniqueCustomFormFieldIdentifier(props.field, props.field.label);
+
   switch (props.field.kind) {
     case CUSTOM_FORM_FIELD_TITLE_OPTION:
+      if (isCssVariantActivated) {
+        return <FabriqueTitle label={props.field.label} />;
+      }
       return (
         <div className={classes.spacedField}>
           <div style={{ overflowWrap: 'break-word' }}>
@@ -82,6 +114,9 @@ export const CustomFormConsumerInput = (props: Props) => {
         </div>
       );
     case CUSTOM_FORM_FIELD_PARAGRAPH_OPTION:
+      if (isCssVariantActivated) {
+        return <FabriqueParagraph label={props.field.label} />;
+      }
       return (
         <div className={classes.spacedField}>
           <div style={{ overflowWrap: 'break-word' }}>
@@ -92,6 +127,17 @@ export const CustomFormConsumerInput = (props: Props) => {
         </div>
       );
     case CUSTOM_FORM_FIELD_SHORT_ANSWER_OPTION:
+      if (isCssVariantActivated) {
+        return (
+          <FabriqueTextfield
+            inputId={uniqueCustomFormFieldIdentifier}
+            isDisabled={props.asManager}
+            isRequired={props.field.mandatory}
+            label={props.field.label}
+            name={`custom_form_field.${props.index}.answer`}
+          />
+        );
+      }
       return (
         <div key={props.index}>
           <div className={classes.spacedField}>
@@ -109,6 +155,17 @@ export const CustomFormConsumerInput = (props: Props) => {
         </div>
       );
     case CUSTOM_FORM_FIELD_LONG_ANSWER_OPTION:
+      if (isCssVariantActivated) {
+        return (
+          <FabriqueTextFormField
+            isDisabled={props.asManager}
+            isRequired={props.field.mandatory}
+            label={props.field.label}
+            name={`custom_form_field.${props.index}.answer`}
+            textFormId={uniqueCustomFormFieldIdentifier}
+          />
+        );
+      }
       return (
         <div className={classes.spacedField}>
           <TextFieldEnhancedLabelWithError
@@ -126,6 +183,18 @@ export const CustomFormConsumerInput = (props: Props) => {
       );
 
     case CUSTOM_FORM_FIELD_RADIO_OPTION:
+      if (isCssVariantActivated) {
+        return (
+          <FabriqueRadioGroupfield
+            choices={memoizedChoices}
+            disabled={props.asManager}
+            id={uniqueCustomFormFieldIdentifier}
+            isRequired={props.field.mandatory}
+            label={props.field.label}
+            name={`custom_form_field.${props.index}.answer`}
+          />
+        );
+      }
       return (
         <div className={classes.spacedField}>
           <RadioGroupField
@@ -149,6 +218,18 @@ export const CustomFormConsumerInput = (props: Props) => {
         </div>
       );
     case CUSTOM_FORM_FIELD_CHECHBOX_OPTION:
+      if (isCssVariantActivated) {
+        return (
+          <FabriqueMultipleCheckboxfield
+            choices={memoizedChoices}
+            disabled={props.asManager}
+            id={uniqueCustomFormFieldIdentifier}
+            isRequired={props.field.mandatory}
+            label={props.field.label}
+            name={`custom_form_field.${props.index}.answer`}
+          />
+        );
+      }
       return (
         <div className={classes.spacedField}>
           <MultipleCheckboxField
@@ -172,6 +253,18 @@ export const CustomFormConsumerInput = (props: Props) => {
         </div>
       );
     case CUSTOM_FORM_FIELD_SELECT_OPTION:
+      if (isCssVariantActivated) {
+        return (
+          <FabriqueSelectfield
+            id={uniqueCustomFormFieldIdentifier}
+            isDisabled={props.asManager}
+            isRequired={props.field.mandatory}
+            label={props.field.label}
+            name={`custom_form_field.${props.index}.answer`}
+            suggestions={memoizedSuggestions}
+          />
+        );
+      }
       return (
         <div className={classes.spacedField}>
           <FormLabel className={classes.labelClass}>
@@ -192,12 +285,7 @@ export const CustomFormConsumerInput = (props: Props) => {
               }
               placeholder={t('customForm.field.select_placeholder')}
               selected={props.values.custom_form_field[props.index].answer}
-              suggestions={[...props.field.choices.slice()].map(
-                (choice: string) => ({
-                  label: choice,
-                  value: choice,
-                }),
-              )}
+              suggestions={memoizedSuggestions}
             />
           </div>
         </div>

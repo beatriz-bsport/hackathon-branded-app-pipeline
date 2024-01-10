@@ -16,7 +16,13 @@ type OwnProps = {
   customProviderWidth?: number;
 };
 type Props = OwnProps;
-export const GridLayoutWrapper = (props: Props) => {
+export const GridLayoutWrapper: React.FC<Props> = ({
+  children,
+  isEditing,
+  layouts,
+  onLayoutChange,
+  customProviderWidth,
+}) => {
   const theme = useTheme();
 
   // https://github.com/react-grid-layout/react-grid-layout#react-hooks-performance
@@ -26,12 +32,12 @@ export const GridLayoutWrapper = (props: Props) => {
   );
   // We need to check both that the layout exists and if there are at least 4 breakpoints defined (otherwise
   // things are not going to work properly)
-  if (!props.layouts || Object.keys(props.layouts)?.length !== 4) {
-    return <>{props.children}</>;
+  if (!layouts || Object.keys(layouts)?.length !== 4) {
+    return <>{children}</>;
   }
 
   return (
-    <div className={props.isEditing ? 'isEditing' : null}>
+    <div className={isEditing && 'isEditing'}>
       <ResponsiveGridLayoutMemoized
         breakpoints={{
           lg: theme.breakpoints.values.lg,
@@ -42,17 +48,20 @@ export const GridLayoutWrapper = (props: Props) => {
         className="layout"
         cols={{ lg: 12, md: 12, sm: 12, xs: 12 }}
         compactType="horizontal"
-        customProviderWidth={props.customProviderWidth}
-        isDraggable={props.isEditing || false}
-        isResizable={props.isEditing || false}
-        layouts={props.layouts}
-        onLayoutChange={(l: Array<Layout>, allLayouts: ResponsiveLayouts) => {
-          props.onLayoutChange && props.onLayoutChange(l, allLayouts);
+        customProviderWidth={customProviderWidth}
+        isDraggable={isEditing || false}
+        isResizable={isEditing || false}
+        layouts={layouts}
+        onLayoutChange={(
+          _layouts: Array<Layout>,
+          allLayouts: ResponsiveLayouts,
+        ) => {
+          onLayoutChange && onLayoutChange(_layouts, allLayouts);
         }}
         resizeHandles={['s', 'n', 'se']}
         rowHeight={50}
       >
-        {props.children}
+        {children}
       </ResponsiveGridLayoutMemoized>
     </div>
   );

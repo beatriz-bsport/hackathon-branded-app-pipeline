@@ -62,6 +62,7 @@ import {
   UPSELL_IDENTIFIER_SUBTEACHER_TOOL,
   UPSELL_IDENTIFIER_QUICKSALE,
   UPSELL_IDENTIFIER_CADENCE,
+  UPSELL_IDENTIFIER_QUICKBOOKS,
 } from '#libs/platform-billing/upsell-identifiers';
 
 import { platformTutorialActivated } from '#libs/platform-tutorial/utils';
@@ -585,16 +586,16 @@ const ResponsiveDrawer: React.FC<Props> = ({
             dense: true,
             text: t('backofficeMenu.settings.partnership'),
           } as DrawerItemDefault,
-          {
-            to: '/settings/quickbooks',
-            dense: true,
-            text: t('backofficeMenu.settings.quickbooks'),
-          } as DrawerItemDefault,
-          {
-            to: '/settings/active-campaign',
-            dense: true,
-            text: t('backofficeMenu.settings.active_campaign'),
-          } as DrawerItemDefault,
+          ...(hasUpsellIdentifier(UPSELL_IDENTIFIER_QUICKBOOKS, true)
+            ? [
+                {
+                  to: '/settings/quickbooks',
+                  dense: true,
+                  text: t('backofficeMenu.settings.quickbooks'),
+                } as DrawerItemDefault,
+              ]
+            : []),
+
           // Temporary condition to hide the referral page while the feature is not finished
           // Condition will be removed once the feature is finished
           ...(shouldHideReferral

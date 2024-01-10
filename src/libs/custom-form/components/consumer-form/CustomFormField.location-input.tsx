@@ -13,6 +13,7 @@ import {
 } from '@material-ui/core/styles';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { FormLabel } from '@material-ui/core';
+import memoize from 'memoize-one';
 import { SelectFieldWithEnhancedLabeLError } from '../../../../components/forms';
 
 import { CustomFormField, FormikCustomFormFilled } from '../../types';
@@ -22,6 +23,8 @@ import { fetchAllEstablishmentGroup as fetchAllEstablishmentGroupAction } from '
 import { RootState } from '../../../../reducers';
 
 import themeSelectors from '../../../theme/selectors';
+import { generateUniqueCustomFormFieldIdentifier } from '#libs/custom-form/utils';
+import FabriqueSelectfield from '#components/css-only/Fabrique/Temporary/Selectfield';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -45,6 +48,7 @@ type OwnProps = {
   waiver?: string;
   general_terms_and_conditions: string;
   values: FormikCustomFormFilled;
+  isCssVariantActivated?: boolean;
 };
 type Props = OwnProps &
   ConnectedProps<typeof connector> &
@@ -66,7 +70,31 @@ export class CustomFormFieldLocationInput extends Component<Props> {
       asManager,
       setFieldValue,
       values,
+      isCssVariantActivated,
     } = this.props;
+    const suggestions = memoize(
+      establishmentGroupList
+        ? establishmentGroupList.map((establishmentGroup) => ({
+            label: establishmentGroup.name,
+            value: establishmentGroup.id,
+          }))
+        : [],
+    );
+    const uniqueCustomFormFieldIdentifier =
+      generateUniqueCustomFormFieldIdentifier(field, field.label);
+
+    if (isCssVariantActivated) {
+      return (
+        <FabriqueSelectfield
+          id={uniqueCustomFormFieldIdentifier}
+          isDisabled={asManager}
+          isRequired={field.mandatory}
+          label={field.label}
+          name={`custom_form_field.${index}.answer`}
+          suggestions={suggestions}
+        />
+      );
+    }
     return (
       <div className={classes.spacedField}>
         <FormLabel className={classes.labelClass}>
@@ -87,14 +115,7 @@ export class CustomFormFieldLocationInput extends Component<Props> {
             }
             placeholder={t('customForm.field.select_placeholder')}
             selected={values.custom_form_field[index].answer}
-            suggestions={
-              establishmentGroupList
-                ? [...establishmentGroupList].map((establishmentGroup) => ({
-                    label: establishmentGroup.name,
-                    value: establishmentGroup.id,
-                  }))
-                : []
-            }
+            suggestions={suggestions}
           />
         </div>
       </div>

@@ -169,9 +169,7 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
             },
             {
               onSuccess: (data) => {
-                this.props.fetchMember(data.id, {
-                  onSuccess: () => {},
-                });
+                this.props.fetchMember(data.id);
               },
             },
           );

@@ -113,7 +113,6 @@ export const BasketNullPrice: React.FC<BasketNullPriceProps> = ({
     </CompactLayout>
   ) : (
     <CenteredLayout>
-      {' '}
       <Typography className={classes.title} variant="h6">
         {t('myBasket.almostDone')}
       </Typography>

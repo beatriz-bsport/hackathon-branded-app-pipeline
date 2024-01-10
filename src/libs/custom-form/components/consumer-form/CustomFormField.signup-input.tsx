@@ -45,6 +45,7 @@ import {
   MAX_LENGTH_FOR_SHORT_ANSWER,
   get_custom_form_sign_question_label,
   getCustomFormFieldMaxLength,
+  generateUniqueCustomFormFieldIdentifier,
 } from '../../utils';
 
 import { countries } from '../../../../i18n/utils/countries';
@@ -64,6 +65,17 @@ import { CheckboxField } from '../GenericFormik.input';
 import './styles.css';
 import { TermsAndConditionType } from '#libs/payment/types';
 
+import { CUSTOM_FORM_FIELD_SIGN_UP_PREFIX } from '#libs/custom-form/constants';
+
+import FabriqueTextfield from '#Fabrique/Temporary/Textfield';
+import FabriquePasswordField from '#Fabrique/Temporary/PasswordField';
+import FabriqueCountrySignUpField from '#Fabrique/Temporary/CountrySignUpField';
+import FabriqueSelectfield from '#Fabrique/Temporary/Selectfield';
+import FabriqueDateField from '#Fabrique/Temporary/DateField/DateField.component';
+import FabriqueAvatarField from '#Fabrique/Temporary/AvatarField';
+import FabriqueCheckboxfield from '#Fabrique/Temporary/Checkboxfield/Checkboxfield.component';
+import FabriqueAcceptTermsAndConditions from '#Fabrique/Temporary/AcceptTermsAndConditions/AcceptTermsAndConditions.component';
+
 type OwnProps = {
   field: CustomFormField & { answer: string | number | boolean };
   index: number;
@@ -75,6 +87,7 @@ type OwnProps = {
   general_terms_and_conditions: string;
   initial: FormikCustomFormFilled;
   disableLayout: boolean;
+  isCssVariantActivated?: boolean;
 };
 type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>> &
@@ -83,7 +96,8 @@ type Props = OwnProps &
 const CUSTOM_FORM_SIGNUP_FIELD_DEFAULT_LABEL_DICT =
   get_custom_form_sign_question_label();
 export const CustomFormConsumerInput = (props: Props) => {
-  const { t, waiver, general_terms_and_conditions } = props;
+  const { t, waiver, general_terms_and_conditions, isCssVariantActivated } =
+    props;
   const layoutActive =
     props.values.layout &&
     Object.keys(props.values.layout || {})?.length === 4 &&
@@ -110,6 +124,22 @@ export const CustomFormConsumerInput = (props: Props) => {
       }`,
     );
 
+  const uniqueCustomFormFieldIdentifier =
+    generateUniqueCustomFormFieldIdentifier(
+      props.field,
+      label,
+      CUSTOM_FORM_FIELD_SIGN_UP_PREFIX,
+    );
+
+  const genderSuggestions = React.useMemo(
+    () => [
+      { label: t('translation:common.female'), value: 'F' },
+      { label: t('translation:common.male'), value: 'M' },
+      { label: t('translation:common.otherGender'), value: 'X' },
+    ],
+    [t],
+  );
+
   const now = moment().startOf('year').add(-1, 'years').format('YYYY-MM-DD');
   switch (props.field.signup_question_kind) {
     case CUSTOM_FORM_FIELD_SIGN_UP_FIRST_NAME:
@@ -121,6 +151,17 @@ export const CustomFormConsumerInput = (props: Props) => {
     case CUSTOM_FORM_FIELD_SIGN_UP_ADDRESS_LINE_2:
     case CUSTOM_FORM_FIELD_SIGN_UP_EMERGENCY_CONTACT:
     case CUSTOM_FORM_FIELD_SIGN_UP_OFFICIAL_DOCUMENT_ID:
+      if (isCssVariantActivated) {
+        return (
+          <FabriqueTextfield
+            inputId={uniqueCustomFormFieldIdentifier}
+            isDisabled={props.asManager || !props.field.editable}
+            isRequired={props.field.mandatory}
+            label={label}
+            name={`custom_form_field.${props.index}.answer`}
+          />
+        );
+      }
       return (
         <div className={classes.textField}>
           <TextFieldEnhancedLabelWithError
@@ -140,6 +181,18 @@ export const CustomFormConsumerInput = (props: Props) => {
         </div>
       );
     case CUSTOM_FORM_FIELD_SIGN_UP_EMAIL:
+      if (isCssVariantActivated) {
+        return (
+          <FabriqueTextfield
+            inputId={uniqueCustomFormFieldIdentifier}
+            isDisabled={props.asManager || !props.field.editable}
+            isRequired={props.field.mandatory}
+            label={label}
+            name={`custom_form_field.${props.index}.answer`}
+            type="email"
+          />
+        );
+      }
       return (
         <div className={classes.emailField}>
           <TextFieldEnhancedLabelWithError
@@ -196,6 +249,16 @@ export const CustomFormConsumerInput = (props: Props) => {
         </div>
       );
     case CUSTOM_FORM_FIELD_SIGN_UP_PASSWORD:
+      if (isCssVariantActivated) {
+        return (
+          <FabriquePasswordField
+            id={uniqueCustomFormFieldIdentifier}
+            isDisabled={props.asManager}
+            label={label}
+            name={`custom_form_field.${props.index}.answer`}
+          />
+        );
+      }
       return (
         <>
           <Grid container direction="row" spacing={3}>
@@ -259,6 +322,19 @@ export const CustomFormConsumerInput = (props: Props) => {
         </>
       );
     case CUSTOM_FORM_FIELD_SIGN_UP_COUNTRY:
+      if (isCssVariantActivated) {
+        return (
+          <FabriqueCountrySignUpField
+            countries={countries}
+            id={uniqueCustomFormFieldIdentifier}
+            isDisabled={props.asManager || !props.field.editable}
+            isRequired={props.field.mandatory}
+            label={label}
+            name={`custom_form_field.${props.index}.answer`}
+            placeholder={label}
+          />
+        );
+      }
       return (
         <div className={classes.countryField}>
           <SelectFieldWithEnhancedLabeLError
@@ -288,6 +364,19 @@ export const CustomFormConsumerInput = (props: Props) => {
         </div>
       );
     case CUSTOM_FORM_FIELD_SIGN_UP_GENDER:
+      if (isCssVariantActivated) {
+        return (
+          <FabriqueSelectfield
+            id={uniqueCustomFormFieldIdentifier}
+            isDisabled={props.asManager || !props.field.editable}
+            isRequired={props.field.mandatory}
+            label={label}
+            name={`custom_form_field.${props.index}.answer`}
+            placeholder={label}
+            suggestions={genderSuggestions}
+          />
+        );
+      }
       return (
         <div className={classes.countryField}>
           <SelectFieldWithEnhancedLabeLError
@@ -303,15 +392,22 @@ export const CustomFormConsumerInput = (props: Props) => {
             placeholder={label}
             required={props.field.mandatory}
             selected={props.field.answer}
-            suggestions={[
-              { label: t('translation:common.female'), value: 'F' },
-              { label: t('translation:common.male'), value: 'M' },
-              { label: t('translation:common.otherGender'), value: 'X' },
-            ]}
+            suggestions={genderSuggestions}
           />
         </div>
       );
     case CUSTOM_FORM_FIELD_SIGN_UP_BIRTHDAY:
+      if (isCssVariantActivated) {
+        return (
+          <FabriqueDateField
+            id={uniqueCustomFormFieldIdentifier}
+            isDisabled={props.asManager || !props.field.editable}
+            isRequired={props.field.mandatory}
+            label={label}
+            name={`custom_form_field.${props.index}.answer`}
+          />
+        );
+      }
       return (
         <>
           <DateField
@@ -334,6 +430,16 @@ export const CustomFormConsumerInput = (props: Props) => {
         </>
       );
     case CUSTOM_FORM_FIELD_SIGN_UP_PHOTO:
+      if (isCssVariantActivated) {
+        return (
+          <FabriqueAvatarField
+            id={uniqueCustomFormFieldIdentifier}
+            isDisabled={props.asManager || !props.field.editable}
+            isRequired={props.field.mandatory}
+            name={`custom_form_field.${props.index}.answer`}
+          />
+        );
+      }
       return (
         <div className={classes.photoContainerOutter}>
           <div className={classes.photoContainerInner}>
@@ -355,6 +461,17 @@ export const CustomFormConsumerInput = (props: Props) => {
         </div>
       );
     case CUSTOM_FORM_FIELD_SIGN_UP_ACCEPT_EMAIL:
+      if (isCssVariantActivated) {
+        return (
+          <FabriqueCheckboxfield
+            id={uniqueCustomFormFieldIdentifier}
+            isDisabled={props.asManager}
+            isRequired={props.field.mandatory}
+            label={t('translation:form.signup.fields.accept_email')}
+            name={`custom_form_field.${props.index}.answer`}
+          />
+        );
+      }
       return (
         <CheckboxField
           disabled={props.asManager}
@@ -368,6 +485,17 @@ export const CustomFormConsumerInput = (props: Props) => {
         />
       );
     case CUSTOM_FORM_FIELD_SIGN_UP_ACCEPT_SMS:
+      if (isCssVariantActivated) {
+        return (
+          <FabriqueCheckboxfield
+            id={uniqueCustomFormFieldIdentifier}
+            isDisabled={props.asManager}
+            isRequired={props.field.mandatory}
+            label={t('translation:form.signup.fields.accept_sms')}
+            name={`custom_form_field.${props.index}.answer`}
+          />
+        );
+      }
       return (
         <CheckboxField
           disabled={props.asManager}
@@ -382,6 +510,19 @@ export const CustomFormConsumerInput = (props: Props) => {
       );
 
     case CUSTOM_FORM_FIELD_SIGN_UP_VACCINATION_STATUS:
+      if (isCssVariantActivated) {
+        return (
+          <FabriqueSelectfield
+            id={uniqueCustomFormFieldIdentifier}
+            isDisabled={props.asManager || !props.field.editable}
+            isRequired={props.field.mandatory}
+            label={label}
+            name={`custom_form_field.${props.index}.answer`}
+            placeholder={label}
+            suggestions={VACCINATION_STATUS_CHOICES}
+          />
+        );
+      }
       return (
         <>
           <div style={{ width: '100%' }}>
@@ -413,6 +554,22 @@ export const CustomFormConsumerInput = (props: Props) => {
 
     case CUSTOM_FORM_FIELD_SIGN_UP_WAIVER:
       if (waiver) {
+        if (isCssVariantActivated) {
+          return (
+            <FabriqueAcceptTermsAndConditions
+              disabled={
+                props.asManager ||
+                !!props.initial?.custom_form_field[props.index]?.answer
+              }
+              id={uniqueCustomFormFieldIdentifier}
+              label={label}
+              name={`custom_form_field.${props.index}.answer`}
+              required={props.field.mandatory}
+              termsAndConditions={waiver}
+              type={TermsAndConditionType.WAIVER}
+            />
+          );
+        }
         return (
           <>
             <AcceptTermsAndConditions
@@ -445,6 +602,22 @@ export const CustomFormConsumerInput = (props: Props) => {
       return <div />;
     case CUSTOM_FORM_FIELD_SIGN_UP_GENERAL_TERMS_AND_CONDITIONS:
       if (general_terms_and_conditions) {
+        if (isCssVariantActivated) {
+          return (
+            <FabriqueAcceptTermsAndConditions
+              required
+              disabled={
+                props.asManager ||
+                !!props.initial?.custom_form_field[props.index]?.answer
+              }
+              id={uniqueCustomFormFieldIdentifier}
+              label={label}
+              name={`custom_form_field.${props.index}.answer`}
+              termsAndConditions={general_terms_and_conditions}
+              type={TermsAndConditionType.GENERAL_TERMS_OF_USE}
+            />
+          );
+        }
         return (
           <div
             style={{
@@ -477,6 +650,28 @@ export const CustomFormConsumerInput = (props: Props) => {
               )}
             </ErrorMessage>
           </div>
+        );
+      }
+      if (isCssVariantActivated) {
+        return (
+          <FabriqueCheckboxfield
+            isRequired
+            id={uniqueCustomFormFieldIdentifier}
+            isDisabled={
+              props.asManager ||
+              !!props.initial?.custom_form_field[props.index]?.answer
+            }
+            label={
+              <a
+                href="https://bright-shovel-41b.notion.site/RGPD-4b8e6a8a215a418a95f91197efd94847"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {`${t('payment:generalTermsAndConditions.iAccept')} ${label}`}
+              </a>
+            }
+            name={`custom_form_field.${props.index}.answer`}
+          />
         );
       }
       return (

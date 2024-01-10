@@ -34,6 +34,8 @@ type OwnProps = {
   onLayoutChange?: (l: Array<Layout>, allLayouts: ResponsiveLayouts) => void;
   customProviderWidth?: number;
   fieldsAreIndependent?: boolean; // if they are, FastField is used to avoid useless re-rendering
+  isCssVariantActivated?: boolean;
+  shouldWrapLayerInCssHoc?: boolean;
 };
 type Props = OwnProps & WithTranslation;
 
@@ -45,7 +47,13 @@ export const ConsumerFormFields = (props: Props) => {
   // Need to not pass classes in props otherwise
   // thousands of errors are raised by MUI
   /* eslint-disable */
-  const { classes, fieldsAreIndependent, ...restProps } = props;
+  const {
+    classes,
+    fieldsAreIndependent,
+    isCssVariantActivated,
+    shouldWrapLayerInCssHoc,
+    ...restProps
+  } = props;
   /* eslint-disable */
   return (
     <FieldArray name="custom_form_field">
@@ -60,6 +68,8 @@ export const ConsumerFormFields = (props: Props) => {
             layouts={props.layouts}
             isEditing={props.isEditing}
             customProviderWidth={props.customProviderWidth}
+            isCssVariantActivated={isCssVariantActivated}
+            shouldWrapLayerInCssHoc={shouldWrapLayerInCssHoc}
           >
             {fieldsAreIndependent
               ? custom_form_field?.map((field: CustomFormField, i: number) => (
@@ -73,6 +83,7 @@ export const ConsumerFormFields = (props: Props) => {
                           {...restProps}
                           field={field}
                           index={i}
+                          isCssVariantActivated={isCssVariantActivated}
                         />
                       )}
                     </FastField>
@@ -84,6 +95,7 @@ export const ConsumerFormFields = (props: Props) => {
                       {...restProps}
                       field={field}
                       index={i}
+                      isCssVariantActivated={isCssVariantActivated}
                     />
                   </div>
                 ))}

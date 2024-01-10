@@ -6,22 +6,30 @@ import 'react-grid-layout/css/styles.css';
 import './react-grid-layout.css';
 import type { Layout, ResponsiveLayouts } from '../../types';
 import customWithProvider from './customwidthProvider';
+import { MuiThemeToCssVarsHOC } from '#hocs/marketplace-css.hoc';
 
 const ResponsiveGridLayout = customWithProvider(Responsive);
-type OwnProps = {
+const ROW_HEIGHT_FOR_CSS_ONLY_FIELD = 85;
+const ROW_HEIGHT_FOR_MUI_FIELD = 50;
+
+type Props = {
   children: React.ReactNode;
   isEditing?: boolean;
   layouts?: { [key: string]: Array<Layout> };
   onLayoutChange?: (l: Array<Layout>, allLayouts: ResponsiveLayouts) => void;
   customProviderWidth?: number;
+  isCssVariantActivated?: boolean;
 };
-type Props = OwnProps;
-export const GridLayoutWrapper: React.FC<Props> = ({
+
+type GridLayoutWrapperProps = Props & { shouldWrapLayerInCssHoc?: boolean };
+
+const ResponsiveGridLayoutWrapper: React.FC<Props> = ({
   children,
   isEditing,
   layouts,
   onLayoutChange,
   customProviderWidth,
+  isCssVariantActivated,
 }) => {
   const theme = useTheme();
 
@@ -30,6 +38,14 @@ export const GridLayoutWrapper: React.FC<Props> = ({
     () => ResponsiveGridLayout,
     [],
   );
+
+  const handleOnLayoutChange = React.useCallback(
+    (_layouts: Array<Layout>, allLayouts: ResponsiveLayouts) => {
+      onLayoutChange && onLayoutChange(_layouts, allLayouts);
+    },
+    [onLayoutChange],
+  );
+
   // We need to check both that the layout exists and if there are at least 4 breakpoints defined (otherwise
   // things are not going to work properly)
   if (!layouts || Object.keys(layouts)?.length !== 4) {
@@ -52,19 +68,29 @@ export const GridLayoutWrapper: React.FC<Props> = ({
         isDraggable={isEditing || false}
         isResizable={isEditing || false}
         layouts={layouts}
-        onLayoutChange={(
-          _layouts: Array<Layout>,
-          allLayouts: ResponsiveLayouts,
-        ) => {
-          onLayoutChange && onLayoutChange(_layouts, allLayouts);
-        }}
+        onLayoutChange={handleOnLayoutChange}
         resizeHandles={['s', 'n', 'se']}
-        rowHeight={50}
+        rowHeight={
+          isCssVariantActivated
+            ? ROW_HEIGHT_FOR_CSS_ONLY_FIELD
+            : ROW_HEIGHT_FOR_MUI_FIELD
+        }
       >
         {children}
       </ResponsiveGridLayoutMemoized>
     </div>
   );
+};
+
+const GridLayoutWrapper: React.FC<GridLayoutWrapperProps> = (props) => {
+  if (props.shouldWrapLayerInCssHoc) {
+    return (
+      <MuiThemeToCssVarsHOC>
+        <ResponsiveGridLayoutWrapper {...props} />
+      </MuiThemeToCssVarsHOC>
+    );
+  }
+  return <ResponsiveGridLayoutWrapper {...props} />;
 };
 
 export default GridLayoutWrapper;

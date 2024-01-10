@@ -16,12 +16,14 @@ export type Props = {
   classes?: {
     captionText?: string;
     container?: string;
+    errorMessage?: string;
     label?: string;
     labelContainer?: string;
     maxCharactersIndicator?: string;
     textArea?: string;
     textAreaContainer?: string;
   };
+  errorMessage?: string;
   id?: string;
   isError?: boolean;
   isDisabled?: boolean;
@@ -46,6 +48,7 @@ const TextForm: React.FC<Props> = forwardRef(
       captionText,
       className,
       classes,
+      errorMessage,
       id,
       isError,
       isDisabled,
@@ -199,7 +202,7 @@ const TextForm: React.FC<Props> = forwardRef(
               )}
               variant="body-xs"
             >
-              {value.length} / {maxCharacters}
+              {value?.length ?? 0} / {maxCharacters}
             </Typography>
           </div>
         </div>
@@ -213,6 +216,15 @@ const TextForm: React.FC<Props> = forwardRef(
         >
           {captionText}
         </Typography>
+        {isError && !!errorMessage && (
+          <Typography
+            className={classes?.errorMessage}
+            color="error"
+            variant="body-sm"
+          >
+            {errorMessage}
+          </Typography>
+        )}
       </div>
     );
   },

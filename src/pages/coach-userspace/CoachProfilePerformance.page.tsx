@@ -32,9 +32,12 @@ import {
 } from '#libs/establishment/selectors';
 import type { CoachwithPerformance } from '#libs/coach-payment-rules/types';
 import {
+  getEstablishmentGroupNames,
+  getEstablishmentNames,
   getFilteredAssociatedCoachWithPerformance,
   getFilteredEstablishments,
-} from '#libs/coach-payment-rules/utilstsx';
+  // @ts-ignore
+} from '#libs/coach-payment-rules/utils';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -85,6 +88,28 @@ export const CoachProfilePerformance: React.FC<Props> = (props: Props) => {
   >([]);
   const [selectedLocations, setSelectedLocations] = React.useState<number[]>(
     [],
+  );
+
+  const handlePdfExport = React.useCallback(
+    (associatedCoachId: number, dataToExport: number) =>
+      handlePdfExportation(
+        associatedCoachId,
+        dataToExport,
+        getFilteredEstablishments(
+          selectedEstablishments,
+          selectedLocations,
+          establishmentGroupList,
+        ),
+        getEstablishmentGroupNames(establishmentGroupList, selectedLocations),
+        getEstablishmentNames(establishments, selectedEstablishments),
+      ),
+    [
+      establishmentGroupList,
+      establishments,
+      selectedEstablishments,
+      selectedLocations,
+      handlePdfExportation,
+    ],
   );
 
   const setSelectedEstablishmentFilter = React.useCallback(
@@ -151,7 +176,7 @@ export const CoachProfilePerformance: React.FC<Props> = (props: Props) => {
             asCoach
             hideRuleSetter
             coachWithPerformance={filteredAssociatedCoachWithPerformance}
-            handlePdfExportation={handlePdfExportation}
+            handlePdfExportation={handlePdfExport}
             has_coach_access_to_compensation_downloading={
               has_coach_access_to_compensation_downloading
             }
@@ -225,13 +250,22 @@ const mapWithHandlers = {
       formDates,
       companyId,
     }: OwnAndConnectedProps & stateHandlerType) =>
-    (associatedCoachId: number, dataToExport: number) => {
+    (
+      associatedCoachId: number,
+      dataToExport: number,
+      establishmentFilterIds: number[],
+      establismentGroupFilterNames: string[],
+      establishmentFilterNames: string[],
+    ) => {
       const params = {
         start_timestamp: formDates.dateStart.valueOf(),
         end_timestamp: formDates.dateEnd.valueOf(),
         associated_coaches_in: [associatedCoachId],
         data_to_export: dataToExport,
         company_id: companyId,
+        establishmentFilterIds,
+        establismentGroupFilterNames,
+        establishmentFilterNames,
       };
       exportPdfPerformanceAction(params);
     },

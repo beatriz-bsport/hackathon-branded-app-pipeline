@@ -22,6 +22,11 @@ export const ConsumerBookingTabs: React.FC<Props> = ({
     [onChangeBookingTab],
   );
 
+  const handleSetAppointmentBookingTab = useCallback(
+    () => onChangeBookingTab(BookingTabEnum.APPOINTMENT),
+    [onChangeBookingTab],
+  );
+
   const handleSetWorkshopBookingTab = useCallback(
     () => onChangeBookingTab?.(BookingTabEnum.WORKSHOP),
     [onChangeBookingTab],
@@ -35,6 +40,11 @@ export const ConsumerBookingTabs: React.FC<Props> = ({
           type: BookingTabEnum.ACTIVITY,
           label: t('reworked.myBookings.tab.activities'),
           onClick: handleSetActivityBookingTab,
+        },
+        {
+          type: BookingTabEnum.APPOINTMENT,
+          label: t('reworked.myBookings.tab.appointments'),
+          onClick: handleSetAppointmentBookingTab,
         },
         {
           type: BookingTabEnum.WORKSHOP,

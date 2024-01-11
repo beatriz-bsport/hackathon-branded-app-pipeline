@@ -1,3 +1,3 @@
-const BookingTabTypes = ['activity', 'workshop'] as const;
+const BookingTabTypes = ['activity', 'appointment', 'workshop'] as const;
 
 export type BookingTab = (typeof BookingTabTypes)[number];

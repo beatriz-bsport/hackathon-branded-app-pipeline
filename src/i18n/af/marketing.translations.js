@@ -864,5 +864,15 @@ exports.default = {
         moreActions: 'More workflow actions',
       },
     },
+    editModal: {
+      dialog: {
+        title: 'Edit workflow',
+        helper:
+          'Editing triggers can change the position of members in different steps.',
+        checkboxLabel: 'Do not display this message anymore.',
+        cancel: 'Cancel',
+        confirm: 'Confirm',
+      },
+    },
   },
 };

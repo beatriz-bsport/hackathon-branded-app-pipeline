@@ -79,12 +79,14 @@ import {
   doNotDisplayConvertStepIntoExitDialogAnymore as doNotDisplayConvertStepIntoExitDialogAnymoreAction,
   doNotDisplayPauseDialogAnymore as doNotDisplayPauseDialogAnymoreAction,
   doNotDisplayWelcomeDialogAnymore as doNotDisplayWelcomeDialogAnymoreAction,
+  doNotDisplayEditingCadencePopinAnymore as doNotDisplayEditingCadencePopinAnymoreAction,
 } from '#libs/user-preference/actions';
 import {
   getIsDeleteStepDialogHidden,
   getIsConvertStepIntoExitDialogHidden,
   getIsPauseDialogHidden,
   getDoNotDisplayCadenceWelcomeDialog,
+  getIsEditCadencePopinHidden,
 } from '#libs/user-preference/selectors';
 
 // ====================== SMARTLIST =======================
@@ -466,10 +468,16 @@ export class CadenceDetailPage extends Component<Props> {
                   <CadenceDetailHeader
                     cadence={this.props.cadence}
                     cadenceEditMode={this.props.cadenceEditMode}
+                    doNotDisplayEditingWorkflowPopinAnymore={
+                      this.props.doNotDisplayEditingWorkflowPopinAnymore
+                    }
                     doNotDisplayPauseDialogAnymore={
                       this.props.doNotDisplayPauseDialogAnymore
                     }
                     goBack={this.props.backtoCadenceList}
+                    isEditCadencePopinHidden={
+                      this.props.isEditCadencePopinHidden
+                    }
                     isPauseDialogHidden={this.props.isPauseDialogHidden}
                     loading={this.props.loading}
                     onActivate={this.props.activateCadence}
@@ -988,6 +996,11 @@ const mapWithHandlers = {
       props.doNotDisplayConvertStepIntoExitDialogAnymoreAction(props.cadenceId);
     },
 
+  doNotDisplayEditingWorkflowPopinAnymore:
+    (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) => () => {
+      props.doNotDisplayEditingCadencePopinAnymoreAction(props.cadenceId);
+    },
+
   doNotDisplayPauseDialogAnymore:
     (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) => () => {
       props.doNotDisplayPauseDialogAnymoreAction(props.cadenceId);
@@ -1022,6 +1035,8 @@ const connector = connect(
       getStepMemberCount(state, stepId),
     getStepMarketingActions: (stepId: number) =>
       getStepMarketingActionsByStepId(state, stepId),
+    isEditCadencePopinHidden: getIsEditCadencePopinHidden(state, cadenceId),
+
     // SMARTLISTS
     smartlists: getAllSmartList(state),
     isDeleteStepDialogHidden: getIsDeleteStepDialogHidden(state, cadenceId),
@@ -1056,6 +1071,7 @@ const connector = connect(
     deleteCadenceStepAction,
     deleteConnectedTriggerAction,
     deleteStepMarketingActionAction,
+    doNotDisplayEditingCadencePopinAnymoreAction,
     doNotDisplayConvertStepIntoExitDialogAnymoreAction,
     doNotDisplayDeleteStepDialogAnymoreAction,
     doNotDisplayPauseDialogAnymoreAction,

@@ -24,6 +24,7 @@ export enum DialogVariant {
   BLOCK_ARCHIVED_WORKFLOW = 'block-archived-workflow',
   BLOCK_UNACCESSIBLE_WORKFLOW = 'block-unaccessible-workflow',
   WELCOME = 'welcome',
+  EDITING_MODE = 'editing-mode',
 }
 
 type Props = {
@@ -84,6 +85,12 @@ const useCadenceUtilityIcon = (
         icon: 'HelpOutline',
         customIcon: null,
         color: theme.palette.error.main,
+      };
+    case DialogVariant.EDITING_MODE:
+      return {
+        icon: null,
+        customIcon: WarningIconRounded,
+        color: theme.palette.warning.main,
       };
     default:
       return {
@@ -178,6 +185,21 @@ const useCadenceUtilityButtons = (
           onClick: onConfirm,
         },
       ];
+    case DialogVariant.EDITING_MODE:
+      return [
+        {
+          title: t('audience.editModal.dialog.cancel'),
+          fontColor: 'inherit',
+          backgroundColor: 'inherit',
+          onClick: onClose,
+        },
+        {
+          title: t('audience.editModal.dialog.confirm'),
+          fontColor: '',
+          backgroundColor: theme.palette.warning.main,
+          onClick: onConfirm,
+        },
+      ];
     case DialogVariant.BLOCK_ARCHIVED_WORKFLOW:
     case DialogVariant.BLOCK_UNACCESSIBLE_WORKFLOW:
       return null;
@@ -253,6 +275,11 @@ const useCadenceUtilityTexts = (
         title: t('audience.block.unrecognized.dialog.title'),
         descriptions: [[t('audience.block.unrecognized.dialog.helper')]],
       };
+    case DialogVariant.EDITING_MODE:
+      return {
+        title: t('audience.editModal.dialog.title'),
+        descriptions: [[t('audience.editModal.dialog.helper')]],
+      };
     default:
       return {
         title: '',
@@ -273,6 +300,7 @@ const useCadenceUtilityCheckbox = (variant: DialogVariant) => {
     case DialogVariant.DELETE_STEP:
     case DialogVariant.PAUSE_WORKFLOW:
     case DialogVariant.WELCOME:
+    case DialogVariant.EDITING_MODE:
       return true;
 
     default:
@@ -290,6 +318,7 @@ const useCadenceUtilitySize = (variant: DialogVariant) => {
     case DialogVariant.CONVERT_STEP_INTO_EXIT:
     case DialogVariant.DELETE_STEP:
     case DialogVariant.PAUSE_WORKFLOW:
+    case DialogVariant.EDITING_MODE:
     default:
       return 'xs';
   }

@@ -33,6 +33,8 @@ type Props = {
   onEdit: (data: { name: string }, options: OptionCallback) => void;
   onShutOff: (options?: OptionCallback) => void;
   switchCadenceEditMode: () => void;
+  doNotDisplayEditingWorkflowPopinAnymore: () => void;
+  isEditCadencePopinHidden: boolean;
 };
 
 type HeaderActionsProps = {
@@ -45,7 +47,7 @@ type HeaderActionsProps = {
   handlePause: (isChecked?: boolean) => void;
   setOpenActivateDialog: (open: boolean) => void;
   setOpenEditDialog: (open: boolean) => void;
-  switchCadenceEditMode: () => void;
+  handleEditClickButton: () => void;
 };
 
 const CadenceDetailHeaderActions: React.FC<HeaderActionsProps> = React.memo(
@@ -59,7 +61,7 @@ const CadenceDetailHeaderActions: React.FC<HeaderActionsProps> = React.memo(
     handleOpenPauseDialog,
     setOpenActivateDialog,
     setOpenEditDialog,
-    switchCadenceEditMode,
+    handleEditClickButton,
   }) => {
     const { t } = useTranslation('marketing');
     const classes = useStyles();
@@ -151,7 +153,7 @@ const CadenceDetailHeaderActions: React.FC<HeaderActionsProps> = React.memo(
               <Button
                 color="secondary"
                 disabled={cadence?.active || loading || !canBeActivated}
-                onClick={switchCadenceEditMode}
+                onClick={handleEditClickButton}
                 variant="contained"
               >
                 {cadenceEditMode ? (
@@ -185,12 +187,16 @@ export const CadenceDetailHeader: React.FC<Props> = ({
   onEdit,
   onShutOff,
   switchCadenceEditMode,
+  doNotDisplayEditingWorkflowPopinAnymore,
+  isEditCadencePopinHidden,
 }) => {
   const classes = useStyles();
 
   const [openEditDialog, setOpenEditDialog] = React.useState(false);
   const [openActivateDialog, setOpenActivateDialog] = React.useState(false);
   const [openPauseDialog, setOpenPauseDialog] = React.useState(false);
+  const [isEditingModeDialogOpen, setIsEditingModeDialogOpen] =
+    React.useState(false);
 
   const handleCloseEditForm = React.useCallback(
     () => setOpenEditDialog(false),
@@ -211,6 +217,25 @@ export const CadenceDetailHeader: React.FC<Props> = ({
     () => setOpenPauseDialog(true),
     [],
   );
+
+  const handleConfirmEditingModeDialog = React.useCallback(
+    (isChecked?: boolean) => {
+      switchCadenceEditMode();
+      setIsEditingModeDialogOpen(false);
+      isChecked && doNotDisplayEditingWorkflowPopinAnymore?.();
+    },
+    [switchCadenceEditMode, doNotDisplayEditingWorkflowPopinAnymore],
+  );
+
+  const handleEditClickButton = React.useCallback(() => {
+    !cadenceEditMode && !isEditCadencePopinHidden
+      ? setIsEditingModeDialogOpen(true)
+      : switchCadenceEditMode();
+  }, [cadenceEditMode, switchCadenceEditMode, isEditCadencePopinHidden]);
+
+  const handleCloseCadenceEditingModal = React.useCallback(() => {
+    setIsEditingModeDialogOpen(false);
+  }, []);
 
   const handleEdit = React.useCallback(
     (data: { name: string }, options: OptionCallback) =>
@@ -264,13 +289,13 @@ export const CadenceDetailHeader: React.FC<Props> = ({
             cadence={cadence}
             cadenceEditMode={cadenceEditMode}
             goBack={goBack}
+            handleEditClickButton={handleEditClickButton}
             handleOpenPauseDialog={handleOpenPauseDialog}
             handlePause={handlePause}
             isPauseDialogHidden={isPauseDialogHidden}
             loading={loading}
             setOpenActivateDialog={setOpenActivateDialog}
             setOpenEditDialog={setOpenEditDialog}
-            switchCadenceEditMode={switchCadenceEditMode}
           />
         </div>
       </div>
@@ -294,6 +319,18 @@ export const CadenceDetailHeader: React.FC<Props> = ({
         onConfirm={handlePause}
         open={openPauseDialog}
         variant={DialogVariant.PAUSE_WORKFLOW}
+      />
+      <CadenceUtilityDialog
+        onCancel={handleClosePauseDialog}
+        onConfirm={handlePause}
+        open={openPauseDialog}
+        variant={DialogVariant.PAUSE_WORKFLOW}
+      />
+      <CadenceUtilityDialog
+        onCancel={handleCloseCadenceEditingModal}
+        onConfirm={handleConfirmEditingModeDialog}
+        open={isEditingModeDialogOpen}
+        variant={DialogVariant.EDITING_MODE}
       />
     </>
   );

@@ -12,16 +12,21 @@ import ConsumerBookingOnlineWarningModal from '#libs/consumer-space/components/r
 import ConsumerBookingSpotSchedulingModal from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingSpotSchedulingModal';
 
 import type { BookingTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
-import type { ConsumerBookingReworked } from '#libs/consumer-space/types';
+import type {
+  ConsumerBookingReworked,
+  ConsumerPrivateBookingReworked,
+} from '#libs/consumer-space/types';
 import type {
   ConsumerBooking,
   BookingREST,
   CancelBookingFilterParams,
+  ConsumerPrivateBooking,
 } from '#libs/booking/types';
 import type { BookingFilterTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/types';
 import type { OptionCallback } from '../../../../../../state/types';
 import type { SpotType } from '#libs/spot-scheduling/types';
 import type { CompanyTheme } from '#libs/theme/types';
+import type { PrivateBooking } from '#libs/private-service/types';
 
 import './styles.css';
 
@@ -30,6 +35,10 @@ type Props = {
   pastBookingsList: ConsumerBooking[];
   futureBookingsState: ConsumerBookingReworked;
   futureBookingsList: ConsumerBooking[];
+  pastPrivateBookingsState: ConsumerPrivateBookingReworked;
+  pastPrivateBookingsList: ConsumerPrivateBooking[];
+  futurePrivateBookingsState: ConsumerPrivateBookingReworked;
+  futurePrivateBookingsList: ConsumerPrivateBooking[];
   pastBookingsWorkshopState: ConsumerBookingReworked;
   pastBookingsWorkshopList: ConsumerBooking[];
   futureBookingsWorkshopState: ConsumerBookingReworked;
@@ -42,6 +51,8 @@ type Props = {
   handleBookASessionClick: () => void;
   fetchPastBookings: () => void;
   fetchFutureBookings: () => void;
+  fetchPastPrivateBookings: () => void;
+  fetchFuturePrivateBookings: () => void;
   fetchPastBookingsWorkshop: () => void;
   fetchFutureBookingsWorkshop: () => void;
   resetConsumerState: () => void;
@@ -49,6 +60,11 @@ type Props = {
     bookingId: number,
     params: CancelBookingFilterParams,
     options?: OptionCallback<BookingREST>,
+  ) => void;
+  cancelPrivateBooking: (
+    bookingId: number,
+    params: CancelBookingFilterParams,
+    options?: OptionCallback<PrivateBooking>,
   ) => void;
   getRelatedConsumerBookingsInGroup: (
     groupId: number,
@@ -62,6 +78,10 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
   pastBookingsList,
   futureBookingsState,
   futureBookingsList,
+  pastPrivateBookingsState,
+  pastPrivateBookingsList,
+  futurePrivateBookingsState,
+  futurePrivateBookingsList,
   pastBookingsWorkshopState,
   pastBookingsWorkshopList,
   futureBookingsWorkshopState,
@@ -74,18 +94,23 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
   handleBookASessionClick,
   fetchPastBookings,
   fetchFutureBookings,
+  fetchPastPrivateBookings,
+  fetchFuturePrivateBookings,
   fetchPastBookingsWorkshop,
   fetchFutureBookingsWorkshop,
   resetConsumerState,
   cancelBooking,
   getRelatedConsumerBookingsInGroup,
   fetchAssociatedBlueprintObjects,
+  cancelPrivateBooking,
 }) => {
   const {
     selectedTab,
     selectedFilterTab,
     selectedBooking,
+    selectedPrivateBooking,
     selectedBookingForCancelation,
+    selectedPrivateBookingForCancelation,
     isCancelBookingModalOpen,
     isCancellingBooking,
     isOnlineWarningModalOpen,
@@ -96,10 +121,12 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
     nextPage,
     bookingList,
     isBookingsLoading,
+    privateBookingList,
     relatedBookingsInGroup,
     handleSetSelectedTab,
     handleSetSelectedFilterTab,
     handleSetSelectedBooking,
+    handleSetSelectedPrivateBooking,
     handleSelectBookingForCancelation,
     handleToggleCancelBookingModal,
     handlePaginationFetchMore,
@@ -113,6 +140,10 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
     pastBookingsList,
     futureBookingsState,
     futureBookingsList,
+    pastPrivateBookingsState,
+    pastPrivateBookingsList,
+    futurePrivateBookingsState,
+    futurePrivateBookingsList,
     pastBookingsWorkshopState,
     pastBookingsWorkshopList,
     futureBookingsWorkshopState,
@@ -120,12 +151,15 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
     getIsBookingsLoading,
     fetchPastBookings,
     fetchFutureBookings,
+    fetchPastPrivateBookings,
+    fetchFuturePrivateBookings,
     fetchPastBookingsWorkshop,
     fetchFutureBookingsWorkshop,
     resetConsumerState,
     getRelatedConsumerBookingsInGroup,
     cancelBooking,
     fetchAssociatedBlueprintObjects,
+    cancelPrivateBooking,
   });
 
   const emptyFn = () => {};
@@ -133,17 +167,22 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
   return (
     <MarketplacePageContent>
       <div className="bs-consumer-booking-page__root">
-        {isCancelBookingModalOpen && !!selectedBookingForCancelation && (
-          <ConsumerBookingCancelModal
-            booking={selectedBookingForCancelation}
-            cancelBooking={handleCancelBooking}
-            isLoading={isCancellingBooking}
-            onClose={handleToggleCancelBookingModal}
-            relatedBookings={relatedBookingsInGroup}
-            sessionTimeDisplay={sessionTimeDisplay}
-            timezone={timezone}
-          />
-        )}
+        {isCancelBookingModalOpen &&
+          !!(
+            selectedBookingForCancelation ||
+            selectedPrivateBookingForCancelation
+          ) && (
+            <ConsumerBookingCancelModal
+              booking={selectedBookingForCancelation}
+              cancelBooking={handleCancelBooking}
+              isLoading={isCancellingBooking}
+              onClose={handleToggleCancelBookingModal}
+              privateBooking={selectedPrivateBookingForCancelation}
+              relatedBookings={relatedBookingsInGroup}
+              sessionTimeDisplay={sessionTimeDisplay}
+              timezone={timezone}
+            />
+          )}
         {isOnlineWarningModalOpen && !!onlineWarningModalOfferDate && (
           <ConsumerBookingOnlineWarningModal
             offerDateStart={onlineWarningModalOfferDate}
@@ -179,13 +218,16 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
           handleJoinOnlineBooking={handleJoinOnlineBooking}
           handlePaginationFetchMore={handlePaginationFetchMore}
           handleSelectBookingForCancelation={handleSelectBookingForCancelation}
+          handleSetSelectedBooking={handleSetSelectedBooking}
+          handleSetSelectedPrivateBooking={handleSetSelectedPrivateBooking}
           handleShowSpotDetails={handleShowSpotDetails}
           hasNextPage={!!nextPage}
           isLoading={isBookingsLoading}
-          onBookingCardClick={handleSetSelectedBooking}
+          privateBookingList={privateBookingList}
           relatedBookingsInGroup={relatedBookingsInGroup}
           selectedBooking={selectedBooking}
           selectedFilterTab={selectedFilterTab}
+          selectedPrivateBooking={selectedPrivateBooking}
           selectedTab={selectedTab}
           sessionTimeDisplay={sessionTimeDisplay}
           timezone={timezone}

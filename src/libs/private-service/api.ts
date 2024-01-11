@@ -1,4 +1,3 @@
-import { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';
 import {
   getAuth,
   post,
@@ -10,7 +9,15 @@ import {
   API_V1_URI,
   postBaseAuth,
 } from '../../http';
-import type { PrivateBooking, PrivatePassCategory } from './types';
+import type {
+  PrivateBooking,
+  PrivatePassCategory,
+  PrivateBookingFilterParams,
+  PrivateConsumerPass,
+} from './types';
+import type { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';
+import type { PaginatedResponse } from '../../state/types';
+import type { CancelPrivateBookingFilterParams } from '#libs/booking/types';
 
 export const fetchAvailabilitySlots = (params: any = {}) => {
   return getAuth(
@@ -397,7 +404,7 @@ export async function fetchIncompatibilitiesReasonsBySlotByConsumerPass(
 }
 
 export const fetchPrivateConsumerPassList = (params: any) => {
-  return getAuth(
+  return getAuth<PrivateConsumerPass[]>(
     `${API_V1_URI}/private_service/private_consumer_pass/${buildUrlParams({
       ...(params || {}),
     })}`,
@@ -485,6 +492,12 @@ export const fetchPrivateBookings = (params: any) => {
   );
 };
 
+export const fetchPrivateBookingsV2 = (params: PrivateBookingFilterParams) => {
+  return getAuth<PaginatedResponse<PrivateBooking>>(
+    `${API_V1_URI}/private_service/private_booking/${buildUrlParams(params)}`,
+  );
+};
+
 export const fetchPrivateBooking = (id: number) => {
   return getAuth(`${API_V1_URI}/private_service/private_booking/${id}/`);
 };
@@ -558,9 +571,9 @@ export const registerPrivateBookings = ({
 
 export const disablePrivateBooking = (
   id: number,
-  data: { force_refund?: boolean; send_mail?: boolean },
+  data: CancelPrivateBookingFilterParams,
 ) => {
-  return postAuth(
+  return postAuth<PrivateBooking>(
     `${API_V1_URI}/private_service/private_booking/${id}/disable/`,
     data,
   );

@@ -253,6 +253,11 @@ export type CancelBookingFilterParams = {
   bookings_in_same_group?: number[];
 };
 
+export type CancelPrivateBookingFilterParams = {
+  force_refund?: boolean;
+  send_mail?: boolean;
+};
+
 /** Transformed Booking for the consumer page by including full objects */
 export type ConsumerBooking = Omit<
   BookingREST,

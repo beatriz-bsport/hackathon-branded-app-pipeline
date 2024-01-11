@@ -9,7 +9,11 @@ import {
   cancelBookingV2 as cancelBookingV2API,
   fetchBookingListV2 as fetchBookingListAPI,
 } from '../booking/api';
-import { fetchPrivateBookings } from '../private-service/api';
+import {
+  fetchPrivateBookings,
+  fetchPrivateBookingsV2 as fetchPrivateBookingsV2API,
+  disablePrivateBooking as disablePrivateBookingAPI,
+} from '../private-service/api';
 
 import type {
   Dispatch,
@@ -17,7 +21,10 @@ import type {
   ThunkAction,
   PaginatedResponse,
 } from '../../state/types';
-import type { PrivateBooking } from '../private-service/types';
+import type {
+  PrivateBooking,
+  PrivateBookingFilterParams,
+} from '#libs/private-service/types';
 import type { ConsumerPaymentPack } from '../consumer-payment-pack/types';
 import type { BookingOrPrivateBooking, Profile } from './types';
 import type {
@@ -25,6 +32,7 @@ import type {
   BookingOption,
   BookingREST,
   CancelBookingFilterParams,
+  CancelPrivateBookingFilterParams,
 } from '#libs/booking/types';
 
 export const actionsType = {
@@ -731,5 +739,116 @@ export function cancelBookingAsMember(
       if (options && options.onError) options.onError(err);
     }
     dispatch(cancelBookingAsMemberActions.isLoading(false));
+  };
+}
+
+export const fetchMyPastPrivateBookingAsMemberActions = {
+  success: createAction<AxiosResponse<PaginatedResponse<PrivateBooking>>>(
+    'PRIVATE_BOOKING/PAST/AS_MEMBER/SUCCESS',
+  ),
+  isLoading: createAction<boolean>('PRIVATE_BOOKING/PAST/AS_MEMBER/IS_LOADING'),
+  error: createAction<Error | null>('PRIVATE_BOOKING/PAST/AS_MEMBER/ERROR'),
+};
+
+export function fetchMyPastPrivateBookingAsMember(
+  { member, page_size = 30, company }: PrivateBookingFilterParams,
+  options?: OptionCallback<PrivateBooking[]>,
+): ThunkAction {
+  return async (dispatch: Dispatch, getState) => {
+    dispatch(fetchMyPastPrivateBookingAsMemberActions.isLoading(true));
+    dispatch(fetchMyPastPrivateBookingAsMemberActions.error(null));
+
+    const currentState =
+      getState().consumerReworked.myBookings.privateBookings.past;
+    const nextPage = currentState.next_page ?? 1;
+    try {
+      const response = await fetchPrivateBookingsV2API({
+        page: nextPage,
+        member,
+        page_size,
+        company,
+        past_booking: true,
+      });
+      dispatch(fetchMyPastPrivateBookingAsMemberActions.success(response));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results);
+      }
+    } catch (err) {
+      dispatch(fetchMyPastPrivateBookingAsMemberActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(fetchMyPastPrivateBookingAsMemberActions.isLoading(false));
+  };
+}
+
+export const fetchMyFuturePrivateBookingAsMemberActions = {
+  success: createAction<AxiosResponse<PaginatedResponse<PrivateBooking>>>(
+    'PRIVATE_BOOKING/FUTURE/AS_MEMBER/SUCCESS',
+  ),
+  isLoading: createAction<boolean>(
+    'PRIVATE_BOOKING/FUTURE/AS_MEMBER/IS_LOADING',
+  ),
+  error: createAction<Error | null>('PRIVATE_BOOKING/FUTURE/AS_MEMBER/ERROR'),
+};
+
+export function fetchMyFuturePrivateBookingAsMember(
+  { member, page_size = 30, company }: PrivateBookingFilterParams,
+  options?: OptionCallback<PrivateBooking[]>,
+): ThunkAction {
+  return async (dispatch: Dispatch, getState) => {
+    dispatch(fetchMyFuturePrivateBookingAsMemberActions.isLoading(true));
+    dispatch(fetchMyFuturePrivateBookingAsMemberActions.error(null));
+
+    const currentState =
+      getState().consumerReworked.myBookings.privateBookings.future;
+    const nextPage = currentState.next_page ?? 1;
+    try {
+      const response = await fetchPrivateBookingsV2API({
+        page: nextPage,
+        member,
+        page_size,
+        company,
+        future_booking: true,
+      });
+      dispatch(fetchMyFuturePrivateBookingAsMemberActions.success(response));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results);
+      }
+    } catch (err) {
+      dispatch(fetchMyFuturePrivateBookingAsMemberActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(fetchMyFuturePrivateBookingAsMemberActions.isLoading(false));
+  };
+}
+
+export const cancelPrivateBookingAsMemberActions = {
+  success: createAction<AxiosResponse<PrivateBooking>>(
+    'PRIVATE_BOOKING/CANCEL/AS_MEMBER/SUCCESS',
+  ),
+  isLoading: createAction<boolean>(
+    'PRIVATE_BOOKING/CANCEL/AS_MEMBER/IS_LOADING',
+  ),
+  error: createAction<Error | null>('PRIVATE_BOOKING/CANCEL/AS_MEMBER/ERROR'),
+};
+
+export function cancelPrivateBookingAsMember(
+  id: number,
+  params: CancelPrivateBookingFilterParams,
+  options?: OptionCallback<PrivateBooking>,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(cancelPrivateBookingAsMemberActions.isLoading(true));
+    dispatch(cancelPrivateBookingAsMemberActions.error(null));
+
+    try {
+      const response = await disablePrivateBookingAPI(id, params);
+      dispatch(cancelPrivateBookingAsMemberActions.success(response));
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      dispatch(cancelPrivateBookingAsMemberActions.error(err));
+      options?.onError?.(err);
+    }
+    dispatch(cancelPrivateBookingAsMemberActions.isLoading(false));
   };
 }

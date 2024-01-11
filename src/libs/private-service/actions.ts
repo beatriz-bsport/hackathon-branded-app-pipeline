@@ -125,13 +125,14 @@ import {
   PrivatePass,
 } from './types';
 import type { PrivateBookingFilterParams } from '#libs/private-service/types';
+import type { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';
+import type { CancelPrivateBookingFilterParams } from '#libs/booking/types';
 import {
   EXCEPTION_STAFF_ROLE_OVERRIDE_ESTABLISHMENT_NOT_ALLOWED,
   EXCEPTION_STAFF_ROLE_OVERRIDE_COACH_NOT_ALLOWED,
   EXCEPTION_STAFF_ROLE_CAN_NOT_CHANGE_DATE_BECAUSE_NO_COACH_OVERRIDE,
   EXCEPTION_STAFF_ROLE_CAN_NOT_CHANGE_DATE_BECAUSE_NO_ESTABLISHMENT_OVERRIDE,
 } from '#libs/role/constants';
-import { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';
 
 import { isErrorWithCustomCode } from '#libs/utils';
 
@@ -2163,9 +2164,8 @@ export function updatePrivateBookingCoach(
 }
 export function disablePrivateBooking(
   id: number,
-  // @ts-ignore
-  data: { force_refund?: boolean; send_mail?: boolean } = {},
-  options?: OptionCallback,
+  data: CancelPrivateBookingFilterParams,
+  options?: OptionCallback<PrivateBooking>,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(privateBookingCreateOrUpdateActions.isLoading(true));

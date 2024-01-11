@@ -1,6 +1,12 @@
 import { createSelector } from 'reselect';
 
 import type { RootState } from '../../reducers';
+import {
+  CadenceGlobalMetrics,
+  CadenceMembersInData,
+  CadenceMembersOutData,
+  MetricsPaginatedResponse,
+} from './types';
 
 const _getCadenceAllIds = (state: RootState) => state.cadence.cadence.allIds;
 const _getCadencebyId = (state: RootState) => state.cadence.cadence.byId;
@@ -102,3 +108,26 @@ export const getStepMarketingActionsByStepId = createSelector(
 
 export const getStepMemberCount = (state: RootState, stepId: number) =>
   state.cadence.step.memberIdsInStepByStepId?.data[stepId]?.length ?? 0;
+
+export const getCadenceGlobalMetrics = (
+  state: RootState,
+): CadenceGlobalMetrics => state.cadence.metrics.globalMetrics.data;
+
+export const getCadenceMembersHistoric = (
+  state: RootState,
+): MetricsPaginatedResponse<CadenceMembersOutData> =>
+  state.cadence.metrics.membersHistoric.data;
+
+export const getCadenceMembersPresent = (
+  state: RootState,
+): MetricsPaginatedResponse<CadenceMembersInData> =>
+  state.cadence.metrics.membersPresent.data;
+
+export const getCadenceGlobalMetricsLoading = (state: RootState): boolean =>
+  state.cadence.metrics.globalMetrics.loading;
+
+export const getCadenceMembersHistoricLoading = (state: RootState): boolean =>
+  state.cadence.metrics.membersHistoric.loading;
+
+export const getCadenceMembersPresentLoading = (state: RootState): boolean =>
+  state.cadence.metrics.membersPresent.loading;

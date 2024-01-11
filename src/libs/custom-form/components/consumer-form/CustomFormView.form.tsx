@@ -9,6 +9,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import type { Theme } from '@material-ui/core/styles';
 
+import classNames from 'classnames';
 import ConsumerFormFields, {
   ConsumerFormFieldsHOC,
 } from './CustomForm.formik-hoc';
@@ -24,6 +25,7 @@ import type {
   ResponsiveLayouts,
 } from '#libs/custom-form/types';
 import type { OptionCallback } from '../../../../state/types';
+import CustomFormButtonsCSS from '../CustomFormButtonsCSS';
 
 type Props = {
   asManager?: boolean;
@@ -43,6 +45,8 @@ type Props = {
   textButtonConfirm?: boolean;
   userStatus?: number;
   values?: CustomFormFilled;
+  isCssVariantActivated?: boolean;
+  shouldWrapLayerInCssHoc?: boolean;
   waiver?: string;
   handleSubmit?: () => void;
   onCancel?: (data?: CustomFormFieldAnswer) => void;
@@ -67,6 +71,7 @@ const ConsumerFormView: React.FC<Props> = (props: Props) => {
     handleSubmit,
     onCancel,
     onSubmitDraft,
+    isCssVariantActivated,
   } = props;
 
   const { t } = useTranslation('marketing');
@@ -118,8 +123,28 @@ const ConsumerFormView: React.FC<Props> = (props: Props) => {
   return (
     <Form className={classes.form}>
       <ConsumerFormFields {...props} />
-      {!asManager && (
-        <div className={onCancel ? classes.submitAndCancel : classes.submit}>
+      {isCssVariantActivated ? (
+        <CustomFormButtonsCSS
+          disconnectOnCancel={disconnectOnCancel}
+          handleCancel={handleCancel}
+          handleSubmit={handleSubmit}
+          isMulti={isMulti}
+          isSubmitting={isSubmitting}
+          onCancel={onCancel}
+          onSubmitDraft={onSubmitDraft}
+          renderConfirmButtonText={renderConfirmButtonText}
+          simplifyUI={simplifyUI}
+          userStatus={userStatus}
+          values={values}
+        />
+      ) : (
+        <div
+          className={classNames({
+            [classes.hidden]: asManager,
+            [classes.submitAndCancel]: !!onCancel,
+            [classes.submit]: !onCancel,
+          })}
+        >
           {onCancel && !hideBackButton && (
             <Button
               className={classes.button}
@@ -184,6 +209,9 @@ const useStyles = makeStyles<Theme, { simplifyUI: boolean }>((theme) => ({
   button: ({ simplifyUI }) => ({
     borderRadius: simplifyUI ? theme.spacing(3) : theme.spacing(1),
   }),
+  hidden: {
+    display: 'none',
+  },
 }));
 
 export default compose<any, Props>(

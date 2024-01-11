@@ -1,0 +1,18 @@
+.bs-custom-form-buttons--submit-and-cancel {
+  display: flex;
+  justify-content: space-between;
+}
+
+.bs-custom-form-buttons--submit {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.bs-custom-form-buttons--submit-and-cancel--simplified {
+  justify-content: flex-end;
+  gap: var(--bs-space-size-2);
+}
+
+.bs-custom-form-buttons__button--hidden {
+  display: none;
+}

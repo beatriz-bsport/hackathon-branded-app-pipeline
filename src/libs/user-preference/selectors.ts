@@ -59,6 +59,9 @@ const _getDoNotDisplayConvertStepIntoExitDialogCadenceIds = (
   state: RootState,
 ) => state.userPreference.doNotDisplayConvertStepIntoExitDialogCadenceIds || [];
 
+const _getdoNotDisplayEditingCadencePopinCadenceIds = (state: RootState) =>
+  state.userPreference.doNotDisplayEditingCadencePopinCadenceIds || [];
+
 const _getDoNotDisplayPauseDialogCadenceIds = (state: RootState) =>
   state.userPreference.doNotDisplayPauseDialogCadenceIds || [];
 
@@ -73,6 +76,14 @@ export const getIsDeleteStepDialogHidden = createSelector(
 export const getIsConvertStepIntoExitDialogHidden = createSelector(
   [
     _getDoNotDisplayConvertStepIntoExitDialogCadenceIds,
+    (_: RootState, id: number) => id,
+  ],
+  (cadenceIds, id) => cadenceIds?.includes(id) ?? false,
+);
+
+export const getIsEditCadencePopinHidden = createSelector(
+  [
+    _getdoNotDisplayEditingCadencePopinCadenceIds,
     (_: RootState, id: number) => id,
   ],
   (cadenceIds, id) => cadenceIds?.includes(id) ?? false,

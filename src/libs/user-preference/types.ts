@@ -57,6 +57,7 @@ export type UserPreference = {
   hideCoachNotAssociatedToPrivateServiceWarning: boolean;
   doNotDisplayDeleteStepDialogCadenceIds: number[];
   doNotDisplayConvertStepIntoExitDialogCadenceIds: number[];
+  doNotDisplayEditingCadencePopinCadenceIds: number[];
   doNotDisplayPauseDialogCadenceIds: number[];
   doNotDisplayCadenceWelcomeDialog: boolean;
   isCheckInFilterLocked: boolean;

@@ -64,6 +64,9 @@ export const userPreferenceActions = {
   doNotDisplayConvertStepIntoExitDialogAnymore: createAction<number>(
     'USER_PREFERENCE/ADD_DO_NOT_DISPLAY_CONVERT_STEP_EXIT_DIALOG_CADENCE_IDS',
   ),
+  doNotDisplayEditingCadencePopinAnymore: createAction<number>(
+    'USER_PREFERENCE/ADD_DO_NOT_DISPLAY_EDIT_CADENCE_POPIN_CADENCE_IDS',
+  ),
   doNotDisplayPauseDialogAnymore: createAction<number>(
     'USER_PREFERENCE/ADD_DO_NOT_DISPLAY_PAUSE_DIALOG_CADENCE_IDS',
   ),
@@ -253,6 +256,14 @@ export function doNotDisplayConvertStepIntoExitDialogAnymore(
       userPreferenceActions.doNotDisplayConvertStepIntoExitDialogAnymore(
         cadenceId,
       ),
+    );
+  };
+}
+
+export function doNotDisplayEditingCadencePopinAnymore(cadenceId: number) {
+  return async (dispatch: Dispatch) => {
+    dispatch(
+      userPreferenceActions.doNotDisplayEditingCadencePopinAnymore(cadenceId),
     );
   };
 }

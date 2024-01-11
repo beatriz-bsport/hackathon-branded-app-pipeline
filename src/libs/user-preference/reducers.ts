@@ -47,6 +47,7 @@ const initialState: Immutable.Immutable<UserPreference> =
     hideCoachNotAssociatedToPrivateServiceWarning: false,
     doNotDisplayDeleteStepDialogCadenceIds: [],
     doNotDisplayConvertStepIntoExitDialogCadenceIds: [],
+    doNotDisplayEditingCadencePopinCadenceIds: [],
     doNotDisplayPauseDialogCadenceIds: [],
     doNotDisplayCadenceWelcomeDialog: false,
     isCheckInFilterLocked: true,
@@ -197,6 +198,15 @@ export default handleActions<Immutable.Immutable<UserPreference>, any>(
           payload,
         ]);
       },
+    [userPreferenceActions.doNotDisplayEditingCadencePopinAnymore.toString()]: (
+      state,
+      { payload }: { payload: number },
+    ) => {
+      return state.set('doNotDisplayEditingCadencePopinCadenceIds', [
+        ...(state.doNotDisplayEditingCadencePopinCadenceIds || []),
+        payload,
+      ]);
+    },
     [userPreferenceActions.doNotDisplayPauseDialogAnymore.toString()]: (
       state,
       { payload }: { payload: number },

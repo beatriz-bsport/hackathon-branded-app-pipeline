@@ -24,6 +24,7 @@ import {
   fetchMyFutureBookingWorkshopAsMember as fetchMyFutureBookingWorkshopAsMemberAction,
   resetConsumerState as resetConsumerStateAction,
   cancelBookingAsMember as cancelBookingAsMemberAction,
+  cancelPrivateBookingAsMember as cancelPrivateBookingAsMemberAction,
 } from '#libs/consumer-space/actions';
 import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '#libs/establishment/actions';
 import {
@@ -51,6 +52,10 @@ import {
   getMyFutureBookingsWorkshopList,
   getConsumerBookingsLoading,
   getRelatedConsumerBookingsInGroup,
+  getMyPastPrivateBookingsState,
+  getMyPastPrivateBookingsList,
+  getMyFuturePrivateBookingsState,
+  getMyFuturePrivateBookingsList,
 } from '#libs/consumer-space/selectors';
 import {
   getAssetByBlueprintByIdentifier,
@@ -255,16 +260,21 @@ export class ConsumerBooking extends React.Component<Props> {
     return (
       <ConsumerBookingPageReworked
         cancelBooking={this.props.cancelBookingAsMember}
+        cancelPrivateBooking={this.props.cancelPrivateBookingAsMember}
         companyTheme={this.props.theme}
         fetchAssociatedBlueprintObjects={this.fetchAssociatedBlueprintObjects}
         fetchFutureBookings={this.fetchFutureBookings}
         fetchFutureBookingsWorkshop={this.fetchFutureBookingsWorkshop}
+        fetchFuturePrivateBookings={this.fetchFuturePrivateBookings}
         fetchPastBookings={this.fetchPastBookings}
         fetchPastBookingsWorkshop={this.fetchPastBookingsWorkshop}
+        fetchPastPrivateBookings={this.fetchPastPrivateBookings}
         futureBookingsList={this.props.myFutureBookingsList}
         futureBookingsState={this.props.myFutureBookingsState}
         futureBookingsWorkshopList={this.props.myFutureBookingsWorkshopList}
         futureBookingsWorkshopState={this.props.myFutureBookingsWorkshopState}
+        futurePrivateBookingsList={this.props.myFuturePrivateBookingsList}
+        futurePrivateBookingsState={this.props.myFuturePrivateBookingsState}
         getIsBookingsLoading={this.props.getIsBookingsLoading}
         getRelatedConsumerBookingsInGroup={
           this.props.getRelatedConsumerBookingsInGroup
@@ -274,6 +284,8 @@ export class ConsumerBooking extends React.Component<Props> {
         pastBookingsState={this.props.myPastBookingsState}
         pastBookingsWorkshopList={this.props.myPastBookingsWorkshopList}
         pastBookingsWorkshopState={this.props.myPastBookingsWorkshopState}
+        pastPrivateBookingsList={this.props.myPastPrivateBookingsList}
+        pastPrivateBookingsState={this.props.myPastPrivateBookingsState}
         resetConsumerState={this.props.resetConsumerState}
         sessionTimeDisplay={this.props.sessionTimeDisplay}
         spotTypes={this.props.spotTypes}
@@ -299,6 +311,10 @@ const connector = connect(
     myPastBookingsList: getMyPastBookingsList(state),
     myFutureBookingsState: getMyFutureBookingsState(state),
     myFutureBookingsList: getMyFutureBookingsList(state),
+    myPastPrivateBookingsState: getMyPastPrivateBookingsState(state),
+    myPastPrivateBookingsList: getMyPastPrivateBookingsList(state),
+    myFuturePrivateBookingsState: getMyFuturePrivateBookingsState(state),
+    myFuturePrivateBookingsList: getMyFuturePrivateBookingsList(state),
     myPastBookingsWorkshopState: getMyPastBookingsWorkshopState(state),
     myPastBookingsWorkshopList: getMyPastBookingsWorkshopList(state),
     myFutureBookingsWorkshopState: getMyFutureBookingsWorkshopState(state),
@@ -333,12 +349,14 @@ const connector = connect(
     fetchMyFutureBookingAsMember: fetchMyFutureBookingAsMemberAction,
     resetConsumerState: resetConsumerStateAction,
     fetchMyPastPrivateBookingAsMember: fetchMyPastPrivateBookingAsMemberAction,
-    fetchMyFuturePrivateBookingAsMember: fetchMyFuturePrivateBookingAsMemberAction,
+    fetchMyFuturePrivateBookingAsMember:
+      fetchMyFuturePrivateBookingAsMemberAction,
     fetchMyPastBookingWorkshopAsMember:
       fetchMyPastBookingWorkshopAsMemberAction,
     fetchMyFutureBookingWorkshopAsMember:
       fetchMyFutureBookingWorkshopAsMemberAction,
     cancelBookingAsMember: cancelBookingAsMemberAction,
+    cancelPrivateBookingAsMember: cancelPrivateBookingAsMemberAction,
   },
 );
 

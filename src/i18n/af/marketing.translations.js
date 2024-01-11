@@ -849,5 +849,20 @@ exports.default = {
         availableSoon: 'Available soon',
       },
     },
+    listItem: {
+      labels: {
+        metrics: 'Metrics',
+        unarchive: 'Unarchive',
+        active: 'Active',
+        paused: 'Paused',
+        notLaunched: 'Not launched',
+        open: 'Open',
+        archive: 'Archive workflow',
+        edit: ' Edit workflow settings',
+      },
+      toolTip: {
+        moreActions: 'More workflow actions',
+      },
+    },
   },
 };

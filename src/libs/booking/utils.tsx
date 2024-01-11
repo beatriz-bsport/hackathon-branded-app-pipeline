@@ -28,7 +28,7 @@ import {
   PRIVATE_BOOKING_CANCELLED_BY_STAFF,
   RECURRENT_PRIVATE_BOOKING_CANCELLED_BY_STAFF,
 } from '#libs/private-service/components/constants';
-import type { Booking, ConsumerBooking } from './types';
+import type { Booking } from './types';
 import { UserRoleData } from '#libs/role/types';
 import { PrivateBooking } from '#libs/private-service/types';
 
@@ -209,19 +209,20 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 /**
- * Filters the consumer bookings by start date (most recent first)
- * @param bookingList The list of consumer bookings
+ * Filters the bookings by start date (most recent first)
+ * @param bookingList The list of bookings
  * @param order Future bookings will need ASC sorting while Past need DESC
  * @example
- * const futureBookings = filterBookingListByOfferDate(bookings, 'asc');
- * const pastBookings = filterBookingListByOfferDate(bookings, 'desc');
+ * const futureBookings = filterBookingListByOfferDate<ConsumerBooking>(bookings, 'asc');
+ * const pastBookings = filterBookingListByOfferDate<ConsumerBooking>(bookings, 'desc');
  */
-export const filterBookingListByOfferDate = (
-  bookingList: ConsumerBooking[],
+export function filterBookingListByOfferDate<T>(
+  bookingList: T[],
   order: 'asc' | 'desc',
-) =>
-  orderBy(
+) {
+  return orderBy(
     bookingList,
-    (booking) => moment(booking.offer_date_start).unix(),
+    (booking) => moment(booking.offer_date_start || booking.date_start).unix(),
     order,
   );
+}

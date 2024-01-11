@@ -18,11 +18,15 @@ import { getLevel } from '#libs/level/selectors';
 import { getPaymentPack } from '#libs/payment-packs/selectors';
 import { getConsumerPack } from '#libs/consumer-payment-pack/selectors';
 import { getRoomBlueprint } from '#libs/spot-scheduling/selector';
+import { getPrivateConsumerPass } from '#libs/private-service/selectors/private-consumer-pass';
+import { getPrivateService } from '#libs/private-service/selectors/private-service';
+import { getPrivateSlot } from '#libs/private-service/selectors/private-slot';
 
 import type {
   Booking,
   BookingREST,
   ConsumerBooking,
+  ConsumerPrivateBooking,
 } from '#libs/booking/types';
 import type { PrivateBooking } from '#libs/private-service/types';
 import type { PaymentPack } from '#libs/payment-packs/types';
@@ -131,6 +135,47 @@ const _getConsumerBookingsList = createSelector(
   },
 );
 
+const _getConsumerPrivateBookingsList = createSelector(
+  [
+    (state: RootState) => state,
+    (_, privateBookingsList: PrivateBooking[]) => privateBookingsList,
+  ],
+  (state, privateBookingsList) => {
+    const privateBookings = (privateBookingsList || []).map(
+      (privateBooking) => {
+        const coach = getCoach(
+          state,
+          privateBooking?.coach || privateBooking?.associated_coach,
+        );
+        const establishment = getEstablishment(
+          state,
+          privateBooking?.establishment ||
+            privateBooking?.associated_establishment,
+        );
+        const privateConsumerPass = getPrivateConsumerPass(
+          state,
+          privateBooking?.private_consumer_pass,
+        );
+        const privateService = getPrivateService(
+          state,
+          privateBooking?.private_service.toString(),
+        );
+        const privateSlot = getPrivateSlot(state, privateBooking?.private_slot);
+        return {
+          ...privateBooking,
+          coach,
+          establishment,
+          private_consumer_pass: privateConsumerPass,
+          private_service: privateService,
+          private_slot: privateSlot,
+        } as ConsumerPrivateBooking;
+      },
+    );
+
+    return privateBookings;
+  },
+);
+
 export const getMyPastBookingsState = (state: RootState) =>
   state.consumerReworked.myBookings.bookings.past;
 
@@ -147,7 +192,7 @@ export const getMyPastBookingsList = createSelector(
       state,
       ids.map((id) => data[id]),
     );
-    return filterBookingListByOfferDate(bookings, 'desc');
+    return filterBookingListByOfferDate<ConsumerBooking>(bookings, 'desc');
   },
 );
 
@@ -171,7 +216,64 @@ export const getMyFutureBookingsList = createSelector(
       state,
       ids.map((id) => data[id]),
     );
-    return filterBookingListByOfferDate(bookings, 'asc');
+    return filterBookingListByOfferDate<ConsumerBooking>(bookings, 'asc');
+  },
+);
+
+export const getMyPastPrivateBookingsState = (state: RootState) =>
+  state.consumerReworked.myBookings.privateBookings.past;
+
+const getMyPastPrivateBookingsAllIds = (state: RootState) =>
+  state.consumerReworked.myBookings.privateBookings.past.private_services
+    .allIds;
+
+const getMyPastPrivateBookingsById = (state: RootState) =>
+  state.consumerReworked.myBookings.privateBookings.past.private_services.byId;
+
+export const getMyPastPrivateBookingsList = createSelector(
+  [
+    getMyPastPrivateBookingsAllIds,
+    getMyPastPrivateBookingsById,
+    (state: RootState) => state,
+  ],
+  (ids, data, state) => {
+    const privateBookings = _getConsumerPrivateBookingsList(
+      state,
+      ids.map((id) => data[id]),
+    );
+    return filterBookingListByOfferDate<ConsumerPrivateBooking>(
+      privateBookings,
+      'desc',
+    );
+  },
+);
+
+export const getMyFuturePrivateBookingsState = (state: RootState) =>
+  state.consumerReworked.myBookings.privateBookings.future;
+
+const getMyFuturePrivateBookingsAllIds = (state: RootState) =>
+  state.consumerReworked.myBookings.privateBookings.future.private_services
+    .allIds;
+
+const getMyFuturePrivateBookingsById = (state: RootState) =>
+  state.consumerReworked.myBookings.privateBookings.future.private_services
+    .byId;
+
+export const getMyFuturePrivateBookingsList = createSelector(
+  [
+    getMyFuturePrivateBookingsAllIds,
+    getMyFuturePrivateBookingsById,
+    (state: RootState) => state,
+  ],
+  (ids, data, state) => {
+    const privateBookings = _getConsumerPrivateBookingsList(
+      state,
+      ids.map((id) => data[id]),
+    );
+    return filterBookingListByOfferDate<ConsumerPrivateBooking>(
+      privateBookings,
+      'asc',
+    );
   },
 );
 
@@ -195,7 +297,7 @@ export const getMyPastBookingsWorkshopList = createSelector(
       state,
       ids.map((id) => data[id]),
     );
-    return filterBookingListByOfferDate(bookings, 'desc');
+    return filterBookingListByOfferDate<ConsumerBooking>(bookings, 'desc');
   },
 );
 
@@ -219,7 +321,7 @@ export const getMyFutureBookingsWorkshopList = createSelector(
       state,
       ids.map((id) => data[id]),
     );
-    return filterBookingListByOfferDate(bookings, 'asc');
+    return filterBookingListByOfferDate<ConsumerBooking>(bookings, 'asc');
   },
 );
 
@@ -241,7 +343,7 @@ export const getRelatedConsumerBookingsInGroup = createSelector(
       [BookingFilterTabEnum.PAST]: pastBookingsWorkshopList,
       [BookingFilterTabEnum.FUTURE]: futureBookingsWorkshopList,
     };
-    const bookings = bookingsMap[filterTab];
+    const bookings: ConsumerBooking[] = bookingsMap[filterTab];
     return bookings.filter((booking) => booking.offer?.group === groupId);
   },
 );

@@ -11,7 +11,7 @@ stages:
   - bump-version
   - deploy
   - build-widget
-  - label-issues
+  - storybook
   - tag-releases
 
 before_script:
@@ -21,7 +21,6 @@ include:
   - local: '/ci/storybook.yml'
   - local: '/ci/widget.yml'
   - local: '/ci/docker-image.yml'
-  - local: '/ci/label-issues.yml'
   - local: '/ci/static-analysis.yml'
   - local: '/ci/build.yml'
   - local: '/ci/tag-releases.yml'

@@ -44,7 +44,7 @@ Deploy-storybook Feature Branch:
 Deploy-storybook:
   extends: .Deploy-storybook
   allow_failure: true
-  stage: label-issues
+  stage: storybook
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never

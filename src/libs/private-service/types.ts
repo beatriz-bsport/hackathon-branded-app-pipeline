@@ -583,3 +583,22 @@ export type PrivateServiceFactoryOptions = {
   withSlots?: boolean;
   withCoaches?: boolean;
 };
+
+export type PrivateBookingFilterParams = {
+  before_date_end?: boolean;
+  booking_status_code__in?: number[];
+  coach?: number[];
+  company?: number;
+  date_start__gte?: string;
+  date_start__lte?: string;
+  establishment?: number;
+  future_booking?: boolean;
+  id__in?: number[];
+  is_recurrent?: boolean;
+  is_unpaid?: boolean;
+  member?: number;
+  page_size?: number;
+  page?: number;
+  past_booking?: boolean;
+  was_refunded?: boolean;
+};

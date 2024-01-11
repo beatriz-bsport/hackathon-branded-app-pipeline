@@ -124,7 +124,7 @@ import {
   PrivateSlot,
   PrivatePass,
 } from './types';
-import { PrivateBookingFilter } from '#libs/user-preference/types';
+import type { PrivateBookingFilterParams } from '#libs/private-service/types';
 import {
   EXCEPTION_STAFF_ROLE_OVERRIDE_ESTABLISHMENT_NOT_ALLOWED,
   EXCEPTION_STAFF_ROLE_OVERRIDE_COACH_NOT_ALLOWED,
@@ -1964,7 +1964,7 @@ export const privateBookingListActions = {
 export const resetPrivateBookings = privateBookingListActions.reset;
 
 export function fetchPrivateBookings(
-  params: PrivateBookingFilter & {
+  params: PrivateBookingFilterParams & {
     member?: number;
     page: number;
     page_size?: number;

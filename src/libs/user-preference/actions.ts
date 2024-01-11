@@ -5,12 +5,13 @@ import {
   SortOption,
 } from '../payment-packs/components/PaymentPackFilterAndSortHeader.component';
 import type { OfferFilter } from '#libs/offer/types';
-import type { PrivateBookingFilter, ScheduleFilter } from './types';
+import type { ScheduleFilter } from './types';
 import type { OffersGroupFilter } from '#libs/group-offer/types';
 import type {
   ReplacementRequestFilter,
   ReplacementRequestOfferHistoryFilter,
 } from '#libs/replacement-request/types';
+import type { PrivateBookingFilterParams } from '#libs/private-service/types';
 
 export const userPreferenceActions = {
   setPaymentPackSort: createAction('USER_PREFERENCE/PAYMENT_PACK_SORT'),
@@ -166,7 +167,9 @@ export function setPrivateServiceScheduleFilter(option: {
   };
 }
 
-export function setMemberPrivateBookingFilter(filter: PrivateBookingFilter) {
+export function setMemberPrivateBookingFilter(
+  filter: PrivateBookingFilterParams,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(userPreferenceActions.setMemberPrivateBookingFilter(filter));
   };

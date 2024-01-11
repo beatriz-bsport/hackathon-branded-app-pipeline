@@ -5,7 +5,10 @@ import {
 } from '../payment-packs/components/PaymentPackFilterAndSortHeader.component';
 import type { OfferFilter } from '#libs/offer/types';
 import { OffersGroupFilter } from '#libs/meta-activity/types';
-import { ResourceData } from '#libs/private-service/types';
+import {
+  PrivateBookingFilterParams,
+  ResourceData,
+} from '#libs/private-service/types';
 import { Coach } from '#libs/associated-coach/types';
 import { Establishment } from '#libs/establishment/types';
 import {
@@ -26,15 +29,6 @@ export type ScheduleFilter = {
   };
 };
 
-export type PrivateBookingFilter = {
-  is_recurrent?: boolean;
-  future_booking?: boolean;
-  past_booking?: boolean;
-  was_refunded?: boolean;
-  is_unpaid?: boolean;
-  booking_status_code__in?: number[];
-};
-
 export type UserPreference = {
   paymentPackSort: SortOption;
   paymentPackCategoryFilter: Array<number>;
@@ -48,7 +42,7 @@ export type UserPreference = {
   coachesScheduleFilter: { [key: string]: ScheduleFilter };
   establishmentsScheduleFilter: { [key: string]: ScheduleFilter };
   privateServicesScheduleFilter: { [key: string]: ScheduleFilter };
-  memberPrivateBookingFilter: PrivateBookingFilter;
+  memberPrivateBookingFilter: PrivateBookingFilterParams;
   workshopGroupFilter: OffersGroupFilter;
   workshopDetailGroupFilter: OffersGroupFilter;
   shrinkResponsiveDrawer: boolean;

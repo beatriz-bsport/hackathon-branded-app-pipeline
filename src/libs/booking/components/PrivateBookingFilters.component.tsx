@@ -20,10 +20,10 @@ import {
 } from '@bsport/common/lib/master-data/booking_status_code';
 
 import FilterMenu from '../../../components/button/FilterMenu.component';
-import { PrivateBookingFilter } from '#libs/user-preference/types';
+import type { PrivateBookingFilterParams } from '#libs/private-service/types';
 
 type Props = {
-  filters: PrivateBookingFilter;
+  filters: PrivateBookingFilterParams;
   open: {
     recurrentBooking: boolean;
     cancel: boolean;

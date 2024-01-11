@@ -3,11 +3,16 @@ import moment from 'moment-timezone';
 
 import type { BookingTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
 import type { BookingFilterTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/types';
-import type { ConsumerBookingReworked } from '#libs/consumer-space/types';
+import type {
+  ConsumerBookingReworked,
+  ConsumerPrivateBookingReworked,
+} from '#libs/consumer-space/types';
 import type {
   BookingREST,
   CancelBookingFilterParams,
+  CancelPrivateBookingFilterParams,
   ConsumerBooking,
+  ConsumerPrivateBooking,
 } from '#libs/booking/types';
 import type { OptionCallback } from '../../../../../../state/types';
 import type {
@@ -17,6 +22,7 @@ import type {
 import { BookingFilterTabEnum } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/constants';
 import type { Establishment } from '#libs/establishment/types';
 import type { MetaActivity } from '#libs/meta-activity/types';
+import type { PrivateBooking } from '#libs/private-service/types';
 
 import { BookingTabEnum } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/constants';
 
@@ -26,6 +32,10 @@ export default function useConsumerBookingsDataManager({
   pastBookingsList,
   futureBookingsState,
   futureBookingsList,
+  pastPrivateBookingsState,
+  pastPrivateBookingsList,
+  futurePrivateBookingsState,
+  futurePrivateBookingsList,
   pastBookingsWorkshopState,
   pastBookingsWorkshopList,
   futureBookingsWorkshopState,
@@ -33,17 +43,24 @@ export default function useConsumerBookingsDataManager({
   getIsBookingsLoading,
   fetchPastBookings,
   fetchFutureBookings,
+  fetchPastPrivateBookings,
+  fetchFuturePrivateBookings,
   fetchPastBookingsWorkshop,
   fetchFutureBookingsWorkshop,
   resetConsumerState,
   cancelBooking,
   getRelatedConsumerBookingsInGroup,
   fetchAssociatedBlueprintObjects,
+  cancelPrivateBooking,
 }: {
   pastBookingsState: ConsumerBookingReworked;
   pastBookingsList: ConsumerBooking[];
   futureBookingsState: ConsumerBookingReworked;
   futureBookingsList: ConsumerBooking[];
+  pastPrivateBookingsState: ConsumerPrivateBookingReworked;
+  pastPrivateBookingsList: ConsumerPrivateBooking[];
+  futurePrivateBookingsState: ConsumerPrivateBookingReworked;
+  futurePrivateBookingsList: ConsumerPrivateBooking[];
   pastBookingsWorkshopState: ConsumerBookingReworked;
   pastBookingsWorkshopList: ConsumerBooking[];
   futureBookingsWorkshopState: ConsumerBookingReworked;
@@ -51,6 +68,8 @@ export default function useConsumerBookingsDataManager({
   getIsBookingsLoading: (selectedTab: BookingTab) => boolean;
   fetchPastBookings: () => void;
   fetchFutureBookings: () => void;
+  fetchPastPrivateBookings: () => void;
+  fetchFuturePrivateBookings: () => void;
   fetchPastBookingsWorkshop: () => void;
   fetchFutureBookingsWorkshop: () => void;
   resetConsumerState: () => void;
@@ -58,6 +77,11 @@ export default function useConsumerBookingsDataManager({
     bookingId: number,
     params: CancelBookingFilterParams,
     options?: OptionCallback<BookingREST>,
+  ) => void;
+  cancelPrivateBooking: (
+    bookingId: number,
+    params: CancelPrivateBookingFilterParams,
+    options?: OptionCallback<PrivateBooking>,
   ) => void;
   getRelatedConsumerBookingsInGroup: (
     groupId: number,
@@ -75,12 +99,20 @@ export default function useConsumerBookingsDataManager({
   const [selectedBooking, setSelectedBooking] =
     useState<ConsumerBooking | null>(null);
 
+  const [selectedPrivateBooking, setSelectedPrivateBooking] =
+    useState<ConsumerPrivateBooking | null>(null);
+
   /* MODAL STATES */
   const [isCancelBookingModalOpen, setIsCancelBookingModalOpen] =
     useState<boolean>(false);
 
   const [selectedBookingForCancelation, setSelectedBookingForCancelation] =
     useState<ConsumerBooking | null>(null);
+
+  const [
+    selectedPrivateBookingForCancelation,
+    setSelectedPrivateBookingForCancelation,
+  ] = useState<ConsumerPrivateBooking | null>(null);
 
   const [isCancellingBooking, setIsCancellingBooking] =
     useState<boolean>(false);
@@ -107,6 +139,10 @@ export default function useConsumerBookingsDataManager({
         fetchPastBookings,
       [`${BookingTabEnum.ACTIVITY}-${BookingFilterTabEnum.FUTURE}`]:
         fetchFutureBookings,
+      [`${BookingTabEnum.APPOINTMENT}-${BookingFilterTabEnum.PAST}`]:
+        fetchPastPrivateBookings,
+      [`${BookingTabEnum.APPOINTMENT}-${BookingFilterTabEnum.FUTURE}`]:
+        fetchFuturePrivateBookings,
       [`${BookingTabEnum.WORKSHOP}-${BookingFilterTabEnum.PAST}`]:
         fetchPastBookingsWorkshop,
       [`${BookingTabEnum.WORKSHOP}-${BookingFilterTabEnum.FUTURE}`]:
@@ -115,8 +151,10 @@ export default function useConsumerBookingsDataManager({
     [
       fetchFutureBookings,
       fetchFutureBookingsWorkshop,
+      fetchFuturePrivateBookings,
       fetchPastBookings,
       fetchPastBookingsWorkshop,
+      fetchPastPrivateBookings,
     ],
   );
 
@@ -126,6 +164,10 @@ export default function useConsumerBookingsDataManager({
         fetchPastBookings();
         fetchFutureBookings();
       },
+      [BookingTabEnum.APPOINTMENT]: () => {
+        fetchPastPrivateBookings();
+        fetchFuturePrivateBookings();
+      },
       [BookingTabEnum.WORKSHOP]: () => {
         fetchPastBookingsWorkshop();
         fetchFutureBookingsWorkshop();
@@ -134,8 +176,10 @@ export default function useConsumerBookingsDataManager({
     [
       fetchFutureBookings,
       fetchFutureBookingsWorkshop,
+      fetchFuturePrivateBookings,
       fetchPastBookings,
       fetchPastBookingsWorkshop,
+      fetchPastPrivateBookings,
     ],
   );
 
@@ -144,6 +188,10 @@ export default function useConsumerBookingsDataManager({
       pastBookingsState,
     [`${BookingTabEnum.ACTIVITY}-${BookingFilterTabEnum.FUTURE}`]:
       futureBookingsState,
+    [`${BookingTabEnum.APPOINTMENT}-${BookingFilterTabEnum.PAST}`]:
+      pastPrivateBookingsState,
+    [`${BookingTabEnum.APPOINTMENT}-${BookingFilterTabEnum.FUTURE}`]:
+      futurePrivateBookingsState,
     [`${BookingTabEnum.WORKSHOP}-${BookingFilterTabEnum.PAST}`]:
       pastBookingsWorkshopState,
     [`${BookingTabEnum.WORKSHOP}-${BookingFilterTabEnum.FUTURE}`]:
@@ -169,22 +217,50 @@ export default function useConsumerBookingsDataManager({
     ],
   );
 
+  const privateBookingListMap = useMemo(
+    () => ({
+      [`${BookingTabEnum.APPOINTMENT}-${BookingFilterTabEnum.PAST}`]:
+        pastPrivateBookingsList,
+      [`${BookingTabEnum.APPOINTMENT}-${BookingFilterTabEnum.FUTURE}`]:
+        futurePrivateBookingsList,
+    }),
+    [futurePrivateBookingsList, pastPrivateBookingsList],
+  );
+
   const futureBookingsCountMap = {
     [BookingTabEnum.ACTIVITY]: futureBookingsState.count,
+    [BookingTabEnum.APPOINTMENT]: futurePrivateBookingsState.count,
     [BookingTabEnum.WORKSHOP]: futureBookingsWorkshopState.count,
   };
 
   const currentState = currentStateMap[`${selectedTab}-${selectedFilterTab}`];
   const futureItemsCount = futureBookingsCountMap[selectedTab] || 0;
+
   const nextPage = currentState.next_page;
+
   const bookingList: ConsumerBooking[] = useMemo(
-    () => bookingsListMap[`${selectedTab}-${selectedFilterTab}`] || [],
+    () =>
+      bookingsListMap[
+        `${
+          selectedTab as Exclude<BookingTabEnum, BookingTabEnum.APPOINTMENT>
+        }-${selectedFilterTab}`
+      ] || [],
     [bookingsListMap, selectedFilterTab, selectedTab],
   );
+
+  const privateBookingList: ConsumerPrivateBooking[] = useMemo(
+    () =>
+      privateBookingListMap[
+        `${selectedTab as BookingTabEnum.APPOINTMENT}-${selectedFilterTab}`
+      ] || [],
+    [privateBookingListMap, selectedFilterTab, selectedTab],
+  );
+
   const isBookingsLoading = useMemo(
     () => getIsBookingsLoading(selectedTab),
     [getIsBookingsLoading, selectedTab],
   );
+
   const relatedBookingsInGroup = useMemo(
     () =>
       getRelatedConsumerBookingsInGroup(
@@ -229,6 +305,7 @@ export default function useConsumerBookingsDataManager({
       handleFetchTabData?.(type);
       setSelectedTab(type);
       setSelectedBooking(null);
+      setSelectedPrivateBooking(null);
     },
     [handleFetchTabData, resetConsumerState],
   );
@@ -256,6 +333,20 @@ export default function useConsumerBookingsDataManager({
   );
 
   /**
+   * Update local state when clicking on a private booking details\
+   * Finds the associated private booking from an ID and set it as the selectedPrivateBooking
+   * @param privateBookingId The ID of the selected private booking
+   */
+  const handleSetSelectedPrivateBooking = useCallback(
+    (privateBookingId: number) => {
+      const privateBooking =
+        privateBookingList.find((item) => item.id === privateBookingId) || null;
+      setSelectedPrivateBooking(privateBooking);
+    },
+    [privateBookingList],
+  );
+
+  /**
    * Toggle display the cancellation modal dialog
    */
   const handleToggleCancelBookingModal = useCallback(
@@ -271,12 +362,19 @@ export default function useConsumerBookingsDataManager({
   const handleSelectBookingForCancelation = useCallback(
     (bookingId: number) => {
       const booking = bookingList.find((item) => item.id === bookingId);
+      const privateBooking = privateBookingList.find(
+        (item) => item.id === bookingId,
+      );
       if (booking) {
         setSelectedBookingForCancelation(booking);
         handleToggleCancelBookingModal();
       }
+      if (privateBooking) {
+        setSelectedPrivateBookingForCancelation(privateBooking);
+        handleToggleCancelBookingModal();
+      }
     },
-    [bookingList, handleToggleCancelBookingModal],
+    [bookingList, handleToggleCancelBookingModal, privateBookingList],
   );
 
   /**
@@ -284,11 +382,19 @@ export default function useConsumerBookingsDataManager({
    * Tries to cancel a booking from an ID and refetch the tab data on success
    */
   const handleCancelBooking = useCallback(
-    (bookingId: number) => {
+    ({
+      isRefundingCredit,
+      bookingId,
+      privateBookingId,
+    }: {
+      isRefundingCredit: boolean;
+      bookingId?: number;
+      privateBookingId?: number;
+    }) => {
       setIsCancellingBooking(true);
-      cancelBooking(bookingId, null, {
+      const optionCallback = {
         onSuccess: () => {
-          handleFetchTabData(selectedTab);
+          handleSetSelectedTab(selectedTab);
           setIsCancellingBooking(false);
           handleToggleCancelBookingModal();
         },
@@ -296,11 +402,28 @@ export default function useConsumerBookingsDataManager({
           setIsCancellingBooking(false);
           handleToggleCancelBookingModal();
         },
-      });
+      };
+
+      if (bookingId) {
+        cancelBooking(
+          bookingId,
+          { force_refund: isRefundingCredit },
+          optionCallback,
+        );
+      }
+
+      if (privateBookingId) {
+        cancelPrivateBooking(
+          privateBookingId,
+          { force_refund: isRefundingCredit },
+          optionCallback,
+        );
+      }
     },
     [
       cancelBooking,
-      handleFetchTabData,
+      cancelPrivateBooking,
+      handleSetSelectedTab,
       handleToggleCancelBookingModal,
       selectedTab,
     ],
@@ -378,7 +501,9 @@ export default function useConsumerBookingsDataManager({
     selectedTab,
     selectedFilterTab,
     selectedBooking,
+    selectedPrivateBooking,
     selectedBookingForCancelation,
+    selectedPrivateBookingForCancelation,
     isCancelBookingModalOpen,
     isOnlineWarningModalOpen,
     isSpotSchedulingModalOpen,
@@ -389,6 +514,7 @@ export default function useConsumerBookingsDataManager({
     handleSetSelectedTab,
     handleSetSelectedFilterTab,
     handleSetSelectedBooking,
+    handleSetSelectedPrivateBooking,
     handleSelectBookingForCancelation,
     handleToggleCancelBookingModal,
     handleToggleOnlineWarningModal,
@@ -403,6 +529,7 @@ export default function useConsumerBookingsDataManager({
     futureItemsCount,
     nextPage,
     bookingList,
+    privateBookingList,
     relatedBookingsInGroup,
   };
 }

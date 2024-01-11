@@ -52,6 +52,17 @@ export type ConsumerState = {
   };
 };
 
+export type ConsumerPrivateBookingReworked = {
+  page: number;
+  next_page: number | null;
+  previous_page: number | null;
+  count: number;
+  private_services: {
+    allIds: number[];
+    byId: { [key: number]: PrivateBooking };
+  };
+} & ErrorAndLoading;
+
 export type ConsumerBookingReworked = {
   page: number;
   next_page: number | null;
@@ -68,6 +79,10 @@ export type ConsumerStateReworked = {
     bookings: {
       future: ConsumerBookingReworked;
       past: ConsumerBookingReworked;
+    };
+    privateBookings: {
+      future: ConsumerPrivateBookingReworked;
+      past: ConsumerPrivateBookingReworked;
     };
     bookingsWorkshop: {
       future: ConsumerBookingReworked;

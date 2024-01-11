@@ -45,6 +45,32 @@ const initialState: Immutable.Immutable<ConsumerStateReworked> =
           },
         },
       },
+      privateBookings: {
+        future: {
+          page: 1,
+          next_page: null,
+          previous_page: null,
+          count: 0,
+          loading: false,
+          error: null,
+          private_services: {
+            allIds: [],
+            byId: {},
+          },
+        },
+        past: {
+          page: 1,
+          next_page: null,
+          previous_page: null,
+          count: 0,
+          loading: false,
+          error: null,
+          private_services: {
+            allIds: [],
+            byId: {},
+          },
+        },
+      },
       bookingsWorkshop: {
         future: {
           page: 1,
@@ -318,6 +344,32 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
             loading: false,
             error: null,
             bookings: {
+              allIds: [],
+              byId: {},
+            },
+          },
+        },
+        privateBookings: {
+          future: {
+            page: 1,
+            next_page: null,
+            previous_page: null,
+            count: 0,
+            loading: false,
+            error: null,
+            private_services: {
+              allIds: [],
+              byId: {},
+            },
+          },
+          past: {
+            page: 1,
+            next_page: null,
+            previous_page: null,
+            count: 0,
+            loading: false,
+            error: null,
+            private_services: {
               allIds: [],
               byId: {},
             },

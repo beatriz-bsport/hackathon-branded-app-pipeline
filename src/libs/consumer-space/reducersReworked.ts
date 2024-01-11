@@ -9,11 +9,14 @@ import {
   fetchMyPastBookingWorkshopAsMemberActions,
   fetchMyFutureBookingWorkshopAsMemberActions,
   resetConsumerStateActions,
+  fetchMyPastPrivateBookingAsMemberActions,
+  fetchMyFuturePrivateBookingAsMemberActions,
 } from './actions';
 
 import type { ConsumerStateReworked } from './types';
 import type { BookingREST } from '#libs/booking/types';
 import type { PaginatedResponse } from '../../state/types';
+import type { PrivateBooking } from '#libs/private-service/types';
 
 type PayloadReduceType<T> = { [id: number]: T };
 const initialState: Immutable.Immutable<ConsumerStateReworked> =
@@ -113,7 +116,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
     },
     [fetchMyPastBookingAsMemberActions.error.toString()]: (
       state,
-      { payload },
+      { payload }: { payload: Error | null },
     ) => {
       return state.setIn(['myBookings', 'bookings', 'past', 'error'], payload);
     },
@@ -139,8 +142,8 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
                 past: {
                   bookings: {
                     byId: results.reduce<PayloadReduceType<BookingREST>>(
-                      (acc, ps) => {
-                        acc[ps.id] = ps;
+                      (acc, booking) => {
+                        acc[booking.id] = booking;
                         return acc;
                       },
                       {},
@@ -193,8 +196,138 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
                 future: {
                   bookings: {
                     byId: results.reduce<PayloadReduceType<BookingREST>>(
-                      (acc, ps) => {
-                        acc[ps.id] = ps;
+                      (acc, booking) => {
+                        acc[booking.id] = booking;
+                        return acc;
+                      },
+                      {},
+                    ),
+                  },
+                },
+              },
+            },
+          },
+          { deep: true },
+        );
+    },
+    [fetchMyPastPrivateBookingAsMemberActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['myBookings', 'privateBookings', 'past', 'loading'],
+        payload,
+      );
+    },
+    [fetchMyPastPrivateBookingAsMemberActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['myBookings', 'privateBookings', 'past', 'error'],
+        payload,
+      );
+    },
+    [fetchMyPastPrivateBookingAsMemberActions.success.toString()]: (
+      state,
+      {
+        payload,
+      }: { payload: AxiosResponse<PaginatedResponse<PrivateBooking>> },
+    ) => {
+      const { next_page, results, count, page } = payload.data;
+
+      return state
+        .setIn(['myBookings', 'privateBookings', 'past', 'page'], page)
+        .setIn(
+          ['myBookings', 'privateBookings', 'past', 'next_page'],
+          next_page,
+        )
+        .setIn(['myBookings', 'privateBookings', 'past', 'count'], count)
+        .updateIn(
+          [
+            'myBookings',
+            'privateBookings',
+            'past',
+            'private_services',
+            'allIds',
+          ],
+          (myList, newIds) => myList.concat(newIds),
+          uniq(results.map((privateBooking) => privateBooking.id)),
+        )
+        .merge(
+          {
+            myBookings: {
+              privateBookings: {
+                past: {
+                  private_services: {
+                    byId: results.reduce<PayloadReduceType<PrivateBooking>>(
+                      (acc, privateBooking) => {
+                        acc[privateBooking.id] = privateBooking;
+                        return acc;
+                      },
+                      {},
+                    ),
+                  },
+                },
+              },
+            },
+          },
+          { deep: true },
+        );
+    },
+    [fetchMyFuturePrivateBookingAsMemberActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['myBookings', 'privateBookings', 'future', 'loading'],
+        payload,
+      );
+    },
+    [fetchMyFuturePrivateBookingAsMemberActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['myBookings', 'privateBookings', 'future', 'error'],
+        payload,
+      );
+    },
+    [fetchMyFuturePrivateBookingAsMemberActions.success.toString()]: (
+      state,
+      {
+        payload,
+      }: { payload: AxiosResponse<PaginatedResponse<PrivateBooking>> },
+    ) => {
+      const { next_page, results, count, page } = payload.data;
+
+      return state
+        .setIn(['myBookings', 'privateBookings', 'future', 'page'], page)
+        .setIn(
+          ['myBookings', 'privateBookings', 'future', 'next_page'],
+          next_page,
+        )
+        .setIn(['myBookings', 'privateBookings', 'future', 'count'], count)
+        .updateIn(
+          [
+            'myBookings',
+            'privateBookings',
+            'future',
+            'private_services',
+            'allIds',
+          ],
+          (myList, newIds) => myList.concat(newIds),
+          uniq(results.map((privateBooking) => privateBooking.id)),
+        )
+        .merge(
+          {
+            myBookings: {
+              privateBookings: {
+                future: {
+                  private_services: {
+                    byId: results.reduce<PayloadReduceType<PrivateBooking>>(
+                      (acc, privateBooking) => {
+                        acc[privateBooking.id] = privateBooking;
                         return acc;
                       },
                       {},
@@ -250,8 +383,8 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
                 past: {
                   bookings: {
                     byId: results.reduce<PayloadReduceType<BookingREST>>(
-                      (acc, ps) => {
-                        acc[ps.id] = ps;
+                      (acc, booking) => {
+                        acc[booking.id] = booking;
                         return acc;
                       },
                       {},
@@ -307,8 +440,8 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
                 future: {
                   bookings: {
                     byId: results.reduce<PayloadReduceType<BookingREST>>(
-                      (acc, ps) => {
-                        acc[ps.id] = ps;
+                      (acc, booking) => {
+                        acc[booking.id] = booking;
                         return acc;
                       },
                       {},

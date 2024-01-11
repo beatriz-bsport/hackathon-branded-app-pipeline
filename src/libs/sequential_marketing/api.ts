@@ -12,6 +12,12 @@ import type {
   StepMarketingActionsParams,
   UpdatedTrigger,
   UpdatedTriggersList,
+  CadenceGlobalMetrics,
+  CadenceMembersInData,
+  CadenceMembersOutData,
+  CadencePaginatedMetricsParams,
+  CadenceGlobalMetricsParams,
+  MetricsPaginatedResponse,
 } from './types';
 import { InitialConfigurationStep, DestinationStatus } from './constants';
 
@@ -293,5 +299,40 @@ export const updateStepMarketingAction = (
   return patchAuth<StepMarketingActions>(
     `${API_V1_URI}/sequential_marketing/cadence_marketing_action/${id}/`,
     data,
+  );
+};
+
+// METRICS
+
+export const fetchGlobalMetrics = (
+  cadenceId: number,
+  params?: CadenceGlobalMetricsParams,
+) => {
+  return getAuth<CadenceGlobalMetrics>(
+    `${API_V1_URI}/sequential_marketing/cadence_metrics/${cadenceId}/get_global_metrics/${buildUrlParams(
+      params,
+    )}`,
+  );
+};
+
+export const fetchPresentMembersData = (
+  cadenceId: number,
+  params?: CadencePaginatedMetricsParams,
+) => {
+  return getAuth<MetricsPaginatedResponse<CadenceMembersInData>>(
+    `${API_V1_URI}/sequential_marketing/cadence_metrics/${cadenceId}/get_present_members_data/${buildUrlParams(
+      params,
+    )}`,
+  );
+};
+
+export const fetchMembersHistoric = (
+  cadenceId: number,
+  params?: CadencePaginatedMetricsParams,
+) => {
+  return getAuth<MetricsPaginatedResponse<CadenceMembersOutData>>(
+    `${API_V1_URI}/sequential_marketing/cadence_metrics/${cadenceId}/get_members_historic/${buildUrlParams(
+      params,
+    )}`,
   );
 };

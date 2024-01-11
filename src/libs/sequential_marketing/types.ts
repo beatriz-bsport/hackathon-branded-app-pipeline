@@ -6,6 +6,7 @@ import type {
   ResolvedGenericTags,
 } from '#libs/email-editor/types';
 import type {
+  CadenceStatus,
   DestinationKind,
   DestinationStatus,
   Events,
@@ -30,6 +31,7 @@ export type Cadence = {
   entrypoint_step_id: number;
   initialized: boolean;
   is_multiple_visit_allowed: boolean;
+  cadence_status: CadenceStatus;
 };
 
 export type CadenceStep = {
@@ -132,21 +134,19 @@ export type MarketingActionEssentials = {
   getEmailDetail: (id: number) => void;
 };
 
-/**
- *  @description [TYPE] Object returned by convertCadenceExitIntoStep API call
- *  @param {ConnectedTrigger} trigger : The connected trigger after update
- *  @param {CadenceStep} step : The new step created as trigger destination
+/** [TYPE] Object returned by convertCadenceExitIntoStep API call
+ *  @param {ConnectedTrigger} trigger The connected trigger after update
+ *  @param {CadenceStep} step The new step created as trigger destination
  */
 export type UpdatedTrigger = {
   trigger: ConnectedTrigger;
   step: CadenceStep;
 };
 
-/**
- *  @description [TYPE] Object returned by convertCadenceStepIntoExit API call
- *  @param {ConnectedTrigger[]} triggers : List of the connected triggers which had step as destination and have been updated
- *  @param {{ uuid: string; source_step: number }[]} disabled : List of the disabled connected trigger uuids and their source steps
- *  @param {CadenceStep} step : The step disabled to be replaced by exits
+/** [TYPE] Object returned by convertCadenceStepIntoExit API call
+ *  @param {ConnectedTrigger[]} triggers List of the connected triggers which had step as destination and have been updated
+ *  @param {{ uuid: string; source_step: number }[]} disabled List of the disabled connected trigger uuids and their source steps
+ *  @param {CadenceStep} step The step disabled to be replaced by exits
  */
 export type UpdatedTriggersList = {
   triggers: ConnectedTrigger[];
@@ -154,7 +154,54 @@ export type UpdatedTriggersList = {
   step: CadenceStep;
 };
 
-// ============ API QUERY PARAMS =============
+/** [TYPE] Object returned by getGlobalMetrics API call.
+ *
+ *  @param {number} count_members_that_entered Number of members who entered the workflow.
+ *  @param {number | nul} success_rate Success rate of the cadence (in %), or null if no success has been registered yet.
+ *  @param {number | nul} average_success_time Average success time of the workflow (in seconds), or null if no success has been registered yet.
+ *  @param {number} tags_count Number of tags applied within the cadence.
+ *  @param {number} emails_count Number of email communications sent through the cadence.
+ *  @param {number} sms_count Number of SMS communications sent through the cadence.
+ *  @param {number} push_notif_count Number of push notification communications sent through the cadence.
+ */
+export type CadenceGlobalMetrics = {
+  count_members_that_entered: number;
+  success_rate: number | null;
+  average_success_time: number | null;
+  tags_count: number;
+  emails_count: number;
+  sms_count: number;
+  push_notif_count: number;
+};
+
+/** [TYPE] Object returned by fetchMembersHistoric API call.
+ *
+ *  @param {string} member_id Member ID.
+ *  @param {string} entry_date Date when the member entered the cadence.
+ *  @param {string} exit_date Date when the member exited the cadence.
+ *  @param {DestinationStatus | null} status Status assigned to the member upon exit.
+ */
+export type CadenceMembersOutData = {
+  member_id: number;
+  entry_date: string;
+  exit_date: string;
+  status: DestinationStatus | null;
+};
+
+/** [TYPE] Object returned by fetchPresentMembersData API call.
+ *
+ *  @param {string} member_id Member ID.
+ *  @param {string} current_step_id ID of the current step of the member.
+ *  @param {string} entry_date Date when the member entered the cadence.
+ */
+export type CadenceMembersInData = {
+  member_id: number;
+  photo: string | null;
+  current_step_id: number;
+  entry_date: string;
+};
+
+// ========== API QUERY PARAMS ==========
 export type CadenceQueryParams = {
   id__in?: number[];
   page_size?: number;
@@ -171,11 +218,23 @@ export type StepMarketingActionsParams = {
   kind?: MarketingActionKind;
 };
 
+export type CadenceGlobalMetricsParams = {
+  date_start: string;
+  date_end: string;
+};
+
+export type CadencePaginatedMetricsParams = {
+  page_size?: number;
+  page?: number;
+};
+
 // =============== REDUX STATE ===============
 export type SequentialMarketingState = {
   cadence: CadenceState;
 } & { step: CadenceStepState } & {
   marketingActions: MarketingActionState;
+} & {
+  metrics: MetricsState;
 } & ErrorAndLoading;
 
 export type CadenceState = {
@@ -206,7 +265,25 @@ export type TriggerState = {
   byId: { [id: number]: ConnectedTrigger };
 } & ErrorAndLoading;
 
-// ============= COMPONENT TYPES =============
+export type MetricsPaginatedResponse<T> = {
+  page: number;
+  count: number;
+  next_page: number;
+  page_size: number | null;
+  results: T[];
+};
+
+export type MetricsState = {
+  globalMetrics: { data: CadenceGlobalMetrics } & ErrorAndLoading;
+  membersHistoric: {
+    data: MetricsPaginatedResponse<CadenceMembersOutData>;
+  } & ErrorAndLoading;
+  membersPresent: {
+    data: MetricsPaginatedResponse<CadenceMembersInData>;
+  } & ErrorAndLoading;
+};
+
+// ========== COMPONENT TYPES ==========
 export type GlobalCadenceChip = {
   name: string;
   icon: string;

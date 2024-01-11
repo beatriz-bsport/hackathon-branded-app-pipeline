@@ -41,7 +41,6 @@ import {
 import { requestSetupIntentSecret as requestSetupIntentSecretAPI } from '../../libs/payment/api';
 import {
   fetchPaymentMethodList as fetchPaymentMethodListAction,
-  fetchPayoutList as fetchPayoutListAction,
   // fetchStripeBalance as fetchStripeBalanceAction,
   setPaymentMethodAsDefault as setPaymentMethodAsDefaultAction,
   fetchStripePayoutList as fetchStripePayoutListAction,
@@ -99,7 +98,6 @@ type Props = {
   openFeatureRequest: boolean;
   setOpenFeatureRequest: (b: boolean) => void;
 
-  fetchPayoutList: (options?: { page?: number }) => void;
   fetchStripePayoutList: () => void;
   hasMorePayout: boolean;
   stripePayoutList: Array<StripePayout>;
@@ -149,7 +147,6 @@ export class PlatformBillingSetting extends React.Component<Props, State> {
     this.props.fetchPlatformBillingStageList();
     this.props.fetchUpsellPackages();
     this.props.fetchUpsellPackageSubscribedIds();
-    this.props.fetchPayoutList({ page: 1 });
     // this.props.fetchStripeBalance();
     this.props.fetchStripePayoutList();
   }
@@ -319,7 +316,6 @@ export default compose(
       setPaymentMethodAsDefault: setPaymentMethodAsDefaultAction,
       requestUpsellPackage: requestUpsellPackageAction,
       fetchCompanyTheme: fetchCompanyThemeAction,
-      fetchPayoutList: fetchPayoutListAction,
       fetchStripePayoutList: fetchStripePayoutListAction,
       payNowInvoice: payNowInvoiceAction,
       push: pushAction,
@@ -351,10 +347,6 @@ export default compose(
             }
           },
         }),
-    fetchPayoutList:
-      ({ fetchPayoutList }) =>
-      (params: any, options: OptionCallback) =>
-        fetchPayoutList({ ...(params || {}), page_size: 3 }, options),
     fetchStripePayoutList:
       ({ fetchStripePayoutList }) =>
       (params: any, options: OptionCallback) =>

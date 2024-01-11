@@ -10,10 +10,8 @@ stages:
   - prepare-image-docker
     # - static-analysis
   - deploy
-  - label-issues
 
 include:
   - local: '/ci/docker-image.yml'
   # - local: '/ci/lint.yml'
   - local: '/ci/build.yml'
-  - local: '/ci/label-issues.yml'

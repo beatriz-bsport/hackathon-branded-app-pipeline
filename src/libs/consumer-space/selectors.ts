@@ -352,6 +352,8 @@ export const getConsumerBookingsLoading = createSelector(
   [
     getMyPastBookingsState,
     getMyFutureBookingsState,
+    getMyPastPrivateBookingsState,
+    getMyFuturePrivateBookingsState,
     getMyPastBookingsWorkshopState,
     getMyFutureBookingsWorkshopState,
     (state: RootState) => state,
@@ -360,6 +362,8 @@ export const getConsumerBookingsLoading = createSelector(
   (
     pastBookingsState,
     futureBookingsState,
+    pastPrivateBookingsState,
+    futurePrivateBookingsState,
     pastBookingsWorkshopState,
     futureBookingsWorkshopState,
     state,
@@ -373,6 +377,12 @@ export const getConsumerBookingsLoading = createSelector(
         state.metaActivity.loading ||
         state.consumerPaymentPack.loading ||
         state.paymentPack.loading,
+      [BookingTabEnum.APPOINTMENT]:
+        pastPrivateBookingsState.loading ||
+        futurePrivateBookingsState.loading ||
+        state.privateService.privateConsumerPass.loading ||
+        state.privateService.privateService.loading ||
+        state.privateService.privateSlot.loading,
       [BookingTabEnum.WORKSHOP]:
         pastBookingsWorkshopState.loading ||
         futureBookingsWorkshopState.loading ||

@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import KeyboardArrowLeftIcon from '@material-ui/icons/KeyboardArrowLeft';
-import EditIcon from '@material-ui/icons/Edit';
 import BuildIcon from '@material-ui/icons/Build';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import IconButton from '@material-ui/core/IconButton';
@@ -95,16 +94,16 @@ const CadenceDetailHeaderActions: React.FC<HeaderActionsProps> = React.memo(
           </ToolTip>
 
           <div className={classes.nameWithIcon}>
-            <Typography className={classes.titleTypo} variant="h6">
-              {cadence?.name}
-            </Typography>
             <ToolTip title={t('cadence.form.modify_name_label')}>
-              <IconButton
+              <Button
+                className={classes.nameEditButton}
                 disabled={loading || cadenceEditMode || cadence?.active}
                 onClick={handleOpenEditDialog}
               >
-                <EditIcon />
-              </IconButton>
+                <Typography className={classes.titleTypo} variant="h6">
+                  {cadence?.name}
+                </Typography>
+              </Button>
             </ToolTip>
           </div>
         </div>
@@ -301,6 +300,11 @@ export const CadenceDetailHeader: React.FC<Props> = ({
 };
 
 const useStyles = makeStyles((theme) => ({
+  nameEditButton: {
+    padding: theme.spacing(0.5, 1),
+    textTransform: 'none',
+    borderRadius: theme.spacing(1),
+  },
   centerVerticalContent: {
     display: 'flex',
     flexDirection: 'column',

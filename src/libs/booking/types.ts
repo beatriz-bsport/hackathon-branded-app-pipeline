@@ -13,6 +13,12 @@ import type { Coach } from '#libs/associated-coach/types';
 import type { MetaActivity } from '#libs/meta-activity/types';
 import type { Level } from '#libs/level/types';
 import type { ConsumerPaymentPack } from '#libs/consumer-payment-pack/types';
+import type {
+  PrivateBooking,
+  PrivateConsumerPass,
+  PrivateService,
+  PrivateSlot,
+} from '#libs/private-service/types';
 
 export type BroadcastInfo = {
   id: number;
@@ -277,4 +283,20 @@ export type ConsumerBooking = Omit<
   offer: OfferREST;
   consumer_payment_pack: ConsumerPaymentPack<PaymentPack>;
   room_blueprint?: RoomBlueprint;
+};
+
+/** Transformed PrivateBooking for the consumer page by including full objects */
+export type ConsumerPrivateBooking = Omit<
+  PrivateBooking,
+  | 'private_consumer_pass'
+  | 'private_service'
+  | 'private_slot'
+  | 'establishment'
+  | 'coach'
+> & {
+  private_consumer_pass: PrivateConsumerPass;
+  private_service: PrivateService;
+  private_slot: PrivateSlot;
+  establishment: Establishment;
+  coach: Coach;
 };

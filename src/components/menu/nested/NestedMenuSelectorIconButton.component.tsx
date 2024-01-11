@@ -16,6 +16,7 @@ import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
 import Typography from '@material-ui/core/Typography';
 
+import classNames from 'classnames';
 import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
 import { MULTIPLE_ACTION_BUTTON_MAX_SIZE } from '#components/menu/constants';
 import type { MenuAction, NestedMenuAction } from '#components/menu/types';
@@ -27,6 +28,7 @@ type Props = {
   customIcon?: string;
   customColor?: string;
   optionOnClick?: () => void;
+  noTextWrap?: boolean;
 };
 
 const NestedMenuSelectorIconButton: React.FC<Props> = ({
@@ -34,6 +36,7 @@ const NestedMenuSelectorIconButton: React.FC<Props> = ({
   customIcon,
   customColor,
   optionOnClick,
+  noTextWrap,
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
@@ -139,7 +142,13 @@ const NestedMenuSelectorIconButton: React.FC<Props> = ({
                 icon={mainAction.icon}
                 withBackground={false}
               />
-              <Typography className={classes.label} variant="body1">
+              <Typography
+                className={classNames(
+                  classes.label,
+                  noTextWrap && classes.noTextWrap,
+                )}
+                variant="body1"
+              >
                 {mainAction.label}
               </Typography>
               {!!mainAction.actionList && <ChevronRight />}
@@ -225,6 +234,9 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) => ({
   label: {
     paddingLeft: theme.spacing(1),
     paddingRight: theme.spacing(1),
+  },
+  noTextWrap: {
+    textWrap: 'nowrap',
   },
   menuContainer: {
     marginLeft: theme.spacing(0.5),

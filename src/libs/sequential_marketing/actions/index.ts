@@ -86,6 +86,18 @@ import {
   deleteStepMarketingAction,
 } from './marketing_action';
 
+import {
+  // GLOBAL METRICS
+  fetchGlobalMetricsActions,
+  fetchGlobalMetrics,
+  // PRESENT MEMBERS DATA
+  fetchPresentMembersDataActions,
+  fetchPresentMembersData,
+  // MEMBERS HISTORIC
+  fetchMembersHistoricActions,
+  fetchMembersHistoric,
+} from './metrics';
+
 export {
   // CADENCE
   createCadenceActions,
@@ -142,4 +154,11 @@ export {
   modifyStepMarketingActionsConfiguration,
   deleteStepMarketingActionsActions,
   deleteStepMarketingAction,
+  // METRICS
+  fetchGlobalMetricsActions,
+  fetchGlobalMetrics,
+  fetchPresentMembersDataActions,
+  fetchPresentMembersData,
+  fetchMembersHistoricActions,
+  fetchMembersHistoric,
 };

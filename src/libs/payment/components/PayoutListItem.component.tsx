@@ -58,6 +58,16 @@ const PayoutListItem: React.FC<Props> = ({
     [setOpenDialog],
   );
 
+  const handleTooglePayoutOpen = React.useCallback(
+    () => tooglePayoutOpen(stripePayout.stripe_id),
+    [stripePayout.stripe_id, tooglePayoutOpen],
+  );
+
+  const handleOpenInvoice = React.useCallback(
+    (invoiceId) => () => openInvoice(invoiceId),
+    [openInvoice],
+  );
+
   const dialogButtons = [
     {
       variant: 'text',
@@ -137,7 +147,7 @@ const PayoutListItem: React.FC<Props> = ({
             </Typography>
             <IconButton
               disabled={!!bsportPayout.is_included_in_payout}
-              onClick={() => tooglePayoutOpen(stripePayout.stripe_id)}
+              onClick={handleTooglePayoutOpen}
             >
               {isOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
             </IconButton>
@@ -150,7 +160,7 @@ const PayoutListItem: React.FC<Props> = ({
                 <div style={{ width: '100%' }}>
                   <PaymentListItemV2 paymentItem={p} />
                 </div>
-                <Button onClick={() => openInvoice(p.invoice)}>
+                <Button onClick={handleOpenInvoice(p.invoice)}>
                   {t('payout.invoice', { uuid: p.invoice.slice(0, 8) })}
                   <ArrowForwardIcon className={classes.iconRight} />
                 </Button>

@@ -55,7 +55,7 @@ import { FilterIdentifier } from './filters';
 
 import { CadencePanelMode } from './panel';
 
-import { SequentialMarketingColors } from './colors';
+import { SequentialMarketingColors, CadenceStatusColors } from './colors';
 
 import { SequentialMarketingWorkflowMetricsSizes } from './workflowMetrics';
 
@@ -98,6 +98,7 @@ export {
   CadencePanelMode,
   // COLORS
   SequentialMarketingColors,
+  CadenceStatusColors,
   // WORKFLOW ANALYISIS
   SequentialMarketingWorkflowMetricsSizes,
   // STEPS

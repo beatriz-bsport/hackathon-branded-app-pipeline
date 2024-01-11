@@ -26,3 +26,12 @@ export enum SequentialMarketingColors {
   WORKFLOW_METRICS_ORANGE = 'rgba(252, 186, 3, 1)',
   WORKFLOW_METRICS_GREEN = 'rgba(144, 190, 109, 1)',
 }
+
+export enum CadenceStatusColors {
+  SUCCESS_DEFAULT_COLOR = '#4CAF50',
+  SUCCESS_LIGHT_COLOR = '#F1F9F1',
+  INFO_DEFAULT_COLOR = '#2196F3',
+  INFO_LIGHT_COLOR = '#EEF7FE',
+  WARNING_DEFAULT_COLOR = '#FF9800',
+  WARNING_LIGHT_COLOR = '#FFF7EB',
+}

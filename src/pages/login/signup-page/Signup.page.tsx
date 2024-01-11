@@ -40,6 +40,8 @@ import type {
 } from '#libs/custom-form/types';
 import WidgetUtils from '#libs/widget/WidgetUtils';
 import CustomFormTitle from '#libs/custom-form/components/CustomFormTitle.component';
+import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
+import CustomFormTitleCSS from '#libs/custom-form/components/CustomFormTitleCSS';
 import './SignupPageStyles.css';
 
 type OwnProps = {
@@ -147,11 +149,19 @@ export class SignupPage extends Component<Props> {
     return (
       <div className={containerClass}>
         <div className="bs-signup-container--margin-top">
-          <CustomFormTitle
-            isCompany={!!membership}
-            simplifyUI={simplifyUI}
-            title={t('signup.title')}
-          />
+          {CUSTOM_FORM_CSS_VARIANT_ACTIVATED ? (
+            <CustomFormTitleCSS
+              isCompany={!!membership}
+              simplifyUI={simplifyUI}
+              title={t('signup.title')}
+            />
+          ) : (
+            <CustomFormTitle
+              isCompany={!!membership}
+              simplifyUI={simplifyUI}
+              title={t('signup.title')}
+            />
+          )}
           {signUpCustomForm && signUpCustomForm.layout && (
             <div className="bs-signup-container__custom-form">
               <CustomFormView

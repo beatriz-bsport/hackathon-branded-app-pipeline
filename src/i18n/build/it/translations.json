@@ -149,7 +149,7 @@
             "previousOffer": "Sessione precedente",
             "nextOffer": "Sessione successiva",
             "disabled": "disattivato",
-            "substitute": "Rimpiazza",
+            "substitute": "Sostituto",
             "compatiblePacks": "Pacchetti compatibili",
             "noCompatiblePacks": "Nessun pachetto è compatibile con questa sessione.",
             "extraordinaryEstablishment": "(sede temporanea)",
@@ -655,7 +655,7 @@
             "member": "Membri",
             "establishment": "Strutture",
             "payment": "Pagamenti",
-            "logoff": "Disconnettiti",
+            "logoff": "Disconnessione",
             "refresh": "Ricarica",
             "goBack": "Indietro",
             "pass": "Pacchetti",
@@ -1195,7 +1195,7 @@
                     "pass_starting_date": "Data di inizio del pacchetto per appuntamenti",
                     "pass_expiration": "Data di fine appuntamento",
                     "pass_credit_left": "Numero di crediti rimanenti",
-                    "pass_price": "Prezzo del pacchetto per appuntamenti.",
+                    "pass_price": "Prezzo del pacchetto",
                     "pass_name": "Nome del pacchetto per appuntamenti"
                 },
                 "name": "Pacchetti per appuntamenti"
@@ -1216,7 +1216,7 @@
                 "name": "Allievo",
                 "tags": {
                     "firstname": "Nome del membro",
-                    "lastname": "Nome del membro",
+                    "lastname": "Cognome",
                     "unsubscribe_link": "Annulla l'iscrizione alla newsletter",
                     "reset_password_url": "Link per reimpostare la password",
                     "email_confirmation_url": "Link di conferma email"
@@ -1388,8 +1388,8 @@
             "450": "Appuntamento - fuori tempo massimo (membro)",
             "22": "Conferma della ricevuta",
             "300": "Kick (non validato in tempo troppe volte)",
-            "702": "Passaggio negato: addebito sul conto creato (allievo)",
-            "701": "Passaggio negato: badge bloccato (allievo)",
+            "702": "Cancellazione tardiva: una multa è stata aggiunta al saldo del conto interno (per i membri)",
+            "701": "Cancellazione tardiva: il pacchetto è stato temporaneamente bloccato (per i memebri)",
             "601": "Poche prenotazioni [tot. ore] prima dell'inizio della lezione",
             "530": "Controversia sul pagamento di un abbonamento ricorrente",
             "520": "Pagamento di un abonnamento fallito, verrà eseguito un nuovo tentativo",
@@ -3675,7 +3675,7 @@
             "digital": "Offerta digitale",
             "marketing_automation": "Marketing automatizzato",
             "combo": "Pacchetti combinati",
-            "requestTempPassword": "Consentire l'accesso",
+            "requestTempPassword": "Password temporanea",
             "smart_list": "Smartlist",
             "email_template": "Email",
             "reporting": "Report",
@@ -3716,7 +3716,7 @@
             "subscription": "Addebiti",
             "contract": "Abbonamenti ricorrenti",
             "coupon": "Promozioni",
-            "logoff": "Disconnettiti",
+            "logoff": "Disconnessione",
             "refresh": "Ricarica",
             "cashBook": {
                 "save": "Salva",
@@ -3950,7 +3950,7 @@
             "payment_intent_authentication_failure": "Il pagamento è stato rifiutato dalla tua banca.",
             "payment_intent_payment_attempt_failed": "Il pagamento è stato rifiutato dalla tua banca.",
             "none": ".",
-            "setup_intent_authentication_failure": "Impossibile salvare questa mappa. Si prega di provare un altro metodo di pagamento.",
+            "setup_intent_authentication_failure": "Questa carta non può essere salvata. Si prega di provare un altro metodo di pagamento.",
             "invalid_bank_account_account_number": "Il numero di conto bancario non è valido.",
             "invalid_bank_account_routing_number": "Il codice bancario fornito non è valido.",
             "email_invalid": "L'indirizzo mail non è valido."
@@ -4022,15 +4022,15 @@
                 "default_booking_ordering": {
                     "date": "Ordina per data di prenotazione più recente",
                     "firstname": "Ordina in ordine alfabetico per nome",
-                    "lastname": "Ordina in ordine alfabetico per nome",
+                    "lastname": "Ordina per: cognome",
                     "title": "Scegli l'ordine predefinito per le prenotazioni nella pagina delle attività"
                 },
                 "names_label_info": "Modificare l'etichetta dei campi Cognome e Nome nei moduli di registrazione",
                 "consumerRegularizeDebt": "Il cliente può regolarizzare il suo acconto online",
                 "last_name_label": {
-                    "label": "Etichetta per il nome",
-                    "placeholder": "Etichetta per il nome",
-                    "helperText": "Inserisci l'etichetta per il nome"
+                    "label": "Etichetta del cognome",
+                    "placeholder": "Etichetta del cognome",
+                    "helperText": "Compilare l'etichetta del cognome"
                 },
                 "first_name_label": {
                     "placeholder": "Etichetta del nome",
@@ -5159,7 +5159,7 @@
         "bookerModule": {
             "pass": {
                 "nothingAvailable": "Nessun pacchetto permette di prenotare queste sessioni allo stesso tempo",
-                "changed": "La mappa del corso per la prenotazione ha dovuto essere modificata"
+                "changed": "Abbiamo selezionato il pacchetto corretto per completare la prenotazione"
             }
         },
         "settings": {
@@ -5809,7 +5809,7 @@
                         "paymentComboSubtitle": "Trova qui tutte le offerte promozionali del tuo studio.",
                         "vodSubtitle": "Trova qui tutta l'offerta di video on demand del tuo studio.",
                         "contractSubtitle": "Scegli l'abbonamento ricorrente più adatto a te.",
-                        "paymentPackSubtitle": "Trova qui tutte le mappe del tuo studio",
+                        "paymentPackSubtitle": "Scopri l'intera offerta di questo studio.",
                         "mySubscription": "I miei\nabbonamenti ricorrenti",
                         "paymentComboEmpty": "Nessuna offerta proposta",
                         "contractEmpty": "Non ci sono abbonamenti ricorrenti in vendita",
@@ -6217,7 +6217,7 @@
             "updaterDialog": {
                 "actions": {
                     "cancel": "Annulla",
-                    "submit": "Invia"
+                    "submit": "Avanti"
                 },
                 "topup": "Aggiungere al saldo del conto di credito del cliente",
                 "debt": "Addebito dal saldo del conto di credito del cliente",
@@ -6538,7 +6538,7 @@
         },
         "coach": "Insegnante",
         "baseCoach": "Abituale",
-        "overrider": "Rimpiazza",
+        "overrider": "Sostituto",
         "selfNoActivity": "Non sei responsabile di alcuna attività.",
         "addCoach": "Aggiungi un insegnante",
         "noActivity": "Questo insegnante non gestisce alcuna attività.",
@@ -7559,7 +7559,7 @@
             "dst_gender": "Sesso del destinatario",
             "dst_phonenumber": "Telefono ricevitore",
             "dst_email": "Ricezione dello smalto",
-            "dst_lastname": "Nome del ricevitore",
+            "dst_lastname": "Cognome del destinatario",
             "dst_firstname": "Nome del destinatario",
             "src_gender": "Sesso dell'acquirente",
             "src_phonenumber": "Telefono dell'acquirente",
@@ -8519,7 +8519,7 @@
                         "notAllowed": "Non consentito",
                         "allowedFor": "Autorizzato per",
                         "allowed": "Autorizzato",
-                        "helperText": "Usa i tag per rendere la mappa visibile solo a un gruppo desiderato di membri sul marketplace, widget e app. Puoi selezionare i tag per rendere la mappa visibile solo ai membri con un tag selezionato. Oppure puoi selezionare i tag per rendere la mappa invisibile solo ai membri con uno dei tag selezionati ",
+                        "helperText": "Utilizzate i tag per rendere il pacchetto disponibile solo a membri specifici nel MarketPlace, nei widget e nell'app mobile. È possibile scegliere di visualizzare questi pacchetti solo ai membri con tag specifici, oppure di non visualizzare affatto il pacchetti per tag specifici. ",
                         "header": "Tags"
                     },
                     "header": "Avanzato",
@@ -8533,7 +8533,7 @@
                     "helperText": "I pacchetti universali possono essere usati per prenotare lezioni di gruppo E appuntamenti. Una volta creato il pacchetto, ne verrà creato uno gemello nelle schede degli appuntamenti. Il numero di crediti su entrambi sarà collegato. Quando se ne acquista uno dei due, l'altro sarà automaticamente aggiunto al membro (senza costi aggiuntivi).",
                     "marketplaceLabel": "Pacchetto universale. Può essere usato per corsi e appuntamenti.",
                     "label": "Pacchetto universale",
-                    "warningIsUniversalPass": "Questa mappa è una mappa universale, una mappa gemella è stata creata nelle mappe RDV. Tutti i campi modificati su questa mappa saranno modificati anche sulla mappa gemella (tranne la categoria). Lo stesso vale per le notifiche, le estensioni e le modifiche di credito."
+                    "warningIsUniversalPass": "I pacchetti per appuntamenti gemelli vengono creati automaticamente per un pacchetto universale. Tutti i campi modificati qui saranno modificati anche sui pacchetti gemelli, tranne le categorie. Questo vale anche per le notifiche, le estensioni di validità e le modifiche del credito."
                 },
                 "highlightedAsRecommended": {
                     "label": "Contrassegna come suggerito",
@@ -8848,12 +8848,12 @@
             "minusZero": "Questo campo non può essere 0",
             "requiredField": "Questo campo è richiesto",
             "creditWarning": "Se si cambia il numero di crediti, tutti i pacchetti esistenti saranno interessati.",
-            "migration": "Questa mappa del corso è il risultato di una migrazione, alcuni campi non sono modificabili per rispettare la storia. Le attività/categorie compatibili rimangono modificabili.",
-            "franchise": "Questa mappa è una mappa condivisa dall'account del franchisor. Alcuni elementi sono stati definiti dal conto del franchisor e non sono modificabili",
+            "migration": "Questo pacchetto proviene da una migrazione di dati precedentemente completata. Alcuni campi potrebbero non essere modificabili per preservare i dati. Le attività/categorie compatibili possono comunque essere modificate.",
+            "franchise": "Il pacchetto è condiviso attraverso l'account master. Alcune impostazioni sono state predefinite da tale Account Master e non possono essere modificate.",
             "allowGuest": "Compatibile con la prenotazione per un ospite",
             "penalityModeFranchisor": {
                 "buyer": {
-                    "explain": "Il saldo del conto del membro sarà addebitato con {{ prezzo }} solo sul franchisee in cui è stato acquistato il pacchetto.",
+                    "explain": "Il saldo del conto membro sarà addebitato con {{ price }} solo sul franchisee in cui è stato acquistato il pacchetto.",
                     "label": "Al franchise che ha contabilizzato il pacchetto"
                 },
                 "prorata": {
@@ -8930,7 +8930,7 @@
                     "submit": "Disattivare la condivisione",
                     "close": "Chiudere"
                 },
-                "content": "Disattivando questo studio dalla condivisione della mappa, tutti i membri che possiedono questa mappa e l'hanno acquistata in questo studio potranno ancora utilizzarla. Tuttavia, non potranno più usarlo in altri studi. Infine, i pacchetti acquistati in altri studi non saranno più utilizzabili nello studio disattivato, indipendentemente da quando sono state acquistate.",
+                "content": "I membri che hanno acquistato un pacchetto in questo studio potranno continuare a utilizzarlo in altri studi compatibili, anche dopo la disattivazione di questo studio specifico. Gli altri pacchetti condivisi non saranno più utilizzabili presso lo studio disattivato.",
                 "title": "Disattivazione"
             },
             "form": {
@@ -9272,10 +9272,10 @@
             "needInformationValidation": {
                 "button": {
                     "memberOfCompany": "Completa le mie informazioni",
-                    "notMemberYet": "Passaggio di informazioni"
+                    "notMemberYet": "Conferma"
                 },
                 "legend": {
-                    "memberOfCompany": "Per continuare la navigazione completa le informazioni richieste qui sotto",
+                    "memberOfCompany": "Completare le informazioni richieste per continuare la navigazione.",
                     "notMemberYet": "Vuoi inviare le tue informazioni per la registrazione? "
                 },
                 "subtitle": {
@@ -16914,7 +16914,7 @@
         "placeCount": "{{count}} posti",
         "roomBlueprints": "Gestione dei posti",
         "saveError": "Errore",
-        "errorLessSpotThanEffectif": "Il salvataggio non è possibile. La mappa deve contenere più spazio del numero di persone nella sessione a cui è associato",
+        "errorLessSpotThanEffectif": "Impossibile salvare. La selezione dello spot deve contenere più spazio della dimensione della capacità della sessione",
         "saved": "Salvato",
         "effectifError": "Il numero di posti deve essere uguale o superiore al numero di studenti della sessione",
         "searchHelper": "(Facoltativo) I membri possono utilizzare la configurazione di gestione dei posti per prenotare quello che preferiscono",
@@ -17057,7 +17057,7 @@
             "goBackToCheckout": "Torna al checkout"
         },
         "cssForm": {
-            "helper": "In questa sezione è possibile aggiungere regole CSS per il layout. L'intera mappa è racchiusa in un SVG con l'ID \"svg-canvas-display\". Per impostazione predefinita, viene generato automaticamente uno \"StyleSheet\" per ogni elemento del foglio (punti, rettangoli, insegnanti..). È possibile osservare gradualmente le modifiche facendo clic sul pulsante \"{{ buttonLabel }}\".",
+            "helper": "In questa sezione è possibile aggiungere regole CSS per il layout. L'intera mappa è racchiusa in un svg con l'ID \"svg-canvas-display\". Per impostazione predefinita, viene generato automaticamente un foglio di stile per ogni elemento della tela (come punti, rettangoli e insegnanti). È possibile osservare gradualmente le modifiche facendo clic sul pulsante \"{{ buttonLabel }}\".",
             "openPreview": "Anteprima"
         },
         "assetUpoadForm": {

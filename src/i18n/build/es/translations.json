@@ -7019,7 +7019,7 @@
                     "pass_expiration": "Fecha final del bono",
                     "pass_starting_date": "Fecha de inicio del bono",
                     "pass_name": "Nombre del bono",
-                    "pass_price": "Precio del bono"
+                    "pass_price": "Precio del pase"
                 },
                 "name": "Bono"
             },
@@ -7041,7 +7041,7 @@
                     "pass_expiration": "Fecha final bono",
                     "pass_starting_date": "Fecha de inicio bono",
                     "pass_name": "Nombre bono",
-                    "pass_price": "Precio bono"
+                    "pass_price": "Precio del pase"
                 },
                 "name": "Tarjeta cita"
             },

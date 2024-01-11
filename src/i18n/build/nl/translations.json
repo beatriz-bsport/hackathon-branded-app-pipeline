@@ -281,7 +281,7 @@
                     "pass_expiration": "Vervaldatum van de leskaart",
                     "pass_starting_date": "Startdatum van de leskaart",
                     "pass_name": "Naam van de leskaart",
-                    "pass_price": "Dit is de verkoopprijs."
+                    "pass_price": "Prijs van de leskaart"
                 },
                 "name": "Afspraakkaarten"
             },
@@ -7929,7 +7929,8 @@
             "nb_sessions": "Aantal sessies",
             "totalNetGain": "Nettowinst (totaal)",
             "netGain": "Nettowinst",
-            "marginValue": "Marginale bijdrage"
+            "marginValue": "Marginale bijdrage",
+            "noShowsAndLateCancellations": "No shows en late annuleringen"
         },
         "table": {
             "download": "Downloaden",

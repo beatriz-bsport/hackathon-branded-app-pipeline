@@ -8645,8 +8645,8 @@
                 "1": "Montag"
             }
         },
-        "shortHourIdentifier": "std",
-        "shortMinuteIdentifier": "min",
+        "shortHourIdentifier": "Std",
+        "shortMinuteIdentifier": "Min",
         "shortDayIdentifier": "t",
         "never": "Nie",
         "longHourIdentifier": "Stunden",
@@ -12306,7 +12306,7 @@
                     "pass_expiration": "Ablaufdatum des Terminpasses",
                     "pass_starting_date": "Beginndatum des Terminpasses",
                     "pass_name": "Name des Terminpasses",
-                    "pass_price": "Dies ist der Verkaufspreis."
+                    "pass_price": "Preis des Kurspasses"
                 },
                 "name": "Terminpass"
             },

@@ -2087,10 +2087,10 @@
             "Offer": {
                 "name": "Sessions",
                 "tags": {
-                    "activity": "Group activities",
+                    "activity": "Group activity",
                     "coach": "Teacher",
                     "date": "Time and date",
-                    "establishment": "Establishments",
+                    "establishment": "Establishment",
                     "establishment_practical_info": "Establishment access information",
                     "address": "Address"
                 }
@@ -2179,7 +2179,7 @@
                     "pass_expiration": "Expiration date of the pass",
                     "pass_starting_date": "Start date of the pass",
                     "pass_name": "Name of the pass",
-                    "pass_price": "This is the selling price."
+                    "pass_price": "Price of the pass"
                 },
                 "name": "Appointment passes"
             },
@@ -17563,7 +17563,7 @@
             },
             "listPage": {
                 "fuzzyPlaceholder": "Search a gift card",
-                "addButton": "Create a shared gift card",
+                "addButton": "Add a shared gift card",
                 "emptyLabel": "No shared gift card registered"
             },
             "sharedCard": "Shared from another franchisee",

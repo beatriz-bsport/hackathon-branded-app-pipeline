@@ -70,7 +70,7 @@ export type Props = {
   /** Optional room name to display above of the establishment address */
   establishmentRoomName?: string;
   /** The address of the establishment related to the offer */
-  establishmentAddress: string;
+  establishmentAddress?: string;
   /** The description related to the offer's activity */
   description: string;
   /** Optional member position in the waitlist if any */
@@ -80,7 +80,7 @@ export type Props = {
   /** Optional picture of the original teacher */
   coachPicture?: string;
   /** Name of the original teacher */
-  coachName: string;
+  coachName?: string;
   /** Optional description of the original teacher */
   coachDescription?: string;
   /** Optional picture of the substitute teacher */
@@ -186,10 +186,12 @@ const ConsumerBookingDetailsCard: React.FC<Props> = ({
         />
       )}
 
-      <ConsumerBookingDetailsCardLocationSection
-        establishmentAddress={establishmentAddress}
-        establishmentRoomName={establishmentRoomName}
-      />
+      {!!establishmentAddress && (
+        <ConsumerBookingDetailsCardLocationSection
+          establishmentAddress={establishmentAddress}
+          establishmentRoomName={establishmentRoomName}
+        />
+      )}
 
       <ConsumerBookingDetailsCardDescriptionSection description={description} />
 
@@ -203,16 +205,18 @@ const ConsumerBookingDetailsCard: React.FC<Props> = ({
         metaActivityLastDiscardMinutes={metaActivityLastDiscardMinutes}
       />
 
-      <ConsumerBookingDetailsCardTeacherSection
-        coachDescription={coachDescription}
-        coachFacebookURL={coachFacebookURL}
-        coachInstagramURL={coachInstagramURL}
-        coachName={coachName}
-        coachOverrideDescription={coachOverrideDescription}
-        coachOverrideName={coachOverrideName}
-        coachOverridePicture={coachOverridePicture}
-        coachPicture={coachPicture}
-      />
+      {(!!coachName || !!coachOverrideName) && (
+        <ConsumerBookingDetailsCardTeacherSection
+          coachDescription={coachDescription}
+          coachFacebookURL={coachFacebookURL}
+          coachInstagramURL={coachInstagramURL}
+          coachName={coachName}
+          coachOverrideDescription={coachOverrideDescription}
+          coachOverrideName={coachOverrideName}
+          coachOverridePicture={coachOverridePicture}
+          coachPicture={coachPicture}
+        />
+      )}
 
       {workshopLinkedOffers?.length > 0 && (
         <ConsumerBookingDetailsCardWorkshopSection

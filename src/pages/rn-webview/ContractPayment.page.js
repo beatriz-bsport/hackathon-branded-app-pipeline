@@ -142,6 +142,7 @@ export class ContractPayment extends React.Component<Props, State> {
     ___,
     options: any,
     coupon_code: string | null,
+    establishmentBillingGroupId: number,
   ) => {
     this.setState({ processing: true });
     const first_billing_timestamp = moment(
@@ -157,6 +158,7 @@ export class ContractPayment extends React.Component<Props, State> {
         is_v2: true,
         coupon: coupon_code,
         with_prorata: !!this.props.contract?.month_billing_day,
+        establishment_billing_group_id: establishmentBillingGroupId,
       },
       {
         onBackgroundSuccess: () => {

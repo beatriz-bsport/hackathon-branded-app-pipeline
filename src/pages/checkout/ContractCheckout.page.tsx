@@ -305,6 +305,7 @@ export class MarketplaceSubscriptionPayment extends React.Component<
     _paymentMethodPastInvoicesId: number,
     options: OptionCallback,
     coupon?: string,
+    establishmentBillingGroupId?: number,
   ) => {
     Analytics.contractShowPayment(this.props.contractId);
     this.setState({ processing: true });
@@ -325,6 +326,7 @@ export class MarketplaceSubscriptionPayment extends React.Component<
           coupon,
           ...(_ === 'bsport:credit' ? { stripe_source: 'bsport:credit' } : {}),
           with_prorata: !!contract?.month_billing_day,
+          establishment_billing_group_id: establishmentBillingGroupId,
         },
         {
           // @ts-ignore

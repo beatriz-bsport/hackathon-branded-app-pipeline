@@ -487,6 +487,7 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
     _isPaymentMethodForPastInvoicesSaved: boolean,
     _paymentMethodPastInvoicesId: number,
     coupon?: string,
+    establishmentBillingGroupId?: number,
   ) => {
     Analytics.contractShowPayment(this.props.contractId);
     this.setState({ processing: true });
@@ -500,6 +501,7 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
         coupon,
         with_prorata: !!this.props?.contract?.month_billing_day,
         offer_id: this.props.offerId,
+        establishment_billing_group_id: establishmentBillingGroupId,
       },
       {
         onError: (
@@ -574,6 +576,7 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
       null,
       null,
       this.state.validCoupon?.couponCode ?? null,
+      this.state.selectedEstablishmentBillingGroup?.id,
     );
   };
 

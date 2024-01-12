@@ -69,6 +69,8 @@ export class SubscriptionContractBooking extends React.Component<Props, State> {
     ___,
     options,
     coupon,
+    ____,
+    establishmentBillingGroupId: number,
   ) => {
     this.setState({ processing: true });
     try {
@@ -83,6 +85,7 @@ export class SubscriptionContractBooking extends React.Component<Props, State> {
           payment_method_id,
           coupon,
           with_prorata: !!this.props.contract?.month_billing_day,
+          establishment_billing_group_id: establishmentBillingGroupId,
         },
         {
           onBackgroundError: () => {

@@ -82,6 +82,7 @@ export type Props = {
     paymentMethodPastInvoicesId: number,
     options?: OptionCallback,
     coupon?: string,
+    establishmentBillingGroupId?: number,
   ) => void;
   companyId: string;
   cardBillingDetailsMandatory: boolean;
@@ -351,6 +352,7 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
             null,
             null,
             (voucher && couponCode) || null,
+            selectedEstablishmentBillingGroup?.id,
           );
         }
       },

@@ -7,7 +7,10 @@ import {
   postAuth,
   deleteAuth,
 } from '../../http';
-import type { ConsumerPaymentPackLinkWithRelatedMemberNames } from './types';
+import type {
+  ConsumerPaymentPackLinkWithRelatedMemberNames,
+  PrivateConsumerPassLink,
+} from './types';
 
 export async function fetchMemberRelations(memberId: number) {
   return getAuth(`${API_V1_URI}/member/${memberId}/relations/`);
@@ -112,6 +115,16 @@ export async function fetchRelatedMembersNamesByConsumerPaymentPackLinks(params:
 }) {
   return getAuth<Required<ConsumerPaymentPackLinkWithRelatedMemberNames>[]>(
     `${API_V1_URI}/relationship/consumer_payment_pack/related_member_names/${buildUrlParams(
+      params,
+    )}`,
+  );
+}
+
+export async function fetchRelatedMembersNamesByPrivateConsumerPassLinks(params: {
+  id__in: number[];
+}) {
+  return getAuth<Required<PrivateConsumerPassLink>[]>(
+    `${API_V1_URI}/relationship/private_consumer_pass/related_member_names/${buildUrlParams(
       params,
     )}`,
   );

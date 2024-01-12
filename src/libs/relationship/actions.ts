@@ -20,13 +20,17 @@ import {
   fetchRelatedMemberList as fetchRelatedMemberListAPI,
   fetchControlableMemberList as fetchControlableMemberListAPI,
   fetchRelatedMembersNamesByConsumerPaymentPackLinks as fetchRelatedMembersNamesByConsumerPaymentPackLinksAPI,
+  fetchRelatedMembersNamesByPrivateConsumerPassLinks as fetchRelatedMembersNamesByPrivateConsumerPassLinksAPI,
 } from './api';
 
 import { Dispatch, OptionCallback } from '../../state/types';
 import { MEISUNDEFINED } from './constants';
 
 import { isErrorWithCustomCode } from '#libs/utils';
-import type { ConsumerPaymentPackLinkWithRelatedMemberNames } from './types';
+import type {
+  ConsumerPaymentPackLinkWithRelatedMemberNames,
+  PrivateConsumerPassLink,
+} from './types';
 
 export const memberRelationCreateOrUpdateActions = {
   isLoading: createAction('MEMBER_RELATION/CREATE_OR_UPDATE/LOADING'),
@@ -489,6 +493,52 @@ export const fetchRelatedMembersNamesByConsumerPaymentPackLinks =
     }
     dispatch(
       fetchRelatedMembersNamesByConsumerPaymentPackLinksActions.isLoading(
+        false,
+      ),
+    );
+  };
+
+export const fetchRelatedMembersNamesByPrivateConsumerPassLinksActions = {
+  isLoading: createAction<boolean>(
+    'RELATIONSHIP/RELATED_MEMBER_BY_PRIVATE_CONSUMER_PASS_LINK/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'RELATIONSHIP/RELATED_MEMBER_BY_PRIVATE_CONSUMER_PASS_LINK/ERROR',
+  ),
+  success: createAction<PrivateConsumerPassLink>(
+    'RELATIONSHIP/RELATED_MEMBER_BY_PRIVATE_CONSUMER_PASS_LINK/SUCCESS',
+  ),
+};
+
+export const fetchRelatedMembersNamesByPrivateConsumerPassLinks =
+  (privateConsumerPassLinks: number[], options?: OptionCallback) =>
+  async (dispatch: Dispatch) => {
+    dispatch(
+      fetchRelatedMembersNamesByPrivateConsumerPassLinksActions.isLoading(true),
+    );
+    dispatch(
+      fetchRelatedMembersNamesByPrivateConsumerPassLinksActions.error(null),
+    );
+    try {
+      const response =
+        await fetchRelatedMembersNamesByPrivateConsumerPassLinksAPI({
+          id__in: privateConsumerPassLinks,
+        });
+
+      dispatch(
+        fetchRelatedMembersNamesByPrivateConsumerPassLinksActions.success(
+          response.data,
+        ),
+      );
+      if (options && options.onSuccess) options.onSuccess(response);
+    } catch (err) {
+      dispatch(
+        fetchRelatedMembersNamesByPrivateConsumerPassLinksActions.error(err),
+      );
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(
+      fetchRelatedMembersNamesByPrivateConsumerPassLinksActions.isLoading(
         false,
       ),
     );

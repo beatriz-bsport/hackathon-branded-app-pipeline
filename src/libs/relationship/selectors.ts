@@ -13,6 +13,7 @@ import type {
   ConsumerPaymentPackLink,
   ConsumerPaymentPackLinkWithRelatedMemberNames,
   MemberRelation,
+  PrivateConsumerPassLink,
 } from './types';
 
 const _getMemberRelations = (state: RootState): Array<MemberRelation> =>
@@ -138,4 +139,16 @@ export const getMyControlableMemberList = (state: RootState) =>
 export const getConsumerPaymentPackLink = createSelector(
   [_getConsumerPackWithLinks, (_: RootState, id: number) => id],
   (consumerPackLinks, id) => consumerPackLinks[id],
+);
+
+const _getPrivateConsumerPassLinksById = (
+  state: RootState,
+): Array<PrivateConsumerPassLink> =>
+  state.relationship.private_consumer_pass_link.byId;
+
+export const getPrivateConsumerPassLink = createSelector(
+  [_getPrivateConsumerPassLinksById, (_: RootState, id: number) => id],
+  (privateConsumerPassLinks, id) => {
+    return privateConsumerPassLinks[id];
+  },
 );

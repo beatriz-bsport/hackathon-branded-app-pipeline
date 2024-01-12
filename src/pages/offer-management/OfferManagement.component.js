@@ -65,7 +65,7 @@ import type {
 import CommunicationDrawer from '#libs/communication-v2/components/CommunicationDrawer.component';
 import { CONTEXT_OFFER } from '#libs/communication-v2/constants';
 import { getOfferCategories } from '#libs/communication-v2/utils';
-import type { DEFAULT_SPOT_TYPE } from '#libs/spot-scheduling/utils';
+import { DEFAULT_SPOT_TYPE } from '#libs/spot-scheduling/utils';
 import type { ResolvedGenericTags } from '#libs/email-editor/types';
 import type { StripeReader } from '#libs/terminal/types';
 import Config from '../../config';

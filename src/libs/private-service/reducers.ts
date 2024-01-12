@@ -1895,13 +1895,15 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
       return state
         .setIn(
           ['compatibleServicePass', 'allIds'],
-          payload.map((pp: any) => pp.id),
+          payload.map(
+            (serviceCompatibilityPass) => serviceCompatibilityPass.id,
+          ),
         )
         .merge(
           {
             compatibleServicePass: {
-              byId: payload.reduce((acc: any, v: any) => {
-                acc[v.id] = v;
+              byId: payload.reduce((acc, serviceCompatibityPass) => {
+                acc[serviceCompatibityPass.id] = serviceCompatibityPass;
                 return acc;
               }, {}),
             },

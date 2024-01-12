@@ -14,9 +14,14 @@ import {
   consumerPackLinksActions,
   listControlableMembersActions,
   fetchRelatedMembersNamesByConsumerPaymentPackLinksActions,
+  fetchRelatedMembersNamesByPrivateConsumerPassLinksActions,
 } from './actions';
 
-import type { ConsumerPaymentPackLink, RelationshipState } from './types';
+import type {
+  PrivateConsumerPassLink,
+  ConsumerPaymentPackLink,
+  RelationshipState,
+} from './types';
 
 const initialState: RelationshipState = Immutable({
   my_related_members: {
@@ -57,6 +62,8 @@ const initialState: RelationshipState = Immutable({
     loading: false,
     error: null,
     items: [],
+    byId: {},
+    allIds: [],
     createOrUpdate: {
       loading: false,
       error: null,
@@ -188,7 +195,7 @@ export default handleActions(
       );
     },
     [fetchRelatedMembersNamesByConsumerPaymentPackLinksActions.error.toString()]:
-      (state, { payload }: { payload: Error }) => {
+      (state, { payload }: { payload: Error | null }) => {
         return state.setIn(['consumer_payment_pack_link', 'error'], payload);
       },
     [fetchRelatedMembersNamesByConsumerPaymentPackLinksActions.isLoading.toString()]:
@@ -208,6 +215,32 @@ export default handleActions(
                 {},
               ),
               allIdsMyPasses: payload.map(({ id }) => id),
+            },
+          },
+          { deep: true },
+        );
+      },
+    [fetchRelatedMembersNamesByPrivateConsumerPassLinksActions.error.toString()]:
+      (state, { payload }: { payload: Error | null }) => {
+        return state.setIn(['private_consumer_pass_link', 'error'], payload);
+      },
+    [fetchRelatedMembersNamesByPrivateConsumerPassLinksActions.isLoading.toString()]:
+      (state, { payload }: { payload: boolean }) => {
+        return state.setIn(['private_consumer_pass_link', 'loading'], payload);
+      },
+    [fetchRelatedMembersNamesByPrivateConsumerPassLinksActions.success.toString()]:
+      (state, { payload }: { payload: PrivateConsumerPassLink[] }) => {
+        return state.merge(
+          {
+            private_consumer_pass_link: {
+              byId: payload.reduce(
+                (acc: { [id: number]: PrivateConsumerPassLink[] }, curr) => {
+                  acc[curr.id] = curr;
+                  return acc;
+                },
+                {},
+              ),
+              allIds: payload.map(({ id }) => id),
             },
           },
           { deep: true },

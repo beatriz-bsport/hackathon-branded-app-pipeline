@@ -16,6 +16,9 @@ import {
   fetchMyExpiredConsumerPaymentPacksAsMemberActions,
   fetchMyActiveConsumerPaymentPacksAsMemberActions,
   fetchMyFutureConsumerPaymentPacksAsMemberActions,
+  fetchMyExpiredPrivateConsumerPassesAsMemberActions,
+  fetchMyActivePrivateConsumerPassesAsMemberActions,
+  fetchMyFuturePrivateConsumerPassesAsMemberActions,
 } from './actions';
 
 import {
@@ -28,7 +31,10 @@ import {
 import type { ConsumerStateReworked } from './types';
 import type { BookingREST } from '#libs/booking/types';
 import type { PaginatedResponse } from '../../state/types';
-import type { PrivateBooking } from '#libs/private-service/types';
+import type {
+  PrivateBooking,
+  PrivateConsumerPassREST,
+} from '#libs/private-service/types';
 import type { WaitingListBookingOption } from '#libs/waiting-list/types';
 import type { SubscriptionREST } from '#libs/subscription/types';
 import type { ConsumerPaymentPackREST } from '#libs/consumer-payment-pack/types';
@@ -180,6 +186,44 @@ const initialState: Immutable.Immutable<ConsumerStateReworked> =
     },
     myPasses: {
       consumerPaymentPack: {
+        active: {
+          page: 1,
+          next_page: null,
+          previous_page: null,
+          count: 0,
+          loading: false,
+          error: null,
+          passes: {
+            allIds: [],
+            byId: {},
+          },
+        },
+        future: {
+          page: 1,
+          next_page: null,
+          previous_page: null,
+          count: 0,
+          loading: false,
+          error: null,
+          passes: {
+            allIds: [],
+            byId: {},
+          },
+        },
+        expired: {
+          page: 1,
+          next_page: null,
+          previous_page: null,
+          count: 0,
+          loading: false,
+          error: null,
+          passes: {
+            allIds: [],
+            byId: {},
+          },
+        },
+      },
+      privateConsumerPass: {
         active: {
           page: 1,
           next_page: null,
@@ -1131,6 +1175,177 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
                   passes: {
                     byId: results.reduce<
                       PayloadReduceType<ConsumerPaymentPackREST>
+                    >((acc, ps) => {
+                      acc[ps.id] = ps;
+                      return acc;
+                    }, {}),
+                  },
+                },
+              },
+            },
+          },
+          { deep: true },
+        );
+    },
+    [fetchMyExpiredPrivateConsumerPassesAsMemberActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['myPasses', 'privateConsumerPass', 'expired', 'loading'],
+        payload,
+      );
+    },
+    [fetchMyExpiredPrivateConsumerPassesAsMemberActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['myPasses', 'privateConsumerPass', 'expired', 'error'],
+        payload,
+      );
+    },
+    [fetchMyExpiredPrivateConsumerPassesAsMemberActions.success.toString()]: (
+      state,
+      {
+        payload,
+      }: { payload: AxiosResponse<PaginatedResponse<PrivateConsumerPassREST>> },
+    ) => {
+      const { next_page, results, count, page } = payload.data;
+
+      return state
+        .setIn(['myPasses', 'privateConsumerPass', 'expired', 'page'], page)
+        .setIn(
+          ['myPasses', 'privateConsumerPass', 'expired', 'next_page'],
+          next_page,
+        )
+        .setIn(['myPasses', 'privateConsumerPass', 'expired', 'count'], count)
+        .setIn(
+          ['myPasses', 'privateConsumerPass', 'expired', 'passes', 'allIds'],
+          uniq(results.map((booking) => booking.id)),
+        )
+        .merge(
+          {
+            myPasses: {
+              privateConsumerPass: {
+                expired: {
+                  passes: {
+                    byId: results.reduce<
+                      PayloadReduceType<PrivateConsumerPassREST>
+                    >((acc, ps) => {
+                      acc[ps.id] = ps;
+                      return acc;
+                    }, {}),
+                  },
+                },
+              },
+            },
+          },
+          { deep: true },
+        );
+    },
+    [fetchMyActivePrivateConsumerPassesAsMemberActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['myPasses', 'privateConsumerPass', 'active', 'loading'],
+        payload,
+      );
+    },
+    [fetchMyActivePrivateConsumerPassesAsMemberActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['myPasses', 'privateConsumerPass', 'active', 'error'],
+        payload,
+      );
+    },
+    [fetchMyActivePrivateConsumerPassesAsMemberActions.success.toString()]: (
+      state,
+      {
+        payload,
+      }: { payload: AxiosResponse<PaginatedResponse<PrivateConsumerPassREST>> },
+    ) => {
+      const { next_page, results, count, page } = payload.data;
+
+      return state
+        .setIn(['myPasses', 'privateConsumerPass', 'active', 'page'], page)
+        .setIn(
+          ['myPasses', 'privateConsumerPass', 'active', 'next_page'],
+          next_page,
+        )
+        .setIn(['myPasses', 'privateConsumerPass', 'active', 'count'], count)
+        .setIn(
+          ['myPasses', 'privateConsumerPass', 'active', 'passes', 'allIds'],
+          uniq(results.map((booking) => booking.id)),
+        )
+        .merge(
+          {
+            myPasses: {
+              privateConsumerPass: {
+                active: {
+                  passes: {
+                    byId: results.reduce<
+                      PayloadReduceType<PrivateConsumerPassREST>
+                    >((acc, ps) => {
+                      acc[ps.id] = ps;
+                      return acc;
+                    }, {}),
+                  },
+                },
+              },
+            },
+          },
+          { deep: true },
+        );
+    },
+    [fetchMyFuturePrivateConsumerPassesAsMemberActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['myPasses', 'privateConsumerPass', 'future', 'loading'],
+        payload,
+      );
+    },
+    [fetchMyFuturePrivateConsumerPassesAsMemberActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['myPasses', 'privateConsumerPass', 'future', 'error'],
+        payload,
+      );
+    },
+    [fetchMyFuturePrivateConsumerPassesAsMemberActions.success.toString()]: (
+      state,
+      {
+        payload,
+      }: { payload: AxiosResponse<PaginatedResponse<PrivateConsumerPassREST>> },
+    ) => {
+      const { next_page, results, count, page } = payload.data;
+
+      return state
+        .setIn(['myPasses', 'privateConsumerPass', 'future', 'page'], page)
+        .setIn(
+          ['myPasses', 'privateConsumerPass', 'future', 'next_page'],
+          next_page,
+        )
+        .setIn(['myPasses', 'privateConsumerPass', 'future', 'count'], count)
+        .setIn(
+          ['myPasses', 'privateConsumerPass', 'future', 'passes', 'allIds'],
+          uniq(results.map((booking) => booking.id)),
+        )
+        .merge(
+          {
+            myPasses: {
+              privateConsumerPass: {
+                future: {
+                  passes: {
+                    byId: results.reduce<
+                      PayloadReduceType<PrivateConsumerPassREST>
                     >((acc, ps) => {
                       acc[ps.id] = ps;
                       return acc;

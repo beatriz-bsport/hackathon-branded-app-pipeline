@@ -5,6 +5,7 @@ import type {
   PrivateBookingModificationActionIdentifier,
   StaffModificationHistory,
 } from '#libs/role/types';
+import type { PrivateConsumerPassLink } from '#libs/relationship/types';
 
 export enum ResourceAttributionEnum {
   auto = 0,
@@ -215,9 +216,17 @@ export type PrivateConsumerPass<AssociatedMember = number> = {
   member: AssociatedMember;
   linked_consumer_payment_pack: number | null;
   is_universal_consumer_pass_source: boolean;
-  dst_private_consumer_pass?: Array<PrivateConsumerPass>;
-  src_private_consumer_pass?: Array<PrivateConsumerPass>;
+  dst_private_consumer_pass?: Array<PrivateConsumerPassLink>;
+  src_private_consumer_pass?: Array<PrivateConsumerPassLink>;
   disabled?: boolean;
+};
+
+export type PrivateConsumerPassREST = Omit<
+  PrivateConsumerPass<number>,
+  'dst_private_consumer_pass' | 'src_private_consumer_pass'
+> & {
+  dst_private_consumer_pass?: number;
+  src_private_consumer_pass?: number[];
 };
 
 export type PrivateBooking<
@@ -601,4 +610,21 @@ export type PrivateBookingFilterParams = {
   page?: number;
   past_booking?: boolean;
   was_refunded?: boolean;
+};
+
+/** Transformed Private consumer pass for the consumer page by including full objects */
+export type PrivateServiceCompatibilityPass = Omit<
+  ServiceCompatibilityPass,
+  'private_service'
+> & { private_service: PrivateServiceWithSlots };
+
+export type PrivateConsumerPassReworked = Omit<
+  PrivateConsumerPassREST,
+  'dst_private_consumer_pass' | 'src_private_consumer_pass' | 'private_pass'
+> & {
+  dst_private_consumer_pass?: PrivateConsumerPassLink;
+  src_private_consumer_pass?: PrivateConsumerPassLink[];
+  private_pass: Omit<PrivatePass, 'private_services'> & {
+    private_services: PrivateServiceCompatibilityPass[];
+  };
 };

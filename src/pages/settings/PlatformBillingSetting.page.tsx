@@ -66,6 +66,7 @@ import type {
 import type { PaymentMethod, Payout } from '#libs/payment/types';
 import type { UpsellPackage } from '#libs/company/types';
 import UpsellPackageSubscriptionDrawer from '#libs/platform-billing/components/UpsellPackageSubscriptionDrawer.component';
+import { getTheme } from '#libs/theme/selectors';
 
 const { trackFormAdd, trackFormSubmitIntent, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(
@@ -119,6 +120,7 @@ type Props = {
 
   subscribedUpsellPackages: UpsellPackage[];
   nonSubscribedUpsellPackages: UpsellPackage[];
+  hasLimitedAccessToAudience: boolean;
 };
 
 type State = {
@@ -234,6 +236,7 @@ export class PlatformBillingSetting extends React.Component<Props, State> {
         />
         <CompanyPlatformBillinGroupDetail
           handleSubscribe={this.handleOpenSubscriptionForm}
+          hasLimitedAccessToAudience={this.props.hasLimitedAccessToAudience}
           nonSubscribedUpsellPackages={this.props.nonSubscribedUpsellPackages}
           onKnowMore={this.props.onRequestUpsell}
           platformSubscription={this.props.platformSubscription}
@@ -296,6 +299,8 @@ export default compose(
       // stripeBalanceLoading: state.paymentBackend.balance.isLoading,
       subscribedUpsellPackages: getSubscribedUpsellPackages(state),
       nonSubscribedUpsellPackages: getNonSubscribedUpsellPackages(state),
+      hasLimitedAccessToAudience:
+        getTheme(state).has_limited_access_to_sequential_marketing,
     }),
     {
       fetchPlatformInvoiceList: fetchPlatformInvoiceListAction,

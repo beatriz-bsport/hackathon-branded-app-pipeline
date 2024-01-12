@@ -1,4 +1,4 @@
-import { FeatureList } from '#libs/company/types';
+import type { FeatureList } from '#libs/company/types';
 
 export const hasUpsell = (
   featureList: FeatureList,

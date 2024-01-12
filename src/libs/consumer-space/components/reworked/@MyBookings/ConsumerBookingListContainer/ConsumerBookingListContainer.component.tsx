@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 
@@ -6,11 +6,11 @@ import { BOOKING_STATUS_CANCELLED_BY_MANAGER } from '@bsport/common/lib/master-d
 import { MarketPlaceSessionTimeDisplay } from '@bsport/common/lib/master-data/personalization';
 
 import useConsumerBookingDateTime from '#libs/consumer-space/components/reworked/@MyBookings/hooks/useConsumerBookingDateTime';
-import { isOfferInThePast } from '#libs/marketplace/utils';
 import { formatAsDate, getIsLateBookingCancellation } from '#utils/datetime';
 import { GenericInfiniteScrollEnhancedCssOnly } from '#components/InfiniteScroll/GenericInfiniteScrollCssOnly.component';
 import ConsumerBookingCard from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingCard';
 import ConsumerBookingDetailsCard from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingDetailsCard';
+import ConsumerBookingListItem from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingListItem';
 import Typography from '#Fabrique/Typography';
 
 import type { ConsumerBooking } from '#libs/booking/types';
@@ -39,140 +39,6 @@ type Props = {
   ) => void;
   relatedBookingsInGroup: ConsumerBooking[];
   handleShowSpotDetails: (booking: ConsumerBooking) => void;
-};
-
-type BookingListCardItemProps = Pick<
-  Props,
-  | 'isLoading'
-  | 'sessionTimeDisplay'
-  | 'timezone'
-  | 'onBookingCardClick'
-  | 'handleJoinOnlineBooking'
-  | 'handleSelectBookingForCancelation'
-  | 'handleShowSpotDetails'
-> & {
-  item: ConsumerBooking;
-  isSelected?: boolean;
-};
-
-const BookingListCardItem: React.FC<BookingListCardItemProps> = ({
-  item,
-  isSelected,
-  isLoading,
-  sessionTimeDisplay,
-  timezone,
-  onBookingCardClick,
-  handleJoinOnlineBooking,
-  handleSelectBookingForCancelation,
-  handleShowSpotDetails,
-}) => {
-  const selectedBookingDate = useConsumerBookingDateTime({
-    offerDateStart: item?.offer?.date_start,
-    offerDurationMinute: item?.offer?.duration_minute,
-    establishmentTimezoneName: item?.establishment?.tzname,
-    isMetaActivityBroadcast: item?.meta_activity?.is_broadcast,
-    sessionTimeDisplay,
-    timezoneName: timezone,
-  });
-
-  const handleSeeDetailsClick = useCallback(
-    () => onBookingCardClick(item.id),
-    [item.id, onBookingCardClick],
-  );
-
-  const handleJoinOnlineClick = useCallback(
-    () =>
-      handleJoinOnlineBooking(
-        item.offer?.broadcast_link,
-        item.meta_activity?.is_broadcast,
-        item.offer_date_start,
-        item.establishment?.tzname || timezone,
-      ),
-    [
-      handleJoinOnlineBooking,
-      item.establishment?.tzname,
-      item.meta_activity?.is_broadcast,
-      item.offer?.broadcast_link,
-      item.offer_date_start,
-      timezone,
-    ],
-  );
-
-  const handleCancelBookingClick = useCallback(
-    () => handleSelectBookingForCancelation(item.id),
-    [handleSelectBookingForCancelation, item.id],
-  );
-
-  const handleSpotSchedulingClick = useCallback(
-    () => handleShowSpotDetails(item),
-    [handleShowSpotDetails, item],
-  );
-
-  const offerIsInThePast = isOfferInThePast(item.offer);
-
-  const bookingActions = useMemo(
-    () => [
-      {
-        name: 'isCancellable',
-        value: !item.date_canceled && !offerIsInThePast,
-      },
-      {
-        name: 'isJoinableOnline',
-        value: item.meta_activity?.is_broadcast && !offerIsInThePast,
-      },
-      {
-        name: 'isBookable',
-        value: false, // TODO waitlist
-      },
-      {
-        name: 'isBookableForAGuest',
-        value: false,
-      },
-    ],
-    [item.date_canceled, item.meta_activity?.is_broadcast, offerIsInThePast],
-  );
-
-  const getBookingAction = useCallback(
-    (
-      name:
-        | 'isCancellable'
-        | 'isJoinableOnline'
-        | 'isBookable'
-        | 'isBookableForAGuest',
-    ) => bookingActions.find((action) => action.name === name)?.value ?? false,
-    [bookingActions],
-  );
-
-  const isMoreDisabled =
-    bookingActions.filter((action) => !!action.value).length > 2;
-
-  return (
-    <ConsumerBookingCard
-      activityName={item.offer?.name_override || item.meta_activity?.name}
-      coachName={item.coach?.name}
-      coachPhoto={item.coach?.photo}
-      establishmentAddress={item.establishment?.location?.address}
-      isBookable={getBookingAction('isBookable')}
-      isBookableForAGuest={getBookingAction('isBookableForAGuest')}
-      isBookedForAGuest={!!item.source_member}
-      isBookingCancelled={!!item.date_canceled}
-      isCancelDisabled={offerIsInThePast}
-      isCancellable={getBookingAction('isCancellable')}
-      isJoinableOnline={getBookingAction('isJoinableOnline')}
-      isLoading={isLoading}
-      isMoreDisabled={isMoreDisabled}
-      isNoShow={item.is_no_show}
-      isOnline={item.meta_activity?.is_broadcast}
-      isSelected={isSelected}
-      menuId={item.id.toString()}
-      offerDate={selectedBookingDate}
-      onBookingCancelClick={handleCancelBookingClick}
-      onDetailsClick={handleSeeDetailsClick}
-      onJoinOnlineClick={handleJoinOnlineClick}
-      onSpotSchedulingClick={handleSpotSchedulingClick}
-      spotSchedulingPosition={item.spot_id?.toString()}
-    />
-  );
 };
 
 export const ConsumerBookingListContainer: React.FC<Props> = ({
@@ -245,7 +111,7 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
               items={bookingList}
               loader={<ConsumerBookingCard isLoading />}
               renderItem={({ item }) => (
-                <BookingListCardItem
+                <ConsumerBookingListItem
                   key={item.id}
                   handleJoinOnlineBooking={handleJoinOnlineBooking}
                   handleSelectBookingForCancelation={

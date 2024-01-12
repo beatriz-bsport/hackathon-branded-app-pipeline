@@ -7,7 +7,7 @@ import { START_ON_PURCHASE } from '@bsport/common/lib/master-data/payment-pack';
 
 import { sortByDate, formatAsDate } from '../../utils/datetime';
 
-import {
+import type {
   PrivateConsumerPass,
   PrivatePass,
   PrivateService,
@@ -25,6 +25,7 @@ import {
   IntervalsGroupedByResourceId,
   IntervalsGroupedByRestriction,
   ResourceType,
+  PrivateConsumerPassReworked,
 } from './types';
 import { Member } from '#libs/member/types';
 
@@ -174,7 +175,10 @@ export const getValidityInfo = (
 };
 
 export const getExpirationDate = (
-  privateConsumerPass: PrivateConsumerPass | PrivateConsumerPass<Member>,
+  privateConsumerPass:
+    | PrivateConsumerPassReworked
+    | PrivateConsumerPass
+    | PrivateConsumerPass<Member>,
 ) => {
   if (
     privateConsumerPass.private_pass.start_date_method !== START_ON_PURCHASE &&

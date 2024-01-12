@@ -7,6 +7,7 @@ export enum SequentialMarketingColors {
   INNER_STEP_BORDER_COLOR = 'rgba(4, 109, 200, 0.1)',
 
   ENTRY_COLOR = 'rgba(144, 190, 109, 1)',
+  ENTRY_TEXT_COLOR = '#458712',
   ENTRY_BORDER_COLOR = 'rgba(144, 190, 109, 0.25)',
 
   LOSE_COLOR = 'rgba(243, 57, 60, 1)',

@@ -874,5 +874,17 @@ exports.default = {
         confirm: 'Confirm',
       },
     },
+    memberTable: {
+      searchPlaceHolder: 'Search...',
+      title: 'Members present in the {{ workflowLowerCase }} ({{count}})',
+      historicTitle: 'Historic ({{count}})',
+      tableColumnLabel: {
+        member: 'Member',
+        currentStep: 'Current step',
+        entryDate: 'Entry date',
+        exitDate: 'Exit date',
+        status: 'Status',
+      },
+    },
   },
 };

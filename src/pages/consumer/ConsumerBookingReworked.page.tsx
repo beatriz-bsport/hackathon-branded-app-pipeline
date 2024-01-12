@@ -18,6 +18,8 @@ import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#libs/meta
 import {
   fetchMyPastBookingAsMember as fetchMyPastBookingAsMemberAction,
   fetchMyFutureBookingAsMember as fetchMyFutureBookingAsMemberAction,
+  fetchMyPastPrivateBookingAsMember as fetchMyPastPrivateBookingAsMemberAction,
+  fetchMyFuturePrivateBookingAsMember as fetchMyFuturePrivateBookingAsMemberAction,
   fetchMyPastBookingWorkshopAsMember as fetchMyPastBookingWorkshopAsMemberAction,
   fetchMyFutureBookingWorkshopAsMember as fetchMyFutureBookingWorkshopAsMemberAction,
   resetConsumerState as resetConsumerStateAction,
@@ -30,6 +32,11 @@ import {
   fetchSpotForBlueprint as fetchSpotForBlueprintAction,
 } from '#libs/spot-scheduling/actions';
 import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '#libs/payment-packs/actions';
+import {
+  fetchPrivateConsumerPassBulk as fetchPrivateConsumerPassBulkAction,
+  fetchPrivateSlotBulk as fetchPrivateSlotBulkAction,
+  fetchPrivateServiceBulk as fetchPrivateServiceBulkAction,
+} from '#libs/private-service/actions';
 
 import { getTheme } from '#libs/theme/selectors';
 import { getMembership } from '#libs/membership/selectors';
@@ -58,6 +65,7 @@ import type { RootState } from '../../reducers';
 import type { WithHandlerType } from '../../utils/types';
 import type { BookingTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
 import type { BookingFilterTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/types';
+import type { PrivateBooking } from '#libs/private-service/types';
 
 type OwnProps = {};
 type ParamsProps = {
@@ -131,6 +139,40 @@ export class ConsumerBooking extends React.Component<Props> {
     });
   };
 
+  fetchAssociatedPrivateBookingsObjects = (
+    privateBookings: PrivateBooking[],
+  ) => {
+    const privateBookingsCoachList = uniq(
+      privateBookings.map(
+        (privateBooking) =>
+          privateBooking.coach || privateBooking.associated_coach,
+      ),
+    );
+    const privateBookingsEstablishmentList = uniq(
+      privateBookings.map(
+        (privateBooking) =>
+          privateBooking.establishment ||
+          privateBooking.associated_establishment,
+      ),
+    );
+    const privateBookingsConsumerPassList = uniq(
+      privateBookings.map(
+        (privateBooking) => privateBooking.private_consumer_pass,
+      ),
+    );
+    const privateBookingsPrivateServiceList = uniq(
+      privateBookings.map((privateBooking) => privateBooking.private_service),
+    );
+    const privateBookingsPrivateSlotList = uniq(
+      privateBookings.map((privateBooking) => privateBooking.private_slot),
+    );
+    this.props.fetchCoachBulk(privateBookingsCoachList);
+    this.props.fetchEstablishmentBulk(privateBookingsEstablishmentList);
+    this.props.fetchPrivateConsumerPassBulk(privateBookingsConsumerPassList);
+    this.props.fetchPrivateServiceBulk(privateBookingsPrivateServiceList);
+    this.props.fetchPrivateSlotBulk(privateBookingsPrivateSlotList);
+  };
+
   handleBookASessionClick = () => {
     const marketplaceTabPath = urlToMarketplaceSessionTab(
       this.props.marketplaceSettings?.config,
@@ -165,6 +207,26 @@ export class ConsumerBooking extends React.Component<Props> {
           onSuccess: this.fetchAssociatedBookingsObjects,
         },
       );
+  };
+
+  fetchPastPrivateBookings = () => {
+    this.props.fetchMyPastPrivateBookingAsMember(
+      {
+        member: this.props.membership.id,
+        company: this.props.companyId,
+      },
+      { onSuccess: this.fetchAssociatedPrivateBookingsObjects },
+    );
+  };
+
+  fetchFuturePrivateBookings = () => {
+    this.props.fetchMyFuturePrivateBookingAsMember(
+      {
+        member: this.props.membership.id,
+        company: this.props.companyId,
+      },
+      { onSuccess: this.fetchAssociatedPrivateBookingsObjects },
+    );
   };
 
   fetchPastBookingsWorkshop = () => {
@@ -263,10 +325,15 @@ const connector = connect(
     fetchRoomBlueprints: fetchRoomBlueprintsAction,
     fetchSpotForBlueprint: fetchSpotForBlueprintAction,
     fetchAssetForBlueprint: fetchAssetForBlueprintAction,
+    fetchPrivateConsumerPassBulk: fetchPrivateConsumerPassBulkAction,
+    fetchPrivateSlotBulk: fetchPrivateSlotBulkAction,
+    fetchPrivateServiceBulk: fetchPrivateServiceBulkAction,
     // REWORKED
     fetchMyPastBookingAsMember: fetchMyPastBookingAsMemberAction,
     fetchMyFutureBookingAsMember: fetchMyFutureBookingAsMemberAction,
     resetConsumerState: resetConsumerStateAction,
+    fetchMyPastPrivateBookingAsMember: fetchMyPastPrivateBookingAsMemberAction,
+    fetchMyFuturePrivateBookingAsMember: fetchMyFuturePrivateBookingAsMemberAction,
     fetchMyPastBookingWorkshopAsMember:
       fetchMyPastBookingWorkshopAsMemberAction,
     fetchMyFutureBookingWorkshopAsMember:

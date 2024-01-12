@@ -1,6 +1,6 @@
 .Build and deploy Base:
   image: ${REGISTRY_ENDPOINT}/bsport/bsport-saas-builder:${CI_COMMIT_REF_NAME}
-  stage: build-deploy
+  stage: deploy
   retry:
     max: 2
   script:
@@ -45,6 +45,10 @@
 
 Build Deploy Staging:
   extends: .Build and deploy Base
+  environment:
+    name: staging
+    deployment_tier: staging
+    url: https://backoffice.staging.bsport.io
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
@@ -66,6 +70,10 @@ Build Deploy Staging:
 
 Build Deploy Production:
   extends: .Build and deploy Base
+  environment:
+    name: production
+    deployment_tier: production
+    url: https://backoffice.bsport.io
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
@@ -88,6 +96,10 @@ Build Deploy Production:
 
 Build Deploy Dev:
   extends: .Build and deploy Base
+  environment:
+    name: dev
+    deployment_tier: development
+    url: https://backoffice.dev.bsport.io
   rules:
     - if: $CI_PIPELINE_SOURCE == "schedule"
       when: never
@@ -199,7 +211,7 @@ Build Deploy Feature Branch Backend And Frontend:
     - when: never
   variables:
     ENV_TEMPLATE_FILE: template-feature-branch
-    SLACK_TEMPLATE_FILE: "./ci/slack_template/slack_template_feature-branch.json"
+    SLACK_TEMPLATE_FILE: './ci/slack_template/slack_template_feature-branch.json'
 
 Build Deploy Feature Branch Frontend Only:
   extends: .Build Deploy Feature Branch Generic
@@ -220,4 +232,4 @@ Build Deploy Feature Branch Frontend Only:
   variables:
     ENV_TEMPLATE_FILE: template-frontend-only-feature-branch
     SLACK_WEBHOOK_URL: '${SLACK_READY_FOR_TEST_WEBHOOK_URL}'
-    SLACK_TEMPLATE_FILE: "./ci/slack_template/slack_template_feature-branch-ready-to-test.json"
+    SLACK_TEMPLATE_FILE: './ci/slack_template/slack_template_feature-branch-ready-to-test.json'

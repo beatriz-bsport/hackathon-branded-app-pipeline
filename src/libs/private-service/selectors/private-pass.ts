@@ -9,6 +9,7 @@ import type {
   PrivatePassTemplateAPI,
   PrivatePassTemplateInstance,
   ServiceCompatibilityPass,
+  PrivateServiceCompatibilityPass,
 } from '../types';
 import { _getPrivateServiceDict } from './private-service';
 import { getAllPrivateSlotsDict } from './private-slot';
@@ -178,6 +179,30 @@ export const getServiceCompatibilityPassList: (
 ) => Array<ServiceCompatibilityPass> = createSelector(
   [_getServiceCompatibiltyPassDict, _getServiceCompatibiltyPassIds],
   (data, ids) => ids.map((id) => data[id]),
+);
+
+/**
+ * `getServiceCompatibilityPassesByPrivatePassAndPrivateService` is a selector that maps service compatibility passes by private pass and private service as a unique key.
+ *
+ * @function
+ * @param {RootState} state - The Redux state.
+ * @returns {Object} An object where each key is a string composed of the pair (private service ID, the private pass), and each value is the corresponding PrivateServiceCompatibilityPass.
+ */
+export const getServiceCompatibilityPassesByPrivatePassAndPrivateService: (
+  state: RootState,
+) => {
+  [private_service: string]: PrivateServiceCompatibilityPass;
+} = createSelector(
+  [getServiceCompatibilityPassList],
+  (serviceCompatibilityPassesList) => {
+    return serviceCompatibilityPassesList.reduce(
+      (acc, value) => ({
+        ...acc,
+        [`${value.private_service.id}-${value.private_pass}`]: value,
+      }),
+      {},
+    );
+  },
 );
 
 export const getCompatibleServicePassLoading = (state: RootState) =>

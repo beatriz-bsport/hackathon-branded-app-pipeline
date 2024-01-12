@@ -27,6 +27,7 @@ type Props = {
   classes: Object,
   className?: string,
   inputClassName?: string,
+  inputPropsClassName?: String,
   variant?: string,
   disableAutoFocus?: boolean,
   adornmentPosition: 'start' | 'end' | 'none',
@@ -136,6 +137,7 @@ export class FuzeSearch extends React.Component<Props> {
           // eslint-disable-next-line react/jsx-no-duplicate-props
           inputProps={{
             'data-testid': 'input-fuze-search',
+            className: this.props.inputPropsClassName,
           }}
           onChange={this.props.changeSearch(fuse)}
           placeholder={this.props.placeholder}

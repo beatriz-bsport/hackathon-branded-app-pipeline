@@ -13,7 +13,7 @@ import type {
   PrivateBooking,
   PrivatePassCategory,
   PrivateBookingFilterParams,
-  PrivateConsumerPass,
+  PrivateConsumerPassREST,
 } from './types';
 import type { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';
 import type { PaginatedResponse } from '../../state/types';
@@ -404,7 +404,7 @@ export async function fetchIncompatibilitiesReasonsBySlotByConsumerPass(
 }
 
 export const fetchPrivateConsumerPassList = (params: any) => {
-  return getAuth<PrivateConsumerPass[]>(
+  return getAuth<PaginatedResponse<PrivateConsumerPassREST>>(
     `${API_V1_URI}/private_service/private_consumer_pass/${buildUrlParams({
       ...(params || {}),
     })}`,

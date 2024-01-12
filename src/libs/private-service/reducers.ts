@@ -54,6 +54,7 @@ import {
   deleteRecurrenceRulePrivateBookingActions,
   privateConsumerPassMassExtensionActions,
   privateServiceCompatiblePassActions,
+  privateServiceCompatiblePassListActions,
   privatePassUpdateOrderActions,
   deletePrivatePassCategoryActions,
   upsertPrivatePassCategoryActions,
@@ -70,7 +71,7 @@ import {
 } from './actions';
 
 import { getResourceSlotsExistState } from './selectors/availability-slot';
-import { PrivateServiceState } from './types';
+import { PrivateServiceState, ServiceCompatibilityPass } from './types';
 
 const initialState: Seamless.Immutable<PrivateServiceState> =
   Seamless<PrivateServiceState>({
@@ -1874,6 +1875,39 @@ export default handleActions<Seamless.Immutable<PrivateServiceState>, any>(
         ['privateSlot', 'unpaidBookingAvailability', 'byId', payload],
         true,
       );
+    },
+    [privateServiceCompatiblePassListActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['compatibleServicePass', 'loading'], payload);
+    },
+    [privateServiceCompatiblePassListActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error },
+    ) => {
+      return state.setIn(['compatibleServicePass', 'error'], payload);
+    },
+    [privateServiceCompatiblePassListActions.success.toString()]: (
+      state,
+      { payload }: { payload: ServiceCompatibilityPass[] },
+    ) => {
+      return state
+        .setIn(
+          ['compatibleServicePass', 'allIds'],
+          payload.map((pp: any) => pp.id),
+        )
+        .merge(
+          {
+            compatibleServicePass: {
+              byId: payload.reduce((acc: any, v: any) => {
+                acc[v.id] = v;
+                return acc;
+              }, {}),
+            },
+          },
+          { deep: true },
+        );
     },
   },
   initialState,

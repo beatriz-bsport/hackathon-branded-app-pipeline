@@ -54,6 +54,7 @@ import {
   deleteCompatibleServicePass as deleteCompatibleServicePassAPI,
   updateCompatibleServicePass as updateCompatibleServicePassAPI,
   fetchCompatibleServicePassList as fetchCompatibleServicePassListAPI,
+  fetchPrivateServiceCompatiblePassList as fetchPrivateServiceCompatiblePassListAPI,
   editOrderPrivatePass as editOrderPrivatePassAPI,
   isPrivatePassUsedInCombo as isPrivatePassUsedInComboAPI,
   // private-consumer-pass
@@ -123,6 +124,7 @@ import {
   PrivateService,
   PrivateSlot,
   PrivatePass,
+  ServiceCompatibilityPass,
 } from './types';
 import type { PrivateBookingFilterParams } from '#libs/private-service/types';
 import type { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';
@@ -1525,6 +1527,38 @@ export function fetchCompatibleServicePassList(
       if (options && options.onError) options.onError(error);
     }
     dispatch(privateServiceCompatiblePassActions.isLoading(false));
+  };
+}
+
+export const privateServiceCompatiblePassListActions = {
+  error: createAction<Error | null>(
+    'PRIVATE_SERVICE_COMPATIBLE_PASS/LIST/ERROR',
+  ),
+  isLoading: createAction<boolean>(
+    'PRIVATE_SERVICE_COMPATIBLE_PASS/LIST/IS_LOADING',
+  ),
+  success: createAction<ServiceCompatibilityPass[]>(
+    'PRIVATE_SERVICE_COMPATIBLE_PASS/LIST/SUCCESS',
+  ),
+};
+
+export function fetchPrivateServiceCompatiblePassList(
+  params: { private_service__in: number[] },
+  options?: OptionCallback<ServiceCompatibilityPass[]>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(privateServiceCompatiblePassListActions.isLoading(true));
+    dispatch(privateServiceCompatiblePassListActions.error(null));
+    try {
+      const response = await fetchPrivateServiceCompatiblePassListAPI(params);
+      dispatch(privateServiceCompatiblePassListActions.success(response.data));
+      if (options && options.onSuccess) options.onSuccess(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(privateServiceCompatiblePassListActions.error(null));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(privateServiceCompatiblePassListActions.isLoading(false));
   };
 }
 

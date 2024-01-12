@@ -9,7 +9,7 @@ variables:
 stages:
   - prepare-image-docker
     # - static-analysis
-  - build-deploy
+  - deploy
   - label-issues
 
 include:

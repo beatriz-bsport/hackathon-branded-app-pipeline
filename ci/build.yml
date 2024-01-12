@@ -1,5 +1,9 @@
 Build Deploy Staging:
   extends: .Build and deploy Base
+  environment:
+      name: staging
+      deployment_tier: staging
+      url: https://backoffice.staging.bsport.io
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: never
@@ -17,6 +21,10 @@ Build Deploy Staging:
 
 Build Deploy Production:
   extends: .Build and deploy Base
+  environment:
+    name: production
+    deployment_tier: production
+    url: https://backoffice.bsport.io
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: never
@@ -34,6 +42,10 @@ Build Deploy Production:
  
 Build Deploy Dev:
   extends: .Build and deploy Base
+  environment:
+    name: dev
+    deployment_tier: development
+    url: https://backoffice.dev.bsport.io
   rules:
     - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
       when: never
@@ -77,7 +89,7 @@ Build Deploy Feature Branch:
 
 .Build and deploy Base:
   image: ${REGISTRY_ENDPOINT}/bsport/bsport-widget-builder:${CI_COMMIT_REF_NAME}
-  stage: build-deploy 
+  stage: deploy 
   tags:
     - high-ram
     - cluster:bsport-tooling

@@ -35,6 +35,8 @@ export type PrivateConsumerPassLink = {
   src: number;
   dst: number;
   member_relation: number;
+  dst_member_name?: string;
+  src_member_name?: string;
 };
 
 export type RelationshipState = {

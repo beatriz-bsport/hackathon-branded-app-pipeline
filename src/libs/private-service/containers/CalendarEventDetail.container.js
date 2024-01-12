@@ -745,6 +745,7 @@ export class CalendarEventDetail extends React.Component<Props, State> {
               this.props.similarOfferLoading ||
               !offer
             }
+            isOfferInGroup={!!offer?.group}
             isWherebyIntegrationEnabled={
               this.props.theme &&
               this.props.theme.is_whereby_integration_enabled &&

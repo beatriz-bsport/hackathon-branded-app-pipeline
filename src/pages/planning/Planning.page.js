@@ -778,6 +778,7 @@ export class Planning extends PureComponent<Props, State> {
             fetchLevelList={this.handleFetchLevel}
             fetchSimilarOffers={fetchSimilarOffers}
             isLoading={this.getEditFormLoading()}
+            isOfferInGroup={!!selectedOffer?.group}
             isWherebyIntegrationEnabled={this.getIsWherebyIntegrationEnabled()}
             metaActivities={this.props.metaActivities}
             metaActivity={selectedOffer.meta_activity}

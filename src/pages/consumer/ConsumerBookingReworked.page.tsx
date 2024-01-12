@@ -20,6 +20,7 @@ import {
   fetchMyFutureBookingAsMember as fetchMyFutureBookingAsMemberAction,
   fetchMyPastBookingWorkshopAsMember as fetchMyPastBookingWorkshopAsMemberAction,
   fetchMyFutureBookingWorkshopAsMember as fetchMyFutureBookingWorkshopAsMemberAction,
+  resetConsumerState as resetConsumerStateAction,
   cancelBookingAsMember as cancelBookingAsMemberAction,
 } from '#libs/consumer-space/actions';
 import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '#libs/establishment/actions';
@@ -211,6 +212,7 @@ export class ConsumerBooking extends React.Component<Props> {
         pastBookingsState={this.props.myPastBookingsState}
         pastBookingsWorkshopList={this.props.myPastBookingsWorkshopList}
         pastBookingsWorkshopState={this.props.myPastBookingsWorkshopState}
+        resetConsumerState={this.props.resetConsumerState}
         sessionTimeDisplay={this.props.sessionTimeDisplay}
         spotTypes={this.props.spotTypes}
         timezone={this.props.timezone}
@@ -264,6 +266,7 @@ const connector = connect(
     // REWORKED
     fetchMyPastBookingAsMember: fetchMyPastBookingAsMemberAction,
     fetchMyFutureBookingAsMember: fetchMyFutureBookingAsMemberAction,
+    resetConsumerState: resetConsumerStateAction,
     fetchMyPastBookingWorkshopAsMember:
       fetchMyPastBookingWorkshopAsMemberAction,
     fetchMyFutureBookingWorkshopAsMember:

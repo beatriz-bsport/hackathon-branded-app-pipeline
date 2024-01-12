@@ -35,6 +35,7 @@ export default function useConsumerBookingsDataManager({
   fetchFutureBookings,
   fetchPastBookingsWorkshop,
   fetchFutureBookingsWorkshop,
+  resetConsumerState,
   cancelBooking,
   getRelatedConsumerBookingsInGroup,
   fetchAssociatedBlueprintObjects,
@@ -52,6 +53,7 @@ export default function useConsumerBookingsDataManager({
   fetchFutureBookings: () => void;
   fetchPastBookingsWorkshop: () => void;
   fetchFutureBookingsWorkshop: () => void;
+  resetConsumerState: () => void;
   cancelBooking: (
     bookingId: number,
     params: CancelBookingFilterParams,
@@ -223,11 +225,12 @@ export default function useConsumerBookingsDataManager({
    */
   const handleSetSelectedTab = useCallback(
     (type: BookingTab) => {
-      setSelectedTab(type);
+      resetConsumerState();
       handleFetchTabData?.(type);
+      setSelectedTab(type);
       setSelectedBooking(null);
     },
-    [handleFetchTabData],
+    [handleFetchTabData, resetConsumerState],
   );
 
   /**

@@ -44,6 +44,7 @@ type Props = {
   fetchFutureBookings: () => void;
   fetchPastBookingsWorkshop: () => void;
   fetchFutureBookingsWorkshop: () => void;
+  resetConsumerState: () => void;
   cancelBooking: (
     bookingId: number,
     params: CancelBookingFilterParams,
@@ -75,6 +76,7 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
   fetchFutureBookings,
   fetchPastBookingsWorkshop,
   fetchFutureBookingsWorkshop,
+  resetConsumerState,
   cancelBooking,
   getRelatedConsumerBookingsInGroup,
   fetchAssociatedBlueprintObjects,
@@ -120,6 +122,7 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
     fetchFutureBookings,
     fetchPastBookingsWorkshop,
     fetchFutureBookingsWorkshop,
+    resetConsumerState,
     getRelatedConsumerBookingsInGroup,
     cancelBooking,
     fetchAssociatedBlueprintObjects,

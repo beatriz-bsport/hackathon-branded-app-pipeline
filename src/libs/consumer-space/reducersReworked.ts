@@ -8,6 +8,7 @@ import {
   fetchMyFutureBookingAsMemberActions,
   fetchMyPastBookingWorkshopAsMemberActions,
   fetchMyFutureBookingWorkshopAsMemberActions,
+  resetConsumerStateActions,
 } from './actions';
 
 import type { ConsumerStateReworked } from './types';
@@ -293,6 +294,62 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
           },
           { deep: true },
         );
+    },
+    [resetConsumerStateActions.all.toString()]: (state) => {
+      return state.setIn(['myBookings'], {
+        bookings: {
+          future: {
+            page: 1,
+            next_page: null,
+            previous_page: null,
+            count: 0,
+            loading: false,
+            error: null,
+            bookings: {
+              allIds: [],
+              byId: {},
+            },
+          },
+          past: {
+            page: 1,
+            next_page: null,
+            previous_page: null,
+            count: 0,
+            loading: false,
+            error: null,
+            bookings: {
+              allIds: [],
+              byId: {},
+            },
+          },
+        },
+        bookingsWorkshop: {
+          future: {
+            page: 1,
+            next_page: null,
+            previous_page: null,
+            count: 0,
+            loading: false,
+            error: null,
+            bookings: {
+              allIds: [],
+              byId: {},
+            },
+          },
+          past: {
+            page: 1,
+            next_page: null,
+            previous_page: null,
+            count: 0,
+            loading: false,
+            error: null,
+            bookings: {
+              allIds: [],
+              byId: {},
+            },
+          },
+        },
+      });
     },
   },
   initialState,

@@ -694,6 +694,16 @@ export function fetchMyFutureBookingWorkshopAsMember(
   };
 }
 
+export const resetConsumerStateActions = {
+  all: createAction('CONSUMER_STATE_REWORKED/RESET'),
+};
+
+export function resetConsumerState(): ThunkAction {
+  return (dispatch: Dispatch) => {
+    dispatch(resetConsumerStateActions.all());
+  };
+}
+
 export const cancelBookingAsMemberActions = {
   success: createAction<AxiosResponse<BookingREST>>(
     'BOOKING/CANCEL/AS_MEMBER/SUCCESS',

@@ -260,16 +260,21 @@ export const loadDefaultEstablishmentBillingGroup = (
     basketOffers?: Offer<number, Establishment, MetaActivity>[];
   },
 ) => {
+  const incomingBasketData = prevProps.basketOffers !== newProps.basketOffers;
+  const incomingDefaultEstablishmentBillingGroup =
+    prevProps.defaultEstablishmentBillingGroup !==
+    newProps.defaultEstablishmentBillingGroup;
+  const incomingEstablishmentBillingGroupData =
+    prevProps.establishmentBillingGroups !==
+    newProps.establishmentBillingGroups;
   if (
     enableMultilocalisation &&
     // Member default establishment billing group has been fetched
-    (prevProps.defaultEstablishmentBillingGroup !==
-      newProps.defaultEstablishmentBillingGroup ||
+    (incomingDefaultEstablishmentBillingGroup ||
       // New data on establishment billing groups
-      prevProps.establishmentBillingGroups !==
-        newProps.establishmentBillingGroups ||
+      incomingEstablishmentBillingGroupData ||
       // New basket offers data
-      prevProps.basketOffers !== newProps.basketOffers)
+      incomingBasketData)
   ) {
     // ---- 1ST STEP : LOOK FOR A BILLING GROUP IN THE OFFERS ----
     const defaultBillingGroupFromOffers =
@@ -278,16 +283,23 @@ export const loadDefaultEstablishmentBillingGroup = (
         newProps.establishmentBillingGroups,
         newProps.basketOffers,
       );
-    if (defaultBillingGroupFromOffers && !isEstablishmentBillingGroupSelected) {
+    if (
+      defaultBillingGroupFromOffers &&
+      (!isEstablishmentBillingGroupSelected || incomingBasketData)
+    ) {
       setSelectedEstablishmentBillingGroup(defaultBillingGroupFromOffers);
       setIsEstablishmentBillingGroupSelected(true);
       return defaultBillingGroupFromOffers;
     }
     // ---- 2ND STEP : LOOK AT THE MEMBER'S DEFAULT ESTABLISHMENT BILLING ----
+    const offersLengthIsPositive = newProps.basketOffers?.length === 0;
+    const defaultBillingGroupIsEnabled =
+      newProps.defaultEstablishmentBillingGroup?.disabled === false;
     if (
       !isEstablishmentBillingGroupSelected &&
       newProps.defaultEstablishmentBillingGroup &&
-      newProps.defaultEstablishmentBillingGroup?.disabled === false
+      offersLengthIsPositive &&
+      defaultBillingGroupIsEnabled
     ) {
       setSelectedEstablishmentBillingGroup(
         newProps.defaultEstablishmentBillingGroup,

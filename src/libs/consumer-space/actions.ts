@@ -8,12 +8,13 @@ import { RootState } from '../../reducers';
 import {
   cancelBookingV2 as cancelBookingV2API,
   fetchBookingListV2 as fetchBookingListAPI,
-} from '../booking/api';
+} from '#libs/booking/api';
 import {
   fetchPrivateBookings,
   fetchPrivateBookingsV2 as fetchPrivateBookingsV2API,
   disablePrivateBooking as disablePrivateBookingAPI,
-} from '../private-service/api';
+  fetchPrivateConsumerPassList as fetchPrivateConsumerPassListAPI,
+} from '#libs/private-service/api';
 import {
   fetchFilteredBookingOptionsPaginated as fetchFilteredBookingOptionsPaginatedAPI,
   discardBookingOption as discardBookingOptionAPI,
@@ -29,7 +30,12 @@ import type {
 import type {
   PrivateBooking,
   PrivateBookingFilterParams,
+  PrivateConsumerPassREST,
 } from '#libs/private-service/types';
+import type {
+  ConsumerPaymentPack,
+  ConsumerPaymentPackREST,
+} from '#libs/consumer-payment-pack/types';
 import type { BookingOrPrivateBooking, Profile } from './types';
 import type {
   Booking,
@@ -43,10 +49,6 @@ import type {
   WaitingListBookingOption,
   WaitingListBookingOptionPaginatedQueryParams,
 } from '#libs/waiting-list/types';
-import type {
-  ConsumerPaymentPack,
-  ConsumerPaymentPackREST,
-} from '#libs/consumer-payment-pack/types';
 
 export const actionsType = {
   CONSUMER_HAS_FETCHED_OPTIONS: 'CONSUMER_HAS_FETCHED_OPTIONS_SUCCESS',
@@ -980,8 +982,14 @@ export function cancelBookingOptionAsMember(
     dispatch(cancelBookingOptionAsMemberActions.isLoading(false));
   };
 }
+/** MY PASSES PAGE */
 
-/** MY PASSES ACTIONS */
+type BaseMemberFetchOptions = {
+  memberId: number;
+  page_size?: number;
+};
+
+/** MY PASSES PAGE - CONSUMER PAYMENT PACKS */
 
 export const fetchMyActiveConsumerPaymentPacksAsMemberActions = {
   success: createAction<
@@ -993,11 +1001,6 @@ export const fetchMyActiveConsumerPaymentPacksAsMemberActions = {
   error: createAction<Error | null>(
     'REWORKED/CONSUMER_PAYMENT_PACK/ACTIVE/AS_MEMBER/ERROR',
   ),
-};
-
-type BaseMemberFetchOptions = {
-  memberId: number;
-  page_size?: number;
 };
 
 export const fetchMyActiveConsumerPaymentPacksAsMember = (
@@ -1126,5 +1129,151 @@ export const fetchMyFutureConsumerPaymentPacksAsMember = (
       }
     }
     dispatch(fetchMyFutureConsumerPaymentPacksAsMemberActions.isLoading(false));
+  };
+};
+
+/** MY PASSES PAGE - PRIVATE CONSUMER PASS */
+
+export const fetchMyActivePrivateConsumerPassesAsMemberActions = {
+  success: createAction<
+    AxiosResponse<PaginatedResponse<PrivateConsumerPassREST>>
+  >('REWORKED/PRIVATE_CONSUMER_PASS/ACTIVE/AS_MEMBER/SUCCESS'),
+  isLoading: createAction<boolean>(
+    'REWORKED/PRIVATE_CONSUMER_PASS/ACTIVE/AS_MEMBER/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'REWORKED/PRIVATE_CONSUMER_PASS/ACTIVE/AS_MEMBER/ERROR',
+  ),
+};
+
+export const fetchMyActivePrivateConsumerPassesAsMember = (
+  { memberId, page_size = 30 }: BaseMemberFetchOptions,
+  options?: OptionCallback<PrivateConsumerPassREST[]>,
+): ThunkAction => {
+  return async (dispatch, getState) => {
+    dispatch(fetchMyActivePrivateConsumerPassesAsMemberActions.isLoading(true));
+    dispatch(fetchMyActivePrivateConsumerPassesAsMemberActions.error(null));
+    const currentState =
+      getState().consumerReworked.myPasses.privateConsumerPass.active;
+    const nextPage = currentState.next_page ?? 1;
+    try {
+      const response = await fetchPrivateConsumerPassListAPI({
+        member: memberId,
+        page: nextPage,
+        page_size,
+        is_valid_today: true,
+      });
+      dispatch(
+        fetchMyActivePrivateConsumerPassesAsMemberActions.success(response),
+      );
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results);
+      }
+    } catch (err) {
+      dispatch(fetchMyActivePrivateConsumerPassesAsMemberActions.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
+    }
+    dispatch(
+      fetchMyActivePrivateConsumerPassesAsMemberActions.isLoading(false),
+    );
+  };
+};
+
+export const fetchMyExpiredPrivateConsumerPassesAsMemberActions = {
+  success: createAction<
+    AxiosResponse<PaginatedResponse<PrivateConsumerPassREST>>
+  >('REWORKED/PRIVATE_CONSUMER_PASS/EXPIRED/AS_MEMBER/SUCCESS'),
+  isLoading: createAction<boolean>(
+    'REWORKED/PRIVATE_CONSUMER_PASS/EXPIRED/AS_MEMBER/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'REWORKED/PRIVATE_CONSUMER_PASS/EXPIRED/AS_MEMBER/ERROR',
+  ),
+};
+
+export const fetchMyExpiredPrivateConsumerPassesAsMember = (
+  { memberId, page_size = 30 }: BaseMemberFetchOptions,
+  options?: OptionCallback<PrivateConsumerPassREST[]>,
+): ThunkAction => {
+  return async (dispatch, getState) => {
+    dispatch(
+      fetchMyExpiredPrivateConsumerPassesAsMemberActions.isLoading(true),
+    );
+    dispatch(fetchMyExpiredPrivateConsumerPassesAsMemberActions.error(null));
+    const currentState =
+      getState().consumerReworked.myPasses.privateConsumerPass.expired;
+    const nextPage = currentState.next_page ?? 1;
+    try {
+      const response = await fetchPrivateConsumerPassListAPI({
+        member: memberId,
+        page: nextPage,
+        page_size,
+        is_expired: true,
+      });
+      dispatch(
+        fetchMyExpiredPrivateConsumerPassesAsMemberActions.success(response),
+      );
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results);
+      }
+    } catch (err) {
+      dispatch(fetchMyExpiredPrivateConsumerPassesAsMemberActions.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
+    }
+    dispatch(
+      fetchMyExpiredPrivateConsumerPassesAsMemberActions.isLoading(false),
+    );
+  };
+};
+
+export const fetchMyFuturePrivateConsumerPassesAsMemberActions = {
+  success: createAction<
+    AxiosResponse<PaginatedResponse<PrivateConsumerPassREST>>
+  >('REWORKED/PRIVATE_CONSUMER_PASS/FUTURE/AS_MEMBER/SUCCESS'),
+  isLoading: createAction<boolean>(
+    'REWORKED/PRIVATE_CONSUMER_PASS/FUTURE/AS_MEMBER/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'REWORKED/PRIVATE_CONSUMER_PASS/FUTURE/AS_MEMBER/ERROR',
+  ),
+};
+
+export const fetchMyFuturePrivateConsumerPassesAsMember = (
+  { memberId, page_size = 30 }: BaseMemberFetchOptions,
+  options?: OptionCallback<PrivateConsumerPassREST[]>,
+): ThunkAction => {
+  return async (dispatch, getState) => {
+    dispatch(fetchMyFuturePrivateConsumerPassesAsMemberActions.isLoading(true));
+    dispatch(fetchMyFuturePrivateConsumerPassesAsMemberActions.error(null));
+    const currentState =
+      getState().consumerReworked.myPasses.privateConsumerPass.future;
+    const nextPage = currentState.next_page ?? 1;
+    try {
+      const response = await fetchPrivateConsumerPassListAPI({
+        member: memberId,
+        page: nextPage,
+        page_size,
+        is_expired: false,
+        is_valid_today: false,
+      });
+      dispatch(
+        fetchMyFuturePrivateConsumerPassesAsMemberActions.success(response),
+      );
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results);
+      }
+    } catch (err) {
+      dispatch(fetchMyFuturePrivateConsumerPassesAsMemberActions.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
+    }
+    dispatch(
+      fetchMyFuturePrivateConsumerPassesAsMemberActions.isLoading(false),
+    );
   };
 };

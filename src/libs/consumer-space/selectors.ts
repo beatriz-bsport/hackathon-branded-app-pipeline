@@ -22,7 +22,10 @@ import { getPrivateConsumerPass } from '#libs/private-service/selectors/private-
 import { getPrivateService } from '#libs/private-service/selectors/private-service';
 import { getPrivateSlot } from '#libs/private-service/selectors/private-slot';
 import { getSCTs } from '#libs/category/selectors';
-import { getConsumerPaymentPackLink } from '#libs/relationship/selectors';
+import {
+  getConsumerPaymentPackLink,
+  getPrivateConsumerPassLink,
+} from '#libs/relationship/selectors';
 
 import type {
   Booking,
@@ -31,7 +34,11 @@ import type {
   ConsumerBookingOption,
   ConsumerPrivateBooking,
 } from '#libs/booking/types';
-import type { PrivateBooking } from '#libs/private-service/types';
+import type {
+  PrivateBooking,
+  PrivateConsumerPassREST,
+  PrivateConsumerPassReworked,
+} from '#libs/private-service/types';
 import type { PaymentPack } from '#libs/payment-packs/types';
 import type {
   ConsumerPaymentPack,
@@ -44,6 +51,7 @@ import type { BookingTab } from '#libs/consumer-space/components/reworked/@MyBoo
 import { BookingFilterTabEnum } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/constants';
 import { BookingTabEnum } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/constants';
 import { WaitingListBookingOption } from '#libs/waiting-list/types';
+import { getServiceCompatibilityPassesByPrivatePassAndPrivateService } from '#libs/private-service/selectors/private-pass';
 
 const getAllBookingAndPrivateBookingWithIds = (state: RootState) => {
   return state.consumer.bookingAndPrivateBooking.allObj;
@@ -590,6 +598,49 @@ const _getConsumerPaymentPackList = createSelector(
   },
 );
 
+/** Get full object for private pass */
+const _getPrivateConsumerPassList = createSelector(
+  [
+    (state: RootState) => state,
+    (_, privateConsumerPacks: PrivateConsumerPassREST[]) =>
+      privateConsumerPacks,
+    getServiceCompatibilityPassesByPrivatePassAndPrivateService,
+  ],
+  (state, privateConsumerPasses, privateServiceCompatibilityPassesData) => {
+    const privateConsumerPassList = privateConsumerPasses.map(
+      (privateConsumerPass) => {
+        const privateServiceCompatibilityPasses =
+          privateConsumerPass?.private_pass?.private_services?.map(
+            (privateServiceId) =>
+              privateServiceCompatibilityPassesData?.[
+                `${privateServiceId}-${privateConsumerPass.private_pass.id}`
+              ],
+          );
+        const dst_private_consumer_pass = getPrivateConsumerPassLink(
+          state,
+          privateConsumerPass?.dst_private_consumer_pass,
+        );
+        const src_private_consumer_pass =
+          privateConsumerPass?.src_private_consumer_pass?.map(
+            (consumerPaymentPackLink) =>
+              getPrivateConsumerPassLink(state, consumerPaymentPackLink),
+          );
+        return {
+          ...privateConsumerPass,
+          private_pass: {
+            ...privateConsumerPass.private_pass,
+            private_services: privateServiceCompatibilityPasses,
+          },
+          dst_private_consumer_pass,
+          src_private_consumer_pass,
+          linked_consumer_payment_pack: null,
+        } as PrivateConsumerPassReworked;
+      },
+    );
+    return privateConsumerPassList;
+  },
+);
+
 export const getMyActiveConsumerPaymentPacksState = (state: RootState) =>
   state.consumerReworked.myPasses.consumerPaymentPack.active;
 
@@ -653,18 +704,90 @@ export const getMyExpiredConsumerPaymentPacksList = createSelector(
   },
 );
 
+export const getMyActivePrivateConsumerPassesState = (state: RootState) =>
+  state.consumerReworked.myPasses.privateConsumerPass.active;
+
+const getMyActivePrivateConsumerPassesAllIds = (state: RootState) =>
+  state.consumerReworked.myPasses.privateConsumerPass.active.passes.allIds;
+
+const getMyActivePrivateConsumerPassesById = (state: RootState) =>
+  state.consumerReworked.myPasses.privateConsumerPass.active.passes.byId;
+
+export const getMyActivePrivateConsumerPassesList = createSelector(
+  [
+    getMyActivePrivateConsumerPassesAllIds,
+    getMyActivePrivateConsumerPassesById,
+    (state) => state,
+  ],
+  (ids, data, state) => {
+    const privateConsumerPasses = ids.map((id) => data[id]);
+    return _getPrivateConsumerPassList(state, privateConsumerPasses);
+  },
+);
+
+export const getMyFuturePrivateConsumerPassesState = (state: RootState) =>
+  state.consumerReworked.myPasses.privateConsumerPass.future;
+
+const getMyFuturePrivateConsumerPassesAllIds = (state: RootState) =>
+  state.consumerReworked.myPasses.privateConsumerPass.future.passes.allIds;
+
+const getMyFuturePrivateConsumerPassesById = (state: RootState) =>
+  state.consumerReworked.myPasses.privateConsumerPass.future.passes.byId;
+
+export const getMyFuturePrivateConsumerPassesList = createSelector(
+  [
+    getMyFuturePrivateConsumerPassesAllIds,
+    getMyFuturePrivateConsumerPassesById,
+    (state) => state,
+  ],
+  (ids, data, state) => {
+    const privateConsumerPasses = ids.map((id) => data[id]);
+    return _getPrivateConsumerPassList(state, privateConsumerPasses);
+  },
+);
+
+export const getMyExpiredPrivateConsumerPassesState = (state: RootState) =>
+  state.consumerReworked.myPasses.privateConsumerPass.expired;
+
+const getMyExpiredPrivateConsumerPassesAllIds = (state: RootState) =>
+  state.consumerReworked.myPasses.privateConsumerPass.expired.passes.allIds;
+
+const getMyExpiredPrivateConsumerPassesById = (state: RootState) =>
+  state.consumerReworked.myPasses.privateConsumerPass.expired.passes.byId;
+
+export const getMyExpiredPrivateConsumerPassesList = createSelector(
+  [
+    getMyExpiredPrivateConsumerPassesAllIds,
+    getMyExpiredPrivateConsumerPassesById,
+    (state) => state,
+  ],
+  (ids, data, state) => {
+    const privateConsumerPasses = ids.map((id) => data[id]);
+    return _getPrivateConsumerPassList(state, privateConsumerPasses);
+  },
+);
+
 export const getConsumerPassesLoading = createSelector(
   [
     getMyActiveConsumerPaymentPacksState,
     getMyFutureConsumerPaymentPacksState,
     getMyExpiredConsumerPaymentPacksState,
+    getMyActivePrivateConsumerPassesState,
+    getMyFuturePrivateConsumerPassesState,
+    getMyExpiredPrivateConsumerPassesState,
   ],
   (
     activeConsumerPaymentPacksState,
     futureConsumerPaymentPacksState,
     expiredConsumerPaymentPacksState,
+    activePrivateConsumerPassesState,
+    futurePrivateConsumerPassesState,
+    expiredPrivateConsumerPassesState,
   ) =>
     activeConsumerPaymentPacksState.loading ||
     futureConsumerPaymentPacksState.loading ||
-    expiredConsumerPaymentPacksState.loading,
+    expiredConsumerPaymentPacksState.loading ||
+    activePrivateConsumerPassesState.loading ||
+    futurePrivateConsumerPassesState.loading ||
+    expiredPrivateConsumerPassesState.loading,
 );

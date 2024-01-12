@@ -14,6 +14,7 @@ import type {
   PrivatePassCategory,
   PrivateBookingFilterParams,
   PrivateConsumerPassREST,
+  ServiceCompatibilityPass,
 } from './types';
 import type { FranchiseProductTemplateQueryParams } from '#libs/franchise/types';
 import type { PaginatedResponse } from '../../state/types';
@@ -333,6 +334,16 @@ export async function isPrivatePassUsedInCombo(id: number) {
 export const fetchCompatibleServicePassList = (privatePassId: number) => {
   return getAuth(
     `${API_V1_URI}/private_service/private_pass/${privatePassId}/private_service_compatibility_pass/`,
+  );
+};
+
+export const fetchPrivateServiceCompatiblePassList = (params: {
+  private_service__in: number[];
+}) => {
+  return getAuth<ServiceCompatibilityPass[]>(
+    `${API_V1_URI}/private_service/private_service_compatibility_pass/${buildUrlParams(
+      params,
+    )}`,
   );
 };
 

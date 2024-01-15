@@ -2260,8 +2260,8 @@
                 "second_plural": "Kurs(e)",
                 "second_singular": "Kurs(e)",
                 "first": "Buchte seinen/ihren ",
-                "explanation": "Anzeige einer Übersicht aller Mitglieder mit X Buchungen der Aktivität Y im Betrieb Z",
-                "name": "Buchungsnummer",
+                "explanation": "Eine Übersicht über alle Mitglieder anzeigen, die ihre X-te Sitzung der Aktivität A in Raum B gebucht haben...",
+                "name": "xte Anzahl der Buchungen",
                 "coach": {
                     "first": "mit den Lehrkräften"
                 },
@@ -8084,9 +8084,9 @@
         "generalTermsAndConditions": {
             "close": "Schließen",
             "iAccept": "Ich akzeptiere die ",
-            "theTermsAndConditions": "allgemeine Verkaufsbedingungen.",
+            "theTermsAndConditions": "Allgemeine Verkaufsbedingungen.",
             "generalTermsOfUse": " Allgemeine Geschäftsbedingungen",
-            "waiver": "Verzichtserklärung"
+            "waiver": "Verzichtserklärung."
         },
         "forms": {
             "paymentIntent": {
@@ -8114,7 +8114,7 @@
                     "contentAdd": "Diese Zahlungsmethode wird in Ihrem Konto gespeichert."
                 },
                 "message": {
-                    "error": "Diese Zahlungsmethode kann nicht hinterlegt werden",
+                    "error": "Diese Zahlungsmethode kann nicht gespeichert werden",
                     "success": "Zahlungsmittel erfolgreich gesichert!"
                 },
                 "mandateRevalidated": {
@@ -8127,7 +8127,7 @@
             },
             "savePaymentMethod": {
                 "section": "Wählen Sie eine Zahlungsmethode",
-                "label": "diese Zahlungsmethode hinterlegen",
+                "label": "Diese Zahlungsmethode speichern",
                 "add": "Zahlungsinformationen",
                 "select": "Zahlungsmethode auswählen"
             }
@@ -8165,7 +8165,7 @@
             "70": "Bacs-Lastschriftverfahren",
             "BACS_DEBIT": "Bacs-Lastschriftverfahren"
         },
-        "paymentComboSectionTitle": "Package",
+        "paymentComboSectionTitle": "Paket",
         "hasOneOrMoreOption": "Sie sind bereits auf der Warteliste",
         "goBack": "Zurück",
         "bookAnotherOption": "Mich erneut auf die Warteliste einschreiben",
@@ -8176,10 +8176,10 @@
             "addThisPaymentItem": "Diese Zahlungsmethode hinzufügen"
         },
         "creditAccountBalance": {
-            "current": "Aktuelle Anzahlung"
+            "current": "Aktuelles Konto"
         },
         "paymentNote": {
-            "helperText": "(optional) Schecknummer, Einzugsdatum...",
+            "helperText": "(optional) Zahlungsreferenz",
             "label": "Anmerkung"
         },
         "bankAccount": {
@@ -8198,7 +8198,7 @@
                     "placeholder": "Paul Müller",
                     "label": "Bankkontoinhaber"
                 },
-                "content": "Dieses Bankkonto wird verwendet, um Ihnen die online über bsport bezahlten Beträge zu überweisen.",
+                "content": "Über dieses Bankkonto werden die online gezahlten Beträge über bsport an Sie überwiesen.",
                 "title": "Bankkonto",
                 "unknownCountry": "Manueller Vorgang für dieses Land, bitte kontaktieren Sie bsport über contact@bsport.io",
                 "routingNumber": {
@@ -8212,15 +8212,15 @@
                     "label": "Branch code"
                 },
                 "transitNumber": {
-                    "label": "Transit number",
+                    "label": "Transit-Nummer",
                     "placeholder": "Transit-Nummer"
                 },
                 "institutionNumber": {
-                    "label": "Institution number",
+                    "label": "Nummer des Instituts",
                     "placeholder": "Nummer des Instituts"
                 },
                 "bankCode": {
-                    "label": "Bank code"
+                    "label": "Bank-Code"
                 },
                 "sortCode": {
                     "label": "Sortiercode",
@@ -8229,13 +8229,13 @@
             }
         },
         "payment": {
-            "return": "Zurückzahlen"
+            "return": "Rückerstattung"
         },
         "returnedAmount": "Erstattet: ",
         "payout": {
             "isEmptyWarning": "NB: Einige Bareinnahmen vor dem 15. März 2021 sind möglicherweise nicht unten aufgeführt.",
             "title": "Meine Auszahlungen",
-            "isEmpty": "Keine Auszahlung.",
+            "isEmpty": "Keine Auszahlungen können angezeigt werden.",
             "invoice": "Rechnung {{ uuid }}",
             "seeMore": "Mehr anzeigen",
             "paymentNb": "{{nb}} Zahlungen",

@@ -14223,7 +14223,7 @@
                 "between": "and"
             },
             "21": {
-                "name": "Booking number",
+                "name": "Xth number of bookings",
                 "first": "Members that booked ",
                 "second_singular": "session(s)",
                 "second_plural": "session(s)",
@@ -14241,7 +14241,7 @@
                     "second": "hours and",
                     "first": "the beginning time of the session is between"
                 },
-                "explanation": "Display an overview of all members with X bookings of activity Y in establishment Z",
+                "explanation": "Display an overview of all members that have booked their Xth session of activity A, in room B...",
                 "coach": {
                     "first": "with the teachers"
                 },

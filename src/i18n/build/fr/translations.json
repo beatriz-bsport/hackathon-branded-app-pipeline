@@ -1118,7 +1118,8 @@
         "recommended": "Recommandé",
         "day": "jour",
         "day_plural": "jours",
-        "subscribe": "Souscrire"
+        "subscribe": "Souscrire",
+        "discard": "Rejeter"
     },
     "communication": {
         "table": {
@@ -4576,6 +4577,30 @@
                         "title": "{{ workflowCamelCase }} archivé"
                     }
                 }
+            },
+            "workflowMetrics": {
+                "cards": {
+                    "members": {
+                        "title": "Membres",
+                        "description": "Nombre de membres qui sont entrés dans le {{ workflowLowerCase }}.",
+                        "label": "membres entrés"
+                    },
+                    "success": {
+                        "title": "Succès",
+                        "description": "Pourcentage de personnes considérées comme gagnées.",
+                        "label": "Taux de succès"
+                    },
+                    "averageTime": {
+                        "title": "Durée moyenne",
+                        "description": "Durée moyenne nécessaire pour qu'un membre soit considéré comme gagné.",
+                        "label": "jours en moyenne"
+                    },
+                    "tags": {
+                        "title": "Tags",
+                        "description": "Nombre de tags appliqués aux membres dans le {{ workflowLowerCase }}.",
+                        "label": "tags"
+                    }
+                }
             }
         }
     },
@@ -6076,7 +6101,9 @@
             "hasEnded": "Cette séance est terminée",
             "isAutoRefresh": "Vous serez redirigé automatiquement sur la visioconférence 15 minutes avant le début du cours",
             "loadingSoon": "En cours de chargement...",
-            "activateVideo": "Lancer la diffusion"
+            "activateVideo": "Connexion",
+            "livestream": "Cours live streaming",
+            "description": "Commencez votre séance en ligne"
         },
         "disabled": "Annulée",
         "credit_price": " Crédit",
@@ -6421,6 +6448,15 @@
             "false": "Aucune demande de substitution",
             "true": "Demande de substitution en attente",
             "placeholder": "Demande de substitution"
+        },
+        "notePad": {
+            "title": "Notes",
+            "placeholder": "Laissez une note sur cette séance…",
+            "loading": "Chargement…",
+            "modal": {
+                "title": "Modifications non sauvegardées",
+                "description": "Vous avez des notes non enregistrées. Voulez-vous les enregistrer avant de quitter cette page ?"
+            }
         }
     },
     "order": {
@@ -10788,6 +10824,12 @@
                         },
                         "delete": {
                             "_label": "Supprimer"
+                        },
+                        "viewNotes": {
+                            "_label": "Afficher les notes"
+                        },
+                        "editNotes": {
+                            "_label": "Éditer les notes"
                         }
                     }
                 },
@@ -10802,6 +10844,12 @@
                         },
                         "delete": {
                             "_label": "Supprimer"
+                        },
+                        "viewNotes": {
+                            "_label": "Afficher les notes"
+                        },
+                        "editNotes": {
+                            "_label": "Éditer les notes"
                         }
                     }
                 },
@@ -10816,6 +10864,12 @@
                         },
                         "delete": {
                             "_label": "Supprimer"
+                        },
+                        "viewNotes": {
+                            "_label": "Afficher les notes"
+                        },
+                        "editNotes": {
+                            "_label": "Éditer les notes"
                         }
                     }
                 }
@@ -15271,7 +15325,8 @@
                     },
                     "errors": {
                         "restrictionToggles": "Veuillez sélectionner au moins une option"
-                    }
+                    },
+                    "enableRemunerationDownload": "Permettre aux professeurs de télécharger leur fiche de paie"
                 },
                 "hideSessionWithTagsNotEligible": "Ne pas afficher les séances auxquelles le membre n'a pas accès avec les tags",
                 "noShow": {
@@ -17483,7 +17538,8 @@
                     "xl": "Très grand",
                     "emailOnly": "Adresse électronique uniquement",
                     "firstNameAndEmail": "Prénom et adresse électronique",
-                    "fullNameAndEmail": "Nom complet et adresse électronique"
+                    "fullNameAndEmail": "Nom complet et adresse électronique",
+                    "default": "Défaut"
                 },
                 "confirmationMessageComponentAlert": "Ce composant gère principalement les statuts de réservation et de paiement. Pour personnaliser son apparence, nous recommandons d'utiliser ses composants racine situés dans la section commune",
                 "marketplaceOfferBookingList": "Ce composant est une liste de séances réservées. Pour affiner les composants de {{component_name}}, vous pouvez utiliser la section dédiée dans l'éditeur.",

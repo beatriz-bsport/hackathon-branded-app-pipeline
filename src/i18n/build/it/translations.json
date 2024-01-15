@@ -1544,7 +1544,7 @@
             "profile": "Profilo",
             "logoff": "Disconnetti",
             "changeMembership": "Cambia club",
-            "dashboard": "Sommario",
+            "dashboard": "Panoramica",
             "calendar": "Storico",
             "pack": "Pacchetti",
             "invoice": "Ricevute",
@@ -4139,7 +4139,8 @@
                         "restrictionToggles": "Seleziona almeno un'opzione"
                     },
                     "restrictions": "Restrizioni",
-                    "enableSchedule": "Orario"
+                    "enableSchedule": "Orario",
+                    "enableRemunerationDownload": "Consenti agli insegnanti di scaricare il proprio libro paga"
                 },
                 "signup": {
                     "helperText": "Al momento della registrazione, i tuoi membri riceveranno un'e-mail per confermare il loro indirizzo, e il loro account non sarà attivato fino a quando questa non sarà confermata",
@@ -9950,7 +9951,7 @@
         },
         "memberGraph": {
             "label": "Prenotazioni",
-            "title": "Sommario delle prenotazioni"
+            "title": "Riepilogo delle prenotazioni"
         },
         "offer": {
             "offerStatus": {
@@ -10415,7 +10416,7 @@
                 "date": {
                     "first": "la data dell'allenamento è"
                 },
-                "name": "Numero di prenotazione",
+                "name": "X-esimo numero di prenotazione",
                 "explanation": "Ha prenotato la sua X esima sessione di attività A, nella struttura B ...",
                 "second_singular": "1a sessione",
                 "first": "Ha prenotato la sua ",
@@ -13779,7 +13780,7 @@
         "bookingListEmpty": "Nessuna prenotazione",
         "bookingList": "Prenotazioni",
         "menu": {
-            "download": "Sommario",
+            "download": "Esporta",
             "massDisable": "Cancellazione di gruppo",
             "hideCancelled": "Nascondi cancellazioni",
             "showCancelled": "Visualizza gli annullamenti",
@@ -16044,7 +16045,8 @@
                     "xl": "Extra large",
                     "emailOnly": "Solo email",
                     "firstNameAndEmail": "Nome ed email",
-                    "fullNameAndEmail": "Nome completo ed email"
+                    "fullNameAndEmail": "Nome completo ed email",
+                    "default": "Default"
                 },
                 "configurationTitle": "Variazioni",
                 "confirmationMessageComponentAlert": "Questo componente gestisce principalmente gli stati di prenotazione e di pagamento. Per personalizzarne l'aspetto, si consiglia di utilizzare i suoi componenti principali, situati nella sezione comune",

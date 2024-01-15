@@ -9536,7 +9536,8 @@
                     "enableDescription": "Al activar esta función, todos tus nuevos profesores tendrán el acceso activado por defecto",
                     "enable": "Activar el área de profesores por defecto",
                     "access": "Acceso",
-                    "description": "Personalizar el área de profesores en la web. Ten en cuenta que los ajustes realizados aquí no afectan al área de profesores de la aplicación."
+                    "description": "Personalizar el área de profesores en la web. Ten en cuenta que los ajustes realizados aquí no afectan al área de profesores de la aplicación.",
+                    "enableRemunerationDownload": "Permitir a los profesores descargar sus nóminas"
                 },
                 "noShow": {
                     "notAvailable": "La gestión de no presentarse no está disponible. Para activarla, primero debes crear un pase ilimitado con penalizaciones por no presentarse.",
@@ -15863,7 +15864,8 @@
                     "xs": "Extra pequeño",
                     "emailOnly": "Sólo correo electrónico",
                     "firstNameAndEmail": "Nombre y correo electrónico",
-                    "fullNameAndEmail": "Nombre completo y correo electrónico"
+                    "fullNameAndEmail": "Nombre completo y correo electrónico",
+                    "default": "Por defecto"
                 },
                 "title": {
                     "nextOffer": "Próxima sesión disponible",

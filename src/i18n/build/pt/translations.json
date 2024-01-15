@@ -3737,7 +3737,7 @@
                     "members": {
                         "description": "Número de membros que entraram no {{ workflowLowerCase }}",
                         "title": "Membros",
-                        "label": "membros registados"
+                        "label": "membros entrados"
                     },
                     "tags": {
                         "description": "Número de etiquetas aplicadas aos membros no {{ workflowLowerCase }}",
@@ -12027,7 +12027,7 @@
                 "second_singular": "primeira sessão",
                 "first": "Reservou ",
                 "explanation": "Reservou a sua Xª sessão da atividade A, na sala B...",
-                "name": "Número de reservas",
+                "name": "Número de reserva",
                 "level": {
                     "first": "nível "
                 },

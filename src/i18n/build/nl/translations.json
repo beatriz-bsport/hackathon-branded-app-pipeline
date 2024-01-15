@@ -12642,7 +12642,8 @@
                     "enableDescription": "Zet deze optie aan om standaard de instructeursweergave aan alle instructeurs toe te wijzen.",
                     "enable": "De instructeursweergave standaard inschakelen",
                     "access": "Toegang",
-                    "description": "Pas de weergave van de instructeur op het web aan. Let op: deze instellingen hebben geen invloed op de weergave van de app voor de instructeur."
+                    "description": "Pas de weergave van de instructeur op het web aan. Let op: deze instellingen hebben geen invloed op de weergave van de app voor de instructeur.",
+                    "enableRemunerationDownload": "Geef docenten de mogelijkheid om hun salarislijst te downloaden"
                 },
                 "noShow": {
                     "notAvailable": "Deze optie is momenteel niet beschikbaar, omdat je eerst een onbeperkte leskaart met no-show sancties moet aanmaken.",
@@ -15828,7 +15829,8 @@
                     "xl": "Extra groot",
                     "emailOnly": "Alleen e-mail",
                     "firstNameAndEmail": "Voornaam en e-mail",
-                    "fullNameAndEmail": "Volledige naam en e-mail"
+                    "fullNameAndEmail": "Volledige naam en e-mail",
+                    "default": "Standaard"
                 },
                 "title": {
                     "nextOffer": "Volgende sessie beschikbaar",

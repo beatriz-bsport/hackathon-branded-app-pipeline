@@ -1,5 +1,6 @@
 .bs-consumer-payment-pack-credit-status {
   text-wrap: nowrap;
+  color: var(--color-grey-main);
 }
 
 .bs-consumer-payment-pack-credit-status--error {

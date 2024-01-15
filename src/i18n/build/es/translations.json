@@ -5389,13 +5389,15 @@
         },
         "credit_price": " Crédito",
         "video": {
-            "activateVideo": "Iniciar transmisión",
+            "activateVideo": "Conectar",
             "loadingSoon": "Cargando...",
             "isAutoRefresh": "Serás redirigido automáticamente a la videoconferencia 15 minutos antes del inicio del curso",
             "hasEnded": "Esta sesión ha terminado",
             "startingSoon": "Su sesión comenzará en {{minutesLeft}} minutos",
             "redirectLink": "Si no es redirigido automáticamente, usa este enlace:",
-            "cantOpenLink": "El enlace de la conferencia parece incorrecto, comunica con su club {{contact_email}}"
+            "cantOpenLink": "El enlace de la conferencia parece incorrecto, comunica con su club {{contact_email}}",
+            "livestream": "Transmisión en directo",
+            "description": "Inicie su sesión en línea"
         },
         "massDisabler": {
             "actions": {
@@ -5703,6 +5705,15 @@
             "false": "Ninguna solicitud secundaria",
             "true": "Solicitud secundaria pendiente",
             "placeholder": "Solicitud secundaria"
+        },
+        "notePad": {
+            "title": "Notas",
+            "placeholder": "Deje una nota sobre esta sesión…",
+            "loading": "Cargando…",
+            "modal": {
+                "title": "Cambios no guardados",
+                "description": "Tienes notas sin guardar en esta página. ¿Quieres guardarlas antes de salir?"
+            }
         }
     },
     "member": {
@@ -11200,6 +11211,12 @@
                         },
                         "create": {
                             "_label": "Crear"
+                        },
+                        "viewNotes": {
+                            "_label": "Ver notas"
+                        },
+                        "editNotes": {
+                            "_label": "Editar notas"
                         }
                     }
                 },
@@ -11213,6 +11230,12 @@
                         },
                         "edit": {
                             "_label": "Modificar"
+                        },
+                        "viewNotes": {
+                            "_label": "Ver notas"
+                        },
+                        "editNotes": {
+                            "_label": "Editar notas"
                         }
                     },
                     "_label": "Plazas para citas"
@@ -11228,6 +11251,12 @@
                         },
                         "create": {
                             "_label": "Crear"
+                        },
+                        "viewNotes": {
+                            "_label": "Ver notas"
+                        },
+                        "editNotes": {
+                            "_label": "Editar notas"
                         }
                     },
                     "_label": "Actividades"
@@ -12001,7 +12030,8 @@
         "recommended": "Recomendado",
         "day": "día",
         "day_plural": "días",
-        "subscribe": "Suscribir"
+        "subscribe": "Suscribir",
+        "discard": "Descartar"
     },
     "snackbar": {
         "invoice": {
@@ -16961,6 +16991,30 @@
                     "dialog": {
                         "helper": "El {{ workflowLowerCase }} ya está archivado. Para restaurarlo, vuelva a la página principal y desarchive el {{ workflowLowerCase }} de la lista.",
                         "title": "{{ workflowCamelCase }} archivado"
+                    }
+                }
+            },
+            "workflowMetrics": {
+                "cards": {
+                    "members": {
+                        "title": "Miembros",
+                        "description": "Número de miembros que entraron en el {{ workflowLowerCase }}.",
+                        "label": "miembros ingresados"
+                    },
+                    "success": {
+                        "title": "Éxito",
+                        "description": "Porcentaje de personas que se consideran como ganadas.",
+                        "label": "porcentaje de éxito"
+                    },
+                    "averageTime": {
+                        "title": "Tiempo medio",
+                        "description": "Periodo medio de tiempo necesario para que un miembro se considere ganado.",
+                        "label": "días de media"
+                    },
+                    "tags": {
+                        "title": "Etiquetas",
+                        "description": "Número de etiquetas aplicadas a los miembros en el {{ workflowLowerCase }}.",
+                        "label": "etiquetas"
                     }
                 }
             }

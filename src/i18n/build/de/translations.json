@@ -7,7 +7,7 @@
             },
             "smart_delay_percentage": {
                 "label": "Smarte Verwaltung",
-                "helper": "Ein Mitglied hat X Minuten, was einem Y-Prozentsatz der verbleibenden Zeit entspricht, bevor die Session beginnt, um die Buchung abzuschließen."
+                "helper": "Ein Mitglied hat X Minuten, was einem Y-Prozentsatz der verbleibenden Zeit entspricht, bevor der Kurs beginnt, um die Buchung abzuschließen."
             },
             "submit": "Speichern",
             "auto_cancellation_type": {
@@ -19,7 +19,7 @@
                     "label": "Einer nach dem anderen",
                     "explain": "Wenn sich ein Mitglied anmeldet, erhält es einen Platz auf der Warteliste. Wenn ein Platz frei ist, kann sich die erste Person auf der Liste anmelden, die anderen warten, bis sie an der Reihe sind",
                     "overallExplainSimple": "Wenn ein Platz frei wird, hat der Teilnehmer {{ autokick_delay }} Erinnerungen im Abstand von {{ dumb_delay_minutes }} Minuten, um zu buchen, bevor sein Platz an den nächsten Teilnehmer vergeben wird.",
-                    "overallExplainSmart": "Wenn ein Platz frei wird, hat der Teilnehmer {{ autokick_delay }} Erinnerungen in Abständen von {{ smart_delay_percentage }}% der verbleibenden Zeit vor Beginn der Session, um sich anzumelden. Wenn beispielsweise noch {{ example_hours_before }} Stunden bis zum Beginn der Session verbleiben, hat der Teilnehmer {{ example_computed_delay_one }} Minuten Zeit, um sich anzumelden, und dann {{ example_computed_delay_two }} Minuten nach dem ersten Wiederholungsversuch usw., bevor sich der nächste Teilnehmer anmelden kann."
+                    "overallExplainSmart": "Wenn ein Platz frei wird, hat der Teilnehmer {{ autokick_delay }} Erinnerungen in Abständen von {{ smart_delay_percentage }}% der verbleibenden Zeit vor Beginn des Kurses, um sich anzumelden. Wenn beispielsweise noch {{ example_hours_before }} Stunden bis zum Beginn des Kurses verbleiben, hat der Teilnehmer {{ example_computed_delay_one }} Minuten Zeit, um sich anzumelden, und dann {{ example_computed_delay_two }} Minuten nach dem ersten Wiederholungsversuch usw., bevor sich der nächste Teilnehmer anmelden kann."
                 },
                 "1": {
                     "label": "Es kann derjenige sich anmelden, der am schnellsten agiert",
@@ -40,19 +40,19 @@
                 "label": "Die freigewordenen Plätze sind ausschließlich für Personen auf der Warteliste verfügbar."
             },
             "last_delay_before_auto_consume": {
-                "label": "Nehmen Sie Buchungen nicht automatisch an, wenn eine Sitzung in weniger als ... stattfindet ",
-                "helper": "Wenn die Session zu kurzfristig in der Zukunft stattfindet, wird das Mitglied nicht angemeldet, auch wenn es einen gültigen Kurspass besitzt"
+                "label": "Nehmen Sie Buchungen nicht automatisch an, wenn ein Kurs in weniger als ... stattfindet ",
+                "helper": "Wenn der Kurs zu kurzfristig in der Zukunft stattfindet, wird das Mitglied nicht angemeldet, auch wenn es einen gültigen Kurspass besitzt"
             },
             "check_credit": {
-                "label": "Vergewissern Sie sich, dass der Kunde einen gültigen, mit der Session kompatiblen Pass mit ausreichend Guthaben besitzt",
-                "helper": "Ein Kunde kann nur dann auf die Warteliste gesetzt werden, wenn er einen mit der Session kompatiblen Pass mit ausreichendem Guthaben besitzt"
+                "label": "Vergewissern Sie sich, dass der Kunde einen gültigen, mit dem Kurs kompatiblen Pass mit ausreichend Guthaben besitzt",
+                "helper": "Ein Kunde kann nur dann auf die Warteliste gesetzt werden, wenn er einen mit dem Kurs kompatiblen Pass mit ausreichendem Guthaben besitzt"
             },
             "display_member_position": {
                 "label": "Die Position in der Warteliste anzeigen"
             },
             "kick_if_no_pack_when_auto_consume": {
                 "label": "Automatisches Streichen des Mitglieds von der Warteliste, wenn es keinen gültigen Kurspass mehr hat, wenn sein Platz frei wird",
-                "helper": "Ein Mitglied könnte sein Guthaben für eine andere Sitzung verwenden, während es auf der Warteliste steht. Wenn diese Einstellung aktiviert ist, wird sein Platz auf der Warteliste automatisch gelöscht, wenn er an der Reihe ist, sich anzumelden."
+                "helper": "Ein Mitglied könnte sein Guthaben für einen anderen Kurs verwenden, während es auf der Warteliste steht. Wenn diese Einstellung aktiviert ist, wird sein Platz auf der Warteliste automatisch gelöscht, wenn er an der Reihe ist, sich anzumelden."
             }
         },
         "explainWaitingListConf": "Z.B : Es sind noch drei Stunden bis zum Kursbeginn, der Schüler hat {{ nbMinutesBeforeBookingOptionExpire }} Minuten um seine Reservierung zu bestätigen, bevor er seinen Platz verlässt.",
@@ -67,22 +67,22 @@
             },
             "autoBooking": {
                 "warning": {
-                    "content": "Wenn Sie dieses Formular schließen, werden die ausgewählten Mitglieder nicht zur Session hinzugefügt. Wenn Sie mehrere Mitglieder ausgewählt haben und nur dieses eine Mitglied abwählen wollen, klicken Sie bitte auf Abbrechen auf dem Formular des Mitglieds",
+                    "content": "Wenn Sie dieses Formular schließen, werden die ausgewählten Mitglieder nicht zum Kurs hinzugefügt. Wenn Sie mehrere Mitglieder ausgewählt haben und nur dieses eine Mitglied abwählen wollen, klicken Sie bitte auf Abbrechen auf dem Formular des Mitglieds",
                     "title": "Sind Sie sicher?"
                 },
                 "loading": {
                     "content": "Bitte aktualisieren Sie nicht diese Seite oder verlassen diese. Dieser Prozess kann ein paar Sekunden dauern.",
-                    "title": "Mitglieder werden zur Session hinzugefügt"
+                    "title": "Mitglieder werden zum Kurs hinzugefügt"
                 },
                 "info": {
-                    "content": "Mitglieder mit gültigen Pässen werden automatisch in die Session eingebucht und erhalten eine Bestätigungs-E-Mail. Das System wird die Credits automatisch von dem Pass abziehen, der als nächstes abläuft",
+                    "content": "Mitglieder mit gültigen Pässen werden automatisch in den Kurs eingebucht und erhalten eine Bestätigungs-E-Mail. Das System wird die Credits automatisch von dem Pass abziehen, der als nächstes abläuft",
                     "title": "Automatische Buchungen für gültige Pässe"
                 },
                 "success": {
-                    "title": "Mitglieder erfolgreich zur Session hinzugefügt"
+                    "title": "Mitglieder erfolgreich zum Kurs hinzugefügt"
                 },
                 "error": {
-                    "content": "Die Mitglieder konnten nicht zur Session hinzugefügt werden. Bitte versuchen Sie es erneut",
+                    "content": "Die Mitglieder konnten nicht zum Kurs hinzugefügt werden. Bitte versuchen Sie es erneut",
                     "title": "Die automatische Buchung ist fehlgeschlagen"
                 },
                 "incomplete": {
@@ -111,7 +111,7 @@
                 "title": "Details zur Warteliste",
                 "registeredOn": "Registriert am",
                 "registrationSource": "Kanal für die Registrierung",
-                "offerTitle": "Verknüpfte Session"
+                "offerTitle": "Verknüpfter Kurs"
             },
             "listTitle": "Warteliste",
             "addToBook": "Register",
@@ -450,7 +450,7 @@
                     "submit": "Registrieren",
                     "warning": "Die Abrechnung bleibt gleich. Wenn Sie den monatlichen Betrag erhöhen/verringern möchten, ändern Sie jede Rate einzeln.",
                     "title": "Ändern des Terminpasses",
-                    "explain": "Dieser Terminpass wird auf allen zukünftigen Rechnungen anstelle des alten Passes berechnet. Sessions, die mit des alten Passes gebucht wurden, werden auf den neuen Pass übertragen, auch wenn diese angeblich nicht kompatibel ist."
+                    "explain": "Dieser Terminpass wird auf allen zukünftigen Rechnungen anstelle des alten Passes berechnet. Kurse, die mit des alten Passes gebucht wurden, werden auf den neuen Pass übertragen, auch wenn diese angeblich nicht kompatibel ist."
                 }
             },
             "switchPaymentCombo": {
@@ -1002,16 +1002,16 @@
                 "alreadyRegistered": "Gebucht",
                 "full": "Vollständig",
                 "popOverTitle": {
-                    "bookOption": "Die Session ist ausgebucht, eine Warteliste ist verfügbar.",
-                    "notAvailable": "Diese Session wurde storniert",
-                    "notBookableYet": "Diese Session kann noch nicht gebucht werden.",
-                    "alreadyRegistered": "Sie haben diese Session bereits gebucht.",
+                    "bookOption": "Der Kurs ist ausgebucht, eine Warteliste ist verfügbar.",
+                    "notAvailable": "Dieser Kurs wurde storniert",
+                    "notBookableYet": "Dieser Kurs kann noch nicht gebucht werden.",
+                    "alreadyRegistered": "Sie haben diesen Kurs bereits gebucht.",
                     "isPast": "Die Buchungen sind geschlossen"
                 }
             },
             "passListTitle": "Kurspässe",
             "privatePassListTitle": "Terminpässe",
-            "noSessionToday": "Keine Sessions verfügbar.",
+            "noSessionToday": "Keine Kurse verfügbar.",
             "backToCalendar": "Zurück",
             "teacher": "Lehrkraft",
             "substituted": "Abwesend",
@@ -1021,9 +1021,9 @@
                 "tabName": "Abonnement"
             },
             "vod": "VOD",
-            "sessionThisDay": "Kurse an diesem Tag :",
+            "sessionThisDay": "Heutige Kurse :",
             "playlist": "Playlists",
-            "offers": "{{ count }} Sessions",
+            "offers": "{{ count }} Kurse",
             "from_to": "von {{-from}} bis {{-to}}",
             "discover": "Entdecken",
             "bookGroups": "Events",
@@ -1145,9 +1145,9 @@
             "vaccinationNotDone": "Kein gültiger Gesundheitspass",
             "vaccinationDone": "Gültiger Gesundheitspass",
             "vaccination_status": "Status Sanitärpass COVID-19",
-            "offerEdition": "Session bearbeiten",
+            "offerEdition": "Kurs bearbeiten",
             "see": "Siehe",
-            "offerCreation": "Session erstellen",
+            "offerCreation": "Kurs erstellen",
             "selectAnActivity": "Aktivität auswählen",
             "filter": "Filtern",
             "information": "Details"
@@ -1376,7 +1376,7 @@
                     "explainForceDanger": "Achtung: Die Buchungen werden endgültig gelöscht. Wenn Sie die Guthaben der Mitglieder nicht zurückerstattet haben, gehen sie vollständig verloren. Bitte überprüfen Sie die Buchungen sorgfältig, bevor Sie sie löschen.",
                     "force": "Löschen, auch wenn Reservierungen aufgezeichnet werden",
                     "advanced": "Erweitert",
-                    "explainDeleteLinkedHybridSession": "Hybrid-Session stornieren (Sessions vor Ort und online)"
+                    "explainDeleteLinkedHybridSession": "Hybrid-Kurs stornieren (Kurse vor Ort und online)"
                 },
                 "broadcast_link": {
                     "error": "Der Link ist falsch. Er muss mit http:// oder https:// beginnen und darf keine Leerzeichen enthalten",
@@ -1385,8 +1385,8 @@
                 "explainNotificationOnEdit": "Möchtest Du Deine Kunden über diese Änderung informieren?",
                 "changeEstablishment": "Die Einrichtung ändern",
                 "changeCoach": "Die Lehrkraft ändern",
-                "cancelTitle": "Den Kurs stornieren",
-                "deleteTitle": "Den Kurs löschen",
+                "cancelTitle": "Kurs stornieren",
+                "deleteTitle": "Kurs löschen",
                 "substituteEstablishmentLabel": "Einrichtung (provisoricher Standort)",
                 "establishmentLabel": "Einrichtung",
                 "coachLabel": "Lehrkraft",
@@ -1394,7 +1394,7 @@
                 "establishmentChangeWarning": "Die Bearbeitung der Einrichtung wirkt sich auf alle zukünftigen Sitzungen aus. Sie können auch das Feld \"Vertretungseinrichtung\" verwenden. Alle anderen Änderungen (Lehrkraft, Preis, etc.) werden ebenfalls für alle Veranstaltungen übernommen.",
                 "coachChangeWarning": "Die Bearbeitung der Lehrkraft wirkt sich auf alle zukünftigen Sitzungen aus. Sie können auch das Feld \"Vertretungslehrkraft\" verwenden.  Alle anderen Änderungen (Einrichtung, Preis usw.) werden ebenfalls für alle Sitzungen übernommen.",
                 "explainRecursiveOfferEdit": "Möchtest Du ALLE ähnlichen Kurse an diesen neuen Bedingungen anpassen?",
-                "explainRecursiveOfferDelete": "Möchtest Du ALLE ähnlichen Kurse löschen?",
+                "explainRecursiveOfferDelete": "Möchtest du ALLE ähnlichen Kurse löschen?",
                 "changeDate": "Uhrzeit/Datum ändern",
                 "warningPackonEdit": "Änderungen an den Kursen können dazu führen, dass diese mit einigen Kursässen nicht mehr kompatibel sind. Bitte prüfe, ob sie mit den möglichen Orts-/Lehrkraftwechseln kompatibel bleiben.",
                 "levelChangeWarning": "Wenn das Level des Kurses geändert wird, wird diese Änderung für alle zukünftigen Sessions wirksam. Alle anderen hier aufgezeichneten Änderungen (Einrichtung, Preis, Wochentag usw.) werden daher auf alle Sessions angewendet.",
@@ -1406,11 +1406,11 @@
                         "doNotSelectToAllowAllMembers": "Leer lassen, um alle Mitglieder zuzulassen",
                         "allowed": "Autorisiert",
                         "notAllowed": "Nicht autorisiert",
-                        "helperText": "Verwenden Sie Tags, um die Session nur für eine gewünschte Gruppe von Mitgliedern buchbar zu machen. Sie wählen Tags aus, um die Session nur für Mitglieder reservierbar zu machen, die eines der ausgewählten Tags besitzen. Oder Sie wählen Tags aus, um die Session nur für Mitglieder mit einem der ausgewählten Tag nicht buchbar zu machen."
+                        "helperText": "Verwenden Sie Tags, um den Kurs nur für eine gewünschte Gruppe von Mitgliedern buchbar zu machen. Sie wählen Tags aus, um den Kurs nur für Mitglieder reservierbar zu machen, die eines der ausgewählten Tags besitzen. Oder Sie wählen Tags aus, um den Kurs nur für Mitglieder mit einem der ausgewählten Tag nicht buchbar zu machen."
                     },
                     "header": "Fortgeschritten"
                 },
-                "editingGroup": "Achtung, diese Session ist Teil der Gruppensession {{ name }}",
+                "editingGroup": "Achtung, dieser Kurs ist Teil der Kursgruppe {{ name }}",
                 "explainAllowGuest": "Die Buchung für einen Gast zulassen"
             },
             "shop": {
@@ -1614,15 +1614,15 @@
             "price": "Preis",
             "priceCategory": "Rechnungsstellung",
             "duration_minute": "Dauer",
-            "lastSession": "Letzter Kurs am",
+            "lastSession": "Abschlussdatum:",
             "firstSessionAt": "um",
-            "firstSessionOn": "Erster Kurs am",
+            "firstSessionOn": "Startdatum:",
             "timeSettings": "Uhrzeit & Datum",
             "monthly": "Monatlich",
             "weekly": "Wöchentlich",
-            "notRecurrent": "Nur ein Kurs",
-            "offerWillBeGenerated": "Kurs wird erstellt",
-            "offersWillBeGenerated": "Kurse werden erstellt",
+            "notRecurrent": "Einzelner Kurs",
+            "offerWillBeGenerated": "Kurs wird hinzugefügt",
+            "offersWillBeGenerated": "Kurse werden hinzugefügt",
             "generateOffers": "Kurs(e) erstellen",
             "default_waiting_list_max_size": "Länge der Warteliste",
             "password": "Passwort",
@@ -1661,7 +1661,7 @@
             "default_last_discard_minutes": "Letzte mögliche Stornierung vor",
             "default_last_booking_minutes": "Letzte mögliche Buchung vor",
             "newMember": "Neues Mitglied",
-            "addingSessionFor": "Erstellung eines Workshops: ",
+            "addingSessionFor": "Kurs hinzufügen für: ",
             "effectif": "Teilnehmeranzahl",
             "recurrence": "Wiederholung",
             "signInPhoneInstruction": "Bitte gib Deine Telefonnummer ein, ein Bestätigungscode wird per SMS geschickt",
@@ -1688,7 +1688,7 @@
             "emailHelper": "Um mehrere E-Mails hinzuzufügen, geben Sie nach jeder E-Mail ein Komma oder ein Leerzeichen ein.",
             "partner_max_booking_count": "Maximale Anzahl von Marketplace-Buchungen (nur OneFit)",
             "noPartnershipIntegration": "Marketplace-Reservierungen sind für geschlossene Kurse nicht möglich",
-            "noWaitingList": "Wartelisten sind für Gruppensessions nicht verfügbar",
+            "noWaitingList": "Wartelisten sind für Events nicht verfügbar",
             "tenMinutes": "10min",
             "period": {
                 "hour": "Stunden",
@@ -1697,10 +1697,10 @@
                 "week": "Wochen",
                 "month": "Monate"
             },
-            "editGroup": "Bearbeiten Sie dieses Feld direkt in der Gruppensession.",
+            "editGroup": "Bearbeiten Sie dieses Feld direkt im Event.",
             "emailError": "Das angegebene E-Mail-Format ist ungültig.",
             "datePicker": {
-                "rangeError": "Es ist nicht möglich, Sessions zu erstellen, die in mehr als drei Jahren stattfinden"
+                "rangeError": "Es ist nicht möglich, Kurse zu erstellen, die in mehr als drei Jahren stattfinden"
             },
             "workingDateSection": "Zeitraum der Aktivität im Studio",
             "descriptionHelperText": "Die Beschreibung der Lehrkraft wird für die Mitglieder bei der Buchung sichtbar sein",
@@ -1754,8 +1754,8 @@
             "cancelledFromWaitingList": "Hat die Warteliste verlassen",
             "notifyRevert": "Stornierungs-E-Mail senden",
             "refundRevert": "Rückerstattung gebrauchter Credits",
-            "cancellingOtherBookingInGroup": "Achtung: Diese Session ist eine Gruppeneinheit von {{ name }}. Wenn das Mitglied weitere Buchungen in dieser Gruppe hat, werden diese nicht beeinflusst.",
-            "cancellingBookingInGroup": "Stornieren Sie für die anderen Sessions in dieser Gruppe.",
+            "cancellingOtherBookingInGroup": "Achtung: Dieser Kurs ist eine Gruppeneinheit von {{ name }}. Wenn das Mitglied weitere Buchungen in dieser Gruppe hat, werden diese nicht beeinflusst.",
+            "cancellingBookingInGroup": "Mehrere Kurse stornieren",
             "waitingListPosition": "Auf der Warteliste {{ position }}/{{ size }}"
         },
         "consumer": {
@@ -1777,11 +1777,11 @@
                 "intro": "Deine Buchung am {{date}}",
                 "discardGroupImpossibleExplain": "Die Credits werden nicht zurückerstattet, da diese Stornierung zu spät bearbeitet wird.",
                 "discardAllGroup": "Alle Buchungen dieser Gruppe werden storniert.",
-                "willBeRefund": "Die Session am {{-day}} wird wieder gutgeschrieben",
+                "willBeRefund": "Der Kurs am {{-day}} wird wieder gutgeschrieben",
                 "willNotBeRefund": "Nicht beglichene Credits",
-                "discardGroup1": "Diese Buchung ist Teil der Gruppensession {{ group }}.",
-                "discardGroup2": "Sie werden automatisch von allen noch nicht stattgefundenen Sessions dieser Gruppe abgemeldet.",
-                "discardGroup3": "Wenn Sie nur eine Session dieser Gruppe absagen möchten, wenden Sie sich bitte an Ihr Studio.",
+                "discardGroup1": "Diese Buchung ist Teil der \"{{ group }}\".",
+                "discardGroup2": "Sie werden automatisch von allen noch nicht stattgefundenen Kursen dieser Gruppe abgemeldet.",
+                "discardGroup3": "Wenn Sie nur einen Kurs dieser Gruppe absagen möchten, wenden Sie sich bitte an Ihr Studio.",
                 "discardGroupPossibleExplain": "Ihre Credits werden wieder verfügbar sein.",
                 "waintingListPositionLabel": "Position :"
             },
@@ -1814,9 +1814,9 @@
                     "passCompatibleNotOwnedByMember": "Rechnungsstellung eines neuen Kurspasses",
                     "doNotConsumeCredit": "Für diese Anmeldung werden den Mitgliedern keine Credits abgezogen",
                     "loadingData": "Buchungsdaten laden",
-                    "groupWarning": "Diese Session ist Teil der Gruppensession {{ name }}",
-                    "bookMoreInGroup": "Für andere Gruppensessions anmelden",
-                    "bookSingleInGroup": "Nur für diese Session anmelden",
+                    "groupWarning": "Dieser Kurs ist Teil eines Events {{ name }}",
+                    "bookMoreInGroup": "Andere Events buchen",
+                    "bookSingleInGroup": "Nur für diesen Kurs anmelden",
                     "bookingLimitReached": "Buchungsgrenze erreicht"
                 }
             }
@@ -1868,11 +1868,11 @@
             "explainImage": "Empfohlen : 1920x1080 jpeg (fullHD)",
             "packsAvailable": "Kompatible Kurspässe :",
             "fillrate": "Durchschnittliche Befüllung",
-            "firstBookingMinutesUntil": "Teilnehmer können zukünftige Sessions buchen, wenn diese in weniger als ",
+            "firstBookingMinutesUntil": "Teilnehmer können zukünftige Kurse buchen, wenn diese in weniger als ",
             "generalInfo": "Allgemeine Informationen",
             "autoDiscard": "Automatische Stornierung",
             "altCoverMain": "Bildbeschreibung für Sehbehinderte",
-            "firstMinutesBookingUntilWarning": "Ein Wert von Null bedeutet, dass keine Beschränkungen festgelegt sind. Buchungen sind für Sessions dieser Aktivität immer möglich."
+            "firstMinutesBookingUntilWarning": "Ein Wert von Null bedeutet, dass keine Beschränkungen festgelegt sind. Buchungen sind für Kurse dieser Aktivität immer möglich."
         },
         "paginatedList": {
             "isEmpty": "Keine Daten anzuzeigen"
@@ -1942,9 +1942,9 @@
                 "autoDiscard": {
                     "hours_before_start": "Stunde(n) vor der Session:",
                     "min_bookings_nb": "Anzahl der Buchung(en):",
-                    "emailRecipients": "Diese E-Mail wird an Mitarbeiter mit der Rolle \"Leiter\" oder \"Administrator\" sowie an die Lehrkraft (oder Vertretungslehrkraft) des betreffenden Kurses gesendet.",
+                    "emailRecipients": "Diese E-Mail wird an Mitarbeiter mit der Rolle \"Leiter\" oder \"Administrator\" sowie an die Lehrkraft (oder Vertretungslehrkraft) des betroffenen Kurses gesendet.",
                     "checkbox": "Storniere den Kurs automatisch, wenn zu wenige Buchungen vorliegen",
-                    "explain": "Die Sitzung wird storniert, wenn weniger als {{bookings_nb}} Reservierung(en) {{hours}} Stunde(n) vor Beginn der Session vorliegen. Alle Mitglieder, die sich in diese Session eingebucht haben, werden über die Absage der Session informiert."
+                    "explain": "Der Kurs wird storniert, wenn weniger als {{bookings_nb}} Reservierung(en) {{hours}} Stunde(n) vor Beginn der Session vorliegen. Alle Mitglieder, die sich in diesen Kurs eingebucht haben, werden über die Absage des Kurses informiert."
                 }
             }
         },
@@ -2031,21 +2031,21 @@
             "cancelledBookings_plural": "{{nb}} Buchungen storniert",
             "totalBookings": "{{nb}} Buchung insgesamt",
             "totalBookings_plural": "{{nb}} Buchungen insgesamt",
-            "offerFilteredBookingRecap": "Deine Buchung am {{date}}",
+            "offerFilteredBookingRecap": "Kurs: {{date}}",
             "weekOverview": "Übersicht der Woche",
             "chartsItemLabel": {
-                "numberOfSessions": "Sessions",
+                "numberOfSessions": "Kurse",
                 "numberOfCancelledBookings": "Stornierte Buchungen",
                 "numberOfConfirmedBookings": "Bestätigte Buchungen"
             },
             "bookingsTotalCount": "{{nb}} <0/>Buchung insgesamt",
             "bookingsTotalCount_plural": "{{nb}} <0/>Buchungen insgesamt",
-            "totalOffers": "{{ nb_offers }} <0/> Sitzung insgesamt",
-            "totalOffers_plural": "{{ nb_offers }} <0/> Sitzungen insgesamt",
+            "totalOffers": "{{ nb_offers }} <0/> Kurs insgesamt",
+            "totalOffers_plural": "{{ nb_offers }} <0/> Kurse insgesamt",
             "bookingsCancelled": "{{nb}} storniert",
             "confirmedBookings": "{{nb}} bestätigt"
         },
-        "show_cancelled_offers": "Abgesagte Stunden anzeigen",
+        "show_cancelled_offers": "Abgesagte Kurse anzeigen",
         "quickInvoiceVoucher": "Wähle den Rabatt, der bei der Abrechnung des nächsten Kurspasses angewendet werden soll",
         "metaActivityNotificationToolTip": "Benachrichtigungen sind für diese Buchungen aktiviert",
         "quickInvoiceNoVoucher": "Lasse den Wert dieses Feldes auf 0, wenn Du keinen Rabatt anwenden möchtest",
@@ -2229,7 +2229,7 @@
                 "establishment": {
                     "first": "in den Einrichtungen"
                 },
-                "second": "Kurse",
+                "second": "Kurs(e)",
                 "activity": {
                     "first": "von den Aktivitäten"
                 },
@@ -2257,8 +2257,8 @@
                 "activity": {
                     "first": "von"
                 },
-                "second_plural": ". Kurs",
-                "second_singular": ". Kurs",
+                "second_plural": "Kurs(e)",
+                "second_singular": "Kurs(e)",
                 "first": "Buchte seinen/ihren ",
                 "explanation": "Anzeige einer Übersicht aller Mitglieder mit X Buchungen der Aktivität Y im Betrieb Z",
                 "name": "Buchungsnummer",
@@ -2890,7 +2890,7 @@
                 "cancelledOffersManager": "Standardmäßig werden stornierte Kurse im Admin-Kalender angezeigt",
                 "checkBalance": {
                     "shiftRatio": {
-                        "explain": "Wenn mehr als {{numberCheck}} Buchungen in einer Session aufgezeichnet werden, wird keine Reservierung autorisiert, wodurch ein Ungleichgewicht zwischen Frauen und Männern entsteht, das größer ist als {{gender_max_shift_for_booking}} Personen.",
+                        "explain": "Wenn mehr als {{numberCheck}} Buchungen in einem Kurs aufgezeichnet werden, wird keine Reservierung autorisiert, wodurch ein Ungleichgewicht zwischen Frauen und Männern entsteht, das größer ist als {{gender_max_shift_for_booking}} Personen.",
                         "helperText": "Beschränke das Verhältnis zwischen Frauen und Männern auf {{gender_max_shift_for_booking}} Personen",
                         "placeholder": "Maximal zulässiges Verhältnis zwischen Frau und Männer"
                     },
@@ -2947,8 +2947,8 @@
                     "enableSchedule": "Wochenplan",
                     "daysBeforeReplacementClosing": {
                         "interval": "Intervall",
-                        "description": "Vertretungsanträge, die {{count}} Tag oder mehr vor Beginn der Sitzung gestellt werden, werden als spät gekennzeichnet.",
-                        "description_plural": "Vertretungsanträge, die {{count}} oder mehr Tage vor Beginn der Sitzung gestellt werden, werden als spät gekennzeichnet.",
+                        "description": "Vertretungsanträge, die {{count}} Tag oder mehr vor Beginn des Kurses gestellt werden, werden als spät gekennzeichnet.",
+                        "description_plural": "Vertretungsanträge, die {{count}} oder mehr Tage vor Beginn des Kurses gestellt werden, werden als spät gekennzeichnet.",
                         "every": "Alle",
                         "helperText": "Schließung von Anfragen auf Vertretung",
                         "placeholder": "Anzahl an Tagen"
@@ -3000,7 +3000,7 @@
                     "label": "Bestätigungs-E-Mail bei Anmeldung",
                     "title": "Anmeldung"
                 },
-                "hideSessionWithTagsNotEligible": "Sessions, auf die das Mitglied keinen Zugriff hat, nicht mit Tags anzeigen",
+                "hideSessionWithTagsNotEligible": "Kurse, auf die das Mitglied keinen Zugriff hat, nicht mit Tags anzeigen",
                 "errorURL": "Bitte geben Sie eine gültige URL an, bevor Sie das Formular speichern",
                 "daysFormatSelector": {
                     "oneLetter": "ein Buchstabe",
@@ -3026,19 +3026,19 @@
                 },
                 "acceptDoubleBookingMetaActivity": "Doppelte Buchungen für Aktivitäten akzeptieren",
                 "acceptDoubleBookingWorkshop": "Doppelte Buchungen für Workshops akzeptieren",
-                "showFreeSessionLabel": "Kennzeichnen Sie Session mit 0 Credits mit dem Label FREE",
+                "showFreeSessionLabel": "Kennzeichnen Sie Kurse mit 0 Credits mit dem Label FREE",
                 "hideBookButton": {
                     "switchLabel": "Ausblenden der Schaltfläche \"{{-bookButtonTranslation}}\"",
-                    "dialogDescription": "Wenn Sie die Schaltfläche \"{{-bookButtonTranslation}}\" ausblenden, wird die Karte anklickbar, um die Session zu buchen."
+                    "dialogDescription": "Wenn Sie die Schaltfläche \"{{-bookButtonTranslation}}\" ausblenden, wird die Karte anklickbar, um den Kurs zu buchen."
                 },
                 "doubleBookingDisabledWithSpivi": "Die Doppelbuchung ist nicht mit der Spivi-Integration kompatibel",
                 "startWeekOnToday": "Starten Sie den Kalender Ihrer Mitglieder mit dem heutigen Datum, wenn die Anzeige im Wochenansicht-Kartenmodus ist",
-                "showPastSessionsCalendar": "Zeige vergangene Sessions im Kalender Ihrer Mitglieder",
+                "showPastSessionsCalendar": "Zeige vergangene Kurse im Kalender Ihrer Mitglieder",
                 "maxFutureWorkshop": {
                     "label": "Begrenzung der Anzahl der künftig gebuchten Workshops pro Mitglied",
                     "numberCheck": {
                         "placeholder": "Maximal",
-                        "helperText": "Dies ist die Maximalanzahl der künftig gebuchten Workshop-Sessions pro Mitglied."
+                        "helperText": "Dies ist die Maximalanzahl der künftig gebuchten Workshop-Termine pro Mitglied."
                     }
                 },
                 "waitingListAccountsForMaxFutureBookings": {
@@ -3134,7 +3134,7 @@
             "checkInPersonalization": {
                 "settings": {
                     "save": "Speichern",
-                    "beforeStartTime": "Vergangene Sitzungen werden noch <0/> Stunde(n) und <1/> Minute(n) nach ihrer Startzeit angezeigt"
+                    "beforeStartTime": "Vergangene Kurse werden noch <0/> Stunde(n) und <1/> Minute(n) nach ihrer Startzeit angezeigt"
                 },
                 "title": "Check-In Tablet"
             }
@@ -3157,7 +3157,7 @@
             "addShopItemToCart": "Wenn der Benutzer einen Artikel aus dem Webshop in den Warenkorb legt",
             "paymentSuccess": "Wenn der Benutzer die Zahlung erfolgreich abgeschlossen hat",
             "signupSuccess": "Wenn der Benutzer ein Konto erstellt hat",
-            "sessionShow": "Wenn der Benutzer eine Kurs auswählt",
+            "sessionShow": "Wenn der Benutzer einen Kurs auswählt",
             "contractShow": "Wenn der Benutzer ein Abonnement ansieht",
             "contractPaymentShow": "Wenn sich der Benutzer auf der Zahlungsseite eines Abonnements befindet",
             "workshopClick": "Wenn der Benutzer ein Datum aus einem Workshop auswählt",
@@ -3165,7 +3165,7 @@
             "signinShow": "Wenn der Benutzer auf der Anmeldeseite ankommt",
             "signupShow": "Wenn der Benutzer das Registrierungsformular anzeigt",
             "contractPaymentSuccess": "Wenn der Benutzer ein Abo abgeschlossen hat",
-            "bookingSuccess": "Wenn ein Benutzer eine Session bucht (Gruppenaktivitäten)",
+            "bookingSuccess": "Wenn ein Benutzer einen Kurs bucht (Gruppenaktivitäten)",
             "leadAcquisitionSuccess": "Wenn ein Benutzer das Akquise-Widget erfolgreich übermittelt hat"
         },
         "signUpForm": {
@@ -3221,7 +3221,7 @@
         "zoom": {
             "confirmDialog": {
                 "title": "ZOOM-Integration",
-                "text": "Wenn Sie bereits Videokonferenz-Links manuell in Ihre Sessions eingegeben haben, werden diese gelöscht und durch automatisch generierte Zoom-Links ersetzt. Bereits im ZOOM-Kalender erstellte Meetings müssen manuell gelöscht werden, sie werden durch automatisch erstellte Meetings ersetzt."
+                "text": "Wenn Sie bereits Videokonferenz-Links manuell in Ihre Kurse eingegeben haben, werden diese gelöscht und durch automatisch generierte Zoom-Links ersetzt. Bereits im ZOOM-Kalender erstellte Meetings müssen manuell gelöscht werden, sie werden durch automatisch erstellte Meetings ersetzt."
             }
         },
         "quickbooks": {
@@ -3317,7 +3317,7 @@
                     "title": "Rollenerstellung",
                     "buttonCreate": "Füge eine Rolle hinzu  ",
                     "restrictedUrlExplain": "Verwenden Sie diesen Parameter, um eine Whitelist von URLs für diese Rolle festzulegen. Nur die unten aufgelisteten URLs sind für den mit dieser Rolle verbundenen Mitarbeitern zugänglich",
-                    "authorizeManagerExplain": "Die Mitarbeiter mit dieser Rolle können die gleichen Aktionen, wie der Manager durchführen: die Buchung einer Session in einer nicht verfügbaren Einrichtung veranlassen, die Buchung mit einer nicht verfügbaren Lehrkraft durchsetzen, die maximale Anzahl der für eine Session angemeldeten Mitglieder überschreiten.",
+                    "authorizeManagerExplain": "Die Mitarbeiter mit dieser Rolle können die gleichen Aktionen, wie der Manager durchführen: die Buchung einer Session in einer nicht verfügbaren Einrichtung veranlassen, die Buchung mit einer nicht verfügbaren Lehrkraft durchsetzen, die maximale Anzahl der für einen Kurs angemeldeten Mitglieder überschreiten.",
                     "authorizeManagerAction": "Dem Mitarbeiter die Kontrolle eines Managers geben"
                 },
                 "failDelete": {
@@ -3360,7 +3360,7 @@
                 "name": "Eingeschränktes Check-In"
             },
             "1": {
-                "description": "Mit Check-in | Wide können Mitarbeiter Sitzungen bearbeiten (Zeit, Vetretung, Absage usw.), Ihre Mitgliederdatenbank einsehen und Mitglieder einchecken.",
+                "description": "Mit Check-in | Wide können Mitarbeiter Kurse bearbeiten (Zeit, Vetretung, Absage usw.), Ihre Mitgliederdatenbank einsehen und Mitglieder einchecken.",
                 "name": "Erweitertes Check-In"
             },
             "0": {
@@ -3761,7 +3761,7 @@
                         }
                     }
                 },
-                "_label": "Session Verwaltung"
+                "_label": "Kursverwaltung"
             },
             "member": {
                 "allowed_actions": {
@@ -3948,10 +3948,10 @@
                             "_label": "Wochenübersicht einsehen"
                         },
                         "readCancellations": {
-                            "_label": "Stornierte Sessions ansehen"
+                            "_label": "Stornierte Kurse ansehen"
                         },
                         "bulkCancellation": {
-                            "_label": "Mehrere Sessions stornieren"
+                            "_label": "Mehrere Kurse stornieren"
                         }
                     }
                 },
@@ -4454,7 +4454,7 @@
                                 "_label": "Erstellen"
                             }
                         },
-                        "_label": "Erste Session (kollektiv)"
+                        "_label": "Erster (kollektiver) Kurs"
                     },
                     "dayBookings": {
                         "allowed_actions": {
@@ -4525,7 +4525,7 @@
                                 "_label": "Erstellen"
                             }
                         },
-                        "_label": "Sessions"
+                        "_label": "Kurse"
                     },
                     "workshop": {
                         "allowed_actions": {
@@ -5995,7 +5995,7 @@
             "total_payments_made": "Gesamtzahl der Zahlungseingänge",
             "src_company": "Einkaufsstudio",
             "dst_company": "Nutzungsstudio",
-            "total_mixed_from_src": "Anzahl der gebuchten Sessions",
+            "total_mixed_from_src": "Anzahl der gebuchten Kurse",
             "shared_pass_ratio": "Prozentualer Anteil der Nutzungen",
             "nb_planned_invoices": "Anzahl der Zahlungseingänge insgesamt",
             "payout_date_created": "Datum der Überweisung",
@@ -6012,10 +6012,10 @@
             "on_behalf_of_teacher": "Vollständig an die Lehrkraft gezahlte Vergütung",
             "date_canceled": "Stornierungsdatum",
             "price_invoice_items": "Gesamtbetrag der gekauften Produkte",
-            "last_booked_offer_pass_name": "Pass, der für die letzte gebuchte Session verwendet wurde",
-            "last_booked_offer_meta_activity_name": "Name der Aktivität der letzten gebuchten Session",
-            "last_booked_offer_date": "Datum der letzten gebuchten Session",
-            "last_booked_offer_id": "ID der zuletzt gebuchten Session",
+            "last_booked_offer_pass_name": "Pass, der für den letzten gebuchten Kurs verwendet wurde",
+            "last_booked_offer_meta_activity_name": "Name der Aktivität des letzten gebuchten Kurses",
+            "last_booked_offer_date": "Datum des letzten gebuchten Kurses",
+            "last_booked_offer_id": "ID des zuletzt gebuchten Kurses",
             "referred_member_last_name": "Nachname des geworbenen Mitglieds",
             "referred_member_first_name": "Vorname des geworbenen Mitglieds",
             "referred_discount_applied": "Belohnung vom geworbenen Mitglied erhalten",
@@ -6301,7 +6301,7 @@
                 "0": "Nicht storniert",
                 "1": "Vom Manager storniert",
                 "2": "Vom Kunden storniert",
-                "3": "Session storniert"
+                "3": "Kurs storniert"
             },
             "source_device": {
                 "0": "App",
@@ -6361,20 +6361,20 @@
             "memberships": "Es werden nur die an diesem Tag gültigen Pässe angezeigt.",
             "expired_pass": "Abgelaufene Kurspässe werden nach ihrem Ablaufdatum gefiltert.",
             "private_cpasses_expired": "Abgelaufene Terminpässe werden nach Ablauf ihres Gültigkeitsdatums gefiltert.",
-            "unpaid_private_bookings": "Unbezahlte Buchungen werden nach dem Datum der entsprechenden Session gefiltert.",
+            "unpaid_private_bookings": "Unbezahlte Buchungen werden nach dem Datum des entsprechenden Kurses gefiltert.",
             "private_bookings": "Die Buchungen werden nach dem Datum des entsprechenden Termins gefiltert.",
             "first_privatebooking": "Die ersten Buchungen werden nach dem Datum des entsprechenden Termins gefiltert.",
-            "first_attendance": "Die Erstbesuche werden nach dem Datum der Session gefiltert, in der sie stattgefunden haben.",
-            "bookings": "Die Buchungen werden nach dem Datum der entsprechenden Sitzung gefiltert.",
-            "first_booking": "Die ersten Buchungen werden nach dem Datum der entsprechenden Sitzung gefiltert.",
-            "dayBookings": "Die Buchungen werden nach dem Datum der entsprechenden Sitzung gefiltert.",
+            "first_attendance": "Die Erstbesuche werden nach dem Datum des Kurses gefiltert, in der er stattgefunden hat.",
+            "bookings": "Die Buchungen werden nach dem Datum des entsprechenden Kurses gefiltert.",
+            "first_booking": "Die ersten Buchungen werden nach dem Datum des entsprechenden Kurses gefiltert.",
+            "dayBookings": "Die Buchungen werden nach dem Datum des entsprechenden Kurses gefiltert.",
             "privateService": "Die Termine werden nach dem Datum gefiltert, an dem sie stattfinden.",
             "subscription": "Rechnungen werden nach ihrem Fälligkeitsdatum gefiltert.",
-            "offers": "Die Sessions werden nach dem Datum gefiltert, an dem sie stattfinden.",
-            "workshop": "Es werden nur die Workshops angezeigt, für die im ausgewählten Datumsbereich eine Session geplant ist.",
-            "activityByCoach": "Die Aktivitäten und Lehrkräfte, die angezeigt werden, sind diejenigen, für die eine Session im ausgewählten Datumsbereich geplant ist.",
-            "activityByEst": "Es werden nur die Aktivitäten und Einrichtungen angezeigt, für die im ausgewählten Datumsbereich eine Session geplant ist.",
-            "activities": "Es werden nur die Aktivitäten angezeigt, für die im ausgewählten Datumsbereich eine Session geplant ist.",
+            "offers": "Die Kurse werden nach dem Datum gefiltert, an dem sie stattfinden.",
+            "workshop": "Es werden nur die Workshops angezeigt, für die im ausgewählten Datumsbereich ein Termin geplant ist.",
+            "activityByCoach": "Die Aktivitäten und Lehrkräfte, die angezeigt werden, sind diejenigen, für die ein Termin im ausgewählten Datumsbereich geplant ist.",
+            "activityByEst": "Es werden nur die Aktivitäten und Einrichtungen angezeigt, für die im ausgewählten Datumsbereich ein Termin geplant ist.",
+            "activities": "Es werden nur die Aktivitäten angezeigt, für die im ausgewählten Datumsbereich ein Termin geplant ist.",
             "members": "Die Mitglieder werden nach ihrem Anmeldedatum gefiltert.",
             "referral_grant": "Empfehlungslinks werden nach dem Erstellungsdatum des gesponserten Mitglieds gefiltert",
             "invoicesAccrualMethodLink": "https://intercom.help/bsport-helpcenter/articles/8320705",
@@ -6840,7 +6840,7 @@
                 "success": "Buchung gespeichert"
             },
             "delete": {
-                "error": "Sie können eine bereits begonnene Session nicht abbrechen."
+                "error": "Sie können einen bereits begonnenen Kurs nicht abbrechen."
             }
         },
         "login": {
@@ -7115,11 +7115,11 @@
             }
         },
         "canNotBuyErrorCode": {
-            "2": "Die Session ist nicht mehr buchbar",
-            "3": "Die Session ist voll",
-            "1": "Die Session ist noch nicht buchbar",
-            "4": "Die Session ist nicht buchbar",
-            "5": "Sie haben sich bereits für diese Session angemeldet",
+            "2": "Der Kurs ist nicht mehr buchbar",
+            "3": "Der Kurs ist voll",
+            "1": "Der Kurs ist noch nicht buchbar",
+            "4": "Der Kurs ist nicht buchbar",
+            "5": "Sie haben sich bereits für diesen Kurs angemeldet",
             "6": "Das Ungleichgewicht zwischen den Geschlechtern ist zu groß, Buchung nicht möglich",
             "7": "Das Ungleichgewicht zwischen den Geschlechtern ist zu groß, Buchung nicht möglich",
             "1114": "Sie können diese Packung nicht mehr kaufen",
@@ -7132,12 +7132,12 @@
             "generic": "Kann nicht gebucht werden",
             "1113": "Dieses Paket ist nur für neue Mitglieder erhältlich",
             "2003": "Sie können diesen Pass nicht mehr einlösen",
-            "2007": "Diese Karte ist mit dieser Session nicht kompatibel",
+            "2007": "Diese Karte ist mit diesem Kurs nicht kompatibel",
             "2008": "Dieser Pass ist nicht mit dieser Aktivität kompatibel",
             "2009": "Ce laissez-passer n'est pas compatible avec cette activité",
             "2010": "Dieser Pass ist mit diesem Ort nicht kompatibel",
-            "2011": "Mit diesem Pass können Sie keine Sessions buchen (nur VOD)",
-            "2012": "Diese Karte ist mit dieser Session nicht kompatibel",
+            "2011": "Mit diesem Pass können Sie keine Kurse buchen (nur VOD)",
+            "2012": "Diese Karte ist mit diesem Kurs nicht kompatibel",
             "6002": "Die Warteliste ist voll",
             "6003": "Sie sind bereits auf der Warteliste",
             "9": "Sie versuchen mehr Termine zu buchen, als Ihr Club zulässt",
@@ -7321,18 +7321,18 @@
             "errors": {
                 "500001": "Es liegt bereits eine Vertretungsanfrage vor",
                 "80003": "Fehlende Einstellungen für Grenzwerte für verspätete Anfragen.",
-                "50012": "Diese Lehrkraft antwortete, dass sie für diese Session nicht einspringen wolle.",
+                "50012": "Diese Lehrkraft antwortete, dass sie für diesen Kurs nicht einspringen wolle.",
                 "50009": "Sie können diesen Anfrage nicht ablehnen, da bereits eine Lehrkraft zugewiesen wurde.",
                 "50011": "Für diese Anfrage wurde bereits eine Lehrkraft zugewiesen.",
                 "50015": "Sie können nicht auf Ihre eigene Vertretungsanfrage reagieren",
                 "50013": "Sie können nicht mehr auf diese Vertretungsanfrage reagieren.",
                 "50010": "Sie können diese Anfrage nicht stornieren, da bereits eine Lehrkraft zugewiesen wurde.",
                 "80002": "Der Wert \"Anzahl der Tage, an denen die Anfrage verspätet ist\" muss größer sein als der Wert \"Anzahl der Tage, an denen die Anfrage geschlossen ist\".",
-                "500004": "Sie sind bereits Vertretungskraft dieser Session",
+                "500004": "Sie sind bereits Vertretungskraft diesen Kurs",
                 "50020": "Diese Vertretungsanfrage wurde abgelehnt: Löschen nicht möglich",
-                "50000": "Die Session ist bereits vorbei",
+                "50000": "Der Kurs ist bereits vorbei",
                 "50007": "Sie können diese Vertretungsanfragen nicht stellen, weil Sie nicht genügend ausstehende überfällige Anfragen haben.",
-                "50008": "Der Anmeldeschluss kann nicht über das Datum der Session hinaus verschoben werden.",
+                "50008": "Der Anmeldeschluss kann nicht über das Datum des Kurses hinaus verschoben werden.",
                 "50021": "Sie können nicht gleichzeitig Niederlassungen und Standorte angeben."
             },
             "disciplineGroup": {
@@ -7442,8 +7442,8 @@
         "spivi": {
             "error": {
                 "21004": "Die Doppelbuchung ist nicht mit der Spivi-Integration kompatibel",
-                "21003": "Die mit Spivi verbundenen Sessions sollten zwischen 20min und 4h dauern",
-                "21002": "Der ausgewählte Raumplan muss eine Box-ID haben, damit die Session mit Spivi verknüpft werden kann",
+                "21003": "Die mit Spivi verbundenen Kurse sollten zwischen 20min und 4h dauern",
+                "21002": "Der ausgewählte Raumplan muss eine Box-ID haben, damit der Kurs mit Spivi verknüpft werden kann",
                 "21001": "Es wurde kein Raumplan ausgewählt",
                 "21000": "Der Spivi-Upsell ist nicht aktiviert."
             }
@@ -10181,7 +10181,7 @@
                 "book": "Buchen",
                 "helper": "Schließen Sie die Buchung ab und kaufen Sie zu einem späteren Zeitpunkt einen Terminpass.",
                 "header": "Später bezahlen",
-                "dialogHelper": "Mit dieser Option buchen Sie Ihre Session, ohne sie sofort zu bezahlen. Bei Ihrem nächsten Kauf einer Karte, die mit dieser Session kompatibel ist, wird diese automatisch mit {{ credits }} Guthaben(en) belastet.",
+                "dialogHelper": "Mit dieser Option buchen Sie Ihren Kurs, ohne ihn sofort zu bezahlen. Bei Ihrem nächsten Kauf einer Karte, die mit diesem Kurs kompatibel ist, wird diese automatisch mit {{ credits }} Guthaben(en) belastet.",
                 "isUnpaid": "Unbezahlte Rechnungen"
             }
         },
@@ -10549,7 +10549,7 @@
                 },
                 "title": "Kurs",
                 "duration_minutes": {
-                    "helperText": "Passe die erforderlichen Credits an die Dauer an",
+                    "helperText": "Passe die erforderlichen Credits an die Dauer des Kurses an",
                     "label": "Dauer"
                 },
                 "credit": {
@@ -10829,11 +10829,11 @@
                 "cancel": "Abbrechen",
                 "helperText": "Wähle den Termin aus, für den die Termin-Karte kompatibel ist",
                 "submit": "Speichern",
-                "title": "Session des {{ service }}",
-                "isEmpty": "In diesem Termin ist kein Sessionstyp konfiguriert!"
+                "title": "Kurse: {{ service }}",
+                "isEmpty": "In diesem Termin ist kein Kurstyp konfiguriert!"
             },
-            "forSlots": "Kompatible Termine:",
-            "allSlots": "Kompatibel für alle Termine",
+            "forSlots": "Kompatible Kurse:",
+            "allSlots": "Kompatibel für alle Sessions",
             "none": " keine"
         },
         "selector": {
@@ -11012,7 +11012,7 @@
             },
             "form": {
                 "notify_member": "Sende eine Bestätigungs-E-Mail, wenn Du das Mitglied registrierst",
-                "timeGroup": "Datum des Kurses",
+                "timeGroup": "Datum des Termins",
                 "configuration": "Buchungen",
                 "title": "Planen Sie eine Wiederholung",
                 "override_availabilities": "Die Buchung vornehmen, auch wenn die Lehrkraft, der Raum oder der Termin nicht verfügbar sind",
@@ -11045,8 +11045,8 @@
                 "next": "Weiter",
                 "chooseTime": {
                     "second": {
-                        "after": "Stunde (n) nach dem Kurs",
-                        "before": "Stunde (n) vor Beginn des Kurses"
+                        "after": "Stunde (n) nach dem Termin",
+                        "before": "Stunde (n) vor Beginn des Termins"
                     },
                     "first": "Eine E-Mail senden",
                     "title": "Einstellungen"
@@ -14980,7 +14980,7 @@
         "forms": {
             "delete": {
                 "content": {
-                    "canDelete": "Bist Du sicher, dass Du dieses Event löschen möchtest? Die Kurse und Buchungen werden nicht davon betroffen. Diese Aktion ist unwiderruflich.",
+                    "canDelete": "Bist du sicher, dass du dieses Event löschen möchtest? Die Kurse und Buchungen werden nicht davon betroffen. Diese Aktion ist unwiderruflich.",
                     "cannotDelete": "Kurse sind in der Zukunft geplant, prüfe, ob gelöscht und nicht nur storniert sind."
                 },
                 "actions": {
@@ -15010,11 +15010,11 @@
         "noWorkshops": "Verwalte Deine Workshops hier. Ein Workshop ist eine Veranstaltung, deren Datum im Voraus festgelegt wird.",
         "disabledWorkshops": "Archivierte Workshops",
         "group": {
-            "emptySelect": "Session auswählen",
+            "emptySelect": "Workshop oder Event auswählen, um mehr Informationen anzuzeigen",
             "backToGroup": "Zurück zu den Gruppen",
             "pageSize": "Anzeigen durch:",
             "emptySearch": "Keine Gruppe entspricht Ihrer Suchanfrage",
-            "emptyState": "Mit Gruppensessions können Ihre Kunden alle in der Gruppe enthaltenen Sessions auf einmal buchen. Verwenden Sie die Gruppensessions zum Beispiel, um Einführungsworkshops mit mehreren Sessions zu erstellen. "
+            "emptyState": "Mit Gruppenkursen können Ihre Kunden alle in der Gruppe enthaltenen Kurse auf einmal buchen. Verwenden Sie die Gruppenkurse zum Beispiel, um Einführungsworkshops mit mehreren Terminen zu erstellen. "
         },
         "tabList": "Workshops",
         "tabGroups": "Geschlossene Kurse"
@@ -15472,7 +15472,7 @@
                 "coupon": "Rabatt",
                 "member": "Mitglieder",
                 "toolbar": "Anzeigen von",
-                "offer": "Sessions"
+                "offer": "Kurse"
             },
             "tagDetail": {
                 "noTag": "Wählen Sie einen Sub Tag aus, um eine detailliertere Übersicht zu sehen."
@@ -15495,7 +15495,7 @@
                 "smartlist_count": "Kennzeichnungsregeln",
                 "member_count": "Getaggte Mitglieder",
                 "tag": "Sub Tag",
-                "offer_count": "Verknüpfte Sessions",
+                "offer_count": "Verknüpfte Kurse",
                 "coupon_count": " "
             },
             "submit": "Bestätigen",
@@ -15517,7 +15517,7 @@
                 "filters": {
                     "selectorTitle": "Nach Berechtigung filtern",
                     "options": {
-                        "all": "Alle Sessions anzeigen",
+                        "all": "Alle Kurse anzeigen",
                         "onlyWhite": "Buchbar mit diesem Tag",
                         "onlyBlack": "Nicht buchbar mit diesem Tag"
                     }
@@ -15532,7 +15532,7 @@
             "confirm": {
                 "submit": "Bestätigen",
                 "title": "Tag entfernen",
-                "text": "Diese Session ist mit einem Ereignis verbunden. Sie sind dabei, alle Tags zu entfernen. Sind Sie sicher, dass Sie fortfahren möchten?"
+                "text": "Dieser Kurs ist mit einem Ereignis verbunden. Sie sind dabei, alle Tags zu entfernen. Sind Sie sicher, dass Sie fortfahren möchten?"
             }
         }
     },
@@ -15691,7 +15691,7 @@
                 "submit": "Speichern",
                 "secondaryBackgroundColorElement": "Sekundäre Hintergrundfarbe der Elemente"
             },
-            "todayOnly": "Übersicht Tagessessions",
+            "todayOnly": "Übersicht Kurse des Tages",
             "responsiveIframe": "Reaktionsmodus aktivieren",
             "variant": "Hervorheben",
             "variantOption": {
@@ -15791,10 +15791,10 @@
                 "marketplace_payment_pack_card": "Kurskarte-Kartei",
                 "marketplace_payment_combo_card": "Pack-Kartei",
                 "marketplace_date_picker": "Datumswahl",
-                "marketplace_offer_card": "Sessiondetails (Kalenderansicht)",
+                "marketplace_offer_card": "Kursdetails (Kalenderansicht)",
                 "marketplace_week_time_table": "Kopfzeile des Kalenders",
                 "marketplace_calendar_filter": "Kalenderfilter (nur Seitenlayout)",
-                "marketplace_offer_list_item": "Sessiondetails (Listenansicht)",
+                "marketplace_offer_list_item": "Kursdetails (Listenansicht)",
                 "marketplace_select": "Selektor (einzeln)",
                 "marketplace_filter": "Mehrfachauswahl",
                 "marketplace_search": "Suchfilter",
@@ -15805,7 +15805,7 @@
                 "marketplace_item_quantity": "Menge des Artikels im Warenkorb (Warenkorbübersicht)",
                 "marketplace_basket_summary_item": "Komponente des Artikels im Warenkorb (Warenkorbübersicht)",
                 "marketplace_basket_summary_list_item": "Bestandteil der Liste der Artikel im Warenkorb (Warenkorbübersicht)",
-                "booker_module_offer_summary": "Session-Zusammenfassung",
+                "booker_module_offer_summary": "Kurs-Zusammenfassung",
                 "fabrique_typography": "Typografie",
                 "fabrique_card": "Karte",
                 "marketplace_spot_selector": "Platzreservierungswähler",
@@ -15877,7 +15877,7 @@
                     "isMobile": "Für Handys",
                     "offerStatus": "Verfügbarkeit des Angebots",
                     "isRegistered": "Bereits eingeschrieben",
-                    "nextOffer": "Nächste verfügbare Session",
+                    "nextOffer": "Nächster verfügbarer Kurs",
                     "showDayParts": "Morgens, nachmittags und abends trennen",
                     "isExcludingTax": "Vor Steuern",
                     "paymentMethodType": "Zahlungsmethode",
@@ -15890,10 +15890,10 @@
                     "disablePast": "Vergangene Daten deaktivieren",
                     "isInputButton": "Kompakte Version",
                     "blockedReasonStatus": "Grund für die Buchungssperre",
-                    "isOfferNotAvailableYet": "Die Session ist noch nicht buchbar",
-                    "isOfferAvailable": "Die Session ist verfügbar",
-                    "isOfferFull": "Die Session ist voll",
-                    "isOfferInThePast": "Die Session ist vorbei",
+                    "isOfferNotAvailableYet": "Der Kurs ist noch nicht buchbar",
+                    "isOfferAvailable": "Der Kurs ist verfügbar",
+                    "isOfferFull": "Der Kurs ist voll",
+                    "isOfferInThePast": "Der Kurs ist vorbei",
                     "isHidden": "Versteckt",
                     "showEstablishmentAddress": "Adresse der Einrichtung anzeigen",
                     "noStyledContainer": "Variante ohne Container anzeigen",
@@ -15986,13 +15986,13 @@
                     "passTypeFilter": "Kurspass-Filter",
                     "subscriptionCountrySelect": "Länderauswahl",
                     "activity": "Filter für Aktivitäten",
-                    "isWaitingListOpen": "Session voll",
+                    "isWaitingListOpen": "Kurs voll",
                     "isAlreadyInWaitingList": "Bereits auf der Warteliste",
                     "isWaitingListFull": "Warteliste voll",
                     "isWaitingListBlockedByPendingBookings": "Weitere laufende Buchungen",
                     "isTooLate": "Frist abgelaufen",
                     "isOfferNotAvailableYet": "Bald verfügbar",
-                    "isAlreadyRegistered": "Session bereits gebucht",
+                    "isAlreadyRegistered": "Kurs bereits gebucht",
                     "blockedByTags": "Unzureichende Rechte",
                     "desktop": "Großer Bildschirm",
                     "mobile": "Kleiner Bildschirm",
@@ -16022,7 +16022,7 @@
                         "purchaseOnlySuccess": "Kauf verarbeitet",
                         "offerAndPurchaseSuccess": "Buchung und Käufe verarbeitet",
                         "offerOnlySuccess": "Buchung erfolgreich",
-                        "offerOnlyBookingError": "Session kann nicht mehr gebucht werden",
+                        "offerOnlyBookingError": "Kurs kann nicht mehr gebucht werden",
                         "genericOfferError": "Buchung unerwartet fehlgeschlagen",
                         "generic": "Fehler bei der Verarbeitung der Transaktion"
                     },
@@ -16914,7 +16914,7 @@
             "cssEditor": "CSS",
             "advancedTool": "HTML"
         },
-        "errorLessSpotThanEffectif": "Sparen ist nicht möglich. Der Sitzplan muss mehr Platz bieten als die Anzahl der Teilnehmer der Session, zu der er gehört",
+        "errorLessSpotThanEffectif": "Sparen ist nicht möglich. Der Platzplan muss mehr Platz bieten als die Anzahl der Teilnehmer des Kurses, zu der er gehört",
         "saveError": "Fehler",
         "spotImageDialog": {
             "taken": "Reserviert",
@@ -16948,7 +16948,7 @@
             "legend": "Legende"
         },
         "searchHelper": "Hilfe: Ermöglicht es Ihren Schülern, den gewünschten Platz im Raum zu reservieren. Nicht obligatorische Felder",
-        "effectifError": "Die Anzahl der Sitzplätze muss gleich oder größer sein als die Anzahl der Teilnehmer an der Session",
+        "effectifError": "Die Anzahl der Plätze muss gleich oder größer sein als die Anzahl der Kursteilnehmer",
         "saved": "Eingetragener Sitzplan",
         "roomBlueprints": "Grundriss",
         "placeCount": "{{count}} Orte",
@@ -16997,7 +16997,7 @@
                 }
             }
         },
-        "errorAvailableOffersScheduled": "Kann nicht gespeichert werden. Dieses Layout kann nicht bearbeitet werden, da es in zukünftigen Session verwendet wird.",
+        "errorAvailableOffersScheduled": "Kann nicht gespeichert werden. Dieses Layout kann nicht bearbeitet werden, da es in zukünftigen Kursen verwendet wird.",
         "spiviDialog": {
             "spiviIdentifiers": "Spivi-IDs",
             "bsportIdentifiers": "bsport-IDs",
@@ -17826,15 +17826,15 @@
         "calendar": {
             "helperTextLimited": "<strong>{{requestsLeft}}</strong> auf <strong>{{requestsMax}}</strong> verbleibende späte Anfragen bis {{-dateEnd}}. Alle Anträge auf Vertretung, die innerhalb von {{count}} Tag vor Beginn der Session gestellt werden, werden als spät betrachtet.",
             "helperTextLimited_plural": "<strong>{{requestsLeft}}</strong> auf <strong>{{requestsMax}}</strong> verbleibende späte Anfragen bis {{-dateEnd}}. Alle Anträge auf Vertretung, die innerhalb von {{count}} Tagen vor Beginn der Session gestellt werden, werden als spät betrachtet.",
-            "helperTextNotLimited": "Alle Anträge auf Vertretung, die innerhalb von {{count}} Tag vor Beginn der Session gestellt werden, werden als spät betrachtet.",
-            "helperTextNotLimited_plural": "Alle Anträge auf Vertretung, die innerhalb von {{count}} Tagen vor Beginn der Session gestellt werden, werden als spät betrachtet.",
+            "helperTextNotLimited": "Alle Anträge auf Vertretung, die innerhalb von {{count}} Tag vor Beginn des Kurses gestellt werden, werden als spät betrachtet.",
+            "helperTextNotLimited_plural": "Alle Anträge auf Vertretung, die innerhalb von {{count}} Tagen vor Beginn des Kurses gestellt werden, werden als spät betrachtet.",
             "title": "Mein Wochenplan",
             "description": "Hier finden Sie alle Ihre Gruppenaktivitäten."
         },
         "unavailableReplacement": {
             "noLateRequestsLeft": "Sie können keine neuen verspäteten Vertretungsanträge mehr erstellen",
-            "alreadyPassed": "Diese Session ist vorbei",
-            "replacing": "Sie sind eine Vertretung dieser Session",
+            "alreadyPassed": "Dieser Kurs ist vorbei",
+            "replacing": "Sie sind eine Vertretung für diesen Kurs",
             "alreadyAskedFor": "Eine Anfrage ist bereits in Bearbeitung",
             "tooEarly": "Vertretungen sind noch nicht verfügbar",
             "refusedByManager": "Ihr Vertretungsantrag wurde abgelehnt"
@@ -17854,7 +17854,7 @@
             "availability": "Verfügbar",
             "request": "Anfrage",
             "registrations": "Registrierungen",
-            "class": "Session"
+            "class": "Kurs"
         },
         "requestTableTitles": {
             "replacementFound": "Vertretung gefunden",
@@ -17867,7 +17867,7 @@
                 "description": "Über die Statistik können Sie den Status Ihrer Anfrage einsehen.",
                 "pendingForApproval": "Erwartung einer Aktion des Managers.",
                 "approvedButNoReplacementPropositions": "auf Anmeldungen warten.",
-                "offerCancelled": "Session storniert."
+                "offerCancelled": "Kurs storniert."
             },
             "pendingForApproval": "Warten auf Genehmigung",
             "deniedByManager": "Abgelehnt",
@@ -17899,7 +17899,7 @@
         },
         "coachAnswers": {
             "success": {
-                "description": "Die Lehrkraft wurde ersetzt. {{coach}} wird die Session von {{-date}} bis {{time}} übernehmen",
+                "description": "Die Lehrkraft wurde ersetzt. {{coach}} wird den Kurs von {{-date}} bis {{time}} übernehmen",
                 "requestSent": "Zugewiesene Lehrkraft",
                 "close": "Schließen"
             },
@@ -17968,13 +17968,13 @@
         "requestsLinkedToCancelledOffers": {
             "offerHasActiveRequest": {
                 "helper": "Möchten Sie auf die Seite mit den Vertretungsanfragen weitergeleitet werden, um veraltete Anfragen zu löschen?",
-                "title": "Ein aktiver Vertretungsantrag ist mit dieser Session verbunden"
+                "title": "Ein aktiver Vertretungsantrag ist mit diesem Kurs verbunden"
             },
-            "description": "Um diese Session zu sehen, aktivieren Sie bitte den oben genannten Filter <strong>{{switchLabel}}</strong>",
-            "cancelledOffersModeTitle": "Modus stornierte Sessions",
-            "filterHelper": "Wenn diese Warnung weiterhin besteht und keine Sessions im <strong>{{switchLabel}}</strong>-Modus angezeigt werden, empfehlen wir, die Filter zu deaktivieren und den Zeitraum zu erweitern.",
+            "description": "Um diesen Kurs zu sehen, aktivieren Sie bitte den oben genannten Filter <strong>{{switchLabel}}</strong>",
+            "cancelledOffersModeTitle": "Modus stornierte Kurse",
+            "filterHelper": "Wenn diese Warnung weiterhin besteht und keine Kurse im <strong>{{switchLabel}}</strong>-Modus angezeigt werden, empfehlen wir, die Filter zu deaktivieren und den Zeitraum zu erweitern.",
             "buttonLabel": "Öffnen",
-            "title": "Aktive Vertretungsanfragen beziehen sich auf abgesagte Sessions."
+            "title": "Aktive Vertretungsanfragen beziehen sich auf abgesagte Kurse."
         },
         "coachAnswer": {
             "yes": "Ja",
@@ -17999,11 +17999,11 @@
         },
         "confirmations": {
             "title": "Bestätigungen",
-            "description": "Sie wurden als Vertretungslehrkraft für die folgenden Sessions hinzugefügt."
+            "description": "Sie wurden als Vertretungslehrkraft für die folgenden Kurse hinzugefügt."
         },
         "marketplace": {
             "title": "Marketplace",
-            "description": "Die folgenden Sessions benötigen eine Vertretungslehrkraft. Sind Sie verfügbar?",
+            "description": "Die folgende Kurse benötigen eine Vertretungslehrkraft. Sind Sie verfügbar?",
             "filters": "Filter",
             "until": "Bis {{-date}}"
         },
@@ -18012,27 +18012,27 @@
             "replacementHistory": "Vertretungsverlauf"
         },
         "noListItem": {
-            "calendar": "An diesen Tagen sind keine Sessions geplant",
+            "calendar": "An diesen Tagen sind keine Kurse geplant",
             "replacementRequest": "Kein Element"
         },
         "selects": {
             "lateStatus": "Status der Anfrage",
             "closedStatus": "Status der Anmeldungen",
             "category": "Kategorie",
-            "offerCancelled": "Stornierte Sessions"
+            "offerCancelled": "Stornierte Kurse"
         },
         "compatibleCoaches": {
             "title": "Verfügbare Lehrkräfte nach Fachrichtung",
             "compatibleCoaches": "{{count}} kompatible Lehrkraft",
             "compatibleCoaches_plural": "{{count}} kompatible Lehrkräfte",
-            "nextSlot": "Nächste Session am {{date}} - {{hour}}",
+            "nextSlot": "Nächster Kurs am {{date}} - {{hour}}",
             "activities": "Aktivitäten",
             "workshops": "Workshops",
             "categories": "Kategorien"
         },
         "coachEdit": {
             "title": "Vertretung",
-            "description": "Geben Sie an, welche Sessions von Ihrer Lehrkraft unterrichtet werden. Wenn in einer dieser Sessions ein Vertretungsantrag gestellt wird, wird diese Lehrkraft per E-Mail benachrichtigt. Wenn nichts ausgewählt wird, wird diese Lehrkraft nicht benachrichtigt.",
+            "description": "Geben Sie an, welche Kurse von Ihrer Lehrkraft unterrichtet werden. Wenn in einer dieser Kurse ein Vertretungsantrag gestellt wird, wird diese Lehrkraft per E-Mail benachrichtigt. Wenn nichts ausgewählt wird, wird diese Lehrkraft nicht benachrichtigt.",
             "disciplineGroup": "Disziplingruppe",
             "customRules": "Vorschriften individuell anpassen",
             "activities": "Aktivitäten",
@@ -18061,13 +18061,13 @@
         },
         "tooltip": {
             "seeAnswers": "Siehe Liste der Vertretungen",
-            "offerCancelled": "Diese Session wurde storniert"
+            "offerCancelled": "Dieser Kurs wurde storniert"
         }
     },
     "tutorial": {
         "shareDialog": {
-            "infoTextSection": "Geben Sie alle Sessions von \"{{name}}\" an Mitarbeiter weiter, die z. B. keinen Zugang zu den Handbüchern haben. Die Empfänger haben exklusiven Zugriff auf diesen Bereich.",
-            "infoTextLesson": "Geben Sie diese Session {{name}} an Mitarbeiter weiter, die z. B. keinen Zugang zu den Handbüchern haben. Die Empfänger haben exklusiven Zugriff auf diese Session.",
+            "infoTextSection": "Geben Sie alle Kurse von \"{{name}}\" an Mitarbeiter weiter, die z. B. keinen Zugang zu den Handbüchern haben. Die Empfänger haben exklusiven Zugriff auf diesen Bereich.",
+            "infoTextLesson": "Geben Sie diesen Kurs {{name}} an Mitarbeiter weiter, die z. B. keinen Zugang zu den Handbüchern haben. Die Empfänger haben exklusiven Zugriff auf diesen Kurs.",
             "title": "Teilen",
             "continueButton": "Weiter"
         },
@@ -18106,7 +18106,7 @@
         "sectionFinishDialog": {
             "title": "Herzlichen Glückwunsch!",
             "continueButton": "Weiter",
-            "infoText": "Du hast alle Session im Abschnitt {{name}} abgeschlossen. Verbessere dich weiter, indem du den nächsten Abschnitt bearbeitest."
+            "infoText": "Du hast alle Kurse im Abschnitt {{name}} abgeschlossen. Verbessere dich weiter, indem du den nächsten Abschnitt bearbeitest."
         },
         "allFinishDialog": {
             "title": "Abgeschlossen!",

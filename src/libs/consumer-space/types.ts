@@ -102,3 +102,31 @@ export type ChipData = {
   text: string;
   chipClassName: string;
 };
+
+export type ConsumerPaymentPackCompatibility = {
+  type: 'activity' | 'category' | 'room';
+  label: string;
+};
+
+export type PrivateConsumerPassCompatibility = {
+  name: string;
+  allSessions?: boolean;
+  sessions?: string[];
+};
+
+const daysOfWeek = [0, 1, 2, 3, 4, 5, 6] as const;
+export type DayOfWeekNumber = (typeof daysOfWeek)[number];
+
+export type TimeSlot = {
+  dayOfWeek: DayOfWeekNumber;
+  from: `${number}:${number}`;
+  to: `${number}:${number}`;
+};
+
+const frequencyOptions = ['month', 'day', 'week'] as const;
+export type FrequencyOption = (typeof frequencyOptions)[number];
+
+export type ConsumerPassRestriction = {
+  frequency: FrequencyOption;
+  amount: number;
+};

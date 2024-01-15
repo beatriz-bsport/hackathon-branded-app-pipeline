@@ -5259,8 +5259,10 @@
             "startingSoon": "Je online les begint over {{minutesLeft}} minuten.",
             "isAutoRefresh": "Je wordt automatisch 15 min. voor het begin van de online les automatisch naar de livestream doorverwezen.",
             "loadingSoon": "Bezig met laden...",
-            "activateVideo": "Online les beginnen",
-            "hasEnded": "Deze online les is afgelopen."
+            "activateVideo": "Verbind",
+            "hasEnded": "Deze online les is afgelopen.",
+            "livestream": "Livestream",
+            "description": "Start uw online sessie"
         },
         "disabled": "Geannuleerd",
         "credit_price": " Credit(s)",
@@ -5609,6 +5611,15 @@
             "false": "Geen subaanvraag",
             "true": "Subaanvraag in behandeling",
             "placeholder": "Subaanvraag"
+        },
+        "notePad": {
+            "title": "Notities",
+            "placeholder": "Laat een bericht achter over deze sessie…",
+            "loading": "Laden…",
+            "modal": {
+                "title": "Niet opgeslagen veranderingen",
+                "description": "Je hebt niet-opgeslagen notities op deze pagina. Wil je ze opslaan voordat je weggaat?"
+            }
         }
     },
     "emailTemplate": {
@@ -12282,7 +12293,8 @@
         "recommended": "Aanbevolen",
         "day": "dag",
         "day_plural": "dagen",
-        "subscribe": "Abonneer"
+        "subscribe": "Abonneer",
+        "discard": "Weggooien"
     },
     "workshop": {
         "modal": {
@@ -15323,6 +15335,12 @@
                         },
                         "create": {
                             "_label": "Toevoegen"
+                        },
+                        "viewNotes": {
+                            "_label": "Zie notities"
+                        },
+                        "editNotes": {
+                            "_label": "Notities bewerken"
                         }
                     },
                     "_label": "Beschikbaarheid afspraken"
@@ -15337,6 +15355,12 @@
                         },
                         "create": {
                             "_label": "Toevoegen"
+                        },
+                        "viewNotes": {
+                            "_label": "Notities inzien"
+                        },
+                        "editNotes": {
+                            "_label": "Bewerk notities"
                         }
                     },
                     "_label": "Workshops"
@@ -15351,6 +15375,12 @@
                         },
                         "create": {
                             "_label": "Toevoegen"
+                        },
+                        "viewNotes": {
+                            "_label": "Notities bekijken"
+                        },
+                        "editNotes": {
+                            "_label": "Notities bewerken"
                         }
                     },
                     "_label": "Activiteiten"
@@ -16926,6 +16956,30 @@
                     "dialog": {
                         "helper": "De {{ workflowLowerCase }} is nu gearchiveerd. Om het te herstellen, ga terug naar de hoofdpagina en unarchiveer de {{ workflowLowerCase }} uit de lijst.",
                         "title": "{{ workflowCamelCase }} gearchiveerd"
+                    }
+                }
+            },
+            "workflowMetrics": {
+                "cards": {
+                    "members": {
+                        "title": "Leden",
+                        "description": "Aantal leden dat de {{ workflowLowerCase }} heeft ingevoerd.",
+                        "label": "Leden ingevoerd"
+                    },
+                    "success": {
+                        "title": "Succes",
+                        "description": "Percentage dat als gewonnen wordt beschouwd.",
+                        "label": "succesratio"
+                    },
+                    "averageTime": {
+                        "title": "Gemiddelde tijd",
+                        "description": "Gemiddelde periode die een lid nodig heeft om als gewonnen te worden beschouwd.",
+                        "label": "dagen voor gemiddelde"
+                    },
+                    "tags": {
+                        "title": "Tags",
+                        "description": "Aantal tags toegepast op de leden in de {{ workflowLowerCase }}.",
+                        "label": "tags"
                     }
                 }
             }

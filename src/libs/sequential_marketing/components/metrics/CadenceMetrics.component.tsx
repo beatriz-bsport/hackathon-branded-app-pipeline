@@ -1,0 +1,264 @@
+import React from 'react';
+import moment from 'moment-timezone';
+import chroma from 'chroma-js';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+
+import CadenceGlobalMetricsCard, {
+  CadenceMetricsVariant,
+} from './CadenceGlobalMetricsCard.component';
+import CadenceGlobalMetricsProgressList from './CadenceGlobalMetricsProgressList.component';
+import DateRangeSelector from '#components/date/DateRangeSelector.component';
+import CadenceMetricsMemberTable from './CadenceMetricsMemberTable';
+
+import type {
+  Cadence,
+  CadenceGlobalMetrics,
+  CadenceMembersInData,
+  CadenceMembersOutData,
+  CadenceStep,
+  MetricsPaginatedResponse,
+} from '#libs/sequential_marketing/types';
+import type { Member } from '#libs/member/types';
+
+type Props = {
+  cadence?: Cadence;
+  globalMetrics: CadenceGlobalMetrics;
+  membersById: {
+    [id: string]: Member<number, number>;
+  };
+  membersHistoric: MetricsPaginatedResponse<CadenceMembersOutData>;
+  membersPresent: MetricsPaginatedResponse<CadenceMembersInData>;
+  endDate: string;
+  startDate: string;
+  hasNotificationUpsell?: boolean;
+  globalMetricsLoading?: boolean;
+  membersHistoricLoading?: boolean;
+  membersPresentLoading?: boolean;
+  changeMembersHistoricPage: (cadenceId: number, page: number) => void;
+  changePresentMembersPage: (cadenceId: number, page: number) => void;
+  getCadenceStep: (stepId: number) => CadenceStep;
+  knowMoreOnNotifications: () => void;
+  updateFilterDates: (startDateFilter: string, endDateFilter: string) => void;
+};
+
+const CadenceMetrics: React.FC<Props> = ({
+  cadence,
+  endDate,
+  globalMetrics,
+  membersById,
+  membersHistoric,
+  membersPresent,
+  startDate,
+  hasNotificationUpsell,
+  globalMetricsLoading,
+  membersHistoricLoading,
+  membersPresentLoading,
+  changeMembersHistoricPage,
+  changePresentMembersPage,
+  getCadenceStep,
+  knowMoreOnNotifications,
+  updateFilterDates,
+}) => {
+  const classes = useStyles();
+
+  const [pagePresent, setPagePresent] = React.useState<number | null>(null);
+  const [pageHistoric, setPageHistoric] = React.useState<number | null>(null);
+
+  const handleChangePresentMembersPage = React.useCallback(
+    (page: number) => {
+      setPagePresent(page);
+      changePresentMembersPage(cadence?.id, page);
+    },
+    [cadence?.id, changePresentMembersPage],
+  );
+
+  const handleChangeMembersHistoricPage = React.useCallback(
+    (page: number) => {
+      setPageHistoric(page);
+      changeMembersHistoricPage(cadence?.id, page);
+    },
+    [cadence?.id, changeMembersHistoricPage],
+  );
+
+  const totalPagesPresentMembers = React.useMemo(
+    () =>
+      parseInt(
+        (membersPresent?.count === 0
+          ? 0
+          : membersPresent?.count / membersPresent?.page_size +
+            (membersPresent?.count % membersPresent?.page_size === 0 ? 0 : 1)
+        ).toString(),
+        10,
+      ),
+    [membersPresent?.count, membersPresent?.page_size],
+  );
+
+  const totalPagesMembersHistoric = React.useMemo(
+    () =>
+      parseInt(
+        (membersHistoric?.count === 0
+          ? 0
+          : membersHistoric?.count / membersHistoric?.page_size +
+            (membersHistoric?.count % membersHistoric?.page_size === 0 ? 0 : 1)
+        ).toString(),
+        10,
+      ),
+    [membersHistoric?.count, membersHistoric?.page_size],
+  );
+
+  if (!cadence) return null;
+
+  return (
+    <div className={classes.container}>
+      <div className={classes.header}>
+        <div className={classes.cadenceName}>
+          <div className={classes.indexContainer}>
+            <Typography color="primary" variant="h6">
+              {cadence?.priority_index}
+            </Typography>
+          </div>
+          <Typography variant="h5">{cadence?.name}</Typography>
+        </div>
+      </div>
+      <DateRangeSelector
+        date_end={moment(endDate).unix()}
+        date_start={moment(startDate).unix()}
+        onSubmit={(values) => {
+          updateFilterDates(
+            values.dateStart.format('YYYY-MM-DD'),
+            values.dateEnd.format('YYYY-MM-DD'),
+          );
+        }}
+        timePeriod="custom"
+      />
+      <div className={classes.metrics}>
+        {!globalMetricsLoading && (
+          <>
+            <div className={classes.members}>
+              <CadenceGlobalMetricsCard
+                count={globalMetrics?.count_members_that_entered}
+                variant={CadenceMetricsVariant.MEMBERS}
+              />
+            </div>
+            <div className={classes.success}>
+              <CadenceGlobalMetricsCard
+                count={globalMetrics?.success_rate}
+                variant={CadenceMetricsVariant.SUCCESS}
+              />
+            </div>
+            <div className={classes.time}>
+              <CadenceGlobalMetricsCard
+                count={globalMetrics?.average_success_time}
+                variant={CadenceMetricsVariant.AVERAGE_TIME}
+              />
+            </div>
+            <div className={classes.tags}>
+              <CadenceGlobalMetricsCard
+                count={globalMetrics?.tags_count}
+                variant={CadenceMetricsVariant.TAGS}
+              />
+            </div>
+            <div className={classes.communications}>
+              <CadenceGlobalMetricsProgressList
+                emailCount={globalMetrics?.emails_count}
+                hasNotificationUpsell={hasNotificationUpsell}
+                knowMoreOnNotifications={knowMoreOnNotifications}
+                notificationCount={globalMetrics?.push_notif_count}
+                smsCount={globalMetrics?.sms_count}
+              />
+            </div>
+          </>
+        )}
+        {!!membersPresent && (
+          <div className={classes.presentMembers}>
+            <CadenceMetricsMemberTable
+              getCadenceStep={getCadenceStep}
+              loading={membersPresentLoading}
+              membersById={membersById}
+              membersData={membersPresent.results}
+              page={pagePresent}
+              totalPages={totalPagesPresentMembers}
+              updatePageNumber={handleChangePresentMembersPage}
+            />
+          </div>
+        )}
+        {!!membersHistoric && (
+          <div className={classes.historic}>
+            <CadenceMetricsMemberTable
+              isHistoric
+              getCadenceStep={getCadenceStep}
+              loading={membersHistoricLoading}
+              membersById={membersById}
+              membersData={membersHistoric.results}
+              page={pageHistoric}
+              totalPages={totalPagesMembersHistoric}
+              updatePageNumber={handleChangeMembersHistoricPage}
+            />
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+const useStyles = makeStyles((theme) => ({
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(2),
+    paddingBottom: theme.spacing(10),
+  },
+  header: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  cadenceName: {
+    display: 'flex',
+    gap: theme.spacing(1),
+  },
+  indexContainer: {
+    borderRadius: theme.spacing(1),
+    textAlign: 'center',
+    verticalAlign: 'middle',
+    width: theme.spacing(4),
+    height: theme.spacing(4),
+    backgroundColor: chroma(theme.palette.primary.main).alpha(0.09).hex(),
+  },
+  metrics: {
+    display: 'grid',
+    width: '100%',
+    gridTemplateColumns: `repeat(2, calc(50% - ${theme.spacing(1)}px))`,
+    gridGap: theme.spacing(2),
+  },
+  members: {
+    gridColumn: '1',
+    gridRow: '1',
+  },
+  success: {
+    gridColumn: '2',
+    gridRow: '1',
+  },
+  time: {
+    gridColumn: '1',
+    gridRow: '2',
+  },
+  tags: {
+    gridColumn: '2',
+    gridRow: '2',
+  },
+  communications: {
+    gridColumn: '1/3',
+    gridRow: '3',
+  },
+  presentMembers: {
+    gridColumn: '1/3',
+    gridRow: '4',
+  },
+  historic: {
+    gridColumn: '1/3',
+    gridRow: '5',
+  },
+}));
+
+export default React.memo(CadenceMetrics);

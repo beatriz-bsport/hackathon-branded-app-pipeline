@@ -24,7 +24,7 @@ const SharedSection: React.FC<Props> = ({ members, title }) => {
         {membersFiltered.map((member) => (
           <ListItem
             key={member}
-            className="bs-consumer-payment-pack-details-card__shared-section__list__item"
+            className="bs-universal-pass-details-card__shared-section__list__item"
             label={member}
           />
         ))}

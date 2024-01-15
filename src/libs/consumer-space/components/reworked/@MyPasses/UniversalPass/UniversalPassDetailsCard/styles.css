@@ -1,0 +1,273 @@
+.bs-universal-pass-details-card__root {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100%;
+  overflow: auto;
+}
+
+/* ------ HEADER SECTION ------ */
+
+.bs-universal-pass-details-card__header {
+}
+
+/* TODO: display none if main page container is too small (mobile version) */
+.bs-universal-pass-details-card__header__title {
+  margin-bottom: 0;
+}
+
+.bs-universal-pass-details-card__header__list {
+}
+
+.bs-universal-pass-details-card__header__list--hidden {
+  display: none;
+}
+
+.bs-universal-pass-details-card__header__list__item {
+  padding: 0;
+  padding-top: var(--bs-space-size-4);
+}
+
+.bs-universal-pass-details-card__header__list__item__icon--warning {
+  color: var(--bs-color-text-warning-strong);
+}
+
+.bs-universal-pass-details-card__header__list__item__icon--error {
+  color: var(--bs-color-text-error-strong);
+}
+
+.bs-universal-pass-details-card__header__list__item__icon--weak-color {
+  color: var(--bs-color-icon-weak);
+}
+
+/* ------ DESCRIPTION SECTION ------ */
+
+.bs-universal-pass-details-card__description {
+}
+
+.bs-universal-pass-details-card__description--hidden {
+  display: none;
+}
+
+.bs-consumer-card-description__collapse-content {
+}
+
+.bs-consumer-card-description__collapse-content--expanded {
+}
+
+.bs-consumer-card-description__collapse__text {
+}
+
+.bs-consumer-card-description__collapse__text--hidden {
+}
+
+.bs-consumer-card-description__show-more {
+}
+
+/* ------ COMPATIBLE ESTABLISHMENT SECTION ------ */
+
+.bs-universal-pass-details-card__establishment-section {
+}
+
+.bs-universal-pass-details-card__establishment-section--hidden {
+  display: none;
+}
+
+.bs-universal-pass-details-card__establishment-section__list {
+}
+
+.bs-universal-pass-details-card__establishment-section__list__item {
+  padding: var(--bs-space-size-1);
+}
+
+/* ------ SHARED SECTIONS ------ */
+
+.bs-universal-pass-details-card__shared-section {
+}
+
+.bs-universal-pass-details-card__shared-section--hidden {
+  display: none;
+}
+
+.bs-universal-pass-details-card__shared-section__list {
+  gap: var(--bs-space-size-1);
+}
+
+.bs-universal-pass-details-card__shared-section__list__item {
+  padding: 0;
+}
+
+/* ------ COMPATIBILITY SECTION ------- */
+
+.bs-universal-pass-details-card__compatibility-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bs-space-size-2);
+}
+
+.bs-universal-pass-details-card__compatibility-section__container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bs-space-size-3);
+}
+
+.bs-universal-pass-details-card__compatibility-section--activity {
+}
+
+.bs-universal-pass-details-card__compatibility-section--appointment {
+}
+
+.bs-universal-pass-details-card__compatibility-section__container--activity {
+}
+
+.bs-universal-pass-details-card__compatibility-section__container--appointment {
+}
+
+/* COMPATILIBITY SECTION --> Main list */
+
+.bs-universal-pass-details-card__compatibility-section__list {
+}
+
+.bs-universal-pass-details-card__compatibility-section__list--hidden {
+  display: none;
+}
+
+.bs-universal-pass-details-card__compatibility-section__list__item {
+  padding: 0;
+}
+
+.bs-universal-pass-details-card__compatibility-section__list__item--hidden {
+  display: none;
+}
+
+/* COMPATILIBITY SECTION --> Subsections */
+
+.bs-universal-pass-details-card__compatibility-section__subsection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bs-space-size-1);
+}
+
+.bs-universal-pass-details-card__compatibility-section__subsection:not(
+    :last-of-type
+  ) {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.bs-universal-pass-details-card__compatibility-section__subsection--hidden {
+  display: none;
+}
+
+.bs-universal-pass-details-card__compatibility-section__subsection--activity {
+}
+
+.bs-universal-pass-details-card__compatibility-section__subsection--time-slot {
+}
+
+.bs-universal-pass-details-card__compatibility-section__subsection--session {
+}
+
+.bs-universal-pass-details-card__compatibility-section__subsection__container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bs-space-size-2);
+}
+
+.bs-universal-pass-details-card__compatibility-section__subsection__container--activity {
+}
+
+.bs-universal-pass-details-card__compatibility-section__subsection__container--time-slot {
+}
+
+.bs-universal-pass-details-card__compatibility-section__subsection__container--session {
+}
+
+/* COMPATILIBITY SECTION --> Chip lists containers */
+
+.bs-universal-pass-details-card__compatibility-section__subsection__chip-list {
+}
+
+.bs-universal-pass-details-card__compatibility-section__subsection__chip-list--activity {
+}
+
+.bs-universal-pass-details-card__compatibility-section__subsection__chip-list--category {
+}
+
+.bs-universal-pass-details-card__compatibility-section__subsection__chip-list--room {
+}
+
+.bs-universal-pass-details-card__compatibility-section__subsection__chip-list--time-slot {
+}
+
+/* COMPATIBILITY SECTION --> Chip lists titles */
+
+.bs-universal-pass-details-card__compatibility-section__subsection__chip-list__title {
+}
+
+.bs-universal-pass-details-card__compatibility-section__subsection__chip-list__title--activity {
+}
+
+.bs-universal-pass-details-card__compatibility-section__subsection__chip-list__title--category {
+}
+
+.bs-universal-pass-details-card__compatibility-section__subsection__chip-list__title--room {
+}
+
+.bs-universal-pass-details-card__compatibility-section__subsection__chip-list__title--time-slot {
+}
+
+/* COMPATIBILITY SECTION --> Chip lists */
+
+.bs-universal-pass-details-card__compatibility-section__subsection__chip-list__list {
+}
+
+.bs-universal-pass-details-card__compatibility-section__subsection__chip-list__list--activity {
+}
+
+.bs-universal-pass-details-card__compatibility-section__subsection__chip-list__list--category {
+}
+
+.bs-universal-pass-details-card__compatibility-section__subsection__chip-list__list--room {
+}
+
+.bs-universal-pass-details-card__compatibility-section__subsection__chip-list__list--time-slot {
+}
+
+/* COMPATIBILITY SECTION --> Chips */
+
+.bs-universal-pass-details-card__compatibility-section__subsection__chip {
+}
+
+.bs-universal-pass-details-card__compatibility-section__subsection__chip--activity {
+}
+
+.bs-universal-pass-details-card__compatibility-section__subsection__chip--category {
+}
+
+.bs-universal-pass-details-card__compatibility-section__subsection__chip--room {
+}
+
+.bs-universal-pass-details-card__compatibility-section__subsection__chip--time-slot {
+}
+
+/* RESTRICTION SECTION */
+
+.bs-universal-pass-details-card__restriction-section {
+}
+
+.bs-universal-pass-details-card__restriction-section--hidden {
+  display: none;
+}
+
+.bs-universal-pass-details-card__restriction-section__text {
+  color: var(--bs-color-text-weak);
+}
+
+.bs-universal-pass-details-card__compatibility-section__subsection__appointment-and-sessions {
+}
+
+.bs-universal-pass-details-card__compatibility-section__subsection__appointment-and-sessions--hidden {
+  display: none;
+}

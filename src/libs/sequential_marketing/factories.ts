@@ -236,7 +236,7 @@ export function stepMarketingActionBatchFactory(
   });
 }
 
-export function workflowFactory({
+export function cadenceFactory({
   id,
   company,
   name,
@@ -256,7 +256,7 @@ export function workflowFactory({
     name: name || faker.lorem.word(),
     active: active || true,
     archived: archived || true,
-    priority_index: priority_index || faker.number.int(),
+    priority_index: priority_index || faker.number.int(100),
     entries: entries || [],
     cadence_exits: cadence_exits || [],
     steps: steps || [],
@@ -266,6 +266,6 @@ export function workflowFactory({
   };
 }
 
-export const listWorkflowFactory = (count: number) => {
-  return faker.helpers.multiple(() => workflowFactory({}), { count });
+export const cadenceListFactory = (count: number) => {
+  return faker.helpers.multiple(() => cadenceFactory({}), { count });
 };

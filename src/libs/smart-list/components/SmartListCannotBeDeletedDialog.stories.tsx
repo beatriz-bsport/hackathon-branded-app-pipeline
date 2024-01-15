@@ -1,5 +1,5 @@
 import React from 'react';
-import { listWorkflowFactory } from '#libs/sequential_marketing/factories';
+import { cadenceListFactory } from '#libs/sequential_marketing/factories';
 import SmartListCannotBeDeletedDialog, {
   Props,
 } from './SmartListCannotBeDeletedDialog.component';
@@ -14,7 +14,7 @@ export const SmartListCannotBeDeleted = SmartListCannotBeDeletedTemplate.bind(
 SmartListCannotBeDeleted.args = {
   open: true,
   onCancel: () => {},
-  cadences: listWorkflowFactory(3),
+  cadences: cadenceListFactory(3),
 };
 
 export default {

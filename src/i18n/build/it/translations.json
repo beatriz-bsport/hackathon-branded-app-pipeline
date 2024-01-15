@@ -12739,7 +12739,8 @@
         "recommended": "Consigliato",
         "day": "giorno",
         "day_plural": "giorni",
-        "subscribe": "Iscriviti"
+        "subscribe": "Iscriviti",
+        "discard": "Elimina"
     },
     "titles": {
         "metaActivity": {
@@ -13727,7 +13728,9 @@
             "hasEnded": "Questa sessione è finita",
             "isAutoRefresh": "Verrai reindirizzato automaticamente alla videoconferenza 15 minuti prima dell'inizio del corso",
             "loadingSoon": "Caricamento in corso...",
-            "activateVideo": "Inizia la trasmissione"
+            "activateVideo": "Connettiti",
+            "livestream": "Livestream",
+            "description": "Inizia la tua classe online"
         },
         "extraordinaryEstablishment": "(luogo temporaneo)",
         "substitute": "Sostituzione",
@@ -14049,6 +14052,15 @@
             "false": "Nessuna richiesta di sostituzione",
             "true": "Richiesta di sostituzione in attesa",
             "placeholder": "Richiesta di sostituzione"
+        },
+        "notePad": {
+            "title": "Note",
+            "placeholder": "Lascia una nota su questa sessione…",
+            "loading": "Caricamento…",
+            "modal": {
+                "title": "Modifiche non salvate",
+                "description": "Ci sono note non salvate in questa pagina. Salvarle prima di uscire?"
+            }
         }
     },
     "role": {
@@ -14665,6 +14677,12 @@
                         },
                         "create": {
                             "_label": "Crea"
+                        },
+                        "viewNotes": {
+                            "_label": "Vedi note"
+                        },
+                        "editNotes": {
+                            "_label": "Modifica note"
                         }
                     },
                     "_label": "Slot per appuntamenti"
@@ -14679,6 +14697,12 @@
                         },
                         "create": {
                             "_label": "Crea"
+                        },
+                        "viewNotes": {
+                            "_label": "Vedi note"
+                        },
+                        "editNotes": {
+                            "_label": "Modifica note"
                         }
                     },
                     "_label": "Workshop"
@@ -14693,6 +14717,12 @@
                         },
                         "create": {
                             "_label": "Crea"
+                        },
+                        "viewNotes": {
+                            "_label": "Vedi note"
+                        },
+                        "editNotes": {
+                            "_label": "Modifica note"
                         }
                     },
                     "_label": "Attività"
@@ -16905,6 +16935,30 @@
                     "dialog": {
                         "helper": "Il {{ workflowLowerCase }} è ora archiviato. Per ripristinarlo, torna alla pagina principale e disarchiviare il {{ workflowLowerCase }} dall'elenco.",
                         "title": "{{ workflowCamelCase }} archiviato"
+                    }
+                }
+            },
+            "workflowMetrics": {
+                "cards": {
+                    "members": {
+                        "title": "Membri",
+                        "description": "Numero di membri che sono entrati nel {{ workflowLowerCase }}.",
+                        "label": "membri entrati"
+                    },
+                    "success": {
+                        "title": "Successo",
+                        "description": "Percentuale di membri considerati come acquisiti.",
+                        "label": "percentuale di successo"
+                    },
+                    "averageTime": {
+                        "title": "Tempo medio",
+                        "description": "Periodo medio di tempo necessario perché un membro sia considerato acquisito.",
+                        "label": "giorni in media"
+                    },
+                    "tags": {
+                        "title": "Tag",
+                        "description": "Numero di tag applicati ai membri del {{ workflowLowerCase }}.",
+                        "label": "tag"
                     }
                 }
             }

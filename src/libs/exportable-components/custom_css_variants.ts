@@ -403,6 +403,10 @@ import {
   CONSUMER_PASS_CARD_CONFIGURATION,
 } from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassCard';
 import {
+  PRIVATE_CONSUMER_PASS_DETAILS_CARD_PREVIEW,
+  PRIVATE_CONSUMER_PASS_DETAILS_CARD_CONFIGURATION,
+} from '#libs/consumer-space/components/reworked/@MyPasses/PrivateConsumerPass/PrivateConsumerPassDetailsCard';
+import {
   CONSUMER_PAYMENT_PACK_DETAILS_CARD_PREVIEW,
   CONSUMER_PAYMENT_PACK_DETAILS_CARD_CONFIGURATION,
 } from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPaymentPack/ConsumerPaymentPackDetailsCard';
@@ -518,6 +522,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
         CONSUMER_BOOKING_CARD_CONFIGURATION,
         CONSUMER_BOOKING_DETAILS_CARD_CONFIGURATION,
         CONSUMER_PASS_CARD_CONFIGURATION,
+        PRIVATE_CONSUMER_PASS_DETAILS_CARD_CONFIGURATION,
         CONSUMER_PAYMENT_PACK_DETAILS_CARD_CONFIGURATION,
         UNIVERSAL_PASS_DETAILS_CARD_CONFIGURATION,
       ]
@@ -713,6 +718,8 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
         CONSUMER_PASS_CARD_PREVIEW,
       [CssComponentsVariantIdentifiers.CONSUMER_PAYMENT_PACK_DETAILS_CARD]:
         CONSUMER_PAYMENT_PACK_DETAILS_CARD_PREVIEW,
+      [CssComponentsVariantIdentifiers.PRIVATE_CONSUMER_PASS_DETAILS_CARD]:
+        PRIVATE_CONSUMER_PASS_DETAILS_CARD_PREVIEW,
       [CssComponentsVariantIdentifiers.UNIVERSAL_PASS_DETAILS_CARD]:
         UNIVERSAL_PASS_DETAILS_CARD_PREVIEW,
     }),

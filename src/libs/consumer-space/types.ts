@@ -1,6 +1,7 @@
 import type { PrivateBooking } from '#libs/private-service/types';
 import type { Booking, BookingREST } from '#libs/booking/types';
 import type { ErrorAndLoading } from '../types';
+import { ConsumerPaymentPackREST } from '#libs/consumer-payment-pack/types';
 import type { WaitingListBookingOption } from '#libs/waiting-list/types';
 import type { SubscriptionREST } from '#libs/subscription/types';
 
@@ -98,6 +99,17 @@ export type ConsumerSubscriptionReworked = {
   };
 } & ErrorAndLoading;
 
+export type ConsumerPassReworked<PassType> = {
+  page: number;
+  next_page: number | null;
+  previous_page: number | null;
+  count: number;
+  passes: {
+    allIds: number[];
+    byId: { [key: number]: PassType };
+  };
+} & ErrorAndLoading;
+
 export type ConsumerStateReworked = {
   myBookings: {
     bookings: {
@@ -119,6 +131,13 @@ export type ConsumerStateReworked = {
     active: ConsumerSubscriptionReworked;
     future: ConsumerSubscriptionReworked;
     expired: ConsumerSubscriptionReworked;
+  };
+  myPasses: {
+    consumerPaymentPack: {
+      active: ConsumerPassReworked<ConsumerPaymentPackREST>;
+      future: ConsumerPassReworked<ConsumerPaymentPackREST>;
+      expired: ConsumerPassReworked<ConsumerPaymentPackREST>;
+    };
   };
 };
 

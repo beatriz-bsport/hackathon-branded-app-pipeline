@@ -76,10 +76,10 @@ export const parameters = {
   backgrounds: {
     default: 'white',
     values: [
-      {
-        name: 'white',
-        value: '#ffffff',
-      },
+      { name: 'white', value: '#ffffff' },
+      { name: 'lightGrey', value: '#949494' },
+      { name: 'grey', value: '#666666' },
+      { name: 'black', value: '#000000' },
     ],
   },
   viewport: {

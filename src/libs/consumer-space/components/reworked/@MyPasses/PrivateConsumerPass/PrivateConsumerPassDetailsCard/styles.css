@@ -1,0 +1,168 @@
+.bs-private-consumer-pass-details-card__root {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: fit-content;
+  overflow: auto;
+}
+
+/* ------ HEADER SECTION ------ */
+
+.bs-private-consumer-pass-details-card__header {
+}
+
+/* TODO: display none if main page container is too small (mobile version) */
+.bs-private-consumer-pass-details-card__header__title {
+  margin-bottom: 0;
+}
+
+.bs-private-consumer-pass-details-card__header__list {
+}
+
+.bs-private-consumer-pass-details-card__header__list--hidden {
+  display: none;
+}
+
+.bs-private-consumer-pass-details-card__header__list__item {
+  padding: 0;
+  padding-top: var(--bs-space-size-4);
+}
+
+.bs-private-consumer-pass-details-card__header__list__item__icon--warning {
+  color: var(--bs-color-text-warning-strong);
+}
+
+.bs-private-consumer-pass-details-card__header__list__item__icon--error {
+  color: var(--bs-color-text-error-strong);
+}
+
+.bs-private-consumer-pass-details-card__header__list__item__icon--weak-color {
+  color: var(--bs-color-icon-weak);
+}
+
+/* ------ DESCRIPTION SECTION ------ */
+
+.bs-private-consumer-pass-details-card__description {
+}
+
+.bs-private-consumer-pass-details-card__description--hidden {
+  display: none;
+}
+
+.bs-consumer-card-description__collapse-content {
+}
+
+.bs-consumer-card-description__collapse-content--expanded {
+}
+
+.bs-consumer-card-description__collapse__text {
+}
+
+.bs-consumer-card-description__collapse__text--hidden {
+}
+
+.bs-consumer-card-description__show-more {
+}
+
+/* ------ COMPATIBLE ESTABLISHMENT SECTION ------ */
+
+.bs-private-consumer-pass-details-card__establishment-section {
+}
+
+.bs-private-consumer-pass-details-card__establishment-section--hidden {
+  display: none;
+}
+
+.bs-private-consumer-pass-details-card__establishment-section__list {
+}
+
+.bs-private-consumer-pass-details-card__establishment-section__list__item {
+  padding: var(--bs-space-size-1);
+}
+
+/* ------ SHARED SECTIONS ------ */
+
+.bs-private-consumer-pass-details-card__shared-section {
+}
+
+.bs-private-consumer-pass-details-card__shared-section--hidden {
+  display: none;
+}
+
+.bs-private-consumer-pass-details-card__shared-section__list {
+  gap: var(--bs-space-size-1);
+}
+
+.bs-private-consumer-pass-details-card__shared-section__list__item {
+  padding: 0;
+}
+
+/* ------ COMPATIBILITY SECTION ------- */
+
+.bs-private-consumer-pass-details-card__compatibility-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bs-space-size-2);
+}
+
+.bs-private-consumer-pass-details-card__compatibility-section__container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bs-space-size-3);
+}
+
+/* COMPATILIBITY SECTION --> Main list */
+
+.bs-private-consumer-pass-details-card__compatibility-section__list {
+}
+
+.bs-private-consumer-pass-details-card__compatibility-section__list--hidden {
+  display: none;
+}
+
+.bs-private-consumer-pass-details-card__compatibility-section__list__item {
+  padding: 0;
+}
+
+.bs-private-consumer-pass-details-card__compatibility-section__list__item--hidden {
+  display: none;
+}
+
+/* COMPATILIBITY SECTION --> Subsections */
+
+.bs-private-consumer-pass-details-card__compatibility-section__subsection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bs-space-size-1);
+}
+
+.bs-private-consumer-pass-details-card__compatibility-section__subsection:not(
+    :last-of-type
+  ) {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.bs-private-consumer-pass-details-card__compatibility-section__subsection--hidden {
+  display: none;
+}
+
+.bs-private-consumer-pass-details-card__compatibility-section__subsection--session {
+}
+
+.bs-private-consumer-pass-details-card__compatibility-section__subsection__container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bs-space-size-2);
+}
+
+.bs-private-consumer-pass-details-card__compatibility-section__subsection__container--session {
+}
+
+.bs-private-consumer-pass-details-card__compatibility-section__subsection__appointment-and-sessions {
+}
+
+.bs-private-consumer-pass-details-card__compatibility-section__subsection__appointment-and-sessions--hidden {
+  display: none;
+}

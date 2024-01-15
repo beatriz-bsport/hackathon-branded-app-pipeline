@@ -45,8 +45,10 @@ const ConsumerPaymentPackCreditStatus: React.FC<Props> = ({
     consumerPaymentPackAvailableCredits / paymentPackTotalCredits <= 0.2;
 
   if (
-    typeof consumerPaymentPackAvailableCredits !== 'number' ||
-    !paymentPackTotalCredits
+    !isPaymentPackUnlimited &&
+    ((!consumerPaymentPackAvailableCredits &&
+      consumerPaymentPackAvailableCredits !== 0) ||
+      (!paymentPackTotalCredits && paymentPackTotalCredits !== 0))
   ) {
     return <></>;
   }

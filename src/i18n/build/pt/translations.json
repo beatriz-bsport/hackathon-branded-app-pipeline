@@ -845,7 +845,8 @@
         "day": "Dia",
         "day_plural": "Dias",
         "recommended": "Recomendado",
-        "subscribe": "Subscrever"
+        "subscribe": "Subscrever",
+        "discard": "Descartar"
     },
     "communication": {
         "mail": {
@@ -3728,6 +3729,30 @@
                     "dialog": {
                         "helper": "O {{ workflowLowerCase }} está arquivado. Para o restaurar, volte à página principal e desarquive o{{ workflowLowerCase }} da lista.",
                         "title": "{{ workflowCamelCase }} arquivado"
+                    }
+                }
+            },
+            "workflowMetrics": {
+                "cards": {
+                    "members": {
+                        "description": "Número de membros que entraram no {{ workflowLowerCase }}",
+                        "title": "Membros",
+                        "label": "membros registados"
+                    },
+                    "tags": {
+                        "description": "Número de etiquetas aplicadas aos membros no {{ workflowLowerCase }}",
+                        "title": "Etiquetas",
+                        "label": "Etiquetas"
+                    },
+                    "success": {
+                        "title": "Sucesso",
+                        "description": "Percentagem de pessoas consideradas como ganhas.",
+                        "label": "taxa de êxito"
+                    },
+                    "averageTime": {
+                        "title": "Tempo médio",
+                        "description": "Período médio de tempo necessário para que um membro seja considerado como ganho.",
+                        "label": "dias em média"
                     }
                 }
             }
@@ -7596,6 +7621,12 @@
                         },
                         "create": {
                             "_label": "Criar"
+                        },
+                        "viewNotes": {
+                            "_label": "Ver notas"
+                        },
+                        "editNotes": {
+                            "_label": "Editar notas"
                         }
                     },
                     "_label": "Criar marcações"
@@ -7610,6 +7641,12 @@
                         },
                         "create": {
                             "_label": "Criar"
+                        },
+                        "viewNotes": {
+                            "_label": "Ver notas"
+                        },
+                        "editNotes": {
+                            "_label": "Editar notas"
                         }
                     },
                     "_label": "Workshops"
@@ -7624,6 +7661,12 @@
                         },
                         "create": {
                             "_label": "Criar"
+                        },
+                        "editNotes": {
+                            "_label": "Editar notas"
+                        },
+                        "viewNotes": {
+                            "_label": "Ver notas"
                         }
                     },
                     "_label": "Atividades"
@@ -9759,7 +9802,8 @@
                     "enableRemuneration": "Remuneração",
                     "isLateReplacementRequestLimited": "Limite de pedidos tardios",
                     "enableDescription": "Ao ativar esta funcionalidade, todos os seus novos professores terão o acesso ativado por defeito",
-                    "restrictions": "Restrições"
+                    "restrictions": "Restrições",
+                    "enableRemunerationDownload": "Permitir que os professores descarreguem as suas folhas de pagamento"
                 },
                 "names_label_info": "Alterar a etiqueta dos campos Apelido e Nome próprio nos formulários de registo",
                 "coach_can_edit_attendance": "Na aplicação móvel, o professor pode alterar as presenças/ausências",
@@ -13004,7 +13048,8 @@
                     "xl": "Extra grande",
                     "emailOnly": "Apenas correio eletrónico",
                     "firstNameAndEmail": "Nome próprio e correio eletrónico",
-                    "fullNameAndEmail": "Nome completo e correio eletrónico"
+                    "fullNameAndEmail": "Nome completo e correio eletrónico",
+                    "default": "Predefinição"
                 },
                 "title": {
                     "paymentMethodType": "Modo de pagamento",
@@ -14972,13 +15017,15 @@
         "disabled": "Cancelado",
         "recurrenceIndex": "Grupo n°{{ index }} de recorrência",
         "video": {
-            "activateVideo": "Iniciar a transmissão",
+            "activateVideo": "Conectar",
             "loadingSoon": "Agora a carregar...",
             "isAutoRefresh": "Será automaticamente redireccionado para a videoconferência 15 minutos antes",
             "hasEnded": "Esta sessão terminou",
             "startingSoon": "A sua sessão começa dentro de {{ minutesLeft }} minutos",
             "redirectLink": "Se não for redireccionado automaticamente, utilize esta ligação :",
-            "cantOpenLink": "O link para aceder à conferência parece estar errada. Contacte o seu clube {{ contact_email }}"
+            "cantOpenLink": "O link para aceder à conferência parece estar errada. Contacte o seu clube {{ contact_email }}",
+            "livestream": "Livestream",
+            "description": "Iniciar a sua sessão online"
         },
         "pendingReplacementRequest": "Está aberto um pedido de substituição",
         "deleteImpossibleText": "Não é possível eliminar esta sessão porque tem reservas pendentes.",
@@ -14990,6 +15037,15 @@
             "false": "Não há sub-solicitação",
             "true": "Subpedido pendente",
             "placeholder": "Sub-solicitação"
+        },
+        "notePad": {
+            "placeholder": "Deixe uma nota sobre esta sessão…",
+            "modal": {
+                "description": "Tem notas não guardadas nesta página. Pretende guardá-las antes de sair?",
+                "title": "Alterações não guardadas"
+            },
+            "title": "Notas",
+            "loading": "Carregando…"
         }
     },
     "spotScheduling": {

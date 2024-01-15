@@ -35,6 +35,12 @@ import type { SmartList } from '#libs/smart-list/types';
 import type { EmailTemplateSummary } from '#libs/email-editor/types';
 import type { Tag } from '#libs/tag/types';
 import type { OptionCallback } from '../../../../../state/types';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+
+const { trackFormAdd } = rudderStackFormTrackingFunctionsRegistry(
+  SegmentAnalyticsFormObjectIdentifier.Audience,
+);
 
 export enum CustomNodesEnum {
   // Nodes for steps
@@ -260,6 +266,10 @@ export const useNodeElementsRecorder = ({
 
   const handleAddNextStepTrigger = React.useCallback(
     (stepNode: StoredStep) => (triggerKind: TriggerKind) => {
+      trackFormAdd(stepNode.cadence, {
+        info: 'User opened the form to create a new trigger',
+        triggerKind,
+      });
       const faker = getConnectedTriggerDefaultValues({
         triggerKind,
         source: stepNode,
@@ -401,7 +411,6 @@ export const useNodeElementsRecorder = ({
     handleAddNextStepTrigger,
     handleConfirmEntryActionBubble,
     handleConfirmEntryCriteriaBubble,
-    onClickEntryStep,
     onClickEntryStep,
     onConnectToInnerStep,
     setCurrentStepConfiguration,

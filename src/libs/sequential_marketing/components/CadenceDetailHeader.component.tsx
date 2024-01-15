@@ -22,6 +22,14 @@ import CadenceUtilityDialog, {
   DialogVariant,
 } from '#libs/sequential_marketing/components/dialogs/DialogUtility';
 
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+
+const { trackFormAdd, trackFormCancel } =
+  rudderStackFormTrackingFunctionsRegistry(
+    SegmentAnalyticsFormObjectIdentifier.Audience,
+  );
+
 type Props = {
   cadence: Cadence;
   cadenceEditMode: boolean;
@@ -73,10 +81,10 @@ const CadenceDetailHeaderActions: React.FC<HeaderActionsProps> = React.memo(
       [setOpenEditDialog],
     );
 
-    const handleOpenActivateDialog = React.useCallback(
-      () => setOpenActivateDialog?.(true),
-      [setOpenActivateDialog],
-    );
+    const handleOpenActivateDialog = React.useCallback(() => {
+      trackFormAdd(cadence.id, { info: 'User opened the launch dialog' });
+      setOpenActivateDialog?.(true);
+    }, [setOpenActivateDialog, cadence.id]);
 
     const handlePauseDialog = React.useCallback(() => {
       if (isPauseDialogHidden) {
@@ -203,20 +211,20 @@ export const CadenceDetailHeader: React.FC<Props> = ({
     [],
   );
 
-  const handleCloseActivateDialog = React.useCallback(
-    () => setOpenActivateDialog(false),
-    [],
-  );
+  const handleCloseActivateDialog = React.useCallback(() => {
+    trackFormCancel(cadence.id, { info: 'User closed the launch dialog' });
+    setOpenActivateDialog(false);
+  }, [cadence.id]);
 
-  const handleClosePauseDialog = React.useCallback(
-    () => setOpenPauseDialog(false),
-    [],
-  );
+  const handleClosePauseDialog = React.useCallback(() => {
+    trackFormCancel(cadence.id, { info: 'User closed the pause dialog' });
+    setOpenPauseDialog(false);
+  }, [cadence.id]);
 
-  const handleOpenPauseDialog = React.useCallback(
-    () => setOpenPauseDialog(true),
-    [],
-  );
+  const handleOpenPauseDialog = React.useCallback(() => {
+    trackFormAdd(cadence.id, { info: 'User opened the pause dialog' });
+    setOpenPauseDialog(true);
+  }, [cadence.id]);
 
   const handleConfirmEditingModeDialog = React.useCallback(
     (isChecked?: boolean) => {

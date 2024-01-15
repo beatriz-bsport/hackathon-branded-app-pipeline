@@ -145,6 +145,14 @@ import type {
   CadenceInitialConfiguration,
 } from '#libs/sequential_marketing/types';
 
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+
+const { trackFormAdd, trackFormSubmitIntent, trackFormSuccess } =
+  rudderStackFormTrackingFunctionsRegistry(
+    SegmentAnalyticsFormObjectIdentifier.Audience,
+  );
+
 type OwnProps = {
   cadenceId: number;
 };
@@ -301,10 +309,11 @@ export class CadenceDetailPage extends Component<Props> {
       };
     };
 
-  displayEntryParametersForm = () =>
+  displayEntryParametersForm = () => {
     this.props.setRightPanelMode(
       CadencePanelMode.CADENCE_PANEL_ENTRY_PARAMETERS,
     );
+  };
 
   displayWinParametersForm = () =>
     this.props.setRightPanelMode(CadencePanelMode.CADENCE_PANEL_WIN_PARAMETERS);
@@ -324,6 +333,7 @@ export class CadenceDetailPage extends Component<Props> {
     this.props.setRightPanelMode(CadencePanelMode.CADENCE_EDIT_STEP);
 
   handleSelectedStepForEdition = (step_id: number) => {
+    trackFormAdd(this.props.cadenceId, { step_id });
     this.displayEditStepForm();
     this.props.fetchMarketingActions(step_id);
     this.props.setSelectedStepIdForEdition(step_id);
@@ -352,6 +362,11 @@ export class CadenceDetailPage extends Component<Props> {
     step: CadenceStep,
     trigger: ConnectedTrigger,
   ) => {
+    trackFormAdd(this.props.cadenceId, {
+      step_id: step.id,
+      source_step: trigger?.destination_config?.source_id,
+      destination_step: trigger?.destination_config?.destination_id,
+    });
     this.displayEditTriggerForm();
     this.props.setTriggerForEdition(step, trigger);
   };
@@ -362,6 +377,7 @@ export class CadenceDetailPage extends Component<Props> {
   };
 
   switchCadenceEditMode = () => {
+    trackFormAdd(this.props.cadenceId, { info: 'Edit mode button clicked' });
     this.props.setCadenceEditMode(!this.props.cadenceEditMode);
     this.props.setRightPanelMode(CadencePanelMode.CADENCE_PANEL_HOW_TO);
   };
@@ -745,8 +761,12 @@ const mapWithHandlers = {
   updateCadenceName:
     (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>
     (data: { name: string }, options?: OptionCallback) => {
+      trackFormSubmitIntent(props.cadenceId, {
+        info: 'User wants to update audience name',
+      });
       props.updateCadenceAction(props.cadenceId, data, {
         onSuccess: () => {
+          trackFormSuccess(props.cadenceId, { info: 'Audience name updated' });
           options?.onSuccess?.();
         },
         onError: () => {
@@ -757,14 +777,29 @@ const mapWithHandlers = {
 
   updateCadenceStepName:
     (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>
-    (data: { name: string; stepId: number }) =>
-      props.updateCadenceStepNameAction(data.stepId, data.name),
+    (data: { name: string; stepId: number }) => {
+      trackFormSubmitIntent(props.cadenceId, {
+        step_id: data.stepId,
+        info: 'User wants to update step name',
+      });
+      props.updateCadenceStepNameAction(data.stepId, data.name, {
+        onSuccess: () =>
+          trackFormSuccess(props.cadenceId, {
+            step_id: data.stepId,
+            info: 'Step name updated',
+          }),
+      });
+    },
 
   activateCadence:
     (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>
     (options?: OptionCallback) => {
+      trackFormSubmitIntent(props.cadenceId, {
+        info: 'User wants to activate this audience',
+      });
       props.activateCadenceAction(props.cadenceId, {
         onSuccess: () => {
+          trackFormSuccess(props.cadenceId, { info: 'Audience activated' });
           options?.onSuccess?.();
         },
         onError: () => {
@@ -776,8 +811,14 @@ const mapWithHandlers = {
   shutOffCadence:
     (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>
     (options?: OptionCallback) => {
+      trackFormSubmitIntent(props.cadenceId, {
+        info: 'User wants to pause this audience',
+      });
       props.shutOffCadenceAction(props.cadenceId, {
         onSuccess: () => {
+          trackFormSuccess(props.cadenceId, {
+            info: 'User paused this audience',
+          });
           options?.onSuccess?.();
         },
         onError: () => {
@@ -792,6 +833,9 @@ const mapWithHandlers = {
       initialConfiguration: CadenceInitialConfiguration,
       options?: OptionCallback<number>,
     ) => {
+      trackFormSubmitIntent(props.cadenceId, {
+        info: 'User wants to set this audience initial configuration',
+      });
       props.setCadenceInitialConfigurationAction(
         props.cadenceId,
         {
@@ -808,6 +852,9 @@ const mapWithHandlers = {
         },
         {
           onSuccess: (cadence: Cadence) => {
+            trackFormSuccess(cadence.id, {
+              info: "Audience's initial configuration properly set",
+            });
             props.setCadenceEditMode(true);
             options?.onSuccess?.(cadence.entrypoint_step_id);
           },
@@ -824,11 +871,19 @@ const mapWithHandlers = {
       initialConfiguration: CadenceInitialConfiguration,
       options?: OptionCallback<number>,
     ) => {
+      trackFormSubmitIntent(props.cadenceId, {
+        info: "User wants to update this audience's initial configuration",
+      });
       props.updateCadenceInitialConfigurationAction(
         props.cadenceId,
         initialConfiguration,
         {
-          onSuccess: () => options?.onSuccess?.(),
+          onSuccess: () => {
+            options?.onSuccess?.();
+            trackFormSuccess(props.cadenceId, {
+              info: "User updated this audience's initial configuration",
+            });
+          },
           onError: () => options?.onError?.(),
         },
       );
@@ -892,6 +947,10 @@ const mapWithHandlers = {
     (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>
     (step: CadenceStep) => {
       if (step?.is_entrypoint) {
+        trackFormAdd(props.cadenceId, {
+          step_id: step.id,
+          info: 'Clicked on entry step',
+        });
         props.setRightPanelMode(
           CadencePanelMode.CADENCE_PANEL_ENTRY_PARAMETERS,
         );
@@ -902,6 +961,11 @@ const mapWithHandlers = {
     (props: OwnProps & ConnectedPropsAndStateAndRefreshAll & WithTranslation) =>
     (connected_trigger: ConnectedTrigger, options?: OptionCallback<number>) => {
       // TODO : Need to find a way to position correctly element on creation
+      trackFormSubmitIntent(props.cadenceId, {
+        source_step: connected_trigger?.destination_config?.source_id,
+        destination_step: connected_trigger?.destination_config?.destination_id,
+        info: 'User wants to create a connected trigger',
+      });
       props.subscribeStepToStepAction(
         props.cadenceId,
         {
@@ -932,6 +996,12 @@ const mapWithHandlers = {
                   step?.connected_trigger?.destination_config?.destination_id,
                 ),
             });
+            trackFormSuccess(props.cadenceId, {
+              source_step: connected_trigger?.destination_config?.source_id,
+              destination_step:
+                connected_trigger?.destination_config?.destination_id,
+              info: 'Creation of a connected trigger',
+            });
           },
           onError: (err) => {
             props.resetSubscriptionDestination();
@@ -946,15 +1016,39 @@ const mapWithHandlers = {
     (
       data: { list: StepMarketingActions[]; stepId: number },
       options?: OptionCallback<StepMarketingActions[]>,
-    ) =>
-      props.modifyStepMarketingActionsConfigurationAction(data, options),
+    ) => {
+      trackFormSubmitIntent(props.cadenceId, {
+        step_id: data.stepId,
+        info: 'User wants to update marketing actions of this step',
+      });
+      props.modifyStepMarketingActionsConfigurationAction(data, {
+        onSuccess: () => {
+          trackFormSubmitIntent(props.cadenceId, {
+            step_id: data.stepId,
+            info: 'User updated marketing actions of this step',
+          });
+          options?.onSuccess?.();
+        },
+        onError: () => options?.onError?.(),
+      });
+    },
 
   deleteCadenceStep:
     (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>
     (stepId: number) => {
       if (stepId) {
+        trackFormSubmitIntent(props.cadenceId, {
+          step_id: stepId,
+          info: 'User wants to delete this step',
+        });
         props.deleteCadenceStepAction(stepId, {
-          onSuccess: () => props.retrieveCadence?.(),
+          onSuccess: () => {
+            trackFormSuccess(props.cadenceId, {
+              step_id: stepId,
+              info: 'User deleted this step',
+            });
+            props.retrieveCadence?.();
+          },
         });
       }
     },
@@ -962,11 +1056,26 @@ const mapWithHandlers = {
   updateConnectedTrigger:
     (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) =>
     (trigger: ConnectedTrigger, options?: OptionCallback<ConnectedTrigger>) => {
+      trackFormSubmitIntent(props.cadenceId, {
+        source_step: trigger?.destination_config?.source_id,
+        destination_step: trigger?.destination_config?.destination_id,
+        info: 'User wants to update a connected trigger',
+      });
       props.updateConnectedTriggerAction(
         props.cadenceId,
         trigger?.trigger_config?.uuid,
         trigger,
-        options,
+        {
+          onSuccess: () => {
+            trackFormSuccess(props.cadenceId, {
+              source_step: trigger?.destination_config?.source_id,
+              destination_step: trigger?.destination_config?.destination_id,
+              info: 'User updated this connected trigger',
+            });
+            options?.onSuccess?.();
+          },
+          onError: () => options?.onError?.(),
+        },
       );
     },
 
@@ -989,8 +1098,23 @@ const mapWithHandlers = {
     (
       data: Partial<StepMarketingActions>,
       options?: OptionCallback<StepMarketingActions>,
-    ) =>
-      data && props.upsertStepMarketingActionAction(data, options),
+    ) => {
+      trackFormSubmitIntent(props.cadenceId, {
+        marketing_actions_id: data?.id,
+        info: 'User wants to add or update this marketing action',
+      });
+      data &&
+        props.upsertStepMarketingActionAction(data, {
+          onSuccess: (marketingAction) => {
+            trackFormSuccess(props.cadenceId, {
+              marketing_actions_id: marketingAction.id,
+              info: 'User added or updated this marketing action',
+            });
+            options?.onSuccess?.(marketingAction);
+          },
+          onError: () => options?.onError?.(),
+        });
+    },
 
   doNotDisplayDeleteStepDialogAnymore:
     (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) => () => {

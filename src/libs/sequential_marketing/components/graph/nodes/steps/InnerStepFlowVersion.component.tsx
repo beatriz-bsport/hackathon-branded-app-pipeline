@@ -34,6 +34,14 @@ import UniqueMarketingActionBubble from '#libs/sequential_marketing/components/g
 import useConnectToStep from '#libs/sequential_marketing/components/graph/nodes/hooks/useConnectToStep.hook';
 import usePopoverBubble from '#libs/sequential_marketing/components/graph/nodes/hooks/usePopoverBubble.hook';
 
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+
+const { trackFormAdd, trackFormCancel } =
+  rudderStackFormTrackingFunctionsRegistry(
+    SegmentAnalyticsFormObjectIdentifier.Audience,
+  );
+
 type FlowProps = {
   data: {
     marketingActionEssentials: MarketingActionEssentials;
@@ -176,15 +184,22 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
   // ======================= DELETE STEP DIALOG ========================
   const [openDeleteStepDialog, setOpenDeleteStepDialog] = React.useState(false);
 
-  const handleCloseDeleteStepDialog = React.useCallback(
-    () => setOpenDeleteStepDialog(false),
-    [],
-  );
+  const handleCloseDeleteStepDialog = React.useCallback(() => {
+    trackFormCancel(data?.step?.cadence, {
+      step_id: data?.step?.id,
+      info: 'User closed the delete step dialog',
+    });
+    setOpenDeleteStepDialog(false);
+  }, [data?.step?.cadence, data?.step.id]);
 
   const handleDeleteStep = React.useCallback(() => {
     if (data?.isDeleteStepDialogHidden) {
       data?.onDelete();
     } else {
+      trackFormAdd(data?.step?.cadence, {
+        step_id: data?.step.id,
+        info: 'User opened the delete step dialog',
+      });
       setOpenDeleteStepDialog(true);
     }
   }, [data]);

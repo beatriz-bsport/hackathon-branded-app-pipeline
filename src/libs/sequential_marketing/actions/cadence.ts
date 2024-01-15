@@ -97,7 +97,7 @@ export const archiveCadenceActions = {
   success: createAction<{ id: number }>('CADENCE_WIP/ARCHIVE/SUCCESS'),
 };
 
-export function archiveCadence(id: number, options?: OptionCallback) {
+export function archiveCadence(id: number, options?: OptionCallback<number>) {
   return async (dispatch: Dispatch) => {
     dispatch(archiveCadenceActions.isLoading(true));
     dispatch(archiveCadenceActions.error(null));

@@ -67,6 +67,8 @@ import type {
   CadencePaginatedMetricsParams,
   MetricsPaginatedResponse,
 } from '#libs/sequential_marketing/types';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
 const CADENCE_PAGE_SIZE = 500;
 
@@ -81,6 +83,15 @@ type Props = ConnectedPropsAndState &
   WithStyles<typeof styles> &
   StateHandlerType &
   WithTranslation;
+
+const {
+  trackFormAdd,
+  trackFormSubmitIntent,
+  trackFormSuccess,
+  trackFormCancel,
+} = rudderStackFormTrackingFunctionsRegistry(
+  SegmentAnalyticsFormObjectIdentifier.Audience,
+);
 
 export class CadenceListPage extends React.Component<Props> {
   componentDidMount(): void {
@@ -129,7 +140,10 @@ export class CadenceListPage extends React.Component<Props> {
     this.handleFetchCadenceMetrics(cadence?.id);
   };
 
-  handleOpenCreationForm = () => this.props.setOpenCreationForm(true);
+  handleOpenCreationForm = () => {
+    trackFormAdd();
+    this.props.setOpenCreationForm(true);
+  };
 
   handleCloseCreationForm = () => {
     this.props.setOpenCreationForm(false);
@@ -145,14 +159,22 @@ export class CadenceListPage extends React.Component<Props> {
     }
   };
 
-  handleResetCadenceToEdit = () => this.props.setCadenceToEdit(null);
+  handleResetCadenceToEdit = () => {
+    trackFormCancel(null, { info: "User cancel audience's editing" });
+    this.props.setCadenceToEdit(null);
+  };
 
-  handleSetCadenceToArchive = (cadence: Cadence) =>
+  handleSetCadenceToArchive = (cadence: Cadence) => {
+    trackFormAdd(cadence.id, {
+      info: 'User wants to put this audience to archive',
+    });
     this.props.setCadenceToArchive(cadence);
+  };
 
   handleResetCadenceToArchive = () => this.props.setCadenceToArchive(null);
 
   handleSetCadenceToEdit = (cadence: Cadence) => {
+    trackFormAdd(cadence.id, { info: 'User wants to edit this audience' });
     this.props.setCadenceToEdit(cadence);
     this.props.setOpenCreationForm(true);
   };
@@ -162,9 +184,11 @@ export class CadenceListPage extends React.Component<Props> {
     options?: OptionCallback,
   ) => {
     if (!data?.id) {
+      trackFormSubmitIntent(null, { info: 'User wants to create an Audience' });
       return this.props.createCadence(data, {
         onSuccess: (cadenceId: number) => {
           options?.onSuccess?.();
+          trackFormSuccess(cadenceId, { info: 'Audience has been created' });
           this.handleCloseCreationFormAndGoToCadencePage(cadenceId);
         },
         onError: () => {
@@ -172,6 +196,9 @@ export class CadenceListPage extends React.Component<Props> {
         },
       });
     }
+    trackFormSubmitIntent(data.id, {
+      info: 'User wants to update this audience',
+    });
     return this.props.updateCadence(
       data.id,
       {
@@ -183,6 +210,9 @@ export class CadenceListPage extends React.Component<Props> {
           options?.onSuccess?.();
           // Updating the value of cadenceToEdit to avoid displaying previous
           // cadence value in the update form before its closing
+          trackFormSuccess(cadence.id, {
+            info: 'User updated this audience',
+          });
           this.props.setCadenceToEdit(cadence);
           this.handleCloseCreationForm();
         },
@@ -467,9 +497,12 @@ const mapWithHandlers = {
 
   archiveCadence: (props: ConnectedPropsAndState) => () => {
     if (props.cadenceToArchive) {
+      trackFormSubmitIntent(props.cadenceToArchive?.id);
       props.archiveCadenceAction(props.cadenceToArchive?.id, {
-        onSuccess: () =>
-          props.fetchCadenceListAction({ page_size: CADENCE_PAGE_SIZE }),
+        onSuccess: () => {
+          trackFormSuccess(props.cadenceToArchive?.id);
+          props.fetchCadenceListAction({ page_size: CADENCE_PAGE_SIZE });
+        },
         onError: () =>
           props.fetchCadenceListAction({ page_size: CADENCE_PAGE_SIZE }),
       });

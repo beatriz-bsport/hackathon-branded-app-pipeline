@@ -75,4 +75,6 @@ export enum SegmentAnalyticsFormObjectIdentifier {
   CategoryEmail = 'category_email',
 
   DisciplineGroup = 'discipline_group',
+
+  Audience = 'audience',
 }

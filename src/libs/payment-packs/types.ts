@@ -67,7 +67,7 @@ export type PaymentPack<LPP = number | null, PPCategories = Array<number>> = {
   manager_only: boolean;
   new_member_only: boolean;
   company: number;
-  SCTS: Array<number>;
+  SCTs: Array<number>;
   metaActivities: Array<number>;
   category: number;
   ordering_in_category: number;

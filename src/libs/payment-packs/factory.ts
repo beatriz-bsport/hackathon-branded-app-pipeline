@@ -104,7 +104,7 @@ export const paymentPackFactory = (options?: PaymentPackFactoryOptions) => {
     manager_only: options?.isManagerOnly ?? faker.datatype.boolean(),
     new_member_only: options?.isNewMemberOnly ?? faker.datatype.boolean(),
     company: faker.number.int({ max: 10000 }),
-    SCTS: generateRandomIdList(faker, 3),
+    SCTs: generateRandomIdList(faker, 3),
     metaActivities: generateRandomIdList(faker, 3),
     category: faker.number.int({ max: 1000 }),
     ordering_in_category: faker.number.int(10),

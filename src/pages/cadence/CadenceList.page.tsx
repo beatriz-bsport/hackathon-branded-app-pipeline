@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import moment from 'moment-timezone';
 import { push as pushRouter } from 'connected-react-router';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { connect, ConnectedProps } from 'react-redux';
@@ -19,30 +20,52 @@ import {
   updateCadence as updateCadenceAction,
   archiveCadence as archiveCadenceAction,
   restoreCadence as restoreCadenceAction,
+  fetchGlobalMetrics as fetchGlobalMetricsAction,
+  fetchPresentMembersData as fetchPresentMembersDataAction,
+  fetchMembersHistoric as fetchMembersHistoricAction,
+  fetchCadenceStepList as fetchCadenceStepListAction,
 } from '#libs/sequential_marketing/actions';
+import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '#libs/member/actions';
 
 import {
   getEnabledCadencesList,
   getArchivedCadencesList,
   getCadenceLoading,
-  getStepLoading,
+  getCadenceGlobalMetrics,
+  getCadenceMembersHistoric,
+  getCadenceMembersPresent,
+  getCadenceStep,
+  getCadenceGlobalMetricsLoading,
+  getCadenceMembersHistoricLoading,
+  getCadenceMembersPresentLoading,
 } from '#libs/sequential_marketing/selectors';
+import { getMemberListData } from '#libs/member/selectors';
 
 import CadenceCreateAndUpdateForm from '#libs/sequential_marketing/components/form/CadenceCreateAndUpdateForm.component';
 import CadenceList from '#libs/sequential_marketing/components/CadenceList.component';
 import CadenceManagerFab from '#libs/sequential_marketing/components/CadenceManagerFab.components';
+import CadenceMetrics from '#libs/sequential_marketing/components/metrics/CadenceMetrics.component';
 import CadenceUtilityDialog, {
   DialogVariant,
 } from '#libs/sequential_marketing/components/dialogs/DialogUtility';
 
-import { UPSELL_IDENTIFIER_CADENCE } from '#libs/platform-billing/upsell-identifiers';
+import {
+  UPSELL_IDENTIFIER_CADENCE,
+  UPSELL_IDENTIFIER_PUSH_NOTIFICATION,
+} from '#libs/platform-billing/upsell-identifiers';
 import UpsellBlocker from '#libs/platform-billing/components/UpsellBlocker.component';
 import CustomStarIcon from '#components/icons/CustomStarIcon.component';
 
 import type { RootState } from '../../reducers';
 import type { WithHandlerType } from '../../utils/types';
 import type { OptionCallback } from '../../state/types';
-import type { Cadence } from '#libs/sequential_marketing/types';
+import type {
+  Cadence,
+  CadenceGlobalMetricsParams,
+  CadenceMembersInData,
+  CadencePaginatedMetricsParams,
+  MetricsPaginatedResponse,
+} from '#libs/sequential_marketing/types';
 
 const CADENCE_PAGE_SIZE = 500;
 
@@ -62,6 +85,48 @@ export class CadenceListPage extends React.Component<Props> {
   componentDidMount(): void {
     this.props.fetchCadenceList();
   }
+
+  componentDidUpdate(prevProps: Props): void {
+    if (
+      prevProps.cadenceList &&
+      this.props.cadenceList &&
+      prevProps.cadenceList !== this.props.cadenceList &&
+      !this.props.selectedCadence
+    ) {
+      this.props.cadenceList?.[0]?.id
+        ? this.handleSelectCadence(this.props.cadenceList[0])
+        : this.props.setSelectedCadence(null);
+    }
+  }
+
+  handleFetchCadenceMetrics = (cadenceId: number) => {
+    this.props.fetchGlobalMetrics(cadenceId, {
+      date_start: this.props.startDateFilter,
+      date_end: this.props.endDateFilter,
+    });
+    this.props.fetchPresentMembersData(cadenceId);
+    this.props.fetchMembersHistoric(cadenceId);
+  };
+
+  handleFetchPresentMembersDataSpecificPage = (
+    cadenceId: number,
+    page: number,
+  ) => {
+    this.props.fetchPresentMembersData(cadenceId, { page });
+  };
+
+  handleFetchMembersHistoricSpecificPage = (
+    cadenceId: number,
+    page: number,
+  ) => {
+    this.props.fetchMembersHistoric(cadenceId, { page });
+  };
+
+  handleSelectCadence = (cadence: Cadence) => {
+    this.props.setSelectedCadence(cadence);
+    this.props.fetchCadenceStepListAction({ id__in: cadence.steps });
+    this.handleFetchCadenceMetrics(cadence?.id);
+  };
 
   handleOpenCreationForm = () => this.props.setOpenCreationForm(true);
 
@@ -130,19 +195,38 @@ export class CadenceListPage extends React.Component<Props> {
   handleGoToCadencePage = (cadence: Cadence) =>
     cadence?.id && this.props.goToCadencePage(cadence.id);
 
+  handleUpdateFilterDates = (
+    startDateFilter: string,
+    endDateFilter: string,
+  ) => {
+    this.props.setFilterDates(startDateFilter, endDateFilter);
+    if (this.props.selectedCadence?.id) {
+      this.props.fetchGlobalMetrics(this.props.selectedCadence?.id, {
+        date_start: startDateFilter,
+        date_end: endDateFilter,
+      });
+    }
+  };
+
+  knowMoreOnUpsells = () => this.props.push('/settings/platform-billing/');
+
+  hasNotificationUpsell = this.props.featureList
+    .map((upsellSumUp) => upsellSumUp.upsell_identifier)
+    .includes(UPSELL_IDENTIFIER_PUSH_NOTIFICATION);
+
   render() {
     const {
-      classes,
       t,
+      classes,
       cadenceToArchive,
       cadenceArchivedList,
       cadenceLoading,
-      cadencesList,
+      cadenceList,
     } = this.props;
 
     if (
       !cadenceLoading &&
-      (!cadencesList || cadencesList?.length === 0) &&
+      (!cadenceList || cadenceList?.length === 0) &&
       (!cadenceArchivedList || cadenceArchivedList?.length === 0)
     ) {
       return (
@@ -205,11 +289,11 @@ export class CadenceListPage extends React.Component<Props> {
             </Alert>
             <CadenceList
               cadenceLoading={cadenceLoading}
-              cadences={cadencesList}
-              onClickItem={this.handleGoToCadencePage}
+              cadences={cadenceList}
+              onClickItem={this.handleSelectCadence}
               onDelete={this.handleSetCadenceToArchive}
               onEdit={this.handleSetCadenceToEdit}
-              onShow={this.props.goToCadencePage}
+              onOpen={this.handleGoToCadencePage}
               selectedId={this.props.selectedCadence?.id}
               updateCadencePriorityIndex={this.props.updateCadencePriorityIndex}
             />
@@ -229,7 +313,30 @@ export class CadenceListPage extends React.Component<Props> {
               classes.pageColumn,
               classes.hideOnSmallScreen,
             )}
-          />
+          >
+            <CadenceMetrics
+              cadence={this.props.selectedCadence}
+              changeMembersHistoricPage={
+                this.handleFetchMembersHistoricSpecificPage
+              }
+              changePresentMembersPage={
+                this.handleFetchPresentMembersDataSpecificPage
+              }
+              endDate={this.props.endDateFilter}
+              getCadenceStep={this.props.getStep}
+              globalMetrics={this.props.globalMetrics}
+              globalMetricsLoading={this.props.globalMetricsLoading}
+              hasNotificationUpsell={this.hasNotificationUpsell}
+              knowMoreOnNotifications={this.knowMoreOnUpsells}
+              membersById={this.props.membersById}
+              membersHistoric={this.props.membersHistoric}
+              membersHistoricLoading={this.props.membersHistoricLoading}
+              membersPresent={this.props.membersPresent}
+              membersPresentLoading={this.props.membersPresentLoading}
+              startDate={this.props.startDateFilter}
+              updateFilterDates={this.handleUpdateFilterDates}
+            />
+          </div>
         </div>
         <CadenceCreateAndUpdateForm
           displayParametersSection
@@ -257,6 +364,8 @@ type StateHandlerInit = {
   cadenceToEdit: Cadence | null;
   selectedCadence: Cadence | null;
   cadenceToArchive: Cadence | null;
+  startDateFilter: string;
+  endDateFilter: string;
 };
 
 const StateHandlersInit: StateHandlerInit = {
@@ -264,6 +373,8 @@ const StateHandlersInit: StateHandlerInit = {
   cadenceToEdit: null,
   selectedCadence: null,
   cadenceToArchive: null,
+  startDateFilter: moment().subtract(1, 'month').format('YYYY-MM-DD'),
+  endDateFilter: moment().format('YYYY-MM-DD'),
 };
 
 const StateHandlersSetter = {
@@ -281,6 +392,10 @@ const StateHandlersSetter = {
 
   setCadenceToArchive: () => (cadenceToArchive: Cadence | null) => {
     return { cadenceToArchive };
+  },
+
+  setFilterDates: () => (startDateFilter: string, endDateFilter: string) => {
+    return { startDateFilter, endDateFilter };
   },
 };
 
@@ -352,22 +467,79 @@ const mapWithHandlers = {
           props.fetchCadenceListAction({ page_size: CADENCE_PAGE_SIZE }),
       });
       props.setCadenceToArchive(null);
-      if (props.cadenceToArchive?.id === props.selectedCadence?.id) {
-        props.setSelectedCadence(null);
-      }
     }
   },
 
   restoreCadence: (props: ConnectedPropsAndState) => (id: number) =>
     props.restoreCadenceAction(id),
+
+  fetchGlobalMetrics:
+    (props: ConnectedPropsAndState) =>
+    (cadenceId: number, date_filter?: CadenceGlobalMetricsParams) =>
+      props.fetchGlobalMetricsAction(cadenceId, {
+        date_start: date_filter.date_start,
+        date_end: moment(date_filter.date_end)
+          .add(1, 'day')
+          .format('YYYY-MM-DD'),
+      }),
+
+  fetchPresentMembersData:
+    (props: ConnectedPropsAndState) =>
+    (
+      cadenceId: number,
+      params?: CadencePaginatedMetricsParams,
+      options?: OptionCallback<MetricsPaginatedResponse<CadenceMembersInData>>,
+    ) => {
+      if (cadenceId) {
+        props.fetchPresentMembersDataAction(cadenceId, params, {
+          ...options,
+          onSuccess: (paginatedMembersData) => {
+            props.fetchMemberBulkById(
+              paginatedMembersData?.results?.map(
+                (member) => member.member_id,
+              ) ?? [],
+            );
+          },
+        });
+      }
+    },
+
+  fetchMembersHistoric:
+    (props: ConnectedPropsAndState) =>
+    (
+      cadenceId: number,
+      params?: CadencePaginatedMetricsParams,
+      options?: OptionCallback<MetricsPaginatedResponse<CadenceMembersInData>>,
+    ) => {
+      if (cadenceId) {
+        props.fetchMembersHistoricAction(cadenceId, params, {
+          ...options,
+          onSuccess: (paginatedMembersData) => {
+            props.fetchMemberBulkById(
+              paginatedMembersData?.results?.map(
+                (member) => member.member_id,
+              ) ?? [],
+            );
+          },
+        });
+      }
+    },
 };
 
 const connector = connect(
   (state: RootState) => ({
     cadenceLoading: getCadenceLoading(state),
-    stepLoading: getStepLoading(state),
-    cadencesList: getEnabledCadencesList(state),
+    cadenceList: getEnabledCadencesList(state),
     cadenceArchivedList: getArchivedCadencesList(state),
+    globalMetrics: getCadenceGlobalMetrics(state),
+    membersHistoric: getCadenceMembersHistoric(state),
+    membersPresent: getCadenceMembersPresent(state),
+    globalMetricsLoading: getCadenceGlobalMetricsLoading(state),
+    membersHistoricLoading: getCadenceMembersHistoricLoading(state),
+    membersPresentLoading: getCadenceMembersPresentLoading(state),
+    membersById: getMemberListData(state),
+    featureList: state.company.feature.data.upsell,
+    getStep: (stepId: number) => getCadenceStep(state, stepId),
   }),
   {
     push: pushRouter,
@@ -376,6 +548,12 @@ const connector = connect(
     updateCadenceAction,
     archiveCadenceAction,
     restoreCadenceAction,
+    // METRICS
+    fetchGlobalMetricsAction,
+    fetchPresentMembersDataAction,
+    fetchMembersHistoricAction,
+    fetchCadenceStepListAction,
+    fetchMemberBulkById: fetchMemberBulkByIdAction,
   },
 );
 

@@ -183,3 +183,25 @@ export function isAmPmTimeFormat() {
   const time = moment().format('LT');
   return time.includes('AM') || time.includes('PM');
 }
+
+/**
+ * Retrieve the information to know if cancellation is made after max date defined by manager\
+ * If the date of cancellation is after the limit => late cancellation
+ * @param canceledDate The date when the booking has been cancelled by the member
+ * @param maxDiscardMinutes The max number of minutes allowed for the member to cancel before it starts
+ */
+export const getIsLateBookingCancellation = (
+  canceledDate: string,
+  maxDiscardMinutes: number,
+  bookingStartDate: string,
+) => {
+  const maxCancellationDate = moment(bookingStartDate)
+    .subtract(maxDiscardMinutes, 'minutes')
+    .format();
+  const isLateCancellation = moment(canceledDate).isAfter(maxCancellationDate);
+
+  if (isLateCancellation) {
+    return true;
+  }
+  return false;
+};

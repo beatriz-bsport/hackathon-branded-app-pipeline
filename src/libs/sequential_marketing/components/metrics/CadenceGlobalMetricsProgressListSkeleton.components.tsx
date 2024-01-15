@@ -2,38 +2,33 @@ import React from 'react';
 
 import makeStyles from '@material-ui/styles/makeStyles';
 
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-import { useStyles as CadenceWorkflowMetricsProgressListStyles } from '#libs/sequential_marketing/components/workflow-metrics/CadenceWorkflowMetricsProgressList.component';
+import { useStyles as cadenceGlobalMetricsProgressListStyles } from '#libs/sequential_marketing/components/metrics/CadenceGlobalMetricsProgressList.component';
 
 import {
   CustomMuiSkeletonText,
   CustomMuiSkeletonIconContainer,
 } from '#components/customMuiSkeletons';
 
-export const CadenceWorkflowMetricsProgressListSkeleton = () => {
+export const CadenceGlobalMetricsProgressListSkeleton = () => {
   const classes = useStyles();
 
-  const CadenceWorkflowMetricsProgressListClasses =
-    CadenceWorkflowMetricsProgressListStyles({
-      backgroundColor: 'white',
-    });
+  const cadenceGlobalMetricsProgressListClasses =
+    cadenceGlobalMetricsProgressListStyles({});
 
   const labelWidth = '80px';
 
   return (
-    <div className={CadenceWorkflowMetricsProgressListClasses.container}>
+    <div className={cadenceGlobalMetricsProgressListClasses.container}>
       <div
         className={
-          CadenceWorkflowMetricsProgressListClasses.iconAndTitleContainer
+          cadenceGlobalMetricsProgressListClasses.iconAndTitleContainer
         }
       >
         <CustomMuiSkeletonIconContainer size="36px" />
         <CustomMuiSkeletonText width={labelWidth} />
       </div>
       <div
-        className={
-          CadenceWorkflowMetricsProgressListClasses.progressesContainer
-        }
+        className={cadenceGlobalMetricsProgressListClasses.progressesContainer}
       >
         <div>
           <div className={classes.labelContainer}>
@@ -78,9 +73,4 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export const CadenceWorkflowMetricsProgressListSkeletonStorybook =
-  marketplaceCssHoc<
-    React.ComponentProps<typeof CadenceWorkflowMetricsProgressListSkeleton>
-  >()(CadenceWorkflowMetricsProgressListSkeleton);
-
-export default React.memo(CadenceWorkflowMetricsProgressListSkeleton);
+export default React.memo(CadenceGlobalMetricsProgressListSkeleton);

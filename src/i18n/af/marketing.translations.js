@@ -823,7 +823,8 @@ exports.default = {
           title: 'Members',
           description:
             'Number of members that entered the {{ workflowLowerCase }}.',
-          label: 'members entered',
+          label: 'member entered',
+          label_plural: 'members entered',
         },
         success: {
           title: 'Success',
@@ -834,19 +835,24 @@ exports.default = {
           title: 'Average time',
           description:
             'Average period of time needed for a member to be considered as won.',
-          label: 'days on average',
+          label: 'day on average',
+          label_plural: 'days on average',
         },
         tags: {
           title: 'Tags',
           description:
             'Number of tags applied to the members in the {{ workflowLowerCase }}.',
-          label: 'tags',
+          label: 'tag',
+          label_plural: 'tags',
         },
       },
       communication: {
         title: 'Communications sent',
         knowMore: 'More information about {{ upsellName }} upsell',
         availableSoon: 'Available soon',
+        email: 'Email',
+        sms: 'SMS',
+        pushNotif: 'Push notification',
       },
     },
     listItem: {

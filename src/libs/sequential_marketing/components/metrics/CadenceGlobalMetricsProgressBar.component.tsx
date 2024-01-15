@@ -10,7 +10,7 @@ import type { Theme } from '@material-ui/core/styles';
 import ProgressBar from '#components/ProgressBar.component';
 import {
   SequentialMarketingColors,
-  SequentialMarketingWorkflowMetricsSizes,
+  CadenceMetricsSizes,
 } from '#libs/sequential_marketing/constants';
 
 type Props = {
@@ -32,7 +32,7 @@ type StylesProps = {
   minimumWidth?: boolean;
 };
 
-export const CadenceWorkflowMetricsProgressBar: React.FC<Props> = ({
+export const CadenceGlobalMetricsProgressBar: React.FC<Props> = ({
   label,
   customColor,
   count,
@@ -119,9 +119,8 @@ export const useStyles = makeStyles<Theme, StylesProps>((theme) => ({
     alignItems: 'center',
   },
   openInNewIcon: {
-    width:
-      SequentialMarketingWorkflowMetricsSizes.DISABLED_PROGRESS_BAR_OPEN_IN_NEW_ICON_WIDTH,
+    width: CadenceMetricsSizes.DISABLED_PROGRESS_BAR_OPEN_IN_NEW_ICON_WIDTH,
   },
 }));
 
-export default React.memo(CadenceWorkflowMetricsProgressBar);
+export default React.memo(CadenceGlobalMetricsProgressBar);

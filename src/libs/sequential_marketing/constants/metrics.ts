@@ -1,8 +1,12 @@
 // ========== SIZES FOR WORKFLOW METRICS ==========
 
-export enum SequentialMarketingWorkflowMetricsSizes {
+export enum CadenceMetricsSizes {
   ICON_CONTAINER_SIZE = '36px',
   ICON_SIZE = '20px',
+
+  FIGURE_FONT_SIZE = '24px',
+  GLOBAL_METRICS_CARD_DESCRIPTION_SIZE = '84px',
+  GLOBAL_METRICS_CARD_DESCRIPTION_LETTER_SPACING = '0.4px',
 
   PROGRESS_BAR_CONTAINER_GAP = '20px',
   DISABLED_PROGRESS_BAR_OPEN_IN_NEW_ICON_WIDTH = '16px',

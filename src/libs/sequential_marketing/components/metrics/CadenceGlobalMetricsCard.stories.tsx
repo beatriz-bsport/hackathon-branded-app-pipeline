@@ -1,24 +1,26 @@
 import React from 'react';
 import type { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import CadenceWorkflowMetricsCard, {
-  WorkflowMetricsVariant,
-} from './CadenceWorkflowMetricsCard.component';
+import CadenceGlobalMetricsCard, {
+  CadenceMetricsVariant,
+} from './CadenceGlobalMetricsCard.component';
 
-const CadenceWorkflowMetricsCardTemplate = (
-  args: React.ComponentProps<typeof CadenceWorkflowMetricsCard>,
-) => <CadenceWorkflowMetricsCard {...args} />;
+const CadenceGlobalMetricsCardTemplate: ComponentStory<
+  typeof CadenceGlobalMetricsCard
+> = (args: React.ComponentProps<typeof CadenceGlobalMetricsCard>) => (
+  <CadenceGlobalMetricsCard {...args} />
+);
 
-export const WorkflowMetricsCard = CadenceWorkflowMetricsCardTemplate.bind({});
+export const CadenceMetricsCard = CadenceGlobalMetricsCardTemplate.bind({});
 
-WorkflowMetricsCard.args = {
+CadenceMetricsCard.args = {
   variant: 'member',
   count: 42,
 };
 
 export default {
-  title: 'Components/Cadences/WorkflowMetrics/Card',
-  component: CadenceWorkflowMetricsCard,
+  title: 'Components/Cadences/Metrics/Card',
+  component: CadenceGlobalMetricsCard,
   parameters: {
     docs: {
       page: null,
@@ -44,7 +46,7 @@ export default {
     variant: {
       description: 'The tracking data parameter.',
       control: 'radio',
-      options: Object.values(WorkflowMetricsVariant),
+      options: Object.values(CadenceMetricsVariant),
     },
     backgroundColor: {
       description: '(Optional) The background color of the card.',
@@ -63,4 +65,4 @@ export default {
       </div>
     ),
   ],
-} as ComponentMeta<typeof CadenceWorkflowMetricsCard>;
+} as ComponentMeta<typeof CadenceGlobalMetricsCard>;

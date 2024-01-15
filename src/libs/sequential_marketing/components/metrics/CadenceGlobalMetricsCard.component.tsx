@@ -10,12 +10,12 @@ import chroma from 'chroma-js';
 
 import {
   SequentialMarketingColors,
-  SequentialMarketingWorkflowMetricsSizes,
+  CadenceMetricsSizes,
 } from '#libs/sequential_marketing/constants';
 import TrophyIcon from '#components/icons/TrophyIcon.component';
-import CadenceWorkflowMetricsIconContainer from './CadenceWorkflowMetricsIconContainer.component';
+import CadenceGlobalMetricsIcon from '#libs/sequential_marketing/components/metrics/CadenceGlobalMetricsIcon.component';
 
-export enum WorkflowMetricsVariant {
+export enum CadenceMetricsVariant {
   MEMBERS = 'members',
   SUCCESS = 'success',
   AVERAGE_TIME = 'average-time',
@@ -24,12 +24,12 @@ export enum WorkflowMetricsVariant {
 
 type Props = {
   count: number;
-  variant: WorkflowMetricsVariant;
+  variant: CadenceMetricsVariant;
   backgroundColor?: string;
 };
 
-const useCadenceWorkflowMetricsCardIcon = (
-  variant: WorkflowMetricsVariant,
+const useCadenceMetricsCardIcon = (
+  variant: CadenceMetricsVariant,
   theme: Theme,
 ): {
   icon: string | null;
@@ -37,25 +37,25 @@ const useCadenceWorkflowMetricsCardIcon = (
   iconColor: string;
 } => {
   switch (variant) {
-    case WorkflowMetricsVariant.MEMBERS:
+    case CadenceMetricsVariant.MEMBERS:
       return {
         icon: 'People',
         CustomIcon: null,
         iconColor: SequentialMarketingColors.WORKFLOW_METRICS_ORANGE,
       };
-    case WorkflowMetricsVariant.SUCCESS:
+    case CadenceMetricsVariant.SUCCESS:
       return {
         icon: null,
         CustomIcon: TrophyIcon,
         iconColor: SequentialMarketingColors.WORKFLOW_METRICS_GREEN,
       };
-    case WorkflowMetricsVariant.AVERAGE_TIME:
+    case CadenceMetricsVariant.AVERAGE_TIME:
       return {
         icon: 'Timer',
         CustomIcon: null,
         iconColor: SequentialMarketingColors.TRIGGER_COLOR,
       };
-    case WorkflowMetricsVariant.TAGS:
+    case CadenceMetricsVariant.TAGS:
       return {
         icon: 'Label',
         CustomIcon: null,
@@ -70,8 +70,9 @@ const useCadenceWorkflowMetricsCardIcon = (
   }
 };
 
-const useCadenceWorkflowMetricsCardTexts = (
-  variant: WorkflowMetricsVariant,
+const useCadenceMetricsCardTexts = (
+  variant: CadenceMetricsVariant,
+  count: number,
 ): {
   title: string;
   description: string;
@@ -80,31 +81,31 @@ const useCadenceWorkflowMetricsCardTexts = (
   const { t } = useTranslation('marketing');
 
   switch (variant) {
-    case WorkflowMetricsVariant.MEMBERS:
+    case CadenceMetricsVariant.MEMBERS:
       return {
         title: t('audience.workflowMetrics.cards.members.title'),
         description: t('audience.workflowMetrics.cards.members.description'),
-        label: t('audience.workflowMetrics.cards.members.label'),
+        label: t('audience.workflowMetrics.cards.members.label', { count }),
       };
-    case WorkflowMetricsVariant.SUCCESS:
+    case CadenceMetricsVariant.SUCCESS:
       return {
         title: t('audience.workflowMetrics.cards.success.title'),
         description: t('audience.workflowMetrics.cards.success.description'),
         label: t('audience.workflowMetrics.cards.success.label'),
       };
-    case WorkflowMetricsVariant.AVERAGE_TIME:
+    case CadenceMetricsVariant.AVERAGE_TIME:
       return {
         title: t('audience.workflowMetrics.cards.averageTime.title'),
         description: t(
           'audience.workflowMetrics.cards.averageTime.description',
         ),
-        label: t('audience.workflowMetrics.cards.averageTime.label'),
+        label: t('audience.workflowMetrics.cards.averageTime.label', { count }),
       };
-    case WorkflowMetricsVariant.TAGS:
+    case CadenceMetricsVariant.TAGS:
       return {
         title: t('audience.workflowMetrics.cards.tags.title'),
         description: t('audience.workflowMetrics.cards.tags.description'),
-        label: t('audience.workflowMetrics.cards.tags.label'),
+        label: t('audience.workflowMetrics.cards.tags.label', { count }),
       };
     default:
       return {
@@ -115,50 +116,52 @@ const useCadenceWorkflowMetricsCardTexts = (
   }
 };
 
-const useCadenceWorkflowMetricsCarFigure = (
-  variant: WorkflowMetricsVariant,
+const useCadenceMetricsCardFigure = (
+  variant: CadenceMetricsVariant,
   count: number,
 ): {
   figure: string;
 } => {
   switch (variant) {
-    case WorkflowMetricsVariant.MEMBERS:
-    case WorkflowMetricsVariant.AVERAGE_TIME:
-    case WorkflowMetricsVariant.TAGS:
-      return { figure: `${count}` };
+    case CadenceMetricsVariant.MEMBERS:
+    case CadenceMetricsVariant.AVERAGE_TIME:
+    case CadenceMetricsVariant.TAGS:
+      return { figure: `${count ?? 0}` };
 
-    case WorkflowMetricsVariant.SUCCESS:
-      return { figure: `${count} %` };
+    case CadenceMetricsVariant.SUCCESS:
+      return { figure: `${count ?? 0} %` };
 
     default:
       return { figure: '' };
   }
 };
 
-export const CadenceWorkflowMetricsCard: React.FC<Props> = ({
+export const CadenceGlobalMetricsCard: React.FC<Props> = ({
   count,
   variant,
   backgroundColor,
 }) => {
   const theme = useTheme();
 
-  const { icon, CustomIcon, iconColor } = useCadenceWorkflowMetricsCardIcon(
+  const { icon, CustomIcon, iconColor } = useCadenceMetricsCardIcon(
     variant,
     theme,
   );
 
   const classes = useStyles({ iconColor, backgroundColor });
 
-  const { title, description, label } =
-    useCadenceWorkflowMetricsCardTexts(variant);
+  const { title, description, label } = useCadenceMetricsCardTexts(
+    variant,
+    count,
+  );
 
-  const { figure } = useCadenceWorkflowMetricsCarFigure(variant, count);
+  const { figure } = useCadenceMetricsCardFigure(variant, count);
 
   return (
     <div className={classes.cardContainer}>
       <div className={classes.topContainer}>
         <div className={classes.iconAndTitleContainer}>
-          <CadenceWorkflowMetricsIconContainer
+          <CadenceGlobalMetricsIcon
             CustomIcon={CustomIcon}
             icon={icon}
             iconColor={iconColor}
@@ -167,14 +170,12 @@ export const CadenceWorkflowMetricsCard: React.FC<Props> = ({
             {title}
           </Typography>
         </div>
-        <Typography className={classes.description} variant="body2">
+        <Typography className={classes.description} variant="caption">
           {description}
         </Typography>
       </div>
       <div className={classes.lowContainer}>
-        <Typography className={classes.number} variant="h5">
-          {figure}
-        </Typography>
+        <Typography className={classes.number}>{figure}</Typography>
         <Typography className={classes.label} variant="subtitle1">
           {label}
         </Typography>
@@ -192,25 +193,31 @@ const useStyles = makeStyles<
     flexDirection: 'column',
     borderRadius: theme.spacing(1),
     padding: theme.spacing(2),
-    gap: theme.spacing(1),
-    backgroundColor: ({ backgroundColor }) => backgroundColor ?? 'white',
+    gap: theme.spacing(2),
+    backgroundColor: ({ backgroundColor }) =>
+      backgroundColor ?? theme.palette.common.white,
   },
   topContainer: {
     display: 'flex',
     flexDirection: 'column',
     gap: theme.spacing(1),
+    height: CadenceMetricsSizes.GLOBAL_METRICS_CARD_DESCRIPTION_SIZE,
   },
   iconAndTitleContainer: {
     display: 'flex',
     flexDirection: 'row',
     gap: theme.spacing(1),
-    height: SequentialMarketingWorkflowMetricsSizes.ICON_CONTAINER_SIZE,
+    height: CadenceMetricsSizes.ICON_CONTAINER_SIZE,
     alignItems: 'center',
   },
   title: {
-    fontWeight: 'bold',
+    fontWeight: 500,
   },
-  description: { color: SequentialMarketingColors.WORKFLOW_METRICS_GREY },
+  description: {
+    color: SequentialMarketingColors.WORKFLOW_METRICS_GREY,
+    letterSpacing:
+      CadenceMetricsSizes.GLOBAL_METRICS_CARD_DESCRIPTION_LETTER_SPACING,
+  },
   lowContainer: {
     display: 'flex',
     flexDirection: 'row',
@@ -218,10 +225,11 @@ const useStyles = makeStyles<
     alignItems: 'end',
   },
   number: {
-    fontWeight: 'bold',
+    fontWeight: 700,
+    fontSize: CadenceMetricsSizes.FIGURE_FONT_SIZE,
   },
   label: {
-    fontWeight: 'bold',
+    fontWeight: 500,
     color: SequentialMarketingColors.WORKFLOW_METRICS_GREY,
   },
   iconContainer: {
@@ -230,14 +238,14 @@ const useStyles = makeStyles<
     justifyContent: 'center',
     borderRadius: theme.spacing(1),
     backgroundColor: ({ iconColor }) => chroma(iconColor).alpha(0.09).hex(),
-    height: SequentialMarketingWorkflowMetricsSizes.ICON_CONTAINER_SIZE,
-    width: SequentialMarketingWorkflowMetricsSizes.ICON_CONTAINER_SIZE,
+    height: CadenceMetricsSizes.ICON_CONTAINER_SIZE,
+    width: CadenceMetricsSizes.ICON_CONTAINER_SIZE,
   },
   icon: {
-    height: SequentialMarketingWorkflowMetricsSizes.ICON_SIZE,
-    width: SequentialMarketingWorkflowMetricsSizes.ICON_SIZE,
+    height: CadenceMetricsSizes.ICON_SIZE,
+    width: CadenceMetricsSizes.ICON_SIZE,
     color: ({ iconColor }) => iconColor,
   },
 }));
 
-export default React.memo(CadenceWorkflowMetricsCard);
+export default React.memo(CadenceGlobalMetricsCard);

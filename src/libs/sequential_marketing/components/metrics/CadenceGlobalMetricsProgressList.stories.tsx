@@ -3,65 +3,43 @@ import React from 'react';
 import { action } from '@storybook/addon-actions';
 import type { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import CadenceWorkflowMetricsProgressList from './CadenceWorkflowMetricsProgressList.component';
+import CadenceGlobalMetricsProgressList from './CadenceGlobalMetricsProgressList.component';
 
 const actionsData = {
-  onClick: action('onClick'),
+  knowMore: action('onClickKnowMore'),
 };
 
-const Template: ComponentStory<typeof CadenceWorkflowMetricsProgressList> = (
-  args: React.ComponentProps<typeof CadenceWorkflowMetricsProgressList>,
-) => <CadenceWorkflowMetricsProgressList {...args} />;
+const Template: ComponentStory<typeof CadenceGlobalMetricsProgressList> = (
+  args: React.ComponentProps<typeof CadenceGlobalMetricsProgressList>,
+) => <CadenceGlobalMetricsProgressList {...args} />;
 
 export const DefaultProgressList = Template.bind({});
-
 DefaultProgressList.args = {
-  progressList: [
-    { count: 75, label: 'Email' },
-    { count: 35, label: 'SMS' },
-    { count: 50, label: 'Push notification' },
-  ],
+  emailCount: 75,
+  smsCount: 35,
+  notificationCount: 50,
+  hasNotificationUpsell: true,
   isLoading: false,
 };
 
 export const DisabledUpsellProgressList = Template.bind({});
-
 DisabledUpsellProgressList.args = {
-  progressList: [
-    { count: 12, label: 'First' },
-    { count: 17, label: 'Disabled upsell', disabled: true },
-    {
-      label: 'Soon available upsell',
-      disabled: true,
-      displayUpsellAvailableSoon: true,
-    },
-    {
-      label: 'Know more upsell',
-      disabled: true,
-      count: 9,
-      displayUpsellKnowMoreLink: true,
-      upsellName: 'NAME',
-      onClickKnowMore: actionsData.onClick,
-    },
-  ],
+  emailCount: 12,
+  smsCount: 17,
+  notificationCount: 9,
+  hasNotificationUpsell: false,
+  knowMoreOnNotifications: actionsData.knowMore,
   isLoading: false,
 };
 
 export const LoadingProgressList = Template.bind({});
-
 LoadingProgressList.args = {
-  progressList: [
-    { count: 12, label: 'First' },
-    { count: 25, label: 'Second' },
-    { count: 17, label: 'THIRD' },
-  ],
-  customColor: 'red',
   isLoading: true,
 };
 
 export default {
-  title: 'Components/Cadences/WorkflowMetrics/ProgressList',
-  component: CadenceWorkflowMetricsProgressList,
+  title: 'Components/Cadences/Metrics/CadenceProgressList',
+  component: CadenceGlobalMetricsProgressList,
   backgrounds: {
     default: '#808080',
   },
@@ -85,7 +63,7 @@ export default {
       default: 'lightGrey',
       values: [
         { name: 'none', value: 'none' },
-        { name: 'lightGrey', value: '#949494' },
+        { name: 'lightGrey', value: '#e6e6e6' },
         { name: 'grey', value: '#666666' },
         { name: 'black', value: '#000000' },
       ],
@@ -95,4 +73,4 @@ export default {
         'This component is a custom progress bar container for Audience workflow metrics data.',
     },
   },
-} as ComponentMeta<typeof CadenceWorkflowMetricsProgressList>;
+} as ComponentMeta<typeof CadenceGlobalMetricsProgressList>;

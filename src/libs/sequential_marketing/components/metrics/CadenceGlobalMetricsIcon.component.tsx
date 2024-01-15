@@ -5,7 +5,7 @@ import type { Theme } from '@material-ui/core/styles';
 
 import chroma from 'chroma-js';
 
-import { SequentialMarketingWorkflowMetricsSizes } from '#libs/sequential_marketing/constants';
+import { CadenceMetricsSizes } from '#libs/sequential_marketing/constants';
 import MuiIconComponent from '#components/MuiIcon.component';
 
 type Props = {
@@ -14,7 +14,7 @@ type Props = {
   iconColor: string;
 };
 
-export const CadenceWorkflowMetricsIconContainer: React.FC<Props> = ({
+export const CadenceGlobalMetricsIcon: React.FC<Props> = ({
   icon,
   CustomIcon,
   iconColor,
@@ -43,16 +43,16 @@ const useStyles = makeStyles<Theme, { iconColor: string }>((theme) => ({
     justifyContent: 'center',
     borderRadius: theme.spacing(1),
     backgroundColor: ({ iconColor }) => chroma(iconColor).alpha(0.09).hex(),
-    height: SequentialMarketingWorkflowMetricsSizes.ICON_CONTAINER_SIZE,
-    minHeight: SequentialMarketingWorkflowMetricsSizes.ICON_CONTAINER_SIZE,
-    width: SequentialMarketingWorkflowMetricsSizes.ICON_CONTAINER_SIZE,
-    minWidth: SequentialMarketingWorkflowMetricsSizes.ICON_CONTAINER_SIZE,
+    height: CadenceMetricsSizes.ICON_CONTAINER_SIZE,
+    minHeight: CadenceMetricsSizes.ICON_CONTAINER_SIZE,
+    width: CadenceMetricsSizes.ICON_CONTAINER_SIZE,
+    minWidth: CadenceMetricsSizes.ICON_CONTAINER_SIZE,
   },
   icon: {
-    height: SequentialMarketingWorkflowMetricsSizes.ICON_SIZE,
-    width: SequentialMarketingWorkflowMetricsSizes.ICON_SIZE,
+    height: CadenceMetricsSizes.ICON_SIZE,
+    width: CadenceMetricsSizes.ICON_SIZE,
     color: ({ iconColor }) => iconColor,
   },
 }));
 
-export default React.memo(CadenceWorkflowMetricsIconContainer);
+export default React.memo(CadenceGlobalMetricsIcon);

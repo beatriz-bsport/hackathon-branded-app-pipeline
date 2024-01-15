@@ -3,15 +3,15 @@ import React from 'react';
 import { action } from '@storybook/addon-actions';
 import type { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import CadenceWorkflowMetricsProgressBar from './CadenceWorkflowMetricsProgressBar.component';
+import CadenceGlobalMetricsProgressBar from './CadenceGlobalMetricsProgressBar.component';
 
 const actionsData = {
   onClick: action('onClick'),
 };
 
-const Template: ComponentStory<typeof CadenceWorkflowMetricsProgressBar> = (
-  args: React.ComponentProps<typeof CadenceWorkflowMetricsProgressBar>,
-) => <CadenceWorkflowMetricsProgressBar {...args} />;
+const Template: ComponentStory<typeof CadenceGlobalMetricsProgressBar> = (
+  args: React.ComponentProps<typeof CadenceGlobalMetricsProgressBar>,
+) => <CadenceGlobalMetricsProgressBar {...args} />;
 
 export const DefaultColorProgressBar = Template.bind({});
 
@@ -44,8 +44,8 @@ DisabledProgressBar.args = {
 };
 
 export default {
-  title: 'Components/Cadences/WorkflowMetrics/ProgressBar',
-  component: CadenceWorkflowMetricsProgressBar,
+  title: 'Components/Cadences/Metrics/ProgressBar',
+  component: CadenceGlobalMetricsProgressBar,
   argTypes: {
     label: {
       description: 'The label given to the progress bar.',
@@ -74,4 +74,4 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof CadenceWorkflowMetricsProgressBar>;
+} as ComponentMeta<typeof CadenceGlobalMetricsProgressBar>;

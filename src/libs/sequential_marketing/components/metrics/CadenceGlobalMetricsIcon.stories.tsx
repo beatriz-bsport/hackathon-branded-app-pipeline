@@ -2,22 +2,24 @@ import React from 'react';
 
 import type { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import CadenceWorkflowMetricsIconContainer from './CadenceWorkflowMetricsIconContainer.component';
+import CadenceGlobalMetricsIcon from './CadenceGlobalMetricsIcon.component';
 import TrophyIcon from '#components/icons/TrophyIcon.component';
 import { SequentialMarketingColors } from '#libs/sequential_marketing/constants';
 
-const CadenceWorkflowMetricsIconsTemplate = (
-  args: React.ComponentProps<typeof CadenceWorkflowMetricsIconContainer>,
-) => <CadenceWorkflowMetricsIconContainer {...args} />;
+const CadenceMetricsIconTemplate: ComponentStory<
+  typeof CadenceGlobalMetricsIcon
+> = (args: React.ComponentProps<typeof CadenceGlobalMetricsIcon>) => (
+  <CadenceGlobalMetricsIcon {...args} />
+);
 
-export const MuiIcon = CadenceWorkflowMetricsIconsTemplate.bind({});
+export const MuiIcon = CadenceMetricsIconTemplate.bind({});
 MuiIcon.args = {
   icon: 'People',
   CustomIcon: null,
   iconColor: SequentialMarketingColors.WORKFLOW_METRICS_ORANGE,
 };
 
-export const CustomTrophyIcon = CadenceWorkflowMetricsIconsTemplate.bind({});
+export const CustomTrophyIcon = CadenceMetricsIconTemplate.bind({});
 CustomTrophyIcon.args = {
   icon: null,
   CustomIcon: TrophyIcon,
@@ -25,15 +27,14 @@ CustomTrophyIcon.args = {
 };
 
 export default {
-  title: 'Components/Cadences/WorkflowMetrics/IconContainer',
-  component: CadenceWorkflowMetricsIconContainer,
+  title: 'Components/Cadences/Metrics/IconContainer',
+  component: CadenceGlobalMetricsIcon,
   parameters: {
     docs: {
       page: null,
     },
     description: {
-      component:
-        'Container for the icons used in Audience WorkflowMetrics data.',
+      component: 'Container for the icons used for Audience metrics board.',
     },
     backgrounds: {
       default: 'lightGrey',
@@ -68,4 +69,4 @@ export default {
       </div>
     ),
   ],
-} as ComponentMeta<typeof CadenceWorkflowMetricsIconContainer>;
+} as ComponentMeta<typeof CadenceGlobalMetricsIcon>;

@@ -57,7 +57,7 @@ import { CadencePanelMode } from './panel';
 
 import { SequentialMarketingColors, CadenceStatusColors } from './colors';
 
-import { SequentialMarketingWorkflowMetricsSizes } from './workflowMetrics';
+import { CadenceMetricsSizes } from './metrics';
 
 import {
   AUDIENCE_FEATURE_NAME,
@@ -100,7 +100,7 @@ export {
   SequentialMarketingColors,
   CadenceStatusColors,
   // WORKFLOW ANALYISIS
-  SequentialMarketingWorkflowMetricsSizes,
+  CadenceMetricsSizes,
   // STEPS
   HandleTypeChoices,
   DEFAULT_X_FOR_ENTRYSTEP,

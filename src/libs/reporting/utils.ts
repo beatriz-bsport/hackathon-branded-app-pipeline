@@ -1,6 +1,7 @@
 // @ts-nocheck
 import React from 'react';
 import moment from 'moment-timezone';
+import get from 'lodash/get';
 
 import { TFunction } from 'i18next';
 import { ClassNameMap } from '@material-ui/styles';
@@ -82,7 +83,9 @@ import type {
   ReportMetadata,
   ReportConfiguration,
   CellConverter,
+  ReportObjectPermissions,
 } from './types';
+import type { ObjectLevelPermissions } from '#libs/role/types';
 import type {
   DataSourceFieldMetadata,
   DatatypeFilterConfigGroup,
@@ -1172,3 +1175,16 @@ const MAP_REPORT_CATEGORIES_TO_GLOBAL_CATEGORIES = {
 export const getReportGlobalCategoryFromCategory = (
   category: ReportCategoryEnum,
 ): string => MAP_REPORT_CATEGORIES_TO_GLOBAL_CATEGORIES[category];
+
+export const getReportObjectPermissions = (
+  objectLevelPermissions: ObjectLevelPermissions,
+  report: ReportConfiguration,
+): ReportObjectPermissions => {
+  const globalCategory = getReportGlobalCategoryFromCategory(report.category);
+
+  return get(
+    objectLevelPermissions,
+    ['report', globalCategory, report.category, 'allowed_actions'],
+    { read: true, edit: true, delete: true, create: true },
+  );
+};

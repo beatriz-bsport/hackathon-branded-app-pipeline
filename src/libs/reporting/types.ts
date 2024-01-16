@@ -157,3 +157,10 @@ export type ReportSerializerParams = {
   report_filter_config_id: number;
   time_period: DateFilterRangeEnum | DateFilterEnum | null;
 };
+
+export type ReportObjectPermissions = {
+  read: true;
+  edit: boolean;
+  delete: boolean;
+  create: boolean;
+};

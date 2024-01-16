@@ -9137,7 +9137,8 @@
       "part1": "Due to the large amount of data, the report may take several minutes to generate."
     },
     "last_invoice_status": { "0": "Succeeded", "1": "Failed", "2": "Pending", "3": "Cancelled", "4": "Processing" },
-    "payment_method_with_credit_account": { "0": "Card", "9": "Internal account", "13": "SEPA", "70": "Bacs Direct Debit" }
+    "payment_method_with_credit_account": { "0": "Card", "9": "Internal account", "13": "SEPA", "70": "Bacs Direct Debit" },
+    "readPermissionDenied": "Acces denied"
   },
   "role": {
     "userRoles": "Staff accounts",

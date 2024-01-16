@@ -25,6 +25,7 @@ import DateRangeSelector from '#components/date/DateRangeSelector.component';
 import TimeRangeSelector from '#components/time/TimeRangeSelector.component';
 import DatePickerSelector from '#components/date/DatePickerSelector.component';
 import ReportFilterConfigSelector from './ReportFilterConfigSelector.component';
+import { getReportGlobalCategoryFromCategory } from '#libs/reporting/utils';
 
 import {
   ReportConfiguration as ReportConfigurationType,
@@ -34,7 +35,7 @@ import {
 } from '../types';
 import { DynamicFilterDataType } from '#libs/datatype-filtering/types';
 import { OptionCallback } from '../../../state/types';
-import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import { handleGetDynamicDataForFiltersReturn } from '#libs/datatype-filtering/dynamic-data-hoc';
 
 type Props = {
@@ -67,6 +68,7 @@ type Props = {
   fetchReportFilterConfigList: (params: ReportFilterConfigParams) => void;
   isFranchisor: boolean;
   timeWindowFilteringEnabled: boolean;
+  isDisabled?: boolean;
 };
 
 type DownloadButtonProps = {
@@ -203,6 +205,7 @@ const ReportGenerationForm: React.FC<Props> = ({
   deleteReportFilterConfig,
   isFranchisor,
   timeWindowFilteringEnabled,
+  isDisabled,
 }) => {
   const { t } = useTranslation();
   const classes = useStyles();
@@ -259,6 +262,10 @@ const ReportGenerationForm: React.FC<Props> = ({
     [setFieldValue],
   );
 
+  const globalCategory = getReportGlobalCategoryFromCategory(
+    reportConfiguration.category,
+  );
+
   return (
     <React.Fragment>
       <Dialog
@@ -296,6 +303,7 @@ const ReportGenerationForm: React.FC<Props> = ({
               <DateRangeSelector
                 date_end={moment(values.dateEnd).unix()}
                 date_start={moment(values.dateStart).unix()}
+                isDisabled={!!isDisabled}
                 onSubmit={(_values) => {
                   setFieldValue(
                     'dateStart',
@@ -313,6 +321,7 @@ const ReportGenerationForm: React.FC<Props> = ({
             {reportConfiguration.date_type === 'single' && (
               <DatePickerSelector
                 date={moment(values.dateStart).unix()}
+                isDisabled={!!isDisabled}
                 onSubmit={(_values) => {
                   setFieldValue('dateStart', _values.date.format('YYYY-MM-DD'));
                   setFieldValue('timePeriod', _values.timePeriod);
@@ -322,6 +331,7 @@ const ReportGenerationForm: React.FC<Props> = ({
             )}
             {timeWindowFilteringEnabled && (
               <TimeRangeSelector
+                isDisabled={!!isDisabled}
                 onSubmit={handleTimeSelectorSubmit}
                 originalTimeEnd={values.timeEnd}
                 originalTimeStart={values.timeStart}
@@ -340,20 +350,22 @@ const ReportGenerationForm: React.FC<Props> = ({
               </Alert>
             )}
           </div>
-          <ObjectLevelPermissionProviderComponent requiredPermission="export.allowed_actions.report">
-            {(hasPermission) => (
-              <div className={classes.buttonsContainer}>
-                {hasPermission && (
-                  <DownloadButton
-                    handleExcelExportation={handleExcelExportation}
-                    isSubmitting_={isSubmitting_}
-                    values={values}
-                  />
-                )}
-                <Submit disabled={isSubmitting_}>{t('common.generate')}</Submit>
-              </div>
-            )}
-          </ObjectLevelPermissionProviderComponent>
+          <div className={classes.buttonsContainer}>
+            <ObjectLevelPermissionWrapper
+              forcedBehavior="hidden"
+              requiredPermission={[
+                'export.allowed_actions.report',
+                `report.${globalCategory}.${reportConfiguration.category}.allowed_actions.read`,
+              ]}
+            >
+              <DownloadButton
+                handleExcelExportation={handleExcelExportation}
+                isSubmitting_={isSubmitting_}
+                values={values}
+              />
+            </ObjectLevelPermissionWrapper>
+            <Submit disabled={isSubmitting_}>{t('common.generate')}</Submit>
+          </div>
         </div>
         <div className={classes.reportFilterConfig}>
           <ReportFilterConfigSelector

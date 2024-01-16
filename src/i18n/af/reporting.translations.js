@@ -782,6 +782,7 @@ const getTranslations = async () => {
       [SEPA.id]: 'SEPA',
       [BACS_DEBIT.id]: 'Bacs Direct Debit',
     },
+    readPermissionDenied: 'Acces denied',
   };
 };
 

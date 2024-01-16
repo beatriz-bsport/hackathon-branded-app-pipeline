@@ -13,8 +13,10 @@ import FilterIcon from '@material-ui/icons/FilterList';
 import Fuse, { FuseOptions } from 'fuse.js';
 import { useFormikContext } from 'formik';
 import uniqBy from 'lodash/uniqBy';
+import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 // @ts-expect-error
 import FuzeSearch from '../../../components/FuzeSearch.component';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import { ReportFilterConfig, ReportMetadataColumn } from '../types';
 import {
   DataSourceFieldMetadata,
@@ -29,7 +31,10 @@ import {
 import QuickReportFilterConfigFilter, {
   QuickFiltersColumnsData,
 } from './QuickReportFilterConfigFilter.component';
-import { getFilterableColumns } from '../utils';
+import {
+  getFilterableColumns,
+  getReportGlobalCategoryFromCategory,
+} from '../utils';
 import { handleGetDynamicDataForFiltersReturn } from '#libs/datatype-filtering/dynamic-data-hoc';
 import { authorIdentifiers } from '#libs/reporting/constants';
 
@@ -98,6 +103,11 @@ const QuickReportFilterConfigColumnsMenu: React.FC<Props> = ({
   >([]);
   const { t } = useTranslation('reporting');
   const { values, setFieldValue } = useFormikContext<ReportFilterConfig>();
+
+  const globalCategory = getReportGlobalCategoryFromCategory(
+    reportCategory as ReportCategoryEnum,
+  );
+  const reportObjectPermissionPrefix = `report.${globalCategory}.${reportCategory}.allowed_actions`;
 
   const changeSearch =
     (fuse: Fuse<ReportFilterConfig, FuseOptions<ReportFilterConfig>>) =>
@@ -235,12 +245,19 @@ const QuickReportFilterConfigColumnsMenu: React.FC<Props> = ({
         )}
         <Divider />
 
-        <MenuItem>
-          <ListItem disableGutters onClick={handleOpenModal}>
-            <FilterIcon />
-            <ListItemText primary={t('filter.createFilter')} />
-          </ListItem>
-        </MenuItem>
+        <ObjectLevelPermissionWrapper
+          requiredPermission={[
+            `${reportObjectPermissionPrefix}.read`,
+            `${reportObjectPermissionPrefix}.create`,
+          ]}
+        >
+          <MenuItem>
+            <ListItem disableGutters onClick={handleOpenModal}>
+              <FilterIcon />
+              <ListItemText primary={t('filter.createFilter')} />
+            </ListItem>
+          </MenuItem>
+        </ObjectLevelPermissionWrapper>
       </Popover>
 
       {selectedColumn && (

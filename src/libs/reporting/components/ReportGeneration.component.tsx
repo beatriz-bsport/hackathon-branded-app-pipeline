@@ -5,6 +5,7 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles, Theme } from '@material-ui/core';
 
+import Typography from '@material-ui/core/Typography';
 import Alert from '@material-ui/lab/Alert';
 import { useTranslation, Trans } from 'react-i18next';
 import ReportGenerationForm from './ReportGenerationForm.component';
@@ -19,7 +20,7 @@ import {
   SerializedRow,
 } from '../types';
 import { DynamicFilterDataType } from '#libs/datatype-filtering/types';
-import { getColumn } from '../utils';
+import { getColumn, getReportObjectPermissions } from '../utils';
 import { OptionCallback } from '../../../state/types';
 import { ObjectLevelPermissions, RolePermission } from '#libs/role/types';
 import { handleGetDynamicDataForFiltersReturn } from '#libs/datatype-filtering/dynamic-data-hoc';
@@ -132,6 +133,9 @@ const ReportGeneration: React.FC<Props> = ({
     (r) => r.category === report.category,
   );
 
+  const { edit: hasEditPermission, read: hasReadPermission } =
+    getReportObjectPermissions(objectLevelPermissions, report);
+
   return (
     <div>
       {isFranchisor && (
@@ -164,6 +168,7 @@ const ReportGeneration: React.FC<Props> = ({
           fetchReportFilterConfigList={fetchReportFilterConfigList}
           handleExcelExportation={handleExcelExportation}
           handleGetDynamicDataForReport={handleGetDynamicDataForReport}
+          isDisabled={!hasEditPermission || !hasReadPermission}
           isFranchisor={isFranchisor}
           isSubmitting_={reportStoreRowsLoading}
           onSubmit={handleGenerate}
@@ -178,59 +183,68 @@ const ReportGeneration: React.FC<Props> = ({
           }
         />
       )}
-      <ReportTableHeaders
-        handleGenerateHeaders={handleGenerateHeaders}
-        reportHeaders={reportHeaders}
-        reportHeadersLoading={reportHeadersLoading}
-      />
-      {report.category === 'invoices' && (
-        <Alert
-          classes={{ root: classes.alertIcon }}
-          className={classes.alert}
-          severity="info"
-        >
-          <Trans
-            components={[
-              <a
-                className={classes.infoLink}
-                href={t('reporting:helperText.invoicesAccrualMethodLink')}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                .
-              </a>,
-            ]}
-            i18nKey="reporting:helperText.invoicesAccrualMethod"
-            t={t}
-            values={{
-              purchasedGiftcardReport: t(
-                'reporting:categories.consumer_giftcard',
-              ),
-            }}
+
+      {hasReadPermission ? (
+        <>
+          <ReportTableHeaders
+            handleGenerateHeaders={handleGenerateHeaders}
+            reportHeaders={reportHeaders}
+            reportHeadersLoading={reportHeadersLoading}
           />
-        </Alert>
+          {report.category === 'invoices' && (
+            <Alert
+              classes={{ root: classes.alertIcon }}
+              className={classes.alert}
+              severity="info"
+            >
+              <Trans
+                components={[
+                  <a
+                    className={classes.infoLink}
+                    href={t('reporting:helperText.invoicesAccrualMethodLink')}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    .
+                  </a>,
+                ]}
+                i18nKey="reporting:helperText.invoicesAccrualMethod"
+                t={t}
+                values={{
+                  purchasedGiftcardReport: t(
+                    'reporting:categories.consumer_giftcard',
+                  ),
+                }}
+              />
+            </Alert>
+          )}
+          {reportStoreRowsLoading || resultLoading ? <LinearProgress /> : null}
+          {!report.loading && !!reportStoreRows && (
+            <Paper>
+              <ReportTable
+                handleGenerateNextPage={handleGenerateNextPage}
+                handleGeneratePreviousPage={handleGeneratePreviousPage}
+                loading={resultLoading}
+                metadata={metadata}
+                nextPage={nextPage}
+                objectLevelPermissions={objectLevelPermissions}
+                otherPages={otherPages}
+                pageSize={pageSize}
+                previousPage={previousPage}
+                report={report}
+                reportStoreRowsLoading={reportStoreRowsLoading}
+                result={reportStoreRows}
+                userPermissions={userPermissions}
+              />
+            </Paper>
+          )}
+          {reportStoreRowsLoading && report && <LinearProgress />}
+        </>
+      ) : (
+        <Typography align="center" variant="h5">
+          {t('readPermissionDenied')}
+        </Typography>
       )}
-      {reportStoreRowsLoading || resultLoading ? <LinearProgress /> : null}
-      {!report.loading && !!reportStoreRows && (
-        <Paper>
-          <ReportTable
-            handleGenerateNextPage={handleGenerateNextPage}
-            handleGeneratePreviousPage={handleGeneratePreviousPage}
-            loading={resultLoading}
-            metadata={metadata}
-            nextPage={nextPage}
-            objectLevelPermissions={objectLevelPermissions}
-            otherPages={otherPages}
-            pageSize={pageSize}
-            previousPage={previousPage}
-            report={report}
-            reportStoreRowsLoading={reportStoreRowsLoading}
-            result={reportStoreRows}
-            userPermissions={userPermissions}
-          />
-        </Paper>
-      )}
-      {reportStoreRowsLoading && report && <LinearProgress />}
     </div>
   );
 };

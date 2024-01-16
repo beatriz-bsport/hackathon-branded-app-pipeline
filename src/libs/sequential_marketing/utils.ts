@@ -6,10 +6,7 @@ import type {
   CadenceStep,
   ConnectedTrigger,
 } from '#libs/sequential_marketing/types';
-import {
-  DestinationStatus,
-  SEQUENTIAL_MARKETING_AUTHORIZED_COMPANY_IDS,
-} from '#libs/sequential_marketing/constants';
+import { DestinationStatus } from '#libs/sequential_marketing/constants';
 
 export const isCadenceInitialConfigurationCompleted = (
   cadenceMinimalConfigurationState: CadenceInitialConfigurationState,
@@ -100,9 +97,5 @@ export const isSequentialMarketingAuthorized = (
   companyId: number,
   hasUpsell: boolean,
 ) => {
-  return (
-    Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
-    SEQUENTIAL_MARKETING_AUTHORIZED_COMPANY_IDS.includes(companyId) ||
-    hasUpsell
-  );
+  return Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' || hasUpsell;
 };

@@ -178,7 +178,6 @@ import {
 import Config from '../../config';
 import { getSmartListPopupSendingList } from '#libs/communication-v2/selectors';
 // CADENCES
-import { SEQUENTIAL_MARKETING_AUTHORIZED_COMPANY_IDS } from '#libs/sequential_marketing/constants';
 import { fetchCadenceList } from '#libs/sequential_marketing/actions';
 import { UPSELL_IDENTIFIER_CADENCE } from '#libs/platform-billing/upsell-identifiers';
 
@@ -242,10 +241,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
     this.props.getUnreadAnswersCountAction(params);
     this.props.fetchSmartListPopupSendings({ smartlist_id: this.props.id });
     this.props.fetchStoredCsvExports(this.props.id);
-    if (
-      this.hasUpsellIdentifier(UPSELL_IDENTIFIER_CADENCE) ||
-      SEQUENTIAL_MARKETING_AUTHORIZED_COMPANY_IDS.includes(this.props.companyId)
-    ) {
+    if (this.hasUpsellIdentifier(UPSELL_IDENTIFIER_CADENCE)) {
       this.props.fetchCadencesUsingSmartlist(this.props.id, {
         onSuccess: (cadence_ids) => {
           const uniq_ids = uniq(cadence_ids ?? []);

@@ -50,6 +50,12 @@ const getTranslations = async () => {
           'Please accept the terms and conditions and complete your basket',
         checkAndFinalize: 'Please check your basket',
       },
+      referral: {
+        missingAmountBeforeApplication:
+          'The minimum purchase amount has not been reached. You risk losing your referral link. Only {{ missingAmount }} more to be able to enjoy the discount!',
+        hasReachedMaxUses:
+          'The maximum number of uses for the referral link has been reached.',
+      },
     },
     payLater: {
       submit: 'Pay later',

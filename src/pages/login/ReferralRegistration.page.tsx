@@ -69,6 +69,7 @@ import { getTheme } from '../../theme';
 import './signup-page/SignupPageStyles.css';
 
 import { RootState } from '../../reducers';
+import Config from '../../config';
 
 type OwnProps = {
   title: string;
@@ -170,7 +171,8 @@ export class ReferralRegistration extends Component<Props, State> {
           onFinish: () => {
             window.location.href =
               this.props.referralLinkStatus.redirect_link ||
-              this.props.theme.scheduleURL;
+              this.props.theme.scheduleURL ||
+              `${Config.PUBLIC_URL}/c/${this.props.referralLinkStatus.company_id}`;
           },
         });
       };
@@ -196,6 +198,10 @@ export class ReferralRegistration extends Component<Props, State> {
               this.props.theme?.id
             )
               Analytics.signupSuccess(this.props.loginInformations);
+            window.location.href =
+              this.props.referralLinkStatus.redirect_link ||
+              this.props.theme.scheduleURL ||
+              `${Config.PUBLIC_URL}/c/${this.props.referralLinkStatus.company_id}`;
           },
         });
       };
@@ -244,7 +250,7 @@ export class ReferralRegistration extends Component<Props, State> {
     if (Array.isArray(form)) return null;
 
     if (
-      !form ||
+      (!form && !this.state.hasBeenRegistered) ||
       this.state.initialLoading ||
       this.state.processing ||
       this.props.memberCustomFormLoading

@@ -118,4 +118,5 @@ export enum CssComponentsVariantIdentifiers {
   CONSUMER_BOOKING_CARD = 'consumer_booking_card',
   CONSUMER_BOOKING_DETAILS_CARD = 'consumer_booking_details_card',
   CONSUMER_PASS_CARD = 'consumer_pass_card',
+  UNIVERSAL_PASS_DETAILS_CARD = 'universal_pass_details_card',
 }

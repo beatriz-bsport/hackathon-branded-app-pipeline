@@ -402,6 +402,10 @@ import {
   CONSUMER_PASS_CARD_PREVIEW,
   CONSUMER_PASS_CARD_CONFIGURATION,
 } from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassCard';
+import {
+  UNIVERSAL_PASS_DETAILS_CARD_PREVIEW,
+  UNIVERSAL_PASS_DETAILS_CARD_CONFIGURATION,
+} from '#libs/consumer-space/components/reworked/@MyPasses/UniversalPass/UniversalPassDetailsCard';
 
 /* TEMPLATE
 
@@ -510,6 +514,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
         CONSUMER_BOOKING_CARD_CONFIGURATION,
         CONSUMER_BOOKING_DETAILS_CARD_CONFIGURATION,
         CONSUMER_PASS_CARD_CONFIGURATION,
+        UNIVERSAL_PASS_DETAILS_CARD_CONFIGURATION,
       ]
     : []),
 ];
@@ -701,6 +706,8 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
         CONSUMER_BOOKING_DETAILS_CARD_PREVIEW,
       [CssComponentsVariantIdentifiers.CONSUMER_PASS_CARD]:
         CONSUMER_PASS_CARD_PREVIEW,
+      [CssComponentsVariantIdentifiers.UNIVERSAL_PASS_DETAILS_CARD]:
+        UNIVERSAL_PASS_DETAILS_CARD_PREVIEW,
     }),
   });
 

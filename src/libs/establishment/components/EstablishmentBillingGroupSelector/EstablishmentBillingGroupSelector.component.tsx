@@ -321,6 +321,7 @@ export function EstablishmentBillingGroupSelector(props: Props) {
           : null
       }
       isRequired={isRequired}
+      isSearchable={false}
       menuPortalTarget={!targetParentElement && document.querySelector('body')}
       onChange={handleChange}
       options={getGroupedEstablishmentBillingGroupOptions([

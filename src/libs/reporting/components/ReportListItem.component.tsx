@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles, Theme } from '@material-ui/core';
@@ -8,9 +7,13 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 import { ReportConfiguration } from '../types';
-import { getIconFromCategory } from '../utils';
+import {
+  getIconFromCategory,
+  getReportGlobalCategoryFromCategory,
+} from '../utils';
 import ListItemResponsiveAction from '../../../components/button/ListItemResponsiveAction.component';
 
 type Props = {
@@ -34,35 +37,63 @@ const ReportListItem: React.FC<Props> = ({
   const columns = report.columns.map((c) => t(`columns.${c}`)).join(', ');
   const onClick = () => onDetail(report.id);
 
+  const globalCategory =
+    getReportGlobalCategoryFromCategory(report.category) ||
+    report.global_category;
+  const reportObjectPermissionPrefix = `report.${globalCategory}.${report.category}.allowed_actions`;
+
   return (
-    <ListItem button className={classes.listItem} onClick={onClick}>
-      <ListItemAvatar>
-        <Icon fontSize="large" />
-      </ListItemAvatar>
-      <ListItemText secondary={columns}>
-        <span className={classes.name}>{name}</span>
-        <small>{description}</small>
-      </ListItemText>
-      <ListItemResponsiveAction
-        actions={[
-          {
-            icon: EditIcon,
-            label: t('actions.edit'),
-            color: 'primary',
-            onClick: () => {
-              onEdit(report);
-            },
-          },
-          {
-            icon: DeleteIcon,
-            label: t('actions.delete'),
-            onClick: () => {
-              onDelete(report);
-            },
-          },
-        ]}
-      />
-    </ListItem>
+    <ObjectLevelPermissionProvider
+      requiredPermission={[
+        `${reportObjectPermissionPrefix}.read`,
+        `${reportObjectPermissionPrefix}.edit`,
+        `${reportObjectPermissionPrefix}.delete`,
+      ]}
+    >
+      {([
+        hasReadPermission,
+        hasEditPermission,
+        hasDeletePermission,
+      ]: boolean[]) => {
+        return (
+          <ListItem
+            button
+            className={classes.listItem}
+            disabled={!hasReadPermission}
+            onClick={onClick}
+          >
+            <ListItemAvatar>
+              <Icon fontSize="large" />
+            </ListItemAvatar>
+            <ListItemText secondary={columns}>
+              <span className={classes.name}>{name}</span>
+              <small>{description}</small>
+            </ListItemText>
+            <ListItemResponsiveAction
+              actions={[
+                {
+                  icon: EditIcon,
+                  label: t('actions.edit'),
+                  color: 'primary',
+                  onClick: () => {
+                    onEdit(report);
+                  },
+                  disabled: !hasEditPermission,
+                },
+                {
+                  icon: DeleteIcon,
+                  label: t('actions.delete'),
+                  onClick: () => {
+                    onDelete(report);
+                  },
+                  disabled: !hasDeletePermission,
+                },
+              ]}
+            />
+          </ListItem>
+        );
+      }}
+    </ObjectLevelPermissionProvider>
   );
 };
 

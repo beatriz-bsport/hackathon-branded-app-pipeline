@@ -10,6 +10,13 @@ import type {
   DatatypeFilterConfigGroup,
 } from '#libs/datatype-filtering/types';
 
+enum ReportGlobalCategoryEnum {
+  PAYMENTS = 'Payments',
+  CLUB = 'Club',
+  BOOKINGS = 'Bookings',
+  PRODUCTS = 'Products',
+}
+
 export type CellData = {
   value: string | number | null;
   datatype: string;
@@ -72,6 +79,9 @@ export type ReportConfiguration = {
   id: number;
   name: string;
   category: ReportCategoryEnum;
+  // The field 'global_category' coming from the backend isn't reliable
+  // the default value 'Club' defined in the backend is always used.
+  global_category: ReportGlobalCategoryEnum;
   description: string;
   columns: string[];
   date_start: Date;

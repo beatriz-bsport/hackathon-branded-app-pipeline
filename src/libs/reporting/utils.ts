@@ -71,6 +71,7 @@ import {
   BOOKING_STATUS_CANCELLED_BY_OFFER,
   BOOKING_STATUS_OK,
 } from '@bsport/common/lib/master-data/booking_status_code';
+import type { SvgIconProps } from '@material-ui/core/SvgIcon';
 import {
   getCurrencyDisplay,
   getCurrencyDisplayWithPrice,
@@ -251,7 +252,7 @@ export function getCategory(categoryID: ReportCategoryEnum): ReportCategory {
 
 export function getIconFromCategory(
   categoryID: ReportCategoryEnum,
-): React.ReactElement {
+): React.ComponentType<SvgIconProps> {
   const cat = getCategory(categoryID);
   return (cat && cat.icon) || LensIcon;
 }
@@ -1121,3 +1122,53 @@ export const ReportColumnPermissions = {
     ],
   },
 };
+
+// The field 'global_category' coming from the backend on Report instances isn't reliable
+// hence this mapping between categories and global categories
+const MAP_REPORT_CATEGORIES_TO_GLOBAL_CATEGORIES = {
+  [ReportCategoryEnum.BASKET]: 'Payments',
+  [ReportCategoryEnum.CASHBOOK]: 'Payments',
+  [ReportCategoryEnum.CREDIT]: 'Payments',
+  [ReportCategoryEnum.EXPENSE]: 'Payments',
+  [ReportCategoryEnum.INVOICES]: 'Payments',
+  [ReportCategoryEnum.UNPAID_INVOICES]: 'Payments',
+  [ReportCategoryEnum.PAYMENTS]: 'Payments',
+  [ReportCategoryEnum.PAYMENT_SUMUP]: 'Payments',
+  [ReportCategoryEnum.ON_SPOT_PAYMENTS]: 'Payments',
+  [ReportCategoryEnum.DISPUTE]: 'Payments',
+  [ReportCategoryEnum.PAYMENT_INSTALMENTS]: 'Payments',
+  [ReportCategoryEnum.VIDEO_PURCHASE]: 'Payments',
+  // ----------------
+  [ReportCategoryEnum.BILLING_PLAN]: 'Club',
+  [ReportCategoryEnum.MEMBERS_PURCHASE]: 'Club',
+  [ReportCategoryEnum.MEMBERS]: 'Club',
+  [ReportCategoryEnum.ACTIVITIES]: 'Club',
+  [ReportCategoryEnum.ACTIVITY_BY_ESTABLISHMENT]: 'Club',
+  [ReportCategoryEnum.ACTIVITY_BY_COACH]: 'Club',
+  [ReportCategoryEnum.WORKSHOP]: 'Club',
+  [ReportCategoryEnum.OFFERS]: 'Club',
+  [ReportCategoryEnum.SUBSCRIPTION]: 'Club',
+  [ReportCategoryEnum.PRIVATE_SERVICE]: 'Club',
+  // ----------------
+  [ReportCategoryEnum.DAY_BOOKINGS]: 'Bookings',
+  [ReportCategoryEnum.FIRST_BOOKING]: 'Bookings',
+  [ReportCategoryEnum.BOOKINGS]: 'Bookings',
+  [ReportCategoryEnum.FIRST_ATTENDANCE]: 'Bookings',
+  [ReportCategoryEnum.FIRST_PRIVATE_BOOKING]: 'Bookings',
+  [ReportCategoryEnum.PRIVATE_BOOKINGS]: 'Bookings',
+  // ----------------
+  [ReportCategoryEnum.PRIVATE_CONSUMER_PASS_EXPIRED]: 'Products',
+  [ReportCategoryEnum.EXPIRED_PASS]: 'Products',
+  [ReportCategoryEnum.MEMBERSHIPS]: 'Products',
+  [ReportCategoryEnum.PRIVATE_CONSUMER_PASS]: 'Products',
+  [ReportCategoryEnum.UNIVERSAL_PASSES]: 'Products',
+  [ReportCategoryEnum.DISCOUNT]: 'Products',
+  [ReportCategoryEnum.GIFTCARD]: 'Products',
+  [ReportCategoryEnum.CONSUMER_GIFTCARD]: 'Products',
+  [ReportCategoryEnum.SHOP]: 'Products',
+  [ReportCategoryEnum.VIDEO]: 'Products',
+};
+
+export const getReportGlobalCategoryFromCategory = (
+  category: ReportCategoryEnum,
+): string => MAP_REPORT_CATEGORIES_TO_GLOBAL_CATEGORIES[category];

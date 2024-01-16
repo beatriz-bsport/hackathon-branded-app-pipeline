@@ -5,6 +5,7 @@ import Chip from '@material-ui/core/Chip';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import { getCategory } from '../utils';
 
 type Props = {
@@ -42,24 +43,26 @@ const ReportCategoriesSelector: React.FC<Props> = ({
 
   return (
     <div>
-      {globalCategoryChoices.map((name) => {
+      {globalCategoryChoices.map((globalCategory) => {
+        const permissionPrefix = `report.${globalCategory}`;
         const categories = getCategoriesInCategoryGroup(
-          name,
+          globalCategory,
           globalCategories,
           categoriesProps,
         );
         const categoriesDetail = categories.map((c) => getCategory(c));
         const isSelectedCategory = categoriesDetail.some(
-          (c) => c.id === selected,
+          (categoryDetail) => categoryDetail.id === selected,
         );
 
         return (
-          <div>
+          <div key={globalCategory}>
             {(isSelectedCategory || initial) && (
-              <div>{t(`globalCategories.${name}`)}</div>
+              <div>{t(`globalCategories.${globalCategory}`)}</div>
             )}
             <div className={classes.categories}>
               {categoriesDetail.map((category) => {
+                const permissionString = `${permissionPrefix}.${category.id}.allowed_actions.create`;
                 const Icon = category.icon;
                 const isSelected = category.id === selected;
                 const color = isSelected ? 'primary' : 'default';
@@ -68,16 +71,20 @@ const ReportCategoriesSelector: React.FC<Props> = ({
                 return (
                   <div>
                     {(isSelected || initial) && (
-                      <Chip
+                      <ObjectLevelPermissionWrapper
                         key={category.id}
-                        clickable
-                        className={classes.chip}
-                        color={color}
-                        icon={Icon ? <Icon /> : null}
-                        label={t(`categories.${category.id}`)}
-                        onClick={() => onSelect(category.id)}
-                        onDelete={onDelete}
-                      />
+                        requiredPermission={permissionString}
+                      >
+                        <Chip
+                          clickable
+                          className={classes.chip}
+                          color={color}
+                          icon={Icon ? <Icon /> : null}
+                          label={t(`categories.${category.id}`)}
+                          onClick={() => onSelect(category.id)}
+                          onDelete={onDelete}
+                        />
+                      </ObjectLevelPermissionWrapper>
                     )}
                   </div>
                 );

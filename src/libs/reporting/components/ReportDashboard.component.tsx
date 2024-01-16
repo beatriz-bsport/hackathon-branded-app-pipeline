@@ -16,6 +16,7 @@ import { createStyles, Theme } from '@material-ui/core';
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
 import { ReportConfiguration, ReportMetadataValue } from '../types';
 
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import ModalConfirm from '#components/ModalConfirm.component';
 import ReportCategorySelector from './ReportCategorySelector.component';
 import ReportList from './ReportList.component';
@@ -25,6 +26,7 @@ import { OptionCallback } from '../../../state/types';
 import FuzzySearch from '#components/search/FuzzySearch.component';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+import { getReportGlobalCategoryFromCategory } from '#libs/reporting/utils';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
 const {
@@ -90,6 +92,11 @@ export function ReportDashboard(props: Props) {
     onDetail: onReportDetail,
     onDelete: (r: ReportConfiguration) => setSelectedForDeletion(r),
   };
+
+  const selectedGlobalCategory = selectedCategory
+    ? getReportGlobalCategoryFromCategory(selectedCategory)
+    : null;
+  const reportObjectPermissionPrefix = `report.${selectedGlobalCategory}.${selectedCategory}.allowed_actions`;
 
   return (
     <div className={classes.root}>
@@ -157,17 +164,21 @@ export function ReportDashboard(props: Props) {
           </Button>
         </div>
       )}
-      <Fab
-        className={classes.fabAdd}
-        color="primary"
-        onClick={() => {
-          setReportConfigurationToEdit(null);
-          setShowModalAdd(true);
-          trackFormAdd(reportConfiguration?.id);
-        }}
+      <ObjectLevelPermissionWrapper
+        requiredPermission={`${reportObjectPermissionPrefix}.create`}
       >
-        <AddIcon />
-      </Fab>
+        <Fab
+          className={classes.fabAdd}
+          color="primary"
+          onClick={() => {
+            setReportConfigurationToEdit(null);
+            setShowModalAdd(true);
+            trackFormAdd(reportConfiguration?.id);
+          }}
+        >
+          <AddIcon />
+        </Fab>
+      </ObjectLevelPermissionWrapper>
       {showModalAdd ? (
         <GenericResponsiveDialog open maxWidth="sm">
           <DialogTitle>

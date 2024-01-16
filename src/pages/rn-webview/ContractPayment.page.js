@@ -35,7 +35,6 @@ import {
 } from '#libs/establishment/selectors';
 import { withEstablishment } from '#libs/offer/selectors';
 import { EstablishmentBillingGroup } from '#libs/establishment/types';
-import { loadDefaultEstablishmentBillingGroup } from '../../libs/marketplace/utils/booking';
 
 const SubscriptionPayment = asyncComponent(() =>
   import('../../libs/subscription/components/SubscriptionPayment.component'),
@@ -112,28 +111,6 @@ export class ContractPayment extends React.Component<Props, State> {
     });
   }
 
-  componentDidUpdate(prevProps: Readonly<Props>): void {
-    loadDefaultEstablishmentBillingGroup(
-      this.state.theme?.enable_multi_localization,
-      this.state.selectedEstablishmentBillingGroup,
-      this.state.isEstablishmentBillingGroupSelected,
-      this.setSelectedEstablishmentBillingGroup,
-      this.setIsEstablishmentBillingGroupSelected,
-      {
-        defaultEstablishmentBillingGroup:
-          prevProps.defaultEstablishmentBillingGroup,
-        establishmentBillingGroups: prevProps.establishmentBillingGroups,
-        basketoffers: null,
-      },
-      {
-        defaultEstablishmentBillingGroup:
-          this.props.defaultEstablishmentBillingGroup,
-        establishmentBillingGroups: this.props.establishmentBillingGroups,
-        basketOffers: null,
-      },
-    );
-  }
-
   state = { processing: false };
 
   onSubmit = async (
@@ -143,6 +120,7 @@ export class ContractPayment extends React.Component<Props, State> {
     ___,
     options: any,
     coupon_code: string | null,
+    ____, // note
     establishmentBillingGroupId: number,
   ) => {
     this.setState({ processing: true });
@@ -176,22 +154,6 @@ export class ContractPayment extends React.Component<Props, State> {
       },
       true,
     );
-  };
-
-  setSelectedEstablishmentBillingGroup = (
-    establishmentBillingGroup: EstablishmentBillingGroup,
-  ) => {
-    this.setState({
-      selectedEstablishmentBillingGroup: establishmentBillingGroup,
-    });
-  };
-
-  setIsEstablishmentBillingGroupSelected = (
-    isEstablishmentBillingGroupSelected,
-  ) => {
-    this.setState({
-      isEstablishmentBillingGroupSelected,
-    });
   };
 
   render() {
@@ -233,12 +195,6 @@ export class ContractPayment extends React.Component<Props, State> {
           }}
           requestSetupIntentSecret={this.props.requestSetupIntentSecret}
           savedPaymentMethodList={this.props.savedPaymentMethodList}
-          setIsEstablishmentBillingGroupSelected={
-            this.setIsEstablishmentBillingGroupSelected
-          }
-          setSelectedEstablishmentBillingGroup={
-            this.setSelectedEstablishmentBillingGroup
-          }
           updateDefaultEstablishmentBillingGroup={
             this.props.updateDefaultEstablishmentBillingGroup
           }

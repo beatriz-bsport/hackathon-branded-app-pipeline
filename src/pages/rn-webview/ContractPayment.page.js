@@ -77,17 +77,14 @@ type State = {
   processing: boolean,
   companyId?: number,
   theme: CompanyTheme,
-  isEstablishmentBillingGroupSelected: boolean,
-  selectedEstablishmentBillingGroup: EstablishmentBillingGroup,
+  hideEstablishmentBillingGroupSelector: boolean,
 };
 
 export class ContractPayment extends React.Component<Props, State> {
   state = {
     companyId: null,
     theme: null,
-    isEstablishmentBillingGroupSelected: true,
-    selectedEstablishmentBillingGroup:
-      this.props.defaultEstablishmentBillingGroup || null,
+    hideEstablishmentBillingGroupSelector: false,
   };
 
   componentDidMount() {
@@ -106,7 +103,11 @@ export class ContractPayment extends React.Component<Props, State> {
             });
           },
         });
-        this.props.fetchMember();
+        this.props.fetchMember({
+          onError: () => {
+            this.setState({ hideEstablishmentBillingGroupSelector: true });
+          },
+        });
       },
     });
   }
@@ -217,9 +218,10 @@ export class ContractPayment extends React.Component<Props, State> {
             this.props.companyTheme.payment_method_available_subscription
           }
           enableMultiLocalization={this.state.theme?.enable_multi_localization}
-          establishmentBillingGroups={this.props.establishmentBillingGroups}
-          isEstablishmentBillingGroupSelected={
-            this.state.isEstablishmentBillingGroupSelected
+          establishmentBillingGroups={
+            !this.state.hideEstablishmentBillingGroupSelector
+              ? this.props.establishmentBillingGroups
+              : []
           }
           isExcludingTax={this.state.theme?.is_tax_excluded_in_marketplace}
           memberId={this.props.memberId}
@@ -303,8 +305,8 @@ export default compose(
         requestSetupIntentSecretAPI(memberId),
     fetchMember:
       ({ fetchMember, memberId }) =>
-      () =>
-        fetchMember(memberId),
+      (options) =>
+        fetchMember(memberId, options),
   }),
   withProps(() => ({
     onSuccess: () => {

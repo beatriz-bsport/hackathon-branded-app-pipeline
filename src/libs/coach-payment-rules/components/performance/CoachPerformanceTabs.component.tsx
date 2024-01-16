@@ -51,6 +51,7 @@ type TabPanelProps = {
     dataToExport: number,
   ) => void;
   isMultiLocalizationEnabled: boolean;
+  filtersApplied: boolean;
 } & CoachPaymentRuleTabPanelActions;
 
 export const CoachPerformanceTabPanel = (props: TabPanelProps) => {
@@ -133,6 +134,7 @@ export const CoachPerformanceTabPanel = (props: TabPanelProps) => {
         coach={props.coachWithPerformance}
         coachPaymentRulesList={coachSessionPaymentRulesList}
         disablePdfButton={!handlePdfExportation}
+        filtersApplied={props.filtersApplied}
         handlePdfExportation={handlePdfExportationSession}
         has_coach_access_to_compensation_downloading={
           props.has_coach_access_to_compensation_downloading
@@ -153,6 +155,7 @@ export const CoachPerformanceTabPanel = (props: TabPanelProps) => {
         coach={props.coachWithPerformance}
         coachPaymentRulesList={coachGroupActivityPaymentRulesList}
         disablePdfButton={!handlePdfExportation}
+        filtersApplied={props.filtersApplied}
         handlePdfExportation={handlePdfExportationSession}
         has_coach_access_to_compensation_downloading={
           props.has_coach_access_to_compensation_downloading
@@ -171,6 +174,7 @@ export const CoachPerformanceTabPanel = (props: TabPanelProps) => {
         coach={props.coachWithPerformance}
         coachPaymentRulesList={coachWorkshopPaymentRulesList}
         disablePdfButton={!handlePdfExportation}
+        filtersApplied={props.filtersApplied}
         handlePdfExportation={handlePdfExportationSession}
         has_coach_access_to_compensation_downloading={
           props.has_coach_access_to_compensation_downloading
@@ -189,6 +193,7 @@ export const CoachPerformanceTabPanel = (props: TabPanelProps) => {
         coach={props.coachWithPerformance}
         coachPaymentRulesList={coachPrivateServicePaymentRulesList}
         disablePdfButton={!handlePdfExportation}
+        filtersApplied={props.filtersApplied}
         handlePdfExportation={handlePdfExportationAppointment}
         has_coach_access_to_compensation_downloading={
           props.has_coach_access_to_compensation_downloading
@@ -215,6 +220,7 @@ export const CoachPerformanceTabPanel = (props: TabPanelProps) => {
           coach={props.coachWithPerformance}
           coachPaymentRulesList={coachSessionPaymentRulesList}
           disablePdfButton={!handlePdfExportation}
+          filtersApplied={props.filtersApplied}
           handlePdfExportation={handlePdfExportationAll}
           has_coach_access_to_compensation_downloading={
             props.has_coach_access_to_compensation_downloading
@@ -234,6 +240,7 @@ export const CoachPerformanceTabPanel = (props: TabPanelProps) => {
           asCoach={props.asCoach}
           coach={props.coachWithPerformance}
           coachPaymentRulesList={coachPrivateServicePaymentRulesList}
+          filtersApplied={props.filtersApplied}
           has_coach_access_to_compensation_downloading={
             props.has_coach_access_to_compensation_downloading
           }
@@ -302,6 +309,7 @@ type TabProps = {
   has_coach_access_to_compensation_downloading?: boolean;
   handlePdfExportation?: (coachId: number, dataToExport: number) => void;
   isMultiLocalizationEnabled: boolean;
+  filtersApplied: boolean;
 } & CoachPaymentRuleTabsActions &
   CoachPaymentRuleObjects;
 
@@ -310,6 +318,7 @@ export const CoachPerformanceTabs = (props: TabProps) => {
     coachWithPerformance,
     loading,
     has_coach_access_to_compensation_downloading,
+    filtersApplied,
   } = props;
   const { performance } = coachWithPerformance;
   const { t } = useTranslation(['paymentRules', 'coachPerformance']);
@@ -431,6 +440,7 @@ export const CoachPerformanceTabs = (props: TabProps) => {
         asCoach={props.asCoach}
         coachPaymentRulesByKind={props.coachPaymentRulesByKind}
         coachWithPerformance={props.coachWithPerformance}
+        filtersApplied={filtersApplied}
         handlePdfExportation={props.handlePdfExportation ?? undefined}
         has_coach_access_to_compensation_downloading={
           has_coach_access_to_compensation_downloading

@@ -87,6 +87,7 @@ export type CoachPerformanceTableRowProps = {
     dataToExport: number,
   ) => void;
   isMultiLocalizationEnabled: boolean;
+  filtersApplied: boolean;
 } & CoachPaymentRuleObjects &
   CoachPaymentRuleActions;
 
@@ -109,6 +110,7 @@ export const CoachPerformanceTableRow = (
     setCoachPaymentRuleGroup,
     handlePdfExportation,
     isMultiLocalizationEnabled,
+    filtersApplied,
   } = props;
   const [openCollapse, setOpenCollapse] = React.useState<boolean>(false);
   const classes = useStyles();
@@ -278,6 +280,7 @@ export const CoachPerformanceTableRow = (
               coachPaymentRuleGroupsDict={coachPaymentRuleGroupsDict}
               coachPaymentRulesByKind={coachPaymentRulesByKind}
               coachWithPerformance={coachWithPerformance}
+              filtersApplied={filtersApplied}
               handlePdfExportation={handlePdfExportation}
               isMultiLocalizationEnabled={isMultiLocalizationEnabled}
               setCoachPaymentRule={setCoachPaymentRule}
@@ -505,6 +508,7 @@ export const CoachPerformanceTable = (props: Props) => {
               coachPaymentRuleGroupsDict={coachPaymentRuleGroupsDict}
               coachPaymentRulesByKind={props.coachPaymentRulesByKind}
               coachWithPerformance={perf}
+              filtersApplied={!!selectedEstablishments?.length}
               handlePdfExportation={handlePdfExportation}
               isMultiLocalizationEnabled={isMultiLocalizationEnabled}
               previewMode={props.previewMode}

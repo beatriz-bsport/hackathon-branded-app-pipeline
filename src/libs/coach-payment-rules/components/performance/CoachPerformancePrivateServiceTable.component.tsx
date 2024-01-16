@@ -39,6 +39,7 @@ type Props = {
   disablePdfButton?: boolean;
   has_coach_access_to_compensation_downloading?: boolean;
   isMultiLocalizationEnabled: boolean;
+  filtersApplied: boolean;
 };
 
 export function CoachPerformancePrivateServiceTable(props: Props) {
@@ -51,6 +52,7 @@ export function CoachPerformancePrivateServiceTable(props: Props) {
     disablePdfButton,
     has_coach_access_to_compensation_downloading,
     isMultiLocalizationEnabled,
+    filtersApplied,
   } = props;
   const { t } = useTranslation('coachPerformance');
   const classes = useStyles(!!props.displayChip);
@@ -130,7 +132,7 @@ export function CoachPerformancePrivateServiceTable(props: Props) {
                             ) || { name: 'default' }
                           ).name,
                       ]),
-                      'payroll.csv',
+                      `payroll${filtersApplied ? '-filtered' : ''}.csv`,
                     )
                   }
                   variant="contained"

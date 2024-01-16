@@ -192,6 +192,13 @@ export class CoachPerformance extends React.Component<Props> {
                 displayLastUpdate
                 coachPaymentRulesByKind={coachPaymentRulesByKind}
                 coachWithPerformance={this.getFilteredAssociatedCoachWithPerformance()}
+                filtersApplied={
+                  !!getFilteredEstablishments(
+                    this.state.selectedEstablishments,
+                    this.state.selectedLocations,
+                    this.props.establishmentGroupList,
+                  )?.length
+                }
                 handlePdfExportation={this.handlePdfExportation}
                 isMultiLocalizationEnabled={
                   companyTheme?.enable_multi_localization

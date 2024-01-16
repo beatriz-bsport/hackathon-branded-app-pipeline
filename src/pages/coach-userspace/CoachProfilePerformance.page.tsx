@@ -176,6 +176,13 @@ export const CoachProfilePerformance: React.FC<Props> = (props: Props) => {
             asCoach
             hideRuleSetter
             coachWithPerformance={filteredAssociatedCoachWithPerformance}
+            filtersApplied={
+              !!getFilteredEstablishments(
+                selectedEstablishments,
+                selectedLocations,
+                establishmentGroupList,
+              )?.length
+            }
             handlePdfExportation={handlePdfExport}
             has_coach_access_to_compensation_downloading={
               has_coach_access_to_compensation_downloading

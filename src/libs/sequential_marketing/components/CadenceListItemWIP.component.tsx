@@ -1,61 +1,58 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-
+import chroma from 'chroma-js';
+import Immutable from 'seamless-immutable';
 import classNames from 'classnames';
 
+import type { Theme } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import chroma from 'chroma-js';
-
-import IconButton from '@material-ui/core/IconButton';
-import DragIndicatorIcon from '@material-ui/icons/DragIndicator';
-import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
-
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import DragIndicatorIcon from '@material-ui/icons/DragIndicator';
+import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
+import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
+import Skeleton from '@material-ui/lab/Skeleton';
 import Tooltip from '@material-ui/core/Tooltip';
+import Typography from '@material-ui/core/Typography';
 
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
-import { Theme } from '@material-ui/core';
-import Immutable from 'seamless-immutable';
-import SecondaryActionButton from '#components/button/SecondaryActionButton.component';
+import { SequentialMarketingColors } from '#libs/sequential_marketing/constants';
 import CadenceStatusChip from '#libs/sequential_marketing/components/CadenceStatusChip.component';
-import type { Cadence } from '#libs/sequential_marketing/types';
 import NestedMenuSelectorIconButton from '#components/menu/nested';
-import { SequentialMarketingColors } from '../constants';
+import SecondaryActionButton from '#components/button/SecondaryActionButton.component';
+
+import type { Cadence } from '#libs/sequential_marketing/types';
 
 type Props = {
   cadence: Cadence;
   sortable?: boolean;
-  onOpenCadenceDetails?: (cadence: Cadence) => void;
+  onOpen?: (cadence: Cadence) => void;
   onEdit?: (cadence: Cadence) => void;
   onDelete?: (cadence: Cadence) => void;
   onRestore?: (cadence: Cadence) => void;
-  onMetricsButtonClick?: (cadence: Cadence) => void;
+  onSelect?: (cadence: Cadence) => void;
   withoutIndex?: boolean;
   dense?: boolean;
-  selectedId?: number;
+  selected?: boolean;
   archived?: boolean;
-  status: any;
 };
 
 export const CadenceListItemWIP: React.FC<Props> = ({
   cadence,
   sortable,
   withoutIndex,
-  onOpenCadenceDetails,
+  onOpen,
   onDelete,
   onEdit,
   onRestore,
-  onMetricsButtonClick,
+  onSelect,
   dense,
-  selectedId,
+  selected,
   archived,
-  status,
 }) => {
-  const classes = useListItemStyles({ archived });
+  const classes = useListItemStyles({ archived, selected });
   const { t } = useTranslation('marketing');
 
   const { listeners, attributes, setNodeRef, transform, transition } =
@@ -66,34 +63,21 @@ export const CadenceListItemWIP: React.FC<Props> = ({
       },
     });
 
-  const handleOnMetricsButtonClick = React.useCallback(
-    () => onMetricsButtonClick && onMetricsButtonClick(cadence),
-    [cadence, onMetricsButtonClick],
-  );
-
-  const handleonOpenCadenceDetails = React.useCallback(
+  const handleOpen = React.useCallback(
     (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       event.stopPropagation();
-      onOpenCadenceDetails?.(cadence);
+      onOpen?.(cadence);
     },
-    [onOpenCadenceDetails, cadence],
+    [onOpen, cadence],
   );
 
-  const handleEdit = React.useCallback(
-    () => (event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
-      event.stopPropagation();
-      onEdit(cadence);
-    },
-    [onEdit, cadence],
-  );
+  const handleEdit = React.useCallback(() => {
+    onEdit(cadence);
+  }, [onEdit, cadence]);
 
-  const handleDelete = React.useCallback(
-    () => (event: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
-      event.stopPropagation();
-      onDelete(cadence);
-    },
-    [onDelete, cadence],
-  );
+  const handleDelete = React.useCallback(() => {
+    onDelete(cadence);
+  }, [onDelete, cadence]);
 
   const handleRestore = React.useCallback(
     (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -101,6 +85,14 @@ export const CadenceListItemWIP: React.FC<Props> = ({
       onRestore(cadence);
     },
     [onRestore, cadence],
+  );
+
+  const handleSelect = React.useCallback(
+    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      event.stopPropagation();
+      onSelect(cadence);
+    },
+    [onSelect, cadence],
   );
 
   const actions = React.useMemo(
@@ -130,10 +122,7 @@ export const CadenceListItemWIP: React.FC<Props> = ({
       })}
       style={{ transform: CSS.Translate.toString(transform), transition }}
     >
-      <ListItem
-        classes={{ root: classes.listItemOutter }}
-        selected={cadence?.id === selectedId}
-      >
+      <ListItem classes={{ root: classes.listItemOutter }}>
         {!archived && sortable && (
           <IconButton
             className={classes.iconButton}
@@ -154,25 +143,27 @@ export const CadenceListItemWIP: React.FC<Props> = ({
               {cadence.priority_index}
             </Typography>
           )}
-          {!archived && !!status && <CadenceStatusChip status={status} />}
+          {!archived && !!cadence?.cadence_status && (
+            <CadenceStatusChip status={cadence.cadence_status} />
+          )}
           <Typography noWrap color="textSecondary" variant="body1">
             {cadence.name}
           </Typography>
         </div>
         <div className={classes.listItemAction}>
-          {!archived && onOpenCadenceDetails && (
+          {!archived && onOpen && (
             <Button
               color="primary"
-              onClick={handleonOpenCadenceDetails}
+              onClick={handleOpen}
               size="small"
               variant="outlined"
             >
               {t('audience.listItem.labels.open')}
             </Button>
           )}
-          {!archived && onMetricsButtonClick && (
+          {!archived && onSelect && (
             <SecondaryActionButton
-              onClick={handleOnMetricsButtonClick}
+              onClick={handleSelect}
               size="small"
               variant="outlined"
             >
@@ -201,71 +192,86 @@ export const CadenceListItemWIP: React.FC<Props> = ({
   );
 };
 
-const useListItemStyles = makeStyles<Theme, Pick<Props, 'archived'>>(
-  (theme) => ({
-    fullWidth: {
-      width: '100%',
+export const CadenceListItemLoading: React.FC = React.memo(() => {
+  const classes = useListItemStyles({});
+
+  return (
+    <ListItem classes={{ root: classes.listItemOutter }}>
+      <div className={classes.leftItem}>
+        <Skeleton animation="wave" height={30} variant="circle" width={30} />
+        <Skeleton animation="wave" variant="text" width={100} />
+      </div>
+    </ListItem>
+  );
+});
+
+const useListItemStyles = makeStyles<
+  Theme,
+  Pick<Props, 'archived' | 'selected'>
+>((theme) => ({
+  fullWidth: {
+    width: '100%',
+  },
+  listItemOutter: {
+    backgroundColor: 'white',
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderRadius: theme.spacing(1),
+    padding: theme.spacing(2),
+    border: ({ selected }) =>
+      selected && `2px solid ${theme.palette.primary.main}`,
+  },
+  iconButton: { padding: 0 },
+  spacedItems: {
+    paddingBottom: theme.spacing(2),
+  },
+  listItemContent: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: theme.spacing(1),
+    paddingLeft: ({ archived }) => (!archived ? theme.spacing(2) : 0),
+    overflow: 'hidden',
+  },
+  listItemAction: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    flex: 1,
+    gap: theme.spacing(1),
+    alignItems: 'center',
+    paddingLeft: theme.spacing(2),
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
     },
-    listItemOutter: {
-      backgroundColor: 'white',
-      display: 'flex',
-      alignItems: 'center',
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      borderRadius: theme.spacing(1),
-      padding: theme.spacing(2),
-      border: `1px solid #E6E6E6`,
+  },
+  indexContainer: {
+    borderRadius: theme.spacing(1),
+    textAlign: 'center',
+    verticalAlign: 'middle',
+    width: theme.spacing(4),
+    // the minWidth is here in case workflow's name is too large : it prevents the indexContainer's width from reducing
+    minWidth: theme.spacing(4),
+    height: theme.spacing(4),
+    backgroundColor: chroma(theme.palette.primary.main).alpha(0.09).hex(),
+  },
+  skeletonBackground: {
+    animationName: `$customPulse`,
+    animationDuration: '1s',
+    animationIterationCount: 'infinite',
+  },
+  '@keyframes customPulse': {
+    '0%': {
+      color: 'rgba(0, 0, 0, 0.11)',
     },
-    iconButton: { padding: 0 },
-    spacedItems: {
-      paddingBottom: theme.spacing(2),
+    '50%': {
+      color: 'rgba(0, 0, 0, 0.26)',
     },
-    listItemContent: ({ archived }) => ({
-      display: 'flex',
-      alignItems: 'center',
-      flexDirection: 'row',
-      gap: theme.spacing(1),
-      paddingLeft: !archived ? theme.spacing(2) : 0,
-      overflow: 'hidden',
-    }),
-    listItemAction: {
-      display: 'flex',
-      justifyContent: 'flex-end',
-      flex: 1,
-      gap: theme.spacing(1),
-      alignItems: 'center',
-      paddingLeft: theme.spacing(2),
-      [theme.breakpoints.down('sm')]: {
-        display: 'none',
-      },
+    '100%': {
+      color: 'rgba(0, 0, 0, 0.11)',
     },
-    indexContainer: {
-      borderRadius: theme.spacing(1),
-      textAlign: 'center',
-      verticalAlign: 'middle',
-      width: theme.spacing(4),
-      // the minWidth is here in case workflow's name is too large : it prevents the indexContainer's width from reducing
-      minWidth: theme.spacing(4),
-      height: theme.spacing(4),
-      backgroundColor: chroma(theme.palette.primary.main).alpha(0.09).hex(),
-    },
-    skeletonBackground: {
-      animationName: `$customPulse`,
-      animationDuration: '1s',
-      animationIterationCount: 'infinite',
-    },
-    '@keyframes customPulse': {
-      '0%': {
-        color: 'rgba(0, 0, 0, 0.11)',
-      },
-      '50%': {
-        color: 'rgba(0, 0, 0, 0.26)',
-      },
-      '100%': {
-        color: 'rgba(0, 0, 0, 0.11)',
-      },
-    },
-  }),
-);
+  },
+}));
 
 export default React.memo(CadenceListItemWIP);

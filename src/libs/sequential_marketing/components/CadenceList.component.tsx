@@ -25,9 +25,9 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 
-import CadenceListItem, {
+import CadenceListItemWIP, {
   CadenceListItemLoading,
-} from './CadenceListItem.component';
+} from './CadenceListItemWIP.component';
 
 import type { Cadence } from '#libs/sequential_marketing/types';
 
@@ -36,11 +36,11 @@ type Props = {
   cadenceLoading: boolean;
   archivedVersion?: boolean;
   selectedId?: number;
+  onOpen?: (cadence: Cadence) => void;
   onClickItem?: (cadence: Cadence) => void;
   onDelete?: (cadence: Cadence) => void;
   onEdit?: (cadence: Cadence) => void;
   onRestore?: (id: number) => void;
-  onShow?: (id: number) => void;
   updateCadencePriorityIndex?: (
     id: number,
     data: { priority_index: number },
@@ -52,11 +52,11 @@ export const CadenceList: React.FC<Props> = ({
   cadenceLoading,
   archivedVersion,
   selectedId,
+  onOpen,
   onClickItem,
   onDelete,
   onEdit,
   onRestore,
-  onShow,
   updateCadencePriorityIndex,
 }) => {
   const { t } = useTranslation('marketing');
@@ -66,26 +66,11 @@ export const CadenceList: React.FC<Props> = ({
     [],
   );
 
-  const handleEditCadence = React.useCallback(
-    (cadence: Cadence) => onEdit(cadence),
-    [onEdit],
-  );
-  const handleShowCadence = React.useCallback(
-    (cadence: Cadence) => onShow(cadence.id),
-    [onShow],
-  );
-  const handleDeleteCadence = React.useCallback(
-    (cadence: Cadence) => onDelete(cadence),
-    [onDelete],
-  );
   const handleRestoreCadence = React.useCallback(
     (cadence: Cadence) => onRestore(cadence.id),
     [onRestore],
   );
-  const handleClickItem = React.useCallback(
-    (cadence: Cadence) => onClickItem(cadence),
-    [onClickItem],
-  );
+
   const handleSwitchCollapseState = React.useCallback(
     () => setCollapseOpen(!collapseOpen),
     [setCollapseOpen, collapseOpen],
@@ -210,7 +195,7 @@ export const CadenceList: React.FC<Props> = ({
         <Collapse in={collapseOpen}>
           <List>
             {cadences.map((cadence) => (
-              <CadenceListItem
+              <CadenceListItemWIP
                 key={`cadence_disabled${cadence.id}`}
                 dense
                 withoutIndex
@@ -239,16 +224,16 @@ export const CadenceList: React.FC<Props> = ({
           strategy={verticalListSortingStrategy}
         >
           {cadenceUpdatedList?.map((cadence) => (
-            <CadenceListItem
+            <CadenceListItemWIP
               key={`cadence_enabled${cadence.id}`}
               sortable
               cadence={cadence}
-              onClick={onClickItem && handleClickItem}
-              onDelete={onDelete && handleDeleteCadence}
-              onEdit={onEdit && handleEditCadence}
+              onDelete={onDelete}
+              onEdit={onEdit}
+              onOpen={onOpen}
               onRestore={onRestore && handleRestoreCadence}
-              onShow={onShow && handleShowCadence}
-              selectedId={selectedId}
+              onSelect={onClickItem}
+              selected={cadence.id === selectedId}
             />
           ))}
         </SortableContext>

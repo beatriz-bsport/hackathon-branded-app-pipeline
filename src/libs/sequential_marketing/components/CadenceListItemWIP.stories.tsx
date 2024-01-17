@@ -4,13 +4,14 @@ import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import CadenceListItemWIP from './CadenceListItemWIP.component';
 import List from '@material-ui/core/List';
 import { makeStyles } from '@material-ui/styles';
-import { listWorkflowFactory } from '../factories';
+import { cadenceListFactory } from '#libs/sequential_marketing/factories';
 import { action } from '@storybook/addon-actions';
+import { CadenceStatus } from '../constants';
 
 // displayName must be overriden for preview code to actually work on mdx document.
 CadenceListItemWIP.displayName = 'AudienceListItemWIP';
 
-const fakeCadences = listWorkflowFactory(3);
+const fakeCadences = cadenceListFactory(3);
 
 const actions = {
   onOpenCadenceDetails: action('onOpenCadenceDetails'),
@@ -18,6 +19,7 @@ const actions = {
   onShow: action('onShow'),
   onEdit: action('onEdit'),
   onDelete: action('onDelete'),
+  onSelect: action('onSelect'),
 };
 
 const CadenceListItemWIPStorybook: ComponentStory<typeof CadenceListItemWIP> = (
@@ -40,7 +42,7 @@ const CadenceListItemWIPStorybook: ComponentStory<typeof CadenceListItemWIP> = (
 const baseArgs = {
   dense: true,
   sortable: true,
-  status: '1',
+  status: CadenceStatus.ACTIVE,
 };
 
 export const CadenceListItemWIPDefault = CadenceListItemWIPStorybook.bind({});
@@ -54,20 +56,42 @@ CadenceListItemWIPArchived.args = {
 };
 
 export default {
-  title: 'Components/Cadences/CadenceListItemWIP',
+  title: 'Components/Cadences/LandingPage/CadenceListItemWIP',
   component: CadenceListItemWIP,
+  parameters: {
+    docs: {
+      page: null,
+    },
+    description: {
+      component: 'List item for a workflow',
+    },
+    backgrounds: {
+      default: 'light-grey',
+      values: [
+        { name: 'light-grey', value: '#f7f7f7' },
+        { name: 'grey', value: '#e2e2e2' },
+        { name: 'white', value: '#ffffff' },
+      ],
+    },
+  },
   argTypes: {
     onOpenCadenceDetails: actions.onOpenCadenceDetails,
     onMetricsButtonClick: actions.onMetricsButtonClick,
     onShow: actions.onShow,
     onEdit: actions.onEdit,
     onDelete: actions.onDelete,
+    onSelect: actions.onSelect,
     status: {
       control: {
         type: 'inline-radio',
       },
-      options: ['1', '2', '3'],
-      defaultValue: '1',
+      options: Object.values(CadenceStatus),
+      defaultValue: CadenceStatus.ACTIVE,
+    },
+    selected: {
+      control: { type: 'boolean' },
+      description: 'Specifies whether the list item is selected or not.',
+      defaultValue: false,
     },
   },
 } as ComponentMeta<typeof CadenceListItemWIP>;

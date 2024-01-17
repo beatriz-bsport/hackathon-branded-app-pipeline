@@ -1,4 +1,5 @@
-.bs-new-offer-booking__spot-selector__blueprint {
+.bs-new-offer-booking__spot-selector__blueprint--web-view {
   width: 100dvw;
   overflow: auto;
+  padding-bottom: 30vh;
 }

@@ -186,7 +186,7 @@ export class SpotSchedulingSelector extends Component<Props, State> {
       return null;
     }
     return (
-      <div className="bs-new-offer-booking__spot-selector__blueprint">
+      <div className="bs-new-offer-booking__spot-selector__blueprint--web-view">
         {this.props.roomBlueprintsById[this.props.offer.room_blueprint] && (
           <MarketplaceSpotSelector
             forceCloseOnSelectForMobile

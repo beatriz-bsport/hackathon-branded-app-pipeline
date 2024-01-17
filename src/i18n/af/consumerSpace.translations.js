@@ -180,7 +180,10 @@ exports.default = {
         workshop: { title: 'Grouped with this workshop' },
       },
       cancelModal: {
-        title: 'Cancel session',
+        title: {
+          consumerBooking: 'Cancel this session',
+          consumerPrivateBooking: 'Cancel this appointment',
+        },
         creditsWillBeRefunded: '{{count}} credit will be refunded.',
         creditsWillBeRefunded_plural: '{{count}} credits will be refunded.',
         noRefund: "Your credit(s) won't be refunded for late cancellation.",
@@ -193,6 +196,10 @@ exports.default = {
               'Contact the studio if you wish to cancel a single session.',
           },
           listTitle: 'Bookings that will be canceled:',
+        },
+        confirm: {
+          consumerBooking: 'Cancel session',
+          consumerPrivateBooking: 'Cancel appointment',
         },
       },
       onlineWarningModal: {

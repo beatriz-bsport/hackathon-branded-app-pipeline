@@ -156,7 +156,6 @@ const EditReferralProgramSettingsFormHOC = withFormik<Props, FormikValues>({
       id: values.id,
       name: `referral_program_${companyTheme.company}`,
       company: companyTheme.company,
-      is_referral_program_activated: values.is_referral_program_activated,
       minimum_basket_amount: values.minimum_basket_amount.toFixed(2),
       maximum_referral_uses: values.maximum_referral_uses,
       amount_off_referred: values.amount_off_referred.toFixed(2),

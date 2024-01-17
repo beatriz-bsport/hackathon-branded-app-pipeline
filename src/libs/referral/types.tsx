@@ -9,7 +9,6 @@ export type ReferralProgram = {
   id: number;
   name: string;
   company: number;
-  is_referral_program_activated: boolean;
   minimum_basket_amount: string;
   maximum_referral_uses: number;
   amount_off_referred: string;

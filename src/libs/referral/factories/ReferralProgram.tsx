@@ -16,7 +16,6 @@ export const referralProgramFactory = (): ReferralProgram => {
     id: faker.number.int(100),
     name: generateRandomName(faker),
     company: faker.number.int(10000),
-    is_referral_program_activated: faker.datatype.boolean(),
     minimum_basket_amount: faker.number.float(70).toFixed(2),
     maximum_referral_uses: faker.number.int({ min: 1, max: 10 }),
     amount_off_referred: faker.number.float(20).toFixed(2),

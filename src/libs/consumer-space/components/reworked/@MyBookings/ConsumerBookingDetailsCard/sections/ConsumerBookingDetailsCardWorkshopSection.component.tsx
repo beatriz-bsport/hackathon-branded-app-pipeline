@@ -26,8 +26,8 @@ type WorkshopLinkedOfferProps = Pick<
 const WorkshopLinkedOfferItem: React.FC<WorkshopLinkedOfferProps> = React.memo(
   ({ item, timezoneName, sessionTimeDisplay }) => {
     const selectedBookingDate = useConsumerBookingDateTime({
-      offerDateStart: item?.offer?.date_start,
-      offerDurationMinute: item?.offer?.duration_minute,
+      dateStart: item?.offer?.date_start,
+      durationMinute: item?.offer?.duration_minute,
       establishmentTimezoneName: item?.establishment?.tzname,
       isMetaActivityBroadcast: item?.meta_activity?.is_broadcast,
       sessionTimeDisplay,

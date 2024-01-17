@@ -9,9 +9,8 @@ import { formatAsTime, formatMinutes } from '#utils/datetime';
 /**
  * Get the formatted date from a given booking for member profile
  *
- * @param t The t function from i18n with `datetime` NS loaded
- * @param offerDateStart The start date of the offer
- * @param offerDurationMinute The duration of the offer in minutes
+ * @param dateStart The start date of the booking
+ * @param durationMinute The duration of the booking in minutes
  * @param establishmentTimezoneName The establishment timezone retrieved from the company theme
  * @param isMetaActivityBroadcast Whether the offer's activity is online or not
  * @param sessionTimeDisplay The time display configuration retrieved from the company offer
@@ -19,8 +18,8 @@ import { formatAsTime, formatMinutes } from '#utils/datetime';
  *
  * @example
  * const bookingDate = useConsumerBookingDateTime({
- *   offerDateStart,
- *   offerDurationMinute,
+ *   dateStart,
+ *   durationMinute,
  *   establishmentTimezoneName,
  *   isMetaActivityBroadcast,
  *   sessionTimeDisplay,
@@ -29,15 +28,15 @@ import { formatAsTime, formatMinutes } from '#utils/datetime';
  * // Wed 18 May • 09:30 AM - 10:30 AM
  */
 export default function useConsumerBookingDateTime({
-  offerDateStart,
-  offerDurationMinute,
+  dateStart,
+  durationMinute,
   establishmentTimezoneName,
   isMetaActivityBroadcast,
   sessionTimeDisplay,
   timezoneName,
 }: {
-  offerDateStart: string;
-  offerDurationMinute: number;
+  dateStart: string;
+  durationMinute: number;
   establishmentTimezoneName: string;
   isMetaActivityBroadcast: boolean;
   sessionTimeDisplay: MarketPlaceSessionTimeDisplay;
@@ -46,19 +45,19 @@ export default function useConsumerBookingDateTime({
   const { t } = useTranslation('datetime');
 
   const getOfferHours = useCallback(() => {
-    if (offerDateStart && establishmentTimezoneName) {
+    if (dateStart && establishmentTimezoneName) {
       const tz = isMetaActivityBroadcast
         ? moment.tz.guess()
         : establishmentTimezoneName;
 
-      const startMoment = moment(offerDateStart).tz(tz);
+      const startMoment = moment(dateStart).tz(tz);
       const startHour = formatAsTime(startMoment, tz);
 
-      const duration = moment.duration(offerDurationMinute, 'minutes');
+      const duration = moment.duration(durationMinute, 'minutes');
       const durationInMinutes = duration.asMinutes();
       const readableDuration = formatMinutes(durationInMinutes, t);
 
-      const endMoment = moment(offerDateStart).add(duration).tz(tz);
+      const endMoment = moment(dateStart).add(duration).tz(tz);
 
       if (!endMoment.isSame(startMoment, 'day')) {
         return { startTime: startHour, endTimeOrDuration: '' };
@@ -75,19 +74,19 @@ export default function useConsumerBookingDateTime({
       }
     }
 
-    if (offerDateStart) {
+    if (dateStart) {
       const tz = isMetaActivityBroadcast
         ? moment.tz.guess()
         : timezoneName || moment.tz.guess();
-      const startMoment = moment(offerDateStart).tz(tz);
+      const startMoment = moment(dateStart).tz(tz);
       const startHour = startMoment.format('HH:mm');
 
-      const duration = moment.duration(offerDurationMinute, 'minutes');
+      const duration = moment.duration(durationMinute, 'minutes');
       const durationInMinutes = duration.asMinutes();
       const readableDuration = formatMinutes(durationInMinutes, t);
 
-      const endMoment = moment(offerDateStart)
-        .add(moment.duration(offerDurationMinute, 'minutes'))
+      const endMoment = moment(dateStart)
+        .add(moment.duration(durationMinute, 'minutes'))
         .tz(tz);
       const endHour = endMoment.format('HH:mm');
 
@@ -108,18 +107,15 @@ export default function useConsumerBookingDateTime({
   }, [
     establishmentTimezoneName,
     isMetaActivityBroadcast,
-    offerDateStart,
-    offerDurationMinute,
+    dateStart,
+    durationMinute,
     sessionTimeDisplay,
     t,
     timezoneName,
   ]);
 
   const offerHours = getOfferHours();
-  let date = useMemo(
-    () => moment(offerDateStart).format('ddd D MMMM'),
-    [offerDateStart],
-  );
+  let date = useMemo(() => moment(dateStart).format('ddd D MMMM'), [dateStart]);
 
   if (offerHours.startTime && offerHours.endTimeOrDuration) {
     date += ` • ${offerHours.startTime} - ${offerHours.endTimeOrDuration}`;

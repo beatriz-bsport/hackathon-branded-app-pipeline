@@ -189,6 +189,7 @@ export function isAmPmTimeFormat() {
  * If the date of cancellation is after the limit => late cancellation
  * @param canceledDate The date when the booking has been cancelled by the member
  * @param maxDiscardMinutes The max number of minutes allowed for the member to cancel before it starts
+ * @returns {boolean}
  */
 export const getIsLateBookingCancellation = (
   canceledDate: string,
@@ -205,3 +206,13 @@ export const getIsLateBookingCancellation = (
   }
   return false;
 };
+
+/**
+ * Returns whether the indicated date is in the pas or not
+ * @param date The date selected for comparison
+ * @returns {boolean}
+ */
+export function isDateInThePast(date: string) {
+  if (!date) return false;
+  return moment(date).isBefore(moment());
+}

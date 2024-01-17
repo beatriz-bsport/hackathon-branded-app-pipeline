@@ -14,6 +14,7 @@ import {
   OFFER_HOURS_SEPARATOR,
 } from '../constants';
 
+/** @deprecated Use `isDateInThePast` instead. */
 export function isOfferInThePast(offer: Offer | Offer_FULL | OfferREST) {
   if (!offer) return false;
   return moment(offer.date_start).isBefore(moment());

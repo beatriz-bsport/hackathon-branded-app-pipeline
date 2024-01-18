@@ -12,10 +12,10 @@ import CopyToClipboard from 'react-copy-to-clipboard';
 import { useTranslation } from 'react-i18next';
 import AddIcon from '@material-ui/icons/Add';
 import { Alert } from '@material-ui/lab';
-import type { ReferralProgram } from '#libs/referral/types';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import ReferralMemberSumupDialog from './ReferralMemberSumupDialog.component';
-import { ReferredVoucherTypeChoices } from '#libs/referral/constants';
+import { getReferredReduction } from '#libs/referral/utils';
+import { ReferralProgram } from '#libs/referral/types';
 
 type Props = {
   nbRemainingReferralUses: number;
@@ -77,23 +77,11 @@ const ReferralMemberSumup: React.FC<Props> = ({
     amount_reward_referring,
   } = referralProgram;
 
-  let referredReduction: string;
-  let hideReferredReduction: boolean;
-
-  switch (referred_voucher_type) {
-    case ReferredVoucherTypeChoices.REFERRED_VOUCHER_TYPE_AMOUNT:
-      referredReduction = getCurrencyDisplayWithPrice(amount_off_referred);
-      hideReferredReduction = parseInt(amount_off_referred) === 0;
-      break;
-
-    case ReferredVoucherTypeChoices.REFERRED_VOUCHER_TYPE_PERCENT:
-      referredReduction = `${percent_off_referred} %`;
-      hideReferredReduction = percent_off_referred === 0;
-      break;
-
-    default:
-      break;
-  }
+  const { referredReduction, hideReferredReduction } = getReferredReduction({
+    referred_voucher_type,
+    amount_off_referred,
+    percent_off_referred,
+  });
 
   const hideReferringReward = parseInt(amount_reward_referring) === 0;
 

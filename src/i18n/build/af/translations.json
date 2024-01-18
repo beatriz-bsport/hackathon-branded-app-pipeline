@@ -8160,6 +8160,7 @@
         "warning": "Please note: the referral program only applies to new members of the studio or franchise."
       }
     },
+    "checkoutValidation": { "title": "Sponsor a friend", "explain": "Get rewards by sharing your referral link with your friends." },
     "referralErrors": {
       "33000": { "title": "Referral link unusable", "description": "This referral link is not available for this studio." },
       "33001": {

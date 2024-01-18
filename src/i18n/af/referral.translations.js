@@ -120,6 +120,10 @@ const getTranslations = async () => {
           'Please note: the referral program only applies to new members of the studio or franchise.',
       },
     },
+    checkoutValidation: {
+      title: 'Sponsor a friend',
+      explain: 'Get rewards by sharing your referral link with your friends.',
+    },
     referralErrors: {
       [REFERRED_AND_REFERRING_MEMBERS_INCOMPATIBLE]: {
         title: 'Referral link unusable',

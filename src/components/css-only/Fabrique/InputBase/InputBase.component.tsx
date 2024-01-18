@@ -107,7 +107,6 @@ const InputBase: React.ForwardRefExoticComponent<
 > = forwardRef(
   (
     {
-      inputProps,
       inputRef,
       className,
       onBlur,
@@ -120,6 +119,7 @@ const InputBase: React.ForwardRefExoticComponent<
       isRequired,
       value,
       isChecked,
+      ...inputProps
     },
     inputForwardedRef,
   ) => {

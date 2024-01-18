@@ -57,7 +57,11 @@ import { CadencePanelMode } from './panel';
 
 import { SequentialMarketingColors, CadenceStatusColors } from './colors';
 
-import { CadenceMetricsSizes } from './metrics';
+import {
+  CadenceMetricsSizes,
+  CadenceStatus,
+  CADENCE_METRICS_LIST_PAGINATION,
+} from './metrics';
 
 import {
   AUDIENCE_FEATURE_NAME,
@@ -99,8 +103,10 @@ export {
   // COLORS
   SequentialMarketingColors,
   CadenceStatusColors,
-  // WORKFLOW ANALYISIS
+  // METRICS
   CadenceMetricsSizes,
+  CadenceStatus,
+  CADENCE_METRICS_LIST_PAGINATION,
   // STEPS
   HandleTypeChoices,
   DEFAULT_X_FOR_ENTRYSTEP,

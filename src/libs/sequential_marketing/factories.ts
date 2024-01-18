@@ -10,6 +10,7 @@ import {
   CADENCE_MARKETING_ACTION_CHOICES,
   MarketingActionKind,
   MarketingActions,
+  CadenceStatus,
 } from './constants';
 import type {
   Cadence,
@@ -249,6 +250,7 @@ export function cadenceFactory({
   entrypoint_step_id,
   initialized,
   is_multiple_visit_allowed,
+  cadence_status,
 }: Partial<Cadence>): Cadence {
   return {
     id: id || faker.number.int(),
@@ -263,6 +265,9 @@ export function cadenceFactory({
     entrypoint_step_id: entrypoint_step_id || faker.number.int(),
     initialized: initialized || true,
     is_multiple_visit_allowed: is_multiple_visit_allowed || false,
+    cadence_status:
+      cadence_status ||
+      faker.helpers.arrayElement(Object.values(CadenceStatus)),
   };
 }
 

@@ -3,7 +3,8 @@ import React from 'react';
 import type { PrivateBooking } from '#libs/private-service/types';
 import type { Booking, BookingREST } from '#libs/booking/types';
 import type { ErrorAndLoading } from '../types';
-import { ChipColor, ChipVariant } from '#Fabrique/Chip';
+import type { ChipColor, ChipVariant } from '#Fabrique/Chip';
+import type { WaitingListBookingOption } from '#libs/waiting-list/types';
 
 export type Profile = {
   name: string;
@@ -77,11 +78,23 @@ export type ConsumerBookingReworked = {
   };
 } & ErrorAndLoading;
 
+export type ConsumerBookingOptionReworked = {
+  page: number;
+  next_page: number | null;
+  previous_page: number | null;
+  count: number;
+  booking_options: {
+    allIds: number[];
+    byId: { [key: number]: WaitingListBookingOption };
+  };
+} & ErrorAndLoading;
+
 export type ConsumerStateReworked = {
   myBookings: {
     bookings: {
       future: ConsumerBookingReworked;
       past: ConsumerBookingReworked;
+      waitlist: ConsumerBookingOptionReworked;
     };
     privateBookings: {
       future: ConsumerPrivateBookingReworked;
@@ -90,6 +103,7 @@ export type ConsumerStateReworked = {
     bookingsWorkshop: {
       future: ConsumerBookingReworked;
       past: ConsumerBookingReworked;
+      waitlist: ConsumerBookingOptionReworked;
     };
   };
 };

@@ -47,6 +47,18 @@ const initialState: Immutable.Immutable<ConsumerStateReworked> =
             byId: {},
           },
         },
+        waitlist: {
+          page: 1,
+          next_page: null,
+          previous_page: null,
+          count: 0,
+          loading: false,
+          error: null,
+          bookings: {
+            allIds: [],
+            byId: {},
+          },
+        },
       },
       privateBookings: {
         future: {
@@ -88,6 +100,18 @@ const initialState: Immutable.Immutable<ConsumerStateReworked> =
           },
         },
         past: {
+          page: 1,
+          next_page: null,
+          previous_page: null,
+          count: 0,
+          loading: false,
+          error: null,
+          bookings: {
+            allIds: [],
+            byId: {},
+          },
+        },
+        waitlist: {
           page: 1,
           next_page: null,
           previous_page: null,
@@ -481,6 +505,18 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
               byId: {},
             },
           },
+          waitlist: {
+            page: 1,
+            next_page: null,
+            previous_page: null,
+            count: 0,
+            loading: false,
+            error: null,
+            bookings: {
+              allIds: [],
+              byId: {},
+            },
+          },
         },
         privateBookings: {
           future: {
@@ -522,6 +558,18 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
             },
           },
           past: {
+            page: 1,
+            next_page: null,
+            previous_page: null,
+            count: 0,
+            loading: false,
+            error: null,
+            bookings: {
+              allIds: [],
+              byId: {},
+            },
+          },
+          waitlist: {
             page: 1,
             next_page: null,
             previous_page: null,

@@ -1,9 +1,11 @@
 import { useCallback, useMemo, useState } from 'react';
 import moment from 'moment-timezone';
+import { useHistory } from 'react-router-dom';
 
 import type { BookingTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
 import type { BookingFilterTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/types';
 import type {
+  ConsumerBookingOptionReworked,
   ConsumerBookingReworked,
   ConsumerPrivateBookingReworked,
 } from '#libs/consumer-space/types';
@@ -12,7 +14,9 @@ import type {
   CancelBookingFilterParams,
   CancelPrivateBookingFilterParams,
   ConsumerBooking,
+  ConsumerBookingOption,
   ConsumerPrivateBooking,
+  ConsumerSpaceCancelBookingParams,
 } from '#libs/booking/types';
 import type { OptionCallback } from '../../../../../../state/types';
 import type {
@@ -23,15 +27,24 @@ import { BookingFilterTabEnum } from '#libs/consumer-space/components/reworked/@
 import type { Establishment } from '#libs/establishment/types';
 import type { MetaActivity } from '#libs/meta-activity/types';
 import type { PrivateBooking } from '#libs/private-service/types';
+import type {
+  DiscardBookingOptionParams,
+  WaitingListBookingOption,
+} from '#libs/waiting-list/types';
 
 import { BookingTabEnum } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/constants';
+import { getOfferBookerUrl } from '#libs/marketplace/routing-utils';
 
 /** Provides all of the necessary data and fetch handlers for consumer booking page */
 export default function useConsumerBookingsDataManager({
+  isNewCheckoutFlow,
+  companyId,
   pastBookingsState,
   pastBookingsList,
   futureBookingsState,
   futureBookingsList,
+  bookingOptionsState,
+  bookingOptionsList,
   pastPrivateBookingsState,
   pastPrivateBookingsList,
   futurePrivateBookingsState,
@@ -40,9 +53,13 @@ export default function useConsumerBookingsDataManager({
   pastBookingsWorkshopList,
   futureBookingsWorkshopState,
   futureBookingsWorkshopList,
+  bookingOptionsWorkshopState,
+  bookingOptionsWorkshopList,
   getIsBookingsLoading,
   fetchPastBookings,
   fetchFutureBookings,
+  fetchBookingOptions,
+  fetchBookingOptionsWorkshop,
   fetchPastPrivateBookings,
   fetchFuturePrivateBookings,
   fetchPastBookingsWorkshop,
@@ -52,22 +69,31 @@ export default function useConsumerBookingsDataManager({
   getRelatedConsumerBookingsInGroup,
   fetchAssociatedBlueprintObjects,
   cancelPrivateBooking,
+  cancelBookingOption,
 }: {
+  isNewCheckoutFlow: boolean;
+  companyId: number;
   pastBookingsState: ConsumerBookingReworked;
   pastBookingsList: ConsumerBooking[];
   futureBookingsState: ConsumerBookingReworked;
   futureBookingsList: ConsumerBooking[];
+  bookingOptionsState: ConsumerBookingOptionReworked;
+  bookingOptionsList: ConsumerBookingOption[];
   pastPrivateBookingsState: ConsumerPrivateBookingReworked;
   pastPrivateBookingsList: ConsumerPrivateBooking[];
   futurePrivateBookingsState: ConsumerPrivateBookingReworked;
   futurePrivateBookingsList: ConsumerPrivateBooking[];
   pastBookingsWorkshopState: ConsumerBookingReworked;
   pastBookingsWorkshopList: ConsumerBooking[];
+  bookingOptionsWorkshopState: ConsumerBookingOptionReworked;
+  bookingOptionsWorkshopList: ConsumerBookingOption[];
   futureBookingsWorkshopState: ConsumerBookingReworked;
   futureBookingsWorkshopList: ConsumerBooking[];
   getIsBookingsLoading: (selectedTab: BookingTab) => boolean;
   fetchPastBookings: () => void;
   fetchFutureBookings: () => void;
+  fetchBookingOptions: () => void;
+  fetchBookingOptionsWorkshop: () => void;
   fetchPastPrivateBookings: () => void;
   fetchFuturePrivateBookings: () => void;
   fetchPastBookingsWorkshop: () => void;
@@ -83,24 +109,36 @@ export default function useConsumerBookingsDataManager({
     params: CancelPrivateBookingFilterParams,
     options?: OptionCallback<PrivateBooking>,
   ) => void;
+  cancelBookingOption: (
+    id: number,
+    params: DiscardBookingOptionParams,
+    options?: OptionCallback<WaitingListBookingOption>,
+  ) => void;
   getRelatedConsumerBookingsInGroup: (
     groupId: number,
     filterTab: BookingFilterTab,
   ) => ConsumerBooking[];
   fetchAssociatedBlueprintObjects: (blueprintid: number) => void;
 }) {
+  const history = useHistory();
+
   /* PAGE STATES */
   const [selectedTab, setSelectedTab] = useState<BookingTab>(
     BookingTabEnum.ACTIVITY,
   );
+
   const [selectedFilterTab, setSelectedFilterTab] = useState<BookingFilterTab>(
     BookingFilterTabEnum.FUTURE,
   );
+
   const [selectedBooking, setSelectedBooking] =
     useState<ConsumerBooking | null>(null);
 
   const [selectedPrivateBooking, setSelectedPrivateBooking] =
     useState<ConsumerPrivateBooking | null>(null);
+
+  const [selectedBookingOption, setSelectedBookingOption] =
+    useState<ConsumerBookingOption | null>(null);
 
   /* MODAL STATES */
   const [isCancelBookingModalOpen, setIsCancelBookingModalOpen] =
@@ -113,6 +151,11 @@ export default function useConsumerBookingsDataManager({
     selectedPrivateBookingForCancelation,
     setSelectedPrivateBookingForCancelation,
   ] = useState<ConsumerPrivateBooking | null>(null);
+
+  const [
+    selectedBookingOptionForCancelation,
+    setSelectedBookingOptionForCancelation,
+  ] = useState<ConsumerBookingOption | null>(null);
 
   const [isCancellingBooking, setIsCancellingBooking] =
     useState<boolean>(false);
@@ -139,14 +182,18 @@ export default function useConsumerBookingsDataManager({
         fetchPastBookings,
       [`${BookingTabEnum.ACTIVITY}-${BookingFilterTabEnum.FUTURE}`]:
         fetchFutureBookings,
+      [`${BookingTabEnum.ACTIVITY}-${BookingFilterTabEnum.WAITLIST}`]: () => {},
       [`${BookingTabEnum.APPOINTMENT}-${BookingFilterTabEnum.PAST}`]:
         fetchPastPrivateBookings,
       [`${BookingTabEnum.APPOINTMENT}-${BookingFilterTabEnum.FUTURE}`]:
         fetchFuturePrivateBookings,
+      [`${BookingTabEnum.APPOINTMENT}-${BookingFilterTabEnum.WAITLIST}`]:
+        () => {},
       [`${BookingTabEnum.WORKSHOP}-${BookingFilterTabEnum.PAST}`]:
         fetchPastBookingsWorkshop,
       [`${BookingTabEnum.WORKSHOP}-${BookingFilterTabEnum.FUTURE}`]:
         fetchFutureBookingsWorkshop,
+      [`${BookingTabEnum.WORKSHOP}-${BookingFilterTabEnum.WAITLIST}`]: () => {},
     }),
     [
       fetchFutureBookings,
@@ -163,6 +210,7 @@ export default function useConsumerBookingsDataManager({
       [BookingTabEnum.ACTIVITY]: () => {
         fetchPastBookings();
         fetchFutureBookings();
+        fetchBookingOptions();
       },
       [BookingTabEnum.APPOINTMENT]: () => {
         fetchPastPrivateBookings();
@@ -171,15 +219,18 @@ export default function useConsumerBookingsDataManager({
       [BookingTabEnum.WORKSHOP]: () => {
         fetchPastBookingsWorkshop();
         fetchFutureBookingsWorkshop();
+        fetchBookingOptionsWorkshop();
       },
     }),
     [
-      fetchFutureBookings,
-      fetchFutureBookingsWorkshop,
-      fetchFuturePrivateBookings,
       fetchPastBookings,
-      fetchPastBookingsWorkshop,
+      fetchFutureBookings,
+      fetchBookingOptions,
       fetchPastPrivateBookings,
+      fetchFuturePrivateBookings,
+      fetchPastBookingsWorkshop,
+      fetchFutureBookingsWorkshop,
+      fetchBookingOptionsWorkshop,
     ],
   );
 
@@ -188,14 +239,22 @@ export default function useConsumerBookingsDataManager({
       pastBookingsState,
     [`${BookingTabEnum.ACTIVITY}-${BookingFilterTabEnum.FUTURE}`]:
       futureBookingsState,
+    [`${BookingTabEnum.ACTIVITY}-${BookingFilterTabEnum.WAITLIST}`]:
+      bookingOptionsState,
     [`${BookingTabEnum.APPOINTMENT}-${BookingFilterTabEnum.PAST}`]:
       pastPrivateBookingsState,
     [`${BookingTabEnum.APPOINTMENT}-${BookingFilterTabEnum.FUTURE}`]:
       futurePrivateBookingsState,
+    // MOCK TO AVOID TS ERROR
+    [`${BookingTabEnum.APPOINTMENT}-${BookingFilterTabEnum.WAITLIST}`]: {
+      next_page: 1,
+    },
     [`${BookingTabEnum.WORKSHOP}-${BookingFilterTabEnum.PAST}`]:
       pastBookingsWorkshopState,
     [`${BookingTabEnum.WORKSHOP}-${BookingFilterTabEnum.FUTURE}`]:
       futureBookingsWorkshopState,
+    [`${BookingTabEnum.WORKSHOP}-${BookingFilterTabEnum.WAITLIST}`]:
+      bookingOptionsWorkshopState,
   };
 
   const bookingsListMap = useMemo(
@@ -217,6 +276,16 @@ export default function useConsumerBookingsDataManager({
     ],
   );
 
+  const bookingOptionsListMap = useMemo(
+    () => ({
+      [`${BookingTabEnum.ACTIVITY}-${BookingFilterTabEnum.WAITLIST}`]:
+        bookingOptionsList,
+      [`${BookingTabEnum.WORKSHOP}-${BookingFilterTabEnum.WAITLIST}`]:
+        bookingOptionsWorkshopList,
+    }),
+    [bookingOptionsList, bookingOptionsWorkshopList],
+  );
+
   const privateBookingListMap = useMemo(
     () => ({
       [`${BookingTabEnum.APPOINTMENT}-${BookingFilterTabEnum.PAST}`]:
@@ -233,8 +302,15 @@ export default function useConsumerBookingsDataManager({
     [BookingTabEnum.WORKSHOP]: futureBookingsWorkshopState.count,
   };
 
+  const waitlistBookingsCountMap = {
+    [BookingTabEnum.ACTIVITY]: bookingOptionsState.count,
+    [BookingTabEnum.WORKSHOP]: bookingOptionsWorkshopState.count,
+  };
+
   const currentState = currentStateMap[`${selectedTab}-${selectedFilterTab}`];
   const futureItemsCount = futureBookingsCountMap[selectedTab] || 0;
+  const waitlistItemsCount =
+    waitlistBookingsCountMap[selectedTab as 'activity' | 'workshop'] || 0;
 
   const nextPage = currentState.next_page;
 
@@ -243,7 +319,7 @@ export default function useConsumerBookingsDataManager({
       bookingsListMap[
         `${
           selectedTab as Exclude<BookingTabEnum, BookingTabEnum.APPOINTMENT>
-        }-${selectedFilterTab}`
+        }-${selectedFilterTab as 'future' | 'past'}`
       ] || [],
     [bookingsListMap, selectedFilterTab, selectedTab],
   );
@@ -251,9 +327,21 @@ export default function useConsumerBookingsDataManager({
   const privateBookingList: ConsumerPrivateBooking[] = useMemo(
     () =>
       privateBookingListMap[
-        `${selectedTab as BookingTabEnum.APPOINTMENT}-${selectedFilterTab}`
+        `${selectedTab as BookingTabEnum.APPOINTMENT}-${
+          selectedFilterTab as 'future' | 'past'
+        }`
       ] || [],
     [privateBookingListMap, selectedFilterTab, selectedTab],
+  );
+
+  const bookingOptionList: ConsumerBookingOption[] = useMemo(
+    () =>
+      bookingOptionsListMap[
+        `${
+          selectedTab as Exclude<BookingTabEnum, BookingTabEnum.APPOINTMENT>
+        }-${selectedFilterTab as 'waitlist'}`
+      ] || [],
+    [bookingOptionsListMap, selectedFilterTab, selectedTab],
   );
 
   const isBookingsLoading = useMemo(
@@ -296,6 +384,16 @@ export default function useConsumerBookingsDataManager({
   );
 
   /**
+   * Reset any previous selected booking for details card display\
+   * Effective on Tab + Filter tab change
+   */
+  const handleResetSelectedItems = useCallback(() => {
+    setSelectedBooking(null);
+    setSelectedPrivateBooking(null);
+    setSelectedBookingOption(null);
+  }, []);
+
+  /**
    * Fetch associated objects when changing tab Activities/Appointments/Workshops
    * @param type The new tab that will be selected
    */
@@ -303,20 +401,34 @@ export default function useConsumerBookingsDataManager({
     (type: BookingTab) => {
       resetConsumerState();
       handleFetchTabData?.(type);
+      // Fallback to avoid errors -- appointment waitlist dont exist
+      if (
+        selectedFilterTab === BookingFilterTabEnum.WAITLIST &&
+        type === BookingTabEnum.APPOINTMENT
+      ) {
+        setSelectedFilterTab(BookingFilterTabEnum.FUTURE);
+      }
       setSelectedTab(type);
-      setSelectedBooking(null);
-      setSelectedPrivateBooking(null);
+      handleResetSelectedItems();
     },
-    [handleFetchTabData, resetConsumerState],
+    [
+      handleFetchTabData,
+      handleResetSelectedItems,
+      resetConsumerState,
+      selectedFilterTab,
+    ],
   );
 
   /**
-   * Update local state when clicking on a filter tab Future/Past
+   * Update local state when clicking on a filter tab Future/Past/Waitlist
    * @param type The selected booking filter tab
    */
   const handleSetSelectedFilterTab = useCallback(
-    (type: BookingFilterTab) => setSelectedFilterTab(type),
-    [],
+    (type: BookingFilterTab) => {
+      setSelectedFilterTab(type);
+      handleResetSelectedItems();
+    },
+    [handleResetSelectedItems],
   );
 
   /**
@@ -347,6 +459,20 @@ export default function useConsumerBookingsDataManager({
   );
 
   /**
+   * Update local state when clicking on a booking option\
+   * Finds the associated booking option from an ID and set it as the selectedBookingOption
+   * @param bookingOptionId The ID of the selected booking option
+   */
+  const handleSetSelectedBookingOption = useCallback(
+    (bookingOptionId: number) => {
+      const bookingOption =
+        bookingOptionList.find((item) => item.id === bookingOptionId) || null;
+      setSelectedBookingOption(bookingOption);
+    },
+    [bookingOptionList],
+  );
+
+  /**
    * Toggle display the cancellation modal dialog
    */
   const handleToggleCancelBookingModal = useCallback(
@@ -365,6 +491,10 @@ export default function useConsumerBookingsDataManager({
       const privateBooking = privateBookingList.find(
         (item) => item.id === bookingId,
       );
+      const bookingOption = bookingOptionList.find(
+        (item) => item.id === bookingId,
+      );
+
       if (booking) {
         setSelectedBookingForCancelation(booking);
         handleToggleCancelBookingModal();
@@ -373,8 +503,17 @@ export default function useConsumerBookingsDataManager({
         setSelectedPrivateBookingForCancelation(privateBooking);
         handleToggleCancelBookingModal();
       }
+      if (bookingOption) {
+        setSelectedBookingOptionForCancelation(bookingOption);
+        handleToggleCancelBookingModal();
+      }
     },
-    [bookingList, handleToggleCancelBookingModal, privateBookingList],
+    [
+      bookingList,
+      privateBookingList,
+      bookingOptionList,
+      handleToggleCancelBookingModal,
+    ],
   );
 
   /**
@@ -386,11 +525,8 @@ export default function useConsumerBookingsDataManager({
       isRefundingCredit,
       bookingId,
       privateBookingId,
-    }: {
-      isRefundingCredit: boolean;
-      bookingId?: number;
-      privateBookingId?: number;
-    }) => {
+      bookingOptionId,
+    }: ConsumerSpaceCancelBookingParams) => {
       setIsCancellingBooking(true);
       const optionCallback = {
         onSuccess: () => {
@@ -411,7 +547,6 @@ export default function useConsumerBookingsDataManager({
           optionCallback,
         );
       }
-
       if (privateBookingId) {
         cancelPrivateBooking(
           privateBookingId,
@@ -419,9 +554,13 @@ export default function useConsumerBookingsDataManager({
           optionCallback,
         );
       }
+      if (bookingOptionId) {
+        cancelBookingOption(bookingOptionId, null, optionCallback);
+      }
     },
     [
       cancelBooking,
+      cancelBookingOption,
       cancelPrivateBooking,
       handleSetSelectedTab,
       handleToggleCancelBookingModal,
@@ -470,6 +609,24 @@ export default function useConsumerBookingsDataManager({
   );
 
   /**
+   * Handles the 'Book' button action when clicked from a booking card
+   * @param bookingBroadcastURL The URL of the selected online booking
+   * @param isMetaActivityBroadcast Whether the activity is online or not
+   * @param offerDateStart The start date of the offer
+   */
+  const handleBookSession = useCallback(
+    (offerId: number) => {
+      const offerBookerUrl = getOfferBookerUrl(
+        companyId,
+        offerId,
+        isNewCheckoutFlow,
+      );
+      history.push(offerBookerUrl);
+    },
+    [companyId, history, isNewCheckoutFlow],
+  );
+
+  /**
    * Toggle display the booking spot scheduling details modal dialog
    */
   const handleToggleSpotSchedulingModal = useCallback(() => {
@@ -502,8 +659,10 @@ export default function useConsumerBookingsDataManager({
     selectedFilterTab,
     selectedBooking,
     selectedPrivateBooking,
+    selectedBookingOption,
     selectedBookingForCancelation,
     selectedPrivateBookingForCancelation,
+    selectedBookingOptionForCancelation,
     isCancelBookingModalOpen,
     isOnlineWarningModalOpen,
     isSpotSchedulingModalOpen,
@@ -515,6 +674,7 @@ export default function useConsumerBookingsDataManager({
     handleSetSelectedFilterTab,
     handleSetSelectedBooking,
     handleSetSelectedPrivateBooking,
+    handleSetSelectedBookingOption,
     handleSelectBookingForCancelation,
     handleToggleCancelBookingModal,
     handleToggleOnlineWarningModal,
@@ -524,12 +684,15 @@ export default function useConsumerBookingsDataManager({
     handleJoinOnlineBooking,
     handleShowSpotDetails,
     handleCancelBooking,
+    handleBookSession,
     // COMPUTED STATE
     isBookingsLoading,
     futureItemsCount,
+    waitlistItemsCount,
     nextPage,
     bookingList,
     privateBookingList,
+    bookingOptionList,
     relatedBookingsInGroup,
   };
 }

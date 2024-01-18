@@ -341,6 +341,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(0.5, 1),
     textTransform: 'none',
     borderRadius: theme.spacing(1),
+    '&:disabled': { color: 'inherit' },
   },
   centerVerticalContent: {
     display: 'flex',

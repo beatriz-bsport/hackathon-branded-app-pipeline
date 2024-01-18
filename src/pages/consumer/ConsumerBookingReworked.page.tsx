@@ -27,6 +27,7 @@ import {
   resetConsumerState as resetConsumerStateAction,
   cancelBookingAsMember as cancelBookingAsMemberAction,
   cancelPrivateBookingAsMember as cancelPrivateBookingAsMemberAction,
+  cancelBookingOptionAsMember as cancelBookingOptionAsMemberAction,
 } from '#libs/consumer-space/actions';
 import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '#libs/establishment/actions';
 import {
@@ -58,6 +59,10 @@ import {
   getMyPastPrivateBookingsList,
   getMyFuturePrivateBookingsState,
   getMyFuturePrivateBookingsList,
+  getMyWaitlistBookingsState,
+  getMyWaitlistBookingsList,
+  getMyWaitlistBookingsWorkshopState,
+  getMyWaitlistBookingsWorkshopList,
 } from '#libs/consumer-space/selectors';
 import {
   getAssetByBlueprintByIdentifier,
@@ -311,7 +316,12 @@ export class ConsumerBooking extends React.Component<Props> {
   render() {
     return (
       <ConsumerBookingPageReworked
+        bookingOptionsList={this.props.myBookingOptionsList}
+        bookingOptionsState={this.props.myBookingOptionsState}
+        bookingOptionsWorkshopList={this.props.myBookingOptionsWorkshopList}
+        bookingOptionsWorkshopState={this.props.myBookingOptionsWorkshopState}
         cancelBooking={this.props.cancelBookingAsMember}
+        cancelBookingOption={this.props.cancelBookingOptionAsMember}
         cancelPrivateBooking={this.props.cancelPrivateBookingAsMember}
         companyTheme={this.props.theme}
         fetchAssociatedBlueprintObjects={this.fetchAssociatedBlueprintObjects}
@@ -365,6 +375,8 @@ const connector = connect(
     myPastBookingsList: getMyPastBookingsList(state),
     myFutureBookingsState: getMyFutureBookingsState(state),
     myFutureBookingsList: getMyFutureBookingsList(state),
+    myBookingOptionsState: getMyWaitlistBookingsState(state),
+    myBookingOptionsList: getMyWaitlistBookingsList(state),
     myPastPrivateBookingsState: getMyPastPrivateBookingsState(state),
     myPastPrivateBookingsList: getMyPastPrivateBookingsList(state),
     myFuturePrivateBookingsState: getMyFuturePrivateBookingsState(state),
@@ -373,6 +385,8 @@ const connector = connect(
     myPastBookingsWorkshopList: getMyPastBookingsWorkshopList(state),
     myFutureBookingsWorkshopState: getMyFutureBookingsWorkshopState(state),
     myFutureBookingsWorkshopList: getMyFutureBookingsWorkshopList(state),
+    myBookingOptionsWorkshopState: getMyWaitlistBookingsWorkshopState(state),
+    myBookingOptionsWorkshopList: getMyWaitlistBookingsWorkshopList(state),
     getIsBookingsLoading: (selectedTab: BookingTab) =>
       getConsumerBookingsLoading(state, selectedTab),
     getRelatedConsumerBookingsInGroup: (
@@ -414,6 +428,7 @@ const connector = connect(
       fetchMyFutureBookingWorkshopAsMemberAction,
     cancelBookingAsMember: cancelBookingAsMemberAction,
     cancelPrivateBookingAsMember: cancelPrivateBookingAsMemberAction,
+    cancelBookingOptionAsMember: cancelBookingOptionAsMemberAction,
   },
 );
 

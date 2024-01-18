@@ -26,6 +26,7 @@ import type {
   Booking,
   BookingREST,
   ConsumerBooking,
+  ConsumerBookingOption,
   ConsumerPrivateBooking,
 } from '#libs/booking/types';
 import type { PrivateBooking } from '#libs/private-service/types';
@@ -36,6 +37,7 @@ import type { BookingTab } from '#libs/consumer-space/components/reworked/@MyBoo
 
 import { BookingFilterTabEnum } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/constants';
 import { BookingTabEnum } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/constants';
+import { WaitingListBookingOption } from '#libs/waiting-list/types';
 
 const getAllBookingAndPrivateBookingWithIds = (state: RootState) => {
   return state.consumer.bookingAndPrivateBooking.allObj;
@@ -176,6 +178,34 @@ const _getConsumerPrivateBookingsList = createSelector(
   },
 );
 
+const _getConsumerBookingOptionsList = createSelector(
+  [
+    (state: RootState) => state,
+    (_, bookingOptionsList: WaitingListBookingOption[]) => bookingOptionsList,
+  ],
+  (state, bookingOptionsList) => {
+    const bookingOptions = (bookingOptionsList || []).map((bookingOption) => {
+      const establishment = getEstablishment(
+        state,
+        bookingOption?.establishment,
+      );
+      const level = getLevel(state, bookingOption?.level);
+      const coach = getCoach(state, bookingOption?.coach);
+      const metaActivity = getMetaActivity(state, bookingOption?.meta_activity);
+      return {
+        ...bookingOption,
+        establishment,
+        level,
+        booking: null,
+        coach,
+        meta_activity: metaActivity,
+      } as ConsumerBookingOption;
+    });
+
+    return bookingOptions;
+  },
+);
+
 export const getMyPastBookingsState = (state: RootState) =>
   state.consumerReworked.myBookings.bookings.past;
 
@@ -217,6 +247,33 @@ export const getMyFutureBookingsList = createSelector(
       ids.map((id) => data[id]),
     );
     return filterBookingListByOfferDate<ConsumerBooking>(bookings, 'asc');
+  },
+);
+
+export const getMyWaitlistBookingsState = (state: RootState) =>
+  state.consumerReworked.myBookings.bookings.waitlist;
+
+export const getMyWaitlistBookingsAllIds = (state: RootState) =>
+  state.consumerReworked.myBookings.bookings.waitlist.booking_options.allIds;
+
+export const getMyWaitlistBookingsById = (state: RootState) =>
+  state.consumerReworked.myBookings.bookings.waitlist.booking_options.byId;
+
+export const getMyWaitlistBookingsList = createSelector(
+  [
+    getMyWaitlistBookingsAllIds,
+    getMyWaitlistBookingsById,
+    (state: RootState) => state,
+  ],
+  (ids, data, state) => {
+    const bookingOptions = _getConsumerBookingOptionsList(
+      state,
+      ids.map((id) => data[id]),
+    );
+    return filterBookingListByOfferDate<ConsumerBookingOption>(
+      bookingOptions,
+      'asc',
+    );
   },
 );
 
@@ -325,6 +382,35 @@ export const getMyFutureBookingsWorkshopList = createSelector(
   },
 );
 
+export const getMyWaitlistBookingsWorkshopState = (state: RootState) =>
+  state.consumerReworked.myBookings.bookingsWorkshop.waitlist;
+
+export const getMyWaitlistBookingsWorkshopAllIds = (state: RootState) =>
+  state.consumerReworked.myBookings.bookingsWorkshop.waitlist.booking_options
+    .allIds;
+
+export const getMyWaitlistBookingsWorkshopById = (state: RootState) =>
+  state.consumerReworked.myBookings.bookingsWorkshop.waitlist.booking_options
+    .byId;
+
+export const getMyWaitlistBookingsWorkshopList = createSelector(
+  [
+    getMyWaitlistBookingsWorkshopAllIds,
+    getMyWaitlistBookingsWorkshopById,
+    (state: RootState) => state,
+  ],
+  (ids, data, state) => {
+    const bookingOptions = _getConsumerBookingOptionsList(
+      state,
+      ids.map((id) => data[id]),
+    );
+    return filterBookingListByOfferDate<ConsumerBookingOption>(
+      bookingOptions,
+      'asc',
+    );
+  },
+);
+
 export const getRelatedConsumerBookingsInGroup = createSelector(
   [
     getMyPastBookingsWorkshopList,
@@ -342,6 +428,7 @@ export const getRelatedConsumerBookingsInGroup = createSelector(
     const bookingsMap = {
       [BookingFilterTabEnum.PAST]: pastBookingsWorkshopList,
       [BookingFilterTabEnum.FUTURE]: futureBookingsWorkshopList,
+      [BookingFilterTabEnum.WAITLIST]: futureBookingsWorkshopList,
     };
     const bookings: ConsumerBooking[] = bookingsMap[filterTab];
     return bookings.filter((booking) => booking.offer?.group === groupId);

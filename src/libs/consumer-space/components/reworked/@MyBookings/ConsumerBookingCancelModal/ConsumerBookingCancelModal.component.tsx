@@ -15,7 +15,9 @@ import ListItem from '#Fabrique/ListItem';
 
 import type {
   ConsumerBooking,
+  ConsumerBookingOption,
   ConsumerPrivateBooking,
+  ConsumerSpaceCancelBookingParams,
 } from '#libs/booking/types';
 
 import './styles.css';
@@ -25,6 +27,8 @@ type Props = {
   booking?: ConsumerBooking;
   /** The selected consumer booking in the modal */
   privateBooking?: ConsumerPrivateBooking;
+  /** The selected consumer booking in the modal */
+  bookingOption?: ConsumerBookingOption;
   /** The timezone retrieved from the company's theme */
   timezone: string;
   /** The session time display config retrieved from the company's theme */
@@ -36,15 +40,7 @@ type Props = {
   /** Handler function fired when clicking on blanket or cancel button */
   onClose: () => void;
   /** Handler for booking cancellation */
-  cancelBooking: ({
-    isRefundingCredit,
-    bookingId,
-    privateBookingId,
-  }: {
-    isRefundingCredit: boolean;
-    bookingId?: number;
-    privateBookingId?: number;
-  }) => void;
+  cancelBooking: (params: ConsumerSpaceCancelBookingParams) => void;
 };
 
 type RelatedBookingProps = Pick<Props, 'timezone' | 'sessionTimeDisplay'> & {
@@ -75,6 +71,7 @@ const RelatedBookingItem: React.FC<RelatedBookingProps> = React.memo(
 const ConsumerBookingCancelModal: React.FC<Props> = ({
   booking,
   privateBooking,
+  bookingOption,
   sessionTimeDisplay,
   timezone,
   isLoading,
@@ -85,13 +82,18 @@ const ConsumerBookingCancelModal: React.FC<Props> = ({
   const { t } = useTranslation(['consumerSpace', 'datetime', 'common']);
 
   const bookingDate = useConsumerBookingDateTime({
-    dateStart: booking?.offer_date_start || privateBooking?.date_start,
+    dateStart:
+      booking?.offer_date_start ||
+      privateBooking?.date_start ||
+      bookingOption?.offer?.date_start,
     durationMinute:
       booking?.offer_duration_minute ||
-      privateBooking?.private_slot?.duration_minutes,
-    establishmentTimezoneName: (booking || privateBooking)?.establishment
-      ?.tzname,
-    isMetaActivityBroadcast: booking?.meta_activity?.is_broadcast,
+      privateBooking?.private_slot?.duration_minutes ||
+      bookingOption?.offer?.duration_minute,
+    establishmentTimezoneName: (booking || privateBooking || bookingOption)
+      ?.establishment?.tzname,
+    isMetaActivityBroadcast: (booking || bookingOption)?.meta_activity
+      ?.is_broadcast,
     sessionTimeDisplay,
     timezoneName: timezone,
   });
@@ -99,7 +101,9 @@ const ConsumerBookingCancelModal: React.FC<Props> = ({
   const hasRelatedBookings = !!relatedBookings && relatedBookings?.length > 0;
 
   const modalSubtitle = `${
-    booking?.meta_activity?.name || privateBooking?.private_service?.name
+    (booking || bookingOption)?.offer?.name_override ||
+    (booking || bookingOption)?.meta_activity?.name ||
+    privateBooking?.private_service?.name
   } - ${bookingDate}`;
 
   const isLateCancellation = useMemo(
@@ -118,33 +122,67 @@ const ConsumerBookingCancelModal: React.FC<Props> = ({
     ],
   );
 
-  const modalTitle = privateBooking
-    ? t(
-        'consumerSpace:reworked.myBookings.cancelModal.title.consumerPrivateBooking',
-      )
-    : t('consumerSpace:reworked.myBookings.cancelModal.title.consumerBooking');
-
-  const modalMessage = isLateCancellation
-    ? t('consumerSpace:reworked.myBookings.cancelModal.noRefund')
-    : t('consumerSpace:reworked.myBookings.cancelModal.creditsWillBeRefunded', {
-        count: booking?.credit_consumed || privateBooking?.private_slot?.credit,
-      });
-
-  const modalconfirmLabel = privateBooking
-    ? t(
-        'consumerSpace:reworked.myBookings.cancelModal.confirm.consumerPrivateBooking',
-      )
-    : t(
-        'consumerSpace:reworked.myBookings.cancelModal.confirm.consumerBooking',
+  const modalTitle = (() => {
+    if (bookingOption) {
+      return t(
+        'consumerSpace:reworked.myBookings.cancelModal.title.consumerBookingOption',
       );
+    }
+    if (privateBooking) {
+      return t(
+        'consumerSpace:reworked.myBookings.cancelModal.title.consumerPrivateBooking',
+      );
+    }
+    return t(
+      'consumerSpace:reworked.myBookings.cancelModal.title.consumerBooking',
+    );
+  })();
+
+  const modalMessage = (() => {
+    if (isLateCancellation) {
+      return t('consumerSpace:reworked.myBookings.cancelModal.noRefund');
+    }
+    if (bookingOption) {
+      return t('consumerSpace:reworked.myBookings.cancelModal.waitlist');
+    }
+    return t(
+      'consumerSpace:reworked.myBookings.cancelModal.creditsWillBeRefunded',
+      {
+        count: booking?.credit_consumed || privateBooking?.private_slot?.credit,
+      },
+    );
+  })();
+
+  const modalConfirmLabel = (() => {
+    if (bookingOption) {
+      return t(
+        'consumerSpace:reworked.myBookings.cancelModal.confirm.consumerBookingOption',
+      );
+    }
+    if (privateBooking) {
+      return t(
+        'consumerSpace:reworked.myBookings.cancelModal.confirm.consumerPrivateBooking',
+      );
+    }
+    return t(
+      'consumerSpace:reworked.myBookings.cancelModal.confirm.consumerBooking',
+    );
+  })();
 
   const handleSubmit = useCallback(() => {
     cancelBooking({
       isRefundingCredit: !isLateCancellation,
       bookingId: booking?.id,
       privateBookingId: privateBooking?.id,
+      bookingOptionId: bookingOption?.id,
     });
-  }, [cancelBooking, booking?.id, privateBooking?.id, isLateCancellation]);
+  }, [
+    cancelBooking,
+    booking?.id,
+    privateBooking?.id,
+    bookingOption?.id,
+    isLateCancellation,
+  ]);
 
   return (
     <Blanket
@@ -156,7 +194,7 @@ const ConsumerBookingCancelModal: React.FC<Props> = ({
         cancelLabel={t('common:back')}
         className="bs-consumer-booking-cancel-modal__dialog"
         color="warning"
-        confirmLabel={modalconfirmLabel}
+        confirmLabel={modalConfirmLabel}
         isSubmitLoading={isLoading}
         onCancel={onClose}
         onClose={onClose}

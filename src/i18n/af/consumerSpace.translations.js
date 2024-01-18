@@ -189,10 +189,12 @@ exports.default = {
         title: {
           consumerBooking: 'Cancel this session',
           consumerPrivateBooking: 'Cancel this appointment',
+          consumerBookingOption: 'Cancel this waitlist',
         },
         creditsWillBeRefunded: '{{count}} credit will be refunded.',
         creditsWillBeRefunded_plural: '{{count}} credits will be refunded.',
         noRefund: "Your credit(s) won't be refunded for late cancellation.",
+        waitlist: 'You will be removed from the waitlist.',
         group: {
           message:
             "This booking is part of a group.\nYou'll be automatically unsubscribed from all future sessions that are associated to this event. The credits will be refunded and can be used again.",
@@ -206,6 +208,7 @@ exports.default = {
         confirm: {
           consumerBooking: 'Cancel session',
           consumerPrivateBooking: 'Cancel appointment',
+          consumerBookingOption: 'Cancel waitlist',
         },
       },
       onlineWarningModal: {

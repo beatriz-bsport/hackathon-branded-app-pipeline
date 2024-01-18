@@ -114,6 +114,7 @@ type State = {
   paymentGroupId: number;
   isEstablishmentBillingGroupSelected: boolean;
   selectedEstablishmentBillingGroup: EstablishmentBillingGroup;
+  hideEstablishmentBillingGroupSelector: boolean;
 };
 export class BasketPaymentIntent extends React.Component<Props, State> {
   constructor(props: Props) {
@@ -126,6 +127,7 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
       paymentGroupId: null,
       isEstablishmentBillingGroupSelected: true,
       selectedEstablishmentBillingGroup: null,
+      hideEstablishmentBillingGroupSelector: false,
     };
   }
 
@@ -169,7 +171,14 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
             },
             {
               onSuccess: (data) => {
-                this.props.fetchMember(data.id);
+                this.props.fetchMember(data.id, {
+                  onError: () => {
+                    this.setState({
+                      hideEstablishmentBillingGroupSelector: true,
+                      isEstablishmentBillingGroupSelected: true,
+                    });
+                  },
+                });
               },
             },
           );
@@ -181,25 +190,27 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
   }
 
   componentDidUpdate(prevProps: Readonly<Props>): void {
-    loadDefaultEstablishmentBillingGroup(
-      this.state.theme?.enable_multi_localization,
-      this.state.selectedEstablishmentBillingGroup,
-      this.state.isEstablishmentBillingGroupSelected,
-      this.setSelectedEstablishmentBillingGroup,
-      this.setIsEstablishmentBillingGroupSelected,
-      {
-        defaultEstablishmentBillingGroup:
-          prevProps.defaultEstablishmentBillingGroup,
-        establishmentBillingGroups: prevProps.establishmentBillingGroups,
-        basketoffers: prevProps.basketOffers,
-      },
-      {
-        defaultEstablishmentBillingGroup:
-          this.props.defaultEstablishmentBillingGroup,
-        establishmentBillingGroups: this.props.establishmentBillingGroups,
-        basketOffers: this.props.basketOffers,
-      },
-    );
+    if (!this.state.hideEstablishmentBillingGroupSelector) {
+      loadDefaultEstablishmentBillingGroup(
+        this.state.theme?.enable_multi_localization,
+        this.state.selectedEstablishmentBillingGroup,
+        this.state.isEstablishmentBillingGroupSelected,
+        this.setSelectedEstablishmentBillingGroup,
+        this.setIsEstablishmentBillingGroupSelected,
+        {
+          defaultEstablishmentBillingGroup:
+            prevProps.defaultEstablishmentBillingGroup,
+          establishmentBillingGroups: prevProps.establishmentBillingGroups,
+          basketoffers: prevProps.basketOffers,
+        },
+        {
+          defaultEstablishmentBillingGroup:
+            this.props.defaultEstablishmentBillingGroup,
+          establishmentBillingGroups: this.props.establishmentBillingGroups,
+          basketOffers: this.props.basketOffers,
+        },
+      );
+    }
   }
 
   getSecret = () => {
@@ -318,6 +329,13 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
     }
   };
 
+  updateMemberBillingGroup = (establishmentBillingGroupId: number) => {
+    this.props.updateDefaultEstablishmentBillingGroup(
+      this.props.basket.member,
+      { default_establishment_billing_group: establishmentBillingGroupId },
+    );
+  };
+
   render() {
     const { classes, t } = this.props;
     if (!this.props.basket || !this.state.theme) {
@@ -429,7 +447,11 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
             enableMultiLocalization={
               this.state.theme?.enable_multi_localization
             }
-            establishmentBillingGroups={this.props.establishmentBillingGroups}
+            establishmentBillingGroups={
+              !this.state.hideEstablishmentBillingGroupSelector
+                ? this.props.establishmentBillingGroups
+                : []
+            }
             instalmentPaymentConfigurationList={this.props.instalmentPaymentConfigurationList.filter(
               (ipc) => ipc.basketId === this.props.basket?.id,
             )}
@@ -455,7 +477,9 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
             )}
             paymentProcessing={this.props.paymentProcessing}
             selectedEstablishmentBillingGroup={
-              this.state.selectedEstablishmentBillingGroup
+              !this.state.hideEstablishmentBillingGroupSelector
+                ? this.state.selectedEstablishmentBillingGroup
+                : null
             }
             setIsEstablishmentBillingGroupSelected={
               this.setIsEstablishmentBillingGroupSelected
@@ -465,9 +489,7 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
               this.setSelectedEstablishmentBillingGroup
             }
             stripeId={this.state.theme.stripe_id}
-            updateDefaultEstablishmentBillingGroup={
-              this.props.updateDefaultEstablishmentBillingGroup
-            }
+            updateMemberBillingGroup={this.updateMemberBillingGroup}
             useInternalAccount={this.props.useInternalAccount}
             validateUnpaid={this.validateUnpaid}
           />

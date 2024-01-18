@@ -119,6 +119,7 @@ type PaymentStripeProps = {
     isEstablishmentBillingGroupSelected: boolean,
   ) => void;
   selectedEstablishmentBillingGroup: EstablishmentBillingGroup;
+  updateMemberBillingGroup?: (establishmentBillingGroupId: number) => void;
 };
 
 type PaymentStripePropsNewCheckoutFlow = Omit<
@@ -206,6 +207,7 @@ const PaymentStripe: React.FC<
       setSelectedEstablishmentBillingGroup,
       setIsEstablishmentBillingGroupSelected,
       selectedEstablishmentBillingGroup,
+      updateMemberBillingGroup,
     },
     ref,
   ) => {
@@ -319,6 +321,22 @@ const PaymentStripe: React.FC<
       totalPriceCts,
       saveForLaterBacsDebit,
       stripeId,
+    ]);
+
+    React.useEffect(() => {
+      if (
+        fromApp &&
+        !!paymentProcessing &&
+        !!updateMemberBillingGroup &&
+        !!selectedEstablishmentBillingGroup
+      ) {
+        updateMemberBillingGroup(selectedEstablishmentBillingGroup.id);
+      }
+    }, [
+      paymentProcessing,
+      updateMemberBillingGroup,
+      selectedEstablishmentBillingGroup,
+      fromApp,
     ]);
 
     return (

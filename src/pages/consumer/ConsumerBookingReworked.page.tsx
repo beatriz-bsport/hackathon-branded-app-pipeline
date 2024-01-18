@@ -18,6 +18,8 @@ import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#libs/meta
 import {
   fetchMyPastBookingAsMember as fetchMyPastBookingAsMemberAction,
   fetchMyFutureBookingAsMember as fetchMyFutureBookingAsMemberAction,
+  fetchMyBookingOptionAsMember as fetchMyBookingOptionAsMemberAction,
+  fetchMyBookingOptionWorkshopAsMember as fetchMyBookingOptionWorkshopAsMemberAction,
   fetchMyPastPrivateBookingAsMember as fetchMyPastPrivateBookingAsMemberAction,
   fetchMyFuturePrivateBookingAsMember as fetchMyFuturePrivateBookingAsMemberAction,
   fetchMyPastBookingWorkshopAsMember as fetchMyPastBookingWorkshopAsMemberAction,
@@ -71,6 +73,7 @@ import type { WithHandlerType } from '../../utils/types';
 import type { BookingTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
 import type { BookingFilterTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/types';
 import type { PrivateBooking } from '#libs/private-service/types';
+import type { WaitingListBookingOption } from '#libs/waiting-list/types';
 
 type OwnProps = {};
 type ParamsProps = {
@@ -93,6 +96,7 @@ export class ConsumerBooking extends React.Component<Props> {
   componentDidMount() {
     this.fetchPastBookings();
     this.fetchFutureBookings();
+    this.fetchBookingOptions();
   }
 
   fetchAssociatedBlueprintObjects = (blueprintId: number) => {
@@ -130,8 +134,7 @@ export class ConsumerBooking extends React.Component<Props> {
       ...bookingsCoachList,
       ...bookingsCoachOverrideList,
     ]);
-    // @ts-expect-error
-    this.props.fetchLevelList(bookingsLevelList);
+    this.props.fetchLevelList({ id__in: bookingsLevelList });
     this.props.fetchMetaActivityBulk(bookingsMetaActivityList);
     this.props.fetchEstablishmentBulk(bookingsEstablishmentList);
     this.props.retrieveConsumerPackBulk(bookingsConsumerPackList, {
@@ -142,6 +145,27 @@ export class ConsumerBooking extends React.Component<Props> {
           ),
         ),
     });
+  };
+
+  fetchAssociatedBookingOptionsObjects = (
+    bookingOptions: WaitingListBookingOption[],
+  ) => {
+    const bookingOptionsEstablishmentList = uniq(
+      bookingOptions.map((bookingOption) => bookingOption.establishment),
+    );
+    const bookingOptionsLevelList = uniq(
+      bookingOptions.map((bookingOption) => bookingOption.level),
+    );
+    const bookingOptionsCoachList = uniq(
+      bookingOptions.map((bookingOption) => bookingOption.coach),
+    );
+    const bookingOptionsMetaActivityList = uniq(
+      bookingOptions.map((bookingOption) => bookingOption.meta_activity),
+    );
+    this.props.fetchEstablishmentBulk(bookingOptionsEstablishmentList);
+    this.props.fetchLevelList({ id__in: bookingOptionsLevelList });
+    this.props.fetchCoachBulk(bookingOptionsCoachList);
+    this.props.fetchMetaActivityBulk(bookingOptionsMetaActivityList);
   };
 
   fetchAssociatedPrivateBookingsObjects = (
@@ -214,6 +238,34 @@ export class ConsumerBooking extends React.Component<Props> {
       );
   };
 
+  fetchBookingOptions = () => {
+    !!this.props.membership?.id &&
+      this.props.fetchMyBookingOptionAsMember(
+        {
+          member: this.props.membership.id,
+          company: this.props.companyId,
+          consumer: this.props.membership.consumer,
+        },
+        {
+          onSuccess: this.fetchAssociatedBookingOptionsObjects,
+        },
+      );
+  };
+
+  fetchBookingOptionsWorkshop = () => {
+    !!this.props.membership?.id &&
+      this.props.fetchMyBookingOptionWorkshopAsMember(
+        {
+          member: this.props.membership.id,
+          company: this.props.companyId,
+          consumer: this.props.membership.consumer,
+        },
+        {
+          onSuccess: this.fetchAssociatedBookingOptionsObjects,
+        },
+      );
+  };
+
   fetchPastPrivateBookings = () => {
     this.props.fetchMyPastPrivateBookingAsMember(
       {
@@ -263,6 +315,8 @@ export class ConsumerBooking extends React.Component<Props> {
         cancelPrivateBooking={this.props.cancelPrivateBookingAsMember}
         companyTheme={this.props.theme}
         fetchAssociatedBlueprintObjects={this.fetchAssociatedBlueprintObjects}
+        fetchBookingOptions={this.fetchBookingOptions}
+        fetchBookingOptionsWorkshop={this.fetchBookingOptionsWorkshop}
         fetchFutureBookings={this.fetchFutureBookings}
         fetchFutureBookingsWorkshop={this.fetchFutureBookingsWorkshop}
         fetchFuturePrivateBookings={this.fetchFuturePrivateBookings}
@@ -347,6 +401,9 @@ const connector = connect(
     // REWORKED
     fetchMyPastBookingAsMember: fetchMyPastBookingAsMemberAction,
     fetchMyFutureBookingAsMember: fetchMyFutureBookingAsMemberAction,
+    fetchMyBookingOptionAsMember: fetchMyBookingOptionAsMemberAction,
+    fetchMyBookingOptionWorkshopAsMember:
+      fetchMyBookingOptionWorkshopAsMemberAction,
     resetConsumerState: resetConsumerStateAction,
     fetchMyPastPrivateBookingAsMember: fetchMyPastPrivateBookingAsMemberAction,
     fetchMyFuturePrivateBookingAsMember:

@@ -53,6 +53,24 @@ import ErrorIcon from '#components/icons/ErrorIcon.component';
 import { sortByDate } from '../../../utils/datetime';
 import { getBookingErrorMessage } from '#libs/checkout/utils';
 import { fetchCompanyConfiguration as fetchCompanyWaitlistConfigurationAction } from '#libs/waiting-list/actions';
+import {
+  retrieveReferralProgramForCompany as retrieveReferralProgramForCompanyAction,
+  retrieveReferralMemberStatus as retrieveReferralMemberStatusAction,
+} from '#libs/referral/actions';
+import {
+  getTheReferralProgram,
+  getReferralMemberStatusThroughMembership,
+} from '#libs/referral/selectors';
+import Config from '../../../config';
+import { buildMemberReferralLink } from '#libs/referral/utils';
+import ReferralLinkIncentive from '#libs/referral/components/ReferralLinkIncentive.component';
+import {
+  getMemberDetailData,
+  getMemberThroughMembership,
+} from '../../../libs/member/selectors';
+import { fetchMember as fetchMemberAction } from '../../../libs/member/actions';
+import { fetchMembershipByCompany } from '../../../libs/membership/actions';
+import { getMembership } from '../../../libs/membership/selectors';
 
 type OwnProps = {
   queryParams: any;
@@ -72,6 +90,8 @@ type Props = OwnProps &
 
 export class ValidationCheckout extends React.Component<Props> {
   componentDidMount() {
+    this.props.fetchMembershipByCompany(this.props.companyId);
+
     if (
       this.props.queryParams?.basket &&
       this.props.queryParams.basket !== 'null'
@@ -81,7 +101,28 @@ export class ValidationCheckout extends React.Component<Props> {
       });
     }
     this.fetchOfferData();
+
+    if (this.props.membership) {
+      this.fetchMemberData();
+    }
   }
+
+  componentDidUpdate(prevProps: Props) {
+    if (!prevProps.membership && this.props.membership) {
+      this.fetchMemberData();
+    }
+  }
+
+  fetchMemberData = () => {
+    this.props.fetchMember(this.props.membership.id);
+
+    if (this.props.theme.is_referral_program_activated) {
+      this.props.retrieveReferralProgramForCompany(
+        this.props.membership.company,
+      );
+      this.props.retrieveReferralMemberStatus(this.props.membership.id);
+    }
+  };
 
   trackBookings = () => {
     this.props.offerBookedList.forEach((offerBooked) =>
@@ -213,6 +254,19 @@ export class ValidationCheckout extends React.Component<Props> {
 
   render() {
     const { classes } = this.props;
+
+    const referralLink = this.props.theme.is_referral_program_activated
+      ? `${Config.PUBLIC_URL}${buildMemberReferralLink(
+          this.props.companyId,
+          this.props?.member?.referral_uuid,
+        )}`
+      : '';
+
+    const hasToDisplayReferralink =
+      this.props.theme.is_referral_program_activated &&
+      this.props.referralProgram &&
+      this.props.referralMemberStatus?.nb_remaining_referral_uses;
+
     return (
       <ConsumerAppBarContainer>
         <div className={classes.container}>
@@ -357,6 +411,14 @@ export class ValidationCheckout extends React.Component<Props> {
                       </div>
                     )}
                   </div>
+                  {hasToDisplayReferralink && (
+                    <div className={classes.referralLinkContainer}>
+                      <ReferralLinkIncentive
+                        referralLink={referralLink}
+                        referralProgram={this.props.referralProgram}
+                      />
+                    </div>
+                  )}
                 </div>
               </>
             )}
@@ -375,7 +437,7 @@ const styles = (theme: Theme) =>
       justifyContent: 'center',
       width: '100%',
       padding: theme.spacing(3),
-      gap: theme.spacing(3),
+      gap: theme.spacing(6),
     },
     recapContainer: {
       display: 'flex',
@@ -483,6 +545,12 @@ const styles = (theme: Theme) =>
         height: '100%',
       },
     },
+    referralLinkContainer: {
+      display: 'flex',
+      width: '100%',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
   });
 
 const mapWithHandlers = {
@@ -566,20 +634,32 @@ export default compose<any, OwnProps>(
   withTranslation(['checkout', 'snackbar']),
 
   connect(
-    (state: RootState, { queryParams }) => ({
+    (state: RootState, { companyId, queryParams }) => ({
       theme: themeSelectors.getTheme(state),
       basket:
         queryParams?.basket && queryParams.basket !== 'null'
           ? getBasket(state, queryParams.basket)
           : null,
+      member: getMemberThroughMembership(getMemberDetailData)(state, companyId),
+      membership: getMembership(state, companyId),
+      referralProgram: getTheReferralProgram(state),
+      referralMemberStatus: getReferralMemberStatusThroughMembership(
+        state,
+        companyId,
+      ),
       waitingListConfiguration: getWaitingListConfigurationData(state),
       offerStatusWaitinListPositionById:
         getOfferStatusWaitingListPositionById(state),
     }),
     {
+      fetchMembershipByCompany,
       fetchBasket,
+      fetchMember: fetchMemberAction,
       fetchCompanyWaitlistConfiguration:
         fetchCompanyWaitlistConfigurationAction,
+      retrieveReferralProgramForCompany:
+        retrieveReferralProgramForCompanyAction,
+      retrieveReferralMemberStatus: retrieveReferralMemberStatusAction,
     },
   ),
   withProps(({ queryParams }) => {

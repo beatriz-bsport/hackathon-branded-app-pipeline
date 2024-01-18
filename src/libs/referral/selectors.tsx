@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 import type { RootState } from '../../reducers';
+import { getMembership } from '../membership/selectors';
 
 const _getState = (state: RootState) => state.referral;
 
@@ -21,6 +22,14 @@ export const getReferralMemberStatusWithMemberId = createSelector(
   [getReferralMemberStatusByMemberId, _selectedMemberId],
   (referalMemberStatusByMemberId, memberId) =>
     referalMemberStatusByMemberId[memberId],
+);
+
+export const getReferralMemberStatusThroughMembership = createSelector(
+  [getReferralMemberStatusByMemberId, getMembership],
+  (referralMemberStatusByMemberId, membership) => {
+    if (!membership?.id) return null;
+    return referralMemberStatusByMemberId[membership.id];
+  },
 );
 
 export const getReferralMemberStatusLoading = (state: RootState) =>

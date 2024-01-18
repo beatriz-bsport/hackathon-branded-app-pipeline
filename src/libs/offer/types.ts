@@ -88,23 +88,23 @@ export type OfferMinimal<C = number, E = number, M = number, L = number> = {
   level: L;
 };
 
-export type OfferDetail = {
-  id: number;
+export type OfferBookingOption = {
   activity: MetaActivity;
-  coach_override: Coach | null;
-  date_start: string;
-  duration_minute: number;
-  date_end: string;
-  price: number;
-  credit_price: number;
-  credit_price_override: number;
   available: boolean;
+  coach_override: Coach | null;
+  credit_price_override: number;
+  credit_price: number;
+  date_end: string;
+  date_start: string;
+  description_override?: string;
+  duration_minute: number;
   friends: any[];
+  id: number;
   is_full: boolean;
   is_waiting_list_full: boolean;
-  timezone_name: boolean;
   name_override?: string;
-  description_override?: string;
+  price: number;
+  timezone_name: boolean;
 };
 
 export type Offer<

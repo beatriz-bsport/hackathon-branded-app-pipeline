@@ -1,4 +1,4 @@
-import type { Offer, OfferDetail, OfferREST } from '../offer/types';
+import type { Offer, OfferBookingOption, OfferREST } from '../offer/types';
 import type { PaymentPack } from '../payment-packs/types';
 import type {
   StaffModificationHistory,
@@ -19,6 +19,7 @@ import type {
   PrivateService,
   PrivateSlot,
 } from '#libs/private-service/types';
+import type { WaitingListBookingOption } from '#libs/waiting-list/types';
 
 export type BroadcastInfo = {
   id: number;
@@ -141,7 +142,7 @@ export type BookingOption<O = Offer> = {
   source: number;
 };
 
-export type BookingOptionWithActivity = BookingOption<OfferDetail>;
+export type BookingOptionWithActivity = BookingOption<OfferBookingOption>;
 
 type ErrorAndLoading = {
   error?: Error;
@@ -299,4 +300,17 @@ export type ConsumerPrivateBooking = Omit<
   private_slot: PrivateSlot;
   establishment: Establishment;
   coach: Coach;
+};
+
+/** Transformed WaitingListBookingOption for the consumer page by including full objects */
+export type ConsumerBookingOption = Omit<
+  WaitingListBookingOption,
+  'establishment' | 'level' | 'booking' | 'coach' | 'meta_activity' | 'offer'
+> & {
+  offer: OfferBookingOption;
+  establishment: Establishment;
+  level: Level;
+  booking: BookingREST;
+  coach: Coach;
+  meta_activity: MetaActivity;
 };

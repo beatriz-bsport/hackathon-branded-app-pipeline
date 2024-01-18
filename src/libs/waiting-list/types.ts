@@ -96,3 +96,8 @@ export type RegisterMultipleBackgroundReturnValue = {
   registered_booking_options: number[];
   unregistered_booking_options: number[];
 };
+
+export type DiscardBookingOptionParams = {
+  disable_notification?: boolean;
+  update_waiting_list?: boolean;
+};

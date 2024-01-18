@@ -15,18 +15,26 @@ import type { BookingTab } from '#libs/consumer-space/components/reworked/@MyBoo
 import type {
   ConsumerBookingReworked,
   ConsumerPrivateBookingReworked,
+  ConsumerBookingOptionReworked,
 } from '#libs/consumer-space/types';
 import type {
   ConsumerBooking,
   BookingREST,
   CancelBookingFilterParams,
   ConsumerPrivateBooking,
+  ConsumerBookingOption,
 } from '#libs/booking/types';
 import type { BookingFilterTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/types';
 import type { OptionCallback } from '../../../../../../state/types';
 import type { SpotType } from '#libs/spot-scheduling/types';
 import type { CompanyTheme } from '#libs/theme/types';
 import type { PrivateBooking } from '#libs/private-service/types';
+import type {
+  DiscardBookingOptionParams,
+  WaitingListBookingOption,
+} from '#libs/waiting-list/types';
+
+import { BookingTabEnum } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/constants';
 
 import './styles.css';
 
@@ -35,6 +43,8 @@ type Props = {
   pastBookingsList: ConsumerBooking[];
   futureBookingsState: ConsumerBookingReworked;
   futureBookingsList: ConsumerBooking[];
+  bookingOptionsState: ConsumerBookingOptionReworked;
+  bookingOptionsList: ConsumerBookingOption[];
   pastPrivateBookingsState: ConsumerPrivateBookingReworked;
   pastPrivateBookingsList: ConsumerPrivateBooking[];
   futurePrivateBookingsState: ConsumerPrivateBookingReworked;
@@ -43,6 +53,8 @@ type Props = {
   pastBookingsWorkshopList: ConsumerBooking[];
   futureBookingsWorkshopState: ConsumerBookingReworked;
   futureBookingsWorkshopList: ConsumerBooking[];
+  bookingOptionsWorkshopState: ConsumerBookingOptionReworked;
+  bookingOptionsWorkshopList: ConsumerBookingOption[];
   timezone: string;
   sessionTimeDisplay: MarketPlaceSessionTimeDisplay;
   spotTypes: SpotType[];
@@ -51,6 +63,8 @@ type Props = {
   handleBookASessionClick: () => void;
   fetchPastBookings: () => void;
   fetchFutureBookings: () => void;
+  fetchBookingOptions: () => void;
+  fetchBookingOptionsWorkshop: () => void;
   fetchPastPrivateBookings: () => void;
   fetchFuturePrivateBookings: () => void;
   fetchPastBookingsWorkshop: () => void;
@@ -66,6 +80,11 @@ type Props = {
     params: CancelBookingFilterParams,
     options?: OptionCallback<PrivateBooking>,
   ) => void;
+  cancelBookingOption: (
+    id: number,
+    params: DiscardBookingOptionParams,
+    options?: OptionCallback<WaitingListBookingOption>,
+  ) => void;
   getRelatedConsumerBookingsInGroup: (
     groupId: number,
     filterTab: BookingFilterTab,
@@ -78,6 +97,8 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
   pastBookingsList,
   futureBookingsState,
   futureBookingsList,
+  bookingOptionsState,
+  bookingOptionsList,
   pastPrivateBookingsState,
   pastPrivateBookingsList,
   futurePrivateBookingsState,
@@ -86,6 +107,8 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
   pastBookingsWorkshopList,
   futureBookingsWorkshopState,
   futureBookingsWorkshopList,
+  bookingOptionsWorkshopState,
+  bookingOptionsWorkshopList,
   timezone,
   sessionTimeDisplay,
   spotTypes,
@@ -94,6 +117,8 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
   handleBookASessionClick,
   fetchPastBookings,
   fetchFutureBookings,
+  fetchBookingOptions,
+  fetchBookingOptionsWorkshop,
   fetchPastPrivateBookings,
   fetchFuturePrivateBookings,
   fetchPastBookingsWorkshop,
@@ -103,12 +128,14 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
   getRelatedConsumerBookingsInGroup,
   fetchAssociatedBlueprintObjects,
   cancelPrivateBooking,
+  cancelBookingOption,
 }) => {
   const {
     selectedTab,
     selectedFilterTab,
     selectedBooking,
     selectedPrivateBooking,
+    selectedBookingOption,
     selectedBookingForCancelation,
     selectedPrivateBookingForCancelation,
     isCancelBookingModalOpen,
@@ -118,15 +145,19 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
     onlineWarningModalOfferDate,
     selectedBookingSpotDetails,
     futureItemsCount,
+    waitlistItemsCount,
     nextPage,
     bookingList,
     isBookingsLoading,
     privateBookingList,
+    bookingOptionList,
     relatedBookingsInGroup,
+    selectedBookingOptionForCancelation,
     handleSetSelectedTab,
     handleSetSelectedFilterTab,
     handleSetSelectedBooking,
     handleSetSelectedPrivateBooking,
+    handleSetSelectedBookingOption,
     handleSelectBookingForCancelation,
     handleToggleCancelBookingModal,
     handlePaginationFetchMore,
@@ -135,11 +166,14 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
     handleToggleOnlineWarningModal,
     handleShowSpotDetails,
     handleToggleSpotSchedulingModal,
+    handleBookSession,
   } = useConsumerBookingsDataManager({
     pastBookingsState,
     pastBookingsList,
     futureBookingsState,
     futureBookingsList,
+    bookingOptionsState,
+    bookingOptionsList,
     pastPrivateBookingsState,
     pastPrivateBookingsList,
     futurePrivateBookingsState,
@@ -148,9 +182,15 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
     pastBookingsWorkshopList,
     futureBookingsWorkshopState,
     futureBookingsWorkshopList,
+    bookingOptionsWorkshopState,
+    bookingOptionsWorkshopList,
+    companyId: companyTheme.company,
+    isNewCheckoutFlow: companyTheme.display_new_checkout_flow,
     getIsBookingsLoading,
     fetchPastBookings,
     fetchFutureBookings,
+    fetchBookingOptions,
+    fetchBookingOptionsWorkshop,
     fetchPastPrivateBookings,
     fetchFuturePrivateBookings,
     fetchPastBookingsWorkshop,
@@ -160,6 +200,7 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
     cancelBooking,
     fetchAssociatedBlueprintObjects,
     cancelPrivateBooking,
+    cancelBookingOption,
   });
 
   const emptyFn = () => {};
@@ -170,10 +211,12 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
         {isCancelBookingModalOpen &&
           !!(
             selectedBookingForCancelation ||
-            selectedPrivateBookingForCancelation
+            selectedPrivateBookingForCancelation ||
+            selectedBookingOptionForCancelation
           ) && (
             <ConsumerBookingCancelModal
               booking={selectedBookingForCancelation}
+              bookingOption={selectedBookingOptionForCancelation}
               cancelBooking={handleCancelBooking}
               isLoading={isCancellingBooking}
               onClose={handleToggleCancelBookingModal}
@@ -208,17 +251,22 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
 
         <ConsumerBookingFilters
           futureBookingsCount={futureItemsCount}
+          isWaitlistFilterHidden={selectedTab === BookingTabEnum.APPOINTMENT}
           onChangeFilterTab={handleSetSelectedFilterTab}
           onDatePickerClick={emptyFn}
           selectedTab={selectedFilterTab}
+          waitlistBookingsCount={waitlistItemsCount}
         />
 
         <ConsumerBookingListContainer
           bookingList={bookingList}
+          bookingOptionList={bookingOptionList}
+          handleBookSession={handleBookSession}
           handleJoinOnlineBooking={handleJoinOnlineBooking}
           handlePaginationFetchMore={handlePaginationFetchMore}
           handleSelectBookingForCancelation={handleSelectBookingForCancelation}
           handleSetSelectedBooking={handleSetSelectedBooking}
+          handleSetSelectedBookingOption={handleSetSelectedBookingOption}
           handleSetSelectedPrivateBooking={handleSetSelectedPrivateBooking}
           handleShowSpotDetails={handleShowSpotDetails}
           hasNextPage={!!nextPage}
@@ -226,6 +274,7 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
           privateBookingList={privateBookingList}
           relatedBookingsInGroup={relatedBookingsInGroup}
           selectedBooking={selectedBooking}
+          selectedBookingOption={selectedBookingOption}
           selectedFilterTab={selectedFilterTab}
           selectedPrivateBooking={selectedPrivateBooking}
           selectedTab={selectedTab}

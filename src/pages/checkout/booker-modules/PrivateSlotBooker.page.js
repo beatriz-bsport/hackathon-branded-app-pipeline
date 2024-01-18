@@ -102,6 +102,7 @@ type Props = {
   registerPrivateBooking: (
     params: any,
     options: ?{ onSuccess: ?() => void, onError: ?() => void },
+    asConsumer: boolean,
   ) => void,
 
   compatiblePrivateConsumerPass: Array<PrivateConsumerPass>,
@@ -194,6 +195,7 @@ export class PrivateSlotPayment extends React.Component<Props, State> {
           this.setState({ processing: false });
         },
       },
+      true,
     );
   };
 

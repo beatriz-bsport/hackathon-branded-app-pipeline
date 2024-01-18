@@ -11298,7 +11298,8 @@
         "21004": "Double booking not compatible with Spivi integration"
       }
     },
-    "smartlistGetMembers": { "error": "An error has occurred: members cannot be retrieved" }
+    "smartlistGetMembers": { "error": "An error has occurred: members cannot be retrieved" },
+    "privateSlot": { "notAvailableForBookingAnymore": "This slot is not availablle anymore." }
   },
   "spotScheduling": {
     "toolsMenu": {

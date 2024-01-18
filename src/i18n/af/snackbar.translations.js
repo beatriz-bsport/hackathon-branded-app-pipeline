@@ -1233,6 +1233,9 @@ const getTranslations = async () => {
     smartlistGetMembers: {
       error: 'An error has occurred: members cannot be retrieved',
     },
+    privateSlot: {
+      notAvailableForBookingAnymore: 'This slot is not availablle anymore.',
+    },
   };
 };
 

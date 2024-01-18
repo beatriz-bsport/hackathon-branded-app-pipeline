@@ -2035,6 +2035,7 @@ export function fetchPrivateBooking(
 export function registerPrivateBooking(
   params: any,
   options: OptionCallback,
+  asConsumer = false,
 ): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(privateBookingCreateOrUpdateActions.isLoading(true));
@@ -2049,16 +2050,26 @@ export function registerPrivateBooking(
         const error_code = err.response.data.error_code;
         switch (error_code) {
           case EXCEPTION_STAFF_ROLE_OVERRIDE_COACH_NOT_ALLOWED:
-            dispatch(
-              snackbarError('role.noMasterControl.overrideCoachNotAllowed'),
-            );
+            if (asConsumer) {
+              dispatch(
+                snackbarError('privateSlot.notAvailableForBookingAnymore'),
+              );
+            } else
+              dispatch(
+                snackbarError('role.noMasterControl.overrideCoachNotAllowed'),
+              );
             break;
           case EXCEPTION_STAFF_ROLE_OVERRIDE_ESTABLISHMENT_NOT_ALLOWED:
-            dispatch(
-              snackbarError(
-                'role.noMasterControl.overrideEstablishmentNotAllowed',
-              ),
-            );
+            if (asConsumer) {
+              dispatch(
+                snackbarError('privateSlot.notAvailableForBookingAnymore'),
+              );
+            } else
+              dispatch(
+                snackbarError(
+                  'role.noMasterControl.overrideEstablishmentNotAllowed',
+                ),
+              );
             break;
           default:
             dispatch(

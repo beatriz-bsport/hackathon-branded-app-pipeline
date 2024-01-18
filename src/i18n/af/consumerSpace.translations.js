@@ -119,6 +119,7 @@ exports.default = {
           activity: {
             past: 'No past activities to show.',
             future: 'No upcoming activities scheduled.',
+            waitlist: 'No activities on waitlist.',
           },
           appointment: {
             past: 'No past appointments to show.',
@@ -127,6 +128,7 @@ exports.default = {
           workshop: {
             past: 'No past workshops to show.',
             future: 'No upcoming workshops scheduled.',
+            waitlist: 'No workshops on waitlist.',
           },
         },
       },

@@ -1397,9 +1397,17 @@
         "filter": { "upcoming": "Upcoming", "past": "Past", "onWaitlist": "On waitlist" },
         "listContainer": {
           "placeholder": {
-            "activity": { "past": "No past activities to show.", "future": "No upcoming activities scheduled." },
+            "activity": {
+              "past": "No past activities to show.",
+              "future": "No upcoming activities scheduled.",
+              "waitlist": "No activities on waitlist."
+            },
             "appointment": { "past": "No past appointments to show.", "future": "No upcoming appointments scheduled." },
-            "workshop": { "past": "No past workshops to show.", "future": "No upcoming workshops scheduled." }
+            "workshop": {
+              "past": "No past workshops to show.",
+              "future": "No upcoming workshops scheduled.",
+              "waitlist": "No workshops on waitlist."
+            }
           }
         },
         "consumerBookingCard": {

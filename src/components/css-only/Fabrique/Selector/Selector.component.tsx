@@ -165,6 +165,7 @@ const Selector: React.FC<SelectorProps> = ({
   React.useEffect(() => {
     if (closeOnSelect && !multiple) {
       setIsOpen(false);
+      setAnchorEl(null);
       setCloseOnSelect?.(false);
     }
   }, [closeOnSelect, setCloseOnSelect, multiple]);

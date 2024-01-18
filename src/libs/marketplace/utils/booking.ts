@@ -213,14 +213,16 @@ export const loadDefaultEstablishmentBillingGroupFromOffers = (
     const billingGroupFromOffers = basketEstablishmentIds
       .map((id) => establishmentBillingGroupsByEstablishment?.[id])
       .filter((establishmentBillingGroup) => !!establishmentBillingGroup);
-    const defaultBillingGroupFromOffers = billingGroupFromOffers.every(
-      (establishmentBillingGroup) =>
-        establishmentBillingGroup.id === billingGroupFromOffers[0].id,
-    )
-      ? billingGroupFromOffers[0]
-      : null;
-    if (defaultBillingGroupFromOffers?.disabled === false) {
-      return defaultBillingGroupFromOffers;
+    if (billingGroupFromOffers.length >= 1) {
+      const defaultBillingGroupFromOffers = billingGroupFromOffers.every(
+        (establishmentBillingGroup) =>
+          establishmentBillingGroup.id === billingGroupFromOffers[0].id,
+      )
+        ? billingGroupFromOffers[0]
+        : null;
+      if (defaultBillingGroupFromOffers?.disabled === false) {
+        return defaultBillingGroupFromOffers;
+      }
     }
   }
   return null;

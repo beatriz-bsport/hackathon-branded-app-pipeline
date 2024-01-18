@@ -12,6 +12,7 @@ import type {
   CustomFormFieldAnswer,
   CustomFormDisplayRule,
   ResponsiveLayouts,
+  SignUpCustomFormPayload,
 } from './types';
 
 export async function fetchAllCustomForm(companyId?: number) {
@@ -142,7 +143,7 @@ export async function submitSignUpCustomForm(
   referral_uuid?: string | null,
 ) {
   if (companyId) {
-    return postBaseAuth(
+    return postBaseAuth<SignUpCustomFormPayload>(
       `${API_V1_URI}/custom_form/custom_form_filled/signup/${buildUrlParams({
         companyId,
         ...(referral_uuid ? { referral_uuid } : {}),
@@ -150,7 +151,7 @@ export async function submitSignUpCustomForm(
       signup_form_filled,
     );
   }
-  return postBaseAuth(
+  return postBaseAuth<SignUpCustomFormPayload>(
     `${API_V1_URI}/custom_form/custom_form_filled/signup/`,
     signup_form_filled,
   );

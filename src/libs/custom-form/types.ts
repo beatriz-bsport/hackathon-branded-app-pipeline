@@ -197,3 +197,8 @@ export interface SignUpErrorResponse {
 }
 
 export type SignUpResponse = SignUpSuccessResponse | SignUpErrorResponse;
+
+export type SignUpCustomFormPayload = {
+  email_confirmed: boolean;
+  user_id: number;
+};

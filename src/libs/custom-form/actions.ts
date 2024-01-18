@@ -662,9 +662,9 @@ export function submitSignUpCustomForm(
       );
       dispatch(signUpViaCustomFormActions.success(response.data));
       dispatch(snackbarSuccess(`customForm.signupViaCustomForm.success`));
-      if (options && options.onSuccess) options.onSuccess(response.data);
+      options?.onSuccess?.(response.data);
     } catch (error) {
-      if (options && options.onError) options.onError();
+      options?.onError?.();
       if (isErrorWithCustomCode(error) && error.response.data?.error_code) {
         dispatch(
           snackbarError(

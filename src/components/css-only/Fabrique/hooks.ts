@@ -42,7 +42,7 @@ export const useCloseModal = ({
     };
     const closeOnEscapeKey = (event: KeyboardEvent) => {
       event.key === 'Escape' && onClose && onClose();
-      if (openMenuRef?.current) {
+      if (event.key === 'Escape' && openMenuRef?.current) {
         openMenuRef.current.focus?.();
       }
     };

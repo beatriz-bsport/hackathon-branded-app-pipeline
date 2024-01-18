@@ -5,80 +5,50 @@ import { useTranslation } from 'react-i18next';
 import TableContainer from '@material-ui/core/TableContainer';
 import Typography from '@material-ui/core/Typography/Typography';
 import Pagination from '@material-ui/lab/Pagination/Pagination';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 import Fuse, { FuseOptions } from 'fuse.js';
 // @ts-ignore
 import FuzeSearch from '#components/FuzeSearch.component';
 
 import CadenceMetricsMemberTableContent from './CadenceMetricsMemberTableContent.component';
+import type {
+  CadenceMembersInData,
+  CadenceMembersOutData,
+  CadenceStep,
+} from '#libs/sequential_marketing/types';
+import type { Member } from '#libs/member/types';
 
-function createData(
-  id: string,
-  photo: string,
-  name: string,
-  currentStepName: string,
-  entryDate: string,
-  exitDate: string,
-  status: number,
-) {
-  return { id, photo, name, currentStepName, entryDate, exitDate, status };
-}
+type Props = {
+  isHistoric?: boolean;
+  loading?: boolean;
+  membersById: {
+    [id: string]: Member<number, number>;
+  };
+  membersData: CadenceMembersInData[] | CadenceMembersOutData[];
+  page: number | null;
+  totalPages: number;
+  getCadenceStep: (stepId: number) => CadenceStep;
+  updatePageNumber: (page: number) => void;
+};
 
-const membersData = [
-  createData(
-    '1',
-    '',
-    'Frozen yoghurt',
-    'currentStepName',
-    '25/07/2022',
-    '25/07/2022',
-    0,
-  ),
-  createData(
-    '2',
-    '',
-    'Ice cream sandwich',
-    'currentStepName',
-    '25/07/2022',
-    '25/07/2022',
-    0,
-  ),
-  createData(
-    '3',
-    '',
-    'Eclair',
-    'currentStepName',
-    '25/07/2022',
-    '25/07/2022',
-    1,
-  ),
-  createData(
-    '4',
-    '',
-    'Cupcake',
-    'currentStepName',
-    '25/07/2022',
-    '25/07/2022',
-    1,
-  ),
-  createData(
-    '5',
-    '',
-    'Gingerbread',
-    'currentStepName',
-    '25/07/2022',
-    '25/07/2022',
-    0,
-  ),
-];
-
-type Props = { historic?: boolean };
-
-const CadenceMetricsMemberTable: React.FC<Props> = ({ historic }) => {
-  const [search, setSearch] = React.useState('');
-  const [searchResult, setSearchResult] = React.useState<any>([]);
+const CadenceMetricsMemberTable: React.FC<Props> = ({
+  isHistoric,
+  loading,
+  membersById,
+  membersData,
+  page,
+  totalPages,
+  getCadenceStep,
+  updatePageNumber,
+}) => {
   const classes = useStyles();
   const { t } = useTranslation('marketing');
+
+  const [search, setSearch] = React.useState('');
+
+  const [searchResult, setSearchResult] = React.useState<any>([]);
+
   const changeSearch =
     (fuse: Fuse<any, FuseOptions<any>>) =>
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -92,25 +62,35 @@ const CadenceMetricsMemberTable: React.FC<Props> = ({ historic }) => {
     setSearchResult([]);
   }, []);
 
+  const handleChangePage = React.useCallback(
+    (_: React.ChangeEvent<unknown> | null, newPage: number) => {
+      if (page !== newPage) {
+        updatePageNumber(newPage);
+      }
+    },
+    [page, updatePageNumber],
+  );
+
   const searchedRows = React.useMemo(() => {
     if (!search) {
       return membersData;
     }
     return searchResult;
-  }, [search, searchResult]);
+  }, [membersData, search, searchResult]);
 
   return (
     <div className={classes.container}>
       <Typography variant="subtitle1">
-        {historic
+        {isHistoric
           ? t('audience.memberTable.historicTitle', {
-              count: searchedRows.length,
+              count: searchedRows?.length || 0,
             })
           : t('audience.memberTable.title', {
-              count: searchedRows.length,
+              count: searchedRows?.length || 0,
             })}
       </Typography>
       <FuzeSearch
+        disableAutoFocus
         changeSearch={changeSearch}
         clearSearch={clearSearch}
         inputPropsClassName={classes.search}
@@ -122,11 +102,21 @@ const CadenceMetricsMemberTable: React.FC<Props> = ({ historic }) => {
       />
       <TableContainer className={classes.tableContainer}>
         <CadenceMetricsMemberTableContent
-          historic={historic}
-          membersData={searchedRows}
+          getCadenceStep={getCadenceStep}
+          isHistoric={isHistoric}
+          membersById={membersById}
+          membersInData={!isHistoric ? searchedRows : null}
+          membersOutData={isHistoric ? searchedRows : null}
         />
+        {loading ? <LinearProgress /> : null}
         <div className={classes.footer}>
-          <Pagination className={classes.pagination} count={10} size="small" />
+          <Pagination
+            className={classes.pagination}
+            count={totalPages}
+            onChange={handleChangePage}
+            page={page ?? 1}
+            size="small"
+          />
         </div>
       </TableContainer>
     </div>

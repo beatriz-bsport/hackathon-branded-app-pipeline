@@ -4,22 +4,33 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import { useTranslation } from 'react-i18next';
 import type { TFunction } from 'i18next';
 
+import Avatar from '@material-ui/core/Avatar';
 import Table from '@material-ui/core/Table';
-import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
-import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 
+import DEFAULT_PROFILE_PICTURE_URL from '../../../../../assets/constants';
 import CustomChip from '#components/chip/CustomChip.component';
 import {
+  CadenceMetricsSizes,
   DestinationStatus,
   SequentialMarketingColors,
 } from '#libs/sequential_marketing/constants';
+import { formatAsDate } from '#utils/datetime';
+
+import type {
+  CadenceMembersInData,
+  CadenceMembersOutData,
+  CadenceStep,
+} from '#libs/sequential_marketing/types';
+import { Member } from '#libs/member/types';
 
 const MUITableCell = withStyles((theme) => ({
   root: {
     borderBottom: 'none',
-    margin: theme.spacing(0, 0, 1, 0),
+    margin: theme.spacing(1, 0, 0, 0),
     padding: 0,
   },
 }))(TableCell);
@@ -48,11 +59,22 @@ const getChipFromStatus = (status: DestinationStatus, t: TFunction) => {
   return <CustomChip displayedValue={label} icon={icon} mainColor={color} />;
 };
 
-type Props = { historic: boolean; membersData: any };
+type Props = {
+  isHistoric: boolean;
+  membersById: {
+    [id: string]: Member<number, number>;
+  };
+  membersInData?: CadenceMembersInData[];
+  membersOutData?: CadenceMembersOutData[];
+  getCadenceStep: (stepId: number) => CadenceStep;
+};
 
 const CadenceMetricsMemberTableContent: React.FC<Props> = ({
-  historic,
-  membersData,
+  isHistoric,
+  membersById,
+  membersInData,
+  membersOutData,
+  getCadenceStep,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation('marketing');
@@ -60,19 +82,19 @@ const CadenceMetricsMemberTableContent: React.FC<Props> = ({
   return (
     <Table>
       <TableHead>
-        <TableRow>
+        <TableRow className={classes.header}>
           <MUITableCell className={classes.restrictedRowWidth}>
             {t('audience.memberTable.tableColumnLabel.member')}
           </MUITableCell>
-          {!historic && (
+          {!isHistoric && (
             <MUITableCell align="left" className={classes.restrictedRowWidth}>
               {t('audience.memberTable.tableColumnLabel.currentStep')}
             </MUITableCell>
           )}
-          <MUITableCell align={historic ? 'inherit' : 'right'}>
+          <MUITableCell align={isHistoric ? 'inherit' : 'right'}>
             {t('audience.memberTable.tableColumnLabel.entryDate')}
           </MUITableCell>
-          {historic && (
+          {isHistoric && (
             <>
               <MUITableCell>
                 {t('audience.memberTable.tableColumnLabel.exitDate')}
@@ -83,41 +105,68 @@ const CadenceMetricsMemberTableContent: React.FC<Props> = ({
             </>
           )}
         </TableRow>
+        <TableRow className={classes.divider} />
       </TableHead>
       <TableBody>
-        {membersData.map((member: any) => (
-          <TableRow key={member.id}>
-            <MUITableCell className={classes.twoLinesRow}>
-              {member.photo}
-              {member.name}
-            </MUITableCell>
-            {!historic && (
-              <MUITableCell align="left" className={classes.oneLineRow}>
-                {member.currentStepName}
+        {!isHistoric &&
+          membersInData?.map((member) => (
+            <TableRow key={`present-member:${member.member_id}`}>
+              <MUITableCell className={classes.twoLinesRow}>
+                <Avatar
+                  className={classes.avatar}
+                  src={
+                    membersById[member.member_id]?.photo ||
+                    DEFAULT_PROFILE_PICTURE_URL
+                  }
+                />
+                {membersById[member.member_id]?.name}
               </MUITableCell>
-            )}
-            <MUITableCell align={historic ? 'inherit' : 'right'}>
-              {member.entryDate}
-            </MUITableCell>
-            {historic && (
-              <>
-                <MUITableCell>{member.exitDate}</MUITableCell>
-                <MUITableCell align="right">
-                  {getChipFromStatus(member.status, t)}
-                </MUITableCell>
-              </>
-            )}
-          </TableRow>
-        ))}
+              <MUITableCell align="left" className={classes.oneLineRow}>
+                {getCadenceStep(member.current_step_id)?.name}
+              </MUITableCell>
+              <MUITableCell align={isHistoric ? 'inherit' : 'right'}>
+                {formatAsDate(member.entry_date)}
+              </MUITableCell>
+            </TableRow>
+          ))}
+        {isHistoric &&
+          membersOutData?.map((member, index) => (
+            <TableRow key={`member-historic:${member.member_id}-${index}`}>
+              <MUITableCell className={classes.twoLinesRow}>
+                <Avatar
+                  className={classes.avatar}
+                  src={
+                    membersById[member.member_id]?.photo ||
+                    DEFAULT_PROFILE_PICTURE_URL
+                  }
+                />
+                {membersById[member.member_id]?.name}
+              </MUITableCell>
+              <MUITableCell align={isHistoric ? 'inherit' : 'right'}>
+                {formatAsDate(member.entry_date)}
+              </MUITableCell>
+              <MUITableCell>{formatAsDate(member.exit_date)}</MUITableCell>
+              <MUITableCell align="right">
+                {getChipFromStatus(member.status, t)}
+              </MUITableCell>
+            </TableRow>
+          ))}
       </TableBody>
     </Table>
   );
 };
 
-const useStyles = makeStyles(() => ({
-  restrictedRowWidth: { width: '40%' },
+const useStyles = makeStyles((theme) => ({
+  restrictedRowWidth: {
+    width: '40%',
+  },
+  header: {
+    height: CadenceMetricsSizes.MEMBER_TABLE_HEADER_HEIGHT,
+  },
   twoLinesRow: {
-    display: '-webkit-box',
+    flexDirection: 'row',
+    alignItems: 'center',
+    display: 'flex',
     overflow: 'hidden',
     '-webkit-line-clamp': 2,
     '-webkit-box-orient': 'vertical',
@@ -126,6 +175,15 @@ const useStyles = makeStyles(() => ({
     overflow: 'hidden',
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
+  },
+  divider: {
+    width: '100%',
+    borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
+  },
+  avatar: {
+    width: theme.spacing(4),
+    height: theme.spacing(4),
+    marginRight: theme.spacing(2),
   },
 }));
 

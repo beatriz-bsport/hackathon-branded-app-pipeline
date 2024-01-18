@@ -15,9 +15,11 @@ import {
 import type { Dispatch, OptionCallback } from '../../../state/types';
 import themeSelectors, { getIsUISimplified } from '#libs/theme/selectors';
 import { buildUrlParams, parseQueryString } from '../../../http';
+// @ts-expect-error
 import { requestLogin } from '../../../actions/auth.actions';
 
 import { fetchCompanyTheme } from '#libs/theme/actions';
+// @ts-expect-error
 import Analytics from '#components/analytics/Analytics.component';
 
 import {
@@ -31,9 +33,10 @@ import {
 } from '#libs/custom-form/selectors';
 import type { RootState } from '../../../reducers';
 import { WithHandlerType } from '../../../utils/types';
-import {
+import type {
   CustomFormFilled,
   CustomFormFieldAnswer,
+  SignUpCustomFormPayload,
 } from '#libs/custom-form/types';
 import WidgetUtils from '#libs/widget/WidgetUtils';
 import CustomFormTitle from '#libs/custom-form/components/CustomFormTitle.component';
@@ -93,7 +96,7 @@ export class SignupPage extends Component<Props> {
       formdata,
       this.props?.membership || null,
       {
-        onSuccess: (data: { email_confirmed: boolean; user_id: number }) => {
+        onSuccess: (data: SignUpCustomFormPayload) => {
           this.props.doEmailLogin(this.props.loginInformations);
           if (!data.email_confirmed) {
             this.props.pushRouter(
@@ -104,12 +107,10 @@ export class SignupPage extends Component<Props> {
           } else {
             if (this.props.membership && this.props.theme?.id)
               Analytics.signupSuccess(this.props.loginInformations);
-            if (options && options.onSuccess) options.onSuccess();
+            options?.onSuccess?.();
           }
         },
-        onError: () => {
-          if (options?.onError) options.onError();
-        },
+        onError: () => options?.onError?.(),
       },
     );
   };

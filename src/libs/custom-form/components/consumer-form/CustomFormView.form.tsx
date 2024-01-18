@@ -1,55 +1,73 @@
 import React, { useCallback } from 'react';
 import { compose } from 'recompose';
 import { useTranslation } from 'react-i18next';
-import Alert from '@material-ui/lab/Alert/Alert';
-
-import { makeStyles, Theme } from '@material-ui/core/styles';
 import { Form } from 'formik';
 
-import LinearProgress from '@material-ui/core/LinearProgress';
+import Alert from '@material-ui/lab/Alert/Alert';
 import Button from '@material-ui/core/Button';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import type { Theme } from '@material-ui/core/styles';
+
 import ConsumerFormFields, {
   ConsumerFormFieldsHOC,
 } from './CustomForm.formik-hoc';
 import {
+  USER_STATUS_VALIDATION_WITH_USER_NOT_MEMBER_OF_COMPANY,
+  USER_STATUS_VALIDATION_WITH_MEMBER_OF_COMPANY,
+} from '#libs/member/utils';
+
+import type {
   CustomForm,
   CustomFormFieldAnswer,
   CustomFormFilled,
   ResponsiveLayouts,
-} from '../../types';
-import {
-  USER_STATUS_VALIDATION_WITH_USER_NOT_MEMBER_OF_COMPANY,
-  USER_STATUS_VALIDATION_WITH_MEMBER_OF_COMPANY,
-} from '../../../member/utils';
+} from '#libs/custom-form/types';
+import type { OptionCallback } from '../../../../state/types';
 
 type Props = {
   asManager?: boolean;
-  handleCancel?: () => void;
-  handleSubmit?: () => void;
-  isSubmitting?: boolean;
-  initial?: CustomForm;
-  onSubmit?: (data: CustomFormFieldAnswer, options: any) => void;
-  initialWithAnswer?: CustomFormFieldAnswer;
-  refreshLoading?: boolean;
-  onCancel?: (data?: CustomFormFieldAnswer) => void;
-  onSubmitDraft?: (customFormwithAnswer: CustomFormFilled) => void;
-  isMulti?: boolean;
-  disconnectOnCancel?: boolean;
-  waiver?: string;
-  layouts?: ResponsiveLayouts;
-  general_terms_and_conditions?: string;
-  userStatus?: number;
-  textButtonConfirm?: boolean;
-  disableLayout?: boolean;
-  fieldsAreIndependent?: boolean;
-  simplifyUI?: boolean;
   data?: CustomFormFieldAnswer;
-  values?: CustomFormFilled;
+  disableLayout?: boolean;
+  disconnectOnCancel?: boolean;
+  fieldsAreIndependent?: boolean;
+  general_terms_and_conditions?: string;
   hideBackButton?: boolean;
+  initial?: CustomForm;
+  initialWithAnswer?: CustomFormFieldAnswer;
+  isMulti?: boolean;
+  isSubmitting?: boolean;
+  layouts?: ResponsiveLayouts;
+  refreshLoading?: boolean;
+  simplifyUI?: boolean;
+  textButtonConfirm?: boolean;
+  userStatus?: number;
+  values?: CustomFormFilled;
+  waiver?: string;
+  handleSubmit?: () => void;
+  onCancel?: (data?: CustomFormFieldAnswer) => void;
+  onSubmit?: (data: CustomFormFieldAnswer, options: OptionCallback) => void;
+  onSubmitDraft?: (customFormwithAnswer: CustomFormFilled) => void;
 };
 
 const ConsumerFormView: React.FC<Props> = (props: Props) => {
-  const { isSubmitting, asManager, simplifyUI, onCancel, data } = props;
+  const {
+    asManager,
+    data,
+    disconnectOnCancel,
+    hideBackButton,
+    initial,
+    isMulti,
+    isSubmitting,
+    refreshLoading,
+    simplifyUI,
+    textButtonConfirm,
+    userStatus,
+    values,
+    handleSubmit,
+    onCancel,
+    onSubmitDraft,
+  } = props;
 
   const { t } = useTranslation('marketing');
   const classes = useStyles({ simplifyUI });
@@ -58,26 +76,34 @@ const ConsumerFormView: React.FC<Props> = (props: Props) => {
     onCancel(data);
   }, [data, onCancel]);
 
-  const renderConfirmButtonText = (userStatus?: number) => {
-    if (userStatus === USER_STATUS_VALIDATION_WITH_USER_NOT_MEMBER_OF_COMPANY) {
+  const handleClickOnSubmit = useCallback(() => {
+    handleSubmit();
+    onSubmitDraft?.(values);
+  }, [handleSubmit, onSubmitDraft, values]);
+
+  const renderConfirmButtonText = (userStatusValidation?: number) => {
+    if (
+      userStatusValidation ===
+      USER_STATUS_VALIDATION_WITH_USER_NOT_MEMBER_OF_COMPANY
+    ) {
       return 'member:forms.needInformationValidation.button.notMemberYet';
     }
-    if (userStatus === USER_STATUS_VALIDATION_WITH_MEMBER_OF_COMPANY) {
+    if (
+      userStatusValidation === USER_STATUS_VALIDATION_WITH_MEMBER_OF_COMPANY
+    ) {
       return 'member:forms.needInformationValidation.button.memberOfCompany';
     }
-    if (props.textButtonConfirm) {
+    if (textButtonConfirm) {
       return 'customForm.clientForms.modify';
     }
     return 'customForm.send';
   };
-  if (props.refreshLoading) {
+
+  if (refreshLoading) {
     return <LinearProgress />;
   }
-  if (
-    props.initial &&
-    props.initial.custom_form_field &&
-    props.initial.custom_form_field.length === 0
-  ) {
+
+  if (initial?.custom_form_field?.length === 0) {
     return (
       <div className={classes.emptyContainer}>
         <div className={classes.column}>
@@ -88,14 +114,13 @@ const ConsumerFormView: React.FC<Props> = (props: Props) => {
       </div>
     );
   }
+
   return (
     <Form className={classes.form}>
       <ConsumerFormFields {...props} />
       {!asManager && (
-        <div
-          className={props.onCancel ? classes.submitAndCancel : classes.submit}
-        >
-          {props.onCancel && !props.hideBackButton && (
+        <div className={onCancel ? classes.submitAndCancel : classes.submit}>
+          {onCancel && !hideBackButton && (
             <Button
               className={classes.button}
               color="primary"
@@ -104,7 +129,7 @@ const ConsumerFormView: React.FC<Props> = (props: Props) => {
               onClick={handleCancel}
               variant="text"
             >
-              {props.disconnectOnCancel
+              {disconnectOnCancel
                 ? t('customForm.disconnect')
                 : t('customForm.previous')}
             </Button>
@@ -114,15 +139,12 @@ const ConsumerFormView: React.FC<Props> = (props: Props) => {
             color="primary"
             disabled={isSubmitting}
             id="button_custom_form_save"
-            onClick={() => {
-              props.handleSubmit();
-              props.onSubmitDraft && props.onSubmitDraft(props.values);
-            }}
+            onClick={handleClickOnSubmit}
             variant="contained"
           >
-            {props.isMulti
+            {isMulti
               ? t('customForm.next')
-              : t(renderConfirmButtonText(props.userStatus))}
+              : t(renderConfirmButtonText(userStatus))}
           </Button>
         </div>
       )}

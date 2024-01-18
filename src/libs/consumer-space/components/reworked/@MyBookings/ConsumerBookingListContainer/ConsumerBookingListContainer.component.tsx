@@ -12,16 +12,19 @@ import ConsumerBookingCard from '#libs/consumer-space/components/reworked/@MyBoo
 import ConsumerBookingDetailsCard from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingDetailsCard';
 import ConsumerBookingListItem from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingListItem';
 import ConsumerPrivateBookingListItem from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerPrivateBookingListItem';
+import ConsumerBookingOptionListItem from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingOptionListItem';
 import Typography from '#Fabrique/Typography';
 
 import type {
   ConsumerBooking,
+  ConsumerBookingOption,
   ConsumerPrivateBooking,
 } from '#libs/booking/types';
 import type { BookingTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
 import type { BookingFilterTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/types';
 
 import { BookingTabEnum } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/constants';
+import { BookingFilterTabEnum } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/constants';
 
 import './styles.css';
 
@@ -29,7 +32,9 @@ type Props = {
   isLoading?: boolean;
   selectedBooking?: ConsumerBooking;
   selectedPrivateBooking?: ConsumerPrivateBooking;
+  selectedBookingOption?: ConsumerBookingOption;
   bookingList: ConsumerBooking[];
+  bookingOptionList: ConsumerBookingOption[];
   privateBookingList: ConsumerPrivateBooking[];
   hasNextPage?: boolean;
   timezone: string;
@@ -38,6 +43,7 @@ type Props = {
   selectedFilterTab: BookingFilterTab;
   handleSetSelectedBooking: (bookingId: number) => void;
   handleSetSelectedPrivateBooking: (privateBookingId: number) => void;
+  handleSetSelectedBookingOption: (bookingOptionId: number) => void;
   handlePaginationFetchMore: () => void;
   handleSelectBookingForCancelation: (bookingId: number) => void;
   handleJoinOnlineBooking: (
@@ -48,14 +54,17 @@ type Props = {
   ) => void;
   relatedBookingsInGroup: ConsumerBooking[];
   handleShowSpotDetails: (booking: ConsumerBooking) => void;
+  handleBookSession: (offerId: number) => void;
 };
 
 export const ConsumerBookingListContainer: React.FC<Props> = ({
   isLoading,
   bookingList,
+  bookingOptionList,
   privateBookingList,
   selectedBooking,
   selectedPrivateBooking,
+  selectedBookingOption,
   hasNextPage,
   timezone,
   sessionTimeDisplay,
@@ -64,26 +73,14 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
   selectedFilterTab,
   handleSetSelectedBooking,
   handleSetSelectedPrivateBooking,
+  handleSetSelectedBookingOption,
   handlePaginationFetchMore,
   handleSelectBookingForCancelation,
   handleJoinOnlineBooking,
   handleShowSpotDetails,
+  handleBookSession,
 }) => {
   const { t } = useTranslation('consumerSpace');
-
-  const selectedBookingDate = useConsumerBookingDateTime({
-    dateStart:
-      selectedBooking?.offer?.date_start || selectedPrivateBooking?.date_start,
-    durationMinute:
-      selectedBooking?.offer?.duration_minute ||
-      selectedPrivateBooking?.private_slot?.duration_minutes,
-    establishmentTimezoneName:
-      selectedBooking?.establishment?.tzname ||
-      selectedPrivateBooking?.establishment?.tzname,
-    isMetaActivityBroadcast: selectedBooking?.meta_activity?.is_broadcast,
-    sessionTimeDisplay,
-    timezoneName: timezone,
-  });
 
   const isLateCancellation = useMemo(
     () =>
@@ -104,7 +101,46 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
     ],
   );
 
+  const currentBookingList = useMemo(() => {
+    if (selectedFilterTab === BookingFilterTabEnum.WAITLIST) {
+      return bookingOptionList;
+    }
+    if (selectedTab === BookingTabEnum.APPOINTMENT) {
+      return privateBookingList;
+    }
+    return bookingList;
+  }, [
+    bookingList,
+    bookingOptionList,
+    privateBookingList,
+    selectedFilterTab,
+    selectedTab,
+  ]);
+
+  const selectedBookingDate = useConsumerBookingDateTime({
+    dateStart:
+      selectedBooking?.offer?.date_start ||
+      selectedPrivateBooking?.date_start ||
+      selectedBookingOption?.offer?.date_start,
+    durationMinute:
+      selectedBooking?.offer?.duration_minute ||
+      selectedPrivateBooking?.private_slot?.duration_minutes ||
+      selectedBookingOption?.offer?.duration_minute,
+    establishmentTimezoneName:
+      selectedBooking?.establishment?.tzname ||
+      selectedPrivateBooking?.establishment?.tzname ||
+      selectedBookingOption?.establishment?.tzname,
+    isMetaActivityBroadcast: selectedBooking?.meta_activity?.is_broadcast,
+    sessionTimeDisplay,
+    timezoneName: timezone,
+  });
+
   const showPlaceholder = (() => {
+    if (selectedFilterTab === BookingFilterTabEnum.WAITLIST) {
+      return (
+        !isLoading && (!bookingOptionList || bookingOptionList?.length === 0)
+      );
+    }
     if (selectedTab === BookingTabEnum.APPOINTMENT) {
       return (
         !isLoading && (!privateBookingList || privateBookingList?.length === 0)
@@ -112,15 +148,6 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
     }
     return !isLoading && (!bookingList || bookingList?.length === 0);
   })();
-
-  const currentBookingList = useMemo(() => {
-    const listMap = {
-      activity: bookingList,
-      appointment: privateBookingList,
-      workshop: bookingList,
-    };
-    return listMap[selectedTab];
-  }, [bookingList, privateBookingList, selectedTab]);
 
   return (
     <div
@@ -140,7 +167,7 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
         <>
           <ul className="bs-consumer-page-root__bookings__list">
             <GenericInfiniteScrollEnhancedCssOnly<
-              ConsumerBooking | ConsumerPrivateBooking
+              ConsumerBooking | ConsumerPrivateBooking | ConsumerBookingOption
             >
               fetchMoreData={handlePaginationFetchMore}
               hasMore={hasNextPage}
@@ -149,21 +176,41 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
               height="calc(100dvh - 24px - 44px - 42px - 16px - 56px - 16px - 64px)"
               items={currentBookingList}
               loader={<ConsumerBookingCard isLoading />}
-              renderItem={({ item }) =>
-                selectedTab === BookingTabEnum.APPOINTMENT ? (
-                  <ConsumerPrivateBookingListItem
-                    key={item.id}
-                    handleSelectBookingForCancelation={
-                      handleSelectBookingForCancelation
-                    }
-                    isLoading={isLoading}
-                    isSelected={selectedPrivateBooking?.id === item.id}
-                    item={item as ConsumerPrivateBooking}
-                    onBookingCardClick={handleSetSelectedPrivateBooking}
-                    sessionTimeDisplay={sessionTimeDisplay}
-                    timezone={timezone}
-                  />
-                ) : (
+              renderItem={({ item }) => {
+                if (selectedFilterTab === BookingFilterTabEnum.WAITLIST) {
+                  return (
+                    <ConsumerBookingOptionListItem
+                      key={item.id}
+                      handleBookSession={handleBookSession}
+                      handleSelectBookingForCancelation={
+                        handleSelectBookingForCancelation
+                      }
+                      isLoading={isLoading}
+                      isSelected={selectedBookingOption?.id === item.id}
+                      item={item as ConsumerBookingOption}
+                      onBookingCardClick={handleSetSelectedBookingOption}
+                      sessionTimeDisplay={sessionTimeDisplay}
+                      timezone={timezone}
+                    />
+                  );
+                }
+                if (selectedTab === BookingTabEnum.APPOINTMENT) {
+                  return (
+                    <ConsumerPrivateBookingListItem
+                      key={item.id}
+                      handleSelectBookingForCancelation={
+                        handleSelectBookingForCancelation
+                      }
+                      isLoading={isLoading}
+                      isSelected={selectedPrivateBooking?.id === item.id}
+                      item={item as ConsumerPrivateBooking}
+                      onBookingCardClick={handleSetSelectedPrivateBooking}
+                      sessionTimeDisplay={sessionTimeDisplay}
+                      timezone={timezone}
+                    />
+                  );
+                }
+                return (
                   <ConsumerBookingListItem
                     key={item.id}
                     handleJoinOnlineBooking={handleJoinOnlineBooking}
@@ -178,8 +225,8 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
                     sessionTimeDisplay={sessionTimeDisplay}
                     timezone={timezone}
                   />
-                )
-              }
+                );
+              }}
             />
           </ul>
 
@@ -190,19 +237,23 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
             )}
             coachDescription={
               selectedBooking?.coach?.description ||
-              selectedPrivateBooking?.coach?.description
+              selectedPrivateBooking?.coach?.description ||
+              selectedBookingOption?.coach?.description
             }
             coachFacebookURL={
               selectedBooking?.coach?.facebook_url ||
-              selectedPrivateBooking?.coach?.facebook_url
+              selectedPrivateBooking?.coach?.facebook_url ||
+              selectedBookingOption?.coach?.facebook_url
             }
             coachInstagramURL={
               selectedBooking?.coach?.instagram_url ||
-              selectedPrivateBooking?.coach?.instagram_url
+              selectedPrivateBooking?.coach?.instagram_url ||
+              selectedBookingOption?.coach?.instagram_url
             }
             coachName={
               selectedBooking?.coach?.name ||
-              selectedPrivateBooking?.coach?.name
+              selectedPrivateBooking?.coach?.name ||
+              selectedBookingOption?.coach?.name
             }
             coachOverrideDescription={
               selectedBooking?.coach_override?.description
@@ -211,7 +262,8 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
             coachOverridePicture={selectedBooking?.coach_override?.photo}
             coachPicture={
               selectedBooking?.coach?.photo ||
-              selectedPrivateBooking?.coach?.photo
+              selectedPrivateBooking?.coach?.photo ||
+              selectedBookingOption?.coach?.photo
             }
             consumerPaymentPackAvailableCredits={
               selectedBooking?.consumer_payment_pack?.available_credits ||
@@ -236,14 +288,19 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
             date={selectedBookingDate}
             description={
               selectedBooking?.meta_activity?.description ||
-              selectedPrivateBooking?.private_service?.description
+              selectedPrivateBooking?.private_service?.description ||
+              selectedBookingOption?.meta_activity?.description
             }
             establishmentAddress={
-              (selectedBooking || selectedPrivateBooking)?.establishment
-                ?.location?.address
+              (
+                selectedBooking ||
+                selectedPrivateBooking ||
+                selectedBookingOption
+              )?.establishment?.location?.address
             }
             isCancelled={
-              !!(selectedBooking || selectedPrivateBooking)?.date_canceled
+              !!(selectedBooking || selectedPrivateBooking)?.date_canceled ||
+              !!selectedBookingOption?.cancelled
             }
             isCancelledFromManager={
               (selectedBooking || selectedPrivateBooking)
@@ -257,20 +314,24 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
             isLoading={isLoading}
             levelName={
               selectedBooking?.level?.name ||
-              selectedPrivateBooking?.private_slot?.name
+              selectedPrivateBooking?.private_slot?.name ||
+              selectedBookingOption?.level?.name
             }
             metaActivityLastDiscardMinutes={
               selectedBooking?.meta_activity?.last_discard_minutes ||
-              selectedPrivateBooking?.private_service?.last_discard_minutes
+              selectedPrivateBooking?.private_service?.last_discard_minutes ||
+              selectedBookingOption?.meta_activity?.last_discard_minutes
             }
             metaActivityName={
               selectedBooking?.offer?.name_override ||
               selectedBooking?.meta_activity?.name ||
-              selectedPrivateBooking?.private_service?.name
+              selectedPrivateBooking?.private_service?.name ||
+              selectedBookingOption?.meta_activity?.name
             }
             metaActivityPicture={
               selectedBooking?.meta_activity?.cover_main ||
-              selectedPrivateBooking?.private_service?.cover_main
+              selectedPrivateBooking?.private_service?.cover_main ||
+              selectedBookingOption?.meta_activity?.cover_main
             }
             paymentPackName={
               selectedBooking?.consumer_payment_pack?.payment_pack?.name ||
@@ -284,7 +345,13 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
                 ?.credits
             }
             sessionTimeDisplay={sessionTimeDisplay}
-            showPlaceholder={!(selectedBooking || selectedPrivateBooking)}
+            showPlaceholder={
+              !(
+                selectedBooking ||
+                selectedPrivateBooking ||
+                selectedBookingOption
+              )
+            }
             timezoneName={timezone}
             workshopLinkedOffers={relatedBookingsInGroup}
           />

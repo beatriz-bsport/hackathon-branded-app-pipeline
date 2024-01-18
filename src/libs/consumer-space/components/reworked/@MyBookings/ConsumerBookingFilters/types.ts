@@ -1,3 +1,3 @@
-const BookingFilterTabTypes = ['future', 'past'] as const;
+const BookingFilterTabTypes = ['future', 'past', 'waitlist'] as const;
 
 export type BookingFilterTab = (typeof BookingFilterTabTypes)[number];

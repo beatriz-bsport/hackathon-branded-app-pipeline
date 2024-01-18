@@ -9,6 +9,8 @@ import type { BookingFilterTab } from './types';
 type Props = {
   selectedTab: BookingFilterTab;
   futureBookingsCount: number;
+  waitlistBookingsCount: number;
+  isWaitlistFilterHidden?: boolean;
   onChangeFilterTab: (type: BookingFilterTab) => void;
   onDatePickerClick: () => void;
 };
@@ -16,6 +18,8 @@ type Props = {
 export const ConsumerBookingFilters: React.FC<Props> = ({
   selectedTab,
   futureBookingsCount,
+  waitlistBookingsCount,
+  isWaitlistFilterHidden,
   onChangeFilterTab,
   onDatePickerClick,
 }) => {
@@ -26,8 +30,13 @@ export const ConsumerBookingFilters: React.FC<Props> = ({
     [onChangeFilterTab],
   );
 
-  const handleAppointmentBookingClick = useCallback(
+  const handleSetPastBookingClick = useCallback(
     () => onChangeFilterTab?.(BookingFilterTabEnum.PAST),
+    [onChangeFilterTab],
+  );
+
+  const handleSetWaitlistBookingClick = useCallback(
+    () => onChangeFilterTab?.(BookingFilterTabEnum.WAITLIST),
     [onChangeFilterTab],
   );
 
@@ -44,7 +53,14 @@ export const ConsumerBookingFilters: React.FC<Props> = ({
         {
           type: BookingFilterTabEnum.PAST,
           label: t('consumerSpace:reworked.myBookings.filter.past'),
-          onClick: handleAppointmentBookingClick,
+          onClick: handleSetPastBookingClick,
+        },
+        !isWaitlistFilterHidden && {
+          hasBadge: waitlistBookingsCount > 0,
+          type: BookingFilterTabEnum.WAITLIST,
+          label: t('consumerSpace:reworked.myBookings.filter.onWaitlist'),
+          onClick: handleSetWaitlistBookingClick,
+          value: waitlistBookingsCount,
         },
       ]}
       onDatePickerClick={onDatePickerClick}

@@ -88,8 +88,8 @@ export type WaitingListBookingOptionQueryParams = {
 
 export type WaitingListBookingOptionPaginatedQueryParams =
   WaitingListBookingOptionQueryParams & {
-    page: number;
-    page_size: number;
+    page?: number;
+    page_size?: number;
   };
 
 export type RegisterMultipleBackgroundReturnValue = {

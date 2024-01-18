@@ -17,6 +17,10 @@ type LocationProps = { location: Location };
 type WithQueryParamsProps = {
   membership: null | string;
   franchisorId?: string;
+  /**
+   * Retrieving the location (as URI) where the login page wanted to go at first
+   * */
+  originalLoginNextLink?: string;
 };
 
 type ConnectedProps = ConnectedPropsRedux<typeof connector> & {
@@ -78,6 +82,9 @@ export class ResetPassword extends Component<Props, State> {
   };
 
   getRedirectUrlWithParams = () => {
+    if (this.props.originalLoginNextLink) {
+      return `${this.props.originalLoginNextLink}`;
+    }
     const loginPathParams = {} as { membership?: string; franchisor?: string };
     if (this.props.membership) {
       loginPathParams.membership = this.props.membership;
@@ -146,6 +153,15 @@ export default compose(
     membership: parseQueryString(props.location.search)?.membership,
     // @ts-expect-error
     franchisorId: parseQueryString(props.location.search)?.franchisor,
+    originalLoginNextLink:
+      props.location?.search &&
+      props.location.search?.indexOf('originalLoginNextLink') !== -1
+        ? props.location.search.substring(
+            props.location.search?.indexOf('originalLoginNextLink') +
+              'originalLoginNextLink'.length +
+              1,
+          )
+        : '',
   })),
   connector,
   WithCustomCssProvider,

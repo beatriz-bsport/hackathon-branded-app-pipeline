@@ -150,6 +150,7 @@ export class ConsumerLoginPage extends Component<Props> {
               franchisor={franchisor}
               isPremium={this.props.is_premium}
               loading={this.props.loginProcessing}
+              originalLoginNextLink={goNext}
               requestSignUp={
                 franchisorId
                   ? () =>

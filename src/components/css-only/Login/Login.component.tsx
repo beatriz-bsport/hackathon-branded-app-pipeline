@@ -37,6 +37,10 @@ export type Props = {
   franchisor?: Franchise;
   hideRegister?: boolean;
   emailChoices?: Array<string>;
+  /*
+   ** To not disrup login flow when going on the reset password page (in URI)
+   */
+  originalLoginNextLink?: string;
 } & WithTranslation;
 
 type State = {
@@ -67,6 +71,9 @@ export class ConsumerLogin extends Component<Props, State> {
       ...(this.props.theme ? { membership: this.props.theme.company } : {}),
       ...(this.props.franchisor
         ? { franchisor: this.props.franchisor.id }
+        : {}),
+      ...(this.props.originalLoginNextLink
+        ? { originalLoginNextLink: this.props.originalLoginNextLink }
         : {}),
     })}`;
   };

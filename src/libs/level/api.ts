@@ -10,10 +10,10 @@ import {
 } from '../../http';
 import { Level, LevelFilterSet } from './types';
 
-export const fetchLevelList = async (
-  params: LevelFilterSet,
-): Promise<AxiosResponse<Level[]>> => {
-  return getAuth(`${API_V1_URI}/master-data/level/${buildUrlParams(params)}`);
+export const fetchLevelList = (params: LevelFilterSet) => {
+  return getAuth<Level[]>(
+    `${API_V1_URI}/master-data/level/${buildUrlParams(params)}`,
+  );
 };
 
 export const fetchLevel = async (id: number): Promise<AxiosResponse<Level>> => {

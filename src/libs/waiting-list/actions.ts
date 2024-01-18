@@ -28,7 +28,8 @@ import type {
 } from '../../state/types';
 
 import { EXCEPTION_STAFF_ROLE_OVERBOOKING_IN_WAITING_LIST_NOT_ALLOWED } from '#libs/role/constants';
-import {
+import type {
+  DiscardBookingOptionParams,
   RegisterMultipleBackgroundReturnValue,
   WaitingListBookingOption,
   WaitingListBookingOptionPaginatedQueryParams,
@@ -158,9 +159,9 @@ export const discardOptionActions = {
 
 export function discardBookingOption(
   bookingOptionId: number,
-  params: { disable_notification?: boolean; update_waiting_list?: boolean },
+  params: DiscardBookingOptionParams,
   options?: OptionCallback<number>,
-) {
+): ThunkAction {
   return async (dispatch: Dispatch) => {
     dispatch(discardOptionActions.isLoading(true));
     dispatch(discardOptionActions.error(null));
@@ -168,11 +169,11 @@ export function discardBookingOption(
     try {
       const response = await discardBookingOptionAPI(bookingOptionId, params);
       dispatch(discardOptionActions.success(response.data));
-      if (options && options.onSuccess) options.onSuccess(bookingOptionId);
+      options?.onSuccess?.(bookingOptionId);
     } catch (err) {
       console.error(err);
       dispatch(discardOptionActions.error(err));
-      if (options && options.onError) options.onError(err);
+      options?.onError?.(err);
     }
     dispatch(discardOptionActions.isLoading(false));
   };

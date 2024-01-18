@@ -14,6 +14,10 @@ import {
   fetchPrivateBookingsV2 as fetchPrivateBookingsV2API,
   disablePrivateBooking as disablePrivateBookingAPI,
 } from '../private-service/api';
+import {
+  fetchFilteredBookingOptionsPaginated as fetchFilteredBookingOptionsPaginatedAPI,
+  discardBookingOption as discardBookingOptionAPI,
+} from '#libs/waiting-list/api';
 
 import type {
   Dispatch,
@@ -34,6 +38,11 @@ import type {
   CancelBookingFilterParams,
   CancelPrivateBookingFilterParams,
 } from '#libs/booking/types';
+import type {
+  DiscardBookingOptionParams,
+  WaitingListBookingOption,
+  WaitingListBookingOptionPaginatedQueryParams,
+} from '#libs/waiting-list/types';
 
 export const actionsType = {
   CONSUMER_HAS_FETCHED_OPTIONS: 'CONSUMER_HAS_FETCHED_OPTIONS_SUCCESS',
@@ -850,5 +859,120 @@ export function cancelPrivateBookingAsMember(
       options?.onError?.(err);
     }
     dispatch(cancelPrivateBookingAsMemberActions.isLoading(false));
+  };
+}
+
+export const fetchMyBookingOptionAsMemberActions = {
+  success: createAction<
+    AxiosResponse<PaginatedResponse<WaitingListBookingOption>>
+  >('BOOKING_OPTION/AS_MEMBER/SUCCESS'),
+  isLoading: createAction<boolean>('BOOKING_OPTION/AS_MEMBER/IS_LOADING'),
+  error: createAction<Error | null>('BOOKING_OPTION/AS_MEMBER/ERROR'),
+};
+
+export function fetchMyBookingOptionAsMember(
+  {
+    page_size = 30,
+    company,
+    consumer,
+  }: WaitingListBookingOptionPaginatedQueryParams,
+  options?: OptionCallback<WaitingListBookingOption[]>,
+): ThunkAction {
+  return async (dispatch: Dispatch, getState: () => RootState) => {
+    dispatch(fetchMyBookingOptionAsMemberActions.isLoading(true));
+    dispatch(fetchMyBookingOptionAsMemberActions.error(null));
+
+    const currentState =
+      getState().consumerReworked.myBookings.bookings.waitlist;
+    const nextPage = currentState.next_page ?? 1;
+    try {
+      const response = await fetchFilteredBookingOptionsPaginatedAPI({
+        company,
+        consumer,
+        page: nextPage,
+        page_size,
+        mine: true,
+        offer_is_workshop: false,
+      });
+      dispatch(fetchMyBookingOptionAsMemberActions.success(response));
+      options?.onSuccess?.(response.data.results);
+    } catch (err) {
+      dispatch(fetchMyBookingOptionAsMemberActions.error(err));
+      options?.onError?.(err);
+    }
+    dispatch(fetchMyBookingOptionAsMemberActions.isLoading(false));
+  };
+}
+
+export const fetchMyBookingOptionWorkshopAsMemberActions = {
+  success: createAction<
+    AxiosResponse<PaginatedResponse<WaitingListBookingOption>>
+  >('BOOKING_OPTION/WORKSHOP/AS_MEMBER/SUCCESS'),
+  isLoading: createAction<boolean>(
+    'BOOKING_OPTION/WORKSHOP/AS_MEMBER/IS_LOADING',
+  ),
+  error: createAction<Error | null>('BOOKING_OPTION/WORKSHOP/AS_MEMBER/ERROR'),
+};
+
+export function fetchMyBookingOptionWorkshopAsMember(
+  {
+    page_size = 30,
+    company,
+    consumer,
+  }: WaitingListBookingOptionPaginatedQueryParams,
+  options?: OptionCallback<WaitingListBookingOption[]>,
+): ThunkAction {
+  return async (dispatch: Dispatch, getState: () => RootState) => {
+    dispatch(fetchMyBookingOptionWorkshopAsMemberActions.isLoading(true));
+    dispatch(fetchMyBookingOptionWorkshopAsMemberActions.error(null));
+
+    const currentState =
+      getState().consumerReworked.myBookings.bookings.waitlist;
+    const nextPage = currentState.next_page ?? 1;
+    try {
+      const response = await fetchFilteredBookingOptionsPaginatedAPI({
+        company,
+        consumer,
+        page: nextPage,
+        page_size,
+        mine: true,
+        offer_is_workshop: true,
+      });
+      dispatch(fetchMyBookingOptionWorkshopAsMemberActions.success(response));
+      options?.onSuccess?.(response.data.results);
+    } catch (err) {
+      dispatch(fetchMyBookingOptionWorkshopAsMemberActions.error(err));
+      options?.onError?.(err);
+    }
+    dispatch(fetchMyBookingOptionWorkshopAsMemberActions.isLoading(false));
+  };
+}
+
+export const cancelBookingOptionAsMemberActions = {
+  success: createAction<AxiosResponse<WaitingListBookingOption>>(
+    'BOOKING_OPTION/CANCEL/SUCCESS',
+  ),
+  isLoading: createAction<boolean>('BOOKING_OPTION/CANCEL/IS_LOADING'),
+  error: createAction<Error | null>('BOOKING_OPTION/CANCEL/ERROR'),
+};
+
+export function cancelBookingOptionAsMember(
+  id: number,
+  params: DiscardBookingOptionParams,
+  options?: OptionCallback<WaitingListBookingOption>,
+): ThunkAction {
+  return async (dispatch: Dispatch) => {
+    dispatch(cancelBookingOptionAsMemberActions.isLoading(true));
+    dispatch(cancelBookingOptionAsMemberActions.error(null));
+
+    try {
+      const response = await discardBookingOptionAPI(id, params);
+      dispatch(cancelBookingOptionAsMemberActions.success(response));
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      dispatch(cancelBookingOptionAsMemberActions.error(err));
+      options?.onError?.(err);
+    }
+    dispatch(cancelBookingOptionAsMemberActions.isLoading(false));
   };
 }

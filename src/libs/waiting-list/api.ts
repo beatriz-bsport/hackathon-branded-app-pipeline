@@ -7,11 +7,12 @@ import {
   patchAuth,
   buildUrlParams,
 } from '../../http';
-import {
+import type {
   WaitingListConfiguration,
   WaitingListBookingOption,
   WaitingListBookingOptionQueryParams,
   WaitingListBookingOptionPaginatedQueryParams,
+  DiscardBookingOptionParams,
 } from './types';
 import { OfferStatusWaitingListPosition } from '#libs/offer/types';
 
@@ -43,18 +44,18 @@ export const fetchFilteredBookingOptions = async (
 
 export const fetchFilteredBookingOptionsPaginated = async (
   params: WaitingListBookingOptionPaginatedQueryParams,
-): Promise<AxiosResponse<PaginatedResponse<WaitingListBookingOption>>> => {
-  return getAuth(
+) => {
+  return getAuth<PaginatedResponse<WaitingListBookingOption>>(
     `${API_V1_URI}/waiting-list/booking-option/${buildUrlParams(params)}`,
   );
 };
 
-export const discardBookingOption = async (
-  optionId: number,
-  params: { disable_notification?: boolean; update_waiting_list?: boolean },
+export const discardBookingOption = (
+  bookingOptionId: number,
+  params: DiscardBookingOptionParams,
 ): Promise<AxiosResponse<WaitingListBookingOption>> => {
-  return postAuth(
-    `${API_V1_URI}/waiting-list/booking-option/${optionId}/discard/`,
+  return postAuth<WaitingListBookingOption>(
+    `${API_V1_URI}/waiting-list/booking-option/${bookingOptionId}/discard/`,
     params,
   );
 };

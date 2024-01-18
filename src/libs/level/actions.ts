@@ -1,9 +1,7 @@
-// @ts-nocheck
-// @flow
 import { Dispatch } from 'redux';
 import { createAction } from 'redux-actions';
 import { ThunkDispatch } from 'redux-thunk';
-import { OptionCallback } from '../../state/types';
+import { OptionCallback, ThunkAction } from '../../state/types';
 
 import {
   fetchLevelList as fetchLevelListAPI,
@@ -21,9 +19,9 @@ export const fetchLevelListActions = {
 };
 
 export const fetchLevelList = (
-  params: LevelFilterSet = {},
+  params?: LevelFilterSet,
   options?: OptionCallback<Level[]>,
-) => {
+): ThunkAction => {
   return async (dispatch: Dispatch) => {
     dispatch(fetchLevelListActions.loading(true));
     dispatch(fetchLevelListActions.error(null));
@@ -164,6 +162,7 @@ export const deleteLevel = (id: number, options?: OptionCallback) => {
     try {
       const response = await deleteLevelAPI(id);
       dispatch(deleteLevelActions.success(response.data));
+      // @ts-expect-error
       options?.onSuccess(response.data);
     } catch (error) {
       dispatch(deleteLevelActions.error(error));

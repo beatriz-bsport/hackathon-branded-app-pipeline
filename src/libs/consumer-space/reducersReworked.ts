@@ -11,12 +11,15 @@ import {
   resetConsumerStateActions,
   fetchMyPastPrivateBookingAsMemberActions,
   fetchMyFuturePrivateBookingAsMemberActions,
+  fetchMyBookingOptionAsMemberActions,
+  fetchMyBookingOptionWorkshopAsMemberActions,
 } from './actions';
 
 import type { ConsumerStateReworked } from './types';
 import type { BookingREST } from '#libs/booking/types';
 import type { PaginatedResponse } from '../../state/types';
 import type { PrivateBooking } from '#libs/private-service/types';
+import type { WaitingListBookingOption } from '#libs/waiting-list/types';
 
 type PayloadReduceType<T> = { [id: number]: T };
 const initialState: Immutable.Immutable<ConsumerStateReworked> =
@@ -54,7 +57,7 @@ const initialState: Immutable.Immutable<ConsumerStateReworked> =
           count: 0,
           loading: false,
           error: null,
-          bookings: {
+          booking_options: {
             allIds: [],
             byId: {},
           },
@@ -118,7 +121,7 @@ const initialState: Immutable.Immutable<ConsumerStateReworked> =
           count: 0,
           loading: false,
           error: null,
-          bookings: {
+          booking_options: {
             allIds: [],
             byId: {},
           },
@@ -154,9 +157,8 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
         .setIn(['myBookings', 'bookings', 'past', 'page'], page)
         .setIn(['myBookings', 'bookings', 'past', 'next_page'], next_page)
         .setIn(['myBookings', 'bookings', 'past', 'count'], count)
-        .updateIn(
+        .setIn(
           ['myBookings', 'bookings', 'past', 'bookings', 'allIds'],
-          (myList, newIds) => myList.concat(newIds),
           uniq(results.map((booking) => booking.id)),
         )
         .merge(
@@ -208,9 +210,8 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
         .setIn(['myBookings', 'bookings', 'future', 'page'], page)
         .setIn(['myBookings', 'bookings', 'future', 'next_page'], next_page)
         .setIn(['myBookings', 'bookings', 'future', 'count'], count)
-        .updateIn(
+        .setIn(
           ['myBookings', 'bookings', 'future', 'bookings', 'allIds'],
-          (myList, newIds) => myList.concat(newIds),
           uniq(results.map((booking) => booking.id)),
         )
         .merge(
@@ -267,7 +268,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
           next_page,
         )
         .setIn(['myBookings', 'privateBookings', 'past', 'count'], count)
-        .updateIn(
+        .setIn(
           [
             'myBookings',
             'privateBookings',
@@ -275,7 +276,6 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
             'private_services',
             'allIds',
           ],
-          (myList, newIds) => myList.concat(newIds),
           uniq(results.map((privateBooking) => privateBooking.id)),
         )
         .merge(
@@ -332,7 +332,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
           next_page,
         )
         .setIn(['myBookings', 'privateBookings', 'future', 'count'], count)
-        .updateIn(
+        .setIn(
           [
             'myBookings',
             'privateBookings',
@@ -340,7 +340,6 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
             'private_services',
             'allIds',
           ],
-          (myList, newIds) => myList.concat(newIds),
           uniq(results.map((privateBooking) => privateBooking.id)),
         )
         .merge(
@@ -395,9 +394,8 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
           next_page,
         )
         .setIn(['myBookings', 'bookingsWorkshop', 'past', 'count'], count)
-        .updateIn(
+        .setIn(
           ['myBookings', 'bookingsWorkshop', 'past', 'bookings', 'allIds'],
-          (myList, newIds) => myList.concat(newIds),
           uniq(results.map((booking) => booking.id)),
         )
         .merge(
@@ -452,9 +450,8 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
           next_page,
         )
         .setIn(['myBookings', 'bookingsWorkshop', 'future', 'count'], count)
-        .updateIn(
+        .setIn(
           ['myBookings', 'bookingsWorkshop', 'future', 'bookings', 'allIds'],
-          (myList, newIds) => myList.concat(newIds),
           uniq(results.map((booking) => booking.id)),
         )
         .merge(
@@ -470,6 +467,127 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
                       },
                       {},
                     ),
+                  },
+                },
+              },
+            },
+          },
+          { deep: true },
+        );
+    },
+    [fetchMyBookingOptionAsMemberActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['myBookings', 'bookings', 'waitlist', 'loading'],
+        payload,
+      );
+    },
+    [fetchMyBookingOptionAsMemberActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['myBookings', 'bookings', 'waitlist', 'error'],
+        payload,
+      );
+    },
+    [fetchMyBookingOptionAsMemberActions.success.toString()]: (
+      state,
+      {
+        payload,
+      }: {
+        payload: AxiosResponse<PaginatedResponse<WaitingListBookingOption>>;
+      },
+    ) => {
+      const { next_page, results, count, page } = payload.data;
+
+      return state
+        .setIn(['myBookings', 'bookings', 'waitlist', 'page'], page)
+        .setIn(['myBookings', 'bookings', 'waitlist', 'next_page'], next_page)
+        .setIn(['myBookings', 'bookings', 'waitlist', 'count'], count)
+        .setIn(
+          ['myBookings', 'bookings', 'waitlist', 'booking_options', 'allIds'],
+          uniq(results.map((bookingOption) => bookingOption.id)),
+        )
+        .merge(
+          {
+            myBookings: {
+              bookings: {
+                waitlist: {
+                  booking_options: {
+                    byId: results.reduce<
+                      PayloadReduceType<WaitingListBookingOption>
+                    >((acc, bookingOption) => {
+                      acc[bookingOption.id] = bookingOption;
+                      return acc;
+                    }, {}),
+                  },
+                },
+              },
+            },
+          },
+          { deep: true },
+        );
+    },
+    [fetchMyBookingOptionWorkshopAsMemberActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['myBookings', 'bookingsWorkshop', 'waitlist', 'loading'],
+        payload,
+      );
+    },
+    [fetchMyBookingOptionWorkshopAsMemberActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['myBookings', 'bookingsWorkshop', 'waitlist', 'error'],
+        payload,
+      );
+    },
+    [fetchMyBookingOptionWorkshopAsMemberActions.success.toString()]: (
+      state,
+      {
+        payload,
+      }: {
+        payload: AxiosResponse<PaginatedResponse<WaitingListBookingOption>>;
+      },
+    ) => {
+      const { next_page, results, count, page } = payload.data;
+
+      return state
+        .setIn(['myBookings', 'bookingsWorkshop', 'waitlist', 'page'], page)
+        .setIn(
+          ['myBookings', 'bookingsWorkshop', 'waitlist', 'next_page'],
+          next_page,
+        )
+        .setIn(['myBookings', 'bookingsWorkshop', 'waitlist', 'count'], count)
+        .setIn(
+          [
+            'myBookings',
+            'bookingsWorkshop',
+            'waitlist',
+            'booking_options',
+            'allIds',
+          ],
+          uniq(results.map((bookingOption) => bookingOption.id)),
+        )
+        .merge(
+          {
+            myBookings: {
+              bookingsWorkshop: {
+                waitlist: {
+                  booking_options: {
+                    byId: results.reduce<
+                      PayloadReduceType<WaitingListBookingOption>
+                    >((acc, bookingOption) => {
+                      acc[bookingOption.id] = bookingOption;
+                      return acc;
+                    }, {}),
                   },
                 },
               },
@@ -512,7 +630,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
             count: 0,
             loading: false,
             error: null,
-            bookings: {
+            booking_options: {
               allIds: [],
               byId: {},
             },
@@ -576,7 +694,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
             count: 0,
             loading: false,
             error: null,
-            bookings: {
+            booking_options: {
               allIds: [],
               byId: {},
             },

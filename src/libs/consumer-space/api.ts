@@ -22,6 +22,7 @@ export async function consumerFetchProfile() {
   return getAuth(`${API_URI}/user/self/info/`);
 }
 
+/** @deprecated Not type safe */
 export async function discardBookingOption(optionId: number) {
   return postAuth(
     `${API_V1_URI}/waiting-list/booking-option/${optionId}/discard/`,

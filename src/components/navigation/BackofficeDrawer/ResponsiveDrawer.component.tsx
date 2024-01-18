@@ -595,6 +595,11 @@ const ResponsiveDrawer: React.FC<Props> = ({
                 } as DrawerItemDefault,
               ]
             : []),
+          {
+            to: '/settings/active-campaign',
+            dense: true,
+            text: t('backofficeMenu.settings.active_campaign'),
+          } as DrawerItemDefault,
 
           // Temporary condition to hide the referral page while the feature is not finished
           // Condition will be removed once the feature is finished

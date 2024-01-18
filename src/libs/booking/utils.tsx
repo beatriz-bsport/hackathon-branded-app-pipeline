@@ -222,7 +222,12 @@ export function filterBookingListByOfferDate<T>(
 ) {
   return orderBy(
     bookingList,
-    (booking) => moment(booking.offer_date_start || booking.date_start).unix(),
+    (booking) =>
+      moment(
+        booking.offer_date_start ||
+          booking.date_start ||
+          booking.offer?.date_start,
+      ).unix(),
     order,
   );
 }

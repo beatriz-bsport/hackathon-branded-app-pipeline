@@ -4,6 +4,8 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
+import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach';
 import {
   PrivateService,
   PrivateSlot,
@@ -16,6 +18,7 @@ type Props = {
   privateSlot: PrivateSlot;
   selectedCoaches: Coach[];
   onSelect: (slot: Coach) => void;
+  coachDisplay?: MarketPlaceCoachDisplay;
 };
 
 const CoachSelector: React.FC<Props> = (props) => {
@@ -41,6 +44,11 @@ const CoachSelector: React.FC<Props> = (props) => {
         </Typography>
         <div className={classes.container2}>
           {props.privateService.coaches.map((coach: Coach) => {
+            const coachName = getCoachDisplayName(
+              props.coachDisplay,
+              coach?.name,
+              coach?.firstname,
+            );
             return (
               <ButtonBase
                 key={coach.id}
@@ -52,9 +60,9 @@ const CoachSelector: React.FC<Props> = (props) => {
                 onClick={() => props.onSelect(coach)}
               >
                 <div className={classes.itemInner}>
-                  <Avatar alt={coach.name} src={coach.photo} />
+                  <Avatar alt={coachName} src={coach.photo} />
                   <Typography className={classes.label} variant="subtitle2">
-                    {coach.name}
+                    {coachName}
                   </Typography>
                 </div>
                 {!props.privateSlot && <div className={classes.mask} />}

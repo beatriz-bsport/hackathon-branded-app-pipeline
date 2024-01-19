@@ -225,10 +225,6 @@ export class CadenceListPage extends React.Component<Props> {
       cadenceList,
     } = this.props;
 
-    if (cadenceLoading) {
-      return <LinearProgress />;
-    }
-
     if (
       !cadenceLoading &&
       (!cadenceList || cadenceList?.length === 0) &&
@@ -276,6 +272,7 @@ export class CadenceListPage extends React.Component<Props> {
 
     return (
       <>
+        {cadenceLoading && <LinearProgress />}
         <div className={classes.pageContainer}>
           <UpsellBlocker
             CustomIconComponent={<CustomStarIcon />}

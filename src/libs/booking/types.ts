@@ -230,6 +230,11 @@ export type Notification = {
 
 export type BookingFilterParams = {
   mine?: boolean;
+  /**
+   * Use a similar filtering as `mine` without filtering the cancelled booking.\
+   * This param exists to avoid breaking current mobile app behavior and old member profile interface
+   */
+  mine_as_consumer?: boolean;
   member?: number;
   offer_id?: number;
   id__in?: number[];

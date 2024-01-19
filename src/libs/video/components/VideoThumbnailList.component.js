@@ -10,6 +10,7 @@ import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 import VideoThumbnail from './VideoThumbnail.component';
 
 import TypographyWithShowMore from '../../../components/typo/TypographyWithShowMore.component';
@@ -28,6 +29,7 @@ type Props = {
   hasMoreVideo?: boolean,
   fetchMoreVideo: () => void,
   onAddVideo: () => void,
+  coachDisplay?: MarketPlaceCoachDisplay,
 };
 
 export const VideoThumbnailList = (props: Props) => {
@@ -65,6 +67,7 @@ export const VideoThumbnailList = (props: Props) => {
           .map((v) => (
             <div key={v.id} className={classes.thumbnailContainer}>
               <VideoThumbnail
+                coachDisplay={props.coachDisplay}
                 hideCoach={props.hideCoach}
                 isPlaying={props.videoPlayingId === v.id}
                 loading={props.loading}

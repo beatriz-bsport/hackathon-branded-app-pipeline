@@ -19,6 +19,7 @@ import Skeleton from '@material-ui/lab/Skeleton';
 //
 import { VideoProvider } from '@bsport/common/lib/master-data/video-provider';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 import CoachGroupAvatar from '../../associated-coach/components/CoachGroupAvatar.component';
 
 type Props = {
@@ -30,6 +31,7 @@ type Props = {
   menuAchorEl: HTMLElement,
   setMenuAnchorEl: (ev: ?HTMLElement) => void,
   loading: boolean,
+  coachDisplay?: MarketPlaceCoachDisplay,
 };
 export const VideoThumbnail = (props: Props) => {
   const classes = useStyles();
@@ -121,6 +123,7 @@ export const VideoThumbnail = (props: Props) => {
             </div>
           </div>
           <CoachGroupAvatar
+            coachDisplay={props.coachDisplay}
             coaches={video.coaches}
             hideCoach={props.hideCoach}
             loading={props.loading}

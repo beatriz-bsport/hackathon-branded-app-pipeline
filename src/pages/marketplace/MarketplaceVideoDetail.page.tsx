@@ -39,6 +39,7 @@ import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import { Video, VideoPurchase } from '../../libs/video/types';
 import { VideoCheckoutComponent } from '../checkout/vod/VideoCheckout.page';
 import { OptionCallback } from '../../state/types';
+import { CompanyTheme } from '#libs/theme/types';
 
 type StateHandlerType = typeof withStateHandlersInit &
   WithHandlerType<typeof withStateHandlersSetter>;
@@ -58,6 +59,7 @@ type OwnProps = {
   playbackUrlLoading: boolean;
   playbackUrl: string;
   videoPurchase: VideoPurchase;
+  companyTheme: CompanyTheme;
 } & StateHandlerType;
 
 type ConnectProps = ReturnType<typeof mapStateToProps> &
@@ -121,7 +123,10 @@ export class MarketplaceVideoDetail extends React.Component<Props> {
               <VideoPlayerFull
                 accessDenied={this.props.accessDenied}
                 authenticated={this.props.authenticated}
-                hideCoach={this.props.theme && this.props.theme.hideCoach}
+                coachDisplay={this.props.companyTheme.coach_display}
+                hideCoach={
+                  this.props.companyTheme && this.props.companyTheme.hideCoach
+                }
                 playbackUrl={this.props.playbackUrl}
                 playbackUrlLoading={this.props.playbackUrlLoading}
                 requestVideoAccess={this.requestVideoAccess}
@@ -132,9 +137,12 @@ export class MarketplaceVideoDetail extends React.Component<Props> {
           </Grid>
           <Grid item md={4} xs={12}>
             <VideoThumbnailList
+              coachDisplay={this.props.companyTheme.coach_display}
               fetchMoreVideo={this.props.fetchMoreVideo}
               hasMoreVideo={this.props.hasMoreVideo}
-              hideCoach={this.props.theme && this.props.theme.hideCoach}
+              hideCoach={
+                this.props.companyTheme && this.props.companyTheme.hideCoach
+              }
               loading={this.props.similarVideoLoading}
               onOpenVideo={this.props.openVideo}
               videoList={this.props.videoListSimilar}
@@ -192,7 +200,7 @@ const styles = (theme: Theme) => ({
 });
 
 const mapStateToProps = (state: RootState, ownProps: OwnProps) => ({
-  theme: themeSelectors.getTheme(state),
+  companyTheme: themeSelectors.getTheme(state),
   video: withCoach(withCategory(getVideo))(state, ownProps.videoId),
   videoListSimilar: withCoach(withCategory(getVideoList))(state),
   hasMoreVideo: state.video.list.nextPage && state.video.list.nextPage > 1,

@@ -10,6 +10,7 @@ import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import clx from 'classnames';
 import moment from 'moment/moment';
 import { VideoProvider } from '@bsport/common/lib/master-data/video-provider';
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 import TypographyMultiline from '../../../components/typo/TypographyMultiline.component';
 
 import CoachChip from '../../associated-coach/components/CoachChip.component';
@@ -28,6 +29,7 @@ type Props = {
   playbackUrlLoading: boolean,
   accessDenied: boolean,
   videoPurchaseDate: string,
+  coachDisplay?: MarketPlaceCoachDisplay,
 };
 
 export const VideoPlayerFull = (props: Props) => {
@@ -97,7 +99,12 @@ export const VideoPlayerFull = (props: Props) => {
         {!!coaches.length && !props.hideCoach && (
           <div className={classes.coachContainer}>
             {coaches.map((c) => (
-              <CoachChip key={c.id} className={classes.coachChip} coach={c} />
+              <CoachChip
+                key={c.id}
+                className={classes.coachChip}
+                coach={c}
+                coachDisplay={props.coachDisplay}
+              />
             ))}
           </div>
         )}

@@ -8,6 +8,8 @@ import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Clear';
 
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
+
 import SCTSelector from '../../category/components/SCTSelectorBase.component';
 import CoachSelector from '../../associated-coach/components/coach-selector/CoachSelector.component';
 import DelayedTextField from '../../../components/DelayedTextField.component';
@@ -29,6 +31,7 @@ type Props = {
   coaches: Array<Coach>,
   scts: Array<SCT>,
   customLevels: Array<Level>,
+  coachDisplay?: MarketPlaceCoachDisplay,
 };
 
 export const VideoSearchBar = (props: Props) => {
@@ -98,6 +101,7 @@ export const VideoSearchBar = (props: Props) => {
           <CoachSelector
             isClearable
             shouldSetMinHeight
+            coachDisplay={props.coachDisplay}
             coaches={props.coaches}
             selectedCoaches={
               props.searchParams.coaches

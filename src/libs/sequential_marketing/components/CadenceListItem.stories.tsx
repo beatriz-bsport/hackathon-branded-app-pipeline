@@ -6,7 +6,7 @@ import List from '@material-ui/core/List';
 import { makeStyles } from '@material-ui/styles';
 import { cadenceListFactory } from '#libs/sequential_marketing/factories';
 import { action } from '@storybook/addon-actions';
-import { CadenceStatus } from '../constants';
+import type { Cadence } from '../types';
 
 // displayName must be overriden for preview code to actually work on mdx document.
 CadenceListItem.displayName = 'AudienceListItem';
@@ -14,16 +14,17 @@ CadenceListItem.displayName = 'AudienceListItem';
 const fakeCadences = cadenceListFactory(3);
 
 const actions = {
-  onOpenCadenceDetails: action('onOpenCadenceDetails'),
-  onMetricsButtonClick: action('onMetricsButtonClick'),
-  onShow: action('onShow'),
-  onEdit: action('onEdit'),
   onDelete: action('onDelete'),
+  onEdit: action('onEdit'),
+  onOpen: action('onOpen'),
+  onRestore: action('onRestore'),
   onSelect: action('onSelect'),
 };
 
 const CadenceListItemTemplate: ComponentStory<typeof CadenceListItem> = (
-  args,
+  args: React.ComponentProps<typeof CadenceListItem> & {
+    cadenceList: Cadence[];
+  },
 ) => {
   const classes = useStyles();
   return (
@@ -32,8 +33,19 @@ const CadenceListItemTemplate: ComponentStory<typeof CadenceListItem> = (
         root: classes.root,
       }}
     >
-      {fakeCadences.map((cadence) => (
-        <CadenceListItem key={cadence.id} {...args} cadence={cadence} />
+      {args.cadenceList.map((cadence) => (
+        <CadenceListItem
+          key={cadence.id}
+          cadence={cadence}
+          dense={args.dense}
+          sortable={args.sortable}
+          archived={args.archived}
+          onDelete={args.onDelete}
+          onEdit={args.onEdit}
+          onOpen={args.onOpen}
+          onRestore={args.onRestore}
+          onSelect={args.onSelect}
+        />
       ))}
     </List>
   );
@@ -42,7 +54,7 @@ const CadenceListItemTemplate: ComponentStory<typeof CadenceListItem> = (
 const baseArgs = {
   dense: true,
   sortable: true,
-  status: CadenceStatus.ACTIVE,
+  cadenceList: fakeCadences,
 };
 
 export const CadenceListItemDefault = CadenceListItemTemplate.bind({});
@@ -52,7 +64,7 @@ export const CadenceListItemArchived = CadenceListItemTemplate.bind({});
 CadenceListItemArchived.args = {
   ...baseArgs,
   archived: true,
-  onRestore: () => {},
+  onRestore: actions.onRestore,
 };
 
 export default {
@@ -75,19 +87,10 @@ export default {
     },
   },
   argTypes: {
-    onOpenCadenceDetails: actions.onOpenCadenceDetails,
-    onMetricsButtonClick: actions.onMetricsButtonClick,
-    onShow: actions.onShow,
+    onOpen: actions.onOpen,
     onEdit: actions.onEdit,
     onDelete: actions.onDelete,
     onSelect: actions.onSelect,
-    status: {
-      control: {
-        type: 'inline-radio',
-      },
-      options: Object.values(CadenceStatus),
-      defaultValue: CadenceStatus.ACTIVE,
-    },
     selected: {
       control: { type: 'boolean' },
       description: 'Specifies whether the list item is selected or not.',

@@ -8,10 +8,11 @@ import { compose, withStateHandlers, withHandlers } from 'recompose';
 import createStyles from '@material-ui/core/styles/createStyles';
 import withStyles from '@material-ui/core/styles/withStyles';
 import type { Theme, WithStyles } from '@material-ui/core/styles';
-import Alert from '@material-ui/lab/Alert';
 import AddIcon from '@material-ui/icons/Add';
-import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
+import Alert from '@material-ui/lab/Alert';
 import Button from '@material-ui/core/Button';
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import withTitle from '#hocs/with-title.hoc';
 
 import {
@@ -223,6 +224,10 @@ export class CadenceListPage extends React.Component<Props> {
       cadenceLoading,
       cadenceList,
     } = this.props;
+
+    if (cadenceLoading) {
+      return <LinearProgress />;
+    }
 
     if (
       !cadenceLoading &&

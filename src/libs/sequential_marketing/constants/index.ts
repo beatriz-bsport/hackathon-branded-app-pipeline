@@ -61,6 +61,9 @@ import {
   CadenceMetricsSizes,
   CadenceStatus,
   CADENCE_METRICS_LIST_PAGINATION,
+  INITIAL_GLOBAL_METRICS,
+  INITIAL_MEMBERS_IN_DATA,
+  INITIAL_MEMBERS_OUT_DATA,
 } from './metrics';
 
 import {
@@ -107,6 +110,9 @@ export {
   CadenceMetricsSizes,
   CadenceStatus,
   CADENCE_METRICS_LIST_PAGINATION,
+  INITIAL_GLOBAL_METRICS,
+  INITIAL_MEMBERS_IN_DATA,
+  INITIAL_MEMBERS_OUT_DATA,
   // STEPS
   HandleTypeChoices,
   DEFAULT_X_FOR_ENTRYSTEP,

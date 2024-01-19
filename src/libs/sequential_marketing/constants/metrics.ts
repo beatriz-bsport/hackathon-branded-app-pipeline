@@ -1,5 +1,12 @@
 // ========== SIZES FOR WORKFLOW METRICS ==========
 
+import type {
+  CadenceGlobalMetrics,
+  CadenceMembersInData,
+  CadenceMembersOutData,
+  MetricsPaginatedResponse,
+} from '../types';
+
 export enum CadenceMetricsSizes {
   ICON_CONTAINER_SIZE = '36px',
   ICON_SIZE = '20px',
@@ -29,3 +36,31 @@ export enum CadenceStatus {
 }
 
 export const CADENCE_METRICS_LIST_PAGINATION = 5;
+
+export const INITIAL_GLOBAL_METRICS: CadenceGlobalMetrics = {
+  count_members_that_entered: 0,
+  success_rate: null,
+  average_success_time: null,
+  tags_count: 0,
+  emails_count: 0,
+  sms_count: 0,
+  push_notif_count: 0,
+};
+
+export const INITIAL_MEMBERS_OUT_DATA: MetricsPaginatedResponse<CadenceMembersOutData> =
+  {
+    count: 0,
+    next_page: 0,
+    page_size: CADENCE_METRICS_LIST_PAGINATION,
+    page: 1,
+    results: [],
+  };
+
+export const INITIAL_MEMBERS_IN_DATA: MetricsPaginatedResponse<CadenceMembersInData> =
+  {
+    count: 0,
+    next_page: 0,
+    page_size: CADENCE_METRICS_LIST_PAGINATION,
+    page: 1,
+    results: [],
+  };

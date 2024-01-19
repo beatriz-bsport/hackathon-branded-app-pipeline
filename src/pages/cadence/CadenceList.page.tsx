@@ -324,14 +324,14 @@ export class CadenceListPage extends React.Component<Props> {
               }
               endDate={this.props.endDateFilter}
               getCadenceStep={this.props.getStep}
-              globalMetrics={this.props.globalMetrics}
+              getGlobalMetrics={this.props.getGlobalMetrics}
+              getMembersHistoric={this.props.getMembersHistoric}
+              getMembersPresent={this.props.getMembersPresent}
               globalMetricsLoading={this.props.globalMetricsLoading}
               hasNotificationUpsell={this.hasNotificationUpsell}
               knowMoreOnNotifications={this.knowMoreOnUpsells}
               membersById={this.props.membersById}
-              membersHistoric={this.props.membersHistoric}
               membersHistoricLoading={this.props.membersHistoricLoading}
-              membersPresent={this.props.membersPresent}
               membersPresentLoading={this.props.membersPresentLoading}
               startDate={this.props.startDateFilter}
               updateFilterDates={this.handleUpdateFilterDates}
@@ -531,14 +531,17 @@ const connector = connect(
     cadenceLoading: getCadenceLoading(state),
     cadenceList: getEnabledCadencesList(state),
     cadenceArchivedList: getArchivedCadencesList(state),
-    globalMetrics: getCadenceGlobalMetrics(state),
-    membersHistoric: getCadenceMembersHistoric(state),
-    membersPresent: getCadenceMembersPresent(state),
     globalMetricsLoading: getCadenceGlobalMetricsLoading(state),
     membersHistoricLoading: getCadenceMembersHistoricLoading(state),
     membersPresentLoading: getCadenceMembersPresentLoading(state),
     membersById: getMemberListData(state),
     featureList: state.company.feature.data.upsell,
+    getGlobalMetrics: (cadenceId: number) =>
+      getCadenceGlobalMetrics(state, cadenceId),
+    getMembersHistoric: (cadenceId: number) =>
+      getCadenceMembersHistoric(state, cadenceId),
+    getMembersPresent: (cadenceId: number) =>
+      getCadenceMembersPresent(state, cadenceId),
     getStep: (stepId: number) => getCadenceStep(state, stepId),
   }),
   {

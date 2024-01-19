@@ -19,7 +19,10 @@ import type {
 export const fetchGlobalMetricsActions = {
   isLoading: createAction<boolean>('CADENCE_GLOBAL_METRICS/IS_LOADING'),
   error: createAction<Error | null>('CADENCE_GLOBAL_METRICS/ERROR'),
-  success: createAction<CadenceGlobalMetrics>('CADENCE_GLOBAL_METRICS/SUCCESS'),
+  success: createAction<{
+    cadenceId: number;
+    data: CadenceGlobalMetrics;
+  }>('CADENCE_GLOBAL_METRICS/SUCCESS'),
 };
 
 export function fetchGlobalMetrics(
@@ -33,7 +36,9 @@ export function fetchGlobalMetrics(
 
     try {
       const response = await fetchGlobalMetricsAPI(cadenceId, date_filter);
-      dispatch(fetchGlobalMetricsActions.success(response.data));
+      dispatch(
+        fetchGlobalMetricsActions.success({ cadenceId, data: response.data }),
+      );
       options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
@@ -48,9 +53,10 @@ export function fetchGlobalMetrics(
 export const fetchPresentMembersDataActions = {
   isLoading: createAction<boolean>('CADENCE_MEMBERS_PRESENT/IS_LOADING'),
   error: createAction<Error | null>('CADENCE_MEMBERS_PRESENT/ERROR'),
-  success: createAction<MetricsPaginatedResponse<CadenceMembersInData>>(
-    'CADENCE_MEMBERS_PRESENT/SUCCESS',
-  ),
+  success: createAction<{
+    cadenceId: number;
+    data: MetricsPaginatedResponse<CadenceMembersInData>;
+  }>('CADENCE_MEMBERS_PRESENT/SUCCESS'),
 };
 
 export function fetchPresentMembersData(
@@ -64,7 +70,12 @@ export function fetchPresentMembersData(
 
     try {
       const response = await fetchPresentMembersDataAPI(cadenceId, params);
-      dispatch(fetchPresentMembersDataActions.success(response.data));
+      dispatch(
+        fetchPresentMembersDataActions.success({
+          cadenceId,
+          data: response.data,
+        }),
+      );
       options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);
@@ -79,9 +90,10 @@ export function fetchPresentMembersData(
 export const fetchMembersHistoricActions = {
   isLoading: createAction<boolean>('CADENCE_MEMBERS_HISTORIC/IS_LOADING'),
   error: createAction<Error | null>('CADENCE_MEMBERS_HISTORIC/ERROR'),
-  success: createAction<MetricsPaginatedResponse<CadenceMembersOutData>>(
-    'CADENCE_MEMBERS_HISTORIC/SUCCESS',
-  ),
+  success: createAction<{
+    cadenceId: number;
+    data: MetricsPaginatedResponse<CadenceMembersOutData>;
+  }>('CADENCE_MEMBERS_HISTORIC/SUCCESS'),
 };
 
 export function fetchMembersHistoric(
@@ -95,7 +107,9 @@ export function fetchMembersHistoric(
 
     try {
       const response = await fetchMembersHistoricAPI(cadenceId, params);
-      dispatch(fetchMembersHistoricActions.success(response.data));
+      dispatch(
+        fetchMembersHistoricActions.success({ cadenceId, data: response.data }),
+      );
       options?.onSuccess?.(response.data);
     } catch (err) {
       console.error(err);

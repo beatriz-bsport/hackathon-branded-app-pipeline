@@ -42,16 +42,20 @@ const Template: ComponentStory<typeof CadenceMetrics> = (
   args: React.ComponentProps<typeof CadenceMetrics>,
 ) => <CadenceMetrics {...args} />;
 
+const globalMetrics = {
+  count_members_that_entered: faker.number.int(1000),
+  success_rate: faker.number.int(100),
+  average_success_time: faker.number.int(50),
+  tags_count: faker.number.int(10000),
+  emails_count: faker.number.int(10000),
+  sms_count: faker.number.int(10000),
+  push_notif_count: faker.number.int(10000),
+};
+
+const getGlobalMetrics = (cadenceId: number) => globalMetrics;
+
 export const Primary = Template.bind({});
 Primary.args = {
   cadence: cadenceFactory({}),
-  globalMetrics: {
-    count_members_that_entered: faker.number.int(1000),
-    success_rate: faker.number.int(100),
-    average_success_time: faker.number.int(50),
-    tags_count: faker.number.int(10000),
-    emails_count: faker.number.int(10000),
-    sms_count: faker.number.int(10000),
-    push_notif_count: faker.number.int(10000),
-  },
+  getGlobalMetrics: getGlobalMetrics,
 };

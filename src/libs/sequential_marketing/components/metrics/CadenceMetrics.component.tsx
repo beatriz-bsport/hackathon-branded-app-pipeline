@@ -23,12 +23,9 @@ import type { Member } from '#libs/member/types';
 
 type Props = {
   cadence?: Cadence;
-  globalMetrics: CadenceGlobalMetrics;
   membersById: {
     [id: string]: Member<number, number>;
   };
-  membersHistoric: MetricsPaginatedResponse<CadenceMembersOutData>;
-  membersPresent: MetricsPaginatedResponse<CadenceMembersInData>;
   endDate: string;
   startDate: string;
   hasNotificationUpsell?: boolean;
@@ -38,6 +35,13 @@ type Props = {
   changeMembersHistoricPage: (cadenceId: number, page: number) => void;
   changePresentMembersPage: (cadenceId: number, page: number) => void;
   getCadenceStep: (stepId: number) => CadenceStep;
+  getGlobalMetrics: (cadenceId: number) => CadenceGlobalMetrics;
+  getMembersHistoric: (
+    cadenceId: number,
+  ) => MetricsPaginatedResponse<CadenceMembersOutData>;
+  getMembersPresent: (
+    cadenceId: number,
+  ) => MetricsPaginatedResponse<CadenceMembersInData>;
   knowMoreOnNotifications: () => void;
   updateFilterDates: (startDateFilter: string, endDateFilter: string) => void;
 };
@@ -45,10 +49,7 @@ type Props = {
 const CadenceMetrics: React.FC<Props> = ({
   cadence,
   endDate,
-  globalMetrics,
   membersById,
-  membersHistoric,
-  membersPresent,
   startDate,
   hasNotificationUpsell,
   globalMetricsLoading,
@@ -57,6 +58,9 @@ const CadenceMetrics: React.FC<Props> = ({
   changeMembersHistoricPage,
   changePresentMembersPage,
   getCadenceStep,
+  getGlobalMetrics,
+  getMembersHistoric,
+  getMembersPresent,
   knowMoreOnNotifications,
   updateFilterDates,
 }) => {
@@ -79,6 +83,21 @@ const CadenceMetrics: React.FC<Props> = ({
       changeMembersHistoricPage(cadence?.id, page);
     },
     [cadence?.id, changeMembersHistoricPage],
+  );
+
+  const globalMetrics = React.useMemo(
+    () => getGlobalMetrics?.(cadence?.id),
+    [cadence?.id, getGlobalMetrics],
+  );
+
+  const membersPresent = React.useMemo(
+    () => getMembersPresent?.(cadence?.id) ?? null,
+    [cadence?.id, getMembersPresent],
+  );
+
+  const membersHistoric = React.useMemo(
+    () => getMembersHistoric?.(cadence?.id) ?? null,
+    [cadence?.id, getMembersHistoric],
   );
 
   const totalPagesPresentMembers = React.useMemo(

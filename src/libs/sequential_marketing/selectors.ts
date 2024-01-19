@@ -1,12 +1,12 @@
 import { createSelector } from 'reselect';
 
 import type { RootState } from '../../reducers';
+
 import {
-  CadenceGlobalMetrics,
-  CadenceMembersInData,
-  CadenceMembersOutData,
-  MetricsPaginatedResponse,
-} from './types';
+  INITIAL_GLOBAL_METRICS,
+  INITIAL_MEMBERS_IN_DATA,
+  INITIAL_MEMBERS_OUT_DATA,
+} from './constants';
 
 const _getCadenceAllIds = (state: RootState) => state.cadence.cadence.allIds;
 const _getCadencebyId = (state: RootState) => state.cadence.cadence.byId;
@@ -18,6 +18,13 @@ const _getStepMarketingActionsById = (state: RootState) =>
   state.cadence.marketingActions.byId;
 const _getStepMarketingActionsByStepId = (state: RootState) =>
   state.cadence.marketingActions.byStepId;
+
+const _getGlobalMetricsByCadenceId = (state: RootState) =>
+  state.cadence.metrics.globalMetrics.byCadenceId;
+const _getMembersPresentByCadenceId = (state: RootState) =>
+  state.cadence.metrics.membersPresent.byCadenceId;
+const _getMembersHistoricByCadenceId = (state: RootState) =>
+  state.cadence.metrics.membersHistoric.byCadenceId;
 
 export const getCadenceLoading = (state: RootState) =>
   state.cadence.cadence.loading;
@@ -109,19 +116,23 @@ export const getStepMarketingActionsByStepId = createSelector(
 export const getStepMemberCount = (state: RootState, stepId: number) =>
   state.cadence.step.memberIdsInStepByStepId?.data[stepId]?.length ?? 0;
 
-export const getCadenceGlobalMetrics = (
-  state: RootState,
-): CadenceGlobalMetrics => state.cadence.metrics.globalMetrics.data;
+export const getCadenceGlobalMetrics = createSelector(
+  [_getGlobalMetricsByCadenceId, (_: RootState, id: number) => id],
+  (globalMetricsByCadenceId, cadenceId) =>
+    globalMetricsByCadenceId[cadenceId] ?? INITIAL_GLOBAL_METRICS,
+);
 
-export const getCadenceMembersHistoric = (
-  state: RootState,
-): MetricsPaginatedResponse<CadenceMembersOutData> =>
-  state.cadence.metrics.membersHistoric.data;
+export const getCadenceMembersHistoric = createSelector(
+  [_getMembersHistoricByCadenceId, (_: RootState, id: number) => id],
+  (membersHistoricByCadenceId, cadenceId) =>
+    membersHistoricByCadenceId[cadenceId] ?? INITIAL_MEMBERS_OUT_DATA,
+);
 
-export const getCadenceMembersPresent = (
-  state: RootState,
-): MetricsPaginatedResponse<CadenceMembersInData> =>
-  state.cadence.metrics.membersPresent.data;
+export const getCadenceMembersPresent = createSelector(
+  [_getMembersPresentByCadenceId, (_: RootState, id: number) => id],
+  (membersPresentByCadenceId, cadenceId) =>
+    membersPresentByCadenceId[cadenceId] ?? INITIAL_MEMBERS_IN_DATA,
+);
 
 export const getCadenceGlobalMetricsLoading = (state: RootState): boolean =>
   state.cadence.metrics.globalMetrics.loading;

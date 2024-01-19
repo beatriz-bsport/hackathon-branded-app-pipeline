@@ -274,12 +274,18 @@ export type MetricsPaginatedResponse<T> = {
 };
 
 export type MetricsState = {
-  globalMetrics: { data: CadenceGlobalMetrics } & ErrorAndLoading;
+  globalMetrics: {
+    byCadenceId: { [cadenceId: number]: CadenceGlobalMetrics };
+  } & ErrorAndLoading;
   membersHistoric: {
-    data: MetricsPaginatedResponse<CadenceMembersOutData>;
+    byCadenceId: {
+      [cadenceId: number]: MetricsPaginatedResponse<CadenceMembersOutData>;
+    };
   } & ErrorAndLoading;
   membersPresent: {
-    data: MetricsPaginatedResponse<CadenceMembersInData>;
+    byCadenceId: {
+      [cadenceId: number]: MetricsPaginatedResponse<CadenceMembersInData>;
+    };
   } & ErrorAndLoading;
 };
 

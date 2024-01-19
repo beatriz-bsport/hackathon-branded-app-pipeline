@@ -22,3 +22,14 @@
 }
 
 /* .bs-consumer-page-root__bookings__booking-details {} */
+
+.bs-consumer-page-root__bookings__details-card--hidden {
+  display: none;
+}
+
+@container bsConsumerBookingPage (width < 400px) {
+  .bs-consumer-page-root__bookings {
+    grid-template-columns: 1fr;
+    gap: var(--bs-space-size-4);
+  }
+}

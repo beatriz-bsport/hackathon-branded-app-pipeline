@@ -52,13 +52,15 @@ import LanguageButton from '../button/LanguageButton.component';
 import LOGO_ASSET from '../../public/images/banner_lowres.png';
 import { windowTitleToProps } from '../../hocs/with-title.hoc';
 
-import type { Membership } from '../../libs/membership/types';
 import { WidgetUtils } from '../../libs/widget/WidgetUtils';
 import { getCurrencyDisplayWithPrice } from '../../libs/theme/selectors';
 import { urlToMarketplace } from '../../libs/marketplace/utils';
 import ConnectedAsDialog from '../../libs/relationship/components/ConnectedAs.dialog';
 import { getCheckoutUrl } from '#libs/marketplace/routing-utils';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+
+import type { Membership } from '../../libs/membership/types';
+import Config from '../../config';
 
 export const drawerWidth = 260;
 
@@ -560,7 +562,7 @@ class ConsumerDrawer extends React.Component<Props, State> {
       </div>
     );
     return (
-      <div className={classes.root}>
+      <div className={classes.root} id="bs-consumer-drawer__root">
         {this.renderAppBar()}
         <Hidden mdUp>
           <Drawer
@@ -681,9 +683,9 @@ const styles = (theme) => ({
     position: 'relative',
     overflow: 'hidden',
     display: 'flex',
-    width: '100vw',
+    width: '100dvw',
     flexDirection: 'column',
-    height: '100vh',
+    height: '100dvh',
     [theme.breakpoints.up('md')]: {
       paddingLeft: drawerWidth,
     },
@@ -737,13 +739,22 @@ const styles = (theme) => ({
     flexDirection: 'column',
     backgroundColor: theme.palette.background.default,
     width: '100%',
-    [theme.breakpoints.up('md')]: {
-      paddingLeft: theme.spacing(3),
-      paddingRight: theme.spacing(3),
-    },
-    paddingBottom: theme.spacing(1),
-    paddingTop: theme.spacing(2),
-    overflow: 'auto',
+    ...(['production', 'staging'].includes(
+      Config.REACT_APP_SENTRY_ENVIRONMENT,
+    ) && {
+      [theme.breakpoints.up('md')]: {
+        paddingLeft: theme.spacing(3),
+        paddingRight: theme.spacing(3),
+      },
+      paddingBottom: theme.spacing(1),
+      paddingTop: theme.spacing(2),
+      overflow: 'auto',
+    }),
+    ...(['dev'].includes(Config.REACT_APP_SENTRY_ENVIRONMENT) && {
+      margin: 0,
+      padding: 0,
+      overflow: 'inherit',
+    }),
   },
   logo: {
     alignItems: 'center',

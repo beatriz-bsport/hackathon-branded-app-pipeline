@@ -60,6 +60,11 @@
   border-radius: 0px;
 }
 
+/* ----- MODAL DIALOG ----- */
+.bs-fabrique-modal-dialog__content [class*='bs-fabrique-card'] {
+  box-shadow: none;
+}
+
 /* SCROLLBAR STYLES */
 ::-webkit-scrollbar {
   padding: 100px;

@@ -12,7 +12,6 @@
 .bs-consumer__generic-card__header-title__container {
   display: inline-flex;
   flex-direction: column;
-  min-width: 300px;
 }
 
 .bs-consumer__generic-card__header__title {

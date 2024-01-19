@@ -1,3 +1,4 @@
 .bs-consumer-booking-page__root {
-  container: bsConsumerBookingsPage / inline-size;
+  padding: var(--bs-space-size-4) var(--bs-space-size-4) 0;
+  container: bsConsumerBookingPage / inline-size;
 }

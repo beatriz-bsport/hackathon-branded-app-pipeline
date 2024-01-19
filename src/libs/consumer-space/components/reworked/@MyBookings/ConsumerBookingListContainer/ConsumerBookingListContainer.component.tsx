@@ -155,7 +155,11 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
               hasMore={hasNextPage}
               // TODO: height needs to be set to trigger fetchMoreData..
               // @ts-expect-error
-              height="calc(100dvh - 24px - 44px - 42px - 16px - 56px - 16px - 64px)"
+              height={
+                isMobile
+                  ? 'calc(100dvh - 285px)'
+                  : 'calc(100dvh - 24px - 44px - 42px - 16px - 56px - 16px - 64px)'
+              }
               items={currentBookingList}
               loader={<ConsumerBookingCard isLoading />}
               renderItem={({ item }) => {

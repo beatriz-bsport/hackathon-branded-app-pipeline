@@ -260,6 +260,12 @@
   color: var(--color-primary-contrastText);
 }
 
+/* ----- MODAL DIALOG ----- */
+.bs-fabrique-modal-dialog__content .bs-fabrique-date-picker__menu {
+  padding: 0;
+  width: 100%;
+}
+
 @media (max-width: 570px) {
   .bs-fabrique-date-picker__menu__calendar {
     row-gap: 0;

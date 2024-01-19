@@ -92,6 +92,11 @@
 .bs-consumer-booking-details-card__header-section__summary__date-time {
   color: var(--bs-color-text-inverse-default);
   text-transform: capitalize;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  /* autoprefixer: off */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .bs-consumer-booking-details-card__header-section__summary__activity {

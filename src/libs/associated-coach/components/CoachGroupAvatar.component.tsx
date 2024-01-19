@@ -6,6 +6,8 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import type { Theme } from '@material-ui/core/styles';
 
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
+import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach';
 import CoachChip from './CoachChip.component';
 import Tooltip from '#components/Tooltip.component';
 import type { Coach } from '../types';
@@ -15,20 +17,27 @@ type Props = {
   coaches?: Array<Coach>;
   size?: string;
   loading: boolean;
+  coachDisplay?: MarketPlaceCoachDisplay;
 };
 export const CoachGroupAvatar: React.FC<Props> = ({
   hideCoach,
   coaches,
   size,
   loading,
+  coachDisplay,
 }) => {
   const classes = useStyles();
-  const currentCoaches = coaches.filter((c) => !!c);
+  const currentCoaches = coaches.filter((coach) => !!coach);
   if (currentCoaches.length === 1 && !hideCoach) {
     return (
       <div>
-        {currentCoaches.map((c) => (
-          <CoachChip key={c.id} coach={c} loading={loading} />
+        {currentCoaches.map((coach) => (
+          <CoachChip
+            key={coach.id}
+            coach={coach}
+            coachDisplay={coachDisplay}
+            loading={loading}
+          />
         ))}
       </div>
     );
@@ -38,8 +47,15 @@ export const CoachGroupAvatar: React.FC<Props> = ({
     currentCoaches.length > 1 &&
     !hideCoach && (
       <AvatarGroup>
-        {currentCoaches.map((c) => (
-          <Tooltip key={c.id} title={c.name}>
+        {currentCoaches.map((coach) => (
+          <Tooltip
+            key={coach.id}
+            title={getCoachDisplayName(
+              coachDisplay,
+              coach?.name,
+              coach?.firstname,
+            )}
+          >
             {loading ? (
               <Skeleton
                 animation="wave"
@@ -48,9 +64,13 @@ export const CoachGroupAvatar: React.FC<Props> = ({
               />
             ) : (
               <Avatar
-                alt={c.name}
+                alt={getCoachDisplayName(
+                  coachDisplay,
+                  coach?.name,
+                  coach?.firstname,
+                )}
                 className={size === 'small' ? classes.smallAvatar : null}
-                src={c.photo}
+                src={coach.photo}
               />
             )}
           </Tooltip>

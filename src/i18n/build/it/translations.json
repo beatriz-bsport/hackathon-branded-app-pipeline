@@ -57,7 +57,7 @@
                 "edit": "Trascina e rilascia o fai clic qui per cambiare l'immagine"
             },
             "buy": "Comprare",
-            "establishments": "Luoghi",
+            "establishments": "Stabilimenti",
             "notes": "Nota",
             "add": "Inserisci",
             "loading": "Caricamento in corso...",
@@ -113,7 +113,7 @@
             "date": "Data",
             "nothing": "Nessuno",
             "bookings": "Prenotazioni",
-            "places": "Luoghi",
+            "places": "Stabilimenti",
             "male": "Uomo",
             "female": "Donna",
             "duplicate": "Duplica",
@@ -152,7 +152,7 @@
             "substitute": "Sostituto",
             "compatiblePacks": "Pacchetti compatibili",
             "noCompatiblePacks": "Nessun pachetto è compatibile con questa sessione.",
-            "extraordinaryEstablishment": "(sede temporanea)",
+            "extraordinaryEstablishment": "(stabilimento temporaneo)",
             "addInvoice": "Ricevuta",
             "myBookings": "Prenotazioni",
             "hasntBooked": "Non iscritto",
@@ -305,19 +305,19 @@
                 }
             },
             "offer": {
-                "coachChangeWarning": "Se modifichi l'insegnante, questa modifica sarà efficace per tutte le sessioni future. Se questo non è ciò che desideri, utilizza il campo \"Sostituisci\". Qualsiasi altra modifica registrata qui (palestra, prezzo, giorno della settimana ...) verrà quindi applicata a tutte le sessioni.",
-                "levelChangeWarning": "Se modifichi il livello del corso, questa modifica sarà efficace per tutte le sessioni future. Qualsiasi altra modifica registrata qui (palestra, prezzo, giorno della settimana ...) verrà quindi applicata a tutte le sessioni.",
-                "establishmentChangeWarning": "Se si modifica la palestra, questa modifica sarà effettiva per tutte le sessioni future. Se questo non è ciò che desideri, utilizza il campo \"Palestra temporanea\". Qualsiasi altra modifica registrata qui (giorno della settimana, prezzo, insegnante supplente, insegnante ...) verrà quindi applicata a tutte le sessioni.",
+                "coachChangeWarning": "La modifica dell'insegnante avrà effetto su tutte le sessioni future. Si può scegliere di utilizzare anche il campo \"Insegnante sostituto\".  Anche tutte le altre modifiche (stabilimento, prezzo, ecc.) saranno applicate a tutte le sessioni.",
+                "levelChangeWarning": "La modifica del livello avrà effetto su tutte le sessioni future. Anche tutte le altre modifiche (stabilimento, prezzo, ecc.) saranno applicate a tutte le sessioni.",
+                "establishmentChangeWarning": "La modifica dello stabilimento avrà effetto su tutte le sessioni future. È possibile utilizzare anche il campo \"Stabilimento sostitutivo\". Tutte le altre modifiche (insegnante, prezzo, ecc.) saranno applicate a tutte le sessioni.",
                 "substituteCoachLabel": "Sostituisci",
                 "coachLabel": "Insegnante",
-                "establishmentLabel": "Struttura",
-                "substituteEstablishmentLabel": "Stabilimento (luogo temporaneo)",
-                "warningPackonEdit": "Le modifiche alle sessioni potrebbero renderle incompatibili con determinati pacchetti. Dopo la modifica, prenditi il tempo necessario per verificare che rimangano compatibili con eventuali cambiamenti di posizione / insegnante.",
+                "establishmentLabel": "Stabilimento predefinito",
+                "substituteEstablishmentLabel": "Stabilimento sostitutivo",
+                "warningPackonEdit": "Queste modifiche potrebbero rendere questa sessione incompatibile con alcuni passaggi. Assicuratevi di aver configurato correttamente la compatibilità di tutti i vostri prodotti, insegnanti e stabilimenti.",
                 "deleteTitle": "Elimina sessione",
                 "cancelTitle": "Annulla la sessione",
                 "changeDate": "Cambia l'ora / la data",
                 "changeCoach": "Modifica insegnante",
-                "changeEstablishment": "Cambia luogo",
+                "changeEstablishment": "Modifica lo stabilimento",
                 "broadcast_link": {
                     "error": "Il link è sbagliato Deve iniziare con http: // o https: // e non deve contenere spazi",
                     "explainZoomApp": "Il link sarà generato automaticamente per ZOOM da bsport"
@@ -457,7 +457,7 @@
                 "totalPayment": "Pagamenti",
                 "paymentDue": "Pagamento dovuto"
             },
-            "establishment": "Struttura",
+            "establishment": "Stabilimento",
             "coach": "Insegnante",
             "newMember": "Nuovo membro",
             "newCoach": "Nuovo insegnante",
@@ -653,7 +653,7 @@
             "calendar": "Calendario",
             "message": "Marketing",
             "member": "Membri",
-            "establishment": "Strutture",
+            "establishment": "Stabilimenti",
             "payment": "Pagamenti",
             "logoff": "Disconnessione",
             "refresh": "Ricarica",
@@ -983,13 +983,13 @@
             "private_service": "Su appuntamento",
             "selector": {
                 "coach": {
-                    "placeholder": "Filtra per insegnante"
+                    "placeholder": "Filtra per: insegnante"
                 },
                 "level": {
-                    "placeholder": "Filtra per livello"
+                    "placeholder": "Filtra per: livello"
                 },
                 "establishment": {
-                    "placeholder": "Filtra per struttura"
+                    "placeholder": "Filtra per: stabilimento"
                 }
             },
             "buyPack": "Comprare",
@@ -1039,8 +1039,8 @@
                 "searchResults": "Ricerca",
                 "settings": "Impostazioni",
                 "orderList": "Ordini",
-                "establishmentList": "Strutture",
-                "establishmentFormPage": "Form dello stabilimento",
+                "establishmentList": "Stabilimenti",
+                "establishmentFormPage": "[Formulario] Stabilimento",
                 "marketingRule": "Strategie di marketing",
                 "subscriptions": "Abbonamenti ricorrenti",
                 "reportingDashboard": "Report",
@@ -1086,7 +1086,7 @@
             "membership": "Abbonamento ricorrente",
             "gaveUp": "Abbandonato da",
             "sessions": "sessioni",
-            "location": "Luogo",
+            "location": "Stabilimento",
             "gender": "Sesso",
             "sport": "Sport"
         },
@@ -1100,7 +1100,8 @@
             "keys": {
                 "cancelled": "Prenotazioni annullate",
                 "created": "Prenotazioni mantenute",
-                "offers": "Offerte"
+                "offers": "Offerte",
+                "waitingLists": "Liste di attesa"
             },
             "maintenedBookings": "{{nb}} prenotazione mantenuta",
             "maintenedBookings_plural": "{{nb}} prenotazioni mantenute",
@@ -1113,14 +1114,16 @@
             "chartsItemLabel": {
                 "numberOfSessions": "Sessioni",
                 "numberOfCancelledBookings": "Prenotazioni cancellate",
-                "numberOfConfirmedBookings": "Prenotazioni confermate"
+                "numberOfConfirmedBookings": "Prenotazioni confermate",
+                "waitingListSize": "In lista d'attesa"
             },
             "totalOffers": "{{ nb_offers }} <0/> sessione totale",
             "totalOffers_plural": "{{ nb_offers }} <0/> sessioni totali",
             "bookingsTotalCount": "{{nb}} <0/>prenotazione totale",
             "bookingsTotalCount_plural": "{{nb}} <0/>prenotazioni totali",
             "bookingsCancelled": "{{nb}} cancellate",
-            "confirmedBookings": "{{nb}} confermate"
+            "confirmedBookings": "{{nb}} confermate",
+            "waitingListSize": "{{nb}} in lista d'attesa"
         },
         "show_cancelled_offers": "Mostra sessioni annullate",
         "quickInvoiceNoVoucher": "Lascia il valore di questo campo uguale a 0 se non vuoi applicare uno sconto",
@@ -1158,8 +1161,8 @@
                     "activity": "Attività",
                     "coach": "Insegnante",
                     "date": "Ora / data della sessione",
-                    "establishment": "Luogo",
-                    "establishment_practical_info": "Accesso alla sala",
+                    "establishment": "Stabilimento",
+                    "establishment_practical_info": "Informazioni sull'accesso allo stabilimento",
                     "waiting_list_position": "Posizione in lista d'attesa",
                     "waiting_list_size": "Dimensione della lista d'attesa"
                 },
@@ -1169,8 +1172,8 @@
                 "name": "Allenamento",
                 "tags": {
                     "date": "Ora / data della sessione",
-                    "establishment": "Luogo",
-                    "establishment_practical_info": "Accesso alla sala",
+                    "establishment": "Stabilimenti",
+                    "establishment_practical_info": "Informazioni sull'accesso allo stabilimento",
                     "address": "Indirizzo",
                     "activity": "Attività",
                     "coach": "Insegnante"
@@ -1207,8 +1210,8 @@
                     "coach": "Insegnante",
                     "date": "Ora / Data",
                     "address": "Indirizzo",
-                    "establishment_practical_info": "Informazioni sull'accesso alla struttura (facoltativo)",
-                    "establishment": "Struttura",
+                    "establishment_practical_info": "Informazioni sull'accesso allo stabilimento",
+                    "establishment": "Stabilimento",
                     "ics_calendar_link": "Link al calendario ics"
                 }
             },
@@ -1228,8 +1231,8 @@
                     "activity": "Attività",
                     "coach": "Insegnante",
                     "date": "Ora / data della sessione",
-                    "establishment": "Luogo",
-                    "establishment_practical_info": "Accesso alla sala",
+                    "establishment": "Stabilimento",
+                    "establishment_practical_info": "Informazioni sull'accesso allo stabilimento",
                     "address": "Indirizzo",
                     "ics_calendar_link": "Collegamento ics al calendario",
                     "spot": "Posto",
@@ -1238,7 +1241,7 @@
                 "subtitles": {
                     "workshop": "Workshop",
                     "establishment_group": "Ubicazione",
-                    "establishment": "Sala",
+                    "establishment": "Stabilimento",
                     "meta_activity": "Attività"
                 }
             },
@@ -1277,8 +1280,8 @@
             "RecurrentRule": {
                 "tags": {
                     "recurring_booking_fail_reason": "Motivo dell'errore di prenotazione ricorrente",
-                    "establishment_practical_info": "Accesso alla sala",
-                    "establishment": "Sala",
+                    "establishment_practical_info": "Informazioni sull'accesso allo stabilimento",
+                    "establishment": "Stabilimento",
                     "date": "Ora/Data",
                     "coach": "Insegnante",
                     "address": "Indirizzo",
@@ -1632,6 +1635,120 @@
             "settingsInfo": "Se questa opzione è attivata, i dati (velocità, calorie bruciate, ecc.) saranno visualizzati in tempo reale durante la sessione. Se si disattiva questa opzione, i dati non verranno più visualizzati, ma si riceverà un riepilogo via e-mail al termine della sessione.",
             "settings": "Visualizza i miei dati in tempo reale",
             "settingsTitle": "Dati dello spinning"
+        },
+        "reworked": {
+            "myBookings": {
+                "spotSchedulingModal": {
+                    "title": "Configurazione dei posti"
+                },
+                "onlineWarningModal": {
+                    "message": "Si potrà aprire questo link 15 minuti prima della sessione.",
+                    "subtitle": "La sessione inizierà il {{- date}} alle {{hour}}",
+                    "title": "Attività online"
+                },
+                "cancelModal": {
+                    "group": {
+                        "listTitle": "Prenotazioni che saranno cancellate:",
+                        "alert": {
+                            "message": "Contattare lo studio se si desidera cancellare una singola sessione.",
+                            "title": "Tutte le prenotazioni per questo evento saranno cancellate"
+                        },
+                        "message": "Questa prenotazione fa parte di un gruppo.\nVerrete automaticamente cancellati da tutte le sessioni future associate a questo evento. I crediti saranno rimborsati e potranno essere riutilizzati."
+                    },
+                    "noRefund": "I crediti non saranno rimborsati in caso di cancellazione tardiva.",
+                    "creditsWillBeRefunded": "{{count}} credito verrà rimborsato.",
+                    "creditsWillBeRefunded_plural": "{{count}} crediti verranno rimborsati.",
+                    "title": "Cancella sessione"
+                },
+                "detailsCard": {
+                    "workshop": {
+                        "title": "Raggruppati con questo workshop"
+                    },
+                    "teacher": {
+                        "subtitutedBy": "Sostituito da",
+                        "absent": "Assente",
+                        "title": "Insegnante"
+                    },
+                    "waitlist": {
+                        "position": "La tua posizione nella waitlist è: {{position}}"
+                    },
+                    "cancellationPolicy": {
+                        "maxDuration": "Le cancellazioni sono possibili senza alcun addebito fino a {{days}} giorno/i, {{hours}} ora/e e {{minutes}} minuto/i.",
+                        "noDuration": "Le cancellazioni sono sempre possibili senza alcun addebito.",
+                        "title": "Politica di cancellazione"
+                    },
+                    "description": {
+                        "title": "Descrizione"
+                    },
+                    "location": {
+                        "title": "Sede"
+                    },
+                    "relatedPass": {
+                        "title": "Pacchetto correlato"
+                    },
+                    "cancelled": {
+                        "refundWarning": "Nessun rimborso per cancellazioni tardive",
+                        "creditsToRefund": "sarà rimborsato {{count}} credito",
+                        "creditsToRefund_plural": "saranno rimborsati {{count}} crediti",
+                        "cancelledFromManager": "Cancellata dallo studio manager",
+                        "cancelledFromMember": "Cancellata da te",
+                        "title": "Cancellata"
+                    }
+                },
+                "consumerBookingCard": {
+                    "listItemLabels": {
+                        "spotSchedulingPosition": "Posto {{ spotSchedulingPosition }}",
+                        "waitingList": "La tua posizione nella lista d'attesa è: {{ waitingListPosition }}"
+                    },
+                    "buttonsLabel": {
+                        "bookForAGuest": "Prenota per un ospite",
+                        "joinOnline": "Iscriviti online",
+                        "book": "Prenota",
+                        "seeDetails": "Mostra dettagli",
+                        "more": "Più",
+                        "cancel": "Cancella"
+                    },
+                    "chip": {
+                        "status": {
+                            "cancelled": "Cancellata",
+                            "bookedForAGuest": "Prenotato per un ospite",
+                            "unpaid": "Non pagato"
+                        },
+                        "noShow": "Assenza (No Show)",
+                        "atHome": "A casa",
+                        "online": "Online"
+                    }
+                },
+                "listContainer": {
+                    "placeholder": {
+                        "workshop": {
+                            "future": "Non sono previsti workshop.",
+                            "past": "Nessun workshop passato da mostrare."
+                        },
+                        "activity": {
+                            "future": "Non ci sono attività in programma.",
+                            "past": "Nessuna attività passata da mostrare."
+                        }
+                    }
+                },
+                "filter": {
+                    "onWaitlist": "Nella lista d'attesa",
+                    "past": "Passate",
+                    "upcoming": "Prossimamente"
+                },
+                "tab": {
+                    "workshops": "Workshop",
+                    "appointments": "Appuntamenti",
+                    "activities": "Attività"
+                },
+                "bookASession": "Prenota una sessione",
+                "title": "Le mie prenotazioni"
+            },
+            "placeholderCard": {
+                "myBookings": "Scegli una sessione per vedere maggiori dettagli"
+            },
+            "showLess": "Mostra di meno",
+            "showMore": "Mostra di più"
         }
     },
     "search": {
@@ -1657,12 +1774,12 @@
             "companyId": "L'ID del tuo club è: {{ company }}",
             "establishmentId": "Gli ID delle sale sono: {{establishmentIdList}}",
             "enabled": "Attivo",
-            "allEstablishment": "Tutte le sale",
+            "allEstablishment": "Tutti gli stabilimenti",
             "establishmentMergeMaster": "Entrare in questa istituzione ⬇️",
             "partnerId": "PartnerID: {{ company }}",
             "configurationTitle": "Configura la tua integrazione",
             "pleaseChoseEstablishmentMany": "Seleziona almeno uno stabilimento",
-            "establishmentMergedAs": "Fusione di queste istituzioni",
+            "establishmentMergedAs": "Unisci questi stabilimenti",
             "venueIds": "VenueIDs: {{ establishmentIdList }}",
             "pleaseChoseEstablishment": "Per favore, seleziona uno stabilimento",
             "establishment": "Stabilimento",
@@ -1683,7 +1800,7 @@
                 "helperText": "Ogni scuola apparirà come un luogo indipendente su ClassPass"
             },
             "2": {
-                "label": "Fusione di tutte le istituzioni",
+                "label": "Unisci tutti gli stabilimenti",
                 "helperText": "Tutte le istituzioni appariranno come una sola"
             },
             "3": {
@@ -2234,7 +2351,7 @@
     },
     "membership": {
         "selector": {
-            "placeholder": "Trova una palestra / sala / club ...",
+            "placeholder": "Cerca uno studio o uno stabilimento...",
             "noMatchingCompany": "Nessun risultato",
             "explainConsumer": "Con <1> bsport </2> vivi un'esperienza unica per la prenotazione di tutte le tue attività sportive. <3 /> Con un solo account e una password!",
             "fetchMore": "Mostra di più"
@@ -2367,7 +2484,7 @@
                 }
             },
             "private_service": "Tipo di appuntamento",
-            "establishment": "Luogo",
+            "establishment": "Stabilimento",
             "coach": "Insegnante",
             "detail": {
                 "detailEmpty": "Nessuna disponibilità nello slot selezionato",
@@ -2375,14 +2492,14 @@
                     "title": "Dettagli sulla disponibilità"
                 },
                 "openHours": "Orario",
-                "availableEverywhere": "Disponibile in tutte le sale",
+                "availableEverywhere": "Disponibile in tutti gli stabilimenti",
                 "slotBoundaries": "Da {{date_start}} a {{date_end}}",
                 "ok": "Ok"
             },
             "specificAvailabilityForm": {
                 "advanced": "Avanzato",
                 "infoForCoach": "Come impostazione predefinita, sarai disponibile in tutti gli stabilimenti. Attivando questa opzione potrai selezionare in quali stabilimenti sarai disponibile per questa fascia oraria.",
-                "info": "Come impostazione predefinita, il tuo insegnante sarà indicato come disponibile in tutti i tuoi istituti. Attivando questa opzione potrai selezionare in quali strutture il tuo insegnante sarà disponibile per questa fascia oraria.",
+                "info": "Per impostazione predefinita, l'insegnante sarà indicato come disponibile in tutte le vostre sedi. Attivando questa opzione, sarà possibile selezionare in quali stabilimenti l'insegnante sarà disponibile per questa fascia oraria.",
                 "switchLabel": "Aggiungi solo per alcuni stabilimenti"
             },
             "notAssociatedDialog": {
@@ -2395,9 +2512,9 @@
         },
         "resource": {
             "datatype": {
-                "establishment": "Luoghi",
+                "establishment": "Stabilimenti",
                 "coach": "Insegnante",
-                "associated_establishment": "Luoghi",
+                "associated_establishment": "Stabilimenti",
                 "associated_coach": "Insegnante",
                 "private_service": "Generale"
             },
@@ -2415,7 +2532,7 @@
             },
             "allocationWarning": {
                 "showCalendar": "Vedere il calendario",
-                "establishment": "Questa stanza non è disponibile in questo momento",
+                "establishment": "Questo stabilimento non è disponibile in questa fascia oraria.",
                 "coach": "Questo insegnante non è disponibile in questo orario",
                 "cancel": "Cancella",
                 "validate": "Convalidare",
@@ -2572,7 +2689,7 @@
             "padBeforeBooking": {
                 "explain4": "NON ATTIVO: l'appuntamento sarà possibile e bloccherà la camera 15 minuti prima e dopo la prenotazione. Il prossimo appuntamento sarà possibile a partire dalle 11:30.",
                 "explain3": "ATTIVO: L'appuntamento non sarà possibile. La sala deve essere disponibile dalle 9.45 alle 11.15. Il prossimo appuntamento sarà possibile solo a partire dalle 11:30.",
-                "explain2": "Esempio: la sala è disponibile dalle 10 alle 11, il vostro appuntamento dura 1 ora, ma avete bisogno di 15 minuti prima e dopo la prenotazione.",
+                "explain2": "Esempio: lo stabilimento è disponibile dalle 10 alle 11 e l'appuntamento dura 60 minuti, ma è necessario un blocco di 15 minuti prima e dopo per la pulizia o la manutenzione.",
                 "explain1": "Se attivato, le prenotazioni possono essere fatte solo se il calendario è disponibile, compresa la prenotazione"
             }
         },
@@ -2586,10 +2703,10 @@
         },
         "privateEstablishment": {
             "delete": {
-                "explain": "Sei sicuro di voler cambiare il luogo di questo appuntamento? Senza una struttura, sarà considerato un appuntamento a domicilio e gli studenti dovranno inserire il loro indirizzo per completare la prenotazione. Le prenotazioni già registrate non saranno interessate.",
+                "explain": "Sei sicuro di voler cambiare lo stabilimento di questo appuntamento? Senza uno stabilimento, sarà considerato un appuntamento a domicilio e gli studenti dovranno inserire il loro indirizzo per completare la prenotazione. Le prenotazioni già registrate non saranno interessate.",
                 "submit": "Conferma",
                 "cancel": "Annulla",
-                "title": "Annulla l'iscrizione alla sala"
+                "title": "Rimuovi lo stabilimento"
             }
         },
         "calendar": {
@@ -2667,7 +2784,7 @@
             },
             "nbSlot": "{{ nbSlot }} fascia oraria",
             "nbSlot_plural": "{{ nbSlot }} fasce orarie",
-            "establishment": "Luogo",
+            "establishment": "Stabilimento",
             "coach": "Insegnante",
             "selectService": "Scegli un servizio",
             "selectSession": "Scegli la tua sessione",
@@ -2691,7 +2808,7 @@
                 },
                 "people_capacity_used": {
                     "label": "Numero di persone",
-                    "helperText": "Se viene scelta una sala questo numero sarà utilizzato per aggiornare il suo riempimento"
+                    "helperText": "Questo numero sarà utilizzato per gestire la disponibilità degli stabilimenti."
                 },
                 "duration_minutes": {
                     "helperText": "Adattare i crediti necessari in base alla durata",
@@ -2700,8 +2817,8 @@
                 "cancel": "Annulla",
                 "submit": "Salva",
                 "credit": {
-                    "label": "Numero di credito/i",
-                    "helperText": "Numero di credito/i richiesto/i per una prenotazione"
+                    "label": "Credito/i",
+                    "helperText": "Selezionare il numero di crediti richiesti per prenotare un appuntamento."
                 },
                 "title": "Allenamento",
                 "pre_selected_choices": "Durate predefinite",
@@ -2716,7 +2833,7 @@
             },
             "missingResource": {
                 "coach": "Seleziona l'insegnante",
-                "establishment": "Si prega di selezionare il luogo",
+                "establishment": "Seleziona uno stabilimento",
                 "service": "Seleziona un tipo di appuntamento"
             },
             "cancel": "Annulla",
@@ -2749,7 +2866,7 @@
                 "credit_cost": "Credito {{credit_cost}}"
             },
             "sections": {
-                "establishment": "Luogo",
+                "establishment": "Stabilimento",
                 "privateSlot": "Sessioni",
                 "coach": "Insegnante"
             },
@@ -2958,7 +3075,7 @@
                 "placeholder": "Seleziona un appuntamento",
                 "isEmpty": "Nessun tipo di appuntamento configurato",
                 "establishment": {
-                    "label": "Sala"
+                    "label": "Stabilimento"
                 }
             },
             "configuration": {
@@ -2969,10 +3086,10 @@
                 "totalCapacity": "Capacità massima: {{capacity}}",
                 "noFutureSlot": "Non hai configurato alcuna disponibilità per {{resourceName}}! Clicca qui.",
                 "title": "Disponibilità oraria",
-                "isAlwaysAvailable": "{{resourceName}} è prenotabile non appena la sala e / o gli insegnanti sono disponibili",
+                "isAlwaysAvailable": "{{resourceName}} può essere prenotato, una volta che lo/gli stabilimento/i e/o l'insegnante/i sono disponibili.",
                 "changeIsAlwaysAvailable": "Modifica",
                 "slot": "Tipo di sessione",
-                "noCapacity": "Capacità della sala non configurata!"
+                "noCapacity": "Questo stabilimento non ha una capacità massima."
             },
             "form": {
                 "managerOnly": {
@@ -2988,18 +3105,18 @@
                         "helperText": "Verrà richiesto un indirizzo per ogni prenotazione"
                     },
                     "isWithoutEstablishment": {
-                        "label": "Nessuna struttura selezionata",
+                        "label": "Nessuno stabilimento predeterminato",
                         "helperText": "Es: video / lezioni all'aperto / ..."
                     },
                     "isWithEstablishment": {
-                        "isEmpty": "Nessuna sala configurata!",
-                        "label": "In una delle tue strutture",
-                        "helperText": "La prenotazione sarà possibile solo se la sala ha abbastanza posti liberi"
+                        "isEmpty": "Non è stato configurato alcuno stabilimento.",
+                        "label": "In uno dei tuoi stabilimenti",
+                        "helperText": "Le prenotazioni saranno possibili solo in presenza di un numero sufficiente di posti disponibili."
                     }
                 },
                 "establishment_consumer_attribution": {
-                    "label": "Consentire la scelta del luogo al momento della prenotazione",
-                    "helperText": "Il membro vede e sceglie il luogo prima di prenotare, se selezionato bsport cercherà di ottimizzare il riempimento delle sale"
+                    "label": "Consentire ai membri di scegliere lo stabilimento",
+                    "helperText": "I membri vedranno e potranno scegliere uno stabilimento durante il processo di prenotazione. Se non è selezionata, ottimizzeremo automaticamente il riempimento degli stabilimenti."
                 },
                 "coach_capacity_used": {
                     "helperText": "Es: un insegnante può seguire due allievi separatamente su due macchinari",
@@ -3008,7 +3125,7 @@
                 },
                 "use_full_establishment_capacity": {
                     "helperText": "Deseleziona per autorizzare contemporaneamente più attività / appuntamenti nella stessa sala se la capacità lo consente",
-                    "label": "Richiede l'intera sala"
+                    "label": "Richiedi l'intero stabilimento"
                 },
                 "title": "Appuntamento",
                 "createButton": "Aggiungi un tipo di appuntamento",
@@ -3027,7 +3144,7 @@
                     "label": "Insegnante"
                 },
                 "establishment": {
-                    "label": "Sala"
+                    "label": "Stabilimento"
                 },
                 "description": {
                     "label": "Descrizione del servizio"
@@ -3037,14 +3154,14 @@
                     "submit": "Salva"
                 },
                 "resourceGroup": {
-                    "establishment": "Luogo",
+                    "establishment": "Stabilimento",
                     "coach": "Insegnante"
                 },
                 "coach_consumer_attribution": {
                     "helperText": "Il membro vede e sceglie l'insegnante prima di prenotare. Se impostato, dovrai scegliere l'insegnante dopo ogni appuntamento",
                     "label": "Consentire la scelta dell'insegnante al momento della prenotazione"
                 },
-                "addEstablishment": "Aggiungi una sala",
+                "addEstablishment": "Aggiungi uno stabilimento",
                 "addSlot": "Aggiungi un tipo di sessione",
                 "delete": {
                     "confirm": "Rimuovi",
@@ -3057,13 +3174,13 @@
                     "label": "Prima dell'inizio dell'appuntamento, ultima prenotazione possibile"
                 },
                 "paddingEnd": {
-                    "helperText0": "Sul calendario, l'insegnante e/o la sala, sarà segnato come nuovamente disponibile alla fine della sessione",
-                    "helperText": "Sul calendario, l'insegnante e/o la sala sarà segnato come nuovamente disponibile {{minutes}} minuti dopo la fine della sessione",
+                    "helperText0": "L'insegnante o gli insegnanti e/o lo stabilimento saranno indicati come disponibili dopo la fine dell'appuntamento.",
+                    "helperText": "Gli insegnanti e/o gli stabilimenti saranno indicati come non disponibili per {{minutes}} dopo la fine dell'appuntamento.",
                     "label": "Numero di minuti dopo la fine della sessione"
                 },
                 "paddingStart": {
-                    "helperText0": "Sul calendario, l'insegnante, o la sala, sarà segnalato come non disponibile all'orario di inizio della sessione",
-                    "helperText": "Sul calendario, l'insegnante e/o l'aula saranno contrassegnati come non disponibili {{minutes}} minuti prima dell'inizio dell'appuntamento",
+                    "helperText0": "Gli insegnanti e/o gli stabilimenti saranno indicati come non disponibili all'inizio dell'appuntamento.",
+                    "helperText": "Gli insegnanti e/o gli stabilimenti saranno indicati come non disponibili {{minutes}} prima dell'inizio dell'appuntamento.",
                     "label": "Numero di minuti prima dell'inizio dell'appuntamento"
                 },
                 "paddingTitle": "Gestione delle disponibilità",
@@ -3086,14 +3203,14 @@
             "parameters": {
                 "description": "Descrizione",
                 "slots": {
-                    "isEmpty": "Nessun tipo di sessione definita",
+                    "isEmpty": "Inizia aggiungendo una sessione.",
                     "explainIsEmpty": "Definire i tipi di sessioni (durata, costo)",
-                    "title": "Allenamento"
+                    "title": "Sessione"
                 },
                 "establishments": {
-                    "title": "Luogo",
-                    "is_empty": "Nessuna sala",
-                    "is_home_service": "A domicilio"
+                    "title": "Stabilimento",
+                    "is_empty": "Nessuno stabilimento disponibile.",
+                    "is_home_service": "Da casa"
                 },
                 "coaches": {
                     "title": "Insegnante",
@@ -3181,7 +3298,7 @@
                 "timeGroup": "Data della sessione",
                 "configuration": "Prenotazioni",
                 "title": "Programmare una ricorrenza",
-                "override_availabilities": "Effettua la prenotazione anche se l'insegnante, la stanza o l'appuntamento non sono disponibili",
+                "override_availabilities": "Effettua la prenotazione anche se l'insegnante, lo stabilimento o l'appuntamento non sono disponibili",
                 "allow_unpaid": "Permettere prenotazioni non pagate (nessuna carta compatibile posseduta)"
             },
             "actions": {
@@ -3354,7 +3471,7 @@
         "openSpecificAvailabilitiesCalendar": "Disponibilità specifiche",
         "specificAvailabilitiesCalendar": {
             "goToRegularCalendar": "Torna al programma",
-            "infoBoxContent": "Sei nella modalità di disponibilità specifica di una struttura. Per impostazione predefinita, i tuoi insegnanti sono disponibili in tutte le strutture quando crei una disponibilità. In questa pagina, imposta la disponibilità specifica per determinate strutture per rendere disponibile il tuo insegnante solo in queste strutture. È necessario creare una disponibilità generale sull'orario del tuo insegnante per creare una disponibilità specifica.",
+            "infoBoxContent": "Sei nella modalità di disponibilità specifica di uno stabilimento. Per impostazione predefinita, i tuoi insegnanti sono disponibili in tutti gli stabilimenti quando crei una disponibilità. In questa pagina, imposta la disponibilità specifica per determinati stabilimenti per rendere disponibile il tuo insegnante solo in questi. È necessario creare una disponibilità generale sull'orario del tuo insegnante per creare una disponibilità specifica.",
             "filters": "Filtri",
             "establishment": "Stabilimento"
         },
@@ -3582,7 +3699,9 @@
             "netGain": "Guadagno netto",
             "marginValue": "Contributo marginale",
             "nb_private_bookings": " ",
-            "noShowsAndLateCancellations": "Assenze (no-show) e cancellazioni tardive"
+            "noShowsAndLateCancellations": "Assenze (no-show) e cancellazioni tardive",
+            "location": "Sede",
+            "establishment": "Stabilimento"
         },
         "bonus": "Bonus",
         "addBonus": "Aggiungi un bonus",
@@ -3634,10 +3753,13 @@
             "coachSelector": "Seleziona gli insegnanti",
             "reset": "Azzerare i filtri",
             "apply": "Applicare i filtri",
-            "header": "Filtri avanzati"
+            "header": "Filtri avanzati",
+            "locations": "Sedi",
+            "establishments": "Stabilimenti"
         },
         "form": {
-            "ifEmptyAllowAll": "Lasciare vuoto per ignorare questo filtro"
+            "ifEmptyAllowAll": "Lasciare vuoto per ignorare questo filtro",
+            "selectEstablishments": "Seleziona stabilimenti"
         }
     },
     "navigation": {
@@ -3683,7 +3805,7 @@
             "dashboard": "Pannello di controllo",
             "message": "Marketing",
             "member": "Membri",
-            "establishment": "Strutture",
+            "establishment": "Stabilimenti",
             "goBack": "Indietro",
             "pass": "Pacchetti",
             "settings": {
@@ -4613,8 +4735,8 @@
                 "overbookingNotAllowed": "Non puoi superare il numero massimo di prenotazioni.",
                 "overrideCoachNotAllowed": "Non puoi forzare un appuntamento con questo insegnante.",
                 "overbookingNotAllowedInWaitingList": "Non puoi superare la capienza massima della lista d'attesa.",
-                "overrideEstablishmentNotAllowed": "Non puoi forzare un appuntamento in questa stanza.",
-                "changeDateEstablishmentUnaivalable": "Impossibile prenotare in questa data: la sala non è libera.",
+                "overrideEstablishmentNotAllowed": "Non puoi forzare un appuntamento in questo stabilimento.",
+                "changeDateEstablishmentUnaivalable": "Impossibile prenotare in questa data: lo stabilimento non è disponibile.",
                 "changeDateCoachUnaivalable": "Impossibile prenotare in questa data: l'insegnante non è libera."
             }
         },
@@ -4907,19 +5029,19 @@
         },
         "establishment": {
             "delete": {
-                "success": "Struttura cancellata",
-                "error": "Impossibile eliminare questa attività"
+                "success": "Stabilimento cancellato",
+                "error": "Impossibile eliminare questo stabilimento"
             },
             "update": {
-                "success": "Struttura modificata con successo"
+                "success": "Stabilimento modificato con successo"
             },
-            "error": "Impossibile salvare la struttura",
+            "error": "Impossibile salvare lo stabilimento",
             "create": {
-                "success": "Struttura creata con successo"
+                "success": "Stabilimento creato con successo"
             },
             "restore": {
-                "error": "Impossibile ripristinare questa struttura",
-                "success": "Struttura ripristinata"
+                "error": "Impossibile ripristinare questo stabilimento",
+                "success": "Stabilimento ripristinato"
             }
         },
         "member": {
@@ -5214,7 +5336,7 @@
             "6002": "La lista d'attesa è piena",
             "2012": "Questo pacchetto non è compatibile con questa sessione",
             "2011": "Questo pacchetto non permette di prenotare sessione (solo VOD)",
-            "2010": "Questo pacchetto non è compatibile con questa struttura",
+            "2010": "Questo pacchetto non è compatibile con questo stabilimento",
             "2009": "Questo pacchetto non è compatibile con questa categoria di attività",
             "2008": "Questo pacchetto non è compatibile con questa attività",
             "2007": "Questo pacchetto non è compatibile con questa sessione",
@@ -5261,7 +5383,7 @@
             },
             "delete": {
                 "success": "Posizione cancellata",
-                "error": "Impossibile eliminare la posizione"
+                "error": "Errore durante l'eliminazione dello stabilimento"
             }
         },
         "customForm": {
@@ -5549,6 +5671,9 @@
                 "error": "Si è verificato un errore nella creazione del {{ workflowLowerCase }}",
                 "success": "È stato creato un nuovo {{ workflowLowerCase }}"
             }
+        },
+        "privateSlot": {
+            "notAvailableForBookingAnymore": "Questo posto non è più disponibile."
         }
     },
     "settings": {
@@ -7447,7 +7572,7 @@
             "date_created": "Data di creazione",
             "expiration_date": "Data di scadenza",
             "ca": "Ricavo generato",
-            "establishment": "Struttura",
+            "establishment": "Stabilimenti",
             "date_start_dow": "Giorno",
             "last_booking": "Prenotazione precedente",
             "next_booking": "Prossima prenotazione",
@@ -7493,7 +7618,7 @@
             "private_slot": "Tipo di sessione",
             "private_service": "Nome dell'appuntamento",
             "date_first_privatebooking": "Data del primo appuntamento",
-            "activitiesest": "Attività per struttura",
+            "activitiesest": "Attività per stabilimento",
             "coaches": "Insegnanti",
             "today_end_amount": "Saldo fine giornata",
             "today_start_amount": "Saldo inizio giornata",
@@ -7589,7 +7714,7 @@
             "billing_planrecurrent_price": "Importo",
             "couponamount_off": "Sconto fisso",
             "couponpercent_off": "Sconto in %",
-            "establishment_title": "Sala",
+            "establishment_title": "Stabilimento",
             "is_unpaid": "Pagamento in sospeso",
             "member_default_billing_establishment": "Indirizzo di contabilizzazione",
             "negative_voucher": "Sconto",
@@ -7728,10 +7853,10 @@
         "categories": {
             "dayBookings": "Prenotazioni (lezione di gruppo) per giorno",
             "privateServiceCoach": "Appuntamento per insegnante",
-            "privateServiceEst": "Appuntamento per struttura",
+            "privateServiceEst": "Appuntamenti per stabilimento",
             "privateService": "Appuntamento",
             "activityByCoach": "Attività e workshop per insegnante",
-            "activityByEst": "Attività e seminari per struttura",
+            "activityByEst": "Attività e workshop per stabilimento",
             "workshop": "Workshop",
             "activities": "Attività",
             "first_privatebooking": "Primo appuntamento",
@@ -8417,7 +8542,7 @@
                 "generalSettingsTitle": "Generale",
                 "sports": "Categoria",
                 "activities": "Attività",
-                "establishments": "Struttura",
+                "establishments": "Stabilimento",
                 "restrictionsTitle": "Restrizioni",
                 "notEditable": "Questo pacchetto è il risultato di una migrazione, alcuni campi non sono modificabili per rispettare la cronologia. Le attività / categorie compatibili rimangono modificabili.",
                 "until": "Fino a ",
@@ -8597,7 +8722,7 @@
         "addButton": "Crea un pacchetto",
         "expirationDate": "Scade a",
         "never": "Mai",
-        "availableOnFollowingEstablishments": "Luoghi ammissibili: ",
+        "availableOnFollowingEstablishments": "Disponibile nei seguenti stabilimenti: ",
         "search": "Cerca un pacchetto",
         "maxNBookingsByWeek1": "Fino a ",
         "validFrom": "Valido dal ",
@@ -8626,7 +8751,7 @@
         "availableOnFollowingActivities": "Attività ammissibili: ",
         "anyActivity": "Qualsiasi attività",
         "boughtConsumerPaymentPacks": "Iscritti",
-        "noRestrictionOnActivityType": "Tutte le attività sono compatibili con questo pacchetto.",
+        "noRestrictionOnActivityType": "Tutte le categorie, attività e stabilimenti sono compatibili con questo pacchetto.",
         "credit": {
             "updated": "Crediti aggiornati"
         },
@@ -8733,7 +8858,7 @@
             "categories": "{{ count }} categoria",
             "categories_plural": "{{ count }} categorie",
             "compatible": "Compatibile con ",
-            "all": "Compatibile con tutti i"
+            "all": "Questo pacchetto è compatibile con tutte le categorie, attività e stabilimenti."
         },
         "selector": {
             "noAvailable": "Nessun pacchetto corrispondente alla disponibilità scelta.",
@@ -8783,10 +8908,10 @@
             "only_vod_access": "Limitare l'uso della carta al solo VOD",
             "vodAccessCard": "Fornisce l'accesso al VOD",
             "vod": "VOD",
-            "compatibility": "Il tuo pacchetto sarà compatibile solo con le sessioni corrispondenti a una delle categorie selezionate E uno dei luoghi selezionati E una delle attività selezionate.",
+            "compatibility": "Questo pacchetto sarà compatibile solo con le sessioni, le attività, le categorie e/o gli stabilimenti selezionati.",
             "letBlank": "Lasciare questo campo vuoto per non applicare alcuna restrizione",
             "activities": "Attività",
-            "room": "Camere",
+            "room": "Stabilimenti",
             "categories": "Categorie",
             "inShopPayment": "Possibilità di pagare sul posto",
             "notForSell": "Non visibile per i clienti",
@@ -10210,7 +10335,7 @@
                     "first": "d'attività"
                 },
                 "establishment": {
-                    "first": "nelle strutture"
+                    "first": "negli stabilimenti"
                 },
                 "date": {
                     "first": "prendere posto"
@@ -10227,7 +10352,7 @@
                 "coach": {
                     "first": "con gli insegnanti"
                 },
-                "explanation": "Ho prenotato X allenamenti dell'attività A, nella posizione B, con il pacchetto C",
+                "explanation": "Visualizzare una panoramica dei membri che hanno prenotato X classi di attività A nello stabilimento X con il pacchetto Z",
                 "first": "Ha prenotato",
                 "second": "sessioni",
                 "between": "e",
@@ -10417,7 +10542,7 @@
                     "first": "la data dell'allenamento è"
                 },
                 "name": "X-esimo numero di prenotazione",
-                "explanation": "Ha prenotato la sua X esima sessione di attività A, nella struttura B ...",
+                "explanation": "Visualizza una panoramica di tutti i membri con X prenotazioni dell'attività Y nello stabilimento Z",
                 "second_singular": "1a sessione",
                 "first": "Ha prenotato la sua ",
                 "second_plural": "allenamento",
@@ -10511,12 +10636,12 @@
                 "establishment": {
                     "third": "a casa",
                     "second": "o",
-                    "first": "nelle strutture"
+                    "first": "negli stabilimenti"
                 },
                 "between": "e",
                 "second": "appuntamento",
                 "first": "Hai prenotato",
-                "explanation": "Ha prenotato X appuntamenti con l'insegnante A, nel posto B, con il pacchetto C",
+                "explanation": "Visualizza una panoramica dei membri che hanno prenotato X appuntamenti con l'insegnante A nello stabilimento Y con il pacchetto Z",
                 "name": "Numero di appuntamenti",
                 "private_service": {
                     "first": "con gli appuntamenti"
@@ -10745,11 +10870,11 @@
                 "helperAllSelectedText": "tutte le attività"
             },
             "establishments": {
-                "helperAllSelectedText": "tutte le strutture",
-                "warning": "Seleziona almeno una struttura",
-                "helperText": "selezionare le strutture",
-                "helperSelectedText": "strutture selezionate",
-                "textFieldPlaceholder": "Cerca un luogo"
+                "helperAllSelectedText": "tutti gli stabilimenti",
+                "warning": "Seleziona almeno uno stabilimento",
+                "helperText": "seleziona stabilimento",
+                "helperSelectedText": "stabilimenti selezionati",
+                "textFieldPlaceholder": "Cerca uno stabilimento"
             },
             "buyables": {
                 "helperAllSelectedText": "tutti i prodotti",
@@ -11422,7 +11547,7 @@
     },
     "establishment": {
         "capacity": {
-            "helperText": "Utilizzato solo per calcolare la disponibilità per gli appuntamenti",
+            "helperText": "Questo numero sarà utilizzato solo per gestire la disponibilità di questo stabilimento per appuntamenti.",
             "label": "Capacità della sala",
             "explain": "Capacità: {{capacity}} posto",
             "explain_plural": "Capacità: {{capacity}} posti",
@@ -11431,20 +11556,20 @@
         "forms": {
             "delete": {
                 "content": {
-                    "canDelete": "Sei sicuro di voler eliminare questa struttura? Questa operazione è irreversibile. Le sessioni e le prenotazioni passate non saranno interessate",
-                    "cannotDelete": "Impossibile eliminare questa struttura, ci sono sessioni pianificate per il futuro. Verificare che siano state annullate e quindi eliminate"
+                    "canDelete": "Sei sicuro di voler cancellare questo stabilimento? Le sessioni esistenti e le prenotazioni passate non saranno modificate. Questa azione non può essere annullata.",
+                    "cannotDelete": "Questo stabilimento non può essere cancellato in quanto non sono state annullate e cancellate le prossime sessioni collegate a questo."
                 },
-                "title": "Elimina struttura",
+                "title": "Eliminare uno stabilimento",
                 "actions": {
                     "cancel": "annulla",
                     "confirm": "Rimuovi"
                 }
             },
             "update": {
-                "title": "Modifica informazioni"
+                "title": "Aggiorna stabilimento"
             },
             "create": {
-                "title": "Nuova struttura"
+                "title": "Nuovo stabilimento"
             },
             "edit": "Modifica"
         },
@@ -11463,10 +11588,10 @@
                 "general": "Generale"
             }
         },
-        "establishment": "Struttura",
-        "establishment_override": "Struttura di sostituzione",
+        "establishment": "Stabilimento",
+        "establishment_override": "Stabilimento sostitutivo",
         "search": "Cerca uno stabilimento",
-        "addButton": "Aggiungi una struttura",
+        "addButton": "Aggiungi uno stabilimento",
         "practical_info": {
             "label": "Accedi alle informazioni",
             "placeholder": "Codice 1234 porta destra",
@@ -11474,9 +11599,9 @@
         },
         "baseEstablishment": "Abituale",
         "goBackToList": "Ritorna alle strutture",
-        "pleaseFill": "Si prega di inserire una struttura",
+        "pleaseFill": "Inserire uno stabilimento",
         "update": {
-            "imageUploaderRequireEditMessage": "Una volta creata la tua struttura, sarai in grado di aggiungere altre immagini."
+            "imageUploaderRequireEditMessage": "Una volta creato il tuo stabilimento, sarai in grado di aggiungere altre immagini."
         },
         "pleaseSelectOne": "Seleziona un club sulla mappa",
         "offers": "Calendario delle sessioni:",
@@ -11486,7 +11611,7 @@
         "notificationToolTip": "Le notifiche sono impostate per le prenotazioni relative a questa struttura",
         "list": {
             "section": {
-                "archived": "Stabilimento archiviato"
+                "archived": "Stabilimenti archiviati"
             }
         },
         "spotScheduling": {
@@ -11495,7 +11620,7 @@
                 "content": "Sei sicuro di volerla eliminare? Questa operazione è irreversibile."
             },
             "add": "Aggiungi una disposizione",
-            "subtitle": "Utilizzato per la gestione dei posti. Permette ai tuoi studenti di prenotare il posto desiderato nella sala.",
+            "subtitle": "Aggiungi una pianificazione dei posti personalizzata al tuo stabilimento, per consentire ai membri di prenotare il loro posto specifico per ogni sessione.",
             "title": "Gestione dei posti",
             "untitled": "Senza titolo",
             "placeCount": "{{count}} posti"
@@ -11511,9 +11636,9 @@
             "state": "Stato"
         },
         "localisation": "Posizione",
-        "room": "Camera",
+        "room": "Stabilimento",
         "group": {
-            "groupButton": "Raggruppamento di istituzioni",
+            "groupButton": "Raggruppa gli stabilimenti",
             "addLocalisation": "Aggiungere una posizione",
             "name": " Nome",
             "actions": "Azioni",
@@ -11553,7 +11678,7 @@
                 "delete": {
                     "confirm": "Cancella",
                     "cancel": "Cancella",
-                    "content": "Si vuole eliminare questo gruppo di contabilizzazione? Le ricevute future non potranno più essere collegate a questa sede, né essere selezionate dai membri come sede preferita durante l'acquisto online. Prima di cancellare il gruppo di contabilizzazione, assicurati che tutte le sedi siano collegate ai gruppi di contabilizzazione esistenti",
+                    "content": "Sei sicuro di voler eliminare questo gruppo di contabilizzazione? Le ricevute future non potranno più essere collegate a questa sede, né essere selezionate dai membri come sede preferita durante l'acquisto online. Prima di cancellare il gruppo di contabilizzazione, assicurati che tutti gli stabilimenti siano collegati ai gruppi di contabilizzazione esistenti",
                     "title": "Eliminare un gruppo di contabilizzazione"
                 }
             },
@@ -11564,7 +11689,7 @@
                     "groupShouldHaveAddress": "È necessario indicare l'indirizzo di questo gruppo di contabilizzazione"
                 },
                 "dialog": {
-                    "save": "Registra",
+                    "save": "Salva",
                     "cancel": "Cancella",
                     "title": "Gruppo di contabilizzazione"
                 },
@@ -11575,7 +11700,7 @@
                     "label": "Indirizzo"
                 },
                 "warning": {
-                    "groupHasSeveralLocations": "Si noti che le strutture selezionate non hanno lo stesso indirizzo e potrebbero non far parte della stessa sede"
+                    "groupHasSeveralLocations": "Nota che gli stabilimenti selezionati non hanno lo stesso indirizzo e potrebbero non far parte della stessa sede"
                 }
             },
             "actions": "Azioni",
@@ -11997,10 +12122,10 @@
         },
         "confirmPage": {
             "headOnIn": "È tutto pronto!",
-            "classLocation": "La tua sessione si svolge in",
+            "classLocation": "Per partecipare, recati al seguente stabilimento:",
             "visitsLeft": "Visite rimanenti",
             "expires": "Scaduto",
-            "signIn": "Salvato"
+            "signIn": "Check-in eseguito"
         },
         "signout": {
             "signout": "Disconnetti",
@@ -12030,7 +12155,7 @@
             "button": "Crea un account"
         },
         "filter": {
-            "establishment": "Filtra per posizione"
+            "establishment": "Filtra per stabilimenti"
         },
         "authenticationDialog": {
             "error": "La password inserita non è valida",
@@ -12829,7 +12954,7 @@
             "serviceList": "Su appuntamento"
         },
         "establishment": {
-            "establishmentList": "Strutture",
+            "establishmentList": "Stabilimenti",
             "establishmentFormPage": "Form di stabilimento",
             "establishmentGroupPage": "Sedi"
         },
@@ -13197,6 +13322,10 @@
             "noBooking": {
                 "acceptTermsAndFinalize": "Accetta i termini e condizioni e rivedi il carrello",
                 "checkAndFinalize": "Rivedi il carrello"
+            },
+            "referral": {
+                "hasReachedMaxUses": "È stato raggiunto il numero massimo di utilizzi per il referral link.",
+                "missingAmountBeforeApplication": "L'importo minimo di acquisto non è stato raggiunto. Si rischia di perdere il proprio referral link. Solo {{ missingAmount }} in più per poter usufruire dello sconto!"
             }
         },
         "paymentIntent": {
@@ -13299,7 +13428,8 @@
                 "newWorkshop": "Nuovo workshop",
                 "retry": "RIprova",
                 "myBookings": "Le mie prenotazioni",
-                "goToCalendar": "Ritorna al calendario"
+                "goToCalendar": "Ritorna al calendario",
+                "backToMyProfile": "Torna al mio profilo"
             },
             "bookingItem": {
                 "bookingItemStatus": {
@@ -13369,7 +13499,7 @@
                 "placeholder": "Livello"
             },
             "establishment": {
-                "placeholder": "Struttura"
+                "placeholder": "Stabilimento"
             },
             "additionalCoaches": {
                 "placeholder": "Insegnante aggiuntivo",
@@ -13733,7 +13863,7 @@
             "livestream": "Livestream",
             "description": "Inizia la tua classe online"
         },
-        "extraordinaryEstablishment": "(luogo temporaneo)",
+        "extraordinaryEstablishment": "(stabilimenti temporanei)",
         "substitute": "Sostituzione",
         "calendar": {
             "modifyOffer": "Modifica",
@@ -13925,7 +14055,7 @@
                     "title": "Cambio insegnante supplente"
                 },
                 "similarOffers": {
-                    "info": "Le modifiche alle sessioni possono renderle incompatibili con alcuni pacchetti. Dopo la modifica, si prega di verificare che i pacchetti siano compatibili con eventuali cambiamenti di sede/insegnante.",
+                    "info": "Le modifiche alle sessioni possono renderle incompatibili con alcuni pacchetti. Dopo la modifica, si prega di verificare che i pacchetti siano compatibili con eventuali cambiamenti di stabilimento/insegnante.",
                     "unselectAll": "Deseleziona tutto",
                     "selectAll": "Seleziona tutto",
                     "title": "Selezionare le sessioni da modificare"
@@ -14140,8 +14270,8 @@
                     "title": "Creazione di ruoli",
                     "buttonCreate": "Aggiungere un ruolo  ",
                     "restrictedUrlExplain": "Usa questa impostazione per definire una whitelist di URL per questo ruolo. Solo gli URL elencati di seguito saranno accessibili dal personale associato a questo ruolo",
-                    "authorizeManagerAction": "Dai al personale il controllo di un manager",
-                    "authorizeManagerExplain": "Lo staff in questo ruolo potrà forzare azioni come il manager: forzare la prenotazione di una sessione in un'aula non disponibile, forzare la prenotazione con un docente non disponibile, superare il numero massimo di membri iscritti per una sessione."
+                    "authorizeManagerAction": "Dai allo staff il controllo di un manager",
+                    "authorizeManagerExplain": "Lo staff in questo ruolo potrà forzare azioni come il manager: forzare la prenotazione di una sessione in uno stabilimento non disponibile, forzare la prenotazione con un docente non disponibile, superare il numero massimo di membri iscritti per una sessione."
                 },
                 "failDelete": {
                     "title": "Impossibile eliminare il ruolo",
@@ -15862,7 +15992,11 @@
                 "fabrique_textform": "Testo",
                 "selector_input": "Input del selettore",
                 "selector": "Selettore",
-                "marketing_newsletter_form_v2": "Form della newsletter"
+                "marketing_newsletter_form_v2": "Form della newsletter",
+                "consumer_pass_card": "Scheda Pacchetto dei clienti",
+                "consumer_booking_details_card": "Scheda di prenotazione (per i membri)",
+                "consumer_booking_card": "Scheda di prenotazione per i clienti",
+                "authentication_textfield": "Campo per l'autenticazione"
             },
             "cssConfig": {
                 "title": {
@@ -15900,7 +16034,7 @@
                     "showPrice": "Mostra il prezzo",
                     "showCredit": "Mostra i crediti",
                     "noStyledContainer": "Mostra la variante senza contenitore",
-                    "showEstablishmentAddress": "Mostra l'indirizzo della struttura",
+                    "showEstablishmentAddress": "Mostra l'indirizzo dello stabilimento",
                     "isBookingDisabled": "La prenotazione è disabilitata",
                     "isRippleEnabled": "Abilita l'effetto ondulazione",
                     "square": "Impossibile ottenere gli angoli arrotondati",
@@ -15955,7 +16089,34 @@
                     "withMaxCharacters": "Con lunghezza massima dei caratteri",
                     "showSubtitle": "Mostra sottotitolo",
                     "showTitle": "Mostra titolo",
-                    "newsletterV2FieldsType": "Informazioni richieste"
+                    "newsletterV2FieldsType": "Informazioni richieste",
+                    "expiresSoon": "Il pacchetto scadrà presto",
+                    "isUnlimited": "Il pacchetto è illimitato",
+                    "isSuspended": "Il pacchetto è sospeso",
+                    "isShared": "Il pacchetto è condiviso",
+                    "showWorkshopLinkedOffers": "La sessione proviene da un workshop",
+                    "hasCoachOverride": "L'insegnante è assente",
+                    "showWaitlistPosition": "Mostra la posizione nell lista d'attesa",
+                    "showCancellationPolicy": "Mostra la politica di cancellazione",
+                    "showEstablishmentRoom": "Mostra la stanza dello stabilimento",
+                    "isMoreDisplayed": "I pulsanti secondari sono nascosti in un menu",
+                    "isBookableForAGuest": "Prenotabile per un ospite",
+                    "isCancellable": "La prenotazione è cancellabile",
+                    "displayWaitingListPosition": "Mostra la posizione nella lista d'attesa",
+                    "displayspotSchedulingPosition": "Mostra il posto nel layout \"Configurazione dei posti\"",
+                    "isCancelDisabled": "Il pulsante di cancellazione è disabilitato",
+                    "isNoShow": "Indicatore di mancata presenza (No Show)",
+                    "isAtHome": "Indicatore di prenotazione a domicilio",
+                    "isUnpaid": "Indicatore di prenotazione non pagata",
+                    "isBookedForAGuest": "indicatore \"Prenota per un ospite\"",
+                    "isOnline": "Indicatore di prenotazione online",
+                    "isJoinableOnline": "La prenotazione può essere effettuata online",
+                    "isBookingCancelled": "La prenotazione è stata cancellata",
+                    "isBookable": "Prenotabile",
+                    "isJoinableOnlineDisabled": "Il pulsante 'Iscriviti online' è disattivato",
+                    "isBookableDisabled": "Il pulsante \"Prenota\" è disattivato",
+                    "isMoreDisabled": "Il pulsante \"più\" è disattivato",
+                    "isDetailsDisabled": "Il pulsante \"vedi dettagli\" è disattivato"
                 },
                 "option": {
                     "false": "No",
@@ -16046,7 +16207,9 @@
                     "emailOnly": "Solo email",
                     "firstNameAndEmail": "Nome ed email",
                     "fullNameAndEmail": "Nome completo ed email",
-                    "default": "Default"
+                    "default": "Default",
+                    "clickableText": "Testo cliccabile",
+                    "standard": "Standard"
                 },
                 "configurationTitle": "Variazioni",
                 "confirmationMessageComponentAlert": "Questo componente gestisce principalmente gli stati di prenotazione e di pagamento. Per personalizzarne l'aspetto, si consiglia di utilizzare i suoi componenti principali, situati nella sezione comune",
@@ -16055,7 +16218,8 @@
                 "marketplaceCheckoutItemListPrivatePass": "Questo componente è un elenco di elementi di pagamento con pacchetti privati. Per mettere a punto i singoli componenti {{component_name}}, si può utilizzare la sezione dedicata situata in {{page}} all'interno dell'editor.",
                 "marketplaceCheckoutItemListPaymentCombo": "Questo componente è un elenco di elementi di pagamento con pacchetti combinati. Per mettere a punto i singoli componenti {{component_name}}, si può utilizzare la sezione dedicata situata in {{page}} all'interno dell'editor.",
                 "marketplaceCheckoutItemListPaymentPack": "Questo componente è un elenco di articoli in cassa con i pacchetti. Per mettere a punto i singoli {{component_name}}, si può utilizzare la sezione dedicata situata in {{page}} all'interno dell'editor.",
-                "selector": "Questo componente è composto da un'etichetta, un input e un testo di didascalia. Per personalizzare l'aspetto di {{component_name}}, si consiglia di utilizzare il suo componente principale"
+                "selector": "Questo componente è composto da un'etichetta, un input e un testo di didascalia. Per personalizzare l'aspetto di {{component_name}}, si consiglia di utilizzare il suo componente principale",
+                "authenticationTextField": "Questo componente utilizza un elemento testo. Per mettere a punto i singoli {{component_name}}, si può utilizzare la sezione dedicata, situata in {{page}} all'interno dell'editor."
             },
             "page": {
                 "workshop": "Workshop",
@@ -16069,7 +16233,9 @@
                 "spot_scheduling": "Gestione dei posti",
                 "authentication": "Autenticazione",
                 "checkoutConfirmationPage": "Conferma di pagamento",
-                "marketing": "Marketing"
+                "marketing": "Marketing",
+                "memberProfile": "Profilo del membro",
+                "consumer_space": "Spazio riservato al cliente"
             },
             "newsletterV2": {
                 "showSubtitle": "Mostra sottotitolo",
@@ -16197,7 +16363,7 @@
         },
         "notifications": {
             "fabLabels": {
-                "establishment": "Struttura",
+                "establishment": "Stabilimenti",
                 "private_service": "Appuntamento",
                 "meta_activity": "Attività",
                 "payment_pack": "Pacchetti",
@@ -16216,7 +16382,7 @@
                 "contract": "Abbonamento ricorrente"
             },
             "selectIdentifierLabel": {
-                "establishment": "Seleziona una struttura",
+                "establishment": "Seleziona uno stabilimento",
                 "meta_activity": "Seleziona un'attività",
                 "private_service": "Seleziona un appuntamento",
                 "payment_pack": "Seleziona un pacchetto",
@@ -17127,7 +17293,7 @@
             "pageTitle": "Franchising",
             "navigateToCompany": "Accesso all'account del franchisee",
             "membersEmptyState": "Nessun membro in questa azienda",
-            "establishmentEmptyState": "Nessuna struttura in questa azienda",
+            "establishmentEmptyState": "Nessuno stabilimento da mostrare per questo studio.",
             "establishment": "Stabilimenti",
             "members": "Membri",
             "emptySelect": "Seleziona un franchising per vedere i dettagli.",
@@ -17935,11 +18101,11 @@
                 "close": "Cancella",
                 "submit": "Salva",
                 "coachRequired": "Seleziona almeno un insegnante",
-                "establishmentSelectorError": "Non è possibile specificare strutture e sedi contemporaneamente",
-                "allEstablishments": "Tutte le strutture",
+                "establishmentSelectorError": "Non è possibile specificare contemporaneamente stabilimenti e sedi",
+                "allEstablishments": "Tutti gli stabilimenti",
                 "pickEstablishment": "Lascia vuoto per selezionare tutto",
                 "locations": "Localizzazione",
-                "establishments": "Strutture"
+                "establishments": "Stabilimenti"
             },
             "add": "Aggiungi un gruppo",
             "title": "Gruppi disciplinari",
@@ -18147,10 +18313,10 @@
             "categories": "Categorie",
             "pickCategory": "Scegli una categoria",
             "allCategories": "Insegna tutte le categorie",
-            "allEstablishments": "Tutte le strutture",
+            "allEstablishments": "Tutti gli stabilimenti",
             "pickEstablishment": "Lascia vuoto per selezionare tutto",
             "locations": "Sedi",
-            "establishments": "Strutture"
+            "establishments": "Stabilimenti"
         },
         "tooltip": {
             "seeAnswers": "Consulta l'elenco dei sostituti",
@@ -18543,6 +18709,12 @@
                 "label": "Attiva il link di riferimento"
             },
             "title": "Riferimento"
+        },
+        "referralErrors": {
+            "maxUsesReached": {
+                "description": "È stato raggiunto il numero massimo di utilizzi per questo link da parte di {{ referringMemberFirstName }}.",
+                "title": "Referral link inutilizzabile"
+            }
         }
     },
     "campaign": {

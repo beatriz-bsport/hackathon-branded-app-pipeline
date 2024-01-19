@@ -245,6 +245,7 @@ const MarketplaceSpotSelector: React.FC<Props> = (props) => {
         isBoutiqueDisplay
         assets={assets}
         coach={props.offer?.coach_override ?? props.offer?.coach}
+        coachDisplay={props.theme?.coach_display}
         fetchSpotForBlueprint={props.fetchSpotForBlueprint}
         isMobile={isMobile}
         onMouseOverSpot={onMouseOverSpot}

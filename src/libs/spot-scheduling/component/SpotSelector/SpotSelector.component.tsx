@@ -1,4 +1,5 @@
 import React from 'react';
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 import CanvasEditor from '../../CanvasSvg/CanvasEditor.component';
 import { CANVAS_SELECTABLE_TOOLS } from '../../CanvasSvg/tools/CanvasStrategy';
 import type { AssetForBlueprint, RoomBlueprint, SpotType } from '../../types';
@@ -18,6 +19,7 @@ interface Props {
   spotTypesOfBlueprint: SpotType[];
   isMobile: boolean;
   onMouseOverSpot?: (spot: CanvasElement<any>) => void;
+  coachDisplay?: MarketPlaceCoachDisplay;
 }
 
 export default class SpotSelector extends React.PureComponent<Props> {
@@ -52,6 +54,7 @@ export default class SpotSelector extends React.PureComponent<Props> {
         assets={this.props.assets}
         blueprints={[]}
         coach={this.props.coach}
+        coachDisplay={this.props.coachDisplay}
         fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
         isBoutiqueDisplay={this.props.isBoutiqueDisplay}
         isMobile={this.props.isMobile}

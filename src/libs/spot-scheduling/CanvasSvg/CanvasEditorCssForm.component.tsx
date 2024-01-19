@@ -20,6 +20,7 @@ import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import CodeIcon from '@material-ui/icons/Code';
 import ReplayIcon from '@material-ui/icons/Replay';
 
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 import {
   resetCssWidgetConfiguration as resetCssWidgetConfigurationAction,
   retrieveManagerCssConfiguration as retrieveManagerCssConfigurationAction,
@@ -49,6 +50,7 @@ type Props = {
   isMobile: boolean;
   spotTypes: SpotType[];
   onClose: () => void;
+  coachDisplay?: MarketPlaceCoachDisplay;
 } & ConnectedProps<typeof connector>;
 
 /**
@@ -86,6 +88,7 @@ const CanvasEditorCssForm: React.FC<Props> = ({
   spotTypes,
   onClose,
   retrieveManagerCssConfiguration,
+  coachDisplay,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation(['widget', 'spotScheduling']);
@@ -230,6 +233,7 @@ const CanvasEditorCssForm: React.FC<Props> = ({
       </DialogActions>
       <CanvasEditorCssPreviewDialog
         coach={coach}
+        coachDisplay={coachDisplay}
         coachHeight={coachHeight}
         customConfiguration={customConfigurationPreview}
         elements={elements}

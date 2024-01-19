@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Draggable from 'react-draggable';
 import Paper, { PaperProps } from '@material-ui/core/Paper';
 import Dialog from '@material-ui/core/Dialog';
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 import CanvasViewController from './CanvasViewController';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import ApplyCustomCssStyles from '#libs/widget/components/ApplyCustomCssStyles.component';
@@ -32,6 +33,7 @@ type Props = {
   isMobile: boolean;
   spotTypes: SpotType[];
   customConfiguration: MarketplaceCSSConfiguration;
+  coachDisplay?: MarketPlaceCoachDisplay;
 };
 
 function PaperComponent(props: PaperProps) {
@@ -54,6 +56,7 @@ export const CanvasEditorCssPreviewDialog: React.FC<Props> = ({
   isMobile,
   spotTypes,
   customConfiguration,
+  coachDisplay,
 }) => {
   const dialogContentRef = React.createRef<HTMLDivElement>();
   const { t } = useTranslation('spotScheduling');
@@ -86,6 +89,7 @@ export const CanvasEditorCssPreviewDialog: React.FC<Props> = ({
           disabledEdit
           isBoutiqueDisplay
           coach={coach}
+          coachDisplay={coachDisplay}
           coachHeight={coachHeight}
           containerRef={dialogContentRef}
           elements={elements}

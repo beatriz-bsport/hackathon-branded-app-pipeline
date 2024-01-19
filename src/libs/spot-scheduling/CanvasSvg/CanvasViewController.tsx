@@ -6,6 +6,7 @@ import clx from 'classnames';
 import { WithTranslation, withTranslation } from 'react-i18next';
 
 import Popover from '@material-ui/core/Popover';
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 import CanvasSvg from './CanvasSvg';
 import CanvasSvgDisplayOnly from './CanvasSvgDisplayOnly';
 import { CanvasElement } from './tools/BaseClasses/Base.tool';
@@ -45,6 +46,7 @@ interface OwnProps {
   isMobile?: boolean;
   onMouseOverSpot?: (spot: CanvasElement<any>) => void;
   containerRef: React.RefObject<HTMLDivElement>;
+  coachDisplay?: MarketPlaceCoachDisplay;
 }
 
 type Props = OwnProps &
@@ -431,6 +433,7 @@ class CanvasViewController extends React.PureComponent<Props> {
               onMouseUp={(evt: any) => this.onMouseUpElement(evt, element)}
               {...element.data}
               coach={this.props.coach}
+              coachDisplay={this.props.coachDisplay}
               coachHeight={this.props.coachHeight}
               selectingSpot={this.props?.selectingSpot}
               spotType={

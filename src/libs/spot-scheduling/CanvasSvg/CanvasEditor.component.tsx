@@ -6,6 +6,7 @@ import { withStyles } from '@material-ui/styles';
 import isEqual from 'lodash/isEqual';
 import classNames from 'classnames';
 import { withTheme } from '@storybook/theming';
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 import { DeepPartial, MaterialStyleType } from '../../../utils/types';
 import CanvasToolsMenu from './CanvasToolsMenu.component';
 import { CanvasElement } from './tools/BaseClasses/Base.tool';
@@ -62,6 +63,7 @@ type OwnProps = {
   onMouseOverSpot?: (spot: CanvasElement<any>) => void;
   openAssetUploader?: () => void;
   companyTheme?: CompanyTheme;
+  coachDisplay?: MarketPlaceCoachDisplay;
 };
 
 type Props = OwnProps &
@@ -304,6 +306,7 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
           <div ref={this.containerRef} className={classes.canvasContainer}>
             <CanvasViewController
               coach={this.props.coach}
+              coachDisplay={this.props.coachDisplay}
               coachHeight={this.state.coachHeight}
               containerRef={this.containerRef}
               disabledEdit={this.props.disableEdit}
@@ -393,6 +396,7 @@ class CanvasEditorComponent extends React.PureComponent<Props, State> {
             />
             <CanvasEditorCssForm
               coach={this.props.coach}
+              coachDisplay={this.props.coachDisplay}
               coachHeight={this.state.coachHeight}
               elements={this.elements}
               getAsset={this.getAsset}

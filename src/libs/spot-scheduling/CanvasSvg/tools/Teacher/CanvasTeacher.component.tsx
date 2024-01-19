@@ -1,4 +1,6 @@
 import React from 'react';
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
+import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach';
 import CanvasBaseComponent from '../BaseClasses/Base.component';
 import DEFAULT_PROFILE_PICTURE_URL from '../../../../../assets/constants';
 
@@ -19,6 +21,7 @@ export interface CanvasTeacherProps {
   fontWeight?: React.SVGAttributes<SVGPolylineElement>['fontWeight'];
   textStroke?: React.SVGAttributes<SVGPolylineElement>['stroke'];
   textStrokeWidth?: React.SVGAttributes<SVGPolylineElement>['strokeWidth'];
+  coachDisplay?: MarketPlaceCoachDisplay;
 }
 
 const MARGIN_BETWEEN_AVATAR_AND_TEXT = 15;
@@ -52,6 +55,13 @@ export default class CanvasTeacherComponent extends CanvasBaseComponent<CanvasTe
 
     const avatarSize =
       (height ?? CanvasTeacherComponent.avatarSize) * this.props.coachHeight;
+
+    const coachName =
+      getCoachDisplayName(
+        this.props.coachDisplay,
+        this.props.coach?.name,
+        this.props.coach?.firstname,
+      ) || CanvasTeacherComponent.label;
 
     return (
       <g
@@ -122,7 +132,7 @@ export default class CanvasTeacherComponent extends CanvasBaseComponent<CanvasTe
           {...(textStroke ? { stroke: textStroke } : {})}
           {...(textStrokeWidth ? { strokeWidth: textStrokeWidth } : {})}
         >
-          {this.props.coach?.name || CanvasTeacherComponent.label}
+          {coachName}
         </text>
       </g>
     );

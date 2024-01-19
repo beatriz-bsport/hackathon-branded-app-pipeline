@@ -29,6 +29,7 @@ import { BookingFilterTabEnum } from '#libs/consumer-space/components/reworked/@
 import './styles.css';
 
 type Props = {
+  isMobile?: boolean;
   isLoading?: boolean;
   selectedBooking?: ConsumerBooking;
   selectedPrivateBooking?: ConsumerPrivateBooking;
@@ -58,6 +59,7 @@ type Props = {
 };
 
 export const ConsumerBookingListContainer: React.FC<Props> = ({
+  isMobile,
   isLoading,
   bookingList,
   bookingOptionList,
@@ -220,6 +222,13 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
             cancellationDate={formatAsDate(
               selectedBooking?.date_canceled ||
                 selectedPrivateBooking?.date_canceled,
+            )}
+            className={classNames(
+              'bs-consumer-page-root__bookings__details-card',
+              {
+                'bs-consumer-page-root__bookings__details-card--hidden':
+                  isMobile,
+              },
             )}
             coachDescription={
               selectedBooking?.coach?.description ||

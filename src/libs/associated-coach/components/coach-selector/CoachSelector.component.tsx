@@ -12,6 +12,8 @@ import { colors } from '@bsport/common/lib/colors';
 import { Typography } from '@material-ui/core';
 import Immutable from 'seamless-immutable';
 
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
+import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach';
 import type { Coach } from '../../types';
 
 import { MIN_HEIGHT_VIDEO_SEARCH_BAR_FIELDS } from '#libs/video/constant';
@@ -42,6 +44,7 @@ type Props = {
   error?: string;
   isError?: boolean;
   onBlur?: FocusEventHandler<HTMLSelectElement>;
+  coachDisplay?: MarketPlaceCoachDisplay;
 };
 
 export const CoachSelector: React.FC<Props> = ({
@@ -61,14 +64,20 @@ export const CoachSelector: React.FC<Props> = ({
   error,
   isError,
   onBlur,
+  coachDisplay,
 }) => {
   const { t } = useTranslation('coach');
 
   const getOptionLabel: (coach: Coach) => string = useCallback(
     (coach: Coach) => {
-      return coach.user ? coach.user.name : coach.name;
+      const coachName = getCoachDisplayName(
+        coachDisplay,
+        coach?.name,
+        coach?.firstname,
+      );
+      return coach.user ? coach.user.name : coachName;
     },
-    [],
+    [coachDisplay],
   );
 
   const getCoachOptions = (

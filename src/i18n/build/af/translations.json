@@ -1893,6 +1893,7 @@
       "establishment": "Establishment",
       "coach": "Teachers",
       "was_refunded": "Refunded",
+      "booking_date_created": "Booking date",
       "booking_status_code": "Booking status",
       "date_start": "Session date",
       "date_created": "Booking date",

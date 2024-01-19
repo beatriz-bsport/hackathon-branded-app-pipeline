@@ -25,9 +25,9 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 
-import CadenceListItemWIP, {
+import CadenceListItem, {
   CadenceListItemLoading,
-} from './CadenceListItemWIP.component';
+} from './CadenceListItem.component';
 
 import type { Cadence } from '#libs/sequential_marketing/types';
 
@@ -195,8 +195,9 @@ export const CadenceList: React.FC<Props> = ({
         <Collapse in={collapseOpen}>
           <List>
             {cadences.map((cadence) => (
-              <CadenceListItemWIP
+              <CadenceListItem
                 key={`cadence_disabled${cadence.id}`}
+                archived
                 dense
                 withoutIndex
                 cadence={cadence}
@@ -224,7 +225,7 @@ export const CadenceList: React.FC<Props> = ({
           strategy={verticalListSortingStrategy}
         >
           {cadenceUpdatedList?.map((cadence) => (
-            <CadenceListItemWIP
+            <CadenceListItem
               key={`cadence_enabled${cadence.id}`}
               sortable
               cadence={cadence}

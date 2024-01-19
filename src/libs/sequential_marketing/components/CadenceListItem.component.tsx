@@ -1,50 +1,60 @@
 import React from 'react';
-
+import { useTranslation } from 'react-i18next';
+import chroma from 'chroma-js';
+import Immutable from 'seamless-immutable';
 import classNames from 'classnames';
 
 import type { Theme } from '@material-ui/core/styles';
-import makeStyles from '@material-ui/styles/makeStyles';
-import Skeleton from '@material-ui/lab/Skeleton';
-import chroma from 'chroma-js';
-import ListItem from '@material-ui/core/ListItem';
-import IconButton from '@material-ui/core/IconButton';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
-import VisibilityIcon from '@material-ui/icons/Visibility';
-import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import Button from '@material-ui/core/Button';
 import DragIndicatorIcon from '@material-ui/icons/DragIndicator';
+import IconButton from '@material-ui/core/IconButton';
+import ListItem from '@material-ui/core/ListItem';
+import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
+import Skeleton from '@material-ui/lab/Skeleton';
+import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
+
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+
+import { SequentialMarketingColors } from '#libs/sequential_marketing/constants';
+import CadenceStatusChip from '#libs/sequential_marketing/components/CadenceStatusChip.component';
+import NestedMenuSelectorIconButton from '#components/menu/nested';
+import SecondaryActionButton from '#components/button/SecondaryActionButton.component';
 
 import type { Cadence } from '#libs/sequential_marketing/types';
 
 type Props = {
   cadence: Cadence;
-  sortable?: boolean;
-  onShow?: (cadence: Cadence) => void;
-  onEdit?: (cadence: Cadence) => void;
-  onDelete?: (cadence: Cadence) => void;
-  onRestore?: (cadence: Cadence) => void;
-  onClick?: (cadence: Cadence) => void;
-  withoutIndex?: boolean;
+  archived?: boolean;
   dense?: boolean;
-  selectedId?: number;
+  selected?: boolean;
+  sortable?: boolean;
+  withoutIndex?: boolean;
+  onDelete?: (cadence: Cadence) => void;
+  onEdit?: (cadence: Cadence) => void;
+  onOpen?: (cadence: Cadence) => void;
+  onRestore?: (cadence: Cadence) => void;
+  onSelect?: (cadence: Cadence) => void;
 };
 
 export const CadenceListItem: React.FC<Props> = ({
   cadence,
+  archived,
+  dense,
+  selected,
   sortable,
   withoutIndex,
-  onShow,
   onDelete,
   onEdit,
+  onOpen,
   onRestore,
-  onClick,
-  dense,
-  selectedId,
+  onSelect,
 }) => {
-  const classes = useListItemStyles();
+  const classes = useListItemStyles({ archived, selected });
+  const { t } = useTranslation('marketing');
+
   const { listeners, attributes, setNodeRef, transform, transition } =
     useSortable({
       id: cadence?.id?.toString(10),
@@ -53,41 +63,55 @@ export const CadenceListItem: React.FC<Props> = ({
       },
     });
 
-  const handleClick = React.useCallback(
-    () => onClick && onClick(cadence),
-    [cadence, onClick],
+  const handleOpen = React.useCallback(
+    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      event.stopPropagation();
+      onOpen?.(cadence);
+    },
+    [onOpen, cadence],
   );
 
-  const handleShow = React.useCallback(
-    (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-      e.stopPropagation();
-      onShow(cadence);
-    },
-    [onShow, cadence],
-  );
+  const handleEdit = React.useCallback(() => {
+    onEdit(cadence);
+  }, [onEdit, cadence]);
 
-  const handleEdit = React.useCallback(
-    (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-      e.stopPropagation();
-      onEdit(cadence);
-    },
-    [onEdit, cadence],
-  );
-
-  const handleDelete = React.useCallback(
-    (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-      e.stopPropagation();
-      onDelete(cadence);
-    },
-    [onDelete, cadence],
-  );
+  const handleDelete = React.useCallback(() => {
+    onDelete(cadence);
+  }, [onDelete, cadence]);
 
   const handleRestore = React.useCallback(
-    (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-      e.stopPropagation();
+    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      event.stopPropagation();
       onRestore(cadence);
     },
     [onRestore, cadence],
+  );
+
+  const handleSelect = React.useCallback(
+    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      event.stopPropagation();
+      onSelect(cadence);
+    },
+    [onSelect, cadence],
+  );
+
+  const actions = React.useMemo(
+    () =>
+      Immutable([
+        {
+          label: t('audience.listItem.labels.edit'),
+          icon: 'Settings',
+          onClick: handleEdit,
+          customColor: SequentialMarketingColors.ACTION_BUTTON_COLOR,
+        },
+        {
+          label: t('audience.listItem.labels.archive'),
+          icon: 'Delete',
+          onClick: handleDelete,
+          customColor: SequentialMarketingColors.ACTION_BUTTON_COLOR,
+        },
+      ]),
+    [handleEdit, handleDelete, t],
   );
 
   return (
@@ -98,50 +122,69 @@ export const CadenceListItem: React.FC<Props> = ({
       })}
       style={{ transform: CSS.Translate.toString(transform), transition }}
     >
-      <ListItem
-        // @ts-expect-error : Still the same error coming from MUI where buttun is typped as false
-        button={!!onClick}
-        classes={{ root: classes.listItemOutter }}
-        onClick={handleClick}
-        selected={cadence?.id === selectedId}
-      >
-        {sortable && (
-          <IconButton {...listeners} {...attributes} style={{ zIndex: 999 }}>
+      <ListItem classes={{ root: classes.listItemOutter }}>
+        {!archived && sortable && (
+          <IconButton
+            className={classes.iconButton}
+            {...listeners}
+            {...attributes}
+            style={{ zIndex: 999 }}
+          >
             <DragIndicatorIcon />
           </IconButton>
         )}
-        <div className={classes.leftItem}>
-          {!withoutIndex && (
-            <div className={classes.indexContainer}>
-              <Typography color="primary" variant="h6">
-                {cadence.priority_index}
-              </Typography>
-            </div>
+        <div className={classes.listItemContent}>
+          {!archived && !withoutIndex && (
+            <Typography
+              className={classes.indexContainer}
+              color="primary"
+              variant="h6"
+            >
+              {cadence.priority_index}
+            </Typography>
           )}
-          <Typography color="textSecondary" variant="body1">
+          {!archived && !!cadence?.cadence_status && (
+            <CadenceStatusChip status={cadence.cadence_status} />
+          )}
+          <Typography noWrap color="textSecondary" variant="body1">
             {cadence.name}
           </Typography>
         </div>
         <div className={classes.listItemAction}>
-          {onShow && (
-            <IconButton onClick={handleShow}>
-              <VisibilityIcon />
-            </IconButton>
+          {!archived && onOpen && (
+            <Button
+              color="primary"
+              onClick={handleOpen}
+              size="small"
+              variant="outlined"
+            >
+              {t('audience.listItem.labels.open')}
+            </Button>
           )}
-          {onEdit && (
-            <IconButton onClick={handleEdit}>
-              <EditIcon />
-            </IconButton>
+          {!archived && onSelect && (
+            <SecondaryActionButton
+              onClick={handleSelect}
+              size="small"
+              variant="outlined"
+            >
+              {t('audience.listItem.labels.metrics')}
+            </SecondaryActionButton>
           )}
-          {onDelete && (
-            <IconButton onClick={handleDelete}>
-              <DeleteIcon />
-            </IconButton>
+          {archived && onRestore && (
+            <Button
+              color="primary"
+              onClick={handleRestore}
+              size="small"
+              startIcon={<RestoreFromTrashIcon />}
+              variant="outlined"
+            >
+              {t('audience.listItem.labels.unarchive')}
+            </Button>
           )}
-          {onRestore && (
-            <IconButton onClick={handleRestore}>
-              <RestoreFromTrashIcon />
-            </IconButton>
+          {!archived && (
+            <Tooltip title={t('audience.listItem.tooltip.moreActions')}>
+              <NestedMenuSelectorIconButton noTextWrap actionList={actions} />
+            </Tooltip>
           )}
         </div>
       </ListItem>
@@ -149,9 +192,23 @@ export const CadenceListItem: React.FC<Props> = ({
   );
 };
 
-export default React.memo(CadenceListItem);
+export const CadenceListItemLoading: React.FC = React.memo(() => {
+  const classes = useListItemStyles({});
 
-const useListItemStyles = makeStyles((theme: Theme) => ({
+  return (
+    <ListItem classes={{ root: classes.listItemOutter }}>
+      <div className={classes.leftItem}>
+        <Skeleton animation="wave" height={30} variant="circle" width={30} />
+        <Skeleton animation="wave" variant="text" width={100} />
+      </div>
+    </ListItem>
+  );
+});
+
+const useListItemStyles = makeStyles<
+  Theme,
+  Pick<Props, 'archived' | 'selected'>
+>((theme) => ({
   fullWidth: {
     width: '100%',
   },
@@ -162,22 +219,29 @@ const useListItemStyles = makeStyles((theme: Theme) => ({
     flexDirection: 'row',
     justifyContent: 'space-between',
     borderRadius: theme.spacing(1),
+    padding: theme.spacing(2),
+    border: ({ selected }) =>
+      selected && `2px solid ${theme.palette.primary.main}`,
   },
+  iconButton: { padding: 0 },
   spacedItems: {
     paddingBottom: theme.spacing(2),
   },
-  leftItem: {
+  listItemContent: {
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    flexWrap: 'wrap',
     gap: theme.spacing(1),
+    paddingLeft: ({ archived }) => (!archived ? theme.spacing(2) : 0),
+    overflow: 'hidden',
   },
   listItemAction: {
     display: 'flex',
     justifyContent: 'flex-end',
     flex: 1,
+    gap: theme.spacing(1),
+    alignItems: 'center',
+    paddingLeft: theme.spacing(2),
     [theme.breakpoints.down('sm')]: {
       display: 'none',
     },
@@ -187,6 +251,8 @@ const useListItemStyles = makeStyles((theme: Theme) => ({
     textAlign: 'center',
     verticalAlign: 'middle',
     width: theme.spacing(4),
+    // the minWidth is here in case workflow's name is too large : it prevents the indexContainer's width from reducing
+    minWidth: theme.spacing(4),
     height: theme.spacing(4),
     backgroundColor: chroma(theme.palette.primary.main).alpha(0.09).hex(),
   },
@@ -208,26 +274,4 @@ const useListItemStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export const CadenceListItemLoading: React.FC = React.memo(() => {
-  const classes = useListItemStyles();
-
-  return (
-    <ListItem classes={{ root: classes.listItemOutter }}>
-      <div className={classes.leftItem}>
-        <Skeleton animation="wave" height={30} variant="circle" width={30} />
-        <Skeleton animation="wave" variant="text" width={100} />
-      </div>
-      <div className={classes.listItemAction}>
-        <IconButton disabled>
-          <VisibilityIcon className={classes.skeletonBackground} />
-        </IconButton>
-        <IconButton disabled>
-          <EditIcon className={classes.skeletonBackground} />
-        </IconButton>
-        <IconButton disabled>
-          <DeleteIcon className={classes.skeletonBackground} />
-        </IconButton>
-      </div>
-    </ListItem>
-  );
-});
+export default React.memo(CadenceListItem);

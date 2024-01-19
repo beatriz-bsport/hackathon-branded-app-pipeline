@@ -1,7 +1,7 @@
 import React from 'react';
 
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
-import CadenceListItemWIP from './CadenceListItemWIP.component';
+import CadenceListItem from './CadenceListItem.component';
 import List from '@material-ui/core/List';
 import { makeStyles } from '@material-ui/styles';
 import { cadenceListFactory } from '#libs/sequential_marketing/factories';
@@ -9,7 +9,7 @@ import { action } from '@storybook/addon-actions';
 import { CadenceStatus } from '../constants';
 
 // displayName must be overriden for preview code to actually work on mdx document.
-CadenceListItemWIP.displayName = 'AudienceListItemWIP';
+CadenceListItem.displayName = 'AudienceListItem';
 
 const fakeCadences = cadenceListFactory(3);
 
@@ -22,7 +22,7 @@ const actions = {
   onSelect: action('onSelect'),
 };
 
-const CadenceListItemWIPStorybook: ComponentStory<typeof CadenceListItemWIP> = (
+const CadenceListItemTemplate: ComponentStory<typeof CadenceListItem> = (
   args,
 ) => {
   const classes = useStyles();
@@ -33,7 +33,7 @@ const CadenceListItemWIPStorybook: ComponentStory<typeof CadenceListItemWIP> = (
       }}
     >
       {fakeCadences.map((cadence) => (
-        <CadenceListItemWIP key={cadence.id} {...args} cadence={cadence} />
+        <CadenceListItem key={cadence.id} {...args} cadence={cadence} />
       ))}
     </List>
   );
@@ -45,19 +45,19 @@ const baseArgs = {
   status: CadenceStatus.ACTIVE,
 };
 
-export const CadenceListItemWIPDefault = CadenceListItemWIPStorybook.bind({});
-CadenceListItemWIPDefault.args = baseArgs;
+export const CadenceListItemDefault = CadenceListItemTemplate.bind({});
+CadenceListItemDefault.args = baseArgs;
 
-export const CadenceListItemWIPArchived = CadenceListItemWIPStorybook.bind({});
-CadenceListItemWIPArchived.args = {
+export const CadenceListItemArchived = CadenceListItemTemplate.bind({});
+CadenceListItemArchived.args = {
   ...baseArgs,
   archived: true,
   onRestore: () => {},
 };
 
 export default {
-  title: 'Components/Cadences/LandingPage/CadenceListItemWIP',
-  component: CadenceListItemWIP,
+  title: 'Components/Cadences/LandingPage/CadenceListItem',
+  component: CadenceListItem,
   parameters: {
     docs: {
       page: null,
@@ -94,7 +94,7 @@ export default {
       defaultValue: false,
     },
   },
-} as ComponentMeta<typeof CadenceListItemWIP>;
+} as ComponentMeta<typeof CadenceListItem>;
 
 const useStyles = makeStyles(() => ({
   root: {

@@ -16,6 +16,8 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import LabelIcon from '@material-ui/icons/Label';
 import FolderIcon from '@material-ui/icons/Folder';
 
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
+import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach';
 import {
   formatMinutes,
   formatAsDatetime,
@@ -96,6 +98,7 @@ type Props = {
   isRollCallMandatory: boolean,
   displayCoachInfoOnHover?: boolean,
   companyTheme: CompanyTheme,
+  coachDisplay?: MarketPlaceCoachDisplay,
 };
 
 const getFillingInfo = (offer: Offer) => {
@@ -161,6 +164,7 @@ export function OfferMinimalSummary(props: Props) {
     getHasPendingReplacementRequest,
     displayCoachInfoOnHover,
     companyTheme,
+    coachDisplay,
   } = props;
 
   const [tagManagementDialog, setTagManagementDialog] = useState(false);
@@ -210,10 +214,18 @@ export function OfferMinimalSummary(props: Props) {
 
   let actualCoachName = '  -  ';
   if (coach && !coach_override) {
-    actualCoachName = coach.name;
+    actualCoachName = getCoachDisplayName(
+      coachDisplay,
+      coach?.name,
+      coach?.firstname,
+    );
   }
   if (coach_override) {
-    actualCoachName = coach_override.name;
+    actualCoachName = getCoachDisplayName(
+      coachDisplay,
+      coach_override?.name,
+      coach_override?.firstname,
+    );
   }
 
   const textClasses = fixedHeight

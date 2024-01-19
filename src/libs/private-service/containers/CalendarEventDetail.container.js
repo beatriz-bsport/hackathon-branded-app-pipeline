@@ -494,6 +494,9 @@ export class CalendarEventDetail extends React.Component<Props, State> {
           ]: boolean[]) => (
             <div>
               <OfferMinimalSummary
+                coachDisplay={
+                  this.props.isCoach && this.props.theme?.coach_display
+                }
                 getHasPendingReplacementRequest={
                   this.props.getHasPendingReplacementRequest
                 }

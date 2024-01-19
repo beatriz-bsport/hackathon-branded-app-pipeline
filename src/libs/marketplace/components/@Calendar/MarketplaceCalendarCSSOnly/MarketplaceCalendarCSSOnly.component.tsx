@@ -90,6 +90,7 @@ export const MarketplaceCalendar = (props: Props) => {
     searchedOffers,
     startWeekOnDaySelected,
     refContainer,
+    theme,
   } = props;
 
   const weekOffers = useMemo(
@@ -162,6 +163,7 @@ export const MarketplaceCalendar = (props: Props) => {
       )}
       {!forceDayDisplayOnly && (
         <MarketplaceFilterComponent
+          coachDisplay={theme?.coach_display}
           coaches={coaches}
           customLevels={props.activeCustomLevels}
           establishmentGroupList={props.establishmentGroupList}

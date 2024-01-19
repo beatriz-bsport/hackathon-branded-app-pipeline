@@ -348,6 +348,7 @@ const MarketplaceWorkshopPage: React.FC<Props> = ({
       })}
     >
       <MarketplaceFilters
+        coachDisplay={theme?.coach_display}
         coaches={coaches}
         customLevels={customLevels}
         establishmentGroupList={establishmentGroupList}

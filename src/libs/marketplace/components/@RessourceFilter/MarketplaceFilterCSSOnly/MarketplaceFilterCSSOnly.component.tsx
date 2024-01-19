@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next';
 import { pure } from 'recompose';
 
 import { withTheme } from '@material-ui/styles';
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
+import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach';
 import {
   Establishment,
   EstablishmentGroup,
@@ -16,7 +18,7 @@ import MarketplaceFilter from '../MarketplaceFilter/MarketplaceFilter.component'
 import { getLevelColor, getLevelTranslation } from '#libs/level/utils';
 
 import { getGroupedEstablishmentOptions } from '#libs/establishment/components/EstablishmentSelector.component';
-import { Theme } from '#libs/theme/types';
+import { CompanyTheme } from '#libs/theme/types';
 import MarketplaceCalendarSearch from '#marketplacecomponents/@Calendar/MarketplaceCalendarSearchCSSOnly/MarketplaceCalendarSearchCSSOnly.component';
 
 import './MarketplaceFilterCSSOnly.css';
@@ -33,9 +35,10 @@ export type Props = {
   variant: 'activity' | 'workshop';
   showMultiLocalization: boolean;
   customLevels: Level[];
-  theme: Theme;
+  theme: CompanyTheme;
   onSearch: (searchText: string) => void;
   onClearInput: () => void;
+  coachDisplay?: MarketPlaceCoachDisplay;
 };
 
 const MarketplaceFilterCSSOnly: React.FC<Props> = ({
@@ -53,6 +56,7 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
   theme,
   onSearch,
   onClearInput,
+  coachDisplay,
 }) => {
   const { t } = useTranslation([
     'coach',
@@ -75,11 +79,18 @@ const MarketplaceFilterCSSOnly: React.FC<Props> = ({
 
   const coachesOptions = useMemo(
     () =>
-      coaches.map((coach) => ({
-        value: coach.id,
-        label: coach.name,
-      })),
-    [coaches],
+      coaches.map((coach) => {
+        const coachName = getCoachDisplayName(
+          coachDisplay,
+          coach?.name,
+          coach?.firstname,
+        );
+        return {
+          value: coach.id,
+          label: coachName,
+        };
+      }),
+    [coaches, coachDisplay],
   );
 
   const establishmentsOptions = useMemo(

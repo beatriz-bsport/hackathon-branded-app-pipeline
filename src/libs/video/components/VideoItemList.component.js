@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { useTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 import VideoItem from './VideoItem.component';
 import { VideoPurchase, Video } from '../types';
 
@@ -16,6 +17,7 @@ type Props = {
   hideCoach: boolean,
   onShowMore: () => void,
   openVideo: (id: number) => void,
+  coachDisplay?: MarketPlaceCoachDisplay,
 };
 
 export const VideoCardList = (props: Props) => {
@@ -26,6 +28,7 @@ export const VideoCardList = (props: Props) => {
       {props.videoList.map((v) => (
         <Grid key={v.id} item lg={3} md={4} sm={6} xs={12}>
           <VideoItem
+            coachDisplay={props.coachDisplay}
             hideCoach={props.hideCoach}
             loading={v.coaches.includes(undefined)}
             openVideo={props.openVideo}

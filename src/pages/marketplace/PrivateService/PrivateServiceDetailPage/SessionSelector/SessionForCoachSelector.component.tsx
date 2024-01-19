@@ -6,6 +6,7 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import moment from 'moment-timezone';
 
 // @ts-ignore
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 import CoachChip from '../../../../../libs/associated-coach/components/CoachChip.component';
 import { Establishment } from '../../../../../libs/establishment/types';
 import { Coach } from '../../../../../libs/associated-coach/types';
@@ -22,6 +23,7 @@ type Props = {
     coachId?: number | null,
   ) => void;
   sessions: string[];
+  coachDisplay?: MarketPlaceCoachDisplay;
 };
 
 const SessionForCoachSelector: React.FC<Props> = (props) => {
@@ -39,7 +41,7 @@ const SessionForCoachSelector: React.FC<Props> = (props) => {
     >
       {!!props.coach?.id && (
         <div className={classes.coachContainer}>
-          <CoachChip coach={props.coach} />
+          <CoachChip coach={props.coach} coachDisplay={props.coachDisplay} />
         </div>
       )}
 

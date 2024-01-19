@@ -6,6 +6,7 @@ import flatten from 'lodash/flatten';
 import intersection from 'lodash/intersection';
 import { useTranslation } from 'react-i18next';
 
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 import SessionForCoachSelector from './SessionForCoachSelector.component';
 import {
   groupSessionsByDayMoment,
@@ -36,6 +37,7 @@ type Props = {
     resource_identifier: string;
     slots: Array<Array<string>>;
   }[];
+  coachDisplay?: MarketPlaceCoachDisplay;
 };
 
 const SessionSelector: React.FC<Props> = (props) => {
@@ -200,6 +202,7 @@ const SessionSelector: React.FC<Props> = (props) => {
                   >
                     <SessionForCoachSelector
                       coach={coach}
+                      coachDisplay={props.coachDisplay}
                       durationMinutes={props.durationMinutes}
                       establishment={selectedEstablishment}
                       onSessionSelect={props.onSessionSelect}

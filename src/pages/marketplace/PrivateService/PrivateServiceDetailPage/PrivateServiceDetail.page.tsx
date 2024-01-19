@@ -362,6 +362,7 @@ export const PrivateServiceDetailPage: React.FC<Props> = (props) => {
 
           {showCoachSelector && (
             <CoachSelector
+              coachDisplay={theme?.coach_display}
               onSelect={onCoachSelect}
               privateService={privateService}
               privateSlot={selectedSlot}
@@ -404,6 +405,7 @@ export const PrivateServiceDetailPage: React.FC<Props> = (props) => {
                   privateService.coach_attribution ===
                   RESOURCE_ATTRIBUTION_CONSUMER
                 }
+                coachDisplay={theme?.coach_display}
                 coaches={
                   selectedCoaches?.length
                     ? selectedCoaches

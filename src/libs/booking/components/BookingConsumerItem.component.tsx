@@ -20,6 +20,8 @@ import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import AdjustIcon from '@material-ui/icons/Adjust';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
+import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach';
 import { formatAsDatetimeAdapted, formatAsTime } from '../../../utils/datetime';
 import RedButton from '../../../components/button/RedButton.component';
 import { Booking } from '../types';
@@ -41,6 +43,7 @@ type OwnProps = {
   ) => void;
   variant?: string;
   hideCoach: boolean;
+  coachDisplay?: MarketPlaceCoachDisplay;
 };
 
 type Props = OwnProps &
@@ -48,7 +51,7 @@ type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>>;
 
 export const BookingConsumerItem = (props: Props) => {
-  const { booking, classes, t } = props;
+  const { booking, classes, t, coachDisplay } = props;
   const { offer } = booking;
   if (!offer) return null;
   const { meta_activity, coach, establishment } = offer;
@@ -56,6 +59,12 @@ export const BookingConsumerItem = (props: Props) => {
   if (establishment && meta_activity && !offer.meta_activity.is_broadcast) {
     timezone = establishment.tzname;
   }
+
+  const coachName = getCoachDisplayName(
+    coachDisplay,
+    coach?.name,
+    coach?.firstname,
+  );
 
   return (
     <div className={classes.container}>
@@ -134,7 +143,7 @@ export const BookingConsumerItem = (props: Props) => {
           <ListItemIcon>
             <PersonIcon />
           </ListItemIcon>
-          <ListItemText primary={coach ? coach.name : ' - '} />
+          <ListItemText primary={coach ? coachName : ' - '} />
         </ListItem>
       )}
       <Divider />

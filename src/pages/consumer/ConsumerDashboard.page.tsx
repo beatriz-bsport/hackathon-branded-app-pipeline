@@ -337,6 +337,7 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
           <Grid item md={6} xs={12}>
             <ConsumerDashboardBookingPanel
               bookingsAndPrivateBookings={this.props.bookingsAndPrivateBookings}
+              coachDisplay={this.props.companyTheme.coach_display}
               goToBroadcast={this.props.goToBroadcast}
               goToCalendar={this.props.goToCalendar}
               goToPrivateService={this.props.goToPrivateService}

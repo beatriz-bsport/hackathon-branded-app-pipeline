@@ -13,9 +13,8 @@ import { Theme } from '@material-ui/core';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import Divider from '@material-ui/core/Divider';
 
-// @ts-ignore
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 import BookingConsumerItem from '../../booking/components/BookingConsumerItem.component';
-// @ts-ignore
 import PrivateBookingConsumerItem from '../../private-service/components/booking/PrivateBookingConsumerItem.component';
 
 import type { Booking } from '../../booking/types';
@@ -54,6 +53,7 @@ type OwnProps = {
     booking: Booking<Offer<Coach, Establishment, MetaActivity>>,
   ) => void;
   isPast: boolean;
+  coachDisplay?: MarketPlaceCoachDisplay;
 };
 
 type Props = OwnProps &
@@ -121,6 +121,7 @@ export class ConsumerDashboardBookingPanel extends React.PureComponent<Props> {
           <BookingConsumerItem
             key={`booking-${booking.id}`}
             booking={booking}
+            coachDisplay={this.props.coachDisplay}
             goToBroadcast={this.props.goToBroadcast}
             goToCalendar={this.props.goToCalendar ? this.goToCalendar : null}
             hideCoach={this.props.hideCoach}

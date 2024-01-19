@@ -151,6 +151,7 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
     bookingOptionList,
     relatedBookingsInGroup,
     selectedBookingOptionForCancelation,
+    isMobile,
     handleSetSelectedTab,
     handleSetSelectedFilterTab,
     handleSetSelectedBooking,
@@ -214,6 +215,7 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
           handleToggleSpotSchedulingModal={handleToggleSpotSchedulingModal}
           isCancelBookingModalOpen={isCancelBookingModalOpen}
           isCancellingBooking={isCancellingBooking}
+          isMobile={isMobile}
           isOnlineWarningModalOpen={isOnlineWarningModalOpen}
           isSpotSchedulingModalOpen={isSpotSchedulingModalOpen}
           onlineWarningModalOfferDate={onlineWarningModalOfferDate}
@@ -234,7 +236,10 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
           timezone={timezone}
         />
 
-        <ConsumerBookingHeader onBookSessionClick={handleBookASessionClick} />
+        <ConsumerBookingHeader
+          isMobile={isMobile}
+          onBookSessionClick={handleBookASessionClick}
+        />
 
         <ConsumerBookingTabs
           onChangeBookingTab={handleSetSelectedTab}
@@ -243,6 +248,7 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
 
         <ConsumerBookingFilters
           futureBookingsCount={futureItemsCount}
+          isMobile={isMobile}
           isWaitlistFilterHidden={selectedTab === BookingTabEnum.APPOINTMENT}
           onChangeFilterTab={handleSetSelectedFilterTab}
           onDatePickerClick={emptyFn}
@@ -263,6 +269,7 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
           handleShowSpotDetails={handleShowSpotDetails}
           hasNextPage={!!nextPage}
           isLoading={isBookingsLoading}
+          isMobile={isMobile}
           privateBookingList={privateBookingList}
           relatedBookingsInGroup={relatedBookingsInGroup}
           selectedBooking={selectedBooking}

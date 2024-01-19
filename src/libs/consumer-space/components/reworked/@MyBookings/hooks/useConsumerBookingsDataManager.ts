@@ -2,6 +2,8 @@ import { useCallback, useMemo, useState } from 'react';
 import moment from 'moment-timezone';
 import { useHistory } from 'react-router-dom';
 
+import useViewport from '#Fabrique/hooks/useViewport';
+
 import type { BookingTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
 import type { BookingFilterTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/types';
 import type {
@@ -34,6 +36,7 @@ import type {
 
 import { BookingTabEnum } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/constants';
 import { getOfferBookerUrl } from '#libs/marketplace/routing-utils';
+import { CONSUMER_SPACE_MOBILE_BREAKPOINT } from '#libs/consumer-space/constants';
 
 /** Provides all of the necessary data and fetch handlers for consumer booking page */
 export default function useConsumerBookingsDataManager({
@@ -121,6 +124,9 @@ export default function useConsumerBookingsDataManager({
   fetchAssociatedBlueprintObjects: (blueprintid: number) => void;
 }) {
   const history = useHistory();
+  const { width } = useViewport();
+
+  const isMobile = width < CONSUMER_SPACE_MOBILE_BREAKPOINT;
 
   /* PAGE STATES */
   const [selectedTab, setSelectedTab] = useState<BookingTab>(
@@ -694,5 +700,6 @@ export default function useConsumerBookingsDataManager({
     privateBookingList,
     bookingOptionList,
     relatedBookingsInGroup,
+    isMobile,
   };
 }

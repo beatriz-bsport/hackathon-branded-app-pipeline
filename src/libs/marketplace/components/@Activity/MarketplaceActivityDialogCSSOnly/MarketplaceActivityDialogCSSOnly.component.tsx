@@ -51,7 +51,13 @@ export function MarketplaceActivityDialog(props: Props) {
   if (useWidgetSlidingPortal) {
     return (
       <WidgetPortalSlidingContainer isOpen={props.open}>
-        {props.open ? <MarketplaceActivityV2 {...props} width="xs" /> : null}
+        {props.open ? (
+          <MarketplaceActivityV2
+            {...props}
+            coachDisplay={props.companyTheme?.coach_display}
+            width="xs"
+          />
+        ) : null}
       </WidgetPortalSlidingContainer>
     );
   }
@@ -69,7 +75,12 @@ export function MarketplaceActivityDialog(props: Props) {
       scroll="paper"
     >
       <DialogContent id="bs-activity--dialog__content">
-        {props.open ? <MarketplaceActivityV2 {...props} /> : null}
+        {props.open ? (
+          <MarketplaceActivityV2
+            {...props}
+            coachDisplay={props.companyTheme?.coach_display}
+          />
+        ) : null}
       </DialogContent>
     </Dialog>
   );

@@ -69,6 +69,7 @@ const usePropsFromVariation = (
     coaches,
     group,
     companyTheme: theme,
+    coachDisplay: theme?.coach_display,
     width,
     onClickBook: () => {},
     onClickBookOption: () => {},

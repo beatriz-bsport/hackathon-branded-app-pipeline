@@ -12,6 +12,8 @@ import CloseIcon from '@material-ui/icons/Close';
 
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
+import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach';
 import INSTAGRAM_PNG from '../../../../../public/images/instagram.png';
 import FACEBOOK_PNG from '../../../../../public/images/facebook.png';
 import { formatMinutes } from '../../../../../utils/datetime';
@@ -31,8 +33,8 @@ import { OffersGroup } from '#libs/group-offer/types';
 import FreeOfferChip from '#csscomponents/FreeOfferChip';
 import Button from '#components/css-only/Fabrique/Button';
 
-import './MarketplaceActivity.css';
 import { formatOfferHours } from '#libs/marketplace/utils/offer';
+import './MarketplaceActivity.css';
 
 export type Props = {
   offer: Offer;
@@ -47,6 +49,7 @@ export type Props = {
   hideCoach: boolean;
   width: string;
   group: { [key: number]: OffersGroup };
+  coachDisplay?: MarketPlaceCoachDisplay;
 };
 
 export const MarketplaceActivityV2 = (props: Props) => {
@@ -58,6 +61,7 @@ export const MarketplaceActivityV2 = (props: Props) => {
     hideCoach,
     companyTheme,
     group,
+    coachDisplay,
   } = props;
   const { t } = useTranslation([
     'metaActivity',
@@ -280,7 +284,11 @@ export const MarketplaceActivityV2 = (props: Props) => {
                 />
                 <div className="bs-activity__middle__coach__overrider__personality__right">
                   <div className="bs-activity__middle__coach__overrider__personality__right__name">
-                    {coach?.name || ''}
+                    {getCoachDisplayName(
+                      coachDisplay,
+                      coach?.name,
+                      coach?.firstname,
+                    ) || ''}
                   </div>
 
                   <div className="bs-activity__middle__coach__overrider__personality__right__override">
@@ -297,7 +305,11 @@ export const MarketplaceActivityV2 = (props: Props) => {
                 />
                 <div className="bs-activity__middle__coach__main__personality__right">
                   <div className="bs-activity__middle__coach__main__personality__right__name">
-                    {effectiveCoach?.name || ''}
+                    {getCoachDisplayName(
+                      coachDisplay,
+                      effectiveCoach?.name,
+                      effectiveCoach?.firstname,
+                    ) || ''}
                   </div>
                   {offer.coach_override && (
                     <div className="bs-activity__middle__coach__main__personality__right__override">
@@ -352,7 +364,11 @@ export const MarketplaceActivityV2 = (props: Props) => {
                   />
                   <div className="bs-activity__middle__coach__main__personality__right">
                     <div className="bs-activity__middle__coach__main__personality__right__name">
-                      {additionalCoach?.name || ''}
+                      {getCoachDisplayName(
+                        coachDisplay,
+                        additionalCoach?.name,
+                        additionalCoach?.firstname,
+                      ) || ''}
                     </div>
                     {offer.coach_override && (
                       <div className="bs-activity__middle__coach__main__personality__right__override">

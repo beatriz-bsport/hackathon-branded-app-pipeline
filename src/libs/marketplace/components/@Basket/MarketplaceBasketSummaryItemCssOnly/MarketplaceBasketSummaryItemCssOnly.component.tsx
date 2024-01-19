@@ -29,8 +29,12 @@ export const MarketplaceBasketSummaryItemCssOnly: React.FC<Props> = ({
   // we disable the possibility for them to be mutliplied.
   const isAddingItemPossible =
     !checkoutItem.sub_items?.length &&
-    checkoutItem.buyable_item_identifier !==
-      BuyableItemOptions.BUYABLE_ITEM_GIFTCARD;
+    ![
+      BuyableItemOptions.BUYABLE_ITEM_GIFTCARD,
+      BuyableItemOptions.BUYABLE_ITEM_CREDIT,
+      BuyableItemOptions.BUYABLE_ITEM_COUPON,
+      BuyableItemOptions.BUYABLE_ITEM_FEE,
+    ].includes(checkoutItem.buyable_item_identifier);
 
   const checkoutItemDisplayPrice = getCurrencyDisplayWithPrice(
     checkoutItem.unit_price * checkoutItem.quantity,

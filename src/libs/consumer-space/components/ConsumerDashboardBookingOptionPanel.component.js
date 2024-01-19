@@ -6,6 +6,7 @@ import { withTranslation, TFunction } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 import BookingOptionConsumerItem from '../../waiting-list/components/BookingOptionConsumerItem.component';
 import { OfferStatusWaitingListPosition } from '#libs/offer/types';
 
@@ -19,6 +20,7 @@ type Props = {
   },
   confirmBookingOption: (offerId: number, bookingOptionId: number) => void,
   cancelBookingOption: (optionId: number) => void,
+  coachDisplay?: MarketPlaceCoachDisplay,
 };
 
 export class ConsumerDashboardBookingOptionPanel extends React.PureComponent<Props> {
@@ -42,6 +44,7 @@ export class ConsumerDashboardBookingOptionPanel extends React.PureComponent<Pro
                 cancelBookingOption={() =>
                   this.props.cancelBookingOption(bookingOption.id)
                 }
+                coachDisplay={this.props.coachDisplay}
                 confirmBookingOption={() =>
                   this.props.confirmBookingOption(
                     bookingOption.offer.id,

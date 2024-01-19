@@ -11,6 +11,7 @@ import { withTheme } from '@material-ui/styles';
 import { withTranslation } from 'react-i18next';
 
 import { compose } from 'recompose';
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 import ActivityMinimalSummary from '../../../components/activity/ActivityMinimalSummary.component';
 import RedButton from '../../../components/button/RedButton.component';
 import { formatAsDatetime } from '../../../utils/datetime';
@@ -26,6 +27,7 @@ type OwnProps = {
   displayPositionInWaitingList: boolean,
   waitingListPosition: { member_position: number, waiting_list_size: number },
   t: (x: string) => string,
+  coachDisplay?: MarketPlaceCoachDisplay,
 };
 
 type Props = OwnProps & WithStyles<typeof styles> & WithTranslation;
@@ -116,6 +118,7 @@ export class BookingOptionConsumerItem extends Component<Props> {
               <ActivityMinimalSummary
                 noDivider
                 activity={activity}
+                coachDisplay={this.props.coachDisplay}
                 date={formatAsDatetime(
                   offer.date_start,
                   offer && offer.activity && offer.activity.establishment

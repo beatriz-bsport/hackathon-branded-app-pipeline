@@ -355,6 +355,7 @@ export class ConsumerDashboard extends React.PureComponent<Props> {
             <ConsumerDashboardBookingOptionPanel
               bookingOptionList={this.props.bookingOptionList}
               cancelBookingOption={this.props.setOptionToCancel}
+              coachDisplay={this.props.companyTheme.coach_display}
               confirmBookingOption={this.props.confirmBookingOption}
               displayPositionInWaitingList={
                 this.props.waitingListConfiguration?.dynamic ===

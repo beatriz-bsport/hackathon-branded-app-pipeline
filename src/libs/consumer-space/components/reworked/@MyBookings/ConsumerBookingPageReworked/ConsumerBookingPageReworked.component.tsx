@@ -7,9 +7,7 @@ import ConsumerBookingHeader from '#libs/consumer-space/components/reworked/@MyB
 import ConsumerBookingTabs from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs';
 import ConsumerBookingFilters from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters';
 import ConsumerBookingListContainer from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingListContainer';
-import ConsumerBookingCancelModal from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingCancelModal';
-import ConsumerBookingOnlineWarningModal from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingOnlineWarningModal';
-import ConsumerBookingSpotSchedulingModal from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingSpotSchedulingModal';
+import ConsumerBookingModals from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingModals';
 
 import type { BookingTab } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/types';
 import type {
@@ -208,39 +206,33 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
   return (
     <MarketplacePageContent>
       <div className="bs-consumer-booking-page__root">
-        {isCancelBookingModalOpen &&
-          !!(
-            selectedBookingForCancelation ||
-            selectedPrivateBookingForCancelation ||
+        <ConsumerBookingModals
+          companyTheme={companyTheme}
+          handleCancelBooking={handleCancelBooking}
+          handleToggleCancelBookingModal={handleToggleCancelBookingModal}
+          handleToggleOnlineWarningModal={handleToggleOnlineWarningModal}
+          handleToggleSpotSchedulingModal={handleToggleSpotSchedulingModal}
+          isCancelBookingModalOpen={isCancelBookingModalOpen}
+          isCancellingBooking={isCancellingBooking}
+          isOnlineWarningModalOpen={isOnlineWarningModalOpen}
+          isSpotSchedulingModalOpen={isSpotSchedulingModalOpen}
+          onlineWarningModalOfferDate={onlineWarningModalOfferDate}
+          relatedBookingsInGroup={relatedBookingsInGroup}
+          selectedBooking={selectedBooking}
+          selectedBookingForCancelation={selectedBookingForCancelation}
+          selectedBookingOption={selectedBookingOption}
+          selectedBookingOptionForCancelation={
             selectedBookingOptionForCancelation
-          ) && (
-            <ConsumerBookingCancelModal
-              booking={selectedBookingForCancelation}
-              bookingOption={selectedBookingOptionForCancelation}
-              cancelBooking={handleCancelBooking}
-              isLoading={isCancellingBooking}
-              onClose={handleToggleCancelBookingModal}
-              privateBooking={selectedPrivateBookingForCancelation}
-              relatedBookings={relatedBookingsInGroup}
-              sessionTimeDisplay={sessionTimeDisplay}
-              timezone={timezone}
-            />
-          )}
-        {isOnlineWarningModalOpen && !!onlineWarningModalOfferDate && (
-          <ConsumerBookingOnlineWarningModal
-            offerDateStart={onlineWarningModalOfferDate}
-            onClose={handleToggleOnlineWarningModal}
-          />
-        )}
-        {isSpotSchedulingModalOpen && !!selectedBookingSpotDetails && (
-          <ConsumerBookingSpotSchedulingModal
-            bookingOffer={selectedBooking?.offer}
-            bookingSpotDetails={selectedBookingSpotDetails}
-            companyTheme={companyTheme}
-            onClose={handleToggleSpotSchedulingModal}
-            spotTypes={spotTypes}
-          />
-        )}
+          }
+          selectedBookingSpotDetails={selectedBookingSpotDetails}
+          selectedPrivateBooking={selectedPrivateBooking}
+          selectedPrivateBookingForCancelation={
+            selectedPrivateBookingForCancelation
+          }
+          sessionTimeDisplay={sessionTimeDisplay}
+          spotTypes={spotTypes}
+          timezone={timezone}
+        />
 
         <ConsumerBookingHeader onBookSessionClick={handleBookASessionClick} />
 

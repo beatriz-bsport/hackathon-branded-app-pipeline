@@ -1098,7 +1098,7 @@
             "totalCustomers": "Total bookings",
             "grossVolume": "Revenue",
             "noNextSlot": "There are no sessions to display.",
-            "color": "Color code",
+            "color": "Colour code",
             "name": "Title",
             "addActivity": "Add an activity",
             "addOffers": "Add sessions",
@@ -3169,7 +3169,7 @@
         },
         "resource": {
             "form": {
-                "color": "Color code",
+                "color": "Colour code",
                 "actions": {
                     "cancel": "Cancel",
                     "submit": "Save"
@@ -3206,7 +3206,7 @@
         },
         "color": {
             "form": {
-                "title": "Teacher's color code",
+                "title": "Teacher's colour code",
                 "cancel": "Cancel",
                 "submit": "Save"
             }
@@ -3826,7 +3826,7 @@
                     "helperText": "Example: a teacher can monitor two students separately on two machines",
                     "alertText": "A teacher can manage 1, 2, 3, 4, 6 or 12 appointments simultaneously."
                 },
-                "color": "Color code",
+                "color": "Colour code",
                 "use_full_establishment_capacity": {
                     "label": "Requires the entire establishment",
                     "helperText": "Uncheck to allow multiple activities/appointments in the same room simultaneously if the capacity allows it"
@@ -3955,7 +3955,7 @@
                 "coach": {
                     "isEmpty": "No teacher has been assigned."
                 },
-                "color": "Color code",
+                "color": "Colour code",
                 "name": {
                     "placeholder": "Dentist appointment",
                     "label": "Name"
@@ -6754,12 +6754,12 @@
                 "helperText": "Upload here your logo with a transparent background (use a .PNG file)."
             },
             "primary_color": {
-                "label": "Primary color",
-                "helperText": "Choose a theme color (avoid a monochrome setup)."
+                "label": "Primary colour",
+                "helperText": "Choose a theme colour (avoid a monochrome setup)."
             },
             "secondary_color": {
-                "label": "Secondary color",
-                "helperText": "Choose a complementary theme color."
+                "label": "Secondary colour",
+                "helperText": "Choose a complementary theme colour."
             },
             "default_booking_ordering": {
                 "date": "Sort by most recent booking date",
@@ -6996,7 +6996,7 @@
         "colorPicker": {
             "validate": "Save",
             "delete": "Clear",
-            "noColor": "No color"
+            "noColor": "No colour"
         },
         "form": {
             "duration": {
@@ -7148,7 +7148,7 @@
                 "icon": "(Optional) Icon",
                 "submit": "Save",
                 "name": "Tag",
-                "color": "Color",
+                "color": "Colour",
                 "info": "Selected icons will appear as a badge next to your tagged members' profile pictures.",
                 "selectIcon": "Select an icon",
                 "searchIcon": "Search an icon"
@@ -9457,7 +9457,7 @@
     },
     "coach": {
         "coach": "Teacher",
-        "color": "Color code (appointments)",
+        "color": "Colour code (appointments)",
         "search": "Search a teacher",
         "coach_override": "Substitute",
         "baseCoach": "Default",
@@ -16357,18 +16357,18 @@
                 "spacingHelper": "Spacing is based on multiples of {{base}}px",
                 "roundingHelper": "Corners are rounded in multiples {{base}}px",
                 "reset": "Reset",
-                "backgroundColorElement": "Main element background color",
-                "backgroundColorPage": "Background color",
-                "borderColor": "Border color",
-                "secondaryColor": "Secondary color",
-                "mainColor": "Primary color",
-                "subtypographyColor": "Subtitle color",
-                "typographyColor": "Text color",
+                "backgroundColorElement": "Main element background colour",
+                "backgroundColorPage": "Background colour",
+                "borderColor": "Border colour",
+                "secondaryColor": "Secondary colour",
+                "mainColor": "Primary colour",
+                "subtypographyColor": "Subtitle colour",
+                "typographyColor": "Text colour",
                 "rounding": "Rounding",
                 "spacing": "Spacing",
-                "backgroundColor": "Background color",
-                "colors": "Colors",
-                "secondaryBackgroundColorElement": "Secondary element background color"
+                "backgroundColor": "Background colour",
+                "colors": "Colours",
+                "secondaryBackgroundColorElement": "Secondary element background colour"
             },
             "configDialog": {
                 "cancel": "Close",
@@ -16448,7 +16448,9 @@
                     "showEstablishmentAddress": "Show the establishment's address",
                     "numberOfDistinctCheckoutItem": "Number of products in the basket",
                     "isRippleEnabled": "Disable the button ripple effect",
-                    "square": "Disable the rounded corners"
+                    "square": "Disable the rounded corners",
+                    "color": "Element's colour",
+                    "isInversed": "Element's colour inversed"
                 },
                 "configurationTitle": "Variations"
             },
@@ -17574,7 +17576,7 @@
         "metric": {
             "form": {
                 "range": "The default isn't between the minimum nor the maximum value. ",
-                "color": "Color",
+                "color": "Colour",
                 "maxValueHelperText": "Define the maximum value of this metric.",
                 "maxValue": "Maximum value",
                 "minValueHelperText": "Define the minimum value of this metric.",
@@ -17602,7 +17604,7 @@
             },
             "form": {
                 "default": "Define a default program for all new newly enrolled members.",
-                "color": "Color",
+                "color": "Colour",
                 "description": "Description",
                 "name": "Name of the program",
                 "generalInfo": "General",
@@ -18444,15 +18446,15 @@
         "cardListPage": {
             "categoryArchivedSnackbar": "The category has been archived",
             "archivedCategories": "Archived categories",
-            "categoryModalSubtitle": "Color palette",
-            "categoryModalTitle": "Color of the category",
+            "categoryModalSubtitle": "Colour palette",
+            "categoryModalTitle": "Colour of the category",
             "newSection": "New category",
             "addItems": "You can also add objects by clicking on the + tile in the last position.",
             "addSection": "You can also add a category by clicking on the + tile in the last position.",
             "deleteTile": "Delete the tile",
             "archiveSection": "Archive the category",
             "moveTile": "Move the tile",
-            "editColor": "Edit the color",
+            "editColor": "Edit the colour",
             "editName": "Edit the name",
             "editIcon": "Edit the icon",
             "seeLess": "See less",

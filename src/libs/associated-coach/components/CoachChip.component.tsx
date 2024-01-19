@@ -8,6 +8,8 @@ import Archive from '@material-ui/icons/Archive';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import classnames from 'classnames';
 
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
+import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach';
 import { Coach } from '../types';
 
 type Props = {
@@ -15,6 +17,7 @@ type Props = {
   onDelete?: () => void;
   coach: Coach;
   showDisabledIcon?: boolean;
+  coachDisplay?: MarketPlaceCoachDisplay;
 };
 
 export const CoachChip: React.FC<Props> = ({
@@ -22,8 +25,15 @@ export const CoachChip: React.FC<Props> = ({
   onDelete,
   coach,
   showDisabledIcon,
+  coachDisplay,
 }) => {
   const classes = useStyles();
+
+  const coachName = getCoachDisplayName(
+    coachDisplay,
+    coach?.name,
+    coach?.firstname,
+  );
 
   return (
     <Chip
@@ -38,7 +48,7 @@ export const CoachChip: React.FC<Props> = ({
             overlap="circular"
           >
             <Avatar
-              alt={coach.name}
+              alt={coachName}
               classes={{ root: classes.avatar }}
               src={coach.photo}
             />
@@ -48,9 +58,7 @@ export const CoachChip: React.FC<Props> = ({
       className={classnames(classes.background, {
         [classes.disabled]: showDisabledIcon && coach.disabled,
       })}
-      label={
-        loading ? <Skeleton animation="wave" variant="text" /> : coach.name
-      }
+      label={loading ? <Skeleton animation="wave" variant="text" /> : coachName}
       onDelete={onDelete}
       variant="outlined"
     />

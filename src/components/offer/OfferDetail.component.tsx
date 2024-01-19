@@ -11,6 +11,8 @@ import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import FolderIcon from '@material-ui/icons/Folder';
 
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
+import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach';
 import { formatAsDatetimeAdapted, formatAsTime } from '../../utils/datetime';
 import Tooltip from '#components/Tooltip.component';
 import type { Offer } from '#libs/offer/types';
@@ -34,9 +36,10 @@ type Props = {
     OffersGroup,
     Level
   > & { customLevel: Level };
+  coachDisplay?: MarketPlaceCoachDisplay;
 };
 
-const OfferDetail: React.FC<Props> = ({ offer }) => {
+const OfferDetail: React.FC<Props> = ({ offer, coachDisplay }) => {
   const classes = useStyles();
   const { t } = useTranslation(['offer', 'marketplace', 'communication']);
 
@@ -57,6 +60,12 @@ const OfferDetail: React.FC<Props> = ({ offer }) => {
     allImageLinks.length > ADDITIONAL_COACHES_MAX_DISPLAY
       ? allImageLinks.slice(0, ADDITIONAL_COACHES_MAX_DISPLAY)
       : allImageLinks;
+
+  const coachName = getCoachDisplayName(
+    coachDisplay,
+    coach?.name,
+    coach?.firstname,
+  );
 
   return (
     <div className={classes.container}>
@@ -105,7 +114,7 @@ const OfferDetail: React.FC<Props> = ({ offer }) => {
             <ListItemAvatar>
               <Avatar src={coach.photo} />
             </ListItemAvatar>
-            <ListItemText primary={coach.name} />
+            <ListItemText primary={coachName} />
           </ListItem>
         </div>
       )}

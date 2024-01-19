@@ -216,6 +216,7 @@ export class OfferCard extends Component<Props, State> {
       classes,
       t,
       onEditButtonClick,
+      companyTheme,
     } = this.props;
 
     const spiviErrorOnBooking =
@@ -270,7 +271,10 @@ export class OfferCard extends Component<Props, State> {
                   </ListItem>
                 )}
                 <div className={classes.offerDetailContainer}>
-                  <OfferDetail offer={offer} />
+                  <OfferDetail
+                    coachDisplay={companyTheme.coach_display}
+                    offer={offer}
+                  />
                 </div>
 
                 {offer?.group &&

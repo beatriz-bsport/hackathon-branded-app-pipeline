@@ -589,6 +589,7 @@ const WorkshopActivityGroup: React.FC<Props> = ({
                         bookings={bookings}
                         bookingsLoading={bookingsLoading || !bookings}
                         companyId={companyId}
+                        companyTheme={theme}
                         creditScaleFactor={theme.pass_credit_factor}
                         goToOfferManagement={navigateToOffer}
                         members={members}

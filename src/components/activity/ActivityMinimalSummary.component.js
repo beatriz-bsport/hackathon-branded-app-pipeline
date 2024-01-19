@@ -9,11 +9,14 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Divider from '@material-ui/core/Divider';
 import withStyles from '@material-ui/core/styles/withStyles';
 
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
+import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach';
 import Avatar from '../Avatar.component';
 import Level from '#libs/level/components/Level.component';
 
 import { formatAsDatetime } from '../../utils/datetime';
 import Sport from '../../libs/category/components/SCT.component';
+
 import type { ActivitySimplified } from '../../api/types';
 
 const styles = () => ({
@@ -35,6 +38,7 @@ type Props = {
   t: (x: string) => string,
   classes: Object,
   offer: Offer,
+  coachDisplay: MarketPlaceCoachDisplay,
 };
 
 // prettier-disable-next-line
@@ -52,6 +56,7 @@ export function ActivityMinimalSummary(props: Props) {
     t,
     classes,
     offer,
+    coachDisplay,
   } = props;
   const { name, id, parent_category, level, etablissement, next_slot, coach } =
     activity;
@@ -60,6 +65,12 @@ export function ActivityMinimalSummary(props: Props) {
     ? formatAsDatetime(next_slot)
     : t('activity.noNextSlot');
   const dateToShow = date || nextSlotFormatted;
+
+  const coachName = getCoachDisplayName(
+    coachDisplay,
+    coach?.name,
+    coach?.firstname || coach?.first_name,
+  );
 
   return (
     <div>
@@ -72,7 +83,7 @@ export function ActivityMinimalSummary(props: Props) {
         onClick={overrideClickAction}
       >
         {showCoach ? (
-          <Tooltip title={coach.name}>
+          <Tooltip title={coachName}>
             <IconButton disableRipple className={classes.noMargin}>
               <Avatar noname user={coach} variant="small" />
             </IconButton>
@@ -95,7 +106,7 @@ export function ActivityMinimalSummary(props: Props) {
         ) : null}
         <div>
           <ListItemText
-            primary={showCoachName ? coach.name : etablissement.title}
+            primary={showCoachName ? coachName : etablissement.title}
             primaryTypographyProps={{ align: 'right' }}
             secondary={<Level noStyle customLevel={level} variant="caption" />}
             secondaryTypographyProps={{ align: 'right' }}

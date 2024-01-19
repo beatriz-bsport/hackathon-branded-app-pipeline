@@ -27,6 +27,7 @@ type Props = {
   };
   membersData: CadenceMembersInData[] | CadenceMembersOutData[];
   page: number | null;
+  totalMembers: number;
   totalPages: number;
   getCadenceStep: (stepId: number) => CadenceStep;
   updatePageNumber: (page: number) => void;
@@ -38,6 +39,7 @@ const CadenceMetricsMemberTable: React.FC<Props> = ({
   membersById,
   membersData,
   page,
+  totalMembers,
   totalPages,
   getCadenceStep,
   updatePageNumber,
@@ -83,10 +85,10 @@ const CadenceMetricsMemberTable: React.FC<Props> = ({
       <Typography variant="subtitle1">
         {isHistoric
           ? t('audience.memberTable.historicTitle', {
-              count: searchedRows?.length || 0,
+              count: totalMembers,
             })
           : t('audience.memberTable.title', {
-              count: searchedRows?.length || 0,
+              count: totalMembers,
             })}
       </Typography>
       <FuzeSearch

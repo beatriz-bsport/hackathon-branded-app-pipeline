@@ -178,6 +178,7 @@ const CadenceMetrics: React.FC<Props> = ({
               membersById={membersById}
               membersData={membersPresent.results}
               page={pagePresent}
+              totalMembers={membersPresent.count}
               totalPages={totalPagesPresentMembers}
               updatePageNumber={handleChangePresentMembersPage}
             />
@@ -192,6 +193,7 @@ const CadenceMetrics: React.FC<Props> = ({
               membersById={membersById}
               membersData={membersHistoric.results}
               page={pageHistoric}
+              totalMembers={membersHistoric.count}
               totalPages={totalPagesMembersHistoric}
               updatePageNumber={handleChangeMembersHistoricPage}
             />

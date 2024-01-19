@@ -39,6 +39,7 @@ import { RootState } from '../../reducers';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import { getMarketplaceRoute } from '#libs/marketplace/routing-utils';
 import { VideoStatusEnum } from '#libs/video/types';
+import { CompanyTheme } from '#libs/theme/types';
 
 type OwnProps = {
   companyId: number;
@@ -53,6 +54,7 @@ type OwnProps = {
   setSearchParams: (key: string) => (value: any) => void;
   openVideo?: (videoId: number, companyId: number, companyName: string) => void;
   openPlaylist?: (id: number, companyId: number, companyName: string) => void;
+  companyTheme: CompanyTheme;
 };
 
 type ConnectedProps = OwnProps &
@@ -92,9 +94,12 @@ export class MarketplaceVideo extends React.Component<Props> {
           <div className={classes.videoListContainer}>
             <div className={classes.searchContainer}>
               <VideoSearchBar
+                coachDisplay={this.props.companyTheme?.coach_display}
                 coaches={this.props.videoFilterableParams.coaches || []}
                 customLevels={this.props.customLevels || []}
-                hideCoach={this.props.theme && this.props.theme.hideCoach}
+                hideCoach={
+                  this.props.companyTheme && this.props.companyTheme.hideCoach
+                }
                 onChangeSearchParams={this.props.setSearchParams}
                 scts={this.props.videoFilterableParams.SCTs || []}
                 searchParams={this.props.searchParams}
@@ -102,8 +107,11 @@ export class MarketplaceVideo extends React.Component<Props> {
             </div>
             <Divider className={classes.divider} />
             <VideoItemList
+              coachDisplay={this.props.companyTheme?.coach_display}
               hasMoreVideo={this.props.hasMoreVideo}
-              hideCoach={this.props.theme && this.props.theme.hideCoach}
+              hideCoach={
+                this.props.companyTheme && this.props.companyTheme.hideCoach
+              }
               loading={this.props.loading}
               onShowMore={this.props.fetchMoreVideo}
               openVideo={this.props.openVideo}
@@ -214,7 +222,7 @@ const styles = (theme: any) => ({
 });
 const mapStateToProps = (state: RootState) => ({
   playlistList: getPlaylistList(state),
-  theme: themeSelectors.getTheme(state),
+  companyTheme: themeSelectors.getTheme(state),
   videoList: withVideoCoach(withVideoCategory(getVideoList))(state),
   loading: state.video.loading,
   videoFilterableParams: state.video.filterableParams.items,

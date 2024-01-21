@@ -159,6 +159,13 @@ export const CadenceList: React.FC<Props> = ({
     [getUpdatedCadenceList, updateCadencePriorityIndex],
   );
 
+  const capitalizedArchivedTitle = React.useMemo(() => {
+    const archivedTitle = `${t('audience.archive.archivedHeader')} (${
+      cadences?.length || 0
+    })`;
+    return archivedTitle.charAt(0).toUpperCase() + archivedTitle.slice(1);
+  }, [cadences?.length, t]);
+
   React.useEffect(() => {
     !priorityIndexLoading && setCadenceUpdatedList(cadenceSortableItems);
   }, [cadenceSortableItems, priorityIndexLoading]);
@@ -186,9 +193,7 @@ export const CadenceList: React.FC<Props> = ({
         >
           {collapseOpen ? <ExpandMoreIcon /> : <ExpandLessIcon />}
           <Typography color="textSecondary" variant="h5">
-            {`${t('audience.archive.archivedHeader')}${'\u00A0'}(${
-              cadences?.length || 0
-            })${'\u00A0'}`}
+            {capitalizedArchivedTitle}
           </Typography>
         </ButtonBase>
 

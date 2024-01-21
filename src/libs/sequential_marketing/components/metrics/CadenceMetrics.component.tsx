@@ -45,6 +45,7 @@ type Props = {
   getMembersPresent: (
     cadenceId: number,
   ) => MetricsPaginatedResponse<CadenceMembersInData>;
+  goTagsPage: () => void;
   knowMoreOnNotifications: () => void;
   onOpen: (cadence: Cadence) => void;
   updateFilterDates: (startDateFilter: string, endDateFilter: string) => void;
@@ -65,6 +66,7 @@ const CadenceMetrics: React.FC<Props> = ({
   getGlobalMetrics,
   getMembersHistoric,
   getMembersPresent,
+  goTagsPage,
   knowMoreOnNotifications,
   onOpen,
   updateFilterDates,
@@ -195,6 +197,7 @@ const CadenceMetrics: React.FC<Props> = ({
             <div className={classes.tags}>
               <CadenceGlobalMetricsCard
                 count={globalMetrics?.tags_count}
+                handleTitleClick={goTagsPage}
                 variant={CadenceMetricsVariant.TAGS}
               />
             </div>

@@ -26,6 +26,7 @@ type Props = {
   count: number;
   variant: CadenceMetricsVariant;
   backgroundColor?: string;
+  handleTitleClick?: () => void;
 };
 
 const useCadenceMetricsCardIcon = (
@@ -140,6 +141,7 @@ export const CadenceGlobalMetricsCard: React.FC<Props> = ({
   count,
   variant,
   backgroundColor,
+  handleTitleClick,
 }) => {
   const theme = useTheme();
 
@@ -148,7 +150,11 @@ export const CadenceGlobalMetricsCard: React.FC<Props> = ({
     theme,
   );
 
-  const classes = useStyles({ iconColor, backgroundColor });
+  const classes = useStyles({
+    iconColor,
+    backgroundColor,
+    isTitleClickable: !!handleTitleClick,
+  });
 
   const { title, description, label } = useCadenceMetricsCardTexts(
     variant,
@@ -166,7 +172,11 @@ export const CadenceGlobalMetricsCard: React.FC<Props> = ({
             icon={icon}
             iconColor={iconColor}
           />
-          <Typography className={classes.title} variant="subtitle1">
+          <Typography
+            className={classes.title}
+            onClick={handleTitleClick}
+            variant="subtitle1"
+          >
             {title}
           </Typography>
         </div>
@@ -184,10 +194,13 @@ export const CadenceGlobalMetricsCard: React.FC<Props> = ({
   );
 };
 
-const useStyles = makeStyles<
-  Theme,
-  { iconColor: string; backgroundColor?: string }
->((theme) => ({
+type StylesProps = {
+  iconColor: string;
+  backgroundColor?: string;
+  isTitleClickable?: boolean;
+};
+
+const useStyles = makeStyles<Theme, StylesProps>((theme) => ({
   cardContainer: {
     display: 'flex',
     flexDirection: 'column',
@@ -212,6 +225,7 @@ const useStyles = makeStyles<
   },
   title: {
     fontWeight: 500,
+    cursor: ({ isTitleClickable }) => isTitleClickable && 'pointer',
   },
   description: {
     color: SequentialMarketingColors.WORKFLOW_METRICS_GREY,

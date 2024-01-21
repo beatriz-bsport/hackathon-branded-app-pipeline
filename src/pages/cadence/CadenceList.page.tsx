@@ -330,6 +330,7 @@ export class CadenceListPage extends React.Component<Props> {
               getMembersHistoric={this.props.getMembersHistoric}
               getMembersPresent={this.props.getMembersPresent}
               globalMetricsLoading={this.props.globalMetricsLoading}
+              goTagsPage={this.props.goTagsPage}
               hasNotificationUpsell={this.hasNotificationUpsell}
               knowMoreOnNotifications={this.knowMoreOnUpsells}
               membersById={this.props.membersById}
@@ -405,6 +406,9 @@ const StateHandlersSetter = {
 const mapWithHandlers = {
   goToCadencePage: (props: ConnectedPropsAndState) => (id: number) =>
     props.push(`/audience/${id}`),
+
+  goTagsPage: (props: ConnectedPropsAndState) => () =>
+    props.push(`/marketing/tags`),
 
   fetchCadenceList: (props: ConnectedPropsAndState) => () => {
     props.fetchCadenceListAction({ page_size: CADENCE_PAGE_SIZE });

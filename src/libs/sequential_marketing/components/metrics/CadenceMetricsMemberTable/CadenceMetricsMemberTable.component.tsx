@@ -3,8 +3,8 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import { useTranslation } from 'react-i18next';
 
 import TableContainer from '@material-ui/core/TableContainer';
-import Typography from '@material-ui/core/Typography/Typography';
-import Pagination from '@material-ui/lab/Pagination/Pagination';
+import Typography from '@material-ui/core/Typography';
+import Pagination from '@material-ui/lab/Pagination';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 import Fuse, { FuseOptions } from 'fuse.js';
@@ -82,7 +82,7 @@ const CadenceMetricsMemberTable: React.FC<Props> = ({
 
   return (
     <div className={classes.container}>
-      <Typography variant="subtitle1">
+      <Typography className={classes.title} variant="subtitle1">
         {isHistoric
           ? t('audience.memberTable.historicTitle', {
               count: totalMembers,
@@ -133,6 +133,9 @@ const useStyles = makeStyles((theme) => ({
     gap: theme.spacing(2),
     background: 'white',
     borderRadius: '5px',
+  },
+  title: {
+    fontWeight: 500,
   },
   tableContainer: {
     display: 'flex',

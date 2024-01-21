@@ -818,6 +818,7 @@ exports.default = {
     audienceIndexHelper:
       'The order of the {{ workflowPluralLowerCase }} sets the order of priority: if a member can enter 2 different {{ workflowPluralLowerCase }} at the same time, they will start with the highest in the list.',
     workflowMetrics: {
+      openButton: 'Open {{ workflowLowerCase }}',
       cards: {
         members: {
           title: 'Members',

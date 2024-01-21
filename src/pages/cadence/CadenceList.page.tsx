@@ -335,6 +335,7 @@ export class CadenceListPage extends React.Component<Props> {
               membersById={this.props.membersById}
               membersHistoricLoading={this.props.membersHistoricLoading}
               membersPresentLoading={this.props.membersPresentLoading}
+              onOpen={this.handleGoToCadencePage}
               startDate={this.props.startDateFilter}
               updateFilterDates={this.handleUpdateFilterDates}
             />

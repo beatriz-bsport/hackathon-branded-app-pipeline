@@ -1,15 +1,18 @@
 import React from 'react';
 import moment from 'moment-timezone';
 import chroma from 'chroma-js';
+import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
 import CadenceGlobalMetricsCard, {
   CadenceMetricsVariant,
 } from './CadenceGlobalMetricsCard.component';
 import CadenceGlobalMetricsProgressList from './CadenceGlobalMetricsProgressList.component';
-import DateRangeSelector from '#components/date/DateRangeSelector.component';
 import CadenceMetricsMemberTable from './CadenceMetricsMemberTable';
+import DateRangeSelector from '#components/date/DateRangeSelector.component';
+import SwitchHorizontalIcon from '#components/icons/SwitchHorizontalIcon.component';
 
 import type {
   Cadence,
@@ -43,6 +46,7 @@ type Props = {
     cadenceId: number,
   ) => MetricsPaginatedResponse<CadenceMembersInData>;
   knowMoreOnNotifications: () => void;
+  onOpen: (cadence: Cadence) => void;
   updateFilterDates: (startDateFilter: string, endDateFilter: string) => void;
 };
 
@@ -62,12 +66,19 @@ const CadenceMetrics: React.FC<Props> = ({
   getMembersHistoric,
   getMembersPresent,
   knowMoreOnNotifications,
+  onOpen,
   updateFilterDates,
 }) => {
   const classes = useStyles();
+  const { t } = useTranslation('marketing');
 
   const [pagePresent, setPagePresent] = React.useState<number | null>(null);
   const [pageHistoric, setPageHistoric] = React.useState<number | null>(null);
+
+  const handleOpen = React.useCallback(
+    () => onOpen(cadence),
+    [cadence, onOpen],
+  );
 
   const handleChangePresentMembersPage = React.useCallback(
     (page: number) => {
@@ -139,6 +150,15 @@ const CadenceMetrics: React.FC<Props> = ({
           </div>
           <Typography variant="h5">{cadence?.name}</Typography>
         </div>
+        <Button
+          color="primary"
+          onClick={handleOpen}
+          size="small"
+          startIcon={<SwitchHorizontalIcon />}
+          variant="contained"
+        >
+          {t('audience.workflowMetrics.openButton')}
+        </Button>
       </div>
       <DateRangeSelector
         date_end={moment(endDate).unix()}

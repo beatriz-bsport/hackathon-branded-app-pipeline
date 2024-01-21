@@ -228,7 +228,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     gap: theme.spacing(2),
-    paddingBottom: theme.spacing(10),
+    paddingBottom: theme.spacing(7),
   },
   header: {
     display: 'flex',

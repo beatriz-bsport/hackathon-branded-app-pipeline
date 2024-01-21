@@ -963,9 +963,12 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                 location.pathname.includes('/audience/'),
               [classes.content]: !(
                 location.pathname.includes('/spot-scheduling') ||
-                location.pathname.includes('/audience/') ||
+                location.pathname.includes('/audience') ||
                 location.pathname.includes('/inbox/')
               ),
+              [classes.unscrollableContent]:
+                location.pathname.includes('/audience') &&
+                !location.pathname.includes('/audience/'),
               [classes.contentWithoutPadding]:
                 location.pathname.includes('/inbox/'),
             })}
@@ -1033,6 +1036,20 @@ const useStyles = makeStyles<Theme, { drawerIconsOnly: boolean }>((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
+  },
+  unscrollableContent: {
+    flex: '1 1 auto',
+    display: 'flex',
+    flexDirection: 'column',
+    backgroundColor: theme.palette.background.default,
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
+      paddingLeft: theme.spacing(3),
+      paddingRight: theme.spacing(3),
+    },
+    paddingBottom: theme.spacing(1),
+    paddingTop: theme.spacing(2),
+    overflow: 'hidden',
   },
   content: {
     flex: '1 1 auto',

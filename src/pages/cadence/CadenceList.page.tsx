@@ -567,13 +567,25 @@ const styles = (theme: Theme) =>
     pageContainer: {
       display: 'flex',
       gap: theme.spacing(2),
-      height: '100%',
       width: '100%',
+      height: '100vh',
+      paddingBottom: theme.spacing(12),
       position: 'relative',
+      overflow: 'hidden',
     },
     pageColumn: {
       paddingTop: theme.spacing(2),
       flex: 1,
+      [theme.breakpoints.up('lg')]: {
+        maxWidth: '50%',
+      },
+      boxSizing: 'border-box',
+      overflowY: 'auto',
+      '-ms-overflow-style': 'none' /* for Internet Explorer, Edge */,
+      scrollbarWidth: 'none' /* for Firefox */,
+      '&::-webkit-scrollbar': {
+        display: 'none' /* for Chrome, Safari, and Opera */,
+      },
     },
     hideOnSmallScreen: {
       [theme.breakpoints.down('md')]: {

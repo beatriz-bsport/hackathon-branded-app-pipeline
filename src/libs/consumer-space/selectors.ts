@@ -52,6 +52,10 @@ import { BookingFilterTabEnum } from '#libs/consumer-space/components/reworked/@
 import { BookingTabEnum } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/constants';
 import { WaitingListBookingOption } from '#libs/waiting-list/types';
 import { getServiceCompatibilityPassesByPrivatePassAndPrivateService } from '#libs/private-service/selectors/private-pass';
+import type {
+  UniversalPassREST,
+  UniversalPassReworked,
+} from '#libs/universal-pass/types';
 
 const getAllBookingAndPrivateBookingWithIds = (state: RootState) => {
   return state.consumer.bookingAndPrivateBooking.allObj;
@@ -548,53 +552,97 @@ export const getMyExpiredSubscriptionsList = createSelector(
 );
 
 /** Get full object for consumer payment packs */
+const _getConsumerPaymentPack = createSelector(
+  [
+    (state: RootState) => state,
+    (_, consumerPaymentPack: ConsumerPaymentPackREST) => consumerPaymentPack,
+    getSCTs,
+  ],
+  (state, consumerPaymentPack, allSCTs) => {
+    const payment_pack = getPaymentPack(
+      state,
+      parseInt(consumerPaymentPack.payment_pack_id),
+    ) as PaymentPack;
+    const establishments = payment_pack?.establishments?.map(
+      (establishmentId) => getEstablishment(state, establishmentId),
+    );
+    const SCTs = allSCTs.filter((sct) => payment_pack?.SCTs?.includes(sct.id));
+    const metaActivities = payment_pack?.metaActivities?.map((metaActivityId) =>
+      getMetaActivity(state, metaActivityId),
+    );
+    const dst_consumer_payment_pack = getConsumerPaymentPackLink(
+      state,
+      consumerPaymentPack?.dst_consumer_payment_pack,
+    );
+    const src_consumer_payment_pack =
+      consumerPaymentPack?.src_consumer_payment_pack?.map(
+        (consumerPaymentPackLink) =>
+          getConsumerPaymentPackLink(state, consumerPaymentPackLink),
+      );
+    return {
+      ...consumerPaymentPack,
+      linked_private_consumer_pass: null,
+      payment_pack: {
+        ...payment_pack,
+        establishments,
+        SCTs,
+        metaActivities,
+      },
+      dst_consumer_payment_pack,
+      src_consumer_payment_pack,
+    } as ConsumerPaymentPackReworked;
+  },
+);
+
+/** Get full object for consumer payment packs */
 const _getConsumerPaymentPackList = createSelector(
   [
     (state: RootState) => state,
-    getSCTs,
     (_, consumerPaymentPacks: ConsumerPaymentPackREST[]) =>
       consumerPaymentPacks,
   ],
-  (state, allSCTs, consumerPaymentPacks) => {
+  (state, consumerPaymentPacks) => {
     const consumerPaymentPackList = consumerPaymentPacks.map(
-      (consumerPaymentPack) => {
-        const payment_pack = getPaymentPack(
-          state,
-          parseInt(consumerPaymentPack.payment_pack_id),
-        ) as PaymentPack;
-        const establishments = payment_pack?.establishments?.map(
-          (establishmentId) => getEstablishment(state, establishmentId),
-        );
-        const SCTs = allSCTs.filter((sct) =>
-          payment_pack?.SCTs?.includes(sct.id),
-        );
-        const metaActivities = payment_pack?.metaActivities?.map(
-          (metaActivityId) => getMetaActivity(state, metaActivityId),
-        );
-        const dst_consumer_payment_pack = getConsumerPaymentPackLink(
-          state,
-          consumerPaymentPack?.dst_consumer_payment_pack,
-        );
-        const src_consumer_payment_pack =
-          consumerPaymentPack?.src_consumer_payment_pack?.map(
-            (consumerPaymentPackLink) =>
-              getConsumerPaymentPackLink(state, consumerPaymentPackLink),
-          );
-        return {
-          ...consumerPaymentPack,
-          linked_private_consumer_pass: null,
-          payment_pack: {
-            ...payment_pack,
-            establishments,
-            SCTs,
-            metaActivities,
-          },
-          dst_consumer_payment_pack,
-          src_consumer_payment_pack,
-        } as ConsumerPaymentPackReworked;
-      },
+      (consumerPaymentPack) =>
+        _getConsumerPaymentPack(state, consumerPaymentPack),
     );
     return consumerPaymentPackList;
+  },
+);
+
+const _getPrivateConsumerPass = createSelector(
+  [
+    (state: RootState) => state,
+    (_, privateConsumerPass: PrivateConsumerPassREST) => privateConsumerPass,
+    getServiceCompatibilityPassesByPrivatePassAndPrivateService,
+  ],
+  (state, privateConsumerPass, privateServiceCompatibilityPassesData) => {
+    const privateServiceCompatibilityPasses =
+      privateConsumerPass?.private_pass?.private_services?.map(
+        (privateServiceId) =>
+          privateServiceCompatibilityPassesData?.[
+            `${privateServiceId}-${privateConsumerPass.private_pass.id}`
+          ],
+      );
+    const dst_private_consumer_pass = getPrivateConsumerPassLink(
+      state,
+      privateConsumerPass?.dst_private_consumer_pass,
+    );
+    const src_private_consumer_pass =
+      privateConsumerPass?.src_private_consumer_pass?.map(
+        (consumerPaymentPackLink) =>
+          getPrivateConsumerPassLink(state, consumerPaymentPackLink),
+      );
+    return {
+      ...privateConsumerPass,
+      private_pass: {
+        ...privateConsumerPass.private_pass,
+        private_services: privateServiceCompatibilityPasses,
+      },
+      dst_private_consumer_pass,
+      src_private_consumer_pass,
+      linked_consumer_payment_pack: null,
+    } as PrivateConsumerPassReworked;
   },
 );
 
@@ -604,40 +652,53 @@ const _getPrivateConsumerPassList = createSelector(
     (state: RootState) => state,
     (_, privateConsumerPacks: PrivateConsumerPassREST[]) =>
       privateConsumerPacks,
-    getServiceCompatibilityPassesByPrivatePassAndPrivateService,
   ],
-  (state, privateConsumerPasses, privateServiceCompatibilityPassesData) => {
+  (state, privateConsumerPasses) => {
     const privateConsumerPassList = privateConsumerPasses.map(
-      (privateConsumerPass) => {
-        const privateServiceCompatibilityPasses =
-          privateConsumerPass?.private_pass?.private_services?.map(
-            (privateServiceId) =>
-              privateServiceCompatibilityPassesData?.[
-                `${privateServiceId}-${privateConsumerPass.private_pass.id}`
-              ],
-          );
-        const dst_private_consumer_pass = getPrivateConsumerPassLink(
-          state,
-          privateConsumerPass?.dst_private_consumer_pass,
-        );
-        const src_private_consumer_pass =
-          privateConsumerPass?.src_private_consumer_pass?.map(
-            (consumerPaymentPackLink) =>
-              getPrivateConsumerPassLink(state, consumerPaymentPackLink),
-          );
-        return {
-          ...privateConsumerPass,
-          private_pass: {
-            ...privateConsumerPass.private_pass,
-            private_services: privateServiceCompatibilityPasses,
-          },
-          dst_private_consumer_pass,
-          src_private_consumer_pass,
-          linked_consumer_payment_pack: null,
-        } as PrivateConsumerPassReworked;
-      },
+      (privateConsumerPass) =>
+        _getPrivateConsumerPass(state, privateConsumerPass),
     );
     return privateConsumerPassList;
+  },
+);
+
+/** Get full object for universal pass */
+const _getUniversalPassList = createSelector(
+  [
+    (state: RootState) => state,
+    (_, universalPasses: UniversalPassREST[]) => universalPasses,
+  ],
+  (state, universalPasses) => {
+    const consumerPaymentPacks: { [id: number]: ConsumerPaymentPackReworked } =
+      universalPasses?.reduce(
+        (acc, universalPass) => ({
+          ...acc,
+          [universalPass.id]: _getConsumerPaymentPack(
+            state,
+            universalPass.consumer_payment_pack,
+          ),
+        }),
+        {},
+      );
+    const privateConsumerPasses: { [id: number]: PrivateConsumerPassReworked } =
+      universalPasses?.reduce(
+        (acc, universalPass) => ({
+          ...acc,
+          [universalPass.id]: _getPrivateConsumerPass(
+            state,
+            universalPass.private_consumer_pass,
+          ),
+        }),
+        {},
+      );
+    return universalPasses?.map(
+      (universalPass) =>
+        ({
+          ...universalPass,
+          private_consumer_pass: privateConsumerPasses?.[universalPass.id],
+          consumer_payment_pack: consumerPaymentPacks?.[universalPass.id],
+        } as UniversalPassReworked),
+    );
   },
 );
 
@@ -767,6 +828,69 @@ export const getMyExpiredPrivateConsumerPassesList = createSelector(
   },
 );
 
+export const getMyActiveUniversalPassesState = (state: RootState) =>
+  state.consumerReworked.myPasses.universalPass.active;
+
+const getMyActiveUniversalPassesAllIds = (state: RootState) =>
+  state.consumerReworked.myPasses.universalPass.active.passes.allIds;
+
+const getMyActiveUniversalPassesById = (state: RootState) =>
+  state.consumerReworked.myPasses.universalPass.active.passes.byId;
+
+export const getMyActiveUniversalPassesList = createSelector(
+  [
+    getMyActiveUniversalPassesAllIds,
+    getMyActiveUniversalPassesById,
+    (state) => state,
+  ],
+  (ids, data, state) => {
+    const universalPasses = ids.map((id) => data[id]);
+    return _getUniversalPassList(state, universalPasses);
+  },
+);
+
+export const getMyFutureUniversalPassesState = (state: RootState) =>
+  state.consumerReworked.myPasses.universalPass.future;
+
+const getMyFutureUniversalPassesAllIds = (state: RootState) =>
+  state.consumerReworked.myPasses.universalPass.future.passes.allIds;
+
+const getMyFutureUniversalPassesById = (state: RootState) =>
+  state.consumerReworked.myPasses.universalPass.future.passes.byId;
+
+export const getMyFutureUniversalPassesList = createSelector(
+  [
+    getMyFutureUniversalPassesAllIds,
+    getMyFutureUniversalPassesById,
+    (state) => state,
+  ],
+  (ids, data, state) => {
+    const universalPasses = ids.map((id) => data[id]);
+    return _getUniversalPassList(state, universalPasses);
+  },
+);
+
+export const getMyExpiredUniversalPassesState = (state: RootState) =>
+  state.consumerReworked.myPasses.universalPass.expired;
+
+const getMyExpiredUniversalPassesAllIds = (state: RootState) =>
+  state.consumerReworked.myPasses.universalPass.expired.passes.allIds;
+
+const getMyExpiredUniversalPassesById = (state: RootState) =>
+  state.consumerReworked.myPasses.universalPass.expired.passes.byId;
+
+export const getMyExpiredUniversalPassesList = createSelector(
+  [
+    getMyExpiredUniversalPassesAllIds,
+    getMyExpiredUniversalPassesById,
+    (state) => state,
+  ],
+  (ids, data, state) => {
+    const universalPasses = ids.map((id) => data[id]);
+    return _getUniversalPassList(state, universalPasses);
+  },
+);
+
 export const getConsumerPassesLoading = createSelector(
   [
     getMyActiveConsumerPaymentPacksState,
@@ -775,6 +899,9 @@ export const getConsumerPassesLoading = createSelector(
     getMyActivePrivateConsumerPassesState,
     getMyFuturePrivateConsumerPassesState,
     getMyExpiredPrivateConsumerPassesState,
+    getMyActiveUniversalPassesState,
+    getMyFutureUniversalPassesState,
+    getMyExpiredUniversalPassesState,
   ],
   (
     activeConsumerPaymentPacksState,
@@ -783,11 +910,17 @@ export const getConsumerPassesLoading = createSelector(
     activePrivateConsumerPassesState,
     futurePrivateConsumerPassesState,
     expiredPrivateConsumerPassesState,
+    activeUniversalPassesState,
+    futureUniversalPassesState,
+    expiredUniversalPassesState,
   ) =>
     activeConsumerPaymentPacksState.loading ||
     futureConsumerPaymentPacksState.loading ||
     expiredConsumerPaymentPacksState.loading ||
     activePrivateConsumerPassesState.loading ||
     futurePrivateConsumerPassesState.loading ||
-    expiredPrivateConsumerPassesState.loading,
+    expiredPrivateConsumerPassesState.loading ||
+    activeUniversalPassesState.loading ||
+    futureUniversalPassesState.loading ||
+    expiredUniversalPassesState.loading,
 );

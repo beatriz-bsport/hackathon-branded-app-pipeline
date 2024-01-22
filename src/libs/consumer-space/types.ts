@@ -7,6 +7,7 @@ import type { ErrorAndLoading } from '../types';
 import { ConsumerPaymentPackREST } from '#libs/consumer-payment-pack/types';
 import type { WaitingListBookingOption } from '#libs/waiting-list/types';
 import type { SubscriptionREST } from '#libs/subscription/types';
+import { UniversalPassREST } from '#libs/universal-pass/types';
 
 export type Profile = {
   name: string;
@@ -145,6 +146,11 @@ export type ConsumerStateReworked = {
       active: ConsumerPassReworked<PrivateConsumerPassREST>;
       future: ConsumerPassReworked<PrivateConsumerPassREST>;
       expired: ConsumerPassReworked<PrivateConsumerPassREST>;
+    };
+    universalPass: {
+      active: ConsumerPassReworked<UniversalPassREST>;
+      future: ConsumerPassReworked<UniversalPassREST>;
+      expired: ConsumerPassReworked<UniversalPassREST>;
     };
   };
 };

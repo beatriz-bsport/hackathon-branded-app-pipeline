@@ -8,8 +8,8 @@ import Button from '@material-ui/core/Button';
 
 import CadenceGlobalMetricsCard, {
   CadenceMetricsVariant,
-} from './CadenceGlobalMetricsCard.component';
-import CadenceGlobalMetricsProgressList from './CadenceGlobalMetricsProgressList.component';
+} from './CadenceGlobalMetricsCard';
+import CadenceGlobalMetricsProgressList from './CadenceGlobalMetricsProgressList';
 import CadenceMetricsMemberTable from './CadenceMetricsMemberTable';
 import DateRangeSelector from '#components/date/DateRangeSelector.component';
 import SwitchHorizontalIcon from '#components/icons/SwitchHorizontalIcon.component';

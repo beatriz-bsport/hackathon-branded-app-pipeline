@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import makeStyles from '@material-ui/styles/makeStyles';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import useTheme from '@material-ui/core/styles/useTheme';
 import Typography from '@material-ui/core/Typography';
 import type { Theme } from '@material-ui/core/styles';
@@ -14,6 +14,7 @@ import {
 } from '#libs/sequential_marketing/constants';
 import TrophyIcon from '#components/icons/TrophyIcon.component';
 import CadenceGlobalMetricsIcon from '#libs/sequential_marketing/components/metrics/CadenceGlobalMetricsIcon.component';
+import CadenceGlobalMetricsCardSkeleton from './CadenceGlobalMetricsCardSkeleton.component';
 
 export enum CadenceMetricsVariant {
   MEMBERS = 'members',
@@ -26,6 +27,7 @@ type Props = {
   count: number;
   variant: CadenceMetricsVariant;
   backgroundColor?: string;
+  isLoading?: boolean;
   handleTitleClick?: () => void;
 };
 
@@ -141,6 +143,7 @@ export const CadenceGlobalMetricsCard: React.FC<Props> = ({
   count,
   variant,
   backgroundColor,
+  isLoading,
   handleTitleClick,
 }) => {
   const theme = useTheme();
@@ -162,6 +165,10 @@ export const CadenceGlobalMetricsCard: React.FC<Props> = ({
   );
 
   const { figure } = useCadenceMetricsCardFigure(variant, count);
+
+  if (isLoading) {
+    return <CadenceGlobalMetricsCardSkeleton />;
+  }
 
   return (
     <div className={classes.cardContainer}>

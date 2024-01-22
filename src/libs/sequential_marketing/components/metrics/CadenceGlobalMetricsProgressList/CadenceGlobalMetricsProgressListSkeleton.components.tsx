@@ -2,7 +2,7 @@ import React from 'react';
 
 import makeStyles from '@material-ui/styles/makeStyles';
 
-import { useStyles as cadenceGlobalMetricsProgressListStyles } from '#libs/sequential_marketing/components/metrics/CadenceGlobalMetricsProgressList.component';
+import { useStyles as cadenceGlobalMetricsProgressListStyles } from './CadenceGlobalMetricsProgressList.component';
 
 import {
   CustomMuiSkeletonText,

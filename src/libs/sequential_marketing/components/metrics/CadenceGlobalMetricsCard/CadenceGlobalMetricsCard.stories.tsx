@@ -49,7 +49,12 @@ export default {
       options: Object.values(CadenceMetricsVariant),
     },
     backgroundColor: {
+      control: 'color',
       description: '(Optional) The background color of the card.',
+    },
+    isLoading: {
+      control: 'boolean',
+      description: '(Optional) The loading state of the card.',
     },
   },
   decorators: [

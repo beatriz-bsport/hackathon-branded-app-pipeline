@@ -12,7 +12,6 @@ import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
 import RestoreFromTrashIcon from '@material-ui/icons/RestoreFromTrash';
 import Skeleton from '@material-ui/lab/Skeleton';
-import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 
 import { useSortable } from '@dnd-kit/sortable';
@@ -182,9 +181,11 @@ export const CadenceListItem: React.FC<Props> = ({
             </Button>
           )}
           {!archived && (
-            <Tooltip title={t('audience.listItem.tooltip.moreActions')}>
-              <NestedMenuSelectorIconButton noTextWrap actionList={actions} />
-            </Tooltip>
+            <NestedMenuSelectorIconButton
+              noTextWrap
+              actionList={actions}
+              tooltipText={t('audience.listItem.tooltip.moreActions')}
+            />
           )}
         </div>
       </ListItem>

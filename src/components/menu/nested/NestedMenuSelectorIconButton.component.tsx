@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import chroma from 'chroma-js';
 import Immutable from 'seamless-immutable';
+import classNames from 'classnames';
 
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import type { Theme } from '@material-ui/core/styles';
@@ -16,27 +17,30 @@ import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
 import Typography from '@material-ui/core/Typography';
 
-import classNames from 'classnames';
-import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
 import { MULTIPLE_ACTION_BUTTON_MAX_SIZE } from '#components/menu/constants';
+import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
+import Tooltip from '#components/Tooltip.component';
+
 import type { MenuAction, NestedMenuAction } from '#components/menu/types';
 
 type StylesProps = { color: string; open: boolean };
 
 type Props = {
   actionList: Immutable.ImmutableArray<NestedMenuAction>;
-  customIcon?: string;
   customColor?: string;
-  optionOnClick?: () => void;
+  customIcon?: string;
   noTextWrap?: boolean;
+  tooltipText?: string;
+  optionOnClick?: () => void;
 };
 
 const NestedMenuSelectorIconButton: React.FC<Props> = ({
   actionList,
   customIcon,
   customColor,
-  optionOnClick,
   noTextWrap,
+  tooltipText,
+  optionOnClick,
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
@@ -103,18 +107,20 @@ const NestedMenuSelectorIconButton: React.FC<Props> = ({
   return (
     <div className={classes.container}>
       <ClickAwayListener onClickAway={handleClickAway}>
-        <ButtonBase
-          className={classes.button}
-          onClick={handleClick}
-          onContextMenu={handleRightClick}
-        >
-          <CustomMuiIcon
-            defaultBackGround
-            customColor={customColor || 'black'}
-            icon={customIcon || 'MoreVert'}
-            withBackground={false}
-          />
-        </ButtonBase>
+        <Tooltip title={tooltipText}>
+          <ButtonBase
+            className={classes.button}
+            onClick={handleClick}
+            onContextMenu={handleRightClick}
+          >
+            <CustomMuiIcon
+              defaultBackGround
+              customColor={customColor || 'black'}
+              icon={customIcon || 'MoreVert'}
+              withBackground={false}
+            />
+          </ButtonBase>
+        </Tooltip>
       </ClickAwayListener>
       <Menu
         anchorEl={anchorEl}

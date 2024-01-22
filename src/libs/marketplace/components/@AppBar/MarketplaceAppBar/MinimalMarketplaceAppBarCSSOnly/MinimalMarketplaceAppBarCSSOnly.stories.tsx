@@ -50,7 +50,7 @@ export default {
       description: 'Auth of the member.',
     },
     photo: {
-      control: 'string',
+      control: 'text',
       description: 'SVG profile picture of the member.',
     },
     requestLogin: {

@@ -864,16 +864,16 @@ exports.default = {
         paused: 'Paused',
         notLaunched: 'Not launched',
         open: 'Open',
-        archive: 'Archive workflow',
-        edit: ' Edit workflow settings',
+        archive: 'Archive {{ workflowLowerCase }}',
+        edit: ' Edit {{ workflowLowerCase }} settings',
       },
-      toolTip: {
-        moreActions: 'More workflow actions',
+      tooltip: {
+        moreActions: 'More {{ workflowLowerCase }} actions',
       },
     },
     editModal: {
       dialog: {
-        title: 'Edit workflow',
+        title: 'Edit {{ workflowLowerCase }}',
         helper:
           'Editing triggers can change the position of members in different steps.',
         checkboxLabel: 'Do not display this message anymore.',

@@ -27,9 +27,17 @@ export default {
         '[Optional] Color of the icon button and the icons in the menu, if not default color is "black"',
     },
     customIcon: {
-      control: 'string',
+      control: 'text',
       description:
         '[Optional] Name of the icon for the button, if not default icon is "MoreVert"',
+    },
+    noTextWrap: {
+      control: 'boolean',
+      description: '[Optional] Optional boolean to avoid text wrapping',
+    },
+    toolTipText: {
+      control: 'text',
+      description: '[Optional] Optional string to display in the tooltip',
     },
     optionOnClick: {
       action: 'optionOnClick',

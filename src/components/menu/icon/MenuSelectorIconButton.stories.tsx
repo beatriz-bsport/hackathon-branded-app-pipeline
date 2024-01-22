@@ -24,7 +24,7 @@ export default {
         '[Optional] Color of the icon button and the icons in the menu, if not default color is "black"',
     },
     customIcon: {
-      control: 'string',
+      control: 'text',
       description:
         '[Optional] Name of the icon for the button, if not default icon is "MoreVert"',
     },

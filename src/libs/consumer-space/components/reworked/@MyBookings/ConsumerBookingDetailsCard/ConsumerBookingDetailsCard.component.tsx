@@ -140,6 +140,7 @@ const ConsumerBookingDetailsCard: React.FC<Props> = ({
   if (showPlaceholder) {
     return (
       <ConsumerCardPlaceholder
+        className={className}
         message={t('consumerSpace:reworked.placeholderCard.myBookings')}
       />
     );

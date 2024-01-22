@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 
 import Card from '#Fabrique/Card';
 import Typography from '#Fabrique/Typography';
@@ -6,11 +7,12 @@ import Typography from '#Fabrique/Typography';
 import './styles.css';
 
 type Props = {
+  className?: string;
   message: string;
 };
 
-const ConsumerCardPlaceholder: React.FC<Props> = ({ message }) => (
-  <Card className="bs-consumer-card-placeholder__root">
+const ConsumerCardPlaceholder: React.FC<Props> = ({ message, className }) => (
+  <Card className={classNames('bs-consumer-card-placeholder__root', className)}>
     <div className="bs-consumer-card-placeholder__icon-container">
       <svg
         className="bs-consumer-card-placeholder__icon-container__icon"

@@ -27,6 +27,11 @@ export const ConsumerPassTabs: React.FC<Props> = ({
     [onChangePassTab],
   );
 
+  const handleSetUniversalPassTab = useCallback(
+    () => onChangePassTab(PassTabEnum.UNIVERSAL_PASS),
+    [onChangePassTab],
+  );
+
   const tabs = useMemo(
     () => [
       {
@@ -39,8 +44,18 @@ export const ConsumerPassTabs: React.FC<Props> = ({
         label: t('reworked.myPasses.tab.appointment'),
         onClick: handleSetAppointmentPassTab,
       },
+      {
+        type: PassTabEnum.UNIVERSAL_PASS,
+        label: t('reworked.myPasses.tab.universal'),
+        onClick: handleSetUniversalPassTab,
+      },
     ],
-    [handleSetActivityPassTab, handleSetAppointmentPassTab, t],
+    [
+      handleSetActivityPassTab,
+      handleSetAppointmentPassTab,
+      handleSetUniversalPassTab,
+      t,
+    ],
   );
 
   return <ConsumerGenericTabs<PassTab> selectedTab={selectedTab} tabs={tabs} />;

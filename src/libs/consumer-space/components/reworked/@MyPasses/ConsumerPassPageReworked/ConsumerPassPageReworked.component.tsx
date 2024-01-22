@@ -4,6 +4,7 @@ import MarketplacePageContent from '#csscomponents/MarketplacePageContent';
 import ConsumerPassHeader from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassHeader';
 import ConsumerPaymentPackListContainer from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPaymentPack/ConsumerPaymentPackListContainer';
 import PrivateConsumerPassListContainer from '#libs/consumer-space/components/reworked/@MyPasses/PrivateConsumerPass/PrivateConsumerPassListContainer';
+import UniversalPassListContainer from '../UniversalPass/UniversalPassListContainer';
 import { useConsumerPassesDataManager } from '#libs/consumer-space/components/reworked/@MyPasses/hooks';
 import { PassTabEnum } from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassTabs/constants';
 
@@ -163,6 +164,16 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
             onPassCardClick={handleSetSelectedPass}
             passList={passList as ConsumerPaymentPackReworked[]}
             selectedPass={selectedPass as ConsumerPaymentPackReworked}
+          />
+        )}
+        {selectedTab === PassTabEnum.UNIVERSAL_PASS && (
+          <UniversalPassListContainer
+            handlePaginationFetchMore={handlePaginationFetchMore}
+            hasNextPage={!!nextPage}
+            isLoading={isLoading}
+            onPassCardClick={handleSetSelectedPass}
+            passList={passList as UniversalPassReworked[]}
+            selectedPass={selectedPass as UniversalPassReworked}
           />
         )}
       </div>

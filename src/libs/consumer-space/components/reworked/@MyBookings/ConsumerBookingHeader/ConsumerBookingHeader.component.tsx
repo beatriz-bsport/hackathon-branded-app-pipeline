@@ -6,24 +6,27 @@ import { ChevronRight } from '#components/untitledui';
 import ConsumerGenericHeader from '#libs/consumer-space/components/reworked/common/ConsumerGenericHeader';
 
 type Props = {
+  isMobile: boolean;
   onBookSessionClick: () => void;
 };
 
 export const ConsumerBookingHeader: React.FC<Props> = ({
+  isMobile,
   onBookSessionClick,
 }) => {
   const { t } = useTranslation('consumerSpace');
   const isWidget = WidgetUtils.isWidget();
 
-  const headerButtons = isWidget
-    ? []
-    : [
-        {
-          label: t('consumerSpace:reworked.myBookings.bookASession'),
-          onClick: onBookSessionClick,
-          rightIcon: <ChevronRight stroke="currentColor" />,
-        },
-      ];
+  const headerButtons =
+    isWidget || isMobile
+      ? []
+      : [
+          {
+            label: t('consumerSpace:reworked.myBookings.bookASession'),
+            onClick: onBookSessionClick,
+            rightIcon: <ChevronRight stroke="currentColor" />,
+          },
+        ];
 
   return (
     <ConsumerGenericHeader

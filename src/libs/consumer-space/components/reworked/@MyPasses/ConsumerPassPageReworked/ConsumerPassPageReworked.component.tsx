@@ -16,6 +16,10 @@ import type {
   PrivateConsumerPassReworked,
 } from '#libs/private-service/types';
 import type { ConsumerPassReworked } from '#libs/consumer-space/types';
+import type {
+  UniversalPassREST,
+  UniversalPassReworked,
+} from '#libs/universal-pass/types';
 
 import './styles.css';
 
@@ -24,20 +28,29 @@ type Props = {
   activeConsumerPaymentPacksState: ConsumerPassReworked<ConsumerPaymentPackREST>;
   activePrivateConsumerPassesList: PrivateConsumerPassReworked[];
   activePrivateConsumerPassesState: ConsumerPassReworked<PrivateConsumerPassREST>;
+  activeUniversalPassesList: UniversalPassReworked[];
+  activeUniversalPassesState: ConsumerPassReworked<UniversalPassREST>;
   expiredConsumerPaymentPacksList: ConsumerPaymentPackReworked[];
   expiredConsumerPaymentPacksState: ConsumerPassReworked<ConsumerPaymentPackREST>;
   expiredPrivateConsumerPassesList: PrivateConsumerPassReworked[];
   expiredPrivateConsumerPassesState: ConsumerPassReworked<PrivateConsumerPassREST>;
+  expiredUniversalPassesList: UniversalPassReworked[];
+  expiredUniversalPassesState: ConsumerPassReworked<UniversalPassREST>;
   fetchActiveConsumerPaymentPacks: () => void;
   fetchActivePrivateConsumerPasses: () => void;
+  fetchActiveUniversalPasses: () => void;
   fetchExpiredConsumerPaymentPacks: () => void;
   fetchExpiredPrivateConsumerPasses: () => void;
+  fetchExpiredUniversalPasses: () => void;
   fetchFutureConsumerPaymentPacks: () => void;
   fetchFuturePrivateConsumerPasses: () => void;
+  fetchFutureUniversalPasses: () => void;
   futureConsumerPaymentPacksList: ConsumerPaymentPackReworked[];
   futureConsumerPaymentPacksState: ConsumerPassReworked<ConsumerPaymentPackREST>;
   futurePrivateConsumerPassesList: PrivateConsumerPassReworked[];
   futurePrivateConsumerPassesState: ConsumerPassReworked<PrivateConsumerPassREST>;
+  futureUniversalPassesList: UniversalPassReworked[];
+  futureUniversalPassesState: ConsumerPassReworked<UniversalPassREST>;
   handleBookASessionClick: () => void;
   handleBuyPassClick: () => void;
   isLoading: boolean;
@@ -48,20 +61,29 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
   activeConsumerPaymentPacksState,
   activePrivateConsumerPassesList,
   activePrivateConsumerPassesState,
+  activeUniversalPassesList,
+  activeUniversalPassesState,
   expiredConsumerPaymentPacksList,
   expiredConsumerPaymentPacksState,
   expiredPrivateConsumerPassesList,
   expiredPrivateConsumerPassesState,
+  expiredUniversalPassesList,
+  expiredUniversalPassesState,
   fetchActiveConsumerPaymentPacks,
   fetchActivePrivateConsumerPasses,
+  fetchActiveUniversalPasses,
   fetchExpiredConsumerPaymentPacks,
   fetchExpiredPrivateConsumerPasses,
+  fetchExpiredUniversalPasses,
   fetchFutureConsumerPaymentPacks,
   fetchFuturePrivateConsumerPasses,
+  fetchFutureUniversalPasses,
   futureConsumerPaymentPacksList,
   futureConsumerPaymentPacksState,
   futurePrivateConsumerPassesList,
   futurePrivateConsumerPassesState,
+  futureUniversalPassesList,
+  futureUniversalPassesState,
   handleBookASessionClick,
   handleBuyPassClick,
   isLoading,
@@ -84,20 +106,29 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
     activeConsumerPaymentPacksState,
     activePrivateConsumerPassesList,
     activePrivateConsumerPassesState,
+    activeUniversalPassesList,
+    activeUniversalPassesState,
     expiredConsumerPaymentPacksList,
     expiredConsumerPaymentPacksState,
     expiredPrivateConsumerPassesList,
     expiredPrivateConsumerPassesState,
+    expiredUniversalPassesList,
+    expiredUniversalPassesState,
     fetchActiveConsumerPaymentPacks,
     fetchActivePrivateConsumerPasses,
+    fetchActiveUniversalPasses,
     fetchExpiredConsumerPaymentPacks,
     fetchExpiredPrivateConsumerPasses,
+    fetchExpiredUniversalPasses,
     fetchFutureConsumerPaymentPacks,
     fetchFuturePrivateConsumerPasses,
+    fetchFutureUniversalPasses,
     futureConsumerPaymentPacksList,
     futureConsumerPaymentPacksState,
     futurePrivateConsumerPassesList,
     futurePrivateConsumerPassesState,
+    futureUniversalPassesList,
+    futureUniversalPassesState,
   });
 
   return (

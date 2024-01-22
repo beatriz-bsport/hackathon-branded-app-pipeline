@@ -27,14 +27,20 @@ import {
   getMyActiveConsumerPaymentPacksState,
   getMyActivePrivateConsumerPassesList,
   getMyActivePrivateConsumerPassesState,
+  getMyActiveUniversalPassesList,
+  getMyActiveUniversalPassesState,
   getMyExpiredConsumerPaymentPacksList,
   getMyExpiredConsumerPaymentPacksState,
   getMyExpiredPrivateConsumerPassesList,
   getMyExpiredPrivateConsumerPassesState,
+  getMyExpiredUniversalPassesList,
+  getMyExpiredUniversalPassesState,
   getMyFutureConsumerPaymentPacksList,
   getMyFutureConsumerPaymentPacksState,
   getMyFuturePrivateConsumerPassesList,
   getMyFuturePrivateConsumerPassesState,
+  getMyFutureUniversalPassesList,
+  getMyFutureUniversalPassesState,
 } from '#libs/consumer-space/selectors';
 import { getTheme } from '#libs/theme/selectors';
 import { getMembership } from '#libs/membership/selectors';
@@ -44,10 +50,13 @@ import { getMembership } from '#libs/membership/selectors';
 import {
   fetchMyActiveConsumerPaymentPacksAsMember as fetchMyActiveConsumerPaymentPacksAsMemberAction,
   fetchMyActivePrivateConsumerPassesAsMember as fetchMyActivePrivateConsumerPassesAsMemberAction,
+  fetchMyActiveUniversalPassesAsMember as fetchMyActiveUniversalPassesAsMemberAction,
   fetchMyExpiredConsumerPaymentPacksAsMember as fetchMyExpiredConsumerPaymentPacksAsMemberAction,
   fetchMyExpiredPrivateConsumerPassesAsMember as fetchMyExpiredPrivateConsumerPassesAsMemberAction,
+  fetchMyExpiredUniversalPassesAsMember as fetchMyExpiredUniversalPassesAsMemberAction,
   fetchMyFutureConsumerPaymentPacksAsMember as fetchMyFutureConsumerPaymentPacksAsMemberAction,
   fetchMyFuturePrivateConsumerPassesAsMember as fetchMyFuturePrivateConsumerPassesAsMemberAction,
+  fetchMyFutureUniversalPassesAsMember as fetchMyFutureUniversalPassesAsMemberAction,
 } from '#libs/consumer-space/actions';
 import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '#libs/payment-packs/actions';
 import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '#libs/establishment/actions';
@@ -67,6 +76,7 @@ import {
 
 import type { ConsumerPaymentPackREST } from '#libs/consumer-payment-pack/types';
 import type { PrivateConsumerPassREST } from '#libs/private-service/types';
+import { UniversalPassREST } from '#libs/universal-pass/types';
 
 export class ConsumerPassReworked extends React.Component<
   ConnectedProps<typeof connector>
@@ -182,6 +192,15 @@ export class ConsumerPassReworked extends React.Component<
     }
   };
 
+  fetchAssociatedUniversalPassObjects = (passes: UniversalPassREST[]) => {
+    this.fetchAssociatedConsumerPaymentPackObjects(
+      passes?.map((universalPass) => universalPass.consumer_payment_pack),
+    );
+    this.fetchAssociatedPrivateConsumerPassObjects(
+      passes?.map((universalPass) => universalPass.private_consumer_pass),
+    );
+  };
+
   fetchActiveConsumerPaymentPacks = () => {
     this.props.fetchMyActiveConsumerPaymentPacksAsMember(
       { memberId: this.props.membership.id },
@@ -195,6 +214,13 @@ export class ConsumerPassReworked extends React.Component<
     this.props.fetchMyActivePrivateConsumerPassesAsMember(
       { memberId: this.props.membership.id },
       { onSuccess: this.fetchAssociatedPrivateConsumerPassObjects },
+    );
+  };
+
+  fetchActiveUniversalPasses = () => {
+    this.props.fetchMyActiveUniversalPassesAsMember(
+      { memberId: this.props.membership.id },
+      { onSuccess: this.fetchAssociatedUniversalPassObjects },
     );
   };
 
@@ -214,6 +240,13 @@ export class ConsumerPassReworked extends React.Component<
     );
   };
 
+  fetchExpiredUniversalPasses = () => {
+    this.props.fetchMyExpiredUniversalPassesAsMember(
+      { memberId: this.props.membership.id },
+      { onSuccess: this.fetchAssociatedUniversalPassObjects },
+    );
+  };
+
   fetchFutureConsumerPaymentPacks = () => {
     this.props.fetchMyFutureConsumerPaymentPacksAsMember(
       { memberId: this.props.membership.id },
@@ -227,6 +260,13 @@ export class ConsumerPassReworked extends React.Component<
     this.props.fetchMyFuturePrivateConsumerPassesAsMember(
       { memberId: this.props.membership.id },
       { onSuccess: this.fetchAssociatedPrivateConsumerPassObjects },
+    );
+  };
+
+  fetchFutureUniversalPasses = () => {
+    this.props.fetchMyFutureUniversalPassesAsMember(
+      { memberId: this.props.membership.id },
+      { onSuccess: this.fetchAssociatedUniversalPassObjects },
     );
   };
 
@@ -277,6 +317,8 @@ export class ConsumerPassReworked extends React.Component<
         activePrivateConsumerPassesState={
           this.props.myActivePrivateConsumerPassesState
         }
+        activeUniversalPassesList={this.props.myActiveUniversalPassesList}
+        activeUniversalPassesState={this.props.myActiveUniversalPassesState}
         expiredConsumerPaymentPacksList={
           this.props.myExpiredConsumerPaymentPacksList
         }
@@ -289,14 +331,19 @@ export class ConsumerPassReworked extends React.Component<
         expiredPrivateConsumerPassesState={
           this.props.myExpiredPrivateConsumerPassesState
         }
+        expiredUniversalPassesList={this.props.myExpiredUniversalPassesList}
+        expiredUniversalPassesState={this.props.myExpiredUniversalPassesState}
         fetchActiveConsumerPaymentPacks={this.fetchActiveConsumerPaymentPacks}
         fetchActivePrivateConsumerPasses={this.fetchActivePrivateConsumerPasses}
+        fetchActiveUniversalPasses={this.fetchActiveUniversalPasses}
         fetchExpiredConsumerPaymentPacks={this.fetchExpiredConsumerPaymentPacks}
         fetchExpiredPrivateConsumerPasses={
           this.fetchExpiredPrivateConsumerPasses
         }
+        fetchExpiredUniversalPasses={this.fetchExpiredUniversalPasses}
         fetchFutureConsumerPaymentPacks={this.fetchFutureConsumerPaymentPacks}
         fetchFuturePrivateConsumerPasses={this.fetchFuturePrivateConsumerPasses}
+        fetchFutureUniversalPasses={this.fetchFutureUniversalPasses}
         futureConsumerPaymentPacksList={
           this.props.myFutureConsumerPaymentPacksList
         }
@@ -309,6 +356,8 @@ export class ConsumerPassReworked extends React.Component<
         futurePrivateConsumerPassesState={
           this.props.myFuturePrivateConsumerPassesState
         }
+        futureUniversalPassesList={this.props.myFutureUniversalPassesList}
+        futureUniversalPassesState={this.props.myFutureUniversalPassesState}
         handleBookASessionClick={this.handleBookASessionClick}
         handleBuyPassClick={this.handleBuyPassClick}
         isLoading={this.getIsLoading()}
@@ -338,6 +387,9 @@ const connector = connect(
       getMyFuturePrivateConsumerPassesList(state),
     myExpiredPrivateConsumerPassesList:
       getMyExpiredPrivateConsumerPassesList(state),
+    myActiveUniversalPassesList: getMyActiveUniversalPassesList(state),
+    myFutureUniversalPassesList: getMyFutureUniversalPassesList(state),
+    myExpiredUniversalPassesList: getMyExpiredUniversalPassesList(state),
     myActiveConsumerPaymentPacksState:
       getMyActiveConsumerPaymentPacksState(state),
     myFutureConsumerPaymentPacksState:
@@ -350,6 +402,9 @@ const connector = connect(
       getMyFuturePrivateConsumerPassesState(state),
     myExpiredPrivateConsumerPassesState:
       getMyExpiredPrivateConsumerPassesState(state),
+    myActiveUniversalPassesState: getMyActiveUniversalPassesState(state),
+    myFutureUniversalPassesState: getMyFutureUniversalPassesState(state),
+    myExpiredUniversalPassesState: getMyExpiredUniversalPassesState(state),
   }),
   {
     fetchPaymentPackBulk: fetchPaymentPackBulkAction,
@@ -371,14 +426,20 @@ const connector = connect(
       fetchMyActiveConsumerPaymentPacksAsMemberAction,
     fetchMyActivePrivateConsumerPassesAsMember:
       fetchMyActivePrivateConsumerPassesAsMemberAction,
+    fetchMyActiveUniversalPassesAsMember:
+      fetchMyActiveUniversalPassesAsMemberAction,
     fetchMyExpiredConsumerPaymentPacksAsMember:
       fetchMyExpiredConsumerPaymentPacksAsMemberAction,
     fetchMyExpiredPrivateConsumerPassesAsMember:
       fetchMyExpiredPrivateConsumerPassesAsMemberAction,
+    fetchMyExpiredUniversalPassesAsMember:
+      fetchMyExpiredUniversalPassesAsMemberAction,
     fetchMyFutureConsumerPaymentPacksAsMember:
       fetchMyFutureConsumerPaymentPacksAsMemberAction,
     fetchMyFuturePrivateConsumerPassesAsMember:
       fetchMyFuturePrivateConsumerPassesAsMemberAction,
+    fetchMyFutureUniversalPassesAsMember:
+      fetchMyFutureUniversalPassesAsMemberAction,
   },
 );
 

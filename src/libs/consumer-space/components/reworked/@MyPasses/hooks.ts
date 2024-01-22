@@ -5,6 +5,7 @@ import { PassFilterTabEnum } from '#libs/consumer-space/components/reworked/@MyP
 
 import type { PrivateConsumerPassReworked } from '#libs/private-service/types';
 import type { PassTab } from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassTabs/types';
+import type { UniversalPassReworked } from '#libs/universal-pass/types';
 import type { ConsumerPaymentPackReworked } from '#libs/consumer-payment-pack/types';
 import type { PassFilterTab } from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassFilters/types';
 import type { ConsumerPassPageReworkedProps } from './ConsumerPassPageReworked';
@@ -15,20 +16,29 @@ export function useConsumerPassesDataManager({
   activeConsumerPaymentPacksState,
   activePrivateConsumerPassesList,
   activePrivateConsumerPassesState,
+  activeUniversalPassesList,
+  activeUniversalPassesState,
   expiredConsumerPaymentPacksList,
   expiredConsumerPaymentPacksState,
   expiredPrivateConsumerPassesList,
   expiredPrivateConsumerPassesState,
+  expiredUniversalPassesList,
+  expiredUniversalPassesState,
   fetchActiveConsumerPaymentPacks,
   fetchActivePrivateConsumerPasses,
+  fetchActiveUniversalPasses,
   fetchExpiredConsumerPaymentPacks,
   fetchExpiredPrivateConsumerPasses,
+  fetchExpiredUniversalPasses,
   fetchFutureConsumerPaymentPacks,
   fetchFuturePrivateConsumerPasses,
+  fetchFutureUniversalPasses,
   futureConsumerPaymentPacksList,
   futureConsumerPaymentPacksState,
   futurePrivateConsumerPassesList,
   futurePrivateConsumerPassesState,
+  futureUniversalPassesList,
+  futureUniversalPassesState,
 }: Omit<
   ConsumerPassPageReworkedProps,
   'isLoading' | 'handleBuyPassClick' | 'handleBookASessionClick'
@@ -41,7 +51,9 @@ export function useConsumerPassesDataManager({
     PassFilterTabEnum.ACTIVE,
   );
   const [selectedPass, setSelectedPass] = useState<
-    ConsumerPaymentPackReworked | PrivateConsumerPassReworked | null
+    | ConsumerPaymentPackReworked
+    | PrivateConsumerPassReworked
+    | UniversalPassReworked
   >(null);
 
   const fetchMoreDataHandlerMap = useMemo(
@@ -58,14 +70,23 @@ export function useConsumerPassesDataManager({
         fetchFuturePrivateConsumerPasses,
       [`${PassTabEnum.PRIVATE_CONSUMER_PASS}-${PassFilterTabEnum.ACTIVE}`]:
         fetchActivePrivateConsumerPasses,
+      [`${PassTabEnum.UNIVERSAL_PASS}-${PassFilterTabEnum.EXPIRED}`]:
+        fetchExpiredUniversalPasses,
+      [`${PassTabEnum.UNIVERSAL_PASS}-${PassFilterTabEnum.FUTURE}`]:
+        fetchFutureUniversalPasses,
+      [`${PassTabEnum.UNIVERSAL_PASS}-${PassFilterTabEnum.ACTIVE}`]:
+        fetchActiveUniversalPasses,
     }),
     [
       fetchActiveConsumerPaymentPacks,
       fetchActivePrivateConsumerPasses,
+      fetchActiveUniversalPasses,
       fetchExpiredConsumerPaymentPacks,
       fetchExpiredPrivateConsumerPasses,
+      fetchExpiredUniversalPasses,
       fetchFutureConsumerPaymentPacks,
       fetchFuturePrivateConsumerPasses,
+      fetchFutureUniversalPasses,
     ],
   );
 
@@ -81,14 +102,22 @@ export function useConsumerPassesDataManager({
         fetchExpiredPrivateConsumerPasses();
         fetchFuturePrivateConsumerPasses();
       },
+      [PassTabEnum.UNIVERSAL_PASS]: () => {
+        fetchActiveUniversalPasses();
+        fetchExpiredUniversalPasses();
+        fetchFutureUniversalPasses();
+      },
     }),
     [
       fetchActiveConsumerPaymentPacks,
       fetchActivePrivateConsumerPasses,
+      fetchActiveUniversalPasses,
       fetchExpiredConsumerPaymentPacks,
       fetchExpiredPrivateConsumerPasses,
+      fetchExpiredUniversalPasses,
       fetchFutureConsumerPaymentPacks,
       fetchFuturePrivateConsumerPasses,
+      fetchFutureUniversalPasses,
     ],
   );
 
@@ -105,6 +134,12 @@ export function useConsumerPassesDataManager({
       futurePrivateConsumerPassesState,
     [`${PassTabEnum.PRIVATE_CONSUMER_PASS}-${PassFilterTabEnum.ACTIVE}`]:
       activePrivateConsumerPassesState,
+    [`${PassTabEnum.UNIVERSAL_PASS}-${PassFilterTabEnum.EXPIRED}`]:
+      expiredUniversalPassesState,
+    [`${PassTabEnum.UNIVERSAL_PASS}-${PassFilterTabEnum.FUTURE}`]:
+      futureUniversalPassesState,
+    [`${PassTabEnum.UNIVERSAL_PASS}-${PassFilterTabEnum.ACTIVE}`]:
+      activeUniversalPassesState,
   };
 
   const passesListMap = useMemo(
@@ -121,14 +156,23 @@ export function useConsumerPassesDataManager({
         futurePrivateConsumerPassesList,
       [`${PassTabEnum.PRIVATE_CONSUMER_PASS}-${PassFilterTabEnum.ACTIVE}`]:
         activePrivateConsumerPassesList,
+      [`${PassTabEnum.UNIVERSAL_PASS}-${PassFilterTabEnum.EXPIRED}`]:
+        expiredUniversalPassesList,
+      [`${PassTabEnum.UNIVERSAL_PASS}-${PassFilterTabEnum.FUTURE}`]:
+        futureUniversalPassesList,
+      [`${PassTabEnum.UNIVERSAL_PASS}-${PassFilterTabEnum.ACTIVE}`]:
+        activeUniversalPassesList,
     }),
     [
       futurePrivateConsumerPassesList,
       futureConsumerPaymentPacksList,
+      futureUniversalPassesList,
       expiredPrivateConsumerPassesList,
       expiredConsumerPaymentPacksList,
+      expiredUniversalPassesList,
       activePrivateConsumerPassesList,
       activeConsumerPaymentPacksList,
+      activeUniversalPassesList,
     ],
   );
 
@@ -136,16 +180,19 @@ export function useConsumerPassesDataManager({
     [PassTabEnum.CONSUMER_PAYMENT_PACK]: expiredConsumerPaymentPacksState.count,
     [PassTabEnum.PRIVATE_CONSUMER_PASS]:
       expiredPrivateConsumerPassesState.count,
+    [PassTabEnum.UNIVERSAL_PASS]: expiredUniversalPassesState.count,
   };
 
   const futurePassesCountMap = {
     [PassTabEnum.CONSUMER_PAYMENT_PACK]: futureConsumerPaymentPacksState.count,
     [PassTabEnum.PRIVATE_CONSUMER_PASS]: futurePrivateConsumerPassesState.count,
+    [PassTabEnum.UNIVERSAL_PASS]: futureUniversalPassesState.count,
   };
 
   const activePassesCountMap = {
     [PassTabEnum.CONSUMER_PAYMENT_PACK]: activeConsumerPaymentPacksState.count,
     [PassTabEnum.PRIVATE_CONSUMER_PASS]: activePrivateConsumerPassesState.count,
+    [PassTabEnum.UNIVERSAL_PASS]: activeUniversalPassesState.count,
   };
 
   const currentState = currentStateMap[`${selectedTab}-${selectedFilterTab}`];

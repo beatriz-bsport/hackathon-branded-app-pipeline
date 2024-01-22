@@ -22,12 +22,14 @@ type Props<TabType> = {
     type: TabType;
     value?: number;
   }[];
+  isMobile?: boolean;
 };
 
 export const ConsumerGenericFilters = <TabType,>({
   filters,
   onDatePickerClick,
   selectedTab,
+  isMobile,
 }: Props<TabType>) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement>(null);
@@ -77,7 +79,9 @@ export const ConsumerGenericFilters = <TabType,>({
       </div>
 
       <IconButton
-        className="bs-consumer-generic-filters__date-picker"
+        className={classNames('bs-consumer-generic-filters__date-picker', {
+          'bs-consumer-generic-filters__date-picker--hidden': isMobile,
+        })}
         color="grey"
         onClick={handleOnClick}
         size="md"
@@ -88,6 +92,7 @@ export const ConsumerGenericFilters = <TabType,>({
 
       <DatePicker
         anchorEl={anchorEl}
+        className="bs-consumer-generic-filters__date-picker__menu"
         dateSelected={date}
         id="basic-date-picker"
         isOpen={isOpen}

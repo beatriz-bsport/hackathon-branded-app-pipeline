@@ -7,6 +7,7 @@ import { BookingFilterTabEnum } from './constants';
 import type { BookingFilterTab } from './types';
 
 type Props = {
+  isMobile?: boolean;
   selectedTab: BookingFilterTab;
   futureBookingsCount: number;
   waitlistBookingsCount: number;
@@ -16,6 +17,7 @@ type Props = {
 };
 
 export const ConsumerBookingFilters: React.FC<Props> = ({
+  isMobile,
   selectedTab,
   futureBookingsCount,
   waitlistBookingsCount,
@@ -63,6 +65,7 @@ export const ConsumerBookingFilters: React.FC<Props> = ({
           value: waitlistBookingsCount,
         },
       ]}
+      isMobile={isMobile}
       onDatePickerClick={onDatePickerClick}
       selectedTab={selectedTab}
     />

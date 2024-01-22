@@ -33,7 +33,7 @@ type Props = {
   timezone: string;
   /** The session time display config retrieved from the company's theme */
   sessionTimeDisplay: MarketPlaceSessionTimeDisplay;
-  /** Whether a bookiing cancellation is processing or not */
+  /** Whether a booking cancellation is processing or not */
   isLoading: boolean;
   /** If the booking's offer is part of a group, get related bookings that will be cancelled */
   relatedBookings: ConsumerBooking[];
@@ -79,7 +79,7 @@ const ConsumerBookingCancelModal: React.FC<Props> = ({
   onClose,
   cancelBooking,
 }) => {
-  const { t } = useTranslation(['consumerSpace', 'datetime', 'common']);
+  const { t } = useTranslation('consumerSpace');
 
   const bookingDate = useConsumerBookingDateTime({
     dateStart:

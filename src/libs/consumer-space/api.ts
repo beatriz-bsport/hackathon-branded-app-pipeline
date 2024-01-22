@@ -1,6 +1,15 @@
-import { API_URI, API_V1_URI, getAuth, postAuth, deleteAuth } from '../../http';
+import type { PaginatedResponse } from 'src/state/types';
+import {
+  API_URI,
+  API_V1_URI,
+  getAuth,
+  postAuth,
+  deleteAuth,
+  buildUrlParams,
+} from '../../http';
 
 import type { BookingREST } from '#libs/booking/types';
+import type { UniversalPassREST } from '#libs/universal-pass/types';
 
 export async function fetchConsumerOptions() {
   return getAuth(`${API_URI}/waiting-list/booking-option/?with_offer=true`);
@@ -44,6 +53,18 @@ export const cancelConsumerBooking = async (
   data: { bookings_in_same_group?: BookingREST[] } = {},
 ) => {
   return postAuth<BookingREST>(`${API_V1_URI}/booking/${id}/cancel/`, data);
+};
+
+export const fetchUniversalPasses = (params: {
+  member: number;
+  page: number;
+  page_size: number;
+  is_expired: boolean;
+  is_valid_today: boolean;
+}) => {
+  return getAuth<PaginatedResponse<UniversalPassREST>>(
+    `${API_V1_URI}/universal_pass/${buildUrlParams(params)}`,
+  );
 };
 
 export default {

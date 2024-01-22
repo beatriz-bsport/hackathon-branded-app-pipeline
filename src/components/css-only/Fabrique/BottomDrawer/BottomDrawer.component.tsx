@@ -48,16 +48,14 @@ export const BottomDrawer: React.FC<Props> = ({
       bodyElementRef.current = blanketElement?.closest('body');
     }
     /**
-     * Apply two things here:
+     * Apply here:
      * - Hidden overflow to prevent double scrolling and so 'freeze'
      * background container.
-     * - Apply a padding right on the body to prevent unwanted layout shift
      *
      * more at https://github.com/mui/material-ui/blob/553cf822f6500075d374f3e89ad04b8308cd9f47/docs/data/base/components/modal/modal.md#overflow-layout-shift
      */
     if (blanketProps.isOpen && !isBlanketOpen && bodyElementRef.current) {
       bodyElementRef.current.style.overflow = 'hidden';
-      bodyElementRef.current.style.paddingRight = '15px';
       setIsBlanketOpen(true);
     }
     /**

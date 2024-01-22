@@ -174,44 +174,45 @@ const CadenceMetrics: React.FC<Props> = ({
         timePeriod="custom"
       />
       <div className={classes.metrics}>
-        {!globalMetricsLoading && (
-          <>
-            <div className={classes.members}>
-              <CadenceGlobalMetricsCard
-                count={globalMetrics?.count_members_that_entered}
-                variant={CadenceMetricsVariant.MEMBERS}
-              />
-            </div>
-            <div className={classes.success}>
-              <CadenceGlobalMetricsCard
-                count={globalMetrics?.success_rate}
-                variant={CadenceMetricsVariant.SUCCESS}
-              />
-            </div>
-            <div className={classes.time}>
-              <CadenceGlobalMetricsCard
-                count={globalMetrics?.average_success_time}
-                variant={CadenceMetricsVariant.AVERAGE_TIME}
-              />
-            </div>
-            <div className={classes.tags}>
-              <CadenceGlobalMetricsCard
-                count={globalMetrics?.tags_count}
-                handleTitleClick={goTagsPage}
-                variant={CadenceMetricsVariant.TAGS}
-              />
-            </div>
-            <div className={classes.communications}>
-              <CadenceGlobalMetricsProgressList
-                emailCount={globalMetrics?.emails_count}
-                hasNotificationUpsell={hasNotificationUpsell}
-                knowMoreOnNotifications={knowMoreOnNotifications}
-                notificationCount={globalMetrics?.push_notif_count}
-                smsCount={globalMetrics?.sms_count}
-              />
-            </div>
-          </>
-        )}
+        <div className={classes.members}>
+          <CadenceGlobalMetricsCard
+            count={globalMetrics?.count_members_that_entered}
+            isLoading={globalMetricsLoading}
+            variant={CadenceMetricsVariant.MEMBERS}
+          />
+        </div>
+        <div className={classes.success}>
+          <CadenceGlobalMetricsCard
+            count={globalMetrics?.success_rate}
+            isLoading={globalMetricsLoading}
+            variant={CadenceMetricsVariant.SUCCESS}
+          />
+        </div>
+        <div className={classes.time}>
+          <CadenceGlobalMetricsCard
+            count={globalMetrics?.average_success_time}
+            isLoading={globalMetricsLoading}
+            variant={CadenceMetricsVariant.AVERAGE_TIME}
+          />
+        </div>
+        <div className={classes.tags}>
+          <CadenceGlobalMetricsCard
+            count={globalMetrics?.tags_count}
+            handleTitleClick={goTagsPage}
+            isLoading={globalMetricsLoading}
+            variant={CadenceMetricsVariant.TAGS}
+          />
+        </div>
+        <div className={classes.communications}>
+          <CadenceGlobalMetricsProgressList
+            emailCount={globalMetrics?.emails_count}
+            hasNotificationUpsell={hasNotificationUpsell}
+            isLoading={globalMetricsLoading}
+            knowMoreOnNotifications={knowMoreOnNotifications}
+            notificationCount={globalMetrics?.push_notif_count}
+            smsCount={globalMetrics?.sms_count}
+          />
+        </div>
         {!!membersPresent && (
           <div className={classes.presentMembers}>
             <CadenceMetricsMemberTable

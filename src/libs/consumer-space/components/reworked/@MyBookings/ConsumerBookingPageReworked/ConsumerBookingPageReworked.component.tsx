@@ -151,12 +151,14 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
     bookingOptionList,
     relatedBookingsInGroup,
     selectedBookingOptionForCancelation,
+    isCalendarDrawerOpen,
+    calendarBookingDate,
+    isBookingTabDrawerOpen,
+    isSpotSchedulingDrawerOpen,
+    isBookingDetailsDrawerOpen,
     isMobile,
     handleSetSelectedTab,
     handleSetSelectedFilterTab,
-    handleSetSelectedBooking,
-    handleSetSelectedPrivateBooking,
-    handleSetSelectedBookingOption,
     handleSelectBookingForCancelation,
     handleToggleCancelBookingModal,
     handlePaginationFetchMore,
@@ -166,6 +168,13 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
     handleShowSpotDetails,
     handleToggleSpotSchedulingModal,
     handleBookSession,
+    handleToggleBookingDetailsDrawer,
+    handleResetSelectedItemsForCancellation,
+    handleToggleCalendarDrawer,
+    handleSelectCalendarBookingDate,
+    handleToggleBookingTabDrawer,
+    handleToggleSpotSchedulingDrawer,
+    handleSeeBookingDetails,
   } = useConsumerBookingsDataManager({
     pastBookingsState,
     pastBookingsList,
@@ -208,15 +217,29 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
     <MarketplacePageContent>
       <div className="bs-consumer-booking-page__root">
         <ConsumerBookingModals
+          calendarBookingDate={calendarBookingDate}
           companyTheme={companyTheme}
           handleCancelBooking={handleCancelBooking}
+          handleResetSelectedItemsForCancellation={
+            handleResetSelectedItemsForCancellation
+          }
+          handleSelectCalendarBookingDate={handleSelectCalendarBookingDate}
+          handleSetSelectedTab={handleSetSelectedTab}
+          handleToggleBookingDetailsDrawer={handleToggleBookingDetailsDrawer}
+          handleToggleBookingTabDrawer={handleToggleBookingTabDrawer}
+          handleToggleCalendarDrawer={handleToggleCalendarDrawer}
           handleToggleCancelBookingModal={handleToggleCancelBookingModal}
           handleToggleOnlineWarningModal={handleToggleOnlineWarningModal}
+          handleToggleSpotSchedulingDrawer={handleToggleSpotSchedulingDrawer}
           handleToggleSpotSchedulingModal={handleToggleSpotSchedulingModal}
+          isBookingDetailsDrawerOpen={isBookingDetailsDrawerOpen}
+          isBookingTabDrawerOpen={isBookingTabDrawerOpen}
+          isCalendarDrawerOpen={isCalendarDrawerOpen}
           isCancelBookingModalOpen={isCancelBookingModalOpen}
           isCancellingBooking={isCancellingBooking}
           isMobile={isMobile}
           isOnlineWarningModalOpen={isOnlineWarningModalOpen}
+          isSpotSchedulingDrawerOpen={isSpotSchedulingDrawerOpen}
           isSpotSchedulingModalOpen={isSpotSchedulingModalOpen}
           onlineWarningModalOfferDate={onlineWarningModalOfferDate}
           relatedBookingsInGroup={relatedBookingsInGroup}
@@ -227,6 +250,7 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
             selectedBookingOptionForCancelation
           }
           selectedBookingSpotDetails={selectedBookingSpotDetails}
+          selectedBookingTab={selectedTab}
           selectedPrivateBooking={selectedPrivateBooking}
           selectedPrivateBookingForCancelation={
             selectedPrivateBookingForCancelation
@@ -242,6 +266,9 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
         />
 
         <ConsumerBookingTabs
+          handleToggleCalendarDrawer={handleToggleCalendarDrawer}
+          handleToggleTabDrawer={handleToggleBookingTabDrawer}
+          isMobile={isMobile}
           onChangeBookingTab={handleSetSelectedTab}
           selectedTab={selectedTab}
         />
@@ -262,10 +289,8 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
           handleBookSession={handleBookSession}
           handleJoinOnlineBooking={handleJoinOnlineBooking}
           handlePaginationFetchMore={handlePaginationFetchMore}
+          handleSeeBookingDetails={handleSeeBookingDetails}
           handleSelectBookingForCancelation={handleSelectBookingForCancelation}
-          handleSetSelectedBooking={handleSetSelectedBooking}
-          handleSetSelectedBookingOption={handleSetSelectedBookingOption}
-          handleSetSelectedPrivateBooking={handleSetSelectedPrivateBooking}
           handleShowSpotDetails={handleShowSpotDetails}
           hasNextPage={!!nextPage}
           isLoading={isBookingsLoading}

@@ -3,7 +3,7 @@ import { createAction } from 'redux-actions';
 import { AxiosResponse } from 'axios';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
-import api from './api';
+import api, { fetchUniversalPasses as fetchUniversalPassesAPI } from './api';
 import { RootState } from '../../reducers';
 import {
   cancelBookingV2 as cancelBookingV2API,
@@ -49,6 +49,7 @@ import type {
   WaitingListBookingOption,
   WaitingListBookingOptionPaginatedQueryParams,
 } from '#libs/waiting-list/types';
+import type { UniversalPassREST } from '#libs/universal-pass/types';
 
 export const actionsType = {
   CONSUMER_HAS_FETCHED_OPTIONS: 'CONSUMER_HAS_FETCHED_OPTIONS_SUCCESS',
@@ -1275,5 +1276,137 @@ export const fetchMyFuturePrivateConsumerPassesAsMember = (
     dispatch(
       fetchMyFuturePrivateConsumerPassesAsMemberActions.isLoading(false),
     );
+  };
+};
+
+export const fetchMyActiveUniversalPassesAsMemberActions = {
+  success: createAction<AxiosResponse<PaginatedResponse<UniversalPassREST>>>(
+    'REWORKED/UNIVERSAL_PASS/ACTIVE/AS_MEMBER/SUCCESS',
+  ),
+  isLoading: createAction<boolean>(
+    'REWORKED/UNIVERSAL_PASS/ACTIVE/AS_MEMBER/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'REWORKED/UNIVERSAL_PASS/ACTIVE/AS_MEMBER/ERROR',
+  ),
+};
+
+export const fetchMyActiveUniversalPassesAsMember = (
+  { memberId, page_size = 30 }: BaseMemberFetchOptions,
+  options?: OptionCallback<UniversalPassREST[]>,
+): ThunkAction => {
+  return async (dispatch, getState) => {
+    dispatch(fetchMyActiveUniversalPassesAsMemberActions.isLoading(true));
+    dispatch(fetchMyActiveUniversalPassesAsMemberActions.error(null));
+    const currentState =
+      getState().consumerReworked.myPasses.privateConsumerPass.future;
+    const nextPage = currentState.next_page ?? 1;
+    try {
+      const response = await fetchUniversalPassesAPI({
+        member: memberId,
+        page: nextPage,
+        page_size,
+        is_expired: false,
+        is_valid_today: true,
+      });
+      dispatch(fetchMyActiveUniversalPassesAsMemberActions.success(response));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results);
+      }
+    } catch (err) {
+      dispatch(fetchMyActiveUniversalPassesAsMemberActions.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
+    }
+    dispatch(fetchMyActiveUniversalPassesAsMemberActions.isLoading(false));
+  };
+};
+
+export const fetchMyExpiredUniversalPassesAsMemberActions = {
+  success: createAction<AxiosResponse<PaginatedResponse<UniversalPassREST>>>(
+    'REWORKED/UNIVERSAL_PASS/EXPIRED/AS_MEMBER/SUCCESS',
+  ),
+  isLoading: createAction<boolean>(
+    'REWORKED/UNIVERSAL_PASS/EXPIRED/AS_MEMBER/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'REWORKED/UNIVERSAL_PASS/EXPIRED/AS_MEMBER/ERROR',
+  ),
+};
+
+export const fetchMyExpiredUniversalPassesAsMember = (
+  { memberId, page_size = 30 }: BaseMemberFetchOptions,
+  options?: OptionCallback<UniversalPassREST[]>,
+): ThunkAction => {
+  return async (dispatch, getState) => {
+    dispatch(fetchMyExpiredUniversalPassesAsMemberActions.isLoading(true));
+    dispatch(fetchMyExpiredUniversalPassesAsMemberActions.error(null));
+    const currentState =
+      getState().consumerReworked.myPasses.privateConsumerPass.future;
+    const nextPage = currentState.next_page ?? 1;
+    try {
+      const response = await fetchUniversalPassesAPI({
+        member: memberId,
+        page: nextPage,
+        page_size,
+        is_expired: true,
+        is_valid_today: false,
+      });
+      dispatch(fetchMyExpiredUniversalPassesAsMemberActions.success(response));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results);
+      }
+    } catch (err) {
+      dispatch(fetchMyExpiredUniversalPassesAsMemberActions.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
+    }
+    dispatch(fetchMyExpiredUniversalPassesAsMemberActions.isLoading(false));
+  };
+};
+
+export const fetchMyFutureUniversalPassesAsMemberActions = {
+  success: createAction<AxiosResponse<PaginatedResponse<UniversalPassREST>>>(
+    'REWORKED/UNIVERSAL_PASS/FUTURE/AS_MEMBER/SUCCESS',
+  ),
+  isLoading: createAction<boolean>(
+    'REWORKED/UNIVERSAL_PASS/FUTURE/AS_MEMBER/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'REWORKED/UNIVERSAL_PASS/FUTURE/AS_MEMBER/ERROR',
+  ),
+};
+
+export const fetchMyFutureUniversalPassesAsMember = (
+  { memberId, page_size = 30 }: BaseMemberFetchOptions,
+  options?: OptionCallback<UniversalPassREST[]>,
+): ThunkAction => {
+  return async (dispatch, getState) => {
+    dispatch(fetchMyFutureUniversalPassesAsMemberActions.isLoading(true));
+    dispatch(fetchMyFutureUniversalPassesAsMemberActions.error(null));
+    const currentState =
+      getState().consumerReworked.myPasses.privateConsumerPass.future;
+    const nextPage = currentState.next_page ?? 1;
+    try {
+      const response = await fetchUniversalPassesAPI({
+        member: memberId,
+        page: nextPage,
+        page_size,
+        is_expired: false,
+        is_valid_today: false,
+      });
+      dispatch(fetchMyFutureUniversalPassesAsMemberActions.success(response));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results);
+      }
+    } catch (err) {
+      dispatch(fetchMyFutureUniversalPassesAsMemberActions.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
+    }
+    dispatch(fetchMyFutureUniversalPassesAsMemberActions.isLoading(false));
   };
 };

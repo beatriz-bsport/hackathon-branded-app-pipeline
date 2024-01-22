@@ -99,7 +99,7 @@ const CadenceDetailHeaderActions: React.FC<HeaderActionsProps> = React.memo(
             <ToolTip title={t('cadence.form.modify_name_label')}>
               <Button
                 className={classes.nameEditButton}
-                disabled={loading || cadenceEditMode || cadence?.active}
+                disabled={loading}
                 onClick={handleOpenEditDialog}
               >
                 <Typography className={classes.titleTypo} variant="h6">

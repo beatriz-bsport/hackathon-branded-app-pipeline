@@ -254,8 +254,8 @@ export const BackOfficeDrawer: React.FC<Props> = ({
 
   const { drawerIconsOnly, hideAppBar, setDrawerIconsOnly } =
     useFullScreenWithIconDrawer({
-      onEnter: '^/audience.*',
-      ignoredPaths: ['/audience'],
+      fullPagePathRegExp: '^/audience.*',
+      ignoredPathsForAppbar: ['/audience'],
       forceFullDrawer: !displayLeftMenu || mobileOpen,
       initialDrawerIconsOnly: displayLeftMenu && shrinkResponsiveDrawer,
     });

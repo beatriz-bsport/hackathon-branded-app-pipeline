@@ -2,8 +2,8 @@ import React from 'react';
 import { useLocation } from 'react-router';
 
 type MinimizedDrawerParameters = {
-  onEnter: string;
-  ignoredPaths?: string[];
+  fullPagePathRegExp: string;
+  ignoredPathsForAppbar?: string[];
   forceFullDrawer: boolean;
   initialDrawerIconsOnly: boolean;
 };
@@ -26,20 +26,20 @@ function usePrevious<T = Location>(value: T) {
  *
  * @example
  * useFullScreenWithIconDrawer({
- *  onEnter: "^/audience/.*",
- *  ignoredPaths: ["/audience/wip"],
+ *  fullPagePathRegExp: "^/audience/.*",
+ *  ignoredPathsForAppbar: ["/audience/wip"],
  *  forceFullDrawer: !displayLeftMenu || mobileOpen,
  *  initialDrawerIconsOnly: displayLeftMenu && shrinkResponsiveDrawer,
  * })
  *
- * @param {string} onEnter - The path of the page where we want the drawer to be minimized.
- * @param {string[]} ignoredPaths - Paths that might be considered as the targeted page but should be ignored.
+ * @param {string} fullPagePathRegExp - Regular expression defining the page path where fullscreen mode is desired, with a minimized drawer and no app bar.
+ * @param {string[]} ignoredPathsForAppbar - List of regular expression defining the page paths where the app bar should always be displayed.
  * @param {boolean} forceFullDrawer - True to force the left menu drawer with its full size.
  * @param {boolean} initialDrawerIconsOnly - Initial value of drawerIconsOnly.
  */
 export const useFullScreenWithIconDrawer = ({
-  onEnter,
-  ignoredPaths,
+  fullPagePathRegExp,
+  ignoredPathsForAppbar,
   forceFullDrawer,
   initialDrawerIconsOnly,
 }: MinimizedDrawerParameters) => {
@@ -51,52 +51,51 @@ export const useFullScreenWithIconDrawer = ({
   const location = useLocation();
   const previousLocation = usePrevious(location);
 
-  const LOCATION_IS_AN_IGNORED_PATH = React.useMemo(
+  const LOCATION_IS_AN_IGNORED_PATH_FOR_APPBAR = React.useMemo(
     () =>
-      (ignoredPaths ?? []).some((path) => path === location?.pathname) ?? false,
-    [ignoredPaths, location?.pathname],
+      (ignoredPathsForAppbar ?? []).some(
+        (path) => path === location?.pathname,
+      ) ?? false,
+    [ignoredPathsForAppbar, location?.pathname],
   );
 
-  const PREVIOUS_LOCATION_WAS_AN_IGNORED_PATH = React.useMemo(
+  const PREVIOUS_LOCATION_WAS_AN_IGNORED_PATH_FOR_APPBAR = React.useMemo(
     () =>
-      (ignoredPaths ?? []).some(
+      (ignoredPathsForAppbar ?? []).some(
         (path) => path === previousLocation?.pathname,
       ) ?? false,
-    [ignoredPaths, previousLocation?.pathname],
+    [ignoredPathsForAppbar, previousLocation?.pathname],
   );
 
-  const LOCATION_IS_PAGE_TARGETED = React.useMemo(
-    () =>
-      RegExp(onEnter).test(location?.pathname) && !LOCATION_IS_AN_IGNORED_PATH,
-    [LOCATION_IS_AN_IGNORED_PATH, location?.pathname, onEnter],
+  const LOCATION_IS_PAGE_TARGETED_FOR_FULL_SCREEN = React.useMemo(
+    () => RegExp(fullPagePathRegExp).test(location?.pathname),
+    [location?.pathname, fullPagePathRegExp],
   );
 
-  const PREVIOUS_LOCATION_WAS_PAGE_TARGETED = React.useMemo(
-    () =>
-      RegExp(onEnter).test(previousLocation?.pathname) &&
-      !PREVIOUS_LOCATION_WAS_AN_IGNORED_PATH,
-    [
-      PREVIOUS_LOCATION_WAS_AN_IGNORED_PATH,
-      onEnter,
-      previousLocation?.pathname,
-    ],
+  const PREVIOUS_LOCATION_WAS_PAGE_TARGETED_FOR_FULL_SCREEN = React.useMemo(
+    () => RegExp(fullPagePathRegExp).test(previousLocation?.pathname),
+    [fullPagePathRegExp, previousLocation?.pathname],
   );
 
   React.useEffect(() => {
-    if (LOCATION_IS_PAGE_TARGETED) {
+    if (LOCATION_IS_PAGE_TARGETED_FOR_FULL_SCREEN) {
       setDrawerIconsOnly(true);
-      setHideAppBar(true);
+      !LOCATION_IS_AN_IGNORED_PATH_FOR_APPBAR && setHideAppBar(true);
+      PREVIOUS_LOCATION_WAS_AN_IGNORED_PATH_FOR_APPBAR && setHideAppBar(false);
     } else {
       setHideAppBar(false);
-      PREVIOUS_LOCATION_WAS_PAGE_TARGETED && setDrawerIconsOnly(false);
+      PREVIOUS_LOCATION_WAS_PAGE_TARGETED_FOR_FULL_SCREEN &&
+        setDrawerIconsOnly(false);
     }
 
     if (forceFullDrawer) {
       setDrawerIconsOnly(false);
     }
   }, [
-    LOCATION_IS_PAGE_TARGETED,
-    PREVIOUS_LOCATION_WAS_PAGE_TARGETED,
+    LOCATION_IS_AN_IGNORED_PATH_FOR_APPBAR,
+    LOCATION_IS_PAGE_TARGETED_FOR_FULL_SCREEN,
+    PREVIOUS_LOCATION_WAS_AN_IGNORED_PATH_FOR_APPBAR,
+    PREVIOUS_LOCATION_WAS_PAGE_TARGETED_FOR_FULL_SCREEN,
     forceFullDrawer,
   ]);
 

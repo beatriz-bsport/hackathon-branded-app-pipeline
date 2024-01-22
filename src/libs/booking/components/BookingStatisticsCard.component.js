@@ -215,6 +215,7 @@ export function BookingStatisticsCard(props: Props) {
           <StackedBarChart
             colorA={theme.palette.success.main}
             colorB={theme.palette.error.dark}
+            colorC={theme.palette.warning.main}
             data={data}
             domain={[start, end]}
             height={300}
@@ -223,6 +224,7 @@ export function BookingStatisticsCard(props: Props) {
             xKey="d"
             yKeyA={t('bookingStatistics.keys.created')}
             yKeyB={t('bookingStatistics.keys.cancelled')}
+            yKeyC={t('bookingStatistics.keys.waitingLists')}
           />
         </div>
       </Paper>

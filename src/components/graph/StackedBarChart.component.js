@@ -41,6 +41,8 @@ type Props = {
   yAxisAllowDecimals?: boolean,
   minHeight?: number,
   minWidth?: number,
+  colorC: string,
+  yKeyC: string,
 };
 
 type ContentPayload = {
@@ -159,6 +161,8 @@ export function StackedBarChart(props: Props) {
     colorA,
     yKeyB,
     colorB,
+    colorC,
+    yKeyC,
     xLabel,
     yLabel,
     yAxisAllowDecimals,
@@ -196,6 +200,7 @@ export function StackedBarChart(props: Props) {
         <Tooltip content={<CustomTooltip />} />
         <Bar dataKey={yKeyA} fill={colorA} stackId="a" type="monotone" />
         <Bar dataKey={yKeyB} fill={colorB} stackId="a" type="monotone" />
+        <Bar dataKey={yKeyC} fill={colorC} stackId="a" type="monotone" />
       </BarChart>
     </ResponsiveContainer>
   );

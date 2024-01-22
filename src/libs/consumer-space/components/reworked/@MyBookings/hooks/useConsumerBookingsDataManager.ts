@@ -146,9 +146,19 @@ export default function useConsumerBookingsDataManager({
   const [selectedBookingOption, setSelectedBookingOption] =
     useState<ConsumerBookingOption | null>(null);
 
-  /* MODAL STATES */
+  /* MODAL/DRAWER STATES */
+  const [isBookingTabDrawerOpen, setIsBookingTabDrawerOpen] = useState(false);
+
+  const [isSpotSchedulingDrawerOpen, setIsSpotSchedulingDrawerOpen] =
+    useState(false);
+
+  const [isBookingDetailsDrawerOpen, setIsBookingDetailsDrawerOpen] =
+    useState(false);
+
+  const [isCalendarDrawerOpen, setIsCalendarDrawerOpen] = useState(false);
+
   const [isCancelBookingModalOpen, setIsCancelBookingModalOpen] =
-    useState<boolean>(false);
+    useState(false);
 
   const [selectedBookingForCancelation, setSelectedBookingForCancelation] =
     useState<ConsumerBooking | null>(null);
@@ -163,17 +173,16 @@ export default function useConsumerBookingsDataManager({
     setSelectedBookingOptionForCancelation,
   ] = useState<ConsumerBookingOption | null>(null);
 
-  const [isCancellingBooking, setIsCancellingBooking] =
-    useState<boolean>(false);
+  const [isCancellingBooking, setIsCancellingBooking] = useState(false);
 
   const [isOnlineWarningModalOpen, setIsOnlineWarningModalOpen] =
-    useState<boolean>(false);
+    useState(false);
 
   const [onlineWarningModalOfferDate, setOnlineWarningModalOfferDate] =
     useState<string | null>(null);
 
   const [isSpotSchedulingModalOpen, setIsSpotSchedulingModalOpen] =
-    useState<boolean>(null);
+    useState(false);
 
   const [selectedBookingSpotDetails, setSelectedBookingSpotDetails] = useState<{
     spotInformation: SpotInformation;
@@ -181,6 +190,10 @@ export default function useConsumerBookingsDataManager({
     establishment: Establishment;
     metaActivity: MetaActivity;
   } | null>(null);
+
+  const [calendarBookingDate, setCalendarBookingDate] = useState<string>(
+    moment().format('YYYY-MM-DD'),
+  );
 
   const fetchMoreDataHandlerMap = useMemo(
     () => ({
@@ -400,6 +413,15 @@ export default function useConsumerBookingsDataManager({
   }, []);
 
   /**
+   * Reset the selected booking to force close any open modal/drawer
+   */
+  const handleResetSelectedItemsForCancellation = useCallback(() => {
+    setSelectedBookingForCancelation(null);
+    setSelectedPrivateBookingForCancelation(null);
+    setSelectedBookingOptionForCancelation(null);
+  }, []);
+
+  /**
    * Fetch associated objects when changing tab Activities/Appointments/Workshops
    * @param type The new tab that will be selected
    */
@@ -582,6 +604,84 @@ export default function useConsumerBookingsDataManager({
   }, []);
 
   /**
+   * Toggle display the booking details drawer
+   */
+  const handleToggleBookingDetailsDrawer = useCallback(() => {
+    setIsBookingDetailsDrawerOpen((state) => !state);
+  }, []);
+
+  /**
+   * Toggle display the spot scheduling bottom drawer
+   */
+  const handleToggleSpotSchedulingDrawer = useCallback(() => {
+    setIsSpotSchedulingDrawerOpen((state) => !state);
+  }, []);
+
+  /**
+   * Toggle display the calendar bottom drawer
+   */
+  const handleToggleCalendarDrawer = useCallback(() => {
+    setIsCalendarDrawerOpen((state) => !state);
+  }, []);
+
+  /**
+   * Toggle display the booking tab bottom drawer
+   */
+  const handleToggleBookingTabDrawer = useCallback(() => {
+    setIsBookingTabDrawerOpen((state) => !state);
+  }, []);
+
+  /**
+   * Handles the 'See details' action from booking and display drawer if is mobile
+   * @param selectedDate The new date selected from the calendar
+   */
+  const handleSeeBookingDetails = useCallback(
+    (
+      bookingId: number,
+      type: 'booking' | 'privateBooking' | 'bookingOption',
+    ) => {
+      switch (type) {
+        case 'booking':
+          setSelectedBooking(
+            bookingList.find((item) => item.id === bookingId) || null,
+          );
+          break;
+        case 'privateBooking':
+          setSelectedPrivateBooking(
+            privateBookingList.find((item) => item.id === bookingId) || null,
+          );
+          break;
+        case 'bookingOption':
+          setSelectedBookingOption(
+            bookingOptionList.find((item) => item.id === bookingId) || null,
+          );
+          break;
+        default:
+      }
+      isMobile && handleToggleBookingDetailsDrawer();
+    },
+    [
+      isMobile,
+      bookingList,
+      privateBookingList,
+      bookingOptionList,
+      handleToggleBookingDetailsDrawer,
+    ],
+  );
+
+  /**
+   * Handles the calendar select action for modal/drawer
+   * @param selectedDate The new date selected from the calendar
+   */
+  const handleSelectCalendarBookingDate = useCallback(
+    (selectedDate: string) => {
+      setCalendarBookingDate(selectedDate);
+      setIsCalendarDrawerOpen(false);
+    },
+    [],
+  );
+
+  /**
    * Handles the 'Join online' button action when clicked from a booking card
    * @param bookingBroadcastURL The URL of the selected online booking
    * @param isMetaActivityBroadcast Whether the activity is online or not
@@ -653,10 +753,18 @@ export default function useConsumerBookingsDataManager({
           establishment: booking.establishment,
           metaActivity: booking.meta_activity,
         });
-        setIsSpotSchedulingModalOpen((state) => !state);
+
+        isMobile
+          ? handleToggleSpotSchedulingDrawer()
+          : handleToggleSpotSchedulingModal();
       }
     },
-    [fetchAssociatedBlueprintObjects],
+    [
+      fetchAssociatedBlueprintObjects,
+      handleToggleSpotSchedulingDrawer,
+      handleToggleSpotSchedulingModal,
+      isMobile,
+    ],
   );
 
   return {
@@ -675,6 +783,11 @@ export default function useConsumerBookingsDataManager({
     onlineWarningModalOfferDate,
     selectedBookingSpotDetails,
     isCancellingBooking,
+    isCalendarDrawerOpen,
+    calendarBookingDate,
+    isBookingTabDrawerOpen,
+    isSpotSchedulingDrawerOpen,
+    isBookingDetailsDrawerOpen,
     // STATE HANDLERS
     handleSetSelectedTab,
     handleSetSelectedFilterTab,
@@ -685,7 +798,14 @@ export default function useConsumerBookingsDataManager({
     handleToggleCancelBookingModal,
     handleToggleOnlineWarningModal,
     handleToggleSpotSchedulingModal,
+    handleResetSelectedItemsForCancellation,
+    handleToggleCalendarDrawer,
+    handleSelectCalendarBookingDate,
+    handleToggleBookingTabDrawer,
+    handleToggleSpotSchedulingDrawer,
+    handleToggleBookingDetailsDrawer,
     // DATA/USER ACTIONS HANDLERS
+    handleSeeBookingDetails,
     handlePaginationFetchMore,
     handleJoinOnlineBooking,
     handleShowSpotDetails,

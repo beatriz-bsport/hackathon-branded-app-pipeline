@@ -17,7 +17,7 @@ const ConsumerBookingOnlineWarningModal: React.FC<Props> = ({
   offerDateStart,
   onClose,
 }) => {
-  const { t } = useTranslation(['consumerSpace', 'common']);
+  const { t } = useTranslation('consumerSpace');
   return (
     <Blanket
       isOpen

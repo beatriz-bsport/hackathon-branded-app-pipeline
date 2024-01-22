@@ -1,0 +1,3 @@
+import ConsumerBookingOnlineWarningDrawer from './ConsumerBookingOnlineWarningDrawer.component';
+
+export default ConsumerBookingOnlineWarningDrawer;

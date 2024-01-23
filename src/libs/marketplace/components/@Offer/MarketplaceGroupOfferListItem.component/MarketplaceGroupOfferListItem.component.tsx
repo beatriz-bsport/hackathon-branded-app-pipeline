@@ -371,7 +371,7 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
                     {
                       ...firstOfferToBeBooked,
 
-                      is_full: groupIsFull,
+                      full: groupIsFull,
                       group,
                     },
                     metaActivity,

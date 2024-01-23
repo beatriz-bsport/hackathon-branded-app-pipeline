@@ -11,6 +11,9 @@ type Props = {
   anchorOrigin?: PopoverProps['anchorOrigin'];
   transformOrigin?: PopoverProps['transformOrigin'];
   className?: string;
+  customClasses?: {
+    hoveredText?: string;
+  };
 };
 
 const PopOver = (props: Props) => {
@@ -37,6 +40,7 @@ const PopOver = (props: Props) => {
   return (
     <div data-testid="popover-container">
       <div
+        className={props.customClasses?.hoveredText}
         id="hovered-text"
         onBlur={handleVoid}
         onFocus={handleVoid}

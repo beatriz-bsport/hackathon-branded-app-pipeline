@@ -11,9 +11,16 @@
   border-bottom: 1px solid var(--bs-color-border-weak);
 }
 
+.bs-consumer-card__section__text-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: stretch;
+  margin-bottom: var(--bs-space-size-1);
+}
+
 .bs-consumer-card__section__title {
   width: 100%;
-  margin-bottom: var(--bs-space-size-1);
   font-weight: 700;
 }
 

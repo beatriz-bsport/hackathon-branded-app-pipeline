@@ -14,11 +14,13 @@ type Props = {
   /** Required section name to be able to target from CSS Editor */
   className: string;
   /** Optional class name to pass to the child elements (section title) */
-  classes?: { title: string };
+  classes?: { title?: string; textContainer?: string };
   /** The section content */
   children: React.ReactNode;
   /** Custom variant for title component */
   titleVariant?: TypographyVariantType;
+  /** Optional subtitle of the section */
+  subtitle?: string;
 };
 
 const ConsumerCardSection: React.FC<Props> = ({
@@ -27,21 +29,34 @@ const ConsumerCardSection: React.FC<Props> = ({
   classes,
   children,
   titleVariant,
+  subtitle,
 }) => (
   <section className={classNames('bs-consumer-card__section', className)}>
-    <Typography
+    <div
       className={classNames(
-        'bs-consumer-card__section__title',
-        {
-          'bs-consumer-card__section__title--hidden': !title,
-        },
-        classes?.title,
+        'bs-consumer-card__section__text-container',
+        classes?.textContainer,
       )}
-      variant={titleVariant || 'body-lg'}
     >
-      {title}
-    </Typography>
-
+      <Typography
+        className={classNames(
+          'bs-consumer-card__section__title',
+          {
+            'bs-consumer-card__section__title--hidden': !title,
+          },
+          classes?.title,
+        )}
+        variant={titleVariant || 'body-lg'}
+      >
+        {title}
+      </Typography>
+      <Typography
+        className="bs-consumer-card__section__subtitle"
+        variant="body-md"
+      >
+        {subtitle}
+      </Typography>
+    </div>
     {children}
   </section>
 );

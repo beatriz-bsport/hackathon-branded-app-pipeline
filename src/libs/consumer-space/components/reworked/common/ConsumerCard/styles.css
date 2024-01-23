@@ -40,7 +40,7 @@
     align-items: flex-end;
     gap: var(--bs-space-size-2);
     align-self: stretch;
-    border-top: var(--bs-fabrique-border-2) solid var(--bs-color-border-weak);
+    border-top: var(--bs-border-width-regular) solid var(--bs-color-border-weak);
   }
 }
 
@@ -51,6 +51,6 @@
     padding-top: var(--bs-space-size-4);
     gap: var(--bs-space-size-2);
     align-self: stretch;
-    border-top: var(--bs-fabrique-border-2) solid var(--bs-color-border-weak);
+    border-top: var(--bs-border-width-regular) solid var(--bs-color-border-weak);
   }
 }

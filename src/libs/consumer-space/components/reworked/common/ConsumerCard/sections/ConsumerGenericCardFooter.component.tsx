@@ -14,8 +14,8 @@ import '../styles.css';
 
 type Props = {
   className?: string;
-  secondaryButtonsHidden: boolean;
-  secondaryButtonsList: {
+  secondaryButtonsHidden?: boolean;
+  secondaryButtonsList?: {
     shouldDisplay: boolean;
     color: ButtonColor;
     onClick: (event?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
@@ -37,9 +37,9 @@ type Props = {
     buttonClassName: string;
     typographyClassName: string;
   }[];
-  menuButtonLabel: string;
-  isMenuButtonDisabled: boolean;
-  menuItemsList: {
+  menuButtonLabel?: string;
+  isMenuButtonDisabled?: boolean;
+  menuItemsList?: {
     menuItemClassName: string;
     shouldDisplay: boolean;
     label: string;
@@ -51,9 +51,9 @@ type Props = {
       >,
     ) => void;
   }[];
-  menuId: string;
-  menuClassName: string;
-  menuButtonClassName: string;
+  menuId?: string;
+  menuClassName?: string;
+  menuButtonClassName?: string;
 };
 
 const ConsumerGenericCardFooter: React.FC<Props> = ({
@@ -171,27 +171,32 @@ const ConsumerGenericCardFooter: React.FC<Props> = ({
           ),
       )}
       {/* TODO: DISPLAY BOTTOMDRAWER IF ON MOBILE AND MENU IF ON DESKTOP */}
-      <Menu
-        anchorEl={anchorEl}
-        className={classNames('bs-consumer-generic-card__menu', menuClassName)}
-        id={menuId}
-        isOpen={isButtonMenuOpened}
-        onClose={handleOnMenuClose}
-      >
-        {/* TODO: DISABLE STATE FOR MENU ITEMS AND PUT FOR EACH MENUITEM HERE */}
-        {(menuItemsList || []).map(
-          ({ label, leftIcon, onClick, shouldDisplay, menuItemClassName }) =>
-            shouldDisplay && (
-              <MenuItem
-                key={`${menuItemClassName}-${label}`}
-                className={menuItemClassName}
-                label={label}
-                leftIcon={leftIcon}
-                onClick={onClick}
-              />
-            ),
-        )}
-      </Menu>
+      {menuId && (
+        <Menu
+          anchorEl={anchorEl}
+          className={classNames(
+            'bs-consumer-generic-card__menu',
+            menuClassName,
+          )}
+          id={menuId}
+          isOpen={isButtonMenuOpened}
+          onClose={handleOnMenuClose}
+        >
+          {/* TODO: DISABLE STATE FOR MENU ITEMS AND PUT FOR EACH MENUITEM HERE */}
+          {(menuItemsList || []).map(
+            ({ label, leftIcon, onClick, shouldDisplay, menuItemClassName }) =>
+              shouldDisplay && (
+                <MenuItem
+                  key={`${menuItemClassName}-${label}`}
+                  className={menuItemClassName}
+                  label={label}
+                  leftIcon={leftIcon}
+                  onClick={onClick}
+                />
+              ),
+          )}
+        </Menu>
+      )}
     </div>
   );
 };

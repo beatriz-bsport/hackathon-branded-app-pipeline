@@ -91,6 +91,12 @@
   font-family: var(--fontFamily);
 }
 
+.bs-card-offer__content__title--ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .bs-card-offer__content__title--time-highlighted {
   padding-top: 0;
   font-weight: var(--fontWeightRegular);

@@ -30,6 +30,7 @@ import { Level } from '#libs/level/types';
 import MarketplaceOfferStatusChip from '../MarketplaceOfferStatusChip';
 import PopOver from '#components/Popover/Popover.component';
 import { generateUniqueOfferIdentifier } from '#marketplacecomponents/@Offer/utils';
+import { shouldApplyEllipsis } from '#libs/marketplace/utils';
 import './MarketplaceCardOfferCSSOnly.css';
 
 type OwnProps = {
@@ -234,6 +235,20 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
     return generateUniqueOfferIdentifier(offer, 'bs-offer-card');
   }, [offer]);
 
+  const shouldApplyEllipsisOnOfferName = shouldApplyEllipsis(
+    offer?.name_override || metaActivity?.name,
+  );
+
+  const popoverTitle = (() => {
+    if (isPopoverOnSessionName) {
+      return t('marketplace.bookButton.popOverTitle.isPast');
+    }
+    if (shouldApplyEllipsisOnOfferName) {
+      return offer?.name_override || metaActivity?.name;
+    }
+    return null;
+  })();
+
   return (
     <button
       className={classNames({
@@ -266,7 +281,18 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
                 onClick={handleClick}
                 type="button"
               >
-                {offer?.name_override || metaActivity?.name}
+                <PopOver
+                  customClasses={{
+                    hoveredText: classNames({
+                      'bs-card-offer__content__title--ellipsis':
+                        shouldApplyEllipsisOnOfferName,
+                    }),
+                  }}
+                  hide={!shouldApplyEllipsisOnOfferName}
+                  title={offer?.name_override || metaActivity?.name}
+                >
+                  {offer?.name_override || metaActivity?.name}
+                </PopOver>
               </button>
             ) : (
               <div
@@ -278,10 +304,16 @@ const MarketPlaceCardOfferCSSOnly: React.FC<Props> = ({
                 })}
               >
                 <PopOver
-                  title={
-                    isPopoverOnSessionName &&
-                    t('marketplace.bookButton.popOverTitle.isPast')
+                  customClasses={{
+                    hoveredText: classNames({
+                      'bs-card-offer__content__title--ellipsis':
+                        shouldApplyEllipsisOnOfferName,
+                    }),
+                  }}
+                  hide={
+                    !isPopoverOnSessionName && !shouldApplyEllipsisOnOfferName
                   }
+                  title={popoverTitle}
                 >
                   {offer?.name_override || metaActivity?.name}
                 </PopOver>

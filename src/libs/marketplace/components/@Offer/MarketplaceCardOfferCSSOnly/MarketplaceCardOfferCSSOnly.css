@@ -84,8 +84,6 @@
   font-size: var(--subtitle1-fontSize);
   line-height: var(--subtitle1-lineHeight);
   text-align: left;
-  display: flex;
-  align-items: center;
   align-self: flex-start;
   letter-spacing: 0.15px;
   grid-column: 1 / last;

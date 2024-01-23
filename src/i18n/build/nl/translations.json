@@ -165,6 +165,143 @@
             "settingsInfo": "Activeer deze optie om spinning-informatie live tijdens een sessie te tonen, zoals snelheid, verbrande calorieën, etc. Als deze optie gedeactiveerd is wordt de informatie niet live getoond, maar zullen deelnemers een samenvatting per e-mail na het einde van de sessie ontvangen.",
             "settingsTitle": "Spinning-informatie",
             "settings": "Mijn data live weergeven"
+        },
+        "reworked": {
+            "myPasses": {
+                "consumerPassCard": {
+                    "buttonsLabel": {
+                        "seeDetails": "Toon details"
+                    },
+                    "availability": {
+                        "expiresToday": "Laatste dag",
+                        "expiresIn": "{{ daysRemaining }} dag(en) over",
+                        "expiresIn_plural": "{{ daysRemaining }} dag(en) over",
+                        "future": "Startdatum: {{ startDate }}",
+                        "expired": "Verlopen op: {{ expirationDate }}",
+                        "active": "Verloopdatum: {{ expirationDate }}"
+                    },
+                    "chip": {
+                        "multiStudio": "Meerdere studio's",
+                        "shared": "Gedeeld",
+                        "suspended": "Opgeschort"
+                    },
+                    "credits": "{{ creditsLeft }}/{{ totalCredits }} credits",
+                    "unlimited": "Ongelimiteerd"
+                }
+            },
+            "myBookings": {
+                "spotSchedulingModal": {
+                    "subtitle": "Vind je eigen plekje",
+                    "title": "Spot Scheduling"
+                },
+                "onlineWarningModal": {
+                    "message": "Je kunt vanaf 15 min. voor het begin van de sessie deelnemen.",
+                    "subtitle": "De sessie begint om {{- date}} om {{hour}}",
+                    "title": "Online activiteiten"
+                },
+                "cancelModal": {
+                    "group": {
+                        "listTitle": "Reserveringen die geannuleerd worden:",
+                        "alert": {
+                            "message": "Contacteer de studio als je slechts een enkele reservering wilt annuleren.",
+                            "title": "Alle reserveringen voor dit evenement worden geannuleerd"
+                        },
+                        "message": "Deze reservering is onderdeel van een groepering.\nJe wordt automatisch afgemeld van alle toekomstige sessies die aan dit evenement gerelateerd zijn. De credits worden teruggestort en kunnen opnieuw worden gebruikt."
+                    },
+                    "noRefund": "Credits van te late annuleringen worden niet teruggestort.",
+                    "creditsWillBeRefunded": "{{count}} credit(s) wordt teruggestort.",
+                    "creditsWillBeRefunded_plural": "{{count}} credits worden teruggestort.",
+                    "title": "Sessie annuleren"
+                },
+                "detailsCard": {
+                    "workshop": {
+                        "title": "Gegroepeerd met deze workshop"
+                    },
+                    "teacher": {
+                        "subtitutedBy": "Vervangen door",
+                        "absent": "Afwezig",
+                        "title": "Instructeur"
+                    },
+                    "waitlist": {
+                        "position": "Mijn positie op de wachtlijst: {{position}}"
+                    },
+                    "cancellationPolicy": {
+                        "maxDuration": "Kosteloos annuleren kan tot {{days}} dag(en), {{hours}} uur en {{minutes}} minuut/minuten voor het begin van de sessie.",
+                        "noDuration": "Kosteloos annuleren is altijd mogelijk.",
+                        "title": "Annuleringsvoorwaarden"
+                    },
+                    "description": {
+                        "title": "Beschrijving"
+                    },
+                    "location": {
+                        "title": "Plaats"
+                    },
+                    "relatedPass": {
+                        "title": "Gerelateerde leskaart"
+                    },
+                    "cancelled": {
+                        "refundWarning": "Credits worden niet voor te late annuleringen teruggestort",
+                        "creditsToRefund": "{{count}} credit(s) worden teruggestort",
+                        "creditsToRefund_plural": "{{count}} credits worden teruggestort",
+                        "cancelledFromManager": "Geannuleerd door de studio",
+                        "cancelledFromMember": "Geannuleerd door mijzelf",
+                        "title": "Geannuleerd"
+                    }
+                },
+                "consumerBookingCard": {
+                    "listItemLabels": {
+                        "spotSchedulingPosition": "Plaats ({{ spotSchedulingPosition }})",
+                        "waitingList": "Mijn positie op de wachtlijst: {{ waitingListPosition }}"
+                    },
+                    "buttonsLabel": {
+                        "bookForAGuest": "Een gast uitnodigen",
+                        "joinOnline": "Online deelnemen",
+                        "book": "Reserveer",
+                        "seeDetails": "Toon details",
+                        "more": "Meer",
+                        "cancel": "Annuleren"
+                    },
+                    "chip": {
+                        "status": {
+                            "cancelled": "Geannuleerd",
+                            "bookedForAGuest": "Een gast uitnodigen",
+                            "unpaid": "Onbetaald"
+                        },
+                        "noShow": "No-show",
+                        "atHome": "Thuis",
+                        "online": "Online"
+                    }
+                },
+                "listContainer": {
+                    "placeholder": {
+                        "activity": {
+                            "future": "Er zijn geen toekomstige groepsactiviteiten om te tonen.",
+                            "past": "Er zijn geen activiteiten uit het verleden om te tonen."
+                        },
+                        "workshop": {
+                            "future": "Er zijn geen toekomstige workshops om te tonen.",
+                            "past": "Er zijn geen workshops uit het verleden om te tonen."
+                        }
+                    }
+                },
+                "filter": {
+                    "onWaitlist": "Mijn wachtlijsten",
+                    "past": "Voltooid",
+                    "upcoming": "Eerstvolgend"
+                },
+                "tab": {
+                    "workshops": "Workshops",
+                    "appointments": "Afspraken",
+                    "activities": "Groepsactiviteiten"
+                },
+                "bookASession": "Reserveer een sessie",
+                "title": "Mijn reserveringen"
+            },
+            "placeholderCard": {
+                "myBookings": "Selecteer een sessie om meer details weer te geven."
+            },
+            "showLess": "Toon minder",
+            "showMore": "Toon meer"
         }
     },
     "notificationRule": {
@@ -1718,7 +1855,8 @@
             "keys": {
                 "cancelled": "Geannuleerde reserveringen",
                 "created": "Geldige reserveringen",
-                "offers": "Promo's"
+                "offers": "Promo's",
+                "waitingLists": "Wachtlijsten"
             },
             "maintenedBookings": "{{nb}} reservering",
             "maintenedBookings_plural": "{{nb}} reserveringen",
@@ -1731,14 +1869,16 @@
             "chartsItemLabel": {
                 "numberOfSessions": "Sessies",
                 "numberOfCancelledBookings": "Geannuleerde reserveringen",
-                "numberOfConfirmedBookings": "Bevestigde reserveringen"
+                "numberOfConfirmedBookings": "Bevestigde reserveringen",
+                "waitingListSize": "Op de wachtlijst"
             },
             "bookingsCancelled": "Geannuleerd: {{nb}}",
             "confirmedBookings": "Bevestigd: {{nb}}",
             "totalOffers": "{{ nb_offers }} <0/> totale sessie",
             "totalOffers_plural": "{{ nb_offers }} <0/> totale sessies",
             "bookingsTotalCount": "{{nb}} <0/>totale boeking",
-            "bookingsTotalCount_plural": "{{nb}} <0/>totale boekingen"
+            "bookingsTotalCount_plural": "{{nb}} <0/>totale boekingen",
+            "waitingListSize": "Wachtlijst: {{nb}}"
         },
         "show_cancelled_offers": "Toon de geannuleerde sessies",
         "quickInvoiceNoVoucher": "Laat de waarde van dit veld op 0 staan als je geen korting wilt toepassen",
@@ -2520,6 +2660,9 @@
             "backToLogin": "Terug naar de inlogpagina",
             "textExplain": "Er is zojuist een bevestigingsmail verzonden om uw e-mailadres te bevestigen. Om uw registratie te voltooien klikt u op de link om uw account te activeren.",
             "title": "Uw registratie is geregistreerd"
+        },
+        "referral": {
+            "signUpNow": "Bedankt voor het gebruiken van de referral-link can {{ referringMemberFirstName }}. Registreer je om deze voucher voor je eerste aankoop te gebruiken!"
         }
     },
     "reporting": {
@@ -3430,7 +3573,7 @@
                 "smartListHelperInclude": "Stuur WÉL een melding als een lid tot één van de volgende Smartlists behoort",
                 "noMailAvailable": "Er zijn geen e-mailsjablonen om weer te geven.",
                 "createSmartList": "Een Smartlist toevoegen",
-                "warning": "Door geen Smartlist(s) te selecteren is het mogelijk dat je leden contacteert die recent een aankoop hebben gedaan.",
+                "warning": "Door geen Smartlist(s) te selecteren is het mogelijk dat je leden contacteert die recent een aankoop hebben gedaan!",
                 "daysPastType": "Verlopen kaart",
                 "submit": "Bevestigen",
                 "pushTitle": "Berichtgevingsinstellingen",
@@ -5585,9 +5728,23 @@
                         "hybridEditHelper": "Momenteel bewerk je een online sessie die ook gekoppeld is aan een fysieke sessie. Het toepassen van wijzigingen moet via de fysieke sessie.",
                         "hybridSection": "Hybride sessie",
                         "hybridManagementHelper": "Klik op het onderstaande icoontje om de reserveringen die aan deze hybride sessies gekoppeld zijn te beheren.",
-                        "hybridLabel": "Maak dit een Hybride Sessie dat zowel online als in de vestiging te volgen is"
+                        "hybridLabel": "Maak dit een Hybride Sessie dat zowel online als in de vestiging te volgen is",
+                        "metaActivity": "Activiteit"
                     },
                     "title": "Kenmerken"
+                },
+                "nameDescriptionOverride": {
+                    "description": {
+                        "captionText": "Een gepersonaliseerde beschrijving aan deze sessie toevoegen",
+                        "label": "Beschrijving"
+                    },
+                    "name": {
+                        "captionText": "Een gepersonaliseerde naam voor deze sessie toevoegen",
+                        "label": "Naam"
+                    },
+                    "showButton": "Gepersonaliseerde naam tonen",
+                    "hideButton": "Gepersonaliseerde naam verbergen",
+                    "setButton": "Gepersonaliseerde naam invoeren"
                 }
             },
             "groupedOffer": {
@@ -7941,7 +8098,9 @@
             "totalNetGain": "Nettowinst (totaal)",
             "netGain": "Nettowinst",
             "marginValue": "Marginale bijdrage",
-            "noShowsAndLateCancellations": "No shows en late annuleringen"
+            "noShowsAndLateCancellations": "No shows en late annuleringen",
+            "location": "Plaats",
+            "establishment": "Vestiging"
         },
         "table": {
             "download": "Downloaden",
@@ -7996,10 +8155,13 @@
             "coachSelector": "Selecteer instructeurs",
             "reset": "Filters resetten",
             "apply": "Filters toepassen",
-            "header": "Geavanceerde filters"
+            "header": "Geavanceerde filters",
+            "establishments": "Vestigingen",
+            "locations": "Plaatsen"
         },
         "form": {
-            "ifEmptyAllowAll": "Laat dit veld leeg om deze filter te negeren"
+            "ifEmptyAllowAll": "Laat dit veld leeg om deze filter te negeren",
+            "selectEstablishments": "Selecteer vestigingen"
         }
     },
     "video": {
@@ -11335,6 +11497,9 @@
                 "error": "Er is een fout opgetreden bij het bewerken van de {{ workflowLowerCase }}",
                 "success": "Uw {{ workflowLowerCase }} is bijgewerkt"
             }
+        },
+        "privateSlot": {
+            "notAvailableForBookingAnymore": "Dit tijdslot is niet langer beschikbaar."
         }
     },
     "coach": {
@@ -12988,6 +13153,10 @@
             "noBooking": {
                 "acceptTermsAndFinalize": "Accepteer de algemene voorwaarden en vul uw mandje in",
                 "checkAndFinalize": "Controleer uw winkelmandje"
+            },
+            "referral": {
+                "hasReachedMaxUses": "Het gebruikslimiet van deze referral-link is bereikt.",
+                "missingAmountBeforeApplication": "Je bent slechts {{ missingAmount }} van het minimum bestedingslimiet verwijderd om van je referral-link te kunnen genieten!"
             }
         },
         "paymentIntent": {
@@ -13070,7 +13239,8 @@
                 "newWorkshop": "Nieuwe workshop",
                 "retry": "Probeer het opnieuw",
                 "myBookings": "Mijn reserveringen",
-                "goToCalendar": "Terug naar de kalender"
+                "goToCalendar": "Terug naar de kalender",
+                "backToMyProfile": "Terug naar profiel"
             },
             "bookingItem": {
                 "bookingItemStatus": {
@@ -15830,7 +16000,9 @@
                     "emailOnly": "Alleen e-mail",
                     "firstNameAndEmail": "Voornaam en e-mail",
                     "fullNameAndEmail": "Volledige naam en e-mail",
-                    "default": "Standaard"
+                    "default": "Standaard",
+                    "clickableText": "Klikbare tekst",
+                    "standard": "Standaard"
                 },
                 "title": {
                     "nextOffer": "Volgende sessie beschikbaar",
@@ -15922,7 +16094,34 @@
                     "withMaxCharacters": "Met maximale tekenlengte",
                     "showSubtitle": "Toon ondertitel",
                     "showTitle": "Toon titel",
-                    "newsletterV2FieldsType": "Informatie gevraagd"
+                    "newsletterV2FieldsType": "Informatie gevraagd",
+                    "expiresSoon": "Leskaart verloopt binnenkort",
+                    "isUnlimited": "Ongelimiteerde leskaart",
+                    "isSuspended": "Opgeschortte leskaart",
+                    "isShared": "Gedeelde leskaart",
+                    "showWorkshopLinkedOffers": "Workshop-sessie",
+                    "hasCoachOverride": "Afwezige instructeur",
+                    "showWaitlistPosition": "Toon wachtlijstpositie",
+                    "showCancellationPolicy": "Toon annuleringsvoorwaarden",
+                    "showEstablishmentRoom": "Toon vestigingsruimt",
+                    "isMoreDisplayed": "Secundaire knoppen zijn in het menu verborgen",
+                    "isBookableForAGuest": "Reserven voor gasten is beschikbaar",
+                    "isCancellable": "Reservering kan geannuleerd worden",
+                    "displayWaitingListPosition": "Indicator voor positie op de wachtlijst",
+                    "displayspotSchedulingPosition": "Weergave van Spot Scheduling-plaats",
+                    "isCancelDisabled": "Indicator voor de annuleer-knop",
+                    "isNoShow": "Indicator voor no-shows",
+                    "isAtHome": "Indicator voor thuis-reserveringen",
+                    "isUnpaid": "Indicator voor onbetaalde reserveringen",
+                    "isBookedForAGuest": "Indicator voor uitgenodigde gasten",
+                    "isOnline": "Indicator voor online reserveringen",
+                    "isJoinableOnline": "Reservering kan online bijgewoond worden",
+                    "isBookingCancelled": "Geannuleerde reservering",
+                    "isBookable": "Reserveerbaar",
+                    "isJoinableOnlineDisabled": "De \"Online deelnemen\" knop is uitgeschakeld",
+                    "isBookableDisabled": "De \"Reserveer\" knop is uitgeschakeld",
+                    "isMoreDisabled": "De \"Meer\" knop is uitgeschakeld",
+                    "isDetailsDisabled": "De \"Toon details\" knop is uitgeschakeld"
                 },
                 "configurationTitle": "Variaties",
                 "confirmationMessageComponentAlert": "Deze component beheert voornamelijk boekings- en betalingsstatussen. Om het uiterlijk aan te passen, raden we aan de hoofdcomponenten te gebruiken in de gemeenschappelijke sectie",
@@ -15931,7 +16130,8 @@
                 "marketplaceCheckoutItemListPaymentCombo": "Dit onderdeel bevat een lijst van pakketten. Verfijn het onderdeel \"{{component_name}}\" binnen het specifieke onderdeel van deze Bewerker binnen het tabblad \"{{page}}\".",
                 "marketplaceCheckoutItemListPrivatePass": "Dit onderdeel bevat een lijst van afspraakkaarten. Verfijn het onderdeel \"{{component_name}}\" binnen het specifieke onderdeel van deze Bewerker binnen het tabblad \"{{page}}\".",
                 "marketplaceProductItemListAlert": "Dit onderdeel bevat een lijst van producten. Verfijn het onderdeel \"{{component_name}}\" binnen het specifieke onderdeel van deze Bewerker.",
-                "selector": "Deze component bestaat uit een label en invoer en een onderschrift. Om het uiterlijk van {{component_name}} aan te passen, raden we aan de hoofdcomponent te gebruiken"
+                "selector": "Deze component bestaat uit een label en invoer en een onderschrift. Om het uiterlijk van {{component_name}} aan te passen, raden we aan de hoofdcomponent te gebruiken",
+                "authenticationTextField": "Dit component gebruikt een tekstveld. Je kunt individuele componenten (bijv. {{component_name}}) in de toegewijde editor wijzigen: {{page}}."
             },
             "page": {
                 "calendar": "Agenda",
@@ -15944,7 +16144,9 @@
                 "spot_scheduling": "Spot planning",
                 "authentication": "Authenticatie",
                 "checkoutConfirmationPage": "Bevestiging van betaling",
-                "marketing": "Marketing"
+                "marketing": "Marketing",
+                "memberProfile": "Ledenprofiel",
+                "consumer_space": "Leden-omgeving"
             },
             "components": {
                 "calendar": "Agenda",
@@ -16067,7 +16269,11 @@
                 "fabrique_textform": "Tekstvorm",
                 "selector": "Selector",
                 "selector_input": "Selector Input",
-                "marketing_newsletter_form_v2": "Nieuwsbrief formulier"
+                "marketing_newsletter_form_v2": "Nieuwsbrief formulier",
+                "consumer_booking_details_card": "Reserveerdetails (voor leden)",
+                "authentication_textfield": "Tekstveld voor authenticatie",
+                "consumer_pass_card": "Consumentenpas",
+                "consumer_booking_card": "Consumenten boekingskaart"
             },
             "customCss": {
                 "yourCode": "Je aanvullende implementatie:",
@@ -16966,7 +17172,8 @@
                     "members": {
                         "title": "Leden",
                         "description": "Aantal leden dat de {{ workflowLowerCase }} heeft ingevoerd.",
-                        "label": "Leden ingevoerd"
+                        "label": "lid ingevoerd",
+                        "label_plural": "leden ingevoerd"
                     },
                     "success": {
                         "title": "Succes",
@@ -16976,13 +17183,59 @@
                     "averageTime": {
                         "title": "Gemiddelde tijd",
                         "description": "Gemiddelde periode die een lid nodig heeft om als gewonnen te worden beschouwd.",
-                        "label": "dagen voor gemiddelde"
+                        "label": "dag (gem.)",
+                        "label_plural": "dagen (gem.)"
                     },
                     "tags": {
                         "title": "Tags",
                         "description": "Aantal tags toegepast op de leden in de {{ workflowLowerCase }}.",
-                        "label": "tags"
+                        "label": "tag",
+                        "label_plural": "tags"
                     }
+                },
+                "communication": {
+                    "pushNotif": "Push-notificaties",
+                    "sms": "Sms",
+                    "email": "E-mail",
+                    "availableSoon": "Binnenkort beschikbaard",
+                    "knowMore": "Leer meer over {{ upsellName }}!",
+                    "title": "Berichten verstuurd"
+                }
+            },
+            "editModal": {
+                "dialog": {
+                    "helper": "Het bewerken van de workflow kan de positie van leden veranderen.",
+                    "confirm": "Bevestigen",
+                    "cancel": "Annuleren",
+                    "checkboxLabel": "Dit bericht niet meer tonen.",
+                    "title": "Workflow bewerken"
+                }
+            },
+            "memberTable": {
+                "tableColumnLabel": {
+                    "status": "Status",
+                    "exitDate": "Uitvoerdatum",
+                    "entryDate": "Invoerdatum",
+                    "currentStep": "Huidige stap",
+                    "member": "Lid"
+                },
+                "historicTitle": "Geschiedenis ({{count}})",
+                "title": "Huidige leden in {{ workflowLowerCase }} ({{count}})",
+                "searchPlaceHolder": "Zoeken..."
+            },
+            "listItem": {
+                "toolTip": {
+                    "moreActions": "Meer workflow-acties"
+                },
+                "labels": {
+                    "edit": " Workflow-instellingen bewerken",
+                    "archive": "Workflow archiveren",
+                    "open": "Open",
+                    "notLaunched": "Niet geactiveerd",
+                    "paused": "Gepauzeerd",
+                    "active": "Actief",
+                    "unarchive": "Dearchiveren",
+                    "metrics": "Statistieken"
                 }
             }
         }
@@ -18565,6 +18818,44 @@
             "inviteFriend": "Nodig een vriend uit om je aan te melden",
             "nbRemainingUses": "Aantal resterende toepassingen",
             "referralLink": "Doorverwijslink"
+        },
+        "referralErrors": {
+            "maxUsesReached": {
+                "description": "Het maximale gebruiksaantal voor de referral-link van {{ referringMemberFirstName }} is bereikt.",
+                "title": "Onbruikbare referral-link"
+            },
+            "33007": {
+                "description": "Deze referral-programma is niet langer beschikbaar.",
+                "title": "Referral verlopen"
+            },
+            "33006": {
+                "description": "Deze referral-programma is niet langer beschikbaar.",
+                "title": "Referral verlopen"
+            },
+            "33005": {
+                "description": "Fout tijdens het verwerken van deze referral.",
+                "title": "Fout bij referral"
+            },
+            "33004": {
+                "description": "Fout tijdens het verwerken van deze referral.",
+                "title": "Fout bij referral"
+            },
+            "33003": {
+                "description": "Deze referral-link is niet langer bruikbaar.",
+                "title": "Verlopen referral-link"
+            },
+            "33002": {
+                "description": "Je bent al lid bij deze studio",
+                "title": "Onbruikbare referral-link"
+            },
+            "33001": {
+                "description": "Het gekoppelde lid aan deze referral-link is niet langer bij deze studio ingeschreven.",
+                "title": "Onbruikbare referral-link"
+            },
+            "33000": {
+                "description": "Deze referral-link kan niet bij deze studio gebruikt worden.",
+                "title": "Onbruikbare referral-link"
+            }
         }
     },
     "campaign": {

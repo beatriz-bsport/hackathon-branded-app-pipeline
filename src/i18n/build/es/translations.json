@@ -1162,20 +1162,23 @@
             "keys": {
                 "created": "Reservas mantenidas",
                 "cancelled": "Reservas canceladas",
-                "offers": "Ofertas"
+                "offers": "Ofertas",
+                "waitingLists": "Listas de espera"
             },
             "weekOf": "Semana del {{date}}",
             "chartsItemLabel": {
                 "numberOfSessions": "Sesiones",
                 "numberOfCancelledBookings": "Reservas canceladas",
-                "numberOfConfirmedBookings": "Reservas confirmadas"
+                "numberOfConfirmedBookings": "Reservas confirmadas",
+                "waitingListSize": "En lista de espera"
             },
             "totalOffers": "{{ nb_offers }} <0/> sesión total",
             "totalOffers_plural": "{{ nb_offers }} <0/> sesiones totales",
             "bookingsTotalCount": "{{nb}} <0/>reserva total",
             "bookingsTotalCount_plural": "{{nb}} <0/>reservas totales",
             "bookingsCancelled": "{{nb}} cancelado",
-            "confirmedBookings": "{{nb}} confirmado"
+            "confirmedBookings": "{{nb}} confirmado",
+            "waitingListSize": "{{nb}} en lista de espera"
         },
         "metaActivityNotificationToolTip": "Se establecen notificaciones para reservas relacionadas con este artículo",
         "show_cancelled_offers": "Mostrar sesiones canceladas",
@@ -1978,6 +1981,9 @@
             "backToLogin": "Volver a la página de inicio de sesión",
             "textExplain": "Se le acaba de enviar un correo electrónico de confirmación de la dirección de correo electrónico indicada. Para finalizar tu registro, haz clic en el enlace para activar tu cuenta.",
             "title": "Tu registro se ha realizado con éxito"
+        },
+        "referral": {
+            "signUpNow": "Gracias por utilizar el enlace de recomendación de {{ referringMemberFirstName }}. Regístrate ahora para canjear un vale especial en tu primera compra."
         }
     },
     "establishment": {
@@ -5679,9 +5685,23 @@
                         "hybridEditHelper": "Está editando una sesión en línea vinculada a una sesión presencial. Para modificar algunos datos, debe editar la sesión presencial.",
                         "hybridHelper": "Al elegir esta opción se creará una sesión online con una afiliación por defecto de {{ onlineOfferDefaultEffectif }}. Podrá editar la información de la oferta en línea una vez creada (Enlace de difusión, afiliación, precio, etc.).",
                         "hybridLabel": "Esta sesión es presencial y en línea.",
-                        "hybridSection": "Sesión híbrida"
+                        "hybridSection": "Sesión híbrida",
+                        "metaActivity": "Actividad"
                     },
                     "title": "Características"
+                },
+                "nameDescriptionOverride": {
+                    "description": {
+                        "captionText": "Añadir una descripción personalizada a esta sesión",
+                        "label": "Descripción"
+                    },
+                    "name": {
+                        "captionText": "Añadir un nombre personalizado a esta sesión",
+                        "label": "Nombre"
+                    },
+                    "showButton": "Mostrar nombre personalizado",
+                    "hideButton": "Ocultar nombre personalizado",
+                    "setButton": "Establecer nombre personalizado"
                 }
             },
             "groupedOffer": {
@@ -7436,6 +7456,143 @@
             "settingsInfo": "Si esta opción está activada, sus datos (velocidad, calorías quemadas, etc.) se mostrarán en tiempo real durante su sesión. Si desactiva esta opción, sus datos dejarán de mostrarse, pero recibirá su resumen por correo electrónico al final de la sesión.",
             "settings": "Visualizar mis datos en tiempo real",
             "settingsTitle": "Datos de spinning"
+        },
+        "reworked": {
+            "myPasses": {
+                "consumerPassCard": {
+                    "buttonsLabel": {
+                        "seeDetails": "Ver detalles"
+                    },
+                    "availability": {
+                        "expiresToday": "Último día",
+                        "expiresIn": "{{ daysRemaining }} día restante",
+                        "expiresIn_plural": "{{ daysRemaining }} días restantes",
+                        "future": "Inicio: {{ startDate }}",
+                        "expired": "Caducado: {{ expirationDate }}",
+                        "active": "Caduca: {{ expirationDate }}"
+                    },
+                    "chip": {
+                        "multiStudio": "Multi-estudios",
+                        "shared": "Compartido",
+                        "suspended": "Suspendido"
+                    },
+                    "credits": "{{ creditsLeft }}/{{ totalCredits }} créditos",
+                    "unlimited": "Sin límites"
+                }
+            },
+            "myBookings": {
+                "spotSchedulingModal": {
+                    "subtitle": "Encuentre rápidamente su sitio en clase",
+                    "title": "Calendario puntual"
+                },
+                "onlineWarningModal": {
+                    "message": "Podrá abrir este enlace 15 minutos antes de la sesión.",
+                    "subtitle": "La sesión comenzará el {{- date}} a las {{hour}}",
+                    "title": "Actividad en línea"
+                },
+                "cancelModal": {
+                    "group": {
+                        "listTitle": "Reservas que se cancelarán:",
+                        "alert": {
+                            "message": "Póngase en contacto con el estudio si desea cancelar una sesión individual.",
+                            "title": "Se cancelarán todas las reservas para este acto"
+                        },
+                        "message": "Esta reserva forma parte de un grupo.\nSe le dará de baja automáticamente de todas las sesiones futuras que estén asociadas a este evento. Los créditos le serán reembolsados y podrá volver a utilizarlos."
+                    },
+                    "noRefund": "No se reembolsará ningún crédito por cancelación tardía.",
+                    "creditsWillBeRefunded": "{{count}} crédito será reembolsado.",
+                    "creditsWillBeRefunded_plural": "{{count}} créditos serán reembolsados.",
+                    "title": "Cancelar sesión"
+                },
+                "detailsCard": {
+                    "workshop": {
+                        "title": "Agrupados en este taller"
+                    },
+                    "teacher": {
+                        "subtitutedBy": "Sustituido por",
+                        "absent": "Ausente",
+                        "title": "Profesor"
+                    },
+                    "waitlist": {
+                        "position": "Su posición en la lista de espera es {{position}}"
+                    },
+                    "cancellationPolicy": {
+                        "maxDuration": "Las cancelaciones son posibles sin ningún cargo hasta {{days}} día(s), {{hours}} hora(s) y {{minutes}} minuto(s).",
+                        "noDuration": "Las cancelaciones son siempre posibles sin ningún cargo.",
+                        "title": "Política de cancelación"
+                    },
+                    "description": {
+                        "title": "Descripción"
+                    },
+                    "location": {
+                        "title": "Localización"
+                    },
+                    "relatedPass": {
+                        "title": "Pase relacionado"
+                    },
+                    "cancelled": {
+                        "refundWarning": "No se reembolsarán los créditos por cancelaciones fuera de plazo",
+                        "creditsToRefund": "Se reembolsará {{count}} crédito",
+                        "creditsToRefund_plural": "Se reembolsarán {{count}} créditos",
+                        "cancelledFromManager": "Cancelado por el manager del estudio",
+                        "cancelledFromMember": "Cancelado por usted",
+                        "title": "Cancelado"
+                    }
+                },
+                "consumerBookingCard": {
+                    "listItemLabels": {
+                        "spotSchedulingPosition": "Lugar {{ spotSchedulingPosition }}",
+                        "waitingList": "Su posición en la lista de espera es: {{ waitingListPosition }}"
+                    },
+                    "buttonsLabel": {
+                        "bookForAGuest": "Reservar para un invitado",
+                        "joinOnline": "Inscripción en línea",
+                        "book": "Reservar",
+                        "seeDetails": "Ver detalles",
+                        "more": "Más",
+                        "cancel": "Cancelar"
+                    },
+                    "chip": {
+                        "status": {
+                            "cancelled": "Cancelado",
+                            "bookedForAGuest": "Reservado para un invitado",
+                            "unpaid": "No pagado"
+                        },
+                        "noShow": "Ausente",
+                        "atHome": "En casa",
+                        "online": "En línea"
+                    }
+                },
+                "listContainer": {
+                    "placeholder": {
+                        "workshop": {
+                            "future": "No hay talleres programados.",
+                            "past": "No hay talleres anteriores que mostrar."
+                        },
+                        "activity": {
+                            "future": "No se han programado próximas actividades.",
+                            "past": "No hay actividades pasadas que mostrar."
+                        }
+                    }
+                },
+                "filter": {
+                    "onWaitlist": "En la lista de espera",
+                    "past": "Pasado",
+                    "upcoming": "Próximamente"
+                },
+                "tab": {
+                    "workshops": "Talleres",
+                    "appointments": "Citas",
+                    "activities": "Actividades"
+                },
+                "bookASession": "Reservar una sesión",
+                "title": "Mis reservas"
+            },
+            "placeholderCard": {
+                "myBookings": "Elija una sesión para ver más detalles"
+            },
+            "showLess": "Mostrar menos",
+            "showMore": "Mostrar más"
         }
     },
     "coupon": {
@@ -11631,6 +11788,10 @@
             "noBooking": {
                 "acceptTermsAndFinalize": "Por favor, acepte los términos y condiciones y complete su cesta",
                 "checkAndFinalize": "Compruebe su cesta"
+            },
+            "referral": {
+                "hasReachedMaxUses": "Se ha alcanzado el número máximo de usos del enlace de recomendación.",
+                "missingAmountBeforeApplication": "No se ha alcanzado el importe mínimo de compra. Te arriesgas a perder tu enlace de recomendación. ¡Sólo {{ missingAmount }} más para poder disfrutar del descuento!"
             }
         },
         "autoAdd": {
@@ -11733,7 +11894,8 @@
                 "newWorkshop": "Nuevo taller",
                 "retry": "Vuelva a intentarlo",
                 "myBookings": "Mis reservas",
-                "goToCalendar": "Volver al calendario"
+                "goToCalendar": "Volver al calendario",
+                "backToMyProfile": "Volver a mi perfil"
             },
             "bookingItem": {
                 "bookingItemStatus": {
@@ -13084,6 +13246,9 @@
                 "error": "Se ha producido un error al editar el {{ workflowLowerCase }}",
                 "success": "Su {{ workflowLowerCase }} ha sido actualizado"
             }
+        },
+        "privateSlot": {
+            "notAvailableForBookingAnymore": "Este puesto ya no está disponible."
         }
     },
     "paymentPack": {
@@ -14692,7 +14857,9 @@
             "netGain": "Ganancia neta",
             "marginValue": "Contribución marginal",
             "nb_private_bookings": " ",
-            "noShowsAndLateCancellations": "Ausencias y cancelaciones fuera de plazo"
+            "noShowsAndLateCancellations": "Ausencias y cancelaciones fuera de plazo",
+            "location": "Localización",
+            "establishment": "Establecimiento"
         },
         "cachedData": {
             "leavePreviewMode": "Salir del modo de vista previa",
@@ -14737,10 +14904,13 @@
             "coachSelector": "Seleccione los profesores",
             "reset": "Restablecer filtros",
             "apply": "Aplicar filtros",
-            "header": "Filtros avanzados"
+            "header": "Filtros avanzados",
+            "establishments": "Establecimientos",
+            "locations": "Localizaciones"
         },
         "form": {
-            "ifEmptyAllowAll": "Dejar en blanco para ignorar este filtro"
+            "ifEmptyAllowAll": "Dejar en blanco para ignorar este filtro",
+            "selectEstablishments": "Seleccionar establecimientos"
         }
     },
     "smartList": {
@@ -15865,7 +16035,9 @@
                     "emailOnly": "Sólo correo electrónico",
                     "firstNameAndEmail": "Nombre y correo electrónico",
                     "fullNameAndEmail": "Nombre completo y correo electrónico",
-                    "default": "Por defecto"
+                    "default": "Por defecto",
+                    "clickableText": "Texto clicable",
+                    "standard": "Estándar"
                 },
                 "title": {
                     "nextOffer": "Próxima sesión disponible",
@@ -15957,7 +16129,34 @@
                     "inputType": "Tipo de visualización de la lista",
                     "showSubtitle": "Mostrar subtítulo",
                     "showTitle": "Mostrar título",
-                    "newsletterV2FieldsType": "Información solicitada"
+                    "newsletterV2FieldsType": "Información solicitada",
+                    "expiresSoon": "El pase caducará pronto",
+                    "isUnlimited": "El pase es ilimitado",
+                    "isSuspended": "El pase está suspendido",
+                    "isShared": "El pase es compartido",
+                    "showWorkshopLinkedOffers": "La sesión pertenece a un taller",
+                    "hasCoachOverride": "El profesor está ausente",
+                    "showWaitlistPosition": "Mostrar posición en lista de espera",
+                    "showCancellationPolicy": "Mostrar la política de cancelación",
+                    "showEstablishmentRoom": "Mostrar sala de establecimiento",
+                    "isMoreDisplayed": "Los botones secundarios se ocultan en un menú",
+                    "isBookableForAGuest": "Se puede reservar para un invitado",
+                    "isCancellable": "Reserva cancelable",
+                    "displayspotSchedulingPosition": "Mostrar la posición en la distribución",
+                    "displayWaitingListPosition": "Mostrar posición en lista de espera",
+                    "isCancelDisabled": "El botón \"Cancelar\" está desactivado",
+                    "isNoShow": "Indicador de reserva ausente",
+                    "isAtHome": "Indicador de reserva a domicilio",
+                    "isUnpaid": "Indicador de reserva impagada",
+                    "isBookedForAGuest": "Indicador de reserva de invitados",
+                    "isOnline": "Indicador de reservas en línea",
+                    "isJoinableOnline": "Las reservas pueden unirse en línea",
+                    "isBookingCancelled": "Se ha cancelado la reserva",
+                    "isBookable": "Se puede reservar",
+                    "isJoinableOnlineDisabled": "El botón \"Unirse en línea\" está desactivado",
+                    "isBookableDisabled": "El botón \"Reservar\" está desactivado",
+                    "isMoreDisabled": "El botón \"Más\" está desactivado",
+                    "isDetailsDisabled": "El botón \"Ver detalles\" está desactivado"
                 },
                 "configurationTitle": "Variaciones",
                 "confirmationMessageComponentAlert": "Este componente gestiona principalmente los estados de reserva y pago. Para personalizar su apariencia, recomendamos utilizar sus componentes raíz situados en la sección común",
@@ -15966,7 +16165,8 @@
                 "marketplaceCheckoutItemListPaymentCombo": "Este componente es una lista de artículos de compra con paquetes. Para ajustar los componentes individuales {{component_name}}, puede utilizar la sección dedicada situada en {{page}} dentro del editor.",
                 "marketplaceCheckoutItemListPrivatePass": "Este componente es una lista de artículos de compra con pases privados. Para ajustar los componentes individuales {{component_name}}, puede utilizar la sección dedicada situada en {{page}} dentro del editor.",
                 "marketplaceProductItemListAlert": "Este componente es una lista de artículos del producto. Para ajustar el componente {{component_name}} individual, puede utilizar la sección dedicada dentro del editor.",
-                "selector": "Este componente se compone de una etiqueta, una entrada y un texto de título. Para personalizar la apariencia de {{component_name}}, recomendamos utilizar su componente raíz"
+                "selector": "Este componente se compone de una etiqueta, una entrada y un texto de título. Para personalizar la apariencia de {{component_name}}, recomendamos utilizar su componente raíz",
+                "authenticationTextField": "Este componente utiliza un componente de campo de texto. Para ajustar {{component_name}} individualmente, puede utilizar la sección dedicada situada en {{page}} dentro del editor."
             },
             "page": {
                 "calendar": "Calendario",
@@ -15979,7 +16179,9 @@
                 "spot_scheduling": "Programación al contado",
                 "authentication": "Autenticación",
                 "checkoutConfirmationPage": "Confirmación de pago",
-                "marketing": "Marketing"
+                "marketing": "Marketing",
+                "memberProfile": "Perfil del miembro",
+                "consumer_space": "Espacio del consumidor"
             },
             "components": {
                 "calendar": "Página del calendario",
@@ -16102,7 +16304,11 @@
                 "fabrique_textform": "Formulario de texto",
                 "selector_input": "Entrada del selector",
                 "selector": "Selector",
-                "marketing_newsletter_form_v2": "Formulario del newsletter"
+                "marketing_newsletter_form_v2": "Formulario del newsletter",
+                "consumer_pass_card": "Tarjeta del bono del consumidor",
+                "consumer_booking_details_card": "Datos de la tarjeta de reserva (para socios)",
+                "consumer_booking_card": "Tarjeta de reserva del consumidor",
+                "authentication_textfield": "Campo de texto de autenticación"
             },
             "customCss": {
                 "yourCode": "Su implementación complementaria:",
@@ -17001,7 +17207,8 @@
                     "members": {
                         "title": "Miembros",
                         "description": "Número de miembros que entraron en el {{ workflowLowerCase }}.",
-                        "label": "miembros ingresados"
+                        "label": "miembro ingresado",
+                        "label_plural": "miembros ingresados"
                     },
                     "success": {
                         "title": "Éxito",
@@ -17011,13 +17218,59 @@
                     "averageTime": {
                         "title": "Tiempo medio",
                         "description": "Periodo medio de tiempo necesario para que un miembro se considere ganado.",
-                        "label": "días de media"
+                        "label": "día de media",
+                        "label_plural": "días de media"
                     },
                     "tags": {
                         "title": "Etiquetas",
                         "description": "Número de etiquetas aplicadas a los miembros en el {{ workflowLowerCase }}.",
-                        "label": "etiquetas"
+                        "label": "etiqueta",
+                        "label_plural": "etiquetas"
                     }
+                },
+                "communication": {
+                    "pushNotif": "Notificaciones Push",
+                    "sms": "SMS",
+                    "email": "Email",
+                    "availableSoon": "Disponible próximamente",
+                    "knowMore": "Más información sobre la funcionalidad adicional {{ upsellName }}",
+                    "title": "Comunicaciones enviadas"
+                }
+            },
+            "memberTable": {
+                "tableColumnLabel": {
+                    "status": "Estado",
+                    "exitDate": "Fecha de salida",
+                    "entryDate": "Fecha de ingreso",
+                    "currentStep": "Fase actual",
+                    "member": "Miembro"
+                },
+                "historicTitle": "Histórico ({{count}})",
+                "title": "Miembros presentes en el {{ workflowLowerCase }} ({{count}})",
+                "searchPlaceHolder": "Buscar..."
+            },
+            "editModal": {
+                "dialog": {
+                    "confirm": "Confirmar",
+                    "cancel": "Cancelar",
+                    "checkboxLabel": "No mostrar más este mensaje.",
+                    "helper": "La edición de los activadores puede cambiar la posición de los miembros en diferentes pasos.",
+                    "title": "Editar flujo de trabajo"
+                }
+            },
+            "listItem": {
+                "toolTip": {
+                    "moreActions": "Más acciones de flujo de trabajo"
+                },
+                "labels": {
+                    "edit": " Editar la configuración del flujo de trabajo",
+                    "archive": "Archivar el flujo de trabajo",
+                    "open": "Abrir",
+                    "notLaunched": "No iniciado",
+                    "paused": "En pausa",
+                    "active": "Activo",
+                    "unarchive": "Desarchivar",
+                    "metrics": "Métricas"
                 }
             }
         }
@@ -18600,6 +18853,44 @@
                 "label": "Activar enlace de referencia"
             },
             "title": "Referencia"
+        },
+        "referralErrors": {
+            "maxUsesReached": {
+                "description": "Se ha alcanzado el número máximo de usos para este enlace de {{ referringMemberFirstName }}.",
+                "title": "Enlace de referencia inutilizable"
+            },
+            "33007": {
+                "description": "El programa de referencia ya no está disponible.",
+                "title": "Referencia caducada"
+            },
+            "33006": {
+                "description": "El programa de referencia ya no está disponible.",
+                "title": "Referencia caducada"
+            },
+            "33005": {
+                "description": "Se ha producido un error al registrar la referencia.",
+                "title": "Error en la referencia"
+            },
+            "33004": {
+                "description": "Se ha producido un error al registrar la referencia.",
+                "title": "Error en la referencia"
+            },
+            "33003": {
+                "description": "Este enlace de referencia ya no es utilizable.",
+                "title": "Enlace de referencia caducado"
+            },
+            "33002": {
+                "description": "Ya eres miembro de este estudio",
+                "title": "Enlace de referencia inutilizable"
+            },
+            "33001": {
+                "description": "El miembro asociado a este enlace de referencia ya no está registrado en el estudio.",
+                "title": "Enlace de referencia inutilizable"
+            },
+            "33000": {
+                "description": "Este enlace de referencia no está disponible para este estudio.",
+                "title": "Enlace de referencia inutilizable"
+            }
         }
     },
     "campaign": {

@@ -1639,7 +1639,8 @@
         "reworked": {
             "myBookings": {
                 "spotSchedulingModal": {
-                    "title": "Configurazione dei posti"
+                    "title": "Configurazione dei posti",
+                    "subtitle": "Trova rapidamente il posto in classe"
                 },
                 "onlineWarningModal": {
                     "message": "Si potrà aprire questo link 15 minuti prima della sessione.",
@@ -1748,7 +1749,29 @@
                 "myBookings": "Scegli una sessione per vedere maggiori dettagli"
             },
             "showLess": "Mostra di meno",
-            "showMore": "Mostra di più"
+            "showMore": "Mostra di più",
+            "myPasses": {
+                "consumerPassCard": {
+                    "buttonsLabel": {
+                        "seeDetails": "Vedi dettagli"
+                    },
+                    "availability": {
+                        "expiresToday": "Ultimo giorno",
+                        "expiresIn": "{{ daysRemaining }} giorno rimanente",
+                        "expiresIn_plural": "{{ daysRemaining }} giorni rimanenti",
+                        "future": "Inizia: {{ startDate }}",
+                        "expired": "Terminato: {{ expirationDate }}",
+                        "active": "Termina: {{ expirationDate }}"
+                    },
+                    "chip": {
+                        "multiStudio": "Multi-studio",
+                        "shared": "Condiviso",
+                        "suspended": "Sospeso"
+                    },
+                    "credits": "{{ creditsLeft }}/{{ totalCredits }} crediti",
+                    "unlimited": "Illimitato"
+                }
+            }
         }
     },
     "search": {
@@ -12429,6 +12452,9 @@
                 "address": "Indirizzo",
                 "owner_address": "Indirizzo del proprietario"
             }
+        },
+        "referral": {
+            "signUpNow": "Grazie per aver utilizzato il referral link di {{ referringMemberFirstName }}. Iscriviti ora per riscattare un buono speciale sul tuo primo acquisto!"
         }
     },
     "waitingList": {
@@ -14157,9 +14183,23 @@
                         "hybridManagementHelper": "Puoi gestire le prenotazioni associate a questa sessione ibrida, sia in sala che online, cliccando sull'icona sottostante per aprire una nuova scheda di gestione.",
                         "hybridLabel": "Questa sessione è sia in presenza che online.",
                         "hybridEditHelper": "Stai modificando una sessione online collegata a una sessione in presenza. Per modificare alcune informazioni è necessario modificare quest'ultima.",
-                        "hybridSection": "Sessione ibrida"
+                        "hybridSection": "Sessione ibrida",
+                        "metaActivity": "Attività"
                     },
                     "title": "Specifiche"
+                },
+                "nameDescriptionOverride": {
+                    "description": {
+                        "captionText": "Aggiungi una descrizione personalizzata a questa sessione",
+                        "label": "Descrizione"
+                    },
+                    "name": {
+                        "captionText": "Aggiungi un nome personalizzato a questa sessione",
+                        "label": "Nome"
+                    },
+                    "showButton": "Mostra il nome personalizzato",
+                    "hideButton": "Nascondi il nome personalizzato",
+                    "setButton": "Imposta un nome personalizzato"
                 }
             },
             "groupedOffer": {
@@ -17111,7 +17151,8 @@
                     "members": {
                         "title": "Membri",
                         "description": "Numero di membri che sono entrati nel {{ workflowLowerCase }}.",
-                        "label": "membri entrati"
+                        "label": "membro entrato",
+                        "label_plural": "membri entrati"
                     },
                     "success": {
                         "title": "Successo",
@@ -17121,13 +17162,59 @@
                     "averageTime": {
                         "title": "Tempo medio",
                         "description": "Periodo medio di tempo necessario perché un membro sia considerato acquisito.",
-                        "label": "giorni in media"
+                        "label": "giorno in media",
+                        "label_plural": "giorni in media"
                     },
                     "tags": {
                         "title": "Tag",
                         "description": "Numero di tag applicati ai membri del {{ workflowLowerCase }}.",
-                        "label": "tag"
+                        "label": "tag",
+                        "label_plural": "tag"
                     }
+                },
+                "communication": {
+                    "pushNotif": "Push notification",
+                    "sms": "SMS",
+                    "email": "Email",
+                    "availableSoon": "Disponibile prossimamente",
+                    "knowMore": "Ulteriori informazioni riguardo {{ upsellName }} upsell",
+                    "title": "Comunicazioni inviate"
+                }
+            },
+            "memberTable": {
+                "tableColumnLabel": {
+                    "status": "Stato",
+                    "exitDate": "Data di uscita",
+                    "entryDate": "Data di ingresso",
+                    "currentStep": "Step corrente",
+                    "member": "Membro"
+                },
+                "historicTitle": "Storico ({{count}})",
+                "title": "Membri presenti nel {{ workflowLowerCase }} ({{count}})",
+                "searchPlaceHolder": "Cerca..."
+            },
+            "editModal": {
+                "dialog": {
+                    "confirm": "Conferma",
+                    "cancel": "Cancella",
+                    "checkboxLabel": "Non mostrare più questo messaggio.",
+                    "helper": "La modifica dei trigger può cambiare la posizione dei membri in diverse fasi.",
+                    "title": "Modifica flusso di lavoro"
+                }
+            },
+            "listItem": {
+                "toolTip": {
+                    "moreActions": "Più azioni sul flusso di lavoro"
+                },
+                "labels": {
+                    "edit": " Modifica le impostazioni del flusso di lavoro",
+                    "archive": "Disattiva flusso di lavoro",
+                    "open": "Aperta",
+                    "notLaunched": "Non avviata",
+                    "paused": "Messo in pausa",
+                    "active": "Attiva",
+                    "unarchive": "Riattiva",
+                    "metrics": "Metriche"
                 }
             }
         }
@@ -18714,6 +18801,38 @@
             "maxUsesReached": {
                 "description": "È stato raggiunto il numero massimo di utilizzi per questo link da parte di {{ referringMemberFirstName }}.",
                 "title": "Referral link inutilizzabile"
+            },
+            "33007": {
+                "description": "Il programma referral non è più disponibile.",
+                "title": "Referral scaduto"
+            },
+            "33006": {
+                "title": "Referral scaduto",
+                "description": "Il programma referral non è più disponibile."
+            },
+            "33005": {
+                "description": "Si è verificato un errore durante la registrazione del referral.",
+                "title": "Errore riguardo il referral"
+            },
+            "33004": {
+                "description": "Si è verificato un errore durante la registrazione del referral.",
+                "title": "Errore sul referral"
+            },
+            "33003": {
+                "description": "Questo referral link non è più usabile.",
+                "title": "Referral link scaduto"
+            },
+            "33002": {
+                "description": "Sei già un membro di questo studio",
+                "title": "Referral link non utilizzabile"
+            },
+            "33001": {
+                "description": "Il membro associato a questo referral link non è più registrato allo studio.",
+                "title": "Referral link non utilizzabile"
+            },
+            "33000": {
+                "description": "Questo referral link non è disponibile per questo studio.",
+                "title": "Referral link non utilizzabile"
             }
         }
     },

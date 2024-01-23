@@ -7903,8 +7903,8 @@
                 "showInvoice": "Rechnung anzeigen",
                 "confirmPayment": "Zahlung bestätigen",
                 "payAll": "Kundenschulden begleichen",
-                "cancel": "Abbrechen",
-                "revert": "Abbrechen",
+                "cancel": "Stornieren",
+                "revert": "Stornieren",
                 "pay": "Rechnung bezahlen",
                 "bill": "Einziehen",
                 "basketInconsistent": "Ihr Warenkorb wurde geändert, bitte aktualisieren Sie Ihre Seite, bevor Sie Ihre Zahlung bestätigen.\nSie wurden nicht belastet.",
@@ -17097,7 +17097,7 @@
                     "member": "Mitglied"
                 },
                 "historicTitle": "Historisch ({{count}})",
-                "title": "Mitglieder im {{ workflowLowerCase }} {{count}}",
+                "title": "Mitglieder im {{ workflowLowerCase }} ({{count}})",
                 "searchPlaceHolder": "Suchen..."
             },
             "editModal": {

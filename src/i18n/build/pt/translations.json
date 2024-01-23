@@ -703,7 +703,9 @@
             "total_on_appointments": "Compensação por  referência",
             "total": "Remuneração total",
             "totalNetGain": "Ganho líquido total",
-            "noShowsAndLateCancellations": "Não comparência e cancelamentos tardios"
+            "noShowsAndLateCancellations": "Não comparência e cancelamentos tardios",
+            "location": "Localização",
+            "establishment": "Estabelecimento"
         },
         "advancedFilters": {
             "apply": "Aplicar filtros",
@@ -715,7 +717,9 @@
             "sessionCoachPaymentRuleSelctor": "Aulas de grupo ",
             "workshopCoachPaymentRuleSelctor": "Workshops",
             "byCoachPaymentruleGroups": "Filtrar por grupo de remuneração",
-            "byCoachPaymentRules": "Filtro por regras de remuneração (para professores sem grupo de remuneração)"
+            "byCoachPaymentRules": "Filtro por regras de remuneração (para professores sem grupo de remuneração)",
+            "establishments": "Estabelecimentos",
+            "locations": "Localizações"
         },
         "cachedData": {
             "title": "Dados guardados ({{ count }})",
@@ -752,7 +756,8 @@
         "pricePerAdditionalBookingLabel": "Variável por marcação",
         "pricePerAdditionalBookingHelper": "Montante pago por todas as reservas acima do limite",
         "form": {
-            "ifEmptyAllowAll": "Deixar em branco para ignorar este filtro"
+            "ifEmptyAllowAll": "Deixar em branco para ignorar este filtro",
+            "selectEstablishments": "Selecionar estabelecimentos"
         },
         "table": {
             "downloadCSV": "Descarregar (.csv)",
@@ -1337,7 +1342,11 @@
                 "isEmpty": "O seu cesto está vazio!",
                 "isEmptyDescription": "Continue a explorar o marketplace!"
             },
-            "goToMarketplace": "Ver o marketplace"
+            "goToMarketplace": "Ver o marketplace",
+            "referral": {
+                "hasReachedMaxUses": "O número máximo de utilizações da hiperligação de referência foi atingido.",
+                "missingAmountBeforeApplication": "O montante mínimo de compra não foi atingido. Corre o risco de perder o seu link de referência. Apenas {{ missingAmount }} mais para poder aproveitar o desconto!"
+            }
         },
         "validation": {
             "actions": {
@@ -1355,7 +1364,8 @@
                 "mySubscription": "Minha subscrição",
                 "myProducts": "Meus Produtos",
                 "myGiftcards": "Meus cartões de oferta",
-                "myPasses": "Meus Passes"
+                "myPasses": "Meus Passes",
+                "backToMyProfile": "Voltar ao meu perfil"
             },
             "sections": {
                 "errorExplain": {
@@ -2218,6 +2228,143 @@
             "settingsInfo": "Se esta opção estiver ativada, os seus dados (velocidade, calorias queimadas, etc.) serão apresentados em tempo real durante a sessão. Se desativar esta opção, os seus dados deixarão de ser visualizados, mas receberá o resumo por e-mail no final da sessão.",
             "settings": "Ver os meus dados em tempo real",
             "settingsTitle": "Dados de rotação"
+        },
+        "reworked": {
+            "myPasses": {
+                "consumerPassCard": {
+                    "buttonsLabel": {
+                        "seeDetails": "Ver detalhes"
+                    },
+                    "availability": {
+                        "expiresToday": "Último dia",
+                        "expiresIn": "{{ daysRemaining }}dia restante",
+                        "expiresIn_plural": "{{ daysRemaining }} dias restantes",
+                        "future": "Começa: {{ startDate }}",
+                        "expired": "Expirado: {{ expirationDate }}",
+                        "active": "Expira{{ expirationDate }}"
+                    },
+                    "chip": {
+                        "multiStudio": "Multi-studios",
+                        "shared": "Partilhado",
+                        "suspended": "Suspenso"
+                    },
+                    "credits": "{{ creditsLeft }}{{ totalCredits }} créditos",
+                    "unlimited": "Ilimitado"
+                }
+            },
+            "myBookings": {
+                "spotSchedulingModal": {
+                    "subtitle": "Encontre rapidamente o seu lugar na aula",
+                    "title": "Spot schedule"
+                },
+                "onlineWarningModal": {
+                    "message": "Poderá abrir este link 15 minutos antes da sessão.",
+                    "subtitle": "A sessão terá início em {{- date}} às {{hour}}",
+                    "title": "Atividade online"
+                },
+                "cancelModal": {
+                    "group": {
+                        "listTitle": "Reservas que serão canceladas:",
+                        "alert": {
+                            "message": "Contacte o estúdio se desejar cancelar uma única sessão.",
+                            "title": "Todas as reservas para este evento serão canceladas"
+                        },
+                        "message": "Esta reserva faz parte de um grupo.\nSerá automaticamente anulado o registo de todas as sessões futuras associadas a este evento. Os créditos serão reembolsados e poderão ser utilizados novamen"
+                    },
+                    "noRefund": "O(s) seu(s) crédito(s) não será(ão) reembolsado(s) em caso de cancelamento tardio.",
+                    "creditsWillBeRefunded": "{{count}} crédito será reembolsado.",
+                    "creditsWillBeRefunded_plural": "{{count}}créditos serão reembolsados.",
+                    "title": "Cancelar sessão"
+                },
+                "detailsCard": {
+                    "workshop": {
+                        "title": "Agrupado com este  workshop"
+                    },
+                    "teacher": {
+                        "subtitutedBy": "Subtituído por",
+                        "absent": "Ausente",
+                        "title": "Professor"
+                    },
+                    "waitlist": {
+                        "position": "A sua posição na lista de espera é: {{position}}"
+                    },
+                    "cancellationPolicy": {
+                        "maxDuration": "Os cancelamentos são possíveis sem quaisquer encargos até {{days}} dia(s),{{hours}} hora(s), e {{minutes}}minuto(s)",
+                        "noDuration": "Os cancelamentos são sempre possíveis sem quaisquer encargos.",
+                        "title": "Política de cancelamento"
+                    },
+                    "description": {
+                        "title": "Descrição"
+                    },
+                    "location": {
+                        "title": "Localização"
+                    },
+                    "relatedPass": {
+                        "title": "Passe relacionado"
+                    },
+                    "cancelled": {
+                        "refundWarning": "Não há reembolso de créditos para cancelamentos tardios",
+                        "creditsToRefund": "{{count}} crédito será reembolsado",
+                        "creditsToRefund_plural": "{{count}}créditos serão reembolsados",
+                        "cancelledFromManager": "Cancelado pelo diretor do estúdio",
+                        "cancelledFromMember": "Cancelado por você",
+                        "title": "Cancelado"
+                    }
+                },
+                "consumerBookingCard": {
+                    "listItemLabels": {
+                        "spotSchedulingPosition": "Spot{{ spotSchedulingPosition }}",
+                        "waitingList": "A sua posição na lista de espera é: {{ waitingListPosition }}"
+                    },
+                    "buttonsLabel": {
+                        "bookForAGuest": "Reservar para um convidado",
+                        "joinOnline": "Participar em linha",
+                        "book": "Reservar",
+                        "seeDetails": "Ver detalhes",
+                        "more": "Mais",
+                        "cancel": "Cancelar"
+                    },
+                    "chip": {
+                        "status": {
+                            "cancelled": "Cancelado",
+                            "bookedForAGuest": "Reservado para um convidado",
+                            "unpaid": "Não pago"
+                        },
+                        "noShow": "Não comparência",
+                        "atHome": "Em casa",
+                        "online": "Online"
+                    }
+                },
+                "listContainer": {
+                    "placeholder": {
+                        "workshop": {
+                            "future": "Não há workshops agendados.",
+                            "past": "Não há workshops anteriores para mostrar."
+                        },
+                        "activity": {
+                            "future": "Não estão previstas actividades futuras.",
+                            "past": "Não há actividades anteriores para mostrar."
+                        }
+                    }
+                },
+                "filter": {
+                    "onWaitlist": "Em lista de espera",
+                    "past": "Passado",
+                    "upcoming": "Próximos"
+                },
+                "tab": {
+                    "workshops": "Workshops",
+                    "appointments": "Marcações",
+                    "activities": "Atividades"
+                },
+                "bookASession": "Reservar uma sessão",
+                "title": "Minhas reservas"
+            },
+            "placeholderCard": {
+                "myBookings": "Seleccione uma sessão para ver mais detalhes"
+            },
+            "showLess": "Mostrar menos",
+            "showMore": "Mostrar mais"
         }
     },
     "coupon": {
@@ -13141,7 +13288,20 @@
                     "withMaxCharacters": "Com comprimento máximo de caracteres",
                     "showSubtitle": "Mostrar legenda",
                     "showTitle": "Mostrar título",
-                    "newsletterV2FieldsType": "Informações solicitadas"
+                    "newsletterV2FieldsType": "Informações solicitadas",
+                    "expiresSoon": "O passe expirará em breve",
+                    "isUnlimited": "O passe é ilimitado",
+                    "isSuspended": "O passe está suspenso",
+                    "isShared": "O passe é partilhado",
+                    "showWorkshopLinkedOffers": "A sessão é de um workshop",
+                    "hasCoachOverride": "O professor está ausente",
+                    "showWaitlistPosition": "Mostrar a posição na lista de espera",
+                    "showCancellationPolicy": "Mostrar política de cancelamento",
+                    "showEstablishmentRoom": "Mostrar sala de estabelecimento",
+                    "isMoreDisplayed": "Os botões secundários estão ocultos num menu",
+                    "isBookableForAGuest": "A reserva pode ser reservada para um convidado",
+                    "isCancellable": "A reserva é anulável",
+                    "displayWaitingListPosition": "Mostrar a posição na lista de espera"
                 },
                 "configurationTitle": "Variações",
                 "confirmationMessageComponentAlert": "Este componente gere principalmente os estados da reserva e do pagamento. Para personalizar o seu aspeto, recomendamos a utilização dos seus componentes de raiz localizados na secção comum",
@@ -13150,7 +13310,8 @@
                 "marketplaceCheckoutItemListPaymentCombo": "Este componente é uma lista de itens de checkout com pacotes. Para ajustar os {{component_name}} pode utilizar a secção dedicada localizada em {{page}} no editor",
                 "marketplaceCheckoutItemListPrivatePass": "Este componente é uma lista de itens de checkout com passes privados. Para afinar os passes individuais {{component_name}} pode utilizar a secção dedicada localizada em {{page}} no editor.",
                 "marketplaceProductItemListAlert": "Este componente é uma lista de artigos de produtos. Para ajustar os {{component_name}} pode utilizar a secção dedicada no editor.",
-                "selector": "Este componente é composto por uma etiqueta, uma entrada e um texto de legenda. Para personalizar o {{component_name}} recomendamos a utilização do seu componente de raiz"
+                "selector": "Este componente é composto por uma etiqueta, uma entrada e um texto de legenda. Para personalizar o {{component_name}} recomendamos a utilização do seu componente de raiz",
+                "authenticationTextField": "Este componente utiliza um componente de campo de texto. Para ajustar o {{component_name}} pode utilizar a secção específica localizada em {{page}}no editor."
             },
             "components": {
                 "contractTermsModal": "Pop-up com a menções legais da subscrição",
@@ -13273,7 +13434,11 @@
                 "fabrique_textform": "Formulário de texto",
                 "selector_input": "Entrada do seletor",
                 "selector": "Seletor",
-                "marketing_newsletter_form_v2": "Formulário do Newsletter"
+                "marketing_newsletter_form_v2": "Formulário do Newsletter",
+                "consumer_pass_card": "Cartão de passe do consumidor",
+                "consumer_booking_details_card": "Cartão de dados de reserva (para membro)",
+                "consumer_booking_card": "Cartão de reserva do consumidor",
+                "authentication_textfield": "Campo de texto de autenticação"
             },
             "cssEditor": {
                 "reset": "reposto",
@@ -13370,7 +13535,9 @@
                 "spot_scheduling": "Spot scheduling",
                 "authentication": "Autenticação",
                 "checkoutConfirmationPage": "Confirmação de pagamento",
-                "marketing": "Marketing"
+                "marketing": "Marketing",
+                "memberProfile": "Perfil de membro",
+                "consumer_space": "Espaço do consumidor"
             },
             "customCss": {
                 "yourCode": "A sua implementação complementar:",
@@ -17715,7 +17882,10 @@
             "disconnect": "Conectar de novo",
             "explain": "A sua sessão expirou. Iniciou sessão em duas contas diferentes ao mesmo tempo ou terminou sessão a partir de outro separador/janela ?"
         },
-        "contactUs": "É um gestor de estúdio interessado na nossa solução?\nContacte-nos."
+        "contactUs": "É um gestor de estúdio interessado na nossa solução?\nContacte-nos.",
+        "referral": {
+            "signUpNow": "Obrigado por utilizar a ligação de referência de {{ referringMemberFirstName }} Registe-se agora para resgatar um vale especial no seu primeiro cesto!"
+        }
     },
     "datetime": {
         "form": {

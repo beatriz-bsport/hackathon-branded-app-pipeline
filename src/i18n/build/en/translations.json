@@ -18610,5 +18610,12 @@
         "mail": {
             "customDomainNotDefined": "You did not define a custom domain. Please get in touch with our team to initiate the configuration process."
         }
+    },
+    "referral": {
+        "referralErrors": {
+            "33004": {
+                "description": "An error has been encountered while registering the referral."
+            }
+        }
     }
 }

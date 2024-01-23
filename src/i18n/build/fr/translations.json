@@ -674,7 +674,11 @@
                 "isEmpty": "Votre panier est vide!",
                 "isEmptyDescription": "Poursuivez votre exploration de la marketplace!"
             },
-            "goToMarketplace": "Voir la marketplace"
+            "goToMarketplace": "Voir la marketplace",
+            "referral": {
+                "hasReachedMaxUses": "Le nombre maximum d'utilisations du lien de parrainage a été atteint.",
+                "missingAmountBeforeApplication": "Le montant minimum d'achat n'a pas été atteint. Vous risquez de perdre votre lien de parrainage. Il suffit de {{ missingAmount }} de plus pour pouvoir bénéficier de la réduction !"
+            }
         },
         "payLater": {
             "submit": "Payer sur place",
@@ -709,7 +713,8 @@
                 "mySubscription": "Mon abonnement",
                 "myProducts": "Mes achats",
                 "myGiftcards": "Mes cartes cadeaux",
-                "myPasses": "Mes cartes de cours"
+                "myPasses": "Mes cartes de cours",
+                "backToMyProfile": "Retour à mon profil"
             },
             "sections": {
                 "explain": "Votre opération a bien été prise en compte. Nous vous enverrons un mail de confirmation.",
@@ -953,7 +958,8 @@
     },
     "coachPerformance": {
         "form": {
-            "ifEmptyAllowAll": "Laisser vide pour ignorer ce filtre"
+            "ifEmptyAllowAll": "Laisser vide pour ignorer ce filtre",
+            "selectEstablishments": "Sélectionner les établissements"
         },
         "fields": {
             "bonus": "Bonus",
@@ -977,7 +983,9 @@
             "marginValue": "Apport marginal",
             "netGain": "Gain net",
             "totalNetGain": "Gain net total",
-            "noShowsAndLateCancellations": "Absences et annulations tardives"
+            "noShowsAndLateCancellations": "Absences et annulations tardives",
+            "location": "Localisation",
+            "establishment": "Établissement"
         },
         "table": {
             "download": "Télécharger",
@@ -1028,7 +1036,9 @@
             "workshopCoachPaymentRuleSelctor": "Ateliers",
             "privateserviceCoachPaymentRuleSelector": "Rendez-vous",
             "byCoachPaymentruleGroups": "Filtrer par groupes de rémunérations",
-            "byCoachPaymentRules": "Filtrer par règles de rémunérations (pour les professeurs sans groupe de rémunération)"
+            "byCoachPaymentRules": "Filtrer par règles de rémunérations (pour les professeurs sans groupe de rémunération)",
+            "establishments": "Établissements",
+            "locations": "Localisations"
         },
         "cachedData": {
             "title": "Données sauvegardées ({{ count }})",
@@ -1643,6 +1653,143 @@
             "settingsTitle": "Données de spinning",
             "settings": "Afficher mes données en temps réel",
             "settingsInfo": "Si cette option est activée, vos données (vitesse, calories dépensées...) seront affichées en temps réel lors de votre séance. En désactivant cette option, vos données n'apparaitront plus mais vous recevrez bien en fin de cours votre récapitulatif par email."
+        },
+        "reworked": {
+            "myPasses": {
+                "consumerPassCard": {
+                    "buttonsLabel": {
+                        "seeDetails": "Voir détails"
+                    },
+                    "availability": {
+                        "expiresToday": "Dernier jour",
+                        "expiresIn": "{{ daysRemaining }} jour restant",
+                        "expiresIn_plural": "{{ daysRemaining }} jours restants",
+                        "future": "Débute le : {{ startDate }}",
+                        "expired": "A expiré le : {{ expirationDate }}",
+                        "active": "Expire le : {{ expirationDate }}"
+                    },
+                    "chip": {
+                        "multiStudio": "Multi-studios",
+                        "shared": "Partagé",
+                        "suspended": "Suspendu"
+                    },
+                    "credits": "{{ creditsLeft }}/{{ totalCredits }} crédits",
+                    "unlimited": "Illimité"
+                }
+            },
+            "myBookings": {
+                "spotSchedulingModal": {
+                    "subtitle": "Trouvez rapidement votre place dans la classe",
+                    "title": "Spot schedule"
+                },
+                "onlineWarningModal": {
+                    "message": "Vous pourrez ouvrir ce lien 15 minutes avant la séance.",
+                    "subtitle": "La séance débutera le {{- date}} à {{hour}}",
+                    "title": "Activité en ligne"
+                },
+                "cancelModal": {
+                    "group": {
+                        "listTitle": "Réservations qui seront annulées :",
+                        "alert": {
+                            "message": "Contactez le studio si vous souhaitez annuler uniquement une séance.",
+                            "title": "Toutes les réservations pour cet événement seront annulées"
+                        },
+                        "message": "Cette réservation fait partie d'un groupe.\nVous serez automatiquement désinscrit de toutes les séances futures associées à cet événement. Les crédits seront remboursés et pourront être réutilisés."
+                    },
+                    "noRefund": "Votre crédit ne sera pas remboursé en cas d'annulation tardive.",
+                    "creditsWillBeRefunded": "{{count}} crédit sera remboursé.",
+                    "creditsWillBeRefunded_plural": "{{count}} crédits seront remboursé.",
+                    "title": "Annuler la séance"
+                },
+                "detailsCard": {
+                    "workshop": {
+                        "title": "Regroupées avec cet atelier"
+                    },
+                    "teacher": {
+                        "subtitutedBy": "Remplacé par",
+                        "absent": "Absent",
+                        "title": "Professeur"
+                    },
+                    "waitlist": {
+                        "position": "Votre position sur la liste d'attente est : {{position}}"
+                    },
+                    "cancellationPolicy": {
+                        "maxDuration": "Les annulations sont possibles sans frais jusqu'à {{days}} jour(s), {{hours}} heure(s) et {{minutes}} minute(s).",
+                        "noDuration": "Les annulations sont toujours possibles sans frais.",
+                        "title": "Politique d'annulation"
+                    },
+                    "description": {
+                        "title": "Description"
+                    },
+                    "location": {
+                        "title": "Localisation"
+                    },
+                    "relatedPass": {
+                        "title": "Carte connexe"
+                    },
+                    "cancelled": {
+                        "refundWarning": "Aucun crédit ne sera remboursé en cas d'annulation tardive",
+                        "creditsToRefund": "{{count}} crédit sera remboursé",
+                        "creditsToRefund_plural": "{{count}} crédits seront remboursés",
+                        "cancelledFromManager": "Annulé par le responsable du studio",
+                        "cancelledFromMember": "Annulation de votre part",
+                        "title": "Annulé"
+                    }
+                },
+                "consumerBookingCard": {
+                    "listItemLabels": {
+                        "spotSchedulingPosition": "Spot {{ spotSchedulingPosition }}",
+                        "waitingList": "Votre position sur la liste d'attente est : {{ waitingListPosition }}"
+                    },
+                    "buttonsLabel": {
+                        "bookForAGuest": "Réserver pour un invité",
+                        "joinOnline": "Inscription en ligne",
+                        "book": "Réserver",
+                        "seeDetails": "Voir détails",
+                        "more": "Plus",
+                        "cancel": "Annuler"
+                    },
+                    "chip": {
+                        "status": {
+                            "cancelled": "Annulé",
+                            "bookedForAGuest": "Réservé pour un invité",
+                            "unpaid": "Impayé"
+                        },
+                        "noShow": "Absence",
+                        "atHome": "A domicile",
+                        "online": "En ligne"
+                    }
+                },
+                "listContainer": {
+                    "placeholder": {
+                        "workshop": {
+                            "future": "Aucun atelier n'est prévu pour le moment.",
+                            "past": "Aucun atelier passé."
+                        },
+                        "activity": {
+                            "future": "Aucune activité n'est prévue pour le moment.",
+                            "past": "Aucune activité passée."
+                        }
+                    }
+                },
+                "filter": {
+                    "onWaitlist": "Sur liste d'attente",
+                    "past": "Passé",
+                    "upcoming": "À venir"
+                },
+                "tab": {
+                    "workshops": "Ateliers",
+                    "appointments": "Rendez-vous",
+                    "activities": "Activités"
+                },
+                "bookASession": "Réserver une séance",
+                "title": "Mes réservations"
+            },
+            "placeholderCard": {
+                "myBookings": "Choisissez une séance pour en savoir plus"
+            },
+            "showLess": "Voir moins",
+            "showMore": "Voir plus"
         }
     },
     "coupon": {
@@ -3807,6 +3954,9 @@
             "title": "Bienvenue chez {{- companyName}} !",
             "begin": "Commencer",
             "textExplain": "Félicitations, votre inscription a bien été finalisée. Vous pouvez dès maintenant commencer à profiter de votre compte et réserver vos premières séances."
+        },
+        "referral": {
+            "signUpNow": "Merci d'avoir utilisé le lien de parrainage de {{ referringMemberFirstName }}. Inscrivez-vous dès maintenant pour bénéficier d'un bon d'achat sur votre premier panier !"
         }
     },
     "marketing": {
@@ -3859,7 +4009,7 @@
                 "establishmentGroup": "Localisation",
                 "birthday": "Anniversaire",
                 "meta_activity": "Activité",
-                "workshop": "Atelier",
+                "workshop": "Ateliers",
                 "establishment": "Salle",
                 "private_service": "Rendez-vous",
                 "payment_pack": "Carte de cours",
@@ -4583,7 +4733,8 @@
                     "members": {
                         "title": "Membres",
                         "description": "Nombre de membres qui sont entrés dans le {{ workflowLowerCase }}.",
-                        "label": "membres entrés"
+                        "label": "membre entré",
+                        "label_plural": "membres entrés"
                     },
                     "success": {
                         "title": "Succès",
@@ -4593,13 +4744,59 @@
                     "averageTime": {
                         "title": "Durée moyenne",
                         "description": "Durée moyenne nécessaire pour qu'un membre soit considéré comme gagné.",
-                        "label": "jours en moyenne"
+                        "label": "jour en moyenne",
+                        "label_plural": "jours en moyenne"
                     },
                     "tags": {
                         "title": "Tags",
                         "description": "Nombre de tags appliqués aux membres dans le {{ workflowLowerCase }}.",
-                        "label": "tags"
+                        "label": "tag",
+                        "label_plural": "tags"
                     }
+                },
+                "communication": {
+                    "pushNotif": "Notification push",
+                    "sms": "SMS",
+                    "email": "Email",
+                    "availableSoon": "Bientôt disponible",
+                    "knowMore": "Plus d'informations sur l'upsell {{ upsellName }}",
+                    "title": "Communications envoyées"
+                }
+            },
+            "memberTable": {
+                "tableColumnLabel": {
+                    "status": "Statut",
+                    "exitDate": "Date de sortie",
+                    "entryDate": "Date d'entrée",
+                    "currentStep": "Étape actuelle",
+                    "member": "Membre"
+                },
+                "historicTitle": "Historique ({{count}})",
+                "title": "Membres présents dans {{ workflowLowerCase }} ({{count}})",
+                "searchPlaceHolder": "Rechercher..."
+            },
+            "editModal": {
+                "dialog": {
+                    "confirm": "Confirmer",
+                    "cancel": "Annuler",
+                    "checkboxLabel": "Ne plus afficher ce message.",
+                    "helper": "L'édition des déclencheurs peut modifier la position des membres dans les différentes étapes.",
+                    "title": "Éditer le workflow"
+                }
+            },
+            "listItem": {
+                "toolTip": {
+                    "moreActions": "Plus d'actions sur le workflow"
+                },
+                "labels": {
+                    "edit": " Modifier les paramètres du workflow",
+                    "archive": "Archiver le workflow",
+                    "open": "Ouvrir",
+                    "notLaunched": "Non lancé",
+                    "paused": "En pause",
+                    "active": "Actif",
+                    "unarchive": "Désarchiver",
+                    "metrics": "Métriques"
                 }
             }
         }
@@ -6319,7 +6516,8 @@
                         "roomBlueprint": {
                             "title": "Spot scheduling",
                             "placeholder": "Sélectionner un plan"
-                        }
+                        },
+                        "metaActivity": "Activité"
                     },
                     "tooltip": {
                         "broadcastLink": "Le lien sera généré automatiquement pour ZOOM par bsport",
@@ -6415,6 +6613,19 @@
                         "isCoachOverridePropagate": "Appliquer les changements sur le professeur remplaçant aux séances sélectionnées"
                     },
                     "info": "En cochant cette case les changements appliqués au professeur remplaçant de cette séance seront appliqués à toutes les séances similaires. Sinon ils ne seront appliqués qu’à cette séance."
+                },
+                "nameDescriptionOverride": {
+                    "description": {
+                        "captionText": "Ajouter une description personnalisée à cette séance",
+                        "label": "Description"
+                    },
+                    "name": {
+                        "captionText": "Ajouter un nom personnalisé à cette séance",
+                        "label": "Nom"
+                    },
+                    "showButton": "Afficher le nom personnalisé",
+                    "hideButton": "Masquer le nom personnalisé",
+                    "setButton": "Définir un nom personnalisé"
                 }
             },
             "dialog": {
@@ -9332,6 +9543,44 @@
                 "reward1": "Si le premier achat (hors souscription) est réalisé selon les modalités décrites, le membre parrain se verra <1>récompensé d'une somme de {{ referringReward }}</1>. Elle pourra être obtenue pour chaque membre parrainé dans la limite de {{ maxReferralUses }} fois.",
                 "reward2": "La récompense s'appliquera automatiquement sur ses prochains paniers du membre parrain : sans conditions de temps ou de montant pour l'application. Elle pourra également s'appliquer en plusieurs fois si le montant du panier est inférieur à la récompense.",
                 "warning": "Attention : le parrainage ne fonctionne que pour les nouveaux membres du studio ou de la franchise."
+            }
+        },
+        "referralErrors": {
+            "33002": {
+                "title": "Lien de parrainage inutilisable",
+                "description": "Vous êtes déjà membre de ce studio"
+            },
+            "maxUsesReached": {
+                "description": "{{ referringMemberFirstName }} a atteint le nombre maximum d'utilisations de ce lien.",
+                "title": "Lien de parrainage inutilisable"
+            },
+            "33007": {
+                "description": "Le programme de parrainage n'est plus disponible.",
+                "title": "Parrainage expiré"
+            },
+            "33006": {
+                "description": "Le programme de parrainage n'est plus disponible.",
+                "title": "Parrainage expiré"
+            },
+            "33005": {
+                "description": "Une erreur a été rencontrée lors de l'enregistrement du parrainage.",
+                "title": "Erreur parrainage"
+            },
+            "33004": {
+                "description": "Une erreur a été rencontrée lors de l'enregistrement du parrainage.",
+                "title": "Erreur parrainage"
+            },
+            "33003": {
+                "description": "Ce lien de parrainage n'est plus utilisable.",
+                "title": "Lien de parrainage expiré"
+            },
+            "33000": {
+                "title": "Lien de parrainage inutilisable",
+                "description": "Ce lien de parrainage n'est pas disponible pour ce studio."
+            },
+            "33001": {
+                "title": "Lien de parrainage inutilisable",
+                "description": "Le membre associé à ce lien de parrainage n'est plus inscrit au studio."
             }
         }
     },
@@ -13966,6 +14215,9 @@
                 "error": "Une erreur s'est produite lors de l'édition du {{ workflowLowerCase }}",
                 "success": "Votre {{ workflowLowerCase }} a été mis à jour"
             }
+        },
+        "privateSlot": {
+            "notAvailableForBookingAnymore": "Ce créneau n'est plus disponible."
         }
     },
     "spotScheduling": {
@@ -16807,20 +17059,23 @@
             "keys": {
                 "created": "Réservations maintenues",
                 "cancelled": "Réservations annulées",
-                "offers": "Offres"
+                "offers": "Offres",
+                "waitingLists": "Listes d'attente"
             },
             "weekOf": "Semaine du {{date}}",
             "chartsItemLabel": {
                 "numberOfSessions": "Séances",
                 "numberOfCancelledBookings": "Réservations annulées",
-                "numberOfConfirmedBookings": "Réservations enregistrées"
+                "numberOfConfirmedBookings": "Réservations enregistrées",
+                "waitingListSize": "Sur liste d'attente"
             },
             "bookingsTotalCount": "{{nb}} <0/> réservation au total",
             "bookingsTotalCount_plural": "{{nb}} <0/> réservations au total",
             "totalOffers": "{{ nb_offers }} <0/> session au total",
             "totalOffers_plural": "{{ nb_offers }} <0/> sessions au total",
             "bookingsCancelled": "{{nb}} annulées",
-            "confirmedBookings": "{{nb}} confirmées"
+            "confirmedBookings": "{{nb}} confirmées",
+            "waitingListSize": "{{nb}} sur liste d'attente"
         },
         "quickInvoiceVoucher": "Choisissez la réduction à appliquer lors de la facturation du pass suivant",
         "quickInvoiceNoVoucher": "Laissez la valeur de ce champ à 0 si vous ne souhaitez pas appliquer de réduction",
@@ -17340,7 +17595,11 @@
                 "fabrique_textform": "Formulaire de texte",
                 "selector_input": "Entrée du sélecteur",
                 "selector": "Sélecteur",
-                "marketing_newsletter_form_v2": "Formulaire de la newsletter"
+                "marketing_newsletter_form_v2": "Formulaire de la newsletter",
+                "consumer_pass_card": "Carte de la carte du consommateur",
+                "consumer_booking_details_card": "Carte de détail de réservation (pour les membres)",
+                "consumer_booking_card": "Carte de réservation du consommateur",
+                "authentication_textfield": "Champ de texte d'authentification"
             },
             "page": {
                 "common": "Commun",
@@ -17354,7 +17613,9 @@
                 "spot_scheduling": "Spot scheduling",
                 "authentication": "Authentification",
                 "checkoutConfirmationPage": "Confirmation de paiement",
-                "marketing": "Marketing"
+                "marketing": "Marketing",
+                "memberProfile": "Profile du membre",
+                "consumer_space": "Espace consommateur"
             },
             "cssConfig": {
                 "configurationTitle": "Variations",
@@ -17448,7 +17709,34 @@
                     "withMaxCharacters": "Avec une longueur de caractères maximum",
                     "showSubtitle": "Afficher le sous-titre",
                     "showTitle": "Afficher le titre",
-                    "newsletterV2FieldsType": "Renseignements demandés"
+                    "newsletterV2FieldsType": "Renseignements demandés",
+                    "expiresSoon": "La carte de cours expire bientôt",
+                    "isUnlimited": "La carte de cours est illimitée",
+                    "isSuspended": "La carte de cours est suspendue",
+                    "isShared": "La carte de cours est partagée",
+                    "showWorkshopLinkedOffers": "La séance est issue d'un atelier",
+                    "hasCoachOverride": "Le professeur est absent",
+                    "showWaitlistPosition": "Afficher la position sur liste d'attente",
+                    "showCancellationPolicy": "Afficher les conditions d'annulation",
+                    "showEstablishmentRoom": "Afficher la salle de l'établissement",
+                    "isMoreDisplayed": "Les boutons secondaires sont cachés dans un menu",
+                    "isBookableForAGuest": "La réservation est possible pour un invité",
+                    "isCancellable": "La réservation peut être annulée",
+                    "displayWaitingListPosition": "Afficher la position sur liste d'attente",
+                    "displayspotSchedulingPosition": "Afficher la position du spot",
+                    "isCancelDisabled": "Le bouton \"Annuler\" est désactivé",
+                    "isNoShow": "Indicateur de réservation avec absence",
+                    "isAtHome": "Indicateur de réservation à domicile",
+                    "isUnpaid": "Indicateur de réservation impayée",
+                    "isBookedForAGuest": "Indicateur de réservation pour un invité",
+                    "isOnline": "Indicateur de réservation en ligne",
+                    "isJoinableOnline": "La réservation est joignable en ligne",
+                    "isBookingCancelled": "Réservation annulée",
+                    "isBookable": "Réservation possible",
+                    "isJoinableOnlineDisabled": "Le bouton \"Rejoindre en ligne\" est désactivé",
+                    "isBookableDisabled": "Le bouton \"Réserver\" est désactivé",
+                    "isMoreDisabled": "Le bouton \"Plus\" est désactivé",
+                    "isDetailsDisabled": "Le bouton \"Voir détails\" est désactivé"
                 },
                 "option": {
                     "true": "Oui",
@@ -17539,7 +17827,9 @@
                     "emailOnly": "Adresse électronique uniquement",
                     "firstNameAndEmail": "Prénom et adresse électronique",
                     "fullNameAndEmail": "Nom complet et adresse électronique",
-                    "default": "Défaut"
+                    "default": "Défaut",
+                    "clickableText": "Texte cliquable",
+                    "standard": "Standard"
                 },
                 "confirmationMessageComponentAlert": "Ce composant gère principalement les statuts de réservation et de paiement. Pour personnaliser son apparence, nous recommandons d'utiliser ses composants racine situés dans la section commune",
                 "marketplaceOfferBookingList": "Ce composant est une liste de séances réservées. Pour affiner les composants de {{component_name}}, vous pouvez utiliser la section dédiée dans l'éditeur.",
@@ -17547,7 +17837,8 @@
                 "marketplaceCheckoutItemListPrivatePass": "Ce composant est une liste d'articles avec des cartes de rendez-vous. Pour affiner les composants de {{component_name}}, vous pouvez utiliser la section dédiée située dans {{page}} au sein de l'éditeur.",
                 "marketplaceCheckoutItemListPaymentCombo": "Ce composant est une liste d'articles avec des packs. Pour affiner les composants de {{component_name}}, vous pouvez utiliser la section dédiée située dans {{page}} au sein de l'éditeur.",
                 "marketplaceProductItemListAlert": "Ce composant est une liste d'articles de produits. Pour peaufiner le composant {{component_name}}, vous pouvez utiliser la section dédiée dans l'éditeur.",
-                "selector": "Ce composant est composé d'une étiquette et d'une entrée, ainsi que d'un texte de légende. Pour personnaliser l'apparence du {{nom_du_composant}}, nous recommandons d'utiliser son composant racine"
+                "selector": "Ce composant est composé d'une étiquette et d'une entrée, ainsi que d'un texte de légende. Pour personnaliser l'apparence du {{nom_du_composant}}, nous recommandons d'utiliser son composant racine",
+                "authenticationTextField": "Ce composant utilise un composant champ de texte. Pour affiner chaque {{component_name}}, vous pouvez utiliser la section dédiée située dans {{page}} au sein de l'éditeur."
             },
             "newsletterV2": {
                 "showSubtitle": "Afficher le sous-titre",

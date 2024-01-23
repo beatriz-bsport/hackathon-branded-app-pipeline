@@ -17,10 +17,144 @@ import YearPicker from './YearPicker';
 import './styles.css';
 
 export type DatePickerProps = {
+  /** If `true` only the content of the calendar will be returned */
+  isContentOnly?: boolean;
   dateSelected: string;
   disablePast?: boolean;
   onSelect: (date: string) => void;
-} & Omit<MenuProps, 'children'>;
+} & Partial<Omit<MenuProps, 'children'>>;
+
+type DatePickerMenuContentProps = {
+  dateDisplayed: Moment;
+  isYearPickerOpen: boolean;
+  nbDisplayedWeeks: number;
+  startingDay: Moment;
+  dateSelected: string;
+  toggleYearPicker: () => void;
+  handleChangeDateDisplayed: (
+    type: 'add' | 'subtract',
+  ) => (event: React.MouseEvent<HTMLButtonElement>) => void;
+  handleSelectYear: (year: number) => void;
+  isDayDisabled: (dayString: string) => boolean;
+  handleSelect: (date: string) => () => void;
+};
+
+const DatePickerMenuContent: React.FC<DatePickerMenuContentProps> = React.memo(
+  ({
+    dateDisplayed,
+    isYearPickerOpen,
+    nbDisplayedWeeks,
+    startingDay,
+    dateSelected,
+    toggleYearPicker,
+    handleChangeDateDisplayed,
+    handleSelectYear,
+    isDayDisabled,
+    handleSelect,
+  }) => (
+    <div className="bs-fabrique-date-picker__menu">
+      <div className="bs-fabrique-date-picker__menu__header">
+        <ButtonBase
+          className="bs-fabrique-date-picker__menu__header__date"
+          onClick={toggleYearPicker}
+        >
+          {dateDisplayed.format('MMMM YYYY')}
+          <span
+            className={classNames(
+              'bs-fabrique-date-picker__menu__header__date__icon',
+              {
+                'bs-fabrique-date-picker__menu__header__date__icon--year-picker-open':
+                  isYearPickerOpen,
+                'bs-fabrique-date-picker__menu__header__date__icon--year-picker-close':
+                  !isYearPickerOpen,
+              },
+            )}
+          >
+            {!isYearPickerOpen ? (
+              <ChevronDown stroke="currentColor" />
+            ) : (
+              <ChevronUp stroke="currentColor" />
+            )}
+          </span>
+        </ButtonBase>
+        <div
+          className={classNames(
+            'bs-fabrique-date-picker__menu__header__buttons',
+            {
+              'bs-fabrique-date-picker__menu__header__buttons--hidden':
+                isYearPickerOpen,
+            },
+          )}
+        >
+          <button
+            className="bs-fabrique-date-picker__menu__header__buttons__left"
+            onClick={handleChangeDateDisplayed('subtract')}
+            type="button"
+          >
+            <ChevronLeft />
+          </button>
+          <button
+            className="bs-fabrique-date-picker__menu__header__buttons__right"
+            onClick={handleChangeDateDisplayed('add')}
+            type="button"
+          >
+            <ChevronRight />
+          </button>
+        </div>
+      </div>
+      <YearPicker isOpen={isYearPickerOpen} onSelectYear={handleSelectYear} />
+      <div
+        className={classNames('bs-fabrique-date-picker__menu__calendar', {
+          'bs-fabrique-date-picker__menu__calendar--hidden': isYearPickerOpen,
+        })}
+      >
+        {Array(7)
+          .fill(0)
+          .map((value, i) => (
+            <div
+              key={`header-${i}`}
+              className="bs-fabrique-date-picker__menu__calendar__day bs-fabrique-date-picker__menu__calendar__day--header"
+            >
+              {moment()
+                .weekday(value + i)
+                .format('ddd')
+                .slice(0, 1)}
+            </div>
+          ))}
+        {Array(nbDisplayedWeeks)
+          .fill(0)
+          .map((trashValueWeek, weekNumber) => {
+            const weekStartingDay = startingDay
+              .clone()
+              .add(7 * weekNumber + trashValueWeek, 'day');
+
+            return (
+              <>
+                {Array(7)
+                  .fill(0)
+                  .map((trashValueDay, dayNumber) => {
+                    const day = weekStartingDay
+                      .clone()
+                      .add(trashValueDay + dayNumber, 'day');
+                    const dayString = day.format('YYYY-MM-DD');
+                    return (
+                      <MarketplaceDatePickerDay
+                        key={dayString}
+                        date={dayString}
+                        dateDisplayed={dateDisplayed.format('YYYY-MM-DD')}
+                        dateSelected={dateSelected}
+                        handleSelect={handleSelect}
+                        isDisabled={isDayDisabled(dayString)}
+                      />
+                    );
+                  })}
+              </>
+            );
+          })}
+      </div>
+    </div>
+  ),
+);
 
 const DatePicker: React.FC<DatePickerProps> = ({
   anchorEl,
@@ -28,6 +162,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
   disablePast,
   isOpen,
   id,
+  isContentOnly,
   onClose,
   onSelect,
 }) => {
@@ -111,6 +246,23 @@ const DatePicker: React.FC<DatePickerProps> = ({
   );
 
   if (!dateDisplayed) return null;
+  if (isContentOnly) {
+    return (
+      <DatePickerMenuContent
+        dateDisplayed={dateDisplayed}
+        dateSelected={dateSelected}
+        handleChangeDateDisplayed={handleChangeDateDisplayed}
+        handleSelect={handleSelect}
+        handleSelectYear={handleSelectYear}
+        isDayDisabled={isDayDisabled}
+        isYearPickerOpen={isYearPickerOpen}
+        nbDisplayedWeeks={nbDisplayedWeeks}
+        startingDay={startingDay}
+        toggleYearPicker={toggleYearPicker}
+      />
+    );
+  }
+
   return (
     <Menu
       anchorEl={anchorEl}
@@ -118,107 +270,18 @@ const DatePicker: React.FC<DatePickerProps> = ({
       isOpen={isOpen && !!dateDisplayed}
       onClose={handleCloseMenu}
     >
-      <div className="bs-fabrique-date-picker__menu">
-        <div className="bs-fabrique-date-picker__menu__header">
-          <ButtonBase
-            className="bs-fabrique-date-picker__menu__header__date"
-            onClick={toggleYearPicker}
-          >
-            {dateDisplayed.format('MMMM YYYY')}
-            <span
-              className={classNames(
-                'bs-fabrique-date-picker__menu__header__date__icon',
-                {
-                  'bs-fabrique-date-picker__menu__header__date__icon--year-picker-open':
-                    isYearPickerOpen,
-                  'bs-fabrique-date-picker__menu__header__date__icon--year-picker-close':
-                    !isYearPickerOpen,
-                },
-              )}
-            >
-              {!isYearPickerOpen ? (
-                <ChevronDown stroke="currentColor" />
-              ) : (
-                <ChevronUp stroke="currentColor" />
-              )}
-            </span>
-          </ButtonBase>
-          <div
-            className={classNames(
-              'bs-fabrique-date-picker__menu__header__buttons',
-              {
-                'bs-fabrique-date-picker__menu__header__buttons--hidden':
-                  isYearPickerOpen,
-              },
-            )}
-          >
-            <button
-              className="bs-fabrique-date-picker__menu__header__buttons__left"
-              onClick={handleChangeDateDisplayed('subtract')}
-              type="button"
-            >
-              <ChevronLeft />
-            </button>
-            <button
-              className="bs-fabrique-date-picker__menu__header__buttons__right"
-              onClick={handleChangeDateDisplayed('add')}
-              type="button"
-            >
-              <ChevronRight />
-            </button>
-          </div>
-        </div>
-        <YearPicker isOpen={isYearPickerOpen} onSelectYear={handleSelectYear} />
-        <div
-          className={classNames('bs-fabrique-date-picker__menu__calendar', {
-            'bs-fabrique-date-picker__menu__calendar--hidden': isYearPickerOpen,
-          })}
-        >
-          {Array(7)
-            .fill(0)
-            .map((value, i) => (
-              <div
-                key={`header-${i}`}
-                className="bs-fabrique-date-picker__menu__calendar__day bs-fabrique-date-picker__menu__calendar__day--header"
-              >
-                {moment()
-                  .weekday(value + i)
-                  .format('ddd')
-                  .slice(0, 1)}
-              </div>
-            ))}
-          {Array(nbDisplayedWeeks)
-            .fill(0)
-            .map((trashValueWeek, weekNumber) => {
-              const weekStartingDay = startingDay
-                .clone()
-                .add(7 * weekNumber + trashValueWeek, 'day');
-
-              return (
-                <>
-                  {Array(7)
-                    .fill(0)
-                    .map((trashValueDay, dayNumber) => {
-                      const day = weekStartingDay
-                        .clone()
-                        .add(trashValueDay + dayNumber, 'day');
-                      const dayString = day.format('YYYY-MM-DD');
-                      return (
-                        <MarketplaceDatePickerDay
-                          key={dayString}
-                          date={dayString}
-                          dateDisplayed={dateDisplayed.format('YYYY-MM-DD')}
-                          dateSelected={dateSelected}
-                          handleSelect={handleSelect}
-                          isDisabled={isDayDisabled(dayString)}
-                        />
-                      );
-                    })}
-                </>
-              );
-            })}
-        </div>
-      </div>
+      <DatePickerMenuContent
+        dateDisplayed={dateDisplayed}
+        dateSelected={dateSelected}
+        handleChangeDateDisplayed={handleChangeDateDisplayed}
+        handleSelect={handleSelect}
+        handleSelectYear={handleSelectYear}
+        isDayDisabled={isDayDisabled}
+        isYearPickerOpen={isYearPickerOpen}
+        nbDisplayedWeeks={nbDisplayedWeeks}
+        startingDay={startingDay}
+        toggleYearPicker={toggleYearPicker}
+      />
     </Menu>
   );
 };

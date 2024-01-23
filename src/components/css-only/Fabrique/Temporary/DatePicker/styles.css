@@ -207,6 +207,12 @@
   opacity: 0.1;
 }
 
+/* ----- MODAL DIALOG ----- */
+.bs-fabrique-modal-dialog__content .bs-fabrique-date-picker__menu {
+  padding: 0;
+  width: 100%;
+}
+
 @container (max-width: 570px) {
   .bs-fabrique-date-picker__menu__calendar {
     row-gap: 0;

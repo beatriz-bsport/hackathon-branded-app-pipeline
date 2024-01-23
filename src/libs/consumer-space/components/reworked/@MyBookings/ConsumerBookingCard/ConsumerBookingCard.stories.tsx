@@ -79,6 +79,11 @@ export default {
   argTypes: {
     offerDate: { description: 'Offer date', control: 'date' },
     establishmentAddress: { description: 'Offer address', control: 'text' },
+    isLoading: {
+      description: 'Whether the card is in loading state or not',
+      control: 'boolean',
+      defaultValue: false,
+    },
     activityName: {
       description: 'Name of the activity',
       control: 'text',

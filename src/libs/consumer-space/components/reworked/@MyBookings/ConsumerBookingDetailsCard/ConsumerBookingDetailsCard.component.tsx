@@ -7,7 +7,7 @@ import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import Card from '#Fabrique/Card';
 
 import ConsumerCardPlaceholder from '#libs/consumer-space/components/reworked/common/ConsumerCardPlaceholder';
-import ConsumerBookingDetailsCardSkeleton from './ConsumerBookingDetailsCardSkeleton.component';
+import ConsumerDetailsCardSkeleton from '#libs/consumer-space/components/reworked/common/ConsumerDetailsCardSkeleton';
 import ConsumerBookingDetailsCardHeaderSection from './sections/ConsumerBookingDetailsCardHeaderSection.component';
 import ConsumerBookingDetailsCardCancelledSection from './sections/ConsumerBookingDetailsCardCancelledSection.component';
 import ConsumerBookingDetailsCardPassSection from './sections/ConsumerBookingDetailsCardPassSection.component';
@@ -146,7 +146,7 @@ const ConsumerBookingDetailsCard: React.FC<Props> = ({
   }
 
   if (isLoading) {
-    return <ConsumerBookingDetailsCardSkeleton />;
+    return <ConsumerDetailsCardSkeleton />;
   }
 
   return (

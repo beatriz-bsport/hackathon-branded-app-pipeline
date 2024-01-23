@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 import Card from '#Fabrique/Card';
-import ConsumerBookingCardSkeleton from './ConsumerBookingCardSkeleton.component';
+import ConsumerCardSkeleton from '#libs/consumer-space/components/reworked/common/ConsumerCardSkeleton';
 
 import {
   ConsumerBookingCardHeader,
@@ -88,7 +88,7 @@ const ConsumerBookingCard: React.FC<Props> = ({
   isSelected,
 }) => {
   if (isLoading) {
-    return <ConsumerBookingCardSkeleton />;
+    return <ConsumerCardSkeleton />;
   }
 
   return (

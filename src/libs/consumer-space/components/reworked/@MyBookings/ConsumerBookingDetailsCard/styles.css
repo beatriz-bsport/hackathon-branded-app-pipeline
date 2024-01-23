@@ -296,55 +296,6 @@
 }
 /* ----- WORKSHOP SECTION ----- */
 
-/* ----- SKELETON ----- */
-.bs-consumer-booking-details-card__header-section--loading {
-  width: 100%;
-  height: var(--bs-consumer-booking-details-card-header-height);
-  padding: var(--bs-space-size-4);
-  margin-bottom: var(--bs-space-size-4);
-  border-radius: var(--bs-border-radius-sm);
-}
-
-.bs-consumer-booking-details-card__section__title--loading {
-  width: 60cqw;
-  height: 24px;
-}
-
-.bs-consumer-booking-details-card__location-section__list--loading {
-  width: 100%;
-  height: 32px;
-  margin: var(--bs-space-size-4) 0;
-}
-
-.bs-consumer-booking-details-card__description-section--loading {
-  width: 40cqw;
-  height: 16px;
-}
-
-.bs-consumer-booking-details-card__cancelled-section--loading {
-  width: 60cqw;
-  height: 24px;
-  margin: var(--bs-space-size-4) 0;
-}
-
-.bs-consumer-booking-details-card__teacher-section__avatar--loading {
-  display: flex;
-  align-items: center;
-}
-
-.bs-consumer-booking-details-card__teacher-section__avatar__icon--loading {
-  width: 24px;
-  height: 24px;
-  border-radius: var(--bs-border-radius-pill);
-  margin-right: var(--bs-space-size-4);
-}
-
-.bs-consumer-booking-details-card__teacher-section__avatar__label--loading {
-  width: 40cqw;
-  height: 10px;
-}
-/* ----- SKELETON ----- */
-
 @container bsConsumerBookingDetailsCard (width < 500px) {
   .bs-consumer-booking-details-card__header-section {
     flex-direction: column;

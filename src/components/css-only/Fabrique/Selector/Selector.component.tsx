@@ -43,6 +43,14 @@ export type SelectorProps = {
    */
   classes?: SelectorClasses;
   /**
+   * If `true` the menu Node will not open on input click
+   */
+  preventOpenMenu?: boolean;
+  /**
+   * If `true` the arrow will not have any animation on input click
+   */
+  noAnimate?: boolean;
+  /**
    *Override or extend the styles applied to the component.
    */
   className?: string;
@@ -133,6 +141,8 @@ const Selector: React.FC<SelectorProps> = ({
   captionText,
   children,
   classes,
+  preventOpenMenu,
+  noAnimate,
   className,
   closeOnSelect,
   setCloseOnSelect,
@@ -177,9 +187,9 @@ const Selector: React.FC<SelectorProps> = ({
       setAnchorEl((prevState) =>
         prevState === currentTarget ? null : currentTarget,
       );
-      setIsOpen((prevState) => !prevState);
+      !preventOpenMenu && setIsOpen((prevState) => !prevState);
     },
-    [],
+    [preventOpenMenu],
   );
 
   const handleKeyDown = React.useCallback((event: KeyboardEvent) => {
@@ -201,7 +211,7 @@ const Selector: React.FC<SelectorProps> = ({
   const handleClear = React.useCallback(
     (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
       event.stopPropagation();
-      onClear();
+      onClear?.();
     },
     [onClear],
   );
@@ -242,8 +252,9 @@ const Selector: React.FC<SelectorProps> = ({
         isMenuOpen={!isDisabled && isOpen}
         leftIcon={leftIcon}
         name={name}
+        noAnimate={noAnimate}
         onChange={!isDisabled && onChange}
-        onClear={!isDisabled && handleClear}
+        onClear={!isDisabled && !!onClear && handleClear}
         onClick={!isDisabled && handleClick}
         // @ts-ignore
         onKeyDown={!isDisabled && handleKeyDown}
@@ -295,7 +306,7 @@ const Selector: React.FC<SelectorProps> = ({
         classes={{ menuContent: classes?.menuContent }}
         className={classes?.menu}
         id={menuId}
-        isOpen={!isDisabled && isOpen}
+        isOpen={!isDisabled && isOpen && !preventOpenMenu}
         onClose={!isDisabled && handleOnClose}
         openMenuRef={selectorRef}
       >

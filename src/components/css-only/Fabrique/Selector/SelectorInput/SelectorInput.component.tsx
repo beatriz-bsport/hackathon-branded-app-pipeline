@@ -22,6 +22,10 @@ export type SelectorInputProps = {
    */
   children?: React.ReactNode;
   /**
+   * If `true` the arrow will not have any animation on input click
+   */
+  noAnimate?: boolean;
+  /**
    *Override or extend the styles applied to the a targeted element.
    */
   classes?: SelectorInputClasses;
@@ -64,6 +68,7 @@ export type SelectorInputProps = {
 
 const SelectorInput: React.FC<SelectorInputProps> = ({
   children,
+  noAnimate,
   classes,
   className,
   id,
@@ -144,7 +149,7 @@ const SelectorInput: React.FC<SelectorInputProps> = ({
               'bs-fabrique-selector-input__icon--small': isSmall,
               'bs-fabrique-selector-input__icon--large': isLarge,
               'bs-fabrique-selector-input__clear-button--hidden':
-                !shouldDisplayValues,
+                !shouldDisplayValues || !onClear,
             },
             'bs-fabrique-selector-input__clear-button',
             classes?.clearButton,
@@ -167,8 +172,10 @@ const SelectorInput: React.FC<SelectorInputProps> = ({
             {
               'bs-fabrique-selector-input__icon--small': isSmall,
               'bs-fabrique-selector-input__icon--large': isLarge,
-              'bs-fabrique-selector-input__right-icon--menu-open': isMenuOpen,
-              'bs-fabrique-selector-input__right-icon--menu-close': !isMenuOpen,
+              'bs-fabrique-selector-input__right-icon--menu-open':
+                isMenuOpen && !noAnimate,
+              'bs-fabrique-selector-input__right-icon--menu-close':
+                !isMenuOpen && !noAnimate,
               'bs-fabrique-selector-input__right-icon--disabled': isDisabled,
             },
             'bs-fabrique-selector-input__right-icon',

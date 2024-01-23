@@ -150,9 +150,12 @@ const CadenceMetrics: React.FC<Props> = ({
               {cadence?.priority_index}
             </Typography>
           </div>
-          <Typography variant="h5">{cadence?.name}</Typography>
+          <Typography noWrap className={classes.label} variant="h5">
+            {cadence?.name}
+          </Typography>
         </div>
         <Button
+          className={classes.noWrapButton}
           color="primary"
           onClick={handleOpen}
           size="small"
@@ -261,6 +264,11 @@ const useStyles = makeStyles((theme) => ({
   cadenceName: {
     display: 'flex',
     gap: theme.spacing(1),
+    overflow: 'hidden',
+    flex: 1,
+  },
+  label: {
+    flex: 1,
   },
   indexContainer: {
     borderRadius: theme.spacing(1),
@@ -269,6 +277,10 @@ const useStyles = makeStyles((theme) => ({
     width: theme.spacing(4),
     height: theme.spacing(4),
     backgroundColor: chroma(theme.palette.primary.main).alpha(0.09).hex(),
+  },
+  noWrapButton: {
+    whiteSpace: 'nowrap',
+    marginLeft: theme.spacing(2),
   },
   metrics: {
     display: 'grid',

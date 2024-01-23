@@ -98,21 +98,29 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
     //    b - Otherwise we display the future offers.
     if (!group?.full_booking_only) {
       setOffersToDisplay(
-        offers.filter((_offer) =>
-          moment(_offer?.date_start).isSameOrAfter(moment(anchorDate)),
+        offers.filter(
+          (_offer) =>
+            _offer?.available &&
+            moment(_offer?.date_start).isSameOrAfter(moment(anchorDate)),
         ),
       );
     } else if (offers && group) {
       if (group.allow_booking_after_start) {
         setOffersToDisplay(
-          offers.filter((_offer) =>
-            moment(_offer?.date_start).isSameOrAfter(moment(anchorDate)),
+          offers.filter(
+            (_offer) =>
+              _offer?.available &&
+              moment(_offer?.date_start).isSameOrAfter(moment(anchorDate)),
           ),
         );
       } else if (moment(group.first_offer_date).isBefore(moment(anchorDate))) {
         setOffersToDisplay([]);
       } else {
-        setOffersToDisplay(offers.filter((o) => !isOfferInThePast(o)));
+        setOffersToDisplay(
+          offers.filter(
+            (offer) => offer?.available && !isOfferInThePast(offer),
+          ),
+        );
       }
     } else {
       setOffersToDisplay([]);

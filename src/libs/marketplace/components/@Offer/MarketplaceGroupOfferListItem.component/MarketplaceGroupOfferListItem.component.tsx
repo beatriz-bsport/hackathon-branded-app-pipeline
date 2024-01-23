@@ -171,11 +171,11 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
 
   const handleClick = useCallback(() => {
     if (group?.full_booking_only) {
-      !disableBookGroupButton() && setOpenModal(true);
+      !getBookGroupButtonIsDisabled() && setOpenModal(true);
     } else {
       setOpenModal(true);
     }
-  }, [group?.full_booking_only, disableBookGroupButton]);
+  }, [group?.full_booking_only, getBookGroupButtonIsDisabled]);
 
   const isRegisteredInOnOfferInGroup = React.useMemo(() => {
     if (!group?.full_booking_only) {
@@ -195,7 +195,7 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
     return offersToDisplay.some((o) => o?.full);
   }, [group, offersToDisplay]);
 
-  const disableBookGroupButton = useCallback(() => {
+  const getBookGroupButtonIsDisabled = useCallback(() => {
     if (!group?.full_booking_only) {
       // Without full_booking_only
       return false;
@@ -353,13 +353,14 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
                     'bs-offer-list-group-item__right__row__button',
                     {
                       'bs-offer-list-group-item__right__row__button--disabled':
-                        disableBookGroupButton(),
+                        getBookGroupButtonIsDisabled(),
                       'bs-offer-list-group-item__right__row__button--booked':
                         isRegisteredInOnOfferInGroup,
                       'bs-offer-list-group-item__right__row__button--booked:hover::before':
                         isRegisteredInOnOfferInGroup,
                     },
                   )}
+                  disabled={getBookGroupButtonIsDisabled()}
                   onClick={handleClick}
                   type="button"
                 >
@@ -479,10 +480,11 @@ const MarketplaceGroupOfferListItem: React.FC<Props> = ({
             <button
               className={classNames('bs-offer-dialog__content__buttons__book', {
                 'bs-offer-dialog__content__buttons__book--disabled':
-                  disableBookGroupButton(),
+                  getBookGroupButtonIsDisabled(),
               })}
+              disabled={getBookGroupButtonIsDisabled()}
               onClick={() => {
-                if (disableBookGroupButton()) return;
+                if (getBookGroupButtonIsDisabled()) return;
                 if (firstBookableOffer?.available) {
                   handleBook()(firstBookableOffer);
                 }

@@ -21,6 +21,7 @@ import {
   getPositionOfOfferInTheList,
   getOfferStatus,
   getGroupOfferSetAsFullBookingOnlyStatus,
+  shouldApplyEllipsis,
 } from './offer';
 
 import {
@@ -50,4 +51,5 @@ export {
   getGroupOfferSetAsFullBookingOnlyStatus,
   CalendarFilterValidationSchema,
   CalendarOnlineFilterValidationSchema,
+  shouldApplyEllipsis,
 };

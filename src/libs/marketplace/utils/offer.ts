@@ -12,6 +12,8 @@ import {
 import {
   OFFER_DATE_HOURS_SEPARATOR,
   OFFER_HOURS_SEPARATOR,
+  OFFER_NAME_CAPITALIZED_MAX_LENGTH,
+  OFFER_NAME_MAX_LENGTH,
 } from '../constants';
 
 /** @deprecated Use `isDateInThePast` instead. */
@@ -160,3 +162,38 @@ export const formatOfferHours = (offerHours: {
 
 export const formatOfferDateWithTime = (date: string, hours: string) =>
   `${date}${OFFER_DATE_HOURS_SEPARATOR}${hours}`;
+
+/**
+ * Calculates the length of the longest word in a given string.
+ *
+ * @param {string} inputString The input string containing words.
+ * @returns The length of the longest word in the input string,
+ * or null if the input string is empty or falsy.
+ */
+export const getLongestWordLength = (inputString: string) => {
+  if (!inputString) return null;
+  const wordsArray = inputString.split(/\s+/);
+
+  const wordLengthsArray = wordsArray.map((word) => word.length);
+
+  // Use Math.max and apply to find the maximum length in the array
+  const longestWordLength = Math.max(...wordLengthsArray);
+
+  return longestWordLength;
+};
+
+/**
+ * Determines whether ellipsis should be applied to a given string based on its characteristics.
+ *
+ * @param {string} inputString The input string to analyze.
+ * @returns {boolean} True if ellipsis should be applied, false otherwise.
+ */
+export const shouldApplyEllipsis = (inputString: string) => {
+  if (!inputString) return false;
+  const isCapitalized = inputString === inputString.toUpperCase();
+  const longestWordLength = getLongestWordLength(inputString);
+  if (isCapitalized) {
+    return longestWordLength >= OFFER_NAME_CAPITALIZED_MAX_LENGTH;
+  }
+  return longestWordLength >= OFFER_NAME_MAX_LENGTH;
+};

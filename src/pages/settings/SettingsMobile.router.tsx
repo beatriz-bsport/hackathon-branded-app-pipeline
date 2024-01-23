@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useEffect } from 'react';
 
 import { connect, ConnectedProps } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router';
@@ -8,7 +8,6 @@ import { push as pushFunc } from 'connected-react-router';
 import Immutable from 'seamless-immutable';
 import { makeStyles, Theme } from '@material-ui/core';
 
-import Config from '../../config';
 import withPageHeightHOC, { WithPageHeight } from '#hocs/with-page-height.hoc';
 import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
 import { fetchMarketplaceContractList as fetchMarketplaceContractListAction } from '#libs/subscription/actions';
@@ -99,20 +98,11 @@ const SettingsMobileRouter: React.FC<Props> = ({
 }) => {
   const classes = useStyles();
 
-  // TODO: REMOVE WHEN FEATURE AVAILABLE ON MOBILE APP
-  const LINE_SPORTS_CLUB_ID = 498;
-  const tabsData = useMemo(
-    () =>
-      Immutable([
-        { label: 'tab.appSettings.links', value: 'links' },
-        { label: 'tab.appSettings.popups', value: 'popups' },
-        ...(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
-        companyId === LINE_SPORTS_CLUB_ID
-          ? [{ label: 'tab.appSettings.customize', value: 'customize' }]
-          : []),
-      ]),
-    [companyId],
-  );
+  const tabsData = Immutable([
+    { label: 'tab.appSettings.links', value: 'links' },
+    { label: 'tab.appSettings.popups', value: 'popups' },
+    { label: 'tab.appSettings.customize', value: 'customize' },
+  ]);
 
   useEffect(() => {
     fetchCustomShopRedirections();
@@ -185,16 +175,12 @@ const SettingsMobileRouter: React.FC<Props> = ({
               updateCustomMobilePopup={updateCustomMobilePopup}
             />
           </Route>
-          {/* TODO: REMOVE TERNARY EXPRESSION WHEN FEATURE AVAILABLE ON MOBILE APP */}
-          {Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
-          companyId === LINE_SPORTS_CLUB_ID ? (
-            <Route exact path="/settings/mobile-personalisation/customize">
-              <MobileAppPersonalisationForm
-                onSubmit={updateCompanyTheme}
-                theme={companyTheme}
-              />
-            </Route>
-          ) : null}
+          <Route exact path="/settings/mobile-personalisation/customize">
+            <MobileAppPersonalisationForm
+              onSubmit={updateCompanyTheme}
+              theme={companyTheme}
+            />
+          </Route>
           <Redirect to="/settings/mobile-personalisation/links" />
         </Switch>
       </div>

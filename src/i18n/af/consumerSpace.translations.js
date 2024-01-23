@@ -212,6 +212,14 @@ exports.default = {
           consumerBookingOption: 'Cancel waitlist',
         },
       },
+      calendarDrawer: {
+        title: 'Choose a date',
+        subtitle: {
+          activity: 'Filter your activities by date.',
+          appointment: 'Filter your appointments by date.',
+          workshop: 'Filter your workshops by date.',
+        },
+      },
       onlineWarningModal: {
         title: 'Online activity',
         subtitle: 'The session will begin on {{- date}} at {{hour}}',

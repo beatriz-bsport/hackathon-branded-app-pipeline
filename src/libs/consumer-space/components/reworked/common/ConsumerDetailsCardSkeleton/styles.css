@@ -1,0 +1,54 @@
+.bs-consumer-details-card-skeleton__root {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: fit-content;
+  container: bsConsumerDetailsCardSkeleton / inline-size;
+}
+
+.bs-consumer-details-card-skeleton__header-section {
+  width: 100%;
+  height: var(--bs-consumer-booking-details-card-header-height);
+  padding: var(--bs-space-size-4);
+  margin-bottom: var(--bs-space-size-4);
+  border-radius: var(--bs-border-radius-sm);
+}
+
+.bs-consumer-details-card-skeleton__section__title {
+  width: 60cqw;
+  height: 24px;
+}
+
+.bs-consumer-details-card-skeleton__location-section__list {
+  width: 100%;
+  height: 32px;
+  margin: var(--bs-space-size-4) 0;
+}
+
+.bs-consumer-details-card-skeleton__description-section {
+  width: 40cqw;
+  height: 16px;
+}
+
+.bs-consumer-details-card-skeleton__cancelled-section {
+  width: 60cqw;
+  height: 24px;
+  margin: var(--bs-space-size-4) 0;
+}
+
+.bs-consumer-details-card-skeleton__avatar {
+  display: flex;
+  align-items: center;
+}
+
+.bs-consumer-details-card-skeleton__avatar__icon {
+  width: 24px;
+  height: 24px;
+  border-radius: var(--bs-border-radius-pill);
+  margin-right: var(--bs-space-size-4);
+}
+
+.bs-consumer-details-card-skeleton__avatar__label {
+  width: 40cqw;
+  height: 10px;
+}

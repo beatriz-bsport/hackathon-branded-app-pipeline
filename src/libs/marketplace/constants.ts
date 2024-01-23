@@ -138,3 +138,13 @@ export enum NewsletterV2FieldsKind {
   FIRST_NAME_AND_EMAIL = 'firstNameAndEmail',
   EMAIL_ONLY = 'emailOnly',
 }
+
+/**
+ * Maximum length of the longest word in an offer name (name_override, activity name ...)
+ */
+export const OFFER_NAME_MAX_LENGTH = 21;
+
+/**
+ * Maximum length of the longest word in an offer name (name_override, activity name ...), if capitalized
+ */
+export const OFFER_NAME_CAPITALIZED_MAX_LENGTH = 18;

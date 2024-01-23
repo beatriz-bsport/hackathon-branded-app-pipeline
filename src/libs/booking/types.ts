@@ -314,3 +314,11 @@ export type ConsumerBookingOption = Omit<
   coach: Coach;
   meta_activity: MetaActivity;
 };
+
+/** Exclusively for consumer space, used in consumer bookings data manager hook */
+export type ConsumerSpaceCancelBookingParams = {
+  isRefundingCredit: boolean;
+  bookingId?: number;
+  privateBookingId?: number;
+  bookingOptionId?: number;
+};

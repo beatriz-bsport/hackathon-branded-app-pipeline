@@ -341,6 +341,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(0.5, 1),
     textTransform: 'none',
     borderRadius: theme.spacing(1),
+    display: 'block',
     '&:disabled': { color: 'inherit' },
   },
   centerVerticalContent: {
@@ -354,12 +355,11 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: theme.spacing(2),
-    flexWrap: 'wrap',
   },
   leftInnerContainer: {
     display: 'flex',
-    gap: theme.spacing(2),
-    alignItems: 'center',
+    justifyContent: 'flex-start',
+    overflow: 'hidden',
   },
   rightInnerContainer: {
     display: 'flex',
@@ -369,13 +369,13 @@ const useStyles = makeStyles((theme) => ({
   },
   titleTypo: {
     textOverflow: 'ellipsis',
-    maxWidth: '200px',
     whiteSpace: 'nowrap',
     overflow: 'hidden',
   },
   nameWithIcon: {
     display: 'flex',
     alignItems: 'center',
+    overflow: 'hidden',
   },
   leftIcon: {
     marginRight: theme.spacing(1),

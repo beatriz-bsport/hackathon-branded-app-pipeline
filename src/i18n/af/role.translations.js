@@ -773,6 +773,9 @@ const getTranslations = async () => {
           subscription: { _label: 'Export subscriptions' },
           invoice: { _label: 'Export invoices' },
           planning: { _label: 'Export the calendar' },
+          smartlist_general_report: {
+            _label: 'Export Smartlist General Report',
+          },
         },
         _label: 'Exports',
       },

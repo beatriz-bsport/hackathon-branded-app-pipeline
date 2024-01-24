@@ -231,6 +231,7 @@ export type ObjectLevelPermissions = {
       smartlist: boolean;
       memberDocument: boolean;
       report: boolean;
+      smartlist_general_report: boolean;
     };
   };
   planning: {

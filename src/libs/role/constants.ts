@@ -276,6 +276,7 @@ export const DEFAULT_OBJECT_LEVEL_PERMISSIONS: ObjectLevelPermissions = {
       smartlist: true,
       memberDocument: true,
       report: true,
+      smartlist_general_report: true,
     },
   },
   planning: {

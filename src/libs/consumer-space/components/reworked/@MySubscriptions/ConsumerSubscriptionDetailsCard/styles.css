@@ -1,0 +1,48 @@
+.bs-consumer__subscription-details-card__root {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+}
+
+/* HEADER SECTION */
+.bs-consumer__subscription-details-card__header__section {
+  padding-bottom: var(--bs-space-size-4);
+}
+
+.bs-consumer__subscription-details-card__header__text-container {
+  padding-bottom: var(--bs-space-size-4);
+}
+
+.bs-consumer__subscription-details-card__header__list {
+  gap: var(--bs-space-size-4);
+}
+
+.bs-consumer__subscription-details-card__header__list-item__status {
+  padding: 0;
+}
+
+.bs-consumer__subscription-details-card__header__list-item__price {
+  padding: 0;
+}
+
+/* DESCRIPTION SECTION */
+
+.bs-consumer__subscription-details-card__description__section {
+}
+
+.bs-consumer__subscription-details-card__description__section--hidden {
+  display: none;
+}
+
+/* TERMS SECTION */
+
+.bs-consumer__subscription-details-card__terms__section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bs-consumer__subscription-details-card__terms__button {
+  margin-left: var(--bs-space-size-2);
+}

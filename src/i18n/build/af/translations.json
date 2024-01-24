@@ -1397,7 +1397,10 @@
     "reworked": {
       "showMore": "Show more",
       "showLess": "Show less",
-      "placeholderCard": { "myBookings": "Choose a session to see more details" },
+      "placeholderCard": {
+        "myBookings": "Choose a session to see more details",
+        "mySubscriptions": "Choose a subscription to see more details"
+      },
       "myBookings": {
         "title": "My bookings",
         "bookASession": "Book a session",
@@ -1566,7 +1569,13 @@
           "recurrenceLabelEvery": "{{ price }}{{ currency }} every {{ recurrence }} {{ interval }}",
           "buttonsLabel": { "seeDetails": "See details" }
         },
-        "consumerSubscriptionCardDetails": { "description": "Description" }
+        "consumerSubscriptionCardDetails": {
+          "description": "Description",
+          "terms": "Terms",
+          "termsAccepted": "Accepted on {{ termsDate }}",
+          "buttonsLabel": { "see": "See" },
+          "headerListItemLabels": { "nextPayment": "Next payment" }
+        }
       }
     }
   },

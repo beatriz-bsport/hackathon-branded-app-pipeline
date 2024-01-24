@@ -100,6 +100,7 @@ exports.default = {
     showLess: 'Show less',
     placeholderCard: {
       myBookings: 'Choose a session to see more details',
+      mySubscriptions: 'Choose a subscription to see more details',
     },
     myBookings: {
       title: 'My bookings',
@@ -325,6 +326,14 @@ exports.default = {
       },
       consumerSubscriptionCardDetails: {
         description: 'Description',
+        terms: 'Terms',
+        termsAccepted: 'Accepted on {{ termsDate }}',
+        buttonsLabel: {
+          see: 'See',
+        },
+        headerListItemLabels: {
+          nextPayment: 'Next payment',
+        },
       },
     },
   },

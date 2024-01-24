@@ -124,6 +124,10 @@ export type SelectorProps = {
    */
   onChange?: (event?: React.ChangeEvent<HTMLInputElement>) => void;
   /**
+   * Perform an action when the select input is clicked
+   */
+  onClick?: () => void;
+  /**
    * Represents a placeholder text value.
    */
   placeholder?: string;
@@ -164,6 +168,7 @@ const Selector: React.FC<SelectorProps> = ({
   selectedItems,
   size = SelectorSizeEnum.SM,
   onChange,
+  onClick,
 }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState<HTMLElement>(null);
@@ -188,8 +193,9 @@ const Selector: React.FC<SelectorProps> = ({
         prevState === currentTarget ? null : currentTarget,
       );
       !preventOpenMenu && setIsOpen((prevState) => !prevState);
+      onClick?.();
     },
-    [preventOpenMenu],
+    [preventOpenMenu, onClick],
   );
 
   const handleKeyDown = React.useCallback((event: KeyboardEvent) => {

@@ -80,6 +80,9 @@ const ConsumerInvoice = asyncComponent(() => import('./ConsumerInvoice.page'));
 const ConsumerSubscription = asyncComponent(() =>
   import('./ConsumerSubscription.page'),
 );
+const ConsumerSubscriptionReworked = asyncComponent(() =>
+  import('./ConsumerSubscriptionReworked.page'),
+);
 const ConsumerProfile = asyncComponent(() => import('./ConsumerProfile.page'));
 const ConsumerProgram = asyncComponent(() =>
   import('../performance-tracking/ConsumerProgram.page'),
@@ -183,7 +186,7 @@ export class ConsumerHome extends React.Component<Props> {
     }
   }
 
-  buildPath = (path) => this.props.push(this.props.buildUrl(path));
+  buildPath = (path: string) => this.props.push(this.props.buildUrl(path));
 
   attachConsumerProps = (MyComponent: React.Component<*>) => (props: any) =>
     (
@@ -253,17 +256,33 @@ export class ConsumerHome extends React.Component<Props> {
                     {!['staging', 'production'].includes(
                       Config.REACT_APP_SENTRY_ENVIRONMENT,
                     ) ? (
-                      <Route
-                        path="/c/:companyId/booking/"
-                        render={this.attachConsumerProps(
-                          ConsumerBookingReworked,
-                        )}
-                      />
+                      <>
+                        <Route
+                          path="/c/:companyId/booking/"
+                          render={this.attachConsumerProps(
+                            ConsumerBookingReworked,
+                          )}
+                        />
+                        <Route
+                          path="/c/:companyId/subscription/"
+                          render={this.attachConsumerProps(
+                            ConsumerSubscriptionReworked,
+                          )}
+                        />
+                      </>
                     ) : (
-                      <Route
-                        path="/c/:companyId/booking/"
-                        render={this.attachConsumerProps(ConsumerBooking)}
-                      />
+                      <>
+                        <Route
+                          path="/c/:companyId/booking/"
+                          render={this.attachConsumerProps(ConsumerBooking)}
+                        />
+                        <Route
+                          path="/c/:companyId/subscription/"
+                          render={this.attachConsumerProps(
+                            ConsumerSubscription,
+                          )}
+                        />
+                      </>
                     )}
 
                     <Route
@@ -283,10 +302,6 @@ export class ConsumerHome extends React.Component<Props> {
                     <Route
                       path="/c/:companyId/invoice/"
                       render={this.attachConsumerProps(ConsumerInvoice)}
-                    />
-                    <Route
-                      path="/c/:companyId/subscription/"
-                      render={this.attachConsumerProps(ConsumerSubscription)}
                     />
                     <Route
                       path="/c/:companyId/profile/"

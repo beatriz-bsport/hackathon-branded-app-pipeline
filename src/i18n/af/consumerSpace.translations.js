@@ -316,6 +316,16 @@ exports.default = {
       },
     },
     mySubscriptions: {
+      title: 'My subscriptions',
+      tab: {
+        active: 'Active',
+        future: 'Not started',
+        expired: 'Expired',
+      },
+      headerButtonsLabel: {
+        bookASession: 'Book a session',
+        getSubscription: 'Get a subscription',
+      },
       consumerSubscriptionCard: {
         recurrenceLabelPer: '{{ price }}{{ currency }}/{{ interval }}',
         recurrenceLabelEvery:

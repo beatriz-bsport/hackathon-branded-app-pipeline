@@ -1393,6 +1393,7 @@
       "myBookings": {
         "title": "My bookings",
         "bookASession": "Book a session",
+        "chooseBookingType": "Choose booking type",
         "tab": { "activities": "Activities", "appointments": "Appointments", "workshops": "Workshops" },
         "filter": { "upcoming": "Upcoming", "past": "Past", "onWaitlist": "On waitlist" },
         "listContainer": {

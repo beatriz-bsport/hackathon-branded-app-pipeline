@@ -104,6 +104,7 @@ exports.default = {
     myBookings: {
       title: 'My bookings',
       bookASession: 'Book a session',
+      chooseBookingType: 'Choose booking type',
       tab: {
         activities: 'Activities',
         appointments: 'Appointments',

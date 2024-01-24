@@ -1,0 +1,9 @@
+/* .bs-consumer-booking-tab-drawer__root {} */
+
+.bs-consumer-booking-tab-drawer__list {
+  gap: 0;
+}
+
+.bs-consumer-booking-tab-drawer__list__item {
+  text-decoration: none;
+}

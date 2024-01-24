@@ -3,7 +3,10 @@ import {
   WAITING_LIST_AUTO_CANCELLATION_SMART,
 } from '@bsport/common/lib/master-data/waiting-list-auto-cancellation';
 import type { ErrorAndLoading } from '../types';
-import type { Offer, OfferStatusWaitingListPosition } from '../offer/types';
+import type {
+  OfferBookingOption,
+  OfferStatusWaitingListPosition,
+} from '../offer/types';
 
 export enum WaitingListAutoCancellation {
   dumb = WAITING_LIST_AUTO_CANCELLATION_DUMB.id,
@@ -27,21 +30,21 @@ export type WaitingListConfiguration = {
 };
 
 export type WaitingListBookingOption = {
-  id: number;
-  waiting_list_class: number;
-  is_convertible: boolean;
-  date: string;
-  consumer: number;
-  offer: Offer;
-  cancelled: boolean;
   booking?: number;
-  member: number;
-  object_type: 'booking';
-  level: number;
-  establishment: number;
+  cancelled: boolean;
   coach: number;
+  consumer: number;
+  date: string;
+  establishment: number;
+  id: number;
+  is_convertible: boolean;
+  level: number;
+  member: number;
   meta_activity: number;
+  object_type: 'booking';
+  offer: OfferBookingOption;
   source: number;
+  waiting_list_class: number;
 };
 
 export type WaitingListState = {
@@ -80,6 +83,7 @@ export type WaitingListBookingOptionQueryParams = {
   as_manager?: boolean;
   no_related_field?: boolean;
   show_cancelled?: boolean;
+  offer_is_workshop?: boolean;
 };
 
 export type WaitingListBookingOptionPaginatedQueryParams =

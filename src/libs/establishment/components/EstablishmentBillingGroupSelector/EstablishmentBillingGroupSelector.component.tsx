@@ -151,11 +151,11 @@ const Group: React.FC<GroupProps<SelectorOption>> = ({
     [props.selectProps.selectedEstablishments, groupOptionsValueList],
   );
 
-  const handleChange = () => {
+  const handleChange = useCallback(() => {
     if (!checked && props.selectProps.selectMultipleOptions) {
       props.selectProps.selectMultipleOptions(groupOptionsValueList);
     }
-  };
+  }, [checked, props.selectProps, groupOptionsValueList]);
   return (
     <div>
       {props.selectProps.selectMultipleOptions && (
@@ -171,7 +171,7 @@ const Group: React.FC<GroupProps<SelectorOption>> = ({
           <Checkbox
             checked={checked}
             color="primary"
-            onChange={() => handleChange()}
+            onChange={handleChange}
             size="small"
           />
         </div>
@@ -298,7 +298,7 @@ export function EstablishmentBillingGroupSelector(props: Props) {
   const handleChange = useCallback(
     (option: SelectorOption) => {
       selectOption(
-        establishmentBillingGroups.find(
+        establishmentBillingGroups?.find(
           (establishmentBillingGroup) =>
             establishmentBillingGroup.id === option.value,
         ),

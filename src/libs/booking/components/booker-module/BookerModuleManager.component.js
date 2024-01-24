@@ -177,7 +177,10 @@ export class BookerModuleManager extends PureComponent<Props, State> {
     this.props.fetchFutureBookingsByMember(this.props.member.id);
 
     this.props.fetchEstablishments();
-    if (this.props.companyTheme.enable_multi_localization) {
+    if (
+      this.props.companyTheme.enable_multi_localization &&
+      !!this.props.companyId
+    ) {
       this.props.fetchAllEstablishmentBillingGroup({
         params: { company: this.props.companyId },
       });

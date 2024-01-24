@@ -6,6 +6,8 @@ import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 import Card from '#Fabrique/Card';
 import ConditionalWrapper from '#components/ConditionnalWrapper.component';
+import ConsumerCardPlaceholder from '#libs/consumer-space/components/reworked/common/ConsumerCardPlaceholder';
+import ConsumerDetailsCardSkeleton from '#libs/consumer-space/components/reworked/common/ConsumerDetailsCardSkeleton';
 
 import Header from './sections/Header.component';
 import DescriptionSection from './sections/DescriptionSection.component';
@@ -39,6 +41,8 @@ type Props = {
   isCompatibleWithBookingForGuest?: boolean;
   /** The pass is compatible with VOD */
   isCompatibleWithVod?: boolean;
+  /** Loading property, to display skeleton */
+  isLoading?: boolean;
   /** The pass is suspended */
   isSuspended?: boolean;
   /** The pass has unlimited credits */
@@ -51,6 +55,8 @@ type Props = {
   sharedBy?: string;
   /** The pass is shared with these members */
   sharedWith?: string[];
+  /** If no pass data, show placeholder instead */
+  showPlaceholder?: boolean;
   /** The pass start date */
   startDate?: string;
   /** The pass suspension date */
@@ -70,10 +76,12 @@ const UniversalPassDetailsCard: React.FC<Props> = ({
   expirationDate,
   isCompatibleWithBookingForGuest,
   isCompatibleWithVod,
+  isLoading,
   isSuspended,
   name,
   sharedBy,
   sharedWith,
+  showPlaceholder,
   startDate,
   suspensionDate,
   timeSlots,
@@ -82,6 +90,18 @@ const UniversalPassDetailsCard: React.FC<Props> = ({
   isUnlimited,
 }) => {
   const { t } = useTranslation('consumerSpace');
+
+  if (isLoading) {
+    return <ConsumerDetailsCardSkeleton />;
+  }
+
+  if (showPlaceholder) {
+    return (
+      <ConsumerCardPlaceholder
+        message={t('reworked.placeholderCard.myPasses')}
+      />
+    );
+  }
 
   return (
     <ConditionalWrapper

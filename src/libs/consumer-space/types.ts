@@ -5,6 +5,7 @@ import type { Booking, BookingREST } from '#libs/booking/types';
 import type { ErrorAndLoading } from '../types';
 import type { ChipColor, ChipVariant } from '#Fabrique/Chip';
 import type { WaitingListBookingOption } from '#libs/waiting-list/types';
+import type { SubscriptionREST } from '#libs/subscription/types';
 
 export type Profile = {
   name: string;
@@ -89,6 +90,17 @@ export type ConsumerBookingOptionReworked = {
   };
 } & ErrorAndLoading;
 
+export type ConsumerSubscriptionReworked = {
+  page: number;
+  next_page: number | null;
+  previous_page: number | null;
+  count: number;
+  subscriptions: {
+    allIds: number[];
+    byId: { [key: number]: SubscriptionREST };
+  };
+} & ErrorAndLoading;
+
 export type ConsumerStateReworked = {
   myBookings: {
     bookings: {
@@ -105,6 +117,11 @@ export type ConsumerStateReworked = {
       past: ConsumerBookingReworked;
       waitlist: ConsumerBookingOptionReworked;
     };
+  };
+  mySubscriptions: {
+    active: ConsumerSubscriptionReworked;
+    future: ConsumerSubscriptionReworked;
+    expired: ConsumerSubscriptionReworked;
   };
 };
 

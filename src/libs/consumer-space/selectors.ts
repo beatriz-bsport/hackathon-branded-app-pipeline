@@ -484,3 +484,51 @@ export const getConsumerBookingsLoading = createSelector(
       bookingsLoadingMap[selectedTab]) as boolean; // Payment pack state not typed
   },
 );
+
+export const getMyActiveSubscriptionsState = (state: RootState) =>
+  state.consumerReworked.mySubscriptions.active;
+
+const getMyActiveSubscriptionsAllIds = (state: RootState) =>
+  state.consumerReworked.mySubscriptions.active.subscriptions.allIds;
+
+const getMyActiveSubscriptionsById = (state: RootState) =>
+  state.consumerReworked.mySubscriptions.active.subscriptions.byId;
+
+export const getMyActiveSubscriptionsList = createSelector(
+  [getMyActiveSubscriptionsAllIds, getMyActiveSubscriptionsById],
+  (ids, data) => {
+    return ids.map((subscriptionId) => data[subscriptionId]);
+  },
+);
+
+export const getMyFutureSubscriptionsState = (state: RootState) =>
+  state.consumerReworked.mySubscriptions.future;
+
+const getMyFutureSubscriptionssAllIds = (state: RootState) =>
+  state.consumerReworked.mySubscriptions.future.subscriptions.allIds;
+
+const getMyFutureSubscriptionsById = (state: RootState) =>
+  state.consumerReworked.mySubscriptions.future.subscriptions.byId;
+
+export const getMyFutureSubscriptionsList = createSelector(
+  [getMyFutureSubscriptionssAllIds, getMyFutureSubscriptionsById],
+  (ids, data) => {
+    return ids.map((subscriptionId) => data[subscriptionId]);
+  },
+);
+
+export const getMyExpiredSubscriptionsState = (state: RootState) =>
+  state.consumerReworked.mySubscriptions.expired;
+
+const getMyExpiredSubscriptionsAllIds = (state: RootState) =>
+  state.consumerReworked.mySubscriptions.expired.subscriptions.allIds;
+
+const getMyExpiredSubscriptionsById = (state: RootState) =>
+  state.consumerReworked.mySubscriptions.expired.subscriptions.byId;
+
+export const getMyExpiredSubscriptionsList = createSelector(
+  [getMyExpiredSubscriptionsAllIds, getMyExpiredSubscriptionsById],
+  (ids, data) => {
+    return ids.map((subscriptionId) => data[subscriptionId]);
+  },
+);

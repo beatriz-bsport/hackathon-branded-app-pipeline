@@ -15,11 +15,19 @@ import {
   fetchMyBookingOptionWorkshopAsMemberActions,
 } from './actions';
 
+import {
+  fetchMyExpiredSubscriptionsAsMemberActions,
+  fetchMyFutureSubscriptionsAsMemberActions,
+  fetchMyActiveSubscriptionsAsMemberActions,
+  resetConsumerSubscriptionsStateActions,
+} from '#libs/consumer-space/actions/subscription-actions';
+
 import type { ConsumerStateReworked } from './types';
 import type { BookingREST } from '#libs/booking/types';
 import type { PaginatedResponse } from '../../state/types';
 import type { PrivateBooking } from '#libs/private-service/types';
 import type { WaitingListBookingOption } from '#libs/waiting-list/types';
+import type { SubscriptionREST } from '#libs/subscription/types';
 
 type PayloadReduceType<T> = { [id: number]: T };
 const initialState: Immutable.Immutable<ConsumerStateReworked> =
@@ -128,10 +136,49 @@ const initialState: Immutable.Immutable<ConsumerStateReworked> =
         },
       },
     },
+    mySubscriptions: {
+      active: {
+        page: 1,
+        next_page: null,
+        previous_page: null,
+        count: 0,
+        loading: false,
+        error: null,
+        subscriptions: {
+          allIds: [],
+          byId: {},
+        },
+      },
+      future: {
+        page: 1,
+        next_page: null,
+        previous_page: null,
+        count: 0,
+        loading: false,
+        error: null,
+        subscriptions: {
+          allIds: [],
+          byId: {},
+        },
+      },
+      expired: {
+        page: 1,
+        next_page: null,
+        previous_page: null,
+        count: 0,
+        loading: false,
+        error: null,
+        subscriptions: {
+          allIds: [],
+          byId: {},
+        },
+      },
+    },
   });
 
 export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
   {
+    /* MYBOOKINGS REDUCERS */
     [fetchMyPastBookingAsMemberActions.isLoading.toString()]: (
       state,
       { payload }: { payload: boolean },
@@ -698,6 +745,185 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
               allIds: [],
               byId: {},
             },
+          },
+        },
+      });
+    },
+    /* MYSUBSCRIPTIONS REDUCERS */
+    [fetchMyActiveSubscriptionsAsMemberActions.success.toString()]: (
+      state,
+      { payload }: { payload: PaginatedResponse<SubscriptionREST> },
+    ) => {
+      const { next_page, results, count, page } = payload;
+
+      return state
+        .setIn(['mySubscriptions', 'active', 'page'], page)
+        .setIn(['mySubscriptions', 'active', 'next_page'], next_page)
+        .setIn(['mySubscriptions', 'active', 'count'], count)
+        .updateIn(
+          ['mySubscriptions', 'active', 'subscriptions', 'allIds'],
+          (myList, newIds) => myList.concat(newIds),
+          uniq(results.map((subscription) => subscription.id)),
+        )
+        .merge(
+          {
+            mySubscriptions: {
+              active: {
+                subscriptions: {
+                  byId: results.reduce<PayloadReduceType<SubscriptionREST>>(
+                    (acc, subscription) => {
+                      acc[subscription.id] = subscription;
+                      return acc;
+                    },
+                    {},
+                  ),
+                },
+              },
+            },
+          },
+          { deep: true },
+        );
+    },
+    [fetchMyActiveSubscriptionsAsMemberActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['mySubscriptions', 'active', 'loading'], payload);
+    },
+    [fetchMyActiveSubscriptionsAsMemberActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['mySubscriptions', 'active', 'error'], payload);
+    },
+    [fetchMyFutureSubscriptionsAsMemberActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['mySubscriptions', 'future', 'loading'], payload);
+    },
+    [fetchMyFutureSubscriptionsAsMemberActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['mySubscriptions', 'future', 'error'], payload);
+    },
+    [fetchMyFutureSubscriptionsAsMemberActions.success.toString()]: (
+      state,
+      { payload }: { payload: PaginatedResponse<SubscriptionREST> },
+    ) => {
+      const { next_page, results, count, page } = payload;
+
+      return state
+        .setIn(['mySubscriptions', 'future', 'page'], page)
+        .setIn(['mySubscriptions', 'future', 'next_page'], next_page)
+        .setIn(['mySubscriptions', 'future', 'count'], count)
+        .updateIn(
+          ['mySubscriptions', 'future', 'subscriptions', 'allIds'],
+          (myList, newIds) => myList.concat(newIds),
+          uniq(results.map((subscription) => subscription.id)),
+        )
+        .merge(
+          {
+            mySubscriptions: {
+              future: {
+                subscriptions: {
+                  byId: results.reduce<PayloadReduceType<SubscriptionREST>>(
+                    (acc, subscription) => {
+                      acc[subscription.id] = subscription;
+                      return acc;
+                    },
+                    {},
+                  ),
+                },
+              },
+            },
+          },
+          { deep: true },
+        );
+    },
+    [fetchMyExpiredSubscriptionsAsMemberActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['mySubscriptions', 'expired', 'loading'], payload);
+    },
+    [fetchMyExpiredSubscriptionsAsMemberActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['mySubscriptions', 'expired', 'error'], payload);
+    },
+    [fetchMyExpiredSubscriptionsAsMemberActions.success.toString()]: (
+      state,
+      { payload }: { payload: PaginatedResponse<SubscriptionREST> },
+    ) => {
+      const { next_page, results, count, page } = payload;
+
+      return state
+        .setIn(['mySubscriptions', 'expired', 'page'], page)
+        .setIn(['mySubscriptions', 'expired', 'next_page'], next_page)
+        .setIn(['mySubscriptions', 'expired', 'count'], count)
+        .updateIn(
+          ['mySubscriptions', 'expired', 'subscriptions', 'allIds'],
+          (myList, newIds) => myList.concat(newIds),
+          uniq(results.map((subscription) => subscription.id)),
+        )
+        .merge(
+          {
+            mySubscriptions: {
+              expired: {
+                subscriptions: {
+                  byId: results.reduce<PayloadReduceType<SubscriptionREST>>(
+                    (acc, subscription) => {
+                      acc[subscription.id] = subscription;
+                      return acc;
+                    },
+                    {},
+                  ),
+                },
+              },
+            },
+          },
+          { deep: true },
+        );
+    },
+    [resetConsumerSubscriptionsStateActions.all.toString()]: (state) => {
+      return state.setIn(['mySubscriptions'], {
+        active: {
+          page: 1,
+          next_page: null,
+          previous_page: null,
+          count: 0,
+          loading: false,
+          error: null,
+          subscriptions: {
+            allIds: [],
+            byId: {},
+          },
+        },
+        future: {
+          page: 1,
+          next_page: null,
+          previous_page: null,
+          count: 0,
+          loading: false,
+          error: null,
+          subscriptions: {
+            allIds: [],
+            byId: {},
+          },
+        },
+        expired: {
+          page: 1,
+          next_page: null,
+          previous_page: null,
+          count: 0,
+          loading: false,
+          error: null,
+          subscriptions: {
+            allIds: [],
+            byId: {},
           },
         },
       });

@@ -1,5 +1,9 @@
 import Immutable from 'seamless-immutable';
 import {
+  PAYMENT_ENGINE_STRIPE,
+  PAYMENT_ENGINE_BSPORT,
+} from '@bsport/common/lib/master-data/payment-group';
+import {
   MarketplacePaymentMethodBillingDetails,
   MarketplacePaymentMethods,
 } from '#libs/marketplace/types';
@@ -124,3 +128,7 @@ export type StripeAPIException = {
   code: string;
   decline_code?: string;
 };
+
+export type PaymentEngine =
+  | typeof PAYMENT_ENGINE_STRIPE
+  | typeof PAYMENT_ENGINE_BSPORT;

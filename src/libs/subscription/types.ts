@@ -1,3 +1,17 @@
+import {
+  BILLING_PLAN_STATUS_NOT_STARTED,
+  BILLING_PLAN_STATUS_STARTED,
+  BILLING_PLAN_STATUS_STOPPED,
+  BILLING_PLAN_STATUS_PAUSED,
+  BILLING_PLAN_STATUS_ENDED,
+} from '@bsport/common/lib/master-data/subscription-status';
+import {
+  BILLING_PLAN_PAYMENT_METHOD_STRIPE_BACS_DEBIT,
+  BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB,
+  BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
+  BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
+} from '@bsport/common/lib/master-data/subscription-payment-methods';
+import type { PaymentEngine } from '#libs/payment/types';
 import { ErrorAndLoading } from '../../state/types';
 import type { PaymentPack } from '#libs/payment-packs/types';
 import type { PrivatePass } from '#libs/private-service/types';
@@ -262,6 +276,7 @@ export type SubscriptionQueryParams = {
   page_size?: number;
   member?: number;
   id__in?: number[];
+  status?: SubscriptionStatus[];
 };
 
 export type PlannedInvoiceFactoryOptions = {
@@ -285,4 +300,59 @@ export type ContractFactoryOptions = {
 export type RegisterBackgroundReturnValue = {
   billing_plan: Subscription;
   compatible_consumer_payment_pack_id: number | null;
+};
+
+export type SubscriptionStatus =
+  | typeof BILLING_PLAN_STATUS_NOT_STARTED
+  | typeof BILLING_PLAN_STATUS_STARTED
+  | typeof BILLING_PLAN_STATUS_STOPPED
+  | typeof BILLING_PLAN_STATUS_PAUSED
+  | typeof BILLING_PLAN_STATUS_ENDED;
+
+export type SubscriptionPaymentMethod =
+  | typeof BILLING_PLAN_PAYMENT_METHOD_STRIPE_BACS_DEBIT
+  | typeof BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT
+  | typeof BILLING_PLAN_PAYMENT_METHOD_STRIPE_CB
+  | typeof BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA;
+
+export type SubscriptionREST = {
+  auto_renewal: boolean;
+  canceled_at: string | null;
+  contract_terms_date_accepted: string;
+  contract_terms_pdf_link: string;
+  contract: number;
+  date_created: string;
+  description: string;
+  editable: boolean;
+  first_billing_date: string;
+  flat_fee: string;
+  has_discount: boolean;
+  has_ended: boolean;
+  id: number;
+  interval: SubscriptionInterval;
+  is_v2: boolean;
+  legal_contract: string;
+  member: number;
+  memberArchived: boolean;
+  memberName: string;
+  month_billing_day: number | null;
+  name_without_member_name: string;
+  name: string;
+  nb_interval: number;
+  next_billing_date: string;
+  note: string;
+  pauses: SubscriptionPause[] | null;
+  payment_combo: number | null;
+  payment_engine: PaymentEngine;
+  payment_method_identifier: number;
+  payment_method: SubscriptionPaymentMethod;
+  payment_pack: number;
+  planned_invoices: number[] | null;
+  private_pass: number | null;
+  recurrence_basis: number;
+  recurrent_price: string;
+  started_at: string;
+  status: SubscriptionStatus;
+  stop_note: string;
+  stripe_payment_method_id: string;
 };

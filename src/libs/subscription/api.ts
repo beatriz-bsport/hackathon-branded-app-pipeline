@@ -10,15 +10,23 @@ import {
   putAuth,
 } from '../../http';
 
-import {
+import type {
   PauseRequestData,
   ContractPauseRequestData,
   SubscriptionQueryParams,
   PlannedInvoice,
+  SubscriptionREST,
 } from './types';
+import { PaginatedResponse } from '../../state/types';
 
 const fetchAll = async (params: SubscriptionQueryParams) => {
   return getAuth(
+    `${API_URI}/subscription/billing-plan/${buildUrlParams(params)}`,
+  );
+};
+
+export const fetchSubscriptionsList = (params: SubscriptionQueryParams) => {
+  return getAuth<PaginatedResponse<SubscriptionREST>>(
     `${API_URI}/subscription/billing-plan/${buildUrlParams(params)}`,
   );
 };

@@ -120,6 +120,10 @@ exports.default = {
             past: 'No past activities to show.',
             future: 'No upcoming activities scheduled.',
           },
+          appointment: {
+            past: 'No past appointments to show.',
+            future: 'No upcoming appointments scheduled.',
+          },
           workshop: {
             past: 'No past workshops to show.',
             future: 'No upcoming workshops scheduled.',

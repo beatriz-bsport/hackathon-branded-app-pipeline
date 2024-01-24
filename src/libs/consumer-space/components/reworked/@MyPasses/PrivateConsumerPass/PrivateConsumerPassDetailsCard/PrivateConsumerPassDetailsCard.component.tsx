@@ -6,6 +6,8 @@ import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 import Card from '#Fabrique/Card';
 import ConditionalWrapper from '#components/ConditionnalWrapper.component';
+import ConsumerDetailsCardSkeleton from '#libs/consumer-space/components/reworked/common/ConsumerDetailsCardSkeleton';
+import ConsumerCardPlaceholder from '#libs/consumer-space/components/reworked/common/ConsumerCardPlaceholder';
 
 import Header from './sections/Header.component';
 import DescriptionSection from './sections/DescriptionSection.component';
@@ -29,6 +31,8 @@ type Props = {
   description?: string;
   /** The pass expiration date */
   expirationDate?: string;
+  /** Loading property, to display skeleton */
+  isLoading?: boolean;
   /** The pass is suspended */
   isSuspended?: boolean;
   /** The pass has unlimited credits */
@@ -41,6 +45,8 @@ type Props = {
   sharedBy?: string;
   /** The pass is shared with these members (names only) */
   sharedWith?: string[];
+  /** If no pass data, show placeholder instead */
+  showPlaceholder?: boolean;
   /** The pass start date */
   startDate?: string;
   /** The pass suspension date */
@@ -57,19 +63,32 @@ const PrivateConsumerPassDetailsCard: React.FC<Props> = ({
   creditsLeft,
   description,
   expirationDate,
+  isCompatibleWithVod,
+  isLoading,
   isSuspended,
+  isUnlimited,
   name,
   sharedBy,
   sharedWith,
+  showPlaceholder,
   startDate,
   suspensionDate,
   totalCredits,
   mobileVersion,
-  isUnlimited,
-  isCompatibleWithVod,
 }) => {
   const { t } = useTranslation('consumerSpace');
 
+  if (isLoading) {
+    return <ConsumerDetailsCardSkeleton />;
+  }
+
+  if (showPlaceholder) {
+    return (
+      <ConsumerCardPlaceholder
+        message={t('reworked.placeholderCard.myPasses')}
+      />
+    );
+  }
   return (
     <ConditionalWrapper
       className="bs-private-consumer-pass-details-card__root"

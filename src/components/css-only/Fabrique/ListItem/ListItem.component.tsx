@@ -119,6 +119,9 @@ export const ListItem: React.FC<Props> = ({
       <li
         className={classNames(
           'bs-fabrique-listitem__root',
+          {
+            'bs-fabrique-listitem__root--selected': isSelected,
+          },
           { 'bs-fabrique-listitem__root--spacing--sm': isSmall },
           { 'bs-fabrique-listitem__root--spacing--lg': !isSmall },
           className,
@@ -139,6 +142,10 @@ export const ListItem: React.FC<Props> = ({
               label: classNames(
                 classes?.label,
                 'bs-fabrique-listitem__clickable-text__label',
+                {
+                  'bs-fabrique-listitem__clickable-text__label--selected':
+                    isSelected,
+                },
               ),
             }}
             icon={icon}

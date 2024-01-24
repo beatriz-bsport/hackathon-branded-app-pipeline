@@ -14,7 +14,8 @@
   gap: var(--bs-space-size-2);
 }
 
-.bs-fabrique-listitem__radio--selected {
+.bs-fabrique-listitem__radio--selected,
+.bs-fabrique-listitem__root--selected {
   background: var(--bs-color-action-brand-main);
 }
 
@@ -45,8 +46,9 @@
 
 /* ListItem button for clickable text */
 
-/* .bs-fabrique-listitem__button-clickable-text {
-} */
+.bs-fabrique-listitem__button-clickable-text {
+  flex: 1;
+}
 
 /* ListItem icon size */
 
@@ -95,6 +97,10 @@
 .bs-fabrique-listitem__clickable-text__label {
   text-decoration: underline;
   font-weight: 700;
+}
+
+.bs-fabrique-listitem__clickable-text__label--selected {
+  color: var(--bs-color-text-inverse-default);
 }
 
 /* .bs-fabrique-listitem__textwrapper {

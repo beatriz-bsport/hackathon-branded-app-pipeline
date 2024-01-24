@@ -93,6 +93,9 @@ const DateField: React.FC<Props> = ({
     <>
       <div ref={anchorRef}>
         <Textfield
+          classes={{
+            inputContainer: 'bs-fabrique-datefield__input-container',
+          }}
           errorMessage={error && t(error)}
           inputId={id}
           isDisabled={isDisabled}

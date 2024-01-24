@@ -624,7 +624,9 @@ export default compose(
       (ids) => {
         fetchOfferBulk(ids, {
           onSuccess: (offerList) => {
-            fetchEstablishmentBulk([offerList.map((b) => b.establishment)]);
+            fetchEstablishmentBulk(
+              offerList?.map((b) => b.establishment) || [],
+            );
           },
         });
       },
@@ -636,18 +638,19 @@ export default compose(
         fetchBasket(basketId, {
           onSuccess: (basket) => {
             options?.onSuccess?.();
-            const offerIdsList = basket.checkout_items
-              ?.filter(
-                (checkoutItem) =>
-                  checkoutItem.extra_data?.offers_data &&
-                  checkoutItem.extra_data.offers_data.length,
-              )
-              .map((checkoutItem) =>
-                checkoutItem.extra_data.offers_data.map(
-                  (offerData) => offerData.offer_id,
-                ),
-              )
-              .flat();
+            const offerIdsList =
+              basket.checkout_items
+                ?.filter(
+                  (checkoutItem) =>
+                    checkoutItem?.extra_data?.offers_data?.length,
+                )
+                ?.map((checkoutItem) =>
+                  checkoutItem.extra_data.offers_data.map(
+                    (offerData) => offerData?.offer_id,
+                  ),
+                )
+                ?.filter((offerId) => !!offerId)
+                ?.flat() || [];
             fetchOfferWithEstablishmentAndActivityBulk(offerIdsList);
           },
         }),

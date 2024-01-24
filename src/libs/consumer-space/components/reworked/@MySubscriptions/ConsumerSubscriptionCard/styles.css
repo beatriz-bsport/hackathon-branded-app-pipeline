@@ -1,0 +1,39 @@
+.bs-consumer__subscription-card__root {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: inherit;
+  container: bsConsumerSubscriptionCard / inline-size;
+}
+
+/* HEADER */
+.bs-consumer__subscription-card__header {
+}
+
+.bs-consumer__subscription-card__header__chip {
+}
+
+.bs-consumer__subscription-card__header__chips-wrapper {
+}
+
+/* BODY */
+.bs-consumer__subscription-card__container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bs-space-size-2);
+}
+
+.bs-consumer__subscription-card__list {
+}
+
+.bs-consumer__subscription-card__list-item {
+  padding: 0;
+}
+
+.bs-consumer__subscription-card__list-item__price {
+  font-weight: 700;
+}
+
+.bs-consumer__subscription-card__body__button {
+  padding: 0;
+}

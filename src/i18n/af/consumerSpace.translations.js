@@ -314,5 +314,18 @@ exports.default = {
         },
       },
     },
+    mySubscriptions: {
+      consumerSubscriptionCard: {
+        recurrenceLabelPer: '{{ price }}{{ currency }}/{{ interval }}',
+        recurrenceLabelEvery:
+          '{{ price }}{{ currency }} every {{ recurrence }} {{ interval }}',
+        buttonsLabel: {
+          seeDetails: 'See details',
+        },
+      },
+      consumerSubscriptionCardDetails: {
+        description: 'Description',
+      },
+    },
   },
 };

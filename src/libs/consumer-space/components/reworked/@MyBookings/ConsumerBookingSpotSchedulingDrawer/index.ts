@@ -1,0 +1,3 @@
+import ConsumerBookingSpotSchedulingDrawer from './ConsumerBookingSpotSchedulingDrawer.component';
+
+export default ConsumerBookingSpotSchedulingDrawer;

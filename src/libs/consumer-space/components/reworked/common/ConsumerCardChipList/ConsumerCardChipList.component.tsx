@@ -6,7 +6,7 @@ import Typography from '#Fabrique/Typography';
 import Chip from '#Fabrique/Chip';
 import { ChipSizeEnum } from '#Fabrique/Chip/constants';
 
-import type { ChipData } from '#libs/consumer-space/types';
+import type { ChipData } from '#libs/consumer-space/components/reworked/common/ConsumerCardChipList/types';
 
 import './styles.css';
 

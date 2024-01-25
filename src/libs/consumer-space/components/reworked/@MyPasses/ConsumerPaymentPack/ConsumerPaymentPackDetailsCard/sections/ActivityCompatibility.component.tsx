@@ -17,11 +17,11 @@ import ConsumerCardSection from '#libs/consumer-space/components/reworked/common
 import ConsumerCardChipList from '#libs/consumer-space/components/reworked/common/ConsumerCardChipList';
 
 import type {
-  ChipData,
   ConsumerPaymentPackCompatibility,
   DayOfWeekNumber,
   TimeSlot,
 } from '#libs/consumer-space/types';
+import type { ChipData } from '#libs/consumer-space/components/reworked/common/ConsumerCardChipList/types';
 
 type ActivityChipDataLists = {
   activity: ChipData[];

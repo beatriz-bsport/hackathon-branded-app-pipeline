@@ -1,9 +1,6 @@
-import React from 'react';
-
 import type { PrivateBooking } from '#libs/private-service/types';
 import type { Booking, BookingREST } from '#libs/booking/types';
 import type { ErrorAndLoading } from '../types';
-import type { ChipColor, ChipVariant } from '#Fabrique/Chip';
 import type { WaitingListBookingOption } from '#libs/waiting-list/types';
 import type { SubscriptionREST } from '#libs/subscription/types';
 
@@ -123,15 +120,6 @@ export type ConsumerStateReworked = {
     future: ConsumerSubscriptionReworked;
     expired: ConsumerSubscriptionReworked;
   };
-};
-
-export type ChipData = {
-  shouldDisplay?: boolean;
-  chipColor: ChipColor;
-  leftIcon?: React.ReactNode;
-  variant?: ChipVariant;
-  text: string;
-  chipClassName: string;
 };
 
 export type ConsumerPaymentPackCompatibility = {

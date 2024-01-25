@@ -16,6 +16,7 @@ import moment from 'moment-timezone';
 import { DialogContent, Dialog, Grid } from '@material-ui/core';
 import { withTheme } from '@material-ui/styles';
 import withWidth, { isWidthDown } from '@material-ui/core/withWidth';
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 import { AssetForBlueprint, RoomBlueprint, SpotType } from '../../types';
 import { getCoachOrSubstitute } from '../../../offer/utils';
 import SpotSelector from './SpotSelector.component';
@@ -42,6 +43,7 @@ interface OwnProps {
   fullScreen: boolean;
   spotTypesOfBlueprint: SpotType[];
   theme: Theme;
+  coachDisplay?: MarketPlaceCoachDisplay;
   width: any;
 }
 
@@ -220,6 +222,7 @@ class SpotSelectorDialog extends React.PureComponent<Props, State> {
           <SpotSelector
             assets={this.props.assets}
             coach={getCoachOrSubstitute(this.props.offer)}
+            coachDisplay={this.props.coachDisplay}
             fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
             isMobile={isMobile}
             onSelectSpot={this.onSelectSpot}

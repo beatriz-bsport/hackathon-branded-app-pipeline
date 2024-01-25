@@ -1,5 +1,6 @@
 // @ts-nocheck
 import React, { useState } from 'react';
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 import SpotSelectorDialog from '../../../../libs/spot-scheduling/component/SpotSelector/SpotSelectorDialog.component';
 import { Offer, OfferStatus } from '../../../../libs/offer/types';
 import {
@@ -24,10 +25,11 @@ interface Props {
   offerStatusById: { [key: string]: OfferStatus };
   refreshOfferStatus: (offerId: number) => void;
   spotTypes: SpotType[];
+  coachDisplay?: MarketPlaceCoachDisplay;
 }
 
 const OfferSpotSelector = (props: Props) => {
-  const { offer } = props;
+  const { offer, coachDisplay } = props;
   const [selectedSpotTypeId, setSelectedSpotTypeId] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(null);
 
@@ -63,6 +65,7 @@ const OfferSpotSelector = (props: Props) => {
       forceFullScreen
       open
       assets={assets}
+      coachDisplay={coachDisplay}
       fetchSpotForBlueprint={props.fetchSpotForBlueprint}
       offer={offer}
       onClose={props.onCancel(offer)}

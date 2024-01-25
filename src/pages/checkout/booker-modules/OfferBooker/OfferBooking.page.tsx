@@ -994,6 +994,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
               assetByIdBlueprintByIdentifier={
                 this.props.assetByIdBlueprintByIdentifier
               }
+              coachDisplay={this.props.theme.coach_display}
               fetchSpotForBlueprint={this.props.fetchSpotForBlueprint}
               offer={this.state.offersWaitingForSpotSelection[0]}
               offerStatusById={this.props.offerStatusById}

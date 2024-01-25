@@ -167,6 +167,7 @@ export class SignupPage extends Component<Props> {
               <CustomFormView
                 general_terms_and_conditions={theme.general_terms_of_use}
                 initial={signUpCustomForm}
+                isCssVariantActivated={CUSTOM_FORM_CSS_VARIANT_ACTIVATED}
                 layouts={signUpCustomForm.layout}
                 onCancel={this.handleCancel}
                 onSubmit={this.submitCustomForm}

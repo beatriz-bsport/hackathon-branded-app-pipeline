@@ -74,7 +74,7 @@ import FabriqueSelectfield from '#Fabrique/Temporary/Selectfield';
 import FabriqueDateField from '#Fabrique/Temporary/DateField/DateField.component';
 import FabriqueAvatarField from '#Fabrique/Temporary/AvatarField';
 import FabriqueCheckboxfield from '#Fabrique/Temporary/Checkboxfield/Checkboxfield.component';
-import FabriqueAcceptTermsAndConditions from '#Fabrique/Temporary/AcceptTermsAndConditions/AcceptTermsAndConditions.component';
+import FabriqueAcceptTermsAndConditions from '#Fabrique/Temporary/AcceptTermsAndConditions';
 
 type OwnProps = {
   field: CustomFormField & { answer: string | number | boolean };

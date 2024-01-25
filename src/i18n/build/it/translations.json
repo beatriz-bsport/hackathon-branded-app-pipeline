@@ -9793,7 +9793,7 @@
         },
         "officialIdNumber": {
             "value": "N°{{id}}",
-            "label": "Numero documento di identità"
+            "label": "Codice fiscale"
         },
         "signedUpWithReferral": "Il membro si è iscritto tramite il link di <1>{{ name }}</1>",
         "email": "Email"
@@ -16523,7 +16523,7 @@
                 "sign_up_question": "Domanda sul form di registrazione",
                 "location": "Posizione preferita",
                 "state": "Stato",
-                "official_document_id": "Numero documento di identità"
+                "official_document_id": "Codice fiscale"
             },
             "customFormField": {
                 "modal": {

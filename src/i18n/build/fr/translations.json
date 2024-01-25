@@ -4484,11 +4484,11 @@
                     "billing_plan-renew": "Renouvellement"
                 },
                 "marketing_action": {
-                    "1": "Email",
+                    "1": "Ecrire un email",
                     "2": "SMS",
                     "3": "Notification push",
                     "4": "Tag",
-                    "5": "Template Email",
+                    "5": "Sélectionner un template email",
                     "select_tag": "Sélectionner un tag",
                     "defaultName": "Nom par défaut",
                     "form": {
@@ -4584,7 +4584,7 @@
                     "convertIntoStep": "Convertir en étape",
                     "edit": "Éditer"
                 },
-                "defaultName": "Etape automatique"
+                "defaultName": "Étape sans titre"
             },
             "graph": {
                 "tools": {
@@ -4739,7 +4739,7 @@
                     "success": {
                         "title": "Succès",
                         "description": "Pourcentage de personnes considérées comme gagnées.",
-                        "label": "Taux de succès"
+                        "label": "taux de succès"
                     },
                     "averageTime": {
                         "title": "Durée moyenne",
@@ -4772,7 +4772,7 @@
                     "member": "Membre"
                 },
                 "historicTitle": "Historique ({{count}})",
-                "title": "Membres présents dans {{ workflowLowerCase }} ({{count}})",
+                "title": "Membres présents dans le {{ workflowLowerCase }} ({{count}})",
                 "searchPlaceHolder": "Rechercher..."
             },
             "editModal": {

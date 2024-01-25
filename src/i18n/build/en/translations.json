@@ -16937,11 +16937,11 @@
                     },
                     "defaultName": "Name by default",
                     "select_tag": "Select a tag",
-                    "5": "Email template",
+                    "5": "Select a email template",
                     "4": "Tag",
                     "3": "Notification push",
                     "2": "SMS",
-                    "1": "Email"
+                    "1": "Write an email"
                 },
                 "event": {
                     "billing_plan-renew": "Renewal",
@@ -17110,7 +17110,8 @@
                     "changeInExit": "Convert to output",
                     "delete": "Delete",
                     "addNextStep": "Add next step"
-                }
+                },
+                "defaultName": "Untitled step"
             },
             "marketingAction": {
                 "addAction": "Add an action"

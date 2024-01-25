@@ -153,7 +153,7 @@ Build Deploy Dev:
     - export ENVIRONMENT=$FEATURE_BRANCH_IDENTIFIER
     - export S3_BUCKET="s3://bsport-backoffice-assets-feature-branch-${FEATURE_BRANCH_IDENTIFIER}/"
     - export FRONTEND_URL="backoffice-${FEATURE_BRANCH_IDENTIFIER}.chaos.bsport.io"
-    - export CLOUDFRONT_ID=`grep "$FEATURE_BRANCH_IDENTIFIER " ci/feature-branch-listing.txt | cut -d' ' -f2`
+    - export CLOUDFRONT_ID=`grep "^$FEATURE_BRANCH_IDENTIFIER " ci/feature-branch-listing.txt | cut -d' ' -f2`
     - echo "Preparing VERSION:${VERSION} on ${ENVIRONMENT}"
     - echo "export default '`date +%F+%H+%M`';" > src/release-date.js
     - echo "export default '$VERSION';" > src/release.js

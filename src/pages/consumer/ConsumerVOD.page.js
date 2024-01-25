@@ -11,6 +11,7 @@ import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import VideoLibrary from '@material-ui/icons/VideoLibrary';
 import { withTranslation, TFunction } from 'react-i18next';
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 import themeSelectors from '../../libs/theme/selectors';
 
 import { WidgetUtils } from '../../libs/widget/WidgetUtils';
@@ -50,6 +51,7 @@ type Props = {
   openVideo: () => void,
   companyId: string,
   classes: Object,
+  coachDisplay?: MarketPlaceCoachDisplay,
   t: TFunction,
 };
 
@@ -90,6 +92,7 @@ class ConsumerVOD extends React.PureComponent<Props> {
         </Typography>
         <Divider className={this.props.classes.sectionDivider} />
         <VideoItemList
+          coachDisplay={this.props.coachDisplay}
           hasMoreVideo={this.props.hasMoreVideo}
           hideCoach={this.props.hideCoach}
           loading={this.props.loading}
@@ -134,6 +137,7 @@ export default compose(
       purchasedVideoList: getVideoPurchases(state),
       loading: state.video.loading,
       hideCoach: themeSelectors.getTheme(state).hideCoach,
+      coachDisplay: themeSelectors.getTheme(state).coach_display,
       hasMoreVideo: state.video.list.nextPage && state.video.list.nextPage > 1,
     }),
     {

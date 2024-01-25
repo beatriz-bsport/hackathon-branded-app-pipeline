@@ -169,7 +169,7 @@ const PaymentStripe: React.FC<
       termsAndConditions,
       setTermsAndConditionsAccepted,
       termsAndConditionsAccepted,
-      isEstablishmentBillingGroupSelected,
+      isEstablishmentBillingGroupSelected = true,
       updatePriceCts,
       detachPaymentMethodLoading,
       detachPaymentMethod,

@@ -58,6 +58,7 @@ import { getCurrencyDisplayWithPrice } from '../../libs/theme/selectors';
 import { urlToMarketplace } from '../../libs/marketplace/utils';
 import ConnectedAsDialog from '../../libs/relationship/components/ConnectedAs.dialog';
 import { getCheckoutUrl } from '#libs/marketplace/routing-utils';
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 export const drawerWidth = 260;
 
@@ -777,4 +778,5 @@ export default compose(
   withTranslation(['consumerSpace']),
   withStyles(styles, { withTheme: true }),
   windowTitleToProps,
+  marketplaceCssHoc(),
 )(withRouter(ConsumerDrawer));

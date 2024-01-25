@@ -5,7 +5,6 @@ import { push } from 'connected-react-router';
 import uniq from 'lodash/uniq';
 // @ts-expect-error
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import WidgetUtils from '#libs/widget/WidgetUtils';
 import { urlToMarketplaceSessionTab } from '#libs/marketplace/utils/navigation';
 
@@ -437,5 +436,4 @@ export default compose(
   routerParamsToProps({ companyId: 'companyId:number' }),
   connector,
   withHandlers(mapWithHandlers),
-  marketplaceCssHoc(),
 )(ConsumerBooking);

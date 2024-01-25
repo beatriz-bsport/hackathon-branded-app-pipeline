@@ -1,7 +1,11 @@
 import React, { useCallback } from 'react';
 
-import { MarketPlaceSessionTimeDisplay } from '@bsport/common/lib/master-data/personalization';
+import {
+  MarketPlaceCoachDisplay,
+  MarketPlaceSessionTimeDisplay,
+} from '@bsport/common/lib/master-data/personalization';
 
+import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach';
 import { isDateInThePast } from '#utils/datetime';
 import useConsumerBookingDateTime from '#libs/consumer-space/components/reworked/@MyBookings/hooks/useConsumerBookingDateTime';
 import ConsumerBookingCard from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingCard';
@@ -14,6 +18,7 @@ type Props = {
   timezone: string;
   sessionTimeDisplay: MarketPlaceSessionTimeDisplay;
   item: ConsumerBookingOption;
+  coachDisplay?: MarketPlaceCoachDisplay;
   onBookingCardClick: (bookingId: number) => void;
   handleSelectBookingForCancelation: (bookingId: number) => void;
   handleBookSession: (offerId: number) => void;
@@ -24,6 +29,7 @@ const ConsumerBookingOptionListItem: React.FC<Props> = ({
   isLoading,
   isSelected,
   sessionTimeDisplay,
+  coachDisplay,
   timezone,
   onBookingCardClick,
   handleSelectBookingForCancelation,
@@ -54,10 +60,16 @@ const ConsumerBookingOptionListItem: React.FC<Props> = ({
 
   const isBookingOptionInThePast = isDateInThePast(item.offer?.date_start);
 
+  const coachName = getCoachDisplayName(
+    coachDisplay,
+    item.coach?.name,
+    item.coach?.firstname,
+  );
+
   return (
     <ConsumerBookingCard
       activityName={item.meta_activity?.name}
-      coachName={item.coach?.name}
+      coachName={coachName}
       coachPhoto={item.coach?.photo}
       establishmentAddress={item.establishment?.location?.address}
       isBookable={item.is_convertible}

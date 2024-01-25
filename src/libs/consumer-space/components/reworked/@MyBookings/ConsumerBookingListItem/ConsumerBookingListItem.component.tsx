@@ -1,7 +1,11 @@
 import React, { useCallback } from 'react';
 
-import { MarketPlaceSessionTimeDisplay } from '@bsport/common/lib/master-data/personalization';
+import {
+  MarketPlaceCoachDisplay,
+  MarketPlaceSessionTimeDisplay,
+} from '@bsport/common/lib/master-data/personalization';
 
+import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach';
 import useConsumerBookingDateTime from '#libs/consumer-space/components/reworked/@MyBookings/hooks/useConsumerBookingDateTime';
 import { isDateInThePast } from '#utils/datetime';
 import ConsumerBookingCard from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingCard';
@@ -14,6 +18,7 @@ type Props = {
   timezone: string;
   sessionTimeDisplay: MarketPlaceSessionTimeDisplay;
   item: ConsumerBooking;
+  coachDisplay?: MarketPlaceCoachDisplay;
   onBookingCardClick: (bookingId: number) => void;
   handleJoinOnlineBooking: (
     bookingBroadcastURL: string,
@@ -30,6 +35,7 @@ const ConsumerBookingListItem: React.FC<Props> = ({
   isSelected,
   isLoading,
   sessionTimeDisplay,
+  coachDisplay,
   timezone,
   onBookingCardClick,
   handleJoinOnlineBooking,
@@ -85,11 +91,17 @@ const ConsumerBookingListItem: React.FC<Props> = ({
     isJoinableOnline: item.meta_activity?.is_broadcast && !offerIsInThePast,
   };
 
+  const coachName = getCoachDisplayName(
+    coachDisplay,
+    item.coach?.name,
+    item.coach?.firstname,
+  );
+
   return (
     <ConsumerBookingCard
       isMoreDisabled
       activityName={item.offer?.name_override || item.meta_activity?.name}
-      coachName={item.coach?.name}
+      coachName={coachName}
       coachPhoto={item.coach?.photo}
       establishmentAddress={item.establishment?.location?.address}
       isBookedForAGuest={!!item.source_member}

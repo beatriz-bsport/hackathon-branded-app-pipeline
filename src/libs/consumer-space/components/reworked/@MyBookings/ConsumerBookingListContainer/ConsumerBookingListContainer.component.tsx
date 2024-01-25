@@ -3,8 +3,12 @@ import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 
 import { BOOKING_STATUS_CANCELLED_BY_MANAGER } from '@bsport/common/lib/master-data/booking_status_code';
-import { MarketPlaceSessionTimeDisplay } from '@bsport/common/lib/master-data/personalization';
+import {
+  MarketPlaceCoachDisplay,
+  MarketPlaceSessionTimeDisplay,
+} from '@bsport/common/lib/master-data/personalization';
 
+import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach';
 import useConsumerBookingDateTime from '#libs/consumer-space/components/reworked/@MyBookings/hooks/useConsumerBookingDateTime';
 import { formatAsDate, getIsLateBookingCancellation } from '#utils/datetime';
 import { GenericInfiniteScrollEnhancedCssOnly } from '#components/InfiniteScroll/GenericInfiniteScrollCssOnly.component';
@@ -50,6 +54,7 @@ type Props = {
     bookingId: number,
     type: 'booking' | 'privateBooking' | 'bookingOption',
   ) => void;
+  coachDisplay?: MarketPlaceCoachDisplay;
   handlePaginationFetchMore: () => void;
   handleSelectBookingForCancelation: (bookingId: number) => void;
   handleJoinOnlineBooking: (
@@ -79,6 +84,7 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
   selectedTab,
   selectedFilterTab,
   handleSeeBookingDetails,
+  coachDisplay,
   handlePaginationFetchMore,
   handleSelectBookingForCancelation,
   handleJoinOnlineBooking,
@@ -157,6 +163,22 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
     return !isLoading && (!bookingList || bookingList?.length === 0);
   })();
 
+  const selectedBookingCoachName = getCoachDisplayName(
+    coachDisplay,
+    selectedBooking?.coach?.name ||
+      selectedPrivateBooking?.coach?.name ||
+      selectedBookingOption?.coach?.name,
+    selectedBooking?.coach?.firstname ||
+      selectedPrivateBooking?.coach?.firstname ||
+      selectedBookingOption?.coach?.firstname,
+  );
+
+  const selectedBookingCoachOverrideName = getCoachDisplayName(
+    coachDisplay,
+    selectedBooking?.coach_override?.name,
+    selectedBooking?.coach_override?.firstname,
+  );
+
   return (
     <div
       className={classNames('bs-consumer-page-root__bookings', {
@@ -192,6 +214,7 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
                   return (
                     <ConsumerBookingOptionListItem
                       key={item.id}
+                      coachDisplay={coachDisplay}
                       handleBookSession={handleBookSession}
                       handleSelectBookingForCancelation={
                         handleSelectBookingForCancelation
@@ -211,6 +234,7 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
                   return (
                     <ConsumerPrivateBookingListItem
                       key={item.id}
+                      coachDisplay={coachDisplay}
                       handleSelectBookingForCancelation={
                         handleSelectBookingForCancelation
                       }
@@ -228,6 +252,7 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
                 return (
                   <ConsumerBookingListItem
                     key={item.id}
+                    coachDisplay={coachDisplay}
                     handleJoinOnlineBooking={handleJoinOnlineBooking}
                     handleSelectBookingForCancelation={
                       handleSelectBookingForCancelation
@@ -272,15 +297,11 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
               selectedPrivateBooking?.coach?.instagram_url ||
               selectedBookingOption?.coach?.instagram_url
             }
-            coachName={
-              selectedBooking?.coach?.name ||
-              selectedPrivateBooking?.coach?.name ||
-              selectedBookingOption?.coach?.name
-            }
+            coachName={selectedBookingCoachName}
             coachOverrideDescription={
               selectedBooking?.coach_override?.description
             }
-            coachOverrideName={selectedBooking?.coach_override?.name}
+            coachOverrideName={selectedBookingCoachOverrideName}
             coachOverridePicture={selectedBooking?.coach_override?.photo}
             coachPicture={
               selectedBooking?.coach?.photo ||

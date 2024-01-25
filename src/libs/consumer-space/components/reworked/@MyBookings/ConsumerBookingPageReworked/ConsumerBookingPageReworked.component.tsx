@@ -286,6 +286,7 @@ export const ConsumerBookingPageReworkedComponent: React.FC<Props> = ({
         <ConsumerBookingListContainer
           bookingList={bookingList}
           bookingOptionList={bookingOptionList}
+          coachDisplay={companyTheme?.coach_display}
           handleBookSession={handleBookSession}
           handleJoinOnlineBooking={handleJoinOnlineBooking}
           handlePaginationFetchMore={handlePaginationFetchMore}

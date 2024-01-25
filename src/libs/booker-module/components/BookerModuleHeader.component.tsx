@@ -8,14 +8,18 @@ import Hidden from '@material-ui/core/Hidden';
 import PlaceIcon from '@material-ui/icons/Place';
 import PersonIcon from '@material-ui/icons/Person';
 
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
+import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach';
 import { MaterialStyleType } from '../../../utils/types';
 
 import { getCoachOrSubstitute } from '../../offer/utils';
 import { Offer_FULL } from '../../offer/types';
+import { Coach } from '#libs/associated-coach/types';
 
 type OwnProps = {
   offer: Offer_FULL;
   hideCoach: boolean;
+  coachDisplay?: MarketPlaceCoachDisplay;
 };
 
 type Props = OwnProps &
@@ -24,7 +28,7 @@ type Props = OwnProps &
 
 class ActivitySummary extends React.PureComponent<Props> {
   render() {
-    const { classes, offer } = this.props;
+    const { classes, offer, coachDisplay } = this.props;
 
     if (
       !offer ||
@@ -35,6 +39,14 @@ class ActivitySummary extends React.PureComponent<Props> {
     }
 
     const { meta_activity } = offer;
+
+    const coach: Coach = getCoachOrSubstitute(offer);
+
+    const coachName = getCoachDisplayName(
+      coachDisplay,
+      coach?.name,
+      coach?.firstname,
+    );
 
     return (
       <div className={classes.container}>
@@ -63,9 +75,7 @@ class ActivitySummary extends React.PureComponent<Props> {
             {!this.props.hideCoach && (
               <div className={classes.row}>
                 <PersonIcon className={classes.leftIcon} />
-                <Typography variant="caption">
-                  {getCoachOrSubstitute(offer)?.name}
-                </Typography>
+                <Typography variant="caption">{coachName}</Typography>
               </div>
             )}
           </div>
@@ -85,7 +95,7 @@ const styles = (theme: Theme) => ({
   },
   row: {
     display: 'flex',
-    alignItems: 'row',
+    alignItems: 'center',
     flexDirection: 'row',
   },
   container: {

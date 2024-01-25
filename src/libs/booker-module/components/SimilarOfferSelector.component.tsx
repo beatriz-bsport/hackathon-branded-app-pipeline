@@ -21,6 +21,7 @@ import { getOfferFeature } from '@bsport/common/lib/master-data/available-paymen
 
 import CloseIcon from '@material-ui/icons/Close';
 
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 import { MaterialStyleType } from '../../../utils/types';
 import { Offer, Offer_FULL, OfferStatus } from '../../offer/types';
 import { OfferData } from '../types';
@@ -40,6 +41,7 @@ type OwnProps = {
   offerStatusById: { [key: string]: OfferStatus };
   acceptDoubleBooking?: boolean;
   acceptDoubleBookingWorkshop?: boolean;
+  coachDisplay?: MarketPlaceCoachDisplay;
 };
 
 type Props = OwnProps &
@@ -98,7 +100,7 @@ class SimilarOffersSelector extends React.PureComponent<Props> {
   };
 
   render() {
-    const { classes, t } = this.props;
+    const { classes, t, coachDisplay } = this.props;
 
     const displayedOffersCount =
       this.availableOffers.length - this.props.selectedOffers.length;
@@ -200,6 +202,7 @@ class SimilarOffersSelector extends React.PureComponent<Props> {
               <Collapse key={o.id} in={!isSelected}>
                 <div className={classes.similarOfferItem}>
                   <OfferItem
+                    coachDisplay={coachDisplay}
                     disabled={o.group ? false : noInteraction}
                     height={200}
                     hideCoach={this.props.hideCoach}

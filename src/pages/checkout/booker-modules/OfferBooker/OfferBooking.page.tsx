@@ -856,6 +856,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
         <div className={classes.pageContainer}>
           <div className={classes.contentContainer}>
             <BookerModuleHeader
+              coachDisplay={this.props.theme.coach_display}
               hideCoach={this.props.theme.hideCoach}
               offer={this.props.offer}
             />
@@ -871,6 +872,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
                       this.props.theme.accept_double_booking_workshop
                     }
                     additionalGuestList={this.state.additionalGuestList}
+                    coachDisplay={this.props.theme.coach_display}
                     frequencyBookingGuest={
                       this.props.theme.allow_guest_frequency
                     }
@@ -967,6 +969,7 @@ class OfferBooking extends React.PureComponent<Props, State> {
               acceptDoubleBookingWorkshop={
                 this.props.theme.accept_double_booking_workshop
               }
+              coachDisplay={this.props.theme.coach_display}
               hasMoreSimilarOffer={this.props.hasMoreSimilarOffer}
               hideCoach={this.props.theme.hideCoach}
               loading={this.props.similarLoading}

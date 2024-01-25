@@ -22,6 +22,8 @@ import {
   OFFER_BOOKABLE_STATUS_CLOSE_TOO_LATE,
   OFFER_BOOKABLE_STATUS_LOCKED,
 } from '@bsport/common/lib/master-data/bookable-status';
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
+import { getCoachDisplayName } from '@bsport/common/lib/master-data/coach';
 import {
   formatAsDatetimeAdapted,
   formatAsTime,
@@ -109,18 +111,20 @@ type OfferBookableItemProps = {
   displayPositionInWaitingList?: boolean;
   waitingListPosition?: { member_position: number; waiting_list_size: number };
   isBookingLimitReached?: boolean;
+  coachDisplay?: MarketPlaceCoachDisplay;
 };
 export const OfferBookableItem = (props: OfferBookableItemProps) => {
   const classes = useStyles();
   const { t } = useTranslation(['datetime', 'booking']);
 
-  const { offer } = props;
+  const { offer, coachDisplay } = props;
 
   const establishmentTitle =
     (offer && offer.establishment && offer.establishment.title) || '';
 
   const coach = (offer && offer.coach_override) || offer.coach;
-  const coachName = (coach && coach.name) || '';
+  const coachName =
+    getCoachDisplayName(coachDisplay, coach?.name, coach?.firstname) || '';
 
   const onClick =
     !props.disabled && (() => props.onAdd && props.onAdd(props.offer));

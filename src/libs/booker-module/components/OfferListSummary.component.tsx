@@ -19,6 +19,7 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import moment from 'moment-timezone';
 import { getOfferFeature } from '@bsport/common/lib/master-data/available-payment';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 import { MaterialStyleType } from '../../../utils/types';
 import {
   Offer_FULL,
@@ -61,6 +62,7 @@ type OwnProps = {
 
   spotTypes: SpotType[];
   spotsForOffers: { [offerId: number]: number };
+  coachDisplay?: MarketPlaceCoachDisplay;
 };
 
 type Props = OwnProps &
@@ -82,7 +84,7 @@ class OfferListSummary extends React.PureComponent<Props> {
   }
 
   render() {
-    const { classes, t, offer, offerStatus } = this.props;
+    const { classes, t, offer, offerStatus, coachDisplay } = this.props;
 
     const offerLevelTranslation = getLevelTranslation(
       Number.parseInt(this.props.offer.level),
@@ -181,6 +183,7 @@ class OfferListSummary extends React.PureComponent<Props> {
         <div className={classes.offersContainer}>
           {!!offer && !this.props.hideGenericOffer && (
             <OfferBookableItem
+              coachDisplay={coachDisplay}
               disabled={offer.group ? false : noInteraction}
               hideCoach={this.props.hideCoach}
               isBookable={isBookable}

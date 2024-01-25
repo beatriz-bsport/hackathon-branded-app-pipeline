@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback } from 'react';
 
 import { MarketPlaceSessionTimeDisplay } from '@bsport/common/lib/master-data/personalization';
 
@@ -46,10 +46,7 @@ const ConsumerPrivateBookingListItem: React.FC<Props> = ({
     [handleSelectBookingForCancelation, item.id],
   );
 
-  const isBookingInThePast = useMemo(
-    () => isDateInThePast(item.date_start),
-    [item.date_start],
-  );
+  const isBookingInThePast = isDateInThePast(item.date_start);
 
   return (
     <ConsumerBookingCard

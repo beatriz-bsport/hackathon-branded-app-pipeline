@@ -56,6 +56,7 @@ import CustomFormsKeleton from '../../libs/custom-form/components/CustomFormSkel
 import CustomFormLayoutEditor from '../../libs/custom-form/components/consumer-form-layout/CustomFormLayoutEditor.dialog';
 
 import themeSelectors from '../../libs/theme/selectors';
+import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
 
 type StateHandlerInit = {
   customFormRefresh: CustomForm;
@@ -276,6 +277,7 @@ export class CustomFormDetail extends React.Component<Props, State> {
               this.props.theme?.general_terms_and_conditions
             }
             initial={this.props.customFormView}
+            isCssVariantActivated={CUSTOM_FORM_CSS_VARIANT_ACTIVATED}
             open={this.props.openLayoutUpdateDialog}
             saveLayouts={(layouts) =>
               this.props.updateCutsomFormLayout(
@@ -283,6 +285,7 @@ export class CustomFormDetail extends React.Component<Props, State> {
                 { noSuccessMessage: true },
               )
             }
+            shouldWrapLayerInCssHoc={CUSTOM_FORM_CSS_VARIANT_ACTIVATED}
             waiver={this.props.theme?.waiver}
           />
         )}

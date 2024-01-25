@@ -17,6 +17,7 @@ import { WithHandlerType } from '../../utils/types';
 import themeSelectors from '../../libs/theme/selectors';
 import { CustomForm, ResponsiveLayouts } from '../../libs/custom-form/types';
 import withTitle from '../../hocs/with-title.hoc';
+import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
 
 type OwnProps = {
   id: number;
@@ -53,6 +54,7 @@ export class CustomFormLayoutPage extends Component<Props> {
             this.props.theme?.general_terms_and_conditions
           }
           initial={this.props.customForm}
+          isCssVariantActivated={CUSTOM_FORM_CSS_VARIANT_ACTIVATED}
           layouts={this.props.customForm?.layout}
           maxHeight="75%"
           onLayoutChange={(allLayouts: ResponsiveLayouts) =>
@@ -64,6 +66,7 @@ export class CustomFormLayoutPage extends Component<Props> {
               layout: this.props.responsiveLayouts,
             })
           }
+          shouldWrapLayerInCssHoc={CUSTOM_FORM_CSS_VARIANT_ACTIVATED}
           waiver={this.props.theme?.waiver}
         />
       </>

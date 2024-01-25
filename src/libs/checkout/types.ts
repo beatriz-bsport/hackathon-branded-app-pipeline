@@ -99,6 +99,13 @@ export type HandleAddCheckoutItemData = {
 
 export type CheckoutItemExtraData = {
   offers_data?: CheckoutItemOfferData[];
+  voucher_cts?: number;
+  percent_off?: number;
+  amount_off?: number;
+  is_applied?: boolean;
+  referral_coupon_type?: string;
+  has_reached_max_uses?: boolean;
+  missing_amount_before_application?: number;
 };
 
 export type CheckoutItemOfferData = {

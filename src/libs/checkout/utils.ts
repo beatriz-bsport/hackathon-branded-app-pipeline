@@ -10,13 +10,17 @@ import {
 } from '@bsport/common/lib/master-data/error-codes/lock';
 import memoize from 'memoize-one';
 import { getPrice } from '#libs/theme/utils';
-import { getCompanyCountry } from '#libs/theme/selectors';
+import {
+  getCompanyCountry,
+  getCurrencyDisplayWithPrice,
+} from '#libs/theme/selectors';
 import {
   Basket,
   ConfirmationStatus,
   BuyableItemOptions,
   CheckoutItem,
   PrepaidLine,
+  CheckoutItemExtraData,
 } from './types';
 
 import {
@@ -309,3 +313,51 @@ export const sortCheckoutItemByBuyableItemIdentifier = memoize(
     }, emptyCheckOutItemByBuyableItemIdentifier());
   },
 );
+
+export const getIsCheckoutItemApplied = (
+  checkoutItemExtraData: CheckoutItemExtraData,
+): boolean =>
+  checkoutItemExtraData?.is_applied !== undefined
+    ? checkoutItemExtraData?.is_applied
+    : true;
+
+export const getIsCheckoutItemReferralItem = (
+  checkoutItemExtraData: CheckoutItemExtraData,
+): boolean => checkoutItemExtraData?.referral_coupon_type !== undefined;
+
+export const getCheckoutItemPrice = ({
+  checkoutItem,
+  isExcludingTax,
+}: {
+  checkoutItem: CheckoutItem;
+  isExcludingTax: boolean;
+}): string => {
+  const isApplied = getIsCheckoutItemApplied(checkoutItem.extra_data);
+  const isReferralCouponItem = getIsCheckoutItemReferralItem(
+    checkoutItem.extra_data,
+  );
+
+  if (!isReferralCouponItem)
+    return `${getCurrencyDisplayWithPrice(
+      checkoutItem.unit_price,
+      isExcludingTax,
+      checkoutItem.tax,
+    )} x ${checkoutItem.quantity}`;
+
+  // If the coupon is applicable, we want to display the amount actually retrieved from the
+  // basket price, even though it is less than the available amount off.
+  if (isApplied && checkoutItem.extra_data?.voucher_cts)
+    return `${getCurrencyDisplayWithPrice(
+      checkoutItem.extra_data?.voucher_cts / 100,
+    )}`;
+
+  // Else we will just display the available amount off, or percent off.
+  if (checkoutItem.extra_data?.percent_off)
+    return `-${checkoutItem.extra_data?.percent_off} %`;
+  if (checkoutItem.extra_data?.amount_off)
+    return `-${getCurrencyDisplayWithPrice(
+      checkoutItem.extra_data?.amount_off,
+    )}`;
+
+  return '';
+};

@@ -17,7 +17,10 @@ import {
 } from '#libs/checkout/types';
 
 import BasketTaxInfo from '../BasketTaxInfo.component';
-import { getBasketTotalPriceExcludingTax } from '../../utils';
+import {
+  getBasketTotalPriceExcludingTax,
+  getCheckoutItemPrice,
+} from '../../utils';
 import { BillItem } from './BilllItem.component';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 
@@ -154,13 +157,13 @@ export const PriceCount: React.FC<PriceCountProps> = ({
               <BillItem
                 key={`discount-item-${discountItem.id}`}
                 billItemName={discountItem.name}
-                billItemPrice={getCurrencyDisplayWithPrice(
-                  discountItem.unit_price,
+                billItemPrice={getCheckoutItemPrice({
+                  checkoutItem: discountItem,
                   isExcludingTax,
-                  discountItem.tax,
-                )}
+                })}
                 isBillItemPricePositive={false}
                 isDeleteButtonDisabled={isDeleteButtonDisabled}
+                itemExtraData={discountItem.extra_data}
                 onRemoveBillItem={handleRemoveDiscountItem(discountItem)}
               />
             ))}

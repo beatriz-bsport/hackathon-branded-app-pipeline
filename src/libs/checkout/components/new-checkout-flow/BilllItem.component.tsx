@@ -1,15 +1,22 @@
 import React from 'react';
 
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import { Theme, makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import type { CheckoutItemExtraData } from '#libs/checkout/types';
+import ReferralCouponHelpText from '../ReferralCouponHelpText.component';
+import {
+  getIsCheckoutItemApplied,
+  getIsCheckoutItemReferralItem,
+} from '#libs/checkout/utils';
 
 type BillItemProps = {
   billItemName: string;
   billItemPrice: string;
   isBillItemPricePositive: boolean;
   isDeleteButtonDisabled: boolean;
+  itemExtraData?: CheckoutItemExtraData;
   onRemoveBillItem?: () => void;
 };
 
@@ -18,43 +25,64 @@ export const BillItem: React.FC<BillItemProps> = ({
   billItemPrice,
   isBillItemPricePositive,
   isDeleteButtonDisabled,
+  itemExtraData,
   onRemoveBillItem,
 }) => {
-  const classes = useStyles();
+  const isApplied = getIsCheckoutItemApplied(itemExtraData);
 
-  const billItemPriceClass = isBillItemPricePositive
-    ? ''
-    : classes.priceNegative;
+  const isReferralCouponItem = getIsCheckoutItemReferralItem(itemExtraData);
+
+  const classes = useStyles({ isApplied, isBillItemPricePositive });
 
   return (
     <div className={classes.billItemContainer}>
-      <Typography className={classes.lightGrey} variant="body2">
-        {billItemName}
-      </Typography>
-      <div className={classes.endPriceContainer}>
-        <Typography className={billItemPriceClass} variant="subtitle2">
-          {billItemPrice}
+      <div className={classes.billItemRow}>
+        <Typography className={classes.lightGrey} variant="body2">
+          {billItemName}
         </Typography>
-        {!!onRemoveBillItem && (
-          <IconButton
-            className={classes.removeIconButton}
-            disabled={isDeleteButtonDisabled}
-            onClick={onRemoveBillItem}
-          >
-            <DeleteIcon className={classes.lightGrey} />
-          </IconButton>
-        )}
+        <div className={classes.endPriceContainer}>
+          <Typography className={classes.checkoutItemPrice} variant="subtitle2">
+            {billItemPrice}
+          </Typography>
+          {!!onRemoveBillItem && (
+            <IconButton
+              className={classes.removeIconButton}
+              disabled={isDeleteButtonDisabled}
+              onClick={onRemoveBillItem}
+            >
+              <DeleteIcon className={classes.lightGrey} />
+            </IconButton>
+          )}
+        </div>
       </div>
+      {isReferralCouponItem && !isApplied && (
+        <div className={classes.errorContainer}>
+          <ReferralCouponHelpText
+            hasReachedMaxUses={itemExtraData?.has_reached_max_uses}
+            missingAmountBeforeApplication={
+              itemExtraData?.missing_amount_before_application
+            }
+          />
+        </div>
+      )}
     </div>
   );
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles<
+  Theme,
+  { isBillItemPricePositive?: boolean; isApplied?: boolean }
+>((theme) => ({
   billItemContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  billItemRow: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    opacity: ({ isApplied }) => (isApplied ? 1 : 0.5),
   },
   endPriceContainer: {
     display: 'flex',
@@ -65,6 +93,11 @@ const useStyles = makeStyles((theme) => ({
   lightGrey: { color: theme.palette.grey[600] },
   priceNegative: { color: theme.palette.primary.main },
   removeIconButton: { padding: '0' },
+  checkoutItemPrice: {
+    textDecoration: ({ isApplied }) => (isApplied ? null : 'line-through'),
+    color: ({ isBillItemPricePositive }) =>
+      isBillItemPricePositive ? null : theme.palette.primary.main,
+  },
 }));
 
 export default React.memo(BillItem);

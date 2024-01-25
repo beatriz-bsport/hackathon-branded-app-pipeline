@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 
@@ -25,6 +25,10 @@ import type { BookingFilterTab } from '#libs/consumer-space/components/reworked/
 
 import { BookingTabEnum } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/constants';
 import { BookingFilterTabEnum } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/constants';
+import {
+  MY_BOOKINGS_LIST_CONTAINER_HEIGHT,
+  MY_BOOKINGS_MOBILE_LIST_CONTAINER_HEIGHT,
+} from '#libs/consumer-space/components/reworked/@MyBookings/constants';
 
 import './styles.css';
 
@@ -42,9 +46,10 @@ type Props = {
   sessionTimeDisplay: MarketPlaceSessionTimeDisplay;
   selectedTab: BookingTab;
   selectedFilterTab: BookingFilterTab;
-  handleSetSelectedBooking: (bookingId: number) => void;
-  handleSetSelectedPrivateBooking: (privateBookingId: number) => void;
-  handleSetSelectedBookingOption: (bookingOptionId: number) => void;
+  handleSeeBookingDetails: (
+    bookingId: number,
+    type: 'booking' | 'privateBooking' | 'bookingOption',
+  ) => void;
   handlePaginationFetchMore: () => void;
   handleSelectBookingForCancelation: (bookingId: number) => void;
   handleJoinOnlineBooking: (
@@ -73,9 +78,7 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
   relatedBookingsInGroup,
   selectedTab,
   selectedFilterTab,
-  handleSetSelectedBooking,
-  handleSetSelectedPrivateBooking,
-  handleSetSelectedBookingOption,
+  handleSeeBookingDetails,
   handlePaginationFetchMore,
   handleSelectBookingForCancelation,
   handleJoinOnlineBooking,
@@ -83,6 +86,27 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
   handleBookSession,
 }) => {
   const { t } = useTranslation('consumerSpace');
+
+  const handleSetSelectedBooking = useCallback(
+    (bookingId: number) => {
+      handleSeeBookingDetails(bookingId, 'booking');
+    },
+    [handleSeeBookingDetails],
+  );
+
+  const handleSetSelectedPrivateBooking = useCallback(
+    (privateBookingId: number) => {
+      handleSeeBookingDetails(privateBookingId, 'privateBooking');
+    },
+    [handleSeeBookingDetails],
+  );
+
+  const handleSetSelectedBookingOption = useCallback(
+    (bookingOptionId: number) => {
+      handleSeeBookingDetails(bookingOptionId, 'bookingOption');
+    },
+    [handleSeeBookingDetails],
+  );
 
   const isLateCancellation = getIsLateBookingCancellation(
     selectedBooking?.date_canceled || selectedPrivateBooking?.date_canceled,
@@ -155,12 +179,11 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
             >
               fetchMoreData={handlePaginationFetchMore}
               hasMore={hasNextPage}
-              // TODO: height needs to be set to trigger fetchMoreData..
               // @ts-expect-error
               height={
                 isMobile
-                  ? 'calc(100dvh - 285px)'
-                  : 'calc(100dvh - 24px - 44px - 42px - 16px - 56px - 16px - 64px)'
+                  ? MY_BOOKINGS_MOBILE_LIST_CONTAINER_HEIGHT
+                  : MY_BOOKINGS_LIST_CONTAINER_HEIGHT
               }
               items={currentBookingList}
               loader={<ConsumerBookingCard isLoading />}
@@ -174,7 +197,9 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
                         handleSelectBookingForCancelation
                       }
                       isLoading={isLoading}
-                      isSelected={selectedBookingOption?.id === item.id}
+                      isSelected={
+                        !isMobile && selectedBookingOption?.id === item.id
+                      }
                       item={item as ConsumerBookingOption}
                       onBookingCardClick={handleSetSelectedBookingOption}
                       sessionTimeDisplay={sessionTimeDisplay}
@@ -190,7 +215,9 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
                         handleSelectBookingForCancelation
                       }
                       isLoading={isLoading}
-                      isSelected={selectedPrivateBooking?.id === item.id}
+                      isSelected={
+                        !isMobile && selectedPrivateBooking?.id === item.id
+                      }
                       item={item as ConsumerPrivateBooking}
                       onBookingCardClick={handleSetSelectedPrivateBooking}
                       sessionTimeDisplay={sessionTimeDisplay}
@@ -207,7 +234,7 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
                     }
                     handleShowSpotDetails={handleShowSpotDetails}
                     isLoading={isLoading}
-                    isSelected={item.id === selectedBooking?.id}
+                    isSelected={!isMobile && item.id === selectedBooking?.id}
                     item={item as ConsumerBooking}
                     onBookingCardClick={handleSetSelectedBooking}
                     sessionTimeDisplay={sessionTimeDisplay}

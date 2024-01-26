@@ -97,7 +97,6 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
     handleSetSelectedFilterTab,
     handleSetSelectedPass,
     handlePaginationFetchMore,
-    expiredItemsCount,
     futureItemsCount,
     activeItemsCount,
     nextPage,
@@ -137,7 +136,6 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
       <div className="bs-consumer-pass-page__root">
         <ConsumerPassHeader
           activeItemsCount={activeItemsCount}
-          expiredItemsCount={expiredItemsCount}
           futureItemsCount={futureItemsCount}
           handleBookASessionClick={handleBookASessionClick}
           handleBuyPassClick={handleBuyPassClick}

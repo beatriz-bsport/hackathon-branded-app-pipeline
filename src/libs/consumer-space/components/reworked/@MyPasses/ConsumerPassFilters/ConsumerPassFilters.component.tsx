@@ -11,7 +11,6 @@ type Props = {
   selectedTab: PassFilterTab;
   futurePassesCount: number;
   activePassesCount: number;
-  expiredPassesCount?: number;
   onChangeFilterTab: (type: PassFilterTab) => void;
 };
 
@@ -19,7 +18,6 @@ export const ConsumerPassFilters: React.FC<Props> = ({
   selectedTab,
   futurePassesCount,
   activePassesCount,
-  expiredPassesCount = 0,
   onChangeFilterTab,
 }) => {
   const { t } = useTranslation('consumerSpace');
@@ -56,11 +54,10 @@ export const ConsumerPassFilters: React.FC<Props> = ({
         value: futurePassesCount,
       },
       {
-        hasBadge: expiredPassesCount > 0,
+        hasBadge: false,
         type: PassFilterTabEnum.EXPIRED,
         label: t('reworked.myPasses.filters.expired'),
         onClick: handleSetExpiredFilterTab,
-        value: expiredPassesCount,
       },
     ],
     [
@@ -70,7 +67,6 @@ export const ConsumerPassFilters: React.FC<Props> = ({
       handleSetExpiredFilterTab,
       activePassesCount,
       futurePassesCount,
-      expiredPassesCount,
     ],
   );
   return (

@@ -176,13 +176,6 @@ export function useConsumerPassesDataManager({
     ],
   );
 
-  const expiredPassesCountMap = {
-    [PassTabEnum.CONSUMER_PAYMENT_PACK]: expiredConsumerPaymentPacksState.count,
-    [PassTabEnum.PRIVATE_CONSUMER_PASS]:
-      expiredPrivateConsumerPassesState.count,
-    [PassTabEnum.UNIVERSAL_PASS]: expiredUniversalPassesState.count,
-  };
-
   const futurePassesCountMap = {
     [PassTabEnum.CONSUMER_PAYMENT_PACK]: futureConsumerPaymentPacksState.count,
     [PassTabEnum.PRIVATE_CONSUMER_PASS]: futurePrivateConsumerPassesState.count,
@@ -196,7 +189,6 @@ export function useConsumerPassesDataManager({
   };
 
   const currentState = currentStateMap[`${selectedTab}-${selectedFilterTab}`];
-  const expiredItemsCount = expiredPassesCountMap[selectedTab] || 0;
   const futureItemsCount = futurePassesCountMap[selectedTab] || 0;
   const activeItemsCount = activePassesCountMap[selectedTab] || 0;
   const nextPage = currentState.next_page;
@@ -273,7 +265,6 @@ export function useConsumerPassesDataManager({
     // DATA/USER ACTIONS HANDLERS
     handlePaginationFetchMore,
     // COMPUTED STATE
-    expiredItemsCount,
     futureItemsCount,
     activeItemsCount,
     nextPage,

@@ -11,7 +11,6 @@ import './styles.css';
 
 type Props = {
   activeItemsCount: number;
-  expiredItemsCount: number;
   futureItemsCount: number;
   handleBuyPassClick: () => void;
   handleBookASessionClick: () => void;
@@ -23,7 +22,6 @@ type Props = {
 
 const ConsumerPassHeader: React.FC<Props> = ({
   activeItemsCount,
-  expiredItemsCount,
   futureItemsCount,
   handleBuyPassClick,
   handleBookASessionClick,
@@ -44,7 +42,6 @@ const ConsumerPassHeader: React.FC<Props> = ({
       />
       <ConsumerPassFilters
         activePassesCount={activeItemsCount}
-        expiredPassesCount={expiredItemsCount}
         futurePassesCount={futureItemsCount}
         onChangeFilterTab={handleSetSelectedFilterTab}
         selectedTab={selectedFilterTab}

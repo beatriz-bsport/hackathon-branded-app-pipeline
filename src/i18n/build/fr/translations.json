@@ -4335,7 +4335,7 @@
                     "title": "Critères d'entrée",
                     "addTrigger": "Ajouter un déclencheur d'entrée",
                     "helperText": "Tout d'abord, définissez la manière dont vos membres entrerons dans le {{ workflowLowerCase }}. Sélectionnez un ou plusieurs événements ou smartlists et si le membre correspond à l'un d'entre eux, il entrera dans le {{ workflowLowerCase }}.",
-                    "creationHelper": "Tout d'abord, déterminez les critères d'entrée de vos membres dans le {{ workflowLowerCase }}. Choisissez un ou plusieurs événements ou smartlists. Si un membre correspond à l'un de ces éléments, il rejoindra le {{ workflowLowerCase }}.",
+                    "creationHelper": "Commençons par décider comment vos membres vont entrer dans le {{ workflowLowerCase }}. Pour ce faire, vous devez sélectionner un déclencheur d'entrée.  Si vous sélectionnez plusieurs déclencheurs, les membres qui correspondent à l'un d'entre eux entreront dans le {{ workflowLowerCase }}.",
                     "editionHelper": "Modifiez les critères d'entrée de vos membres dans le {{ workflowLowerCase }}. Vous pouvez choisir un ou plusieurs événements ou smartlists. Si un membre correspond à l'un de ces critères, il rejoindra le {{ workflowLowerCase }}."
                 },
                 "convertIntoStep": {
@@ -4347,8 +4347,8 @@
                     "title": "Sortie"
                 },
                 "entryAction": {
-                    "title": "Action de saisie",
-                    "helperText": "Décidez de ce qu'il se passe lorsque les membres entrent dans le {{ workflowLowerCase }}. Vous pouvez les taguer, leur envoyer un email ou choisir une autre action qui vous convient. Vous pouvez également choisir de ne rien faire ; cette étape est facultative.",
+                    "title": "Action d'entrée",
+                    "helperText": "Définissez la ou les actions marketing à appliquer lorsqu'un membre entre dans le {{ workflowLowerCase }}.",
                     "addAction": "Ajouter une action"
                 },
                 "requiredField": "Ce champ est obligatoire pour continuer.",
@@ -4360,11 +4360,11 @@
                     "addAction": "Ajouter une action"
                 },
                 "lostTrigger": {
-                    "title": "Critère perdu",
-                    "helperText": "Définissez ce qui est considéré comme un échec, le membre sera alors marqué comme \"perdu\" lorsqu'il quittera le {{ workflowLowerCase }}. Définissez également la durée maximale pendant laquelle un membre peut être présent dans le {{ workflowLowerCase }}.",
+                    "title": "Sortie non réussie",
+                    "helperText": "Définissez ce qui considère votre objectif comme non atteint : déterminez un délai après lequel le membre sortira sans succès de ce {{ workflowLowerCase }} et/ou un ou plusieurs déclencheurs spécifiques.",
                     "addTrigger": "Ajouter un déclencheur de sortie",
                     "timeout": {
-                        "helperText": "Si un membre est toujours présent dans ce {{ workflowLowerCase }} après la limite de temps sélectionnée, il sera considéré comme \"perdu\".",
+                        "helperText": "Le membre quittera le {{ workflowLowerCase }} après ce délai, quelle que soit l'étape à laquelle il se trouve.",
                         "label": "Jours dans le {{ workflowLowerCase }}",
                         "title": "Délai"
                     }
@@ -4375,8 +4375,8 @@
                     "addAction": "Ajouter une action"
                 },
                 "wonTrigger": {
-                    "title": "Critère gagné",
-                    "helperText": "Définissez les règles générales de sortie des membres du {{ workflowLowerCase }}. Si un membre correspond à l'un des déclencheurs, il quittera le workflow, quelle que soit l'étape à laquelle il se trouve. Commencez par sélectionner les déclencheurs de \"succès\" qui marqueront un membre comme \"Gagné\" lorsqu'il quittera le {{ workflowLowerCase }}.",
+                    "title": "Sortie réussie",
+                    "helperText": "Définissez l'objectif global de votre {{ workflowLowerCase }}. Si un membre effectue l'un de ces déclencheurs de sortie, il atteindra l'objectif et quittera le {{ workflowLowerCase }} avec succès (quelle que soit l'étape à laquelle il se trouve). Cela vous aidera à suivre vos indicateurs de performance.",
                     "addTrigger": "Ajouter un déclencheur de sortie"
                 }
             },
@@ -4406,7 +4406,7 @@
                 "cadenceNameLabel": "Nom de la cadence",
                 "modify_name_label": "Modifier le nom",
                 "entry_step": "Entrée",
-                "win_step": "Gagné",
+                "win_step": "Sortie réussie",
                 "lose_step": "Perdu",
                 "previous": "Précédent",
                 "next": "Suivant",
@@ -4445,8 +4445,8 @@
                 },
                 "exit": {
                     "title": "Sortie",
-                    "exit_success_label": "Gagné",
-                    "exit_fail_label": "Perdu"
+                    "exit_success_label": "Succès",
+                    "exit_fail_label": "Sans succès"
                 },
                 "event": {
                     "1": "Carte de cours",
@@ -4539,8 +4539,8 @@
                 }
             },
             "cadenceCard": {
-                "win": "Gagné",
-                "lost": "Perdu",
+                "win": "Sortie réussie",
+                "lost": "Sortie non réussie",
                 "outputRules": "Règles de sortie"
             },
             "triggers": {
@@ -4650,7 +4650,7 @@
             "welcome": {
                 "dialog": {
                     "title": "Bienvenu sur {{ audienceCamelCase }}!",
-                    "helper": "Commençons à construire votre {{ workflowLowerCase }} ensemble ! Tout d'abord, nous allons définir les critères d'entrée de vos membres dans le {{ workflowLowerCase }}. Ensuite, nous déterminerons quand vos membres seront considérés comme \"gagnants\" ou \"perdants\" en fonction de leurs actions.",
+                    "helper": "Commençons à construire votre {{ workflowLowerCase }} ensemble ! \nUn {{ workflowLowerCase }} est un ensemble de déclencheurs et d'étapes connectées à leurs actions marketing respectives qui vous aidera à amener vos membres vers l'objectif que vous souhaitez atteindre.",
                     "confirm": "Commencer",
                     "return": "Annuler"
                 }
@@ -4680,8 +4680,8 @@
                 "createAudienceHelper": "Grâce aux {{ workflowPluralLowerCase }}, cibler les actions marketing envoyées à vos membres en fonction de leur comportement sur la plateforme. Créez une séquence d'actions que vos membres doivent accomplir pour obtenir certaines promotions ou certains tags, par exemple.",
                 "cadenceParameters": "Paramètres du {{ workflowLowerCase }}",
                 "multipleVisit": {
-                    "helperText": "Si activé, les membres qui répondent aux critères d'entrée pourront entrer dans ce {{ workflowLowerCase }} plusieurs fois, indépendamment du fait qu'ils en soient sortis précédemment comme \"perdants\" ou \"gagnants\".",
-                    "isMultipleVisitAllowedLabel": "Les membres peuvent passer plusieurs fois par ce {{ workflowLowerCase }}."
+                    "helperText": "Si cette option est activée, les membres qui correspondent aux critères d'entrée peuvent entrer à nouveau dans le {{ workflowLowerCase }} après en être sortis.",
+                    "isMultipleVisitAllowedLabel": "Les membres peuvent entrer et sortir de ce {{ workflowLowerCase }} plusieurs fois."
                 },
                 "formTitle": {
                     "updateTitle": "Modifiez votre {{ workflowLowerCase }}",
@@ -4738,12 +4738,12 @@
                     },
                     "success": {
                         "title": "Succès",
-                        "description": "Pourcentage de personnes considérées comme gagnées.",
+                        "description": "Pourcentage de membres sortis avec succès.",
                         "label": "taux de succès"
                     },
                     "averageTime": {
                         "title": "Durée moyenne",
-                        "description": "Durée moyenne nécessaire pour qu'un membre soit considéré comme gagné.",
+                        "description": "Durée moyenne nécessaire pour qu'un membre sorte avec succès.",
                         "label": "jour en moyenne",
                         "label_plural": "jours en moyenne"
                     },

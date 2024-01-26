@@ -6578,7 +6578,7 @@
         "invoicePaymentPackTagWarningDialog": {
             "confirm": "Confermare",
             "cancel": "Cancella",
-            "content": "Attenzione: si sta per fatturare un pacchetto a un socio che non possiede i tag necessari. Sei sicuro di voler continuare con questa fatturazione? ",
+            "content": "Attenzione: si sta per contabilizzare un pacchetto a un membro che non possiede i tag necessari. Sei sicuro di voler continuare? ",
             "title": "Informazioni"
         },
         "applyGiftcard": {

@@ -16924,7 +16924,7 @@
                     "title": "Triggers",
                     "event_or_smartlist_helper": "Members will have to match the event or be part of the smartlist to fit into the cadence"
                 },
-                "win_step": "Won",
+                "win_step": "Successful exit",
                 "error": {
                     "triggerCannotBeEmpty": "You have to select an input type.",
                     "timeoutMustBeStrictPositive": "The time limit must be at least 1 day."
@@ -16979,8 +16979,8 @@
                     "1": "Pass"
                 },
                 "exit": {
-                    "exit_fail_label": "Lost",
-                    "exit_success_label": "Won",
+                    "exit_fail_label": "Unsuccessful",
+                    "exit_success_label": "Successful",
                     "title": "Exit"
                 },
                 "next": "Next",
@@ -17060,8 +17060,9 @@
                 }
             },
             "cadenceCard": {
-                "lost": "Lost",
-                "win": "Won"
+                "lost": "Unsuccessful exit",
+                "win": "Successful exit",
+                "outputRules": "Exit rules"
             },
             "activate": {
                 "dialog": {
@@ -17123,9 +17124,10 @@
                     "label": "Consider the member as"
                 },
                 "entryTrigger": {
-                    "addTrigger": "Add an input trigger",
+                    "addTrigger": "Add entry trigger",
                     "helperText": "Please define when and who will enter this cadence with the selected criteria and triggers.",
-                    "title": "Entry"
+                    "title": "Entry",
+                    "creationHelper": "First let's decide how your members are going to enter the {{ workflowLowerCase }}. To do this, you will need to select an entry trigger.  If you select multiple triggers, members that correspond to any one of those, will enter the {{ workflowLowerCase }}."
                 },
                 "changeInStep": {
                     "default": "Step label",
@@ -17140,6 +17142,44 @@
                 "next": "Next",
                 "step": {
                     "name": "Step name"
+                },
+                "lostTrigger": {
+                    "addTrigger": "Add exit trigger",
+                    "timeout": {
+                        "helperText": "Member will exit the {{ workflowLowerCase }} after this number of days no mater what step they are in."
+                    },
+                    "helperText": "Set when your objective is considered not met: define a time limit for it and/or specific trigger(s) after which the member will unsuccessfully exit this {{ workflowLowerCase }}.",
+                    "title": "Unsuccessful exit"
+                },
+                "wonTrigger": {
+                    "addTrigger": "Add exit trigger",
+                    "helperText": "Set up the global objective of your {{ workflowLowerCase }}. If a member performs one of these exit trigger(s), they will reach the objective and successfully exit the {{ workflowLowerCase }} (no matter the step they are in). This will help you track your performance metrics."
+                },
+                "entryAction": {
+                    "helperText": "Set what marketing action(s) to apply when a member enter the {{ workflowLowerCase }}."
+                }
+            },
+            "welcome": {
+                "dialog": {
+                    "helper": "Let's begin setting up your {{ workflowLowerCase }} together! \nA workflow is a set of connected triggers and steps with their respective marketing actions that will help you to take your members towards the objective you will set up."
+                }
+            }
+        },
+        "audience": {
+            "workflowMetrics": {
+                "cards": {
+                    "averageTime": {
+                        "description": "Average period of time needed for a member to exit successfully."
+                    },
+                    "success": {
+                        "description": "Percentage of members that exited successfully."
+                    }
+                }
+            },
+            "form": {
+                "multipleVisit": {
+                    "helperText": "If activated, members that match the entry criteria can enter the {{ workflowLowerCase }} again after exiting.",
+                    "isMultipleVisitAllowedLabel": "Members can enter and exit this {{ workflowLowerCase }} multiple times."
                 }
             }
         }

@@ -86,6 +86,20 @@ export class ConsumerPassReworked extends React.Component<
     this.fetchActiveConsumerPaymentPacks();
     this.fetchExpiredConsumerPaymentPacks();
     this.fetchFutureConsumerPaymentPacks();
+    // Only fetch SCTs once and for all
+    this.props.membership?.id &&
+      this.props.fetchSCTs({
+        member: this.props.membership.id,
+      });
+  }
+
+  componentDidUpdate(prevProps: ConnectedProps<typeof connector>) {
+    // Membership did update
+    if (!prevProps?.membership?.id && !!this.props?.membership?.id) {
+      this.props.fetchSCTs({
+        member: this.props.membership.id,
+      });
+    }
   }
 
   /**
@@ -120,7 +134,6 @@ export class ConsumerPassReworked extends React.Component<
         );
 
         this.props.fetchEstablishmentBulk(establishmentIds);
-        this.props.fetchSCTs();
         this.props.fetchMetaActivityBulk(metaActivitiesIds);
       },
     });

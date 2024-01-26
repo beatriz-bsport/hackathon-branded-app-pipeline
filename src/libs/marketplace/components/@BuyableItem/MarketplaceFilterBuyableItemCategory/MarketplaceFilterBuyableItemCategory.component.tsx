@@ -26,7 +26,7 @@ const MarketplaceFilterBuyableItemCategoryButton: React.FC<ButtonProps> = (
     <button
       className={classNames(
         'bs-marketplace-filter-buyable-item-category__button',
-        'ripple',
+        'bs-marketplace-filter-buyable-item-category__ripple',
         {
           'bs-marketplace-filter-buyable-item-category__button--selected':
             buyableItemCategory?.index ===
@@ -75,6 +75,7 @@ const MarketplaceFilterBuyableItemCategory: React.FC<Props> = (props) => {
       <button
         className={classNames(
           'bs-marketplace-filter-buyable-item-category__button',
+          'bs-marketplace-filter-buyable-item-category__ripple',
           {
             'bs-marketplace-filter-buyable-item-category__button--selected':
               props.selectedBuyableItemCategory === null,

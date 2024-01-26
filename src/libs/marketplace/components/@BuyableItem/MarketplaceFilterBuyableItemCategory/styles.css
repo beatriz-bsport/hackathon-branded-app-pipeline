@@ -22,13 +22,13 @@
   color: white;
 }
 
-.ripple {
+.bs-marketplace-filter-buyable-item-category__ripple {
   position: relative;
   overflow: hidden;
   transform: translate3d(0, 0, 0);
 }
 
-.ripple:after {
+.bs-marketplace-filter-buyable-item-category__ripple:after {
   content: '';
   display: block;
   position: absolute;
@@ -45,7 +45,7 @@
   transition: transform 0.5s, opacity 1s;
 }
 
-.ripple:active:after {
+.bs-marketplace-filter-buyable-item-category__ripple:active:after {
   transform: scale(0, 0);
   opacity: 0.3;
   transition: 0s;

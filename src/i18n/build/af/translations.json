@@ -12468,6 +12468,13 @@
           "label": "Confirmation email at registration",
           "title": "Registration"
         },
+        "resetPassword": {
+          "title": "Reset password",
+          "helperText": "By default, when your members reset their password, they are redirected to the marketplace. If you wish to redirect them elsewhere (for example your website), please fill in the following field with the wanted URL.",
+          "urlRedirection": "Custom URL",
+          "urlHelperText": "Leave this field empty to redirect to the marketplace",
+          "urlError": "Please enter a valid url"
+        },
         "coachUserspace": {
           "errors": { "restrictionToggles": "Please select at least one option" },
           "requestLimitationPeriods": { "placeholder": "Select a period", "year": "Years", "month": "Months", "week": "Weeks" },
@@ -13539,6 +13546,11 @@
         "changePasswordTitle": "Edit password",
         "tokenExpired": "Please renew your password again, as this page has expired.",
         "resetAgainPassword": "Renew password request"
+      },
+      "passwordResetConfirmation": {
+        "title": "Your password has been successfully updated",
+        "subtitle": "You can click on “Continue” to log in again",
+        "continue": "Continue"
       },
       "address": {
         "zipcode": "Postal code",

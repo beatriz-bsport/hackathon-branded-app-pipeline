@@ -157,6 +157,15 @@ const getTranslations = async () => {
           label: 'Confirmation email at registration',
           title: 'Registration',
         },
+        resetPassword: {
+          title: 'Reset password',
+          helperText:
+            'By default, when your members reset their password, they are redirected to the marketplace. If you wish to redirect them elsewhere (for example your website), please fill in the following field with the wanted URL.',
+          urlRedirection: 'Custom URL',
+          urlHelperText:
+            'Leave this field empty to redirect to the marketplace',
+          urlError: 'Please enter a valid url',
+        },
         coachUserspace: {
           errors: { restrictionToggles: 'Please select at least one option' },
           requestLimitationPeriods: {

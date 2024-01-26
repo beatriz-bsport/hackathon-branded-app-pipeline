@@ -128,6 +128,7 @@ export type Theme = {
   checkin_tablet_visible_session_cutoff_minute: number;
   has_limited_access_to_sequential_marketing: boolean;
   simplifyUI: boolean;
+  reset_password_url_redirection: string;
 };
 
 export type ThemeState = {

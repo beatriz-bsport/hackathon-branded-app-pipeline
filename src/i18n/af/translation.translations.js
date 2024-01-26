@@ -806,6 +806,11 @@ exports.default = {
         'Please renew your password again, as this page has expired.',
       resetAgainPassword: 'Renew password request',
     },
+    passwordResetConfirmation: {
+      title: 'Your password has been successfully updated',
+      subtitle: 'You can click on “Continue” to log in again',
+      continue: 'Continue',
+    },
     address: {
       zipcode: 'Postal code',
       country: 'Country',

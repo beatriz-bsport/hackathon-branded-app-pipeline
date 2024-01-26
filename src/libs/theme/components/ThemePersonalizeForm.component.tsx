@@ -83,6 +83,7 @@ interface FormikValues {
   hide_sessions_with_tags_when_not_eligible: boolean;
   requires_email_confirmation_when_signing_up: boolean;
   confirm_email_url_redirection: string;
+  reset_password_url_redirection: string;
   is_roll_call_mandatory: boolean;
   no_show_validated_time: number;
   no_show_email_time: number;
@@ -870,6 +871,39 @@ const ThemePersonalizeForm: React.FC<FormikProps<FormikValues>> = ({
               </div>
             )}
           </div>
+          <div className={classes.section}>
+            <Typography className={classes.namesHeader}>
+              {t('forms.themePersonalization.resetPassword.title')}
+            </Typography>
+            <Typography className={classes.container}>
+              {t('forms.themePersonalization.resetPassword.helperText')}
+            </Typography>
+            <div className={classes.textFieldWithHelperText}>
+              <TextField
+                className={classes.textField}
+                name="reset_password_url_redirection"
+                placeholder={t(
+                  'forms.themePersonalization.resetPassword.urlRedirection',
+                )}
+                size="small"
+                variant="outlined"
+              />
+              {errors?.reset_password_url_redirection && (
+                <Typography
+                  className={classNames(classes.error, classes.helperText)}
+                >
+                  {t('forms.themePersonalization.resetPassword.urlError')}
+                </Typography>
+              )}
+              <Typography
+                className={classes.helperText}
+                color="textSecondary"
+                variant="caption"
+              >
+                {t('forms.themePersonalization.resetPassword.urlHelperText')}
+              </Typography>
+            </div>
+          </div>
         </div>
       </div>
       <Button
@@ -1043,6 +1077,13 @@ const ThemePersonalizeFormSchema = Yup.object().shape({
       return false;
     },
   ),
+  reset_password_url_redirection: Yup.string().test(
+    'is-url-format',
+    'forms.themePersonalization.resetPassword.urlError',
+    (val) => {
+      return !val || regexHTTP.test(val);
+    },
+  ),
   no_show_validated_time: Yup.number()
     .min(0)
     .when('is_roll_call_mandatory', {
@@ -1177,6 +1218,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
         requires_email_confirmation_when_signing_up:
           theme.requires_email_confirmation_when_signing_up,
         confirm_email_url_redirection: theme.confirm_email_url_redirection,
+        reset_password_url_redirection: theme.reset_password_url_redirection,
         is_roll_call_mandatory: theme.is_roll_call_mandatory,
         no_show_validated_time: initial_no_show_validated_time,
         no_show_validated_interval: initial_no_show_validated_interval,
@@ -1227,6 +1269,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
       schedule_timerange_end: defaultScheduleEnd,
       requires_email_confirmation_when_signing_up: false,
       confirm_email_url_redirection: '',
+      reset_password_url_redirection: '',
       show_establishment: true,
       show_level: true,
       show_activity_color: true,
@@ -1272,6 +1315,7 @@ const ThemePersonalizeFormFormikHOC = withFormik<Props, FormikValues>({
       'hide_sessions_with_tags_when_not_eligible',
       'requires_email_confirmation_when_signing_up',
       'confirm_email_url_redirection',
+      'reset_password_url_redirection',
       'no_show_validated_time',
       'no_show_email_time',
       'show_establishment',

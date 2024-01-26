@@ -10,6 +10,7 @@ import { parseQueryString, buildUrlParams } from '../../http';
 import type { Theme as CompanyTheme } from '#libs/theme/types';
 import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
 import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '../../libs/exportable-components/actions';
+import ResetPasswordConfirmation from '#libs/login/components/ResetPasswordConfirmation/';
 
 import { changePassword as changePasswordAPI } from '../../libs/login/api';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
@@ -45,6 +46,7 @@ type State = {
   error: string | null;
   processing: boolean;
   hasExpired: boolean;
+  passwordSuccesfullyChanged: boolean;
 };
 
 export class ChangePassword extends Component<Props, State> {
@@ -54,6 +56,7 @@ export class ChangePassword extends Component<Props, State> {
     error: null,
     processing: false,
     hasExpired: false,
+    passwordSuccesfullyChanged: false,
   };
 
   uid: string | null;
@@ -109,11 +112,7 @@ export class ChangePassword extends Component<Props, State> {
             error: t('form.login.passwordTooEasy'),
           });
         } else {
-          this.props.pushToLogin(
-            'login.passwordChangedSuccess',
-            this.props.membership,
-            this.props.franchisorId,
-          );
+          this.setState({ passwordSuccesfullyChanged: true });
         }
       } catch (e) {
         if (e.response && e.response.data && e.response.data.token) {
@@ -132,6 +131,26 @@ export class ChangePassword extends Component<Props, State> {
     }
   };
 
+  handlePageExit = () => {
+    const {
+      theme,
+      pushToCustomUrl,
+      pushToDefaultLogin,
+      membership,
+      franchisorId,
+    } = this.props;
+
+    if (theme && theme.reset_password_url_redirection) {
+      pushToCustomUrl(theme.reset_password_url_redirection);
+    } else {
+      pushToDefaultLogin(
+        'login.passwordChangedSuccess',
+        membership,
+        franchisorId,
+      );
+    }
+  };
+
   render() {
     const {
       franchisor,
@@ -140,24 +159,37 @@ export class ChangePassword extends Component<Props, State> {
       simplifyUI,
       requestResetLink,
     } = this.props;
-    const { processing, hasExpired, password1, error, password2 } = this.state;
+    const {
+      processing,
+      hasExpired,
+      password1,
+      error,
+      password2,
+      passwordSuccesfullyChanged,
+    } = this.state;
     return (
-      <ChangePasswordForm
-        companyTheme={this.props.theme}
-        error={error}
-        franchisor={franchisor}
-        franchisorId={franchisorId}
-        handlePassword1Change={this.handlePassword1Change}
-        handlePassword2Change={this.handlePassword2Change}
-        hasExpired={hasExpired}
-        membership={membership}
-        onSubmit={this.onSubmit}
-        password1={password1}
-        password2={password2}
-        processing={processing}
-        requestResetLink={requestResetLink}
-        simplifyUI={simplifyUI}
-      />
+      <>
+        {passwordSuccesfullyChanged ? (
+          <ResetPasswordConfirmation handlePageExit={this.handlePageExit} />
+        ) : (
+          <ChangePasswordForm
+            companyTheme={this.props.theme}
+            error={error}
+            franchisor={franchisor}
+            franchisorId={franchisorId}
+            handlePassword1Change={this.handlePassword1Change}
+            handlePassword2Change={this.handlePassword2Change}
+            hasExpired={hasExpired}
+            membership={membership}
+            onSubmit={this.onSubmit}
+            password1={password1}
+            password2={password2}
+            processing={processing}
+            requestResetLink={requestResetLink}
+            simplifyUI={simplifyUI}
+          />
+        )}
+      </>
     );
   }
 }
@@ -183,7 +215,7 @@ const connector = connect(
           ...(franchisorId ? { franchisor: franchisorId } : {}),
         })}`,
       ),
-    pushToLogin: (
+    pushToDefaultLogin: (
       successMessage: string,
       membership: number | null,
       franchisorId: number | null,
@@ -194,6 +226,9 @@ const connector = connect(
           ...(franchisorId ? { franchisor: franchisorId } : {}),
         })}`,
       ),
+    pushToCustomUrl: (customUrl: string) => {
+      window.location.href = customUrl;
+    },
   },
 );
 

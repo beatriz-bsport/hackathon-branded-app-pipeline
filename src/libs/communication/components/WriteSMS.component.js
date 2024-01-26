@@ -7,6 +7,11 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { util } from '#libs/communication-v2/components/convertEncode.utils';
 
+import {
+  MAX_LENGTH_SMS,
+  MAX_LENGTH_AUTOMATIC_SMS,
+} from '#libs/communication-v2/constants';
+
 type Props = {
   classes: Object,
   t: TFunction,
@@ -15,7 +20,6 @@ type Props = {
   countReceivers: number,
   hideSmsCount?: boolean,
   contentLengthError?: Boolean,
-  maxLengthContent?: number,
 };
 
 export function WriteSMS(props: Props) {
@@ -35,12 +39,10 @@ export function WriteSMS(props: Props) {
     return nbMoreSms + 1;
   }
 
-  /* eslint-enable */
-  let smsMaxLength;
-  if (props.maxLengthContent) smsMaxLength = props.maxLengthContent;
-  else {
-    smsMaxLength = util.pickencoding(props.smsContent) === 'gsm' ? 160 : 70;
-  }
+  const smsMaxLength =
+    util.pickencoding(props.smsContent) === 'gsm'
+      ? MAX_LENGTH_SMS
+      : MAX_LENGTH_AUTOMATIC_SMS;
 
   return (
     <div className={props.classes.container}>

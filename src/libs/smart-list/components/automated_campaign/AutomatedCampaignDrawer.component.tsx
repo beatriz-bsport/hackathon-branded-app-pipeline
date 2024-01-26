@@ -37,6 +37,7 @@ import {
   MAX_LENGTH_PUSH_TITLE,
   MAX_LENGTH_PUSH_CONTENT,
   MAX_LENGTH_AUTOMATIC_SMS,
+  MAX_LENGTH_SMS,
 } from '#libs/communication-v2/constants';
 import WriteNotification from '#libs/communication/components/WriteNotification.component';
 // @ts-expect-error
@@ -61,6 +62,7 @@ import {
 import { hasUpsell } from '#libs/platform-billing/utils';
 import { UNLIMITED_AUTOMATIC_MESSAGING } from '#libs/smart-list/components/constants';
 import CommunicationSMSCostReminderModal from '#libs/communication-v2/CommunicationSMSCostReminderModal.component';
+import { util } from '#libs/communication-v2/components/convertEncode.utils';
 
 const WRITTEN_EMAIL_KIND = 0;
 const TEMPLATE_EMAIL_KIND = 1;
@@ -439,7 +441,6 @@ export const AutomatedCommunicationDrawer: React.FC<
             <WriteSMS
               hideSmsCount
               contentLengthError={!!errors?.text}
-              maxLengthContent={MAX_LENGTH_AUTOMATIC_SMS}
               onChangeContent={handleTextChange}
               smsContent={values.text}
             />
@@ -702,6 +703,10 @@ const AutomatedCampaignValidationSchema = Yup.object().shape({
       'error_content_length',
       function checkContentLength(item) {
         if (!item) return true;
+        const smsMaxLength =
+          util.pickencoding(item) === 'gsm'
+            ? MAX_LENGTH_SMS
+            : MAX_LENGTH_AUTOMATIC_SMS;
         if (
           this.parent.communication_kind ===
           COMMUNICATION_KIND_PUSH_NOTIFICATION
@@ -709,7 +714,7 @@ const AutomatedCampaignValidationSchema = Yup.object().shape({
           return item.length <= MAX_LENGTH_PUSH_CONTENT;
         }
         if (this.parent.communication_kind === COMMUNICATION_KIND_SMS) {
-          return item.length <= MAX_LENGTH_AUTOMATIC_SMS;
+          return item.length <= smsMaxLength;
         }
         return true;
       },

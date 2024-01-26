@@ -13,3 +13,5 @@ export const getEditableSCTs = (state: RootState) => {
     ? state.category.SCTs.filter((SCT) => SCT.language === language)
     : state.category.SCTs;
 };
+
+export const getSCTsLoading = (state: RootState) => state.category.isLoading;

@@ -18,6 +18,7 @@ export type EasyAccess = {
 };
 
 export type CategoryState = {
+  isLoading: boolean;
   SCTs: SCT[];
   SCSs: number[];
 };

@@ -11,21 +11,36 @@ import {
   withCoach,
   getOfferById,
 } from '#libs/offer/selectors';
-import { getMetaActivity } from '#libs/meta-activity/selectors';
+import {
+  getMetaActivity,
+  getMetaActivityLoading,
+} from '#libs/meta-activity/selectors';
 import { getCoach } from '#libs/associated-coach/selectors';
-import { getEstablishment } from '#libs/establishment/selectors';
+import {
+  getEstablishment,
+  getEstablishmentBulkRetrieveState,
+} from '#libs/establishment/selectors';
 import { getLevel } from '#libs/level/selectors';
-import { getPaymentPack } from '#libs/payment-packs/selectors';
+import {
+  getPaymentPack,
+  getPaymentPackLoading,
+} from '#libs/payment-packs/selectors';
 import { getConsumerPack } from '#libs/consumer-payment-pack/selectors';
 import { getRoomBlueprint } from '#libs/spot-scheduling/selector';
 import { getPrivateConsumerPass } from '#libs/private-service/selectors/private-consumer-pass';
 import { getPrivateService } from '#libs/private-service/selectors/private-service';
 import { getPrivateSlot } from '#libs/private-service/selectors/private-slot';
-import { getSCTs } from '#libs/category/selectors';
+import { getSCTs, getSCTsLoading } from '#libs/category/selectors';
 import {
   getConsumerPaymentPackLink,
+  getConsumerPaymentPackLinkLoading,
   getPrivateConsumerPassLink,
+  getPrivateConsumerPassLinkLoading,
 } from '#libs/relationship/selectors';
+import {
+  getCompatibleServicePassLoading,
+  getServiceCompatibilityPassesByPrivatePassAndPrivateService,
+} from '#libs/private-service/selectors/private-pass';
 
 import type {
   Booking,
@@ -51,7 +66,6 @@ import type { BookingTab } from '#libs/consumer-space/components/reworked/@MyBoo
 import { BookingFilterTabEnum } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingFilters/constants';
 import { BookingTabEnum } from '#libs/consumer-space/components/reworked/@MyBookings/ConsumerBookingTabs/constants';
 import { WaitingListBookingOption } from '#libs/waiting-list/types';
-import { getServiceCompatibilityPassesByPrivatePassAndPrivateService } from '#libs/private-service/selectors/private-pass';
 import type {
   UniversalPassREST,
   UniversalPassReworked,
@@ -891,36 +905,104 @@ export const getMyExpiredUniversalPassesList = createSelector(
   },
 );
 
-export const getConsumerPassesLoading = createSelector(
+const getConsumerPaymentPackLoading = createSelector(
   [
     getMyActiveConsumerPaymentPacksState,
     getMyFutureConsumerPaymentPacksState,
     getMyExpiredConsumerPaymentPacksState,
-    getMyActivePrivateConsumerPassesState,
-    getMyFuturePrivateConsumerPassesState,
-    getMyExpiredPrivateConsumerPassesState,
-    getMyActiveUniversalPassesState,
-    getMyFutureUniversalPassesState,
-    getMyExpiredUniversalPassesState,
+    getPaymentPackLoading,
   ],
   (
     activeConsumerPaymentPacksState,
     futureConsumerPaymentPacksState,
     expiredConsumerPaymentPacksState,
-    activePrivateConsumerPassesState,
-    futurePrivateConsumerPassesState,
-    expiredPrivateConsumerPassesState,
-    activeUniversalPassesState,
-    futureUniversalPassesState,
-    expiredUniversalPassesState,
+    isPaymentPackLoading,
   ) =>
     activeConsumerPaymentPacksState.loading ||
     futureConsumerPaymentPacksState.loading ||
     expiredConsumerPaymentPacksState.loading ||
+    isPaymentPackLoading,
+);
+
+const getPrivateConsumerPassLoading = createSelector(
+  [
+    getMyActivePrivateConsumerPassesState,
+    getMyFuturePrivateConsumerPassesState,
+    getMyExpiredPrivateConsumerPassesState,
+  ],
+  (
+    activePrivateConsumerPassesState,
+    futurePrivateConsumerPassesState,
+    expiredPrivateConsumerPassesState,
+  ) =>
     activePrivateConsumerPassesState.loading ||
     futurePrivateConsumerPassesState.loading ||
-    expiredPrivateConsumerPassesState.loading ||
+    expiredPrivateConsumerPassesState.loading,
+);
+
+const getUniversalPassLoading = createSelector(
+  [
+    getMyActiveUniversalPassesState,
+    getMyFutureUniversalPassesState,
+    getMyExpiredUniversalPassesState,
+  ],
+  (
+    activeUniversalPassesState,
+    futureUniversalPassesState,
+    expiredUniversalPassesState,
+  ) =>
     activeUniversalPassesState.loading ||
     futureUniversalPassesState.loading ||
     expiredUniversalPassesState.loading,
+);
+
+const getConsumerPaymentPackMetadataLoading = createSelector(
+  [
+    getEstablishmentBulkRetrieveState,
+    getSCTsLoading,
+    getMetaActivityLoading,
+    getConsumerPaymentPackLinkLoading,
+  ],
+  (
+    isEstablishmentBulkState,
+    isSCTsLoading,
+    isMetaActivityLoading,
+    isConsumerPaymentPackLinkLoading,
+  ) =>
+    isEstablishmentBulkState.loading ||
+    isSCTsLoading ||
+    // Same state attribute for both fetch and bulk fetch
+    isMetaActivityLoading ||
+    isConsumerPaymentPackLinkLoading,
+);
+
+const getPrivateConsumerPassMetadataLoading = createSelector(
+  [getPrivateConsumerPassLinkLoading, getCompatibleServicePassLoading],
+  (isPrivateConsumerPassLinkLoading, isCompatibleServicePassLoading) =>
+    isCompatibleServicePassLoading || isPrivateConsumerPassLinkLoading,
+);
+
+export const getConsumerPassesLoading = createSelector(
+  [
+    getConsumerPaymentPackLoading,
+    getPrivateConsumerPassLoading,
+    getUniversalPassLoading,
+  ],
+  (
+    isConsumerPaymentPackLoading,
+    isPrivateConsumerPassLoading,
+    isUniversalPassLoading,
+  ) =>
+    isConsumerPaymentPackLoading ||
+    isPrivateConsumerPassLoading ||
+    isUniversalPassLoading,
+);
+
+export const getConsumerPassMetadataLoading = createSelector(
+  [
+    getConsumerPaymentPackMetadataLoading,
+    getPrivateConsumerPassMetadataLoading,
+  ],
+  (consumerPaymentPackMetadataLoading, isPrivateConsumerPassMetadataLoading) =>
+    consumerPaymentPackMetadataLoading || isPrivateConsumerPassMetadataLoading,
 );

@@ -1,4 +1,7 @@
-import type { PrivateBooking } from '#libs/private-service/types';
+import type {
+  PrivateBooking,
+  PrivateConsumerPassREST,
+} from '#libs/private-service/types';
 import type { Booking, BookingREST } from '#libs/booking/types';
 import type { ErrorAndLoading } from '../types';
 import { ConsumerPaymentPackREST } from '#libs/consumer-payment-pack/types';
@@ -137,6 +140,11 @@ export type ConsumerStateReworked = {
       active: ConsumerPassReworked<ConsumerPaymentPackREST>;
       future: ConsumerPassReworked<ConsumerPaymentPackREST>;
       expired: ConsumerPassReworked<ConsumerPaymentPackREST>;
+    };
+    privateConsumerPass: {
+      active: ConsumerPassReworked<PrivateConsumerPassREST>;
+      future: ConsumerPassReworked<PrivateConsumerPassREST>;
+      expired: ConsumerPassReworked<PrivateConsumerPassREST>;
     };
   };
 };

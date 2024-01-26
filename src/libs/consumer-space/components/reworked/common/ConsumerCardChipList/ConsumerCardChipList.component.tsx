@@ -50,7 +50,7 @@ const ConsumerCardChipList: React.FC<Props> = ({
         {chipsDataList?.map(
           (
             {
-              shouldDisplay,
+              shouldDisplay = true,
               chipClassName,
               chipColor,
               leftIcon,

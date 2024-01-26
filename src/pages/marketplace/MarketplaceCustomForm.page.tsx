@@ -39,6 +39,8 @@ import { OptionCallback } from '../../state/types';
 import { fetchCompanyTheme } from '../../libs/theme/actions';
 import themeSelectors from '../../libs/theme/selectors';
 import MemberShipValidationWrapper from '../consumer/MemberShipValidationWrapper.component';
+import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 type StateHandlerInit = {
   submitSuccess: boolean;
@@ -157,6 +159,7 @@ export class MarketplaceCustomForm extends React.Component<Props, State> {
                         this.props.theme.general_terms_of_use
                       }
                       initial={this.props.customFormWithEnabledField}
+                      isCssVariantActivated={CUSTOM_FORM_CSS_VARIANT_ACTIVATED}
                       layouts={this.props.customFormWithEnabledField?.layout}
                       onSubmit={this.props.submitCustomForm}
                       waiver={this.props.theme.waiver}
@@ -283,4 +286,5 @@ export default compose<any, Props>(
   withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
 
   withHandlers(mapWithHandlers),
+  marketplaceCssHoc(),
 )(MarketplaceCustomForm);

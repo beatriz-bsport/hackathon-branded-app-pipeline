@@ -51,6 +51,7 @@ import { RootState } from '../../reducers/index';
 import type { CustomForm } from '../../libs/custom-form/types';
 import CustomFormList from '../../libs/custom-form/components/CustomFormList.component';
 import CustomFormDisplayRulePanel from '../../libs/custom-form/components/display-rule/CustomFormDisplayRulePanel.component';
+import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
 
 type State = {
   openCreateDialog: boolean;
@@ -335,7 +336,9 @@ export class CustomFormListPage extends React.Component<Props, State> {
                   <CustomFormConsumerView
                     key={this.props.customFormSelected}
                     asManager
+                    shouldWrapLayerInCssHoc
                     initial={this.props.customForm}
+                    isCssVariantActivated={CUSTOM_FORM_CSS_VARIANT_ACTIVATED}
                   />
                 </Paper>
               </>

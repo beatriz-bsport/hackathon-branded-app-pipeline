@@ -242,10 +242,12 @@ export class CustomFormDetail extends React.Component<Props, State> {
                 ) : (
                   <CustomFormView
                     asManager
+                    shouldWrapLayerInCssHoc
                     general_terms_and_conditions={
                       this.props.theme?.general_terms_of_use
                     }
                     initial={this.props.customFormView}
+                    isCssVariantActivated={CUSTOM_FORM_CSS_VARIANT_ACTIVATED}
                     layouts={this.props.customFormView?.layout}
                     refreshLoading={this.props.isSubmitting}
                     waiver={this.props.theme?.waiver}

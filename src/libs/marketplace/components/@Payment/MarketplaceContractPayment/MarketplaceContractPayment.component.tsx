@@ -312,16 +312,18 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
 
     const handleOnSubmit: FormEventHandler<HTMLFormElement> = useCallback(
       async (event) => {
-        event.preventDefault();
-        const formData = mapFormData(
-          {
-            default_establishment_billing_group:
-              selectedEstablishmentBillingGroup.id,
-          },
-          MemberMap,
-        );
-        formData.append('id', memberId.toString());
-        updateDefaultEstablishmentBillingGroup(memberId, formData);
+        if (enableMultiLocalization && !!selectedEstablishmentBillingGroup) {
+          event.preventDefault();
+          const formData = mapFormData(
+            {
+              default_establishment_billing_group:
+                selectedEstablishmentBillingGroup.id,
+            },
+            MemberMap,
+          );
+          formData.append('id', memberId.toString());
+          updateDefaultEstablishmentBillingGroup(memberId, formData);
+        }
         const isDateValid = moment(billingStartDate).isSameOrAfter(
           moment(),
           'month',
@@ -359,6 +361,7 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
       [
         couponCode,
         billingStartDate,
+        enableMultiLocalization,
         onSubmitContractPayment,
         selectedSavedPaymentMethodId,
         voucher,

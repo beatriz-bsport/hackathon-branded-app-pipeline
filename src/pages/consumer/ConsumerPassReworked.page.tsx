@@ -22,6 +22,7 @@ import WidgetUtils from '#libs/widget/WidgetUtils';
 /** SELECTORS */
 
 import {
+  getConsumerPassMetadataLoading,
   getConsumerPassesLoading,
   getMyActiveConsumerPaymentPacksList,
   getMyActiveConsumerPaymentPacksState,
@@ -374,6 +375,7 @@ export class ConsumerPassReworked extends React.Component<
         handleBookASessionClick={this.handleBookASessionClick}
         handleBuyPassClick={this.handleBuyPassClick}
         isLoading={this.getIsLoading()}
+        isMetadataLoading={this.props.consumerPassesMetadataLoading}
       />
     );
   }
@@ -388,6 +390,7 @@ const connector = connect(
 
     /** REWORKED */
     consumerPassesLoading: getConsumerPassesLoading(state),
+    consumerPassesMetadataLoading: getConsumerPassMetadataLoading(state),
     myActiveConsumerPaymentPacksList:
       getMyActiveConsumerPaymentPacksList(state),
     myFutureConsumerPaymentPacksList:

@@ -15,6 +15,7 @@ import '#libs/consumer-space/components/reworked/@MyPasses/GenericPass/ListConta
 
 type Props = {
   isLoading?: boolean;
+  isMetadataLoading?: boolean;
   selectedPass?: PrivateConsumerPassReworked;
   passList: PrivateConsumerPassReworked[];
   hasNextPage?: boolean;
@@ -24,6 +25,7 @@ type Props = {
 
 export const ConsumerPassListContainer: React.FC<Props> = ({
   isLoading,
+  isMetadataLoading,
   passList,
   selectedPass,
   hasNextPage,
@@ -92,7 +94,7 @@ export const ConsumerPassListContainer: React.FC<Props> = ({
         description={description}
         expirationDate={expirationDate}
         isCompatibleWithVod={isCompatibleWithVod}
-        isLoading={isLoading}
+        isLoading={isLoading || isMetadataLoading}
         isSuspended={isSuspended}
         isUnlimited={isUnlimited}
         // TODO

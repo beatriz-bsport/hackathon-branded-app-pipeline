@@ -41,7 +41,10 @@ export function useConsumerPassesDataManager({
   futureUniversalPassesState,
 }: Omit<
   ConsumerPassPageReworkedProps,
-  'isLoading' | 'handleBuyPassClick' | 'handleBookASessionClick'
+  | 'isLoading'
+  | 'handleBuyPassClick'
+  | 'handleBookASessionClick'
+  | 'isMetadataLoading'
 >) {
   /* PAGE STATES */
   const [selectedTab, setSelectedTab] = useState<PassTab>(

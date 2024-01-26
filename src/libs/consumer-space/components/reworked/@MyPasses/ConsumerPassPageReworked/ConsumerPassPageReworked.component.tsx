@@ -55,6 +55,7 @@ type Props = {
   handleBookASessionClick: () => void;
   handleBuyPassClick: () => void;
   isLoading: boolean;
+  isMetadataLoading: boolean;
 };
 
 export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
@@ -88,6 +89,7 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
   handleBookASessionClick,
   handleBuyPassClick,
   isLoading,
+  isMetadataLoading,
 }) => {
   const {
     selectedTab,
@@ -149,6 +151,7 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
             handlePaginationFetchMore={handlePaginationFetchMore}
             hasNextPage={!!nextPage}
             isLoading={isLoading}
+            isMetadataLoading={isMetadataLoading}
             onPassCardClick={handleSetSelectedPass}
             passList={passList as PrivateConsumerPassReworked[]}
             selectedPass={selectedPass as PrivateConsumerPassReworked}
@@ -159,6 +162,7 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
             handlePaginationFetchMore={handlePaginationFetchMore}
             hasNextPage={!!nextPage}
             isLoading={isLoading}
+            isMetadataLoading={isMetadataLoading}
             onPassCardClick={handleSetSelectedPass}
             passList={passList as ConsumerPaymentPackReworked[]}
             selectedPass={selectedPass as ConsumerPaymentPackReworked}
@@ -169,6 +173,7 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
             handlePaginationFetchMore={handlePaginationFetchMore}
             hasNextPage={!!nextPage}
             isLoading={isLoading}
+            isMetadataLoading={isMetadataLoading}
             onPassCardClick={handleSetSelectedPass}
             passList={passList as UniversalPassReworked[]}
             selectedPass={selectedPass as UniversalPassReworked}

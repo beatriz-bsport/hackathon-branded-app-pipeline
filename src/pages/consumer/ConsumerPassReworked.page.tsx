@@ -151,7 +151,7 @@ export class ConsumerPassReworked extends React.Component<
     const consumerPaymentPackIds = uniq([
       ...src_consumer_payment_packs,
       ...dst_consumer_payment_packs,
-    ]);
+    ]).filter((pass) => !!pass);
 
     if (consumerPaymentPackIds?.length) {
       this.props.fetchRelatedMembersNamesByConsumerPaymentPackLinks(
@@ -197,7 +197,7 @@ export class ConsumerPassReworked extends React.Component<
     const privateConsumerPasses = uniq([
       ...src_private_consumer_passes,
       ...dst_private_consumer_passes,
-    ]);
+    ]).filter((pass) => !!pass);
 
     if (privateConsumerPasses?.length) {
       this.props.fetchRelatedMembersNamesByPrivateConsumerPassLinks(

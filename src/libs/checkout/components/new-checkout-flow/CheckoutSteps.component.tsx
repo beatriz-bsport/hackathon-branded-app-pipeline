@@ -158,15 +158,17 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
           }
         },
         updateMemberDefaultEstablishmentBillingGroup: () => {
-          const formData = mapFormData(
-            {
-              default_establishment_billing_group:
-                selectedEstablishmentBillingGroup.id,
-            },
-            MemberMap,
-          );
-          formData.append('id', basket.member.toString());
-          updateDefaultEstablishmentBillingGroup(basket.member, formData);
+          if (enableMultiLocalization && !!selectedEstablishmentBillingGroup) {
+            const formData = mapFormData(
+              {
+                default_establishment_billing_group:
+                  selectedEstablishmentBillingGroup.id,
+              },
+              MemberMap,
+            );
+            formData.append('id', basket.member.toString());
+            updateDefaultEstablishmentBillingGroup(basket.member, formData);
+          }
         },
         onPayLaterSubmit: paymentStepRef.current?.onPayLaterSubmit,
       };

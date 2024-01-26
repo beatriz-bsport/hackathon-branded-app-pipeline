@@ -35,6 +35,9 @@ type PaymentPackArraySelector = (
   state: RootState,
 ) => Immutable.Immutable<Array<PaymentPack>>;
 
+export const getPaymentPackLoading = (state: RootState): boolean =>
+  state.paymentPack.loading;
+
 export const getPaymentPackById = (state: RootState) => state.paymentPack.byId;
 
 export const getPaymentPack = (state: RootState, id: number) =>

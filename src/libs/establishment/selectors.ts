@@ -221,3 +221,6 @@ export const getDefaultEstablishmentBillingGroup = createSelector(
     return defaultEstablishmentBillingGroup;
   },
 );
+
+export const getEstablishmentBulkRetrieveState = (state: RootState) =>
+  getState(state).bulkRetrieve;

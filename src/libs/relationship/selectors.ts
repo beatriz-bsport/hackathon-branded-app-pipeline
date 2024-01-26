@@ -152,3 +152,9 @@ export const getPrivateConsumerPassLink = createSelector(
     return privateConsumerPassLinks[id];
   },
 );
+
+export const getConsumerPaymentPackLinkLoading = (state: RootState): boolean =>
+  state.relationship.consumer_payment_pack_link.loading;
+
+export const getPrivateConsumerPassLinkLoading = (state: RootState): boolean =>
+  state.relationship.private_consumer_pass_link.loading;

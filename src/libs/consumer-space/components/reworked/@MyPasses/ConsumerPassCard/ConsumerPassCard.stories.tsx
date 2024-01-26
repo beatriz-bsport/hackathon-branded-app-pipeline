@@ -75,6 +75,11 @@ UnlimitedPass.args = {
   isUnlimited: true,
 };
 
+export const Loading = ConsumerPassCardTemplate.bind({});
+Loading.args = {
+  isLoading: true,
+};
+
 export default {
   title: 'Component/Consumer-space/ConsumerPassCard',
   component: ConsumerPassCardStorybook,

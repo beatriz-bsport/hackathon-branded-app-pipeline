@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 import Card from '#Fabrique/Card';
+import ConsumerCardSkeleton from '#libs/consumer-space/components/reworked/common/ConsumerCardSkeleton';
 
 import { ConsumerPassCardHeader, ConsumerPassCardBody } from './sections';
 
@@ -16,6 +17,8 @@ type Props = {
   expirationDate?: string;
   /** Callback called when clinking on "See details" button */
   handleSeeDetails?: () => void;
+  /** Loading prop, to display skeleton */
+  isLoading?: boolean;
   /** Indicates if the pass has a multi-studio scope */
   isMultistudio?: boolean;
   /** Indicates if the pass is shared with an other member */
@@ -46,6 +49,7 @@ const ConsumerPassCard: React.FC<Props> = ({
   creditsLeft,
   expirationDate,
   handleSeeDetails,
+  isLoading,
   isMultistudio,
   isShared,
   isSuspended,
@@ -54,8 +58,12 @@ const ConsumerPassCard: React.FC<Props> = ({
   startDate,
   totalCredits,
 }) => {
+  if (isLoading) {
+    return <ConsumerCardSkeleton />;
+  }
+
   return (
-    <Card className={classNames('bs-consumer-booking-card__root')}>
+    <Card className={classNames('bs-consumer-pass-card__root')}>
       <ConsumerPassCardHeader
         creditsLeft={creditsLeft}
         isMultistudio={isMultistudio}
@@ -65,7 +73,7 @@ const ConsumerPassCard: React.FC<Props> = ({
         passName={passName}
         totalCredits={totalCredits}
       />
-      <div className="bs-consumer-booking-card__container">
+      <div className="bs-consumer-pass-card__container">
         <ConsumerPassCardBody
           expirationDate={expirationDate}
           handleSeeDetails={handleSeeDetails}

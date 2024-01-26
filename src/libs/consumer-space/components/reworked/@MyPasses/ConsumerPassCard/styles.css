@@ -1,5 +1,14 @@
 /* CONSUMER PASS CARD */
 
+.bs-consumer-pass-card__root {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.bs-consumer-pass-card__container {
+}
+
 /* HEADER STYLING */
 
 .bs-consumer__pass-card__header {

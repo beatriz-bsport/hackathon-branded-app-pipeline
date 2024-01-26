@@ -4,10 +4,9 @@
 // way less maintainable.
 // Moreover, responsive design cannot be handled.
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import {
-  Button,
   makeStyles,
-  CircularProgress,
   Typography,
   Collapse,
   useMediaQuery,
@@ -15,9 +14,9 @@ import {
 } from '@material-ui/core';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import { useTranslation } from 'react-i18next';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import { getTaxPrice } from '#libs/theme/utils';
+import Button, { ButtonColor, ButtonSize } from '#Fabrique/Button';
 
 export type Props = {
   value: string;
@@ -139,18 +138,14 @@ const BookingConfirmButtonWithOfferSummary: React.FC<Props> = ({
       )}
       <div className={classes.buttonContainer}>
         <Button
-          className={classes.button}
-          disabled={disabled || buttonLoading}
+          classes={{
+            root: 'bs-new-offer-booking__spot-selector__confirm-button',
+          }}
+          color={ButtonColor.PRIMARY}
+          isDisabled={disabled || buttonLoading}
           onClick={onClick}
-          variant="contained"
+          size={ButtonSize.MEDIUM}
         >
-          {buttonLoading && (
-            <CircularProgress
-              color="inherit"
-              size={24}
-              style={{ marginRight: 8 }}
-            />
-          )}
           {value}
         </Button>
       </div>

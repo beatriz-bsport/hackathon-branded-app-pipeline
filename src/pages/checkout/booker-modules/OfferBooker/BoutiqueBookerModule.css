@@ -104,6 +104,7 @@
 .bs-new-offer-booking__spot-selector__confirm-button {
   border-radius: var(--border-radius-6);
   flex: 1;
+  width: 100%;
   max-height: 48px;
   /*Need to use 6px value instead of var to be aligned with MUI Button, used on the next screen*/
   padding: 6px var(--spacing-2);

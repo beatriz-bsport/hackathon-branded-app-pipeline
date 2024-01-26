@@ -30,6 +30,7 @@ import Login from '#csscomponents/Login/Login.component';
 import MarketplaceAppBar from '#marketplacecomponents/@AppBar/MarketplaceAppBar';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import Analytics from '#components/analytics/Analytics.component';
+import CustomFormDialog from '#Fabrique/Temporary/CustomFormDialog';
 import { parseQueryString } from '../../http';
 
 import {
@@ -98,6 +99,8 @@ import {
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import ApplyCustomTheme from '#libs/exportable-components/ApplyCustomTheme.component';
+
+import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
 
 import MarketplaceBasketSummaryDialogCssOnly from '../../libs/marketplace/components/@Basket/MarketplaceBasketSummaryDialogCssOnly';
 
@@ -461,6 +464,13 @@ export class MarketPlace extends Component<Props, State> {
     this.props.push(getMarketplaceRoute(company.name, company.id));
   };
 
+  handleSubmitDraft = (values: CustomFormFilled) =>
+    this.props.setLoginInformations(values);
+
+  handlCancelCustomForm = () => {
+    this.setState({ signupDialogOpen: false });
+  };
+
   render() {
     const { companyThemeLoading, classes, t } = this.props;
 
@@ -607,7 +617,9 @@ export class MarketPlace extends Component<Props, State> {
               maxWidth="sm"
               onClose={this.closeLogin}
               open={
-                this.state.loginDialogOpen && !this.props.auth.authenticated
+                this.state.loginDialogOpen &&
+                !this.props.auth.authenticated &&
+                !this.state.signupDialogOpen
               }
             >
               <DialogContent>
@@ -631,41 +643,63 @@ export class MarketPlace extends Component<Props, State> {
                 </div>
               </DialogContent>
             </GenericResponsiveDialog>
-            <CustomFormViewDialogComponent
-              fullWidth
-              maxWidth="md"
-              onClose={this.closeSignup}
-              open={
-                this.state.signupDialogOpen &&
-                !this.props.auth.authenticated &&
-                this.props.signUpCustomForm
-              }
-            >
-              <DialogTitle>
-                <CustomFormTitle isCompany title={t('form.signUpTitle')} />
-              </DialogTitle>
-              <div className={classes.customFormContainer}>
-                <CustomFormView
-                  general_terms_and_conditions={
-                    this.props.theme.general_terms_of_use
-                  }
-                  initial={this.props.signUpCustomForm}
-                  layouts={
-                    this.props.signUpCustomForm
-                      ? this.props.signUpCustomForm.layout
-                      : null
-                  }
-                  onCancel={() => {
-                    this.setState({ signupDialogOpen: false });
-                  }}
-                  onSubmit={this.submitCustomForm}
-                  onSubmitDraft={(values: CustomFormFilled) =>
-                    this.props.setLoginInformations(values)
-                  }
-                  waiver={this.props.theme.waiver}
-                />
-              </div>
-            </CustomFormViewDialogComponent>
+            {CUSTOM_FORM_CSS_VARIANT_ACTIVATED ? (
+              <CustomFormDialog
+                generalTermsAndConditions={
+                  this.props.theme.general_terms_of_use
+                }
+                initial={this.props.signUpCustomForm}
+                isCssVariantActivated={CUSTOM_FORM_CSS_VARIANT_ACTIVATED}
+                layouts={
+                  this.props.signUpCustomForm
+                    ? this.props.signUpCustomForm.layout
+                    : null
+                }
+                onCancel={this.closeSignup}
+                onClose={this.closeSignup}
+                onSubmit={this.submitCustomForm}
+                onSubmitDraft={this.handleSubmitDraft}
+                open={
+                  this.state.signupDialogOpen &&
+                  !this.props.auth.authenticated &&
+                  this.props.signUpCustomForm
+                }
+                title={t('form.signUpTitle')}
+                waiver={this.props.theme.waiver}
+              />
+            ) : (
+              <CustomFormViewDialogComponent
+                fullWidth
+                maxWidth="md"
+                onClose={this.closeSignup}
+                open={
+                  this.state.signupDialogOpen &&
+                  !this.props.auth.authenticated &&
+                  this.props.signUpCustomForm
+                }
+              >
+                <DialogTitle>
+                  <CustomFormTitle isCompany title={t('form.signUpTitle')} />
+                </DialogTitle>
+                <div className={classes.customFormContainer}>
+                  <CustomFormView
+                    general_terms_and_conditions={
+                      this.props.theme.general_terms_of_use
+                    }
+                    initial={this.props.signUpCustomForm}
+                    layouts={
+                      this.props.signUpCustomForm
+                        ? this.props.signUpCustomForm.layout
+                        : null
+                    }
+                    onCancel={this.handlCancelCustomForm}
+                    onSubmit={this.submitCustomForm}
+                    onSubmitDraft={this.handleSubmitDraft}
+                    waiver={this.props.theme.waiver}
+                  />
+                </div>
+              </CustomFormViewDialogComponent>
+            )}
           </div>
         </MemberShipValidationWrapper>
       </MuiThemeProvider>

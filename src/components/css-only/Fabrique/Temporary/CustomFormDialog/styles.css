@@ -1,0 +1,14 @@
+.bs-fabrique-custom-form-view-blanket-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.bs-fabrique-custom-form-view-blanket {
+}
+
+.bs-fabrique-custom-form-view-modal {
+  width: var(--bs-fabrique-modal-dialog-size--xl);
+}

@@ -17380,7 +17380,7 @@
             "bookingQualitative": "Origem das reservas",
             "paymentTemporal": "Recibos",
             "invoiceItemTemporal": "Soma de itens faturados",
-            "bookingTimeslots": "Média de funcionários"
+            "bookingTimeslots": "Número médio de pessoas"
         },
         "dataSourceIdentifiers": {
             "is_no_show": "Ausente (não compareceu)",
@@ -17424,7 +17424,7 @@
             "payment_engine": "Tipo de pagamento",
             "is_workshop": "Workshops",
             "activity_kind": "Tipo de aulas",
-            "booking_effectif_timeslots": "Média de funcionários",
+            "booking_effectif_timeslots": "Número médio de pessoas",
             "invoiceitem_pk": "Número de itens faturados",
             "billingplan_pk": "Número de subscrições",
             "plannedinvoice_pk": "Número de faturas",

@@ -17180,7 +17180,8 @@
                 "multipleVisit": {
                     "helperText": "If activated, members that match the entry criteria can enter the {{ workflowLowerCase }} again after exiting.",
                     "isMultipleVisitAllowedLabel": "Members can enter and exit this {{ workflowLowerCase }} multiple times."
-                }
+                },
+                "addAWorkflow": "Add {{ workflowLowerCase }}"
             }
         }
     },

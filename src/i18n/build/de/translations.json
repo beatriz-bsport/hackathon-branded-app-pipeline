@@ -6045,7 +6045,8 @@
             "expired_amortized_price": "Gewinn aus Ablauf (inkl. MwSt./Umsatzsteuer)",
             "private_booking_date_created": "Datum und Zeit der Buchung",
             "booking_date_created": "Datum und Zeit der Buchung",
-            "margin_value_excluding_sales_tax": "Marginaler Wert (ohne MwSt./Umsatzsteuer)"
+            "margin_value_excluding_sales_tax": "Marginaler Wert (ohne MwSt./Umsatzsteuer)",
+            "billing_group_address": "Adresse"
         },
         "no": "Nein",
         "yes": "Ja",
@@ -7662,7 +7663,8 @@
                 "title": "Einkäufe",
                 "titleReverse": "Zusammensetzung des Einkaufs",
                 "billing_establishment": "Einrichtung der Rechnungsstellung*",
-                "cannotCreateDiscount": "Sie verfügen nicht über die notwendigen Rechte, um einen Rabatt hinzuzufügen."
+                "cannotCreateDiscount": "Sie verfügen nicht über die notwendigen Rechte, um einen Rabatt hinzuzufügen.",
+                "billingGroup": "Rechnungsgruppe*"
             },
             "paymentList": {
                 "total": "Alle Zahlungen",
@@ -7706,7 +7708,8 @@
                 "date": "Datum : {{ date }}",
                 "reverseInvoice": "Rückerstattung über ",
                 "sourceInvoice": "Rechnung stornieren",
-                "noEstablishment": "Keine Einrichtung mit dieser Rechnung verbunden"
+                "noEstablishment": "Keine Einrichtung mit dieser Rechnung verbunden",
+                "noBillingGroup": "Keine Rechnungsgruppe wurde dieser Rechnung zugeordnet"
             },
             "title": "Rechnung {{ uuid }}",
             "titleRevert": "Credit {{uuid}}",
@@ -8254,7 +8257,11 @@
             },
             "payoutIsIncludedInOther": "Diese Überweisung wurde in die Überweisung vom {{date}} mit der Kennung {{readable_identifier}} aufgenommen",
             "payoutAmountFromIncludedPayouts": "davon {{price}} aus vorherigen Auszahlungen",
-            "payoutIsManual": "Dieser Auszahlungstransfer wurde vom bsport-Team manuell ausgelöst, um die Überweisung Ihres Geldes zu beschleunigen. In diesem Fall sind die Details der verbundenen Zahlungen nicht verfügbar. Bitte setzen Sie sich für weitere Informationen mit unserem Team in Verbindung."
+            "payoutIsManual": "Dieser Auszahlungstransfer wurde vom bsport-Team manuell ausgelöst, um die Überweisung Ihres Geldes zu beschleunigen. In diesem Fall sind die Details der verbundenen Zahlungen nicht verfügbar. Bitte setzen Sie sich für weitere Informationen mit unserem Team in Verbindung.",
+            "dialog": {
+                "content": "Es gab ein Synchronisationsproblem zwischen Stripe und bsport. Wir können die Details dieser Auszahlung im Moment nicht anzeigen. Sie können jedoch sicher sein, dass der Betrag wie üblich bearbeitet und auf Ihr Bankkonto überwiesen wird. Weitere Informationen über den überwiesenen Betrag können Sie dem Zahlungsbericht entnehmen, der den Zeitraum zwischen dieser und der letzten Auszahlung abdeckt.",
+                "title": "Zahlungssynchronisierungsbenachrichtigung"
+            }
         },
         "instalment": {
             "form": {
@@ -11751,7 +11758,7 @@
                     "availability": {
                         "expiresToday": "Letzter Tag",
                         "expiresIn": "{{ daysRemaining }} Tag übrig",
-                        "expiresIn_plural": "{{ daysRemaining }} Tage übrig",
+                        "expiresIn_plural": "{{ daysRemaining }} verbleibende Tage",
                         "future": "Beginnt am: {{ startDate }}",
                         "expired": "Abgelaufen am: {{ expirationDate }}",
                         "active": "Läuft ab am: {{ expirationDate }}"
@@ -11763,6 +11770,65 @@
                     },
                     "credits": "{{ creditsLeft }}/{{ totalCredits }} Credits",
                     "unlimited": "Unbegrenzt"
+                },
+                "consumerPassDetailsCard": {
+                    "shared": {
+                        "by": "Geteilt von",
+                        "with": "Geteilt mit"
+                    },
+                    "restriction": {
+                        "frequencyMonthly": "Kann nur {{ amount }} mal pro Monat verwendet werden.",
+                        "frequencyMonthly_plural": "Kann nur {{ amount }} mal pro Monat verwendet werden.",
+                        "frequencyWeekly": "Kann nur {{ amount }} mal pro Woche verwendet werden.",
+                        "frequencyWeekly_plural": "Kann nur {{ amount }} mal pro Woche verwendet werden.",
+                        "frequencyDaily": "Kann nur {{ amount }} mal am Tag verwendet werden.",
+                        "frequencyDaily_plural": "Kann nur {{ amount }} mal am Tag verwendet werden.",
+                        "title": "Einschränkungen der Nutzung"
+                    },
+                    "compatibility": {
+                        "labels": {
+                            "room": "Räume",
+                            "activity": "Aktivitäten",
+                            "category": "Kategorien"
+                        },
+                        "contents": {
+                            "sessions": "Kompatible Kurse: {{ sessionsList }}",
+                            "allSessions": "Kompatibel mit allen Kursen",
+                            "noAppointments": "Keine kompatiblen Termine",
+                            "bookingForGuest": "Kann für <strong>Gästebuchung</strong> verwendet werden",
+                            "vod": "Kann für <strong> Video On-Demand</strong> verwendet werden",
+                            "allTimeSlots": "Kompatibel mit allen Zeitfenstern",
+                            "allActivities": "Kompatibel mit allen Aktivitäten des Studios"
+                        },
+                        "subtitles": {
+                            "sessions": "Kompatible Kurse",
+                            "timeSlots": "Kompatible Zeitfenster",
+                            "activity": "Kompatible Aktivitäten"
+                        },
+                        "titles": {
+                            "main": "Kompatibilität",
+                            "appointment": "Terminkompatibilität",
+                            "activity": "Aktivitätenkompatibilität",
+                            "studios": "Kompatible Studios"
+                        }
+                    },
+                    "description": {
+                        "showLess": "Weniger anzeigen",
+                        "showMore": "Mehr anzeigen",
+                        "title": "Beschreibung"
+                    },
+                    "availability": {
+                        "validUntil": "Gültig bis zum {{ expirationDate }}",
+                        "future": "Startet am {{ startDate }}",
+                        "expired": "Abgelaufen am {{ expirationDate }}",
+                        "suspendedUntil": "Ausgesetzt bs zum {{ endDate }}",
+                        "suspended": "Ausgesetzt",
+                        "active": "Gültig vom {{ startDate }} zum {{ expirationDate }}"
+                    },
+                    "header": {
+                        "unlimited": "Unbegrenzt",
+                        "credits": "{{ creditsLeft }}/{{ totalCredits }} Credits"
+                    }
                 }
             },
             "myBookings": {
@@ -11787,7 +11853,17 @@
                     "noRefund": "Ihr(e) Credit(s) werden für eine verspätete Absage nicht rückerstattet.",
                     "creditsWillBeRefunded": "{{count}} Credit wird rückerstattet.",
                     "creditsWillBeRefunded_plural": "{{count}} Credits werden rückerstattet.",
-                    "title": "Kurs absagen"
+                    "title": {
+                        "consumerBookingOption": "Diese Warteliste tornieren",
+                        "consumerPrivateBooking": "Diesen Termin absagen",
+                        "consumerBooking": "Diesen Kurs absagen"
+                    },
+                    "confirm": {
+                        "consumerBookingOption": "Warteliste stornieren",
+                        "consumerPrivateBooking": "Termin absagen",
+                        "consumerBooking": "Kurs absagen"
+                    },
+                    "waitlist": "Sie werden von der Warteliste entfernt."
                 },
                 "detailsCard": {
                     "workshop": {
@@ -11852,11 +11928,17 @@
                     "placeholder": {
                         "workshop": {
                             "future": "Keine kommenden Workshops anzuzeigen.",
-                            "past": "Keine vergangenen Workshops anzuzeigen."
+                            "past": "Keine vergangenen Workshops anzuzeigen.",
+                            "waitlist": "Keine Workshops auf der Warteliste."
                         },
                         "activity": {
                             "future": "Keine kommenden Aktivitäten anzuzeigen.",
-                            "past": "Keine vergangenen Aktivitäten anzuzeigen."
+                            "past": "Keine vergangenen Aktivitäten anzuzeigen.",
+                            "waitlist": "Keine Aktivitäten auf der Warteliste."
+                        },
+                        "appointment": {
+                            "future": "Keine nächsten Termine geplant.",
+                            "past": "Keine vergangenen Termine vorzuweisen."
                         }
                     }
                 },
@@ -15359,7 +15441,9 @@
             "notification": "Benachrichtigungen"
         },
         "roomRequired": "Raum *",
-        "roomRequiredIsMissing": "Sie haben keine Abrechnungsstelle ausgewählt."
+        "roomRequiredIsMissing": "Sie haben keine Abrechnungsstelle ausgewählt.",
+        "billingGroupRequired": "Rechnungsgruppe*",
+        "billingGroup": "Rechnungsgruppe"
     },
     "checkout": {
         "myBasket": {
@@ -15561,7 +15645,12 @@
             "message": "Ihre Platzreservierung ist abgelaufen. Sie können sie erneut auswählen oder sich für eine neue entscheiden.",
             "title": "Ihre Platzreservierung ist abgelaufen"
         },
-        "spotSavedFor": "Der ausgewählte Platz wird für {{countdown}} reserviert."
+        "spotSavedFor": "Der ausgewählte Platz wird für {{countdown}} reserviert.",
+        "billingGroup": {
+            "helperText": "Der bevorzugte Standort ist derjenige, an dem Sie Ihren Einkauf zu verwenden beabsichtigen, und wird für die Ausstellung Ihrer Rechnung verwendet.",
+            "placeholder": "Standort",
+            "title": "Bevorzugter Standort"
+        }
     },
     "tag": {
         "filter": {
@@ -16027,7 +16116,10 @@
                 "consumer_pass_card": "Verbraucherausweis",
                 "consumer_booking_details_card": "Buchungsdatenkarte (für Mitglieder)",
                 "consumer_booking_card": "Buchungskarte für Verbraucher",
-                "authentication_textfield": "Textfeld Authentifizierung"
+                "authentication_textfield": "Textfeld Authentifizierung",
+                "universal_pass_details_card": "Universalpass-Detailkarte (für Mitglieder)",
+                "private_consumer_pass_details_card": "Terminpass-Detailkarte (für Mitglieder)",
+                "consumer_payment_pack_details_card": "Aktivitätspass-Detailkarte (für Mitglieder)"
             },
             "page": {
                 "calendar": "Kalender",
@@ -16163,7 +16255,10 @@
                     "isJoinableOnlineDisabled": "Schaltfläche \"Online Teilnehmen\" ist deaktiviert",
                     "isBookableDisabled": "Die Schaltfläche \"Buchen\" ist deaktiviert",
                     "isMoreDisabled": "Die Schaltfläche \"Mehr\" ist deaktiviert",
-                    "isDetailsDisabled": "Die Schaltfläche \"Details anzeigen\" ist deaktiviert"
+                    "isDetailsDisabled": "Die Schaltfläche \"Details anzeigen\" ist deaktiviert",
+                    "passKind": "Pass-Typ",
+                    "isFuture": "Pass ist noch nicht aktiv",
+                    "isExpired": "Pass ist abgelaufen"
                 },
                 "option": {
                     "activityName": "Aktivität",
@@ -16256,7 +16351,10 @@
                     "fullNameAndEmail": "Voller Name und E-Mail",
                     "default": "Standard",
                     "clickableText": "Anklickbarer Text",
-                    "standard": "Standard"
+                    "standard": "Standard",
+                    "universalPass": "Universaler Pass",
+                    "appointmentPass": "Terminpass",
+                    "activityPass": "Aktivitätspass"
                 },
                 "confirmationMessageComponentAlert": "Diese Komponente verwaltet hauptsächlich den Buchungs- und Zahlungsstatus. Für die Anpassung ihres Aussehens empfehlen wir die Verwendung ihrer Stammkomponenten, die sich im Allgemeinen Abschnitt befinden",
                 "marketplaceOfferBookingList": "Diese Komponente ist eine Liste der gebuchten Sitzungen. Zur Feinabstimmung einzelner {{component_name}}-Komponenten können Sie den entsprechenden Abschnitt im Editor verwenden.",
@@ -17086,7 +17184,8 @@
                     "availableSoon": "Bald verfügbar",
                     "knowMore": "Mehr Informationen über das {{ upsellName }} Upsell",
                     "title": "Gesendete Kommunikation"
-                }
+                },
+                "openButton": "Öffne {{ workflowLowerCase }}"
             },
             "memberTable": {
                 "tableColumnLabel": {
@@ -17106,7 +17205,7 @@
                     "cancel": "Abbrechen",
                     "checkboxLabel": "Diese Nachricht nicht mehr anzeigen.",
                     "helper": "Durch die Bearbeitung von Auslösern kann die Position der Mitglieder in verschiedenen Schritten geändert werden.",
-                    "title": "Workflow bearbeiten"
+                    "title": "{{ workflowLowerCase }} bearbeiten"
                 }
             },
             "listItem": {
@@ -17114,14 +17213,17 @@
                     "moreActions": "Mehr Workflow-Aktionen"
                 },
                 "labels": {
-                    "edit": " Workflow-Einstellungen bearbeiten",
-                    "archive": "Workflow archivieren",
+                    "edit": " {{ workflowLowerCase }}-Einstellungen bearbeiten",
+                    "archive": "{{ workflowLowerCase }} archivieren",
                     "open": "Offen",
                     "notLaunched": "Nicht eingeleitet",
                     "paused": "Pausiert",
                     "active": "Aktiv",
                     "unarchive": "Archivieren rückgängig machen",
                     "metrics": "Messgrößen"
+                },
+                "tooltip": {
+                    "moreActions": "Mehr {{ workflowLowerCase }}-Aktionen"
                 }
             }
         }
@@ -18741,6 +18843,10 @@
                 "description": "Dieser Empfehlungslink kann nicht für dieses Studio verwendet werden.",
                 "title": "Empfehlungslink kann nicht verwendet werden"
             }
+        },
+        "checkoutValidation": {
+            "explain": "Sie erhalten Belohnungen, wenn Sie Ihren Empfehlungslink an Ihre Freunde weitergeben.",
+            "title": "Einen Freund sponsern"
         }
     },
     "campaign": {

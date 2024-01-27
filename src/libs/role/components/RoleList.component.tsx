@@ -68,6 +68,7 @@ type Props = OwnProps &
 export class RoleList extends React.PureComponent<Props> {
   onSubmit = (role: Role | FranchiseRole) => {
     this.props.setOpenCreateRoleDialog(false);
+    this.props.setCurrentRole(null);
     typeof role.id === 'number'
       ? this.props.onEditRole(role)
       : this.props.onCreateRole(role);

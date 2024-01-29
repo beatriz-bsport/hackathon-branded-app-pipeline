@@ -5,6 +5,8 @@ import {
   fetchGlobalMetrics as fetchGlobalMetricsAPI,
   fetchPresentMembersData as fetchPresentMembersDataAPI,
   fetchMembersHistoric as fetchMembersHistoricAPI,
+  searchPresentMembersData as searchPresentMembersDataAPI,
+  searchMembersHistoric as searchMembersHistoricAPI,
 } from '#libs/sequential_marketing/api';
 
 import type {
@@ -118,5 +120,81 @@ export function fetchMembersHistoric(
     }
 
     dispatch(fetchMembersHistoricActions.isLoading(false));
+  };
+}
+
+export const searchPresentMembersDataActions = {
+  isLoading: createAction<boolean>('SEARCH_CADENCE_MEMBERS_PRESENT/IS_LOADING'),
+  error: createAction<Error | null>('SEARCH_CADENCE_MEMBERS_PRESENT/ERROR'),
+  success: createAction<{
+    cadenceId: number;
+    data: MetricsPaginatedResponse<CadenceMembersInData>;
+  }>('SEARCH_CADENCE_MEMBERS_PRESENT/SUCCESS'),
+};
+
+export function searchPresentMembersData(
+  cadenceId: number,
+  params?: CadencePaginatedMetricsParams & { text: string },
+  options?: OptionCallback<MetricsPaginatedResponse<CadenceMembersInData>>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(searchPresentMembersDataActions.isLoading(true));
+    dispatch(searchPresentMembersDataActions.error(null));
+
+    try {
+      const response = await searchPresentMembersDataAPI(cadenceId, params);
+      dispatch(
+        searchPresentMembersDataActions.success({
+          cadenceId,
+          data: response.data,
+        }),
+      );
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(searchPresentMembersDataActions.error(err));
+      options?.onError?.();
+    }
+
+    dispatch(searchPresentMembersDataActions.isLoading(false));
+  };
+}
+
+export const searchMembersHistoricActions = {
+  isLoading: createAction<boolean>(
+    'SEARCH_CADENCE_MEMBERS_HISTORIC/IS_LOADING',
+  ),
+  error: createAction<Error | null>('SEARCH_CADENCE_MEMBERS_HISTORIC/ERROR'),
+  success: createAction<{
+    cadenceId: number;
+    data: MetricsPaginatedResponse<CadenceMembersOutData>;
+  }>('SEARCH_CADENCE_MEMBERS_HISTORIC/SUCCESS'),
+};
+
+export function searchMembersHistoric(
+  cadenceId: number,
+  params?: CadencePaginatedMetricsParams & { text: string },
+  options?: OptionCallback<MetricsPaginatedResponse<CadenceMembersOutData>>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(searchMembersHistoricActions.isLoading(true));
+    dispatch(searchMembersHistoricActions.error(null));
+
+    try {
+      const response = await searchMembersHistoricAPI(cadenceId, params);
+      dispatch(
+        searchMembersHistoricActions.success({
+          cadenceId,
+          data: response.data,
+        }),
+      );
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(searchMembersHistoricActions.error(err));
+      options?.onError?.();
+    }
+
+    dispatch(searchMembersHistoricActions.isLoading(false));
   };
 }

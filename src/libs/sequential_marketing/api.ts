@@ -336,3 +336,25 @@ export const fetchMembersHistoric = (
     )}`,
   );
 };
+
+export const searchPresentMembersData = (
+  cadenceId: number,
+  params?: CadencePaginatedMetricsParams & { text: string },
+) => {
+  return getAuth<MetricsPaginatedResponse<CadenceMembersInData>>(
+    `${API_V1_URI}/sequential_marketing/cadence_metrics/${cadenceId}/search_present_members/${buildUrlParams(
+      params,
+    )}`,
+  );
+};
+
+export const searchMembersHistoric = (
+  cadenceId: number,
+  params?: CadencePaginatedMetricsParams & { text: string },
+) => {
+  return getAuth<MetricsPaginatedResponse<CadenceMembersOutData>>(
+    `${API_V1_URI}/sequential_marketing/cadence_metrics/${cadenceId}/search_members_historic/${buildUrlParams(
+      params,
+    )}`,
+  );
+};

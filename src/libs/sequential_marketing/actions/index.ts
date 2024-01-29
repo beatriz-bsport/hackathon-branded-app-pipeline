@@ -93,9 +93,13 @@ import {
   // PRESENT MEMBERS DATA
   fetchPresentMembersDataActions,
   fetchPresentMembersData,
+  searchPresentMembersDataActions,
+  searchPresentMembersData,
   // MEMBERS HISTORIC
   fetchMembersHistoricActions,
   fetchMembersHistoric,
+  searchMembersHistoricActions,
+  searchMembersHistoric,
 } from './metrics';
 
 export {
@@ -161,4 +165,8 @@ export {
   fetchPresentMembersData,
   fetchMembersHistoricActions,
   fetchMembersHistoric,
+  searchPresentMembersDataActions,
+  searchPresentMembersData,
+  searchMembersHistoricActions,
+  searchMembersHistoric,
 };

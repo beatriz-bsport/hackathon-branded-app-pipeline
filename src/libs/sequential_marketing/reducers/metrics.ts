@@ -5,6 +5,8 @@ import {
   fetchGlobalMetricsActions,
   fetchMembersHistoricActions,
   fetchPresentMembersDataActions,
+  searchMembersHistoricActions,
+  searchPresentMembersDataActions,
 } from '#libs/sequential_marketing/actions';
 
 import type {
@@ -90,7 +92,45 @@ export default handleActions<ImmutableCadenceMetricsState, any>(
       },
     ) => {
       return state.setIn(
-        ['membersPresent', 'byCadenceId', payload.cadenceId.toString()],
+        [
+          'membersPresent',
+          'byCadenceId',
+          payload.cadenceId.toString(),
+          'allData',
+        ],
+        payload.data,
+      );
+    },
+    [searchPresentMembersDataActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['membersPresent', 'loading'], payload);
+    },
+    [searchPresentMembersDataActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['membersPresent', 'error'], payload);
+    },
+    [searchPresentMembersDataActions.success.toString()]: (
+      state,
+      {
+        payload,
+      }: {
+        payload: {
+          cadenceId: number;
+          data: MetricsPaginatedResponse<CadenceMembersInData>;
+        };
+      },
+    ) => {
+      return state.setIn(
+        [
+          'membersPresent',
+          'byCadenceId',
+          payload.cadenceId.toString(),
+          'searchResult',
+        ],
         payload.data,
       );
     },
@@ -118,7 +158,45 @@ export default handleActions<ImmutableCadenceMetricsState, any>(
       },
     ) => {
       return state.setIn(
-        ['membersHistoric', 'byCadenceId', payload.cadenceId.toString()],
+        [
+          'membersHistoric',
+          'byCadenceId',
+          payload.cadenceId.toString(),
+          'allData',
+        ],
+        payload.data,
+      );
+    },
+    [searchMembersHistoricActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['membersHistoric', 'loading'], payload);
+    },
+    [searchMembersHistoricActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['membersHistoric', 'error'], payload);
+    },
+    [searchMembersHistoricActions.success.toString()]: (
+      state,
+      {
+        payload,
+      }: {
+        payload: {
+          cadenceId: number;
+          data: MetricsPaginatedResponse<CadenceMembersOutData>;
+        };
+      },
+    ) => {
+      return state.setIn(
+        [
+          'membersHistoric',
+          'byCadenceId',
+          payload.cadenceId.toString(),
+          'searchResult',
+        ],
         payload.data,
       );
     },

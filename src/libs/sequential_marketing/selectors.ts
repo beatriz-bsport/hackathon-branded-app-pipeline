@@ -125,13 +125,19 @@ export const getCadenceGlobalMetrics = createSelector(
 export const getCadenceMembersHistoric = createSelector(
   [_getMembersHistoricByCadenceId, (_: RootState, id: number) => id],
   (membersHistoricByCadenceId, cadenceId) =>
-    membersHistoricByCadenceId[cadenceId] ?? INITIAL_MEMBERS_OUT_DATA,
+    membersHistoricByCadenceId[cadenceId] ?? {
+      allData: INITIAL_MEMBERS_OUT_DATA,
+      searchResult: INITIAL_MEMBERS_OUT_DATA,
+    },
 );
 
 export const getCadenceMembersPresent = createSelector(
   [_getMembersPresentByCadenceId, (_: RootState, id: number) => id],
   (membersPresentByCadenceId, cadenceId) =>
-    membersPresentByCadenceId[cadenceId] ?? INITIAL_MEMBERS_IN_DATA,
+    membersPresentByCadenceId[cadenceId] ?? {
+      allData: INITIAL_MEMBERS_IN_DATA,
+      searchResult: INITIAL_MEMBERS_IN_DATA,
+    },
 );
 
 export const getCadenceGlobalMetricsLoading = (state: RootState): boolean =>

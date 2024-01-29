@@ -279,12 +279,18 @@ export type MetricsState = {
   } & ErrorAndLoading;
   membersHistoric: {
     byCadenceId: {
-      [cadenceId: number]: MetricsPaginatedResponse<CadenceMembersOutData>;
+      [cadenceId: number]: {
+        allData: MetricsPaginatedResponse<CadenceMembersOutData>;
+        searchResult: MetricsPaginatedResponse<CadenceMembersOutData>;
+      };
     };
   } & ErrorAndLoading;
   membersPresent: {
     byCadenceId: {
-      [cadenceId: number]: MetricsPaginatedResponse<CadenceMembersInData>;
+      [cadenceId: number]: {
+        allData: MetricsPaginatedResponse<CadenceMembersInData>;
+        searchResult: MetricsPaginatedResponse<CadenceMembersInData>;
+      };
     };
   } & ErrorAndLoading;
 };

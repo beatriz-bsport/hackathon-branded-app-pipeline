@@ -25,6 +25,8 @@ import {
   fetchPresentMembersData as fetchPresentMembersDataAction,
   fetchMembersHistoric as fetchMembersHistoricAction,
   fetchCadenceStepList as fetchCadenceStepListAction,
+  searchPresentMembersData as searchPresentMembersDataAction,
+  searchMembersHistoric as searchMembersHistoricAction,
 } from '#libs/sequential_marketing/actions';
 import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '#libs/member/actions';
 
@@ -132,6 +134,22 @@ export class CadenceListPage extends React.Component<Props> {
     page: number,
   ) => {
     this.props.fetchMembersHistoric(cadenceId, { page });
+  };
+
+  handleSearchPresentMembersDataSpecificPage = (
+    cadenceId: number,
+    text: string,
+    page: number,
+  ) => {
+    text && this.props.searchPresentMembersData(cadenceId, { page, text });
+  };
+
+  handleSearchMembersHistoricSpecificPage = (
+    cadenceId: number,
+    text: string,
+    page: number,
+  ) => {
+    text && this.props.searchMembersHistoric(cadenceId, { page, text });
   };
 
   handleSelectCadence = (cadence: Cadence) => {
@@ -367,6 +385,12 @@ export class CadenceListPage extends React.Component<Props> {
               membersHistoricLoading={this.props.membersHistoricLoading}
               membersPresentLoading={this.props.membersPresentLoading}
               onOpen={this.handleGoToCadencePage}
+              searchMembersHistoric={
+                this.handleSearchMembersHistoricSpecificPage
+              }
+              searchPresentMembers={
+                this.handleSearchPresentMembersDataSpecificPage
+              }
               startDate={this.props.startDateFilter}
               updateFilterDates={this.handleUpdateFilterDates}
             />
@@ -544,6 +568,27 @@ const mapWithHandlers = {
       }
     },
 
+  searchPresentMembersData:
+    (props: ConnectedPropsAndState) =>
+    (
+      cadenceId: number,
+      params?: CadencePaginatedMetricsParams & { text: string },
+      options?: OptionCallback<MetricsPaginatedResponse<CadenceMembersInData>>,
+    ) => {
+      if (cadenceId) {
+        props.searchPresentMembersDataAction(cadenceId, params, {
+          ...options,
+          onSuccess: (paginatedMembersData) => {
+            props.fetchMemberBulkById(
+              paginatedMembersData?.results?.map(
+                (member) => member.member_id,
+              ) ?? [],
+            );
+          },
+        });
+      }
+    },
+
   fetchMembersHistoric:
     (props: ConnectedPropsAndState) =>
     (
@@ -553,6 +598,27 @@ const mapWithHandlers = {
     ) => {
       if (cadenceId) {
         props.fetchMembersHistoricAction(cadenceId, params, {
+          ...options,
+          onSuccess: (paginatedMembersData) => {
+            props.fetchMemberBulkById(
+              paginatedMembersData?.results?.map(
+                (member) => member.member_id,
+              ) ?? [],
+            );
+          },
+        });
+      }
+    },
+
+  searchMembersHistoric:
+    (props: ConnectedPropsAndState) =>
+    (
+      cadenceId: number,
+      params?: CadencePaginatedMetricsParams & { text: string },
+      options?: OptionCallback<MetricsPaginatedResponse<CadenceMembersInData>>,
+    ) => {
+      if (cadenceId) {
+        props.searchMembersHistoricAction(cadenceId, params, {
           ...options,
           onSuccess: (paginatedMembersData) => {
             props.fetchMemberBulkById(
@@ -595,6 +661,8 @@ const connector = connect(
     fetchGlobalMetricsAction,
     fetchPresentMembersDataAction,
     fetchMembersHistoricAction,
+    searchPresentMembersDataAction,
+    searchMembersHistoricAction,
     fetchCadenceStepListAction,
     fetchMemberBulkById: fetchMemberBulkByIdAction,
   },

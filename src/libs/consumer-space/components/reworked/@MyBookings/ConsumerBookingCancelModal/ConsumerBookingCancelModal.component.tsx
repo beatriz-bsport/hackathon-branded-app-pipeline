@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment-timezone';
 
@@ -106,20 +106,11 @@ const ConsumerBookingCancelModal: React.FC<Props> = ({
     privateBooking?.private_service?.name
   } - ${bookingDate}`;
 
-  const isLateCancellation = useMemo(
-    () =>
-      getIsLateBookingCancellation(
-        moment().format(),
-        booking?.meta_activity?.last_discard_minutes ||
-          privateBooking?.private_service?.last_discard_minutes,
-        booking?.offer?.date_start || privateBooking?.date_start,
-      ),
-    [
-      booking?.meta_activity?.last_discard_minutes,
+  const isLateCancellation = getIsLateBookingCancellation(
+    moment().format(),
+    booking?.meta_activity?.last_discard_minutes ||
       privateBooking?.private_service?.last_discard_minutes,
-      booking?.offer?.date_start,
-      privateBooking?.date_start,
-    ],
+    booking?.offer?.date_start || privateBooking?.date_start,
   );
 
   const modalTitle = (() => {

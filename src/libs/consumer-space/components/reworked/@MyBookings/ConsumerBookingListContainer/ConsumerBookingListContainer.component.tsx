@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 
@@ -82,26 +82,14 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation('consumerSpace');
 
-  const isLateCancellation = useMemo(
-    () =>
-      getIsLateBookingCancellation(
-        selectedBooking?.date_canceled || selectedPrivateBooking?.date_canceled,
-        selectedBooking?.meta_activity?.last_discard_minutes ||
-          selectedPrivateBooking?.private_service?.last_discard_minutes,
-        selectedBooking?.offer?.date_start ||
-          selectedPrivateBooking?.date_start,
-      ),
-    [
-      selectedBooking?.date_canceled,
-      selectedPrivateBooking?.date_canceled,
-      selectedBooking?.meta_activity?.last_discard_minutes,
+  const isLateCancellation = getIsLateBookingCancellation(
+    selectedBooking?.date_canceled || selectedPrivateBooking?.date_canceled,
+    selectedBooking?.meta_activity?.last_discard_minutes ||
       selectedPrivateBooking?.private_service?.last_discard_minutes,
-      selectedBooking?.offer?.date_start,
-      selectedPrivateBooking?.date_start,
-    ],
+    selectedBooking?.offer?.date_start || selectedPrivateBooking?.date_start,
   );
 
-  const currentBookingList = useMemo(() => {
+  const currentBookingList = (() => {
     if (selectedFilterTab === BookingFilterTabEnum.WAITLIST) {
       return bookingOptionList;
     }
@@ -109,13 +97,7 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
       return privateBookingList;
     }
     return bookingList;
-  }, [
-    bookingList,
-    bookingOptionList,
-    privateBookingList,
-    selectedFilterTab,
-    selectedTab,
-  ]);
+  })();
 
   const selectedBookingDate = useConsumerBookingDateTime({
     dateStart:

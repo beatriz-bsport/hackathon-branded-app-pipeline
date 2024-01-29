@@ -95,6 +95,7 @@ export class SpotSchedulingSelector extends Component<Props, State> {
           }
         },
       });
+      this.fetchOfferStatus();
     }
   }
 
@@ -182,9 +183,14 @@ export class SpotSchedulingSelector extends Component<Props, State> {
   };
 
   render() {
-    if (!this.props.offer) {
+    if (
+      !this.props.offer ||
+      this.props.offerIsLoading ||
+      this.props.offerStatusIsLoading
+    ) {
       return null;
     }
+
     return (
       <div className="bs-new-offer-booking__spot-selector__blueprint--web-view">
         {this.props.roomBlueprintsById[this.props.offer.room_blueprint] && (
@@ -231,6 +237,8 @@ const connector = connect(
     return {
       offer,
       offerStatusById: state.offer.offerStatus.byId,
+      offerIsLoading: state.offer.retrieve.loading,
+      offerStatusIsLoading: state.offer.offerStatus.loading,
       companyTheme: state.theme.theme,
       roomBlueprintsById: state.spotScheduling.roomBlueprint.byId,
       assetByIdBlueprintByIdentifier: getAssetByBlueprintByIdentifier(state),

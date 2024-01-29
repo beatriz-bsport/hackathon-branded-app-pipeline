@@ -104,6 +104,9 @@ export type ReportMetadataColumn = {
   name?: string;
   datatype: DataSourceMedadataDataType;
   is_filterable?: boolean;
+  is_qualitative?: boolean;
+  summable?: boolean;
+  averageable?: boolean;
 };
 
 export type ReportMetadataValue = {

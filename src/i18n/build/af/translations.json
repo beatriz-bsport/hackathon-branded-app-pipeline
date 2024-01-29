@@ -8814,7 +8814,8 @@
       "referred_discount_use_date": "Date of use of the referred discount",
       "referred_discount_applied": "Reward received by the referred member",
       "purchased_products": "Products",
-      "coupon_type": "Type"
+      "coupon_type": "Type",
+      "is_first_visit": "First booking"
     },
     "yes": "Yes",
     "no": "No",

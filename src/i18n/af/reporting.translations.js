@@ -383,6 +383,7 @@ const getTranslations = async () => {
       referred_discount_applied: 'Reward received by the referred member',
       purchased_products: 'Products',
       coupon_type: 'Type',
+      is_first_visit: 'First booking',
     },
     yes: 'Yes',
     no: 'No',

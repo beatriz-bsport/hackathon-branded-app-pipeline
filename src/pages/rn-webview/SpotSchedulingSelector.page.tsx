@@ -60,6 +60,7 @@ type OwnProps = {
 type State = {
   selectedSpotId: number | null;
   selectedSpot: string | undefined;
+  offerStatusWasFirstFetched: boolean;
 };
 
 type Props = OwnProps & ParamsToProps & ConnectedProps<typeof connector>;
@@ -69,6 +70,7 @@ export class SpotSchedulingSelector extends Component<Props, State> {
   state: State = {
     selectedSpotId: null,
     selectedSpot: undefined,
+    offerStatusWasFirstFetched: false,
   };
 
   componentDidMount() {
@@ -120,9 +122,15 @@ export class SpotSchedulingSelector extends Component<Props, State> {
 
   fetchOfferStatus = () => {
     if (this.props.offerId) {
-      this.props.fetchOfferStatus(this.props.offerId, {
-        booking_for_invitee_only: this.getIsGuestBooking(),
-      });
+      this.props.fetchOfferStatus(
+        this.props.offerId,
+        {
+          booking_for_invitee_only: this.getIsGuestBooking(),
+        },
+        {
+          onSuccess: () => this.setState({ offerStatusWasFirstFetched: true }),
+        },
+      );
     }
   };
 
@@ -186,7 +194,8 @@ export class SpotSchedulingSelector extends Component<Props, State> {
     if (
       !this.props.offer ||
       this.props.offerIsLoading ||
-      this.props.offerStatusIsLoading
+      (!this.state.offerStatusWasFirstFetched &&
+        this.props.offerStatusIsLoading)
     ) {
       return null;
     }

@@ -20,6 +20,7 @@ export enum CadenceMetricsSizes {
   PROGRESS_LIST_CONTAINER_BORDER_RADIUS = '8px',
 
   MEMBER_TABLE_HEADER_HEIGHT = '32px',
+  MEMBER_TABLE_SEARCH_HEIGHT = '39px',
 }
 
 /** Enumeration representing the status of a cadence.

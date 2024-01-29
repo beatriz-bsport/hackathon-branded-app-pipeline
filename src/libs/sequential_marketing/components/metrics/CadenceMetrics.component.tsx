@@ -39,15 +39,23 @@ type Props = {
   changePresentMembersPage: (cadenceId: number, page: number) => void;
   getCadenceStep: (stepId: number) => CadenceStep;
   getGlobalMetrics: (cadenceId: number) => CadenceGlobalMetrics;
-  getMembersHistoric: (
-    cadenceId: number,
-  ) => MetricsPaginatedResponse<CadenceMembersOutData>;
-  getMembersPresent: (
-    cadenceId: number,
-  ) => MetricsPaginatedResponse<CadenceMembersInData>;
+  getMembersHistoric: (cadenceId: number) => {
+    allData: MetricsPaginatedResponse<CadenceMembersOutData>;
+    searchResult: MetricsPaginatedResponse<CadenceMembersOutData>;
+  };
+  getMembersPresent: (cadenceId: number) => {
+    allData: MetricsPaginatedResponse<CadenceMembersInData>;
+    searchResult: MetricsPaginatedResponse<CadenceMembersInData>;
+  };
   goTagsPage: () => void;
   knowMoreOnNotifications: () => void;
   onOpen: (cadence: Cadence) => void;
+  searchMembersHistoric: (
+    cadenceId: number,
+    text: string,
+    page: number,
+  ) => void;
+  searchPresentMembers: (cadenceId: number, text: string, page: number) => void;
   updateFilterDates: (startDateFilter: string, endDateFilter: string) => void;
 };
 
@@ -69,6 +77,8 @@ const CadenceMetrics: React.FC<Props> = ({
   goTagsPage,
   knowMoreOnNotifications,
   onOpen,
+  searchMembersHistoric,
+  searchPresentMembers,
   updateFilterDates,
 }) => {
   const classes = useStyles();
@@ -77,25 +87,65 @@ const CadenceMetrics: React.FC<Props> = ({
   const [pagePresent, setPagePresent] = React.useState<number | null>(null);
   const [pageHistoric, setPageHistoric] = React.useState<number | null>(null);
 
+  const [searchPresent, setSearchPresent] = React.useState('');
+  const [searchHistoric, setSearchHistoric] = React.useState('');
+
   const handleOpen = React.useCallback(
     () => onOpen(cadence),
     [cadence, onOpen],
   );
 
+  const handleSearchPresent = React.useCallback(
+    (searchText: string) => {
+      setSearchPresent(searchText);
+      setPagePresent(1);
+      searchText
+        ? searchPresentMembers(cadence?.id, searchText, 1)
+        : changePresentMembersPage(cadence?.id, 1);
+    },
+    [cadence?.id, changePresentMembersPage, searchPresentMembers],
+  );
+
+  const handleSearchHistoric = React.useCallback(
+    (searchText: string) => {
+      setSearchHistoric(searchText);
+      setPageHistoric(1);
+      searchText
+        ? searchMembersHistoric(cadence?.id, searchText, 1)
+        : changeMembersHistoricPage(cadence?.id, 1);
+    },
+    [cadence?.id, changeMembersHistoricPage, searchMembersHistoric],
+  );
+
   const handleChangePresentMembersPage = React.useCallback(
     (page: number) => {
       setPagePresent(page);
-      changePresentMembersPage(cadence?.id, page);
+      searchPresent
+        ? searchPresentMembers(cadence?.id, searchPresent, page)
+        : changePresentMembersPage(cadence?.id, page);
     },
-    [cadence?.id, changePresentMembersPage],
+    [
+      cadence?.id,
+      changePresentMembersPage,
+      searchPresent,
+      searchPresentMembers,
+    ],
   );
 
   const handleChangeMembersHistoricPage = React.useCallback(
     (page: number) => {
       setPageHistoric(page);
       changeMembersHistoricPage(cadence?.id, page);
+      searchHistoric
+        ? searchMembersHistoric(cadence?.id, searchHistoric, page)
+        : changeMembersHistoricPage(cadence?.id, page);
     },
-    [cadence?.id, changeMembersHistoricPage],
+    [
+      cadence?.id,
+      changeMembersHistoricPage,
+      searchHistoric,
+      searchMembersHistoric,
+    ],
   );
 
   const globalMetrics = React.useMemo(
@@ -103,15 +153,21 @@ const CadenceMetrics: React.FC<Props> = ({
     [cadence?.id, getGlobalMetrics],
   );
 
-  const membersPresent = React.useMemo(
-    () => getMembersPresent?.(cadence?.id) ?? null,
-    [cadence?.id, getMembersPresent],
-  );
+  const membersPresent = React.useMemo(() => {
+    const present = getMembersPresent?.(cadence?.id);
+    if (searchPresent) {
+      return present.searchResult;
+    }
+    return present.allData;
+  }, [cadence?.id, getMembersPresent, searchPresent]);
 
-  const membersHistoric = React.useMemo(
-    () => getMembersHistoric?.(cadence?.id) ?? null,
-    [cadence?.id, getMembersHistoric],
-  );
+  const membersHistoric = React.useMemo(() => {
+    const historic = getMembersHistoric?.(cadence?.id);
+    if (searchHistoric) {
+      return historic.searchResult;
+    }
+    return historic.allData;
+  }, [cadence?.id, getMembersHistoric, searchHistoric]);
 
   const totalPagesPresentMembers = React.useMemo(
     () =>
@@ -138,6 +194,11 @@ const CadenceMetrics: React.FC<Props> = ({
       ),
     [membersHistoric?.count, membersHistoric?.page_size],
   );
+
+  React.useEffect(() => {
+    setSearchPresent('');
+    setSearchHistoric('');
+  }, [cadence]);
 
   if (!cadence) return null;
 
@@ -216,35 +277,35 @@ const CadenceMetrics: React.FC<Props> = ({
             smsCount={globalMetrics?.sms_count}
           />
         </div>
-        {!!membersPresent && (
-          <div className={classes.presentMembers}>
-            <CadenceMetricsMemberTable
-              getCadenceStep={getCadenceStep}
-              loading={membersPresentLoading}
-              membersById={membersById}
-              membersData={membersPresent.results}
-              page={pagePresent}
-              totalMembers={membersPresent.count}
-              totalPages={totalPagesPresentMembers}
-              updatePageNumber={handleChangePresentMembersPage}
-            />
-          </div>
-        )}
-        {!!membersHistoric && (
-          <div className={classes.historic}>
-            <CadenceMetricsMemberTable
-              isHistoric
-              getCadenceStep={getCadenceStep}
-              loading={membersHistoricLoading}
-              membersById={membersById}
-              membersData={membersHistoric.results}
-              page={pageHistoric}
-              totalMembers={membersHistoric.count}
-              totalPages={totalPagesMembersHistoric}
-              updatePageNumber={handleChangeMembersHistoricPage}
-            />
-          </div>
-        )}
+        <div className={classes.presentMembers}>
+          <CadenceMetricsMemberTable
+            getCadenceStep={getCadenceStep}
+            loading={membersPresentLoading}
+            membersById={membersById}
+            membersInData={membersPresent?.results || []}
+            page={pagePresent}
+            searchText={searchPresent}
+            setSearch={handleSearchPresent}
+            totalMembers={membersPresent?.count || 0}
+            totalPages={totalPagesPresentMembers}
+            updatePageNumber={handleChangePresentMembersPage}
+          />
+        </div>
+        <div className={classes.historic}>
+          <CadenceMetricsMemberTable
+            isHistoric
+            getCadenceStep={getCadenceStep}
+            loading={membersHistoricLoading}
+            membersById={membersById}
+            membersOutData={membersHistoric?.results || []}
+            page={pageHistoric}
+            searchText={searchHistoric}
+            setSearch={handleSearchHistoric}
+            totalMembers={membersHistoric?.count || 0}
+            totalPages={totalPagesMembersHistoric}
+            updatePageNumber={handleChangeMembersHistoricPage}
+          />
+        </div>
       </div>
     </div>
   );

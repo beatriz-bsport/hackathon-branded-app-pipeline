@@ -6,12 +6,15 @@ import TableContainer from '@material-ui/core/TableContainer';
 import Typography from '@material-ui/core/Typography';
 import Pagination from '@material-ui/lab/Pagination';
 import LinearProgress from '@material-ui/core/LinearProgress';
-
-import Fuse, { FuseOptions } from 'fuse.js';
-// @ts-ignore
-import FuzeSearch from '#components/FuzeSearch.component';
+import SearchIcon from '@material-ui/icons/Search';
+import ClearIcon from '@material-ui/icons/Clear';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import IconButton from '@material-ui/core/IconButton';
 
 import CadenceMetricsMemberTableContent from './CadenceMetricsMemberTableContent.component';
+import DelayedTextField from '#components/DelayedTextField.component';
+import { CadenceMetricsSizes } from '#libs/sequential_marketing/constants';
+
 import type {
   CadenceMembersInData,
   CadenceMembersOutData,
@@ -25,11 +28,14 @@ type Props = {
   membersById: {
     [id: string]: Member<number, number>;
   };
-  membersData: CadenceMembersInData[] | CadenceMembersOutData[];
+  membersInData?: CadenceMembersInData[];
+  membersOutData?: CadenceMembersOutData[];
   page: number | null;
+  searchText: string;
   totalMembers: number;
   totalPages: number;
   getCadenceStep: (stepId: number) => CadenceStep;
+  setSearch: (search: string) => void;
   updatePageNumber: (page: number) => void;
 };
 
@@ -37,48 +43,31 @@ const CadenceMetricsMemberTable: React.FC<Props> = ({
   isHistoric,
   loading,
   membersById,
-  membersData,
+  membersInData,
+  membersOutData,
   page,
+  searchText,
   totalMembers,
   totalPages,
   getCadenceStep,
+  setSearch,
   updatePageNumber,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation('marketing');
 
-  const [search, setSearch] = React.useState('');
+  const changeSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newSearchText = event.target.value;
+    setSearch(newSearchText);
+  };
 
-  const [searchResult, setSearchResult] = React.useState<any>([]);
-
-  const changeSearch =
-    (fuse: Fuse<any, FuseOptions<any>>) =>
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      setSearch(event.target.value);
-      const result = fuse.search(event.target.value);
-      setSearchResult(result);
-    };
-
-  const clearSearch = React.useCallback(() => {
-    setSearch('');
-    setSearchResult([]);
-  }, []);
+  const clearSearch = React.useCallback(() => setSearch(''), [setSearch]);
 
   const handleChangePage = React.useCallback(
-    (_: React.ChangeEvent<unknown> | null, newPage: number) => {
-      if (page !== newPage) {
-        updatePageNumber(newPage);
-      }
-    },
+    (_: React.ChangeEvent<unknown> | null, newPage: number) =>
+      page !== newPage && updatePageNumber(newPage),
     [page, updatePageNumber],
   );
-
-  const searchedRows = React.useMemo(() => {
-    if (!search) {
-      return membersData;
-    }
-    return searchResult;
-  }, [membersData, search, searchResult]);
 
   return (
     <div className={classes.container}>
@@ -91,15 +80,30 @@ const CadenceMetricsMemberTable: React.FC<Props> = ({
               count: totalMembers,
             })}
       </Typography>
-      <FuzeSearch
-        disableAutoFocus
-        changeSearch={changeSearch}
-        clearSearch={clearSearch}
-        inputPropsClassName={classes.search}
-        items={membersData}
+      <DelayedTextField
+        fullWidth
+        autoFocus={false}
+        InputProps={{
+          className: classes.input,
+          startAdornment: (
+            <InputAdornment position="start">
+              <SearchIcon />
+            </InputAdornment>
+          ),
+          endAdornment: searchText ? (
+            <InputAdornment position="end">
+              <IconButton
+                aria-label={searchText ? 'Clear search' : 'Search'}
+                onClick={clearSearch}
+              >
+                <ClearIcon />
+              </IconButton>
+            </InputAdornment>
+          ) : null,
+        }}
+        onChange={changeSearch}
         placeholder={t('audience.memberTable.searchPlaceHolder')}
-        searchFields={['name']}
-        searchText={search}
+        value={searchText || ''}
         variant="outlined"
       />
       <TableContainer className={classes.tableContainer}>
@@ -107,8 +111,10 @@ const CadenceMetricsMemberTable: React.FC<Props> = ({
           getCadenceStep={getCadenceStep}
           isHistoric={isHistoric}
           membersById={membersById}
-          membersInData={!isHistoric ? searchedRows : null}
-          membersOutData={isHistoric ? searchedRows : null}
+          membersInData={!isHistoric && !!membersInData ? membersInData : null}
+          membersOutData={
+            isHistoric && !!membersOutData ? membersOutData : null
+          }
         />
         {loading ? <LinearProgress /> : null}
         <div className={classes.footer}>
@@ -136,6 +142,10 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     fontWeight: 500,
+  },
+  input: {
+    display: 'flex',
+    height: CadenceMetricsSizes.MEMBER_TABLE_SEARCH_HEIGHT,
   },
   tableContainer: {
     display: 'flex',

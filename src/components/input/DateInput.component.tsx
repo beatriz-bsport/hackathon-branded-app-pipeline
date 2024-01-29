@@ -3,7 +3,10 @@ import React, { JSX } from 'react';
 import MomentUtils from '@date-io/moment';
 import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 import DatePicker from 'material-ui-pickers/DatePicker';
-import { makeStyles } from '@material-ui/core';
+import {
+  InputLabelProps as InputLabelPropsType,
+  makeStyles,
+} from '@material-ui/core';
 
 // @ts-expect-error
 import { Moment } from '../../i18n';
@@ -20,7 +23,9 @@ type Props = {
   className?: string;
   clearable?: boolean;
   format?: string;
+  name?: string;
   endAdornment?: JSX.Element;
+  InputLabelProps?: Partial<InputLabelPropsType>;
 };
 
 const useStyle = makeStyles(() => ({
@@ -40,8 +45,10 @@ export const DateInput: React.FC<Props> = ({
   minDate,
   maxDate,
   format,
+  name,
   clearable = false,
   endAdornment,
+  InputLabelProps,
 }) => {
   const classes = useStyle();
 
@@ -57,12 +64,14 @@ export const DateInput: React.FC<Props> = ({
         disabled={disabled}
         error={error}
         format={format || 'L'}
+        InputLabelProps={InputLabelProps}
         InputProps={{
           endAdornment,
         }}
         label={label}
         maxDate={maxDate}
         minDate={minDate}
+        name={name}
         onChange={onChange}
         required={required}
         value={value}

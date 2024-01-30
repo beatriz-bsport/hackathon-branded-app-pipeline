@@ -281,6 +281,16 @@ export class BasketPage extends React.Component<Props> {
         this.props.fetchMembership(this.props.basket.member);
       }
     }
+
+    if (
+      !!this.props.basket &&
+      !!prevProps.basket &&
+      this.props.basket.total_price_cts !== prevProps.basket.total_price_cts &&
+      this.props.basket.total_price_cts
+    ) {
+      this.getSecret();
+    }
+
     loadDefaultEstablishmentBillingGroup(
       this.props.theme.enable_multi_localization,
       this.state.selectedEstablishmentBillingGroup,

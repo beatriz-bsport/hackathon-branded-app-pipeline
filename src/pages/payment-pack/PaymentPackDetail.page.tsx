@@ -3,10 +3,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import withStyles from '@material-ui/core/styles/withStyles';
 
+import { Theme } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import Paper from '@material-ui/core/Paper';
-import { Theme } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 
 import { WithTranslation, withTranslation } from 'react-i18next';
 import Typography from '@material-ui/core/Typography';
@@ -150,7 +151,6 @@ import {
 import type { PrivateSlot } from '#libs/private-service/types';
 import PrivatePassCompatibleServiceList from '#libs/private-service/components/pass/PrivatePassCompatibleServiceList.component';
 import { setGenericFilterValue } from '#libs/payment-packs/utils';
-import BottomActionButtons from '#components/button/BottomActionsButton.component';
 import { refreshCompanyTheme as refreshCompanyThemeAction } from '#libs/theme/actions';
 
 import NoShowPenaltyDialog from '#libs/payment-packs/components/PaymentPackForm/NoShowPenaltyDialog.component';
@@ -332,6 +332,12 @@ export class PaymentPackDetail extends Component<Props, State> {
     this.props.fetchPaymentPack(this.props.id);
   };
 
+  handleOpenMassExtensionDialog = () =>
+    this.props.setOpenMassExtensionDialog(true);
+
+  handleCloseMassExtensionDialog = () =>
+    this.props.setOpenMassExtensionDialog(false);
+
   render() {
     const {
       pack,
@@ -459,7 +465,6 @@ export class PaymentPackDetail extends Component<Props, State> {
                   open={this.props.open}
                   setFiltersValue={this.props.setFilterValue}
                   setOpenValue={this.props.setOpenValue}
-                  t={this.props.t}
                 />
                 <Divider />
                 <PaginatedConsumerPackList
@@ -482,6 +487,20 @@ export class PaymentPackDetail extends Component<Props, State> {
                   paymentPack={this.props.pack}
                 />
               </Paper>
+
+              {!!this.props.pack &&
+                !this.props.pack.template_instance &&
+                !this.props.loadingMassExtension && (
+                  <div className={classes.addExtensionContainer}>
+                    <Button
+                      color="primary"
+                      onClick={this.handleOpenMassExtensionDialog}
+                      variant="outlined"
+                    >
+                      {this.props.t('paymentPack:massExtension.title')}
+                    </Button>
+                  </div>
+                )}
 
               <div className={classes.massExtensionContainer}>
                 {!!(
@@ -600,16 +619,6 @@ export class PaymentPackDetail extends Component<Props, State> {
               provincialTax={this.props.theme?.provincial_tax_value}
               tagList={allTagsWithTagGroup ? [...allTagsWithTagGroup] : []}
             />
-            {!!this.props.pack &&
-              !this.props.pack.template_instance &&
-              !this.props.loadingMassExtension && (
-                <BottomActionButtons
-                  onCreate={() => this.props.setOpenMassExtensionDialog(true)}
-                  onCreateLabel={this.props.t(
-                    'paymentPack:massExtension.title',
-                  )}
-                />
-              )}
           </Grid>
         )}
       </ObjectLevelPermissionProviderComponent>
@@ -625,7 +634,12 @@ const styles = (theme: Theme) => ({
     height: theme.spacing(2),
   },
   massExtensionContainer: {
-    paddingTop: theme.spacing(4),
+    paddingTop: theme.spacing(3),
+  },
+  addExtensionContainer: {
+    paddingTop: theme.spacing(3),
+    display: 'flex',
+    justifyContent: 'center',
   },
   paymentPackContainer: {
     paddingBottom: theme.spacing(4),
@@ -945,7 +959,7 @@ const withStateHandlersSetter = {
 
 export default compose(
   withStyles(styles),
-  withTranslation(),
+  withTranslation(['titles', 'paymentPack']),
   routerParamsToProps({ id: 'id:number' }),
   withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
   connect(mapStateToProps, mapDispatchToProps),

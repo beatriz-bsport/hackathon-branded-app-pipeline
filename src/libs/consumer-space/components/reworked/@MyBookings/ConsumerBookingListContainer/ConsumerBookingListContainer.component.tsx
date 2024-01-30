@@ -248,7 +248,7 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
               selectedBookingOption?.coach?.photo
             }
             consumerPaymentPackAvailableCredits={
-              selectedBooking?.consumer_payment_pack?.available_credits ||
+              selectedBooking?.consumer_payment_pack?.available_credits ??
               selectedPrivateBooking?.private_consumer_pass?.private_pass
                 ?.credits -
                 selectedPrivateBooking?.private_consumer_pass?.used_credits
@@ -260,11 +260,11 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
               selectedBooking?.consumer_payment_pack?.penalty_disabled_until
             }
             consumerPaymentPackUsedCredits={
-              selectedBooking?.consumer_payment_pack?.used_credits ||
+              selectedBooking?.consumer_payment_pack?.used_credits ??
               selectedPrivateBooking?.private_consumer_pass?.used_credits
             }
             creditsToRefund={
-              selectedBooking?.offer?.credit_price ||
+              selectedBooking?.offer?.credit_price ??
               selectedPrivateBooking?.private_slot?.credit
             }
             date={selectedBookingDate}
@@ -300,8 +300,8 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
               selectedBookingOption?.level?.name
             }
             metaActivityLastDiscardMinutes={
-              selectedBooking?.meta_activity?.last_discard_minutes ||
-              selectedPrivateBooking?.private_service?.last_discard_minutes ||
+              selectedBooking?.meta_activity?.last_discard_minutes ??
+              selectedPrivateBooking?.private_service?.last_discard_minutes ??
               selectedBookingOption?.meta_activity?.last_discard_minutes
             }
             metaActivityName={
@@ -322,7 +322,7 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
                   ?.name)
             }
             paymentPackTotalCredits={
-              selectedBooking?.consumer_payment_pack?.payment_pack?.credits ||
+              selectedBooking?.consumer_payment_pack?.payment_pack?.credits ??
               selectedPrivateBooking?.private_consumer_pass?.private_pass
                 ?.credits
             }

@@ -87,8 +87,8 @@ const ConsumerBookingCancelModal: React.FC<Props> = ({
       privateBooking?.date_start ||
       bookingOption?.offer?.date_start,
     durationMinute:
-      booking?.offer_duration_minute ||
-      privateBooking?.private_slot?.duration_minutes ||
+      booking?.offer_duration_minute ??
+      privateBooking?.private_slot?.duration_minutes ??
       bookingOption?.offer?.duration_minute,
     establishmentTimezoneName: (booking || privateBooking || bookingOption)
       ?.establishment?.tzname,
@@ -108,7 +108,7 @@ const ConsumerBookingCancelModal: React.FC<Props> = ({
 
   const isLateCancellation = getIsLateBookingCancellation(
     moment().format(),
-    booking?.meta_activity?.last_discard_minutes ||
+    booking?.meta_activity?.last_discard_minutes ??
       privateBooking?.private_service?.last_discard_minutes,
     booking?.offer?.date_start || privateBooking?.date_start,
   );
@@ -139,7 +139,7 @@ const ConsumerBookingCancelModal: React.FC<Props> = ({
     return t(
       'consumerSpace:reworked.myBookings.cancelModal.creditsWillBeRefunded',
       {
-        count: booking?.credit_consumed || privateBooking?.private_slot?.credit,
+        count: booking?.credit_consumed ?? privateBooking?.private_slot?.credit,
       },
     );
   })();

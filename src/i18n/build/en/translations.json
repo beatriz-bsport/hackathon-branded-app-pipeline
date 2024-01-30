@@ -3563,11 +3563,11 @@
             "detail": {
                 "invoice": "Associated invoice",
                 "booking": "Associated appointments",
-                "extensionsTitle": "Extend the validity"
+                "extensionsTitle": "Validity extension"
             },
             "expiresOn": "Expiration date: {{date}}",
             "actions": {
-                "addExtension": "Extend the validity"
+                "addExtension": "Extend validity"
             },
             "extension": {
                 "create": {
@@ -3596,7 +3596,10 @@
                     "title": "Delete the extension of the validity"
                 },
                 "addedOn": "Added on: ",
-                "nbDaysAdded": "+{{nb_days}} day(s)",
+                "nbDaysAdded": "+{{count}} day",
+                "nbDaysAdded_plural": "+{{count}} days",
+                "seeLess": "See less",
+                "seeMore": "See more",
                 "options": {
                     "selectNewEndDate": "Set a new end of validity date",
                     "addNumberOfDays": "Extend the validity by adding a number of days"
@@ -11417,8 +11420,11 @@
         },
         "search": "Search a pass",
         "extension": {
-            "nbDaysAdded": "+{{nb_days}}d",
-            "addedOn": "Added on ",
+            "nbDaysAdded": "+{{count}} day",
+            "nbDaysAdded_plural": "+{{count}} days",
+            "seeLess": "See less",
+            "seeMore": "See more",
+            "addedOn": "Added on: ",
             "delete": {
                 "title": "Delete validity extension",
                 "explain": "Are you sure you want to delete this validity extension ?",
@@ -11426,7 +11432,7 @@
                 "confirm": "Confirm"
             },
             "create": {
-                "title": "Pass extension",
+                "title": "Extend the validity of the pass",
                 "cancel": "Cancel",
                 "submit": "Create",
                 "note": {
@@ -11788,11 +11794,17 @@
             "listItemDate": "Expiring between the {{ minDate }} and the {{ maxDate }}",
             "cancel": "Cancel",
             "submit": "Validate",
-            "title": "Extend the validity for all members",
+            "title": "Extend validity",
             "maxDate": "The latest the",
             "minDate": "The soonest the",
             "dateHelpText": "Only extend the passes expiring between the",
-            "helpText": "You are about to extend all the validity of your members passes. Beware, this operation can not be reverted."
+            "helpText": "This operation can not be reverted",
+            "error": {
+              "minEndingDate": "Please enter a valid minimum date",
+              "maxEndingDate": "Please enter a valid maximum date",
+              "nbDays": "Please enter a positive number",
+              "note": "The maximum number of characters for this field is 500"
+            }
         },
         "section": {
             "massExtension": "Extension"

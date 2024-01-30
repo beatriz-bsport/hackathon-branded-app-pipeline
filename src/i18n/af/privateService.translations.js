@@ -408,10 +408,10 @@ const getTranslations = async () => {
       detail: {
         invoice: 'Associated invoice',
         booking: 'Associated appointments',
-        extensionsTitle: 'Extend the validity',
+        extensionsTitle: 'Validity extension',
       },
       expiresOn: 'Expiration date: {{date}}',
-      actions: { addExtension: 'Extend the validity' },
+      actions: { addExtension: 'Extend validity' },
       extension: {
         create: {
           nbDays: { label: 'Number of extra days' },
@@ -432,7 +432,6 @@ const getTranslations = async () => {
           title: 'Delete the extension of the validity',
         },
         addedOn: 'Added on: ',
-        nbDaysAdded: '+{{nb_days}} day(s)',
         options: {
           selectNewEndDate: 'Set a new end of validity date',
           addNumberOfDays: 'Extend the validity by adding a number of days',

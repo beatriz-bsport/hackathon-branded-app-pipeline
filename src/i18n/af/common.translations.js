@@ -74,4 +74,6 @@ exports.default = {
   yes: 'Yes',
   no: 'No',
   none: 'None',
+  seeLess: 'See less',
+  seeMore: 'See more',
 };

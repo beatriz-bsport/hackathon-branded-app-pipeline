@@ -17175,7 +17175,7 @@
                     "addAction": "Añadir acción"
                 },
                 "wonTrigger": {
-                    "title": "Criterios ganados",
+                    "title": "Salida con éxito",
                     "helperText": "Establezca el objetivo global de su {{ workflowLowerCase }}. Si un miembro realiza uno de estos activadores de salida, alcanzará el objetivo y saldrá con éxito del {{ workflowLowerCase }} (sin importar el paso en el que se encuentren). Esto le ayudará a realizar un seguimiento de sus métricas de rendimiento.",
                     "addTrigger": "Añadir un activador de salida"
                 }

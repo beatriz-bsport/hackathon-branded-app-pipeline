@@ -2812,7 +2812,7 @@
                         }
                     },
                     "max_communications_sent_per_member_limit": "Maximum value: {{ max }}",
-                    "max_communications_sent_per_member": "Maximum number of messages per member",
+                    "max_communications_sent_per_member": "Number of times the rule applies",
                     "advancedSection": "Advanced",
                     "submit": "Confirm",
                     "limitSection": "Limit"
@@ -3108,7 +3108,7 @@
             }
         },
         "resendSection": {
-            "dialogTitle": "Automatic resends on unopened emails"
+            "dialogTitle": "Auto-resend unread email"
         }
     },
     "privateService": {
@@ -5490,7 +5490,7 @@
                 "activity": {
                     "allowed_actions": {
                         "editPerformance": {
-                            "_label": "Edit programme performance"
+                            "_label": "Edit program performance"
                         },
                         "editSpot": {
                             "_label": "Edit member spots"
@@ -6622,7 +6622,7 @@
                 "hideCoach": "Hide teachers' info on the calendar for members",
                 "maxFutureBooking": {
                     "numberCheck": {
-                        "helperText": "This will be the maximum amount of future bookings per member.",
+                        "helperText": "This will be the maximum amount of future bookings per member, excluding workshop bookings.",
                         "placeholder": "Maximum"
                     },
                     "label": "Limit the amount of future bookings per member for group activities"
@@ -7886,7 +7886,7 @@
                 "delete": {
                     "confirm": "Delete",
                     "cancel": "Cancel",
-                    "content": "Are you sure that you want to delete this billing group? This action will be processed retroactively and will no longer appear in associated reports.",
+                    "content": "Are you sure that you want to delete this billing group? Future invoices will not be able to be linked to this location any more, nor to be selected by the members as their preferred location while performing an online purchase. Before deleting the billing group please make sure that all your establishments are linked to existing billing groups",
                     "title": "Delete a billing group"
                 }
             },
@@ -8160,7 +8160,7 @@
         },
         "billing_group": {
             "header": "Billing group",
-            "helperText": "If you have several studios belonging to different companies, you can group them here by billing group. The billing groups will appear on your reports to easily link each invoice to the right company name.",
+            "helperText": "The billing groups will appear on your reports to easily link each invoice to the right location and will be used in the basket by the members to choose their preferred location. At least one billing group must be defined for the members to proceed online purchases. If you have several establishments belonging to the same location, you can group them within the same billing group",
             "add": "Add a billing group"
         },
         "quickbooks": {
@@ -9115,7 +9115,7 @@
             }
         },
         "invoiceItem": {
-            "voucher": "Discount: €{{ voucher }}",
+            "voucher": "Discount: {{ voucher }}",
             "quantity": "Quantity",
             "credit": {
                 "label": "Credit"
@@ -12262,7 +12262,7 @@
             "hasEnded": "This session has ended",
             "isAutoRefresh": "You will be redirected to the video 10 min before the start of the class",
             "loadingSoon": "Loading...",
-            "activateVideo": "Connect to the livestream"
+            "activateVideo": "Connect"
         },
         "disabled": "Cancelled",
         "credit_price": " Credit(s)",
@@ -16447,7 +16447,7 @@
                     "showCredit": "Show the credits",
                     "showEstablishmentAddress": "Show the establishment's address",
                     "numberOfDistinctCheckoutItem": "Number of products in the basket",
-                    "isRippleEnabled": "Disable the button ripple effect",
+                    "isRippleEnabled": "Enable the ripple effect",
                     "square": "Disable the rounded corners",
                     "color": "Element's colour",
                     "isInversed": "Element's colour inversed"
@@ -16937,9 +16937,9 @@
                     },
                     "defaultName": "Name by default",
                     "select_tag": "Select a tag",
-                    "5": "Select a email template",
+                    "5": "Select an email template",
                     "4": "Tag",
-                    "3": "Notification push",
+                    "3": "Push notification",
                     "2": "SMS",
                     "1": "Write an email"
                 },
@@ -17003,7 +17003,7 @@
             },
             "svgText": {
                 "action_name": "{ Nom de l'action marketing }",
-                "push_notification": "Notification Push",
+                "push_notification": "Push notification",
                 "sms": "SMS",
                 "email": "Email",
                 "select_event": "Select an event",
@@ -17054,7 +17054,7 @@
                 "delete": "Delete",
                 "kinds": {
                     "3": "Delay",
-                    "2": "Event + Smartlist",
+                    "2": "Event & Smartlist",
                     "1": "Smartlist",
                     "0": "Event"
                 }
@@ -17080,7 +17080,7 @@
                     "confirm": "Continue",
                     "cancel": "Cancel",
                     "helper": "Members currently in the cadence will automatically exit it. This cadence will be archived but you can reactivate it later.",
-                    "beingArchived": "You are about to delete {{ name }}.",
+                    "beingArchived": "You are about to archive {{ name }}.",
                     "title": "Delete a cadence"
                 }
             },
@@ -17153,7 +17153,8 @@
                 },
                 "wonTrigger": {
                     "addTrigger": "Add exit trigger",
-                    "helperText": "Set up the global objective of your {{ workflowLowerCase }}. If a member performs one of these exit trigger(s), they will reach the objective and successfully exit the {{ workflowLowerCase }} (no matter the step they are in). This will help you track your performance metrics."
+                    "helperText": "Set up the global objective of your {{ workflowLowerCase }}. If a member performs one of these exit trigger(s), they will reach the objective and successfully exit the {{ workflowLowerCase }} (no matter the step they are in). This will help you track your performance metrics.",
+                    "title": "Successful exit"
                 },
                 "entryAction": {
                     "helperText": "Set what marketing action(s) to apply when a member enter the {{ workflowLowerCase }}."
@@ -17501,7 +17502,7 @@
         },
         "consumerGiftcard": {
             "form": {
-                "footer": "The gift card will be sent to the recipient at {{- hour_send }}. It'll be valid for {{ expiration_days }} day(s) after sending this message and the recipient's account will be topped up with {{- price }}.",
+                "footer": "The gift card will be sent to the recipient at {{- hour_send }}. It’ll be valid for {{ expiration_days }} day(s) after activation and the recipient’s account will be topped up with {{- price }}.",
                 "actions": {
                     "submit": "Add to basket",
                     "cancel": "Cancel"
@@ -17536,7 +17537,7 @@
                 "giftcard_amount": "[Amount of the giftcard]"
             },
             "sendTo": "Resend the invitation",
-            "notAttributedYet": "Not validated",
+            "notAttributedYet": "Not activated",
             "expiresOn": "Expires on {{- d }}",
             "willInviteOn": "Invitation will be sent on {{- d }}",
             "invitedOn": "Sent on {{- d }}",
@@ -18650,7 +18651,7 @@
             "nonEmptyEmailTemplate": "Please choose an e-mail template"
         },
         "mail": {
-            "customDomainNotDefined": "You did not define a custom domain. Please get in touch with our team to initiate the configuration process."
+            "customDomainNotDefined": "You did not define a custom domain. <1/>Please get in touch with our team to initiate the configuration process."
         }
     },
     "referral": {

@@ -792,7 +792,12 @@
             "message": "Votre réservation d'emplacement a expiré, vous pouvez le sélectionner à nouveau ou choisir un autre emplacement.",
             "title": "Votre réservation d'emplacement a expiré"
         },
-        "spotSavedFor": "L'emplacement sélectionné est réservé pour : {{countdown}}"
+        "spotSavedFor": "L'emplacement sélectionné est réservé pour : {{countdown}}",
+        "billingGroup": {
+            "title": "Localisation préférée",
+            "placeholder": "Localisation",
+            "helperText": "La localisation préférée est celle où vous prévoyez d'utiliser votre achat et qui sera utilisée pour établir votre facture."
+        }
     },
     "clockIn": {
         "clockinDialog": {
@@ -1675,6 +1680,65 @@
                     },
                     "credits": "{{ creditsLeft }}/{{ totalCredits }} crédits",
                     "unlimited": "Illimité"
+                },
+                "consumerPassDetailsCard": {
+                    "header": {
+                        "credits": "{{ creditsLeft }}/{{ totalCredits }} crédits",
+                        "unlimited": "Illimité"
+                    },
+                    "availability": {
+                        "active": "Valable de {{ startDate }} à {{ expirationDate }}",
+                        "suspended": "Suspendu",
+                        "expired": "Expire le {{ expirationDate }}",
+                        "future": "Débute le {{ startDate }}",
+                        "validUntil": "Valable jusqu'au {{ expirationDate }}",
+                        "suspendedUntil": "Suspendu jusqu'au {{ endDate }}"
+                    },
+                    "description": {
+                        "title": "Description",
+                        "showMore": "Voir plus",
+                        "showLess": "Voir moins"
+                    },
+                    "compatibility": {
+                        "titles": {
+                            "studios": "Studios compatibles",
+                            "activity": "Compatibilité des activités",
+                            "appointment": "Compatibilité des rendez-vous",
+                            "main": "Compabilité"
+                        },
+                        "subtitles": {
+                            "activity": "Activités compatibles",
+                            "timeSlots": "Créneaux horaires compatibles",
+                            "sessions": "Séances compatibles"
+                        },
+                        "contents": {
+                            "allTimeSlots": "Compatible avec tous les créneaux horaires",
+                            "bookingForGuest": "Peut être utilisé pour <strong>inviter un invité</strong>",
+                            "noAppointments": "Aucun rendez-vous compatible",
+                            "allSessions": "Compatible avec toutes les séances",
+                            "sessions": "Sessions compatibles : {{ sessionsList }}",
+                            "allActivities": "Compatible avec toutes les activités du studio",
+                            "vod": "Peut être utilisé pour les <strong>vidéos à la demande</strong>"
+                        },
+                        "labels": {
+                            "category": "Catégories",
+                            "activity": "Activités",
+                            "room": "Salles"
+                        }
+                    },
+                    "restriction": {
+                        "title": "Restrictions d'utilisation",
+                        "frequencyWeekly": "Ne peut être utilisée que {{ amount }} fois par semaine.",
+                        "frequencyWeekly_plural": "Ne peut être utilisée que {{ amount }} fois par semaine.",
+                        "frequencyMonthly": "Ne peut être utilisée que {{ amount }} fois par mois.",
+                        "frequencyMonthly_plural": "Ne peut être utilisée que {{ amount }} fois par mois.",
+                        "frequencyDaily": "Ne peut être utilisée que {{ amount }} fois par jour.",
+                        "frequencyDaily_plural": "Ne peut être utilisée que {{ amount }} fois par jour."
+                    },
+                    "shared": {
+                        "with": "Partagée avec",
+                        "by": "Partagée par"
+                    }
                 }
             },
             "myBookings": {
@@ -1699,7 +1763,17 @@
                     "noRefund": "Votre crédit ne sera pas remboursé en cas d'annulation tardive.",
                     "creditsWillBeRefunded": "{{count}} crédit sera remboursé.",
                     "creditsWillBeRefunded_plural": "{{count}} crédits seront remboursé.",
-                    "title": "Annuler la séance"
+                    "title": {
+                        "consumerBooking": "Annuler cette séance",
+                        "consumerPrivateBooking": "Annuler ce rendez-vous",
+                        "consumerBookingOption": "Annuler la liste d'attente"
+                    },
+                    "waitlist": "Vous serez retiré de la liste d'attente.",
+                    "confirm": {
+                        "consumerBooking": "Annuler la séance",
+                        "consumerPrivateBooking": "Annuler le rendez-vous",
+                        "consumerBookingOption": "Annuler la liste d'attente"
+                    }
                 },
                 "detailsCard": {
                     "workshop": {
@@ -1764,11 +1838,17 @@
                     "placeholder": {
                         "workshop": {
                             "future": "Aucun atelier n'est prévu pour le moment.",
-                            "past": "Aucun atelier passé."
+                            "past": "Aucun atelier passé.",
+                            "waitlist": "Aucun atelier sur liste d'attente."
                         },
                         "activity": {
                             "future": "Aucune activité n'est prévue pour le moment.",
-                            "past": "Aucune activité passée."
+                            "past": "Aucune activité passée.",
+                            "waitlist": "Aucune activité sur liste d'attente."
+                        },
+                        "appointment": {
+                            "past": "Aucun rendez-vous.",
+                            "future": "Aucun rendez-vous n'est prévu pour le moment."
                         }
                     }
                 },
@@ -2692,7 +2772,9 @@
             }
         },
         "roomRequired": "Salle *",
-        "roomRequiredIsMissing": "Vous n'avez pas sélectionné d'établissement de facturation."
+        "roomRequiredIsMissing": "Vous n'avez pas sélectionné d'établissement de facturation.",
+        "billingGroup": "Groupes de facturation",
+        "billingGroupRequired": "Groupes de facturation *"
     },
     "event": {
         "list": {
@@ -3211,7 +3293,8 @@
                     "2": "Backoffice",
                     "3": "Autre",
                     "label": "Canal : {{ source }}"
-                }
+                },
+                "noBillingGroup": "Aucun groupe de facturation n'a été associé à cette facture"
             }
         },
         "paymentEngine": {
@@ -3592,7 +3675,8 @@
                 "isEmpty": "Aucun achat",
                 "total": "Total achat",
                 "billing_establishment": "Établissement de facturation",
-                "cannotCreateDiscount": "Vous n'avez pas l'autorisation requise pour ajouter une réduction."
+                "cannotCreateDiscount": "Vous n'avez pas l'autorisation requise pour ajouter une réduction.",
+                "billingGroup": "Groupe de facturation *"
             },
             "paymentList": {
                 "title": "Moyens de paiement",
@@ -4761,7 +4845,8 @@
                     "availableSoon": "Bientôt disponible",
                     "knowMore": "Plus d'informations sur l'upsell {{ upsellName }}",
                     "title": "Communications envoyées"
-                }
+                },
+                "openButton": "Ouvrir le {{ workflowLowerCase }}"
             },
             "memberTable": {
                 "tableColumnLabel": {
@@ -4781,7 +4866,7 @@
                     "cancel": "Annuler",
                     "checkboxLabel": "Ne plus afficher ce message.",
                     "helper": "L'édition des déclencheurs peut modifier la position des membres dans les différentes étapes.",
-                    "title": "Éditer le workflow"
+                    "title": "Éditer le {{ workflowLowerCase }}"
                 }
             },
             "listItem": {
@@ -4789,14 +4874,17 @@
                     "moreActions": "Plus d'actions sur le workflow"
                 },
                 "labels": {
-                    "edit": " Modifier les paramètres du workflow",
-                    "archive": "Archiver le workflow",
+                    "edit": " Modifier les paramètres du {{ workflowLowerCase }}",
+                    "archive": "Archiver le {{ workflowLowerCase }}",
                     "open": "Ouvrir",
                     "notLaunched": "Non lancé",
                     "paused": "En pause",
                     "active": "Actif",
                     "unarchive": "Désarchiver",
                     "metrics": "Métriques"
+                },
+                "tooltip": {
+                    "moreActions": "Plus d'actions"
                 }
             }
         }
@@ -4855,7 +4943,7 @@
             "compatibility": {
                 "categories": "{{ count }} catégorie",
                 "categories_plural": "{{ count }} catégorie",
-                "none": "Aucun rendez-vous compaptible",
+                "none": "Aucun rendez-vous compatible",
                 "compatible": "Compatible avec {{count}} rendez-vous",
                 "compatible_plural": "Compatible avec {{count}} rendez-vous",
                 "compatibilities": "Compatibilités",
@@ -7054,7 +7142,11 @@
             "isEmptyWarning": "NB: certains encaissements avant le 15 Mars 2021 peuvent ne pas être listés ci-dessous.",
             "payoutIsIncludedInOther": "Ce virement a été inclus dans celui du {{date}} portant l'identifiant {{readable_identifier}}",
             "payoutAmountFromIncludedPayouts": "dont {{price}} provenant de payouts précédents",
-            "payoutIsManual": "Ce virement a été enclenché manuellement par les équipes de bsport pour accélérer la réception de vos fonds. Dans ce cas le détail des paiements n'est pas disponible. Veuillez vous rapprocher de nos équipes si vous souhaitez plus d'informations."
+            "payoutIsManual": "Ce virement a été enclenché manuellement par les équipes de bsport pour accélérer la réception de vos fonds. Dans ce cas le détail des paiements n'est pas disponible. Veuillez vous rapprocher de nos équipes si vous souhaitez plus d'informations.",
+            "dialog": {
+                "title": "Notification de synchronisation des paiements",
+                "content": "Il y a eu un problème de synchronisation entre Stripe et bsport. Nous ne sommes pas en mesure d'afficher les détails de ce paiement pour le moment. Cependant, soyez assuré qu'il sera traité et transféré sur votre compte bancaire selon la procédure habituelle. Pour obtenir plus d'informations sur le montant envoyé, vous pouvez vous référer au rapport de paiement couvrant la période entre la date de ce paiement et le précédent."
+            }
         },
         "subscriptionPaymentDialog": {
             "title": "Acheter un abonnement",
@@ -9582,6 +9674,10 @@
                 "title": "Lien de parrainage inutilisable",
                 "description": "Le membre associé à ce lien de parrainage n'est plus inscrit au studio."
             }
+        },
+        "checkoutValidation": {
+            "title": "Parrainer un ami",
+            "explain": "Recevez des récompenses en partageant votre lien de parrainage avec vos amis."
         }
     },
     "relationship": {
@@ -10130,7 +10226,8 @@
             "expired_amortized_price_tax_excluded": "Revenu d’expiration HT",
             "expired_amortized_price": "Revenu d’expiration TTC",
             "margin_value_excl_tax": "Apport marginal HT",
-            "margin_value_excluding_sales_tax": "Apport marginal HT"
+            "margin_value_excluding_sales_tax": "Apport marginal HT",
+            "billing_group_address": "Adresse"
         },
         "yes": "Oui",
         "no": "Non",
@@ -17599,7 +17696,10 @@
                 "consumer_pass_card": "Carte de la carte du consommateur",
                 "consumer_booking_details_card": "Carte de détail de réservation (pour les membres)",
                 "consumer_booking_card": "Carte de réservation du consommateur",
-                "authentication_textfield": "Champ de texte d'authentification"
+                "authentication_textfield": "Champ de texte d'authentification",
+                "consumer_payment_pack_details_card": "Carte de détails de la carte d'activité (pour le membre)",
+                "private_consumer_pass_details_card": "Carte de détails de la carte de RDV (pour le membre)",
+                "universal_pass_details_card": "Carte de détails de la carte universelle (pour le membre)"
             },
             "page": {
                 "common": "Commun",
@@ -17736,7 +17836,10 @@
                     "isJoinableOnlineDisabled": "Le bouton \"Rejoindre en ligne\" est désactivé",
                     "isBookableDisabled": "Le bouton \"Réserver\" est désactivé",
                     "isMoreDisabled": "Le bouton \"Plus\" est désactivé",
-                    "isDetailsDisabled": "Le bouton \"Voir détails\" est désactivé"
+                    "isDetailsDisabled": "Le bouton \"Voir détails\" est désactivé",
+                    "isExpired": "La carte de cours est expirée",
+                    "isFuture": "La carte de cours n'est pas encore active",
+                    "passKind": "Type de carte de cours"
                 },
                 "option": {
                     "true": "Oui",
@@ -17829,7 +17932,10 @@
                     "fullNameAndEmail": "Nom complet et adresse électronique",
                     "default": "Défaut",
                     "clickableText": "Texte cliquable",
-                    "standard": "Standard"
+                    "standard": "Standard",
+                    "activityPass": "Carte d'activité",
+                    "appointmentPass": "Carte RDV",
+                    "universalPass": "Carte universelle"
                 },
                 "confirmationMessageComponentAlert": "Ce composant gère principalement les statuts de réservation et de paiement. Pour personnaliser son apparence, nous recommandons d'utiliser ses composants racine situés dans la section commune",
                 "marketplaceOfferBookingList": "Ce composant est une liste de séances réservées. Pour affiner les composants de {{component_name}}, vous pouvez utiliser la section dédiée dans l'éditeur.",

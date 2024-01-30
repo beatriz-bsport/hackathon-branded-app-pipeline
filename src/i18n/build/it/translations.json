@@ -1240,7 +1240,7 @@
                 },
                 "subtitles": {
                     "workshop": "Workshop",
-                    "establishment_group": "Ubicazione",
+                    "establishment_group": "Sede",
                     "establishment": "Stabilimento",
                     "meta_activity": "Attività"
                 }
@@ -1552,7 +1552,7 @@
             "pack": "Pacchetti",
             "invoice": "Ricevute",
             "subscription": "Abbonamenti ricorrenti",
-            "myVideos": "I miei video",
+            "myVideos": "Video On Demand",
             "pick_a_language": "Selezionare una lingua",
             "automaticLanguage": "Rilevamento automatico della lingua",
             "giftcard": "Gift card",
@@ -1659,7 +1659,17 @@
                     "noRefund": "I crediti non saranno rimborsati in caso di cancellazione tardiva.",
                     "creditsWillBeRefunded": "{{count}} credito verrà rimborsato.",
                     "creditsWillBeRefunded_plural": "{{count}} crediti verranno rimborsati.",
-                    "title": "Cancella sessione"
+                    "title": {
+                        "consumerBooking": "Cancella questa sessione",
+                        "consumerPrivateBooking": "Cancella questo appuntamento",
+                        "consumerBookingOption": "Cancella questa lista d'attesa"
+                    },
+                    "waitlist": "Verrai rimosso dalla lista d'attesa.",
+                    "confirm": {
+                        "consumerBooking": "Cancella la sessione",
+                        "consumerPrivateBooking": "Cancella appuntamento",
+                        "consumerBookingOption": "Cancella lista d'attesa"
+                    }
                 },
                 "detailsCard": {
                     "workshop": {
@@ -1724,11 +1734,17 @@
                     "placeholder": {
                         "workshop": {
                             "future": "Non sono previsti workshop.",
-                            "past": "Nessun workshop passato da mostrare."
+                            "past": "Nessun workshop passato da mostrare.",
+                            "waitlist": "Nessun workshop in lista d'attesa."
                         },
                         "activity": {
                             "future": "Non ci sono attività in programma.",
-                            "past": "Nessuna attività passata da mostrare."
+                            "past": "Nessuna attività passata da mostrare.",
+                            "waitlist": "Nessuna attività nella lista d'attesa."
+                        },
+                        "appointment": {
+                            "past": "Non ci sono appuntamenti passati da mostrare.",
+                            "future": "Non ci sono appuntamenti passati da mostrare."
                         }
                     }
                 },
@@ -1770,6 +1786,65 @@
                     },
                     "credits": "{{ creditsLeft }}/{{ totalCredits }} crediti",
                     "unlimited": "Illimitato"
+                },
+                "consumerPassDetailsCard": {
+                    "compatibility": {
+                        "titles": {
+                            "activity": "Compatibilità delle attività",
+                            "studios": "Studi compatibili",
+                            "appointment": "Compatibilità degli appuntamenti",
+                            "main": "Compatibilità"
+                        },
+                        "subtitles": {
+                            "activity": "Attività compatibili",
+                            "timeSlots": "Fasce orarie compatibili",
+                            "sessions": "Sessioni compatibili"
+                        },
+                        "contents": {
+                            "allActivities": "Compatibile con tutte le attività dello studio",
+                            "allTimeSlots": "Compatibile con tutte le fasce orarie",
+                            "vod": "Può essere utilizzato per i <strong>Video On Demand</strong>",
+                            "bookingForGuest": "Può essere utilizzato per <strong>Invita un ospite</strong>",
+                            "noAppointments": "Nessun appuntamento compatibile",
+                            "allSessions": "Compatibile con tutte le sessioni",
+                            "sessions": "Sessioni compatibili: {{ sessionsList }}"
+                        },
+                        "labels": {
+                            "category": "Categorie",
+                            "activity": "Attività",
+                            "room": "Sale"
+                        }
+                    },
+                    "restriction": {
+                        "frequencyWeekly": "Può essere usato solo {{ amount }} volta alla settimana.",
+                        "frequencyWeekly_plural": "Può essere usato solo {{ amount }} volte alla settimana.",
+                        "title": "Restizioni all'uso",
+                        "frequencyDaily": "Può essere usato solo {{ amount }} volta al giorno.",
+                        "frequencyDaily_plural": "Può essere usato solo {{ amount }} volte al giorno.",
+                        "frequencyMonthly": "Può essere usato solo {{ amount }} volta al mese.",
+                        "frequencyMonthly_plural": "Può essere usato solo {{ amount }} volte al mese."
+                    },
+                    "header": {
+                        "credits": "{{ creditsLeft }}/{{ totalCredits }} crediti",
+                        "unlimited": "Illimitati"
+                    },
+                    "availability": {
+                        "active": "Valido dal {{ startDate }} al {{ expirationDate }}",
+                        "suspended": "Sospeso",
+                        "suspendedUntil": "Sospeso fino al {{ endDate }}",
+                        "expired": "Scaduto il {{ expirationDate }}",
+                        "future": "Inizia il {{ startDate }}",
+                        "validUntil": "Valido fino al {{ expirationDate }}"
+                    },
+                    "description": {
+                        "title": "Descrizione",
+                        "showMore": "Mostra di più",
+                        "showLess": "Mostra meno"
+                    },
+                    "shared": {
+                        "with": "Condiviso con",
+                        "by": "Condiviso da"
+                    }
                 }
             }
         }
@@ -1820,7 +1895,7 @@
         "configurationType": {
             "1": {
                 "label": "Stabilimenti indipendenti",
-                "helperText": "Ogni scuola apparirà come un luogo indipendente su ClassPass"
+                "helperText": "Ogni sede apparirà come sede indipendente su ClassPass."
             },
             "2": {
                 "label": "Unisci tutti gli stabilimenti",
@@ -4024,7 +4099,7 @@
                 "general": "Generale",
                 "calendar": "Calendario",
                 "room": "Stabilimento",
-                "location": "Localizzazione"
+                "location": "Sede"
             },
             "service": {
                 "general": "Generale",
@@ -5397,15 +5472,15 @@
         },
         "establishmentGroup": {
             "create": {
-                "success": "La nuova posizione è stata creata",
-                "error": "Impossibile creare la posizione"
+                "success": "La nuova sede è stata creata",
+                "error": "Impossibile creare la sede"
             },
             "update": {
-                "success": "Posizione modificata",
-                "error": "Impossibile cambiare la posizione"
+                "success": "Sede modificata",
+                "error": "Impossibile cambiare la sede"
             },
             "delete": {
-                "success": "Posizione cancellata",
+                "success": "Sede eliminata",
                 "error": "Errore durante l'eliminazione dello stabilimento"
             }
         },
@@ -6254,7 +6329,8 @@
                 "date": "Data: {{date}}",
                 "reverseInvoice": "Rimborso tramite ",
                 "sourceInvoice": "Annulla la ricevuta",
-                "noEstablishment": "Nessuno stabilimento"
+                "noEstablishment": "Nessuno stabilimento",
+                "noBillingGroup": "A questa ricevuta non è stato associato alcun gruppo di contabilizzazione"
             },
             "editor": {
                 "title": "Addebito",
@@ -6281,7 +6357,8 @@
                 "title": "Acquisti",
                 "titleReverse": "Restituzione dell'acquisto",
                 "billing_establishment": "Stabilimento di contabilizzazione",
-                "cannotCreateDiscount": "Non si dispone dell'autorizzazione necessaria per ottenere uno sconto."
+                "cannotCreateDiscount": "Non si dispone dell'autorizzazione necessaria per ottenere uno sconto.",
+                "billingGroup": "Gruppo di contabilizzazione *"
             }
         },
         "invoiceInfoDialog": {
@@ -7813,7 +7890,8 @@
             "margin_value_pre_tax": "Valore marginale (IVA escl.)",
             "margin_value_excl_tax": "Valore marginale (IVA escl.)",
             "margin_value_incl_tax": "Valore marginale (IVA incl.)",
-            "margin_value_excluding_sales_tax": "Valore marginale (IVA escl.)"
+            "margin_value_excluding_sales_tax": "Valore marginale (IVA escl.)",
+            "billing_group_address": "Indirizzo"
         },
         "payment_method": {
             "dispute": "Contenzioso",
@@ -11658,26 +11736,26 @@
             "search_address": "Cercare un indirizzo",
             "state": "Stato"
         },
-        "localisation": "Posizione",
+        "localisation": "Sede",
         "room": "Stabilimento",
         "group": {
             "groupButton": "Raggruppa gli stabilimenti",
-            "addLocalisation": "Aggiungere una posizione",
+            "addLocalisation": "Aggiungi una sede",
             "name": " Nome",
             "actions": "Azioni",
-            "noGroupHelper": "Le località permettono di raggruppare diversi indirizzi. Se hai diversi studi in diverse città, puoi raggruppare gli studi della stessa città in un'unica posizione. Sul marketplace, il widget e l'applicazione personalizzata i tuoi studenti saranno in grado di selezionare la località a cui sono più interessati per vedere solo i corsi vicino a loro.",
+            "noGroupHelper": "Le sedi permettono di raggruppare diversi indirizzi. Se hai diversi studi in diverse città, puoi raggruppare gli studi della stessa città in un'unica posizione. Sul marketplace, il widget e l'applicazione personalizzata i tuoi studenti saranno in grado di selezionare la sede a cui sono più interessati per vedere solo i corsi vicino a loro.",
             "form": {
                 "name": "Nome",
                 "associated_localizations": "Stabilimenti associati",
                 "dialog": {
-                    "title": "Posizione",
+                    "title": "Sede",
                     "cancel": "Cancella",
                     "save": "Registrare"
                 }
             },
             "modal": {
                 "delete": {
-                    "title": "Elimina uno stabilimento",
+                    "title": "Elimina una sede",
                     "content": "Questo stabilimento non apparirà più nei filtri disponibili nel marketplace, nel widget e nell'applicazione personalizzata.",
                     "cancel": "Cancella",
                     "confirm": "Eliminare"
@@ -11730,10 +11808,10 @@
             "name": " Nome"
         },
         "description": "Descrizione",
-        "favouriteLocation": "Posizione preferita",
+        "favouriteLocation": "Sede preferita",
         "notification": {
             "modal": {
-                "content": "Sei sicuro di voler eliminare questa notifica? Questa operazione è definitiva",
+                "content": "Sei sicuro di voler eliminare questa notifica? Questa operazione è definitiva.",
                 "confirm": "Eliminare",
                 "cancel": "Cancella",
                 "title": "Cancellazione della notifica"
@@ -11743,7 +11821,9 @@
             "notification": "Notificazioni"
         },
         "roomRequiredIsMissing": "Non hai selezionato uno stabilimento di contabilizzazione.",
-        "roomRequired": "Sala *"
+        "roomRequired": "Sala *",
+        "billingGroup": "Gruppo di contabilizzazione",
+        "billingGroupRequired": "Gruppo di contabilizzazione *"
     },
     "datetime": {
         "time": {
@@ -12028,7 +12108,11 @@
             "title": "Le mie ricevute",
             "payoutIsManual": "Questo trasferimento è stato avviato manualmente dal team di bsport per velocizzare la ricezione dei tuoi fondi. In questo caso non è disponibile il dettaglio dei pagamenti. Contatta il nostro team se desideri maggiori informazioni.",
             "payoutAmountFromIncludedPayouts": "inclusi {{price}} da pagamenti precedenti",
-            "payoutIsIncludedInOther": "Questo trasferimento è stato incluso in quello di {{date}} recante l'identificatore {{readable_identifier}}"
+            "payoutIsIncludedInOther": "Questo trasferimento è stato incluso in quello di {{date}} recante l'identificatore {{readable_identifier}}",
+            "dialog": {
+                "content": "Si è verificato un problema di sincronizzazione tra Stripe e bsport. Al momento non siamo in grado di visualizzare i dettagli di questo pagamento. Tuttavia, vi assicuriamo che verrà elaborato e trasferito sul vostro conto bancario come da procedura abituale. Per ottenere maggiori informazioni sull'importo inviato, è possibile consultare il rapporto di pagamento relativo al periodo compreso tra la data di questo pagamento e quello precedente.",
+                "title": "Notifica di sincronizzazione del pagamento"
+            }
         },
         "instalment": {
             "form": {
@@ -13170,7 +13254,7 @@
             "accept_sms": "Accetta gli SMS",
             "accept_email": "Accetta email",
             "gender": "Sesso",
-            "billing_establishment": "Localizzazione",
+            "billing_establishment": "Sede",
             "billing_group": "Gruppo di contabilizzazione",
             "establishment": "Stabilimento",
             "coach": "Insegnante",
@@ -13514,7 +13598,12 @@
             "message": "La prenotazione del posto è scaduta, è possibile selezionarlo nuovamente o sceglierne uno diverso.",
             "title": "La prenotazione del posto è scaduta"
         },
-        "spotSavedFor": "Il posto selezionato è prenotato per: {{countdown}}"
+        "spotSavedFor": "Il posto selezionato è prenotato per: {{countdown}}",
+        "billingGroup": {
+            "title": "Sede preferita",
+            "placeholder": "Sede",
+            "helperText": "La sede preferita è quella in cui si prevede di utilizzare quanto acquistato e sarà utilizzata per emettere la ricevuta."
+        }
     },
     "marketplace": {
         "selector": {
@@ -16036,7 +16125,10 @@
                 "consumer_pass_card": "Scheda Pacchetto dei clienti",
                 "consumer_booking_details_card": "Scheda di prenotazione (per i membri)",
                 "consumer_booking_card": "Scheda di prenotazione per i clienti",
-                "authentication_textfield": "Campo per l'autenticazione"
+                "authentication_textfield": "Campo per l'autenticazione",
+                "consumer_payment_pack_details_card": "Tessera per i dettagli del pacchetto attività (per i membri)",
+                "private_consumer_pass_details_card": "Scheda dettagli del pacchetto per appuntamenti (per i membri)",
+                "universal_pass_details_card": "Scheda dettagli del pacchetto universale (per i membri)"
             },
             "cssConfig": {
                 "title": {
@@ -16156,7 +16248,10 @@
                     "isJoinableOnlineDisabled": "Il pulsante 'Iscriviti online' è disattivato",
                     "isBookableDisabled": "Il pulsante \"Prenota\" è disattivato",
                     "isMoreDisabled": "Il pulsante \"più\" è disattivato",
-                    "isDetailsDisabled": "Il pulsante \"vedi dettagli\" è disattivato"
+                    "isDetailsDisabled": "Il pulsante \"vedi dettagli\" è disattivato",
+                    "isExpired": "Il pacchetto è scaduto",
+                    "isFuture": "Il pacchetto non è ancora attivo",
+                    "passKind": "Tipologia di pacchetto"
                 },
                 "option": {
                     "false": "No",
@@ -16249,7 +16344,10 @@
                     "fullNameAndEmail": "Nome completo ed email",
                     "default": "Default",
                     "clickableText": "Testo cliccabile",
-                    "standard": "Standard"
+                    "standard": "Standard",
+                    "activityPass": "Pacchetto attività",
+                    "appointmentPass": "Pacchetto per appuntamenti",
+                    "universalPass": "Pacchetto universale"
                 },
                 "configurationTitle": "Variazioni",
                 "confirmationMessageComponentAlert": "Questo componente gestisce principalmente gli stati di prenotazione e di pagamento. Per personalizzarne l'aspetto, si consiglia di utilizzare i suoi componenti principali, situati nella sezione comune",
@@ -16410,7 +16508,7 @@
                 "workshop": "Workshop",
                 "private_pass": "Pacchetto per appuntamenti",
                 "birthday": "Compleanno",
-                "establishmentGroup": "Luogo",
+                "establishmentGroup": "Sede",
                 "contract": "Abbonamento ricorrente"
             },
             "groupTitle": {
@@ -16428,7 +16526,7 @@
                 "payment_pack": "Seleziona un pacchetto",
                 "workshop": "Seleziona un workshop",
                 "private_pass": "Seleziona un pacchetto per appuntamenti",
-                "establishment_group": "Selezionare un luogo",
+                "establishment_group": "Selezionare una sede",
                 "contract": "Seleziona un abbonamento ricorrente"
             },
             "paymentPackPlaceholder": "Pacchetti",
@@ -16521,7 +16619,7 @@
                 "last_name": "Cognome",
                 "first_name": "Nome",
                 "sign_up_question": "Domanda sul form di registrazione",
-                "location": "Posizione preferita",
+                "location": "Sede preferita",
                 "state": "Stato",
                 "official_document_id": "Codice fiscale"
             },
@@ -16722,11 +16820,11 @@
                 "marketing_action": {
                     "defaultName": "Nome predefinito",
                     "select_tag": "Seleziona un tag",
-                    "5": "Email modello",
+                    "5": "Seleziona un email modello",
                     "4": "Tag",
                     "3": "Notifica push",
                     "2": "SMS",
-                    "1": "Email",
+                    "1": "Scrivi un'email",
                     "form": {
                         "helper": "Seleziona una o più azioni da eseguire quando un membro entra in questa fase. Questa opzione è facoltativa.",
                         "reset": "Elimina",
@@ -16769,8 +16867,8 @@
                     "1": "Pacchetto"
                 },
                 "exit": {
-                    "exit_fail_label": "Perso",
-                    "exit_success_label": "Membro acquisito",
+                    "exit_fail_label": "Insuccesso",
+                    "exit_success_label": "Successo",
                     "title": "Uscita"
                 },
                 "trigger": {
@@ -16809,7 +16907,7 @@
                 "next": "Seguente",
                 "previous": "Precedente",
                 "lose_step": "Perso",
-                "win_step": "Membro acquisito",
+                "win_step": "Esito positivo",
                 "entry_step": "Ingresso",
                 "modify_name_label": "Modifica il nome",
                 "cadenceNameLabel": "Nome della scadenza",
@@ -16895,8 +16993,8 @@
                 "changeKind": "Cambia in"
             },
             "cadenceCard": {
-                "lost": "Perso",
-                "win": "Membro acquisito",
+                "lost": "Uscita senza successo",
+                "win": "Uscita con successo",
                 "outputRules": "Regole di uscita"
             },
             "activate": {
@@ -16952,7 +17050,7 @@
                     "convertIntoStep": "Converti in step",
                     "edit": "Modifica"
                 },
-                "defaultName": "Autostep"
+                "defaultName": "Step senza titolo"
             },
             "marketingAction": {
                 "addAction": "Aggiungi un'azione"
@@ -16962,7 +17060,7 @@
                     "helperText": "Innanzitutto, decidiamo come i membri entreranno nel {{ workflowLowerCase }}. Seleziona uno o più eventi o smartlist; se il membro corrisponde a uno di essi, entrerà nel {{ workflowLowerCase }}.",
                     "addTrigger": "Aggiungi un trigger di ingresso",
                     "title": "Criterio di ingresso",
-                    "creationHelper": "Per prima cosa, decidi i criteri di accesso dei vostri membri al {{ workflowLowerCase }}. Scegli uno o più eventi o smartlist. Se un membro rientra in uno di questi criteri, si unirà al {{ workflowLowerCase }}.",
+                    "creationHelper": "Per prima cosa, decidiamo come i membri entreranno nel {{ workflowLowerCase }}. Per farlo, è necessario selezionare un trigger di ingresso.  Se si selezionano più trigger, i membri che corrispondono a uno qualsiasi di essi entreranno nel {{ workflowLowerCase }}.",
                     "editionHelper": "Modifica i criteri di ingresso dei membri nel {{ workflowLowerCase }}. È possibile scegliere uno o più eventi o smartlist. Se un membro rientra in uno di questi criteri, si unirà al {{ workflowLowerCase }}."
                 },
                 "marketingAction": {
@@ -16994,18 +17092,18 @@
                 },
                 "entryAction": {
                     "title": "Azione di ingresso",
-                    "helperText": "Decidi cosa succede quando i membri entrano nel {{ workflowLowerCase }}. È possibile etichettarli, inviare loro un'email o scegliere qualsiasi altra azione adatta alle proprie esigenze. Si può anche scegliere di non fare nulla; questo passaggio è facoltativo.",
+                    "helperText": "Imposta le azioni di marketing da applicare quando un utente entra nel {{ workflowLowerCase }}.",
                     "addAction": "Aggiungi un'azione"
                 },
                 "requiredField": "È richiesto questo campo per continuare.",
                 "finish": "Termina",
                 "delete": "Elimina",
                 "lostTrigger": {
-                    "title": "Criterio di perdita",
-                    "helperText": "Definisci ciò che è considerato un fallimento; il membro sarà contrassegnato come \"Perso\" quando lascia il {{ workflowLowerCase }}. Imposta anche il tempo massimo di presenza di un membro nel {{ workflowLowerCase }}.",
+                    "title": "Uscita senza successo",
+                    "helperText": "Stabilire quando l'obiettivo è considerato non raggiunto: definire un limite di tempo e/o uno o più trigger specifici dopo i quali il membro uscirà senza successo da questo {{ workflowLowerCase }}.",
                     "addTrigger": "Aggiungi un evento di uscita dal flusso",
                     "timeout": {
-                        "helperText": "Se un membro è ancora presente in questo {{ workflowLowerCase }} dopo il limite di tempo selezionato, il membro sarà considerato \"Perso\".",
+                        "helperText": "Il membro uscirà dal {{ workflowLowerCase }} dopo questo numero di giorni, indipendentemente dalla fase in cui si trova.",
                         "label": "Giorni nel {{ workflowLowerCase }}",
                         "title": "Tempo limite"
                     }
@@ -17017,8 +17115,8 @@
                 },
                 "wonTrigger": {
                     "addTrigger": "Aggiungi un evento scatenante di uscita",
-                    "title": "Criterio di acquisizione",
-                    "helperText": "Imposta le regole di base per l'uscita dei membri dal {{ workflowLowerCase }}. Se un membro soddisfa uno dei trigger, uscirà, indipendentemente dalla fase in cui si trova. Per prima cosa, seleziona i trigger di \"successo\" che segneranno un membro come \"Acquisito\" quando esce dal {{ workflowLowerCase }}."
+                    "title": "Uscita con successo",
+                    "helperText": "Imposta l'obiettivo globale del {{ workflowLowerCase }}. Se un membro esegue uno di questi trigger di uscita, raggiungerà l'obiettivo e uscirà con successo dal {{ workflowLowerCase }}. (indipendentemente dalla fase in cui si trova). Questo aiuterà a tracciare le metriche delle prestazioni."
                 },
                 "wonAction": {
                     "title": "Azione in seguito all'acquisizione",
@@ -17070,7 +17168,7 @@
                     "title": "Benvenuto in {{ audienceCamelCase }}!",
                     "confirm": "Inizio",
                     "return": "Indietro",
-                    "helper": "Iniziamo a configurare insieme il {{ workflowLowerCase }}! Per prima cosa, definiremo le regole per l'ingresso dei membri nel {{ workflowLowerCase }}. Poi, decideremo quando i membri sono considerati \"acquisiti\" o \"persi\" in base alle loro azioni."
+                    "helper": "Iniziamo a impostare insieme il {{ workflowLowerCase }}! \nUn flusso di lavoro è un insieme di trigger e passi collegati tra loro con le rispettive azioni di marketing che ti aiuteranno a portare i membri verso l'obiettivo che è stato stabilito."
                 }
             }
         },
@@ -17098,8 +17196,8 @@
                 "addAWorkflow": "Aggiungi un {{ workflowLowerCase }}",
                 "cadenceParameters": "Parametri del {{ workflowLowerCase }}",
                 "multipleVisit": {
-                    "helperText": "Quando è attivata, i membri che corrispondono ai criteri di ingresso possono entrare in questo {{ workflowLowerCase }} più volte, indipendentemente dal fatto che ne siano usciti in precedenza come \"perso\" o \"guadagnato\".",
-                    "isMultipleVisitAllowedLabel": "I membri possono passare attraverso questo {{ workflowLowerCase }} più volte."
+                    "helperText": "Se attivata, i membri che corrispondono ai criteri di ingresso possono accedere nuovamente al {{ workflowLowerCase }} dopo essere usciti.",
+                    "isMultipleVisitAllowedLabel": "I membri possono entrare e uscire da questo {{ workflowLowerCase }} più volte."
                 },
                 "formTitle": {
                     "updateTitle": "Modifica il {{ workflowLowerCase }}",
@@ -17156,12 +17254,12 @@
                     },
                     "success": {
                         "title": "Successo",
-                        "description": "Percentuale di membri considerati come acquisiti.",
+                        "description": "Percentuale di membri usciti con successo.",
                         "label": "percentuale di successo"
                     },
                     "averageTime": {
                         "title": "Tempo medio",
-                        "description": "Periodo medio di tempo necessario perché un membro sia considerato acquisito.",
+                        "description": "Periodo medio di tempo necessario a un membro per uscire con successo.",
                         "label": "giorno in media",
                         "label_plural": "giorni in media"
                     },
@@ -17179,7 +17277,8 @@
                     "availableSoon": "Disponibile prossimamente",
                     "knowMore": "Ulteriori informazioni riguardo {{ upsellName }} upsell",
                     "title": "Comunicazioni inviate"
-                }
+                },
+                "openButton": "Apri {{ workflowLowerCase }}"
             },
             "memberTable": {
                 "tableColumnLabel": {
@@ -17199,7 +17298,7 @@
                     "cancel": "Cancella",
                     "checkboxLabel": "Non mostrare più questo messaggio.",
                     "helper": "La modifica dei trigger può cambiare la posizione dei membri in diverse fasi.",
-                    "title": "Modifica flusso di lavoro"
+                    "title": "Modifica {{ workflowLowerCase }}"
                 }
             },
             "listItem": {
@@ -17207,14 +17306,17 @@
                     "moreActions": "Più azioni sul flusso di lavoro"
                 },
                 "labels": {
-                    "edit": " Modifica le impostazioni del flusso di lavoro",
-                    "archive": "Disattiva flusso di lavoro",
+                    "edit": " Modifica le impostazioni di {{ workflowLowerCase }}",
+                    "archive": "Archivia {{ workflowLowerCase }}",
                     "open": "Aperta",
                     "notLaunched": "Non avviata",
                     "paused": "Messo in pausa",
                     "active": "Attiva",
                     "unarchive": "Riattiva",
                     "metrics": "Metriche"
+                },
+                "tooltip": {
+                    "moreActions": "Altre azioni {{ workflowLowerCase }}"
                 }
             }
         }
@@ -18191,7 +18293,7 @@
                 "establishmentSelectorError": "Non è possibile specificare contemporaneamente stabilimenti e sedi",
                 "allEstablishments": "Tutti gli stabilimenti",
                 "pickEstablishment": "Lascia vuoto per selezionare tutto",
-                "locations": "Localizzazione",
+                "locations": "Sedi",
                 "establishments": "Stabilimenti"
             },
             "add": "Aggiungi un gruppo",
@@ -18284,7 +18386,7 @@
             "name": "Nome della sessione",
             "level": "Livello",
             "location": "Stabilimento",
-            "establishment_group": "Posizione",
+            "establishment_group": "Sede",
             "action": "Azione",
             "reason": "Motivo",
             "status": "Stato",
@@ -18834,6 +18936,10 @@
                 "description": "Questo referral link non è disponibile per questo studio.",
                 "title": "Referral link non utilizzabile"
             }
+        },
+        "checkoutValidation": {
+            "title": "Sponsorizza un amico",
+            "explain": "Ottieni premi condividendo il referral link con i tuoi amici."
         }
     },
     "campaign": {

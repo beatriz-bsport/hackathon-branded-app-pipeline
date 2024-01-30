@@ -175,7 +175,7 @@
                     "availability": {
                         "expiresToday": "Laatste dag",
                         "expiresIn": "{{ daysRemaining }} dag(en) over",
-                        "expiresIn_plural": "{{ daysRemaining }} dag(en) over",
+                        "expiresIn_plural": "{{ daysRemaining }} dagen over",
                         "future": "Startdatum: {{ startDate }}",
                         "expired": "Verlopen op: {{ expirationDate }}",
                         "active": "Verloopdatum: {{ expirationDate }}"
@@ -187,6 +187,65 @@
                     },
                     "credits": "{{ creditsLeft }}/{{ totalCredits }} credits",
                     "unlimited": "Ongelimiteerd"
+                },
+                "consumerPassDetailsCard": {
+                    "header": {
+                        "credits": "{{ creditsLeft }}/{{{ totalCredits }} credits",
+                        "unlimited": "Onbeperkt"
+                    },
+                    "compatibility": {
+                        "contents": {
+                            "allActivities": "Compatibel met alle activiteiten van de studio",
+                            "bookingForGuest": "Kan worden gebruikt om <strong>een gast uit te nodigen</strong>",
+                            "allTimeSlots": "Compatibel met alle tijdslots",
+                            "vod": "Kan worden gebruikt voor <strong>Video's op aanvraag</strong>",
+                            "noAppointments": "Geen compatibele afspraken",
+                            "allSessions": "Compatibel met alle sessies",
+                            "sessions": "Compatibele sessies: {{ sessionsList }}"
+                        },
+                        "titles": {
+                            "studios": "Compatibele studios",
+                            "activity": "Activiteiten compatibiliteit",
+                            "appointment": "Afspraak compatibiliteit",
+                            "main": "Compatibiliteit"
+                        },
+                        "subtitles": {
+                            "activity": "Compatibele activiteiten",
+                            "timeSlots": "Compatibele tijdslots",
+                            "sessions": "Compatibele sessies"
+                        },
+                        "labels": {
+                            "category": "Categorien",
+                            "activity": "Activitieiten",
+                            "room": "Kamers"
+                        }
+                    },
+                    "restriction": {
+                        "frequencyDaily": "Kan maar {{ hoeveelheid }} keer per dag gebruikt worden.",
+                        "frequencyDaily_plural": "Kan maar {{ hoeveelheid }} keer per dag gebruikt worden.",
+                        "title": "Beperkingen op het gebruik",
+                        "frequencyWeekly": "Kan alleen {{ amount}} keer per week gebruikt worden.",
+                        "frequencyWeekly_plural": "Kan alleen {{ amount}} keer per wekelijks gebruikt worden.",
+                        "frequencyMonthly": "Kan slechts {{ amount }} keer per maand worden gebruikt.",
+                        "frequencyMonthly_plural": "Kan slechts {{ amount }} keer per maandelijks worden gebruikt."
+                    },
+                    "availability": {
+                        "active": "Geldig van {{ startDate }} tot {{ expirationDate }}",
+                        "suspended": "Geschorst",
+                        "suspendedUntil": "Opgeschort tot {{ endDate }}",
+                        "expired": "Vervallen op {{ expirationDate }}",
+                        "future": "Start op {{ startDate }}",
+                        "validUntil": "Geldig tot {{ expirationDate }}"
+                    },
+                    "description": {
+                        "title": "Beschrijving",
+                        "showMore": "Laat meer zien",
+                        "showLess": "Laat minder zien"
+                    },
+                    "shared": {
+                        "with": "Gedeeld met",
+                        "by": "Gedeeld door"
+                    }
                 }
             },
             "myBookings": {
@@ -211,7 +270,17 @@
                     "noRefund": "Credits van te late annuleringen worden niet teruggestort.",
                     "creditsWillBeRefunded": "{{count}} credit(s) wordt teruggestort.",
                     "creditsWillBeRefunded_plural": "{{count}} credits worden teruggestort.",
-                    "title": "Sessie annuleren"
+                    "title": {
+                        "consumerBooking": "Deze sessie annuleren",
+                        "consumerPrivateBooking": "Deze afspraak annuleren",
+                        "consumerBookingOption": "Annuleer deze wachtlijst"
+                    },
+                    "waitlist": "Je wordt verwijderd van de wachtlijst.",
+                    "confirm": {
+                        "consumerBooking": "Annuleer sessie",
+                        "consumerPrivateBooking": "Afspraak annuleren",
+                        "consumerBookingOption": "Wachtlijst annuleren"
+                    }
                 },
                 "detailsCard": {
                     "workshop": {
@@ -276,11 +345,17 @@
                     "placeholder": {
                         "activity": {
                             "future": "Er zijn geen toekomstige groepsactiviteiten om te tonen.",
-                            "past": "Er zijn geen activiteiten uit het verleden om te tonen."
+                            "past": "Er zijn geen activiteiten uit het verleden om te tonen.",
+                            "waitlist": "Geen activiteiten op de wachtlijst."
                         },
                         "workshop": {
                             "future": "Er zijn geen toekomstige workshops om te tonen.",
-                            "past": "Er zijn geen workshops uit het verleden om te tonen."
+                            "past": "Er zijn geen workshops uit het verleden om te tonen.",
+                            "waitlist": "Geen workshops op de wachtlijst."
+                        },
+                        "appointment": {
+                            "past": "Geen afspraken uit het verleden om te laten zien.",
+                            "future": "Geen aankomende afspraken gepland."
                         }
                     }
                 },
@@ -3017,7 +3092,8 @@
             "margin_value_excl_tax": "Marginale waarde (excl. btw / omzetbelasting)",
             "margin_value_incl_tax": "Marginale waarde (incl. btw / omzetbelasting)",
             "amortized_price_tax_excluded": "Uitgestelde opbrengsten (excl. btw / omzetbelasting)",
-            "margin_value_excluding_sales_tax": "Marginale waarde (excl. btw / omzetbelasting)"
+            "margin_value_excluding_sales_tax": "Marginale waarde (excl. btw / omzetbelasting)",
+            "billing_group_address": "Adress"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{name}}\" wilt verwijderen?"
@@ -4474,7 +4550,9 @@
             "notification": "Meldingen"
         },
         "roomRequiredIsMissing": "U heeft geen factureringsinstelling geselecteerd.",
-        "roomRequired": "Zaal *"
+        "roomRequired": "Zaal *",
+        "billingGroup": "Facturatiegroep",
+        "billingGroupRequired": "Facturatiegroep *"
     },
     "smartList": {
         "multiSelector": {
@@ -10353,7 +10431,11 @@
             "title": "Mijn uitbetalingen",
             "payoutAmountFromIncludedPayouts": "waarvan {{price}} van eerdere uitbetalingen",
             "payoutIsIncludedInOther": "Deze overschrijving werd opgenomen in de overschrijving van {{date}} met de identificatie {{readable_identifier}}",
-            "payoutIsManual": "Deze uitbetalingsoverdracht is handmatig geactiveerd door het bsport team om de overdracht van uw tegoeden te versnellen. In dit geval zijn de details van de gekoppelde betalingen niet beschikbaar. Neem contact op met ons team voor meer informatie."
+            "payoutIsManual": "Deze uitbetalingsoverdracht is handmatig geactiveerd door het bsport team om de overdracht van uw tegoeden te versnellen. In dit geval zijn de details van de gekoppelde betalingen niet beschikbaar. Neem contact op met ons team voor meer informatie.",
+            "dialog": {
+                "content": "Er is een synchronisatieprobleem opgetreden tussen Stripe en bsport. We kunnen de details van deze uitbetaling op dit moment niet weergeven. Wees er echter van verzekerd dat het volgens de gebruikelijke procedure zal worden verwerkt en naar je bankrekening zal worden overgemaakt. Voor meer informatie over het verzonden bedrag kun je het betalingsrapport raadplegen over de periode tussen de datum van deze uitbetaling en de vorige.",
+                "title": "Betalingssynchronisatie Melding"
+            }
         },
         "interval": {
             "week": "week",
@@ -13298,7 +13380,12 @@
             "message": "De reservering van je plek is verlopen, je kunt deze opnieuw selecteren of een andere plek kiezen.",
             "title": "De reservering van je plek is verlopen"
         },
-        "spotSavedFor": "Geselecteerde plek is opgeslagen voor: {{countdown}}"
+        "spotSavedFor": "Geselecteerde plek is opgeslagen voor: {{countdown}}",
+        "billingGroup": {
+            "title": "Gewenste locatie",
+            "placeholder": "Locatie",
+            "helperText": "De voorkeurslocatie is de locatie waar je van plan bent je aankoop te gebruiken en zal worden gebruikt om je factuur op te stellen."
+        }
     },
     "invoice": {
         "returnPayment": {
@@ -13481,7 +13568,8 @@
                 "title": "Aankopen",
                 "titleReverse": "Aankoopdetails",
                 "billing_establishment": "Vestiging van facturatie*",
-                "cannotCreateDiscount": "Je hebt niet de vereiste toestemming om een korting toe te voegen."
+                "cannotCreateDiscount": "Je hebt niet de vereiste toestemming om een korting toe te voegen.",
+                "billingGroup": "Facturatiegroep *"
             }
         },
         "invoiceItem": {
@@ -13538,7 +13626,8 @@
                 "date": "Datum: {{ date }}",
                 "reverseInvoice": "Terugbetaald via ",
                 "sourceInvoice": "Factuur annuleren",
-                "noEstablishment": "Zonder vestiging"
+                "noEstablishment": "Zonder vestiging",
+                "noBillingGroup": "Er is geen factureringsgroep gekoppeld aan deze factuur"
             },
             "editor": {
                 "title": "Facturatie",
@@ -16002,7 +16091,10 @@
                     "fullNameAndEmail": "Volledige naam en e-mail",
                     "default": "Standaard",
                     "clickableText": "Klikbare tekst",
-                    "standard": "Standaard"
+                    "standard": "Standaard",
+                    "activityPass": "Activiteit leskaart",
+                    "appointmentPass": "Afspraakkaart",
+                    "universalPass": "Universele leskaart"
                 },
                 "title": {
                     "nextOffer": "Volgende sessie beschikbaar",
@@ -16121,7 +16213,10 @@
                     "isJoinableOnlineDisabled": "De \"Online deelnemen\" knop is uitgeschakeld",
                     "isBookableDisabled": "De \"Reserveer\" knop is uitgeschakeld",
                     "isMoreDisabled": "De \"Meer\" knop is uitgeschakeld",
-                    "isDetailsDisabled": "De \"Toon details\" knop is uitgeschakeld"
+                    "isDetailsDisabled": "De \"Toon details\" knop is uitgeschakeld",
+                    "isExpired": "Leskaart is verlopen",
+                    "isFuture": "Leskaart is nog niet actief",
+                    "passKind": "Leskaart kind"
                 },
                 "configurationTitle": "Variaties",
                 "confirmationMessageComponentAlert": "Deze component beheert voornamelijk boekings- en betalingsstatussen. Om het uiterlijk aan te passen, raden we aan de hoofdcomponenten te gebruiken in de gemeenschappelijke sectie",
@@ -16273,7 +16368,10 @@
                 "consumer_booking_details_card": "Reserveerdetails (voor leden)",
                 "authentication_textfield": "Tekstveld voor authenticatie",
                 "consumer_pass_card": "Consumentenpas",
-                "consumer_booking_card": "Consumenten boekingskaart"
+                "consumer_booking_card": "Consumenten boekingskaart",
+                "consumer_payment_pack_details_card": "Gegevenskaart activiteitenpas (voor lid)",
+                "private_consumer_pass_details_card": "Afsprakenpasgegevenskaart (voor lid)",
+                "universal_pass_details_card": "Universele pasgegevenskaart (voor leden)"
             },
             "customCss": {
                 "yourCode": "Je aanvullende implementatie:",
@@ -17027,7 +17125,7 @@
                     "helperText": "Bepaal wat er gebeurt als leden de {{ workflowLowerCase }} als 'Verloren' verlaten. U kunt ze taggen, een e-mail sturen of een andere actie kiezen die aan uw behoeften voldoet. U kunt er ook voor kiezen om niets te doen; deze stap is optioneel."
                 },
                 "lostTrigger": {
-                    "title": "Verloren",
+                    "title": "Verloren criteria",
                     "timeout": {
                         "helperText": "Als een lid nog steeds aanwezig is in deze {{ workflowLowerCase }} na de geselecteerde tijdslimiet, wordt het lid beschouwd als 'Verloren'.",
                         "title": "Tijdslimiet",
@@ -17200,7 +17298,8 @@
                     "availableSoon": "Binnenkort beschikbaard",
                     "knowMore": "Leer meer over {{ upsellName }}!",
                     "title": "Berichten verstuurd"
-                }
+                },
+                "openButton": "Open {{ workflowLowerCase }}"
             },
             "editModal": {
                 "dialog": {
@@ -17208,7 +17307,7 @@
                     "confirm": "Bevestigen",
                     "cancel": "Annuleren",
                     "checkboxLabel": "Dit bericht niet meer tonen.",
-                    "title": "Workflow bewerken"
+                    "title": "Bewerk {{ workflowLowerCase }}"
                 }
             },
             "memberTable": {
@@ -17228,14 +17327,17 @@
                     "moreActions": "Meer workflow-acties"
                 },
                 "labels": {
-                    "edit": " Workflow-instellingen bewerken",
-                    "archive": "Workflow archiveren",
+                    "edit": " Bewerk {{ workflowLowerCase }} instellingen",
+                    "archive": "Archive {{ workflowLowerCase }}",
                     "open": "Open",
                     "notLaunched": "Niet geactiveerd",
                     "paused": "Gepauzeerd",
                     "active": "Actief",
                     "unarchive": "Dearchiveren",
                     "metrics": "Statistieken"
+                },
+                "tooltip": {
+                    "moreActions": "Meer {{ workflowLowerCase }} acties"
                 }
             }
         }
@@ -18856,6 +18958,10 @@
                 "description": "Deze referral-link kan niet bij deze studio gebruikt worden.",
                 "title": "Onbruikbare referral-link"
             }
+        },
+        "checkoutValidation": {
+            "title": "Sponsor een vriend",
+            "explain": "Ontvang beloningen door je doorverwijslink te delen met je vrienden."
         }
     },
     "campaign": {

@@ -6,16 +6,16 @@ import type { BadgeClassKey } from '@material-ui/core/Badge';
 import classNames from 'classnames';
 import CreditMemberBadge from './CreditMemberBadge.component';
 import TagBadge from './TagBadge/TagBadge.component';
-import type { Member } from '../types';
-import type { Tag, TagGroup } from '../../tag/types';
+import type { Member } from '#libs/member/types';
+import type { Tag, TagGroup } from '#libs/tag/types';
 
-export type Props = {
+type Props = {
   member: Member<Tag<TagGroup>>;
   classes?: { [classKey in BadgeClassKey]+?: string };
   bottomCredit?: boolean;
 };
 
-export const AvatarWithBadge: React.FC<Props> = ({
+const AvatarWithBadge: React.FC<Props> = ({
   member,
   classes,
   bottomCredit,
@@ -57,4 +57,4 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export default AvatarWithBadge;
+export default React.memo(AvatarWithBadge);

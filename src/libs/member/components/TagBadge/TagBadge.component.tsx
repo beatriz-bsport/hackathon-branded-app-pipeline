@@ -1,18 +1,20 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Popover from '@material-ui/core/Popover';
-import { Theme } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import classNames from 'classnames';
-import { makeStyles } from '@material-ui/styles';
 import chroma from 'chroma-js';
 import { useTranslation } from 'react-i18next';
+
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import classNames from 'classnames';
 import Hidden from '@material-ui/core/Hidden';
-import TagCircle from './TagCircle.component';
-import { Tag, TagGroup } from '../../../tag/types';
-import TagChip from '../../../tag/components/TagChip.component';
-import BalanceChip from '#libs/member/components/BalanceChip.component';
-import { Member } from '#libs/member/types';
+import Popover from '@material-ui/core/Popover';
+import Typography from '@material-ui/core/Typography';
+
 import { ONLY_BALANCE, ONLY_UNPAID_AMOUNT } from '#libs/member/constants';
+import BalanceChip from '#libs/member/components/BalanceChip.component';
+import TagChip from '#libs/tag/components/TagChip.component';
+import TagCircle from './TagCircle.component';
+
+import type { Member } from '#libs/member/types';
+import type { Tag, TagGroup } from '#libs/tag/types';
 
 import './TagBadge.css';
 
@@ -237,7 +239,7 @@ const TagBadge = (props: Props) => {
   );
 };
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((theme) => ({
   counterBadge: {
     backgroundColor: theme.palette.primary.main,
     color:
@@ -291,4 +293,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default TagBadge;
+export default React.memo(TagBadge);

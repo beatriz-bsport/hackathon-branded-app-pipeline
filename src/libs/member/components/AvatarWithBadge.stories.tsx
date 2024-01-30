@@ -1,10 +1,13 @@
 import React from 'react';
+import type { ComponentStory, ComponentMeta } from '@storybook/react';
 
-import AvatarWithBadge, { Props } from './AvatarWithBadge.component';
-import { MemberFactory } from '../factories/Member';
+import AvatarWithBadge from './AvatarWithBadge.component';
+import { MemberFactory } from '#libs/member/factories/Member';
 import '#libs/member/components/TagBadge/TagBadge.css';
 
-const CustomTemplate = (args: Props) => <AvatarWithBadge {...args} />;
+const CustomTemplate: ComponentStory<typeof AvatarWithBadge> = (
+  args: React.ComponentProps<typeof AvatarWithBadge>,
+) => <AvatarWithBadge {...args} />;
 
 //15 Badges, `total_unpaid_amount` > `credit` > 0
 export const MoreUnpaidInvoicesThanBalance = CustomTemplate.bind({});
@@ -95,5 +98,6 @@ export default {
       page: null,
       inlineStories: true,
     },
+    layout: 'centered',
   },
-};
+} as ComponentMeta<typeof AvatarWithBadge>;

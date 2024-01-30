@@ -3,9 +3,8 @@ import Badge, { type BadgeClassKey } from '@material-ui/core/Badge';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import classnames from 'classnames';
-import { Theme } from '@material-ui/core';
 
-import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
+import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type Props = {
@@ -95,7 +94,7 @@ export const CreditMemberBadge: React.FC<Props> = ({
   );
 };
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((theme) => ({
   receiptIcon: {
     fontSize: theme.spacing(1.75),
     textAlign: 'center',
@@ -113,4 +112,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default CreditMemberBadge;
+export default React.memo(CreditMemberBadge);

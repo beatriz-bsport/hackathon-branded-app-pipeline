@@ -25,7 +25,7 @@ import type {
 import type { SendGroupedCommunicationData } from '#libs/communication/types';
 import type { OptionCallback } from '../../../../../state/types';
 import { CONTEXT_FRANCHISE } from '#libs/communication-v2/constants';
-import { SenderEmailKind } from '#libs/communication/constant';
+import { SenderEmailKind } from '#libs/communication/constants';
 import { FranchiseCompany } from '#libs/franchise/types';
 import CommunicationSentGroupConfigCommunicationSenderEmailChoice from './CommunicationSentGroupConfigCommunicationSenderEmailChoice.component';
 

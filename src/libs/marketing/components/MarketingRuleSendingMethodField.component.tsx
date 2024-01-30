@@ -17,7 +17,7 @@ import SendIcon from '@material-ui/icons/Send';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import Tooltip from '#components/Tooltip.component';
-import { MAX_LENGTH_PUSH_TITLE } from '#libs/communication/constant';
+import { MAX_LENGTH_PUSH_TITLE } from '#libs/communication/constants';
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
 import EmailSelector from '#libs/email-editor/components/EmailSelector.component';
 import { CheckboxField, TextField } from '#components/forms';

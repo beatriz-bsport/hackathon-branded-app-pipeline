@@ -10,7 +10,7 @@ import MaterialUISelector, {
   OptionTypeBase,
 } from '../../../components/Selector/MaterialUISelector.component';
 
-import { MAX_LENGTH_PUSH_CONTENT } from '../constant';
+import { MAX_LENGTH_PUSH_CONTENT } from '../constants';
 
 type Props = {
   value: string;

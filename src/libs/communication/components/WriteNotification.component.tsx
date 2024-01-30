@@ -4,7 +4,7 @@ import { makeStyles, Theme, Typography } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import TextField from '@material-ui/core/TextField';
 
-import { MAX_LENGTH_PUSH_TITLE, MAX_LENGTH_PUSH_CONTENT } from '../constant';
+import { MAX_LENGTH_PUSH_TITLE, MAX_LENGTH_PUSH_CONTENT } from '../constants';
 
 type OwnProps = {
   notificationTitle: string;

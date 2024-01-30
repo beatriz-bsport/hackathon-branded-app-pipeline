@@ -19,7 +19,7 @@ import { compose } from 'recompose';
 
 import { Actions, Submit, TextField } from '../../../components/forms';
 import NotificationContentInput from '../../communication/components/NotificationContentInput.component';
-import { MAX_LENGTH_PUSH_TITLE } from '../../communication/constant';
+import { MAX_LENGTH_PUSH_TITLE } from '../../communication/constants';
 
 type Props = {
   onCancel: () => void;

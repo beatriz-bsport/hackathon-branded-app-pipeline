@@ -22,7 +22,7 @@ import {
   SEND_COMMUNICATION_ON_JOIN,
   SEND_COMMUNICATION_ON_LEFT,
 } from '@bsport/common/lib/master-data/smart-list';
-import { COMMUNICATION_SEND_STATUS_PROCESSING } from '../constant';
+import { COMMUNICATION_SEND_STATUS_PROCESSING } from '../constants';
 import { Campaign, Recipient } from '../types';
 import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 

@@ -12,7 +12,7 @@ import React, { useCallback, useMemo } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import Select from 'react-select';
 import { Values } from './CommunicationSentGroupConfigCommunicationDrawer.component';
-import { SenderEmailKind } from '#libs/communication/constant';
+import { SenderEmailKind } from '#libs/communication/constants';
 import { FranchiseCompany } from '#libs/franchise/types';
 
 type Props = {

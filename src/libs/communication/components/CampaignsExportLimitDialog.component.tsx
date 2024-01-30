@@ -6,7 +6,7 @@ import {
   ONE_HUNDRED,
   ONE_MILLION,
   TEN_THOUSANDS,
-} from '#libs/communication/constant';
+} from '#libs/communication/constants';
 
 type Props = {
   recipientsCount: number;

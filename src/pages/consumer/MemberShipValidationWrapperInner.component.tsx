@@ -47,6 +47,7 @@ import { WithHandlerType } from '../../utils/types';
 import { OptionCallback } from '../../state/types';
 import MemberGreetingBanner from '../../libs/custom-form/components/consumer-form/CustomFormMemberGreetingBanner.component';
 import { Member } from '../../libs/member/types';
+import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
 
 type StateHandlerInit = {
   temporaryCustomFormData: {
@@ -177,10 +178,12 @@ export class MemberShipValidationWrapper extends React.Component<Props> {
                   </div>
                   <CustomFormView
                     disconnectOnCancel
+                    shouldWrapLayerInCssHoc
                     general_terms_and_conditions={
                       this.props.theme.general_terms_of_use
                     }
                     initial={this.props.memberCustomForm}
+                    isCssVariantActivated={CUSTOM_FORM_CSS_VARIANT_ACTIVATED}
                     layouts={this.props.memberCustomForm.layout}
                     onCancel={() => this.props.disconnect()}
                     onSubmit={this.props.submitCustomMembeForm}

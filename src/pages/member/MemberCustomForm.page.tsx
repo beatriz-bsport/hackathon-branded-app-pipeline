@@ -34,6 +34,7 @@ import CustomFormCompletedList from '../../libs/custom-form/components/CustomFor
 import CustomFormView from '../../libs/custom-form/components/consumer-form/CustomFormView.form';
 import type { CustomFormFieldAnswerAPI } from '../../libs/custom-form/types';
 import themeSelector from '../../libs/theme/selectors';
+import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
 
 type StateHandlerInit = {
   customFormFilledSelected: boolean;
@@ -111,10 +112,14 @@ export class MemberCustomForm extends React.Component<Props> {
                         key={this.props.customFormFilledSelected}
                         asManager
                         disableLayout
+                        shouldWrapLayerInCssHoc
                         general_terms_and_conditions={
                           this.props.theme.general_terms_of_use
                         }
                         initialWithAnswer={this.getCustomFormEnabledFieldWithAnswer()}
+                        isCssVariantActivated={
+                          CUSTOM_FORM_CSS_VARIANT_ACTIVATED
+                        }
                         refreshLoading={this.props.customFormViewLoading}
                         waiver={this.props?.theme.waiver}
                       />

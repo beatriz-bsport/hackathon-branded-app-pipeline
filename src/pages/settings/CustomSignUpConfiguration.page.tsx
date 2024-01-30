@@ -39,6 +39,7 @@ import CustomFormList from '../../libs/custom-form/components/CustomFormList.com
 import CustomFormView from '../../libs/custom-form/components/consumer-form/CustomFormView.form';
 import tagSelectors from '../../libs/tag/selectors';
 import { CustomForm } from '../../libs/custom-form/types';
+import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
 
 type OwnProps = {
   isSubmitting: boolean;
@@ -185,7 +186,9 @@ export class FormsConfiguration extends React.Component<Props> {
                   <CustomFormView
                     key={this.props.customFormSelected}
                     asManager
+                    shouldWrapLayerInCssHoc
                     initial={this.props.customFormSelected}
+                    isCssVariantActivated={CUSTOM_FORM_CSS_VARIANT_ACTIVATED}
                   />
                 </Paper>
               </div>

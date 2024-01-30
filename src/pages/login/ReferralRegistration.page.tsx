@@ -70,6 +70,7 @@ import './signup-page/SignupPageStyles.css';
 
 import { RootState } from '../../reducers';
 import Config from '../../config';
+import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
 
 type OwnProps = {
   title: string;
@@ -295,6 +296,7 @@ export class ReferralRegistration extends Component<Props, State> {
                     hideBackButton
                     general_terms_and_conditions={theme.general_terms_of_use}
                     initial={form}
+                    isCssVariantActivated={CUSTOM_FORM_CSS_VARIANT_ACTIVATED}
                     layouts={form.layout}
                     onSubmit={this.submitCustomForm}
                     onSubmitDraft={this.props.setLoginInformations}

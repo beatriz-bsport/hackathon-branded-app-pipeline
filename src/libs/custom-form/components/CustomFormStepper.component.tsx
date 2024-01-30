@@ -20,6 +20,7 @@ import { OptionCallback } from '../../../state/types';
 import { MaterialStyleType } from '../../../utils/types';
 import type { CustomForm, CustomFormDisplayRule } from '../types';
 import CustomFormView from './consumer-form/CustomFormView.form';
+import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '../constants';
 
 type OwnProps = {
   customFormList: Array<CustomForm>;
@@ -150,7 +151,9 @@ export const CustomFormStepper = (props: Props) => {
           </div>
           <CustomFormView
             disconnectOnCancel
+            shouldWrapLayerInCssHoc
             initial={customForm}
+            isCssVariantActivated={CUSTOM_FORM_CSS_VARIANT_ACTIVATED}
             isSubmitting={props.customFormListIsSubmitting}
             onCancel={() => props.onDisconnect()}
             onSubmit={handleDirectSubmit}
@@ -208,8 +211,10 @@ export const CustomFormStepper = (props: Props) => {
             <StepContent>
               <CustomFormView
                 isMulti
+                shouldWrapLayerInCssHoc
                 initial={customForm}
                 initialWithAnswer={getDraftData(customForm.id)}
+                isCssVariantActivated={CUSTOM_FORM_CSS_VARIANT_ACTIVATED}
                 isSubmitting={props.customFormListIsSubmitting}
                 onCancel={
                   customFormStep !== 0 ? handleCustomFormPrevious : null

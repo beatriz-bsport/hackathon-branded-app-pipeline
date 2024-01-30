@@ -68,6 +68,7 @@ import {
   getReferralMemberStatusLoading,
 } from '#libs/referral/selectors';
 import { buildMemberReferralLink } from '#libs/referral/utils';
+import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
 
 type RouterProps = {
   membership: Membership;
@@ -195,11 +196,13 @@ export class ConsumerProfile extends React.Component<Props, State> {
           <div className={classes.customFormContainer}>
             {this.props.memberCustomForm && (
               <CustomFormView
+                shouldWrapLayerInCssHoc
                 textButtonConfirm
                 general_terms_and_conditions={
                   this.props.theme.general_terms_of_use
                 }
                 initial={this.props.memberCustomForm}
+                isCssVariantActivated={CUSTOM_FORM_CSS_VARIANT_ACTIVATED}
                 layouts={this.props.memberCustomForm.layout}
                 onCancel={() => this.props.setEditMember(false)}
                 onSubmit={this.submitCustomForm}

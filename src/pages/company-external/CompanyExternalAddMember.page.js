@@ -18,6 +18,8 @@ import {
   submitSignUpCustomForm as submitSignUpCustomFormAction,
 } from '../../libs/custom-form/actions';
 import { getSignUpCustomFormWithEnabledField } from '../../libs/custom-form/selectors';
+import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
+
 import type { CustomForm } from '../../libs/custom-form/types';
 import type { Theme } from '../../libs/theme/types';
 import type { OptionCallback } from '../../state/types';
@@ -77,8 +79,10 @@ export const CompanyExternalAddMember = (props: Props) => {
       {signUpCustomForm && (
         <Paper className={classes.paper}>
           <CustomFormView
+            shouldWrapLayerInCssHoc
             general_terms_and_conditions={theme.general_terms_of_use}
             initial={signUpCustomForm}
+            isCssVariantActivated={CUSTOM_FORM_CSS_VARIANT_ACTIVATED}
             layouts={signUpCustomForm.layout}
             onCancel={() => goBack()}
             onSubmit={submitCustomForm}

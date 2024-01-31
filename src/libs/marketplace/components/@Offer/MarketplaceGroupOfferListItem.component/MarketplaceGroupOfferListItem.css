@@ -153,36 +153,12 @@
   text-transform: uppercase;
   border: none;
   background-color: inherit;
-  position: relative;
   font-family: var(--button-fontFamily);
   font-size: var(--button-fontSize);
   font-weight: var(--button-fontWeight);
   letter-spacing: var(--button-letterSpacing);
   line-height: var(--button-lineHeight);
   color: var(--color-primary-main);
-}
-
-.bs-offer-list-group-item__right__row__button::before {
-  transition: 0.2s background-color;
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.2;
-  border-radius: var(--border-radius-5);
-}
-
-.bs-offer-list-group-item__right__row__button::before {
-  transition: 0.2s background-color;
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.2;
 }
 
 .bs-offer-dialog__content__buttons__book:hover::before {

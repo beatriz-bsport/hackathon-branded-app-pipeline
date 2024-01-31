@@ -12,27 +12,14 @@
   text-transform: uppercase;
   border: none;
   background-color: inherit;
-  position: relative;
 }
 
-.bs-book-button-card::before {
-  transition: 0.2s background-color;
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.2;
-  border-radius: var(--border-radius-5);
-}
-
-.bs-book-button-card:hover::before {
+.bs-book-button-card:hover {
   background-color: var(--color-primary-light);
   border-radius: var(--border-radius-5);
 }
 
-.bs-book-button-card--booked:hover::before {
+.bs-book-button-card--booked:hover {
   background-color: var(--color-success-light);
 }
 
@@ -44,7 +31,7 @@
   cursor: default;
 }
 
-.bs-book-button-card--disabled:hover::before {
+.bs-book-button-card--disabled:hover {
   background-color: var(--color-background-paper);
 }
 
@@ -52,7 +39,6 @@
   display: flex;
   align-items: center;
   gap: var(--spacing-1);
-  position: relative;
 }
 
 .bs-book-button-card__inner__icon__not-available {

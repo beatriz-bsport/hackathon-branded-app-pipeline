@@ -326,17 +326,6 @@ div.bs-offer-list-item__content__offer__left__bottom__icons__avatar {
   margin-top: auto;
 }
 
-.bs-offer-list-item__content__offer__right__bottom::before {
-  transition: 0.2s;
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.2;
-}
-
 .bs-offer-list-item__content__offer__right__top__icon--not-disabled:hover {
   color: var(--color-grey-500);
   cursor: pointer;
@@ -344,17 +333,6 @@ div.bs-offer-list-item__content__offer__left__bottom__icons__avatar {
 
 .bs-offer-list-item__content__offer__right__top__icon--disabled {
   color: var(--color-disabled);
-}
-
-.bs-offer-list-item__content__offer__right__top__icon--not-disabled::before {
-  transition: 0.2s var(--color-grey-500);
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.2;
 }
 
 .bs-offer-list-item__content__offer__right__top__left--none {

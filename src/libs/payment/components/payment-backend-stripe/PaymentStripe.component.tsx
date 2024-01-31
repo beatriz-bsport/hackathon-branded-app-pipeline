@@ -323,18 +323,20 @@ const PaymentStripe: React.FC<
       stripeId,
     ]);
 
-    const enhancedSetPaymentProcessing = (value: boolean) => {
-      if (
-        value &&
-        !!updateMemberBillingGroup &&
-        !!selectedEstablishmentBillingGroup
-      ) {
-        // Update the member's default establishment billing group when payment starts
-        // being processed
-        updateMemberBillingGroup(selectedEstablishmentBillingGroup.id);
-      }
-      setPaymentProcessing(value);
-    };
+    const enhancedSetPaymentProcessing = setPaymentProcessing
+      ? (value: boolean) => {
+          if (
+            value &&
+            !!updateMemberBillingGroup &&
+            !!selectedEstablishmentBillingGroup
+          ) {
+            // Update the member's default establishment billing group when payment starts
+            // being processed
+            updateMemberBillingGroup(selectedEstablishmentBillingGroup.id);
+          }
+          setPaymentProcessing(value);
+        }
+      : null;
 
     return (
       <div className={classes.container}>

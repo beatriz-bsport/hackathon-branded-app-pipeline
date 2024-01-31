@@ -513,7 +513,9 @@ export const fetchAllEstablishmentBillingGroupActions = {
 };
 
 export function fetchAllEstablishmentBillingGroup(
-  options?: OptionCallback & { params?: { company?: number } },
+  options?: OptionCallback & {
+    params?: { company?: number; disabled?: boolean };
+  },
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(fetchAllEstablishmentBillingGroupActions.isLoading(true));

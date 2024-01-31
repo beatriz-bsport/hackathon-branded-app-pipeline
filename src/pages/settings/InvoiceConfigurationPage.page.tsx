@@ -76,7 +76,7 @@ export class InvoiceConfigurationPage extends React.Component<Props, State> {
     this.props.fetchInvoiceConfiguration();
     if (this.props.theme.enable_multi_localization) {
       this.props.fetchAllEstablishmentBillingGroup({
-        params: { company: this.props.theme.company },
+        params: { company: this.props.theme.company, disabled: false },
       });
     }
     this.props.fetchEstablishments();

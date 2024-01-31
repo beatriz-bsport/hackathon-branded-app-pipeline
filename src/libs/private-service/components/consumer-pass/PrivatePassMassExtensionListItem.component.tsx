@@ -8,12 +8,12 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import RedButton from '../../../../components/button/RedButton.component';
 
 import { MaterialStyleType } from '../../../../utils/types';
-import { PrivateConsumerPassMassExtension } from '../../types';
+import { PrivatePassMassExtension } from '../../types';
 import { formatAsDatetimeAdapted } from '../../../../utils/datetime';
 
 type OwnProps = {
-  massExtension: PrivateConsumerPassMassExtension;
-  onDelete: (p: PrivateConsumerPassMassExtension) => void;
+  massExtension: PrivatePassMassExtension;
+  onDelete: (p: PrivatePassMassExtension) => void;
 };
 
 type Props = OwnProps &

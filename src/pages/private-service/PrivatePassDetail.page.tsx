@@ -67,8 +67,8 @@ import { RootState } from '../../reducers';
 import { OptionCallback } from '../../state/types';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import PaymentPackMassExtensionDialog from '#libs/payment-packs/components/PaymentPackMassExtensionDialog.component';
-import {
-  PrivateConsumerPassMassExtension,
+import type {
+  PrivatePassMassExtension,
   PrivatePassCategory,
   PrivateSlot,
   PrivatePass,
@@ -227,7 +227,7 @@ export class PrivatePassDetails extends Component<Props> {
     this.props.setOpenMassExtensionDialog(false);
   };
 
-  onDeleteMassExtension = (massExtension: PrivateConsumerPassMassExtension) => {
+  onDeleteMassExtension = (massExtension: PrivatePassMassExtension) => {
     this.props.deletePrivatePassMassExtension(massExtension.id, {
       onSuccess: () => {
         this.props.fetchPrivatePassMassExtensionList({

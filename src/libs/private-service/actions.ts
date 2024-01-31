@@ -118,7 +118,7 @@ import { monitorBackgroundTask } from '../background-task/actions';
 import { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
 import {
   PrivateBooking,
-  PrivateConsumerPassMassExtension,
+  PrivatePassMassExtension,
   PrivatePassCategory,
   PrivatePassCategoryWithPasses,
   PrivateService,
@@ -2427,8 +2427,8 @@ export function fetchPrivatePassMassExtensionList(
 
 export function createPrivatePassMassExtension(
   data: Pick<
-    PrivateConsumerPassMassExtension,
-    Exclude<keyof PrivateConsumerPassMassExtension, 'id' | 'date_created'>
+    PrivatePassMassExtension,
+    Exclude<keyof PrivatePassMassExtension, 'id' | 'date_created'>
   >,
   options?: OptionCallback,
 ) {

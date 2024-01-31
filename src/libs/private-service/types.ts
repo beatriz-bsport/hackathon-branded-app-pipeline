@@ -355,14 +355,15 @@ export type PrivateConsumerPassExtension = {
   date_created: string;
   nd_days: number;
 };
-export type PrivateConsumerPassMassExtension = {
-  id: number;
-  private_pass: number;
-  min_ending_date: string;
-  max_ending_date: string;
-  note: string;
-  nb_days: number;
+
+export type PrivatePassMassExtension = {
   date_created: string;
+  id: number;
+  max_ending_date: string;
+  min_ending_date: string;
+  nb_days: number;
+  note: string;
+  private_pass: number;
 };
 
 export type PrivatePassCategory = {
@@ -469,7 +470,7 @@ export interface PrivateServiceState {
     };
     massExtension: ErrorAndLoading &
       WithPagination & {
-        byId: { [key: string]: PrivateConsumerPassMassExtension };
+        byId: { [key: string]: PrivatePassMassExtension };
         allIds: number[];
         firstLoadDone: boolean;
       };

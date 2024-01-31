@@ -22,9 +22,6 @@ import {
 import { PaymentStep } from './PaymentStep.component';
 import { TermsAndConditionType } from '#libs/payment/types';
 import { EstablishmentBillingGroup } from '#libs/establishment/types';
-// @ts-expect-error
-import { mapFormData } from '../../../../pages/form.utils';
-import { MemberMap } from '#libs/member/utils';
 
 type CheckoutStepsProps = {
   allowConsumerToUseInternalAccount: boolean;
@@ -77,11 +74,7 @@ type CheckoutStepsProps = {
   validateUnpaid: (options: OptionCallback) => void;
   cardBillingDetailsMandatory: boolean;
   basketHasOffers: boolean;
-  updateDefaultEstablishmentBillingGroup: (
-    memberId: number,
-    formData: FormData,
-    options?: OptionCallback,
-  ) => void;
+  updateMemberBillingGroup: (establishmentBillingGroupId: number) => void;
   selectedEstablishmentBillingGroup: EstablishmentBillingGroup;
   setSelectedEstablishmentBillingGroup: (
     establishmentBillinggroup: EstablishmentBillingGroup,
@@ -99,7 +92,7 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
       clientSecret,
       companyCountry,
       companyId,
-      updateDefaultEstablishmentBillingGroup,
+      updateMemberBillingGroup,
       createPendingBookingsIfNecessary,
       creditAccountBalance,
       currentStep,
@@ -158,16 +151,8 @@ export const CheckoutSteps: React.FC<CheckoutStepsProps> = forwardRef(
           }
         },
         updateMemberDefaultEstablishmentBillingGroup: () => {
-          if (enableMultiLocalization && !!selectedEstablishmentBillingGroup) {
-            const formData = mapFormData(
-              {
-                default_establishment_billing_group:
-                  selectedEstablishmentBillingGroup.id,
-              },
-              MemberMap,
-            );
-            formData.append('id', basket.member.toString());
-            updateDefaultEstablishmentBillingGroup(basket.member, formData);
+          if (selectedEstablishmentBillingGroup) {
+            updateMemberBillingGroup(selectedEstablishmentBillingGroup.id);
           }
         },
         onPayLaterSubmit: paymentStepRef.current?.onPayLaterSubmit,

@@ -48,6 +48,7 @@ import { MaterialStyleType } from '../../utils/types';
 import { getBasketTotalPriceExcludingTax } from '#libs/checkout/utils';
 import BasketTaxInfo from '#libs/checkout/components/BasketTaxInfo.component';
 import { fetchMembershipByBasket } from '#libs/membership/actions';
+import CheckoutBillingGroupSelector from '#libs/marketplace/components/@Basket/CheckoutBillingGroupSelector.component';
 import {
   fetchMember as fetchMemberAction,
   updateDefaultEstablishmentBillingGroup as updateDefaultEstablishmentBillingGroupAction,
@@ -201,7 +202,7 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
           defaultEstablishmentBillingGroup:
             prevProps.defaultEstablishmentBillingGroup,
           establishmentBillingGroups: prevProps.establishmentBillingGroups,
-          basketoffers: prevProps.basketOffers,
+          basketOffers: prevProps.basketOffers,
         },
         {
           defaultEstablishmentBillingGroup:
@@ -289,6 +290,12 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
         this.setState({ selfProcessing: false });
       }
 
+      if (this.state.selectedEstablishmentBillingGroup) {
+        this.updateMemberBillingGroup(
+          this.state.selectedEstablishmentBillingGroup.id,
+        );
+      }
+
       const { data } = await verifyPriceBasketAPI(this.props.basket.id);
       if (
         (!!this.props.basket.total_price_cts ||
@@ -330,10 +337,12 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
   };
 
   updateMemberBillingGroup = (establishmentBillingGroupId: number) => {
-    this.props.updateDefaultEstablishmentBillingGroup(
-      this.props.basket.member,
-      { default_establishment_billing_group: establishmentBillingGroupId },
-    );
+    if (this.state.theme?.enable_multi_localization) {
+      this.props.updateDefaultEstablishmentBillingGroup(
+        this.props.basket.member,
+        { default_establishment_billing_group: establishmentBillingGroupId },
+      );
+    }
   };
 
   render() {
@@ -404,26 +413,51 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
           (this.props.basket.total_price_cts || 0) -
             (this.props.basket.total_price_prepaid_lines_cts || 0)
         ) ? (
-          <div className={classes.innerContainer}>
-            <Button
-              color="primary"
-              disabled={
-                this.state.selfProcessing ||
-                this.props.basket?.checkout_items?.length === 0
-              }
-              onClick={() => this.validateUnpaid()}
-              variant="contained"
-            >
-              {t('myBasket.actions.payZero')}
-              {this.state.selfProcessing && (
-                <CircularProgress
-                  className={classes.circularProgress}
-                  color="inherit"
-                  size={24}
-                />
-              )}
-            </Button>
-          </div>
+          <>
+            <div className={classes.billingGroupSelector}>
+              <CheckoutBillingGroupSelector
+                enableMultiLocalization={
+                  this.state.theme?.enable_multi_localization
+                }
+                establishmentBillingGroups={
+                  !this.state.hideEstablishmentBillingGroupSelector
+                    ? this.props.establishmentBillingGroups
+                    : []
+                }
+                selectedEstablishmentBillingGroup={
+                  !this.state.hideEstablishmentBillingGroupSelector
+                    ? this.state.selectedEstablishmentBillingGroup
+                    : null
+                }
+                setIsEstablishmentBillingGroupSelected={
+                  this.setIsEstablishmentBillingGroupSelected
+                }
+                setSelectedEstablishmentBillingGroup={
+                  this.setSelectedEstablishmentBillingGroup
+                }
+              />
+            </div>
+            <div className={classes.innerContainer}>
+              <Button
+                color="primary"
+                disabled={
+                  this.state.selfProcessing ||
+                  this.props.basket?.checkout_items?.length === 0
+                }
+                onClick={() => this.validateUnpaid()}
+                variant="contained"
+              >
+                {t('myBasket.actions.payZero')}
+                {this.state.selfProcessing && (
+                  <CircularProgress
+                    className={classes.circularProgress}
+                    color="inherit"
+                    size={24}
+                  />
+                )}
+              </Button>
+            </div>
+          </>
         ) : (
           <PaymentStripe
             fromApp
@@ -538,7 +572,10 @@ const styles = (theme: Theme) => ({
     marginTop: theme.spacing(2),
     width: '100%',
   },
-
+  billingGroupSelector: {
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
+  },
   circularProgress: {
     marginLeft: theme.spacing(2),
   },

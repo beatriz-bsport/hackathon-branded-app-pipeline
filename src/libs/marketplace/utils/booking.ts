@@ -1,5 +1,6 @@
 import moment from 'moment-timezone';
 import { TFunction } from 'i18next';
+import isEqual from 'lodash/isEqual';
 import Immutable from 'seamless-immutable';
 import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/bookable-status';
 import { OFFER_BOOKABLE_STATUS_ALREADY_BOOKED } from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
@@ -262,13 +263,17 @@ export const loadDefaultEstablishmentBillingGroup = (
     basketOffers?: Offer<number, Establishment, MetaActivity>[];
   },
 ) => {
-  const incomingBasketData = prevProps.basketOffers !== newProps.basketOffers;
+  const incomingBasketData = !isEqual(
+    prevProps.basketOffers,
+    newProps.basketOffers,
+  );
   const incomingDefaultEstablishmentBillingGroup =
     prevProps.defaultEstablishmentBillingGroup !==
     newProps.defaultEstablishmentBillingGroup;
   const incomingEstablishmentBillingGroupData =
     prevProps.establishmentBillingGroups !==
     newProps.establishmentBillingGroups;
+
   if (
     enableMultilocalisation &&
     // Member default establishment billing group has been fetched

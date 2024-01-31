@@ -134,11 +134,7 @@ type ownProps = {
   downloadContractTerms: (options: OptionCallback) => void;
   fetchAllEstablishmentBillingGroup: () => void;
   establishmentBillingGroups: EstablishmentBillingGroup[];
-  updateDefaultEstablishmentBillingGroup: (
-    id: number,
-    memberData: FormData,
-    options?: OptionCallback,
-  ) => void;
+  updateMemberBillingGroup: (establishmentBillingGroupId: number) => void;
   defaultEstablishmentBillingGroup: EstablishmentBillingGroup;
 };
 
@@ -604,7 +600,6 @@ export class MarketplaceSubscriptionPayment extends React.Component<
                   isExcludingTax={this.getIsTaxExcluded()}
                   isLoading={this.state.processing}
                   isWidget={isWidget}
-                  memberId={this.props.member?.id}
                   onCancelContractPayment={this.handleCancelContractPayment}
                   onOpenContractTermsDialog={this.handleOpenContractTermsDialog}
                   onSubmitContractPayment={this.handleSubmitContractPayment}
@@ -623,9 +618,7 @@ export class MarketplaceSubscriptionPayment extends React.Component<
                   setIsEstablishmentBillingGroupSelected={
                     this.setIsEstablishmentBillingGroupSelected
                   }
-                  updateDefaultEstablishmentBillingGroup={
-                    this.props.updateDefaultEstablishmentBillingGroup
-                  }
+                  updateMemberBillingGroup={this.props.updateMemberBillingGroup}
                 />
               </div>
             )}
@@ -776,6 +769,16 @@ export default compose<any, ownProps>(
       ({ downloadPDFContractTermsForContract, contractId }: ConnectedProps) =>
       (options: OptionCallback) =>
         downloadPDFContractTermsForContract(parseInt(contractId), options),
+
+    updateMemberBillingGroup:
+      ({ updateDefaultEstablishmentBillingGroup, theme, member }) =>
+      (establishmentBillingGroupId: number) => {
+        if (theme.enable_multi_localization && member?.id) {
+          updateDefaultEstablishmentBillingGroup(member.id, {
+            default_establishment_billing_group: establishmentBillingGroupId,
+          });
+        }
+      },
   }),
   marketplaceCssHoc(),
 )(MarketplaceSubscriptionPayment);

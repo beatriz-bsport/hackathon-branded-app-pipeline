@@ -93,11 +93,7 @@ type Props = {
   establishmentBillingGroups: EstablishmentBillingGroup[];
   isEstablishmentBillingGroupSelected: boolean;
   setIsEstablishmentBillingGroupSelected: (_: boolean) => void;
-  updateDefaultEstablishmentBillingGroup: (
-    id: number,
-    memberData: FormData,
-    options?: OptionCallback,
-  ) => void;
+  updateMemberBillingGroup: (establishmentBillingGroupId: number) => void;
 };
 
 export const CheckoutFlow: React.FC<Props> = (props) => {
@@ -178,9 +174,7 @@ export const CheckoutFlow: React.FC<Props> = (props) => {
             submitPayment={props.submitPayment}
             termsAndConditions={props.termsAndConditions}
             termsAndConditionsAccepted={props.termsAndConditionsAccepted}
-            updateDefaultEstablishmentBillingGroup={
-              props.updateDefaultEstablishmentBillingGroup
-            }
+            updateMemberBillingGroup={props.updateMemberBillingGroup}
             useInternalAccount={props.useInternalAccount}
             validateUnpaid={props.validateUnpaid}
           />

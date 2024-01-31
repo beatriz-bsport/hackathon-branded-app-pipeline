@@ -104,9 +104,6 @@ import { buildUrlParams } from '../../http';
 import './BoutiqueContractCheckout.css';
 import { EstablishmentBillingGroup } from '#libs/establishment/types';
 import { getEnabledEstablishmentBillingGroups } from '#libs/establishment/selectors';
-import { MemberMap } from '#libs/member/utils';
-// @ts-expect-error
-import { mapFormData } from '../form.utils';
 import {
   fetchMember as fetchMemberAction,
   updateDefaultEstablishmentBillingGroup as updateDefaultEstablishmentBillingGroupAction,
@@ -465,19 +462,14 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
   };
 
   updateMemberDefaultEstablishmentBillingGroup = () => {
-    if (this.state.selectedEstablishmentBillingGroup) {
-      const formData = mapFormData(
-        {
-          default_establishment_billing_group:
-            this.state.selectedEstablishmentBillingGroup.id,
-        },
-        MemberMap,
-      );
-      formData.append('id', this.props.memberId.toString());
-      this.props.updateDefaultEstablishmentBillingGroup(
-        this.props.memberId,
-        formData,
-      );
+    if (
+      this.props.theme.enable_multi_localization &&
+      this.state.selectedEstablishmentBillingGroup
+    ) {
+      this.props.updateDefaultEstablishmentBillingGroup(this.props.memberId, {
+        default_establishment_billing_group:
+          this.state.selectedEstablishmentBillingGroup.id,
+      });
     }
   };
 

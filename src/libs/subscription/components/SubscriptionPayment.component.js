@@ -117,11 +117,7 @@ type Props = {
   openContractTermsDialog?: () => void,
   cardBillingDetailsMandatory: boolean,
   defaultBillingGroup?: EstablishmentBillingGroup,
-  updateDefaultEstablishmentBillingGroup?: (
-    memberId: number,
-    payload: { default_establishment_billing_group: number },
-    options?: OptionCallback,
-  ) => void,
+  updateMemberBillingGroup?: (establishmentBillingGroupId: number) => void,
 };
 
 type State = {
@@ -293,14 +289,10 @@ export class SubscriptionPayment extends React.Component<Props, State> {
     if (
       this.props.enableMultiLocalization &&
       this.state.selectedEstablishmentBillingGroup &&
-      this.props.updateDefaultEstablishmentBillingGroup
+      this.props.updateMemberBillingGroup
     ) {
-      this.props.updateDefaultEstablishmentBillingGroup(
-        this.props.member?.id || this.props.memberId,
-        {
-          default_establishment_billing_group:
-            this.state.selectedEstablishmentBillingGroup.id,
-        },
+      this.props.updateMemberBillingGroup(
+        this.state.selectedEstablishmentBillingGroup.id,
       );
     }
     this.setState({ lastConfirmDifferentMonth: false });

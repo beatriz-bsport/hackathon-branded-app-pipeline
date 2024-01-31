@@ -52,9 +52,6 @@ import type { Coupon } from '#libs/coupon/types';
 import './styles.css';
 import CheckoutBillingGroupSelector from '#libs/marketplace/components/@Basket/CheckoutBillingGroupSelector.component';
 import { EstablishmentBillingGroup } from '#libs/establishment/types';
-import { MemberMap } from '#libs/member/utils';
-// @ts-expect-error
-import { mapFormData } from '../../../../../pages/form.utils';
 
 export type Props = {
   contract: Contract;
@@ -92,11 +89,7 @@ export type Props = {
   establishmentBillingGroups?: EstablishmentBillingGroup[];
   isEstablishmentBillingGroupSelected?: boolean;
   setIsEstablishmentBillingGroupSelected?: (_: boolean) => void;
-  updateDefaultEstablishmentBillingGroup?: (
-    id: number,
-    memberData: FormData,
-    options?: OptionCallback,
-  ) => void;
+  updateMemberBillingGroup?: (establishmentBillingGroupId: number) => void;
   memberId?: number;
 };
 
@@ -129,8 +122,7 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
     establishmentBillingGroups,
     isEstablishmentBillingGroupSelected,
     setIsEstablishmentBillingGroupSelected,
-    updateDefaultEstablishmentBillingGroup,
-    memberId,
+    updateMemberBillingGroup,
   }) => {
     const companyCountry = getCompanyCountry() || '';
     const [selectedSavedPaymentMethodId, setSelectedSavedPaymentMethodId] =
@@ -312,17 +304,9 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
 
     const handleOnSubmit: FormEventHandler<HTMLFormElement> = useCallback(
       async (event) => {
-        if (enableMultiLocalization && !!selectedEstablishmentBillingGroup) {
+        if (selectedEstablishmentBillingGroup) {
           event.preventDefault();
-          const formData = mapFormData(
-            {
-              default_establishment_billing_group:
-                selectedEstablishmentBillingGroup.id,
-            },
-            MemberMap,
-          );
-          formData.append('id', memberId.toString());
-          updateDefaultEstablishmentBillingGroup(memberId, formData);
+          updateMemberBillingGroup(selectedEstablishmentBillingGroup.id);
         }
         const isDateValid = moment(billingStartDate).isSameOrAfter(
           moment(),
@@ -361,7 +345,6 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
       [
         couponCode,
         billingStartDate,
-        enableMultiLocalization,
         onSubmitContractPayment,
         selectedSavedPaymentMethodId,
         voucher,
@@ -369,8 +352,7 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
         billingDetails,
         companyId,
         paymentMethod,
-        updateDefaultEstablishmentBillingGroup,
-        memberId,
+        updateMemberBillingGroup,
         selectedEstablishmentBillingGroup,
       ],
     );

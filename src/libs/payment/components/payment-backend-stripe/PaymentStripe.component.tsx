@@ -323,21 +323,18 @@ const PaymentStripe: React.FC<
       stripeId,
     ]);
 
-    React.useEffect(() => {
+    const enhancedSetPaymentProcessing = (value: boolean) => {
       if (
-        fromApp &&
-        !!paymentProcessing &&
+        value &&
         !!updateMemberBillingGroup &&
         !!selectedEstablishmentBillingGroup
       ) {
+        // Update the member's default establishment billing group when payment starts
+        // being processed
         updateMemberBillingGroup(selectedEstablishmentBillingGroup.id);
       }
-    }, [
-      paymentProcessing,
-      updateMemberBillingGroup,
-      selectedEstablishmentBillingGroup,
-      fromApp,
-    ]);
+      setPaymentProcessing(value);
+    };
 
     return (
       <div className={classes.container}>
@@ -458,7 +455,7 @@ const PaymentStripe: React.FC<
                     paymentGroupId={paymentGroupId}
                     saveForLaterBacsDebit={saveForLaterBacsDebit}
                     setIsOnlinePaymentDisabled={setIsOnlinePaymentDisabled}
-                    setPaymentProcessing={setPaymentProcessing}
+                    setPaymentProcessing={enhancedSetPaymentProcessing}
                     setSaveForLaterBacsDebit={setSaveForLaterBacsDebit}
                     snackbarErrorMsg={snackbarErrorMsg}
                     snackbarSuccessMsg={snackbarSuccessMsg}

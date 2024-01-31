@@ -132,11 +132,7 @@ type NewCheckoutFlowProps = {
     pollOptionCallback?: APIPollOptionCallback,
   ) => void;
   refreshBasket: (options?: OptionCallback) => void;
-  updateDefaultEstablishmentBillingGroup: (
-    memberId: number,
-    formData: FormData,
-    options: OptionCallback,
-  ) => void;
+  updateMemberBillingGroup: (establishmentBillingGroupId: number) => void;
   selectedEstablishmentBillingGroup: EstablishmentBillingGroup;
   setSelectedEstablishmentBillingGroup: (
     establishmentBillingGroup: EstablishmentBillingGroup,
@@ -155,7 +151,7 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
   clientSecret,
   companyId,
   createPendingBookingsIfNecessary,
-  updateDefaultEstablishmentBillingGroup,
+  updateMemberBillingGroup,
   creditAccountBalance,
   detachPaymentMethod,
   detachPaymentMethodLoading,
@@ -453,9 +449,7 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
               stripeId={theme.stripe_id}
               termsAndConditions={theme.general_terms_and_conditions}
               termsAndConditionsAccepted={termsAndConditionsAccepted}
-              updateDefaultEstablishmentBillingGroup={
-                updateDefaultEstablishmentBillingGroup
-              }
+              updateMemberBillingGroup={updateMemberBillingGroup}
               useInternalAccount={useInternalAccount}
               validateUnpaid={validateUnpaid}
             />

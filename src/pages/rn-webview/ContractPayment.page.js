@@ -65,11 +65,7 @@ type Props = {
   fetchMember: (memberId: number) => void,
   fetchAllEstablishmentBillingGroup: (params: { company: number }) => void,
   establishmentBillingGroups: EstablishmentBillingGroup[],
-  updateDefaultEstablishmentBillingGroup: (
-    id: number,
-    memberData: FormData,
-    options?: OptionCallback,
-  ) => void,
+  updateMemberBillingGroup: (establishmentBillingGroupId: number) => void,
 };
 
 type State = {
@@ -195,9 +191,7 @@ export class ContractPayment extends React.Component<Props, State> {
           }}
           requestSetupIntentSecret={this.props.requestSetupIntentSecret}
           savedPaymentMethodList={this.props.savedPaymentMethodList}
-          updateDefaultEstablishmentBillingGroup={
-            this.props.updateDefaultEstablishmentBillingGroup
-          }
+          updateMemberBillingGroup={this.props.updateMemberBillingGroup}
         />
       </div>
     );
@@ -263,6 +257,15 @@ export default compose(
       ({ fetchMember, memberId }) =>
       (options) =>
         fetchMember(memberId, options),
+    updateMemberBillingGroup:
+      ({ updateDefaultEstablishmentBillingGroup, memberId, companyTheme }) =>
+      (establishmentBillingGroupId: number) => {
+        if (companyTheme?.enable_multi_localization && memberId) {
+          updateDefaultEstablishmentBillingGroup(memberId, {
+            default_establishment_billing_group: establishmentBillingGroupId,
+          });
+        }
+      },
   }),
   withProps(() => ({
     onSuccess: () => {

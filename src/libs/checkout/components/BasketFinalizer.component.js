@@ -27,8 +27,6 @@ import BasketTaxInfo from './BasketTaxInfo.component';
 import { verifyPriceBasket as verifyPriceBasketAPI } from '#libs/payment/api';
 import { TermsAndConditionType } from '../../payment/types';
 import CheckoutBillingGroupSelector from '#libs/marketplace/components/@Basket/CheckoutBillingGroupSelector.component';
-import { MemberMap } from '#libs/member/utils';
-import { mapFormData } from '../../../pages/form.utils';
 
 export const ADDRESS_STEP = {
   id: 0,
@@ -72,11 +70,7 @@ type Props = {
   establishmentBillingGroups: EstablishmentBillingGroup[],
   isEstablishmentBillingGroupSelected: boolean,
   setIsEstablishmentBillingGroupSelected: (_: boolean) => void,
-  updateDefaultEstablishmentBillingGroup: (
-    id: number,
-    memberData: FormData,
-    options?: OptionCallback,
-  ) => void,
+  updateMemberBillingGroup: (establishmentBillingGroupId: number) => void,
 };
 
 type State = {
@@ -98,17 +92,8 @@ export class BasketFinalizer extends React.Component<Props, State> {
 
   updateMemberDefaultEstablishmentBillingGroup = () => {
     if (this.props.selectedEstablishmentBillingGroup) {
-      const formData = mapFormData(
-        {
-          default_establishment_billing_group:
-            this.props.selectedEstablishmentBillingGroup.id,
-        },
-        MemberMap,
-      );
-      formData.append('id', this.props.basket.member.toString());
-      this.props.updateDefaultEstablishmentBillingGroup(
-        this.props.basket.member,
-        formData,
+      this.props.updateMemberBillingGroup(
+        this.props.selectedEstablishmentBillingGroup.id,
       );
     }
   };

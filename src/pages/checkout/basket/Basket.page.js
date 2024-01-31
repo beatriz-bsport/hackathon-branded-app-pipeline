@@ -204,12 +204,8 @@ type Props = {
   retrieveCompanyCssConfiguration: (companyid: number) => void,
   fetchAllEstablishmentBillingGroup: () => void,
   establishmentBillingGroups: EstablishmentBillingGroup[],
-  updateDefaultEstablishmentBillingGroup: (
-    id: number,
-    memberData: FormData,
-    options?: OptionCallback,
-  ) => void,
   defaultEstablishmentBillingGroup: EstablishmentBillingGroup,
+  updateMemberBillingGroup: (establishmentBillingGroupId: number) => void,
 };
 
 export class BasketPage extends React.Component<Props> {
@@ -628,6 +624,9 @@ export class BasketPage extends React.Component<Props> {
                         this.props.theme.general_terms_and_conditions
                       }
                       termsAndConditionsAccepted={termsAndConditionsAccepted}
+                      updateMemberBillingGroup={
+                        this.props.updateMemberBillingGroup
+                      }
                       useInternalAccount={this.props.useInternalAccount}
                     />
                   }
@@ -651,9 +650,7 @@ export class BasketPage extends React.Component<Props> {
                     this.props.theme.general_terms_and_conditions
                   }
                   termsAndConditionsAccepted={termsAndConditionsAccepted}
-                  updateDefaultEstablishmentBillingGroup={
-                    this.props.updateDefaultEstablishmentBillingGroup
-                  }
+                  updateMemberBillingGroup={this.props.updateMemberBillingGroup}
                   validateUnpaid={this.validateUnpaid}
                 />
               ) : (
@@ -733,9 +730,7 @@ export class BasketPage extends React.Component<Props> {
                   snackbarSuccessMsg={this.props.snackbarSuccessMsg}
                   termsAndConditionsAccepted={termsAndConditionsAccepted}
                   theme={this.props.theme}
-                  updateDefaultEstablishmentBillingGroup={
-                    this.props.updateDefaultEstablishmentBillingGroup
-                  }
+                  updateMemberBillingGroup={this.props.updateMemberBillingGroup}
                   useInternalAccount={this.props.useInternalAccount}
                   validateUnpaid={this.validateUnpaid}
                 />
@@ -1035,6 +1030,15 @@ export default compose(
           }
         }
         return true;
+      },
+    updateMemberBillingGroup:
+      ({ updateDefaultEstablishmentBillingGroup, basket, theme }) =>
+      (establishmentBillingGroupId: number) => {
+        if (theme.enable_multi_localization && basket) {
+          updateDefaultEstablishmentBillingGroup(basket.member, {
+            default_establishment_billing_group: establishmentBillingGroupId,
+          });
+        }
       },
   }),
   withHandlers({

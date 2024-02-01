@@ -282,6 +282,7 @@ export class SubscriptionPayment extends React.Component<Props, State> {
     if (
       this.props.forceEstablishmentSelection &&
       this.props.enableMultiLocalization &&
+      !!this.props.establishmentBillingGroups?.length &&
       !this.state.selectedEstablishmentBillingGroup
     ) {
       return;

@@ -2779,7 +2779,7 @@
     "event": {
         "list": {
             "title": {
-                "latestEvents": "Dernier évènements"
+                "latestEvents": "Derniers évènements"
             }
         },
         "member": {
@@ -4419,15 +4419,15 @@
                     "title": "Critères d'entrée",
                     "addTrigger": "Ajouter un déclencheur d'entrée",
                     "helperText": "Tout d'abord, définissez la manière dont vos membres entrerons dans le {{ workflowLowerCase }}. Sélectionnez un ou plusieurs événements ou smartlists et si le membre correspond à l'un d'entre eux, il entrera dans le {{ workflowLowerCase }}.",
-                    "creationHelper": "Commençons par décider comment vos membres vont entrer dans le {{ workflowLowerCase }}. Pour ce faire, vous devez sélectionner un déclencheur d'entrée.  Si vous sélectionnez plusieurs déclencheurs, les membres qui correspondent à l'un d'entre eux entreront dans le {{ workflowLowerCase }}.",
-                    "editionHelper": "Modifiez les critères d'entrée de vos membres dans le {{ workflowLowerCase }}. Vous pouvez choisir un ou plusieurs événements ou smartlists. Si un membre correspond à l'un de ces critères, il rejoindra le {{ workflowLowerCase }}."
+                    "creationHelper": "Commençons par décider comment vos membres entrent dans le {{ workflowLowerCase }}. Pour ce faire, vous devez sélectionner un déclencheur d'entrée.  Si vous sélectionnez plusieurs déclencheurs, les membres qui correspondent à l'un d'entre eux entreront dans le {{ workflowLowerCase }}.",
+                    "editionHelper": "Modifiez les critères d'entrée de vos membres dans le {{ workflowLowerCase }}. Si un membre correspond à l'un de ces critères, il rejoindra le {{ workflowLowerCase }}."
                 },
                 "convertIntoStep": {
-                    "label": "Intitulé de l'étape",
-                    "default": "Intitulé de l'étape"
+                    "label": "Nom de l'étape",
+                    "default": "Étape sans titre"
                 },
                 "convertIntoExit": {
-                    "label": "Considérer le member comme",
+                    "label": "Considérer la sortie comme",
                     "title": "Sortie"
                 },
                 "entryAction": {
@@ -4445,7 +4445,7 @@
                 },
                 "lostTrigger": {
                     "title": "Sortie non réussie",
-                    "helperText": "Définissez ce qui considère votre objectif comme non atteint : déterminez un délai après lequel le membre sortira sans succès de ce {{ workflowLowerCase }} et/ou un ou plusieurs déclencheurs spécifiques.",
+                    "helperText": "Définissez ce qui considère votre objectif comme non atteint : déterminez un délai après lequel le membre sortira sans succès de ce {{ workflowLowerCase }} et/ou un - ou plusieurs - déclencheurs spécifiques.",
                     "addTrigger": "Ajouter un déclencheur de sortie",
                     "timeout": {
                         "helperText": "Le membre quittera le {{ workflowLowerCase }} après ce délai, quelle que soit l'étape à laquelle il se trouve.",
@@ -4460,7 +4460,7 @@
                 },
                 "wonTrigger": {
                     "title": "Sortie réussie",
-                    "helperText": "Définissez l'objectif global de votre {{ workflowLowerCase }}. Si un membre effectue l'un de ces déclencheurs de sortie, il atteindra l'objectif et quittera le {{ workflowLowerCase }} avec succès (quelle que soit l'étape à laquelle il se trouve). Cela vous aidera à suivre vos indicateurs de performance.",
+                    "helperText": "Définissez l'objectif global de votre {{ workflowLowerCase }}. Si un membre effectue le (ou l'un des) déclencheur(s) de sortie sélectionné(s), il atteindra l'objectif et quittera le {{ workflowLowerCase }} avec succès (quelle que soit l'étape à laquelle il se trouve). Cela vous aidera à suivre vos indicateurs de performance.",
                     "addTrigger": "Ajouter un déclencheur de sortie"
                 }
             },
@@ -4529,8 +4529,8 @@
                 },
                 "exit": {
                     "title": "Sortie",
-                    "exit_success_label": "Succès",
-                    "exit_fail_label": "Sans succès"
+                    "exit_success_label": "Oui",
+                    "exit_fail_label": "Non"
                 },
                 "event": {
                     "1": "Carte de cours",
@@ -4850,7 +4850,7 @@
             },
             "memberTable": {
                 "tableColumnLabel": {
-                    "status": "Statut",
+                    "status": "Succès",
                     "exitDate": "Date de sortie",
                     "entryDate": "Date d'entrée",
                     "currentStep": "Étape actuelle",
@@ -5828,7 +5828,7 @@
                 "settings": "Paramètres",
                 "platform_billing": "Abonnement bsport",
                 "forms": "Formulaire membre",
-                "mobilePersonalization": "Personalisation app",
+                "mobilePersonalization": "Personnalisation app",
                 "coachUserspace": "Espace professeur",
                 "quicksale": "Interface de vente",
                 "referral": "Parrainage"
@@ -17512,7 +17512,7 @@
             "creationPageInfo": "Personnalisez des widgets et intégrez les sur votre site",
             "codeInfo": "Le code à intégrer dans votre site",
             "linkToConfig": "Lien vers cette configuration",
-            "dialogTitle": "Personalisation de Widget",
+            "dialogTitle": "Personnalisation du Widget",
             "widgetPreviewError": "Veuillez finir votre configuration",
             "dialogModeLabel": "Type de popup (login, paiement, réservation)",
             "dialogSizeLabel": "Dimension de la popup",

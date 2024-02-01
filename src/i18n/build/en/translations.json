@@ -8402,9 +8402,9 @@
             "current_stock": "Current stock",
             "noProvisionHistory": "No sale history",
             "form": {
-                "title": "Update provision",
+                "title": "Update inventory",
                 "quantityLabel": "Unit(s)",
-                "quantityHelperText": "Units to add/remove to provision",
+                "quantityHelperText": "Units to add to/remove from inventory",
                 "cancel": "Cancel",
                 "submit": "Save"
             },
@@ -14905,8 +14905,8 @@
                     "success": "Saved"
                 },
                 "updateProvisions": {
-                    "error": "Error while saving provision",
-                    "success": "Provision updated"
+                    "error": "Error while saving inventory",
+                    "success": "Inventory updated"
                 },
                 "duplicate": {
                     "error": "It is impossible to duplicate the product",
@@ -16979,8 +16979,8 @@
                     "1": "Pass"
                 },
                 "exit": {
-                    "exit_fail_label": "Unsuccessful",
-                    "exit_success_label": "Successful",
+                    "exit_fail_label": "No",
+                    "exit_success_label": "Yes",
                     "title": "Exit"
                 },
                 "next": "Next",
@@ -17127,7 +17127,8 @@
                     "addTrigger": "Add entry trigger",
                     "helperText": "Please define when and who will enter this cadence with the selected criteria and triggers.",
                     "title": "Entry",
-                    "creationHelper": "First let's decide how your members are going to enter the {{ workflowLowerCase }}. To do this, you will need to select an entry trigger.  If you select multiple triggers, members that correspond to any one of those, will enter the {{ workflowLowerCase }}."
+                    "creationHelper": "First let's decide how your members are going to enter the {{ workflowLowerCase }}. To do this, you will need to select an entry trigger.  If you select multiple triggers, members that correspond to any one of those, will enter the {{ workflowLowerCase }}.",
+                    "editionHelper": "Edit the criteria for your members to enter the {{ workflowLowerCase }}. If a member fits any of these, they'll join the {{ workflowLowerCase }}."
                 },
                 "changeInStep": {
                     "default": "Step label",
@@ -17158,6 +17159,13 @@
                 },
                 "entryAction": {
                     "helperText": "Set what marketing action(s) to apply when a member enter the {{ workflowLowerCase }}."
+                },
+                "convertIntoStep": {
+                    "label": "Step name",
+                    "default": "Untitled step"
+                },
+                "convertIntoExit": {
+                    "label": "Consider the exit as"
                 }
             },
             "welcome": {
@@ -17183,6 +17191,11 @@
                     "isMultipleVisitAllowedLabel": "Members can enter and exit this {{ workflowLowerCase }} multiple times."
                 },
                 "addAWorkflow": "Add {{ workflowLowerCase }}"
+            },
+            "memberTable": {
+                "tableColumnLabel": {
+                    "status": "Success"
+                }
             }
         }
     },

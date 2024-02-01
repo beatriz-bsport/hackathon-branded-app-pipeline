@@ -5,8 +5,8 @@ import {
   fetchGlobalMetricsActions,
   fetchMembersHistoricActions,
   fetchPresentMembersDataActions,
-  searchMembersHistoricActions,
-  searchPresentMembersDataActions,
+  searchCadenceMembersHistoricActions,
+  searchCadencePresentMembersDataActions,
 } from '#libs/sequential_marketing/actions';
 
 import type {
@@ -101,19 +101,19 @@ export default handleActions<ImmutableCadenceMetricsState, any>(
         payload.data,
       );
     },
-    [searchPresentMembersDataActions.isLoading.toString()]: (
+    [searchCadencePresentMembersDataActions.isLoading.toString()]: (
       state,
       { payload }: { payload: boolean },
     ) => {
       return state.setIn(['membersPresent', 'loading'], payload);
     },
-    [searchPresentMembersDataActions.error.toString()]: (
+    [searchCadencePresentMembersDataActions.error.toString()]: (
       state,
       { payload }: { payload: Error | null },
     ) => {
       return state.setIn(['membersPresent', 'error'], payload);
     },
-    [searchPresentMembersDataActions.success.toString()]: (
+    [searchCadencePresentMembersDataActions.success.toString()]: (
       state,
       {
         payload,
@@ -167,19 +167,19 @@ export default handleActions<ImmutableCadenceMetricsState, any>(
         payload.data,
       );
     },
-    [searchMembersHistoricActions.isLoading.toString()]: (
+    [searchCadenceMembersHistoricActions.isLoading.toString()]: (
       state,
       { payload }: { payload: boolean },
     ) => {
       return state.setIn(['membersHistoric', 'loading'], payload);
     },
-    [searchMembersHistoricActions.error.toString()]: (
+    [searchCadenceMembersHistoricActions.error.toString()]: (
       state,
       { payload }: { payload: Error | null },
     ) => {
       return state.setIn(['membersHistoric', 'error'], payload);
     },
-    [searchMembersHistoricActions.success.toString()]: (
+    [searchCadenceMembersHistoricActions.success.toString()]: (
       state,
       {
         payload,

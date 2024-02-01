@@ -337,7 +337,7 @@ export const fetchMembersHistoric = (
   );
 };
 
-export const searchPresentMembersData = (
+export const searchCadencePresentMembersData = (
   cadenceId: number,
   params?: CadencePaginatedMetricsParams & { text: string },
 ) => {
@@ -348,7 +348,7 @@ export const searchPresentMembersData = (
   );
 };
 
-export const searchMembersHistoric = (
+export const searchCadenceMembersHistoric = (
   cadenceId: number,
   params?: CadencePaginatedMetricsParams & { text: string },
 ) => {

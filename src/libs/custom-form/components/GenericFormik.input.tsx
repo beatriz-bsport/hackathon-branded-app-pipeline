@@ -178,6 +178,17 @@ export const MaterialUiSingleSelectorField: React.FC<
   const value = props.options.find((option) => option.value === field.value);
   const classes = useMaterialUiSingleSelectStyles();
 
+  const handleChange = React.useCallback(
+    (option) => {
+      option &&
+        (props.onChange
+          ? props.onChange(option)
+          : helpers.setValue(option.value));
+      helpers.setTouched(true, false);
+    },
+    [helpers, props],
+  );
+
   return (
     <div className={classNames(classes.container, props.className)}>
       {!!props.title && props.title}
@@ -191,12 +202,7 @@ export const MaterialUiSingleSelectorField: React.FC<
             isMenuListVirtualized={props.isMenuListVirtualized}
             isMulti={false}
             itemRenderer={props.itemRenderer}
-            onChange={(option) => {
-              props.onChange
-                ? props.onChange(option)
-                : helpers.setValue(option.value);
-              helpers.setTouched(true, false);
-            }}
+            onChange={handleChange}
             options={props.options}
             placeholder={props.placeholder}
             value={value}

@@ -9,13 +9,17 @@ import memoize from 'memoize-one';
 import { Moment } from '../../i18n';
 import { getAllTagsWithTagGroup } from '../tag/selectors';
 
-import { getAllCoachesDict } from '../associated-coach/selectors';
+import { getAllCoachesDict, getCoach } from '../associated-coach/selectors';
 import {
   getWorkshopActivitiesDict,
   getMetaActivitiesDict,
   getMetaActivityAbstractDict,
+  getMetaActivity,
 } from '../meta-activity/selectors';
-import { getAllEstablishmentsDict } from '../establishment/selectors';
+import {
+  getAllEstablishmentsDict,
+  getEstablishment,
+} from '../establishment/selectors';
 import themeSelectors from '../theme/selectors';
 import { RootState } from '../../reducers';
 import { Offer } from './types';
@@ -512,5 +516,49 @@ export const getOfferStatusWaitingListPositionList = createSelector(
   [getOfferStatusWaitingListPositionById, getOfferIds],
   (offerStatusWaitingListpositionById, offerIds) => {
     return offerIds.map((id) => offerStatusWaitingListpositionById[id] ?? {});
+  },
+);
+
+const getOfferMetaActivity = (state: RootState, offerId: number) => {
+  const offer = getOfferById(state, offerId);
+  return offer ? getMetaActivity(state, offer.meta_activity) : null;
+};
+
+const getOfferEtablishment = (state: RootState, offerId: number) => {
+  const offer = getOfferById(state, offerId);
+  if (!offer) return null;
+  return offer.establishment_override
+    ? getEstablishment(state, offer.establishment_override)
+    : getEstablishment(state, offer.establishment);
+};
+
+const getOfferCoach = (state: RootState, offerId: number) => {
+  const offer = getOfferById(state, offerId);
+  if (!offer) return null;
+  return offer.coach_override
+    ? getCoach(state, offer.coach_override)
+    : getCoach(state, offer.coach);
+};
+
+/**
+ * Selects and constructs an offer object enriched with associated details for Google Analytics tracking.
+ * The selector retrieves details such as meta activity, establishment, and coach related to a specific offer.
+ * Note: This selector is designed for use in the context of Google Analytics.
+ *
+ * @param {RootState} state - The Redux root state.
+ * @param {number} offerId - The unique identifier of the offer to retrieve details for.
+ * @returns {Object | null} An offer object enriched with associated details like meta activity, establishment, and coach, or null if data is not available.
+ */
+export const getOfferForAnalytics = createSelector(
+  [getOfferById, getOfferMetaActivity, getOfferEtablishment, getOfferCoach],
+  (offer, offerMetaActivity, offerEstablishment, offerCoach) => {
+    if (!offer || !offerMetaActivity || !offerEstablishment || !offerCoach)
+      return null;
+    return {
+      ...offer,
+      meta_activity: offerMetaActivity,
+      establishment: offerEstablishment,
+      coach: offerCoach,
+    };
   },
 );

@@ -70,6 +70,7 @@ import {
   getBookedOffers,
   getNextAvailableOffer,
   getBookedGenderOffer,
+  getOfferForAnalytics,
 } from '#libs/offer/selectors';
 import { fetchAssociatedCoachBulkFromCoachIds as fetchAssociatedCoachBulkFromCoachIdsAction } from '#libs/associated-coach/actions';
 import {
@@ -361,7 +362,11 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       );
       return;
     }
-    Analytics.calendarSessionShow(offer);
+    const enrichedOfferForAnalytics = this.props.getEnrichedOfferForAnalytics(
+      offer.id,
+    );
+    enrichedOfferForAnalytics &&
+      Analytics.calendarSessionShow(enrichedOfferForAnalytics);
     this.props.goToBook(offer.id, this.props.companyId);
   };
 
@@ -373,7 +378,11 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       });
       return;
     }
-    Analytics.calendarSessionShow(offer);
+    const enrichedOfferForAnalytics = this.props.getEnrichedOfferForAnalytics(
+      offer.id,
+    );
+    enrichedOfferForAnalytics &&
+      Analytics.calendarSessionShow(enrichedOfferForAnalytics);
     this.props.goToBookOption(offer.id, this.props.companyId);
   };
 
@@ -585,6 +594,9 @@ const GroupRulePopupContained = connect((state: RootState) => ({
 }))(GroupRulePopup);
 
 const mapStateToProps = (state: RootState) => ({
+  getEnrichedOfferForAnalytics: (offerId: number) => {
+    return getOfferForAnalytics(state, offerId);
+  },
   offers: getMarketplaceOfferList(state),
   genderCount: getBookedGenderOffer(state),
   loading: state.offer.marketplace.loading,

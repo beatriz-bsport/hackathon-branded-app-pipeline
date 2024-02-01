@@ -1152,6 +1152,7 @@ const MAP_REPORT_CATEGORIES_TO_GLOBAL_CATEGORIES = {
   [ReportCategoryEnum.OFFERS]: 'Club',
   [ReportCategoryEnum.SUBSCRIPTION]: 'Club',
   [ReportCategoryEnum.PRIVATE_SERVICE]: 'Club',
+  [ReportCategoryEnum.REFERRAL_GRANTED]: 'Club',
   // ----------------
   [ReportCategoryEnum.DAY_BOOKINGS]: 'Bookings',
   [ReportCategoryEnum.FIRST_BOOKING]: 'Bookings',

@@ -8,6 +8,7 @@ import {
   UnpaidInvoiceMetadataIdentifierEnum,
 } from '@bsport/common/lib/master-data/metadata-identifiers';
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
+import { shouldHideReferral } from '#libs/referral/utils';
 
 export const GREEN_GREY_BOOLEAN_CHIPS = [
   'new_member_only',
@@ -76,6 +77,7 @@ export const COMPANY_REPORT_CATEGORIES_BY_GLOBAL_CATEGORY = {
     ReportCategoryEnum.OFFERS,
     ReportCategoryEnum.SUBSCRIPTION,
     ReportCategoryEnum.PRIVATE_SERVICE,
+    ReportCategoryEnum.REFERRAL_GRANT,
   ],
   Bookings: [
     ReportCategoryEnum.DAY_BOOKINGS,
@@ -99,6 +101,13 @@ export const COMPANY_REPORT_CATEGORIES_BY_GLOBAL_CATEGORY = {
     ReportCategoryEnum.VIDEO,
   ],
 };
+
+if (shouldHideReferral) {
+  COMPANY_REPORT_CATEGORIES_BY_GLOBAL_CATEGORY.Club =
+    COMPANY_REPORT_CATEGORIES_BY_GLOBAL_CATEGORY.Club.filter(
+      (category) => category !== ReportCategoryEnum.REFERRAL_GRANT,
+    );
+}
 
 export const authorIdentifiers = [
   OnSpotPaymentMetadataIdentifierEnum.AUTHOR,

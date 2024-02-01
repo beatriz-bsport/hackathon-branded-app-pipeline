@@ -71,12 +71,7 @@ import ToolTip from '#components/Tooltip.component';
 import ResponsiveDrawerItem from './ResponsiveDrawerItem.component';
 
 import { hasObjectLevelPermission } from '#libs/role/permission-utils/utils';
-
-// Temporary condition to hide the referral page while the feature is not finished
-// Condition will be removed once the feature is finished
-const shouldHideReferral =
-  Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ||
-  Config.REACT_APP_SENTRY_ENVIRONMENT === 'production';
+import { shouldHideReferral } from '#libs/referral/utils';
 
 export const drawerWidth = 260;
 const usePrevious = (value: boolean) => {

@@ -469,6 +469,15 @@ const getTranslations = async () => {
             },
             _label: 'Subscription invoices',
           },
+          referral_grant: {
+            allowed_actions: {
+              create: { _label: 'Create' },
+              read: { _label: 'See' },
+              delete: { _label: 'Delete' },
+              edit: { _label: 'Edit' },
+            },
+            _label: 'Referral grants',
+          },
         },
         Payments: {
           video_purchase: {

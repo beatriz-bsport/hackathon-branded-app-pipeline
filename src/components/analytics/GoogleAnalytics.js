@@ -1,6 +1,5 @@
 import TagManager from 'react-gtm-module';
 import moment from 'moment-timezone';
-import { getCoachOrSubstitute } from '../../libs/offer/utils';
 
 const storage = window.localStorage;
 const currencyCode = (
@@ -249,8 +248,8 @@ GoogleAnalytics.addMethod(
     data: {
       name: offer.meta_activity.name,
       date: offer.date_start,
-      coach: getCoachOrSubstitute(offer)?.name,
-      establishment: offer.establishment.name,
+      coach: offer.coach.name,
+      establishment: offer.establishment.title,
       activity: offer.meta_activity.id,
     },
   }),

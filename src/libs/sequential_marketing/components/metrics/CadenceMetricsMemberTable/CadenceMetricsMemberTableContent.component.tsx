@@ -85,6 +85,15 @@ const CadenceMetricsMemberTableContent: React.FC<Props> = ({
   const classes = useStyles();
   const { t } = useTranslation('marketing');
 
+  const getStepName = React.useCallback(
+    (stepId: number): string => {
+      const step = getCadenceStep(stepId);
+      if (step?.is_entrypoint) return t('cadence.triggers.start');
+      return step?.name;
+    },
+    [getCadenceStep, t],
+  );
+
   return (
     <ResponsiveTable>
       <TableHead>
@@ -147,7 +156,7 @@ const CadenceMetricsMemberTableContent: React.FC<Props> = ({
               </MUITableCell>
               <MUITableCell align="left">
                 <Typography noWrap className={classes.name} variant="body2">
-                  {getCadenceStep(member.current_step_id)?.name}
+                  {getStepName(member.current_step_id)}
                 </Typography>
               </MUITableCell>
               <MUITableCell align="right">

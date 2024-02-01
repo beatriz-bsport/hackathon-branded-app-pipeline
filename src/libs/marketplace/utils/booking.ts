@@ -237,8 +237,8 @@ export const loadDefaultEstablishmentBillingGroupFromOffers = (
  * @param isEstablishmentBillingGroupSelected - A state variable, telling if the establishment billing group is selected or not.
  * @param setSelectedEstablishmentBillingGroup - A function to set the selected establishment billing group.
  * @param setIsEstablishmentBillingGroupSelected - A function to set whether an establishment billing group is selected.
- * @param prevProps - The previous properties, including the default establishment billing group, the establishment billing groups, and the basket offers.
- * @param newProps - The new properties, including the default establishment billing group, the establishment billing groups, and the basket offers.
+ * @param prevProps - The previous properties, including the default establishment billing group, the establishment billing groups with its loading state, and the basket offers.
+ * @param newProps - The new properties, including the default establishment billing group, the establishment billing groups its loading state, and the basket offers.
  *
  * The function first checks if multilocalisation is enabled and if there are any changes in the default establishment billing group, the establishment billing groups, or the basket offers.
  * If there are changes, it then tries to find a billing group in the offers. If it finds one, it sets this as the selected establishment billing group.
@@ -256,11 +256,13 @@ export const loadDefaultEstablishmentBillingGroup = (
     defaultEstablishmentBillingGroup: EstablishmentBillingGroup;
     establishmentBillingGroups: EstablishmentBillingGroup[];
     basketOffers?: Offer<number, Establishment, MetaActivity>[];
+    establishmentBillingGroupLoading?: boolean;
   },
   newProps: {
     defaultEstablishmentBillingGroup: EstablishmentBillingGroup;
     establishmentBillingGroups: EstablishmentBillingGroup[];
     basketOffers?: Offer<number, Establishment, MetaActivity>[];
+    establishmentBillingGroupLoading?: boolean;
   },
 ) => {
   const incomingBasketData = !isEqual(
@@ -273,6 +275,9 @@ export const loadDefaultEstablishmentBillingGroup = (
   const incomingEstablishmentBillingGroupData =
     prevProps.establishmentBillingGroups !==
     newProps.establishmentBillingGroups;
+  const incomingBillingGroupLoading =
+    prevProps.establishmentBillingGroupLoading !==
+    newProps.establishmentBillingGroupLoading;
 
   if (
     enableMultilocalisation &&
@@ -281,7 +286,8 @@ export const loadDefaultEstablishmentBillingGroup = (
       // New data on establishment billing groups
       incomingEstablishmentBillingGroupData ||
       // New basket offers data
-      incomingBasketData)
+      incomingBasketData ||
+      incomingBillingGroupLoading)
   ) {
     // ---- 1ST STEP : LOOK FOR A BILLING GROUP IN THE OFFERS ----
     const defaultBillingGroupFromOffers =
@@ -290,6 +296,7 @@ export const loadDefaultEstablishmentBillingGroup = (
         newProps.establishmentBillingGroups,
         newProps.basketOffers,
       );
+
     if (
       defaultBillingGroupFromOffers &&
       (!isEstablishmentBillingGroupSelected || incomingBasketData)
@@ -299,13 +306,12 @@ export const loadDefaultEstablishmentBillingGroup = (
       return defaultBillingGroupFromOffers;
     }
     // ---- 2ND STEP : LOOK AT THE MEMBER'S DEFAULT ESTABLISHMENT BILLING ----
-    const offersLengthIsPositive = newProps.basketOffers?.length === 0;
     const defaultBillingGroupIsEnabled =
       newProps.defaultEstablishmentBillingGroup?.disabled === false;
+
     if (
       !isEstablishmentBillingGroupSelected &&
       newProps.defaultEstablishmentBillingGroup &&
-      offersLengthIsPositive &&
       defaultBillingGroupIsEnabled
     ) {
       setSelectedEstablishmentBillingGroup(
@@ -322,6 +328,11 @@ export const loadDefaultEstablishmentBillingGroup = (
     ) {
       setIsEstablishmentBillingGroupSelected(false);
     }
+
+    !newProps.establishmentBillingGroupLoading &&
+      newProps.establishmentBillingGroups?.length > 0 &&
+      !selectedEstablishmentBillingGroup &&
+      setIsEstablishmentBillingGroupSelected(false);
   }
   return null;
 };

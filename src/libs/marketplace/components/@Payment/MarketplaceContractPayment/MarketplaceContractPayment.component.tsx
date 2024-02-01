@@ -120,7 +120,6 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
     defaultEstablishmentBillingGroup,
     enableMultiLocalization,
     establishmentBillingGroups,
-    isEstablishmentBillingGroupSelected,
     setIsEstablishmentBillingGroupSelected,
     updateMemberBillingGroup,
   }) => {
@@ -456,7 +455,7 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
     const submitDisabled =
       !areBillingDetailsProvided ||
       !isContractLegalTermsAccepted ||
-      !isEstablishmentBillingGroupSelected ||
+      (enableMultiLocalization && !selectedEstablishmentBillingGroup) ||
       isLoading ||
       !selectedSavedPaymentMethodId;
 

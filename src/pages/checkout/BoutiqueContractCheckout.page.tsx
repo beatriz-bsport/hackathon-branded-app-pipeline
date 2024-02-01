@@ -103,7 +103,10 @@ import { buildUrlParams } from '../../http';
 
 import './BoutiqueContractCheckout.css';
 import { EstablishmentBillingGroup } from '#libs/establishment/types';
-import { getEnabledEstablishmentBillingGroups } from '#libs/establishment/selectors';
+import {
+  getEnabledEstablishmentBillingGroups,
+  getDefaultEstablishmentBillingGroup,
+} from '#libs/establishment/selectors';
 import {
   fetchMember as fetchMemberAction,
   updateDefaultEstablishmentBillingGroup as updateDefaultEstablishmentBillingGroupAction,
@@ -269,14 +272,20 @@ export class BoutiqueContractCheckout extends React.Component<Props, State> {
       this.setSelectedEstablishmentBillingGroup,
       this.setIsEstablishmentBillingGroupSelected,
       {
-        defaultEstablishmentBillingGroup: null,
+        defaultEstablishmentBillingGroup:
+          prevProps.defaultEstablishmentBillingGroup,
         establishmentBillingGroups: prevProps.establishmentBillingGroups,
         basketOffers: [prevProps.offer],
+        establishmentBillingGroupLoading:
+          prevProps.establishmentBillingGroupLoading,
       },
       {
-        defaultEstablishmentBillingGroup: null,
+        defaultEstablishmentBillingGroup:
+          this.props.defaultEstablishmentBillingGroup,
         establishmentBillingGroups: this.props.establishmentBillingGroups,
         basketOffers: [this.props.offer],
+        establishmentBillingGroupLoading:
+          this.props.establishmentBillingGroupLoading,
       },
     );
   }
@@ -756,7 +765,13 @@ const mapStateToProps = (
   paymentMethodLoading: state.paymentBackend.paymentMethod.loading,
   customConfiguration: state.exportableComponents.customCss,
   establishmentBillingGroups: getEnabledEstablishmentBillingGroups(state),
-  memberId: getMembership(state, companyId).id,
+  memberId: getMembership(state, companyId)?.id,
+  defaultEstablishmentBillingGroup: getDefaultEstablishmentBillingGroup(
+    state,
+    getMembership(state, companyId)?.id,
+  ),
+  establishmentBillingGroupLoading:
+    state.establishment.establishmentBillingGroup.loading,
 });
 
 const mapDispatchToProps = {

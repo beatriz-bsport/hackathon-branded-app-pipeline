@@ -93,7 +93,6 @@ import {
   getMemberDetailData,
   getMemberThroughMembership,
 } from '#libs/member/selectors';
-import { loadDefaultEstablishmentBillingGroup } from '#libs/marketplace/utils/booking';
 
 const MarketplaceContractPayment = asyncComponent(
   () => import('#marketplacecomponents/@Payment/MarketplaceContractPayment'),
@@ -178,8 +177,6 @@ export class MarketplaceSubscriptionPayment extends React.Component<
     };
   }
 
-  defaultEstablishmentBillingGroup: EstablishmentBillingGroup = null;
-
   componentDidMount() {
     this.props.fetchContractList(this.props.companyId, {
       onSuccess: () =>
@@ -246,26 +243,6 @@ export class MarketplaceSubscriptionPayment extends React.Component<
         block: 'center',
       });
     }
-    this.defaultEstablishmentBillingGroup =
-      loadDefaultEstablishmentBillingGroup(
-        this.props.theme.enable_multi_localization,
-        null,
-        this.state.isEstablishmentBillingGroupSelected,
-        () => {},
-        this.setIsEstablishmentBillingGroupSelected,
-        {
-          defaultEstablishmentBillingGroup:
-            prevProps.defaultEstablishmentBillingGroup,
-          establishmentBillingGroups: prevProps.establishmentBillingGroups,
-          basketOffers: null,
-        },
-        {
-          defaultEstablishmentBillingGroup:
-            this.props.defaultEstablishmentBillingGroup,
-          establishmentBillingGroups: this.props.establishmentBillingGroups,
-          basketOffers: null,
-        },
-      );
   }
 
   setIsEstablishmentBillingGroupSelected = (
@@ -573,7 +550,7 @@ export class MarketplaceSubscriptionPayment extends React.Component<
                   companyId={this.props.companyId}
                   contract={contract}
                   defaultEstablishmentBillingGroup={
-                    this.defaultEstablishmentBillingGroup
+                    this.props.defaultEstablishmentBillingGroup
                   }
                   detachPaymentMethod={this.props.detachPaymentMethod}
                   enabledPaymentGroupMethodIdentifierIds={

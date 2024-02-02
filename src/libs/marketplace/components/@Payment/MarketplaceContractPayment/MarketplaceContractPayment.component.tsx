@@ -117,6 +117,7 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
     const [couponCode, setCouponCode] = useState<string>(null);
     const [paymentMethod, setPaymentMethod] =
       useState<MarketplacePaymentMethods | null>(null);
+
     const defaultBillingDetailsValues = React.useMemo(() => {
       return {
         name: sepaDefaultName ?? '',
@@ -177,6 +178,27 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
       [],
     );
 
+    const getIsPaymentMethodAvailable = useCallback(
+      (
+        paymentMethodIdentifier: number,
+        paymentGroupMethodIdentifier: number,
+      ) => {
+        const isPaymentMethodIdentifierEnabled = (
+          enabledPaymentMethodsIds || []
+        ).includes(paymentMethodIdentifier);
+
+        const isPaymentGroupMethodIdentifierEnabled = (
+          enabledPaymentGroupMethodIdentifierIds || []
+        ).includes(paymentGroupMethodIdentifier);
+
+        return (
+          isPaymentMethodIdentifierEnabled ||
+          isPaymentGroupMethodIdentifierEnabled
+        );
+      },
+      [enabledPaymentGroupMethodIdentifierIds, enabledPaymentMethodsIds],
+    );
+
     const areInitialBillingDetailsNecessary =
       cardBillingDetailsMandatory &&
       selectedSavedPaymentMethodId &&
@@ -197,18 +219,22 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
        * or the available payment method for the marketplace, it will be used.
        */
       if (!paymentMethod) {
-        const shouldSetSepaPaymentMethod =
-          (enabledPaymentGroupMethodIdentifierIds || [])?.includes(
-            PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
-          ) ||
-          (enabledPaymentMethodsIds || [])?.includes(
-            BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
-          );
-        setPaymentMethod(
-          shouldSetSepaPaymentMethod
-            ? MarketplacePaymentMethods.sepa
-            : MarketplacePaymentMethods.card,
+        const isBacsEnabled = getIsPaymentMethodAvailable(
+          BILLING_PLAN_PAYMENT_METHOD_STRIPE_BACS_DEBIT,
+          PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
         );
+
+        const isSepaEnabled = getIsPaymentMethodAvailable(
+          BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
+          PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
+        );
+        if (isBacsEnabled) {
+          setPaymentMethod(MarketplacePaymentMethods.bacs);
+        } else if (isSepaEnabled) {
+          setPaymentMethod(MarketplacePaymentMethods.sepa);
+        } else {
+          setPaymentMethod(MarketplacePaymentMethods.card);
+        }
       }
 
       if (savedPaymentMethodList?.length || paymentMethod) {
@@ -228,6 +254,7 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
       savedPaymentMethodList?.length,
       sepaDefaultName,
       sepaDefaultEmail,
+      getIsPaymentMethodAvailable,
     ]);
 
     // Whenever the paymentMethod changes, we change the state of the billing details
@@ -312,27 +339,6 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
     const handleCloseCollectPaymentMethodDialog = useCallback(() => {
       setCollectPaymentMethodIsOpen(false);
     }, []);
-
-    const getIsPaymentMethodAvailable = useCallback(
-      (
-        paymentMethodIdentifier: number,
-        paymentGroupMethodIdentifier: number,
-      ) => {
-        const isPaymentMethodIdentifierEnabled = (
-          enabledPaymentMethodsIds || []
-        ).includes(paymentMethodIdentifier);
-
-        const isPaymentGroupMethodIdentifierEnabled = (
-          enabledPaymentGroupMethodIdentifierIds || []
-        ).includes(paymentGroupMethodIdentifier);
-
-        return (
-          isPaymentMethodIdentifierEnabled ||
-          isPaymentGroupMethodIdentifierEnabled
-        );
-      },
-      [enabledPaymentGroupMethodIdentifierIds, enabledPaymentMethodsIds],
-    );
 
     const handleApplyCoupon = useCallback(
       async (

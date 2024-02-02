@@ -353,6 +353,7 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
         paymentMethod,
         updateMemberBillingGroup,
         selectedEstablishmentBillingGroup,
+        enableMultiLocalization,
       ],
     );
 

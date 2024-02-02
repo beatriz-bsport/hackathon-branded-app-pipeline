@@ -75,15 +75,16 @@ const SelectField: React.FC<Props> = (props: Props) => {
       size="sm"
     >
       <MenuItemList>
-        {suggestions.map((suggestion) => (
-          <MenuItem
-            key={suggestion?.value}
-            label={suggestion?.label}
-            onClick={handleClick(suggestion?.value)}
-            selected={itemSelected?.value === suggestion?.value}
-            type={type}
-          />
-        ))}
+        {Array.isArray(suggestions) &&
+          suggestions?.map((suggestion) => (
+            <MenuItem
+              key={suggestion?.value}
+              label={suggestion?.label}
+              onClick={handleClick(suggestion?.value)}
+              selected={itemSelected?.value === suggestion?.value}
+              type={type}
+            />
+          ))}
       </MenuItemList>
     </Selector>
   );

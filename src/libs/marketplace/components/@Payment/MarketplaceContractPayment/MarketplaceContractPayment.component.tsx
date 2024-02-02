@@ -303,8 +303,8 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
 
     const handleOnSubmit: FormEventHandler<HTMLFormElement> = useCallback(
       async (event) => {
-        if (selectedEstablishmentBillingGroup) {
-          event.preventDefault();
+        event.preventDefault();
+        if (enableMultiLocalization && selectedEstablishmentBillingGroup) {
           updateMemberBillingGroup(selectedEstablishmentBillingGroup.id);
         }
         const isDateValid = moment(billingStartDate).isSameOrAfter(

@@ -15,9 +15,13 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import { withTranslation, TFunction, Trans } from 'react-i18next';
-import { BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA } from '@bsport/common/lib/master-data/subscription-payment-methods';
+import {
+  BILLING_PLAN_PAYMENT_METHOD_STRIPE_BACS_DEBIT,
+  BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
+} from '@bsport/common/lib/master-data/subscription-payment-methods';
 import Select from '@material-ui/core/Select';
 import {
+  PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
   PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
   PAYMENT_GROUP_METHOD_BY_ENGINE,
   PAYMENT_ENGINE_BSPORT,
@@ -1038,15 +1042,27 @@ export default compose(
   withState(
     'paymentMethod',
     'setPaymentMethod',
-    ({ enabledPaymentMethods, enabledPaymentGroupMethodIdentifier }) =>
-      (enabledPaymentGroupMethodIdentifier || []).includes(
-        PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
-      ) ||
-      (enabledPaymentMethods || []).includes(
-        BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
-      )
-        ? 'sepa_debit'
-        : 'card',
+    ({ enabledPaymentMethods, enabledPaymentGroupMethodIdentifier }) => {
+      const isBacsEnabled =
+        (enabledPaymentGroupMethodIdentifier || []).includes(
+          PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
+        ) ||
+        (enabledPaymentMethods || []).includes(
+          BILLING_PLAN_PAYMENT_METHOD_STRIPE_BACS_DEBIT,
+        );
+
+      const isSepaEnabled =
+        (enabledPaymentGroupMethodIdentifier || []).includes(
+          PAYMENT_GROUP_METHOD_IDENTIFIER_SEPA,
+        ) ||
+        (enabledPaymentMethods || []).includes(
+          BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
+        );
+
+      if (isBacsEnabled) return 'bacs_debit';
+      if (isSepaEnabled) return 'sepa_debit';
+      return 'card';
+    },
   ),
   withTranslation(['subscription']),
   withStyles(styles),

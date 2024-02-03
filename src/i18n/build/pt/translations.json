@@ -2143,7 +2143,7 @@
         "booking": {
             "showCalendar": "Ver o calendário",
             "bookAgain": "Remarcar",
-            "accessLive": "Aceder à transmissão em direto",
+            "accessLive": "Acceder aula online",
             "spotNumber": "Local {{count}}",
             "titlePrivateBooking": "Marcações",
             "discard": "Cancelar",
@@ -4900,7 +4900,7 @@
                 "company": "Empresa",
                 "quicksale": "Área de vendas",
                 "marketplaceSettings": "Configurações Marketplace",
-                "broadcast": "Videoconferência",
+                "broadcast": "Aula Online",
                 "general": "Geral",
                 "widget": "Widget",
                 "quickbooks": "QuickBooks",
@@ -6698,7 +6698,7 @@
             "isEmpty": "Nenhuma recibo.",
             "paymentNb": "{{nb}} pagamentos",
             "payoutAmountFromIncludedPayouts": "dos quais {{price}} de pagamentos anteriores",
-            "payoutIsManual": "Esta transferência foi iniciada manualmente pelas equipas da bsport para acelerar a receção dos seus fundos. Neste caso, os dados de pagamento não estão disponíveis. Contacte as nossas equipas se necessitar de mais informações.",
+            "payoutIsManual": "Esta transferência foi iniciada manualmente pelas equipas da bsport para acelerar a receção dos seus fundos. Neste caso, os dados de pagamento não estão disponíveis. Contacte as nossa equipas se necessitar de mais informações.",
             "title": "Os meus recibos",
             "dialog": {
                 "title": "Notificação de sincronização de pagamentos",
@@ -10446,7 +10446,7 @@
         },
         "pageTitles": {
             "theme": "Geral",
-            "broadcast": "Videoconferência",
+            "broadcast": "Aula Online",
             "personalization": "Personalização"
         },
         "taxDisplay": {
@@ -10685,7 +10685,7 @@
                     },
                     "isWithoutEstablishment": {
                         "label": "Não há pré-determinado",
-                        "helperText": "Exemplo: aulas em vídeo / aulas ao ar livre / ..."
+                        "helperText": "Exemplo: aulas online / aulas ao ar livre / ..."
                     }
                 },
                 "description": {
@@ -12998,7 +12998,7 @@
         "broadcast": {
             "zoom": {
                 "explainInvalid": "Conta inválida",
-                "explainValid": "Conta válida: Os links para aceder à reunião ZOOM serão criados automaticamente para cada sessão 15 minutos antes da hora de início. O professor receberá uma ligação para acolher a reunião, enquanto os alunos receberão outra ligação para participar na reunião. Tenha em atenção que, se a conta ZOOM não for paga, a reunião ZOOM é limitada a 40 minutos",
+                "explainValid": "Conta válida: Os links para aceder à reunião ZOOM serão criados automaticamente para cada sessão 15 minutos antes da hora de início. O professor receberá um link para acolher a reunião, enquanto os alunos receberão outro link para participar na reunião. Tenha em atenção que, se a conta ZOOM não for paga, a reunião ZOOM é limitada a 40 minutos",
                 "label": "Configurar contas ZOOM",
                 "revoke": "Desativar ZOOM",
                 "enabled": "Ativar integração com o ZOOM",
@@ -13066,7 +13066,7 @@
             "personalization": "Personalizar",
             "waitingList": "Lista de espera",
             "general": "Geral",
-            "broadcast": "Vídeo conferência",
+            "broadcast": "Aula Online",
             "paymentRules": "Regras de renumeração",
             "invoice": "Faturação",
             "shop": "Loja",
@@ -14494,7 +14494,7 @@
             "offersPendingDelete": "Sessões a cancelar :",
             "offersPendingChange": "Sessões a alterar:",
             "sizeOfWaitingList": "Tamanho da lista de espera",
-            "broadcast_link": "Link de videoconferência",
+            "broadcast_link": "Link da aula online",
             "partner_max_booking_count": "Número máximo de reservas no marketplace (apenas OneFit)",
             "maxBookingsNb": "lugares",
             "nonAttendant": "ausente(s)",
@@ -14849,7 +14849,7 @@
             "name": "Título",
             "nextSlotAt": "Próxima reunião em ",
             "settings": "Configurações",
-            "is_broadcast": "Aulas de transmissão online",
+            "is_broadcast": "Aula Online",
             "firstMinutesBookingUntilWarning": "Um valor de zero significa que não foram estabelecidos limites. As reservas estarão sempre abertas para as sessões desta atividade.",
             "totalCustomers": "Total de reservas",
             "fillrate": "Ocupação média",
@@ -15018,7 +15018,7 @@
                 "specificities": {
                     "field": {
                         "waitingListMaxSize": "Lista de espera",
-                        "effectif": "Equipa",
+                        "effectif": "Vagas disponíveis",
                         "hybridEditHelper": "Está a editar uma sessão online ligada a uma sessão no local. Para alterar determinadas informações, é necessário editar na sessão do local.",
                         "hybridHelper": "Ao escolher esta opção, será criada uma sessão online com um número de participantes predefinido de {{ onlineOfferDefaultEffectif }}. Poderá editar as informações online depois de esta ter sido criada (link, número de participantes, preço, etc...)",
                         "roomBlueprint": {
@@ -15026,7 +15026,7 @@
                             "title": "Programação de lugares"
                         },
                         "establishment": "Localização",
-                        "broadcastLink": "Localização da videoconferência",
+                        "broadcastLink": "Link para a Aula Online",
                         "hybridLabel": "Esta sessão decorre no local e online.",
                         "credits": "Créditos",
                         "hybridManagementHelper": "Pode gerir as reservas associadas a esta sessão geminada, tanto na sala como online, clicando no ícone abaixo para abrir um novo separador de gestão.",
@@ -15371,7 +15371,7 @@
             "startingSoon": "A sua sessão começa dentro de {{ minutesLeft }} minutos",
             "redirectLink": "Se não for redireccionado automaticamente, utilize esta ligação :",
             "cantOpenLink": "O link para aceder à conferência parece estar errada. Contacte o seu clube {{ contact_email }}",
-            "livestream": "Livestream",
+            "livestream": "Aula Online",
             "description": "Iniciar a sua sessão online"
         },
         "pendingReplacementRequest": "Está aberto um pedido de substituição",

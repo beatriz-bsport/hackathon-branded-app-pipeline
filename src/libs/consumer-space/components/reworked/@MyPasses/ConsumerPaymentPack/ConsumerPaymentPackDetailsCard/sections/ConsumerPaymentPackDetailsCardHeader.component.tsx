@@ -27,7 +27,7 @@ type Props = {
   totalCredits: number;
 };
 
-const Header: React.FC<Props> = ({
+const ConsumerPaymentPackDetailsCardHeader: React.FC<Props> = ({
   creditsLeft,
   isUnlimited,
   name,
@@ -80,14 +80,14 @@ const Header: React.FC<Props> = ({
     caption = t(
       'reworked.myPasses.consumerPassDetailsCard.availability.validUntil',
       {
-        expirationDate: formatedDates.expirationDate || '',
+        expirationDate: formatedDates.expirationDate ?? '',
         interpolation: {
           escapeValue: false,
         },
       },
     );
     label = t('reworked.myPasses.consumerPassDetailsCard.availability.future', {
-      startDate: formatedDates.startDate || '',
+      startDate: formatedDates.startDate ?? '',
       interpolation: {
         escapeValue: false,
       },
@@ -98,8 +98,8 @@ const Header: React.FC<Props> = ({
     customIconClassName =
       'bs-consumer-payment-pack-details-card__header__list__item__icon--weak-color';
     label = t('reworked.myPasses.consumerPassDetailsCard.availability.active', {
-      startDate: formatedDates.startDate || '',
-      expirationDate: formatedDates.expirationDate || '',
+      startDate: formatedDates.startDate ?? '',
+      expirationDate: formatedDates.expirationDate ?? '',
       interpolation: {
         escapeValue: false,
       },
@@ -111,7 +111,7 @@ const Header: React.FC<Props> = ({
     label = t(
       'reworked.myPasses.consumerPassDetailsCard.availability.expired',
       {
-        expirationDate: formatedDates.expirationDate || '',
+        expirationDate: formatedDates.expirationDate ?? '',
         interpolation: {
           escapeValue: false,
         },
@@ -121,13 +121,14 @@ const Header: React.FC<Props> = ({
   }
 
   const usedCredits = totalCredits - creditsLeft;
+  const hideList = (!caption && availability === 'future') || !icon || !label;
 
   return (
     <ConsumerCardSection
       classes={{
         title: 'bs-consumer-payment-pack-details-card__header__title',
       }}
-      className="bs-consumer-payment-pack-details-card__header"
+      className="bs-consumer-payment-pack-details-card__header__root"
       title={name}
     >
       <ConsumerPaymentPackCreditStatus
@@ -141,7 +142,7 @@ const Header: React.FC<Props> = ({
           'bs-consumer-payment-pack-details-card__header__list',
           {
             'bs-consumer-payment-pack-details-card__header__list--hidden':
-              !caption || !icon || !label,
+              hideList,
           },
         )}
       >
@@ -160,4 +161,4 @@ const Header: React.FC<Props> = ({
   );
 };
 
-export default React.memo(Header);
+export default React.memo(ConsumerPaymentPackDetailsCardHeader);

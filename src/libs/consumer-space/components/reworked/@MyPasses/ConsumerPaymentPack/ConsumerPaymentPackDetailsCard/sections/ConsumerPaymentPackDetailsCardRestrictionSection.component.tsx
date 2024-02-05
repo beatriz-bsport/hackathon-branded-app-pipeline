@@ -12,33 +12,24 @@ type Props = {
   restriction: ConsumerPassRestriction;
 };
 
-const RestrictionSection: React.FC<Props> = ({ restriction }) => {
+const ConsumerPaymentPackDetailsCardRestrictionSection: React.FC<Props> = ({
+  restriction,
+}) => {
   const { t } = useTranslation('consumerSpace');
   const { frequency, amount } = restriction;
-  let content = '';
-
-  if (frequency === 'day') {
-    content = t(
-      'reworked.myPasses.consumerPassDetailsCard.restriction.frequencyDaily',
-      {
-        amount,
-      },
-    );
-  } else if (frequency === 'month') {
-    content = t(
-      'reworked.myPasses.consumerPassDetailsCard.restriction.frequencyMonthly',
-      {
-        amount,
-      },
-    );
-  } else if (frequency === 'week') {
-    content = t(
-      'reworked.myPasses.consumerPassDetailsCard.restriction.frequencyWeekly',
-      {
-        amount,
-      },
-    );
-  }
+  const frequencyMap = {
+    day: 'frequencyDaily',
+    week: 'frequencyWeekly',
+    month: 'frequencyMonthly',
+  };
+  const content = frequencyMap?.[frequency]
+    ? t(
+        `reworked.myPasses.consumerPassDetailsCard.restriction.${frequencyMap[frequency]}`,
+        {
+          amount,
+        },
+      )
+    : '';
 
   return (
     <ConsumerCardSection
@@ -61,4 +52,4 @@ const RestrictionSection: React.FC<Props> = ({ restriction }) => {
   );
 };
 
-export default React.memo(RestrictionSection);
+export default React.memo(ConsumerPaymentPackDetailsCardRestrictionSection);

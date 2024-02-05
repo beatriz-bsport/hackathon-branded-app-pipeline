@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 
 import ConsumerCardSection from '#libs/consumer-space/components/reworked/common/ConsumerCardSection';
-import ActivityCompatibility from './ActivityCompatibility.component';
+import ActivityCompatibility from './ConsumerPaymentPackDetailsCardActivityCompatibility.component';
 
 import type { ConsumerPaymentPackDetailsCardProps } from '..';
 
@@ -18,7 +18,7 @@ type Props = Required<
   >
 >;
 
-const CompatibilitySection: React.FC<Props> = ({
+const ConsumerPaymentPackDetailsCardCompatibilitySection: React.FC<Props> = ({
   activityCompatibilities,
   timeSlots,
   isCompatibleWithBookingForGuest,
@@ -48,4 +48,4 @@ const CompatibilitySection: React.FC<Props> = ({
   );
 };
 
-export default React.memo(CompatibilitySection);
+export default React.memo(ConsumerPaymentPackDetailsCardCompatibilitySection);

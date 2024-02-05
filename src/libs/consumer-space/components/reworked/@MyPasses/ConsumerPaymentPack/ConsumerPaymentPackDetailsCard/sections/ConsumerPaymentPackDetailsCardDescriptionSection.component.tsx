@@ -10,7 +10,9 @@ type Props = {
   description: string;
 };
 
-const DescriptionSection: React.FC<Props> = ({ description }) => {
+const ConsumerPaymentPackDetailsCardDescriptionSection: React.FC<Props> = ({
+  description,
+}) => {
   const { t } = useTranslation('consumerSpace');
 
   return (
@@ -29,4 +31,4 @@ const DescriptionSection: React.FC<Props> = ({ description }) => {
   );
 };
 
-export default React.memo(DescriptionSection);
+export default React.memo(ConsumerPaymentPackDetailsCardDescriptionSection);

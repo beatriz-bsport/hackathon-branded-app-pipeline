@@ -5,7 +5,7 @@ import classNames from 'classnames';
 
 import ListItem from '#Fabrique/ListItem';
 import Avatar from '#Fabrique/Temporary/Avatar';
-import { List } from '#Fabrique/List/List.component';
+import List from '#Fabrique/List';
 import ConsumerCardSection from '#libs/consumer-space/components/reworked/common/ConsumerCardSection';
 
 import type { Establishment } from '#libs/establishment/types';
@@ -14,9 +14,9 @@ type Props = {
   compatibleEstablishments: Establishment[];
 };
 
-const CompatibleEstablishmentsSection: React.FC<Props> = ({
-  compatibleEstablishments,
-}) => {
+const PrivateConsumerPassDetailsCardCompatibleEstablishmentsSection: React.FC<
+  Props
+> = ({ compatibleEstablishments }) => {
   const { t } = useTranslation('consumerSpace');
 
   return (
@@ -49,4 +49,6 @@ const CompatibleEstablishmentsSection: React.FC<Props> = ({
   );
 };
 
-export default React.memo(CompatibleEstablishmentsSection);
+export default React.memo(
+  PrivateConsumerPassDetailsCardCompatibleEstablishmentsSection,
+);

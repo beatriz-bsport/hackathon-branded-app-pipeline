@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 
 import ConsumerCardSection from '#libs/consumer-space/components/reworked/common/ConsumerCardSection';
-import AppointmentCompatibility from './AppointmentCompatibility.component';
+import PrivateConsumerPassDetailsCardAppointmentCompatibility from './PrivateConsumerPassDetailsCardAppointmentCompatibility.component';
 
 import type { PrivateConsumerPassDetailsCardProps } from '..';
 
@@ -15,7 +15,7 @@ type Props = Required<
   >
 >;
 
-const ConsumerPassDetailsCompatibilitySection: React.FC<Props> = ({
+const PrivateConsumerPassDetailsCardCompatibilitySection: React.FC<Props> = ({
   appointmentCompatibilities,
   isCompatibleWithVod,
 }) => {
@@ -30,7 +30,7 @@ const ConsumerPassDetailsCompatibilitySection: React.FC<Props> = ({
         'reworked.myPasses.consumerPassDetailsCard.compatibility.titles.main',
       )}
     >
-      <AppointmentCompatibility
+      <PrivateConsumerPassDetailsCardAppointmentCompatibility
         appointmentCompatibilities={appointmentCompatibilities}
         className={classNames(
           'bs-private-consumer-pass-details-card__compatibility-section__container',
@@ -41,4 +41,4 @@ const ConsumerPassDetailsCompatibilitySection: React.FC<Props> = ({
   );
 };
 
-export default React.memo(ConsumerPassDetailsCompatibilitySection);
+export default React.memo(PrivateConsumerPassDetailsCardCompatibilitySection);

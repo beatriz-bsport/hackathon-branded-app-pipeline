@@ -9,11 +9,13 @@ import ConditionalWrapper from '#components/ConditionnalWrapper.component';
 import ConsumerDetailsCardSkeleton from '#libs/consumer-space/components/reworked/common/ConsumerDetailsCardSkeleton';
 import ConsumerCardPlaceholder from '#libs/consumer-space/components/reworked/common/ConsumerCardPlaceholder';
 
-import Header from './sections/Header.component';
-import DescriptionSection from './sections/DescriptionSection.component';
-import CompatibleEstablishmentsSection from './sections/CompatibleEstablishmentsSection.component';
-import SharedSection from './sections/SharedSection.component';
-import CompatibilitySection from './sections/CompatibilitySection.component';
+import {
+  PrivateConsumerPassDetailsCardHeader,
+  PrivateConsumerPassDetailsCardDescriptionSection,
+  PrivateConsumerPassDetailsCardCompatibleEstablishmentsSection,
+  PrivateConsumerPassDetailsCardSharedSection,
+  PrivateConsumerPassDetailsCardCompatibilitySection,
+} from './sections';
 
 import type { Establishment } from '#libs/establishment/types';
 import type { PrivateConsumerPassCompatibility } from '#libs/consumer-space/types';
@@ -96,7 +98,7 @@ const PrivateConsumerPassDetailsCard: React.FC<Props> = ({
       WrapperComponent={Card}
     >
       <>
-        <Header
+        <PrivateConsumerPassDetailsCardHeader
           creditsLeft={creditsLeft}
           expirationDate={expirationDate}
           isSuspended={isSuspended}
@@ -107,23 +109,25 @@ const PrivateConsumerPassDetailsCard: React.FC<Props> = ({
           totalCredits={totalCredits}
         />
 
-        <DescriptionSection description={description} />
+        <PrivateConsumerPassDetailsCardDescriptionSection
+          description={description}
+        />
 
-        <CompatibleEstablishmentsSection
+        <PrivateConsumerPassDetailsCardCompatibleEstablishmentsSection
           compatibleEstablishments={compatibleEstablishments}
         />
 
-        <SharedSection
+        <PrivateConsumerPassDetailsCardSharedSection
           members={[sharedBy]}
           title={t('reworked.myPasses.consumerPassDetailsCard.shared.by')}
         />
 
-        <SharedSection
+        <PrivateConsumerPassDetailsCardSharedSection
           members={sharedWith}
           title={t('reworked.myPasses.consumerPassDetailsCard.shared.with')}
         />
 
-        <CompatibilitySection
+        <PrivateConsumerPassDetailsCardCompatibilitySection
           appointmentCompatibilities={appointmentCompatibilities}
           isCompatibleWithVod={isCompatibleWithVod}
         />

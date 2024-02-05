@@ -11,16 +11,20 @@ export type EasyAccess = {
 };
 
 export type Establishment = {
-  id: number;
-  title: string;
-  cover: string;
-  location: Location;
-  specific_info: string;
-  easy_access: EasyAccess;
-  disabled: boolean;
   associatedestablishment_set: number[];
-  tzname: string;
+  capacity?: number;
+  cover: string;
+  disabled: boolean;
+  easy_access: EasyAccess;
   establishment_billing_group_id: number | null;
+  has_next_slots?: boolean;
+  id: number;
+  location: Location;
+  practical_info?: string;
+  related_company?: number;
+  specific_info: string;
+  title: string;
+  tzname: string;
 };
 
 export type EstablishmentSelectOption = {

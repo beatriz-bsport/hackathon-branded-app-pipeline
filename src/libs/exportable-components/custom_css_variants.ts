@@ -415,6 +415,10 @@ import {
   UNIVERSAL_PASS_DETAILS_CARD_CONFIGURATION,
 } from '#libs/consumer-space/components/reworked/@MyPasses/UniversalPass/UniversalPassDetailsCard';
 
+import {
+  RESET_PASSWORD_CONFIRMATION_CONFIGURATION,
+  RESET_PASSWORD_CONFIRMATION_PREVIEW,
+} from '#libs/login/components/ResetPasswordConfirmation';
 /* TEMPLATE
 
 {
@@ -494,6 +498,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
   MARKETPLACE_BOOKING_ITEM_CONFIGURATION,
   MARKETPLACE_OFFER_BOOKING_LIST_CONFIGURATION,
   MARKETING_NEWSLETTER_FORM_V2_CONFIGURATION,
+  RESET_PASSWORD_CONFIRMATION_CONFIGURATION,
   ...(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production'
     ? [
         FABRIQUE_TYPOGRAPHY_CONFIGURATION,
@@ -671,6 +676,9 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
       MARKETPLACE_OFFER_BOOKING_LIST_PREVIEW,
     [CssComponentsVariantIdentifiers.MARKETING_NEWSLETTER_FORM_V2]:
       MARKETING_NEWSLETTER_FORM_V2_PREVIEW,
+    [CssComponentsVariantIdentifiers.RESET_PASSWORD_CONFIRMATION]:
+      RESET_PASSWORD_CONFIRMATION_PREVIEW,
+
     ...(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' && {
       [CssComponentsVariantIdentifiers.FABRIQUE_TYPOGRAPHY]:
         FABRIQUE_TYPOGRAPHY_PREVIEW,

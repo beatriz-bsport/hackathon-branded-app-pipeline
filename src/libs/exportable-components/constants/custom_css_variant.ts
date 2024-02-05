@@ -121,4 +121,5 @@ export enum CssComponentsVariantIdentifiers {
   CONSUMER_PAYMENT_PACK_DETAILS_CARD = 'consumer_payment_pack_details_card',
   PRIVATE_CONSUMER_PASS_DETAILS_CARD = 'private_consumer_pass_details_card',
   UNIVERSAL_PASS_DETAILS_CARD = 'universal_pass_details_card',
+  RESET_PASSWORD_CONFIRMATION = 'reset_password_confirmation',
 }

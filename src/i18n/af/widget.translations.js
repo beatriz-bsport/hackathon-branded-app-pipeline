@@ -464,6 +464,7 @@ exports.default = {
       private_consumer_pass_details_card:
         'Appointment pass details card (for member)',
       universal_pass_details_card: 'Universal pass details card (for member)',
+      reset_password_confirmation: 'Reset password confirmation',
     },
     customCss: {
       yourCode: 'Your complementary implementation:',

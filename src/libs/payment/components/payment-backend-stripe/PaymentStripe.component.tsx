@@ -29,8 +29,7 @@ import PaymentStripeSofort from './PaymentStripeSofort.component';
 import PaymentStripeIdeal from './PaymentStripeIdeal.component';
 import PaymentStripeEPS from './PaymentStripeEPS.component';
 import PaymentStripeGiropay from './PaymentStripeGiropay.component';
-// @ts-expect-error
-import PriceInput from '../../../../components/input/PriceInput.component';
+import PriceInput from '#components/input/PriceInput.component';
 import InstalmentPaymentSelector from '../../../instalment-payment-configuration/components/InstalmentPaymentSelector.component';
 
 import PaymentMethodCardSelector from '../PaymentMethodCardSelector.component';

@@ -13,8 +13,7 @@ import { captureException } from '@sentry/react';
 import StripeTerminalError from '#libs/terminal/components/StripeTerminalError';
 import StripeTerminalProcessing from '#libs/terminal/components/StripeTerminalProcessing';
 import StripeTerminalPaymentSuccess from '#libs/terminal/components/StripeTerminalSuccess';
-// @ts-expect-error
-import PriceInput from '../../../components/input/PriceInput.component';
+import PriceInput from '#components/input/PriceInput.component';
 
 import {
   processPaymentIntent as processPaymentIntentAPI,

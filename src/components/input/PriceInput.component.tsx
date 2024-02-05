@@ -2,14 +2,15 @@ import React from 'react';
 
 import InputAdornment from '@material-ui/core/InputAdornment';
 
-import NumericInput from './NumericInput.component';
-import { getCurrencyDisplay } from '../../libs/theme/selectors';
+import { getCurrencyDisplay } from '#libs/theme/selectors';
 
-type Props = {
-  invalid: boolean,
+import NumericInput from './NumericInput.component';
+
+type Props = React.ComponentProps<typeof NumericInput> & {
+  invalid?: boolean;
 };
 
-export default function PriceInput(props: Props) {
+const PriceInput: React.FC<Props> = (props) => {
   return (
     <NumericInput
       isPositive
@@ -27,4 +28,6 @@ export default function PriceInput(props: Props) {
       {...props}
     />
   );
-}
+};
+
+export default React.memo(PriceInput);

@@ -12,7 +12,7 @@ type Props = {
   helperText?: string;
   id?: string;
   inputClass?: string;
-  InputProps: any;
+  InputProps?: any;
   isPositive?: boolean;
   label?: string;
   margin?: 'none' | 'normal' | 'dense';

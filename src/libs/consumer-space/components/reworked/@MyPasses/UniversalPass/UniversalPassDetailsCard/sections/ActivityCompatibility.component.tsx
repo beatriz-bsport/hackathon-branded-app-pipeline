@@ -262,21 +262,21 @@ const ActivityCompatibility: React.FC<Props> = ({
           )}
         >
           <CompatiblityChipList
-            chipsDataList={[...activityChipDataLists?.activity]}
+            chipsDataList={activityChipDataLists?.activity || []}
             title={t(
               'reworked.myPasses.consumerPassDetailsCard.compatibility.labels.activity',
             )}
             variant="activity"
           />
           <CompatiblityChipList
-            chipsDataList={[...activityChipDataLists?.category]}
+            chipsDataList={activityChipDataLists?.category || []}
             title={t(
               'reworked.myPasses.consumerPassDetailsCard.compatibility.labels.category',
             )}
             variant="category"
           />
           <CompatiblityChipList
-            chipsDataList={[...activityChipDataLists?.room]}
+            chipsDataList={activityChipDataLists?.room || []}
             title={t(
               'reworked.myPasses.consumerPassDetailsCard.compatibility.labels.room',
             )}
@@ -307,11 +307,11 @@ const ActivityCompatibility: React.FC<Props> = ({
           {(Object.keys(timeSlotsChipDataLists) ?? []).map((dayOfWeek) => (
             <CompatiblityChipList
               key={dayOfWeek}
-              chipsDataList={[
-                ...timeSlotsChipDataLists?.[
+              chipsDataList={
+                timeSlotsChipDataLists?.[
                   parseInt(dayOfWeek) as keyof TimeSlotsChipDataLists
-                ],
-              ]}
+                ] || []
+              }
               title={t(`datetime:time.weekdayNumber.${dayOfWeek}`)}
               variant="time-slot"
             />

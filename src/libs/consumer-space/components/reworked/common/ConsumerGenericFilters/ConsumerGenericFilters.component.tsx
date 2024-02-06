@@ -80,7 +80,8 @@ export const ConsumerGenericFilters = <TabType,>({
 
       <IconButton
         className={classNames('bs-consumer-generic-filters__date-picker', {
-          'bs-consumer-generic-filters__date-picker--hidden': isMobile,
+          'bs-consumer-generic-filters__date-picker--hidden':
+            isMobile || !onDatePickerClick,
         })}
         color="grey"
         onClick={handleOnClick}

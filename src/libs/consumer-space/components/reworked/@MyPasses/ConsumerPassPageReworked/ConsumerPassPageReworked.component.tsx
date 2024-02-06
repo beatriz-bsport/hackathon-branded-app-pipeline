@@ -56,6 +56,7 @@ type Props = {
   handleBuyPassClick: () => void;
   isLoading: boolean;
   isMetadataLoading: boolean;
+  resetConsumerState: () => void;
 };
 
 export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
@@ -90,6 +91,7 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
   handleBuyPassClick,
   isLoading,
   isMetadataLoading,
+  resetConsumerState,
 }) => {
   const {
     selectedTab,
@@ -131,6 +133,7 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
     futurePrivateConsumerPassesState,
     futureUniversalPassesList,
     futureUniversalPassesState,
+    resetConsumerState,
   });
 
   return (

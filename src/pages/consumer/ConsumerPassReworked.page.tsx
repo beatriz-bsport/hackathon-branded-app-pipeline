@@ -58,6 +58,7 @@ import {
   fetchMyFutureConsumerPaymentPacksAsMember as fetchMyFutureConsumerPaymentPacksAsMemberAction,
   fetchMyFuturePrivateConsumerPassesAsMember as fetchMyFuturePrivateConsumerPassesAsMemberAction,
   fetchMyFutureUniversalPassesAsMember as fetchMyFutureUniversalPassesAsMemberAction,
+  resetConsumerState as resetConsumerStateAction,
 } from '#libs/consumer-space/actions';
 import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '#libs/payment-packs/actions';
 import { fetchEstablishmentBulk as fetchEstablishmentBulkAction } from '#libs/establishment/actions';
@@ -375,6 +376,7 @@ export class ConsumerPassReworked extends React.Component<
         handleBuyPassClick={this.handleBuyPassClick}
         isLoading={this.getIsLoading()}
         isMetadataLoading={this.props.consumerPassesMetadataLoading}
+        resetConsumerState={this.props.resetConsumerState}
       />
     );
   }
@@ -455,6 +457,7 @@ const connector = connect(
       fetchMyFuturePrivateConsumerPassesAsMemberAction,
     fetchMyFutureUniversalPassesAsMember:
       fetchMyFutureUniversalPassesAsMemberAction,
+    resetConsumerState: resetConsumerStateAction,
   },
 );
 

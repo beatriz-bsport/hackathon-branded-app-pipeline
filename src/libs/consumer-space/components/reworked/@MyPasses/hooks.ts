@@ -39,6 +39,7 @@ export function useConsumerPassesDataManager({
   futurePrivateConsumerPassesState,
   futureUniversalPassesList,
   futureUniversalPassesState,
+  resetConsumerState,
 }: Omit<
   ConsumerPassPageReworkedProps,
   | 'isLoading'
@@ -227,11 +228,12 @@ export function useConsumerPassesDataManager({
    */
   const handleSetSelectedTab = useCallback(
     (type: PassTab) => {
-      setSelectedTab(type);
+      resetConsumerState();
       handleFetchTabData?.(type);
+      setSelectedTab(type);
       setSelectedPass(null);
     },
-    [handleFetchTabData],
+    [handleFetchTabData, resetConsumerState],
   );
 
   /**

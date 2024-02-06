@@ -542,12 +542,12 @@ export default compose(
         fetchOffer,
         fetchOfferBulk,
         fetchOfferStatusList,
-        id,
+        offerId,
       }) =>
       (consumerPaymentPackId, data, ordering_field) => {
         const refreshOfferAndBookings = () => {
-          fetchOffer(id);
-          fetchOfferStatus(id);
+          fetchOffer(offerId);
+          fetchOfferStatus(offerId);
           refresh(ordering_field);
           if (Array.isArray(data.offer)) {
             fetchOfferBulk(data.offer);

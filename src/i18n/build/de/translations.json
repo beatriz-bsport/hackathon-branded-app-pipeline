@@ -1707,7 +1707,12 @@
             "notesHelperText": "Notizen sind privat: Sie erscheinen nur im Backoffice für Mitarbeiter, die berechtigt sind, sie zu bearbeiten",
             "startWorking": "Startdatum",
             "endWorking": "Enddatum",
-            "notes": "Notizen"
+            "notes": "Notizen",
+            "passwordResetConfirmation": {
+                "continue": "Weiter",
+                "subtitle": "Sie können auf \"Weiter\" klicken, um sich erneut anzumelden",
+                "title": "Ihr Passwort wurde erfolgreich aktualisiert"
+            }
         },
         "booking": {
             "revertBookingExplain": {
@@ -1953,7 +1958,8 @@
         "errors": {
             "start_after_end": "Das Beginndatum muss früher als das Enddatum sein",
             "end_before_start": "Das Enddatum muss später als das Beginndatum sein",
-            "invalidUrl": "Ungültige URL (angefordertes Format: http://www.test.com)"
+            "invalidUrl": "Ungültige URL (angefordertes Format: http://www.test.com)",
+            "endBeforeCurrent": "Das Enddatum muss vor dem aktuellen Datum liegen."
         },
         "paymentMethod": {
             "OTHER": "Anderes",
@@ -2796,7 +2802,9 @@
         "audience": {
             "content": "Verwendet im {{ workflowLowerCase }}:{{ workflow_name }}",
             "content_plural": "Verwendet in {{ count }}{{ workflowPluralLowerCase }}"
-        }
+        },
+        "downloadReport": "Bericht herunterladen",
+        "generateReport": "Bericht generieren"
     },
     "theme": {
         "forms": {
@@ -3048,7 +3056,14 @@
                     "helperText": "Wenn aktiviert, wird die Anzahl der zukünftigen Buchungen um die Anzahl der registrierten zukünftigen Wartelistenplätze verringert. Künftige Wartelistenplätze werden ebenfalls auf der Grundlage dieser Anzahl eingeschränkt, um Überbuchungen zu vermeiden.",
                     "label": "Wartelisteplätze in die Anzahl maximaler zukünftiger Buchungen/Workshops inkludieren"
                 },
-                "bookingLimitation": "Golabel Buchungsbeschränkungen"
+                "bookingLimitation": "Golabel Buchungsbeschränkungen",
+                "resetPassword": {
+                    "urlError": "Bitte geben Sie eine gültige URL ein",
+                    "urlHelperText": "Dieses Feld leer lassen, um auf den Marktplatz umzuleiten",
+                    "urlRedirection": "Benutzerdefinierte URL",
+                    "helperText": "Standardmäßig werden Mitglieder, sobald sie ihr Passwort zurücksetzen auf den Marktplatz umgeleitet. Wenn sie wo anders weitergeleitet werden sollen (z. B. auf Ihre Website), tragen Sie bitte die gewünschte URL in das folgende Feld ein.",
+                    "title": "Passwort zurücksetzen"
+                }
             },
             "submit": "Speichern",
             "instagramURL": {
@@ -3940,6 +3955,9 @@
                     },
                     "smartlist": {
                         "_label": "Smartlists exportieren"
+                    },
+                    "smartlist_general_report": {
+                        "_label": "Export des allgemeinen Smartlist-Berichts"
                     }
                 }
             },
@@ -6046,7 +6064,8 @@
             "private_booking_date_created": "Datum und Zeit der Buchung",
             "booking_date_created": "Datum und Zeit der Buchung",
             "margin_value_excluding_sales_tax": "Marginaler Wert (ohne MwSt./Umsatzsteuer)",
-            "billing_group_address": "Adresse"
+            "billing_group_address": "Adresse",
+            "is_first_visit": "Erste Reservierung"
         },
         "no": "Nein",
         "yes": "Ja",
@@ -11327,7 +11346,15 @@
             },
             "automatedTitle": "Automatische Sendungen",
             "manualTitle": "Manuelle Sendungen",
-            "processing": "Wird versendet..."
+            "processing": "Wird versendet...",
+            "exportCampaigns": {
+                "dialogButtonGenerateAnyway": "Trotzdem erstellen",
+                "dialogContentAlternative": "Klicken Sie alternativ auf \"Trotzdem erstellen\", um den Bericht ohne das Empfängerblatt zu erstellen.",
+                "dialogContentSurplus": "Das Limit ist um {{ difference_count }} Zeilen überschritten.",
+                "dialogContent": "Dieser Bericht hat {{ count }} Millionen Empfängerzeilen und übersteigt damit die xlsx-Beschränkung von einer Millionen. Um Empfänger einzubeziehen, verringern Sie den Datumsbereich, um die Anzahl zu reduzieren.",
+                "dialogTitle": "Empfängerlimit überschritten",
+                "title": "Exportierte Kampagnen"
+            }
         },
         "mail": {
             "noObject": "Kein Betreff",
@@ -11758,7 +11785,7 @@
                     "availability": {
                         "expiresToday": "Letzter Tag",
                         "expiresIn": "{{ daysRemaining }} Tag übrig",
-                        "expiresIn_plural": "{{ daysRemaining }} verbleibende Tage",
+                        "expiresIn_plural": "{{ daysRemaining }} Tage übrig",
                         "future": "Beginnt am: {{ startDate }}",
                         "expired": "Abgelaufen am: {{ expirationDate }}",
                         "active": "Läuft ab am: {{ expirationDate }}"
@@ -11953,7 +11980,16 @@
                     "activities": "Aktivitäten"
                 },
                 "bookASession": "Kurs buchen",
-                "title": "Meine Buchungen"
+                "title": "Meine Buchungen",
+                "calendarDrawer": {
+                    "subtitle": {
+                        "workshop": "Workshops nach Datum filtern.",
+                        "appointment": "Termine nach Datum filtern.",
+                        "activity": "Aktivitäten nach Datum filtern."
+                    },
+                    "title": "Ein Datum auswählen"
+                },
+                "chooseBookingType": "Buchungsart wählen"
             },
             "placeholderCard": {
                 "myBookings": "Wählen Sie einen Kurs aus um mehr Details zu sehen"
@@ -13413,7 +13449,8 @@
             "invoice_date_created": "Datum der Rechnungsstellung",
             "author": "Autor",
             "invoiceitem_pk": "Anzahl der in Rechnung gestellten Artikel",
-            "invoice_datetime": "Ausstellungsdatum der Rechnung"
+            "invoice_datetime": "Ausstellungsdatum der Rechnung",
+            "booking_date_created": "Reservierungsdatum"
         },
         "graphDefaultTitles": {
             "paymentTemporal": "Zahlungseingänge",
@@ -16760,11 +16797,11 @@
                 },
                 "marketing_action": {
                     "select_tag": "Ein Tag wählen",
-                    "1": "E-Mail",
+                    "1": "E-Mail schreiben",
                     "2": "SMS",
                     "3": "Push-Benachrichtigung",
                     "4": "Tag",
-                    "5": "E-Mail-Vorlage",
+                    "5": "E-Mail-Vorlage auswählen",
                     "defaultName": "Standardmäßige Bezeichnung",
                     "form": {
                         "submit": "Validieren",
@@ -16787,8 +16824,8 @@
                 "next": "Folgende",
                 "exit": {
                     "title": "Ausgang",
-                    "exit_success_label": "Gewonnen",
-                    "exit_fail_label": "Verloren"
+                    "exit_success_label": "Ja",
+                    "exit_fail_label": "Nein"
                 },
                 "event": {
                     "1": "Kurspass",
@@ -16833,7 +16870,7 @@
                 },
                 "modify_name_label": "Name bearbeiten",
                 "entry_step": "Eingang",
-                "win_step": "Gewonnen",
+                "win_step": "Erfolgreicher Ausgang",
                 "lose_step": "Verloren",
                 "delete": "Löschen",
                 "updateSubmit": "Validieren"
@@ -16886,8 +16923,8 @@
                 }
             },
             "cadenceCard": {
-                "lost": "Verloren",
-                "win": "Gewonnen",
+                "lost": "Erfolgloser Ausgang",
+                "win": "Erfolgreicher Ausgang",
                 "outputRules": "Regeln für die Ausgabe"
             },
             "triggers": {
@@ -16957,7 +16994,7 @@
                     "convertIntoStep": "Umrechnen in Schritt",
                     "edit": "Bearbeiten"
                 },
-                "defaultName": "Autostep"
+                "defaultName": "Unbenannter Schritt"
             },
             "marketingAction": {
                 "addAction": "Eine Aktion hinzufügen"
@@ -16983,23 +17020,23 @@
                     "title": "Eingangskriterium",
                     "addTrigger": "Einen Eingangs-Auslöser hinzufügen",
                     "helperText": "Legen Sie zunächst fest, wie Ihre Mitglieder den {{ workflowLowerCase }} betreten sollen. Wählen Sie ein oder mehrere Ereignisse oder Smartlists aus. Wenn das Mitglied einem dieser Ereignisse oder Smartlists entspricht, wird es den {{ workflowLowerCase }} betreten.",
-                    "creationHelper": "Legen Sie zunächst die Kriterien fest, nach denen Ihre Mitglieder in den {{ workflowLowerCase }} eintreten sollen. Wählen Sie ein oder mehrere Ereignisse oder Smartlists. Wenn ein Mitglied auf eines dieser Kriterien zutrifft, wird es dem {{ workflowLowerCase }} beitreten.",
-                    "editionHelper": "Bearbeiten Sie die Kriterien für Ihre Mitglieder, um den {{ workflowLowerCase }} zu betreten. Sie können ein oder mehrere Ereignisse oder Smartlists auswählen. Wenn ein Mitglied auf eines dieser Kriterien zutrifft, wird es dem {{ workflowLowerCase }} beitreten."
+                    "creationHelper": "Legen Sie zunächst fest,  wann Mitglieder den {{ workflowLowerCase }} betreten sollen. Dazu müssen Sie einen Eintrittsauslöser auswählen.  Sind mehrere Auslöser ausgewählt, werden die Mitglieder, die einem dieser Auslöser entsprechen, in den {{ workflowLowerCase }} aufgenommen.",
+                    "editionHelper": "Kriterien der Mitglieder für den Beitritt zum {{ workflowLowerCase }} bearbeiten. Wenn ein Mitglied eines dieser Kriterien erfüllt, wird es dem {{ workflowLowerCase }} hinzugefügt."
                 },
                 "step": {
                     "name": "Name"
                 },
                 "convertIntoStep": {
-                    "label": "Schritt Label",
-                    "default": "Schritt Label"
+                    "label": "Bezeichnung des Schrittes",
+                    "default": "Unbenannter Schritt"
                 },
                 "convertIntoExit": {
-                    "label": "Das Mitglied betrachten als",
+                    "label": "Den Ausgang betrachten als",
                     "title": "Ausgang"
                 },
                 "entryAction": {
                     "title": "Eingangsaktion",
-                    "helperText": "Entscheiden Sie, was passiert, wenn die Mitglieder den {{ workflowLowerCase }} betreten. Sie können sie markieren, ihnen eine E-Mail schicken oder eine andere Aktion wählen, die Ihren Bedürfnissen entspricht. Sie können sich auch dafür entscheiden, nichts zu tun; dieser Schritt ist optional.",
+                    "helperText": "Entscheiden Sie, welche Marketingaktion ausgelöst wird, wenn ein Mitglied den {{ workflowLowerCase }} betritt.",
                     "addAction": "Aktion hinzufügen"
                 },
                 "requiredField": "Dieses Feld muss ausgefüllt werden, um fortfahren zu können.",
@@ -17011,11 +17048,11 @@
                     "addAction": "Aktion hinzufügen"
                 },
                 "lostTrigger": {
-                    "title": "Kriterium für \"Verloren\"",
-                    "helperText": "Legen Sie fest, was als Fehlschlag gilt, d.h. das Mitglied wird beim Verlassen des {{ workflowLowerCase }} als \"Verloren\" markiert. Legen Sie auch die maximale Zeit fest, die ein Mitglied im {{ workflowLowerCase }} anwesend sein kann.",
+                    "title": "Erfolgloser Austritt",
+                    "helperText": "Legen Sie fest, wann Ihr Ziel als nicht erreicht gilt: Definieren Sie ein Zeitlimit dafür und/oder bestimmte Trigger, nach denen das Mitglied diesen {{ workflowLowerCase }} erfolglos verlässt.",
                     "addTrigger": "Ausgangsauslöser hinzufügen",
                     "timeout": {
-                        "helperText": "Wenn ein Mitglied nach dem gewählten Zeitlimit noch in diesem {{ workflowLowerCase }} vorhanden ist, wird das Mitglied als \"Verloren\" betrachtet.",
+                        "helperText": "Die Mitglieder verlassen den {{ workflowLowerCase }} nach dieser Anzahl von Tagen, unabhängig davon, in welchem Schritt sie sich befinden.",
                         "label": "Tage im {{ workflowLowerCase }}",
                         "title": "Zeitlimit"
                     }
@@ -17026,8 +17063,8 @@
                     "addAction": "Aktion hinzufügen"
                 },
                 "wonTrigger": {
-                    "title": "Kriterium für \"Gewonnen\"",
-                    "helperText": "Legen Sie die Grundregeln fest, wann Mitglieder den {{ workflowLowerCase }} verlassen sollen. Wenn ein Mitglied einen der Auslöser erfüllt, wird es den Workflow verlassen, unabhängig davon, in welchem Schritt es sich befindet. Wählen Sie zunächst die \"Erfolgs\"-Auslöser, die ein Mitglied als \"Gewonnen\" markieren, wenn es den {{ workflowLowerCase }} verlässt.",
+                    "title": "Erfolgreicher Austritt",
+                    "helperText": "Legen Sie das globale Ziel des {{ workflowLowerCase }} fest. Wenn ein Mitglied einen dieser Ausgangstrigger ausführt, ist das Ziel erreicht und das Mitglied verlässt erfolgreich den {{ workflowLowerCase }} (unabhängig davon, in welchem Schritt das Mitglied sich befindet). Dies hilft dabei Performance Indikatoren zu verfolgen.",
                     "addTrigger": "Ausgangsauslöser hinzufügen"
                 }
             },
@@ -17073,7 +17110,7 @@
             "welcome": {
                 "dialog": {
                     "title": "Willkommen bei {{ audienceCamelCase }}!",
-                    "helper": "Lassen Sie uns gemeinsam mit der Einrichtung Ihres {{ workflowLowerCase }} beginnen! Zunächst definieren wir die Regeln für den Eintritt Ihrer Mitglieder in den {{ workflowLowerCase }}. Als Nächstes werden wir entscheiden, wann Ihre Mitglieder aufgrund ihrer Aktionen als \"Gewonnen\" oder \"Verloren\" gelten.",
+                    "helper": "Lassen Sie uns gemeinsam mit der Einrichtung des {{ workflowLowerCase }} beginnen! Ein Workflow ist eine Reihe miteinander verbundener Trigger und Schritte mit respektiven Marketingaktionen, die helfen, Mitglieder auf ein definiertes Ziel hinzuführen.",
                     "confirm": "Start",
                     "return": "Zurück"
                 }
@@ -17103,8 +17140,8 @@
                 "createAudienceHelper": "Dank der {{ workflowPluralLowerCase }} können Sie die Marketingaktionen, die Sie an Ihre Mitglieder senden, auf deren Verhalten auf der Plattform abstimmen. Erstellen Sie eine Abfolge von Aktionen, die Ihre Mitglieder ausführen müssen, um z. B. bestimmte Aktionen oder Tags zu erhalten.",
                 "cadenceParameters": "{{ workflowLowerCase }} Einstellungen",
                 "multipleVisit": {
-                    "helperText": "Wenn diese Funktion aktiviert ist, können Mitglieder, die die Eingabekriterien erfüllen, diesen {{ workflowLowerCase }} mehrmals betreten, unabhängig davon, ob sie ihn zuvor als \"Verloren\" oder \"Gewonnen\" verlassen haben.",
-                    "isMultipleVisitAllowedLabel": "Mitglieder können den {{ workflowLowerCase }} mehrmals durchlaufen."
+                    "helperText": "Wenn diese Funktion aktiviert ist, können Mitglieder, die die Eintrittskriterien erfüllen, nach dem Verlassen des Workflows erneut in den {{ workflowLowerCase }} eintreten.",
+                    "isMultipleVisitAllowedLabel": "Mitglieder können diesen {{ workflowLowerCase }} mehrfach betreten und verlassen."
                 },
                 "formTitle": {
                     "updateTitle": "Ihren {{ workflowLowerCase }} bearbeiten",
@@ -17161,12 +17198,12 @@
                     },
                     "success": {
                         "title": "Erfolg",
-                        "description": "Prozentualer Anteil der Personen, die als \"Gewonnen\" gelten.",
+                        "description": "Prozentualer Anteil der Mitglieder, die erfolgreich ausgetreten sind.",
                         "label": "Erfolgsrate"
                     },
                     "averageTime": {
                         "title": "Durchschnittliche Zeit",
-                        "description": "Durchschnittliche Zeitspanne, die ein Mitglied benötigt, um als \"Gewonnen\" zu gelten.",
+                        "description": "Durchschnittliche Zeitspanne, die ein Mitglied für einen erfolgreichen Austritt benötigt.",
                         "label": "Tag im Durchschnitt",
                         "label_plural": "Tage im Durchschnitt"
                     },
@@ -17189,7 +17226,7 @@
             },
             "memberTable": {
                 "tableColumnLabel": {
-                    "status": "Status",
+                    "status": "Erfolg",
                     "exitDate": "Ausgangsdatum",
                     "entryDate": "Eintrittsdatum",
                     "currentStep": "Derzeitiger Schritt",

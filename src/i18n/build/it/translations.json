@@ -206,7 +206,8 @@
         "errors": {
             "end_before_start": "La data di fine deve essere successiva alla data di inizio",
             "start_after_end": "La data di inizio deve essere precedente alla data di fine",
-            "invalidUrl": "L'url non è valido (formato previsto: http://www.test.fr)"
+            "invalidUrl": "L'url non è valido (formato previsto: http://www.test.fr)",
+            "endBeforeCurrent": "La data di fine deve essere precedente alla data corrente."
         },
         "members": {
             "form": {
@@ -559,7 +560,12 @@
             "notesHelperText": "Le note sono private: appariranno nel Backoffice solo per i membri dello staff autorizzati a modificarle",
             "workingDateSection": "Periodo di attività in studio",
             "startWorking": "Data di inizio",
-            "endWorking": "Data di fine"
+            "endWorking": "Data di fine",
+            "passwordResetConfirmation": {
+                "continue": "Continua",
+                "subtitle": "È possibile fare clic su \"Continua\" per effettuare nuovamente il login",
+                "title": "La password è stata aggiornata con successo"
+            }
         },
         "marketing": {
             "dashboard": "Pannello di controllo",
@@ -1759,7 +1765,16 @@
                     "activities": "Attività"
                 },
                 "bookASession": "Prenota una sessione",
-                "title": "Le mie prenotazioni"
+                "title": "Le mie prenotazioni",
+                "calendarDrawer": {
+                    "subtitle": {
+                        "workshop": "FIltra i tuoi workshop per data.",
+                        "appointment": "FIltra i tuoi appuntamenti per data.",
+                        "activity": "Filtra le tue attività per data."
+                    },
+                    "title": "Seleziona una data"
+                },
+                "chooseBookingType": "Seleziona il tipo di prenotazione"
             },
             "placeholderCard": {
                 "myBookings": "Scegli una sessione per vedere maggiori dettagli"
@@ -2139,7 +2154,15 @@
             },
             "automatedTitle": "Invio automatico",
             "manualTitle": "Invio manuale",
-            "processing": "In fase di invio..."
+            "processing": "In fase di invio...",
+            "exportCampaigns": {
+                "dialogButtonGenerateAnyway": "Genera comunque",
+                "dialogContentAlternative": "In alternativa, fare clic su \"genera comunque\" per generare il report senza il foglio dei destinatari.",
+                "dialogContentSurplus": "Il limite è superato di {{ difference_count }} righe.",
+                "dialogContent": "Questo report contiene ~{{ count }} milioni di righe di destinatari, superando il limite di 1 milione di fogli xlsx. Per includere i destinatari, diminuire l'intervallo di date per ridurre il conteggio.",
+                "dialogTitle": "Limite destinatari superato",
+                "title": "Esporta campagna"
+            }
         },
         "recipient": {
             "readCount": "Apertura",
@@ -4425,7 +4448,14 @@
                     "helperText": "Se attivato, il numero di prenotazioni future consentito sarà diminuito del numero di posti futuri in lista d'attesa registrati. Anche i posti futuri in lista d'attesa saranno limitati in base a questo conteggio, per evitare l'overbooking.",
                     "label": "Includere i posti della lista d'attesa nel conteggio del numero massimo di prenotazioni/workshop futuri"
                 },
-                "bookingLimitation": "Restrizioni generali sulle prenotazioni"
+                "bookingLimitation": "Restrizioni generali sulle prenotazioni",
+                "resetPassword": {
+                    "urlError": "Inserire un URL valido",
+                    "urlHelperText": "Lasciare questo campo vuoto per reindirizzare il membro al marketplace",
+                    "urlRedirection": "URL personalizzato",
+                    "helperText": "Per impostazione predefinita, quando i membri resettano la password, vengono reindirizzati al marketplace. Se si desidera reindirizzarli altrove (al sito web, ad esempio), compila il seguente campo con l'URL desiderato.",
+                    "title": "Reimposta la password"
+                }
             },
             "instagramURL": {
                 "label": "URL di Instagram",
@@ -7891,7 +7921,8 @@
             "margin_value_excl_tax": "Valore marginale (IVA escl.)",
             "margin_value_incl_tax": "Valore marginale (IVA incl.)",
             "margin_value_excluding_sales_tax": "Valore marginale (IVA escl.)",
-            "billing_group_address": "Indirizzo"
+            "billing_group_address": "Indirizzo",
+            "is_first_visit": "Prima prenotazione"
         },
         "payment_method": {
             "dispute": "Contenzioso",
@@ -11109,7 +11140,9 @@
         "audience": {
             "content": "Usato nel {{ workflowLowerCase }}: {{ workflow_name }}",
             "content_plural": "Usato in {{ count }} {{ workflowPluralLowerCase }}"
-        }
+        },
+        "downloadReport": "Scarica il report",
+        "generateReport": "Genera il report"
     },
     "relationship": {
         "member": {
@@ -13300,7 +13333,8 @@
             "total_price": "Importo contabilizzato tasse incluse",
             "staff_commission_amount_notax": "Costi provvigionali del personale IVA esclusa",
             "staff_commission_amount": "Costi delle commissioni del personale IVA inclusa",
-            "invoice_datetime": "Data di emissione della ricevuta"
+            "invoice_datetime": "Data di emissione della ricevuta",
+            "booking_date_created": "Data della prenotazione"
         },
         "graphFormDrawer": {
             "helperText": {
@@ -15015,6 +15049,9 @@
                     },
                     "memberDocument": {
                         "_label": "Esportare i documenti dei membri"
+                    },
+                    "smartlist_general_report": {
+                        "_label": "Esporta un report generale sulla Smartlist"
                     }
                 }
             },
@@ -16867,8 +16904,8 @@
                     "1": "Pacchetto"
                 },
                 "exit": {
-                    "exit_fail_label": "Insuccesso",
-                    "exit_success_label": "Successo",
+                    "exit_fail_label": "No",
+                    "exit_success_label": "Si",
                     "title": "Uscita"
                 },
                 "trigger": {
@@ -17061,7 +17098,7 @@
                     "addTrigger": "Aggiungi un trigger di ingresso",
                     "title": "Criterio di ingresso",
                     "creationHelper": "Per prima cosa, decidiamo come i membri entreranno nel {{ workflowLowerCase }}. Per farlo, è necessario selezionare un trigger di ingresso.  Se si selezionano più trigger, i membri che corrispondono a uno qualsiasi di essi entreranno nel {{ workflowLowerCase }}.",
-                    "editionHelper": "Modifica i criteri di ingresso dei membri nel {{ workflowLowerCase }}. È possibile scegliere uno o più eventi o smartlist. Se un membro rientra in uno di questi criteri, si unirà al {{ workflowLowerCase }}."
+                    "editionHelper": "Modifica i criteri di accesso dei membri al {{ workflowLowerCase }}. Se un membro rientra in uno di questi criteri, si unirà al {{ workflowLowerCase }}."
                 },
                 "marketingAction": {
                     "label": "Seleziona un'azione di marketing",
@@ -17083,11 +17120,11 @@
                     "name": "Nome"
                 },
                 "convertIntoStep": {
-                    "label": "Step etichetta",
-                    "default": "Step etichetta"
+                    "label": "Nome dello step",
+                    "default": "Step senza titolo"
                 },
                 "convertIntoExit": {
-                    "label": "Considera il membro come",
+                    "label": "Considera l'uscita come",
                     "title": "Uscita"
                 },
                 "entryAction": {
@@ -17282,7 +17319,7 @@
             },
             "memberTable": {
                 "tableColumnLabel": {
-                    "status": "Stato",
+                    "status": "Successo",
                     "exitDate": "Data di uscita",
                     "entryDate": "Data di ingresso",
                     "currentStep": "Step corrente",

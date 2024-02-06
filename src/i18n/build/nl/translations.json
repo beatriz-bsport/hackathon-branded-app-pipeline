@@ -370,7 +370,16 @@
                     "activities": "Groepsactiviteiten"
                 },
                 "bookASession": "Reserveer een sessie",
-                "title": "Mijn reserveringen"
+                "title": "Mijn reserveringen",
+                "calendarDrawer": {
+                    "subtitle": {
+                        "workshop": "Filter je workshops op datum.",
+                        "appointment": "Filter uw afspraken op datum.",
+                        "activity": "Filter je activiteiten op datum."
+                    },
+                    "title": "Kies een datum"
+                },
+                "chooseBookingType": "Kies type boeking"
             },
             "placeholderCard": {
                 "myBookings": "Selecteer een sessie om meer details weer te geven."
@@ -1512,7 +1521,12 @@
             "workingDateSection": "Periode van activiteit in de studio",
             "endWorking": "Einddatum",
             "notes": "Notes",
-            "startWorking": "Startdatum"
+            "startWorking": "Startdatum",
+            "passwordResetConfirmation": {
+                "continue": "Ga verder",
+                "subtitle": "U kunt op \"Doorgaan\" klikken om opnieuw in te loggen",
+                "title": "Je wachtwoord is succesvol bijgewerkt"
+            }
         },
         "shop": {
             "noProvisionUpdates": "Geen voorraad",
@@ -1841,7 +1855,8 @@
         "errors": {
             "start_after_end": "De startdatum moet vóór de einddatum zijn.",
             "end_before_start": "De einddatum moet ná de startdatum zijn.",
-            "invalidUrl": "Deze URL is ongeldig (gewenste formaat: http://www.test.nl)"
+            "invalidUrl": "Deze URL is ongeldig (gewenste formaat: http://www.test.nl)",
+            "endBeforeCurrent": "De einddatum moet voor de huidige datum vallen."
         },
         "paymentMethod": {
             "OTHER": "Overige",
@@ -2115,7 +2130,15 @@
             },
             "automatedTitle": "Automatische berichtgevingen",
             "manualTitle": "Handmatige berichtgevingen",
-            "processing": "Wordt verzonden..."
+            "processing": "Wordt verzonden...",
+            "exportCampaigns": {
+                "dialogButtonGenerateAnyway": "Toch genereren",
+                "dialogContentAlternative": "Je kunt ook op 'toch genereren' klikken om het rapport te genereren zonder het ontvangersblad.",
+                "dialogContentSurplus": "De limiet is overschreden door {{ difference_count }} rijen.",
+                "dialogContent": "Dit rapport heeft ~{{ count }} miljoen rijen met ontvangers en overschrijdt daarmee de xlsx sheet limiet van 1 miljoen. Als u ontvangers wilt opnemen, verlaagt u het datumbereik om het aantal te verlagen.",
+                "dialogTitle": "Ontvangerslimiet overschreden",
+                "title": "Campagnes exporteren"
+            }
         },
         "recipient": {
             "readCount": "Aantal keer geopend",
@@ -3093,7 +3116,8 @@
             "margin_value_incl_tax": "Marginale waarde (incl. btw / omzetbelasting)",
             "amortized_price_tax_excluded": "Uitgestelde opbrengsten (excl. btw / omzetbelasting)",
             "margin_value_excluding_sales_tax": "Marginale waarde (excl. btw / omzetbelasting)",
-            "billing_group_address": "Adress"
+            "billing_group_address": "Adress",
+            "is_first_visit": "Eerste boeking"
         },
         "report": {
             "delete_message": "Weet je zeker dat je \"{{name}}\" wilt verwijderen?"
@@ -5281,7 +5305,9 @@
             "content": "U kunt deze smartlist niet verwijderen zolang deze wordt gebruikt in de volgende {{ workflowLowerCase }}:",
             "content_plural": "U kunt deze smartlist niet verwijderen zolang deze wordt gebruikt in de volgende {{ workflowPluralLowerCase }}:",
             "title": "Gebruikt in een van de {{ workflowPluralLowerCase }}"
-        }
+        },
+        "downloadReport": "Rapport downloaden",
+        "generateReport": "Rapport genereren"
     },
     "metaActivity": {
         "forms": {
@@ -12446,7 +12472,8 @@
             "invoiceitem_pk": "Aantal gefactureerde artikelen",
             "staff_commission_amount": "Personeelscommissie inclusief belasting",
             "staff_commission_amount_notax": "Personeelscommissie exclusief btw",
-            "invoice_datetime": "Uitgiftedatum factuur"
+            "invoice_datetime": "Uitgiftedatum factuur",
+            "booking_date_created": "Boeking datum"
         },
         "graphDefaultTitles": {
             "paymentTemporal": "Incasso's",
@@ -12947,7 +12974,14 @@
                     "helperText": "Als dit geactiveerd is, wordt het aantal toekomstige boekingen in mindering gebracht op het aantal geregistreerde wachtlijstplaatsen. Toekomstige wachtlijstslots worden ook beperkt op basis van dezelfde telling om overboeking te voorkomen.",
                     "label": "Neem wachtlijstplaatsen op in het maximale aantal toekomstige boekingen/workshops"
                 },
-                "bookingLimitation": "Globale boekingsbeperkingen"
+                "bookingLimitation": "Globale boekingsbeperkingen",
+                "resetPassword": {
+                    "urlError": "Voer een geldige url in",
+                    "urlHelperText": "Laat dit veld leeg om door te verwijzen naar de marktplaats",
+                    "urlRedirection": "Aangepaste URL",
+                    "helperText": "Wanneer je leden hun wachtwoord opnieuw instellen, worden ze standaard doorgestuurd naar de marktplaats. Als je ze ergens anders heen wilt sturen (bijvoorbeeld naar je eigen website), vul dan het volgende veld in met de gewenste URL.",
+                    "title": "Wachtwoord opnieuw instellen"
+                }
             },
             "gtmId": {
                 "placeholder": "GTM-XXXXXX",
@@ -15432,6 +15466,9 @@
                     },
                     "planning": {
                         "_label": "Agenda exporteren"
+                    },
+                    "smartlist_general_report": {
+                        "_label": "Smartlist algemeen rapport exporteren"
                     }
                 },
                 "_label": "Exporteren"

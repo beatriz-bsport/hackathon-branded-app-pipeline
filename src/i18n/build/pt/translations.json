@@ -89,7 +89,7 @@
     "booking": {
         "attendanceUpdatedOn": "Atualizado em {{- d }} às {{- t }}",
         "actions": {
-            "bill": "Fatura",
+            "bill": "Faturar",
             "unregister": "Cancelar a subscrição"
         },
         "guest": {
@@ -139,7 +139,7 @@
                 "confirm": "Eliminar",
                 "cancel": "Anular",
                 "title": "Eliminar condições",
-                "content": "Ao eliminar a seguinte condição, cancelará todas as marcações futuras efectuadas com a mesma definição.",
+                "content": "A eliminação da regra de recorrência resultará no cancelamento de reservas futuras que utilizaram esta regra.",
                 "success": "A marcação foi eliminada"
             },
             "editModal": {
@@ -148,7 +148,7 @@
             "createModal": {
                 "success": "A marcação foi criada.",
                 "info": "Impossível efetuar uma marcação já existente",
-                "create": "Efetuar uma marcação"
+                "create": "Adicionar uma reserva recorrente"
             },
             "item": {
                 "explain": "Todos os {{dayOfWeek}} - {{hour}}:{{minute}}, {{delayWeek}} semanas antes"
@@ -174,7 +174,7 @@
                     "helperText": "Indique a antecedência em número de semanas com que o aluno será registado"
                 },
                 "title": "Reservar uma periodicidade",
-                "groupWarning": "Tenha em atenção que não é possível criar marcações regulares para grupos de sessões",
+                "groupWarning": "Tenha em consideração que não é possível adicionar reservas recorrentes para eventos.",
                 "startFromDate": {
                     "label": "Início da recorrência em "
                 },
@@ -191,7 +191,7 @@
             "recurrentRuleBooking": "Reserva regular"
         },
         "filters": {
-            "all": "Todas as marcações",
+            "all": "Todas as reservas",
             "present": "Presente",
             "absent": "Ausente",
             "canceled": "Aula cancelada",
@@ -199,15 +199,15 @@
             "notCancelled": "Não cancelado",
             "cancel": "Cancelamento",
             "attendance": "Presença",
-            "time": "Marcações ao longo do tempo",
-            "futureBooking": "Marcações futuras",
-            "pastBooking": "Marcações passadas",
+            "time": "Reservas ao longo do tempo",
+            "futureBooking": "Reservas futuras",
+            "pastBooking": "Reservas passadas",
             "refunded": "Reembolsos",
             "isRefunded": "Reembolsado",
             "notRefunded": "Não reembolsado",
             "paid": "Pagamento",
-            "isPaid": "Marcações pagas",
-            "isUnpaid": "Marcações não pagas",
+            "isPaid": "Reservas pagas",
+            "isUnpaid": "Reservas não pagas",
             "coach": "Professor",
             "pickCoach": "Encontrar um professor...",
             "managerCanceled": "Cancelamento manager",
@@ -235,7 +235,7 @@
             },
             "option": {
                 "isAlreadyOnWaitingList": "Se estiver em lista de espera, será notificado por email quando houver um lugar disponível.",
-                "isAlreadyRegistered": "A sessão está completa - parabéns, estão todos inscritos!",
+                "isAlreadyRegistered": "Parabéns, a sua reserva foi concluída. A sessão está agora completa.",
                 "isFull": "A sessão está esgotada, mas pode inscrever-se na lista de espera. Será notificado por email quando houver um lugar disponível.",
                 "registerOption": "Adicionar-me à lista de espera",
                 "waitingListOpen": "A sessão está esgotada, mas ainda se pode inscrever na lista de espera. Enviaremos email assim que houver um lugar disponível.",
@@ -245,7 +245,7 @@
             "offer": {
                 "isDisabled": "Infelizmente, a sessão foi cancelada.",
                 "isWaitingListFull": "A sessão está esgotada e a lista de espera está cheia.",
-                "blockedByTags": "Não tem aprovação necessária para se registar nesta sessão.",
+                "blockedByTags": "Não é possível reservar esta sessão sem as etiquetas correctas.",
                 "isTooLate": "As inscrições já estão encerradas.",
                 "isAlreadyRegistered": "Já está inscrito para esta sessão",
                 "isTooSoon": "As inscrições estão atualmente encerradas e serão abertas em {{-date}}."
@@ -258,11 +258,11 @@
             "tags": {
                 "managerDialogWarningDialog": {
                     "title": "Informação",
-                    "content": "Atenção, este aluno não possui créditos suficientes para ser registado nesta sessão. Gostaria ainda assim de o registar?",
+                    "content": "Este membro não tem as etiquetas necessárias para esta sessão. Deseja inscrevê-lo na mesma?",
                     "cancel": "Anular",
                     "confirm": "Confirmar"
                 },
-                "unAuthorized": "Não tem autorização para se registar nesta sessão."
+                "unAuthorized": "Não é possível reservar esta sessão sem as etiquetas correctas."
             },
             "isBookingLimitReached": "Você atingiu o limite se reservas"
         },
@@ -288,9 +288,9 @@
                 "explain": "Pode notificar os seus membros antes ou depois de determinadas sessões, com base em vários critérios, como o número de presenças, não comparências ou cancelamentos.",
                 "sendBeforeNotification": "Enviar a notificação push ao aluno antes da sessão a que a notificação diz respeito",
                 "chooseKind": {
-                    "absence": "Ausência de uma sessão",
+                    "absence": "Ausente",
                     "title": "Notificação de ação de eventos",
-                    "attendance": "Participação de um aluno numa sessão",
+                    "attendance": "Presente",
                     "refunded": "Cancelamento reembolsado",
                     "notRefunded": "Cancelamento após o prazo"
                 },
@@ -336,7 +336,7 @@
                 "typeTitle": "Tipo de notificação",
                 "settingTitle": "Configurações",
                 "eventNb": "Notificar o membro do evento n.º :",
-                "notifyAllEvents": "Notificar o membro de cada evento",
+                "notifyAllEvents": "Enviar esta notificação para cada reserva ou cancelamento",
                 "sendBeforeMail": "Enviar a mensagem de email ao membro antes da sessão que diz respeito à notificação",
                 "sendBeforeNotifications": "Enviar notificações ao membro antes da sessão a que a notificação diz respeito",
                 "sendAfterNotifications": "Enviar notificações ao aluno após a sessão",
@@ -353,10 +353,10 @@
                 },
                 "chooseStatus": {
                     "title": "Escolha o tipo de marcação que pretende notificar",
-                    "valid": "Marcação aceite",
-                    "cancelled": "Marcação cancelada pelo aluno"
+                    "valid": "Reservas",
+                    "cancelled": "Cancelamentos (dos membros)"
                 },
-                "bookingNumberAll": "Todas as marcações",
+                "bookingNumberAll": "Todas as reservas",
                 "bookingNumberFirst": "1ª marcação",
                 "bookingNumberSecond": "2ª marcação",
                 "bookingNumberThird": "3ª reserva",
@@ -502,8 +502,8 @@
         "attend": "Presente",
         "doNotAttend": "Ausente",
         "memberGraph": {
-            "title": "Resumo das marcações",
-            "label": "Marcações"
+            "title": "Resumo das reservas",
+            "label": "Reservas"
         },
         "creditConsumed": "{{credit_consumed}} crédito",
         "creditConsumed_plural": "{{credit_consumed}} créditos",
@@ -651,9 +651,9 @@
         "showPerformance": "Pagar",
         "performance": {
             "coachName": "Professor",
-            "nbBookings": "Marcações",
+            "nbBookings": "Reservas",
             "nbOffersTotal": "Sessões",
-            "nbBookingsOverThreshold": "Marcações bónus",
+            "nbBookingsOverThreshold": "Reservas acima do limiar",
             "pricePerOffer": "Montante por sessão",
             "pricePerAdditionalBooking": "Montante por marcação",
             "title": "Descrição do professor",
@@ -694,11 +694,11 @@
             "bonus": "Bónus",
             "base": "Base",
             "duration": "Duração",
-            "nb_bookings": "Marcações",
+            "nb_bookings": "Reservas",
             "nb_sessions": "Número de sessões",
             "name": "Nome da sessão",
             "confirmed_bookings": "Participantes",
-            "cancelled_bookings": "Marcações canceladas",
+            "cancelled_bookings": "Reservas canceladas",
             "total_on_sessions": "Remuneração das aulas em grupo",
             "total_on_appointments": "Compensação por  referência",
             "total": "Remuneração total",
@@ -709,7 +709,7 @@
         },
         "advancedFilters": {
             "apply": "Aplicar filtros",
-            "privateserviceCoachPaymentRuleSelector": "Marcações",
+            "privateserviceCoachPaymentRuleSelector": "Aulas Privadas",
             "header": "Filtros avançados",
             "reset": "Redefinir filtros",
             "coachSelector": "Selecionar professores",
@@ -770,10 +770,10 @@
         "pricePerOffer": "Montante por sessão",
         "bonus": "Bónus",
         "checkboxIncludeABonus": "Incluir um bónus de desempenho",
-        "bookingThresholdLabel": "Mínimo de marcações",
+        "bookingThresholdLabel": "Regra de acionamento do limiar de reserva",
         "fixedPriceForAdditionalBookingLabel": "Fixo por sessão",
         "fixedPriceForAdditionalBookingHelper": "Montante fixo pago para todas as sessões com inscrições suficientes",
-        "bookingThresholdHelper": "Uma sessão só será contabilizada se totalizar este número de marcações"
+        "bookingThresholdHelper": "Cada reserva que ultrapasse este limiar acrescenta um bónus"
     },
     "common": {
         "text": {
@@ -963,7 +963,15 @@
                 "showMore": "Ver mais",
                 "isEmpty": "Ainda não foi enviado qualquer e-mail"
             },
-            "processing": "Sendo enviado..."
+            "processing": "Sendo enviado...",
+            "exportCampaigns": {
+                "dialogButtonGenerateAnyway": "Gerar de qualquer forma",
+                "dialogContentAlternative": "Em alternativa, clique em \"gerar na mesma\" para gerar o relatório sem a folha de destinatários.",
+                "dialogContentSurplus": "O limite é excedido por {{ difference_count }}  linhas.",
+                "dialogContent": "Este relatório tem ~ {{ count }} milhões de linhas de destinatários, ultrapassando o limite de 1 milhão da folha xlsx. Para incluir destinatários, diminua o intervalo de datas para reduzir a contagem.",
+                "dialogTitle": "Limite de beneficiários excedido",
+                "title": "Exportar Campanhas"
+            }
         },
         "recipient": {
             "numberOfRecipientsCompact": "{{count}} dest.",
@@ -1001,7 +1009,7 @@
             "columns": {
                 "member": "Membro",
                 "status": "Estado",
-                "title": "Visão geral",
+                "title": "Previsualizar",
                 "date_created": "Data"
             }
         },
@@ -1025,7 +1033,7 @@
                 "15": "{{ audienceCamelCase }}",
                 "13": "Notificação",
                 "30": "Agendamento",
-                "31": "Marcações canceladas",
+                "31": "Reservas canceladas",
                 "32": "Lista de espera",
                 "10": "Sessão",
                 "11": "Mensagem direta",
@@ -1127,8 +1135,8 @@
             "success": "O e-mail está a ser enviado..."
         },
         "dialogReceiverChoice": {
-            "reservation": "Enviar para as marcações",
-            "canceledReservation": "Enviar para as marcações canceladas",
+            "reservation": "Reservas",
+            "canceledReservation": "Cancelamentos",
             "waitingList": "Enviar para a lista de espera",
             "title": "Selecionar destinatários"
         },
@@ -1137,7 +1145,7 @@
             "warningConsent1": "Atenção! O membro desactivou a opção de envio de mensagens de texto promocionais. As mensagens SMS directas são uma forma rápida e fácil de falar com os seus membros. Não devem ser utilizadas para fins publicitários ou promocionais."
         },
         "smartListPopup": {
-            "previewTitle": "Visão geral",
+            "previewTitle": "Previsualizar",
             "cancelPreview": "Cancelar",
             "drawerTitle": "Histórico dos pop-ups de arranque",
             "close": "Fechar",
@@ -1372,7 +1380,7 @@
                     "generic": "Não foi possível efetuar a operação. Por favor, tente novamente.",
                     "guestGeneric": "Surgiu um problema com a inscrição de um convidado.",
                     "guestOvercomeLimit": "O número de convidados adicionado a esta reserva excede o número autorizado.",
-                    "guestReachedLimit": "O número de convidados adicionados a esta sessão excede o número autorizado. Já não é possível efetuar mais marcações.",
+                    "guestReachedLimit": "Já atingiu o limite de reservas para um hóspede para o período atual. Não é possível efetuar mais nenhuma reserva.",
                     "guestSettings": "O estúdio desactivou a função para convidados.",
                     "guestOffer": "O estúdio desactivou a função de reserva de convidados para esta sessão.",
                     "guestPass": "O estúdio desativou a função para convidados com este passe.",
@@ -1572,7 +1580,7 @@
                 "paymentLink": "Método de pagamento",
                 "payAll": "Liquidação de dívidas de membros",
                 "confirmPayment": "Confirmar o pagamento",
-                "paymentSecurityInformation": "Pode registar o seu método de pagamento com segurança para futuras compras. Os dados são encriptados e armazenados de forma segura.",
+                "paymentSecurityInformation": "Pode guardar o seu método de pagamento com segurança para futuras compras. Os dados são encriptados e armazenados de forma segura.",
                 "saveForLaterAsSEPA": "O pedido será registado como \"SEPA\""
             },
             "paymentList": {
@@ -1912,7 +1920,7 @@
             "subscription": {
                 "forms": {
                     "disable_pass_on_fail_subscription_payment": {
-                        "helperText": "Se o pagamento da subscrição não for efetuado ou for declarado contestado, os passes de aulas e de marcações relativos a esta fatura serão desativados até que a fatura seja liquidada",
+                        "helperText": "Se o pagamento da subscrição não for efetuado ou for declarado contestado, os passes de aulas e de aulas privadas relativos a esta fatura serão desativados até que a fatura seja liquidada",
                         "label": "Desativar passes se o pagamento falhar."
                     },
                     "nbRetriesSubscriptionPayments": {
@@ -2018,7 +2026,7 @@
                 "11": "Cartões de presente",
                 "10": "Pack",
                 "1": "Passe de aulas",
-                "9": "Passe de Marcações",
+                "9": "Passe de Aula Privada",
                 "3": "Crédito",
                 "2": "Loja"
             },
@@ -2145,7 +2153,7 @@
             "bookAgain": "Remarcar",
             "accessLive": "Acceder aula online",
             "spotNumber": "Local {{count}}",
-            "titlePrivateBooking": "Marcações",
+            "titlePrivateBooking": "Aulas Privadas",
             "discard": "Cancelar",
             "noShow": "Foi registada a sua ausência nesta sessão",
             "titleBooking": "Aulas em grupo",
@@ -2153,7 +2161,7 @@
         },
         "widget": {
             "noBookingPast": "Nenhuma sessão no seu histórico",
-            "futureBooking": "As minhas marcações",
+            "futureBooking": "Minhas Reservas",
             "pastBooking": "Histórico",
             "noBookingFuture": "Não há sessões futuras"
         },
@@ -2201,7 +2209,7 @@
             "logout": "Sair"
         },
         "pack": {
-            "titlePrivatePack": "Marcações",
+            "titlePrivatePack": "Aulas Privadas",
             "titlePaymentPack": "Aulas de grupo",
             "titleUniversalPack": "Universal"
         },
@@ -2280,7 +2288,7 @@
                         "titles": {
                             "studios": "Estúdios compatíveis",
                             "activity": "Compatibilidade das actividades",
-                            "appointment": "Compatibilidade das marcações",
+                            "appointment": "Compatibilidade das aulas privadas",
                             "main": "Compatibilidade"
                         },
                         "subtitles": {
@@ -2293,7 +2301,7 @@
                             "allActivities": "Compatível com todas as actividades do estúdio",
                             "allTimeSlots": "Compatível com todas as faixas horárias",
                             "vod": "Pode ser utilizado para <strong> Videos on demand </strong>",
-                            "noAppointments": "Não há marcações compatíveis",
+                            "noAppointments": "Não há aulas privadas compatíveis",
                             "allSessions": "Compatível com todas as sessões",
                             "sessions": "Sessões compatíveis: {{ sessionsList }}"
                         },
@@ -2424,8 +2432,8 @@
                             "waitlist": "Nenhuma atividade na lista de espera"
                         },
                         "appointment": {
-                            "past": "Não há marcações anteriores para mostrar.",
-                            "future": "Não estão previstas marcações futuras."
+                            "past": "Não há aulas privadas anteriores para mostrar.",
+                            "future": "Não estão previstas aulas privadas futuras."
                         }
                     }
                 },
@@ -2436,11 +2444,20 @@
                 },
                 "tab": {
                     "workshops": "Workshops",
-                    "appointments": "Marcações",
+                    "appointments": "Aulas Privadas",
                     "activities": "Atividades"
                 },
                 "bookASession": "Reservar uma sessão",
-                "title": "Minhas reservas"
+                "title": "Minhas reservas",
+                "calendarDrawer": {
+                    "subtitle": {
+                        "workshop": "Filtre os seus seminários por data.",
+                        "appointment": "Filtre os seus compromissos por data.",
+                        "activity": "Filtre as suas actividades por data."
+                    },
+                    "title": "Escolher uma data"
+                },
+                "chooseBookingType": "Selecionar o tipo de reserva"
             },
             "placeholderCard": {
                 "myBookings": "Seleccione uma sessão para ver mais detalhes"
@@ -2523,14 +2540,14 @@
             },
             "applies_to": {
                 "choicesFranchise": {
-                    "9": "Passes de Marcações partilhados",
+                    "9": "Passes de Aula Privada partilhados",
                     "1": "Passes de aulas partilhados"
                 },
                 "choices": {
                     "null": "Conjunto do carrinho",
                     "all": "Conjunto do carrinho",
                     "10": "Pack",
-                    "9": "Passe de marcações",
+                    "9": "Passes de Aula Privada",
                     "6": "Despesas de envio",
                     "2": "Loja",
                     "1": "Passe de aulas"
@@ -2600,7 +2617,7 @@
             "notEditable": "Este cupão é um cupão partilhado pela conta do franchisador. Os elementos foram definidos pela conta do franchisador e não podem ser alterados.",
             "isEmptyExplain": "Nenhum código promocional partilhado registado",
             "actions": {
-                "create": "Adicionar um passe partilhado"
+                "create": "Adicionar uma promoção"
             }
         },
         "couponTemplateInstance": {
@@ -3317,7 +3334,7 @@
                 "text_size_limit": "O comprimento da resposta será limitado a {{count}} caracteres.",
                 "link_to_note_helper": "Ao associar a pergunta a uma nota, a resposta será automaticamente adicionada ao perfil do membro.",
                 "link_to_note": "Criar uma nota",
-                "fileHelper": "Os ficheiros carregados serão adicionados diretamente à secção \"Os meus documentos\" do ficheiro do membro.",
+                "fileHelper": "Os ficheiros carregados serão adicionados à secção \"Documentos\" das contas dos seus membros.",
                 "file": "Anexar um ficheiro",
                 "select_placeholder": "Selecionar",
                 "select": "Lista pendente",
@@ -3416,7 +3433,7 @@
             "cancel": "Cancelar",
             "kind": "Tipo",
             "label": "Etiqueta",
-            "preview": "Visão geral do formulário",
+            "preview": "Previsualizar",
             "content": "Conteúdo do formulário",
             "name": "Nome",
             "search": "Procurar um formulário",
@@ -3528,7 +3545,7 @@
                     "basket-created": "Criar",
                     "booking-attendance": "Frequência das aulas de grupo",
                     "booking-create": "Aulas de grupo",
-                    "private_consumer_pass-create": "Passe de Marcações",
+                    "private_consumer_pass-create": "Passe de Aula Privada",
                     "consumer_payment_pack-create": "Passe de aulas",
                     "104": "Subscrição",
                     "103": "Faturação",
@@ -3543,14 +3560,14 @@
                     "9": "Carrinho pago",
                     "8": "Adicionar ao carrinho",
                     "7": "Criar",
-                    "6": "Anular Marcações",
-                    "5": "Marcações",
+                    "6": "Cancelamento de Aula Privada",
+                    "5": "Aulas Privadas",
                     "4": "Frequência das aulas em grupo",
                     "3": "Aulas em grupo",
-                    "2": "Passe de Marcações",
+                    "2": "Passes de Aulas Privadas",
                     "1": "Passe de aulas",
-                    "private_booking-cancel": "Cancelar Marcações",
-                    "private_booking-create": "Marcações"
+                    "private_booking-cancel": "Cancelamento de Aula Privada",
+                    "private_booking-create": "Aulas privadas"
                 },
                 "exit": {
                     "exit_fail_label": "Perdido",
@@ -3827,7 +3844,7 @@
             },
             "groupTitle": {
                 "contract": "Subscrição",
-                "privatePass": "Passe de marcações",
+                "privatePass": "Passe de Aula Privada",
                 "paymentPack": "Passe de aulas",
                 "privateBooking": "Marcação",
                 "booking": "Reserva",
@@ -3869,7 +3886,7 @@
         "newsletter": {
             "messages": {
                 "success": "Está registado !",
-                "error": "Impossível registar o seu e-mail de momento"
+                "error": "Impossível guardar o seu e-mail de momento"
             },
             "form": {
                 "validate": "Confirmar",
@@ -4050,7 +4067,7 @@
             "filters": {
                 "type": {
                     "paymentPack": "Passe de aulas",
-                    "privatePass": "Créditos de marcações"
+                    "privatePass": "Passe de Aula Privada"
                 },
                 "noCategory": "Sem categoria",
                 "placeholder": {
@@ -4113,7 +4130,7 @@
                 "availableCredit_plural": "{{count}} créditos"
             },
             "title": {
-                "universalPassMessage": "O passe universal pode ser utilizado para aulas de grupo e marcações",
+                "universalPassMessage": "Cartão universal, pode ser utilizado para actividades de grupo e aulas privadas",
                 "autoRenewal": "Renovação automática"
             }
         },
@@ -4169,8 +4186,8 @@
                     "and": " e ",
                     "categoriesAndActivitiesAndEstablishments": "Compatível com {{ categories }}, {{ establishments }} e {{ activities }} "
                 },
-                "compatible": "Compatível com {{count}} marcação",
-                "compatible_plural": "Compatível com {{count}}  marcações",
+                "compatible": "Compatível com {{count}} aula privada",
+                "compatible_plural": "Compatível com {{count}}  aulas privadas",
                 "activities": "{{ count }} atividade",
                 "activities_plural": "{{ count }} atividades",
                 "compatibilityModal": {
@@ -4224,7 +4241,7 @@
                 },
                 "maxPurchasePerMember": "{{count}} compra por membro",
                 "maxPurchasePerMember_plural": "{{count}} compras por membro",
-                "isUniversalPass": "Passe geral",
+                "isUniversalPass": "Passe Universal",
                 "offPeakRestrictions": {
                     "title": "Compatível apenas em determinados horários"
                 }
@@ -4236,8 +4253,8 @@
             "comboItemList": {
                 "paymentPackItem": "{{count}} passe de aulas",
                 "paymentPackItem_plural": "{{count}} passes de aulas",
-                "privatePassItem": "{{count}} passe de marcações",
-                "privatePassItem_plural": "{{count}} passes de marcações",
+                "privatePassItem": "{{count}} passe de aula privada",
+                "privatePassItem_plural": "{{count}} passes de aulas privadas",
                 "hiddenItem": "{{count}} outro elemento...",
                 "hiddenItem_plural": "{{count}} outros elementos..."
             }
@@ -4282,13 +4299,13 @@
             "submit": "Adicionar",
             "name": "Nome",
             "addButtonBlocked": "Eliminar documentos para adicionar novos",
-            "title": "Os meus documentos",
+            "title": "Documentos",
             "add": "Adicionar um documento",
             "drop_file": "Arrastar e largar ou clicar para adicionar um documento"
         },
         "menu": {
             "bookings": "Reservas",
-            "privateConsumerPass": "Passes de marcações",
+            "privateConsumerPass": "Passes de Aula Privada",
             "info": "Geral",
             "invoices": "Facturas e subscrições",
             "giftcard": "Cartão presente",
@@ -4299,8 +4316,8 @@
             "paymentPack": "Passes de aulas",
             "basket": "Carrinho",
             "vod": "Vídeos on Demand",
-            "relation": "Agregados",
-            "privateBooking": "Marcações"
+            "relation": "Relacionamentos",
+            "privateBooking": "Aulas Privadas"
         },
         "forms": {
             "needInformationValidation": {
@@ -4356,7 +4373,7 @@
         "unpaidInvoiceTitle": "Fatura não paga",
         "unpaidInvoiceTitle_plural": "Faturas não pagas",
         "relation": {
-            "pleaseSelectRelation": "Selecionar para aceder aos passes ativos partilhados"
+            "pleaseSelectRelation": "Seleccione uma relação para ver mais detalhes sobre os passes partilhados."
         },
         "row": {
             "headers": {
@@ -4387,7 +4404,7 @@
         },
         "pastBooking": "último : ",
         "engagement": "Engagement",
-        "addMember": "Adicionar um registo de membro",
+        "addMember": "Adicionar um membro",
         "showNextBooking": "Ver reservas futuras",
         "nextBooking": "próximo : ",
         "search": {
@@ -4399,7 +4416,7 @@
         "note": {
             "noNoteSaved": "Não há notas guardadas",
             "addNote": "Adicionar uma nota",
-            "myNotes": "As minhas notas",
+            "myNotes": "Notas",
             "healthNotes": "Informações importantes",
             "is_medical": "Nota importante"
         },
@@ -4411,13 +4428,13 @@
         "offers_joined": "N.º de sessões registadas",
         "pass_owner": "Passe válido",
         "memberSince": "Registado em ",
-        "showPreviousBooking": "Ver marcações anteriores",
+        "showPreviousBooking": "Mostrar reservas anteriores",
         "regularizeBalance": "Regularização",
         "restoreMember": "Recuperar",
         "archiveMember": "Arquivar",
         "archived": "Arquivado",
         "showSubscriptions": "Ver subscrições",
-        "creditAccountBalance": "Montante do cliente",
+        "creditAccountBalance": "Saldo da conta do cliente",
         "events": {
             "member-giftcard_used": {
                 "primaryText": "O  cartão presente  {{- giftcardName }} está ativado.",
@@ -4439,7 +4456,7 @@
             },
             "member-private_booking_registered": {
                 "primaryText": "{{ source }} reservou uma marcação {{- privateServiceName }} - {{- privateSlotName }} em {{- privateServiceDate }}.",
-                "filter": "Marcações",
+                "filter": "Aula Privada",
                 "sourceManager": "O/A gestor/a {{ managerName }}"
             },
             "member-basket_paid": {
@@ -4460,7 +4477,7 @@
                 "filter": "Formulário de perfil editado"
             },
             "member-private_booking_canceled": {
-                "filter": "Cancelamento de marcações",
+                "filter": "Cancelamentos de Aulas Privadas",
                 "primaryText": "O encontro para {{- private_slot_name }}{{- private_service_name}} em {{- date_start }} foi cancelado."
             },
             "member-booking_canceled": {
@@ -4657,8 +4674,8 @@
             "confirmation": "Instruções corretamente enviadas para {{memberEmail}}",
             "error": "Erro ao enviar instruções de reposição da palavra-passe",
             "dialogTitle": "Redefinir palavra-passe",
-            "button": "Repor a palavra-passe",
-            "dialogContent": "Está prestes a enviar instruções para repor a palavra-passe para {{memberEmail}}"
+            "button": "Redefinir a palavra-passe",
+            "dialogContent": "Vai enviar instruções de redefinição da palavra-passe para {{memberEmail}}"
         },
         "noData": "Não existem membros nesta lista inteligente.",
         "noMember": "De momento, não há membros para apresentar.",
@@ -4682,7 +4699,7 @@
             "seeRestrictions": "Ver",
             "autoDiscard": "A sessão será cancelada se {{nb_bookings}} marcação(ões) ou menos {{hours}}h antes do início da sessão",
             "autoDiscardHeader": "A sessão será cancelada se",
-            "firstBookingMinutesUntil": "As marcações são bloqueadas antes de {{m}} a partir do início da sessão",
+            "firstBookingMinutesUntil": "Os membros podem reservar sessões até {{m}} no futuro.",
             "restrictionsHeader": "Restrições personalizadas",
             "restrictions": " Restrição personalizada n.º{{ count }}",
             "lastBookingBeforeMinutes": "Até {{m}} antes do início da sessão",
@@ -4907,7 +4924,7 @@
                 "referral": "Referência"
             },
             "myClub": "Meu Estúdio",
-            "subscription": "Levantamentos",
+            "subscription": "Débitos Diretos",
             "coupon": "Promoções",
             "backToFranchiseWorskpace": "Voltar à conta principal",
             "tutorial": "Tutorial",
@@ -4949,8 +4966,8 @@
             "product": "Produtos",
             "schedule": "Horários",
             "privateService": {
-                "title": "Marcações",
-                "services": "Marcações",
+                "title": "Aulas Privadas",
+                "services": "Aulas Privadas",
                 "pass": "Passes de marcação"
             },
             "coachPerformance": "Professores",
@@ -5054,22 +5071,22 @@
                 "info_plural": "Gerais ({{number}})",
                 "invoices": "Fatura e Subscrição",
                 "invoices_plural": "Faturas e Subscrições ({{number}})",
-                "privateBooking": "Marcação",
-                "privateBooking_plural": "Marcações ({{number}})",
+                "privateBooking": "Aula Privada",
+                "privateBooking_plural": "Aulas Privadas ({{number}})",
                 "basket": "Carrinho",
                 "basket_plural": "Carrinho ({{number}})",
                 "form": "Formulário",
                 "form_plural": "Formulários ({{number}})",
-                "relation": "Associados",
-                "relation_plural": "Associados ({{number}})",
+                "relation": "Relacionamento",
+                "relation_plural": "Relationships{{number}}",
                 "contact": "Contato",
                 "contact_plural": "Contatos({{number}})",
                 "bookings": "Reserva",
                 "bookings_plural": "Reservas ({{number}})",
                 "giftcard": "Cartão presente",
                 "giftcard_plural": "Cartões de presente ({{number}})",
-                "privateConsumerPass": "Passe de marcação",
-                "privateConsumerPass_plural": "Passe de marcações ({{number}})"
+                "privateConsumerPass": "Passe de Aula Privadas",
+                "privateConsumerPass_plural": "Passes de Aula Privada ({{number}})"
             },
             "coach": {
                 "calendar": "Calendário",
@@ -5298,7 +5315,7 @@
                     "establishment_practical_info": "Acesso à sala",
                     "ics_calendar_link": "Link calendário ics"
                 },
-                "name": "Marcações"
+                "name": "Aulas Privadas"
             },
             "ReplacementRequest": {
                 "name": "Substituição",
@@ -5370,7 +5387,7 @@
             "304": "Ativar o passe de oferta",
             "515": "Passe de aulas e taxa de subscrição automaticamente desativados",
             "302": "Validar o email do membro",
-            "801": "Grupo de marcações anulado",
+            "801": "Grupo de aulas privadas cancelada",
             "300": "Pontapé de saída (não validado a tempo demasiadas vezes)",
             "305": "Alterar o email dos membros a partir do backoffice",
             "400": "Marcação cancelada - fora de tempo (professor)",
@@ -5400,7 +5417,7 @@
             "702": "Cancelamento após o prazo : débito na conta do membro (alunos)",
             "303": "Fusão de duas contas de estúdio",
             "705": "Advertência de ausência",
-            "301": "Repor a palavra-passe de membro",
+            "301": "Redefinir a palavra-passe do membro",
             "401": "Marcação cancelada - reembolsada (professor)",
             "402": "Nova marcação (professor)",
             "480": "Marcação anulada recorrentemente por falta de disponibilidade (professor)",
@@ -5419,7 +5436,7 @@
         },
         "ruleGroup": {
             "offer": "Sessão",
-            "private_booking": "Marcações",
+            "private_booking": "Aulas Privadas",
             "subscription": "Subscrição",
             "marketing": "Marketing",
             "invoice": "Faturação",
@@ -5435,7 +5452,7 @@
         "type": {
             "sendNotification": "Enviar notificação",
             "days": "Dias",
-            "bookingConcerned": "a sessão abrangida pela notificação",
+            "bookingConcerned": "a sessão afetada pela notificação",
             "hours": "Horas"
         },
         "pageTitle": "Notificações transaccionais",
@@ -5462,7 +5479,7 @@
                     "email_design": "Selecionar um modelo",
                     "selectCompanies": "Selecionar pelo menos um franchisado"
                 },
-                "save": "Registar",
+                "save": "Guardar",
                 "activateSubtitleActivate": "O email de transição está ativado e será enviado aos membros",
                 "activateSubtitleDeactivate": "O email de transição está desativado e não será enviado aos membros",
                 "receiveCarbonCopySubtitle": "Receberá uma cópia de cada mensagem eletrónica enviada"
@@ -5499,7 +5516,7 @@
         },
         "preview": {
             "emptyStateNotification": "Para ver a pré-visualização, configure a sua notificação push",
-            "title": "Visão geral",
+            "title": "Previsualizar",
             "emptyState": "Para ver as pré-visualizações, clique numa das categorias",
             "notification": "Push",
             "email": "Email"
@@ -5581,7 +5598,7 @@
                 "activities": "Atividade",
                 "sports": "Categoria",
                 "actions": {
-                    "create": "Registar",
+                    "create": "Guardar",
                     "edit": "Alterar",
                     "cancel": "Cancelar",
                     "skip": "Aceder a"
@@ -5664,8 +5681,8 @@
                 "from": "A partir de ",
                 "universalPass": {
                     "deativatedTags": "Desativado para passes universais",
-                    "helperText": "Os passes universais podem ser utilizados para marcar aulas de grupo e marcações. Uma vez criado o passe, será criada uma cópia nos passes de marcação. O número de créditos dos dois passes serão associados. Quando comprar um dos dois passes, o outro será automaticamente adicionado ao membro (sem qualquer custo adicional).",
-                    "marketplaceLabel": "Passe universal. Pode ser utilizado para aulas de grupo e para marcações.",
+                    "helperText": "Os passes universais podem ser utilizados para actividades de grupo e aulas privadas. Para cada passe universal, são criados dois passes de reserva para associar o número de créditos. Uma vez adquirido um destes passes, o outro será automaticamente adicionado sem custos adicionais.",
+                    "marketplaceLabel": "O passe universal pode ser utilizado para actividades de grupo e aulas privadas",
                     "label": "Passe universal",
                     "warningIsUniversalPass": "Este passe é um passe universal, uma cópia foi criada nos passes por marcação. Todos os campos modificados neste passe serão igualmente modificados no passe duplo (exceto a categoria). O mesmo se aplica às notificações, extensões e alterações de crédito."
                 },
@@ -5738,7 +5755,7 @@
                 "first": "Notificar quando o passe estiver expirado"
             },
             "daysLeft": {
-                "second": "dias",
+                "second": "dia(s) de validade restante(s)",
                 "first": "Notificar quando"
             },
             "daysPastLabel": "Notificar quando o passe já estiver expirado há {{day}} dia",
@@ -5831,7 +5848,7 @@
             },
             "refund": {
                 "actions": {
-                    "submit": "Registar",
+                    "submit": "Guardar",
                     "cancel": "Cancelar"
                 },
                 "warningSecond": "Se pretender reembolsar o aluno por transferência bancária através do método de pagamento utilizado, anule a fatura e não reembolse o cliente por crédito!",
@@ -5888,7 +5905,7 @@
             "reverted": "Fatura anulada",
             "notReverted": "Fatura validada",
             "credits": "Créditos",
-            "expiration": "Confirmar",
+            "expiration": "Validad",
             "all": "Todos os passes"
         },
         "paymentPackTemplate": {
@@ -5905,7 +5922,7 @@
             },
             "form": {
                 "actions": {
-                    "submit": "Registar",
+                    "submit": "Guardar",
                     "close": "Fechar"
                 },
                 "submit": "Confirmar",
@@ -5941,7 +5958,7 @@
             },
             "form": {
                 "actions": {
-                    "submit": "Registar",
+                    "submit": "Guardar",
                     "close": "Fechar"
                 },
                 "explain2": "Se um membro comprar este passe num dos estúdios compatíveis, poderá também utilizá-lo nos outros estúdios que definiu.",
@@ -6021,7 +6038,7 @@
             "description": "Descrição",
             "credit": "Crédito",
             "availabilityGivenNumber": "Tornar o passe válido apenas durante um determinado número de dias (após a data de compra)",
-            "availabilitySlot": "Tornar o passe válido apenas para um conjunto de datas",
+            "availabilitySlot": "Tornar este passe válido durante um período de tempo  determinado",
             "restriction": "Restrições",
             "packValidity": "Validade do passe",
             "penalityModeFranchisor": {
@@ -6209,7 +6226,7 @@
             "accessibility": "Acessibilidade",
             "compatibilityPaymentPack": "Compatibilidade com as aulas em grupo",
             "compatibility": "Compatibilidade",
-            "validity": "Confirmar",
+            "validity": "Validade",
             "credit_quantity": "Número de créditos",
             "offPeak": "Horários"
         },
@@ -6525,7 +6542,7 @@
                     "title": "Adicionar um método de pagamento"
                 },
                 "message": {
-                    "error": "Não foi possível registar este método de pagamento",
+                    "error": "Não foi possível guardar este método de pagamento",
                     "success": "Método de pagamento guardado com sucesso!"
                 }
             },
@@ -6553,7 +6570,7 @@
             "13": "SEPA",
             "12": "Conflito",
             "11": "Outro",
-            "10": "Pagamento automático",
+            "10": "Débito direto",
             "9": "Crédito",
             "7": "Transferir",
             "5": "Vouchers",
@@ -6567,8 +6584,8 @@
             "BANCONTACT": "Bancontact",
             "GIROPAY": "Giropay",
             "EPS": "EPS",
-            "70": "Débito Direto",
-            "BACS_DEBIT": "Débito Direto",
+            "70": "Débito direto Bacs",
+            "BACS_DEBIT": "Débito direto Bacs",
             "8": "Evento brite",
             "6": "AMEX",
             "20": "Bancontact",
@@ -6807,7 +6824,7 @@
                         "_label": "Professores"
                     },
                     "appointments": {
-                        "_label": "Marcações"
+                        "_label": "Aulas Privadas"
                     },
                     "workshops": {
                         "_label": "Workshops"
@@ -6837,7 +6854,7 @@
                         "_label": "Loja"
                     },
                     "privatePass": {
-                        "_label": "Passe de Marcações"
+                        "_label": "Passes de Aula Privada"
                     },
                     "_label": "Produtos"
                 },
@@ -7469,7 +7486,7 @@
                                 "_label": "Criar"
                             }
                         },
-                        "_label": "Passe de Marcações"
+                        "_label": "Passe de Aulas Privadas"
                     },
                     "memberships": {
                         "allowed_actions": {
@@ -7520,7 +7537,7 @@
                                 "_label": "Criar"
                             }
                         },
-                        "_label": "Créditos para Marcações expiradas"
+                        "_label": "Créditos de Aula Privada expiradas"
                     },
                     "_label": "Produtos"
                 },
@@ -7540,7 +7557,7 @@
                                 "_label": "Criar"
                             }
                         },
-                        "_label": "Reversas não pagas (marcações)"
+                        "_label": "Reversas não pagas (Aulas Privadas)"
                     },
                     "private_bookings": {
                         "allowed_actions": {
@@ -7557,7 +7574,7 @@
                                 "_label": "Criar"
                             }
                         },
-                        "_label": "Reservas (marcações)"
+                        "_label": "Reservas (Aulas Privadas)"
                     },
                     "first_privatebooking": {
                         "allowed_actions": {
@@ -7662,7 +7679,7 @@
                                 "_label": "Criar"
                             }
                         },
-                        "_label": "Marcações"
+                        "_label": "Aulas Privadas"
                     },
                     "subscription": {
                         "allowed_actions": {
@@ -7910,7 +7927,7 @@
                             "_label": "Editar notas"
                         }
                     },
-                    "_label": "Criar marcações"
+                    "_label": "Vagas de Aula Privadas"
                 },
                 "workshop": {
                     "allowed_actions": {
@@ -7987,7 +8004,7 @@
                             "_label": "Criar"
                         }
                     },
-                    "_label": "Gestão de Marcações"
+                    "_label": "Gestão de Aulas Privadas"
                 },
                 "workshop": {
                     "allowed_actions": {
@@ -8082,7 +8099,7 @@
                             "_label": "Criar"
                         }
                     },
-                    "_label": "Passe de Marcações"
+                    "_label": "PasseS de Aulas Privadas"
                 },
                 "paymentPack": {
                     "allowed_actions": {
@@ -8168,6 +8185,9 @@
                     },
                     "planning": {
                         "_label": "Exportar calendário"
+                    },
+                    "smartlist_general_report": {
+                        "_label": "Exportar relatório geral Smartlist"
                     }
                 },
                 "_label": "Exportações"
@@ -8188,7 +8208,7 @@
                             "_label": "Criar reservas"
                         }
                     },
-                    "_label": "Gestão de marcações"
+                    "_label": "Gestão de Aulas Privadas"
                 },
                 "workshop": {
                     "allowed_actions": {
@@ -8278,13 +8298,13 @@
             "bookings": "As reservas são filtradas pela data da sessão correspondente.",
             "first_booking": "As primeiras reservas são filtradas de acordo com a data da sessão correspondente.",
             "dayBookings": "As reservas são filtradas pela data da sessão correspondente.",
-            "privateService": "As marcações são filtradas pela data em que ocorrem.",
+            "privateService": "As aulas privadas são filtradas pela data em que ocorrem.",
             "subscription": "As faturas são filtradas por data de vencimento.",
             "offers": "As sessões são filtradas pela data em que se realizam.",
             "workshop": "Os workshops apresentados são aqueles que estão agendados no intervalo de datas selecionado.",
             "members": "Os membros são filtrados pela data de subscrição.",
             "billing_plan": "As subscrições são filtradas por data da primeira fatura.",
-            "franchise_shared_pass": "Este relatório permite-lhe analisar as reservas efectuadas com os passes partilhados durante o período selecionado. Quando um passe partilhado é adquirido num estúdio, o relatório mostra o número de marcações efectuadas com o passe noutro estúdio. O número de sessões marcadas inclui as marcações para aulas de grupo, workshops e consultas.",
+            "franchise_shared_pass": "Este relatório permite-lhe analisar as reservas efectuadas com os passes partilhados durante o período selecionado. Quando um passe partilhado é adquirido num estúdio, o relatório mostra o número de reservas efectuadas com o passe noutro estúdio. O número de sessões marcadas inclui as marcações para aulas de grupo, workshops e consultas.",
             "activityByCoach": "As atividades e os professores apresentados são aqueles para os quais está agendada uma sessão no intervalo de datas selecionado.",
             "activityByEst": "As atividades e estabelecimentos apresentados são aqueles para os quais está agendada uma sessão no intervalo de datas selecionado.",
             "activities": "As atividades que aparecem são dentro do intervalo de datas selecionado.",
@@ -8538,9 +8558,9 @@
             "product_category": "Categoria do produto",
             "private_slot": "Tipo de sessão",
             "private_slot_name": "Sessão",
-            "private_service": "Nome Marcações",
-            "private_service_name": "Marcações",
-            "private_pass": "Passe de Marcações",
+            "private_service": "Aula Privada",
+            "private_service_name": "Aula Privada",
+            "private_pass": "Passe de Aula Privada",
             "private_passcredits": "Crédito restante",
             "price_invoice_items": "Quantidade total de produtos adquiridos",
             "price": "Preço",
@@ -8769,7 +8789,8 @@
             "margin_value_excl_tax": "Valor marginal (sem IVA / imposto sobre vendas)",
             "margin_value_incl_tax": "Valor marginal (incl. IVA / imposto sobre vendas)",
             "margin_value_excluding_sales_tax": "Valor marginal (sem IVA / imposto sobre vendas)",
-            "billing_group_address": "Endereço"
+            "billing_group_address": "Endereço",
+            "is_first_visit": "Primeira reserva"
         },
         "categories": {
             "activityByCoach": "Atividades e workshops por professor",
@@ -8785,10 +8806,10 @@
             "video_purchase": "Compra do vídeo",
             "video": "Vídeo",
             "dayBookings": "Reservas (aulas de grupo) por dia",
-            "privateServiceEst": "Marcações por sala",
-            "privateServiceCoach": "Marcações por professor",
+            "privateServiceEst": "Aulas privadas por estabelecimento",
+            "privateServiceCoach": "Aulas Privadas por professor",
             "cashbook": "Livro de registo",
-            "privateService": "Marcações",
+            "privateService": "Aulas Privadas",
             "workshop": "Workshops",
             "activities": "Atividades",
             "first_privatebooking": "Primeira aula privada",
@@ -8797,12 +8818,12 @@
             "subscription": "Facturas de subscrição",
             "billing_plan": "Subscrição",
             "discount": "Promoções",
-            "unpaid_private_bookings": "Reservas não pagas (marcações)",
-            "private_bookings": "Reservas (marcações)",
+            "unpaid_private_bookings": "Reservas não pagas (Aula Privada)",
+            "private_bookings": "Reservas (Aulas Privadas)",
             "shop": "Loja",
-            "private_cpasses": "Passe de Marcações",
+            "private_cpasses": "Passe de Aula Privada",
             "payment_sumup": "Total de pagamentos",
-            "credit": "Crédito",
+            "credit": "Saldo da conta do cliente",
             "basket": "Carrinho",
             "memberships": "Passes de aulas",
             "unpaid_invoices": "Facturas não pagas",
@@ -8852,7 +8873,7 @@
         },
         "presetValuesByDatatype": {
             "payment_engine": {
-                "1": "Pagamento em linha",
+                "1": "Pagamento Online",
                 "0": "Pagamento manual"
             },
             "payment_method_with_credit_account": {
@@ -8995,7 +9016,7 @@
             },
             "billNow": {
                 "errors": {
-                    "12102": "Um pagamento já está a ser validado. Volte mais tarde para registar um novo pagamento."
+                    "12102": "Seu pagamento está em processo de validação. Volte mais tarde para registar um novo pagamento."
                 }
             },
             "contract": {
@@ -9072,7 +9093,7 @@
                     "success": "Produto duplicado com sucesso"
                 },
                 "updateProvisions": {
-                    "error": "Erro a registar acções",
+                    "error": "Erro ao guardar a provisão",
                     "success": "Stock atualizado"
                 }
             },
@@ -9082,7 +9103,7 @@
                     "success": "Categoria eliminada"
                 },
                 "createOrUpdate": {
-                    "error": "Impossível registar esta categoria",
+                    "error": "Impossível guardar esta categoria",
                     "success": "Categoria registada com sucesso"
                 }
             }
@@ -9109,7 +9130,7 @@
         "relationship": {
             "private_consumer_pass_links": {
                 "relink": {
-                    "error": "Impossível de partilhar este passe de marcações",
+                    "error": "Não é possível partilhar este passe",
                     "success": "Partilha registada"
                 },
                 "unlink": {
@@ -9142,17 +9163,17 @@
                 }
             },
             "createOrUpdate": {
-                "error": "Impossível registar este agregado"
+                "error": "Impossível salvar o relacionamento"
             },
             "delete": {
-                "error": "Não é possível eliminar este agregado",
-                "success": "Agregado eliminado"
+                "error": "Não é possível eliminar este relacioamento",
+                "success": "Relação eliminada"
             },
             "create": {
-                "success": "Agregado registado"
+                "success": "Relacionamento guardado"
             },
             "edit": {
-                "success": "Agregado alterado"
+                "success": "Relacionamento modificado"
             },
             "error": {
                 "90003": "Ficha inválida",
@@ -9187,17 +9208,17 @@
             "testError": "Verificar o link",
             "testSuccess": "Link correto",
             "success": "Webhook registado",
-            "error": "Impossível registar o webhook"
+            "error": "Impossível subscrever o webhook"
         },
         "privateRecurrentRule": {
             "createOrUpdate": {
                 "success": "Marcação periódica bem sucedido",
                 "locked": "Já existe uma regra de recorrência com estas configurações",
-                "error": "Não é possível registar marcações recorrentes"
+                "error": "Não é possível salvar essa aulas privada recorrente"
             },
             "delete": {
                 "error": "Não é possível eliminar esta marcação",
-                "success": "Marcações recorrentes eliminadas"
+                "success": "Aulas privadas  recorrentes eliminadas"
             }
         },
         "bookerModule": {
@@ -9437,7 +9458,7 @@
             },
             "restore": {
                 "error": "Não é possível recuperar este passe de marcação",
-                "success": "Passe de marcações recuperado"
+                "success": "O passe de aula privada foi reposto"
             }
         },
         "metaActivity": {
@@ -9477,7 +9498,7 @@
             },
             "createOrUpdate": {
                 "success": "Vídeo registado com sucesso",
-                "error": "Não é possível registar o vídeo"
+                "error": "É impossível guardar este vídeo"
             },
             "register": {
                 "success": "Vídeo guardado na biblioteca",
@@ -9546,7 +9567,7 @@
             },
             "create": {
                 "success": "E-mail criado",
-                "error": "Impossível registar o e-mail"
+                "error": "Não é possível guardar a mensagem de correio eletrónico"
             },
             "duplicate": {
                 "success": "E-mails duplicados",
@@ -9568,7 +9589,7 @@
             },
             "createOrUpdate": {
                 "success": "Código promocional registado",
-                "error": "Erro ao registar o código promocional"
+                "error": "Erro ao guardar a promoção"
             },
             "attachToBasket": {
                 "error": "Não foram encontrados códigos promocionais compatíveis"
@@ -9603,7 +9624,7 @@
             },
             "createOrUpdate": {
                 "success": "Passe de aulas registado",
-                "fail": "Erro ao registar o passe"
+                "fail": "Erro ao guardar o passe"
             },
             "paymentPackEnabled": {
                 "success": "Passe de aulas restaurado",
@@ -9677,7 +9698,7 @@
                     "84102": "Este e-mail já está a ser utilizado",
                     "84103": "O género especificado é inválido"
                 },
-                "error": "Erro ao registar, tente novamente",
+                "error": "Erro ao registar",
                 "success": "Inscrição válida"
             },
             "duplicate": {
@@ -9708,7 +9729,7 @@
             },
             "upsert": {
                 "errors": {
-                    "84006": "É necessário definir uma declaração de isenção de responsabilidade em Configurações > Geral para conseguir adicionar a pergunta \"Isenção de responsabilidade\"."
+                    "84006": "Defina a sua isenção de responsabilidade em Configurações > Geral."
                 }
             }
         },
@@ -9855,7 +9876,7 @@
         },
         "plannedPayment": {
             "registerNow": {
-                "error": "Não é possível registar o pagamento",
+                "error": "Não é possível guardar o pagamento",
                 "success": "Pagamento registado"
             }
         },
@@ -9879,7 +9900,7 @@
         },
         "clientSecret": {
             "errors": {
-                "12102": "Um pagamento já está a ser validado. Volte mais tarde para registar um novo pagamento."
+                "12102": "O seu pagamento está em processo de validação. Volte mais tarde para registar um novo pagamento."
             }
         },
         "quickbooks": {
@@ -10119,7 +10140,7 @@
                     "lastname": "Ordenar os nomes por ordem alfabética",
                     "date": "Ordenar por data de reserva mais recente",
                     "firstname": "Ordenar os nomes próprios por ordem alfabética",
-                    "title": "Escolha a ordem predefinida para as marcações na página das atividades"
+                    "title": "Escolha a ordem de ordenação predefinida das suas reservas."
                 },
                 "signup": {
                     "urlError": "Introduza um URL válido",
@@ -10127,7 +10148,7 @@
                     "title": "Inscrição",
                     "urlRedirection": "URL de redirecionamento",
                     "urlHelperText": "O membro será redireccionado para este link depois de confirmar o seu e-mail. Caso contrário, será redireccionado para o seu perfil no marketplace.",
-                    "helperText": "Ao registar-se, os seus membros receberão um e-mail para confirmar o seu endereço de e-mail. A sua conta não será ativada até que este e-mail tenha sido confirmado"
+                    "helperText": "Após o registo, os seus membros receberão uma mensagem de correio eletrónico para confirmar o seu endereço de correio eletrónico. A sua conta não será activada até que esta mensagem seja confirmada"
                 },
                 "checkBalance": {
                     "shiftRatio": {
@@ -10163,7 +10184,7 @@
                     "title": "Estado por defeito de uma reserva efetuada pelo aluno",
                     "missing": "Membro ausente"
                 },
-                "offersFilling": "Mostrar o preenchimento da modalidade no calendário do aluno",
+                "offersFilling": "Mostrar o número de reservas e os lugares restantes no calendário dos seus membros",
                 "basket_expiration_days": {
                     "label": "Expiração do carrinho de compras",
                     "placeholder": "Dias até à expiração",
@@ -10178,7 +10199,7 @@
                     "label": "Etiqueta para o nome",
                     "helperText": "Introduzir a etiqueta para o nome"
                 },
-                "showFreeSessionLabel": "Mostrar 0 sessões de crédito com a etiqueta FREE",
+                "showFreeSessionLabel": "Indicar as sessões com 0 créditos com a etiqueta FREE",
                 "hideSessionWithTagsNotEligible": "Não apresentar as sessões a que o membro não tem acesso devido às etiquetas",
                 "showActivityColor": "Mostrar a cor da atividade",
                 "hideBuyablePassIfSuperfluous": "Ocultar passes de aulas, subscrições e packs que podem ser comprados no momento da reserva se o membro já tiver um passe compatível",
@@ -10206,7 +10227,7 @@
                     }
                 },
                 "acceptDoubleBookingMetaActivity": "Aceitar reservas duplas para atividades",
-                "hiddenFromMarketplace": "Aparecer no pedido de bsport",
+                "hiddenFromMarketplace": "Ativar esta opção para apresentar o seu estúdio na aplicação geral BSPORT",
                 "hideMemberForCoach": "Ocultar informações de contacto do aluno no calendário do professor",
                 "calendarPersonalizationTitle": "Configuração do calendário",
                 "hideCoach": "Ocultar informações do professor nas interfaces do aluno",
@@ -10226,7 +10247,14 @@
                     "helperText": "Se estiver ativado, o número de futuras reservas será reduzido pelo número de futuras faixas horárias em lista de espera registadas. As futuras faixas horárias da lista de espera também serão restringidas com base nesta mesma contagem, para evitar o excesso de reservas.",
                     "label": "Incluir as vagas da lista de espera no número máximo de reservas/workshops futuros"
                 },
-                "bookingLimitation": "Restrições globais de reserva"
+                "bookingLimitation": "Restrições globais de reserva",
+                "resetPassword": {
+                    "urlError": "Introduza um URL válido",
+                    "urlHelperText": "Deixar este campo vazio para redirecionar para o marketplace",
+                    "urlRedirection": "URL personalizado",
+                    "helperText": "Por defeito, quando os seus membros redefinem a sua palavra-passe, são redireccionados para o mercado. Se pretender redireccioná-los para outro local (por exemplo, o seu sítio Web), preencha o campo seguinte com o URL pretendido.",
+                    "title": "Redefinir a palavra-passe"
+                }
             },
             "warningColorBrightness": {
                 "save": "Guardar",
@@ -10477,7 +10505,7 @@
                     "explain1": "Alteração da disponibilidade : "
                 },
                 "actions": {
-                    "submit": "Registar",
+                    "submit": "Guardar",
                     "cancel": "Cancelar"
                 },
                 "explain": "Alterar até :"
@@ -10490,13 +10518,13 @@
             "toogle": {
                 "showOfferList": "Aulas de grupo & Worskshops",
                 "title": "Ver os filtros",
-                "showPrivateBookings": "Marcações",
+                "showPrivateBookings": "Aulas Privadas",
                 "hideCancelledEvents": "Ver os cancelamentos",
                 "showCustomEvents": "Tarefas / Compromissos pessoais"
             },
             "selectCoachToModifyAvailability": "Selecionar um professor",
             "createCustomEvent": "Adicionar uma Tarefa / Compromisso pessoal",
-            "addBooking": "Registar uma marcação",
+            "addBooking": "Reservar uma aula privada",
             "showAvailabilityDetails": "Detalhes das disponibilidades"
         },
         "privateEstablishment": {
@@ -10541,7 +10569,7 @@
                     "title": "Escolha o tipo de reserva que pretende notificar",
                     "valid": "Reserva válida"
                 },
-                "notifyAllEvents": "Notificar o membro de cada evento",
+                "notifyAllEvents": "Enviar esta notificação a todas as reservas",
                 "chooseTime": {
                     "first": "Enviar um email",
                     "second": {
@@ -10565,9 +10593,9 @@
                     "afterMail": "Enviar um email ao membro após a marcação em causa na notificação"
                 },
                 "next": "Seguinte",
-                "subtitle": "Passe de marcações",
-                "intro": "Pode notificar os seus alunos antes ou depois de determinadas marcações, com base em vários critérios, como o número de reservas ou cancelamentos.",
-                "notifyNb": "Notificar o membro do evento nº :",
+                "subtitle": "Passe de aula privada",
+                "intro": "Pode enviar automaticamente notificações antes e/ou depois das suas aulas privadas (por exemplo, para marcações, cancelamentos, etc.)",
+                "notifyNb": "Enviar uma notificação para o número de reserva:",
                 "title": "Adicionar uma notificação"
             },
             "tooltip": "As notificações estão ativas para este tipo de marcação"
@@ -10591,12 +10619,12 @@
                 "delete": {
                     "confirm": "Eliminar",
                     "title": "Remarcar uma marcação recorrente",
-                    "content": "A anulação da marcação recorrente implica a anulação de todas as marcações futuras efetuadas com esta regra.",
+                    "content": "A eliminação de aulas privadas recorrentes resultará no cancelamento de marcações futuras efectuadas através desta regra.",
                     "cancel": "Cancelar"
                 },
                 "update": {
                     "confirm": "Alterar",
-                    "content": "Ao alterar a regra de recorrência modificará as marcações futuras efectuadas com a mesma.",
+                    "content": "A edição desta aula privada recorrente afectará todos os compromissos futuros que tenham sido feitos com esta regra",
                     "title": "Alterar uma marcação recorrente",
                     "cancel": "Cancelar"
                 }
@@ -10614,13 +10642,13 @@
                 "explain": "Todos os {{dayOfWeek}} - {{time}}, {{delayWeek}} semanas antes",
                 "startFrom": "A partir de {{ date }}"
             },
-            "recurrentBookings": "Marcações recorrentes",
+            "recurrentBookings": "Aulas Privadas recorrentes",
             "createModal": {
                 "create": "Criar uma reserva recorrente"
             },
             "actions": {
                 "close": "Fechar",
-                "save": "Registar"
+                "save": "Guardar"
             }
         },
         "customEvent": {
@@ -10633,13 +10661,13 @@
                     "placeholder": "Pergunte pelo Sr. Smith na 1 Oxford Street."
                 },
                 "name": {
-                    "placeholder": "Marcações acumuladas",
+                    "placeholder": "Consulta no dentista",
                     "label": "Nome"
                 },
                 "title": "Compromisso pessoal",
                 "actions": {
                     "cancel": "Cancelar",
-                    "submit": "Registar"
+                    "submit": "Guardar"
                 },
                 "color": "Código da cor",
                 "coach": {
@@ -10715,11 +10743,11 @@
                     "label": "Nome do serviço"
                 },
                 "coach_capacity_used": {
-                    "label": "Número máximo de marcações simultâneas que um professor pode gerir",
+                    "label": "Número máximo de Aulas Privadas simultâneas que um professor pode gerir",
                     "helperText": "Exemplo: um professor pode monitorizar dois alunos separadamente em duas máquinas",
-                    "alertText": "Um professor pode gerir 1, 2, 3, 4, 6 ou 12 marcações em simultâneo."
+                    "alertText": "Um professor pode gerir 1, 2, 3, 4, 6 ou 12Aulas Privadas em simultâneo."
                 },
-                "title": "Marcações",
+                "title": "Aulas Privadas",
                 "color": "Código da cor",
                 "last_booking_minutes": {
                     "label": "Antes do início da marcação, última reserva possível"
@@ -10750,7 +10778,7 @@
                 "is_without_coach": "Sem um professor",
                 "actions": {
                     "cancel": "Cancelar",
-                    "submit": "Registar"
+                    "submit": "Guardar"
                 },
                 "last_discard_minutes": {
                     "helperText": "Se a reserva for cancelada após o prazo, o crédito não será reembolsado",
@@ -10833,13 +10861,13 @@
                     "label": "Nome"
                 },
                 "universalPass": {
-                    "helperText": "Os passes universais podem ser utilizados para marcar aulas de grupo e marcações. Uma vez criado o passe, será criado um passe \"gémeo\" nos passes de aulas. O número de créditos dos dois cartões será associado. Quando comprar um dos dois cartões, o outro será automaticamente adicionado ao membro (sem custos adicionais).",
+                    "helperText": "Os passes universais podem ser utilizados para actividades de grupo e aulas privadas. Para cada passe universal, são criados passes duplos para associar o número de créditos. Uma vez adquirido um destes passes, o outro será automaticamente adicionado sem custos adicionais.",
                     "warningIsUniversalPass": "Este passe é um passe universal, foi criado um passe igual nos passes de aulas. Todos os campos modificados neste passe serão igualmente modificados no passe \"gémeo\" (exceto a categoria). O mesmo se aplica às notificações, extensões e modificações de crédito.",
                     "label": "Passe universal",
                     "deativatedTags": "Deficientes para passes universais"
                 },
                 "categoryTitle": {
-                    "compatibilityAppointment": "Compatibilidade para Marcações",
+                    "compatibilityAppointment": "Compatibilidade para Aulas Privadas",
                     "paymentMeans": "Métodos de pagamento",
                     "validity": "Validade do passe",
                     "compatibility": "Compatibilidade",
@@ -10849,8 +10877,8 @@
                     "label": "Dar acesso aos Vídeos de Demanda"
                 },
                 "appliesForPayroll": {
-                    "helperText": "Por defeito, as marcações são faturadas ao estúdio e incluídas no resumo e na remuneração do professor. Se desativar esta definição, as marcações associadas a este passe deixarão de aparecer no resumo do professor.",
-                    "label": "Marcações tidas em conta no cálculo da remuneração do professor"
+                    "helperText": "Por defeito, as aulas privadas são faturadas ao estúdio e incluídas no resumo e na remuneração do professor. Se desativar esta definição, as aulas privadas associadas a este passe deixarão de aparecer no resumo do professor.",
+                    "label": "Aulas Privadas tidas em conta no cálculo da remuneração do professor"
                 },
                 "expiration_date": {
                     "helperText": "Disponível até",
@@ -10913,10 +10941,10 @@
                 "startDate": "Data de início",
                 "actions": {
                     "cancel": "Cancelar",
-                    "submit": "Registar"
+                    "submit": "Guardar"
                 },
                 "onBehalfOfTeacher": {
-                    "helperText": "Esta definição permite-lhe indicar que os rendimentos associados às marcações neste passe serão pagos na totalidade ao professor. Esta informação será visível nos seus relatórios de compra (CA) na coluna \"Pagamento pago na totalidade ao professor\".",
+                    "helperText": "Esta definição permite-lhe indicar que os rendimentos associados às aulas privadas deste passe serão pagos na totalidade ao professor. Esta informação será visível nos seus relatórios de compra (CA) na coluna \"Pagamento pago na totalidade ao professor\".",
                     "label": "Pagamento integral ao professor"
                 },
                 "start_date_method_detail": {
@@ -10924,7 +10952,7 @@
                     "on_booking": " a partir da 1º reserva",
                     "on_attendance": " a partir da 1º presença"
                 },
-                "title": "Passe de marcações",
+                "title": "[Formulário] Passe de Aula Privada",
                 "franchise": "Este passe é partilhado pela conta do franchisador. Certos elementos foram definidos pela conta do franchisador e não podem ser alterados",
                 "description": {
                     "label": "Descrição"
@@ -10949,7 +10977,7 @@
             },
             "compatibleServices": {
                 "unusable": "Não pode ser utilizado",
-                "title": "Marcações compatíveis",
+                "title": "Aulas Privadas compatíveis",
                 "add": "Adicionar",
                 "isEmpty": "Nenhuma marcação compatível"
             },
@@ -10969,24 +10997,24 @@
                 "accessibility": "Acessibilidade",
                 "validity": "Validade",
                 "vod": "Vídeos de Demanda",
-                "privateServiceCompatibility": "Marcações compatíveis"
+                "privateServiceCompatibility": "Aulas Privadas compatíveis"
             },
-            "disabledTitle": "Passe de Marcações arquivados"
+            "disabledTitle": "Passe de Aulas Privada arquivados"
         },
         "privateServiceCompatibility": {
             "delete": {
                 "submit": "Eliminar",
                 "explain": "Tem a certeza que pretende alterar as regras de utilização do passe? Esta modificação é retroactiva para as compras já efectuadas.",
                 "cancel": "Cancelar",
-                "title": "Alterar Marcações compatíveis"
+                "title": "Aulas Privadas compatíveis depois da modificação"
             },
             "allSlots": "Compatível para todas as sessões",
             "none": " nenhum",
             "excludedSlots": {
-                "submit": "Registar",
+                "submit": "Guardar",
                 "cancel": "Cancelar",
                 "isEmpty": "Nenhum tipo de sessão configurada nesta marcação!",
-                "helperText": "Selecionar as sessões para as quais o passe de Marcações é compatível",
+                "helperText": "Selecionar as aulas privadas compatíveis do passe de aula privada.",
                 "title": "Sessões de {{ service }}"
             },
             "forSlots": "Sessões compatíveis :"
@@ -11027,7 +11055,7 @@
             },
             "warningShareUniversal": "Este passe é universal, por favor partilhe o passe de aulas associado",
             "detail": {
-                "booking": "Reservas de Marcações associadas",
+                "booking": "Aulas Privadas Associadas",
                 "extensionsTitle": "Extensões de validade",
                 "invoice": "Fatura associada"
             },
@@ -11039,7 +11067,7 @@
             "current_credits": "{{ current_credits }}/{{credits}} créditos",
             "expiresOn": "Expira em {{ date }}",
             "isFromShare": "Partilhado a partir de outra conta",
-            "isOwnerOfShares": "Partilhado (passe principal Marcações)"
+            "isOwnerOfShares": "Partilhado (Master Aula Privada Pass)"
         },
         "privateCoach": {
             "delete": {
@@ -11163,13 +11191,13 @@
             "isRefunded": "Reembolsar",
             "isCancelledDate": "Cancelar no {{-date}} às {{time}}",
             "updateTime": {
-                "title": "Alterar marcações",
+                "title": "Alterar Aula Privada",
                 "explainEmail": "Será automaticamente enviado um email para informar o aluno da alteração",
-                "submit": "Registar",
+                "submit": "Guardar",
                 "cancel": "Cancelar"
             },
-            "bookings": "Marcações",
-            "updateCoach": "Selecionar um novo professor para as marcações",
+            "bookings": "Aulas Privadas",
+            "updateCoach": "Selecionar um novo professor para essa Aula Privada",
             "isCancelled": "Cancelar",
             "isCancelledByManagerDate": "Anular em {{-date}} às {{time}} por {{cancelled_by}}"
         },
@@ -11189,7 +11217,7 @@
             "form": {
                 "actions": {
                     "cancel": "Cancelar",
-                    "submit": "Registar"
+                    "submit": "Guardar"
                 },
                 "name": {
                     "label": "Nome"
@@ -11207,7 +11235,7 @@
                     "cancel": "Cancelar",
                     "title": "Alterar faixa horária",
                     "warning": "Este professor não está associado a nenhuma marcação",
-                    "submit": "Registar"
+                    "submit": "Guardar"
                 }
             },
             "specificAvailabilityForm": {
@@ -11226,11 +11254,11 @@
                 "openHours": "Horários",
                 "ok": "Ok"
             },
-            "notAssociatedWarning": "Tenha em atenção que este professor não está associado a nenhuma marcação. Para registar uma nova marcação com este professor, associe-o à marcação pretendida no separador Marcações.",
+            "notAssociatedWarning": "Atenção, este professor não está associado a nenhuma aula privada. Para associar uma nova aula privada a este professor, associe-o à aula privadada pretendida a partir do separador Aulas Privadas.",
             "private_service": "Tipo de Marcação",
             "notAssociatedDialog": {
                 "title": "Nenhuma marcação associada",
-                "info": "A disponibilidade foi registada. No entanto, este professor não está associado a nenhuma marcação.\n        Para registar uma nova marcação com este professor, associe-o à marcação pretendida a partir do separador Marcações.",
+                "info": "A disponibilidade foi guardada. No entanto, este professor não está associado a nenhuma Aula privada.\nPara associar uma nova aula privada a este professor, associe-o à aula privada desejada no separador Aulas privadas.",
                 "close": "Fechar",
                 "checkbox": "Não me lembrar de novo"
             },
@@ -11297,7 +11325,7 @@
             },
             "form": {
                 "actions": {
-                    "submit": "Registar",
+                    "submit": "Guardar",
                     "close": "Fechar"
                 },
                 "submit": "Confirmar",
@@ -11330,7 +11358,7 @@
             "form": {
                 "color": "Código da cor",
                 "actions": {
-                    "submit": "Registar",
+                    "submit": "Guardar",
                     "cancel": "Cancelar"
                 }
             },
@@ -11348,17 +11376,17 @@
         },
         "selector": {
             "privateSlot": "Selecionar uma sessão",
-            "privateService": "Selecionar um passe de Marcações"
+            "privateService": "Selecionar uma Aulas Privada"
         },
         "pageTitles": {
             "serviceList": "Apenas por marcação",
             "calendar": "Calendário",
-            "passList": "Passe de marcações"
+            "passList": "Passe de Aula privada"
         },
         "payment": {
             "address": {
                 "explain": "Introduza oa sua morada",
-                "save": "Registar"
+                "save": "Guardar"
             }
         },
         "slotSearcher": {
@@ -11375,7 +11403,7 @@
                 "isEmpty": "Não existem horárias disponíveis"
             },
             "search": "Procurar uma vaga",
-            "title": "Marcações",
+            "title": "Aula Privada",
             "selectCoach": "Todos os professores",
             "searchSlot": "Procurar uma vaga",
             "emptyState": "Nenhuma disponibilidade até ao momento",
@@ -11409,10 +11437,10 @@
             "form": {
                 "cancel": "Cancelar",
                 "title": "Código da cor do professor",
-                "submit": "Registar"
+                "submit": "Guardar"
             }
         },
-        "noPrivatePass": "Os passes de marcação de consultas permitem aos membros efetuar marcações. Defina as suas tarifas e os termos e condições aqui.",
+        "noPrivatePass": "Os membros podem utilizar os passes de aula privada para reservar (por exemplo, treino pessoal, duos, aluguer de salas, massagens, etc.). Lembrete: não se esqueça de configurar corretamente a compatibilidade de todos os seus passes de aula privada",
         "noPrivateService": "O membro pode marcar uma consulta para a faixa horária escolhida.",
         "slot": {
             "parameters": {
@@ -11427,7 +11455,7 @@
                 },
                 "credit": {
                     "label": "Número de crédito(s)",
-                    "helperText": "Número de crédito(s) necessário(s) para uma reserva"
+                    "helperText": "Seleccione o número de créditos necessários para marcar uma aula privada"
                 },
                 "durationError": "Duração inválida (entre 10min e 1d)",
                 "people_capacity_used": {
@@ -11443,12 +11471,12 @@
                     "helperText": "Exemplo: 15 significa 15 minutos que o membro pode reservar às 12:00, 12:15, 12:30, etc... (recomendado)"
                 },
                 "cancel": "Cancelar",
-                "submit": "Registar"
+                "submit": "Guardar"
             }
         },
         "bookerModule": {
             "emptySlot": "Sem disponibilidade",
-            "title": "Reservar uma marcação",
+            "title": "Reservar uma aula privada",
             "missingResource": {
                 "establishment": "Selecionar um local",
                 "service": "Selecionar um tipo de marcação",
@@ -11478,13 +11506,13 @@
                 "configuration": "A minha marcação",
                 "privateSlot": "Sessão",
                 "billing": "Faturação",
-                "privateService": "Marcações",
+                "privateService": "Aulas Privadas",
                 "coach": "Professor",
-                "rule": "Marcações recorrentes",
+                "rule": "Aulas Privadas recorrentes",
                 "date": "Data"
             },
             "recurrenceRule": {
-                "label": "Programa de marcações recorrentes"
+                "label": "Agendar uma aula privada recorrente"
             },
             "bookingCapabilities": {
                 "compatiblePassTitle": "Passes válidos para esta sessão",
@@ -11502,7 +11530,7 @@
             "searchSlot": "Procurar uma vaga",
             "confirm": "Confirmar",
             "cancel": "Cancelar",
-            "noPrivateServiceAvailable": "Não é possível efetuar marcações",
+            "noPrivateServiceAvailable": "Não existem aulas privadas a apresentar.",
             "preview": {
                 "credit_cost": "{{credit_cost}} crédito"
             },
@@ -11525,7 +11553,7 @@
                 }
             }
         },
-        "disabledPacksTitle": "Passe de Marcações arquivados",
+        "disabledPacksTitle": "Passes de aula privada arquivados",
         "forms": {
             "delete": {
                 "content": {
@@ -11604,31 +11632,31 @@
         },
         "member": {
             "form": {
-                "submit": "Registar",
+                "submit": "Guardar",
                 "cancel": "Cancelar",
-                "title": "Agregado",
+                "title": "[Formulário] Relacionamento",
                 "dst_name": {
                     "placeholder": "Fios"
                 },
                 "src_name": {
                     "placeholder": "Mãe"
                 },
-                "shareEmail": "Enviar sempre uma cópia por e-mail",
+                "shareEmail": "Enviar sempre uma cópia das mensagens de correio eletrónico destinadas ao relacionamento",
                 "is": " é ",
-                "parentalLink": "Relação familiar",
+                "parentalLink": "Relacionamento",
                 "email": "Cópia do e-mail",
                 "access": "Acesso à conta",
-                "accountInfo": "O acesso à conta permite aos membros aceder à conta do seu agregado a partir da sua própria conta.",
+                "accountInfo": "A partilha de acesso à conta permite que os membros acedam a outras contas às quais estão conectados com um relacionamento.",
                 "autorization": "Autorizar {{name_1}} a aceder à conta de {{name_2}}",
                 "confirm": "Confirmar"
             },
             "list": {
                 "actions": {
-                    "create": "Adicionar um agregado"
+                    "create": "Adicionar uma relação"
                 },
-                "pleaseSelectOne": "Selecionar um agregado para ver os passes de aulas partilhados",
-                "isEmpty": "Ainda não foi criado nenhuma agregado",
-                "title": "Agregados"
+                "pleaseSelectOne": "Seleccione uma relação para ver mais detalhes e ver que passes são partilhados.",
+                "isEmpty": "Não existem relações a apresentar.",
+                "title": "Relacionamentos"
             },
             "item": {
                 "delete": "Eliminar",
@@ -11638,10 +11666,10 @@
         "relationship": {
             "delete": {
                 "whichUser": "Qual a conta a que pretende aceder?",
-                "title": "Eliminar agregado",
+                "title": "Eliminar esse relacionamento",
                 "submit": "Eliminar",
                 "cancel": "Cancelar",
-                "content": "Tenha em atenção que esta ação é irreversível: os passes partilhados deixarão de ser partilhados."
+                "content": "Tem a certeza de que pretende remover esta relação? Os passes partilhados serão imediatamente desactivados. Esta ação não pode ser anulada."
             }
         },
         "connectedAs": {
@@ -11684,7 +11712,7 @@
             "form": {
                 "establishmentSelectorError": "Não é possível especificar estabelecimentos e localizações ao mesmo tempo",
                 "coachRequired": "Selecionar pelo menos um professor",
-                "submit": "Registar",
+                "submit": "Guardar",
                 "close": "Cancelar",
                 "coaches": "Professores associados",
                 "allEstablishments": "Todos os estabelecimentos",
@@ -11956,7 +11984,7 @@
                 "helper": "Pode agrupar as suas regras de remuneração para atividades, seminários e compromissos. Quando adiciona um professor a um grupo, todas as regras de remuneração do grupo aplicam-se automaticamente a esse professor. Quaisquer alterações ao grupo aplicar-se-ão também a todos os professores do grupo.",
                 "coaches": "Professores associados",
                 "default": "Remunerações por defeito",
-                "specfic_private_slot": "Remuneração específica por marcações"
+                "specfic_private_slot": "Aulas Privadas"
             },
             "session": "Aulas de Grupo",
             "dissociate": "Personalizar as regras",
@@ -11964,13 +11992,13 @@
             "fields": {
                 "activity": "Aulas de grupo",
                 "addPrivateSlot": "Adicionar uma regra",
-                "private_service": "Marcações",
+                "private_service": "Aulas Privadas",
                 "coach_payment_rule": "Regra de remuneração",
                 "workshop": "Workshops",
                 "private_service_name": "Nome da sessão"
             },
             "workshop": "Workshops",
-            "private_service": "Marcações"
+            "private_service": "Aulas Privadas"
         },
         "modal": {
             "delete": {
@@ -12064,7 +12092,7 @@
             "name": "Nome"
         },
         "tabs": {
-            "appointment": "Marcações",
+            "appointment": "Aulas Privadas",
             "session": "Aulas de Grupo & Workshops",
             "groupActivity": "Aulas de Grupo",
             "workshop": "Workshops",
@@ -12077,7 +12105,7 @@
         },
         "setPaymentRuleSetForCoachFirst": "Em primeiro lugar, atribuir uma regra de remuneração por defeito a este professor.",
         "select": {
-            "coachPaymentRuleForPrivateService": "Marcações",
+            "coachPaymentRuleForPrivateService": "Aulas Privadas",
             "placeholderOverride": "Regra por defeito do treinador",
             "reset": "Utilizar a regra por defeito do treinador",
             "coachPaymentRuleForSessions": "Aulas de Grupo",
@@ -12090,7 +12118,7 @@
             "addNewForWorkshop": "Workshops",
             "addNewPaymentRuleGroup": "Grupo de remuneração",
             "addNewForSession": "Aulas de grupo & Workshops",
-            "addNewForRDV": "Marcações"
+            "addNewForRDV": "Aulas Privadas"
         },
         "common": {
             "pick_a_month": "Escolha um mês",
@@ -12105,11 +12133,11 @@
         "label": "Regra de remuneração",
         "addBonus": "Adicionar uma nova regra",
         "addNew": "Novo parâmetro de remuneração",
-        "privateSlotLabel": "Marcações",
+        "privateSlotLabel": "Aulas Privadas",
         "pricePerAdditionalBooking": "Bonús por reserva",
         "bookingThreshold": "Limite de reserva (incl.)",
         "actions": "Ações",
-        "only_attendant": "Restringir a contagem de marcações aos alunos presentes",
+        "only_attendant": "Contar apenas os assistentes",
         "calculation_method": "Método do cálculo",
         "include_tax": "Cálculo com IVA incluído"
     },
@@ -12392,29 +12420,29 @@
                 "name": "Número de reservas"
             },
             "105": {
-                "explanation": "Tem X agregados e Y passes de aulas ou passes de marcação ou reservas partilhadas",
+                "explanation": "Tem X relacionamentos e Y passes partilhados ou passes de aula privada ou reservas",
                 "info": {
                     "consumerPaymentPacks": "\"válido\" significa que o passe pode agora ser utilizado para reservar uma aula de grupo",
-                    "consumerPrivatePasses": "\"válido\" significa que o passe pode agora ser utilizado para reservar uma marcação"
+                    "consumerPrivatePasses": "\"válido\" significa que o passe pode agora ser utilizado para reservar uma aula privada"
                 },
                 "consumerPaymentPacks": "de passes de aulas",
-                "third": "o membro partilhou um número",
-                "fourth": "a relação para reservar um número",
+                "third": "o membro partilhou com a relação um número",
+                "fourth": "o relacionamento reservou um número",
                 "valid": "válido",
                 "date": {
-                    "first": "a relação foi estabelecida"
+                    "first": "Um relacionamento foi estabelecido"
                 },
                 "second": "de relações que respeitam os filtros selecionados:",
                 "consumerPrivatePasses": "de passes de marcação",
-                "name": "Agregados",
+                "name": "Relacionamentos",
                 "receiveCopyOfEmail": {
                     "true": "também são enviados",
                     "second": "com cópia para o membro",
-                    "first": "os emails enviados para a relação",
+                    "first": "mensagens de correio eletrónico enviadas para a o relacionamento",
                     "false": "não são enviados"
                 },
                 "acceptSms": {
-                    "first": "a relação",
+                    "first": "O relacionamento",
                     "false": "não aceitar",
                     "second": "as SMS",
                     "true": "aceitar"
@@ -12422,12 +12450,12 @@
                 "to": "à",
                 "between": "e",
                 "first": "Possui um número",
-                "bookings": "aulas de grupo e marcações devido a um passe partilhado pelo membro",
+                "bookings": "das actividades e de aulas privadas do grupo graças a um passe partilhado pelo membro",
                 "validOrNot": "válido ou não",
                 "acceptEmail": {
                     "false": "não aceitar",
                     "second": "os emails",
-                    "first": "a relação",
+                    "first": "O relacionamento",
                     "true": "aceitar"
                 }
             },
@@ -12446,7 +12474,7 @@
                 "first": "um dos passes de aulas",
                 "explanation": "Adquiriu um passe de aulas A na data Y, com X créditos",
                 "third": "à",
-                "name": "Geral",
+                "name": "Passes",
                 "has_not": "Não possui",
                 "second": "e",
                 "credits": {
@@ -12526,9 +12554,9 @@
             },
             "26": {
                 "private_service": {
-                    "first": "com marcações"
+                    "first": "para aulas privadas"
                 },
-                "name": "Número de marcações",
+                "name": "Número de aulas privadas",
                 "explanation": "Marcou X reservas com o professor A, no local B, com o passe de marcação C...",
                 "first": "Reservado",
                 "hour": {
@@ -12548,7 +12576,7 @@
                 "coach": {
                     "first": "com os professores"
                 },
-                "second": "marcações",
+                "second": "aulas privadas",
                 "private_pass": {
                     "first": "com os passes de marcação"
                 }
@@ -12572,7 +12600,7 @@
             },
             "25": {
                 "has_not": "Não possuí",
-                "first": "um dos passes de Marcações",
+                "first": "um dos passes de aula privada",
                 "second": "e",
                 "credits": {
                     "second": "e",
@@ -12631,7 +12659,7 @@
             "activePasses": {
                 "warning": "Selecionar pelos menos um passe",
                 "paymentPackHelperText": "sem passe de aulas",
-                "privatePassHelperText": "nenhum passe de Marcações"
+                "privatePassHelperText": "Não há passes de aula privada para exibir."
             },
             "paymentPacks": {
                 "warning": "Selecionar pelos menos um passe de aulas",
@@ -12650,7 +12678,7 @@
                 "helperAllSelectedText": "todos os produtos"
             },
             "privatePass": {
-                "warning": "Selecionar pelo menos um passe de Marcações",
+                "warning": "Selecionar pelo menos um passe de aula privada.",
                 "helperAllSelectedText": "todos os passes de marcação",
                 "textFieldPlaceholder": "Procurar um passe de marcação",
                 "helperText": "selecionar os passes de marcação",
@@ -12685,11 +12713,11 @@
                 "helperText": "selecionar professores"
             },
             "privateServices": {
-                "helperText": "selecionar marcações",
+                "helperText": "selecionar aulas privadas",
                 "textFieldPlaceholder": "Procurar uma marcação",
                 "warning": "Selecionar pelo menos uma marcação",
-                "helperSelectedText": "marcações selecionadas",
-                "helperAllSelectedText": "todas as marcações"
+                "helperSelectedText": "aulas privadas selecionadas",
+                "helperAllSelectedText": "todas as aulas privadas"
             },
             "level": {
                 "advanced": "avançado",
@@ -12746,7 +12774,7 @@
                 "isEmpty": "Nenhuma descrição",
                 "label": "Descrição"
             },
-            "submit": "Registar",
+            "submit": "Guardar",
             "cancel": "Cancelar",
             "createTitle": "Lista Inteligente",
             "actions": {
@@ -12807,7 +12835,9 @@
         "audience": {
             "content": "Utilizado no{{ workflowLowerCase }}:{{ workflow_name }}",
             "content_plural": "Utilizados em {{ count }}{{ workflowPluralLowerCase }}"
-        }
+        },
+        "downloadReport": "Descarregar o relatório",
+        "generateReport": "Gerar relatório"
     },
     "titles": {
         "workshopActivity": {
@@ -12928,7 +12958,7 @@
                 "paymentPackTemplate": "Passe de aulas partilhado",
                 "newsletterV2": "Aquisição de contactos"
             },
-            "preview": "Visão geral",
+            "preview": "Previsualizar",
             "saveButton": "Guardar",
             "link": "Aceder ao marketplace para os alunos (a sessão será terminada)",
             "explainMarketplace": "Os seus membros podem aceder ao marketplace (calendário, loja, VOD, etc.) online no computador, tablet ou telemóvel. Personalize a sua página aqui!",
@@ -12951,8 +12981,8 @@
                 "selectPlaylist": "Selecionar uma playlist",
                 "selectVideo": "Selecionar um vídeo",
                 "selectPrivateServiceGroups": "Selecionar categorias",
-                "selectPrivateServiceTypeDetail": "As minhas marcações",
-                "selectPrivateServiceTypeList": "Todas as marcações",
+                "selectPrivateServiceTypeDetail": "As minhas Aulas Privadas",
+                "selectPrivateServiceTypeList": "Todas as Aulas privadas",
                 "selectPrivateServiceType": "Tipo",
                 "selectPrivateService": "Selecionar um serviço",
                 "selectActivity": "Selecionar uma atividade",
@@ -13031,7 +13061,7 @@
                     "switchLabel": "Ativar o suporte do utilizador multi zoom"
                 }
             },
-            "submit": "Registar",
+            "submit": "Guardar",
             "explainEnabled": "Ativado : bsport gere as salas de videoconferência, tornando IMPOSSÍVEL gerir duas ao mesmo tempo.",
             "explainDisabled": "Desativado : gerir as suas próprias ligações de videoconferência a configurar para cada sessão (via ZOOM, etc...).",
             "is_whereby_integration_enabled": {
@@ -13087,10 +13117,10 @@
                 "editPopup": {
                     "cancel": "Cancelar",
                     "preview": "Pré-visualizar",
-                    "submit": "Registar",
+                    "submit": "Guardar",
                     "previewPopup": {
                         "see": "Ver",
-                        "title": "Visão geral"
+                        "title": "Previsualizar"
                     },
                     "title": "Pop-up de arranque",
                     "image": "Imagem",
@@ -13144,13 +13174,13 @@
                     "inventory": "Inventário",
                     "cancel": "Fechar",
                     "ourOffers": "As nossas ofertas",
-                    "title": "Visão geral"
+                    "title": "Previsualizar"
                 },
                 "link": "Local",
                 "popup": {
                     "title": "Link externo",
                     "icon": "Icone",
-                    "submit": "Registar",
+                    "submit": "Guardar",
                     "name": "Nome",
                     "link": "Ligação de redirecionamento",
                     "cancel": "Cancelar"
@@ -13158,7 +13188,7 @@
                 "action": "Ações",
                 "name": "Nome",
                 "icon": "Ícone",
-                "preview": "Visão geral da aplicação",
+                "preview": "Previsualizar aplicação",
                 "updated": "Atualizar",
                 "add": "Adicionar um link",
                 "helperText": "Pode adicionar ligações externas à aplicação para redirecionar os seus clientes para o seu website ou outra plataforma. As ligações aparecerão no separador de compras da aplicação móvel.",
@@ -13190,7 +13220,7 @@
         "pageTitle": "Configurações",
         "paymentMethods": {
             "methodPaymentBasketHelper": "Autorizar pagamentos para o cesto de compras, liquidação de dívidas e pagamentos pendentes... apenas através de",
-            "title": "Pagamento em linha",
+            "title": "Pagamento Online",
             "methodPaymentSubscription": "Pagamento recorrente",
             "methodPaymentSubscriptionHelper": "Autorizar pagamentos de assinaturas (contratos) apenas através de",
             "methodPaymentBasket": "Pagamento único",
@@ -13685,7 +13715,7 @@
             "listDisplay": "Lista da semana da visão",
             "configTitle": "O meu widget",
             "containerConfiguration": {
-                "title": "Configuração geral"
+                "title": "Configurações"
             },
             "page": {
                 "calendar": "Calendário",
@@ -13713,10 +13743,10 @@
                 "choiceWidget": "Escolha do widget",
                 "info": "Pode personalizar cada elemento e as suas variantes que constituem os widgets. Seleccione um widget e, em seguida, o elemento pretendido.",
                 "dialog": {
-                    "content": "Aviso: está prestes a repor o css deste elemento. Ele voltará à sua configuração predefinida.",
+                    "content": "Aviso: está prestes a redefinir o css para este elemento. Ele voltará à sua configuração predefinida.",
                     "confirm": "Confirmar",
                     "cancel": "Cancelar",
-                    "title": "Repor item"
+                    "title": "Redefinir elemento"
                 },
                 "save": "Registo",
                 "savedChanges": "Últimas alterações guardadas",
@@ -13840,7 +13870,7 @@
             },
             "auto_consume_pack": {
                 "helper": "Se o membro tiver um passe de aulas válido, quando houver um lugar disponível, é automaticamente inscrito e o seu passe é debitado. O passe com a data de expiração mais antiga e com menos crédito disponível é utilizado em primeiro lugar.",
-                "label": "Debitar automaticamente um passe de aulas e inscrever o membro quando houver um lugar disponível."
+                "label": "Reservar automaticamente um membro da lista de espera quando houver um lugar disponível e deduzir o(s) crédito(s) de um passe válido"
             },
             "last_delay_before_auto_consume": {
                 "helper": "Se a sessão tiver lugar demasiado cedo, o membro não será registado, mesmo que tenha um passe de aulas válido",
@@ -13974,7 +14004,7 @@
             "cancelBooking": "Cancelar",
             "noBookingOnThisOffer": "De momento, não há reservas para esta sessão",
             "seeCustomers": "Mostrar reservas",
-            "cancellingOtherBookingInGroup": "Tenha em atenção que esta sessão é uma sessão de grupo para{{ name }}. Se o membro tiver outras marcações neste grupo, estas não serão afetadas.",
+            "cancellingOtherBookingInGroup": "Esta sessão está associada a um evento {{ name }}. As outras reservas associadas a este evento não serão editadas.",
             "next": "Próximo:",
             "confirm": "Dinheiro",
             "pending": "Pendente",
@@ -13989,7 +14019,7 @@
                 "discardPossibleExplain": "Tem a certeza de que pretende cancelar esta reserva? O seu crédito ficará novamente disponível.",
                 "discardGroup2": "Será automaticamente anulado o registo de todas as sessões que ainda não se realizaram no grupo.",
                 "waitingSlot": "Em espera",
-                "myPrivateBooking": "Marcações",
+                "myPrivateBooking": "Aulas Privadas",
                 "intro": "A sua reserva a partir de {{date}}",
                 "cancelBooking": "Cancelar reserva",
                 "discardBookingTitle": "Cancelar a reserva",
@@ -14074,14 +14104,14 @@
                     },
                     "createOrUpdate": {
                         "success": "Categoria registada com sucesso",
-                        "error": "Não é possível registar a categoria"
+                        "error": "Erro ao guardar a categoria"
                     },
                     "nameTitle": "Nova categoria",
                     "namePlaceholder": "Sumos de fruta"
                 },
                 "item": {
                     "createOrUpdate": {
-                        "success": "Registar",
+                        "success": "Guardar",
                         "error": "Erro de registo"
                     },
                     "available_payment_method_identifiers": {
@@ -14091,7 +14121,7 @@
                     "unlimitedProvision": "Sem gestão de stock",
                     "updateProvisions": {
                         "success": "Stock atualizado",
-                        "error": "Erro ao registar ações"
+                        "error": "Erro ao guardar stock"
                     },
                     "updateProvisionTitle": "Alterar o stock",
                     "delete": {
@@ -14194,7 +14224,7 @@
                 "backToInvoiceItemList": "Retomar à lista",
                 "paymentPackHelper": "Este passe será creditado ao membro",
                 "objectTypeLabel": "Objeto a creditar",
-                "title": "Registar um pagamento",
+                "title": "Guardar um pagamento",
                 "offerHelper": "Esta sessão será creditada ao membro",
                 "activityHelper": "Escolha a atividade e depois a sessão",
                 "titleUnevenInvoice": "Fatura desequilibrada",
@@ -14353,11 +14383,16 @@
                 "passwordChangedSuccess": "Palavra-passe alterada com sucesso !"
             },
             "partner_max_booking_count": "Número máximo de reservas através do marketplace (apenas OneFit)",
-            "signUpTitle": "Registar",
+            "signUpTitle": "Inscrever-se",
             "warningCreditChange": "NB : As reservas mais antigas não têm em conta as alterações de créditos",
             "warningAddEmail": "Este email já foi adicionado.",
             "emailHelper": "Para adicionar vários emails, digite uma vírgula ou um espaço após cada email.",
-            "emailError": "O formato de email indicado é inválido."
+            "emailError": "O formato de email indicado é inválido.",
+            "passwordResetConfirmation": {
+                "continue": "Continuar",
+                "subtitle": "Pode clicar em \"Continuar\" para iniciar sessão novamente",
+                "title": "A sua palavra-passe foi actualizada com sucesso"
+            }
         },
         "calendar": {
             "canDeleteWithBooking": "As reservas (anuladas) ou as listas de espera foram registadas. Esta sessão não pode ser suprimida.",
@@ -14464,18 +14499,18 @@
         "offer": {
             "restoreModal": {
                 "explain": "Esta sessão será cancelada e reaberta aos seus alunos. No entanto, as reservas previamente canceladas não serão reativadas.",
-                "title": "Repor a sessão"
+                "title": "Restaurar a sessão"
             },
             "manageOffer": "Gerir as minhas reservas",
             "unpaidInvoices": "Faturas não pagas",
-            "myOpenedInvoices": "Faturação rápida",
+            "myOpenedInvoices": "Faturação imediata",
             "noQuickInvoiceOpened": "Não há facturas em aberto",
-            "reCreateBooking": "Registar novamente",
+            "reCreateBooking": "Agendar novamente",
             "createBookingOption": "Lista de espera",
             "bill": "Fatura",
             "hasntBooked": "Não registado",
             "hasBooked": "Registado",
-            "createBooking": "Registo",
+            "createBooking": "Agendar",
             "myBookings": "Reservas",
             "addInvoice": "Fatura",
             "extraordinaryEstablishment": "(local temporário)",
@@ -14566,7 +14601,7 @@
             "from": "De",
             "booking": "Reservas",
             "saveAndAdd": "Guardar e adicionar novamente",
-            "save": "Registar",
+            "save": "Guardar",
             "lastname": "Apelido",
             "firstname": "Nome próprio",
             "previous": "Anterior",
@@ -14583,7 +14618,7 @@
             },
             "tax": "IVA",
             "filter": "Filtro",
-            "generate": "Geral",
+            "generate": "Gerar",
             "export": "Exportar",
             "daySmall": "d",
             "minuteSmall": "min",
@@ -14614,7 +14649,8 @@
         "errors": {
             "invalidUrl": "O link está inválido (Formato correto : http://www.test.fr)",
             "start_after_end": "A data de início deve ser anterior à data de fim",
-            "end_before_start": "A data final deve ser posterior à data de início"
+            "end_before_start": "A data final deve ser posterior à data de início",
+            "endBeforeCurrent": "A data final deve ser anterior à data atual."
         },
         "paymentMethod": {
             "OTHER": "Vários",
@@ -14662,7 +14698,7 @@
                     "checkbox": "Cancelar automaticamente sessões não ocupadas"
                 },
                 "create": {
-                    "error": "Erro ao registar a atividade",
+                    "error": "Erro ao guardar atividade",
                     "success": "Atividade criada"
                 }
             }
@@ -14844,10 +14880,10 @@
         "activity": {
             "firstBookingMinutesUntil": "Os alunos podem reservar sessões futuras se começarem em menos de ",
             "lastBookingBeforeMinutes": "Antes do início da aula, última reserva possível",
-            "lastDiscardBeforeMinutes": "Antes do início da aula, último cancelamento possível",
+            "lastDiscardBeforeMinutes": "Selecionar até quando os membros podem cancelar gratuitamente antes do início da sessão (cancelamentos tardios)",
             "addOffers": "Adicionar sessões",
             "name": "Título",
-            "nextSlotAt": "Próxima reunião em ",
+            "nextSlotAt": "A primeira sessão está agendada para o dia: ",
             "settings": "Configurações",
             "is_broadcast": "Aula Online",
             "firstMinutesBookingUntilWarning": "Um valor de zero significa que não foram estabelecidos limites. As reservas estarão sempre abertas para as sessões desta atividade.",
@@ -14917,7 +14953,7 @@
             "strategy": "Estratégia : ",
             "estimatedTarget": "Percentagem de utilizadores afetados",
             "message": "Mensagem",
-            "after": "Depois de ",
+            "after": "Depois ",
             "criterias": "Critérios",
             "promo": "Redução de ",
             "offersMatching": " sessões similares",
@@ -14959,7 +14995,7 @@
             "maintenedBookings": "{{nb}} reserva mantida",
             "maintenedBookings_plural": "{{nb}} manutenção das reservas",
             "weekOf": "Semana de {{date}}",
-            "offerFilteredBookingRecap": "Reunião de {{date}}",
+            "offerFilteredBookingRecap": "Sessão: {{date}}",
             "weekOverview": "A sua semana em resumo",
             "totalBookings": "{{nb}} reserva total",
             "totalBookings_plural": "{{nb}} reservas no total",
@@ -15338,7 +15374,7 @@
                 "buttonHardDelete": "Eliminar"
             }
         },
-        "restoreOffer": "Repor a sessão",
+        "restoreOffer": "Restaurar a sessão",
         "manageOffer": "Gerir as minhas reservas",
         "calendar": {
             "alertSpivi": {
@@ -15586,7 +15622,7 @@
                     "groupShouldHaveAddress": "É necessário indicar um endereço para este grupo de faturação"
                 },
                 "dialog": {
-                    "save": "Registar",
+                    "save": "Guardar",
                     "cancel": "Cancelar",
                     "title": "Grupo de faturação"
                 },
@@ -15621,7 +15657,7 @@
             },
             "form": {
                 "dialog": {
-                    "save": "Registar",
+                    "save": "Guardar",
                     "cancel": "Eliminar",
                     "title": "Localização"
                 },
@@ -15698,7 +15734,7 @@
         "search": "Procurar uma sala",
         "baseEstablishment": "Habitual",
         "capacity": {
-            "helperText": "Utilizado apenas para calcular a disponibilidade de marcações",
+            "helperText": "Este número só será utilizado para gerir a disponibilidade deste estabelecimento para aulas privadas.",
             "explain": "Capacidade: {{ capacity }} lugar",
             "explain_plural": "Capacidade: {{ capacity }} lugares",
             "label": "Capacidade da sala"
@@ -15742,10 +15778,10 @@
                 "selectGiftcard": "Selecionar um passe oferta",
                 "shopItem": "Produtos da loja",
                 "selectCombo": "Selecionar um pack",
-                "selectPrivatePass": "Selecionar um passe de marcações",
+                "selectPrivatePass": "Selecionar um passe de aula privada",
                 "selectShopItem": "Selecionar um produto",
-                "allPrivateBooking": "Compatível com todos os passes de marcações",
-                "privateBooking": "Passe de marcações",
+                "allPrivateBooking": "Compatível com todos os passes de aula privada",
+                "privateBooking": "Passe de aula privada",
                 "giftcard": "Cartões de presente",
                 "allGiftcard": "Compatível com todos os cartões de presente",
                 "allShopItem": "Compatível com todos os produtos da loja",
@@ -15830,18 +15866,18 @@
             "seeAll": "ver tudo",
             "compatibility": "Compatibilidade",
             "duration": "Todos os {{frequency}} {{recurrency}} para {{number_of_billing}} {{recurrency_ponderate_by_number_of_billing}}",
-            "privatePassAvailableForAll": "Todos os passes de marcações compatíveis",
+            "privatePassAvailableForAll": "Todos os passes de AULA PRIVADA compatíveis",
             "comboAvailableForAll": "Todos os packs compatíveis",
             "giftcardAvailableForALl": "Todos os Cartões de presente compatíveis",
             "shopItemAvailableForALl": "Todos os produtos da loja compatíveis",
             "combo": "Packs",
-            "privatePass": "Passes de marcações",
+            "privatePass": "Passes de Aula Privada",
             "noCompability": "O seu pagamento em várias prestações não é compatível",
             "whenOneAvailable": "Sugerido logo que um artigo do carrinho seja compatível",
             "paymentNumber": "{{number_of_billing}} pagamento",
             "paymentNumber_plural": "{{number_of_billing}} pagamentos",
-            "privatePassAvailable": "{{length}} passe de marcações compatíveis",
-            "privatePassAvailable_plural": "{{length}} passes de marcações compatíveis",
+            "privatePassAvailable": "{{length}} passe de aula privada compatível",
+            "privatePassAvailable_plural": "{{length}} passes de aulas privadas compatíveis",
             "shopItemAvailable": "{{length}} produto da loja compatível",
             "shopItemAvailable_plural": "{{length}} produtos da loja compatíveis",
             "minimumAmount": "Montante mínimo do carrinho",
@@ -16233,7 +16269,7 @@
         },
         "select": "Selecionar uma etiqueta",
         "panel": {
-            "title": "As minhas etiquetas",
+            "title": "Etiquetas",
             "noTagAvailable": "Nenhuma etiqueta criada"
         },
         "memberStatus": "Estatuto de membro : ",
@@ -16482,7 +16518,7 @@
                     "explain": "Este pack será cobrado em vez do antigo APENAS nas faturas geradas após a renovação da assinatura",
                     "cancel": "Cancelar",
                     "title": "Alterar o pack",
-                    "submit": "Registar"
+                    "submit": "Guardar"
                 }
             },
             "freeze": {
@@ -16496,7 +16532,7 @@
                     },
                     "explainInvoice": "A partir de que fatura (incluíndo) pretende adiar a sua subscrição ?",
                     "explainWarning": "Atenção, esta operação não é reversível !",
-                    "submit": "Registar",
+                    "submit": "Guardar",
                     "days": {
                         "label": "Número de dias"
                     }
@@ -16511,7 +16547,7 @@
                     "title": "Alterar o passe de aulas",
                     "warning": "A faturação mantém-se inalterada, pelo que, se pretender aumentar/diminuir o montante mensal, deve alterar cada prestação separadamente.",
                     "cancel": "Cancelar",
-                    "submit": "Registar"
+                    "submit": "Guardar"
                 }
             },
             "actionSection": "Gerar",
@@ -16527,7 +16563,7 @@
                     "explain": "Este passe de marcação será faturado em vez do antigo a partir de agora. As sessões marcadas com o passe antigo serão transferidas para o novo, mesmo que o novo passe não seja compatível.",
                     "warning": "A faturação mantém-se inalterada, pelo que, se pretender aumentar/diminuir o montante mensal, deve alterar cada prestação separadamente.",
                     "cancel": "Cancelar",
-                    "submit": "Registar"
+                    "submit": "Guardar"
                 }
             },
             "invoice": {
@@ -16587,10 +16623,10 @@
             "contractPause": {
                 "form": {
                     "firstStep": {
-                        "titleUpdate": "Alterar a pausa geral",
+                        "titleUpdate": "Alterar a pausa global",
                         "information1": "As subscrições serão colocadas em pausa de {{- fromDate}} a {{- untilDate}} inclusive. A próxima faturação será adiada por {{count}} dias, tal como todas as faturas e futuros passes.",
                         "information1_plural": "As subscrições serão colocadas em pausa de {{- fromDate}} a {{- untilDate}} inclusive. A próxima faturação será adiada por {{count}} dias, tal como todas as faturas e futuros passes.",
-                        "titleCreation": "Pausa geral",
+                        "titleCreation": "Pausar todas as subscrições",
                         "information2": "A data de expiração do passe será prolongada pelo número de dias da pausa e o passe permanecerá válido durante a pausa."
                     },
                     "secondStep": {
@@ -16603,7 +16639,7 @@
                     "thirdStep": {
                         "successExplanation": "A subscrição {{{ count }} foi colocada em pausa de {{- fromDate}} a {{- untilDate}} inclusive.",
                         "successExplanation_plural": "As subscrições {{ count }} serão colocadas em pausa de {{- fromDate}} a {{- untilDate}} inclusive.",
-                        "title": "Pausa geral da subscrição"
+                        "title": "Pausa global da subscrição"
                     }
                 },
                 "sections": {
@@ -16630,7 +16666,7 @@
                     "pause": "Pausa",
                     "confirm": "Confirmar",
                     "verify": "Verificar",
-                    "save": "Registar",
+                    "save": "Guardar",
                     "cancel": "Cancelar",
                     "goBack": "Voltar a",
                     "continue": "Continuar"
@@ -16670,11 +16706,11 @@
                 "firstBilling": "A primeira fatura da subscrição.",
                 "warningDayLast": "O número de dias indicado refere-se à data da última fatura, à meia-noite",
                 "warningHourLast": "O número de horas indicado refere-se à data da última fatura, à meia-noite",
-                "before": "Seguinte",
+                "before": "Antes",
                 "afterSubcriptionCreation": "Depois da subscrição ser criada.",
                 "day": "Dia",
                 "day_plural": "Dias",
-                "after": "Depois de"
+                "after": "Depois"
             },
             "triggeringEvent": {
                 "contractCreation": "Criar subscrição",
@@ -16728,11 +16764,11 @@
                 "price": "Novo montante",
                 "explain": "Apenas esta futura será modificada",
                 "nonNullDiscount": "Esta subscrição inclui atualmente um cupão. Este cupão não será tido em conta quando o preço for atualizado.",
-                "submit": "Registar"
+                "submit": "Guardar"
             },
             "dateUpdater": {
                 "actions": {
-                    "submit": "Registar",
+                    "submit": "Guardar",
                     "cancel": "Cancelar"
                 },
                 "explain": "Apenas esta fatura será modificada",
@@ -16790,7 +16826,7 @@
                 "2": "Crédito",
                 "1": "Transferência SEPA",
                 "0": "Cartão",
-                "paymentOnline": "Pagamento em linha"
+                "paymentOnline": "Pagamento Online"
             },
             "parameters": "Configurações",
             "autoRenew": "Renovação automática",
@@ -16808,7 +16844,7 @@
         "noContracts": "Os contratos permitem-lhe faturar aos seus membros numa base regular (mensal) um passe de aulas que é creditado de novo todos os meses/dias/anos.",
         "events": {
             "billing_plan-update_payment_pack": "Passe de aulas alterado",
-            "billing_plan-update_private_pass": "Passe de marcações alterado",
+            "billing_plan-update_private_pass": "Passes de Aula Privada modificados.",
             "list": {
                 "title": "Eventos mais recentes"
             },
@@ -16846,7 +16882,7 @@
         "register": {
             "dialog": {
                 "success": "A sua subscrição {{- name }} foi registada.",
-                "error": "Não foi possível registar a subscrição.",
+                "error": "Não foi possível registar a subscrição, tente novamente mais tarde.",
                 "info": "A sua subscrição está atualmente a ser registada e informá-lo-emos quando estiver pronta."
             }
         },
@@ -17039,7 +17075,7 @@
                 "quantityLabel": "Unidade(s)",
                 "quantityHelperText": "Unidade a acrescentar/subtrair ao stock",
                 "cancel": "Cancelar",
-                "submit": "Registar",
+                "submit": "Guardar",
                 "title": "Alterar o stock"
             },
             "total_sales": "Número de artigos vendidos :",
@@ -17080,7 +17116,7 @@
                 "paymentPack": "Passe de aulas",
                 "credit": "crédito",
                 "credit_plural": "créditos",
-                "privatePass": "Passe de Marcações",
+                "privatePass": "Passe de Aula Privada",
                 "paymentCombo": "Pack",
                 "unlimited": "Ilimitado",
                 "product": "produto",
@@ -17165,11 +17201,11 @@
                 "title": "Pagamento adiado",
                 "subText": "O pagamento foi adiado : pode ser efetuado a partir do backoffice ou do perfil do membro."
             },
-            "noAnonymousClientDebt": "Para utilizar o saldo, é necessário identificar um membro na fatura",
+            "noAnonymousClientDebt": "É necessário identificar um membro na fatura para utilizar o saldo da conta cliente",
             "internalCredits": "Créditos internos",
             "priceExcludingTax": "Total antes das taxas",
             "sendToTerminal": "Enviar para o terminal",
-            "clientDebt": "Saldo do cliente"
+            "clientDebt": "Saldo da conta do cliente"
         },
         "itemList": {
             "additionDrawer": {
@@ -17195,7 +17231,7 @@
             "searchAProduct": "Procurar um produto",
             "selectItemToStart": "Clique num artigo para iniciar um carrinho",
             "memberModal": {
-                "confirm": "Registar",
+                "confirm": "Guardar",
                 "cancel": "Cancelar",
                 "title": "Identificação dos membros"
             },
@@ -17361,7 +17397,7 @@
             "delete": "Eliminar",
             "close": "fechar",
             "cancel": "Cancelar",
-            "save": "Registar",
+            "save": "Guardar",
             "validate": "Confirmar",
             "search": "Pesquisar",
             "add": "adicionar"
@@ -17430,7 +17466,7 @@
                 "feeLabel": "Taxas de entrega",
                 "nameLabel": "Nome",
                 "freeThresholdLabel": "Disponível em",
-                "onSubmit": "Registar",
+                "onSubmit": "Guardar",
                 "title": "Formulário de taxas de entrega",
                 "freeThresholdHelper": "Se o valor da encomenda for superior a este montante, os custos de entrega são gratuitos",
                 "onCancel": "Cancelar",
@@ -17456,7 +17492,7 @@
         "configuration": {
             "deliveryFee": "Taxa de entrega",
             "forms": {
-                "onSubmit": "Registar"
+                "onSubmit": "Guardar"
             },
             "noDefaultDeliveryFee": "Sem taxas de entrega",
             "defaultDeliveryFee": "Taxas de entrega por defeito"
@@ -17525,7 +17561,7 @@
             "cancel": "Cancelar",
             "subject": "Assunto do e-mail",
             "exportHtml": "Exportar HTML",
-            "save": "Registar",
+            "save": "Guardar",
             "title": "Nome do modelo"
         },
         "no_subject": "Nenhum assunto",
@@ -17553,7 +17589,7 @@
             "coach": "Nenhum professor"
         },
         "graphDefaultTitles": {
-            "privateBookingTemporal": "Marcações",
+            "privateBookingTemporal": "Aulas Privadas",
             "memberTemporal": "Novos membros",
             "billingPlanTemporal": "Subscrições",
             "subscriptionTemporalSum": "Quantidade de recibos",
@@ -17574,11 +17610,11 @@
             "payout_identifier": "Transferência",
             "payout_date_created": "Data da transferência",
             "payment_pack": "Passe de aulas",
-            "private_pass": "Passe de Marcações",
+            "private_pass": "Passe de Aula Privadas",
             "activity": "Atividade",
             "nb_planned_invoices": "Número total de recibos",
             "margin_value": "Contribuição marginal incl. IVA",
-            "private_service_name": "Marcações",
+            "private_service_name": "Aulas Privadas",
             "price": "Preço incl. IVA",
             "contract": "Contrato",
             "date": "Data de pagamento",
@@ -17611,7 +17647,7 @@
             "billingplan_pk": "Número de subscrições",
             "plannedinvoice_pk": "Número de faturas",
             "payment_pk": "Número de pagamentos",
-            "privatebooking_pk": "Número de marcações",
+            "privatebooking_pk": "Número de Aulas Privadas",
             "author": "Autor",
             "invoice_datetime": "Data de emissão da fatura",
             "total_price": "Montante faturado (incl. IVA)",
@@ -17629,7 +17665,8 @@
             "date_joined": "Data de inscrição",
             "contract_name": "Subscrição",
             "billing_plan_payment_method": "Meios de pagamento",
-            "plan_auto_renewal": "Renovação tácita"
+            "plan_auto_renewal": "Renovação tácita",
+            "booking_date_created": "Data da reserva"
         },
         "graphFormDrawer": {
             "aggregation": {
@@ -17776,7 +17813,7 @@
                 },
                 "graphComponent": "Representação necessária",
                 "datatype": "Tipo de gráfico",
-                "submit": "Registar",
+                "submit": "Guardar",
                 "cancel": "Cancelar",
                 "title": "Gráfico"
             },
@@ -17786,7 +17823,7 @@
         "invoiceItemDropdown": {
             "contentType": {
                 "10": "Packs",
-                "9": "Passe de marcações",
+                "9": "Passes de aula privada",
                 "7": "Promoção",
                 "6": "Despesas de envio",
                 "2": "Produtos da loja",
@@ -17814,9 +17851,9 @@
             "customSelect": "Selecionar um intervalo de datas"
         },
         "privateBooking": {
-            "popover": "Número total de marcações registadas para esta data. É possível filtrar as anulações / reembolsos / ...",
-            "caption": "Marcações registadas",
-            "title": "Marcações"
+            "popover": "Número total de aulas privadas reservadas para esta data. É possível filtrar as anulações / reembolsos / ...",
+            "caption": "Aulas Privadas salvas",
+            "title": "Aulas Privadas"
         },
         "bookingsWeektimeSlot": {
             "popover": "Número médio de sessões por faixa horária",
@@ -17972,7 +18009,7 @@
         },
         "actions": {
             "signup": {
-                "register": "Registar",
+                "register": "Inscrever-se",
                 "noAccount": "Ainda não tem conta ?"
             },
             "signin": "Iniciar sessão",
@@ -18023,7 +18060,7 @@
             "submit": "Criar"
         },
         "signup": {
-            "title": "Registar"
+            "title": "Inscrição"
         },
         "emailConfirmation": {
             "backToLogin": "Voltar à página de início de sessão",
@@ -18168,7 +18205,7 @@
                 "restartAnalyze": "Recomeçar"
             },
             "activateBarcode": "Detetor de cartões",
-            "register": "Registar",
+            "register": "Reservar",
             "isFull": "Completo",
             "emptyList": "Não há alunos registados",
             "noConsumerPaymentPack": "Não tem um passe de aulas válido !",
@@ -18307,7 +18344,7 @@
                 "content": "A sua subscrição Bsport será debitada no método de pagamento indicado abaixo. Para configurar a conta na qual serão creditados os pagamentos em linha via Bsport, clique em"
             },
             "actions": {
-                "createCard": "Adicionar um passe",
+                "createCard": "Adicionar um cartão",
                 "createSepa": "Adicionar um IBAN"
             },
             "sectionTitle": "Meios de pagamento"
@@ -18384,7 +18421,7 @@
     "partnership": {
         "actions": {
             "requestPartnership": "Ativar a integração",
-            "save": "Registar"
+            "save": "Guardar"
         },
         "pageTitle": "Parceria",
         "parameters": {
@@ -18464,7 +18501,7 @@
             "no_established_connection": "Sem terminal de pagamento conectado",
             "unknown": "Erro de rede, tente novamente dentro de alguns instantes",
             "insufficient_funds": "O seu cartão não tem fundos suficientes.",
-            "processing_error": "Ocorreu um erro ao registar o seu pagamento. Tente novamente dentro de alguns instantes.",
+            "processing_error": "Ocorreu um erro ao processar o seu cartão. Tente novamente mais tarde.",
             "invalid_bank_account_routing_number": "O código fornecido é inválido.",
             "terminal_reader_timeout": "Ocorreu um timeout no envio deste comando para o leitor.",
             "terminal_reader_busy": "O leitor está atualmente ocupado a processar outro pedido ou a efetuar uma atualização.",
@@ -18472,7 +18509,7 @@
         },
         "error_code": {
             "unknown": "Erro de rede, tente novamente dentro de alguns instantes",
-            "processing_error": "Ocorreu um erro ao registar o seu pagamento. Tente novamente dentro de alguns instantes.",
+            "processing_error": "Ocorreu um erro ao processar o seu pagamento. Tente novamente mais tarde.",
             "payment_intent_payment_attempt_failed": "O pagamento foi recusado pelo seu banco.",
             "payment_intent_authentication_failure": "O pagamento foi recusado pelo seu banco.",
             "email_invalid": "O e-mail está inválido.",
@@ -18617,7 +18654,7 @@
             },
             "33004": {
                 "title": "Erro de referenciação",
-                "description": "Foi encontrado um erro ao registar a referên"
+                "description": "Foi encontrado um erro ao registar a referência."
             },
             "33005": {
                 "title": "Erro de referenciação",

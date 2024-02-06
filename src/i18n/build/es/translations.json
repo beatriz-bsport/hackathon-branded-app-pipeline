@@ -63,7 +63,8 @@
         "errors": {
             "end_before_start": "La fecha de finalización debe ser posterior a la fecha de inicio",
             "start_after_end": "La fecha de inicio debe ser anterior a la fecha de finalización",
-            "invalidUrl": "URL no válida (formato solicitado: http://www.test.com)"
+            "invalidUrl": "URL no válida (formato solicitado: http://www.test.com)",
+            "endBeforeCurrent": "La fecha final debe ser anterior a la fecha actual."
         },
         "members": {
             "form": {
@@ -604,7 +605,12 @@
             "notesHelperText": "Las notas son privadas: sólo aparecerán en el Backoffice para los miembros del personal autorizados a modificarlas",
             "startWorking": "Fecha de inicio",
             "descriptionHelperText": "La descripción del profesor será visible para los miembros cuando hagan la reserva",
-            "workingDateSection": "Período de actividad en el estudio"
+            "workingDateSection": "Período de actividad en el estudio",
+            "passwordResetConfirmation": {
+                "continue": "Continuar",
+                "subtitle": "Puede hacer clic en \"Continuar\" para volver a iniciar sesión.",
+                "title": "Su contraseña se ha actualizado correctamente"
+            }
         },
         "marketing": {
             "dashboard": "Tablero de mando",
@@ -1451,7 +1457,8 @@
             "invoiceitem_pk": "Número de artículos facturados",
             "staff_commission_amount": "Comisiones del personal incl. IVA",
             "staff_commission_amount_notax": "Comisión de personal excl. IVA",
-            "invoice_datetime": "Fecha de emisión de la factura"
+            "invoice_datetime": "Fecha de emisión de la factura",
+            "booking_date_created": "Fecha de reserva"
         },
         "graphFormDrawer": {
             "helperText": {
@@ -4853,7 +4860,8 @@
             "margin_value_excl_tax": "Valor marginal (sin IVA)",
             "margin_value_incl_tax": "Valor marginal (IVA / IVA incluido)",
             "margin_value_excluding_sales_tax": "Valor marginal (sin IVA)",
-            "billing_group_address": "Dirección"
+            "billing_group_address": "Dirección",
+            "is_first_visit": "Primera reserva"
         },
         "payment_method": {
             "cash": "Efectivo",
@@ -7670,7 +7678,16 @@
                     "activities": "Actividades"
                 },
                 "bookASession": "Reservar una sesión",
-                "title": "Mis reservas"
+                "title": "Mis reservas",
+                "calendarDrawer": {
+                    "subtitle": {
+                        "workshop": "Filtre sus talleres por fecha.",
+                        "appointment": "Filtre sus citas por fecha.",
+                        "activity": "Filtra tus actividades por fecha."
+                    },
+                    "title": "Elija una fecha"
+                },
+                "chooseBookingType": "Elija el tipo de reserva"
             },
             "placeholderCard": {
                 "myBookings": "Elija una sesión para ver más detalles"
@@ -9193,7 +9210,15 @@
             },
             "automatedTitle": "Envíos automáticos",
             "manualTitle": "Envíos manuales",
-            "processing": "Enviando..."
+            "processing": "Enviando...",
+            "exportCampaigns": {
+                "dialogButtonGenerateAnyway": "Generar de todos modos",
+                "dialogContentAlternative": "También puede hacer clic en \"Generar de todos modos\" para generar el informe sin la hoja de destinatarios.",
+                "dialogContentSurplus": "El límite se ha superado en {{ difference_count }} filas.",
+                "dialogContent": "Este informe tiene ~{{ count }} millones de filas de destinatarios, superando el límite de la hoja xlsx de 1 millón. Para incluir destinatarios, disminuya el intervalo de fechas para reducir el recuento.",
+                "dialogTitle": "Límite de destinatarios superado",
+                "title": "Exportar campañas"
+            }
         },
         "common": {
             "refresh": "Refrescar",
@@ -9835,7 +9860,14 @@
                     "helperText": "Si se activa, el número de reservas futuras se reducirá en función del número de plazas en lista de espera registradas. Las futuras plazas en lista de espera también se restringirán en función de este mismo recuento, para evitar el exceso de reservas.",
                     "label": "Incluir las plazas en lista de espera en el recuento máximo de reservas/talleres futuros"
                 },
-                "bookingLimitation": "Restricciones globales de reserva"
+                "bookingLimitation": "Restricciones globales de reserva",
+                "resetPassword": {
+                    "urlError": "Introduzca una URL válida",
+                    "urlHelperText": "Deje este campo vacío para redirigir al mercado",
+                    "urlRedirection": "URL personalizada",
+                    "helperText": "Por defecto, cuando sus miembros restablecen su contraseña, son redirigidos al mercado. Si desea redirigirlos a otro lugar (por ejemplo, a su sitio web), rellene el siguiente campo con la URL deseada.",
+                    "title": "Restablecer contraseña"
+                }
             },
             "submit": "Guardar",
             "instagramURL": {
@@ -11562,6 +11594,9 @@
                     },
                     "invoice": {
                         "_label": "Exportar facturas"
+                    },
+                    "smartlist_general_report": {
+                        "_label": "Exportar informe general de Smartlist"
                     }
                 }
             },
@@ -15706,7 +15741,9 @@
         "audience": {
             "content": "Se utiliza en el {{ workflowLowerCase }}: {{ workflow_name }}",
             "content_plural": "Usado en {{ count }} {{ workflowPluralLowerCase }}"
-        }
+        },
+        "downloadReport": "Descargar el informe",
+        "generateReport": "Generar informe"
     },
     "relationship": {
         "consumer_payment_pack_links": {
@@ -16909,8 +16946,8 @@
                     "9": "Cesta pagada"
                 },
                 "exit": {
-                    "exit_fail_label": "Perdido",
-                    "exit_success_label": "Éxito",
+                    "exit_fail_label": "No",
+                    "exit_success_label": "Sí",
                     "title": "Salida"
                 },
                 "trigger": {
@@ -17126,7 +17163,7 @@
                     "title": "Criterios de entrada",
                     "addTrigger": "Añadir un activador de entrada",
                     "creationHelper": "Primero decidamos cómo van a entrar sus miembros en el {{ workflowLowerCase }}. Para ello, deberá seleccionar un activador de entrada.  Si selecciona varios activadores, los miembros que correspondan a cualquiera de ellos entrarán en {{ workflowLowerCase }}.",
-                    "editionHelper": "Edite los criterios para que sus miembros entren en el {{ workflowLowerCase }}. Puede elegir uno o más eventos o smartlists. Si un miembro encaja en alguno de ellos, se unirá al {{ workflowLowerCase }}."
+                    "editionHelper": "Edite los criterios para que sus miembros entren en el {{ workflowLowerCase }}. Si un miembro encaja en alguno de ellos, se unirá al {{ workflowLowerCase }}."
                 },
                 "cancel": "Cancelar",
                 "confirm": "Guardar",
@@ -17139,11 +17176,11 @@
                     "name": "Nombre"
                 },
                 "convertIntoStep": {
-                    "label": "Etiqueta del paso",
-                    "default": "Etiqueta del paso"
+                    "label": "Nombre de la etapa",
+                    "default": "Etapa sin título"
                 },
                 "convertIntoExit": {
-                    "label": "Considerar al miembro como",
+                    "label": "Considerar la salida como",
                     "title": "Salida"
                 },
                 "entryAction": {
@@ -17338,7 +17375,7 @@
             },
             "memberTable": {
                 "tableColumnLabel": {
-                    "status": "Estado",
+                    "status": "Éxito",
                     "exitDate": "Fecha de salida",
                     "entryDate": "Fecha de ingreso",
                     "currentStep": "Fase actual",

@@ -346,9 +346,17 @@ const useStyles = makeStyles((theme) => ({
   },
   sectionTitle: {
     marginBottom: theme.spacing(1),
+    [theme.breakpoints.down('md')]: {
+      marginLeft: theme.spacing(1.5),
+    },
   },
   divider: {
     marginBottom: theme.spacing(2),
+    [theme.breakpoints.down('md')]: {
+      marginBottom: theme.spacing(2),
+      marginLeft: theme.spacing(2),
+      marginRight: theme.spacing(2),
+    },
   },
 }));
 

@@ -1,64 +1,82 @@
-// @ts-nocheck
-// @flow
-import React from 'react';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import DeleteIcon from '@material-ui/icons/Delete';
-import Typography from '@material-ui/core/Typography';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
-import EditIcon from '@material-ui/icons/Edit';
-// import NotificationsIcon from '@material-ui/icons/Notifications';
-// import IconButton from '@material-ui/core/IconButton';
-import { useTranslation } from 'react-i18next';
-import { makeStyles } from '@material-ui/styles';
-import ListItemResponsiveAction from '../../../../components/button/ListItemResponsiveAction.component';
-// import Tooltip from '../../../../components/Tooltip.component';
+import React, { useCallback, useMemo } from 'react';
 
-import {
-  PrivateServiceWithSlots,
-  ServiceCompatibilityPass,
-  PrivateSlot,
-  PrivateService,
-} from '../../types';
-import { Coach } from '../../../associated-coach/types';
+import { makeStyles } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
+import Avatar from '@material-ui/core/Avatar';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ListItemText from '@material-ui/core/ListItemText';
+import Typography from '@material-ui/core/Typography';
+
+import ListItemResponsiveAction from '#components/button/ListItemResponsiveAction.component';
+
 import {
   getCompatibilityText,
   getCompatibilityTextWithSlots,
 } from '../../utils';
 
+import type {
+  PrivateService,
+  PrivateServiceWithSlots,
+  PrivateSlot,
+  ServiceCompatibilityPass,
+} from '#libs/private-service/types';
+
 type Props = {
-  privateService: PrivateService | PrivateServiceWithSlots;
-  onClick?: (id: number) => void;
-  onEdit?: () => void;
-  dense?: boolean;
-  selected?: boolean;
-  hideSecondary?: boolean;
-  onDelete?: () => void;
   compatibilityByService?: ServiceCompatibilityPass;
+  dense?: boolean;
   excluded_slots?: number[];
-  included_slots?: Array<PrivateSlot>;
+  hideSecondary?: boolean;
+  included_slots?: PrivateSlot[];
+  onClick?: (id: number) => void;
+  onDelete?: () => void;
+  onEdit?: () => void;
+  privateService: PrivateService | PrivateServiceWithSlots;
+  selected?: boolean;
 };
 
-export const PrivateServiceListItem = (props: Props) => {
+export const PrivateServiceListItem: React.FC<Props> = ({
+  compatibilityByService,
+  dense,
+  excluded_slots,
+  hideSecondary,
+  included_slots,
+  onClick,
+  onDelete,
+  onEdit,
+  privateService,
+  selected,
+}) => {
   const classes = useStyles();
-  const { t } = useTranslation(['privateService']);
-  const {
-    privateService,
-    onClick,
-    compatibilityByService,
-    excluded_slots,
-    included_slots,
-  } = props;
+  const { t } = useTranslation('privateService');
+
+  const handleOnListItemClick = useCallback(() => {
+    onClick?.(privateService.id);
+  }, [onClick, privateService.id]);
+
+  const privateCoachList = useMemo(() => {
+    const coaches = privateService.coaches || [];
+    return hideSecondary
+      ? null
+      : (coaches || [])
+          // @ts-expect-error - Until we have better typing for private service page (selectors)
+          .filter((coach) => !!coach && coach.name)
+          // @ts-expect-error - Until we have better typing for private service page (selectors)
+          .map((coach) => (!!coach && coach.name) || '')
+          .join(', ');
+  }, [hideSecondary, privateService.coaches]);
 
   return (
     <ListItem
       divider
       alignItems="center"
+      // @ts-expect-error - MUI typing workaround: considering the way ListItem is typed, TS can't understand a boolean that is not explicitely true or false here
       button={!!onClick}
-      dense={props.dense}
-      onClick={onClick ? () => onClick(privateService.id) : null}
-      selected={props.selected}
+      dense={dense}
+      onClick={handleOnListItemClick}
+      selected={selected}
       style={{
         borderLeft: privateService.color !== '' ? '5px solid' : '0px',
         borderLeftColor: privateService.color,
@@ -72,6 +90,7 @@ export const PrivateServiceListItem = (props: Props) => {
         />
       </ListItemAvatar>
       <ListItemText
+        classes={{ secondary: classes.textSecondary }}
         primary={
           <div>
             <div>{privateService.name}</div>
@@ -91,41 +110,21 @@ export const PrivateServiceListItem = (props: Props) => {
             )}
           </div>
         }
-        secondary={
-          props.hideSecondary
-            ? null
-            : privateService.coaches
-                .filter((c: Coach) => c && c.name)
-                .map((c: Coach) => (c && c.name) || '')
-                .join(', ') || null
-        }
+        secondary={privateCoachList}
       />
-      {/* {privateService.hasActiveNotification && (
-        <Tooltip
-          title={
-            <Typography variant="subtitle2">
-              {t('privateBookingNotification.tooltip')}
-            </Typography>
-          }
-        >
-          <IconButton>
-            <NotificationsIcon />
-          </IconButton>
-        </Tooltip>
-      )} */}
 
       <ListItemResponsiveAction
         actions={[
-          props.onEdit && {
+          onEdit && {
             icon: EditIcon,
             label: t('serviceGroup.edit'),
             color: 'primary',
-            onClick: props.onEdit,
+            onClick: onEdit,
           },
-          props.onDelete && {
+          onDelete && {
             icon: DeleteIcon,
             label: t('serviceGroup.delete'),
-            onClick: props.onDelete,
+            onClick: onDelete,
           },
         ]}
       />
@@ -133,7 +132,7 @@ export const PrivateServiceListItem = (props: Props) => {
   );
 };
 
-const useStyles = makeStyles((theme: any) => ({
+const useStyles = makeStyles((theme) => ({
   avatar: {
     width: theme.spacing(7),
     height: theme.spacing(7),
@@ -144,6 +143,11 @@ const useStyles = makeStyles((theme: any) => ({
     flex: 1,
     marginLeft: theme.spacing(2),
   },
+  textSecondary: {
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+  },
 }));
 
-export default PrivateServiceListItem;
+export default React.memo(PrivateServiceListItem);

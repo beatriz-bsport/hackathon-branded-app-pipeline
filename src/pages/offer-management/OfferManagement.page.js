@@ -24,6 +24,8 @@ import {
   fetchOfferStatus as fetchOfferStatusAction,
   postRollCall as postRollCallAction,
   updateInternalNote as updateInternalNoteAction,
+  fetchOfferBulk as fetchOfferBulkAction,
+  fetchOfferStatusList as fetchOfferStatusListAction,
 } from '#libs/offer/actions';
 import { getDetailedOffer, withSpecificCoach } from '#libs/offer/selectors';
 import { getStripeReaders } from '#libs/terminal/selectors';
@@ -332,6 +334,8 @@ export default compose(
       fetchRoomBlueprintDetail: fetchRoomBlueprintDetailAction,
       fetchAssetForBlueprint: fetchAssetForBlueprintAction,
       fetchOfferStatus: fetchOfferStatusAction,
+      fetchOfferStatusList: fetchOfferStatusListAction,
+      fetchOfferBulk: fetchOfferBulkAction,
       postRollCall: postRollCallAction,
       fetchInvoice,
       fetchInvoiceList: fetchInvoiceListAction,
@@ -531,12 +535,24 @@ export default compose(
 
   withHandlers({
     addBooking:
-      ({ refresh, registerBooking, fetchOfferStatus, fetchOffer }) =>
+      ({
+        refresh,
+        registerBooking,
+        fetchOfferStatus,
+        fetchOffer,
+        fetchOfferBulk,
+        fetchOfferStatusList,
+        id,
+      }) =>
       (consumerPaymentPackId, data, ordering_field) => {
         const refreshOfferAndBookings = () => {
-          fetchOffer(data.offer);
-          fetchOfferStatus(data.offer);
+          fetchOffer(id);
+          fetchOfferStatus(id);
           refresh(ordering_field);
+          if (Array.isArray(data.offer)) {
+            fetchOfferBulk(data.offer);
+            fetchOfferStatusList(data.offer);
+          }
         };
         registerBooking(consumerPaymentPackId, data, {
           onSuccess: refreshOfferAndBookings,

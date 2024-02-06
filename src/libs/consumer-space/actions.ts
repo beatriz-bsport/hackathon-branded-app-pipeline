@@ -1163,6 +1163,7 @@ export const fetchMyActivePrivateConsumerPassesAsMember = (
         page: nextPage,
         page_size,
         is_valid_today: true,
+        is_universal: false,
       });
       dispatch(
         fetchMyActivePrivateConsumerPassesAsMemberActions.success(response),
@@ -1212,6 +1213,7 @@ export const fetchMyExpiredPrivateConsumerPassesAsMember = (
         page: nextPage,
         page_size,
         is_expired: true,
+        is_universal: false,
       });
       dispatch(
         fetchMyExpiredPrivateConsumerPassesAsMemberActions.success(response),
@@ -1260,6 +1262,7 @@ export const fetchMyFuturePrivateConsumerPassesAsMember = (
         page_size,
         is_expired: false,
         is_valid_today: false,
+        is_universal: false,
       });
       dispatch(
         fetchMyFuturePrivateConsumerPassesAsMemberActions.success(response),

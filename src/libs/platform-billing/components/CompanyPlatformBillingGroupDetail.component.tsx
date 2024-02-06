@@ -12,7 +12,10 @@ import type { PlatformSubscription } from '../type';
 
 import PlatformBillingPlanGroupCard from './PlatformBillingPlanGroupCard.component';
 
-import { BETA_UPSELL_IDS } from '#libs/platform-billing/constant';
+import {
+  BETA_UPSELL_IDS,
+  UNSUBSCRIBABLE_UPSELL_IDS,
+} from '#libs/platform-billing/constant';
 import { UPSELL_IDENTIFIER_CADENCE } from '../upsell-identifiers';
 
 const UpsellPackageList = React.memo(
@@ -79,7 +82,8 @@ export const CompanyPlatformBillinGroupDetail: React.FC<Props> = ({
           !upsellPackage.hidden &&
           ((hasLimitedAccessToAudience &&
             upsellPackage.upsell_identifier === UPSELL_IDENTIFIER_CADENCE) ||
-            !BETA_UPSELL_IDS.includes(upsellPackage.upsell_identifier)),
+            !BETA_UPSELL_IDS.includes(upsellPackage.upsell_identifier)) &&
+          !UNSUBSCRIBABLE_UPSELL_IDS.includes(upsellPackage.upsell_identifier),
       ) ?? [],
     [nonSubscribedUpsellPackages, hasLimitedAccessToAudience],
   );

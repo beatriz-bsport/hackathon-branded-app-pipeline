@@ -1,6 +1,9 @@
 import {
-  UPSELL_IDENTIFIER_QUICKSALE,
   UPSELL_IDENTIFIER_CADENCE,
+  UPSELL_IDENTIFIER_QUICKBOOKS,
+  UPSELL_IDENTIFIER_QUICKSALE,
+  UPSELL_IDENTIFIER_VOD,
+  UPSELL_IDENTIFIER_WHEREBY,
 } from '#libs/platform-billing/upsell-identifiers';
 
 export const BLOCK_BACKOFFICE = 3;
@@ -17,4 +20,14 @@ export const DISPUTED_PAYMENT = 1;
 export const BETA_UPSELL_IDS = [
   UPSELL_IDENTIFIER_QUICKSALE,
   UPSELL_IDENTIFIER_CADENCE,
+];
+
+/**
+ * @description These identifiers represent upsells that have been available to customers in the past,
+ * but should no longer be available for purchase anymore.
+ */
+export const UNSUBSCRIBABLE_UPSELL_IDS = [
+  UPSELL_IDENTIFIER_VOD,
+  UPSELL_IDENTIFIER_WHEREBY,
+  UPSELL_IDENTIFIER_QUICKBOOKS,
 ];

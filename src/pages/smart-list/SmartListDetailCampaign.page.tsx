@@ -19,7 +19,7 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { WithHandlerType, MaterialStyleType } from '../../utils/types';
 import type { CampaignExportStartEndDates } from '#libs/communication/types';
 
-import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+// import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 import {
   getCampaignBySmartlist,
@@ -45,8 +45,8 @@ import { RootState } from '../../reducers';
 import CampaignList from '#libs/communication/components/CampaignList.component';
 import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#libs/notification-rule/actions';
 import { getResolvedGenericTags } from '#libs/notification-rule/selectors';
-import CampaignsExportSection from '#libs/communication/components/CampaignsExportSection.component';
-import CampaignsExportLimitDialog from '#libs/communication/components/CampaignsExportLimitDialog.component';
+// import CampaignsExportSection from '#libs/communication/components/CampaignsExportSection.component';
+// import CampaignsExportLimitDialog from '#libs/communication/components/CampaignsExportLimitDialog.component';
 
 type OwnProps = {
   id: number;
@@ -124,12 +124,13 @@ export class SmartListCampaign extends React.Component<Props> {
       classes,
       openManualCampaignSection,
       openAutomatedCampaignSection,
-      openCampaignsExportSection,
-      openExportLimitDialog,
+      // openCampaignsExportSection,
+      // openExportLimitDialog,
     } = this.props;
 
     return (
       <div className={classes.container}>
+        {/*
         <ObjectLevelPermissionProviderComponent requiredPermission="export.allowed_actions.smartlist_general_report">
           {(hasPermission) =>
             hasPermission && (
@@ -172,6 +173,7 @@ export class SmartListCampaign extends React.Component<Props> {
             )
           }
         </ObjectLevelPermissionProviderComponent>
+        */}
 
         <ButtonBase
           className={classes.flexHeader}

@@ -225,7 +225,7 @@ export type PrivateConsumerPassREST = Omit<
   PrivateConsumerPass<number>,
   'dst_private_consumer_pass' | 'src_private_consumer_pass'
 > & {
-  dst_private_consumer_pass?: number;
+  dst_private_consumer_pass?: number[];
   src_private_consumer_pass?: number[];
 };
 

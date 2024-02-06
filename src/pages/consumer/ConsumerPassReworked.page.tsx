@@ -185,14 +185,13 @@ export class ConsumerPassReworked extends React.Component<
       });
     }
 
-    const src_private_consumer_passes = uniq(
-      passes.reduce(
-        (acc, pass) => [...acc, ...pass.src_private_consumer_pass],
-        [],
-      ),
+    const src_private_consumer_passes = passes.reduce(
+      (acc, pass) => [...acc, ...pass.src_private_consumer_pass],
+      [],
     );
-    const dst_private_consumer_passes = uniq(
-      passes.map((pass) => pass.dst_private_consumer_pass),
+    const dst_private_consumer_passes = passes.reduce(
+      (acc, pass) => [...acc, ...pass.dst_private_consumer_pass],
+      [],
     );
     const privateConsumerPasses = uniq([
       ...src_private_consumer_passes,

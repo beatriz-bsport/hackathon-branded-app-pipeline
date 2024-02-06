@@ -638,10 +638,15 @@ const _getPrivateConsumerPass = createSelector(
             `${privateServiceId}-${privateConsumerPass.private_pass.id}`
           ],
       );
-    const dst_private_consumer_pass = getPrivateConsumerPassLink(
-      state,
-      privateConsumerPass?.dst_private_consumer_pass,
-    );
+
+    const dst_private_consumer_pass = privateConsumerPass
+      ?.dst_private_consumer_pass?.length
+      ? getPrivateConsumerPassLink(
+          state,
+          privateConsumerPass.dst_private_consumer_pass[0],
+        )
+      : null;
+
     const src_private_consumer_pass =
       privateConsumerPass?.src_private_consumer_pass?.map(
         (consumerPaymentPackLink) =>

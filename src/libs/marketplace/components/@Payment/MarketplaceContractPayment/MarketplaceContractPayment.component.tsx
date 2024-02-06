@@ -456,7 +456,9 @@ const MarketplaceContractPayment: React.FC<Props> = React.memo(
     const submitDisabled =
       !areBillingDetailsProvided ||
       !isContractLegalTermsAccepted ||
-      (enableMultiLocalization && !selectedEstablishmentBillingGroup) ||
+      (enableMultiLocalization &&
+        !selectedEstablishmentBillingGroup &&
+        !!establishmentBillingGroups?.length) ||
       isLoading ||
       !selectedSavedPaymentMethodId;
 

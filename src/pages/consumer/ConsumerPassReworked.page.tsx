@@ -89,7 +89,7 @@ export class ConsumerPassReworked extends React.Component<
     this.fetchExpiredConsumerPaymentPacks();
     this.fetchFutureConsumerPaymentPacks();
     // Only fetch SCTs once and for all
-    this.props.membership?.id &&
+    !!this.props.membership?.id &&
       this.props.fetchSCTs({
         member: this.props.membership.id,
       });
@@ -216,72 +216,81 @@ export class ConsumerPassReworked extends React.Component<
   };
 
   fetchActiveConsumerPaymentPacks = () => {
-    this.props.fetchMyActiveConsumerPaymentPacksAsMember(
-      { memberId: this.props.membership.id },
-      {
-        onSuccess: this.fetchAssociatedConsumerPaymentPackObjects,
-      },
-    );
+    !!this.props.membership?.id &&
+      this.props.fetchMyActiveConsumerPaymentPacksAsMember(
+        { memberId: this.props.membership.id },
+        {
+          onSuccess: this.fetchAssociatedConsumerPaymentPackObjects,
+        },
+      );
   };
 
   fetchActivePrivateConsumerPasses = () => {
-    this.props.fetchMyActivePrivateConsumerPassesAsMember(
-      { memberId: this.props.membership.id },
-      { onSuccess: this.fetchAssociatedPrivateConsumerPassObjects },
-    );
+    !!this.props.membership?.id &&
+      this.props.fetchMyActivePrivateConsumerPassesAsMember(
+        { memberId: this.props.membership.id },
+        { onSuccess: this.fetchAssociatedPrivateConsumerPassObjects },
+      );
   };
 
   fetchActiveUniversalPasses = () => {
-    this.props.fetchMyActiveUniversalPassesAsMember(
-      { memberId: this.props.membership.id },
-      { onSuccess: this.fetchAssociatedUniversalPassObjects },
-    );
+    !!this.props.membership?.id &&
+      this.props.fetchMyActiveUniversalPassesAsMember(
+        { memberId: this.props.membership.id },
+        { onSuccess: this.fetchAssociatedUniversalPassObjects },
+      );
   };
 
   fetchExpiredConsumerPaymentPacks = () => {
-    this.props.fetchMyExpiredConsumerPaymentPacksAsMember(
-      { memberId: this.props.membership.id },
-      {
-        onSuccess: this.fetchAssociatedConsumerPaymentPackObjects,
-      },
-    );
+    !!this.props.membership?.id &&
+      this.props.fetchMyExpiredConsumerPaymentPacksAsMember(
+        { memberId: this.props.membership.id },
+        {
+          onSuccess: this.fetchAssociatedConsumerPaymentPackObjects,
+        },
+      );
   };
 
   fetchExpiredPrivateConsumerPasses = () => {
-    this.props.fetchMyExpiredPrivateConsumerPassesAsMember(
-      { memberId: this.props.membership.id },
-      { onSuccess: this.fetchAssociatedPrivateConsumerPassObjects },
-    );
+    !!this.props.membership?.id &&
+      this.props.fetchMyExpiredPrivateConsumerPassesAsMember(
+        { memberId: this.props.membership.id },
+        { onSuccess: this.fetchAssociatedPrivateConsumerPassObjects },
+      );
   };
 
   fetchExpiredUniversalPasses = () => {
-    this.props.fetchMyExpiredUniversalPassesAsMember(
-      { memberId: this.props.membership.id },
-      { onSuccess: this.fetchAssociatedUniversalPassObjects },
-    );
+    !!this.props.membership?.id &&
+      this.props.fetchMyExpiredUniversalPassesAsMember(
+        { memberId: this.props.membership.id },
+        { onSuccess: this.fetchAssociatedUniversalPassObjects },
+      );
   };
 
   fetchFutureConsumerPaymentPacks = () => {
-    this.props.fetchMyFutureConsumerPaymentPacksAsMember(
-      { memberId: this.props.membership.id },
-      {
-        onSuccess: this.fetchAssociatedConsumerPaymentPackObjects,
-      },
-    );
+    !!this.props.membership?.id &&
+      this.props.fetchMyFutureConsumerPaymentPacksAsMember(
+        { memberId: this.props.membership.id },
+        {
+          onSuccess: this.fetchAssociatedConsumerPaymentPackObjects,
+        },
+      );
   };
 
   fetchFuturePrivateConsumerPasses = () => {
-    this.props.fetchMyFuturePrivateConsumerPassesAsMember(
-      { memberId: this.props.membership.id },
-      { onSuccess: this.fetchAssociatedPrivateConsumerPassObjects },
-    );
+    !!this.props.membership?.id &&
+      this.props.fetchMyFuturePrivateConsumerPassesAsMember(
+        { memberId: this.props.membership.id },
+        { onSuccess: this.fetchAssociatedPrivateConsumerPassObjects },
+      );
   };
 
   fetchFutureUniversalPasses = () => {
-    this.props.fetchMyFutureUniversalPassesAsMember(
-      { memberId: this.props.membership.id },
-      { onSuccess: this.fetchAssociatedUniversalPassObjects },
-    );
+    !!this.props.membership?.id &&
+      this.props.fetchMyFutureUniversalPassesAsMember(
+        { memberId: this.props.membership.id },
+        { onSuccess: this.fetchAssociatedUniversalPassObjects },
+      );
   };
 
   handleBuyPassClick = () => {

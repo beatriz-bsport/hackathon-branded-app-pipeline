@@ -83,7 +83,7 @@ const PayoutListItem: React.FC<Props> = ({
           <div className={classes.leftPart}>
             <Typography>
               {`${formatAsDatetimeAdapted(
-                bsportPayout.date_created,
+                moment.unix(stripePayout.date_created),
                 'LL',
               )} - ${getCurrencyDisplayWithPrice(
                 (stripePayout.amount_cts / 100).toFixed(2),

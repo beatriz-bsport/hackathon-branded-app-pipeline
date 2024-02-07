@@ -3,7 +3,6 @@ import React from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 
-import type { TFunction } from 'i18next';
 import { List } from '#Fabrique/List/List.component';
 import ListItem from '#Fabrique/ListItem';
 import Typography from '#Fabrique/Typography';
@@ -21,51 +20,53 @@ type Props = {
 const CompatibilityMainList: React.FC<
   Pick<Props, 'isCompatibleWithVod'> & {
     noCompatibleAppointment: boolean;
-    t: TFunction;
   }
-> = React.memo(({ isCompatibleWithVod, noCompatibleAppointment, t }) => (
-  <List
-    className={classNames(
-      'bs-universal-pass-details-card__compatibility-section__list',
-      {
-        'bs-universal-pass-details-card__compatibility-section__list--hidden':
-          !isCompatibleWithVod && !noCompatibleAppointment,
-      },
-    )}
-  >
-    <ListItem
+> = React.memo(({ isCompatibleWithVod, noCompatibleAppointment }) => {
+  const { t } = useTranslation('consumerSpace');
+  return (
+    <List
       className={classNames(
-        'bs-universal-pass-details-card__compatibility-section__list__item',
+        'bs-universal-pass-details-card__compatibility-section__list',
         {
-          'bs-universal-pass-details-card__compatibility-section__list__item--hidden':
-            !isCompatibleWithVod,
+          'bs-universal-pass-details-card__compatibility-section__list--hidden':
+            !isCompatibleWithVod && !noCompatibleAppointment,
         },
       )}
-      icon={<VideoRecorder stroke="currentColor" />}
-      label={
-        <Trans
-          i18nKey="reworked.myPasses.consumerPassDetailsCard.compatibility.contents.vod"
-          t={t}
-        />
-      }
-      size="sm"
-    />
-    <ListItem
-      className={classNames(
-        'bs-universal-pass-details-card__compatibility-section__list__item',
-        {
-          'bs-universal-pass-details-card__compatibility-section__list__item--hidden':
-            !noCompatibleAppointment,
-        },
-      )}
-      icon={<XCircle stroke="currentColor" />}
-      label={t(
-        'reworked.myPasses.consumerPassDetailsCard.compatibility.contents.noAppointments',
-      )}
-      size="sm"
-    />
-  </List>
-));
+    >
+      <ListItem
+        className={classNames(
+          'bs-universal-pass-details-card__compatibility-section__list__item',
+          {
+            'bs-universal-pass-details-card__compatibility-section__list__item--hidden':
+              !isCompatibleWithVod,
+          },
+        )}
+        icon={<VideoRecorder stroke="currentColor" />}
+        label={
+          <Trans
+            i18nKey="reworked.myPasses.consumerPassDetailsCard.compatibility.contents.vod"
+            t={t}
+          />
+        }
+        size="sm"
+      />
+      <ListItem
+        className={classNames(
+          'bs-universal-pass-details-card__compatibility-section__list__item',
+          {
+            'bs-universal-pass-details-card__compatibility-section__list__item--hidden':
+              !noCompatibleAppointment,
+          },
+        )}
+        icon={<XCircle stroke="currentColor" />}
+        label={t(
+          'reworked.myPasses.consumerPassDetailsCard.compatibility.contents.noAppointments',
+        )}
+        size="sm"
+      />
+    </List>
+  );
+});
 
 const AppointmentAndSessions: React.FC<{
   appointmentCompatibility: PrivateConsumerPassCompatibility;
@@ -76,7 +77,7 @@ const AppointmentAndSessions: React.FC<{
 
   const sessionsList = appointmentCompatibility?.sessions?.join(', ');
 
-  const hideComponent = !(compatibleWithAllSessions || sessionsList);
+  const hideComponent = !compatibleWithAllSessions && !sessionsList;
 
   return (
     <div
@@ -105,7 +106,7 @@ const AppointmentAndSessions: React.FC<{
   );
 };
 
-const AppointmentCompatibility: React.FC<Props> = ({
+const UniversalPassDetailsCardAppointmentCompatibility: React.FC<Props> = ({
   appointmentCompatibilities,
   className,
   isCompatibleWithVod,
@@ -119,7 +120,6 @@ const AppointmentCompatibility: React.FC<Props> = ({
       <CompatibilityMainList
         isCompatibleWithVod={isCompatibleWithVod}
         noCompatibleAppointment={noCompatibleAppointment}
-        t={t}
       />
       <ConsumerCardSection
         className={classNames(
@@ -155,4 +155,4 @@ const AppointmentCompatibility: React.FC<Props> = ({
   );
 };
 
-export default React.memo(AppointmentCompatibility);
+export default React.memo(UniversalPassDetailsCardAppointmentCompatibility);

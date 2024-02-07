@@ -10,7 +10,10 @@ type Props = {
   title: string;
 };
 
-const SharedSection: React.FC<Props> = ({ members, title }) => {
+const UniversalPassDetailsCardSharedSection: React.FC<Props> = ({
+  members,
+  title,
+}) => {
   const membersFiltered = members?.filter((member) => !!member) || [];
   return (
     <ConsumerCardSection
@@ -33,4 +36,4 @@ const SharedSection: React.FC<Props> = ({ members, title }) => {
   );
 };
 
-export default React.memo(SharedSection);
+export default React.memo(UniversalPassDetailsCardSharedSection);

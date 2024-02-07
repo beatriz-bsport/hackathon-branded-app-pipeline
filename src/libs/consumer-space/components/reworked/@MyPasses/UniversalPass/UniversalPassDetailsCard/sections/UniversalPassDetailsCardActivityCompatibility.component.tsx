@@ -3,7 +3,6 @@ import React, { useMemo } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import moment from 'moment-timezone';
-import type { TFunction } from 'i18next';
 
 import List from '#Fabrique/List';
 import ListItem from '#Fabrique/ListItem';
@@ -46,82 +45,82 @@ const CompatibilityMainList: React.FC<
     | 'isCompatibleWithBookingForGuest'
     | 'isCompatibleWithVod'
     | 'timeSlots'
-  > & {
-    t: TFunction;
-  }
+  >
 > = React.memo(
   ({
     activityCompatibilities,
     isCompatibleWithBookingForGuest,
     isCompatibleWithVod,
-    t,
     timeSlots,
-  }) => (
-    <List className="bs-universal-pass-details-card__compatibility-section__list">
-      <ListItem
-        className={classNames(
-          'bs-universal-pass-details-card__compatibility-section__list__item',
-          {
-            'bs-universal-pass-details-card__compatibility-section__list__item--hidden':
-              !!activityCompatibilities?.length,
-          },
-        )}
-        icon={<CheckCircle stroke="currentColor" />}
-        label={t(
-          'reworked.myPasses.consumerPassDetailsCard.compatibility.contents.allActivities',
-        )}
-        size="sm"
-      />
-      <ListItem
-        className={classNames(
-          'bs-universal-pass-details-card__compatibility-section__list__item',
-          {
-            'bs-universal-pass-details-card__compatibility-section__list__item--hidden':
-              !!timeSlots?.length,
-          },
-        )}
-        icon={<ClockCheck stroke="currentColor" />}
-        label={t(
-          'reworked.myPasses.consumerPassDetailsCard.compatibility.contents.allTimeSlots',
-        )}
-        size="sm"
-      />
-      <ListItem
-        className={classNames(
-          'bs-universal-pass-details-card__compatibility-section__list__item',
-          {
-            'bs-universal-pass-details-card__compatibility-section__list__item--hidden':
-              !isCompatibleWithVod,
-          },
-        )}
-        icon={<VideoRecorder stroke="currentColor" />}
-        label={
-          <Trans
-            i18nKey="reworked.myPasses.consumerPassDetailsCard.compatibility.contents.vod"
-            t={t}
-          />
-        }
-        size="sm"
-      />
-      <ListItem
-        className={classNames(
-          'bs-universal-pass-details-card__compatibility-section__list__item',
-          {
-            'bs-universal-pass-details-card__compatibility-section__list__item--hidden':
-              !isCompatibleWithBookingForGuest,
-          },
-        )}
-        icon={<UsersPlus stroke="currentColor" />}
-        label={
-          <Trans
-            i18nKey="reworked.myPasses.consumerPassDetailsCard.compatibility.contents.bookingForGuest"
-            t={t}
-          />
-        }
-        size="sm"
-      />
-    </List>
-  ),
+  }) => {
+    const { t } = useTranslation('consumerSpace');
+    return (
+      <List className="bs-universal-pass-details-card__compatibility-section__list">
+        <ListItem
+          className={classNames(
+            'bs-universal-pass-details-card__compatibility-section__list__item',
+            {
+              'bs-universal-pass-details-card__compatibility-section__list__item--hidden':
+                !!activityCompatibilities?.length,
+            },
+          )}
+          icon={<CheckCircle stroke="currentColor" />}
+          label={t(
+            'reworked.myPasses.consumerPassDetailsCard.compatibility.contents.allActivities',
+          )}
+          size="sm"
+        />
+        <ListItem
+          className={classNames(
+            'bs-universal-pass-details-card__compatibility-section__list__item',
+            {
+              'bs-universal-pass-details-card__compatibility-section__list__item--hidden':
+                !!timeSlots?.length,
+            },
+          )}
+          icon={<ClockCheck stroke="currentColor" />}
+          label={t(
+            'reworked.myPasses.consumerPassDetailsCard.compatibility.contents.allTimeSlots',
+          )}
+          size="sm"
+        />
+        <ListItem
+          className={classNames(
+            'bs-universal-pass-details-card__compatibility-section__list__item',
+            {
+              'bs-universal-pass-details-card__compatibility-section__list__item--hidden':
+                !isCompatibleWithVod,
+            },
+          )}
+          icon={<VideoRecorder stroke="currentColor" />}
+          label={
+            <Trans
+              i18nKey="reworked.myPasses.consumerPassDetailsCard.compatibility.contents.vod"
+              t={t}
+            />
+          }
+          size="sm"
+        />
+        <ListItem
+          className={classNames(
+            'bs-universal-pass-details-card__compatibility-section__list__item',
+            {
+              'bs-universal-pass-details-card__compatibility-section__list__item--hidden':
+                !isCompatibleWithBookingForGuest,
+            },
+          )}
+          icon={<UsersPlus stroke="currentColor" />}
+          label={
+            <Trans
+              i18nKey="reworked.myPasses.consumerPassDetailsCard.compatibility.contents.bookingForGuest"
+              t={t}
+            />
+          }
+          size="sm"
+        />
+      </List>
+    );
+  },
 );
 
 const CompatiblityChipList: React.FC<{
@@ -149,7 +148,7 @@ const CompatiblityChipList: React.FC<{
   />
 ));
 
-const ActivityCompatibility: React.FC<Props> = ({
+const UniversalPassDetailsCardActivityCompatibility: React.FC<Props> = ({
   activityCompatibilities,
   className,
   isCompatibleWithBookingForGuest,
@@ -238,7 +237,6 @@ const ActivityCompatibility: React.FC<Props> = ({
         activityCompatibilities={activityCompatibilities}
         isCompatibleWithBookingForGuest={isCompatibleWithBookingForGuest}
         isCompatibleWithVod={isCompatibleWithVod}
-        t={t}
         timeSlots={timeSlots}
       />
       <ConsumerCardSection
@@ -322,4 +320,4 @@ const ActivityCompatibility: React.FC<Props> = ({
   );
 };
 
-export default React.memo(ActivityCompatibility);
+export default React.memo(UniversalPassDetailsCardActivityCompatibility);

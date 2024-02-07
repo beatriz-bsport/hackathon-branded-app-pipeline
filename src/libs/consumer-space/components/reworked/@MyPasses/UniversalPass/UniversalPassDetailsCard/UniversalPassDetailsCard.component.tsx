@@ -9,11 +9,13 @@ import ConditionalWrapper from '#components/ConditionnalWrapper.component';
 import ConsumerCardPlaceholder from '#libs/consumer-space/components/reworked/common/ConsumerCardPlaceholder';
 import ConsumerDetailsCardSkeleton from '#libs/consumer-space/components/reworked/common/ConsumerDetailsCardSkeleton';
 
-import Header from './sections/Header.component';
-import DescriptionSection from './sections/DescriptionSection.component';
-import CompatibleEstablishmentsSection from './sections/CompatibleEstablishmentsSection.component';
-import SharedSection from './sections/SharedSection.component';
-import CompatibilitySection from './sections/CompatibilitySection.component';
+import {
+  UniversalPassDetailsCardHeader,
+  UniversalPassDetailsCardDescriptionSection,
+  UniversalPassDetailsCardCompatibleEstablishmentsSection,
+  UniversalPassDetailsCardSharedSection,
+  UniversalPassDetailsCardCompatibilitySection,
+} from './sections';
 
 import type { Establishment } from '#libs/establishment/types';
 import type {
@@ -110,7 +112,7 @@ const UniversalPassDetailsCard: React.FC<Props> = ({
       WrapperComponent={Card}
     >
       <>
-        <Header
+        <UniversalPassDetailsCardHeader
           creditsLeft={creditsLeft}
           expirationDate={expirationDate}
           isSuspended={isSuspended}
@@ -121,23 +123,23 @@ const UniversalPassDetailsCard: React.FC<Props> = ({
           totalCredits={totalCredits}
         />
 
-        <DescriptionSection description={description} />
+        <UniversalPassDetailsCardDescriptionSection description={description} />
 
-        <CompatibleEstablishmentsSection
+        <UniversalPassDetailsCardCompatibleEstablishmentsSection
           compatibleEstablishments={compatibleEstablishments}
         />
 
-        <SharedSection
+        <UniversalPassDetailsCardSharedSection
           members={[sharedBy]}
           title={t('reworked.myPasses.consumerPassDetailsCard.shared.by')}
         />
 
-        <SharedSection
+        <UniversalPassDetailsCardSharedSection
           members={sharedWith}
           title={t('reworked.myPasses.consumerPassDetailsCard.shared.with')}
         />
 
-        <CompatibilitySection
+        <UniversalPassDetailsCardCompatibilitySection
           activityCompatibilities={activityCompatibilities}
           appointmentCompatibilities={appointmentCompatibilities}
           isCompatibleWithBookingForGuest={isCompatibleWithBookingForGuest}

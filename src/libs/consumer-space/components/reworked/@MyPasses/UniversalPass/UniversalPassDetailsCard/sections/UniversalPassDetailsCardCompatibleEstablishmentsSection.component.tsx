@@ -5,7 +5,7 @@ import classNames from 'classnames';
 
 import ListItem from '#Fabrique/ListItem';
 import Avatar from '#Fabrique/Temporary/Avatar';
-import { List } from '#Fabrique/List/List.component';
+import List from '#Fabrique/List';
 import ConsumerCardSection from '#libs/consumer-space/components/reworked/common/ConsumerCardSection';
 
 import type { Establishment } from '#libs/establishment/types';
@@ -14,27 +14,9 @@ type Props = {
   compatibleEstablishments: Establishment[];
 };
 
-type EstablishmentListItemProps = {
-  picture: string;
-  name: string;
-};
-
-const EstablishmentListItem: React.FC<EstablishmentListItemProps> = React.memo(
-  ({ picture, name }) => {
-    return (
-      <ListItem
-        className="bs-universal-pass-details-card__establishment-section__list__item"
-        icon={<Avatar picture={picture} size="lg" type="place" />}
-        label={name}
-        size="lg"
-      />
-    );
-  },
-);
-
-const CompatibleEstablishmentsSection: React.FC<Props> = ({
-  compatibleEstablishments,
-}) => {
+const UniversalPassDetailsCardCompatibleEstablishmentsSection: React.FC<
+  Props
+> = ({ compatibleEstablishments }) => {
   const { t } = useTranslation('consumerSpace');
 
   return (
@@ -52,10 +34,14 @@ const CompatibleEstablishmentsSection: React.FC<Props> = ({
     >
       <List className="bs-universal-pass-details-card__establishment-section__list">
         {compatibleEstablishments?.map((establishment) => (
-          <EstablishmentListItem
+          <ListItem
             key={establishment.id}
-            name={establishment.title}
-            picture={establishment.cover}
+            className="bs-universal-pass-details-card__establishment-section__list__item"
+            icon={
+              <Avatar picture={establishment.cover} size="lg" type="place" />
+            }
+            label={establishment.title}
+            size="lg"
           />
         ))}
       </List>
@@ -63,4 +49,6 @@ const CompatibleEstablishmentsSection: React.FC<Props> = ({
   );
 };
 
-export default React.memo(CompatibleEstablishmentsSection);
+export default React.memo(
+  UniversalPassDetailsCardCompatibleEstablishmentsSection,
+);

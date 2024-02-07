@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 
 import ConsumerCardSection from '#libs/consumer-space/components/reworked/common/ConsumerCardSection';
-import ActivityCompatibility from './ActivityCompatibility.component';
-import AppointmentCompatibility from './AppointmentCompatibility.component';
+import UniversalPassDetailsCardActivityCompatibility from './UniversalPassDetailsCardActivityCompatibility.component';
+import UniversalPassDetailsCardAppointmentCompatibility from './UniversalPassDetailsCardAppointmentCompatibility.component';
 
 import type { UniversalPassDetailsCardProps } from '..';
 
@@ -20,7 +20,7 @@ type Props = Required<
   >
 >;
 
-const CompatibilitySection: React.FC<Props> = ({
+const UniversalPassDetailsCardCompatibilitySection: React.FC<Props> = ({
   activityCompatibilities,
   appointmentCompatibilities,
   timeSlots,
@@ -40,7 +40,7 @@ const CompatibilitySection: React.FC<Props> = ({
           'reworked.myPasses.consumerPassDetailsCard.compatibility.titles.activity',
         )}
       >
-        <ActivityCompatibility
+        <UniversalPassDetailsCardActivityCompatibility
           activityCompatibilities={activityCompatibilities}
           className={classNames(
             'bs-universal-pass-details-card__compatibility-section__container',
@@ -60,7 +60,7 @@ const CompatibilitySection: React.FC<Props> = ({
           'reworked.myPasses.consumerPassDetailsCard.compatibility.titles.appointment',
         )}
       >
-        <AppointmentCompatibility
+        <UniversalPassDetailsCardAppointmentCompatibility
           appointmentCompatibilities={appointmentCompatibilities}
           className={classNames(
             'bs-universal-pass-details-card__compatibility-section__container',
@@ -73,4 +73,4 @@ const CompatibilitySection: React.FC<Props> = ({
   );
 };
 
-export default React.memo(CompatibilitySection);
+export default React.memo(UniversalPassDetailsCardCompatibilitySection);

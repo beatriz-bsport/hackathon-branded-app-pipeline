@@ -1,25 +1,54 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { ConsumerGenericCardHeader } from '#libs/consumer-space/components/reworked/common/ConsumerCard';
 
 import type { ChipColor } from '#Fabrique/Chip';
 import type { ConsumerSubscriptionCardProps } from '..';
+import { AlertCircle, CreditCardX, PauseCircle } from '#components/untitledui';
 
 type Props = Pick<
   ConsumerSubscriptionCardProps,
-  'subscriptionDate' | 'subscriptionName'
+  | 'subscriptionDate'
+  | 'subscriptionName'
+  | 'isPaused'
+  | 'hasFailedPayments'
+  | 'hasMissingPaymentMethod'
 >;
 
 const ConsumerSubscriptionCardHeader: React.FC<Props> = ({
   subscriptionDate,
   subscriptionName,
+  isPaused,
+  hasFailedPayments,
+  hasMissingPaymentMethod,
 }) => {
-  // TODO : on payment related PR, for now random placeholder
+  const { t } = useTranslation('consumerSpace');
   const chipsDataList = [
     {
-      shouldDisplay: false,
+      shouldDisplay: isPaused,
+      chipColor: 'grey' as ChipColor,
+      leftIcon: <PauseCircle stroke="currentColor" />,
+      text: t(
+        'reworked.mySubscriptions.consumerSubscriptionCard.chipsLabel.isPaused',
+      ),
+      chipClassName: 'bs-consumer__booking-card__header__chip',
+    },
+    {
+      shouldDisplay: hasMissingPaymentMethod,
+      chipColor: 'warning' as ChipColor,
+      leftIcon: <AlertCircle stroke="currentColor" />,
+      text: t(
+        'reworked.mySubscriptions.consumerSubscriptionCard.chipsLabel.missingPaymentMethod',
+      ),
+      chipClassName: 'bs-consumer__booking-card__header__chip',
+    },
+    {
+      shouldDisplay: hasFailedPayments,
       chipColor: 'error' as ChipColor,
-      leftIcon: '',
-      text: '',
+      leftIcon: <CreditCardX stroke="currentColor" />,
+      text: t(
+        'reworked.mySubscriptions.consumerSubscriptionCard.chipsLabel.failedPayment',
+      ),
       chipClassName: 'bs-consumer__booking-card__header__chip',
     },
   ];

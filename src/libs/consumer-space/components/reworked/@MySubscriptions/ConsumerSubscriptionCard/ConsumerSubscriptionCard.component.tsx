@@ -3,6 +3,7 @@ import React from 'react';
 import {
   ConsumerSubscriptionCardBody,
   ConsumerSubscriptionCardHeader,
+  ConsumerSubscriptionCardFooter,
 } from './sections';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import Card from '#Fabrique/Card';
@@ -12,27 +13,37 @@ import type { SubscriptionInterval } from '#libs/subscription/types';
 import './styles.css';
 
 type Props = {
+  addPaymentMethodDisabled: boolean;
+  hasFailedPayments: boolean;
+  hasMissingPaymentMethod: boolean;
+  isDetailsDisabled: boolean;
+  isLoading: boolean;
+  isPaused: boolean;
   isSelected: boolean;
-  subscriptionDate: string;
-  subscriptionName: string;
+  onAddPaymentMethodClick: () => void;
+  onDetailsClick: () => void;
   price: string;
   recurrence: number;
-  isDetailsDisabled: boolean;
-  onDetailsClick: () => void;
+  subscriptionDate: string;
   subscriptionInterval: SubscriptionInterval;
-  isLoading: boolean;
+  subscriptionName: string;
 };
 
 const ConsumerSubscriptionCard: React.FC<Props> = ({
+  addPaymentMethodDisabled,
+  hasFailedPayments,
+  hasMissingPaymentMethod,
+  isDetailsDisabled,
+  isLoading,
+  isPaused,
   isSelected,
-  subscriptionDate,
-  subscriptionName,
+  onAddPaymentMethodClick,
+  onDetailsClick,
   price,
   recurrence,
-  isDetailsDisabled,
-  onDetailsClick,
-  isLoading,
+  subscriptionDate,
   subscriptionInterval,
+  subscriptionName,
 }) => {
   if (isLoading) {
     return <ConsumerCardSkeleton />;
@@ -43,6 +54,9 @@ const ConsumerSubscriptionCard: React.FC<Props> = ({
       variant={isSelected ? 'elevated' : 'rest'}
     >
       <ConsumerSubscriptionCardHeader
+        hasFailedPayments={hasFailedPayments}
+        hasMissingPaymentMethod={hasMissingPaymentMethod}
+        isPaused={isPaused}
         subscriptionDate={subscriptionDate}
         subscriptionName={subscriptionName}
       />
@@ -52,6 +66,11 @@ const ConsumerSubscriptionCard: React.FC<Props> = ({
         price={price}
         recurrence={recurrence}
         subscriptionInterval={subscriptionInterval}
+      />
+      <ConsumerSubscriptionCardFooter
+        addPaymentMethodDisabled={addPaymentMethodDisabled}
+        hasMissingPaymentMethod={hasMissingPaymentMethod}
+        onAddPaymentMethodClick={onAddPaymentMethodClick}
       />
     </Card>
   );

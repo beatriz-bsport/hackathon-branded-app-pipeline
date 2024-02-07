@@ -347,12 +347,18 @@ exports.default = {
           '{{ price }}{{ currency }} every {{ recurrence }} {{ interval }}',
         buttonsLabel: {
           seeDetails: 'See details',
+          addPaymentMethod: 'Add payment method',
+        },
+        chipsLabel: {
+          isPaused: 'Paused',
+          missingPaymentMethod: 'Missing payment method',
+          failedPayment: 'Payment failed',
         },
       },
       consumerSubscriptionCardDetails: {
         description: 'Description',
         terms: 'Terms',
-        termsAccepted: 'Accepted on {{ termsDate }}',
+        termsAccepted: 'Accepted on {{- termsDate }}',
         buttonsLabel: {
           see: 'See',
         },

@@ -222,6 +222,13 @@ export enum MarketplacePaymentMethods {
   terminal = 'terminal',
 }
 
+export type MarketplacePaymentMethodsType =
+  | typeof MarketplacePaymentMethods.card
+  | typeof MarketplacePaymentMethods.sepa
+  | typeof MarketplacePaymentMethods.bacs
+  | typeof MarketplacePaymentMethods.bsport
+  | typeof MarketplacePaymentMethods.terminal;
+
 export enum MarketplaceStripeElementType {
   card = 'card',
   sepa = 'iban',

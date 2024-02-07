@@ -361,9 +361,28 @@ exports.default = {
         termsAccepted: 'Accepted on {{- termsDate }}',
         buttonsLabel: {
           see: 'See',
+          add: 'Add',
+          change: 'Change',
         },
         headerListItemLabels: {
           nextPayment: 'Next payment',
+          paused: 'Currently paused',
+          autoRenewed: 'Automatically renewed',
+          autoRenewalDate: 'on {{- autoRenewalDate }} (included)',
+          pauseEndDate: 'until {{- pauseEndDate }} included',
+          nextPaymentDate: 'on {{- subscriptionNextPaymentDate }}',
+        },
+        failedPayment: 'Payment failed',
+        failedPaymentReason:
+          'Reason: {{- note }} Please contact  your studio to regularize the situation',
+        paymentMethod: {
+          title: 'Payment method',
+          internal:
+            'Internal account: for each payment, a debt is automatically created on your internal account',
+          sepa_debit: 'SEPA: **** **** **** {{ readableIdentifier }}',
+          card: 'Card: **** **** **** {{ readableIdentifier }}',
+          bacs_debit:
+            'Bacs Direct Debit: **** **** **** {{ readableIdentifier }}',
         },
       },
     },

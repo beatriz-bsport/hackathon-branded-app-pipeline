@@ -1,9 +1,13 @@
 import ConsumerSubscriptionDetailsCardDescription from './ConsumerSubscriptionDetailsCardDescription.component';
 import ConsumerSubscriptionDetailsCardHeader from './ConsumerSubscriptionDetailsCardHeader.component';
 import ConsumerSubscriptionDetailsCardTerms from './ConsumerSubscriptionDetailsCardTerms.component';
+import ConsumerSubscriptionDetailsCardPaymentMethod from './ConsumerSubscriptionDetailsCardPaymentMethod.component';
+import ConsumerSubscriptionDetailsCardFailedPayments from './ConsumerSubscriptionDetailsCardFailedPayments.component';
 
 export {
   ConsumerSubscriptionDetailsCardDescription,
   ConsumerSubscriptionDetailsCardHeader,
   ConsumerSubscriptionDetailsCardTerms,
+  ConsumerSubscriptionDetailsCardPaymentMethod,
+  ConsumerSubscriptionDetailsCardFailedPayments,
 };

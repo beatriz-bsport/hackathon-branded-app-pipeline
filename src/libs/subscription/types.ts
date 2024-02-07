@@ -11,7 +11,7 @@ import {
   BILLING_PLAN_PAYMENT_METHOD_STRIPE_SEPA,
   BILLING_PLAN_PAYMENT_METHOD_BSPORT_CREDIT,
 } from '@bsport/common/lib/master-data/subscription-payment-methods';
-import type { PaymentEngine } from '#libs/payment/types';
+import type { Payment, PaymentEngine } from '#libs/payment/types';
 import { ErrorAndLoading } from '../../state/types';
 import type { PaymentPack } from '#libs/payment-packs/types';
 import type { PrivatePass } from '#libs/private-service/types';
@@ -355,4 +355,11 @@ export type SubscriptionREST = {
   status: SubscriptionStatus;
   stop_note: string;
   stripe_payment_method_id: string;
+};
+
+export type SubscriptionsInvoicesDetailsREST = {
+  date: string;
+  payments: Payment[];
+  billing_plan_id: number;
+  uuid: string;
 };

@@ -6,45 +6,76 @@ import ConsumerDetailsCardSkeleton from '#libs/consumer-space/components/reworke
 
 import {
   ConsumerSubscriptionDetailsCardDescription,
+  ConsumerSubscriptionDetailsCardPaymentMethod,
   ConsumerSubscriptionDetailsCardHeader,
   ConsumerSubscriptionDetailsCardTerms,
+  ConsumerSubscriptionDetailsCardFailedPayments,
 } from './sections';
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import Card from '#Fabrique/Card';
 
-import type { SubscriptionInterval } from '#libs/subscription/types';
+import type {
+  SubscriptionInterval,
+  SubscriptionsInvoicesDetailsREST,
+} from '#libs/subscription/types';
+import type { MarketplacePaymentMethodsType } from '#libs/marketplace/types';
 
 import './styles.css';
 
 type Props = {
-  subscriptionName: string;
-  subtitleDate: string;
+  autoRenewalDate: string;
   description: string;
-  onSeeClick: () => void;
-  termsDate: string;
-  subscriptionNextPaymentDate: string;
-  price: string;
-  recurrence: number;
-  subscriptionInterval: SubscriptionInterval;
-  showPlaceholder: boolean;
+  failedInvoices: SubscriptionsInvoicesDetailsREST[];
+  hasAutoRenewal: boolean;
+  hasMissingPaymentMethod: boolean;
   isLoading: boolean;
+  isPaused: boolean;
+  isPaymentMethodSectionHidden: boolean;
+  onPaymentMethodActionClick: () => void;
+  onSeeClick: () => void;
+  pauseEndDate: string;
+  paymentMethodType: MarketplacePaymentMethodsType;
+  price: string;
+  readableIdentifier: string;
+  recurrence: number;
+  showPlaceholder: boolean;
+  subscriptionInterval: SubscriptionInterval;
+  subscriptionName: string;
+  subscriptionNextPaymentDate: string;
+  subtitleDate: string;
+  termsDate: string;
 };
 
 const ConsumerSubscriptionDetailsCard: React.FC<Props> = ({
-  subscriptionName,
+  autoRenewalDate,
   description,
+  failedInvoices,
+  hasAutoRenewal,
+  hasMissingPaymentMethod,
+  isLoading,
+  isPaused,
+  isPaymentMethodSectionHidden,
+  onPaymentMethodActionClick,
   onSeeClick,
-  termsDate,
+  pauseEndDate,
+  paymentMethodType,
+  price,
+  readableIdentifier,
+  recurrence,
+  showPlaceholder,
+  subscriptionInterval,
+  subscriptionName,
   subscriptionNextPaymentDate,
   subtitleDate,
-  price,
-  recurrence,
-  subscriptionInterval,
-  showPlaceholder,
-  isLoading,
+  termsDate,
 }) => {
   const { t } = useTranslation('consumerSpace');
+
+  if (isLoading) {
+    return <ConsumerDetailsCardSkeleton />;
+  }
+
   if (showPlaceholder) {
     return (
       <ConsumerCardPlaceholder
@@ -53,13 +84,13 @@ const ConsumerSubscriptionDetailsCard: React.FC<Props> = ({
     );
   }
 
-  if (isLoading) {
-    return <ConsumerDetailsCardSkeleton />;
-  }
-
   return (
     <Card className="bs-consumer__subscription-details-card__root">
       <ConsumerSubscriptionDetailsCardHeader
+        autoRenewalDate={autoRenewalDate}
+        hasAutoRenewal={hasAutoRenewal}
+        isPaused={isPaused}
+        pauseEndDate={pauseEndDate}
         price={price}
         recurrence={recurrence}
         subscriptionInterval={subscriptionInterval}
@@ -67,7 +98,17 @@ const ConsumerSubscriptionDetailsCard: React.FC<Props> = ({
         subscriptionNextPaymentDate={subscriptionNextPaymentDate}
         subtitleDate={subtitleDate}
       />
+      <ConsumerSubscriptionDetailsCardFailedPayments
+        failedInvoices={failedInvoices}
+      />
       <ConsumerSubscriptionDetailsCardDescription description={description} />
+      <ConsumerSubscriptionDetailsCardPaymentMethod
+        hasMissingPaymentMethod={hasMissingPaymentMethod}
+        isPaymentMethodSectionHidden={isPaymentMethodSectionHidden}
+        onPaymentMethodActionClick={onPaymentMethodActionClick}
+        paymentMethodType={paymentMethodType}
+        readableIdentifier={readableIdentifier}
+      />
       <ConsumerSubscriptionDetailsCardTerms
         onSeeClick={onSeeClick}
         termsDate={termsDate}

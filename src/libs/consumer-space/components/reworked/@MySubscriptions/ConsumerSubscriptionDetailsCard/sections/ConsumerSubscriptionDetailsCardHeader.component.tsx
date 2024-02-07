@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import classNames from 'classnames';
 
 import ConsumerCardSection from '#libs/consumer-space/components/reworked/common/ConsumerCardSection';
 import type { ConsumerSubscriptionDetailsCardProps } from '..';
@@ -8,7 +9,11 @@ import ListItem from '#Fabrique/ListItem';
 import List from '#Fabrique/List';
 
 import { getSubscriptionRecurrenceLabel } from '#libs/consumer-space/components/reworked/@MySubscriptions/utils';
-import { BellRinging04 } from '#components/untitledui';
+import {
+  BellRinging04,
+  ClockRefresh,
+  PauseCircle,
+} from '#components/untitledui';
 
 type Props = Pick<
   ConsumerSubscriptionDetailsCardProps,
@@ -18,6 +23,10 @@ type Props = Pick<
   | 'recurrence'
   | 'price'
   | 'subscriptionInterval'
+  | 'isPaused'
+  | 'hasAutoRenewal'
+  | 'pauseEndDate'
+  | 'autoRenewalDate'
 >;
 
 const ConsumerSubscriptionDetailsCardHeader: React.FC<Props> = ({
@@ -27,6 +36,10 @@ const ConsumerSubscriptionDetailsCardHeader: React.FC<Props> = ({
   recurrence,
   price,
   subscriptionInterval,
+  isPaused,
+  hasAutoRenewal,
+  pauseEndDate,
+  autoRenewalDate,
 }) => {
   const { t } = useTranslation('consumerSpace');
   const recurrenceLabel = getSubscriptionRecurrenceLabel(
@@ -46,11 +59,66 @@ const ConsumerSubscriptionDetailsCardHeader: React.FC<Props> = ({
       title={subscriptionName}
     >
       <List className="bs-consumer__subscription-details-card__header__list">
+        <ListItem
+          captionText={t(
+            'reworked.mySubscriptions.consumerSubscriptionCardDetails.headerListItemLabels.pauseEndDate',
+            { pauseEndDate },
+          )}
+          classes={{
+            label:
+              'bs-consumer__subscription-details-card__header__list-item__text--paused',
+            captionText:
+              'bs-consumer__subscription-details-card__header__list-item__text--paused',
+          }}
+          className={classNames(
+            'bs-consumer__subscription-details-card__header__list-item--paused',
+            {
+              'bs-consumer__subscription-details-card__header__list-item--paused--hidden':
+                !isPaused,
+            },
+          )}
+          icon={<PauseCircle stroke="currentColor" />}
+          label={t(
+            'reworked.mySubscriptions.consumerSubscriptionCardDetails.headerListItemLabels.paused',
+          )}
+        />
+        <ListItem
+          captionText={t(
+            'reworked.mySubscriptions.consumerSubscriptionCardDetails.headerListItemLabels.autoRenewalDate',
+            { autoRenewalDate },
+          )}
+          classes={{
+            label:
+              'bs-consumer__subscription-details-card__header__list-item__text--auto-renewed',
+            captionText:
+              'bs-consumer__subscription-details-card__header__list-item__text--auto-renewed',
+          }}
+          className={classNames(
+            'bs-consumer__subscription-details-card__header__list-item--auto-renewed',
+            {
+              'bs-consumer__subscription-details-card__header__list-item--hidden':
+                !hasAutoRenewal,
+            },
+          )}
+          icon={<ClockRefresh stroke="currentColor" />}
+          label={t(
+            'reworked.mySubscriptions.consumerSubscriptionCardDetails.headerListItemLabels.autoRenewed',
+          )}
+        />
         {subscriptionNextPaymentDate && (
           <ListItem
-            captionText={`on ${subscriptionNextPaymentDate}`}
-            className="bs-consumer__subscription-details-card__header__list-item__status"
-            icon={<BellRinging04 />}
+            captionText={t(
+              'reworked.mySubscriptions.consumerSubscriptionCardDetails.headerListItemLabels.nextPaymentDate',
+              { subscriptionNextPaymentDate },
+            )}
+            className={classNames(
+              'bs-consumer__subscription-details-card__header__list-item__status',
+              {
+                'bs-consumer__subscription-details-card__header__list-item--hidden':
+                  !subscriptionNextPaymentDate,
+              },
+            )}
+            icon={<BellRinging04 stroke="currentColor" />}
             label={t(
               'reworked.mySubscriptions.consumerSubscriptionCardDetails.headerListItemLabels.nextPayment',
             )}

@@ -90,7 +90,6 @@ export const ConsumerGenericFilters = <TabType,>({
       >
         <Calendar stroke="currentColor" />
       </IconButton>
-
       <DatePicker
         anchorEl={anchorEl}
         className="bs-consumer-generic-filters__date-picker__menu"

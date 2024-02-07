@@ -82,20 +82,22 @@ export const CustomFormConsumerInput = (props: Props) => {
     );
   };
   const memoizedChoices = useMemo(
-    () =>
-      props.field.choices?.map((choice: string) => ({
+    () => [
+      ...(props.field.choices?.map((choice: string) => ({
         optionLabel: choice,
         value: choice,
-      })) ?? [],
+      })) ?? []),
+    ],
     [props.field.choices],
   );
 
   const memoizedSuggestions = useMemo(
-    () =>
-      props.field.choices?.map((choice: string) => ({
+    () => [
+      ...(props.field.choices?.map((choice: string) => ({
         label: choice,
         value: choice,
-      })) ?? [],
+      })) ?? []),
+    ],
     [props.field.choices],
   );
   const uniqueCustomFormFieldIdentifier =

@@ -22,11 +22,16 @@ import { ShopItemFactoryOptions } from './types';
 export const shopItemFactory = (options?: ShopItemFactoryOptions) => {
   return {
     id: parseInt(faker.finance.accountNumber(4), 10),
+    barcode: faker.helpers.arrayElement([
+      faker.string.alphanumeric({ length: { min: 5, max: 10 } }),
+      '',
+    ]),
     name: generateRandomName(faker),
     subtitle: generateRandomDescription(faker, FakerTextLength.SMALL),
     description: generateRandomDescription(faker),
-    tva: faker.number.int(20),
-    price: generateRandomPrice(faker, { min: 5, max: 100 }),
+    tva: faker.number.int(20).toString(),
+    price: generateRandomPrice(faker, { min: 5, max: 100 }).toString(),
+    supplier_price: generateRandomPrice(faker, { min: 5, max: 100 }).toString(),
     cover: faker.image.urlPicsumPhotos({ width: 600, height: 500 }),
     company: faker.number.int({ max: 10000 }),
     unlimited_provisions:
@@ -35,9 +40,27 @@ export const shopItemFactory = (options?: ShopItemFactoryOptions) => {
     marketplace_enabled:
       options?.isMarketplaceEnabled ?? faker.datatype.boolean(),
     is_deliverable: options?.isDeliverable ?? faker.datatype.boolean(),
+    is_standalone_item: options?.isStandaloneItem ?? faker.datatype.boolean(),
+    featured: faker.datatype.boolean(),
+    sell_only_on_provision: faker.datatype.boolean(),
     available_payment_method_identifiers: [CB.id],
     current_stock: faker.number.int(20),
+    total_sales: faker.number.int(500),
     disabled: options?.isDisabled ?? false,
+    color: faker.color.human(),
+    size: faker.helpers.arrayElement(['XS', 'S', 'M', 'L', 'XL']),
+    lowest_variant_price: faker.helpers.arrayElement([
+      null,
+      faker.number.int({ min: 20, max: 100 }),
+    ]),
+    stock_keeping_unit: faker.string.alphanumeric(10),
+    supplier: faker.helpers.arrayElement([
+      null,
+      faker.number.int({ min: 1, max: 1000 }),
+    ]),
+    tags_on_purchase: faker.helpers.multiple(() => faker.number.int(10000), {
+      count: faker.number.int(5),
+    }),
   };
 };
 

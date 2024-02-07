@@ -15,8 +15,9 @@ import {
   ShopAPIFilter,
   SubShop,
   SubShopAPI,
-  ShopItemCreate,
   ProvisionCreate,
+  ShopItemCreate,
+  ShopItemEdit,
 } from './types';
 
 export async function fetchAll(
@@ -57,7 +58,7 @@ export async function createItem(
 }
 
 export async function updateItem(
-  shopItemData: ShopItem,
+  shopItemData: ShopItemEdit,
   id: number,
 ): Promise<AxiosResponse<ShopItem>> {
   return patchAuth(`${API_V1_URI}/shop/item/${id}/`, shopItemData);

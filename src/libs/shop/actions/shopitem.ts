@@ -20,7 +20,12 @@ import type {
   PaginatedResponse,
   State,
 } from '../../../state/types';
-import { IsShopUsedInComboAPI, ShopItem } from '../types';
+import {
+  IsShopUsedInComboAPI,
+  ShopItem,
+  ShopItemCreate,
+  ShopItemEdit,
+} from '../types';
 import { getFreshShopIds } from '../selectors';
 
 export const shopItemAsConsumerActions = {
@@ -213,8 +218,8 @@ export const shopItemCreateOrUpdateActions = {
 };
 
 export function createOrUpdateShopItem(
-  shopItemData: ShopItem,
-  id: number,
+  shopItemData: ShopItemCreate | ShopItemEdit,
+  id: number | null,
   options: OptionCallback<ShopItem>,
 ): (dispatch: Dispatch) => Promise<void> {
   return async (dispatch: Dispatch) => {
@@ -222,8 +227,8 @@ export function createOrUpdateShopItem(
     dispatch(shopItemCreateOrUpdateActions.error(null));
 
     const createOrUpdate: (
-      shopItemData: ShopItem,
-      id: number,
+      shopItemData: ShopItemCreate | ShopItemEdit,
+      id: number | null,
     ) => Promise<AxiosResponse<ShopItem>> = id ? updateItem : createItem;
     try {
       const response = await createOrUpdate(shopItemData, id);

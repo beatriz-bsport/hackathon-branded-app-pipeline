@@ -29,23 +29,53 @@ export type IsShopUsedInComboAPI = {
 };
 
 export type ShopItem = {
-  id: number;
-  name: string;
-  subtitle: string;
-  description: string;
-  tva: number;
-  price: number;
-  cover: string;
-  company: number;
-  unlimited_provisions: boolean;
-  subshop: number;
-  marketplace_enabled: boolean;
-  is_deliverable: boolean;
   available_payment_method_identifiers: number[];
+  barcode: string;
+  color: string;
+  company: number;
+  cover: string | null;
   current_stock?: number;
+  description: string;
   disabled: boolean;
-  tags_on_purchase?: Array<number>;
+  featured: boolean;
+  id: number;
+  is_deliverable: boolean;
+  is_standalone_item: boolean;
+  lowest_variant_price: number | null;
+  marketplace_enabled: boolean;
+  name: string;
+  price: string;
+  sell_only_on_provision: boolean;
+  size: string;
+  stock_keeping_unit: string;
+  subshop: number;
+  subtitle: string;
+  supplier_price: string;
+  supplier: number | null;
+  tags_on_purchase: number[];
+  total_sales?: number;
+  tva: string;
+  unlimited_provisions?: boolean;
 };
+
+export type ShopItemCreate = {
+  'available_payment_method_identifiers[]': string;
+  barcode: string;
+  cover?: File;
+  description?: string;
+  featured: boolean;
+  is_deliverable: boolean;
+  marketplace_enabled: boolean;
+  name: string;
+  price: number;
+  sell_only_on_provision: boolean;
+  subshop?: number;
+  subtitle?: string;
+  supplier_price?: string;
+  tva: string;
+};
+
+export type ShopItemEdit = Partial<ShopItemCreate>;
 
 export type ShopState = {
   subShops: Array<SubShopAPI>;
@@ -95,11 +125,10 @@ export type ShopAPIFilter = {
   page_size?: number;
 };
 
-export type ShopItemCreate = Omit<ShopItem, 'id'>;
-
 export type ProvisionCreate = Omit<Provision, 'id'>;
 
 export type ShopItemFactoryOptions = {
+  isStandaloneItem?: boolean;
   isUnlimitedProvisions?: boolean;
   isMarketplaceEnabled?: boolean;
   isDeliverable?: boolean;

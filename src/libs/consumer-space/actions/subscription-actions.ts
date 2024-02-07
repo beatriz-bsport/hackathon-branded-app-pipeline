@@ -1,13 +1,5 @@
 import { createAction } from 'redux-actions';
-import {
-  BILLING_PLAN_STATUS_NOT_STARTED,
-  BILLING_PLAN_STATUS_STARTED,
-  BILLING_PLAN_STATUS_STOPPED,
-  BILLING_PLAN_STATUS_PAUSED,
-  BILLING_PLAN_STATUS_ENDED,
-} from '@bsport/common/lib/master-data/subscription-status';
-
-import { fetchSubscriptionsList as fetchSubscriptionsListAPI } from '#libs/subscription/api';
+import { fetchConsumerSubscriptionList as fetchConsumerSubscriptionListAPI } from '#libs/subscription/api';
 
 import type {
   Dispatch,
@@ -16,6 +8,7 @@ import type {
   PaginatedResponse,
 } from '../../../state/types';
 import type { SubscriptionREST } from '#libs/subscription/types';
+import { SubscriptionTabEnum } from '#libs/consumer-space/components/reworked/@MySubscriptions/constants';
 
 const DEFAULT_PAGE_SIZE = 30;
 
@@ -43,11 +36,11 @@ export function fetchMyActiveSubscriptionsAsMember(
     const currentState = getState().consumerReworked.mySubscriptions.active;
     const nextPage = currentState.next_page ?? 1;
     try {
-      const response = await fetchSubscriptionsListAPI({
+      const response = await fetchConsumerSubscriptionListAPI({
         member,
         page: nextPage,
         page_size,
-        status: [BILLING_PLAN_STATUS_STARTED, BILLING_PLAN_STATUS_PAUSED],
+        status: SubscriptionTabEnum.ACTIVE,
       });
       dispatch(
         fetchMyActiveSubscriptionsAsMemberActions.success(response.data),
@@ -79,6 +72,7 @@ export function fetchMyFutureSubscriptionsAsMember(
     member: number;
     page_size?: number;
   },
+
   options?: OptionCallback<SubscriptionREST[]>,
 ): ThunkAction {
   return async (dispatch: Dispatch, getState) => {
@@ -87,11 +81,11 @@ export function fetchMyFutureSubscriptionsAsMember(
     const currentState = getState().consumerReworked.mySubscriptions.future;
     const nextPage = currentState.next_page ?? 1;
     try {
-      const response = await fetchSubscriptionsListAPI({
+      const response = await fetchConsumerSubscriptionListAPI({
         member,
         page: nextPage,
         page_size,
-        status: [BILLING_PLAN_STATUS_NOT_STARTED],
+        status: SubscriptionTabEnum.FUTURE,
       });
       dispatch(
         fetchMyFutureSubscriptionsAsMemberActions.success(response.data),
@@ -133,11 +127,11 @@ export function fetchMyExpiredSubscriptionsAsMember(
     const currentState = getState().consumerReworked.mySubscriptions.expired;
     const nextPage = currentState.next_page ?? 1;
     try {
-      const response = await fetchSubscriptionsListAPI({
+      const response = await fetchConsumerSubscriptionListAPI({
         member,
         page: nextPage,
         page_size,
-        status: [BILLING_PLAN_STATUS_STOPPED, BILLING_PLAN_STATUS_ENDED],
+        status: SubscriptionTabEnum.EXPIRED,
       });
       dispatch(
         fetchMyExpiredSubscriptionsAsMemberActions.success(response.data),

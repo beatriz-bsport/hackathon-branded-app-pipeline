@@ -31,6 +31,14 @@ export const fetchSubscriptionsList = (params: SubscriptionQueryParams) => {
   );
 };
 
+export const fetchConsumerSubscriptionList = async (
+  params: SubscriptionQueryParams,
+) => {
+  return getAuth<PaginatedResponse<SubscriptionREST>>(
+    `${API_URI}/subscription/consumer-billing-plan/${buildUrlParams(params)}`,
+  );
+};
+
 const fetchDetail = async (id: number) => {
   return getAuth(`${API_URI}/subscription/billing-plan/${id}/`);
 };

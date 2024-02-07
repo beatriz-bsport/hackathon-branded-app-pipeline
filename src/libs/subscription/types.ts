@@ -276,7 +276,7 @@ export type SubscriptionQueryParams = {
   page_size?: number;
   member?: number;
   id__in?: number[];
-  status?: SubscriptionStatus[];
+  status?: 'active' | 'future' | 'expired';
 };
 
 export type PlannedInvoiceFactoryOptions = {

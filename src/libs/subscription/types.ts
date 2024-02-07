@@ -324,6 +324,8 @@ export type SubscriptionREST = {
   date_created: string;
   description: string;
   editable: boolean;
+  expiration_date: string;
+  failed_payments_invoices: SubscriptionsInvoicesDetailsREST[];
   first_billing_date: string;
   flat_fee: string;
   has_discount: boolean;
@@ -331,6 +333,7 @@ export type SubscriptionREST = {
   id: number;
   interval: SubscriptionInterval;
   is_v2: boolean;
+  last_billing_date: string;
   legal_contract: string;
   member: number;
   memberArchived: boolean;

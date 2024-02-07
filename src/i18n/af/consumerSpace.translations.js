@@ -332,6 +332,12 @@ exports.default = {
     },
     mySubscriptions: {
       title: 'My subscriptions',
+      dateLabel: {
+        active: 'Started on {{- date }}',
+        future: 'Starts on {{- date }}',
+        expired: 'Expired since {{- date }}',
+        until: ' until {{- date }}',
+      },
       tab: {
         active: 'Active',
         future: 'Not started',

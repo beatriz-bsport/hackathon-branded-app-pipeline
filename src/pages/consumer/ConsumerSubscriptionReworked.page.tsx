@@ -17,6 +17,8 @@ import {
   getMyExpiredSubscriptionsList,
 } from '#libs/consumer-space/selectors';
 
+import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '#libs/payment/actions';
+import { getSavedPaymentMethodList } from '#libs/payment/selectors';
 import {
   fetchMyExpiredSubscriptionsAsMember as fetchMyExpiredSubscriptionsAsMemberAction,
   fetchMyFutureSubscriptionsAsMember as fetchMyFutureSubscriptionsAsMemberAction,
@@ -26,6 +28,8 @@ import {
 
 import type { Membership } from '#libs/membership/types';
 import type { SubscriptionREST } from '#libs/subscription/types';
+import type { PaymentMethod } from '#libs/payment/types';
+
 import ConsumerSubscriptionPageReworked from '#libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionPageReworked';
 
 type OwnProps = {
@@ -46,6 +50,7 @@ export class ConsumerSubscription extends React.Component<Props> {
     this.props.fetchActiveSubscriptionsList();
     this.props.fetchFutureSubscriptionsList();
     this.props.fetchExpiredSubscriptionsList();
+    this.props.fetchPaymentMethodList();
   }
 
   render() {
@@ -60,6 +65,7 @@ export class ConsumerSubscription extends React.Component<Props> {
       fetchFutureSubscriptionsList,
       fetchExpiredSubscriptionsList,
       resetConsumerSubscriptionsState,
+      paymentMethodList,
     } = this.props;
 
     return (
@@ -76,6 +82,7 @@ export class ConsumerSubscription extends React.Component<Props> {
         // TODO
         onBookSessionClick={() => {}}
         onGetASubscriptionClick={() => {}}
+        paymentMethodList={paymentMethodList as PaymentMethod[]}
         resetConsumerSubscriptionsState={resetConsumerSubscriptionsState}
       />
     );
@@ -90,8 +97,10 @@ const connector = connect(
     futureSubscriptionsList: getMyFutureSubscriptionsList(state),
     expiredSubscriptionsState: getMyExpiredSubscriptionsState(state),
     expiredSubscriptionsList: getMyExpiredSubscriptionsList(state),
+    paymentMethodList: getSavedPaymentMethodList(state),
   }),
   {
+    fetchPaymentMethodListAction,
     fetchMyFutureSubscriptionsAsMemberAction,
     fetchMyExpiredSubscriptionsAsMemberAction,
     fetchMyActiveSubscriptionsAsMemberAction,
@@ -130,6 +139,8 @@ const mapWithHandlers = {
         },
         options,
       ),
+  fetchPaymentMethodList: (props: OwnAndConnectedAndRouteProps) => () =>
+    props.fetchPaymentMethodListAction({ company: props.membership.company }),
 };
 
 export default compose(

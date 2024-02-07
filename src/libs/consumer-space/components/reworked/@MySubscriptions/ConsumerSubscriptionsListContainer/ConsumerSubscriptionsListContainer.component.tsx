@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
+import moment from 'moment-timezone';
+import { useTranslation } from 'react-i18next';
 import ConsumerSubscriptionCard from '#libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionCard';
 import ConsumerSubscriptionDetailsCard from '#libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionDetailsCard';
 import Typography from '#Fabrique/Typography';
@@ -13,6 +15,16 @@ import {
   MY_BOOKINGS_LIST_CONTAINER_HEIGHT,
   MY_BOOKINGS_MOBILE_LIST_CONTAINER_HEIGHT,
 } from '#libs/consumer-space/components/reworked/@MyBookings/constants';
+import type { PaymentMethod } from '#libs/payment/types';
+
+import { SubscriptionTabEnum } from '#libs/consumer-space/components/reworked/@MySubscriptions/constants';
+
+import { isPaused } from '#libs/subscription/utils';
+import {
+  getSubtitleCardDate,
+  getSubtitleCardDetailsDate,
+} from '#libs/consumer-space/components/reworked/@MySubscriptions/utils';
+
 import './styles.css';
 
 type Props = {
@@ -22,6 +34,7 @@ type Props = {
   isLoading: boolean;
   isMobile: boolean;
   onSeeTermsClick: () => void;
+  paymentMethodList: PaymentMethod[];
   selectedSubscription: SubscriptionREST;
   selectedTab: SubscriptionTab;
   subscriptionsList: SubscriptionREST[];
@@ -34,12 +47,39 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
   isLoading,
   isMobile,
   onSeeTermsClick,
+  paymentMethodList,
   selectedSubscription,
   selectedTab,
   subscriptionsList,
 }) => {
-  // TODO: placeholder and loading logic to improve
+  const { t } = useTranslation('consumerSpace');
+  const paymentMethodUsed = useMemo(
+    () =>
+      paymentMethodList.find(
+        (paymentMethod) =>
+          paymentMethod.id === selectedSubscription?.stripe_payment_method_id,
+      ),
+    [paymentMethodList, selectedSubscription],
+  );
+
+  const selectedSubscriptionPauseEndDate = useMemo(
+    () =>
+      formatAsDatetimeAdapted(
+        selectedSubscription?.pauses?.find((pause) =>
+          moment().isBetween(
+            pause.from_date,
+            pause.until_date,
+            undefined,
+            '[]',
+          ),
+        )?.until_date,
+        'L',
+      ),
+    [selectedSubscription?.pauses],
+  );
+
   const showEmptyPlaceholder = !isLoading && subscriptionsList?.length === 0;
+
   const onCardDetailsClick = React.useCallback(
     (id: number) => () => handleSetSelectedSubscriptions(id),
     [handleSetSelectedSubscriptions],
@@ -70,16 +110,19 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
             <ConsumerSubscriptionCard
               key={item.id}
               // TODO
+              addPaymentMethodDisabled={false}
+              hasFailedPayments={!!item?.failed_payments_invoices?.length}
+              hasMissingPaymentMethod={!item?.stripe_payment_method_id}
               isDetailsDisabled={false}
               isLoading={isLoading}
+              isPaused={isPaused(item?.pauses)}
               isSelected={item.id === selectedSubscription?.id}
+              // TODO when working on modales
+              onAddPaymentMethodClick={() => {}}
               onDetailsClick={onCardDetailsClick(item.id)}
               price={item?.recurrent_price}
               recurrence={item?.recurrence_basis}
-              subscriptionDate={formatAsDatetimeAdapted(
-                item?.first_billing_date,
-                'LL',
-              )}
+              subscriptionDate={getSubtitleCardDate(selectedTab, item, t)}
               subscriptionInterval={item?.interval}
               subscriptionName={item?.name_without_member_name}
             />
@@ -87,25 +130,50 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
         />
       </ul>
       <ConsumerSubscriptionDetailsCard
+        autoRenewalDate={formatAsDatetimeAdapted(
+          selectedSubscription?.last_billing_date,
+          'L',
+        )}
         description={selectedSubscription?.description}
+        failedInvoices={selectedSubscription?.failed_payments_invoices}
+        hasAutoRenewal={
+          selectedTab !== SubscriptionTabEnum.EXPIRED &&
+          selectedSubscription?.auto_renewal
+        }
+        hasMissingPaymentMethod={
+          !selectedSubscription?.stripe_payment_method_id
+        }
         isLoading={isLoading}
+        isPaused={isPaused(selectedSubscription?.pauses)}
+        isPaymentMethodSectionHidden={
+          selectedTab === SubscriptionTabEnum.EXPIRED
+        }
+        // TODO
+        onPaymentMethodActionClick={
+          !selectedSubscription?.stripe_payment_method_id ? () => {} : () => {}
+        }
         onSeeClick={onSeeTermsClick}
+        pauseEndDate={selectedSubscriptionPauseEndDate}
+        paymentMethodType={paymentMethodUsed?.type}
         price={selectedSubscription?.recurrent_price}
+        readableIdentifier={paymentMethodUsed?.readable_identifier}
         recurrence={selectedSubscription?.recurrence_basis}
         showPlaceholder={!selectedSubscription}
         subscriptionInterval={selectedSubscription?.interval}
         subscriptionName={selectedSubscription?.name_without_member_name}
-        subscriptionNextPaymentDate={formatAsDatetimeAdapted(
-          selectedSubscription?.next_billing_date,
-          'LL',
-        )}
-        subtitleDate={formatAsDatetimeAdapted(
-          selectedSubscription?.first_billing_date,
-          'LL',
+        subscriptionNextPaymentDate={
+          selectedTab !== SubscriptionTabEnum.EXPIRED &&
+          selectedSubscription?.next_billing_date &&
+          formatAsDatetimeAdapted(selectedSubscription?.next_billing_date, 'L')
+        }
+        subtitleDate={getSubtitleCardDetailsDate(
+          selectedTab,
+          selectedSubscription,
+          t,
         )}
         termsDate={formatAsDatetimeAdapted(
           selectedSubscription?.contract_terms_date_accepted,
-          'LL',
+          'L',
         )}
       />
     </div>

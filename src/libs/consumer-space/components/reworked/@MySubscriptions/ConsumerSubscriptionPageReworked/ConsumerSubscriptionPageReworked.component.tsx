@@ -7,6 +7,8 @@ import ConsumerSubscriptionsListContainer from '#libs/consumer-space/components/
 import type { SubscriptionREST } from '#libs/subscription/types';
 import type { OptionCallback } from '../../../../../../state/types';
 import type { ConsumerSubscriptionReworked } from '#libs/consumer-space/types';
+import type { PaymentMethod } from '#libs/payment/types';
+
 import useConsumerSubscriptionsDataManager from '#libs/consumer-space/components/reworked/@MySubscriptions/hooks/useConsumerSubscriptionsDataManager';
 
 import './styles.css';
@@ -18,6 +20,7 @@ type Props = {
   expiredSubscriptionsList: SubscriptionREST[];
   expiredSubscriptionsState: ConsumerSubscriptionReworked;
   futureSubscriptionsList: SubscriptionREST[];
+  paymentMethodList: PaymentMethod[];
   fetchActiveSubscriptionsList: (
     page_size?: number,
     options?: OptionCallback<SubscriptionREST[]>,
@@ -42,6 +45,7 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
   futureSubscriptionsList,
   expiredSubscriptionsState,
   expiredSubscriptionsList,
+  paymentMethodList,
   onBookSessionClick,
   onGetASubscriptionClick,
   fetchActiveSubscriptionsList,
@@ -81,6 +85,8 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
         onGetASubscriptionClick={onGetASubscriptionClick}
       />
       <ConsumerSubscriptionsTabs
+        activeBookingsCount={activeSubscriptionsState.count}
+        futureBookingsCount={futureSubscriptionsState.count}
         onChangeSubscriptionTab={handleSetSelectedTab}
         selectedTab={selectedTab}
       />
@@ -92,6 +98,7 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
         // TODO
         isMobile={isMobile}
         onSeeTermsClick={() => {}}
+        paymentMethodList={paymentMethodList}
         selectedSubscription={selectedSubscription}
         selectedTab={selectedTab}
         subscriptionsList={subscriptionsList}

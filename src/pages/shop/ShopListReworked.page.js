@@ -1,5 +1,5 @@
 // @flow
-
+//* BRUT COPY PAST WITHOUT TSX IMPLEMENTATION */
 import React, { Component } from 'react';
 
 import Divider from '@material-ui/core/Divider';
@@ -49,13 +49,16 @@ import {
   createOrUpdateSubShop,
   deleteSubShop,
 } from '../../libs/shop/actions/subshop';
-import ShopItemForm from '../../libs/shop/components/ShopItemForm.component';
-import { getAllTagsWithTagGroup } from '#libs/tag/selectors';
 import { fetchTags } from '#libs/tag/actions';
 
-import type { ShopItem, SubShop } from '../../libs/shop/types';
+import type {
+  ShopItem,
+  SubShop,
+  ShopItemCreateEdit,
+} from '../../libs/shop/types';
 import SubShopList from './SubShopList.component';
 import ShopItemListItem from '../../libs/shop/components/ShopItemListItem.component';
+import ShopItemFormReworked from '../../libs/shop/components/ShopItemFormReworked';
 import shopSelectors from '../../libs/shop/selectors';
 import FuzeSearch from '../../components/FuzeSearch.component';
 
@@ -66,6 +69,9 @@ import Tooltip from '../../components/Tooltip.component';
 import type { OptionCallback } from '../../state/types';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+import { mapFormDataWithObject } from '../form.utils';
+
+import { SHOPITEM_FORMDATA_KEYS_MAPPER } from '../../libs/shop/constants';
 
 type Props = {
   t: TFunction,
@@ -88,7 +94,6 @@ type Props = {
   isShopItemUsedInCombo: (id: number) => void,
   archivationWarning: { [id: number]: { used_in_combo: boolean } },
   theme: Theme,
-  allTagsWithTagGroup: Array<Tag<TagGroup>>,
   fetchTags: () => void,
 };
 
@@ -114,12 +119,20 @@ export class ShopItemList extends Component<Props, State> {
   }
 
   createOrUpdateShopItem = (
-    shopItemData: [*],
-    id: ?number,
-    options: OptionCallback,
+    shopItemData: ShopItemCreateEdit | FormData,
+    id?: number | null,
+    options?: OptionCallback<ShopItem>,
   ) => {
-    shopItemData.append('subshop', this.state.createItemFromSubShop);
-    this.props.createOrUpdateShopItem(shopItemData, id ?? null, {
+    let formData = new FormData();
+    const { cover, ...finalShopItemData } = shopItemData;
+    formData = mapFormDataWithObject(
+      finalShopItemData,
+      SHOPITEM_FORMDATA_KEYS_MAPPER,
+      ['cover'],
+    );
+    if (shopItemData.cover) formData.append('cover', shopItemData.cover);
+    formData.append('subshop', this.state.createItemFromSubShop);
+    this.props.createOrUpdateShopItem(formData, id ?? null, {
       onSuccess: () => {
         this.setState({
           createItemFromSubShop: null,
@@ -368,12 +381,11 @@ export class ShopItemList extends Component<Props, State> {
             SegmentAnalyticsFormObjectIdentifier.ShopItem
           }
         >
-          <ShopItemForm
-            createOrUpdate={this.createOrUpdateShopItem}
-            loading={this.props.shopItemLoading}
+          <ShopItemFormReworked
+            isLoading={this.props.shopItemLoading}
             onCancel={this.handleCloseShopItemForm}
+            onCreateSubmit={this.createOrUpdateShopItem}
             provincialTax={this.props.theme?.provincial_tax_value}
-            tagList={this.props.allTagsWithTagGroup}
           />
         </GenericResponsiveDrawer>
         <Dialog open={!!this.state.shopitemToDelete}>
@@ -436,7 +448,6 @@ export default compose(
       shopItemLoading: state.shop.shopItem.createOrUpdate.loading,
       subShops: shopSelectors.getSubShops(state),
       archivationWarning: state.shop.shopItem.combo.archivationWarning,
-      allTagsWithTagGroup: getAllTagsWithTagGroup(state),
     }),
     {
       fetchShopItems: fetchAllShopItem,

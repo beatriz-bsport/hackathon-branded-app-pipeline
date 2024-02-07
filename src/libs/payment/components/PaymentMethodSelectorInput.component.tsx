@@ -1,13 +1,10 @@
-// @ts-nocheck
-// @flow
-import React from 'react';
-import { compose } from 'recompose';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import React, { useCallback } from 'react';
+
+import { useTranslation } from 'react-i18next';
 import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormGroup from '@material-ui/core/FormGroup';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import { withTranslation } from 'react-i18next';
-import { TFunction } from 'i18next';
 
 import {
   CB,
@@ -15,55 +12,90 @@ import {
 } from '@bsport/common/lib/master-data/payment-methods';
 
 type Props = {
-  t: TFunction;
-  label?: string;
-  paymentMethodIds: Array<number>;
-  onChange: (available_payment_method_identifiers: Array<number>) => void;
   disabled?: boolean;
   helperText: string;
+  label?: string;
+  onChange: (available_payment_method_identifiers: number[]) => void;
+  paymentMethodIds: number[];
 };
-const PaymentMethodSelectorField = (props: Props) => {
+
+type PaymentMethodItemProps = {
+  id: number;
+  isChecked?: boolean;
+  isDisabled?: boolean;
+  label: string;
+  onChange: (id: number) => void;
+};
+
+const PaymentMethodItem: React.FC<PaymentMethodItemProps> = ({
+  id,
+  isChecked,
+  isDisabled,
+  label,
+  onChange,
+}) => {
+  const handleTogglePaymentMethod = useCallback(() => {
+    onChange(id);
+  }, [id, onChange]);
+
+  return (
+    <FormControlLabel
+      control={
+        <Checkbox
+          checked={isChecked}
+          disabled={isDisabled}
+          onChange={handleTogglePaymentMethod}
+        />
+      }
+      label={label}
+    />
+  );
+};
+
+const PaymentMethodSelectorField: React.FC<Props> = ({
+  disabled,
+  helperText,
+  label,
+  onChange,
+  paymentMethodIds,
+}) => {
+  const { t } = useTranslation('translation');
+
+  const handleTogglePaymentMethod = useCallback(
+    (paymentMethodId: number) => {
+      if (paymentMethodIds.includes(paymentMethodId)) {
+        onChange(paymentMethodIds.filter((i) => i !== paymentMethodId));
+      } else {
+        onChange([...paymentMethodIds, paymentMethodId]);
+      }
+    },
+    [onChange, paymentMethodIds],
+  );
+
   return (
     <fieldset>
-      {!!props.label && (
-        <legend style={{ marginBottom: -2 }}>{props.label}</legend>
-      )}
+      {!!label && <legend style={{ marginBottom: -2 }}>{label}</legend>}
       <FormGroup>
         {[
-          { id: CB.id, optionLabel: props.t(`paymentMethod.${CB.text}`) },
+          { id: CB.id, optionLabel: t(`paymentMethod.${CB.text}`) },
           {
             id: CREDIT_ACCOUNT.id,
-            optionLabel: props.t('form.shop.item.onsite_payment_available'),
+            optionLabel: t('form.shop.item.onsite_payment_available'),
           },
-        ].map((pm) => (
-          <FormControlLabel
-            key={pm.id}
-            control={
-              <Checkbox
-                checked={props.paymentMethodIds.includes(pm.id)}
-                disabled={!!props.disabled}
-                onChange={() => {
-                  if (props.paymentMethodIds.includes(pm.id)) {
-                    props.onChange(
-                      props.paymentMethodIds.filter((i) => i !== pm.id),
-                    );
-                  } else {
-                    props.onChange([...props.paymentMethodIds, pm.id]);
-                  }
-                }}
-              />
-            }
-            label={pm.optionLabel}
+        ].map((paymentMethod) => (
+          <PaymentMethodItem
+            key={paymentMethod.id}
+            id={paymentMethod.id}
+            isChecked={paymentMethodIds.includes(paymentMethod.id)}
+            isDisabled={!!disabled}
+            label={paymentMethod.optionLabel}
+            onChange={handleTogglePaymentMethod}
           />
         ))}
       </FormGroup>
-      {!!props.helperText && (
-        <FormHelperText>{props.helperText}</FormHelperText>
-      )}
+      {!!helperText && <FormHelperText>{helperText}</FormHelperText>}
     </fieldset>
   );
 };
 
-export default compose(withTranslation(['translation']))(
-  PaymentMethodSelectorField,
-);
+export default React.memo(PaymentMethodSelectorField);

@@ -12,6 +12,9 @@ import { useTranslation } from 'react-i18next';
 
 import { Checkbox, Theme, makeStyles } from '@material-ui/core';
 import classNames from 'classnames';
+
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+
 import type { Member } from '../../member/types';
 import type { BookingOption } from '#libs/booking/types';
 
@@ -91,74 +94,98 @@ const BookingOptionForManager: React.FC<Props> = ({
 
   if (option.cancelled) {
     return (
-      <ListItem button disableRipple divider onClick={handleListItemClick()}>
-        <ListItemAvatar>
-          <Avatar src={member ? member.photo : ''} />
-        </ListItemAvatar>
-        <ListItemText
-          primary={member ? member.name : ''}
-          secondary={t('booking.cancelledFromWaitingList')}
-        />
-      </ListItem>
+      <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.accessProfile">
+        {(hasMemberProfileAccessPermission: boolean) => (
+          <ListItem
+            disableRipple
+            divider
+            button={hasMemberProfileAccessPermission as any}
+            onClick={
+              hasMemberProfileAccessPermission ? handleListItemClick() : null
+            }
+          >
+            <ListItemAvatar>
+              <Avatar src={member ? member.photo : ''} />
+            </ListItemAvatar>
+            <ListItemText
+              primary={member ? member.name : ''}
+              secondary={t('booking.cancelledFromWaitingList')}
+            />
+          </ListItem>
+        )}
+      </ObjectLevelPermissionProvider>
     );
   }
 
   return (
-    <ListItem button disableRipple divider>
-      <div className={classes.outerRow}>
-        <div
-          className={classNames(classes.avatarWithCheckbox, {
-            [classes.avatarWithCheckboxAndSelection]:
-              !!selectedBookingOptionsIds?.length,
-          })}
+    <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.accessProfile">
+      {(hasMemberProfileAccessPermission: boolean) => (
+        <ListItem
+          disableRipple
+          divider
+          button={hasMemberProfileAccessPermission as any}
         >
-          <div
-            className={classNames(classes.avatarContainer, {
-              [classes.avatarContainerWithHover]:
-                !disabled && !shouldHideBookButton,
-            })}
-          >
-            <div className={classes.avatar}>
-              <ListItemAvatar>
-                <Avatar src={member ? member.photo : ''} />
-              </ListItemAvatar>
-            </div>
-            {!disabled && !shouldHideBookButton && (
-              <div className={classes.checkBoxContainer}>
-                <Checkbox
-                  checked={isChecked}
-                  className={classes.checkBox}
-                  onChange={handleSelectBookingOption}
-                />
+          <div className={classes.outerRow}>
+            <div
+              className={classNames(classes.avatarWithCheckbox, {
+                [classes.avatarWithCheckboxAndSelection]:
+                  !!selectedBookingOptionsIds?.length,
+              })}
+            >
+              <div
+                className={classNames(classes.avatarContainer, {
+                  [classes.avatarContainerWithHover]:
+                    !disabled && !shouldHideBookButton,
+                })}
+              >
+                <div className={classes.avatar}>
+                  <ListItemAvatar>
+                    <Avatar src={member ? member.photo : ''} />
+                  </ListItemAvatar>
+                </div>
+                {!disabled && !shouldHideBookButton && (
+                  <div className={classes.checkBoxContainer}>
+                    <Checkbox
+                      checked={isChecked}
+                      className={classes.checkBox}
+                      onChange={handleSelectBookingOption}
+                    />
+                  </div>
+                )}
               </div>
+            </div>
+            <ListItemText
+              onClick={
+                hasMemberProfileAccessPermission ? handleListItemClick() : null
+              }
+              primary={member ? member.name : ''}
+              secondary={getSecondaryTextToDisplay()}
+            />
+
+            {!shouldHideBookButton && (
+              <Button
+                className={classes.addButton}
+                color="primary"
+                disabled={isIndividualButtonDisabled}
+                onClick={onClickRegister}
+                variant="outlined"
+              >
+                <AddIcon />
+                {t('booking.add')}
+              </Button>
+            )}
+            {!!onDiscard && !shouldHideRemoveWaitlistButton && (
+              <IconButton
+                disabled={isIndividualButtonDisabled}
+                onClick={onDiscard}
+              >
+                <CancelIcon />
+              </IconButton>
             )}
           </div>
-        </div>
-        <ListItemText
-          onClick={handleListItemClick()}
-          primary={member ? member.name : ''}
-          secondary={getSecondaryTextToDisplay()}
-        />
-
-        {!shouldHideBookButton && (
-          <Button
-            className={classes.addButton}
-            color="primary"
-            disabled={isIndividualButtonDisabled}
-            onClick={onClickRegister}
-            variant="outlined"
-          >
-            <AddIcon />
-            {t('booking.add')}
-          </Button>
-        )}
-        {!!onDiscard && !shouldHideRemoveWaitlistButton && (
-          <IconButton disabled={isIndividualButtonDisabled} onClick={onDiscard}>
-            <CancelIcon />
-          </IconButton>
-        )}
-      </div>
-    </ListItem>
+        </ListItem>
+      )}
+    </ObjectLevelPermissionProvider>
   );
 };
 

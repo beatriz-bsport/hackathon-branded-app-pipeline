@@ -1,7 +1,6 @@
-// @ts-nocheck
 import React from 'react';
 
-import makeStyles from '@material-ui/styles/makeStyles';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import Button from '@material-ui/core/Button';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -14,9 +13,8 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import EuroSymbolIcon from '@material-ui/icons/EuroSymbol';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import { useTranslation } from 'react-i18next';
-import { Member } from '#libs/member/types';
 import { getCurrencyDisplay } from '../../libs/theme/selectors';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import type { Member } from '#libs/member/types';
 
 type Props = {
   member: Member;
@@ -46,80 +44,76 @@ function MemberBookingHelper(props: Props) {
   }
 
   return (
-    <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.accessProfile">
-      {(hasMemberProfileAccessPermission: boolean) => (
-        <ListItem
-          key={props.member?.id}
-          dense
-          divider
-          button={!!props.onClickListItem}
-          onClick={props.onClickListItem || (() => {})}
-          selected={props.selected}
-        >
-          <ListItemText
-            classes={{
-              primary: classes.text,
-              secondary: classes.text,
-            }}
-            primary={props.member.name}
-            secondary={hasMemberProfileAccessPermission && email}
-          />
-          <ListItemSecondaryAction>
-            {props.hasBooked ? (
-              <React.Fragment>
-                <IconButton color="secondary" onClick={props.onClickBill}>
-                  {getCurrencyDisplay() === '€' ? (
-                    <EuroSymbolIcon />
-                  ) : (
-                    <AttachMoneyIcon />
-                  )}
-                </IconButton>
-                {!props.shouldHideBookButton && (
-                  <Button color="primary" onClick={props.onClickRegister}>
-                    <AddIcon className={classes.rightIcon} />
-                    {t('offer.reCreateBooking')}
-                  </Button>
-                )}
-              </React.Fragment>
-            ) : (
-              <React.Fragment>
-                {!props.shouldHideRegisterWaitlistButton && (
-                  <Button
-                    color="primary"
-                    disabled={!props.isFull}
-                    onClick={props.onClickOption}
-                  >
-                    <HourglassEmptyIcon className={classes.rightIcon} />
-                    <Hidden xsDown>{t('offer.createBookingOption')}</Hidden>
-                  </Button>
-                )}
-
-                {!props.shouldHideBookButton && (
-                  <Button
-                    color="primary"
-                    onClick={props.onClickRegister}
-                    variant="outlined"
-                  >
-                    <AddIcon className={classes.rightIcon} />
-                    {t('offer.createBooking')}
-                  </Button>
-                )}
-              </React.Fragment>
+    <ListItem
+      key={props.member?.id}
+      dense
+      divider
+      button={!!props.onClickListItem as any}
+      onClick={props.onClickListItem}
+      selected={props.selected}
+    >
+      <ListItemText
+        classes={{
+          primary: classes.text,
+          secondary: classes.text,
+        }}
+        primary={props.member.name}
+        secondary={email}
+      />
+      <ListItemSecondaryAction>
+        {props.hasBooked ? (
+          <React.Fragment>
+            <IconButton color="secondary" onClick={props.onClickBill}>
+              {getCurrencyDisplay() === '€' ? (
+                <EuroSymbolIcon />
+              ) : (
+                <AttachMoneyIcon />
+              )}
+            </IconButton>
+            {!props.shouldHideBookButton && (
+              <Button color="primary" onClick={props.onClickRegister}>
+                <AddIcon className={classes.rightIcon} />
+                {t('offer.reCreateBooking')}
+              </Button>
+            )}
+          </React.Fragment>
+        ) : (
+          <React.Fragment>
+            {!props.shouldHideRegisterWaitlistButton && (
+              <Button
+                color="primary"
+                disabled={!props.isFull}
+                onClick={props.onClickOption}
+              >
+                <HourglassEmptyIcon className={classes.rightIcon} />
+                <Hidden xsDown>{t('offer.createBookingOption')}</Hidden>
+              </Button>
             )}
 
-            {props.showMember ? (
-              <IconButton
-                color="secondary"
-                disabled={!props.showMember}
-                onClick={props.showMember}
+            {!props.shouldHideBookButton && (
+              <Button
+                color="primary"
+                onClick={props.onClickRegister}
+                variant="outlined"
               >
-                <VisibilityIcon />
-              </IconButton>
-            ) : null}
-          </ListItemSecondaryAction>
-        </ListItem>
-      )}
-    </ObjectLevelPermissionProvider>
+                <AddIcon className={classes.rightIcon} />
+                {t('offer.createBooking')}
+              </Button>
+            )}
+          </React.Fragment>
+        )}
+
+        {props.showMember ? (
+          <IconButton
+            color="secondary"
+            disabled={!props.showMember}
+            onClick={props.showMember}
+          >
+            <VisibilityIcon />
+          </IconButton>
+        ) : null}
+      </ListItemSecondaryAction>
+    </ListItem>
   );
 }
 

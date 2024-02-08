@@ -193,6 +193,7 @@ export class BookingManagement extends React.PureComponent<Props, State> {
               'reservation.workshop.allowed_actions.create',
               'reservation.activity.allowed_actions.addToWaitlist',
               'reservation.workshop.allowed_actions.addToWaitlist',
+              'member.allowed_actions.accessProfile',
             ]}
           >
             {([
@@ -200,10 +201,14 @@ export class BookingManagement extends React.PureComponent<Props, State> {
               hasWorkshopCreateBookingPermission,
               hasActivityRegisterWaitlistPermission,
               hasWorkshopRegisterWaitlistPermission,
+              hasMemberProfileAccessPermission,
             ]) => (
               <MemberBookingHelper
                 key={member.id}
-                anonimize={!permissions?.member?.search}
+                anonimize={
+                  !hasMemberProfileAccessPermission ||
+                  !permissions?.member?.search
+                }
                 hasBooked={hasBooked}
                 isFull={this.props.offer.is_full}
                 member={member}
@@ -242,6 +247,7 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                   )
                 }
                 showMember={
+                  hasMemberProfileAccessPermission &&
                   permissions?.member?.retrieve
                     ? () => window.open(`/member/${member.id}/`)
                     : null
@@ -797,19 +803,12 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                 <Divider />
                 <Collapse in={!!this.props.searchedText}>
                   <div className={classes.resultListContainer}>
-                    <PermissionContext>
-                      {(permissions) => (
-                        <ResultList
-                          items={this.props.searchedMembers}
-                          loading={this.props.memberSearchLoading}
-                          redirectToMember={permissions?.member?.retrieve}
-                          renderListComponent={this.renderSearchedMember}
-                          showVaccinationStatus={
-                            this.props.showVaccinationStatus
-                          }
-                        />
-                      )}
-                    </PermissionContext>
+                    <ResultList
+                      items={this.props.searchedMembers}
+                      loading={this.props.memberSearchLoading}
+                      renderListComponent={this.renderSearchedMember}
+                      showVaccinationStatus={this.props.showVaccinationStatus}
+                    />
                   </div>
                   <Divider />
                 </Collapse>
@@ -835,39 +834,48 @@ export class BookingManagement extends React.PureComponent<Props, State> {
                 )}
                 <PermissionContext.Consumer>
                   {(permissions) => (
-                    <>
-                      <BookingTable
-                        newTab
-                        showQuickInvoiceButton
-                        showRevertBookingButton
-                        bookings={this.props.bookings}
-                        confirmBookingAttendance={
-                          this.props.confirmBookingAttendance
-                        }
-                        dateRollCallLastModified={
-                          this.props.offer.date_roll_call_last_modified
-                        }
-                        discardBookingAttendance={
-                          this.props.discardBookingAttendance
-                        }
-                        handleRevert={this.handleBookingRevert}
-                        isRollCallMandatory={this.props.isRollCallMandatory}
-                        loading={this.props.loading}
-                        members={this.props.members}
-                        onClickChangeSpot={this.props.onClickChangeSpot}
-                        onClickNoShowChip={this.openNoShowChipMessageDialog}
-                        onClickWarningIcon={this.openWarningDialog}
-                        onProgramDetailsClick={onProgramDetailsClick}
-                        onQuickInvoiceClick={this.props.addToQuickInvoicePanel}
-                        programList={this.props.programList}
-                        redirectToMember={permissions?.member?.retrieve}
-                        refresh={this.props.refresh}
-                        showVaccinationStatus={this.props.showVaccinationStatus}
-                        spotSchedulingEnabled={
-                          !!this.props.offer.room_blueprint
-                        }
-                      />
-                    </>
+                    <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.accessProfile">
+                      {(hasMemberProfileAccessPermission: boolean) => (
+                        <BookingTable
+                          newTab
+                          showQuickInvoiceButton
+                          showRevertBookingButton
+                          bookings={this.props.bookings}
+                          confirmBookingAttendance={
+                            this.props.confirmBookingAttendance
+                          }
+                          dateRollCallLastModified={
+                            this.props.offer.date_roll_call_last_modified
+                          }
+                          discardBookingAttendance={
+                            this.props.discardBookingAttendance
+                          }
+                          handleRevert={this.handleBookingRevert}
+                          isRollCallMandatory={this.props.isRollCallMandatory}
+                          loading={this.props.loading}
+                          members={this.props.members}
+                          onClickChangeSpot={this.props.onClickChangeSpot}
+                          onClickNoShowChip={this.openNoShowChipMessageDialog}
+                          onClickWarningIcon={this.openWarningDialog}
+                          onProgramDetailsClick={onProgramDetailsClick}
+                          onQuickInvoiceClick={
+                            this.props.addToQuickInvoicePanel
+                          }
+                          programList={this.props.programList}
+                          redirectToMember={
+                            hasMemberProfileAccessPermission &&
+                            permissions?.member?.retrieve
+                          }
+                          refresh={this.props.refresh}
+                          showVaccinationStatus={
+                            this.props.showVaccinationStatus
+                          }
+                          spotSchedulingEnabled={
+                            !!this.props.offer.room_blueprint
+                          }
+                        />
+                      )}
+                    </ObjectLevelPermissionProvider>
                   )}
                 </PermissionContext.Consumer>
 

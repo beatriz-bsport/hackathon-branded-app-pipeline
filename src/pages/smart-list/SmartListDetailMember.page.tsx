@@ -20,7 +20,6 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import SendIcon from '@material-ui/icons/Send';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { MaterialStyleType, WithHandlerType } from '#utils/types';
@@ -29,6 +28,8 @@ import type { RootState } from '../../reducers';
 import { snackbarError } from '../../actions/snackbar.actions';
 import { getResolvedGenericTags } from '#libs/notification-rule/selectors';
 import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#libs/notification-rule/actions';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 // SMARTLIST
 import {
@@ -729,24 +730,32 @@ export class SmartListDetailMember extends React.Component<Props, State> {
           <Divider />
           <Collapse in={!this.props.closeMemberTable}>
             {!this.props.closeMemberTable && (
-              <MemberTable
-                hideAddButton
-                fetch={({
-                  page,
-                  page_size,
-                }: {
-                  page: number;
-                  page_size: number;
-                }) =>
-                  fetchSmartListMembersAPI(this.props.id, {
-                    page,
-                    page_size,
-                  })
-                }
-                goToMember={this.props.goToMember}
-                noDataText={this.props.t('member:noData')}
-                snackbarError={this.props.snackbarError}
-              />
+              <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.accessProfile">
+                {(hasMemberProfileAccessPermission: boolean) => (
+                  <MemberTable
+                    hideAddButton
+                    fetch={({
+                      page,
+                      page_size,
+                    }: {
+                      page: number;
+                      page_size: number;
+                    }) =>
+                      fetchSmartListMembersAPI(this.props.id, {
+                        page,
+                        page_size,
+                      })
+                    }
+                    goToMember={
+                      hasMemberProfileAccessPermission
+                        ? this.props.goToMember
+                        : null
+                    }
+                    noDataText={this.props.t('member:noData')}
+                    snackbarError={this.props.snackbarError}
+                  />
+                )}
+              </ObjectLevelPermissionProvider>
             )}
           </Collapse>
         </div>

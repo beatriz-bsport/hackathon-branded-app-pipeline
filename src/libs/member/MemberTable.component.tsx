@@ -1,46 +1,133 @@
 import React, { PureComponent, JSX } from 'react';
+import { compose } from 'recompose';
+import type { TFunction } from 'i18next';
+import type { AxiosResponse } from 'axios';
+
 import MUIDataTable, {
   MUIDataTableState,
   Responsive,
   SelectableRows,
 } from 'mui-datatables';
 import { withTranslation, WithTranslation } from 'react-i18next';
-import { TFunction } from 'i18next';
+
+import type { Theme, WithStyles } from '@material-ui/core';
+import AddIcon from '@material-ui/icons/Add';
+import Button from '@material-ui/core/Button';
+import DeleteIcon from '@material-ui/icons/Delete';
+import IconButton from '@material-ui/core/IconButton';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import TableFooter from '@material-ui/core/TableFooter';
 import TablePagination from '@material-ui/core/TablePagination';
-import Button from '@material-ui/core/Button';
 import TableRow from '@material-ui/core/TableRow';
-import LinearProgress from '@material-ui/core/LinearProgress';
-import withStyles from '@material-ui/core/styles/withStyles';
-import { compose } from 'recompose';
-import AddIcon from '@material-ui/icons/Add';
-import IconButton from '@material-ui/core/IconButton';
-import VisibilityIcon from '@material-ui/icons/Visibility';
-import DeleteIcon from '@material-ui/icons/Delete';
 import Typography from '@material-ui/core/Typography';
-import { Theme, WithStyles } from '@material-ui/core';
-import { AxiosResponse } from 'axios';
-import { getCurrencyDisplayWithPrice } from '../theme/selectors';
-import { formatAsDate } from '../../utils/datetime';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import withStyles from '@material-ui/core/styles/withStyles';
+
+import { formatAsDate } from '#utils/datetime';
+import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 import type { MemberMinimal } from '#libs/member/types';
 import type { Tag } from '#libs/tag/types';
 import type { GenericPaginationResults } from '#libs/types';
-import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
-import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 const MEMBER_PER_PAGE = 50;
+
+type MemberRowActionsProps = {
+  id: number;
+  interrogateMemberStatus: (id: number) => void;
+  goToMemberPage?: (id: number) => void;
+};
+const MemberRowActions: React.FC<MemberRowActionsProps> = React.memo(
+  ({ id, interrogateMemberStatus, goToMemberPage }) => {
+    const handleGoToMemberPage = React.useCallback(
+      () => goToMemberPage?.(id),
+      [goToMemberPage, id],
+    );
+    const handleInterrogateMemberStatus = React.useCallback(
+      (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        event.stopPropagation();
+        interrogateMemberStatus?.(id);
+      },
+      [interrogateMemberStatus, id],
+    );
+
+    return (
+      <>
+        <ObjectLevelPermissionWrapper
+          forcedBehavior="disabled"
+          requiredPermission="member.allowed_actions.accessProfile"
+        >
+          <IconButton color="primary" onClick={handleGoToMemberPage}>
+            <VisibilityIcon />
+          </IconButton>
+        </ObjectLevelPermissionWrapper>
+        {!!interrogateMemberStatus && (
+          <ObjectLevelPermissionWrapper
+            forcedBehavior="hidden"
+            requiredPermission="member.allowed_actions.delete"
+          >
+            <IconButton color="primary" onClick={handleInterrogateMemberStatus}>
+              <DeleteIcon />
+            </IconButton>
+          </ObjectLevelPermissionWrapper>
+        )}
+      </>
+    );
+  },
+);
+
+type CreditAccountBalanceProps = { credit_account_balance: number };
+const CreditAccountBalance: React.FC<CreditAccountBalanceProps> = React.memo(
+  ({ credit_account_balance }) => (
+    <Typography color={credit_account_balance >= 0 ? 'primary' : 'error'}>
+      {`${getCurrencyDisplayWithPrice(credit_account_balance.toFixed(2))}`}
+    </Typography>
+  ),
+);
 
 const renderRows = (
   members: MemberMinimal[],
   t: TFunction,
-  goToMember: (id: number) => void,
   interrogateMemberStatus: (id: number) => void,
+  goToMember?: (id: number) => void,
 ) => {
   return members.map((member) =>
-    renderRow(member, t, goToMember, interrogateMemberStatus),
+    renderRow(member, t, interrogateMemberStatus, goToMember),
   );
 };
+
+const renderRow = (
+  member: MemberMinimal,
+  t: TFunction,
+  interrogateMemberStatus: (id: number) => void,
+  goToMemberPage?: (id: number) => void,
+) => {
+  const { credit_account_balance, email, date_joined, name, id, accept_email } =
+    member;
+  return {
+    name,
+    date_joined: formatAsDate(date_joined),
+    email,
+    credit_account_balance: (
+      <CreditAccountBalance credit_account_balance={credit_account_balance} />
+    ),
+    actions: (
+      <MemberRowActions
+        goToMemberPage={goToMemberPage}
+        id={id}
+        interrogateMemberStatus={interrogateMemberStatus}
+      />
+    ),
+    accept_email: (
+      <Typography color={accept_email ? 'primary' : 'error'}>
+        {accept_email ? t('row.yes') : t('row.no')}
+      </Typography>
+    ),
+  };
+};
+
 const getColumnData = (t: TFunction) => {
   return [
     {
@@ -94,61 +181,6 @@ const getColumnData = (t: TFunction) => {
   ];
 };
 
-const renderCreditAccountBalance = (credit_account_balance: number) => (
-  <Typography color={credit_account_balance >= 0 ? 'primary' : 'error'}>
-    {`${getCurrencyDisplayWithPrice(credit_account_balance.toFixed(2))}`}
-  </Typography>
-);
-
-const renderActions = (
-  id: number,
-  goToMemberPage: (id: number) => void,
-  interrogateMemberStatus: (id: number) => void,
-) => (
-  <>
-    <IconButton color="primary" onClick={() => goToMemberPage(id)}>
-      <VisibilityIcon />
-    </IconButton>
-    {interrogateMemberStatus && (
-      <ObjectLevelPermissionWrapper
-        forcedBehavior="hidden"
-        requiredPermission="member.allowed_actions.delete"
-      >
-        <IconButton
-          color="primary"
-          onClick={(e) => {
-            e.stopPropagation();
-            interrogateMemberStatus(id);
-          }}
-        >
-          <DeleteIcon />
-        </IconButton>
-      </ObjectLevelPermissionWrapper>
-    )}
-  </>
-);
-const renderRow = (
-  member: MemberMinimal,
-  t: TFunction,
-  goToMemberPage: (id: number) => void,
-  interrogateMemberStatus: (id: number) => void,
-) => {
-  const { credit_account_balance, email, date_joined, name, id, accept_email } =
-    member;
-  return {
-    name,
-    date_joined: formatAsDate(date_joined),
-    email,
-    credit_account_balance: renderCreditAccountBalance(credit_account_balance),
-    actions: renderActions(id, goToMemberPage, interrogateMemberStatus),
-    accept_email: (
-      <Typography color={accept_email ? 'primary' : 'error'}>
-        {accept_email ? t('row.yes') : t('row.no')}
-      </Typography>
-    ),
-  };
-};
-
 type OwnProps = {
   fetch: ({
     page,
@@ -165,7 +197,7 @@ type OwnProps = {
     exclude_archived?: boolean;
     email_confirmed?: boolean;
   }) => Promise<AxiosResponse<GenericPaginationResults<MemberMinimal>>>;
-  goToMember: (id: number) => void;
+  goToMember?: (id: number) => void;
   addMember?: () => void;
   tagsExcluded?: Array<Tag['id']>;
   tagsIncluded?: Array<Tag['id']>;
@@ -272,7 +304,7 @@ export class MemberTable extends PureComponent<Props, State> {
   };
 
   onRowClick = (rowData: string[], { rowIndex }: { rowIndex: number }) => {
-    this.props.goToMember(this.state.members[rowIndex].id);
+    this.props.goToMember?.(this.state.members[rowIndex].id);
   };
 
   render() {
@@ -376,8 +408,8 @@ export class MemberTable extends PureComponent<Props, State> {
             (mem) => !this.props.disabledMemberId?.includes(mem.id),
           ),
           t,
-          this.props.goToMember,
           this.props.interrogateMemberStatus,
+          this.props.goToMember,
         )}
         options={options}
         title=""
@@ -401,4 +433,5 @@ const styles = (theme: Theme) => ({
 export default compose<Props, OwnProps>(
   withStyles(styles),
   withTranslation(['member']),
+  React.memo,
 )(MemberTable);

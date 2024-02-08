@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { compose } from 'recompose';
 import { withTranslation, WithTranslation } from 'react-i18next';
+import moment from 'moment-timezone';
 
 import createStyles from '@material-ui/core/styles/createStyles';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -24,8 +25,6 @@ import withWidth, { isWidthDown } from '@material-ui/core/withWidth';
 import type { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
 import type { Theme } from '@material-ui/core/styles';
 
-import moment from 'moment-timezone';
-
 import { formatAsDate } from '#utils/datetime';
 import { getSpecificIncompatibilitiesReasons } from '#libs/consumer-payment-pack/utils';
 import { showDeleteDialog } from '#components/genericDialog/CustomDialogs';
@@ -33,6 +32,7 @@ import { WithIsSharedActive } from '#libs/relationship/types';
 import ConsumerPassSourceChip from '#components/chip/ConsumerPassSourceChip';
 import ConsumerPaymentPackIncompatibilitiesReasons from './ConsumerPaymentPackIncompatibilitiesReasons.component';
 import CreditStatus from '#libs/consumer-payment-pack/components/CreditStatus.component';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import RedButton from '#components/button/RedButton.component';
 import Tooltip from '#components/Tooltip.component';
 
@@ -511,75 +511,85 @@ export class ConsumerPackRowItem extends Component<Props, State> {
     }
 
     return (
-      <div>
-        <ListItem
-          dense
-          button={!!onClick as any}
-          className={classes.listContainer}
-          disabled={!!consumerPack.reverted || !!this.props.disabled}
-          divider={!this.props.noDivider}
-          onClick={onClick || null}
-          selected={!!this.props.selected}
-          style={
-            consumerPack.disabled || !!this.props.isNonCompatible
-              ? { backgroundColor: 'rgba(255,0,0,.05)' }
-              : {}
-          }
-        >
-          {hideConsumer ? null : (
-            <ListItemAvatar>
-              <Avatar src={consumer ? consumer.photo : null} />
-            </ListItemAvatar>
-          )}
-          <ListItemText
-            primary={
-              <div>
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <Typography>{listItemPrimaryText}</Typography>
-                  {consumer && consumer.archived && (
-                    <Typography color="secondary" variant="caption">
-                      {`(${t('member:archived')})`}
-                    </Typography>
-                  )}
-                </div>
-                <CreditStatus
-                  consumerPack={consumerPack}
-                  paymentPack={paymentPack}
-                />
-              </div>
-            }
-            secondary={
-              <div>
-                <Typography>
-                  {`${formatAsDate(consumerPack.starting_date)}→${formatAsDate(
-                    consumerPack.ending_date,
-                  )}`}
-                </Typography>
-                {this.renderMaxoutError()}
-              </div>
-            }
-          />
-          {button || this.renderButton()}
-        </ListItem>
-        {isFromShare || consumerPack.isSharedActive ? (
-          <React.Fragment>
-            <Typography
-              color="textSecondary"
-              style={{ paddingLeft: 16 }}
-              variant="caption"
+      <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.accessProfile">
+        {(hasMemberProfileAccessPermission: boolean) => (
+          <div>
+            <ListItem
+              dense
+              button={!!onClick && (hasMemberProfileAccessPermission as any)}
+              className={classes.listContainer}
+              disabled={!!consumerPack.reverted || !!this.props.disabled}
+              divider={!this.props.noDivider}
+              onClick={
+                !!onClick && hasMemberProfileAccessPermission ? onClick : null
+              }
+              selected={!!this.props.selected}
+              style={
+                consumerPack.disabled || !!this.props.isNonCompatible
+                  ? { backgroundColor: 'rgba(255,0,0,.05)' }
+                  : {}
+              }
             >
-              {consumerPack.isSharedActive ? t('consumer.isOwnerOfShares') : ''}
-              {isFromShare && consumerPack.disabled
-                ? t('consumer.isFromDisabledShare')
-                : ''}
-              {isFromShare && !consumerPack.disabled
-                ? t('consumer.isFromShare')
-                : ''}
-            </Typography>
-            <Divider />
-          </React.Fragment>
-        ) : null}
-      </div>
+              {hideConsumer ? null : (
+                <ListItemAvatar>
+                  <Avatar src={consumer ? consumer.photo : null} />
+                </ListItemAvatar>
+              )}
+              <ListItemText
+                primary={
+                  <div>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                      <Typography>{listItemPrimaryText}</Typography>
+                      {consumer && consumer.archived && (
+                        <Typography color="secondary" variant="caption">
+                          {`(${t('member:archived')})`}
+                        </Typography>
+                      )}
+                    </div>
+                    <CreditStatus
+                      consumerPack={consumerPack}
+                      paymentPack={paymentPack}
+                    />
+                  </div>
+                }
+                secondary={
+                  <div>
+                    <Typography>
+                      {`${formatAsDate(
+                        consumerPack.starting_date,
+                      )}→${formatAsDate(consumerPack.ending_date)}`}
+                    </Typography>
+                    {this.renderMaxoutError()}
+                  </div>
+                }
+              />
+              {button || this.renderButton()}
+            </ListItem>
+            {!!isFromShare ||
+              (!!consumerPack.isSharedActive && (
+                <React.Fragment>
+                  <Typography
+                    color="textSecondary"
+                    style={{ paddingLeft: 16 }}
+                    variant="caption"
+                  >
+                    {' '}
+                    {consumerPack.isSharedActive
+                      ? t('consumer.isOwnerOfShares')
+                      : ''}
+                    {isFromShare && consumerPack.disabled
+                      ? t('consumer.isFromDisabledShare')
+                      : ''}
+                    {isFromShare && !consumerPack.disabled
+                      ? t('consumer.isFromShare')
+                      : ''}
+                  </Typography>
+                  <Divider />
+                </React.Fragment>
+              ))}
+          </div>
+        )}
+      </ObjectLevelPermissionProvider>
     );
   }
 }

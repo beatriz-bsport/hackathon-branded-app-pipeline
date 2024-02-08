@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForwardIos';
 import ArrowBackIcon from '@material-ui/icons/ArrowBackIos';
 import ListItem from '@material-ui/core/ListItem';
@@ -14,208 +14,264 @@ import EmailIcon from '@material-ui/icons/Email';
 import InfoIcon from '@material-ui/icons/Info';
 import IconButton from '@material-ui/core/IconButton';
 import CartIcon from '@material-ui/icons/ShoppingCart';
-
 import Typography from '@material-ui/core/Typography';
+
 import Tooltip from '#components/Tooltip.component';
-import { Giftcard, ConsumerGiftcard, GiftcardTemplate } from '../types';
-import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
-import { Member } from '../../member/types';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { formatAsDatetimeAdapted } from '#utils/datetime';
+import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import type {
+  Giftcard,
+  ConsumerGiftcard,
+  GiftcardTemplate,
+} from '#libs/giftcard/types';
+import type { Member } from '#libs/member/types';
 
 type SenderProps = {
-  giftcard: Giftcard | GiftcardTemplate;
   consumerGiftcard: ConsumerGiftcard;
-  onClick: (consumerGiftcardId: number, memberId: number) => void;
-  selected?: boolean;
+  giftcard: Giftcard | GiftcardTemplate;
+  disableItemIfNoMember?: boolean;
   memberSender?: Member;
-  showMember?: boolean;
-  disableItemIfNoMember?: boolean;
-};
-
-const GiftcardSender = (props: SenderProps) => {
-  const classes = useStyles();
-  const { t } = useTranslation('member');
-  return (
-    <ListItem
-      button={!!props.onClick}
-      disabled={
-        props.disableItemIfNoMember &&
-        (!props.consumerGiftcard?.id || !props.memberSender?.id)
-      }
-      onClick={
-        props.onClick &&
-        props.consumerGiftcard?.id &&
-        props.memberSender?.id &&
-        (() =>
-          props.onClick(props.consumerGiftcard?.id, props.memberSender?.id))
-      }
-      selected={props.selected}
-    >
-      {!!props.showMember && (
-        <ListItemAvatar>
-          <Avatar alt="member" src={props.memberSender?.photo} />
-        </ListItemAvatar>
-      )}
-      <ListItemText
-        primary={
-          <div className={classes.row}>
-            <CartIcon className={classes.icon} fontSize="small" />
-            {props.showMember ? (
-              <div style={{ display: 'flex', alignItems: 'center' }}>
-                <Typography>
-                  {`${
-                    props.memberSender && props.memberSender.name
-                      ? props.memberSender.name
-                      : '-'
-                  }`}
-                </Typography>
-                {props.memberSender && props.memberSender.archived && (
-                  <Typography color="secondary" variant="caption">
-                    {`${'\u00A0'}(${t('archived')})`}
-                  </Typography>
-                )}
-              </div>
-            ) : (
-              <span>{props.giftcard?.name}</span>
-            )}
-          </div>
-        }
-        secondary={`${getCurrencyDisplayWithPrice(
-          props.consumerGiftcard.price_bought,
-        )} - ${moment(props.consumerGiftcard.date_created).format('L')}`}
-      />
-    </ListItem>
-  );
-};
-
-type ReceiverProps = {
-  giftcard: Giftcard | GiftcardTemplate;
-  consumerGiftcard: ConsumerGiftcard;
-  onClick: (consumerGiftcardId: number, memberId: number) => void;
   selected?: boolean;
-  memberReceiver?: Member;
   showMember?: boolean;
-  onClickSendInvitation?: () => void;
-  sharedFromFranchisor?: boolean;
-  disableItemIfNoMember?: boolean;
+  onClick: (consumerGiftcardId: number, memberId: number) => void;
 };
 
-const GiftcardReceiver = (props: ReceiverProps) => {
-  const { t } = useTranslation(['giftcard']);
-  const classes = useStyles();
+const GiftcardSender: React.FC<SenderProps> = React.memo(
+  ({
+    consumerGiftcard,
+    giftcard,
+    disableItemIfNoMember,
+    memberSender,
+    selected,
+    showMember,
+    onClick,
+  }) => {
+    const classes = useStyles();
+    const { t } = useTranslation('member');
 
-  const receiverName = props.consumerGiftcard.dst_member
-    ? props.memberReceiver?.name
-    : t('consumerGiftcard.notAttributedYet');
+    const handleOnClickSender = React.useCallback(
+      () => isClickable && onClick(consumerGiftcard.id, memberSender.id),
+      [consumerGiftcard.id, isClickable, memberSender.id, onClick],
+    );
 
-  const status = props.consumerGiftcard.dst_member ? (
-    <span>
-      <span
-        className={
-          props.consumerGiftcard.consumed_amount_gifted >=
-          props.consumerGiftcard.price_bought
-            ? classes.errorText
-            : classes.primaryText
-        }
-      >
-        {`${(
-          parseFloat(props.consumerGiftcard.price_bought) -
-          parseFloat(props.consumerGiftcard.consumed_amount_gifted)
-        ).toFixed(2)}
-        /${getCurrencyDisplayWithPrice(props.consumerGiftcard.price_bought)}`}
-      </span>
-      {!!props.giftcard.expiration_days && (
-        <span>
-          {` - ${t('consumerGiftcard.expiresOn', {
-            d: moment(props.consumerGiftcard.date_activated)
-              .add(props.giftcard.expiration_days, 'days')
-              .format('L'),
-          })}`}
-        </span>
-      )}
-    </span>
-  ) : (
-    t(
-      props.consumerGiftcard.invitation_sent
-        ? 'consumerGiftcard.invitedOn'
-        : 'consumerGiftcard.willInviteOn',
-      {
-        d: moment(props.consumerGiftcard.planned_date_send).format('L'),
-      },
-    )
-  );
+    const isClickable = React.useMemo(
+      () => !!onClick && consumerGiftcard?.id && memberSender?.id,
+      [consumerGiftcard?.id, memberSender?.id, onClick],
+    );
 
-  return (
-    <ListItem
-      button={!!props.onClick}
-      disabled={
-        props.disableItemIfNoMember &&
-        (!props.consumerGiftcard?.id || !props.memberReceiver?.id)
-      }
-      onClick={
-        props.onClick &&
-        props.consumerGiftcard?.id &&
-        props.memberReceiver?.id &&
-        (() =>
-          props.onClick(props.consumerGiftcard?.id, props.memberReceiver?.id))
-      }
-      selected={props.selected}
-    >
-      {!!props.showMember && !!props.consumerGiftcard.dst_member && (
-        <ListItemAvatar>
-          <Avatar alt="member" src={props.memberReceiver?.photo} />
-        </ListItemAvatar>
-      )}
-      <ListItemText
-        primary={
-          <div className={classes.row}>
-            {props.showMember ? (
-              <GiftIcon className={classes.icon} fontSize="small" />
-            ) : (
-              <EmailIcon className={classes.icon} fontSize="small" />
+    return (
+      <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.accessProfile">
+        {(hasMemberProfileAccessPermission: boolean) => (
+          <ListItem
+            button={isClickable && hasMemberProfileAccessPermission}
+            disabled={
+              disableItemIfNoMember &&
+              (!consumerGiftcard?.id || !memberSender?.id)
+            }
+            onClick={
+              isClickable && hasMemberProfileAccessPermission
+                ? handleOnClickSender
+                : null
+            }
+            selected={selected}
+          >
+            {!!showMember && (
+              <ListItemAvatar>
+                <Avatar alt="member" src={memberSender?.photo} />
+              </ListItemAvatar>
             )}
-            <span>
-              {props.showMember ? (
-                <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <Typography>{`${receiverName || '-'}`}</Typography>
-                  {props.memberReceiver && props.memberReceiver.archived && (
-                    <Typography color="secondary" variant="caption">
-                      {`${'\u00A0'}(${t('member:archived')})`}
-                    </Typography>
+            <ListItemText
+              primary={
+                <div className={classes.row}>
+                  <CartIcon className={classes.icon} fontSize="small" />
+                  {showMember ? (
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                      <Typography>
+                        {`${
+                          memberSender && memberSender.name
+                            ? memberSender.name
+                            : '-'
+                        }`}
+                      </Typography>
+                      {memberSender && memberSender.archived && (
+                        <Typography color="secondary" variant="caption">
+                          {`${'\u00A0'}(${t('archived')})`}
+                        </Typography>
+                      )}
+                    </div>
+                  ) : (
+                    <span>{giftcard?.name}</span>
                   )}
                 </div>
-              ) : (
-                props.consumerGiftcard.giftcard_recipients
-                  .map((gr) => gr.email_sent_to)
-                  .join(', ') || ''
-              )}
-            </span>
-          </div>
-        }
-        secondary={status}
-      />
-      {!!props.sharedFromFranchisor && (
-        <div className={classes.infoIcon}>
-          <Tooltip title={t('giftcardTemplate.sharedCard')}>
-            <InfoIcon color="action" />
-          </Tooltip>
-        </div>
-      )}
-      {!!props.onClickSendInvitation && !props.consumerGiftcard?.reverted && (
-        <Tooltip title={t('consumerGiftcard.sendTo')}>
-          <IconButton color="primary" onClick={props.onClickSendInvitation}>
-            <EmailIcon />
-          </IconButton>
-        </Tooltip>
-      )}
-    </ListItem>
-  );
+              }
+              secondary={`${getCurrencyDisplayWithPrice(
+                consumerGiftcard.price_bought,
+              )} - ${formatAsDatetimeAdapted(
+                consumerGiftcard.date_created,
+                'L',
+              )}`}
+            />
+          </ListItem>
+        )}
+      </ObjectLevelPermissionProvider>
+    );
+  },
+);
+
+type ReceiverProps = {
+  consumerGiftcard: ConsumerGiftcard;
+  giftcard: Giftcard | GiftcardTemplate;
+  disableItemIfNoMember?: boolean;
+  memberReceiver?: Member;
+  selected?: boolean;
+  sharedFromFranchisor?: boolean;
+  showMember?: boolean;
+  onClick: (consumerGiftcardId: number, memberId: number) => void;
+  onClickSendInvitation?: () => void;
 };
 
+const GiftcardReceiver: React.FC<ReceiverProps> = React.memo(
+  ({
+    consumerGiftcard,
+    giftcard,
+    disableItemIfNoMember,
+    memberReceiver,
+    selected,
+    sharedFromFranchisor,
+    showMember,
+    onClick,
+    onClickSendInvitation,
+  }) => {
+    const { t } = useTranslation('giftcard');
+    const classes = useStyles();
+
+    const receiverName = consumerGiftcard.dst_member
+      ? memberReceiver?.name
+      : t('consumerGiftcard.notAttributedYet');
+
+    const status = consumerGiftcard.dst_member ? (
+      <span>
+        <span
+          className={
+            consumerGiftcard.consumed_amount_gifted >=
+            consumerGiftcard.price_bought
+              ? classes.errorText
+              : classes.primaryText
+          }
+        >
+          {`${(
+            parseFloat(consumerGiftcard.price_bought) -
+            parseFloat(consumerGiftcard.consumed_amount_gifted)
+          ).toFixed(2)}
+        /${getCurrencyDisplayWithPrice(consumerGiftcard.price_bought)}`}
+        </span>
+        {!!giftcard.expiration_days && (
+          <span>
+            {` - ${t('consumerGiftcard.expiresOn', {
+              d: moment(consumerGiftcard.date_activated)
+                .add(giftcard.expiration_days, 'days')
+                .format('L'),
+            })}`}
+          </span>
+        )}
+      </span>
+    ) : (
+      t(
+        consumerGiftcard.invitation_sent
+          ? 'consumerGiftcard.invitedOn'
+          : 'consumerGiftcard.willInviteOn',
+        {
+          d: moment(consumerGiftcard.planned_date_send).format('L'),
+        },
+      )
+    );
+
+    const handleOnClickReceiver = React.useCallback(
+      () => isClickable && onClick(consumerGiftcard.id, memberReceiver.id),
+      [consumerGiftcard.id, isClickable, memberReceiver.id, onClick],
+    );
+
+    const isClickable = React.useMemo(
+      () => !!onClick && consumerGiftcard?.id && memberReceiver?.id,
+      [consumerGiftcard?.id, memberReceiver?.id, onClick],
+    );
+
+    return (
+      <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.accessProfile">
+        {(hasMemberProfileAccessPermission: boolean) => (
+          <ListItem
+            button={isClickable && hasMemberProfileAccessPermission}
+            disabled={
+              disableItemIfNoMember &&
+              (!consumerGiftcard?.id || !memberReceiver?.id)
+            }
+            onClick={
+              isClickable && hasMemberProfileAccessPermission
+                ? handleOnClickReceiver
+                : null
+            }
+            selected={selected}
+          >
+            {!!showMember && !!consumerGiftcard.dst_member && (
+              <ListItemAvatar>
+                <Avatar alt="member" src={memberReceiver?.photo} />
+              </ListItemAvatar>
+            )}
+            <ListItemText
+              primary={
+                <div className={classes.row}>
+                  {showMember ? (
+                    <GiftIcon className={classes.icon} fontSize="small" />
+                  ) : (
+                    <EmailIcon className={classes.icon} fontSize="small" />
+                  )}
+                  <span>
+                    {showMember ? (
+                      <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <Typography>{`${receiverName || '-'}`}</Typography>
+                        {memberReceiver && memberReceiver.archived && (
+                          <Typography color="secondary" variant="caption">
+                            {`${'\u00A0'}(${t('member:archived')})`}
+                          </Typography>
+                        )}
+                      </div>
+                    ) : (
+                      consumerGiftcard.giftcard_recipients
+                        .map((gr) => gr.email_sent_to)
+                        .join(', ') || ''
+                    )}
+                  </span>
+                </div>
+              }
+              secondary={status}
+            />
+            {!!sharedFromFranchisor && (
+              <div className={classes.infoIcon}>
+                <Tooltip title={t('giftcardTemplate.sharedCard')}>
+                  <InfoIcon color="action" />
+                </Tooltip>
+              </div>
+            )}
+            {!!onClickSendInvitation && !consumerGiftcard?.reverted && (
+              <Tooltip title={t('consumerGiftcard.sendTo')}>
+                <IconButton color="primary" onClick={onClickSendInvitation}>
+                  <EmailIcon />
+                </IconButton>
+              </Tooltip>
+            )}
+          </ListItem>
+        )}
+      </ObjectLevelPermissionProvider>
+    );
+  },
+);
+
 type ContainerProps = {
-  leftComponent: (selected: boolean) => any;
-  rightComponent: (selected_: boolean) => any;
   reverseArrow: boolean;
   selected: boolean;
+  leftComponent: (selected: boolean) => any;
+  rightComponent: (selected_: boolean) => any;
 } & StyleProps;
 
 type StyleProps = {
@@ -235,21 +291,29 @@ const useContainerStyles = makeStyles(() => ({
   }),
 }));
 
-const Container = (props: ContainerProps) => {
-  const { reverted, divider } = props;
-  const classes = useContainerStyles({ reverted, divider });
-  return (
-    <div className={classes.container}>
-      {props.leftComponent(props.selected)}
-      {props.reverseArrow ? (
-        <ArrowBackIcon style={{ color: 'gray' }} />
-      ) : (
-        <ArrowForwardIcon style={{ color: 'gray' }} />
-      )}
-      {props.rightComponent(props.selected)}
-    </div>
-  );
-};
+const Container: React.FC<ContainerProps> = React.memo(
+  ({
+    divider,
+    reverseArrow,
+    reverted,
+    selected,
+    leftComponent,
+    rightComponent,
+  }) => {
+    const classes = useContainerStyles({ reverted, divider });
+    return (
+      <div className={classes.container}>
+        {leftComponent(selected)}
+        {reverseArrow ? (
+          <ArrowBackIcon style={{ color: 'gray' }} />
+        ) : (
+          <ArrowForwardIcon style={{ color: 'gray' }} />
+        )}
+        {rightComponent(selected)}
+      </div>
+    );
+  },
+);
 
 type Props = {
   giftcard: Giftcard | GiftcardTemplate;
@@ -264,29 +328,26 @@ type Props = {
   onClickSendInvitation?: () => void;
   selected?: boolean;
   divider?: boolean;
-  disabled?: boolean;
   sharedFromFranchisor?: boolean;
   disableItemIfNoMember?: boolean;
 };
 
-const ConsumerGiftcardListItem = React.memo((props: Props) => {
-  const {
-    giftcard,
-    consumerGiftcard,
-    memberSender,
-    memberReceiver,
-    showAsRecipient,
-    showSender,
-    showReceiver,
-    onClickSender,
-    onClickReceiver,
-    onClickSendInvitation,
-    selected,
-    divider,
-    sharedFromFranchisor,
-    disableItemIfNoMember,
-  } = props;
-
+const ConsumerGiftcardListItem: React.FC<Props> = ({
+  giftcard,
+  consumerGiftcard,
+  memberSender,
+  memberReceiver,
+  showAsRecipient,
+  showSender,
+  showReceiver,
+  onClickSender,
+  onClickReceiver,
+  onClickSendInvitation,
+  selected,
+  divider,
+  sharedFromFranchisor,
+  disableItemIfNoMember,
+}) => {
   if (!giftcard) return null;
 
   const reverted = consumerGiftcard.reverted;
@@ -326,9 +387,9 @@ const ConsumerGiftcardListItem = React.memo((props: Props) => {
       selected={selected}
     />
   );
-});
+};
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((theme) => ({
   row: {
     display: 'flex',
     flexDirection: 'row',
@@ -352,4 +413,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default ConsumerGiftcardListItem;
+export default React.memo(ConsumerGiftcardListItem);

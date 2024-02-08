@@ -25,6 +25,7 @@ import {
 } from '#libs/private-service/utils';
 import ConsumerPassSourceChip from '#components/chip/ConsumerPassSourceChip';
 import ConsumerPrivatePassIncompatibilitiesReasons from './ConsumerPrivatePassIncompatibilitiesReasons.component';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import RedButton from '#components/button/RedButton.component';
 
 import type { OptionCallback } from '../../../../state/types';
@@ -288,90 +289,98 @@ export const PrivateConsumerPassBookerListItem: React.FC<Props> = ({
       </div>
     );
   };
+
   return (
-    <>
-      <ListItem
-        dense
-        button={!!onClick as any}
-        className={
-          private_consumer_pass.reverted ||
-          private_consumer_pass.disabled ||
-          isNonCompatible
-            ? classes.disabled
-            : null
-        }
-        disabled={!!disabled}
-        divider={!!divider}
-        onClick={onClick}
-        selected={!!selected}
-      >
-        {showMember &&
-          private_consumer_pass &&
-          private_consumer_pass.member && (
-            <ListItemAvatar>
-              <Avatar src={private_consumer_pass.member.photo} />
-            </ListItemAvatar>
-          )}
-        <ListItemText
-          primary={
-            <div>
-              {!showMember ? (
-                <Typography>{private_pass.name}</Typography>
-              ) : (
-                renderMemberName()
+    <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.accessProfile">
+      {(hasMemberProfileAccessPermission: boolean) => (
+        <>
+          <ListItem
+            dense
+            button={!!onClick && (hasMemberProfileAccessPermission as any)}
+            className={
+              private_consumer_pass.reverted ||
+              private_consumer_pass.disabled ||
+              isNonCompatible
+                ? classes.disabled
+                : null
+            }
+            disabled={!!disabled}
+            divider={!!divider}
+            onClick={
+              !!onClick && hasMemberProfileAccessPermission ? onClick : null
+            }
+            selected={!!selected}
+          >
+            {showMember &&
+              private_consumer_pass &&
+              private_consumer_pass.member && (
+                <ListItemAvatar>
+                  <Avatar src={private_consumer_pass.member.photo} />
+                </ListItemAvatar>
               )}
-              <Typography variant="caption">
-                {t('consumerPass.current_credits', {
-                  credits: private_pass.credits / getCreditFactor(),
-                  current_credits:
-                    (private_pass.credits -
-                      private_consumer_pass.used_credits) /
-                    getCreditFactor(),
-                })}
+            <ListItemText
+              primary={
+                <div>
+                  {!showMember ? (
+                    <Typography>{private_pass.name}</Typography>
+                  ) : (
+                    renderMemberName()
+                  )}
+                  <Typography variant="caption">
+                    {t('consumerPass.current_credits', {
+                      credits: private_pass.credits / getCreditFactor(),
+                      current_credits:
+                        (private_pass.credits -
+                          private_consumer_pass.used_credits) /
+                        getCreditFactor(),
+                    })}
+                  </Typography>
+                </div>
+              }
+              secondary={
+                <div>
+                  <Typography color="textPrimary" variant="caption">
+                    {getPassDate(private_consumer_pass)[0]}
+                  </Typography>
+                </div>
+              }
+            />
+            {button || renderButton()}
+          </ListItem>
+          {isFromShare || isOwnerOfShares ? (
+            <React.Fragment>
+              <Typography
+                color="textSecondary"
+                style={{ paddingLeft: 16 }}
+                variant="caption"
+              >
+                {' '}
+                {isOwnerOfShares ? t('consumerPass.isOwnerOfShares') : ''}
+                {isFromShare && private_consumer_pass.disabled
+                  ? t('consumerPass.isFromDisabledShare')
+                  : ''}
+                {isFromShare && !private_consumer_pass.disabled
+                  ? t('consumerPass.isFromShare')
+                  : ''}
               </Typography>
-            </div>
-          }
-          secondary={
-            <div>
-              <Typography color="textPrimary" variant="caption">
-                {getPassDate(private_consumer_pass)[0]}
+              <Divider />
+            </React.Fragment>
+          ) : null}
+          {showUniversalWarning && isUniversal ? (
+            <React.Fragment>
+              <Typography
+                color="error"
+                style={{ paddingLeft: 16 }}
+                variant="caption"
+              >
+                {t('consumerPass.warningShareUniversal')}
               </Typography>
-            </div>
-          }
-        />
-        {button || renderButton()}
-      </ListItem>
-      {isFromShare || isOwnerOfShares ? (
-        <React.Fragment>
-          <Typography
-            color="textSecondary"
-            style={{ paddingLeft: 16 }}
-            variant="caption"
-          >
-            ${isOwnerOfShares ? t('consumerPass.isOwnerOfShares') : ''}
-            {isFromShare && private_consumer_pass.disabled
-              ? t('consumerPass.isFromDisabledShare')
-              : ''}
-            {isFromShare && !private_consumer_pass.disabled
-              ? t('consumerPass.isFromShare')
-              : ''}
-          </Typography>
-          <Divider />
-        </React.Fragment>
-      ) : null}
-      {showUniversalWarning && isUniversal && (
-        <React.Fragment>
-          <Typography
-            color="error"
-            style={{ paddingLeft: 16 }}
-            variant="caption"
-          >
-            {t('consumerPass.warningShareUniversal')}
-          </Typography>
-          <Divider />
-        </React.Fragment>
+              <Divider />
+            </React.Fragment>
+          ) : null}
+        </>
       )}
-    </>
+    </ObjectLevelPermissionProvider>
   );
 };
 

@@ -9,14 +9,14 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import {
-  UNEVEN_INVOICE_ALERT,
-  NEW_ORDER_ALERT,
-  REMINDER_NOTE_ALERT_KIND,
-  PRIVATE_BOOKING_INCOMPLETE_ALERT,
   COMPANY_ONBOARDING_ALERT,
-  UNPAID_PRIVATE_BOOKING_ALERT,
+  NEW_ORDER_ALERT,
   NEW_TUTORIAL_SECTION_OR_LESSON,
+  PRIVATE_BOOKING_INCOMPLETE_ALERT,
+  REMINDER_NOTE_ALERT_KIND,
   REPLACEMEMENT_REQUEST_LATE_ALERT_KIND,
+  UNEVEN_INVOICE_ALERT,
+  UNPAID_PRIVATE_BOOKING_ALERT,
   UNREAD_COMMUNICATION,
 } from '@bsport/common/lib/master-data/alerting_kind';
 
@@ -25,18 +25,19 @@ import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
 import type {
   Alerting,
-  UnevenInvoiceAlerting,
-  NewTutorialSectionOrLessonAlerting,
-  PrivateBookingAlerting,
   CompanyOnboardingAlerting,
-  NewOrderAlerting,
-  TaskAlerting,
   DeleteAlert,
   LateReplacementRequestAlerting,
+  NewOrderAlerting,
+  NewTutorialSectionOrLessonAlerting,
+  PrivateBookingAlerting,
+  TaskAlerting,
+  UnevenInvoiceAlerting,
 } from '../types';
 import i18n from '../../../i18n';
 import { buildUrlParams } from '../../../http';
 import { formatAsDatetimeAdapted } from '../../../utils/datetime';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type Props = {
   alerting: Alerting;
@@ -75,10 +76,16 @@ const UnevenAlertListItem = (props: {
   pushRouter: (path: string) => void;
   alerting: UnevenInvoiceAlerting;
 }) => {
-  const { alerting } = props;
-  const { t } = useTranslation(['alerting']);
+  const { alerting, pushRouter } = props;
+  const { t } = useTranslation('alerting');
   const classes = useStyles();
   const { uuid, legal_identifier, price_payed, price_due } = alerting.data;
+
+  const goToInvoiceDetailPage = React.useCallback(
+    () => uuid && pushRouter(`/invoice/${uuid}`),
+    [pushRouter, uuid],
+  );
+
   return (
     <ListItem divider style={{ paddingTop: 0 }}>
       <div style={{ width: '100%' }}>
@@ -86,7 +93,7 @@ const UnevenAlertListItem = (props: {
           <Typography component="h3" variant="subtitle1">
             {t('unevenInvoice.title')}
           </Typography>
-          <IconButton onClick={() => props.pushRouter(`/invoice/${uuid}`)}>
+          <IconButton onClick={goToInvoiceDetailPage}>
             <ArrowForwardIcon color="secondary" />
           </IconButton>
         </div>
@@ -117,24 +124,28 @@ const PrivateBookingIncompleteListItem = (props: {
   pushRouter: (path: string) => void;
   alerting: PrivateBookingAlerting;
 }) => {
-  const { alerting } = props;
-  const { t } = useTranslation(['alerting']);
+  const { alerting, pushRouter } = props;
+  const { t } = useTranslation('alerting');
   const classes = useStyles();
-  const { user_name, date_start, name } = alerting.data;
+  const { date_start, member, name, private_booking, user_name } =
+    alerting.data;
+
+  const goToMemberAppointmentsPage = React.useCallback(
+    () =>
+      member?.id &&
+      private_booking &&
+      pushRouter(`/member/${member.id}/private-booking/${private_booking}`),
+    [member.id, private_booking, pushRouter],
+  );
+
   return (
     <ListItem divider style={{ paddingTop: 0 }}>
       <div style={{ width: '100%' }}>
         <div className={classes.titleContainer}>
           <Typography component="h3" variant="subtitle1">
-            {alerting.data.name}
+            {name}
           </Typography>
-          <IconButton
-            onClick={() =>
-              props.pushRouter(
-                `/member/${alerting.data.member.id}/private-booking/${alerting.data.private_booking}`,
-              )
-            }
-          >
+          <IconButton onClick={goToMemberAppointmentsPage}>
             <ArrowForwardIcon color="secondary" />
           </IconButton>
         </div>
@@ -159,16 +170,20 @@ const CompanyOnboardingAlertListItem = (props: {
   alerting: CompanyOnboardingAlerting;
 }) => {
   const { alerting } = props;
-  const { t } = useTranslation(['alerting']);
+  const { t } = useTranslation('alerting');
   const classes = useStyles();
 
   let title = '';
   let content = null;
   let resolution_url = '/settings/company_onboarding';
+
   if (alerting.data.type === 'verification') {
     title = t('companyOnboarding.verification.title');
+
     resolution_url = '/settings/company_onboarding';
+
     const date = formatAsDatetimeAdapted(alerting.data.date, 'LL');
+
     content = (
       <Typography component="div" variant="caption">
         <p>
@@ -190,6 +205,7 @@ const CompanyOnboardingAlertListItem = (props: {
       </Typography>
     );
   }
+
   if (alerting.data.type === 'creation') {
     title = t('companyOnboarding.creation.title');
     resolution_url = '/settings/company_onboarding';
@@ -199,6 +215,7 @@ const CompanyOnboardingAlertListItem = (props: {
       </Typography>
     );
   }
+
   if (alerting.data.type === 'payout') {
     title = t('companyOnboarding.payout.title');
     resolution_url = '/settings/company';
@@ -208,6 +225,7 @@ const CompanyOnboardingAlertListItem = (props: {
       </Typography>
     );
   }
+
   return (
     <ListItem divider style={{ paddingTop: 0 }}>
       <div style={{ width: '100%' }}>
@@ -229,10 +247,16 @@ const NewOrderAlertListItem = (props: {
   pushRouter: (path: string) => void;
   alerting: NewOrderAlerting;
 }) => {
-  const { alerting } = props;
+  const { alerting, pushRouter } = props;
   const classes = useStyles();
   const { order, price, name } = alerting.data;
-  const { t } = useTranslation(['alerting']);
+  const { t } = useTranslation('alerting');
+
+  const goToOrderPage = React.useCallback(
+    () => pushRouter(`/order/${order}`),
+    [order, pushRouter],
+  );
+
   return (
     <ListItem divider style={{ paddingTop: 0 }}>
       <div style={{ width: '100%' }}>
@@ -241,7 +265,7 @@ const NewOrderAlertListItem = (props: {
             {t('newOrder.title')}
           </Typography>
           <div className={classes.titleContainer}>
-            <IconButton onClick={() => props.pushRouter(`/order/${order}`)}>
+            <IconButton onClick={goToOrderPage}>
               <ArrowForwardIcon color="secondary" />
             </IconButton>
           </div>
@@ -262,9 +286,15 @@ const TaskAlertListItem = (props: {
   pushRouter: (path: string) => void;
   alerting: TaskAlerting;
 }) => {
-  const { alerting } = props;
+  const { alerting, pushRouter } = props;
   const classes = useStyles();
   const { name, description, date_due, member } = alerting.data;
+
+  const goToMemberGeneralPage = React.useCallback(
+    () => member?.id && pushRouter(`/member/${member.id}/`),
+    [member?.id, pushRouter],
+  );
+
   return (
     <ListItem divider style={{ paddingTop: 0 }}>
       <div style={{ width: '100%' }}>
@@ -277,13 +307,17 @@ const TaskAlertListItem = (props: {
               {formatAsDatetimeAdapted(date_due, 'LL')}
             </Typography>
           </div>
-          <div className={classes.titleContainer}>
-            <IconButton
-              onClick={() => props.pushRouter(`/member/${member.id}/`)}
-            >
-              <ArrowForwardIcon color="secondary" />
-            </IconButton>
-          </div>
+          <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.accessProfile">
+            {(hasMemberProfileAccessPermission: boolean) =>
+              hasMemberProfileAccessPermission && (
+                <div className={classes.titleContainer}>
+                  <IconButton onClick={goToMemberGeneralPage}>
+                    <ArrowForwardIcon color="secondary" />
+                  </IconButton>
+                </div>
+              )
+            }
+          </ObjectLevelPermissionProvider>
         </div>
         <Typography component="p" variant="caption">
           {member ? member.name : null}
@@ -300,9 +334,19 @@ const UnreadCommunicationListItem = (props: {
   deleteAlert: (alert_kind: number, id: number) => void;
   alerting: TaskAlerting;
 }) => {
-  const { alerting } = props;
+  const { alerting, deleteAlert, pushRouter } = props;
   const classes = useStyles();
   const { name, content, id, photo, member } = alerting.data;
+
+  const goToMemberChat = React.useCallback(() => {
+    deleteAlert(UNREAD_COMMUNICATION.alert_kind, id);
+    member &&
+      pushRouter(
+        `/member/${member}/info/${buildUrlParams({
+          openChat: true,
+        })}`,
+      );
+  }, [deleteAlert, id, member, pushRouter]);
 
   return (
     <ListItem divider>
@@ -324,16 +368,7 @@ const UnreadCommunicationListItem = (props: {
             </div>
           </div>
           <div className={classes.titleContainer}>
-            <IconButton
-              onClick={() => {
-                props.deleteAlert(UNREAD_COMMUNICATION.alert_kind, id);
-                props.pushRouter(
-                  `/member/${member}/info/${buildUrlParams({
-                    openChat: true,
-                  })}`,
-                );
-              }}
-            >
+            <IconButton onClick={goToMemberChat}>
               <ArrowForwardIcon color="secondary" />
             </IconButton>
           </div>
@@ -354,10 +389,20 @@ const UnpaidPrivateBookingIncompleteListItem = (props: {
   pushRouter: (path: string) => void;
   alerting: PrivateBookingAlerting;
 }) => {
-  const { alerting } = props;
-  const { t } = useTranslation(['alerting']);
+  const { alerting, pushRouter } = props;
+  const { t } = useTranslation('alerting');
   const classes = useStyles();
-  const { user_name, date_start, credits_due } = alerting.data;
+  const { user_name, date_start, credits_due, member, private_booking } =
+    alerting.data;
+
+  const goToMemberAppointmentsPage = React.useCallback(
+    () =>
+      member?.id &&
+      private_booking &&
+      pushRouter(`/member/${member.id}/private-booking/${private_booking}`),
+    [member?.id, private_booking, pushRouter],
+  );
+
   return (
     <ListItem divider style={{ paddingTop: 0 }}>
       <div style={{ width: '100%' }}>
@@ -372,17 +417,17 @@ const UnpaidPrivateBookingIncompleteListItem = (props: {
               })}
             </Typography>
           </div>
-          <div className={classes.titleContainer}>
-            <IconButton
-              onClick={() =>
-                props.pushRouter(
-                  `/member/${alerting.data.member.id}/private-booking/${alerting.data.private_booking}`,
-                )
-              }
-            >
-              <ArrowForwardIcon color="secondary" />
-            </IconButton>
-          </div>
+          <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.accessProfile">
+            {(hasMemberProfileAccessPermission: boolean) =>
+              hasMemberProfileAccessPermission && (
+                <div className={classes.titleContainer}>
+                  <IconButton onClick={goToMemberAppointmentsPage}>
+                    <ArrowForwardIcon color="secondary" />
+                  </IconButton>
+                </div>
+              )
+            }
+          </ObjectLevelPermissionProvider>
         </div>
         <Typography component="p" variant="caption">
           {t('privateBookingIncomplete.name', { user_name })}
@@ -401,7 +446,7 @@ const NewTutorialSectionOrLessonListItem = (props: {
   deleteAlert: DeleteAlert;
 }) => {
   const { alerting, deleteAlert, pushRouter } = props;
-  const { t } = useTranslation(['alerting']);
+  const { t } = useTranslation('alerting');
   const classes = useStyles();
   const { section_names, lesson_names, section_id, lesson_id, new_section } =
     alerting.data;
@@ -447,10 +492,16 @@ const LateReplacementRequestListItem = (props: {
   pushRouter: (path: string) => void;
   alerting: LateReplacementRequestAlerting;
 }) => {
-  const { alerting } = props;
+  const { alerting, pushRouter } = props;
   const classes = useStyles();
   const { activity_name, date_start, coach } = alerting.data;
-  const { t } = useTranslation(['alerting']);
+  const { t } = useTranslation('alerting');
+
+  const goToReplacementPage = React.useCallback(
+    () => pushRouter('/replacement/management'),
+    [pushRouter],
+  );
+
   return (
     <ListItem divider style={{ paddingTop: 0 }}>
       <div style={{ width: '100%' }}>
@@ -459,9 +510,7 @@ const LateReplacementRequestListItem = (props: {
             {coach}
           </Typography>
           <div className={classes.titleContainer}>
-            <IconButton
-              onClick={() => props.pushRouter('/replacement/management')}
-            >
+            <IconButton onClick={goToReplacementPage}>
               <ArrowForwardIcon color="secondary" />
             </IconButton>
           </div>

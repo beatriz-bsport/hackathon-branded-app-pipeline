@@ -3,6 +3,7 @@ import MarketplacePageContent from '#csscomponents/MarketplacePageContent';
 import ConsumerSubscriptionHeader from '#libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionHeader';
 import ConsumerSubscriptionsTabs from '#libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionTabs';
 import ConsumerSubscriptionsListContainer from '#libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionsListContainer';
+import { ConsumerSubscriptionTermsModal } from '#libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionModals';
 
 import type { SubscriptionREST } from '#libs/subscription/types';
 import type { OptionCallback } from '../../../../../../state/types';
@@ -10,6 +11,7 @@ import type { ConsumerSubscriptionReworked } from '#libs/consumer-space/types';
 import type { PaymentMethod } from '#libs/payment/types';
 
 import useConsumerSubscriptionsDataManager from '#libs/consumer-space/components/reworked/@MySubscriptions/hooks/useConsumerSubscriptionsDataManager';
+import useConsumerSubscriptionsModalManager from '#libs/consumer-space/components/reworked/@MySubscriptions/hooks/useConsumerSubscriptionsModalManager';
 
 import './styles.css';
 
@@ -36,6 +38,10 @@ type Props = {
   resetConsumerSubscriptionsState: () => void;
   onBookSessionClick: () => void;
   onGetASubscriptionClick: () => void;
+  downloadBillingPlanTermsAction: (
+    billingPanId: number,
+    options?: OptionCallback,
+  ) => Promise<void>;
 };
 
 const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
@@ -52,6 +58,7 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
   fetchFutureSubscriptionsList,
   fetchExpiredSubscriptionsList,
   resetConsumerSubscriptionsState,
+  downloadBillingPlanTermsAction,
 }) => {
   const {
     selectedTab,
@@ -75,6 +82,14 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
     fetchExpiredSubscriptionsList,
     resetConsumerSubscriptionsState,
   });
+  const { isTermsModalOpen, handleTermsModalOpen, handleTermsModalClose } =
+    useConsumerSubscriptionsModalManager();
+
+  const downloadBillingPlanTerms = React.useCallback(
+    (options: OptionCallback) =>
+      downloadBillingPlanTermsAction(selectedSubscription.id, options),
+    [selectedSubscription, downloadBillingPlanTermsAction],
+  );
 
   return (
     <MarketplacePageContent
@@ -97,12 +112,21 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
         isLoading={isLoading}
         // TODO
         isMobile={isMobile}
-        onSeeTermsClick={() => {}}
+        onSeeTermsClick={handleTermsModalOpen}
         paymentMethodList={paymentMethodList}
         selectedSubscription={selectedSubscription}
         selectedTab={selectedTab}
         subscriptionsList={subscriptionsList}
       />
+      {selectedSubscription && (
+        <ConsumerSubscriptionTermsModal
+          contractTermsLink={selectedSubscription.contract_terms_pdf_link}
+          downloadContractTerms={downloadBillingPlanTerms}
+          isOpen={isTermsModalOpen}
+          onClose={handleTermsModalClose}
+          termsContent={selectedSubscription.contract_terms}
+        />
+      )}
     </MarketplacePageContent>
   );
 };

@@ -5,7 +5,7 @@ import classNames from 'classnames';
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import { OptionCallback } from '../../../../../state/types';
-import { downloadDocument } from '../../../../../utils/downloader';
+import { downloadDocument } from '#utils/downloader';
 import { useDialogClickAwayListener } from '../../../../../hooks/useDialogClickAwayListener';
 import CircularProgress from '#components/css-only/CircularProgress';
 

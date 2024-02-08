@@ -348,6 +348,7 @@ exports.default = {
         future: 'Not started',
         expired: 'Expired',
       },
+      download: 'Download',
       headerButtonsLabel: {
         bookASession: 'Book a session',
         getSubscription: 'Get a subscription',

@@ -322,6 +322,7 @@ export type SubscriptionREST = {
   canceled_at: string | null;
   contract_terms_date_accepted: string;
   contract_terms_pdf_link: string;
+  contract_terms: string;
   contract: number;
   date_created: string;
   description: string;

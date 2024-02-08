@@ -1584,6 +1584,7 @@
           "until": " until {{- date }}"
         },
         "tab": { "active": "Active", "future": "Not started", "expired": "Expired" },
+        "download": "Download",
         "headerButtonsLabel": { "bookASession": "Book a session", "getSubscription": "Get a subscription" },
         "consumerSubscriptionCard": {
           "recurrenceLabelPer": "{{ price }}{{ currency }}/{{ interval }}",

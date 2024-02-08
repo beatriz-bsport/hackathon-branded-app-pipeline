@@ -1,0 +1,9 @@
+.bs-consumer__subscription__blanket {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bs-consumer__subscription__modal-dialog__content {
+  white-space: pre-line;
+}

@@ -31,6 +31,7 @@ import type { SubscriptionREST } from '#libs/subscription/types';
 import type { PaymentMethod } from '#libs/payment/types';
 
 import ConsumerSubscriptionPageReworked from '#libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionPageReworked';
+import { downloadPDFContractTermsForBillingPlan as downloadPDFContractTermsForBillingPlanAction } from '#libs/subscription/actions';
 import {
   urlToMarketplaceSessionTab,
   urlToMarketplaceSubscriptionTab,
@@ -96,12 +97,14 @@ export class ConsumerSubscription extends React.Component<Props> {
       fetchExpiredSubscriptionsList,
       resetConsumerSubscriptionsState,
       paymentMethodList,
+      downloadPDFContractTermsForBillingPlan,
     } = this.props;
 
     return (
       <ConsumerSubscriptionPageReworked
         activeSubscriptionsList={activeSubscriptionsList}
         activeSubscriptionsState={activeSubscriptionsState}
+        downloadBillingPlanTermsAction={downloadPDFContractTermsForBillingPlan}
         expiredSubscriptionsList={expiredSubscriptionsList}
         expiredSubscriptionsState={expiredSubscriptionsState}
         fetchActiveSubscriptionsList={fetchActiveSubscriptionsList}
@@ -136,6 +139,8 @@ const connector = connect(
     fetchMyExpiredSubscriptionsAsMemberAction,
     fetchMyActiveSubscriptionsAsMemberAction,
     resetConsumerSubscriptionsState: resetConsumerSubscriptionsStateAction,
+    downloadPDFContractTermsForBillingPlan:
+      downloadPDFContractTermsForBillingPlanAction,
   },
 );
 

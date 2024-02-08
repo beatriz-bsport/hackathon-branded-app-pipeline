@@ -7,8 +7,12 @@ import { push } from 'connected-react-router';
 import { isShopItemUsedInCombo as isShopItemUsedInComboAction } from '#libs/shop/actions/shopitem';
 import {
   retrieveShopItemDetails as retrieveShopItemDetailsAction,
+  retrieveShopItemVariantList as retrieveShopItemVariantListAction,
   updateShopItem as updateShopItemAction,
+  updateShopItemVariantBulk as updateShopItemVariantBulkAction,
   deleteShopItem as deleteShopItemAction,
+  createShopItemVariants as createShopItemVariantsAction,
+  deleteShopItemVariant as deleteShopItemVariantAction,
 } from '#libs/shop/actions/shopItemReworked';
 
 // --- SELECTORS ---
@@ -18,6 +22,9 @@ import {
   getShopItemDetailLoading,
   getShopItemDetail,
   getShopItemDetailDeleteLoading,
+  getShopItemVariantListLoading,
+  getShopItemVariantState,
+  getShopItemVariantDeleteLoading,
 } from '#libs/shop/selectors';
 
 // --- COMPONENTS ---
@@ -32,7 +39,12 @@ import { mapFormDataWithObject } from '../form.utils';
 
 // --- TYPES ---
 import type { RootState } from '../../reducers';
-import type { ShopItem, ShopItemEdit } from '#libs/shop/types';
+import type {
+  ShopItem,
+  ShopItemEdit,
+  ShopItemVariant,
+  ShopItemVariantAttributes,
+} from '#libs/shop/types';
 import type { OptionCallback } from '../../state/types';
 
 // --- CONSTANTS ---
@@ -51,13 +63,18 @@ export class ShopItemDetailPage extends Component<Props> {
   }
 
   retrieveShopItemDetails = () => {
-    this.props.retrieveShopItemDetails(this.props.id);
+    this.props.retrieveShopItemDetails(this.props.id, {
+      onSuccess: () => this.retrieveShopItemVariantList(1),
+    });
   };
+
+  retrieveShopItemVariantList = (page: number) =>
+    this.props.retrieveShopItemVariantList({ id: this.props.id, page });
 
   handleUpdateShopItem = (
     formData: ShopItemEdit,
     id: number,
-    options: OptionCallback<ShopItem>,
+    options?: OptionCallback<ShopItem>,
   ) => {
     const finalShopItemData = mapFormDataWithObject(
       formData,
@@ -77,22 +94,82 @@ export class ShopItemDetailPage extends Component<Props> {
     });
   };
 
-  handleDeleteShopitem = () => {
+  handleUpdateShopItemVariantBulk = (
+    data: FormData,
+    options?: OptionCallback,
+  ) => {
+    this.props.updateShopItemVariantBulk({
+      data,
+      id: this.props.id,
+      options: {
+        onSuccess: () => {
+          this.retrieveShopItemVariantList(
+            this.props.shopItemVariantState.page,
+          );
+          options?.onSuccess?.();
+        },
+      },
+    });
+  };
+
+  handleDeleteShopItem = () => {
     this.props.deleteShopItem(this.props.id, {
       onSuccess: this.props.backToShopPage,
+    });
+  };
+
+  handleCreateShopItemVariants = (
+    baseItemId: number,
+    data: ShopItemVariantAttributes,
+    options?: OptionCallback<ShopItemVariant[]>,
+  ) => {
+    this.props.createShopItemVariants({
+      id: baseItemId,
+      data,
+      options: {
+        onSuccess: () => {
+          this.retrieveShopItemVariantList(
+            this.props.shopItemVariantState.page,
+          );
+          options?.onSuccess?.();
+        },
+      },
+    });
+  };
+
+  handleDeleteShopItemVariant = (id: number) => {
+    const currentPage = this.props.shopItemVariantState.page;
+    const isLastItemInList =
+      this.props.shopItemVariantState.variants.length === 1;
+
+    this.props.deleteShopItemVariant(id, {
+      onSuccess: () => {
+        this.retrieveShopItemVariantList(
+          isLastItemInList ? currentPage - 1 : currentPage,
+        );
+      },
     });
   };
 
   render() {
     return (
       <ShopItemDetail
-        deleteShopItem={this.handleDeleteShopitem}
+        count={this.props.shopItemVariantState.count}
+        createShopItemVariants={this.handleCreateShopItemVariants}
+        deleteShopItem={this.handleDeleteShopItem}
+        deleteShopItemVariant={this.handleDeleteShopItemVariant}
+        fetchShopItemVariantList={this.retrieveShopItemVariantList}
         isDeleting={this.props.isDeleteLoading}
+        isDeletingVariant={this.props.isDeleteVariantLoading}
         isLoading={this.props.isLoading}
         isShopItemUsedInCombo={this.props.isShopItemUsedInCombo}
+        isVariantListLoading={this.props.isVariantListLoading}
+        page={this.props.shopItemVariantState.page}
         provincialTaxValue={this.props.theme.provincial_tax_value}
         shopItem={this.props.shopItem}
         updateShopItem={this.handleUpdateShopItem}
+        updateShopItemVariantBulk={this.handleUpdateShopItemVariantBulk}
+        variantList={this.props.shopItemVariantState.variants}
       />
     );
   }
@@ -102,15 +179,22 @@ const connector = connect(
   (state: RootState, { id }: { id: number }) => ({
     theme: getTheme(state),
     isLoading: getShopItemDetailLoading(state),
+    isVariantListLoading: getShopItemVariantListLoading(state),
     isDeleteLoading: getShopItemDetailDeleteLoading(state),
     shopItem: getShopItemDetail(state, id),
     isShopItemUsedInCombo: getIsShopItemUsedInCombo(state, id),
+    isDeleteVariantLoading: getShopItemVariantDeleteLoading(state),
+    shopItemVariantState: getShopItemVariantState(state, id),
   }),
   {
     fetchIsShopItemUsedInCombo: isShopItemUsedInComboAction,
     retrieveShopItemDetails: retrieveShopItemDetailsAction,
+    retrieveShopItemVariantList: retrieveShopItemVariantListAction,
     updateShopItem: updateShopItemAction,
+    updateShopItemVariantBulk: updateShopItemVariantBulkAction,
     deleteShopItem: deleteShopItemAction,
+    createShopItemVariants: createShopItemVariantsAction,
+    deleteShopItemVariant: deleteShopItemVariantAction,
     backToShopPage: () => push('/shop'),
   },
 );

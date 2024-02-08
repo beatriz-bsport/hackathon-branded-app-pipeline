@@ -21,3 +21,7 @@
 .bs-consumer-card-description__show-more:hover:active {
   background-color: transparent;
 }
+
+.bs-consumer-card-description__collapse__text {
+  white-space: pre-line;
+}

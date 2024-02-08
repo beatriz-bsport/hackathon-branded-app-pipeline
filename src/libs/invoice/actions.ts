@@ -24,6 +24,7 @@ import {
   returnPayment as returnPaymentAPI,
   patchConfiguration as patchConfigurationAPI,
   fetchConfiguration as fetchConfigurationAPI,
+  fetchInvoiceConfigurationAsMember as fetchInvoiceConfigurationAsMemberAPI,
   finalize as finalizeAPI,
   fetchInvoiceItemList as fetchInvoiceItemListAPI,
   fetchPaymentList as fetchPaymentListAPI,
@@ -51,6 +52,7 @@ import { fetchAll as fetchAlerting } from '../alerting/actions';
 import {
   Invoice,
   InvoiceConfigurationSerializer,
+  InvoiceConfigurationMemberSerializer,
   InvoiceDetailsSerializer,
   InvoiceFilter,
   InvoiceInfoSerializer,
@@ -107,9 +109,9 @@ export function patchInvoiceConfiguration(
 export const invoiceConfigurationDetailActions = {
   isLoading: createAction<boolean>('INVOICE-CONFIGURATION/DETAIL/IS_LOADING'),
   error: createAction<Error | null>('INVOICE-CONFIGURATION/DETAIL/ERROR'),
-  success: createAction<InvoiceConfigurationSerializer>(
-    'INVOICE-CONFIGURATION/DETAIL/SUCCESS',
-  ),
+  success: createAction<
+    InvoiceConfigurationSerializer | InvoiceConfigurationMemberSerializer
+  >('INVOICE-CONFIGURATION/DETAIL/SUCCESS'),
 };
 
 export function fetchInvoiceConfiguration() {
@@ -118,6 +120,20 @@ export function fetchInvoiceConfiguration() {
     dispatch(invoiceConfigurationDetailActions.error(null));
     try {
       const response = await fetchConfigurationAPI();
+      dispatch(invoiceConfigurationDetailActions.success(response.data));
+    } catch (err) {
+      dispatch(invoiceConfigurationDetailActions.error(err));
+    }
+    dispatch(invoiceConfigurationDetailActions.isLoading(false));
+  };
+}
+
+export function fetchInvoiceConfigurationAsMember(company_id: string) {
+  return async (dispatch: Dispatch) => {
+    dispatch(invoiceConfigurationDetailActions.isLoading(true));
+    dispatch(invoiceConfigurationDetailActions.error(null));
+    try {
+      const response = await fetchInvoiceConfigurationAsMemberAPI(company_id);
       dispatch(invoiceConfigurationDetailActions.success(response.data));
     } catch (err) {
       dispatch(invoiceConfigurationDetailActions.error(err));

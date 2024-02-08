@@ -32,6 +32,7 @@ import type { PaymentMethod } from '#libs/payment/types';
 
 import ConsumerSubscriptionPageReworked from '#libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionPageReworked';
 import { downloadPDFContractTermsForBillingPlan as downloadPDFContractTermsForBillingPlanAction } from '#libs/subscription/actions';
+import { fetchInvoiceConfigurationAsMember as fetchInvoiceConfigurationAsMemberAction } from '#libs/invoice/actions';
 import {
   urlToMarketplaceSessionTab,
   urlToMarketplaceSubscriptionTab,
@@ -57,6 +58,7 @@ export class ConsumerSubscription extends React.Component<Props> {
     this.props.fetchActiveSubscriptionsList();
     this.props.fetchFutureSubscriptionsList();
     this.props.fetchExpiredSubscriptionsList();
+    this.props.fetchInvoiceConfiguration();
     this.props.fetchPaymentMethodList();
   }
 
@@ -97,6 +99,7 @@ export class ConsumerSubscription extends React.Component<Props> {
       fetchExpiredSubscriptionsList,
       resetConsumerSubscriptionsState,
       paymentMethodList,
+      invoiceConfiguration,
       downloadPDFContractTermsForBillingPlan,
     } = this.props;
 
@@ -112,6 +115,9 @@ export class ConsumerSubscription extends React.Component<Props> {
         fetchFutureSubscriptionsList={fetchFutureSubscriptionsList}
         futureSubscriptionsList={futureSubscriptionsList}
         futureSubscriptionsState={futureSubscriptionsState}
+        invoiceRetryNumber={
+          invoiceConfiguration?.nb_retries_subscription_payments
+        }
         onBookSessionClick={this.handleBookASessionClick}
         onGetASubscriptionClick={this.handleGetASubscription}
         paymentMethodList={paymentMethodList as PaymentMethod[]}
@@ -130,6 +136,7 @@ const connector = connect(
     expiredSubscriptionsState: getMyExpiredSubscriptionsState(state),
     expiredSubscriptionsList: getMyExpiredSubscriptionsList(state),
     paymentMethodList: getSavedPaymentMethodList(state),
+    invoiceConfiguration: state.invoice.configuration.result,
     companyTheme: getTheme(state),
     marketplaceSettings: state.marketplace.settings,
   }),
@@ -139,6 +146,7 @@ const connector = connect(
     fetchMyExpiredSubscriptionsAsMemberAction,
     fetchMyActiveSubscriptionsAsMemberAction,
     resetConsumerSubscriptionsState: resetConsumerSubscriptionsStateAction,
+    fetchInvoiceConfigurationAsMemberAction,
     downloadPDFContractTermsForBillingPlan:
       downloadPDFContractTermsForBillingPlanAction,
   },
@@ -177,6 +185,10 @@ const mapWithHandlers = {
       ),
   fetchPaymentMethodList: (props: OwnAndConnectedAndRouteProps) => () =>
     props.fetchPaymentMethodListAction({ company: props.membership.company }),
+  fetchInvoiceConfiguration: (props: OwnAndConnectedAndRouteProps) => () =>
+    props.fetchInvoiceConfigurationAsMemberAction(
+      props.membership.company.toString(),
+    ),
 };
 
 export default compose(

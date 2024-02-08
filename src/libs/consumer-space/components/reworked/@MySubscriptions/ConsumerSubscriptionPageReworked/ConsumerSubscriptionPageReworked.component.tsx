@@ -38,6 +38,7 @@ type Props = {
   resetConsumerSubscriptionsState: () => void;
   onBookSessionClick: () => void;
   onGetASubscriptionClick: () => void;
+  invoiceRetryNumber: number;
   downloadBillingPlanTermsAction: (
     billingPanId: number,
     options?: OptionCallback,
@@ -58,6 +59,7 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
   fetchFutureSubscriptionsList,
   fetchExpiredSubscriptionsList,
   resetConsumerSubscriptionsState,
+  invoiceRetryNumber,
   downloadBillingPlanTermsAction,
 }) => {
   const {
@@ -109,8 +111,8 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
         handlePaginationFetchMore={handlePaginationFetchMore}
         handleSetSelectedSubscriptions={handleSetSelectedSubscriptions}
         hasNextPage={!!nextPage}
+        invoiceRetryNumber={invoiceRetryNumber}
         isLoading={isLoading}
-        // TODO
         isMobile={isMobile}
         onSeeTermsClick={handleTermsModalOpen}
         paymentMethodList={paymentMethodList}

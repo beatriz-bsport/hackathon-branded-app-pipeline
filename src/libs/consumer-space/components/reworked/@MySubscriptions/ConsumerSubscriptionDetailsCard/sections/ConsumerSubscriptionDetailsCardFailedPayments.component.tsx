@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import classNames from 'classnames';
+import type { ConsumerSubscriptionDetailsCardProps } from '..';
 import ConsumerCardSection from '#libs/consumer-space/components/reworked/common/ConsumerCardSection';
 
 import List from '#Fabrique/List';
@@ -11,12 +12,14 @@ import Alert from '#Fabrique/Alert';
 import { formatAsDatetimeAdapted } from '#utils/datetime';
 import { getCurrencyDisplay } from '#libs/theme/selectors';
 
-import type { ConsumerSubscriptionDetailsCardProps } from '..';
-
-type Props = Pick<ConsumerSubscriptionDetailsCardProps, 'failedInvoices'>;
+type Props = Pick<
+  ConsumerSubscriptionDetailsCardProps,
+  'failedInvoices' | 'invoiceRetryNumber'
+>;
 
 const ConsumerSubscriptionDetailsCardFailedPayments: React.FC<Props> = ({
   failedInvoices,
+  invoiceRetryNumber,
 }) => {
   const { t } = useTranslation('consumerSpace');
 
@@ -54,10 +57,21 @@ const ConsumerSubscriptionDetailsCardFailedPayments: React.FC<Props> = ({
                 className="bs-consumer__subscription-details-card__failed_payments__section__alert"
                 color="error"
               >
-                {t(
-                  'reworked.mySubscriptions.consumerSubscriptionCardDetails.failedPaymentReason',
-                  { note: payment.payment_note },
-                )}
+                {invoiceRetryNumber > 0
+                  ? t(
+                      'reworked.mySubscriptions.consumerSubscriptionCardDetails.failedPaymentReasonWithRetry',
+                      {
+                        note: payment.payment_note,
+                        nextRetryDate: formatAsDatetimeAdapted(
+                          invoice.next_retry_date,
+                          'L',
+                        ),
+                      },
+                    )
+                  : t(
+                      'reworked.mySubscriptions.consumerSubscriptionCardDetails.failedPaymentReason',
+                      { note: payment.payment_note },
+                    )}
               </Alert>
             </>
           ))}

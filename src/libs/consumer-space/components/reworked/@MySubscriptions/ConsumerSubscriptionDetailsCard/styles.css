@@ -51,6 +51,10 @@
   padding: 0;
 }
 
+.bs-consumer__subscription-details-card__header__list-item__joining-fees {
+  padding: 0;
+}
+
 /* FAILED PAYMENT SECTION */
 
 .bs-consumer__subscription-details-card__failed_payments__section {

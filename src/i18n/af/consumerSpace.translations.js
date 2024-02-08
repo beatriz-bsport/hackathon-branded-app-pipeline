@@ -383,10 +383,13 @@ exports.default = {
           autoRenewalDate: 'on {{- autoRenewalDate }} (included)',
           pauseEndDate: 'until {{- pauseEndDate }} included',
           nextPaymentDate: 'on {{- subscriptionNextPaymentDate }}',
+          joiningFee: 'Joining fee: {{- fees }}',
         },
         failedPayment: 'Payment failed',
         failedPaymentReason:
           'Reason: {{- note }} Please contact  your studio to regularize the situation',
+        failedPaymentReasonWithRetry:
+          'Reason: {{- note }}. The payment will be retried on {{- nextRetryDate}}',
         paymentMethod: {
           title: 'Payment method',
           internal:

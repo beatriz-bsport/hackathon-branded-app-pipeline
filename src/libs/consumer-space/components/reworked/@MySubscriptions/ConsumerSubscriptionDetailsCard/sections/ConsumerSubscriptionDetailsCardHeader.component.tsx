@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import classNames from 'classnames';
 
+import classNames from 'classnames';
 import ConsumerCardSection from '#libs/consumer-space/components/reworked/common/ConsumerCardSection';
 import type { ConsumerSubscriptionDetailsCardProps } from '..';
 
@@ -14,32 +14,35 @@ import {
   ClockRefresh,
   PauseCircle,
 } from '#components/untitledui';
+import { getCurrencyDisplay } from '#libs/theme/selectors';
 
 type Props = Pick<
   ConsumerSubscriptionDetailsCardProps,
-  | 'subscriptionName'
-  | 'subtitleDate'
-  | 'subscriptionNextPaymentDate'
-  | 'recurrence'
-  | 'price'
-  | 'subscriptionInterval'
-  | 'isPaused'
-  | 'hasAutoRenewal'
-  | 'pauseEndDate'
   | 'autoRenewalDate'
+  | 'hasAutoRenewal'
+  | 'isPaused'
+  | 'joiningFee'
+  | 'pauseEndDate'
+  | 'price'
+  | 'recurrence'
+  | 'subscriptionInterval'
+  | 'subscriptionName'
+  | 'subscriptionNextPaymentDate'
+  | 'subtitleDate'
 >;
 
 const ConsumerSubscriptionDetailsCardHeader: React.FC<Props> = ({
-  subscriptionName,
-  subtitleDate,
-  subscriptionNextPaymentDate,
-  recurrence,
-  price,
-  subscriptionInterval,
-  isPaused,
-  hasAutoRenewal,
-  pauseEndDate,
   autoRenewalDate,
+  hasAutoRenewal,
+  isPaused,
+  joiningFee,
+  pauseEndDate,
+  price,
+  recurrence,
+  subscriptionInterval,
+  subscriptionName,
+  subscriptionNextPaymentDate,
+  subtitleDate,
 }) => {
   const { t } = useTranslation('consumerSpace');
   const recurrenceLabel = getSubscriptionRecurrenceLabel(
@@ -125,6 +128,16 @@ const ConsumerSubscriptionDetailsCardHeader: React.FC<Props> = ({
           />
         )}
         <ListItem
+          captionText={t(
+            'reworked.mySubscriptions.consumerSubscriptionCardDetails.headerListItemLabels.joiningFee',
+            { fee: `${joiningFee}${getCurrencyDisplay()}` },
+          )}
+          classes={{
+            captionText: classNames({
+              'bs-consumer__subscription-details-card__header__list-item--hidden':
+                parseFloat(joiningFee) === 0,
+            }),
+          }}
           className="bs-consumer__subscription-details-card__header__list-item__price"
           label={recurrenceLabel}
         />

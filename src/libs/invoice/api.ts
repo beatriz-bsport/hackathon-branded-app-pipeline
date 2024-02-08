@@ -19,6 +19,7 @@ import type {
   PlannedPaymentEvent,
   PlannedPaymentEventFilter,
   InvoiceConfigurationSerializer,
+  InvoiceConfigurationMemberSerializer,
   InvoiceInfoSerializer,
   RequestClientSecretPayload,
   PlannedPaymentEventSerializer,
@@ -98,6 +99,14 @@ export async function fetchConfiguration(): Promise<
   AxiosResponse<InvoiceConfigurationSerializer>
 > {
   return getAuth(`${API_V1_URI}/payment/configuration/me/`);
+}
+
+export function fetchInvoiceConfigurationAsMember(
+  company_id: string,
+): Promise<AxiosResponse<InvoiceConfigurationMemberSerializer>> {
+  return getAuth(
+    `${API_V1_URI}/payment/consumer-invoice-configuration/${company_id}/`,
+  );
 }
 
 export async function revert(

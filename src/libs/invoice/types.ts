@@ -228,6 +228,10 @@ export type InvoiceConfigurationSerializer = {
   advance_sepa_billing: boolean;
 };
 
+export type InvoiceConfigurationMemberSerializer = {
+  nb_retries_subscription_payments: number;
+};
+
 export type InvoiceDetailsSerializer = Invoice & {
   is_fully_paid: boolean;
   quickbooks_metadata: Object;

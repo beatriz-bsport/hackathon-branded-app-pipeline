@@ -24,26 +24,51 @@ import type { MarketplacePaymentMethodsType } from '#libs/marketplace/types';
 import './styles.css';
 
 type Props = {
+  /** Auto renewal date */
   autoRenewalDate: string;
+  /** Description of subscription */
   description: string;
+  /** List of failed invoices */
   failedInvoices: SubscriptionsInvoicesDetailsREST[];
+  /** If subscription has auto renewal */
   hasAutoRenewal: boolean;
+  /** If subscription has missing payment method */
   hasMissingPaymentMethod: boolean;
+  /** Number of retry after failed payment based on InvoiceConfiguration */
+  invoiceRetryNumber: number;
+  /** Loading indicator */
   isLoading: boolean;
+  /** Subscription is currently paused */
   isPaused: boolean;
+  /** Should payment method section be hidden */
   isPaymentMethodSectionHidden: boolean;
+  /** Fees when joining the subscription */
+  joiningFee: string;
+  /** If payment method section is displayed,add/change a payment method */
   onPaymentMethodActionClick: () => void;
+  /** Action when clicking on See Terms */
   onSeeClick: () => void;
+  /** Pause end date */
   pauseEndDate: string;
+  /** Payment method related to a subscription */
   paymentMethodType: MarketplacePaymentMethodsType;
+  /** Price to display and can depend on coupons applied */
   price: string;
+  /** Readable identifier of the payment method */
   readableIdentifier: string;
+  /** Number of payment per subscription interval */
   recurrence: number;
+  /** Condition to display empty/placeholder state */
   showPlaceholder: boolean;
+  /** Interval of the subscription */
   subscriptionInterval: SubscriptionInterval;
+  /** Name of the subscription */
   subscriptionName: string;
+  /** Next payment date of the subscription */
   subscriptionNextPaymentDate: string;
+  /** Date of the subscription displayed as the main subtitle */
   subtitleDate: string;
+  /** Date when terms have been accepted for the subscription */
   termsDate: string;
 };
 
@@ -53,9 +78,11 @@ const ConsumerSubscriptionDetailsCard: React.FC<Props> = ({
   failedInvoices,
   hasAutoRenewal,
   hasMissingPaymentMethod,
+  invoiceRetryNumber,
   isLoading,
   isPaused,
   isPaymentMethodSectionHidden,
+  joiningFee,
   onPaymentMethodActionClick,
   onSeeClick,
   pauseEndDate,
@@ -90,6 +117,7 @@ const ConsumerSubscriptionDetailsCard: React.FC<Props> = ({
         autoRenewalDate={autoRenewalDate}
         hasAutoRenewal={hasAutoRenewal}
         isPaused={isPaused}
+        joiningFee={joiningFee}
         pauseEndDate={pauseEndDate}
         price={price}
         recurrence={recurrence}
@@ -100,6 +128,7 @@ const ConsumerSubscriptionDetailsCard: React.FC<Props> = ({
       />
       <ConsumerSubscriptionDetailsCardFailedPayments
         failedInvoices={failedInvoices}
+        invoiceRetryNumber={invoiceRetryNumber}
       />
       <ConsumerSubscriptionDetailsCardDescription description={description} />
       <ConsumerSubscriptionDetailsCardPaymentMethod

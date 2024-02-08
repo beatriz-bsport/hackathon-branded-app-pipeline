@@ -31,6 +31,7 @@ type Props = {
   handlePaginationFetchMore: () => void;
   handleSetSelectedSubscriptions: (subscriptionId: number) => void;
   hasNextPage: boolean;
+  invoiceRetryNumber: number;
   isLoading: boolean;
   isMobile: boolean;
   onSeeTermsClick: () => void;
@@ -44,6 +45,7 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
   handlePaginationFetchMore,
   handleSetSelectedSubscriptions,
   hasNextPage,
+  invoiceRetryNumber,
   isLoading,
   isMobile,
   onSeeTermsClick,
@@ -143,12 +145,13 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
         hasMissingPaymentMethod={
           !selectedSubscription?.stripe_payment_method_id
         }
+        invoiceRetryNumber={invoiceRetryNumber}
         isLoading={isLoading}
         isPaused={isPaused(selectedSubscription?.pauses)}
         isPaymentMethodSectionHidden={
           selectedTab === SubscriptionTabEnum.EXPIRED
         }
-        // TODO
+        joiningFee={selectedSubscription?.flat_fee}
         onPaymentMethodActionClick={
           !selectedSubscription?.stripe_payment_method_id ? () => {} : () => {}
         }

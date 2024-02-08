@@ -2,22 +2,21 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import IconButton from '@material-ui/core/IconButton';
-import EditIcon from '@material-ui/icons/Edit';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Avatar from '@material-ui/core/Avatar';
-import Typography from '@material-ui/core/Typography';
-import Tooltip from '@material-ui/core/Tooltip';
-import OfflineBolt from '@material-ui/icons/OfflineBolt';
-import makeStyles from '@material-ui/core/styles/makeStyles';
-import { Theme } from '@material-ui/core/styles/';
+import Cake from '@material-ui/icons/Cake';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import EditIcon from '@material-ui/icons/Edit';
+import IconButton from '@material-ui/core/IconButton';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import OfflineBolt from '@material-ui/icons/OfflineBolt';
+import Tooltip from '@material-ui/core/Tooltip';
+import Typography from '@material-ui/core/Typography';
 
 import moment from 'moment-timezone';
-import { Cake } from '@material-ui/icons';
 
 import type { Tag, TagGroup } from '#libs/tag/types';
 import type { Member } from '#libs/member/types';
@@ -28,44 +27,70 @@ import MemberProgramDetailDialog from '../../performance-tracking/components/mem
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type Props = {
-  member: Member<Tag<TagGroup>>;
-  onEdit?: () => void;
-  onClick?: (memberId: number) => void;
-  firstBooking?: boolean;
   anonimize?: boolean;
+  bottomCredit?: boolean;
+  firstBooking?: boolean;
+  firstPrivateBooking: boolean;
+  isPreventUpdateMetricValue?: boolean;
+  member: Member<Tag<TagGroup>>;
+  memberLoading?: boolean;
+  programDataLoading: boolean;
+  programList: PerformanceTrackingProgram[];
   showVaccinationStatus: boolean;
   createMemberProgram?: (data: any, options?: any) => void;
-  programList: Array<PerformanceTrackingProgram>;
-  updateMemberMetricValue: (data: any, options?: any) => void;
-
   fetchPerformanceTrackingData: (member: number) => void;
-  firstPrivateBooking: boolean;
-  programDataLoading: boolean;
-  bottomCredit?: boolean;
-  isPreventUpdateMetricValue?: boolean;
-  memberLoading?: boolean;
+  onClick?: (memberId: number) => void;
+  onEdit?: () => void;
+  updateMemberMetricValue: (data: any, options?: any) => void;
 };
+
 export const MemberMinimalListItem: React.FC<Props> = ({
-  member,
-  onEdit,
-  onClick,
-  firstBooking,
   anonimize,
+  bottomCredit,
+  firstBooking,
+  firstPrivateBooking,
+  isPreventUpdateMetricValue,
+  member,
+  memberLoading,
+  programDataLoading,
+  programList,
   showVaccinationStatus,
   createMemberProgram,
-  programList,
-  updateMemberMetricValue,
   fetchPerformanceTrackingData,
-  firstPrivateBooking,
-  programDataLoading,
-  bottomCredit,
-  isPreventUpdateMetricValue,
-  memberLoading,
+  onClick,
+  onEdit,
+  updateMemberMetricValue,
 }) => {
   const classes = useStyles();
   const [isMemberProgramDetailDialogOpen, setIsMemberProgramDetailDialogOpen] =
     React.useState(false);
   const { t } = useTranslation('member');
+
+  const handleOnClick = React.useCallback(
+    () => member?.id && onClick?.(member.id),
+    [member?.id, onClick],
+  );
+
+  const closeMemberProgramDetailDialog = React.useCallback(
+    () => setIsMemberProgramDetailDialogOpen(false),
+    [],
+  );
+
+  const openMemberProgramDetailDialog = React.useCallback(() => {
+    member?.id && fetchPerformanceTrackingData(member.id);
+    setIsMemberProgramDetailDialogOpen(true);
+  }, [fetchPerformanceTrackingData, member?.id]);
+
+  const handleCreateMemberProgram = React.useCallback(
+    (id: number) =>
+      member?.id &&
+      createMemberProgram({
+        program: id,
+        member: member.id,
+      }),
+    [createMemberProgram, member?.id],
+  );
+
   if (!member) {
     return (
       <ListItem>
@@ -76,18 +101,22 @@ export const MemberMinimalListItem: React.FC<Props> = ({
       </ListItem>
     );
   }
+
   let secondaryInfo = '';
   if (!anonimize) {
     secondaryInfo +=
       member.phone || member.email
-        ? `${member.phone || ''} ${member.email}` || ''
+        ? `${member.phone || ''} ${member.email || ''}`
         : '';
   }
-  let Wrapper = (p) => <div>{p.children}</div>;
+
+  let Wrapper = (props: { children: React.ReactNode }) => (
+    <div>{props.children}</div>
+  );
   if (showVaccinationStatus)
-    Wrapper = (p) => (
+    Wrapper = (props) => (
       <VaccinationBadge topRightIcon status={member.vaccination_status}>
-        {p.children}
+        {props.children}
       </VaccinationBadge>
     );
 
@@ -96,89 +125,77 @@ export const MemberMinimalListItem: React.FC<Props> = ({
     : false;
 
   return (
-    <>
-      <ListItem
-        button={!!onClick}
-        className={classes.listItem}
-        onClick={onClick ? () => onClick(member.id) : null}
-      >
-        <ListItemAvatar className={classes.avatar}>
-          <Wrapper>
-            <AvatarWithBadge
-              bottomCredit={bottomCredit}
-              classes={{ badge: 'currencyBadge' }}
-              member={member}
-            />
-          </Wrapper>
-        </ListItemAvatar>
-        <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.accessProfile">
-          {(hasMemberProfileAccessPermission: boolean) => (
-            <>
-              {member?.name ? (
-                <ListItemText
-                  primary={
-                    <div className={classes.flexDiv}>
-                      <Typography>
-                        {member.name + (firstBooking ? ' ★' : '')}
-                      </Typography>
-                      {isBirthday && (
-                        <Cake color="secondary" style={{ fontSize: '14px' }} />
-                      )}
-                      <Typography color="secondary" variant="caption">
-                        {member.archived ? `${'\u00A0'}(${t('archived')})` : ''}
-                      </Typography>
-                    </div>
-                  }
-                  secondary={hasMemberProfileAccessPermission && secondaryInfo}
+    <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.accessProfile">
+      {(hasMemberProfileAccessPermission: boolean) => (
+        <>
+          <ListItem
+            button={(!!onClick && hasMemberProfileAccessPermission) as any}
+            className={classes.listItem}
+            onClick={hasMemberProfileAccessPermission ? handleOnClick : null}
+          >
+            <ListItemAvatar className={classes.avatar}>
+              <Wrapper>
+                <AvatarWithBadge
+                  bottomCredit={bottomCredit}
+                  classes={{ badge: 'currencyBadge' }}
+                  member={member}
                 />
-              ) : (
-                memberLoading && <CircularProgress />
+              </Wrapper>
+            </ListItemAvatar>
+            {member?.name ? (
+              <ListItemText
+                primary={
+                  <div className={classes.flexDiv}>
+                    <Typography>
+                      {member.name + (firstBooking ? ' ★' : '')}
+                    </Typography>
+                    {isBirthday && (
+                      <Cake color="secondary" style={{ fontSize: '14px' }} />
+                    )}
+                    <Typography color="secondary" variant="caption">
+                      {member.archived ? `${'\u00A0'}(${t('archived')})` : ''}
+                    </Typography>
+                  </div>
+                }
+                secondary={hasMemberProfileAccessPermission && secondaryInfo}
+              />
+            ) : (
+              memberLoading && <CircularProgress />
+            )}
+            <ListItemSecondaryAction>
+              {!!fetchPerformanceTrackingData && !!programList?.length && (
+                <Tooltip title={t('performanceTracking:metric.statistic')}>
+                  <IconButton onClick={openMemberProgramDetailDialog}>
+                    <OfflineBolt />
+                  </IconButton>
+                </Tooltip>
               )}
-            </>
-          )}
-        </ObjectLevelPermissionProvider>
-        <ListItemSecondaryAction>
-          {fetchPerformanceTrackingData && !!programList?.length && (
-            <Tooltip title={t('performanceTracking:metric.statistic')}>
-              <IconButton
-                onClick={() => {
-                  fetchPerformanceTrackingData(member.id);
-                  setIsMemberProgramDetailDialogOpen(true);
-                }}
-              >
-                <OfflineBolt />
-              </IconButton>
-            </Tooltip>
-          )}
-          {onEdit ? (
-            <IconButton onClick={onEdit}>
-              <EditIcon />
-            </IconButton>
-          ) : null}
-        </ListItemSecondaryAction>
-      </ListItem>
+              {!!onEdit && (
+                <IconButton onClick={onEdit}>
+                  <EditIcon />
+                </IconButton>
+              )}
+            </ListItemSecondaryAction>
+          </ListItem>
 
-      <MemberProgramDetailDialog
-        closeDialog={() => setIsMemberProgramDetailDialogOpen(false)}
-        createMemberProgram={(id: number) =>
-          createMemberProgram({
-            program: id,
-            member: member.id,
-          })
-        }
-        isPreventUpdateMetricValue={isPreventUpdateMetricValue}
-        loading={programDataLoading}
-        memberName={member.name + (firstPrivateBooking ? ' ★' : '')}
-        memberProgramList={member.memberProgramList}
-        open={isMemberProgramDetailDialogOpen}
-        programList={programList}
-        updateMemberMetricValue={updateMemberMetricValue}
-      />
-    </>
+          <MemberProgramDetailDialog
+            closeDialog={closeMemberProgramDetailDialog}
+            createMemberProgram={handleCreateMemberProgram}
+            isPreventUpdateMetricValue={isPreventUpdateMetricValue}
+            loading={programDataLoading}
+            memberName={member.name + (firstPrivateBooking ? ' ★' : '')}
+            memberProgramList={member.memberProgramList}
+            open={isMemberProgramDetailDialogOpen}
+            programList={programList}
+            updateMemberMetricValue={updateMemberMetricValue}
+          />
+        </>
+      )}
+    </ObjectLevelPermissionProvider>
   );
 };
 
-const useStyles = makeStyles<Theme>((theme) => ({
+const useStyles = makeStyles((theme) => ({
   listItem: {
     minWidth: theme.spacing(50),
   },
@@ -194,4 +211,4 @@ const useStyles = makeStyles<Theme>((theme) => ({
   },
 }));
 
-export default MemberMinimalListItem;
+export default React.memo(MemberMinimalListItem);

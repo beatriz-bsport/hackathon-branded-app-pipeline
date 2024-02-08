@@ -4,19 +4,20 @@ import moment from 'moment-timezone';
 import MUIDataTable from 'mui-datatables';
 import { compose } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
-import { TFunction } from 'i18next';
+import type { TFunction } from 'i18next';
+
+import type { Theme } from '@material-ui/core/styles';
+import Divider from '@material-ui/core/Divider';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import TableFooter from '@material-ui/core/TableFooter';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import LinearProgress from '@material-ui/core/LinearProgress';
-import { Theme } from '@material-ui/core/styles';
-import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import { MaterialStyleType } from '../../../../utils/types';
-import { formatAsDate } from '../../../../utils/datetime';
-import type { Member } from '../../../member/types';
-import type { CustomFromStatistics } from '../../types';
+import withStyles from '@material-ui/core/styles/withStyles';
+import { formatAsDate } from '#utils/datetime';
+import type { MaterialStyleType } from '#utils/types';
+import type { Member } from '#libs/member/types';
+import type { CustomFromStatistics } from '#libs/custom-form/types';
 
 type MemberAPIDataPaginated = {
   data: {
@@ -26,11 +27,13 @@ type MemberAPIDataPaginated = {
     results: Array<Member>;
   };
 };
+
 interface MemberStatistics extends Member {
   display_count: number;
   last_display: number;
   completed: boolean;
 }
+
 type OwnProps = {
   fetchMemberList: ({
     id__in,
@@ -39,12 +42,14 @@ type OwnProps = {
     id__in: Array<number>;
     page_size: number;
   }) => {};
-  goToMember: (id: number) => void;
+  goToMember?: (id: number) => void;
   customFormStatistic: CustomFromStatistics;
 };
+
 type Props = OwnProps &
   MaterialStyleType<ReturnType<typeof styles>> &
   WithTranslation;
+
 type State = {
   members: Array<MemberStatistics>;
   memberIds: Array<number>;
@@ -52,7 +57,9 @@ type State = {
   count: number;
   tableState: { page: number };
 };
+
 const MEMBER_PER_PAGE = 50;
+
 const renderRows = (members: Array<MemberStatistics>, t: TFunction) => {
   return members.map((member) => renderRow(member, t));
 };
@@ -93,6 +100,7 @@ const getColumnData = (t: TFunction) => {
     },
   ];
 };
+
 const renderCompleted = (completed: boolean, t: TFunction) => {
   return (
     <Typography color={completed ? 'primary' : 'error'}>
@@ -102,6 +110,7 @@ const renderCompleted = (completed: boolean, t: TFunction) => {
     </Typography>
   );
 };
+
 const renderDisplayAccount = (display_count: number) => (
   <Typography align="left" color={display_count >= 0 ? 'primary' : 'error'}>
     {display_count}
@@ -118,6 +127,7 @@ const renderMemberName = (name: string, archived: boolean, t: TFunction) => (
     )}
   </div>
 );
+
 const renderRow = (member: MemberStatistics, t: TFunction) => {
   const { display_count, last_display, completed, name, archived } = member;
   return {
@@ -128,7 +138,7 @@ const renderRow = (member: MemberStatistics, t: TFunction) => {
   };
 };
 
-export class CutsomFormDetailByMemberPanel extends React.Component<
+export class CustomFormDetailByMemberPanel extends React.Component<
   Props,
   State
 > {
@@ -193,9 +203,9 @@ export class CutsomFormDetailByMemberPanel extends React.Component<
     }
   };
 
-  onRowClick = (rowData, { rowIndex }: { rowIndex: number }) => {
-    this.props.goToMember(this.state.members[rowIndex].id);
-  };
+  onRowClick = (rowData, { rowIndex }: { rowIndex: number }) =>
+    this.state.members[rowIndex]?.id &&
+    this.props.goToMember?.(this.state.members[rowIndex].id);
 
   componentDidMount() {
     this.fetchMemberPage({});
@@ -297,7 +307,9 @@ const styles = (theme: Theme) => ({
     paddingLeft: theme.spacing(2),
   },
 });
+
 export default compose<any, OwnProps>(
   withTranslation('marketing'),
   withStyles(styles),
-)(CutsomFormDetailByMemberPanel);
+  React.memo,
+)(CustomFormDetailByMemberPanel);

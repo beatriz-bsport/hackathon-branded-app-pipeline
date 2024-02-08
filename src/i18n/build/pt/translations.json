@@ -51,7 +51,7 @@
             },
             "creation": {
                 "title": "Pagamento online desativado",
-                "content": "Para poder receber pagamentos com cartão e SEPA, verifique os seus dados legais"
+                "content": "Verifique as suas informações legais e bancárias para poder processar pagamentos ONLINE"
             }
         },
         "newTutorialSectionOrLesson": {
@@ -74,10 +74,10 @@
             "title": "Recuperar palavra-passe",
             "noEmail": "Esse e-mail não existe em nosso banco de dados de membros.",
             "explain1": "Qual era o endereço de correio eletrónico da conta?",
-            "explain2": "Foram enviadas instruções de recuperação",
+            "explain2": "Enviaremos em breve as instruções de redefinição da palavra-passe.",
             "hasProblem": "Está a ter problemas em reiniciar?",
             "contactUs": "Contacte-nos através de ",
-            "emailHasBeenSent": "Foi enviada uma mensagem para o correio eletrónico {{email}} para recuperar a sua palavra-passe",
+            "emailHasBeenSent": "Foi enviada uma mensagem para o correio eletrónico {{email}} para redefinir a sua palavra-passe",
             "actions": {
                 "cancel": "Anular",
                 "reset": "OK",
@@ -216,7 +216,7 @@
             "withoutRecurrentBookings": "Reservas não regulares"
         },
         "bookingModule": {
-            "hasRegistered": "Está inscrito para esta sessão",
+            "hasRegistered": "Já reservou esta sessão.",
             "isLoading": "Procurar sessões...",
             "book": {
                 "unknowError": "Não foi possível efetuar a marcação, tente novamente dentro de momentos"
@@ -247,7 +247,7 @@
                 "isWaitingListFull": "A sessão está esgotada e a lista de espera está cheia.",
                 "blockedByTags": "Não é possível reservar esta sessão sem as etiquetas correctas.",
                 "isTooLate": "As inscrições já estão encerradas.",
-                "isAlreadyRegistered": "Já está inscrito para esta sessão",
+                "isAlreadyRegistered": "Já reservou esta sessão.",
                 "isTooSoon": "As inscrições estão atualmente encerradas e serão abertas em {{-date}}."
             },
             "messages": {
@@ -300,7 +300,7 @@
                     "absence": "Se o aluno estiver ausente",
                     "refunded": "Se a marcação tiver sido cancelada atempadamente"
                 },
-                "warning": "Se não selecionar uma lista inteligente, corre o risco de notificar os membros que já compraram outro passe.",
+                "warning": "Se não selecionar nenhuma lista inteligente, poderá notificar os membros que já compraram outro passe",
                 "pushHelper": "Tenha em atenção que as notificações push devem ser utilizadas com moderação. Demasiadas notificações push podem levar alguns membros a desinstalar a aplicação.",
                 "sendAfterNotification": "Enviar a notificação ao aluno após a sessão",
                 "sendAfterMail": "Enviar email ao aluno após a sessão",
@@ -365,14 +365,14 @@
                 "advanced": "Avançar",
                 "help": {
                     "text": "Ajuda: será enviada uma notificação ao membro quando",
-                    "attendance": "presença n° {{notify_booking_nb}}",
+                    "attendance": "um membro reservou {{notify_booking_nb}} hora(s).",
                     "absence": "Ausência n° {{notify_booking_nb}}",
-                    "refunded": "Cancelamento reembolsado n° {{notify_booking_nb}}",
-                    "notRefunded": "Cancelamento fora do prazo n° {{notify_booking_nb}}",
+                    "refunded": "registou  {{notify_booking_nb}} cancelamento(s) tardio(s).",
+                    "notRefunded": "um membro registou {{notify_booking_nb}} cancelamento(s) tardio(s).",
                     "allEvents": {
                         "attendance": "Ajuda: a notificação será enviada ao aluno sempre que este estiver presente.",
-                        "absence": "Ajuda: a notificação será enviada ao aluno  sempre que este estiver ausente",
-                        "refunded": "Ajuda: será enviada uma notificação aos alunos sempre que cancelarem um reembolso",
+                        "absence": "Esta notificação será enviada sempre que um membro estiver ausente.",
+                        "refunded": "Esta notificação será enviada após cada cancelamento reembolsado.",
                         "notRefunded": "Ajuda: será enviada uma notificação aos alunos sempre que estes cancelarem fora do prazo."
                     }
                 },
@@ -382,7 +382,7 @@
                 "sendingMethod": "Método de envio",
                 "mail": "Email",
                 "push": "Notificação push",
-                "needPushUpsell": "Não subscreveu o suplemento de notificações push",
+                "needPushUpsell": "Active o Add On de notificação push para utilizar esta funcionalidade.",
                 "addVariable": "Adicionar uma etiqueta"
             },
             "title": "Notificação",
@@ -455,7 +455,7 @@
                 "registerWaitingList": "Quero estar na lista de espera"
             },
             "similarOffer": {
-                "empty": "Nenhuma sessão encontrada",
+                "empty": "Não existem outras sessões a apresentar.",
                 "showMore": "Ver mais",
                 "title": "Marcar mais sessões",
                 "selectAll": "Selecionar tudo"
@@ -489,7 +489,7 @@
             "cancelledByAnonymousManager": "Cancelamento do administrador",
             "cancelledByAnonymousManagerDate": "Gerir cancelamentos de {{-date}} à {{time}}",
             "cancelledByOffer": "Sessão cancelada pelo clube",
-            "cancelledByOfferDate": "Sessão cancelada pelo clube a {{-date}} às {{time}}",
+            "cancelledByOfferDate": "Sessão cancelada pelo estúdio  {{-date}} às {{time}}",
             "cancelledByManager": "Cancelamento efetuado por {{cancelled_by}}",
             "cancelledByManagerDate": "Cancelamento efetuado a {{-date}} às {{time}} por {{cancelled_by}}",
             "cancelledByConsumerDate": "Cancelamento efetuado pelo aluno a {{-date}} às {{time}}",
@@ -664,7 +664,7 @@
         },
         "selfNoActivity": "Não é responsável por nenhuma atividade.",
         "card": {
-            "update": "Alterar"
+            "update": "Editar"
         },
         "noCoach": "De momento, não há professores registados",
         "baseCoach": "Habitual",
@@ -673,7 +673,7 @@
         "description": "Descrição",
         "pleaseFill": "Introduzir um professor",
         "numberCoaches": "{{ number }} professores",
-        "emptyDescription": "Nenhuma descrição adicionada",
+        "emptyDescription": "Não existe uma descrição disponível.",
         "emptyNotes": "Sem notas",
         "addCoach": "Adicionar um professor",
         "noActivity": "Este professor não gere nenhuma atividade.",
@@ -700,7 +700,7 @@
             "confirmed_bookings": "Participantes",
             "cancelled_bookings": "Reservas canceladas",
             "total_on_sessions": "Remuneração das aulas em grupo",
-            "total_on_appointments": "Compensação por  referência",
+            "total_on_appointments": "Remuneração (Aulas Privadas)",
             "total": "Remuneração total",
             "totalNetGain": "Ganho líquido total",
             "noShowsAndLateCancellations": "Não comparência e cancelamentos tardios",
@@ -873,7 +873,7 @@
             "phoneMissing": "Número de telefone em falta",
             "success": "Mensagem enviada",
             "error": "Mensagem não enviada, tente novamente mais tarde",
-            "noMailAvailable": "Não há endereço eletrónico disponível, por favor crie um",
+            "noMailAvailable": "Ainda não existem modelos de correio eletrónico disponíveis. Comece por adicionar o seu primeiro modelo.",
             "selectToShowPreview": "Selecionar uma mensagem de email para uma pré-visualização",
             "count": "caracteres",
             "showMail": "Ver e-mail",
@@ -896,7 +896,7 @@
                 "totalRead": "Número de pessoas que abriram o e-mail",
                 "totalClick": "Número de cliques numa hiperligação",
                 "lastOpen": "Última abertura",
-                "deliveryRate": "Envio bem sucedido",
+                "deliveryRate": "A sua mensagem foi enviada com sucesso.",
                 "exportCampaign": "Exportar a campanha",
                 "exportError": "Ocorreu um erro durante a exportação",
                 "plannedResends": "Reenvios automáticos planejados para:",
@@ -913,8 +913,8 @@
                     "max_communications_sent_per_member_limit": "Valor máximo : {{ max }}",
                     "subtitles": {
                         "create": {
-                            "leftSmartList": "Criação de uma regra de envio automático para a saída da lista inteligente",
-                            "joinSmartList": "Criação de uma regra de envio automático para entradas de listas inteligente"
+                            "leftSmartList": "Adicionar uma mensagem automática para os membros que abandonam esta Smartlist.",
+                            "joinSmartList": "Adicionar uma mensagem automática para os membros que entram nesta Smartlist."
                         },
                         "update": {
                             "joinSmartList": "Alteração de uma regra de entrada automática na lista inteligente",
@@ -961,7 +961,7 @@
             "showReport": "Relatório",
             "list": {
                 "showMore": "Ver mais",
-                "isEmpty": "Ainda não foi enviado qualquer e-mail"
+                "isEmpty": "Não existem mensagens enviadas anteriormente para apresentar."
             },
             "processing": "Sendo enviado...",
             "exportCampaigns": {
@@ -974,7 +974,7 @@
             }
         },
         "recipient": {
-            "numberOfRecipientsCompact": "{{count}} dest.",
+            "numberOfRecipientsCompact": "Destinatários:  {{count}}",
             "isAnswerWarning": "Atenção! Só o utilizador pode ver esta mensagem",
             "numberOfRecipients": "Enviado para 1 destinatário",
             "numberOfRecipients_plural": "Enviado para {{count}} destinatários",
@@ -1388,8 +1388,8 @@
                     "offerOnlyBookingError": "Lamentamos, mas a sessão e o local seleccionados não podem ser reservados de momento. Por favor, tente novamente.",
                     "genericOfferError": "Encontrámos um problema ao processar a reserva da sua sessão. Por favor, tente novamente mais tarde ou reserve uma sessão diferente."
                 },
-                "offerBooked": "As suas sessões",
-                "offerBooked_plural": "",
+                "offerBooked": "A minha reserva",
+                "offerBooked_plural": "As minhas reservas",
                 "offerPreBooked": "Inscrever-me na lista de espera",
                 "offerNotBookable": "Não é possível registar-se",
                 "error": "Erro",
@@ -1448,7 +1448,7 @@
         },
         "historyTitle": "Histórico de compras",
         "paymentIntent": {
-            "isProcessing": "Aguarde"
+            "isProcessing": "Processando..."
         },
         "forms": {
             "delivery": {
@@ -1705,12 +1705,12 @@
             "select": {
                 "label": "Meios de pagamento"
             },
-            "edit": "Alterar",
+            "edit": "Editar",
             "manual": "Manual"
         },
         "plannedPaymentEvent": {
             "actions": {
-                "edit": "Alterar",
+                "edit": "Editar",
                 "disable": "Configuração",
                 "enable": "Reprogramar",
                 "changeMethod": "Alterar o método de pagamento",
@@ -1891,7 +1891,7 @@
                 },
                 "connectDialog": {
                     "form": {
-                        "update": "Alterar",
+                        "update": "Modificar",
                         "retry": "Tentar novamente",
                         "continue": "Continuar",
                         "connect": "Conectar",
@@ -1990,7 +1990,7 @@
             }
         },
         "actions": {
-            "addFooter": "Alterar a nota da fatura",
+            "addFooter": "Editar a nota da fatura",
             "addCoupon": "Adicionar um cupão",
             "consumeBalance": "Pagar através do saldo da conta",
             "finalize": "Finalizar (PDF)",
@@ -2160,7 +2160,7 @@
             "isUnpaid": "Não pago"
         },
         "widget": {
-            "noBookingPast": "Nenhuma sessão no seu histórico",
+            "noBookingPast": "Não existem reservas anteriores para apresentar.",
             "futureBooking": "Minhas Reservas",
             "pastBooking": "Histórico",
             "noBookingFuture": "Não há sessões futuras"
@@ -2168,7 +2168,7 @@
         "unsubscriber": {
             "explain": "Gostaria de cancelar a subscrição das newsletters do seu estabelecimento?",
             "error": "Erro ao cancelar a subscrição",
-            "success": "A sua inscrição foi cancelada",
+            "success": "Você Anulou a sua inscrição.",
             "doUnsubscribe": "Cancelar a subscrição"
         },
         "navigation": {
@@ -2429,7 +2429,7 @@
                         "activity": {
                             "future": "Não estão previstas actividades futuras.",
                             "past": "Não há actividades anteriores para mostrar.",
-                            "waitlist": "Nenhuma atividade na lista de espera"
+                            "waitlist": "Não há actividades em lista de espera."
                         },
                         "appointment": {
                             "past": "Não há aulas privadas anteriores para mostrar.",
@@ -2597,7 +2597,7 @@
             }
         },
         "list": {
-            "isEmpty": "Nenhum código promocional registado",
+            "isEmpty": "Não há promoções a apresentar.",
             "inactiveCoupons": "Promoções desactivadas ou vencido",
             "activeCoupons": "Promoções em vigor"
         },
@@ -2905,7 +2905,7 @@
                 "shortMenu": {
                     "delete": "Eliminar",
                     "restore": "Restaurar",
-                    "edit": "Alterar",
+                    "edit": "Editar",
                     "goTo": "Detalhes"
                 },
                 "visibility": "Invisível para os membros",
@@ -2923,7 +2923,7 @@
                 },
                 "buttons": {
                     "delete": "Eliminar",
-                    "update": "Alterar"
+                    "update": "Editar"
                 }
             },
             "dialogs": {
@@ -3253,7 +3253,7 @@
                         "create": "Adicionar",
                         "helperTextNewMembers": "O formulário aparecerá como um pop-up no marketplace e o widget após o formulário de inscrição.",
                         "cancel": "Cancelar",
-                        "modify": "Alterar",
+                        "modify": "Editar",
                         "advancedOptions": "Configurações avançadas",
                         "snoozeOptionLabel": "Tempo de adiamento (horas)"
                     },
@@ -3373,7 +3373,7 @@
                 }
             },
             "clientForms": {
-                "modify": "alterar",
+                "modify": "editar",
                 "modification": "Alteração",
                 "customize": "Personalizar",
                 "preview": "Resumo dos meus formulários",
@@ -3418,7 +3418,7 @@
             "changesDetected": "Foram efectuadas alterações. Guarde o formulário para as aplicar.",
             "noChanges": "Formulário atualizado.",
             "allStepsCompleted": "Completou todas as etapas",
-            "resetSubmit": "Alterar as minhas respostas",
+            "resetSubmit": "Editar as minhas respostas",
             "editable": "Modificar",
             "numberQuestions": "Número de questões",
             "disabledCustomForm": "Formulários arquivados",
@@ -3506,7 +3506,7 @@
                 "cadenceStepHelper": "Defina o nome da etapa aqui para que possa ver onde é que os membros estão na sequência.",
                 "entry_step": "Introdução",
                 "submit": "Criar",
-                "edit": "Alterar",
+                "edit": "Editar",
                 "title": "Criar uma sequência",
                 "cadenceNameLabel": "Nome da sequência",
                 "modify_name_label": "Alterar o nome",
@@ -3821,7 +3821,7 @@
             "deleteDialogText": "Tem a certeza de que quer eliminar esta regra ? Esta operação é definitiva",
             "deleteDialogTitle": "Eliminar a regra",
             "removeRule": "Eliminar a regra",
-            "editRule": "Alterar a regra",
+            "editRule": "Editar a regra",
             "stats": {
                 "total_mail_opened": "Número de e-mails abertos",
                 "opened_rate": "Taxa de abertura",
@@ -4382,7 +4382,7 @@
             },
             "yes": "Sim",
             "no": "Não",
-            "update": "Alterar"
+            "update": "Editar"
         },
         "adjustBalance": "Ajustar",
         "table": {
@@ -4852,7 +4852,7 @@
                 "highLastBookingBeforeWarning": "Atenção, {{ durationFormatted }} antes do início da aula, não serão aceites mais inscrições !"
             }
         },
-        "edit": "Alterar",
+        "edit": "Editar",
         "detail": {
             "tab": {
                 "pack": "Passes compatíveis",
@@ -5378,7 +5378,7 @@
             "20": "Pedido para descarregar fatura",
             "22": "Confirmação da fatura",
             "24": "Subscrição criada",
-            "25": "Alterar método de pagamento",
+            "25": "Método de pagamento modificado",
             "27": "A subscrição foi interrompida ou cancelada",
             "14": "Retirar da lista de espera (manager)",
             "16": "Sessão alterada (alunos)",
@@ -5497,7 +5497,7 @@
             }
         },
         "listItem": {
-            "modifyTransactionnalNotification": "alterar a notificação push",
+            "modifyTransactionnalNotification": "Editar notificação push",
             "sendTransactionnalNotification": "Enviar uma notificação push",
             "transactionnalEmail": "Email transacional",
             "copyCarbon": "Receber uma cópia da mensagem enviada por email",
@@ -5599,7 +5599,7 @@
                 "sports": "Categoria",
                 "actions": {
                     "create": "Guardar",
-                    "edit": "Alterar",
+                    "edit": "Editar",
                     "cancel": "Cancelar",
                     "skip": "Aceder a"
                 },
@@ -5882,13 +5882,13 @@
             "scaleDown": "Dividir",
             "parameterLegend": "Configurações",
             "explain": "Pode multiplicar os créditos do passe (3/7 x2 torna-se 6/14) ou dividi-los em caso de erro (3/7 ÷2 torna-se 1/3): arredondar para baixo.",
-            "title": "Alterar o crédito total"
+            "title": "[Formulário] Alterar créditos"
         },
         "actions": {
             "close": "Fechar",
             "scaleCredit": "Múltiplos créditos",
             "delete": "Eliminar",
-            "edit": "Alterar",
+            "edit": "Editar",
             "massExtension": "Adicionar uma extensão"
         },
         "section": {
@@ -6350,7 +6350,7 @@
             "content": "Deseja mesmo eliminar este pack? Esta operação é irreversível. As compras já efetuadas e o carrinho ativo não serão afectados.",
             "title": "Remover pack"
         },
-        "edit": "Alterar",
+        "edit": "Editar",
         "detail": {
             "emptyContent": "Este pack está vazio !",
             "purchases": "Vendas",
@@ -7016,7 +7016,7 @@
                     "_label": "Procurar"
                 },
                 "edit": {
-                    "_label": "Alterar"
+                    "_label": "Editar"
                 },
                 "retrieve": {
                     "_label": "Acesso às fichas de membros"
@@ -7024,7 +7024,7 @@
             },
             "offer": {
                 "edit": {
-                    "_label": "Alterar"
+                    "_label": "Editar"
                 },
                 "delete": {
                     "_label": "Cancelar"
@@ -7912,7 +7912,7 @@
                 "privateSlot": {
                     "allowed_actions": {
                         "edit": {
-                            "_label": "Alterar"
+                            "_label": "Editar"
                         },
                         "delete": {
                             "_label": "Eliminar"
@@ -8420,7 +8420,7 @@
         "filter": {
             "form": {
                 "columnError": "Tenha em atenção que a coluna filtrada foi removida do relatório. No entanto, o filtro nesta coluna ainda está aplicado.",
-                "edit": "Alterar",
+                "edit": "Editar",
                 "cancel": "Cancelar",
                 "submit": "Registo",
                 "error": {
@@ -8994,15 +8994,15 @@
                 }
             },
             "switchPaymentCombo": {
-                "error": "Impossível alterar o pack",
+                "error": "Não é possível modificar o pacote",
                 "success": "Pack alterado"
             },
             "switchPrivatePass": {
-                "error": "Impossível alterar o passe de marcação",
+                "error": "Impossível alterar o passe de aula privada",
                 "success": "Passe de marcação alterado"
             },
             "switchPack": {
-                "error": "Impossível alterar o passe de aulas",
+                "error": "Não é possível alterar o passe",
                 "success": "Passe de aulas alterado"
             },
             "stop": {
@@ -9030,7 +9030,7 @@
                 "error": "Erro de subscrição"
             },
             "updatePrice": {
-                "error": "Impossível alterar o montante",
+                "error": "Impossível atualizar este valor",
                 "success": "Montante atualizado"
             },
             "register": {
@@ -9120,7 +9120,7 @@
             "error": {
                 "errorCommission": "O valor introduzido deve estar entre 0 e 100",
                 "errorEmail": "Este e-mail já está a ser utilizado por outra conta",
-                "generic": "Impossível alterar esta autorização"
+                "generic": "Não é possível alterar esta permissão"
             },
             "update": {
                 "successCommission": "A taxa de comissão foi alterada",
@@ -9375,7 +9375,7 @@
                     "success": "Grupo de aulas eliminado"
                 },
                 "update": {
-                    "error": "Ocorreu um erro ao alterar o grupo de aulas",
+                    "error": "Ocorreu um erro ao editar o grupo disciplinar",
                     "success": "Grupo de aulas alterado"
                 },
                 "create": {
@@ -9408,7 +9408,7 @@
                 "success": "Regra de notificação suprimida"
             },
             "update": {
-                "error": "Não é possível alterar a regra para as notificações",
+                "error": "Erro ao editar a regra de notificação",
                 "success": "Regra de notificação modificada"
             },
             "customError": {
@@ -9517,7 +9517,7 @@
                 "success": "Grupo de faturação eliminado"
             },
             "update": {
-                "error": "Impossível alterar o grupo de faturação",
+                "error": "Erro ao modificar o grupo de faturação",
                 "success": "Grupo de faturação alterado"
             },
             "create": {
@@ -9531,7 +9531,7 @@
                 "success": "Localização eliminada"
             },
             "update": {
-                "error": "Impossível alterar a localização",
+                "error": "Não é possível alterar a localização",
                 "success": "Localização alterada"
             },
             "create": {
@@ -9562,7 +9562,7 @@
                 "success": "E-mail eliminado"
             },
             "update": {
-                "error": "Impossível alterar o e-mail",
+                "error": "Não é possível editar a mensagem de correio eletrónico",
                 "success": "E-mail alterado"
             },
             "create": {
@@ -9580,7 +9580,7 @@
                 "success": "Código promocional eliminado"
             },
             "update": {
-                "error": "Impossível alterar este código",
+                "error": "Impossível editar este cupão",
                 "success": "Código promocional alterado"
             },
             "create": {
@@ -9614,7 +9614,7 @@
                     "success": "Categoria eliminada"
                 },
                 "update": {
-                    "error": "Impossível alterar a categoria",
+                    "error": "Impossível modificar a categoria",
                     "success": "Categoria alterada com sucesso"
                 },
                 "create": {
@@ -9680,12 +9680,12 @@
                 "success": "Professor conectado com sucesso"
             },
             "editAccessToCoachSpace": {
-                "error": "Erro ao alterar os direitos de acesso à área de professores"
+                "error": "Erro ao editar o acesso e os direitos da Vista do Professor"
             }
         },
         "customForm": {
             "update": {
-                "error": "Impossível alterar o formulário",
+                "error": "Erro ao modificar o formulário",
                 "success": "Formulário alterado"
             },
             "customFormStepper": {
@@ -9735,7 +9735,7 @@
         },
         "privateBooking": {
             "updateCoach": {
-                "error": "Impossível alterar o professor",
+                "error": "É impossível editar o professor",
                 "success": "O professor foi alterado"
             },
             "attachCoach": {
@@ -9756,7 +9756,7 @@
         "paymentRuleGroups": {
             "update": {
                 "error": {
-                    "coachWithPaymentGroup": "Impossibilidade de alterar as regras de remuneração de um professor integrado num grupo",
+                    "coachWithPaymentGroup": "Não é possível alterar as regras de pagamento de um treinador incluído num grupo",
                     "generic": "Erro durante a alteração"
                 },
                 "success": "Grupo alterado com sucesso"
@@ -9773,7 +9773,7 @@
         "invoice": {
             "billingEstablishment": {
                 "error": {
-                    "unAuthorizedEstablishmentModification": "Impossível alterar o estabelecimento de faturação, apenas os administradores têm esse direito"
+                    "unAuthorizedEstablishmentModification": "Apenas os administradores podem modificar os grupos de faturação"
                 }
             },
             "sendToQuickbooks": {
@@ -10508,7 +10508,7 @@
                     "submit": "Guardar",
                     "cancel": "Cancelar"
                 },
-                "explain": "Alterar até :"
+                "explain": "Adicionar até:"
             },
             "disableRecurrentAvailability": "Eliminar a disponibilidade recorrente",
             "customEvent": {
@@ -10623,9 +10623,9 @@
                     "cancel": "Cancelar"
                 },
                 "update": {
-                    "confirm": "Alterar",
+                    "confirm": "Editar",
                     "content": "A edição desta aula privada recorrente afectará todos os compromissos futuros que tenham sido feitos com esta regra",
-                    "title": "Alterar uma marcação recorrente",
+                    "title": "Editar uma aula privada recorrente",
                     "cancel": "Cancelar"
                 }
             },
@@ -10786,7 +10786,7 @@
                 }
             },
             "configuration": {
-                "changeIsAlwaysAvailable": "Alterar",
+                "changeIsAlwaysAvailable": "Editar",
                 "totalCapacity": "Capacidade máxima : {{ capacity}}",
                 "title": "Disponibilidade",
                 "explainHasOwnAvailabilitySlots": "Clique no lápis para restringir as reservas a determinadas faixas horárias",
@@ -10850,7 +10850,7 @@
                 "submit": "Confirmar",
                 "title": "Eliminar o passe"
             },
-            "edit": "Alterar",
+            "edit": "Editar",
             "form": {
                 "expirationDaysBeforeFirstUse": {
                     "helperText": "Se o passe de aula não for utilizado pela primeira vez dentro deste número de dias, perde a validade.",
@@ -11004,7 +11004,7 @@
         "privateServiceCompatibility": {
             "delete": {
                 "submit": "Eliminar",
-                "explain": "Tem a certeza que pretende alterar as regras de utilização do passe? Esta modificação é retroactiva para as compras já efectuadas.",
+                "explain": "Tem a certeza de que pretende alterar as regras de utilização deste passe? Esta alteração afectará todas as compras.",
                 "cancel": "Cancelar",
                 "title": "Aulas Privadas compatíveis depois da modificação"
             },
@@ -11116,13 +11116,13 @@
                 "explainMoreHardDeleteReccurentBookingTitle": "Marcação recorrente"
             },
             "hardDelete": "Eliminar",
-            "editTime": "Alterar",
+            "editTime": "Editar",
             "notRefunded": "Sem reembolso",
             "detail": {
                 "cancelledByRecurrenceBy": "Cancelar por",
-                "dateModifiedBy": "Alterar por",
+                "dateModifiedBy": "Editado por",
                 "canal": "Canal",
-                "coachModifiedBy": "Alterar por",
+                "coachModifiedBy": "Editado por",
                 "wasRefundedNo": "Não",
                 "coach": "Professor",
                 "cancelledByRecurrenceOn": "Cancelar reserva recurrente em ",
@@ -11191,7 +11191,7 @@
             "isRefunded": "Reembolsar",
             "isCancelledDate": "Cancelar no {{-date}} às {{time}}",
             "updateTime": {
-                "title": "Alterar Aula Privada",
+                "title": "Editar Aula Privada",
                 "explainEmail": "Será automaticamente enviado um email para informar o aluno da alteração",
                 "submit": "Guardar",
                 "cancel": "Cancelar"
@@ -11212,7 +11212,7 @@
         },
         "serviceGroup": {
             "delete": "Eliminar",
-            "edit": "Alterar",
+            "edit": "Editar",
             "isEmpty": "Nenhuma marcação associada a esta categoria",
             "form": {
                 "actions": {
@@ -11231,9 +11231,9 @@
         "availabilitySlot": {
             "form": {
                 "resourceSelector": {
-                    "label": "Alterar para :",
+                    "label": "Editar:",
                     "cancel": "Cancelar",
-                    "title": "Alterar faixa horária",
+                    "title": "Editar faixa horária",
                     "warning": "Este professor não está associado a nenhuma marcação",
                     "submit": "Guardar"
                 }
@@ -11660,7 +11660,7 @@
             },
             "item": {
                 "delete": "Eliminar",
-                "edit": "Alterar"
+                "edit": "Editar"
             }
         },
         "relationship": {
@@ -12843,7 +12843,7 @@
         "workshopActivity": {
             "workshopActivityCreate": "Criar um workshop",
             "workshopActivityList": "Workshops",
-            "workshopActivityEditFormSubtitle": "Alterar workshop",
+            "workshopActivityEditFormSubtitle": "Editar workshop",
             "workshopActivityFormSubtitle": "Criar um workshop",
             "workshopActivityFormPage": "Formulário do workshop"
         },
@@ -12891,7 +12891,7 @@
             "invoiceList": "Os meus movimentos"
         },
         "metaActivity": {
-            "metaActivityEditFormSubtitle": "Alterar atividade",
+            "metaActivityEditFormSubtitle": "Editar atividade de grupo",
             "metaActivityFormSubtitle": "Criar uma atividade",
             "metaActivityList": "Atividades",
             "metaActivityEditForm": "Formulário da Atividade",
@@ -12920,7 +12920,7 @@
         "replacement": "Substituição",
         "offerManagement": "Reservas",
         "shop": "A minha loja",
-        "planning": "Planear",
+        "planning": "Calendário",
         "settings": "Configurações",
         "marketing": {
             "cadence": "Sequência",
@@ -13003,7 +13003,7 @@
                 "title": "Enviar informações a partir da bsport",
                 "helpContent": "Os membros da lista inteligente são enviados todas as noites para a lista da ActiveCampaign, onde aparecem como \"activos\". Os membros removidos da lista inteligente também são removidos da lista ActiveCampaign, onde o seu estado é \"não confirmado\".",
                 "helpTitle": "Como é que a sincronização funciona ?",
-                "dialogTitle": "Alterar um link de lista"
+                "dialogTitle": "Alterar um link entre listas"
             },
             "webhooks": {
                 "CONTACT_TAG": "Criar uma conta de cliente na bsport quando um potencial cliente é marcado como \"ganho\" na ActiveCampaign",
@@ -14065,8 +14065,8 @@
                 "deleteTitle": "Eliminar a sessão",
                 "explainRecursiveOfferEdit": "Pretende alterar TODAS as sessões semelhantes de acordo com estas novas condições ?",
                 "changeEstablishment": "Alterar local",
-                "changeCoach": "Alterar o professor",
-                "changeDate": "Alterar o horário / data",
+                "changeCoach": "Editar professor",
+                "changeDate": "Editar o horário / data",
                 "warningPackonEdit": "As alterações das sessões podem torná-las incompatíveis com determinados passes de aulas. Após a alteração, verifique se as sessões continuarão a ser compatíveis com eventuais mudanças de local / professor",
                 "advancedOptions": {
                     "tag": {
@@ -14151,7 +14151,7 @@
             "notesHelperText": "As notas são privadas : só aparecerão no Backoffice para os membros do staff autorizados a editá-las",
             "editGroup": "Alterar este campo diretamente no grupo de sessões.",
             "explainNoEmailChange": "A alteração do e-mail impedirá o professor de iniciar sessão. Só o professor pode alterar o seu e-mail através da sua conta pessoal da bsport",
-            "modify": "Alterar",
+            "modify": "Editar",
             "interval": {
                 "year": "Anual",
                 "month": "Mensal",
@@ -14377,7 +14377,7 @@
                 "tokenExpired": "Esta página expirou, solicite novamente a alteração da palavra-passe",
                 "confirmPassword": "Confirmar",
                 "password": "Palavra-passe",
-                "changePasswordTitle": "Alterar palavra-passe",
+                "changePasswordTitle": "Editar palavra-passe",
                 "passwordTooEasy": "A sua palavra-passe deve ter pelo menos 6 caracteres e incluir um número e letras",
                 "passwordMismatch": "As palavras-passe não coincidem",
                 "passwordChangedSuccess": "Palavra-passe alterada com sucesso !"
@@ -14396,7 +14396,7 @@
         },
         "calendar": {
             "canDeleteWithBooking": "As reservas (anuladas) ou as listas de espera foram registadas. Esta sessão não pode ser suprimida.",
-            "modifyOffer": "Alterar",
+            "modifyOffer": "Editar",
             "agenda": "Agenda",
             "deleteOffer": "Cancelar",
             "allDay": "dia",
@@ -14565,7 +14565,7 @@
             "email": "E-mail",
             "activities": "Atividades de grupo",
             "merge": "Fundir",
-            "edit": "Alterar",
+            "edit": "Editar",
             "filterBy": "Filtrar por : ",
             "sport": "Categoria",
             "company": "Empresa",
@@ -14996,7 +14996,7 @@
             "maintenedBookings_plural": "{{nb}} manutenção das reservas",
             "weekOf": "Semana de {{date}}",
             "offerFilteredBookingRecap": "Sessão: {{date}}",
-            "weekOverview": "A sua semana em resumo",
+            "weekOverview": "Visão geral da semana",
             "totalBookings": "{{nb}} reserva total",
             "totalBookings_plural": "{{nb}} reservas no total",
             "cancelledBookings": "{{nb}} reserva cancelada",
@@ -15277,10 +15277,10 @@
                 "color": "Código de cores",
                 "nameCaption": "{{max}} caracteres máx. ({{count}}/{{max}})",
                 "name": "Nome",
-                "title": "Alterar o nível"
+                "title": "Níveis personalizados"
             },
             "delete": "Eliminar",
-            "edit": "Alterar"
+            "edit": "Editar"
         },
         "tagManagementInfo": "{{authorized}} etiqueta(s) autorizada(s), {{unauthorized}} estiqueta(s) não autorizada(s)",
         "maximumNumberDescription": "O número máximo de reservas {{effectif}} já foi atingido e, ao registar este membro, irá exceder o número de reservas inicialmente previsto. Tem a certeza de que pretende registar este membro?",
@@ -15312,8 +15312,8 @@
             "selectEdit": "Selecionar as sessões a modificar",
             "deleteSimilarOffersGroups": "Pretende eliminar futuras recorrências do grupo",
             "deleteSimilarOffers": "Pretende eliminar sessões semelhantes?",
-            "editSimilarOffersGroup": "Alterar a sessão em futuras repetições do grupo?",
-            "editSimilarOffers": "Gostaria de alterar sessões semelhantes de acordo com estas novas condições?"
+            "editSimilarOffersGroup": "Editar também as sessões futuras deste evento",
+            "editSimilarOffers": "Selecionar as sessões que serão modificadas"
         },
         "bookingListEmpty": "Nenhuma reserva",
         "bookingList": "Reservas",
@@ -15385,7 +15385,7 @@
             "today": "Hoje",
             "filter": "Filtrar",
             "deleteOffer": "Cancelar",
-            "modifyOffer": "Alterar"
+            "modifyOffer": "Edit"
         },
         "substitute": "Substituição",
         "extraordinaryEstablishment": "(localização temporária)",
@@ -15682,7 +15682,7 @@
                 },
                 "title": "Eliminar uma sala"
             },
-            "edit": "Alterar",
+            "edit": "Editar",
             "update": {
                 "title": "Editar informações"
             },
@@ -15699,7 +15699,7 @@
             }
         },
         "card": {
-            "update": "Alterar"
+            "update": "Atualizar"
         },
         "notificationToolTip": "Foram criadas notificações para as reservas desta sala",
         "location": {
@@ -15769,7 +15769,7 @@
             "title": "Pretende mesmo eliminar esta configuração ?",
             "content": "Apenas os pagamentos futuros serão afetados."
         },
-        "modify": "Alterar",
+        "modify": "Editar",
         "form": {
             "compability": {
                 "pack": "Passe de aulas",
@@ -15982,7 +15982,7 @@
                 "cancel": "Cancelar"
             },
             "form": {
-                "edit": "Alterar",
+                "edit": "Editar",
                 "confirm": {
                     "button": "Confirmar",
                     "unlimitedToRent": "Acabou de mudar um vídeo ilimitado para um vídeo de aluguer. Os membros que possuem atualmente o vídeo perderão o acesso ao mesmo se o período de validade especificado tiver expirado. Tem a certeza de que pretende alterar esta definição?",
@@ -16252,7 +16252,7 @@
                     "cancel": "Cancelar",
                     "explain": "Tenha em atenção que a eliminação desta categoria afectará todos os membros. Esta operação é irreversível"
                 },
-                "edit": "Alterar as etiquetas",
+                "edit": "Editar as etiquetas",
                 "addTagGroup": "Criar uma categoria",
                 "namePlaceholder": "Nome da categoria"
             },
@@ -16498,10 +16498,10 @@
         "subscription": {
             "delete": "Eliminar",
             "actions": {
-                "changeDate": "Alterar a data",
-                "changePrice": "Alterar o preço",
+                "changeDate": "Editar data",
+                "changePrice": "Editar preço",
                 "switchPaymentMethod": "Alterar o método de pagamento",
-                "switchPack": "Alterar o passe",
+                "switchPack": "Editar passe",
                 "showInvoice": "Ver a fatura",
                 "freeze": "Pausa",
                 "enableAutoRenew": "Ativar a renovação automática",
@@ -16510,14 +16510,14 @@
                 "disableAutoRenew": "Desativar a renovação automática",
                 "advanceTime": "Avançar com a fatura"
             },
-            "edit": "Alterar",
+            "edit": "Editar",
             "switchPaymentCombo": {
                 "form": {
                     "prewarning": "Se pretender alterar futuras faturas já criadas, deve anular esta subscrição.",
                     "warning": "A faturação mantém-se inalterada, pelo que, se pretender aumentar/diminuir o montante mensal, deve alterar cada prestação separadamente.",
                     "explain": "Este pack será cobrado em vez do antigo APENAS nas faturas geradas após a renovação da assinatura",
                     "cancel": "Cancelar",
-                    "title": "Alterar o pack",
+                    "title": "O pack foi atualizado",
                     "submit": "Guardar"
                 }
             },
@@ -16544,7 +16544,7 @@
             "switchPack": {
                 "form": {
                     "explain": "Este passe de aulas será cobrado em vez do antigo em todas as faturas futuras. As sessões marcadas com o passe antigo serão transferidas para o novo passe, mesmo que este não seja supostamente compatível.",
-                    "title": "Alterar o passe de aulas",
+                    "title": "Alterar o passe",
                     "warning": "A faturação mantém-se inalterada, pelo que, se pretender aumentar/diminuir o montante mensal, deve alterar cada prestação separadamente.",
                     "cancel": "Cancelar",
                     "submit": "Guardar"
@@ -16559,7 +16559,7 @@
             "pauseSection": "Pausas",
             "switchPrivatePass": {
                 "form": {
-                    "title": "Alterar o passe de marcação",
+                    "title": "O passe de aula privada foi atualizado",
                     "explain": "Este passe de marcação será faturado em vez do antigo a partir de agora. As sessões marcadas com o passe antigo serão transferidas para o novo, mesmo que o novo passe não seja compatível.",
                     "warning": "A faturação mantém-se inalterada, pelo que, se pretender aumentar/diminuir o montante mensal, deve alterar cada prestação separadamente.",
                     "cancel": "Cancelar",
@@ -16649,7 +16649,7 @@
                     "success_plural": "{{count}} pausar subscrições"
                 },
                 "deleteDialogContent": "Tem a certeza de que pretende cancelar esta interrupção para todas as subscrições?",
-                "updateNameDialogTitle": "Alterar o motivo da interrupção",
+                "updateNameDialogTitle": "Alterar do motivo da pausa",
                 "title": "Pausas gerais"
             },
             "common": {
@@ -16773,7 +16773,7 @@
                 },
                 "explain": "Apenas esta fatura será modificada",
                 "label": "Data do recibo",
-                "title": "Alterar futura data"
+                "title": "Editar fatura(s) futura(s)"
             },
             "list": {
                 "titleNext": "Próximos levantamentos"
@@ -17033,7 +17033,7 @@
         "shopitem": {
             "action": {
                 "delete": "Eliminar",
-                "edit": "Alterar",
+                "edit": "Editar",
                 "addToCard": "Adicionar ao carrinho"
             },
             "form": {
@@ -17076,7 +17076,7 @@
                 "quantityHelperText": "Unidade a acrescentar/subtrair ao stock",
                 "cancel": "Cancelar",
                 "submit": "Guardar",
-                "title": "Alterar o stock"
+                "title": "Atualização da disposição"
             },
             "total_sales": "Número de artigos vendidos :",
             "action": {
@@ -17091,8 +17091,8 @@
     "quicksale": {
         "cardListPage": {
             "deleteTile": "Eliminar",
-            "editColor": "Alterar cor",
-            "editName": "Alterar nome",
+            "editColor": "Editar a cor",
+            "editName": "Editar o nome",
             "editIcon": "Alterar ícone",
             "seeLess": "Ver menos",
             "archiveSection": "Arquivar a categoria",
@@ -17350,7 +17350,7 @@
             "form": {
                 "delete": "eliminar programa",
                 "update": "Alterar o programa",
-                "modify": "alterar o programa",
+                "modify": "Editar o programa",
                 "addProgram": "adicionar  um programa",
                 "color": "Cor",
                 "default": "Definir como programa por defeito para todos os novos registados",
@@ -17434,7 +17434,7 @@
                 "edit": "Renomear"
             },
             "creationDialog": {
-                "edit": "Alterar",
+                "edit": "Editar",
                 "create": "Criar",
                 "titleEdit": "Categoria",
                 "titleNew": "Nova categoria",
@@ -17534,7 +17534,7 @@
                 "title": "Eliminar modelo de e-mail"
             }
         },
-        "edit": "Alterar",
+        "edit": "Editar",
         "allCompanies": "Todos os franchisados",
         "seeAll": "Ver tudo",
         "autoSave": "Cópia de segurança automática",
@@ -17582,7 +17582,7 @@
     "dashboard": {
         "graphActions": {
             "delete": "Eliminar",
-            "edit": "Alterar"
+            "edit": "Editar"
         },
         "placeholderEmptyValues": {
             "establishment": "Nenhum estabelecimento",
@@ -18259,7 +18259,7 @@
         "authenticationDialog": {
             "error": "A palavra-passe introduzida não é válida",
             "description": "Para garantir a segurança, é favor autenticar a sua identidade introduzindo a sua palavra-passe antes de proceder à mudança de estabelecimento.",
-            "title": "Alterar Estabelecimento"
+            "title": "Modificar Estabelecimento"
         }
     },
     "search": {

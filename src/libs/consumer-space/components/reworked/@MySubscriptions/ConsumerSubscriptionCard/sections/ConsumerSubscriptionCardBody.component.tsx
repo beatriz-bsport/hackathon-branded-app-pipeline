@@ -1,30 +1,35 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import classNames from 'classnames';
 
 import List from '#Fabrique/List';
 import ListItem from '#Fabrique/ListItem';
 import Button from '#Fabrique/ButtonV2';
 import Typography from '#Fabrique/Typography';
+
 import type { ConsumerSubscriptionCardProps } from '..';
+
 import { ConsumerGenericCardBodyContainer } from '#libs/consumer-space/components/reworked/common/ConsumerCard';
 import { ChevronRight } from '#components/untitledui';
 import { getSubscriptionRecurrenceLabel } from '#libs/consumer-space/components/reworked/@MySubscriptions/utils';
 
 type Props = Pick<
   ConsumerSubscriptionCardProps,
-  | 'price'
-  | 'recurrence'
   | 'isDetailsDisabled'
   | 'onDetailsClick'
+  | 'price'
+  | 'recurrence'
   | 'subscriptionInterval'
+  | 'subscriptionNextPaymentDate'
 >;
 
 const ConsumerSubscriptionCardBody: React.FC<Props> = ({
-  price,
-  recurrence,
   isDetailsDisabled,
   onDetailsClick,
+  price,
+  recurrence,
   subscriptionInterval,
+  subscriptionNextPaymentDate,
 }) => {
   const { t } = useTranslation('consumerSpace');
   const recurrenceLabel = getSubscriptionRecurrenceLabel(
@@ -37,6 +42,16 @@ const ConsumerSubscriptionCardBody: React.FC<Props> = ({
   return (
     <ConsumerGenericCardBodyContainer className="bs-consumer__subscription-card__container">
       <List className="bs-consumer__subscription-card__list">
+        <ListItem
+          className={classNames('bs-consumer__subscription-card__list-item', {
+            'bs-consumer__subscription-card__list-item--empty':
+              !subscriptionNextPaymentDate,
+          })}
+          label={t(
+            'reworked.mySubscriptions.consumerSubscriptionCard.nextPayment',
+            { nextPayment: subscriptionNextPaymentDate },
+          )}
+        />
         <ListItem
           classes={{
             label: 'bs-consumer__subscription-card__list-item__price',

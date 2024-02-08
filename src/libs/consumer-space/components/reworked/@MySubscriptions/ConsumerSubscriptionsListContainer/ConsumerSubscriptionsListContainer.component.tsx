@@ -122,11 +122,16 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
               // TODO when working on modales
               onAddPaymentMethodClick={() => {}}
               onDetailsClick={onCardDetailsClick(item.id)}
-              price={item?.recurrent_price}
+              price={(parseFloat(item?.price_to_display_cts) / 100).toFixed(2)}
               recurrence={item?.recurrence_basis}
               subscriptionDate={getSubtitleCardDate(selectedTab, item, t)}
               subscriptionInterval={item?.interval}
               subscriptionName={item?.name_without_member_name}
+              subscriptionNextPaymentDate={
+                selectedTab !== SubscriptionTabEnum.EXPIRED &&
+                item?.next_billing_date &&
+                formatAsDatetimeAdapted(item?.next_billing_date, 'L')
+              }
             />
           )}
         />
@@ -158,7 +163,9 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
         onSeeClick={onSeeTermsClick}
         pauseEndDate={selectedSubscriptionPauseEndDate}
         paymentMethodType={paymentMethodUsed?.type}
-        price={selectedSubscription?.recurrent_price}
+        price={(
+          parseFloat(selectedSubscription?.price_to_display_cts) / 100
+        ).toFixed(2)}
         readableIdentifier={paymentMethodUsed?.readable_identifier}
         recurrence={selectedSubscription?.recurrence_basis}
         showPlaceholder={!selectedSubscription}

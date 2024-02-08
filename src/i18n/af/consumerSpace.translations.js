@@ -354,6 +354,7 @@ exports.default = {
         getSubscription: 'Get a subscription',
       },
       consumerSubscriptionCard: {
+        nextPayment: 'Next payment: {{- nextPayment }}',
         recurrenceLabelPer: '{{ price }}{{ currency }}/{{ interval }}',
         recurrenceLabelEvery:
           '{{ price }}{{ currency }} every {{ recurrence }} {{ interval }}',

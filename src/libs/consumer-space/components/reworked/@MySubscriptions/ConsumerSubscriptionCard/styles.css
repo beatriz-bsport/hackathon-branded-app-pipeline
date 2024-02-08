@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: flex-start;
   width: inherit;
+  margin-bottom: var(--bs-space-size-2);
   container: bsConsumerSubscriptionCard / inline-size;
 }
 
@@ -29,6 +30,10 @@
 
 .bs-consumer__subscription-card__list-item {
   padding: 0;
+}
+
+.bs-consumer__subscription-card__list-item--empty {
+  display: none;
 }
 
 .bs-consumer__subscription-card__list-item__price {

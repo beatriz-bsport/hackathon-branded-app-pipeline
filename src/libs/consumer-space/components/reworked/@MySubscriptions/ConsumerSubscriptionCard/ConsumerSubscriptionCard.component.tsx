@@ -13,20 +13,36 @@ import type { SubscriptionInterval } from '#libs/subscription/types';
 import './styles.css';
 
 type Props = {
+  /** Indicates if add payment method button is disabled */
   addPaymentMethodDisabled: boolean;
+  /** Indicates if a subscription has failed payments */
   hasFailedPayments: boolean;
+  /** Indicates if a subscription has missing payment method */
   hasMissingPaymentMethod: boolean;
+  /** Indicates if see details button is disabled */
   isDetailsDisabled: boolean;
+  /** Indicates if subscriptions are being fetched */
   isLoading: boolean;
+  /** Indicates if subscriptions is paused */
   isPaused: boolean;
+  /** Indicates if subscriptions is selected */
   isSelected: boolean;
+  /** Action when clicking on add payment */
   onAddPaymentMethodClick: () => void;
+  /** Action when clicking on see details */
   onDetailsClick: () => void;
+  /** Price to display and can depend on coupons applied */
   price: string;
+  /** Number of payment per subscription interval */
   recurrence: number;
+  /** Date of the subscription displayed as the main subtitle */
   subscriptionDate: string;
+  /** Interval of the subscription */
   subscriptionInterval: SubscriptionInterval;
+  /** Name of the subscription */
   subscriptionName: string;
+  /** Next payment date of the subscription */
+  subscriptionNextPaymentDate: string;
 };
 
 const ConsumerSubscriptionCard: React.FC<Props> = ({
@@ -44,6 +60,7 @@ const ConsumerSubscriptionCard: React.FC<Props> = ({
   subscriptionDate,
   subscriptionInterval,
   subscriptionName,
+  subscriptionNextPaymentDate,
 }) => {
   if (isLoading) {
     return <ConsumerCardSkeleton />;
@@ -66,6 +83,9 @@ const ConsumerSubscriptionCard: React.FC<Props> = ({
         price={price}
         recurrence={recurrence}
         subscriptionInterval={subscriptionInterval}
+        subscriptionNextPaymentDate={
+          !hasFailedPayments && subscriptionNextPaymentDate
+        }
       />
       <ConsumerSubscriptionCardFooter
         addPaymentMethodDisabled={addPaymentMethodDisabled}

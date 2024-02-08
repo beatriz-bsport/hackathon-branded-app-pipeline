@@ -1,19 +1,12 @@
-// @ts-nocheck
-import React, { Component } from 'react';
+import React from 'react';
 
 // eslint-disable-next-line bsport/no-redux-in-component
 import { connect, ConnectedProps } from 'react-redux';
-import { compose } from 'recompose';
 
-import {
-  WithStyles,
-  createStyles,
-  withStyles,
-  Theme,
-} from '@material-ui/core/styles';
-import { withTranslation, WithTranslation } from 'react-i18next';
+import { Theme, makeStyles } from '@material-ui/core/styles';
+import { useTranslation, WithTranslation } from 'react-i18next';
 import { FormLabel } from '@material-ui/core';
-import memoize from 'memoize-one';
+// @ts-expect-error
 import { SelectFieldWithEnhancedLabeLError } from '../../../../components/forms';
 
 import { CustomFormField, FormikCustomFormFilled } from '../../types';
@@ -26,102 +19,101 @@ import themeSelectors from '../../../theme/selectors';
 import { generateUniqueCustomFormFieldIdentifier } from '#libs/custom-form/utils';
 import FabriqueSelectfield from '#components/css-only/Fabrique/Temporary/Selectfield';
 
-const styles = (theme: Theme) =>
-  createStyles({
-    spacedField: {
-      paddingTop: theme.spacing(2),
-      paddingBottom: theme.spacing(2),
-    },
-    labelClass: {
-      color: 'black',
-      paddingBottom: theme.spacing(1),
-    },
-  });
+const useStyles = makeStyles((theme: Theme) => ({
+  spacedField: {
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
+  },
+  labelClass: {
+    color: 'black',
+    paddingBottom: theme.spacing(1),
+  },
+}));
 
 type OwnProps = {
   field: CustomFormField & { answer: string | number | boolean };
   index: number;
   asManager?: boolean;
   setFieldValue: (field_name: string, value: any) => void;
-  handleBlur: (str: string) => void;
-
-  waiver?: string;
-  general_terms_and_conditions: string;
   values: FormikCustomFormFilled;
   isCssVariantActivated?: boolean;
 };
-type Props = OwnProps &
-  ConnectedProps<typeof connector> &
-  WithStyles<typeof styles> &
-  WithTranslation;
 
-export class CustomFormFieldLocationInput extends Component<Props> {
-  componentDidMount() {
-    this.props.fetchAllEstablishmentGroup(this.props.theme.company);
-  }
+type Props = OwnProps & ConnectedProps<typeof connector> & WithTranslation;
 
-  render() {
-    const {
-      classes,
-      t,
-      field,
-      index,
-      establishmentGroupList,
-      asManager,
-      setFieldValue,
-      values,
-      isCssVariantActivated,
-    } = this.props;
-    const suggestions = memoize(
+export const CustomFormFieldLocationInput: React.FC<Props> = ({
+  field,
+  index,
+  establishmentGroupList,
+  asManager,
+  setFieldValue,
+  values,
+  isCssVariantActivated,
+  theme,
+  fetchAllEstablishmentGroup,
+}) => {
+  // CDM
+  React.useEffect(() => {
+    fetchAllEstablishmentGroup(theme.company);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const { t } = useTranslation('marketing');
+  const classes = useStyles();
+  const uniqueCustomFormFieldIdentifier = React.useMemo(
+    () => generateUniqueCustomFormFieldIdentifier(field, field.label),
+    [field],
+  );
+
+  const suggestions = React.useMemo(
+    () =>
       establishmentGroupList
         ? establishmentGroupList.map((establishmentGroup) => ({
             label: establishmentGroup.name,
             value: establishmentGroup.id,
           }))
         : [],
-    );
-    const uniqueCustomFormFieldIdentifier =
-      generateUniqueCustomFormFieldIdentifier(field, field.label);
+    [establishmentGroupList],
+  );
 
-    if (isCssVariantActivated) {
-      return (
-        <FabriqueSelectfield
-          id={uniqueCustomFormFieldIdentifier}
-          isDisabled={asManager}
-          isRequired={field.mandatory}
-          label={field.label}
-          name={`custom_form_field.${index}.answer`}
-          suggestions={suggestions}
-        />
-      );
-    }
+  if (isCssVariantActivated) {
     return (
-      <div className={classes.spacedField}>
-        <FormLabel className={classes.labelClass}>
-          {field.label}
-          {field.mandatory && ' *'}
-        </FormLabel>
-        <div style={{ maxWidth: '400px' }}>
-          <SelectFieldWithEnhancedLabeLError
-            isClearable
-            isDisabled={asManager}
-            label={field.label}
-            name={`custom_form_field.${index}.answer`}
-            onChange={(item: { label: string; value: string }) =>
-              setFieldValue(
-                `custom_form_field.${index}.answer`,
-                item ? [item.value] : [],
-              )
-            }
-            placeholder={t('customForm.field.select_placeholder')}
-            selected={values.custom_form_field[index].answer}
-            suggestions={suggestions}
-          />
-        </div>
-      </div>
+      <FabriqueSelectfield
+        id={uniqueCustomFormFieldIdentifier}
+        isDisabled={asManager}
+        isRequired={field.mandatory}
+        label={field.label}
+        name={`custom_form_field.${index}.answer`}
+        suggestions={suggestions}
+      />
     );
   }
-}
+  return (
+    <div className={classes.spacedField}>
+      <FormLabel className={classes.labelClass}>
+        {field.label}
+        {field.mandatory && ' *'}
+      </FormLabel>
+      <div style={{ maxWidth: '400px' }}>
+        <SelectFieldWithEnhancedLabeLError
+          isClearable
+          isDisabled={asManager}
+          label={field.label}
+          name={`custom_form_field.${index}.answer`}
+          onChange={(item: { label: string; value: string }) =>
+            setFieldValue(
+              `custom_form_field.${index}.answer`,
+              item ? [item.value] : [],
+            )
+          }
+          placeholder={t('customForm.field.select_placeholder')}
+          selected={values.custom_form_field[index].answer}
+          suggestions={[...suggestions]}
+        />
+      </div>
+    </div>
+  );
+};
 
 const connector = connect(
   (state: RootState) => ({
@@ -133,8 +125,4 @@ const connector = connect(
   },
 );
 
-export default compose<any, OwnProps>(
-  withStyles(styles),
-  withTranslation('marketing'),
-  connector,
-)(CustomFormFieldLocationInput);
+export default React.memo(connector(CustomFormFieldLocationInput));

@@ -69,8 +69,10 @@ export type ShopItemCreate = {
   name: string;
   price: number;
   sell_only_on_provision: boolean;
+  stock_keeping_unit?: string;
   subshop?: number;
   subtitle?: string;
+  supplier?: number;
   supplier_price?: string;
   tva: string;
 };

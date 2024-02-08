@@ -30,6 +30,7 @@ const initialValues: ShopItemFormValues = {
   tva: 0,
   description: '',
   barcode: '',
+  stockKeepingUnit: '',
   marketplaceEnabled: false,
   availablePaymentMethodIdentifiers: [CB.id, CREDIT_ACCOUNT.id],
   featured: false,

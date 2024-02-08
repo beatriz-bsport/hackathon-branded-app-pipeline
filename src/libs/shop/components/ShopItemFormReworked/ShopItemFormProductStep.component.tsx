@@ -255,19 +255,34 @@ const ShopItemFormProductStep: React.FC<Props> = ({
           />
         </Grid>
       </div>
-      <div className={classes.barcode}>
-        <TextField
-          fullWidth
-          color="secondary"
-          error={!!errors.barcode}
-          helperText={t(errors.barcode)}
-          label={t('translation:form.shop.item.barcode')}
-          name="barcode"
-          onChange={handleChange}
-          value={values.barcode}
-          variant="outlined"
-        />
-      </div>
+      <Grid container className={classes.barcodeContainer} spacing={4}>
+        <Grid item xs={6}>
+          <TextField
+            fullWidth
+            color="secondary"
+            error={!!errors.barcode}
+            helperText={t(errors.barcode)}
+            label={t('translation:form.shop.item.barcode')}
+            name="barcode"
+            onChange={handleChange}
+            value={values.barcode}
+            variant="outlined"
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <TextField
+            fullWidth
+            color="secondary"
+            error={!!errors.stockKeepingUnit}
+            helperText={t(errors.stockKeepingUnit)}
+            label={t('translation:form.shop.item.sku')}
+            name="stockKeepingUnit"
+            onChange={handleChange}
+            value={values.stockKeepingUnit}
+            variant="outlined"
+          />
+        </Grid>
+      </Grid>
       <div className={classes.buttons}>
         {isLoading ? (
           <CircularProgress />
@@ -321,7 +336,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     marginTop: theme.spacing(2),
   },
-  barcode: {
+  barcodeContainer: {
     display: 'flex',
     alignItems: 'center',
     paddingTop: theme.spacing(2),

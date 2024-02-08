@@ -13630,6 +13630,8 @@
       "booking": { "delete": { "error": "Error while deleting", "success": "Booking deleted" } },
       "shop": {
         "item": {
+          "sku": "SKU",
+          "supplier": "Supplier",
           "tva": "VAT / Sales tax",
           "price": "Price",
           "name": "Name",

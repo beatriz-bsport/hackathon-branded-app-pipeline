@@ -745,6 +745,8 @@ exports.default = {
     },
     shop: {
       item: {
+        sku: 'SKU',
+        supplier: 'Supplier',
         tva: 'VAT / Sales tax',
         price: 'Price',
         name: 'Name',

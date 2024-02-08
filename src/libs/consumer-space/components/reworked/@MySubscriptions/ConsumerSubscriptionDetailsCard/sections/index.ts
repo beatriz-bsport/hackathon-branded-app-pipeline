@@ -1,13 +1,15 @@
+import ConsumerSubscriptionDetailsCardBillingHistory from './ConsumerSubscriptionDetailsCardBillingHistory.component';
 import ConsumerSubscriptionDetailsCardDescription from './ConsumerSubscriptionDetailsCardDescription.component';
-import ConsumerSubscriptionDetailsCardHeader from './ConsumerSubscriptionDetailsCardHeader.component';
-import ConsumerSubscriptionDetailsCardTerms from './ConsumerSubscriptionDetailsCardTerms.component';
-import ConsumerSubscriptionDetailsCardPaymentMethod from './ConsumerSubscriptionDetailsCardPaymentMethod.component';
 import ConsumerSubscriptionDetailsCardFailedPayments from './ConsumerSubscriptionDetailsCardFailedPayments.component';
+import ConsumerSubscriptionDetailsCardHeader from './ConsumerSubscriptionDetailsCardHeader.component';
+import ConsumerSubscriptionDetailsCardPaymentMethod from './ConsumerSubscriptionDetailsCardPaymentMethod.component';
+import ConsumerSubscriptionDetailsCardTerms from './ConsumerSubscriptionDetailsCardTerms.component';
 
 export {
+  ConsumerSubscriptionDetailsCardBillingHistory,
   ConsumerSubscriptionDetailsCardDescription,
-  ConsumerSubscriptionDetailsCardHeader,
-  ConsumerSubscriptionDetailsCardTerms,
-  ConsumerSubscriptionDetailsCardPaymentMethod,
   ConsumerSubscriptionDetailsCardFailedPayments,
+  ConsumerSubscriptionDetailsCardHeader,
+  ConsumerSubscriptionDetailsCardPaymentMethod,
+  ConsumerSubscriptionDetailsCardTerms,
 };

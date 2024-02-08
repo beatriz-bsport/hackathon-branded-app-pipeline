@@ -5,11 +5,12 @@ import ConsumerCardPlaceholder from '#libs/consumer-space/components/reworked/co
 import ConsumerDetailsCardSkeleton from '#libs/consumer-space/components/reworked/common/ConsumerDetailsCardSkeleton';
 
 import {
+  ConsumerSubscriptionDetailsCardBillingHistory,
   ConsumerSubscriptionDetailsCardDescription,
-  ConsumerSubscriptionDetailsCardPaymentMethod,
-  ConsumerSubscriptionDetailsCardHeader,
-  ConsumerSubscriptionDetailsCardTerms,
   ConsumerSubscriptionDetailsCardFailedPayments,
+  ConsumerSubscriptionDetailsCardHeader,
+  ConsumerSubscriptionDetailsCardPaymentMethod,
+  ConsumerSubscriptionDetailsCardTerms,
 } from './sections';
 
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
@@ -18,20 +19,27 @@ import Card from '#Fabrique/Card';
 import type {
   SubscriptionInterval,
   SubscriptionsFailedInvoicesREST,
+  SubscriptionsInvoicesDetailsREST,
 } from '#libs/subscription/types';
 import type { MarketplacePaymentMethodsType } from '#libs/marketplace/types';
 
 import './styles.css';
 
 type Props = {
+  /** Indicates if new invoices are being fetched */
+  areDetailsLoading: boolean;
   /** Auto renewal date */
   autoRenewalDate: string;
   /** Description of subscription */
   description: string;
   /** List of failed invoices */
   failedInvoices: SubscriptionsFailedInvoicesREST[];
+  /** Handler that fetches invoices of a subscription */
+  handleInvoiceDetailsPaginationFetchMore: () => void;
   /** If subscription has auto renewal */
   hasAutoRenewal: boolean;
+  /** If there are more invoices available */
+  hasDetailsNextPage: boolean;
   /** If subscription has missing payment method */
   hasMissingPaymentMethod: boolean;
   /** Number of retry after failed payment based on InvoiceConfiguration */
@@ -58,6 +66,11 @@ type Props = {
   readableIdentifier: string;
   /** Number of payment per subscription interval */
   recurrence: number;
+  /** List of invoices related to a subscription */
+  selectedSubscriptionInvoiceDetails: Omit<
+    SubscriptionsInvoicesDetailsREST,
+    'billing_plan_id'
+  >[];
   /** Condition to display empty/placeholder state */
   showPlaceholder: boolean;
   /** Interval of the subscription */
@@ -73,10 +86,13 @@ type Props = {
 };
 
 const ConsumerSubscriptionDetailsCard: React.FC<Props> = ({
+  areDetailsLoading,
   autoRenewalDate,
   description,
   failedInvoices,
+  handleInvoiceDetailsPaginationFetchMore,
   hasAutoRenewal,
+  hasDetailsNextPage,
   hasMissingPaymentMethod,
   invoiceRetryNumber,
   isLoading,
@@ -90,6 +106,7 @@ const ConsumerSubscriptionDetailsCard: React.FC<Props> = ({
   price,
   readableIdentifier,
   recurrence,
+  selectedSubscriptionInvoiceDetails,
   showPlaceholder,
   subscriptionInterval,
   subscriptionName,
@@ -141,6 +158,14 @@ const ConsumerSubscriptionDetailsCard: React.FC<Props> = ({
       <ConsumerSubscriptionDetailsCardTerms
         onSeeClick={onSeeClick}
         termsDate={termsDate}
+      />
+      <ConsumerSubscriptionDetailsCardBillingHistory
+        areDetailsLoading={areDetailsLoading}
+        handleInvoiceDetailsPaginationFetchMore={
+          handleInvoiceDetailsPaginationFetchMore
+        }
+        hasDetailsNextPage={hasDetailsNextPage}
+        selectedSubscriptionInvoiceDetails={selectedSubscriptionInvoiceDetails}
       />
     </Card>
   );

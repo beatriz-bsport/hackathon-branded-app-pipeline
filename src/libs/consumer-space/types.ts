@@ -6,7 +6,10 @@ import type { Booking, BookingREST } from '#libs/booking/types';
 import type { ErrorAndLoading } from '../types';
 import { ConsumerPaymentPackREST } from '#libs/consumer-payment-pack/types';
 import type { WaitingListBookingOption } from '#libs/waiting-list/types';
-import type { SubscriptionREST } from '#libs/subscription/types';
+import type {
+  SubscriptionREST,
+  SubscriptionsInvoicesDetailsREST,
+} from '#libs/subscription/types';
 import { UniversalPassREST } from '#libs/universal-pass/types';
 
 export type Profile = {
@@ -114,6 +117,17 @@ export type ConsumerPassReworked<PassType> = {
   };
 } & ErrorAndLoading;
 
+export type ConsumerSubscriptionInvoiceDetails = {
+  bySubscriptionId: {
+    [key: number]: {
+      invoices: Omit<SubscriptionsInvoicesDetailsREST, 'billing_plan_id'>[];
+      page: number;
+      next_page: number | null;
+      count: number;
+    };
+  };
+} & ErrorAndLoading;
+
 export type ConsumerStateReworked = {
   myBookings: {
     bookings: {
@@ -135,6 +149,7 @@ export type ConsumerStateReworked = {
     active: ConsumerSubscriptionReworked;
     future: ConsumerSubscriptionReworked;
     expired: ConsumerSubscriptionReworked;
+    invoices: ConsumerSubscriptionInvoiceDetails;
   };
   myPasses: {
     tabs: {

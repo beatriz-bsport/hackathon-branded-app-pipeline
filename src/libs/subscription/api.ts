@@ -1,6 +1,7 @@
 import { AxiosResponse } from 'axios';
 import {
   API_URI,
+  API_V1_URI,
   buildUrlParams,
   deleteAuth,
   getAuth,
@@ -16,6 +17,8 @@ import type {
   SubscriptionQueryParams,
   PlannedInvoice,
   SubscriptionREST,
+  SubscriptionsInvoicesDetailsREST,
+  SubscriptionDetailsQueryParams,
 } from './types';
 import { PaginatedResponse } from '../../state/types';
 
@@ -36,6 +39,14 @@ export const fetchConsumerSubscriptionList = async (
 ) => {
   return getAuth<PaginatedResponse<SubscriptionREST>>(
     `${API_URI}/subscription/consumer-billing-plan/${buildUrlParams(params)}`,
+  );
+};
+
+export const fetchConsumerSubscriptionInvoicesDetails = (
+  params: SubscriptionDetailsQueryParams,
+) => {
+  return getAuth<PaginatedResponse<SubscriptionsInvoicesDetailsREST>>(
+    `${API_V1_URI}/payment/consumer-invoices/${buildUrlParams(params)}`,
   );
 };
 

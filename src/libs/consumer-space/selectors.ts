@@ -1017,3 +1017,6 @@ export const getConsumerPassMetadataLoading = createSelector(
   (consumerPaymentPackMetadataLoading, isPrivateConsumerPassMetadataLoading) =>
     consumerPaymentPackMetadataLoading || isPrivateConsumerPassMetadataLoading,
 );
+
+export const getMySubscriptionsInvoicesDetailsState = (state: RootState) =>
+  state.consumerReworked.mySubscriptions.invoices;

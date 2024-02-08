@@ -281,6 +281,13 @@ export type SubscriptionQueryParams = {
   status?: 'active' | 'future' | 'expired';
 };
 
+export type SubscriptionDetailsQueryParams = {
+  billing_plan_id: number;
+  page: number;
+  page_size: number;
+  company?: number;
+};
+
 export type PlannedInvoiceFactoryOptions = {
   status?: number;
   isLastInvoiceBeforeScheduledStop?: boolean;
@@ -328,7 +335,7 @@ export type SubscriptionREST = {
   description: string;
   editable: boolean;
   expiration_date: string;
-  failed_payments_invoices: SubscriptionsInvoicesDetailsREST[];
+  failed_payments_invoices: SubscriptionsFailedInvoicesREST[];
   first_billing_date: string;
   flat_fee: string;
   has_discount: boolean;
@@ -364,9 +371,21 @@ export type SubscriptionREST = {
   stripe_payment_method_id: string;
 };
 
+export type SubscriptionsFailedInvoicesREST = {
+  uuid: string;
+  date: string;
+  next_retry_date: string;
+  payments: Payment[];
+};
+
 export type SubscriptionsInvoicesDetailsREST = {
+  amount_paid_cts: string;
   billing_plan_id: number;
   date: string;
-  payments: Payment[];
   uuid: string;
+};
+
+export type SubscriptionsInvoicesDetailsParams = {
+  id: number;
+  page_size?: number;
 };

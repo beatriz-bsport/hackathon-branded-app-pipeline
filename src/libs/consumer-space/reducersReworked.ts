@@ -1,5 +1,7 @@
 import Immutable from 'seamless-immutable';
 import uniq from 'lodash/uniq';
+import uniqBy from 'lodash/uniqBy';
+
 import { handleActions } from 'redux-actions';
 import type { AxiosResponse } from 'axios';
 
@@ -29,7 +31,7 @@ import {
   fetchMyExpiredSubscriptionsAsMemberActions,
   fetchMyFutureSubscriptionsAsMemberActions,
   fetchMyActiveSubscriptionsAsMemberActions,
-  resetConsumerSubscriptionsStateActions,
+  fetchConsumerSubscriptionInvoicesDetailsActions,
 } from '#libs/consumer-space/actions/subscription-actions';
 
 import type { ConsumerPassesTabDisplay, ConsumerStateReworked } from './types';
@@ -40,7 +42,10 @@ import type {
   PrivateConsumerPassREST,
 } from '#libs/private-service/types';
 import type { WaitingListBookingOption } from '#libs/waiting-list/types';
-import type { SubscriptionREST } from '#libs/subscription/types';
+import type {
+  SubscriptionREST,
+  SubscriptionsInvoicesDetailsREST,
+} from '#libs/subscription/types';
 import type { ConsumerPaymentPackREST } from '#libs/consumer-payment-pack/types';
 import { UniversalPassREST } from '#libs/universal-pass/types';
 
@@ -187,6 +192,11 @@ const initialState: Immutable.Immutable<ConsumerStateReworked> =
           allIds: [],
           byId: {},
         },
+      },
+      invoices: {
+        loading: false,
+        error: null,
+        bySubscriptionId: {},
       },
     },
     myPasses: {
@@ -929,46 +939,6 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
           { deep: true },
         );
     },
-    [resetConsumerSubscriptionsStateActions.all.toString()]: (state) => {
-      return state.setIn(['mySubscriptions'], {
-        active: {
-          page: 1,
-          next_page: null,
-          previous_page: null,
-          count: 0,
-          loading: false,
-          error: null,
-          subscriptions: {
-            allIds: [],
-            byId: {},
-          },
-        },
-        future: {
-          page: 1,
-          next_page: null,
-          previous_page: null,
-          count: 0,
-          loading: false,
-          error: null,
-          subscriptions: {
-            allIds: [],
-            byId: {},
-          },
-        },
-        expired: {
-          page: 1,
-          next_page: null,
-          previous_page: null,
-          count: 0,
-          loading: false,
-          error: null,
-          subscriptions: {
-            allIds: [],
-            byId: {},
-          },
-        },
-      });
-    },
     [fetchMyExpiredConsumerPaymentPacksAsMemberActions.isLoading.toString()]: (
       state,
       { payload }: { payload: boolean },
@@ -1538,6 +1508,93 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
       { payload }: { payload: boolean },
     ) => {
       return state.setIn(['myPasses', 'tabs', 'loading'], payload);
+    },
+    /* SUBSCRIPTIONS DETAILS REDUCER */
+    [fetchConsumerSubscriptionInvoicesDetailsActions.success.toString()]: (
+      state,
+      {
+        payload,
+      }: {
+        payload: {
+          billing_plan_id: number;
+          data: PaginatedResponse<SubscriptionsInvoicesDetailsREST>;
+        };
+      },
+    ) => {
+      const { next_page, results, count, page } = payload.data;
+
+      if (results?.length === 0) {
+        return state;
+      }
+
+      const newInvoices =
+        results?.map((invoice) => ({
+          date: invoice.date,
+          uuid: invoice.uuid,
+          amount_paid_cts: invoice.amount_paid_cts,
+        })) ?? [];
+
+      if (
+        state.mySubscriptions.invoices.bySubscriptionId?.[
+          payload?.billing_plan_id
+        ]?.invoices
+      ) {
+        const mergedInvoices = uniqBy(
+          [
+            ...state.mySubscriptions.invoices.bySubscriptionId?.[
+              payload?.billing_plan_id
+            ]?.invoices,
+            ...newInvoices,
+          ],
+          'uuid',
+        );
+        return state.merge(
+          {
+            mySubscriptions: {
+              invoices: {
+                bySubscriptionId: {
+                  [payload.billing_plan_id]: {
+                    invoices: mergedInvoices,
+                    count,
+                    next_page,
+                    page,
+                  },
+                },
+              },
+            },
+          },
+          { deep: true },
+        );
+      }
+      return state.merge(
+        {
+          mySubscriptions: {
+            invoices: {
+              bySubscriptionId: {
+                [payload.billing_plan_id]: {
+                  invoices: newInvoices,
+                  count,
+                  next_page,
+                  page,
+                },
+              },
+            },
+          },
+        },
+        { deep: true },
+      );
+    },
+    [fetchConsumerSubscriptionInvoicesDetailsActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['mySubscriptions', 'invoices', 'loading'], payload);
+    },
+    [fetchConsumerSubscriptionInvoicesDetailsActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['mySubscriptions', 'invoices', 'error'], payload);
     },
   },
   initialState,

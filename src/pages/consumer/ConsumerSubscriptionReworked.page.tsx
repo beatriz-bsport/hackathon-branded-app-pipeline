@@ -23,8 +23,9 @@ import {
   fetchMyExpiredSubscriptionsAsMember as fetchMyExpiredSubscriptionsAsMemberAction,
   fetchMyFutureSubscriptionsAsMember as fetchMyFutureSubscriptionsAsMemberAction,
   fetchMyActiveSubscriptionsAsMember as fetchMyActiveSubscriptionsAsMemberAction,
-  resetConsumerSubscriptionsState as resetConsumerSubscriptionsStateAction,
 } from '#libs/consumer-space/actions/subscription-actions';
+
+import { resetConsumerState as resetConsumerStateAction } from '#libs/consumer-space/actions';
 
 import type { Membership } from '#libs/membership/types';
 import type { SubscriptionREST } from '#libs/subscription/types';
@@ -97,7 +98,7 @@ export class ConsumerSubscription extends React.Component<Props> {
       fetchActiveSubscriptionsList,
       fetchFutureSubscriptionsList,
       fetchExpiredSubscriptionsList,
-      resetConsumerSubscriptionsState,
+      resetConsumerState,
       paymentMethodList,
       invoiceConfiguration,
       downloadPDFContractTermsForBillingPlan,
@@ -121,7 +122,7 @@ export class ConsumerSubscription extends React.Component<Props> {
         onBookSessionClick={this.handleBookASessionClick}
         onGetASubscriptionClick={this.handleGetASubscription}
         paymentMethodList={paymentMethodList as PaymentMethod[]}
-        resetConsumerSubscriptionsState={resetConsumerSubscriptionsState}
+        resetConsumerState={resetConsumerState}
       />
     );
   }
@@ -145,7 +146,7 @@ const connector = connect(
     fetchMyFutureSubscriptionsAsMemberAction,
     fetchMyExpiredSubscriptionsAsMemberAction,
     fetchMyActiveSubscriptionsAsMemberAction,
-    resetConsumerSubscriptionsState: resetConsumerSubscriptionsStateAction,
+    resetConsumerState: resetConsumerStateAction,
     fetchInvoiceConfigurationAsMemberAction,
     downloadPDFContractTermsForBillingPlan:
       downloadPDFContractTermsForBillingPlanAction,

@@ -27,7 +27,7 @@ type Data = {
     page_size?: number,
     options?: OptionCallback<SubscriptionREST[]>,
   ) => void;
-  resetConsumerSubscriptionsState: () => void;
+  resetConsumerState: () => void;
 };
 
 const useConsumerSubscriptionsDataManager = ({
@@ -40,7 +40,7 @@ const useConsumerSubscriptionsDataManager = ({
   fetchActiveSubscriptionsList,
   fetchFutureSubscriptionsList,
   fetchExpiredSubscriptionsList,
-  resetConsumerSubscriptionsState,
+  resetConsumerState,
 }: Data) => {
   const [selectedTab, setSelectedTab] = useState<SubscriptionTab>(
     SubscriptionTabEnum.ACTIVE,
@@ -104,12 +104,12 @@ const useConsumerSubscriptionsDataManager = ({
 
   const handleSetSelectedTab = useCallback(
     (tab: SubscriptionTab) => {
-      resetConsumerSubscriptionsState();
+      resetConsumerState();
       fetchDataHandlerMap[`${tab}`]();
       setSelectedTab(tab);
       setSelectedSubscription(null);
     },
-    [resetConsumerSubscriptionsState, fetchDataHandlerMap],
+    [resetConsumerState, fetchDataHandlerMap],
   );
 
   const handleSetSelectedSubscriptions = useCallback(

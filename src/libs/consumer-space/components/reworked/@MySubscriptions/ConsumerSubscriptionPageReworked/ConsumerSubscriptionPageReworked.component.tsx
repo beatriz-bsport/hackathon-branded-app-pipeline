@@ -35,7 +35,7 @@ type Props = {
     page_size?: number,
     options?: OptionCallback<SubscriptionREST[]>,
   ) => void;
-  resetConsumerSubscriptionsState: () => void;
+  resetConsumerState: () => void;
   onBookSessionClick: () => void;
   onGetASubscriptionClick: () => void;
   invoiceRetryNumber: number;
@@ -58,7 +58,7 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
   fetchActiveSubscriptionsList,
   fetchFutureSubscriptionsList,
   fetchExpiredSubscriptionsList,
-  resetConsumerSubscriptionsState,
+  resetConsumerState,
   invoiceRetryNumber,
   downloadBillingPlanTermsAction,
 }) => {
@@ -82,7 +82,7 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
     fetchActiveSubscriptionsList,
     fetchFutureSubscriptionsList,
     fetchExpiredSubscriptionsList,
-    resetConsumerSubscriptionsState,
+    resetConsumerState,
   });
   const { isTermsModalOpen, handleTermsModalOpen, handleTermsModalClose } =
     useConsumerSubscriptionsModalManager();

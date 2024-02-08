@@ -1,17 +1,24 @@
 import { createAction } from 'redux-actions';
-import { fetchConsumerSubscriptionList as fetchConsumerSubscriptionListAPI } from '#libs/subscription/api';
+import {
+  fetchConsumerSubscriptionList as fetchConsumerSubscriptionListAPI,
+  fetchConsumerSubscriptionInvoicesDetails as fetchConsumerSubscriptionInvoicesDetailsAPI,
+} from '#libs/subscription/api';
 
 import type {
-  Dispatch,
   OptionCallback,
   ThunkAction,
   PaginatedResponse,
 } from '../../../state/types';
-import type { SubscriptionREST } from '#libs/subscription/types';
+
+import type {
+  SubscriptionREST,
+  SubscriptionsInvoicesDetailsREST,
+  SubscriptionsInvoicesDetailsParams,
+} from '#libs/subscription/types';
 import { SubscriptionTabEnum } from '#libs/consumer-space/components/reworked/@MySubscriptions/constants';
 
 const DEFAULT_PAGE_SIZE = 30;
-
+const DEFAULT_INVOICE_PAGE_SIZE = 5;
 export const fetchMyActiveSubscriptionsAsMemberActions = {
   success: createAction<PaginatedResponse<SubscriptionREST>>(
     'SUBSCRIPTIONS/ACTIVE/AS_MEMBER/SUCCESS',
@@ -30,7 +37,7 @@ export function fetchMyActiveSubscriptionsAsMember(
   },
   options?: OptionCallback<SubscriptionREST[]>,
 ): ThunkAction {
-  return async (dispatch: Dispatch, getState) => {
+  return async (dispatch, getState) => {
     dispatch(fetchMyActiveSubscriptionsAsMemberActions.isLoading(true));
     dispatch(fetchMyActiveSubscriptionsAsMemberActions.error(null));
     const currentState = getState().consumerReworked.mySubscriptions.active;
@@ -75,7 +82,7 @@ export function fetchMyFutureSubscriptionsAsMember(
 
   options?: OptionCallback<SubscriptionREST[]>,
 ): ThunkAction {
-  return async (dispatch: Dispatch, getState) => {
+  return async (dispatch, getState) => {
     dispatch(fetchMyFutureSubscriptionsAsMemberActions.isLoading(true));
     dispatch(fetchMyFutureSubscriptionsAsMemberActions.error(null));
     const currentState = getState().consumerReworked.mySubscriptions.future;
@@ -121,7 +128,7 @@ export function fetchMyExpiredSubscriptionsAsMember(
   },
   options?: OptionCallback<SubscriptionREST[]>,
 ): ThunkAction {
-  return async (dispatch: Dispatch, getState) => {
+  return async (dispatch, getState) => {
     dispatch(fetchMyExpiredSubscriptionsAsMemberActions.isLoading(true));
     dispatch(fetchMyExpiredSubscriptionsAsMemberActions.error(null));
     const currentState = getState().consumerReworked.mySubscriptions.expired;
@@ -147,12 +154,50 @@ export function fetchMyExpiredSubscriptionsAsMember(
   };
 }
 
-export const resetConsumerSubscriptionsStateActions = {
-  all: createAction('CONSUMER_STATE_REWORKED/SUBSCRIPTIONS/RESET'),
+export const fetchConsumerSubscriptionInvoicesDetailsActions = {
+  success: createAction<{
+    billing_plan_id: number;
+    data: PaginatedResponse<SubscriptionsInvoicesDetailsREST>;
+  }>('SUBSCRIPTIONS/INVOICES/AS_MEMBER/SUCCESS'),
+
+  isLoading: createAction<boolean>(
+    'SUBSCRIPTIONS/INVOICES/AS_MEMBER/IS_LOADING',
+  ),
+  error: createAction<Error | null>('SUBSCRIPTIONS/INVOICES/AS_MEMBER/ERROR'),
 };
 
-export function resetConsumerSubscriptionsState(): ThunkAction {
-  return (dispatch: Dispatch) => {
-    dispatch(resetConsumerSubscriptionsStateActions.all());
+export function fetchConsumerSubscriptionInvoicesDetails(
+  params: SubscriptionsInvoicesDetailsParams,
+  options?: OptionCallback<SubscriptionsInvoicesDetailsREST[]>,
+): ThunkAction {
+  return async (dispatch, getState) => {
+    dispatch(fetchConsumerSubscriptionInvoicesDetailsActions.isLoading(true));
+    dispatch(fetchConsumerSubscriptionInvoicesDetailsActions.error(null));
+    const { id, page_size } = params;
+    const currentState = getState().consumerReworked.mySubscriptions.invoices;
+    const nextPage =
+      (currentState.bySubscriptionId[id] &&
+        currentState.bySubscriptionId[id].next_page) ??
+      1;
+    try {
+      const response = await fetchConsumerSubscriptionInvoicesDetailsAPI({
+        billing_plan_id: id,
+        page: nextPage,
+        page_size: page_size ?? DEFAULT_INVOICE_PAGE_SIZE,
+      });
+      dispatch(
+        fetchConsumerSubscriptionInvoicesDetailsActions.success({
+          billing_plan_id: id,
+          data: response.data,
+        }),
+      );
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data.results);
+      }
+    } catch (err) {
+      dispatch(fetchConsumerSubscriptionInvoicesDetailsActions.error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(fetchConsumerSubscriptionInvoicesDetailsActions.isLoading(false));
   };
 }

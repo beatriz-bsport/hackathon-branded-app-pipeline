@@ -17,7 +17,7 @@ import Card from '#Fabrique/Card';
 
 import type {
   SubscriptionInterval,
-  SubscriptionsInvoicesDetailsREST,
+  SubscriptionsFailedInvoicesREST,
 } from '#libs/subscription/types';
 import type { MarketplacePaymentMethodsType } from '#libs/marketplace/types';
 
@@ -29,7 +29,7 @@ type Props = {
   /** Description of subscription */
   description: string;
   /** List of failed invoices */
-  failedInvoices: SubscriptionsInvoicesDetailsREST[];
+  failedInvoices: SubscriptionsFailedInvoicesREST[];
   /** If subscription has auto renewal */
   hasAutoRenewal: boolean;
   /** If subscription has missing payment method */

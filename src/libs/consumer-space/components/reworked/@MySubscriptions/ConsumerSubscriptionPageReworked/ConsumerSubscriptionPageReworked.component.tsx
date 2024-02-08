@@ -5,13 +5,19 @@ import ConsumerSubscriptionsTabs from '#libs/consumer-space/components/reworked/
 import ConsumerSubscriptionsListContainer from '#libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionsListContainer';
 import { ConsumerSubscriptionTermsModal } from '#libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionModals';
 
-import type { SubscriptionREST } from '#libs/subscription/types';
+import type {
+  SubscriptionREST,
+  SubscriptionsInvoicesDetailsREST,
+} from '#libs/subscription/types';
 import type { OptionCallback } from '../../../../../../state/types';
-import type { ConsumerSubscriptionReworked } from '#libs/consumer-space/types';
+import type {
+  ConsumerSubscriptionInvoiceDetails,
+  ConsumerSubscriptionReworked,
+} from '#libs/consumer-space/types';
 import type { PaymentMethod } from '#libs/payment/types';
 
-import useConsumerSubscriptionsDataManager from '#libs/consumer-space/components/reworked/@MySubscriptions/hooks/useConsumerSubscriptionsDataManager';
 import useConsumerSubscriptionsModalManager from '#libs/consumer-space/components/reworked/@MySubscriptions/hooks/useConsumerSubscriptionsModalManager';
+import useConsumerSubscriptionsDataManager from '#libs/consumer-space/components/reworked/@MySubscriptions/hooks/useConsumerSubscriptionsDataManager';
 
 import './styles.css';
 
@@ -38,6 +44,11 @@ type Props = {
   resetConsumerState: () => void;
   onBookSessionClick: () => void;
   onGetASubscriptionClick: () => void;
+  fetchConsumerSubscriptionInvoicesDetails: (
+    params: { id: number; page_size?: number },
+    options?: OptionCallback<SubscriptionsInvoicesDetailsREST[]>,
+  ) => void;
+  subscriptionsInvoicesDetailsState: ConsumerSubscriptionInvoiceDetails;
   invoiceRetryNumber: number;
   downloadBillingPlanTermsAction: (
     billingPanId: number,
@@ -59,19 +70,25 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
   fetchFutureSubscriptionsList,
   fetchExpiredSubscriptionsList,
   resetConsumerState,
+  fetchConsumerSubscriptionInvoicesDetails,
+  subscriptionsInvoicesDetailsState,
   invoiceRetryNumber,
   downloadBillingPlanTermsAction,
 }) => {
   const {
-    selectedTab,
-    selectedSubscription,
-    subscriptionsList,
-    isLoading,
-    nextPage,
+    areDetailsLoading,
+    detailsNextPage,
+    handleInvoiceDetailsPaginationFetchMore,
     handlePaginationFetchMore,
-    handleSetSelectedTab,
     handleSetSelectedSubscriptions,
+    handleSetSelectedTab,
+    isLoading,
     isMobile,
+    nextPage,
+    selectedSubscription,
+    selectedSubscriptionInvoiceDetails,
+    selectedTab,
+    subscriptionsList,
   } = useConsumerSubscriptionsDataManager({
     activeSubscriptionsState,
     activeSubscriptionsList,
@@ -83,7 +100,10 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
     fetchFutureSubscriptionsList,
     fetchExpiredSubscriptionsList,
     resetConsumerState,
+    fetchConsumerSubscriptionInvoicesDetails,
+    subscriptionsInvoicesDetailsState,
   });
+
   const { isTermsModalOpen, handleTermsModalOpen, handleTermsModalClose } =
     useConsumerSubscriptionsModalManager();
 
@@ -108,8 +128,13 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
         selectedTab={selectedTab}
       />
       <ConsumerSubscriptionsListContainer
+        areDetailsLoading={areDetailsLoading}
+        handleInvoiceDetailsPaginationFetchMore={
+          handleInvoiceDetailsPaginationFetchMore
+        }
         handlePaginationFetchMore={handlePaginationFetchMore}
         handleSetSelectedSubscriptions={handleSetSelectedSubscriptions}
+        hasDetailsNextPage={!!detailsNextPage}
         hasNextPage={!!nextPage}
         invoiceRetryNumber={invoiceRetryNumber}
         isLoading={isLoading}
@@ -117,6 +142,7 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
         onSeeTermsClick={handleTermsModalOpen}
         paymentMethodList={paymentMethodList}
         selectedSubscription={selectedSubscription}
+        selectedSubscriptionInvoiceDetails={selectedSubscriptionInvoiceDetails}
         selectedTab={selectedTab}
         subscriptionsList={subscriptionsList}
       />

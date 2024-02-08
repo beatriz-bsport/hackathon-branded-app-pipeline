@@ -4,9 +4,15 @@ import useViewport from '#Fabrique/hooks/useViewport';
 import { CONSUMER_SPACE_MOBILE_BREAKPOINT } from '#libs/consumer-space/constants';
 
 import type { SubscriptionTab } from '#libs/consumer-space/components/reworked/@MySubscriptions/types';
-import type { SubscriptionREST } from '#libs/subscription/types';
+import type {
+  SubscriptionREST,
+  SubscriptionsInvoicesDetailsREST,
+} from '#libs/subscription/types';
 import type { OptionCallback } from '../../../../../../state/types';
-import type { ConsumerSubscriptionReworked } from '#libs/consumer-space/types';
+import type {
+  ConsumerSubscriptionInvoiceDetails,
+  ConsumerSubscriptionReworked,
+} from '#libs/consumer-space/types';
 
 type Data = {
   activeSubscriptionsState: ConsumerSubscriptionReworked;
@@ -28,6 +34,11 @@ type Data = {
     options?: OptionCallback<SubscriptionREST[]>,
   ) => void;
   resetConsumerState: () => void;
+  fetchConsumerSubscriptionInvoicesDetails: (
+    params: { id: number; page_size?: number },
+    options?: OptionCallback<SubscriptionsInvoicesDetailsREST[]>,
+  ) => void;
+  subscriptionsInvoicesDetailsState: ConsumerSubscriptionInvoiceDetails;
 };
 
 const useConsumerSubscriptionsDataManager = ({
@@ -41,6 +52,8 @@ const useConsumerSubscriptionsDataManager = ({
   fetchFutureSubscriptionsList,
   fetchExpiredSubscriptionsList,
   resetConsumerState,
+  fetchConsumerSubscriptionInvoicesDetails,
+  subscriptionsInvoicesDetailsState,
 }: Data) => {
   const [selectedTab, setSelectedTab] = useState<SubscriptionTab>(
     SubscriptionTabEnum.ACTIVE,
@@ -48,6 +61,13 @@ const useConsumerSubscriptionsDataManager = ({
 
   const [selectedSubscription, setSelectedSubscription] =
     useState<SubscriptionREST | null>(null);
+
+  const selectedSubscriptionInvoiceDetails =
+    !subscriptionsInvoicesDetailsState.loading &&
+    selectedSubscription?.id &&
+    subscriptionsInvoicesDetailsState.bySubscriptionId[
+      `${selectedSubscription?.id}`
+    ]?.invoices;
 
   const { width } = useViewport();
 
@@ -95,11 +115,27 @@ const useConsumerSubscriptionsDataManager = ({
     futureSubscriptionsState.loading ||
     expiredSubscriptionsState.loading;
 
+  const areDetailsLoading = subscriptionsInvoicesDetailsState.loading;
+
   const nextPage = currentSubscriptionsStateMap[`${selectedTab}`].next_page;
+
+  const detailsNextPage =
+    subscriptionsInvoicesDetailsState.bySubscriptionId?.[
+      selectedSubscription?.id
+    ]?.next_page || null;
 
   const handlePaginationFetchMore = useCallback(
     () => fetchDataHandlerMap[`${selectedTab}`](),
     [fetchDataHandlerMap, selectedTab],
+  );
+
+  const handleInvoiceDetailsPaginationFetchMore = useCallback(
+    () =>
+      selectedSubscription?.id &&
+      fetchConsumerSubscriptionInvoicesDetails({
+        id: selectedSubscription.id,
+      }),
+    [fetchConsumerSubscriptionInvoicesDetails, selectedSubscription],
   );
 
   const handleSetSelectedTab = useCallback(
@@ -117,20 +153,30 @@ const useConsumerSubscriptionsDataManager = ({
       const subscription =
         subscriptionsList.find((item) => item.id === subscriptionId) || null;
       setSelectedSubscription(subscription);
+      !subscriptionsInvoicesDetailsState.bySubscriptionId[subscription?.id] &&
+        fetchConsumerSubscriptionInvoicesDetails({ id: subscription.id });
     },
-    [subscriptionsList],
+    [
+      subscriptionsList,
+      fetchConsumerSubscriptionInvoicesDetails,
+      subscriptionsInvoicesDetailsState,
+    ],
   );
 
   return {
-    selectedTab,
-    selectedSubscription,
-    subscriptionsList,
-    isLoading,
-    nextPage,
+    areDetailsLoading,
+    detailsNextPage,
+    handleInvoiceDetailsPaginationFetchMore,
     handlePaginationFetchMore,
-    handleSetSelectedTab,
     handleSetSelectedSubscriptions,
+    handleSetSelectedTab,
+    isLoading,
     isMobile,
+    nextPage,
+    selectedSubscription,
+    selectedSubscriptionInvoiceDetails,
+    selectedTab,
+    subscriptionsList,
   };
 };
 

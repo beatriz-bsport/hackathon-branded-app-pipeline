@@ -44,7 +44,7 @@ const ConsumerSubscriptionDetailsCardBillingHistory: React.FC<Props> = ({
             fetchMoreData={handleInvoiceDetailsPaginationFetchMore}
             items={selectedSubscriptionInvoiceDetails}
             hasMore={hasDetailsNextPage}
-            // TO MODIFY ASAP
+            // @ts-ignore TO MODIFY ASAP
             height="240px"
             renderItem={({ item }) => (
               <ListItem

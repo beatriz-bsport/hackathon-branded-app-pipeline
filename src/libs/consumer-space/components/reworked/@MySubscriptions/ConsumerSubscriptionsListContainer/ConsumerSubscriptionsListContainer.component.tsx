@@ -9,7 +9,10 @@ import Typography from '#Fabrique/Typography';
 import { GenericInfiniteScrollEnhancedCssOnly } from '#components/InfiniteScroll/GenericInfiniteScrollCssOnly.component';
 import { formatAsDatetimeAdapted } from '../../../../../../utils/datetime';
 
-import type { SubscriptionREST } from '#libs/subscription/types';
+import type {
+  SubscriptionREST,
+  SubscriptionsInvoicesDetailsREST,
+} from '#libs/subscription/types';
 import type { SubscriptionTab } from '#libs/consumer-space/components/reworked/@MySubscriptions/types';
 import {
   MY_BOOKINGS_LIST_CONTAINER_HEIGHT,
@@ -28,8 +31,11 @@ import {
 import './styles.css';
 
 type Props = {
+  areDetailsLoading: boolean;
+  handleInvoiceDetailsPaginationFetchMore: () => void;
   handlePaginationFetchMore: () => void;
   handleSetSelectedSubscriptions: (subscriptionId: number) => void;
+  hasDetailsNextPage: boolean;
   hasNextPage: boolean;
   invoiceRetryNumber: number;
   isLoading: boolean;
@@ -37,13 +43,20 @@ type Props = {
   onSeeTermsClick: () => void;
   paymentMethodList: PaymentMethod[];
   selectedSubscription: SubscriptionREST;
+  selectedSubscriptionInvoiceDetails: Omit<
+    SubscriptionsInvoicesDetailsREST,
+    'billing_plan_id'
+  >[];
   selectedTab: SubscriptionTab;
   subscriptionsList: SubscriptionREST[];
 };
 
 export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
+  areDetailsLoading,
+  handleInvoiceDetailsPaginationFetchMore,
   handlePaginationFetchMore,
   handleSetSelectedSubscriptions,
+  hasDetailsNextPage,
   hasNextPage,
   invoiceRetryNumber,
   isLoading,
@@ -51,6 +64,7 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
   onSeeTermsClick,
   paymentMethodList,
   selectedSubscription,
+  selectedSubscriptionInvoiceDetails,
   selectedTab,
   subscriptionsList,
 }) => {
@@ -115,11 +129,12 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
               addPaymentMethodDisabled={false}
               hasFailedPayments={!!item?.failed_payments_invoices?.length}
               hasMissingPaymentMethod={!item?.stripe_payment_method_id}
+              // TODO
               isDetailsDisabled={false}
               isLoading={isLoading}
               isPaused={isPaused(item?.pauses)}
               isSelected={item.id === selectedSubscription?.id}
-              // TODO when working on modales
+              // TODO
               onAddPaymentMethodClick={() => {}}
               onDetailsClick={onCardDetailsClick(item.id)}
               price={(parseFloat(item?.price_to_display_cts) / 100).toFixed(2)}
@@ -137,16 +152,21 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
         />
       </ul>
       <ConsumerSubscriptionDetailsCard
+        areDetailsLoading={areDetailsLoading}
         autoRenewalDate={formatAsDatetimeAdapted(
           selectedSubscription?.last_billing_date,
           'L',
         )}
         description={selectedSubscription?.description}
         failedInvoices={selectedSubscription?.failed_payments_invoices}
+        handleInvoiceDetailsPaginationFetchMore={
+          handleInvoiceDetailsPaginationFetchMore
+        }
         hasAutoRenewal={
           selectedTab !== SubscriptionTabEnum.EXPIRED &&
           selectedSubscription?.auto_renewal
         }
+        hasDetailsNextPage={hasDetailsNextPage}
         hasMissingPaymentMethod={
           !selectedSubscription?.stripe_payment_method_id
         }
@@ -160,6 +180,7 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
         onPaymentMethodActionClick={
           !selectedSubscription?.stripe_payment_method_id ? () => {} : () => {}
         }
+        // TODO
         onSeeClick={onSeeTermsClick}
         pauseEndDate={selectedSubscriptionPauseEndDate}
         paymentMethodType={paymentMethodUsed?.type}
@@ -168,6 +189,7 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
         ).toFixed(2)}
         readableIdentifier={paymentMethodUsed?.readable_identifier}
         recurrence={selectedSubscription?.recurrence_basis}
+        selectedSubscriptionInvoiceDetails={selectedSubscriptionInvoiceDetails}
         showPlaceholder={!selectedSubscription}
         subscriptionInterval={selectedSubscription?.interval}
         subscriptionName={selectedSubscription?.name_without_member_name}

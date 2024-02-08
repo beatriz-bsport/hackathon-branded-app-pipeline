@@ -15,6 +15,7 @@ import {
   getMyFutureSubscriptionsList,
   getMyExpiredSubscriptionsState,
   getMyExpiredSubscriptionsList,
+  getMySubscriptionsInvoicesDetailsState,
 } from '#libs/consumer-space/selectors';
 
 import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '#libs/payment/actions';
@@ -23,6 +24,7 @@ import {
   fetchMyExpiredSubscriptionsAsMember as fetchMyExpiredSubscriptionsAsMemberAction,
   fetchMyFutureSubscriptionsAsMember as fetchMyFutureSubscriptionsAsMemberAction,
   fetchMyActiveSubscriptionsAsMember as fetchMyActiveSubscriptionsAsMemberAction,
+  fetchConsumerSubscriptionInvoicesDetails as fetchConsumerSubscriptionInvoicesDetailsAction,
 } from '#libs/consumer-space/actions/subscription-actions';
 
 import { resetConsumerState as resetConsumerStateAction } from '#libs/consumer-space/actions';
@@ -100,6 +102,8 @@ export class ConsumerSubscription extends React.Component<Props> {
       fetchExpiredSubscriptionsList,
       resetConsumerState,
       paymentMethodList,
+      fetchConsumerSubscriptionInvoicesDetails,
+      subscriptionsInvoicesDetailsState,
       invoiceConfiguration,
       downloadPDFContractTermsForBillingPlan,
     } = this.props;
@@ -112,6 +116,9 @@ export class ConsumerSubscription extends React.Component<Props> {
         expiredSubscriptionsList={expiredSubscriptionsList}
         expiredSubscriptionsState={expiredSubscriptionsState}
         fetchActiveSubscriptionsList={fetchActiveSubscriptionsList}
+        fetchConsumerSubscriptionInvoicesDetails={
+          fetchConsumerSubscriptionInvoicesDetails
+        }
         fetchExpiredSubscriptionsList={fetchExpiredSubscriptionsList}
         fetchFutureSubscriptionsList={fetchFutureSubscriptionsList}
         futureSubscriptionsList={futureSubscriptionsList}
@@ -123,6 +130,7 @@ export class ConsumerSubscription extends React.Component<Props> {
         onGetASubscriptionClick={this.handleGetASubscription}
         paymentMethodList={paymentMethodList as PaymentMethod[]}
         resetConsumerState={resetConsumerState}
+        subscriptionsInvoicesDetailsState={subscriptionsInvoicesDetailsState}
       />
     );
   }
@@ -137,6 +145,8 @@ const connector = connect(
     expiredSubscriptionsState: getMyExpiredSubscriptionsState(state),
     expiredSubscriptionsList: getMyExpiredSubscriptionsList(state),
     paymentMethodList: getSavedPaymentMethodList(state),
+    subscriptionsInvoicesDetailsState:
+      getMySubscriptionsInvoicesDetailsState(state),
     invoiceConfiguration: state.invoice.configuration.result,
     companyTheme: getTheme(state),
     marketplaceSettings: state.marketplace.settings,
@@ -147,6 +157,8 @@ const connector = connect(
     fetchMyExpiredSubscriptionsAsMemberAction,
     fetchMyActiveSubscriptionsAsMemberAction,
     resetConsumerState: resetConsumerStateAction,
+    fetchConsumerSubscriptionInvoicesDetails:
+      fetchConsumerSubscriptionInvoicesDetailsAction,
     fetchInvoiceConfigurationAsMemberAction,
     downloadPDFContractTermsForBillingPlan:
       downloadPDFContractTermsForBillingPlanAction,

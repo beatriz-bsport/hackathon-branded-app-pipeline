@@ -5,6 +5,7 @@ import {
   EXPORTABLE_COMPONENT_TYPE_PASS,
   EXPORTABLE_COMPONENT_TYPE_PRIVATE_SERVICE,
   EXPORTABLE_COMPONENT_TYPE_WORKSHOP,
+  EXPORTABLE_COMPONENT_TYPE_SUBSCRIPTION,
 } from '#libs/exportable-components/constants';
 
 export function urlToMarketplace(companyName: string, companyId: string) {
@@ -20,7 +21,7 @@ export function urlToMarketplaceTab(
 }
 
 /**
- * Handles the "Book a session" button from My Bookings in member profile
+ * Handles the "Book a session" button from My Bookings and My Subscription in member profile
  *
  * Tries to redirect to Calendar/Appointment/Workshop tabs.
  * If none, redirect to the first available tab.
@@ -74,6 +75,30 @@ export const urlToMarketplacePassTab = (
   )?.component_type;
 
   const marketplaceTab = passTab || marketplaceConfig[0]?.component_type;
+
+  return `${urlToMarketplace(companyName, companyId)}/${marketplaceTab}`;
+};
+
+/**
+ * Handles the "Get a subscription" button from My Subscription in member profile
+ *
+ * Tries to redirect to Subscription tab.
+ * If none, redirect to the first available tab.
+ *
+ * @param marketplaceConfig The config from marketplace settings object
+ */
+export const urlToMarketplaceSubscriptionTab = (
+  marketplaceConfig: MarketplaceTabConfig[],
+  companyName: string,
+  companyId: string,
+) => {
+  const subscriptionTab = marketplaceConfig?.find(
+    (tabConfig) =>
+      tabConfig.component_type === EXPORTABLE_COMPONENT_TYPE_SUBSCRIPTION,
+  )?.component_type;
+
+  const marketplaceTab =
+    subscriptionTab || marketplaceConfig[0]?.component_type;
 
   return `${urlToMarketplace(companyName, companyId)}/${marketplaceTab}`;
 };

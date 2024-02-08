@@ -31,6 +31,12 @@ import type { SubscriptionREST } from '#libs/subscription/types';
 import type { PaymentMethod } from '#libs/payment/types';
 
 import ConsumerSubscriptionPageReworked from '#libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionPageReworked';
+import {
+  urlToMarketplaceSessionTab,
+  urlToMarketplaceSubscriptionTab,
+} from '#libs/marketplace/utils/navigation';
+import { getTheme } from '#libs/theme/selectors';
+import WidgetUtils from '#libs/widget/WidgetUtils';
 
 type OwnProps = {
   membership: Membership;
@@ -52,6 +58,30 @@ export class ConsumerSubscription extends React.Component<Props> {
     this.props.fetchExpiredSubscriptionsList();
     this.props.fetchPaymentMethodList();
   }
+
+  handleBookASessionClick = () => {
+    const marketplaceTabPath = urlToMarketplaceSessionTab(
+      this.props.marketplaceSettings?.config,
+      this.props.companyTheme.company_name,
+      this.props.companyTheme.company.toString(),
+    );
+
+    this.props.push(marketplaceTabPath);
+  };
+
+  handleGetASubscription = () => {
+    const marketplaceTabPath = urlToMarketplaceSubscriptionTab(
+      this.props.marketplaceSettings?.config,
+      this.props.companyTheme.company_name,
+      this.props.companyTheme.company.toString(),
+    );
+    if (WidgetUtils.isWidget()) {
+      WidgetUtils.closeModal();
+      window?.close();
+    } else {
+      this.props.push(marketplaceTabPath);
+    }
+  };
 
   render() {
     const {
@@ -79,9 +109,8 @@ export class ConsumerSubscription extends React.Component<Props> {
         fetchFutureSubscriptionsList={fetchFutureSubscriptionsList}
         futureSubscriptionsList={futureSubscriptionsList}
         futureSubscriptionsState={futureSubscriptionsState}
-        // TODO
-        onBookSessionClick={() => {}}
-        onGetASubscriptionClick={() => {}}
+        onBookSessionClick={this.handleBookASessionClick}
+        onGetASubscriptionClick={this.handleGetASubscription}
         paymentMethodList={paymentMethodList as PaymentMethod[]}
         resetConsumerSubscriptionsState={resetConsumerSubscriptionsState}
       />
@@ -98,6 +127,8 @@ const connector = connect(
     expiredSubscriptionsState: getMyExpiredSubscriptionsState(state),
     expiredSubscriptionsList: getMyExpiredSubscriptionsList(state),
     paymentMethodList: getSavedPaymentMethodList(state),
+    companyTheme: getTheme(state),
+    marketplaceSettings: state.marketplace.settings,
   }),
   {
     fetchPaymentMethodListAction,

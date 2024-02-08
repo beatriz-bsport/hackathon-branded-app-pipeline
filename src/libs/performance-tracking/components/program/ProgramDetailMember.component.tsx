@@ -1,47 +1,97 @@
 // @ts-nocheck
 import React from 'react';
-import { compose } from 'recompose';
-import { WithTranslation, withTranslation } from 'react-i18next';
-import { Theme } from '@material-ui/core/styles';
+import { useTranslation } from 'react-i18next';
 import makeStyles from '@material-ui/core/styles/makeStyles';
-import { ListItem, Paper, Typography } from '@material-ui/core';
+import ListItem from '@material-ui/core/ListItem';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 import moment from 'moment-timezone';
-import PaginatedListBase from '../../../../components/PaginatedListBase.component';
-import {
+
+import { formatAsDatetimeAdapted } from '#utils/datetime';
+import MemberProgramIconWithDetail from '#libs/performance-tracking/components//member-program/MemberProgramIconWithDetail.component';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import PaginatedListBase from '#components/PaginatedListBase.component';
+
+import type { Member } from '#libs/member/types';
+import type {
   PerformanceTrackingMemberProgram,
   PerformanceTrackingMetric,
   PerformanceTrackingProgram,
 } from '#libs/performance-tracking/types';
-import MemberProgramIconWithDetail from '../member-program/MemberProgramIconWithDetail.component';
-import { Member } from '#libs/member/types';
-import { formatAsDatetimeAdapted } from '../../../../utils/datetime';
 
-type OwnProps = {
+type Props = {
   program: PerformanceTrackingProgram;
   page: number;
   count: number;
   itemPerPage: number;
   loading: boolean;
-  items: Array<
-    PerformanceTrackingMemberProgram<number, PerformanceTrackingMetric, Member>
-  >;
+  items: PerformanceTrackingMemberProgram<
+    number,
+    PerformanceTrackingMetric,
+    Member
+  >[];
   onPageRequested: (page: number, pageSize: number) => void;
   onClickMember?: (member: number, memberProgramId: number) => void;
 };
-type Props = OwnProps & WithTranslation;
-export const ProgramDetailMember = (props: Props) => {
-  const {
-    t,
-    program,
-    page,
-    count,
-    itemPerPage,
-    loading,
-    items,
-    onPageRequested,
-    onClickMember,
-  } = props;
+
+export const ProgramDetailMember: React.FC<Props> = ({
+  program,
+  page,
+  count,
+  itemPerPage,
+  loading,
+  items,
+  onPageRequested,
+  onClickMember,
+}) => {
   const classes = useStyles();
+
+  const { t } = useTranslation('performanceTracking');
+
+  const handleOnClickMember = React.useCallback(
+    (item: PerformanceTrackingMemberProgram) => () =>
+      item?.member?.id && item?.id && onClickMember?.(item.member.id, item.id),
+    [onClickMember],
+  );
+
+  const renderPerformanceTrackingMemberItem = React.useCallback(
+    (item: PerformanceTrackingMemberProgram) => (
+      <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.accessProfile">
+        {(hasMemberProfileAccessPermission: boolean) => (
+          <ListItem
+            key={item.id}
+            dense
+            divider
+            button={!!onClickMember && hasMemberProfileAccessPermission}
+            className={classes.listItem}
+            disabled={loading}
+            onClick={
+              hasMemberProfileAccessPermission
+                ? handleOnClickMember(item)
+                : null
+            }
+          >
+            <div className={classes.listItemFirstPart}>
+              {item?.member?.name}
+            </div>
+            <div className={classes.listItemSecondPart}>
+              <MemberProgramIconWithDetail
+                metricRecord={item?.metric_record}
+                program={program}
+              />
+            </div>
+            <div className={classes.listItemThirdPart}>
+              {formatAsDatetimeAdapted(
+                moment.unix(item?.metric_record?.general?.date_created),
+                'LL',
+              )}
+            </div>
+          </ListItem>
+        )}
+      </ObjectLevelPermissionProvider>
+    ),
+    [classes, handleOnClickMember, loading, onClickMember, program],
+  );
 
   return (
     <>
@@ -71,43 +121,14 @@ export const ProgramDetailMember = (props: Props) => {
           nbItems={count}
           onPageRequested={onPageRequested}
           page={page}
-          renderItem={(item: PerformanceTrackingMemberProgram) => {
-            return (
-              <ListItem
-                key={item.id}
-                dense
-                divider
-                button={!!onClickMember}
-                className={classes.listItem}
-                disabled={loading}
-                onClick={() => {
-                  onClickMember && props.onClickMember(item.member.id, item.id);
-                }}
-              >
-                <div className={classes.listItemFirstPart}>
-                  {item?.member?.name}
-                </div>
-                <div className={classes.listItemSecondPart}>
-                  <MemberProgramIconWithDetail
-                    metricRecord={item?.metric_record}
-                    program={program}
-                  />
-                </div>
-                <div className={classes.listItemThirdPart}>
-                  {formatAsDatetimeAdapted(
-                    moment.unix(item?.metric_record?.general?.date_created),
-                    'LL',
-                  )}
-                </div>
-              </ListItem>
-            );
-          }}
+          renderItem={renderPerformanceTrackingMemberItem}
         />
       </Paper>
     </>
   );
 };
-const useStyles = makeStyles<Theme>((theme) => ({
+
+const useStyles = makeStyles((theme) => ({
   header: {
     fontWeight: 500,
   },
@@ -128,6 +149,5 @@ const useStyles = makeStyles<Theme>((theme) => ({
     padding: theme.spacing(2),
   },
 }));
-export default compose<any, OwnProps>(withTranslation('performanceTracking'))(
-  ProgramDetailMember,
-);
+
+export default React.memo(ProgramDetailMember);

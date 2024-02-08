@@ -26,6 +26,7 @@ import type {
   CampaignReport as CampaignReportType,
   Recipient,
 } from '../../libs/communication/types';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type Props = {
   fetchCampaign: () => void,
@@ -68,18 +69,24 @@ export class SmartListDetailCampaignReport extends React.Component<Props> {
       return <BackofficeLinearProgress />;
     }
     return (
-      <CampaignReport
-        campaign={this.props.campaign}
-        fetchRecipientList={this.props.fetchRecipientList}
-        generateExportLink={this.generateExportLink}
-        goBack={this.props.goBack}
-        goToMember={this.props.goToMember}
-        recipientList={this.props.recipientList}
-        recipientState={this.props.recipientState}
-        report={this.props.campaignReport}
-        reportLoading={this.props.reportLoading}
-        resolvedGenericTags={this.props.resolvedGenericTags}
-      />
+      <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.accessProfile">
+        {(hasMemberProfileAccessPermission: boolean) => (
+          <CampaignReport
+            campaign={this.props.campaign}
+            fetchRecipientList={this.props.fetchRecipientList}
+            generateExportLink={this.generateExportLink}
+            goBack={this.props.goBack}
+            goToMember={
+              hasMemberProfileAccessPermission ? this.props.goToMember : null
+            }
+            recipientList={this.props.recipientList}
+            recipientState={this.props.recipientState}
+            report={this.props.campaignReport}
+            reportLoading={this.props.reportLoading}
+            resolvedGenericTags={this.props.resolvedGenericTags}
+          />
+        )}
+      </ObjectLevelPermissionProvider>
     );
   }
 }

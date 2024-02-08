@@ -18,10 +18,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import type { Recipient } from '../types';
 import { formatAsDatetimeAdapted } from '../../../utils/datetime';
 
-const renderRows = (recipientList, t, goToMember, setShowLinkOpened) => {
-  return recipientList.map((r) =>
-    renderRow(r, t, goToMember, setShowLinkOpened),
-  );
+const renderRows = (recipientList, t, setShowLinkOpened) => {
+  return recipientList.map((r) => renderRow(r, t, setShowLinkOpened));
 };
 const getColumnData = (t) => {
   return [
@@ -63,7 +61,7 @@ const getColumnData = (t) => {
   ];
 };
 
-const renderRow = (recipient, t, goToMemberPage, setShowLinkOpened) => {
+const renderRow = (recipient, t, setShowLinkOpened) => {
   return {
     recipient_raw_address: recipient.email,
     read_count: recipient.read_count,
@@ -158,7 +156,6 @@ export class RecipientTable extends React.Component<Props> {
           data={renderRows(
             this.props.recipientList,
             t,
-            this.props.goToMember,
             this.props.setShowLinkOpened,
           )}
           options={options}
@@ -185,4 +182,5 @@ export class RecipientTable extends React.Component<Props> {
 export default compose(
   withTranslation(['communication']),
   withState('showLinkOpened', 'setShowLinkOpened', null),
+  React.memo,
 )(RecipientTable);

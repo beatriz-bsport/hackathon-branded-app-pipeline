@@ -14,11 +14,12 @@ import LabelOffIcon from '@material-ui/icons/LabelOff';
 
 import ListItem from '@material-ui/core/ListItem';
 import Avatar from '@material-ui/core/Avatar';
-// @ts-ignore
 
 import PaginatedListBase from '../../../components/PaginatedListBase.component';
 import { MaterialStyleType } from '../../../utils/types';
 import { Member } from '../../member/types';
+
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type OwnProps = {
   membersWithTagList: Member[];
@@ -51,142 +52,159 @@ const TagDetailMembers = (props: Props) => {
   const { classes, t } = props;
   const [processing, setProcessing] = React.useState(false);
 
+  const handleOnClickMember = React.useCallback(
+    (item: Member) => () => props.onClickMember?.(item.id),
+    [props],
+  );
+
   return (
-    <div className={classes.container}>
-      <div className={classes.row}>
-        <Typography variant="h5">
-          {t('management.memberDetail.memberWithTag')}
-        </Typography>
+    <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.accessProfile">
+      {(hasMemberProfileAccessPermission: boolean) => (
+        <div className={classes.container}>
+          <div className={classes.row}>
+            <Typography variant="h5">
+              {t('management.memberDetail.memberWithTag')}
+            </Typography>
 
-        <Button
-          color="primary"
-          disabled={processing}
-          onClick={() => {
-            setProcessing(true);
-            props.untagAll({
-              onSuccess: () => setProcessing(false),
-              onError: () => setProcessing(false),
-            });
-          }}
-          variant="outlined"
-        >
-          <LabelOffIcon className={classes.leftIcon} />
-          {t('management.memberDetail.removeTagFromAll')}
-        </Button>
-      </div>
+            <Button
+              color="primary"
+              disabled={processing}
+              onClick={() => {
+                setProcessing(true);
+                props.untagAll({
+                  onSuccess: () => setProcessing(false),
+                  onError: () => setProcessing(false),
+                });
+              }}
+              variant="outlined"
+            >
+              <LabelOffIcon className={classes.leftIcon} />
+              {t('management.memberDetail.removeTagFromAll')}
+            </Button>
+          </div>
 
-      <Paper className={classes.listContainer}>
-        <PaginatedListBase
-          itemPerPage={props.itemPerPage}
-          items={props.membersWithTagList}
-          listProps={{ dense: true }}
-          loading={props.membersWithTagListLoading || processing}
-          nbItems={props.membersWithTagListCount}
-          onPageRequested={props.onPageRequestWithTag}
-          page={props.membersWithTagListPage}
-          renderItem={(item: Member) => {
-            return (
-              <ListItem
-                key={item.id}
-                dense
-                divider
-                button={!!props.onClickMember}
-                disabled={props.membersWithTagListLoading || processing}
-                onClick={
-                  props.onClickMember
-                    ? () => props.onClickMember(item.id)
-                    : null
-                }
-              >
-                <div className={classes.listItemInfo}>
-                  <Avatar alt={item.name} src={item.photo} />
-                  <Typography className={classes.name}>{item.name}</Typography>
-                </div>
-                <ListItemSecondaryAction>
-                  <Button
-                    color="primary"
-                    onClick={(ev) => {
-                      ev.stopPropagation();
-                      props.onClickUntagMember(item);
-                    }}
+          <Paper className={classes.listContainer}>
+            <PaginatedListBase
+              itemPerPage={props.itemPerPage}
+              items={props.membersWithTagList}
+              listProps={{ dense: true }}
+              loading={props.membersWithTagListLoading || processing}
+              nbItems={props.membersWithTagListCount}
+              onPageRequested={props.onPageRequestWithTag}
+              page={props.membersWithTagListPage}
+              renderItem={(item: Member) => {
+                return (
+                  <ListItem
+                    key={item.id}
+                    dense
+                    divider
+                    button={
+                      !!props.onClickMember && hasMemberProfileAccessPermission
+                    }
+                    disabled={props.membersWithTagListLoading || processing}
+                    onClick={
+                      hasMemberProfileAccessPermission
+                        ? handleOnClickMember(item)
+                        : null
+                    }
                   >
-                    <LabelOffIcon className={classes.leftIcon} />
-                    {t('management.memberDetail.removeTag')}
-                  </Button>
-                </ListItemSecondaryAction>
-              </ListItem>
-            );
-          }}
-        />
-      </Paper>
-      <div className={classes.divider} />
+                    <div className={classes.listItemInfo}>
+                      <Avatar alt={item.name} src={item.photo} />
+                      <Typography className={classes.name}>
+                        {item.name}
+                      </Typography>
+                    </div>
+                    <ListItemSecondaryAction>
+                      <Button
+                        color="primary"
+                        onClick={(ev) => {
+                          ev.stopPropagation();
+                          props.onClickUntagMember(item);
+                        }}
+                      >
+                        <LabelOffIcon className={classes.leftIcon} />
+                        {t('management.memberDetail.removeTag')}
+                      </Button>
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                );
+              }}
+            />
+          </Paper>
+          <div className={classes.divider} />
 
-      <div className={classes.row}>
-        <Typography variant="h5">
-          {t('management.memberDetail.memberWithoutTag')}
-        </Typography>
-        <Button
-          color="primary"
-          disabled={processing}
-          onClick={() => {
-            setProcessing(true);
-            props.tagAll({
-              onSuccess: () => setProcessing(false),
-              onError: () => setProcessing(false),
-            });
-          }}
-          variant="outlined"
-        >
-          <LabelIcon className={classes.leftIcon} />
-          {t('management.memberDetail.addTagToAll')}
-        </Button>
-      </div>
+          <div className={classes.row}>
+            <Typography variant="h5">
+              {t('management.memberDetail.memberWithoutTag')}
+            </Typography>
+            <Button
+              color="primary"
+              disabled={processing}
+              onClick={() => {
+                setProcessing(true);
+                props.tagAll({
+                  onSuccess: () => setProcessing(false),
+                  onError: () => setProcessing(false),
+                });
+              }}
+              variant="outlined"
+            >
+              <LabelIcon className={classes.leftIcon} />
+              {t('management.memberDetail.addTagToAll')}
+            </Button>
+          </div>
 
-      <Paper className={classes.listContainer}>
-        <PaginatedListBase
-          itemPerPage={props.itemPerPage}
-          items={props.membersWithoutTagList}
-          listProps={{ dense: true }}
-          loading={props.membersWithoutTagListLoading || processing}
-          nbItems={props.membersWithoutTagListCount}
-          onPageRequested={props.onPageRequestWithoutTag}
-          page={props.membersWithoutTagListPage}
-          renderItem={(item: Member) => {
-            return (
-              <ListItem
-                key={item.id}
-                dense
-                divider
-                button={!!props.onClickMember}
-                disabled={props.membersWithoutTagListLoading || processing}
-                onClick={
-                  props.onClickMember
-                    ? () => props.onClickMember(item.id)
-                    : null
-                }
-              >
-                <div className={classes.listItemInfo}>
-                  <Avatar alt={item.name} src={item.photo} />
-                  <Typography className={classes.name}>{item.name}</Typography>
-                </div>
-                <ListItemSecondaryAction>
-                  <Button
-                    color="primary"
-                    onClick={(ev) => {
-                      ev.stopPropagation();
-                      props.onClickTagMember(item);
-                    }}
+          <Paper className={classes.listContainer}>
+            <PaginatedListBase
+              itemPerPage={props.itemPerPage}
+              items={props.membersWithoutTagList}
+              listProps={{ dense: true }}
+              loading={props.membersWithoutTagListLoading || processing}
+              nbItems={props.membersWithoutTagListCount}
+              onPageRequested={props.onPageRequestWithoutTag}
+              page={props.membersWithoutTagListPage}
+              renderItem={(item: Member) => {
+                return (
+                  <ListItem
+                    key={item.id}
+                    dense
+                    divider
+                    button={
+                      !!props.onClickMember && hasMemberProfileAccessPermission
+                    }
+                    disabled={props.membersWithoutTagListLoading || processing}
+                    onClick={
+                      hasMemberProfileAccessPermission
+                        ? handleOnClickMember(item)
+                        : null
+                    }
                   >
-                    <LabelIcon className={classes.leftIcon} />
-                    {t('management.memberDetail.addTag')}
-                  </Button>
-                </ListItemSecondaryAction>
-              </ListItem>
-            );
-          }}
-        />
-      </Paper>
-    </div>
+                    <div className={classes.listItemInfo}>
+                      <Avatar alt={item.name} src={item.photo} />
+                      <Typography className={classes.name}>
+                        {item.name}
+                      </Typography>
+                    </div>
+                    <ListItemSecondaryAction>
+                      <Button
+                        color="primary"
+                        onClick={(ev) => {
+                          ev.stopPropagation();
+                          props.onClickTagMember(item);
+                        }}
+                      >
+                        <LabelIcon className={classes.leftIcon} />
+                        {t('management.memberDetail.addTag')}
+                      </Button>
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                );
+              }}
+            />
+          </Paper>
+        </div>
+      )}
+    </ObjectLevelPermissionProvider>
   );
 };
 
@@ -224,4 +242,5 @@ const styles = (theme: Theme) => ({
 export default compose<any, OwnProps>(
   withStyles(styles),
   withTranslation(['tag']),
+  React.memo,
 )(TagDetailMembers);

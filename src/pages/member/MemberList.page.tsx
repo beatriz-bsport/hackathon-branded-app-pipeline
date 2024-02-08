@@ -1,34 +1,38 @@
 import React, { Component } from 'react';
-import { withTranslation } from 'react-i18next';
-import Grid from '@material-ui/core/Grid';
-import withStyles from '@material-ui/core/styles/withStyles';
-import { push } from 'connected-react-router';
-import { connect, ConnectedProps } from 'react-redux';
 import { compose, withState } from 'recompose';
+import { connect, ConnectedProps } from 'react-redux';
+import { push } from 'connected-react-router';
+import { TFunction } from 'i18next';
+import { withTranslation } from 'react-i18next';
+
 import { createStyles, WithStyles } from '@material-ui/styles';
 import { Theme } from '@material-ui/core/styles';
-import { TFunction } from 'i18next';
-import { useOldPermissions } from '../../config';
+import Grid from '@material-ui/core/Grid';
+import withStyles from '@material-ui/core/styles/withStyles';
+
+import {
+  archiveMember,
+  fetchMember,
+  interrogateMemberStatus,
+} from '#libs/member/actions';
 import { fetchMemberList } from '#libs/member/api';
-import withTitle from '../../hocs/with-title.hoc';
+import { fetchTags } from '#libs/tag/actions';
+import {
+  getMemberArchiveStatus,
+  getMemberDetail,
+} from '#libs/member/selectors';
 import { getPermissions } from '#libs/role/selectors';
+import { useOldPermissions } from '../../config';
+import MemberArchiveDialog from '#libs/member/components/MemberArchiveDialog.component';
 import MemberTable from '#libs/member/MemberTable.component';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import TagChipList from '#libs/tag/components/TagChipList.component';
 import TagFilterForm from '#libs/tag/components/TagFilterForm.component';
 import tagSelectors from '#libs/tag/selectors';
+import withTitle from '../../hocs/with-title.hoc';
+
 import type { Tag } from '#libs/tag/types';
-import { fetchTags } from '#libs/tag/actions';
-import { RootState } from '../../reducers';
-import {
-  archiveMember,
-  interrogateMemberStatus,
-  fetchMember,
-} from '../../libs/member/actions';
-import {
-  getMemberDetail,
-  getMemberArchiveStatus,
-} from '../../libs/member/selectors';
-import MemberArchiveDialog from '../../libs/member/components/MemberArchiveDialog.component';
+import type { RootState } from '../../reducers';
 
 type WithStateProps = {
   openArchiveDialog: boolean;
@@ -138,6 +142,13 @@ export class Members extends Component<Props, State> {
     });
   };
 
+  closeTagFilterForm = () => this.setState({ showFilterForm: false });
+
+  closeMemberArchiveDialog = () => {
+    this.props.setOpenArchiveDialog(false);
+    this.props.setMemberSelectedForArchive(null);
+  };
+
   render() {
     const { addMember, goToMemberPage } = this.props;
 
@@ -145,24 +156,30 @@ export class Members extends Component<Props, State> {
       <>
         <Grid container direction="row" spacing={4}>
           <Grid item xs={12}>
-            <MemberTable
-              addMember={addMember}
-              customToolBar={this.tagFilterBar}
-              disabledMemberId={this.state.disabledMemberId}
-              fetch={this.fetchMemberList}
-              goToMember={goToMemberPage}
-              interrogateMemberStatus={(id: number) =>
-                this.interrogateMemberStatus(id)
-              }
-              oldCreateMemberPermission={this.props.permissions?.member?.create}
-              tagsExcluded={this.state.tagsExcluded}
-              tagsIncluded={this.state.tagsIncluded}
-              useOldPermissions={useOldPermissions}
-            />
+            <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.accessProfile">
+              {(hasMemberProfileAccessPermission: boolean) => (
+                <MemberTable
+                  addMember={addMember}
+                  customToolBar={this.tagFilterBar}
+                  disabledMemberId={this.state.disabledMemberId}
+                  fetch={this.fetchMemberList}
+                  goToMember={
+                    hasMemberProfileAccessPermission ? goToMemberPage : null
+                  }
+                  interrogateMemberStatus={this.interrogateMemberStatus}
+                  oldCreateMemberPermission={
+                    this.props.permissions?.member?.create
+                  }
+                  tagsExcluded={this.state.tagsExcluded}
+                  tagsIncluded={this.state.tagsIncluded}
+                  useOldPermissions={useOldPermissions}
+                />
+              )}
+            </ObjectLevelPermissionProvider>
           </Grid>
           <TagFilterForm
             createFilter={this.createTagFilter}
-            onClose={() => this.setState({ showFilterForm: false })}
+            onClose={this.closeTagFilterForm}
             open={this.state.showFilterForm}
             tagList={this.props.tags}
           />
@@ -171,10 +188,7 @@ export class Members extends Component<Props, State> {
           archiveMemberStatus={this.props.memberArchiveStatus}
           loading={this.props.memberArchiveLoading}
           member={this.props.memberToArchive}
-          onClose={() => {
-            this.props.setOpenArchiveDialog(false);
-            this.props.setMemberSelectedForArchive(null);
-          }}
+          onClose={this.closeMemberArchiveDialog}
           onConfirm={this.archiveMember}
           open={this.props.openArchiveDialog}
         />

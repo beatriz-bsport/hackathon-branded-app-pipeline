@@ -65,6 +65,7 @@ export const ConsumerPaymentPackListContainer: React.FC<Props> = ({
     <div className="bs-consumer-pass-page__content__list-container">
       <ul className="bs-consumer-pass-page__content__list-container__list">
         <GenericInfiniteScrollEnhancedCssOnly<ConsumerPaymentPackReworked>
+          className="bs-consumer-pass-page__content__list-container__list__container"
           fetchMoreData={handlePaginationFetchMore}
           hasMore={hasNextPage}
           // @ts-expect-error

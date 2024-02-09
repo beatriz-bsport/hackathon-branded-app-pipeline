@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 import BottomDrawer from '#Fabrique/BottomDrawer';
 
@@ -26,6 +27,8 @@ const ConsumerPaymentPackDetailsDrawer: React.FC<Props> = ({
   isOpen,
   selectedPass,
 }) => {
+  const { t } = useTranslation('common');
+
   const {
     activityCompatibilities,
     creditsLeft,
@@ -59,6 +62,7 @@ const ConsumerPaymentPackDetailsDrawer: React.FC<Props> = ({
         title: name,
         onClose: handleTogglePassDetailsDrawer,
         onCancel: handleTogglePassDetailsDrawer,
+        cancelLabel: t('close'),
       }}
     >
       <ConsumerPaymentPackDetailsCard

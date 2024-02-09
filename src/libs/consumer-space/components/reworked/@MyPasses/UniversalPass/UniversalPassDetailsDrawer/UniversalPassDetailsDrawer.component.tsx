@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 import BottomDrawer from '#Fabrique/BottomDrawer';
 
@@ -24,6 +25,8 @@ const UniversalPassDetailsDrawer: React.FC<Props> = ({
   isOpen,
   selectedPass,
 }) => {
+  const { t } = useTranslation('common');
+
   if (!selectedPass) {
     return null;
   }
@@ -62,6 +65,7 @@ const UniversalPassDetailsDrawer: React.FC<Props> = ({
         title: name,
         onClose: handleTogglePassDetailsDrawer,
         onCancel: handleTogglePassDetailsDrawer,
+        cancelLabel: t('close'),
       }}
     >
       <UniversalPassDetailsCard

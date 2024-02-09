@@ -119,6 +119,11 @@ exports.default = {
       },
       listContainer: {
         placeholder: {
+          pass: {
+            active: 'Looks like you haven’t bought any pass yet.',
+            future: 'Looks like you haven’t bought any pass yet.',
+            expired: 'You have no expired passes yet.',
+          },
           activity: {
             past: 'No past activities to show.',
             future: 'No upcoming activities scheduled.',

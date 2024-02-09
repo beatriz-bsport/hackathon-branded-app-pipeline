@@ -83,12 +83,13 @@ const PrivateConsumerPassDetailsCard: React.FC<Props> = ({
   const { t } = useTranslation('consumerSpace');
 
   if (isLoading) {
-    return <ConsumerDetailsCardSkeleton />;
+    return <ConsumerDetailsCardSkeleton className={className} />;
   }
 
   if (showPlaceholder) {
     return (
       <ConsumerCardPlaceholder
+        className={className}
         message={t('reworked.placeholderCard.myPasses')}
       />
     );

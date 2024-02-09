@@ -21,6 +21,8 @@ type Props = {
   isLoading?: boolean;
   /** Indicates if the pass has a multi-studio scope */
   isMultistudio?: boolean;
+  /** Indicates if the pass is selected. Is used to elevate the card */
+  isSelected?: boolean;
   /** Indicates if the pass is shared with an other member */
   isShared?: boolean;
   /** Indicates if the pass has been suspended by a manager */
@@ -51,6 +53,7 @@ const ConsumerPassCard: React.FC<Props> = ({
   handleSeeDetails,
   isLoading,
   isMultistudio,
+  isSelected,
   isShared,
   isSuspended,
   isUnlimited,
@@ -63,7 +66,10 @@ const ConsumerPassCard: React.FC<Props> = ({
   }
 
   return (
-    <Card className={classNames('bs-consumer-pass-card__root')}>
+    <Card
+      className={classNames('bs-consumer-pass-card__root')}
+      variant={isSelected ? 'elevated' : 'rest'}
+    >
       <ConsumerPassCardHeader
         creditsLeft={creditsLeft}
         isMultistudio={isMultistudio}

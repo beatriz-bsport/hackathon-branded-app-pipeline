@@ -116,6 +116,7 @@ export const UniversalPassListContainer: React.FC<Props> = ({
                 !!item?.consumer_payment_pack
                   ?.created_from_payment_pack_template_instance
               }
+              isSelected={item.id === selectedPass?.id}
               isShared={
                 !!item?.consumer_payment_pack?.src_consumer_payment_pack
                   ?.length ||

@@ -111,6 +111,7 @@ export const ConsumerPassListContainer: React.FC<Props> = ({
               handleSeeDetails={handleSeeDetails(item.id)}
               isLoading={isLoading}
               isMultistudio={null}
+              isSelected={item.id === selectedPass?.id}
               isShared={
                 !!item?.dst_private_consumer_pass ||
                 !!item?.src_private_consumer_pass?.length

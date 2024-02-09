@@ -113,6 +113,7 @@ export const ConsumerPaymentPackListContainer: React.FC<Props> = ({
               handleSeeDetails={handleSeeDetails(item.id)}
               isLoading={isLoading}
               isMultistudio={!!item.created_from_payment_pack_template_instance}
+              isSelected={item.id === selectedPass?.id}
               isShared={
                 !!item.src_consumer_payment_pack?.length ||
                 !!item.dst_consumer_payment_pack

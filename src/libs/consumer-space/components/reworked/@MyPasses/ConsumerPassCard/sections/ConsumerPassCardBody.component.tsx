@@ -43,8 +43,8 @@ const ConsumerPassCardBody: React.FC<Props> = ({
     const { availability, daysBeforeExpiration, formatedDates } =
       getAvailabilityInformation({ startDate, expirationDate });
     const {
-      startDate: formatedExpirationDate,
-      expirationDate: formatedStartDate,
+      startDate: formatedStartDate,
+      expirationDate: formatedExpirationDate,
     } = { ...formatedDates };
 
     if (availability === 'active') {

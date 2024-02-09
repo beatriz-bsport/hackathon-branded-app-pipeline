@@ -51,6 +51,7 @@ exports.default = {
     copyLink: 'Copy the link',
   },
   saveRecord: 'Save',
+  saveChanges: 'Save changes',
   delete: 'Delete',
   duration: {
     minute: '{{ count }} minute',
@@ -68,4 +69,6 @@ exports.default = {
   day: 'day',
   day_plural: 'days',
   discard: 'Discard',
+  yes: 'Yes',
+  no: 'No',
 };

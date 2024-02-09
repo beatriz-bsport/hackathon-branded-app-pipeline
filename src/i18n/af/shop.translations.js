@@ -59,4 +59,69 @@ exports.default = {
       error: { name: 'A product name cannot exceed 200 characters' },
     },
   },
+  // reworked
+  shopItemDetail: {
+    title: 'Product details',
+    startingAt: 'Starting at',
+    showMore: 'Show more',
+    showLess: 'Show less',
+    copyPaymentPageLink: 'Copy payment page link',
+    viewBarcode: 'View barcode',
+    deleteVariant: 'Delete variant',
+    deleteModal: {
+      title: 'Deletion - {{name}}',
+      genericTitle: 'Deletion confirmation',
+      message:
+        "Are you sure that you want to delete this product from your webshop? This action can't be undone.",
+      comboWarning:
+        "Attention! Deleting this product will also make it unavailable for purchase for the packs it's used for.",
+    },
+    tab: {
+      inventory: 'Inventory',
+      variants: 'Variants',
+      settings: 'Settings',
+      history: 'History',
+    },
+    table: {
+      inventory: {
+        variants: 'Variants',
+        currentStock: 'Current stock',
+        stockAdjustment: 'Stock adjustment (+/-)',
+        totalSales: 'Total sales',
+        seeInvoice: 'See invoice',
+      },
+      variants: {
+        action: { add: 'Add a variant', edit: 'Edit a variant' },
+        image: 'Image',
+        colorAndSize: 'Colour & Size',
+        price: 'Price',
+        supplierPrice: 'Supplier price',
+        sku: 'SKU',
+        barcode: 'Barcode',
+        availableOnline: 'Available online',
+      },
+      settings: {
+        supplier: 'Supplier',
+        vat: 'VAT/Sales tax',
+        availableOnline: 'Available online',
+        paymentMethods: 'Accepted payment methods',
+        sellOnlyOnProvision: 'Only sell when stock is available',
+        featured: 'Featured',
+        requiresDelivery: 'Requires delivery',
+      },
+      history: {
+        date: 'Date',
+        variant: 'Variant',
+        studio: 'Studio',
+        updateType: {
+          title: 'Type of update',
+          sale: 'Sale',
+          manual: 'Manual adjustement',
+          purchase: 'Purchase order',
+        },
+        quantity: 'Quantity',
+        invoice: { title: 'Invoice', seeInvoice: 'See invoice' },
+      },
+    },
+  },
 };

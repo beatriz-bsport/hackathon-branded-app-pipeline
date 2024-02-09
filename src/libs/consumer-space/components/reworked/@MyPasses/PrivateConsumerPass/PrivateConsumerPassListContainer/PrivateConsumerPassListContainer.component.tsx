@@ -2,9 +2,9 @@ import React, { useCallback } from 'react';
 import classNames from 'classnames';
 
 import { GenericInfiniteScrollEnhancedCssOnly } from '#components/InfiniteScroll/GenericInfiniteScrollCssOnly.component';
-import CircularProgress from '#components/css-only/CircularProgress/CircularProgress.component';
 import ConsumerPassCard from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassCard';
 import PrivateConsumerPassDetailsCard from '#libs/consumer-space/components/reworked/@MyPasses/PrivateConsumerPass/PrivateConsumerPassDetailsCard';
+import ConsumerCardSkeleton from '#libs/consumer-space/components/reworked/common/ConsumerCardSkeleton';
 
 import { parsePrivateConsumerPassData } from '#libs/consumer-space/components/reworked/@MyPasses/PrivateConsumerPass/utils';
 import { getExpirationDate } from '#libs/private-service/utils';
@@ -73,7 +73,7 @@ export const ConsumerPassListContainer: React.FC<Props> = ({
               : MY_BOOKINGS_LIST_CONTAINER_HEIGHT
           }
           items={passList}
-          loader={<CircularProgress size="sm" />}
+          loader={<ConsumerCardSkeleton />}
           renderItem={({ item }) => (
             <ConsumerPassCard
               key={item.id}

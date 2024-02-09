@@ -1,20 +1,13 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 
-import { useTranslation } from 'react-i18next';
-import moment from 'moment-timezone';
 import classNames from 'classnames';
 
 import ListItem from '#Fabrique/ListItem';
 import List from '#Fabrique/List';
-import {
-  CalendarCheck02,
-  CalendarDate,
-  PauseCircle,
-  X,
-} from '#components/untitledui';
 import ConsumerCardSection from '#libs/consumer-space/components/reworked/common/ConsumerCardSection';
 import ConsumerPaymentPackCreditStatus from '#libs/consumer-space/components/reworked/common/ConsumerPaymentPackCreditStatus';
-import { getAvailabilityInformation } from '#libs/consumer-space/components/reworked/@MyPasses/utils';
+
+import { useConsumerPassDetailsCardHeaderData } from '#libs/consumer-space/components/reworked/@MyPasses/GenericPass/DetailsCard/hooks';
 
 type Props = {
   isMobile?: boolean;
@@ -39,91 +32,23 @@ const UniversalPassDetailsCardHeader: React.FC<Props> = ({
   startDate,
   suspensionDate,
 }) => {
-  const { t } = useTranslation('consumerSpace');
-
-  const { availability, formatedDates } = useMemo(
-    () =>
-      getAvailabilityInformation({
-        startDate,
-        expirationDate,
-      }),
-    [startDate, expirationDate],
-  );
-
-  let caption = '';
-
-  let label = '';
-
-  let icon = null;
-
-  let customClassName = '';
-  let customIconClassName = '';
-
-  if (isSuspended) {
-    icon = <PauseCircle stroke="currentColor" />;
-    customClassName =
-      'bs-universal-pass-details-card__header__list__item--warning';
-    if (suspensionDate) {
-      label = t(
-        'reworked.myPasses.consumerPassDetailsCard.availability.suspendedUntil',
-        {
-          endDate: moment(suspensionDate).format('L'),
-          interpolation: { escapeValue: false },
-        },
-      );
-    } else {
-      label = t(
-        'reworked.myPasses.consumerPassDetailsCard.availability.suspended',
-      );
-    }
-  } else if (availability === 'future') {
-    customIconClassName =
-      'bs-universal-pass-details-card__header__list__item__icon--weak-color';
-    caption = t(
-      'reworked.myPasses.consumerPassDetailsCard.availability.validUntil',
-      {
-        expirationDate: formatedDates.expirationDate ?? '',
-        interpolation: {
-          escapeValue: false,
-        },
-      },
-    );
-    label = t('reworked.myPasses.consumerPassDetailsCard.availability.future', {
-      startDate: formatedDates.startDate ?? '',
-      interpolation: {
-        escapeValue: false,
-      },
-    });
-
-    icon = <CalendarDate stroke="currentColor" />;
-  } else if (availability === 'active') {
-    customIconClassName =
-      'bs-universal-pass-details-card__header__list__item__icon--weak-color';
-    label = t('reworked.myPasses.consumerPassDetailsCard.availability.active', {
-      startDate: formatedDates.startDate ?? '',
-      expirationDate: formatedDates.expirationDate ?? '',
-      interpolation: {
-        escapeValue: false,
-      },
-    });
-    icon = <CalendarCheck02 stroke="currentColor" />;
-  } else if (availability === 'expired') {
-    customClassName =
-      'bs-universal-pass-details-card__header__list__item--error';
-    label = t(
-      'reworked.myPasses.consumerPassDetailsCard.availability.expired',
-      {
-        expirationDate: formatedDates.expirationDate ?? '',
-        interpolation: {
-          escapeValue: false,
-        },
-      },
-    );
-    icon = <X stroke="currentColor" />;
-  }
-
-  const usedCredits = totalCredits - creditsLeft;
-  const hideList = (!caption && availability === 'future') || !icon || !label;
+  const {
+    Icon,
+    label,
+    customClassName,
+    usedCredits,
+    hideList,
+    customIconClassName,
+    caption,
+  } = useConsumerPassDetailsCardHeaderData({
+    creditsLeft,
+    cssVariant: 'universal-pass',
+    totalCredits,
+    expirationDate,
+    isSuspended,
+    startDate,
+    suspensionDate,
+  });
 
   return (
     <ConsumerCardSection
@@ -153,7 +78,7 @@ const UniversalPassDetailsCardHeader: React.FC<Props> = ({
             'bs-universal-pass-details-card__header__list__item',
             customClassName,
           )}
-          icon={icon}
+          icon={<Icon stroke="currentColor" />}
           label={label}
         />
       </List>

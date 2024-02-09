@@ -14,11 +14,6 @@
   padding: 0;
 }
 
-.bs-private-consumer-pass-details-card__root--mobile
-  .bs-private-consumer-pass-details-card__header__list__item {
-  padding-top: 0;
-}
-
 /* ------ HEADER SECTION ------ */
 
 .bs-private-consumer-pass-details-card__header__root {
@@ -39,6 +34,19 @@
 .bs-private-consumer-pass-details-card__header__list__item {
   padding: 0;
   padding-top: var(--bs-space-size-4);
+}
+
+.bs-private-consumer-pass-details-card__root--mobile
+  .bs-private-consumer-pass-details-card__header__list__item {
+  padding-top: 0;
+}
+
+.bs-private-consumer-pass-details-card__header__list__item--warning {
+  color: var(--bs-color-text-warning-strong);
+}
+
+.bs-private-consumer-pass-details-card__header__list__item--error {
+  color: var(--bs-color-text-error-strong);
 }
 
 .bs-private-consumer-pass-details-card__header__list__item__icon--warning {

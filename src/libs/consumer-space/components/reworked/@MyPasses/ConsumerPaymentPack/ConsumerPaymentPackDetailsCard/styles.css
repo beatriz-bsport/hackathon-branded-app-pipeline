@@ -14,11 +14,6 @@
   padding: 0;
 }
 
-.bs-consumer-payment-pack-details-card__root--mobile
-  .bs-consumer-payment-pack-details-card__header__list__item {
-  padding-top: 0;
-}
-
 /* ------ HEADER SECTION ------ */
 
 .bs-consumer-payment-pack-details-card__header__root {
@@ -39,6 +34,19 @@
 .bs-consumer-payment-pack-details-card__header__list__item {
   padding: 0;
   padding-top: var(--bs-space-size-4);
+}
+
+.bs-consumer-payment-pack-details-card__root--mobile
+  .bs-consumer-payment-pack-details-card__header__list__item {
+  padding-top: 0;
+}
+
+.bs-consumer-payment-pack-details-card__header__list__item--warning {
+  color: var(--bs-color-text-warning-strong);
+}
+
+.bs-consumer-payment-pack-details-card__header__list__item--error {
+  color: var(--bs-color-text-error-strong);
 }
 
 .bs-consumer-payment-pack-details-card__header__list__item__icon--warning {

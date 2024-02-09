@@ -186,6 +186,7 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
             isMobile={isMobile}
             onPassCardClick={handleSetSelectedPass}
             passList={passList as PrivateConsumerPassReworked[]}
+            selectedFilterTab={selectedFilterTab}
             selectedPass={selectedPass as PrivateConsumerPassReworked}
           />
         )}
@@ -198,6 +199,7 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
             isMobile={isMobile}
             onPassCardClick={handleSetSelectedPass}
             passList={passList as ConsumerPaymentPackReworked[]}
+            selectedFilterTab={selectedFilterTab}
             selectedPass={selectedPass as ConsumerPaymentPackReworked}
           />
         )}
@@ -210,6 +212,7 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
             isMobile={isMobile}
             onPassCardClick={handleSetSelectedPass}
             passList={passList as UniversalPassReworked[]}
+            selectedFilterTab={selectedFilterTab}
             selectedPass={selectedPass as UniversalPassReworked}
           />
         )}

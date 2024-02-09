@@ -1,6 +1,8 @@
 import React, { useCallback } from 'react';
 import classNames from 'classnames';
+import { useTranslation } from 'react-i18next';
 
+import Typography from '#Fabrique/Typography';
 import { GenericInfiniteScrollEnhancedCssOnly } from '#components/InfiniteScroll/GenericInfiniteScrollCssOnly.component';
 import ConsumerPassCard from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassCard';
 import UniversalPassDetailsCard from '#libs/consumer-space/components/reworked/@MyPasses/UniversalPass/UniversalPassDetailsCard';
@@ -13,6 +15,7 @@ import {
 } from '#libs/consumer-space/components/reworked/@MyBookings/constants';
 
 import type { UniversalPassReworked } from '#libs/universal-pass/types';
+import type { PassFilterTab } from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassFilters/types';
 
 // Common stylesheet
 import '#libs/consumer-space/components/reworked/@MyPasses/GenericPass/ListContainer/styles.css';
@@ -26,6 +29,7 @@ type Props = {
   hasNextPage?: boolean;
   onPassCardClick: (passId: number) => void;
   handlePaginationFetchMore: () => void;
+  selectedFilterTab: PassFilterTab;
 };
 
 export const UniversalPassListContainer: React.FC<Props> = ({
@@ -37,7 +41,12 @@ export const UniversalPassListContainer: React.FC<Props> = ({
   hasNextPage,
   onPassCardClick,
   handlePaginationFetchMore,
+  selectedFilterTab,
 }) => {
+  const { t } = useTranslation('consumerSpace');
+
+  const showPlaceholder = !isLoading && !passList?.length;
+
   const {
     activityCompatibilities,
     appointmentCompatibilities,
@@ -62,8 +71,28 @@ export const UniversalPassListContainer: React.FC<Props> = ({
   );
 
   return (
-    <div className="bs-consumer-pass-page__content__list-container">
-      <ul className="bs-consumer-pass-page__content__list-container__list">
+    <div
+      className={classNames('bs-consumer-pass-page__content__list-container', {
+        'bs-consumer-pass-page__content__list-container--empty':
+          showPlaceholder,
+      })}
+    >
+      {showPlaceholder && (
+        <Typography variant="body-lg">
+          {t(
+            `consumerSpace:reworked.myBookings.listContainer.placeholder.pass.${selectedFilterTab}`,
+          )}
+        </Typography>
+      )}
+      <ul
+        className={classNames(
+          'bs-consumer-pass-page__content__list-container__list',
+          {
+            'bs-consumer-pass-page__content__list-container__list--hidden':
+              showPlaceholder,
+          },
+        )}
+      >
         <GenericInfiniteScrollEnhancedCssOnly<UniversalPassReworked>
           className="bs-consumer-pass-page__content__list-container__list__container"
           fetchMoreData={handlePaginationFetchMore}
@@ -106,7 +135,8 @@ export const UniversalPassListContainer: React.FC<Props> = ({
         activityCompatibilities={activityCompatibilities}
         appointmentCompatibilities={appointmentCompatibilities}
         className={classNames('bs-universal-pass-details-card__root', {
-          'bs-universal-pass-details-card__root--hidden': isMobile,
+          'bs-universal-pass-details-card__root--hidden':
+            isMobile || showPlaceholder,
         })}
         // TODO: Out of scope, needs product specs
         compatibleEstablishments={null}

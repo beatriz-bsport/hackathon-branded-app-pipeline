@@ -1,7 +1,9 @@
 import React, { useCallback } from 'react';
 import classNames from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 import { GenericInfiniteScrollEnhancedCssOnly } from '#components/InfiniteScroll/GenericInfiniteScrollCssOnly.component';
+import Typography from '#Fabrique/Typography';
 import ConsumerPassCard from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassCard';
 import PrivateConsumerPassDetailsCard from '#libs/consumer-space/components/reworked/@MyPasses/PrivateConsumerPass/PrivateConsumerPassDetailsCard';
 import ConsumerCardSkeleton from '#libs/consumer-space/components/reworked/common/ConsumerCardSkeleton';
@@ -14,6 +16,7 @@ import {
 } from '#libs/consumer-space/components/reworked/@MyBookings/constants';
 
 import type { PrivateConsumerPassReworked } from '#libs/private-service/types';
+import type { PassFilterTab } from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassFilters/types';
 
 // Common stylesheet
 import '#libs/consumer-space/components/reworked/@MyPasses/GenericPass/ListContainer/styles.css';
@@ -27,6 +30,7 @@ type Props = {
   hasNextPage?: boolean;
   onPassCardClick: (passId: number) => void;
   handlePaginationFetchMore: () => void;
+  selectedFilterTab: PassFilterTab;
 };
 
 export const ConsumerPassListContainer: React.FC<Props> = ({
@@ -38,6 +42,7 @@ export const ConsumerPassListContainer: React.FC<Props> = ({
   hasNextPage,
   onPassCardClick,
   handlePaginationFetchMore,
+  selectedFilterTab,
 }) => {
   const {
     appointmentCompatibilities,
@@ -54,14 +59,38 @@ export const ConsumerPassListContainer: React.FC<Props> = ({
     totalCredits,
   } = parsePrivateConsumerPassData(selectedPass);
 
+  const { t } = useTranslation('consumerSpace');
+
+  const showPlaceholder = !isLoading && !passList?.length;
+
   const handleSeeDetails = useCallback(
     (id: number) => () => onPassCardClick(id),
     [onPassCardClick],
   );
 
   return (
-    <div className="bs-consumer-pass-page__content__list-container">
-      <ul className="bs-consumer-pass-page__content__list-container__list">
+    <div
+      className={classNames('bs-consumer-pass-page__content__list-container', {
+        'bs-consumer-pass-page__content__list-container--empty':
+          showPlaceholder,
+      })}
+    >
+      {showPlaceholder && (
+        <Typography variant="body-lg">
+          {t(
+            `consumerSpace:reworked.myBookings.listContainer.placeholder.pass.${selectedFilterTab}`,
+          )}
+        </Typography>
+      )}
+      <ul
+        className={classNames(
+          'bs-consumer-pass-page__content__list-container__list',
+          {
+            'bs-consumer-pass-page__content__list-container__list--hidden':
+              showPlaceholder,
+          },
+        )}
+      >
         <GenericInfiniteScrollEnhancedCssOnly<PrivateConsumerPassReworked>
           className="bs-consumer-pass-page__content__list-container__list__container"
           fetchMoreData={handlePaginationFetchMore}
@@ -100,7 +129,8 @@ export const ConsumerPassListContainer: React.FC<Props> = ({
         appointmentCompatibilities={appointmentCompatibilities}
         // TODO: Out of scope, needs product specs
         className={classNames('bs-private-consumer-pass-details-card__root', {
-          'bs-private-consumer-pass-details-card__root--hidden': isMobile,
+          'bs-private-consumer-pass-details-card__root--hidden':
+            isMobile || showPlaceholder,
         })}
         compatibleEstablishments={null}
         creditsLeft={creditsLeft}

@@ -5,9 +5,18 @@
   width: 100%;
 }
 
+.bs-consumer-pass-page__content__list-container--empty {
+  text-align: center;
+  padding: var(--bs-space-size-18) 0;
+}
+
 .bs-consumer-pass-page__content__list-container__list {
   margin: 0;
   padding: 0;
+}
+
+.bs-consumer-pass-page__content__list-container__list--hidden {
+  display: none;
 }
 
 .bs-consumer-pass-page__content__list-container__list__container {

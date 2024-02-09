@@ -205,6 +205,10 @@ export class ConsumerHome extends React.Component<Props> {
     const isRelationNavigation = !!window.localStorage.getItem(
       'bsport:relatedMemberMaster:http:token',
     );
+    const displayReworkedMemberProfile = !['staging', 'production'].includes(
+      Config.REACT_APP_SENTRY_ENVIRONMENT,
+    );
+
     return (
       <MuiThemeProvider theme={getTheme(this.props.theme)}>
         <MemberShipValidationWrapper companyId={this.props.companyId}>
@@ -256,48 +260,30 @@ export class ConsumerHome extends React.Component<Props> {
                 />
                 <div className={this.props.classes.container}>
                   <Switch>
-                    {!['staging', 'production'].includes(
-                      Config.REACT_APP_SENTRY_ENVIRONMENT,
-                    ) ? (
-                      <>
-                        <Route
-                          path="/c/:companyId/booking/"
-                          render={this.attachConsumerProps(
-                            ConsumerBookingReworked,
-                          )}
-                        />
-                        <Route
-                          path="/c/:companyId/subscription/"
-                          render={this.attachConsumerProps(
-                            ConsumerSubscriptionReworked,
-                          )}
-                        />
-                        <Route
-                          path="/c/:companyId/pack/"
-                          render={this.attachConsumerProps(
-                            ConsumerPassReworked,
-                          )}
-                        />
-                      </>
-                    ) : (
-                      <>
-                        <Route
-                          path="/c/:companyId/booking/"
-                          render={this.attachConsumerProps(ConsumerBooking)}
-                        />
-                        <Route
-                          path="/c/:companyId/subscription/"
-                          render={this.attachConsumerProps(
-                            ConsumerSubscription,
-                          )}
-                        />
-                        <Route
-                          path="/c/:companyId/pack/"
-                          render={this.attachConsumerProps(ConsumerPack)}
-                        />
-                      </>
-                    )}
-
+                    <Route
+                      path="/c/:companyId/booking/"
+                      render={this.attachConsumerProps(
+                        displayReworkedMemberProfile
+                          ? ConsumerBookingReworked
+                          : ConsumerBooking,
+                      )}
+                    />
+                    <Route
+                      path="/c/:companyId/subscription/"
+                      render={this.attachConsumerProps(
+                        displayReworkedMemberProfile
+                          ? ConsumerSubscriptionReworked
+                          : ConsumerSubscription,
+                      )}
+                    />
+                    <Route
+                      path="/c/:companyId/pack/"
+                      render={this.attachConsumerProps(
+                        displayReworkedMemberProfile
+                          ? ConsumerPassReworked
+                          : ConsumerPack,
+                      )}
+                    />
                     <Route
                       path="/c/:companyId/vod/"
                       render={this.attachConsumerProps(ConsumerVOD)}

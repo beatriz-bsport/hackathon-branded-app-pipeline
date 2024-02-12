@@ -1,5 +1,4 @@
 import { AxiosResponse } from 'axios';
-import { PaginatedResponse } from '../../state/types';
 import {
   API_V1_URI,
   postAuth,
@@ -8,7 +7,9 @@ import {
   buildUrlParams,
   deleteAuth,
 } from '../../http';
-import {
+
+import type { PaginatedResponse } from '../../state/types';
+import type {
   IsShopUsedInComboAPI,
   Provision,
   ShopItem,
@@ -18,6 +19,7 @@ import {
   ProvisionCreate,
   ShopItemCreate,
   ShopItemEdit,
+  ShopItemListFilterParams,
 } from './types';
 
 export async function fetchAll(
@@ -134,4 +136,63 @@ export default {
   fetchShopItem,
   fetchProvisions,
   duplicateItem,
+};
+
+/* --- REWORKED --- */
+
+/**
+ * Retrieves a list of shop item. Filters available to exclude items based on type.
+ * @param exclude_variants Exclude all variants created from a base item
+ * @param exclude_standalone_items Exclude all standalone items (legacy)
+ * @param exclude_base_items Exclude all base items
+ */
+export const retrieveShopItemList = (params?: ShopItemListFilterParams) => {
+  return getAuth<ShopItem[]>(
+    `${API_V1_URI}/shop/item/${buildUrlParams(params)}`,
+  );
+};
+
+/**
+ * Retrieves a base/standalone item.
+ * @param id The ID of the shop item
+ */
+export const retrieveShopItemDetails = (id: number) => {
+  return getAuth<ShopItem>(`${API_V1_URI}/shop/item/${id}`);
+};
+
+/**
+ * Checks whether the current item is used in any payment combo
+ * @param id The ID of the shop item
+ */
+export const retrieveShopItemUsedInCombo = (id: number) => {
+  return postAuth<IsShopUsedInComboAPI>(
+    `${API_V1_URI}/shop/item/${id}/check_archive_side_effects/`,
+  );
+};
+
+/**
+ * Creates a base item. If variant attributes are provided, items will be created.
+ * @param formData The data from fields for the creation
+ */
+export const createShopItem = (formData: ShopItemCreate) => {
+  return postAuth<ShopItem>(`${API_V1_URI}/shop/item/`, formData);
+};
+
+/**
+ * Updates a base/standalone shop item.\
+ * Params are all existing variant attributes
+ * @param id The ID of the shop item to update
+ * @param formData The fields to update
+ */
+export const updateShopItem = (id: number, formData: ShopItemEdit) => {
+  return patchAuth<ShopItem>(`${API_V1_URI}/shop/item/${id}/`, formData);
+};
+
+/**
+ * Deletes a base/standalone/variant shop item.\
+ * If deleting a base product all related variants will be disabled
+ * @param id The ID of the shop item to update
+ */
+export const deleteShopItem = (id: number) => {
+  return deleteAuth<number>(`${API_V1_URI}/shop/item/${id}/`);
 };

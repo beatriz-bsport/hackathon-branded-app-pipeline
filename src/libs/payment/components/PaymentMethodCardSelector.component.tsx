@@ -16,6 +16,7 @@ type Props = {
   selectPaymentMethod: (paymentMethod: number) => void;
   paymentProcessing?: boolean;
   customClasses?: { [className: string]: string };
+  withoutPaymentMethodPadding?: boolean;
 };
 
 export const PaymentMethodCardSelector = ({
@@ -24,11 +25,12 @@ export const PaymentMethodCardSelector = ({
   selectPaymentMethod,
   paymentProcessing,
   customClasses,
+  withoutPaymentMethodPadding,
 }: Props) => {
-  const { t } = useTranslation(['invoice']);
+  const { t } = useTranslation('invoice');
 
   const isNewCheckoutFlow = React.useContext(CheckoutContext);
-  const classes = useStyles({ isNewCheckoutFlow });
+  const classes = useStyles({ isNewCheckoutFlow, withoutPaymentMethodPadding });
 
   const handleClick = useCallback(
     (pm: number) => {
@@ -70,6 +72,7 @@ export const PaymentMethodCardSelector = ({
 };
 type NewCheckoutFlowThemeProps = {
   isNewCheckoutFlow?: boolean;
+  withoutPaymentMethodPadding?: boolean;
 };
 
 const useStyles = makeStyles<Theme, NewCheckoutFlowThemeProps>((theme) => ({
@@ -87,13 +90,15 @@ const useStyles = makeStyles<Theme, NewCheckoutFlowThemeProps>((theme) => ({
     border: `1px solid ${theme.palette.primary.main}`,
     borderRadius: 4,
   },
-  row: ({ isNewCheckoutFlow }) => ({
+  row: ({ isNewCheckoutFlow, withoutPaymentMethodPadding }) => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     padding: `${theme.spacing(1)}px ${theme.spacing(1)}px ${theme.spacing(
       1,
-    )}px ${isNewCheckoutFlow ? 0 : theme.spacing(1)}px`,
+    )}px ${
+      isNewCheckoutFlow || withoutPaymentMethodPadding ? 0 : theme.spacing(1)
+    }px`,
     '&>*': {
       marginRight: theme.spacing(1),
     },

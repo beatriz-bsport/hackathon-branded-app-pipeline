@@ -349,6 +349,9 @@ exports.default = {
         expired: 'Expired',
       },
       download: 'Download',
+      paymentModalAlert:
+        'If no payment method is saved a debt will be automatically created on your internal account for each payment',
+      changePaymentMethod: 'Change payment method',
       headerButtonsLabel: {
         bookASession: 'Book a session',
         getSubscription: 'Get a subscription',

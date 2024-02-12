@@ -56,6 +56,9 @@ export type Props = {
     React.SetStateAction<string | null>
   >;
   paymentMethodLoading: boolean;
+  withPaymentMethodTitle?: boolean;
+  withoutPaymentMethodPadding?: boolean;
+  initialPaymentMethod?: MarketplacePaymentMethods;
 };
 
 const MarketplaceSubscriptionPayment: React.FC<Props> = ({
@@ -71,13 +74,16 @@ const MarketplaceSubscriptionPayment: React.FC<Props> = ({
   selectedSavedPaymentMethodId,
   setSelectedSavedPaymentMethodId,
   paymentMethodLoading,
+  withPaymentMethodTitle,
+  withoutPaymentMethodPadding,
+  initialPaymentMethod,
 }) => {
   const { t } = useTranslation(['subscription', 'payment']);
 
   const [collectPaymentMethodIsOpen, setCollectPaymentMethodIsOpen] =
     useState(false);
   const [paymentMethod, setPaymentMethod] =
-    useState<MarketplacePaymentMethods | null>(null);
+    useState<MarketplacePaymentMethods | null>(initialPaymentMethod || null);
 
   const [billingDetails, setBillingDetails] =
     useState<MarketplacePaymentMethodBillingDetails>(
@@ -108,7 +114,7 @@ const MarketplaceSubscriptionPayment: React.FC<Props> = ({
      * If SEPA is one of the available payment methods for subscription
      * or the available payment method for the marketplace, it will be used.
      */
-    if (!paymentMethod && !paymentMethodLoading) {
+    if (!paymentMethod && !paymentMethodLoading && !initialPaymentMethod) {
       const isBacsEnabled = getIsPaymentMethodAvailable(
         BILLING_PLAN_PAYMENT_METHOD_STRIPE_BACS_DEBIT,
         PAYMENT_GROUP_METHOD_IDENTIFIER_BACS_DEBIT,
@@ -149,6 +155,7 @@ const MarketplaceSubscriptionPayment: React.FC<Props> = ({
     selectedSavedPaymentMethodId,
     paymentMethodLoading,
     getIsPaymentMethodAvailable,
+    initialPaymentMethod,
   ]);
 
   const handleSetPaymentMethod = useCallback(
@@ -253,7 +260,9 @@ const MarketplaceSubscriptionPayment: React.FC<Props> = ({
         <div>
           <PaymentMethodCardSelector
             customClasses={{
-              title: 'bs-contract-payment__payment__display-none',
+              title:
+                !withPaymentMethodTitle &&
+                'bs-contract-payment__payment__display-none',
             }}
             paymentMethodChoices={paymentMethodChoices}
             paymentMethodSelected={
@@ -261,6 +270,7 @@ const MarketplaceSubscriptionPayment: React.FC<Props> = ({
               MAP_MARKETPLACE_PAYMENT_METHOD_TO_IDENTIFIER[`${paymentMethod}`]
             }
             selectPaymentMethod={handleSetPaymentMethod}
+            withoutPaymentMethodPadding={withoutPaymentMethodPadding}
           />
         </div>
       )}

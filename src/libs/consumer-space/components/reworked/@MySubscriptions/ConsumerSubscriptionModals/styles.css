@@ -7,3 +7,7 @@
 .bs-consumer__subscription__modal-dialog__content {
   white-space: pre-line;
 }
+
+.bs-consumer__subscription__payment-dialog__alert {
+  background: var(--bs-color-background-warning-weak);
+}

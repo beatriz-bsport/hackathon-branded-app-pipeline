@@ -1,8 +1,8 @@
-// @ts-nocheck
 import { createSelector } from 'reselect';
+
 import type { State } from '../../state/types';
 import type { RootState } from '../../reducers';
-import { SubShop } from './types';
+import type { SubShop } from './types';
 
 const _getSubShops = (state: State) => state.shop.subShops;
 
@@ -33,7 +33,7 @@ const getSubShops = createSelector(
     _getShopItemsAsConsumer,
     _getAllShopItems,
     _getSubShops,
-    (state, as_consumer) => as_consumer,
+    (state, as_consumer: boolean) => as_consumer,
   ],
   (shopitemListAsConsumer, shopItemsList, subshopList, as_consumer) => {
     return subshopList.map((sub) => ({
@@ -49,12 +49,14 @@ export const getSubShopsByCompany = (
   state: RootState,
   companyId: number,
   as_consumer?: boolean,
+  // @ts-expect-error
 ) => getSubShops(state, as_consumer).filter((sub) => sub.company === companyId);
 
 const getShopitem = (state: State, id: number) => {
   const shopitem = _getAllShopItems(state).find((si) => si.id === id) || {};
   return {
     ...shopitem,
+    // @ts-expect-error
     subshop: _getSubShops(state).find((sub) => sub.id === shopitem.id),
   };
 };
@@ -81,6 +83,31 @@ const _getShopItemsBulk = createSelector(
 export const getShopItemsBulk = createSelector(_getShopItemsBulk, (shopItems) =>
   shopItems.filter((si) => si.subshop),
 );
+
+/* --- REWORKED --- */
+
+/** Returns the loading state of the shop item details */
+export const getShopItemDetailLoading = (state: RootState) =>
+  state.shopReworked.shopItemReworked.itemDetails.loading;
+
+/** Returns the loading state when deleting a base/standalone item */
+export const getShopItemDetailDeleteLoading = (state: RootState) =>
+  state.shopReworked.shopItemReworked.itemDetails.delete.loading;
+
+/** Retrieves the shop item object from an base/standalone item id */
+export const getShopItemDetail = (state: RootState, id: number) => {
+  if (!id) return null;
+  return state.shopReworked.shopItemReworked.itemDetails.byId[id]?.item ?? null;
+};
+
+/** Retrieves the boolean for combo warning when deleting a shop item */
+export const getIsShopItemUsedInCombo = (state: RootState, id: number) => {
+  if (!id) return null;
+  return (
+    state.shopReworked.shopItemReworked.itemDetails.byId[id]?.isUsedInCombo ??
+    false
+  );
+};
 
 export default {
   getSubShopsByCompany,

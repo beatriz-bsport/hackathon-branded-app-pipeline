@@ -60,6 +60,17 @@ export type ShopItem = {
   unlimited_provisions?: boolean;
 };
 
+/** Represents a variant related to a base shop item */
+export type ShopItemVariant = ShopItem & {
+  base_item: number;
+};
+
+export type ShopItemVariantFilterParams = {
+  base_item_id: number;
+  page_size: number;
+  page: number;
+};
+
 export type ShopItemCreate = {
   'available_payment_method_identifiers[]': string;
   barcode: string;
@@ -170,4 +181,10 @@ export type ShopItemListFilterParams = ShopAPIFilter & {
   exclude_variants?: boolean;
   exclude_standalone_items?: boolean;
   exclude_base_items?: boolean;
+};
+
+/** Represents all attributes you can create variants from */
+export type ShopItemVariantAttributes = {
+  colors?: string[];
+  sizes?: string[];
 };

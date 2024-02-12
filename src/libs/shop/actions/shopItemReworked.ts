@@ -4,19 +4,29 @@ import {
   retrieveShopItemList as retrieveShopItemListAPI,
   retrieveShopItemDetails as retrieveShopItemDetailsAPI,
   retrieveShopItemUsedInCombo as retrieveShopItemUsedInComboAPI,
+  retrieveShopItemVariantList as retrieveShopItemVariantListAPI,
   createShopItem as createShopItemAPI,
+  createShopItemVariants as createShopItemVariantsAPI,
   updateShopItem as updateShopItemAPI,
+  updateShopItemVariantBulk as updateShopItemVariantBulkAPI,
   deleteShopItem as deleteShopItemAPI,
 } from '../api';
 
-import type { Dispatch, OptionCallback } from '../../../state/types';
+import type {
+  Dispatch,
+  OptionCallback,
+  PaginatedResponse,
+} from '../../../state/types';
 import type {
   IsShopUsedInComboAPI,
   ShopItem,
   ShopItemCreate,
   ShopItemEdit,
   ShopItemListFilterParams,
+  ShopItemVariant,
+  ShopItemVariantAttributes,
 } from '../types';
+import { SHOP_ITEM_VARIANTS_PAGE_SIZE } from '../constants';
 
 export const retrieveShopItemBaseListActions = {
   isLoading: createAction<boolean>('SHOP_ITEM_BASE/LIST/LOADING'),
@@ -160,6 +170,57 @@ export const retrieveShopItemUsedInCombo = (
   };
 };
 
+export const fetchShopItemVariantListActions = {
+  isLoading: createAction<boolean>('SHOP_ITEM/VARIANT/LIST/LOADING'),
+  error: createAction<Error | null>('SHOP_ITEM/VARIANT/LIST/ERROR'),
+  success: createAction<{
+    data: PaginatedResponse<ShopItemVariant>;
+    baseItemId: number;
+  }>('SHOP_ITEM/VARIANT/LIST/SUCCESS'),
+};
+
+/**
+ * Retrieves all variants related to a base item.\
+ * If there are no variants API will return an empty list
+ * @param id The ID of the base item
+ * @param page The page to fetch
+ */
+export const retrieveShopItemVariantList = ({
+  id,
+  page,
+  options,
+}: {
+  id: number;
+  page?: number;
+  options?: OptionCallback<PaginatedResponse<ShopItemVariant>>;
+}) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(fetchShopItemVariantListActions.isLoading(true));
+      dispatch(fetchShopItemVariantListActions.error(null));
+
+      const result = await retrieveShopItemVariantListAPI({
+        base_item_id: id,
+        page_size: SHOP_ITEM_VARIANTS_PAGE_SIZE,
+        page,
+      });
+
+      dispatch(
+        fetchShopItemVariantListActions.success({
+          data: result.data,
+          baseItemId: id,
+        }),
+      );
+      options?.onSuccess?.(result.data);
+    } catch (error) {
+      dispatch(fetchShopItemVariantListActions.error(error));
+      options?.onError?.();
+    } finally {
+      dispatch(fetchShopItemVariantListActions.isLoading(false));
+    }
+  };
+};
+
 export const createShopItemActions = {
   isLoading: createAction<boolean>('SHOP_ITEM/CREATE/LOADING'),
   error: createAction<Error | null>('SHOP_ITEM/CREATE/ERROR'),
@@ -188,6 +249,48 @@ export const createShopItem = (
       options?.onError?.();
     } finally {
       dispatch(createShopItemActions.isLoading(false));
+    }
+  };
+};
+
+export const createShopItemVariantsActions = {
+  isLoading: createAction<boolean>('SHOP_ITEM/VARIANT/CREATE/LOADING'),
+  error: createAction<Error | null>('SHOP_ITEM/VARIANT/CREATE/ERROR'),
+  success: createAction<ShopItemVariant[]>(
+    'SHOP_ITEM/VARIANT/CREATE/LIST/SUCCESS',
+  ),
+};
+
+/**
+ * Creates one or more variants for an existing base item.\
+ * Params are all existing variant attributes
+ * @param id The base item id to create variants from
+ * @param color An array of strings
+ * @param size An array of strings
+ */
+export const createShopItemVariants = ({
+  id,
+  data,
+  options,
+}: {
+  id: number;
+  data: ShopItemVariantAttributes;
+  options?: OptionCallback<ShopItemVariant[]>;
+}) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(createShopItemVariantsActions.isLoading(true));
+      dispatch(createShopItemVariantsActions.error(null));
+
+      const result = await createShopItemVariantsAPI(id, data);
+
+      dispatch(createShopItemVariantsActions.success(result.data));
+      options?.onSuccess?.(result.data);
+    } catch (error) {
+      dispatch(createShopItemVariantsActions.error(error));
+      options?.onError?.();
+    } finally {
+      dispatch(createShopItemVariantsActions.isLoading(false));
     }
   };
 };
@@ -231,6 +334,45 @@ export const updateShopItem = ({
   };
 };
 
+export const updateShopItemVariantBulkActions = {
+  isLoading: createAction<boolean>('SHOP_ITEM/VARIANT/UPDATE_BULK/LOADING'),
+  error: createAction<Error | null>('SHOP_ITEM/VARIANT/UPDATE_BULK/ERROR'),
+  success: createAction('SHOP_ITEM/VARIANT/UPDATE_BULK/SUCCESS'),
+};
+
+/**
+ * Updates one or multiple shop item variants related to a base item.\
+ * Params are all existing variant attributes
+ * @param id The ID of the shop item to update
+ * @param data The payload sent to the API. Array of variants item fields expected.
+ */
+export const updateShopItemVariantBulk = ({
+  id,
+  data,
+  options,
+}: {
+  id: number;
+  data: FormData;
+  options: OptionCallback;
+}) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(updateShopItemVariantBulkActions.isLoading(true));
+      dispatch(updateShopItemVariantBulkActions.error(null));
+
+      await updateShopItemVariantBulkAPI(id, data);
+
+      dispatch(updateShopItemVariantBulkActions.success());
+      options?.onSuccess?.();
+    } catch (error) {
+      dispatch(updateShopItemVariantBulkActions.error(error));
+      options?.onError?.();
+    } finally {
+      dispatch(updateShopItemVariantBulkActions.isLoading(false));
+    }
+  };
+};
+
 export const deleteShopItemActions = {
   isLoading: createAction<boolean>('SHOP_ITEM/DELETE/LOADING'),
   error: createAction<Error | null>('SHOP_ITEM/DELETE/ERROR'),
@@ -260,6 +402,38 @@ export const deleteShopItem = (
       options?.onError?.();
     } finally {
       dispatch(deleteShopItemActions.isLoading(false));
+    }
+  };
+};
+
+export const deleteShopItemVariantActions = {
+  isLoading: createAction<boolean>('SHOP_ITEM/VARIANT/DELETE/LOADING'),
+  error: createAction<Error | null>('SHOP_ITEM/VARIANT/DELETE/ERROR'),
+  success: createAction<number>('SHOP_ITEM/VARIANT/DELETE/SUCCESS'),
+};
+
+/**
+ * Deletes a single variant shop item.
+ * @param id The ID of the shop item variant to delete
+ */
+export const deleteShopItemVariant = (
+  id: number,
+  options?: OptionCallback<number>,
+) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(deleteShopItemVariantActions.isLoading(true));
+      dispatch(deleteShopItemVariantActions.error(null));
+
+      const result = await deleteShopItemAPI(id);
+
+      dispatch(deleteShopItemVariantActions.success(id));
+      options?.onSuccess?.(result.data);
+    } catch (error) {
+      dispatch(deleteShopItemVariantActions.error(error));
+      options?.onError?.();
+    } finally {
+      dispatch(deleteShopItemVariantActions.isLoading(false));
     }
   };
 };

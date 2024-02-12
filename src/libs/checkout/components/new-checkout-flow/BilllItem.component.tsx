@@ -76,13 +76,14 @@ const useStyles = makeStyles<
   billItemContainer: {
     display: 'flex',
     flexDirection: 'column',
+    gap: theme.spacing(1),
+    paddingBottom: theme.spacing(2),
   },
   billItemRow: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    opacity: ({ isApplied }) => (isApplied ? 1 : 0.5),
   },
   endPriceContainer: {
     display: 'flex',

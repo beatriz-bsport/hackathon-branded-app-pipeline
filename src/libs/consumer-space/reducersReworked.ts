@@ -28,10 +28,13 @@ import {
 } from './actions';
 
 import {
+  fetchActiveSubscriptionDetailAsMemberActions,
+  fetchConsumerSubscriptionInvoicesDetailsActions,
+  fetchExpiredSubscriptionDetailAsMemberActions,
+  fetchFutureSubscriptionDetailAsMemberActions,
+  fetchMyActiveSubscriptionsAsMemberActions,
   fetchMyExpiredSubscriptionsAsMemberActions,
   fetchMyFutureSubscriptionsAsMemberActions,
-  fetchMyActiveSubscriptionsAsMemberActions,
-  fetchConsumerSubscriptionInvoicesDetailsActions,
 } from '#libs/consumer-space/actions/subscription-actions';
 
 import type { ConsumerPassesTabDisplay, ConsumerStateReworked } from './types';
@@ -847,6 +850,27 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
     ) => {
       return state.setIn(['mySubscriptions', 'active', 'error'], payload);
     },
+    [fetchActiveSubscriptionDetailAsMemberActions.success.toString()]: (
+      state,
+      { payload }: { payload: SubscriptionREST },
+    ) => {
+      return state.setIn(
+        ['mySubscriptions', 'active', 'subscriptions', 'byId', `${payload.id}`],
+        payload,
+      );
+    },
+    [fetchActiveSubscriptionDetailAsMemberActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['mySubscriptions', 'active', 'loading'], payload);
+    },
+    [fetchActiveSubscriptionDetailAsMemberActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['mySubscriptions', 'active', 'error'], payload);
+    },
     [fetchMyFutureSubscriptionsAsMemberActions.isLoading.toString()]: (
       state,
       { payload }: { payload: boolean },
@@ -893,6 +917,27 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
           { deep: true },
         );
     },
+    [fetchFutureSubscriptionDetailAsMemberActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['mySubscriptions', 'future', 'loading'], payload);
+    },
+    [fetchFutureSubscriptionDetailAsMemberActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['mySubscriptions', 'future', 'error'], payload);
+    },
+    [fetchFutureSubscriptionDetailAsMemberActions.success.toString()]: (
+      state,
+      { payload }: { payload: SubscriptionREST },
+    ) => {
+      return state.setIn(
+        ['mySubscriptions', 'future', 'subscriptions', 'byId', `${payload.id}`],
+        payload,
+      );
+    },
     [fetchMyExpiredSubscriptionsAsMemberActions.isLoading.toString()]: (
       state,
       { payload }: { payload: boolean },
@@ -938,6 +983,33 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
           },
           { deep: true },
         );
+    },
+    [fetchExpiredSubscriptionDetailAsMemberActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['mySubscriptions', 'expired', 'loading'], payload);
+    },
+    [fetchExpiredSubscriptionDetailAsMemberActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['mySubscriptions', 'expired', 'error'], payload);
+    },
+    [fetchExpiredSubscriptionDetailAsMemberActions.success.toString()]: (
+      state,
+      { payload }: { payload: SubscriptionREST },
+    ) => {
+      return state.setIn(
+        [
+          'mySubscriptions',
+          'expired',
+          'subscriptions',
+          'byId',
+          `${payload.id}`,
+        ],
+        payload,
+      );
     },
     [fetchMyExpiredConsumerPaymentPacksAsMemberActions.isLoading.toString()]: (
       state,

@@ -21,6 +21,7 @@ import type {
   SubscriptionDetailsQueryParams,
 } from './types';
 import { PaginatedResponse } from '../../state/types';
+import type { SubscriptionTab } from '#libs/consumer-space/components/reworked/@MySubscriptions/types';
 
 const fetchAll = async (params: SubscriptionQueryParams) => {
   return getAuth(
@@ -39,6 +40,17 @@ export const fetchConsumerSubscriptionList = async (
 ) => {
   return getAuth<PaginatedResponse<SubscriptionREST>>(
     `${API_URI}/subscription/consumer-billing-plan/${buildUrlParams(params)}`,
+  );
+};
+
+export const fetchConsumerSubscription = (
+  id: number,
+  params: { member: number; status: SubscriptionTab },
+) => {
+  return getAuth<SubscriptionREST>(
+    `${API_URI}/subscription/consumer-billing-plan/${id}/${buildUrlParams(
+      params,
+    )}`,
   );
 };
 

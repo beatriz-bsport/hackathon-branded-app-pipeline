@@ -2,6 +2,7 @@ import { createAction } from 'redux-actions';
 import {
   fetchConsumerSubscriptionList as fetchConsumerSubscriptionListAPI,
   fetchConsumerSubscriptionInvoicesDetails as fetchConsumerSubscriptionInvoicesDetailsAPI,
+  fetchConsumerSubscription as fetchConsumerSubscriptionAPI,
 } from '#libs/subscription/api';
 
 import type {
@@ -16,15 +17,20 @@ import type {
   SubscriptionsInvoicesDetailsParams,
 } from '#libs/subscription/types';
 import { SubscriptionTabEnum } from '#libs/consumer-space/components/reworked/@MySubscriptions/constants';
+import type { SubscriptionTab } from '#libs/consumer-space/components/reworked/@MySubscriptions/types';
 
 const DEFAULT_PAGE_SIZE = 30;
 const DEFAULT_INVOICE_PAGE_SIZE = 5;
 export const fetchMyActiveSubscriptionsAsMemberActions = {
   success: createAction<PaginatedResponse<SubscriptionREST>>(
-    'SUBSCRIPTIONS/ACTIVE/AS_MEMBER/SUCCESS',
+    'SUBSCRIPTIONS/ACTIVE/LIST/AS_MEMBER/SUCCESS',
   ),
-  isLoading: createAction<boolean>('SUBSCRIPTIONS/ACTIVE/AS_MEMBER/IS_LOADING'),
-  error: createAction<Error | null>('SUBSCRIPTIONS/ACTIVE/AS_MEMBER/ERROR'),
+  isLoading: createAction<boolean>(
+    'SUBSCRIPTIONS/ACTIVE/LIST/AS_MEMBER/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'SUBSCRIPTIONS/ACTIVE/LIST/AS_MEMBER/ERROR',
+  ),
 };
 
 export function fetchMyActiveSubscriptionsAsMember(
@@ -63,12 +69,80 @@ export function fetchMyActiveSubscriptionsAsMember(
   };
 }
 
-export const fetchMyFutureSubscriptionsAsMemberActions = {
-  success: createAction<PaginatedResponse<SubscriptionREST>>(
+export const fetchActiveSubscriptionDetailAsMemberActions = {
+  success: createAction<SubscriptionREST>(
+    'SUBSCRIPTIONS/ACTIVE/AS_MEMBER/SUCCESS',
+  ),
+  isLoading: createAction<boolean>('SUBSCRIPTIONS/ACTIVE/AS_MEMBER/IS_LOADING'),
+  error: createAction<Error | null>('SUBSCRIPTIONS/ACTIVE/AS_MEMBER/ERROR'),
+};
+
+export const fetchFutureSubscriptionDetailAsMemberActions = {
+  success: createAction<SubscriptionREST>(
     'SUBSCRIPTIONS/FUTURE/AS_MEMBER/SUCCESS',
   ),
   isLoading: createAction<boolean>('SUBSCRIPTIONS/FUTURE/AS_MEMBER/IS_LOADING'),
   error: createAction<Error | null>('SUBSCRIPTIONS/FUTURE/AS_MEMBER/ERROR'),
+};
+
+export const fetchExpiredSubscriptionDetailAsMemberActions = {
+  success: createAction<SubscriptionREST>(
+    'SUBSCRIPTIONS/EXPIRED/AS_MEMBER/SUCCESS',
+  ),
+  isLoading: createAction<boolean>(
+    'SUBSCRIPTIONS/EXPIRED/AS_MEMBER/IS_LOADING',
+  ),
+  error: createAction<Error | null>('SUBSCRIPTIONS/EXPIRED/AS_MEMBER/ERROR'),
+};
+
+const actionType = {
+  [SubscriptionTabEnum.ACTIVE]: fetchActiveSubscriptionDetailAsMemberActions,
+  [SubscriptionTabEnum.FUTURE]: fetchFutureSubscriptionDetailAsMemberActions,
+  [SubscriptionTabEnum.EXPIRED]: fetchExpiredSubscriptionDetailAsMemberActions,
+};
+
+export function fetchMySubscriptionAsMember(
+  {
+    id,
+    member,
+    status,
+  }: {
+    id: number;
+    member: number;
+    status: SubscriptionTab;
+  },
+  options?: OptionCallback<SubscriptionREST>,
+): ThunkAction {
+  return async (dispatch) => {
+    dispatch(actionType[status].isLoading(true));
+    dispatch(actionType[status].error(null));
+    try {
+      const response = await fetchConsumerSubscriptionAPI(id, {
+        status,
+        member,
+      });
+      dispatch(actionType[status].success(response.data));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      dispatch(actionType[status].error(err));
+      if (options && options.onError) options.onError(err);
+    }
+    dispatch(actionType[status].isLoading(false));
+  };
+}
+
+export const fetchMyFutureSubscriptionsAsMemberActions = {
+  success: createAction<PaginatedResponse<SubscriptionREST>>(
+    'SUBSCRIPTIONS/FUTURE/LIST/AS_MEMBER/SUCCESS',
+  ),
+  isLoading: createAction<boolean>(
+    'SUBSCRIPTIONS/FUTURE/LIST/AS_MEMBER/IS_LOADING',
+  ),
+  error: createAction<Error | null>(
+    'SUBSCRIPTIONS/FUTURE/LIST/AS_MEMBER/ERROR',
+  ),
 };
 
 export function fetchMyFutureSubscriptionsAsMember(
@@ -110,12 +184,14 @@ export function fetchMyFutureSubscriptionsAsMember(
 
 export const fetchMyExpiredSubscriptionsAsMemberActions = {
   success: createAction<PaginatedResponse<SubscriptionREST>>(
-    'SUBSCRIPTIONS/EXPIRED/AS_MEMBER/SUCCESS',
+    'SUBSCRIPTIONS/EXPIRED/LIST/AS_MEMBER/SUCCESS',
   ),
   isLoading: createAction<boolean>(
-    'SUBSCRIPTIONS/EXPIRED/AS_MEMBER/IS_LOADING',
+    'SUBSCRIPTIONS/EXPIRED/LIST/AS_MEMBER/IS_LOADING',
   ),
-  error: createAction<Error | null>('SUBSCRIPTIONS/EXPIRED/AS_MEMBER/ERROR'),
+  error: createAction<Error | null>(
+    'SUBSCRIPTIONS/EXPIRED/LIST/AS_MEMBER/ERROR',
+  ),
 };
 
 export function fetchMyExpiredSubscriptionsAsMember(

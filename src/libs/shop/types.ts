@@ -136,3 +136,9 @@ export type ShopItemFactoryOptions = {
   isDeliverable?: boolean;
   isDisabled?: boolean;
 };
+
+export type ShopItemListFilterParams = ShopAPIFilter & {
+  exclude_variants?: boolean;
+  exclude_standalone_items?: boolean;
+  exclude_base_items?: boolean;
+};

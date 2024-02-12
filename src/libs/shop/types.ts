@@ -1,4 +1,4 @@
-import { ErrorAndLoading } from '#libs/types';
+import { ErrorAndLoading, WithPagination } from '#libs/types';
 
 export type Provision = {
   product_name: string;
@@ -142,6 +142,16 @@ export type ShopStateReworked = {
       };
       update: ErrorAndLoading;
       delete: ErrorAndLoading;
+    } & ErrorAndLoading;
+    /** State for variants created from a base `ShopItem` */
+    itemVariant: {
+      create: ErrorAndLoading;
+      update: ErrorAndLoading;
+      delete: ErrorAndLoading;
+      byBaseItemId: {
+        [key: number]: WithPagination & { variants: ShopItemVariant[] };
+      };
+      allIds: number[];
     } & ErrorAndLoading;
     /** State for base items that can have variants */
     itemBase: {

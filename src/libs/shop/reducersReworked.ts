@@ -7,14 +7,20 @@ import {
   retrieveShopItemStandaloneListActions,
   retrieveShopItemDetailsActions,
   retrieveShopItemUsedInComboActions,
+  fetchShopItemVariantListActions,
   createShopItemActions,
+  createShopItemVariantsActions,
   updateShopItemActions,
+  updateShopItemVariantBulkActions,
   deleteShopItemActions,
+  deleteShopItemVariantActions,
 } from './actions/shopItemReworked';
 
+import type { PaginatedResponse } from '../../state/types';
 import type {
   IsShopUsedInComboAPI,
   ShopItem,
+  ShopItemVariant,
   ShopStateReworked,
 } from '#libs/shop/types';
 
@@ -28,6 +34,16 @@ const initialState: Immutable.Immutable<ShopStateReworked> =
         error: null,
         loading: false,
         byId: {},
+        update: { error: null, loading: false },
+        delete: { error: null, loading: false },
+      },
+      /** State for variants created from a base `ShopItem` */
+      itemVariant: {
+        error: null,
+        loading: false,
+        byBaseItemId: {},
+        allIds: [],
+        create: { error: null, loading: false },
         update: { error: null, loading: false },
         delete: { error: null, loading: false },
       },
@@ -191,6 +207,48 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
         payload.is_used_in_payment_combo,
       );
     },
+    [fetchShopItemVariantListActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['shopItemReworked', 'itemVariant', 'loading'],
+        payload,
+      );
+    },
+    [fetchShopItemVariantListActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['shopItemReworked', 'itemVariant', 'error'], payload);
+    },
+    [fetchShopItemVariantListActions.success.toString()]: (
+      state,
+      {
+        payload,
+      }: {
+        payload: {
+          data: PaginatedResponse<ShopItemVariant>;
+          baseItemId: number;
+        };
+      },
+    ) => {
+      const { next_page, count, page, results } = payload.data;
+      return state.setIn(
+        [
+          'shopItemReworked',
+          'itemVariant',
+          'byBaseItemId',
+          `${payload.baseItemId}`,
+        ],
+        {
+          next_page,
+          page,
+          count,
+          variants: results,
+        },
+      );
+    },
     [createShopItemActions.isLoading.toString()]: (
       state,
       { payload }: { payload: boolean },
@@ -206,6 +264,24 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
     ) => {
       return state.setIn(
         ['shopItemReworked', 'itemBase', 'create', 'error'],
+        payload,
+      );
+    },
+    [createShopItemVariantsActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['shopItemReworked', 'itemVariant', 'create', 'loading'],
+        payload,
+      );
+    },
+    [createShopItemVariantsActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['shopItemReworked', 'itemVariant', 'create', 'error'],
         payload,
       );
     },
@@ -240,6 +316,24 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
         { deep: true },
       );
     },
+    [updateShopItemVariantBulkActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['shopItemReworked', 'itemVariant', 'update', 'loading'],
+        payload,
+      );
+    },
+    [updateShopItemVariantBulkActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['shopItemReworked', 'itemVariant', 'update', 'error'],
+        payload,
+      );
+    },
     [deleteShopItemActions.isLoading.toString()]: (
       state,
       { payload }: { payload: boolean },
@@ -255,6 +349,24 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
     ) => {
       return state.setIn(
         ['shopItemReworked', 'itemDetails', 'delete', 'error'],
+        payload,
+      );
+    },
+    [deleteShopItemVariantActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['shopItemReworked', 'itemVariant', 'delete', 'loading'],
+        payload,
+      );
+    },
+    [deleteShopItemVariantActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['shopItemReworked', 'itemVariant', 'delete', 'error'],
         payload,
       );
     },

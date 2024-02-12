@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+import { BUYABLE_ITEM_COUPON } from '@bsport/common/lib/master-data/buyable-items';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import ItemQuantity from '#libs/marketplace/components/@Basket/MarketplaceBasketSummaryItemCssOnly/ItemQuantity';
 import { BuyableItemOptions, CheckoutItem } from '#libs/checkout/types';
@@ -37,6 +38,9 @@ export const MarketplaceBasketSummaryItemCssOnly: React.FC<Props> = ({
     checkoutItem.tax,
   );
 
+  const isReferralItem =
+    checkoutItem.buyable_item_identifier === BUYABLE_ITEM_COUPON;
+
   const handleAddOneItem = React.useCallback(() => {
     if (onAddOneItem) onAddOneItem(checkoutItem);
   }, [checkoutItem, onAddOneItem]);
@@ -47,9 +51,14 @@ export const MarketplaceBasketSummaryItemCssOnly: React.FC<Props> = ({
 
   return (
     <div
-      className={classNames('bs-basket_summary_checkout_item--container', {
-        'bs-basket_summary_checkout_item--dense': dense,
-      })}
+      className={classNames(
+        isReferralItem
+          ? 'bs-basket_summary_referral_checkout_item--container'
+          : 'bs-basket_summary_checkout_item--container',
+        {
+          'bs-basket_summary_checkout_item--dense': dense,
+        },
+      )}
     >
       <div className="bs-basket_summary_checkout_item--title_container ">
         <p
@@ -61,13 +70,15 @@ export const MarketplaceBasketSummaryItemCssOnly: React.FC<Props> = ({
         </p>
       </div>
       <div className="bs-basket_summary_checkout_item--quantity_and_price_container">
-        <ItemQuantity
-          isAddingItemPossible={isAddingItemPossible}
-          isItemEditionDisabled={isItemEditionDisabled}
-          itemQuantity={checkoutItem.quantity}
-          onAddOneItem={handleAddOneItem}
-          onRemoveOneItem={onRemoveOneItem}
-        />
+        {!isReferralItem && (
+          <ItemQuantity
+            isAddingItemPossible={isAddingItemPossible}
+            isItemEditionDisabled={isItemEditionDisabled}
+            itemQuantity={checkoutItem.quantity}
+            onAddOneItem={handleAddOneItem}
+            onRemoveOneItem={onRemoveOneItem}
+          />
+        )}
         <p className="bs-basket_summary_checkout_item--price">
           {checkoutItemDisplayPrice}
         </p>

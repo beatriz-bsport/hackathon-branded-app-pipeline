@@ -5,6 +5,13 @@
   gap: var(--spacing-1);
 }
 
+.bs-basket_summary_referral_checkout_item--container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-1);
+}
+
 .bs-basket_summary_checkout_item--dense {
   gap: 0;
 }

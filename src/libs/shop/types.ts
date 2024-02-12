@@ -1,3 +1,5 @@
+import { ErrorAndLoading } from '#libs/types';
+
 export type Provision = {
   product_name: string;
   qty: number;
@@ -114,6 +116,33 @@ export type ShopState = {
     loading: boolean;
     count: number;
     page: number;
+  };
+} & ErrorAndLoading;
+
+export type ShopStateReworked = {
+  shopItemReworked: {
+    /** State for shop item details - only base/standalone items here */
+    itemDetails: {
+      byId: {
+        [key: string]: {
+          item: ShopItem;
+          isUsedInCombo: boolean;
+        };
+      };
+      update: ErrorAndLoading;
+      delete: ErrorAndLoading;
+    } & ErrorAndLoading;
+    /** State for base items that can have variants */
+    itemBase: {
+      create: ErrorAndLoading;
+      byId: { [key: number]: ShopItem };
+      allIds: number[];
+    } & ErrorAndLoading;
+    /** State for items that have no variants */
+    itemStandalone: {
+      byId: { [key: number]: ShopItem };
+      allIds: number[];
+    } & ErrorAndLoading;
   };
 };
 

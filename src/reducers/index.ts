@@ -63,6 +63,7 @@ import roleReducers from '#libs/role/reducers';
 import searchReducer from './search.reducers';
 import settingsReducer from '#libs/settings/reducers';
 import shopReducer from '#libs/shop/reducers';
+import shopReworkedReducer from '#libs/shop/reducersReworked';
 import smartListReducer from '#libs/smart-list/reducers';
 import snackbarReducer from '#libs/snackbar/reducers';
 import spotSchedulingReducers from '#libs/spot-scheduling/reducers';
@@ -155,6 +156,7 @@ import type { QuicksaleState } from '#libs/quicksale/types';
 import type { SubscriptionState } from '#libs/subscription/types';
 import type { ReferralState } from '#libs/referral/types';
 import type { ZoomAppState } from '#libs/zoom-app/types';
+import type { ShopState, ShopStateReworked } from '#libs/shop/types';
 
 const rootReducer = (history: any) =>
   combineReducers({
@@ -186,6 +188,7 @@ const rootReducer = (history: any) =>
     search: searchReducer,
     settings: settingsReducer,
     shop: shopReducer,
+    shopReworked: shopReworkedReducer,
     subscription: subscriptionReducer,
     alerting: alertingReducer,
     tag: tagReducers,
@@ -307,7 +310,8 @@ export type RootState = {
   role: RoleState;
   search: any;
   settings: SettingsState;
-  shop: any;
+  shop: ShopState;
+  shopReworked: ShopStateReworked;
   smartList: SmartListState;
   snackbar: SnackbarState;
   spotScheduling: SpotSchedulingState;

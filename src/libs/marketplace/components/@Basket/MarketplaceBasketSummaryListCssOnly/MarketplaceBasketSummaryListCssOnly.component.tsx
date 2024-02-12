@@ -63,12 +63,12 @@ export const MarketplaceBasketSummaryListItemCssOnly: React.FC<Props> = ({
                 onAddOneItem={onAddCheckoutItem}
                 onRemoveItem={onRemoveCheckoutItem}
               />
-              {index !== buyableItemsList.length - 1 ||
-                (!!discountItemsList.length && (
-                  <div className="bs-basket_summary_checkout_list--divider_container ">
-                    <div className="bs-basket_summary_checkout_list--divider" />
-                  </div>
-                ))}
+              {(index !== buyableItemsList.length - 1 ||
+                !!discountItemsList.length) && (
+                <div className="bs-basket_summary_checkout_list--divider_container ">
+                  <div className="bs-basket_summary_checkout_list--divider" />
+                </div>
+              )}
             </>
           ))}
           {discountItemsList.map((checkoutItem, index) => (

@@ -6,6 +6,7 @@ import Badge from '@material-ui/core/Badge';
 import { alpha } from '@material-ui/core/styles';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
+import { BUYABLE_ITEM_COUPON } from '@bsport/common/lib/master-data/buyable-items';
 import { Basket } from '#libs/checkout/types';
 
 type BasketProps = {
@@ -18,19 +19,19 @@ const AppBarBasket: React.FC<BasketProps> = ({
   currentBasket,
 }) => {
   const classes = useStyles();
+  const buyableItemsQuantity = React.useMemo(() => {
+    return (currentBasket?.checkout_items ?? [])
+      .filter((item) => item.buyable_item_identifier !== BUYABLE_ITEM_COUPON)
+      .reduce((sum, item) => sum + item.quantity, 0);
+  }, [currentBasket]);
 
-  if (!currentBasket) {
+  if (!currentBasket?.checkout_items) {
     return null;
   }
+
   return (
     <ButtonBase className={classes.shoppingBadge} onClick={openCurrentBasket}>
-      <Badge
-        badgeContent={currentBasket.checkout_items.reduce(
-          (s, a) => s + a.quantity,
-          0,
-        )}
-        color="primary"
-      >
+      <Badge badgeContent={buyableItemsQuantity} color="primary">
         <ShoppingCartOutlinedIcon />
       </Badge>
     </ButtonBase>

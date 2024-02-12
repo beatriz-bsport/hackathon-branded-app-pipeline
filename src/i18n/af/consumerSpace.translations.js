@@ -381,6 +381,8 @@ exports.default = {
           change: 'Change',
         },
         headerListItemLabels: {
+          futurePauses:
+            'A pause is scheduled from {{- dateStart }} to {{- dateEnd }} (included)',
           nextPayment: 'Next payment',
           paused: 'Currently paused',
           autoRenewed: 'Automatically renewed',

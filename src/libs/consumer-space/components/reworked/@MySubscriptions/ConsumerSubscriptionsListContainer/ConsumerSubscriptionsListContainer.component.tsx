@@ -78,17 +78,25 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
         selectedSubscription?.pauses?.find((pause) =>
           moment().isBetween(
             pause.from_date,
-            pause.until_date,
+            pause.date_ended,
             undefined,
             '[]',
           ),
-        )?.until_date,
+        )?.date_ended,
         'L',
       ),
     [selectedSubscription?.pauses],
   );
 
   const showEmptyPlaceholder = !isLoading && subscriptionsList?.length === 0;
+
+  const selectedSubscriptionsFuturePauses = useMemo(
+    () =>
+      selectedSubscription?.pauses?.filter((pause) =>
+        moment().isBefore(pause.from_date),
+      ),
+    [selectedSubscription?.pauses],
+  );
 
   const onCardDetailsClick = React.useCallback(
     (id: number) => () => handleSetSelectedSubscriptions(id),
@@ -189,6 +197,7 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
         readableIdentifier={paymentMethodUsed?.readable_identifier}
         recurrence={selectedSubscription?.recurrence_basis}
         selectedSubscriptionInvoiceDetails={selectedSubscriptionInvoiceDetails}
+        selectedSubscriptionsFuturePauses={selectedSubscriptionsFuturePauses}
         showPlaceholder={!selectedSubscription}
         subscriptionInterval={selectedSubscription?.interval}
         subscriptionName={selectedSubscription?.name_without_member_name}

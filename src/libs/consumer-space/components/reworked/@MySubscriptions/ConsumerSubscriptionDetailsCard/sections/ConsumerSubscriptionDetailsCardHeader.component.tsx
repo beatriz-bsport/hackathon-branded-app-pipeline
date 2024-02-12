@@ -7,6 +7,7 @@ import type { ConsumerSubscriptionDetailsCardProps } from '..';
 
 import ListItem from '#Fabrique/ListItem';
 import List from '#Fabrique/List';
+import Alert from '#Fabrique/Alert';
 
 import { getSubscriptionRecurrenceLabel } from '#libs/consumer-space/components/reworked/@MySubscriptions/utils';
 import {
@@ -15,6 +16,7 @@ import {
   PauseCircle,
 } from '#components/untitledui';
 import { getCurrencyDisplay } from '#libs/theme/selectors';
+import { formatAsDatetimeAdapted } from '#utils/datetime';
 
 type Props = Pick<
   ConsumerSubscriptionDetailsCardProps,
@@ -25,6 +27,7 @@ type Props = Pick<
   | 'pauseEndDate'
   | 'price'
   | 'recurrence'
+  | 'selectedSubscriptionsFuturePauses'
   | 'subscriptionInterval'
   | 'subscriptionName'
   | 'subscriptionNextPaymentDate'
@@ -39,6 +42,7 @@ const ConsumerSubscriptionDetailsCardHeader: React.FC<Props> = ({
   pauseEndDate,
   price,
   recurrence,
+  selectedSubscriptionsFuturePauses,
   subscriptionInterval,
   subscriptionName,
   subscriptionNextPaymentDate,
@@ -51,6 +55,7 @@ const ConsumerSubscriptionDetailsCardHeader: React.FC<Props> = ({
     t,
     subscriptionInterval,
   );
+
   return (
     <ConsumerCardSection
       classes={{
@@ -62,6 +67,17 @@ const ConsumerSubscriptionDetailsCardHeader: React.FC<Props> = ({
       title={subscriptionName}
     >
       <List className="bs-consumer__subscription-details-card__header__list">
+        {selectedSubscriptionsFuturePauses?.map((pause) => (
+          <Alert key={pause.id} color="grey" variant="weak">
+            {t(
+              'reworked.mySubscriptions.consumerSubscriptionCardDetails.headerListItemLabels.futurePauses',
+              {
+                dateStart: formatAsDatetimeAdapted(pause.from_date, 'L'),
+                dateEnd: formatAsDatetimeAdapted(pause.date_ended, 'L'),
+              },
+            )}
+          </Alert>
+        ))}
         <ListItem
           captionText={t(
             'reworked.mySubscriptions.consumerSubscriptionCardDetails.headerListItemLabels.pauseEndDate',

@@ -18,6 +18,7 @@ import Card from '#Fabrique/Card';
 
 import type {
   SubscriptionInterval,
+  SubscriptionPause,
   SubscriptionsFailedInvoicesREST,
   SubscriptionsInvoicesDetailsREST,
 } from '#libs/subscription/types';
@@ -71,6 +72,8 @@ type Props = {
     SubscriptionsInvoicesDetailsREST,
     'billing_plan_id'
   >[];
+  /** List of future pauses related to a subscription */
+  selectedSubscriptionsFuturePauses: SubscriptionPause[];
   /** Condition to display empty/placeholder state */
   showPlaceholder: boolean;
   /** Interval of the subscription */
@@ -107,6 +110,7 @@ const ConsumerSubscriptionDetailsCard: React.FC<Props> = ({
   readableIdentifier,
   recurrence,
   selectedSubscriptionInvoiceDetails,
+  selectedSubscriptionsFuturePauses,
   showPlaceholder,
   subscriptionInterval,
   subscriptionName,
@@ -138,6 +142,7 @@ const ConsumerSubscriptionDetailsCard: React.FC<Props> = ({
         pauseEndDate={pauseEndDate}
         price={price}
         recurrence={recurrence}
+        selectedSubscriptionsFuturePauses={selectedSubscriptionsFuturePauses}
         subscriptionInterval={subscriptionInterval}
         subscriptionName={subscriptionName}
         subscriptionNextPaymentDate={subscriptionNextPaymentDate}

@@ -73,6 +73,12 @@ const useStyles = makeStyles<
   Theme,
   { isBillItemPricePositive?: boolean; isApplied?: boolean }
 >((theme) => ({
+  errorContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: theme.spacing(1.5),
+    alignSelf: 'stretch',
+  },
   billItemContainer: {
     display: 'flex',
     flexDirection: 'column',

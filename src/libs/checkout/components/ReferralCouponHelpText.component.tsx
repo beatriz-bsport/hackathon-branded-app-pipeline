@@ -31,21 +31,13 @@ export const ReferralCouponHelpText: React.FC<ReferralCouponHelpTextProps> = ({
     displayedText = t('myBasket.referral.hasReachedMaxUses');
 
   return (
-    <div className={classes.container}>
-      <Alert className={classes.alert} severity="warning">
-        {displayedText}
-      </Alert>
-    </div>
+    <Alert className={classes.alert} severity="warning">
+      {displayedText}
+    </Alert>
   );
 };
 
 const useStyles = makeStyles(() => ({
-  container: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '12px',
-    alignSelf: 'stretch',
-  },
   alert: {
     alignItems: 'center',
   },

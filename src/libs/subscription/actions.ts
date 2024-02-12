@@ -651,9 +651,10 @@ export const switchPaymentMethodActions = {
 export function switchSubscriptionPaymentMethod(
   id: number,
   data: {
+    payment_method_id?: string;
     payment_engine?: number;
     payment_method_identifier: number;
-    source: string;
+    source?: string;
   },
   options: OptionCallback,
 ) {

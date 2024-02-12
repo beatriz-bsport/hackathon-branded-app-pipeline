@@ -1,9 +1,14 @@
 import React from 'react';
+import type { AxiosResponse } from 'axios';
+
 import MarketplacePageContent from '#csscomponents/MarketplacePageContent';
 import ConsumerSubscriptionHeader from '#libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionHeader';
 import ConsumerSubscriptionsTabs from '#libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionTabs';
 import ConsumerSubscriptionsListContainer from '#libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionsListContainer';
-import { ConsumerSubscriptionTermsModal } from '#libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionModals';
+import {
+  ConsumerSubscriptionTermsModal,
+  ConsumerSubscriptionPaymentModal,
+} from '#libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionModals';
 
 import type {
   SubscriptionREST,
@@ -15,6 +20,7 @@ import type {
   ConsumerSubscriptionReworked,
 } from '#libs/consumer-space/types';
 import type { PaymentMethod } from '#libs/payment/types';
+import type { SubscriptionTab } from '#libs/consumer-space/components/reworked/@MySubscriptions/types';
 
 import useConsumerSubscriptionsModalManager from '#libs/consumer-space/components/reworked/@MySubscriptions/hooks/useConsumerSubscriptionsModalManager';
 import useConsumerSubscriptionsDataManager from '#libs/consumer-space/components/reworked/@MySubscriptions/hooks/useConsumerSubscriptionsDataManager';
@@ -54,6 +60,23 @@ type Props = {
     billingPanId: number,
     options?: OptionCallback,
   ) => Promise<void>;
+  requestSetupIntentSecret: () => Promise<
+    AxiosResponse<{
+      client_secret: string;
+    }>
+  >;
+  detachPaymentMethod: (pm_id: string, options?: OptionCallback) => void;
+  enabledPaymentGroupMethodIdentifierIds: number[];
+  paymentMethodLoading: boolean;
+  refreshSavedPaymentMethodList: () => void;
+  switchPaymentMethod: (
+    subscriptionId: number,
+    payment_method_id: string,
+    status: SubscriptionTab,
+    options?: OptionCallback,
+  ) => void;
+  memberMail: string;
+  memberName: string;
 };
 
 const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
@@ -74,6 +97,14 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
   subscriptionsInvoicesDetailsState,
   invoiceRetryNumber,
   downloadBillingPlanTermsAction,
+  detachPaymentMethod,
+  enabledPaymentGroupMethodIdentifierIds,
+  paymentMethodLoading,
+  refreshSavedPaymentMethodList,
+  requestSetupIntentSecret,
+  switchPaymentMethod,
+  memberMail,
+  memberName,
 }) => {
   const {
     areDetailsLoading,
@@ -104,13 +135,40 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
     subscriptionsInvoicesDetailsState,
   });
 
-  const { isTermsModalOpen, handleTermsModalOpen, handleTermsModalClose } =
-    useConsumerSubscriptionsModalManager();
+  const {
+    isPaymentModalOpen,
+    isTermsModalOpen,
+    handleTermsModalOpen,
+    handleTermsModalClose,
+    handlePaymentModalOpen,
+    handlePaymentModalClose,
+  } = useConsumerSubscriptionsModalManager();
 
   const downloadBillingPlanTerms = React.useCallback(
     (options: OptionCallback) =>
       downloadBillingPlanTermsAction(selectedSubscription.id, options),
     [selectedSubscription, downloadBillingPlanTermsAction],
+  );
+
+  const paymentMethodUsed = React.useMemo(
+    () =>
+      paymentMethodList.find(
+        (paymentMethod) =>
+          paymentMethod.id === selectedSubscription?.stripe_payment_method_id,
+      ),
+    [paymentMethodList, selectedSubscription],
+  );
+
+  const handleSwitchPaymentMethod = React.useCallback(
+    (subscriptionId, payment_method_id, options) => {
+      switchPaymentMethod(
+        subscriptionId,
+        payment_method_id,
+        selectedTab,
+        options,
+      );
+    },
+    [selectedTab, switchPaymentMethod],
   );
 
   return (
@@ -133,6 +191,7 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
           handleInvoiceDetailsPaginationFetchMore
         }
         handlePaginationFetchMore={handlePaginationFetchMore}
+        handlePaymentModalOpen={handlePaymentModalOpen}
         handleSetSelectedSubscriptions={handleSetSelectedSubscriptions}
         hasDetailsNextPage={!!detailsNextPage}
         hasNextPage={!!nextPage}
@@ -140,7 +199,7 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
         isLoading={isLoading}
         isMobile={isMobile}
         onSeeTermsClick={handleTermsModalOpen}
-        paymentMethodList={paymentMethodList}
+        paymentMethodUsed={paymentMethodUsed}
         selectedSubscription={selectedSubscription}
         selectedSubscriptionInvoiceDetails={selectedSubscriptionInvoiceDetails}
         selectedTab={selectedTab}
@@ -155,6 +214,23 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
           termsContent={selectedSubscription.contract_terms}
         />
       )}
+      <ConsumerSubscriptionPaymentModal
+        detachPaymentMethod={detachPaymentMethod}
+        enabledPaymentGroupMethodIdentifierIds={
+          enabledPaymentGroupMethodIdentifierIds
+        }
+        isOpen={isPaymentModalOpen}
+        memberMail={memberMail}
+        memberName={memberName}
+        onClose={handlePaymentModalClose}
+        paymentMethodList={paymentMethodList}
+        paymentMethodLoading={paymentMethodLoading}
+        paymentMethodUsed={paymentMethodUsed}
+        refreshSavedPaymentMethodList={refreshSavedPaymentMethodList}
+        requestSetupIntentSecret={requestSetupIntentSecret}
+        selectedSubscription={selectedSubscription}
+        switchPaymentMethod={handleSwitchPaymentMethod}
+      />
     </MarketplacePageContent>
   );
 };

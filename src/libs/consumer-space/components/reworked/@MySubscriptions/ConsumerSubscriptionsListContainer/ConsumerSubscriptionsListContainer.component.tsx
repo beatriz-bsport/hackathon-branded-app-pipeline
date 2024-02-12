@@ -34,6 +34,7 @@ type Props = {
   areDetailsLoading: boolean;
   handleInvoiceDetailsPaginationFetchMore: () => void;
   handlePaginationFetchMore: () => void;
+  handlePaymentModalOpen: () => void;
   handleSetSelectedSubscriptions: (subscriptionId: number) => void;
   hasDetailsNextPage: boolean;
   hasNextPage: boolean;
@@ -41,7 +42,7 @@ type Props = {
   isLoading: boolean;
   isMobile: boolean;
   onSeeTermsClick: () => void;
-  paymentMethodList: PaymentMethod[];
+  paymentMethodUsed: PaymentMethod;
   selectedSubscription: SubscriptionREST;
   selectedSubscriptionInvoiceDetails: Omit<
     SubscriptionsInvoicesDetailsREST,
@@ -55,6 +56,7 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
   areDetailsLoading,
   handleInvoiceDetailsPaginationFetchMore,
   handlePaginationFetchMore,
+  handlePaymentModalOpen,
   handleSetSelectedSubscriptions,
   hasDetailsNextPage,
   hasNextPage,
@@ -62,21 +64,13 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
   isLoading,
   isMobile,
   onSeeTermsClick,
-  paymentMethodList,
+  paymentMethodUsed,
   selectedSubscription,
   selectedSubscriptionInvoiceDetails,
   selectedTab,
   subscriptionsList,
 }) => {
   const { t } = useTranslation('consumerSpace');
-  const paymentMethodUsed = useMemo(
-    () =>
-      paymentMethodList.find(
-        (paymentMethod) =>
-          paymentMethod.id === selectedSubscription?.stripe_payment_method_id,
-      ),
-    [paymentMethodList, selectedSubscription],
-  );
 
   const selectedSubscriptionPauseEndDate = useMemo(
     () =>
@@ -99,6 +93,14 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
   const onCardDetailsClick = React.useCallback(
     (id: number) => () => handleSetSelectedSubscriptions(id),
     [handleSetSelectedSubscriptions],
+  );
+
+  const onAddPaymentMethodClick = React.useCallback(
+    (id: number) => () => {
+      handlePaymentModalOpen();
+      handleSetSelectedSubscriptions(id);
+    },
+    [handlePaymentModalOpen, handleSetSelectedSubscriptions],
   );
 
   return (
@@ -135,7 +137,7 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
               isPaused={isPaused(item?.pauses)}
               isSelected={item.id === selectedSubscription?.id}
               // TODO
-              onAddPaymentMethodClick={() => {}}
+              onAddPaymentMethodClick={onAddPaymentMethodClick(item.id)}
               onDetailsClick={onCardDetailsClick(item.id)}
               price={(parseFloat(item?.price_to_display_cts) / 100).toFixed(2)}
               recurrence={item?.recurrence_basis}
@@ -177,10 +179,7 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
           selectedTab === SubscriptionTabEnum.EXPIRED
         }
         joiningFee={selectedSubscription?.flat_fee}
-        onPaymentMethodActionClick={
-          !selectedSubscription?.stripe_payment_method_id ? () => {} : () => {}
-        }
-        // TODO
+        onPaymentMethodActionClick={handlePaymentModalOpen}
         onSeeClick={onSeeTermsClick}
         pauseEndDate={selectedSubscriptionPauseEndDate}
         paymentMethodType={paymentMethodUsed?.type}

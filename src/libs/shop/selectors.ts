@@ -90,6 +90,10 @@ export const getShopItemsBulk = createSelector(_getShopItemsBulk, (shopItems) =>
 export const getShopItemDetailLoading = (state: RootState) =>
   state.shopReworked.shopItemReworked.itemDetails.loading;
 
+/** Returns the loading state of the item variant list */
+export const getShopItemVariantListLoading = (state: RootState) =>
+  state.shopReworked.shopItemReworked.itemVariant.loading;
+
 /** Returns the loading state when deleting a base/standalone item */
 export const getShopItemDetailDeleteLoading = (state: RootState) =>
   state.shopReworked.shopItemReworked.itemDetails.delete.loading;
@@ -100,6 +104,10 @@ export const getShopItemDetail = (state: RootState, id: number) => {
   return state.shopReworked.shopItemReworked.itemDetails.byId[id]?.item ?? null;
 };
 
+/** Returns the loading state when deleting a variant item */
+export const getShopItemVariantDeleteLoading = (state: RootState) =>
+  state.shopReworked.shopItemReworked.itemVariant.delete.loading;
+
 /** Retrieves the boolean for combo warning when deleting a shop item */
 export const getIsShopItemUsedInCombo = (state: RootState, id: number) => {
   if (!id) return null;
@@ -107,6 +115,28 @@ export const getIsShopItemUsedInCombo = (state: RootState, id: number) => {
     state.shopReworked.shopItemReworked.itemDetails.byId[id]?.isUsedInCombo ??
     false
   );
+};
+
+/**
+ * Retrieves the variant state related to a base item.\
+ * If the base item is standalone, variants is always an empty array.
+ * @param id The base/standalone item id to retrieve variant state for
+ */
+export const getShopItemVariantState = (
+  state: RootState,
+  shopItemId: number,
+) => {
+  const shopItemVariantState =
+    state.shopReworked.shopItemReworked.itemVariant.byBaseItemId[shopItemId];
+  if (!shopItemId || !shopItemVariantState) {
+    return {
+      page: 1,
+      next_page: null,
+      count: 0,
+      variants: [],
+    };
+  }
+  return shopItemVariantState;
 };
 
 export default {

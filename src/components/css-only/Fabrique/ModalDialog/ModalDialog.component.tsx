@@ -9,6 +9,7 @@ import IconButton from '#Fabrique/IconButton';
 import { XClose } from '#components/untitledui';
 
 import type { ModalDialogColor, ModalDialogSize } from './types';
+
 import { ModalDialogColorEnum, ModalDialogSizeEnum } from './constants';
 import { useModalDialogDefaultLeftIcon } from './hooks';
 
@@ -44,6 +45,8 @@ type Props = {
   title: string;
   /** Optional subtitle text displayed in header */
   subtitle?: string;
+  /** Optional element displayed as subtitle in header */
+  subtitleElement?: React.ReactElement;
   /** Action to perform on close button click */
   onClose?: () => void;
   /** The text to display inside the cancel button. Fallback to 'Cancel' if not provided */
@@ -83,6 +86,7 @@ export const ModalDialog: React.FC<Props> = ({
   leftIcon,
   title,
   subtitle,
+  subtitleElement,
   onClose,
   cancelLabel,
   onCancel,
@@ -137,7 +141,8 @@ export const ModalDialog: React.FC<Props> = ({
           className={classNames(
             'bs-fabrique-modal-dialog__header__text',
             {
-              'bs-fabrique-modal-dialog__header--hidden': !title && !subtitle,
+              'bs-fabrique-modal-dialog__header--hidden':
+                !title && !subtitle && !subtitleElement,
             },
             classes?.headerText,
           )}
@@ -167,6 +172,7 @@ export const ModalDialog: React.FC<Props> = ({
           >
             {subtitle}
           </Typography>
+          {subtitleElement}
         </div>
         <IconButton
           className={classNames(

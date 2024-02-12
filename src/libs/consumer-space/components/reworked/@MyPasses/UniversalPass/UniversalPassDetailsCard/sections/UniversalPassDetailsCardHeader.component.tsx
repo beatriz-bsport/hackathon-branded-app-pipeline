@@ -17,6 +17,7 @@ import ConsumerPaymentPackCreditStatus from '#libs/consumer-space/components/rew
 import { getAvailabilityInformation } from '#libs/consumer-space/components/reworked/@MyPasses/utils';
 
 type Props = {
+  isMobile?: boolean;
   creditsLeft: number;
   expirationDate: string;
   isSuspended: boolean;
@@ -28,6 +29,7 @@ type Props = {
 };
 
 const UniversalPassDetailsCardHeader: React.FC<Props> = ({
+  isMobile,
   creditsLeft,
   isUnlimited,
   name,
@@ -129,14 +131,16 @@ const UniversalPassDetailsCardHeader: React.FC<Props> = ({
         title: 'bs-universal-pass-details-card__header__title',
       }}
       className="bs-universal-pass-details-card__header__root"
-      title={name}
+      title={!isMobile && name}
     >
-      <ConsumerPaymentPackCreditStatus
-        consumerPaymentPackAvailableCredits={creditsLeft}
-        consumerPaymentPackUsedCredits={usedCredits}
-        isPaymentPackUnlimited={isUnlimited}
-        paymentPackTotalCredits={totalCredits}
-      />
+      {!isMobile && (
+        <ConsumerPaymentPackCreditStatus
+          consumerPaymentPackAvailableCredits={creditsLeft}
+          consumerPaymentPackUsedCredits={usedCredits}
+          isPaymentPackUnlimited={isUnlimited}
+          paymentPackTotalCredits={totalCredits}
+        />
+      )}
       <List
         className={classNames('bs-universal-pass-details-card__header__list', {
           'bs-universal-pass-details-card__header__list--hidden': hideList,

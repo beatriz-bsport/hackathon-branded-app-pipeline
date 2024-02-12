@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import classNames from 'classnames';
 
 import { GenericInfiniteScrollEnhancedCssOnly } from '#components/InfiniteScroll/GenericInfiniteScrollCssOnly.component';
 import CircularProgress from '#components/css-only/CircularProgress/CircularProgress.component';
@@ -6,6 +7,10 @@ import ConsumerPassCard from '#libs/consumer-space/components/reworked/@MyPasses
 import UniversalPassDetailsCard from '#libs/consumer-space/components/reworked/@MyPasses/UniversalPass/UniversalPassDetailsCard';
 
 import { parseUniversalPassData } from '#libs/consumer-space/components/reworked/@MyPasses/UniversalPass/utils';
+import {
+  MY_BOOKINGS_LIST_CONTAINER_HEIGHT,
+  MY_BOOKINGS_MOBILE_LIST_CONTAINER_HEIGHT,
+} from '#libs/consumer-space/components/reworked/@MyBookings/constants';
 
 import type { UniversalPassReworked } from '#libs/universal-pass/types';
 
@@ -15,6 +20,7 @@ import '#libs/consumer-space/components/reworked/@MyPasses/GenericPass/ListConta
 type Props = {
   isLoading?: boolean;
   isMetadataLoading?: boolean;
+  isMobile?: boolean;
   selectedPass?: UniversalPassReworked;
   passList: UniversalPassReworked[];
   hasNextPage?: boolean;
@@ -25,6 +31,7 @@ type Props = {
 export const UniversalPassListContainer: React.FC<Props> = ({
   isLoading,
   isMetadataLoading,
+  isMobile,
   passList,
   selectedPass,
   hasNextPage,
@@ -61,9 +68,12 @@ export const UniversalPassListContainer: React.FC<Props> = ({
           className="bs-consumer-pass-page__content__list-container__list__container"
           fetchMoreData={handlePaginationFetchMore}
           hasMore={hasNextPage}
-          // TODO : height needs to be set to trigger fetchMoreData..
           // @ts-expect-error
-          height="calc(100dvh - 24px - 44px - 42px - 16px - 56px - 16px - 64px)"
+          height={
+            isMobile
+              ? MY_BOOKINGS_MOBILE_LIST_CONTAINER_HEIGHT
+              : MY_BOOKINGS_LIST_CONTAINER_HEIGHT
+          }
           items={passList}
           loader={<CircularProgress size="sm" />}
           renderItem={({ item }) => (
@@ -95,6 +105,9 @@ export const UniversalPassListContainer: React.FC<Props> = ({
       <UniversalPassDetailsCard
         activityCompatibilities={activityCompatibilities}
         appointmentCompatibilities={appointmentCompatibilities}
+        className={classNames('bs-universal-pass-details-card__root', {
+          'bs-universal-pass-details-card__root--hidden': isMobile,
+        })}
         // TODO: Out of scope, needs product specs
         compatibleEstablishments={null}
         creditsLeft={creditsLeft}
@@ -103,10 +116,9 @@ export const UniversalPassListContainer: React.FC<Props> = ({
         isCompatibleWithBookingForGuest={isCompatibleWithBookingForGuest}
         isCompatibleWithVod={isCompatibleWithVod}
         isLoading={isLoading || isMetadataLoading}
+        isMobile={isMobile}
         isSuspended={isSuspended}
         isUnlimited={isUnlimited}
-        // TODO
-        mobileVersion={false}
         name={name}
         sharedBy={sharedBy}
         sharedWith={sharedWith}

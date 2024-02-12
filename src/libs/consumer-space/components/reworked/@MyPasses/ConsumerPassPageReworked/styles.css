@@ -1,4 +1,5 @@
 .bs-consumer-pass-page__root {
+  container: bsConsumerPassPage / inline-size;
   display: flex;
   flex-direction: column;
   gap: var(--bs-space-size-6);

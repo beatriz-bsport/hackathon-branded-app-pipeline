@@ -86,7 +86,7 @@ const defaultArgs: UniversalPassDetailsCardProps = {
   isSuspended: false,
   isUnlimited: false,
   name: fakeConsumerPaymentPack.payment_pack.name,
-  mobileVersion: false,
+  isMobile: false,
   sharedBy: null,
   sharedWith: null,
   startDate: fakeConsumerPaymentPack.starting_date,
@@ -273,7 +273,7 @@ export default {
       control: 'text',
       description: 'The pass name',
     },
-    mobileVersion: {
+    isMobile: {
       control: 'boolean',
       description:
         'Should wrap the component in a card. Set it true in mobile version',

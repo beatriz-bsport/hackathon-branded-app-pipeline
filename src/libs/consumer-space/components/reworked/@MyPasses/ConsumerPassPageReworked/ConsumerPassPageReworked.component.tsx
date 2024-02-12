@@ -4,7 +4,8 @@ import MarketplacePageContent from '#csscomponents/MarketplacePageContent';
 import ConsumerPassHeader from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassHeader';
 import ConsumerPaymentPackListContainer from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPaymentPack/ConsumerPaymentPackListContainer';
 import PrivateConsumerPassListContainer from '#libs/consumer-space/components/reworked/@MyPasses/PrivateConsumerPass/PrivateConsumerPassListContainer';
-import UniversalPassListContainer from '../UniversalPass/UniversalPassListContainer';
+import UniversalPassListContainer from '#libs/consumer-space/components/reworked/@MyPasses/UniversalPass/UniversalPassListContainer';
+import ConsumerPassModals from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassModals';
 import { useConsumerPassesDataManager } from '#libs/consumer-space/components/reworked/@MyPasses/hooks';
 import { PassTabEnum } from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassTabs/constants';
 
@@ -97,14 +98,19 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
     selectedTab,
     selectedFilterTab,
     selectedPass,
+    isUniversalPassDetailsDrawerOpen,
+    isPassTabDrawerOpen,
     handleSetSelectedTab,
     handleSetSelectedFilterTab,
     handleSetSelectedPass,
     handlePaginationFetchMore,
+    handleTogglePassDetailsDrawer,
+    handleTogglePassTabDrawer,
     futureItemsCount,
     activeItemsCount,
     nextPage,
     passList,
+    isMobile,
   } = useConsumerPassesDataManager({
     activeConsumerPaymentPacksList,
     activeConsumerPaymentPacksState,
@@ -139,6 +145,18 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
   return (
     <MarketplacePageContent>
       <div className="bs-consumer-pass-page__root">
+        <ConsumerPassModals
+          handleSetSelectedTab={handleSetSelectedTab}
+          handleTogglePassDetailsDrawer={handleTogglePassDetailsDrawer}
+          handleTogglePassTabDrawer={handleTogglePassTabDrawer}
+          isLoading={isLoading}
+          isMetadataLoading={isMetadataLoading}
+          isMobile={isMobile}
+          isPassTabDrawerOpen={isPassTabDrawerOpen}
+          isUniversalPassDetailsDrawerOpen={isUniversalPassDetailsDrawerOpen}
+          selectedPass={selectedPass}
+          selectedPassTab={selectedTab}
+        />
         <ConsumerPassHeader
           activeItemsCount={activeItemsCount}
           futureItemsCount={futureItemsCount}
@@ -146,6 +164,8 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
           handleBuyPassClick={handleBuyPassClick}
           handleSetSelectedFilterTab={handleSetSelectedFilterTab}
           handleSetSelectedTab={handleSetSelectedTab}
+          handleTogglePassTabDrawer={handleTogglePassTabDrawer}
+          isMobile={isMobile}
           selectedFilterTab={selectedFilterTab}
           selectedTab={selectedTab}
         />
@@ -177,6 +197,7 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
             hasNextPage={!!nextPage}
             isLoading={isLoading}
             isMetadataLoading={isMetadataLoading}
+            isMobile={isMobile}
             onPassCardClick={handleSetSelectedPass}
             passList={passList as UniversalPassReworked[]}
             selectedPass={selectedPass as UniversalPassReworked}

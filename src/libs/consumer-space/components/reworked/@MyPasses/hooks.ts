@@ -2,6 +2,8 @@ import { useCallback, useMemo, useState } from 'react';
 
 import { PassTabEnum } from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassTabs/constants';
 import { PassFilterTabEnum } from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassFilters/constants';
+import { CONSUMER_SPACE_MOBILE_BREAKPOINT } from '#libs/consumer-space/constants';
+import useViewport from '#Fabrique/hooks/useViewport';
 
 import type { PrivateConsumerPassReworked } from '#libs/private-service/types';
 import type { PassTab } from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassTabs/types';
@@ -47,6 +49,10 @@ export function useConsumerPassesDataManager({
   | 'handleBookASessionClick'
   | 'isMetadataLoading'
 >) {
+  const { width } = useViewport();
+
+  const isMobile = width < CONSUMER_SPACE_MOBILE_BREAKPOINT;
+
   /* PAGE STATES */
   const [selectedTab, setSelectedTab] = useState<PassTab>(
     PassTabEnum.CONSUMER_PAYMENT_PACK,
@@ -59,6 +65,21 @@ export function useConsumerPassesDataManager({
     | PrivateConsumerPassReworked
     | UniversalPassReworked
   >(null);
+
+  /* MODAL/DRAWER STATES */
+  const [
+    isConsumerPaymentPackDetailsDrawerOpen,
+    setIsConsumerPaymentPackDetailsDrawerOpen,
+  ] = useState(false);
+  const [
+    isPrivateConsumerPassDetailsDrawerOpen,
+    setIsPrivateConsumerPassDetailsDrawerOpen,
+  ] = useState(false);
+  const [
+    isUniversalPassDetailsDrawerOpen,
+    setIsUniversalPassDetailsDrawerOpen,
+  ] = useState(false);
+  const [isPassTabDrawerOpen, setIsPassTabDrawerOpen] = useState(false);
 
   const fetchMoreDataHandlerMap = useMemo(
     () => ({
@@ -246,6 +267,38 @@ export function useConsumerPassesDataManager({
   );
 
   /**
+   * Toggle display the pass details drawer
+   */
+  const handleTogglePassDetailsDrawer = useCallback(() => {
+    switch (selectedTab) {
+      case PassTabEnum.CONSUMER_PAYMENT_PACK: {
+        setIsConsumerPaymentPackDetailsDrawerOpen((state) => !state);
+        break;
+      }
+      case PassTabEnum.PRIVATE_CONSUMER_PASS: {
+        setIsPrivateConsumerPassDetailsDrawerOpen((state) => !state);
+        break;
+      }
+      case PassTabEnum.UNIVERSAL_PASS: {
+        setIsUniversalPassDetailsDrawerOpen((state) => !state);
+        break;
+      }
+      default:
+    }
+  }, [
+    setIsConsumerPaymentPackDetailsDrawerOpen,
+    setIsPrivateConsumerPassDetailsDrawerOpen,
+    setIsUniversalPassDetailsDrawerOpen,
+    selectedTab,
+  ]);
+
+  /**
+   * Toggle display the pass tab bottom drawer
+   */
+  const handleTogglePassTabDrawer = useCallback(() => {
+    setIsPassTabDrawerOpen((state) => !state);
+  }, []);
+  /**
    * Update local state when clicking on a pass details\
    * Finds the associated pass from an ID and set it as the selectedPass
    * @param passId The ID of the selected pass
@@ -255,18 +308,25 @@ export function useConsumerPassesDataManager({
       // @ts-ignore
       const pass = passList.find((item) => item.id === passId) || null;
       setSelectedPass(pass);
+      isMobile && handleTogglePassDetailsDrawer();
     },
-    [passList],
+    [passList, handleTogglePassDetailsDrawer, isMobile],
   );
   return {
     // LOCAL STATE
     selectedTab,
     selectedFilterTab,
     selectedPass,
+    isConsumerPaymentPackDetailsDrawerOpen,
+    isPrivateConsumerPassDetailsDrawerOpen,
+    isUniversalPassDetailsDrawerOpen,
+    isPassTabDrawerOpen,
     // STATE HANDLERS
     handleSetSelectedTab,
     handleSetSelectedFilterTab,
     handleSetSelectedPass,
+    handleTogglePassDetailsDrawer,
+    handleTogglePassTabDrawer,
     // DATA/USER ACTIONS HANDLERS
     handlePaginationFetchMore,
     // COMPUTED STATE
@@ -274,5 +334,6 @@ export function useConsumerPassesDataManager({
     activeItemsCount,
     nextPage,
     passList,
+    isMobile,
   };
 }

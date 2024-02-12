@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 import Card from '#Fabrique/Card';
-import ConditionalWrapper from '#components/ConditionnalWrapper.component';
 import ConsumerCardPlaceholder from '#libs/consumer-space/components/reworked/common/ConsumerCardPlaceholder';
 import ConsumerDetailsCardSkeleton from '#libs/consumer-space/components/reworked/common/ConsumerDetailsCardSkeleton';
 
@@ -33,6 +32,8 @@ type Props = {
   appointmentCompatibilities?: PrivateConsumerPassCompatibility[];
   /** List of the studios the pass is compatible with */
   compatibleEstablishments?: Establishment[];
+  /** Custom class name */
+  className?: string;
   /** Number of credits available left */
   creditsLeft?: number;
   /** The pass description */
@@ -50,7 +51,7 @@ type Props = {
   /** The pass has unlimited credits */
   isUnlimited?: boolean;
   /** Should wrap the component in a card. Set it true in mobile version */
-  mobileVersion?: boolean;
+  isMobile?: boolean;
   /** The pass name */
   name: string;
   /** The pass is shared by this member */
@@ -73,6 +74,7 @@ const UniversalPassDetailsCard: React.FC<Props> = ({
   activityCompatibilities,
   appointmentCompatibilities,
   compatibleEstablishments,
+  className,
   creditsLeft,
   description,
   expirationDate,
@@ -88,66 +90,62 @@ const UniversalPassDetailsCard: React.FC<Props> = ({
   suspensionDate,
   timeSlots,
   totalCredits,
-  mobileVersion,
+  isMobile,
   isUnlimited,
 }) => {
   const { t } = useTranslation('consumerSpace');
 
   if (isLoading) {
-    return <ConsumerDetailsCardSkeleton />;
+    return <ConsumerDetailsCardSkeleton className={className} />;
   }
 
   if (showPlaceholder) {
     return (
       <ConsumerCardPlaceholder
+        className={className}
         message={t('reworked.placeholderCard.myPasses')}
       />
     );
   }
 
   return (
-    <ConditionalWrapper
-      className="bs-universal-pass-details-card__root"
-      condition={!mobileVersion}
-      WrapperComponent={Card}
-    >
-      <>
-        <UniversalPassDetailsCardHeader
-          creditsLeft={creditsLeft}
-          expirationDate={expirationDate}
-          isSuspended={isSuspended}
-          isUnlimited={isUnlimited}
-          name={name}
-          startDate={startDate}
-          suspensionDate={suspensionDate}
-          totalCredits={totalCredits}
-        />
+    <Card className={className}>
+      <UniversalPassDetailsCardHeader
+        creditsLeft={creditsLeft}
+        expirationDate={expirationDate}
+        isMobile={isMobile}
+        isSuspended={isSuspended}
+        isUnlimited={isUnlimited}
+        name={name}
+        startDate={startDate}
+        suspensionDate={suspensionDate}
+        totalCredits={totalCredits}
+      />
 
-        <UniversalPassDetailsCardDescriptionSection description={description} />
+      <UniversalPassDetailsCardDescriptionSection description={description} />
 
-        <UniversalPassDetailsCardCompatibleEstablishmentsSection
-          compatibleEstablishments={compatibleEstablishments}
-        />
+      <UniversalPassDetailsCardCompatibleEstablishmentsSection
+        compatibleEstablishments={compatibleEstablishments}
+      />
 
-        <UniversalPassDetailsCardSharedSection
-          members={[sharedBy]}
-          title={t('reworked.myPasses.consumerPassDetailsCard.shared.by')}
-        />
+      <UniversalPassDetailsCardSharedSection
+        members={[sharedBy]}
+        title={t('reworked.myPasses.consumerPassDetailsCard.shared.by')}
+      />
 
-        <UniversalPassDetailsCardSharedSection
-          members={sharedWith}
-          title={t('reworked.myPasses.consumerPassDetailsCard.shared.with')}
-        />
+      <UniversalPassDetailsCardSharedSection
+        members={sharedWith}
+        title={t('reworked.myPasses.consumerPassDetailsCard.shared.with')}
+      />
 
-        <UniversalPassDetailsCardCompatibilitySection
-          activityCompatibilities={activityCompatibilities}
-          appointmentCompatibilities={appointmentCompatibilities}
-          isCompatibleWithBookingForGuest={isCompatibleWithBookingForGuest}
-          isCompatibleWithVod={isCompatibleWithVod}
-          timeSlots={timeSlots}
-        />
-      </>
-    </ConditionalWrapper>
+      <UniversalPassDetailsCardCompatibilitySection
+        activityCompatibilities={activityCompatibilities}
+        appointmentCompatibilities={appointmentCompatibilities}
+        isCompatibleWithBookingForGuest={isCompatibleWithBookingForGuest}
+        isCompatibleWithVod={isCompatibleWithVod}
+        timeSlots={timeSlots}
+      />
+    </Card>
   );
 };
 

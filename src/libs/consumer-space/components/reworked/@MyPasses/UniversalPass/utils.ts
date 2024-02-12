@@ -37,9 +37,10 @@ export const parseUniversalPassData = (
   universalPass: UniversalPassReworked,
 ): Omit<
   Required<UniversalPassDetailsCardProps>,
-  | 'isLoading'
+  | 'className'
   | 'compatibleEstablishments'
-  | 'mobileVersion'
+  | 'isLoading'
+  | 'isMobile'
   | 'showPlaceholder'
   | 'suspensionDate'
 > => {

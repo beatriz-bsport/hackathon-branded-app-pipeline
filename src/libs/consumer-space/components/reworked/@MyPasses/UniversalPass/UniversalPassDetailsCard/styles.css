@@ -6,6 +6,19 @@
   overflow: auto;
 }
 
+.bs-universal-pass-details-card__root--hidden {
+  display: none;
+}
+
+.bs-universal-pass-details-card__root--mobile {
+  padding: 0;
+}
+
+.bs-universal-pass-details-card__root--mobile
+  .bs-universal-pass-details-card__header__list__item {
+  padding-top: 0;
+}
+
 /* ------ HEADER SECTION ------ */
 
 .bs-universal-pass-details-card__header__root {

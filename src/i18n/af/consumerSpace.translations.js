@@ -235,6 +235,7 @@ exports.default = {
     },
     myPasses: {
       title: 'My passes',
+      choosePassType: 'Choose pass type',
       tab: {
         activity: 'Activities',
         appointment: 'Appointments',

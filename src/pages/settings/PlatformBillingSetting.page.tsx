@@ -94,7 +94,7 @@ type Props = {
   t: TFunction;
   platformSubscription?: PlatformSubscription;
   onRequestUpsell: (upsellIdentifier: number) => void;
-
+  onCloseFeatureRequest: () => void;
   openFeatureRequest: boolean;
   setOpenFeatureRequest: (b: boolean) => void;
 
@@ -243,7 +243,7 @@ export class PlatformBillingSetting extends React.Component<Props, State> {
           subscribedUpsellPackages={this.props.subscribedUpsellPackages}
         />
         <FeatureRequestDialog
-          onClose={() => this.props.setOpenFeatureRequest(false)}
+          onClose={this.props.onCloseFeatureRequest}
           open={this.props.openFeatureRequest}
         />
 
@@ -368,7 +368,16 @@ export default compose(
       ({ requestUpsellPackage, setOpenFeatureRequest }) =>
       (upsellIdentifier: number) => {
         setOpenFeatureRequest(true);
+        // @ts-expect-error
+        window.Intercom('showNewMessage');
         requestUpsellPackage(upsellIdentifier);
+      },
+    onCloseFeatureRequest:
+      ({ setOpenFeatureRequest }) =>
+      () => {
+        setOpenFeatureRequest(false);
+        // @ts-expect-error
+        window.Intercom('hide');
       },
   }),
 )(PlatformBillingSetting);

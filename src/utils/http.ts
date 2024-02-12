@@ -15,3 +15,27 @@ export function buildUrlParams(params: any) {
   }
   return '';
 }
+
+const SAFE_UTM_TRACKING_KEYS = [
+  'utm_source',
+  'utm_medium',
+  'utm_campaign',
+  'utm_term',
+  'utm_content',
+];
+
+export const buildSafeUtmTrackingParams = (params: Record<string, any>) => {
+  const safeParams: Record<string, any> = {};
+
+  if (!params || typeof params !== 'object') {
+    return '';
+  }
+
+  Object.keys(params).forEach((key) => {
+    if (SAFE_UTM_TRACKING_KEYS.includes(key)) {
+      safeParams[key] = params[key];
+    }
+  });
+
+  return buildUrlParams(safeParams);
+};

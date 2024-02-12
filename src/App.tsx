@@ -59,6 +59,8 @@ import {
   openUserInteractionPortal,
 } from './libs/modal/actions';
 
+import { buildSafeUtmTrackingParams } from './utils/http';
+
 const FabWidget = asyncComponent(() => import('./widgets/FabWidget.widget'));
 
 const WidgetBridge = asyncComponent(
@@ -178,8 +180,13 @@ class BsportWidget extends Component<Props> {
       .addQuery('dialogMode', this.props.dialogMode)
       .addQuery('widgetType', this.props.widgetType)
       .addQuery('parentElementId', this.props.parentElement);
+
+    const finalURL = this.props.utmTrackingConfiguration
+      ? uri.toString() +
+        buildSafeUtmTrackingParams(this.props.utmTrackingConfiguration)
+      : uri.toString();
     this.props.openUserInteractionPortal({
-      url: uri.toString(),
+      url: finalURL,
       dialogMode: this.props.dialogMode,
       fullScreenPopup: this.props.fullScreenPopup,
     });
@@ -199,6 +206,7 @@ class BsportWidget extends Component<Props> {
       isBackofficePreview,
       parentElement,
     } = this.props;
+
     if (
       !this.props.theme ||
       !!this.props.themeLoading ||

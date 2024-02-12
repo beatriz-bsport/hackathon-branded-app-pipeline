@@ -1,9 +1,9 @@
 import React from 'react';
-
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
-import AlertIcon from '@material-ui/icons/ErrorOutline';
+
+import { makeStyles } from '@material-ui/core/styles';
+import Alert from '@material-ui/lab/Alert';
+
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 
 type ReferralCouponHelpTextProps = {
@@ -32,10 +32,9 @@ export const ReferralCouponHelpText: React.FC<ReferralCouponHelpTextProps> = ({
 
   return (
     <div className={classes.container}>
-      <AlertIcon className={classes.errorIcon} />
-      <Typography className={classes.errorText} variant="body2">
+      <Alert className={classes.alert} severity="warning">
         {displayedText}
-      </Typography>
+      </Alert>
     </div>
   );
 };
@@ -47,12 +46,8 @@ const useStyles = makeStyles(() => ({
     gap: '12px',
     alignSelf: 'stretch',
   },
-  errorIcon: {
-    color: '#F44336',
-  },
-  errorText: {
-    color: '#621B16',
-    whiteSpace: 'pre-line',
+  alert: {
+    alignItems: 'center',
   },
 }));
 

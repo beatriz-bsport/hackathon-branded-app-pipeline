@@ -21,7 +21,7 @@ import { UPSELL_IDENTIFIER_CADENCE } from '../upsell-identifiers';
 const UpsellPackageList = React.memo(
   (props: {
     upsellPackageList: UpsellPackage[];
-    onKnowMore: (upsellIdentifier: number) => void;
+    onKnowMore?: (upsellIdentifier: number) => void;
     handleSubscribe?: (upsellPackage: UpsellPackage) => void;
   }) => {
     const classes = useStyles();
@@ -105,10 +105,7 @@ export const CompanyPlatformBillinGroupDetail: React.FC<Props> = ({
             {t('upsellPackage.myAddonTitle')}
           </Typography>
           <Divider className={classes.sectionDivider} />
-          <UpsellPackageList
-            onKnowMore={onKnowMore}
-            upsellPackageList={subscribedUpsellPackages}
-          />
+          <UpsellPackageList upsellPackageList={subscribedUpsellPackages} />
         </React.Fragment>
       )}
       {nonSubscribedUpsellPackages?.length > 0 && (

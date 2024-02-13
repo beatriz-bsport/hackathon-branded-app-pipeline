@@ -209,6 +209,7 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
         <ConsumerSubscriptionTermsModal
           contractTermsLink={selectedSubscription.contract_terms_pdf_link}
           downloadContractTerms={downloadBillingPlanTerms}
+          isMobile={isMobile}
           isOpen={isTermsModalOpen}
           onClose={handleTermsModalClose}
           termsContent={selectedSubscription.contract_terms}

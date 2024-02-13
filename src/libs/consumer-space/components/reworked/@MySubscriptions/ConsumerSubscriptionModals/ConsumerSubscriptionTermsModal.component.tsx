@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import ModalDialog from '#Fabrique/ModalDialog';
 import Blanket from '#Fabrique/Blanket';
 import { PortalContainer } from '#Fabrique/PortalContainer';
+import BottomDrawer from '#Fabrique/BottomDrawer';
 
 import { downloadDocument } from '../../../../../../utils/downloader';
 import type { OptionCallback } from '../../../../../../state/types';
@@ -15,6 +16,8 @@ type Props = {
   contractTermsLink?: string;
   /** In case subscriptions doesn't have a download link, this action will create one in the backend */
   downloadContractTerms?: (options: OptionCallback) => void;
+  /** Mobile version which displays a bottom drawer instead of a modal */
+  isMobile: boolean;
   /** Manages modal opening */
   isOpen: boolean;
   /** Action when closing modal */
@@ -26,6 +29,7 @@ type Props = {
 const ConsumerSubscriptionTermsModal: React.FC<Props> = ({
   contractTermsLink,
   downloadContractTerms,
+  isMobile,
   isOpen,
   onClose,
   termsContent,
@@ -50,6 +54,27 @@ const ConsumerSubscriptionTermsModal: React.FC<Props> = ({
       });
     }
   }, [onClose, contractTermsLink, downloadContractTerms]);
+
+  if (isMobile) {
+    return (
+      <BottomDrawer
+        blanketProps={{ isOpen, onClick: onClose }}
+        className="bs-consumer-booking-details-drawer__root"
+        modalDialogProps={{
+          title: t(
+            'reworked.mySubscriptions.consumerSubscriptionCardDetails.terms',
+          ),
+          onClose,
+          onCancel: onClose,
+          classes: {
+            content: 'bs-consumer__subscription__modal-dialog__content',
+          },
+        }}
+      >
+        {termsContent}
+      </BottomDrawer>
+    );
+  }
 
   return (
     <PortalContainer wrapperId="bs-consumer-subscription-terms-modal-portal-container">

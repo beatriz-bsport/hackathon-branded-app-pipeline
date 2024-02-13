@@ -5297,7 +5297,8 @@
             "9": "Cuenta interna",
             "0": "Tarjeta de pago",
             "70": "BACS Direct Debit"
-        }
+        },
+        "readPermissionDenied": "Acceso denegado"
     },
     "alerting": {
         "list": {
@@ -7554,7 +7555,20 @@
                         "with": "Compartido con",
                         "by": "Compartido por"
                     }
-                }
+                },
+                "bookASession": "Reservar una sesión",
+                "buyANewPass": "Comprar un bono nuevo",
+                "filters": {
+                    "future": "Futuro",
+                    "expired": "Expirado",
+                    "active": "Activo"
+                },
+                "tab": {
+                    "universal": "Universal",
+                    "appointment": "Citas",
+                    "activity": "Actividades"
+                },
+                "title": "Mis bonos"
             },
             "myBookings": {
                 "spotSchedulingModal": {
@@ -7690,10 +7704,42 @@
                 "chooseBookingType": "Elija el tipo de reserva"
             },
             "placeholderCard": {
-                "myBookings": "Elija una sesión para ver más detalles"
+                "myBookings": "Elija una sesión para ver más detalles",
+                "myPasses": "Elija un bono para ver más detalles",
+                "mySubscriptions": "Elija una suscripción para ver más detalles"
             },
             "showLess": "Mostrar menos",
-            "showMore": "Mostrar más"
+            "showMore": "Mostrar más",
+            "mySubscriptions": {
+                "consumerSubscriptionCardDetails": {
+                    "headerListItemLabels": {
+                        "nextPayment": "Próximo pago"
+                    },
+                    "buttonsLabel": {
+                        "see": "Ver"
+                    },
+                    "termsAccepted": "Aceptado el {{ termsDate }}",
+                    "terms": "Términos legales",
+                    "description": "Descripción"
+                },
+                "consumerSubscriptionCard": {
+                    "buttonsLabel": {
+                        "seeDetails": "Ver detalles"
+                    },
+                    "recurrenceLabelEvery": "{{ price }}{{ currency }} cada {{ recurrence }} {{ interval }}",
+                    "recurrenceLabelPer": "{{ price }}{{ currency }}/{{ interval }}"
+                },
+                "headerButtonsLabel": {
+                    "getSubscription": "Obtener una suscripción",
+                    "bookASession": "Reserva una sesión"
+                },
+                "tab": {
+                    "expired": "Expirado",
+                    "future": "No iniciado",
+                    "active": "Activo"
+                },
+                "title": "Mi suscripción"
+            }
         }
     },
     "coupon": {

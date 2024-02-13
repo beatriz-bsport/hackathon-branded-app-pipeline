@@ -220,6 +220,7 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
         enabledPaymentGroupMethodIdentifierIds={
           enabledPaymentGroupMethodIdentifierIds
         }
+        isMobile={isMobile}
         isOpen={isPaymentModalOpen}
         memberMail={memberMail}
         memberName={memberName}

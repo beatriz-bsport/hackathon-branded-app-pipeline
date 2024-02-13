@@ -7,6 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Clear';
 
+import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
 import DelayedTextField from '../../../components/DelayedTextField.component';
 // @ts-expect-error
 import SCTSelector from '#libs/category/components/SCTSelectorBase.component';
@@ -32,32 +33,110 @@ type Props = {
   hideCoach: boolean;
   onChangeSearchParams: (paramType: string) => (value: string) => void;
   coaches: Coach[];
+  coachDisplay?: MarketPlaceCoachDisplay;
   scts: SCT[];
   customLevels: Level[];
 };
 
-export const VideoSearchBar: React.FC<Props> = (props) => {
+export const VideoSearchBar: React.FC<Props> = ({
+  searchParams,
+  hideCoach,
+  onChangeSearchParams,
+  coaches,
+  coachDisplay,
+  scts,
+  customLevels,
+}) => {
   const classes = useStyles();
-  const { t } = useTranslation(['video']);
+  const { t } = useTranslation('video');
+
+  const {
+    levels,
+    coaches: _selectedCoaches,
+    SCTs,
+    duration_second_range,
+    search,
+  } = searchParams;
+
+  const selectedLevels = useMemo(() => {
+    return levels
+      ? levels.split(',').map((value) => parseInt(value, 10))
+      : null;
+  }, [levels]);
+
+  const selectedScts = useMemo(() => {
+    return SCTs ? SCTs.split(',').map((value) => parseInt(value, 10)) : null;
+  }, [SCTs]);
+
+  const selectedCoaches = useMemo(() => {
+    return _selectedCoaches
+      ? _selectedCoaches.split(',').map((value) => parseInt(value, 10))
+      : null;
+  }, [_selectedCoaches]);
+
+  const handleSelectCustomLevel = useCallback(
+    (data) => {
+      if (data.length) {
+        onChangeSearchParams('levels')(data.join(','));
+      } else {
+        onChangeSearchParams('levels')(null);
+      }
+    },
+    [onChangeSearchParams],
+  );
+
+  const handleSelectSCT = useCallback(
+    (scts_: { value: SCT; label: string }[]) => {
+      if (scts_ && scts_.length) {
+        onChangeSearchParams('SCTs')(scts_.map((sct_) => sct_.value).join());
+      } else {
+        onChangeSearchParams('SCTs')(null);
+      }
+    },
+    [onChangeSearchParams],
+  );
+
+  const handleSelectDurationRange = useCallback(
+    (durationRange) => {
+      if (durationRange) {
+        const [min, max] = durationRange;
+        onChangeSearchParams('duration_second_range')(`${min},${max}`);
+      } else {
+        onChangeSearchParams('duration_second_range')(null);
+      }
+    },
+    [onChangeSearchParams],
+  );
+  const handleSelectCoach = useCallback(
+    (coaches_: { value: Coach; label: string }[]) => {
+      if (coaches_ && coaches_.length) {
+        onChangeSearchParams('coaches')(coaches_.map((e) => e.value).join());
+      } else {
+        onChangeSearchParams('coaches')(null);
+      }
+    },
+    [onChangeSearchParams],
+  );
+
+  const handleTextChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      onChangeSearchParams('search')(event.target.value);
+    },
+    [onChangeSearchParams],
+  );
+
+  const handleClearSearchText = useCallback(
+    () => onChangeSearchParams('search')(''),
+    [onChangeSearchParams],
+  );
+
   return (
     <Grid container direction="row" spacing={1}>
       <Grid item md={3} xs={6}>
         <LevelMultiSelector
-          customLevels={props.customLevels}
-          onSelect={(data) => {
-            if (data.length) {
-              props.onChangeSearchParams('levels')(data.join(','));
-            } else {
-              props.onChangeSearchParams('levels')(null);
-            }
-          }}
-          selectedLevels={
-            props.searchParams.levels
-              ? props.searchParams.levels
-                  .split(',')
-                  .map((value) => parseInt(value, 10))
-              : null
-          }
+          customLevels={customLevels}
+          onSelect={handleSelectCustomLevel}
+          selectedLevels={selectedLevels}
         />
       </Grid>
       <Grid item lg={2} md={3} xs={6}>
@@ -65,62 +144,27 @@ export const VideoSearchBar: React.FC<Props> = (props) => {
           closeMenuOnSelect
           isClearable
           shouldSetMinHeight
-          scts={props.scts}
-          selectedValues={
-            props.searchParams.SCTs
-              ? props.searchParams.SCTs.split(',').map((value) =>
-                  parseInt(value, 10),
-                )
-              : null
-          }
-          selectOption={(ev) => {
-            if (ev && ev.length) {
-              props.onChangeSearchParams('SCTs')(ev.map((e) => e.value).join());
-            } else {
-              props.onChangeSearchParams('SCTs')(null);
-            }
-          }}
+          scts={scts}
+          selectedValues={selectedScts}
+          selectOption={handleSelectSCT}
         />
       </Grid>
       <Grid item lg={2} md={3} xs={6}>
         <DurationSelector
           shouldSetMinHeight
-          durationSecondRange={props.searchParams.duration_second_range}
-          onChange={(ev) => {
-            if (ev) {
-              const [min, max] = ev;
-              props.onChangeSearchParams('duration_second_range')(
-                `${min},${max}`,
-              );
-            } else {
-              props.onChangeSearchParams('duration_second_range')(null);
-            }
-          }}
+          durationSecondRange={duration_second_range}
+          onChange={handleSelectDurationRange}
         />
       </Grid>
       <Grid item md={3} xs={6}>
-        {!props.hideCoach && (
+        {!hideCoach && (
           <CoachSelector
             isClearable
             shouldSetMinHeight
-            coachDisplay={props.coachDisplay}
-            coaches={props.coaches}
-            selectedCoaches={
-              props.searchParams.coaches
-                ? props.searchParams.coaches
-                    .split(',')
-                    .map((value) => parseInt(value, 10))
-                : null
-            }
-            selectOption={(ev) => {
-              if (ev && ev.length) {
-                props.onChangeSearchParams('coaches')(
-                  ev.map((e) => e.value).join(),
-                );
-              } else {
-                props.onChangeSearchParams('coaches')(null);
-              }
-            }}
+            coachDisplay={coachDisplay}
+            coaches={coaches}
+            selectedCoaches={selectedCoaches}
+            selectOption={handleSelectCoach}
           />
         )}
       </Grid>
@@ -134,25 +178,21 @@ export const VideoSearchBar: React.FC<Props> = (props) => {
                 <SearchIcon />
               </InputAdornment>
             ),
-            endAdornment: props.searchParams.search ? (
+            endAdornment: searchParams.search ? (
               <InputAdornment position="end">
                 <IconButton
-                  aria-label={
-                    props.searchParams.search ? 'Clear search' : 'Search'
-                  }
-                  onClick={() => props.onChangeSearchParams('search')(null)}
+                  aria-label={searchParams.search ? 'Clear search' : 'Search'}
+                  onClick={handleClearSearchText}
                 >
                   <ClearIcon />
                 </IconButton>
               </InputAdornment>
             ) : null,
           }}
-          onChange={(ev) => {
-            props.onChangeSearchParams('search')(ev.target.value);
-          }}
+          onChange={handleTextChange}
           placeholder={t('video.search.placeholder')}
           size="small"
-          value={props.searchParams.search ? props.searchParams.search : ''}
+          value={search}
           variant="outlined"
         />
       </Grid>

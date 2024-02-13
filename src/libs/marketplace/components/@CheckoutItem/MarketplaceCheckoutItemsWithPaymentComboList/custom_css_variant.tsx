@@ -19,10 +19,9 @@ import { checkoutItemsFactory } from '#libs/checkout/factories';
 import { BuyableItemOptions, CheckoutItem } from '#libs/checkout/types';
 import { paymentComboListFactory } from '#libs/payment-combo/factory';
 
-const checkoutPaymentComboItems: CheckoutItem[] = checkoutItemsFactory(
-  3,
-  BuyableItemOptions.BUYABLE_ITEM_COMBO_ITEM,
-);
+const checkoutPaymentComboItems: CheckoutItem[] = checkoutItemsFactory(3, {
+  buyable_item_identifier: BuyableItemOptions.BUYABLE_ITEM_COMBO_ITEM,
+});
 
 const paymentCombos = paymentComboListFactory(3);
 

@@ -5,54 +5,48 @@ import {
   Basket,
   BuyableItemOptions,
   CheckoutItem,
-  CheckoutItemExtraData,
   type PrepaidLineExtraData,
   type PrepaidLine,
 } from './types';
 
 /**
  * Returns a Checkout Item
- * @param buyableItemType The buyable item identifier. Default is Pass
- * @param extraData Some extra data related to the offer
- * @param tax
+ * @param checkoutItemOverwrite If you want to specify props to your checkout item
  */
 export const checkoutItemFactory = (
-  buyableItemType?: BuyableItemOptions,
-  extraData?: CheckoutItemExtraData,
-  tax?: number,
+  checkoutItemOverwrite?: Partial<CheckoutItem>,
 ): CheckoutItem => {
+  const safeCheckoutItemOverwrite = checkoutItemOverwrite ?? {};
   return {
     quantity: faker.number.int({ max: 5, min: 1 }),
     id: faker.number.int().toString(),
     unit_price: faker.number.int({ max: 1000, min: 0 }),
     name: generateRandomName(faker),
-    buyable_item_identifier:
-      buyableItemType ?? BuyableItemOptions.BUYABLE_ITEM_PASS,
+    buyable_item_identifier: BuyableItemOptions.BUYABLE_ITEM_PASS,
     buyable_item_id: faker.number.int(),
     editable: faker.datatype.boolean(),
     clearable: faker.datatype.boolean(),
-    tax: tax ?? 0.2,
-    extra_data: extraData ?? {},
+    tax: 0.2,
+    extra_data: {},
     expiration_datetime: '',
+    ...safeCheckoutItemOverwrite,
   };
 };
 
 /**
  * Returns a list of Checkout Item
  * @param count The number of elements you want in the list
- * @param buyableItemType The buyable item identifier. Default is Pass
- * @param extraData Some extra data related to the offer
- * @param tax
+ * @param checkoutItemOverwrite Overwrites props of the mock checkout items for all the checkout items in the list
  */
 export const checkoutItemsFactory = (
   count: number,
-  buyableItemType?: BuyableItemOptions,
-  extraData?: CheckoutItemExtraData,
-  tax?: number,
+  checkoutItemOverwrite?: Partial<CheckoutItem>,
 ): CheckoutItem[] => {
   return faker.helpers.multiple(
-    () => checkoutItemFactory(buyableItemType, extraData, tax),
-    { count },
+    () => checkoutItemFactory(checkoutItemOverwrite),
+    {
+      count,
+    },
   );
 };
 
@@ -88,9 +82,14 @@ export const prepaidLinesFactory = (
 /**
  * Returns a Basket
  * @param nb_items The number of checkout items you want in the basket
+ * @param basketOverwrite Overwrites the mocked basket. Useful if you want specific props in your basket
  */
-export const basketFactory = (nb_items: number): Basket => {
+export const basketFactory = (
+  nb_items: number,
+  basketOverwrite?: Partial<Basket>,
+): Basket => {
   const checkout_items = checkoutItemsFactory(nb_items);
+  const safeBasketOverwrite = basketOverwrite ?? {};
   return {
     member: faker.number.int(),
     id: faker.number.int(16).toString(),
@@ -124,6 +123,7 @@ export const basketFactory = (nb_items: number): Basket => {
     is_fully_paid: faker.number.int(2) === 1 ? true : undefined,
     date_created: new Date().toISOString(),
     date_updated: new Date().toISOString(),
+    ...safeBasketOverwrite,
   };
 };
 

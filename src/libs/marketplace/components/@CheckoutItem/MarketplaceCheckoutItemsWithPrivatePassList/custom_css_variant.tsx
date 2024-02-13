@@ -19,10 +19,9 @@ import { checkoutItemsFactory } from '#libs/checkout/factories';
 import { privatePassListFactory } from '#libs/private-service/factory';
 import { BuyableItemOptions, CheckoutItem } from '#libs/checkout/types';
 
-const checkoutPrivatePassItems: CheckoutItem[] = checkoutItemsFactory(
-  3,
-  BuyableItemOptions.BUYABLE_ITEM_PRIVATE_PASS,
-);
+const checkoutPrivatePassItems: CheckoutItem[] = checkoutItemsFactory(3, {
+  buyable_item_identifier: BuyableItemOptions.BUYABLE_ITEM_PRIVATE_PASS,
+});
 
 const privatePasses = privatePassListFactory(3);
 

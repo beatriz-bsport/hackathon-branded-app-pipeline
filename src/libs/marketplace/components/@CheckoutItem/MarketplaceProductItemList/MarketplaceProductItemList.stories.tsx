@@ -9,14 +9,12 @@ import { checkoutItemsFactory } from '#libs/checkout/factories';
 import { BuyableItemOptions } from '#libs/checkout/types';
 
 const checkoutPassItems = checkoutItemsFactory(3);
-const checkoutPrivatePassItems = checkoutItemsFactory(
-  3,
-  BuyableItemOptions.BUYABLE_ITEM_PRIVATE_PASS,
-);
-const checkoutShopItems = checkoutItemsFactory(
-  4,
-  BuyableItemOptions.BUYABLE_ITEM_SHOP_ITEM,
-);
+const checkoutPrivatePassItems = checkoutItemsFactory(3, {
+  buyable_item_identifier: BuyableItemOptions.BUYABLE_ITEM_PRIVATE_PASS,
+});
+const checkoutShopItems = checkoutItemsFactory(4, {
+  buyable_item_identifier: BuyableItemOptions.BUYABLE_ITEM_SHOP_ITEM,
+});
 
 export default {
   title: 'Components/Marketplace/ProductItemList',

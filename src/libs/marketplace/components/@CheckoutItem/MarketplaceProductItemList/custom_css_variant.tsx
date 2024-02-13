@@ -18,10 +18,9 @@ import {
 import { BuyableItemOptions } from '#libs/checkout/types';
 import { checkoutItemsFactory } from '#libs/checkout/factories';
 
-const items = checkoutItemsFactory(
-  4,
-  BuyableItemOptions.BUYABLE_ITEM_SHOP_ITEM,
-);
+const items = checkoutItemsFactory(4, {
+  buyable_item_identifier: BuyableItemOptions.BUYABLE_ITEM_SHOP_ITEM,
+});
 
 const marketplaceProductItemListVariationRegistry = [
   {

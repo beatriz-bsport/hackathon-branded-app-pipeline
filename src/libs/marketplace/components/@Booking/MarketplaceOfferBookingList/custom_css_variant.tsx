@@ -28,10 +28,9 @@ import { CompanyTheme } from '#libs/theme/types';
 
 const fakeCompanyTheme: CompanyTheme = themeFactoryBot.companyTheme.createOne();
 
-const checkoutPaymentComboItems: CheckoutItem[] = checkoutItemsFactory(
-  3,
-  BuyableItemOptions.BUYABLE_ITEM_COMBO_ITEM,
-);
+const checkoutPaymentComboItems: CheckoutItem[] = checkoutItemsFactory(3, {
+  buyable_item_identifier: BuyableItemOptions.BUYABLE_ITEM_COMBO_ITEM,
+});
 
 const offer = {
   ...offerFactory({

@@ -19,10 +19,9 @@ import { checkoutItemsFactory } from '#libs/checkout/factories';
 import { BuyableItemOptions, CheckoutItem } from '#libs/checkout/types';
 import { paymentPackListFactory } from '#libs/payment-packs/factory';
 
-const checkoutPaymentPackItems: CheckoutItem[] = checkoutItemsFactory(
-  3,
-  BuyableItemOptions.BUYABLE_ITEM_PASS,
-);
+const checkoutPaymentPackItems: CheckoutItem[] = checkoutItemsFactory(3, {
+  buyable_item_identifier: BuyableItemOptions.BUYABLE_ITEM_PASS,
+});
 
 const paymentPacks = paymentPackListFactory(3);
 

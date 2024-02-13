@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 import Card from '#Fabrique/Card';
-import ConditionalWrapper from '#components/ConditionnalWrapper.component';
 import ConsumerDetailsCardSkeleton from '#libs/consumer-space/components/reworked/common/ConsumerDetailsCardSkeleton';
 import ConsumerCardPlaceholder from '#libs/consumer-space/components/reworked/common/ConsumerCardPlaceholder';
 
@@ -25,6 +24,8 @@ import './styles.css';
 type Props = {
   /** If the pass is an appointment pass, this props indicates which appointments and/or sessions are compatible with it */
   appointmentCompatibilities?: PrivateConsumerPassCompatibility[];
+  /** Custom class name */
+  className?: string;
   /** List of the studios the pass is compatible with */
   compatibleEstablishments?: Establishment[];
   /** Number of credits available left */
@@ -33,14 +34,14 @@ type Props = {
   description?: string;
   /** The pass expiration date */
   expirationDate?: string;
+  /** Should wrap the component in a card. Set it true in mobile version */
+  isMobile?: boolean;
   /** Loading property, to display skeleton */
   isLoading?: boolean;
   /** The pass is suspended */
   isSuspended?: boolean;
   /** The pass has unlimited credits */
   isUnlimited?: boolean;
-  /** Should wrap the component in a card. Set it true in mobile version */
-  mobileVersion?: boolean;
   /** The pass name */
   name: string;
   /** The pass is shared by this member (name only) */
@@ -62,9 +63,11 @@ type Props = {
 const PrivateConsumerPassDetailsCard: React.FC<Props> = ({
   appointmentCompatibilities,
   compatibleEstablishments,
+  className,
   creditsLeft,
   description,
   expirationDate,
+  isMobile,
   isCompatibleWithVod,
   isLoading,
   isSuspended,
@@ -76,7 +79,6 @@ const PrivateConsumerPassDetailsCard: React.FC<Props> = ({
   startDate,
   suspensionDate,
   totalCredits,
-  mobileVersion,
 }) => {
   const { t } = useTranslation('consumerSpace');
 
@@ -92,47 +94,42 @@ const PrivateConsumerPassDetailsCard: React.FC<Props> = ({
     );
   }
   return (
-    <ConditionalWrapper
-      className="bs-private-consumer-pass-details-card__root"
-      condition={!mobileVersion}
-      WrapperComponent={Card}
-    >
-      <>
-        <PrivateConsumerPassDetailsCardHeader
-          creditsLeft={creditsLeft}
-          expirationDate={expirationDate}
-          isSuspended={isSuspended}
-          isUnlimited={isUnlimited}
-          name={name}
-          startDate={startDate}
-          suspensionDate={suspensionDate}
-          totalCredits={totalCredits}
-        />
+    <Card className={className}>
+      <PrivateConsumerPassDetailsCardHeader
+        creditsLeft={creditsLeft}
+        expirationDate={expirationDate}
+        isMobile={isMobile}
+        isSuspended={isSuspended}
+        isUnlimited={isUnlimited}
+        name={name}
+        startDate={startDate}
+        suspensionDate={suspensionDate}
+        totalCredits={totalCredits}
+      />
 
-        <PrivateConsumerPassDetailsCardDescriptionSection
-          description={description}
-        />
+      <PrivateConsumerPassDetailsCardDescriptionSection
+        description={description}
+      />
 
-        <PrivateConsumerPassDetailsCardCompatibleEstablishmentsSection
-          compatibleEstablishments={compatibleEstablishments}
-        />
+      <PrivateConsumerPassDetailsCardCompatibleEstablishmentsSection
+        compatibleEstablishments={compatibleEstablishments}
+      />
 
-        <PrivateConsumerPassDetailsCardSharedSection
-          members={[sharedBy]}
-          title={t('reworked.myPasses.consumerPassDetailsCard.shared.by')}
-        />
+      <PrivateConsumerPassDetailsCardSharedSection
+        members={[sharedBy]}
+        title={t('reworked.myPasses.consumerPassDetailsCard.shared.by')}
+      />
 
-        <PrivateConsumerPassDetailsCardSharedSection
-          members={sharedWith}
-          title={t('reworked.myPasses.consumerPassDetailsCard.shared.with')}
-        />
+      <PrivateConsumerPassDetailsCardSharedSection
+        members={sharedWith}
+        title={t('reworked.myPasses.consumerPassDetailsCard.shared.with')}
+      />
 
-        <PrivateConsumerPassDetailsCardCompatibilitySection
-          appointmentCompatibilities={appointmentCompatibilities}
-          isCompatibleWithVod={isCompatibleWithVod}
-        />
-      </>
-    </ConditionalWrapper>
+      <PrivateConsumerPassDetailsCardCompatibilitySection
+        appointmentCompatibilities={appointmentCompatibilities}
+        isCompatibleWithVod={isCompatibleWithVod}
+      />
+    </Card>
   );
 };
 

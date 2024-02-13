@@ -50,7 +50,7 @@ const defaultArgs: PrivateConsumerPassDetailsCardProps = {
   isSuspended: false,
   isUnlimited: false,
   name: fakePrivateConsumerPass.name,
-  mobileVersion: false,
+  isMobile: false,
   sharedBy: null,
   sharedWith: null,
   startDate: moment().subtract(1, 'months').format('YYYY-MM-DD'),
@@ -155,7 +155,7 @@ export const MobileVersion = PrivateConsumerPassDetailsCardMobileTemplate.bind(
 );
 MobileVersion.args = {
   ...defaultArgs,
-  mobileVersion: true,
+  isMobile: true,
 };
 MobileVersion.parameters = mobileParameters;
 
@@ -196,7 +196,7 @@ export default {
       control: 'text',
       description: 'The pass name',
     },
-    mobileVersion: {
+    isMobile: {
       control: 'boolean',
       description:
         'Should wrap the component in a card. Set it true in mobile version',

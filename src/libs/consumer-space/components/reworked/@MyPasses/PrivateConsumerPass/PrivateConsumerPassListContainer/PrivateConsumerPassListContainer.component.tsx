@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import classNames from 'classnames';
 
 import { GenericInfiniteScrollEnhancedCssOnly } from '#components/InfiniteScroll/GenericInfiniteScrollCssOnly.component';
 import CircularProgress from '#components/css-only/CircularProgress/CircularProgress.component';
@@ -7,6 +8,10 @@ import PrivateConsumerPassDetailsCard from '#libs/consumer-space/components/rewo
 
 import { parsePrivateConsumerPassData } from '#libs/consumer-space/components/reworked/@MyPasses/PrivateConsumerPass/utils';
 import { getExpirationDate } from '#libs/private-service/utils';
+import {
+  MY_BOOKINGS_LIST_CONTAINER_HEIGHT,
+  MY_BOOKINGS_MOBILE_LIST_CONTAINER_HEIGHT,
+} from '#libs/consumer-space/components/reworked/@MyBookings/constants';
 
 import type { PrivateConsumerPassReworked } from '#libs/private-service/types';
 
@@ -16,6 +21,7 @@ import '#libs/consumer-space/components/reworked/@MyPasses/GenericPass/ListConta
 type Props = {
   isLoading?: boolean;
   isMetadataLoading?: boolean;
+  isMobile?: boolean;
   selectedPass?: PrivateConsumerPassReworked;
   passList: PrivateConsumerPassReworked[];
   hasNextPage?: boolean;
@@ -26,6 +32,7 @@ type Props = {
 export const ConsumerPassListContainer: React.FC<Props> = ({
   isLoading,
   isMetadataLoading,
+  isMobile,
   passList,
   selectedPass,
   hasNextPage,
@@ -59,9 +66,12 @@ export const ConsumerPassListContainer: React.FC<Props> = ({
           className="bs-consumer-pass-page__content__list-container__list__container"
           fetchMoreData={handlePaginationFetchMore}
           hasMore={hasNextPage}
-          // TODO : height needs to be set to trigger fetchMoreData..
           // @ts-expect-error
-          height="calc(100dvh - 24px - 44px - 42px - 16px - 56px - 16px - 64px)"
+          height={
+            isMobile
+              ? MY_BOOKINGS_MOBILE_LIST_CONTAINER_HEIGHT
+              : MY_BOOKINGS_LIST_CONTAINER_HEIGHT
+          }
           items={passList}
           loader={<CircularProgress size="sm" />}
           renderItem={({ item }) => (
@@ -89,16 +99,18 @@ export const ConsumerPassListContainer: React.FC<Props> = ({
       <PrivateConsumerPassDetailsCard
         appointmentCompatibilities={appointmentCompatibilities}
         // TODO: Out of scope, needs product specs
+        className={classNames('bs-private-consumer-pass-details-card__root', {
+          'bs-private-consumer-pass-details-card__root--hidden': isMobile,
+        })}
         compatibleEstablishments={null}
         creditsLeft={creditsLeft}
         description={description}
         expirationDate={expirationDate}
         isCompatibleWithVod={isCompatibleWithVod}
         isLoading={isLoading || isMetadataLoading}
+        isMobile={isMobile}
         isSuspended={isSuspended}
         isUnlimited={isUnlimited}
-        // TODO
-        mobileVersion={null}
         name={name}
         sharedBy={sharedBy}
         sharedWith={sharedWith}

@@ -36,10 +36,11 @@ export const parsePrivateConsumerPassData = (
   privateConsumerPass: PrivateConsumerPassReworked,
 ): Omit<
   Required<PrivateConsumerPassDetailsCardProps>,
+  | 'className'
   | 'compatibleEstablishments'
   | 'isLoading'
+  | 'isMobile'
   | 'showPlaceholder'
-  | 'mobileVersion'
   | 'suspensionDate'
 > => {
   const name = privateConsumerPass?.private_pass?.name;

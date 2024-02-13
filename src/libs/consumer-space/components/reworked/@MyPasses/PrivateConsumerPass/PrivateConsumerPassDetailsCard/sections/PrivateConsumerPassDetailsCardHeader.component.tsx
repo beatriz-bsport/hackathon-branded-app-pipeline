@@ -19,6 +19,7 @@ import { getAvailabilityInformation } from '#libs/consumer-space/components/rewo
 type Props = {
   creditsLeft: number;
   expirationDate: string;
+  isMobile?: boolean;
   isSuspended: boolean;
   isUnlimited: boolean;
   name: string;
@@ -29,13 +30,14 @@ type Props = {
 
 const PrivateConsumerPassDetailsCardHeader: React.FC<Props> = ({
   creditsLeft,
+  expirationDate,
+  isMobile,
+  isSuspended,
   isUnlimited,
   name,
-  totalCredits,
-  expirationDate,
-  isSuspended,
-  startDate,
   suspensionDate,
+  startDate,
+  totalCredits,
 }) => {
   const { t } = useTranslation('consumerSpace');
 
@@ -129,14 +131,16 @@ const PrivateConsumerPassDetailsCardHeader: React.FC<Props> = ({
         title: 'bs-private-consumer-pass-details-card__header__title',
       }}
       className="bs-private-consumer-pass-details-card__header__root"
-      title={name}
+      title={!isMobile && name}
     >
-      <ConsumerPaymentPackCreditStatus
-        consumerPaymentPackAvailableCredits={creditsLeft}
-        consumerPaymentPackUsedCredits={usedCredits}
-        isPaymentPackUnlimited={isUnlimited}
-        paymentPackTotalCredits={totalCredits}
-      />
+      {!isMobile && (
+        <ConsumerPaymentPackCreditStatus
+          consumerPaymentPackAvailableCredits={creditsLeft}
+          consumerPaymentPackUsedCredits={usedCredits}
+          isPaymentPackUnlimited={isUnlimited}
+          paymentPackTotalCredits={totalCredits}
+        />
+      )}
       <List
         className={classNames(
           'bs-private-consumer-pass-details-card__header__list',

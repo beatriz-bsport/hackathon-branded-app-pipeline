@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 import Card from '#Fabrique/Card';
-import ConditionalWrapper from '#components/ConditionnalWrapper.component';
 import ConsumerCardPlaceholder from '#libs/consumer-space/components/reworked/common/ConsumerCardPlaceholder';
 import ConsumerDetailsCardSkeleton from '#libs/consumer-space/components/reworked/common/ConsumerDetailsCardSkeleton';
 
@@ -30,6 +29,8 @@ import './styles.css';
 type Props = {
   /** If the pass is an activity pass, this props indicates which categories, activities or rooms are copatible with it */
   activityCompatibilities?: ConsumerPaymentPackCompatibility[];
+  /** Custom class name */
+  className?: string;
   /** List of the studios the pass is compatible with */
   compatibleEstablishments?: Establishment[];
   /** Number of credits available left */
@@ -42,14 +43,14 @@ type Props = {
   isCompatibleWithBookingForGuest?: boolean;
   /** The pass is compatible with VOD */
   isCompatibleWithVod?: boolean;
+  /** Loading property, to display skeleton */
+  isLoading?: boolean;
+  /** Should wrap the component in a card. Set it true in mobile version */
+  isMobile?: boolean;
   /** The pass is suspended */
   isSuspended?: boolean;
   /** The pass has unlimited credits */
   isUnlimited?: boolean;
-  /** Loading property, to display skeleton */
-  isLoading?: boolean;
-  /** Should wrap the component in a card. Set it true in mobile version */
-  mobileVersion?: boolean;
   /** The pass name */
   name: string;
   /** The pass restrictions data */
@@ -72,6 +73,7 @@ type Props = {
 
 const ConsumerPaymentPackDetailsCard: React.FC<Props> = ({
   activityCompatibilities,
+  className,
   compatibleEstablishments,
   creditsLeft,
   description,
@@ -79,6 +81,7 @@ const ConsumerPaymentPackDetailsCard: React.FC<Props> = ({
   isCompatibleWithBookingForGuest,
   isCompatibleWithVod,
   isLoading,
+  isMobile,
   isSuspended,
   name,
   restriction,
@@ -89,7 +92,6 @@ const ConsumerPaymentPackDetailsCard: React.FC<Props> = ({
   suspensionDate,
   timeSlots,
   totalCredits,
-  mobileVersion,
   isUnlimited,
 }) => {
   const { t } = useTranslation('consumerSpace');
@@ -107,15 +109,12 @@ const ConsumerPaymentPackDetailsCard: React.FC<Props> = ({
   }
 
   return (
-    <ConditionalWrapper
-      className="bs-consumer-payment-pack-details-card__root"
-      condition={!mobileVersion}
-      WrapperComponent={Card}
-    >
+    <Card className={className}>
       <>
         <ConsumerPaymentPackDetailsCardHeader
           creditsLeft={creditsLeft}
           expirationDate={expirationDate}
+          isMobile={isMobile}
           isSuspended={isSuspended}
           isUnlimited={isUnlimited}
           name={name}
@@ -155,7 +154,7 @@ const ConsumerPaymentPackDetailsCard: React.FC<Props> = ({
           />
         )}
       </>
-    </ConditionalWrapper>
+    </Card>
   );
 };
 

@@ -3,48 +3,43 @@ import classNames from 'classnames';
 
 import BottomDrawer from '#Fabrique/BottomDrawer';
 
-import { parseUniversalPassData } from '#libs/consumer-space/components/reworked/@MyPasses/UniversalPass/utils';
+import { parsePrivateConsumerPassData } from '#libs/consumer-space/components/reworked/@MyPasses/PrivateConsumerPass/utils';
 import ConsumerPaymentPackCreditStatus from '#libs/consumer-space/components/reworked/common/ConsumerPaymentPackCreditStatus';
-import UniversalPassDetailsCard from '#libs/consumer-space/components/reworked/@MyPasses/UniversalPass/UniversalPassDetailsCard';
+import PrivateConsumerPassDetailsCard from '#libs/consumer-space/components/reworked/@MyPasses/PrivateConsumerPass/PrivateConsumerPassDetailsCard';
 
-import type { UniversalPassReworked } from '#libs/universal-pass/types';
+import type { PrivateConsumerPassReworked } from '#libs/private-service/types';
 
 type Props = {
   handleTogglePassDetailsDrawer: () => void;
   isLoading?: boolean;
   isMetadataLoading?: boolean;
+  isMobile?: boolean;
   isOpen: boolean;
-  selectedPass?: UniversalPassReworked;
+  selectedPass?: PrivateConsumerPassReworked;
 };
 
-const UniversalPassDetailsDrawer: React.FC<Props> = ({
+const PrivateConsumerPassDetailsDrawer: React.FC<Props> = ({
   handleTogglePassDetailsDrawer,
   isLoading,
   isMetadataLoading,
+  isMobile,
   isOpen,
   selectedPass,
 }) => {
-  if (!selectedPass) {
-    return null;
-  }
-
   const {
-    activityCompatibilities,
     appointmentCompatibilities,
     creditsLeft,
-    isCompatibleWithBookingForGuest,
     description,
     expirationDate,
+    isCompatibleWithVod,
     isSuspended,
     isUnlimited,
     name,
     sharedBy,
     sharedWith,
     startDate,
-    timeSlots,
     totalCredits,
-    isCompatibleWithVod,
-  } = parseUniversalPassData(selectedPass);
+  } = parsePrivateConsumerPassData(selectedPass);
 
   return (
     <BottomDrawer
@@ -64,33 +59,31 @@ const UniversalPassDetailsDrawer: React.FC<Props> = ({
         onCancel: handleTogglePassDetailsDrawer,
       }}
     >
-      <UniversalPassDetailsCard
-        isMobile
-        activityCompatibilities={activityCompatibilities}
+      <PrivateConsumerPassDetailsCard
         appointmentCompatibilities={appointmentCompatibilities}
         className={classNames(
-          'bs-universal-pass-details-card__root',
-          'bs-universal-pass-details-card__root--mobile',
+          'bs-private-consumer-pass-details-card__root',
+          'bs-private-consumer-pass-details-card__root--mobile',
         )}
         // TODO: Out of scope, needs product specs
         compatibleEstablishments={null}
         creditsLeft={creditsLeft}
         description={description}
         expirationDate={expirationDate}
-        isCompatibleWithBookingForGuest={isCompatibleWithBookingForGuest}
         isCompatibleWithVod={isCompatibleWithVod}
         isLoading={isLoading || isMetadataLoading}
+        isMobile={isMobile}
         isSuspended={isSuspended}
         isUnlimited={isUnlimited}
         name={name}
         sharedBy={sharedBy}
         sharedWith={sharedWith}
+        showPlaceholder={!selectedPass}
         startDate={startDate}
-        timeSlots={timeSlots}
         totalCredits={totalCredits}
       />
     </BottomDrawer>
   );
 };
 
-export default React.memo(UniversalPassDetailsDrawer);
+export default React.memo(PrivateConsumerPassDetailsDrawer);

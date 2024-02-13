@@ -80,7 +80,7 @@ const defaultArgs: ConsumerPaymentPackDetailsCardProps = {
   isSuspended: false,
   isUnlimited: false,
   name: fakeConsumerPaymentPack.payment_pack.name,
-  mobileVersion: false,
+  isMobile: false,
   restriction: null,
   sharedBy: null,
   sharedWith: null,
@@ -213,7 +213,7 @@ export const MobileVersion = ConsumerPaymentPackDetailsCardMobileTemplate.bind(
 );
 MobileVersion.args = {
   ...defaultArgs,
-  mobileVersion: true,
+  isMobile: true,
 };
 MobileVersion.parameters = mobileParameters;
 
@@ -259,7 +259,7 @@ export default {
       control: 'text',
       description: 'The pass name',
     },
-    mobileVersion: {
+    isMobile: {
       control: 'boolean',
       description:
         'Should wrap the component in a card. Set it true in mobile version',

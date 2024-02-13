@@ -11,9 +11,10 @@ export const parseConsumerPaymentPackData = (
   consumerPaymentPack: ConsumerPaymentPackReworked,
 ): Omit<
   Required<ConsumerPaymentPackDetailsCardProps>,
-  | 'isLoading'
+  | 'className'
   | 'compatibleEstablishments'
-  | 'mobileVersion'
+  | 'isLoading'
+  | 'isMobile'
   | 'showPlaceholder'
   | 'suspensionDate'
 > => {

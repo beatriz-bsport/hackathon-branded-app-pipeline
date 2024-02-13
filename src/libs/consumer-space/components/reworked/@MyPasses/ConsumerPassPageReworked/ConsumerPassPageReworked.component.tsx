@@ -98,6 +98,8 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
     selectedTab,
     selectedFilterTab,
     selectedPass,
+    isConsumerPaymentPackDetailsDrawerOpen,
+    isPrivateConsumerPassDetailsDrawerOpen,
     isUniversalPassDetailsDrawerOpen,
     isPassTabDrawerOpen,
     handleSetSelectedTab,
@@ -149,10 +151,16 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
           handleSetSelectedTab={handleSetSelectedTab}
           handleTogglePassDetailsDrawer={handleTogglePassDetailsDrawer}
           handleTogglePassTabDrawer={handleTogglePassTabDrawer}
+          isConsumerPaymentPackDetailsDrawerOpen={
+            isConsumerPaymentPackDetailsDrawerOpen
+          }
           isLoading={isLoading}
           isMetadataLoading={isMetadataLoading}
           isMobile={isMobile}
           isPassTabDrawerOpen={isPassTabDrawerOpen}
+          isPrivateConsumerPassDetailsDrawerOpen={
+            isPrivateConsumerPassDetailsDrawerOpen
+          }
           isUniversalPassDetailsDrawerOpen={isUniversalPassDetailsDrawerOpen}
           selectedPass={selectedPass}
           selectedPassTab={selectedTab}
@@ -175,6 +183,7 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
             hasNextPage={!!nextPage}
             isLoading={isLoading}
             isMetadataLoading={isMetadataLoading}
+            isMobile={isMobile}
             onPassCardClick={handleSetSelectedPass}
             passList={passList as PrivateConsumerPassReworked[]}
             selectedPass={selectedPass as PrivateConsumerPassReworked}
@@ -186,6 +195,7 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
             hasNextPage={!!nextPage}
             isLoading={isLoading}
             isMetadataLoading={isMetadataLoading}
+            isMobile={isMobile}
             onPassCardClick={handleSetSelectedPass}
             passList={passList as ConsumerPaymentPackReworked[]}
             selectedPass={selectedPass as ConsumerPaymentPackReworked}

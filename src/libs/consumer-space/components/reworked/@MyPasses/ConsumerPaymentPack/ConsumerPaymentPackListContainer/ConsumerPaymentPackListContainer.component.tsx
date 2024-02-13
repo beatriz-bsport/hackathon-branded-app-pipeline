@@ -1,16 +1,24 @@
 import React, { useCallback } from 'react';
+import classNames from 'classnames';
 
 import { GenericInfiniteScrollEnhancedCssOnly } from '#components/InfiniteScroll/GenericInfiniteScrollCssOnly.component';
 import CircularProgress from '#components/css-only/CircularProgress/CircularProgress.component';
 import ConsumerPassCard from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassCard';
-import { ConsumerPaymentPackReworked } from '#libs/consumer-payment-pack/types';
 import ConsumerPaymentPackDetailsCard from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPaymentPack/ConsumerPaymentPackDetailsCard';
+
 import { parseConsumerPaymentPackData } from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPaymentPack/utils';
+import {
+  MY_BOOKINGS_LIST_CONTAINER_HEIGHT,
+  MY_BOOKINGS_MOBILE_LIST_CONTAINER_HEIGHT,
+} from '#libs/consumer-space/components/reworked/@MyBookings/constants';
+
+import type { ConsumerPaymentPackReworked } from '#libs/consumer-payment-pack/types';
 
 // Common stylesheet
 import '#libs/consumer-space/components/reworked/@MyPasses/GenericPass/ListContainer/styles.css';
 
 type Props = {
+  isMobile?: boolean;
   isLoading?: boolean;
   isMetadataLoading?: boolean;
   selectedPass?: ConsumerPaymentPackReworked;
@@ -21,6 +29,7 @@ type Props = {
 };
 
 export const ConsumerPaymentPackListContainer: React.FC<Props> = ({
+  isMobile,
   isLoading,
   isMetadataLoading,
   passList,
@@ -56,12 +65,14 @@ export const ConsumerPaymentPackListContainer: React.FC<Props> = ({
     <div className="bs-consumer-pass-page__content__list-container">
       <ul className="bs-consumer-pass-page__content__list-container__list">
         <GenericInfiniteScrollEnhancedCssOnly<ConsumerPaymentPackReworked>
-          className="bs-consumer-pass-page__content__list-container__list__container"
           fetchMoreData={handlePaginationFetchMore}
           hasMore={hasNextPage}
-          // TODO: height needs to be set to trigger fetchMoreData..
           // @ts-expect-error
-          height="calc(100dvh - 24px - 44px - 42px - 16px - 56px - 16px - 64px)"
+          height={
+            isMobile
+              ? MY_BOOKINGS_MOBILE_LIST_CONTAINER_HEIGHT
+              : MY_BOOKINGS_LIST_CONTAINER_HEIGHT
+          }
           items={passList || []}
           loader={<CircularProgress size="sm" />}
           renderItem={({ item }) => (
@@ -88,6 +99,9 @@ export const ConsumerPaymentPackListContainer: React.FC<Props> = ({
 
       <ConsumerPaymentPackDetailsCard
         activityCompatibilities={activityCompatibilities}
+        className={classNames('bs-consumer-payment-pack-details-card__root', {
+          'bs-consumer-payment-pack-details-card__root--hidden': isMobile,
+        })}
         // TODO: Out of scope, needs product specs
         compatibleEstablishments={null}
         creditsLeft={creditsLeft}
@@ -96,10 +110,9 @@ export const ConsumerPaymentPackListContainer: React.FC<Props> = ({
         isCompatibleWithBookingForGuest={isCompatibleWithBookingForGuest}
         isCompatibleWithVod={isCompatibleWithVod}
         isLoading={isLoading || isMetadataLoading}
+        isMobile={isMobile}
         isSuspended={isSuspended}
         isUnlimited={isUnlimited}
-        // TODO
-        mobileVersion={null}
         name={name}
         restriction={restriction}
         sharedBy={sharedBy}

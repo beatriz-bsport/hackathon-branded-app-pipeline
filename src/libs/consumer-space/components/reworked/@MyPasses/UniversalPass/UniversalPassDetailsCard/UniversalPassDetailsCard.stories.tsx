@@ -222,7 +222,7 @@ isExpired.args = {
 export const MobileVersion = UniversalPassDetailsCardMobileTemplate.bind({});
 MobileVersion.args = {
   ...defaultArgs,
-  mobileVersion: true,
+  isMobile: true,
 };
 MobileVersion.parameters = mobileParameters;
 

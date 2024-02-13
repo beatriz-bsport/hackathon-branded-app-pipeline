@@ -6,6 +6,19 @@
   overflow: auto;
 }
 
+.bs-private-consumer-pass-details-card__root--hidden {
+  display: none;
+}
+
+.bs-private-consumer-pass-details-card__root--mobile {
+  padding: 0;
+}
+
+.bs-private-consumer-pass-details-card__root--mobile
+  .bs-private-consumer-pass-details-card__header__list__item {
+  padding-top: 0;
+}
+
 /* ------ HEADER SECTION ------ */
 
 .bs-private-consumer-pass-details-card__header__root {

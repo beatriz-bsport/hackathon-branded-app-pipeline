@@ -6,6 +6,19 @@
   overflow: auto;
 }
 
+.bs-consumer-payment-pack-details-card__root--hidden {
+  display: none;
+}
+
+.bs-consumer-payment-pack-details-card__root--mobile {
+  padding: 0;
+}
+
+.bs-consumer-payment-pack-details-card__root--mobile
+  .bs-consumer-payment-pack-details-card__header__list__item {
+  padding-top: 0;
+}
+
 /* ------ HEADER SECTION ------ */
 
 .bs-consumer-payment-pack-details-card__header__root {

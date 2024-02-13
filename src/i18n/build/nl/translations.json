@@ -246,7 +246,20 @@
                         "with": "Gedeeld met",
                         "by": "Gedeeld door"
                     }
-                }
+                },
+                "bookASession": "Boek een sessie",
+                "buyANewPass": "Koop een nieuwe leskaart",
+                "filters": {
+                    "future": "Toekomst",
+                    "expired": "Verlopen",
+                    "active": "Actief"
+                },
+                "tab": {
+                    "universal": "Universeel",
+                    "appointment": "Afspraken",
+                    "activity": "Activiteiten"
+                },
+                "title": "Mijn leskaarten"
             },
             "myBookings": {
                 "spotSchedulingModal": {
@@ -382,10 +395,42 @@
                 "chooseBookingType": "Kies type boeking"
             },
             "placeholderCard": {
-                "myBookings": "Selecteer een sessie om meer details weer te geven."
+                "myBookings": "Selecteer een sessie om meer details weer te geven.",
+                "myPasses": "Kies een pas om meer details te zien",
+                "mySubscriptions": "Kies een abonnement voor meer informatie"
             },
             "showLess": "Toon minder",
-            "showMore": "Toon meer"
+            "showMore": "Toon meer",
+            "mySubscriptions": {
+                "consumerSubscriptionCardDetails": {
+                    "headerListItemLabels": {
+                        "nextPayment": "Volgende betaling"
+                    },
+                    "buttonsLabel": {
+                        "see": "Zie"
+                    },
+                    "termsAccepted": "Geaccepteerd op {{ termsDate }}",
+                    "terms": "Voorwaarden",
+                    "description": "Beschrijving"
+                },
+                "consumerSubscriptionCard": {
+                    "buttonsLabel": {
+                        "seeDetails": "Zie details"
+                    },
+                    "recurrenceLabelEvery": "{{ price }}{{ currency }} iedere {{ recurrence }}{{ interval }}",
+                    "recurrenceLabelPer": "{{ price }}{{ currency }}{{ interval }}"
+                },
+                "headerButtonsLabel": {
+                    "getSubscription": "Neem een abonnement",
+                    "bookASession": "Boek een sessie"
+                },
+                "tab": {
+                    "expired": "Verlopen",
+                    "future": "Niet gestart",
+                    "active": "Actief"
+                },
+                "title": "Mijn abonnementen"
+            }
         }
     },
     "notificationRule": {
@@ -3512,7 +3557,8 @@
             "9": "Interne rekening (Wallet)",
             "0": "Kaart",
             "70": "BACS Direct Debit"
-        }
+        },
+        "readPermissionDenied": "Toegang geweigerd"
     },
     "alerting": {
         "list": {
@@ -15922,7 +15968,7 @@
             },
             "service": {
                 "calendar": "Agenda",
-                "general": "Algmeen"
+                "general": "Algemeen"
             },
             "establishment": {
                 "location": "Locatie",

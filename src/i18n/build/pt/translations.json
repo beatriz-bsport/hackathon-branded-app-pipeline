@@ -2324,7 +2324,20 @@
                         "with": "Partilhado com",
                         "by": "Partilhado por"
                     }
-                }
+                },
+                "bookASession": "Reservar uma sessão",
+                "buyANewPass": "Comprar um novo passe",
+                "filters": {
+                    "future": "Futuro",
+                    "expired": "Expirado",
+                    "active": "Ativo"
+                },
+                "tab": {
+                    "universal": "Universal",
+                    "appointment": "Aulas Privadas",
+                    "activity": "Atividades"
+                },
+                "title": "Meus Passes"
             },
             "myBookings": {
                 "spotSchedulingModal": {
@@ -2460,10 +2473,42 @@
                 "chooseBookingType": "Selecionar o tipo de reserva"
             },
             "placeholderCard": {
-                "myBookings": "Seleccione uma sessão para ver mais detalhes"
+                "myBookings": "Seleccione uma sessão para ver mais detalhes",
+                "myPasses": "Escolha um passe para ver mais detalhes",
+                "mySubscriptions": "Escolha uma subscrição para ver mais detalhes"
             },
             "showLess": "Mostrar menos",
-            "showMore": "Mostrar mais"
+            "showMore": "Mostrar mais",
+            "mySubscriptions": {
+                "consumerSubscriptionCardDetails": {
+                    "headerListItemLabels": {
+                        "nextPayment": "Próximo pagamento"
+                    },
+                    "buttonsLabel": {
+                        "see": "Ver"
+                    },
+                    "termsAccepted": "Aceito em {{ termsDate }}",
+                    "terms": "Termos",
+                    "description": "Descrição"
+                },
+                "consumerSubscriptionCard": {
+                    "buttonsLabel": {
+                        "seeDetails": "Ver detalhes"
+                    },
+                    "recurrenceLabelEvery": "{{ price }}{{ currency }} toda {{ recurrence }}{{ interval }}",
+                    "recurrenceLabelPer": "{{ price }}{{ currency }}{{ interval }}"
+                },
+                "headerButtonsLabel": {
+                    "getSubscription": "Obter uma subscrição",
+                    "bookASession": "Reservar uma sessão"
+                },
+                "tab": {
+                    "expired": "Expirado",
+                    "future": "Não iniciado",
+                    "active": "Ativo"
+                },
+                "title": "As minhas subscrições"
+            }
         }
     },
     "coupon": {
@@ -5078,7 +5123,7 @@
                 "form": "Formulário",
                 "form_plural": "Formulários ({{number}})",
                 "relation": "Relacionamento",
-                "relation_plural": "Relationships{{number}}",
+                "relation_plural": "Relacionamentos {{number}}",
                 "contact": "Contato",
                 "contact_plural": "Contatos({{number}})",
                 "bookings": "Reserva",
@@ -8978,7 +9023,8 @@
             "average": "Média",
             "total": "Total"
         },
-        "search": "Procurar um relatório"
+        "search": "Procurar um relatório",
+        "readPermissionDenied": "Acesso recusado"
     },
     "snackbar": {
         "subscription": {
@@ -8990,7 +9036,7 @@
                     "63003": "Impossível: Não é permitido alterar as packs partilhadas entre franchisados"
                 },
                 "privatePass": {
-                    "63003": "Impossível : A alteração dos passes de marcação partilhados entre franchisados não é autorizada"
+                    "63003": "Impossível : A alteração dos passes de aula privada partilhados entre franchisados não é autorizada"
                 }
             },
             "switchPaymentCombo": {
@@ -11168,9 +11214,9 @@
                 },
                 "pleaseSelectCoachAndSlot": "Primeiro, seleccione o professor e a sessão",
                 "compatiblePrivateConsumerPass": "Data em que os passes foram adquiridos :",
-                "nonCompatiblePrivateConsumerPass": "Passes de marcação não compatíveis :",
+                "nonCompatiblePrivateConsumerPass": "Não compatível com os passes de aula privada possuídos",
                 "compatiblePrivatePass": "Faturar um passe de marcação",
-                "noUncompatiblePassToDisplay": "Sem passes de marcação não compatíveis",
+                "noUncompatiblePassToDisplay": "Sem passes de aulas privadas  não compatíveis",
                 "cancel": "Cancelar",
                 "privateConsumerPassNeedRefresh": "Atualizar lista"
             },
@@ -12460,9 +12506,9 @@
                 }
             },
             "27": {
-                "info": "Os passes de aulas e os passes de marcação bloqueados também são tidos em conta",
-                "second": "passes de aulas ou passes de marcação válidos atualmente. Entre",
-                "explanation": "X número de passes de aulas o ou de passes de marcação válidos",
+                "info": "Os passes de aulas e os passes de aula privada bloqueados também são tidos em conta",
+                "second": "passes de aulas ou passes de aula privada válidos atualmente. Entre",
+                "explanation": "X número de passes de aulas o ou de passes de aula privada válidos",
                 "between": "e",
                 "third": "ou",
                 "name": "Passes válidos",
@@ -12682,7 +12728,7 @@
                 "helperAllSelectedText": "todos os passes de marcação",
                 "textFieldPlaceholder": "Procurar um passe de marcação",
                 "helperText": "selecionar os passes de marcação",
-                "helperSelectedText": "passes de marcação selecionados"
+                "helperSelectedText": "passes de aula privada selecionados"
             },
             "metaActivities": {
                 "helperAllSelectedText": "todas as atividades",

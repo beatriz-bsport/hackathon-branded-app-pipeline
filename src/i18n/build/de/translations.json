@@ -6451,7 +6451,8 @@
             "2": "Ausstehend",
             "1": "Fehlgeschlagen",
             "0": "Erfolgreich"
-        }
+        },
+        "readPermissionDenied": "Zutritt verweigert"
     },
     "snackbar": {
         "establishment": {
@@ -11856,7 +11857,20 @@
                         "unlimited": "Unbegrenzt",
                         "credits": "{{ creditsLeft }}/{{ totalCredits }} Credits"
                     }
-                }
+                },
+                "bookASession": "Kurs buchen",
+                "buyANewPass": "Neuen Kurspass kaufen",
+                "filters": {
+                    "future": "Zukunft",
+                    "expired": "Abgelaufen",
+                    "active": "Aktiv"
+                },
+                "tab": {
+                    "universal": "Universell",
+                    "appointment": "Termine",
+                    "activity": "Aktivitäten"
+                },
+                "title": "Meine Pässe"
             },
             "myBookings": {
                 "spotSchedulingModal": {
@@ -11992,10 +12006,42 @@
                 "chooseBookingType": "Buchungsart wählen"
             },
             "placeholderCard": {
-                "myBookings": "Wählen Sie einen Kurs aus um mehr Details zu sehen"
+                "myBookings": "Wählen Sie einen Kurs aus um mehr Details zu sehen",
+                "myPasses": "Wählen Sie einen Pass, um weitere Details zu sehen",
+                "mySubscriptions": "Wählen Sie ein Abonnement, um weitere Details zu sehen"
             },
             "showLess": "Weniger anzeigen",
-            "showMore": "Mehr anzeigen"
+            "showMore": "Mehr anzeigen",
+            "mySubscriptions": {
+                "consumerSubscriptionCardDetails": {
+                    "headerListItemLabels": {
+                        "nextPayment": "Nächste Zahlung"
+                    },
+                    "buttonsLabel": {
+                        "see": "Ansehen"
+                    },
+                    "termsAccepted": "Akzeptiert am {{ termsDate }}",
+                    "terms": "Allgemeine Geschäftsbedingungen",
+                    "description": "Beschreibung"
+                },
+                "consumerSubscriptionCard": {
+                    "buttonsLabel": {
+                        "seeDetails": "Details ansehen"
+                    },
+                    "recurrenceLabelEvery": "{{ price }}{{ currency }} alle {{ recurrence }} {{ interval }}",
+                    "recurrenceLabelPer": "{{ price }}{{ currency }}/{{ interval }}"
+                },
+                "headerButtonsLabel": {
+                    "getSubscription": "Ein Abonnement abschließen",
+                    "bookASession": "Kurs buchen"
+                },
+                "tab": {
+                    "expired": "Abgelaufen",
+                    "future": "Nicht gestartet",
+                    "active": "Aktiv"
+                },
+                "title": "Meine Abonnements"
+            }
         }
     },
     "metaActivity": {

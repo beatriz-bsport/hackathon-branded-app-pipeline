@@ -20,7 +20,7 @@
                 "autoDiscard": {
                     "hours_before_start": "Ora(e) prima della sessione:",
                     "min_bookings_nb": "Numero di prenotazione(i):",
-                    "explain": "Annullare le sessioni con meno di {{bookings_nb}} prenotazione(i) {{hours}} ore prima dell'inizio della sessione. I membri che avevano prenotato questa sessione saranno informati che la sessione è stata annullata.",
+                    "explain": "Annullare le sessioni con {{bookings_nb}} prenotazione(i) o meno, {{hours}} ore prima dell'inizio della sessione. I membri che avevano prenotato questa sessione saranno informati che la sessione è stata annullata.",
                     "emailRecipients": "Questa email verrà inviata agli account con ruolo Proprietario o Amministratore, nonché all'insegnante (o insegnante supplente) della sessione in questione. Puoi anche configurare un'e-mail da inviare agli studenti.",
                     "checkbox": "Annullare le sessioni con poche prenotazioni"
                 }
@@ -1777,7 +1777,9 @@
                 "chooseBookingType": "Seleziona il tipo di prenotazione"
             },
             "placeholderCard": {
-                "myBookings": "Scegli una sessione per vedere maggiori dettagli"
+                "myBookings": "Scegli una sessione per vedere maggiori dettagli",
+                "myPasses": "Seleziona un pacchetto per vedere più dettagli",
+                "mySubscriptions": "Scegli un abbonamento ricorrente per vedere maggiori dettagli"
             },
             "showLess": "Mostra di meno",
             "showMore": "Mostra di più",
@@ -1860,7 +1862,50 @@
                         "with": "Condiviso con",
                         "by": "Condiviso da"
                     }
-                }
+                },
+                "bookASession": "Prenota una sessione",
+                "buyANewPass": "Compra un nuovo pacchetto",
+                "filters": {
+                    "future": "Futuro",
+                    "expired": "Scaduto",
+                    "active": "Attiva"
+                },
+                "tab": {
+                    "universal": "Universali",
+                    "appointment": "Appuntamenti",
+                    "activity": "Attività"
+                },
+                "title": "I miei pacchetti"
+            },
+            "mySubscriptions": {
+                "consumerSubscriptionCard": {
+                    "recurrenceLabelEvery": "{{ price }}{{ currency }} ogni {{ recurrence }} {{ interval }}",
+                    "buttonsLabel": {
+                        "seeDetails": "Vedi dettagli"
+                    },
+                    "recurrenceLabelPer": "{{ price }}{{ currency }}/{{ interval }}"
+                },
+                "consumerSubscriptionCardDetails": {
+                    "headerListItemLabels": {
+                        "nextPayment": "Prossimo pagamento"
+                    },
+                    "buttonsLabel": {
+                        "see": "Vedi"
+                    },
+                    "termsAccepted": "Accettati in data {{ termsDate }}",
+                    "terms": "Termini",
+                    "description": "Descrizione"
+                },
+                "headerButtonsLabel": {
+                    "getSubscription": "Ottieni un abbonamento ricorrente",
+                    "bookASession": "Prenota una sessione"
+                },
+                "tab": {
+                    "expired": "Scaduta",
+                    "future": "Non iniziata",
+                    "active": "Attiva"
+                },
+                "title": "I miei abbonamenti ricorrenti"
             }
         }
     },
@@ -8366,7 +8411,8 @@
             "9": "Credito cliente",
             "0": "Carta di credito",
             "70": "BACS Direct Debit"
-        }
+        },
+        "readPermissionDenied": "Accesso negato"
     },
     "alerting": {
         "unevenInvoice": {

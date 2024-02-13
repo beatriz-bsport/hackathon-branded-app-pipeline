@@ -10179,7 +10179,7 @@
                     },
                     "register": "Guardar",
                     "franchisees": {
-                        "warning": "Selecciona a qué franquicias tendrán acceso esta cuenta de personal. Dejar en blanco para dar acceso a todas las franquicias.",
+                        "warning": "Seleccione qué franquiciados tendrán acceso a esta cuenta de personal. Déjelo en blanco para dar acceso a todos los franquiciados.",
                         "title": "Acceso franquicias"
                     },
                     "generalInfo": {

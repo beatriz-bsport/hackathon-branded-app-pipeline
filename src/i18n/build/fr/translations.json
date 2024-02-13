@@ -511,7 +511,7 @@
                 "seeMore": "Voir plus"
             },
             "choosePass": "Choisir une carte de cours",
-            "buyPass": "Acheter une carte de cours",
+            "buyPass": "Acheter une nouvelle carte de cours",
             "buyNewPass": "Acheter une nouvelle carte de cours",
             "myPasses": "Ma carte de cours",
             "myPasses_plural": "Mes cartes de cours",
@@ -1014,7 +1014,7 @@
         "bonus": "Bonus",
         "checkboxIncludeABonus": "Inclure un bonus à la performance",
         "bookingThresholdLabel": "Minimum de réservation",
-        "bookingThresholdHelper": "Une séance ne sera comptabilisée que si elle totalise ce nombre de réservation",
+        "bookingThresholdHelper": "Une séance ne sera comptabilisée que si elle totalise ce nombre de réservations",
         "pricePerAdditionalBookingLabel": "Variable par réservation",
         "pricePerAdditionalBookingHelper": "Montant reversé pour toute réservation au-dessus de la limite",
         "fixedPriceForAdditionalBookingLabel": "Fixe par séance",
@@ -1747,7 +1747,20 @@
                         "with": "Partagée avec",
                         "by": "Partagée par"
                     }
-                }
+                },
+                "bookASession": "Réserver une séance",
+                "buyANewPass": "Acheter une nouvelle carte de cours",
+                "filters": {
+                    "future": "Future",
+                    "expired": "Expirée",
+                    "active": "Active"
+                },
+                "tab": {
+                    "universal": "Universelle",
+                    "appointment": "Rendez-vous",
+                    "activity": "Activités"
+                },
+                "title": "Mes cartes de cours"
             },
             "myBookings": {
                 "spotSchedulingModal": {
@@ -1883,10 +1896,42 @@
                 "chooseBookingType": "Choisissez le type de réservation"
             },
             "placeholderCard": {
-                "myBookings": "Choisissez une séance pour en savoir plus"
+                "myBookings": "Choisissez une séance pour en savoir plus",
+                "myPasses": "Choisissez une carte de cours pour plus de détails",
+                "mySubscriptions": "Choisissez un abonnement pour plus de détails"
             },
             "showLess": "Voir moins",
-            "showMore": "Voir plus"
+            "showMore": "Voir plus",
+            "mySubscriptions": {
+                "consumerSubscriptionCardDetails": {
+                    "headerListItemLabels": {
+                        "nextPayment": "Prochain paiement"
+                    },
+                    "buttonsLabel": {
+                        "see": "Voir"
+                    },
+                    "termsAccepted": "Acceptées le {{ termsDate }}",
+                    "terms": "Mentions légales",
+                    "description": "Description"
+                },
+                "consumerSubscriptionCard": {
+                    "buttonsLabel": {
+                        "seeDetails": "Voir détails"
+                    },
+                    "recurrenceLabelEvery": "{{ price }}{{ currency }} tous les {{ recurrence }}{{ interval }}",
+                    "recurrenceLabelPer": "{{ price }}{{ currency }}/{{ interval }}"
+                },
+                "headerButtonsLabel": {
+                    "getSubscription": "Souscrire un abonnement",
+                    "bookASession": "Réserver une séance"
+                },
+                "tab": {
+                    "expired": "Expirée",
+                    "future": "Non démarrée",
+                    "active": "Active"
+                },
+                "title": "Mes souscriptions"
+            }
         }
     },
     "coupon": {
@@ -6689,7 +6734,7 @@
                         "partnership": {
                             "title": "Marketplace",
                             "availableOnPartnership": "Sur les marketplaces (ClassPass, OneFit...)",
-                            "partnerMaxBookingCount": "Nombre maximum de réservation marketplace (OneFit + Urban Sports Club uniquement)",
+                            "partnerMaxBookingCount": "Nombre maximum de réservations marketplace (OneFit + Urban Sports Club uniquement)",
                             "uscIntegrationWarning": "Votre intégration à la marketplace Urban Sports Club est active, toute séance débordant sur 2 jours ou plus n'y apparaîtra pas.",
                             "uscIntegrationWorkshopWarning": "Les ateliers ne sont pas compatibles avec la marketplace Urban Sports Club, cette séance n'y appraîtra pas."
                         },
@@ -7781,7 +7826,7 @@
             "limited": "Limité",
             "unlimited": "Illimité",
             "credit": "Crédit",
-            "numberOfAvailableCredits": "Nombre de crédits disponible",
+            "numberOfAvailableCredits": "Nombre de crédits disponibles",
             "packValidity": "Validité de la carte",
             "penality": "Appliquer une pénalite en cas d’annulations hors délai trop nombreuses",
             "penalityRule": "Vous pouvez appliquer une pénalité uniquement si le nombre de crédits est illimité",
@@ -9954,9 +9999,9 @@
             "payout_identifier": "Virement",
             "recurrent_price": "Montant",
             "private_service_name": "Rendez-vous",
-            "nb_bookings": "Nombre de réservation",
+            "nb_bookings": "Nombre de réservations",
             "universal_nb_bookings": "Nombre de réservations (cours collectifs)",
-            "universal_nb_private_bookings": "Nombre de réservation (RDV)",
+            "universal_nb_private_bookings": "Nombre de réservations (RDV)",
             "stock_at_start": "Stock en début de période",
             "nb_canceled": "Nombre d'annulation",
             "stock_at_end": "Stock en fin de période",
@@ -10009,7 +10054,7 @@
             "disabled": "Annulé",
             "nb_non_attendance": "Absents",
             "sum_margin_value": "Apport marginal TTC",
-            "nb_bookings_same_pass": "Nb résa via même pass",
+            "nb_bookings_same_pass": "Nb réservations avec la même carte",
             "checkout_items": "Contenu du panier",
             "credit_consumed": "Crédit consommé",
             "credit_amount": "Montant des crédits",
@@ -10039,19 +10084,19 @@
             "product": "Produit",
             "product_names": "Produits",
             "product_type": "Type de produit",
-            "start_date": "Date complète de début",
+            "start_date": "Début de validité",
             "start_date_date": "Date de début",
             "start_date_time": "Heure de début",
             "price": "Prix",
             "payment_price": "Prix",
             "membership_duration": "Durée de validité",
             "membership_name": "Abonnement",
-            "membership_ID": "ID member",
+            "membership_ID": "ID Membre",
             "pk": "ID",
             "amortized_price": "PCA TTC",
             "end_date": "Fin de validité",
             "credits": "Crédits totaux",
-            "available_credits": "Crédits disponible PCA",
+            "available_credits": "Crédits restants PCA",
             "payment_method_readable_identifier": "Méthode de paiement",
             "note": "Note",
             "address": "Adresse",
@@ -10216,7 +10261,7 @@
             "referring_member_last_name": "Nom membre parrain",
             "referring_member_pk": "ID Membre parrain",
             "referring_member_total_reward": "Récompense reçue par le membre parrain",
-            "remaining_credits_annotated": "Crédit restant aujourd'hui",
+            "remaining_credits_annotated": "Crédits restants aujourd'hui",
             "roll_call_needs_validation": "L'appel doit être validé",
             "selectAll": "Tout sélectionner",
             "staff_commission_amount": "Frais de commission du staff TTC",
@@ -10557,7 +10602,8 @@
             "invoices": "Les achats sont filtrés sur la date d'émission de la facture associée.",
             "invoicesAccrualMethodLink": "https://intercom.help/bsport-helpcenter/articles/8320705",
             "invoicesAccrualMethod": "Ce rapport affiche les achats sur la base de la méthode de comptabilité d'exercice. En d'autres termes, les transferts d'argent vers le solde client et les achats de cartes-cadeaux ne sont pas inclus. <0> Voir notre fiche d'aide pour plus d'informations.</0> Pour suivre les achats de carte cadeaux, utilisez le rapport {{ purchasedGiftcardReport }}."
-        }
+        },
+        "readPermissionDenied": "Accès refusé"
     },
     "role": {
         "pageTitle": "Staff",
@@ -15628,7 +15674,7 @@
                 "checkBalance": {
                     "checkbox": "Limiter le déséquilibre FEMME/HOMME des réservations (danse...)",
                     "numberCheck": {
-                        "placeholder": "Contrôler le déséquilibre FEMME/HOMME lorsque le nombre de réservation dépasse",
+                        "placeholder": "Contrôler le déséquilibre FEMME/HOMME lorsque le nombre de réservations dépasse",
                         "helperText": "Lorsque plus de {{ number }} personnes réservent une séance, toute réservation supplémentaire ne sera acceptée que si le déséquilbire FEMME/HOMME est inférieur à la valeur suivante."
                     },
                     "shiftRatio": {
@@ -16262,7 +16308,7 @@
             "nonAttendant": "absent(s)",
             "maxBookingsNb": "places",
             "effectif": "Effectif",
-            "partner_max_booking_count": "Nombre maximum de réservation marketplace (OneFit uniquement)",
+            "partner_max_booking_count": "Nombre maximum de réservations marketplace (OneFit uniquement)",
             "broadcast_link": "Lien de la visioconférence",
             "sizeOfWaitingList": "Taille de la liste d'attente",
             "offersPendingChange": "Séances qui seront modifiées :",
@@ -16312,7 +16358,7 @@
         "form": {
             "modify": "Modifier",
             "waiting_list_max_size": "Taille de la liste d'attente",
-            "partner_max_booking_count": "Nombre maximum de réservation marketplace (OneFit uniquement)",
+            "partner_max_booking_count": "Nombre maximum de réservations marketplace (OneFit uniquement)",
             "explainNoEmailChange": "Changer l'email empêchera le professeur de se connecter, lui seul peut modifier son email en se connectant à son compte bsport",
             "signUpTitle": "Inscription",
             "noAvailableCredit": "Attention, vous n'êtes pas en train de saisir un prix. Êtes-vous sûr de la valeur ?",

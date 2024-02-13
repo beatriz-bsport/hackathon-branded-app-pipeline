@@ -5050,7 +5050,7 @@
                     },
                     "register": "Save",
                     "franchisees": {
-                        "warning": "Select which franchisees will have access to this staff account. Leave empty to give access to all franchisees.",
+                        "warning": "Select which franchisees this staff account will have access to. Leave empty to give access to all franchisees.",
                         "title": "Franchisees access"
                     },
                     "generalInfo": {
@@ -17396,7 +17396,7 @@
         },
         "staff": {
             "roleTabTitle": "Roles",
-            "explainStaff": "With the staff access of the master account, select which franchisees have access to your staffs and which actions they can perform in them. The staff access does not allow to connect to the mobile application.",
+            "explainStaff": "With the staff access of the master account, select which franchisees your staffs will have access to and which actions they can perform in them. The staff access does not allow to connect to the mobile application.",
             "staffAccountTabTitle": "Staff accounts"
         },
         "genericProduct": {

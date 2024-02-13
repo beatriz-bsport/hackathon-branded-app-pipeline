@@ -356,10 +356,14 @@ exports.default = {
       paymentModalAlert:
         'If no payment method is saved a debt will be automatically created on your internal account for each payment',
       changePaymentMethod: 'Change payment method',
+      paymentMethodUpdatedTitle: 'Payment method updated',
+      paymentMethodUpdatedContent:
+        'Your payment method has been successfully updated',
       headerButtonsLabel: {
         bookASession: 'Book a session',
         getSubscription: 'Get a subscription',
       },
+      close: 'Close',
       consumerSubscriptionCard: {
         nextPayment: 'Next payment: {{- nextPayment }}',
         recurrenceLabelPer: '{{ price }}{{ currency }}/{{ interval }}',

@@ -8,6 +8,8 @@ import Blanket from '#Fabrique/Blanket';
 import Alert from '#Fabrique/Alert';
 import { PortalContainer } from '#Fabrique/PortalContainer';
 import BottomDrawer from '#Fabrique/BottomDrawer';
+import BigIcon from '#Fabrique/BigIcon';
+import Typography from '#Fabrique/Typography';
 
 import MarketplaceSubscriptionPayment from '#libs/checkout/components/new-checkout-flow/SubscriptionPayment/SubscriptionPayment.component';
 import { getMarketplaceEnabledPaymentMethods } from '#libs/payment/utils';
@@ -29,6 +31,7 @@ type ContentProps = {
   >;
   selectedPaymentMethodId: string | null;
   setSelectedSavedPaymentMethod: React.Dispatch<React.SetStateAction<string>>;
+  switchSucceeded: boolean;
 };
 
 type ModalProps = {
@@ -44,9 +47,13 @@ type ModalProps = {
 };
 
 type Props = ModalProps &
-  Omit<
-    ContentProps,
-    'selectedPaymentMethodId' | 'setSelectedSavedPaymentMethod'
+  Required<
+    Omit<
+      ContentProps,
+      | 'selectedPaymentMethodId'
+      | 'setSelectedSavedPaymentMethod'
+      | 'switchSucceeded'
+    >
   >;
 
 const ConsumerSubscriptionPaymentContent: React.FC<ContentProps> = ({
@@ -61,8 +68,25 @@ const ConsumerSubscriptionPaymentContent: React.FC<ContentProps> = ({
   requestSetupIntentSecret,
   selectedPaymentMethodId,
   setSelectedSavedPaymentMethod,
+  switchSucceeded,
 }) => {
   const { t } = useTranslation('consumerSpace');
+
+  if (switchSucceeded) {
+    return (
+      <div className="bs-consumer__subscription__payment__confirmation-dialog__content">
+        <BigIcon variant="success" />
+        <div className="bs-consumer__subscription__payment__confirmation-dialog__content__text">
+          <Typography align="center" variant="title-sm">
+            {t('reworked.mySubscriptions.paymentMethodUpdatedTitle')}
+          </Typography>
+          <Typography align="center" variant="body-md">
+            {t('reworked.mySubscriptions.paymentMethodUpdatedContent')}
+          </Typography>
+        </div>
+      </div>
+    );
+  }
   return (
     <>
       <Alert
@@ -115,6 +139,8 @@ const ConsumerSubscriptionPaymentModal: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation('consumerSpace');
 
+  const [switchSucceeded, setSwitchSucceeded] = React.useState(false);
+
   const [selectedPaymentMethodId, setSelectedSavedPaymentMethod] =
     React.useState<string | null>(null);
 
@@ -125,28 +151,25 @@ const ConsumerSubscriptionPaymentModal: React.FC<Props> = ({
       );
   }, [selectedSubscription]);
 
+  const handleClose = React.useCallback(() => {
+    onClose();
+    setSwitchSucceeded(false);
+  }, [onClose]);
+
   const handleConfirm = React.useCallback(
     () =>
       switchPaymentMethod(selectedSubscription?.id, selectedPaymentMethodId, {
         onSuccess: () => {
-          onClose();
-        },
-        onError: () => {
-          onClose();
+          setSwitchSucceeded(true);
         },
       }),
-    [
-      onClose,
-      switchPaymentMethod,
-      selectedSubscription,
-      selectedPaymentMethodId,
-    ],
+    [switchPaymentMethod, selectedSubscription, selectedPaymentMethodId],
   );
 
   if (isMobile) {
     return (
       <BottomDrawer
-        blanketProps={{ isOpen, onClick: onClose }}
+        blanketProps={{ isOpen, onClick: handleClose }}
         className="bs-consumer-booking-details-drawer__root"
         modalDialogProps={{
           classes: {
@@ -158,9 +181,11 @@ const ConsumerSubscriptionPaymentModal: React.FC<Props> = ({
             : t(
                 'reworked.mySubscriptions.consumerSubscriptionCard.buttonsLabel.addPaymentMethod',
               ),
-          onClose,
-          onCancel: onClose,
-          onConfirm: selectedSubscription ? handleConfirm : null,
+          onClose: handleClose,
+          onCancel: handleClose,
+          onConfirm:
+            !switchSucceeded && selectedSubscription ? handleConfirm : null,
+          cancelLabel: switchSucceeded && t('reworked.mySubscriptions.close'),
         }}
       >
         <ConsumerSubscriptionPaymentContent
@@ -177,6 +202,7 @@ const ConsumerSubscriptionPaymentModal: React.FC<Props> = ({
           requestSetupIntentSecret={requestSetupIntentSecret}
           selectedPaymentMethodId={selectedPaymentMethodId}
           setSelectedSavedPaymentMethod={setSelectedSavedPaymentMethod}
+          switchSucceeded={switchSucceeded}
         />
       </BottomDrawer>
     );
@@ -186,13 +212,16 @@ const ConsumerSubscriptionPaymentModal: React.FC<Props> = ({
       <Blanket
         className="bs-consumer__subscription__blanket"
         isOpen={isOpen}
-        onClick={onClose}
+        onClick={handleClose}
       >
         <ModalDialog
+          cancelLabel={switchSucceeded && 'Close'}
           isSubmitLoading={!selectedPaymentMethodId}
-          onCancel={onClose}
-          onClose={selectedSubscription && onClose}
-          onConfirm={selectedSubscription ? handleConfirm : null}
+          onCancel={handleClose}
+          onClose={selectedSubscription && handleClose}
+          onConfirm={
+            !switchSucceeded && selectedSubscription ? handleConfirm : null
+          }
           title={
             selectedSubscription?.stripe_payment_method_id
               ? t('reworked.mySubscriptions.changePaymentMethod')
@@ -215,6 +244,7 @@ const ConsumerSubscriptionPaymentModal: React.FC<Props> = ({
             requestSetupIntentSecret={requestSetupIntentSecret}
             selectedPaymentMethodId={selectedPaymentMethodId}
             setSelectedSavedPaymentMethod={setSelectedSavedPaymentMethod}
+            switchSucceeded={switchSucceeded}
           />
         </ModalDialog>
       </Blanket>

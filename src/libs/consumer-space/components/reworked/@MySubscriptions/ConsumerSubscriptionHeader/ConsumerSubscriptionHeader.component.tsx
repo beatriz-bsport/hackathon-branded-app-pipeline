@@ -7,11 +7,13 @@ import ConsumerGenericHeader from '#libs/consumer-space/components/reworked/comm
 import type { ButtonColor, ButtonVariant } from '#Fabrique/ButtonV2/types';
 
 type Props = {
+  isMobile: boolean;
   onBookSessionClick: () => void;
   onGetASubscriptionClick: () => void;
 };
 
 export const ConsumerSubscriptionHeader: React.FC<Props> = ({
+  isMobile,
   onBookSessionClick,
   onGetASubscriptionClick,
 }) => {
@@ -20,7 +22,7 @@ export const ConsumerSubscriptionHeader: React.FC<Props> = ({
 
   const headerButtons = React.useMemo(
     () =>
-      isWidget
+      isWidget || isMobile
         ? []
         : [
             {
@@ -43,7 +45,7 @@ export const ConsumerSubscriptionHeader: React.FC<Props> = ({
               color: 'primary' as ButtonColor,
             },
           ],
-    [isWidget, onGetASubscriptionClick, onBookSessionClick, t],
+    [isWidget, onGetASubscriptionClick, onBookSessionClick, t, isMobile],
   );
 
   return (

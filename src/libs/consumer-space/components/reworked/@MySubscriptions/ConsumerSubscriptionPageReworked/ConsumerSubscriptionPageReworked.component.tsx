@@ -176,6 +176,7 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
       classes={{ children: 'bs-consumer__subscription-page__root' }}
     >
       <ConsumerSubscriptionHeader
+        isMobile={isMobile}
         onBookSessionClick={onBookSessionClick}
         onGetASubscriptionClick={onGetASubscriptionClick}
       />

@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { pure } from 'recompose';
 
@@ -11,11 +11,56 @@ import { getGroupOptionsForSelect } from '../utils';
 
 export type Props = {
   customLevels: Level[];
-  selectedLevels: number[] | null;
+  selectedLevels: number[];
   inScrollBar?: boolean;
   error?: boolean;
   onSelect: (levelId: number[]) => void;
 };
+
+const ChipRendererComponent = React.memo(
+  ({
+    customLevels,
+    data,
+    onDelete,
+  }: {
+    customLevels: Level[];
+    data: { value: number; label: string };
+    onDelete: () => void;
+  }) => {
+    const customLevel = useMemo(
+      () => customLevels.find((level) => level.id === data.value),
+      [customLevels, data],
+    );
+
+    return (
+      <LevelComponent
+        isChip
+        showVoid
+        customLevel={customLevel}
+        onRemove={onDelete}
+      />
+    );
+  },
+);
+
+const ItemsRendererComponent = React.memo(
+  ({
+    customLevels,
+    data,
+    isSelected,
+  }: {
+    customLevels: Level[];
+    data: { value: number; label: string };
+    isSelected: boolean;
+  }) => {
+    const customLevel = useMemo(
+      () => customLevels.find((level) => level.id === data.value),
+      [customLevels, data],
+    );
+
+    return <LevelMenuItem isSelected={isSelected} level={customLevel} />;
+  },
+);
 
 export const LevelMultiSelector: React.FC<Props> = ({
   customLevels = [],
@@ -25,21 +70,54 @@ export const LevelMultiSelector: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation(['offer']);
 
+  const handleChange = useCallback(
+    (options: { value: number; label: string }[]) => {
+      onSelect(options.map((option) => option.value));
+    },
+    [onSelect],
+  );
+
+  const value = useMemo(
+    () =>
+      selectedLevels
+        ? customLevels
+            .map((level) => ({ value: level.id, label: level.name }))
+            .filter((level) => selectedLevels?.includes(level.value))
+        : [],
+    [customLevels, selectedLevels],
+  );
+
+  const chipRenderer = useCallback(
+    ({ data, onDelete }) => {
+      return (
+        <ChipRendererComponent
+          customLevels={customLevels}
+          data={data}
+          onDelete={onDelete}
+        />
+      );
+    },
+    [customLevels],
+  );
+
+  const itemRenderer = useCallback(
+    ({ data, isSelected }) => (
+      <ItemsRendererComponent
+        customLevels={customLevels}
+        data={data}
+        isSelected={isSelected}
+      />
+    ),
+    [customLevels],
+  );
+
   const groupedOption = getGroupOptionsForSelect(customLevels ?? [], t);
+
   return (
     <MaterialUISelector
       isMenuListPaddingDisabled
       isMulti
-      chipsRenderer={({ data, onDelete }) => {
-        return (
-          <LevelComponent
-            isChip
-            showVoid
-            customLevel={customLevels.find((l) => l.id === data.value)}
-            onRemove={onDelete}
-          />
-        );
-      }}
+      chipsRenderer={chipRenderer}
       classes={{
         control: {
           height: 22,
@@ -50,29 +128,12 @@ export const LevelMultiSelector: React.FC<Props> = ({
         },
       }}
       inScrollBar={inScrollBar}
-      itemRenderer={(itemProps) => {
-        return (
-          <LevelMenuItem
-            isSelected={itemProps.isSelected}
-            level={customLevels?.find(
-              (level) => level.id === itemProps.data.value,
-            )}
-          />
-        );
-      }}
-      onChange={(options: { value: number; label: string }[]) => {
-        onSelect(options.map((o) => o.value));
-      }}
+      itemRenderer={itemRenderer}
+      onChange={handleChange}
       options={groupedOption}
       placeholder={t('levels.select.placeholder')}
       // Temporarly until the selector is uniform
-      value={
-        selectedLevels
-          ? customLevels
-              .map((level) => ({ value: level.id, label: level.name }))
-              .filter((l) => selectedLevels?.includes(l.value))
-          : []
-      }
+      value={value}
     />
   );
 };

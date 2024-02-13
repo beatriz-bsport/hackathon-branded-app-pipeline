@@ -34,10 +34,15 @@ export function unmap(ob, map) {
 export function mapFormDataWithObject(base, map, keyExecptionsList) {
   const formData = new FormData();
   for (const [key, value] of Object.entries(base)) {
-    if (!(typeof map[key] === 'boolean') && !map[key]) {
+    const isVariantKey = key.includes('variants.');
+    // Retail variant creation
+    if (isVariantKey) {
+      formData.append(key, value);
+    }
+    if (!isVariantKey && !(typeof map[key] === 'boolean') && !map[key]) {
       throw new Error(`Mapping for key ${key} does not exist.`);
     }
-    if (value !== undefined) {
+    if (!isVariantKey && value !== undefined) {
       if (Array.isArray(value)) {
         formData.append(map[key], JSON.stringify(value));
       } else if (

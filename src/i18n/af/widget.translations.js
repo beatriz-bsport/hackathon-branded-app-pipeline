@@ -453,6 +453,7 @@ exports.default = {
       fabrique_modal_dialog: 'Modal Dialog',
       fabrique_bottom_drawer: 'Bottom drawer',
       fabrique_textform: 'Text form',
+      fabrique_big_icon: 'Big icon',
       selector: 'Selector',
       selector_input: 'Selector Input',
       marketing_newsletter_form_v2: 'Newsletter form',

@@ -419,6 +419,10 @@ import {
   RESET_PASSWORD_CONFIRMATION_CONFIGURATION,
   RESET_PASSWORD_CONFIRMATION_PREVIEW,
 } from '#libs/login/components/ResetPasswordConfirmation';
+import {
+  FABRIQUE_BIGICON_CONFIGURATION,
+  FABRIQUE_BIGICON_PREVIEW,
+} from '#components/css-only/Fabrique/BigIcon';
 /* TEMPLATE
 
 {
@@ -524,6 +528,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
         FABRIQUE_TEXTFORM_CONFIGURATION,
         FABRIQUE_SELECTOR_CONFIGURATION,
         FABRIQUE_SELECTOR_INPUT_CONFIGURATION,
+        FABRIQUE_BIGICON_CONFIGURATION,
         CONSUMER_BOOKING_CARD_CONFIGURATION,
         CONSUMER_BOOKING_DETAILS_CARD_CONFIGURATION,
         CONSUMER_PASS_CARD_CONFIGURATION,
@@ -718,6 +723,8 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
       [CssComponentsVariantIdentifiers.SELECTOR]: FABRIQUE_SELECTOR_PREVIEW,
       [CssComponentsVariantIdentifiers.SELECTOR_INPUT]:
         FABRIQUE_SELECTOR_INPUT_PREVIEW,
+      [CssComponentsVariantIdentifiers.FABRIQUE_BIGICON]:
+        FABRIQUE_BIGICON_PREVIEW,
       [CssComponentsVariantIdentifiers.CONSUMER_BOOKING_CARD]:
         CONSUMER_BOOKING_CARD_PREVIEW,
       [CssComponentsVariantIdentifiers.CONSUMER_BOOKING_DETAILS_CARD]:

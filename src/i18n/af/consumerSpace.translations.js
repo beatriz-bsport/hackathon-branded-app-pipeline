@@ -336,6 +336,10 @@ exports.default = {
       },
     },
     mySubscriptions: {
+      placeholder: {
+        nonExpired: 'Looks like you don’t have any active subscriptions.',
+        expired: 'You have no expired subscriptions yet.',
+      },
       title: 'My subscriptions',
       dateLabel: {
         active: 'Started on {{- date }}',

@@ -114,7 +114,11 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
   return (
     <div className="bs-consumer-page-root__subscription">
       {showEmptyPlaceholder && (
-        <Typography variant="body-lg">{selectedTab}</Typography>
+        <Typography align="center" variant="body-lg">
+          {selectedTab === SubscriptionTabEnum.EXPIRED
+            ? t('reworked.mySubscriptions.placeholder.expired')
+            : t('reworked.mySubscriptions.placeholder.nonExpired')}
+        </Typography>
       )}
 
       <ul className="bs-consumer-page-root__subscriptions_list">

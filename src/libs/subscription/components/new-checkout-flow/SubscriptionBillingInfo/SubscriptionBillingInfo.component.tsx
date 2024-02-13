@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useTranslation } from 'react-i18next';
 import CouponCodeInput from '#libs/checkout/components/new-checkout-flow/CouponCodeInput.component';
-import PriceCount from '#libs/checkout/components/new-checkout-flow/PriceCount.component';
+import PriceCount from '#libs/checkout/components/new-checkout-flow/PriceCount/PriceCount.component';
 import { CheckoutContext } from '../../../../../pages/checkout/basket/CheckoutContext';
 
 import {

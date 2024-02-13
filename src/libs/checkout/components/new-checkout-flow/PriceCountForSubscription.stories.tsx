@@ -4,7 +4,7 @@ import { faker } from '@faker-js/faker';
 
 import PriceCountForStorybook, {
   PriceCountProps,
-} from './PriceCount.component';
+} from './PriceCount/PriceCount.component';
 import {
   BUYABLE_ITEM_COUPON,
   BUYABLE_ITEM_PRIVATE_PASS,

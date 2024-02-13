@@ -9,20 +9,23 @@ import {
   BUYABLE_ITEM_FEE,
 } from '@bsport/common/lib/master-data/buyable-items';
 import { CONTRACT_BOOKING_FUNNEL_IDENTIFIER } from '#libs/marketplace/constants';
-import {
+import type {
   Basket,
   CheckoutItem,
   OnRemoveCheckoutItemData,
   PrepaidLine,
 } from '#libs/checkout/types';
 
-import BasketTaxInfo from '../BasketTaxInfo.component';
+import BasketTaxInfo from '#libs/checkout/components/BasketTaxInfo.component';
+
 import {
   getBasketTotalPriceExcludingTax,
   getCheckoutItemPrice,
-} from '../../utils';
-import { BillItem } from './BilllItem.component';
+} from '#libs/checkout/utils';
+
+import { BillItem } from '#libs/checkout/components/new-checkout-flow/BilllItem.component';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 
 export type PriceCountProps = {
   basket: Basket<string, PrepaidLine>;
@@ -267,5 +270,8 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 500,
   },
 }));
+
+export const PriceCountStorybook =
+  marketplaceCssHoc<React.ComponentProps<typeof PriceCount>>()(PriceCount);
 
 export default React.memo(PriceCount);

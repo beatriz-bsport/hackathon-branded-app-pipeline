@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect, RouteProps } from 'react-router-dom';
 
 import { compose, lifecycle } from 'recompose';
 import { connect } from 'react-redux';
@@ -37,7 +37,7 @@ type Props = {
   isManager: boolean,
   authenticated: boolean,
   // franchisorId?: number,
-};
+} & RouteProps;
 
 export const ConsumerRouter = (props: Props) => {
   useSaasRouterTracker(BsportRequestFromHeaderValue.SAAS_CONSUMER_ROUTER);
@@ -47,7 +47,14 @@ export const ConsumerRouter = (props: Props) => {
     props.companyId &&
     !window.location.pathname.includes('change_email')
   ) {
-    return <Redirect to={`/login/customer?membership=${props.companyId}`} />;
+    const { pathname } = props.location;
+    return (
+      <Redirect
+        to={`/login/customer?membership=${
+          props.companyId
+        }?next=${encodeURIComponent(`${pathname}`)}`}
+      />
+    );
   }
   if (
     !props.authenticated &&

@@ -36,6 +36,7 @@ import type { ConsumerGiftcard, Giftcard } from '#libs/giftcard/types';
 import type { OptionCallback } from '../../../state/types';
 import type { StripeReader } from '#libs/terminal/types';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import { TEMPORARY_AMOUNT_TO_FORCE_INTERNAL_PAYMENT_CTS } from '#libs/invoice/constants';
 
 type Props = {
   balance: number;
@@ -184,6 +185,16 @@ export const MemberBillingProblemCard = (props: Props) => {
   if (parsedBalance < 0) {
     color = 'error';
   }
+
+  const amountDisplayed = React.useMemo(
+    () =>
+      invoiceToBill
+        ? parseFloat(
+            invoiceToBill.amount_due_cts - invoiceToBill.amount_paid_cts,
+          ).toFixed(2)
+        : Math.round(amountToBill * 100),
+    [invoiceToBill, amountToBill],
+  );
   return (
     <Paper className={classes.accountBalanceBloc}>
       <ObjectLevelPermissionProvider
@@ -358,14 +369,7 @@ export const MemberBillingProblemCard = (props: Props) => {
                 allowConsumerToUseInternalAccount={
                   props.allowConsumerToUseInternalAccount
                 }
-                amountToPay={
-                  invoiceToBill
-                    ? parseFloat(
-                        invoiceToBill.amount_due_cts -
-                          invoiceToBill.amount_paid_cts,
-                      ).toFixed(2)
-                    : Math.round(amountToBill * 100)
-                }
+                amountToPay={amountDisplayed}
                 applyBalanceLoading={props.applyBalanceLoading}
                 applyBalanceToInvoice={applyBalanceToInvoice}
                 asConsumer={props.asConsumer}
@@ -395,7 +399,11 @@ export const MemberBillingProblemCard = (props: Props) => {
                 }}
                 onError={() => {}}
                 onlyInternal={
-                  (amountToBill && amountToBill < 0) || props.forceOnlyInternal
+                  (amountToBill && amountToBill < 0) ||
+                  props.forceOnlyInternal ||
+                  (!props.asConsumer &&
+                    amountDisplayed <
+                      TEMPORARY_AMOUNT_TO_FORCE_INTERNAL_PAYMENT_CTS)
                 }
                 onSuccess={(callback?: () => void) => {
                   props.fetchInvoiceListUnpaid();

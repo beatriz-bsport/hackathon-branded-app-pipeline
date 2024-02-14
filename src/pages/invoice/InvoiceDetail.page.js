@@ -113,6 +113,7 @@ import { getBackofficeEnabledPaymentGroupMethods } from '#libs/payment/utils';
 import type { StripeReader } from '../../libs/terminal/types';
 import { withDefaultBillingEstablishment } from '#libs/member/selectors';
 import { getInvoiceIdentifier } from '#libs/invoice/utils';
+import { TEMPORARY_AMOUNT_TO_FORCE_INTERNAL_PAYMENT_CTS } from '../../libs/invoice/constants';
 
 import RevalidateMandateDialog from '#libs/payment/components/payment-backend-stripe/RevalidateMandateDialog.component';
 
@@ -678,7 +679,11 @@ export class InvoiceDetail extends React.Component<Props, State> {
                     });
                   }, 2000)
                 }
-                onlyInternal={!this.props.companyTheme.online_payment_enabled}
+                onlyInternal={
+                  !this.props.companyTheme.online_payment_enabled ||
+                  this.props.invoice.amount_due_cts <
+                    TEMPORARY_AMOUNT_TO_FORCE_INTERNAL_PAYMENT_CTS
+                }
                 onSuccess={(callback) => {
                   setTimeout(() => {
                     this.props.setOpenPaymentDialog(false);

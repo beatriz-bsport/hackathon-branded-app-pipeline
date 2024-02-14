@@ -26,6 +26,7 @@ import type {
 } from '../../state/types';
 import type { StripeReader } from '#libs/terminal/types';
 import { InternalPaymentPayload } from '../../libs/payment/types';
+import { TEMPORARY_AMOUNT_TO_FORCE_INTERNAL_PAYMENT_CTS } from '../../libs/invoice/constants';
 
 type Props = {
   classes: Object,
@@ -269,7 +270,8 @@ export class QuickInvoicePanel extends React.PureComponent<Props, State> {
               </div>
             </Collapse>
             {!!this.props.invoiceToBill &&
-              !!this.props.invoiceToBill.member && (
+              !!this.props.invoiceToBill.member &&
+              !!this.props.invoiceToBill.amount_due_cts && (
                 <PaymentDialog
                   termsAndConditionsAccepted
                   amountToPay={parseFloat(
@@ -298,7 +300,11 @@ export class QuickInvoicePanel extends React.PureComponent<Props, State> {
                   }
                   onCancel={() => this.props.setInvoiceToBill(null)}
                   onError={() => {}}
-                  onlyInternal={!this.props.onlinePaymentEnabled}
+                  onlyInternal={
+                    !this.props.onlinePaymentEnabled ||
+                    this.props.invoiceToBill.amount_due_cts <
+                      TEMPORARY_AMOUNT_TO_FORCE_INTERNAL_PAYMENT_CTS
+                  }
                   onSuccess={(callback) => {
                     setTimeout(() => {
                       this.props.refreshInvoice(this.props.invoiceToBill.uuid);

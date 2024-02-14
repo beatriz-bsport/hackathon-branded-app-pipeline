@@ -11,10 +11,14 @@ import Typography from '@material-ui/core/Typography';
 import type { ShopItemFormValues, ShopItemVariantOption } from './types';
 
 type Props = {
-  handlePreviousStep: () => void;
+  handlePreviousStep?: () => void;
+  onCancel?: () => void;
 };
 
-const ShopItemFormVariantStep: React.FC<Props> = ({ handlePreviousStep }) => {
+const ShopItemFormVariantStep: React.FC<Props> = ({
+  handlePreviousStep,
+  onCancel,
+}) => {
   const { t } = useTranslation('shop');
 
   const classes = useStyles();
@@ -69,7 +73,10 @@ const ShopItemFormVariantStep: React.FC<Props> = ({ handlePreviousStep }) => {
         </Grid>
       </Grid>
       <div className={classes.buttons}>
-        <Button onClick={handlePreviousStep}>{t('common:back')}</Button>
+        {!!handlePreviousStep && (
+          <Button onClick={handlePreviousStep}>{t('common:back')}</Button>
+        )}
+        {!!onCancel && <Button onClick={onCancel}>{t('common:cancel')}</Button>}
         <Button color="primary" type="submit" variant="contained">
           {t('common:save')}
         </Button>

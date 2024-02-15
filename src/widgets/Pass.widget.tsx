@@ -20,6 +20,7 @@ type OwnProps = {
   theme: Theme,
   config?: MarketplacePassData,
   onWindowOpen: (url: string) => void,
+  uniqueWidgetId: string,
 };
 
 type Props = OwnProps &
@@ -34,6 +35,14 @@ class PassWidget extends Component<Props> {
   }
 
   handleAddToCartPostMessages = (event: MessageEvent) => {
+    // If the postMessage includes a uniqueWidgetId parameter and the provided ID is not the same as the one belonging to this widget,
+    // it indicates that this widget was not targeted. In such cases, we take no action.
+    if (
+      event?.data?.data?.uniqueWidgetId &&
+      event?.data?.data?.uniqueWidgetId !== this.props.uniqueWidgetId
+    ) {
+      return;
+    }
     let object_id = null;
     let trigger_action = null;
     switch (event?.data?.type) {

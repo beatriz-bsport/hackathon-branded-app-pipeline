@@ -205,6 +205,7 @@ class BsportWidget extends Component<Props> {
       styles,
       isBackofficePreview,
       parentElement,
+      uniqueWidgetId,
     } = this.props;
 
     if (
@@ -257,6 +258,8 @@ class BsportWidget extends Component<Props> {
               theme={theme}
               onWindowOpen={this.onWindowOpen}
               dialogMode={dialogMode}
+              parentElement={parentElement}
+              uniqueWidgetId={uniqueWidgetId}
             />
             {!!this.props.theme &&
               !this.props.theme.is_premium &&

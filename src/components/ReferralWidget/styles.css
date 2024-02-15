@@ -1,0 +1,105 @@
+.bs-referral-details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bs-space-size-4);
+  container: bs-referral-details / inline-size;
+}
+
+.bs-referral-details__footer {
+  align-items: flex-start;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  gap: var(--bs-space-size-2);
+}
+
+.bs-referral-details__title-section {
+  align-items: flex-start;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+}
+
+.bs-referral-details__error_wrapper {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.bs-referral-details__button-wrapper {
+  display: flex;
+}
+
+.bs-referral-details__title {
+  font-size: var(--bs-font-size-title-sm);
+}
+
+.bs-referral-details__subtitle {
+  color: var(--bs-color-text-weak);
+  font-size: var(----bs-font-size-body-md);
+}
+
+.bs-referral-details__text-wrapper {
+  align-items: flex-start;
+  align-self: stretch;
+  display: flex;
+  gap: var(--bs-space-size-1);
+}
+.bs-referral-details__weaker-text {
+  color: var(--bs-color-text-weaker);
+}
+
+.bs-referral-details__number-of-uses-text {
+  color: var(--bs-color-text-weaker);
+  font-weight: 700;
+}
+
+.bs-money-section {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--bs-space-size-2);
+  width: 100%;
+}
+
+.bs-money-section__card {
+  align-items: flex-start;
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  gap: var(--bs-space-size-4);
+  padding: var(--bs-space-size-4);
+}
+
+@container (max-width:415px) {
+  .bs-money-section {
+    flex-direction: column;
+  }
+}
+
+.bs-money-section__weaker-text {
+  color: var(--bs-color-text-weaker);
+}
+
+.bs-money-section__card-content {
+  align-items: flex-start;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+}
+
+.bs-referral-error {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+}
+
+.bs-referral-loading {
+  display: flex;
+  flex-direction: column;
+}
+
+.bs-referral-loading__title {
+  font-size: var(--bs-font-size-title-sm);
+}

@@ -10547,8 +10547,10 @@
           "seeInvoice": "See invoice"
         },
         "variants": {
-          "action": { "add": "Add a variant", "edit": "Edit a variant" },
+          "placeholder": "This product does not have variants yet",
+          "action": { "add": "Add a variant", "edit": "Edit variant" },
           "image": "Image",
+          "upload": "Upload",
           "colorAndSize": "Colour & Size",
           "price": "Price",
           "supplierPrice": "Supplier price",

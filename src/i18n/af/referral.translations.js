@@ -83,11 +83,17 @@ const getTranslations = async () => {
     memberInfo: {
       referralLink: 'Referral link',
       nbRemainingUses: 'Number of uses remaining',
+      nbUsesLeft: 'Number of uses left:',
       inviteFriend: 'Invite a friend to sign up',
       forYou: 'for you',
       forYourFriend: 'for your friend',
+      youGet: 'You get',
+      yourFriendGets: 'Your friend gets',
+      copyReferralLink: 'Copy referral link',
       copyLink: 'Copy my referral link',
       seeConditions: 'See conditions',
+      thanksForSharing: 'Thank you for sharing to your friends and family!',
+      loginToUseYourLink: 'Login to use your link',
       warningMaxUsesReached:
         'You have reached the maximum number of uses of your referral link',
     },
@@ -163,6 +169,10 @@ const getTranslations = async () => {
         description:
           'The maximum number of usage has been reached for this link from {{ referringMemberFirstName }}.',
       },
+      noProgramAvailable:
+        'Oops, looks like there is no referral program available',
+      somethingWentWrong:
+        'Something went wrong, we are not able to load this page. Please try again later',
     },
   };
 };

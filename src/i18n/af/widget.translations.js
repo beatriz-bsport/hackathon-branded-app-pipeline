@@ -196,6 +196,11 @@ exports.default = {
         universalPass: 'Universal pass',
       },
       title: {
+        hasUnknownError: 'Has unknown error',
+        isLoading: 'is Loading',
+        isAuthenticated: 'is Authenticated',
+        isReferralProgramAvailable: 'Has an available referral program',
+        hasRemainingReferralUses: 'Has remaining referral uses',
         nextOffer: 'Next session available',
         showDayParts: 'Separate morning, afternoon and evening',
         isRegistered: 'Already registered',
@@ -357,9 +362,11 @@ exports.default = {
       marketing: 'Marketing',
       consumer_space: 'Consumer space',
       memberProfile: 'Member profile',
+      referral_details: 'Referral',
     },
     components: {
       calendar: 'Calendar page',
+      referral_details: 'Referral details',
       timeTable: 'Calendar component',
       workshopPage: 'Workshop page',
       activity: 'Activity details popup',

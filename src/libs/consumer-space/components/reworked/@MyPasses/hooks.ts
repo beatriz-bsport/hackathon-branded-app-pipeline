@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { PassTabEnum } from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassTabs/constants';
 import { PassFilterTabEnum } from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassFilters/constants';
@@ -11,6 +11,13 @@ import type { UniversalPassReworked } from '#libs/universal-pass/types';
 import type { ConsumerPaymentPackReworked } from '#libs/consumer-payment-pack/types';
 import type { PassFilterTab } from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassFilters/types';
 import type { ConsumerPassPageReworkedProps } from './ConsumerPassPageReworked';
+import type { ConsumerPassesTabDisplay } from '#libs/consumer-space/types';
+
+const consumerPassesTabDisplayMap = {
+  consumer_payment_pack: PassTabEnum.CONSUMER_PAYMENT_PACK,
+  private_consumer_pass: PassTabEnum.PRIVATE_CONSUMER_PASS,
+  universal_pass: PassTabEnum.UNIVERSAL_PASS,
+};
 
 /** Provides all of the necessary data and fetch handlers for consumer passes page */
 export function useConsumerPassesDataManager({
@@ -20,6 +27,7 @@ export function useConsumerPassesDataManager({
   activePrivateConsumerPassesState,
   activeUniversalPassesList,
   activeUniversalPassesState,
+  consumerPassesTabDisplay,
   expiredConsumerPaymentPacksList,
   expiredConsumerPaymentPacksState,
   expiredPrivateConsumerPassesList,
@@ -48,6 +56,7 @@ export function useConsumerPassesDataManager({
   | 'handleBuyPassClick'
   | 'handleBookASessionClick'
   | 'isMetadataLoading'
+  | 'isConsumerPassesTabDisplayLoading'
 >) {
   const { width } = useViewport();
 
@@ -65,6 +74,19 @@ export function useConsumerPassesDataManager({
     | PrivateConsumerPassReworked
     | UniversalPassReworked
   >(null);
+
+  const defaultTabKey = Object.keys(consumerPassesTabDisplay)?.find(
+    (key: keyof ConsumerPassesTabDisplay) =>
+      consumerPassesTabDisplay[key] === true,
+  );
+
+  useEffect(() => {
+    const defaultTab =
+      consumerPassesTabDisplayMap?.[
+        defaultTabKey as keyof ConsumerPassesTabDisplay
+      ];
+    !!defaultTab && setSelectedTab(defaultTab);
+  }, [defaultTabKey]);
 
   /* MODAL/DRAWER STATES */
   const [

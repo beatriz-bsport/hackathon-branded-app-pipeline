@@ -42,6 +42,8 @@ import {
   getMyFuturePrivateConsumerPassesState,
   getMyFutureUniversalPassesList,
   getMyFutureUniversalPassesState,
+  getConsumerPassesTabDisplay,
+  getConsumerPassesTabDisplayLoading,
 } from '#libs/consumer-space/selectors';
 import { getTheme } from '#libs/theme/selectors';
 import { getMembership } from '#libs/membership/selectors';
@@ -58,6 +60,7 @@ import {
   fetchMyFutureConsumerPaymentPacksAsMember as fetchMyFutureConsumerPaymentPacksAsMemberAction,
   fetchMyFuturePrivateConsumerPassesAsMember as fetchMyFuturePrivateConsumerPassesAsMemberAction,
   fetchMyFutureUniversalPassesAsMember as fetchMyFutureUniversalPassesAsMemberAction,
+  fetchConsumerPassesTabDisplay as fetchMyPassesTabsAction,
   resetConsumerState as resetConsumerStateAction,
 } from '#libs/consumer-space/actions';
 import { fetchPaymentPackBulk as fetchPaymentPackBulkAction } from '#libs/payment-packs/actions';
@@ -84,6 +87,8 @@ export class ConsumerPassReworked extends React.Component<
   ConnectedProps<typeof connector>
 > {
   componentDidMount() {
+    !!this.props.membership?.id &&
+      this.props.fetchMyPassesTabs(this.props.membership.id);
     // Only fetch current tab data -> default is Consumer payment packs
     this.fetchActiveConsumerPaymentPacks();
     this.fetchExpiredConsumerPaymentPacks();
@@ -98,6 +103,7 @@ export class ConsumerPassReworked extends React.Component<
   componentDidUpdate(prevProps: ConnectedProps<typeof connector>) {
     // Membership did update
     if (!prevProps?.membership?.id && !!this.props?.membership?.id) {
+      this.props.fetchMyPassesTabs(this.props.membership.id);
       this.props.fetchSCTs({
         member: this.props.membership.id,
       });
@@ -342,6 +348,7 @@ export class ConsumerPassReworked extends React.Component<
         }
         activeUniversalPassesList={this.props.myActiveUniversalPassesList}
         activeUniversalPassesState={this.props.myActiveUniversalPassesState}
+        consumerPassesTabDisplay={this.props.consumerPassesTabDisplay}
         expiredConsumerPaymentPacksList={
           this.props.myExpiredConsumerPaymentPacksList
         }
@@ -383,6 +390,9 @@ export class ConsumerPassReworked extends React.Component<
         futureUniversalPassesState={this.props.myFutureUniversalPassesState}
         handleBookASessionClick={this.handleBookASessionClick}
         handleBuyPassClick={this.handleBuyPassClick}
+        isConsumerPassesTabDisplayLoading={
+          this.props.consumerPassesTabDisplayLoading
+        }
         isLoading={this.getIsLoading()}
         isMetadataLoading={this.props.consumerPassesMetadataLoading}
         resetConsumerState={this.props.resetConsumerState}
@@ -399,8 +409,10 @@ const connector = connect(
     marketplaceSettings: state.marketplace.settings,
 
     /** REWORKED */
+    consumerPassesTabDisplayLoading: getConsumerPassesTabDisplayLoading(state),
     consumerPassesLoading: getConsumerPassesLoading(state),
     consumerPassesMetadataLoading: getConsumerPassMetadataLoading(state),
+    consumerPassesTabDisplay: getConsumerPassesTabDisplay(state),
     myActiveConsumerPaymentPacksList:
       getMyActiveConsumerPaymentPacksList(state),
     myFutureConsumerPaymentPacksList:
@@ -448,6 +460,7 @@ const connector = connect(
     push,
 
     /** REWORKED */
+    fetchMyPassesTabs: fetchMyPassesTabsAction,
     fetchMyActiveConsumerPaymentPacksAsMember:
       fetchMyActiveConsumerPaymentPacksAsMemberAction,
     fetchMyActivePrivateConsumerPassesAsMember:

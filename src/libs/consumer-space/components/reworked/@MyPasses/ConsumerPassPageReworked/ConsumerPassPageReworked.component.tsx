@@ -17,7 +17,10 @@ import type {
   PrivateConsumerPassREST,
   PrivateConsumerPassReworked,
 } from '#libs/private-service/types';
-import type { ConsumerPassReworked } from '#libs/consumer-space/types';
+import type {
+  ConsumerPassReworked,
+  ConsumerPassesTabDisplay,
+} from '#libs/consumer-space/types';
 import type {
   UniversalPassREST,
   UniversalPassReworked,
@@ -32,6 +35,7 @@ type Props = {
   activePrivateConsumerPassesState: ConsumerPassReworked<PrivateConsumerPassREST>;
   activeUniversalPassesList: UniversalPassReworked[];
   activeUniversalPassesState: ConsumerPassReworked<UniversalPassREST>;
+  consumerPassesTabDisplay: ConsumerPassesTabDisplay;
   expiredConsumerPaymentPacksList: ConsumerPaymentPackReworked[];
   expiredConsumerPaymentPacksState: ConsumerPassReworked<ConsumerPaymentPackREST>;
   expiredPrivateConsumerPassesList: PrivateConsumerPassReworked[];
@@ -55,6 +59,7 @@ type Props = {
   futureUniversalPassesState: ConsumerPassReworked<UniversalPassREST>;
   handleBookASessionClick: () => void;
   handleBuyPassClick: () => void;
+  isConsumerPassesTabDisplayLoading: boolean;
   isLoading: boolean;
   isMetadataLoading: boolean;
   resetConsumerState: () => void;
@@ -67,6 +72,7 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
   activePrivateConsumerPassesState,
   activeUniversalPassesList,
   activeUniversalPassesState,
+  consumerPassesTabDisplay,
   expiredConsumerPaymentPacksList,
   expiredConsumerPaymentPacksState,
   expiredPrivateConsumerPassesList,
@@ -90,6 +96,7 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
   futureUniversalPassesState,
   handleBookASessionClick,
   handleBuyPassClick,
+  isConsumerPassesTabDisplayLoading,
   isLoading,
   isMetadataLoading,
   resetConsumerState,
@@ -120,6 +127,7 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
     activePrivateConsumerPassesState,
     activeUniversalPassesList,
     activeUniversalPassesState,
+    consumerPassesTabDisplay,
     expiredConsumerPaymentPacksList,
     expiredConsumerPaymentPacksState,
     expiredPrivateConsumerPassesList,
@@ -167,12 +175,14 @@ export const ConsumerPassesPageReworkedComponent: React.FC<Props> = ({
         />
         <ConsumerPassHeader
           activeItemsCount={activeItemsCount}
+          consumerPassesTabDisplay={consumerPassesTabDisplay}
           futureItemsCount={futureItemsCount}
           handleBookASessionClick={handleBookASessionClick}
           handleBuyPassClick={handleBuyPassClick}
           handleSetSelectedFilterTab={handleSetSelectedFilterTab}
           handleSetSelectedTab={handleSetSelectedTab}
           handleTogglePassTabDrawer={handleTogglePassTabDrawer}
+          isLoading={isConsumerPassesTabDisplayLoading}
           isMobile={isMobile}
           selectedFilterTab={selectedFilterTab}
           selectedTab={selectedTab}

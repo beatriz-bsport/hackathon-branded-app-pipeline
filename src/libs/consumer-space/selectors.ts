@@ -910,6 +910,12 @@ export const getMyExpiredUniversalPassesList = createSelector(
   },
 );
 
+export const getConsumerPassesTabDisplay = (state: RootState) =>
+  state.consumerReworked.myPasses.tabs.data;
+
+export const getConsumerPassesTabDisplayLoading = (state: RootState) =>
+  state.consumerReworked.myPasses.tabs.loading;
+
 const getConsumerPaymentPackLoading = createSelector(
   [
     getMyActiveConsumerPaymentPacksState,

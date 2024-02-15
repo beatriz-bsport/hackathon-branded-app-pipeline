@@ -3,7 +3,10 @@ import { createAction } from 'redux-actions';
 import { AxiosResponse } from 'axios';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
-import api, { fetchUniversalPasses as fetchUniversalPassesAPI } from './api';
+import api, {
+  fetchUniversalPasses as fetchUniversalPassesAPI,
+  fetchMyPassesTabs as fetchMyPassesTabsAPI,
+} from './api';
 import { RootState } from '../../reducers';
 import {
   cancelBookingV2 as cancelBookingV2API,
@@ -36,7 +39,11 @@ import type {
   ConsumerPaymentPack,
   ConsumerPaymentPackREST,
 } from '#libs/consumer-payment-pack/types';
-import type { BookingOrPrivateBooking, Profile } from './types';
+import type {
+  BookingOrPrivateBooking,
+  ConsumerPassesTabDisplay,
+  Profile,
+} from './types';
 import type {
   Booking,
   BookingOption,
@@ -1413,3 +1420,34 @@ export const fetchMyFutureUniversalPassesAsMember = (
     dispatch(fetchMyFutureUniversalPassesAsMemberActions.isLoading(false));
   };
 };
+
+export const fetchConsumerPassesTabDisplayActions = {
+  success: createAction<AxiosResponse<ConsumerPassesTabDisplay>>(
+    'REWORKED/MY_PASSES_TABS/SUCCESS',
+  ),
+  isLoading: createAction<boolean>('REWORKED/MY_PASSES_TABS/IS_LOADING'),
+  error: createAction<Error | null>('REWORKED/MY_PASSES_TABS/ERROR'),
+};
+
+export const fetchConsumerPassesTabDisplay =
+  (
+    memberId: number,
+    options?: OptionCallback<ConsumerPassesTabDisplay>,
+  ): ThunkAction =>
+  async (dispatch) => {
+    dispatch(fetchConsumerPassesTabDisplayActions.isLoading(true));
+    dispatch(fetchConsumerPassesTabDisplayActions.error(null));
+    try {
+      const response = await fetchMyPassesTabsAPI(memberId);
+      dispatch(fetchConsumerPassesTabDisplayActions.success(response));
+      if (options && options.onSuccess) {
+        options.onSuccess(response.data);
+      }
+    } catch (err) {
+      dispatch(fetchConsumerPassesTabDisplayActions.error(err));
+      if (options && options.onError) {
+        options.onError(err);
+      }
+    }
+    dispatch(fetchConsumerPassesTabDisplayActions.isLoading(false));
+  };

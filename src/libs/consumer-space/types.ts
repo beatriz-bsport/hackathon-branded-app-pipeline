@@ -137,6 +137,11 @@ export type ConsumerStateReworked = {
     expired: ConsumerSubscriptionReworked;
   };
   myPasses: {
+    tabs: {
+      error: Error | null;
+      loading: boolean;
+      data: ConsumerPassesTabDisplay;
+    };
     consumerPaymentPack: {
       active: ConsumerPassReworked<ConsumerPaymentPackREST>;
       future: ConsumerPassReworked<ConsumerPaymentPackREST>;
@@ -181,4 +186,14 @@ export type FrequencyOption = (typeof frequencyOptions)[number];
 export type ConsumerPassRestriction = {
   frequency: FrequencyOption;
   amount: number;
+};
+
+/** This type, returned by the API when fetching available tabs, indicates
+ * which tabs should be displayed by 'my passes' page.
+ * The values depends on the existing company's or member's passes.
+ */
+export type ConsumerPassesTabDisplay = {
+  consumer_payment_pack: boolean;
+  private_consumer_pass: boolean;
+  universal_pass: boolean;
 };

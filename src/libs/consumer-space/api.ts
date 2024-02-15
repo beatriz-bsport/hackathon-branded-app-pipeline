@@ -10,6 +10,7 @@ import {
 
 import type { BookingREST } from '#libs/booking/types';
 import type { UniversalPassREST } from '#libs/universal-pass/types';
+import type { ConsumerPassesTabDisplay } from './types';
 
 export async function fetchConsumerOptions() {
   return getAuth(`${API_URI}/waiting-list/booking-option/?with_offer=true`);
@@ -66,6 +67,11 @@ export const fetchUniversalPasses = (params: {
     `${API_V1_URI}/universal_pass/${buildUrlParams(params)}`,
   );
 };
+
+export const fetchMyPassesTabs = (memberId: number) =>
+  getAuth<ConsumerPassesTabDisplay>(
+    `${API_V1_URI}/member/${memberId}/get_my_passes_tabs/`,
+  );
 
 export default {
   fetchFutureBookings: fetchConsumerFutureBookings,

@@ -22,6 +22,7 @@ import {
   fetchMyExpiredUniversalPassesAsMemberActions,
   fetchMyActiveUniversalPassesAsMemberActions,
   fetchMyFutureUniversalPassesAsMemberActions,
+  fetchConsumerPassesTabDisplayActions,
 } from './actions';
 
 import {
@@ -31,7 +32,7 @@ import {
   resetConsumerSubscriptionsStateActions,
 } from '#libs/consumer-space/actions/subscription-actions';
 
-import type { ConsumerStateReworked } from './types';
+import type { ConsumerPassesTabDisplay, ConsumerStateReworked } from './types';
 import type { BookingREST } from '#libs/booking/types';
 import type { PaginatedResponse } from '../../state/types';
 import type {
@@ -189,6 +190,15 @@ const initialState: Immutable.Immutable<ConsumerStateReworked> =
       },
     },
     myPasses: {
+      tabs: {
+        error: null,
+        loading: false,
+        data: {
+          consumer_payment_pack: true,
+          private_consumer_pass: true,
+          universal_pass: true,
+        },
+      },
       consumerPaymentPack: {
         active: {
           page: 1,
@@ -773,8 +783,12 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
           { deep: true },
         );
     },
-    [resetConsumerStateActions.all.toString()]: () => {
-      return initialState;
+    [resetConsumerStateActions.all.toString()]: (state) => {
+      return initialState.setIn(
+        ['myPasses', 'tabs', 'data'],
+        // The action should reset the state, except the tabs data that is to be fetched only once.
+        state.myPasses.tabs.data,
+      );
     },
     /* MYSUBSCRIPTIONS REDUCERS */
     [fetchMyActiveSubscriptionsAsMemberActions.success.toString()]: (
@@ -1419,9 +1433,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
           ['myPasses', 'universalPass', 'active', 'passes', 'allIds'],
           (allIds) =>
             allIds.concat(
-              uniq(
-                results.map((universalPass) => universalPass.id),
-              ),
+              uniq(results.map((universalPass) => universalPass.id)),
             ),
         )
         .merge(
@@ -1479,9 +1491,7 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
           ['myPasses', 'universalPass', 'future', 'passes', 'allIds'],
           (allIds) =>
             allIds.concat(
-              uniq(
-                results.map((universalPass) => universalPass.id),
-              ),
+              uniq(results.map((universalPass) => universalPass.id)),
             ),
         )
         .merge(
@@ -1504,6 +1514,30 @@ export default handleActions<Immutable.Immutable<ConsumerStateReworked>, any>(
           },
           { deep: true },
         );
+    },
+    [fetchConsumerPassesTabDisplayActions.success.toString()]: (
+      state,
+      { payload }: { payload: AxiosResponse<ConsumerPassesTabDisplay> },
+    ) => {
+      const { consumer_payment_pack, private_consumer_pass, universal_pass } =
+        payload.data;
+      return state.setIn(['myPasses', 'tabs', 'data'], {
+        consumer_payment_pack,
+        private_consumer_pass,
+        universal_pass,
+      });
+    },
+    [fetchConsumerPassesTabDisplayActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['myPasses', 'tabs', 'error'], payload);
+    },
+    [fetchConsumerPassesTabDisplayActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['myPasses', 'tabs', 'loading'], payload);
     },
   },
   initialState,

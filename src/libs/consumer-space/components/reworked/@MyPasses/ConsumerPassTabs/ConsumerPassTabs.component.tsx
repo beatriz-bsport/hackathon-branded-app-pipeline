@@ -9,10 +9,12 @@ import ConsumerGenericTabs from '#libs/consumer-space/components/reworked/common
 import { PassTabEnum } from './constants';
 
 import type { PassTab } from './types';
+import type { ConsumerPassesTabDisplay } from '#libs/consumer-space/types';
 
 import './styles.css';
 
 type Props = {
+  consumerPassesTabDisplay?: ConsumerPassesTabDisplay;
   handleToggleTabDrawer: () => void;
   isMobile?: boolean;
   onChangePassTab: (type: PassTab) => void;
@@ -20,6 +22,7 @@ type Props = {
 };
 
 export const ConsumerPassTabs: React.FC<Props> = ({
+  consumerPassesTabDisplay,
   handleToggleTabDrawer,
   isMobile,
   onChangePassTab,
@@ -56,28 +59,46 @@ export const ConsumerPassTabs: React.FC<Props> = ({
     [],
   );
 
+  const {
+    consumer_payment_pack: showConsumerPaymentPackTab,
+    private_consumer_pass: showPrivateConsumerPassTab,
+    universal_pass: showUniversalPassTab,
+  } = consumerPassesTabDisplay;
+
+  // We want the tabs to be shown only if their number exceeds 2.
+  const hideComponent =
+    [
+      showConsumerPaymentPackTab,
+      showPrivateConsumerPassTab,
+      showUniversalPassTab,
+    ].filter((tab) => !!tab).length <= 1;
+
   const tabs = useMemo(
-    () => [
-      {
-        type: PassTabEnum.CONSUMER_PAYMENT_PACK,
-        label: t('reworked.myPasses.tab.activity'),
-        onClick: handleSetActivityPassTab,
-      },
-      {
-        type: PassTabEnum.PRIVATE_CONSUMER_PASS,
-        label: t('reworked.myPasses.tab.appointment'),
-        onClick: handleSetAppointmentPassTab,
-      },
-      {
-        type: PassTabEnum.UNIVERSAL_PASS,
-        label: t('reworked.myPasses.tab.universal'),
-        onClick: handleSetUniversalPassTab,
-      },
-    ],
+    () =>
+      [
+        showConsumerPaymentPackTab && {
+          type: PassTabEnum.CONSUMER_PAYMENT_PACK,
+          label: t('reworked.myPasses.tab.activity'),
+          onClick: handleSetActivityPassTab,
+        },
+        showPrivateConsumerPassTab && {
+          type: PassTabEnum.PRIVATE_CONSUMER_PASS,
+          label: t('reworked.myPasses.tab.appointment'),
+          onClick: handleSetAppointmentPassTab,
+        },
+        showUniversalPassTab && {
+          type: PassTabEnum.UNIVERSAL_PASS,
+          label: t('reworked.myPasses.tab.universal'),
+          onClick: handleSetUniversalPassTab,
+        },
+      ].filter((tab) => !!tab),
     [
       handleSetActivityPassTab,
       handleSetAppointmentPassTab,
       handleSetUniversalPassTab,
+      showConsumerPaymentPackTab,
+      showPrivateConsumerPassTab,
+      showUniversalPassTab,
       t,
     ],
   );
@@ -89,6 +110,10 @@ export const ConsumerPassTabs: React.FC<Props> = ({
       label: selectedPassTab.label,
     };
   }, [tabs, selectedTab]);
+
+  if (hideComponent) {
+    return null;
+  }
 
   return isMobile ? (
     <div className="bs-consumer-pass-tabs__root--mobile">

@@ -1,5 +1,4 @@
-// @flow
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { useTranslation } from 'react-i18next';
 import SearchIcon from '@material-ui/icons/Search';
@@ -8,33 +7,36 @@ import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import ClearIcon from '@material-ui/icons/Clear';
 
-import { MarketPlaceCoachDisplay } from '@bsport/common/lib/master-data/personalization';
-
-import SCTSelector from '../../category/components/SCTSelectorBase.component';
-import CoachSelector from '../../associated-coach/components/coach-selector/CoachSelector.component';
 import DelayedTextField from '../../../components/DelayedTextField.component';
+// @ts-expect-error
+import SCTSelector from '#libs/category/components/SCTSelectorBase.component';
+import CoachSelector from '#libs/associated-coach/components/coach-selector/CoachSelector.component';
+// @ts-expect-error
 import DurationSelector from './DurationSelector.component';
 import LevelMultiSelector from '#libs/level/components/LevelMultiSelector.component';
+
+import type { Coach } from '#libs/associated-coach/types';
+import type { SCT } from '#libs/category/types';
+import type { Level } from '#libs/level/types';
 
 import { MIN_HEIGHT_VIDEO_SEARCH_BAR_FIELDS } from '../constant';
 
 type Props = {
   searchParams: {
-    levels: string,
-    coaches: string,
-    SCTs: string,
-    duration_second_range: string,
-    search: string,
-  },
-  hideCoach: boolean,
-  onChangeSearchParams: (string) => (string) => void,
-  coaches: Array<Coach>,
-  scts: Array<SCT>,
-  customLevels: Array<Level>,
-  coachDisplay?: MarketPlaceCoachDisplay,
+    levels?: string;
+    coaches?: string;
+    SCTs?: string;
+    duration_second_range?: string;
+    search?: string;
+  };
+  hideCoach: boolean;
+  onChangeSearchParams: (paramType: string) => (value: string) => void;
+  coaches: Coach[];
+  scts: SCT[];
+  customLevels: Level[];
 };
 
-export const VideoSearchBar = (props: Props) => {
+export const VideoSearchBar: React.FC<Props> = (props) => {
   const classes = useStyles();
   const { t } = useTranslation(['video']);
   return (

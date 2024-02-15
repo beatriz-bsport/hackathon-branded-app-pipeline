@@ -12,6 +12,7 @@ type OwnProps = {
   store: any,
   theme: Theme,
   onWindowOpen: (url: string) => void,
+  uniqueWidgetId: string,
 };
 
 type Props = OwnProps;
@@ -30,6 +31,14 @@ class SubscriptionWidget extends Component<Props> {
   }
 
   handleAddToCartPostMessages = (event: MessageEvent) => {
+    // If the postMessage includes a uniqueWidgetId parameter and the provided ID is not the same as the one belonging to this widget,
+    // it indicates that this widget was not targeted. In such cases, we take no action.
+    if (
+      event?.data?.data?.uniqueWidgetId &&
+      event?.data?.data?.uniqueWidgetId !== this.props.uniqueWidgetId
+    ) {
+      return;
+    }
     if (
       event?.data?.type === 'bsport:subscription:add-to-cart:contract' &&
       event?.data?.data?.contract_id

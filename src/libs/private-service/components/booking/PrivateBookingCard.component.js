@@ -51,6 +51,7 @@ import { getPrivateBookingStatusCodeForCalendar } from '../../../booking/utils';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import SessionNotePad from '#libs/offer/components/SessionNotePad';
+import { TEMPORARY_AMOUNT_TO_FORCE_INTERNAL_PAYMENT_CTS } from '#libs/invoice/constants';
 
 type Props = {
   private_booking: PrivateBookingWithRelatedFields,
@@ -464,6 +465,11 @@ export const PrivateBookingCard = (props: Props) => {
           onCancel={() => props.setInvoiceToBill(null)}
           onError={() => {}}
           onlinePaymentEnabled={props.onlinePaymentEnabled}
+          onlyInternal={
+            !props.onlinePaymentEnabled ||
+            props.invoiceToBill.amount_due_cts <
+              TEMPORARY_AMOUNT_TO_FORCE_INTERNAL_PAYMENT_CTS
+          }
           onSuccess={(callback) => {
             setTimeout(() => {
               props.fetchInvoiceListUnpaid(private_booking.member.id);

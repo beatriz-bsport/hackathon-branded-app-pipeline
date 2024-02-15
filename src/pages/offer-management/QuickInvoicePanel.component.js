@@ -96,6 +96,14 @@ export class QuickInvoicePanel extends React.PureComponent<Props, State> {
     ) {
       this.setIsOpen(true);
     }
+    if (
+      this.props.invoiceToBill &&
+      this.props.invoiceToBill?.uuid !== prevProps.invoiceToBill?.uuid
+    ) {
+      this.setState({
+        paymentGroupPriceCts: this.props.invoiceToBill.amount_due_cts,
+      });
+    }
   };
 
   requestClientSecret = (paymentEngine: number, params?: any) => {

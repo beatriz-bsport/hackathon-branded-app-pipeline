@@ -3,21 +3,25 @@ import React from 'react';
 import ConsumerPassTitleAndButtons from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassTitleAndButtons';
 import ConsumerPassFilters from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassFilters';
 import ConsumerPassTabs from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassTabs';
+import ConsumerHeaderSkeleton from '#libs/consumer-space/components/reworked/common/ConsumerHeaderSkeleton';
 import WidgetUtils from '#libs/widget/WidgetUtils';
 
 import type { PassFilterTab } from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassFilters/types';
 import type { PassTab } from '#libs/consumer-space/components/reworked/@MyPasses/ConsumerPassTabs/types';
+import type { ConsumerPassesTabDisplay } from '#libs/consumer-space/types';
 
 import './styles.css';
 
 type Props = {
   activeItemsCount: number;
+  consumerPassesTabDisplay?: ConsumerPassesTabDisplay;
   futureItemsCount: number;
   handleBuyPassClick: () => void;
   handleBookASessionClick: () => void;
   handleSetSelectedFilterTab: (type: PassFilterTab) => void;
   handleSetSelectedTab: (type: PassTab) => void;
   handleTogglePassTabDrawer: () => void;
+  isLoading: boolean;
   isMobile?: boolean;
   selectedFilterTab: PassFilterTab;
   selectedTab: PassTab;
@@ -25,17 +29,23 @@ type Props = {
 
 const ConsumerPassHeader: React.FC<Props> = ({
   activeItemsCount,
+  consumerPassesTabDisplay,
   futureItemsCount,
   handleBuyPassClick,
   handleBookASessionClick,
   handleSetSelectedTab,
   handleSetSelectedFilterTab,
   handleTogglePassTabDrawer,
+  isLoading,
   isMobile,
   selectedFilterTab,
   selectedTab,
 }) => {
   const isWidget = WidgetUtils.isWidget();
+
+  if (isLoading) {
+    return <ConsumerHeaderSkeleton className="bs-consumer-pass-page__header" />;
+  }
 
   return (
     <div className="bs-consumer-pass-page__header">
@@ -46,6 +56,7 @@ const ConsumerPassHeader: React.FC<Props> = ({
         onBookSessionClick={handleBookASessionClick}
       />
       <ConsumerPassTabs
+        consumerPassesTabDisplay={consumerPassesTabDisplay}
         handleToggleTabDrawer={handleTogglePassTabDrawer}
         isMobile={isMobile}
         onChangePassTab={handleSetSelectedTab}

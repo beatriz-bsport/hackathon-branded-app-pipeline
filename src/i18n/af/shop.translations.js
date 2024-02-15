@@ -44,6 +44,9 @@ exports.default = {
       onsite_payment_available: 'Enable in-studio payments',
     },
     action: { edit: 'Edit', addToCard: 'Add to cart', delete: 'Delete' },
-    form: { title: 'Webshop product' },
+    form: {
+      title: 'Webshop product',
+      error: { name: 'A product name cannot exceed 200 characters' },
+    },
   },
 };

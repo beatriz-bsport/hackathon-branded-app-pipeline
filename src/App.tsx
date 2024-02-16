@@ -59,7 +59,10 @@ import {
   openUserInteractionPortal,
 } from './libs/modal/actions';
 
-import { buildSafeUtmTrackingParams } from './utils/http';
+import {
+  buildSafeUtmTrackingParams,
+  buildAnalyticsTrackingParamsFromCurrentUrl,
+} from './utils/http';
 
 const FabWidget = asyncComponent(() => import('./widgets/FabWidget.widget'));
 
@@ -184,7 +187,8 @@ class BsportWidget extends Component<Props> {
     const finalURL = this.props.utmTrackingConfiguration
       ? uri.toString() +
         buildSafeUtmTrackingParams(this.props.utmTrackingConfiguration)
-      : uri.toString();
+      : uri.toString() + buildAnalyticsTrackingParamsFromCurrentUrl();
+
     this.props.openUserInteractionPortal({
       url: finalURL,
       dialogMode: this.props.dialogMode,

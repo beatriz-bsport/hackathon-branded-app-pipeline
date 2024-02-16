@@ -14576,7 +14576,11 @@
           "expiresSoon": "Pass will expire soon",
           "isExpired": "Pass is expired",
           "isFuture": "Pass is not active yet",
-          "passKind": "Pass kind"
+          "passKind": "Pass kind",
+          "hasFailedPayments": "Has failed payments",
+          "hasMissingPaymentMethod": "Has missing payment method",
+          "addPaymentMethodDisabled": "Add payment method button is disabled",
+          "isPaused": "Is currently paused"
         },
         "configurationTitle": "Variations",
         "confirmationMessageComponentAlert": "This component primarily manages booking and payment statuses. For customizing its appearance, we recommend utilizing its root components located in common section",
@@ -14708,7 +14712,8 @@
         "consumer_payment_pack_details_card": "Activity pass details card (for member)",
         "private_consumer_pass_details_card": "Appointment pass details card (for member)",
         "universal_pass_details_card": "Universal pass details card (for member)",
-        "reset_password_confirmation": "Reset password confirmation"
+        "reset_password_confirmation": "Reset password confirmation",
+        "consumer_subscription_card": "Consumer subscription card"
       },
       "customCss": {
         "yourCode": "Your complementary implementation:",

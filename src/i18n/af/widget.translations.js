@@ -315,6 +315,10 @@ exports.default = {
         isExpired: 'Pass is expired',
         isFuture: 'Pass is not active yet',
         passKind: 'Pass kind',
+        hasFailedPayments: 'Has failed payments',
+        hasMissingPaymentMethod: 'Has missing payment method',
+        addPaymentMethodDisabled: 'Add payment method button is disabled',
+        isPaused: 'Is currently paused',
       },
       configurationTitle: 'Variations',
       confirmationMessageComponentAlert:
@@ -466,6 +470,7 @@ exports.default = {
         'Appointment pass details card (for member)',
       universal_pass_details_card: 'Universal pass details card (for member)',
       reset_password_confirmation: 'Reset password confirmation',
+      consumer_subscription_card: 'Consumer subscription card',
     },
     customCss: {
       yourCode: 'Your complementary implementation:',

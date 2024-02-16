@@ -1,9 +1,11 @@
 import React from 'react';
 import { ConsumerSubscriptionCardStorybook } from '.';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
+import moment from 'moment-timezone';
+import { subscriptionFactory } from '#libs/subscription/factory';
 
-// TO NOT REVIEW YET
 ConsumerSubscriptionCardStorybook.displayName = 'ConsumerSubscriptionCard';
+const SUBSCRIPTION = subscriptionFactory();
 
 const ConsumerSubscriptionCardTemplate: ComponentStory<
   typeof ConsumerSubscriptionCardStorybook
@@ -11,14 +13,114 @@ const ConsumerSubscriptionCardTemplate: ComponentStory<
   return <ConsumerSubscriptionCardStorybook {...args} />;
 };
 
-const defaultArgs = {};
+const defaultArgs = {
+  recurrence: SUBSCRIPTION.recurrence_basis,
+  subscriptionName: SUBSCRIPTION.name_without_member_name,
+  subscriptionDate: moment(SUBSCRIPTION.first_billing_date).format('L'),
+  price: SUBSCRIPTION.recurrent_price.toString(),
+};
 
-export const ConsumerSubscriptionCardEverythingDisplayed =
+export const ConsumerSubscriptionCardDefault =
   ConsumerSubscriptionCardTemplate.bind({});
-ConsumerSubscriptionCardEverythingDisplayed.args = defaultArgs;
+ConsumerSubscriptionCardDefault.args = defaultArgs;
+
+export const ConsumerSubscriptionCardFailedPayments =
+  ConsumerSubscriptionCardTemplate.bind({});
+ConsumerSubscriptionCardFailedPayments.args = {
+  ...defaultArgs,
+  hasFailedPayments: true,
+};
+
+export const ConsumerSubscriptionCardIsPaused =
+  ConsumerSubscriptionCardTemplate.bind({});
+ConsumerSubscriptionCardIsPaused.args = {
+  ...defaultArgs,
+  isPaused: true,
+};
+
+export const ConsumerSubscriptionCardMissingPaymentMethod =
+  ConsumerSubscriptionCardTemplate.bind({});
+ConsumerSubscriptionCardMissingPaymentMethod.args = {
+  ...defaultArgs,
+  hasMissingPaymentMethod: true,
+};
+
+export const ConsumerSubscriptionCardNextPaymentDate =
+  ConsumerSubscriptionCardTemplate.bind({});
+ConsumerSubscriptionCardNextPaymentDate.args = {
+  ...defaultArgs,
+  subscriptionNextPaymentDate: moment(SUBSCRIPTION.next_billing_date).format(
+    'L',
+  ),
+};
+
+export const ConsumerSubscriptionCardLoading =
+  ConsumerSubscriptionCardTemplate.bind({});
+ConsumerSubscriptionCardLoading.args = { isLoading: true };
 
 export default {
-  title: 'ConsumerSubscriptionCard',
+  title: 'ConsumerSpace/ConsumerSubscriptionCard',
   component: ConsumerSubscriptionCardStorybook,
-  argTypes: {},
+  argTypes: {
+    addPaymentMethodDisabled: {
+      description: 'Indicate if Add payment method button is disabled',
+      control: 'boolean',
+      defaultValue: false,
+    },
+    hasFailedPayments: {
+      description: 'Indicate if subscription has failed payments',
+      control: 'boolean',
+      defaultValue: false,
+    },
+    hasMissingPaymentMethod: {
+      description: 'Indicate if subscription has no payment method associated',
+      control: 'boolean',
+      defaultValue: false,
+    },
+    isDetailsDisabled: {
+      description: 'Indicate if See details button is disabled',
+      control: 'boolean',
+      defaultValue: false,
+    },
+    isLoading: {
+      description: 'Loading state',
+      control: 'boolean',
+      defaultValue: false,
+    },
+    isPaused: {
+      description: 'Indicate if subscription is currently in pause',
+      control: 'boolean',
+      defaultValue: false,
+    },
+    isSelected: {
+      description: 'Indicate if subscription card is selected',
+      control: 'boolean',
+      defaultValue: false,
+    },
+    price: { description: 'Price displayed ', control: 'text' },
+    recurrence: {
+      description: 'Recurrence of the subscription',
+      control: 'number',
+    },
+    subscriptionDate: {
+      description: 'Date of the subscription',
+      control: 'text',
+      defaultValue: '',
+    },
+    subscriptionInterval: {
+      description: 'Interval of the subscription',
+      control: 'inline-radio',
+      options: ['day', 'week', 'month', 'year'],
+    },
+    subscriptionName: {
+      description: 'Name of the subscription',
+      control: 'text',
+      defaultValue: '',
+    },
+    subscriptionNextPaymentDate: {
+      description: 'Next payment date',
+      control: 'text',
+      defaultValue: '',
+    },
+  },
 } as ComponentMeta<typeof ConsumerSubscriptionCardStorybook>;

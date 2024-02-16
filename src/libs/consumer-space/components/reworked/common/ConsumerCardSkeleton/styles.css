@@ -4,6 +4,7 @@
   align-items: flex-start;
   margin-bottom: var(--bs-space-size-4);
   container: bsConsumerCardSkeleton / inline-size;
+  width: inherit;
 }
 
 .bs-consumer-card-skeleton__title {

@@ -26,6 +26,8 @@ type Props = {
   description?: string;
   price?: string;
   lowestVariantPrice?: number;
+  allVariantsHaveSamePrice?: boolean;
+  productHasVariants?: boolean;
   onEditShopItem: () => void;
   onDeleteShopItem: () => void;
 };
@@ -73,6 +75,8 @@ const ShopItemDetailProductCard: React.FC<Props> = ({
   description,
   price,
   lowestVariantPrice,
+  allVariantsHaveSamePrice,
+  productHasVariants,
   onEditShopItem,
   onDeleteShopItem,
 }) => {
@@ -137,9 +141,11 @@ const ShopItemDetailProductCard: React.FC<Props> = ({
               onClose={handleCloseMenu}
               open={!!menuAnchorElement}
             >
-              <MenuItem onClick={handleCloseMenu}>
-                {t('shop:shopItemDetail.copyPaymentPageLink')}
-              </MenuItem>
+              {!productHasVariants && (
+                <MenuItem onClick={handleCloseMenu}>
+                  {t('shop:shopItemDetail.copyPaymentPageLink')}
+                </MenuItem>
+              )}
               <MenuItem onClick={handleClickDeleteShopItem}>
                 {t('common:delete')}
               </MenuItem>
@@ -156,18 +162,16 @@ const ShopItemDetailProductCard: React.FC<Props> = ({
             />
           )}
           <div className={classes.textContainer}>
-            <div>
-              <div className={classes.nameAndPriceContainer}>
-                <Typography variant="h6">{name}</Typography>
+            <div className={classes.nameAndPriceContainer}>
+              <Typography variant="h6">{name}</Typography>
 
-                <div className={classes.priceContainer}>
-                  {lowestVariantPrice && (
-                    <Typography variant="body2">
-                      {t('shop:shopItemDetail.startingAt')}
-                    </Typography>
-                  )}
-                  <Typography variant="h6">{shopItemPrice}</Typography>
-                </div>
+              <div className={classes.priceContainer}>
+                {!!lowestVariantPrice && !allVariantsHaveSamePrice && (
+                  <Typography variant="body2">
+                    {t('shop:shopItemDetail.startingAt')}
+                  </Typography>
+                )}
+                <Typography variant="h6">{shopItemPrice}</Typography>
               </div>
             </div>
             <Typography className={classes.subtitle} variant="subtitle1">

@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 
 // @ts-expect-error
 import Barcode from 'react-barcode';
@@ -192,10 +192,15 @@ const ShopItemDetail: React.FC<Props> = ({
     },
     [createShopItemVariants, handleCloseCreateVariantDrawer, shopItem?.id],
   );
+  const allVariantsHaveSamePrice = useMemo(() => {
+    const initialPrice = shopItem?.price;
+    return variantList.every((variant) => variant.price === initialPrice);
+  }, [shopItem?.price, variantList]);
 
   return (
     <div className={classes.container}>
       <ShopItemDetailProductCard
+        allVariantsHaveSamePrice={allVariantsHaveSamePrice}
         cover={shopItem?.cover}
         description={shopItem?.description}
         isDeleting={isDeleting}
@@ -205,6 +210,7 @@ const ShopItemDetail: React.FC<Props> = ({
         onDeleteShopItem={handleOpenDeleteConfirmationModal}
         onEditShopItem={handleOpenEditShopItemDrawer}
         price={shopItem?.price}
+        productHasVariants={count > 0}
         subtitle={shopItem?.subtitle}
       />
 

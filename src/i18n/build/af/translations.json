@@ -10441,7 +10441,19 @@
       "methodPaymentBasket": "Single payments",
       "methodPaymentCardBillingDetails": "Request invoicing details for card payments.",
       "methodPaymentCardBillingDetailsTitle": "Request full invoicing details",
-      "methodPaymentCardBillingDetailsHelper": "By activating this feature, you will reduce the number of card payments requiring 3D Secure (SMS validation, banking applications, etc.) Please note that these fields are compulsory."
+      "methodPaymentCardBillingDetailsHelper": "By activating this feature, you will reduce the number of card payments requiring 3D Secure (SMS validation, banking applications, etc.) Please note that these fields are compulsory.",
+      "DaysBeforeNotificationInputs": {
+        "title": "Choose the number of days before the payment method expiration date to send an email notification.",
+        "helpText": "If you have the transactional notifications enabled for “payment method expiration reminders” in the “Billing” and “Subscriptions” sections you can customise the number of days here.",
+        "labels": {
+          "daysBeforeFirstNotification": "First notification (days before expiration date)",
+          "daysBeforeSecondNotification": "Second notification (days before expiration date)"
+        },
+        "errors": {
+          "secondWarningDayBiggerThanFirst": "The second notification cannot be greater than the first one",
+          "max": "The number of days cannot be greater than {{maxDays}}"
+        }
+      }
     },
     "billing_group": {
       "header": "Billing group",

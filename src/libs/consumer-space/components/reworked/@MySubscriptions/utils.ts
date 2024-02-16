@@ -22,7 +22,11 @@ export const getSubscriptionRecurrenceLabel = (
         {
           price,
           currency: getCurrencyDisplay(),
-          interval: subscriptionInterval,
+          interval: t(
+            `subscription:contract.form.recurrence_basis.intervalName.${subscriptionInterval}`,
+            { count: recurrence },
+          ),
+          recurrence,
         },
       )
     : t(
@@ -30,7 +34,10 @@ export const getSubscriptionRecurrenceLabel = (
         {
           price,
           currency: getCurrencyDisplay(),
-          interval: subscriptionInterval,
+          interval: t(
+            `subscription:contract.form.recurrence_basis.intervalName.${subscriptionInterval}`,
+            { count: recurrence },
+          ),
           recurrence,
         },
       );

@@ -48,7 +48,7 @@ const ConsumerSubscriptionDetailsCardHeader: React.FC<Props> = ({
   subscriptionNextPaymentDate,
   subtitleDate,
 }) => {
-  const { t } = useTranslation('consumerSpace');
+  const { t } = useTranslation(['consumerSpace', 'subscription']);
   const recurrenceLabel = getSubscriptionRecurrenceLabel(
     recurrence,
     price,

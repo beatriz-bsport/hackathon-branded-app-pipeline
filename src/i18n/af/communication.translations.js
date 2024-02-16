@@ -191,6 +191,7 @@ const getTranslations = async () => {
         onJoin: 'When joining a Smartlist',
       },
       automatedTitle: 'Automatic submissions',
+      scheduledTitle: 'Scheduled for later',
       manualTitle: 'Manual submissions',
       exportCampaigns: {
         title: 'Export Campaigns',
@@ -482,6 +483,39 @@ const getTranslations = async () => {
         becauseOfFilters: 'No results matching filters.',
         becauseNeverUsed:
           'You have not yet sent any communication on this channel.',
+      },
+    },
+    scheduled: {
+      numberOfRecipients: 'Recipient: {{ count }}',
+      numberOfRecipients_plural: 'Recipients: {{ count }}',
+      scheduledFor: 'Scheduled for: {{ datetime }}',
+      nextCommunicationScheduled: 'Next scheduled message',
+      opened: 'Opened',
+      clicked: 'Clicked',
+      edit: 'Edit',
+      delete: 'Delete',
+      show: 'Show',
+      isEmpty: 'There are no scheduled messages to display.',
+      sectionTitle: 'Message scheduling',
+      sendImmediately: 'Send immediately',
+      scheduleForLater: 'Schedule for later',
+      when: 'When',
+      at: 'at',
+      schedule: 'Schedule',
+      datetimeLimit:
+        'Messages must be scheduled at least 5 minutes in advance.',
+      dialog: {
+        title: 'Schedule a message',
+        helperText: 'Choose the time you want to schedule the message.',
+        separator: 'at',
+        submit: 'Schedule message',
+        close: 'Cancel',
+      },
+      tooLateToUpdateDialog: {
+        title: 'You cannot modify or delete this message anymore.',
+        content:
+          "This message can't be changed or deleted within 5 minutes of sending.",
+        close: 'Back to smartlist',
       },
     },
   };

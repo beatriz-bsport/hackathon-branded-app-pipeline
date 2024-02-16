@@ -672,6 +672,14 @@ const getTranslations = async () => {
     lastGenerated: 'Last export generated on : {{-date}} {{time}}',
     generateReport: 'Generate report',
     downloadReport: 'Download report',
+    communication: {
+      scheduled: {
+        nextScheduledMessage: 'Next scheduled message',
+        isEmpty: 'There are no messages scheduled.',
+        viewAll: 'See all',
+        total: 'Total scheduled messages: {{ count }}',
+      },
+    },
   };
 };
 

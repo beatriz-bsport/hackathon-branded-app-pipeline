@@ -2,6 +2,11 @@ const {
   CANNOT_REDEEM_CODE_BECAUSE_NOT_USED,
 } = require('../../libs/coupon/errors.ts');
 
+const {
+  TAG_NAME_ALREADY_USED,
+  TAG_GROUP_NAME_ALREADY_USED,
+} = require('../../libs/tag/errors.constants.ts');
+
 const getTranslations = async () => {
   const {
     OFFER_WAITING_LIST_STATUS_FULL,
@@ -726,6 +731,12 @@ const getTranslations = async () => {
           'The scheduled termination of this subscription has been removed',
         error:
           'Error when removing the scheduled termination of this subscription',
+      },
+    },
+    tag: {
+      error: {
+        [TAG_GROUP_NAME_ALREADY_USED]: 'The main tag name is already used',
+        [TAG_NAME_ALREADY_USED]: 'The sub tag name is already used',
       },
     },
     dashboard: {

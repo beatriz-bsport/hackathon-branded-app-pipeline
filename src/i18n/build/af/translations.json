@@ -11204,6 +11204,7 @@
         "error": "Error when removing the scheduled termination of this subscription"
       }
     },
+    "tag": { "error": { "124003": "The sub tag name is already used", "124004": "The main tag name is already used" } },
     "dashboard": { "save": { "error": "Unable to save changes", "success": "The changes have been saved" } },
     "privateRecurrentRule": {
       "delete": { "error": "Impossible to delete this recurring appointment", "success": "Recurring appointment deleted" },

@@ -30,6 +30,7 @@ exports.default = {
     billOnce: '{{ price_cts }}',
     vod: { explainBilling: '  +{{currencyDisplay }}1 / active client' },
     billRecurrent: '{{ price_cts }} / month',
+    billSMS: '{{ price_cts }} / SMS',
     otherAddonTitle: 'Available Add-Ons',
     myAddonTitle: 'My Add-Ons',
     knowMore: 'More information',

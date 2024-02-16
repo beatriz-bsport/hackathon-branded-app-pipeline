@@ -75,7 +75,7 @@ export const subscriptionFactory = (options?: SubscriptionFactoryOptions) => {
     payment_pack: options?.hasPaymentPack ? faker.number.int(10000) : null,
     planned_invoices: plannedInvoiceListFactory(5),
     private_pass: options?.hasPrivatePass ? faker.number.int(10000) : null,
-    recurrence_basis: faker.number.int(20),
+    recurrence_basis: faker.number.int({ min: 1, max: 20 }),
     recurrent_price: generateRandomPrice(faker, { min: 5, max: 100 }),
     recurrent_voucher: faker.number.int(10000),
     status: options?.status ?? randomStatus,

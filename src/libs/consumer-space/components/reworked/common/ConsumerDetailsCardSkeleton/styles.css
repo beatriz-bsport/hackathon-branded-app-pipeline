@@ -4,6 +4,7 @@
   align-items: flex-start;
   height: fit-content;
   container: bsConsumerDetailsCardSkeleton / inline-size;
+  width: inherit;
 }
 
 .bs-consumer-details-card-skeleton__header-section {

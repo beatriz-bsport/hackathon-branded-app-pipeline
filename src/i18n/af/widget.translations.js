@@ -112,6 +112,7 @@ exports.default = {
         false: 'No',
         true: 'Yes',
         card: 'Pass',
+        card_payment_method: 'Card',
         sepa_debit: 'SEPA direct debits',
         bacs_debit: 'Bacs Direct debit',
         sepa: 'SEPA direct debits',
@@ -319,6 +320,10 @@ exports.default = {
         hasMissingPaymentMethod: 'Has missing payment method',
         addPaymentMethodDisabled: 'Add payment method button is disabled',
         isPaused: 'Is currently paused',
+        withFuturePauses: 'Subscription has planned pauses in the future',
+        hasAutoRenewal: 'Subscription will be renewed automatically',
+        WithBillingHistory: 'Display successful payments',
+        withFailedPayments: 'Display failed payments',
       },
       configurationTitle: 'Variations',
       confirmationMessageComponentAlert:
@@ -471,6 +476,7 @@ exports.default = {
       universal_pass_details_card: 'Universal pass details card (for member)',
       reset_password_confirmation: 'Reset password confirmation',
       consumer_subscription_card: 'Consumer subscription card',
+      consumer_subscription_details_card: 'Consumer subscription details card',
     },
     customCss: {
       yourCode: 'Your complementary implementation:',

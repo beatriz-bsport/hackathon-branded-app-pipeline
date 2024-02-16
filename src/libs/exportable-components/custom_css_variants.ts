@@ -427,6 +427,10 @@ import {
   CONSUMER_SUBSCRIPTION_CARD_CONFIGURATION,
   CONSUMER_SUBSCRIPTION_CARD_PREVIEW,
 } from '#libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionCard';
+import {
+  CONSUMER_SUBSCRIPTION_DETAILS_CARD_CONFIGURATION,
+  CONSUMER_SUBSCRIPTION_DETAILS_CARD_PREVIEW,
+} from '#libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionDetailsCard';
 /* TEMPLATE
 
 {
@@ -540,6 +544,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
         CONSUMER_PAYMENT_PACK_DETAILS_CARD_CONFIGURATION,
         UNIVERSAL_PASS_DETAILS_CARD_CONFIGURATION,
         CONSUMER_SUBSCRIPTION_CARD_CONFIGURATION,
+        CONSUMER_SUBSCRIPTION_DETAILS_CARD_CONFIGURATION,
       ]
     : []),
 ];
@@ -744,6 +749,8 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
         UNIVERSAL_PASS_DETAILS_CARD_PREVIEW,
       [CssComponentsVariantIdentifiers.CONSUMER_SUBSCRIPTION_CARD]:
         CONSUMER_SUBSCRIPTION_CARD_PREVIEW,
+      [CssComponentsVariantIdentifiers.CONSUMER_SUBSCRIPTION_DETAILS_CARD]:
+        CONSUMER_SUBSCRIPTION_DETAILS_CARD_PREVIEW,
     }),
   });
 

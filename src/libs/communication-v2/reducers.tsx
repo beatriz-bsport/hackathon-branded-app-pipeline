@@ -17,21 +17,29 @@ import {
   switchStatusActions,
   getCommunicationThreadActions,
   getOrCreateThreadActions,
+  createCommunicationScheduledActions,
+  fetchCommunicationScheduledListActions,
+  retrieveCommunicationScheduledActions,
+  deleteCommunicationScheduledActions,
+  updateCommunicationScheduledActions,
+  sendNowCommunicationScheduledActions,
+  fetchCommunicationScheduledListForSmartlistActions,
 } from './actions';
 
-import {
+import type {
   CommunicationState,
   Recipient,
   Communication,
   SmartListPopupSending,
   CommunicationThread,
   UnreadAnswersCount,
+  CommunicationScheduled,
 } from './types';
 import {
   COMMUNICATION_KIND,
   INBOX_THREAD_PAGE_SIZE,
 } from '#libs/communication-v2/constants';
-import { GenericPaginationResults } from '#libs/types';
+import type { PaginatedResponse } from '../../state/types';
 
 const initialState: Immutable.Immutable<CommunicationState> =
   Immutable<CommunicationState>({
@@ -115,6 +123,20 @@ const initialState: Immutable.Immutable<CommunicationState> =
         loading: false,
         error: null,
       },
+      loading: false,
+      error: null,
+    },
+    communicationScheduled: {
+      byId: {},
+      bySmartlistId: {
+        all: {},
+        loading: false,
+        error: null,
+      },
+      allIds: [],
+      page: 1,
+      next_page: null,
+      count: null,
       loading: false,
       error: null,
     },
@@ -388,7 +410,7 @@ export default handleActions<Immutable.Immutable<CommunicationState>>(
       {
         payload,
       }: {
-        payload: GenericPaginationResults<CommunicationThread> & {
+        payload: PaginatedResponse<CommunicationThread> & {
           related_object_kind: ChatThreadKinds;
           fetchedPage: number;
         };
@@ -535,6 +557,242 @@ export default handleActions<Immutable.Immutable<CommunicationState>>(
       { payload }: { payload: CommunicationThread },
     ) => {
       return state.setIn(['inboxThread', 'byId', payload.id], payload);
+    },
+
+    // --------- COMMUNICATION SCHEDULED ---------
+    [createCommunicationScheduledActions.loading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['communicationScheduled', 'loading'], payload);
+    },
+    [createCommunicationScheduledActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['communicationScheduled', 'error'], payload);
+    },
+    [createCommunicationScheduledActions.success.toString()]: (
+      state,
+      { payload }: { payload: CommunicationScheduled },
+    ) => {
+      return state
+        .setIn(
+          ['communicationScheduled', 'allIds'],
+          state.communicationScheduled.allIds.concat(payload.id),
+        )
+        .setIn(['communicationScheduled', 'byId', payload.id], payload);
+    },
+    [fetchCommunicationScheduledListActions.loading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['communicationScheduled', 'loading'], payload);
+    },
+    [fetchCommunicationScheduledListActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['communicationScheduled', 'error'], payload);
+    },
+    [fetchCommunicationScheduledListActions.success.toString()]: (
+      state,
+      { payload }: { payload: PaginatedResponse<CommunicationScheduled> },
+    ) => {
+      return state
+        .setIn(
+          ['communicationScheduled', 'allIds'],
+          payload.results?.map(
+            (communication: CommunicationScheduled) => communication.id,
+          ) ?? [],
+        )
+        .setIn(['communicationScheduled', 'page'], payload.page)
+        .setIn(['communicationScheduled', 'count'], payload.count)
+        .setIn(['communicationScheduled', 'next_page'], payload.next_page)
+        .setIn(
+          ['communicationScheduled', 'byId'],
+          payload.results?.reduce<{
+            [id: number]: CommunicationScheduled;
+          }>((acc, currentCommunication) => {
+            acc[currentCommunication.id] = currentCommunication;
+            return acc;
+          }, {}) ?? {},
+        );
+    },
+
+    [fetchCommunicationScheduledListForSmartlistActions.loading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['communicationScheduled', 'bySmartlistId', 'loading'],
+        payload,
+      );
+    },
+    [fetchCommunicationScheduledListForSmartlistActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['communicationScheduled', 'bySmartlistId', 'error'],
+        payload,
+      );
+    },
+    [fetchCommunicationScheduledListForSmartlistActions.success.toString()]: (
+      state,
+      {
+        payload,
+      }: {
+        payload: {
+          smartlistId: number;
+          response: PaginatedResponse<CommunicationScheduled>;
+        };
+      },
+    ) => {
+      return state
+        .setIn(
+          [
+            'communicationScheduled',
+            'bySmartlistId',
+            'all',
+            payload.smartlistId.toString(),
+            'allIds',
+          ],
+          payload.response.results?.map(
+            (communication: CommunicationScheduled) => communication.id,
+          ) ?? [],
+        )
+        .setIn(
+          [
+            'communicationScheduled',
+            'bySmartlistId',
+            'all',
+            payload.smartlistId.toString(),
+            'page',
+          ],
+          payload.response.page ?? 1,
+        )
+        .setIn(
+          [
+            'communicationScheduled',
+            'bySmartlistId',
+            'all',
+            payload.smartlistId.toString(),
+            'count',
+          ],
+          payload.response.count,
+        )
+        .setIn(
+          [
+            'communicationScheduled',
+            'bySmartlistId',
+            'all',
+            payload.smartlistId.toString(),
+            'next_page',
+          ],
+          payload.response.next_page,
+        )
+        .merge(
+          {
+            communicationScheduled: {
+              byId: payload.response.results.reduce<{
+                [id: number]: CommunicationScheduled;
+              }>((acc, currentCommunication) => {
+                acc[currentCommunication.id] = currentCommunication;
+                return acc;
+              }, {}),
+            },
+          },
+          { deep: true },
+        );
+    },
+
+    [retrieveCommunicationScheduledActions.loading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['communicationScheduled', 'loading'], payload);
+    },
+    [retrieveCommunicationScheduledActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['communicationScheduled', 'error'], payload);
+    },
+    [retrieveCommunicationScheduledActions.success.toString()]: (
+      state,
+      { payload }: { payload: CommunicationScheduled },
+    ) => {
+      return state
+        .setIn(['communicationScheduled', 'allIds'], [payload.id])
+        .setIn(['communicationScheduled', 'byId', payload.id], payload);
+    },
+    [deleteCommunicationScheduledActions.loading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['communicationScheduled', 'loading'], payload);
+    },
+    [deleteCommunicationScheduledActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['communicationScheduled', 'error'], payload);
+    },
+    [deleteCommunicationScheduledActions.success.toString()]: (
+      state,
+      { payload }: { payload: number },
+    ) => {
+      return state.setIn(
+        ['communicationScheduled', 'allIds'],
+        state.communicationScheduled.allIds.filter(
+          (communicationScheduledId) => communicationScheduledId !== payload,
+        ),
+      );
+    },
+    [updateCommunicationScheduledActions.loading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['communicationScheduled', 'loading'], payload);
+    },
+    [updateCommunicationScheduledActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['communicationScheduled', 'error'], payload);
+    },
+    [updateCommunicationScheduledActions.success.toString()]: (
+      state,
+      { payload }: { payload: CommunicationScheduled },
+    ) => {
+      return state.setIn(
+        ['communicationScheduled', 'byId', payload.id],
+        payload,
+      );
+    },
+    [sendNowCommunicationScheduledActions.loading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['communicationScheduled', 'loading'], payload);
+    },
+    [sendNowCommunicationScheduledActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['communicationScheduled', 'error'], payload);
+    },
+    [sendNowCommunicationScheduledActions.success.toString()]: (
+      state,
+      { payload }: { payload: CommunicationScheduled },
+    ) => {
+      return state.setIn(
+        ['communicationScheduled', 'allIds'],
+        state.communicationScheduled.allIds.filter(
+          (communicationScheduledId) => communicationScheduledId !== payload.id,
+        ),
+      );
     },
   },
   initialState,

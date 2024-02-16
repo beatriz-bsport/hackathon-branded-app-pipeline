@@ -8,7 +8,7 @@ import type {
 } from '#libs/types';
 import type { Member, MemberFilter } from '#libs/member/types';
 import type { CustomMobilePopup } from '#libs/settings/types';
-import { SmartList } from '#libs/smart-list/types';
+import type { SmartList } from '#libs/smart-list/types';
 
 export type CommunicationProviderState = {
   provider?: CommunicationProvider;
@@ -52,6 +52,23 @@ export type CommunicationState = {
     unreadAnswersCountsById: { [id: number]: number };
     allUnreadAnswersCount: number;
     currentThread: ErrorAndLoading;
+  } & ErrorAndLoading;
+  communicationScheduled: {
+    byId: { [id: number]: CommunicationScheduled };
+    allIds: number[];
+    page: number;
+    next_page: number | null;
+    count: number | null;
+    bySmartlistId: {
+      all: {
+        [smartlistId: number]: {
+          allIds: number[];
+          page: number;
+          next_page: number | null;
+          count: number | null;
+        };
+      };
+    } & ErrorAndLoading;
   } & ErrorAndLoading;
 };
 
@@ -278,4 +295,43 @@ export type SmartListSelectOption = {
   value: number;
   label: string;
   smartlist: SmartList;
+};
+
+// COMMUNICATION SCHEDULED
+
+export type CommunicationScheduled = {
+  id: number;
+  company?: number;
+  smartlist: number;
+  communication_kind: number;
+  text: string;
+  email_design?: number;
+  title?: string;
+  datetime_scheduled: string;
+  datetime_sent?: string;
+  disabled?: boolean;
+  email_resend_delay?: number;
+  email_resend_count?: number;
+};
+
+export type CommunicationScheduledCreate = {
+  smartlist: number;
+  communication_kind?: number;
+  text?: string;
+  email_design?: number;
+  title?: string;
+  datetime_scheduled: string;
+  email_resend_delay?: number;
+  email_resend_count?: number;
+};
+
+export type CommunicationScheduledFilters = {
+  id__in?: number[];
+  smartlist_id__in?: number[];
+  page?: number;
+};
+
+export type CommunicationScheduledFiltersForUniqueSmartlist = {
+  smartlistId: number;
+  page?: number;
 };

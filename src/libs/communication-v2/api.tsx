@@ -1,27 +1,33 @@
-import { AxiosResponse } from 'axios';
+import type { AxiosResponse } from 'axios';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 import {
   API_V1_URI,
+  buildUrlParams,
+  deleteAuth,
+  getAuth,
+  getAuthDeprecated,
+  patchAuth,
   postAuth,
   postAuthDeprecated,
-  getAuth,
-  buildUrlParams,
-  patchAuth,
-  getAuthDeprecated,
+  putAuth,
 } from '../../http';
-import {
-  MessageParams,
-  FetchCommunicationParams,
+import type {
   CommunicationContext,
   CommunicationProvider,
   CommunicationProviderSettings,
-  SmartListPopupSending,
-  InboxThreadListParams,
-  UnreadAnswersCount,
+  CommunicationScheduled,
+  CommunicationScheduledCreate,
+  CommunicationScheduledFilters,
   CommunicationThread,
+  FetchCommunicationParams,
+  InboxThreadListParams,
+  MessageParams,
+  SmartListPopupSending,
+  UnreadAnswersCount,
 } from './types';
-import { FetchRecipientsParams } from '#libs/member/types';
-import { GenericPaginationResults } from '#libs/types';
+import type { FetchRecipientsParams } from '#libs/member/types';
+import type { GenericPaginationResults } from '#libs/types';
+import type { PaginatedResponse } from '../../state/types';
 
 export const sendCommunication = async (data: MessageParams) => {
   return postAuthDeprecated(
@@ -214,4 +220,53 @@ export const fetchInboxThreadFromId = async (
   id: number,
 ): Promise<AxiosResponse<CommunicationThread>> => {
   return getAuth(`${API_V1_URI}/communication/communication_thread/${id}/`);
+};
+
+// COMMUNICATION SCHEDULED
+
+export const createCommunicationScheduled = (
+  communicationScheduled: CommunicationScheduledCreate,
+) => {
+  return postAuth<CommunicationScheduled>(
+    `${API_V1_URI}/communication/communication_scheduled/`,
+    communicationScheduled,
+  );
+};
+
+export const fetchCommunicationScheduledList = (
+  filters?: CommunicationScheduledFilters,
+) => {
+  return getAuth<PaginatedResponse<CommunicationScheduled>>(
+    `${API_V1_URI}/communication/communication_scheduled/${buildUrlParams(
+      filters,
+    )}`,
+  );
+};
+
+export const retrieveCommunicationScheduled = (id: number) => {
+  return getAuth<CommunicationScheduled>(
+    `${API_V1_URI}/communication/communication_scheduled/${id}`,
+  );
+};
+
+export const deleteCommunicationScheduled = (id: number) => {
+  return deleteAuth<CommunicationScheduled>(
+    `${API_V1_URI}/communication/communication_scheduled/${id}`,
+  );
+};
+
+export const updateCommunicationScheduled = (
+  id: number,
+  updatedCommunicationScheduled: CommunicationScheduled,
+) => {
+  return putAuth<CommunicationScheduled>(
+    `${API_V1_URI}/communication/communication_scheduled/${id}/`,
+    updatedCommunicationScheduled,
+  );
+};
+
+export const sendNowCommunicationScheduled = (id: number) => {
+  return postAuth<CommunicationScheduled>(
+    `${API_V1_URI}/communication/communication_scheduled/${id}/send_now/`,
+  );
 };

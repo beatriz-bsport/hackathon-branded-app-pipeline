@@ -5,6 +5,8 @@ export type MemberMailData = {
   members: Array<number>;
   subject: string;
   body: string;
+  email_resend_count?: number;
+  email_resend_delay?: number;
 };
 
 export type MarketingNotificationMailStat = {

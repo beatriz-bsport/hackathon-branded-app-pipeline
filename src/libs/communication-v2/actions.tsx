@@ -1,5 +1,7 @@
 import { createAction } from 'redux-actions';
-import { AxiosResponse } from 'axios';
+import type { AxiosResponse } from 'axios';
+import uniq from 'lodash/uniq';
+
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 import { snackbarSuccess, snackbarError } from '../snackbar/actions';
 import type {
@@ -7,6 +9,7 @@ import type {
   ThunkAction,
   OptionCallback,
   OptionBackgroundCallback,
+  PaginatedResponse,
 } from '../../state/types';
 
 import {
@@ -31,8 +34,14 @@ import {
   flagAsRead as flagAsReadAPI,
   fetchInboxThreadFromId as fetchInboxThreadFromIdAPI,
   getOrCreateThread as getOrCreateThreadAPI,
+  createCommunicationScheduled as createCommunicationScheduledAPI,
+  fetchCommunicationScheduledList as fetchCommunicationScheduledListAPI,
+  retrieveCommunicationScheduled as retrieveCommunicationScheduledAPI,
+  deleteCommunicationScheduled as deleteCommunicationScheduledAPI,
+  updateCommunicationScheduled as updateCommunicationScheduledAPI,
+  sendNowCommunicationScheduled as sendNowCommunicationScheduledAPI,
 } from './api';
-import {
+import type {
   FetchCommunicationParams,
   MessageParams,
   Communication,
@@ -44,6 +53,10 @@ import {
   UnreadAnswersCount,
   FetchInboxThreadListPayload,
   FetchInboxThreadPayload,
+  CommunicationScheduled,
+  CommunicationScheduledFilters,
+  CommunicationScheduledCreate,
+  CommunicationScheduledFiltersForUniqueSmartlist,
 } from './types';
 import { COMMUNICATION_SENT_SENDING_PROCESSING } from './constants';
 import { monitorBackgroundTask } from '#libs/background-task/actions';
@@ -627,5 +640,246 @@ export const fetchInboxThreadFromId = (
       options?.onError?.();
     }
     dispatch(getCommunicationThreadActions.loading(false));
+  };
+};
+
+// --------- COMMUNICATION SCHEDULED ---------
+
+export const createCommunicationScheduledActions = {
+  error: createAction<Error | null>('COMMUNICATION_SCHEDULED/CREATE/ERROR'),
+  loading: createAction<boolean>('COMMUNICATION_SCHEDULED/CREATE/LOADING'),
+  success: createAction<CommunicationScheduled>(
+    'COMMUNICATION_SCHEDULED/CREATE/SUCCESS',
+  ),
+};
+
+export const createCommunicationScheduled = (
+  communicationScheduled: CommunicationScheduledCreate,
+  options?: OptionCallback<CommunicationScheduled>,
+): ThunkAction => {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(createCommunicationScheduledActions.loading(true));
+      dispatch(createCommunicationScheduledActions.error(null));
+      const response = await createCommunicationScheduledAPI(
+        communicationScheduled,
+      );
+      dispatch(createCommunicationScheduledActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      dispatch(createCommunicationScheduledActions.error(error));
+      options?.onError?.(error);
+    } finally {
+      dispatch(createCommunicationScheduledActions.loading(false));
+    }
+  };
+};
+
+export const fetchCommunicationScheduledListActions = {
+  error: createAction<Error | null>('COMMUNICATION_SCHEDULED/LIST/ERROR'),
+  loading: createAction<boolean>('COMMUNICATION_SCHEDULED/LIST/LOADING'),
+  success: createAction<PaginatedResponse<CommunicationScheduled>>(
+    'COMMUNICATION_SCHEDULED/LIST/SUCCESS',
+  ),
+};
+
+export const fetchCommunicationScheduledList = (
+  filters?: CommunicationScheduledFilters,
+  options?: OptionCallback<CommunicationScheduled[]>,
+): ThunkAction => {
+  return async (dispatch: Dispatch) => {
+    // Check for uniqueness if the filters only include the id__in parameter,
+    // preventing a potential issue with Django Rest Framework that fetches the entire database.
+    if (filters.id__in && !filters.smartlist_id__in) {
+      const uniq_ids = uniq(
+        (filters.id__in || []).filter(
+          (communicationScheduledId) => !!communicationScheduledId,
+        ),
+      );
+      if (uniq_ids.length === 0) {
+        return;
+      }
+    }
+
+    // If the unique list is not empty, proceed with fetching the list of scheduled communications.
+    try {
+      dispatch(fetchCommunicationScheduledListActions.loading(true));
+      dispatch(fetchCommunicationScheduledListActions.error(null));
+      const response = await fetchCommunicationScheduledListAPI(filters);
+      dispatch(fetchCommunicationScheduledListActions.success(response.data));
+      options?.onSuccess?.(response.data.results);
+    } catch (error) {
+      dispatch(fetchCommunicationScheduledListActions.error(error));
+      options?.onError?.(error);
+    } finally {
+      dispatch(fetchCommunicationScheduledListActions.loading(false));
+    }
+  };
+};
+
+export const fetchCommunicationScheduledListForSmartlistActions = {
+  error: createAction<Error | null>(
+    'COMMUNICATION_SCHEDULED/LIST_FOR_SMARTLIST/ERROR',
+  ),
+  loading: createAction<boolean>(
+    'COMMUNICATION_SCHEDULED/LIST_FOR_SMARTLIST/LOADING',
+  ),
+  success: createAction<{
+    smartlistId: number;
+    response: PaginatedResponse<CommunicationScheduled>;
+  }>('COMMUNICATION_SCHEDULED/LIST_FOR_SMARTLIST/SUCCESS'),
+};
+
+export const fetchCommunicationScheduledListForSmartlist = (
+  filters: CommunicationScheduledFiltersForUniqueSmartlist,
+  options?: OptionCallback<CommunicationScheduled[]>,
+): ThunkAction => {
+  return async (dispatch: Dispatch) => {
+    if (!filters?.smartlistId) {
+      return;
+    }
+    try {
+      dispatch(
+        fetchCommunicationScheduledListForSmartlistActions.loading(true),
+      );
+      dispatch(fetchCommunicationScheduledListForSmartlistActions.error(null));
+
+      const filtersForSmartlist: CommunicationScheduledFilters = {
+        smartlist_id__in: [filters.smartlistId],
+      };
+      if (filters?.page) filtersForSmartlist.page = filters.page;
+      const response = await fetchCommunicationScheduledListAPI(
+        filtersForSmartlist,
+      );
+
+      dispatch(
+        fetchCommunicationScheduledListForSmartlistActions.success({
+          smartlistId: filters.smartlistId,
+          response: response.data,
+        }),
+      );
+      options?.onSuccess?.(response.data.results);
+    } catch (error) {
+      dispatch(fetchCommunicationScheduledListForSmartlistActions.error(error));
+      options?.onError?.(error);
+    } finally {
+      dispatch(
+        fetchCommunicationScheduledListForSmartlistActions.loading(false),
+      );
+    }
+  };
+};
+
+export const retrieveCommunicationScheduledActions = {
+  error: createAction<Error | null>('COMMUNICATION_SCHEDULED/RETRIEVE/ERROR'),
+  loading: createAction<boolean>('COMMUNICATION_SCHEDULED/RETRIEVE/LOADING'),
+  success: createAction<CommunicationScheduled>(
+    'COMMUNICATION_SCHEDULED/RETRIEVE/SUCCESS',
+  ),
+};
+
+export const retrieveCommunicationScheduled = (
+  id: number,
+  options?: OptionCallback<CommunicationScheduled>,
+): ThunkAction => {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(retrieveCommunicationScheduledActions.loading(true));
+      dispatch(retrieveCommunicationScheduledActions.error(null));
+      const response = await retrieveCommunicationScheduledAPI(id);
+      dispatch(retrieveCommunicationScheduledActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      dispatch(retrieveCommunicationScheduledActions.error(error));
+      options?.onError?.(error);
+    } finally {
+      dispatch(retrieveCommunicationScheduledActions.loading(false));
+    }
+  };
+};
+
+export const deleteCommunicationScheduledActions = {
+  error: createAction<Error | null>('COMMUNICATION_SCHEDULED/DELETE/ERROR'),
+  loading: createAction<boolean>('COMMUNICATION_SCHEDULED/DELETE/LOADING'),
+  success: createAction<number>('COMMUNICATION_SCHEDULED/DELETE/SUCCESS'),
+};
+
+export const deleteCommunicationScheduled = (
+  id: number,
+  options?: OptionCallback<number>,
+): ThunkAction => {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(deleteCommunicationScheduledActions.loading(true));
+      dispatch(deleteCommunicationScheduledActions.error(null));
+      await deleteCommunicationScheduledAPI(id);
+      dispatch(deleteCommunicationScheduledActions.success(id));
+      options?.onSuccess?.(id);
+    } catch (error) {
+      dispatch(deleteCommunicationScheduledActions.error(error));
+      options?.onError?.(error);
+    } finally {
+      dispatch(deleteCommunicationScheduledActions.loading(false));
+    }
+  };
+};
+
+export const updateCommunicationScheduledActions = {
+  error: createAction<Error | null>('COMMUNICATION_SCHEDULED/UPDATE/ERROR'),
+  loading: createAction<boolean>('COMMUNICATION_SCHEDULED/UPDATE/LOADING'),
+  success: createAction<CommunicationScheduled>(
+    'COMMUNICATION_SCHEDULED/UPDATE/SUCCESS',
+  ),
+};
+
+export const updateCommunicationScheduled = (
+  id: number,
+  updatedCommunicationScheduled: CommunicationScheduled,
+  options?: OptionCallback<CommunicationScheduled>,
+): ThunkAction => {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(updateCommunicationScheduledActions.loading(true));
+      dispatch(updateCommunicationScheduledActions.error(null));
+      const response = await updateCommunicationScheduledAPI(
+        id,
+        updatedCommunicationScheduled,
+      );
+      dispatch(updateCommunicationScheduledActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      dispatch(updateCommunicationScheduledActions.error(error));
+      options?.onError?.(error);
+    } finally {
+      dispatch(updateCommunicationScheduledActions.loading(false));
+    }
+  };
+};
+
+export const sendNowCommunicationScheduledActions = {
+  error: createAction<Error | null>('COMMUNICATION_SCHEDULED/SEND_NOW/ERROR'),
+  loading: createAction<boolean>('COMMUNICATION_SCHEDULED/SEND_NOW/LOADING'),
+  success: createAction<CommunicationScheduled>(
+    'COMMUNICATION_SCHEDULED/SEND_NOW/SUCCESS',
+  ),
+};
+
+export const sendNowCommunicationScheduled = (
+  id: number,
+  options?: OptionCallback<CommunicationScheduled>,
+): ThunkAction => {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(sendNowCommunicationScheduledActions.loading(true));
+      dispatch(sendNowCommunicationScheduledActions.error(null));
+      const response = await sendNowCommunicationScheduledAPI(id);
+      dispatch(sendNowCommunicationScheduledActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (error) {
+      dispatch(sendNowCommunicationScheduledActions.error(error));
+      options?.onError?.(error);
+    } finally {
+      dispatch(sendNowCommunicationScheduledActions.loading(false));
+    }
   };
 };

@@ -1,13 +1,13 @@
-import Immutable from 'seamless-immutable';
-import { createSelector } from 'reselect';
 import createCachedSelector from 're-reselect';
+import Immutable from 'seamless-immutable';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
-import { getMemberListData } from '#libs/member/selectors';
-import { RootState } from '../../reducers';
-import { Communication } from './types';
-import { Member } from '#libs/member/types';
+import { createSelector } from 'reselect';
 import { getChannelFromMetadata } from './utils';
+import { getMemberListData } from '#libs/member/selectors';
 import { MAX_DISPLAY } from './constants';
+import type { RootState } from '../../reducers';
+import type { Communication } from './types';
+import type { Member } from '#libs/member/types';
 
 // ---------- COMMUNICATION RECIPIENT ----------
 
@@ -143,3 +143,37 @@ export const getInboxThreadFromSelectedId = createCachedSelector(
   [getInboxThreadFromId],
   (thread) => thread,
 )((state: RootState, threadId: number) => threadId);
+
+// ---------- COMMUNICATION SCHEDULED ----------
+
+const _getCommunicationScheduledbyId = (state: RootState) =>
+  state.communicationV2.communicationScheduled.byId;
+
+const _getCommunicationScheduledbySmartlistAllIds = (
+  state: RootState,
+  id: number,
+) =>
+  state.communicationV2.communicationScheduled.bySmartlistId.all[id]?.allIds ??
+  [];
+
+export const getCommunicationScheduledForSmartlist = createSelector(
+  [_getCommunicationScheduledbySmartlistAllIds, _getCommunicationScheduledbyId],
+  (ids, byId) => ids?.map((id) => byId[id]) ?? [],
+);
+
+export const getCommunicationScheduledBySmartlistLoading = (state: RootState) =>
+  state.communicationV2.communicationScheduled.bySmartlistId.loading;
+
+export const getCommunicationScheduledBySmartlistTotal = (
+  state: RootState,
+  smartlistId: number,
+) =>
+  state.communicationV2.communicationScheduled.bySmartlistId.all[smartlistId]
+    ?.count ?? 0;
+
+export const getCommunicationScheduledBySmartlistPage = (
+  state: RootState,
+  smartlistId: number,
+) =>
+  state.communicationV2.communicationScheduled.bySmartlistId.all[smartlistId]
+    ?.page ?? 1;

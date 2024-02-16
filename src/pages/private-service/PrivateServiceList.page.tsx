@@ -138,6 +138,12 @@ export class PrivateServiceList extends React.Component<Props, State> {
 
   closeDeleteServiceModal = () => this.props.setOpenDeleteServiceModal(null);
 
+  deletePrivateService = (id: number) =>
+    this.props.deletePrivateService(id, {
+      onSuccess: this.closeDeleteServiceModal,
+      onError: this.closeDeleteServiceModal,
+    });
+
   changeSearch =
     (fuse: any) =>
     (ev: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
@@ -281,7 +287,7 @@ export class PrivateServiceList extends React.Component<Props, State> {
         </ObjectLevelPermissionWrapper>
         {this.props.openDeleteServiceModal && (
           <PrivateServiceDeleteDialog
-            deletePrivateService={this.props.deletePrivateService}
+            deletePrivateService={this.deletePrivateService}
             onClose={this.closeDeleteServiceModal}
             privateServiceToDeleteId={this.props.openDeleteServiceModal}
           />

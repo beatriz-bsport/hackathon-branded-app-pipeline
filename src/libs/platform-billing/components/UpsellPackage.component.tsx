@@ -48,7 +48,7 @@ import {
   UPSELL_IDENTIFIER_PREMIUM_SUPPORT,
 } from '../upsell-identifiers';
 import { UpsellPackage } from '#libs/company/types';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { getUpsellPriceString } from '#libs/platform-billing/utils';
 
 type Props = {
   upsellPackage: UpsellPackage;
@@ -174,11 +174,7 @@ const createUpsellPackageComponent = memoize(
           </div>
           <div className={classes.bottomContainer}>
             <Typography variant="h6">
-              {t('upsellPackage.billRecurrent', {
-                price_cts: getCurrencyDisplayWithPrice(
-                  upsellPackage.price_cts / 100,
-                ),
-              })}
+              {getUpsellPriceString(upsellPackage, t)}
             </Typography>
             <div className={classes.buttonContainer}>
               {onKnowMore && !canSubscribe && (

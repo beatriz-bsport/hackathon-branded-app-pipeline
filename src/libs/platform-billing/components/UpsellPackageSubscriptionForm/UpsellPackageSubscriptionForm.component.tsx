@@ -16,7 +16,7 @@ import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { UpsellPackage } from '#libs/company/types';
 import { MAP_UPSELL_IDENTIFIER_TO_ICON_COMPONENT } from '../UpsellPackage.component';
-import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+import { getUpsellPriceString } from '#libs/platform-billing/utils';
 
 export type Props = {
   onClose: () => void;
@@ -84,11 +84,7 @@ const UpsellPackageSubscriptionForm: React.FC<Props> = ({
             {t('upsellPackage.subscriptionForm.priceHelper')}
           </Typography>
           <Typography variant="h5">
-            {t('upsellPackage.billRecurrent', {
-              price_cts: getCurrencyDisplayWithPrice(
-                upsellPackage.price_cts / 100,
-              ),
-            })}
+            {getUpsellPriceString(upsellPackage, t)}
           </Typography>
         </div>
         <Alert severity="info" variant="outlined">

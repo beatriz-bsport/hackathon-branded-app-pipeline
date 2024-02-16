@@ -369,7 +369,7 @@ export default compose(
       (upsellIdentifier: number) => {
         setOpenFeatureRequest(true);
         // @ts-expect-error
-        window.Intercom('showNewMessage');
+        window.Intercom?.('showNewMessage');
         requestUpsellPackage(upsellIdentifier);
       },
     onCloseFeatureRequest:
@@ -377,7 +377,7 @@ export default compose(
       () => {
         setOpenFeatureRequest(false);
         // @ts-expect-error
-        window.Intercom('hide');
+        window.Intercom?.('hide');
       },
   }),
 )(PlatformBillingSetting);

@@ -1,8 +1,10 @@
 import { createAction } from 'redux-actions';
 
+import { snackbarError } from '../snackbar/actions';
 import api from './api';
 
-import { Dispatch, ThunkAction, OptionCallback } from '../../state/types';
+import { CUSTOM_ERROR_CODE } from '#libs/constants';
+import { Dispatch, OptionCallback, ThunkAction } from '../../state/types';
 import type { Tag, TagGroupAPI, TagGroupTemplate } from './types';
 
 export const tagListActions = {
@@ -114,6 +116,9 @@ export function createOrUpdateTag(
       }
     } catch (error) {
       dispatch(tagCreateOrUpdateActions.error(error));
+      if (error.response && error.response.status === CUSTOM_ERROR_CODE) {
+        dispatch(snackbarError(`tag.error.${error.response.data.error_code}`));
+      }
     }
     dispatch(tagCreateOrUpdateActions.isLoading(false));
   };
@@ -135,6 +140,9 @@ export function createOrUpdateTagGroup(
       }
     } catch (error) {
       dispatch(tagGroupCreateOrUpdateActions.error(error));
+      if (error.response && error.response.status === CUSTOM_ERROR_CODE) {
+        dispatch(snackbarError(`tag.error.${error.response.data.error_code}`));
+      }
     }
     dispatch(tagGroupCreateOrUpdateActions.isLoading(false));
   };
@@ -316,6 +324,9 @@ export function createOrUpdateTagTemplate(
       }
     } catch (error) {
       dispatch(tagTemplateCreateOrUpdateActions.error(error));
+      if (error.response && error.response.status === CUSTOM_ERROR_CODE) {
+        dispatch(snackbarError(`tag.error.${error.response.data.error_code}`));
+      }
     }
     dispatch(tagTemplateCreateOrUpdateActions.isLoading(false));
   };
@@ -339,6 +350,9 @@ export function createOrUpdateTagGroupTemplate(
       }
     } catch (error) {
       dispatch(tagGroupTemplateCreateOrUpdateActions.error(error));
+      if (error.response && error.response.status === CUSTOM_ERROR_CODE) {
+        dispatch(snackbarError(`tag.error.${error.response.data.error_code}`));
+      }
     }
     dispatch(tagGroupTemplateCreateOrUpdateActions.isLoading(false));
   };

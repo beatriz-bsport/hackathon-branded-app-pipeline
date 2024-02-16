@@ -2538,6 +2538,16 @@
             "settingsInfo": "If this option is activated, your data (speed, calories burned, etc.) will be displayed in real-time during your session. If you deactivate this option, your data will no longer be displayed, but you will receive your summary by e-mail at the end of the session.",
             "settings": "Display my data in real time",
             "settingsTitle": "Spinning data"
+        },
+        "reworked": {
+            "mySubscriptions": {
+                "dateLabel": {
+                    "until": " until {{- date }}"
+                },
+                "consumerSubscriptionCardDetails": {
+                    "failedPaymentReason": "Reason: {{- note }} Please contact your studio to regularize the situation"
+                }
+            }
         }
     },
     "reminder": {

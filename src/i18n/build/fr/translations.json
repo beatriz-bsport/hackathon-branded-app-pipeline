@@ -1760,7 +1760,8 @@
                     "appointment": "Rendez-vous",
                     "activity": "Activités"
                 },
-                "title": "Mes cartes de cours"
+                "title": "Mes cartes de cours",
+                "choosePassType": "Choisir le type de carte de cours"
             },
             "myBookings": {
                 "spotSchedulingModal": {
@@ -1905,21 +1906,43 @@
             "mySubscriptions": {
                 "consumerSubscriptionCardDetails": {
                     "headerListItemLabels": {
-                        "nextPayment": "Prochain paiement"
+                        "nextPayment": "Prochain paiement",
+                        "nextPaymentDate": "le {{- subscriptionNextPaymentDate }}",
+                        "pauseEndDate": "jusqu'au {{- pauseEndDate }} inclus",
+                        "autoRenewalDate": "le {{- autoRenewalDate }} (inclus)",
+                        "autoRenewed": "Renouvelée automatiquement",
+                        "paused": "Actuellement en pause"
                     },
                     "buttonsLabel": {
-                        "see": "Voir"
+                        "see": "Voir",
+                        "change": "Modifier",
+                        "add": "Ajouter"
                     },
-                    "termsAccepted": "Acceptées le {{ termsDate }}",
+                    "termsAccepted": "Acceptées le {{- termsDate }}",
                     "terms": "Mentions légales",
-                    "description": "Description"
+                    "description": "Description",
+                    "paymentMethod": {
+                        "bacs_debit": "Prélèvement automatique Bacs : **** **** **** {{ readableIdentifier }}",
+                        "card": "Carte : **** **** **** {{ readableIdentifier }}",
+                        "sepa_debit": "SEPA : **** **** **** {{ readableIdentifier }}",
+                        "internal": "Compte interne : pour chaque paiement, une dette est automatiquement créée sur votre compte interne",
+                        "title": "Moyen de paiement"
+                    },
+                    "failedPaymentReason": "Motif : {{- note }} Veuillez contacter votre studio pour régulariser la situation",
+                    "failedPayment": "Échec du paiement"
                 },
                 "consumerSubscriptionCard": {
                     "buttonsLabel": {
-                        "seeDetails": "Voir détails"
+                        "seeDetails": "Voir détails",
+                        "addPaymentMethod": "Ajouter un mode de paiement"
                     },
                     "recurrenceLabelEvery": "{{ price }}{{ currency }} tous les {{ recurrence }}{{ interval }}",
-                    "recurrenceLabelPer": "{{ price }}{{ currency }}/{{ interval }}"
+                    "recurrenceLabelPer": "{{ price }}{{ currency }}/{{ interval }}",
+                    "chipsLabel": {
+                        "failedPayment": "Échec du paiement",
+                        "missingPaymentMethod": "Mode de paiement manquant",
+                        "isPaused": "En pause"
+                    }
                 },
                 "headerButtonsLabel": {
                     "getSubscription": "Souscrire un abonnement",
@@ -1930,7 +1953,13 @@
                     "future": "Non démarrée",
                     "active": "Active"
                 },
-                "title": "Mes souscriptions"
+                "title": "Mes souscriptions",
+                "dateLabel": {
+                    "until": " jusqu'au {{- date }}",
+                    "expired": "Expiré depuis le {{- date }}",
+                    "future": "Démarre le {{- date }}",
+                    "active": "Commencé le {{- date }}"
+                }
             }
         }
     },
@@ -17782,7 +17811,8 @@
                 "authentication_textfield": "Champ de texte d'authentification",
                 "consumer_payment_pack_details_card": "Carte de détails de la carte d'activité (pour le membre)",
                 "private_consumer_pass_details_card": "Carte de détails de la carte de RDV (pour le membre)",
-                "universal_pass_details_card": "Carte de détails de la carte universelle (pour le membre)"
+                "universal_pass_details_card": "Carte de détails de la carte universelle (pour le membre)",
+                "reset_password_confirmation": "Confirmation de la réinitialisation du mot de passe"
             },
             "page": {
                 "common": "Commun",

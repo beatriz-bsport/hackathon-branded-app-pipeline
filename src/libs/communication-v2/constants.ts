@@ -140,3 +140,6 @@ export const MAP_THREAD_KIND_TO_CONTEXT_IDENTIFIER = {
   [ChatThreadKinds.Offer]: CONTEXT_OFFER,
   [ChatThreadKinds.Smartlist]: CONTEXT_SMARTLIST,
 };
+
+// ------------ COMMUNICATION SCHEDULED ------------
+export const COMMUNICATION_SCHEDULED_LIST_PAGINATION = 5;

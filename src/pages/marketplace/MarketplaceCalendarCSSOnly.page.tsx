@@ -96,6 +96,8 @@ import withPostMessageOnPropsUpdate from '#hocs/postMessages/with-post-message-o
 import withPostMessageToUpdateProps from '#hocs/postMessages/with-post-message-to-update-props';
 import { getBookCalendarUrl } from '#libs/marketplace/routing-utils';
 
+import type { MarketplaceComponentConfig } from '#libs/marketplace/types';
+
 type OwnProps = {
   companyId: number;
   compactMode: boolean;
@@ -132,6 +134,7 @@ type OwnProps = {
   // username is propagated from the widget in order to retrieve user
   // specific information without relying on auth tokens
   username?: string;
+  config?: MarketplaceComponentConfig['calendar']; // From widget configuration
 };
 
 type ConnectProps = ReturnType<typeof mapStateToProps> &
@@ -185,7 +188,28 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       !((this.calendarRefContainer?.current?.clientWidth ?? 1240) < 1250));
 
   // Card mode display
-  getIsCardModeDisplay = () => !(this.getIsCompact() && !this.getIsLarge());
+  getIsCardModeDisplay = () =>
+    !(this.getIsCompact() && !this.getIsLarge()) ||
+    this.cardModeDisplayForcedByWidgetConfiguration();
+
+  cardModeDisplayForcedByWidgetConfiguration = () => {
+    if (!this.props.config?.cardModeDisplayMinWidth) {
+      return false;
+    }
+    try {
+      const cardModeDisplayMinWidth = parseFloat(
+        this.props.config?.cardModeDisplayMinWidth,
+      );
+
+      return (
+        (this.calendarRefContainer?.current?.clientWidth ?? 1240) >
+        cardModeDisplayMinWidth
+      );
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  };
 
   getStartCalendarWeekOnToday = () =>
     this.props.theme.start_calendar_week_on_today &&

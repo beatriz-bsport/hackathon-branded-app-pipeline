@@ -36,6 +36,7 @@ export type MarketplaceCalendarData = MarketplaceCommonFilter &
     todayOnly?: boolean;
     variant?: MarketplaceCalendarVariant;
     groupSessionByPeriod?: boolean;
+    cardModeDisplayMinWidth?: number | string;
   };
 
 export type MarketplaceCalendarVariant = 'activityName' | 'coach' | 'time';

@@ -1,30 +1,29 @@
-// @ts-nocheck
 import React from 'react';
 import { compose } from 'recompose';
-
-import { withFormik, Form } from 'formik';
-
-import { withTranslation, WithTranslation } from 'react-i18next';
-
+import { withFormik, Form, FormikProps } from 'formik';
+import { useTranslation } from 'react-i18next';
 import withStyles from '@material-ui/core/styles/withStyles';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
-
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { createStyles, withTheme } from '@material-ui/styles';
 import Typography from '@material-ui/core/Typography';
 import { Theme } from '@material-ui/core/styles';
+
+import type { Tag, TagGroupAPI } from '#libs/tag/types';
+import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
+import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import {
   TextField,
   Actions,
   Submit,
   ColorField,
   IconField,
-} from '../../../components/forms';
+  // @ts-expect-error
+} from '#components/forms';
+
 import { MaterialStyleType } from '../../../utils/types';
-import { Tag, TagGroupAPI } from '../types';
-import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
-import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import type { OptionCallback } from '../../../state/types';
 
 const {
   trackFormAdd,
@@ -35,21 +34,15 @@ const {
   SegmentAnalyticsFormObjectIdentifier.Tag,
 );
 type OwnProps = {
-  isSubmitting: boolean;
   onCancel: () => void;
   initial: Tag<TagGroupAPI>;
-};
+} & FormikProps<FormValues>;
 
 type FormProps = {
   initial: Tag<TagGroupAPI>;
   theme: Theme;
   onCancel: () => void;
-  onSubmit: (data: FormValues, option: Options) => void;
-};
-
-type Options = {
-  onSuccess: () => void;
-  onError: () => void;
+  onSubmit: (data: FormValues, option: OptionCallback) => void;
 };
 
 type FormValues = {
@@ -58,16 +51,29 @@ type FormValues = {
   icon: string;
 };
 
-type Props = OwnProps &
-  WithTranslation &
-  MaterialStyleType<ReturnType<typeof styles>>;
+type Props = OwnProps & MaterialStyleType<ReturnType<typeof styles>>;
 
-export function TagForm(props: Props) {
-  const { classes, t, isSubmitting, onCancel, initial } = props;
+export const TagForm: React.FC<Props> = ({
+  classes,
+  isSubmitting,
+  onCancel,
+  initial,
+  dirty,
+}) => {
   React.useEffect(() => {
     trackFormAdd(initial?.id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  const { t } = useTranslation('tag');
+  const handleOnClickCancel = React.useCallback(() => {
+    trackFormCancel(initial?.id);
+    onCancel();
+  }, [initial?.id, onCancel]);
+  const handleOnClickSubmit = React.useCallback(() => {
+    trackFormSubmitIntent(initial?.id);
+  }, [initial?.id]);
+  const disableSubmitButton = isSubmitting || !dirty;
+
   return (
     <Form>
       <TextField
@@ -97,25 +103,17 @@ export function TagForm(props: Props) {
         <Button
           color="secondary"
           disabled={isSubmitting}
-          onClick={() => {
-            trackFormCancel(initial?.id);
-            onCancel();
-          }}
+          onClick={handleOnClickCancel}
         >
           {t('form.tag.delete.cancel')}
         </Button>
-        <Submit
-          disabled={isSubmitting}
-          onClick={() => {
-            trackFormSubmitIntent(initial?.id);
-          }}
-        >
+        <Submit disabled={disableSubmitButton} onClick={handleOnClickSubmit}>
           {t('form.tag.submit')}
         </Submit>
       </Actions>
     </Form>
   );
-}
+};
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -140,7 +138,6 @@ const styles = (theme: Theme) =>
 export default compose<any, Props>(
   withStyles(styles),
   withTheme,
-  withTranslation('tag'),
   withFormik<FormProps, FormValues>({
     enableReinitialize: true,
     mapPropsToValues: ({ initial, theme }) =>
@@ -174,4 +171,5 @@ export default compose<any, Props>(
       });
     },
   }),
+  React.memo,
 )(TagForm);

@@ -112,7 +112,9 @@ const DateField: React.FC<Props> = ({
             />
           }
           size="sm"
-          type="date"
+          // Commented below because of annoying native behavior
+          // that must be taken regarding placeholder.
+          // type="date"
           value={value}
         />
       </div>

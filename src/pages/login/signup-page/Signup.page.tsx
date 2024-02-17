@@ -128,6 +128,10 @@ export class SignupPage extends Component<Props> {
     this.props.goBackToLogin(this.props.membership);
   };
 
+  isCustomFormCssVariantActivated = () =>
+    CUSTOM_FORM_CSS_VARIANT_ACTIVATED ||
+    !!this.props.signUpCustomForm?.layout_configuration?.use_custom_css_variant;
+
   render() {
     const {
       authenticated,
@@ -156,7 +160,7 @@ export class SignupPage extends Component<Props> {
     return (
       <div className={containerClass}>
         <div className="bs-signup-container--margin-top">
-          {CUSTOM_FORM_CSS_VARIANT_ACTIVATED ? (
+          {this.isCustomFormCssVariantActivated() ? (
             <CustomFormTitleCSS
               isCompany={!!membership}
               simplifyUI={simplifyUI}
@@ -174,7 +178,7 @@ export class SignupPage extends Component<Props> {
               <CustomFormView
                 general_terms_and_conditions={theme.general_terms_of_use}
                 initial={signUpCustomForm}
-                isCssVariantActivated={CUSTOM_FORM_CSS_VARIANT_ACTIVATED}
+                isCssVariantActivated={this.isCustomFormCssVariantActivated()}
                 layouts={signUpCustomForm.layout}
                 onCancel={this.handleCancel}
                 onSubmit={this.submitCustomForm}

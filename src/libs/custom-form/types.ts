@@ -12,6 +12,10 @@ export type CustomForm = {
   layout: ResponsiveLayouts;
   is_signup: boolean;
   is_member_form: boolean;
+  layout_configuration?: {
+    row_height?: number;
+    use_custom_css_variant?: boolean;
+  };
 };
 
 export type FormikCustomForm = {

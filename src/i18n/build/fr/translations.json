@@ -1936,7 +1936,7 @@
                         "seeDetails": "Voir détails",
                         "addPaymentMethod": "Ajouter un mode de paiement"
                     },
-                    "recurrenceLabelEvery": "{{ price }}{{ currency }} tous les {{ recurrence }}{{ interval }}",
+                    "recurrenceLabelEvery": "{{ price }}{{ currency }} tous les {{ recurrence }} {{ interval }}",
                     "recurrenceLabelPer": "{{ price }}{{ currency }}/{{ interval }}",
                     "chipsLabel": {
                         "failedPayment": "Échec du paiement",

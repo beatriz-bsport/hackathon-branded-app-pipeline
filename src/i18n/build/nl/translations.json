@@ -417,7 +417,7 @@
                     "buttonsLabel": {
                         "seeDetails": "Zie details"
                     },
-                    "recurrenceLabelEvery": "{{ price }}{{ currency }} iedere {{ recurrence }}{{ interval }}",
+                    "recurrenceLabelEvery": "{{ price }}{{ currency }} iedere {{ recurrence }} {{ interval }}",
                     "recurrenceLabelPer": "{{ price }}{{ currency }}{{ interval }}"
                 },
                 "headerButtonsLabel": {

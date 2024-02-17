@@ -2495,7 +2495,7 @@
                     "buttonsLabel": {
                         "seeDetails": "Ver detalhes"
                     },
-                    "recurrenceLabelEvery": "{{ price }}{{ currency }} toda {{ recurrence }}{{ interval }}",
+                    "recurrenceLabelEvery": "{{ price }}{{ currency }} toda {{ recurrence }} {{ interval }}",
                     "recurrenceLabelPer": "{{ price }}{{ currency }}{{ interval }}"
                 },
                 "headerButtonsLabel": {

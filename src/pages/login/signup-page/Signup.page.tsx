@@ -42,6 +42,10 @@ import WidgetUtils from '#libs/widget/WidgetUtils';
 import CustomFormTitle from '#libs/custom-form/components/CustomFormTitle.component';
 import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
 import CustomFormTitleCSS from '#libs/custom-form/components/CustomFormTitleCSS';
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
+import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#libs/exportable-components/actions';
+
 import './SignupPageStyles.css';
 
 type OwnProps = {
@@ -86,6 +90,9 @@ export class SignupPage extends Component<Props> {
       this.props.fetchCompanyCustomSignUp({
         company: parseInt(this.props.membership),
       });
+      this.props.retrieveCompanyCssConfiguration(
+        parseInt(this.props.membership, 10),
+      );
     }
   }
 
@@ -196,6 +203,7 @@ function mapDispatchToProps(dispatch: Dispatch, props: OwnProps) {
     doEmailLogin({ email, password }: { email: string; password: string }) {
       dispatch(requestLogin(email, password, opts));
     },
+    retrieveCompanyCssConfiguration: retrieveCompanyCssConfigurationAction,
   };
 }
 
@@ -231,6 +239,7 @@ const mapStateToProps = (
   authenticated: state.auth.authenticated,
   signUpCustomForm: getSignUpCustomFormWithEnabledField(state),
   signUpCustomFormLoading: getSignUpCustomFormLoading(state),
+  customConfiguration: state.exportableComponents.customCss,
 });
 const withStateHandlersInit = {
   loginInformations: { email: '', password: '' },
@@ -266,4 +275,6 @@ export default compose(
   connect(null, properMapDispatchToProps),
   withStateHandlers(withStateHandlersInit, withStateHandlersSetter),
   withHandlers(mapWithHandlers),
+  marketplaceCssHoc(),
+  WithCustomCssProvider,
 )(SignupPage);

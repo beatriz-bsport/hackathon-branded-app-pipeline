@@ -304,9 +304,15 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
       'DD MMMM',
     );
 
+    const isToday = moment(main_date).isSame(moment(), 'day');
+
     return (
       <div className="bs-week__listMode__content__day">
-        <div className="bs-week__listMode__content__day__date">
+        <div
+          className={classNames('bs-week__listMode__content__day__date', {
+            'bs-week__listMode__content__day__date--is-today': isToday,
+          })}
+        >
           {mainDateFormated}
         </div>
 

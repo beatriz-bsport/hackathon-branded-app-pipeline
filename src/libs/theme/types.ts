@@ -131,6 +131,8 @@ export type Theme = {
   reset_password_url_redirection: string;
   earliest_hour_to_send_communications: number;
   latest_hour_to_send_communications: number;
+  first_warning_payment_method_expiration_days: string;
+  second_warning_payment_method_expiration_days: string;
 };
 
 export type ThemeState = {

@@ -54,6 +54,9 @@ class PaymentMethodSettings extends React.PureComponent<Props> {
             cardBillingDetailsMandatory={
               this.props.theme.force_billing_details_on_cards
             }
+            first_warning_payment_method_expiration_days={parseInt(
+              this.props.theme.first_warning_payment_method_expiration_days,
+            )}
             onSubmit={this.onSubmit}
             payment_method_available={this.props.theme.payment_method_available}
             payment_method_available_basket={payment_method_available_basket}
@@ -63,6 +66,9 @@ class PaymentMethodSettings extends React.PureComponent<Props> {
             payment_method_available_subscription={
               payment_method_available_subscription
             }
+            second_warning_payment_method_expiration_days={parseInt(
+              this.props.theme.second_warning_payment_method_expiration_days,
+            )}
             updateLoading={this.props.updateLoading}
           />
         </Paper>

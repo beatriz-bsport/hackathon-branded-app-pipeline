@@ -12,8 +12,10 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 import { PAYMENT_GROUP_METHOD_IDENTIFIER_CB } from '@bsport/common/lib/master-data/payment-group';
 import PaymentMethodMultiSelector from '#libs/payment/components/PaymentMethodMultiSelector.component';
 import { addOrRemove } from './utils';
+import NumericInput from '#components/input/NumericInput.component';
 
 import { validationSchema } from './validationSchema';
+import { MAX_DAYS_FIRST_WARNING_PAYMENT_METHOD_EXPIRATION } from './constants';
 
 export type PaymentMethodsFormValues = {
   payment_method_available: number[];
@@ -21,6 +23,8 @@ export type PaymentMethodsFormValues = {
   payment_method_available_subscription: number[];
   payment_method_available_recurringly: number[];
   cardBillingDetailsMandatory: boolean;
+  first_warning_payment_method_expiration_days: number;
+  second_warning_payment_method_expiration_days: number;
 };
 
 type AdditionalProps = {
@@ -50,6 +54,12 @@ const useStyles = makeStyles((theme) => ({
   threeDSecureContainer: {
     marginTop: theme.spacing(2),
   },
+  daysInputsContainer: {
+    marginTop: theme.spacing(2),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+  },
   saveButtonContainer: {
     display: 'flex',
     justifyContent: 'flex-start',
@@ -63,6 +73,11 @@ const useStyles = makeStyles((theme) => ({
   },
   leftIcon: {
     margin: theme.spacing(1),
+  },
+  daysInput: {
+    marginBottom: theme.spacing(1),
+    marginTop: theme.spacing(1),
+    width: '400px',
   },
   row: {
     display: 'flex',
@@ -84,6 +99,8 @@ const PaymentMethodsForm: React.FC<
     payment_method_available_subscription,
     payment_method_available_recurringly,
     cardBillingDetailsMandatory,
+    first_warning_payment_method_expiration_days,
+    second_warning_payment_method_expiration_days,
   },
   errors,
   isValid,
@@ -92,7 +109,7 @@ const PaymentMethodsForm: React.FC<
   handleSubmit,
 }) => {
   const classes = useStyles();
-  const { t } = useTranslation('settings');
+  const { t } = useTranslation(['settings', 'common']);
 
   const onBasketMethodChange = React.useCallback(
     (id: number) => {
@@ -120,6 +137,22 @@ const PaymentMethodsForm: React.FC<
     setFieldValue('cardBillingDetailsMandatory', !cardBillingDetailsMandatory);
   }, [cardBillingDetailsMandatory, setFieldValue]);
 
+  const onDaysBeforeFirstNotificationChange = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const newValue = event.target.value;
+      setFieldValue('first_warning_payment_method_expiration_days', newValue);
+    },
+    [setFieldValue],
+  );
+
+  const onDaysBeforeSecondNotificationChange = React.useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const newValue = event.target.value;
+      setFieldValue('second_warning_payment_method_expiration_days', newValue);
+    },
+    [setFieldValue],
+  );
+
   const formSubmit = React.useCallback(
     (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
@@ -127,6 +160,17 @@ const PaymentMethodsForm: React.FC<
     },
     [handleSubmit],
   );
+
+  const daysBeforeFirstNotificationErrorMessage =
+    errors?.first_warning_payment_method_expiration_days
+      ? t(errors.first_warning_payment_method_expiration_days, {
+          maxDays: MAX_DAYS_FIRST_WARNING_PAYMENT_METHOD_EXPIRATION,
+        })
+      : '';
+  const daysBeforeSecondNotificationErrorMessage =
+    errors?.second_warning_payment_method_expiration_days
+      ? t(errors.second_warning_payment_method_expiration_days)
+      : '';
 
   return (
     <Form noValidate onSubmit={formSubmit}>
@@ -184,6 +228,37 @@ const PaymentMethodsForm: React.FC<
         </div>
       </div>
 
+      <div className={classes.daysInputsContainer}>
+        <Typography color="textSecondary" variant="body2">
+          {t('paymentMethods.DaysBeforeNotificationInputs.title')}
+        </Typography>
+        <Alert className={classes.leftIcon} severity="info">
+          {t('paymentMethods.DaysBeforeNotificationInputs.helpText')}
+        </Alert>
+        <NumericInput
+          error={!!daysBeforeFirstNotificationErrorMessage}
+          helperText={daysBeforeFirstNotificationErrorMessage}
+          inputClass={classes.daysInput}
+          InputProps={{}}
+          label={t(
+            'paymentMethods.DaysBeforeNotificationInputs.labels.daysBeforeFirstNotification',
+          )}
+          onChange={onDaysBeforeFirstNotificationChange}
+          value={first_warning_payment_method_expiration_days}
+        />
+        <NumericInput
+          error={!!daysBeforeSecondNotificationErrorMessage}
+          helperText={daysBeforeSecondNotificationErrorMessage}
+          inputClass={classes.daysInput}
+          InputProps={{}}
+          label={t(
+            'paymentMethods.DaysBeforeNotificationInputs.labels.daysBeforeSecondNotification',
+          )}
+          onChange={onDaysBeforeSecondNotificationChange}
+          value={second_warning_payment_method_expiration_days}
+        />
+      </div>
+
       <div className={classes.threeDSecureContainer}>
         <Typography variant="h6">
           {t('paymentMethods.methodPaymentCardBillingDetailsTitle')}
@@ -230,6 +305,8 @@ const formikFormWrapper = withFormik<
     payment_method_available_recurringly,
     cardBillingDetailsMandatory,
     payment_method_available,
+    second_warning_payment_method_expiration_days,
+    first_warning_payment_method_expiration_days,
   }) => {
     return {
       payment_method_available_basket,
@@ -237,6 +314,8 @@ const formikFormWrapper = withFormik<
       cardBillingDetailsMandatory,
       payment_method_available_recurringly,
       payment_method_available,
+      first_warning_payment_method_expiration_days,
+      second_warning_payment_method_expiration_days,
     };
   },
   handleSubmit: (data, { props: { onSubmit } }) => {

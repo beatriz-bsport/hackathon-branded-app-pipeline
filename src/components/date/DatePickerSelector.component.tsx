@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useState, useRef } from 'react';
 import { compose } from 'recompose';
 import moment, { Moment } from 'moment-timezone';
@@ -16,20 +15,26 @@ import {
   Typography,
 } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import classNames from 'classnames';
+// @ts-expect-error
 import { AlertError, DateField, defaultHandleSubmit } from '#components/forms';
-import { DateFilterEnum } from '#libs/reporting/types';
+import { DateFilterEnum } from '#libs/datatype-filtering/types';
+import { formatAsDatetimeAdapted } from '#utils/datetime';
 
 export type Props = {
-  date: number;
-  timePeriod: DateFilterEnum;
   isDisabled?: boolean;
+  keepHours?: boolean;
+  singleDate?: boolean;
   onSubmit: (values: Values) => void;
+} & Values &
+  StylesProps;
+
+export type Values = {
+  date: Moment | number;
+  timePeriod: DateFilterEnum;
 };
 
-type Values = {
-  date: Moment;
-  timePeriod: DateFilterEnum;
-};
+type HOCProps = Props & FormikProps<Values>;
 
 const DatePickerSelectorSchema = Yup.object().shape({
   date: Yup.date().required('required'),
@@ -38,24 +43,27 @@ const DatePickerSelectorSchema = Yup.object().shape({
 
 export const TIME_PERIODS_SINGLE = ['today'];
 
-const DatePickerSelector: React.FC<Props & FormikProps<Values>> = ({
-  values,
-  isValid,
+const DatePickerSelector: React.FC<HOCProps> = ({
   date,
+  isFullWidth,
+  isValid,
   timePeriod,
+  values,
   isDisabled = false,
+  keepHours = false,
+  singleDate = false,
   setFieldValue,
   handleSubmit,
 }) => {
-  const classes = useStyles();
-  const { t } = useTranslation(['reporting']);
+  const classes = useStyles({ isFullWidth });
+  const { t } = useTranslation('reporting');
   const [isOpen, setIsOpen] = useState(false);
-  const menuRef = useRef<HTMLElement | null>(null);
+  const menuRef = useRef<HTMLDivElement | null>(null);
 
   const handleClose = () => {
     setIsOpen(false);
     setFieldValue('timePeriod', timePeriod);
-    setFieldValue('date', moment.unix(date));
+    setFieldValue('date', typeof date === 'number' ? moment.unix(date) : date);
   };
 
   const handleOpen = () => {
@@ -67,10 +75,19 @@ const DatePickerSelector: React.FC<Props & FormikProps<Values>> = ({
     (selection: { timePeriod: DateFilterEnum; getTimeStamp: () => number }) =>
     () => {
       setFieldValue('timePeriod', selection.timePeriod);
-      setFieldValue(
-        'date',
-        moment.unix(selection.getTimeStamp()).startOf('day'),
-      );
+      keepHours && typeof values.date !== 'number'
+        ? setFieldValue(
+            'date',
+            moment
+              .unix(selection.getTimeStamp())
+              .startOf('day')
+              .add(values.date.hour(), 'hour')
+              .add(values.date.minute(), 'minute'),
+          )
+        : setFieldValue(
+            'date',
+            moment.unix(selection.getTimeStamp()).startOf('day'),
+          );
     };
 
   const getDisplayDate = () => {
@@ -81,19 +98,28 @@ const DatePickerSelector: React.FC<Props & FormikProps<Values>> = ({
     if (selection)
       return (
         <Typography display="inline">
-          {' '}
           {t(`header.helper.${selection.timePeriod}`)}
         </Typography>
       );
 
-    return (
-      <>
-        <Typography color="textSecondary" display="inline">
-          {t('header.fromInDateContext')}
-        </Typography>
-        <Typography display="inline">{values.date.format('L')}</Typography>
-      </>
-    );
+    if (values.date)
+      return (
+        <>
+          {!singleDate && (
+            <Typography color="textSecondary" display="inline">
+              {t('header.fromInDateContext')}
+            </Typography>
+          )}
+          <Typography display="inline">
+            {formatAsDatetimeAdapted(
+              typeof date === 'number' ? moment.unix(date) : date,
+              'L',
+            )}
+          </Typography>
+        </>
+      );
+
+    return <Typography display="inline">{t('header.selectDate')}</Typography>;
   };
 
   const handleResetTimePeriod = () => {
@@ -101,21 +127,23 @@ const DatePickerSelector: React.FC<Props & FormikProps<Values>> = ({
   };
 
   const onSubmit = () => {
+    // @ts-expect-error: to fix later and test it well to make sure nothing is broken
     handleSubmit(values);
     setIsOpen(false);
   };
 
   return (
-    <Form>
-      <ButtonBase
-        ref={menuRef}
-        className={classes.container}
-        onClick={handleOpen}
-      >
-        <CalendarTodayIcon className={classes.icon} color="disabled" />
-        {getDisplayDate()}
-      </ButtonBase>
-
+    <Form
+      className={classNames({
+        [classes.formContainer]: isFullWidth,
+      })}
+    >
+      <div ref={menuRef} className={classes.container}>
+        <ButtonBase onClick={handleOpen}>
+          <CalendarTodayIcon className={classes.icon} color="disabled" />
+          {getDisplayDate()}
+        </ButtonBase>
+      </div>
       <Popover
         anchorEl={menuRef?.current}
         anchorOrigin={{
@@ -176,12 +204,18 @@ const DatePickerSelector: React.FC<Props & FormikProps<Values>> = ({
 
 const RAPID_SELECTIONS = [
   {
-    timePeriod: 'today',
+    timePeriod: 'today' as DateFilterEnum,
     getTimeStamp: () => moment().unix(),
   },
 ];
 
-const useStyles = makeStyles((theme: Theme) => ({
+type StylesProps = { isFullWidth: boolean };
+
+const useStyles = makeStyles<Theme, StylesProps>((theme) => ({
+  formContainer: {
+    display: 'flex',
+    width: '45%',
+  },
   menu: {
     padding: theme.spacing(2),
     display: 'flex',
@@ -198,6 +232,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     borderStyle: 'solid',
     borderColor: theme.palette.grey[300],
     backgroundColor: 'white',
+    width: ({ isFullWidth }) => isFullWidth && '100%',
+    justifyContent: ({ isFullWidth }) => isFullWidth && 'flex-start',
   },
   icon: {
     marginRight: theme.spacing(1),
@@ -227,10 +263,11 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 export default compose<any, Props>(
-  withFormik({
+  withFormik<HOCProps, Values>({
+    enableReinitialize: true,
     mapPropsToValues: ({ date, timePeriod }) => {
       return {
-        date: moment.unix(date),
+        date: typeof date === 'number' ? moment.unix(date) : date,
         timePeriod,
       };
     },

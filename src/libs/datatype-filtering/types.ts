@@ -74,7 +74,7 @@ export type DateFilterRangeEnum =
   | 'year'
   | 'custom';
 
-export type DateFilterEnum = 'today';
+export type DateFilterEnum = 'today' | 'custom';
 
 export type DatatypeFilterConfigGroupOperand =
   | typeof GROUP_OR_OPERAND

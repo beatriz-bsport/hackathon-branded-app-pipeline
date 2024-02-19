@@ -83,6 +83,7 @@ import CadenceReducers from '#libs/sequential_marketing/reducers';
 import exportableComponentsReducers from '#libs/exportable-components/reducers';
 import quicksaleReducers from '#libs/quicksale/reducers';
 import referralReducers from '#libs/referral/reducers';
+import accessControlReducers from '#libs/access-control/reducers';
 import communicationSentGroupConfigReducers from '#libs/communication/reducers/communication-sent-group-config-reducers';
 
 import type { AlertingState } from '#libs/alerting/types';
@@ -157,6 +158,7 @@ import type { SubscriptionState } from '#libs/subscription/types';
 import type { ReferralState } from '#libs/referral/types';
 import type { ZoomAppState } from '#libs/zoom-app/types';
 import type { ShopState, ShopStateReworked } from '#libs/shop/types';
+import type { AccessControlState } from '#libs/access-control/types';
 
 const rootReducer = (history: any) =>
   combineReducers({
@@ -243,10 +245,12 @@ const rootReducer = (history: any) =>
     exportableComponents: exportableComponentsReducers,
     quicksale: quicksaleReducers,
     referral: referralReducers,
+    accessControl: accessControlReducers,
   });
 
 export type RootState = {
   router: ReturnType<typeof connectRouter>;
+  accessControl: AccessControlState;
   activeCampaign: any;
   alerting: AlertingState;
   auth: any;

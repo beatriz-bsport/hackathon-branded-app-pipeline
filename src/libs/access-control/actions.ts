@@ -1,0 +1,66 @@
+import type { AxiosResponse } from 'axios';
+import { createAction } from 'redux-actions';
+
+import { checkMemberInEstablishment as checkMemberInEstablishmentAPI } from './api';
+
+import type { ThunkAction, OptionCallback } from '../../state/types';
+import type { MemberVisitREST } from './types';
+
+export const checkMemberInEstablishmentActions = {
+  success: createAction<AxiosResponse<MemberVisitREST>>(
+    'ACCESS_CONTROL/CHECK_MEMBER_IN_ESTABLISHMENT/SUCCESS',
+  ),
+  loading: createAction<boolean>(
+    'ACCESS_CONTROL/CHECK_MEMBER_IN_ESTABLISHMENT/LOADING',
+  ),
+  error: createAction<Error | null>(
+    'ACCESS_CONTROL/CHECK_MEMBER_IN_ESTABLISHMENT/ERROR',
+  ),
+};
+
+/**
+ * `checkMemberInEstablishment` is a Redux thunk action that checks-in a member in an establishment.
+ *
+ * @function
+ * @param {number} params.memberId - The ID of the member.
+ * @param {string} params.memberBarcode - The barcode of the member.
+ * @param {number} params.establishmentId - The ID of the establishment.
+ * @param {OptionCallback<MemberVisitREST>} options - Optional callbacks for success and error cases.
+ * @returns {ThunkAction} A Redux thunk action.
+ *
+ * This function dispatches the loading action, makes an API call to check-in the member in the establishment,
+ * and then dispatches either the success or error action based on the result.
+ * It also calls the provided callbacks in case of success or error.
+ */
+export const checkMemberInEstablishment = (
+  {
+    memberId,
+    memberBarcode,
+    establishmentIds,
+  }: {
+    memberId: number;
+    memberBarcode?: string;
+    establishmentIds?: number[];
+  },
+  options?: OptionCallback<MemberVisitREST>,
+): ThunkAction => {
+  return async (dispatch) => {
+    dispatch(checkMemberInEstablishmentActions.loading(true));
+    // TODO: Broadcast the loading state
+    dispatch(checkMemberInEstablishmentActions.error(null));
+    try {
+      const response = await checkMemberInEstablishmentAPI({
+        memberId,
+        memberBarcode,
+        establishmentIds,
+      });
+      dispatch(checkMemberInEstablishmentActions.success(response));
+      // TODO: Broadcast the success state
+      options?.onSuccess(response.data);
+    } catch (error) {
+      dispatch(checkMemberInEstablishmentActions.error(error));
+      options?.onError(error);
+    }
+    dispatch(checkMemberInEstablishmentActions.loading(false));
+  };
+};

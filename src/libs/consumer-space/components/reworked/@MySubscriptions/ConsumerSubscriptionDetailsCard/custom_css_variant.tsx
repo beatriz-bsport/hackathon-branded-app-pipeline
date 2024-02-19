@@ -35,6 +35,10 @@ const TERMSDATE = formatAsDatetimeAdapted(
   SUBSCRIPTION.contract_terms_date_accepted,
   'L',
 );
+const LASTINVOICEDATEBEFORERENWAL = formatAsDatetimeAdapted(
+  SUBSCRIPTION.next_billing_date,
+  'L',
+);
 
 const ConsumerSubscriptionDetailsCardVariationRegistry = [
   {
@@ -198,14 +202,21 @@ export const CONSUMER_SUBSCRIPTION_DETAILS_CARD_PREVIEW: React.FC<{
       handleInvoiceDetailsPaginationFetchMore={emptyFn}
       hasDetailsNextPage={false}
       invoiceRetryNumber={0}
+      isMobile={false}
       isPaymentMethodSectionHidden={false}
       joiningFee={SUBSCRIPTION.flat_fee}
+      lastInvoiceDateBeforeRenewal={
+        componentProps.hasAutoRenewal && LASTINVOICEDATEBEFORERENWAL
+      }
       onPaymentMethodActionClick={emptyFn}
       onSeeClick={emptyFn}
       pauseEndDate={NEXTBILLINGDATE}
       price={SUBSCRIPTION.recurrent_price.toString()}
       readableIdentifier="4242"
       recurrence={SUBSCRIPTION.recurrence_basis}
+      recurrentPrice={
+        componentProps.hasAutoRenewal && SUBSCRIPTION.recurrent_price.toString()
+      }
       subscriptionInterval={SUBSCRIPTION.interval}
       subscriptionName={SUBSCRIPTION.name_without_member_name}
       subscriptionNextPaymentDate={SUBSCRIPTIONEXTPAYMENTDATE}

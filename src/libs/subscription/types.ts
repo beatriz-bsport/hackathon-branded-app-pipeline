@@ -338,7 +338,7 @@ export type SubscriptionREST = {
   failed_payments_invoices: SubscriptionsFailedInvoicesREST[];
   first_billing_date: string;
   flat_fee: string;
-  has_discount: boolean;
+  has_been_renewed: boolean;
   has_ended: boolean;
   id: number;
   interval: SubscriptionInterval;
@@ -369,6 +369,7 @@ export type SubscriptionREST = {
   status: SubscriptionStatus;
   stop_note: string;
   stripe_payment_method_id: string;
+  voucher: string;
 };
 
 export type SubscriptionsFailedInvoicesREST = {

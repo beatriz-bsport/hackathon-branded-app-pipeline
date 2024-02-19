@@ -26,6 +26,7 @@ import { isPaused } from '#libs/subscription/utils';
 import {
   getSubtitleCardDate,
   getSubtitleCardDetailsDate,
+  informationBasedOnCouponApplied,
   mobileDetailsDisplay,
 } from '#libs/consumer-space/components/reworked/@MySubscriptions/utils';
 
@@ -199,6 +200,10 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
           selectedTab === SubscriptionTabEnum.EXPIRED
         }
         joiningFee={selectedSubscription?.flat_fee}
+        lastInvoiceDateBeforeRenewal={informationBasedOnCouponApplied(
+          selectedSubscription,
+          selectedSubscription?.last_billing_date,
+        )}
         onPaymentMethodActionClick={handlePaymentModalOpen}
         onSeeClick={onSeeTermsClick}
         pauseEndDate={selectedSubscriptionPauseEndDate}
@@ -208,6 +213,10 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
         ).toFixed(2)}
         readableIdentifier={paymentMethodUsed?.readable_identifier}
         recurrence={selectedSubscription?.recurrence_basis}
+        recurrentPrice={informationBasedOnCouponApplied(
+          selectedSubscription,
+          selectedSubscription?.recurrent_price,
+        )}
         selected={!!selectedSubscription}
         selectedSubscriptionInvoiceDetails={selectedSubscriptionInvoiceDetails}
         selectedSubscriptionsFuturePauses={selectedSubscriptionsFuturePauses}

@@ -9,7 +9,10 @@ import ListItem from '#Fabrique/ListItem';
 import List from '#Fabrique/List';
 import Alert from '#Fabrique/Alert';
 
-import { getSubscriptionRecurrenceLabel } from '#libs/consumer-space/components/reworked/@MySubscriptions/utils';
+import {
+  getSubscriptionRecurrenceLabel,
+  getSubscriptionTextBasedOnCouponApplied,
+} from '#libs/consumer-space/components/reworked/@MySubscriptions/utils';
 import {
   BellRinging04,
   ClockRefresh,
@@ -24,9 +27,11 @@ type Props = Pick<
   | 'hasAutoRenewal'
   | 'isPaused'
   | 'joiningFee'
+  | 'lastInvoiceDateBeforeRenewal'
   | 'pauseEndDate'
   | 'price'
   | 'recurrence'
+  | 'recurrentPrice'
   | 'selectedSubscriptionsFuturePauses'
   | 'subscriptionInterval'
   | 'subscriptionName'
@@ -39,9 +44,11 @@ const ConsumerSubscriptionDetailsCardHeader: React.FC<Props> = ({
   hasAutoRenewal,
   isPaused,
   joiningFee,
+  lastInvoiceDateBeforeRenewal,
   pauseEndDate,
   price,
   recurrence,
+  recurrentPrice,
   selectedSubscriptionsFuturePauses,
   subscriptionInterval,
   subscriptionName,
@@ -54,6 +61,14 @@ const ConsumerSubscriptionDetailsCardHeader: React.FC<Props> = ({
     price,
     t,
     subscriptionInterval,
+  );
+
+  const recurrentPriceDisplayed = getSubscriptionTextBasedOnCouponApplied(
+    lastInvoiceDateBeforeRenewal,
+    recurrence,
+    recurrentPrice,
+    subscriptionInterval,
+    t,
   );
 
   return (
@@ -144,15 +159,23 @@ const ConsumerSubscriptionDetailsCardHeader: React.FC<Props> = ({
           />
         )}
         <ListItem
-          captionText={t(
-            'reworked.mySubscriptions.consumerSubscriptionCardDetails.headerListItemLabels.joiningFee',
-            { fee: `${joiningFee}${getCurrencyDisplay()}` },
-          )}
+          captionText={`${recurrentPriceDisplayed}${
+            recurrentPriceDisplayed && '\n'
+          } ${
+            joiningFee &&
+            t(
+              'reworked.mySubscriptions.consumerSubscriptionCardDetails.headerListItemLabels.joiningFee',
+              { fee: `${joiningFee}${getCurrencyDisplay()}` },
+            )
+          }`}
           classes={{
-            captionText: classNames({
-              'bs-consumer__subscription-details-card__header__list-item--hidden':
-                parseFloat(joiningFee) === 0,
-            }),
+            captionText: classNames(
+              'bs-consumer__subscription-details-card__header__list-item__price__caption-text',
+              {
+                'bs-consumer__subscription-details-card__header__list-item--hidden':
+                  parseFloat(joiningFee) === 0 && !recurrentPriceDisplayed,
+              },
+            ),
           }}
           className="bs-consumer__subscription-details-card__header__list-item__price"
           label={recurrenceLabel}

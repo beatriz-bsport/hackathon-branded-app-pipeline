@@ -26,7 +26,6 @@ export const getSubscriptionRecurrenceLabel = (
             `subscription:contract.form.recurrence_basis.intervalName.${subscriptionInterval}`,
             { count: recurrence },
           ),
-          recurrence,
         },
       )
     : t(
@@ -134,4 +133,64 @@ export const mobileDetailsDisplay = <MobileContent, DesktopContent>(
     return mobileContent;
   }
   return desktopContent;
+};
+
+/** For subscription details card, there is no way to know which coupon was applied.
+  The only way for now is to check all the conditions below to display what we want
+  * @param {string} informationToRetrieve - information to retrieve (usually last_billing_date or recurrent_price)
+  * @param {SubscriptionREST} subscription - a subscription
+
+  * @returns {string} informationToRetrieve - information to retrieve (usually last_billing_date or recurrent_price)
+  * @returns {null} null if a "all before first renewal" coupon was not applied
+  */
+export const informationBasedOnCouponApplied = (
+  subscription: SubscriptionREST,
+  informationToRetrieve: string,
+) =>
+  subscription &&
+  !subscription.has_been_renewed &&
+  subscription.auto_renewal &&
+  parseFloat(subscription.voucher) !== 0 &&
+  subscription.recurrent_price !== subscription.price_to_display_cts
+    ? informationToRetrieve
+    : null;
+
+/** If a "all before first renewal" coupon was applied, we display some informations */
+export const getSubscriptionTextBasedOnCouponApplied = (
+  lastInvoiceDateBeforeRenewal: string,
+  recurrence: number,
+  recurrentPrice: string,
+  subscriptionInterval: SubscriptionInterval,
+  t: TFunction,
+) => {
+  if (!recurrentPrice && !lastInvoiceDateBeforeRenewal) {
+    return '';
+  }
+
+  return recurrence === 1
+    ? t(
+        'reworked.mySubscriptions.consumerSubscriptionCardDetails.beforeRenewalContractPricePer',
+        {
+          price: recurrentPrice,
+          currency: getCurrencyDisplay(),
+          interval: t(
+            `subscription:contract.form.recurrence_basis.intervalName.${subscriptionInterval}`,
+            { count: recurrence },
+          ),
+          date: lastInvoiceDateBeforeRenewal,
+        },
+      )
+    : t(
+        'reworked.mySubscriptions.consumerSubscriptionCardDetails.beforeRenewalContractPriceEvery',
+        {
+          price: recurrentPrice,
+          currency: getCurrencyDisplay(),
+          interval: t(
+            `subscription:contract.form.recurrence_basis.intervalName.${subscriptionInterval}`,
+            { count: recurrence },
+          ),
+          recurrence,
+          date: lastInvoiceDateBeforeRenewal,
+        },
+      );
 };

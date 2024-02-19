@@ -381,6 +381,10 @@ exports.default = {
         },
       },
       consumerSubscriptionCardDetails: {
+        beforeRenewalContractPricePer:
+          'Then {{ price }}{{ currency}}/{{ interval }} after {{- date }}',
+        beforeRenewalContractPriceEvery:
+          'Then {{ price }}{{ currency}} every {{ recurrence }} {{ interval }} after {{- date }}',
         description: 'Description',
         terms: 'Terms',
         termsAccepted: 'Accepted on {{- termsDate }}',

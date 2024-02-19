@@ -56,6 +56,8 @@ type Props = {
   isPaymentMethodSectionHidden: boolean;
   /** Fees when joining the subscription */
   joiningFee: string;
+  /** Indicates invoice date before renewal if it has not been renewed yet and if a coupon has been applied for all billings before first renewal */
+  lastInvoiceDateBeforeRenewal: string | null;
   /** If payment method section is displayed,add/change a payment method */
   onPaymentMethodActionClick: () => void;
   /** Action when clicking on See Terms */
@@ -70,6 +72,8 @@ type Props = {
   readableIdentifier: string;
   /** Number of payment per subscription interval */
   recurrence: number;
+  /** Recurrent price to be displayed if it has not been renewed yet and a coupon has been applied for all billings before first renewal */
+  recurrentPrice: string | null;
   /** Indicates if any subscriptions were selected : needed for mobile display */
   selected?: boolean;
   /** List of invoices related to a subscription */
@@ -108,6 +112,7 @@ const ConsumerSubscriptionDetailsCard: React.FC<Props> = ({
   isPaused,
   isPaymentMethodSectionHidden,
   joiningFee,
+  lastInvoiceDateBeforeRenewal,
   onPaymentMethodActionClick,
   onSeeClick,
   pauseEndDate,
@@ -115,6 +120,7 @@ const ConsumerSubscriptionDetailsCard: React.FC<Props> = ({
   price,
   readableIdentifier,
   recurrence,
+  recurrentPrice,
   selected,
   selectedSubscriptionInvoiceDetails,
   selectedSubscriptionsFuturePauses,
@@ -154,9 +160,11 @@ const ConsumerSubscriptionDetailsCard: React.FC<Props> = ({
         hasAutoRenewal={hasAutoRenewal}
         isPaused={isPaused}
         joiningFee={joiningFee}
+        lastInvoiceDateBeforeRenewal={lastInvoiceDateBeforeRenewal}
         pauseEndDate={pauseEndDate}
         price={price}
         recurrence={recurrence}
+        recurrentPrice={recurrentPrice}
         selectedSubscriptionsFuturePauses={selectedSubscriptionsFuturePauses}
         subscriptionInterval={subscriptionInterval}
         subscriptionName={subscriptionName}

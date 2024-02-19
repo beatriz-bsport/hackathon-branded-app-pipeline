@@ -2,7 +2,6 @@ import Button from '@material-ui/core/Button';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Switch from '@material-ui/core/Switch';
 import Typography from '@material-ui/core/Typography';
-import InfoOutlineIcon from '@material-ui/icons/Info';
 
 import { Alert } from '@material-ui/lab';
 import { withFormik, type FormikProps, Form } from 'formik';
@@ -52,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(2),
   },
   threeDSecureContainer: {
-    marginTop: theme.spacing(2),
+    marginTop: theme.spacing(3),
   },
   daysInputsContainer: {
     marginTop: theme.spacing(2),
@@ -73,6 +72,9 @@ const useStyles = makeStyles((theme) => ({
   },
   leftIcon: {
     margin: theme.spacing(1),
+    icon: {
+      textAlign: 'center',
+    },
   },
   daysInput: {
     marginBottom: theme.spacing(1),
@@ -189,7 +191,6 @@ const PaymentMethodsForm: React.FC<
           {t('paymentMethods.methodPaymentBasket')}
         </Typography>
         <div className={classes.row}>
-          <InfoOutlineIcon className={classes.leftIcon} />
           <Typography color="textSecondary" variant="body2">
             {t('paymentMethods.methodPaymentBasketHelper')}
           </Typography>
@@ -209,7 +210,6 @@ const PaymentMethodsForm: React.FC<
           {t('paymentMethods.methodPaymentSubscription')}
         </Typography>
         <div className={classes.row}>
-          <InfoOutlineIcon className={classes.leftIcon} />
           <Typography color="textSecondary" variant="body2">
             {t('paymentMethods.methodPaymentSubscriptionHelper')}
           </Typography>
@@ -264,6 +264,11 @@ const PaymentMethodsForm: React.FC<
           {t('paymentMethods.methodPaymentCardBillingDetailsTitle')}
         </Typography>
         <div className={classes.row}>
+          <Alert className={classes.leftIcon} severity="info">
+            {t('paymentMethods.methodPaymentCardBillingDetailsHelper')}
+          </Alert>
+        </div>
+        <div className={classes.row}>
           <Switch
             checked={cardBillingDetailsMandatory}
             onChange={onCardBillingDetailsMandatoryChange}
@@ -271,11 +276,6 @@ const PaymentMethodsForm: React.FC<
           <Typography color="textSecondary" variant="body2">
             {t('paymentMethods.methodPaymentCardBillingDetails')}
           </Typography>
-        </div>
-        <div className={classes.row}>
-          <Alert className={classes.leftIcon} severity="info">
-            {t('paymentMethods.methodPaymentCardBillingDetailsHelper')}
-          </Alert>
         </div>
       </div>
 

@@ -38,6 +38,8 @@ const getTranslations = async () => {
     NOTIFICATION_SUBSCRIPTION_PASS_AUTO_DISABLED,
     NOTIFICATION_SUBSCRIPTION_PAYMENT_FAILED_NO_RETRY,
     NOTIFICATION_SUBSCRIPTION_PAYMENT_FAIL_WILL_RETRY,
+    NOTIFICATION_PAYMENT_METHOD_EXPIRED_FIRST_WARNING,
+    NOTIFICATION_PAYMENT_METHOD_EXPIRED_SECOND_WARNING,
     NOTIFICATION_RECURRENT_PRIVATE_BOOKING_NO_AVAILABILITY_COACH,
     NOTIFICATION_RECURRENT_PRIVATE_BOOKING_NO_AVAILABILITY_CONSUMER,
     NOTIFICATION_PAYMENT_INSTALMENT_PREPARED,
@@ -430,6 +432,10 @@ const getTranslations = async () => {
       [NOTIFICATION_SPIVI_PERFORMANCE]: 'Spinning session performance',
       [NOTIFICATION_SPIVI_COACH_ACCOUNT_CREATED]:
         'Spivi account created (for teachers)',
+      [NOTIFICATION_PAYMENT_METHOD_EXPIRED_FIRST_WARNING]:
+        'Subscription payment method about to expire (first warning)',
+      [NOTIFICATION_PAYMENT_METHOD_EXPIRED_SECOND_WARNING]:
+        'subscription payment method about to expire (second warning)',
     },
     pageTitle: 'Transactional notifications',
     caption: {

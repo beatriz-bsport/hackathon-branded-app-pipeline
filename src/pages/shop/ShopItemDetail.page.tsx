@@ -154,6 +154,7 @@ export class ShopItemDetailPage extends Component<Props> {
   render() {
     return (
       <ShopItemDetail
+        companyId={this.props.theme.company}
         count={this.props.shopItemVariantState.count}
         createShopItemVariants={this.handleCreateShopItemVariants}
         deleteShopItem={this.handleDeleteShopItem}

@@ -32,6 +32,7 @@ const { trackFormSuccess } = rudderStackFormTrackingFunctionsRegistry(
 );
 
 type Props = {
+  companyId?: number;
   isShopItemUsedInCombo?: boolean;
   isLoading?: boolean;
   isVariantListLoading?: boolean;
@@ -59,6 +60,7 @@ type Props = {
 };
 
 const ShopItemDetail: React.FC<Props> = ({
+  companyId,
   isShopItemUsedInCombo,
   isLoading,
   isVariantListLoading,
@@ -215,6 +217,7 @@ const ShopItemDetail: React.FC<Props> = ({
       />
 
       <ShopItemDetailTabs
+        companyId={companyId}
         count={count}
         fetchShopItemVariantList={fetchShopItemVariantList}
         handleChangeTab={handleChangeTab}

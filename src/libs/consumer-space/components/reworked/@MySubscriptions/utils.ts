@@ -114,3 +114,24 @@ export const getSubtitleCardDate = (
       return '';
   }
 };
+
+/** For subscription details card, the mobile version has a different display depending on if its desktop or mobile
+   * @param {boolean} isMobile - If the user is on mobile
+   * @param {SubscriptionREST} selectedSubscription - When selectedSubscription is defined, display mobile version if one subscription is selected
+   * @param {MobileContent} mobileContent - Mobile content to display 
+   * @param {DesktopContent} desktopContent - Desktop content to display
+
+   * @returns {MobileContent} mobileContent - Mobile content to display 
+   * @returns {DesktopContent} desktopContent - Desktop content to display
+   */
+export const mobileDetailsDisplay = <MobileContent, DesktopContent>(
+  isMobile: boolean,
+  selectedSubscription: SubscriptionREST,
+  mobileContent: MobileContent,
+  desktopContent: DesktopContent,
+) => {
+  if (isMobile && !!selectedSubscription?.id) {
+    return mobileContent;
+  }
+  return desktopContent;
+};

@@ -1,6 +1,7 @@
 import React from 'react';
 import type { AxiosResponse } from 'axios';
 
+import classNames from 'classnames';
 import MarketplacePageContent from '#csscomponents/MarketplacePageContent';
 import ConsumerSubscriptionHeader from '#libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionHeader';
 import ConsumerSubscriptionsTabs from '#libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionTabs';
@@ -24,6 +25,7 @@ import type { SubscriptionTab } from '#libs/consumer-space/components/reworked/@
 
 import useConsumerSubscriptionsModalManager from '#libs/consumer-space/components/reworked/@MySubscriptions/hooks/useConsumerSubscriptionsModalManager';
 import useConsumerSubscriptionsDataManager from '#libs/consumer-space/components/reworked/@MySubscriptions/hooks/useConsumerSubscriptionsDataManager';
+import { mobileDetailsDisplay } from '#libs/consumer-space/components/reworked/@MySubscriptions/utils';
 
 import './styles.css';
 
@@ -171,21 +173,38 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
     [selectedTab, switchPaymentMethod],
   );
 
+  const handleGoBack = React.useCallback(
+    () => handleSetSelectedSubscriptions(null),
+    [handleSetSelectedSubscriptions],
+  );
+
   return (
     <MarketplacePageContent
-      classes={{ children: 'bs-consumer__subscription-page__root' }}
+      classes={{
+        children: classNames('bs-consumer__subscription-page__root', {
+          'bs-consumer__subscription-page__root--mobile':
+            isMobile && !!selectedSubscription?.id,
+        }),
+      }}
     >
       <ConsumerSubscriptionHeader
+        handleGoBack={handleGoBack}
         isMobile={isMobile}
         onBookSessionClick={onBookSessionClick}
         onGetASubscriptionClick={onGetASubscriptionClick}
+        selectedSubscription={selectedSubscription}
       />
-      <ConsumerSubscriptionsTabs
-        activeBookingsCount={activeSubscriptionsState.count}
-        futureBookingsCount={futureSubscriptionsState.count}
-        onChangeSubscriptionTab={handleSetSelectedTab}
-        selectedTab={selectedTab}
-      />
+      {mobileDetailsDisplay(
+        isMobile,
+        selectedSubscription,
+        null,
+        <ConsumerSubscriptionsTabs
+          activeBookingsCount={activeSubscriptionsState.count}
+          futureBookingsCount={futureSubscriptionsState.count}
+          onChangeSubscriptionTab={handleSetSelectedTab}
+          selectedTab={selectedTab}
+        />,
+      )}
       <ConsumerSubscriptionsListContainer
         areDetailsLoading={areDetailsLoading}
         handleInvoiceDetailsPaginationFetchMore={

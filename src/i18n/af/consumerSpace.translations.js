@@ -362,6 +362,7 @@ exports.default = {
       headerButtonsLabel: {
         bookASession: 'Book a session',
         getSubscription: 'Get a subscription',
+        backToSubscriptions: 'Back to subscriptions',
       },
       close: 'Close',
       consumerSubscriptionCard: {

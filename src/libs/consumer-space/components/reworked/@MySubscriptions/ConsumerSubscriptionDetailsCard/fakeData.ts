@@ -1,13 +1,15 @@
 import { faker } from '@faker-js/faker';
 import moment from 'moment-timezone';
 
+const NOW = moment().format();
+
 export const fakeFailedInvoices = (count: number) =>
   faker.helpers.multiple(
     () => {
       return {
         uuid: faker.string.uuid(),
-        date: moment().format(),
-        next_retry_date: moment().format(),
+        date: NOW,
+        next_retry_date: NOW,
         payments: [
           {
             uuid: faker.string.uuid(),
@@ -23,17 +25,17 @@ export const fakeFailedInvoices = (count: number) =>
 export const fakeSuccessfulInvoices = [
   {
     amount_paid_cts: faker.number.int({ min: 1000, max: 10000 }).toString(),
-    date: moment().format(),
+    date: NOW,
     uuid: faker.string.uuid(),
   },
   {
     amount_paid_cts: faker.number.int({ min: 1000, max: 10000 }).toString(),
-    date: moment().format(),
+    date: NOW,
     uuid: faker.string.uuid(),
   },
   {
     amount_paid_cts: faker.number.int({ min: 1000, max: 10000 }).toString(),
-    date: moment().format(),
+    date: NOW,
     uuid: faker.string.uuid(),
   },
 ];

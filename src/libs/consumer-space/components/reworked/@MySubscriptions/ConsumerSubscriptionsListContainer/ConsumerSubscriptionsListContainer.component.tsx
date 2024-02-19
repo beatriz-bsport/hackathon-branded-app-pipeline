@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 
 import moment from 'moment-timezone';
 import { useTranslation } from 'react-i18next';
+import classNames from 'classnames';
 import ConsumerSubscriptionCard from '#libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionCard';
 import ConsumerSubscriptionDetailsCard from '#libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionDetailsCard';
 import Typography from '#Fabrique/Typography';
@@ -15,17 +16,17 @@ import type {
 } from '#libs/subscription/types';
 import type { SubscriptionTab } from '#libs/consumer-space/components/reworked/@MySubscriptions/types';
 import {
-  MY_BOOKINGS_LIST_CONTAINER_HEIGHT,
-  MY_BOOKINGS_MOBILE_LIST_CONTAINER_HEIGHT,
-} from '#libs/consumer-space/components/reworked/@MyBookings/constants';
+  MY_SUBSCRIPTIONS_LIST_CONTAINER_HEIGHT_MOBILE,
+  MY_SUBSCRIPTIONS_LIST_CONTAINER_HEIGHT_DESKTOP,
+  SubscriptionTabEnum,
+} from '#libs/consumer-space/components/reworked/@MySubscriptions/constants';
 import type { PaymentMethod } from '#libs/payment/types';
-
-import { SubscriptionTabEnum } from '#libs/consumer-space/components/reworked/@MySubscriptions/constants';
 
 import { isPaused } from '#libs/subscription/utils';
 import {
   getSubtitleCardDate,
   getSubtitleCardDetailsDate,
+  mobileDetailsDisplay,
 } from '#libs/consumer-space/components/reworked/@MySubscriptions/utils';
 
 import './styles.css';
@@ -112,7 +113,12 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
   );
 
   return (
-    <div className="bs-consumer-page-root__subscription">
+    <div
+      className={classNames('bs-consumer-page-root__subscription', {
+        'bs-consumer-page-root__subscription--mobile':
+          isMobile && !!selectedSubscription?.id,
+      })}
+    >
       {showEmptyPlaceholder && (
         <Typography align="center" variant="body-lg">
           {selectedTab === SubscriptionTabEnum.EXPIRED
@@ -121,50 +127,51 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
         </Typography>
       )}
 
-      <ul className="bs-consumer-page-root__subscriptions_list">
-        <GenericInfiniteScrollEnhancedCssOnly<SubscriptionREST>
-          fetchMoreData={handlePaginationFetchMore}
-          hasMore={hasNextPage}
-          // TODO: height needs to be set to trigger fetchMoreData..
-          // @ts-expect-error
-          height={
-            isMobile
-              ? MY_BOOKINGS_MOBILE_LIST_CONTAINER_HEIGHT
-              : MY_BOOKINGS_LIST_CONTAINER_HEIGHT
-          }
-          items={subscriptionsList}
-          // TODO: see if i need to add a ConsumerSubscriptionCardListItem with integration
-          // @ts-expect-error
-          loader={<ConsumerSubscriptionCard isLoading />}
-          renderItem={({ item }) => (
-            <ConsumerSubscriptionCard
-              key={item.id}
-              // TODO
-              addPaymentMethodDisabled={false}
-              hasFailedPayments={!!item?.failed_payments_invoices?.length}
-              hasMissingPaymentMethod={!item?.stripe_payment_method_id}
-              // TODO
-              isDetailsDisabled={false}
-              isLoading={isLoading}
-              isPaused={isPaused(item?.pauses)}
-              isSelected={item.id === selectedSubscription?.id}
-              // TODO
-              onAddPaymentMethodClick={onAddPaymentMethodClick(item.id)}
-              onDetailsClick={onCardDetailsClick(item.id)}
-              price={(parseFloat(item?.price_to_display_cts) / 100).toFixed(2)}
-              recurrence={item?.recurrence_basis}
-              subscriptionDate={getSubtitleCardDate(selectedTab, item, t)}
-              subscriptionInterval={item?.interval}
-              subscriptionName={item?.name_without_member_name}
-              subscriptionNextPaymentDate={
-                selectedTab !== SubscriptionTabEnum.EXPIRED &&
-                item?.next_billing_date &&
-                formatAsDatetimeAdapted(item?.next_billing_date, 'L')
-              }
-            />
-          )}
-        />
-      </ul>
+      {mobileDetailsDisplay(
+        isMobile,
+        selectedSubscription,
+        null,
+        <ul className="bs-consumer-page-root__subscriptions_list">
+          <GenericInfiniteScrollEnhancedCssOnly<SubscriptionREST>
+            fetchMoreData={handlePaginationFetchMore}
+            hasMore={hasNextPage}
+            height={
+              isMobile
+                ? MY_SUBSCRIPTIONS_LIST_CONTAINER_HEIGHT_MOBILE
+                : MY_SUBSCRIPTIONS_LIST_CONTAINER_HEIGHT_DESKTOP
+            }
+            items={subscriptionsList}
+            // @ts-expect-error
+            loader={<ConsumerSubscriptionCard isLoading />}
+            renderItem={({ item }) => (
+              <ConsumerSubscriptionCard
+                key={item.id}
+                addPaymentMethodDisabled={isLoading}
+                hasFailedPayments={!!item?.failed_payments_invoices?.length}
+                hasMissingPaymentMethod={!item?.stripe_payment_method_id}
+                isDetailsDisabled={isLoading}
+                isLoading={isLoading}
+                isPaused={isPaused(item?.pauses)}
+                isSelected={item.id === selectedSubscription?.id}
+                onAddPaymentMethodClick={onAddPaymentMethodClick(item.id)}
+                onDetailsClick={onCardDetailsClick(item.id)}
+                price={(parseFloat(item?.price_to_display_cts) / 100).toFixed(
+                  2,
+                )}
+                recurrence={item?.recurrence_basis}
+                subscriptionDate={getSubtitleCardDate(selectedTab, item, t)}
+                subscriptionInterval={item?.interval}
+                subscriptionName={item?.name_without_member_name}
+                subscriptionNextPaymentDate={
+                  selectedTab !== SubscriptionTabEnum.EXPIRED &&
+                  item?.next_billing_date &&
+                  formatAsDatetimeAdapted(item?.next_billing_date, 'L')
+                }
+              />
+            )}
+          />
+        </ul>,
+      )}
       <ConsumerSubscriptionDetailsCard
         areDetailsLoading={areDetailsLoading}
         autoRenewalDate={formatAsDatetimeAdapted(
@@ -186,6 +193,7 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
         }
         invoiceRetryNumber={invoiceRetryNumber}
         isLoading={isLoading}
+        isMobile={isMobile}
         isPaused={isPaused(selectedSubscription?.pauses)}
         isPaymentMethodSectionHidden={
           selectedTab === SubscriptionTabEnum.EXPIRED
@@ -200,6 +208,7 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
         ).toFixed(2)}
         readableIdentifier={paymentMethodUsed?.readable_identifier}
         recurrence={selectedSubscription?.recurrence_basis}
+        selected={!!selectedSubscription}
         selectedSubscriptionInvoiceDetails={selectedSubscriptionInvoiceDetails}
         selectedSubscriptionsFuturePauses={selectedSubscriptionsFuturePauses}
         showPlaceholder={!selectedSubscription}

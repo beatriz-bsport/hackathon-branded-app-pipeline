@@ -1,6 +1,9 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import classNames from 'classnames';
+import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
+
 import ConsumerCardPlaceholder from '#libs/consumer-space/components/reworked/common/ConsumerCardPlaceholder';
 import ConsumerDetailsCardSkeleton from '#libs/consumer-space/components/reworked/common/ConsumerDetailsCardSkeleton';
 
@@ -12,8 +15,6 @@ import {
   ConsumerSubscriptionDetailsCardPaymentMethod,
   ConsumerSubscriptionDetailsCardTerms,
 } from './sections';
-
-import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import Card from '#Fabrique/Card';
 
 import type {
@@ -47,6 +48,8 @@ type Props = {
   invoiceRetryNumber: number;
   /** Loading indicator */
   isLoading: boolean;
+  /** Mobile version of details cards */
+  isMobile: boolean;
   /** Subscription is currently paused */
   isPaused: boolean;
   /** Should payment method section be hidden */
@@ -67,6 +70,8 @@ type Props = {
   readableIdentifier: string;
   /** Number of payment per subscription interval */
   recurrence: number;
+  /** Indicates if any subscriptions were selected : needed for mobile display */
+  selected?: boolean;
   /** List of invoices related to a subscription */
   selectedSubscriptionInvoiceDetails: Omit<
     SubscriptionsInvoicesDetailsREST,
@@ -99,6 +104,7 @@ const ConsumerSubscriptionDetailsCard: React.FC<Props> = ({
   hasMissingPaymentMethod,
   invoiceRetryNumber,
   isLoading,
+  isMobile,
   isPaused,
   isPaymentMethodSectionHidden,
   joiningFee,
@@ -109,6 +115,7 @@ const ConsumerSubscriptionDetailsCard: React.FC<Props> = ({
   price,
   readableIdentifier,
   recurrence,
+  selected,
   selectedSubscriptionInvoiceDetails,
   selectedSubscriptionsFuturePauses,
   showPlaceholder,
@@ -119,6 +126,10 @@ const ConsumerSubscriptionDetailsCard: React.FC<Props> = ({
   termsDate,
 }) => {
   const { t } = useTranslation('consumerSpace');
+
+  if (isMobile && !selected) {
+    return null;
+  }
 
   if (isLoading) {
     return <ConsumerDetailsCardSkeleton />;
@@ -133,7 +144,11 @@ const ConsumerSubscriptionDetailsCard: React.FC<Props> = ({
   }
 
   return (
-    <Card className="bs-consumer__subscription-details-card__root">
+    <Card
+      className={classNames('bs-consumer__subscription-details-card__root', {
+        'bs-consumer__subscription-details-card__root--mobile': isMobile,
+      })}
+    >
       <ConsumerSubscriptionDetailsCardHeader
         autoRenewalDate={autoRenewalDate}
         hasAutoRenewal={hasAutoRenewal}

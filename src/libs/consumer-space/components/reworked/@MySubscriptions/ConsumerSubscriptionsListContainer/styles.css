@@ -6,6 +6,10 @@
   margin-top: var(--bs-space-size-6);
 }
 
+.bs-consumer-page-root__subscription--mobile {
+  margin-top: 0;
+}
+
 .bs-consumer-page-root__subscriptions_list {
   padding: 0;
   margin: 0;

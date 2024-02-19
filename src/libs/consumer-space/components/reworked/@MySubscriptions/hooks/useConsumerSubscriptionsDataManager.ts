@@ -149,11 +149,12 @@ const useConsumerSubscriptionsDataManager = ({
   );
 
   const handleSetSelectedSubscriptions = useCallback(
-    (subscriptionId: number) => {
+    (subscriptionId: number | null) => {
       const subscription =
         subscriptionsList.find((item) => item.id === subscriptionId) || null;
       setSelectedSubscription(subscription);
       !subscriptionsInvoicesDetailsState.bySubscriptionId[subscription?.id] &&
+        subscription?.id &&
         fetchConsumerSubscriptionInvoicesDetails({ id: subscription.id });
     },
     [

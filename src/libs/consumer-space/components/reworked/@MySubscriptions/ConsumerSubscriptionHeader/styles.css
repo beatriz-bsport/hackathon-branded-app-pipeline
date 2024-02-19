@@ -1,0 +1,7 @@
+.bs-consumer__subscription-header__button--mobile {
+  background: white;
+  justify-content: flex-start;
+  padding-left: var(--bs-space-size-2);
+  width: 100%;
+  border-radius: 0;
+}

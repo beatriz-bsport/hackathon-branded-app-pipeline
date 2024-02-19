@@ -12,7 +12,7 @@ type GenericInfiniteScrollProps = {
   pagination: number;
   total: number;
   nextAction: () => void;
-  height?: number;
+  height?: number | string;
   useScrollableTarget?: boolean;
   isPullDownToRefreshActive?: boolean;
   loadingRate?: number;
@@ -120,7 +120,7 @@ type BaseProps<T = unknown> = {
   loader: React.ReactNode;
   isPullDownToRefreshActive?: boolean;
   scrollableTarget?: string;
-  height?: number;
+  height?: number | string;
   loadingRate?: number;
   pullDownToRefreshSize?: number;
   pullDownToRefreshContent?: React.ReactNode;

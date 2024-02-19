@@ -1593,7 +1593,11 @@
         "changePaymentMethod": "Change payment method",
         "paymentMethodUpdatedTitle": "Payment method updated",
         "paymentMethodUpdatedContent": "Your payment method has been successfully updated",
-        "headerButtonsLabel": { "bookASession": "Book a session", "getSubscription": "Get a subscription" },
+        "headerButtonsLabel": {
+          "bookASession": "Book a session",
+          "getSubscription": "Get a subscription",
+          "backToSubscriptions": "Back to subscriptions"
+        },
         "close": "Close",
         "consumerSubscriptionCard": {
           "nextPayment": "Next payment: {{- nextPayment }}",

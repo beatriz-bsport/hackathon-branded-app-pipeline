@@ -159,6 +159,8 @@ const getTranslations = async () => {
           subscription_nb_days_pause: 'Paused for X number of days',
           subscription_next_invoice_date: 'Next billing date',
           subscription_contract_terms_link: 'Link for terms',
+          days_until_payment_method_expiration:
+            'Number of days until payment method expires',
         },
       },
       BookingOption: {

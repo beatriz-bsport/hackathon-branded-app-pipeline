@@ -260,6 +260,11 @@ export const CustomFormLayoutView = (props: Props) => {
                       isEditing={isEditing}
                       layouts={layouts}
                       onLayoutChange={handleLayoutChange}
+                      rowHeight={
+                        initial?.is_signup
+                          ? initial?.layout_configuration?.row_height
+                          : null
+                      }
                       shouldWrapLayerInCssHoc={shouldWrapLayerInCssHoc}
                     />
                   )}

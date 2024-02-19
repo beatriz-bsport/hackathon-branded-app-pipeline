@@ -36,6 +36,7 @@ type OwnProps = {
   fieldsAreIndependent?: boolean; // if they are, FastField is used to avoid useless re-rendering
   isCssVariantActivated?: boolean;
   shouldWrapLayerInCssHoc?: boolean;
+  rowHeight?: number;
 };
 type Props = OwnProps & WithTranslation;
 
@@ -70,6 +71,7 @@ export const ConsumerFormFields = (props: Props) => {
             customProviderWidth={props.customProviderWidth}
             isCssVariantActivated={isCssVariantActivated}
             shouldWrapLayerInCssHoc={shouldWrapLayerInCssHoc}
+            rowHeight={props.rowHeight}
           >
             {fieldsAreIndependent
               ? custom_form_field?.map((field: CustomFormField, i: number) => (

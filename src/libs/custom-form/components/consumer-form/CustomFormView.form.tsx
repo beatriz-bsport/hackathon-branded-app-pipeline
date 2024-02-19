@@ -52,6 +52,7 @@ type Props = {
   onCancel?: (data?: CustomFormFieldAnswer) => void;
   onSubmit?: (data: CustomFormFieldAnswer, options: OptionCallback) => void;
   onSubmitDraft?: (customFormwithAnswer: CustomFormFilled) => void;
+  rowHeight?: number;
 };
 
 const ConsumerFormView: React.FC<Props> = (props: Props) => {

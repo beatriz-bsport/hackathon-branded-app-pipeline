@@ -183,6 +183,9 @@ export class SignupPage extends Component<Props> {
                 onCancel={this.handleCancel}
                 onSubmit={this.submitCustomForm}
                 onSubmitDraft={this.props.setLoginInformations}
+                rowHeight={
+                  this.props.signUpCustomForm?.layout_configuration?.row_height
+                }
                 simplifyUI={simplifyUI}
                 waiver={theme.waiver}
               />

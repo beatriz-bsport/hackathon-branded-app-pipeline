@@ -59,7 +59,7 @@ const CustomFormButtonsCSS: React.FC<Props> = ({
       })}
     >
       <Button
-        className={classNames({
+        className={classNames('bs-custom-form-buttons__button_cancelled', {
           'bs-custom-form-buttons__button--hidden': !onCancel,
         })}
         color="primary"
@@ -73,7 +73,7 @@ const CustomFormButtonsCSS: React.FC<Props> = ({
           : t('customForm.previous')}
       </Button>
       <Button
-        className={classNames({
+        className={classNames('bs-custom-form-buttons__button_submit', {
           'bs-custom-form-buttons__button--hidden':
             !handleSubmit && !onSubmitDraft,
         })}

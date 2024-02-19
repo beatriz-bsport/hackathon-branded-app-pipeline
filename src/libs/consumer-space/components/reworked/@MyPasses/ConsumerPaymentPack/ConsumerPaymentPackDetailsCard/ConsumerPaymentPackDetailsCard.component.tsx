@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 
 import { useTranslation } from 'react-i18next';
 
@@ -110,7 +111,12 @@ const ConsumerPaymentPackDetailsCard: React.FC<Props> = ({
   }
 
   return (
-    <Card className={className}>
+    <Card
+      className={classNames(
+        'bs-consumer-payment-pack-details-card__root',
+        className,
+      )}
+    >
       <>
         <ConsumerPaymentPackDetailsCardHeader
           creditsLeft={creditsLeft}

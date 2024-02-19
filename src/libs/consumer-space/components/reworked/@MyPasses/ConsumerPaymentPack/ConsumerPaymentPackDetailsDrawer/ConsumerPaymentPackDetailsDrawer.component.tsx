@@ -1,5 +1,4 @@
 import React from 'react';
-import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 
 import BottomDrawer from '#Fabrique/BottomDrawer';
@@ -67,10 +66,7 @@ const ConsumerPaymentPackDetailsDrawer: React.FC<Props> = ({
     >
       <ConsumerPaymentPackDetailsCard
         activityCompatibilities={activityCompatibilities}
-        className={classNames(
-          'bs-consumer-payment-pack-details-card__root',
-          'bs-consumer-payment-pack-details-card__root--mobile',
-        )}
+        className="bs-consumer-payment-pack-details-card__root--mobile"
         // TODO: Out of scope, needs product specs
         compatibleEstablishments={null}
         creditsLeft={creditsLeft}

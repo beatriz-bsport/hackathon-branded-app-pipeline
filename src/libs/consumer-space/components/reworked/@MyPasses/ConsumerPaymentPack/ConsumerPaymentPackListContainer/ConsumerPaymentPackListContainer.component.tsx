@@ -130,10 +130,10 @@ export const ConsumerPaymentPackListContainer: React.FC<Props> = ({
 
       <ConsumerPaymentPackDetailsCard
         activityCompatibilities={activityCompatibilities}
-        className={classNames('bs-consumer-payment-pack-details-card__root', {
-          'bs-consumer-payment-pack-details-card__root--hidden':
-            isMobile || showPlaceholder,
-        })}
+        className={
+          (isMobile || showPlaceholder) &&
+          'bs-consumer-payment-pack-details-card__root--hidden'
+        }
         // TODO: Out of scope, needs product specs
         compatibleEstablishments={null}
         creditsLeft={creditsLeft}

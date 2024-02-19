@@ -135,10 +135,10 @@ export const UniversalPassListContainer: React.FC<Props> = ({
       <UniversalPassDetailsCard
         activityCompatibilities={activityCompatibilities}
         appointmentCompatibilities={appointmentCompatibilities}
-        className={classNames('bs-universal-pass-details-card__root', {
-          'bs-universal-pass-details-card__root--hidden':
-            isMobile || showPlaceholder,
-        })}
+        className={
+          (showPlaceholder || isMobile) &&
+          'bs-universal-pass-details-card__root--hidden'
+        }
         // TODO: Out of scope, needs product specs
         compatibleEstablishments={null}
         creditsLeft={creditsLeft}

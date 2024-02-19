@@ -1,5 +1,4 @@
 import React from 'react';
-import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 
 import BottomDrawer from '#Fabrique/BottomDrawer';
@@ -72,10 +71,7 @@ const UniversalPassDetailsDrawer: React.FC<Props> = ({
         isMobile
         activityCompatibilities={activityCompatibilities}
         appointmentCompatibilities={appointmentCompatibilities}
-        className={classNames(
-          'bs-universal-pass-details-card__root',
-          'bs-universal-pass-details-card__root--mobile',
-        )}
+        className="bs-universal-pass-details-card__root--mobile"
         // TODO: Out of scope, needs product specs
         compatibleEstablishments={null}
         creditsLeft={creditsLeft}

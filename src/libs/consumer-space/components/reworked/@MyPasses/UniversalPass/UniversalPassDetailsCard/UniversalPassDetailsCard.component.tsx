@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 
 import { useTranslation } from 'react-i18next';
 
@@ -109,7 +110,9 @@ const UniversalPassDetailsCard: React.FC<Props> = ({
   }
 
   return (
-    <Card className={className}>
+    <Card
+      className={classNames('bs-universal-pass-details-card__root', className)}
+    >
       <UniversalPassDetailsCardHeader
         creditsLeft={creditsLeft}
         expirationDate={expirationDate}

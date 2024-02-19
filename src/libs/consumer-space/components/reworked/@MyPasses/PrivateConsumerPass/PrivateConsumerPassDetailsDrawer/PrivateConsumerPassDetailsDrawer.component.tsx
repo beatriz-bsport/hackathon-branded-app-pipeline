@@ -1,5 +1,4 @@
 import React from 'react';
-import classNames from 'classnames';
 import { useTranslation } from 'react-i18next';
 
 import BottomDrawer from '#Fabrique/BottomDrawer';
@@ -65,10 +64,7 @@ const PrivateConsumerPassDetailsDrawer: React.FC<Props> = ({
     >
       <PrivateConsumerPassDetailsCard
         appointmentCompatibilities={appointmentCompatibilities}
-        className={classNames(
-          'bs-private-consumer-pass-details-card__root',
-          'bs-private-consumer-pass-details-card__root--mobile',
-        )}
+        className="bs-private-consumer-pass-details-card__root--mobile"
         // TODO: Out of scope, needs product specs
         compatibleEstablishments={null}
         creditsLeft={creditsLeft}

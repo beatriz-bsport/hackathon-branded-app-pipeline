@@ -129,10 +129,10 @@ export const ConsumerPassListContainer: React.FC<Props> = ({
       <PrivateConsumerPassDetailsCard
         appointmentCompatibilities={appointmentCompatibilities}
         // TODO: Out of scope, needs product specs
-        className={classNames('bs-private-consumer-pass-details-card__root', {
-          'bs-private-consumer-pass-details-card__root--hidden':
-            isMobile || showPlaceholder,
-        })}
+        className={
+          (isMobile || showPlaceholder) &&
+          'bs-private-consumer-pass-details-card__root--hidden'
+        }
         compatibleEstablishments={null}
         creditsLeft={creditsLeft}
         description={description}

@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 
 import { useTranslation } from 'react-i18next';
 
@@ -95,7 +96,12 @@ const PrivateConsumerPassDetailsCard: React.FC<Props> = ({
     );
   }
   return (
-    <Card className={className}>
+    <Card
+      className={classNames(
+        'bs-private-consumer-pass-details-card__root',
+        className,
+      )}
+    >
       <PrivateConsumerPassDetailsCardHeader
         creditsLeft={creditsLeft}
         expirationDate={expirationDate}

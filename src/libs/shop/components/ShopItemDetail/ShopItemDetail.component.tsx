@@ -1,18 +1,30 @@
 import React, { useState, useCallback } from 'react';
 
-import { makeStyles } from '@material-ui/core/styles';
+// @ts-expect-error
+import Barcode from 'react-barcode';
 import { useTranslation } from 'react-i18next';
+import { makeStyles } from '@material-ui/core/styles';
+import Dialog from '@material-ui/core/Dialog';
 
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import ShopItemFormReworked from '#libs/shop/components/ShopItemFormReworked';
 import ShopItemDetailProductCard from '#libs/shop/components/ShopItemDetailProductCard';
 import ShopItemDeleteConfirmDialog from '#libs/shop/components/ShopItemDeleteConfirmDialog.component';
+import ShopItemDetailTabs from '#libs/shop/components/ShopItemDetailTabs';
+import ShopItemVariantForm from '#libs/shop/components/ShopItemVariantForm';
 
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 
-import type { ShopItem, ShopItemCreate, ShopItemEdit } from '#libs/shop/types';
+import type {
+  ShopItem,
+  ShopItemVariant,
+  ShopItemCreate,
+  ShopItemEdit,
+  ShopItemVariantAttributes,
+} from '#libs/shop/types';
 import type { OptionCallback } from '../../../../state/types';
 
+import { ShopItemDetailTab } from '#libs/shop/components/ShopItemDetail/constants';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 
 const { trackFormSuccess } = rudderStackFormTrackingFunctionsRegistry(
@@ -22,35 +34,106 @@ const { trackFormSuccess } = rudderStackFormTrackingFunctionsRegistry(
 type Props = {
   isShopItemUsedInCombo?: boolean;
   isLoading?: boolean;
+  isVariantListLoading?: boolean;
   isDeleting?: boolean;
+  isDeletingVariant?: boolean;
   provincialTaxValue: number;
   shopItem: ShopItem;
+  variantList: ShopItemVariant[];
+  page: number;
+  count: number;
   updateShopItem: (
     formData: Partial<ShopItemEdit>,
     id: number,
-    options: OptionCallback<ShopItem>,
+    options?: OptionCallback<ShopItem>,
   ) => void;
+  updateShopItemVariantBulk: (data: FormData, options?: OptionCallback) => void;
   deleteShopItem: () => void;
+  createShopItemVariants: (
+    baseItemId: number,
+    data: ShopItemVariantAttributes,
+    options?: OptionCallback<ShopItemVariant[]>,
+  ) => void;
+  fetchShopItemVariantList: (page: number) => void;
+  deleteShopItemVariant: (id: number) => void;
 };
 
 const ShopItemDetail: React.FC<Props> = ({
   isShopItemUsedInCombo,
   isLoading,
+  isVariantListLoading,
   isDeleting,
+  isDeletingVariant,
   provincialTaxValue,
   shopItem,
+  variantList,
+  count,
+  page,
   updateShopItem,
+  updateShopItemVariantBulk,
   deleteShopItem,
+  createShopItemVariants,
+  fetchShopItemVariantList,
+  deleteShopItemVariant,
 }) => {
   const classes = useStyles();
 
   const { t } = useTranslation('shop');
 
+  const [selectedTab, setSelectedTab] = useState<ShopItemDetailTab>(
+    ShopItemDetailTab.VARIANTS,
+  );
+
   const [isEditShopitemDrawerOpen, setIsEditShopitemDrawerOpen] =
     useState(false);
 
+  const [isCreateVariantDrawerOpen, setIsCreateVariantDrawerOpen] =
+    useState(false);
+
+  const [selectedVariantBarcode, setSelectedVariantBarcode] = useState<
+    string | null
+  >(null);
+
+  const [showBarcodeModal, setShowBarcodeModal] = useState(false);
+
+  const [selectedVariantIdToDelete, setSelectedVariantIdToDelete] = useState<
+    number | null
+  >(null);
+
+  const [
+    showVariantDeleteConfirmationModal,
+    setShowVariantDeleteConfirmationModal,
+  ] = useState(false);
+
   const [showDeleteConfirmationModal, setShowDeleteConfirmationModal] =
     useState(false);
+
+  const handleOpenDeleteVariantConfirmationModal = useCallback((id: number) => {
+    setSelectedVariantIdToDelete(id);
+    setShowVariantDeleteConfirmationModal(true);
+  }, []);
+
+  const handleCloseDeleteVariantConfirmationModal = useCallback(() => {
+    setShowVariantDeleteConfirmationModal(false);
+  }, []);
+
+  const handleSubmitDeleteVariant = useCallback(() => {
+    handleCloseDeleteVariantConfirmationModal();
+    deleteShopItemVariant(selectedVariantIdToDelete);
+  }, [
+    deleteShopItemVariant,
+    handleCloseDeleteVariantConfirmationModal,
+    selectedVariantIdToDelete,
+  ]);
+
+  const handleOpenBarcodeModal = useCallback((barcode: string) => {
+    setSelectedVariantBarcode(barcode);
+    setShowBarcodeModal(true);
+  }, []);
+
+  const handleCloseBarcodeModal = useCallback(() => {
+    setShowBarcodeModal(false);
+  }, []);
 
   const handleOpenDeleteConfirmationModal = useCallback(() => {
     setShowDeleteConfirmationModal(true);
@@ -70,6 +153,23 @@ const ShopItemDetail: React.FC<Props> = ({
     [],
   );
 
+  const handleOpenCreateVariantDrawer = useCallback(
+    () => setIsCreateVariantDrawerOpen(true),
+    [],
+  );
+
+  const handleCloseCreateVariantDrawer = useCallback(
+    () => setIsCreateVariantDrawerOpen(false),
+    [],
+  );
+
+  const handleChangeTab = useCallback(
+    (_: React.ChangeEvent, tab: ShopItemDetailTab) => {
+      setSelectedTab(tab);
+    },
+    [],
+  );
+
   const handleSubmitEditShopItem = useCallback(
     (formData: Partial<ShopItemCreate>) => {
       updateShopItem(formData, shopItem?.id, {
@@ -80,6 +180,17 @@ const ShopItemDetail: React.FC<Props> = ({
       });
     },
     [handleCloseEditShopItemDrawer, shopItem?.id, updateShopItem],
+  );
+
+  const handleSubmitCreateVariant = useCallback(
+    (formData: ShopItemVariantAttributes) => {
+      createShopItemVariants(shopItem?.id, formData, {
+        onSuccess: () => {
+          handleCloseCreateVariantDrawer();
+        },
+      });
+    },
+    [createShopItemVariants, handleCloseCreateVariantDrawer, shopItem?.id],
   );
 
   return (
@@ -95,6 +206,22 @@ const ShopItemDetail: React.FC<Props> = ({
         onEditShopItem={handleOpenEditShopItemDrawer}
         price={shopItem?.price}
         subtitle={shopItem?.subtitle}
+      />
+
+      <ShopItemDetailTabs
+        count={count}
+        fetchShopItemVariantList={fetchShopItemVariantList}
+        handleChangeTab={handleChangeTab}
+        handleOpenBarcodeModal={handleOpenBarcodeModal}
+        handleOpenVariantDrawer={handleOpenCreateVariantDrawer}
+        isDeletingVariant={isDeletingVariant}
+        isLoading={isLoading}
+        isVariantListLoading={isVariantListLoading}
+        onDeleteShopItemVariant={handleOpenDeleteVariantConfirmationModal}
+        page={page}
+        selectedTab={selectedTab}
+        updateShopItemVariantBulk={updateShopItemVariantBulk}
+        variantList={variantList}
       />
 
       <GenericResponsiveDrawer
@@ -113,12 +240,37 @@ const ShopItemDetail: React.FC<Props> = ({
         />
       </GenericResponsiveDrawer>
 
+      <GenericResponsiveDrawer
+        onClose={handleCloseCreateVariantDrawer}
+        open={isCreateVariantDrawerOpen}
+        title={t('shop:shopitem.form.title')}
+        trackingObjectIdentifier={SegmentAnalyticsFormObjectIdentifier.ShopItem}
+      >
+        <ShopItemVariantForm
+          onCancel={handleCloseCreateVariantDrawer}
+          onSubmit={handleSubmitCreateVariant}
+        />
+      </GenericResponsiveDrawer>
+
+      <Dialog
+        onClose={handleCloseBarcodeModal}
+        open={showBarcodeModal && !!selectedVariantBarcode}
+      >
+        <Barcode background="#fafafa" value={selectedVariantBarcode} />
+      </Dialog>
+
       <ShopItemDeleteConfirmDialog
         isUsedInCombo={isShopItemUsedInCombo}
         onCancel={handleCloseDeleteConfirmationModal}
         onSubmit={deleteShopItem}
         open={showDeleteConfirmationModal}
         shopItemName={shopItem?.name ?? ''}
+      />
+
+      <ShopItemDeleteConfirmDialog
+        onCancel={handleCloseDeleteVariantConfirmationModal}
+        onSubmit={handleSubmitDeleteVariant}
+        open={showVariantDeleteConfirmationModal && !!selectedVariantIdToDelete}
       />
     </div>
   );

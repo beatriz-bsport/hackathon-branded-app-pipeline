@@ -11,6 +11,7 @@ type ButtonProps = {
   onClickCategory: (item: BuyableItemCategory) => void;
   buyableItemCategory: BuyableItemCategory;
   selectedBuyableItemCategory: BuyableItemCategory | null;
+  isRecommendCategory?: boolean;
 };
 
 const MarketplaceFilterBuyableItemCategoryButton: React.FC<ButtonProps> = (
@@ -27,10 +28,15 @@ const MarketplaceFilterBuyableItemCategoryButton: React.FC<ButtonProps> = (
       className={classNames(
         'bs-marketplace-filter-buyable-item-category__button',
         'bs-marketplace-filter-buyable-item-category__ripple',
+        `bs-marketplace-filter-buyable-item-category__button--identifier-${buyableItemCategory.identifier}`,
+        `bs-marketplace-filter-buyable-item-category__button--index-${buyableItemCategory.index}`,
+        `bs-marketplace-filter-buyable-item-category__button--id-${buyableItemCategory.id}`,
         {
           'bs-marketplace-filter-buyable-item-category__button--selected':
             buyableItemCategory?.index ===
             props.selectedBuyableItemCategory?.index,
+          'bs-marketplace-filter-buyable-item-category__button--is_recommended':
+            !!props.isRecommendCategory,
         },
       )}
       onClick={onClick}
@@ -65,6 +71,7 @@ const MarketplaceFilterBuyableItemCategory: React.FC<Props> = (props) => {
       {!!isRecommendedCategoryInList && (
         <MarketplaceFilterBuyableItemCategoryButton
           key="recommended_buyable_item_button"
+          isRecommendCategory
           buyableItemCategory={props.buyableItemCategories[0]}
           onClickCategory={props.onClickCategory}
           selectedBuyableItemCategory={props.selectedBuyableItemCategory}
@@ -76,6 +83,7 @@ const MarketplaceFilterBuyableItemCategory: React.FC<Props> = (props) => {
         className={classNames(
           'bs-marketplace-filter-buyable-item-category__button',
           'bs-marketplace-filter-buyable-item-category__ripple',
+          'bs-marketplace-filter-buyable-item-category__button--all',
           {
             'bs-marketplace-filter-buyable-item-category__button--selected':
               props.selectedBuyableItemCategory === null,

@@ -1,6 +1,5 @@
 import moment from 'moment-timezone';
 import chroma from 'chroma-js';
-import * as Sentry from '@sentry/react';
 import memoize from 'memoize-one';
 import { getTextColorFromRGB } from '../../utils/color';
 import { WidgetCustomCSS } from '#libs/theme/types';
@@ -200,7 +199,6 @@ export const cleanCSSFile = (css: string) => {
   try {
     return cleanCSSFileStyleSheet(css);
   } catch (error) {
-    Sentry.captureException(error);
     console.error(error);
     return cleanCSSFileUnsafe(css);
   }

@@ -244,3 +244,8 @@ export type MemberFormData = {
   waiver: boolean;
   zipcode: string;
 };
+
+export type MemberSearchFilterParams = {
+  hide_archived?: boolean;
+  only_archived?: boolean;
+};

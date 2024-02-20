@@ -49,6 +49,7 @@ import type {
   ChangeEmailRequestMinimal,
   ChangeEmailRequest,
   FetchRecipientsParams,
+  MemberSearchFilterParams,
 } from './types';
 import {
   areAllInCache,
@@ -433,7 +434,7 @@ export function incrementalSearch(
 
 export function search(
   text: string,
-  params: { [key: string]: boolean | string | number },
+  params?: MemberSearchFilterParams,
   options?: OptionCallback<AxiosResponse<MemberMinimal[]>>,
 ) {
   return async (dispatch: Dispatch) => {

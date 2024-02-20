@@ -175,7 +175,7 @@
                     "availability": {
                         "expiresToday": "Laatste dag",
                         "expiresIn": "{{ daysRemaining }} dag(en) over",
-                        "expiresIn_plural": "{{ daysRemaining }} dagen over",
+                        "expiresIn_plural": "Verloopt over {{ daysRemaining }} dag(en)",
                         "future": "Startdatum: {{ startDate }}",
                         "expired": "Verlopen op: {{ expirationDate }}",
                         "active": "Verloopdatum: {{ expirationDate }}"
@@ -259,7 +259,8 @@
                     "appointment": "Afspraken",
                     "activity": "Activiteiten"
                 },
-                "title": "Mijn leskaarten"
+                "title": "Mijn leskaarten",
+                "choosePassType": "Kies kaart type"
             },
             "myBookings": {
                 "spotSchedulingModal": {
@@ -404,21 +405,43 @@
             "mySubscriptions": {
                 "consumerSubscriptionCardDetails": {
                     "headerListItemLabels": {
-                        "nextPayment": "Volgende betaling"
+                        "nextPayment": "Volgende betaling",
+                        "nextPaymentDate": "op {{- subscriptionNextPaymentDate }}",
+                        "autoRenewed": "Automatisch hernieuwd",
+                        "paused": "Momenteel gepauzeerd",
+                        "pauseEndDate": "tot {{- pauseEndDate }} inbegrepen",
+                        "autoRenewalDate": "op {{- autoRenewalDate }} (included)"
                     },
                     "buttonsLabel": {
-                        "see": "Zie"
+                        "see": "Zie",
+                        "change": "Wijzigen",
+                        "add": "Toevoegen"
                     },
-                    "termsAccepted": "Geaccepteerd op {{ termsDate }}",
+                    "termsAccepted": "Geaccepteerd op {{- termsDate }}",
                     "terms": "Voorwaarden",
-                    "description": "Beschrijving"
+                    "description": "Beschrijving",
+                    "paymentMethod": {
+                        "bacs_debit": "BACS Direct Debit: **** **** **** {{ readableIdentifier }}",
+                        "card": "Creditcard: **** **** **** {{ readableIdentifier }}",
+                        "sepa_debit": "SEPA: **** **** **** {{ readableIdentifier }}",
+                        "title": "Betaalmethode",
+                        "internal": "Interne rekening: voor elke betaling wordt automatisch een schuld aangemaakt op je interne rekening"
+                    },
+                    "failedPaymentReason": "Reden: {{- note }}. Gelieve contact opnemen met de studio om de betaalachterstand te verwerken.",
+                    "failedPayment": "Betaling mislukt"
                 },
                 "consumerSubscriptionCard": {
                     "buttonsLabel": {
-                        "seeDetails": "Zie details"
+                        "seeDetails": "Zie details",
+                        "addPaymentMethod": "Een betaalmethode toevoegen"
                     },
                     "recurrenceLabelEvery": "{{ price }}{{ currency }} iedere {{ recurrence }} {{ interval }}",
-                    "recurrenceLabelPer": "{{ price }}{{ currency }}{{ interval }}"
+                    "recurrenceLabelPer": "{{ price }}{{ currency }}{{ interval }}",
+                    "chipsLabel": {
+                        "failedPayment": "Betaling mislukt",
+                        "missingPaymentMethod": "Er ontbreekt een betaalmethode",
+                        "isPaused": "Gepauzeerd"
+                    }
                 },
                 "headerButtonsLabel": {
                     "getSubscription": "Neem een abonnement",
@@ -429,7 +452,13 @@
                     "future": "Niet gestart",
                     "active": "Actief"
                 },
-                "title": "Mijn abonnementen"
+                "title": "Mijn abonnementen",
+                "dateLabel": {
+                    "until": " tot {{- date }}",
+                    "expired": "Verlopen sinds {{- date }}",
+                    "future": "Startdatum: {{- date }}",
+                    "active": "Startdatum: {{- date }}"
+                }
             }
         }
     },
@@ -521,7 +550,7 @@
             },
             "ConsumerPaymentPack": {
                 "tags": {
-                    "pass_credit_left": "Resterende kredieten",
+                    "pass_credit_left": "Resterende credits",
                     "pass_expiration": "Vervaldatum van de leskaart",
                     "pass_starting_date": "Startdatum van de leskaart",
                     "pass_name": "Naam van de leskaart",
@@ -543,7 +572,7 @@
             },
             "PrivateConsumerPass": {
                 "tags": {
-                    "pass_credit_left": "Resterende kredieten",
+                    "pass_credit_left": "Resterende credits",
                     "pass_expiration": "Vervaldatum van de leskaart",
                     "pass_starting_date": "Startdatum van de leskaart",
                     "pass_name": "Naam van de leskaart",
@@ -1087,7 +1116,7 @@
             "pay": "Afrekenen",
             "payWithNCredits2": "credit(s)",
             "payWithNCredits1": "Reserveren (",
-            "availablePaymentPacks": " compatibele leskaarten",
+            "availablePaymentPacks": " beschikbare leskaarten",
             "yourBasket": "Jouw aankoop",
             "noBookingsLeftOnPack": "Deze leskaart kan deze week niet meer worden gebruikt.",
             "noCreditLeft": "Er zijn niet genoeg geldige credits beschikbaar",
@@ -1599,13 +1628,13 @@
             "addInvoice": "Factureren",
             "extraordinaryEstablishment": "(tijdelijke vestiging)",
             "noCompatiblePacks": "Geen enkele leskaart is compatibel met deze sessie",
-            "compatiblePacks": "Compatibele kaarten",
+            "compatiblePacks": "Beschikbare kaarten",
             "substitute": "Plaatsvervanger",
             "disabled": "geannuleerd",
             "nextOffer": "Volgende sessie",
             "previousOffer": "Vorige sessie",
             "backToCalendar": "Agenda",
-            "noConsumerPackAvailableForPurchase": "Dit lid bezit nog geen compatibele kaarten.",
+            "noConsumerPackAvailableForPurchase": "Dit lid bezit nog geen beschikbare kaarten.",
             "noncompatibleConsumerPaymentPacksAre": "Incompatibele leskaarten",
             "noPackAvailableForOfferPurchase": "Er is nog geen enkele compatibele leskaart voor deze sessie!",
             "offersPendingDelete": "Te verwijderen sessies:",
@@ -1739,7 +1768,7 @@
         },
         "activity": {
             "reviews": "Ledenbeoordeling: ",
-            "packsAvailable": "Compatibele kaarten:",
+            "packsAvailable": "Beschikbare kaarten:",
             "orNcredits2": " (credits)",
             "orNcredits1": "(of ",
             "noOfferThisDay": "Vandaag zijn er geen sessies. Selecteer een andere datum of begin met het toevoegen van sessies.",
@@ -3707,7 +3736,7 @@
                 "selectToShowPreview": "Selecteer een e-mail om de voorvertoning te zien.",
                 "mailTitle": "Selecteer de te versturen e-mailsjabloon",
                 "typeTitle": "Evenement",
-                "creditType": "Resterende kredieten",
+                "creditType": "Resterende credits",
                 "daysType": "Resterende geldigheid",
                 "mailSelection": "Selecteer een e-mailsjabloon",
                 "smartListSelection": "(Optioneel) Smartlist(s) selecteren",
@@ -5393,11 +5422,11 @@
             "pack": {
                 "noCompatiblePass": "Geen compatibele leskaart",
                 "consumerPacks": "Aangeschaft door",
-                "paymentPacks": "Compatibele kaarten"
+                "paymentPacks": "Beschikbare kaarten"
             },
             "tab": {
                 "general": "Algemeen",
-                "pack": "Compatibele leskaarten",
+                "pack": "Beschikbare leskaarten",
                 "group": "Groepsessies"
             }
         },
@@ -6707,8 +6736,8 @@
             },
             "bookingsTitle": "Overzicht",
             "addSession": "Sessies toevoegen",
-            "noPackAvailable": "Deze sessie heeft geen compatibele kaarten.",
-            "noPackAvailable_plural": "Deze sessies dienen apart te worden gereserveerd, omdat er geen compatibele kaarten beschikbaar zijn.",
+            "noPackAvailable": "Deze sessie heeft geen beschikbare kaarten.",
+            "noPackAvailable_plural": "Deze sessies dienen apart te worden gereserveerd, omdat er geen beschikbare kaarten beschikbaar zijn.",
             "packTitle": "Mijn reserveringsmethode",
             "offerStatus": {
                 "waiting_list_status": {
@@ -8922,7 +8951,7 @@
                 "cancel": "Annuleren",
                 "compatiblePrivatePass": "Factureren",
                 "emptyPrivateConsumerPass": "Dit lid bezit momenteel nog geen compatibele afspraakkaart.",
-                "emptyPrivatePass": "Er zijn geen compatibele afspraakkaarten om weer te geven.",
+                "emptyPrivatePass": "Er zijn geen beschikbare afspraakkaarten om weer te geven.",
                 "privateConsumerPassNeedRefresh": "Verversen",
                 "incompatibilities": {
                     "close": "Sluiten",
@@ -8933,8 +8962,8 @@
                     "11108": "Onvoldoende credits",
                     "11107": "Niet compatibele afspraak"
                 },
-                "noUncompatiblePassToDisplay": "Er zijn geen compatibele afspraakkaarten om weer te geven.",
-                "nonCompatiblePrivateConsumerPass": "Incompatibele afspraakkaarten"
+                "noUncompatiblePassToDisplay": "Er zijn geen beschikbare afspraakkaarten om weer te geven.",
+                "nonCompatiblePrivateConsumerPass": "onbeschikbare afspraakkaarten"
             },
             "delete": {
                 "consumer": {
@@ -9168,7 +9197,7 @@
             "bookingCapabilities": {
                 "compatibleConsumerPassTitle": "Mijn kaarten",
                 "compatiblePassTitle": "Beschikbare kaarten",
-                "emptyPassList": "Er zijn geen compatibele afspraakkaarten om weer te geven. Contacteer de studio voor meer informatie.",
+                "emptyPassList": "Er zijn geen beschikbare afspraakkaarten om weer te geven. Contacteer de studio voor meer informatie.",
                 "emptyConsumerPassList": "Schaf een geldige afspraakkaart aan om de reservering de voltooien."
             },
             "private_pass": {
@@ -10425,7 +10454,7 @@
             }
         },
         "goBack": "Terug",
-        "availablePaymentPacks": "Compatibele leskaarten: ",
+        "availablePaymentPacks": "Beschikbare leskaarten: ",
         "actions": {
             "addThisPaymentItem": "Deze betaalmethode opslaan"
         },
@@ -14095,8 +14124,8 @@
                 "label": "Geen reserveringen accepteren voor sessies die plaatsvinden in minder dan "
             },
             "check_credit": {
-                "label": "Controleren of de klant een cursuskaart heeft die compatibel is met het aanbod en voldoende krediet heeft",
-                "helper": "Klanten kunnen pas aan een wachtrij worden toegevoegd als zij een cursuskaart hebben die compatibel is met de betreffende aanbieding en voldoende krediet hebben om de boeking te maken"
+                "label": "Controleren of de klant een cursuskaart heeft die compatibel is met het aanbod en voldoende crediet heeft",
+                "helper": "Klanten kunnen pas aan een wachtrij worden toegevoegd als zij een cursuskaart hebben die compatibel is met de betreffende aanbieding en voldoende credits hebben om de boeking te maken"
             },
             "display_member_position": {
                 "label": "De positie in de wachtrij weergeven"
@@ -15978,7 +16007,7 @@
             },
             "metaActivity": {
                 "group": "Groepssessies",
-                "pack": "Compatibele kaarten",
+                "pack": "Beschikbare leskaarten",
                 "general": "Algemeen"
             },
             "quicksale": {
@@ -16454,7 +16483,8 @@
                 "consumer_booking_card": "Consumenten boekingskaart",
                 "consumer_payment_pack_details_card": "Gegevenskaart activiteitenpas (voor lid)",
                 "private_consumer_pass_details_card": "Afsprakenpasgegevenskaart (voor lid)",
-                "universal_pass_details_card": "Universele pasgegevenskaart (voor leden)"
+                "universal_pass_details_card": "Universele pasgegevenskaart (voor leden)",
+                "reset_password_confirmation": "Knop om wachtwoord te herstellen"
             },
             "customCss": {
                 "yourCode": "Je aanvullende implementatie:",
@@ -16552,7 +16582,8 @@
                 "priceHelper": "Dit bedrag komt bovenop je huidige maandelijkse pakket.",
                 "title": "Aanvullende dienst activeren"
             },
-            "seeMore": "Toon meer"
+            "seeMore": "Toon meer",
+            "billSMS": "{{ price_cts }} / sms"
         },
         "paymentMethod": {
             "actions": {

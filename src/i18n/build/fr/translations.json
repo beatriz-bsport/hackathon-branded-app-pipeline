@@ -1664,7 +1664,7 @@
         },
         "spivi": {
             "settingsTitle": "Données de spinning",
-            "settings": "Afficher mes données en temps réel",
+            "settings": "Afficher mes données en temps réel sur les écrans",
             "settingsInfo": "Si cette option est activée, vos données (vitesse, calories dépensées...) seront affichées en temps réel lors de votre séance. En désactivant cette option, vos données n'apparaitront plus mais vous recevrez bien en fin de cours votre récapitulatif par email."
         },
         "reworked": {
@@ -8523,7 +8523,8 @@
                 "priceHelper": "Ce prix sera ajouté à votre forfait mensuel.",
                 "title": "S'abonner à l'add-on"
             },
-            "seeMore": "Voir plus"
+            "seeMore": "Voir plus",
+            "billSMS": "{{ price_cts }} / SMS"
         },
         "platformBillingGroup": {
             "myGroup": "Mon forfait",

@@ -7568,7 +7568,8 @@
                     "appointment": "Citas",
                     "activity": "Actividades"
                 },
-                "title": "Mis bonos"
+                "title": "Mis bonos",
+                "choosePassType": "Elija el tipo de bono"
             },
             "myBookings": {
                 "spotSchedulingModal": {
@@ -7713,21 +7714,43 @@
             "mySubscriptions": {
                 "consumerSubscriptionCardDetails": {
                     "headerListItemLabels": {
-                        "nextPayment": "Próximo pago"
+                        "nextPayment": "Próximo pago",
+                        "nextPaymentDate": "en {{- subscriptionNextPaymentDate }}",
+                        "pauseEndDate": "hasta {{- pauseEndDate }} incluido",
+                        "autoRenewalDate": "en {{- autoRenewalDate }} (incluido)",
+                        "autoRenewed": "Renovación automática",
+                        "paused": "Actualmente en pausa"
                     },
                     "buttonsLabel": {
-                        "see": "Ver"
+                        "see": "Ver",
+                        "change": "Cambiar",
+                        "add": "Añadir"
                     },
-                    "termsAccepted": "Aceptado el {{ termsDate }}",
+                    "termsAccepted": "Aceptado el {{- termsDate }}",
                     "terms": "Términos legales",
-                    "description": "Descripción"
+                    "description": "Descripción",
+                    "paymentMethod": {
+                        "bacs_debit": "Bacs Direct Debit: **** **** **** {{ readableIdentifier }}",
+                        "card": "Tarjeta: **** **** **** {{ readableIdentifier }}",
+                        "sepa_debit": "SEPA: **** **** **** {{ readableIdentifier }}",
+                        "internal": "Cuenta interna: para cada pago, se crea automáticamente una deuda en su cuenta interna.",
+                        "title": "Método de pago"
+                    },
+                    "failedPaymentReason": "Motivo: {{- note }} Póngase en contacto con su estudio para regularizar la situación",
+                    "failedPayment": "Pago fallido"
                 },
                 "consumerSubscriptionCard": {
                     "buttonsLabel": {
-                        "seeDetails": "Ver detalles"
+                        "seeDetails": "Ver detalles",
+                        "addPaymentMethod": "Añadir método de pago"
                     },
                     "recurrenceLabelEvery": "{{ price }}{{ currency }} cada {{ recurrence }} {{ interval }}",
-                    "recurrenceLabelPer": "{{ price }}{{ currency }}/{{ interval }}"
+                    "recurrenceLabelPer": "{{ price }}{{ currency }}/{{ interval }}",
+                    "chipsLabel": {
+                        "failedPayment": "Pago fallido",
+                        "missingPaymentMethod": "Falta el método de pago",
+                        "isPaused": "En pausa"
+                    }
                 },
                 "headerButtonsLabel": {
                     "getSubscription": "Obtener una suscripción",
@@ -7738,7 +7761,13 @@
                     "future": "No iniciado",
                     "active": "Activo"
                 },
-                "title": "Mi suscripción"
+                "title": "Mi suscripción",
+                "dateLabel": {
+                    "until": " hasta {{- date }}",
+                    "expired": "Caducado desde {{- date }}",
+                    "future": "Inicia en {{- date }}",
+                    "active": "Iniciado el {{- date }}"
+                }
             }
         }
     },
@@ -16489,7 +16518,8 @@
                 "authentication_textfield": "Campo de texto de autenticación",
                 "consumer_payment_pack_details_card": "Ficha de datos del bono de actividades (para miembros)",
                 "private_consumer_pass_details_card": "Ficha de datos de la tarjeta de cita previa (para el miembro)",
-                "universal_pass_details_card": "Ficha de datos del bono universal (para miembros)"
+                "universal_pass_details_card": "Ficha de datos del bono universal (para miembros)",
+                "reset_password_confirmation": "Confirmación de restablecimiento de contraseña"
             },
             "customCss": {
                 "yourCode": "Su implementación complementaria:",
@@ -16564,7 +16594,8 @@
                 "priceHelper": "Este precio se añadirá a su plan mensual.",
                 "title": "Suscribirse al suplemento"
             },
-            "seeMore": "Ver más"
+            "seeMore": "Ver más",
+            "billSMS": "{{ price_cts }} / SMS"
         },
         "featureRequest": {
             "close": "Cerrar",
@@ -17678,7 +17709,7 @@
             }
         },
         "staff": {
-            "explainStaff": "Con el acceso al personal de la cuenta principal, selecciona a qué franquicias tiene acceso tu personal y qué acciones puede realizar en ellas. El acceso del personal no permite conectarse a la aplicación móvil.",
+            "explainStaff": "Con el acceso de personal de la cuenta maestra, seleccione qué franquiciados tienen acceso a sus plantillas y qué acciones pueden realizar en ellas. El acceso de personal no permite conectarse a la aplicación móvil.",
             "roleTabTitle": "Papeles",
             "staffAccountTabTitle": "Cuentas Staff"
         },

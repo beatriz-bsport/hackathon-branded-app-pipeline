@@ -3307,7 +3307,7 @@
                         }
                     },
                     "franchisees": {
-                        "warning": "Wählen Sie aus, welche Franchisenehmer Zugang zu diesem Mitarbeiterkonto haben sollen. Leer lassen, um allen Franchisenehmern Zugang zu gewähren.",
+                        "warning": "Wählen Sie aus, auf welche Franchisenehmer dieses Mitarbeiterkonto Zugriff haben soll. Leer lassen, um den Zugriff auf alle Franchisenehmern zu gewähren.",
                         "title": "Zugang für Franchisenehmer"
                     },
                     "register": "Speichern"
@@ -11870,7 +11870,8 @@
                     "appointment": "Termine",
                     "activity": "Aktivitäten"
                 },
-                "title": "Meine Pässe"
+                "title": "Meine Pässe",
+                "choosePassType": "Art des Passes auswählen"
             },
             "myBookings": {
                 "spotSchedulingModal": {
@@ -12015,21 +12016,43 @@
             "mySubscriptions": {
                 "consumerSubscriptionCardDetails": {
                     "headerListItemLabels": {
-                        "nextPayment": "Nächste Zahlung"
+                        "nextPayment": "Nächste Zahlung",
+                        "nextPaymentDate": "am {{- subscriptionNextPaymentDate }}",
+                        "pauseEndDate": "bis einschließlich {{- pauseEndDate }}",
+                        "autoRenewalDate": "am {{- autoRenewalDate }} (inbegriffen)",
+                        "autoRenewed": "Automatisch verlängert",
+                        "paused": "Derzeit pausiert"
                     },
                     "buttonsLabel": {
-                        "see": "Ansehen"
+                        "see": "Ansehen",
+                        "change": "Ändern",
+                        "add": "Hinzufügen"
                     },
-                    "termsAccepted": "Akzeptiert am {{ termsDate }}",
+                    "termsAccepted": "Akzeptiert am {{- termsDate }}",
                     "terms": "Allgemeine Geschäftsbedingungen",
-                    "description": "Beschreibung"
+                    "description": "Beschreibung",
+                    "paymentMethod": {
+                        "bacs_debit": "Bacs Lastschrift: **** **** **** {{ readableIdentifier }}",
+                        "card": "Kreditkarte: **** **** **** {{ readableIdentifier }}",
+                        "sepa_debit": "SEPA: **** **** **** {{ readableIdentifier }}",
+                        "internal": "Internes Konto: bei jeder Zahlung wird automatisch Ihr internes Konto belastet",
+                        "title": "Zahlungsmethode"
+                    },
+                    "failedPaymentReason": "Grund: {{- note }} Bitte kontaktieren Sie Ihr Studio, um die Situation zu klären",
+                    "failedPayment": "Zahlung fehlgeschlagen"
                 },
                 "consumerSubscriptionCard": {
                     "buttonsLabel": {
-                        "seeDetails": "Details ansehen"
+                        "seeDetails": "Details ansehen",
+                        "addPaymentMethod": "Zahlungsmethode hinzufügen"
                     },
                     "recurrenceLabelEvery": "{{ price }}{{ currency }} alle {{ recurrence }} {{ interval }}",
-                    "recurrenceLabelPer": "{{ price }}{{ currency }}/{{ interval }}"
+                    "recurrenceLabelPer": "{{ price }}{{ currency }}/{{ interval }}",
+                    "chipsLabel": {
+                        "failedPayment": "Zahlung fehlgeschlagen",
+                        "missingPaymentMethod": "Fehlende Zahlungsmethode",
+                        "isPaused": "Pausiert"
+                    }
                 },
                 "headerButtonsLabel": {
                     "getSubscription": "Ein Abonnement abschließen",
@@ -12040,7 +12063,13 @@
                     "future": "Nicht gestartet",
                     "active": "Aktiv"
                 },
-                "title": "Meine Abonnements"
+                "title": "Meine Abonnements",
+                "dateLabel": {
+                    "until": " bis {{- date }}",
+                    "expired": "Abgelaufen seit {{- date }}",
+                    "future": "Beginnt am {{- date }}",
+                    "active": "Begonnen am {{- date }}"
+                }
             }
         }
     },
@@ -15934,7 +15963,8 @@
                 "priceHelper": "Dieser Preis wird zu Ihrem monatlichen Plan hinzugefügt.",
                 "title": "Das Add-On abonnieren"
             },
-            "seeMore": "Mehr anzeigen"
+            "seeMore": "Mehr anzeigen",
+            "billSMS": "{{ price_cts }} / SMS"
         },
         "paymentMethod": {
             "actions": {
@@ -16202,7 +16232,8 @@
                 "authentication_textfield": "Textfeld Authentifizierung",
                 "universal_pass_details_card": "Universalpass-Detailkarte (für Mitglieder)",
                 "private_consumer_pass_details_card": "Terminpass-Detailkarte (für Mitglieder)",
-                "consumer_payment_pack_details_card": "Aktivitätspass-Detailkarte (für Mitglieder)"
+                "consumer_payment_pack_details_card": "Aktivitätspass-Detailkarte (für Mitglieder)",
+                "reset_password_confirmation": "Bestätigung der Passwortrücksetzung"
             },
             "page": {
                 "calendar": "Kalender",
@@ -17571,7 +17602,7 @@
             }
         },
         "staff": {
-            "explainStaff": "Mit dem Mitarbeiterzugang des Master Accounts wählen Sie aus, welche Franchisenehmer Zugang zu Ihren Mitarbeitern haben und welche Aktionen sie in ihnen durchführen können. Der Mitarbeiterzugang erlaubt es nicht, sich mit der mobilen App zu verbinden.",
+            "explainStaff": "Mit dem Mitarbeiterzugang des Master Accounts wählen Sie aus, welche Franchisenehmer Zugriff auf Ihr Personal haben und welche Aktionen sie durchführen können. Der Mitarbeiterzugang erlaubt es nicht, sich mit der mobilen App zu verbinden.",
             "roleTabTitle": "Aufgaben",
             "staffAccountTabTitle": "Mitarbeiter-Accounts"
         }

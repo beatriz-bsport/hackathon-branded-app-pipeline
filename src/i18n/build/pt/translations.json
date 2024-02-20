@@ -2337,7 +2337,8 @@
                     "appointment": "Aulas Privadas",
                     "activity": "Atividades"
                 },
-                "title": "Meus Passes"
+                "title": "Meus Passes",
+                "choosePassType": "Escolher o tipo de passe"
             },
             "myBookings": {
                 "spotSchedulingModal": {
@@ -2482,21 +2483,43 @@
             "mySubscriptions": {
                 "consumerSubscriptionCardDetails": {
                     "headerListItemLabels": {
-                        "nextPayment": "Próximo pagamento"
+                        "nextPayment": "Próximo pagamento",
+                        "nextPaymentDate": "em {{- subscriptionNextPaymentDate }}",
+                        "pauseEndDate": "até {{- pauseEndDate }} incluído",
+                        "autoRenewalDate": "em {{- autoRenewalDate }}(incluído)",
+                        "autoRenewed": "Renovação automática",
+                        "paused": "Atualmente em pausa"
                     },
                     "buttonsLabel": {
-                        "see": "Ver"
+                        "see": "Ver",
+                        "change": "Alterar",
+                        "add": "Adicionar"
                     },
-                    "termsAccepted": "Aceito em {{ termsDate }}",
+                    "termsAccepted": "Aceito em{{- termsDate }}",
                     "terms": "Termos",
-                    "description": "Descrição"
+                    "description": "Descrição",
+                    "paymentMethod": {
+                        "bacs_debit": "Débito direto Bacs: **** **** **** {{ readableIdentifier }}",
+                        "card": "Cartão: **** **** **** {{ readableIdentifier }}",
+                        "sepa_debit": "SEPA: **** **** **** {{ readableIdentifier }}",
+                        "internal": "Conta interna: para cada pagamento, é automaticamente criada uma dívida na sua conta interna",
+                        "title": "Método de Pagamento"
+                    },
+                    "failedPaymentReason": "Motivo: {{- note }} Por favor, contacte o seu estúdio para regularizar a situação",
+                    "failedPayment": "Pagamento fracassado"
                 },
                 "consumerSubscriptionCard": {
                     "buttonsLabel": {
-                        "seeDetails": "Ver detalhes"
+                        "seeDetails": "Ver detalhes",
+                        "addPaymentMethod": "Adicionar método de pagamento"
                     },
                     "recurrenceLabelEvery": "{{ price }}{{ currency }} toda {{ recurrence }} {{ interval }}",
-                    "recurrenceLabelPer": "{{ price }}{{ currency }}{{ interval }}"
+                    "recurrenceLabelPer": "{{ price }}{{ currency }}{{ interval }}",
+                    "chipsLabel": {
+                        "failedPayment": "Pagamento falhado",
+                        "missingPaymentMethod": "Método de pagamento em falta",
+                        "isPaused": "Pausado"
+                    }
                 },
                 "headerButtonsLabel": {
                     "getSubscription": "Obter uma subscrição",
@@ -2507,7 +2530,13 @@
                     "future": "Não iniciado",
                     "active": "Ativo"
                 },
-                "title": "As minhas subscrições"
+                "title": "As minhas subscrições",
+                "dateLabel": {
+                    "until": " até{{- date }}",
+                    "expired": "Expirado desde {{- date }}",
+                    "future": "Começa em{{- date }}",
+                    "active": "Iniciado em {{- date }}"
+                }
             }
         }
     },
@@ -13677,7 +13706,8 @@
                 "authentication_textfield": "Campo de texto de autenticação",
                 "consumer_payment_pack_details_card": "Cartão de informação do passe de atividade (para membro)",
                 "private_consumer_pass_details_card": "Cartão de dados do cartão de marcação de consultas (para o membro)",
-                "universal_pass_details_card": "Cartão de informação do passe universal (para membro)"
+                "universal_pass_details_card": "Cartão de informação do passe universal (para membro)",
+                "reset_password_confirmation": "Confirmação da redefinição da palavra-passe"
             },
             "cssEditor": {
                 "reset": "reposto",
@@ -18382,7 +18412,8 @@
                 "priceHelper": "Este preço será acrescentado ao seu plano mensal.",
                 "title": "Subscrever  ao add-on"
             },
-            "seeMore": "Ver mais"
+            "seeMore": "Ver mais",
+            "billSMS": "{{ price_cts }}/ SMS"
         },
         "paymentMethod": {
             "info": {

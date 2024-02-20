@@ -1875,26 +1875,49 @@
                     "appointment": "Appuntamenti",
                     "activity": "Attività"
                 },
-                "title": "I miei pacchetti"
+                "title": "I miei pacchetti",
+                "choosePassType": "Seleziona il tipo di pass"
             },
             "mySubscriptions": {
                 "consumerSubscriptionCard": {
                     "recurrenceLabelEvery": "{{ price }}{{ currency }} ogni {{ recurrence }} {{ interval }}",
                     "buttonsLabel": {
-                        "seeDetails": "Vedi dettagli"
+                        "seeDetails": "Vedi dettagli",
+                        "addPaymentMethod": "Aggiungi un metodo di pagamento"
                     },
-                    "recurrenceLabelPer": "{{ price }}{{ currency }}/{{ interval }}"
+                    "recurrenceLabelPer": "{{ price }}{{ currency }}/{{ interval }}",
+                    "chipsLabel": {
+                        "failedPayment": "Pagamento fallito",
+                        "missingPaymentMethod": "Metodo di pagamento mancante",
+                        "isPaused": "In pausa"
+                    }
                 },
                 "consumerSubscriptionCardDetails": {
                     "headerListItemLabels": {
-                        "nextPayment": "Prossimo pagamento"
+                        "nextPayment": "Prossimo pagamento",
+                        "nextPaymentDate": "il {{- subscriptionNextPaymentDate }}",
+                        "pauseEndDate": "fino al {{- pauseEndDate }} incluso",
+                        "autoRenewalDate": "il {{- autoRenewalDate }} (incluso)",
+                        "autoRenewed": "Rinnovo automatico",
+                        "paused": "Attualmente in pausa"
                     },
                     "buttonsLabel": {
-                        "see": "Vedi"
+                        "see": "Vedi",
+                        "change": "Cambia",
+                        "add": "Aggiungi"
                     },
-                    "termsAccepted": "Accettati in data {{ termsDate }}",
+                    "termsAccepted": "Accettati in data {{- termsDate }}",
                     "terms": "Termini",
-                    "description": "Descrizione"
+                    "description": "Descrizione",
+                    "paymentMethod": {
+                        "bacs_debit": "Bacs Direct Debit: **** **** **** {{ readableIdentifier }}",
+                        "card": "Card: **** **** **** {{ readableIdentifier }}",
+                        "sepa_debit": "SEPA: **** **** **** {{ readableIdentifier }}",
+                        "internal": "Saldo cliente: per ogni pagamento, viene creato automaticamente un debito sul proprio saldo interno",
+                        "title": "Metodo di pagamento"
+                    },
+                    "failedPaymentReason": "Motivi: {{- note }} Si prega di contattare il tuo studio per regolarizzare la situazione",
+                    "failedPayment": "Pagamento fallito"
                 },
                 "headerButtonsLabel": {
                     "getSubscription": "Ottieni un abbonamento ricorrente",
@@ -1905,7 +1928,13 @@
                     "future": "Non iniziata",
                     "active": "Attiva"
                 },
-                "title": "I miei abbonamenti ricorrenti"
+                "title": "I miei abbonamenti ricorrenti",
+                "dateLabel": {
+                    "until": " fino al {{- date }}",
+                    "expired": "Scaduta da {{- date }}",
+                    "future": "Iniziata il {{- date }}",
+                    "active": "Iniziata il {{- date }}"
+                }
             }
         }
     },
@@ -14433,7 +14462,7 @@
                         "label": "Cognome"
                     },
                     "franchisees": {
-                        "warning": "Seleziona quali franchise avranno accesso a questo account personale. Lascia vuoto per dare accesso a tutti i franchise.",
+                        "warning": "Selezionare a quali franchisee avrà accesso questo account personale. Lasciare vuoto per dare accesso a tutti gli affiliati.",
                         "title": "Accesso in franchising"
                     },
                     "generalInfo": {
@@ -16211,7 +16240,8 @@
                 "authentication_textfield": "Campo per l'autenticazione",
                 "consumer_payment_pack_details_card": "Tessera per i dettagli del pacchetto attività (per i membri)",
                 "private_consumer_pass_details_card": "Scheda dettagli del pacchetto per appuntamenti (per i membri)",
-                "universal_pass_details_card": "Scheda dettagli del pacchetto universale (per i membri)"
+                "universal_pass_details_card": "Scheda dettagli del pacchetto universale (per i membri)",
+                "reset_password_confirmation": "Conferma del ripristino della password"
             },
             "cssConfig": {
                 "title": {
@@ -16531,7 +16561,8 @@
                 "confirmHelper": "Conferma di volerti abbonare a questo componente aggiuntivo",
                 "title": "Iscriviti al pacchetto combinato"
             },
-            "seeMore": "Mostra di più"
+            "seeMore": "Mostra di più",
+            "billSMS": "{{ price_cts }} / SMS"
         },
         "paymentMethod": {
             "actions": {
@@ -17665,7 +17696,7 @@
         },
         "staff": {
             "roleTabTitle": "Ruoli",
-            "explainStaff": "Con l'accesso del personale del Master Account, seleziona quali franchisee hanno accesso al tuo personale e quali azioni possono svolgere al loro interno. L'accesso del personale non consente di connettersi all'applicazione mobile.",
+            "explainStaff": "Con l'accesso dello staff all'account principale, si può selezionare a quali franchisee lo staff avrà accesso e quali azioni potrà eseguire. L'accesso dello staff non consente di collegarsi all'applicazione mobile.",
             "staffAccountTabTitle": "Account del personale"
         }
     },

@@ -249,6 +249,7 @@ export const ConsumerFormFieldsHOC = withFormik({
       is_member_form,
       is_signup,
       passwordConfirm,
+      layout_configuration,
       /* eslint-disable */
       ...cleaned_values
     } = {

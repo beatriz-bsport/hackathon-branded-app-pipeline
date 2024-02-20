@@ -140,6 +140,10 @@ export class CheckInOfferDetailPage extends React.Component<Props, State> {
     faceIdAvailable: false,
   };
 
+  handleSearchMembers = (text: string) => {
+    this.props.searchMembers(text, { hide_archived: true });
+  };
+
   componentDidMount() {
     this.props.fetchOfferById(this.props.offerId, {
       onSuccess: (offer) => {
@@ -222,7 +226,7 @@ export class CheckInOfferDetailPage extends React.Component<Props, State> {
             onClose={this.props.closeRegistrationFlow}
             registerWithPass={this.props.registerWithPass}
             searchedMemberList={this.props.searchedMemberList}
-            searchMembers={this.props.searchMembers}
+            searchMembers={this.handleSearchMembers}
             setSearchedMember={this.props.setSearchedMember}
             upsertMember={this.props.upsertMember}
             waiver={this.props.theme.waiver}

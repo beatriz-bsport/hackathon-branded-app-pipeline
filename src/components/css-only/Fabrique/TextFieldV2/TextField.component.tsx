@@ -109,6 +109,9 @@ const TextField: React.FC<Props> = ({
                 'bs-fabrique-textfield__label',
                 {
                   'bs-fabrique-textfield__label--disabled': isDisabled,
+                  'bs-fabrique-textfield__label--input--is-focused':
+                    isInputFocused,
+                  'bs-fabrique-textfield__label--input--is-not-empty': !!value,
                 },
                 classes?.label,
               )}

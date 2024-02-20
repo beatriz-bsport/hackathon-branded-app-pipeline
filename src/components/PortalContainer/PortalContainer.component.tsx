@@ -6,20 +6,30 @@ import { CSSTransition } from 'react-transition-group';
 
 type SlidingContainerProps = {
   isOpen: boolean,
+  containerSetUpVariable: HTMLElement,
 };
 export const SlidingContainer: React.FC<SlidingContainerProps> = ({
   isOpen,
   children,
+  containerSetUpVariable,
 }) => {
   const nodeRef = React.useRef(null);
   React.useEffect(() => {
-    isOpen &&
+    if (isOpen) {
       nodeRef?.current?.scrollIntoView({
         block: 'start',
         inline: 'nearest',
         behavior: 'smooth',
       });
-  }, [isOpen]);
+      containerSetUpVariable?.style?.setProperty('height', '0px');
+    }
+    return () => {
+      setTimeout(() => {
+        containerSetUpVariable?.style?.setProperty('height', '');
+      }, 200);
+    };
+  }, [isOpen, containerSetUpVariable]);
+
   return (
     <CSSTransition
       unmountOnExit
@@ -53,7 +63,7 @@ export const PortalSlidingContainer: React.FC<PortalSlidingContainerProps> = ({
 
   // Get the parent element based on the parentElement ID
   const widgetContainerElement = document.getElementById(parentElement);
-
+  const containerSetUpVariableFirstChild = containerSetUpVariable?.firstChild;
   // Check if the parentElement and widgetContainerElement exist
   if (parentElement && widgetContainerElement) {
     // Find the child container with ID 'bs-setup-derived-variable'
@@ -69,7 +79,12 @@ export const PortalSlidingContainer: React.FC<PortalSlidingContainerProps> = ({
 
   // Render the sliding container using ReactDOM.createPortal
   return ReactDOM.createPortal(
-    <SlidingContainer isOpen={isOpen}>{children}</SlidingContainer>,
+    <SlidingContainer
+      isOpen={isOpen}
+      containerSetUpVariable={containerSetUpVariableFirstChild}
+    >
+      {children}
+    </SlidingContainer>,
     containerSetUpVariable,
   );
 };

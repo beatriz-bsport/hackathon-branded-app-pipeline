@@ -107,6 +107,8 @@ const MarketplacePaymentPackBuyableItem: React.FC<Props> = ({
             </div>
             <div
               className={classNames({
+                'bs-payment-pack-buyable-item__recommended_icon_container':
+                  isRecommended,
                 'bs-payment-pack-buyable-item__recommended_icon_container--hidden':
                   !isRecommended,
               })}

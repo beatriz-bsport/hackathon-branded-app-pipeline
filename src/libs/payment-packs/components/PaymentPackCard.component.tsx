@@ -134,7 +134,7 @@ export class PaymentPackCard extends Component<Props, State> {
             <Button
               className={`${classes.multiDivButton} ${classes.buttonAlign}`}
               color="primary"
-              disabled={!!pack.linked_private_pass}
+              disabled={!!pack.linked_private_pass || pack.unlimited}
               id="button_pass_multdiv"
               onClick={this.props.toogleScaleMenuOpen}
             >

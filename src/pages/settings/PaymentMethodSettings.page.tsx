@@ -3,6 +3,10 @@ import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { withStyles, Theme, Paper } from '@material-ui/core';
 
+import {
+  NOTIFICATION_PAYMENT_METHOD_EXPIRED_FIRST_WARNING,
+  NOTIFICATION_PAYMENT_METHOD_EXPIRED_SECOND_WARNING,
+} from '@bsport/common/lib/master-data/notification-rule-events';
 import { MaterialStyleType } from '../../utils/types';
 import { RootState } from '../../reducers';
 import BackofficeLinearProgress from '#components/navigation/BackofficeLinearProgress.component';
@@ -10,6 +14,8 @@ import { updateCompanyTheme } from '#libs/theme/actions';
 import { snackbarError, snackbarSuccess } from '#libs/snackbar/actions';
 import type { PaymentMethodsFormValues } from '#libs/settings/components/PaymentMethodsForm/PaymentMethodsForm.component';
 import PaymentMethodsForm from '#libs/settings/components/PaymentMethodsForm';
+
+import { fetchSettingsList as fetchSettingsListAction } from '#libs/notification-rule/actions';
 
 type Props = ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps &
@@ -22,6 +28,10 @@ class PaymentMethodSettings extends React.PureComponent<Props> {
       onError: () => this.props.snackbarError('dashboard.save.error'),
     });
   };
+
+  componentDidMount(): void {
+    this.props.fetchSettingsList();
+  }
 
   render() {
     const { classes } = this.props;
@@ -47,12 +57,36 @@ class PaymentMethodSettings extends React.PureComponent<Props> {
         this.props.theme.payment_method_available_subscription;
     }
 
+    /*
+     * This checks if the user has enabled the send of emails about payment method
+     *  expiration, and disable inputs accordingly.
+     */
+    const notificationRulePaymentExpiredFirstWarningIsDisabled =
+      this.props.settingsData?.length > 0
+        ? this.props.settingsData[0].settings[
+            NOTIFICATION_PAYMENT_METHOD_EXPIRED_FIRST_WARNING
+          ]?.disabled ?? true
+        : true;
+    const notificationRulePaymentExpiredSecondWarningIsDisabled =
+      this.props.settingsData?.length > 0
+        ? this.props.settingsData[0].settings[
+            NOTIFICATION_PAYMENT_METHOD_EXPIRED_SECOND_WARNING
+          ]?.disabled ?? true
+        : true;
+
     return (
       <div className={classes.container}>
         <Paper className={classes.container}>
           <PaymentMethodsForm
             cardBillingDetailsMandatory={
               this.props.theme.force_billing_details_on_cards
+            }
+            disablePaymentExpiredFirstWarning={
+              notificationRulePaymentExpiredFirstWarningIsDisabled
+            }
+            disablePaymentExpiredSecondWarning={
+              notificationRulePaymentExpiredSecondWarningIsDisabled ||
+              notificationRulePaymentExpiredFirstWarningIsDisabled
             }
             first_warning_payment_method_expiration_days={parseInt(
               this.props.theme.first_warning_payment_method_expiration_days,
@@ -92,12 +126,14 @@ const mapStateToProps = (state: RootState) => ({
   theme: state.theme.theme,
   loading: state.theme.loading,
   updateLoading: state.theme.createOrUpdate.loading,
+  settingsData: state.notificationRule.settings.data,
 });
 
 const mapDispatchToProps = {
   updateCompanyTheme,
   snackbarSuccess,
   snackbarError,
+  fetchSettingsList: fetchSettingsListAction,
 };
 
 export default compose(

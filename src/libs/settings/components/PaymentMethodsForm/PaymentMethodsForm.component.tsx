@@ -28,6 +28,8 @@ export type PaymentMethodsFormValues = {
 
 type AdditionalProps = {
   updateLoading: boolean;
+  disablePaymentExpiredFirstWarning: boolean;
+  disablePaymentExpiredSecondWarning: boolean;
   // eslint-disable-next-line react/no-unused-prop-types
   onSubmit: (values: PaymentMethodsFormValues) => void;
 };
@@ -104,6 +106,8 @@ const PaymentMethodsForm: React.FC<
     first_warning_payment_method_expiration_days,
     second_warning_payment_method_expiration_days,
   },
+  disablePaymentExpiredFirstWarning,
+  disablePaymentExpiredSecondWarning,
   errors,
   isValid,
   setFieldValue,
@@ -236,6 +240,7 @@ const PaymentMethodsForm: React.FC<
           {t('paymentMethods.DaysBeforeNotificationInputs.helpText')}
         </Alert>
         <NumericInput
+          disabled={disablePaymentExpiredFirstWarning}
           error={!!daysBeforeFirstNotificationErrorMessage}
           helperText={daysBeforeFirstNotificationErrorMessage}
           inputClass={classes.daysInput}
@@ -247,6 +252,7 @@ const PaymentMethodsForm: React.FC<
           value={first_warning_payment_method_expiration_days}
         />
         <NumericInput
+          disabled={disablePaymentExpiredSecondWarning}
           error={!!daysBeforeSecondNotificationErrorMessage}
           helperText={daysBeforeSecondNotificationErrorMessage}
           inputClass={classes.daysInput}

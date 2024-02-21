@@ -21,6 +21,7 @@ import type {
   ShopItemCreate,
   ShopItemEdit,
   ShopItemVariantAttributes,
+  ShopItemSupplier,
 } from '#libs/shop/types';
 import type { OptionCallback } from '../../../../state/types';
 
@@ -40,6 +41,7 @@ type Props = {
   isDeletingVariant?: boolean;
   provincialTaxValue: number;
   shopItem: ShopItem;
+  shopItemSupplier: ShopItemSupplier;
   variantList: ShopItemVariant[];
   page: number;
   count: number;
@@ -68,6 +70,7 @@ const ShopItemDetail: React.FC<Props> = ({
   isDeletingVariant,
   provincialTaxValue,
   shopItem,
+  shopItemSupplier,
   variantList,
   count,
   page,
@@ -229,6 +232,8 @@ const ShopItemDetail: React.FC<Props> = ({
         onDeleteShopItemVariant={handleOpenDeleteVariantConfirmationModal}
         page={page}
         selectedTab={selectedTab}
+        shopItem={shopItem}
+        shopItemSupplier={shopItemSupplier}
         updateShopItemVariantBulk={updateShopItemVariantBulk}
         variantList={variantList}
       />

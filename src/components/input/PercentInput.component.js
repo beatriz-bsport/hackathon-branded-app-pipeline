@@ -14,7 +14,7 @@ export default function PercentInput(props: Props) {
       isPositive
       InputProps={{
         inputProps: {
-          step: 1,
+          step: 'any',
           max: 100,
           style: { color: props.invalid ? 'red' : 'black' },
         },

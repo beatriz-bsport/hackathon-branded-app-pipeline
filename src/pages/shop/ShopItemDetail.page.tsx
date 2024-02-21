@@ -13,6 +13,7 @@ import {
   deleteShopItem as deleteShopItemAction,
   createShopItemVariants as createShopItemVariantsAction,
   deleteShopItemVariant as deleteShopItemVariantAction,
+  retrieveShopItemSupplier as retrieveShopItemSupplierAction,
 } from '#libs/shop/actions/shopItemReworked';
 
 // --- SELECTORS ---
@@ -25,6 +26,7 @@ import {
   getShopItemVariantListLoading,
   getShopItemVariantState,
   getShopItemVariantDeleteLoading,
+  getShopItemSupplier,
 } from '#libs/shop/selectors';
 
 // --- COMPONENTS ---
@@ -64,7 +66,12 @@ export class ShopItemDetailPage extends Component<Props> {
 
   retrieveShopItemDetails = () => {
     this.props.retrieveShopItemDetails(this.props.id, {
-      onSuccess: () => this.retrieveShopItemVariantList(1),
+      onSuccess: (shopItem) => {
+        this.retrieveShopItemVariantList(1);
+        if (shopItem.supplier) {
+          this.props.retrieveShopItemSupplier(shopItem.supplier);
+        }
+      },
     });
   };
 
@@ -168,6 +175,9 @@ export class ShopItemDetailPage extends Component<Props> {
         page={this.props.shopItemVariantState.page}
         provincialTaxValue={this.props.theme.provincial_tax_value}
         shopItem={this.props.shopItem}
+        shopItemSupplier={this.props.getShopItemSupplier(
+          this.props.shopItem?.supplier,
+        )}
         updateShopItem={this.handleUpdateShopItem}
         updateShopItemVariantBulk={this.handleUpdateShopItemVariantBulk}
         variantList={this.props.shopItemVariantState.variants}
@@ -184,6 +194,8 @@ const connector = connect(
     isDeleteLoading: getShopItemDetailDeleteLoading(state),
     shopItem: getShopItemDetail(state, id),
     isShopItemUsedInCombo: getIsShopItemUsedInCombo(state, id),
+    getShopItemSupplier: (supplierId: number) =>
+      getShopItemSupplier(state, supplierId),
     isDeleteVariantLoading: getShopItemVariantDeleteLoading(state),
     shopItemVariantState: getShopItemVariantState(state, id),
   }),
@@ -192,6 +204,7 @@ const connector = connect(
     retrieveShopItemDetails: retrieveShopItemDetailsAction,
     retrieveShopItemVariantList: retrieveShopItemVariantListAction,
     updateShopItem: updateShopItemAction,
+    retrieveShopItemSupplier: retrieveShopItemSupplierAction,
     updateShopItemVariantBulk: updateShopItemVariantBulkAction,
     deleteShopItem: deleteShopItemAction,
     createShopItemVariants: createShopItemVariantsAction,

@@ -302,7 +302,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: '100%',
     display: 'flex',
     justifyContent: 'space-between',
-    gap: theme.spacing(2),
+    marginTop: theme.spacing(4),
   },
   title: {
     display: 'flex',

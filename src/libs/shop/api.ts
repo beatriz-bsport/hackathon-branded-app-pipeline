@@ -23,6 +23,7 @@ import type {
   ShopItemVariant,
   ShopItemVariantAttributes,
   ShopItemVariantFilterParams,
+  ShopItemSupplier,
 } from './types';
 
 export async function fetchAll(
@@ -173,7 +174,8 @@ export const retrieveShopItemUsedInCombo = (id: number) => {
   );
 };
 
-/* Retrieves all variants related to a base item.\
+/**
+ * Retrieves all variants related to a base item.\
  * If there are no variants API will return an empty list
  * @param base_item_id The ID of the base item
  */
@@ -243,4 +245,12 @@ export const updateShopItemVariantBulk = (id: number, data: FormData) => {
  */
 export const deleteShopItem = (id: number) => {
   return deleteAuth<number>(`${API_V1_URI}/shop/item/${id}/`);
+};
+
+/**
+ * Retrieves a specific shop item supplier.\
+ * @param id The ID of the supplier to fetch
+ */
+export const retrieveShopItemSupplier = (id: number) => {
+  return getAuth<ShopItemSupplier>(`${API_V1_URI}/shop/supplier/${id}`);
 };

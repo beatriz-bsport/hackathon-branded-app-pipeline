@@ -10,6 +10,7 @@ import {
   updateShopItem as updateShopItemAPI,
   updateShopItemVariantBulk as updateShopItemVariantBulkAPI,
   deleteShopItem as deleteShopItemAPI,
+  retrieveShopItemSupplier as retrieveShopItemSupplierAPI,
 } from '../api';
 
 import type {
@@ -25,6 +26,7 @@ import type {
   ShopItemListFilterParams,
   ShopItemVariant,
   ShopItemVariantAttributes,
+  ShopItemSupplier,
 } from '../types';
 import { SHOP_ITEM_VARIANTS_PAGE_SIZE } from '../constants';
 
@@ -59,6 +61,7 @@ export const retrieveShopItemBaseList = (
       options?.onSuccess?.(result.data);
     } catch (error) {
       dispatch(retrieveShopItemBaseListActions.error(error));
+      console.error(error);
       options?.onError?.();
     } finally {
       dispatch(retrieveShopItemBaseListActions.isLoading(false));
@@ -97,6 +100,7 @@ export const retrieveShopItemStandaloneList = (
       options?.onSuccess?.(result.data);
     } catch (error) {
       dispatch(retrieveShopItemStandaloneListActions.error(error));
+      console.error(error);
       options?.onError?.();
     } finally {
       dispatch(retrieveShopItemStandaloneListActions.isLoading(false));
@@ -129,6 +133,7 @@ export const retrieveShopItemDetails = (
       options?.onSuccess?.(result.data);
     } catch (error) {
       dispatch(retrieveShopItemDetailsActions.error(error));
+      console.error(error);
       options?.onError?.();
     } finally {
       dispatch(retrieveShopItemDetailsActions.isLoading(false));
@@ -163,6 +168,7 @@ export const retrieveShopItemUsedInCombo = (
       options?.onSuccess?.(result.data);
     } catch (error) {
       dispatch(retrieveShopItemUsedInComboActions.error(error));
+      console.error(error);
       options?.onError?.();
     } finally {
       dispatch(retrieveShopItemUsedInComboActions.isLoading(false));
@@ -214,6 +220,7 @@ export const retrieveShopItemVariantList = ({
       options?.onSuccess?.(result.data);
     } catch (error) {
       dispatch(fetchShopItemVariantListActions.error(error));
+      console.error(error);
       options?.onError?.();
     } finally {
       dispatch(fetchShopItemVariantListActions.isLoading(false));
@@ -246,6 +253,7 @@ export const createShopItem = (
       options?.onSuccess?.(result.data);
     } catch (error) {
       dispatch(createShopItemActions.error(error));
+      console.error(error);
       options?.onError?.();
     } finally {
       dispatch(createShopItemActions.isLoading(false));
@@ -288,6 +296,7 @@ export const createShopItemVariants = ({
       options?.onSuccess?.(result.data);
     } catch (error) {
       dispatch(createShopItemVariantsActions.error(error));
+      console.error(error);
       options?.onError?.();
     } finally {
       dispatch(createShopItemVariantsActions.isLoading(false));
@@ -327,6 +336,7 @@ export const updateShopItem = ({
       options?.onSuccess?.(result.data);
     } catch (error) {
       dispatch(updateShopItemActions.error(error));
+      console.error(error);
       options?.onError?.();
     } finally {
       dispatch(updateShopItemActions.isLoading(false));
@@ -366,6 +376,7 @@ export const updateShopItemVariantBulk = ({
       options?.onSuccess?.();
     } catch (error) {
       dispatch(updateShopItemVariantBulkActions.error(error));
+      console.error(error);
       options?.onError?.();
     } finally {
       dispatch(updateShopItemVariantBulkActions.isLoading(false));
@@ -399,6 +410,7 @@ export const deleteShopItem = (
       options?.onSuccess?.(result.data);
     } catch (error) {
       dispatch(deleteShopItemActions.error(error));
+      console.error(error);
       options?.onError?.();
     } finally {
       dispatch(deleteShopItemActions.isLoading(false));
@@ -431,9 +443,43 @@ export const deleteShopItemVariant = (
       options?.onSuccess?.(result.data);
     } catch (error) {
       dispatch(deleteShopItemVariantActions.error(error));
+      console.error(error);
       options?.onError?.();
     } finally {
       dispatch(deleteShopItemVariantActions.isLoading(false));
+    }
+  };
+};
+
+export const retrieveShopItemSupplierActions = {
+  isLoading: createAction<boolean>('SHOP_ITEM/SUPPLIER/LOADING'),
+  error: createAction<Error | null>('SHOP_ITEM/SUPPLIER/ERROR'),
+  success: createAction<ShopItemSupplier>('SHOP_ITEM/SUPPLIER/SUCCESS'),
+};
+
+/**
+ * Retrieves a specific shop item supplier.\
+ * @param id The ID of the supplier to fetch
+ */
+export const retrieveShopItemSupplier = (
+  id: number,
+  options?: OptionCallback<ShopItemSupplier>,
+) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(retrieveShopItemSupplierActions.isLoading(true));
+      dispatch(retrieveShopItemSupplierActions.error(null));
+
+      const result = await retrieveShopItemSupplierAPI(id);
+
+      dispatch(retrieveShopItemSupplierActions.success(result.data));
+      options?.onSuccess?.(result.data);
+    } catch (error) {
+      dispatch(retrieveShopItemSupplierActions.error(error));
+      console.error(error);
+      options?.onError?.();
+    } finally {
+      dispatch(retrieveShopItemSupplierActions.isLoading(false));
     }
   };
 };

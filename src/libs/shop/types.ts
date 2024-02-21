@@ -92,6 +92,17 @@ export type ShopItemCreate = {
 
 export type ShopItemEdit = Partial<ShopItemCreate>;
 
+export type ShopItemSupplier = {
+  company: number;
+  created_at: string;
+  description: string;
+  disabled_at: string;
+  disabled: boolean;
+  id: number;
+  name: string;
+  updated_at: string;
+};
+
 export type ShopState = {
   subShops: Array<SubShopAPI>;
   shopItem: {

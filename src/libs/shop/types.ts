@@ -146,13 +146,19 @@ export type ShopStateReworked = {
     /** State for shop item details - only base/standalone items here */
     itemDetails: {
       byId: {
-        [key: string]: {
+        [key: number]: {
           item: ShopItem;
           isUsedInCombo: boolean;
         };
       };
       update: ErrorAndLoading;
       delete: ErrorAndLoading;
+    } & ErrorAndLoading;
+    /** State for shop item suppliers */
+    suppliers: {
+      byId: {
+        [key: number]: ShopItemSupplier;
+      };
     } & ErrorAndLoading;
     /** State for variants created from a base `ShopItem` */
     itemVariant: {

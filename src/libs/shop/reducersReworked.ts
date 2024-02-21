@@ -14,6 +14,7 @@ import {
   updateShopItemVariantBulkActions,
   deleteShopItemActions,
   deleteShopItemVariantActions,
+  retrieveShopItemSupplierActions,
 } from './actions/shopItemReworked';
 
 import type { PaginatedResponse } from '../../state/types';
@@ -22,6 +23,7 @@ import type {
   ShopItem,
   ShopItemVariant,
   ShopStateReworked,
+  ShopItemSupplier,
 } from '#libs/shop/types';
 
 type PayloadReduceType<T> = { [id: number]: T };
@@ -36,6 +38,12 @@ const initialState: Immutable.Immutable<ShopStateReworked> =
         byId: {},
         update: { error: null, loading: false },
         delete: { error: null, loading: false },
+      },
+      /** State for shop item suppliers */
+      suppliers: {
+        byId: {},
+        error: null,
+        loading: false,
       },
       /** State for variants created from a base `ShopItem` */
       itemVariant: {
@@ -368,6 +376,31 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
       return state.setIn(
         ['shopItemReworked', 'itemVariant', 'delete', 'error'],
         payload,
+      );
+    },
+    [retrieveShopItemSupplierActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['shopItemReworked', 'suppliers', 'loading'], payload);
+    },
+    [retrieveShopItemSupplierActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['shopItemReworked', 'suppliers', 'error'], payload);
+    },
+    [retrieveShopItemSupplierActions.success.toString()]: (
+      state,
+      { payload }: { payload: ShopItemSupplier },
+    ) => {
+      return state.merge(
+        {
+          shopItemReworked: {
+            suppliers: { byId: { [payload.id]: payload } },
+          },
+        },
+        { deep: true },
       );
     },
   },

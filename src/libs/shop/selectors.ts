@@ -139,6 +139,23 @@ export const getShopItemVariantState = (
   return shopItemVariantState;
 };
 
+const getShopItemsupplierById = (state: RootState) =>
+  state.shopReworked.shopItemReworked.suppliers.byId;
+
+/**
+ * Retrieves the supplier associated to a base item.
+ * @param id The base shop item id
+ */
+export const getShopItemSupplier = createSelector(
+  [getShopItemsupplierById, (_: RootState, id: number) => id],
+  (supplierById, id) => {
+    if (!id) {
+      return null;
+    }
+    return supplierById?.[id] ?? null;
+  },
+);
+
 export default {
   getSubShopsByCompany,
   getSubShops,

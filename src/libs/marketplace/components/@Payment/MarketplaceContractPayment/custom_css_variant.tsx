@@ -81,6 +81,7 @@ const usePropsFromVariation = (
     cardBillingDetailsMandatory: true,
     paymentMethodFetchDone: true,
     enableMultiLocalization: false,
+    setIsEstablishmentBillingGroupSelected: () => {},
   };
 };
 

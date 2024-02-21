@@ -1,6 +1,12 @@
 import Immutable from 'seamless-immutable';
 import { handleActions } from 'redux-actions';
 
+import type {
+  ReferralMemberStatus,
+  ReferralProgram,
+} from 'bsport-saas/src/libs/referral/types';
+import type { Member } from 'bsport-saas/src/api/types';
+import type { Membership } from 'bsport-saas/src/libs/membership/types';
 import {
   basketCountActions,
   bookingCountActions,
@@ -8,6 +14,10 @@ import {
   memberTagActions,
   getVideoPlaybackUrlActions,
   listRegisteredIds,
+  retrieveReferralProgramForCompanyActions,
+  retrieveMemberAction,
+  retrieveMembershipByCompanyAction,
+  retrieveReferralMemberStatusActions,
 } from './actions';
 
 export type BridgeState = {
@@ -44,6 +54,27 @@ export type BridgeState = {
     loading: boolean,
     error: Error | null,
     ids_list: Array<number>,
+  },
+  referralProgram: {
+    byId: { [id: number]: ReferralProgram },
+    byCompanyId: { [id: number]: ReferralProgram },
+    loading: boolean,
+    error: Error | null,
+  },
+  referralMemberStatus: {
+    byMemberId: { [id: number]: ReferralMemberStatus },
+    loading: boolean,
+    error: Error | null,
+  },
+  member: {
+    byId: Record<number, Member>,
+    loading: boolean,
+    error: Error | null,
+  },
+  membership: {
+    byCompanyId: Record<number, Membership>,
+    loading: boolean,
+    error: Error | null,
   },
 };
 
@@ -82,6 +113,27 @@ export const initialState: Immutable.Immutable<BridgeState> = Immutable<BridgeSt
       loading: false,
       error: null,
       ids_list: [],
+    },
+    referralProgram: {
+      byId: {},
+      byCompanyId: {},
+      loading: false,
+      error: null,
+    },
+    referralMemberStatus: {
+      byMemberId: {},
+      loading: false,
+      error: null,
+    },
+    member: {
+      byId: {},
+      loading: false,
+      error: null,
+    },
+    membership: {
+      byCompanyId: {},
+      error: null,
+      loading: false,
     },
   },
 );
@@ -136,7 +188,7 @@ export default handleActions<Immutable.Immutable<BridgeState>>(
     [memberTagActions.success.toString()]: (state, { payload }: any) => {
       return state.setIn(
         ['tag', 'tag_list'],
-        [...payload.data.map((tag) => tag.id)],
+        [...payload.data.map((tag: any) => tag.id)],
       );
     },
     [listRegisteredIds.error.toString()]: (state, { payload }: any) => {
@@ -173,6 +225,70 @@ export default handleActions<Immutable.Immutable<BridgeState>>(
       return state.setIn(
         ['video', 'playbackUrl', 'byId', payload.videoId],
         payload.playbackUrl,
+      );
+    },
+    [retrieveReferralProgramForCompanyActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => state.setIn(['referralProgram', 'loading'], payload),
+    [retrieveReferralProgramForCompanyActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => state.setIn(['referralProgram', 'error'], payload),
+    [retrieveReferralProgramForCompanyActions.success.toString()]: (
+      state,
+      { payload }: { payload: ReferralProgram },
+    ) => {
+      return state
+        .setIn(['referralProgram', 'byId', payload.id], payload)
+        .setIn(['referralProgram', 'byCompanyId', payload.company], payload);
+    },
+    [retrieveMemberAction.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => state.setIn(['member', 'loading'], payload),
+    [retrieveMemberAction.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => state.setIn(['member', 'error'], payload),
+    [retrieveMemberAction.success.toString()]: (
+      state,
+      { payload }: { payload: Member },
+    ) => {
+      return state.setIn(['member', 'byId', payload.id], payload);
+    },
+    [retrieveMembershipByCompanyAction.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => state.setIn(['membership', 'loading'], payload),
+    [retrieveMembershipByCompanyAction.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => state.setIn(['membership', 'error'], payload),
+    [retrieveMembershipByCompanyAction.success.toString()]: (
+      state,
+      { payload }: { payload: Membership },
+    ) => {
+      return state.setIn(
+        ['membership', 'byCompanyId', payload.company],
+        payload,
+      );
+    },
+    [retrieveReferralMemberStatusActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => state.setIn(['referralMemberStatus', 'loading'], payload),
+    [retrieveReferralMemberStatusActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => state.setIn(['referralMemberStatus', 'error'], payload),
+    [retrieveReferralMemberStatusActions.success.toString()]: (
+      state,
+      { payload }: { payload: ReferralMemberStatus },
+    ) => {
+      return state.setIn(
+        ['referralMemberStatus', 'byMemberId', payload.member_id],
+        payload,
       );
     },
   },

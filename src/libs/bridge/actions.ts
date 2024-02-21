@@ -3,6 +3,8 @@ import { WidgetMessageType } from 'bsport-saas/src/libs/widget/types';
 import { snackbarSuccess } from 'bsport-saas/src/actions/snackbar.actions';
 import { createAction } from 'redux-actions';
 
+import { ThunkDispatch } from 'redux-thunk';
+import { Action } from 'redux';
 import { closeUserInteractionPortal } from '../modal/actions';
 
 import { RootState } from '../../reducers';
@@ -12,6 +14,7 @@ import { RootState } from '../../reducers';
 
 const sendBridgeMessage = (type: WidgetMessageType, data?: any) => {
   const iframe = document.getElementById('@bsport-bridge-iframe');
+
   // @ts-ignore
   if (iframe && iframe.contentWindow) {
     try {
@@ -87,6 +90,65 @@ export function bridgeRequestVideoPlaybackUrl(videoId) {
   };
 }
 
+// ----- Referral -----
+
+export function bridgeRetrieveReferralProgramForCompany(companyId: number) {
+  return async (
+    dispatch: ThunkDispatch<RootState, unknown, Action<unknown>>,
+  ) => {
+    dispatch(retrieveReferralProgramForCompanyActions.isLoading(true));
+    dispatch(retrieveReferralProgramForCompanyActions.error(null));
+
+    sendBridgeMessage(WidgetMessageType.REQUEST_REFERRAL_PROGRAM_FOR_COMPANY, {
+      companyId,
+    });
+  };
+}
+
+export function bridgeRetrieveReferralMemberStatus(memberId: number) {
+  return async (
+    dispatch: ThunkDispatch<RootState, unknown, Action<unknown>>,
+    getState: () => RootState,
+  ) => {
+    if (!getState().bridge.authentication.hasBeenReceived) return;
+    dispatch(retrieveReferralMemberStatusActions.isLoading(true));
+    dispatch(retrieveReferralMemberStatusActions.error(null));
+    sendBridgeMessage(
+      WidgetMessageType.REQUEST_REFERRAL_PROGRAM_MEMBER_STATUS,
+      {
+        memberId,
+      },
+    );
+  };
+}
+
+export function bridgeRetrieveMember(memberId: number) {
+  return async (
+    dispatch: ThunkDispatch<RootState, unknown, Action<unknown>>,
+    getState: () => RootState,
+  ) => {
+    if (!getState().bridge.authentication.hasBeenReceived) return;
+    dispatch(retrieveMemberAction.isLoading(true));
+    dispatch(retrieveMemberAction.error(null));
+    sendBridgeMessage(WidgetMessageType.REQUEST_MEMBER, {
+      memberId,
+    });
+  };
+}
+
+export function bridgeRetrieveMembershipByCompany(companyId: number) {
+  return async (
+    dispatch: ThunkDispatch<RootState, unknown, Action<unknown>>,
+    getState: () => RootState,
+  ) => {
+    if (!getState().bridge.authentication.hasBeenReceived) return;
+    dispatch(retrieveMembershipByCompanyAction.isLoading(true));
+    dispatch(retrieveMembershipByCompanyAction.error(null));
+    sendBridgeMessage(WidgetMessageType.REQUEST_MEMBERSHIP_BY_COMPANY, {
+      companyId,
+    });
+  };
+}
 // Internal Actions to mutate the reducer
 // --------------------------------------
 export const authenticationStatusActions = {
@@ -123,6 +185,35 @@ export const getVideoPlaybackUrlActions = {
   isLoading: createAction('VIDEO/PLAYBACK_URL/LOADING'),
   error: createAction('VIDEO/PLAYBACK_URL/ERROR'),
   accessDenied: createAction('VIDEO/PLAYBACK_URL/ACCESS_DENIED'),
+};
+
+export const retrieveReferralProgramForCompanyActions = {
+  success: createAction('REFERRAL/BRIDGE/PROGRAM_FOR_COMPANY/SUCCESS'),
+  isLoading: createAction('REFERRAL/BRIDGE/PROGRAM_FOR_COMPANY/LOADING'),
+  error: createAction('REFERRAL/BRIDGE/PROGRAM_FOR_COMPANY/ERROR'),
+};
+
+export const retrieveReferralMemberStatusActions = {
+  success: createAction('REFERRAL/BRIDGE/MEMBER_STATUS/SUCCESS'),
+  isLoading: createAction('REFERRAL/BRIDGE/MEMBER_STATUS/LOADING'),
+  error: createAction('REFERRAL/BRIDGE/MEMBER_STATUS/ERROR'),
+};
+
+export const retrieveMemberAction = {
+  success: createAction('REFERRAL/BRIDGE/MEMBER/SUCCESS'),
+  isLoading: createAction('REFERRAL/BRIDGE/MEMBER/LOADING'),
+  error: createAction('REFERRAL/BRIDGE/MEMBER/ERROR'),
+};
+export const retrieveMembershipByCompanyAction = {
+  success: createAction('REFERRAL/BRIDGE/MEMBERSHIP_BY_COMPANY/SUCCESS'),
+  isLoading: createAction('REFERRAL/BRIDGE/MEMBERSHIP_BY_COMPANY/LOADING'),
+  error: createAction('REFERRAL/BRIDGE/MEMBERSHIP_BY_COMPANY/ERROR'),
+};
+
+export const fetchMyUserProfileActions = {
+  success: createAction('BRIDGE/MY_USER_PROFILE/SUCCESS'),
+  isLoading: createAction('BRIDGE/MY_USER_PROFILE/LOADING'),
+  error: createAction('BRIDGE/MY_USER_PROFILE/ERROR'),
 };
 // Second part: how to handle messages
 // -----------------------------------
@@ -226,6 +317,52 @@ export const handleBridgeMessage = (eventData: any) => (dispatch: any) => {
 
     case WidgetMessageType.CLOSE_MODAL:
       dispatch(closeUserInteractionPortal());
+      break;
+
+    case WidgetMessageType.RESPONSE_RETRIEVE_REFERRAL_PROGRAM_FOR_COMPANY:
+      dispatch(
+        retrieveReferralProgramForCompanyActions.success(eventData.data),
+      );
+      dispatch(retrieveReferralProgramForCompanyActions.isLoading(false));
+      dispatch(retrieveReferralProgramForCompanyActions.error(null));
+      break;
+
+    case WidgetMessageType.ERROR_RETRIEVING_REFERRAL_PROGRAM_FOR_COMPANY:
+      dispatch(retrieveReferralProgramForCompanyActions.error(eventData.error));
+      dispatch(retrieveReferralProgramForCompanyActions.isLoading(false));
+      break;
+
+    case WidgetMessageType.RESPONSE_RETRIEVE_REFERRAL_MEMBER_STATUS:
+      dispatch(retrieveReferralMemberStatusActions.success(eventData.data));
+      dispatch(retrieveReferralMemberStatusActions.isLoading(false));
+      dispatch(retrieveReferralMemberStatusActions.error(null));
+      break;
+
+    case WidgetMessageType.ERROR_RETRIEVING_REFERRAL_MEMBER_STATUS:
+      dispatch(retrieveReferralMemberStatusActions.error(eventData.error));
+      dispatch(retrieveReferralMemberStatusActions.isLoading(false));
+      break;
+
+    case WidgetMessageType.RESPONSE_RETRIEVE_MEMBER:
+      dispatch(retrieveMemberAction.success(eventData.data));
+      dispatch(retrieveMemberAction.isLoading(false));
+      dispatch(retrieveMemberAction.error(null));
+      break;
+
+    case WidgetMessageType.ERROR_RETRIEVING_MEMBER:
+      dispatch(retrieveMemberAction.error(eventData.error));
+      dispatch(retrieveMemberAction.isLoading(false));
+      break;
+
+    case WidgetMessageType.RESPONSE_RETRIEVE_MEMBERSHIP_BY_COMPANY:
+      dispatch(retrieveMembershipByCompanyAction.success(eventData.data));
+      dispatch(retrieveMembershipByCompanyAction.isLoading(false));
+      dispatch(retrieveMembershipByCompanyAction.error(null));
+      break;
+
+    case WidgetMessageType.ERROR_RETRIEVING_MEMBERSHIP_BY_COMPANY:
+      dispatch(retrieveMembershipByCompanyAction.error(eventData.error));
+      dispatch(retrieveMembershipByCompanyAction.isLoading(false));
       break;
 
     default:

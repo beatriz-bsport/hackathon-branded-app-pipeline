@@ -10560,12 +10560,17 @@
         },
         "settings": {
           "supplier": "Supplier",
+          "supplierPrice": "Supplier price",
           "vat": "VAT/Sales tax",
           "availableOnline": "Available online",
           "paymentMethods": "Accepted payment methods",
+          "paymentMethodsChip": { "online": "Online", "inStore": "In store", "onlineInStore": "Online & In-store" },
           "sellOnlyOnProvision": "Only sell when stock is available",
           "featured": "Featured",
-          "requiresDelivery": "Requires delivery"
+          "requiresDelivery": "Requires delivery",
+          "barcode": "Barcode",
+          "barcodeTooltip": "View barcode",
+          "sku": "SKU"
         },
         "history": {
           "date": "Date",

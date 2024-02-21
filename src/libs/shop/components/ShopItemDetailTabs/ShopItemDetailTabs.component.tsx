@@ -7,12 +7,18 @@ import Tab from '@material-ui/core/Tab';
 import TabContext from '@material-ui/lab/TabContext';
 import Tabs from '@material-ui/core/Tabs';
 
+import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
+
 import ShopItemDetailInventoryTab from './tabs/ShopItemDetailInventoryTab.component';
 import ShopItemDetailVariantsTab from './tabs/ShopItemDetailVariantsTab.component';
 import ShopItemDetailSettingsTab from './tabs/ShopItemDetailSettingsTab.component';
 import ShopItemDetailHistoryTab from './tabs/ShopItemDetailHistoryTab.component';
 
-import type { ShopItemVariant } from '#libs/shop/types';
+import type {
+  ShopItem,
+  ShopItemSupplier,
+  ShopItemVariant,
+} from '#libs/shop/types';
 import type { OptionCallback } from '../../../../state/types';
 
 import { ShopItemDetailTab } from '#libs/shop/components/ShopItemDetail/constants';
@@ -24,6 +30,8 @@ type Props = {
   isDeletingVariant?: boolean;
   selectedTab: string;
   variantList: ShopItemVariant[];
+  shopItem: ShopItem;
+  shopItemSupplier: ShopItemSupplier;
   page: number;
   count: number;
   handleOpenBarcodeModal: (barcode: string) => void;
@@ -41,6 +49,8 @@ const ShopItemDetailTabs: React.FC<Props> = ({
   isDeletingVariant,
   selectedTab,
   variantList,
+  shopItem,
+  shopItemSupplier,
   page,
   count,
   handleOpenBarcodeModal,
@@ -102,7 +112,26 @@ const ShopItemDetailTabs: React.FC<Props> = ({
               shopItemVariantList={variantList}
               updateShopItemVariantBulk={updateShopItemVariantBulk}
             />
-            <ShopItemDetailSettingsTab />
+            {!!shopItem && (
+              <ShopItemDetailSettingsTab
+                availablePaymentMethodIdentifiers={
+                  shopItem.available_payment_method_identifiers
+                }
+                barcode={shopItem.barcode}
+                handleOpenBarcodeModal={handleOpenBarcodeModal}
+                isDeliverable={shopItem.is_deliverable}
+                isFeatured={shopItem.featured}
+                isMarketplaceEnabled={shopItem.marketplace_enabled}
+                productHasVariants={count > 0}
+                sellOnlyOnProvision={shopItem.sell_only_on_provision}
+                stockKeepingUnit={shopItem.stock_keeping_unit}
+                supplierName={shopItemSupplier?.name}
+                supplierPrice={getCurrencyDisplayWithPrice(
+                  shopItem.supplier_price,
+                )}
+                tva={getCurrencyDisplayWithPrice(shopItem.tva)}
+              />
+            )}
             <ShopItemDetailHistoryTab />
           </>
         )}

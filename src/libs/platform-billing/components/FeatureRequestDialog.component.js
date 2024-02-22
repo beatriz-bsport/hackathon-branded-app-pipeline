@@ -15,7 +15,7 @@ type Props = {
 export const FeatureRequestDialog = (props: Props) => {
   const { t } = useTranslation(['platformBilling']);
   return (
-    <Dialog open={props.open}>
+    <Dialog disableEnforceFocus open={props.open}>
       <DialogTitle>{t('featureRequest.title')}</DialogTitle>
       <DialogContent>{t('featureRequest.content')}</DialogContent>
       <DialogActions>

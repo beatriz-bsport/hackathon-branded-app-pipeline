@@ -212,7 +212,6 @@ const styles = () =>
       borderRightWidth: 0,
       borderBottomWidth: 0,
       borderLeftWidth: 0,
-      borderRadius: 12,
       display: 'inline-block',
       position: 'absolute',
       width: '100%',
@@ -220,6 +219,7 @@ const styles = () =>
       top: 0,
       left: 0,
       transition: 'opacity .2s ease-in-out',
+      borderRadius: 0,
     },
   });
 

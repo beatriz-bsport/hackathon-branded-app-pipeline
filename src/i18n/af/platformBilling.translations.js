@@ -67,8 +67,8 @@ exports.default = {
   featureRequest: {
     close: 'Close',
     content:
-      'Your interest has been noted, thank you for your interest! Your account manager will be in touch with you very soon with more information.',
-    title: 'Add-on',
+      'Thank you for your interest in this add-on. If you would like to learn more, we kindly invite you to ask your question in our custom support chat. Your account manager will be delighted to provide you with more information.',
+    title: 'Let’s start a conversation',
   },
   platformBillingPlan: {
     max_establishment: {

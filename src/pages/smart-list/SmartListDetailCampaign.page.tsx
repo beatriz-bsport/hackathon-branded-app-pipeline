@@ -308,6 +308,41 @@ export class SmartListCampaign extends React.Component<Props> {
 
         <ButtonBase
           className={classes.flexHeader}
+          onClick={this.handleSetOpenCommunicationScheduledSection}
+        >
+          <Typography
+            color={
+              openCommunicationScheduledSection ? 'inherit' : 'textSecondary'
+            }
+            variant="h5"
+          >
+            {t('campaign.scheduledTitle')}
+          </Typography>
+
+          {openCommunicationScheduledSection ? (
+            <ExpandLessIcon />
+          ) : (
+            <ExpandMoreIcon />
+          )}
+        </ButtonBase>
+        <Divider className={classes.divider} />
+        <Collapse
+          className={classes.scheduledCollapseSection}
+          in={openCommunicationScheduledSection}
+        >
+          <CommunicationScheduledList
+            changePage={this.changeCommunicationScheduledPage}
+            communicationScheduledList={this.props.communicationScheduledList}
+            currentPage={this.props.communicationScheduledPage}
+            deleteCommunication={this.deleteCommunicationScheduled}
+            editCommunication={this.openCommunicationScheduledEditionDrawer}
+            loading={this.props.communicationScheduledLoading}
+            total={this.props.communicationScheduledTotal}
+          />
+        </Collapse>
+
+        <ButtonBase
+          className={classes.flexHeader}
           onClick={this.handleSetOpenAutomatedCampaignSection}
         >
           <Typography

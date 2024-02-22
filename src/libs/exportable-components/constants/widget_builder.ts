@@ -13,8 +13,14 @@ export const EXPORTABLE_COMPONENT_TYPE_NEWSLETTER = 'newsletter';
 export const EXPORTABLE_COMPONENT_TYPE_GIFTCARD = 'giftcard';
 export const EXPORTABLE_COMPONENT_TYPE_PAYMENT_PACK_TEMPLATE =
   'paymentPackTemplate';
+export const EXPORTABLE_COMPONENT_TYPE_REFERRAL = 'referral';
 
 export const EXPORTABLE_COMPONENTS = [
+  {
+    identifier: EXPORTABLE_COMPONENT_TYPE_REFERRAL,
+    label: 'referral',
+    defaultConfig: {},
+  },
   {
     identifier: EXPORTABLE_COMPONENT_TYPE_CALENDAR_V2,
     label: 'marketplace.calendar',

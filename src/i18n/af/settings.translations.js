@@ -171,6 +171,7 @@ exports.default = {
       giftcard: 'Gift cards',
       paymentPackTemplate: 'Shared passes',
       calendarV2: 'Calendar',
+      referral: 'Referral',
     },
     preview: 'Preview',
     saveButton: 'Save',

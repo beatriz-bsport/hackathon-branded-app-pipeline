@@ -504,6 +504,8 @@ const getTranslations = async () => {
       schedule: 'Schedule',
       datetimeLimit:
         'Messages must be scheduled at least 5 minutes in advance.',
+      nighttimeLimit:
+        'The message will be sent in the nighttime. For better results, we recommend sending marketing messages in the daytime.',
       dialog: {
         title: 'Schedule a message',
         helperText: 'Choose the time you want to schedule the message.',

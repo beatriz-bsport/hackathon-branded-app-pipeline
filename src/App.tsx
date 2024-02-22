@@ -48,6 +48,7 @@ import ApplyCustomCssStyles from 'bsport-saas/src/libs/widget/components/ApplyCu
 import ApplyCustomTheme from 'bsport-saas/src/libs/exportable-components/ApplyCustomTheme.component';
 import { WidgetConfig } from 'bsport-saas/src/libs/marketplace/types';
 import { MaterialStyleType } from 'bsport-saas/src/utils/types';
+import { EXPORTABLE_COMPONENT_TYPE_REFERRAL } from 'bsport-saas/src/libs/exportable-components/constants/widget_builder';
 
 import { RootState } from './reducers';
 import BsportLogo from './components/BsportLogo.component';
@@ -71,6 +72,10 @@ const WidgetBridge = asyncComponent(
 );
 
 const PassWidget = asyncComponent(() => import('./widgets/Pass.widget'));
+
+const ReferralWidget = asyncComponent(
+  () => import('./widgets/Referral.widget'),
+);
 const ShopWidget = asyncComponent(() => import('./widgets/Shop.widget'));
 const SubscriptionWidget = asyncComponent(
   () => import('./widgets/Subscription.widget'),
@@ -121,6 +126,7 @@ const WidgetByType = {
   [EXPORTABLE_COMPONENT_TYPE_CALENDAR]: CalendarWidget,
   [EXPORTABLE_COMPONENT_TYPE_CALENDAR_V2]: CalendarWidget,
   [EXPORTABLE_COMPONENT_TYPE_PAYMENT_PACK_TEMPLATE]: PaymentPackTemplate,
+  [EXPORTABLE_COMPONENT_TYPE_REFERRAL]: ReferralWidget,
 };
 
 const WIDGET_ACCEPTING_NO_POPUP_MODE = [

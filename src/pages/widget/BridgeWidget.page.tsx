@@ -16,7 +16,10 @@ import { getCurrentBasket } from '../../libs/checkout/selectors';
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { disconnect, fetchAccessLevel } from '../../actions/auth.actions';
 import { fetchBookingsAndPrivateBookings } from '../../libs/consumer-space/actions';
-import { fetchMembership } from '../../libs/membership/actions';
+import {
+  fetchMembership,
+  fetchMembershipByCompany,
+} from '../../libs/membership/actions';
 import { getMembership } from '../../libs/membership/selectors';
 import WidgetUtils from '../../libs/widget/WidgetUtils';
 import { WidgetMessageType } from '../../libs/widget/types';
@@ -25,6 +28,11 @@ import { getAuthToken } from '../../http';
 import { fetchMemberTagList } from '../../libs/tag/actions';
 import { getPlaybackUrl } from '../../libs/video/actions';
 import { fetchOfferRegisteredIds } from '../../libs/offer/actions';
+import {
+  retrieveReferralProgramForCompany as retrieveReferralProgramForCompanyAction,
+  retrieveReferralMemberStatus as retrieveReferralMemberStatusAction,
+} from '#libs/referral/actions';
+import { fetchMember } from '#libs/member/actions';
 
 type OwnProps = {
   companyId: number;
@@ -198,6 +206,71 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
     });
   };
 
+  retrieveReferralProgramForCompany = (companyId: number) => {
+    this.props.retrieveReferralProgramForCompany(companyId, {
+      onSuccess: (data) => {
+        WidgetUtils.sendBridgeResponse(
+          WidgetMessageType.RESPONSE_RETRIEVE_REFERRAL_PROGRAM_FOR_COMPANY,
+          { data },
+        );
+      },
+      onError: (error) => {
+        WidgetUtils.sendBridgeResponse(
+          WidgetMessageType.ERROR_RETRIEVING_REFERRAL_PROGRAM_FOR_COMPANY,
+          { error: error ?? new Error('unknown error') },
+        );
+      },
+    });
+  };
+
+  retrieveReferralMemberStatus = (memberId: number) => {
+    this.props.retrieveReferralMemberStatus(memberId, {
+      onSuccess: (data) =>
+        WidgetUtils.sendBridgeResponse(
+          WidgetMessageType.RESPONSE_RETRIEVE_REFERRAL_MEMBER_STATUS,
+          { data },
+        ),
+      onError: (error) => {
+        WidgetUtils.sendBridgeResponse(
+          WidgetMessageType.ERROR_RETRIEVING_REFERRAL_MEMBER_STATUS,
+          { error: error ?? new Error('unknown error') },
+        );
+      },
+    });
+  };
+
+  retrieveMember = (memberId: number) => {
+    this.props.retrieveMember(memberId, {
+      onSuccess: (data) =>
+        WidgetUtils.sendBridgeResponse(
+          WidgetMessageType.RESPONSE_RETRIEVE_MEMBER,
+          { data },
+        ),
+      onError: (error) => {
+        WidgetUtils.sendBridgeResponse(
+          WidgetMessageType.ERROR_RETRIEVING_MEMBER,
+          { error: error ?? new Error('unknown error') },
+        );
+      },
+    });
+  };
+
+  retrieveMembershipByCompany = (companyId: number) => {
+    this.props.fetchMembershipByCompany(companyId, {
+      onSuccess: (data) =>
+        WidgetUtils.sendBridgeResponse(
+          WidgetMessageType.RESPONSE_RETRIEVE_MEMBERSHIP_BY_COMPANY,
+          { data },
+        ),
+      onError: (error) => {
+        WidgetUtils.sendBridgeResponse(
+          WidgetMessageType.ERROR_RETRIEVING_MEMBERSHIP_BY_COMPANY,
+          { error: error ?? new Error('unknown error') },
+        );
+      },
+    });
+  };
+
   handleMessages = (event: any) => {
     if (event.data && event.data.type) {
       switch (event.data.type) {
@@ -235,6 +308,34 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
             this.fetchPlaybackUrl(event.data.data.videoId);
           }
           break;
+
+        case WidgetMessageType.REQUEST_REFERRAL_PROGRAM_FOR_COMPANY:
+          if (event.data?.data?.companyId) {
+            this.retrieveReferralProgramForCompany(
+              parseInt(event.data?.data?.companyId),
+            );
+          }
+          break;
+
+        case WidgetMessageType.REQUEST_REFERRAL_PROGRAM_MEMBER_STATUS:
+          if (event.data?.data?.memberId) {
+            this.retrieveReferralMemberStatus(
+              parseInt(event.data?.data?.memberId),
+            );
+          }
+          break;
+        case WidgetMessageType.REQUEST_MEMBER:
+          if (event.data?.data?.memberId) {
+            this.retrieveMember(parseInt(event.data?.data?.memberId));
+          }
+          break;
+        case WidgetMessageType.REQUEST_MEMBERSHIP_BY_COMPANY:
+          if (event.data?.data?.companyId) {
+            this.retrieveMembershipByCompany(
+              parseInt(event.data?.data?.companyId),
+            );
+          }
+          break;
         default:
           break;
       }
@@ -258,11 +359,16 @@ const mapDispatchToProps = {
   fetchAccessLevel,
   fetchCurrentBasket,
   fetchMembership,
+  fetchMember,
   fetchBookingsAndPrivateBookings,
   disconnect,
   fetchMemberTagList,
   getPlaybackUrl,
   fetchOfferRegisteredIds,
+  retrieveReferralProgramForCompany: retrieveReferralProgramForCompanyAction,
+  retrieveReferralMemberStatus: retrieveReferralMemberStatusAction,
+  retrieveMember: fetchMember,
+  fetchMembershipByCompany,
 };
 
 export default compose(

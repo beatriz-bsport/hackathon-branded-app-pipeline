@@ -28,7 +28,8 @@
     'credit'
     'price'
     'description'
-    'footer';
+    'footer'
+    'booking-confirm';
   grid-template-columns: repeat(1, 1fr);
   grid-gap: calc(var(--spacing-1) / 2);
 }
@@ -58,6 +59,10 @@
 
 .bs-payment-pack-buyable-item__grid_item-description {
   grid-area: description;
+}
+
+.bs-payment-pack-buyable-item__grid_item-booking-button {
+  grid-area: booking-confirm;
 }
 
 .bs-payment-pack-buyable-item__grid_item-description--hidden {
@@ -190,4 +195,24 @@
 
 .bs-payment-pack-buyable-item__recommended_icon {
   padding-left: calc(var(--spacing-1) / 2);
+}
+
+.bs-payment-pack-buyable-item__booking-confirm-button {
+  display: none;
+}
+
+@container bsOfferBookingPage (width < 950px) {
+  .bs-payment-pack-buyable-item__booking-confirm-button {
+    display: block;
+  }
+}
+
+[id^='bs-payment-pack-buyable-item__card']
+  .bs-payment-pack-buyable-item__grid_item-booking-button
+  > [class*='makeStyles-container'],
+[id^='bs-payment-pack-buyable-item__card']
+  .bs-booker-module-offer-summary-content,
+[id^='bs-payment-pack-buyable-item__card']
+  .bs-booker-module-offer-summary-card {
+  background-color: transparent !important;
 }

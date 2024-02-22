@@ -90,7 +90,7 @@ const PasswordField: React.FC<Props> = ({
       />
       <Textfield
         isRequired
-        inputId={id}
+        inputId={`${id}-confirm-password`}
         isDisabled={isDisabled}
         label={t('customForm.field.repeatPassword')}
         name="passwordConfirm"

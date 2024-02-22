@@ -38,6 +38,17 @@ export class WidgetUtils {
     return window?.env?.WIDGET_TYPE ?? null;
   }
 
+  static setParentElementId(parentElementId: string) {
+    window.env = {
+      ...(window.env || {}),
+      WIDGET_PARENT_ELEMENT_ID: parentElementId,
+    };
+  }
+
+  static getParentElementId() {
+    return window?.env?.WIDGET_PARENT_ELEMENT_ID ?? null;
+  }
+
   static handleGoBackNavigation() {
     // 0 DIALOG_MODE_TAB : This mode opens a new tab. We are losing the context on the widget.
     // 1 DIALOG_MODE_IFRAME : we should close

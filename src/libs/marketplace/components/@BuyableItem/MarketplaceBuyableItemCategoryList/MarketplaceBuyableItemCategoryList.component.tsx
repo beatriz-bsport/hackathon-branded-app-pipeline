@@ -36,6 +36,7 @@ type Props = {
     identifier: number,
   ) => void;
   onClickAll?: () => void;
+  bookingConfirmButtonComponent?: React.ReactElement;
 };
 
 type CardProps = Omit<Props, 'buyableItemCategory' | 'selectBuyableItem'> & {
@@ -56,6 +57,7 @@ const MarketplaceBuyableItemCard: React.FC<CardProps> = ({
   selectedBuyableItem,
   hideCreditsForCustomers,
   selectItem,
+  bookingConfirmButtonComponent,
 }) => {
   const onClick = useCallback(
     () => selectItem(buyableItem, categoryIdentifier),
@@ -71,6 +73,7 @@ const MarketplaceBuyableItemCard: React.FC<CardProps> = ({
           onClick={onClick}
         >
           <MarketplacePaymentPackBuyableItem
+            bookingConfirmButtonComponent={bookingConfirmButtonComponent}
             hideCredits={hideCreditsForCustomers}
             isExcludingTax={isExcludingTax}
             isSelected={isEqual(selectedBuyableItem, buyableItem)}
@@ -86,6 +89,7 @@ const MarketplaceBuyableItemCard: React.FC<CardProps> = ({
           onClick={onClick}
         >
           <MarketplacePaymentComboBuyableItem
+            bookingConfirmButtonComponent={bookingConfirmButtonComponent}
             isExcludingTax={isExcludingTax}
             isSelected={isEqual(selectedBuyableItem, buyableItem)}
             paymentCombo={buyableItem as PaymentCombo}
@@ -100,6 +104,7 @@ const MarketplaceBuyableItemCard: React.FC<CardProps> = ({
           onClick={onClick}
         >
           <MarketplaceContractBuyableItem
+            bookingConfirmButtonComponent={bookingConfirmButtonComponent}
             contract={buyableItem as ContractWithPaymentPack}
             isExcludingTax={isExcludingTax}
             isSelected={isEqual(selectedBuyableItem, buyableItem)}
@@ -119,6 +124,7 @@ const MarketplaceBuyableItemCategoryList: React.FC<Props> = ({
   selectBuyableItem,
   onClickAll,
   excludeRecommendedItemsFromRegularCategories,
+  bookingConfirmButtonComponent,
 }) => {
   const { t } = useTranslation('booking');
 
@@ -158,6 +164,7 @@ const MarketplaceBuyableItemCategoryList: React.FC<Props> = ({
           return (
             <MarketplaceBuyableItemCard
               key={`${buyableItemCategory.identifier}${item.value.id}`}
+              bookingConfirmButtonComponent={bookingConfirmButtonComponent}
               buyableItem={item.value}
               categoryIdentifier={item.identifier}
               hideCreditsForCustomers={hideCreditsForCustomers}
@@ -172,6 +179,7 @@ const MarketplaceBuyableItemCategoryList: React.FC<Props> = ({
         return (
           <MarketplaceBuyableItemCard
             key={`${buyableItemCategory.identifier}${item.id}`}
+            bookingConfirmButtonComponent={bookingConfirmButtonComponent}
             buyableItem={item}
             categoryIdentifier={buyableItemCategory.identifier}
             hideCreditsForCustomers={hideCreditsForCustomers}

@@ -132,6 +132,13 @@ export class Root extends Component<Props> {
          */
         WidgetUtils.setWidgetType(query.widgetType);
       }
+      if (query?.parentElementId?.replace('?', '')) {
+        /**
+         * injected by the widget
+         */
+
+        WidgetUtils.setParentElementId(query.parentElementId.replace('?', ''));
+      }
     }
   }
 

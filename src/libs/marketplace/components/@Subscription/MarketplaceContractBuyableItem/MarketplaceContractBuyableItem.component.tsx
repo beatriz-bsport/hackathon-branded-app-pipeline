@@ -30,12 +30,14 @@ export type Props = {
   isExcludingTax: boolean;
   contract: Contract | ContractWithPaymentPack;
   isSelected?: boolean;
+  bookingConfirmButtonComponent?: React.ReactElement;
 };
 
 const MarketplaceContractBuyableItem: React.FC<Props> = ({
   contract,
   isExcludingTax,
   isSelected,
+  bookingConfirmButtonComponent,
 }) => {
   const [showAllDescription, setShowAllDescription] = useState(false);
   const { t } = useTranslation(['marketplace', 'booking']);
@@ -56,6 +58,7 @@ const MarketplaceContractBuyableItem: React.FC<Props> = ({
       classes={{
         'bs-contract-buyable-item__card': 'bs-contract-buyable-item__card',
       }}
+      id={`bs-contract-buyable-item__card-${contract?.id}`}
       isSelected={isSelected}
       size={CardSize.AUTO}
     >
@@ -217,6 +220,18 @@ const MarketplaceContractBuyableItem: React.FC<Props> = ({
                 })}
               </div>
             )}
+          </GridItem>
+          <GridItem
+            classes={{
+              'bs-contract-buyable-item__grid_item-booking-button':
+                'bs-contract-buyable-item__grid_item-booking-button',
+              'bs-contract-buyable-item__booking-confirm-button':
+                'bs-contract-buyable-item__booking-confirm-button',
+            }}
+          >
+            {!!bookingConfirmButtonComponent &&
+              isSelected &&
+              bookingConfirmButtonComponent}
           </GridItem>
         </Grid>
       </CardContent>

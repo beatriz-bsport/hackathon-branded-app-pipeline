@@ -44,6 +44,7 @@ export type Props = {
     itemIdentifier: BuyableItemIdentifier,
   ) => void;
   onClickAll?: () => void;
+  bookingConfirmButtonComponent?: React.ReactElement;
 };
 
 const MarketplaceBookerModuleBuyableItems: React.FC<Props> = ({
@@ -61,6 +62,7 @@ const MarketplaceBookerModuleBuyableItems: React.FC<Props> = ({
   onClickCategory,
   onClickBuyableItem,
   onClickAll,
+  bookingConfirmButtonComponent,
 }) => {
   const { t } = useTranslation('booking');
 
@@ -123,6 +125,7 @@ const MarketplaceBookerModuleBuyableItems: React.FC<Props> = ({
               <MarketplaceBuyableItemCategoryList
                 key={buyableItemCategory.index}
                 excludeRecommendedItemsFromRegularCategories
+                bookingConfirmButtonComponent={bookingConfirmButtonComponent}
                 buyableItemCategory={buyableItemCategory}
                 hideCreditsForCustomers={hideCreditsForCustomers}
                 isExcludingTax={isExcludingTax}
@@ -134,6 +137,7 @@ const MarketplaceBookerModuleBuyableItems: React.FC<Props> = ({
             ))
           ) : (
             <MarketplaceBuyableItemCategoryList
+              bookingConfirmButtonComponent={bookingConfirmButtonComponent}
               buyableItemCategory={selectedBuyableItemCategory}
               hideCreditsForCustomers={hideCreditsForCustomers}
               isExcludingTax={isExcludingTax}

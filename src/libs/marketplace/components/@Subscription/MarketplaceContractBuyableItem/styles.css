@@ -29,7 +29,8 @@
     'fees'
     'pricing'
     'description'
-    'footer';
+    'footer'
+    'booking-confirm';
   grid-template-columns: repeat(1, 1fr);
   grid-gap: calc(var(--spacing-1) / 2);
 }
@@ -69,6 +70,10 @@
   flex-direction: row;
   grid-area: footer;
   justify-content: space-between;
+}
+
+.bs-contract-buyable-item__grid_item-booking-button {
+  grid-area: booking-confirm;
 }
 
 .bs-contract-buyable-item__title {
@@ -192,4 +197,22 @@
 }
 
 @container bsContractBuyableItemContent (width < 600px) {
+}
+
+.bs-contract-buyable-item__booking-confirm-button {
+  display: none;
+}
+
+@container bsOfferBookingPage (width < 950px) {
+  .bs-contract-buyable-item__booking-confirm-button {
+    display: block;
+  }
+}
+
+[id^='bs-contract-buyable-item__card']
+  .bs-contract-buyable-item__grid_item-booking-button
+  > [class*='makeStyles-container'],
+[id^='bs-contract-buyable-item__card'] .bs-booker-module-offer-summary-content,
+[id^='bs-contract-buyable-item__card'] .bs-booker-module-offer-summary-card {
+  background-color: transparent !important;
 }

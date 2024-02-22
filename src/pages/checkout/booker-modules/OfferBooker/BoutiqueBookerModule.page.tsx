@@ -168,8 +168,36 @@ import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
 import BookerModuleOfferSummary from '#libs/marketplace/components/@Offer/BookerModuleOfferSummary';
 
 import './BoutiqueBookerModule.css';
+import useParentSize from '#hooks/useParentSize';
 
 const DEFAULT_SPOT_TYPE = { id: -1 };
+
+const withScrollHeightListener = (
+  WrappedComponent: React.ComponentType<any>,
+) => {
+  return (props: any) => {
+    const containerRef = React.useRef(null);
+
+    // const sendPostMessageUpdate = (height: number) => {
+    //   if (WidgetUtils.isWidget() && !!WidgetUtils.getParentElementId()) {
+    //     const message = {
+    //       type: 'bsport-widget-resize',
+    //       data: {
+    //         scrollHeight: height,
+    //         parentElementId: WidgetUtils.getParentElementId(),
+    //       },
+    //     };
+    //     window?.parent?.postMessage(message, '*');
+    //   }
+    // };
+
+    // @ts-expect-error
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { _, height } = useParentSize(containerRef, { maxDifference: 150 });
+    // sendPostMessageUpdate(height);
+    return <WrappedComponent {...props} containerRef={containerRef} />;
+  };
+};
 
 type State = {
   offersConstraint: OfferConstraint;
@@ -207,6 +235,7 @@ type OwnProps = {
   memberTagList: number[];
   authenticated: boolean;
   goBack: () => void;
+  containerRef: React.MutableRefObject<any>;
 };
 
 type Props = OwnProps &
@@ -807,7 +836,8 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
   };
 
   render() {
-    const { t } = this.props;
+    const { t, containerRef } = this.props;
+
     const offerSummaryLoading =
       !this.props.offer ||
       !this.props.offer?.coach ||
@@ -936,7 +966,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
 
     if (!isRegistered && isWaitingList) {
       return (
-        <div className="bs-new-offer-booking-page">
+        <div ref={containerRef} className="bs-new-offer-booking-page">
           <OfferBookingWaitingList
             bookingSpotId={this.state.selectedSpot}
             companyTheme={this.props.theme}
@@ -956,7 +986,7 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
     }
 
     return (
-      <div className="bs-new-offer-booking-page">
+      <div ref={containerRef} className="bs-new-offer-booking-page">
         <div className="bs-new-offer-booking-page__pricing_container">
           <div className="bs-new-offer-booking-header">
             {this.getIsLoading() ? (
@@ -991,6 +1021,52 @@ class BoutiqueBookerModule extends React.PureComponent<Props, State> {
                 )}
                 <MarketplaceBookerModuleBuyableItems
                   availableConsumerPacks={this.state.availableConsumerPacks}
+                  bookingConfirmButtonComponent={
+                    <BookingConfirmButtonWithOfferSummary
+                      buttonLoading={this.state.confirmLoading}
+                      disabled={
+                        (offerStatus && !isBookable && !isWaitlistOpen) ||
+                        disableBookingButton ||
+                        this.state.confirmLoading ||
+                        this.getIsLoading()
+                      }
+                      displayTax={
+                        this.props.theme?.is_tax_excluded_in_marketplace
+                      }
+                      isBookable={isBookable}
+                      OfferSummaryComponent={() => (
+                        <BookerModuleOfferSummary
+                          isBookingButtonHidden
+                          noStyledContainer
+                          showCredits
+                          showEstablishmentAddress
+                          coach={this.props.offer?.coach}
+                          // Must be change, these information can be fetch and display faster to reduce loadig time feelling.
+                          companyTheme={this.props.theme}
+                          establishment={this.props.offer?.establishment}
+                          expirationDatetime={this.getSpotExpirationDatetime()}
+                          goToCheckout={this.props.goTocheckout}
+                          guestName={`${
+                            this.props.queryParams.guest_first_name
+                          } ${this.props.queryParams.guest_last_name ?? ''}`}
+                          isGuestBooking={this.getIsGuestBooking()}
+                          loading={offerSummaryLoading}
+                          metaActivity={this.props.offer?.meta_activity}
+                          offer={this.props.offer}
+                          spotId={this.state.selectedSpot}
+                        />
+                      )}
+                      onClick={this.onConfirm}
+                      price={displayPrice}
+                      // @ts-expect-error
+                      tax={this.state.selectedItem?.data?.tax}
+                      value={
+                        !this.props.offer?.full
+                          ? t(`booking:notification.form.submit`)
+                          : t(`booking:offer.mainButton.registerWaitingList`)
+                      }
+                    />
+                  }
                   buyableItemCategories={this.state.buyableItemCategories}
                   companyTheme={this.props.theme}
                   hideCreditsForCustomers={
@@ -1269,4 +1345,5 @@ export default compose(
   marketplaceCssHoc(),
   WithCustomCssProvider,
   consumerAppBarHOC(),
+  withScrollHeightListener,
 )(BoutiqueBookerModule);

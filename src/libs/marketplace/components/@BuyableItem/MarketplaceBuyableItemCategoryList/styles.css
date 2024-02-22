@@ -18,7 +18,7 @@
 }
 
 .bs-marketplace-buyable-item-category__button_container {
-  margin-top: var(--spacing-3);
+  padding-top: var(--spacing-3);
   display: flex;
   justify-content: center;
 }

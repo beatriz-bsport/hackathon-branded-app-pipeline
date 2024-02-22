@@ -39,6 +39,8 @@ export default class BsportWidget {
 
       const parentElementId = parentElement || 'bsport-widget';
       el.setAttribute('class', 'cleanslate');
+      el.style.setProperty('height', '100%');
+      el.style.setProperty('width', '100%');
       document.getElementById(parentElementId).appendChild(el);
       if (BsportWidget.el_list_id.includes(parentElementId)) {
         return;

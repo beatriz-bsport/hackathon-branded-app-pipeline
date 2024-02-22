@@ -6,12 +6,12 @@ import { CSSTransition } from 'react-transition-group';
 
 type SlidingContainerProps = {
   isOpen: boolean,
-  containerSetUpVariable: HTMLElement,
+  containerFirstChild: HTMLElement,
 };
 export const SlidingContainer: React.FC<SlidingContainerProps> = ({
   isOpen,
   children,
-  containerSetUpVariable,
+  containerFirstChild,
 }) => {
   const nodeRef = React.useRef(null);
   React.useEffect(() => {
@@ -21,14 +21,16 @@ export const SlidingContainer: React.FC<SlidingContainerProps> = ({
         inline: 'nearest',
         behavior: 'smooth',
       });
-      containerSetUpVariable?.style?.setProperty('height', '0px');
+      containerFirstChild?.style?.setProperty('height', '0px');
+      containerFirstChild?.style?.setProperty('visibility', 'hidden');
     }
     return () => {
       setTimeout(() => {
-        containerSetUpVariable?.style?.setProperty('height', '');
+        containerFirstChild?.style?.setProperty('height', '');
+        containerFirstChild?.style?.setProperty('visibility', 'visible');
       }, 200);
     };
-  }, [isOpen, containerSetUpVariable]);
+  }, [isOpen, containerFirstChild]);
 
   return (
     <CSSTransition
@@ -39,7 +41,7 @@ export const SlidingContainer: React.FC<SlidingContainerProps> = ({
       timeout={300}
     >
       <div ref={nodeRef} className="sliding-container">
-        <div className="sliding-container-content">{children}</div>
+        {children}
       </div>
     </CSSTransition>
   );
@@ -74,6 +76,8 @@ export const PortalSlidingContainer: React.FC<PortalSlidingContainerProps> = ({
     // If the child container is found, update the containerSetUpVariable
     if (childContainerSetUpVariable) {
       containerSetUpVariable = childContainerSetUpVariable;
+      containerSetUpVariable?.style?.setProperty('height', '100%');
+      containerSetUpVariable?.style?.setProperty('width', '100%');
     }
   }
 
@@ -81,7 +85,7 @@ export const PortalSlidingContainer: React.FC<PortalSlidingContainerProps> = ({
   return ReactDOM.createPortal(
     <SlidingContainer
       isOpen={isOpen}
-      containerSetUpVariable={containerSetUpVariableFirstChild}
+      containerFirstChild={containerSetUpVariableFirstChild}
     >
       {children}
     </SlidingContainer>,
@@ -97,6 +101,23 @@ export const WidgetPortalSlidingContainer: React.FC<
     parentElement: string,
   },
 > = ({ isOpen, children, parentElement }) => {
+  React.useEffect(() => {
+    window?.addEventListener('message', parentResizer);
+
+    return () =>
+      document.getElementById(parentElement)?.style?.setProperty('height', '');
+  }, []);
+
+  const parentResizer = (event: MessageEvent) => {
+    if (
+      event?.data?.type === 'bsport-widget-resize' &&
+      event?.data?.data?.parentElementId === parentElement
+    ) {
+      document
+        .getElementById(parentElement)
+        ?.style?.setProperty('height', `${event?.data?.data.scrollHeight}px`);
+    }
+  };
   return (
     <PortalSlidingContainer
       parentElement={parentElement}

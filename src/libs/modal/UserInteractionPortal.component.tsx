@@ -165,6 +165,7 @@ class UserInteractionPortal extends React.PureComponent<Props> {
 
   render() {
     const { classes } = this.props;
+
     if (!!this.props.url && this.props.dialogMode === DIALOG_MODE_DEACTIVATED) {
       if (this.props.allowNoPopup) {
         return (
@@ -212,9 +213,13 @@ const styles = () =>
       borderBottomWidth: 0,
       borderLeftWidth: 0,
       borderRadius: 12,
-
-      height: '100%',
+      display: 'inline-block',
+      position: 'absolute',
       width: '100%',
+      height: '100%',
+      top: 0,
+      left: 0,
+      transition: 'opacity .2s ease-in-out',
     },
   });
 

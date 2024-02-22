@@ -5,7 +5,7 @@ import uniqBy from 'lodash/uniqBy';
 
 import { connect, ConnectedProps } from 'react-redux';
 import { compose, withHandlers, withState, withProps } from 'recompose';
-import { push } from 'connected-react-router';
+import { push as pushRouter } from 'connected-react-router';
 
 import { withTranslation, WithTranslation } from 'react-i18next';
 
@@ -97,8 +97,23 @@ import type { PrivateService } from '#libs/private-service/types';
 
 // COMMUNICATION
 import { sendCommunication as sendCommunicationAction } from '#libs/communication/actions';
+import {
+  createCommunicationScheduled as createCommunicationScheduledAction,
+  fetchCommunicationScheduledListForSmartlist as fetchCommunicationScheduledListForSmartlistAction,
+  retrieveCommunicationScheduled as retrieveCommunicationScheduledAction,
+  deleteCommunicationScheduled as deleteCommunicationScheduledAction,
+  updateCommunicationScheduled as updateCommunicationScheduledAction,
+  sendNowCommunicationScheduled as sendNowCommunicationScheduledAction,
+  getUnreadAnswersCount as getUnreadAnswersCountAction,
+  fetchSmartListPopupSendings,
+  sendSmartListPopup,
+} from '#libs/communication-v2/actions';
 import type { SendDirectCommunicationType } from '#libs/communication/types';
-import type { CommunicationContext } from '#libs/communication-v2/types';
+import type {
+  CommunicationContext,
+  CommunicationScheduled,
+  CommunicationScheduledCreate,
+} from '#libs/communication-v2/types';
 
 // MEMBER
 import { fetchCommunicationsPaginatedMembers } from '#libs/member/actions';
@@ -169,14 +184,15 @@ import { getAllCustomForm } from '#libs/custom-form/selectors';
 import CommunicationDrawer from '#libs/communication-v2/components/CommunicationDrawer.component';
 import { CONTEXT_SMARTLIST } from '#libs/communication-v2/constants';
 import BottomActionsButtonCustom from '#components/button/BottomActionsButtonCustom.component';
-import {
-  getUnreadAnswersCount as getUnreadAnswersCountAction,
-  fetchSmartListPopupSendings,
-  sendSmartListPopup,
-} from '#libs/communication-v2/actions';
 
+import GenericMuiDialog from '#components/genericDialog/GenericMuiDIalog';
 import Config from '../../config';
-import { getSmartListPopupSendingList } from '#libs/communication-v2/selectors';
+import {
+  getCommunicationScheduledForSmartlist,
+  getCommunicationScheduledBySmartlistLoading,
+  getCommunicationScheduledBySmartlistTotal,
+  getSmartListPopupSendingList,
+} from '#libs/communication-v2/selectors';
 // CADENCES
 import { fetchCadenceList } from '#libs/sequential_marketing/actions';
 import { UPSELL_IDENTIFIER_CADENCE } from '#libs/platform-billing/upsell-identifiers';
@@ -215,13 +231,17 @@ type State = {
   onValueChangeActiveMemberFetch: boolean;
   openEditDialog: boolean;
   resetMembersFetchForCommunication: boolean;
+  communicationScheduledToEdit: CommunicationScheduled | null;
+  isTooLateToUpdateCommunicationScheduledDialogOpen: boolean;
 };
 
 export class SmartListDetailMember extends React.Component<Props, State> {
-  state = {
+  state: State = {
     onValueChangeActiveMemberFetch: false,
     openEditDialog: false,
     resetMembersFetchForCommunication: true,
+    communicationScheduledToEdit: null,
+    isTooLateToUpdateCommunicationScheduledDialogOpen: false,
   };
 
   componentDidMount() {
@@ -251,6 +271,9 @@ export class SmartListDetailMember extends React.Component<Props, State> {
         },
       });
     }
+    this.props.fetchCommunicationScheduledListForSmartlist({
+      smartlistId: this.props.id,
+    });
   }
 
   handleFetchLevel = () => {
@@ -267,9 +290,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
     const filter = filterData;
     filter.smartlist = this.props.id;
     this.props.createFilter(filter_identifier, filter, this.props.id, {
-      onSuccess: () => {
-        if (options && options.onSuccess) options.onSuccess();
-      },
+      onSuccess: () => options?.onSuccess?.(),
       callback: () => {
         this.setState((prevState) => ({
           onValueChangeActiveMemberFetch:
@@ -287,9 +308,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
     options?: OptionCallback,
   ) => {
     this.props.updateFilter(this.props.id, filterNameId, filterId, data, {
-      onSuccess: () => {
-        if (options && options.onSuccess) options.onSuccess();
-      },
+      onSuccess: () => options?.onSuccess?.(),
       callback: () => {
         this.setState((prevState) => ({
           onValueChangeActiveMemberFetch:
@@ -384,6 +403,45 @@ export class SmartListDetailMember extends React.Component<Props, State> {
     );
   };
 
+  openTooLateToUpdateCommunicationScheduledDialog = () =>
+    this.setState({
+      isTooLateToUpdateCommunicationScheduledDialogOpen: true,
+    });
+
+  closeTooLateToUpdateCommunicationScheduledDialog = () =>
+    this.setState({
+      isTooLateToUpdateCommunicationScheduledDialogOpen: false,
+    });
+
+  checkIsMessageSchedulable = (
+    communicationScheduled: CommunicationScheduled,
+  ) =>
+    new Date(communicationScheduled.datetime_scheduled) >
+    new Date(Date.now() + 5 * 60 * 1000);
+
+  openCommunicationScheduledEditionDrawer = (
+    communicationScheduled: CommunicationScheduled,
+  ) => {
+    if (this.checkIsMessageSchedulable(communicationScheduled)) {
+      this.setState({
+        communicationScheduledToEdit: communicationScheduled,
+      });
+      this.props.setOpenSendEmail(true);
+    } else {
+      this.openTooLateToUpdateCommunicationScheduledDialog();
+    }
+  };
+
+  handleCancelCommunicationScheduled = (
+    communicationScheduled: CommunicationScheduled,
+  ) => {
+    if (this.checkIsMessageSchedulable(communicationScheduled)) {
+      this.props.cancelCommunicationScheduled(communicationScheduled.id);
+    } else {
+      this.openTooLateToUpdateCommunicationScheduledDialog();
+    }
+  };
+
   getHideAutoResend = () =>
     Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
     this.props.companyId !== 498;
@@ -439,13 +497,22 @@ export class SmartListDetailMember extends React.Component<Props, State> {
       <div>
         <FiltersPanel
           cadences={this.props.cadences}
+          cancelCommunicationScheduled={this.handleCancelCommunicationScheduled}
           coaches={this.props.coaches}
+          communicationScheduledList={this.props.communicationScheduledList}
+          communicationScheduledLoading={
+            this.props.communicationScheduledLoading
+          }
+          communicationScheduledTotal={this.props.communicationScheduledTotal}
           createFilter={this.createFilter}
           csvExportDate={this.props.csvExportDate}
           csvExportLink={this.props.csvExportLink}
           customForms={this.props.customForms}
           customLevels={this.props.customLevels}
           deleteFilter={this.deleteFilter}
+          editCommunicationScheduled={
+            this.openCommunicationScheduledEditionDrawer
+          }
           establishments={this.props.establishments}
           exportMemberTable={() => getMemberTable(this.props.id)}
           exportMemberTableBackground={this.handleBackgroundCsvExport}
@@ -472,6 +539,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
           smartListUpdate={this.props.smartListUpdate}
           tags={this.props.tags}
           updateFilter={this.updateFilter}
+          viewAllCommunicationScheduled={this.props.goToCampaignList}
         />
         <AutomatedCampaignPanel
           loading={this.props.smartlist_automated_campaigns_loading}
@@ -480,7 +548,6 @@ export class SmartListDetailMember extends React.Component<Props, State> {
           onEdit={this.handleEditAutomatedCampaign}
           smartListAutomatedCampaigns={this.props.smartlist_automated_campaigns}
         />
-
         <AutoTagPanel
           createAutoTag={this.props.createAutoTag}
           deleteAutoTag={this.props.deleteAutoTag}
@@ -559,10 +626,12 @@ export class SmartListDetailMember extends React.Component<Props, State> {
         />
         <CommunicationDrawerDEPRECATED
           hideMemberList
+          communicationScheduledToEdit={this.state.communicationScheduledToEdit}
           companyId={this.props.companyId}
           countTotal={this.props.members.countTotal}
           countWithEmail={this.props.members.countWithEmail}
           countWithPhone={this.props.members.countWithPhone}
+          editScheduledMessage={this.props.editCommunicationScheduled}
           emailDetailLoading={this.props.emailDetailLoading}
           emailDetails={this.props.email_templates_details}
           emailListLoading={this.props.emailListLoading}
@@ -571,6 +640,10 @@ export class SmartListDetailMember extends React.Component<Props, State> {
           getEmailDetail={this.props.fetchEmailTemplateDetail}
           getEmails={this.props.fetchEmailTemplatesSummaries}
           hideAutoResend={this.getHideAutoResend()}
+          hoursToSend={{
+            min: this.props.earliestHourToSendCommunications,
+            max: this.props.latestHourToSendCommunications,
+          }}
           membersAllLoading={
             this.state.resetMembersFetchForCommunication &&
             this.props.members.loading
@@ -580,22 +653,28 @@ export class SmartListDetailMember extends React.Component<Props, State> {
           memberToDisplayError={this.props.members.error}
           onCancel={() => {
             this.props.setOpenSendEmail(false);
-            this.setState({ resetMembersFetchForCommunication: true });
+            this.setState({
+              resetMembersFetchForCommunication: true,
+              communicationScheduledToEdit: null,
+            });
           }}
           onClose={() => this.props.setOpenSendEmail(false)}
           open={this.props.openSendEmail}
           page={this.props.members.page}
           resolvedGenericTags={this.props.resolvedGenericTags}
+          schedule={this.props.scheduleCommunication}
           send={(data) =>
             this.props.sendCommunication({
               ...data,
               smartlist_id: this.props.id,
             })
           }
+          sendNow={this.props.sendCommunicationScheduled}
+          timezone={this.props.timezone}
         />
-        {(Config.REACT_APP_SENTRY_ENVIRONMENT === 'dev' ||
-          Config.REACT_APP_SENTRY_ENVIRONMENT === 'local' ||
-          Config.REACT_APP_SENTRY_ENVIRONMENT === 'staging' ||
+        {(['dev', 'local', 'staging'].includes(
+          Config.REACT_APP_SENTRY_ENVIRONMENT,
+        ) ||
           this.props.companyId === 498) && (
           <ObjectLevelPermissionWrapper
             forcedBehavior="hidden"
@@ -640,6 +719,19 @@ export class SmartListDetailMember extends React.Component<Props, State> {
           open={this.state.openEditDialog}
           smartlist={this.state.openEditDialog ? this.props.smartlist : null}
           updateSmartList={this.updateSmartList}
+        />
+        <GenericMuiDialog
+          cancelText={this.props.t(
+            'communication:scheduled.tooLateToUpdateDialog.close',
+          )}
+          content={this.props.t(
+            'communication:scheduled.tooLateToUpdateDialog.content',
+          )}
+          onCancel={this.closeTooLateToUpdateCommunicationScheduledDialog}
+          open={this.state.isTooLateToUpdateCommunicationScheduledDialogOpen}
+          title={this.props.t(
+            'communication:scheduled.tooLateToUpdateDialog.title',
+          )}
         />
       </div>
     );
@@ -715,6 +807,23 @@ const connector = connect(
       state.smartList.filter.loading ||
       getCadenceIdsUsingSmartlistLoading(state),
 
+    // COMMUNICATION
+    communicationScheduledLoading:
+      getCommunicationScheduledBySmartlistLoading(state),
+    communicationScheduledTotal: getCommunicationScheduledBySmartlistTotal(
+      state,
+      id,
+    ),
+    communicationScheduledList: getCommunicationScheduledForSmartlist(
+      state,
+      id,
+    ),
+    timezone: state.theme.theme.timezone_name,
+    earliestHourToSendCommunications:
+      state.theme.theme.earliest_hour_to_send_communications,
+    latestHourToSendCommunications:
+      state.theme.theme.latest_hour_to_send_communications,
+
     // MEMBERS
     members: {
       displayItems: getPaginatedMembers(state),
@@ -727,6 +836,7 @@ const connector = connect(
       error: state.member.communication.error,
     },
     member_filters: { smartlist: id },
+
     // TAGS
     tags: tagSelectors.getMemberTagsWithTagGroup(state),
 
@@ -780,7 +890,7 @@ const connector = connect(
     // UPSELLS
     featureList: state.company.feature.data.upsell,
 
-    // CADENCES
+    // AUDIENCE
     cadences: getCadencesUsingSmartlist(state, id),
 
     csvExportLink: getSmartListCsvExportLink(state, id),
@@ -811,16 +921,21 @@ const connector = connect(
     deleteSmartListAutomatedCampaign,
 
     // NAVIGATION
-    goToList: () => push('/smart-list/'),
-    goToCampaignList: (id: number) => push(`/smart-list/${id}/campaign/`),
-    goToMember: (id: number) => push(`/member/${id}/`),
-    goToEmailCreate: () => push('/email-template/create'),
+    push: pushRouter,
+
     // LEVEL
     fetchLevelList: fetchLevelListAction,
 
     // COMMUNICATION
     fetchCommunicationsPaginatedMembers,
     sendCommunication: sendCommunicationAction,
+    createCommunicationScheduled: createCommunicationScheduledAction,
+    fetchCommunicationScheduledListForSmartlist:
+      fetchCommunicationScheduledListForSmartlistAction,
+    retrieveCommunicationScheduled: retrieveCommunicationScheduledAction,
+    deleteCommunicationScheduled: deleteCommunicationScheduledAction,
+    updateCommunicationScheduled: updateCommunicationScheduledAction,
+    sendNowCommunicationScheduled: sendNowCommunicationScheduledAction,
     getUnreadAnswersCountAction,
 
     // EMAIL
@@ -875,6 +990,14 @@ const connector = connect(
 );
 
 const mapWithHandlers = {
+  goToList: (props: OwnAndConnectedProps) => () => props.push('/smart-list/'),
+  goToCampaignList: (props: OwnAndConnectedProps) => () =>
+    props.push(`/smart-list/${props.id}/campaign/`),
+  goToMember: (props: OwnAndConnectedProps) => (id: number) =>
+    props.push(`/member/${id}/`),
+  goToEmailCreate: (props: OwnAndConnectedProps) => () =>
+    props.push('/email-template/create'),
+
   sendCommunication:
     (props: OwnAndConnectedProps) => (data: SendDirectCommunicationType) =>
       props.sendCommunication({
@@ -885,6 +1008,52 @@ const mapWithHandlers = {
         smartlist_id: props.id,
         ignore_ids: true,
       }),
+
+  scheduleCommunication:
+    (props: OwnAndConnectedProps) =>
+    (data: Omit<CommunicationScheduledCreate, 'smartlist'>) =>
+      props.createCommunicationScheduled(
+        {
+          ...data,
+          smartlist: props.id,
+        },
+        {
+          onSuccess: () =>
+            props.fetchCommunicationScheduledListForSmartlist({
+              smartlistId: props.id,
+            }),
+        },
+      ),
+
+  editCommunicationScheduled:
+    (props: OwnAndConnectedProps) =>
+    (data: CommunicationScheduled, options?: OptionCallback) =>
+      props.updateCommunicationScheduled(data.id, data, {
+        ...options,
+        onSuccess: () => {
+          props.fetchCommunicationScheduledListForSmartlist({
+            smartlistId: props.id,
+          });
+          options?.onSuccess?.();
+        },
+      }),
+
+  sendCommunicationScheduled: (props: OwnAndConnectedProps) => (id: number) =>
+    props.sendNowCommunicationScheduled(id, {
+      onSuccess: () =>
+        props.fetchCommunicationScheduledListForSmartlist({
+          smartlistId: props.id,
+        }),
+    }),
+
+  cancelCommunicationScheduled: (props: OwnAndConnectedProps) => (id: number) =>
+    props.deleteCommunicationScheduled(id, {
+      onSuccess: () =>
+        props.fetchCommunicationScheduledListForSmartlist({
+          smartlistId: props.id,
+        }),
+    }),
+
   createAutoTag:
     (props: OwnAndConnectedProps) =>
     async (data: { company: number; tag: number; kind: number }) => {

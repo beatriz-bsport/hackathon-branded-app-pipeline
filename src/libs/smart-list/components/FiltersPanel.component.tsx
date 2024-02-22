@@ -16,6 +16,7 @@ import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import Divider from '@material-ui/core/Divider';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import FilterListIcon from '@material-ui/icons/FilterList';
+import ArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import ListItem from '@material-ui/core/ListItem';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -58,31 +59,35 @@ import {
   TERMS_AND_CONDITIONS_FILTER_IDENTIFIER,
 } from '@bsport/common/lib/master-data/smart-list';
 
-import { createUrl } from '../../../utils/createUrlHandlers';
+import { createUrl } from '#utils/createUrlHandlers';
 import { getCurrencyDisplay } from '#libs/theme/selectors';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { UPSELL_IDENTIFIER_CUSTOM_APP } from '#libs/platform-billing/upsell-identifiers';
+import CommunicationScheduledItem from '#libs/smart-list/components/communication_scheduled/CommunicationScheduledItem.component';
 import CustomMobilePopupDialogDialog from '#libs/settings/components/CustomMobilePopupDialog.dialog';
-import FilterCard from './FilterListItem.component';
+import FilterCard from '#libs/smart-list/components/FilterListItem.component';
 import GenericMuiDialog from '#components/genericDialog/GenericMuiDIalog';
-import MemberBaseFilter from './filters/MemberBaseFilter.component';
+import MemberBaseFilter from '#libs/smart-list/components/filters/MemberBaseFilter.component';
 import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import SmartListPopupSendingDrawerComponent from '#libs/communication-v2/components/SmartListPopupSendingDrawer.component';
 import SwitchHorizontalIcon from '#components/icons/SwitchHorizontalIcon.component';
 
+import type { OptionCallback } from '../../../state/types';
 import type { Cadence } from '#libs/sequential_marketing/types';
 import type { CustomForm } from '#libs/custom-form/types';
 import type { Establishment } from '#libs/establishment/types';
 import type { FetchRecipientsParams, Member } from '#libs/member/types';
 import type { Level } from '#libs/level/types';
-import type { OptionCallback } from '../../../state/types';
 import type { PaymentPack } from '#libs/payment-packs/types';
 import type { PrivatePass, PrivateService } from '#libs/private-service/types';
 import type { SmartList } from '#libs/smart-list/types';
-import type { SmartListPopupSending } from '#libs/communication-v2/types';
 import type { UpsellSumup } from '#libs/company/types';
+import type {
+  CommunicationScheduled,
+  SmartListPopupSending,
+} from '#libs/communication-v2/types';
 
 const { trackFormAdd, trackFormSubmitIntent, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(
@@ -131,21 +136,39 @@ const filtersList = {
 const filtersCategory = [MEMBER_INFO, PAYMENT_PACK, BOOKING, BUY];
 
 type Props = {
-  smartListId: number;
+  cadences: Cadence[];
   classes: any;
+  coaches: any[];
+  communicationScheduledList: CommunicationScheduled[];
+  communicationScheduledLoading: boolean;
+  communicationScheduledTotal: number;
+  csvExportDate: string;
+  csvExportLink: string;
+  customForms: CustomForm[];
+  customLevels: Level[];
+  establishments: Establishment[];
+  featureList: UpsellSumup[];
+  fetchBulkItems: any;
+  fetchItems: any;
+  filters: any[];
   loading: boolean;
+  memberList?: Member[];
+  memberLoading: boolean;
+  meta_activities: any[];
+  payment_packs: PaymentPack[];
+  private_passes: PrivatePass[];
+  private_services: PrivateService[];
   smartList: any;
-  filters: Array<any>;
-  payment_packs: Array<PaymentPack>;
-  establishments: Array<Establishment>;
-  meta_activities: Array<any>;
-  private_passes: Array<PrivatePass>;
-  private_services: Array<PrivateService>;
-  tags: Array<any>;
-  updateFilter: (
-    filterNameId: number,
-    filterId: number,
-    data: any,
+  smartListId: number;
+  smartListPopupList: SmartListPopupSending[];
+  smartListPopupLoading: boolean;
+  tags: any[];
+  cancelCommunicationScheduled: (
+    communicationScheduled: CommunicationScheduled,
+  ) => void;
+  createFilter: (
+    filter_identifier: number,
+    filterData: any,
     options?: OptionCallback,
   ) => void;
   deleteFilter: (
@@ -154,58 +177,52 @@ type Props = {
     smartListId: number,
     options: OptionCallback & { callback: (id: number) => void },
   ) => void;
-  createFilter: (
-    filter_identifier: number,
-    filterData: any,
-    options?: OptionCallback,
+  editCommunicationScheduled: (
+    communicationScheduled: CommunicationScheduled,
   ) => void;
-  onRequestEmail: () => void;
   exportMemberTable: () => void;
   exportMemberTableBackground: () => void;
-  csvExportLink: string;
-  csvExportDate: string;
-  fetchItems: any;
-  fetchBulkItems: any;
-  coaches: Array<any>;
-  smartListUpdate: (id: number, smartlist: SmartList) => void;
-  customLevels: Level[];
-  customForms: CustomForm[];
+  fetchCommunicationsPaginatedMembers: (params: FetchRecipientsParams) => void;
+  onRequestEmail: () => void;
   sendSmartListPopup: (param: {
     id: string;
     values: FormData;
     options?: OptionCallback;
   }) => void;
-  smartListPopupList: Array<SmartListPopupSending>;
-  smartListPopupLoading: boolean;
-  fetchCommunicationsPaginatedMembers: (params: FetchRecipientsParams) => void;
-  memberLoading: boolean;
-  memberList?: Array<Member>;
-  featureList: Array<UpsellSumup>;
-  cadences: Cadence[];
+  smartListUpdate: (id: number, smartlist: SmartList) => void;
+  updateFilter: (
+    filterNameId: number,
+    filterId: number,
+    data: any,
+    options?: OptionCallback,
+  ) => void;
+  viewAllCommunicationScheduled: () => void;
 } & WithTranslation;
 
 type State = {
-  new_filter: any;
-  displayFilters: boolean;
+  anchorEl: HTMLElement;
   displayAddFilter: boolean;
   displayCategoryFilters: any;
+  displayFilters: boolean;
+  displayNextScheduledMessage: boolean;
   isSmartListExporting: boolean;
-  anchorEl: HTMLElement;
+  new_filter: any;
+  openCadenceListDialog: boolean;
   openCustomMobilePopupDialog: boolean;
   openSmartListPopupHistoryDialog: boolean;
-  openCadenceListDialog: boolean;
 };
 export class FiltersPanel extends Component<Props, State> {
   state: State = {
-    new_filter: null,
-    displayFilters: true,
+    anchorEl: null,
     displayAddFilter: false,
     displayCategoryFilters: null,
+    displayFilters: true,
+    displayNextScheduledMessage: true,
     isSmartListExporting: false,
-    anchorEl: null,
+    new_filter: null,
+    openCadenceListDialog: false,
     openCustomMobilePopupDialog: false,
     openSmartListPopupHistoryDialog: false,
-    openCadenceListDialog: false,
   };
 
   handleFilterChange = (filter: any) => {
@@ -292,6 +309,16 @@ export class FiltersPanel extends Component<Props, State> {
     this.setState({ openCadenceListDialog: false });
   };
 
+  changeDisplayFilters = () =>
+    this.setState((previousState) => ({
+      displayFilters: !previousState.displayFilters,
+    }));
+
+  changeDisplayNextScheduledMessage = () =>
+    this.setState((previousState) => ({
+      displayNextScheduledMessage: !previousState.displayNextScheduledMessage,
+    }));
+
   openCsvExportLink = () => window.open(this.props.csvExportLink);
 
   addFilterOnClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -304,6 +331,14 @@ export class FiltersPanel extends Component<Props, State> {
       displayAddFilter: !previousState.displayAddFilter,
     }));
   };
+
+  handleCancelCommunicationScheduled =
+    (communication: CommunicationScheduled) => () =>
+      this.props.cancelCommunicationScheduled(communication);
+
+  handleEditCommunicationScheduled =
+    (communication: CommunicationScheduled) => () =>
+      this.props.editCommunicationScheduled(communication);
 
   render() {
     const { classes, t, filters } = this.props;
@@ -519,17 +554,88 @@ export class FiltersPanel extends Component<Props, State> {
 
         <ButtonBase
           className={this.props.classes.header}
-          onClick={() =>
-            this.setState((previousState) => ({
-              displayFilters: !previousState.displayFilters,
-            }))
-          }
+          onClick={this.changeDisplayNextScheduledMessage}
+        >
+          <div className={this.props.classes.sectionTitle}>
+            <Typography
+              color={
+                this.state.displayNextScheduledMessage
+                  ? 'initial'
+                  : 'textSecondary'
+              }
+              variant="h6"
+            >
+              {t('communication.scheduled.nextScheduledMessage')}
+            </Typography>
+            {this.props.communicationScheduledLoading && (
+              <CircularProgress size="1.5rem" />
+            )}
+          </div>
+          {this.state.displayNextScheduledMessage ? (
+            <ExpandLessIcon />
+          ) : (
+            <ExpandMoreIcon />
+          )}
+        </ButtonBase>
+        <Divider className={this.props.classes.divider} />
+        <Collapse
+          className={this.props.classes.scheduledCollapseSection}
+          in={this.state.displayNextScheduledMessage}
+        >
+          {!this.props.communicationScheduledLoading &&
+            (this.props.communicationScheduledList &&
+            this.props.communicationScheduledList?.length > 0 ? (
+              <>
+                <CommunicationScheduledItem
+                  communicationScheduled={
+                    this.props.communicationScheduledList[0]
+                  }
+                  deleteCommunication={this.handleCancelCommunicationScheduled(
+                    this.props.communicationScheduledList[0],
+                  )}
+                  editCommunication={this.handleEditCommunicationScheduled(
+                    this.props.communicationScheduledList[0],
+                  )}
+                />
+                <div
+                  className={this.props.classes.scheduledCommunicationBottom}
+                >
+                  <Button
+                    color="primary"
+                    onClick={this.props.viewAllCommunicationScheduled}
+                    variant="outlined"
+                  >
+                    {t('communication.scheduled.viewAll')}
+                    <ArrowRightIcon className={this.props.classes.iconButton} />
+                  </Button>
+                  <Typography color="textSecondary" variant="body2">
+                    {this.props.t('communication.scheduled.total', {
+                      count: this.props.communicationScheduledTotal,
+                    })}
+                  </Typography>
+                </div>
+              </>
+            ) : (
+              <div className={this.props.classes.row}>
+                <InfoOutlinedIcon className={this.props.classes.leftIcon} />
+                <Typography
+                  className={this.props.classes.isEmptyText}
+                  color="textSecondary"
+                >
+                  {this.props.t('communication.scheduled.isEmpty')}
+                </Typography>
+              </div>
+            ))}
+        </Collapse>
+
+        <ButtonBase
+          className={this.props.classes.header}
+          onClick={this.changeDisplayFilters}
         >
           {this.props.loading ? (
-            <div style={{ display: 'flex', alignItems: 'center' }}>
+            <div className={this.props.classes.sectionTitle}>
               <Typography
                 color={this.state.displayFilters ? 'initial' : 'textSecondary'}
-                style={{ marginRight: '10px' }}
                 variant="h6"
               >
                 {`${t('filters.active_filters')}`}
@@ -661,6 +767,11 @@ const styles = createStyles((theme: Theme) => ({
     flexDirection: 'row',
     marginTop: theme.spacing(4),
   },
+  sectionTitle: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: theme.spacing(1),
+  },
   divider: {
     marginTop: theme.spacing(1),
   },
@@ -725,6 +836,17 @@ const styles = createStyles((theme: Theme) => ({
   },
   filtersMenu: {
     maxHeight: `calc(100% - 392px)`,
+  },
+  iconButton: {
+    marginLeft: theme.spacing(1),
+  },
+  scheduledCommunicationBottom: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  scheduledCollapseSection: {
+    paddingTop: theme.spacing(2),
   },
 }));
 

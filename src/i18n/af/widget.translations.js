@@ -98,6 +98,10 @@ exports.default = {
     },
     cssConfig: {
       option: {
+        unknownError: 'Unknown error',
+        authenticated: 'Authenticated',
+        loading: 'Loading',
+        unauthenticated: 'Unauthenticated',
         none: 'None',
         nextWeek: 'Next week',
         currentWeek: 'This week',
@@ -196,9 +200,7 @@ exports.default = {
         universalPass: 'Universal pass',
       },
       title: {
-        hasUnknownError: 'Has unknown error',
-        isLoading: 'is Loading',
-        isAuthenticated: 'is Authenticated',
+        state: 'State',
         isReferralProgramAvailable: 'Has an available referral program',
         hasRemainingReferralUses: 'Has remaining referral uses',
         nextOffer: 'Next session available',

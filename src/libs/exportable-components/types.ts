@@ -101,6 +101,7 @@ export enum MarketplacePage {
   FABRIQUE = 'fabrique',
   MARKETING = 'marketing',
   CONSUMER_SPACE = 'consumer_space',
+  REFERRAL_DETAILS = 'referral_details',
 }
 
 export type VariationConfigurationChoice = {

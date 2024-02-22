@@ -14500,6 +14500,10 @@
           "1": "One",
           "2": "Two",
           "3": "Three",
+          "unknownError": "Unknown error",
+          "authenticated": "Authenticated",
+          "loading": "Loading",
+          "unauthenticated": "Unauthenticated",
           "none": "None",
           "nextWeek": "Next week",
           "currentWeek": "This week",
@@ -14589,9 +14593,7 @@
           "universalPass": "Universal pass"
         },
         "title": {
-          "hasUnknownError": "Has unknown error",
-          "isLoading": "is Loading",
-          "isAuthenticated": "is Authenticated",
+          "state": "State",
           "isReferralProgramAvailable": "Has an available referral program",
           "hasRemainingReferralUses": "Has remaining referral uses",
           "nextOffer": "Next session available",

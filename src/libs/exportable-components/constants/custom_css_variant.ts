@@ -125,4 +125,5 @@ export enum CssComponentsVariantIdentifiers {
   CONSUMER_SUBSCRIPTION_CARD = 'consumer_subscription_card',
   CONSUMER_SUBSCRIPTION_DETAILS_CARD = 'consumer_subscription_details_card',
   RESET_PASSWORD_CONFIRMATION = 'reset_password_confirmation',
+  REFERRAL_DETAILS = 'referral_details',
 }

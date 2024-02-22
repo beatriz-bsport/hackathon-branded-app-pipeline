@@ -129,6 +129,8 @@ export type Theme = {
   has_limited_access_to_sequential_marketing: boolean;
   simplifyUI: boolean;
   reset_password_url_redirection: string;
+  earliest_hour_to_send_communications: number;
+  latest_hour_to_send_communications: number;
 };
 
 export type ThemeState = {

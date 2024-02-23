@@ -7,20 +7,26 @@ import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
+// @ts-expect-error
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
-import { postUnsubscribe } from '../../libs/member/api';
+import { postUnsubscribe } from '#libs/member/api';
 
 type Props = {
-  success: boolean,
-  error: ?Error,
-  loading: boolean,
-  doUnsubscribe: () => void,
+  success: boolean;
+  error: Error | null;
+  loading: boolean;
+  doUnsubscribe: () => void;
 };
-export const ConsumerUnsubscriber = (props: Props) => {
+export const ConsumerUnsubscriber: React.FC<Props> = ({
+  doUnsubscribe,
+  error,
+  loading,
+  success,
+}) => {
   const classes = useStyles();
   const { t } = useTranslation(['consumerSpace']);
-  if (props.success) {
+  if (success) {
     return (
       <div className={classes.container}>
         <CheckIcon color="primary" fontSize="large" />
@@ -31,13 +37,13 @@ export const ConsumerUnsubscriber = (props: Props) => {
   return (
     <div className={classes.container}>
       <Typography>{t('unsubscriber.explain')}</Typography>
-      {!!props.error && (
+      {!!error && (
         <Typography color="error">{t('unsubscriber.error')}</Typography>
       )}
-      {props.loading ? (
+      {loading ? (
         <CircularProgress />
       ) : (
-        <Button onClick={props.doUnsubscribe} variant="outlined">
+        <Button onClick={doUnsubscribe} variant="outlined">
           {t('unsubscriber.doUnsubscribe')}
         </Button>
       )}

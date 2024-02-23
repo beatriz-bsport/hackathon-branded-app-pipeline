@@ -16,18 +16,18 @@ export const SlidingContainer: React.FC<SlidingContainerProps> = ({
   const nodeRef = React.useRef(null);
   React.useEffect(() => {
     if (isOpen) {
+      containerFirstChild?.style?.setProperty('height', '0px');
+      containerFirstChild?.style?.setProperty('display', 'none', 'important');
       nodeRef?.current?.scrollIntoView({
         block: 'start',
         inline: 'nearest',
         behavior: 'smooth',
       });
-      containerFirstChild?.style?.setProperty('height', '0px');
-      containerFirstChild?.style?.setProperty('visibility', 'hidden');
     }
     return () => {
       setTimeout(() => {
         containerFirstChild?.style?.setProperty('height', '');
-        containerFirstChild?.style?.setProperty('visibility', 'visible');
+        containerFirstChild?.style?.setProperty('display', '');
       }, 200);
     };
   }, [isOpen, containerFirstChild]);

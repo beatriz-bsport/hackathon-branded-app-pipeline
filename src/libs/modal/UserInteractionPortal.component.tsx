@@ -218,6 +218,8 @@ const styles = () =>
       height: '100%',
       top: 0,
       left: 0,
+      bottom: 0,
+      right: 0,
       transition: 'opacity .2s ease-in-out',
       borderRadius: 0,
     },

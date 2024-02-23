@@ -12,6 +12,8 @@ import AddIcon from '@material-ui/icons/Add';
 
 import boop from '../../../sounds/boop.mp3';
 import CheckInBookingItem from './CheckInBookingItem.component';
+import type { Offer } from '../../offer/types';
+import type { MemberWithBooking } from '../../member/types';
 
 const likeAudio = new Audio(boop);
 
@@ -21,15 +23,16 @@ const playSound = (audioFile) => {
 
 type Props = {
   bookingLoading: boolean,
-  offer: ?Offer,
+  offer: Offer,
   onAddMember: () => void,
-  members: ?Array<Member>,
+  members?: Array<MemberWithBooking>,
   confirmBookingAttendance: (bookingId: number) => void,
 };
 
 export const BookingList = (props: Props) => {
   const classes = useStyles();
   const { t } = useTranslation(['selfCheckIn']);
+
   return (
     <div>
       <List disablePadding>
@@ -62,6 +65,7 @@ export const BookingList = (props: Props) => {
               props.confirmBookingAttendance(member.booking);
             }}
             member={member}
+            offer={props.offer}
           />
         ))}
       </List>

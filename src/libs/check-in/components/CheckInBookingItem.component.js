@@ -11,19 +11,31 @@ import DoneIcon from '@material-ui/icons/Done';
 
 import Avatar from '@material-ui/core/Avatar';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import type { Member } from '../../member/types';
+import type { MemberWithBooking } from '../../member/types';
+import type { Offer } from '../../offer/types';
 import { anonymizeEmail, anonymizeName } from '../../member/utils';
+import { getSpotDisplayText } from '../utils';
 
 type Props = {
   t: TFunction,
   classes: Object,
-  member: Member,
+  member: MemberWithBooking,
+  offer: Offer,
   confirmAttendance: () => void,
 };
 
 export const CheckInBookingItem = (props: Props) => {
   const { classes, member, t, confirmAttendance } = props;
   const checkedIn = member.booking.attendance;
+
+  const secondaryTextEmail = member?.consumer
+    ? anonymizeEmail(member.consumer.email)
+    : ' - ';
+
+  const secondarytextSpot = props?.offer?.room_blueprint
+    ? getSpotDisplayText(member, t)
+    : '';
+
   return (
     <ListItem dense className={classes.listItem}>
       <ListItemAvatar>
@@ -31,11 +43,7 @@ export const CheckInBookingItem = (props: Props) => {
       </ListItemAvatar>
       <ListItemText
         primary={`${member.first_name} ${anonymizeName(member.last_name)}`}
-        secondary={
-          member && member.consumer
-            ? anonymizeEmail(member.consumer.email)
-            : ' - '
-        }
+        secondary={`${secondaryTextEmail || ''} ${secondarytextSpot}`}
       />
       <ListItemSecondaryAction>
         {checkedIn ? (

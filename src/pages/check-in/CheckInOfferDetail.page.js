@@ -13,6 +13,9 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { push as pushRouter } from 'connected-react-router';
 import { withTranslation } from 'react-i18next';
 
+import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
+import { fetchLevel as fetchLevelAction } from '#libs/level/actions';
+import { withCustomLevel } from '#libs/level/selectors';
 import CheckInOfferDetail from '../../libs/check-in/components/CheckInOfferDetail.component';
 import {
   fetchFilteredMembers as fetchFilteredMembersAction,
@@ -35,7 +38,6 @@ import {
   getMemberBookingWithConsumerPack,
 } from '../../libs/booking/selectors';
 import RegistrationFlowDialog from '../../libs/check-in/components/SearchAndRegisterMember.component';
-import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import {
   retrieveConsumerPackBulk as retrieveConsumerPackBulkAction,
   fetchByOfferByMember as fetchByOfferByMemberAction,
@@ -49,9 +51,6 @@ import {
 } from '../../libs/payment-packs/actions';
 import { checkFaceIDAvailable as checkFaceIDAvailableAPI } from '../../libs/face-recognition/api';
 
-import { fetchLevel as fetchLevelAction } from '#libs/level/actions';
-import { withCustomLevel } from '#libs/level/selectors';
-
 import {
   getByOfferByMember,
   withPaymentPack as withPaymentPackForConsumer,
@@ -61,6 +60,7 @@ import boop from '../../sounds/boop.mp3';
 import type { OptionCallback } from '../../state/types';
 import { getSignUpFormConfigurationDict } from '../../libs/sign-up-form/selectors';
 import { fetchSignFormUpConfiguration } from '../../libs/sign-up-form/actions';
+import type { MemberWithBooking } from '../../libs/member/types';
 
 const likeAudio = new Audio(boop);
 
@@ -71,7 +71,7 @@ type Props = {
   offer: Offer,
   fetchOfferById: (offerId: number) => void,
 
-  members: Array<Member>,
+  members: Array<MemberWithBooking>,
   searchMembers: (text: string) => void,
 
   fetchOfferData: () => void,
@@ -195,7 +195,7 @@ export class CheckInOfferDetailPage extends React.Component<Props, State> {
           faceIdEnabled={this.props.faceIdEnabled}
           fetchMemberByBarcode={this.props.fetchMemberByBarcode}
           goBack={this.props.goBack}
-          members={this.props.members}
+          members={this.props.members || []}
           offer={this.props.offer}
           onAddMember={this.props.openSearchMemberModal}
           onMemberSearched={(member, callback) => {
@@ -241,7 +241,7 @@ export class CheckInOfferDetailPage extends React.Component<Props, State> {
           <CheckInConfirm
             booking={this.props.bookingShown}
             goBack={() => this.props.setBookingShown(null)}
-            member={this.props.member}
+            member={this.props.member || []}
             offer={this.props.offer}
             paymentPack={
               this.props.bookingShown?.consumer_payment_pack?.payment_pack

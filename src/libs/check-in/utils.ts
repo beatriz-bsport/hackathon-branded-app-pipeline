@@ -8,6 +8,7 @@
 import uniq from 'lodash/uniq';
 import pick from 'lodash/pick';
 
+import type { TFunction } from 'i18next';
 import {
   LOCAL_STORAGE_KEY_FILTERS_CHECK_IN_TABLET,
   LOCAL_STORAGE_KEY_MINIMAL_ESTABLISHMENT_LIST,
@@ -15,6 +16,8 @@ import {
 
 import type { OfferFilter } from '#libs/offer/types';
 import type { Establishment } from '#libs/establishment/types';
+import type { MemberWithBooking } from '#libs/member/types';
+import type { SpotInformation } from '#libs/spot-scheduling/types';
 
 // -------------------------FILTER CONFIGURATION-------------------------
 
@@ -121,4 +124,27 @@ export const isLocalStorageEstablishementListValid = (): boolean => {
       );
     }, true)
   );
+};
+
+/**
+
+Retrieves the display text for a spot if it exists in the member object.
+@param {MemberWithBooking} member - The member object.
+@param {TFunction} t - The translation function.
+@returns {string} The spot display text if it exists, otherwise translated text for a spot unassigned.
+*/
+export const getSpotDisplayText = (
+  member: MemberWithBooking,
+  t: TFunction,
+): string => {
+  const spotId = member?.booking?.spot_id;
+  const spotInformation = member?.booking?.spot_information;
+
+  if (!spotId || !spotInformation) {
+    return t('confirmPage.spotUnassigned');
+  }
+
+  return `${(spotInformation as SpotInformation).name || 'Spot'} ${
+    (spotInformation as SpotInformation).prefix || ''
+  }${spotId}`;
 };

@@ -1,3 +1,4 @@
+import { BookingREST } from '#libs/booking/types';
 import type { ErrorAndLoading, ModelReducerI } from '#libs/types';
 
 export type User = {
@@ -116,6 +117,10 @@ export type Member<Tag = number, CA = number> = {
   has_bought_pack?: boolean;
   official_document_id: string;
   referral_uuid?: string;
+};
+
+export type MemberWithBooking = Member & {
+  booking: BookingREST;
 };
 
 export type MemberState = ErrorAndLoading &

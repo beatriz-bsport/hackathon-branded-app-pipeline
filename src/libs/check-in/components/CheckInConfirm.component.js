@@ -7,14 +7,13 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import { anonymizeName, anonymizeEmail } from '#libs/member/utils';
-import type { Member } from '../../member/types';
-
+import type { MemberWithBooking } from '../../member/types';
 import ConsumerPackRowItem from '../../consumer-payment-pack/components/ConsumerPackRowItem.component';
 
 type Props = {
   t: TFunction,
   classes: Object,
-  member: Member,
+  member: MemberWithBooking,
   booking: any,
   offer: any,
   goBack: () => void,
@@ -68,7 +67,7 @@ class CheckInConfirm extends Component<Props> {
   };
 
   renderRightPanel = () => {
-    const { classes, t, offer } = this.props;
+    const { classes, t, offer, member } = this.props;
 
     return (
       <React.Fragment>
@@ -92,6 +91,22 @@ class CheckInConfirm extends Component<Props> {
           <Typography align="center" variant="h6">
             {offer?.etablissement?.title ?? '-'}
           </Typography>
+          {!!offer?.room_blueprint && (
+            <>
+              <Typography align="center" color="textSecondary">
+                {t('confirmPage.spotInfo', {
+                  spotName: member?.booking?.spot_information?.name || 'Spot',
+                })}
+              </Typography>
+              <Typography align="center" variant="h6">
+                {member?.booking?.spot_id
+                  ? `${member.booking.spot_information?.prefix || ''}${
+                      member.booking.spot_id || ''
+                    }`
+                  : t('confirmPage.spotUnassigned')}
+              </Typography>
+            </>
+          )}
         </div>
       </React.Fragment>
     );

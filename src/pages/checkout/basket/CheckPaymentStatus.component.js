@@ -54,7 +54,6 @@ const styles = (theme) => ({
     height: '100%',
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
     marginTop: '20vh',
     '&>*': {
       marginBottom: theme.spacing(2),

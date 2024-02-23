@@ -159,7 +159,6 @@ type Props = {
 
   addShopItemToBasket: (shopitemId: number) => void,
   fetchProfile: () => void,
-  goToUserSpace: () => void,
   auth: any,
 
   onSuccess: () => void,
@@ -312,7 +311,8 @@ export class BasketPage extends React.Component<Props> {
     if (
       this.props.queryParams &&
       this.props.queryParams.check_payment_intent &&
-      this.props.queryParams.redirect_status === 'succeeded'
+      (this.props.queryParams.redirect_status === 'succeeded' ||
+        this.props.queryParams.redirect_status === 'pending')
     ) {
       return;
     }
@@ -493,11 +493,7 @@ export class BasketPage extends React.Component<Props> {
               this.props.setQueryParams('check_payment_intent', 'false');
               this.props.snackbarError('payment:failed');
             }}
-            onSuccess={() => {
-              if (this.props.companyId) {
-                this.props.goToUserSpace(this.props.companyId);
-              }
-            }}
+            onSuccess={this.props.onSuccess}
             paymentIntent={this.props.queryParams.payment_intent}
           />
         );

@@ -94,11 +94,13 @@ export type RolePermission = {
       notifications: boolean;
       tags: boolean;
       strategies: boolean;
+      cadence: boolean;
     };
     digitalOffer: {
       videos: boolean;
       playlists: boolean;
     };
+    inbox: boolean;
     member: boolean;
     reporting: boolean;
     settings: {
@@ -124,6 +126,7 @@ export type RolePermission = {
       subscription: boolean;
       mobilePersonalization: boolean;
       quicksale: boolean;
+      referral: boolean;
     };
     tutorial: boolean;
   };

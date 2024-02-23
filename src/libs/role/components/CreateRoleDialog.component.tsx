@@ -336,6 +336,7 @@ export class CreateRoleDialog extends React.Component<Props, State> {
         condition={!this.props.isFranchisor}
         wrapper={(children) => (
           <GenericResponsiveDialog
+            maxWidth="sm"
             onClose={this.props.onClose}
             open={this.props.open}
           >

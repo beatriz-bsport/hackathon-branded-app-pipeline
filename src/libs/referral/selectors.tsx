@@ -10,6 +10,9 @@ export const getReferralProgramsById = (state: RootState) =>
 export const getReferralProgramsLoading = (state: RootState) =>
   _getState(state).referralProgram.loading;
 
+export const getReferralProgramsError = (state: RootState) =>
+  _getState(state).referralProgram.error;
+
 export const getTheReferralProgram = (state: RootState) =>
   Object.values(getReferralProgramsById(state))[0] ?? null;
 
@@ -34,6 +37,9 @@ export const getReferralMemberStatusThroughMembership = createSelector(
 
 export const getReferralMemberStatusLoading = (state: RootState) =>
   _getState(state).referralMemberStatus.loading;
+
+export const getReferralMemberStatusError = (state: RootState) =>
+  _getState(state).referralMemberStatus.error;
 
 export const getReferralLinkStatusByReferringMemberId = (state: RootState) =>
   _getState(state).referralLinkStatus.byId;

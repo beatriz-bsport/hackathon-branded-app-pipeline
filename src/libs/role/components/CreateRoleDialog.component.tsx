@@ -4,7 +4,6 @@ import { compose } from 'recompose';
 import cloneDeep from 'lodash/cloneDeep';
 
 import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import { ButtonBase, Collapse, Divider, Typography } from '@material-ui/core';
@@ -21,6 +20,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import { WithTranslation, withTranslation } from 'react-i18next';
 import classNames from 'classnames';
+import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import ConditionalWrapper from '#components/ConditionnalWrapper.component';
 import { Actions } from '#components/forms';
 import { DEFAULT_OBJECT_LEVEL_PERMISSIONS } from '#libs/role/constants';
@@ -335,9 +335,12 @@ export class CreateRoleDialog extends React.Component<Props, State> {
       <ConditionalWrapper
         condition={!this.props.isFranchisor}
         wrapper={(children) => (
-          <Dialog onClose={this.props.onClose} open={this.props.open}>
+          <GenericResponsiveDialog
+            onClose={this.props.onClose}
+            open={this.props.open}
+          >
             {children}
-          </Dialog>
+          </GenericResponsiveDialog>
         )}
       >
         <form id="role-creation-form">
@@ -546,6 +549,7 @@ export class CreateRoleDialog extends React.Component<Props, State> {
                 : t('forms.user.create.cancel')}
             </Button>
             <Button
+              className={classes.marginRight}
               color="primary"
               disabled={disabled && !this.props.isFranchisor}
               onClick={
@@ -616,6 +620,9 @@ const styles = (theme: Theme) =>
     },
     marginLeft: {
       marginLeft: theme.spacing(1),
+    },
+    marginRight: {
+      marginRight: theme.spacing(3),
     },
     advancedOptionsHeader: {
       display: 'flex',

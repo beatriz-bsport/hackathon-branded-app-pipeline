@@ -15,6 +15,7 @@ export type Props = {
   onBlur?: () => void;
   isDisabled?: boolean;
   isRequired?: boolean;
+  isForcedDatePicker?: boolean;
 };
 
 type ButtonProps = {
@@ -42,6 +43,7 @@ const DateField: React.FC<Props> = ({
   onBlur,
   isDisabled,
   isRequired,
+  isForcedDatePicker,
 }) => {
   const { t } = useTranslation('marketing');
 
@@ -82,12 +84,30 @@ const DateField: React.FC<Props> = ({
 
   const handleChange = React.useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
-      const newValue = event.target.value;
-      setSelectedDate(newValue);
-      setValue(newValue);
+      if (isForcedDatePicker && !isDatePickerOpen) {
+        handleOpenDatePicker();
+      } else {
+        const newValue = event.target.value;
+        setSelectedDate(newValue);
+        setValue(newValue);
+      }
     },
-    [setValue],
+    [setValue, handleOpenDatePicker, isForcedDatePicker, isDatePickerOpen],
   );
+
+  const handleOnFocus = () => {
+    if (isForcedDatePicker && !isDatePickerOpen) {
+      handleOpenDatePicker();
+    }
+  };
+
+  const handleBlur = () => {
+    if (isForcedDatePicker && !isDatePickerOpen) {
+      handleOpenDatePicker();
+    } else {
+      onBlur?.();
+    }
+  };
 
   return (
     <>
@@ -103,8 +123,9 @@ const DateField: React.FC<Props> = ({
           isRequired={isRequired}
           label={label}
           name={name}
-          onBlur={onBlur}
+          onBlur={handleBlur}
           onChange={handleChange}
+          onFocus={handleOnFocus}
           rightIcon={
             <DatePickerButton
               onClick={handleOpenDatePicker}

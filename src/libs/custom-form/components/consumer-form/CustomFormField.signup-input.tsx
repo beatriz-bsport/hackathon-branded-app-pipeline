@@ -400,6 +400,7 @@ export const CustomFormConsumerInput = (props: Props) => {
       if (isCssVariantActivated) {
         return (
           <FabriqueDateField
+            isForcedDatePicker
             id={uniqueCustomFormFieldIdentifier}
             isDisabled={props.asManager || !props.field.editable}
             isRequired={props.field.mandatory}

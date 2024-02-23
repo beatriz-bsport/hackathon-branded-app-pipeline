@@ -10115,7 +10115,9 @@
       "signIn": "Checked in",
       "expires": "Expires",
       "headOnIn": "Head on in!",
-      "visitsLeft": "Remaining visits"
+      "visitsLeft": "Remaining visits",
+      "spotInfo": "Your {{spotName}} is:",
+      "spotUnassigned": "Spot unassigned"
     }
   },
   "settings": {

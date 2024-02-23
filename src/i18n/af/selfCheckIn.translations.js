@@ -52,5 +52,7 @@ exports.default = {
     expires: 'Expires',
     headOnIn: 'Head on in!',
     visitsLeft: 'Remaining visits',
+    spotInfo: 'Your {{spotName}} is:',
+    spotUnassigned: 'Spot unassigned',
   },
 };

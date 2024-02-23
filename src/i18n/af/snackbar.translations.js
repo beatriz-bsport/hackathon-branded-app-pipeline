@@ -7,6 +7,10 @@ const {
   TAG_GROUP_NAME_ALREADY_USED,
 } = require('../../libs/tag/errors.constants.ts');
 
+const {
+  EXCEPTION_STAFF_ROLE_CANNOT_BE_DELETED,
+} = require('../../libs/role/errors.constants.ts');
+
 const getTranslations = async () => {
   const {
     OFFER_WAITING_LIST_STATUS_FULL,
@@ -320,6 +324,15 @@ const getTranslations = async () => {
           'You cannot exceed the maximum capacity of the waiting list.',
         overbookingNotAllowed:
           'You cannot exceed the maximum number of reservations.',
+      },
+      delete: {
+        error: {
+          genericError: 'An error occured : This role was not deleted',
+          customErrors: {
+            [EXCEPTION_STAFF_ROLE_CANNOT_BE_DELETED]:
+              'Impossible to delete : This role is assigned to some of your staffs',
+          },
+        },
       },
     },
     notificationRule: {

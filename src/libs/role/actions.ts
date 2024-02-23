@@ -47,6 +47,7 @@ import {
   DISPLAY_ACCESS_DENIED,
   ACTION_MODE_REDIRECT,
 } from '#libs/background-dialog/types';
+import { isErrorWithCustomCode } from '#libs/utils';
 
 export const userRoleList = {
   error: createAction('ROLE/USER/LIST/ERROR'),
@@ -269,8 +270,18 @@ export function deleteCompanyRole(role: Role) {
       await deleteCompanyRoleAPI(role.id);
       dispatch(roleUpdate.delete(role.id));
     } catch (err) {
-      console.error(err);
-      dispatch(roleUpdate.error(err));
+      if (isErrorWithCustomCode(err) && err.response.data?.error_code) {
+        dispatch(
+          snackbarError(
+            `role.delete.error.customErrors.${err.response.data.error_code}`,
+          ),
+        );
+      } else {
+        console.error(err);
+        dispatch(userRoleUpdate.error(err));
+        dispatch(snackbarError('role.delete.error.genericError'));
+        dispatch(roleUpdate.error(err));
+      }
     }
     dispatch(roleUpdate.isLoading(false));
   };

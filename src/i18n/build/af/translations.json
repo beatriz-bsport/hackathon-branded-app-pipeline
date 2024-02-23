@@ -11005,6 +11005,12 @@
         "overrideEstablishmentNotAllowed": "You cannot force an appointment in this establishment.",
         "overbookingNotAllowedInWaitingList": "You cannot exceed the maximum capacity of the waiting list.",
         "overbookingNotAllowed": "You cannot exceed the maximum number of reservations."
+      },
+      "delete": {
+        "error": {
+          "genericError": "An error occured : This role was not deleted",
+          "customErrors": { "4700": "Impossible to delete : This role is assigned to some of your staffs" }
+        }
       }
     },
     "notificationRule": {

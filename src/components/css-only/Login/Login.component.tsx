@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import HelpIcon from '@material-ui/icons/Help';
 import { withTranslation, WithTranslation } from 'react-i18next';
 
+import { DIALOG_MODE_DEACTIVATED } from '@bsport/common/lib/master-data/widget-dialog-mode';
 import { CompanyTheme } from '#libs/theme/types';
 import Button, { ButtonVariant } from '#Fabrique/Button';
 import LoginForm from '#components/css-only/LoginForm';
@@ -14,7 +15,6 @@ import Config from '../../../config';
 import { Franchise } from '#libs/franchise/types';
 import { buildUrlParams } from '../../../http';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
-
 import './LoginBackground.css';
 import './styles.css';
 
@@ -83,6 +83,8 @@ export class ConsumerLogin extends Component<Props, State> {
     event.preventDefault();
     this.props.doEmailLogin({ email, password });
   };
+
+  closeWidgetModalOnGoBack = () => WidgetUtils.closeModal();
 
   render() {
     const { simplifyUI, loading, t, hideRegister, errorFields, error } =
@@ -211,6 +213,18 @@ export class ConsumerLogin extends Component<Props, State> {
             )}
           </>
         )}
+
+        {WidgetUtils.isWidget() &&
+          WidgetUtils.getDialogMode() === DIALOG_MODE_DEACTIVATED && (
+            <Button
+              classes={{ root: 'bs-login-container--go_back_button' }}
+              isDisabled={loading}
+              onClick={this.closeWidgetModalOnGoBack}
+              variant={ButtonVariant.TEXT}
+            >
+              {t('actions.signup.goBack')}
+            </Button>
+          )}
       </div>
     );
   }

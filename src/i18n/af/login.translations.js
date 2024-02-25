@@ -18,7 +18,11 @@ exports.default = {
   },
   actions: {
     forgottenPassword: 'Forgot your password?',
-    signup: { register: 'Sign up', noAccount: 'Create a new account' },
+    signup: {
+      register: 'Sign up',
+      noAccount: 'Create a new account',
+      goBack: 'Go back',
+    },
     signin: 'Log in',
   },
   or: ' or ',

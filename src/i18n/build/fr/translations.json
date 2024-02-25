@@ -3927,7 +3927,8 @@
             "signin": "Me connecter",
             "signup": {
                 "noAccount": "Pas encore de compte ?",
-                "register": "M'inscrire"
+                "register": "M'inscrire",
+                "goBack": "Retour"
             },
             "forgottenPassword": "Mot de passe oublié ?"
         },

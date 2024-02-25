@@ -85,6 +85,14 @@ export class ConsumerLoginPage extends Component<Props> {
     if (!prevProps.theme && this.props.theme?.id) Analytics.signupShow();
   }
 
+  onRequestSignup = () => {
+    if (this.props.franchisorId) {
+      return this.props.setQueryParams('step')(STEPS.franchiseeSelection);
+    }
+
+    return this.props.replace(`/login/signup${window.location.search}`);
+  };
+
   render() {
     const {
       authenticated,
@@ -99,6 +107,7 @@ export class ConsumerLoginPage extends Component<Props> {
       paymentPackTemplateCompanies,
       simplifyUI,
     } = this.props;
+
     if (authenticated) {
       if (goNext) {
         return <Redirect to={goNext} />;
@@ -151,17 +160,7 @@ export class ConsumerLoginPage extends Component<Props> {
               isPremium={this.props.is_premium}
               loading={this.props.loginProcessing}
               originalLoginNextLink={goNext}
-              requestSignUp={
-                franchisorId
-                  ? () =>
-                      this.props.setQueryParams('step')(
-                        STEPS.franchiseeSelection,
-                      )
-                  : () =>
-                      this.props.replace(
-                        `/login/signup${window.location.search}`,
-                      )
-              }
+              requestSignUp={this.onRequestSignup}
               simplifyUI={simplifyUI}
               t={t}
               theme={theme}

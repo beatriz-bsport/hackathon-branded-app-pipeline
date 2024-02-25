@@ -226,14 +226,24 @@ const properMapDispatchToProps = {
 
 const mapWithHandlers = {
   goBackToLogin:
-    ({ previous, pushRouter }: OwnProps & ConnectedProps) =>
+    ({ previous, pushRouter, location }: OwnProps & ConnectedProps) =>
     (membership: string) => {
+      const search = (location || {}).search || '';
+
+      const { next } = parseQueryString(search);
+      const defaultNext = '';
+      const nextOrDefault = next || defaultNext;
+
       if (previous) {
-        pushRouter(previous);
+        pushRouter(`${previous}?next=${encodeURIComponent(nextOrDefault)}`);
       } else if (membership) {
-        pushRouter(`/login?membership=${membership}`);
+        pushRouter(
+          `/login?membership=${membership}&next=${encodeURIComponent(
+            nextOrDefault,
+          )}`,
+        );
       } else {
-        pushRouter(`/login`);
+        pushRouter(`/login?next=${encodeURIComponent(nextOrDefault)}`);
       }
     },
 };

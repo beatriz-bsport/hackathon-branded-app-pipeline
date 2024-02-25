@@ -1,4 +1,5 @@
 // @ts-nocheck
+// eslint-disable-next-line max-classes-per-file
 import React, { Component } from 'react';
 import memoize from 'lodash/memoize';
 import Immutable from 'seamless-immutable';
@@ -154,6 +155,50 @@ type State = {
   offerSearchResult: { query: string; offerList: Offer[] | null };
 };
 
+function withContainerWidthListener<WrappedComponentProps extends object>(): (
+  component: React.ComponentType<WrappedComponentProps>,
+) => React.ComponentType<WrappedComponentProps> {
+  return (WrappedComponent: React.ComponentType<WrappedComponentProps>) => {
+    class WithContainerWidthListernr extends Component<WrappedComponentProps> {
+      constructor(props: FinalProps) {
+        super(props);
+        // This reference is used to evaluate the size of the calendar,
+        // and to determine if it should be displayed in card mode or not.
+        // That way, we can enable or disable the fetching of the offers when updating the start date.
+        this.calendarRefContainer = React.createRef();
+      }
+
+      state = {
+        containerWidth: 0,
+      };
+
+      componentDidMount(): void {
+        this.intervalId = setInterval(() => {
+          this.setState(() => ({
+            containerWidth: this.calendarRefContainer?.current?.clientWidth,
+          }));
+        }, 500);
+      }
+
+      componentWillUnmount() {
+        clearInterval(this.intervalId);
+      }
+
+      render() {
+        return (
+          <WrappedComponent
+            {...this.props}
+            calendarRefContainer={this.calendarRefContainer}
+            containerWidth={this.state.containerWidth}
+          />
+        );
+      }
+    }
+
+    return WithContainerWidthListernr;
+  };
+}
+
 export class MarketplaceCalendar extends Component<FinalProps, State> {
   state: State = {
     offerId: null,
@@ -178,14 +223,13 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
    */
   getIsCompact = () =>
     (this.props.compactMode !== null && this.props.compactMode === true) ||
-    (!this.props.compactMode &&
-      (this.calendarRefContainer?.current?.clientWidth ?? 1200) < 1250);
+    (!this.props.compactMode && (this.props.containerWidth ?? 1200) < 1250);
 
   // Large calendar
   getIsLarge = () =>
     (this.props.compactMode != null && this.props.compactMode === false) ||
     (this.props.compactMode == null &&
-      !((this.calendarRefContainer?.current?.clientWidth ?? 1240) < 1250));
+      !((this.props.containerWidth ?? 1240) < 1250));
 
   // Card mode display
   getIsCardModeDisplay = () =>
@@ -201,10 +245,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
         this.props.config?.cardModeDisplayMinWidth,
       );
 
-      return (
-        (this.calendarRefContainer?.current?.clientWidth ?? 1240) >
-        cardModeDisplayMinWidth
-      );
+      return (this.props.containerWidth ?? 1240) > cardModeDisplayMinWidth;
     } catch (error) {
       console.error(error);
       return false;
@@ -583,7 +624,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           onClickOffer={this.openOfferDialog}
           onSearch={this.handleSearch}
           onSelectDate={this.handleDateChange}
-          refContainer={this.calendarRefContainer}
+          refContainer={this.props.calendarRefContainer}
           searchedOffers={this.state.offerSearchResult?.offerList}
           selectedDate={
             this.props.otherParams.date || moment().format('YYYY-MM-DD')
@@ -737,6 +778,7 @@ const mapWithHandlers = {
 
 export const CalendarDataContainer = compose(
   marketplaceCssHoc(),
+  withContainerWidthListener(),
   withTranslation([
     'metaActivity',
     'marketplace',

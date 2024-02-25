@@ -15,6 +15,7 @@
   background-color: var(--color-background);
   container: bsContractCheckoutPage / inline-size;
   padding-bottom: var(--spacing-6);
+  min-height: calc(100vh - var(--spacing-4));
 }
 
 .bs-contract-checkout--fixed-height-layout {

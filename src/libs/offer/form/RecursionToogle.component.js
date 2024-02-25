@@ -11,7 +11,8 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import withStyles from '@material-ui/core/styles/withStyles';
-import ExpandIcon from '@material-ui/icons/ExpandMore';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import { withTranslation, TFunction } from 'react-i18next';
 import moment from 'moment-timezone';
 
@@ -83,7 +84,11 @@ export class RecursionToogle extends Component<Props, State> {
               <CircularProgress />
             ) : (
               <IconButton onClick={this.expandSimilarOfferList}>
-                <ExpandIcon />
+                {!isSimilarOfferListExpanded ? (
+                  <ExpandMoreIcon />
+                ) : (
+                  <ExpandLessIcon />
+                )}
               </IconButton>
             )}
           </Grid>

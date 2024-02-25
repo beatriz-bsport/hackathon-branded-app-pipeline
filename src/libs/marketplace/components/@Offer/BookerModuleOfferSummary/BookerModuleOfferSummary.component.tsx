@@ -272,6 +272,7 @@ const BookerModuleOfferSummary: React.FC<Props> = ({
               goToCheckout={goToCheckout}
               hideCoach={companyTheme?.hideCoach}
               showEstablishmentAddress={showEstablishmentAddress}
+              spotId={spotId}
               spotName={spotName}
             />
           </GridItem>

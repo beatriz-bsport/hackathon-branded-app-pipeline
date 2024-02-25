@@ -34,6 +34,7 @@ export type Props = {
   expirationDatetime?: string;
   goToCheckout?: () => void;
   fromSpotSelector?: boolean;
+  spotId?: string;
 };
 
 const ActivitySummary: React.FC<Props> = ({
@@ -48,6 +49,7 @@ const ActivitySummary: React.FC<Props> = ({
   expirationDatetime,
   goToCheckout,
   fromSpotSelector,
+  spotId,
 }) => {
   const { t } = useTranslation('spotScheduling');
 
@@ -129,7 +131,12 @@ const ActivitySummary: React.FC<Props> = ({
         >
           <div className="bs-booking-item-details-spot">
             <AdjustIcon className="bs-booking-item-details-spot__icon" />
-            <p className="bs-booking-item-details-spot__text">{spotName}</p>
+            <p
+              className="bs-booking-item-details-spot__text"
+              {...(spotId ? { 'data-spotId': spotId } : {})}
+            >
+              {spotName}
+            </p>
           </div>
         </GridItem>
         <GridItem

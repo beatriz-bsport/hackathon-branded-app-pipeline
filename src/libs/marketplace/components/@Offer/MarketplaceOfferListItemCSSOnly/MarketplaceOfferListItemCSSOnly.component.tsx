@@ -4,7 +4,6 @@ import InfoIcon from '@material-ui/icons/Info';
 import GroupIcon from '@material-ui/icons/Group';
 import classNames from 'classnames';
 
-import { useMediaQuery, useTheme } from '@material-ui/core';
 import Skeleton from '@material-ui/lab/Skeleton';
 import RoomIcon from '@material-ui/icons/Room';
 
@@ -74,6 +73,7 @@ export type Props = {
   withoutBookButton?: boolean;
   position: ('first' | 'last')[];
   isOfferPassed: boolean;
+  isCardModeDisplay?: boolean;
 };
 
 type OfferDateAndHoursProps = {
@@ -149,10 +149,10 @@ const MarketplaceOfferListItem: React.FC<Props> = ({
   position = [],
   withoutBookButton,
   isOfferPassed,
+  isCardModeDisplay,
 }) => {
   const { t } = useTranslation(['datetime', 'translation']);
-  const muiTheme = useTheme();
-  const isMobile = useMediaQuery(muiTheme.breakpoints.down('sm'));
+  const isMobile = !isCardModeDisplay;
 
   const isVariantTimeHighlighted = variant === 'time';
   const isVariantCoachHighlighted = variant === 'coach';

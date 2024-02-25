@@ -155,11 +155,11 @@ type State = {
   offerSearchResult: { query: string; offerList: Offer[] | null };
 };
 
-function withContainerWidthListener<WrappedComponentProps extends object>(): (
-  component: React.ComponentType<WrappedComponentProps>,
-) => React.ComponentType<WrappedComponentProps> {
+function withContainerWidthListener<
+  WrappedComponentProps extends object,
+>(): () => React.ComponentType<WrappedComponentProps> {
   return (WrappedComponent: React.ComponentType<WrappedComponentProps>) => {
-    class WithContainerWidthListernr extends Component<WrappedComponentProps> {
+    class WithContainerWidthListener extends Component<WrappedComponentProps> {
       constructor(props: FinalProps) {
         super(props);
         // This reference is used to evaluate the size of the calendar,
@@ -195,7 +195,7 @@ function withContainerWidthListener<WrappedComponentProps extends object>(): (
       }
     }
 
-    return WithContainerWidthListernr;
+    return WithContainerWidthListener;
   };
 }
 

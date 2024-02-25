@@ -360,6 +360,7 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
                 group={groupData}
                 hideCoach={this.props.hideCoach}
                 isBookingDisabled={!offer.available || isOfferInThePast(offer)}
+                isCardModeDisplay={this.props.isCardModeDisplay}
                 isOfferPassed={
                   isOfferInThePast(offer) ||
                   isOfferInGroupLockedByPreviousOfferInPast(offer, groupData)

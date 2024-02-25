@@ -479,10 +479,9 @@ export class MarketplaceWeekTimetable extends PureComponent<Props, State> {
                   </div>
                   <div
                     className={classNames('bs-week__header__date__monthDay', {
-                      'bs-week__header__date__monthDay--is-today':
-                        isToday && !isSelectedDate,
+                      'bs-week__header__date__monthDay--is-today': isToday,
                       'bs-week__header__date__monthDay--is-selected':
-                        isSelectedDate,
+                        isSelectedDate || (isToday && isCardModeDisplay),
                     })}
                   >
                     {`${currentDate.format('DD')}`}

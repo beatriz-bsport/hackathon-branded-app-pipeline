@@ -228,7 +228,19 @@ const Menu: React.FC<MenuProps> = ({
       isOnTopOfAnchorElement,
     ],
   );
-
+  /**
+   * @description This hook calculates the dimensions of the anchor element in order to properly position a menu using the PortalContainer on the DOM.
+   * To ensure the menu element matches the width of the element it was opened for, the hook uses the anchor element's dimensions provided by the menuRef.
+   *
+   * @returns {{height: number | undefined, width: number | undefined}} An object containing the height and width of the anchor element. Returns undefined if anchorEl is not provided.
+   */
+  const anchorElementDimensions = React.useMemo(
+    () =>
+      anchorEl
+        ? { height: anchorEl.clientHeight, width: anchorEl.clientWidth }
+        : { height: undefined, width: undefined },
+    [anchorEl],
+  );
   const setPositioningStyles = React.useCallback(() => {
     const element = menuRef.current;
 
@@ -309,6 +321,11 @@ const Menu: React.FC<MenuProps> = ({
             className,
           )}
           id={id}
+          style={{
+            ...(anchorElementDimensions?.width
+              ? { width: anchorElementDimensions?.width }
+              : {}),
+          }}
         >
           <div
             ref={contentRef}

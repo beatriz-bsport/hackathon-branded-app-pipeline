@@ -7,9 +7,9 @@ import ConsumerSubscriptionHeader from '#libs/consumer-space/components/reworked
 import ConsumerSubscriptionsTabs from '#libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionTabs';
 import ConsumerSubscriptionsListContainer from '#libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionsListContainer';
 import {
-  ConsumerSubscriptionTermsModal,
-  ConsumerSubscriptionPaymentModal,
-} from '#libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionModals';
+  ConsumerSubscriptionTermsPortal,
+  ConsumerSubscriptionPaymentPortal,
+} from '#libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionPortals';
 
 import type {
   SubscriptionREST,
@@ -226,21 +226,21 @@ const ConsumerSubscriptionPageReworked: React.FC<Props> = ({
         subscriptionsList={subscriptionsList}
       />
       {selectedSubscription && (
-        <ConsumerSubscriptionTermsModal
+        <ConsumerSubscriptionTermsPortal
           contractTermsLink={selectedSubscription.contract_terms_pdf_link}
+          displayBottomDrawer={isMobile}
           downloadContractTerms={downloadBillingPlanTerms}
-          isMobile={isMobile}
           isOpen={isTermsModalOpen}
           onClose={handleTermsModalClose}
           termsContent={selectedSubscription.contract_terms}
         />
       )}
-      <ConsumerSubscriptionPaymentModal
+      <ConsumerSubscriptionPaymentPortal
         detachPaymentMethod={detachPaymentMethod}
+        displayBottomDrawer={isMobile}
         enabledPaymentGroupMethodIdentifierIds={
           enabledPaymentGroupMethodIdentifierIds
         }
-        isMobile={isMobile}
         isOpen={isPaymentModalOpen}
         memberMail={memberMail}
         memberName={memberName}

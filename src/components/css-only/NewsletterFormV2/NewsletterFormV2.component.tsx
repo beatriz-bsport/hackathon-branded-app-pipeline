@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Form, Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
-
+import { BellRinging03 } from '#components/untitledui';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import TextField from '#Fabrique/TextFieldV2';
 import Button from '#Fabrique/ButtonV2';
@@ -69,6 +69,7 @@ const NewsletterFormV2: React.FC<Props> = ({
   showSubtitle,
   onSubmit,
 }) => {
+  const [isSuccessState, setIsSuccessState] = React.useState(false);
   const { t } = useTranslation('marketing');
 
   const handleSubmit = useCallback(
@@ -87,6 +88,10 @@ const NewsletterFormV2: React.FC<Props> = ({
               first_name: values.firstName,
               last_name: values.lastName,
             });
+            setIsSuccessState(true);
+            setTimeout(() => {
+              setIsSuccessState(false);
+            }, 2000);
           },
         },
       );
@@ -137,6 +142,7 @@ const NewsletterFormV2: React.FC<Props> = ({
                       }}
                       id="bs-newsletter-form-field-container-first-name"
                       inputId="bs-newsletter-form-field-first-name"
+                      isDisabled={isSuccessState}
                       label={t('marketing:newsletter.form.firstName')}
                       name="firstName"
                       onChange={formik.handleChange}
@@ -154,6 +160,7 @@ const NewsletterFormV2: React.FC<Props> = ({
                         }}
                         id="bs-newsletter-form-field-container-last-name"
                         inputId="bs-newsletter-form-field-last-name"
+                        isDisabled={isSuccessState}
                         label={t('marketing:newsletter.form.lastName')}
                         name="lastName"
                         onChange={formik.handleChange}
@@ -181,6 +188,7 @@ const NewsletterFormV2: React.FC<Props> = ({
                   }
                   id="bs-newsletter-form-field-container-email"
                   inputId="bs-newsletter-form-field-email"
+                  isDisabled={isSuccessState}
                   isError={!!formik.errors.email}
                   label={t('marketing:newsletter.formV2.email')}
                   name="email"
@@ -196,11 +204,25 @@ const NewsletterFormV2: React.FC<Props> = ({
                 isRippleEnabled
                 className="bs-newsletter-form__root__form__submit"
                 color="primary"
-                isDisabled={!!formik.errors.email || !formik.values.email}
+                isDisabled={
+                  !!formik.errors.email ||
+                  !formik.values.email ||
+                  isSuccessState
+                }
+                leftIcon={
+                  isSuccessState && (
+                    <BellRinging03
+                      className="bs-newsletter-form__icon_bell_success"
+                      stroke="currentColor"
+                    />
+                  )
+                }
                 type="submit"
                 variant="contained"
               >
-                {t('marketing:newsletter.formV2.validate')}
+                {isSuccessState
+                  ? ''
+                  : t('marketing:newsletter.formV2.validate')}
               </Button>
             </Form>
           </div>

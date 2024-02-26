@@ -117,7 +117,7 @@ type Props = {
   receiversNotEditable: boolean;
   resolvedGenericTags: ResolvedGenericTags;
   schedule?: (data: Omit<CommunicationScheduledCreate, 'smartlist'>) => void;
-  send?: (data: MemberMailData) => void;
+  send?: (data: Partial<MemberMailData>) => void;
   sendNow?: (id: number) => void;
   showEmailConsentWarning?: boolean;
   showSmsConsentWarning?: boolean;
@@ -769,10 +769,10 @@ export class CommunicationDrawer extends Component<Props, State> {
     }));
 
   updateCommunicationScheduledDate = (values: DatePickerSelectorValues) => {
-    this.setState(() => ({
+    this.setState({
       communicationScheduledDate: values.date,
       communicationScheduledTimePeriod: values.timePeriod,
-    }));
+    });
   };
 
   updateCommunicationScheduledTime = (value: Moment) => {

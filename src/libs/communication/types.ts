@@ -7,6 +7,11 @@ export type MemberMailData = {
   body: string;
   email_resend_count?: number;
   email_resend_delay?: number;
+  member_blacklist?: number[];
+  sms?: string;
+  email_template?: number;
+  notification_title?: string;
+  notification_content?: string;
 };
 
 export type MarketingNotificationMailStat = {

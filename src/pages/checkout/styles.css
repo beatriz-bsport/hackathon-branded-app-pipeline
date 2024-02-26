@@ -6,6 +6,7 @@
   overflow-y: auto;
   flex: 1;
   padding: var(--spacing-2);
+  container: bsContractPaymentPage / inline-size;
 }
 
 .bs-contract-checkout__container {
@@ -15,7 +16,7 @@
   background-color: var(--color-background);
   container: bsContractCheckoutPage / inline-size;
   padding-bottom: var(--spacing-6);
-  min-height: calc(100vh - var(--spacing-4));
+  min-height: calc(100vh - var(--spacing-6));
 }
 
 .bs-contract-checkout--fixed-height-layout {
@@ -136,6 +137,10 @@
     grid-template-columns: 1fr;
     padding: 0;
   }
+
+  .bs-contract-payment__form {
+    max-height: max-content;
+  }
 }
 
 @container bsContractCheckoutPage (width < 570px) {
@@ -145,6 +150,7 @@
 
   .bs-contract-payment-page__direct__link__container {
     margin-bottom: var(--spacing-10);
+    overflow-y: auto;
   }
 
   .bs-contract-payment-page {

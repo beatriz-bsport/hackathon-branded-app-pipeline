@@ -210,6 +210,7 @@ class BsportWidget extends Component<Props> {
       isBackofficePreview,
       parentElement,
       uniqueWidgetId,
+      usePostMessageIframeDimensions,
     } = this.props;
 
     if (
@@ -264,6 +265,7 @@ class BsportWidget extends Component<Props> {
               dialogMode={dialogMode}
               parentElement={parentElement}
               uniqueWidgetId={uniqueWidgetId}
+              usePostMessageIframeDimensions={usePostMessageIframeDimensions}
             />
             {!!this.props.theme &&
               !this.props.theme.is_premium &&
@@ -281,6 +283,7 @@ class BsportWidget extends Component<Props> {
               parentElement={this.props.parentElement}
               styles={styles || this.props.theme.widget_theme}
               customConfiguration={this.props.customConfiguration}
+              usePostMessageIframeDimensions={usePostMessageIframeDimensions}
             />
             <WidgetBridge
               companyId={companyId}

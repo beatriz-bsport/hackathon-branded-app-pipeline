@@ -7,6 +7,7 @@ import { CSSTransition } from 'react-transition-group';
 type SlidingContainerProps = {
   isOpen: boolean,
   containerFirstChild: HTMLElement,
+  usePostMessageIframeDimensions?: boolean,
 };
 export const SlidingContainer: React.FC<SlidingContainerProps> = ({
   isOpen,
@@ -100,12 +101,11 @@ export const WidgetPortalSlidingContainer: React.FC<
     children: React.ReactElement,
     parentElement: string,
   },
-> = ({ isOpen, children, parentElement }) => {
+> = ({ isOpen, children, parentElement, usePostMessageIframeDimensions }) => {
   React.useEffect(() => {
     window?.addEventListener('message', parentResizer);
 
-    return () =>
-      document.getElementById(parentElement)?.style?.setProperty('height', '');
+    return () => window?.removeEventListener('message', parentResizer);
   }, []);
 
   const parentResizer = (event: MessageEvent) => {
@@ -113,9 +113,23 @@ export const WidgetPortalSlidingContainer: React.FC<
       event?.data?.type === 'bsport-widget-resize' &&
       event?.data?.data?.parentElementId === parentElement
     ) {
-      document
-        .getElementById(parentElement)
-        ?.style?.setProperty('height', `${event?.data?.data.scrollHeight}px`);
+      const parentElementDiv = document.getElementById(parentElement);
+
+      const elementsWithClassName = parentElementDiv?.getElementsByClassName(
+        'sliding-container',
+      );
+
+      // Check if there's at least one element with the specified class
+      if (elementsWithClassName.length > 0) {
+        // Access the first element with the class name "sliding-container"
+        const firstChildWithClassName = elementsWithClassName[0];
+        if (usePostMessageIframeDimensions) {
+          firstChildWithClassName?.style?.setProperty(
+            'height',
+            `${event?.data?.data.scrollHeight}px`,
+          );
+        }
+      }
     }
   };
   return (
@@ -128,4 +142,5 @@ export const WidgetPortalSlidingContainer: React.FC<
     </PortalSlidingContainer>
   );
 };
+
 export default React.memo(WidgetPortalSlidingContainer);

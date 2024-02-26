@@ -26,6 +26,7 @@ interface OwnProps {
   parentElement: string;
   styles: string;
   customConfiguration: string;
+  usePostMessageIframeDimensions?: boolean;
 }
 
 type Props = OwnProps & MaterialStyleType<ReturnType<typeof styles>>;
@@ -172,10 +173,16 @@ class UserInteractionPortal extends React.PureComponent<Props> {
           <WidgetPortalSlidingContainer
             isOpen={!!this.props.url}
             parentElement={this.props.parentElement}
+            usePostMessageIframeDimensions={
+              !!this.props.usePostMessageIframeDimensions
+            }
           >
             <iframe
               title="bsport-inner-modal"
               className={classes.iframe}
+              {...(this.props.usePostMessageIframeDimensions
+                ? { scrolling: 'no' }
+                : {})}
               src={this.props.url}
             />
           </WidgetPortalSlidingContainer>

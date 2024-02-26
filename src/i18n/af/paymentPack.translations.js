@@ -363,6 +363,7 @@ const getTranslations = async () => {
           },
           header: 'Advanced',
           appliesForPayroll: {
+            header: 'Teacher payroll',
             helperText:
               "By default, sessions are billed to the studio and included in the teacher's payroll and remuneration by the studio. By deactivating this setting, sessions associated with this pass will no longer appear in the teacher's payroll.",
             label:

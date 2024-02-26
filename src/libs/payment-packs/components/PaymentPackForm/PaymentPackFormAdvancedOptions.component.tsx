@@ -188,20 +188,27 @@ export const PaymentPackFormAdvancedOptions = (props: Props) => {
                 'form.paymentPack.advancedOptions.tag.tagsOnAcquisitionHelper',
               )}
             </Typography>
-            <TagSelector
-              closeMenuOnSelect
-              inScrollBar
-              isClearable
-              allTagsWithTagGroup={tagList || []}
-              onChange={onChangeTagsOnAcquisition}
-              onDeleteTag={onDeleteTagsOnAcquisition}
-              placeholder={t('form.paymentPack.advancedOptions.tag.selectTags')}
-              selectedTags={values.tags_on_consumer_item_creation}
-            />
-            {hasTagsSameGroup && <TagGroupDuplicatedAlert />}
+            <div className={classes.tagSelector}>
+              <TagSelector
+                closeMenuOnSelect
+                inScrollBar
+                isClearable
+                allTagsWithTagGroup={tagList || []}
+                onChange={onChangeTagsOnAcquisition}
+                onDeleteTag={onDeleteTagsOnAcquisition}
+                placeholder={t(
+                  'form.paymentPack.advancedOptions.tag.selectTags',
+                )}
+                selectedTags={values.tags_on_consumer_item_creation}
+              />
+              {hasTagsSameGroup && <TagGroupDuplicatedAlert />}
+            </div>
           </div>
 
           <div className={classes.section}>
+            <Typography className={classes.title}>
+              {t('form.paymentPack.advancedOptions.appliesForPayroll.header')}
+            </Typography>
             <SwitchField
               label={t(
                 'form.paymentPack.advancedOptions.appliesForPayroll.label',

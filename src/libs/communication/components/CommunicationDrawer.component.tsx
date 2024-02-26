@@ -1,4 +1,3 @@
-// @flow
 import React, { Component } from 'react';
 import moment, { Moment } from 'moment-timezone';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -76,81 +75,81 @@ const COMPANY_ALLOWED_TO_SEND_SMARTLIST_COMMUNICATION_WITH_DB_ERROR = [
   1155, 1142, 1141, 1153, 1399, 1140, 1139, 1138, 1136, 1134, 1154, 1135,
 ];
 type Props = {
-  receiversNotEditable: boolean,
-  onCancel: () => void,
-  send?: (data: MemberMailData) => void,
-  schedule?: (data: Omit<CommunicationScheduledCreate, 'smartlist'>) => void,
-  sendNow?: (id: number) => void,
+  receiversNotEditable: boolean;
+  onCancel: () => void;
+  send?: (data: MemberMailData) => void;
+  schedule?: (data: Omit<CommunicationScheduledCreate, 'smartlist'>) => void;
+  sendNow?: (id: number) => void;
   editScheduledMessage?: (
     data: CommunicationScheduled,
     options?: OptionCallback,
-  ) => void,
-  communicationScheduledToEdit?: CommunicationScheduled,
-  classes: Object,
-  t: TFunction,
-  getEmails: () => void,
-  getEmailDetail: (id: number) => void,
-  emailListLoading: boolean,
-  emails: Array<any>,
-  emailDetailLoading: boolean,
-  emailDetails: Array<any>,
-  open: boolean,
-  mailDefaultTitle: ?string,
-  mailDefaultTitle: string,
-  hideTemplateMail: boolean,
-  hideWrittenMail: boolean,
-  actionType: number,
-  showEmailConsentWarning?: boolean,
-  showSmsConsentWarning?: boolean,
+  ) => void;
+  communicationScheduledToEdit?: CommunicationScheduled;
+  classes: Object;
+  t: TFunction;
+  getEmails: () => void;
+  getEmailDetail: (id: number) => void;
+  emailListLoading: boolean;
+  emails: Array<any>;
+  emailDetailLoading: boolean;
+  emailDetails: Array<any>;
+  open: boolean;
+  mailDefaultTitle: ?string;
+  mailDefaultTitle: string;
+  hideTemplateMail: boolean;
+  hideWrittenMail: boolean;
+  actionType: number;
+  showEmailConsentWarning?: boolean;
+  showSmsConsentWarning?: boolean;
 
   // members list
-  hideMemberList?: boolean,
-  membersToDisplay: Array<Member>,
-  fetchPreviousPage?: (page: number, page_size: number) => void,
-  fetchNextPage?: (page: number, page_size: number) => void,
-  initMembers?: () => void,
-  page: number,
-  page_size: number,
-  membersByPageLoading: boolean,
-  membersAllLoading: boolean,
+  hideMemberList?: boolean;
+  membersToDisplay: Array<Member>;
+  fetchPreviousPage?: (page: number, page_size: number) => void;
+  fetchNextPage?: (page: number, page_size: number) => void;
+  initMembers?: () => void;
+  page: number;
+  page_size: number;
+  membersByPageLoading: boolean;
+  membersAllLoading: boolean;
 
-  countWithPhone: number | null,
-  countWithEmail: number | null,
-  countTotal: number | null,
-  resolvedGenericTags: ResolvedGenericTags,
-  hideAutoResend?: boolean,
-  memberToDisplayError?: Error | null,
-  companyId?: number,
-  timezone: string,
+  countWithPhone: number | null;
+  countWithEmail: number | null;
+  countTotal: number | null;
+  resolvedGenericTags: ResolvedGenericTags;
+  hideAutoResend?: boolean;
+  memberToDisplayError?: Error | null;
+  companyId?: number;
+  timezone: string;
   hoursToSend?: {
-    min: number,
-    max: number,
-  },
+    min: number;
+    max: number;
+  };
 };
 
 type State = {
-  openRefreshDialog: boolean,
+  openRefreshDialog: boolean;
   unCheckedMembers: {
-    phone: Array<number>,
-    email: Array<number>,
-    notification: Array<number>,
-  },
-  mailTitle: string | null,
-  mailContent: string,
-  actionType: number,
-  selectedTemplate: null,
-  smsContent: string,
-  notificationTitle: string,
-  notificationContent: string,
-  page_size: number,
-  resendCount: number,
-  resendDelay: number,
-  openResendSection: boolean,
-  communicationScheduledDate: string | null,
-  communicationScheduledTimePeriod: DateFilterEnum,
-  isCommunicationScheduled: boolean,
-  openCommunicationSchedulingSection: boolean,
-  isSmsCostReminderModalOpen: boolean,
+    phone: Array<number>;
+    email: Array<number>;
+    notification: Array<number>;
+  };
+  mailTitle: string | null;
+  mailContent: string;
+  actionType: number;
+  selectedTemplate: null;
+  smsContent: string;
+  notificationTitle: string;
+  notificationContent: string;
+  page_size: number;
+  resendCount: number;
+  resendDelay: number;
+  openResendSection: boolean;
+  communicationScheduledDate: string | null;
+  communicationScheduledTimePeriod: DateFilterEnum;
+  isCommunicationScheduled: boolean;
+  openCommunicationSchedulingSection: boolean;
+  isSmsCostReminderModalOpen: boolean;
 };
 const MEMBER_PAGE_SIZE = 5;
 

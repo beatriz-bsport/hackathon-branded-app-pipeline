@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import moment, { Moment } from 'moment-timezone';
-import withStyles from '@material-ui/core/styles/withStyles';
+import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
 
 import Button from '@material-ui/core/Button';
 import { withTranslation, WithTranslation } from 'react-i18next';
@@ -124,7 +124,8 @@ type Props = {
   showEmailConsentWarning?: boolean;
   showSmsConsentWarning?: boolean;
   timezone: string;
-} & WithTranslation;
+} & WithTranslation &
+  WithStyles;
 
 type State = {
   actionType: number;
@@ -1217,92 +1218,93 @@ export class CommunicationDrawer extends Component<Props, State> {
   }
 }
 
-const styles = (theme) => ({
-  radioContainer: {
-    marginBottom: theme.spacing(2),
-    width: '100%',
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  emailConsentWarningContainer: {
-    border: 'solid 1px rgb(255, 0, 0)',
-    borderRadius: '5px',
-    background: '#FCEAEA',
-    padding: `${theme.spacing(0.5)}px ${theme.spacing(2)}px`,
-    marginBottom: theme.spacing(2),
-  },
-  warningParagraph: {
-    paddingTop: theme.spacing(0.5),
-    paddingBottom: theme.spacing(0.5),
-  },
-  center: { textAlign: 'center' },
-  sectionTitleContainer: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    marginTop: theme.spacing(5),
-    width: '100%',
-  },
-  sectionTitle: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: theme.spacing(1),
-  },
-  sectionTitleIcon: {
-    color: theme.palette.text.secondary,
-  },
-  arrowUpIcon: {
-    transform: 'rotate(0)',
-    transition: 'all ease 0.3s',
-  },
-  rotate: {
-    transform: 'rotate(-180deg)',
-  },
-  adornment: {
-    paddingLeft: theme.spacing(1),
-    color: theme.palette.text.secondary,
-  },
-  inputContainer: {
-    marginTop: theme.spacing(3),
-    marginBottom: theme.spacing(3),
-  },
-  resendSectionContainer: {
-    marginTop: theme.spacing(4),
-    paddingLeft: theme.spacing(1),
-    paddingRight: theme.spacing(1),
-  },
-  alertCentered: {
-    alignItems: 'center',
-  },
-  alert: {
-    display: 'flex',
-    marginTop: theme.spacing(1),
-  },
-  radioButtonContainer: {
-    display: 'flex',
-    paddingTop: theme.spacing(2),
-    gap: theme.spacing(3),
-  },
-  datePickerContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    paddingTop: theme.spacing(2),
-  },
-  datePickerSection: {
-    display: 'flex',
-    paddingTop: theme.spacing(1),
-    gap: theme.spacing(2),
-    alignItems: 'center',
-  },
-  timePickerIcon: {
-    color: theme.palette.grey[400],
-  },
-  timePicker: {
-    display: 'flex',
-    width: '45%',
-  },
-});
+const styles = (theme: Theme) =>
+  createStyles({
+    radioContainer: {
+      marginBottom: theme.spacing(2),
+      width: '100%',
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+    },
+    emailConsentWarningContainer: {
+      border: 'solid 1px rgb(255, 0, 0)',
+      borderRadius: '5px',
+      background: '#FCEAEA',
+      padding: `${theme.spacing(0.5)}px ${theme.spacing(2)}px`,
+      marginBottom: theme.spacing(2),
+    },
+    warningParagraph: {
+      paddingTop: theme.spacing(0.5),
+      paddingBottom: theme.spacing(0.5),
+    },
+    center: { textAlign: 'center' },
+    sectionTitleContainer: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      marginTop: theme.spacing(5),
+      width: '100%',
+    },
+    sectionTitle: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: theme.spacing(1),
+    },
+    sectionTitleIcon: {
+      color: theme.palette.text.secondary,
+    },
+    arrowUpIcon: {
+      transform: 'rotate(0)',
+      transition: 'all ease 0.3s',
+    },
+    rotate: {
+      transform: 'rotate(-180deg)',
+    },
+    adornment: {
+      paddingLeft: theme.spacing(1),
+      color: theme.palette.text.secondary,
+    },
+    inputContainer: {
+      marginTop: theme.spacing(3),
+      marginBottom: theme.spacing(3),
+    },
+    resendSectionContainer: {
+      marginTop: theme.spacing(4),
+      paddingLeft: theme.spacing(1),
+      paddingRight: theme.spacing(1),
+    },
+    alertCentered: {
+      alignItems: 'center',
+    },
+    alert: {
+      display: 'flex',
+      marginTop: theme.spacing(1),
+    },
+    radioButtonContainer: {
+      display: 'flex',
+      paddingTop: theme.spacing(2),
+      gap: theme.spacing(3),
+    },
+    datePickerContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+      paddingTop: theme.spacing(2),
+    },
+    datePickerSection: {
+      display: 'flex',
+      paddingTop: theme.spacing(1),
+      gap: theme.spacing(2),
+      alignItems: 'center',
+    },
+    timePickerIcon: {
+      color: theme.palette.grey[400],
+    },
+    timePicker: {
+      display: 'flex',
+      width: '45%',
+    },
+  });
 
 export default compose(
   withTranslation(['communication', 'common']),

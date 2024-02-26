@@ -37,12 +37,16 @@ import DatePickerSelector, {
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 
+// @ts-expect-error
 import ReceiversCollapseItem from './ReceiversCollapseItem.component';
+// @ts-expect-error
 import SelectTemplate from './SelectTemplate.component';
+// @ts-expect-error
 import WriteEmail from './WriteEmail.component';
+// @ts-expect-error
 import WriteSMS from './WriteSMS.component';
 import WriteNotification from './WriteNotification.component';
-
+// @ts-expect-error
 import FeatureListProvider from '#libs/company/hocs/feature-list-provider.hoc';
 import CommunicationSMSCostReminderModal from '#libs/communication-v2/CommunicationSMSCostReminderModal.component';
 import {

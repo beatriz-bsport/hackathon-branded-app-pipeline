@@ -82,7 +82,7 @@ const NewsletterFormV2: React.FC<Props> = ({
         {
           onSuccess: () => {
             formikHelpers?.resetForm();
-            Analytics.newsletterSubmitSuccess({
+            Analytics.leadAcquisitionSuccess({
               email: values.email,
               first_name: values.firstName,
               last_name: values.lastName,

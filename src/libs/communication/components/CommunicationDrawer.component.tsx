@@ -3,7 +3,7 @@ import moment, { Moment } from 'moment-timezone';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import Button from '@material-ui/core/Button';
-import { withTranslation, TFunction } from 'react-i18next';
+import { withTranslation, WithTranslation } from 'react-i18next';
 import { compose } from 'recompose';
 
 import DialogContent from '@material-ui/core/DialogContent';
@@ -86,7 +86,6 @@ type Props = {
   ) => void;
   communicationScheduledToEdit?: CommunicationScheduled;
   classes: Object;
-  t: TFunction;
   getEmails: () => void;
   getEmailDetail: (id: number) => void;
   emailListLoading: boolean;
@@ -125,7 +124,7 @@ type Props = {
     min: number;
     max: number;
   };
-};
+} & WithTranslation;
 
 type State = {
   openRefreshDialog: boolean;

@@ -56,12 +56,12 @@ exports.default = {
         'Allows your customers to quickly see which packs are currently recommended.',
     },
     advancedOptions: {
-      header: 'Avancé',
+      header: 'Advanced',
       tag: {
-        tagsOnAcquisition: 'Tags après achat',
+        tagsOnAcquisition: 'Tag after purchase',
         tagsOnAcquisitionHelper:
-          'Utilisez les tags pour reconnaitre les membres qui possèdent le pack.',
-        selectTags: 'Sélectionnez des tags',
+          'Use tags to identify which member bought the pack.',
+        selectTags: 'Select tags',
         tagGroupDuplicated:
           'Please note that selected items contain tags of the same category.',
       },

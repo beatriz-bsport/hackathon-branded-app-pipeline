@@ -52,7 +52,7 @@ export const ConsumerRouter = (props: Props) => {
       <Redirect
         to={`/login/customer?membership=${
           props.companyId
-        }?next=${encodeURIComponent(`${pathname}`)}`}
+        }&next=${encodeURIComponent(`${pathname}`)}`}
       />
     );
   }

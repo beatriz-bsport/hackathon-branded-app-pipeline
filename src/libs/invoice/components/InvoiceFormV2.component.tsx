@@ -427,6 +427,7 @@ const styles = (theme: Theme) => ({
   },
   title: {
     marginBottom: theme.spacing(2),
+    marginLeft: theme.spacing(1),
   },
 });
 

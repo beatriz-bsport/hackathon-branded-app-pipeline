@@ -88,7 +88,9 @@ export const InvoiceEditor = (props: Props) => {
       props.invoice.reverted);
   return (
     <div className={classes.container}>
-      <Typography variant="h4">{t('invoice.editor.title')}</Typography>
+      <Typography className={classes.title} variant="h4">
+        {t('invoice.editor.title')}
+      </Typography>
       <Paper>
         {nonEditable ? (
           <div className={classes.uneditableContainer}>
@@ -151,6 +153,9 @@ const useStyles = makeStyles((theme) => ({
   uneditableContainer: {
     backgroundColor: '#F8F8F8',
     border: '2px solid #E8E8E8',
+  },
+  title: {
+    marginLeft: theme.spacing(1),
   },
 }));
 

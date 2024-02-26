@@ -69,6 +69,9 @@ import type {
   CommunicationScheduledCreate,
 } from '#libs/communication-v2/types';
 
+import type { OptionCallback } from '../../../state/types';
+import type { ResolvedGenericTags } from '#libs/email-editor/types';
+
 const WRITE_EMAIL = 0;
 const SELECT_EMAIL = 1;
 const SEND_SMS = 2;
@@ -97,8 +100,7 @@ type Props = {
   emailDetailLoading: boolean;
   emailDetails: Array<any>;
   open: boolean;
-  mailDefaultTitle: ?string;
-  mailDefaultTitle: string;
+  mailDefaultTitle?: string;
   hideTemplateMail: boolean;
   hideWrittenMail: boolean;
   actionType: number;

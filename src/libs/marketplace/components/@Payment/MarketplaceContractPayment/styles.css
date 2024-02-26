@@ -1,5 +1,6 @@
 .bs-contract-payment__container {
   width: 100%;
+  height: inherit;
   background: var(--color-background-paper);
   border-radius: var(--border-radius-2);
   border: 2px solid var(--border-color);
@@ -20,6 +21,7 @@
   justify-content: center;
   height: fit-content;
   max-height: 100%;
+  overflow-y: auto;
 }
 
 .bs-contract-payment__general_conditions,

@@ -228,14 +228,20 @@ export class CommunicationDrawer extends Component<Props, State> {
   }
 
   getInputChangeHandler =
-    (inputName: string, minValue: number, maxValue: number) =>
+    (
+      inputName: 'resendCount' | 'resendDelay',
+      minValue: number,
+      maxValue: number,
+    ) =>
     (event: React.ChangeEvent<HTMLInputElement>) => {
-      let sanitizedValue = event.target.value;
-      if (Number.isNaN(parseInt(sanitizedValue))) sanitizedValue = 0;
+      let sanitizedValue = parseInt(event?.target?.value ?? '0') || 0;
       sanitizedValue = Math.max(minValue, sanitizedValue);
       sanitizedValue = Math.min(maxValue, sanitizedValue);
 
-      this.setState({ [inputName]: sanitizedValue });
+      this.setState((prevState) => ({
+        ...prevState,
+        [inputName]: sanitizedValue,
+      }));
     };
 
   handleToggle = (_value: string) => () => {

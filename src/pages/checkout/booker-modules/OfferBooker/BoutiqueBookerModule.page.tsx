@@ -178,23 +178,23 @@ const withScrollHeightListener = (
   return (props: any) => {
     const containerRef = React.useRef(null);
 
-    // const sendPostMessageUpdate = (height: number) => {
-    //   if (WidgetUtils.isWidget() && !!WidgetUtils.getParentElementId()) {
-    //     const message = {
-    //       type: 'bsport-widget-resize',
-    //       data: {
-    //         scrollHeight: height,
-    //         parentElementId: WidgetUtils.getParentElementId(),
-    //       },
-    //     };
-    //     window?.parent?.postMessage(message, '*');
-    //   }
-    // };
+    const sendPostMessageUpdate = (height: number) => {
+      if (WidgetUtils.isWidget() && !!WidgetUtils.getParentElementId()) {
+        const message = {
+          type: 'bsport-widget-resize',
+          data: {
+            scrollHeight: height,
+            parentElementId: WidgetUtils.getParentElementId(),
+          },
+        };
+        window?.parent?.postMessage(message, '*');
+      }
+    };
 
     // @ts-expect-error
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { _, height } = useParentSize(containerRef, { maxDifference: 150 });
-    // sendPostMessageUpdate(height);
+    sendPostMessageUpdate(height);
     return <WrappedComponent {...props} containerRef={containerRef} />;
   };
 };

@@ -106,7 +106,6 @@ type Props = {
   hideTemplateMail: boolean;
   hideWrittenMail: boolean;
   hoursToSend?: { min: number; max: number };
-  initMembers?: () => void;
   mailDefaultTitle?: string;
   membersAllLoading: boolean;
   membersByPageLoading: boolean;
@@ -208,13 +207,6 @@ export class CommunicationDrawer extends Component<Props, State> {
   }
 
   componentDidUpdate(prevProps: Props) {
-    if (
-      this.props.initMembers &&
-      this.props.open === true &&
-      prevProps.open === false
-    ) {
-      this.props.initMembers(1, this.state.page_size);
-    }
     if (this.props.open === true && prevProps.open === false) {
       this.setState({
         communicationScheduledDate: this.getScheduledDate(),

@@ -91,7 +91,7 @@ export const BookingModuleRegisterMethodChoice = (props: Props) => {
   } = props;
 
   const [voucher, setVoucher] = useState('0,00');
-  const [voucherPercentage, setVoucherPercentage] = useState('0,00');
+  const [voucherPercentage, setVoucherPercentage] = useState(0.0);
   const [finalPricePreview, setFinalPricePreview] = useState('0,00');
 
   const [openConfirmation, setOpenConfirmation] = useState(false);

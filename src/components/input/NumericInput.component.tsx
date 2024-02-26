@@ -3,7 +3,7 @@ import React, { FocusEventHandler, useCallback } from 'react';
 import TextField from '@material-ui/core/TextField';
 import classNames from 'classnames';
 
-type Props = {
+export type Props = {
   value: number;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   disabled?: boolean;

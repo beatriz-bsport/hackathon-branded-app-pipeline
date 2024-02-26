@@ -21,6 +21,8 @@ export type ConsumerPaymentPack<PP = number> = {
   bookings_this_week: number;
   consumer: number;
   consumer_payment_pack_source: number | null;
+  company_source_name: string;
+  company_source_primary_color: string;
   date_bought: string;
   disabled: boolean;
   dst_consumer_payment_pack: number | null;

@@ -1,47 +1,49 @@
 // @ts-nocheck
 import React, { Component } from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import ListItem from '@material-ui/core/ListItem';
-import Divider from '@material-ui/core/Divider';
-import ListItemText from '@material-ui/core/ListItemText';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import Button from '@material-ui/core/Button';
-import Chip from '@material-ui/core/Chip';
 import { compose } from 'recompose';
-import EventIcon from '@material-ui/icons/Event';
+import { withTranslation, WithTranslation } from 'react-i18next';
+
+import createStyles from '@material-ui/core/styles/createStyles';
+import withStyles from '@material-ui/core/styles/withStyles';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import DateRangeIcon from '@material-ui/icons/DateRange';
+import Divider from '@material-ui/core/Divider';
+import EventIcon from '@material-ui/icons/Event';
 import ExposureNeg1Icon from '@material-ui/icons/ExposureNeg1';
 import ExposurePlus1Icon from '@material-ui/icons/ExposurePlus1';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import { withTranslation, WithTranslation } from 'react-i18next';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
-import withWidth, { isWidthDown } from '@material-ui/core/withWidth';
+import IconButton from '@material-ui/core/IconButton';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ListItemText from '@material-ui/core/ListItemText';
+import Typography from '@material-ui/core/Typography';
+import withWidth, { isWidthDown } from '@material-ui/core/withWidth';
+import type { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
+import type { Theme } from '@material-ui/core/styles';
 
 import moment from 'moment-timezone';
 
-import { createStyles, withStyles, Theme } from '@material-ui/core/styles';
-import { OptionCallback } from '../../../state/types';
-import { MaterialStyleType } from '../../../utils/types';
+import { formatAsDate } from '#utils/datetime';
+import { getSpecificIncompatibilitiesReasons } from '#libs/consumer-payment-pack/utils';
+import { showDeleteDialog } from '#components/genericDialog/CustomDialogs';
+import { WithIsSharedActive } from '#libs/relationship/types';
+import ConsumerPassSourceChip from '#components/chip/ConsumerPassSourceChip';
+import ConsumerPaymentPackIncompatibilitiesReasons from './ConsumerPaymentPackIncompatibilitiesReasons.component';
+import CreditStatus from '#libs/consumer-payment-pack/components/CreditStatus.component';
+import RedButton from '#components/button/RedButton.component';
 import Tooltip from '#components/Tooltip.component';
 
-import { formatAsDate } from '../../../utils/datetime';
-import RedButton from '#components/button/RedButton.component';
-import { PaymentPack } from '#libs/payment-packs/types';
-import {
+import type { OptionCallback } from '../../../state/types';
+import type { MaterialStyleType } from '#utils/types';
+import type { PaymentPack } from '#libs/payment-packs/types';
+import type { Offer } from '#libs/offer/types';
+import type {
   MaxoutBooking,
   ConsumerPaymentPack,
 } from '#libs/consumer-payment-pack/types';
-
-import CreditStatus from '#libs/consumer-payment-pack/components/CreditStatus.component';
-import { showDeleteDialog } from '#components/genericDialog/CustomDialogs';
-import { Offer } from '#libs/offer/types';
-import { WithIsSharedActive } from '#libs/relationship/types';
-import ConsumerPaymentPackIncompatibilitiesReasons from './ConsumerPaymentPackIncompatibilitiesReasons.component';
-import { getSpecificIncompatibilitiesReasons } from '../utils';
 
 type Props = {
   loading: boolean;
@@ -158,6 +160,17 @@ export class ConsumerPackRowItem extends Component<Props, State> {
     this.setState({ showIncompatibilities: false });
   };
 
+  renderCompanySourceChip = () => {
+    const { consumerPack, t } = this.props;
+    return (
+      <ConsumerPassSourceChip
+        companySourceName={consumerPack.company_source_name}
+        companySourcePrimaryColor={consumerPack.company_source_primary_color}
+        tooltipText={t('paymentPackTemplateInstance.isFromShareTooltip')}
+      />
+    );
+  };
+
   renderButton = () => {
     const {
       paymentPack,
@@ -223,6 +236,7 @@ export class ConsumerPackRowItem extends Component<Props, State> {
         </div>
       );
     }
+
     if (onBook) {
       return (
         <Button
@@ -237,6 +251,7 @@ export class ConsumerPackRowItem extends Component<Props, State> {
         </Button>
       );
     }
+
     if (onBookOne && onBookMultiple) {
       return (
         <div className={this.props.classes.buttonRow}>
@@ -271,9 +286,11 @@ export class ConsumerPackRowItem extends Component<Props, State> {
     if (consumerPack.dst_consumer_payment_pack) {
       return null;
     }
+
     if (!paymentPack) {
       return <CircularProgress />;
     }
+
     const { credits, unlimited } = paymentPack;
     const { available_credits, reverted } = consumerPack;
     const available_pass_credits = credits - consumerPack.used_credits;
@@ -282,32 +299,40 @@ export class ConsumerPackRowItem extends Component<Props, State> {
       return <Button>{t('reverted')}</Button>;
     }
 
+    const incrementConsumerPackCredit = (
+      event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    ) => {
+      event?.preventDefault();
+      event?.stopPropagation();
+      incrementCredit(consumerPack.id);
+    };
+
+    const decrementConsumerPackCredit = (event: React.ChangeEvent) => {
+      event?.preventDefault();
+      event?.stopPropagation();
+      decrementCredit(consumerPack.id);
+    };
+
     if (unlimited && incrementCredit && decrementCredit) {
       if (consumerPack.disabled && !consumerPack.dst_consumer_payment_pack) {
         return (
-          <Button
-            onClick={(ev) => {
-              ev.preventDefault();
-              ev.stopPropagation();
-              incrementCredit(consumerPack.id);
-            }}
-            variant="outlined"
-          >
-            {t('enableConsumer')}
-          </Button>
+          <div className={this.props.classes.rightButtonsContainer}>
+            {consumerPack.consumer_payment_pack_source &&
+              this.renderCompanySourceChip()}
+            <Button onClick={incrementConsumerPackCredit} variant="outlined">
+              {t('enableConsumer')}
+            </Button>
+          </div>
         );
       }
       return (
-        <RedButton
-          onClick={(ev: React.ChangeEvent) => {
-            ev.preventDefault();
-            ev.stopPropagation();
-            decrementCredit(consumerPack.id);
-          }}
-          variant="outlined"
-        >
-          {t('disableConsumer')}
-        </RedButton>
+        <div className={this.props.classes.rightButtonsContainer}>
+          {consumerPack.consumer_payment_pack_source &&
+            this.renderCompanySourceChip()}
+          <RedButton onClick={decrementConsumerPackCredit} variant="outlined">
+            {t('disableConsumer')}
+          </RedButton>
+        </div>
       );
     }
 
@@ -324,27 +349,8 @@ export class ConsumerPackRowItem extends Component<Props, State> {
     }
 
     if (consumerPack.consumer_payment_pack_source) {
-      return (
-        <Chip
-          color="primary"
-          label={t(
-            'paymentPackTemplateInstance.consumerPaymentPackSharedFromOtherFranchisee',
-          )}
-        />
-      );
+      return this.renderCompanySourceChip();
     }
-    /*
-    if (paymentPack && paymentPack.template_instance) {
-      return (
-        <Chip
-          color="primary"
-          label={t(
-            'paymentPackTemplateInstance.paymentPackSharedFromFranchisor',
-          )}
-        />
-      );
-    }
-    */
 
     return (
       <div
@@ -508,7 +514,7 @@ export class ConsumerPackRowItem extends Component<Props, State> {
       <div>
         <ListItem
           dense
-          button={!!onClick}
+          button={!!onClick as any}
           className={classes.listContainer}
           disabled={!!consumerPack.reverted || !!this.props.disabled}
           divider={!this.props.noDivider}
@@ -562,7 +568,6 @@ export class ConsumerPackRowItem extends Component<Props, State> {
               style={{ paddingLeft: 16 }}
               variant="caption"
             >
-              {' '}
               {consumerPack.isSharedActive ? t('consumer.isOwnerOfShares') : ''}
               {isFromShare && consumerPack.disabled
                 ? t('consumer.isFromDisabledShare')
@@ -629,10 +634,16 @@ const styles = (theme: Theme) =>
       justifyContent: 'center',
       boxShadow: theme.shadows[1],
     },
+    rightButtonsContainer: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: theme.spacing(2),
+    },
   });
 
 export default compose<any, Props>(
   withTranslation(['paymentPack']),
   withStyles(styles),
   withWidth(),
+  React.memo,
 )(ConsumerPackRowItem);

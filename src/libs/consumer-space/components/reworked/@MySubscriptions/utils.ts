@@ -4,7 +4,7 @@ import type {
   SubscriptionREST,
 } from '#libs/subscription/types';
 
-import { getCurrencyDisplay } from '#libs/theme/selectors';
+import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import { SubscriptionTabEnum } from '#libs/consumer-space/components/reworked/@MySubscriptions/constants';
 import { formatAsDatetimeAdapted } from '../../../../../utils/datetime';
 
@@ -20,8 +20,7 @@ export const getSubscriptionRecurrenceLabel = (
     ? t(
         'reworked.mySubscriptions.consumerSubscriptionCard.recurrenceLabelPer',
         {
-          price,
-          currency: getCurrencyDisplay(),
+          price: getCurrencyDisplayWithPrice(price),
           interval: t(
             `subscription:contract.form.recurrence_basis.intervalName.${subscriptionInterval}`,
             { count: recurrence },
@@ -31,8 +30,7 @@ export const getSubscriptionRecurrenceLabel = (
     : t(
         'reworked.mySubscriptions.consumerSubscriptionCard.recurrenceLabelEvery',
         {
-          price,
-          currency: getCurrencyDisplay(),
+          price: getCurrencyDisplayWithPrice(price),
           interval: t(
             `subscription:contract.form.recurrence_basis.intervalName.${subscriptionInterval}`,
             { count: recurrence },
@@ -171,8 +169,7 @@ export const getSubscriptionTextBasedOnCouponApplied = (
     ? t(
         'reworked.mySubscriptions.consumerSubscriptionCardDetails.beforeRenewalContractPricePer',
         {
-          price: recurrentPrice,
-          currency: getCurrencyDisplay(),
+          price: getCurrencyDisplayWithPrice(recurrentPrice),
           interval: t(
             `subscription:contract.form.recurrence_basis.intervalName.${subscriptionInterval}`,
             { count: recurrence },
@@ -183,8 +180,7 @@ export const getSubscriptionTextBasedOnCouponApplied = (
     : t(
         'reworked.mySubscriptions.consumerSubscriptionCardDetails.beforeRenewalContractPriceEvery',
         {
-          price: recurrentPrice,
-          currency: getCurrencyDisplay(),
+          price: getCurrencyDisplayWithPrice(recurrentPrice),
           interval: t(
             `subscription:contract.form.recurrence_basis.intervalName.${subscriptionInterval}`,
             { count: recurrence },

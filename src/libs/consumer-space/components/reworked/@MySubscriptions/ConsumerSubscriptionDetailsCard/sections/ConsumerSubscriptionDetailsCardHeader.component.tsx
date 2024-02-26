@@ -18,7 +18,7 @@ import {
   ClockRefresh,
   PauseCircle,
 } from '#components/untitledui';
-import { getCurrencyDisplay } from '#libs/theme/selectors';
+import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import { formatAsDatetimeAdapted } from '#utils/datetime';
 
 type Props = Pick<
@@ -165,7 +165,7 @@ const ConsumerSubscriptionDetailsCardHeader: React.FC<Props> = ({
             joiningFee &&
             t(
               'reworked.mySubscriptions.consumerSubscriptionCardDetails.headerListItemLabels.joiningFee',
-              { fee: `${joiningFee}${getCurrencyDisplay()}` },
+              { fees: `${getCurrencyDisplayWithPrice(joiningFee)}` },
             )
           }`}
           classes={{

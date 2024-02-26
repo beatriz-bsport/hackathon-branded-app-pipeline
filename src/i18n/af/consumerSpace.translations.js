@@ -367,9 +367,9 @@ exports.default = {
       close: 'Close',
       consumerSubscriptionCard: {
         nextPayment: 'Next payment: {{- nextPayment }}',
-        recurrenceLabelPer: '{{ price }}{{ currency }}/{{ interval }}',
+        recurrenceLabelPer: '{{ price }}/{{ interval }}',
         recurrenceLabelEvery:
-          '{{ price }}{{ currency }} every {{ recurrence }} {{ interval }}',
+          '{{ price }} every {{ recurrence }} {{ interval }}',
         buttonsLabel: {
           seeDetails: 'See details',
           addPaymentMethod: 'Add payment method',
@@ -382,9 +382,9 @@ exports.default = {
       },
       consumerSubscriptionCardDetails: {
         beforeRenewalContractPricePer:
-          'Then {{ price }}{{ currency}}/{{ interval }} after {{- date }}',
+          'Then {{ price }}/{{ interval }} after {{- date }}',
         beforeRenewalContractPriceEvery:
-          'Then {{ price }}{{ currency}} every {{ recurrence }} {{ interval }} after {{- date }}',
+          'Then {{ price }} every {{ recurrence }} {{ interval }} after {{- date }}',
         description: 'Description',
         terms: 'Terms',
         termsAccepted: 'Accepted on {{- termsDate }}',

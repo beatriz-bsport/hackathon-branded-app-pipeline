@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { getCurrencyDisplay } from '#libs/theme/selectors';
+import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import { formatAsDatetimeAdapted } from '#utils/datetime';
 
 import ConsumerCardSection from '#libs/consumer-space/components/reworked/common/ConsumerCardSection';
@@ -48,9 +48,9 @@ const ConsumerSubscriptionDetailsCardBillingHistory: React.FC<Props> = ({
             height="240px"
             renderItem={({ item }) => (
               <ListItem
-                captionText={`${(
-                  parseFloat(item.amount_paid_cts) / 100
-                ).toFixed(2)}${getCurrencyDisplay()}`}
+                captionText={getCurrencyDisplayWithPrice(
+                  (parseFloat(item.amount_paid_cts) / 100).toString(),
+                )}
                 classes={{
                   label:
                     'bs-consumer__subscription-details-card__failed_payments__section__list-item__title',

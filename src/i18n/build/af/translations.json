@@ -1601,8 +1601,8 @@
         "close": "Close",
         "consumerSubscriptionCard": {
           "nextPayment": "Next payment: {{- nextPayment }}",
-          "recurrenceLabelPer": "{{ price }}{{ currency }}/{{ interval }}",
-          "recurrenceLabelEvery": "{{ price }}{{ currency }} every {{ recurrence }} {{ interval }}",
+          "recurrenceLabelPer": "{{ price }}/{{ interval }}",
+          "recurrenceLabelEvery": "{{ price }} every {{ recurrence }} {{ interval }}",
           "buttonsLabel": { "seeDetails": "See details", "addPaymentMethod": "Add payment method" },
           "chipsLabel": {
             "isPaused": "Paused",
@@ -1611,8 +1611,8 @@
           }
         },
         "consumerSubscriptionCardDetails": {
-          "beforeRenewalContractPricePer": "Then {{ price }}{{ currency}}/{{ interval }} after {{- date }}",
-          "beforeRenewalContractPriceEvery": "Then {{ price }}{{ currency}} every {{ recurrence }} {{ interval }} after {{- date }}",
+          "beforeRenewalContractPricePer": "Then {{ price }}/{{ interval }} after {{- date }}",
+          "beforeRenewalContractPriceEvery": "Then {{ price }} every {{ recurrence }} {{ interval }} after {{- date }}",
           "description": "Description",
           "terms": "Terms",
           "termsAccepted": "Accepted on {{- termsDate }}",

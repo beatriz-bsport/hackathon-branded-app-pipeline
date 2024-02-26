@@ -10,7 +10,7 @@ import ListItem from '#Fabrique/ListItem';
 import Alert from '#Fabrique/Alert';
 
 import { formatAsDatetimeAdapted } from '#utils/datetime';
-import { getCurrencyDisplay } from '#libs/theme/selectors';
+import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 
 type Props = Pick<
   ConsumerSubscriptionDetailsCardProps,
@@ -42,7 +42,9 @@ const ConsumerSubscriptionDetailsCardFailedPayments: React.FC<Props> = ({
             <>
               <ListItem
                 key={payment.uuid}
-                captionText={`${payment.price.toString()}${getCurrencyDisplay()}`}
+                captionText={getCurrencyDisplayWithPrice(
+                  payment.price.toString(),
+                )}
                 classes={{
                   label:
                     'bs-consumer__subscription-details-card__failed_payments__section__list-item__title',

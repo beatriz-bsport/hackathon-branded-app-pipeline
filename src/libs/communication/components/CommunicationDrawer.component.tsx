@@ -82,79 +82,73 @@ const COMPANY_ALLOWED_TO_SEND_SMARTLIST_COMMUNICATION_WITH_DB_ERROR = [
   1155, 1142, 1141, 1153, 1399, 1140, 1139, 1138, 1136, 1134, 1154, 1135,
 ];
 type Props = {
-  receiversNotEditable: boolean;
-  onCancel: () => void;
-  send?: (data: MemberMailData) => void;
-  schedule?: (data: Omit<CommunicationScheduledCreate, 'smartlist'>) => void;
-  sendNow?: (id: number) => void;
+  actionType: number;
+  classes: Object;
+  communicationScheduledToEdit?: CommunicationScheduled;
+  companyId?: number;
+  countTotal: number | null;
+  countWithEmail: number | null;
+  countWithPhone: number | null;
   editScheduledMessage?: (
     data: CommunicationScheduled,
     options?: OptionCallback,
   ) => void;
-  communicationScheduledToEdit?: CommunicationScheduled;
-  classes: Object;
-  getEmails: () => void;
-  getEmailDetail: (id: number) => void;
-  emailListLoading: boolean;
-  emails: Array<any>;
   emailDetailLoading: boolean;
   emailDetails: Array<any>;
-  open: boolean;
-  mailDefaultTitle?: string;
+  emailListLoading: boolean;
+  emails: Array<any>;
+  fetchNextPage?: (page: number, page_size: number) => void;
+  fetchPreviousPage?: (page: number, page_size: number) => void;
+  getEmailDetail: (id: number) => void;
+  getEmails: () => void;
+  hideAutoResend?: boolean;
+  hideMemberList?: boolean;
   hideTemplateMail: boolean;
   hideWrittenMail: boolean;
-  actionType: number;
+  hoursToSend?: { min: number; max: number };
+  initMembers?: () => void;
+  mailDefaultTitle?: string;
+  membersAllLoading: boolean;
+  membersByPageLoading: boolean;
+  membersToDisplay: Array<Member>;
+  memberToDisplayError?: Error | null;
+  onCancel: () => void;
+  open: boolean;
+  page_size: number;
+  page: number;
+  receiversNotEditable: boolean;
+  resolvedGenericTags: ResolvedGenericTags;
+  schedule?: (data: Omit<CommunicationScheduledCreate, 'smartlist'>) => void;
+  send?: (data: MemberMailData) => void;
+  sendNow?: (id: number) => void;
   showEmailConsentWarning?: boolean;
   showSmsConsentWarning?: boolean;
-
-  // members list
-  hideMemberList?: boolean;
-  membersToDisplay: Array<Member>;
-  fetchPreviousPage?: (page: number, page_size: number) => void;
-  fetchNextPage?: (page: number, page_size: number) => void;
-  initMembers?: () => void;
-  page: number;
-  page_size: number;
-  membersByPageLoading: boolean;
-  membersAllLoading: boolean;
-
-  countWithPhone: number | null;
-  countWithEmail: number | null;
-  countTotal: number | null;
-  resolvedGenericTags: ResolvedGenericTags;
-  hideAutoResend?: boolean;
-  memberToDisplayError?: Error | null;
-  companyId?: number;
   timezone: string;
-  hoursToSend?: {
-    min: number;
-    max: number;
-  };
 } & WithTranslation;
 
 type State = {
+  actionType: number;
+  communicationScheduledDate: string | null;
+  communicationScheduledTimePeriod: DateFilterEnum;
+  isCommunicationScheduled: boolean;
+  isSmsCostReminderModalOpen: boolean;
+  mailContent: string;
+  mailTitle: string | null;
+  notificationContent: string;
+  notificationTitle: string;
+  openCommunicationSchedulingSection: boolean;
   openRefreshDialog: boolean;
+  openResendSection: boolean;
+  page_size: number;
+  resendCount: number;
+  resendDelay: number;
+  selectedTemplate: null;
+  smsContent: string;
   unCheckedMembers: {
     phone: Array<number>;
     email: Array<number>;
     notification: Array<number>;
   };
-  mailTitle: string | null;
-  mailContent: string;
-  actionType: number;
-  selectedTemplate: null;
-  smsContent: string;
-  notificationTitle: string;
-  notificationContent: string;
-  page_size: number;
-  resendCount: number;
-  resendDelay: number;
-  openResendSection: boolean;
-  communicationScheduledDate: string | null;
-  communicationScheduledTimePeriod: DateFilterEnum;
-  isCommunicationScheduled: boolean;
-  openCommunicationSchedulingSection: boolean;
-  isSmsCostReminderModalOpen: boolean;
 };
 const MEMBER_PAGE_SIZE = 5;
 
@@ -177,24 +171,24 @@ export class CommunicationDrawer extends Component<Props, State> {
     super(props);
 
     this.state = {
-      openRefreshDialog: false,
-      unCheckedMembers: { phone: [], email: [], notification: [] },
-      mailTitle: props.mailDefaultTitle || null,
-      mailContent: '',
       actionType: props.actionType ? props.actionType : SELECT_EMAIL,
-      selectedTemplate: null,
-      smsContent: '',
-      notificationTitle: '',
-      notificationContent: '',
-      page_size: props.page_size || MEMBER_PAGE_SIZE,
-      resendCount: 0,
-      resendDelay: 0,
-      openResendSection: false,
       communicationScheduledDate: this.getScheduledDate(),
       communicationScheduledTimePeriod: 'custom',
       isCommunicationScheduled: false,
-      openCommunicationSchedulingSection: false,
       isSmsCostReminderModalOpen: false,
+      mailContent: '',
+      mailTitle: props.mailDefaultTitle || null,
+      notificationContent: '',
+      notificationTitle: '',
+      openCommunicationSchedulingSection: false,
+      openRefreshDialog: false,
+      openResendSection: false,
+      page_size: props.page_size || MEMBER_PAGE_SIZE,
+      resendCount: 0,
+      resendDelay: 0,
+      selectedTemplate: null,
+      smsContent: '',
+      unCheckedMembers: { phone: [], email: [], notification: [] },
     };
   }
 
@@ -1243,9 +1237,7 @@ const styles = (theme) => ({
     paddingTop: theme.spacing(0.5),
     paddingBottom: theme.spacing(0.5),
   },
-  center: {
-    textAlign: 'center',
-  },
+  center: { textAlign: 'center' },
   sectionTitleContainer: {
     display: 'flex',
     justifyContent: 'space-between',

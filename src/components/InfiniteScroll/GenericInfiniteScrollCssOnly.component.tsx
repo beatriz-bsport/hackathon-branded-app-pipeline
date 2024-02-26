@@ -116,7 +116,7 @@ type BaseProps<T = unknown> = {
   className?: string;
   hasMore: boolean;
   items: T[];
-  endMessage: React.ReactNode;
+  endMessage?: React.ReactNode;
   loader: React.ReactNode;
   isPullDownToRefreshActive?: boolean;
   scrollableTarget?: string;
@@ -126,7 +126,7 @@ type BaseProps<T = unknown> = {
   pullDownToRefreshContent?: React.ReactNode;
   releaseToRefreshContent?: React.ReactNode;
   fetchMoreData: () => void;
-  refreshData: () => void;
+  refreshData?: () => void;
   renderItem: ({ item, index }: { item: T; index?: number }) => JSX.Element;
 };
 

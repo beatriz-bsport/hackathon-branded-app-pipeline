@@ -201,7 +201,6 @@ export const ConsumerBookingListContainer: React.FC<Props> = ({
             >
               fetchMoreData={handlePaginationFetchMore}
               hasMore={hasNextPage}
-              // @ts-expect-error
               height={
                 isMobile
                   ? MY_BOOKINGS_MOBILE_LIST_CONTAINER_HEIGHT

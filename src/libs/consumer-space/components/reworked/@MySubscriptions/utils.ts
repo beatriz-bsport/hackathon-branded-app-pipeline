@@ -5,7 +5,10 @@ import type {
 } from '#libs/subscription/types';
 
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import { SubscriptionTabEnum } from '#libs/consumer-space/components/reworked/@MySubscriptions/constants';
+import {
+  LIST_ITEM_HEIGHT,
+  SubscriptionTabEnum,
+} from '#libs/consumer-space/components/reworked/@MySubscriptions/constants';
 import { formatAsDatetimeAdapted } from '../../../../../utils/datetime';
 
 import type { SubscriptionTab } from '#libs/consumer-space/components/reworked/@MySubscriptions/types';
@@ -189,4 +192,9 @@ export const getSubscriptionTextBasedOnCouponApplied = (
           date: lastInvoiceDateBeforeRenewal,
         },
       );
+};
+
+export const getBillingHistoryHeight = (count: number) => {
+  if (count > 0 && count <= 5) return count * LIST_ITEM_HEIGHT - 10;
+  return LIST_ITEM_HEIGHT * 5 - 10;
 };

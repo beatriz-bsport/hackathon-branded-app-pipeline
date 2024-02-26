@@ -95,7 +95,6 @@ export const ConsumerPassListContainer: React.FC<Props> = ({
           className="bs-consumer-pass-page__content__list-container__list__container"
           fetchMoreData={handlePaginationFetchMore}
           hasMore={hasNextPage}
-          // @ts-expect-error
           height={
             isMobile
               ? MY_BOOKINGS_MOBILE_LIST_CONTAINER_HEIGHT

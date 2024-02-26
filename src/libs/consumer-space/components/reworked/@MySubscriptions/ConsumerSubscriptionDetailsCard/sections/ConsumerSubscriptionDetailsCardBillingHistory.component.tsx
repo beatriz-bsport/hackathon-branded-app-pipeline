@@ -9,9 +9,10 @@ import List from '#Fabrique/List';
 import ListItem from '#Fabrique/ListItem';
 import Typography from '#Fabrique/Typography';
 import { GenericInfiniteScrollEnhancedCssOnly } from '#components/InfiniteScroll/GenericInfiniteScrollCssOnly.component';
-
+import { getBillingHistoryHeight } from '#libs/consumer-space/components/reworked/@MySubscriptions/utils';
 import type { ConsumerSubscriptionDetailsCardProps } from '..';
 import type { SubscriptionsInvoicesDetailsREST } from '#libs/subscription/types';
+import CircularProgress from '#components/css-only/CircularProgress';
 
 type Props = Pick<
   ConsumerSubscriptionDetailsCardProps,
@@ -28,6 +29,18 @@ const ConsumerSubscriptionDetailsCardBillingHistory: React.FC<Props> = ({
   hasDetailsNextPage,
 }) => {
   const { t } = useTranslation('consumerSpace');
+  if (areDetailsLoading) {
+    return (
+      <ConsumerCardSection
+        className="bs-consumer__subscription-details-card__description__section"
+        title={t(
+          'reworked.mySubscriptions.consumerSubscriptionCardDetails.billingHistory',
+        )}
+      >
+        {areDetailsLoading && <CircularProgress size="xs" />}
+      </ConsumerCardSection>
+    );
+  }
 
   return (
     <ConsumerCardSection
@@ -37,15 +50,17 @@ const ConsumerSubscriptionDetailsCardBillingHistory: React.FC<Props> = ({
       )}
     >
       <List>
-        {selectedSubscriptionInvoiceDetails?.length && !areDetailsLoading ? (
+        {selectedSubscriptionInvoiceDetails?.length ? (
           <GenericInfiniteScrollEnhancedCssOnly<
             Omit<SubscriptionsInvoicesDetailsREST, 'billing_plan_id'>
           >
             fetchMoreData={handleInvoiceDetailsPaginationFetchMore}
             items={selectedSubscriptionInvoiceDetails}
             hasMore={hasDetailsNextPage}
-            // @ts-ignore TO MODIFY ASAP
-            height="240px"
+            height={getBillingHistoryHeight(
+              selectedSubscriptionInvoiceDetails.length,
+            )}
+            loader={<CircularProgress size="xs" />}
             renderItem={({ item }) => (
               <ListItem
                 captionText={getCurrencyDisplayWithPrice(

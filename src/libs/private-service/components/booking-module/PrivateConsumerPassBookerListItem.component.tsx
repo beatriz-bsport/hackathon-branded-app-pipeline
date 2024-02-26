@@ -1,13 +1,13 @@
-// @ts-nocheck
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import Button from '@material-ui/core/Button';
 import ListItem from '@material-ui/core/ListItem';
 import Chip from '@material-ui/core/Chip';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
-import { makeStyles } from '@material-ui/core/styles';
-import { useTranslation } from 'react-i18next';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -17,47 +17,68 @@ import Divider from '@material-ui/core/Divider';
 import withWidth, { isWidthDown } from '@material-ui/core/withWidth';
 import InfoIcon from '@material-ui/icons/Info';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import type { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
 
-import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
-import { OptionCallback } from '../../../../state/types';
-import RedButton from '../../../../components/button/RedButton.component';
-import type { PrivateConsumerPass } from '../../types';
-import { getPassDate, getSpecificIncompatibilitiesReasons } from '../../utils';
-import { Member } from '#libs/member/types';
-import ConsumerPrivatePassIncompatibilitiesReasons from './ConsumerPrivatePassIncompatibilitiesReasons.component';
 import { getCreditFactor } from '#libs/theme/selectors';
+import {
+  getPassDate,
+  getSpecificIncompatibilitiesReasons,
+} from '#libs/private-service/utils';
+import ConsumerPrivatePassIncompatibilitiesReasons from './ConsumerPrivatePassIncompatibilitiesReasons.component';
+import RedButton from '#components/button/RedButton.component';
+
+import type { OptionCallback } from '../../../../state/types';
+import type { PrivateConsumerPass } from '#libs/private-service/types';
+import type { Member } from '#libs/member/types';
 
 type Props = {
-  private_consumer_pass: PrivateConsumerPass<Member>;
-  onClick?: () => void;
-  onBook?: (options: OptionCallback) => void;
-  selected?: boolean;
-  divider?: boolean;
-  onUpdateCredit?: (
-    id: number,
-    credits: -1 | 1,
-    options: OptionCallback,
-  ) => void;
-  showMember?: boolean;
-  disabled?: boolean;
   button?: Node;
+  disabled?: boolean;
+  divider?: boolean;
+  incompatibilitiesReasons: { [cpp_id: number]: number[] };
+  isNonCompatible: boolean;
+  private_consumer_pass: PrivateConsumerPass<Member>;
+  privateSlotId: number;
+  selected?: boolean;
+  showMember?: boolean;
   showUniversalWarning?: boolean;
-
+  width: Breakpoint;
   fetchIncompatibilitiesReasonsBySlotByConsumerPass: (
     pcp_id: number,
     slot_id: number,
     options: OptionCallback,
   ) => void;
-  incompatibilitiesReasons: { [cpp_id: number]: number[] };
   goToPrivatePass: () => void;
-  isNonCompatible: boolean;
-  privateSlotId: number;
-  width: Breakpoint;
+  onBook?: (options: OptionCallback) => void;
+  onClick?: () => void;
+  onUpdateCredit?: (
+    id: number,
+    credits: -1 | 1,
+    options: OptionCallback,
+  ) => void;
 };
 
-export const PrivateConsumerPassBookerListItem: React.FC<Props> = (props) => {
-  const { button, private_consumer_pass, showMember, showUniversalWarning } =
-    props;
+export const PrivateConsumerPassBookerListItem: React.FC<Props> = ({
+  button,
+  disabled,
+  divider,
+  incompatibilitiesReasons,
+  isNonCompatible,
+  private_consumer_pass,
+  privateSlotId,
+  selected,
+  showMember,
+  showUniversalWarning,
+  width,
+  fetchIncompatibilitiesReasonsBySlotByConsumerPass,
+  goToPrivatePass,
+  onBook,
+  onClick,
+  onUpdateCredit,
+}) => {
+  const { t } = useTranslation(['privateService', 'paymentPack']);
+  const classes = useStyles();
+
   const { private_pass } = private_consumer_pass;
   const isFromShare =
     private_consumer_pass &&
@@ -79,14 +100,14 @@ export const PrivateConsumerPassBookerListItem: React.FC<Props> = (props) => {
   const [incompatibilitiesAreLoading, setIncompatibilitiesAreLoading] =
     useState(true);
 
-  const handleInfoIncompatibilitesHovering = () => {
+  const handleInfoIncompatibilitesHovering = React.useCallback(() => {
     if (consumerPassHasBeenHovered) {
       setShowIncompatibilities(true);
       return;
     }
-    props.fetchIncompatibilitiesReasonsBySlotByConsumerPass(
+    fetchIncompatibilitiesReasonsBySlotByConsumerPass(
       private_consumer_pass.id,
-      props?.privateSlotId,
+      privateSlotId,
       {
         onSuccess: () => setIncompatibilitiesAreLoading(false),
         onError: () => setIncompatibilitiesAreLoading(false),
@@ -94,14 +115,49 @@ export const PrivateConsumerPassBookerListItem: React.FC<Props> = (props) => {
     );
     setShowIncompatibilities(true);
     setConsumerPassHasBeenHovered(true);
-  };
+  }, [
+    consumerPassHasBeenHovered,
+    fetchIncompatibilitiesReasonsBySlotByConsumerPass,
+    privateSlotId,
+    private_consumer_pass.id,
+  ]);
 
-  const handleInfoIncompatibilitesLeaving = () => {
+  const handleInfoIncompatibilitesLeaving = React.useCallback(() => {
     setShowIncompatibilities(false);
-  };
+  }, []);
 
-  const { t } = useTranslation(['privateService', 'paymentPack']);
-  const classes = useStyles();
+  const addCredit = React.useCallback(
+    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      event?.stopPropagation();
+      setCreditProcessing(true);
+      onUpdateCredit(private_consumer_pass.id, 1, {
+        onSuccess: () => setCreditProcessing(false),
+        onError: () => setCreditProcessing(false),
+      });
+    },
+    [onUpdateCredit, private_consumer_pass.id],
+  );
+
+  const removeCredit = React.useCallback(
+    (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      event?.stopPropagation();
+      setCreditProcessing(true);
+      onUpdateCredit(private_consumer_pass.id, -1, {
+        onSuccess: () => setCreditProcessing(false),
+        onError: () => setCreditProcessing(false),
+      });
+    },
+    [onUpdateCredit, private_consumer_pass.id],
+  );
+
+  const handleBook = React.useCallback(() => {
+    setProcessing(true);
+    onBook?.({
+      onSuccess: () => setProcessing(false),
+      onError: () => setProcessing(false),
+    });
+  }, [onBook]);
+
   const renderMemberName = () => (
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <Typography>
@@ -118,22 +174,24 @@ export const PrivateConsumerPassBookerListItem: React.FC<Props> = (props) => {
         )}
     </div>
   );
+
   const renderButton = () => {
     if (processing) {
       return <CircularProgress />;
     }
 
-    const isMobile = isWidthDown('sm', props.width);
+    const isMobile = isWidthDown('sm', width);
     const closeMobileIncompatibilities = isMobile
       ? handleInfoIncompatibilitesLeaving
       : null;
 
-    if (props.isNonCompatible) {
-      const incompatibilitiesReasons = getSpecificIncompatibilitiesReasons(
-        props.incompatibilitiesReasons,
-        props?.privateSlotId,
-        private_consumer_pass?.id,
-      );
+    if (isNonCompatible) {
+      const specificIncompatibilitiesReasons =
+        getSpecificIncompatibilitiesReasons(
+          incompatibilitiesReasons,
+          privateSlotId,
+          private_consumer_pass?.id,
+        );
 
       return (
         <div>
@@ -149,7 +207,7 @@ export const PrivateConsumerPassBookerListItem: React.FC<Props> = (props) => {
               />
             )}
 
-            <IconButton color="secondary" onClick={props.goToPrivatePass}>
+            <IconButton color="secondary" onClick={goToPrivatePass}>
               <ArrowForwardIcon />
             </IconButton>
           </div>
@@ -163,37 +221,30 @@ export const PrivateConsumerPassBookerListItem: React.FC<Props> = (props) => {
                 <ConsumerPrivatePassIncompatibilitiesReasons
                   closeMobileIncompatibilities={closeMobileIncompatibilities}
                   extraStartingDate={private_consumer_pass.date_bought}
-                  reasons={incompatibilitiesReasons ?? []}
+                  reasons={specificIncompatibilitiesReasons ?? []}
                 />
               </div>
             ))}
         </div>
       );
     }
-    if (props.onBook) {
+
+    if (onBook) {
       return (
-        <Button
-          color="primary"
-          onClick={() => {
-            setProcessing(true);
-            props.onBook({
-              onSuccess: () => setProcessing(false),
-              onError: () => setProcessing(false),
-            });
-          }}
-          variant="outlined"
-        >
+        <Button color="primary" onClick={handleBook} variant="outlined">
           {t('bookerModule.useCredit')}
         </Button>
       );
     }
+
     if (private_consumer_pass.reverted) {
       return (
         <RedButton variant="outlined">{t('consumerPass.isReverted')}</RedButton>
       );
     }
+
     if (
-      !props.onUpdateCredit ||
+      !onUpdateCredit ||
       private_consumer_pass.dst_private_consumer_pass.length
     ) {
       return null;
@@ -218,14 +269,7 @@ export const PrivateConsumerPassBookerListItem: React.FC<Props> = (props) => {
         <IconButton
           color="primary"
           disabled={private_consumer_pass.used_credits === 0}
-          onClick={(ev) => {
-            ev.stopPropagation();
-            setCreditProcessing(true);
-            props.onUpdateCredit(private_consumer_pass.id, 1, {
-              onSuccess: () => setCreditProcessing(false),
-              onError: () => setCreditProcessing(false),
-            });
-          }}
+          onClick={addCredit}
         >
           <ExposurePlus1Icon />
         </IconButton>
@@ -235,14 +279,7 @@ export const PrivateConsumerPassBookerListItem: React.FC<Props> = (props) => {
             private_consumer_pass.used_credits >=
             private_consumer_pass.private_pass?.credits
           }
-          onClick={(ev) => {
-            ev.stopPropagation();
-            setCreditProcessing(true);
-            props.onUpdateCredit(private_consumer_pass.id, -1, {
-              onSuccess: () => setCreditProcessing(false),
-              onError: () => setCreditProcessing(false),
-            });
-          }}
+          onClick={removeCredit}
         >
           <ExposureNeg1Icon />
         </IconButton>
@@ -253,18 +290,18 @@ export const PrivateConsumerPassBookerListItem: React.FC<Props> = (props) => {
     <>
       <ListItem
         dense
-        button={!!props.onClick}
+        button={!!onClick as any}
         className={
           private_consumer_pass.reverted ||
           private_consumer_pass.disabled ||
-          props.isNonCompatible
+          isNonCompatible
             ? classes.disabled
             : null
         }
-        disabled={!!props.disabled}
-        divider={!!props.divider}
-        onClick={props.onClick}
-        selected={!!props.selected}
+        disabled={!!disabled}
+        divider={!!divider}
+        onClick={onClick}
+        selected={!!selected}
       >
         {showMember &&
           private_consumer_pass &&
@@ -309,8 +346,7 @@ export const PrivateConsumerPassBookerListItem: React.FC<Props> = (props) => {
             style={{ paddingLeft: 16 }}
             variant="caption"
           >
-            {' '}
-            {isOwnerOfShares ? t('consumerPass.isOwnerOfShares') : ''}
+            ${isOwnerOfShares ? t('consumerPass.isOwnerOfShares') : ''}
             {isFromShare && private_consumer_pass.disabled
               ? t('consumerPass.isFromDisabledShare')
               : ''}
@@ -321,7 +357,7 @@ export const PrivateConsumerPassBookerListItem: React.FC<Props> = (props) => {
           <Divider />
         </React.Fragment>
       ) : null}
-      {showUniversalWarning && isUniversal ? (
+      {showUniversalWarning && isUniversal && (
         <React.Fragment>
           <Typography
             color="error"
@@ -332,7 +368,7 @@ export const PrivateConsumerPassBookerListItem: React.FC<Props> = (props) => {
           </Typography>
           <Divider />
         </React.Fragment>
-      ) : null}
+      )}
     </>
   );
 };
@@ -374,4 +410,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default withWidth()(PrivateConsumerPassBookerListItem);
+export default withWidth()(React.memo(PrivateConsumerPassBookerListItem));

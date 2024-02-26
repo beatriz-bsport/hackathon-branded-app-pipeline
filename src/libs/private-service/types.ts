@@ -220,6 +220,7 @@ export type PrivateConsumerPass<AssociatedMember = number> = {
   is_universal_consumer_pass_source: boolean;
   dst_private_consumer_pass?: Array<PrivateConsumerPassLink>;
   src_private_consumer_pass?: Array<PrivateConsumerPassLink>;
+  private_consumer_pass_source: number | null;
   disabled?: boolean;
 };
 

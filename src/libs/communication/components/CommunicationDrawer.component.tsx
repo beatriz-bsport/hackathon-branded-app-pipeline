@@ -83,7 +83,6 @@ const COMPANY_ALLOWED_TO_SEND_SMARTLIST_COMMUNICATION_WITH_DB_ERROR = [
 ];
 type Props = {
   actionType: number;
-  classes: Object;
   communicationScheduledToEdit?: CommunicationScheduled;
   companyId?: number;
   countTotal: number | null;
@@ -142,7 +141,7 @@ type State = {
   page_size: number;
   resendCount: number;
   resendDelay: number;
-  selectedTemplate: null;
+  selectedTemplate: number | null;
   smsContent: string;
   unCheckedMembers: {
     phone: Array<number>;
@@ -474,7 +473,7 @@ export class CommunicationDrawer extends Component<Props, State> {
     });
   };
 
-  openMemberPage = (event: SyntheticEvent<any>, id: number) => {
+  openMemberPage = (event: React.SyntheticEvent<any>, id: number) => {
     event.preventDefault();
     const url = `/member/edit/${id}`;
     const win = window.open(url);
@@ -573,7 +572,7 @@ export class CommunicationDrawer extends Component<Props, State> {
     return false;
   };
 
-  onSubmit = (ev) => {
+  onSubmit = (ev: React.SyntheticEvent<any>) => {
     ev.preventDefault();
     switch (this.state.actionType) {
       case WRITE_EMAIL:
@@ -777,9 +776,9 @@ export class CommunicationDrawer extends Component<Props, State> {
   };
 
   updateCommunicationScheduledTime = (value: Moment) => {
-    this.setState(() => ({
+    this.setState({
       communicationScheduledDate: value,
-    }));
+    });
   };
 
   enableCommunicationScheduling = () =>
@@ -881,7 +880,7 @@ export class CommunicationDrawer extends Component<Props, State> {
                       </Button>
                       <Button
                         color="primary"
-                        onClick={() => document.location.reload(true)}
+                        onClick={() => document.location.reload()}
                         type="submit"
                         variant="outlined"
                       >
@@ -928,7 +927,7 @@ export class CommunicationDrawer extends Component<Props, State> {
                       getEmails={getEmails}
                       mailDefaultTitle={mailDefaultTitle}
                       onCancel={onCancel}
-                      onChangeTemplate={(id) => {
+                      onChangeTemplate={(id: number) => {
                         this.setState({
                           selectedTemplate: id,
                           mailTitle: id
@@ -936,7 +935,7 @@ export class CommunicationDrawer extends Component<Props, State> {
                             : '',
                         });
                       }}
-                      onChangeTitle={(text) =>
+                      onChangeTitle={(text: string) =>
                         this.setState({ mailTitle: text })
                       }
                       resolvedGenericTags={resolvedGenericTags}
@@ -947,10 +946,12 @@ export class CommunicationDrawer extends Component<Props, State> {
                 {this.state.actionType === WRITE_EMAIL && !hideWrittenMail && (
                   <WriteEmail
                     mailContent={this.state.mailContent}
-                    onChangeContent={(text) =>
+                    onChangeContent={(text: string) =>
                       this.setState({ mailContent: text })
                     }
-                    onChangeTitle={(text) => this.setState({ mailTitle: text })}
+                    onChangeTitle={(text: string) =>
+                      this.setState({ mailTitle: text })
+                    }
                     title={this.state.mailTitle}
                   />
                 )}
@@ -960,7 +961,7 @@ export class CommunicationDrawer extends Component<Props, State> {
                       this.props.countWithPhone -
                         this.state.unCheckedMembers.phone?.length || 0
                     }
-                    onChangeContent={(text) =>
+                    onChangeContent={(text: string) =>
                       this.setState({ smsContent: text })
                     }
                     smsContent={this.state.smsContent}
@@ -1007,6 +1008,8 @@ export class CommunicationDrawer extends Component<Props, State> {
                           />
                         }
                         label={t('scheduled.sendImmediately')}
+                        // TODO : check which placement to use
+                        // @ts-expect-error
                         labelPlacement="right"
                       />
                       <FormControlLabel
@@ -1018,6 +1021,8 @@ export class CommunicationDrawer extends Component<Props, State> {
                           />
                         }
                         label={t('scheduled.scheduleForLater')}
+                        // TODO : check which placement to use
+                        // @ts-expect-error
                         labelPlacement="right"
                       />
                     </div>

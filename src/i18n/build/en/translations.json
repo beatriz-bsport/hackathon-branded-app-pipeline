@@ -2695,7 +2695,7 @@
             "highlightedAsRecommended": {
                 "label": "Mark as recommended",
                 "helperText": "Allows your customers to quickly see which packs are currently recommended."
-	    },
+            },
             "advancedOptions": {
                 "tag": {
                     "tagsOnAcquisition": "Tags after purchase",
@@ -7782,6 +7782,9 @@
             "title": "Payment",
             "totalHiddingTax": "Total to pay now",
             "flatFeeSubscription": "Application fee"
+        },
+        "billingGroup": {
+            "helperText": "The preferred location is where you plan to use your purchase most of the time. This information will be used to issue your invoice and for resource allocation purposes only. It does not determine where your purchase can be used."
         }
     },
     "establishment": {
@@ -9853,7 +9856,7 @@
                 "highlightedAsRecommended": {
                     "label": "Mark as recommended",
                     "helperText": "Allows your customers to quickly see which contracts are currently recommended."
-		},
+                },
                 "advancedOptions": {
                     "header": "Advanced",
                     "tag": {

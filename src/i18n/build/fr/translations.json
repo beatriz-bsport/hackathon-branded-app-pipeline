@@ -796,7 +796,7 @@
         "billingGroup": {
             "title": "Localisation préférée",
             "placeholder": "Localisation",
-            "helperText": "La localisation préférée est celle où vous prévoyez d'utiliser votre achat et qui sera utilisée pour établir votre facture."
+            "helperText": "La localisation préférée est l'endroit où vous prévoyez d'utiliser votre achat la plupart du temps. Cette information sera utilisée pour établir votre facture et à des fins d'allocation des ressources uniquement. Elle ne détermine pas l'endroit où votre achat peut être utilisé."
         }
     },
     "clockIn": {
@@ -1871,6 +1871,11 @@
                         "appointment": {
                             "past": "Aucun rendez-vous.",
                             "future": "Aucun rendez-vous n'est prévu pour le moment."
+                        },
+                        "pass": {
+                            "expired": "Vous n'avez pas encore de carte de cours expirées.",
+                            "future": "Il semble que vous n'ayez pas encore acheté de carte de cours.",
+                            "active": "Il semble que vous n'ayez pas encore acheté de carte de cours."
                         }
                     }
                 },
@@ -3294,6 +3299,14 @@
                 },
                 "manager_only": {
                     "label": "Invisible pour les clients"
+                },
+                "advancedOptions": {
+                    "tag": {
+                        "tagsOnAcquisitionHelper": "Utilisez des tags pour identifier les membres ayant acheté cette carte cadeau",
+                        "selectTags": "Sélectionnez les tags",
+                        "tagsOnAcquisition": "Tag après achat"
+                    },
+                    "header": "Avancé"
                 }
             },
             "canNotUpdateBecauseShared": "Cette carte cadeau est une carte partagée par le compte franchiseur. Elle a été définie par le compte franchiseur et n'est pas modifiable."
@@ -7354,6 +7367,15 @@
             "highlightedAsRecommended": {
                 "label": "Marquer comme recommandé",
                 "helperText": "Permet à vos clients de voir d'un coup d'oeil quels packs sont actuellement recommandés."
+            },
+            "advancedOptions": {
+                "tag": {
+                    "tagsOnAcquisitionHelper": "Utilisez des tags pour identifier les membres ayant acheté ce pack.",
+                    "tagGroupDuplicated": "Veuillez noter que les articles sélectionnés contiennent des tags de la même catégorie.",
+                    "selectTags": "Sélectionnez des tags",
+                    "tagsOnAcquisition": "Tags après achat"
+                },
+                "header": "Avancé"
             }
         },
         "detail": {
@@ -7796,7 +7818,10 @@
                         "allowedFor": "Autorisé pour",
                         "notAllowed": "Non-Autorisé",
                         "notAllowedFor": "Non-autorisé pour",
-                        "doNotSelectToAllowAllMembers": "Laisser vide pour autoriser à tous les membres"
+                        "doNotSelectToAllowAllMembers": "Laisser vide pour autoriser à tous les membres",
+                        "tagsOnAcquisitionHelper": "Utilisez des tags pour identifier les membres ayant acheté cette carte de cours.",
+                        "tagsOnAcquisition": "Tag après achat",
+                        "selectTags": "Sélectionnez les tags"
                     },
                     "appliesForPayroll": {
                         "label": "Sessions prises en compte dans le calcul de la rémunération du professeur",
@@ -8546,8 +8571,8 @@
             "maxBooking": "Jusqu'à {{ max_booking_per_month }} réservations / mois"
         },
         "featureRequest": {
-            "title": "Add-on",
-            "content": "Nous avons bien noté votre intérêt, merci pour votre intérêt ! Votre chargé de compte bsport vous recontactera très vite avec plus d'informations.",
+            "title": "Engageons la conversation",
+            "content": "Nous vous remercions pour votre intérêt. Si vous souhaitez en savoir plus sur cet add-on, nous vous invitons à poser votre question dans notre chat d'assistance personnalisé. Votre gestionnaire de compte sera ravi de vous fournir de plus amples informations.",
             "close": "Fermer"
         }
     },
@@ -9288,6 +9313,14 @@
                 },
                 "description": {
                     "label": "Description"
+                },
+                "advancedOptions": {
+                    "tag": {
+                        "tagsOnAcquisitionHelper": "Utilisez des tags pour identifier les membres ayant acheté cette carte de rendez-vous.",
+                        "selectTags": "Sélectionnez les tags",
+                        "tagsOnAcquisition": "Tag après achat"
+                    },
+                    "header": "Avancé"
                 }
             },
             "disabledTitle": "Cartes de RDV archivées",
@@ -14416,6 +14449,12 @@
         },
         "privateSlot": {
             "notAvailableForBookingAnymore": "Ce créneau n'est plus disponible."
+        },
+        "tag": {
+            "error": {
+                "124004": "Le nom du tag principal est déjà utilisé",
+                "124003": "Le nom du sous-tag est déjà utilisé"
+            }
         }
     },
     "spotScheduling": {
@@ -14989,6 +15028,16 @@
                 "highlightedAsRecommended": {
                     "label": "Marquer comme recommandé",
                     "helperText": "Permet à vos clients de voir d'un coup d'oeil quels contrats sont actuellement recommandés."
+                },
+                "advancedOptions": {
+                    "tag": {
+                        "tagsOnAcquisitionHelper": "Utilisez des tags pour identifier les membres ayant payé la première facture",
+                        "tagGroupDuplicated": "Veuillez noter que les articles sélectionnés contiennent des tags de la même catégorie.",
+                        "selectTags": "Sélectionnez les tags",
+                        "tagsOnAcquisition": "Tag après achat"
+                    },
+                    "selectTags": "Sélectionnez les tags",
+                    "title": "Avancé"
                 }
             },
             "deleteForm": {
@@ -15591,7 +15640,8 @@
                 "text": "Cette séance fais partit d'un groupe, vous allez détagger toutes les séance de ce groupe. Voulez vous continuer ?",
                 "submit": "Confirmer"
             }
-        }
+        },
+        "tagGroupDuplicated": "Veuillez noter que certains tags appartiennent au même groupe."
     },
     "theme": {
         "pageTitles": {
@@ -16464,7 +16514,15 @@
                     "provisions": "Stock",
                     "name": "Nom",
                     "price": "Prix",
-                    "tva": "TVA"
+                    "tva": "TVA",
+                    "advancedOptions": {
+                        "tag": {
+                            "tagsOnAcquisitionHelper": "Utilisez des tags pour identifier les membres ayant acheté cet article",
+                            "selectTags": "Sélectionnez les tags",
+                            "tagsOnAcquisition": "Tag après achat"
+                        },
+                        "header": "Avancé"
+                    }
                 }
             },
             "booking": {

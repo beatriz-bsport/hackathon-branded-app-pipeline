@@ -7,23 +7,33 @@ import { CSSTransition } from 'react-transition-group';
 type SlidingContainerProps = {
   isOpen: boolean,
   containerFirstChild: HTMLElement,
+  widgetContainerElement: HTMLElement,
   usePostMessageIframeDimensions?: boolean,
 };
 export const SlidingContainer: React.FC<SlidingContainerProps> = ({
   isOpen,
   children,
   containerFirstChild,
+  widgetContainerElement,
 }) => {
   const nodeRef = React.useRef(null);
   React.useEffect(() => {
     if (isOpen) {
       containerFirstChild?.style?.setProperty('height', '0px');
       containerFirstChild?.style?.setProperty('display', 'none', 'important');
-      nodeRef?.current?.scrollIntoView({
-        block: 'start',
-        inline: 'nearest',
-        behavior: 'smooth',
-      });
+
+      const parentWidgetContainerElement =
+        widgetContainerElement?.parentElement;
+
+      if (parentWidgetContainerElement) {
+        parentWidgetContainerElement?.animate({ scrollTop: 0 });
+      } else {
+        widgetContainerElement?.scrollIntoView({
+          block: 'start',
+          inline: 'nearest',
+          behavior: 'smooth',
+        });
+      }
     }
     return () => {
       setTimeout(() => {
@@ -31,7 +41,7 @@ export const SlidingContainer: React.FC<SlidingContainerProps> = ({
         containerFirstChild?.style?.setProperty('display', '');
       }, 200);
     };
-  }, [isOpen, containerFirstChild]);
+  }, [isOpen, containerFirstChild, widgetContainerElement]);
 
   return (
     <CSSTransition
@@ -87,6 +97,7 @@ export const PortalSlidingContainer: React.FC<PortalSlidingContainerProps> = ({
     <SlidingContainer
       isOpen={isOpen}
       containerFirstChild={containerSetUpVariableFirstChild}
+      widgetContainerElement={widgetContainerElement}
     >
       {children}
     </SlidingContainer>,

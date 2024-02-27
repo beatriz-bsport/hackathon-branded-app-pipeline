@@ -168,36 +168,9 @@ import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
 import BookerModuleOfferSummary from '#libs/marketplace/components/@Offer/BookerModuleOfferSummary';
 
 import './BoutiqueBookerModule.css';
-import useParentSize from '#hooks/useParentSize';
+import withScrollHeightListener from '#hocs/with-widget-scroll-height-listener.hoc';
 
 const DEFAULT_SPOT_TYPE = { id: -1 };
-
-const withScrollHeightListener = (
-  WrappedComponent: React.ComponentType<any>,
-) => {
-  return (props: any) => {
-    const containerRef = React.useRef(null);
-
-    const sendPostMessageUpdate = (height: number) => {
-      if (WidgetUtils.isWidget() && !!WidgetUtils.getParentElementId()) {
-        const message = {
-          type: 'bsport-widget-resize',
-          data: {
-            scrollHeight: height,
-            parentElementId: WidgetUtils.getParentElementId(),
-          },
-        };
-        window?.parent?.postMessage(message, '*');
-      }
-    };
-
-    // @ts-expect-error
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { _, height } = useParentSize(containerRef, { maxDifference: 150 });
-    sendPostMessageUpdate(height);
-    return <WrappedComponent {...props} containerRef={containerRef} />;
-  };
-};
 
 type State = {
   offersConstraint: OfferConstraint;

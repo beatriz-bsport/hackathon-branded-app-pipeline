@@ -11,6 +11,7 @@ import {
   CUSTOM_FORM_FIELD_SIGN_UP_EMAIL,
   CUSTOM_FORM_FIELD_SIGN_UP_PASSWORD,
 } from '@bsport/common/lib/master-data/custom-form';
+import { DIALOG_MODE_DEACTIVATED } from '@bsport/common/lib/master-data/widget-dialog-mode';
 
 import type { Dispatch, OptionCallback } from '../../../state/types';
 import themeSelectors, { getIsUISimplified } from '#libs/theme/selectors';
@@ -31,6 +32,7 @@ import {
   getSignUpCustomFormWithEnabledField,
   getSignUpCustomFormLoading,
 } from '#libs/custom-form/selectors';
+import withScrollHeightListener from '#hocs/with-widget-scroll-height-listener.hoc';
 import type { RootState } from '../../../reducers';
 import { WithHandlerType } from '../../../utils/types';
 import type {
@@ -45,7 +47,6 @@ import CustomFormTitleCSS from '#libs/custom-form/components/CustomFormTitleCSS'
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
 import { retrieveCompanyCssConfiguration as retrieveCompanyCssConfigurationAction } from '#libs/exportable-components/actions';
-
 import './SignupPageStyles.css';
 
 type OwnProps = {
@@ -70,6 +71,7 @@ type OwnProps = {
     email: string;
     password: string;
   }) => void;
+  containerRef: React.MutableRefObject<any>;
 };
 type StateHandlerType = typeof withStateHandlersInit &
   WithHandlerType<typeof withStateHandlersSetter>;
@@ -132,6 +134,19 @@ export class SignupPage extends Component<Props> {
     CUSTOM_FORM_CSS_VARIANT_ACTIVATED ||
     !!this.props.signUpCustomForm?.layout_configuration?.use_custom_css_variant;
 
+  getContainerClass = () => {
+    if (
+      WidgetUtils.isWidget() &&
+      WidgetUtils.getDialogMode() === DIALOG_MODE_DEACTIVATED
+    ) {
+      return 'bs-signup-container--no_pop_up';
+    }
+
+    return WidgetUtils.isWidget()
+      ? 'bs-signup-container--widget'
+      : 'bs-signup-container--default';
+  };
+
   render() {
     const {
       authenticated,
@@ -142,6 +157,7 @@ export class SignupPage extends Component<Props> {
       next,
       simplifyUI,
       signUpCustomFormLoading,
+      containerRef,
     } = this.props;
 
     if (authenticated) {
@@ -153,12 +169,9 @@ export class SignupPage extends Component<Props> {
     if (signUpCustomFormLoading) {
       return null;
     }
-    const containerClass = WidgetUtils.isWidget()
-      ? 'bs-signup-container--widget'
-      : 'bs-signup-container--default';
 
     return (
-      <div className={containerClass}>
+      <div ref={containerRef} className={this.getContainerClass()}>
         <div className="bs-signup-container--margin-top">
           {this.isCustomFormCssVariantActivated() ? (
             <CustomFormTitleCSS
@@ -280,6 +293,7 @@ const withStateHandlersSetter = {
 };
 
 export default compose(
+  withScrollHeightListener,
   withRouter,
   withTranslation(['login']),
   withProps((props: OwnProps) => {

@@ -84,6 +84,7 @@ export const DrawerItemComponent: React.FC<Props> = ({
 
   /**
    * Determines if a given DrawerItem should be highlighted as active based on the current URL path.
+   * If the item has some exclude url pattern, we first wheck them.
    * If the DrawerItem has inner tabs, the last part of the URL path is removed before checking.
    *
    * For example, if the current URL path is `<url>/booking/1234`, and the DrawerItem has
@@ -94,6 +95,13 @@ export const DrawerItemComponent: React.FC<Props> = ({
    */
   const urlPatternMatch = useCallback(
     (_item: DrawerItemDefault) => {
+      if (
+        _item?.excludeUrlPatterns?.some((_pattern) =>
+          currentPath.startsWith(_pattern),
+        )
+      ) {
+        return false;
+      }
       const pattern = _item?.hasInnerTabs
         ? _item.to.replace(/\/[^/]+$/g, '')
         : _item.to;

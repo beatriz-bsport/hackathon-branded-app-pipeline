@@ -119,6 +119,7 @@ export type DrawerItemDefault = {
   actionOnMenuToggle?: undefined;
   shrinkMenuOnIconOnly?: boolean;
   hasInnerTabs?: boolean;
+  excludeUrlPatterns?: string[];
 };
 
 export type DrawerItemDivider = {
@@ -345,6 +346,7 @@ const ResponsiveDrawer: React.FC<Props> = ({
             : []),
           {
             to: '/subscription',
+            excludeUrlPatterns: ['/subscription/contract'],
             icon: Payment,
             text: t('backofficeMenu.subscription'),
           } as DrawerItemDefault,

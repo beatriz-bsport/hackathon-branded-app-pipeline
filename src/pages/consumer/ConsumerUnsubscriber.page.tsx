@@ -77,4 +77,5 @@ const useStyles = makeStyles((theme) => ({
 
 export default compose(
   routerParamsToProps({ unsubscribe_uuid: 'unsubscribe_uuid' }),
+  React.memo,
 )(ConsumerUnsubscriber);

@@ -2700,7 +2700,8 @@
                 "tag": {
                     "tagsOnAcquisition": "Tags after purchase",
                     "tagsOnAcquisitionHelper": "Use tags to mark members who have bought this pack.",
-                    "selectTags": "Select tags"
+                    "selectTags": "Select tags",
+                    "tagGroupDuplicated": "Please note that selected items contain tags of the same category that cannot be applied simultaneously. Only the first of these tags will be applied after purchase."
                 },
                 "header": "Advanced",
                 "tagGroupDuplicated": "Please note that selected items contain tags of the same category"
@@ -7279,7 +7280,8 @@
                 "text": "This session is associated to an event. You're about to delete all tags. Are you sure that you want to continue?",
                 "title": "Untag"
             }
-        }
+        },
+        "tagGroupDuplicated": "Please be aware that some tags belong to the same group and cannot be applied simultaneously. Only the first of these tags will be applied after purchase."
     },
     "login": {
         "forms": {

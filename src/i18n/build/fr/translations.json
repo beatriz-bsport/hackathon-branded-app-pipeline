@@ -7371,7 +7371,7 @@
             "advancedOptions": {
                 "tag": {
                     "tagsOnAcquisitionHelper": "Utilisez des tags pour identifier les membres ayant acheté ce pack.",
-                    "tagGroupDuplicated": "Veuillez noter que les articles sélectionnés contiennent des tags de la même catégorie.",
+                    "tagGroupDuplicated": "Veuillez noter que les articles sélectionnés contiennent des tags de la même catégorie qui ne peuvent pas être appliqués simultanément. Seul le premier de ces tags sera appliqué après achat.",
                     "selectTags": "Sélectionnez des tags",
                     "tagsOnAcquisition": "Tags après achat"
                 },
@@ -15641,7 +15641,7 @@
                 "submit": "Confirmer"
             }
         },
-        "tagGroupDuplicated": "Veuillez noter que certains tags appartiennent au même groupe."
+        "tagGroupDuplicated": "Veuillez noter que certains tags appartiennent au même groupe et ne peuvent pas être appliqués simultanément. Seul le premier de ces tags sera appliqué après achat."
     },
     "theme": {
         "pageTitles": {

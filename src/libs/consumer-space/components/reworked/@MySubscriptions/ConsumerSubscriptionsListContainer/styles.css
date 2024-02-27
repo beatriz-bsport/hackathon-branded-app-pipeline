@@ -14,3 +14,11 @@
   padding: 0;
   margin: 0;
 }
+
+.bs-consumer__subscription-details-card__root--hidden {
+  display: none;
+}
+
+.bs-consumer-page-root__subscriptions_list--hidden {
+  display: none;
+}

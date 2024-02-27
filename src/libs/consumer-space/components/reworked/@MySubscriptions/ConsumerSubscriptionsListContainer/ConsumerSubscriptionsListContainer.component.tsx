@@ -131,7 +131,12 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
         isMobile,
         selectedSubscription,
         null,
-        <ul className="bs-consumer-page-root__subscriptions_list">
+        <ul
+          className={classNames('bs-consumer-page-root__subscriptions_list', {
+            'bs-consumer-page-root__subscriptions_list--hidden':
+              showEmptyPlaceholder,
+          })}
+        >
           <GenericInfiniteScrollEnhancedCssOnly<SubscriptionREST>
             fetchMoreData={handlePaginationFetchMore}
             hasMore={hasNextPage}
@@ -175,6 +180,10 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
       <ConsumerSubscriptionDetailsCard
         areDetailsLoading={areDetailsLoading}
         autoRenewalDate={formatAsDate(selectedSubscription?.last_billing_date)}
+        className={
+          showEmptyPlaceholder &&
+          'bs-consumer__subscription-details-card__root--hidden'
+        }
         description={selectedSubscription?.description}
         failedInvoices={selectedSubscription?.failed_payments_invoices}
         handleInvoiceDetailsPaginationFetchMore={
@@ -216,7 +225,7 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
         selected={!!selectedSubscription}
         selectedSubscriptionInvoiceDetails={selectedSubscriptionInvoiceDetails}
         selectedSubscriptionsFuturePauses={selectedSubscriptionsFuturePauses}
-        showPlaceholder={!selectedSubscription}
+        showPlaceholder={!selectedSubscription && !!subscriptionsList?.length}
         subscriptionInterval={selectedSubscription?.interval}
         subscriptionName={selectedSubscription?.name_without_member_name}
         subscriptionNextPaymentDate={

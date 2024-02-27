@@ -32,6 +32,8 @@ type Props = {
   areDetailsLoading: boolean;
   /** Auto renewal date */
   autoRenewalDate: string;
+  /** Class given by parent element */
+  className?: string;
   /** Description of subscription */
   description: string;
   /** List of failed invoices */
@@ -100,6 +102,7 @@ type Props = {
 const ConsumerSubscriptionDetailsCard: React.FC<Props> = ({
   areDetailsLoading,
   autoRenewalDate,
+  className,
   description,
   failedInvoices,
   handleInvoiceDetailsPaginationFetchMore,
@@ -151,9 +154,13 @@ const ConsumerSubscriptionDetailsCard: React.FC<Props> = ({
 
   return (
     <Card
-      className={classNames('bs-consumer__subscription-details-card__root', {
-        'bs-consumer__subscription-details-card__root--mobile': isMobile,
-      })}
+      className={classNames(
+        className,
+        'bs-consumer__subscription-details-card__root',
+        {
+          'bs-consumer__subscription-details-card__root--mobile': isMobile,
+        },
+      )}
     >
       <ConsumerSubscriptionDetailsCardHeader
         autoRenewalDate={autoRenewalDate}

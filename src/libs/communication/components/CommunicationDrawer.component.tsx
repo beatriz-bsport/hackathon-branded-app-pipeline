@@ -57,8 +57,9 @@ import {
   UPSELL_IDENTIFIER_PUSH_NOTIFICATION,
   UPSELL_IDENTIFIER_SMS,
 } from '#libs/platform-billing/upsell-identifiers';
-import { isAmPmTimeFormat } from '#utils/datetime';
+import { formatAsDatetimeAdapted, isAmPmTimeFormat } from '#utils/datetime';
 import { hasUpsell } from '#libs/platform-billing/utils';
+import { MINUTE_LIMIT_TO_SCHEDULE_COMMUNICATION } from '#libs/communication-v2/constants';
 
 import type { MemberMailData } from '#libs/communication/types';
 import type { Member } from '#libs/member/types';
@@ -127,7 +128,7 @@ type Props = {
 
 type State = {
   actionType: number;
-  communicationScheduledDate: string | null;
+  communicationScheduledDate: Moment | null;
   communicationScheduledTimePeriod: DateFilterEnum;
   isCommunicationScheduled: boolean;
   isSmsCostReminderModalOpen: boolean;
@@ -171,7 +172,7 @@ export class CommunicationDrawer extends Component<Props, State> {
 
     this.state = {
       actionType: props.actionType ? props.actionType : SELECT_EMAIL,
-      communicationScheduledDate: this.getScheduledDate(),
+      communicationScheduledDate: this.getScheduledMoment(),
       communicationScheduledTimePeriod: 'custom',
       isCommunicationScheduled: false,
       isSmsCostReminderModalOpen: false,
@@ -193,12 +194,12 @@ export class CommunicationDrawer extends Component<Props, State> {
 
   /**
    * Gets the scheduled date by adding one hour to the current time.
-   * @returns {Date} The current date with one hour added.
+   * @returns {Moment} The current date with one hour added.
    */
-  getScheduledDate = () => {
-    const scheduledDate = new Date();
-    scheduledDate.setHours(scheduledDate.getHours() + 1);
-    return scheduledDate;
+  getScheduledMoment = () => {
+    const scheduledMoment = moment();
+    scheduledMoment.add(1, 'hour');
+    return scheduledMoment;
   };
 
   componentDidMount() {
@@ -208,7 +209,7 @@ export class CommunicationDrawer extends Component<Props, State> {
   componentDidUpdate(prevProps: Props) {
     if (this.props.open === true && prevProps.open === false) {
       this.setState({
-        communicationScheduledDate: this.getScheduledDate(),
+        communicationScheduledDate: this.getScheduledMoment(),
       });
     }
     if (prevProps.mailDefaultTitle !== this.props.mailDefaultTitle) {
@@ -288,6 +289,11 @@ export class CommunicationDrawer extends Component<Props, State> {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     event.preventDefault();
+    const communicationScheduledDateFormatted = formatAsDatetimeAdapted(
+      this.state.communicationScheduledDate,
+      'YYYY-MM-DDTHH:mm',
+      this.props.timezone,
+    );
     if (this.state.isCommunicationScheduled) {
       if (this.props.communicationScheduledToEdit) {
         this.props.editScheduledMessage({
@@ -296,13 +302,13 @@ export class CommunicationDrawer extends Component<Props, State> {
           title: '',
           email_design: null,
           communication_kind: COMMUNICATION_KIND_SMS,
-          datetime_scheduled: this.state.communicationScheduledDate,
+          datetime_scheduled: communicationScheduledDateFormatted,
         });
       } else {
         this.props.schedule({
           text: this.state.smsContent,
           communication_kind: COMMUNICATION_KIND_SMS,
-          datetime_scheduled: this.state.communicationScheduledDate,
+          datetime_scheduled: communicationScheduledDateFormatted,
         });
       }
     } else if (this.props.communicationScheduledToEdit) {
@@ -315,7 +321,7 @@ export class CommunicationDrawer extends Component<Props, State> {
           title: '',
           email_design: null,
           communication_kind: COMMUNICATION_KIND_SMS,
-          datetime_scheduled: this.state.communicationScheduledDate,
+          datetime_scheduled: communicationScheduledDateFormatted,
         },
         {
           onSuccess: () => this.props.sendNow(communicationScheduledId),
@@ -487,18 +493,13 @@ export class CommunicationDrawer extends Component<Props, State> {
     this.setState({ openRefreshDialog: true });
   };
 
-  checkIsMessageSchedulable = () => {
-    const communicationScheduledDate = new Date(
-      this.state.communicationScheduledDate,
-    );
-
-    return communicationScheduledDate > new Date(Date.now() + 5 * 60 * 1000);
-  };
+  checkIsMessageSchedulable = () =>
+    this.state.communicationScheduledDate >
+    moment(Date()).add(MINUTE_LIMIT_TO_SCHEDULE_COMMUNICATION, 'minute');
 
   checkIsMessageScheduledDuringNighttime = () => {
-    const communicationScheduledHour = new Date(
-      this.state.communicationScheduledDate,
-    ).getHours();
+    const communicationScheduledHour =
+      this.state.communicationScheduledDate.hour();
 
     if (!!this.props?.hoursToSend?.min && !!this.props?.hoursToSend?.max) {
       return (
@@ -580,6 +581,13 @@ export class CommunicationDrawer extends Component<Props, State> {
 
   onSubmit = (ev: React.SyntheticEvent<any>) => {
     ev.preventDefault();
+
+    const communicationScheduledDateFormatted = formatAsDatetimeAdapted(
+      this.state.communicationScheduledDate,
+      'YYYY-MM-DDTHH:mm',
+      this.props.timezone,
+    );
+
     switch (this.state.actionType) {
       case WRITE_EMAIL:
         if (this.state.isCommunicationScheduled) {
@@ -590,7 +598,7 @@ export class CommunicationDrawer extends Component<Props, State> {
               title: this.state.mailTitle,
               text: this.state.mailContent,
               communication_kind: COMMUNICATION_KIND_EMAIL,
-              datetime_scheduled: this.state.communicationScheduledDate,
+              datetime_scheduled: communicationScheduledDateFormatted,
               email_resend_count: this.state.resendCount,
               email_resend_delay: this.state.resendDelay,
             });
@@ -599,7 +607,7 @@ export class CommunicationDrawer extends Component<Props, State> {
               title: this.state.mailTitle,
               text: this.state.mailContent,
               communication_kind: COMMUNICATION_KIND_EMAIL,
-              datetime_scheduled: this.state.communicationScheduledDate,
+              datetime_scheduled: communicationScheduledDateFormatted,
               email_resend_count: this.state.resendCount,
               email_resend_delay: this.state.resendDelay,
             });
@@ -614,7 +622,7 @@ export class CommunicationDrawer extends Component<Props, State> {
               title: this.state.mailTitle,
               text: this.state.mailContent,
               communication_kind: COMMUNICATION_KIND_EMAIL,
-              datetime_scheduled: this.state.communicationScheduledDate,
+              datetime_scheduled: communicationScheduledDateFormatted,
               email_resend_count: this.state.resendCount,
               email_resend_delay: this.state.resendDelay,
             },
@@ -646,7 +654,7 @@ export class CommunicationDrawer extends Component<Props, State> {
               email_design: this.state.selectedTemplate,
               text: '',
               communication_kind: COMMUNICATION_KIND_EMAIL,
-              datetime_scheduled: this.state.communicationScheduledDate,
+              datetime_scheduled: communicationScheduledDateFormatted,
               email_resend_count: this.state.resendCount,
               email_resend_delay: this.state.resendDelay,
             });
@@ -655,7 +663,7 @@ export class CommunicationDrawer extends Component<Props, State> {
               title: this.state.mailTitle,
               email_design: this.state.selectedTemplate,
               communication_kind: COMMUNICATION_KIND_EMAIL,
-              datetime_scheduled: this.state.communicationScheduledDate,
+              datetime_scheduled: communicationScheduledDateFormatted,
               email_resend_count: this.state.resendCount,
               email_resend_delay: this.state.resendDelay,
             });
@@ -670,7 +678,7 @@ export class CommunicationDrawer extends Component<Props, State> {
               email_design: this.state.selectedTemplate,
               text: '',
               communication_kind: COMMUNICATION_KIND_EMAIL,
-              datetime_scheduled: this.state.communicationScheduledDate,
+              datetime_scheduled: communicationScheduledDateFormatted,
               email_resend_count: this.state.resendCount,
               email_resend_delay: this.state.resendDelay,
             },
@@ -699,7 +707,7 @@ export class CommunicationDrawer extends Component<Props, State> {
               text: this.state.notificationContent,
               email_design: null,
               communication_kind: COMMUNICATION_KIND_PUSH_NOTIFICATION,
-              datetime_scheduled: this.state.communicationScheduledDate,
+              datetime_scheduled: communicationScheduledDateFormatted,
               email_resend_count: this.state.resendCount,
               email_resend_delay: this.state.resendDelay,
             });
@@ -708,7 +716,7 @@ export class CommunicationDrawer extends Component<Props, State> {
               title: this.state.notificationTitle,
               text: this.state.notificationContent,
               communication_kind: COMMUNICATION_KIND_PUSH_NOTIFICATION,
-              datetime_scheduled: this.state.communicationScheduledDate,
+              datetime_scheduled: communicationScheduledDateFormatted,
               email_resend_count: this.state.resendCount,
               email_resend_delay: this.state.resendDelay,
             });
@@ -723,7 +731,7 @@ export class CommunicationDrawer extends Component<Props, State> {
               text: this.state.notificationContent,
               email_design: null,
               communication_kind: COMMUNICATION_KIND_PUSH_NOTIFICATION,
-              datetime_scheduled: this.state.communicationScheduledDate,
+              datetime_scheduled: communicationScheduledDateFormatted,
               email_resend_count: this.state.resendCount,
               email_resend_delay: this.state.resendDelay,
             },
@@ -775,10 +783,17 @@ export class CommunicationDrawer extends Component<Props, State> {
     }));
 
   updateCommunicationScheduledDate = (values: DatePickerSelectorValues) => {
-    this.setState({
-      communicationScheduledDate: values.date,
-      communicationScheduledTimePeriod: values.timePeriod,
-    });
+    if (typeof values.date === 'number') {
+      this.setState({
+        communicationScheduledDate: moment.unix(values.date),
+        communicationScheduledTimePeriod: values.timePeriod,
+      });
+    } else {
+      this.setState({
+        communicationScheduledDate: values.date,
+        communicationScheduledTimePeriod: values.timePeriod,
+      });
+    }
   };
 
   updateCommunicationScheduledTime = (value: Moment) => {
@@ -801,8 +816,9 @@ export class CommunicationDrawer extends Component<Props, State> {
     if (this.props.communicationScheduledToEdit) {
       this.setState({
         isCommunicationScheduled: true,
-        communicationScheduledDate:
+        communicationScheduledDate: moment(
           this.props.communicationScheduledToEdit.datetime_scheduled,
+        ),
         mailTitle:
           this.props.communicationScheduledToEdit.title ||
           this.props.mailDefaultTitle ||
@@ -1041,10 +1057,9 @@ export class CommunicationDrawer extends Component<Props, State> {
                           <div className={classes.datePickerSection}>
                             <DatePickerSelector
                               isFullWidth
+                              keepHours
                               singleDate
-                              date={moment(
-                                this.state.communicationScheduledDate,
-                              ).unix()}
+                              date={this.state.communicationScheduledDate.unix()}
                               onSubmit={this.updateCommunicationScheduledDate}
                               timePeriod={
                                 this.state.communicationScheduledTimePeriod
@@ -1069,9 +1084,7 @@ export class CommunicationDrawer extends Component<Props, State> {
                               }}
                               onChange={this.updateCommunicationScheduledTime}
                               size="small"
-                              value={moment(
-                                this.state.communicationScheduledDate,
-                              ).tz(this.props.timezone)}
+                              value={this.state.communicationScheduledDate}
                               variant="outlined"
                             />
                           </div>

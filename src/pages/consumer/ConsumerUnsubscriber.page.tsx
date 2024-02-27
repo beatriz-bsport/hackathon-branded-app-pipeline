@@ -16,7 +16,7 @@ type Props = {
 };
 export const ConsumerUnsubscriber: React.FC<Props> = ({ unsubscribe_uuid }) => {
   const classes = useStyles();
-  const { t } = useTranslation(['consumerSpace']);
+  const { t } = useTranslation('consumerSpace');
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);

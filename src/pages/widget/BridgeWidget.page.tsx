@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import moment from 'moment-timezone';
 
+import type {  OptionCallback, ThunkAction } from 'src/state/types';
 import {
   BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
   BsportRequestFromHeaderValue,
@@ -92,6 +93,30 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
       );
     }
   }
+
+  handleBridgeApiCallRequest = <A, T>({
+    apiCallAction,
+    args,
+    responseSignature,
+  }: {
+    args: unknown;
+    apiCallAction: (
+      args: A,
+      options?: OptionCallback<T>,
+    ) => ((dispatch: any) => Promise<void>)  | ThunkAction ;
+    responseSignature: WidgetApiMessageType;
+  }): void => {
+    apiCallAction(args as A, {
+      onSuccess: (data: T) => {
+        WidgetUtils.sendBridgeResponse(responseSignature, { data });
+      },
+      onError: (error: Error) => {
+        WidgetUtils.sendBridgeResponse(responseSignature, {
+          error: error ?? new Error('Unknown error'),
+        });
+      },
+    });
+  };
 
   sendAuthenticationResponse = () => {
     const { authenticated, username } = this.props.auth;

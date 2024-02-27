@@ -53,29 +53,36 @@ export class ConsumerReferralDetail extends Component<Props> {
   }
 
   componentDidUpdate(prevProps: Props): void {
-    if (
-      prevProps.authenticated !== this.props.authenticated ||
-      (!this.props.referralProgram && !this.props.referralProgramError)
-    ) {
+    if (prevProps.authenticated !== this.props.authenticated) {
       this.fetchData();
     }
   }
+
+  fetchAuthenticatedData = () => {
+    this.props.fetchMembershipByCompany(this.props.companyId, {
+      onSuccess: (membership) => {
+        this.props.fetchMember(membership.id);
+        if (this.props.theme.is_referral_program_activated) {
+          this.props.retrieveReferralMemberStatus(membership.id);
+        }
+      },
+    });
+  };
 
   fetchData = () => {
     // This page can be accessed while unauthenticated as a widget. It then has a different behavior, showing
     // the company's referral program and prompting the user to log in to use it
     if (!this.props.referralProgram) {
-      this.props.retrieveReferralProgramForCompany(this.props.companyId);
+      this.props.retrieveReferralProgramForCompany(this.props.companyId, {
+        onSuccess: () => {
+          if (this.props.authenticated) {
+            this.fetchAuthenticatedData();
+          }
+        },
+      });
     }
-    if (!this.props.authenticated) return;
-    this.props.fetchMembershipByCompany(this.props.companyId);
-
-    if (!this.props.membership) return;
-
-    this.props.fetchMember(this.props.membership?.id);
-
-    if (this.props.theme.is_referral_program_activated) {
-      this.props.retrieveReferralMemberStatus(this.props.membership?.id);
+    if (!this.props.member && this.props.authenticated) {
+      this.fetchAuthenticatedData();
     }
   };
 

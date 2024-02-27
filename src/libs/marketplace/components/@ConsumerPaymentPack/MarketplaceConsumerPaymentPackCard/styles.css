@@ -98,3 +98,37 @@
 .consumer-payment-pack-card__credit__status {
   grid-area: 2/1/3/2;
 }
+
+.consumer-payment-pack-card__booking-button {
+  display: none;
+}
+
+@container bsOfferBookingPage (width < 950px) {
+  .consumer-payment-pack-card__booking-button {
+    display: block;
+    grid-area: 3/1/3/3;
+  }
+}
+
+[id^='bs-payment-pack-buyable-item__card']
+  .bs-payment-pack-buyable-item__grid_item-booking-button
+  > [class*='makeStyles-container'],
+[id^='bs-payment-pack-buyable-item__card']
+  .bs-booker-module-offer-summary-content,
+[id^='bs-payment-pack-buyable-item__card']
+  .bs-booker-module-offer-summary-card {
+  background-color: transparent !important;
+}
+
+.bs-booker-module-buyable-items__container
+  .consumer-payment-pack-card__container
+  .consumer-payment-pack-card__booking-button
+  > [class*='makeStyles-container'] {
+  background-color: transparent !important;
+}
+
+#consumer-payment-pack-card__container
+  .consumer-payment-pack-card__booking-button
+  div {
+  background-color: transparent !important;
+}

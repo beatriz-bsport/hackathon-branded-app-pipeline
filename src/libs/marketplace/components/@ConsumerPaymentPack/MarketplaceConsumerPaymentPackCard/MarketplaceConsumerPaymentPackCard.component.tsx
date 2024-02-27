@@ -19,12 +19,14 @@ type Props = {
   onSelectConsumerPaymentPack: (
     consumerPaymentPack: ConsumerPaymentPack<PaymentPack>,
   ) => void;
+  bookingConfirmButtonComponent?: React.ReactElement;
 };
 
 const MarketplaceConsumerPaymentPackCard: React.FC<Props> = ({
   consumerPaymentPack,
   isSelected,
   onSelectConsumerPaymentPack,
+  bookingConfirmButtonComponent,
 }) => {
   const { t } = useTranslation('paymentPack');
 
@@ -46,6 +48,7 @@ const MarketplaceConsumerPaymentPackCard: React.FC<Props> = ({
         'consumer-payment-pack-card__container--selected': isSelected,
         'consumer-payment-pack-card__container--disabled': disabled,
       })}
+      id="consumer-payment-pack-card__container"
       onClick={!disabled && onClick}
     >
       <div
@@ -91,6 +94,11 @@ const MarketplaceConsumerPaymentPackCard: React.FC<Props> = ({
               count: consumerPaymentPack.maxoutInfo?.nb,
             })}
           </div>
+        </div>
+      )}
+      {!!bookingConfirmButtonComponent && !!isSelected && (
+        <div className="consumer-payment-pack-card__booking-button">
+          {bookingConfirmButtonComponent}
         </div>
       )}
     </div>

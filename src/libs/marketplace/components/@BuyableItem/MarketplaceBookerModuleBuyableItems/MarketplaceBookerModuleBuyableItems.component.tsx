@@ -86,6 +86,7 @@ const MarketplaceBookerModuleBuyableItems: React.FC<Props> = ({
             {(availableConsumerPacks || []).map((consumerPaymentPack) => (
               <MarketplaceConsumerPaymentPackCard
                 key={consumerPaymentPack.id}
+                bookingConfirmButtonComponent={bookingConfirmButtonComponent}
                 consumerPaymentPack={consumerPaymentPack}
                 isSelected={isEqual(consumerPaymentPack, selectedItem?.data)}
                 onSelectConsumerPaymentPack={onSelectConsumerPaymentPack}

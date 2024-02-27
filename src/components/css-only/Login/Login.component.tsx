@@ -4,7 +4,10 @@ import classnames from 'classnames';
 import HelpIcon from '@material-ui/icons/Help';
 import { withTranslation, WithTranslation } from 'react-i18next';
 
-import { DIALOG_MODE_DEACTIVATED } from '@bsport/common/lib/master-data/widget-dialog-mode';
+import {
+  DIALOG_MODE_DEACTIVATED,
+  DIALOG_MODE_IFRAME,
+} from '@bsport/common/lib/master-data/widget-dialog-mode';
 import { CompanyTheme } from '#libs/theme/types';
 import Button, { ButtonVariant } from '#Fabrique/Button';
 import LoginForm from '#components/css-only/LoginForm';
@@ -215,7 +218,9 @@ export class ConsumerLogin extends Component<Props, State> {
         )}
 
         {WidgetUtils.isWidget() &&
-          WidgetUtils.getDialogMode() === DIALOG_MODE_DEACTIVATED && (
+          [DIALOG_MODE_IFRAME, DIALOG_MODE_DEACTIVATED].includes(
+            WidgetUtils.getDialogMode(),
+          ) && (
             <Button
               classes={{ root: 'bs-login-container--go_back_button' }}
               isDisabled={loading}

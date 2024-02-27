@@ -11,6 +11,7 @@ import { Action } from 'redux';
 import type { OptionCallback } from 'bsport-saas/src/state/types';
 import type { Company } from 'bsport-saas/src/libs/company/types';
 import type { Dispatch } from 'react';
+import type { ReferralProgram } from 'bsport-saas/src/libs/referral/types';
 import { closeUserInteractionPortal } from '../modal/actions';
 
 import { RootState } from '../../reducers';
@@ -49,7 +50,7 @@ const bridgeSendApiCallRequest = <A, T>({
   dispatch: Dispatch<any>,
   action: Record<
     'success' | 'isLoading' | 'error',
-    // @ts-expect-error due to eslint trailing comma
+    // @ts-expect-error trailing comma
     ActionFunctionAny<Action<any>>,
   >,
   payload: { args: A, options?: OptionCallback<T> },
@@ -161,7 +162,7 @@ export function bridgeRequestMemberTag() {
   };
 }
 
-export function bridgeRequestVideoPlaybackUrl(videoId) {
+export function bridgeRequestVideoPlaybackUrl(videoId: number) {
   return async (dispatch: any, getState: () => RootState) => {
     if (!getState().bridge.authentication.hasBeenReceived) return;
     dispatch(getVideoPlaybackUrlActions.isLoading(true));
@@ -173,15 +174,18 @@ export function bridgeRequestVideoPlaybackUrl(videoId) {
 
 // ----- Referral -----
 
-export function bridgeRetrieveReferralProgramForCompany(companyId: number) {
+export function bridgeRetrieveReferralProgramForCompany(
+  companyId: number,
+  options: OptionCallback<ReferralProgram>,
+) {
   return async (
     dispatch: ThunkDispatch<RootState, unknown, Action<unknown>>,
   ) => {
-    dispatch(retrieveReferralProgramForCompanyActions.isLoading(true));
-    dispatch(retrieveReferralProgramForCompanyActions.error(null));
-
-    sendBridgeMessage(WidgetMessageType.REQUEST_REFERRAL_PROGRAM_FOR_COMPANY, {
-      companyId,
+    bridgeSendApiCallRequest({
+      action: retrieveReferralProgramForCompanyActions,
+      dispatch,
+      payload: { args: companyId, options },
+      type: WidgetApiMessageType.FETCH_REFERRAL_PROGRAM_BY_COMPANY,
     });
   };
 }
@@ -192,14 +196,13 @@ export function bridgeRetrieveReferralMemberStatus(memberId: number) {
     getState: () => RootState,
   ) => {
     if (!getState().bridge.authentication.hasBeenReceived) return;
-    dispatch(retrieveReferralMemberStatusActions.isLoading(true));
-    dispatch(retrieveReferralMemberStatusActions.error(null));
-    sendBridgeMessage(
-      WidgetMessageType.REQUEST_REFERRAL_PROGRAM_MEMBER_STATUS,
-      {
-        memberId,
-      },
-    );
+
+    bridgeSendApiCallRequest({
+      action: retrieveReferralMemberStatusActions,
+      payload: { args: memberId },
+      dispatch,
+      type: WidgetApiMessageType.FETCH_REFERRAL_PROGRAM_MEMBER_STATUS,
+    });
   };
 }
 
@@ -209,24 +212,33 @@ export function bridgeRetrieveMember(memberId: number) {
     getState: () => RootState,
   ) => {
     if (!getState().bridge.authentication.hasBeenReceived) return;
-    dispatch(retrieveMemberAction.isLoading(true));
-    dispatch(retrieveMemberAction.error(null));
-    sendBridgeMessage(WidgetMessageType.REQUEST_MEMBER, {
-      memberId,
+
+    bridgeSendApiCallRequest({
+      action: retrieveMemberAction,
+      dispatch,
+      type: WidgetApiMessageType.FETCH_MEMBER_BY_ID,
+      payload: { args: memberId },
     });
   };
 }
 
-export function bridgeRetrieveMembershipByCompany(companyId: number) {
+export function bridgeRetrieveMembershipByCompany(
+  companyId: number,
+  options?: OptionCallback<Company>,
+) {
   return async (
     dispatch: ThunkDispatch<RootState, unknown, Action<unknown>>,
     getState: () => RootState,
   ) => {
     if (!getState().bridge.authentication.hasBeenReceived) return;
-    dispatch(retrieveMembershipByCompanyAction.isLoading(true));
-    dispatch(retrieveMembershipByCompanyAction.error(null));
-    sendBridgeMessage(WidgetMessageType.REQUEST_MEMBERSHIP_BY_COMPANY, {
-      companyId,
+    bridgeSendApiCallRequest({
+      type: WidgetApiMessageType.MEMBERSHIP_BY_COMPANY,
+      dispatch,
+      action: retrieveMembershipByCompanyAction,
+      payload: {
+        args: companyId,
+        options,
+      },
     });
   };
 }
@@ -420,50 +432,40 @@ export const handleBridgeMessage = (eventData: EventData) => (
       dispatch(closeUserInteractionPortal());
       break;
 
-    case WidgetMessageType.RESPONSE_RETRIEVE_REFERRAL_PROGRAM_FOR_COMPANY:
-      dispatch(
-        retrieveReferralProgramForCompanyActions.success(eventData.data),
-      );
-      dispatch(retrieveReferralProgramForCompanyActions.isLoading(false));
-      dispatch(retrieveReferralProgramForCompanyActions.error(null));
+    case WidgetApiMessageType.MEMBERSHIP_BY_COMPANY:
+      bridgeHandleApiResponse({
+        actions: retrieveMembershipByCompanyAction,
+        type: eventData.type,
+        dispatch,
+        response: { data: eventData.data, error: eventData.error },
+      });
       break;
 
-    case WidgetMessageType.ERROR_RETRIEVING_REFERRAL_PROGRAM_FOR_COMPANY:
-      dispatch(retrieveReferralProgramForCompanyActions.error(eventData.error));
-      dispatch(retrieveReferralProgramForCompanyActions.isLoading(false));
+    case WidgetApiMessageType.FETCH_MEMBER_BY_ID:
+      bridgeHandleApiResponse({
+        actions: retrieveMemberAction,
+        type: eventData.type,
+        dispatch,
+        response: { data: eventData.data, error: eventData.error },
+      });
       break;
 
-    case WidgetMessageType.RESPONSE_RETRIEVE_REFERRAL_MEMBER_STATUS:
-      dispatch(retrieveReferralMemberStatusActions.success(eventData.data));
-      dispatch(retrieveReferralMemberStatusActions.isLoading(false));
-      dispatch(retrieveReferralMemberStatusActions.error(null));
+    case WidgetApiMessageType.FETCH_REFERRAL_PROGRAM_MEMBER_STATUS:
+      bridgeHandleApiResponse({
+        actions: retrieveReferralMemberStatusActions,
+        type: eventData.type,
+        dispatch,
+        response: { data: eventData.data, error: eventData.error },
+      });
       break;
 
-    case WidgetMessageType.ERROR_RETRIEVING_REFERRAL_MEMBER_STATUS:
-      dispatch(retrieveReferralMemberStatusActions.error(eventData.error));
-      dispatch(retrieveReferralMemberStatusActions.isLoading(false));
-      break;
-
-    case WidgetMessageType.RESPONSE_RETRIEVE_MEMBER:
-      dispatch(retrieveMemberAction.success(eventData.data));
-      dispatch(retrieveMemberAction.isLoading(false));
-      dispatch(retrieveMemberAction.error(null));
-      break;
-
-    case WidgetMessageType.ERROR_RETRIEVING_MEMBER:
-      dispatch(retrieveMemberAction.error(eventData.error));
-      dispatch(retrieveMemberAction.isLoading(false));
-      break;
-
-    case WidgetMessageType.RESPONSE_RETRIEVE_MEMBERSHIP_BY_COMPANY:
-      dispatch(retrieveMembershipByCompanyAction.success(eventData.data));
-      dispatch(retrieveMembershipByCompanyAction.isLoading(false));
-      dispatch(retrieveMembershipByCompanyAction.error(null));
-      break;
-
-    case WidgetMessageType.ERROR_RETRIEVING_MEMBERSHIP_BY_COMPANY:
-      dispatch(retrieveMembershipByCompanyAction.error(eventData.error));
-      dispatch(retrieveMembershipByCompanyAction.isLoading(false));
+    case WidgetApiMessageType.FETCH_REFERRAL_PROGRAM_BY_COMPANY:
+      bridgeHandleApiResponse({
+        actions: retrieveReferralProgramForCompanyActions,
+        type: eventData.type,
+        dispatch,
+        response: { data: eventData.data, error: eventData.error },
+      });
       break;
 
     default:

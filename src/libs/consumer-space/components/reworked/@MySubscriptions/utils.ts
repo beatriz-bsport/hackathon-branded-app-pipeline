@@ -9,7 +9,7 @@ import {
   LIST_ITEM_HEIGHT,
   SubscriptionTabEnum,
 } from '#libs/consumer-space/components/reworked/@MySubscriptions/constants';
-import { formatAsDatetimeAdapted } from '../../../../../utils/datetime';
+import { formatAsDate } from '#utils/datetime';
 
 import type { SubscriptionTab } from '#libs/consumer-space/components/reworked/@MySubscriptions/types';
 
@@ -50,42 +50,27 @@ export const getSubtitleCardDetailsDate = (
   switch (selectedTab) {
     case SubscriptionTabEnum.ACTIVE:
       return `${t('reworked.mySubscriptions.dateLabel.active', {
-        date: formatAsDatetimeAdapted(
-          selectedSubscription?.first_billing_date,
-          'L',
-        ),
+        date: formatAsDate(selectedSubscription?.first_billing_date),
       })}${
         selectedSubscription?.auto_renewal
           ? ''
           : t('reworked.mySubscriptions.dateLabel.until', {
-              date: formatAsDatetimeAdapted(
-                selectedSubscription?.expiration_date,
-                'L',
-              ),
+              date: formatAsDate(selectedSubscription?.expiration_date),
             })
       }`;
     case SubscriptionTabEnum.FUTURE:
       return `${t('reworked.mySubscriptions.dateLabel.future', {
-        date: formatAsDatetimeAdapted(
-          selectedSubscription?.first_billing_date,
-          'L',
-        ),
+        date: formatAsDate(selectedSubscription?.first_billing_date),
       })} ${
         selectedSubscription?.auto_renewal
           ? ''
           : t('reworked.mySubscriptions.dateLabel.until', {
-              date: formatAsDatetimeAdapted(
-                selectedSubscription?.expiration_date,
-                'L',
-              ),
+              date: formatAsDate(selectedSubscription?.expiration_date),
             })
       }`;
     case SubscriptionTabEnum.EXPIRED:
       return t('reworked.mySubscriptions.dateLabel.expired', {
-        date: formatAsDatetimeAdapted(
-          selectedSubscription?.expiration_date,
-          'L',
-        ),
+        date: formatAsDate(selectedSubscription?.expiration_date),
       });
     default:
       return '';
@@ -100,15 +85,15 @@ export const getSubtitleCardDate = (
   switch (selectedTab) {
     case SubscriptionTabEnum.ACTIVE:
       return t('reworked.mySubscriptions.dateLabel.active', {
-        date: formatAsDatetimeAdapted(subscription?.first_billing_date, 'L'),
+        date: formatAsDate(subscription?.first_billing_date),
       });
     case SubscriptionTabEnum.FUTURE:
       return t('reworked.mySubscriptions.dateLabel.future', {
-        date: formatAsDatetimeAdapted(subscription?.first_billing_date, 'L'),
+        date: formatAsDate(subscription?.first_billing_date),
       });
     case SubscriptionTabEnum.EXPIRED:
       return t('reworked.mySubscriptions.dateLabel.expired', {
-        date: formatAsDatetimeAdapted(subscription?.expiration_date, 'L'),
+        date: formatAsDate(subscription?.expiration_date),
       });
     default:
       return '';

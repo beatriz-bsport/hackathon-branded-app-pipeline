@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import { formatAsDatetimeAdapted } from '#utils/datetime';
+import { formatAsDate } from '#utils/datetime';
 
 import ConsumerCardSection from '#libs/consumer-space/components/reworked/common/ConsumerCardSection';
 import List from '#Fabrique/List';
@@ -73,7 +73,7 @@ const ConsumerSubscriptionDetailsCardBillingHistory: React.FC<Props> = ({
                     'bs-consumer__subscription-details-card__failed_payments__section__list-item__caption-text',
                 }}
                 className="bs-consumer__subscription-details-card__failed_payments__section__list-item"
-                label={formatAsDatetimeAdapted(item.date, 'L')}
+                label={formatAsDate(item.date)}
               />
             )}
           />

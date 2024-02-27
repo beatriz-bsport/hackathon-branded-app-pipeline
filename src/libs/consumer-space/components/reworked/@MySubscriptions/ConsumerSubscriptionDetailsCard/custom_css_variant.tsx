@@ -16,28 +16,15 @@ import {
 import { subscriptionFactory } from '#libs/subscription/factory';
 import { fakeFailedInvoices, fakeSuccessfulInvoices } from './fakeData';
 import { MarketplacePaymentMethods } from '#libs/marketplace/types';
-import { formatAsDatetimeAdapted } from '#utils/datetime';
+import { formatAsDate } from '#utils/datetime';
 
 const SUBSCRIPTION = subscriptionFactory();
-const SUBSCRIPTIONDATE = formatAsDatetimeAdapted(
-  SUBSCRIPTION.first_billing_date,
-  'L',
-);
-const SUBSCRIPTIONEXTPAYMENTDATE = formatAsDatetimeAdapted(
+const SUBSCRIPTIONDATE = formatAsDate(SUBSCRIPTION.first_billing_date);
+const SUBSCRIPTIONEXTPAYMENTDATE = formatAsDate(SUBSCRIPTION.next_billing_date);
+const NEXTBILLINGDATE = formatAsDate(SUBSCRIPTION.next_billing_date);
+const TERMSDATE = formatAsDate(SUBSCRIPTION.contract_terms_date_accepted);
+const LASTINVOICEDATEBEFORERENWAL = formatAsDate(
   SUBSCRIPTION.next_billing_date,
-  'L',
-);
-const NEXTBILLINGDATE = formatAsDatetimeAdapted(
-  SUBSCRIPTION.next_billing_date,
-  'L',
-);
-const TERMSDATE = formatAsDatetimeAdapted(
-  SUBSCRIPTION.contract_terms_date_accepted,
-  'L',
-);
-const LASTINVOICEDATEBEFORERENWAL = formatAsDatetimeAdapted(
-  SUBSCRIPTION.next_billing_date,
-  'L',
 );
 
 const ConsumerSubscriptionDetailsCardVariationRegistry = [

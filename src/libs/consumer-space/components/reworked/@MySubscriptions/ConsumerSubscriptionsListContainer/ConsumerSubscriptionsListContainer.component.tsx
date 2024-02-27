@@ -8,7 +8,7 @@ import ConsumerSubscriptionDetailsCard from '#libs/consumer-space/components/rew
 import Typography from '#Fabrique/Typography';
 
 import { GenericInfiniteScrollEnhancedCssOnly } from '#components/InfiniteScroll/GenericInfiniteScrollCssOnly.component';
-import { formatAsDatetimeAdapted } from '../../../../../../utils/datetime';
+import { formatAsDate } from '#utils/datetime';
 
 import type {
   SubscriptionREST,
@@ -76,7 +76,7 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
 
   const selectedSubscriptionPauseEndDate = useMemo(
     () =>
-      formatAsDatetimeAdapted(
+      formatAsDate(
         selectedSubscription?.pauses?.find((pause) =>
           moment().isBetween(
             pause.from_date,
@@ -85,7 +85,6 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
             '[]',
           ),
         )?.date_ended,
-        'L',
       ),
     [selectedSubscription?.pauses],
   );
@@ -166,7 +165,7 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
                 subscriptionNextPaymentDate={
                   selectedTab !== SubscriptionTabEnum.EXPIRED &&
                   item?.next_billing_date &&
-                  formatAsDatetimeAdapted(item?.next_billing_date, 'L')
+                  formatAsDate(item?.next_billing_date)
                 }
               />
             )}
@@ -175,10 +174,7 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
       )}
       <ConsumerSubscriptionDetailsCard
         areDetailsLoading={areDetailsLoading}
-        autoRenewalDate={formatAsDatetimeAdapted(
-          selectedSubscription?.last_billing_date,
-          'L',
-        )}
+        autoRenewalDate={formatAsDate(selectedSubscription?.last_billing_date)}
         description={selectedSubscription?.description}
         failedInvoices={selectedSubscription?.failed_payments_invoices}
         handleInvoiceDetailsPaginationFetchMore={
@@ -226,16 +222,15 @@ export const ConsumerSubscriptionsListContainer: React.FC<Props> = ({
         subscriptionNextPaymentDate={
           selectedTab !== SubscriptionTabEnum.EXPIRED &&
           selectedSubscription?.next_billing_date &&
-          formatAsDatetimeAdapted(selectedSubscription?.next_billing_date, 'L')
+          formatAsDate(selectedSubscription?.next_billing_date)
         }
         subtitleDate={getSubtitleCardDetailsDate(
           selectedTab,
           selectedSubscription,
           t,
         )}
-        termsDate={formatAsDatetimeAdapted(
+        termsDate={formatAsDate(
           selectedSubscription?.contract_terms_date_accepted,
-          'L',
         )}
       />
     </div>

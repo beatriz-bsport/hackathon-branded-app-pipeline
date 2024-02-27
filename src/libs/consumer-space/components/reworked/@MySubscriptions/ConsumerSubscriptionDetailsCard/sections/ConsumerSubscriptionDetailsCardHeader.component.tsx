@@ -19,7 +19,7 @@ import {
   PauseCircle,
 } from '#components/untitledui';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import { formatAsDatetimeAdapted } from '#utils/datetime';
+import { formatAsDate } from '#utils/datetime';
 
 type Props = Pick<
   ConsumerSubscriptionDetailsCardProps,
@@ -87,8 +87,8 @@ const ConsumerSubscriptionDetailsCardHeader: React.FC<Props> = ({
             {t(
               'reworked.mySubscriptions.consumerSubscriptionCardDetails.headerListItemLabels.futurePauses',
               {
-                dateStart: formatAsDatetimeAdapted(pause.from_date, 'L'),
-                dateEnd: formatAsDatetimeAdapted(pause.date_ended, 'L'),
+                dateStart: formatAsDate(pause.from_date),
+                dateEnd: formatAsDate(pause.date_ended),
               },
             )}
           </Alert>

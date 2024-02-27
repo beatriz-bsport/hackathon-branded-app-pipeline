@@ -9,7 +9,7 @@ import List from '#Fabrique/List';
 import ListItem from '#Fabrique/ListItem';
 import Alert from '#Fabrique/Alert';
 
-import { formatAsDatetimeAdapted } from '#utils/datetime';
+import { formatAsDate } from '#utils/datetime';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 
 type Props = Pick<
@@ -52,7 +52,7 @@ const ConsumerSubscriptionDetailsCardFailedPayments: React.FC<Props> = ({
                     'bs-consumer__subscription-details-card__failed_payments__section__list-item__caption-text',
                 }}
                 className="bs-consumer__subscription-details-card__failed_payments__section__list-item"
-                label={formatAsDatetimeAdapted(invoice.date, 'L')}
+                label={formatAsDate(invoice.date)}
               />
               <Alert
                 key={`${payment.uuid}-alert`}
@@ -64,10 +64,7 @@ const ConsumerSubscriptionDetailsCardFailedPayments: React.FC<Props> = ({
                       'reworked.mySubscriptions.consumerSubscriptionCardDetails.failedPaymentReasonWithRetry',
                       {
                         note: payment.payment_note,
-                        nextRetryDate: formatAsDatetimeAdapted(
-                          invoice.next_retry_date,
-                          'L',
-                        ),
+                        nextRetryDate: formatAsDate(invoice.next_retry_date),
                       },
                     )
                   : t(

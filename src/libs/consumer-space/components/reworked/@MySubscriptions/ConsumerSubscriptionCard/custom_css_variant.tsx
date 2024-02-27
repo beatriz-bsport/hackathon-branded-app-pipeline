@@ -12,17 +12,11 @@ import {
   VariationConfigurationChoice,
 } from '#libs/exportable-components/types';
 import { subscriptionFactory } from '#libs/subscription/factory';
-import { formatAsDatetimeAdapted } from '#utils/datetime';
+import { formatAsDate } from '#utils/datetime';
 
 const SUBSCRIPTION = subscriptionFactory();
-const SUBSCRIPTIONDATE = formatAsDatetimeAdapted(
-  SUBSCRIPTION.first_billing_date,
-  'L',
-);
-const SUBSCRIPTIONEXTPAYMENTDATE = formatAsDatetimeAdapted(
-  SUBSCRIPTION.next_billing_date,
-  'L',
-);
+const SUBSCRIPTIONDATE = formatAsDate(SUBSCRIPTION.first_billing_date);
+const SUBSCRIPTIONEXTPAYMENTDATE = formatAsDate(SUBSCRIPTION.next_billing_date);
 
 const ConsumerSubscriptionCardVariationRegistry = [
   {

@@ -1,6 +1,5 @@
 import React from 'react';
 import WidgetUtils from '#libs/widget/WidgetUtils';
-// import useParentSize from '#hooks/useParentSize';
 
 const sendPostMessageUpdate = (height: number) => {
   if (WidgetUtils.isWidget() && !!WidgetUtils.getParentElementId()) {
@@ -35,31 +34,4 @@ const withScrollHeightListener = (
   };
 };
 
-// const withScrollHeightListener = (
-//   WrappedComponent: React.ComponentType<any>,
-// ) => {
-//   return (props: any) => {
-//     const containerRef = React.useRef(null);
-
-//     // @ts-expect-error
-//     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-//     const { _, height } = useParentSize(containerRef, {
-//       maxDifference: 150,
-//     });
-
-//     React.useEffect(() => {
-//       const intervalId = setInterval(() => {
-//         sendPostMessageUpdate(containerRef?.current?.clientHeight);
-//       }, 500);
-
-//       return () => {
-//         clearInterval(intervalId);
-//       };
-//     });
-
-//     sendPostMessageUpdate(height);
-
-//     return <WrappedComponent {...props} containerRef={containerRef} />;
-//   };
-// };
 export default withScrollHeightListener;

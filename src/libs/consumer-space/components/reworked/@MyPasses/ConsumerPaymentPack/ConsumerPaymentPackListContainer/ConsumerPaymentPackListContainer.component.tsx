@@ -71,14 +71,9 @@ export const ConsumerPaymentPackListContainer: React.FC<Props> = ({
   );
 
   return (
-    <div
-      className={classNames('bs-consumer-pass-page__content__list-container', {
-        'bs-consumer-pass-page__content__list-container--empty':
-          showPlaceholder,
-      })}
-    >
+    <div className="bs-consumer-pass-page__content__list-container">
       {showPlaceholder && (
-        <Typography variant="body-lg">
+        <Typography align="center" variant="body-lg">
           {t(
             `consumerSpace:reworked.myBookings.listContainer.placeholder.pass.${selectedFilterTab}`,
           )}

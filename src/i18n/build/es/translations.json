@@ -299,7 +299,15 @@
                     "onsite_payment_available": "Posibilidad de pagar en el acto",
                     "is_deliverable": "Impone cargos de entrega predeterminados",
                     "featured": "Destacar al validar la cesta",
-                    "barcode": "Código de barras"
+                    "barcode": "Código de barras",
+                    "advancedOptions": {
+                        "tag": {
+                            "selectTags": "Seleccionar etiquetas",
+                            "tagsOnAcquisitionHelper": "Utilizar etiquetas para identificar qué miembro compró el artículo",
+                            "tagsOnAcquisition": "Etiqueta tras la compra"
+                        },
+                        "header": "Avanzado"
+                    }
                 }
             },
             "booking": {
@@ -1763,7 +1771,8 @@
                 "text": "Esta sesión forma parte de un grupo, se desmarcarán todas las sesiones de este grupo. ¿Quieres continuar?",
                 "title": "Desctivar la etiqueta"
             }
-        }
+        },
+        "tagGroupDuplicated": "Tenga en cuenta que algunas etiquetas pertenecen al mismo grupo."
     },
     "login": {
         "forms": {
@@ -3920,6 +3929,16 @@
                 "highlightedAsRecommended": {
                     "label": "Marcar como recomendado",
                     "helperText": "Permite a sus clientes ver de un vistazo qué suscripciones se recomiendan actualmente."
+                },
+                "advancedOptions": {
+                    "selectTags": "Seleccionar etiquetas",
+                    "tag": {
+                        "tagGroupDuplicated": "Tenga en cuenta que los artículos seleccionados contienen etiquetas de la misma categoría.",
+                        "selectTags": "Seleccionar etiquetas",
+                        "tagsOnAcquisitionHelper": "Utilice etiquetas para identificar qué miembro ha pagado la primera factura",
+                        "tagsOnAcquisition": "Etiqueta tras la compra"
+                    },
+                    "title": "Avanzado"
                 }
             },
             "list": {
@@ -7484,7 +7503,7 @@
                     "availability": {
                         "expiresToday": "Último día",
                         "expiresIn": "{{ daysRemaining }} día restante",
-                        "expiresIn_plural": "{{ daysRemaining }} días restantes",
+                        "expiresIn_plural": "{{ daysRemaining }} days restantes",
                         "future": "Inicio: {{ startDate }}",
                         "expired": "Caducado: {{ expirationDate }}",
                         "active": "Caduca: {{ expirationDate }}"
@@ -7679,6 +7698,11 @@
                         "appointment": {
                             "past": "No hay citas previas que mostrar.",
                             "future": "No hay citas programadas."
+                        },
+                        "pass": {
+                            "expired": "Aún no tiene bonos caducados.",
+                            "future": "Parece que aún no has comprado ningún bono.",
+                            "active": "Parece que aún no has comprado ningún bono."
                         }
                     }
                 },
@@ -8327,6 +8351,14 @@
                 },
                 "description": {
                     "label": "Descripción"
+                },
+                "advancedOptions": {
+                    "tag": {
+                        "selectTags": "Seleccionar etiquetas",
+                        "tagsOnAcquisitionHelper": "Utilice etiquetas para identificar qué miembro compró la tarjeta de citas.",
+                        "tagsOnAcquisition": "Etiqueta tras la compra"
+                    },
+                    "header": "Avanzado"
                 }
             },
             "compatibleServices": {
@@ -9686,6 +9718,15 @@
             "highlightedAsRecommended": {
                 "label": "Marcar como recomendado",
                 "helperText": "Permite a sus clientes ver rápidamente qué packs se recomiendan actualmente."
+            },
+            "advancedOptions": {
+                "tag": {
+                    "tagGroupDuplicated": "Tenga en cuenta que los artículos seleccionados contienen etiquetas de la misma categoría.",
+                    "selectTags": "Seleccionar etiquetas",
+                    "tagsOnAcquisitionHelper": "Utilice etiquetas para identificar qué miembro compró el pack.",
+                    "tagsOnAcquisition": "Etiqueta tras la compra"
+                },
+                "header": "Avanzado"
             }
         },
         "list": {
@@ -12152,7 +12193,7 @@
         "billingGroup": {
             "title": "Ubicación preferida",
             "placeholder": "Ubicación",
-            "helperText": "La ubicación preferida es aquella en la que tiene previsto utilizar su compra y que se utilizará para emitir su factura."
+            "helperText": "La ubicación preferida es aquella en la que tiene previsto utilizar su compra la mayor parte del tiempo. Esta información se utilizará para emitir su factura y únicamente a efectos de asignación de recursos. No determina dónde se puede utilizar su compra."
         }
     },
     "waitingList": {
@@ -13448,6 +13489,12 @@
         },
         "privateSlot": {
             "notAvailableForBookingAnymore": "Este puesto ya no está disponible."
+        },
+        "tag": {
+            "error": {
+                "124004": "El nombre de la etiqueta principal ya está utilizado",
+                "124003": "El nombre de la etiqueta secundaria ya se ha utilizado"
+            }
         }
     },
     "paymentPack": {
@@ -13651,7 +13698,10 @@
                         "allowedFor": "Autorizado para",
                         "allowed": "Autorizado",
                         "helperText": "Utiliza etiquetas para que el mapa sea visible sólo para el grupo de miembros que desees en el mercado, el widget y la aplicación. Puede seleccionar etiquetas para que el mapa sea visible sólo para los miembros con una etiqueta seleccionada. O puede seleccionar etiquetas para que el mapa sea invisible sólo para los miembros con una de las etiquetas seleccionadas. ",
-                        "header": "Etiquetas"
+                        "header": "Etiquetas",
+                        "tagsOnAcquisitionHelper": "Utilice etiquetas para identificar qué miembro compró el bono.",
+                        "tagsOnAcquisition": "Etiqueta tras la compra",
+                        "selectTags": "Seleccionar etiquetas"
                     },
                     "header": "Avanzado",
                     "appliesForPayroll": {
@@ -16599,8 +16649,8 @@
         },
         "featureRequest": {
             "close": "Cerrar",
-            "content": "Su interés ha sido notado, ¡gracias por su interés! Su gerente de cuenta se pondrá en contacto con usted muy pronto con más información.",
-            "title": "Complemento"
+            "content": "Hemos tomado nota de su interés. ¡Gracias por su interés! Su gestor de cuenta se pondrá en contacto con usted muy pronto con más información.",
+            "title": "Empecemos una conversación"
         },
         "platformBillingStage": {
             "maxBooking": "Hasta {{ max_booking_per_month }} reservas / mes",
@@ -17801,6 +17851,14 @@
                 "actions": {
                     "submit": "Validar",
                     "cancel": "Cerrar"
+                },
+                "advancedOptions": {
+                    "tag": {
+                        "selectTags": "Seleccionar etiquetas",
+                        "tagsOnAcquisitionHelper": "Utilice etiquetas para identificar qué miembro compró la tarjeta regalo",
+                        "tagsOnAcquisition": "Etiqueta tras la compra"
+                    },
+                    "header": "Avanzado"
                 }
             },
             "canNotUpdateBecauseShared": "Esta tarjeta de regalo es una tarjeta compartida por el franquiciador. Ha sido definida por el franquiciador y no puede ser modificada."

@@ -1490,7 +1490,7 @@
         "billingGroup": {
             "title": "Local de preferência",
             "placeholder": "Localização",
-            "helperText": "A localização preferencial é aquela em que tenciona utilizar a sua compra e que será utilizada para emitir a sua fatura."
+            "helperText": "O local preferencial é aquele onde você planeja usar sua compra e será utilizado para emitir a sua fatura."
         }
     },
     "clockIn": {
@@ -1776,8 +1776,8 @@
                     "cancel": "Cancelar",
                     "submit": "Seguinte"
                 },
-                "topup": "Recibo",
-                "debt": "Débito",
+                "topup": "Adicionar",
+                "debt": "Deduzir",
                 "explainTopup": "Um aumento de {{ amount }} {{ currencyDisplay }} será registado no saldo do membro.",
                 "explainDecaissement": "Será registado um pagamento de {{ amount }} {{ currencyDisplay }}.",
                 "withoutPaymentNote": {
@@ -2253,7 +2253,7 @@
                     "availability": {
                         "expiresToday": "Último dia",
                         "expiresIn": "{{ daysRemaining }}dia restante",
-                        "expiresIn_plural": "{{ daysRemaining }} dias restantes",
+                        "expiresIn_plural": "{{ daysRemaining }}dias restantes",
                         "future": "Começa: {{ startDate }}",
                         "expired": "Expirado: {{ expirationDate }}",
                         "active": "Expira{{ expirationDate }}"
@@ -2448,6 +2448,11 @@
                         "appointment": {
                             "past": "Não há aulas privadas anteriores para mostrar.",
                             "future": "Não estão previstas aulas privadas futuras."
+                        },
+                        "pass": {
+                            "expired": "Você ainda não tem passes expirados.",
+                            "future": "Parece que você ainda não comprou nenhum passe.",
+                            "active": "Parece que você ainda não comprou nenhum passe."
                         }
                     }
                 },
@@ -3213,6 +3218,14 @@
                 },
                 "available_payment_method_identifiers": {
                     "label": "Métodos de pagamento disponíveis"
+                },
+                "advancedOptions": {
+                    "tag": {
+                        "selectTags": "Selecione etiquetas",
+                        "tagsOnAcquisitionHelper": "Use etiquetas para identificar qual membro comprou o vale-presente.",
+                        "tagsOnAcquisition": "Etiqueta após compra"
+                    },
+                    "header": "Avançado"
                 }
             },
             "canNotUpdateBecauseShared": "Este Cartão-presente é partilhado pela conta do franchisador. Foi definido pela conta do franchisador e não pode ser modificado."
@@ -5772,7 +5785,10 @@
                         "allowedFor": "Autorizado para",
                         "allowed": "Autorizado",
                         "helperText": "Utilize as etiquetas para tornar o passe visível apenas para um grupo desejado de membros no mercado, ferramentas e aplicação. Pode selecionar etiquetas para tornar o passe visível apenas para membros com uma das etiquetas seleccionadas. Ou pode selecionar etiquetas para tornar o passe oculto apenas para os membros que possuam uma das etiquetas seleccionadas. ",
-                        "header": "Etiquetas"
+                        "header": "Etiquetas",
+                        "tagsOnAcquisitionHelper": "Use etiquetas para identificar qual membro comprou o passe.",
+                        "tagsOnAcquisition": "Etiquete após a compra",
+                        "selectTags": "Select tags"
                     },
                     "header": "Avançado"
                 },
@@ -6490,6 +6506,15 @@
             "highlightedAsRecommended": {
                 "helperText": "Permite que seus clientes vejam rapidamente quais pacotes são recomendados no momento.",
                 "label": "Marcar como recomendado"
+            },
+            "advancedOptions": {
+                "tag": {
+                    "tagGroupDuplicated": "Por favor, observe que os itens selecionados contêm etiquetas da mesma categoria.",
+                    "selectTags": "Selecione etiquetas",
+                    "tagsOnAcquisitionHelper": "Use etiquetas para identificar qual membro comprou o pack",
+                    "tagsOnAcquisition": "Etiqueta após compra"
+                },
+                "header": "Avançado"
             }
         },
         "list": {
@@ -10103,6 +10128,12 @@
         },
         "privateSlot": {
             "notAvailableForBookingAnymore": "Esta faixa horária já não está disponível."
+        },
+        "tag": {
+            "error": {
+                "124004": "O nome da etiqueta principal já está em uso",
+                "124003": "O nome da subetiqueta já está em uso"
+            }
         }
     },
     "theme": {
@@ -11031,6 +11062,14 @@
                 "franchise": "Este passe é partilhado pela conta do franchisador. Certos elementos foram definidos pela conta do franchisador e não podem ser alterados",
                 "description": {
                     "label": "Descrição"
+                },
+                "advancedOptions": {
+                    "tag": {
+                        "selectTags": "Selecione etiquetas",
+                        "tagsOnAcquisitionHelper": "Use etiquetas para identificar qual membro comprou o passe para a consulta.",
+                        "tagsOnAcquisition": "Etiquete após a compra"
+                    },
+                    "header": "Avançado"
                 }
             },
             "actions": {
@@ -11316,7 +11355,7 @@
             "specificAvailabilityForm": {
                 "switchLabel": "Acrescentar apenas para determinados estabelecimentos",
                 "info": "Por predefinição, o seu professor será apresentado como disponível em todas as suas escolas. Ao ativar esta opção, pode selecionar as escolas onde o seu professor estará disponível para esta faixa horária.",
-                "advanced": "Seguinte",
+                "advanced": "Avançado",
                 "infoForCoach": "Por defeito, estará disponível em todos os estabelecimentos. Ao ativar esta opção, pode selecionar os estabelecimentos em que estará disponível para esta faixa horária."
             },
             "detail": {
@@ -14134,7 +14173,7 @@
                     "explainForceDanger": "Atenção! As reservas serão permanentemente apagadas. Se não tiver reembolsado o crédito, perderá todos os vestígios da sua utilização. Por favor, verifique cuidadosamente o estado das suas reservas e passes de aulas antes de os eliminar.",
                     "explainModalities": "Atenção, esta alteração é definitiva. A sua sessão deixará de ser visível para os alunos finais. Continuará a poder aceder-lhe.",
                     "explainDeleteLinkedHybridSession": "Cancelar sessões híbridas (sessões realizadas no local e online)",
-                    "advanced": "Seguinte",
+                    "advanced": "Avançado",
                     "explainNotify": "Enviar um alerta aos alunos que efectuaram uma reserva"
                 },
                 "explainRecursiveOfferDelete": "Pretende eliminar TODAS as sessões semelhantes ?",
@@ -14152,7 +14191,7 @@
                         "notAllowed": "Não autorizado",
                         "helperText": "Utilize etiquetas para tornar a sessão disponível apenas para um grupo de membros pretendido. Pode selecionar etiquetas para tornar a sessão visível apenas para membros com uma das etiquetas seleccionadas. Ou pode selecionar etiquetas para tornar a sessão não visível apenas para membros com uma das etiquetas seleccionadas."
                     },
-                    "header": "Seguinte"
+                    "header": "Avançado"
                 },
                 "establishmentChangeWarning": "Se alterar a sala, esta alteração será efectiva para todas as sessões futuras. Se não é isto que pretende, utilize o campo \"Sala temporária\". Todas as outras alterações que efetuar aqui (dia da semana, preço, substituto, professor, etc.) serão aplicadas a todas as sessões futuras.",
                 "substituteCoachLabel": "Substituto",
@@ -14221,7 +14260,15 @@
                     "marketplace_enabled": "Disponível no marketplace",
                     "deleteTitle": "Eliminar",
                     "modifyProvisions": "Atualizar o stock",
-                    "updateProvisionExplain": "Introduza a contribuição para o seu inventário. Esta contribuição será adicionada ao seu stock atual"
+                    "updateProvisionExplain": "Introduza a contribuição para o seu inventário. Esta contribuição será adicionada ao seu stock atual",
+                    "advancedOptions": {
+                        "tag": {
+                            "selectTags": "Selecione etiquetas",
+                            "tagsOnAcquisitionHelper": "Use etiquetas para identificar qual membro comprou o item.",
+                            "tagsOnAcquisition": "Etiquete após a compra"
+                        },
+                        "header": "Avançado"
+                    }
                 }
             },
             "notesHelperText": "As notas são privadas : só aparecerão no Backoffice para os membros do staff autorizados a editá-las",
@@ -16361,7 +16408,8 @@
                 "submit": "Confirmar",
                 "text": "Esta sessão faz parte de um grupo, vai ver todas as sessões deste grupo. Deseja continuar ?"
             }
-        }
+        },
+        "tagGroupDuplicated": "Por favor, esteja ciente de que algumas etiquetas pertencem ao mesmo grupo."
     },
     "subscription": {
         "contract": {
@@ -16484,6 +16532,16 @@
                 "highlightedAsRecommended": {
                     "helperText": "Permite que seus clientes vejam rapidamente quais contratos são recomendados no momento.",
                     "label": "Marcar como recomendado"
+                },
+                "advancedOptions": {
+                    "selectTags": "Selecione etiquetas",
+                    "tag": {
+                        "tagGroupDuplicated": "Por favor, note que os itens selecionados contêm etiquetas da mesma categoria.",
+                        "selectTags": "Selecione etiquetas",
+                        "tagsOnAcquisitionHelper": "Use etiquetas para identificar qual membro pagou a primeira fatura.",
+                        "tagsOnAcquisition": "Etiquete após a compra"
+                    },
+                    "title": "Avançado"
                 }
             },
             "interval": {
@@ -16797,7 +16855,7 @@
                 "smartListSelection": "Selecionar listas (opcional)",
                 "createSmartList": "Criar uma lista inteligente",
                 "warning": "Se não selecionar uma lista inteligente, corre o risco de notificar os membros que já compraram outro passe",
-                "advanced": "Seguinte",
+                "advanced": "Avançado",
                 "smartListHelperInclude": "Enviar e-mail apenas se o membro pertencer a uma das seguintes listas",
                 "smartListHelper": "Não enviar e-mail se o membro pertencer a uma das seguintes listas"
             },
@@ -17268,7 +17326,7 @@
             "deliveryFee": "Taxas de entrega",
             "priceRecap": "Resumo",
             "amountDue": "Total devido",
-            "partialPayment": "Recibo",
+            "partialPayment": "Pago",
             "leftToPay": "Resta pagar",
             "leftDue": "Restante devido :",
             "onSpot": "No local",
@@ -18359,8 +18417,8 @@
     "platformBilling": {
         "featureRequest": {
             "close": "Fechar",
-            "content": "Obrigado pelo seu interesse! O seu gestor de conta bsport contactá-lo-á em breve com mais informações.",
-            "title": "Add-on"
+            "content": "Obrigado pelo seu interesse neste complemento. Se deseja saber mais, convidamo-lo gentilmente a fazer a sua pergunta no nosso chat de suporte personalizado. O seu gerente de conta terá todo o prazer em fornecer-lhe mais informações.",
+            "title": "Vamos começar uma conversa"
         },
         "platformBillingStage": {
             "maxBooking": "Até {{ max_booking_per_month }} reservas / mês",
@@ -18525,7 +18583,7 @@
             },
             "3": {
                 "helperText": "Agrupar estabelecimentos semelhantes por endereço",
-                "label": "Seguinte"
+                "label": "Avançado"
             },
             "1": {
                 "helperText": "Cada estabelecimento aparecerá como um local independente no ClassPass",

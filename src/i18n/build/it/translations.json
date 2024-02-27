@@ -268,7 +268,15 @@
                     "provisions": "Fornitura",
                     "name": "Nome",
                     "price": "Prezzo",
-                    "tva": "I.V.A."
+                    "tva": "I.V.A.",
+                    "advancedOptions": {
+                        "tag": {
+                            "selectTags": "Seleziona i tag",
+                            "tagsOnAcquisitionHelper": "Utilizza i tag per identificare il membro che ha acquistato l'articolo",
+                            "tagsOnAcquisition": "Tag dopo l'acquisto"
+                        },
+                        "header": "Avanzate"
+                    }
                 }
             },
             "member": {
@@ -1751,6 +1759,11 @@
                         "appointment": {
                             "past": "Non ci sono appuntamenti passati da mostrare.",
                             "future": "Non ci sono appuntamenti passati da mostrare."
+                        },
+                        "pass": {
+                            "expired": "Non hai ancora pacchetti scaduti.",
+                            "future": "Sembra che tu non abbia ancora acquistato alcun pacchetto.",
+                            "active": "Sembra che tu non abbia ancora acquistato alcun pacchetto."
                         }
                     }
                 },
@@ -2084,6 +2097,15 @@
             "highlightedAsRecommended": {
                 "helperText": "Consente ai clienti di vedere rapidamente quali sono i pack attualmente consigliati.",
                 "label": "Contrassegna come suggerito"
+            },
+            "advancedOptions": {
+                "tag": {
+                    "tagGroupDuplicated": "Si prega di notare che gli articoli selezionati contengono tag della stessa categoria.",
+                    "selectTags": "Seleziona tag",
+                    "tagsOnAcquisitionHelper": "Usare i tag per identificare il membro che ha acquistato il pacchetto combinato.",
+                    "tagsOnAcquisition": "Tag dopo l'acquisto"
+                },
+                "header": "Avanzate"
             }
         },
         "detail": {
@@ -3219,6 +3241,14 @@
                 },
                 "description": {
                     "label": "Descrizione"
+                },
+                "advancedOptions": {
+                    "tag": {
+                        "selectTags": "Seleziona i tag",
+                        "tagsOnAcquisitionHelper": "Utilizza i tag per identificare il membro che ha acquistato il pacchetto per appuntamenti.",
+                        "tagsOnAcquisition": "Tag dopo l'acquisto"
+                    },
+                    "header": "Avanzate"
                 }
             },
             "delete": {
@@ -5876,6 +5906,12 @@
         },
         "privateSlot": {
             "notAvailableForBookingAnymore": "Questo posto non è più disponibile."
+        },
+        "tag": {
+            "error": {
+                "124004": "Il nome del tag principale è già utilizzato",
+                "124003": "Il nome del sotto-tag è già utilizzato"
+            }
         }
     },
     "settings": {
@@ -7176,6 +7212,16 @@
                 "highlightedAsRecommended": {
                     "label": "Contrassegna come raccomandato",
                     "helperText": "Consente ai clienti di vedere a colpo d'occhio quali sono i contratti attualmente consigliati."
+                },
+                "advancedOptions": {
+                    "tag": {
+                        "tagGroupDuplicated": "Si noti che gli articoli selezionati contengono tag della stessa categoria.",
+                        "selectTags": "Seleziona i tag",
+                        "tagsOnAcquisitionHelper": "Utilizza i tag per identificare il membro che ha pagato la prima ricevuta",
+                        "tagsOnAcquisition": "Tag dopo l'acquisto"
+                    },
+                    "selectTags": "Seleziona i tag",
+                    "title": "Avanzate"
                 }
             },
             "legal": "Informazioni legali",
@@ -8853,7 +8899,10 @@
                         "allowedFor": "Autorizzato per",
                         "allowed": "Autorizzato",
                         "helperText": "Utilizzate i tag per rendere il pacchetto disponibile solo a membri specifici nel MarketPlace, nei widget e nell'app mobile. È possibile scegliere di visualizzare questi pacchetti solo ai membri con tag specifici, oppure di non visualizzare affatto il pacchetti per tag specifici. ",
-                        "header": "Tags"
+                        "header": "Tags",
+                        "tagsOnAcquisitionHelper": "Utilizza i tag per identificare il membro che ha acquistato il pacchetto.",
+                        "tagsOnAcquisition": "Tag dopo l'acquisto",
+                        "selectTags": "Seleziona tag"
                     },
                     "header": "Avanzato",
                     "appliesForPayroll": {
@@ -11752,7 +11801,8 @@
                 "text": "Questa sessione è associata a un evento. Stai per eliminare tutti i tag. Sei sicuro di voler continuare?",
                 "submit": "Conferma"
             }
-        }
+        },
+        "tagGroupDuplicated": "Si noti che alcuni tag appartengono allo stesso gruppo."
     },
     "establishment": {
         "capacity": {
@@ -13711,7 +13761,7 @@
         "billingGroup": {
             "title": "Sede preferita",
             "placeholder": "Sede",
-            "helperText": "La sede preferita è quella in cui si prevede di utilizzare quanto acquistato e sarà utilizzata per emettere la ricevuta."
+            "helperText": "La sede preferita è quella in cui si prevede di utilizzare quanto acquistato per la maggior parte del tempo. Questa informazione verrà utilizzata per la ricevuta e solo per l'assegnazione delle risorse. Non determina il luogo in cui quanto acquistato può essere utilizzato."
         }
     },
     "marketplace": {
@@ -16508,8 +16558,8 @@
     "platformBilling": {
         "featureRequest": {
             "close": "Chiudi",
-            "content": "Abbiamo notato il vostro interesse, grazie per la vostra attenzione! Il vostro responsabile di conto bsport vi contatterà molto rapidamente con maggiori informazioni.",
-            "title": "Componente aggiuntivo"
+            "content": "Il tuo interesse è stato notato, grazie! Il tuo account manager si metterà presto in contatto con te per maggiori informazioni.",
+            "title": "Componenti aggiuntivi"
         },
         "platformBillingStage": {
             "maxBooking": "Fino a {{ max_booking_per_month }} prenotazioni / mese",
@@ -17745,6 +17795,14 @@
                 "actions": {
                     "submit": "Convalida",
                     "cancel": "Chiudi"
+                },
+                "advancedOptions": {
+                    "tag": {
+                        "tagsOnAcquisition": "Tag dopo l'acquisto",
+                        "selectTags": "Seleziona tag",
+                        "tagsOnAcquisitionHelper": "Utilizza i tag per identificare il membro che ha acquistato la giftcard"
+                    },
+                    "header": "Avanzate"
                 }
             },
             "canNotUpdateBecauseShared": "Questa gift card è condivisa dall'account franchisor. È stata definita dall'account franchisor e non può essere modificata."

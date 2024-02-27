@@ -25,7 +25,22 @@ export const SlidingContainer: React.FC<SlidingContainerProps> = ({
       const parentWidgetContainerElement =
         widgetContainerElement?.parentElement;
 
-      if (parentWidgetContainerElement) {
+      // /(iPod|iPhone|iPad|Android)/.test(navigator.userAgent)
+
+      const isMobileAgent = !!navigator.userAgent.match(
+        /(iPod|iPhone|iPad|Android)/,
+      );
+      // From here article here will help to understand : http://blog.jonathanargentiero.com/jquery-scrolltop-not-working-on-mobile-devices-iphone-ipad-android-phones/
+      if (isMobileAgent) {
+        if (parentWidgetContainerElement) {
+          const rect = parentWidgetContainerElement?.getBoundingClientRect();
+          rect &&
+            window.scrollTo(rect.left, rect.top > 100 ? rect.top - 100 : 0);
+        } else {
+          const rect = widgetContainerElement?.getBoundingClientRect();
+          rect && window.scrollTo(rect.left, rect.top);
+        }
+      } else if (parentWidgetContainerElement) {
         parentWidgetContainerElement?.animate({ scrollTop: 0 });
       } else {
         widgetContainerElement?.scrollIntoView({

@@ -27,6 +27,7 @@ interface OwnProps {
   styles: string;
   customConfiguration: string;
   usePostMessageIframeDimensions?: boolean;
+  usePostMessageIfameScrollup?: boolean;
 }
 
 type Props = OwnProps & MaterialStyleType<ReturnType<typeof styles>>;
@@ -175,6 +176,9 @@ class UserInteractionPortal extends React.PureComponent<Props> {
             parentElement={this.props.parentElement}
             usePostMessageIframeDimensions={
               !!this.props.usePostMessageIframeDimensions
+            }
+            usePostMessageIfameScrollup={
+              !!this.props.usePostMessageIfameScrollup
             }
           >
             <iframe

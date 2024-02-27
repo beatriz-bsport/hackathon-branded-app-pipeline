@@ -9,6 +9,7 @@ type SlidingContainerProps = {
   containerFirstChild: HTMLElement,
   widgetContainerElement: HTMLElement,
   usePostMessageIframeDimensions?: boolean,
+  usePostMessageIfameScrollup?: boolean,
 };
 export const SlidingContainer: React.FC<SlidingContainerProps> = ({
   isOpen,
@@ -127,14 +128,20 @@ export const WidgetPortalSlidingContainer: React.FC<
     children: React.ReactElement,
     parentElement: string,
   },
-> = ({ isOpen, children, parentElement, usePostMessageIframeDimensions }) => {
+> = ({
+  isOpen,
+  children,
+  parentElement,
+  usePostMessageIframeDimensions,
+  usePostMessageIfameScrollup,
+}) => {
   React.useEffect(() => {
-    window?.addEventListener('message', parentResizer);
+    window?.addEventListener('message', widgetDimensioner);
 
-    return () => window?.removeEventListener('message', parentResizer);
+    return () => window?.removeEventListener('message', widgetDimensioner);
   }, []);
 
-  const parentResizer = (event: MessageEvent) => {
+  const widgetDimensioner = (event: MessageEvent) => {
     if (
       event?.data?.type === 'bsport-widget-resize' &&
       event?.data?.data?.parentElementId === parentElement
@@ -154,6 +161,39 @@ export const WidgetPortalSlidingContainer: React.FC<
             'height',
             `${event?.data?.data.scrollHeight}px`,
           );
+        }
+      }
+    }
+    if (
+      event?.data?.type === 'bsport-widget-scrollup' &&
+      event?.data?.data?.parentElementId === parentElement
+    ) {
+      if (isOpen && usePostMessageIfameScrollup) {
+        const widgetContainerElement = document.getElementById(parentElement);
+        const parentWidgetContainerElement =
+          widgetContainerElement?.parentElement;
+        const isMobileAgent = !!navigator.userAgent.match(
+          /(iPod|iPhone|iPad|Android)/,
+        );
+
+        // From here article here will help to understand : http://blog.jonathanargentiero.com/jquery-scrolltop-not-working-on-mobile-devices-iphone-ipad-android-phones/
+        if (isMobileAgent) {
+          if (parentWidgetContainerElement) {
+            const rect = parentWidgetContainerElement?.getBoundingClientRect();
+            rect &&
+              window.scrollTo(rect.left, rect.top > 100 ? rect.top - 100 : 0);
+          } else {
+            const rect = widgetContainerElement?.getBoundingClientRect();
+            rect && window.scrollTo(rect.left, rect.top);
+          }
+        } else if (parentWidgetContainerElement) {
+          const rect = parentWidgetContainerElement?.getBoundingClientRect();
+          rect &&
+            window.scrollTo(rect.left, rect.top > 100 ? rect.top - 100 : 0);
+        } else {
+          const rect = widgetContainerElement?.getBoundingClientRect();
+          rect &&
+            window.scrollTo(rect.left, rect.top > 100 ? rect.top - 100 : 0);
         }
       }
     }

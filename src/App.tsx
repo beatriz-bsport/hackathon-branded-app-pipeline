@@ -211,6 +211,7 @@ class BsportWidget extends Component<Props> {
       parentElement,
       uniqueWidgetId,
       usePostMessageIframeDimensions,
+      usePostMessageIfameScrollup,
     } = this.props;
 
     if (
@@ -284,6 +285,7 @@ class BsportWidget extends Component<Props> {
               styles={styles || this.props.theme.widget_theme}
               customConfiguration={this.props.customConfiguration}
               usePostMessageIframeDimensions={usePostMessageIframeDimensions}
+              usePostMessageIfameScrollup={usePostMessageIfameScrollup}
             />
             <WidgetBridge
               companyId={companyId}

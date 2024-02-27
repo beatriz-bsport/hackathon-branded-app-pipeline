@@ -221,6 +221,8 @@ export type PrivateConsumerPass<AssociatedMember = number> = {
   dst_private_consumer_pass?: Array<PrivateConsumerPassLink>;
   src_private_consumer_pass?: Array<PrivateConsumerPassLink>;
   private_consumer_pass_source: number | null;
+  company_source_name: string;
+  company_source_primary_color: string;
   disabled?: boolean;
 };
 

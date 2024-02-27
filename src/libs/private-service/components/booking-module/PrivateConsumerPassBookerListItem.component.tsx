@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 
 import Button from '@material-ui/core/Button';
 import ListItem from '@material-ui/core/ListItem';
-import Chip from '@material-ui/core/Chip';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
@@ -24,6 +23,7 @@ import {
   getPassDate,
   getSpecificIncompatibilitiesReasons,
 } from '#libs/private-service/utils';
+import ConsumerPassSourceChip from '#components/chip/ConsumerPassSourceChip';
 import ConsumerPrivatePassIncompatibilitiesReasons from './ConsumerPrivatePassIncompatibilitiesReasons.component';
 import RedButton from '#components/button/RedButton.component';
 
@@ -249,17 +249,19 @@ export const PrivateConsumerPassBookerListItem: React.FC<Props> = ({
     ) {
       return null;
     }
+
     if (creditProcessing) {
       return <CircularProgress />;
     }
 
     if (private_consumer_pass.private_consumer_pass_source) {
       return (
-        <Chip
-          color="primary"
-          label={t(
-            'paymentPack:paymentPackTemplateInstance.consumerPaymentPackSharedFromOtherFranchisee',
-          )}
+        <ConsumerPassSourceChip
+          companySourceName={private_consumer_pass.company_source_name}
+          companySourcePrimaryColor={
+            private_consumer_pass.company_source_primary_color
+          }
+          tooltipText={t('consumerPass.isFromShareTooltip')}
         />
       );
     }

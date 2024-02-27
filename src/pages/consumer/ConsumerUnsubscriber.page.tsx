@@ -1,7 +1,6 @@
-// @flow
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { compose, withState, withHandlers } from 'recompose';
+import { compose } from 'recompose';
 import CheckIcon from '@material-ui/icons/Check';
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
@@ -13,20 +12,30 @@ import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import { postUnsubscribe } from '#libs/member/api';
 
 type Props = {
-  success: boolean;
-  error: Error | null;
-  loading: boolean;
-  doUnsubscribe: () => void;
+  unsubscribe_uuid: string;
 };
-export const ConsumerUnsubscriber: React.FC<Props> = ({
-  doUnsubscribe,
-  error,
-  loading,
-  success,
-}) => {
+export const ConsumerUnsubscriber: React.FC<Props> = ({ unsubscribe_uuid }) => {
   const classes = useStyles();
   const { t } = useTranslation(['consumerSpace']);
-  if (success) {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  const doUnsubscribe = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      setIsError(false);
+      await postUnsubscribe(unsubscribe_uuid);
+      setIsSuccess(true);
+    } catch (err) {
+      console.error(err);
+      setIsError(true);
+    } finally {
+      setIsLoading(false);
+    }
+  }, [setIsError, setIsLoading, setIsSuccess, unsubscribe_uuid]);
+
+  if (isSuccess) {
     return (
       <div className={classes.container}>
         <CheckIcon color="primary" fontSize="large" />
@@ -37,10 +46,10 @@ export const ConsumerUnsubscriber: React.FC<Props> = ({
   return (
     <div className={classes.container}>
       <Typography>{t('unsubscriber.explain')}</Typography>
-      {!!error && (
+      {isError && (
         <Typography color="error">{t('unsubscriber.error')}</Typography>
       )}
-      {loading ? (
+      {isLoading ? (
         <CircularProgress />
       ) : (
         <Button onClick={doUnsubscribe} variant="outlined">
@@ -68,23 +77,4 @@ const useStyles = makeStyles((theme) => ({
 
 export default compose(
   routerParamsToProps({ unsubscribe_uuid: 'unsubscribe_uuid' }),
-  withState('loading', 'setLoading', false),
-  withState('success', 'setSuccess', false),
-  withState('error', 'setError', null),
-  withHandlers({
-    doUnsubscribe:
-      ({ unsubscribe_uuid, setLoading, setSuccess, setError }) =>
-      async () => {
-        try {
-          setLoading(true);
-          setError(false);
-          await postUnsubscribe(unsubscribe_uuid);
-          setLoading(false);
-          setSuccess(true);
-        } catch (err) {
-          console.error(err);
-          setLoading(false);
-        }
-      },
-  }),
 )(ConsumerUnsubscriber);

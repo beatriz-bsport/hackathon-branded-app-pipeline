@@ -54,6 +54,7 @@ const UpsellSubscriptionConfirmationDialog: React.FC<Props> = ({
           {t('upsellPackage.subscriptionForm.confirmationMessage', {
             name: upsellPackageName,
             ns: 'platformBilling',
+            interpolation: { escapeValue: false },
           })}
         </Typography>
       </DialogContent>

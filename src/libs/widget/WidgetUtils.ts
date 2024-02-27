@@ -5,7 +5,7 @@ import {
   DIALOG_MODE_TAB,
   DIALOG_MODE_DEACTIVATED,
 } from '@bsport/common/lib/master-data/widget-dialog-mode';
-import { WidgetMessageType } from './types';
+import { WidgetApiMessageType, WidgetMessageType } from './types';
 
 export class WidgetUtils {
   static setWidgetContext() {
@@ -80,7 +80,10 @@ export class WidgetUtils {
     }
   }
 
-  static sendBridgeResponse(type: WidgetMessageType, data?: any) {
+  static sendBridgeResponse(
+    type: WidgetMessageType | WidgetApiMessageType,
+    data?: any,
+  ) {
     WidgetUtils.postMessage({ type, ...(data || {}) });
   }
 

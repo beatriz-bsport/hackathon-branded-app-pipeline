@@ -20,6 +20,8 @@ import {
 type OwnProps = {
   authenticated: boolean,
   onWindowOpen: (url: string) => void,
+
+  uniqueWidgetId: string,
 };
 
 type Props = OwnProps;
@@ -27,7 +29,21 @@ type Props = OwnProps;
 class LoginButton extends Component<Props> {
   componentDidMount() {
     this.props.bridgeRequestAuthenticationStatus();
+    window?.addEventListener('message', this.handleOpenViaPostMessage);
   }
+
+  componentWillUnmount() {
+    window?.removeEventListener('message', this.handleOpenViaPostMessage);
+  }
+
+  handleOpenViaPostMessage = (event: MessageEvent) => {
+    if (
+      event?.data?.type === 'bsport:login-button:request-login' &&
+      event?.data?.data?.uniqueWidgetId === this.props.uniqueWidgetId
+    ) {
+      this.onClick();
+    }
+  };
 
   openUrl = (url: string) => {
     const { PUBLIC_URL } = getEnv();

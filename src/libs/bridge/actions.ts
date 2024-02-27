@@ -299,7 +299,27 @@ export const fetchMyUserProfileActions = {
 // Second part: how to handle messages
 // -----------------------------------
 
-export const handleBridgeMessage = (eventData: any) => (dispatch: any) => {
+type UnhandledEventData = {
+  type: WidgetMessageType,
+  authenticated?: unknown,
+  count?: unknown,
+  data?: { videoId: unknown, playbackUrl: unknown, accessDenied: unknown },
+  offer_ids?: unknown,
+  username?: unknown,
+  videoId?: number,
+};
+
+type HandledEventData = {
+  type: WidgetApiMessageType,
+  data: unknown,
+  error?: Error,
+};
+
+type EventData = HandledEventData | UnhandledEventData;
+
+export const handleBridgeMessage = (eventData: EventData) => (
+  dispatch: any,
+) => {
   switch (eventData.type) {
     case WidgetMessageType.RESPONSE_LOGIN_SUCCESS:
       dispatch(closeUserInteractionPortal());

@@ -4,27 +4,20 @@ import {
 } from 'bsport-saas/src/libs/widget/types';
 
 import { snackbarSuccess } from 'bsport-saas/src/actions/snackbar.actions';
-import { ActionFunctionAny, createAction } from 'redux-actions';
+import { createAction } from 'redux-actions';
 
 import { ThunkDispatch } from 'redux-thunk';
 import { Action } from 'redux';
 import type { OptionCallback } from 'bsport-saas/src/state/types';
 import type { Company } from 'bsport-saas/src/libs/company/types';
-import type { Dispatch } from 'react';
 import type { ReferralProgram } from 'bsport-saas/src/libs/referral/types';
 import { closeUserInteractionPortal } from '../modal/actions';
 
 import { RootState } from '../../reducers';
+import { apiCallHandler } from './callHandler';
 
 // First part: how to send message
 // ---------------------------------
-
-const apiCallbackRegistry: Record<WidgetApiMessageType, OptionCallback<any>> = {
-  MEMBERSHIP_BY_COMPANY: {},
-  FETCH_MEMBER_BY_ID: {},
-  FETCH_REFERRAL_PROGRAM_MEMBER_STATUS: {},
-  FETCH_REFERRAL_PROGRAM_BY_COMPANY: {},
-};
 
 const sendBridgeMessage = (type: WidgetMessageType, data?: any) => {
   const iframe = document.getElementById('@bsport-bridge-iframe');
@@ -38,74 +31,6 @@ const sendBridgeMessage = (type: WidgetMessageType, data?: any) => {
       console.error(err);
     }
   }
-};
-
-const bridgeSendApiCallRequest = <A, T>({
-  action,
-  dispatch,
-  payload,
-  type,
-}: {
-  type: WidgetApiMessageType,
-  dispatch: Dispatch<any>,
-  action: Record<
-    'success' | 'isLoading' | 'error',
-    // @ts-expect-error trailing comma
-    ActionFunctionAny<Action<any>>,
-  >,
-  payload: { args: A, options?: OptionCallback<T> },
-}) => {
-  const iframe = document.getElementById('@bsport-bridge-iframe');
-
-  if (!iframe || !(iframe instanceof HTMLIFrameElement)) {
-    return;
-  }
-
-  if (payload.options?.onSuccess) {
-    apiCallbackRegistry[type].onSuccess = payload.options?.onSuccess;
-  }
-
-  if (payload.options?.onError) {
-    apiCallbackRegistry[type].onError = payload.options?.onError;
-  }
-
-  try {
-    dispatch(action.isLoading(true));
-    dispatch(action.error(null));
-    iframe.contentWindow.postMessage({ type, args: payload.args }, '*');
-  } catch (err) {
-    console.error(err);
-  }
-};
-
-const bridgeHandleApiResponse = ({
-  actions,
-  dispatch,
-  response,
-  type,
-}: {
-  type: WidgetApiMessageType,
-  response: { data: unknown, error?: Error },
-  dispatch: any,
-  actions: {
-    success: ActionFunctionAny<Action<any>>,
-    isLoading: ActionFunctionAny<Action<any>>,
-    error: ActionFunctionAny<Action<any>>,
-  },
-}) => {
-  if (response.error) {
-    if (apiCallbackRegistry[type].onError) {
-      apiCallbackRegistry[type].onError(response.error);
-    }
-    dispatch(actions.error(response.error));
-    dispatch(actions.isLoading(false));
-    return;
-  }
-  if (apiCallbackRegistry[type].onSuccess) {
-    apiCallbackRegistry[type].onSuccess(response.data);
-  }
-  dispatch(actions.success(response.data));
-  dispatch(actions.isLoading(false));
 };
 
 export function bridgeRequestAuthenticationStatus() {
@@ -181,7 +106,7 @@ export function bridgeRetrieveReferralProgramForCompany(
   return async (
     dispatch: ThunkDispatch<RootState, unknown, Action<unknown>>,
   ) => {
-    bridgeSendApiCallRequest({
+    apiCallHandler.sendRequest({
       action: retrieveReferralProgramForCompanyActions,
       dispatch,
       payload: { args: companyId, options },
@@ -197,7 +122,7 @@ export function bridgeRetrieveReferralMemberStatus(memberId: number) {
   ) => {
     if (!getState().bridge.authentication.hasBeenReceived) return;
 
-    bridgeSendApiCallRequest({
+    apiCallHandler.sendRequest({
       action: retrieveReferralMemberStatusActions,
       payload: { args: memberId },
       dispatch,
@@ -213,7 +138,7 @@ export function bridgeRetrieveMember(memberId: number) {
   ) => {
     if (!getState().bridge.authentication.hasBeenReceived) return;
 
-    bridgeSendApiCallRequest({
+    apiCallHandler.sendRequest({
       action: retrieveMemberAction,
       dispatch,
       type: WidgetApiMessageType.FETCH_MEMBER_BY_ID,
@@ -231,7 +156,7 @@ export function bridgeRetrieveMembershipByCompany(
     getState: () => RootState,
   ) => {
     if (!getState().bridge.authentication.hasBeenReceived) return;
-    bridgeSendApiCallRequest({
+    apiCallHandler.sendRequest({
       type: WidgetApiMessageType.MEMBERSHIP_BY_COMPANY,
       dispatch,
       action: retrieveMembershipByCompanyAction,
@@ -321,7 +246,7 @@ type UnhandledEventData = {
   videoId?: number,
 };
 
-type HandledEventData = {
+export type HandledEventData = {
   type: WidgetApiMessageType,
   data: unknown,
   error?: Error,
@@ -433,7 +358,7 @@ export const handleBridgeMessage = (eventData: EventData) => (
       break;
 
     case WidgetApiMessageType.MEMBERSHIP_BY_COMPANY:
-      bridgeHandleApiResponse({
+      apiCallHandler.handleResponse({
         actions: retrieveMembershipByCompanyAction,
         type: eventData.type,
         dispatch,
@@ -442,7 +367,7 @@ export const handleBridgeMessage = (eventData: EventData) => (
       break;
 
     case WidgetApiMessageType.FETCH_MEMBER_BY_ID:
-      bridgeHandleApiResponse({
+      apiCallHandler.handleResponse({
         actions: retrieveMemberAction,
         type: eventData.type,
         dispatch,
@@ -451,7 +376,7 @@ export const handleBridgeMessage = (eventData: EventData) => (
       break;
 
     case WidgetApiMessageType.FETCH_REFERRAL_PROGRAM_MEMBER_STATUS:
-      bridgeHandleApiResponse({
+      apiCallHandler.handleResponse({
         actions: retrieveReferralMemberStatusActions,
         type: eventData.type,
         dispatch,
@@ -460,7 +385,7 @@ export const handleBridgeMessage = (eventData: EventData) => (
       break;
 
     case WidgetApiMessageType.FETCH_REFERRAL_PROGRAM_BY_COMPANY:
-      bridgeHandleApiResponse({
+      apiCallHandler.handleResponse({
         actions: retrieveReferralProgramForCompanyActions,
         type: eventData.type,
         dispatch,

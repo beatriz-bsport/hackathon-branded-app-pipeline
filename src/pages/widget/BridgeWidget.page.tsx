@@ -1,10 +1,10 @@
-// @ts-nocheck
+// @ts-nocheck very few errors, can be removed soon (some function calls make no sense, reflected by type errors. Otherwise all good)
 import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import moment from 'moment-timezone';
 
-import type {  OptionCallback, ThunkAction } from 'src/state/types';
+import type { OptionCallback, ThunkAction } from 'src/state/types';
 import {
   BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
   BsportRequestFromHeaderValue,
@@ -25,7 +25,7 @@ import {
 } from '#libs/membership/actions';
 import { getMembership } from '#libs/membership/selectors';
 import WidgetUtils from '#libs/widget/WidgetUtils';
-import { WidgetMessageType } from '#libs/widget/types';
+import { WidgetApiMessageType, WidgetMessageType } from '#libs/widget/types';
 import type { CheckoutItem, Basket } from '#libs/checkout/types';
 import { getAuthToken } from '../../http';
 import { fetchMemberTagList } from '#libs/tag/actions';
@@ -36,6 +36,13 @@ import {
   retrieveReferralMemberStatus as retrieveReferralMemberStatusAction,
 } from '#libs/referral/actions';
 import { fetchMember } from '#libs/member/actions';
+import type { Membership } from '#libs/membership/types';
+import type {
+  ReferralMemberStatus,
+  ReferralProgram,
+} from '#libs/referral/types';
+import type { Member } from '#libs/member/types';
+import type { Tag } from '#libs/tag/types';
 
 type OwnProps = {
   companyId: number;
@@ -46,6 +53,14 @@ type OwnProps = {
 type Props = OwnProps &
   ReturnType<typeof mapStateToProps> &
   typeof mapDispatchToProps;
+
+type WidgetMessageEvent =
+  | {
+      data: { type: WidgetMessageType; data: Record<string, unknown> };
+    }
+  | {
+      data: { type: WidgetApiMessageType; args: unknown };
+    };
 
 class BridgeWidgetPage extends React.PureComponent<Props> {
   token: string = '';
@@ -103,7 +118,7 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
     apiCallAction: (
       args: A,
       options?: OptionCallback<T>,
-    ) => ((dispatch: any) => Promise<void>)  | ThunkAction ;
+    ) => ((dispatch: any) => Promise<void>) | ThunkAction;
     responseSignature: WidgetApiMessageType;
   }): void => {
     apiCallAction(args as A, {
@@ -178,7 +193,7 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
 
   fetchMemberTagList = () => {
     this.props.fetchMemberTagList(this.props.companyId, {
-      onSuccess: (payload: Array<number>) => {
+      onSuccess: (payload: Array<Tag>) => {
         WidgetUtils.sendBridgeResponse(WidgetMessageType.REQUEST_MEMBER_TAG, {
           data: payload,
         });
@@ -233,72 +248,7 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
     });
   };
 
-  retrieveReferralProgramForCompany = (companyId: number) => {
-    this.props.retrieveReferralProgramForCompany(companyId, {
-      onSuccess: (data) => {
-        WidgetUtils.sendBridgeResponse(
-          WidgetMessageType.RESPONSE_RETRIEVE_REFERRAL_PROGRAM_FOR_COMPANY,
-          { data },
-        );
-      },
-      onError: (error) => {
-        WidgetUtils.sendBridgeResponse(
-          WidgetMessageType.ERROR_RETRIEVING_REFERRAL_PROGRAM_FOR_COMPANY,
-          { error: error ?? new Error('unknown error') },
-        );
-      },
-    });
-  };
-
-  retrieveReferralMemberStatus = (memberId: number) => {
-    this.props.retrieveReferralMemberStatus(memberId, {
-      onSuccess: (data) =>
-        WidgetUtils.sendBridgeResponse(
-          WidgetMessageType.RESPONSE_RETRIEVE_REFERRAL_MEMBER_STATUS,
-          { data },
-        ),
-      onError: (error) => {
-        WidgetUtils.sendBridgeResponse(
-          WidgetMessageType.ERROR_RETRIEVING_REFERRAL_MEMBER_STATUS,
-          { error: error ?? new Error('unknown error') },
-        );
-      },
-    });
-  };
-
-  retrieveMember = (memberId: number) => {
-    this.props.retrieveMember(memberId, {
-      onSuccess: (data) =>
-        WidgetUtils.sendBridgeResponse(
-          WidgetMessageType.RESPONSE_RETRIEVE_MEMBER,
-          { data },
-        ),
-      onError: (error) => {
-        WidgetUtils.sendBridgeResponse(
-          WidgetMessageType.ERROR_RETRIEVING_MEMBER,
-          { error: error ?? new Error('unknown error') },
-        );
-      },
-    });
-  };
-
-  retrieveMembershipByCompany = (companyId: number) => {
-    this.props.fetchMembershipByCompany(companyId, {
-      onSuccess: (data) =>
-        WidgetUtils.sendBridgeResponse(
-          WidgetMessageType.RESPONSE_RETRIEVE_MEMBERSHIP_BY_COMPANY,
-          { data },
-        ),
-      onError: (error) => {
-        WidgetUtils.sendBridgeResponse(
-          WidgetMessageType.ERROR_RETRIEVING_MEMBERSHIP_BY_COMPANY,
-          { error: error ?? new Error('unknown error') },
-        );
-      },
-    });
-  };
-
-  handleMessages = (event: any) => {
+  handleMessages = (event: WidgetMessageEvent) => {
     if (event.data && event.data.type) {
       switch (event.data.type) {
         case WidgetMessageType.REQUEST_AUTHENTICATED_STATUS:
@@ -336,33 +286,40 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
           }
           break;
 
-        case WidgetMessageType.REQUEST_REFERRAL_PROGRAM_FOR_COMPANY:
-          if (event.data?.data?.companyId) {
-            this.retrieveReferralProgramForCompany(
-              parseInt(event.data?.data?.companyId),
-            );
-          }
+        case WidgetApiMessageType.MEMBERSHIP_BY_COMPANY:
+          this.handleBridgeApiCallRequest<number, Membership>({
+            args: event.data.args,
+            responseSignature: WidgetApiMessageType.MEMBERSHIP_BY_COMPANY,
+            apiCallAction: this.props.fetchMembershipByCompany,
+          });
           break;
 
-        case WidgetMessageType.REQUEST_REFERRAL_PROGRAM_MEMBER_STATUS:
-          if (event.data?.data?.memberId) {
-            this.retrieveReferralMemberStatus(
-              parseInt(event.data?.data?.memberId),
-            );
-          }
+        case WidgetApiMessageType.FETCH_MEMBER_BY_ID:
+          this.handleBridgeApiCallRequest<number, Member>({
+            args: event.data.args,
+            responseSignature: WidgetApiMessageType.FETCH_MEMBER_BY_ID,
+            apiCallAction: this.props.fetchMember,
+          });
           break;
-        case WidgetMessageType.REQUEST_MEMBER:
-          if (event.data?.data?.memberId) {
-            this.retrieveMember(parseInt(event.data?.data?.memberId));
-          }
+
+        case WidgetApiMessageType.FETCH_REFERRAL_PROGRAM_MEMBER_STATUS:
+          this.handleBridgeApiCallRequest<number, ReferralMemberStatus>({
+            apiCallAction: this.props.retrieveReferralMemberStatus,
+            args: event.data.args,
+            responseSignature:
+              WidgetApiMessageType.FETCH_REFERRAL_PROGRAM_MEMBER_STATUS,
+          });
           break;
-        case WidgetMessageType.REQUEST_MEMBERSHIP_BY_COMPANY:
-          if (event.data?.data?.companyId) {
-            this.retrieveMembershipByCompany(
-              parseInt(event.data?.data?.companyId),
-            );
-          }
+
+        case WidgetApiMessageType.FETCH_REFERRAL_PROGRAM_BY_COMPANY:
+          this.handleBridgeApiCallRequest<number, ReferralProgram>({
+            apiCallAction: this.props.retrieveReferralProgramForCompany,
+            args: event.data.args,
+            responseSignature:
+              WidgetApiMessageType.FETCH_REFERRAL_PROGRAM_BY_COMPANY,
+          });
           break;
+
         default:
           break;
       }

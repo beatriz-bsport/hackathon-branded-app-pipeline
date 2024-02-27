@@ -177,7 +177,11 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
         >
           <div className={classes.dateRow}>
             <Typography className={classes.marginRight2} variant="body2">
-              {formatAsDatetimeAdapted(offerDateStartAsMoment, 'll', timezone)}
+              {formatAsDatetimeAdapted(
+                offerDateStartAsMoment,
+                'ddd D MMM, YYYY',
+                timezone,
+              )}
             </Typography>
             <Typography
               className={classnames(classes.grey, classes.mobileSmallFont)}
@@ -359,7 +363,11 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
                 replacementRequest.offer?.meta_activity?.name}
             </Typography>
             <Typography className={classes.weight500} variant="subtitle2">
-              {formatAsDatetimeAdapted(offerDateStartAsMoment, 'll', timezone)}
+              {formatAsDatetimeAdapted(
+                offerDateStartAsMoment,
+                'ddd D MMM, YYYY',
+                timezone,
+              )}
             </Typography>
             <Typography className={classes.grey} variant="body2">
               {`${formatAsTime(
@@ -374,7 +382,7 @@ export const ActivitiesToReplaceTableRow: React.FC<Props> = ({
               <Typography className={classes.weight500} variant="subtitle1">
                 {formatAsDatetimeAdapted(
                   offerDateStartAsMoment,
-                  'll',
+                  'ddd D MMM, YYYY',
                   timezone,
                 )}
               </Typography>

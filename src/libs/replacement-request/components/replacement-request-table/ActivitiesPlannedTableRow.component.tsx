@@ -194,7 +194,7 @@ export const ActivitiesPlannedTableRow: React.FC<Props> = ({
               <Typography className={classes.weight500} variant="subtitle2">
                 {formatAsDatetimeAdapted(
                   offerDateStartAsMoment,
-                  'll',
+                  'ddd D MMM, YYYY',
                   timezone,
                 )}
               </Typography>
@@ -286,7 +286,11 @@ export const ActivitiesPlannedTableRow: React.FC<Props> = ({
     <TableRow key={offer.id}>
       <TableCell className={classes.tableCell}>
         <Typography className={classes.weight500} variant="subtitle1">
-          {formatAsDatetimeAdapted(offerDateStartAsMoment, 'll', timezone)}
+          {formatAsDatetimeAdapted(
+            offerDateStartAsMoment,
+            'ddd D MMM, YYYY',
+            timezone,
+          )}
         </Typography>
         <Typography className={classes.grey} variant="body2">
           {`${formatAsTime(offerDateStartAsMoment, timezone)} - ${formatAsTime(

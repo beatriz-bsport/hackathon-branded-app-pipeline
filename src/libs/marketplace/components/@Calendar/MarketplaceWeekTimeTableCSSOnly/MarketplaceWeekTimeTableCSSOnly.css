@@ -48,7 +48,6 @@
   font-family: var(--fontFamily);
 }
 
-.bs-week__header__date__weekDay--is-selected,
 .bs-week__header__date__weekDay--is-today {
   color: var(--color-primary-main);
 }
@@ -79,11 +78,16 @@
 }
 
 .bs-week__header__date__monthDay--is-today {
-  background-color: none;
   color: var(--color-primary-main);
   border-radius: var(--spacing-4);
-  width: var(--spacing-5);
+  width: var(--spacing-6);
+  height: var(--spacing-6);
 }
+
+.bs-week__header__date__monthDay--is-selected.bs-week__header__date__monthDay--is-today {
+  color: var(--color-primary-contrastText);
+}
+
 .bs-week__listMode__content {
   grid-column: 1 / 8;
   display: flex;

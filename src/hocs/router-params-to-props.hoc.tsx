@@ -9,6 +9,7 @@ import pick from 'lodash/pick';
 // When adding a new type you only need to update the converter
 const converters = {
   number: (x: string) => +x,
+  string: (x: string) => x,
 };
 
 type SupportedType = keyof typeof converters;

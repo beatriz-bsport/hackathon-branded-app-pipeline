@@ -1,9 +1,6 @@
-// @flow
-import React from 'react';
-import withStyles from '@material-ui/core/styles/withStyles';
-import { compose, withState, withProps, withHandlers } from 'recompose';
+import React, { ChangeEvent, useCallback, useEffect, useState } from 'react';
 
-import { useTranslation, Trans, TFunction } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 import Hidden from '@material-ui/core/Hidden';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
@@ -14,7 +11,9 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import WarningIcon from '@material-ui/icons/Warning';
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import { makeStyles } from '@material-ui/core';
+import type { TFunction } from 'i18next';
+import { ClassNameMap } from '@material-ui/styles';
 import DelayedTextField from '../../../components/DelayedTextField.component';
 
 import type { Membership } from '../types';
@@ -23,142 +22,143 @@ import FuzeSearch from '../../../components/FuzeSearch.component';
 // @ts-expect-error js file
 import MembershipListItem from './MembershipListItem.component';
 import CompanyListItem from './CompanyListItem.component';
+import type { Company } from '#libs/company/types';
 
 type Props = {
   hasMore: boolean;
   loading: boolean;
   membershipList: Array<Membership>;
-  classes: Object;
   goToConsumerHome: (company: number, companyName: string) => void;
-  searchCompany: (string) => void;
+  searchCompany: (text: string) => void;
   companyLoading: boolean;
   companyList: Array<Company>;
   fetchMoreMembership: (pageSize: number) => void;
 };
 
 const MembershipSelectorBase = (props: {
-  classes: Object;
-  searchText: string;
-  clearSearch: () => void;
-  changeSearch: (string) => void;
   membershipList: Array<Membership>;
-  searchResult: Array<Membership>;
   onClick: (company: number) => void;
-  t: TFunction;
-}) => (
-  <div className={props.classes.selectorContainer}>
-    <FuzeSearch
-      changeSearch={props.changeSearch}
-      clearSearch={props.clearSearch}
-      items={props.membershipList}
-      placeholder={props.t('selector.placeholder')}
-      searchFields={['company_name']}
-      searchResult={props.searchResult}
-      searchText={props.searchText}
-      variant="outlined"
-    />
-    <Paper className={props.classes.membershipList}>
-      {!props.searchResult || props.searchResult.length === 0
-        ? props.membershipList.map((m) => (
-            <MembershipListItem
-              button
-              divider
-              membership={m}
-              onClick={() => props.onClick(m.company)}
-            />
-          ))
-        : props.searchResult.map((m) => (
-            <MembershipListItem
-              button
-              divider
-              noDivider
-              membership={m}
-              onClick={() => props.onClick(m.company)}
-            />
-          ))}
-    </Paper>
-  </div>
-);
+}) => {
+  const classes = useStyles();
+  const [searchText, setSearchText] = useState('');
+  const [searchResult, setSearchResult] = useState<Membership[]>(null);
+  const { t } = useTranslation('membership');
 
-const MembershipSelectorBaseComposed = compose(
-  withState('searchText', 'setSearchText', ''),
-  withState('searchResult', 'setSearchResult', null),
-  withProps(({ setSearchResult, setSearchText }) => ({
-    changeSearch: (fuse) => (ev) => {
-      setSearchText(ev.target.value || '');
-      setSearchResult(fuse.search(ev.target.value));
+  const changeSearch = useCallback(
+    (fuse: any) => (ev: ChangeEvent<HTMLInputElement>) => {
+      const newSearchText = ev.target.value || '';
+      setSearchText(newSearchText);
+      setSearchResult(fuse.search(newSearchText));
     },
-  })),
-  withHandlers(({ setSearchText, setSearchResult, membershipList }) => ({
-    clearSearch: () => {
-      setSearchText('');
-      setSearchResult(membershipList);
-    },
-  })),
-)(MembershipSelectorBase);
+    [],
+  );
 
-class CompanySelectorBase extends React.Component<{
-  classes: Object;
+  const clearSearch = useCallback(() => {
+    setSearchText('');
+    setSearchResult(props.membershipList);
+  }, [props.membershipList]);
+
+  return (
+    <div className={classes.selectorContainer}>
+      <FuzeSearch
+        changeSearch={changeSearch}
+        clearSearch={clearSearch}
+        items={props.membershipList}
+        placeholder={t('selector.placeholder')}
+        searchFields={['company_name']}
+        searchText={searchText}
+        variant="outlined"
+      />
+      <Paper className={classes.membershipList}>
+        {!searchResult || searchResult.length === 0
+          ? props.membershipList.map((m) => (
+              <MembershipListItem
+                button
+                divider
+                membership={m}
+                onClick={() => props.onClick(m.company)}
+              />
+            ))
+          : searchResult.map((m) => (
+              <MembershipListItem
+                button
+                divider
+                noDivider
+                membership={m}
+                onClick={() => props.onClick(m.company)}
+              />
+            ))}
+      </Paper>
+    </div>
+  );
+};
+
+type CompanySelectorBaseProps = {
+  classes: ClassNameMap<keyof ReturnType<typeof useStyles>>;
   t: TFunction;
-  handleTextChange: (string) => void;
-  text: string;
   companyLoading: boolean;
+  searchCompany: (text: string) => void;
   companyList: Array<Company>;
   onClick: (company: number) => void;
-}> {
-  componentDidMount() {
-    this.props.handleTextChange('');
-  }
+};
 
-  render() {
-    return (
-      <div className={this.props.classes.selectorContainer}>
-        <Paper>
-          <DelayedTextField
-            fullWidth
-            className={this.props.classes.selectorContainer}
-            onChange={(ev) => this.props.handleTextChange(ev.target.value)}
-            placeholder={this.props.t('selector.placeholder')}
-            value={this.props.text}
-            variant="outlined"
-          />
-        </Paper>
-        <Paper className={this.props.classes.companyList}>
-          {this.props.companyLoading ? <LinearProgress /> : null}
-          {!this.props.companyLoading && this.props.companyList.length === 0 ? (
-            <ListItem>
-              <ListItemIcon>
-                <WarningIcon />
-              </ListItemIcon>
-              <ListItemText
-                primary={this.props.t('selector.noMatchingCompany')}
-              />
-            </ListItem>
-          ) : null}
-          {this.props.companyList.map((c) => (
-            <CompanyListItem
-              button
-              divider
-              noDivider
-              company={c}
-              onClick={() => this.props.onClick(c.id, c.name)}
-            />
-          ))}
-        </Paper>
-      </div>
-    );
-  }
-}
+const CompanySelectorBase: React.FC<CompanySelectorBaseProps> = ({
+  classes,
+  companyList,
+  companyLoading,
+  onClick,
+  searchCompany,
+  t,
+}) => {
+  const [text, setText] = useState('');
 
-const CompanySelectorBaseComposed = compose(
-  withState('text', 'setText', ''),
-  withProps(({ setText, searchCompany }) => ({
-    handleTextChange: (txt) => {
-      setText(txt);
-      searchCompany(txt);
+  const handleTextChange = useCallback(
+    (newText: string) => {
+      setText(newText);
+      searchCompany(newText);
     },
-  })),
-)(CompanySelectorBase);
+    [setText, searchCompany],
+  );
+
+  useEffect(() => {
+    handleTextChange('');
+  });
+
+  return (
+    <div className={classes.selectorContainer}>
+      <Paper>
+        <DelayedTextField
+          fullWidth
+          className={classes.selectorContainer}
+          onChange={(ev) => handleTextChange(ev.target.value)}
+          placeholder={t('selector.placeholder')}
+          value={text}
+          variant="outlined"
+        />
+      </Paper>
+      <Paper className={classes.companyList}>
+        {companyLoading ? <LinearProgress /> : null}
+        {!companyLoading && companyList.length === 0 ? (
+          <ListItem>
+            <ListItemIcon>
+              <WarningIcon />
+            </ListItemIcon>
+            <ListItemText primary={t('selector.noMatchingCompany')} />
+          </ListItem>
+        ) : null}
+        {companyList.map((c) => (
+          <CompanyListItem
+            button
+            divider
+            noDivider
+            company={c}
+            onClick={() => onClick(c.id, c.name)}
+          />
+        ))}
+      </Paper>
+    </div>
+  );
+};
 
 export const MembershipSelector = (props: Props) => {
   const { t } = useTranslation(['membership']);
@@ -184,14 +184,14 @@ export const MembershipSelector = (props: Props) => {
         </Hidden>
         <div className={classes.panel}>
           {props.membershipList.length ? (
-            <MembershipSelectorBaseComposed
+            <MembershipSelectorBase
               classes={classes}
               membershipList={props.membershipList}
               onClick={props.goToConsumerHome}
               t={t}
             />
           ) : (
-            <CompanySelectorBaseComposed
+            <CompanySelectorBase
               classes={classes}
               companyList={props.companyList}
               companyLoading={props.companyLoading}

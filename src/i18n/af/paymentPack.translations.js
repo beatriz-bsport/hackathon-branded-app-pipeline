@@ -609,6 +609,7 @@ const getTranslations = async () => {
         title: 'Availability',
       },
       consumerPaymentPackSharedFromOtherFranchisee: 'Shared with a studio',
+      isFromShareTooltip: 'This pass is shared from another franchise studio',
       paymentPackSharedFromFranchisor: 'Master Account Pass',
     },
     selector: {

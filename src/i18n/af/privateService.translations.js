@@ -441,6 +441,8 @@ const getTranslations = async () => {
       isFromDisabledShare: 'Sharing has been disabled',
       isOwnerOfShares: 'Shared (Master Appointment Pass)',
       isFromShare: 'This pass is shared with another account.',
+      isFromShareTooltip:
+        'This appointment pass is shared from another franchise studio',
       warningShareUniversal:
         'Please share the associated pass instead of the universal pass',
     },

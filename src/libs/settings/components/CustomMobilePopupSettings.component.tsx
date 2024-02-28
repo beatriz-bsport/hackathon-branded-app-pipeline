@@ -64,6 +64,7 @@ const CustomMobilePopupSettings: React.FC<Props> = ({
 
   const handleClosePopupDialog = () => {
     setOpenPopupDialog(false);
+    setEditingPopup(null);
   };
 
   const onClickEditLink = (popup: CustomMobilePopup) => () => {

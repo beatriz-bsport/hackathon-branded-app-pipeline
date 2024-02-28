@@ -99,7 +99,13 @@ const ShopItemDetailTabs: React.FC<Props> = ({
 
         {!isLoading && (
           <>
-            <ShopItemDetailInventoryTab />
+            <ShopItemDetailInventoryTab
+              count={count}
+              fetchShopItemVariantList={fetchShopItemVariantList}
+              handleOpenVariantDrawer={handleOpenVariantDrawer}
+              page={page}
+              shopItemVariantList={variantList}
+            />
             <ShopItemDetailVariantsTab
               companyId={companyId}
               count={count}

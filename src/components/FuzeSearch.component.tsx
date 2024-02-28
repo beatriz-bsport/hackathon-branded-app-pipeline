@@ -1,8 +1,7 @@
-// @flow
-//
 import React from 'react';
 import { compose } from 'recompose';
 import withStyles from '@material-ui/core/styles/withStyles';
+import type { ClassNameMap } from '@material-ui/styles';
 import classNames from 'classnames';
 import isEqual from 'lodash/isEqual';
 
@@ -14,25 +13,32 @@ import IconButton from '@material-ui/core/IconButton';
 
 import memoize from 'memoize-one';
 
+import type { ImmutableArray } from 'seamless-immutable';
 import DelayedTextField from './DelayedTextField.component';
 import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
 
+const TEXT_FIELD_DELAY = 170;
+
 type Props = {
-  items: Array,
-  searchFields: Array,
-  placeholder: string,
-  searchText: string,
-  clearSearch: () => void,
-  changeSearch: (any) => void,
-  classes: Object,
-  className?: string,
-  inputClassName?: string,
-  inputPropsClassName?: String,
-  variant?: string,
-  disableAutoFocus?: boolean,
-  adornmentPosition: 'start' | 'end' | 'none',
-  onClickSearch?: () => void,
-  searchOnItemsChange?: boolean,
+  items: any[] | ImmutableArray<any>;
+  searchFields: string[];
+  placeholder?: string;
+  searchText: string;
+  clearSearch: () => void;
+  changeSearch: (
+    fuze: any,
+  ) => (
+    event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,
+  ) => void;
+  classes: ClassNameMap<keyof ReturnType<typeof styles>>;
+  className?: string;
+  inputClassName?: string;
+  inputPropsClassName?: string;
+  variant?: 'standard' | 'filled' | 'outlined';
+  disableAutoFocus?: boolean;
+  adornmentPosition?: 'start' | 'end' | 'none';
+  onClickSearch?: () => void;
+  searchOnItemsChange?: boolean;
 };
 
 export class FuzeSearch extends React.Component<Props> {
@@ -48,12 +54,13 @@ export class FuzeSearch extends React.Component<Props> {
     return new Fuse(items, options);
   });
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: Props) {
     if (
       this.props.searchOnItemsChange &&
       !isEqual(prevProps.items, this.props.items)
     ) {
       this.props.changeSearch(this.getFuse(this.props.items))({
+        // @ts-expect-error missing props for key event
         target: { value: this.props.searchText },
       });
     }
@@ -74,7 +81,7 @@ export class FuzeSearch extends React.Component<Props> {
         <DelayedTextField
           fullWidth
           autoFocus={!this.props.disableAutoFocus}
-          delay={170}
+          delay={TEXT_FIELD_DELAY}
           InputProps={{
             className: this.props.inputClassName,
             startAdornment:
@@ -149,14 +156,17 @@ export class FuzeSearch extends React.Component<Props> {
   }
 }
 
-const styles = (theme) => ({
+const styles = () => ({
   container: { width: '100%' },
   endAdornment: {
     display: 'flex',
   },
   iconButton: {
-    padding: theme.spacing(0.75),
+    padding: '6px',
   },
 });
 
-export default compose(withStyles(styles))(FuzeSearch);
+export default compose<Props, Omit<Props, 'classes'>>(
+  withStyles(styles),
+  React.memo,
+)(FuzeSearch);

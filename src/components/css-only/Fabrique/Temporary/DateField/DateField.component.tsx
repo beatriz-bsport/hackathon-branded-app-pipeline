@@ -84,6 +84,7 @@ const DateField: React.FC<Props> = ({
 
   const handleChange = React.useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
+      event?.preventDefault();
       if (isForcedDatePicker && !isDatePickerOpen) {
         handleOpenDatePicker();
       } else {
@@ -115,6 +116,7 @@ const DateField: React.FC<Props> = ({
         <Textfield
           classes={{
             inputContainer: 'bs-fabrique-datefield__input-container',
+            input: 'bs-fabrique-datefield__input-input',
           }}
           errorMessage={error && t(error)}
           inputId={id}

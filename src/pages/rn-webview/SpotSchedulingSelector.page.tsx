@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { compose } from 'recompose';
 
-// @ts-expect-error
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import WithCustomCssProvider from '#hocs/company-custom-css.hoc';

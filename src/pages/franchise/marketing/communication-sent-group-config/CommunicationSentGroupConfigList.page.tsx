@@ -9,8 +9,7 @@ import { WithHandlerType } from '../../../../utils/types';
 import { OptionCallback } from '../../../../state/types';
 import { RootState } from '../../../../reducers';
 import withTitle from '#hocs/with-title.hoc';
-// @ts-expect-error
-import routerParamsToProps from '../../../../hocs/router-params-to-props.hoc';
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import {
   createCommunicationSentGroupConfig as createCommunicationSentGroupConfigAction,
   deleteCommunicationSentGroupConfig as deleteCommunicationSentGroupConfigAction,

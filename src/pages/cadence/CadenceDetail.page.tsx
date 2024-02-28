@@ -11,7 +11,6 @@ import type { Theme, WithStyles } from '@material-ui/core/styles';
 
 import Config from '../../config';
 import withTitle from '#hocs/with-title.hoc';
-// @ts-expect-error : Not typed hoc
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 
 import CustomStarIcon from '#components/icons/CustomStarIcon.component';

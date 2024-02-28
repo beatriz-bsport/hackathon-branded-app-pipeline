@@ -14,7 +14,6 @@ import { OFFER_BOOKABLE_STATUS_BOOKABLE } from '@bsport/common/lib/master-data/b
 import { OFFER_BOOKABLE_STATUS_ALREADY_BOOKED } from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
 
 import { buildUrlParams } from '../../../../http';
-// @ts-expect-error
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 // @ts-expect-error
 import withQueryParams from '#hocs/with-query-params.hoc';

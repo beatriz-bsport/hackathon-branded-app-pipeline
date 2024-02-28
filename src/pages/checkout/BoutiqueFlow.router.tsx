@@ -5,7 +5,6 @@ import { connect, ConnectedProps } from 'react-redux';
 import { Redirect, Switch, Route } from 'react-router';
 import { RootState } from '../../reducers';
 import { fetchCompanyTheme } from '#libs/theme/actions';
-// @ts-expect-error
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 // @ts-expect-error
 import asyncComponent from '../../AsyncComponent.js';

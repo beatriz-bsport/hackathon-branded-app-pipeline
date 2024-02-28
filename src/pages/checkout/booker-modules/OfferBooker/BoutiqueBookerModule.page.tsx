@@ -119,7 +119,6 @@ import {
   getOfferById,
   getBookingGuestNumberLeft,
 } from '#libs/offer/selectors';
-// @ts-expect-error
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { fetchMemberTagList } from '#libs/tag/actions';
 import {

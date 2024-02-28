@@ -6,8 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { withStyles, Theme, WithStyles } from '@material-ui/core/styles';
-// @ts-expect-error
-import routerParamsToProps from '../../../../hocs/router-params-to-props.hoc';
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 
 import type { RootState } from '../../../../reducers';
 import CampaignList from '#libs/communication/components/CampaignList.component';

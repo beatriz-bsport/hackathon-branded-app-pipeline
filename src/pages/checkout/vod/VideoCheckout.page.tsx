@@ -19,8 +19,7 @@ import WidgetUtils from '../../../libs/widget/WidgetUtils';
 import ConsumerAppBarContainer from '../ConsumerAppBar.container';
 import CollapsibleSection from '../../../components/CollapsibleSection';
 import { RadioItem } from '../../../components/radio/RadioItem';
-// @ts-expect-error
-import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 
 import PaymentComboBookableItem from '../../../libs/booker-module/components/PaymentComboBookableItem.component';
 import PaymentPackBookableItem from '../../../libs/booker-module/components/PaymentPackBookableItem.component';

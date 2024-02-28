@@ -11,7 +11,6 @@ import { compose, withHandlers, withState } from 'recompose';
 import { ChatThreadKinds } from '@bsport/common/lib/master-data/communication-inbox';
 import { WithTranslation, withTranslation } from 'react-i18next';
 
-// @ts-expect-error : Not typed hoc
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import type { RootState } from '../../reducers';
 import InboxThreadList from './InboxThreadList.page';

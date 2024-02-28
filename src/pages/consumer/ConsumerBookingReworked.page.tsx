@@ -3,7 +3,6 @@ import { compose, withHandlers } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
 import { push } from 'connected-react-router';
 import uniq from 'lodash/uniq';
-// @ts-expect-error
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import WidgetUtils from '#libs/widget/WidgetUtils';
 import { urlToMarketplaceSessionTab } from '#libs/marketplace/utils/navigation';

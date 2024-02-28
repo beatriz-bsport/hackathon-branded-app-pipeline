@@ -5,8 +5,7 @@ import { goBack } from 'connected-react-router';
 import { WithStyles } from '@material-ui/core';
 import { WithHandlerType } from '../../../../utils/types';
 import { OptionCallback, PaginatedResponse } from '../../../../state/types';
-// @ts-expect-error
-import routerParamsToProps from '../../../../hocs/router-params-to-props.hoc';
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import BackofficeLinearProgress from '../../../../components/navigation/BackofficeLinearProgress.component';
 import {
   getCommunicationSentGroup,

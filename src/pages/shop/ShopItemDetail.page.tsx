@@ -33,8 +33,7 @@ import {
 import ShopItemDetail from '#libs/shop/components/ShopItemDetail';
 
 // --- UTILS ---
-// @ts-expect-error
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import withTitle from '../../hocs/with-title.hoc';
 // @ts-expect-error
 import { mapFormDataWithObject } from '../form.utils';

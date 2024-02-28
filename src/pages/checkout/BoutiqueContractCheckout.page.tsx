@@ -30,8 +30,7 @@ import {
   getCheckoutValidationUrl,
   getOfferBookerUrl,
 } from '#libs/marketplace/routing-utils';
-// @ts-expect-error
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import themeSelectors, { getStripePkKey } from '#libs/theme/selectors';
 import {
   fetchPaymentMethodList as fetchPaymentMethodListAction,

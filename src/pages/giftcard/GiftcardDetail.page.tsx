@@ -15,8 +15,7 @@ import GiftcardFormDrawer from '#libs/giftcard/components/GiftcardFormDrawer.com
 import GiftcardDeleteDialog from '#libs/giftcard/components/GiftcardDeleteDialog.component';
 import BottomActionsButton from '#components/button/BottomActionsButton.component';
 import withTitle from '../../hocs/with-title.hoc';
-// @ts-expect-error
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import {
   Giftcard,
   ConsumerGiftcard,

@@ -13,8 +13,7 @@ import { push } from 'connected-react-router';
 import { BUYABLE_ITEM_GIFTCARD } from '@bsport/common/lib/master-data/buyable-items';
 import uniq from 'lodash/uniq';
 import themeSelectors from '#libs/theme/selectors';
-// @ts-expect-error
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import {
   fetchGiftcardBulk as fetchGiftcardBulkAction,
   fetchConsumerGiftcardReceivedList as fetchConsumerGiftcardReceivedListAction,

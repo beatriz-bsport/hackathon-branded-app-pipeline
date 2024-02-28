@@ -3,8 +3,7 @@ import { compose } from 'recompose';
 import { LinearProgress } from '@material-ui/core';
 import { ConnectedProps, connect } from 'react-redux';
 import type { RootState } from '../../../../reducers';
-// @ts-expect-error
-import routerParamsToProps from '../../../../hocs/router-params-to-props.hoc';
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import type { SendGroupedCommunicationData } from '#libs/communication/types';
 import { getAllFranchiseCompanies } from '#libs/franchise/selectors';
 import { fetchAllSmartLists as fetchAllSmartListsAction } from '#libs/smart-list/actions';

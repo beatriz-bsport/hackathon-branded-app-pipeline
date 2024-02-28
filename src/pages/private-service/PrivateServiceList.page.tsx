@@ -8,8 +8,7 @@ import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import Paper from '@material-ui/core/Paper';
 import Collapse from '@material-ui/core/Collapse';
-// @ts-expect-error
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import withTitle from '../../hocs/with-title.hoc';
 import PrivateServiceListItem from '#libs/private-service/components/service/PrivateServiceListItem.component';
 // @ts-expect-error

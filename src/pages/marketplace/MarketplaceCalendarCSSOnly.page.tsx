@@ -169,7 +169,7 @@ function withContainerWidthListener<
       }
 
       state = {
-        containerWidth: 0,
+        containerWidth: this.calendarRefContainer?.current?.clientWidth,
       };
 
       componentDidMount(): void {

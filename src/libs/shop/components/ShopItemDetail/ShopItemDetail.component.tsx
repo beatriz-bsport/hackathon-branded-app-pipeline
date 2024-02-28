@@ -86,7 +86,7 @@ const ShopItemDetail: React.FC<Props> = ({
   const { t } = useTranslation('shop');
 
   const [selectedTab, setSelectedTab] = useState<ShopItemDetailTab>(
-    ShopItemDetailTab.VARIANTS,
+    ShopItemDetailTab.INVENTORY,
   );
 
   const [isEditShopitemDrawerOpen, setIsEditShopitemDrawerOpen] =
@@ -170,9 +170,19 @@ const ShopItemDetail: React.FC<Props> = ({
 
   const handleChangeTab = useCallback(
     (_: React.ChangeEvent, tab: ShopItemDetailTab) => {
+      const isTabRenderingVariants =
+        tab === ShopItemDetailTab.INVENTORY ||
+        tab === ShopItemDetailTab.VARIANTS;
+      /* 
+       Whenever changing tab, we want to get back to page 1 to prevent
+       keeping page number synchronized across tabs. 
+       */
+      if (page > 1 && isTabRenderingVariants) {
+        fetchShopItemVariantList(1);
+      }
       setSelectedTab(tab);
     },
-    [],
+    [fetchShopItemVariantList, page],
   );
 
   const handleSubmitEditShopItem = useCallback(

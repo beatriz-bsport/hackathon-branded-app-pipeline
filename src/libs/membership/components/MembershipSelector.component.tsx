@@ -14,35 +14,37 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import WarningIcon from '@material-ui/icons/Warning';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import DelayedTextField from '../../../components/DelayedTextField.component';
 
 import type { Membership } from '../types';
 import FuzeSearch from '../../../components/FuzeSearch.component';
 
+// @ts-expect-error js file
 import MembershipListItem from './MembershipListItem.component';
 import CompanyListItem from './CompanyListItem.component';
 
 type Props = {
-  hasMore: boolean,
-  loading: boolean,
-  membershipList: Array<Membership>,
-  classes: Object,
-  goToConsumerHome: (company: number, companyName: string) => void,
-  searchCompany: (string) => void,
-  companyLoading: boolean,
-  companyList: Array<Company>,
-  fetchMoreMembership: (pageSize: number) => void,
+  hasMore: boolean;
+  loading: boolean;
+  membershipList: Array<Membership>;
+  classes: Object;
+  goToConsumerHome: (company: number, companyName: string) => void;
+  searchCompany: (string) => void;
+  companyLoading: boolean;
+  companyList: Array<Company>;
+  fetchMoreMembership: (pageSize: number) => void;
 };
 
 const MembershipSelectorBase = (props: {
-  classes: Object,
-  searchText: string,
-  clearSearch: () => void,
-  changeSearch: (string) => void,
-  membershipList: Array<Membership>,
-  searchResult: Array<Membership>,
-  onClick: (company: number) => void,
-  t: TFunction,
+  classes: Object;
+  searchText: string;
+  clearSearch: () => void;
+  changeSearch: (string) => void;
+  membershipList: Array<Membership>;
+  searchResult: Array<Membership>;
+  onClick: (company: number) => void;
+  t: TFunction;
 }) => (
   <div className={props.classes.selectorContainer}>
     <FuzeSearch
@@ -96,13 +98,13 @@ const MembershipSelectorBaseComposed = compose(
 )(MembershipSelectorBase);
 
 class CompanySelectorBase extends React.Component<{
-  classes: Object,
-  t: TFunction,
-  handleTextChange: (string) => void,
-  text: string,
-  companyLoading: boolean,
-  companyList: Array<Company>,
-  onClick: (company: number) => void,
+  classes: Object;
+  t: TFunction;
+  handleTextChange: (string) => void;
+  text: string;
+  companyLoading: boolean;
+  companyList: Array<Company>;
+  onClick: (company: number) => void;
 }> {
   componentDidMount() {
     this.props.handleTextChange('');
@@ -160,15 +162,16 @@ const CompanySelectorBaseComposed = compose(
 
 export const MembershipSelector = (props: Props) => {
   const { t } = useTranslation(['membership']);
+  const classes = useStyles();
   return (
-    <div className={props.classes.container}>
-      <div className={props.classes.innerContainer}>
+    <div className={classes.container}>
+      <div className={classes.innerContainer}>
         <Hidden xsDown>
-          <div className={props.classes.panel}>
-            <div className={props.classes.leftPanel}>
+          <div className={classes.panel}>
+            <div className={classes.leftPanel}>
               <img
                 alt="bsport logo"
-                className={props.classes.bsportLogo}
+                className={classes.bsportLogo}
                 src="https://cdn.bsport.io/assets/logo/logo-icono-dark.png"
               />
               <Typography align="center" variant="subtitle">
@@ -179,17 +182,17 @@ export const MembershipSelector = (props: Props) => {
             </div>
           </div>
         </Hidden>
-        <div className={props.classes.panel}>
+        <div className={classes.panel}>
           {props.membershipList.length ? (
             <MembershipSelectorBaseComposed
-              classes={props.classes}
+              classes={classes}
               membershipList={props.membershipList}
               onClick={props.goToConsumerHome}
               t={t}
             />
           ) : (
             <CompanySelectorBaseComposed
-              classes={props.classes}
+              classes={classes}
               companyList={props.companyList}
               companyLoading={props.companyLoading}
               onClick={props.goToConsumerHome}
@@ -198,12 +201,12 @@ export const MembershipSelector = (props: Props) => {
             />
           )}
           {props.hasMore && props.loading && (
-            <div className={props.classes.buttonContainer}>
+            <div className={classes.buttonContainer}>
               <CircularProgress />
             </div>
           )}
           {props.hasMore && !props.loading && (
-            <div className={props.classes.buttonContainer}>
+            <div className={classes.buttonContainer}>
               <Button
                 color="primary"
                 onClick={() => props.fetchMoreMembership(30)}
@@ -219,7 +222,7 @@ export const MembershipSelector = (props: Props) => {
   );
 };
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   container: {
     width: '100vw',
     minHeight: '100vh',
@@ -271,6 +274,6 @@ const styles = (theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
   },
-});
+}));
 
-export default compose(withStyles(styles))(MembershipSelector);
+export default React.memo(MembershipSelector);

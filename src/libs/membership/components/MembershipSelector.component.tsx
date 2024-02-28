@@ -12,7 +12,6 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import WarningIcon from '@material-ui/icons/Warning';
 import { makeStyles } from '@material-ui/core';
-import type { TFunction } from 'i18next';
 import { ClassNameMap } from '@material-ui/styles';
 import DelayedTextField from '../../../components/DelayedTextField.component';
 
@@ -95,7 +94,6 @@ const MembershipSelectorBase = (props: {
 
 type CompanySelectorBaseProps = {
   classes: ClassNameMap<keyof ReturnType<typeof useStyles>>;
-  t: TFunction;
   companyLoading: boolean;
   searchCompany: (text: string) => void;
   companyList: Array<Company>;
@@ -108,9 +106,9 @@ const CompanySelectorBase: React.FC<CompanySelectorBaseProps> = ({
   companyLoading,
   onClick,
   searchCompany,
-  t,
 }) => {
   const [text, setText] = useState('');
+  const { t } = useTranslation('membership');
 
   const handleTextChange = useCallback(
     (newText: string) => {
@@ -161,7 +159,7 @@ const CompanySelectorBase: React.FC<CompanySelectorBaseProps> = ({
 };
 
 export const MembershipSelector = (props: Props) => {
-  const { t } = useTranslation(['membership']);
+  const { t } = useTranslation('membership');
   const classes = useStyles();
   return (
     <div className={classes.container}>
@@ -188,7 +186,6 @@ export const MembershipSelector = (props: Props) => {
               classes={classes}
               membershipList={props.membershipList}
               onClick={props.goToConsumerHome}
-              t={t}
             />
           ) : (
             <CompanySelectorBase
@@ -197,7 +194,6 @@ export const MembershipSelector = (props: Props) => {
               companyLoading={props.companyLoading}
               onClick={props.goToConsumerHome}
               searchCompany={props.searchCompany}
-              t={t}
             />
           )}
           {props.hasMore && props.loading && (

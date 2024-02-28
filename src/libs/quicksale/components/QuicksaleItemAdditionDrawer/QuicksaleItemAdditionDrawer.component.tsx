@@ -17,7 +17,6 @@ import { QuicksaleBasketItem } from '@bsport/common/lib/master-data/buyable-item
 
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import FormSection from '#components/forms/FormSection';
-// @ts-expect-error
 import FuzeSearch from '#components/FuzeSearch.component';
 import { QuicksaleItemColor } from '../../constants';
 import ColorPicker from '../ColorPicker';

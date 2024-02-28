@@ -14,8 +14,7 @@ import Fuse, { FuseOptions } from 'fuse.js';
 import { useFormikContext } from 'formik';
 import uniqBy from 'lodash/uniqBy';
 import { ReportCategoryEnum } from '@bsport/common/lib/master-data/report-categories';
-// @ts-expect-error
-import FuzeSearch from '../../../components/FuzeSearch.component';
+import FuzeSearch from '#components/FuzeSearch.component';
 import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 import { ReportFilterConfig, ReportMetadataColumn } from '../types';
 import {

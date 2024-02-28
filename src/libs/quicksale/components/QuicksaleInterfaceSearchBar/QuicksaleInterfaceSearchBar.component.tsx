@@ -7,7 +7,6 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 
-// @ts-expect-error
 import FuzeSearch from '#components/FuzeSearch.component';
 import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
 import type { QuicksaleCardInfo } from '../../types';

@@ -31,7 +31,7 @@
 
   margin: 0;
   padding: var(--bs-space-size-2) 0;
-  z-index: 999;
+  z-index: 2000;
   opacity: 1;
   transition: opacity ease-in-out var(--bs-transition-duration-slow);
 }

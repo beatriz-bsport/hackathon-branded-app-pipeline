@@ -126,16 +126,17 @@ const DateField: React.FC<Props> = ({
           onBlur={handleBlur}
           onChange={handleChange}
           onFocus={handleOnFocus}
+          readOnly={isForcedDatePicker}
           rightIcon={
             <DatePickerButton
               onClick={handleOpenDatePicker}
               onMouseDown={handleMouseDownPrevention}
             />
           }
-          size="sm"
           // Commented below because of annoying native behavior
           // that must be taken regarding placeholder.
           // type="date"
+          size="sm"
           value={value}
         />
       </div>

@@ -48,6 +48,7 @@ export type Props = {
   onFocus?: (event?: React.FocusEvent<any>) => void;
   isRippleEnabled?: boolean;
   errorMessage?: string;
+  readOnly?: boolean;
 };
 
 const TextField: React.FC<Props> = ({
@@ -72,6 +73,7 @@ const TextField: React.FC<Props> = ({
   onFocus,
   isRippleEnabled,
   errorMessage,
+  readOnly,
 }) => {
   const [isInputFocused, setIsInputFocused] = React.useState(false);
 
@@ -170,6 +172,7 @@ const TextField: React.FC<Props> = ({
                 classes?.input,
               )}
               id={inputId}
+              inputProps={{ readOnly }}
               isDisabled={isDisabled}
               isRequired={isRequired}
               name={name}

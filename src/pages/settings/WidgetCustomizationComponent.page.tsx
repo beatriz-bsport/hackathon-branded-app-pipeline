@@ -19,7 +19,6 @@ import {
   retrieveManagerCssConfiguration as retrieveManagerCssConfigurationAction,
   saveCssConfiguration as saveCssConfigurationAction,
 } from '#libs/exportable-components/actions';
-// @ts-ignore
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { getCustomCssConfiguration } from '#libs/exportable-components/selectors';
 import ApplyCustomTheme from '#libs/exportable-components/ApplyCustomTheme.component';
@@ -150,8 +149,8 @@ const connector = connect(mapStateToProps, mapDispatchToProps);
 
 export default compose<any, {}>(
   routerParamsToProps({
-    componentId: 'componentId',
-    page: 'page',
+    componentId: 'componentId:string',
+    page: 'page:string',
   }),
   connector,
 )(WidgetCustomizationComponent);

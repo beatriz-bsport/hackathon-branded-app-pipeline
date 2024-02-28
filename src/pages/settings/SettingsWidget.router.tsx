@@ -8,7 +8,6 @@ import { Redirect, Route, Switch } from 'react-router';
 
 // @ts-ignore
 import asyncComponent from '../../AsyncComponent';
-// @ts-ignore
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import withPageHeightHOC, { WithPageHeight } from '#hocs/with-page-height.hoc';
 import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
@@ -87,7 +86,7 @@ const connector = connect(() => ({}), {
 export default compose(
   connector,
   routerParamsToProps({
-    tab: 'tab',
+    tab: 'tab:string',
   }),
   withTranslation('widget'),
   withPageHeightHOC(),

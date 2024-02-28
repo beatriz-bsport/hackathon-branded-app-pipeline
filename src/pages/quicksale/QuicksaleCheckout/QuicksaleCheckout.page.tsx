@@ -8,7 +8,6 @@ import {
 
 import ALL_ERROR_CODES from '@bsport/common/lib/master-data/error-codes/buyable-item-can-not-be-bought';
 
-// @ts-expect-error
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 
 import { RootState } from '../../../reducers';
@@ -496,7 +495,7 @@ const connector = connect(
 );
 
 export default compose(
-  routerParamsToProps({ basketId: 'basketId' }),
+  routerParamsToProps({ basketId: 'basketId:string' }),
   connector,
   React.memo,
 )(QuicksalePayment);

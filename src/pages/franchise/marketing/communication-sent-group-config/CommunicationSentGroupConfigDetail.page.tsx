@@ -8,8 +8,7 @@ import { push } from 'connected-react-router';
 import { RootState } from '../../../../reducers';
 import withPageHeightHOC from '#hocs/with-page-height.hoc';
 import ContentWithAppBar from '#components/generic-appbar-content/ContentWithAppBar.component';
-// @ts-expect-error
-import routerParamsToProps from '../../../../hocs/router-params-to-props.hoc';
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import withTitle from '#hocs/with-title.hoc';
 import CommunicationSentGroupConfigDetailGeneral from './CommunicationSentGroupConfigDetailGeneral.page';
 import { getCommunicationSentGroupConfig } from '#libs/communication/selectors';
@@ -74,7 +73,7 @@ export class CommunicationSentGroupConfigDetail extends React.PureComponent<Prop
 
 export default compose(
   withTranslation(['campaign']),
-  routerParamsToProps({ tab: 'tab', campaignId: 'campaignId:number' }),
+  routerParamsToProps({ tab: 'tab:string', campaignId: 'campaignId:number' }),
   connect(
     (state: RootState, { campaignId }: { campaignId: number }) => ({
       communicationSentGroupConfig: getCommunicationSentGroupConfig(

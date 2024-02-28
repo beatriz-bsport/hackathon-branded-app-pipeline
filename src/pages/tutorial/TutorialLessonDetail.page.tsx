@@ -51,7 +51,6 @@ import {
 
 import { checkRequiredPermissions } from '#libs/role/utils';
 
-// @ts-expect-error
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 
 import TutorialLessonHeader from '#libs/platform-tutorial/components/TutorialLessonHeader.component';
@@ -476,15 +475,20 @@ const isUuid = (objectId: number | string) => Number.isNaN(Number(objectId));
 export default compose(
   withStyles(styles),
   withTranslation('tutorial'),
-  routerParamsToProps({ sectionId: 'sectionId', lessonId: 'lessonId' }),
+  routerParamsToProps({
+    sectionId: 'sectionId:string',
+    lessonId: 'lessonId:string',
+  }),
   withState('openSectionFinishDialog', 'setOpenSectionFinishDialog', null),
   withState('openFeatureRequest', 'setOpenFeatureRequest', false),
   withRouter,
-  withProps(({ sectionId, lessonId }) => ({
-    sectionRestricted: isUuid(sectionId),
-    lessonRestricted: isUuid(lessonId),
-    selectedLanguage: getLanguage(),
-  })),
+  withProps(
+    ({ sectionId, lessonId }: { sectionId: string; lessonId: string }) => ({
+      sectionRestricted: isUuid(sectionId),
+      lessonRestricted: isUuid(lessonId),
+      selectedLanguage: getLanguage(),
+    }),
+  ),
   connect(mapStateToProps, mapDispatchToProps),
   withProps(({ permissions }) => ({
     checkTutorialPermission: checkRequiredPermissions(

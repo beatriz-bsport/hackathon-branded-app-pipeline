@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { compose, withProps } from 'recompose';
 import { Fade, Hidden, Paper, makeStyles } from '@material-ui/core';
 import themeSelectors, { getIsUISimplified } from '#libs/theme/selectors';
-// @ts-expect-error
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import Welcome from '#libs/login/components/Welcome.component';
 import { fetchCompanyTheme as fetchCompanyThemeAction } from '../../libs/theme/actions';
@@ -111,8 +110,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default compose(
-  routerParamsToProps({ membership: 'membership' }),
-  withProps(({ membership }) => ({
+  routerParamsToProps({ membership: 'membership:string' }),
+  withProps(({ membership }: { membership: string }) => ({
     companyId: parseInt(membership),
   })),
   connect(

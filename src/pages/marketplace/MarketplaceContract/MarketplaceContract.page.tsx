@@ -22,8 +22,7 @@ import { fetchMarketplaceContractList } from '#libs/subscription/actions';
 // @ts-ignore
 import Analytics from '../../../components/analytics/Analytics.component';
 import { snackbarWarning, snackbarSuccess } from '#libs/snackbar/actions';
-// @ts-ignore
-import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { marketplaceCssHoc } from '../../../hocs/marketplace-css.hoc';
 import MarketplaceContractFilters from './MarketplaceContractFilters';
 import MarketplaceContractList from '#marketplacecomponents/@Subscription/MarketplaceContractList';
@@ -259,11 +258,6 @@ export class MarketplaceContract extends React.Component<Props, State> {
   }
 }
 
-const mapParamsToProps = {
-  companyId: 'companyId:number',
-  companyName: 'companyName',
-};
-
 const mapStateToProps = (state: RootState) => ({
   getPaymentPackSelected: (id: number) => {
     return getPaymentPack(state, id) as PaymentPack;
@@ -307,7 +301,10 @@ export const MarketplaceContractBase = compose<any, OwnProps>(
 export default compose(
   withTranslation(['subscription', 'payment', 'invoice', 'translation']),
   withRouter,
-  routerParamsToProps(mapParamsToProps),
+  routerParamsToProps({
+    companyId: 'companyId:number',
+    companyName: 'companyName:string',
+  }),
   DataHOC,
   marketplaceCssHoc(),
 )(MarketplaceContractBase);

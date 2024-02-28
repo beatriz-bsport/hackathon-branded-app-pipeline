@@ -4,7 +4,6 @@ import { compose } from 'recompose';
 import { push as pushAction } from 'connected-react-router';
 import { useTranslation } from 'react-i18next';
 
-// @ts-expect-error
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { TranslationProps } from '#components/DialogWithBigIcon/DialogWithBigIcon.component';
 
@@ -605,7 +604,7 @@ const connector = connect(
 );
 
 export default compose(
-  routerParamsToProps({ sectionId: 'sectionId' }),
+  routerParamsToProps({ sectionId: 'sectionId:string' }),
   connector,
   withDatatypeDynamicData,
   React.memo,

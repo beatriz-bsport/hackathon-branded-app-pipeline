@@ -8,8 +8,7 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import moment from 'moment-timezone';
 import { DIALOG_MODE_DEACTIVATED } from '@bsport/common/lib/master-data/widget-dialog-mode';
 
-// @ts-expect-error
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { RootState } from '../../reducers';
 import { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import { getAllBookingAndPrivateBooking } from '../../libs/consumer-space/selectors';
@@ -362,7 +361,7 @@ const withStateHandlersSetter = {
 export default compose(
   routerParamsToProps({
     companyId: 'companyId:number',
-    companyName: 'companyName',
+    companyName: 'companyName:string',
   }),
   // @ts-ignore
   withStyles(styles),

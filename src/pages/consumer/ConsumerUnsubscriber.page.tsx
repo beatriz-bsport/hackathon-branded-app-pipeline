@@ -6,8 +6,7 @@ import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
-// @ts-expect-error
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 
 import { postUnsubscribe } from '#libs/member/api';
 
@@ -76,6 +75,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default compose(
-  routerParamsToProps({ unsubscribe_uuid: 'unsubscribe_uuid' }),
+  routerParamsToProps({ unsubscribe_uuid: 'unsubscribe_uuid:string' }),
   React.memo,
 )(ConsumerUnsubscriber);

@@ -9,8 +9,7 @@ import Helmet from 'react-helmet';
 
 import { makeStyles } from '@material-ui/core';
 
-// @ts-expect-error
-import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 
 import QuicksaleSectionListPage from './QuicksaleSectionList.page';
 import withPageHeightHOC from '#hocs/with-page-height.hoc';
@@ -77,7 +76,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default compose(
-  routerParamsToProps({ tab: 'tab' }),
+  routerParamsToProps({ tab: 'tab:string' }),
   connect(() => {}, {
     pushToTab: (tab: 'configuration' | 'access') =>
       pushRouter(`/settings/quicksale/${tab}`),

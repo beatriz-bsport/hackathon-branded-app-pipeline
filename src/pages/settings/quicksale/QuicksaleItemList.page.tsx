@@ -53,8 +53,7 @@ import { getContractsById } from '#libs/subscription/selectors';
 import { fetchContractList as fetchSubscriptionListAction } from '#libs/subscription/actions';
 
 import { RootState } from '../../../reducers';
-// @ts-expect-error
-import routerParamsToProps from '../../../hocs/router-params-to-props.hoc';
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import PromptOnPageLeave from '#components/Prompt';
 import useGlobalStyles from './cardListHook';
 import QuicksaleConfigurationItemList, {
@@ -624,7 +623,7 @@ const connector = connect(
 );
 
 export default compose(
-  routerParamsToProps({ sectionId: 'sectionId' }),
+  routerParamsToProps({ sectionId: 'sectionId:string' }),
   connector,
   withDatatypeDynamicData,
   React.memo,

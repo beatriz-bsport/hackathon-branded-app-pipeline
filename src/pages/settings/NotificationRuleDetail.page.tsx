@@ -41,7 +41,6 @@ import {
 import { getCelebrationBirthday } from '#libs/marketing/selectors';
 
 import withTitle from '#hocs/with-title.hoc';
-// @ts-ignore
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import withPageHeightHOC from '#hocs/with-page-height.hoc';
 import { NotificationRuleSettings } from '#libs/notification-rule/types';
@@ -418,7 +417,7 @@ const connector = connect(
 
 export default compose<any, Props>(
   withPageHeightHOC(),
-  routerParamsToProps({ eventName: 'eventName' }),
+  routerParamsToProps({ eventName: 'eventName:string' }),
   withTranslation(['notificationRule']),
   withTitle(({ t }) => t('pageTitle')),
   connector,

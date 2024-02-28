@@ -16,7 +16,6 @@ import {
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import themeSelectors, { getIsUISimplified } from '#libs/theme/selectors';
 import { fetchCompanyTheme } from '#libs/theme/actions';
-// @ts-expect-error not typed
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 
 import {
@@ -367,7 +366,7 @@ const connector = connect(
 
 export default compose(
   withTranslation(['login', 'referral']),
-  routerParamsToProps({ referralUuid: 'referralUuid' }),
+  routerParamsToProps({ referralUuid: 'referralUuid:string' }),
   connector,
   withStateHandlers(
     withLoginInformationsHandlersInit,

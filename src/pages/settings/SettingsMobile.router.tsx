@@ -45,7 +45,6 @@ import {
 } from '#libs/settings/selectors';
 import { RootState } from '../../reducers';
 import { updateCompanyTheme as updateCompanyThemeAction } from '#libs/theme/actions';
-// @ts-expect-error
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 // @ts-expect-error
 import { getMarketplaceContractList as getContractList } from '#libs/subscription/selectors';
@@ -246,7 +245,7 @@ const connector = connect(
 export default compose(
   connector,
   routerParamsToProps({
-    tab: 'tab',
+    tab: 'tab:string',
   }),
   withPageHeightHOC(),
 )(SettingsMobileRouter);

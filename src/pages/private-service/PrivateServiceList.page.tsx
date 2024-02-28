@@ -11,8 +11,7 @@ import Collapse from '@material-ui/core/Collapse';
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import withTitle from '../../hocs/with-title.hoc';
 import PrivateServiceListItem from '#libs/private-service/components/service/PrivateServiceListItem.component';
-// @ts-expect-error
-import FuzeSearch from '../../components/FuzeSearch.component';
+import FuzeSearch from '#components/FuzeSearch.component';
 
 import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
 import IsEmptyList from '../../components/navigation/IsEmptyList.component';
@@ -182,7 +181,6 @@ export class PrivateServiceList extends React.Component<Props, State> {
                 items={this.props.availablePrivateServices}
                 placeholder={t('search')}
                 searchFields={['name']}
-                searchResult={this.state.searchResult}
                 searchText={this.state.searchText}
               />
             </div>

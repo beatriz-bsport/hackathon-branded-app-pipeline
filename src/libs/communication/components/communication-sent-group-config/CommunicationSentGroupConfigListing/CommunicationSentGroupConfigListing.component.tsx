@@ -4,8 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { ImmutableArray, ImmutableObject } from 'seamless-immutable';
 import Fuse, { FuseOptions } from 'fuse.js';
 import CommunicationSentGroupConfigListItem from './CommunicationSentGroupConfigListItem.component';
-// @ts-expect-error
-import FuzeSearch from '../../../../../components/FuzeSearch.component';
+import FuzeSearch from '#components/FuzeSearch.component';
 import IsEmptyList from '#components/navigation/IsEmptyList.component';
 import { isNotCommunicationSentGroupConfigList } from '#libs/communication/utils';
 import { CommunicationSentGroupConfig } from '#libs/communication/types';
@@ -88,7 +87,6 @@ const CommunicationSentGroupConfigListing: React.FC<Props> = ({
               items={communicationSentGroupConfigsList}
               placeholder={t('search')}
               searchFields={['name', 'description']}
-              searchResult={searchResult}
               searchText={searchText}
             />
             <Paper

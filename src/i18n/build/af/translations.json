@@ -10574,11 +10574,12 @@
       "tab": { "inventory": "Inventory", "variants": "Variants", "settings": "Settings", "history": "History" },
       "table": {
         "inventory": {
+          "formError": "Stock adjustment values must be valid numbers",
+          "action": { "update": "Update inventory" },
           "variants": "Variants",
           "currentStock": "Current stock",
           "stockAdjustment": "Stock adjustment (+/-)",
-          "totalSales": "Total sales",
-          "seeInvoice": "See invoice"
+          "totalSales": "Total sales"
         },
         "variants": {
           "placeholder": "This product does not have variants yet",

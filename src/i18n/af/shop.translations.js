@@ -84,11 +84,12 @@ exports.default = {
     },
     table: {
       inventory: {
+        formError: 'Stock adjustment values must be valid numbers',
+        action: { update: 'Update inventory' },
         variants: 'Variants',
         currentStock: 'Current stock',
         stockAdjustment: 'Stock adjustment (+/-)',
         totalSales: 'Total sales',
-        seeInvoice: 'See invoice',
       },
       variants: {
         placeholder: 'This product does not have variants yet',

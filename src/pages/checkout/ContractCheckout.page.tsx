@@ -67,8 +67,7 @@ import type { Theme as CompanyTheme } from '#libs/theme/types';
 import type { PaymentMethod } from '#libs/payment/types';
 import type { OptionCallback } from '../../state/types';
 import { PaymentPack } from '#libs/payment-packs/types';
-// @ts-expect-error
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 import { fetchPaymentComboList } from '#libs/payment-combo/actions';
 import ConsumerAppBar from './ConsumerAppBar.container';
 import {
@@ -701,7 +700,10 @@ const mapDispatchToProps = {
 };
 
 export default compose<any, ownProps>(
-  routerParamsToProps({ contractId: 'contractId', companyId: 'companyId' }),
+  routerParamsToProps({
+    contractId: 'contractId:string',
+    companyId: 'companyId:number',
+  }),
   connect(mapStateToProps, mapDispatchToProps),
   withQueryParams([['force'], 'queryParams']),
   withTranslation(['subscription', 'payment', 'invoice', 'translation']),

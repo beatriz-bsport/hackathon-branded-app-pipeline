@@ -1,98 +1,135 @@
-// @ts-nocheck
-import React from 'react';
+import React, { useState, useCallback, ChangeEvent, useMemo } from 'react';
+
 import { useTranslation } from 'react-i18next';
+import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import InfoOutlineIcon from '@material-ui/icons/InfoOutlined';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import InfoOutlineIcon from '@material-ui/icons/InfoOutlined';
+import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles, Theme } from '@material-ui/core/styles';
-import FranchiseCompaniesSelector from './FranchiseCompaniesSelector.component';
-import { CompanyGroup, FranchiseCompany } from '../types';
+
+import FranchiseCompaniesSelector from '#libs/franchise/components/FranchiseCompaniesSelector.component';
+
+import type {
+  CompanyGroup,
+  CreateUpdateCompanyGroupData,
+  FranchiseCompany,
+} from '#libs/franchise/types';
 
 type Props = {
   open: boolean;
   initial?: CompanyGroup;
+  companyList: FranchiseCompany[];
   onClose: () => void;
-  onSubmit: (data: { name: string }) => void;
+  onSubmit: (data: CreateUpdateCompanyGroupData) => void;
 };
 
-const CompanyGroupFormDialog = (props: Props) => {
-  const { t } = useTranslation(['franchise']);
+const CompanyGroupFormDialog: React.FC<Props> = ({
+  open,
+  initial,
+  companyList = [],
+  onClose,
+  onSubmit,
+}) => {
+  const { t } = useTranslation('franchise');
   const classes = useStyles();
 
-  const [name, setName] = React.useState<string>(props.initial?.name || '');
-  const [companiesSelected, setCompaniesSelected] = React.useState(
-    (props.companyList || []).filter((c) =>
-      (props.initial?.companies || []).includes(c.id),
+  const [name, setName] = useState<string>(initial?.name ?? '');
+
+  const [selectedCompanies, setSelectedCompanies] = useState<
+    FranchiseCompany[]
+  >(
+    (companyList ?? []).filter((company) =>
+      initial?.companies.includes(company.id),
     ),
   );
 
-  const companyList = [...(props.companyList || [])];
+  const handleSelectCompanies = useCallback(
+    (selectedCompanyListOptions: { label: string; value: string }[]) => {
+      if (selectedCompanyListOptions.length === 0) {
+        return setSelectedCompanies([]);
+      }
 
-  const companyDic = companyList?.reduce<Record<number, FranchiseCompany>>(
-    (dic, company) => {
-      // eslint-disable-next-line no-param-reassign
-      dic[company.id] = company;
-      return dic;
+      return setSelectedCompanies(
+        selectedCompanyListOptions.map((option) =>
+          (companyList ?? []).find(
+            (company) => company.id === parseInt(option?.value, 10),
+          ),
+        ),
+      );
     },
-    {},
+    [companyList],
   );
 
-  const asSelectable = (companyList_) => [
-    ...companyList_.map((c) => ({
-      label: c.name,
-      value: c.id,
-    })),
-  ];
+  const handleChangeTitle = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const value = event?.target?.value;
+      !!value && setName(value);
+    },
+    [],
+  );
+
+  const handleSubmit = useCallback(() => {
+    onSubmit({
+      id: initial?.id,
+      name,
+      companies: selectedCompanies.map((company) => company.id),
+    });
+  }, [initial?.id, name, onSubmit, selectedCompanies]);
+
+  const franchiseCompanyListById = useMemo(
+    () =>
+      (companyList ?? [])?.reduce<Record<number, FranchiseCompany>>(
+        (acc, company) => {
+          acc[company.id] = company;
+          return acc;
+        },
+        {},
+      ),
+    [companyList],
+  );
+
+  const selectorSelectedCompanies = useMemo(
+    () =>
+      selectedCompanies.map((company) => ({
+        label: company.name,
+        value: company.id.toString(),
+      })),
+    [selectedCompanies],
+  );
 
   return (
-    <Dialog open={props.open}>
+    <Dialog open={open}>
       <DialogTitle>{t('companyGroup.actions.add')}</DialogTitle>
+
       <DialogContent>
         <TextField
           fullWidth
           className={classes.input}
           label={t('companyGroup.name.label')}
-          onChange={(ev) => setName(ev.target.value)}
+          onChange={handleChangeTitle}
           value={name}
           variant="outlined"
         />
         <FranchiseCompaniesSelector
-          companies={companyList}
-          companyDic={companyDic}
+          companies={companyList ?? []}
+          companyDic={franchiseCompanyListById}
           menuPortalTarget={document.querySelector('body')}
-          onChange={(newValue) => {
-            setCompaniesSelected(
-              newValue.map((val) =>
-                companyList.find((c) => c.id === parseInt(val?.value, 10)),
-              ),
-            );
-          }}
-          selectedCompanies={asSelectable(companiesSelected)}
+          onChange={handleSelectCompanies}
+          selectedCompanies={selectorSelectedCompanies}
         />
         <div className={classes.explainContainer}>
           <InfoOutlineIcon className={classes.iconLeft} />
           <Typography>{t('companyGroup.explain')}</Typography>
         </div>
       </DialogContent>
+
       <DialogActions>
-        <Button onClick={props.onClose}>
-          {t('companyGroup.actions.cancel')}
-        </Button>
-        <Button
-          color="primary"
-          onClick={() =>
-            props.onSubmit({
-              ...(props.initial || {}),
-              name,
-              companies: companiesSelected.map((c) => c.id),
-            })
-          }
-        >
+        <Button onClick={onClose}>{t('companyGroup.actions.cancel')}</Button>
+        <Button color="primary" onClick={handleSubmit}>
           {t('companyGroup.actions.submit')}
         </Button>
       </DialogActions>
@@ -100,7 +137,7 @@ const CompanyGroupFormDialog = (props: Props) => {
   );
 };
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((theme) => ({
   explainContainer: {
     display: 'flex',
     flexDirection: 'row',
@@ -115,4 +152,4 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default CompanyGroupFormDialog;
+export default React.memo(CompanyGroupFormDialog);

@@ -172,7 +172,6 @@ const TextField: React.FC<Props> = ({
                 classes?.input,
               )}
               id={inputId}
-              inputProps={{ readOnly }}
               isDisabled={isDisabled}
               isRequired={isRequired}
               name={name}
@@ -180,6 +179,7 @@ const TextField: React.FC<Props> = ({
               onChange={onChange}
               onFocus={onInputFocus}
               placeholder={placeholder}
+              readOnly={!!readOnly}
               type={type}
               value={value}
             />

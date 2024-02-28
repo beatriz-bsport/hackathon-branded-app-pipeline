@@ -92,6 +92,7 @@ export type OwnProps = {
    * radio button is selected among a group of radio buttons.
    */
   isChecked?: boolean;
+  readOnly?: boolean;
 };
 
 export type Props = {
@@ -119,6 +120,7 @@ const InputBase: React.ForwardRefExoticComponent<
       isRequired,
       value,
       isChecked,
+      readOnly,
       ...inputProps
     },
     inputForwardedRef,
@@ -150,6 +152,7 @@ const InputBase: React.ForwardRefExoticComponent<
         onChange={handleChange}
         onClick={onClick}
         onFocus={handleFocus}
+        readOnly={!!readOnly}
         required={isRequired}
         value={value}
       />

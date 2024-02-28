@@ -39,7 +39,7 @@ export type Props = {
   guestName?: string;
   onOpenAddGuestModal?: () => void;
   onAddGuestModalCancel?: () => void;
-  spotId?: string;
+  spotId?: string | number;
 };
 
 const MarketplaceBookingItem: React.FC<Props> = ({

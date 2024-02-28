@@ -34,7 +34,7 @@ export type Props = {
   expirationDatetime?: string;
   goToCheckout?: () => void;
   fromSpotSelector?: boolean;
-  spotId?: string;
+  spotId?: string | number;
 };
 
 const ActivitySummary: React.FC<Props> = ({

@@ -70,6 +70,7 @@ const PaymentPackCard: React.FC<PaymentPackCardProps> = React.memo(
     return (
       <button
         className="bs-pass-page__payment__pack__list__card__button"
+        id={`payment-pack-button-container-${pack?.id}`}
         onClick={handleMobileClick}
         type="button"
       >

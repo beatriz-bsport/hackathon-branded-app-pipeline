@@ -63,6 +63,7 @@ const PrivatePassCard: React.FC<PrivatePassCardProps> = React.memo(
     return (
       <button
         className="bs-pass-page__private__pass__list__card__button"
+        id={`private-pass-button-container-${pass?.id}`}
         onClick={handleClickMobile}
         type="button"
       >

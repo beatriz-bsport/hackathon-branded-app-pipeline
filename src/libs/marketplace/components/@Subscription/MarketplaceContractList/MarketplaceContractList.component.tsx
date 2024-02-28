@@ -41,6 +41,7 @@ const MarkeplaceContractListItem: React.FC<ContractListItemProps> = React.memo(
     return (
       <button
         className="bs-contract-page__contract__button__container"
+        id={`contract-button-container-${contract?.id}`}
         onClick={handleMobileClick}
         type="button"
       >

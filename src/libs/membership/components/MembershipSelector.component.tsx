@@ -13,13 +13,12 @@ import LinearProgress from '@material-ui/core/LinearProgress';
 import WarningIcon from '@material-ui/icons/Warning';
 import { makeStyles } from '@material-ui/core';
 import { ClassNameMap } from '@material-ui/styles';
-import DelayedTextField from '../../../components/DelayedTextField.component';
+import DelayedTextField from '#components/DelayedTextField.component';
 
 import type { Membership } from '../types';
-import FuzeSearch from '../../../components/FuzeSearch.component';
+import FuzeSearch from '#components/FuzeSearch.component';
 
-// @ts-expect-error js file
-import MembershipListItem from './MembershipListItem.component';
+import MembershipListItem from '#libs/membership/components/MembershipListItem.component';
 import CompanyListItem from './CompanyListItem.component';
 import type { Company } from '#libs/company/types';
 
@@ -27,7 +26,7 @@ type Props = {
   hasMore: boolean;
   loading: boolean;
   membershipList: Array<Membership>;
-  goToConsumerHome: (company: number, companyName: string) => void;
+  goToConsumerHome: (companyId: number) => void;
   searchCompany: (text: string) => void;
   companyLoading: boolean;
   companyList: Array<Company>;
@@ -72,17 +71,12 @@ const MembershipSelectorBase = (props: {
         {!searchResult || searchResult.length === 0
           ? props.membershipList.map((m) => (
               <MembershipListItem
-                button
-                divider
                 membership={m}
                 onClick={() => props.onClick(m.company)}
               />
             ))
           : searchResult.map((m) => (
               <MembershipListItem
-                button
-                divider
-                noDivider
                 membership={m}
                 onClick={() => props.onClick(m.company)}
               />
@@ -145,13 +139,7 @@ const CompanySelectorBase: React.FC<CompanySelectorBaseProps> = ({
           </ListItem>
         ) : null}
         {companyList.map((c) => (
-          <CompanyListItem
-            button
-            divider
-            noDivider
-            company={c}
-            onClick={() => onClick(c.id, c.name)}
-          />
+          <CompanyListItem company={c} onClick={() => onClick(c.id)} />
         ))}
       </Paper>
     </div>
@@ -172,7 +160,7 @@ export const MembershipSelector = (props: Props) => {
                 className={classes.bsportLogo}
                 src="https://cdn.bsport.io/assets/logo/logo-icono-dark.png"
               />
-              <Typography align="center" variant="subtitle">
+              <Typography align="center" variant="body2">
                 <Trans i18nKey="selector.explainConsumer" t={t}>
                   With <strong>bsport</strong> blabla <br /> single login
                 </Trans>
@@ -183,7 +171,6 @@ export const MembershipSelector = (props: Props) => {
         <div className={classes.panel}>
           {props.membershipList.length ? (
             <MembershipSelectorBase
-              classes={classes}
               membershipList={props.membershipList}
               onClick={props.goToConsumerHome}
             />

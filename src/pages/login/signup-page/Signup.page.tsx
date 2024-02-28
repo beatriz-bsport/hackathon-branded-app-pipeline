@@ -169,6 +169,10 @@ export class SignupPage extends Component<Props> {
     if (signUpCustomFormLoading) {
       return null;
     }
+    // TODO : remove
+    const fieldsAreIndependent = !!(
+      this.props.membership === 2073 || this.props.membership === '2073'
+    );
 
     return (
       <div ref={containerRef} className={this.getContainerClass()}>
@@ -189,6 +193,7 @@ export class SignupPage extends Component<Props> {
           {signUpCustomForm && signUpCustomForm.layout && (
             <div className="bs-signup-container__custom-form">
               <CustomFormView
+                fieldsAreIndependent={fieldsAreIndependent}
                 general_terms_and_conditions={theme.general_terms_of_use}
                 initial={signUpCustomForm}
                 isCssVariantActivated={this.isCustomFormCssVariantActivated()}

@@ -82,6 +82,7 @@ const MarketplaceOfferBookingItem: React.FC<Props> = ({
       shouldDisplayAddGuestButton={
         companyTheme.allow_guest && companyTheme.allow_guest_activatable
       }
+      spotId={offer.spot_information?.indexType}
       spotName={
         offer?.spot_information &&
         `${t('place')} ${offer.spot_information?.prefix}${

@@ -39,6 +39,7 @@ export type Props = {
   guestName?: string;
   onOpenAddGuestModal?: () => void;
   onAddGuestModalCancel?: () => void;
+  spotId?: string;
 };
 
 const MarketplaceBookingItem: React.FC<Props> = ({
@@ -56,6 +57,7 @@ const MarketplaceBookingItem: React.FC<Props> = ({
   isAddGuestDisabled,
   guestName,
   onOpenAddGuestModal,
+  spotId,
 }) => {
   const { t } = useTranslation(['checkout', 'booking']);
   const hasStatusChip = isWaitingList;
@@ -115,6 +117,7 @@ const MarketplaceBookingItem: React.FC<Props> = ({
               companyTheme={companyTheme}
               establishment={establishment}
               hideCoach={hideCoach}
+              spotId={spotId}
               spotName={spotName}
               title={title}
             />

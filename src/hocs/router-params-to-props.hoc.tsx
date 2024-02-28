@@ -1,5 +1,3 @@
-// @flow
-
 import React from 'react';
 
 import keyBy from 'lodash/keyBy';
@@ -8,33 +6,34 @@ import mapValues from 'lodash/mapValues';
 import mapKeys from 'lodash/mapKeys';
 import pick from 'lodash/pick';
 
-type ParamsMap = string[] | { [string]: string };
-
+// When adding a new type you only need to update the converter
 const converters = {
-  number: (x) => +x,
+  number: (x: string) => +x,
 };
 
+type SupportedType = keyof typeof converters;
+type ParamWithType = `${string}:${SupportedType}`;
+type ParamsMap = string[] | Record<string, ParamWithType>;
+
 type Props = {
-  match: ?{
-    params: { [string]: * },
-  },
+  match: { params: Record<string, string> };
 };
 
 export default function mapRouterParamsToProps(paramsMapper: ParamsMap) {
-  // Convert mapper to canonical form { [string]: string }
-  const mapper = paramsMapper.length
+  const mapper = Array.isArray(paramsMapper)
     ? keyBy(paramsMapper, (x) => x)
     : paramsMapper;
 
-  const mapperConv = mapValues(mapper, (key) => {
+  const mapperConv = mapValues(mapper, (key: string) => {
     const bits = key.split(':');
     if (bits.length <= 1) {
-      return { key, converter: (x) => x };
+      return { key, converter: (x: string) => x };
     }
-    return { key: bits[0], converter: converters[bits[1]] };
+    const targetType = bits[1] as SupportedType;
+    return { key: bits[0], converter: converters[targetType] };
   });
 
-  return (WrappedComponent) => {
+  return (WrappedComponent: React.FC<unknown>) => {
     return class extends React.Component<Props> {
       render() {
         const { match } = this.props;

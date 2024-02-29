@@ -11,11 +11,12 @@ import {
   patchAuth,
   get,
 } from '../../http';
-import {
+import type {
   FranchiseUser,
   Franchise,
   FranchiseDetails,
   CompanyGroup,
+  CreateUpdateCompanyGroupData,
 } from './types';
 
 export const fetchFranchise = async (): Promise<AxiosResponse<Franchise>> => {
@@ -68,11 +69,17 @@ export const fetchCompanyGroupList = async (
   );
 };
 
-export const createOrUpdateCompanyGroup = async (
-  data: any,
-): Promise<AxiosResponse<CompanyGroup>> => {
+export const createOrUpdateCompanyGroup = (
+  data: CreateUpdateCompanyGroupData,
+) => {
   if (data?.id) {
-    return putAuth(`${API_V1_URI}/franchisor/company_group/${data?.id}/`, data);
+    return putAuth<CompanyGroup>(
+      `${API_V1_URI}/franchisor/company_group/${data?.id}/`,
+      data,
+    );
   }
-  return postAuth(`${API_V1_URI}/franchisor/company_group/`, data);
+  return postAuth<CompanyGroup>(
+    `${API_V1_URI}/franchisor/company_group/`,
+    data,
+  );
 };

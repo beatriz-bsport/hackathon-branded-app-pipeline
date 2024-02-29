@@ -105,3 +105,9 @@ export type WithFranchiseCompanies<T> = T & {
 };
 
 export type FranchiseTheme = Franchise | FranchiseDetails | FranchiseCompany;
+
+export type CreateUpdateCompanyGroupData = {
+  id?: number;
+  name: string;
+  companies: number[];
+};

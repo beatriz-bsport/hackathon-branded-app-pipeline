@@ -14,7 +14,7 @@ import {
   retrieveFranchise as retrieveFranchiseAPI,
   createOrUpdateCompanyGroup as createOrUpdateCompanyGroupAPI,
 } from './api';
-import { Franchise, CompanyGroup } from './types';
+import { Franchise, CompanyGroup, CreateUpdateCompanyGroupData } from './types';
 
 export const fetchFranchiseActions = {
   error: createAction('FRANCHISE/ME/ERROR'),
@@ -231,13 +231,13 @@ export function fetchCompanyGroupList(
 }
 
 export const createOrUpdateCompanyGroupActions = {
-  error: createAction('FRANCHISE/COMPANY_GROUP_CREATE/ERROR'),
-  isLoading: createAction('FRANCHISE/COMPANY_GROUP_CREATE/IS_LOADING'),
-  success: createAction('FRANCHISE/COMPANY_GROUP_CREATE/SUCCESS'),
+  error: createAction<Error | null>('FRANCHISE/COMPANY_GROUP_CREATE/ERROR'),
+  isLoading: createAction<boolean>('FRANCHISE/COMPANY_GROUP_CREATE/IS_LOADING'),
+  success: createAction<CompanyGroup>('FRANCHISE/COMPANY_GROUP_CREATE/SUCCESS'),
 };
 
 export function createOrUpdateCompanyGroup(
-  data: any,
+  data: CreateUpdateCompanyGroupData,
   options?: OptionCallback<CompanyGroup>,
 ) {
   return async (dispatch: Dispatch) => {
@@ -246,16 +246,15 @@ export function createOrUpdateCompanyGroup(
 
     try {
       const response = await createOrUpdateCompanyGroupAPI(data);
-
       dispatch(createOrUpdateCompanyGroupActions.success(response.data));
-      options?.onSuccess(response.data);
+
+      options?.onSuccess?.(response.data);
     } catch (error) {
       dispatch(createOrUpdateCompanyGroupActions.error(error));
-      if (options && options.onError) {
-        options.onError(error);
-      }
-    }
 
-    dispatch(createOrUpdateCompanyGroupActions.isLoading(false));
+      options.onError?.(error);
+    } finally {
+      dispatch(createOrUpdateCompanyGroupActions.isLoading(false));
+    }
   };
 }

@@ -859,9 +859,7 @@ export const updateCommunicationScheduled = (
 export const sendNowCommunicationScheduledActions = {
   error: createAction<Error | null>('COMMUNICATION_SCHEDULED/SEND_NOW/ERROR'),
   loading: createAction<boolean>('COMMUNICATION_SCHEDULED/SEND_NOW/LOADING'),
-  success: createAction<CommunicationScheduled>(
-    'COMMUNICATION_SCHEDULED/SEND_NOW/SUCCESS',
-  ),
+  success: createAction<number>('COMMUNICATION_SCHEDULED/SEND_NOW/SUCCESS'),
 };
 
 export const sendNowCommunicationScheduled = (
@@ -873,8 +871,16 @@ export const sendNowCommunicationScheduled = (
       dispatch(sendNowCommunicationScheduledActions.loading(true));
       dispatch(sendNowCommunicationScheduledActions.error(null));
       const response = await sendNowCommunicationScheduledAPI(id);
-      dispatch(sendNowCommunicationScheduledActions.success(response.data));
-      options?.onSuccess?.(response.data);
+      const backgroundTaskUuid = response.headers['x-background-task-uuid'];
+      dispatch(sendNowCommunicationScheduledActions.success(id));
+      dispatch(
+        monitorBackgroundTask(backgroundTaskUuid, {
+          onSuccess: () => {
+            options?.onSuccess?.();
+            dispatch(retrieveCommunicationScheduled(id));
+          },
+        }),
+      );
     } catch (error) {
       dispatch(sendNowCommunicationScheduledActions.error(error));
       options?.onError?.(error);

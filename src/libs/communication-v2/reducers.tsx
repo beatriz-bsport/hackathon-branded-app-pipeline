@@ -785,12 +785,12 @@ export default handleActions<Immutable.Immutable<CommunicationState>>(
     },
     [sendNowCommunicationScheduledActions.success.toString()]: (
       state,
-      { payload }: { payload: CommunicationScheduled },
+      { payload }: { payload: number },
     ) => {
       return state.setIn(
         ['communicationScheduled', 'allIds'],
         state.communicationScheduled.allIds.filter(
-          (communicationScheduledId) => communicationScheduledId !== payload.id,
+          (communicationScheduledId) => communicationScheduledId !== payload,
         ),
       );
     },

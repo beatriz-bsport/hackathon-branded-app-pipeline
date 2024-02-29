@@ -266,7 +266,7 @@ export const updateCommunicationScheduled = (
 };
 
 export const sendNowCommunicationScheduled = (id: number) => {
-  return postAuth<CommunicationScheduled>(
+  return postAuth<void>(
     `${API_V1_URI}/communication/communication_scheduled/${id}/send_now/`,
   );
 };

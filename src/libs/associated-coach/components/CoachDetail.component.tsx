@@ -16,7 +16,11 @@ import type {
   CoachPaymentRuleGroup,
 } from '../../coach-payment-rules/types';
 import type { PrivateServiceWithSlots } from '../../private-service/types';
-import type { Coach, CoachReplacementPreferencesData } from '../types';
+import type {
+  Coach,
+  CoachReplacementPreferencesData,
+  UpdateCoachPrivateSlotsPaymentRuleData,
+} from '../types';
 import { MetaActivity } from '#libs/meta-activity/types';
 import { SCT } from '#libs/category/types';
 import {
@@ -50,18 +54,12 @@ type Props = {
   setCoachPaymentRuleGroup: (
     coachId: number,
     coach_payment_rule_id: number,
-  ) => number;
+  ) => void;
   startUpdateCoach: (coach: Coach) => void;
   goToCoachPerformance: (coach: Coach) => void;
   updateCoachPrivateSlotsPaymentRule: (
-    data: {
-      id: number;
-      associated_coach_id: number;
-      private_slots_coach_payment_rules: Array<{
-        private_slot: number;
-        coach_payment_rule: number;
-      }>;
-    },
+    id: number,
+    data: UpdateCoachPrivateSlotsPaymentRuleData,
     options?: OptionCallback,
   ) => void;
   privateServices: Array<PrivateServiceWithSlots>;
@@ -243,4 +241,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default CoachDetail;
+export default React.memo(CoachDetail);

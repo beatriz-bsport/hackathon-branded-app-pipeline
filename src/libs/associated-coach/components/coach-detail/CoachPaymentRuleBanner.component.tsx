@@ -61,7 +61,7 @@ type OwnProps = {
   setCoachPaymentRuleGroup: (
     coachId: number,
     coach_payment_rule_group_id: number,
-  ) => number;
+  ) => void;
   remunerateCoach: () => void;
   privateServices: Array<PrivateServiceWithSlots>;
   updateCoachPrivateSlotsPaymentRule: (

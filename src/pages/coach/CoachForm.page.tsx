@@ -182,7 +182,6 @@ export class CoachFormPage extends React.Component<Props, State> {
 
         <CoachForm
           country={browserCountryCode()}
-          // @ts-expect-error
           defaultEmail={this.state.initialEmail}
           initial={initialData}
           onCancel={onCancel}

@@ -214,4 +214,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default SubscriptionComponent;
+export default React.memo(SubscriptionComponent);

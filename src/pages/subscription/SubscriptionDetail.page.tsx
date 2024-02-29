@@ -54,20 +54,21 @@ import {
   getSubscriptionEventList,
   getSubscriptionEventState,
 } from '#libs/subscription/selectors';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 import SubscriptionComponent from '#libs/subscription/components/Subscription.component';
-import SubscriptionPaymentPackSwitcherDialog from '#libs/subscription/components/SubscriptionPaymentPackSwitcherDialog.component';
-import SubscriptionPrivatePassSwitcherDialog from '#libs/subscription/components/SubscriptionPrivatePassSwitcherDialog.component';
 import SubscriptionPaymentComboSwitcherDialog from '#libs/subscription/components/SubscriptionPaymentComboSwitcherDialog.component';
 import SubscriptionPaymentMethodSwitcherDialog from '#libs/subscription/components/SubscriptionPaymentMethodSwitcherDialog.component';
+import SubscriptionPaymentPackSwitcherDialog from '#libs/subscription/components/SubscriptionPaymentPackSwitcherDialog.component';
+import SubscriptionPrivatePassSwitcherDialog from '#libs/subscription/components/SubscriptionPrivatePassSwitcherDialog.component';
 import SubscriptionScheduledStopDialog from '#libs/subscription/components/SubscriptionScheduledStopDialog.component';
 import { fetchPaymentMethodList as fetchPaymentMethodListAction } from '#libs/payment/actions';
 import { getSavedPaymentMethodList } from '#libs/payment/selectors';
 import { fetchStripeReaders } from '#libs/terminal/actions';
 import { getStripeReaders } from '#libs/terminal/selectors';
 
-import { Subscription, PauseRequestData } from '#libs/subscription/types';
-import { OptionCallback } from '../../state/types';
-import { MaterialStyleType, WithHandlerType } from '../../utils/types';
+import type { Subscription, PauseRequestData } from '#libs/subscription/types';
+import type { OptionCallback } from '../../state/types';
+import type { MaterialStyleType, WithHandlerType } from '../../utils/types';
 import { getBackofficeBillingPlanEnabledPaymentMethods } from '#libs/payment/utils';
 import { RootState } from '../../reducers';
 import { withMemberBannerHOC } from '../../hocs/banner.hoc';
@@ -213,25 +214,30 @@ export class SubscriptionDetail extends Component<Props> {
             subscription={subscription}
           />
         ) : null}
-        {!!this.props.subscription && (
-          <div className={this.props.classes.bottomButtonContainer}>
-            <Fab
-              className={this.props.classes.bottomButton}
-              color="primary"
-              onClick={() => {
-                if (this.props.subscription) {
-                  this.props.goToMember(this.props.subscription.member);
-                }
-              }}
-              variant="extended"
-            >
-              <PersonIcon className={this.props.classes.leftIcon} />
-              {this.props.subscription
-                ? this.props.subscription.memberName
-                : ' - '}
-            </Fab>
-          </div>
-        )}
+        <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.accessProfile">
+          {(hasMemberProfileAccessPermission: boolean) =>
+            hasMemberProfileAccessPermission &&
+            !!this.props.subscription && (
+              <div className={this.props.classes.bottomButtonContainer}>
+                <Fab
+                  className={this.props.classes.bottomButton}
+                  color="primary"
+                  onClick={() => {
+                    if (this.props.subscription) {
+                      this.props.goToMember(this.props.subscription.member);
+                    }
+                  }}
+                  variant="extended"
+                >
+                  <PersonIcon className={this.props.classes.leftIcon} />
+                  {this.props.subscription
+                    ? this.props.subscription.memberName
+                    : ' - '}
+                </Fab>
+              </div>
+            )
+          }
+        </ObjectLevelPermissionProvider>
       </div>
     );
   }

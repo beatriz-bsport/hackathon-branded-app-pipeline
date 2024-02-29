@@ -430,7 +430,7 @@ export default compose(
     })),
   })),
   withProps(({ members, bookingShown }) => ({
-    member: members.find((m) => m.id === bookingShown?.member),
+    member: members.find((m) => m.booking.id === bookingShown?.id),
   })),
   withHandlers({
     registerWithPass:

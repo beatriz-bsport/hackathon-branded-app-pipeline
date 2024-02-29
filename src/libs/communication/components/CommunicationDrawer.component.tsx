@@ -60,6 +60,7 @@ import {
 import { formatAsDatetimeAdapted, isAmPmTimeFormat } from '#utils/datetime';
 import { hasUpsell } from '#libs/platform-billing/utils';
 import { MINUTE_LIMIT_TO_SCHEDULE_COMMUNICATION } from '#libs/communication-v2/constants';
+import CustomMuiThemeWrapper from '#components/wrappers/CustomMuiThemeWrapper.component';
 
 import type { MemberMailData } from '#libs/communication/types';
 import type { Member } from '#libs/member/types';
@@ -1030,9 +1031,7 @@ export class CommunicationDrawer extends Component<Props, State> {
                           />
                         }
                         label={t('scheduled.sendImmediately')}
-                        // TODO : check which placement to use
-                        // @ts-expect-error
-                        labelPlacement="right"
+                        labelPlacement="end"
                       />
                       <FormControlLabel
                         classes={{ label: classes.center }}
@@ -1043,9 +1042,7 @@ export class CommunicationDrawer extends Component<Props, State> {
                           />
                         }
                         label={t('scheduled.scheduleForLater')}
-                        // TODO : check which placement to use
-                        // @ts-expect-error
-                        labelPlacement="right"
+                        labelPlacement="end"
                       />
                     </div>
                     {this.state.isCommunicationScheduled && (
@@ -1084,6 +1081,26 @@ export class CommunicationDrawer extends Component<Props, State> {
                               }}
                               onChange={this.updateCommunicationScheduledTime}
                               size="small"
+                              TextFieldComponent={(
+                                props: React.ComponentProps<typeof TextField>,
+                              ) => (
+                                <CustomMuiThemeWrapper
+                                  primary={
+                                    !this.checkIsMessageScheduledDuringNighttime() &&
+                                    'warning'
+                                  }
+                                >
+                                  <TextField
+                                    {...props}
+                                    error={!this.checkIsMessageSchedulable()}
+                                    focused={
+                                      !this.checkIsMessageScheduledDuringNighttime() ||
+                                      !this.checkIsMessageSchedulable()
+                                    }
+                                    variant="outlined"
+                                  />
+                                </CustomMuiThemeWrapper>
+                              )}
                               value={this.state.communicationScheduledDate}
                               variant="outlined"
                             />
@@ -1318,7 +1335,7 @@ const styles = (theme: Theme) =>
     },
     timePicker: {
       display: 'flex',
-      width: '45%',
+      width: '49%',
     },
   });
 

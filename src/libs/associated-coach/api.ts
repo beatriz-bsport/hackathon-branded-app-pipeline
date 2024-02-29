@@ -8,7 +8,10 @@ import {
   patchAuth,
   buildUrlParams,
 } from '../../http';
-import { CoachReplacementPreferencesData } from './types';
+import type {
+  CoachReplacementPreferencesData,
+  UpdateCoachPrivateSlotsPaymentRuleData,
+} from '#libs/associated-coach/types';
 
 // TO UPDATE TO V1 API
 // -----------------------
@@ -72,7 +75,7 @@ export async function restoreCoach(id: number) {
 
 export async function updateCoachPrivateSlotsPaymentRules(
   id: number,
-  data: any,
+  data: UpdateCoachPrivateSlotsPaymentRuleData,
 ) {
   return putAuth(
     `${API_V1_URI}/associated_coach/${id}/update_coach_private_slots_payment_rules/`,

@@ -122,3 +122,12 @@ export type CoachLateReplacementRequestStatus = {
   current_limitation_period_start?: string;
   current_limitation_period_end?: string;
 };
+
+export type UpdateCoachPrivateSlotsPaymentRuleData = {
+  id: number;
+  associated_coach_id: number;
+  private_slots_coach_payment_rules: Array<{
+    private_slot: number;
+    coach_payment_rule: number;
+  }>;
+};

@@ -35,11 +35,12 @@ import {
 } from '../../state/types';
 import { RootState } from '../../reducers';
 import { ASSOCIATED_COACH_WITH_COACH_PAYMENT_RULE_GROUP } from '#libs/coach-payment-rules/constants';
-import {
+import type {
   Coach,
   CoachReplacementPreferencesData,
   CoachLateReplacementRequestStatus,
-} from './types';
+  UpdateCoachPrivateSlotsPaymentRuleData,
+} from '#libs/associated-coach/types';
 import { AssignAssociatedCoachDisciplineGroupParams } from '#libs/replacement-request/types';
 
 import { isErrorWithCustomCode } from '#libs/utils';
@@ -671,7 +672,7 @@ export const updateCoachPrivateSlotsPaymentRulsActions = {
 
 export const updateCoachPrivateSlotsPaymentRule = (
   id: number,
-  data: any,
+  data: UpdateCoachPrivateSlotsPaymentRuleData,
   options?: OptionCallback,
 ) => {
   return async (dispatch: Dispatch) => {

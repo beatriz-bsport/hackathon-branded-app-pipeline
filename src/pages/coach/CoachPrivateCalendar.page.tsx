@@ -1,39 +1,40 @@
-// @flow
 import React from 'react';
 
 import { compose, withStateHandlers, withState, withHandlers } from 'recompose';
 import moment from 'moment-timezone';
 import { withTranslation } from 'react-i18next';
-import { connect } from 'react-redux';
+import { ConnectedProps, connect } from 'react-redux';
 import uniq from 'lodash/uniq';
-import { conditionToHideSpecificTeacherAvailabilities } from '#libs/private-service/utils';
 
-import withTitle from '../../hocs/with-title.hoc';
+import withTitle from '#hocs/with-title.hoc';
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
+
+import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
+
 import {
   getCoach,
   associatedCoachSelector,
-} from '../../libs/associated-coach/selectors';
-import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
+} from '#libs/associated-coach/selectors';
 import {
   getPrivateBookingListFiltered,
   withRelatedFields,
-} from '../../libs/private-service/selectors/private-booking';
+} from '#libs/private-service/selectors/private-booking';
 import {
   fetchAllOffers as fetchAllOffersAction,
   listOffersWithPendingReplacementRequestIds as listOffersWithPendingReplacementRequestIdsAction,
-} from '../../libs/offer/actions';
-import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '../../libs/meta-activity/actions';
+} from '#libs/offer/actions';
+import { fetchMetaActivityBulk as fetchMetaActivityBulkAction } from '#libs/meta-activity/actions';
 import {
   getOfferAsEventList,
   getOfferHasPendingReplacementRequest,
-} from '../../libs/offer/selectors';
+} from '#libs/offer/selectors';
 
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
-import PrivateCalendarWithControls from '../../libs/private-service/components/PrivateCalendarWithControls.component';
+import { conditionToHideSpecificTeacherAvailabilities } from '#libs/private-service/utils';
+// @ts-expect-error js file
+import PrivateCalendarWithControls from '#libs/private-service/components/PrivateCalendarWithControls.component';
 import SlotSpecificEstablishmentDialog from '#libs/private-service/components/availability/SlotSpecificEstablishmentDialog.component';
 import SlotCoachNotAssociatedDialog from '#libs/private-service/components/availability/SlotCoachNotAssociatedDialog.component';
-
-import { getCoachAvailabilitySlots } from '../../libs/private-service/selectors/availability-slot';
+import { getCoachAvailabilitySlots } from '#libs/private-service/selectors/availability-slot';
 import {
   fetchAvailabilitySlots,
   resetAvailabilitySlots,
@@ -46,101 +47,75 @@ import {
   createOrUpdateCustomEvent as createOrUpdateCustomEventActions,
   fetchCustomEventList as fetchCustomEventListAction,
   resetCustomEvent,
-} from '../../libs/private-service/actions';
-import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '../../libs/member/actions';
+} from '#libs/private-service/actions';
+import { getCustomEventList } from '#libs/private-service/selectors/custom-event';
+// @ts-expect-error js file
+import CustomEvenFormDialog from '#libs/private-service/components/custom-event/CustomEventFormDialog.component';
+import { getPrivateServices } from '#libs/private-service/selectors/private-service';
+import type { PrivateBooking } from '#libs/private-service/types';
+
+import { fetchMemberBulkById as fetchMemberBulkByIdAction } from '#libs/member/actions';
+
 import {
   fetchAssociatedEstablishments as fetchAssociatedEstablishmentsAction,
   fetchEstablishments as fetchEstablishmentsAction,
 } from '#libs/establishment/actions';
+import { getAllEstablishmentsWithAssociatedId } from '#libs/establishment/selectors';
+import type { EstablishmentWithAssociatedId } from '#libs/establishment/types';
+
 import {
   fetchCoachBulk,
   fetchAssociatedCoachesList as fetchAssociatedCoachesListAction,
-} from '../../libs/associated-coach/actions';
+} from '#libs/associated-coach/actions';
+
 import {
   setCoachScheduleFilter as setCoachScheduleFilterAction,
   setHideCoachNotAssociatedToPrivateServiceWarning as setHideCoachNotAssociatedToPrivateServiceWarningAction,
-} from '../../libs/user-preference/actions';
-import { getCoachScheduleFilter } from '../../libs/user-preference/selectors';
-import { ScheduleFilter } from '../../libs/user-preference/types';
-import { getTheme } from '#libs/theme/selectors';
-import { getAllEstablishmentsWithAssociatedId } from '#libs/establishment/selectors';
+} from '#libs/user-preference/actions';
+import { getCoachScheduleFilter } from '#libs/user-preference/selectors';
+import type { ScheduleFilter } from '#libs/user-preference/types';
 
-import { getCustomEventList } from '../../libs/private-service/selectors/custom-event';
-import CustomEvenFormDialog from '../../libs/private-service/components/custom-event/CustomEventFormDialog.component';
-import { CompanyTheme } from '../../libs/theme/types';
-import { EstablishmentWithAssociatedId } from '#libs/establishment/types';
-import { getPrivateServices } from '../../libs/private-service/selectors/private-service';
-import { PrivateService as PrivateServiceType } from '../../libs/private-service/types';
+import { getTheme } from '#libs/theme/selectors';
+
+import type { Offer } from '#libs/offer/types';
+
+import type { RootState } from '../../reducers';
+import type { OptionCallback } from '#state/types';
+
+// not found
+type CustomEventData = any;
+type SlotData = any;
 
 type Props = {
-  companyTheme: CompanyTheme,
-  fetchAvailabilitySlots: (data: { coach: number }) => void,
-  availabilitySlots: Array<AvailabilitySlot>,
-
-  loading: boolean,
-  privateBookingList: Array<PrivateBooking>,
-  offerList: Array<Offer>,
-  availabilitySlotUpdating: boolean,
-  goToMember: (id: number) => void,
+  goToMember: (id: number) => void;
   handleDateChange: ({
-    date_start: string,
-    date_end: string,
-  }) => void,
-  resetAvailabilitySlots: () => void,
-  enableCoachAvailabilitySlot: (
-    id: number,
-    data: any,
-    options: OptionCallback,
-  ) => void,
-  disableCoachAvailabilitySlot: (
-    id: number,
-    data: any,
-    options: OptionCallback,
-  ) => void,
-  id: number,
-
-  fetchOfferList: () => void,
-
-  resetPrivateBookings: () => void,
-  fetchPrivateBookingList: () => void,
-
-  fetchCoach: (number) => void,
-  fetchAssociatedCoachesList: () => void,
-  periodFilter: { start: string, end: string },
-  fetchCustomEventList: () => void,
-  resetCustomEvent: () => void,
-
-  customEventList: Array<CustomEvent>,
-  onRequestCustomEvent: (CustomEventData) => void,
-  customEventData: ?CustomEventData,
-  coach?: Coach,
-  createOrUpdateCustomEvent: (CustomEventData, OptionCallback) => void,
-  closeCustomEventDialog: () => void,
-  fetchAssociatedEstablishments: () => void,
-  establishments: Array<EstablishmentWithAssociatedId>,
-
-  scheduleFilter: ScheduleFilter,
-  setCoachScheduleFilter: (
-    coach: Coach,
-    scheduleFilter: ScheduleFilter,
-  ) => void,
-  getHasPendingReplacementRequest: (offerId: number) => boolean,
-  hideCoachNotAssociatedToPrivateServiceWarning: boolean,
-  setHideCoachNotAssociatedToPrivateServiceWarning: (hide: boolean) => void,
-  privateServices: PrivateServiceType[],
-};
+    date_start,
+    date_end,
+  }: {
+    date_start: string;
+    date_end: string;
+  }) => void;
+  id: number;
+  fetchOfferList: () => void;
+  establishments: Array<EstablishmentWithAssociatedId>;
+  fetchPrivateBookingList: () => void;
+  periodFilter: { start: string; end: string };
+  onRequestCustomEvent: () => void;
+  customEventData?: CustomEventData;
+  closeCustomEventDialog: () => void;
+} & ConnectedProps<typeof connector>;
 
 type State = {
-  updateAvailabilitySlotData: null | [any, OptionCallback],
-  showCoachNotAssociatedToPrivateServiceWarning: boolean,
+  updateAvailabilitySlotData: null | [any, OptionCallback];
+  showCoachNotAssociatedToPrivateServiceWarning: boolean;
   resourceAvailable: null | Array<{
-    datatype: 'associated_coach',
+    datatype: 'associated_coach';
     data: Array<{
-      name: string,
-      photo: string,
-      resource_id: number,
-    }>,
-  }>,
+      name: string;
+      photo: string;
+      resource_id: number;
+    }>;
+  }>;
 };
 
 export class CoachPrivateCalendar extends React.Component<Props, State> {
@@ -164,7 +139,9 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
     };
   }
 
-  enableResourceAvailabilitySlot = (...data) => {
+  enableResourceAvailabilitySlot = (
+    ...data: [SlotData, OptionCallback<SlotData>]
+  ) => {
     if (conditionToHideSpecificTeacherAvailabilities()) {
       // Submit enable availability slot withouth displaying establishment selection dialog
       const [slotUpdateData, slotUpdateOptions] = data;
@@ -200,7 +177,7 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
       this.state.updateAvailabilitySlotData;
 
     const options = {
-      onSuccess: (...args) => {
+      onSuccess: (...args: SlotData[]) => {
         this.fetchAvailabilitySlots();
         if (slotUpdateOptions && slotUpdateOptions.onSuccess) {
           slotUpdateOptions.onSuccess(...args);
@@ -271,10 +248,10 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
   };
 
   disableCoachAvailabilitySlot = (
-    data: { date_start: string, date_end: string },
+    data: { date_start: string; date_end: string },
     options: {
-      onSuccess: () => void,
-      onError: () => void,
+      onSuccess: () => void;
+      onError: () => void;
     },
   ) => {
     this.props.disableCoachAvailabilitySlot(this.props.id, data, {
@@ -384,6 +361,69 @@ export class CoachPrivateCalendar extends React.Component<Props, State> {
   }
 }
 
+const connector = connect(
+  (
+    state: RootState,
+    {
+      id,
+      periodFilter,
+    }: { id: number; periodFilter: { start: string; end: string } },
+  ) => ({
+    // @ts-expect-error wrong number of props
+    availabilitySlots: getCoachAvailabilitySlots(state, id),
+    coach: getCoach(state, id),
+    // @ts-expect-error wrong number of props
+    associatedCoach: associatedCoachSelector.get(state),
+    customEventList: getCustomEventList(state, periodFilter),
+    companyTheme: getTheme(state),
+    companyId: getTheme(state)?.company,
+    privateBookingList: withRelatedFields(getPrivateBookingListFiltered)(
+      state,
+      // @ts-expect-error wrong number of props
+      null,
+      periodFilter,
+    ),
+    offerList: getOfferAsEventList(state, null, periodFilter),
+    getHasPendingReplacementRequest:
+      getOfferHasPendingReplacementRequest(state),
+    loading:
+      state.privateService.availabilitySlot.loading ||
+      state.privateService.privateBooking.loading,
+    availabilitySlotUpdating:
+      state.privateService.availabilitySlot.createOrUpdate.loading,
+    scheduleFilter: getCoachScheduleFilter(state, id),
+    establishments: getAllEstablishmentsWithAssociatedId(state),
+    privateServices: getPrivateServices(state),
+    hideCoachNotAssociatedToPrivateServiceWarning:
+      state.userPreference.hideCoachNotAssociatedToPrivateServiceWarning,
+  }),
+  {
+    fetchCoach: (id: number) => fetchCoachBulk([id]),
+    fetchAssociatedCoachesList: fetchAssociatedCoachesListAction,
+    fetchMemberBulkById: fetchMemberBulkByIdAction,
+    fetchCustomEventList: fetchCustomEventListAction,
+    fetchPrivateBookings: fetchPrivateBookingsAction,
+    fetchPrivateSlotBulk: fetchPrivateSlotBulkAction,
+    fetchPrivateServiceBulk: fetchPrivateServiceBulkAction,
+    fetchAllOffers: fetchAllOffersAction,
+    resetPrivateBookings,
+    resetCustomEvent,
+    fetchAvailabilitySlots,
+    resetAvailabilitySlots,
+    disableCoachAvailabilitySlot,
+    enableCoachAvailabilitySlot,
+    fetchMetaActivityBulk: fetchMetaActivityBulkAction,
+    createOrUpdateCustomEvent: createOrUpdateCustomEventActions,
+    setCoachScheduleFilter: setCoachScheduleFilterAction,
+    fetchAssociatedEstablishments: fetchAssociatedEstablishmentsAction,
+    fetchEstablishments: fetchEstablishmentsAction,
+    listOffersWithPendingReplacementRequestIds:
+      listOffersWithPendingReplacementRequestIdsAction,
+    setHideCoachNotAssociatedToPrivateServiceWarning:
+      setHideCoachNotAssociatedToPrivateServiceWarningAction,
+  },
+);
+
 export default compose(
   routerParamsToProps({ coachId: 'id:number' }),
   withTranslation(['privateService']),
@@ -398,59 +438,7 @@ export default compose(
       onRequestCustomEvent: () => (customEventData) => ({ customEventData }),
     },
   ),
-  connect(
-    (state, { id, periodFilter }) => ({
-      availabilitySlots: getCoachAvailabilitySlots(state, id),
-      coach: getCoach(state, id),
-      associatedCoach: associatedCoachSelector.get(state),
-      customEventList: getCustomEventList(state, periodFilter),
-      companyTheme: getTheme(state),
-      companyId: getTheme(state)?.company,
-      privateBookingList: withRelatedFields(getPrivateBookingListFiltered)(
-        state,
-        null,
-        periodFilter,
-      ),
-      offerList: getOfferAsEventList(state, null, periodFilter),
-      getHasPendingReplacementRequest:
-        getOfferHasPendingReplacementRequest(state),
-      loading:
-        state.privateService.availabilitySlot.loading ||
-        state.privateService.privateBooking.loading,
-      availabilitySlotUpdating:
-        state.privateService.availabilitySlot.createOrUpdate.loading,
-      scheduleFilter: getCoachScheduleFilter(state, id),
-      establishments: getAllEstablishmentsWithAssociatedId(state),
-      privateServices: getPrivateServices(state),
-      hideCoachNotAssociatedToPrivateServiceWarning:
-        state.userPreference.hideCoachNotAssociatedToPrivateServiceWarning,
-    }),
-    {
-      fetchCoach: (id) => fetchCoachBulk([id]),
-      fetchAssociatedCoachesList: fetchAssociatedCoachesListAction,
-      fetchMemberBulkById: fetchMemberBulkByIdAction,
-      fetchCustomEventList: fetchCustomEventListAction,
-      fetchPrivateBookings: fetchPrivateBookingsAction,
-      fetchPrivateSlotBulk: fetchPrivateSlotBulkAction,
-      fetchPrivateServiceBulk: fetchPrivateServiceBulkAction,
-      fetchAllOffers: fetchAllOffersAction,
-      resetPrivateBookings,
-      resetCustomEvent,
-      fetchAvailabilitySlots,
-      resetAvailabilitySlots,
-      disableCoachAvailabilitySlot,
-      enableCoachAvailabilitySlot,
-      fetchMetaActivityBulk: fetchMetaActivityBulkAction,
-      createOrUpdateCustomEvent: createOrUpdateCustomEventActions,
-      setCoachScheduleFilter: setCoachScheduleFilterAction,
-      fetchAssociatedEstablishments: fetchAssociatedEstablishmentsAction,
-      fetchEstablishments: fetchEstablishmentsAction,
-      listOffersWithPendingReplacementRequestIds:
-        listOffersWithPendingReplacementRequestIdsAction,
-      setHideCoachNotAssociatedToPrivateServiceWarning:
-        setHideCoachNotAssociatedToPrivateServiceWarningAction,
-    },
-  ),
+  connector,
   withHandlers({
     createOrUpdateCustomEvent:
       ({
@@ -458,11 +446,11 @@ export default compose(
         customEventData,
         closeCustomEventDialog,
       }) =>
-      (data, options) => {
+      (data: CustomEventData, options: OptionCallback<CustomEventData>) => {
         createOrUpdateCustomEvent(
           { ...data, ...customEventData },
           {
-            onSuccess: (...args) => {
+            onSuccess: (...args: CustomEventData) => {
               if (options && options.onSuccess) options.onSuccess(...args);
               closeCustomEventDialog();
             },
@@ -486,7 +474,7 @@ export default compose(
             max_date: periodFilter.end,
           },
           {
-            onSuccess: (offers) => {
+            onSuccess: (offers: Offer[]) => {
               fetchMetaActivityBulk(offers.map((o) => o.meta_activity));
               listOffersWithPendingReplacementRequestIds(
                 offers.map((o) => o.id),
@@ -498,7 +486,7 @@ export default compose(
       },
     handleDateChange:
       ({ setPeriodFilter }) =>
-      ({ date_start, date_end }: { date_start: string, date_end: string }) => {
+      ({ date_start, date_end }: { date_start: string; date_end: string }) => {
         setPeriodFilter({
           start: moment(date_start).add(-1, 'day').format('YYYY-MM-DD'),
           end: moment(date_end).add(1, 'day').format('YYYY-MM-DD'),
@@ -523,7 +511,7 @@ export default compose(
           },
 
           {
-            onSuccess: (bookingList) => {
+            onSuccess: (bookingList: PrivateBooking[]) => {
               if (bookingList.length) {
                 fetchMemberBulkById(uniq(bookingList.map((b) => b.member)));
 
@@ -553,7 +541,9 @@ export default compose(
         fetchAssociatedEstablishments(
           { company: companyId },
           {
-            onSuccess: (associatedEstablishments) => {
+            onSuccess: (
+              associatedEstablishments: EstablishmentWithAssociatedId[],
+            ) => {
               const idList = associatedEstablishments.map((ae) => ae.id) || [];
               if (idList.length > 0) {
                 fetchEstablishments({

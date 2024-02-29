@@ -389,12 +389,19 @@ export class MemberSummaryCard extends PureComponent<Props> {
                 )}
               </>
             </ObjectLevelPermissionWrapper>
-            {goToMember && (
-              <Button color="primary" onClick={goToMember}>
-                <Hidden xsDown>{t('common.show')}</Hidden>
-                <ArrowForwardIcon className={classes.rightIcon} />
-              </Button>
-            )}
+            <ObjectLevelPermissionWrapper
+              forcedBehavior="hidden"
+              requiredPermission="member.allowed_actions.accessProfile"
+            >
+              <>
+                {!!goToMember && (
+                  <Button color="primary" onClick={goToMember}>
+                    <Hidden xsDown>{t('common.show')}</Hidden>
+                    <ArrowForwardIcon className={classes.rightIcon} />
+                  </Button>
+                )}
+              </>
+            </ObjectLevelPermissionWrapper>
             {handleOpenResetPasswordDialog && this.props.member?.email && (
               <ObjectLevelPermissionWrapper
                 forcedBehavior="hidden"

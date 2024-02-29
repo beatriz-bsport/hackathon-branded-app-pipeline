@@ -205,7 +205,7 @@ const ReportTable: React.FC<TableProps> = ({
 
 const useStyles = makeStyles((theme: Theme) => ({
   responsive: {
-    overflowX: 'scroll',
+    overflowX: 'auto',
   },
   right: {
     textAlign: 'right',

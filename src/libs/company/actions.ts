@@ -17,21 +17,22 @@ import type {
   AccountConfigurationStep,
   Company,
   CompanySetup,
+  FeatureList,
+  StripeAccountStatus,
   StripeCompany,
-  UpsellSumup,
 } from './types';
 import { memberBulkActions } from '#libs/member/actions';
 import type { Member } from '#libs/member/types';
 
 export const searchActions = {
-  success: createAction('COMPANY/SEARCH/SUCCESS'),
-  isLoading: createAction('COMPANY/SEARCH/IS_LOADING'),
-  error: createAction('COMPANY/SEARCH/ERROR'),
+  success: createAction<Company[]>('COMPANY/SEARCH/SUCCESS'),
+  isLoading: createAction<boolean>('COMPANY/SEARCH/IS_LOADING'),
+  error: createAction<Error | null>('COMPANY/SEARCH/ERROR'),
 };
 
 export function searchCompany(
   text: string,
-  options?: OptionCallback<Array<Company>>,
+  options?: OptionCallback<Company[]>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(searchActions.isLoading(true));
@@ -55,7 +56,7 @@ export function searchCompany(
 }
 export function fetchCompanyBulk(
   id__in: Array<number>,
-  options?: OptionCallback<Array<Company>>,
+  options?: OptionCallback<Company[]>,
 ) {
   return async (dispatch: Dispatch) => {
     if (!id__in || id__in?.length === 0) {
@@ -82,14 +83,14 @@ export function fetchCompanyBulk(
 }
 
 export const createCompanyActions = {
-  success: createAction('COMPANY/CREATE/SUCCESS'),
-  isLoading: createAction('COMPANY/CREATE/IS_LOADING'),
-  error: createAction('COMPANY/CREATE/ERROR'),
+  success: createAction<StripeCompany>('COMPANY/CREATE/SUCCESS'),
+  isLoading: createAction<boolean>('COMPANY/CREATE/IS_LOADING'),
+  error: createAction<Error | null>('COMPANY/CREATE/ERROR'),
 };
 
 export function createCompany(
-  data: { email: string; password: string; name: string; country: string },
-  options: OptionCallback<Company>,
+  data: { email: string; password: string; name: string; locale: string },
+  options: OptionCallback<StripeCompany>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(createCompanyActions.isLoading(true));
@@ -111,14 +112,18 @@ export function createCompany(
 }
 
 export const attachExternalAccountActions = {
-  success: createAction('COMPANY/ATTACH_EXTERNAL_ACCOUNT/SUCCESS'),
-  isLoading: createAction('COMPANY/ATTACH_EXTERNAL_ACCOUNT/IS_LOADING'),
-  error: createAction('COMPANY/ATTACH_EXTERNAL_ACCOUNT/ERROR'),
+  success: createAction<StripeCompany>(
+    'COMPANY/ATTACH_EXTERNAL_ACCOUNT/SUCCESS',
+  ),
+  isLoading: createAction<boolean>(
+    'COMPANY/ATTACH_EXTERNAL_ACCOUNT/IS_LOADING',
+  ),
+  error: createAction<Error | null>('COMPANY/ATTACH_EXTERNAL_ACCOUNT/ERROR'),
 };
 
 export function attachExternalAccount(
   token: string,
-  options: OptionCallback<string>,
+  options: OptionCallback<StripeCompany>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(attachExternalAccountActions.isLoading(true));
@@ -140,12 +145,12 @@ export function attachExternalAccount(
 }
 
 export const listFeatureActions = {
-  success: createAction('COMPANY/LIST_FEATURE/SUCCESS'),
-  isLoading: createAction('COMPANY/LIST_FEATURE/IS_LOADING'),
-  error: createAction('COMPANY/LIST_FEATURE/ERROR'),
+  success: createAction<FeatureList>('COMPANY/LIST_FEATURE/SUCCESS'),
+  isLoading: createAction<boolean>('COMPANY/LIST_FEATURE/IS_LOADING'),
+  error: createAction<Error | null>('COMPANY/LIST_FEATURE/ERROR'),
 };
 
-export function getFeatureList(options?: OptionCallback<UpsellSumup>) {
+export function getFeatureList(options?: OptionCallback<FeatureList>) {
   return async (dispatch: Dispatch) => {
     dispatch(listFeatureActions.isLoading(true));
     dispatch(listFeatureActions.error(null));
@@ -174,7 +179,7 @@ export function getFeatureList(options?: OptionCallback<UpsellSumup>) {
  * @returns An async function that takes a dispatch function as a parameter.
  */
 export function getFeatureListWithoutLoading(
-  options?: OptionCallback<UpsellSumup>,
+  options?: OptionCallback<FeatureList>,
 ) {
   return async (dispatch: Dispatch) => {
     dispatch(listFeatureActions.error(null));
@@ -194,9 +199,9 @@ export function getFeatureListWithoutLoading(
 }
 
 export const retrieveMyCompanyActions = {
-  success: createAction('COMPANY/ME/SUCCESS'),
-  isLoading: createAction('COMPANY/ME/IS_LOADING'),
-  error: createAction('COMPANY/ME/ERROR'),
+  success: createAction<CompanySetup>('COMPANY/ME/SUCCESS'),
+  isLoading: createAction<boolean>('COMPANY/ME/IS_LOADING'),
+  error: createAction<Error | null>('COMPANY/ME/ERROR'),
 };
 
 export function retrieveMyCompanySetup(options?: OptionCallback<CompanySetup>) {
@@ -220,9 +225,9 @@ export function retrieveMyCompanySetup(options?: OptionCallback<CompanySetup>) {
 }
 
 export const stripeCompanyRetrieveActions = {
-  error: createAction('STRIPE_COMPANY/FETCH/ERROR'),
-  isLoading: createAction('STRIPE_COMPANY/FETCH/IS_LOADING'),
-  success: createAction('STRIPE_COMPANY/FETCH/SUCCESS'),
+  error: createAction<Error | null>('STRIPE_COMPANY/FETCH/ERROR'),
+  isLoading: createAction<boolean>('STRIPE_COMPANY/FETCH/IS_LOADING'),
+  success: createAction<StripeCompany>('STRIPE_COMPANY/FETCH/SUCCESS'),
 };
 
 export function retrieveStripeCompanyAction(
@@ -247,9 +252,15 @@ export function retrieveStripeCompanyAction(
 }
 
 export const validateAccountConfigurationStepActions = {
-  isLoading: createAction('ACCOUNT_CONFIGURATION_STEP/VALIDATE/LOADING'),
-  error: createAction('ACCOUNT_CONFIGURATION_STEP/VALIDATE/ERROR'),
-  success: createAction('ACCOUNT_CONFIGURATION_STEP/VALIDATE/SUCCESS'),
+  isLoading: createAction<boolean>(
+    'ACCOUNT_CONFIGURATION_STEP/VALIDATE/LOADING',
+  ),
+  error: createAction<Error | null>(
+    'ACCOUNT_CONFIGURATION_STEP/VALIDATE/ERROR',
+  ),
+  success: createAction<AccountConfigurationStep>(
+    'ACCOUNT_CONFIGURATION_STEP/VALIDATE/SUCCESS',
+  ),
 };
 
 export function validateAccountConfigurationStepAction(
@@ -274,12 +285,16 @@ export function validateAccountConfigurationStepAction(
   };
 }
 export const retrieveStripeAccountStatusActions = {
-  isLoading: createAction('RETRIEVE_STRIPE_ACCOUNT_STATUS/LOADING'),
-  error: createAction('RETRIEVE_STRIPE_ACCOUNT_STATUS/ERROR'),
-  success: createAction('RETRIEVE_STRIPE_ACCOUNT_STATUS/SUCCESS'),
+  isLoading: createAction<boolean>('RETRIEVE_STRIPE_ACCOUNT_STATUS/LOADING'),
+  error: createAction<Error | null>('RETRIEVE_STRIPE_ACCOUNT_STATUS/ERROR'),
+  success: createAction<StripeAccountStatus>(
+    'RETRIEVE_STRIPE_ACCOUNT_STATUS/SUCCESS',
+  ),
 };
 
-export function retrieveStripeAccountStatusAction(options: OptionCallback) {
+export function retrieveStripeAccountStatusAction(
+  options: OptionCallback<StripeAccountStatus>,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(retrieveStripeAccountStatusActions.isLoading(true));
     dispatch(retrieveStripeAccountStatusActions.error(null));

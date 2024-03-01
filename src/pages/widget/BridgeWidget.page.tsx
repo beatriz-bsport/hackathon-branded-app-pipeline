@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import moment from 'moment-timezone';
 
-import type { OptionCallback, ThunkAction } from 'src/state/types';
 import {
   BSPORT_REQUEST_FROM_HEADER_STORAGE_LOCATION,
   BsportRequestFromHeaderValue,
@@ -25,7 +24,11 @@ import {
 } from '#libs/membership/actions';
 import { getMembership } from '#libs/membership/selectors';
 import WidgetUtils from '#libs/widget/WidgetUtils';
-import { WidgetApiMessageType, WidgetMessageType } from '#libs/widget/types';
+import {
+  WidgetApiMessageType,
+  WidgetMessageType,
+  widgetApiMessageTypes,
+} from '#libs/widget/types';
 import type { CheckoutItem, Basket } from '#libs/checkout/types';
 import { getAuthToken } from '../../http';
 import { fetchMemberTagList } from '#libs/tag/actions';
@@ -36,13 +39,8 @@ import {
   retrieveReferralMemberStatus as retrieveReferralMemberStatusAction,
 } from '#libs/referral/actions';
 import { fetchMember } from '#libs/member/actions';
-import type { Membership } from '#libs/membership/types';
-import type {
-  ReferralMemberStatus,
-  ReferralProgram,
-} from '#libs/referral/types';
-import type { Member } from '#libs/member/types';
 import type { Tag } from '#libs/tag/types';
+import { bridgeAPIActionsRegistry } from '#libs/widget/actionsRegistry';
 
 type OwnProps = {
   companyId: number;
@@ -100,6 +98,7 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
   };
 
   componentDidMount() {
+    this.bindBridgeActions();
     this.sendAuthenticationResponse();
     if (!this.props.isBackofficePreview) {
       window?.sessionStorage?.setItem(
@@ -109,19 +108,34 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
     }
   }
 
+  bindBridgeActions = () => {
+    bridgeAPIActionsRegistry.register(
+      'MEMBERSHIP_BY_COMPANY',
+      this.props.fetchMembershipByCompany,
+    );
+    bridgeAPIActionsRegistry.register(
+      'FETCH_MEMBER_BY_ID',
+      this.props.retrieveMember,
+    );
+    bridgeAPIActionsRegistry.register(
+      'FETCH_REFERRAL_PROGRAM_MEMBER_STATUS',
+      this.props.retrieveReferralMemberStatus,
+    );
+    bridgeAPIActionsRegistry.register(
+      'FETCH_REFERRAL_PROGRAM_BY_COMPANY',
+      this.props.retrieveReferralProgramForCompany,
+    );
+  };
+
   handleBridgeApiCallRequest = <A, T>({
-    apiCallAction,
-    args,
     responseSignature,
+    args,
   }: {
     args: unknown;
-    apiCallAction: (
-      args: A,
-      options?: OptionCallback<T>,
-    ) => ((dispatch: any) => Promise<void>) | ThunkAction;
     responseSignature: WidgetApiMessageType;
   }): void => {
-    apiCallAction(args as A, {
+    const action = bridgeAPIActionsRegistry.get(responseSignature);
+    action(args as A, {
       onSuccess: (data: T) => {
         WidgetUtils.sendBridgeResponse(responseSignature, { data });
       },
@@ -286,41 +300,13 @@ class BridgeWidgetPage extends React.PureComponent<Props> {
           }
           break;
 
-        case WidgetApiMessageType.MEMBERSHIP_BY_COMPANY:
-          this.handleBridgeApiCallRequest<number, Membership>({
-            args: event.data.args,
-            responseSignature: WidgetApiMessageType.MEMBERSHIP_BY_COMPANY,
-            apiCallAction: this.props.fetchMembershipByCompany,
-          });
-          break;
-
-        case WidgetApiMessageType.FETCH_MEMBER_BY_ID:
-          this.handleBridgeApiCallRequest<number, Member>({
-            args: event.data.args,
-            responseSignature: WidgetApiMessageType.FETCH_MEMBER_BY_ID,
-            apiCallAction: this.props.fetchMember,
-          });
-          break;
-
-        case WidgetApiMessageType.FETCH_REFERRAL_PROGRAM_MEMBER_STATUS:
-          this.handleBridgeApiCallRequest<number, ReferralMemberStatus>({
-            apiCallAction: this.props.retrieveReferralMemberStatus,
-            args: event.data.args,
-            responseSignature:
-              WidgetApiMessageType.FETCH_REFERRAL_PROGRAM_MEMBER_STATUS,
-          });
-          break;
-
-        case WidgetApiMessageType.FETCH_REFERRAL_PROGRAM_BY_COMPANY:
-          this.handleBridgeApiCallRequest<number, ReferralProgram>({
-            apiCallAction: this.props.retrieveReferralProgramForCompany,
-            args: event.data.args,
-            responseSignature:
-              WidgetApiMessageType.FETCH_REFERRAL_PROGRAM_BY_COMPANY,
-          });
-          break;
-
         default:
+          if (widgetApiMessageTypes.includes(event.data.type)) {
+            this.handleBridgeApiCallRequest<unknown, unknown>({
+              args: event.data.args,
+              responseSignature: event.data.type,
+            });
+          }
           break;
       }
     }

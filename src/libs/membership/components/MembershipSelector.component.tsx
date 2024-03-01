@@ -61,6 +61,13 @@ const MembershipSelectorBase: React.FC<MembershipSelectorBaseProps> = ({
     setSearchResult(membershipList);
   }, [membershipList]);
 
+  const selectCompany = useCallback(
+    (membership: Membership) => () => {
+      onClick?.(membership.company);
+    },
+    [onClick],
+  );
+
   return (
     <div className={classes.selectorContainer}>
       <FuzeSearch
@@ -77,13 +84,13 @@ const MembershipSelectorBase: React.FC<MembershipSelectorBaseProps> = ({
           ? membershipList.map((membership) => (
               <MembershipListItem
                 membership={membership}
-                onClick={() => onClick(membership.company)}
+                onClick={selectCompany(membership)}
               />
             ))
           : searchResult.map((membership) => (
               <MembershipListItem
                 membership={membership}
-                onClick={() => onClick(membership.company)}
+                onClick={selectCompany(membership)}
               />
             ))}
       </Paper>
@@ -120,6 +127,23 @@ const CompanySelectorBase: React.FC<CompanySelectorBaseProps> = ({
   useEffect(() => {
     handleTextChange('');
   });
+  const onTextFieldChange = useCallback(
+    (ev: ChangeEvent<HTMLInputElement>) => {
+      handleTextChange(ev.target.value);
+    },
+    [handleTextChange],
+  );
+
+  useEffect(() => {
+    handleTextChange('');
+  });
+
+  const selectCompany = useCallback(
+    (company: Company) => () => {
+      onClick(company.id);
+    },
+    [onClick],
+  );
 
   return (
     <div className={classes.selectorContainer}>
@@ -127,7 +151,7 @@ const CompanySelectorBase: React.FC<CompanySelectorBaseProps> = ({
         <DelayedTextField
           fullWidth
           className={classes.selectorContainer}
-          onChange={(ev) => handleTextChange(ev.target.value)}
+          onChange={onTextFieldChange}
           placeholder={t('selector.placeholder')}
           value={text}
           variant="outlined"
@@ -144,10 +168,7 @@ const CompanySelectorBase: React.FC<CompanySelectorBaseProps> = ({
           </ListItem>
         ) : null}
         {companyList.map((company) => (
-          <CompanyListItem
-            company={company}
-            onClick={() => onClick(company.id)}
-          />
+          <CompanyListItem company={company} onClick={selectCompany(company)} />
         ))}
       </Paper>
     </div>
@@ -166,6 +187,12 @@ const MembershipSelector: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation('membership');
   const classes = useStyles();
+  const nextMembershipBatchSize = 30;
+  const fetchNextMembershipBatch = useCallback(
+    () => fetchMoreMembership(nextMembershipBatchSize),
+    [fetchMoreMembership],
+  );
+
   return (
     <div className={classes.container}>
       <div className={classes.innerContainer}>
@@ -209,7 +236,7 @@ const MembershipSelector: React.FC<Props> = ({
             <div className={classes.buttonContainer}>
               <Button
                 color="primary"
-                onClick={() => fetchMoreMembership(30)}
+                onClick={fetchNextMembershipBatch}
                 variant="outlined"
               >
                 {t('selector.fetchMore')}

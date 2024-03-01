@@ -2553,7 +2553,8 @@
                     "until": " until {{- date }}"
                 },
                 "consumerSubscriptionCardDetails": {
-                    "failedPaymentReason": "Reason: {{- note }} Please contact your studio to regularize the situation"
+                    "failedPaymentReason": "Reason: {{- note }} Please contact your studio to regularize the situation",
+                    "emptyInvoices": " No billing history to show"
                 }
             }
         }

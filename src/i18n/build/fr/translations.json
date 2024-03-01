@@ -1916,7 +1916,9 @@
                         "pauseEndDate": "jusqu'au {{- pauseEndDate }} inclus",
                         "autoRenewalDate": "le {{- autoRenewalDate }} (inclus)",
                         "autoRenewed": "Renouvelée automatiquement",
-                        "paused": "Actuellement en pause"
+                        "paused": "Actuellement en pause",
+                        "joiningFee": "Frais d'adhésion : {{- fees }}",
+                        "futurePauses": "Une pause est prévue du {{- dateStart }} au {{- dateEnd }} (inclus)"
                     },
                     "buttonsLabel": {
                         "see": "Voir",
@@ -1931,27 +1933,39 @@
                         "card": "Carte : **** **** **** {{ readableIdentifier }}",
                         "sepa_debit": "SEPA : **** **** **** {{ readableIdentifier }}",
                         "internal": "Compte interne : pour chaque paiement, une dette est automatiquement créée sur votre compte interne",
-                        "title": "Moyen de paiement"
+                        "title": "Moyen de paiement",
+                        "nextPaymentDate": "le {{- subscriptionNextPaymentDate }}",
+                        "pauseEndDate": "jusqu'au {{- pauseEndDate }} inclus",
+                        "autoRenewalDate": "le {{- autoRenewalDate }} (inclus)",
+                        "autoRenewed": "Renouvelée automatiquement",
+                        "paused": "Actuellement en pause"
                     },
                     "failedPaymentReason": "Motif : {{- note }} Veuillez contacter votre studio pour régulariser la situation",
-                    "failedPayment": "Échec du paiement"
+                    "failedPayment": "Échec du paiement",
+                    "emptyInvoices": " Aucun historique de facturation",
+                    "billingHistory": "Historique de la facturation",
+                    "failedPaymentReasonWithRetry": "Motif : {{- note }}. La tentative de paiement sera réitérée le {{- nextRetryDate}}",
+                    "beforeRenewalContractPriceEvery": "Puis {{ price }} tous les {{ recurrence }}{{ interval }} après le {{- date }}",
+                    "beforeRenewalContractPricePer": "Puis {{ price }}/{{ interval }} après le {{- date }}"
                 },
                 "consumerSubscriptionCard": {
                     "buttonsLabel": {
                         "seeDetails": "Voir détails",
                         "addPaymentMethod": "Ajouter un mode de paiement"
                     },
-                    "recurrenceLabelEvery": "{{ price }}{{ currency }} tous les {{ recurrence }} {{ interval }}",
-                    "recurrenceLabelPer": "{{ price }}{{ currency }}/{{ interval }}",
+                    "recurrenceLabelEvery": "{{ price }} tous les {{ recurrence }} {{ interval }}",
+                    "recurrenceLabelPer": "{{ price }}/{{ interval }}",
                     "chipsLabel": {
                         "failedPayment": "Échec du paiement",
                         "missingPaymentMethod": "Mode de paiement manquant",
                         "isPaused": "En pause"
-                    }
+                    },
+                    "nextPayment": "Prochain paiement : {{- nextPayment }}"
                 },
                 "headerButtonsLabel": {
                     "getSubscription": "Souscrire un abonnement",
-                    "bookASession": "Réserver une séance"
+                    "bookASession": "Réserver une séance",
+                    "backToSubscriptions": "Retour aux abonnements"
                 },
                 "tab": {
                     "expired": "Expirée",
@@ -1964,6 +1978,16 @@
                     "expired": "Expiré depuis le {{- date }}",
                     "future": "Démarre le {{- date }}",
                     "active": "Commencé le {{- date }}"
+                },
+                "close": "Fermer",
+                "paymentMethodUpdatedContent": "Votre méthode de paiement a été mise à jour avec succès",
+                "paymentMethodUpdatedTitle": "Méthode de paiement mise à jour",
+                "changePaymentMethod": "Modifier la méthode de paiement",
+                "paymentModalAlert": "Si aucune méthode de paiement n'est enregistrée, une dette sera automatiquement créée sur votre compte interne pour chaque paiement",
+                "download": "Télécharger",
+                "placeholder": {
+                    "expired": "Vous n'avez pas encore d'abonnements expirés.",
+                    "nonExpired": "Il semble que vous n'ayez pas d'abonnement actif."
                 }
             }
         }
@@ -7423,7 +7447,8 @@
             "actions": {
                 "addCompany": "Ajouter un studio",
                 "buy": "Acheter"
-            }
+            },
+            "isFromShareTooltip": "Cette carte de cours est partagée avec un autre studio franchisé"
         },
         "paymentPackTemplate": {
             "pass": "Cartes de cours collectifs",
@@ -7825,7 +7850,8 @@
                     },
                     "appliesForPayroll": {
                         "label": "Sessions prises en compte dans le calcul de la rémunération du professeur",
-                        "helperText": "Par défaut, les sessions sont facturées au studio et comptabilisées dans le récapitulatif et la rémunération du professeur par le studio. En désactivant ce paramètre, les sessions associées à cette carte n'apparaîtront plus dans le récapitulatif du professeur."
+                        "helperText": "Par défaut, les sessions sont facturées au studio et comptabilisées dans le récapitulatif et la rémunération du professeur par le studio. En désactivant ce paramètre, les sessions associées à cette carte n'apparaîtront plus dans le récapitulatif du professeur.",
+                        "header": "Rémunération des professeurs"
                     }
                 },
                 "universalPass": {
@@ -9140,7 +9166,8 @@
             "isFromShare": "Partagé depuis un autre compte",
             "isOwnerOfShares": "Partagé (carte RDV maître)",
             "isFromDisabledShare": "Partage arrété",
-            "warningShareUniversal": "Cette carte est universelle, veuillez partager la carte de cours associée"
+            "warningShareUniversal": "Cette carte est universelle, veuillez partager la carte de cours associée",
+            "isFromShareTooltip": "Cette carte de RDV est partagée avec un autre studio franchisé"
         },
         "privateServiceCompatibility": {
             "allSlots": "Compatible pour toutes les séances",
@@ -11862,6 +11889,23 @@
                                 "_label": "Supprimer"
                             }
                         }
+                    },
+                    "referral_grant": {
+                        "_label": "Bonus de parrainage",
+                        "allowed_actions": {
+                            "edit": {
+                                "_label": "Modifier"
+                            },
+                            "delete": {
+                                "_label": "Supprimer"
+                            },
+                            "read": {
+                                "_label": "Voir"
+                            },
+                            "create": {
+                                "_label": "Créer"
+                            }
+                        }
                     }
                 },
                 "Bookings": {
@@ -12303,7 +12347,9 @@
             "visitsLeft": "Visites restantes",
             "expires": "Expire",
             "signIn": "Enregistré",
-            "headOnIn": "Tout est prêt !"
+            "headOnIn": "Tout est prêt !",
+            "spotUnassigned": "Spot non attribué",
+            "spotInfo": "Votre {{spotName}} est :"
         },
         "authenticationDialog": {
             "title": "Modifier l'établissement",
@@ -12678,7 +12724,19 @@
         },
         "shopitem": {
             "form": {
-                "title": "Article magasin"
+                "title": "Article magasin",
+                "variantHelperText": "Définissez des variantes si ce produit est disponible en plusieurs couleurs et/ou tailles. Vous pourrez modifier les propriétés de chaque variante ultérieurement.",
+                "error": {
+                    "name": "Le nom d'un produit ne peut pas dépasser 200 caractères"
+                },
+                "sizes": {
+                    "helperText": "Ajoutez une taille en appuyant sur la touche Entrée",
+                    "title": "Tailles"
+                },
+                "colors": {
+                    "helperText": "Ajouter une couleur en appuyant sur la touche Entrée",
+                    "title": "Couleurs"
+                }
             },
             "noDescription": "Aucune description",
             "selector": {
@@ -13875,6 +13933,14 @@
                 "overrideCoachNotAllowed": "Vous ne pouvez pas forcer le rendez-vous avec ce professeur.",
                 "changeDateEstablishmentUnaivalable": "Impossible de réserver sur cette date : la salle n'est pas libre.",
                 "changeDateCoachUnaivalable": "Impossible de réserver sur cette date : le professeur n'est pas libre."
+            },
+            "delete": {
+                "error": {
+                    "customErrors": {
+                        "4700": "Suppression impossible : ce rôle est attribué à certains de vos collaborateurs"
+                    },
+                    "genericError": "Une erreur s'est produite : ce rôle n'a pas été supprimé"
+                }
             }
         },
         "shop": {
@@ -16522,7 +16588,9 @@
                             "tagsOnAcquisition": "Tag après achat"
                         },
                         "header": "Avancé"
-                    }
+                    },
+                    "supplier": "Fournisseur",
+                    "sku": "SKU"
                 }
             },
             "booking": {
@@ -17872,7 +17940,10 @@
                 "consumer_payment_pack_details_card": "Carte de détails de la carte d'activité (pour le membre)",
                 "private_consumer_pass_details_card": "Carte de détails de la carte de RDV (pour le membre)",
                 "universal_pass_details_card": "Carte de détails de la carte universelle (pour le membre)",
-                "reset_password_confirmation": "Confirmation de la réinitialisation du mot de passe"
+                "reset_password_confirmation": "Confirmation de la réinitialisation du mot de passe",
+                "consumer_subscription_card": "Carte de l'abonnement du consommateur",
+                "consumer_subscription_details_card": "Carte du détail de l'abonnement du consommateur",
+                "fabrique_big_icon": "Grande icône"
             },
             "page": {
                 "common": "Commun",
@@ -18012,7 +18083,15 @@
                     "isDetailsDisabled": "Le bouton \"Voir détails\" est désactivé",
                     "isExpired": "La carte de cours est expirée",
                     "isFuture": "La carte de cours n'est pas encore active",
-                    "passKind": "Type de carte de cours"
+                    "passKind": "Type de carte de cours",
+                    "withFailedPayments": "Afficher les paiements échoués",
+                    "WithBillingHistory": "Afficher les paiements réussis",
+                    "hasAutoRenewal": "L'abonnement sera renouvelé automatiquement",
+                    "withFuturePauses": "L'abonnement a des pauses prévues dans le future",
+                    "isPaused": "Est actuellement en pause",
+                    "addPaymentMethodDisabled": "Le bouton \"Ajouter un mode de paiement\" est désactivé",
+                    "hasMissingPaymentMethod": "A un mode de paiement manquant",
+                    "hasFailedPayments": "A des échecs de payment"
                 },
                 "option": {
                     "true": "Oui",
@@ -18108,7 +18187,8 @@
                     "standard": "Standard",
                     "activityPass": "Carte d'activité",
                     "appointmentPass": "Carte RDV",
-                    "universalPass": "Carte universelle"
+                    "universalPass": "Carte universelle",
+                    "card_payment_method": "Carte"
                 },
                 "confirmationMessageComponentAlert": "Ce composant gère principalement les statuts de réservation et de paiement. Pour personnaliser son apparence, nous recommandons d'utiliser ses composants racine situés dans la section commune",
                 "marketplaceOfferBookingList": "Ce composant est une liste de séances réservées. Pour affiner les composants de {{component_name}}, vous pouvez utiliser la section dédiée dans l'éditeur.",

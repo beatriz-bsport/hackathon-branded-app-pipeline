@@ -1,59 +1,69 @@
 import {
   getAuth,
   postAuth,
+  putAuth,
+  post,
   buildUrlParams,
   API_V1_URI,
-  postAuthDeprecated,
-  getAuthDeprecated,
-  postDeprecated,
-  putAuthDeprecated,
 } from '../../http';
-import type { AccountConfigurationStep } from './types';
+import type {
+  AccountConfigurationStep,
+  Company,
+  CompanyCreationParams,
+  FetchCompanyListParams,
+  CompanySetup,
+  FeatureList,
+  GetOnboardingLinkParams,
+  StripeAccountStatus,
+  StripeCompany,
+} from './types';
 import type { Member } from '#libs/member/types';
 
-export const fetchCompanyList = (params: any = {}) => {
-  return getAuthDeprecated(
+export const fetchCompanyList = (params: FetchCompanyListParams) => {
+  return getAuth<Company[]>(
     `${API_V1_URI}/company/search/${buildUrlParams(params)}`,
   );
 };
 
-export const createCompany = (data: any) => {
-  return postDeprecated(
+export const createCompany = (data: CompanyCreationParams) => {
+  return post<StripeCompany>(
     `${API_V1_URI}/payment_backend/stripe/company/init/`,
     data,
   );
 };
 
-export const getOnboardingLink = (data: any) => {
-  return postAuth(
+export const getOnboardingLink = (data: GetOnboardingLinkParams) => {
+  return postAuth<string>(
     `${API_V1_URI}/payment_backend/stripe/company/get_onboarding_link/`,
     data,
   );
 };
 
 export const retrieveStripeCompanyRefreshedAPI = () => {
-  return getAuthDeprecated(
+  return getAuth<StripeCompany>(
     `${API_V1_URI}/payment_backend/stripe/company/get_stripe_company_refreshed/`,
   );
 };
 
 export const retrieveStripeCompanyAPI = () => {
-  return getAuthDeprecated(`${API_V1_URI}/payment_backend/stripe/company/me/`);
+  return getAuth<StripeCompany>(
+    `${API_V1_URI}/payment_backend/stripe/company/me/`,
+  );
 };
 
 export const attachExternalAccount = (token: string) => {
-  return postAuthDeprecated(
+  return postAuth<StripeCompany>(
     `${API_V1_URI}/payment_backend/stripe/company/attach_external_account/`,
     { external_account: token },
   );
 };
 
 export const getFeatureList = () => {
-  return getAuthDeprecated(`${API_V1_URI}/company/features/`);
+  return getAuth<FeatureList>(`${API_V1_URI}/company/features/`);
 };
 
 export const retrieveMyCompanySetup = () => {
-  return postAuthDeprecated(`${API_V1_URI}/company/setup/me/`);
+  return postAuth<CompanySetup>(`${API_V1_URI}/company/setup/me/`);
 };
 
 export const validateAccountConfigurationStepAPI = ({
@@ -61,7 +71,7 @@ export const validateAccountConfigurationStepAPI = ({
 }: {
   step: AccountConfigurationStep;
 }) => {
-  return putAuthDeprecated(
+  return putAuth<void>(
     `${API_V1_URI}/payment_backend/stripe/company/validate_step/`,
     {
       step,
@@ -70,7 +80,7 @@ export const validateAccountConfigurationStepAPI = ({
 };
 
 export const retrieveStripeAccountStatusAPI = async () => {
-  return getAuthDeprecated(
+  return getAuth<StripeAccountStatus>(
     `${API_V1_URI}/payment_backend/stripe/company/retrieve_stripe_account_status/`,
   );
 };

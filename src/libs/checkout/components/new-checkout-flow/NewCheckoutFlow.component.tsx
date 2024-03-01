@@ -362,7 +362,17 @@ export const NewCheckoutFlow: React.FC<NewCheckoutFlowProps> = ({
   const width = useWidth();
   const isMobile = isWidthDown('sm', width);
 
-  if (!basketLoading && basket?.checkout_items?.length === 0) {
+  const basketIsEmpty = React.useMemo(
+    () =>
+      !basketLoading &&
+      (basket?.checkout_items ?? []).filter(
+        (item) => item.buyable_item_identifier !== BUYABLE_ITEM_COUPON,
+      )?.length === 0,
+
+    [basketLoading, basket],
+  );
+
+  if (basketIsEmpty) {
     return (
       <div className={classes.container}>
         <EmptyBasket

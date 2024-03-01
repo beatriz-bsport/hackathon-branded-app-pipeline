@@ -3,7 +3,7 @@ import {
   DO_NOTHING,
   WARN,
 } from '#libs/platform-billing/constant';
-import { ErrorAndLoading } from '#libs/types';
+import type { ErrorAndLoading } from '#libs/types';
 import {
   BANK_ACCOUNT_CONFIGURATION_STEP,
   ACCOUNT_CONFIGURATION_FINAL_STEP,
@@ -14,6 +14,7 @@ import {
 export type Company = {
   id: number;
   name: string;
+  timezone_name: string;
   email: string;
   websiteURL: string;
   cover: string;
@@ -49,6 +50,7 @@ export type CompanySetup = {
   postal_code: string;
   state: string;
   country: string;
+  region: string;
   currency: string;
   business_name: string;
   business_tax_id: string;
@@ -63,7 +65,7 @@ export type CompanySetup = {
   bank_account_entity_type: string;
 };
 
-type StripeAccountStatus = {
+export type StripeAccountStatus = {
   action: typeof BLOCK_BACKOFFICE | typeof WARN | typeof DO_NOTHING;
   reason: string;
   date_account_blocked: string;
@@ -152,14 +154,14 @@ export type CompanyState = {
   search: {
     loading: boolean;
     error: Error | null;
-    allIds: Array<number>;
+    allIds: number[];
   };
   setup: CompanySetup | null;
 };
 
 export type StripeCompany = {
   currently_due_verifications: number;
-  currently_due_deadline: number;
+  currently_due_deadline?: string;
   past_due_verifications: number;
   company: number;
   stripe_id: string;
@@ -177,3 +179,22 @@ export type AccountConfigurationStep =
   | typeof BANK_ACCOUNT_CONFIGURATION_STEP
   | typeof PAYMENT_METHOD_CONFIGURATION_STEP
   | typeof ACCOUNT_CONFIGURATION_FINAL_STEP;
+
+export type CompanyCreationParams = {
+  locale: string;
+  name: string;
+  access_code?: string;
+  timezone_name?: string;
+  email: string;
+  password: string;
+};
+
+export type GetOnboardingLinkParams = {
+  account_token: string;
+  return_url?: string;
+};
+
+export type FetchCompanyListParams = {
+  search?: string;
+  id__in?: number[];
+};

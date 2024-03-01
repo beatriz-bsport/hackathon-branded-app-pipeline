@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import moment, { Moment } from 'moment-timezone';
 import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
 
@@ -72,19 +72,26 @@ import type {
 } from '#libs/communication-v2/types';
 
 import type { OptionCallback } from '../../../state/types';
-import type { ResolvedGenericTags } from '#libs/email-editor/types';
+import type {
+  EmailTemplateDetail,
+  EmailTemplateSummary,
+  ResolvedGenericTags,
+} from '#libs/email-editor/types';
 
 const WRITE_EMAIL = 0;
 const SELECT_EMAIL = 1;
 const SEND_SMS = 2;
 const SEND_PUSH_NOTIFICATION = 3;
 
+const MEMBER_PAGE_SIZE = 5;
+
 const COMPANY_ALLOWED_TO_SEND_SMARTLIST_COMMUNICATION_WITH_DB_ERROR = [
   1149, 1150, 1148, 1151, 1147, 1146, 1860, 1557, 1861, 1152, 1145, 1144, 1143,
   1155, 1142, 1141, 1153, 1399, 1140, 1139, 1138, 1136, 1134, 1154, 1135,
 ];
-type Props = {
-  actionType: number;
+
+type OwnProps = {
+  actionType?: number;
   communicationScheduledToEdit?: CommunicationScheduled;
   companyId?: number;
   countTotal: number | null;
@@ -95,28 +102,30 @@ type Props = {
     options?: OptionCallback,
   ) => void;
   emailDetailLoading: boolean;
-  emailDetails: Array<any>;
+  emailDetails: {
+    [templateId: number]: EmailTemplateDetail;
+  };
   emailListLoading: boolean;
-  emails: Array<any>;
+  emails: EmailTemplateSummary[];
   fetchNextPage?: (page: number, page_size: number) => void;
   fetchPreviousPage?: (page: number, page_size: number) => void;
   getEmailDetail: (id: number) => void;
   getEmails: () => void;
   hideAutoResend?: boolean;
   hideMemberList?: boolean;
-  hideTemplateMail: boolean;
-  hideWrittenMail: boolean;
+  hideTemplateMail?: boolean;
+  hideWrittenMail?: boolean;
   hoursToSend?: { min: number; max: number };
   mailDefaultTitle?: string;
   membersAllLoading: boolean;
   membersByPageLoading: boolean;
-  membersToDisplay: Array<Member>;
+  membersToDisplay: Member[];
   memberToDisplayError?: Error | null;
   onCancel: () => void;
   open: boolean;
-  page_size: number;
+  page_size?: number;
   page: number;
-  receiversNotEditable: boolean;
+  receiversNotEditable?: boolean;
   resolvedGenericTags: ResolvedGenericTags;
   schedule?: (data: Omit<CommunicationScheduledCreate, 'smartlist'>) => void;
   send?: (data: Partial<MemberMailData>) => void;
@@ -124,8 +133,9 @@ type Props = {
   showEmailConsentWarning?: boolean;
   showSmsConsentWarning?: boolean;
   timezone: string;
-} & WithTranslation &
-  WithStyles;
+};
+
+type Props = OwnProps & WithTranslation & WithStyles;
 
 type State = {
   actionType: number;
@@ -146,12 +156,11 @@ type State = {
   selectedTemplate: number | null;
   smsContent: string;
   unCheckedMembers: {
-    phone: Array<number>;
-    email: Array<number>;
-    notification: Array<number>;
+    phone: number[];
+    email: number[];
+    notification: number[];
   };
 };
-const MEMBER_PAGE_SIZE = 5;
 
 const getCorrespondingActionType = (kind: number, has_design: boolean) => {
   switch (kind) {
@@ -167,7 +176,7 @@ const getCorrespondingActionType = (kind: number, has_design: boolean) => {
   }
 };
 
-export class CommunicationDrawer extends Component<Props, State> {
+class CommunicationDrawer extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
@@ -334,8 +343,7 @@ export class CommunicationDrawer extends Component<Props, State> {
         sms: this.state.smsContent,
       });
     }
-    this.onClose();
-    this.props.onCancel();
+    this.handleCloseDrawer();
   };
 
   renderCommunicationTypeChoice = () => {
@@ -486,8 +494,16 @@ export class CommunicationDrawer extends Component<Props, State> {
     });
   };
 
-  openMemberPage = (event: React.SyntheticEvent<any>, id: number) => {
-    event.preventDefault();
+  handleCloseDrawer = () => {
+    this.onClose();
+    this.props.onCancel();
+  };
+
+  openMemberPage = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    id: number,
+  ) => {
+    event?.preventDefault();
     const url = `/member/edit/${id}`;
     const win = window.open(url);
     win.focus();
@@ -580,8 +596,8 @@ export class CommunicationDrawer extends Component<Props, State> {
     return false;
   };
 
-  onSubmit = (ev: React.SyntheticEvent<any>) => {
-    ev.preventDefault();
+  onSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
+    event?.preventDefault();
 
     const communicationScheduledDateFormatted = formatAsDatetimeAdapted(
       this.state.communicationScheduledDate,
@@ -640,8 +656,7 @@ export class CommunicationDrawer extends Component<Props, State> {
             email_resend_delay: this.state.resendDelay,
           });
         }
-        this.onClose();
-        this.props.onCancel();
+        this.handleCloseDrawer();
         break;
       case SEND_SMS:
         this.setState({ isSmsCostReminderModalOpen: true });
@@ -696,8 +711,7 @@ export class CommunicationDrawer extends Component<Props, State> {
             email_resend_delay: this.state.resendDelay,
           });
         }
-        this.onClose();
-        this.props.onCancel();
+        this.handleCloseDrawer();
         break;
       case SEND_PUSH_NOTIFICATION:
         if (this.state.isCommunicationScheduled) {
@@ -747,12 +761,10 @@ export class CommunicationDrawer extends Component<Props, State> {
             notification_content: this.state.notificationContent,
           });
         }
-        this.onClose();
-        this.props.onCancel();
+        this.handleCloseDrawer();
         break;
       default:
-        this.onClose();
-        this.props.onCancel();
+        this.handleCloseDrawer();
         break;
     }
   };
@@ -844,11 +856,17 @@ export class CommunicationDrawer extends Component<Props, State> {
 
   render() {
     const {
-      open,
+      classes,
       emailDetailLoading,
       emailDetails,
       emailListLoading,
       emails,
+      fetchNextPage,
+      fetchPreviousPage,
+      getEmailDetail,
+      getEmails,
+      hideAutoResend,
+      hideMemberList,
       hideTemplateMail,
       hideWrittenMail,
       mailDefaultTitle,
@@ -856,26 +874,17 @@ export class CommunicationDrawer extends Component<Props, State> {
       membersByPageLoading,
       membersToDisplay,
       onCancel,
+      open,
       page,
       receiversNotEditable,
-      getEmailDetail,
-      getEmails,
-      fetchNextPage,
-      fetchPreviousPage,
-      t,
       resolvedGenericTags,
-      classes,
-      hideAutoResend,
-      hideMemberList,
+      t,
     } = this.props;
 
     return (
       <>
         <GenericResponsiveDrawer
-          onClose={() => {
-            this.onClose();
-            onCancel();
-          }}
+          onClose={this.handleCloseDrawer}
           open={open}
           title={t('mail.dialogTitle')}
         >
@@ -1213,13 +1222,7 @@ export class CommunicationDrawer extends Component<Props, State> {
                     </Alert>
                   )}
                 <DialogActions>
-                  <Button
-                    color="secondary"
-                    onClick={() => {
-                      this.onClose();
-                      onCancel();
-                    }}
-                  >
+                  <Button color="secondary" onClick={this.handleCloseDrawer}>
                     {t('common.cancel')}
                   </Button>
                   <Button
@@ -1287,13 +1290,6 @@ const styles = (theme: Theme) =>
     sectionTitleIcon: {
       color: theme.palette.text.secondary,
     },
-    arrowUpIcon: {
-      transform: 'rotate(0)',
-      transition: 'all ease 0.3s',
-    },
-    rotate: {
-      transform: 'rotate(-180deg)',
-    },
     adornment: {
       paddingLeft: theme.spacing(1),
       color: theme.palette.text.secondary,
@@ -1339,7 +1335,8 @@ const styles = (theme: Theme) =>
     },
   });
 
-export default compose(
+export default compose<Props, OwnProps>(
   withTranslation(['communication', 'common']),
   withStyles(styles),
+  React.memo,
 )(CommunicationDrawer);

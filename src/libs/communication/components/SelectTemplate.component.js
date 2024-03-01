@@ -24,15 +24,23 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import EmailSelector from '../../email-editor/components/EmailSelector.component';
 import HTMLPreview from '../../../components/html/HTMLPreview.component';
 
+import type {
+  EmailTemplateDetail,
+  EmailTemplateSummary,
+  ResolvedGenericTags,
+} from '#libs/email-editor/types';
+
 type Props = {
   onCancel: () => void,
   classes: Object,
   t: TFunction,
   getEmailDetail: (id: number) => void,
   emailListLoading: boolean,
-  emails: Array<any>,
+  emails: EmailTemplateSummary[],
   emailDetailLoading: boolean,
-  emailDetails: Array<any>,
+  emailDetails: {
+    [templateId: number]: EmailTemplateDetail,
+  },
   onChangeTitle: (string) => void,
   onChangeTemplate: (id: number) => void,
   selectedMail: number,

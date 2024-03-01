@@ -9,6 +9,7 @@ import { connect, ConnectedProps } from 'react-redux';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { createStyles, Theme } from '@material-ui/core';
+import { buildMemberReferralLink } from '@bsport/common/lib/referrals';
 import Config from '../../config';
 import { RootState } from '../../reducers';
 import { WithHandlerType } from '../../utils/types';
@@ -67,7 +68,6 @@ import {
   getReferralProgramsLoading,
   getReferralMemberStatusLoading,
 } from '#libs/referral/selectors';
-import { buildMemberReferralLink } from '#libs/referral/utils';
 import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
 
 type RouterProps = {

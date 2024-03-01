@@ -15,6 +15,7 @@ import { createStyles, Theme, withStyles } from '@material-ui/core/styles';
 import WarningIcon from '@material-ui/icons/Warning';
 import { Clear, HourglassFull, ShoppingBasket, Star } from '@material-ui/icons';
 import { WAITING_LIST_DYNAMIC_ORDERED } from '@bsport/common/lib/master-data/waiting-list-dynamic';
+import { buildMemberReferralLink } from '@bsport/common/lib/referrals';
 import { RootState } from '../../../reducers';
 import withQueryParams from '../../../hocs/with-query-params.hoc';
 import themeSelectors from '#libs/theme/selectors';
@@ -62,7 +63,6 @@ import {
   getReferralMemberStatusThroughMembership,
 } from '#libs/referral/selectors';
 import Config from '../../../config';
-import { buildMemberReferralLink } from '#libs/referral/utils';
 import ReferralLinkIncentive from '#libs/referral/components/ReferralLinkIncentive.component';
 import {
   getMemberDetailData,

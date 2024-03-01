@@ -486,6 +486,8 @@ const getTranslations = async () => {
       },
     },
     scheduled: {
+      chooseDate: 'Pick a date',
+      chooseTime: 'Pick a time',
       numberOfRecipients: 'Recipient: {{ count }}',
       numberOfRecipients_plural: 'Recipients: {{ count }}',
       scheduledFor: 'Scheduled for: {{ datetime }}',
@@ -518,6 +520,12 @@ const getTranslations = async () => {
         content:
           "This message can't be changed or deleted within 5 minutes of sending.",
         close: 'Back to smartlist',
+      },
+      deleteDialog: {
+        title: 'Delete this message',
+        content: 'Are you sure you want to delete this message?',
+        close: 'Cancel',
+        submit: 'Delete',
       },
     },
   };

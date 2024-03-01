@@ -1311,6 +1311,8 @@
       }
     },
     "scheduled": {
+      "chooseDate": "Pick a date",
+      "chooseTime": "Pick a time",
       "numberOfRecipients": "Recipient: {{ count }}",
       "numberOfRecipients_plural": "Recipients: {{ count }}",
       "scheduledFor": "Scheduled for: {{ datetime }}",
@@ -1340,6 +1342,12 @@
         "title": "You cannot modify or delete this message anymore.",
         "content": "This message can't be changed or deleted within 5 minutes of sending.",
         "close": "Back to smartlist"
+      },
+      "deleteDialog": {
+        "title": "Delete this message",
+        "content": "Are you sure you want to delete this message?",
+        "close": "Cancel",
+        "submit": "Delete"
       }
     }
   },

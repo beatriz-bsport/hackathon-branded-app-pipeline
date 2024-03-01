@@ -1,7 +1,7 @@
-// @ts-nocheck
 import React from 'react';
+import Immutable from 'seamless-immutable';
+import { WithTranslation, withTranslation } from 'react-i18next';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
-
 import { connect, ConnectedProps } from 'react-redux';
 import { push } from 'connected-react-router';
 
@@ -11,18 +11,16 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-
-import { WithTranslation, withTranslation } from 'react-i18next';
 import { withStyles, Theme } from '@material-ui/core/styles';
 
-// @ts-expect-error
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import Config from '../../config';
 
-import { WithHandlerType, MaterialStyleType } from '#utils/types';
-import type { CampaignExportStartEndDates } from '#libs/communication/types';
-import type { OptionCallback } from '../../state/types';
-
+import CampaignList from '#libs/communication/components/CampaignList.component';
+import CampaignsExportLimitDialog from '#libs/communication/components/CampaignsExportLimitDialog.component';
+import CampaignsExportSection from '#libs/communication/components/CampaignsExportSection.component';
+import CommunicationDrawerDEPRECATED from '#libs/communication/components/CommunicationDrawer.component';
+import GenericMuiDialog from '#components/genericDialog/GenericMuiDIalog';
 import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 import {
@@ -35,7 +33,6 @@ import {
   getCsvExportAllCampaignsRecipientCount,
   getCsvExportAllCampaignsIsXlsxExportable,
 } from '#libs/communication/selectors';
-
 import {
   fetchCampaignSmartlist,
   fetchCampaignSmartlistAutomated,
@@ -44,10 +41,6 @@ import {
   fetchLatestCampaignExportLink as fetchLatestCampaignExportLinkAction,
 } from '#libs/communication/actions';
 import { fetchSmartListAutomatedCampaign } from '#libs/smart-list/actions';
-
-import type { RootState } from '../../reducers';
-import GenericMuiDialog from '#components/genericDialog/GenericMuiDIalog';
-import CampaignList from '#libs/communication/components/CampaignList.component';
 import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#libs/notification-rule/actions';
 import { getResolvedGenericTags } from '#libs/notification-rule/selectors';
 import { CommunicationScheduledList } from '#libs/smart-list/components/communication_scheduled/CommunicationScheduledList.component';
@@ -63,8 +56,6 @@ import {
   updateCommunicationScheduled as updateCommunicationScheduledAction,
   sendNowCommunicationScheduled as sendNowCommunicationScheduledAction,
 } from '#libs/communication-v2/actions';
-// @ts-expect-error
-import CommunicationDrawerDEPRECATED from '#libs/communication/components/CommunicationDrawer.component';
 import {
   getAllEmailTemplatesSummaries,
   getEmailTemplatesDetail,
@@ -74,9 +65,13 @@ import {
   emailTemplateDetail,
   emailTemplatesSummaries,
 } from '#libs/email-editor/actions';
+import { MINUTE_LIMIT_TO_SCHEDULE_COMMUNICATION } from '#libs/communication-v2/constants';
+
+import type { CampaignExportStartEndDates } from '#libs/communication/types';
 import type { CommunicationScheduled } from '#libs/communication-v2/types';
-import CampaignsExportSection from '#libs/communication/components/CampaignsExportSection.component';
-import CampaignsExportLimitDialog from '#libs/communication/components/CampaignsExportLimitDialog.component';
+import type { OptionCallback } from '../../state/types';
+import type { RootState } from '../../reducers';
+import type { WithHandlerType, MaterialStyleType } from '#utils/types';
 
 type OwnProps = {
   id: number;
@@ -90,8 +85,8 @@ type State = {
   openAutomatedCampaignSection: boolean;
   openCampaignsExportSection: boolean;
   openExportLimitDialog: boolean;
-  openEditEmail: boolean;
-  communicationScheduledToEdit?: CommunicationScheduled;
+  openEditCommunication: boolean;
+  communicationScheduledSelected?: CommunicationScheduled;
   isTooLateToUpdateCommunicationScheduledDialogOpen: boolean;
 };
 
@@ -181,7 +176,7 @@ export class SmartListCampaign extends React.Component<Props> {
     communicationScheduled: CommunicationScheduled,
   ) =>
     new Date(communicationScheduled.datetime_scheduled) >
-    new Date(Date.now() + 5 * 60 * 1000);
+    new Date(Date.now() + MINUTE_LIMIT_TO_SCHEDULE_COMMUNICATION * 60 * 1000);
 
   openTooLateToUpdateCommunicationScheduledDialog = () =>
     this.props.setIsTooLateToUpdateCommunicationScheduledDialogOpen(true);
@@ -208,12 +203,21 @@ export class SmartListCampaign extends React.Component<Props> {
     communicationScheduled: CommunicationScheduled,
   ) => {
     if (this.checkIsMessageSchedulable(communicationScheduled)) {
-      this.props.setCommunicationScheduledToEdit(communicationScheduled);
-      this.props.setOpenEditEmail(true);
+      this.props.setCommunicationScheduledSelected(communicationScheduled);
+      this.props.setOpenEditCommunication(true);
     } else {
       this.openTooLateToUpdateCommunicationScheduledDialog();
     }
   };
+
+  getCampaignList = () =>
+    Immutable(
+      Array.isArray(this.props.automatedCampaignList)
+        ? this.props.automatedCampaignList
+            .filter((_campaign) => !!_campaign)
+            .map((campaign) => [campaign, null])
+        : [[this.props.automatedCampaignList, null]],
+    );
 
   render() {
     const {
@@ -326,10 +330,7 @@ export class SmartListCampaign extends React.Component<Props> {
         <Divider className={classes.divider} />
         <Collapse in={openAutomatedCampaignSection}>
           <CampaignList
-            campaignList={this.props?.automatedCampaignList.map((campaign) => [
-              campaign,
-              null,
-            ])}
+            campaignList={this.getCampaignList()}
             fetchMore={
               this.props?.automatedCampaignState.next_page
                 ? () =>
@@ -380,7 +381,9 @@ export class SmartListCampaign extends React.Component<Props> {
         </Collapse>
         <CommunicationDrawerDEPRECATED
           hideMemberList
-          communicationScheduledToEdit={this.props.communicationScheduledToEdit}
+          communicationScheduledToEdit={
+            this.props.communicationScheduledSelected
+          }
           companyId={this.props.companyId}
           countTotal={this.props.members.countTotal}
           countWithEmail={this.props.members.countWithEmail}
@@ -402,11 +405,10 @@ export class SmartListCampaign extends React.Component<Props> {
           membersToDisplay={this.props.members.displayItems}
           memberToDisplayError={this.props.members.error}
           onCancel={() => {
-            this.props.setOpenEditEmail(false);
-            this.props.setCommunicationScheduledToEdit(null);
+            this.props.setOpenEditCommunication(false);
+            this.props.setCommunicationScheduledSelected(null);
           }}
-          onClose={() => this.props.setOpenEditEmail(false)}
-          open={this.props.openEditEmail}
+          open={this.props.openEditCommunication}
           page={this.props.members.page}
           resolvedGenericTags={this.props.resolvedGenericTags}
           sendNow={this.props.sendCommunicationScheduled}
@@ -525,7 +527,7 @@ const mapWithHandlers = {
           },
         },
         {
-          onSuccess: (isExportable) => {
+          onSuccess: (isExportable: boolean) => {
             if (isExportable) {
               props.exportSmartlistCampaignsBackgroundTaskAction(
                 {
@@ -575,8 +577,8 @@ const withStateHandlersInit: State = {
   openAutomatedCampaignSection: true,
   openCampaignsExportSection: true,
   openExportLimitDialog: false,
-  openEditEmail: false,
-  communicationScheduledToEdit: null,
+  openEditCommunication: false,
+  communicationScheduledSelected: null,
   isTooLateToUpdateCommunicationScheduledDialogOpen: false,
 };
 
@@ -599,12 +601,12 @@ const withStateHandlersSetter = {
   setOpenExportLimitDialog: () => (openExportLimitDialog: boolean) => {
     return { openExportLimitDialog };
   },
-  setOpenEditEmail: () => (openEditEmail: boolean) => {
-    return { openEditEmail };
+  setOpenEditCommunication: () => (openEditCommunication: boolean) => {
+    return { openEditCommunication };
   },
-  setCommunicationScheduledToEdit:
-    () => (communicationScheduledToEdit: CommunicationScheduled) => {
-      return { communicationScheduledToEdit };
+  setCommunicationScheduledSelected:
+    () => (communicationScheduledSelected: CommunicationScheduled) => {
+      return { communicationScheduledSelected };
     },
   setIsTooLateToUpdateCommunicationScheduledDialogOpen:
     () => (isTooLateToUpdateCommunicationScheduledDialogOpen: boolean) => {

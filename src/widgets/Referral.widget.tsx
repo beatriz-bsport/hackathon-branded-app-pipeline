@@ -12,10 +12,8 @@ import type { Theme } from 'bsport-saas/src/libs/theme/types';
 import type { RootState } from '../reducers';
 import {
   bridgeRequestAuthenticationStatus as bridgeRequestAuthenticationStatusAction,
-  bridgeRetrieveReferralProgramForCompany as bridgeRetrieveReferralProgramForCompanyAction,
-  bridgeRetrieveReferralMemberStatus as bridgeRetrieveReferralMemberStatusAction,
-  bridgeRetrieveMember as bridgeRetrieveMemberAction,
-  bridgeRetrieveMembershipByCompany as bridgeRetrieveMembershipByCompanyAction,
+  createAuthenticatedBridgeAction,
+  createFreeBridgeAction,
 } from '../libs/bridge/actions';
 import {
   closeUserInteractionPortal as closeUserInteractionPortalAction,
@@ -120,10 +118,16 @@ const mapDispatchToWidgetProps = {
   bridgeRequestAuthenticationStatus: bridgeRequestAuthenticationStatusAction,
   showLogin: genericShowLoginAction,
   closeUserInteractionPortal: closeUserInteractionPortalAction,
-  bridgeRetrieveReferralProgramForCompany: bridgeRetrieveReferralProgramForCompanyAction,
-  bridgeretrieveReferralMemberStatus: bridgeRetrieveReferralMemberStatusAction,
-  fetchMember: bridgeRetrieveMemberAction,
-  fetchMembershipByCompany: bridgeRetrieveMembershipByCompanyAction,
+  bridgeRetrieveReferralProgramForCompany: createFreeBridgeAction(
+    'FETCH_REFERRAL_PROGRAM_BY_COMPANY',
+  ),
+  bridgeretrieveReferralMemberStatus: createAuthenticatedBridgeAction(
+    'FETCH_REFERRAL_PROGRAM_MEMBER_STATUS',
+  ),
+  fetchMember: createAuthenticatedBridgeAction('FETCH_MEMBER_BY_ID'),
+  fetchMembershipByCompany: createAuthenticatedBridgeAction(
+    'MEMBERSHIP_BY_COMPANY',
+  ),
 };
 
 export default compose<Props, OwnProps>(

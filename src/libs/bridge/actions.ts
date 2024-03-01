@@ -1,6 +1,7 @@
 import {
   WidgetApiMessageType,
   WidgetMessageType,
+  widgetApiMessageTypes,
 } from 'bsport-saas/src/libs/widget/types';
 
 import { snackbarSuccess } from 'bsport-saas/src/actions/snackbar.actions';
@@ -9,8 +10,7 @@ import { createAction } from 'redux-actions';
 import { ThunkDispatch } from 'redux-thunk';
 import { Action } from 'redux';
 import type { OptionCallback } from 'bsport-saas/src/state/types';
-import type { Company } from 'bsport-saas/src/libs/company/types';
-import type { ReferralProgram } from 'bsport-saas/src/libs/referral/types';
+
 import { closeUserInteractionPortal } from '../modal/actions';
 
 import { RootState } from '../../reducers';
@@ -97,25 +97,16 @@ export function bridgeRequestVideoPlaybackUrl(videoId: number) {
   };
 }
 
-// ----- Referral -----
+// ----- Universal actions using the new queryClient (callHandler) -----
 
-export function bridgeRetrieveReferralProgramForCompany(
-  companyId: number,
-  options: OptionCallback<ReferralProgram>,
-) {
-  return async (
-    dispatch: ThunkDispatch<RootState, unknown, Action<unknown>>,
-  ) => {
-    apiCallHandler.sendRequest({
-      action: retrieveReferralProgramForCompanyActions,
-      dispatch,
-      payload: { args: companyId, options },
-      type: WidgetApiMessageType.FETCH_REFERRAL_PROGRAM_BY_COMPANY,
-    });
-  };
-}
+/**
+ * This function is used to create a bridge action that requires authentication
+ * @param type action type, used to identify the action in the bridge
+ */
 
-export function bridgeRetrieveReferralMemberStatus(memberId: number) {
+export const createAuthenticatedBridgeAction = <T, R>(
+  type: WidgetApiMessageType,
+) => (args: T, options?: OptionCallback<R>) => {
   return async (
     dispatch: ThunkDispatch<RootState, unknown, Action<unknown>>,
     getState: () => RootState,
@@ -123,50 +114,33 @@ export function bridgeRetrieveReferralMemberStatus(memberId: number) {
     if (!getState().bridge.authentication.hasBeenReceived) return;
 
     apiCallHandler.sendRequest({
-      action: retrieveReferralMemberStatusActions,
-      payload: { args: memberId },
+      payload: { args, options },
       dispatch,
-      type: WidgetApiMessageType.FETCH_REFERRAL_PROGRAM_MEMBER_STATUS,
+      type,
     });
   };
-}
+};
 
-export function bridgeRetrieveMember(memberId: number) {
+/**
+ * This function is used to create a bridge action that does not require authentication
+ * @param type action type, used to identify the action in the bridge
+ */
+
+export const createFreeBridgeAction = <T, R>(type: WidgetApiMessageType) => (
+  args: T,
+  options?: OptionCallback<R>,
+) => {
   return async (
     dispatch: ThunkDispatch<RootState, unknown, Action<unknown>>,
-    getState: () => RootState,
   ) => {
-    if (!getState().bridge.authentication.hasBeenReceived) return;
-
     apiCallHandler.sendRequest({
-      action: retrieveMemberAction,
+      payload: { args, options },
       dispatch,
-      type: WidgetApiMessageType.FETCH_MEMBER_BY_ID,
-      payload: { args: memberId },
+      type,
     });
   };
-}
+};
 
-export function bridgeRetrieveMembershipByCompany(
-  companyId: number,
-  options?: OptionCallback<Company>,
-) {
-  return async (
-    dispatch: ThunkDispatch<RootState, unknown, Action<unknown>>,
-    getState: () => RootState,
-  ) => {
-    if (!getState().bridge.authentication.hasBeenReceived) return;
-    apiCallHandler.sendRequest({
-      type: WidgetApiMessageType.MEMBERSHIP_BY_COMPANY,
-      dispatch,
-      action: retrieveMembershipByCompanyAction,
-      payload: {
-        args: companyId,
-        options,
-      },
-    });
-  };
-}
 // Internal Actions to mutate the reducer
 // --------------------------------------
 export const authenticationStatusActions = {
@@ -210,29 +184,38 @@ export const retrieveReferralProgramForCompanyActions = {
   isLoading: createAction('REFERRAL/BRIDGE/PROGRAM_FOR_COMPANY/LOADING'),
   error: createAction('REFERRAL/BRIDGE/PROGRAM_FOR_COMPANY/ERROR'),
 };
+apiCallHandler.bindActions(
+  'FETCH_REFERRAL_PROGRAM_BY_COMPANY',
+  retrieveReferralProgramForCompanyActions,
+);
 
 export const retrieveReferralMemberStatusActions = {
   success: createAction('REFERRAL/BRIDGE/MEMBER_STATUS/SUCCESS'),
   isLoading: createAction('REFERRAL/BRIDGE/MEMBER_STATUS/LOADING'),
   error: createAction('REFERRAL/BRIDGE/MEMBER_STATUS/ERROR'),
 };
+apiCallHandler.bindActions(
+  'FETCH_REFERRAL_PROGRAM_MEMBER_STATUS',
+  retrieveReferralMemberStatusActions,
+);
 
 export const retrieveMemberAction = {
   success: createAction('REFERRAL/BRIDGE/MEMBER/SUCCESS'),
   isLoading: createAction('REFERRAL/BRIDGE/MEMBER/LOADING'),
   error: createAction('REFERRAL/BRIDGE/MEMBER/ERROR'),
 };
+apiCallHandler.bindActions('FETCH_MEMBER_BY_ID', retrieveMemberAction);
+
 export const retrieveMembershipByCompanyAction = {
   success: createAction('REFERRAL/BRIDGE/MEMBERSHIP_BY_COMPANY/SUCCESS'),
   isLoading: createAction('REFERRAL/BRIDGE/MEMBERSHIP_BY_COMPANY/LOADING'),
   error: createAction('REFERRAL/BRIDGE/MEMBERSHIP_BY_COMPANY/ERROR'),
 };
+apiCallHandler.bindActions(
+  'MEMBERSHIP_BY_COMPANY',
+  retrieveMembershipByCompanyAction,
+);
 
-export const fetchMyUserProfileActions = {
-  success: createAction('BRIDGE/MY_USER_PROFILE/SUCCESS'),
-  isLoading: createAction('BRIDGE/MY_USER_PROFILE/LOADING'),
-  error: createAction('BRIDGE/MY_USER_PROFILE/ERROR'),
-};
 // Second part: how to handle messages
 // -----------------------------------
 
@@ -357,43 +340,17 @@ export const handleBridgeMessage = (eventData: EventData) => (
       dispatch(closeUserInteractionPortal());
       break;
 
-    case WidgetApiMessageType.MEMBERSHIP_BY_COMPANY:
-      apiCallHandler.handleResponse({
-        actions: retrieveMembershipByCompanyAction,
-        type: eventData.type,
-        dispatch,
-        response: { data: eventData.data, error: eventData.error },
-      });
-      break;
-
-    case WidgetApiMessageType.FETCH_MEMBER_BY_ID:
-      apiCallHandler.handleResponse({
-        actions: retrieveMemberAction,
-        type: eventData.type,
-        dispatch,
-        response: { data: eventData.data, error: eventData.error },
-      });
-      break;
-
-    case WidgetApiMessageType.FETCH_REFERRAL_PROGRAM_MEMBER_STATUS:
-      apiCallHandler.handleResponse({
-        actions: retrieveReferralMemberStatusActions,
-        type: eventData.type,
-        dispatch,
-        response: { data: eventData.data, error: eventData.error },
-      });
-      break;
-
-    case WidgetApiMessageType.FETCH_REFERRAL_PROGRAM_BY_COMPANY:
-      apiCallHandler.handleResponse({
-        actions: retrieveReferralProgramForCompanyActions,
-        type: eventData.type,
-        dispatch,
-        response: { data: eventData.data, error: eventData.error },
-      });
-      break;
-
     default:
+      // @ts-expect-error type narrowing issues that will be fixed once refactor complete
+      if (widgetApiMessageTypes.includes(eventData.type)) {
+        apiCallHandler.handleResponse({
+          // @ts-expect-error same
+          type: eventData.type,
+          dispatch,
+          // @ts-expect-error same
+          response: { data: eventData.data, error: eventData.error },
+        });
+      }
       break;
   }
 };

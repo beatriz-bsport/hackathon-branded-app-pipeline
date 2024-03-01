@@ -1,8 +1,10 @@
 import type { WidgetApiMessageType } from 'bsport-saas/src/libs/widget/types';
 import type { OptionCallback } from 'bsport-saas/src/state/types';
 import type { Dispatch } from 'react';
-import type { Action } from 'redux';
-import type { ActionFunctionAny } from 'redux-actions';
+import {
+  BridgeAPIActionsRegistry,
+  ApiCallAction,
+} from 'bsport-saas/src/libs/widget/actionsRegistry';
 
 type QueryClientParams = {
   timeBetweenRefetchs: number,
@@ -14,6 +16,8 @@ class BridgeApiCallHandler {
   #timeBetweenRefetchs: number;
 
   #maxCallAttempts: number;
+
+  #actionsRegistry: BridgeAPIActionsRegistry;
 
   #requestStatusStore: Partial<
     // @ts-expect-error due to prettier trailing comma
@@ -31,34 +35,29 @@ class BridgeApiCallHandler {
     >,
   > = {};
 
-  /**
-   * @param timeBetweenRefetchs: the time the client waits for a response between sending another request. Unit: ms
-   * @param maxCallAttempts: the maximum amount of requests the client sends to bsport DOM. This includes unfulfilled requests and error refetchs
-   * @param retryOnError: if set to true, if the client receives a response with an error, it will keep the call in pending state and send another request after [timeBetweenRefetchs]
-   */
-
   constructor(params: QueryClientParams) {
     this.#timeBetweenRefetchs = params.timeBetweenRefetchs;
     this.#maxCallAttempts = params.maxCallAttempts;
     this.#requestStatusStore = {};
     this.#retryOnError = params.retryOnError;
+    this.#actionsRegistry = new BridgeAPIActionsRegistry('widget');
+  }
+
+  bindActions(type: WidgetApiMessageType, actions: ApiCallAction) {
+    this.#actionsRegistry.register(type, actions);
   }
 
   sendRequest<A, T>({
-    action,
-    dispatch,
     payload,
     type,
+    dispatch,
   }: {
     type: WidgetApiMessageType,
-    dispatch: Dispatch<any>,
-    action: Record<
-      'success' | 'isLoading' | 'error',
-      // @ts-expect-error due to prettier trailing comma
-      ActionFunctionAny<Action<any>>,
-    >,
     payload: { args: A, options?: OptionCallback<T> },
+    dispatch: Dispatch<any>,
   }) {
+    const action = this.#actionsRegistry.get(type);
+
     const iframe = document.getElementById('@bsport-bridge-iframe');
 
     if (!iframe || !(iframe instanceof HTMLIFrameElement)) {
@@ -108,7 +107,6 @@ class BridgeApiCallHandler {
   }
 
   handleResponse({
-    actions,
     dispatch,
     response,
     type,
@@ -116,12 +114,8 @@ class BridgeApiCallHandler {
     type: WidgetApiMessageType,
     response: { data: unknown, error?: Error },
     dispatch: Dispatch<any>,
-    actions: {
-      success: ActionFunctionAny<Action<any>>,
-      isLoading: ActionFunctionAny<Action<any>>,
-      error: ActionFunctionAny<Action<any>>,
-    },
   }) {
+    const actions = this.#actionsRegistry.get(type);
     if (response.error) {
       if (this.#retryOnError && this.#requestStatusStore[type] === 'pending') {
         return;
@@ -141,6 +135,21 @@ class BridgeApiCallHandler {
     dispatch(actions.isLoading(false));
   }
 }
+/**
+ * The bridge query client. Use it to handle the communication between the widget and the bsport DOM.
+ *
+ * To make a call using the handler, you need to:
+ * - Create your actions (success, loading, error) and bind them to their corresponding identifier.
+ * - Then pass to your widget the correct action using `createFreeBridgeAction` or `createAuthenticatedBridgeAction`
+ * (depending on the authentication status of the user). And that's all!
+ *
+ * @method bindActions - Method to bind actions to the bridge API.
+ * @method sendRequest - Method to send a request to the bridge API.
+ * @method handleResponse -  You won't need to call this method. It handles the response from the bridge API.
+ * @param {number} timeBetweenRefetchs - The time the client waits for a response before sending another request (in milliseconds).
+ * @param {number} maxCallAttempts - The maximum amount of requests the client sends to bsport DOM. This includes unfulfilled requests and error refetches.
+ * @param {boolean} retryOnError - If set to true, if the client receives a response with an error, it will keep the call in pending state and send another request after [timeBetweenRefetchs].
+ */
 
 export const apiCallHandler = new BridgeApiCallHandler({
   timeBetweenRefetchs: 3000,

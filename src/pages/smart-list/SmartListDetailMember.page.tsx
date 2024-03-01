@@ -183,6 +183,8 @@ import { CONTEXT_SMARTLIST } from '#libs/communication-v2/constants';
 import BottomActionsButtonCustom from '#components/button/BottomActionsButtonCustom.component';
 
 import GenericMuiDialog from '#components/genericDialog/GenericMuiDIalog';
+import GenericDeleteDialog from '#components/genericDialog/GenericDeleteDialog.component';
+
 import Config from '../../config';
 import {
   getCommunicationScheduledForSmartlist,
@@ -231,6 +233,7 @@ type State = {
   resetMembersFetchForCommunication: boolean;
   communicationScheduledSelected: CommunicationScheduled | null;
   isTooLateToUpdateCommunicationScheduledDialogOpen: boolean;
+  isDeleteCommunicationScheduledDialogOpen: boolean;
 };
 
 export class SmartListDetailMember extends React.Component<Props, State> {
@@ -240,6 +243,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
     resetMembersFetchForCommunication: true,
     communicationScheduledSelected: null,
     isTooLateToUpdateCommunicationScheduledDialogOpen: false,
+    isDeleteCommunicationScheduledDialogOpen: false,
   };
 
   componentDidMount() {
@@ -411,6 +415,16 @@ export class SmartListDetailMember extends React.Component<Props, State> {
       isTooLateToUpdateCommunicationScheduledDialogOpen: false,
     });
 
+  openDeleteCommunicationScheduledDialog = () =>
+    this.setState({
+      isDeleteCommunicationScheduledDialogOpen: true,
+    });
+
+  closeDeleteCommunicationScheduledDialog = () =>
+    this.setState({
+      isDeleteCommunicationScheduledDialogOpen: false,
+    });
+
   checkIsMessageSchedulable = (
     communicationScheduled: CommunicationScheduled,
   ) =>
@@ -430,14 +444,34 @@ export class SmartListDetailMember extends React.Component<Props, State> {
     }
   };
 
-  handleCancelCommunicationScheduled = (
+  openCommunicationScheduledDeletionDrawer = (
     communicationScheduled: CommunicationScheduled,
   ) => {
     if (this.checkIsMessageSchedulable(communicationScheduled)) {
-      this.props.cancelCommunicationScheduled(communicationScheduled.id);
+      this.setState({
+        communicationScheduledSelected: communicationScheduled,
+      });
+      this.openDeleteCommunicationScheduledDialog();
     } else {
       this.openTooLateToUpdateCommunicationScheduledDialog();
     }
+  };
+
+  handleCancelCommunicationScheduled = () => {
+    if (this.state.communicationScheduledSelected) {
+      if (
+        this.checkIsMessageSchedulable(
+          this.state.communicationScheduledSelected,
+        )
+      ) {
+        this.props.cancelCommunicationScheduled(
+          this.state.communicationScheduledSelected.id,
+        );
+      } else {
+        this.openTooLateToUpdateCommunicationScheduledDialog();
+      }
+    }
+    this.closeDeleteCommunicationScheduledDialog();
   };
 
   getHideAutoResend = () =>
@@ -495,7 +529,9 @@ export class SmartListDetailMember extends React.Component<Props, State> {
       <div>
         <FiltersPanel
           cadences={this.props.cadences}
-          cancelCommunicationScheduled={this.handleCancelCommunicationScheduled}
+          cancelCommunicationScheduled={
+            this.openCommunicationScheduledDeletionDrawer
+          }
           coaches={this.props.coaches}
           communicationScheduledList={this.props.communicationScheduledList}
           communicationScheduledLoading={
@@ -705,26 +741,48 @@ export class SmartListDetailMember extends React.Component<Props, State> {
             </>
           </ObjectLevelPermissionWrapper>
         )}
-        <SmartListEditDialog
-          fullScreen
-          onCancel={() => this.setState({ openEditDialog: false })}
-          open={this.state.openEditDialog}
-          smartlist={this.state.openEditDialog ? this.props.smartlist : null}
-          updateSmartList={this.updateSmartList}
-        />
-        <GenericMuiDialog
-          cancelText={this.props.t(
-            'communication:scheduled.tooLateToUpdateDialog.close',
-          )}
-          content={this.props.t(
-            'communication:scheduled.tooLateToUpdateDialog.content',
-          )}
-          onCancel={this.closeTooLateToUpdateCommunicationScheduledDialog}
-          open={this.state.isTooLateToUpdateCommunicationScheduledDialogOpen}
-          title={this.props.t(
-            'communication:scheduled.tooLateToUpdateDialog.title',
-          )}
-        />
+        {this.state.openEditDialog && (
+          <SmartListEditDialog
+            fullScreen
+            onCancel={() => this.setState({ openEditDialog: false })}
+            open={this.state.openEditDialog}
+            smartlist={this.state.openEditDialog ? this.props.smartlist : null}
+            updateSmartList={this.updateSmartList}
+          />
+        )}
+        {this.state.isDeleteCommunicationScheduledDialogOpen && (
+          <GenericDeleteDialog
+            cancelLabel={this.props.t(
+              'communication:scheduled.deleteDialog.close',
+            )}
+            content={this.props.t(
+              'communication:scheduled.deleteDialog.content',
+            )}
+            delayBeforeActivation={0}
+            onCancel={this.closeDeleteCommunicationScheduledDialog}
+            onValidate={this.handleCancelCommunicationScheduled}
+            open={this.state.isDeleteCommunicationScheduledDialogOpen}
+            title={this.props.t('communication:scheduled.deleteDialog.title')}
+            validateLabel={this.props.t(
+              'communication:scheduled.deleteDialog.submit',
+            )}
+          />
+        )}
+        {this.state.isTooLateToUpdateCommunicationScheduledDialogOpen && (
+          <GenericMuiDialog
+            cancelText={this.props.t(
+              'communication:scheduled.tooLateToUpdateDialog.close',
+            )}
+            content={this.props.t(
+              'communication:scheduled.tooLateToUpdateDialog.content',
+            )}
+            onCancel={this.closeTooLateToUpdateCommunicationScheduledDialog}
+            open={this.state.isTooLateToUpdateCommunicationScheduledDialogOpen}
+            title={this.props.t(
+              'communication:scheduled.tooLateToUpdateDialog.title',
+            )}
+          />
+        )}
       </div>
     );
   }

@@ -20,6 +20,7 @@ import CampaignList from '#libs/communication/components/CampaignList.component'
 import CampaignsExportLimitDialog from '#libs/communication/components/CampaignsExportLimitDialog.component';
 import CampaignsExportSection from '#libs/communication/components/CampaignsExportSection.component';
 import CommunicationDrawerDEPRECATED from '#libs/communication/components/CommunicationDrawer.component';
+import GenericDeleteDialog from '#components/genericDialog/GenericDeleteDialog.component';
 import GenericMuiDialog from '#components/genericDialog/GenericMuiDIalog';
 import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
@@ -88,6 +89,7 @@ type State = {
   openEditCommunication: boolean;
   communicationScheduledSelected?: CommunicationScheduled;
   isTooLateToUpdateCommunicationScheduledDialogOpen: boolean;
+  isDeleteCommunicationScheduledDialogOpen: boolean;
 };
 
 type StateHandlerType = State & WithHandlerType<typeof withStateHandlersSetter>;
@@ -184,19 +186,44 @@ export class SmartListCampaign extends React.Component<Props> {
   closeTooLateToUpdateCommunicationScheduledDialog = () =>
     this.props.setIsTooLateToUpdateCommunicationScheduledDialogOpen(false);
 
-  deleteCommunicationScheduled = (
+  openDeleteCommunicationScheduledDialog = () =>
+    this.props.setIsDeleteCommunicationScheduledDialogOpen(true);
+
+  closeDeleteCommunicationScheduledDialog = () =>
+    this.props.setIsDeleteCommunicationScheduledDialogOpen(false);
+
+  openCommunicationScheduledDeletionDrawer = (
     communicationScheduled: CommunicationScheduled,
   ) => {
     if (this.checkIsMessageSchedulable(communicationScheduled)) {
-      this.props.deleteCommunicationScheduled(communicationScheduled.id, {
-        onSuccess: () =>
-          this.props.fetchCommunicationScheduledListForSmartlist({
-            smartlistId: this.props.id,
-          }),
-      });
+      this.props.setCommunicationScheduledSelected(communicationScheduled);
+      this.openDeleteCommunicationScheduledDialog();
     } else {
       this.openTooLateToUpdateCommunicationScheduledDialog();
     }
+  };
+
+  deleteCommunicationScheduled = () => {
+    if (this.props.communicationScheduledSelected) {
+      if (
+        this.checkIsMessageSchedulable(
+          this.props.communicationScheduledSelected,
+        )
+      ) {
+        this.props.deleteCommunicationScheduled(
+          this.props.communicationScheduledSelected.id,
+          {
+            onSuccess: () =>
+              this.props.fetchCommunicationScheduledListForSmartlist({
+                smartlistId: this.props.id,
+              }),
+          },
+        );
+      } else {
+        this.openTooLateToUpdateCommunicationScheduledDialog();
+      }
+    }
+    this.closeDeleteCommunicationScheduledDialog();
   };
 
   openCommunicationScheduledEditionDrawer = (
@@ -303,7 +330,7 @@ export class SmartListCampaign extends React.Component<Props> {
             changePage={this.changeCommunicationScheduledPage}
             communicationScheduledList={this.props.communicationScheduledList}
             currentPage={this.props.communicationScheduledPage}
-            deleteCommunication={this.deleteCommunicationScheduled}
+            deleteCommunication={this.openCommunicationScheduledDeletionDrawer}
             editCommunication={this.openCommunicationScheduledEditionDrawer}
             loading={this.props.communicationScheduledLoading}
             total={this.props.communicationScheduledTotal}
@@ -414,13 +441,27 @@ export class SmartListCampaign extends React.Component<Props> {
           sendNow={this.props.sendCommunicationScheduled}
           timezone={this.props.timezone}
         />
-        <GenericMuiDialog
-          cancelText={t('scheduled.tooLateToUpdateDialog.close')}
-          content={t('scheduled.tooLateToUpdateDialog.content')}
-          onCancel={this.closeTooLateToUpdateCommunicationScheduledDialog}
-          open={this.props.isTooLateToUpdateCommunicationScheduledDialogOpen}
-          title={t('scheduled.tooLateToUpdateDialog.title')}
-        />
+        {this.props.isDeleteCommunicationScheduledDialogOpen && (
+          <GenericDeleteDialog
+            cancelLabel={t('scheduled.deleteDialog.close')}
+            content={t('scheduled.deleteDialog.content')}
+            delayBeforeActivation={0}
+            onCancel={this.closeDeleteCommunicationScheduledDialog}
+            onValidate={this.deleteCommunicationScheduled}
+            open={this.props.isDeleteCommunicationScheduledDialogOpen}
+            title={t('scheduled.deleteDialog.title')}
+            validateLabel={t('scheduled.deleteDialog.submit')}
+          />
+        )}
+        {this.props.isTooLateToUpdateCommunicationScheduledDialogOpen && (
+          <GenericMuiDialog
+            cancelText={t('scheduled.tooLateToUpdateDialog.close')}
+            content={t('scheduled.tooLateToUpdateDialog.content')}
+            onCancel={this.closeTooLateToUpdateCommunicationScheduledDialog}
+            open={this.props.isTooLateToUpdateCommunicationScheduledDialogOpen}
+            title={t('scheduled.tooLateToUpdateDialog.title')}
+          />
+        )}
       </div>
     );
   }
@@ -580,6 +621,7 @@ const withStateHandlersInit: State = {
   openEditCommunication: false,
   communicationScheduledSelected: null,
   isTooLateToUpdateCommunicationScheduledDialogOpen: false,
+  isDeleteCommunicationScheduledDialogOpen: false,
 };
 
 const withStateHandlersSetter = {
@@ -612,6 +654,12 @@ const withStateHandlersSetter = {
     () => (isTooLateToUpdateCommunicationScheduledDialogOpen: boolean) => {
       return {
         isTooLateToUpdateCommunicationScheduledDialogOpen,
+      };
+    },
+  setIsDeleteCommunicationScheduledDialogOpen:
+    () => (isDeleteCommunicationScheduledDialogOpen: boolean) => {
+      return {
+        isDeleteCommunicationScheduledDialogOpen,
       };
     },
 };

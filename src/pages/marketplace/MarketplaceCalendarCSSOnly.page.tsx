@@ -323,10 +323,23 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
 
   componentDidMount() {
     this.props.resetLevels();
-    this.fetchData();
+    /**
+     * Ensures accurate data fetching for offers based on the specified containerWidth display,
+     * taking into account the start_date and end_date. Waiting for the container to be properly set
+     * prevents incorrect data from being fetched.
+     *
+     * @remarks
+     * This method triggers data fetching when the calendarRefContainer and containerWidth are both available.
+     */
+    this.props.calendarRefContainer &&
+      this.props.containerWidth &&
+      this.fetchData();
   }
 
   componentDidUpdate(prevProps: Props, prevState: State) {
+    if (!prevProps.containerWidth && this.props.containerWidth) {
+      this.fetchData();
+    }
     const filtersPropsChanged = !isEqual(prevProps.filters, this.props.filters);
 
     const onlineFilterPropsHasChanged = !isEqual(
@@ -557,6 +570,9 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
       compactMode,
     } = this.props;
 
+    // To prevent display flickering between the loading state and the "no offer message,"
+    // we need to show loading when the containerWidth is already defined.
+    const offerLoading = !this.props.containerWidth || loading;
     return (
       <>
         <MarketplaceActivityDialogV2
@@ -609,7 +625,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           groupSessionByPeriod={this.props.groupSessionByPeriod}
           hideCoach={this.props.theme.hideCoach}
           isCardModeDisplay={this.getIsCardModeDisplay()}
-          loading={loading}
+          loading={offerLoading}
           metaActivities={
             this.props.theme.show_workshops_customer
               ? this.props.metaActivitiesWorkshops
@@ -617,7 +633,7 @@ export class MarketplaceCalendar extends Component<FinalProps, State> {
           }
           nextAvailableOffer={this.props.nextAvailableOffer}
           offers={this.props.offers}
-          offersLoading={loading}
+          offersLoading={offerLoading}
           onClearInput={this.handleClearSearchResult}
           onClickBook={this.goToBook}
           onClickBookOption={this.props.goToBookOption}

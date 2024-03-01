@@ -9,7 +9,7 @@ import { push as pushRouter } from 'connected-react-router';
 
 import { withTranslation, WithTranslation } from 'react-i18next';
 
-import { Theme } from '@material-ui/core';
+import type { Theme } from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Collapse from '@material-ui/core/Collapse';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -21,14 +21,14 @@ import SendIcon from '@material-ui/icons/Send';
 import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
-import { MaterialStyleType, WithHandlerType } from '../../utils/types';
+import { MaterialStyleType, WithHandlerType } from '#utils/types';
 import type { OptionCallback } from '../../state/types';
-import { RootState } from '../../reducers';
+import type { RootState } from '../../reducers';
 import { snackbarError } from '../../actions/snackbar.actions';
 import { getResolvedGenericTags } from '#libs/notification-rule/selectors';
 import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#libs/notification-rule/actions';
-// SMARTLIST
 
+// SMARTLIST
 import {
   smartListCreate,
   smartListUpdate,
@@ -61,12 +61,10 @@ import {
   getSmartListCsvExportLink,
   getSmartListCsvExportDate,
 } from '#libs/smart-list/selectors';
-
 import {
   fetchSmartListMembers as fetchSmartListMembersAPI,
   getMemberTable,
 } from '#libs/smart-list/api';
-
 import type {
   SmartList,
   AutoTagRule,
@@ -92,7 +90,6 @@ import {
   _getPrivateServicesById,
   getAvailablePrivateServices,
 } from '#libs/private-service/selectors/private-service';
-
 import type { PrivateService } from '#libs/private-service/types';
 
 // COMMUNICATION
@@ -129,6 +126,7 @@ import { getMetaActivities } from '#libs/meta-activity/selectors';
 // TAGS
 import { fetchTags } from '#libs/tag/actions';
 import tagSelectors from '#libs/tag/selectors';
+import type { ResolvedGenericTags } from '#libs/email-editor/types';
 
 // EMAIL
 import {
@@ -165,11 +163,11 @@ import {
   fetchCustomFormBulk,
 } from '#libs/custom-form/actions';
 
-import LinearProgress from '../../components/navigation/BackofficeLinearProgress.component';
+import LinearProgress from '#components/navigation/BackofficeLinearProgress.component';
 import {
   showInformativeDialog,
   showDeleteDialog,
-} from '../../components/genericDialog/CustomDialogs';
+} from '#components/genericDialog/CustomDialogs';
 import FiltersPanel from '#libs/smart-list/components/FiltersPanel.component';
 import AutoTagPanel from '#libs/smart-list/components/AutoTagPanel.component';
 import SmartListEditDialog from '#libs/smart-list/components/SmartListFormDialog.component';
@@ -177,7 +175,6 @@ import AutomatedCampaignDrawer from '#libs/smart-list/components/automated_campa
 import AutomatedCampaignPanel from '#libs/smart-list/components/automated_campaign/AutomatedCampaignPanel.component';
 import MemberTable from '#libs/member/MemberTable.component';
 import CommunicationDrawerDEPRECATED from '#libs/communication/components/CommunicationDrawer.component';
-import { ResolvedGenericTags } from '#libs/email-editor/types';
 import { getAllCustomForm } from '#libs/custom-form/selectors';
 
 // COMMUNICATION CHAT
@@ -193,6 +190,7 @@ import {
   getCommunicationScheduledBySmartlistTotal,
   getSmartListPopupSendingList,
 } from '#libs/communication-v2/selectors';
+
 // CADENCES
 import { fetchCadenceList } from '#libs/sequential_marketing/actions';
 import { UPSELL_IDENTIFIER_CADENCE } from '#libs/platform-billing/upsell-identifiers';
@@ -231,7 +229,7 @@ type State = {
   onValueChangeActiveMemberFetch: boolean;
   openEditDialog: boolean;
   resetMembersFetchForCommunication: boolean;
-  communicationScheduledToEdit: CommunicationScheduled | null;
+  communicationScheduledSelected: CommunicationScheduled | null;
   isTooLateToUpdateCommunicationScheduledDialogOpen: boolean;
 };
 
@@ -240,7 +238,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
     onValueChangeActiveMemberFetch: false,
     openEditDialog: false,
     resetMembersFetchForCommunication: true,
-    communicationScheduledToEdit: null,
+    communicationScheduledSelected: null,
     isTooLateToUpdateCommunicationScheduledDialogOpen: false,
   };
 
@@ -424,7 +422,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
   ) => {
     if (this.checkIsMessageSchedulable(communicationScheduled)) {
       this.setState({
-        communicationScheduledToEdit: communicationScheduled,
+        communicationScheduledSelected: communicationScheduled,
       });
       this.props.setOpenSendEmail(true);
     } else {
@@ -606,15 +604,11 @@ export class SmartListDetailMember extends React.Component<Props, State> {
         </div>
         <AutomatedCampaignDrawer
           alreadyConfiguredCommunicationKind={this.getAlreadyConfiguredCommunicationKind()}
-          countTotal={this.props.countTotal}
-          countWithEmail={this.props.countWithEmail}
-          countWithPhone={this.props.countWithPhone}
           default_event_kind={this.props.automatedCampaignCreateEventkind}
           emailDetailLoading={this.props.emailDetailLoading}
           emailDetails={this.props.email_templates_details}
           emailListLoading={this.props.emailListLoading}
           emails={this.props.email_templates_list}
-          genericTags={this.props.genericTags}
           getEmailDetail={this.props.fetchEmailTemplateDetail}
           getEmails={this.props.fetchEmailTemplatesSummaries}
           hideAutoResend={this.getHideAutoResend()}
@@ -626,17 +620,15 @@ export class SmartListDetailMember extends React.Component<Props, State> {
         />
         <CommunicationDrawerDEPRECATED
           hideMemberList
-          communicationScheduledToEdit={this.state.communicationScheduledToEdit}
+          communicationScheduledToEdit={
+            this.state.communicationScheduledSelected
+          }
           companyId={this.props.companyId}
-          countTotal={this.props.members.countTotal}
-          countWithEmail={this.props.members.countWithEmail}
-          countWithPhone={this.props.members.countWithPhone}
           editScheduledMessage={this.props.editCommunicationScheduled}
           emailDetailLoading={this.props.emailDetailLoading}
           emailDetails={this.props.email_templates_details}
           emailListLoading={this.props.emailListLoading}
           emails={this.props.email_templates_list}
-          genericTags={this.props.genericTags}
           getEmailDetail={this.props.fetchEmailTemplateDetail}
           getEmails={this.props.fetchEmailTemplatesSummaries}
           hideAutoResend={this.getHideAutoResend()}
@@ -655,7 +647,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
             this.props.setOpenSendEmail(false);
             this.setState({
               resetMembersFetchForCommunication: true,
-              communicationScheduledToEdit: null,
+              communicationScheduledSelected: null,
             });
           }}
           onClose={() => this.props.setOpenSendEmail(false)}

@@ -5,23 +5,28 @@ import { WithStyles, createStyles, withStyles, Theme } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import { withTranslation, WithTranslation } from 'react-i18next';
 import { compose } from 'recompose';
+import MomentUtils from '@date-io/moment';
 
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
-import Typography from '@material-ui/core/Typography';
+import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import Alert from '@material-ui/lab/Alert';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import ButtonBase from '@material-ui/core/ButtonBase';
+import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import Collapse from '@material-ui/core/Collapse';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import IconButton from '@material-ui/core/IconButton';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import Radio from '@material-ui/core/Radio';
 import RepeatIcon from '@material-ui/icons/Repeat';
 import TextField from '@material-ui/core/TextField';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import ButtonBase from '@material-ui/core/ButtonBase';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Typography from '@material-ui/core/Typography';
 import WatchLaterIcon from '@material-ui/icons/WatchLater';
-import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import TimePicker from 'material-ui-pickers/TimePicker';
+import DatePicker from 'material-ui-pickers/DatePicker';
+import MuiPickersUtilsProvider from 'material-ui-pickers/MuiPickersUtilsProvider';
 
 import {
   COMMUNICATION_KIND_EMAIL,
@@ -29,11 +34,9 @@ import {
   COMMUNICATION_KIND_PUSH_NOTIFICATION,
 } from '@bsport/common/lib/master-data/communication-kind';
 
+import { DATE_PICKER_MASK } from '../../../constants';
 import Config from '../../../config';
 
-import DatePickerSelector, {
-  Values as DatePickerSelectorValues,
-} from '#components/date/DatePickerSelector.component';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 
@@ -182,7 +185,7 @@ class CommunicationDrawer extends React.Component<Props, State> {
 
     this.state = {
       actionType: props.actionType ? props.actionType : SELECT_EMAIL,
-      communicationScheduledDate: this.getScheduledMoment(),
+      communicationScheduledDate: null,
       communicationScheduledTimePeriod: 'custom',
       isCommunicationScheduled: false,
       isSmsCostReminderModalOpen: false,
@@ -202,16 +205,6 @@ class CommunicationDrawer extends React.Component<Props, State> {
     };
   }
 
-  /**
-   * Gets the scheduled date by adding one hour to the current time.
-   * @returns {Moment} The current date with one hour added.
-   */
-  getScheduledMoment = () => {
-    const scheduledMoment = moment();
-    scheduledMoment.add(1, 'hour');
-    return scheduledMoment;
-  };
-
   componentDidMount() {
     this.props.getEmails();
   }
@@ -219,7 +212,7 @@ class CommunicationDrawer extends React.Component<Props, State> {
   componentDidUpdate(prevProps: Props) {
     if (this.props.open === true && prevProps.open === false) {
       this.setState({
-        communicationScheduledDate: this.getScheduledMoment(),
+        communicationScheduledDate: null,
       });
     }
     if (prevProps.mailDefaultTitle !== this.props.mailDefaultTitle) {
@@ -510,11 +503,17 @@ class CommunicationDrawer extends React.Component<Props, State> {
     this.setState({ openRefreshDialog: true });
   };
 
-  checkIsMessageSchedulable = () =>
-    this.state.communicationScheduledDate >
-    moment(Date()).add(MINUTE_LIMIT_TO_SCHEDULE_COMMUNICATION, 'minute');
+  checkIsMessageSchedulable = () => {
+    if (!this.state.communicationScheduledDate) return true;
+    return (
+      this.state.communicationScheduledDate >
+      moment(Date()).add(MINUTE_LIMIT_TO_SCHEDULE_COMMUNICATION, 'minute')
+    );
+  };
 
-  checkIsMessageScheduledDuringNighttime = () => {
+  checkIsMessageScheduledDuringDaytime = () => {
+    if (!this.state.communicationScheduledDate) return true;
+
     const communicationScheduledHour =
       this.state.communicationScheduledDate.hour();
 
@@ -795,21 +794,7 @@ class CommunicationDrawer extends React.Component<Props, State> {
         !previousState.openCommunicationSchedulingSection,
     }));
 
-  updateCommunicationScheduledDate = (values: DatePickerSelectorValues) => {
-    if (typeof values.date === 'number') {
-      this.setState({
-        communicationScheduledDate: moment.unix(values.date),
-        communicationScheduledTimePeriod: values.timePeriod,
-      });
-    } else {
-      this.setState({
-        communicationScheduledDate: values.date,
-        communicationScheduledTimePeriod: values.timePeriod,
-      });
-    }
-  };
-
-  updateCommunicationScheduledTime = (value: Moment) => {
+  updateCommunicationScheduledDate = (value: Moment) => {
     this.setState({
       communicationScheduledDate: value,
     });
@@ -852,6 +837,13 @@ class CommunicationDrawer extends React.Component<Props, State> {
           this.props.communicationScheduledToEdit.email_resend_delay || 0,
       });
     }
+  };
+
+  getDatePickerMask = (value: string) => {
+    if (value) {
+      return DATE_PICKER_MASK;
+    }
+    return [];
   };
 
   render() {
@@ -1061,16 +1053,37 @@ class CommunicationDrawer extends React.Component<Props, State> {
                             {t('scheduled.when')}
                           </Typography>
                           <div className={classes.datePickerSection}>
-                            <DatePickerSelector
-                              isFullWidth
-                              keepHours
-                              singleDate
-                              date={this.state.communicationScheduledDate.unix()}
-                              onSubmit={this.updateCommunicationScheduledDate}
-                              timePeriod={
-                                this.state.communicationScheduledTimePeriod
-                              }
-                            />
+                            <MuiPickersUtilsProvider
+                              locale={moment.locale()}
+                              moment={moment}
+                              utils={MomentUtils}
+                            >
+                              <DatePicker
+                                required
+                                adornmentPosition="start"
+                                className={classes.dateAndTimePickers}
+                                format="L"
+                                helperText={null}
+                                id="offer-form-date-start-input"
+                                InputProps={{
+                                  startAdornment: (
+                                    <InputAdornment position="start">
+                                      <IconButton
+                                        className={classes.inputIconAdornment}
+                                      >
+                                        <CalendarTodayIcon />
+                                      </IconButton>
+                                    </InputAdornment>
+                                  ),
+                                }}
+                                mask={this.getDatePickerMask}
+                                onChange={this.updateCommunicationScheduledDate}
+                                placeholder={t('scheduled.chooseDate')}
+                                size="small"
+                                value={this.state.communicationScheduledDate}
+                                variant="outlined"
+                              />
+                            </MuiPickersUtilsProvider>
                             <Typography variant="body1">
                               {t('scheduled.at')}
                             </Typography>
@@ -1078,7 +1091,7 @@ class CommunicationDrawer extends React.Component<Props, State> {
                               required
                               adornmentPosition="start"
                               ampm={isAmPmTimeFormat()}
-                              className={classes.timePicker}
+                              className={classes.dateAndTimePickers}
                               InputProps={{
                                 startAdornment: (
                                   <InputAdornment position="start">
@@ -1088,14 +1101,15 @@ class CommunicationDrawer extends React.Component<Props, State> {
                                   </InputAdornment>
                                 ),
                               }}
-                              onChange={this.updateCommunicationScheduledTime}
+                              onChange={this.updateCommunicationScheduledDate}
+                              placeholder={t('scheduled.chooseTime')}
                               size="small"
                               TextFieldComponent={(
                                 props: React.ComponentProps<typeof TextField>,
                               ) => (
                                 <CustomMuiThemeWrapper
                                   primary={
-                                    !this.checkIsMessageScheduledDuringNighttime() &&
+                                    !this.checkIsMessageScheduledDuringDaytime() &&
                                     'warning'
                                   }
                                 >
@@ -1103,7 +1117,7 @@ class CommunicationDrawer extends React.Component<Props, State> {
                                     {...props}
                                     error={!this.checkIsMessageSchedulable()}
                                     focused={
-                                      !this.checkIsMessageScheduledDuringNighttime() ||
+                                      !this.checkIsMessageScheduledDuringDaytime() ||
                                       !this.checkIsMessageSchedulable()
                                     }
                                     variant="outlined"
@@ -1124,7 +1138,7 @@ class CommunicationDrawer extends React.Component<Props, State> {
                             {t('scheduled.datetimeLimit')}
                           </Alert>
                         )}
-                        {!this.checkIsMessageScheduledDuringNighttime() && (
+                        {!this.checkIsMessageScheduledDuringDaytime() && (
                           <Alert
                             className={classes.alert}
                             severity="warning"
@@ -1225,7 +1239,10 @@ class CommunicationDrawer extends React.Component<Props, State> {
                     color="primary"
                     disabled={
                       (this.state.isCommunicationScheduled &&
-                        !this.checkIsMessageSchedulable()) ||
+                        !(
+                          this.state.communicationScheduledDate &&
+                          this.checkIsMessageSchedulable()
+                        )) ||
                       this.checkErrors()
                     }
                     type="submit"
@@ -1325,7 +1342,7 @@ const styles = (theme: Theme) =>
     timePickerIcon: {
       color: theme.palette.grey[400],
     },
-    timePicker: {
+    dateAndTimePickers: {
       display: 'flex',
       width: '49%',
     },

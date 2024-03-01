@@ -74,16 +74,16 @@ const MembershipSelectorBase: React.FC<MembershipSelectorBaseProps> = ({
       />
       <Paper className={classes.membershipList}>
         {!searchResult || searchResult.length === 0
-          ? membershipList.map((m) => (
+          ? membershipList.map((membership) => (
               <MembershipListItem
-                membership={m}
-                onClick={() => onClick(m.company)}
+                membership={membership}
+                onClick={() => onClick(membership.company)}
               />
             ))
-          : searchResult.map((m) => (
+          : searchResult.map((membership) => (
               <MembershipListItem
-                membership={m}
-                onClick={() => onClick(m.company)}
+                membership={membership}
+                onClick={() => onClick(membership.company)}
               />
             ))}
       </Paper>
@@ -143,8 +143,11 @@ const CompanySelectorBase: React.FC<CompanySelectorBaseProps> = ({
             <ListItemText primary={t('selector.noMatchingCompany')} />
           </ListItem>
         ) : null}
-        {companyList.map((c) => (
-          <CompanyListItem company={c} onClick={() => onClick(c.id)} />
+        {companyList.map((company) => (
+          <CompanyListItem
+            company={company}
+            onClick={() => onClick(company.id)}
+          />
         ))}
       </Paper>
     </div>

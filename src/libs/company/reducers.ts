@@ -1,4 +1,3 @@
-// @ts-nocheck
 import Immutable from 'seamless-immutable';
 
 import { handleActions } from 'redux-actions';
@@ -10,50 +9,69 @@ import {
   validateAccountConfigurationStepActions,
   retrieveStripeAccountStatusActions,
 } from './actions';
-import { CompanyState, Company } from './types';
+import type {
+  AccountConfigurationStep,
+  Company,
+  CompanySetup,
+  CompanyState,
+  FeatureList,
+  StripeAccountStatus,
+  StripeCompany,
+} from './types';
 import {
   BANK_ACCOUNT_CONFIGURATION_STEP,
   PAYMENT_METHOD_CONFIGURATION_STEP,
   STRIPE_CONFIGURATION_STEP,
 } from './constants';
 
-const initialState: Immutable.Immutable<CompanyState> = Immutable({
-  byId: {},
-  feature: {
-    data: {
-      upsell: [],
-    },
-    loading: false,
-    error: null,
-  },
-  search: {
-    loading: false,
-    error: null,
-    allIds: [],
-  },
-  setup: null,
-  setupLoading: false,
-  stripeCompany: {
-    loading: false,
-    error: null,
-    data: null,
-  },
-  stripeAccountStatus: {
-    data: null,
-    loading: false,
-    error: null,
-  },
-});
-
-export default handleActions(
+const initialState: Immutable.Immutable<CompanyState> = Immutable<CompanyState>(
   {
-    [searchActions.isLoading.toString()]: (state, { payload }) => {
+    byId: {},
+    feature: {
+      data: {
+        upsell: [],
+      },
+      loading: false,
+      error: null,
+    },
+    search: {
+      loading: false,
+      error: null,
+      allIds: [],
+    },
+    setup: null,
+    setupLoading: false,
+    stripeCompany: {
+      loading: false,
+      error: null,
+      data: null,
+    },
+    stripeAccountStatus: {
+      data: null,
+      loading: false,
+      error: null,
+    },
+  },
+);
+
+export default handleActions<Immutable.Immutable<CompanyState>, any>(
+  {
+    [searchActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
       return state.setIn(['search', 'loading'], payload);
     },
-    [searchActions.error.toString()]: (state, { payload }) => {
+    [searchActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
       return state.setIn(['search', 'error'], payload);
     },
-    [searchActions.success.toString()]: (state, { payload }) => {
+    [searchActions.success.toString()]: (
+      state,
+      { payload }: { payload: Company[] },
+    ) => {
       const newIds = payload.map((m: Company) => m.id);
       return state
         .set(
@@ -68,18 +86,27 @@ export default handleActions(
         )
         .setIn(['search', 'allIds'], newIds);
     },
-    [listFeatureActions.success.toString()]: (state, { payload }) => {
+    [listFeatureActions.success.toString()]: (
+      state,
+      { payload }: { payload: FeatureList },
+    ) => {
       return state.setIn(['feature', 'data'], payload || []);
     },
-    [listFeatureActions.isLoading.toString()]: (state, { payload }) => {
+    [listFeatureActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
       return state.setIn(['feature', 'loading'], payload);
     },
-    [listFeatureActions.error.toString()]: (state, { payload }) => {
+    [listFeatureActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
       return state.setIn(['feature', 'error'], payload);
     },
     [validateAccountConfigurationStepActions.success.toString()]: (
       state,
-      { payload },
+      { payload }: { payload: AccountConfigurationStep },
     ) => {
       let propertyModified = null;
       switch (payload) {
@@ -100,49 +127,61 @@ export default handleActions(
     },
     [validateAccountConfigurationStepActions.isLoading.toString()]: (
       state,
-      { payload },
+      { payload }: { payload: boolean },
     ) => {
       return state.setIn(['stripeCompany', 'loading'], payload);
     },
     [validateAccountConfigurationStepActions.error.toString()]: (
       state,
-      { payload },
+      { payload }: { payload: Error | null },
     ) => {
       return state.setIn(['stripeCompany', 'error'], payload);
     },
-    [retrieveMyCompanyActions.success.toString()]: (state, { payload }) => {
+    [retrieveMyCompanyActions.success.toString()]: (
+      state,
+      { payload }: { payload: CompanySetup },
+    ) => {
       return state.set('setup', payload);
     },
-    [retrieveMyCompanyActions.isLoading.toString()]: (state, { payload }) => {
+    [retrieveMyCompanyActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
       return state.set('setupLoading', payload);
     },
-    [stripeCompanyRetrieveActions.success.toString()]: (state, { payload }) => {
+    [stripeCompanyRetrieveActions.success.toString()]: (
+      state,
+      { payload }: { payload: StripeCompany },
+    ) => {
       return state.setIn(['stripeCompany', 'data'], payload);
     },
     [stripeCompanyRetrieveActions.isLoading.toString()]: (
       state,
-      { payload },
+      { payload }: { payload: boolean },
     ) => {
       return state.setIn(['stripeCompany', 'loading'], payload);
     },
-    [stripeCompanyRetrieveActions.error.toString()]: (state, { payload }) => {
+    [stripeCompanyRetrieveActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
       return state.setIn(['stripeCompany', 'error'], payload);
     },
     [retrieveStripeAccountStatusActions.isLoading.toString()]: (
       state,
-      { payload },
+      { payload }: { payload: boolean },
     ) => {
       return state.setIn(['stripeAccountStatus', 'loading'], payload);
     },
     [retrieveStripeAccountStatusActions.error.toString()]: (
       state,
-      { payload },
+      { payload }: { payload: Error | null },
     ) => {
       return state.setIn(['stripeAccountStatus', 'error'], payload);
     },
     [retrieveStripeAccountStatusActions.success.toString()]: (
       state,
-      { payload },
+      { payload }: { payload: StripeAccountStatus },
     ) => {
       return state.setIn(['stripeAccountStatus', 'data'], payload);
     },

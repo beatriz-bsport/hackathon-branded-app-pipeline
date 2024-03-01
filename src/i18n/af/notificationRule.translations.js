@@ -298,6 +298,15 @@ const getTranslations = async () => {
         },
         name: 'Performance',
       },
+      ReferralProgram: {
+        name: 'Referral',
+        tags: {
+          reduction_purchase_referred: 'Discount for the referred member',
+          referring_reward: 'Reward for the referrer',
+          minimum_purchase_referral: 'Minimum purchase amount',
+          deadline_use_referral: 'Referral reward validity',
+        },
+      },
     },
     eventType: {
       [NOTIFICATION_BOOKING_CANCELLED_BY_MANAGER]:

@@ -33,9 +33,14 @@ type Props = {
   fetchMoreMembership: (pageSize: number) => void;
 };
 
-const MembershipSelectorBase = (props: {
-  membershipList: Array<Membership>;
+type MembershipSelectorBaseProps = {
+  membershipList: Membership[];
   onClick: (company: number) => void;
+};
+
+const MembershipSelectorBase: React.FC<MembershipSelectorBaseProps> = ({
+  membershipList,
+  onClick,
 }) => {
   const classes = useStyles();
   const [searchText, setSearchText] = useState('');
@@ -53,15 +58,15 @@ const MembershipSelectorBase = (props: {
 
   const clearSearch = useCallback(() => {
     setSearchText('');
-    setSearchResult(props.membershipList);
-  }, [props.membershipList]);
+    setSearchResult(membershipList);
+  }, [membershipList]);
 
   return (
     <div className={classes.selectorContainer}>
       <FuzeSearch
         changeSearch={changeSearch}
         clearSearch={clearSearch}
-        items={props.membershipList}
+        items={membershipList}
         placeholder={t('selector.placeholder')}
         searchFields={['company_name']}
         searchText={searchText}
@@ -69,16 +74,16 @@ const MembershipSelectorBase = (props: {
       />
       <Paper className={classes.membershipList}>
         {!searchResult || searchResult.length === 0
-          ? props.membershipList.map((m) => (
+          ? membershipList.map((m) => (
               <MembershipListItem
                 membership={m}
-                onClick={() => props.onClick(m.company)}
+                onClick={() => onClick(m.company)}
               />
             ))
           : searchResult.map((m) => (
               <MembershipListItem
                 membership={m}
-                onClick={() => props.onClick(m.company)}
+                onClick={() => onClick(m.company)}
               />
             ))}
       </Paper>
@@ -146,7 +151,16 @@ const CompanySelectorBase: React.FC<CompanySelectorBaseProps> = ({
   );
 };
 
-export const MembershipSelector = (props: Props) => {
+const MembershipSelector: React.FC<Props> = ({
+  companyList,
+  companyLoading,
+  fetchMoreMembership,
+  goToConsumerHome,
+  hasMore,
+  loading,
+  membershipList,
+  searchCompany,
+}) => {
   const { t } = useTranslation('membership');
   const classes = useStyles();
   return (
@@ -169,30 +183,30 @@ export const MembershipSelector = (props: Props) => {
           </div>
         </Hidden>
         <div className={classes.panel}>
-          {props.membershipList.length ? (
+          {membershipList.length ? (
             <MembershipSelectorBase
-              membershipList={props.membershipList}
-              onClick={props.goToConsumerHome}
+              membershipList={membershipList}
+              onClick={goToConsumerHome}
             />
           ) : (
             <CompanySelectorBase
               classes={classes}
-              companyList={props.companyList}
-              companyLoading={props.companyLoading}
-              onClick={props.goToConsumerHome}
-              searchCompany={props.searchCompany}
+              companyList={companyList}
+              companyLoading={companyLoading}
+              onClick={goToConsumerHome}
+              searchCompany={searchCompany}
             />
           )}
-          {props.hasMore && props.loading && (
+          {hasMore && loading && (
             <div className={classes.buttonContainer}>
               <CircularProgress />
             </div>
           )}
-          {props.hasMore && !props.loading && (
+          {hasMore && !loading && (
             <div className={classes.buttonContainer}>
               <Button
                 color="primary"
-                onClick={() => props.fetchMoreMembership(30)}
+                onClick={() => fetchMoreMembership(30)}
                 variant="outlined"
               >
                 {t('selector.fetchMore')}

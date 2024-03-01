@@ -25,11 +25,11 @@ import type { Company } from '#libs/company/types';
 type Props = {
   hasMore: boolean;
   loading: boolean;
-  membershipList: Array<Membership>;
+  membershipList: Membership[];
   goToConsumerHome: (companyId: number) => void;
   searchCompany: (text: string) => void;
   companyLoading: boolean;
-  companyList: Array<Company>;
+  companyList: Company[];
   fetchMoreMembership: (pageSize: number) => void;
 };
 
@@ -102,7 +102,7 @@ type CompanySelectorBaseProps = {
   classes: ClassNameMap<keyof ReturnType<typeof useStyles>>;
   companyLoading: boolean;
   searchCompany: (text: string) => void;
-  companyList: Array<Company>;
+  companyList: Company[];
   onClick: (company: number) => void;
 };
 

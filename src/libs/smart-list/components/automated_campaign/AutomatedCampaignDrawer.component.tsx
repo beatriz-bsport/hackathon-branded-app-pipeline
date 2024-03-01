@@ -54,7 +54,11 @@ import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsive
 import { Submit, TextField } from '#components/forms';
 import type { FeatureList } from '#libs/company/types';
 import type { OptionCallback } from '../../../../state/types';
-import { ResolvedGenericTags } from '#libs/email-editor/types';
+import type {
+  EmailTemplateDetail,
+  EmailTemplateSummary,
+  ResolvedGenericTags,
+} from '#libs/email-editor/types';
 import {
   UPSELL_IDENTIFIER_PUSH_NOTIFICATION,
   UPSELL_IDENTIFIER_SMS,
@@ -98,9 +102,11 @@ type Props = {
   getEmails: () => void;
   getEmailDetail: (id: number) => void;
   emailListLoading: boolean;
-  emails: Array<any>;
+  emails: EmailTemplateSummary[];
   emailDetailLoading: boolean;
-  emailDetails: Array<any>;
+  emailDetails: {
+    [templateId: number]: EmailTemplateDetail;
+  };
   open: boolean;
   mailDefaultTitle?: string;
   alreadyConfiguredCommunicationKind: number[];

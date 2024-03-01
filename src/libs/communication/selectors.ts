@@ -68,7 +68,7 @@ export const getAvailableRecipientNotification = (state: RootState) =>
   state.communication.availablePushNotificationRecipient.allIds;
 
 export const withAutomatedCampaign = memoize(
-  (selector: (State: RootState) => any) =>
+  (selector: (State: RootState) => Campaign | Campaign[]) =>
     createSelector(
       [selector, _getAutomatedCampaignById],
       (campaignObjects, automatedCampaignData) => {

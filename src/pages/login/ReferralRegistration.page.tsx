@@ -58,6 +58,7 @@ import {
   linkMeToCompany as linkMeToCompanyAction,
   requestMembershipValidation as requestMembershipValidationAction,
 } from '#libs/membership/actions';
+import { getMarketplaceRoute } from '#libs/marketplace/routing-utils';
 
 import { buildUrlParams } from '../../http';
 // @ts-expect-error not typed
@@ -68,7 +69,6 @@ import { getTheme } from '../../theme';
 import './signup-page/SignupPageStyles.css';
 
 import { RootState } from '../../reducers';
-import Config from '../../config';
 import { CUSTOM_FORM_CSS_VARIANT_ACTIVATED } from '#libs/custom-form/constants';
 
 type OwnProps = {
@@ -171,8 +171,11 @@ export class ReferralRegistration extends Component<Props, State> {
           onFinish: () => {
             window.location.href =
               this.props.referralLinkStatus.redirect_link ||
-              this.props.theme.scheduleURL ||
-              `${Config.PUBLIC_URL}/c/${this.props.referralLinkStatus.company_id}`;
+              getMarketplaceRoute(
+                this.props.theme.company_name,
+                this.props.theme.company,
+                '',
+              );
           },
         });
       };
@@ -200,8 +203,11 @@ export class ReferralRegistration extends Component<Props, State> {
               Analytics.signupSuccess(this.props.loginInformations);
             window.location.href =
               this.props.referralLinkStatus.redirect_link ||
-              this.props.theme.scheduleURL ||
-              `${Config.PUBLIC_URL}/c/${this.props.referralLinkStatus.company_id}`;
+              getMarketplaceRoute(
+                this.props.theme.company_name,
+                this.props.theme.company,
+                '',
+              );
           },
         });
       };

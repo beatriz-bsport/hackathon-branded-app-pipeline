@@ -22,6 +22,7 @@ import type {
   ShopItemEdit,
   ShopItemVariantAttributes,
   ShopItemSupplier,
+  ProvisionBulkCreate,
 } from '#libs/shop/types';
 import type { OptionCallback } from '../../../../state/types';
 
@@ -39,6 +40,7 @@ type Props = {
   isVariantListLoading?: boolean;
   isDeleting?: boolean;
   isDeletingVariant?: boolean;
+  isUpdatingVariant?: boolean;
   provincialTaxValue: number;
   shopItem: ShopItem;
   shopItemSupplier: ShopItemSupplier;
@@ -58,6 +60,10 @@ type Props = {
     options?: OptionCallback<ShopItemVariant[]>,
   ) => void;
   fetchShopItemVariantList: (page: number) => void;
+  createShopItemProvisionBulk: (
+    data: ProvisionBulkCreate,
+    options?: OptionCallback,
+  ) => void;
   deleteShopItemVariant: (id: number) => void;
 };
 
@@ -68,6 +74,7 @@ const ShopItemDetail: React.FC<Props> = ({
   isVariantListLoading,
   isDeleting,
   isDeletingVariant,
+  isUpdatingVariant,
   provincialTaxValue,
   shopItem,
   shopItemSupplier,
@@ -80,6 +87,7 @@ const ShopItemDetail: React.FC<Props> = ({
   createShopItemVariants,
   fetchShopItemVariantList,
   deleteShopItemVariant,
+  createShopItemProvisionBulk,
 }) => {
   const classes = useStyles();
 
@@ -232,12 +240,14 @@ const ShopItemDetail: React.FC<Props> = ({
       <ShopItemDetailTabs
         companyId={companyId}
         count={count}
+        createShopItemProvisionBulk={createShopItemProvisionBulk}
         fetchShopItemVariantList={fetchShopItemVariantList}
         handleChangeTab={handleChangeTab}
         handleOpenBarcodeModal={handleOpenBarcodeModal}
         handleOpenVariantDrawer={handleOpenCreateVariantDrawer}
         isDeletingVariant={isDeletingVariant}
         isLoading={isLoading}
+        isUpdatingVariant={isUpdatingVariant}
         isVariantListLoading={isVariantListLoading}
         onDeleteShopItemVariant={handleOpenDeleteVariantConfirmationModal}
         page={page}

@@ -15,6 +15,7 @@ import ShopItemDetailSettingsTab from './tabs/ShopItemDetailSettingsTab.componen
 import ShopItemDetailHistoryTab from './tabs/ShopItemDetailHistoryTab.component';
 
 import type {
+  ProvisionBulkCreate,
   ShopItem,
   ShopItemSupplier,
   ShopItemVariant,
@@ -27,6 +28,7 @@ type Props = {
   companyId?: number;
   isLoading?: boolean;
   isVariantListLoading?: boolean;
+  isUpdatingVariant?: boolean;
   isDeletingVariant?: boolean;
   selectedTab: string;
   variantList: ShopItemVariant[];
@@ -40,12 +42,17 @@ type Props = {
   updateShopItemVariantBulk: (data: FormData, options?: OptionCallback) => void;
   onDeleteShopItemVariant: (id: number) => void;
   fetchShopItemVariantList: (page: number) => void;
+  createShopItemProvisionBulk: (
+    data: ProvisionBulkCreate,
+    options?: OptionCallback,
+  ) => void;
 };
 
 const ShopItemDetailTabs: React.FC<Props> = ({
   companyId,
   isLoading,
   isVariantListLoading,
+  isUpdatingVariant,
   isDeletingVariant,
   selectedTab,
   variantList,
@@ -59,6 +66,7 @@ const ShopItemDetailTabs: React.FC<Props> = ({
   updateShopItemVariantBulk,
   onDeleteShopItemVariant,
   fetchShopItemVariantList,
+  createShopItemProvisionBulk,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation('shop');
@@ -101,8 +109,10 @@ const ShopItemDetailTabs: React.FC<Props> = ({
           <>
             <ShopItemDetailInventoryTab
               count={count}
+              createShopItemProvisionBulk={createShopItemProvisionBulk}
               fetchShopItemVariantList={fetchShopItemVariantList}
               handleOpenVariantDrawer={handleOpenVariantDrawer}
+              isUpdatingVariant={isUpdatingVariant}
               page={page}
               shopItemVariantList={variantList}
             />

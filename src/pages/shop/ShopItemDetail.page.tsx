@@ -14,6 +14,7 @@ import {
   createShopItemVariants as createShopItemVariantsAction,
   deleteShopItemVariant as deleteShopItemVariantAction,
   retrieveShopItemSupplier as retrieveShopItemSupplierAction,
+  createShopItemProvisionBulk as createShopItemProvisionBulkAction,
 } from '#libs/shop/actions/shopItemReworked';
 
 // --- SELECTORS ---
@@ -26,6 +27,7 @@ import {
   getShopItemVariantListLoading,
   getShopItemVariantState,
   getShopItemVariantDeleteLoading,
+  getShopItemVariantUpdateLoading,
   getShopItemSupplier,
 } from '#libs/shop/selectors';
 
@@ -41,6 +43,7 @@ import { mapFormDataWithObject } from '../form.utils';
 // --- TYPES ---
 import type { RootState } from '../../reducers';
 import type {
+  ProvisionBulkCreate,
   ShopItem,
   ShopItemEdit,
   ShopItemVariant,
@@ -92,11 +95,7 @@ export class ShopItemDetailPage extends Component<Props> {
     this.props.updateShopItem({
       formData: finalShopItemData,
       id,
-      options: {
-        onSuccess: () => {
-          options?.onSuccess?.();
-        },
-      },
+      options,
     });
   };
 
@@ -114,7 +113,21 @@ export class ShopItemDetailPage extends Component<Props> {
           );
           options?.onSuccess?.();
         },
+        onError: options?.onError,
       },
+    });
+  };
+
+  handleCreateShopItemProvisionBulk = (
+    data: ProvisionBulkCreate,
+    options?: OptionCallback,
+  ) => {
+    this.props.createShopItemProvisionBulk(this.props.id, data, {
+      onSuccess: () => {
+        this.retrieveShopItemVariantList(this.props.shopItemVariantState.page);
+        options?.onSuccess?.();
+      },
+      onError: options?.onError,
     });
   };
 
@@ -139,6 +152,7 @@ export class ShopItemDetailPage extends Component<Props> {
           );
           options?.onSuccess?.();
         },
+        onError: options?.onError,
       },
     });
   };
@@ -162,6 +176,7 @@ export class ShopItemDetailPage extends Component<Props> {
       <ShopItemDetail
         companyId={this.props.theme.company}
         count={this.props.shopItemVariantState.count}
+        createShopItemProvisionBulk={this.handleCreateShopItemProvisionBulk}
         createShopItemVariants={this.handleCreateShopItemVariants}
         deleteShopItem={this.handleDeleteShopItem}
         deleteShopItemVariant={this.handleDeleteShopItemVariant}
@@ -170,6 +185,7 @@ export class ShopItemDetailPage extends Component<Props> {
         isDeletingVariant={this.props.isDeleteVariantLoading}
         isLoading={this.props.isLoading}
         isShopItemUsedInCombo={this.props.isShopItemUsedInCombo}
+        isUpdatingVariant={this.props.isUpdateVariantLoading}
         isVariantListLoading={this.props.isVariantListLoading}
         page={this.props.shopItemVariantState.page}
         provincialTaxValue={this.props.theme.provincial_tax_value}
@@ -195,6 +211,7 @@ const connector = connect(
     isShopItemUsedInCombo: getIsShopItemUsedInCombo(state, id),
     getShopItemSupplier: (supplierId: number) =>
       getShopItemSupplier(state, supplierId),
+    isUpdateVariantLoading: getShopItemVariantUpdateLoading(state),
     isDeleteVariantLoading: getShopItemVariantDeleteLoading(state),
     shopItemVariantState: getShopItemVariantState(state, id),
   }),
@@ -208,6 +225,7 @@ const connector = connect(
     deleteShopItem: deleteShopItemAction,
     createShopItemVariants: createShopItemVariantsAction,
     deleteShopItemVariant: deleteShopItemVariantAction,
+    createShopItemProvisionBulk: createShopItemProvisionBulkAction,
     backToShopPage: () => push('/shop'),
   },
 );

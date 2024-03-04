@@ -196,6 +196,8 @@ export type ShopAPIFilter = {
 
 export type ProvisionCreate = Omit<Provision, 'id'>;
 
+export type ProvisionBulkCreate = { shop_item: number; qty: number }[];
+
 export type ShopItemFactoryOptions = {
   isStandaloneItem?: boolean;
   isUnlimitedProvisions?: boolean;

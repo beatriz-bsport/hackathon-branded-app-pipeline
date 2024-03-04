@@ -344,6 +344,8 @@ const getTranslations = async () => {
         cancel: 'Cancel',
         confirm: 'Confirm',
       },
+      membersWontLoad:
+        "We are currently encountering a problem loading the members within this smartlist. Please note that you won't be able to preview the number of members that will be reached by this communication.",
     },
     resendSection: {
       dialogTitle: 'Auto-resend unread email',

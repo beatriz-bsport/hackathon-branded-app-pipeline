@@ -1211,14 +1211,10 @@ class CommunicationDrawer extends React.Component<Props, State> {
                       </Collapse>
                     </div>
                   )}
-                {/* TODO translate */}
                 {!!this.props.memberToDisplayError &&
                   !this.props.membersByPageLoading && (
                     <Alert className={classes.alertCentered} severity="warning">
-                      {`We are currently encountering a problem loading the members
-                    within this smart list. Please note that you won't be able
-                    to preview the number of members that will be reached by
-                    this communication.`}
+                      {t('resendSection.membersWontLoad')}
                     </Alert>
                   )}
                 <DialogActions>

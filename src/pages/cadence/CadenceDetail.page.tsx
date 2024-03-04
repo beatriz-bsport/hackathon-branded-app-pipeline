@@ -473,7 +473,7 @@ export class CadenceDetailPage extends Component<Props> {
           loading={this.props.loading}
         >
           <>
-            <div className={classes.mainPanel}>
+            <div className={classes.mainPanel} id="cadence-detail-main-panel">
               <div className={classes.stickyTop}>
                 <div
                   className={classNames(
@@ -1276,6 +1276,7 @@ const styles = (theme: Theme) =>
     },
     stickyTop: {
       position: 'sticky',
+      zIndex: 1400, // 1400 because default PopOver mui z-index is 1300
     },
     mainPanelContent: {
       position: 'relative',

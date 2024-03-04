@@ -290,6 +290,7 @@ export const CadenceGraphViewPort: React.FC<Props> = ({
     ],
   );
   // ========================================================
+  const container = document.getElementById('cadence-detail-main-panel');
 
   return (
     <>
@@ -401,6 +402,7 @@ export const CadenceGraphViewPort: React.FC<Props> = ({
       <Popover
         anchorEl={anchorWonTriggerBubble}
         anchorOrigin={anchorOrigin}
+        container={container}
         onClose={handleCloseWonCriteriaBubble}
         open={!!anchorWonTriggerBubble}
         PaperProps={popoverStyle}
@@ -418,6 +420,7 @@ export const CadenceGraphViewPort: React.FC<Props> = ({
       <Popover
         anchorEl={anchorLostTriggerBubble}
         anchorOrigin={anchorOrigin}
+        container={container}
         onClose={handleCloseLostCriteriaBubble}
         open={!!anchorLostTriggerBubble}
         PaperProps={popoverStyle}

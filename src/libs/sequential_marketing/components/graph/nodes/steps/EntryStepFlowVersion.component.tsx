@@ -51,6 +51,7 @@ type FlowProps = {
 export const EntryStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
   const { t } = useTranslation('marketing');
   const entryCardRef = React.useRef<HTMLDivElement | null>(null);
+  const container = document.getElementById('cadence-detail-main-panel');
 
   const {
     stepDestinationId,
@@ -242,6 +243,7 @@ export const EntryStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
       <Popover
         anchorEl={anchorEl}
         anchorOrigin={anchorOrigin}
+        container={container}
         onClose={handleCloseCriteriaBubble}
         open={!!anchorEl}
         PaperProps={popoverStyle}
@@ -259,6 +261,7 @@ export const EntryStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
       <Popover
         anchorEl={anchorActionBubble}
         anchorOrigin={anchorOrigin}
+        container={container}
         onClose={handleCloseActionBubble}
         open={!!anchorActionBubble}
         PaperProps={popoverStyle}
@@ -276,6 +279,7 @@ export const EntryStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
       <Popover
         anchorEl={anchorAddMarketingAction}
         anchorOrigin={anchorOrigin}
+        container={container}
         onClose={handleCloseMarketingActionBubble}
         open={!!anchorAddMarketingAction}
         PaperProps={popoverStyle}

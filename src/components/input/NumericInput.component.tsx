@@ -46,9 +46,10 @@ const NumericInput: React.FC<Props> = ({
 }) => {
   const handleOnChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
+      const isEmpty = (event.target.value ?? '').trim().length === 0;
       if (onChange) {
         if (isPositive) {
-          parseInt(event.target.value) >= 0 && onChange(event);
+          (isEmpty || parseInt(event.target.value) >= 0) && onChange(event);
         } else onChange(event);
       }
     },

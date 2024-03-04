@@ -97,9 +97,29 @@ FormDialog.args = {
   children: <Typography>{fakeSentence}</Typography>,
 };
 
-const GenericMuiDialogTemplate = (args: any) => <GenericMuiDialog {...args} />;
+const GenericMuiDialogTemplate = (
+  args: React.ComponentProps<typeof GenericMuiDialog>,
+) => <GenericMuiDialog {...args} />;
 export const MuiDialog = GenericMuiDialogTemplate.bind({});
 MuiDialog.args = {
+  open: true,
+  title: fakeSentence,
+  content: fakeSentence,
+  confirmText: 'Confirmer',
+  cancelText: 'Annuler',
+};
+
+const GenericMuiDialogWithChildrenTemplate = (
+  args: React.ComponentProps<typeof GenericMuiDialog>,
+) => (
+  <GenericMuiDialog {...args}>
+    <Alert severity="info">Hello I am a children</Alert>
+  </GenericMuiDialog>
+);
+export const MuiDialogWithChildren = GenericMuiDialogWithChildrenTemplate.bind(
+  {},
+);
+MuiDialogWithChildren.args = {
   open: true,
   title: fakeSentence,
   content: fakeSentence,
@@ -128,11 +148,11 @@ const CustomMuiDialogTemplate = (args: any) => (
     </TypographyMultiline>
   </CustomMuiDialog>
 );
-export const CustomableMuiDialog = CustomMuiDialogTemplate.bind({});
-CustomableMuiDialog.args = {
+export const CustomizableMuiDialog = CustomMuiDialogTemplate.bind({});
+CustomizableMuiDialog.args = {
   open: true,
   title: faker.lorem.words(5),
-  content: 'This is a text pass in props',
+  content: 'This is a text passed in props',
   contentAlign: 'center',
   buttons: [
     {

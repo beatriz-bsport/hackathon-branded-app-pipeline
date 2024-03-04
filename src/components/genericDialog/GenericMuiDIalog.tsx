@@ -1,6 +1,5 @@
 import React, { useCallback, useMemo } from 'react';
-import { compose } from 'recompose';
-import { WithTranslation, withTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 import {
   Button,
@@ -12,7 +11,7 @@ import {
   Typography,
 } from '@material-ui/core';
 
-type OwnProps = {
+type Props = {
   open: boolean;
   title: string;
   content: string | string[];
@@ -20,20 +19,20 @@ type OwnProps = {
   onConfirm?: () => void;
   cancelText?: string;
   confirmText?: string;
+  children?: React.ReactNode;
 };
-type Props = OwnProps & WithTranslation;
-export const GenericMuiDialog = (props: Props) => {
-  const {
-    t,
-    open,
-    title,
-    content,
-    onCancel,
-    onConfirm,
-    cancelText,
-    confirmText,
-  } = props;
 
+const GenericMuiDialog: React.FC<Props> = ({
+  open,
+  title,
+  content,
+  onCancel,
+  onConfirm,
+  cancelText,
+  confirmText,
+  children,
+}) => {
+  const { t } = useTranslation('common');
   const finalContent = useMemo(() => {
     if (!content) {
       return '';
@@ -56,6 +55,7 @@ export const GenericMuiDialog = (props: Props) => {
         <DialogTitle>{title}</DialogTitle>
         <DialogContent>
           <DialogContentText>{finalContent}</DialogContentText>
+          {children}
         </DialogContent>
         <DialogActions>
           {(!!onCancel || !!cancelText) && (
@@ -74,6 +74,4 @@ export const GenericMuiDialog = (props: Props) => {
   );
 };
 
-export default compose<any, OwnProps>(withTranslation('common'))(
-  GenericMuiDialog,
-);
+export default React.memo(GenericMuiDialog);

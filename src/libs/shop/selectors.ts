@@ -104,6 +104,10 @@ export const getShopItemDetail = (state: RootState, id: number) => {
   return state.shopReworked.shopItemReworked.itemDetails.byId[id]?.item ?? null;
 };
 
+/** Returns the loading state when updating a variant item */
+export const getShopItemVariantUpdateLoading = (state: RootState) =>
+  state.shopReworked.shopItemReworked.itemVariant.update.loading;
+
 /** Returns the loading state when deleting a variant item */
 export const getShopItemVariantDeleteLoading = (state: RootState) =>
   state.shopReworked.shopItemReworked.itemVariant.delete.loading;

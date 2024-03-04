@@ -11,6 +11,7 @@ import {
   updateShopItemVariantBulk as updateShopItemVariantBulkAPI,
   deleteShopItem as deleteShopItemAPI,
   retrieveShopItemSupplier as retrieveShopItemSupplierAPI,
+  createShopItemProvisionBulk as createShopItemProvisionBulkAPI,
 } from '../api';
 
 import type {
@@ -27,6 +28,8 @@ import type {
   ShopItemVariant,
   ShopItemVariantAttributes,
   ShopItemSupplier,
+  Provision,
+  ProvisionBulkCreate,
 } from '../types';
 import { SHOP_ITEM_VARIANTS_PAGE_SIZE } from '../constants';
 
@@ -458,7 +461,7 @@ export const retrieveShopItemSupplierActions = {
 };
 
 /**
- * Retrieves a specific shop item supplier.\
+ * Retrieves a specific shop item supplier.
  * @param id The ID of the supplier to fetch
  */
 export const retrieveShopItemSupplier = (
@@ -480,6 +483,39 @@ export const retrieveShopItemSupplier = (
       options?.onError?.();
     } finally {
       dispatch(retrieveShopItemSupplierActions.isLoading(false));
+    }
+  };
+};
+
+export const createShopItemProvisionBulkActions = {
+  isLoading: createAction<boolean>('SHOP_ITEM/PROVISION/BULK/LOADING'),
+  error: createAction<Error | null>('SHOP_ITEM/PROVISION/BULK/ERROR'),
+};
+
+/**
+ * Update the current stock quantity for multiple shop items at once.
+ * @param id The base shop item id. Used to update redux store without refetching.
+ * @param data Formatted payload from Formik
+ */
+export const createShopItemProvisionBulk = (
+  id: number,
+  data: ProvisionBulkCreate,
+  options?: OptionCallback<Provision[]>,
+) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(createShopItemProvisionBulkActions.isLoading(true));
+      dispatch(createShopItemProvisionBulkActions.error(null));
+
+      const result = await createShopItemProvisionBulkAPI(data);
+
+      options?.onSuccess?.(result.data);
+    } catch (error) {
+      dispatch(createShopItemProvisionBulkActions.error(error));
+      console.error(error);
+      options?.onError?.();
+    } finally {
+      dispatch(createShopItemProvisionBulkActions.isLoading(false));
     }
   };
 };

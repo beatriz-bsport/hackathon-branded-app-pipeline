@@ -15,6 +15,7 @@ import {
   deleteShopItemActions,
   deleteShopItemVariantActions,
   retrieveShopItemSupplierActions,
+  createShopItemProvisionBulkActions,
 } from './actions/shopItemReworked';
 
 import type { PaginatedResponse } from '../../state/types';
@@ -401,6 +402,24 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
           },
         },
         { deep: true },
+      );
+    },
+    [createShopItemProvisionBulkActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['shopItemReworked', 'itemVariant', 'update', 'loading'],
+        payload,
+      );
+    },
+    [createShopItemProvisionBulkActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['shopItemReworked', 'itemVariant', 'update', 'error'],
+        payload,
       );
     },
   },

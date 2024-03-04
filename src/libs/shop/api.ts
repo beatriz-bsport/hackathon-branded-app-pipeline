@@ -24,6 +24,7 @@ import type {
   ShopItemVariantAttributes,
   ShopItemVariantFilterParams,
   ShopItemSupplier,
+  ProvisionBulkCreate,
 } from './types';
 
 export async function fetchAll(
@@ -248,9 +249,20 @@ export const deleteShopItem = (id: number) => {
 };
 
 /**
- * Retrieves a specific shop item supplier.\
+ * Retrieves a specific shop item supplier.
  * @param id The ID of the supplier to fetch
  */
 export const retrieveShopItemSupplier = (id: number) => {
   return getAuth<ShopItemSupplier>(`${API_V1_URI}/shop/supplier/${id}`);
+};
+
+/**
+ * Update the current stock quantity for multiple shop items at once.
+ * @param data Formatted payload from Formik
+ */
+export const createShopItemProvisionBulk = (data: ProvisionBulkCreate) => {
+  return postAuth<Provision[]>(
+    `${API_V1_URI}/shop/provision/bulk_create/`,
+    data,
+  );
 };

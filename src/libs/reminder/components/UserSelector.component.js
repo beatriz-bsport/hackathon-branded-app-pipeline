@@ -12,7 +12,6 @@ type Props = {
   classes: Object,
   userList: Array<User>,
   onChange: (user: ?number) => void,
-  nullCurrentValue?: boolean,
   helperText: string,
   value: ?number,
   selectorClass: string,
@@ -50,10 +49,10 @@ export function UserSelector(props: Props) {
 
   return (
     <Selector
+      nullCurrentValue
       searchIcon
       className={classNames(classes, selectorClass)}
       components={{ Option: UserItemOption }}
-      nullCurrentValue={props.nullCurrentValue}
       onChange={(event) => onChange(event.value)}
       placeholder={helperText}
       selected={value}

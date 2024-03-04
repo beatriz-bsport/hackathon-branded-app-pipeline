@@ -532,6 +532,13 @@ const getTranslations = async () => {
         close: 'Cancel',
         submit: 'Delete',
       },
+      sendNowDialog: {
+        title: 'Send immediately',
+        content:
+          'The message will be sent immediately and removed from the scheduled list.',
+        close: 'Cancel',
+        confirm: 'Send',
+      },
     },
   };
 };

@@ -235,8 +235,9 @@ type State = {
   openEditDialog: boolean;
   resetMembersFetchForCommunication: boolean;
   communicationScheduledSelected: CommunicationScheduled | null;
-  isTooLateToUpdateCommunicationScheduledDialogOpen: boolean;
   isDeleteCommunicationScheduledDialogOpen: boolean;
+  isSendNowCommunicationScheduledDialogOpen: boolean;
+  isTooLateToUpdateCommunicationScheduledDialogOpen: boolean;
 };
 
 export class SmartListDetailMember extends React.Component<Props, State> {
@@ -245,8 +246,9 @@ export class SmartListDetailMember extends React.Component<Props, State> {
     openEditDialog: false,
     resetMembersFetchForCommunication: true,
     communicationScheduledSelected: null,
-    isTooLateToUpdateCommunicationScheduledDialogOpen: false,
     isDeleteCommunicationScheduledDialogOpen: false,
+    isSendNowCommunicationScheduledDialogOpen: false,
+    isTooLateToUpdateCommunicationScheduledDialogOpen: false,
   };
 
   componentDidMount() {
@@ -428,13 +430,23 @@ export class SmartListDetailMember extends React.Component<Props, State> {
       isDeleteCommunicationScheduledDialogOpen: false,
     });
 
+  openSendNowCommunicationScheduledDialog = () =>
+    this.setState({
+      isSendNowCommunicationScheduledDialogOpen: true,
+    });
+
+  closeSendNowCommunicationScheduledDialog = () =>
+    this.setState({
+      isSendNowCommunicationScheduledDialogOpen: false,
+    });
+
   checkIsMessageSchedulable = (
     communicationScheduled: CommunicationScheduled,
   ) =>
     new Date(communicationScheduled.datetime_scheduled) >
     new Date(Date.now() + MINUTE_LIMIT_TO_SCHEDULE_COMMUNICATION * 60 * 1000);
 
-  openCommunicationScheduledEditionDrawer = (
+  openCommunicationScheduledEditionDialog = (
     communicationScheduled: CommunicationScheduled,
   ) => {
     if (this.checkIsMessageSchedulable(communicationScheduled)) {
@@ -447,7 +459,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
     }
   };
 
-  openCommunicationScheduledDeletionDrawer = (
+  openCommunicationScheduledDeletionDialog = (
     communicationScheduled: CommunicationScheduled,
   ) => {
     if (this.checkIsMessageSchedulable(communicationScheduled)) {
@@ -487,6 +499,32 @@ export class SmartListDetailMember extends React.Component<Props, State> {
       communicationScheduledSelected: null,
     });
     this.openTooLateToUpdateCommunicationScheduledDialog();
+  };
+
+  openCommunicationScheduledSendNowDialog = (
+    communicationScheduled: CommunicationScheduled,
+  ) => {
+    if (this.checkIsMessageSchedulable(communicationScheduled)) {
+      this.setState({
+        communicationScheduledSelected: communicationScheduled,
+      });
+      this.openSendNowCommunicationScheduledDialog();
+    } else {
+      this.openTooLateToUpdateCommunicationScheduledDialog();
+    }
+  };
+
+  handleSendNowCommunicationScheduled = () => {
+    if (this.state.communicationScheduledSelected) {
+      this.props.sendCommunicationScheduled(
+        this.state.communicationScheduledSelected.id,
+      );
+    }
+    this.props.setOpenSendEmail(false);
+    this.setState({
+      communicationScheduledSelected: null,
+    });
+    this.closeSendNowCommunicationScheduledDialog();
   };
 
   getHideAutoResend = () =>
@@ -545,7 +583,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
         <FiltersPanel
           cadences={this.props.cadences}
           cancelCommunicationScheduled={
-            this.openCommunicationScheduledDeletionDrawer
+            this.openCommunicationScheduledDeletionDialog
           }
           coaches={this.props.coaches}
           communicationScheduledList={this.props.communicationScheduledList}
@@ -560,7 +598,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
           customLevels={this.props.customLevels}
           deleteFilter={this.deleteFilter}
           editCommunicationScheduled={
-            this.openCommunicationScheduledEditionDrawer
+            this.openCommunicationScheduledEditionDialog
           }
           establishments={this.props.establishments}
           exportMemberTable={() => getMemberTable(this.props.id)}
@@ -678,7 +716,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
             this.state.communicationScheduledSelected
           }
           companyId={this.props.companyId}
-          deleteScheduledMessage={this.openCommunicationScheduledDeletionDrawer}
+          deleteScheduledMessage={this.openCommunicationScheduledDeletionDialog}
           editScheduledMessage={this.props.editCommunicationScheduled}
           emailDetailLoading={this.props.emailDetailLoading}
           emailDetails={this.props.email_templates_details}
@@ -716,7 +754,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
               smartlist_id: this.props.id,
             })
           }
-          sendNow={this.props.sendCommunicationScheduled}
+          sendNow={this.openCommunicationScheduledSendNowDialog}
           timezone={this.props.timezone}
         />
         {(['dev', 'local', 'staging'].includes(
@@ -800,6 +838,23 @@ export class SmartListDetailMember extends React.Component<Props, State> {
             title={this.props.t(
               'communication:scheduled.tooLateToUpdateDialog.title',
             )}
+          />
+        )}
+        {this.state.isSendNowCommunicationScheduledDialogOpen && (
+          <GenericMuiDialog
+            cancelText={this.props.t(
+              'communication:scheduled.sendNowDialog.close',
+            )}
+            confirmText={this.props.t(
+              'communication:scheduled.sendNowDialog.confirm',
+            )}
+            content={this.props.t(
+              'communication:scheduled.sendNowDialog.content',
+            )}
+            onCancel={this.closeSendNowCommunicationScheduledDialog}
+            onConfirm={this.handleSendNowCommunicationScheduled}
+            open={this.state.isSendNowCommunicationScheduledDialogOpen}
+            title={this.props.t('communication:scheduled.sendNowDialog.title')}
           />
         )}
       </div>
@@ -1096,14 +1151,17 @@ const mapWithHandlers = {
 
   editCommunicationScheduled:
     (props: OwnAndConnectedProps) =>
-    (data: CommunicationScheduled, options?: OptionCallback) =>
+    (
+      data: CommunicationScheduled,
+      options?: OptionCallback<CommunicationScheduled>,
+    ) =>
       props.updateCommunicationScheduled(data.id, data, {
         ...options,
-        onSuccess: () => {
+        onSuccess: (communicationScheduled) => {
           props.fetchCommunicationScheduledListForSmartlist({
             smartlistId: props.id,
           });
-          options?.onSuccess?.();
+          options?.onSuccess?.(communicationScheduled);
         },
       }),
 

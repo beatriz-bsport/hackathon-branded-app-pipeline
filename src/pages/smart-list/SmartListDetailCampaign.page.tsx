@@ -88,8 +88,9 @@ type State = {
   openExportLimitDialog: boolean;
   openEditCommunication: boolean;
   communicationScheduledSelected?: CommunicationScheduled;
-  isTooLateToUpdateCommunicationScheduledDialogOpen: boolean;
   isDeleteCommunicationScheduledDialogOpen: boolean;
+  isSendNowCommunicationScheduledDialogOpen: boolean;
+  isTooLateToUpdateCommunicationScheduledDialogOpen: boolean;
 };
 
 type StateHandlerType = State & WithHandlerType<typeof withStateHandlersSetter>;
@@ -192,6 +193,12 @@ export class SmartListCampaign extends React.Component<Props> {
   closeDeleteCommunicationScheduledDialog = () =>
     this.props.setIsDeleteCommunicationScheduledDialogOpen(false);
 
+  openSendNowCommunicationScheduledDialog = () =>
+    this.props.setIsSendNowCommunicationScheduledDialogOpen(true);
+
+  closeSendNowCommunicationScheduledDialog = () =>
+    this.props.setIsSendNowCommunicationScheduledDialogOpen(false);
+
   openCommunicationScheduledDeletionDrawer = (
     communicationScheduled: CommunicationScheduled,
   ) => {
@@ -257,6 +264,28 @@ export class SmartListCampaign extends React.Component<Props> {
             .map((campaign) => [campaign, null])
         : [[this.props.automatedCampaignList, null]],
     );
+
+  openCommunicationScheduledSendNowDialog = (
+    communicationScheduled: CommunicationScheduled,
+  ) => {
+    if (this.checkIsMessageSchedulable(communicationScheduled)) {
+      this.props.setCommunicationScheduledSelected(communicationScheduled);
+      this.openSendNowCommunicationScheduledDialog();
+    } else {
+      this.openTooLateToUpdateCommunicationScheduledDialog();
+    }
+  };
+
+  handleSendNowCommunicationScheduled = () => {
+    if (this.props.communicationScheduledSelected) {
+      this.props.sendCommunicationScheduled(
+        this.props.communicationScheduledSelected.id,
+      );
+    }
+    this.closeCommunicationScheduledEditionDrawer();
+    this.props.setCommunicationScheduledSelected(null);
+    this.closeSendNowCommunicationScheduledDialog();
+  };
 
   render() {
     const {
@@ -451,7 +480,7 @@ export class SmartListCampaign extends React.Component<Props> {
           open={this.props.openEditCommunication}
           page={this.props.members.page}
           resolvedGenericTags={this.props.resolvedGenericTags}
-          sendNow={this.props.sendCommunicationScheduled}
+          sendNow={this.openCommunicationScheduledSendNowDialog}
           timezone={this.props.timezone}
         />
         {this.props.isDeleteCommunicationScheduledDialogOpen && (
@@ -473,6 +502,17 @@ export class SmartListCampaign extends React.Component<Props> {
             onCancel={this.closeTooLateToUpdateCommunicationScheduledDialog}
             open={this.props.isTooLateToUpdateCommunicationScheduledDialogOpen}
             title={t('scheduled.tooLateToUpdateDialog.title')}
+          />
+        )}
+        {this.props.isSendNowCommunicationScheduledDialogOpen && (
+          <GenericMuiDialog
+            cancelText={t('scheduled.sendNowDialog.close')}
+            confirmText={t('scheduled.sendNowDialog.confirm')}
+            content={t('scheduled.sendNowDialog.content')}
+            onCancel={this.closeSendNowCommunicationScheduledDialog}
+            onConfirm={this.handleSendNowCommunicationScheduled}
+            open={this.props.isSendNowCommunicationScheduledDialogOpen}
+            title={t('scheduled.sendNowDialog.title')}
           />
         )}
       </div>
@@ -605,14 +645,17 @@ const mapWithHandlers = {
     },
   editCommunicationScheduled:
     (props: OwnAndConnectedProps) =>
-    (data: CommunicationScheduled, options?: OptionCallback) => {
+    (
+      data: CommunicationScheduled,
+      options?: OptionCallback<CommunicationScheduled>,
+    ) => {
       props.updateCommunicationScheduled(data.id, data, {
         ...options,
-        onSuccess: () => {
+        onSuccess: (communicationScheduled) => {
           props.fetchCommunicationScheduledListForSmartlist({
             smartlistId: props.id,
           });
-          options?.onSuccess?.();
+          options?.onSuccess?.(communicationScheduled);
         },
       });
     },
@@ -633,8 +676,9 @@ const withStateHandlersInit: State = {
   openExportLimitDialog: false,
   openEditCommunication: false,
   communicationScheduledSelected: null,
-  isTooLateToUpdateCommunicationScheduledDialogOpen: false,
   isDeleteCommunicationScheduledDialogOpen: false,
+  isSendNowCommunicationScheduledDialogOpen: false,
+  isTooLateToUpdateCommunicationScheduledDialogOpen: false,
 };
 
 const withStateHandlersSetter = {
@@ -673,6 +717,12 @@ const withStateHandlersSetter = {
     () => (isDeleteCommunicationScheduledDialogOpen: boolean) => {
       return {
         isDeleteCommunicationScheduledDialogOpen,
+      };
+    },
+  setIsSendNowCommunicationScheduledDialogOpen:
+    () => (isSendNowCommunicationScheduledDialogOpen: boolean) => {
+      return {
+        isSendNowCommunicationScheduledDialogOpen,
       };
     },
 };

@@ -105,7 +105,7 @@ type OwnProps = {
   deleteScheduledMessage?: (data: CommunicationScheduled) => void;
   editScheduledMessage?: (
     data: CommunicationScheduled,
-    options?: OptionCallback,
+    options?: OptionCallback<CommunicationScheduled>,
   ) => void;
   emailDetailLoading: boolean;
   emailDetails: {
@@ -135,7 +135,7 @@ type OwnProps = {
   resolvedGenericTags: ResolvedGenericTags;
   schedule?: (data: Omit<CommunicationScheduledCreate, 'smartlist'>) => void;
   send?: (data: Partial<MemberMailData>) => void;
-  sendNow?: (id: number) => void;
+  sendNow?: (data: CommunicationScheduled) => void;
   showEmailConsentWarning?: boolean;
   showSmsConsentWarning?: boolean;
   timezone: string;
@@ -324,8 +324,6 @@ class CommunicationDrawer extends React.Component<Props, State> {
         });
       }
     } else if (this.props.communicationScheduledToEdit) {
-      const communicationScheduledId =
-        this.props.communicationScheduledToEdit.id;
       this.props.editScheduledMessage(
         {
           ...this.props.communicationScheduledToEdit,
@@ -336,7 +334,8 @@ class CommunicationDrawer extends React.Component<Props, State> {
           datetime_scheduled: communicationScheduledDateFormatted,
         },
         {
-          onSuccess: () => this.props.sendNow(communicationScheduledId),
+          onSuccess: (communicationScheduled) =>
+            this.props.sendNow(communicationScheduled),
         },
       );
     } else {
@@ -638,8 +637,6 @@ class CommunicationDrawer extends React.Component<Props, State> {
             });
           }
         } else if (this.props.communicationScheduledToEdit) {
-          const communicationScheduledId =
-            this.props.communicationScheduledToEdit.id;
           this.props.editScheduledMessage(
             {
               ...this.props.communicationScheduledToEdit,
@@ -652,7 +649,8 @@ class CommunicationDrawer extends React.Component<Props, State> {
               email_resend_delay: this.state.resendDelay,
             },
             {
-              onSuccess: () => this.props.sendNow(communicationScheduledId),
+              onSuccess: (communicationScheduled) =>
+                this.props.sendNow(communicationScheduled),
             },
           );
         } else {
@@ -693,8 +691,6 @@ class CommunicationDrawer extends React.Component<Props, State> {
             });
           }
         } else if (this.props.communicationScheduledToEdit) {
-          const communicationScheduledId =
-            this.props.communicationScheduledToEdit.id;
           this.props.editScheduledMessage(
             {
               ...this.props.communicationScheduledToEdit,
@@ -707,7 +703,8 @@ class CommunicationDrawer extends React.Component<Props, State> {
               email_resend_delay: this.state.resendDelay,
             },
             {
-              onSuccess: () => this.props.sendNow(communicationScheduledId),
+              onSuccess: (communicationScheduled) =>
+                this.props.sendNow(communicationScheduled),
             },
           );
         } else {
@@ -745,8 +742,6 @@ class CommunicationDrawer extends React.Component<Props, State> {
             });
           }
         } else if (this.props.communicationScheduledToEdit) {
-          const communicationScheduledId =
-            this.props.communicationScheduledToEdit.id;
           this.props.editScheduledMessage(
             {
               ...this.props.communicationScheduledToEdit,
@@ -759,7 +754,8 @@ class CommunicationDrawer extends React.Component<Props, State> {
               email_resend_delay: this.state.resendDelay,
             },
             {
-              onSuccess: () => this.props.sendNow(communicationScheduledId),
+              onSuccess: (communicationScheduled) =>
+                this.props.sendNow(communicationScheduled),
             },
           );
         } else {

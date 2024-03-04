@@ -1352,6 +1352,12 @@
         "content": "Are you sure you want to delete this message?",
         "close": "Cancel",
         "submit": "Delete"
+      },
+      "sendNowDialog": {
+        "title": "Send immediately",
+        "content": "The message will be sent immediately and removed from the scheduled list.",
+        "close": "Cancel",
+        "confirm": "Send"
       }
     }
   },

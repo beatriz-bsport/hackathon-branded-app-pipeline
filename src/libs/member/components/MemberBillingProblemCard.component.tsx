@@ -402,6 +402,7 @@ export const MemberBillingProblemCard = (props: Props) => {
                   (amountToBill && amountToBill < 0) ||
                   props.forceOnlyInternal ||
                   (!props.asConsumer &&
+                    !regularizeFullDebt &&
                     amountDisplayed <
                       TEMPORARY_AMOUNT_TO_FORCE_INTERNAL_PAYMENT_CTS)
                 }

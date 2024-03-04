@@ -5,12 +5,13 @@ import { compose, withHandlers, withStateHandlers } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
 import { push } from 'connected-react-router';
 
-import Collapse from '@material-ui/core/Collapse';
+import Alert from '@material-ui/lab/Alert';
 import ButtonBase from '@material-ui/core/ButtonBase';
+import Collapse from '@material-ui/core/Collapse';
+import Divider from '@material-ui/core/Divider';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
 import { withStyles, Theme } from '@material-ui/core/styles';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
@@ -287,6 +288,20 @@ export class SmartListCampaign extends React.Component<Props> {
     this.closeSendNowCommunicationScheduledDialog();
   };
 
+  isDuringNighttime = () => {
+    const now = new Date();
+    if (
+      !!this.props?.earliestHourToSendCommunications &&
+      !!this.props.latestHourToSendCommunications
+    ) {
+      return (
+        this.props.earliestHourToSendCommunications > now.getHours() ||
+        now.getHours() >= this.props.latestHourToSendCommunications
+      );
+    }
+    return false;
+  };
+
   render() {
     const {
       t,
@@ -513,7 +528,13 @@ export class SmartListCampaign extends React.Component<Props> {
             onConfirm={this.handleSendNowCommunicationScheduled}
             open={this.props.isSendNowCommunicationScheduledDialogOpen}
             title={t('scheduled.sendNowDialog.title')}
-          />
+          >
+            {this.isDuringNighttime() && (
+              <Alert severity="warning">
+                {this.props.t('scheduled.sendNowDialog.alert')}
+              </Alert>
+            )}
+          </GenericMuiDialog>
         )}
       </div>
     );

@@ -10,14 +10,15 @@ import { push as pushRouter } from 'connected-react-router';
 import { withTranslation, WithTranslation } from 'react-i18next';
 
 import type { Theme } from '@material-ui/core/styles';
+import Alert from '@material-ui/lab/Alert';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Collapse from '@material-ui/core/Collapse';
-import withStyles from '@material-ui/core/styles/withStyles';
-import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import SendIcon from '@material-ui/icons/Send';
+import Typography from '@material-ui/core/Typography';
+import withStyles from '@material-ui/core/styles/withStyles';
 import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLevelPermissionWrapper.component';
 
 import routerParamsToProps from '#hocs/router-params-to-props.hoc';
@@ -527,6 +528,20 @@ export class SmartListDetailMember extends React.Component<Props, State> {
     this.closeSendNowCommunicationScheduledDialog();
   };
 
+  isDuringNighttime = () => {
+    const now = new Date();
+    if (
+      !!this.props?.earliestHourToSendCommunications &&
+      !!this.props.latestHourToSendCommunications
+    ) {
+      return (
+        this.props.earliestHourToSendCommunications > now.getHours() ||
+        now.getHours() >= this.props.latestHourToSendCommunications
+      );
+    }
+    return false;
+  };
+
   getHideAutoResend = () =>
     Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
     this.props.companyId !== 498;
@@ -855,7 +870,13 @@ export class SmartListDetailMember extends React.Component<Props, State> {
             onConfirm={this.handleSendNowCommunicationScheduled}
             open={this.state.isSendNowCommunicationScheduledDialogOpen}
             title={this.props.t('communication:scheduled.sendNowDialog.title')}
-          />
+          >
+            {this.isDuringNighttime() && (
+              <Alert severity="warning">
+                {this.props.t('communication:scheduled.sendNowDialog.alert')}
+              </Alert>
+            )}
+          </GenericMuiDialog>
         )}
       </div>
     );

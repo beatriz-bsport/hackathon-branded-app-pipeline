@@ -538,6 +538,7 @@ const getTranslations = async () => {
           'The message will be sent immediately and removed from the scheduled list.',
         close: 'Cancel',
         confirm: 'Send',
+        alert: 'The message will be sent during night time.',
       },
     },
   };

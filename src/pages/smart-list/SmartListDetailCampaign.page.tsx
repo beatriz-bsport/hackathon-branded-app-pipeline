@@ -16,10 +16,12 @@ import { withStyles, Theme } from '@material-ui/core/styles';
 
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 
+import Config from '../../config';
+
 import { WithHandlerType, MaterialStyleType } from '../../utils/types';
 import type { CampaignExportStartEndDates } from '#libs/communication/types';
 
-// import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
+import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 import {
   getCampaignBySmartlist,
@@ -45,8 +47,8 @@ import { RootState } from '../../reducers';
 import CampaignList from '#libs/communication/components/CampaignList.component';
 import { fetchResolvedGenericTags as fetchResolvedGenericTagsAction } from '#libs/notification-rule/actions';
 import { getResolvedGenericTags } from '#libs/notification-rule/selectors';
-// import CampaignsExportSection from '#libs/communication/components/CampaignsExportSection.component';
-// import CampaignsExportLimitDialog from '#libs/communication/components/CampaignsExportLimitDialog.component';
+import CampaignsExportSection from '#libs/communication/components/CampaignsExportSection.component';
+import CampaignsExportLimitDialog from '#libs/communication/components/CampaignsExportLimitDialog.component';
 
 type OwnProps = {
   id: number;
@@ -124,56 +126,57 @@ export class SmartListCampaign extends React.Component<Props> {
       classes,
       openManualCampaignSection,
       openAutomatedCampaignSection,
-      // openCampaignsExportSection,
-      // openExportLimitDialog,
+      openCampaignsExportSection,
+      openExportLimitDialog,
     } = this.props;
 
     return (
       <div className={classes.container}>
-        {/*
-        <ObjectLevelPermissionProviderComponent requiredPermission="export.allowed_actions.smartlist_general_report">
-          {(hasPermission) =>
-            hasPermission && (
-              <>
-                <CampaignsExportLimitDialog
-                  exportAllCampaignsBackground={this.handleGenerateAnyway}
-                  handleClose={this.handleCloseDialog}
-                  open={openExportLimitDialog}
-                  recipientsCount={this.props?.csvRecipientCount}
-                />
-
-                <ButtonBase
-                  className={classes.flexHeader}
-                  onClick={this.handleSetOpenCampaignsExportSection}
-                >
-                  <Typography
-                    color={
-                      openCampaignsExportSection ? 'inherit' : 'textSecondary'
-                    }
-                    variant="h5"
-                  >
-                    {t('campaign.exportCampaigns.title')}
-                  </Typography>
-                  {openCampaignsExportSection ? (
-                    <ExpandLessIcon />
-                  ) : (
-                    <ExpandMoreIcon />
-                  )}
-                </ButtonBase>
-                <Divider className={classes.divider} />
-                <Collapse in={openCampaignsExportSection}>
-                  <CampaignsExportSection
-                    csvExportDate={this.props?.csvExportDate}
-                    csvExportLink={this.props?.csvExportLink}
-                    csvExportLoading={this.props?.csvExportLoading}
-                    fetchRecipientsNumber={this.fetchRecipientsNumber}
+        {(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' ||
+          this.props.companyId === 498) && (
+          <ObjectLevelPermissionProviderComponent requiredPermission="export.allowed_actions.smartlist_general_report">
+            {(hasPermission) =>
+              hasPermission && (
+                <>
+                  <CampaignsExportLimitDialog
+                    exportAllCampaignsBackground={this.handleGenerateAnyway}
+                    handleClose={this.handleCloseDialog}
+                    open={openExportLimitDialog}
+                    recipientsCount={this.props?.csvRecipientCount}
                   />
-                </Collapse>
-              </>
-            )
-          }
-        </ObjectLevelPermissionProviderComponent>
-        */}
+
+                  <ButtonBase
+                    className={classes.flexHeader}
+                    onClick={this.handleSetOpenCampaignsExportSection}
+                  >
+                    <Typography
+                      color={
+                        openCampaignsExportSection ? 'inherit' : 'textSecondary'
+                      }
+                      variant="h5"
+                    >
+                      {t('campaign.exportCampaigns.title')}
+                    </Typography>
+                    {openCampaignsExportSection ? (
+                      <ExpandLessIcon />
+                    ) : (
+                      <ExpandMoreIcon />
+                    )}
+                  </ButtonBase>
+                  <Divider className={classes.divider} />
+                  <Collapse in={openCampaignsExportSection}>
+                    <CampaignsExportSection
+                      csvExportDate={this.props?.csvExportDate}
+                      csvExportLink={this.props?.csvExportLink}
+                      csvExportLoading={this.props?.csvExportLoading}
+                      fetchRecipientsNumber={this.fetchRecipientsNumber}
+                    />
+                  </Collapse>
+                </>
+              )
+            }
+          </ObjectLevelPermissionProviderComponent>
+        )}
 
         <ButtonBase
           className={classes.flexHeader}

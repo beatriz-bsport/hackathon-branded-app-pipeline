@@ -244,6 +244,11 @@ export class SmartListCampaign extends React.Component<Props> {
     this.props.setCommunicationScheduledSelected(null);
   };
 
+  handleIsTooLateToUpdateCommunicationScheduled = () => {
+    this.closeCommunicationScheduledEditionDrawer();
+    this.openTooLateToUpdateCommunicationScheduledDialog();
+  };
+
   getCampaignList = () =>
     Immutable(
       Array.isArray(this.props.automatedCampaignList)
@@ -415,6 +420,9 @@ export class SmartListCampaign extends React.Component<Props> {
         </Collapse>
         <CommunicationDrawerDEPRECATED
           hideMemberList
+          closeDrawerForTooLateUpdate={
+            this.handleIsTooLateToUpdateCommunicationScheduled
+          }
           communicationScheduledToEdit={
             this.props.communicationScheduledSelected
           }

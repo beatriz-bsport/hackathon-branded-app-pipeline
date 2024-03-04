@@ -96,6 +96,7 @@ const COMPANY_ALLOWED_TO_SEND_SMARTLIST_COMMUNICATION_WITH_DB_ERROR = [
 
 type OwnProps = {
   actionType?: number;
+  closeDrawerForTooLateUpdate?: () => void;
   communicationScheduledToEdit?: CommunicationScheduled;
   companyId?: number;
   countTotal: number | null;
@@ -225,11 +226,17 @@ class CommunicationDrawer extends React.Component<Props, State> {
       });
     }
     if (
-      this.props.communicationScheduledToEdit &&
+      !!this.props.communicationScheduledToEdit &&
       this.props.communicationScheduledToEdit !==
         prevProps.communicationScheduledToEdit
     ) {
       this.updateStateIfCommunicationEdition();
+    }
+    if (
+      !!this.props.communicationScheduledToEdit &&
+      !this.checkIsMessageSchedulable()
+    ) {
+      this.props.closeDrawerForTooLateUpdate?.();
     }
   }
 

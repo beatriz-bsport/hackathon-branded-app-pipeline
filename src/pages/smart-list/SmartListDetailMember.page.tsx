@@ -179,7 +179,10 @@ import { getAllCustomForm } from '#libs/custom-form/selectors';
 
 // COMMUNICATION CHAT
 import CommunicationDrawer from '#libs/communication-v2/components/CommunicationDrawer.component';
-import { CONTEXT_SMARTLIST } from '#libs/communication-v2/constants';
+import {
+  CONTEXT_SMARTLIST,
+  MINUTE_LIMIT_TO_SCHEDULE_COMMUNICATION,
+} from '#libs/communication-v2/constants';
 import BottomActionsButtonCustom from '#components/button/BottomActionsButtonCustom.component';
 
 import GenericMuiDialog from '#components/genericDialog/GenericMuiDIalog';
@@ -429,7 +432,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
     communicationScheduled: CommunicationScheduled,
   ) =>
     new Date(communicationScheduled.datetime_scheduled) >
-    new Date(Date.now() + 5 * 60 * 1000);
+    new Date(Date.now() + MINUTE_LIMIT_TO_SCHEDULE_COMMUNICATION * 60 * 1000);
 
   openCommunicationScheduledEditionDrawer = (
     communicationScheduled: CommunicationScheduled,
@@ -476,6 +479,14 @@ export class SmartListDetailMember extends React.Component<Props, State> {
     this.setState({
       communicationScheduledSelected: null,
     });
+  };
+
+  handleIsTooLateToUpdateCommunicationScheduled = () => {
+    this.props.setOpenSendEmail(false);
+    this.setState({
+      communicationScheduledSelected: null,
+    });
+    this.openTooLateToUpdateCommunicationScheduledDialog();
   };
 
   getHideAutoResend = () =>
@@ -660,6 +671,9 @@ export class SmartListDetailMember extends React.Component<Props, State> {
         />
         <CommunicationDrawerDEPRECATED
           hideMemberList
+          closeDrawerForTooLateUpdate={
+            this.handleIsTooLateToUpdateCommunicationScheduled
+          }
           communicationScheduledToEdit={
             this.state.communicationScheduledSelected
           }

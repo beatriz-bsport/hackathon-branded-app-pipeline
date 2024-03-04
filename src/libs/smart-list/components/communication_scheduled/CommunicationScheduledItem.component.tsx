@@ -2,6 +2,9 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import StarIcon from '@material-ui/icons/Star';
+import MailIcon from '@material-ui/icons/Mail';
+import SmsIcon from '@material-ui/icons/Sms';
+import MobileScreenShareIcon from '@material-ui/icons/MobileScreenShare';
 import CreateIcon from '@material-ui/icons/Create';
 import DeleteIcon from '@material-ui/icons/Delete';
 import RemoveRedEyeIcon from '@material-ui/icons/RemoveRedEye';
@@ -9,11 +12,17 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 
+import {
+  COMMUNICATION_KIND_EMAIL,
+  COMMUNICATION_KIND_PUSH_NOTIFICATION,
+  COMMUNICATION_KIND_SMS,
+} from '@bsport/common/lib/master-data/communication-kind';
+
+import { formatAsDatetimeAdapted } from '#utils/datetime';
 import type {
   Communication,
   CommunicationScheduled,
 } from '#libs/communication-v2/types';
-import { formatAsDatetimeAdapted } from '#utils/datetime';
 
 type Props = {
   communicationScheduled: CommunicationScheduled;
@@ -22,6 +31,24 @@ type Props = {
   deleteCommunication?: () => void;
   showCommunication?: () => void;
 };
+
+type CommunicationScheduledIconProps = { communicationKind: number };
+
+const CommunicationScheduledIcon: React.FC<CommunicationScheduledIconProps> =
+  React.memo(({ communicationKind }) => {
+    const classes = useStyles();
+
+    switch (communicationKind) {
+      case COMMUNICATION_KIND_EMAIL:
+        return <MailIcon className={classes.leftIcon} />;
+      case COMMUNICATION_KIND_SMS:
+        return <SmsIcon className={classes.leftIcon} />;
+      case COMMUNICATION_KIND_PUSH_NOTIFICATION:
+        return <MobileScreenShareIcon className={classes.leftIcon} />;
+      default:
+        return <StarIcon className={classes.leftIcon} />;
+    }
+  });
 
 const CommunicationScheduledItem: React.FC<Props> = ({
   communicationScheduled,
@@ -59,7 +86,9 @@ const CommunicationScheduledItem: React.FC<Props> = ({
     <>
       <div className={classes.container}>
         <div className={classes.innerContainer}>
-          <StarIcon className={classes.leftIcon} />
+          <CommunicationScheduledIcon
+            communicationKind={communicationScheduled.communication_kind}
+          />
           <div className={classes.textWrapper}>
             <Typography color="primary" variant="h6">
               {communicationScheduled.title ||
@@ -151,9 +180,7 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap',
   },
   leftIcon: {
-    width: '32px',
-    height: '32px',
-    color: theme.palette.grey[600],
+    marginTop: 4,
   },
   textWrapper: {
     display: 'flex',

@@ -224,7 +224,7 @@ const ShopItemFormProductStep: React.FC<Props> = ({
               />
             }
             label={t('translation:form.shop.item.featured')}
-            name="marketplaceEnabled"
+            name="featured"
             onChange={handleChange}
           />
         </Grid>

@@ -506,6 +506,9 @@ const getTranslations = async () => {
       when: 'When',
       at: 'at',
       schedule: 'Schedule',
+      saveEdition: 'Save changes',
+      cancelEdition: 'Discard changes',
+      deleteMessage: 'Delete this message',
       datetimeLimit:
         'Messages must be scheduled at least 5 minutes in advance.',
       nighttimeLimit:

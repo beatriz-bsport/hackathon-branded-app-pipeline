@@ -224,6 +224,8 @@ export class SmartListCampaign extends React.Component<Props> {
       }
     }
     this.closeDeleteCommunicationScheduledDialog();
+    this.props.setOpenEditCommunication(false);
+    this.props.setCommunicationScheduledSelected(null);
   };
 
   openCommunicationScheduledEditionDrawer = (
@@ -235,6 +237,11 @@ export class SmartListCampaign extends React.Component<Props> {
     } else {
       this.openTooLateToUpdateCommunicationScheduledDialog();
     }
+  };
+
+  closeCommunicationScheduledEditionDrawer = () => {
+    this.props.setOpenEditCommunication(false);
+    this.props.setCommunicationScheduledSelected(null);
   };
 
   getCampaignList = () =>
@@ -415,6 +422,7 @@ export class SmartListCampaign extends React.Component<Props> {
           countTotal={this.props.members.countTotal}
           countWithEmail={this.props.members.countWithEmail}
           countWithPhone={this.props.members.countWithPhone}
+          deleteScheduledMessage={this.openCommunicationScheduledDeletionDrawer}
           editScheduledMessage={this.props.editCommunicationScheduled}
           emailDetailLoading={this.props.emailDetailLoading}
           emailDetails={this.props.email_templates_details}
@@ -431,10 +439,7 @@ export class SmartListCampaign extends React.Component<Props> {
           membersByPageLoading={this.props.members.loading}
           membersToDisplay={this.props.members.displayItems}
           memberToDisplayError={this.props.members.error}
-          onCancel={() => {
-            this.props.setOpenEditCommunication(false);
-            this.props.setCommunicationScheduledSelected(null);
-          }}
+          onCancel={this.closeCommunicationScheduledEditionDrawer}
           open={this.props.openEditCommunication}
           page={this.props.members.page}
           resolvedGenericTags={this.props.resolvedGenericTags}

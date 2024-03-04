@@ -12,6 +12,7 @@ import Alert from '@material-ui/lab/Alert';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import Collapse from '@material-ui/core/Collapse';
+import DeleteIcon from '@material-ui/icons/Delete';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
@@ -100,6 +101,7 @@ type OwnProps = {
   countTotal: number | null;
   countWithEmail: number | null;
   countWithPhone: number | null;
+  deleteScheduledMessage?: (data: CommunicationScheduled) => void;
   editScheduledMessage?: (
     data: CommunicationScheduled,
     options?: OptionCallback,
@@ -846,6 +848,32 @@ class CommunicationDrawer extends React.Component<Props, State> {
     return [];
   };
 
+  getSubmitLabel = () => {
+    if (this.state.isCommunicationScheduled) {
+      if (this.props.communicationScheduledToEdit) {
+        return this.props.t('scheduled.saveEdition');
+      }
+      return this.props.t('scheduled.schedule');
+    }
+    if (this.props.communicationScheduledToEdit) {
+      return this.props.t('scheduled.sendImmediately');
+    }
+    return this.props.t('common.submit');
+  };
+
+  getCancelLabel = () => {
+    if (this.props.communicationScheduledToEdit) {
+      return this.props.t('scheduled.cancelEdition');
+    }
+    return this.props.t('common.cancel');
+  };
+
+  handleDeleteCommunicationScheduled = () => {
+    this.props.deleteScheduledMessage?.(
+      this.props.communicationScheduledToEdit,
+    );
+  };
+
   render() {
     const {
       classes,
@@ -1231,28 +1259,42 @@ class CommunicationDrawer extends React.Component<Props, State> {
                       {t('resendSection.membersWontLoad')}
                     </Alert>
                   )}
-                <DialogActions>
-                  <Button color="secondary" onClick={this.handleCloseDrawer}>
-                    {t('common.cancel')}
-                  </Button>
-                  <Button
-                    color="primary"
-                    disabled={
-                      (this.state.isCommunicationScheduled &&
-                        !(
-                          this.state.communicationScheduledDate &&
-                          this.checkIsMessageSchedulable()
-                        )) ||
-                      this.checkErrors()
-                    }
-                    type="submit"
-                    variant="outlined"
-                  >
-                    {this.state.isCommunicationScheduled
-                      ? t('scheduled.schedule')
-                      : t('common.submit')}
-                  </Button>
-                </DialogActions>
+                <div className={classes.dialogActions}>
+                  {!!this.props.communicationScheduledToEdit &&
+                  !!this.props.deleteScheduledMessage ? (
+                    <CustomMuiThemeWrapper primary="error">
+                      <Button
+                        color="primary"
+                        onClick={this.handleDeleteCommunicationScheduled}
+                        startIcon={<DeleteIcon />}
+                      >
+                        {t('scheduled.deleteMessage')}
+                      </Button>
+                    </CustomMuiThemeWrapper>
+                  ) : (
+                    <div /> // This empty div must be kept here for enabling flex-end alignment of dialog actions when there's no deletion button
+                  )}
+                  <DialogActions>
+                    <Button color="secondary" onClick={this.handleCloseDrawer}>
+                      {this.getCancelLabel()}
+                    </Button>
+                    <Button
+                      color="primary"
+                      disabled={
+                        (this.state.isCommunicationScheduled &&
+                          !(
+                            this.state.communicationScheduledDate &&
+                            this.checkIsMessageSchedulable()
+                          )) ||
+                        this.checkErrors()
+                      }
+                      type="submit"
+                      variant="outlined"
+                    >
+                      {this.getSubmitLabel()}
+                    </Button>
+                  </DialogActions>
+                </div>
               </form>
             </div>
           </>
@@ -1345,6 +1387,12 @@ const styles = (theme: Theme) =>
     dateAndTimePickers: {
       display: 'flex',
       width: '49%',
+    },
+    dialogActions: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginTop: theme.spacing(4),
     },
   });
 

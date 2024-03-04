@@ -472,6 +472,10 @@ export class SmartListDetailMember extends React.Component<Props, State> {
       }
     }
     this.closeDeleteCommunicationScheduledDialog();
+    this.props.setOpenSendEmail(false);
+    this.setState({
+      communicationScheduledSelected: null,
+    });
   };
 
   getHideAutoResend = () =>
@@ -660,6 +664,7 @@ export class SmartListDetailMember extends React.Component<Props, State> {
             this.state.communicationScheduledSelected
           }
           companyId={this.props.companyId}
+          deleteScheduledMessage={this.openCommunicationScheduledDeletionDrawer}
           editScheduledMessage={this.props.editCommunicationScheduled}
           emailDetailLoading={this.props.emailDetailLoading}
           emailDetails={this.props.email_templates_details}

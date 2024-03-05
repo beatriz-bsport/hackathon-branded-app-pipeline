@@ -23,7 +23,10 @@ import classNames from 'classnames';
 import GenericResponsiveDialog from '#components/genericDialog/GenericResponsiveDialog';
 import ConditionalWrapper from '#components/ConditionnalWrapper.component';
 import { Actions } from '#components/forms';
-import { DEFAULT_OBJECT_LEVEL_PERMISSIONS } from '#libs/role/constants';
+import {
+  DEFAULT_OBJECT_LEVEL_PERMISSIONS,
+  OBJECT_LEVEL_PERMISSIONS_DEPENDENCIES_MAP,
+} from '#libs/role/constants';
 import Config from '../../../config';
 
 import { RolePermission, Role, ObjectLevelPermissions } from '../types';
@@ -412,6 +415,7 @@ export class CreateRoleDialog extends React.Component<Props, State> {
                   <RecursiveCheckBoxComponent
                     key={key}
                     checkBoxData={this.state.objectLevelPermissions}
+                    dependencyMap={OBJECT_LEVEL_PERMISSIONS_DEPENDENCIES_MAP}
                     disabled={this.props.role && !this.props.role.editable}
                     isLocalOrDevEnv={isLocalOrDevEnv}
                     keysAccumulator={[key]}

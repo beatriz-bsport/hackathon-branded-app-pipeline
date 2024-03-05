@@ -18,7 +18,7 @@ import { RolePermission, ObjectLevelPermissions } from '../types';
 
 type DeepKeyBoolean = { [key: string]: boolean | DeepKeyBoolean };
 
-const RecursiveDeepCheckBox: React.FC<{
+type Props = {
   translationKeyPrefix?: string;
   checkBoxData: DeepKeyBoolean;
   rightKey: string;
@@ -30,7 +30,10 @@ const RecursiveDeepCheckBox: React.FC<{
   ) => void;
   keysToHide?: string[];
   isLocalOrDevEnv: boolean;
-}> = ({
+  dependencyMap?: Record<'direct' | 'reciproque', { [key: string]: string }>;
+};
+
+const RecursiveDeepCheckBox: React.FC<Props> = ({
   translationKeyPrefix,
   checkBoxData,
   rightKey,
@@ -38,6 +41,7 @@ const RecursiveDeepCheckBox: React.FC<{
   disabled,
   permissions,
   updatePermission,
+  dependencyMap,
   keysToHide = [],
   isLocalOrDevEnv,
 }) => {
@@ -57,7 +61,6 @@ const RecursiveDeepCheckBox: React.FC<{
   const helpertext = t(`${prefix}.${[...keysAccumulator].join('.')}._helper`);
 
   const value = checkBoxData[rightKey];
-
   /**
    * Return true if all keys = true deeply
    * Return false if all keys = false deeply
@@ -65,7 +68,9 @@ const RecursiveDeepCheckBox: React.FC<{
    * If keys have different values return undefined
    * @param obj
    */
-  const getBooleanOrUndefinedForObject = (obj: DeepKeyBoolean) => {
+  const getBooleanOrUndefinedForObject = (
+    obj: DeepKeyBoolean,
+  ): boolean | undefined => {
     let x: boolean | null | undefined = null;
 
     obj &&
@@ -90,7 +95,10 @@ const RecursiveDeepCheckBox: React.FC<{
 
   const displayCheckbox = !keysToHide.includes(rightKey);
 
-  const getValueForKey = (_key: string, _keysAccumulator: string[]) => {
+  const getValueForKey = (
+    _key: string,
+    _keysAccumulator: string[],
+  ): boolean | undefined => {
     let obj: any = permissions;
 
     for (let i = 0; i < _keysAccumulator.length - 1; i += 1) {
@@ -118,22 +126,68 @@ const RecursiveDeepCheckBox: React.FC<{
       });
   };
 
+  /**
+   * Return true if the key is disabled by a dependency.
+   * @example if A depends on B and B is false, A is disabled
+   */
+
+  const isDisabledByDependency = (_key: string, _keysAccumulator: string[]) => {
+    const keyPath = _keysAccumulator.join('.');
+    if (!dependencyMap?.reciproque[keyPath]) {
+      return false;
+    }
+    const influencerAccumulator = dependencyMap.reciproque[keyPath].split('.');
+    const influencerValue = getValueForKey(
+      influencerAccumulator[influencerAccumulator.length - 1],
+      influencerAccumulator,
+    );
+    return dependencyMap?.reciproque[keyPath] && !influencerValue;
+  };
+
   const changeValueForKey = (_key: string, _keysAccumulator: string[]) => {
     let obj: any = cloneDeep(permissions);
+    let copyForInfluence: any = obj;
+
+    const keyPath = _keysAccumulator.join('.');
+    const influencedKeyAccumulator = dependencyMap?.direct[keyPath]?.split('.');
 
     for (let i = 0; i < _keysAccumulator.length - 1; i += 1) {
       obj = obj?.[_keysAccumulator?.[i]];
     }
+
+    for (let i = 0; i < influencedKeyAccumulator?.length - 1; i += 1) {
+      copyForInfluence = copyForInfluence?.[influencedKeyAccumulator?.[i]];
+    }
+
+    let toChangeByInfluence =
+      copyForInfluence?.[
+        influencedKeyAccumulator?.[influencedKeyAccumulator.length - 1]
+      ];
 
     let toChange = obj?.[_key];
 
     if (typeof toChange === 'object') {
       const _value = getBooleanOrUndefinedForObject(toChange);
       setValuesDeep(toChange, !_value);
+
+      if (value === false) {
+        if (typeof toChangeByInfluence === 'object') {
+          setValuesDeep(toChangeByInfluence, false);
+        } else {
+          toChangeByInfluence = false;
+        }
+      }
     }
 
     if (typeof toChange === 'boolean') {
       toChange = !toChange;
+      if (!toChange) {
+        if (typeof toChangeByInfluence === 'object') {
+          setValuesDeep(toChangeByInfluence, false);
+        } else {
+          toChangeByInfluence = false;
+        }
+      }
     }
 
     const _permissions = set(
@@ -141,6 +195,15 @@ const RecursiveDeepCheckBox: React.FC<{
       _keysAccumulator.join('.'),
       toChange,
     );
+
+    if (influencedKeyAccumulator) {
+      const _permissionsWithInflience = set(
+        _permissions,
+        influencedKeyAccumulator?.join('.'),
+        toChangeByInfluence,
+      );
+      updatePermission(cloneDeep(_permissionsWithInflience));
+    }
 
     updatePermission(cloneDeep(_permissions));
   };
@@ -154,7 +217,9 @@ const RecursiveDeepCheckBox: React.FC<{
               <Checkbox
                 checked={!!checked}
                 color="primary"
-                disabled={disabled}
+                disabled={
+                  disabled || isDisabledByDependency(rightKey, keysAccumulator)
+                }
                 indeterminate={checked === undefined}
                 name="checkedB"
                 onChange={() => changeValueForKey(rightKey, keysAccumulator)}
@@ -203,6 +268,7 @@ const RecursiveDeepCheckBox: React.FC<{
                 <RecursiveDeepCheckBox
                   key={innerKey}
                   checkBoxData={value}
+                  dependencyMap={dependencyMap}
                   disabled={disabled}
                   isLocalOrDevEnv={isLocalOrDevEnv}
                   keysAccumulator={[...keysAccumulator, innerKey]}

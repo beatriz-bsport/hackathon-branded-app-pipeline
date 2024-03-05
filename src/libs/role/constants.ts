@@ -372,3 +372,33 @@ export const DEFAULT_OBJECT_LEVEL_PERMISSIONS: ObjectLevelPermissions = {
     },
   },
 };
+
+const OBJECT_LEVEL_PERMISSIONS_DIRECT_MAP: { [key: string]: string } = {
+  'billing.allowed_actions.editBalance':
+    'billing.allowed_actions.editBalanceWithoutInvoice',
+};
+
+const OBJECT_LEVEL_PERMISSIONS_RECIPROQUE_MAP = Object.keys(
+  OBJECT_LEVEL_PERMISSIONS_DIRECT_MAP,
+).reduce<{ [key: string]: string }>(
+  (acc, key) => ({
+    ...acc,
+    [OBJECT_LEVEL_PERMISSIONS_DIRECT_MAP[key]]: key,
+  }),
+  {},
+);
+
+/**
+ * @description Map of the object level permissions dependencies.
+ * keys and values are all paths to the object level permissions.
+ * - `direct` means that the value of the key permission influences the value of the other permission.
+ * - `reciproque` means that the value of the other permission influences the value of the key permission.
+ * @example  { direct: { 'billing.allowed_actions.editBalance': 'billing.allowed_actions.editBalanceWithoutInvoice' } }
+ * means that the value of `billing.allowed_actions.editBalance` influences the value of `billing.allowed_actions.editBalanceWithoutInvoice`.
+ * Therefore, if `billing.allowed_actions.editBalance` is `false`, `billing.allowed_actions.editBalanceWithoutInvoice` should be `false` too.
+ */
+
+export const OBJECT_LEVEL_PERMISSIONS_DEPENDENCIES_MAP = {
+  direct: OBJECT_LEVEL_PERMISSIONS_DIRECT_MAP,
+  reciproque: OBJECT_LEVEL_PERMISSIONS_RECIPROQUE_MAP,
+};

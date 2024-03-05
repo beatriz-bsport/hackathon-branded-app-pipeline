@@ -971,7 +971,8 @@
                 "dialogContent": "Este relatório tem ~ {{ count }} milhões de linhas de destinatários, ultrapassando o limite de 1 milhão da folha xlsx. Para incluir destinatários, diminua o intervalo de datas para reduzir a contagem.",
                 "dialogTitle": "Limite de beneficiários excedido",
                 "title": "Exportar Campanhas"
-            }
+            },
+            "scheduledTitle": "Programado para mais tarde"
         },
         "recipient": {
             "numberOfRecipientsCompact": "Destinatários:  {{count}}",
@@ -1284,6 +1285,38 @@
             },
             "title": "Reenvio automático de e-mails não lidos",
             "dialogTitle": "Reenvio automático de correio eletrónico não lido"
+        },
+        "scheduled": {
+            "tooLateToUpdateDialog": {
+                "close": "Voltar à lista inteligente",
+                "content": "Esta mensagem não pode ser alterada ou apagada nos 5 minutos seguintes ao seu envio.",
+                "title": "Já não é possível modificar ou apagar esta mensagem."
+            },
+            "dialog": {
+                "close": "Cancelar",
+                "submit": "Programar mensagem",
+                "separator": "em",
+                "helperText": "Escolha a hora a que pretende agendar a mensagem.",
+                "title": "Agendar uma mensagem"
+            },
+            "nighttimeLimit": "A mensagem será enviada durante a noite. Para obter melhores resultados, recomendamos o envio de mensagens de marketing durante o dia.",
+            "datetimeLimit": "As mensagens devem ser agendadas com pelo menos 5 minutos de antecedência.",
+            "schedule": "Horário",
+            "at": "em",
+            "when": "Quando",
+            "scheduleForLater": "Agendar para mais tarde",
+            "sendImmediately": "Enviar imediatamente",
+            "sectionTitle": "Programação de mensagens",
+            "isEmpty": "Não existem mensagens programadas para apresentar.",
+            "show": "Mostrar",
+            "delete": "Eliminar",
+            "edit": "Editar",
+            "clicked": "Clicado",
+            "opened": "Aberto",
+            "nextCommunicationScheduled": "Próxima mensagem programada",
+            "scheduledFor": "Programado para: {{ datetime }}",
+            "numberOfRecipients": "Recipiente: {{ count }}",
+            "numberOfRecipients_plural": "Recipientes:{{ count }}"
         }
     },
     "checkout": {
@@ -2253,7 +2286,7 @@
                     "availability": {
                         "expiresToday": "Último dia",
                         "expiresIn": "{{ daysRemaining }}dia restante",
-                        "expiresIn_plural": "{{ daysRemaining }}dias restantes",
+                        "expiresIn_plural": "{{ daysRemaining }} dias restantes",
                         "future": "Começa: {{ startDate }}",
                         "expired": "Expirado: {{ expirationDate }}",
                         "active": "Expira{{ expirationDate }}"
@@ -2493,7 +2526,9 @@
                         "pauseEndDate": "até {{- pauseEndDate }} incluído",
                         "autoRenewalDate": "em {{- autoRenewalDate }}(incluído)",
                         "autoRenewed": "Renovação automática",
-                        "paused": "Atualmente em pausa"
+                        "paused": "Atualmente em pausa",
+                        "joiningFee": "Taxa de adesão: {{- fees }}",
+                        "futurePauses": "Uma pausa é agendada de{{- dateStart }} a {{- dateEnd }} (inclusive)"
                     },
                     "buttonsLabel": {
                         "see": "Ver",
@@ -2508,27 +2543,39 @@
                         "card": "Cartão: **** **** **** {{ readableIdentifier }}",
                         "sepa_debit": "SEPA: **** **** **** {{ readableIdentifier }}",
                         "internal": "Conta interna: para cada pagamento, é automaticamente criada uma dívida na sua conta interna",
-                        "title": "Método de Pagamento"
+                        "title": "Método de Pagamento",
+                        "nextPaymentDate": "em {{- subscriptionNextPaymentDate }}",
+                        "pauseEndDate": "até {{- pauseEndDate }} incluído",
+                        "autoRenewalDate": "em {{- autoRenewalDate }} (incluído)",
+                        "autoRenewed": "Renovação automática",
+                        "paused": "Atualmente em pausa"
                     },
                     "failedPaymentReason": "Motivo: {{- note }} Por favor, contacte o seu estúdio para regularizar a situação",
-                    "failedPayment": "Pagamento fracassado"
+                    "failedPayment": "Pagamento fracassado",
+                    "emptyInvoices": " Sem histórico de faturação para mostrar",
+                    "billingHistory": "Histórico de faturação",
+                    "failedPaymentReasonWithRetry": "Motivo: {{- note }}O pagamento será tentado novamente em  {{- nextRetryDate}}",
+                    "beforeRenewalContractPriceEvery": "Então{{ price }} cada {{ recurrence }}{{ interval }} após{{- date }}",
+                    "beforeRenewalContractPricePer": "Então{{ price }}{{ interval }} após {{- date }}"
                 },
                 "consumerSubscriptionCard": {
                     "buttonsLabel": {
                         "seeDetails": "Ver detalhes",
                         "addPaymentMethod": "Adicionar método de pagamento"
                     },
-                    "recurrenceLabelEvery": "{{ price }}{{ currency }} toda {{ recurrence }} {{ interval }}",
-                    "recurrenceLabelPer": "{{ price }}{{ currency }}{{ interval }}",
+                    "recurrenceLabelEvery": "{{ price }}  cada {{ recurrence }}{{ interval }}",
+                    "recurrenceLabelPer": "{{ price }}{{ interval }}",
                     "chipsLabel": {
                         "failedPayment": "Pagamento falhado",
                         "missingPaymentMethod": "Método de pagamento em falta",
                         "isPaused": "Pausado"
-                    }
+                    },
+                    "nextPayment": "Próximo pagamento:{{- nextPayment }}"
                 },
                 "headerButtonsLabel": {
                     "getSubscription": "Obter uma subscrição",
-                    "bookASession": "Reservar uma sessão"
+                    "bookASession": "Reservar uma sessão",
+                    "backToSubscriptions": "Voltar às subscrições"
                 },
                 "tab": {
                     "expired": "Expirado",
@@ -2541,6 +2588,16 @@
                     "expired": "Expirado desde {{- date }}",
                     "future": "Começa em{{- date }}",
                     "active": "Iniciado em {{- date }}"
+                },
+                "close": "Fechar",
+                "paymentMethodUpdatedContent": "O seu método de pagamento foi atualizado com sucesso",
+                "paymentMethodUpdatedTitle": "Método de pagamento atualizado",
+                "changePaymentMethod": "Alterar o método de pagamento",
+                "paymentModalAlert": "Se não for guardado nenhum método de pagamento, será automaticamente criada uma dívida na sua conta interna para cada pagamento",
+                "download": "Descarregar",
+                "placeholder": {
+                    "expired": "Ainda não tem nenhuma subscrição expirada.",
+                    "nonExpired": "Parece que não tem nenhuma subscrição ativa."
                 }
             }
         }
@@ -5446,6 +5503,15 @@
                     "firstname_guest": "Nome do convidado"
                 },
                 "name": "Reserva de convidado"
+            },
+            "ReferralProgram": {
+                "tags": {
+                    "minimum_purchase_referral": "Importe mínimo de compra",
+                    "deadline_use_referral": "Validade do prémio de referência",
+                    "referring_reward": "Recompensa para o referenciador",
+                    "reduction_purchase_referred": "Desconto para o membro referido"
+                },
+                "name": "Referência"
             }
         },
         "eventType": {
@@ -5776,7 +5842,8 @@
                 "advancedOptions": {
                     "appliesForPayroll": {
                         "helperText": "Por defeito, as sessões são faturadas ao estúdio e incluídas no histórico do professor. Se desativar esta definição, as sessões associadas a este passe deixarão de aparecer no histórico do professor.",
-                        "label": "Sessões consideradas no cálculo da remuneração do professor"
+                        "label": "Sessões consideradas no cálculo da remuneração do professor",
+                        "header": "Folha de pagamento dos professores"
                     },
                     "tag": {
                         "doNotSelectToAllowAllMembers": "Deixar em branco para autorizar todos os membros",
@@ -6056,7 +6123,8 @@
                 "title": "Configurar os meus estúdios"
             },
             "consumerPaymentPackSharedFromOtherFranchisee": "Partilhado pelo franchisado",
-            "paymentPackSharedFromFranchisor": "Passe franchise"
+            "paymentPackSharedFromFranchisor": "Passe franchise",
+            "isFromShareTooltip": "Este passe é partilhado por outro estúdio de franchising"
         },
         "details": {
             "penaltyBlock": "Passe bloqueado por {{nb_days}} dias",
@@ -6509,7 +6577,7 @@
             },
             "advancedOptions": {
                 "tag": {
-                    "tagGroupDuplicated": "Por favor, observe que os itens selecionados contêm etiquetas da mesma categoria.",
+                    "tagGroupDuplicated": "Tenha em atenção que os artigos seleccionados contêm etiquetas da mesma categoria.",
                     "selectTags": "Selecione etiquetas",
                     "tagsOnAcquisitionHelper": "Use etiquetas para identificar qual membro comprou o pack",
                     "tagsOnAcquisition": "Etiqueta após compra"
@@ -7933,7 +8001,24 @@
                         },
                         "_label": "Subscrição"
                     },
-                    "_label": "Estúdio"
+                    "_label": "Estúdio",
+                    "referral_grant": {
+                        "_label": "Subvenções de encaminhamento",
+                        "allowed_actions": {
+                            "edit": {
+                                "_label": "Editar"
+                            },
+                            "delete": {
+                                "_label": "Eliminar"
+                            },
+                            "read": {
+                                "_label": "Ver"
+                            },
+                            "create": {
+                                "_label": "Criar"
+                            }
+                        }
+                    }
                 },
                 "_label": "Relatórios"
             },
@@ -9225,6 +9310,14 @@
             "update": {
                 "successCommission": "A taxa de comissão foi alterada",
                 "success": "Autorizações alteradas"
+            },
+            "delete": {
+                "error": {
+                    "customErrors": {
+                        "4700": "Impossível eliminar : Esta função está atribuída a alguns dos seus colaboradores"
+                    },
+                    "genericError": "Ocorreu um erro: Esta função não foi eliminada"
+                }
             }
         },
         "relationship": {
@@ -11181,7 +11274,8 @@
             "current_credits": "{{ current_credits }}/{{credits}} créditos",
             "expiresOn": "Expira em {{ date }}",
             "isFromShare": "Partilhado a partir de outra conta",
-            "isOwnerOfShares": "Partilhado (Master Aula Privada Pass)"
+            "isOwnerOfShares": "Partilhado (Master Aula Privada Pass)",
+            "isFromShareTooltip": "Este passe de marcação é partilhado por outro estúdio franchisado"
         },
         "privateCoach": {
             "delete": {
@@ -12951,7 +13045,15 @@
             "content_plural": "Utilizados em {{ count }}{{ workflowPluralLowerCase }}"
         },
         "downloadReport": "Descarregar o relatório",
-        "generateReport": "Gerar relatório"
+        "generateReport": "Gerar relatório",
+        "communication": {
+            "scheduled": {
+                "total": "Total de mensagens agendadas: {{ count }}",
+                "viewAll": "Ver tudo",
+                "isEmpty": "Não há mensagens programadas.",
+                "nextScheduledMessage": "Próxima mensagem programada"
+            }
+        }
     },
     "titles": {
         "workshopActivity": {
@@ -13483,7 +13585,8 @@
                     "clickableText": "Texto clicável",
                     "activityPass": "Passe de atividade",
                     "appointmentPass": "Cartão de marcação de consulta",
-                    "universalPass": "Passe universal"
+                    "universalPass": "Passe universal",
+                    "card_payment_method": "Cartão"
                 },
                 "title": {
                     "paymentMethodType": "Modo de pagamento",
@@ -13605,7 +13708,15 @@
                     "isUnpaid": "Indicador de reserva não paga",
                     "isAtHome": "Indicador de marcação no domicílio",
                     "isNoShow": "Indicador de reserva de não comparência",
-                    "isCancelDisabled": "O botão Cancelar está desativado"
+                    "isCancelDisabled": "O botão Cancelar está desativado",
+                    "withFailedPayments": "Exibir pagamentos falhados",
+                    "WithBillingHistory": "Exibir pagamentos bem sucedidos",
+                    "hasAutoRenewal": "A assinatura será renovada automaticamente",
+                    "withFuturePauses": "A assinatura tem pausas planeadas no futuro",
+                    "isPaused": "Está atualmente em pausa",
+                    "addPaymentMethodDisabled": "O botão Adicionar método de pagamento está desativado",
+                    "hasMissingPaymentMethod": "Tem um método de pagamento em falta",
+                    "hasFailedPayments": "Não efectuou pagamentos"
                 },
                 "configurationTitle": "Variações",
                 "confirmationMessageComponentAlert": "Este componente gere principalmente os estados da reserva e do pagamento. Para personalizar o seu aspeto, recomendamos a utilização dos seus componentes de raiz localizados na secção comum",
@@ -13746,7 +13857,10 @@
                 "consumer_payment_pack_details_card": "Cartão de informação do passe de atividade (para membro)",
                 "private_consumer_pass_details_card": "Cartão de dados do cartão de marcação de consultas (para o membro)",
                 "universal_pass_details_card": "Cartão de informação do passe universal (para membro)",
-                "reset_password_confirmation": "Confirmação da redefinição da palavra-passe"
+                "reset_password_confirmation": "Confirmação da redefinição da palavra-passe",
+                "consumer_subscription_details_card": "Cartão de dados de subscrição do consumidor",
+                "consumer_subscription_card": "Cartão de subscrição do consumidor",
+                "fabrique_big_icon": "Ícone grande"
             },
             "cssEditor": {
                 "reset": "reposto",
@@ -14268,7 +14382,9 @@
                             "tagsOnAcquisition": "Etiquete após a compra"
                         },
                         "header": "Avançado"
-                    }
+                    },
+                    "supplier": "Fornecedor",
+                    "sku": "SKU"
                 }
             },
             "notesHelperText": "As notas são privadas : só aparecerão no Backoffice para os membros do staff autorizados a editá-las",
@@ -16409,7 +16525,7 @@
                 "text": "Esta sessão faz parte de um grupo, vai ver todas as sessões deste grupo. Deseja continuar ?"
             }
         },
-        "tagGroupDuplicated": "Por favor, esteja ciente de que algumas etiquetas pertencem ao mesmo grupo."
+        "tagGroupDuplicated": "Tenha em atenção que algumas etiquetas pertencem ao mesmo grupo."
     },
     "subscription": {
         "contract": {
@@ -17171,7 +17287,19 @@
                 "addToCard": "Adicionar ao carrinho"
             },
             "form": {
-                "title": "Artigo da loja"
+                "title": "Artigo da loja",
+                "error": {
+                    "name": "O nome de um produto não pode exceder 200 caracteres"
+                },
+                "variantHelperText": "Defina variantes se este produto estiver disponível em várias cores e/ou tamanhos. Poderá editar as propriedades de cada variante mais tarde.",
+                "sizes": {
+                    "helperText": "Adicionar um tamanho pressionando enter",
+                    "title": "Tamanhos"
+                },
+                "colors": {
+                    "helperText": "Adicionar uma cor pressionando enter",
+                    "title": "Cores"
+                }
             },
             "detail": {
                 "enabled": "Sim",
@@ -18144,7 +18272,8 @@
         "actions": {
             "signup": {
                 "register": "Inscrever-se",
-                "noAccount": "Ainda não tem conta ?"
+                "noAccount": "Ainda não tem conta ?",
+                "goBack": "Voltar atrás"
             },
             "signin": "Iniciar sessão",
             "forgottenPassword": "Esqueceu-se da sua palavra-passe ?"
@@ -18373,7 +18502,9 @@
             "classLocation": "A  sessão decorre em",
             "expires": "Expirado",
             "headOnIn": "Está tudo pronto para começar !",
-            "visitsLeft": "Visitas restantes"
+            "visitsLeft": "Visitas restantes",
+            "spotUnassigned": "Local não atribuído",
+            "spotInfo": "O seu {{spotName}} é:"
         },
         "filter": {
             "establishment": "Filtrar por local"

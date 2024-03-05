@@ -1281,7 +1281,8 @@
                 "dialogContent": "Ce rapport a ~{{ count }} million de lignes de destinataires, ce qui dépasse la limite de 1 million des feuilles xlsx. Pour inclure des destinataires, veuillez réduire la plage de dates afin de diminuer le nombre de lignes.",
                 "dialogTitle": "Limite de destinataires dépassée",
                 "title": "Exporter des campagnes"
-            }
+            },
+            "scheduledTitle": "Programmé pour plus tard"
         },
         "recipient": {
             "readCount": "Ouverture",
@@ -1562,6 +1563,38 @@
             },
             "title": "Renvoi automatique des e-mails non lus",
             "dialogTitle": "Relances automatiques des emails non ouverts"
+        },
+        "scheduled": {
+            "tooLateToUpdateDialog": {
+                "close": "Retour à la smartlist",
+                "content": "Ce message ne peut pas être modifié ou supprimé dans les 5 minutes précédant son envoi.",
+                "title": "Vous ne pouvez plus modifier ou supprimer ce message."
+            },
+            "dialog": {
+                "close": "Annuler",
+                "submit": "Programmer le message",
+                "separator": "à",
+                "helperText": "Choisissez l'heure à laquelle vous souhaitez programmer le message.",
+                "title": "Programmer un message"
+            },
+            "nighttimeLimit": "Le message sera envoyé pendant la nuit. Pour de meilleurs résultats, nous recommandons d'envoyer les messages marketing pendant la journée.",
+            "datetimeLimit": "Les messages doivent être programmés au moins 5 minutes à l'avance.",
+            "schedule": "Programmer",
+            "at": "à",
+            "when": "Quand",
+            "scheduleForLater": "Programmer pour plus tard",
+            "sendImmediately": "Envoyer immédiatement",
+            "sectionTitle": "Programmation de messages",
+            "isEmpty": "Aucun message programmé à afficher.",
+            "show": "Voir",
+            "delete": "Supprimer",
+            "edit": "Modifier",
+            "clicked": "Cliqué",
+            "opened": "Ouvert",
+            "nextCommunicationScheduled": "Prochain message programmé",
+            "scheduledFor": "Programmé pour : {{ datetime }}",
+            "numberOfRecipients": "Destinataire : {{ count }}",
+            "numberOfRecipients_plural": "Destinataires : {{ count }}"
         }
     },
     "consumerSpace": {
@@ -6360,6 +6393,15 @@
                     "firstname_guest": "Prénom de l'invité"
                 },
                 "name": "Réservation de l'invité"
+            },
+            "ReferralProgram": {
+                "tags": {
+                    "deadline_use_referral": "Validité de la prime de parrainage",
+                    "minimum_purchase_referral": "Montant minimum d'achat",
+                    "referring_reward": "Récompense pour le parrain",
+                    "reduction_purchase_referred": "Réduction pour le membre parrainé"
+                },
+                "name": "Parrainage"
             }
         },
         "eventType": {
@@ -13456,7 +13498,15 @@
             "content_plural": "Utilisée dans {{ count }} {{ workflowPluralLowerCase }}"
         },
         "downloadReport": "Télécharger le rapport",
-        "generateReport": "Générer un rapport"
+        "generateReport": "Générer un rapport",
+        "communication": {
+            "scheduled": {
+                "total": "Nombre de messages programmés : {{ count }}",
+                "viewAll": "Voir tout",
+                "isEmpty": "Aucun message n'est programmé.",
+                "nextScheduledMessage": "Prochain message programmé"
+            }
+        }
     },
     "snackbar": {
         "canNotBuyErrorCode": {

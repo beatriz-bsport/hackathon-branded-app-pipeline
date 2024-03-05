@@ -276,7 +276,9 @@
                             "tagsOnAcquisition": "Tag dopo l'acquisto"
                         },
                         "header": "Avanzate"
-                    }
+                    },
+                    "supplier": "Fornitore",
+                    "sku": "SKU"
                 }
             },
             "member": {
@@ -1372,6 +1374,15 @@
                     "firstname_guest": "Nome ospite"
                 },
                 "name": "Prenotazione per l'ospite"
+            },
+            "ReferralProgram": {
+                "tags": {
+                    "deadline_use_referral": "Validità del premio referral",
+                    "minimum_purchase_referral": "Importo minimo di acquisto",
+                    "referring_reward": "Ricompensa per il referente",
+                    "reduction_purchase_referred": "Sconto per il membro invitato"
+                },
+                "name": "Referral"
             }
         },
         "eventType": {
@@ -1893,17 +1904,18 @@
             },
             "mySubscriptions": {
                 "consumerSubscriptionCard": {
-                    "recurrenceLabelEvery": "{{ price }}{{ currency }} ogni {{ recurrence }} {{ interval }}",
+                    "recurrenceLabelEvery": "{{ price }} ogni {{ recurrence }} {{ interval }}",
                     "buttonsLabel": {
                         "seeDetails": "Vedi dettagli",
                         "addPaymentMethod": "Aggiungi un metodo di pagamento"
                     },
-                    "recurrenceLabelPer": "{{ price }}{{ currency }}/{{ interval }}",
+                    "recurrenceLabelPer": "{{ price }}/{{ interval }}",
                     "chipsLabel": {
                         "failedPayment": "Pagamento fallito",
                         "missingPaymentMethod": "Metodo di pagamento mancante",
                         "isPaused": "In pausa"
-                    }
+                    },
+                    "nextPayment": "Prossimo pagamento: {{- nextPayment }}"
                 },
                 "consumerSubscriptionCardDetails": {
                     "headerListItemLabels": {
@@ -1912,7 +1924,9 @@
                         "pauseEndDate": "fino al {{- pauseEndDate }} incluso",
                         "autoRenewalDate": "il {{- autoRenewalDate }} (incluso)",
                         "autoRenewed": "Rinnovo automatico",
-                        "paused": "Attualmente in pausa"
+                        "paused": "Attualmente in pausa",
+                        "joiningFee": "Tassa di iscrizione: {{- fees }}",
+                        "futurePauses": "È programmata una pausa dal {{- dateStart }} al {{- dateEnd }} (inclusi)"
                     },
                     "buttonsLabel": {
                         "see": "Vedi",
@@ -1927,14 +1941,25 @@
                         "card": "Card: **** **** **** {{ readableIdentifier }}",
                         "sepa_debit": "SEPA: **** **** **** {{ readableIdentifier }}",
                         "internal": "Saldo cliente: per ogni pagamento, viene creato automaticamente un debito sul proprio saldo interno",
-                        "title": "Metodo di pagamento"
+                        "title": "Metodo di pagamento",
+                        "nextPaymentDate": "il {{- subscriptionNextPaymentDate }}",
+                        "pauseEndDate": "fino al {{- pauseEndDate }} incluso",
+                        "autoRenewalDate": "il {{- autoRenewalDate }} (incluso)",
+                        "autoRenewed": "Rinnovato automaticamente",
+                        "paused": "Momentaneamente in pausa"
                     },
                     "failedPaymentReason": "Motivi: {{- note }} Si prega di contattare il tuo studio per regolarizzare la situazione",
-                    "failedPayment": "Pagamento fallito"
+                    "failedPayment": "Pagamento fallito",
+                    "emptyInvoices": " Nessuna cronologia da mostrare",
+                    "billingHistory": "Cronologia di contabilizzazione",
+                    "failedPaymentReasonWithRetry": "Motivo: {{- note }}. Il pagamento verrà ritentato il {{- nextRetryDate}}",
+                    "beforeRenewalContractPriceEvery": "Poi {{ price }} ogni {{ recurrence }} {{ interval }} dopo {{- date }}",
+                    "beforeRenewalContractPricePer": "Poi {{ price }}/{{ interval }} dopo {{- date }}"
                 },
                 "headerButtonsLabel": {
                     "getSubscription": "Ottieni un abbonamento ricorrente",
-                    "bookASession": "Prenota una sessione"
+                    "bookASession": "Prenota una sessione",
+                    "backToSubscriptions": "Torna agli abbonamenti ricorrenti"
                 },
                 "tab": {
                     "expired": "Scaduta",
@@ -1947,6 +1972,16 @@
                     "expired": "Scaduta da {{- date }}",
                     "future": "Iniziata il {{- date }}",
                     "active": "Iniziata il {{- date }}"
+                },
+                "close": "Chiudi",
+                "paymentMethodUpdatedContent": "Il metodo di pagamento è stato aggiornato correttamente",
+                "paymentMethodUpdatedTitle": "Metodo di pagamento aggiornato",
+                "changePaymentMethod": "Cambia metodo di pagamento",
+                "paymentModalAlert": "Se non viene salvato alcun metodo di pagamento, per ogni pagamento verrà creato automaticamente un debito sul conto interno",
+                "download": "Scarica",
+                "placeholder": {
+                    "expired": "Non ci sono ancora abbonamenti ricorrenti scaduti.",
+                    "nonExpired": "Sembra che non ci siano abbonamenti ricorrenti attivi."
                 }
             }
         }
@@ -2100,7 +2135,7 @@
             },
             "advancedOptions": {
                 "tag": {
-                    "tagGroupDuplicated": "Si prega di notare che gli articoli selezionati contengono tag della stessa categoria.",
+                    "tagGroupDuplicated": "Nota che gli articoli selezionati contengono tag della stessa categoria che non possono essere applicati contemporaneamente. Dopo l'acquisto verrà applicato solo il primo di questi tag.",
                     "selectTags": "Seleziona tag",
                     "tagsOnAcquisitionHelper": "Usare i tag per identificare il membro che ha acquistato il pacchetto combinato.",
                     "tagsOnAcquisition": "Tag dopo l'acquisto"
@@ -2258,7 +2293,8 @@
                 "dialogContent": "Questo report contiene ~{{ count }} milioni di righe di destinatari, superando il limite di 1 milione di fogli xlsx. Per includere i destinatari, diminuire l'intervallo di date per ridurre il conteggio.",
                 "dialogTitle": "Limite destinatari superato",
                 "title": "Esporta campagna"
-            }
+            },
+            "scheduledTitle": "Programmato per dopo"
         },
         "recipient": {
             "readCount": "Apertura",
@@ -2564,6 +2600,38 @@
             },
             "title": "Reinvio automatico delle e-mail non lette",
             "dialogTitle": "Reinvio automatico delle e-mail non lette"
+        },
+        "scheduled": {
+            "tooLateToUpdateDialog": {
+                "close": "Torna alle smartlist",
+                "content": "Questo messaggio non può essere modificato o cancellato entro 5 minuti dall'invio.",
+                "title": "Non puoi più modificare o rimuovere questo messaggio."
+            },
+            "dialog": {
+                "close": "Cancella",
+                "submit": "Programma il messaggio",
+                "separator": "alle",
+                "helperText": "Scegli l'ora in cui si desidera programmare il messaggio.",
+                "title": "Programma un messaggio"
+            },
+            "nighttimeLimit": "Il messaggio verrà inviato di notte. Per ottenere risultati migliori, si consiglia di inviare i messaggi di marketing di giorno.",
+            "datetimeLimit": "I messaggi devono essere programmati con almeno 5 minuti di anticipo.",
+            "schedule": "Programma",
+            "at": "alle",
+            "when": "Quando",
+            "scheduleForLater": "Programma per dopo",
+            "sendImmediately": "Invia subito",
+            "sectionTitle": "Programmazione dei messaggi",
+            "isEmpty": "Non ci sono messaggi programmati da mostrare.",
+            "show": "Mostra",
+            "delete": "Elimina",
+            "edit": "Modifica",
+            "clicked": "Cliccata",
+            "opened": "Aperta",
+            "nextCommunicationScheduled": "Prossimo messaggio programmato",
+            "scheduledFor": "Programmato per: {{ datetime }}",
+            "numberOfRecipients": "Destintario: {{ count }}",
+            "numberOfRecipients_plural": "Destintari: {{ count }}"
         }
     },
     "membership": {
@@ -2688,7 +2756,8 @@
             "isFromDisabledShare": "Condivisione interrotta",
             "isOwnerOfShares": "Condividere (master card per appuntamenti)",
             "isFromShare": "Condividere da un altro account",
-            "warningShareUniversal": "Questo pacchetto è universale, si prega di condividere il pacchetto associato"
+            "warningShareUniversal": "Questo pacchetto è universale, si prega di condividere il pacchetto associato",
+            "isFromShareTooltip": "Questo pacchetto per appuntamenti è condiviso da un altro studio in franchising"
         },
         "availabilitySlot": {
             "form": {
@@ -4970,6 +5039,14 @@
                 "overrideEstablishmentNotAllowed": "Non puoi forzare un appuntamento in questo stabilimento.",
                 "changeDateEstablishmentUnaivalable": "Impossibile prenotare in questa data: lo stabilimento non è disponibile.",
                 "changeDateCoachUnaivalable": "Impossibile prenotare in questa data: l'insegnante non è libera."
+            },
+            "delete": {
+                "error": {
+                    "customErrors": {
+                        "4700": "Impossibile da cancellare: questo ruolo è assegnato ad alcuni membri dello staff"
+                    },
+                    "genericError": "Si è verificato un errore: questo ruolo non è stato cancellato"
+                }
             }
         },
         "booking": {
@@ -8907,7 +8984,8 @@
                     "header": "Avanzato",
                     "appliesForPayroll": {
                         "label": "Sessioni prese in considerazione nel calcolo della retribuzione dell'insegnante",
-                        "helperText": "Per impostazione predefinita, le sessioni vengono contabilizzate allo studio e conteggiate nel riepilogo e nel compenso del docente da parte dello studio. Disattivando questa impostazione, le sessioni associate a questo pacchetto non appariranno più nel riepilogo dell'insegnante."
+                        "helperText": "Per impostazione predefinita, le sessioni vengono contabilizzate allo studio e conteggiate nel riepilogo e nel compenso del docente da parte dello studio. Disattivando questa impostazione, le sessioni associate a questo pacchetto non appariranno più nel riepilogo dell'insegnante.",
+                        "header": "Retribuzione dell'insegnante"
                     }
                 },
                 "universalPass": {
@@ -9325,7 +9403,8 @@
                 "title": "Allestire i miei studi"
             },
             "consumerPaymentPackSharedFromOtherFranchisee": "Condiviso dal franchisee",
-            "paymentPackSharedFromFranchisor": "Scheda del franchising"
+            "paymentPackSharedFromFranchisor": "Scheda del franchising",
+            "isFromShareTooltip": "Questo pacchetto è condiviso da un altro studio in franchising"
         },
         "universalPass": {
             "restore": {
@@ -11266,7 +11345,15 @@
             "content_plural": "Usato in {{ count }} {{ workflowPluralLowerCase }}"
         },
         "downloadReport": "Scarica il report",
-        "generateReport": "Genera il report"
+        "generateReport": "Genera il report",
+        "communication": {
+            "scheduled": {
+                "total": "Totale messaggi programmati: {{ count }}",
+                "viewAll": "Vedi tutti",
+                "isEmpty": "Non ci sono messaggi programmati.",
+                "nextScheduledMessage": "Prossimo messaggio programmato"
+            }
+        }
     },
     "relationship": {
         "member": {
@@ -11802,7 +11889,7 @@
                 "submit": "Conferma"
             }
         },
-        "tagGroupDuplicated": "Si noti che alcuni tag appartengono allo stesso gruppo."
+        "tagGroupDuplicated": "Nota che alcuni tag appartengono allo stesso gruppo e non possono essere applicati contemporaneamente. Dopo l'acquisto verrà applicato solo il primo di questi tag."
     },
     "establishment": {
         "capacity": {
@@ -12390,7 +12477,9 @@
             "classLocation": "Per partecipare, recati al seguente stabilimento:",
             "visitsLeft": "Visite rimanenti",
             "expires": "Scaduto",
-            "signIn": "Check-in eseguito"
+            "signIn": "Check-in eseguito",
+            "spotUnassigned": "Posto non assegnato",
+            "spotInfo": "Il tuo {{spotName}} è:"
         },
         "signout": {
             "signout": "Disconnetti",
@@ -12475,7 +12564,8 @@
         "actions": {
             "signup": {
                 "noAccount": "Non hai ancora un account?",
-                "register": "Iscriviti"
+                "register": "Iscriviti",
+                "goBack": "Indietro"
             },
             "forgottenPassword": "Password dimenticata?",
             "signin": "Accesso"
@@ -12856,7 +12946,19 @@
             },
             "noDescription": "Nessuna descrizione",
             "form": {
-                "title": "Articolo dello shop"
+                "title": "Articolo dello shop",
+                "error": {
+                    "name": "Il nome di un prodotto non può superare i 200 caratteri"
+                },
+                "variantHelperText": "Definire le varianti se il prodotto è disponibile in più colori e/o dimensioni. In seguito sarà possibile modificare le proprietà di ciascuna variante.",
+                "sizes": {
+                    "helperText": "Aggiungi una taglia premendo invio",
+                    "title": "Taglie"
+                },
+                "colors": {
+                    "helperText": "Aggiungi un colore premendo Invio",
+                    "title": "Colori"
+                }
             }
         },
         "link": {
@@ -15560,6 +15662,23 @@
                                 "_label": "Elimina"
                             }
                         }
+                    },
+                    "referral_grant": {
+                        "_label": "Contributi per il programma referral",
+                        "allowed_actions": {
+                            "edit": {
+                                "_label": "Modifica"
+                            },
+                            "delete": {
+                                "_label": "Elimina"
+                            },
+                            "read": {
+                                "_label": "Vedi"
+                            },
+                            "create": {
+                                "_label": "Crea"
+                            }
+                        }
                     }
                 },
                 "Bookings": {
@@ -16291,7 +16410,10 @@
                 "consumer_payment_pack_details_card": "Tessera per i dettagli del pacchetto attività (per i membri)",
                 "private_consumer_pass_details_card": "Scheda dettagli del pacchetto per appuntamenti (per i membri)",
                 "universal_pass_details_card": "Scheda dettagli del pacchetto universale (per i membri)",
-                "reset_password_confirmation": "Conferma del ripristino della password"
+                "reset_password_confirmation": "Conferma del ripristino della password",
+                "consumer_subscription_details_card": "Card dettagli dell'abbonamento dei clienti",
+                "consumer_subscription_card": "Card abbonamento dei clienti",
+                "fabrique_big_icon": "Icona grande"
             },
             "cssConfig": {
                 "title": {
@@ -16414,7 +16536,15 @@
                     "isDetailsDisabled": "Il pulsante \"vedi dettagli\" è disattivato",
                     "isExpired": "Il pacchetto è scaduto",
                     "isFuture": "Il pacchetto non è ancora attivo",
-                    "passKind": "Tipologia di pacchetto"
+                    "passKind": "Tipologia di pacchetto",
+                    "withFailedPayments": "Mostra i pagamenti falliti",
+                    "WithBillingHistory": "Mostra i pagamenti andati a buon fine",
+                    "hasAutoRenewal": "L'abbonamento ricorrente sarà rinnovato automaticamente",
+                    "withFuturePauses": "L'abbonamento ricorrente prevede delle pause in futuro",
+                    "isPaused": "È attualmente in pausa",
+                    "addPaymentMethodDisabled": "Il pulsante Aggiungi metodo di pagamento è disabilitato",
+                    "hasMissingPaymentMethod": "Ha un metodo di pagamento mancante",
+                    "hasFailedPayments": "Ha dei pagamenti non andati a buon fine"
                 },
                 "option": {
                     "false": "No",
@@ -16510,7 +16640,8 @@
                     "standard": "Standard",
                     "activityPass": "Pacchetto attività",
                     "appointmentPass": "Pacchetto per appuntamenti",
-                    "universalPass": "Pacchetto universale"
+                    "universalPass": "Pacchetto universale",
+                    "card_payment_method": "Carta"
                 },
                 "configurationTitle": "Variazioni",
                 "confirmationMessageComponentAlert": "Questo componente gestisce principalmente gli stati di prenotazione e di pagamento. Per personalizzarne l'aspetto, si consiglia di utilizzare i suoi componenti principali, situati nella sezione comune",

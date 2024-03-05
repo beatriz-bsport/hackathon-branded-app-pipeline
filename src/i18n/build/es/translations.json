@@ -307,7 +307,9 @@
                             "tagsOnAcquisition": "Etiqueta tras la compra"
                         },
                         "header": "Avanzado"
-                    }
+                    },
+                    "supplier": "Proveedor",
+                    "sku": "SKU"
                 }
             },
             "booking": {
@@ -1772,7 +1774,7 @@
                 "title": "Desctivar la etiqueta"
             }
         },
-        "tagGroupDuplicated": "Tenga en cuenta que algunas etiquetas pertenecen al mismo grupo."
+        "tagGroupDuplicated": "Tenga en cuenta que algunas etiquetas pertenecen al mismo grupo y no pueden aplicarse simultáneamente. Solo se aplicará la primera de estas etiquetas tras la compra."
     },
     "login": {
         "forms": {
@@ -1806,7 +1808,8 @@
             "forgottenPassword": "Contraseña olvidada",
             "signup": {
                 "register": "Registrarme",
-                "noAccount": "¿Aún no tienes cuenta?"
+                "noAccount": "¿Aún no tienes cuenta?",
+                "goBack": "Ir atrás"
             },
             "signin": "Iniciar sesión"
         },
@@ -2731,7 +2734,19 @@
                 "placeholder": "Buscar por nombre o código de barras"
             },
             "form": {
-                "title": "Artículo de la tienda"
+                "title": "Artículo de la tienda",
+                "error": {
+                    "name": "El nombre de un producto no puede superar los 200 caracteres"
+                },
+                "variantHelperText": "Defina variantes si este producto está disponible en varios colores y/o tallas. Más adelante podrá editar las propiedades de cada variante.",
+                "sizes": {
+                    "helperText": "Añade una talla pulsando intro",
+                    "title": "Tallas"
+                },
+                "colors": {
+                    "helperText": "Añade un color pulsando Intro",
+                    "title": "Colores"
+                }
             }
         },
         "search": "Buscar un producto",
@@ -7251,6 +7266,15 @@
                     "firstname_guest": "Nombre del invitado"
                 },
                 "name": "Reserva para invitados"
+            },
+            "ReferralProgram": {
+                "tags": {
+                    "deadline_use_referral": "Validez de la recompensa por referencia",
+                    "minimum_purchase_referral": "Importe mínimo de compra",
+                    "referring_reward": "Recompensa para el referente",
+                    "reduction_purchase_referred": "Descuento para el miembro referido"
+                },
+                "name": "Referencia"
             }
         },
         "emailDesign": {
@@ -7503,7 +7527,7 @@
                     "availability": {
                         "expiresToday": "Último día",
                         "expiresIn": "{{ daysRemaining }} día restante",
-                        "expiresIn_plural": "{{ daysRemaining }} days restantes",
+                        "expiresIn_plural": "{{ daysRemaining }} días restantes",
                         "future": "Inicio: {{ startDate }}",
                         "expired": "Caducado: {{ expirationDate }}",
                         "active": "Caduca: {{ expirationDate }}"
@@ -7743,7 +7767,9 @@
                         "pauseEndDate": "hasta {{- pauseEndDate }} incluido",
                         "autoRenewalDate": "en {{- autoRenewalDate }} (incluido)",
                         "autoRenewed": "Renovación automática",
-                        "paused": "Actualmente en pausa"
+                        "paused": "Actualmente en pausa",
+                        "joiningFee": "Tasa de inscripción: {{- fees }}",
+                        "futurePauses": "Se programa una pausa desde {{- dateStart }} hasta {{- dateEnd }}. (incluido)"
                     },
                     "buttonsLabel": {
                         "see": "Ver",
@@ -7758,27 +7784,39 @@
                         "card": "Tarjeta: **** **** **** {{ readableIdentifier }}",
                         "sepa_debit": "SEPA: **** **** **** {{ readableIdentifier }}",
                         "internal": "Cuenta interna: para cada pago, se crea automáticamente una deuda en su cuenta interna.",
-                        "title": "Método de pago"
+                        "title": "Método de pago",
+                        "nextPaymentDate": "en {{- subscriptionNextPaymentDate }}",
+                        "pauseEndDate": "hasta {{- pauseEndDate }} incluido",
+                        "autoRenewalDate": "en {{- autoRenewalDate }} (incluido)",
+                        "autoRenewed": "Renovación automática",
+                        "paused": "Actualmente en pausa"
                     },
                     "failedPaymentReason": "Motivo: {{- note }} Póngase en contacto con su estudio para regularizar la situación",
-                    "failedPayment": "Pago fallido"
+                    "failedPayment": "Pago fallido",
+                    "emptyInvoices": " No hay un histórico de facturación que mostrar",
+                    "billingHistory": "Histórico de facturación",
+                    "failedPaymentReasonWithRetry": "Motivo: {{- note }}. El pago se volverá a intentar en {{- nextRetryDate}}.",
+                    "beforeRenewalContractPriceEvery": "Entonces {{ price }} cada {{ recurrence }} {{ interval }} después de {{- date }}",
+                    "beforeRenewalContractPricePer": "Entonces {{ price }}/{ interval }} después de {{- date }}"
                 },
                 "consumerSubscriptionCard": {
                     "buttonsLabel": {
                         "seeDetails": "Ver detalles",
                         "addPaymentMethod": "Añadir método de pago"
                     },
-                    "recurrenceLabelEvery": "{{ price }}{{ currency }} cada {{ recurrence }} {{ interval }}",
-                    "recurrenceLabelPer": "{{ price }}{{ currency }}/{{ interval }}",
+                    "recurrenceLabelEvery": "{{ price }} cada {{ recurrence }} {{ interval }}",
+                    "recurrenceLabelPer": "{{ price }}/{{ interval }}",
                     "chipsLabel": {
                         "failedPayment": "Pago fallido",
                         "missingPaymentMethod": "Falta el método de pago",
                         "isPaused": "En pausa"
-                    }
+                    },
+                    "nextPayment": "Próximo pago: {{- nextPayment }}"
                 },
                 "headerButtonsLabel": {
                     "getSubscription": "Obtener una suscripción",
-                    "bookASession": "Reserva una sesión"
+                    "bookASession": "Reserva una sesión",
+                    "backToSubscriptions": "Volver a suscripciones"
                 },
                 "tab": {
                     "expired": "Expirado",
@@ -7791,6 +7829,16 @@
                     "expired": "Caducado desde {{- date }}",
                     "future": "Inicia en {{- date }}",
                     "active": "Iniciado el {{- date }}"
+                },
+                "close": "Cerrar",
+                "paymentMethodUpdatedContent": "Su método de pago se ha actualizado correctamente",
+                "paymentMethodUpdatedTitle": "Método de pago actualizado",
+                "changePaymentMethod": "Cambiar el método de pago",
+                "paymentModalAlert": "Si no se guarda ningún método de pago, se creará automáticamente una deuda en su cuenta interna por cada pago.",
+                "download": "Descargar",
+                "placeholder": {
+                    "expired": "Aún no tiene suscripciones caducadas.",
+                    "nonExpired": "Parece que no tienes ninguna suscripción activa."
                 }
             }
         }
@@ -8570,7 +8618,8 @@
             "isFromDisabledShare": "Se ha dejado de compartir",
             "isOwnerOfShares": "Compartido (tarjeta de cita maestra)",
             "isFromShare": "Compartido desde otra cuenta",
-            "warningShareUniversal": "Este bono es universal, por favor comparta el bono asociado"
+            "warningShareUniversal": "Este bono es universal, por favor comparta el bono asociado",
+            "isFromShareTooltip": "Esta tarjeta de cita está compartida con otro estudio de franquicia"
         },
         "bookerModule": {
             "step": {
@@ -9325,7 +9374,8 @@
                 "dialogContent": "Este informe tiene ~{{ count }} millones de filas de destinatarios, superando el límite de la hoja xlsx de 1 millón. Para incluir destinatarios, disminuya el intervalo de fechas para reducir el recuento.",
                 "dialogTitle": "Límite de destinatarios superado",
                 "title": "Exportar campañas"
-            }
+            },
+            "scheduledTitle": "Programado para más tarde"
         },
         "common": {
             "refresh": "Refrescar",
@@ -9650,6 +9700,38 @@
             },
             "title": "Reenvío automático de los correos no leídos",
             "dialogTitle": "Renvío automático de los correos no leídos"
+        },
+        "scheduled": {
+            "tooLateToUpdateDialog": {
+                "close": "Volver a smartlist",
+                "content": "Este mensaje no puede modificarse ni borrarse en los 5 minutos precedentes a su envío.",
+                "title": "Ya no puede modificar ni borrar este mensaje."
+            },
+            "dialog": {
+                "close": "Cancelar",
+                "submit": "Programar mensaje",
+                "separator": "a las",
+                "helperText": "Elija la hora a la que desea programar el mensaje.",
+                "title": "Programar un mensaje"
+            },
+            "nighttimeLimit": "El mensaje se enviará por la noche. Para obtener mejores resultados, recomendamos enviar los mensajes de marketing durante el día.",
+            "datetimeLimit": "Los mensajes deben programarse con al menos 5 minutos de antelación.",
+            "schedule": "Programar",
+            "at": "a las",
+            "when": "Cuándo",
+            "scheduleForLater": "Programar para más tarde",
+            "sendImmediately": "Enviar inmediatamente",
+            "sectionTitle": "Programación de mensajes",
+            "isEmpty": "No hay mensajes programados para mostrar.",
+            "show": "Mostrar",
+            "delete": "Borrar",
+            "edit": "Editar",
+            "clicked": "Clicado",
+            "opened": "Abierto",
+            "nextCommunicationScheduled": "Próximo mensaje programado",
+            "scheduledFor": "Programado para: {{ datetime }}",
+            "numberOfRecipients": "Destinatario: {{ count }}",
+            "numberOfRecipients_plural": "Destinatarios: {{ count }}"
         }
     },
     "paymentCombo": {
@@ -9721,7 +9803,7 @@
             },
             "advancedOptions": {
                 "tag": {
-                    "tagGroupDuplicated": "Tenga en cuenta que los artículos seleccionados contienen etiquetas de la misma categoría.",
+                    "tagGroupDuplicated": "Tenga en cuenta que los artículos seleccionados contienen etiquetas de la misma categoría que no pueden aplicarse simultáneamente. Solo se aplicará la primera de estas etiquetas tras la compra.",
                     "selectTags": "Seleccionar etiquetas",
                     "tagsOnAcquisitionHelper": "Utilice etiquetas para identificar qué miembro compró el pack.",
                     "tagsOnAcquisition": "Etiqueta tras la compra"
@@ -11290,6 +11372,23 @@
                             }
                         },
                         "_label": "Actividades"
+                    },
+                    "referral_grant": {
+                        "_label": "Bonificaciones de referencia",
+                        "allowed_actions": {
+                            "edit": {
+                                "_label": "Editar"
+                            },
+                            "delete": {
+                                "_label": "Borrar"
+                            },
+                            "read": {
+                                "_label": "Ver"
+                            },
+                            "create": {
+                                "_label": "Crear"
+                            }
+                        }
                     }
                 },
                 "Bookings": {
@@ -12731,6 +12830,14 @@
                 "overrideCoachNotAllowed": "No puedes forzar la cita con este profesor.",
                 "overbookingNotAllowedInWaitingList": "No puedes superar la capacidad máxima de la lista de espera.",
                 "overbookingNotAllowed": "No puedes superar el número máximo de reservas."
+            },
+            "delete": {
+                "error": {
+                    "customErrors": {
+                        "4700": "Imposible de suprimir : Esta función está asignada a algunos de sus colaboradores"
+                    },
+                    "genericError": "Se ha producido un error : Este rol no ha sido eliminado"
+                }
             }
         },
         "notificationRule": {
@@ -13706,7 +13813,8 @@
                     "header": "Avanzado",
                     "appliesForPayroll": {
                         "label": "Sesiones que se tienen en cuenta para calcular la remuneración del profesor",
-                        "helperText": "Por defecto, las sesiones son facturadas al estudio e incluidas en la nómina del profesor y remuneradas por el estudio. Al desactivar este ajuste, las sesiones asociadas a este pase ya no aparecerán en la nómina del profesor."
+                        "helperText": "Por defecto, las sesiones son facturadas al estudio e incluidas en la nómina del profesor y remuneradas por el estudio. Al desactivar este ajuste, las sesiones asociadas a este pase ya no aparecerán en la nómina del profesor.",
+                        "header": "Nómina de profesores"
                     }
                 },
                 "universalPass": {
@@ -14263,7 +14371,8 @@
                 "title": "Preparar mis estudios"
             },
             "consumerPaymentPackSharedFromOtherFranchisee": "Compartido por el franquiciado",
-            "paymentPackSharedFromFranchisor": "Tarjeta de franquicia"
+            "paymentPackSharedFromFranchisor": "Tarjeta de franquicia",
+            "isFromShareTooltip": "Este bono está compartido con otro estudio de franquicia"
         },
         "universalPass": {
             "restore": {
@@ -14336,7 +14445,9 @@
             "signIn": "Registrado",
             "expires": "Expira",
             "visitsLeft": "Visitas restantes",
-            "classLocation": "Tu sesión tiene lugar en"
+            "classLocation": "Tu sesión tiene lugar en",
+            "spotUnassigned": "Plaza no asignada",
+            "spotInfo": "Su {{spotName}} es:"
         },
         "memberList": {
             "empty": "Ningún estudiante inscrito en este curso",
@@ -15868,7 +15979,15 @@
             "content_plural": "Usado en {{ count }} {{ workflowPluralLowerCase }}"
         },
         "downloadReport": "Descargar el informe",
-        "generateReport": "Generar informe"
+        "generateReport": "Generar informe",
+        "communication": {
+            "scheduled": {
+                "total": "Total de mensajes programados: {{ count }}",
+                "viewAll": "Ver todo",
+                "isEmpty": "No hay mensajes programados.",
+                "nextScheduledMessage": "Próximo mensaje programado"
+            }
+        }
     },
     "relationship": {
         "consumer_payment_pack_links": {
@@ -16291,7 +16410,8 @@
                     "standard": "Estándar",
                     "activityPass": "Bono de actividad",
                     "appointmentPass": "Tarjeta de cita previa",
-                    "universalPass": "Bono universal"
+                    "universalPass": "Bono universal",
+                    "card_payment_method": "Tarjeta"
                 },
                 "title": {
                     "nextOffer": "Próxima sesión disponible",
@@ -16413,7 +16533,15 @@
                     "isDetailsDisabled": "El botón \"Ver detalles\" está desactivado",
                     "isExpired": "Bono caducado",
                     "isFuture": "El bono aún no está activo",
-                    "passKind": "Tipo de bono"
+                    "passKind": "Tipo de bono",
+                    "withFailedPayments": "Mostrar pagos fallidos",
+                    "WithBillingHistory": "Mostrar pagos efectuados con éxito",
+                    "hasAutoRenewal": "La suscripción se renovará automáticamente",
+                    "withFuturePauses": "La suscripción tiene pausas previstas en el futuro",
+                    "isPaused": "Está actualmente en pausa",
+                    "addPaymentMethodDisabled": "El botón para añadir un método de pago está desactivado",
+                    "hasMissingPaymentMethod": "Falta el método de pago",
+                    "hasFailedPayments": "Hay impagos"
                 },
                 "configurationTitle": "Variaciones",
                 "confirmationMessageComponentAlert": "Este componente gestiona principalmente los estados de reserva y pago. Para personalizar su apariencia, recomendamos utilizar sus componentes raíz situados en la sección común",
@@ -16569,7 +16697,10 @@
                 "consumer_payment_pack_details_card": "Ficha de datos del bono de actividades (para miembros)",
                 "private_consumer_pass_details_card": "Ficha de datos de la tarjeta de cita previa (para el miembro)",
                 "universal_pass_details_card": "Ficha de datos del bono universal (para miembros)",
-                "reset_password_confirmation": "Confirmación de restablecimiento de contraseña"
+                "reset_password_confirmation": "Confirmación de restablecimiento de contraseña",
+                "consumer_subscription_details_card": "Tarjeta de datos de suscripción del consumidor",
+                "consumer_subscription_card": "Tarjeta de suscripción del consumidor",
+                "fabrique_big_icon": "Icono grande"
             },
             "customCss": {
                 "yourCode": "Su implementación complementaria:",

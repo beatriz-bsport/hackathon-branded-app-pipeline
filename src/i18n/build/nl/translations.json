@@ -175,7 +175,7 @@
                     "availability": {
                         "expiresToday": "Laatste dag",
                         "expiresIn": "{{ daysRemaining }} dag(en) over",
-                        "expiresIn_plural": "Verloopt over {{ daysRemaining }} dag(en)",
+                        "expiresIn_plural": "{{ daysRemaining }} dagen over",
                         "future": "Startdatum: {{ startDate }}",
                         "expired": "Verlopen op: {{ expirationDate }}",
                         "active": "Verloopdatum: {{ expirationDate }}"
@@ -415,7 +415,9 @@
                         "autoRenewed": "Automatisch hernieuwd",
                         "paused": "Momenteel gepauzeerd",
                         "pauseEndDate": "tot {{- pauseEndDate }} inbegrepen",
-                        "autoRenewalDate": "op {{- autoRenewalDate }} (included)"
+                        "autoRenewalDate": "op {{- autoRenewalDate }} (included)",
+                        "joiningFee": "Registratie fee: {{- fees }}",
+                        "futurePauses": "Er is een pauze gepland van {{- dateStart }} tot {{- dateEnd }} (included)"
                     },
                     "buttonsLabel": {
                         "see": "Zie",
@@ -430,27 +432,39 @@
                         "card": "Creditcard: **** **** **** {{ readableIdentifier }}",
                         "sepa_debit": "SEPA: **** **** **** {{ readableIdentifier }}",
                         "title": "Betaalmethode",
-                        "internal": "Interne rekening: voor elke betaling wordt automatisch een schuld aangemaakt op je interne rekening"
+                        "internal": "Interne rekening: voor elke betaling wordt automatisch een schuld aangemaakt op je interne rekening",
+                        "nextPaymentDate": "op {{- subscriptionNextPaymentDate }}",
+                        "pauseEndDate": "tot {{- pauseEndDate }} inclusief",
+                        "autoRenewalDate": "op {{- autoRenewalDate }} (inclusief)",
+                        "autoRenewed": "Automatisch vernieuwd",
+                        "paused": "Momenteel gepauzeerd"
                     },
                     "failedPaymentReason": "Reden: {{- note }}. Gelieve contact opnemen met de studio om de betaalachterstand te verwerken.",
-                    "failedPayment": "Betaling mislukt"
+                    "failedPayment": "Betaling mislukt",
+                    "emptyInvoices": " Geen factuurgeschiedenis te tonen",
+                    "billingHistory": "Facturatie geschiedenis",
+                    "failedPaymentReasonWithRetry": "Reden: {{- note }}. De betaling wordt opnieuw geprobeerd op {{- nextRetryDate}}",
+                    "beforeRenewalContractPriceEvery": "Dan {{ price }} iedere {{ recurrence }}{{ interval }} na {{- date }}",
+                    "beforeRenewalContractPricePer": "Dan {{ price }}/{{ interval }} na {{- date }}"
                 },
                 "consumerSubscriptionCard": {
                     "buttonsLabel": {
                         "seeDetails": "Zie details",
                         "addPaymentMethod": "Een betaalmethode toevoegen"
                     },
-                    "recurrenceLabelEvery": "{{ price }}{{ currency }} iedere {{ recurrence }} {{ interval }}",
-                    "recurrenceLabelPer": "{{ price }}{{ currency }}{{ interval }}",
+                    "recurrenceLabelEvery": "{{ price }} iedere {{ recurrence }} {{ interval }}",
+                    "recurrenceLabelPer": "{{ price }}/{{ interval }}",
                     "chipsLabel": {
                         "failedPayment": "Betaling mislukt",
                         "missingPaymentMethod": "Er ontbreekt een betaalmethode",
                         "isPaused": "Gepauzeerd"
-                    }
+                    },
+                    "nextPayment": "Volgende betaling: {{- nextPayment }}"
                 },
                 "headerButtonsLabel": {
                     "getSubscription": "Neem een abonnement",
-                    "bookASession": "Boek een sessie"
+                    "bookASession": "Boek een sessie",
+                    "backToSubscriptions": "Terug naar abonnementen"
                 },
                 "tab": {
                     "expired": "Verlopen",
@@ -463,6 +477,16 @@
                     "expired": "Verlopen sinds {{- date }}",
                     "future": "Startdatum: {{- date }}",
                     "active": "Startdatum: {{- date }}"
+                },
+                "close": "Sluit",
+                "paymentMethodUpdatedContent": "Je betaalmethode is succesvol bijgewerkt",
+                "paymentMethodUpdatedTitle": "Betalingsmethode bijgewerkt",
+                "changePaymentMethod": "Betalingsmethode wijzigen",
+                "paymentModalAlert": "Als er geen betaalmethode is opgeslagen, wordt er automatisch een schuld aangemaakt op je interne account voor elke betaling",
+                "download": "Download",
+                "placeholder": {
+                    "expired": "Je hebt nog geen verlopen abonnementen.",
+                    "nonExpired": "Het lijkt erop dat je geen actieve abonnementen hebt."
                 }
             }
         }
@@ -743,6 +767,15 @@
                     "firstname_guest": "Voornaam gast"
                 },
                 "name": "Gastreservering"
+            },
+            "ReferralProgram": {
+                "tags": {
+                    "deadline_use_referral": "Geldigheid aanbevelingsbeloning",
+                    "minimum_purchase_referral": "Minimum aankoopbedrag",
+                    "referring_reward": "Beloning voor de verwijzer",
+                    "reduction_purchase_referred": "Korting voor het doorverwezen lid"
+                },
+                "name": "Referral"
             }
         },
         "emailDesign": {
@@ -1534,7 +1567,9 @@
                             "tagsOnAcquisitionHelper": "Gebruik tags om te identificeren welk lid het item heeft gekocht"
                         },
                         "header": "Geavanceerd"
-                    }
+                    },
+                    "supplier": "Leverancier",
+                    "sku": "SKU"
                 },
                 "subShop": {
                     "delete": {
@@ -2225,7 +2260,8 @@
                 "dialogContent": "Dit rapport heeft ~{{ count }} miljoen rijen met ontvangers en overschrijdt daarmee de xlsx sheet limiet van 1 miljoen. Als u ontvangers wilt opnemen, verlaagt u het datumbereik om het aantal te verlagen.",
                 "dialogTitle": "Ontvangerslimiet overschreden",
                 "title": "Campagnes exporteren"
-            }
+            },
+            "scheduledTitle": "Gepland voor later"
         },
         "recipient": {
             "readCount": "Aantal keer geopend",
@@ -2523,6 +2559,38 @@
             },
             "title": "Automatisch opnieuw verzenden van ongelezen e-mails",
             "dialogTitle": "Ongelezen e-mail automatisch opnieuw versturen"
+        },
+        "scheduled": {
+            "tooLateToUpdateDialog": {
+                "close": "Terug naar smartlist",
+                "content": "Dit bericht kan niet worden gewijzigd of verwijderd binnen 5 minuten na verzending.",
+                "title": "Je kunt dit bericht niet meer wijzigen of verwijderen."
+            },
+            "dialog": {
+                "close": "Annuleer",
+                "submit": "Bericht inplannen",
+                "separator": "op",
+                "helperText": "Kies het tijdstip waarop je het bericht wilt plannen.",
+                "title": "Een bericht inplannen"
+            },
+            "nighttimeLimit": "Het bericht wordt 's nachts verzonden. Voor betere resultaten raden we aan om marketingberichten overdag te versturen.",
+            "datetimeLimit": "Berichten moeten minstens 5 minuten van tevoren worden ingepland.",
+            "schedule": "Plan",
+            "at": "bij",
+            "when": "Wanneer",
+            "scheduleForLater": "Plan voor later",
+            "sendImmediately": "Onmiddellijk verzenden",
+            "sectionTitle": "Planning van berichten",
+            "isEmpty": "Er zijn geen geplande berichten om weer te geven.",
+            "show": "Laat zien",
+            "delete": "Verwijder",
+            "edit": "Bewerk",
+            "clicked": "Geklikt",
+            "opened": "Geopend",
+            "nextCommunicationScheduled": "Volgend gepland bericht",
+            "scheduledFor": "Gepland voor: {{ datetime }}",
+            "numberOfRecipients": "Ontvanger: {{ count }}",
+            "numberOfRecipients_plural": "Ontvangers: {{ count }}"
         }
     },
     "paymentCombo": {
@@ -2602,7 +2670,7 @@
                 "tag": {
                     "selectTags": "Selecteer tags",
                     "tagsOnAcquisition": "Tag ná aankoop",
-                    "tagGroupDuplicated": "Houd er rekening mee dat geselecteerde items tags met dezelfde categorie hebben.",
+                    "tagGroupDuplicated": "Houd er rekening mee dat geselecteerde items tags met dezelfde categorie hebben",
                     "tagsOnAcquisitionHelper": "Gebruik tags om te identificeren welk lid het pakket heeft gekocht."
                 },
                 "header": "Geavanceerd"
@@ -2650,7 +2718,8 @@
             "signin": "Aanmelden",
             "signup": {
                 "register": "Inschrijven",
-                "noAccount": "Een nieuw account aanmaken"
+                "noAccount": "Een nieuw account aanmaken",
+                "goBack": "Ga terug"
             },
             "forgottenPassword": "Wachtwoord vergeten?"
         },
@@ -4016,7 +4085,8 @@
                     "header": "Geavanceerd",
                     "appliesForPayroll": {
                         "label": "Sessies meeberekenen voor de payroll van de instructeur(s)",
-                        "helperText": "Standaard worden sessies gefactureerd aan de studio en opgenomen in het overzicht van de leraar en de beloning door de studio. Als je deze instelling uitschakelt, verschijnen de sessies die aan deze kaart gekoppeld zijn niet meer in het overzicht van de docent."
+                        "helperText": "Standaard worden sessies gefactureerd aan de studio en opgenomen in het overzicht van de leraar en de beloning door de studio. Als je deze instelling uitschakelt, verschijnen de sessies die aan deze kaart gekoppeld zijn niet meer in het overzicht van de docent.",
+                        "header": "instructeur payroll"
                     }
                 },
                 "universalPass": {
@@ -4231,7 +4301,8 @@
                 "title": "Beschikbaarheid"
             },
             "consumerPaymentPackSharedFromOtherFranchisee": "Gedeeld met een andere studio",
-            "paymentPackSharedFromFranchisor": "Kaart van het Master-Account"
+            "paymentPackSharedFromFranchisor": "Kaart van het Master-Account",
+            "isFromShareTooltip": "Deze pas wordt gedeeld door een andere franchisestudio"
         },
         "selector": {
             "noAvailable": "Er is geen kaart die overeenkomt met de gekozen beschikbaarheid.",
@@ -5407,7 +5478,15 @@
             "title": "Gebruikt in een van de {{ workflowPluralLowerCase }}"
         },
         "downloadReport": "Rapport downloaden",
-        "generateReport": "Rapport genereren"
+        "generateReport": "Rapport genereren",
+        "communication": {
+            "scheduled": {
+                "total": "Totaal geplande berichten: {{ count }}",
+                "viewAll": "Zie alle",
+                "isEmpty": "Er zijn geen berichten gepland.",
+                "nextScheduledMessage": "Volgend gepland bericht"
+            }
+        }
     },
     "metaActivity": {
         "forms": {
@@ -6628,10 +6707,10 @@
                     "second_before": "{{ count }} uur voor het begin van de sessie.",
                     "second_before_plural": "{{ count }} uur voor het begin van de sessie.",
                     "first": "Verstuur deze melding",
-                    "second_after_days": "{{ count }} dag na het einde van de sessie.",
-                    "second_after_days_plural": "{{ count }} dagen na het einde van de sessie.",
-                    "second_before_days": "{{ count }} dag voor het begin van de sessie.",
-                    "second_before_days_plural": "{{ count }} dagen voor het begin van de sessie."
+                    "second_after_days": "{{ count }} dag na het einde van de sessie",
+                    "second_after_days_plural": "{{ count }} dagen na het einde van de sessie",
+                    "second_before_days": "{{ count }} dag voor het begin van de sessie",
+                    "second_before_days_plural": "{{ count }} dagen voor het begin van de sessie"
                 },
                 "sendAfterMail": "Stuur deze melding nadat de sessie afgelopen is",
                 "sendBeforeMail": "Stuur deze melding voor het begin van de sessie",
@@ -7276,7 +7355,9 @@
             "expires": "Verlopen",
             "signIn": "Ingecheckt",
             "headOnIn": "Gereed!",
-            "visitsLeft": "Resterende bezoeken"
+            "visitsLeft": "Resterende bezoeken",
+            "spotUnassigned": "Spot niet toegewezen",
+            "spotInfo": "jouw {{spotName}} is:"
         },
         "authenticationDialog": {
             "error": "Het ingevoerde wachtwoord is ongeldig",
@@ -9320,7 +9401,8 @@
             "isFromDisabledShare": "Delen is uitgezet",
             "isOwnerOfShares": "Gedeeld (mastercard voor afspraken)",
             "isFromShare": "Deze kaart wordt met een ander account gedeeld.",
-            "warningShareUniversal": "Gelieve de gekoppelde kaarten i.p.v. de universele kaart delen"
+            "warningShareUniversal": "Gelieve de gekoppelde kaarten i.p.v. de universele kaart delen",
+            "isFromShareTooltip": "Deze afsprakenpas wordt gedeeld met een andere franchisestudio"
         },
         "privateServiceCompatibility": {
             "delete": {
@@ -10179,7 +10261,19 @@
                 "delete": "Verwijderen"
             },
             "form": {
-                "title": "Webshop-product"
+                "title": "Webshop-product",
+                "error": {
+                    "name": "Een productnaam mag niet langer zijn dan 200 tekens"
+                },
+                "variantHelperText": "Definieer varianten als dit product beschikbaar is in meerdere kleuren en/of maten. Later kun je de eigenschappen van elke variant bewerken.",
+                "sizes": {
+                    "helperText": "Voeg een maat toe door op enter te drukken",
+                    "title": "Maten"
+                },
+                "colors": {
+                    "helperText": "Voeg een kleur toe door op enter te drukken",
+                    "title": "Kleuren"
+                }
             }
         },
         "select": {
@@ -11079,6 +11173,14 @@
                 "overrideEstablishmentNotAllowed": "Het is niet toegestaan om een reservering binnen deze vestiging te forceren",
                 "overbookingNotAllowedInWaitingList": "Het is niet toegestaan om de maximale capaciteit van de wachtlijst te overschrijden",
                 "overbookingNotAllowed": "Het is niet toegestaan om het maximum aantal reserveringen te overschrijden"
+            },
+            "delete": {
+                "error": {
+                    "customErrors": {
+                        "4700": "Onmogelijk te verwijderen: deze rol is toegewezen aan sommige van je medewerkers"
+                    },
+                    "genericError": "Er is een fout opgetreden: Deze rol is niet verwijderd"
+                }
             }
         },
         "shop": {
@@ -12075,8 +12177,8 @@
             "uses": "Toepassingen",
             "first_buy": "Kan alleen bij de 1e aankoop worden gebruikt",
             "expiration": "Vervaldatum",
-            "member_use": "gebruik per lid",
-            "member_uses": "gebruik per lid",
+            "member_use": "gebruik per lid.",
+            "member_uses": "gebruik per lid.",
             "limitation": "Beperkt tot",
             "blacklist_tags": "[Blacklist] Niet beschikbaar voor leden met de tag(s):",
             "whitelist_tags": "Alleen beschikbaar voor leden met bepaalde tags:",
@@ -15324,7 +15426,24 @@
                         },
                         "_label": "Abonnement"
                     },
-                    "_label": "Studio"
+                    "_label": "Studio",
+                    "referral_grant": {
+                        "_label": "Subsidies voor doorverwijzing",
+                        "allowed_actions": {
+                            "edit": {
+                                "_label": "Bewerk"
+                            },
+                            "delete": {
+                                "_label": "Verwijder"
+                            },
+                            "read": {
+                                "_label": "Zie"
+                            },
+                            "create": {
+                                "_label": "Creeër"
+                            }
+                        }
+                    }
                 },
                 "Payments": {
                     "video_purchase": {
@@ -16256,7 +16375,8 @@
                     "standard": "Standaard",
                     "activityPass": "Activiteit leskaart",
                     "appointmentPass": "Afspraakkaart",
-                    "universalPass": "Universele leskaart"
+                    "universalPass": "Universele leskaart",
+                    "card_payment_method": "Kaart"
                 },
                 "title": {
                     "nextOffer": "Volgende sessie beschikbaar",
@@ -16378,7 +16498,15 @@
                     "isDetailsDisabled": "De \"Toon details\" knop is uitgeschakeld",
                     "isExpired": "Leskaart is verlopen",
                     "isFuture": "Leskaart is nog niet actief",
-                    "passKind": "Leskaart kind"
+                    "passKind": "Leskaart kind",
+                    "withFailedPayments": "Mislukte betalingen weergeven",
+                    "WithBillingHistory": "Succesvolle betalingen weergeven",
+                    "hasAutoRenewal": "Abonnement wordt automatisch verlengd",
+                    "withFuturePauses": "Abonnement heeft geplande pauzes in de toekomst",
+                    "isPaused": "Is momenteel gepauzeerd",
+                    "addPaymentMethodDisabled": "De knop Betaalmethode toevoegen is uitgeschakeld",
+                    "hasMissingPaymentMethod": "Heeft ontbrekende betaalmethode",
+                    "hasFailedPayments": "Heeft betalingen mislukt"
                 },
                 "configurationTitle": "Variaties",
                 "confirmationMessageComponentAlert": "Deze component beheert voornamelijk boekings- en betalingsstatussen. Om het uiterlijk aan te passen, raden we aan de hoofdcomponenten te gebruiken in de gemeenschappelijke sectie",
@@ -16534,7 +16662,10 @@
                 "consumer_payment_pack_details_card": "Gegevenskaart activiteitenpas (voor lid)",
                 "private_consumer_pass_details_card": "Afsprakenpasgegevenskaart (voor lid)",
                 "universal_pass_details_card": "Universele pasgegevenskaart (voor leden)",
-                "reset_password_confirmation": "Knop om wachtwoord te herstellen"
+                "reset_password_confirmation": "Knop om wachtwoord te herstellen",
+                "consumer_subscription_details_card": "Gegevenskaart consumentenabonnement",
+                "consumer_subscription_card": "Consumentenabonnementskaart",
+                "fabrique_big_icon": "Groot logo"
             },
             "customCss": {
                 "yourCode": "Je aanvullende implementatie:",

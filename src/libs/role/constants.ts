@@ -221,6 +221,7 @@ export const DEFAULT_OBJECT_LEVEL_PERMISSIONS: ObjectLevelPermissions = {
     allowed_actions: {
       takePayment: true,
       editBalance: true,
+      editBalanceWithoutInvoice: true,
       readInvoices: true,
       createInvoice: true,
       readPaymentLink: true,

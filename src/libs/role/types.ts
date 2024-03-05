@@ -179,6 +179,7 @@ export type ObjectLevelPermissions = {
     allowed_actions: {
       takePayment: boolean;
       editBalance: boolean;
+      editBalanceWithoutInvoice: boolean;
       readInvoices: boolean;
       createInvoice: boolean;
       readPaymentLink: boolean;

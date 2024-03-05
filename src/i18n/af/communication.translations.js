@@ -487,6 +487,12 @@ const getTranslations = async () => {
           'You have not yet sent any communication on this channel.',
       },
     },
+    sendNowDialog: {
+      title: 'Send immediately',
+      content: 'The message will be sent immediately.',
+      close: 'Cancel',
+      confirm: 'Send',
+    },
     scheduled: {
       chooseDate: 'Pick a date',
       chooseTime: 'Pick a time',
@@ -538,7 +544,6 @@ const getTranslations = async () => {
           'The message will be sent immediately and removed from the scheduled list.',
         close: 'Cancel',
         confirm: 'Send',
-        alert: 'The message will be sent during night time.',
       },
     },
   };

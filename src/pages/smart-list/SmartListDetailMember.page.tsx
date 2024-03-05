@@ -106,7 +106,10 @@ import {
   fetchSmartListPopupSendings,
   sendSmartListPopup,
 } from '#libs/communication-v2/actions';
-import type { SendDirectCommunicationType } from '#libs/communication/types';
+import type {
+  MemberMailData,
+  SendDirectCommunicationType,
+} from '#libs/communication/types';
 import type {
   CommunicationContext,
   CommunicationScheduled,
@@ -232,24 +235,28 @@ type Props = OwnProps &
   WithHandlerType<typeof mapWithHandlers>;
 
 type State = {
+  communicationDataToSend: Partial<MemberMailData> | null;
+  communicationScheduledSelected: CommunicationScheduled | null;
+  isDeleteCommunicationScheduledDialogOpen: boolean;
+  isSendCommunicationDuringNighttimeDialogOpen: boolean;
+  isSendNowCommunicationScheduledDialogOpen: boolean;
+  isTooLateToUpdateCommunicationScheduledDialogOpen: boolean;
   onValueChangeActiveMemberFetch: boolean;
   openEditDialog: boolean;
   resetMembersFetchForCommunication: boolean;
-  communicationScheduledSelected: CommunicationScheduled | null;
-  isDeleteCommunicationScheduledDialogOpen: boolean;
-  isSendNowCommunicationScheduledDialogOpen: boolean;
-  isTooLateToUpdateCommunicationScheduledDialogOpen: boolean;
 };
 
 export class SmartListDetailMember extends React.Component<Props, State> {
   state: State = {
+    communicationDataToSend: null,
+    communicationScheduledSelected: null,
+    isDeleteCommunicationScheduledDialogOpen: false,
+    isSendCommunicationDuringNighttimeDialogOpen: false,
+    isSendNowCommunicationScheduledDialogOpen: false,
+    isTooLateToUpdateCommunicationScheduledDialogOpen: false,
     onValueChangeActiveMemberFetch: false,
     openEditDialog: false,
     resetMembersFetchForCommunication: true,
-    communicationScheduledSelected: null,
-    isDeleteCommunicationScheduledDialogOpen: false,
-    isSendNowCommunicationScheduledDialogOpen: false,
-    isTooLateToUpdateCommunicationScheduledDialogOpen: false,
   };
 
   componentDidMount() {
@@ -441,6 +448,11 @@ export class SmartListDetailMember extends React.Component<Props, State> {
       isSendNowCommunicationScheduledDialogOpen: false,
     });
 
+  closeSendCommunicationDuringNighttimeDialog = () =>
+    this.setState({
+      isSendCommunicationDuringNighttimeDialogOpen: false,
+    });
+
   checkIsMessageSchedulable = (
     communicationScheduled: CommunicationScheduled,
   ) =>
@@ -545,6 +557,31 @@ export class SmartListDetailMember extends React.Component<Props, State> {
   getHideAutoResend = () =>
     Config.REACT_APP_SENTRY_ENVIRONMENT === 'production' &&
     this.props.companyId !== 498;
+
+  sendCommunication = (data: Partial<MemberMailData>) => {
+    if (this.isDuringNighttime()) {
+      this.setState({
+        communicationDataToSend: data,
+        isSendCommunicationDuringNighttimeDialogOpen: true,
+      });
+    } else {
+      this.props.sendCommunication({
+        ...data,
+        smartlist_id: this.props.id,
+      });
+    }
+  };
+
+  sendCommunicationDuringNighttime = () => {
+    this.props.sendCommunication({
+      ...this.state.communicationDataToSend,
+      smartlist_id: this.props.id,
+    });
+    this.setState({
+      communicationDataToSend: null,
+      isSendCommunicationDuringNighttimeDialogOpen: false,
+    });
+  };
 
   render() {
     if (!this.props.smartlist_filters) {
@@ -758,17 +795,11 @@ export class SmartListDetailMember extends React.Component<Props, State> {
               communicationScheduledSelected: null,
             });
           }}
-          onClose={() => this.props.setOpenSendEmail(false)}
           open={this.props.openSendEmail}
           page={this.props.members.page}
           resolvedGenericTags={this.props.resolvedGenericTags}
           schedule={this.props.scheduleCommunication}
-          send={(data) =>
-            this.props.sendCommunication({
-              ...data,
-              smartlist_id: this.props.id,
-            })
-          }
+          send={this.sendCommunication}
           sendNow={this.openCommunicationScheduledSendNowDialog}
           timezone={this.props.timezone}
         />
@@ -873,7 +904,24 @@ export class SmartListDetailMember extends React.Component<Props, State> {
           >
             {this.isDuringNighttime() && (
               <Alert severity="warning">
-                {this.props.t('communication:scheduled.sendNowDialog.alert')}
+                {this.props.t('communication:scheduled.nighttimeLimit')}
+              </Alert>
+            )}
+          </GenericMuiDialog>
+        )}
+        {this.state.isSendCommunicationDuringNighttimeDialogOpen && (
+          <GenericMuiDialog
+            cancelText={this.props.t('communication:sendNowDialog.close')}
+            confirmText={this.props.t('communication:sendNowDialog.confirm')}
+            content={this.props.t('communication:sendNowDialog.content')}
+            onCancel={this.closeSendCommunicationDuringNighttimeDialog}
+            onConfirm={this.sendCommunicationDuringNighttime}
+            open={this.state.isSendCommunicationDuringNighttimeDialogOpen}
+            title={this.props.t('communication:sendNowDialog.title')}
+          >
+            {this.isDuringNighttime() && (
+              <Alert severity="warning">
+                {this.props.t('communication:scheduled.nighttimeLimit')}
               </Alert>
             )}
           </GenericMuiDialog>

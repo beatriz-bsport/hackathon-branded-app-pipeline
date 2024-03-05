@@ -531,7 +531,7 @@ export class SmartListCampaign extends React.Component<Props> {
           >
             {this.isDuringNighttime() && (
               <Alert severity="warning">
-                {this.props.t('scheduled.sendNowDialog.alert')}
+                {this.props.t('scheduled.nighttimeLimit')}
               </Alert>
             )}
           </GenericMuiDialog>

@@ -174,9 +174,9 @@ const RecursiveDeepCheckBox: React.FC<{
                     size="small"
                   >
                     {isFolded ? (
-                      <KeyboardArrowUpIcon />
-                    ) : (
                       <KeyboardArrowDownIcon />
+                    ) : (
+                      <KeyboardArrowUpIcon />
                     )}
                   </IconButton>
                 )}

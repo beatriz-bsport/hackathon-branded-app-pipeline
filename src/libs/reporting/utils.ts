@@ -897,7 +897,16 @@ export const getMultipleValuesLabel = (
   }
 };
 
-export const isColumnChipsable = (datatype: string, reportCategory: string) => {
+/**
+ * Returns a boolean to know if the current column cells can be rendered with Chip components
+ * @param datatype The optional datatype name found in the renderer data
+ * @param reportCategory The associated report category name
+ * @returns {boolean}
+ */
+export const isColumnChipsable = (
+  datatype: string = '',
+  reportCategory: string,
+) => {
   const isStatusChip = STATUS_CHIPS.includes(datatype);
   const isBooleanGreenGreyChip = GREEN_GREY_BOOLEAN_CHIPS.includes(datatype);
   const isBooleanRedGreenChip = RED_GREEN_BOOLEAN_CHIPS.includes(datatype);

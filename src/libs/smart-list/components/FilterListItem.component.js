@@ -37,6 +37,9 @@ import {
   RELATIONS_FILTER_IDENTIFIER,
   USER_HAS_PHONE_FILTER_IDENTIFIER,
   TERMS_AND_CONDITIONS_FILTER_IDENTIFIER,
+  FIRST_PURCHASE_FILTER_IDENTIFIER,
+  REFERRER_FILTER_IDENTIFIER,
+  REFERRED_MEMBERS_FILTER_IDENTIFIER,
 } from '@bsport/common/lib/master-data/smart-list';
 
 import CreditAccountFilter from './filters/CreditAccountFilter.component';
@@ -63,6 +66,9 @@ import NotesFilter from './filters/NotesFilter.component';
 import RelationsFilter from './filters/RelationsFilter.component';
 import UserHasPhoneFilter from './filters/UserHasPhoneFilter.component';
 import TermsAndConditionsFilter from './filters/TermsAndConditionsFilter.component';
+import FirstPaymentFilter from './filters/FirstPaymentFilter.component';
+import ReferrerFilter from './filters/ReferrerFilter.component';
+import ReferredMembersFilter from './filters/ReferredMembersFilter.component';
 
 import type { PaymentPack } from '../../payment-packs/types';
 import type { Establishment } from '../../establishment/types';
@@ -531,6 +537,42 @@ export class FilterCard extends Component<Props> {
             filter_data={{
               ...this.state.filter_data,
               filter_identifier: TERMS_AND_CONDITIONS_FILTER_IDENTIFIER,
+            }}
+            isNew={this.props.new}
+            onChange={this.handleChange}
+          />
+        );
+
+      case FIRST_PURCHASE_FILTER_IDENTIFIER:
+        return (
+          <FirstPaymentFilter
+            filter_data={{
+              ...this.state.filter_data,
+              filter_identifier: FIRST_PURCHASE_FILTER_IDENTIFIER,
+            }}
+            isNew={this.props.new}
+            onChange={this.handleChange}
+          />
+        );
+
+      case REFERRER_FILTER_IDENTIFIER:
+        return (
+          <ReferrerFilter
+            filter_data={{
+              ...this.state.filter_data,
+              filter_identifier: REFERRER_FILTER_IDENTIFIER,
+            }}
+            isNew={this.props.new}
+            onChange={this.handleChange}
+          />
+        );
+
+      case REFERRED_MEMBERS_FILTER_IDENTIFIER:
+        return (
+          <ReferredMembersFilter
+            filter_data={{
+              ...this.state.filter_data,
+              filter_identifier: REFERRED_MEMBERS_FILTER_IDENTIFIER,
             }}
             isNew={this.props.new}
             onChange={this.handleChange}

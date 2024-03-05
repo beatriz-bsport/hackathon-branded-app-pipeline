@@ -89,8 +89,9 @@ export default React.memo<NumbersComparatorInputProps>(
     );
 
     const selectOnChange = React.useCallback(
-      (ev: React.ChangeEvent<{ value: number }>) => {
-        onChange({ [keys.comparatorKey]: ev.target.value });
+      (event: React.ChangeEvent<{ value: number }>) => {
+        const value = event.target.value;
+        onChange({ [keys.comparatorKey]: value });
       },
       [keys.comparatorKey, onChange],
     );

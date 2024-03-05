@@ -59,6 +59,11 @@ export default {
     id: {
       description: 'The id of the menu.',
     },
+    isMenuWidthControlledByRef: {
+      description:
+        'If true, the menu will fit the width of the element used as ref.',
+      options: [true, false],
+    },
     targetElementId: {
       description:
         'The id used to identify the DOM element where the Menu will be rendered.',
@@ -191,4 +196,9 @@ Topcentered.args = {
   anchorOriginVertical: VerticalEnum.TOP,
   transformOriginHorizontal: HorizontalEnum.CENTER,
   transformOriginVertical: VerticalEnum.BOTTOM,
+};
+
+export const WidthControlledByRef = Template.bind({});
+WidthControlledByRef.args = {
+  isMenuWidthControlledByRef: true,
 };

@@ -28,6 +28,12 @@ Can be positioned according to its anchor element (generally the button responsi
 It can be customized thanks to the properties `anchorOriginHorizontal`, `anchorOriginVertical`, `transformOriginHorizontal` and `transformOriginVertical` 
 Some positions are showcased below but you can even use number values to precisely set positions.
 
+### Width
+
+Can fit the width of its content or the one of the element used as ref.
+
+It can be customized thanks to the property `isMenuWidthControlledByRef` as it is showcased below.
+
 #### Default placement
 
 <Canvas withSource='none' withToolbar>
@@ -87,3 +93,13 @@ Some positions are showcased below but you can even use number values to precise
 #### Example
 
 <Source dark language='tsx' id="fabrique-menu-stories--topcentered" />
+
+#### Width controlled by ref
+
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-menu-stories--widthcontrolledbyref" parameters={{layout: 'centered'}}/>  
+</Canvas>
+
+#### Example
+
+<Source dark language='tsx' id="fabrique-menu-stories--widthcontrolledbyref" />

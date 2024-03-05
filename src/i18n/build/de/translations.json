@@ -281,6 +281,16 @@
                 "highlightedAsRecommended": {
                     "helperText": "Ermöglicht es Ihren Kunden, auf einen Blick zu sehen, welche Verträge derzeit empfohlen werden.",
                     "label": "Als empfohlen markieren"
+                },
+                "advancedOptions": {
+                    "selectTags": "Tags auswählen",
+                    "tag": {
+                        "tagGroupDuplicated": "Bitte beachten Sie, dass ausgewählte Artikel Tags der gleichen Kategorie enthalten.",
+                        "selectTags": "Tags auswählen",
+                        "tagsOnAcquisitionHelper": "Verwenden Sie Tags, um zu erkennen, welches Mitglied die erste Rechnung bezahlt hat",
+                        "tagsOnAcquisition": "Tag nach dem Kauf"
+                    },
+                    "title": "Erweitert"
                 }
             },
             "description": "Beschreibung",
@@ -1450,7 +1460,17 @@
                     "available_payment_method_identifiers": {
                         "helperText": "Wähle mindestens eine Zahlungsmethode aus. Wenn der Warenkorb des Mitglieds Produkte enthält, die mit den Zahlungsmethoden nicht vereinbar sind, wird eine Zahlung per Kreditkarte angeboten.",
                         "label": "Zugelassene Zahlungsmethoden"
-                    }
+                    },
+                    "advancedOptions": {
+                        "tag": {
+                            "selectTags": "Tags auswählen",
+                            "tagsOnAcquisitionHelper": "Verwenden Sie Etiketten, um zu erkennen, welches Mitglied den Artikel gekauft hat",
+                            "tagsOnAcquisition": "Tag nach dem Kauf"
+                        },
+                        "header": "Erweitert"
+                    },
+                    "supplier": "Anbieter",
+                    "sku": "SKU"
                 },
                 "subShop": {
                     "delete": {
@@ -2804,7 +2824,15 @@
             "content_plural": "Verwendet in {{ count }}{{ workflowPluralLowerCase }}"
         },
         "downloadReport": "Bericht herunterladen",
-        "generateReport": "Bericht generieren"
+        "generateReport": "Bericht generieren",
+        "communication": {
+            "scheduled": {
+                "total": "Geplante Nachrichten insgesamt: {{ count }}",
+                "viewAll": "Alle sehen",
+                "isEmpty": "Es sind keine Nachrichten geplant.",
+                "nextScheduledMessage": "Nächste geplante Nachricht"
+            }
+        }
     },
     "theme": {
         "forms": {
@@ -2881,7 +2909,7 @@
                     "label": "Label für den Vornamen",
                     "placeholder": "Label für den Vornamen"
                 },
-                "names_label_info": "Ändere das Label der Felder Vorname und Nachname in den Anmeldeformularen",
+                "names_label_info": "Bearbeiten Sie die Felder \"Vorname\" und \"Nachname\" in Ihrem Anmeldeformular",
                 "default_attendance": {
                     "title": "Standardstatus einer vom Kunden vorgenommenen Buchung",
                     "missing": "Abwesendes Mitglied",
@@ -4667,7 +4695,24 @@
                         },
                         "_label": "Abonnement"
                     },
-                    "_label": "Studio"
+                    "_label": "Studio",
+                    "referral_grant": {
+                        "_label": "Zuschüsse auf Empfehlung",
+                        "allowed_actions": {
+                            "edit": {
+                                "_label": "Bearbeiten"
+                            },
+                            "delete": {
+                                "_label": "Löschen"
+                            },
+                            "read": {
+                                "_label": "Siehe"
+                            },
+                            "create": {
+                                "_label": "Erstellen"
+                            }
+                        }
+                    }
                 }
             },
             "product": {
@@ -5115,12 +5160,16 @@
                         "allowedFor": "Zugelassen für",
                         "allowed": "Autorisiert",
                         "helperText": "Verwenden Sie Tags, um den Pass nur für eine bestimmte Gruppe von Mitgliedern auf dem Marketplace, im Widget und in der App sichtbar zu machen. Sie können Tags auswählen, um die Karte nur für Mitglieder mit einem ausgewählten Tag sichtbar zu machen. Oder Sie können Tags auswählen, um die Karte nur für Mitglieder mit einem der ausgewählten Tags unsichtbar zu machen. ",
-                        "header": "Tags"
+                        "header": "Tags",
+                        "tagsOnAcquisitionHelper": "Verwenden Sie Tags, um zu erkennen, welches Mitglied den Pass gekauft hat.",
+                        "tagsOnAcquisition": "Tag nach dem Kauf",
+                        "selectTags": "Tags auswählen"
                     },
                     "header": "Fortgeschrittene",
                     "appliesForPayroll": {
                         "label": "Kurse, die bei der Berechnung der Lohnabrechnung der Lehrkraft berücksichtigt werden",
-                        "helperText": "Standardmäßig werden die Kurse dem Studio in Rechnung gestellt und in die Lohnabrechnung der Lehrkraft und die Vergütung durch das Studio aufgenommen. Wenn Sie diese Einstellung deaktivieren, erscheinen die mit diesem Pass verbundenen Kurse nicht mehr in der Lohnabrechnung der Lehrkraft."
+                        "helperText": "Standardmäßig werden die Kurse dem Studio in Rechnung gestellt und in die Lohnabrechnung der Lehrkraft und die Vergütung durch das Studio aufgenommen. Wenn Sie diese Einstellung deaktivieren, erscheinen die mit diesem Pass verbundenen Kurse nicht mehr in der Lohnabrechnung der Lehrkraft.",
+                        "header": "Gehaltsabrechnung für Lehrer"
                     }
                 },
                 "universalPass": {
@@ -5593,7 +5642,8 @@
                 "title": "Meine Studios konfigurieren"
             },
             "consumerPaymentPackSharedFromOtherFranchisee": "Geteilt mit einem Studio",
-            "paymentPackSharedFromFranchisor": "Master Account Kurspass"
+            "paymentPackSharedFromFranchisor": "Master Account Kurspass",
+            "isFromShareTooltip": "Dieser Pass wurde von einem anderen Franchise-Studio übernommen"
         },
         "universalPass": {
             "restore": {
@@ -6756,6 +6806,14 @@
                 "changeDateCoachUnaivalable": "An diesem Datum nicht buchbar: Die Lehrkraft ist nicht verfügbar.",
                 "changeDateEstablishmentUnaivalable": "An diesem Datum ist eine Buchung nicht möglich: Die Einrichtung ist nicht verfügbar.",
                 "overrideCoachNotAllowed": "Sie können keinen Termin mit dieser Lehrkraft vereinbaren."
+            },
+            "delete": {
+                "error": {
+                    "customErrors": {
+                        "4700": "Unmöglich zu löschen : Diese Rolle ist einigen Ihrer Mitarbeiter zugewiesen"
+                    },
+                    "genericError": "Es ist ein Fehler aufgetreten: Diese Rolle wurde nicht gelöscht"
+                }
             }
         },
         "privateConsumerPass": {
@@ -7505,6 +7563,12 @@
         },
         "privateSlot": {
             "notAvailableForBookingAnymore": "Dieser Platz ist nicht mehr verfügbar."
+        },
+        "tag": {
+            "error": {
+                "124004": "Der Hauptname des Tags wird bereits verwendet",
+                "124003": "Der Name des Untertags wird bereits verwendet"
+            }
         }
     },
     "invoice": {
@@ -8578,7 +8642,19 @@
                 "placeholder": "Suche nach Namen oder Strichcode"
             },
             "form": {
-                "title": "Webshopartikel"
+                "title": "Webshopartikel",
+                "error": {
+                    "name": "Ein Produktname darf nicht länger als 200 Zeichen sein"
+                },
+                "variantHelperText": "Definieren Sie Varianten, wenn dieses Produkt in mehreren Farben und/oder Größen erhältlich ist. Die Eigenschaften der einzelnen Varianten können Sie später bearbeiten.",
+                "sizes": {
+                    "helperText": "Mit der Eingabetaste eine Größe hinzufügen",
+                    "title": "Größen"
+                },
+                "colors": {
+                    "helperText": "Mit der Eingabetaste eine Farbe hinzufügen",
+                    "title": "Farben"
+                }
             }
         },
         "provision": {
@@ -10741,6 +10817,14 @@
                 },
                 "description": {
                     "label": "Beschreibung"
+                },
+                "advancedOptions": {
+                    "tag": {
+                        "selectTags": "Tags auswählen",
+                        "tagsOnAcquisitionHelper": "Verwenden Sie Tags, um zu erkennen, welches Mitglied den Terminpass gekauft hat.",
+                        "tagsOnAcquisition": "Tag nach dem Kauf"
+                    },
+                    "header": "Erweitert"
                 }
             },
             "parameters": {
@@ -10843,7 +10927,8 @@
             "isFromDisabledShare": "Gemeinsame Nutzung beendet",
             "isOwnerOfShares": "Geteilt (Terminpass)",
             "isFromShare": "Gemeinsam von einem anderen Konto aus genutzt",
-            "warningShareUniversal": "Bitte teilen Sie die zugehörigen Pässe anstelle des Universalpasses"
+            "warningShareUniversal": "Bitte teilen Sie die zugehörigen Pässe anstelle des Universalpasses",
+            "isFromShareTooltip": "Dieser Terminpass wurde von einem anderen Franchise-Studio übernommen"
         },
         "payment": {
             "address": {
@@ -11355,7 +11440,8 @@
                 "dialogContent": "Dieser Bericht hat {{ count }} Millionen Empfängerzeilen und übersteigt damit die xlsx-Beschränkung von einer Millionen. Um Empfänger einzubeziehen, verringern Sie den Datumsbereich, um die Anzahl zu reduzieren.",
                 "dialogTitle": "Empfängerlimit überschritten",
                 "title": "Exportierte Kampagnen"
-            }
+            },
+            "scheduledTitle": "Für später planen"
         },
         "mail": {
             "noObject": "Kein Betreff",
@@ -11672,6 +11758,38 @@
             },
             "title": "Ungelesene E-Mails automatisch erneut senden",
             "dialogTitle": "Ungelesene E-Mails automatisch erneut senden"
+        },
+        "scheduled": {
+            "tooLateToUpdateDialog": {
+                "close": "Zurück zu Smartlist",
+                "content": "Diese Nachricht kann innerhalb von 5 Minuten nach dem Senden nicht geändert oder gelöscht werden.",
+                "title": "Sie können diese Nachricht nicht mehr ändern oder löschen."
+            },
+            "dialog": {
+                "close": "Abbrechen",
+                "submit": "Nachricht planen",
+                "separator": "an",
+                "helperText": "Wählen Sie die Zeit, zu der Sie die Nachricht planen möchten.",
+                "title": "Eine Nachricht planen"
+            },
+            "nighttimeLimit": "Die Nachricht wird in der Nacht gesendet. Um bessere Resultate zu erzielen, empfehlen wir, die Marketingnachrichten tagsüber zu versenden.",
+            "datetimeLimit": "Die Nachrichten müssen mindestens 5 Minuten im Voraus geplant werden.",
+            "schedule": "Zeitplan",
+            "at": "an",
+            "when": "Wann",
+            "scheduleForLater": "Für später planen",
+            "sendImmediately": "Sofort senden",
+            "sectionTitle": "Zeitplan für Nachrichten",
+            "isEmpty": "Es gibt keine geplanten Nachrichten, die angezeigt werden sollen.",
+            "show": "Zeigen",
+            "delete": "Löschen",
+            "edit": "Bearbeiten",
+            "clicked": "Geklickt",
+            "opened": "Geöffnet",
+            "nextCommunicationScheduled": "Nächste geplante Nachricht",
+            "scheduledFor": "Planen für",
+            "numberOfRecipients": "Empfänger/in",
+            "numberOfRecipients_plural": "Empfänger/innen"
         }
     },
     "consumerSpace": {
@@ -11786,7 +11904,7 @@
                     "availability": {
                         "expiresToday": "Letzter Tag",
                         "expiresIn": "{{ daysRemaining }} Tag übrig",
-                        "expiresIn_plural": "{{ daysRemaining }} Tage übrig",
+                        "expiresIn_plural": "verbleibende Tage",
                         "future": "Beginnt am: {{ startDate }}",
                         "expired": "Abgelaufen am: {{ expirationDate }}",
                         "active": "Läuft ab am: {{ expirationDate }}"
@@ -11981,6 +12099,11 @@
                         "appointment": {
                             "future": "Keine nächsten Termine geplant.",
                             "past": "Keine vergangenen Termine vorzuweisen."
+                        },
+                        "pass": {
+                            "active": "Sieht aus, als hätten Sie noch keinen Karte gekauft.",
+                            "future": "Sieht aus, als hätten Sie noch keinen Karte gekauft.",
+                            "expired": "Sie haben noch keine abgelaufenen Karten."
                         }
                     }
                 },
@@ -12021,7 +12144,9 @@
                         "pauseEndDate": "bis einschließlich {{- pauseEndDate }}",
                         "autoRenewalDate": "am {{- autoRenewalDate }} (inbegriffen)",
                         "autoRenewed": "Automatisch verlängert",
-                        "paused": "Derzeit pausiert"
+                        "paused": "Derzeit pausiert",
+                        "joiningFee": "Aufnahmegebühr",
+                        "futurePauses": "Eine Pause ist geplant von  {{- dateStart }} bis{{- dateEnd }} (included)\nGerman"
                     },
                     "buttonsLabel": {
                         "see": "Ansehen",
@@ -12036,27 +12161,39 @@
                         "card": "Kreditkarte: **** **** **** {{ readableIdentifier }}",
                         "sepa_debit": "SEPA: **** **** **** {{ readableIdentifier }}",
                         "internal": "Internes Konto: bei jeder Zahlung wird automatisch Ihr internes Konto belastet",
-                        "title": "Zahlungsmethode"
+                        "title": "Zahlungsmethode",
+                        "nextPaymentDate": "am",
+                        "pauseEndDate": "bis inklusive",
+                        "autoRenewalDate": "am",
+                        "autoRenewed": "Automatisch erneuert",
+                        "paused": "Derzeit pausiert"
                     },
                     "failedPaymentReason": "Grund: {{- note }} Bitte kontaktieren Sie Ihr Studio, um die Situation zu klären",
-                    "failedPayment": "Zahlung fehlgeschlagen"
+                    "failedPayment": "Zahlung fehlgeschlagen",
+                    "emptyInvoices": " Keine Rechnungshistorie zu sehen",
+                    "billingHistory": "Rechnungshistorie",
+                    "failedPaymentReasonWithRetry": "Grund: {{- note }}. Die Zahlung wird am {{- nextRetryDate}} erneut versucht.",
+                    "beforeRenewalContractPriceEvery": "Dann {{ price }} every {{ recurrence }} {{ interval }} nach  {{- date }}",
+                    "beforeRenewalContractPricePer": "Dann{{ price }}/{{ interval }} nach {{- date }}"
                 },
                 "consumerSubscriptionCard": {
                     "buttonsLabel": {
                         "seeDetails": "Details ansehen",
                         "addPaymentMethod": "Zahlungsmethode hinzufügen"
                     },
-                    "recurrenceLabelEvery": "{{ price }}{{ currency }} alle {{ recurrence }} {{ interval }}",
-                    "recurrenceLabelPer": "{{ price }}{{ currency }}/{{ interval }}",
+                    "recurrenceLabelEvery": "{{ price }} alle {{ recurrence }} {{ interval }}",
+                    "recurrenceLabelPer": "{{ price }}/{{ interval }}",
                     "chipsLabel": {
                         "failedPayment": "Zahlung fehlgeschlagen",
                         "missingPaymentMethod": "Fehlende Zahlungsmethode",
                         "isPaused": "Pausiert"
-                    }
+                    },
+                    "nextPayment": "Nächste Zahlung:"
                 },
                 "headerButtonsLabel": {
                     "getSubscription": "Ein Abonnement abschließen",
-                    "bookASession": "Kurs buchen"
+                    "bookASession": "Kurs buchen",
+                    "backToSubscriptions": "Zurück zu den Abonnements"
                 },
                 "tab": {
                     "expired": "Abgelaufen",
@@ -12069,6 +12206,16 @@
                     "expired": "Abgelaufen seit {{- date }}",
                     "future": "Beginnt am {{- date }}",
                     "active": "Begonnen am {{- date }}"
+                },
+                "close": "Schließen",
+                "paymentMethodUpdatedContent": "Ihre Zahlungsmethode wurde erfolgreich aktualisiert",
+                "paymentMethodUpdatedTitle": "Zahlungsmethode ändern",
+                "changePaymentMethod": "Zahlungsmethode ändern",
+                "paymentModalAlert": "Wenn keine Zahlungsmethode gespeichert ist, wird für jede Zahlung automatisch eine Verbindlichkeit auf Ihrem internen Konto erstellt.",
+                "download": "Herunterladen",
+                "placeholder": {
+                    "expired": "Sie haben noch keine abgelaufenen Abonnements.",
+                    "nonExpired": "Sieht so aus, als hätten Sie keine aktiven Abonnements."
                 }
             }
         }
@@ -12417,6 +12564,15 @@
             "highlightedAsRecommended": {
                 "label": "Als empfohlen markieren",
                 "helperText": "Ermöglicht es Ihren Kunden, auf einen Blick zu sehen, welche Pakete derzeit empfohlen werden."
+            },
+            "advancedOptions": {
+                "tag": {
+                    "tagGroupDuplicated": "Bitte beachten Sie, dass ausgewählte Artikel Tags der gleichen Kategorie enthalten.",
+                    "selectTags": "Tags auswählen",
+                    "tagsOnAcquisitionHelper": "Verwenden Sie Tags, um zu erkennen, welches Mitglied die Packung gekauft hat.",
+                    "tagsOnAcquisition": "Tag nach dem Kauf"
+                },
+                "header": "Erweitert"
             }
         },
         "list": {
@@ -12797,6 +12953,15 @@
                     "firstname_guest": "Vorname des Gasts"
                 },
                 "name": "Gastbuchung"
+            },
+            "ReferralProgram": {
+                "tags": {
+                    "deadline_use_referral": "Gültigkeit der Empfehlungsprämie",
+                    "minimum_purchase_referral": "Mindestkaufbetrag",
+                    "referring_reward": "Belohnung für den Anwerber",
+                    "reduction_purchase_referred": "Rabatt für das empfohlene Mitglied"
+                },
+                "name": "Empfehlung"
             }
         },
         "emailDesign": {
@@ -12939,7 +13104,9 @@
             "signIn": "Gespeichert",
             "visitsLeft": "Verbleibende Besuche",
             "expires": "Läuft ab",
-            "classLocation": "Ihr Kurs findet statt in"
+            "classLocation": "Ihr Kurs findet statt in",
+            "spotUnassigned": "Spot nicht zugewiesen",
+            "spotInfo": "Dein ist"
         },
         "signout": {
             "form": {
@@ -14099,7 +14266,8 @@
             "signin": "Anmelden",
             "signup": {
                 "register": "Registrieren",
-                "noAccount": "Neues Konto erstellen"
+                "noAccount": "Neues Konto erstellen",
+                "goBack": "Gehe zurück"
             },
             "forgottenPassword": "Passwort vergessen?"
         },
@@ -15905,13 +16073,14 @@
                 "title": "Tag entfernen",
                 "text": "Dieser Kurs ist mit einem Ereignis verbunden. Sie sind dabei, alle Tags zu entfernen. Sind Sie sicher, dass Sie fortfahren möchten?"
             }
-        }
+        },
+        "tagGroupDuplicated": "Bitte beachten Sie, dass einige Tags zur selben Gruppe gehören."
     },
     "platformBilling": {
         "featureRequest": {
             "close": "Schließen",
-            "content": "Wir haben Deine Anfrage erhalten, vielen Dank für Dein Interesse! Dein bsport Account Manager wird sich in Kürze mit weiteren Informationen bei Dir melden.",
-            "title": "Add-on"
+            "content": "Vielen Dank für Ihr Interesse an diesem Add-on. Wenn Sie mehr erfahren möchten, laden wir Sie herzlich ein, Ihre Frage in unserem Support-Chat zu stellen. Ihr Kundenbetreuer wird Ihnen gerne weitere Informationen geben.",
+            "title": "Lassen Sie uns ein Gespräch beginnen"
         },
         "platformBillingStage": {
             "maxBooking": "Bis zu {{max_booking_per_month}} Buchungen / Monat",
@@ -16233,7 +16402,10 @@
                 "universal_pass_details_card": "Universalpass-Detailkarte (für Mitglieder)",
                 "private_consumer_pass_details_card": "Terminpass-Detailkarte (für Mitglieder)",
                 "consumer_payment_pack_details_card": "Aktivitätspass-Detailkarte (für Mitglieder)",
-                "reset_password_confirmation": "Bestätigung der Passwortrücksetzung"
+                "reset_password_confirmation": "Bestätigung der Passwortrücksetzung",
+                "consumer_subscription_details_card": "Karte mit Angaben zum Verbraucherabonnement",
+                "consumer_subscription_card": "Abonnementkarte für Verbraucher",
+                "fabrique_big_icon": "Großes Symbol"
             },
             "page": {
                 "calendar": "Kalender",
@@ -16372,7 +16544,15 @@
                     "isDetailsDisabled": "Die Schaltfläche \"Details anzeigen\" ist deaktiviert",
                     "passKind": "Pass-Typ",
                     "isFuture": "Pass ist noch nicht aktiv",
-                    "isExpired": "Pass ist abgelaufen"
+                    "isExpired": "Pass ist abgelaufen",
+                    "withFailedPayments": "Fehlgeschlagene Zahlungen anzeigen",
+                    "WithBillingHistory": "Erfolgreiche Zahlungen anzeigen",
+                    "hasAutoRenewal": "Das Abonnement wird automatisch verlängert",
+                    "withFuturePauses": "Das Abonnement wird in Zukunft pausieren",
+                    "isPaused": "Ist derzeit pausiert",
+                    "addPaymentMethodDisabled": "Schaltfläche \"Zahlungsmethode hinzufügen\" ist deaktiviert",
+                    "hasMissingPaymentMethod": "Hat fehlende Zahlungsmethode",
+                    "hasFailedPayments": "Hat Zahlungen nicht geleistet"
                 },
                 "option": {
                     "activityName": "Aktivität",
@@ -16468,7 +16648,8 @@
                     "standard": "Standard",
                     "universalPass": "Universaler Pass",
                     "appointmentPass": "Terminpass",
-                    "activityPass": "Aktivitätspass"
+                    "activityPass": "Aktivitätspass",
+                    "card_payment_method": "Karte"
                 },
                 "confirmationMessageComponentAlert": "Diese Komponente verwaltet hauptsächlich den Buchungs- und Zahlungsstatus. Für die Anpassung ihres Aussehens empfehlen wir die Verwendung ihrer Stammkomponenten, die sich im Allgemeinen Abschnitt befinden",
                 "marketplaceOfferBookingList": "Diese Komponente ist eine Liste der gebuchten Sitzungen. Zur Feinabstimmung einzelner {{component_name}}-Komponenten können Sie den entsprechenden Abschnitt im Editor verwenden.",
@@ -17652,6 +17833,14 @@
                 "actions": {
                     "submit": "Bestätigen",
                     "cancel": "Schließen"
+                },
+                "advancedOptions": {
+                    "tag": {
+                        "selectTags": "Tags auswählen",
+                        "tagsOnAcquisitionHelper": "Verwenden Sie Tags, um zu erkennen, welches Mitglied die Geschenkkarte gekauft hat.",
+                        "tagsOnAcquisition": "Markierung nach dem Kauf"
+                    },
+                    "header": "Erweitert"
                 }
             },
             "canNotUpdateBecauseShared": "Dieser Gutschein wird vom Franchisegeber zur Verfügung gestellt. Sie wurde vom Franchisegeber festgelegt und kann nicht geändert werden."

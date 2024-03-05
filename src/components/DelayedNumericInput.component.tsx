@@ -1,15 +1,17 @@
-// @ts-nocheck
-// @flow
 import React, { Component } from 'react';
 
 import NumericInput from './input/NumericInput.component';
+// eslint-disable-next-line no-duplicate-imports
+import type { NumericInputProps } from './input/NumericInput.component';
 
 const DELAY = 350;
+
+type InputProps = Omit<NumericInputProps, 'value' | 'onChange'>;
 
 export type Props = {
   value: string | null | number;
   onChange: (data: any) => void;
-  InputProps: any;
+  InputProps?: InputProps;
   isPositive?: boolean;
   onBlur?: (e: React.SyntheticEvent<HTMLInputElement>) => void;
 };
@@ -67,12 +69,16 @@ export default class DelayedNumericInput extends Component<Props, State> {
   };
 
   render() {
+    const numericValue =
+      typeof this.state.value === 'number'
+        ? this.state.value
+        : parseFloat(this.state.value);
     return (
       <NumericInput
         {...this.props}
         onBlur={this.handleBlur}
         onChange={this.handleChange}
-        value={this.state.value}
+        value={numericValue}
       />
     );
   }

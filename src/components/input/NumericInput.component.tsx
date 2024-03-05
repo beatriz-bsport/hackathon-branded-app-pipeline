@@ -3,7 +3,7 @@ import React, { FocusEventHandler, useCallback } from 'react';
 import TextField from '@material-ui/core/TextField';
 import classNames from 'classnames';
 
-export type Props = {
+export type NumericInputProps = {
   value: number;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   disabled?: boolean;
@@ -24,7 +24,7 @@ export type Props = {
   onBlur?: FocusEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 };
 
-const NumericInput: React.FC<Props> = ({
+const NumericInput: React.FC<NumericInputProps> = ({
   value,
   onChange,
   disabled,

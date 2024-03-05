@@ -2,9 +2,7 @@ import React from 'react';
 
 import InputAdornment from '@material-ui/core/InputAdornment';
 
-import NumericInput, {
-  Props as NumericInputProps,
-} from './NumericInput.component';
+import NumericInput, { NumericInputProps } from './NumericInput.component';
 
 type Props = {
   invalid: boolean;

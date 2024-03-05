@@ -567,7 +567,7 @@ export function fetchMyPastBookingAsMember(
         page: nextPage,
         page_size,
         mine_as_consumer: true,
-        past_booking: true,
+        strictly_past_booking: true,
         offer_is_workshop: false,
       });
       dispatch(fetchMyPastBookingAsMemberActions.success(response));
@@ -614,7 +614,7 @@ export function fetchMyFutureBookingAsMember(
         page: nextPage,
         page_size,
         mine_as_consumer: true,
-        future_booking: true,
+        strictly_future_booking: true,
         offer_is_workshop: false,
       });
       dispatch(fetchMyFutureBookingAsMemberActions.success(response));

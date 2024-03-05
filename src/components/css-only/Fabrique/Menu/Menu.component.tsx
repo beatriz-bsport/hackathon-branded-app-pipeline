@@ -86,6 +86,11 @@ export type MenuProps = {
    * @type {React.MutableRefObject<HTMLDivElement>}
    */
   openMenuRef?: React.MutableRefObject<HTMLDivElement>;
+  /**
+   * An option to make the menu fit the width of the element used as ref.
+   * @type {boolean}
+   */
+  isMenuWidthControlledByRef?: boolean;
 };
 
 const Menu: React.FC<MenuProps> = ({
@@ -104,6 +109,7 @@ const Menu: React.FC<MenuProps> = ({
   onClose,
   id,
   openMenuRef,
+  isMenuWidthControlledByRef = false,
 }) => {
   const menuRef = React.useRef<HTMLDivElement>(null);
 
@@ -322,7 +328,7 @@ const Menu: React.FC<MenuProps> = ({
           )}
           id={id}
           style={{
-            ...(anchorElementDimensions?.width
+            ...(isMenuWidthControlledByRef && anchorElementDimensions?.width
               ? { width: anchorElementDimensions?.width }
               : {}),
           }}

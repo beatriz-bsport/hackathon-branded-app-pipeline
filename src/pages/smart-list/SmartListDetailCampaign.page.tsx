@@ -264,6 +264,7 @@ const connector = connect(
     campaignState: state.communication.campaign.bySmartlist,
     automatedCampaignState: state.communication.automatedCampaign.bySmartlist,
     loading: state.communication.campaign.bySmartlist.loading,
+    companyId: state.theme.theme.company,
     resolvedGenericTags: getResolvedGenericTags(state),
     csvExportLink: getCsvExportAllCampaignsLink(state),
     csvExportDate: getCsvExportAllCampaignsDate(state),

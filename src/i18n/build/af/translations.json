@@ -10923,6 +10923,35 @@
         "name": "Valid passes",
         "explanation": "Has X number of valid passes or appointment passes"
       },
+      "28": {
+        "name": "First purchase",
+        "explanation": "Filters the members with a first finalized/paid basket",
+        "booleanChoice": { "before": "The first purchase is", "is": "done", "is_not": "not yet done" },
+        "filterByDate": { "before": "Filter by date" },
+        "numbersComparator": { "payment": { "before": "The amount of the first purchase was", "between": "and", "after": "{{currency}}" } }
+      },
+      "29": {
+        "name": "Referrer",
+        "explanation": "Filters the members who referred members",
+        "numbersComparator": {
+          "reward": { "before": "The member obtained", "between": "and", "after": "rewards as a referrer" },
+          "referred": {
+            "before": "The member referred",
+            "between": "and",
+            "after": "members",
+            "tooltip": "Members who have not referred anyone may also be included"
+          },
+          "money": { "before": "The member obtained", "between": "and", "after": "{{currency}} as a referrer" }
+        }
+      },
+      "30": {
+        "name": "Referred member",
+        "explanation": " Filters the members who used a referral link to sign up",
+        "booleanChoice": { "before": "The member", "is": "is", "is_not": "is not", "after": "a referred member" },
+        "numbersComparator": {
+          "money": { "before": "The member obtained", "between": "and", "after": "{{currency}} as a referred member" }
+        }
+      },
       "101": {
         "explanation": "Is less/more/exactly...",
         "second": "years (included)",

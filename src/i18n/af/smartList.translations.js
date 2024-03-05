@@ -34,6 +34,9 @@ const getTranslations = async () => {
     RELATIONS_FILTER_IDENTIFIER,
     USER_HAS_PHONE_FILTER_IDENTIFIER,
     TERMS_AND_CONDITIONS_FILTER_IDENTIFIER,
+    FIRST_PURCHASE_FILTER_IDENTIFIER,
+    REFERRER_FILTER_IDENTIFIER,
+    REFERRED_MEMBERS_FILTER_IDENTIFIER,
   } = SMARTLIST;
 
   const MEMBER_INFO = 1;
@@ -515,6 +518,65 @@ const getTranslations = async () => {
         false: 'Did not accept',
         true: 'Has accepted',
         name: 'Conditions of use',
+      },
+      [FIRST_PURCHASE_FILTER_IDENTIFIER]: {
+        name: 'First purchase',
+        explanation: 'Filters the members with a first finalized/paid basket',
+        booleanChoice: {
+          before: 'The first purchase is',
+          is: 'done',
+          is_not: 'not yet done',
+        },
+        filterByDate: {
+          before: 'Filter by date',
+        },
+        numbersComparator: {
+          payment: {
+            before: 'The amount of the first purchase was',
+            between: 'and',
+            after: '{{currency}}',
+          },
+        },
+      },
+      [REFERRER_FILTER_IDENTIFIER]: {
+        name: 'Referrer',
+        explanation: 'Filters the members who referred members',
+        numbersComparator: {
+          reward: {
+            before: 'The member obtained',
+            between: 'and',
+            after: 'rewards as a referrer',
+          },
+          referred: {
+            before: 'The member referred',
+            between: 'and',
+            after: 'members',
+            tooltip:
+              'Members who have not referred anyone may also be included',
+          },
+          money: {
+            before: 'The member obtained',
+            between: 'and',
+            after: '{{currency}} as a referrer',
+          },
+        },
+      },
+      [REFERRED_MEMBERS_FILTER_IDENTIFIER]: {
+        name: 'Referred member',
+        explanation: ' Filters the members who used a referral link to sign up',
+        booleanChoice: {
+          before: 'The member',
+          is: 'is',
+          is_not: 'is not',
+          after: 'a referred member',
+        },
+        numbersComparator: {
+          money: {
+            before: 'The member obtained',
+            between: 'and',
+            after: '{{currency}} as a referred member',
+          },
+        },
       },
       calendarPicker: {
         text: {

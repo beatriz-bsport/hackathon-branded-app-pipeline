@@ -15,6 +15,7 @@ import Collapse from '@material-ui/core/Collapse';
 import DeleteIcon from '@material-ui/icons/Delete';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
+import Divider from '@material-ui/core/Divider';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -1181,6 +1182,7 @@ class CommunicationDrawer extends React.Component<Props, State> {
                       </>
                     )}
                   </Collapse>
+                  <Divider className={classes.divider} />
                 </div>
                 {!hideAutoResend &&
                   [WRITE_EMAIL, SELECT_EMAIL].includes(
@@ -1254,6 +1256,7 @@ class CommunicationDrawer extends React.Component<Props, State> {
                           />
                         </div>
                       </Collapse>
+                      <Divider className={classes.divider} />
                     </div>
                   )}
                 {!!this.props.memberToDisplayError &&
@@ -1357,7 +1360,6 @@ const styles = (theme: Theme) =>
       marginBottom: theme.spacing(3),
     },
     resendSectionContainer: {
-      marginTop: theme.spacing(4),
       paddingLeft: theme.spacing(1),
       paddingRight: theme.spacing(1),
     },
@@ -1396,6 +1398,13 @@ const styles = (theme: Theme) =>
       justifyContent: 'space-between',
       alignItems: 'center',
       marginTop: theme.spacing(4),
+    },
+    divider: {
+      display: 'flex',
+      width: `calc(100% + ${2 * theme.spacing(5)}px)`,
+      marginLeft: `-${theme.spacing(5)}px`,
+      marginTop: theme.spacing(5),
+      backgroundColor: theme.palette.grey[300],
     },
   });
 

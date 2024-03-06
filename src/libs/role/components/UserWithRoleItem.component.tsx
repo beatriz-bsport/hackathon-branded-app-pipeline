@@ -208,7 +208,7 @@ class UserWithRoleItem extends React.Component<Props, State> {
           {!isRoleIn([OWNER_ROLE]) && (
             <TextField
               castAsNumber
-              className={classes.roleField}
+              className={classes.commissionField}
               disabled={!hasOwnerPermission || isRelatedToFranchisor}
               InputProps={{
                 inputProps: { min: 0, max: 100, step: 1 },
@@ -218,7 +218,7 @@ class UserWithRoleItem extends React.Component<Props, State> {
                   </InputAdornment>
                 ),
               }}
-              label={t('forms.user.commissionHeader')}
+              label={t('forms.user.commission')}
               onBlur={handleOnCommissionFocus}
               onChange={handleOnCommissionChange}
               type="number"
@@ -278,6 +278,10 @@ const styles = (theme: Theme) => ({
     flexDirection: 'row',
     alignItems: 'center',
     flexWrap: 'wrap',
+  },
+  commissionField: {
+    marginRight: theme.spacing(1),
+    width: 70,
   },
   roleField: {
     marginRight: theme.spacing(1),

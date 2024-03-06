@@ -45,12 +45,50 @@ const getTranslations = async () => {
           cancel: 'Cancel',
           confirm: 'Delete',
         },
-        selectCoach: 'Select teachers',
         ifEmptySelectAll: 'Leave empty to select all',
+        warningNoEstablishmentSelected:
+          'You must set up where the staff will work from in Advanced settings.',
         selectFranchisees: 'Select studios',
         selectFranchiseesDisabled:
           'This setting is only for custom role (not Admin or Owner)',
         commissionHeader: 'Commission rate',
+        commission: 'Commission',
+        advancedSettings: 'Advanced settings',
+        advancedSettingsModal: {
+          title: 'Advanced settings',
+          teacher: {
+            title: 'Teacher restrictions',
+            helpText:
+              'This staff account will only have access to the schedule and calendar of the selected teachers. All teachers are selected by default.',
+            subtitle: 'Associated teachers',
+            placeholder: 'Select teachers',
+            allOptionsPlaceholder: 'All teachers',
+            ifEmptySelectAll: 'Leave empty to select all',
+          },
+          accessMonitoring: {
+            title: 'Access monitoring',
+            multilocation: {
+              helpText:
+                'Select here if this staff access will monitor members’ entry in front of a specific establishment, a group of establishments, or a whole location (in which case leave the establishment selector empty after the selection of the location)',
+              title: 'Location',
+              search: 'Search for location…',
+              placeholder: 'Select location',
+            },
+            singlelocation: {
+              helpText:
+                "Select here if this staff access will monitor member's entry in front of a specific establishment, a group of establishment or the whole studio (in which case leave the establishment selector empty)",
+              title: 'Address',
+              search: 'Search for address…',
+              placeholder: 'Select address',
+            },
+            establishment: {
+              title: 'Establishment',
+              allOptionsPlaceholder: 'All establishments',
+              search: 'Search for establishment…',
+              placeholder: 'Select establishment',
+            },
+          },
+        },
       },
       role: {
         delete: {
@@ -222,6 +260,10 @@ const getTranslations = async () => {
           replacement: { _label: 'Substitution' },
         },
         schedule: { _label: 'Schedule' },
+        accessMonitoring: {
+          _label: 'Access monitoring',
+          perform: { _label: 'Perform access monitoring' },
+        },
         calendar: { _label: 'Calendar' },
         dashboard: { _label: 'Dashboard' },
         _label: 'Navigation menu',

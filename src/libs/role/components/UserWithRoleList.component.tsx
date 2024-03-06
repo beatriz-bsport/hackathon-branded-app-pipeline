@@ -86,10 +86,8 @@ export const UserWithRoleList: React.FC<Props> = ({
       {users.map((user) => (
         <div key={user.id} className={classes.roleListItem}>
           <UserWithRoleItem
-            coachList={coachList}
-            coachListLoading={coachListLoading}
             deleteUser={() => deleteUserRole(user.id)}
-            editUserSelectedObjects={(objectsIds: number[]) =>
+            editUserSelectedFranchisees={(objectsIds: number[]) =>
               updateUserRole(
                 user.id,
                 isFranchisor

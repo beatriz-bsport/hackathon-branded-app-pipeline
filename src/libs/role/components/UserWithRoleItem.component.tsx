@@ -27,7 +27,6 @@ import COMMON_ROLES, {
   CHECKIN_APP_ROLE,
   ADMIN_ROLE,
 } from '../role-types';
-import { Coach } from '#libs/associated-coach/types';
 import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
 import { Company } from '#libs/company/types';
 import { DEFAULT_ROLES } from '#libs/role/constants';
@@ -50,10 +49,8 @@ const DeleteButton = withConfirm(
 );
 
 type OwnProps = {
-  coachList: Array<Coach>;
-  coachListLoading: boolean;
   deleteUser: (id: number) => void;
-  editUserSelectedObjects?: (objectIds: number[]) => void;
+  editUserSelectedFranchisees?: (franchiseeIds: number[]) => void;
   franchiseRoles?: FranchiseRole[];
   franchiseeList: Array<Company>;
   franchiseeListLoading: boolean;
@@ -70,7 +67,7 @@ type Props = OwnProps &
   WithTranslation;
 
 type State = {
-  selectedObjects?: SelectFieldItem[];
+  selectedFranchisees?: SelectFieldItem[];
   commission?: number;
 };
 
@@ -78,7 +75,7 @@ class UserWithRoleItem extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      selectedObjects: null,
+      selectedFranchisees: null,
       commission: parseFloat(this.props.user.staff_commission_percentage),
     };
   }
@@ -86,16 +83,10 @@ class UserWithRoleItem extends React.Component<Props, State> {
   handleObjectChange = () => {
     if (this.props.isFranchisor) {
       const franchiseeIds =
-        this.state.selectedObjects?.map(
+        this.state.selectedFranchisees?.map(
           (franchise: SelectFieldItem) => franchise.value,
         ) ?? [];
-      this.props.editUserSelectedObjects(franchiseeIds);
-    } else {
-      const coachIds =
-        this.state.selectedObjects?.map(
-          (coach: SelectFieldItem) => coach.value,
-        ) ?? [];
-      this.props.editUserSelectedObjects(coachIds);
+      this.props.editUserSelectedFranchisees(franchiseeIds);
     }
   };
 
@@ -109,8 +100,6 @@ class UserWithRoleItem extends React.Component<Props, State> {
       roles,
       franchiseRoles,
       deleteUser,
-      coachList,
-      coachListLoading,
       franchiseeList,
       franchiseeListLoading,
       isFranchisor,
@@ -118,37 +107,24 @@ class UserWithRoleItem extends React.Component<Props, State> {
     } = this.props;
 
     const selectedObjectsInitial = (() => {
-      if (isFranchisor) {
-        return this.props.user?.allowed_franchisees && this.props.franchiseeList
-          ? getOptionsFromIds(
-              this.props.user?.allowed_franchisees || [],
-              this.props.franchiseeList || [],
-            )
-          : [];
-      }
-      return this.props.user.coaches_selected_in_role && this.props.coachList
+      return isFranchisor &&
+        this.props.user?.allowed_franchisees &&
+        this.props.franchiseeList
         ? getOptionsFromIds(
-            this.props.user.coaches_selected_in_role || [],
-            this.props.coachList || [],
+            this.props.user?.allowed_franchisees || [],
+            this.props.franchiseeList || [],
           )
         : [];
     })();
-    let objectListLoading: boolean;
-    let objectList: Array<Coach | Company>;
     let roleId: number;
     let roleIdentifier: number;
     if (isFranchisor) {
-      objectListLoading = franchiseeListLoading;
-      objectList = franchiseeList;
       roleId = user.franchise_role;
       roleIdentifier = user.franchise_role_identifier;
     } else {
-      objectListLoading = coachListLoading;
-      objectList = coachList;
       roleId = user.role;
       roleIdentifier = null;
     }
-
     const isRoleIn = (roleIds: number[]) => {
       if (isFranchisor) {
         return roleIdentifier === OWNER_ROLE;
@@ -167,7 +143,7 @@ class UserWithRoleItem extends React.Component<Props, State> {
       const newRole = parseInt(ev.target.value, 10);
       handleRoleChange(newRole);
       if (DEFAULT_ROLES.includes(newRole)) {
-        this.setState({ selectedObjects: [] });
+        this.setState({ selectedFranchisees: [] });
       }
     };
 
@@ -200,11 +176,13 @@ class UserWithRoleItem extends React.Component<Props, State> {
             className={classes.roleField}
             value={user.email}
           />
+
           <TextField
             disabled
             className={classes.roleField}
             value={`${user.first_name} ${user.last_name}`}
           />
+
           <FormControl>
             <Select
               className={classes.roleField}
@@ -226,6 +204,7 @@ class UserWithRoleItem extends React.Component<Props, State> {
               })}
             </Select>
           </FormControl>
+
           {!isRoleIn([OWNER_ROLE]) && (
             <TextField
               castAsNumber
@@ -247,35 +226,35 @@ class UserWithRoleItem extends React.Component<Props, State> {
             />
           )}
         </div>
+
         {!isRoleIn([OWNER_ROLE]) && hasOwnerPermission && (
           <DeleteButton deleteUser={deleteUser} t={t} />
         )}
-        {!(
-          isRoleIn(Object.values(COMMON_ROLES)) || roleIdentifier === ADMIN_ROLE
-        ) &&
+
+        {isFranchisor &&
+          !(
+            isRoleIn(Object.values(COMMON_ROLES)) ||
+            roleIdentifier === ADMIN_ROLE
+          ) &&
           hasOwnerPermission && (
             <div className={classes.selectorField}>
               <MaterialUISelector
                 isMulti
-                isLoading={objectListLoading}
+                isLoading={franchiseeListLoading}
                 menuPlacement="bottom"
-                name={isFranchisor ? 'franchisees' : 'coaches'}
+                name="franchisees"
                 onChange={(values: SelectFieldItem[]) => {
                   this.setState(
-                    { selectedObjects: values },
+                    { selectedFranchisees: values },
                     this.handleObjectChange,
                   );
                 }}
-                options={[...objectList]?.map((object: Coach | Company) => ({
+                options={[...franchiseeList]?.map((object: Company) => ({
                   value: object.id,
                   label: object.name,
                 }))}
-                placeholder={
-                  isFranchisor
-                    ? t('forms.user.selectFranchisees')
-                    : t('forms.user.selectCoach')
-                }
-                value={this.state.selectedObjects ?? selectedObjectsInitial}
+                placeholder={t('forms.user.selectFranchisees')}
+                value={this.state.selectedFranchisees ?? selectedObjectsInitial}
               />
               <Typography color="textSecondary" variant="caption">
                 {t('forms.user.ifEmptySelectAll')}

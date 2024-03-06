@@ -208,8 +208,8 @@ export class CouponForm extends React.Component<Props, State> {
     ev.preventDefault();
     const data = {
       name: this.state.name,
-      percent_off: this.state.percent_off,
-      amount_off: this.state.amount_off,
+      percent_off: this.state.percent_off || 0,
+      amount_off: this.state.amount_off || 0,
       code: this.state.code,
       is_active: this.state.is_active,
       only_on_first_checkout: this.state.only_on_first_checkout,
@@ -217,7 +217,7 @@ export class CouponForm extends React.Component<Props, State> {
       usage_per_member: this.state.usage_per_member,
       combinable: this.state.combinable,
       subscription_mode: this.state.subscription_mode,
-      minimum_amount: this.state.minimum_amount,
+      minimum_amount: this.state.minimum_amount || 0,
       applies_to:
         this.state.applies_to === ALL_BUYABLES ? null : this.state.applies_to,
       voucher_type: this.state.voucher_type,

@@ -325,6 +325,9 @@ const getTranslations = async () => {
           createInvoice: { _label: 'Bill a member' },
           readInvoices: { _label: 'See invoices' },
           editBalance: { _label: 'Adjust member balance' },
+          editBalanceWithoutInvoice: {
+            _label: 'Adjust member balance without generating an invoice',
+          },
           takePayment: { _label: 'Cash in a member' },
         },
         _label: 'Transactions',

@@ -23,6 +23,7 @@
         "#csscomponents/*": ["./src/components/css-only/*"],
         "#Fabrique/*": ["./src/components/css-only/Fabrique/*"],
         "#untitledui/*": ["./src/components/untitledui/*"],
+        "#pages/*": ["./src/pages/*"],
       
       },
     },

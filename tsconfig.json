@@ -34,7 +34,8 @@
       "#csscomponents/*": ["./src/components/css-only/*"],
       "#utils/*": ["./src/utils/*"],
       "#Fabrique/*": ["./src/components/css-only/Fabrique/*"],
-      "#untitledui/*": ["./src/components/untitledui/*"]
+      "#untitledui/*": ["./src/components/untitledui/*"],
+      "#pages/*": ["./src/pages/*"]
     }
   },
   "include": ["./src/**/*.ts*", "src/i18n/index.js"]

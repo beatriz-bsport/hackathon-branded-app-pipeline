@@ -111,6 +111,7 @@ module.exports = {
         '../src/components/css-only/Fabrique',
       ),
       '#untitledui': path.resolve(__dirname, '../src/components/untitledui'),
+      '#pages': path.resolve(__dirname, '../src/pages'),
     },
     plugins: [
       // Prevents users from importing files from outside of src/ (or node_modules/).

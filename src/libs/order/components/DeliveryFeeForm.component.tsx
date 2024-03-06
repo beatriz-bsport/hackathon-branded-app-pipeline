@@ -55,7 +55,13 @@ export class DeliveryFeeDialogForm extends React.Component<Props, State> {
   };
 
   onSubmit = () => {
-    this.props.onSubmit({ ...this.state.data });
+    const data = {
+      name: this.state.data.name,
+      fee: this.state.data.fee || 0,
+      free_threshold: this.state.data.free_threshold,
+      id: this.state.data.id,
+    };
+    this.props.onSubmit(data);
   };
 
   render() {

@@ -22,6 +22,7 @@ import type {
   EstablishmentBillingGroup,
 } from '#libs/establishment/types';
 import EstablishmentBillingGroupSelector from '#libs/establishment/components/EstablishmentBillingGroupSelector';
+import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type Props = {
   onSubmit: (amount: number, withoutPaymentNote: boolean) => void;
@@ -36,19 +37,18 @@ type Props = {
   enableMultiLocalization: boolean;
 };
 
-export const MemberBalanceUpdaterDialog: React.FC<Props> = (props) => {
-  const {
-    asManager,
-    enableMultiLocalization,
-    establishmentBillingGroups,
-    establishmentBillingGroupsLoading,
-    initialValue,
-    onSubmit,
-    onClose,
-    open,
-    selectedEstablishmentBillingGroup,
-    setSelectedEstablishmentBillingGroup,
-  } = props;
+export const MemberBalanceUpdaterDialog: React.FC<Props> = ({
+  asManager,
+  enableMultiLocalization,
+  establishmentBillingGroups,
+  establishmentBillingGroupsLoading,
+  initialValue,
+  onSubmit,
+  onClose,
+  open,
+  selectedEstablishmentBillingGroup,
+  setSelectedEstablishmentBillingGroup,
+}) => {
   const classes = useStyles();
   const { t } = useTranslation('invoice');
 
@@ -120,15 +120,22 @@ export const MemberBalanceUpdaterDialog: React.FC<Props> = (props) => {
               value={balanceUpdateValue}
               variant="outlined"
             />
-            <div className={classes.checkboxRow}>
-              <Checkbox
-                checked={withoutPaymentNote}
-                onChange={(e, checked) => setWithoutPaymentNote(checked)}
-              />
-              <Typography variant="body2">
-                {t('balance.updaterDialog.withoutPaymentNote.label')}
-              </Typography>
-            </div>
+
+            <ObjectLevelPermissionProviderComponent requiredPermission="billing.allowed_actions.editBalanceWithoutInvoice">
+              {(canOmitInvoice: boolean) =>
+                canOmitInvoice && (
+                  <div className={classes.checkboxRow}>
+                    <Checkbox
+                      checked={withoutPaymentNote}
+                      onChange={(e, checked) => setWithoutPaymentNote(checked)}
+                    />
+                    <Typography variant="body2">
+                      {t('balance.updaterDialog.withoutPaymentNote.label')}
+                    </Typography>
+                  </div>
+                )
+              }
+            </ObjectLevelPermissionProviderComponent>
             {withoutPaymentNote && (
               <div className={classes.row}>
                 <AlertIcon className={classes.iconLeft} />

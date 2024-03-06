@@ -146,6 +146,7 @@ export class RoleList extends React.PureComponent<Props> {
           />
         ) : (
           <CreateRoleDialog
+            featureList={this.props.featureList}
             onClose={this.onCloseCreateRoleDialog}
             onSubmit={this.onSubmit}
             open={this.props.openCreateRoleDialog}

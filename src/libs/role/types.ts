@@ -56,6 +56,10 @@ export type RolePermission = {
     dashboard: boolean;
     calendar: boolean;
     schedule: boolean;
+    // This permission is hidden for a company without the access monitoring upsell
+    accessMonitoring?: {
+      perform: boolean;
+    };
     myClub: {
       activities: boolean;
       workshops: boolean;

@@ -38,8 +38,12 @@ import {
   setAllValuesInObject,
 } from '../utils';
 import RecursiveCheckBoxComponent from './RecursiveCheckBox.component';
+import type { FeatureList } from '#libs/company/types';
+import { hasUpsell } from '#libs/platform-billing/utils';
+import { UPSELL_IDENTIFIER_ACCESS_MONITORING } from '#libs/platform-billing/upsell-identifiers';
 
 type OwnProps = {
+  featureList: FeatureList;
   onSubmit: (data: Role) => void;
   open: boolean;
   role?: Role | null;
@@ -62,7 +66,28 @@ type State = {
   showAdvanced: boolean;
 };
 
-const defaultPermissions: RolePermission = {
+/**
+ * `hideAccessMonitoring` is a function that determines whether to hide the access monitoring permission.
+ *
+ * @function
+ * @param {FeatureList} featureList - The list of upsells the company have. If the user is a franchisor, it will be undefined.
+ * @param {boolean} isFranchisor - A flag indicating whether the user is a franchisor.
+ * @returns {boolean} Returns false if the user is a franchisor, otherwise it checks if the company has the upsell.
+ */
+const hideAccessMonitoring = (
+  featureList: FeatureList,
+  isFranchisor: boolean,
+) => {
+  if (isFranchisor) {
+    return false;
+  }
+  return !hasUpsell(featureList, UPSELL_IDENTIFIER_ACCESS_MONITORING);
+};
+
+const getDefaultPermissions = (
+  featureList: FeatureList,
+  isFranchisor: boolean,
+): RolePermission => ({
   appbarButtons: {
     ledger: true,
     notificationCenter: true,
@@ -85,6 +110,9 @@ const defaultPermissions: RolePermission = {
     dashboard: true,
     calendar: true,
     schedule: true,
+    ...(!hideAccessMonitoring(featureList, isFranchisor)
+      ? { accessMonitoring: { perform: false } }
+      : {}),
     myClub: {
       activities: true,
       workshops: true,
@@ -159,7 +187,7 @@ const defaultPermissions: RolePermission = {
     },
     tutorial: true,
   },
-};
+});
 
 const HIDDEN_PARAMS = [
   'restrictedPaths',
@@ -187,7 +215,7 @@ export class CreateRoleDialog extends React.Component<Props, State> {
     const state = {
       name: '',
       description: '',
-      permissions: defaultPermissions,
+      permissions: getDefaultPermissions(props.featureList, props.isFranchisor),
       objectLevelPermissions: DEFAULT_OBJECT_LEVEL_PERMISSIONS,
       restrictedPathNew: '',
       showAdvanced: false,
@@ -200,9 +228,16 @@ export class CreateRoleDialog extends React.Component<Props, State> {
       state.hasBookingOverrideControl = props.role.has_booking_override_control;
 
       if (props.role.permissions) {
+        const rolePermissions = cloneDeep(props.role.permissions);
+        if (hideAccessMonitoring(props.featureList, props.isFranchisor)) {
+          delete rolePermissions.navigationMenu?.accessMonitoring;
+        }
         state.permissions = deepMerge(
-          cloneDeep(props.role.permissions),
-          setAllValuesInObject(defaultPermissions, false),
+          rolePermissions,
+          setAllValuesInObject(
+            getDefaultPermissions(props.featureList, props.isFranchisor),
+            false,
+          ),
         ) as RolePermission;
       }
 
@@ -251,7 +286,10 @@ export class CreateRoleDialog extends React.Component<Props, State> {
     this.setState({
       name: '',
       description: '',
-      permissions: defaultPermissions,
+      permissions: getDefaultPermissions(
+        this.props.featureList,
+        this.props.isFranchisor,
+      ),
       objectLevelPermissions: DEFAULT_OBJECT_LEVEL_PERMISSIONS,
       restrictedPathNew: '',
       hasBookingOverrideControl: true,

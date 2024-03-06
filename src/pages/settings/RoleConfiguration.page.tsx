@@ -36,6 +36,17 @@ import withTitle from '../../hocs/with-title.hoc';
 import { RootState } from '../../reducers';
 import { MaterialStyleType } from '../../utils/types';
 import BottomActionsButtonCustom from '#components/button/BottomActionsButtonCustom.component';
+import {
+  fetchAllEstablishmentGroup as fetchAllEstablishmentGroupAction,
+  fetchEstablishments as fetchEstablishmentsAction,
+} from '#libs/establishment/actions';
+import {
+  getAvailableEstablishmentList,
+  getAssociatedEstablishmentGroup,
+} from '#libs/establishment/selectors';
+import { getTheme } from '#libs/theme/selectors';
+import { hasUpsell } from '#libs/platform-billing/utils';
+import { UPSELL_IDENTIFIER_ACCESS_MONITORING } from '#libs/platform-billing/upsell-identifiers';
 
 type ConnectedProps = WithTranslation &
   typeof mapDispatchToProps &
@@ -70,6 +81,14 @@ export class RoleConfiguration extends React.Component<ConnectedProps, State> {
   componentDidMount() {
     this.props.fetchCompanyUserRoles();
     this.props.fetchAssociatedCoachesList();
+    if (
+      hasUpsell(this.props.featureList, UPSELL_IDENTIFIER_ACCESS_MONITORING)
+    ) {
+      this.props.fetchEstablishments();
+      if (this.props.theme?.enable_multi_localization) {
+        this.props.fetchEstablishmentGroups();
+      }
+    }
   }
 
   render() {
@@ -100,6 +119,17 @@ export class RoleConfiguration extends React.Component<ConnectedProps, State> {
             coachListLoading={this.props.coachListLoading}
             createUserRole={this.props.createStaffUser}
             deleteUserRole={this.props.deleteStaffUser}
+            establishmentGroupList={this.props.establishmentGroupList}
+            establishmentGroupListLoading={
+              this.props.establishmentGroupListLoading
+            }
+            establishmentList={this.props.establishmentList}
+            establishmentListLoading={this.props.establishmentListLoading}
+            hasAccessMonitoringUpsell={hasUpsell(
+              this.props.featureList,
+              UPSELL_IDENTIFIER_ACCESS_MONITORING,
+            )}
+            hasMultiLocationUpsell={this.props.theme?.enable_multi_localization}
             hasOwnerPermission={hasOwnerPermission}
             openCreateStaffDialog={this.state.openCreateStaffDialog}
             roles={roles}
@@ -116,6 +146,7 @@ export class RoleConfiguration extends React.Component<ConnectedProps, State> {
         <Paper className={classes.rolePaper} id="text_staff_roles">
           <RoleList
             currentRole={this.state.currentRole}
+            featureList={this.props.featureList}
             hasOwnerPermission={hasOwnerPermission}
             onCreateRole={(role) => this.props.createCompanyRole(role)}
             onDeleteRole={(role) => this.props.deleteCompanyRole(role)}
@@ -195,6 +226,12 @@ const mapStateToProps = (state: RootState) => ({
   updateLoading: state.role.role.createOrUpdate.loading,
   coachList: getActiveCoaches(state),
   coachListLoading: state.coach.loading,
+  featureList: state.company.feature.data,
+  theme: getTheme(state),
+  establishmentListLoading: state.establishment.loading,
+  establishmentList: getAvailableEstablishmentList(state),
+  establishmentGroupListLoading: state.establishment.establishmentGroup.loading,
+  establishmentGroupList: getAssociatedEstablishmentGroup(state),
 });
 
 const mapDispatchToProps = {
@@ -206,6 +243,8 @@ const mapDispatchToProps = {
   updateCompanyRole,
   deleteCompanyRole,
   fetchAssociatedCoachesList,
+  fetchEstablishments: fetchEstablishmentsAction,
+  fetchEstablishmentGroups: fetchAllEstablishmentGroupAction,
   updateUserCommission,
 };
 

@@ -103,7 +103,7 @@ type State = {
   shopitemToDelete: ShopItem | null,
 };
 
-export class ShopItemList extends Component<Props, State> {
+export class ShopListReworkedPage extends Component<Props, State> {
   state = {
     newSubShopName: null,
     createItemFromSubShop: null,
@@ -410,6 +410,9 @@ export class ShopItemList extends Component<Props, State> {
 const styles = (theme) => ({
   container: {
     paddingBottom: theme.spacing(16),
+    paddingTop: theme.spacing(4),
+    paddingLeft: theme.spacing(4),
+    paddingRight: theme.spacing(4),
   },
   title: {
     marginTop: theme.spacing(2),
@@ -471,4 +474,4 @@ export default compose(
         duplicateShopItem(id, suffix, { onSuccess: () => fetchShopItems() });
       },
   }),
-)(ShopItemList);
+)(ShopListReworkedPage);

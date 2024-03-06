@@ -232,6 +232,10 @@ export const BackOfficeDrawer: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation('navigation');
 
+  const isLocalOrDev = !['production', 'staging'].includes(
+    Config.REACT_APP_SENTRY_ENVIRONMENT,
+  );
+
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [anchorElMini, setAnchorElMini] = React.useState(null);
@@ -549,6 +553,7 @@ export const BackOfficeDrawer: React.FC<Props> = ({
   };
   const renderAppBar = (forced_hide: boolean, displayMenuIcon: boolean) => {
     const isClockIn = lastClockIn?.onGoing;
+
     if (hideAppBar) {
       return null;
     }
@@ -964,13 +969,15 @@ export const BackOfficeDrawer: React.FC<Props> = ({
               [classes.content]: !(
                 location.pathname.includes('/spot-scheduling') ||
                 location.pathname.includes('/audience') ||
-                location.pathname.includes('/inbox/')
+                location.pathname.includes('/inbox/') ||
+                (isLocalOrDev && location.pathname.includes('/shop'))
               ),
               [classes.unscrollableContent]:
                 location.pathname.includes('/audience') &&
                 !location.pathname.includes('/audience/'),
               [classes.contentWithoutPadding]:
-                location.pathname.includes('/inbox/'),
+                location.pathname.includes('/inbox/') ||
+                (isLocalOrDev && location.pathname.includes('/shop')),
             })}
           >
             {displayBanner && <div className={classes.bannerContextspacing} />}

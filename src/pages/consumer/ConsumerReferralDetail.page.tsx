@@ -4,10 +4,10 @@ import { RouteComponentProps, withRouter } from 'react-router';
 
 import { compose } from 'recompose';
 
+import { buildMemberReferralLink } from '@bsport/common/lib/referrals';
 import Config from '../../config';
 import { RootState } from '../../reducers';
-// @ts-expect-error
-import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
+import routerParamsToProps from '#hocs/router-params-to-props.hoc';
 
 import themeSelectors from '#libs/theme/selectors';
 
@@ -23,7 +23,6 @@ import {
   getReferralProgramsError,
   getReferralMemberStatusError,
 } from '#libs/referral/selectors';
-import { buildMemberReferralLink } from '#libs/referral/utils';
 
 import { fetchMember as fetchMemberAction } from '#libs/member/actions';
 import { getMemberDetail } from '#libs/member/selectors';

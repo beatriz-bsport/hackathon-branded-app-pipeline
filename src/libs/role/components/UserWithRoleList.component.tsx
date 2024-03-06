@@ -31,23 +31,39 @@ type OwnProps = {
   franchiseRoles?: FranchiseRole[];
   hasOwnerPermission: boolean;
   isFranchisor?: boolean;
+  openCreateStaffDialog: boolean;
   roles?: Role[];
+  setOpenCreateStaffDialog: (value: boolean) => void;
+  updateCommission: (userId: number, params: { commission: number }) => void;
   updateUserRole: (
     userId: number,
     params: { roleId?: number; coaches?: number[]; franchisees?: number[] },
   ) => void;
   users: Array<UserRole<number, FranchiseRole>>;
-  openCreateStaffDialog: boolean;
-  setOpenCreateStaffDialog: (value: boolean) => void;
-  updateCommission: (userId: number, params: { commission: number }) => void;
 };
 
 type Props = OwnProps &
   WithTranslation &
   MaterialStyleType<ReturnType<typeof styles>>;
 
-export const UserWithRoleList = (props: Props) => {
-  const { setOpenCreateStaffDialog, createUserRole } = props;
+export const UserWithRoleList: React.FC<Props> = ({
+  classes,
+  coachList,
+  coachListLoading,
+  createUserRole,
+  deleteUserRole,
+  franchiseeList,
+  franchiseeListLoading,
+  franchiseRoles,
+  hasOwnerPermission,
+  isFranchisor,
+  openCreateStaffDialog,
+  roles,
+  setOpenCreateStaffDialog,
+  updateCommission,
+  updateUserRole,
+  users,
+}) => {
   const onCloseCreateStaffDialog = React.useCallback(
     () => setOpenCreateStaffDialog(false),
     [setOpenCreateStaffDialog],
@@ -67,53 +83,53 @@ export const UserWithRoleList = (props: Props) => {
 
   return (
     <List>
-      {props.users.map((user) => (
-        <div key={user.id} className={props.classes.roleListItem}>
+      {users.map((user) => (
+        <div key={user.id} className={classes.roleListItem}>
           <UserWithRoleItem
-            coachList={props.coachList}
-            coachListLoading={props.coachListLoading}
-            deleteUser={() => props.deleteUserRole(user.id)}
+            coachList={coachList}
+            coachListLoading={coachListLoading}
+            deleteUser={() => deleteUserRole(user.id)}
             editUserSelectedObjects={(objectsIds: number[]) =>
-              props.updateUserRole(
+              updateUserRole(
                 user.id,
-                props.isFranchisor
+                isFranchisor
                   ? { franchisees: objectsIds }
                   : { coaches: objectsIds },
               )
             }
-            franchiseeList={props.franchiseeList}
-            franchiseeListLoading={props.franchiseeListLoading}
-            franchiseRoles={props.franchiseRoles}
+            franchiseeList={franchiseeList}
+            franchiseeListLoading={franchiseeListLoading}
+            franchiseRoles={franchiseRoles}
             handleCommissionChange={(commissionValue) =>
-              props.updateCommission(user.id, { commission: commissionValue })
+              updateCommission(user.id, { commission: commissionValue })
             }
             handleRoleChange={(role) =>
-              props.updateUserRole(user.id, { roleId: role })
+              updateUserRole(user.id, { roleId: role })
             }
-            hasOwnerPermission={props.hasOwnerPermission}
-            isFranchisor={props.isFranchisor}
-            roles={props.roles}
+            hasOwnerPermission={hasOwnerPermission}
+            isFranchisor={isFranchisor}
+            roles={roles}
             user={user}
           />
         </div>
       ))}
-      {props.isFranchisor ? (
+      {isFranchisor ? (
         <FranchiseCreateStaffUser
-          franchiseeList={props.franchiseeList}
-          franchiseeListLoading={props.franchiseeListLoading}
-          franchiseRoles={props.franchiseRoles}
+          franchiseeList={franchiseeList}
+          franchiseeListLoading={franchiseeListLoading}
+          franchiseRoles={franchiseRoles}
           onClose={onCloseCreateStaffDialog}
           onSubmit={onSubmitStaffUserCreation}
-          open={props.openCreateStaffDialog}
+          open={openCreateStaffDialog}
         />
       ) : (
         <CreateStaffUser
-          coachList={props.coachList}
-          coachListLoading={props.coachListLoading}
+          coachList={coachList}
+          coachListLoading={coachListLoading}
           onClose={onCloseCreateStaffDialog}
           onSubmit={onSubmitStaffUserCreation}
-          open={props.openCreateStaffDialog}
-          roles={props.roles}
+          open={openCreateStaffDialog}
+          roles={roles}
         />
       )}
     </List>

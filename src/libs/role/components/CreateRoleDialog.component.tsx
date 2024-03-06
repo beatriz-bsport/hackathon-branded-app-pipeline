@@ -79,7 +79,7 @@ const hideAccessMonitoring = (
   isFranchisor: boolean,
 ) => {
   if (isFranchisor) {
-    return false;
+    return true;
   }
   return !hasUpsell(featureList, UPSELL_IDENTIFIER_ACCESS_MONITORING);
 };

@@ -74,33 +74,33 @@ import { mapFormDataWithObject } from '../form.utils';
 import { SHOPITEM_FORMDATA_KEYS_MAPPER } from '../../libs/shop/constants';
 
 type Props = {
-  t: TFunction,
-  classes: Object,
-  subShops: Array<SubShop>,
-  fetchSubShop: () => void,
-  fetchShopItems: () => void,
-  deleteItem: (id: number) => void,
-  deleteSubShop: (id: number) => void,
-  goToShopItem: (id: number) => void,
-  createOrUpdateSubShop: (data: [*]) => void,
-  duplicateShopItem: (id: number, suffix: string) => void,
+  t: TFunction;
+  classes: Object;
+  subShops: Array<SubShop>;
+  fetchSubShop: () => void;
+  fetchShopItems: () => void;
+  deleteItem: (id: number) => void;
+  deleteSubShop: (id: number) => void;
+  goToShopItem: (id: number) => void;
+  createOrUpdateSubShop: (data: [*]) => void;
+  duplicateShopItem: (id: number, suffix: string) => void;
   createOrUpdateShopItem: (
     shopItemData: [*],
     id: ?number,
     options: OptionCallback,
-  ) => void,
-  loading: boolean,
-  shopItemLoading: boolean,
-  isShopItemUsedInCombo: (id: number) => void,
-  archivationWarning: { [id: number]: { used_in_combo: boolean } },
-  theme: Theme,
-  fetchTags: () => void,
+  ) => void;
+  loading: boolean;
+  shopItemLoading: boolean;
+  isShopItemUsedInCombo: (id: number) => void;
+  archivationWarning: { [id: number]: { used_in_combo: boolean } };
+  theme: Theme;
+  fetchTags: () => void;
 };
 
 type State = {
-  newSubShopName: string | null,
-  createItemFromSubShop: number | null,
-  shopitemToDelete: ShopItem | null,
+  newSubShopName: string | null;
+  createItemFromSubShop: number | null;
+  shopitemToDelete: ShopItem | null;
 };
 
 export class ShopListReworkedPage extends Component<Props, State> {

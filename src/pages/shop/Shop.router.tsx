@@ -6,7 +6,6 @@ import ShopItem from './ShopItem.page';
 import ShopItemDetail from './ShopItemDetail.page';
 // @ts-expect-error
 import ShopList from './ShopList.page';
-// @ts-expect-error
 import ShopListReworkedPage from './ShopListReworked.page';
 
 const ShopListPageComponent = !['production', 'staging'].includes(

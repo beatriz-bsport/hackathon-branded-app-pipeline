@@ -38,65 +38,63 @@ type MembershipSelectorBaseProps = {
   onClick: (company: number) => void;
 };
 
-const MembershipSelectorBase: React.FC<MembershipSelectorBaseProps> = ({
-  membershipList,
-  onClick,
-}) => {
-  const classes = useStyles();
-  const [searchText, setSearchText] = useState('');
-  const [searchResult, setSearchResult] = useState<Membership[]>(null);
-  const { t } = useTranslation('membership');
+const MembershipSelectorBase: React.FC<MembershipSelectorBaseProps> =
+  React.memo(({ membershipList, onClick }) => {
+    const classes = useStyles();
+    const [searchText, setSearchText] = useState('');
+    const [searchResult, setSearchResult] = useState<Membership[]>(null);
+    const { t } = useTranslation('membership');
 
-  const changeSearch = useCallback(
-    (fuse: any) => (ev: ChangeEvent<HTMLInputElement>) => {
-      const newSearchText = ev.target.value || '';
-      setSearchText(newSearchText);
-      setSearchResult(fuse.search(newSearchText));
-    },
-    [],
-  );
+    const changeSearch = useCallback(
+      (fuse: any) => (ev: ChangeEvent<HTMLInputElement>) => {
+        const newSearchText = ev.target.value || '';
+        setSearchText(newSearchText);
+        setSearchResult(fuse.search(newSearchText));
+      },
+      [],
+    );
 
-  const clearSearch = useCallback(() => {
-    setSearchText('');
-    setSearchResult(membershipList);
-  }, [membershipList]);
+    const clearSearch = useCallback(() => {
+      setSearchText('');
+      setSearchResult(membershipList);
+    }, [membershipList]);
 
-  const selectCompany = useCallback(
-    (membership: Membership) => () => {
-      onClick?.(membership.company);
-    },
-    [onClick],
-  );
+    const selectCompany = useCallback(
+      (membership: Membership) => () => {
+        onClick?.(membership.company);
+      },
+      [onClick],
+    );
 
-  return (
-    <div className={classes.selectorContainer}>
-      <FuzeSearch
-        changeSearch={changeSearch}
-        clearSearch={clearSearch}
-        items={membershipList}
-        placeholder={t('selector.placeholder')}
-        searchFields={['company_name']}
-        searchText={searchText}
-        variant="outlined"
-      />
-      <Paper className={classes.membershipList}>
-        {!searchResult || searchResult.length === 0
-          ? membershipList.map((membership) => (
-              <MembershipListItem
-                membership={membership}
-                onClick={selectCompany(membership)}
-              />
-            ))
-          : searchResult.map((membership) => (
-              <MembershipListItem
-                membership={membership}
-                onClick={selectCompany(membership)}
-              />
-            ))}
-      </Paper>
-    </div>
-  );
-};
+    return (
+      <div className={classes.selectorContainer}>
+        <FuzeSearch
+          changeSearch={changeSearch}
+          clearSearch={clearSearch}
+          items={membershipList}
+          placeholder={t('selector.placeholder')}
+          searchFields={['company_name']}
+          searchText={searchText}
+          variant="outlined"
+        />
+        <Paper className={classes.membershipList}>
+          {!searchResult || searchResult.length === 0
+            ? membershipList.map((membership) => (
+                <MembershipListItem
+                  membership={membership}
+                  onClick={selectCompany(membership)}
+                />
+              ))
+            : searchResult.map((membership) => (
+                <MembershipListItem
+                  membership={membership}
+                  onClick={selectCompany(membership)}
+                />
+              ))}
+        </Paper>
+      </div>
+    );
+  });
 
 type CompanySelectorBaseProps = {
   classes: ClassNameMap<keyof ReturnType<typeof useStyles>>;
@@ -106,74 +104,73 @@ type CompanySelectorBaseProps = {
   onClick: (company: number) => void;
 };
 
-const CompanySelectorBase: React.FC<CompanySelectorBaseProps> = ({
-  classes,
-  companyList,
-  companyLoading,
-  onClick,
-  searchCompany,
-}) => {
-  const [text, setText] = useState('');
-  const { t } = useTranslation('membership');
+const CompanySelectorBase: React.FC<CompanySelectorBaseProps> = React.memo(
+  ({ classes, companyList, companyLoading, onClick, searchCompany }) => {
+    const [text, setText] = useState('');
+    const { t } = useTranslation('membership');
 
-  const handleTextChange = useCallback(
-    (newText: string) => {
-      setText(newText);
-      searchCompany(newText);
-    },
-    [setText, searchCompany],
-  );
+    const handleTextChange = useCallback(
+      (newText: string) => {
+        setText(newText);
+        searchCompany(newText);
+      },
+      [setText, searchCompany],
+    );
 
-  useEffect(() => {
-    handleTextChange('');
-  });
-  const onTextFieldChange = useCallback(
-    (ev: ChangeEvent<HTMLInputElement>) => {
-      handleTextChange(ev.target.value);
-    },
-    [handleTextChange],
-  );
+    useEffect(() => {
+      handleTextChange('');
+    });
+    const onTextFieldChange = useCallback(
+      (ev: ChangeEvent<HTMLInputElement>) => {
+        handleTextChange(ev.target.value);
+      },
+      [handleTextChange],
+    );
 
-  useEffect(() => {
-    handleTextChange('');
-  });
+    useEffect(() => {
+      handleTextChange('');
+    });
 
-  const selectCompany = useCallback(
-    (company: Company) => () => {
-      onClick(company.id);
-    },
-    [onClick],
-  );
+    const selectCompany = useCallback(
+      (company: Company) => () => {
+        onClick(company.id);
+      },
+      [onClick],
+    );
 
-  return (
-    <div className={classes.selectorContainer}>
-      <Paper>
-        <DelayedTextField
-          fullWidth
-          className={classes.selectorContainer}
-          onChange={onTextFieldChange}
-          placeholder={t('selector.placeholder')}
-          value={text}
-          variant="outlined"
-        />
-      </Paper>
-      <Paper className={classes.companyList}>
-        {companyLoading ? <LinearProgress /> : null}
-        {!companyLoading && companyList.length === 0 ? (
-          <ListItem>
-            <ListItemIcon>
-              <WarningIcon />
-            </ListItemIcon>
-            <ListItemText primary={t('selector.noMatchingCompany')} />
-          </ListItem>
-        ) : null}
-        {companyList.map((company) => (
-          <CompanyListItem company={company} onClick={selectCompany(company)} />
-        ))}
-      </Paper>
-    </div>
-  );
-};
+    return (
+      <div className={classes.selectorContainer}>
+        <Paper>
+          <DelayedTextField
+            fullWidth
+            className={classes.selectorContainer}
+            onChange={onTextFieldChange}
+            placeholder={t('selector.placeholder')}
+            value={text}
+            variant="outlined"
+          />
+        </Paper>
+        <Paper className={classes.companyList}>
+          {companyLoading ? <LinearProgress /> : null}
+          {!companyLoading && companyList.length === 0 ? (
+            <ListItem>
+              <ListItemIcon>
+                <WarningIcon />
+              </ListItemIcon>
+              <ListItemText primary={t('selector.noMatchingCompany')} />
+            </ListItem>
+          ) : null}
+          {companyList.map((company) => (
+            <CompanyListItem
+              company={company}
+              onClick={selectCompany(company)}
+            />
+          ))}
+        </Paper>
+      </div>
+    );
+  },
+);
 
 const MembershipSelector: React.FC<Props> = ({
   companyList,

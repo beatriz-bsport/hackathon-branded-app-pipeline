@@ -6,7 +6,6 @@ import { WithTranslation, withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 import Grid from '@material-ui/core/Grid';
 import withTitle from '../../hocs/with-title.hoc';
-// @ts-expect-error
 import routerParamsToProps from '../../hocs/router-params-to-props.hoc';
 import type { WithHandlerType } from '../../utils/types';
 import type { RootState } from '../../reducers/index';

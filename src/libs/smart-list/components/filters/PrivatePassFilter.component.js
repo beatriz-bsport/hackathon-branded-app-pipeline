@@ -45,7 +45,11 @@ export class PrivatePassFilter extends Component<Props, state> {
         this.props.filter_data.private_passes,
       );
     }
-    this.props.setNotNullableData(['private_passes']);
+    this.props.setNotNullableData([
+      'private_passes',
+      'credit_value',
+      'credit_value_second',
+    ]);
     if (this.props.new) {
       this.props.onChange({
         private_passes: null,

@@ -59,7 +59,7 @@ export class PrivateBookingsFilter extends Component<Props, state> {
     if (private_services && private_services.length === 1) {
       this.props.fetchBulkItems.private_services(private_services);
     }
-    this.props.setNotNullableData(['comparator', 'value']);
+    this.props.setNotNullableData(['comparator', 'value', 'value_second']);
     if (this.props.new) {
       this.props.onChange({
         at_home: false,

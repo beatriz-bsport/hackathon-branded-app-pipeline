@@ -31,7 +31,7 @@ type Props = {
 
 export class ExpensesPerCategoryFilter extends Component<Props, state> {
   componentDidMount() {
-    this.props.setNotNullableData(['comparator', 'value']);
+    this.props.setNotNullableData(['comparator', 'value', 'value_second']);
 
     if (this.props.new) {
       this.props.onChange({

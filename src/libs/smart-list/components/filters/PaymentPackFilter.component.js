@@ -50,7 +50,11 @@ export class PaymentPackFilter extends Component<Props, state> {
         this.props.filter_data.payment_packs,
       );
     }
-    this.props.setNotNullableData(['payment_packs']);
+    this.props.setNotNullableData([
+      'payment_packs',
+      'credit_value',
+      'credit_value_second',
+    ]);
     if (this.props.new) {
       this.props.onChange({
         payment_packs: null,

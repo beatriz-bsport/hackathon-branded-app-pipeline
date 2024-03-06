@@ -60,6 +60,8 @@ export class ActivePassesFilter extends Component<Props> {
     }
     this.props.setNotNullableData([
       'nb_active_passes_comparator',
+      'nb_active_passes_value',
+      'nb_active_passes_value_second',
       'payment_packs',
       'private_passes',
     ]);

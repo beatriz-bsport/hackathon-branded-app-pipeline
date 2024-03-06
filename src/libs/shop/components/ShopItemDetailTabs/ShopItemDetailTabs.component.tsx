@@ -36,6 +36,7 @@ type Props = {
   shopItemSupplier: ShopSupplier;
   page: number;
   count: number;
+  isVariantEditMode?: boolean;
   handleOpenBarcodeModal: (barcode: string) => void;
   handleOpenVariantDrawer: () => void;
   handleChangeTab: (_: React.ChangeEvent, tab: ShopItemDetailTab) => void;
@@ -46,6 +47,7 @@ type Props = {
     data: ProvisionBulkCreate,
     options?: OptionCallback,
   ) => void;
+  setIsVariantEditMode: (value: boolean) => void;
 };
 
 const ShopItemDetailTabs: React.FC<Props> = ({
@@ -60,6 +62,7 @@ const ShopItemDetailTabs: React.FC<Props> = ({
   shopItemSupplier,
   page,
   count,
+  isVariantEditMode,
   handleOpenBarcodeModal,
   handleOpenVariantDrawer,
   handleChangeTab,
@@ -67,6 +70,7 @@ const ShopItemDetailTabs: React.FC<Props> = ({
   onDeleteShopItemVariant,
   fetchShopItemVariantList,
   createShopItemProvisionBulk,
+  setIsVariantEditMode,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation('shop');
@@ -123,8 +127,10 @@ const ShopItemDetailTabs: React.FC<Props> = ({
               handleOpenBarcodeModal={handleOpenBarcodeModal}
               handleOpenVariantDrawer={handleOpenVariantDrawer}
               isDeletingVariant={isDeletingVariant}
+              isVariantEditMode={isVariantEditMode}
               onDeleteShopItemVariant={onDeleteShopItemVariant}
               page={page}
+              setIsVariantEditMode={setIsVariantEditMode}
               shopItemVariantList={variantList}
               updateShopItemVariantBulk={updateShopItemVariantBulk}
             />

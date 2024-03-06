@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { Form, Formik } from 'formik';
@@ -44,11 +44,13 @@ type Props = {
   shopItemVariantList: ShopItemVariant[];
   page: number;
   count: number;
+  isVariantEditMode?: boolean;
   handleOpenBarcodeModal: (barcode: string) => void;
   handleOpenVariantDrawer: () => void;
   onDeleteShopItemVariant: (id: number) => void;
   updateShopItemVariantBulk: (data: FormData, options?: OptionCallback) => void;
   fetchShopItemVariantList: (page: number) => void;
+  setIsVariantEditMode: (value: boolean) => void;
 };
 
 type TableRowItemProps = {
@@ -183,11 +185,13 @@ const ShopItemDetailVariantsTab: React.FC<Props> = ({
   isDeletingVariant,
   page,
   count,
+  isVariantEditMode,
   handleOpenBarcodeModal,
   handleOpenVariantDrawer,
   onDeleteShopItemVariant,
   updateShopItemVariantBulk,
   fetchShopItemVariantList,
+  setIsVariantEditMode,
 }) => {
   const classes = useStyles();
   const { t } = useTranslation(['shop', 'common']);
@@ -209,15 +213,13 @@ const ShopItemDetailVariantsTab: React.FC<Props> = ({
     [shopItemVariantList],
   );
 
-  const [isEditMode, setIsEditMode] = useState(false);
-
   const handleEnableEditMode = useCallback(() => {
-    setIsEditMode(true);
-  }, []);
+    setIsVariantEditMode(true);
+  }, [setIsVariantEditMode]);
 
   const handleDisableEditMode = useCallback(() => {
-    setIsEditMode(false);
-  }, []);
+    setIsVariantEditMode(false);
+  }, [setIsVariantEditMode]);
 
   const handlePageChange = useCallback(
     (_: React.ChangeEvent, pageNumber: number) => {
@@ -297,7 +299,7 @@ const ShopItemDetailVariantsTab: React.FC<Props> = ({
       >
         <Form noValidate>
           <TableContainer className={classes.tableContainer}>
-            {isEditMode && (
+            {isVariantEditMode && (
               <div className={classes.tableEditActions}>
                 <Button color="secondary" type="reset" variant="outlined">
                   {t('common:cancel')}
@@ -307,7 +309,7 @@ const ShopItemDetailVariantsTab: React.FC<Props> = ({
                 </Button>
               </div>
             )}
-            {!isEditMode && (
+            {!isVariantEditMode && (
               <div className={classes.tableEditActions}>
                 <Button
                   color="secondary"
@@ -353,7 +355,7 @@ const ShopItemDetailVariantsTab: React.FC<Props> = ({
                 </TableRow>
               </TableHead>
 
-              {isEditMode ? (
+              {isVariantEditMode ? (
                 <ShopItemVariantBulkUpdateForm />
               ) : (
                 <TableBody>

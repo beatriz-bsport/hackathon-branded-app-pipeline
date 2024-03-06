@@ -109,6 +109,8 @@ const ShopItemDetail: React.FC<Props> = ({
 
   const [showBarcodeModal, setShowBarcodeModal] = useState(false);
 
+  const [isVariantEditMode, setIsVariantEditMode] = useState(false);
+
   const [selectedVariantIdToDelete, setSelectedVariantIdToDelete] = useState<
     number | null
   >(null);
@@ -188,9 +190,10 @@ const ShopItemDetail: React.FC<Props> = ({
       if (page > 1 && isTabRenderingVariants) {
         fetchShopItemVariantList(1);
       }
+      isVariantEditMode && setIsVariantEditMode(false);
       setSelectedTab(tab);
     },
-    [fetchShopItemVariantList, page],
+    [fetchShopItemVariantList, isVariantEditMode, page],
   );
 
   const handleSubmitEditShopItem = useCallback(
@@ -248,10 +251,12 @@ const ShopItemDetail: React.FC<Props> = ({
         isDeletingVariant={isDeletingVariant}
         isLoading={isLoading}
         isUpdatingVariant={isUpdatingVariant}
+        isVariantEditMode={isVariantEditMode}
         isVariantListLoading={isVariantListLoading}
         onDeleteShopItemVariant={handleOpenDeleteVariantConfirmationModal}
         page={page}
         selectedTab={selectedTab}
+        setIsVariantEditMode={setIsVariantEditMode}
         shopItem={shopItem}
         shopItemSupplier={shopItemSupplier}
         updateShopItemVariantBulk={updateShopItemVariantBulk}

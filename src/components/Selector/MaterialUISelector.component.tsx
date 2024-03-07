@@ -77,6 +77,8 @@ type BaseProps<T extends OptionTypeBase> = {
   openMenuOnClear?: boolean;
   closeMenuOnSelect?: boolean;
   withoutNullValues?: boolean;
+  /** Placeholder to display when all the options available are selected */
+  allOptionsPlaceholder?: string;
 } & Omit<NamedProps, 'options' | 'isMulti' | 'onChange' | 'value'>;
 
 export type ItemRendererProps<T extends OptionTypeBase> = {
@@ -714,15 +716,33 @@ function ValueContainer<T extends OptionTypeBase>(leftIcon: React.ReactNode) {
   const classes = useStyles();
 
   return (props: ValueContainerProps<T, boolean, any>) => {
+    const shouldDisplayAllOptionsSelectedPlaceholder =
+      props.isMulti &&
+      props.selectProps?.allOptionsPlaceholder &&
+      props.options?.length !== 0 &&
+      props.options?.length === props.selectProps?.value?.length;
+
+    let content;
+    if (shouldDisplayAllOptionsSelectedPlaceholder) {
+      content = (
+        <Typography
+          className={props?.selectProps?.classes?.placeholder}
+          color="textSecondary"
+        >
+          {props.selectProps?.allOptionsPlaceholder}
+        </Typography>
+      );
+    } else if (props.hasValue && !props.isMulti) {
+      content = <div>{props.children}</div>;
+    } else {
+      content = props.children;
+    }
+
     return (
       <components.ValueContainer {...props} getStyles={resetStyle}>
         <div className={classes.valueContainer}>
           {leftIcon && <div className={classes.icon}>{leftIcon}</div>}
-          {props.hasValue && !props.isMulti ? (
-            <div>{props.children} </div>
-          ) : (
-            props.children
-          )}
+          {content}
         </div>
       </components.ValueContainer>
     );

@@ -204,6 +204,15 @@ MultiSelectGroupedOption.args = {
   value: [],
 };
 
+export const MultiSelectWithAllOptionsPlaceholder = CustomTemplate.bind({});
+
+MultiSelectWithAllOptionsPlaceholder.args = {
+  ...defaultOption,
+  isMulti: true,
+  value: options,
+  allOptionsPlaceholder: 'All options',
+};
+
 export default {
   title: 'Components/Input/Selector',
   component: MaterialUISelector,

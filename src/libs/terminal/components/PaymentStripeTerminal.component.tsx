@@ -271,7 +271,7 @@ export const PaymentStripeTerminal: React.FC<Props> = ({
   }, []);
 
   const updatePriceHandler = useCallback(() => {
-    updatePriceCts(Math.round(priceUpdateAmount * 100), {
+    updatePriceCts(Math.round(priceUpdateAmount * 100) || 0, {
       onSuccess: togglePriceUpdaterOpenHandler,
     });
   }, [updatePriceCts, togglePriceUpdaterOpenHandler, priceUpdateAmount]);

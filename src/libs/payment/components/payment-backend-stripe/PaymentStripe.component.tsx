@@ -351,7 +351,7 @@ const PaymentStripe: React.FC<
               color="primary"
               onClick={() =>
                 // @ts-expect-error
-                updatePriceCts(parseInt(priceUpdateAmount * 100, 10), {
+                updatePriceCts(parseInt(priceUpdateAmount * 100, 10) || 0, {
                   onSuccess: () => setPriceUpdaterOpen(false),
                 })
               }

@@ -1,0 +1,22 @@
+.bs-consumer-invoice-page__header {
+}
+
+.bs-consumer-invoice-page__header__go-back-button__container--mobile {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: var(--bs-space-size-3) var(--bs-space-size-4);
+  gap: var(--bs-space-size-3);
+  background-color: var(--bs-color-text-inverse-default);
+}
+
+.bs-consumer-invoice-page__header__go-back-button__label--mobile {
+  font-weight: var(--bs-font-weight-strong);
+}
+
+.bs-consumer-invoice-page__header__go-back-button__icon--mobile {
+  margin-right: var(--bs-space-size-2);
+}
+
+.bs-consumer-invoice-page__header__go-back-button--mobile {
+}

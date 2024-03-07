@@ -1,0 +1,19 @@
+.bs-consumer-invoice-page__root {
+  container: bsConsumerInvoicePage / inline-size;
+  display: flex;
+  flex-direction: column;
+  gap: var(--bs-space-size-6);
+  padding: var(--bs-space-size-4) var(--bs-space-size-4) 0;
+}
+
+.bs-consumer-invoice-page__root__details--mobile {
+  container: bsConsumerInvoicePage / inline-size;
+  display: flex;
+  flex-direction: column;
+}
+
+.bs-consumer-invoice-page__content {
+  display: flex;
+  flex-direction: row;
+  gap: var(--bs-space-size-4);
+}

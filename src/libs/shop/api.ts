@@ -192,7 +192,7 @@ export const retrieveShopItemVariantList = (
  * Creates a base item. If variant attributes are provided, items will be created.
  * @param formData The data from fields for the creation
  */
-export const createShopItem = (formData: ShopItemCreate) => {
+export const createShopItem = (formData: FormData) => {
   return postAuth<ShopItem>(`${API_V1_URI}/shop/item/`, formData);
 };
 
@@ -249,6 +249,17 @@ export const deleteShopItem = (id: number) => {
 };
 
 /**
+ * Duplicates an existing shop item
+ * @param id The ID of the shop item to duplicate
+ * @param suffix The string to concat at the end of the name of the duplicated item
+ */
+export const duplicateShopItem = (id: number, suffix: string) => {
+  return postAuth<ShopItem>(`${API_V1_URI}/shop/item/${id}/duplicate/`, {
+    suffix,
+  });
+};
+
+/**
  * Retrieves a specific shop item supplier.
  * @param id The ID of the supplier to fetch
  */
@@ -265,4 +276,38 @@ export const createShopItemProvisionBulk = (data: ProvisionBulkCreate) => {
     `${API_V1_URI}/shop/provision/bulk_create/`,
     data,
   );
+};
+
+/**
+ * Retrieves the list of all subshops from a company
+ * @param company The company ID
+ */
+export const retrieveSubshopList = (params: { company: number }) => {
+  return getAuth<SubShop[]>(
+    `${API_V1_URI}/shop/subshop/${buildUrlParams(params)}`,
+  );
+};
+
+/**
+ * Creates a new company subshop
+ * @param data Object containing the name of the new subshop
+ */
+export const createSubshop = (data: { name: string }) => {
+  return postAuth<SubShop>(`${API_V1_URI}/shop/subshop/`, data);
+};
+
+/**
+ * Updates an existing company subshop
+ * @param data Object containing the ID + name of existing subshop
+ */
+export const updateSubshop = (data: { id: number; name: string }) => {
+  return patchAuth<SubShop>(`${API_V1_URI}/shop/subshop/${data.id}/`, data);
+};
+
+/**
+ * Deletes an existing company subshop
+ * @param id The ID of the subshop to delete
+ */
+export const deleteSubshop = (id: number) => {
+  return deleteAuth(`${API_V1_URI}/shop/subshop/${id}/`);
 };

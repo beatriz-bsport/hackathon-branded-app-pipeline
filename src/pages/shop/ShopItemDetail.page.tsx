@@ -230,7 +230,7 @@ const connector = connect(
   },
 );
 
-export default compose(
+export default compose<Props, OwnProps>(
   routerParamsToProps({ id: 'id:number' }),
   connector,
   withTitle(({ shopItem }) => (shopItem ? shopItem.name : '')),

@@ -320,6 +320,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     gap: theme.spacing(2),
+    padding: theme.spacing(4),
   },
 }));
 

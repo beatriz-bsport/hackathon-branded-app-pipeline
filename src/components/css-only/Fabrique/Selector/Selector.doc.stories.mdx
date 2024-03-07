@@ -22,6 +22,7 @@ The **`selector`** component presents users with a list of options, allowing the
 - **id:** The id of the selector.
 - **isDisabled:** If true the element is disabled.
 - **isError:** If true, the element will indicate an error.
+- **isSelectorWidthControlledByRef:** If true, the selector will fit the width of the element used as ref.
 - **isRequired:** If true, this field is required.
 - **label:** Represents the selector label.
 - **leftIcon:** The icon displayed on the left of the selector.
@@ -157,3 +158,16 @@ Provides a structured way for users to make selections from predefined options.
 
 #### Example (multiple)
 <Source dark language='tsx' id="fabrique-selector-stories--multidisabled" />
+
+#### Width controlled by ref
+
+<Canvas withSource='none' withToolbar>
+  <Story id="fabrique-selector-stories--singlewidthcontrolledbyref"/>  
+  <Story id="fabrique-selector-stories--multiwidthcontrolledbyref"/> 
+</Canvas>
+
+#### Example (single)
+<Source dark language='tsx' id="fabrique-selector-stories--singlewidthcontrolledbyref" />
+
+#### Example (multiple)
+<Source dark language='tsx' id="fabrique-selector-stories--multiwidthcontrolledbyref" />

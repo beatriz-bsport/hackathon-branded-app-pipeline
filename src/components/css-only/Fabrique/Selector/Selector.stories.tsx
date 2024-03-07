@@ -65,6 +65,11 @@ export default {
       control: { type: 'boolean' },
       defaultValue: false,
     },
+    isSelectorWidthControlledByRef: {
+      description:
+        'If true, the selector will fit the width of the element used as ref.',
+      options: [true, false],
+    },
     isRequired: {
       description: 'If true, this field is required.',
       control: { type: 'boolean' },
@@ -255,6 +260,11 @@ Singlewithplaceholdercaptiontextandlabel.args = {
   label: fakeLabel,
 };
 
+export const SingleWidthControlledByRef = SingleSelectTemplate.bind({});
+SingleWidthControlledByRef.args = {
+  isSelectorWidthControlledByRef: true,
+};
+
 export const Defaultmulti = MultiSelectTemplate.bind({});
 Defaultmulti.args = {};
 
@@ -275,7 +285,7 @@ Multiwithlabellarge.args = {
   size: SelectorSizeEnum.LG,
 };
 
-export const Multirequired = SingleSelectTemplate.bind({});
+export const Multirequired = MultiSelectTemplate.bind({});
 Multirequired.args = {
   label: fakeLabel,
   isRequired: true,
@@ -301,13 +311,18 @@ Multiwithplaceholdercaptiontextandlabel.args = {
   label: fakeLabel,
 };
 
-export const Multiwitherror = SingleSelectTemplate.bind({});
+export const Multiwitherror = MultiSelectTemplate.bind({});
 Multiwitherror.args = {
   isError: true,
   errorMessage: fakeErrorMessage,
 };
 
-export const Multidisabled = SingleSelectTemplate.bind({});
+export const Multidisabled = MultiSelectTemplate.bind({});
 Multidisabled.args = {
   isDisabled: true,
+};
+
+export const MultiWidthControlledByRef = MultiSelectTemplate.bind({});
+MultiWidthControlledByRef.args = {
+  isSelectorWidthControlledByRef: true,
 };

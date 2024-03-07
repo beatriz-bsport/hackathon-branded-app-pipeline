@@ -1282,7 +1282,7 @@
                 "dialogTitle": "Limite de destinataires dépassée",
                 "title": "Exporter des campagnes"
             },
-            "scheduledTitle": "Programmé pour plus tard"
+            "scheduledTitle": "Programmés pour plus tard"
         },
         "recipient": {
             "readCount": "Ouverture",
@@ -1584,7 +1584,7 @@
             "when": "Quand",
             "scheduleForLater": "Programmer pour plus tard",
             "sendImmediately": "Envoyer immédiatement",
-            "sectionTitle": "Programmation de messages",
+            "sectionTitle": "Programmation du message",
             "isEmpty": "Aucun message programmé à afficher.",
             "show": "Voir",
             "delete": "Supprimer",

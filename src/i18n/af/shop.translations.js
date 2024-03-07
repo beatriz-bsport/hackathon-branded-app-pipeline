@@ -63,6 +63,43 @@ exports.default = {
     },
   },
   // reworked
+  shopList: {
+    tab: {
+      products: {
+        title: 'Products',
+      },
+      settings: {
+        title: 'Settings',
+        section: {
+          suppliers: {
+            title: 'Suppliers',
+            table: {
+              name: 'Name',
+              notes: 'Notes',
+              actions: 'Actions',
+              addSupplier: 'Add supplier',
+              action: {
+                edit: 'Edit',
+                delete: 'Delete',
+              },
+            },
+            modal: {
+              titleCreate: 'Add supplier',
+              titleUpdate: 'Edit supplier',
+              field: {
+                name: 'Name *',
+                description: 'Notes',
+              },
+            },
+            deleteModal: {
+              title: 'Supplier: {{supplierName}}',
+              message: 'Are you sure you want to delete this supplier ?',
+            },
+          },
+        },
+      },
+    },
+  },
   shopItemDetail: {
     title: 'Product details',
     startingAt: 'Starting at',

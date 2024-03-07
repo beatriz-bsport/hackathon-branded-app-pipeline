@@ -22,7 +22,7 @@ export class InvoiceVoucher extends Component<Props, State> {
   state = { voucher: 0 };
 
   onChange = (event: SyntheticEvent<>) => {
-    this.setState({ voucher: event.target.value });
+    this.setState({ voucher: event.target.value || 0 });
   };
 
   render() {

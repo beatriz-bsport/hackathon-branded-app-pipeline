@@ -98,7 +98,7 @@ export class InvoiceItemSelector extends Component<Props, State> {
         return this.props.onAddShopItem(this.state.shopItemId);
       }
       case SELECTOR_CREDIT_ACCOUNT: {
-        return this.props.onTopUp(parseFloat(this.state.creditTopUp));
+        return this.props.onTopUp(parseFloat(this.state.creditTopUp) || 0);
       }
       case SELECTOR_PRIVATE_PASS:
         return this.props.onAddPrivatePass(this.state.privatePassId);

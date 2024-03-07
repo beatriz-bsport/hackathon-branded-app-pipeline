@@ -88,6 +88,11 @@ export type SelectorProps = {
    */
   isError?: boolean;
   /**
+   * An option to make the selector fit the width of the element used as ref.
+   * @type {boolean}
+   */
+  isSelectorWidthControlledByRef?: boolean;
+  /**
    * If true, this field is required.
    */
   isRequired?: boolean;
@@ -156,6 +161,7 @@ const Selector: React.FC<SelectorProps> = ({
   id,
   isDisabled,
   isError,
+  isSelectorWidthControlledByRef,
   isRequired,
   label,
   leftIcon,
@@ -312,6 +318,7 @@ const Selector: React.FC<SelectorProps> = ({
         classes={{ menuContent: classes?.menuContent }}
         className={classes?.menu}
         id={menuId}
+        isMenuWidthControlledByRef={isSelectorWidthControlledByRef}
         isOpen={!isDisabled && isOpen && !preventOpenMenu}
         onClose={!isDisabled && handleOnClose}
         openMenuRef={selectorRef}

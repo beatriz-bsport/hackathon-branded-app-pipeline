@@ -50,7 +50,7 @@ import type {
   SubscriptionsInvoicesDetailsREST,
 } from '#libs/subscription/types';
 import type { ConsumerPaymentPackREST } from '#libs/consumer-payment-pack/types';
-import { UniversalPassREST } from '#libs/universal-pass/types';
+import type { UniversalPassREST } from '#libs/universal-pass/types';
 
 type PayloadReduceType<T> = { [id: number]: T };
 const initialState: Immutable.Immutable<ConsumerStateReworked> =

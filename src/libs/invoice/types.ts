@@ -3,11 +3,11 @@ import {
   REVERSE_ON_DEBT,
   REVERSE_ON_NEW_PAYMENT_METHOD,
 } from '@bsport/common/lib/master-data/payment-group';
-import { PaymentEngine, PaymentItem } from './payment/types';
-import { InvoiceItem } from './invoice-item/types';
-import { UserRoleData } from '#libs/role/types';
-import { ErrorAndLoading } from '../types';
-import { Payment } from '#libs/payment/types';
+import { PaymentEngine, PaymentItem } from '#libs/invoice/payment/types';
+import type { InvoiceItem } from '#libs/invoice/invoice-item/types';
+import type { UserRoleData } from '#libs/role/types';
+import type { ErrorAndLoading } from '#libs/types';
+import type { Payment } from '#libs/payment/types';
 
 export type InvoiceState = ErrorAndLoading & {
   byId: { [key: string]: Invoice };

@@ -33,24 +33,23 @@
 
 /* CONSUMER GENERIC CARD FOOTER */
 /* Needs container-type defined at the parent card */
-@container (width> 400px) {
+@container (width > 400px) {
   .bs-consumer__generic-card__footer {
     display: flex;
     padding-top: var(--bs-space-size-4);
-    align-items: flex-end;
     gap: var(--bs-space-size-2);
-    align-self: stretch;
     border-top: var(--bs-border-width-regular) solid var(--bs-color-border-weak);
+    align-self: stretch;
+    align-items: flex-end;
   }
 }
 
-@container (width< 400px) {
+@container (width < 400px) {
   .bs-consumer__generic-card__footer {
     display: flex;
-    flex-direction: column;
     padding-top: var(--bs-space-size-4);
     gap: var(--bs-space-size-2);
-    align-self: stretch;
     border-top: var(--bs-border-width-regular) solid var(--bs-color-border-weak);
+    align-self: stretch;
   }
 }

@@ -16,7 +16,7 @@ import type {
 import './styles.css';
 
 type Props = {
-  variant: TypographyVariantType;
+  variant?: TypographyVariantType;
   align?: TypographyTextAlignType;
   className?: string;
   children: React.ReactNode;

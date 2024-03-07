@@ -1,6 +1,6 @@
 import moment from 'moment-timezone';
 import { createAction } from 'redux-actions';
-import { AxiosResponse } from 'axios';
+import type { AxiosResponse } from 'axios';
 
 import { BOOKING_STATUS_OK } from '@bsport/common/lib/master-data/booking_status_code';
 import api, {
@@ -43,7 +43,7 @@ import type {
   BookingOrPrivateBooking,
   ConsumerPassesTabDisplay,
   Profile,
-} from './types';
+} from '#libs/consumer-space/types';
 import type {
   Booking,
   BookingOption,

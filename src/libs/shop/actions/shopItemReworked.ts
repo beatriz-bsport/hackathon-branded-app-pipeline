@@ -27,7 +27,7 @@ import type {
   ShopItemListFilterParams,
   ShopItemVariant,
   ShopItemVariantAttributes,
-  ShopItemSupplier,
+  ShopSupplier,
   Provision,
   ProvisionBulkCreate,
 } from '../types';
@@ -457,7 +457,7 @@ export const deleteShopItemVariant = (
 export const retrieveShopItemSupplierActions = {
   isLoading: createAction<boolean>('SHOP_ITEM/SUPPLIER/LOADING'),
   error: createAction<Error | null>('SHOP_ITEM/SUPPLIER/ERROR'),
-  success: createAction<ShopItemSupplier>('SHOP_ITEM/SUPPLIER/SUCCESS'),
+  success: createAction<ShopSupplier>('SHOP_ITEM/SUPPLIER/SUCCESS'),
 };
 
 /**
@@ -466,7 +466,7 @@ export const retrieveShopItemSupplierActions = {
  */
 export const retrieveShopItemSupplier = (
   id: number,
-  options?: OptionCallback<ShopItemSupplier>,
+  options?: OptionCallback<ShopSupplier>,
 ) => {
   return async (dispatch: Dispatch) => {
     try {

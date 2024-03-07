@@ -17,7 +17,7 @@ import ShopItemDetailHistoryTab from './tabs/ShopItemDetailHistoryTab.component'
 import type {
   ProvisionBulkCreate,
   ShopItem,
-  ShopItemSupplier,
+  ShopSupplier,
   ShopItemVariant,
 } from '#libs/shop/types';
 import type { OptionCallback } from '../../../../state/types';
@@ -33,7 +33,7 @@ type Props = {
   selectedTab: string;
   variantList: ShopItemVariant[];
   shopItem: ShopItem;
-  shopItemSupplier: ShopItemSupplier;
+  shopItemSupplier: ShopSupplier;
   page: number;
   count: number;
   handleOpenBarcodeModal: (barcode: string) => void;

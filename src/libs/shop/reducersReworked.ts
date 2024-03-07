@@ -24,7 +24,7 @@ import type {
   ShopItem,
   ShopItemVariant,
   ShopStateReworked,
-  ShopItemSupplier,
+  ShopSupplier,
 } from '#libs/shop/types';
 
 type PayloadReduceType<T> = { [id: number]: T };
@@ -393,7 +393,7 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
     },
     [retrieveShopItemSupplierActions.success.toString()]: (
       state,
-      { payload }: { payload: ShopItemSupplier },
+      { payload }: { payload: ShopSupplier },
     ) => {
       return state.merge(
         {

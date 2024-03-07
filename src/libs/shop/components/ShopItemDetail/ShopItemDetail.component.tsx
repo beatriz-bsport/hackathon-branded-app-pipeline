@@ -21,7 +21,7 @@ import type {
   ShopItemCreate,
   ShopItemEdit,
   ShopItemVariantAttributes,
-  ShopItemSupplier,
+  ShopSupplier,
   ProvisionBulkCreate,
 } from '#libs/shop/types';
 import type { OptionCallback } from '../../../../state/types';
@@ -43,7 +43,7 @@ type Props = {
   isUpdatingVariant?: boolean;
   provincialTaxValue: number;
   shopItem: ShopItem;
-  shopItemSupplier: ShopItemSupplier;
+  shopItemSupplier: ShopSupplier;
   variantList: ShopItemVariant[];
   page: number;
   count: number;

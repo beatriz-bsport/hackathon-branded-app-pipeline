@@ -23,7 +23,7 @@ import type {
   ShopItemVariant,
   ShopItemVariantAttributes,
   ShopItemVariantFilterParams,
-  ShopItemSupplier,
+  ShopSupplier,
   ProvisionBulkCreate,
 } from './types';
 
@@ -253,7 +253,7 @@ export const deleteShopItem = (id: number) => {
  * @param id The ID of the supplier to fetch
  */
 export const retrieveShopItemSupplier = (id: number) => {
-  return getAuth<ShopItemSupplier>(`${API_V1_URI}/shop/supplier/${id}`);
+  return getAuth<ShopSupplier>(`${API_V1_URI}/shop/supplier/${id}`);
 };
 
 /**

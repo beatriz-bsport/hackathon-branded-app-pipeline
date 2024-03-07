@@ -92,7 +92,7 @@ export type ShopItemCreate = {
 
 export type ShopItemEdit = Partial<ShopItemCreate>;
 
-export type ShopItemSupplier = {
+export type ShopSupplier = {
   company: number;
   created_at: string;
   description: string;
@@ -157,7 +157,7 @@ export type ShopStateReworked = {
     /** State for shop item suppliers */
     suppliers: {
       byId: {
-        [key: number]: ShopItemSupplier;
+        [key: number]: ShopSupplier;
       };
     } & ErrorAndLoading;
     /** State for variants created from a base `ShopItem` */

@@ -80,6 +80,9 @@ const ConsumerPassReworked = asyncComponent(() =>
   import('./ConsumerPassReworked.page'),
 );
 const ConsumerInvoice = asyncComponent(() => import('./ConsumerInvoice.page'));
+const ConsumerInvoiceReworked = asyncComponent(() =>
+  import('./ConsumerInvoiceReworked.page'),
+);
 const ConsumerSubscription = asyncComponent(() =>
   import('./ConsumerSubscription.page'),
 );
@@ -293,7 +296,11 @@ export class ConsumerHome extends React.Component<Props> {
                     />
                     <Route
                       path="/c/:companyId/invoice/"
-                      render={this.attachConsumerProps(ConsumerInvoice)}
+                      render={this.attachConsumerProps(
+                        displayReworkedMemberProfile
+                          ? ConsumerInvoiceReworked
+                          : ConsumerInvoice,
+                      )}
                     />
                     <Route
                       path="/c/:companyId/profile/"

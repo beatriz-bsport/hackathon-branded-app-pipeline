@@ -99,7 +99,8 @@ export class PrivateSlotForm extends React.Component<Props, State> {
         duration_minutes: this.state.duration_minutes,
         credit: this.state.credit * getCreditFactor(),
         people_capacity_used: this.state.people_capacity_used,
-        booking_interval_minutes: this.state.booking_interval_minutes,
+        booking_interval_minutes:
+          this.state.booking_interval_minutes || MIN_DURATION_MINUTES,
       },
       {
         onSuccess: () => this.setState({ isSubmitting: false }),

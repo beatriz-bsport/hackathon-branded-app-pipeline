@@ -516,7 +516,7 @@ class CommunicationDrawer extends React.Component<Props, State> {
     if (!this.state.communicationScheduledDate) return true;
     return (
       this.state.communicationScheduledDate >
-      moment(Date()).add(MINUTE_LIMIT_TO_SCHEDULE_COMMUNICATION, 'minute')
+      moment().add(MINUTE_LIMIT_TO_SCHEDULE_COMMUNICATION, 'minute')
     );
   };
 

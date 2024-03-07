@@ -2,6 +2,7 @@
 import React from 'react';
 import uniq from 'lodash/uniq';
 import uniqBy from 'lodash/uniqBy';
+import moment from 'moment-timezone';
 
 import { connect, ConnectedProps } from 'react-redux';
 import { compose, withHandlers, withState, withProps } from 'recompose';
@@ -456,8 +457,8 @@ export class SmartListDetailMember extends React.Component<Props, State> {
   checkIsMessageSchedulable = (
     communicationScheduled: CommunicationScheduled,
   ) =>
-    new Date(communicationScheduled.datetime_scheduled) >
-    new Date(Date.now() + MINUTE_LIMIT_TO_SCHEDULE_COMMUNICATION * 60 * 1000);
+    moment(communicationScheduled.datetime_scheduled) >
+    moment().add(MINUTE_LIMIT_TO_SCHEDULE_COMMUNICATION, 'minute');
 
   openCommunicationScheduledEditionDialog = (
     communicationScheduled: CommunicationScheduled,
@@ -541,14 +542,20 @@ export class SmartListDetailMember extends React.Component<Props, State> {
   };
 
   isDuringNighttime = () => {
-    const now = new Date();
+    const {
+      earliestHourToSendCommunications,
+      latestHourToSendCommunications,
+      timezone,
+    } = this.props;
+
     if (
-      !!this.props?.earliestHourToSendCommunications &&
-      !!this.props.latestHourToSendCommunications
+      !!earliestHourToSendCommunications &&
+      !!latestHourToSendCommunications
     ) {
+      const now = moment().tz(timezone);
       return (
-        this.props.earliestHourToSendCommunications > now.getHours() ||
-        now.getHours() >= this.props.latestHourToSendCommunications
+        earliestHourToSendCommunications > now.hours() ||
+        now.hours() >= latestHourToSendCommunications
       );
     }
     return false;

@@ -1,5 +1,6 @@
 import React from 'react';
 import Immutable from 'seamless-immutable';
+import moment from 'moment-timezone';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { compose, withHandlers, withStateHandlers } from 'recompose';
 import { connect, ConnectedProps } from 'react-redux';
@@ -179,8 +180,8 @@ export class SmartListCampaign extends React.Component<Props> {
   checkIsMessageSchedulable = (
     communicationScheduled: CommunicationScheduled,
   ) =>
-    new Date(communicationScheduled.datetime_scheduled) >
-    new Date(Date.now() + MINUTE_LIMIT_TO_SCHEDULE_COMMUNICATION * 60 * 1000);
+    moment(communicationScheduled.datetime_scheduled) >
+    moment().add(MINUTE_LIMIT_TO_SCHEDULE_COMMUNICATION, 'minute');
 
   openTooLateToUpdateCommunicationScheduledDialog = () =>
     this.props.setIsTooLateToUpdateCommunicationScheduledDialogOpen(true);
@@ -289,14 +290,20 @@ export class SmartListCampaign extends React.Component<Props> {
   };
 
   isDuringNighttime = () => {
-    const now = new Date();
+    const {
+      earliestHourToSendCommunications,
+      latestHourToSendCommunications,
+      timezone,
+    } = this.props;
+
     if (
-      !!this.props?.earliestHourToSendCommunications &&
-      !!this.props.latestHourToSendCommunications
+      !!earliestHourToSendCommunications &&
+      !!latestHourToSendCommunications
     ) {
+      const now = moment().tz(timezone);
       return (
-        this.props.earliestHourToSendCommunications > now.getHours() ||
-        now.getHours() >= this.props.latestHourToSendCommunications
+        earliestHourToSendCommunications > now.hours() ||
+        now.hours() >= latestHourToSendCommunications
       );
     }
     return false;

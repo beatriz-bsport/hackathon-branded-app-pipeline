@@ -13,7 +13,7 @@ export type SubShop = {
   id: number;
   name: string;
   company: number;
-  shopItems: Array<ShopItem>;
+  shopItems: ShopItem[];
 };
 
 export type SubShopAPI = {
@@ -143,6 +143,7 @@ export type ShopState = {
 
 export type ShopStateReworked = {
   shopItemReworked: {
+    duplicate: ErrorAndLoading;
     /** State for shop item details - only base/standalone items here */
     itemDetails: {
       byId: {
@@ -151,7 +152,7 @@ export type ShopStateReworked = {
           isUsedInCombo: boolean;
         };
       };
-      update: ErrorAndLoading;
+      updateDetails: ErrorAndLoading;
       delete: ErrorAndLoading;
     } & ErrorAndLoading;
     /** State for shop item suppliers */
@@ -163,7 +164,7 @@ export type ShopStateReworked = {
     /** State for variants created from a base `ShopItem` */
     itemVariant: {
       create: ErrorAndLoading;
-      update: ErrorAndLoading;
+      updateVariant: ErrorAndLoading;
       delete: ErrorAndLoading;
       byBaseItemId: {
         [key: number]: WithPagination & { variants: ShopItemVariant[] };
@@ -180,6 +181,14 @@ export type ShopStateReworked = {
     itemStandalone: {
       byId: { [key: number]: ShopItem };
       allIds: number[];
+    } & ErrorAndLoading;
+    /** State for subshops */
+    subshop: {
+      byId: { [key: number]: SubShop };
+      allIds: number[];
+      create: ErrorAndLoading;
+      updateSubshop: ErrorAndLoading;
+      delete: ErrorAndLoading;
     } & ErrorAndLoading;
   };
 };

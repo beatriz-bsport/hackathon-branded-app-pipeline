@@ -1,6 +1,7 @@
 import Immutable from 'seamless-immutable';
 import uniq from 'lodash/uniq';
 import { handleActions } from 'redux-actions';
+import omit from 'lodash/omit';
 
 import {
   retrieveShopItemBaseListActions,
@@ -18,6 +19,13 @@ import {
   createShopItemProvisionBulkActions,
 } from './actions/shopItemReworked';
 
+import {
+  retrieveSubshopListActions,
+  createSubshopActions,
+  updateSubshopActions,
+  deleteSubshopActions,
+} from './actions/subshopReworked';
+
 import type { PaginatedResponse } from '../../state/types';
 import type {
   IsShopUsedInComboAPI,
@@ -25,6 +33,7 @@ import type {
   ShopItemVariant,
   ShopStateReworked,
   ShopSupplier,
+  SubShop,
 } from '#libs/shop/types';
 
 type PayloadReduceType<T> = { [id: number]: T };
@@ -32,12 +41,14 @@ type PayloadReduceType<T> = { [id: number]: T };
 const initialState: Immutable.Immutable<ShopStateReworked> =
   Immutable<ShopStateReworked>({
     shopItemReworked: {
+      /** State for shop list related actions */
+      duplicate: { error: null, loading: false },
       /** State for shop item details - only base/standalone items here */
       itemDetails: {
         error: null,
         loading: false,
         byId: {},
-        update: { error: null, loading: false },
+        updateDetails: { error: null, loading: false },
         delete: { error: null, loading: false },
       },
       /** State for shop item suppliers */
@@ -53,7 +64,7 @@ const initialState: Immutable.Immutable<ShopStateReworked> =
         byBaseItemId: {},
         allIds: [],
         create: { error: null, loading: false },
-        update: { error: null, loading: false },
+        updateVariant: { error: null, loading: false },
         delete: { error: null, loading: false },
       },
       /** State for base items that can have variants */
@@ -70,6 +81,16 @@ const initialState: Immutable.Immutable<ShopStateReworked> =
         loading: false,
         byId: {},
         allIds: [],
+      },
+      /** State for subshops */
+      subshop: {
+        error: null,
+        loading: false,
+        byId: {},
+        allIds: [],
+        create: { error: null, loading: false },
+        updateSubshop: { error: null, loading: false },
+        delete: { error: null, loading: false },
       },
     },
   });
@@ -299,7 +320,7 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
       { payload }: { payload: boolean },
     ) => {
       return state.setIn(
-        ['shopItemReworked', 'itemDetails', 'update', 'loading'],
+        ['shopItemReworked', 'itemDetails', 'updateDetails', 'loading'],
         payload,
       );
     },
@@ -308,7 +329,7 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
       { payload }: { payload: Error | null },
     ) => {
       return state.setIn(
-        ['shopItemReworked', 'itemDetails', 'update', 'error'],
+        ['shopItemReworked', 'itemDetails', 'updateDetails', 'error'],
         payload,
       );
     },
@@ -330,7 +351,7 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
       { payload }: { payload: boolean },
     ) => {
       return state.setIn(
-        ['shopItemReworked', 'itemVariant', 'update', 'loading'],
+        ['shopItemReworked', 'itemVariant', 'updateVariant', 'loading'],
         payload,
       );
     },
@@ -339,7 +360,7 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
       { payload }: { payload: Error | null },
     ) => {
       return state.setIn(
-        ['shopItemReworked', 'itemVariant', 'update', 'error'],
+        ['shopItemReworked', 'itemVariant', 'updateVariant', 'error'],
         payload,
       );
     },
@@ -409,7 +430,7 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
       { payload }: { payload: boolean },
     ) => {
       return state.setIn(
-        ['shopItemReworked', 'itemVariant', 'update', 'loading'],
+        ['shopItemReworked', 'itemVariant', 'updateVariant', 'loading'],
         payload,
       );
     },
@@ -418,9 +439,147 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
       { payload }: { payload: Error | null },
     ) => {
       return state.setIn(
-        ['shopItemReworked', 'itemVariant', 'update', 'error'],
+        ['shopItemReworked', 'itemVariant', 'updateVariant', 'error'],
         payload,
       );
+    },
+    [retrieveSubshopListActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['shopItemReworked', 'subshop', 'loading'], payload);
+    },
+    [retrieveSubshopListActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['shopItemReworked', 'subshop', 'error'], payload);
+    },
+    [retrieveSubshopListActions.success.toString()]: (
+      state,
+      { payload }: { payload: SubShop[] },
+    ) => {
+      return state
+        .setIn(
+          ['shopItemReworked', 'subshop', 'allIds'],
+          uniq(payload.map((subshop) => subshop.id)),
+        )
+        .merge(
+          {
+            shopItemReworked: {
+              subshop: {
+                byId: payload.reduce<PayloadReduceType<SubShop>>(
+                  (acc, subshop) => {
+                    acc[subshop.id] = subshop;
+                    return acc;
+                  },
+                  {},
+                ),
+              },
+            },
+          },
+          { deep: true },
+        );
+    },
+    [createSubshopActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['shopItemReworked', 'subshop', 'create', 'loading'],
+        payload,
+      );
+    },
+    [createSubshopActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['shopItemReworked', 'subshop', 'create', 'error'],
+        payload,
+      );
+    },
+    [createSubshopActions.success.toString()]: (
+      state,
+      { payload }: { payload: SubShop },
+    ) => {
+      return state
+        .updateIn(['shopItemReworked', 'subshop', 'allIds'], (allIds) => [
+          ...allIds,
+          payload.id,
+        ])
+        .merge(
+          {
+            shopItemReworked: {
+              subshop: { byId: { [payload.id]: payload } },
+            },
+          },
+          { deep: true },
+        );
+    },
+    [updateSubshopActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['shopItemReworked', 'subshop', 'updateSubshop', 'loading'],
+        payload,
+      );
+    },
+    [updateSubshopActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['shopItemReworked', 'subshop', 'updateSubshop', 'error'],
+        payload,
+      );
+    },
+    [updateSubshopActions.success.toString()]: (
+      state,
+      { payload }: { payload: SubShop },
+    ) => {
+      return state.merge(
+        {
+          shopItemReworked: {
+            subshop: { byId: { [payload.id]: payload } },
+          },
+        },
+        { deep: true },
+      );
+    },
+    [deleteSubshopActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['shopItemReworked', 'subshop', 'delete', 'loading'],
+        payload,
+      );
+    },
+    [deleteSubshopActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['shopItemReworked', 'subshop', 'delete', 'error'],
+        payload,
+      );
+    },
+    [deleteSubshopActions.success.toString()]: (
+      state,
+      { payload }: { payload: number },
+    ) => {
+      return state
+        .setIn(
+          ['shopItemReworked', 'subshop', 'allIds'],
+          state.shopItemReworked.subshop.allIds.filter(
+            (id: number) => id !== payload,
+          ),
+        )
+        .updateIn(['shopItemReworked', 'subshop', 'byId'], (subshopById) =>
+          omit(subshopById, payload),
+        );
     },
   },
   initialState,

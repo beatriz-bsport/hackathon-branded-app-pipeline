@@ -102,6 +102,9 @@ exports.default = {
     },
     cssConfig: {
       option: {
+        unpaid: 'Unpaid',
+        paid: 'Paid',
+        refunded: 'Refunded',
         unknownError: 'Unknown error',
         authenticated: 'Authenticated',
         loading: 'Loading',
@@ -206,6 +209,8 @@ exports.default = {
         NotCollapsable: 'Not collapsable',
       },
       title: {
+        invoiceType: 'Invoice type',
+        isMultilocationEnabled: 'Display billing location',
         state: 'State',
         isReferralProgramAvailable: 'Has an available referral program',
         hasRemainingReferralUses: 'Has remaining referral uses',
@@ -487,6 +492,8 @@ exports.default = {
       marketing_newsletter_form_v2: 'Newsletter form',
       consumer_booking_card: 'Consumer booking card',
       consumer_booking_details_card: 'Booking details card (for member)',
+      consumer_invoice_card: 'Invoice card (for member)',
+      consumer_invoice_details_card: 'Invoice details card (for member)',
       consumer_pass_card: 'Consumer pass card',
       consumer_payment_pack_details_card:
         'Activity pass details card (for member)',

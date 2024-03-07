@@ -146,6 +146,7 @@ const getTranslations = async () => {
       [EPS.id]: 'EPS',
       [IDEAL.id]: 'iDEAL',
       [SOFORT.id]: 'Sofort',
+      [PAYMENT_PACK.id]: 'Pass',
       label: 'Payment method',
       disputeWon: 'Won',
     },

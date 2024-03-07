@@ -1832,6 +1832,62 @@
           "billingHistory": "Billing history",
           "emptyInvoices": " No billing history to show"
         }
+      },
+      "myInvoices": {
+        "placeholder": {
+          "unpaid": "Well done, you don't have any unpaid invoices.",
+          "paid": "You have no paid invoices yet.",
+          "refunded": "You have no refunded invoices yet."
+        },
+        "header": {
+          "title": "My invoices",
+          "buttons": { "bookSession": "Book a session", "goBack": "Back" },
+          "filters": { "unpaid": "Unpaid", "paid": "Paid", "refunded": "Refunded" }
+        },
+        "card": {
+          "download": "Download",
+          "downloadInvoice": "Download invoice",
+          "downloadOriginalInvoice": "Download original invoice",
+          "downloadReceipt": "Download receipt",
+          "downloadRefundedInvoice": "Download refunded invoice",
+          "downloads": "Downloads",
+          "invoice": "Invoice",
+          "location": "Location: {{ name }}",
+          "originalInvoice": "Original invoice",
+          "otherItems": "+{{ count }} items",
+          "pay": "Pay now",
+          "receipt": "Receipt",
+          "refundedInvoice": "Refunded invoice",
+          "seeDetails": "See details",
+          "title": "Invoice N°{{ identifier }}",
+          "chip": {
+            "cancelled": "Cancelled",
+            "dispute": "Dispute",
+            "partiallyPaid": "Partially paid",
+            "plannedPayments": "Planned payments",
+            "refunded": "Refunded"
+          }
+        },
+        "detailsCard": {
+          "dispute": { "processing": "Processing", "won": "Won", "lost": "Lost" },
+          "download": "Download invoice",
+          "downloadOriginalInvoice": "Download original invoice",
+          "downloadReceipt": "Download receipt",
+          "downloadRefundedInvoice": "Download refunded invoice",
+          "due": "Due",
+          "noPaymentRegistered": "There is no registered payment for now.",
+          "paid": "Paid",
+          "pay": "Pay now",
+          "paymentError": "This payment was unsuccessful.",
+          "paymentErrorWithReason": "This payment was unsuccessful. Reason: { {{ reason }} }.",
+          "paymentHistory": "Payment history",
+          "placeholder": "Choose an invoice to see details.",
+          "plannedPayments": "Planned payments",
+          "products": "My products",
+          "refunded": "Refunded",
+          "retryDate": "The payment will be retried on {{ date }}",
+          "total": "Total"
+        }
       }
     }
   },
@@ -6202,6 +6258,7 @@
       "0": "Card",
       "1": "Cash",
       "2": "Check",
+      "3": "Pass",
       "4": "Card (manual - card machine)",
       "5": "Holidays check",
       "6": "AMEX",
@@ -14899,6 +14956,9 @@
           "1": "One",
           "2": "Two",
           "3": "Three",
+          "unpaid": "Unpaid",
+          "paid": "Paid",
+          "refunded": "Refunded",
           "unknownError": "Unknown error",
           "authenticated": "Authenticated",
           "loading": "Loading",
@@ -14994,6 +15054,8 @@
           "NotCollapsable": "Not collapsable"
         },
         "title": {
+          "invoiceType": "Invoice type",
+          "isMultilocationEnabled": "Display billing location",
           "state": "State",
           "isReferralProgramAvailable": "Has an available referral program",
           "hasRemainingReferralUses": "Has remaining referral uses",
@@ -15258,6 +15320,8 @@
         "marketing_newsletter_form_v2": "Newsletter form",
         "consumer_booking_card": "Consumer booking card",
         "consumer_booking_details_card": "Booking details card (for member)",
+        "consumer_invoice_card": "Invoice card (for member)",
+        "consumer_invoice_details_card": "Invoice details card (for member)",
         "consumer_pass_card": "Consumer pass card",
         "consumer_payment_pack_details_card": "Activity pass details card (for member)",
         "private_consumer_pass_details_card": "Appointment pass details card (for member)",

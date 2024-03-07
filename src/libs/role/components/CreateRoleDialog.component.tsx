@@ -27,7 +27,7 @@ import {
   DEFAULT_OBJECT_LEVEL_PERMISSIONS,
   OBJECT_LEVEL_PERMISSIONS_DEPENDENCIES_MAP,
 } from '#libs/role/constants';
-import Config from '../../../config';
+// import Config from '../../../config';
 
 import { RolePermission, Role, ObjectLevelPermissions } from '../types';
 import { MaterialStyleType } from '../../../utils/types';
@@ -322,9 +322,10 @@ export class CreateRoleDialog extends React.Component<Props, State> {
 
     const name = disabled ? getRoleName(this.props.role, t) : this.state.name;
 
-    const isLocalOrDevEnv = ['local', 'dev', 'pool'].includes(
-      Config.REACT_APP_SENTRY_ENVIRONMENT,
-    );
+    const isLocalOrDevEnv = true;
+    // ['local', 'dev', 'pool'].includes(
+    //   Config.REACT_APP_SENTRY_ENVIRONMENT,
+    // );
 
     const description = disabled
       ? getRoleDescription(this.props.role, t)

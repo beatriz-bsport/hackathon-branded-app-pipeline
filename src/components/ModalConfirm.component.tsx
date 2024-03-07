@@ -20,6 +20,8 @@ export const ModalConfirm: React.FC<{
   };
   handleConfirm: (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   handleCancel: (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  disableConfirm?: boolean;
+  disableCancel?: boolean;
   countDownConfirm?: boolean;
 }> = ({
   options,
@@ -27,6 +29,8 @@ export const ModalConfirm: React.FC<{
   countDownConfirm = false,
   handleCancel,
   handleConfirm,
+  disableConfirm,
+  disableCancel,
 }) => {
   const { t } = useTranslation(['translation', 'member']);
   const ValidationButton = options?.isDeletion ? RedButton : Button;
@@ -53,6 +57,7 @@ export const ModalConfirm: React.FC<{
       </DialogContent>
       <DialogActions>
         <Button
+          disabled={disableCancel}
           onClick={(ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
             ev.stopPropagation();
             handleCancel(ev);
@@ -64,6 +69,7 @@ export const ModalConfirm: React.FC<{
           <RedButton
             color="primary"
             delayBeforeActivation={5}
+            disabled={disableConfirm}
             onClick={(ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
               ev.stopPropagation();
               handleConfirm(ev);
@@ -74,6 +80,7 @@ export const ModalConfirm: React.FC<{
         ) : (
           <ValidationButton
             color="primary"
+            disabled={disableConfirm}
             onClick={(ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
               ev.stopPropagation();
               handleConfirm(ev);

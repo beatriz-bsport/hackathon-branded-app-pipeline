@@ -24,8 +24,6 @@ import EditIcon from '@material-ui/icons/Edit';
 
 import type { ShopSupplier } from '#libs/shop/types';
 
-// @ts-expect-error
-// eslint-disable-next-line
 import { ShopListTab } from '#libs/shop/components/ShopListTabs/constants';
 
 type Props = {

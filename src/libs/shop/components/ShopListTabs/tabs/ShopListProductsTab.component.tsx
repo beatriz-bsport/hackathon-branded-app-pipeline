@@ -30,8 +30,6 @@ import SubShopList from '#pages/shop/SubShopList.component';
 
 import type { ShopItem, SubShop } from '#libs/shop/types';
 
-// @ts-expect-error
-// eslint-disable-next-line
 import { ShopListTab } from '#libs/shop/components/ShopListTabs/constants';
 
 type Props = {

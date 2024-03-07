@@ -33,7 +33,7 @@ export const fetchCompanyUserRoles = async (params?: {
 
 export const updateUserRole = async (
   userId: number,
-  params: { roleId?: number; coaches?: number[] },
+  params: { roleId?: number; coaches?: number[]; establishments?: number[] },
 ) => {
   if (params.roleId) {
     return patchAuth(`${API_V1_URI}/role/user/${userId}/`, {
@@ -42,6 +42,7 @@ export const updateUserRole = async (
   }
   return patchAuth(`${API_V1_URI}/role/user/${userId}/`, {
     coaches_in_role_ids: params.coaches,
+    establishments_in_role_ids: params.establishments,
   });
 };
 

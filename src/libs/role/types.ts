@@ -21,6 +21,7 @@ export type UserRoleData = {
   first_name: string;
   last_name: string;
   coaches_in_role_ids: number[];
+  establishments_in_role_ids: number[];
 };
 
 export type FranchiseUserRoleData = {
@@ -406,6 +407,7 @@ export type UserRole<R = number, FR = number> = {
   franchise_role: FR;
   franchise_role_identifier: number | null;
   coaches_selected_in_role?: number[];
+  establishments_selected_in_role?: number[];
   allowed_franchisees?: number[];
   commission: number;
   franchise_user: number | null;

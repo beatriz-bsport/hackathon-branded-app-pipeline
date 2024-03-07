@@ -12,7 +12,10 @@ import {
   deleteShopItem as deleteShopItemAPI,
   retrieveShopItemSupplier as retrieveShopItemSupplierAPI,
   createShopItemProvisionBulk as createShopItemProvisionBulkAPI,
+  duplicateShopItem as duplicateShopItemAPI,
 } from '../api';
+
+import { snackbarSuccess } from '#libs/snackbar/actions';
 
 import type {
   Dispatch,
@@ -22,7 +25,6 @@ import type {
 import type {
   IsShopUsedInComboAPI,
   ShopItem,
-  ShopItemCreate,
   ShopItemEdit,
   ShopItemListFilterParams,
   ShopItemVariant,
@@ -46,7 +48,7 @@ export const retrieveShopItemBaseListActions = {
  * @param exclude_base_items Exclude all base items
  */
 export const retrieveShopItemBaseList = (
-  params: ShopItemListFilterParams,
+  params?: ShopItemListFilterParams,
   options?: OptionCallback<ShopItem[]>,
 ) => {
   return async (dispatch: Dispatch) => {
@@ -85,7 +87,7 @@ export const retrieveShopItemStandaloneListActions = {
  * @param exclude_base_items Exclude all base items
  */
 export const retrieveShopItemStandaloneList = (
-  params: ShopItemListFilterParams,
+  params?: ShopItemListFilterParams,
   options?: OptionCallback<ShopItem[]>,
 ) => {
   return async (dispatch: Dispatch) => {
@@ -242,7 +244,7 @@ export const createShopItemActions = {
  * @param formData The data from fields for the creation
  */
 export const createShopItem = (
-  formData: ShopItemCreate,
+  formData: FormData,
   options?: OptionCallback<ShopItem>,
 ) => {
   return async (dispatch: Dispatch) => {
@@ -516,6 +518,42 @@ export const createShopItemProvisionBulk = (
       options?.onError?.();
     } finally {
       dispatch(createShopItemProvisionBulkActions.isLoading(false));
+    }
+  };
+};
+
+export const duplicateShopItemActions = {
+  isLoading: createAction<boolean>('SHOP_ITEM/DUPLICATE/LOADING'),
+  error: createAction<Error | null>('SHOP_ITEM/DUPLICATE/ERROR'),
+  success: createAction<ShopItem>('SHOP_ITEM/DUPLICATE/SUCCESS'),
+};
+
+/**
+ * Duplicates an existing shop item
+ * @param id The ID of the shop item to duplicate
+ * @param suffix The string to concat at the end of the name of the duplicated item
+ */
+export const duplicateShopItem = (
+  id: number,
+  suffix: string,
+  options?: OptionCallback<ShopItem>,
+) => {
+  return async (dispatch: Dispatch) => {
+    try {
+      dispatch(duplicateShopItemActions.isLoading(true));
+      dispatch(duplicateShopItemActions.error(null));
+
+      const result = await duplicateShopItemAPI(id, suffix);
+
+      dispatch(duplicateShopItemActions.success(result.data));
+      dispatch(snackbarSuccess('shop.item.duplicate.success'));
+      options?.onSuccess?.(result.data);
+    } catch (error) {
+      dispatch(duplicateShopItemActions.error(error));
+      console.error(error);
+      options?.onError?.();
+    } finally {
+      dispatch(duplicateShopItemActions.isLoading(false));
     }
   };
 };

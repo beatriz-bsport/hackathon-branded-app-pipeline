@@ -17,7 +17,6 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { Theme } from '@material-ui/core/styles';
 
 import { WithTranslation, withTranslation } from 'react-i18next';
-import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
 
 // @ts-ignore
 import PasswordInput from '../../../components/input/PasswordInput.component';
@@ -26,34 +25,90 @@ import { MaterialStyleType } from '../../../utils/types';
 import COMMON_ROLES, { OWNER_ROLE } from '../role-types';
 import { getRoleName } from '../utils';
 import { Coach } from '#libs/associated-coach/types';
+import { useAdvancedRoleSettings } from '../hooks/advancedRoleSettings';
+import AdvancedRoleSettingsForm from './AdvancedRoleSettingsForm.component';
 
 type OwnProps = {
+  coachList: Array<Coach>;
+  coachListLoading: boolean;
+  establishmentGroupListLoading: boolean;
+  establishmentListLoading: boolean;
+  hasAccessMonitoringUpsell: boolean;
+  hasMultiLocationUpsell: boolean;
+  onClose: () => void;
   onSubmit: (
-    data: UserRoleData & {
-      first_name: string;
-      last_name: string;
-    },
+    data: UserRoleData & { first_name: string; last_name: string },
   ) => void;
   open: boolean;
   roles: Role[];
-  onClose: () => void;
-  coachList: Array<Coach>;
-  coachListLoading: boolean;
 };
 
 type Props = OwnProps &
+  ReturnType<typeof useAdvancedRoleSettings> &
   WithTranslation &
   MaterialStyleType<ReturnType<typeof styles>>;
 
 type State = {
+  coaches: SelectFieldItem[];
   email?: string | null;
-  password?: string | null;
-  role?: number | null;
   first_name: string;
   last_name: string;
-  coaches: SelectFieldItem[];
+  password?: string | null;
+  role?: number | null;
   staff_commission_percentage: number;
 };
+
+function withUserRoleAdvancedSettings(Component) {
+  return function EnhancedComponent({
+    coachList,
+    establishmentGroupList,
+    establishmentList,
+    hasMultiLocationUpsell,
+    onConfirm,
+    updateUserRole,
+    userRole,
+    ...props
+  }: Parameters<typeof useAdvancedRoleSettings>[0]) {
+    const {
+      coachOptions,
+      establishmentOptions,
+      handleResetAdvancedSettings,
+      handleSelectCoaches,
+      handleSelectEstablishments,
+      handleSelectSite,
+      handleSubmit,
+      selectedCoaches,
+      selectedEstablishments,
+      selectedSite,
+      siteOptions,
+    } = useAdvancedRoleSettings({
+      coachList,
+      establishmentGroupList,
+      establishmentList,
+      hasMultiLocationUpsell,
+      onConfirm,
+      updateUserRole,
+      userRole,
+    });
+    return (
+      <Component
+        {...props}
+        coachOptions={coachOptions}
+        establishmentOptions={establishmentOptions}
+        handleResetAdvancedSettings={handleResetAdvancedSettings}
+        handleSelectCoaches={handleSelectCoaches}
+        handleSelectEstablishments={handleSelectEstablishments}
+        handleSelectSite={handleSelectSite}
+        handleSubmit={handleSubmit}
+        hasMultiLocationUpsell={hasMultiLocationUpsell}
+        selectedCoaches={selectedCoaches}
+        selectedEstablishments={selectedEstablishments}
+        selectedSite={selectedSite}
+        siteOptions={siteOptions}
+      />
+    );
+  };
+}
 
 export class CreateStaffUser extends React.Component<Props, State> {
   state: State = {
@@ -62,7 +117,6 @@ export class CreateStaffUser extends React.Component<Props, State> {
     role: null,
     last_name: '',
     first_name: '',
-    coaches: [],
     staff_commission_percentage: 0.0,
   };
 
@@ -85,39 +139,62 @@ export class CreateStaffUser extends React.Component<Props, State> {
       role,
       last_name,
       first_name,
-      coaches,
       staff_commission_percentage,
     } = this.state;
+    const {
+      selectedEstablishments,
+      selectedCoaches,
+      onSubmit,
+      handleResetAdvancedSettings,
+    } = this.props;
     if (!email || !password || !role) return;
-    const coaches_in_role_ids =
-      !Object.values(COMMON_ROLES).includes(role) && coaches
-        ? coaches.map((coach: SelectFieldItem) => coach.value)
-        : [];
-    this.props.onSubmit({
+
+    onSubmit({
       email: email?.toLowerCase() || '',
       password,
       role,
       last_name,
       first_name,
-      coaches_in_role_ids,
+      coaches_in_role_ids: selectedCoaches.map((c) => c.value),
+      establishments_in_role_ids: selectedEstablishments.map((e) => e.value),
       staff_commission_percentage,
     });
+    handleResetAdvancedSettings?.();
     this.setState({
       email: null,
       password: null,
       role: null,
       last_name: '',
       first_name: '',
-      coaches: [],
       staff_commission_percentage: 0,
     });
   };
 
   render() {
-    const { t, classes } = this.props;
+    const {
+      classes,
+      coachListLoading,
+      coachOptions,
+      establishmentGroupListLoading,
+      establishmentListLoading,
+      establishmentOptions,
+      handleSelectCoaches,
+      handleSelectEstablishments,
+      handleSelectSite,
+      hasMultiLocationUpsell,
+      selectedCoaches,
+      selectedEstablishments,
+      selectedSite,
+      siteOptions,
+      roles,
+      hasAccessMonitoringUpsell,
+      open,
+      onClose,
+      t,
+    } = this.props;
     return (
       <form>
-        <Dialog open={this.props.open}>
+        <Dialog open={open}>
           <DialogTitle>{t('forms.user.create.title')}</DialogTitle>
           <DialogContent>
             <TextField
@@ -189,7 +266,7 @@ export class CreateStaffUser extends React.Component<Props, State> {
                 }}
                 value={this.state.role}
               >
-                {this.props.roles
+                {roles
                   .filter((role) => role.id !== OWNER_ROLE)
                   .map((role) => (
                     <MenuItem key={role.id} value={role.id}>
@@ -200,35 +277,42 @@ export class CreateStaffUser extends React.Component<Props, State> {
             </FormControl>
             {!Object.values(COMMON_ROLES).includes(this.state.role) &&
               !!this.state.role && (
-                <div className={classes.field}>
-                  <InputLabel shrink htmlFor="rol-help">
-                    {t('forms.user.selectCoach')}
-                  </InputLabel>
-                  <MaterialUISelector
-                    isMulti
-                    isLoading={this.props.coachListLoading}
-                    menuPlacement="top"
-                    menuPosition="fixed"
-                    name="coaches"
-                    onChange={(values: SelectFieldItem[]) =>
-                      this.setState({ coaches: values })
+                <div className={classes.advancedRoleSettingsContainer}>
+                  <AdvancedRoleSettingsForm
+                    withTitle
+                    coachListLoading={coachListLoading}
+                    coachOptions={coachOptions}
+                    customRole={roles?.find((r) => r.id === this.state.role)}
+                    establishmentGroupListLoading={
+                      establishmentGroupListLoading
                     }
-                    options={[...this.props.coachList].map((coach: Coach) => ({
-                      value: coach?.id,
-                      label: coach?.name,
-                    }))}
-                    placeholder={t('forms.user.selectCoach')}
-                    value={this.state.coaches}
+                    establishmentListLoading={establishmentListLoading}
+                    establishmentOptions={establishmentOptions}
+                    handleSelectCoaches={handleSelectCoaches}
+                    handleSelectEstablishments={handleSelectEstablishments}
+                    handleSelectSite={handleSelectSite}
+                    hasAccessMonitoringUpsell={hasAccessMonitoringUpsell}
+                    hasMultiLocationUpsell={hasMultiLocationUpsell}
+                    selectedCoaches={selectedCoaches}
+                    selectedEstablishments={selectedEstablishments}
+                    selectedSite={selectedSite}
+                    sitesOptions={siteOptions}
                   />
                 </div>
               )}
           </DialogContent>
           <DialogActions>
-            <Button color="secondary" onClick={this.props.onClose}>
+            <Button color="secondary" onClick={onClose}>
               {t('forms.user.create.cancel')}
             </Button>
             <Button
               color="primary"
+              disabled={
+                hasAccessMonitoringUpsell &&
+                roles?.find((r) => r.id === this.state.role)?.permissions
+                  ?.navigationMenu?.accessMonitoring?.perform &&
+                !selectedEstablishments.length
+              }
               id="button_role_save"
               onClick={this.onSubmit}
               type="submit"
@@ -249,9 +333,13 @@ const styles = (theme: Theme) => ({
   selectRole: {
     minWidth: 200,
   },
+  advancedRoleSettingsContainer: {
+    marginTop: theme.spacing(2),
+  },
 });
 
 export default compose<any, OwnProps>(
+  withUserRoleAdvancedSettings,
   withTranslation(['role']),
   withStyles(styles),
 )(CreateStaffUser);

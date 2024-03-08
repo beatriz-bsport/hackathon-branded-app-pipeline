@@ -1,0 +1,110 @@
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+
+import ModalConfirm from '#components/ModalConfirm.component';
+
+import AdvancedRoleSettingsForm from './AdvancedRoleSettingsForm.component';
+import { FranchiseRole, Role, UserRole } from '../types';
+import { useAdvancedRoleSettings } from '../hooks/advancedRoleSettings';
+
+import type { Coach } from '#libs/associated-coach/types';
+import type {
+  Establishment,
+  EstablishmentGroupAPI,
+} from '#libs/establishment/types';
+
+export type Props = {
+  coachList: Coach[];
+  coachListLoading: boolean;
+  establishmentGroupList?: Array<EstablishmentGroupAPI>;
+  establishmentGroupListLoading?: boolean;
+  establishmentList?: Array<Establishment>;
+  establishmentListLoading?: boolean;
+  hasAccessMonitoringUpsell: boolean;
+  hasMultiLocationUpsell: boolean;
+  onClose: () => void;
+  onConfirm?: () => void;
+  customRole: Role;
+  updateUserRole: (
+    userId: number,
+    params: { roleId?: number; coaches?: number[]; establishments?: number[] },
+  ) => void;
+  userRole?: UserRole<number, FranchiseRole>;
+};
+
+const AdvancedRoleSettingsModal: React.FC<Props> = ({
+  coachList,
+  coachListLoading,
+  establishmentGroupList,
+  establishmentGroupListLoading,
+  establishmentList,
+  establishmentListLoading,
+  hasAccessMonitoringUpsell,
+  hasMultiLocationUpsell,
+  onClose,
+  onConfirm,
+  customRole,
+  updateUserRole,
+  userRole,
+}) => {
+  const { t } = useTranslation('role');
+
+  const {
+    coachOptions,
+    establishmentOptions,
+    handleSelectCoaches,
+    handleSelectEstablishments,
+    handleSelectSite,
+    handleSubmit,
+    selectedCoaches,
+    selectedEstablishments,
+    selectedSite,
+    siteOptions,
+  } = useAdvancedRoleSettings({
+    coachList,
+    establishmentGroupList,
+    establishmentList,
+    hasMultiLocationUpsell,
+    onConfirm,
+    updateUserRole,
+    userRole,
+  });
+
+  return (
+    <ModalConfirm
+      disableConfirm={
+        hasAccessMonitoringUpsell &&
+        customRole?.permissions?.navigationMenu?.accessMonitoring?.perform &&
+        !selectedEstablishments?.length
+      }
+      handleCancel={onClose}
+      handleConfirm={handleSubmit}
+      open={!!userRole}
+      options={{
+        title: t('forms.user.advancedSettingsModal.title'),
+        cancel: t('commmon:back'),
+        confirm: t('common:save'),
+      }}
+    >
+      <AdvancedRoleSettingsForm
+        coachListLoading={coachListLoading}
+        coachOptions={coachOptions}
+        customRole={customRole}
+        establishmentGroupListLoading={establishmentGroupListLoading}
+        establishmentListLoading={establishmentListLoading}
+        establishmentOptions={establishmentOptions}
+        handleSelectCoaches={handleSelectCoaches}
+        handleSelectEstablishments={handleSelectEstablishments}
+        handleSelectSite={handleSelectSite}
+        hasAccessMonitoringUpsell={hasAccessMonitoringUpsell}
+        hasMultiLocationUpsell={hasMultiLocationUpsell}
+        selectedCoaches={selectedCoaches}
+        selectedEstablishments={selectedEstablishments}
+        selectedSite={selectedSite}
+        sitesOptions={siteOptions}
+      />
+    </ModalConfirm>
+  );
+};
+
+export default React.memo(AdvancedRoleSettingsModal);

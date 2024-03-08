@@ -12,7 +12,7 @@ import RedButton from '#components/button/RedButton.component';
 export const ModalConfirm: React.FC<{
   open?: boolean;
   options: {
-    Content: any;
+    Content?: any;
     cancel?: string;
     confirm?: string;
     title: string;
@@ -23,6 +23,7 @@ export const ModalConfirm: React.FC<{
   disableConfirm?: boolean;
   disableCancel?: boolean;
   countDownConfirm?: boolean;
+  children?: React.ReactNode;
 }> = ({
   options,
   open = false,
@@ -31,17 +32,22 @@ export const ModalConfirm: React.FC<{
   handleConfirm,
   disableConfirm,
   disableCancel,
+  children,
 }) => {
   const { t } = useTranslation(['translation', 'member']);
   const ValidationButton = options?.isDeletion ? RedButton : Button;
 
-  const ModalConfirmDialogContent = () => {
+  const ModalConfirmDialogContentText = () => {
     if (options.Content) {
       if (typeof options.Content === 'string') {
-        return <>{options.Content}</>;
+        return <DialogContentText>{options.Content}</DialogContentText>;
       }
 
-      return <options.Content t={t} />;
+      return (
+        <DialogContentText>
+          <options.Content t={t} />
+        </DialogContentText>
+      );
     }
 
     return null;
@@ -51,9 +57,8 @@ export const ModalConfirm: React.FC<{
     <Dialog onClose={handleCancel || (() => {})} open={open}>
       {options.title && <DialogTitle>{t(options.title)}</DialogTitle>}
       <DialogContent>
-        <DialogContentText>
-          <ModalConfirmDialogContent />
-        </DialogContentText>
+        <ModalConfirmDialogContentText />
+        {children}
       </DialogContent>
       <DialogActions>
         <Button

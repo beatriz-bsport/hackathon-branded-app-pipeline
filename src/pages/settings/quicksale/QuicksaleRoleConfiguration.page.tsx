@@ -199,6 +199,7 @@ const QuicksaleRoleConfiguration: React.FC<Props> = ({
       createAccess({
         ...data,
         role: RoleType.USER_ROLE_QUICKSALE,
+        establishments_in_role_ids: [],
         coaches_in_role_ids: [],
       });
       closeAccessCreationModal();

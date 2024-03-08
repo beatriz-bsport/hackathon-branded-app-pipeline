@@ -4,15 +4,19 @@ import { TFunction } from 'i18next';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { compose } from 'recompose';
 import {
+  Badge,
   FormControl,
   MenuItem,
   Select,
   TextField,
   Theme,
+  Tooltip,
   Typography,
   withStyles,
 } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
@@ -50,16 +54,21 @@ const DeleteButton = withConfirm(
 
 type OwnProps = {
   deleteUser: (id: number) => void;
+  editedFieldCount: number;
   editUserSelectedFranchisees?: (franchiseeIds: number[]) => void;
-  franchiseRoles?: FranchiseRole[];
   franchiseeList: Array<Company>;
   franchiseeListLoading: boolean;
+  franchiseRoles?: FranchiseRole[];
+  handleCommissionChange: (commissionValue: number) => void;
+  handleOpenAdvancedRoleSettings: (
+    user: UserRole<number, FranchiseRole>,
+  ) => void;
   handleRoleChange: (roleId: number) => void;
+  hasAccessMonitoringUpsell: boolean;
   hasOwnerPermission: boolean;
   isFranchisor?: boolean;
   roles?: Role[];
   user: UserRole;
-  handleCommissionChange: (commissionValue: number) => void;
 };
 
 type Props = OwnProps &
@@ -93,17 +102,20 @@ class UserWithRoleItem extends React.Component<Props, State> {
   render() {
     const {
       classes,
-      t,
-      handleRoleChange,
-      hasOwnerPermission,
-      user,
-      roles,
-      franchiseRoles,
       deleteUser,
+      editedFieldCount,
       franchiseeList,
       franchiseeListLoading,
-      isFranchisor,
+      franchiseRoles,
       handleCommissionChange,
+      handleOpenAdvancedRoleSettings,
+      handleRoleChange,
+      hasAccessMonitoringUpsell,
+      hasOwnerPermission,
+      isFranchisor,
+      roles,
+      t,
+      user,
     } = this.props;
 
     const selectedObjectsInitial = (() => {
@@ -168,75 +180,100 @@ class UserWithRoleItem extends React.Component<Props, State> {
 
     const isRelatedToFranchisor = !!this.props.user.franchise_user;
 
+    const canEditUserRoleAdvancedSettings =
+      !(
+        isRoleIn(Object.values(COMMON_ROLES)) || roleIdentifier === ADMIN_ROLE
+      ) && hasOwnerPermission;
+
+    const canDeleteUserRole = !isRoleIn([OWNER_ROLE]) && hasOwnerPermission;
+
+    const showNoEstablishmentAlert =
+      hasAccessMonitoringUpsell &&
+      roles.find((_role) => _role.id === user.role)?.permissions?.navigationMenu
+        ?.accessMonitoring?.perform &&
+      !user?.establishments_selected_in_role?.length;
+
     return (
-      <div className={classes.roleFieldContainer}>
-        <div className={classes.userRoleFieldContainer}>
-          <TextField
-            disabled
-            className={classes.roleField}
-            value={user.email}
-          />
-
-          <TextField
-            disabled
-            className={classes.roleField}
-            value={`${user.first_name} ${user.last_name}`}
-          />
-
-          <FormControl>
-            <Select
-              className={classes.roleField}
-              disabled={isRoleIn([OWNER_ROLE, CHECKIN_APP_ROLE])}
-              name="role"
-              onChange={handleOnRoleChange}
-              value={roleId || 0}
-            >
-              {(isFranchisor ? franchiseRoles : roles).map((role) => {
-                return (
-                  <MenuItem
-                    key={role.id}
-                    disabled={disableRoleMenuItem(role)}
-                    value={role.id}
-                  >
-                    {getRoleName(role, t)}
-                  </MenuItem>
-                );
-              })}
-            </Select>
-          </FormControl>
-
-          {!isRoleIn([OWNER_ROLE]) && (
+      <div className={classes.root}>
+        <div className={classes.roleFieldContainer}>
+          <div className={classes.userRoleFieldContainer}>
             <TextField
-              castAsNumber
-              className={classes.commissionField}
-              disabled={!hasOwnerPermission || isRelatedToFranchisor}
-              InputProps={{
-                inputProps: { min: 0, max: 100, step: 1 },
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <p>%</p>
-                  </InputAdornment>
-                ),
-              }}
-              label={t('forms.user.commission')}
-              onBlur={handleOnCommissionFocus}
-              onChange={handleOnCommissionChange}
-              type="number"
-              value={this.state.commission}
+              disabled
+              className={classes.roleField}
+              value={user.email}
             />
+
+            <TextField
+              disabled
+              className={classes.roleField}
+              value={`${user.first_name} ${user.last_name}`}
+            />
+
+            <FormControl>
+              <Select
+                className={classes.roleField}
+                disabled={isRoleIn([OWNER_ROLE, CHECKIN_APP_ROLE])}
+                name="role"
+                onChange={handleOnRoleChange}
+                value={roleId || 0}
+              >
+                {(isFranchisor ? franchiseRoles : roles).map((role) => {
+                  return (
+                    <MenuItem
+                      key={role.id}
+                      disabled={disableRoleMenuItem(role)}
+                      value={role.id}
+                    >
+                      {getRoleName(role, t)}
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+
+            {!isRoleIn([OWNER_ROLE]) && (
+              <TextField
+                castAsNumber
+                className={classes.commissionField}
+                disabled={!hasOwnerPermission || isRelatedToFranchisor}
+                InputProps={{
+                  inputProps: { min: 0, max: 100, step: 1 },
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <p>%</p>
+                    </InputAdornment>
+                  ),
+                }}
+                label={t('forms.user.commission')}
+                onBlur={handleOnCommissionFocus}
+                onChange={handleOnCommissionChange}
+                type="number"
+                value={this.state.commission}
+              />
+            )}
+          </div>
+          {!isFranchisor && canEditUserRoleAdvancedSettings && (
+            <Tooltip
+              arrow
+              placement="left"
+              title={t('forms.user.advancedSettings')}
+            >
+              <Badge
+                badgeContent={editedFieldCount}
+                classes={{ colorPrimary: classes.infoBadge }}
+                color="primary"
+              >
+                <IconButton
+                  className={classes.advancedSettingsButton}
+                  onClick={handleOpenAdvancedRoleSettings}
+                >
+                  <MoreVertIcon />
+                </IconButton>
+              </Badge>
+            </Tooltip>
           )}
-        </div>
-
-        {!isRoleIn([OWNER_ROLE]) && hasOwnerPermission && (
-          <DeleteButton deleteUser={deleteUser} t={t} />
-        )}
-
-        {isFranchisor &&
-          !(
-            isRoleIn(Object.values(COMMON_ROLES)) ||
-            roleIdentifier === ADMIN_ROLE
-          ) &&
-          hasOwnerPermission && (
+          {canDeleteUserRole && <DeleteButton deleteUser={deleteUser} t={t} />}
+          {isFranchisor && canEditUserRoleAdvancedSettings && (
             <div className={classes.selectorField}>
               <MaterialUISelector
                 isMulti
@@ -261,12 +298,26 @@ class UserWithRoleItem extends React.Component<Props, State> {
               </Typography>
             </div>
           )}
+        </div>
+
+        {/** The staff member is allowed to perform access monitoring, but it has
+        no linked establishment */}
+        {showNoEstablishmentAlert && (
+          <Alert className={classes.noEstablishmentAlert} severity="error">
+            {t('forms.user.warningNoEstablishmentSelected')}
+          </Alert>
+        )}
       </div>
     );
   }
 }
 
 const styles = (theme: Theme) => ({
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: theme.spacing(1),
+  },
   userRoleFieldContainer: {
     display: 'flex',
     flexDirection: 'row',
@@ -290,6 +341,21 @@ const styles = (theme: Theme) => ({
   selectorField: {
     marginRight: theme.spacing(1),
     minWidth: 280,
+  },
+  advancedSettingsButton: {
+    borderRadius: theme.spacing(0.5),
+    borderColor: theme.palette.text.secondary,
+    border: '1px solid',
+    display: 'flex',
+    flexDirection: 'center',
+    justifyContent: 'center',
+    padding: theme.spacing(1),
+  },
+  infoBadge: {
+    backgroundColor: theme.palette.info.main,
+  },
+  noEstablishmentAlert: {
+    alignSelf: 'stretch',
   },
 });
 

@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React from 'react';
+import React, { useCallback } from 'react';
 import List from '@material-ui/core/List';
 import { Theme } from '@material-ui/core';
 
@@ -20,15 +20,23 @@ import { MaterialStyleType } from '../../../utils/types';
 import { Coach } from '#libs/associated-coach/types';
 import { Company } from '#libs/company/types';
 import FranchiseCreateStaffUser from '#libs/franchise/components/FranchiseCreateStaffUser.component';
+import AdvancedRoleSettingsModal from './AdvancedRoleSettingsModal.component';
+import { Establishment, EstablishmentGroup } from '#libs/establishment/types';
 
 type OwnProps = {
   coachList?: Array<Coach>;
   coachListLoading?: boolean;
   createUserRole: (data: UserRoleData | FranchiseUserRoleData) => void;
   deleteUserRole: (id: number) => void;
+  establishmentGroupList?: Array<EstablishmentGroup>;
+  establishmentGroupListLoading?: boolean;
+  establishmentList?: Array<Establishment>;
+  establishmentListLoading?: boolean;
   franchiseeList?: Array<Company>;
   franchiseeListLoading?: boolean;
   franchiseRoles?: FranchiseRole[];
+  hasAccessMonitoringUpsell: boolean;
+  hasMultiLocationUpsell: boolean;
   hasOwnerPermission: boolean;
   isFranchisor?: boolean;
   openCreateStaffDialog: boolean;
@@ -52,9 +60,15 @@ export const UserWithRoleList: React.FC<Props> = ({
   coachListLoading,
   createUserRole,
   deleteUserRole,
+  establishmentGroupList,
+  establishmentGroupListLoading,
+  establishmentList,
+  establishmentListLoading,
   franchiseeList,
   franchiseeListLoading,
   franchiseRoles,
+  hasMultiLocationUpsell,
+  hasAccessMonitoringUpsell,
   hasOwnerPermission,
   isFranchisor,
   openCreateStaffDialog,
@@ -64,6 +78,11 @@ export const UserWithRoleList: React.FC<Props> = ({
   updateUserRole,
   users,
 }) => {
+  const [selectedUserRole, setSelectedUserRole] = React.useState<UserRole<
+    number,
+    FranchiseRole
+  > | null>(null);
+
   const onCloseCreateStaffDialog = React.useCallback(
     () => setOpenCreateStaffDialog(false),
     [setOpenCreateStaffDialog],
@@ -81,29 +100,65 @@ export const UserWithRoleList: React.FC<Props> = ({
     [createUserRole, setOpenCreateStaffDialog],
   );
 
+  const getUserRoleEditedFieldCount = useCallback(
+    (user: UserRole<number, FranchiseRole>) => {
+      let editedFieldCount = 0;
+
+      const isPerformAccessMonitoringUserRoleWithEstablishments =
+        hasAccessMonitoringUpsell &&
+        user?.establishments_selected_in_role?.length &&
+        roles?.find((role_) => role_.id === user?.role)?.permissions
+          ?.navigationMenu?.accessMonitoring?.perform;
+
+      if (user?.coaches_selected_in_role?.length) {
+        editedFieldCount += 1;
+      }
+      if (isPerformAccessMonitoringUserRoleWithEstablishments) {
+        editedFieldCount += 1;
+      }
+
+      return editedFieldCount;
+    },
+    [hasAccessMonitoringUpsell, roles],
+  );
+
+  const editUserSelectedFranchisees = useCallback(
+    (user) => {
+      if (!user?.id) {
+        return null;
+      }
+      return (franchiseesIds: number[]) =>
+        updateUserRole(user.id, { franchisees: franchiseesIds });
+    },
+    [updateUserRole],
+  );
+
+  const handleSetUserSelectedRole = useCallback(
+    (user: UserRole<number, FranchiseRole>) => () => {
+      setSelectedUserRole(user);
+    },
+    [],
+  );
+
   return (
-    <List>
+    <List className={classes.list}>
       {users.map((user) => (
         <div key={user.id} className={classes.roleListItem}>
           <UserWithRoleItem
             deleteUser={() => deleteUserRole(user.id)}
-            editUserSelectedFranchisees={(objectsIds: number[]) =>
-              updateUserRole(
-                user.id,
-                isFranchisor
-                  ? { franchisees: objectsIds }
-                  : { coaches: objectsIds },
-              )
-            }
+            editedFieldCount={getUserRoleEditedFieldCount(user)}
+            editUserSelectedFranchisees={editUserSelectedFranchisees(user)}
             franchiseeList={franchiseeList}
             franchiseeListLoading={franchiseeListLoading}
             franchiseRoles={franchiseRoles}
             handleCommissionChange={(commissionValue) =>
               updateCommission(user.id, { commission: commissionValue })
             }
+            handleOpenAdvancedRoleSettings={handleSetUserSelectedRole(user)}
             handleRoleChange={(role) =>
               updateUserRole(user.id, { roleId: role })
             }
+            hasAccessMonitoringUpsell={hasAccessMonitoringUpsell}
             hasOwnerPermission={hasOwnerPermission}
             isFranchisor={isFranchisor}
             roles={roles}
@@ -124,12 +179,34 @@ export const UserWithRoleList: React.FC<Props> = ({
         <CreateStaffUser
           coachList={coachList}
           coachListLoading={coachListLoading}
+          establishmentGroupList={establishmentGroupList}
+          establishmentGroupListLoading={establishmentGroupListLoading}
+          establishmentList={establishmentList}
+          establishmentListLoading={establishmentListLoading}
+          hasAccessMonitoringUpsell={hasAccessMonitoringUpsell}
+          hasMultiLocationUpsell={hasMultiLocationUpsell}
           onClose={onCloseCreateStaffDialog}
           onSubmit={onSubmitStaffUserCreation}
           open={openCreateStaffDialog}
           roles={roles}
+          // showAccessMonitoringSection={showAccessMonitoringSection}
         />
       )}
+      <AdvancedRoleSettingsModal
+        coachList={coachList}
+        coachListLoading={coachListLoading}
+        customRole={roles?.find((role_) => role_.id === selectedUserRole?.role)}
+        establishmentGroupList={establishmentGroupList}
+        establishmentGroupListLoading={establishmentGroupListLoading}
+        establishmentList={establishmentList}
+        establishmentListLoading={establishmentListLoading}
+        hasAccessMonitoringUpsell={hasAccessMonitoringUpsell}
+        hasMultiLocationUpsell={hasMultiLocationUpsell}
+        onClose={handleSetUserSelectedRole(null)}
+        onConfirm={handleSetUserSelectedRole(null)}
+        updateUserRole={updateUserRole}
+        userRole={selectedUserRole}
+      />
     </List>
   );
 };
@@ -140,6 +217,11 @@ const styles = (theme: Theme) => ({
   },
   leftIcon: {
     marginRight: theme.spacing(1),
+  },
+  list: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
   },
 });
 

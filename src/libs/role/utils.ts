@@ -18,6 +18,10 @@ import type {
 } from './types';
 import type { Coach } from '#libs/associated-coach/types';
 import type { Company } from '#libs/company/types';
+import type {
+  Establishment,
+  EstablishmentGroupAPI,
+} from '#libs/establishment/types';
 
 export const getRoleName = (role: Role | FranchiseRole, t: TFunction) => {
   if (role?.editable) {
@@ -165,12 +169,15 @@ export const deepMerge = (
 };
 
 export const getOptionsFromIds = memoize(
-  (ids: number[], objectList: (Coach | Company)[]): SelectFieldItem[] => {
+  (
+    ids: number[],
+    objectList: (Coach | Company | Establishment | EstablishmentGroupAPI)[],
+  ): SelectFieldItem[] => {
     return objectList
-      .filter((object: Coach | Company) => ids.includes(object.id))
-      .map((coach: Coach | Company) => ({
-        value: coach.id,
-        label: coach.name,
+      .filter((object) => ids.includes(object.id))
+      .map((object) => ({
+        value: object.id,
+        label: object.name || object.title,
       }));
   },
 );
@@ -374,4 +381,93 @@ export const checkNestedKeyInObject = (
   )
     return true;
   return checkNestedKeyInObject(object[currentKey], restKey);
+};
+
+/**
+ * Generates an array of objects containing unique address options from a list of establishments.
+ *
+ * @param {Establishment[]} establishments - The list of establishments to extract address options from.
+ * @returns {SelectFieldItem[]} - An array of objects with 'value' and 'label' properties representing unique address options.
+ */
+export const getAddressOptionsFromEstablishmentList = (
+  establishments: Establishment[],
+): SelectFieldItem[] => {
+  const uniqueAddresses: string[] = [];
+
+  return establishments
+    ? [...establishments].reduce((result, establishment) => {
+        const address = establishment.location.address;
+
+        // Check if the 'address' is not already in 'uniqueAddresses'
+        if (!uniqueAddresses.includes(address)) {
+          uniqueAddresses.push(address);
+
+          result.push({
+            value: establishment.id,
+            label: address,
+          });
+        }
+
+        return result;
+      }, [])
+    : [];
+};
+
+/**
+ * `getEstablishmentOptionsFromSelectedSites` is a function that gets the establishment options from the selected sites.
+ *
+ * **IMPORTANT**: In this function, 'Site' terminology is used to refer to 'Establishment Group' when the multi-location upsell feature is enabled,
+ * and 'Address' when the feature is not enabled.
+ *
+ * @function
+ * @param {boolean} params.hasMultiLocationUpsell - A flag indicating whether the multi-location upsell feature is enabled.
+ * @param {SelectFieldItem} params.selectedSite - The selected site.
+ * @param {EstablishmentGroupAPI[]} params.establishmentGroupList - The list of establishment groups.
+ * @param {Establishment[]} params.establishmentList - The list of establishments.
+ * @returns {SelectFieldItem[]} An array of select field items representing the establishments.
+ *
+ * This function filters the establishments based on the selected site and the multi-location upsell feature. If the feature
+ * is enabled, it filters the establishments that are included in the selected establishment group. If the feature is not
+ * enabled, it filters the establishments that have the same address as the selected site. It then maps the filtered
+ * establishments to select field items.
+ */
+export const getEstablishmentOptionsFromSelectedSites = ({
+  hasMultiLocationUpsell,
+  selectedSite,
+  establishmentGroupList,
+  establishmentList,
+}: {
+  hasMultiLocationUpsell: boolean;
+  selectedSite: SelectFieldItem;
+  establishmentGroupList: EstablishmentGroupAPI[];
+  establishmentList: Establishment[];
+}): SelectFieldItem[] => {
+  if (hasMultiLocationUpsell) {
+    // Filter establishment included in selectedSite (selected establihsment groups in this case)
+    return selectedSite && establishmentList
+      ? [...establishmentList]
+          .filter((establishment) => {
+            return establishmentGroupList
+              ?.find((group) => group.id === selectedSite.value)
+              ?.establishment?.some(
+                (establishmentId) => establishment.id === establishmentId,
+              );
+          })
+          .map((establishment) => ({
+            value: establishment.id,
+            label: establishment.title,
+          }))
+      : [];
+  }
+  // Filter establishment included in selectedSites (selected addesses in this case)
+  return selectedSite && establishmentList
+    ? [...establishmentList]
+        .filter((establishment) => {
+          return establishment.location.address === selectedSite.label;
+        })
+        .map((establishment) => ({
+          value: establishment.id,
+          label: establishment.title,
+        }))
+    : [];
 };

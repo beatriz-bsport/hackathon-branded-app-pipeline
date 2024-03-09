@@ -1134,7 +1134,10 @@
         "day": "jour",
         "day_plural": "jours",
         "subscribe": "Souscrire",
-        "discard": "Rejeter"
+        "discard": "Rejeter",
+        "no": "Non",
+        "yes": "Oui",
+        "saveChanges": "Enregistrer les modifications"
     },
     "communication": {
         "table": {
@@ -1513,7 +1516,8 @@
                 "cancel": "Annuler",
                 "content": "L'envoi de SMS à un grand nombre de membres peut être coûteux. Vous pouvez vérifier le prix par SMS dans votre contrat. Etes-vous sûr de vouloir envoyer cette communication ?",
                 "title": "Rappel des frais par SMS"
-            }
+            },
+            "membersWontLoad": "Nous rencontrons actuellement un problème de chargement des membres de cette smartlist. Veuillez noter que vous ne pourrez pas prévisualiser le nombre de membres qui seront concernés par cette communication."
         },
         "sentStatus": {
             "processing": "La communication est en cours d'envoi",
@@ -1594,7 +1598,30 @@
             "nextCommunicationScheduled": "Prochain message programmé",
             "scheduledFor": "Programmé pour : {{ datetime }}",
             "numberOfRecipients": "Destinataire : {{ count }}",
-            "numberOfRecipients_plural": "Destinataires : {{ count }}"
+            "numberOfRecipients_plural": "Destinataires : {{ count }}",
+            "sendNowDialog": {
+                "confirm": "Envoyer",
+                "close": "Annuler",
+                "content": "Le message sera envoyé immédiatement et supprimé de la liste des messages programmés.",
+                "title": "Envoyer immédiatement"
+            },
+            "deleteDialog": {
+                "submit": "Supprimer",
+                "close": "Annuler",
+                "content": "Êtes-vous sûr de vouloir supprimer ce message?",
+                "title": "Supprimer ce message"
+            },
+            "deleteMessage": "Supprimer ce message",
+            "cancelEdition": "Abandonner les modifications",
+            "saveEdition": "Enregistrer les modifications",
+            "chooseTime": "Sélectionnez une heure",
+            "chooseDate": "Sélectionnez une date"
+        },
+        "sendNowDialog": {
+            "confirm": "Envoyer",
+            "close": "Annuler",
+            "content": "Ce message sera envoyé immédiatement.",
+            "title": "Envoyer immédiatement"
         }
     },
     "consumerSpace": {
@@ -3349,7 +3376,7 @@
                 },
                 "expiration_days": {
                     "label": "Durée de validité en jours",
-                    "helperText": "La validité de la carte commence à la date d’envoi de l’email carte cadeau"
+                    "helperText": "La période de validité commence à la date d’activation de la carte cadeau"
                 },
                 "unlimited": {
                     "label": "Illimité"
@@ -9808,7 +9835,13 @@
             "forYourFriend": "pour votre proche",
             "copyLink": "Copier mon lien de parrainage",
             "seeConditions": "Voir les conditions",
-            "warningMaxUsesReached": "Vous avez atteint le maximum d'utilisation de votre lien de parrainage"
+            "warningMaxUsesReached": "Vous avez atteint le maximum d'utilisation de votre lien de parrainage",
+            "loginToUseYourLink": "Connectez-vous pour utiliser votre lien",
+            "thanksForSharing": "Merci d'en faire profiter vos amis et votre famille !",
+            "copyReferralLink": "Copier le lien de parrainage",
+            "yourFriendGets": "Votre ami obtient",
+            "youGet": "Vous obtenez",
+            "nbUsesLeft": "Nombre d'utilisations restantes:"
         },
         "conditions": {
             "title": "Conditions d'utilisation du lien de parrainage",
@@ -9869,7 +9902,9 @@
             "33001": {
                 "title": "Lien de parrainage inutilisable",
                 "description": "Le membre associé à ce lien de parrainage n'est plus inscrit au studio."
-            }
+            },
+            "somethingWentWrong": "Un problème est survenu, nous ne sommes pas en mesure de charger cette page. Veuillez réessayer plus tard",
+            "noProgramAvailable": "Oups, il semble qu'il n'y ait pas de programme de parrainage disponible"
         },
         "checkoutValidation": {
             "title": "Parrainer un ami",
@@ -12538,7 +12573,8 @@
                 "giftcard": "Carte cadeau",
                 "paymentPackTemplate": "Carte de cours partagée",
                 "calendarV2": "Calendrier",
-                "newsletterV2": "Acquisition de prospects"
+                "newsletterV2": "Acquisition de prospects",
+                "referral": "Parrainage"
             },
             "createDialog": {
                 "showAdvanced": "Voir plus d'options",
@@ -12800,6 +12836,14 @@
                 "addToCard": "Ajouter au panier",
                 "delete": "Supprimer"
             }
+        },
+        "shopItemDetail": {
+            "viewBarcode": "Afficher le code barre",
+            "copyPaymentPageLink": "Copier le lien vers la page de paiement",
+            "showLess": "Voir moins",
+            "showMore": "Voir plus",
+            "startingAt": "À partir de",
+            "title": "Détails du produit"
         }
     },
     "smartList": {

@@ -175,7 +175,7 @@
                     "availability": {
                         "expiresToday": "Laatste dag",
                         "expiresIn": "{{ daysRemaining }} dag(en) over",
-                        "expiresIn_plural": "{{ daysRemaining }} dagen over",
+                        "expiresIn_plural": "Verloopt over {{ daysRemaining }} dagen",
                         "future": "Startdatum: {{ startDate }}",
                         "expired": "Verlopen op: {{ expirationDate }}",
                         "active": "Verloopdatum: {{ expirationDate }}"
@@ -2590,7 +2590,30 @@
             "nextCommunicationScheduled": "Volgend gepland bericht",
             "scheduledFor": "Gepland voor: {{ datetime }}",
             "numberOfRecipients": "Ontvanger: {{ count }}",
-            "numberOfRecipients_plural": "Ontvangers: {{ count }}"
+            "numberOfRecipients_plural": "Ontvangers: {{ count }}",
+            "sendNowDialog": {
+                "confirm": "Versturen",
+                "close": "Annuleren",
+                "content": "Dit bericht wordt onmiddelijk verstuurd en wordt verwijderd van de lijst met geprogrammeerde berichten.",
+                "title": "Onmiddelijk versturen"
+            },
+            "deleteDialog": {
+                "submit": "Verwijderen",
+                "close": "Annuleren",
+                "content": "Weet je zeker dat je dit bericht wilt verwijderen?",
+                "title": "Dit bericht verwijderen"
+            },
+            "deleteMessage": "Dit bericht verwijderen",
+            "cancelEdition": "Wijzigingen negeren",
+            "saveEdition": "Wijzigingen opslaan",
+            "chooseTime": "Selecteer een tijd",
+            "chooseDate": "Selecteer een datum"
+        },
+        "sendNowDialog": {
+            "confirm": "Versturen",
+            "close": "Annuleren",
+            "content": "Dit bericht wordt onmiddelijk verstuurd.",
+            "title": "Onmiddelijk versturen"
         }
     },
     "paymentCombo": {
@@ -8866,7 +8889,8 @@
                 "giftcard": "Cadeaubonnen",
                 "paymentPackTemplate": "Gedeelde leskaarten",
                 "calendarV2": "Agenda",
-                "newsletterV2": "Lead-acquisitie"
+                "newsletterV2": "Lead-acquisitie",
+                "referral": "Referral"
             },
             "preview": "Voorvertoning",
             "saveButton": "Opslaan",
@@ -10294,6 +10318,61 @@
             "action": {
                 "update": "Voorraad bijwerken"
             }
+        },
+        "shopItemDetail": {
+            "table": {
+                "settings": {
+                    "paymentMethodsChip": {
+                        "onlineInStore": "Online & Winkel",
+                        "inStore": "Winkel",
+                        "online": "Online"
+                    },
+                    "paymentMethods": "Geaccepteerde betaalmethoden",
+                    "availableOnline": "Online beschikbaar",
+                    "vat": "Btw",
+                    "supplierPrice": "Leveranciersprijs",
+                    "supplier": "Leverancier"
+                },
+                "variants": {
+                    "availableOnline": "Online beschikbaar",
+                    "barcode": "Barcode",
+                    "sku": "SKU",
+                    "supplierPrice": "Leveranciersprijs",
+                    "price": "Prijs",
+                    "colorAndSize": "Kleur en maat",
+                    "upload": "Uploaden",
+                    "image": "Afbeelding",
+                    "action": {
+                        "edit": "Variant wijzigen",
+                        "add": "Een variant toevoegen"
+                    },
+                    "placeholder": "Dit product heeft geen varianten om weer te geven."
+                },
+                "inventory": {
+                    "seeInvoice": "Toon factuur",
+                    "totalSales": "Totaal aantal verkopen",
+                    "stockAdjustment": "Voorraadaanpassing (+/-)",
+                    "currentStock": "Huidige voorraad",
+                    "variants": "Varianten"
+                }
+            },
+            "tab": {
+                "history": "Geschiedenis",
+                "settings": "Instellingen",
+                "variants": "Varianten",
+                "inventory": "Voorraad"
+            },
+            "deleteModal": {
+                "comboWarning": "Zodra je dit product verwijdert, zal het ook niet langer beschikbaar zijn om gekocht te worden bij bijbehorende pakketten.",
+                "message": "Weet je zeker dat je dit product van je webshop wilt verwijderen? Deze actie is definitief.",
+                "genericTitle": "Bevestig verwijdering",
+                "title": "Verwijder \"{{name}}\""
+            },
+            "viewBarcode": "Toon barcode",
+            "copyPaymentPageLink": "Kopieer de link naar de betaalpagina",
+            "showLess": "Toon minder",
+            "showMore": "Toon meer",
+            "title": "Productdetails"
         }
     },
     "paymentRules": {
@@ -12794,7 +12873,10 @@
         "day": "dag",
         "day_plural": "dagen",
         "subscribe": "Abonneer",
-        "discard": "Weggooien"
+        "discard": "Weggooien",
+        "no": "Nee",
+        "yes": "Ja",
+        "saveChanges": "Wijzigingen opslaan"
     },
     "workshop": {
         "modal": {
@@ -19222,7 +19304,13 @@
             "forYou": "voor jou",
             "inviteFriend": "Nodig een vriend uit om je aan te melden",
             "nbRemainingUses": "Aantal resterende toepassingen",
-            "referralLink": "Doorverwijslink"
+            "referralLink": "Doorverwijslink",
+            "loginToUseYourLink": "Log in om je link te gebruiken",
+            "thanksForSharing": "Bedankt voor het delen met je familie en vrienden!",
+            "copyReferralLink": "Referral-link kopiëren",
+            "yourFriendGets": "Je vriend(in) krijgt",
+            "youGet": "Je hebt",
+            "nbUsesLeft": "Overige gebruiken:"
         },
         "referralErrors": {
             "maxUsesReached": {
@@ -19260,7 +19348,9 @@
             "33000": {
                 "description": "Deze referral-link kan niet bij deze studio gebruikt worden.",
                 "title": "Onbruikbare referral-link"
-            }
+            },
+            "somethingWentWrong": "Er is een fout opgetreden en deze pagina kon niet worden geladen. Probeer het gelieve later opnieuw",
+            "noProgramAvailable": "Helaas lijkt het erop dat er geen referralprogramma beschikbaar is"
         },
         "checkoutValidation": {
             "title": "Sponsor een vriend",

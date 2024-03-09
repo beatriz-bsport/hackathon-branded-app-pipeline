@@ -17513,7 +17513,7 @@
                     "label": "Unlimited"
                 },
                 "expiration_days": {
-                    "helperText": "The validity of the gift card starts on the sending date of the invitation.",
+                    "helperText": "The validity period begins on the date the gift card is activated",
                     "label": "Validity in days"
                 },
                 "price": {

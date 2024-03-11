@@ -26,6 +26,13 @@ import {
   deleteSubshopActions,
 } from './actions/subshopReworked';
 
+import {
+  retrieveShopSupplierListActions,
+  createShopSupplierActions,
+  updateShopSupplierActions,
+  deleteShopSupplierActions,
+} from './actions/supplier';
+
 import type { PaginatedResponse } from '../../state/types';
 import type {
   IsShopUsedInComboAPI,
@@ -53,9 +60,13 @@ const initialState: Immutable.Immutable<ShopStateReworked> =
       },
       /** State for shop item suppliers */
       suppliers: {
-        byId: {},
         error: null,
         loading: false,
+        byId: {},
+        allIds: [],
+        create: { error: null, loading: false },
+        updateSupplier: { error: null, loading: false },
+        delete: { error: null, loading: false },
       },
       /** State for variants created from a base `ShopItem` */
       itemVariant: {
@@ -579,6 +590,146 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
         )
         .updateIn(['shopItemReworked', 'subshop', 'byId'], (subshopById) =>
           omit(subshopById, payload),
+        );
+    },
+    [retrieveShopSupplierListActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(['shopItemReworked', 'suppliers', 'loading'], payload);
+    },
+    [retrieveShopSupplierListActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(['shopItemReworked', 'suppliers', 'error'], payload);
+    },
+    [retrieveShopSupplierListActions.success.toString()]: (
+      state,
+      { payload }: { payload: ShopSupplier[] },
+    ) => {
+      return state
+        .setIn(
+          ['shopItemReworked', 'suppliers', 'allIds'],
+          payload.map((supplier) => supplier.id),
+        )
+        .merge(
+          {
+            shopItemReworked: {
+              suppliers: {
+                byId: payload.reduce<PayloadReduceType<ShopSupplier>>(
+                  (acc, shopSupplier) => {
+                    acc[shopSupplier.id] = shopSupplier;
+                    return acc;
+                  },
+                  {},
+                ),
+              },
+            },
+          },
+          { deep: true },
+        );
+    },
+    [createShopSupplierActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['shopItemReworked', 'suppliers', 'create', 'loading'],
+        payload,
+      );
+    },
+    [createShopSupplierActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['shopItemReworked', 'suppliers', 'create', 'error'],
+        payload,
+      );
+    },
+    [createShopSupplierActions.success.toString()]: (
+      state,
+      { payload }: { payload: ShopSupplier },
+    ) => {
+      const suppliersAllIds = state.shopItemReworked.suppliers.allIds;
+      return state
+        .setIn(
+          ['shopItemReworked', 'suppliers', 'allIds'],
+          [...suppliersAllIds, payload.id],
+        )
+        .merge(
+          {
+            shopItemReworked: {
+              suppliers: { byId: { [payload.id]: payload } },
+            },
+          },
+          { deep: true },
+        );
+    },
+    [updateShopSupplierActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['shopItemReworked', 'suppliers', 'updateSupplier', 'loading'],
+        payload,
+      );
+    },
+    [updateShopSupplierActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['shopItemReworked', 'suppliers', 'updateSupplier', 'error'],
+        payload,
+      );
+    },
+    [updateShopSupplierActions.success.toString()]: (
+      state,
+      { payload }: { payload: ShopSupplier },
+    ) => {
+      return state.merge(
+        {
+          shopItemReworked: {
+            suppliers: { byId: { [payload.id]: payload } },
+          },
+        },
+        { deep: true },
+      );
+    },
+    [deleteShopSupplierActions.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.setIn(
+        ['shopItemReworked', 'suppliers', 'delete', 'loading'],
+        payload,
+      );
+    },
+    [deleteShopSupplierActions.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.setIn(
+        ['shopItemReworked', 'suppliers', 'delete', 'error'],
+        payload,
+      );
+    },
+    [deleteShopSupplierActions.success.toString()]: (
+      state,
+      { payload }: { payload: number },
+    ) => {
+      return state
+        .setIn(
+          ['shopItemReworked', 'suppliers', 'allIds'],
+          state.shopItemReworked.suppliers.allIds.filter(
+            (id: number) => id !== payload,
+          ),
+        )
+        .updateIn(
+          ['shopItemReworked', 'suppliers', 'byId'],
+          (shopSuppliersById) => omit(shopSuppliersById, payload),
         );
     },
   },

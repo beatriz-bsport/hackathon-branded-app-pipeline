@@ -155,11 +155,15 @@ export type ShopStateReworked = {
       updateDetails: ErrorAndLoading;
       delete: ErrorAndLoading;
     } & ErrorAndLoading;
-    /** State for shop item suppliers */
+    /** State for shop suppliers */
     suppliers: {
       byId: {
         [key: number]: ShopSupplier;
       };
+      allIds: number[];
+      create: ErrorAndLoading;
+      updateSupplier: ErrorAndLoading;
+      delete: ErrorAndLoading;
     } & ErrorAndLoading;
     /** State for variants created from a base `ShopItem` */
     itemVariant: {
@@ -225,4 +229,17 @@ export type ShopItemListFilterParams = ShopAPIFilter & {
 export type ShopItemVariantAttributes = {
   colors?: string[];
   sizes?: string[];
+};
+
+/** Represents the payload sent when creating a supplier */
+export type ShopSupplierCreate = {
+  name: string;
+  description?: string;
+};
+
+/** Represents the payload sent when updating a supplier */
+export type ShopSupplierUpdate = {
+  id: number;
+  name: string;
+  description?: string;
 };

@@ -289,6 +289,8 @@ export const useMuiThemeToCssVars = () => {
 
     /* FABRIQUE SPACING */
     --bs-space-size-1: 4px;
+    --bs-space-size-2: 8px;
+    --bs-space-size-5: 20px;
 
     /* FABRIQUE BORDER RADIUS */
     --bs-border-radius-button-lg: 10px;

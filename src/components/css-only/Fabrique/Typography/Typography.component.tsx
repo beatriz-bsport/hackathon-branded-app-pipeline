@@ -37,7 +37,7 @@ const TypographyVariantComponentMap = {
   [TypographyVariant.BODY_2XS]: 'p',
 } as Record<TypographyVariantType, React.ElementType>;
 
-const TypographyClassNameMap = {
+export const TypographyClassNameMap = {
   [TypographyVariant.DISPLAY_LG]: 'bs-typography-display-lg',
   [TypographyVariant.DISPLAY_MD]: 'bs-typography-display-md',
   [TypographyVariant.DISPLAY_SM]: 'bs-typography-display-sm',

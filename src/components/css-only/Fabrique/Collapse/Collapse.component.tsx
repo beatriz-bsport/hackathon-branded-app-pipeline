@@ -6,7 +6,7 @@ import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import './styles.css';
 
 export type Props = {
-  classes?: { content?: string };
+  classes?: { content?: string; container?: string };
   isExpanded: boolean;
   children: React.ReactElement | React.ReactNode | React.ReactNode[];
   collapsedHeight?: number;
@@ -47,7 +47,10 @@ export const Collapse: React.FC<Props> = ({
   }, [children, isExpanded, collapsedHeight]);
 
   return (
-    <div ref={collapseRef} className="bs-collapse">
+    <div
+      ref={collapseRef}
+      className={classNames('bs-collapse', classes?.container)}
+    >
       <div
         ref={contentRef}
         className={classNames('bs-content', classes?.content)}

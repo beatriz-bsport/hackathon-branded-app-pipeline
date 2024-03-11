@@ -14763,7 +14763,9 @@
           "clickableText": "Clickable text",
           "activityPass": "Activity pass",
           "appointmentPass": "Appointment pass",
-          "universalPass": "Universal pass"
+          "universalPass": "Universal pass",
+          "Collapsable": "Collapsable",
+          "NotCollapsable": "Not collapsable"
         },
         "title": {
           "state": "State",
@@ -14898,7 +14900,8 @@
           "withFuturePauses": "Subscription has planned pauses in the future",
           "hasAutoRenewal": "Subscription will be renewed automatically",
           "WithBillingHistory": "Display successful payments",
-          "withFailedPayments": "Display failed payments"
+          "withFailedPayments": "Display failed payments",
+          "isCollapsable": "Title type"
         },
         "configurationTitle": "Variations",
         "confirmationMessageComponentAlert": "This component primarily manages booking and payment statuses. For customizing its appearance, we recommend utilizing its root components located in common section",

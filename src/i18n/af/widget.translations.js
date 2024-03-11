@@ -202,6 +202,8 @@ exports.default = {
         activityPass: 'Activity pass',
         appointmentPass: 'Appointment pass',
         universalPass: 'Universal pass',
+        Collapsable: 'Collapsable',
+        NotCollapsable: 'Not collapsable',
       },
       title: {
         state: 'State',
@@ -337,6 +339,7 @@ exports.default = {
         hasAutoRenewal: 'Subscription will be renewed automatically',
         WithBillingHistory: 'Display successful payments',
         withFailedPayments: 'Display failed payments',
+        isCollapsable: 'Title type',
       },
       configurationTitle: 'Variations',
       confirmationMessageComponentAlert:

@@ -12,7 +12,6 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import WarningIcon from '@material-ui/icons/Warning';
 import { makeStyles } from '@material-ui/core';
-import { ClassNameMap } from '@material-ui/styles';
 import DelayedTextField from '#components/DelayedTextField.component';
 
 import type { Membership } from '../types';
@@ -97,7 +96,6 @@ const MembershipSelectorBase: React.FC<MembershipSelectorBaseProps> =
   });
 
 type CompanySelectorBaseProps = {
-  classes: ClassNameMap<keyof ReturnType<typeof useStyles>>;
   companyLoading: boolean;
   searchCompany: (text: string) => void;
   companyList: Company[];
@@ -105,7 +103,8 @@ type CompanySelectorBaseProps = {
 };
 
 const CompanySelectorBase: React.FC<CompanySelectorBaseProps> = React.memo(
-  ({ classes, companyList, companyLoading, onClick, searchCompany }) => {
+  ({ companyList, companyLoading, onClick, searchCompany }) => {
+    const classes = useStyles();
     const [text, setText] = useState('');
     const { t } = useTranslation('membership');
 
@@ -217,7 +216,6 @@ const MembershipSelector: React.FC<Props> = ({
             />
           ) : (
             <CompanySelectorBase
-              classes={classes}
               companyList={companyList}
               companyLoading={companyLoading}
               onClick={goToConsumerHome}

@@ -101,6 +101,12 @@ const getSubshopAllIds = (state: RootState) =>
 const getSubshopById = (state: RootState) =>
   state.shopReworked.shopItemReworked.subshop.byId;
 
+const getShopSupplierAllIds = (state: RootState) =>
+  state.shopReworked.shopItemReworked.suppliers.allIds;
+
+const getShopSupplierById = (state: RootState) =>
+  state.shopReworked.shopItemReworked.suppliers.byId;
+
 /** Returns the loading state of the shop item details */
 export const getShopItemDetailLoading = (state: RootState) =>
   state.shopReworked.shopItemReworked.itemDetails.loading;
@@ -205,6 +211,28 @@ export const getSubshopLoading = (state: RootState) =>
 /** Returns the loading state when retrieving all subshop */
 export const getShopItemStandaloneLoading = (state: RootState) =>
   state.shopReworked.shopItemReworked.itemStandalone.loading;
+
+/** Returns the loading state when retrieving all suppliers */
+export const getShopSupplierListLoading = (state: RootState) =>
+  state.shopReworked.shopItemReworked.suppliers.loading;
+
+/** Returns the loading state when updating a supplier */
+export const getShopSupplierUpdateLoading = (state: RootState) =>
+  state.shopReworked.shopItemReworked.suppliers.updateSupplier.loading;
+
+/** Returns the loading state when deleting a supplier */
+export const getShopSupplierDeleteLoading = (state: RootState) =>
+  state.shopReworked.shopItemReworked.suppliers.delete.loading;
+
+/**
+ * Retrieves the list of all suppliers for the current company
+ */
+export const getShopSupplierList = createSelector(
+  [getShopSupplierAllIds, getShopSupplierById],
+  (subshopAllIds, subshopById) => {
+    return subshopAllIds.map((id) => subshopById[id]);
+  },
+);
 
 export default {
   getSubShopsByCompany,

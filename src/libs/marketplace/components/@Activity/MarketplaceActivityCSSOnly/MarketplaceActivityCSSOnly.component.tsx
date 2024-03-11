@@ -255,14 +255,14 @@ export const MarketplaceActivityV2 = (props: Props) => {
             </div>
             <ul className="bs-activity__middle__conditions__full">
               {metaActivity?.last_discard_minutes ? (
-                <li>
+                <li className="bs-activity__middle__conditions__full__list-item">
                   {t('metaActivity:settings.lastDiscardBeforeMinutesFull', {
                     m: formatMinutes(metaActivity?.last_discard_minutes, t),
                   })}
                 </li>
               ) : null}
               {metaActivity?.last_booking_minutes ? (
-                <li>
+                <li className="bs-activity__middle__conditions__full__list-item">
                   {t('metaActivity:settings.lastBookingBeforeMinutesFull', {
                     m: formatMinutes(metaActivity?.last_booking_minutes, t),
                   })}

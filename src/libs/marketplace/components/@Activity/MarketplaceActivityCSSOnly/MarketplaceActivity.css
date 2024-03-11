@@ -203,7 +203,7 @@
   gap: var(--spacing-2);
 }
 
-li {
+.bs-activity__middle__conditions__full__list-item {
   list-style-type: disc;
 }
 

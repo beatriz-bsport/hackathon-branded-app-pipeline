@@ -92,6 +92,7 @@ export enum CssComponentsVariantIdentifiers {
   MARKETPLACE_BOOKING_ITEM = 'marketplace_booking_item',
   MARKETPLACE_OFFER_BOOKING_LIST = 'marketplace_offer_booking_list',
   FABRIQUE_TYPOGRAPHY = 'fabrique_typography',
+  FABRIQUE_TITLE = 'fabrique_title',
   FABRIQUE_CARD = 'fabrique_card',
   FABRIQUE_BADGE = 'fabrique_badge',
   FABRIQUE_TEXTFIELD = 'fabrique_textfield',

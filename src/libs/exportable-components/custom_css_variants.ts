@@ -171,6 +171,10 @@ import {
   FABRIQUE_TYPOGRAPHY_PREVIEW,
 } from '#components/css-only/Fabrique/Typography';
 import {
+  FABRIQUE_TITLE_CONFIGURATION,
+  FABRIQUE_TITLE_PREVIEW,
+} from '#components/css-only/Fabrique/Title';
+import {
   FABRIQUE_CARD_CONFIGURATION,
   FABRIQUE_CARD_PREVIEW,
 } from '#components/css-only/Fabrique/Card';
@@ -521,6 +525,7 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
   ...(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production'
     ? [
         FABRIQUE_TYPOGRAPHY_CONFIGURATION,
+        FABRIQUE_TITLE_CONFIGURATION,
         FABRIQUE_CARD_CONFIGURATION,
         FABRIQUE_BADGE_CONFIGURATION,
         FABRIQUE_BUTTON_CONFIGURATION,
@@ -708,6 +713,7 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
     ...(Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' && {
       [CssComponentsVariantIdentifiers.FABRIQUE_TYPOGRAPHY]:
         FABRIQUE_TYPOGRAPHY_PREVIEW,
+      [CssComponentsVariantIdentifiers.FABRIQUE_TITLE]: FABRIQUE_TITLE_PREVIEW,
       [CssComponentsVariantIdentifiers.FABRIQUE_CARD]: FABRIQUE_CARD_PREVIEW,
       [CssComponentsVariantIdentifiers.FABRIQUE_BADGE]: FABRIQUE_BADGE_PREVIEW,
       [CssComponentsVariantIdentifiers.FABRIQUE_TEXTFIELD]:

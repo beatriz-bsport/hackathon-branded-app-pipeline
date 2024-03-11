@@ -436,6 +436,7 @@ exports.default = {
       authentication_login: 'Login component',
       authentication_textfield: 'Authentication textfield',
       fabrique_typography: 'Typography',
+      fabrique_title: 'Title',
       fabrique_card: 'Card',
       fabrique_button: 'Button',
       fabrique_icon_button: 'Icon button',

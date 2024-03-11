@@ -25,6 +25,8 @@ import type {
   ShopItemVariantFilterParams,
   ShopSupplier,
   ProvisionBulkCreate,
+  ShopSupplierCreate,
+  ShopSupplierUpdate,
 } from './types';
 
 export async function fetchAll(
@@ -265,6 +267,42 @@ export const duplicateShopItem = (id: number, suffix: string) => {
  */
 export const retrieveShopItemSupplier = (id: number) => {
   return getAuth<ShopSupplier>(`${API_V1_URI}/shop/supplier/${id}`);
+};
+
+/**
+ * Retrieves the list of all shop suppliers
+ */
+export const retrieveShopSupplierList = () => {
+  return getAuth<PaginatedResponse<ShopSupplier>>(
+    `${API_V1_URI}/shop/supplier/`,
+  );
+};
+
+/**
+ * Creates a new shop supplier
+ * @param data The payload sent to the API
+ */
+export const createShopSupplier = (data: ShopSupplierCreate) => {
+  return postAuth<ShopSupplier>(`${API_V1_URI}/shop/supplier/`, data);
+};
+
+/**
+ * Updates a new shop supplier
+ * @param data The payload sent to the API
+ */
+export const updateShopSupplier = (data: ShopSupplierUpdate) => {
+  return patchAuth<ShopSupplier>(`${API_V1_URI}/shop/supplier/${data.id}/`, {
+    name: data.name,
+    description: data.description,
+  });
+};
+
+/**
+ * Deletes a new shop supplier
+ * @param id The ID of the supplier to delete
+ */
+export const deleteShopSupplier = (id: number) => {
+  return deleteAuth(`${API_V1_URI}/shop/supplier/${id}`);
 };
 
 /**

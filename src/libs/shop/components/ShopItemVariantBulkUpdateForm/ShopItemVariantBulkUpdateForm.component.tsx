@@ -109,8 +109,8 @@ const ShopItemVariantBulkUpdateForm: React.FC = () => {
                 </TableCell>
                 <TableCell>
                   <div className={classes.flexColumn}>
-                    {row.color && <span>{row.color}</span>}
-                    {row.size && <span>{row.size}</span>}
+                    {!!row.color && <span>{row.color}</span>}
+                    {!!row.size && <span>{row.size}</span>}
                   </div>
                 </TableCell>
                 <TableCell>

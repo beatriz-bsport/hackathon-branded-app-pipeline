@@ -1,7 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Handle, Position } from 'react-flow-renderer';
-import { Popover } from '@material-ui/core';
 
 import InnerStepCard, {
   type InnerStepCardProps,
@@ -32,10 +31,10 @@ import CadenceUtilityDialog, {
 import StepNameEditionBubble from '#libs/sequential_marketing/components/graph/bubbles/StepNameEditionBubble.component';
 import UniqueMarketingActionBubble from '#libs/sequential_marketing/components/graph/bubbles/UniqueMarketingActionBubble.component';
 import useConnectToStep from '#libs/sequential_marketing/components/graph/nodes/hooks/useConnectToStep.hook';
-import usePopoverBubble from '#libs/sequential_marketing/components/graph/nodes/hooks/usePopoverBubble.hook';
 
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import { CadencePopover } from '../internals/CadencePopover.component';
 
 const { trackFormAdd, trackFormCancel } =
   rudderStackFormTrackingFunctionsRegistry(
@@ -53,6 +52,7 @@ type FlowProps = {
     doNotDisplayConvertStepIntoExitDialogAnymore: () => void;
     doNotDisplayDeleteStepDialogAnymore: () => void;
     endStepEdition: () => void;
+    position: { x: number; y: number };
     onConnectToStep: (destinationId: number, triggerKind: TriggerKind) => void;
     submitConvertIntoExit: (status: DestinationStatus) => void;
     submitMarketingActionForm: (data: {
@@ -81,53 +81,54 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
     data.stepToEditId === data.step.id;
 
   // ==================== STEP NAME EDITION BUBBLE =====================
-  const { anchorOrigin, popoverStyle, transformOrigin, anchorEl, setAnchorEl } =
-    usePopoverBubble();
-
+  const [isStepNameEditionBubbleVisible, setIsStepNameEditionBubble] =
+    React.useState(false);
   /**
    * @description The handleClick function is used to open the popover step name edition bubble on card click
    */
   const handleClick = React.useCallback(
     (event: React.MouseEvent<HTMLButtonElement>) => {
       data?.onCardClick?.(event);
-      setAnchorEl(event?.currentTarget);
+      setIsStepNameEditionBubble((prevState) => !prevState);
     },
-    [data, setAnchorEl],
+    [data, setIsStepNameEditionBubble],
   );
 
   const handleCloseStepNameEditionBubble = React.useCallback(() => {
-    setAnchorEl(null);
+    setIsStepNameEditionBubble(false);
     isStepNew && data?.endStepEdition?.();
-  }, [data, isStepNew, setAnchorEl]);
+  }, [data, isStepNew, setIsStepNameEditionBubble]);
 
   const handleEditStepName = React.useCallback(
     (param: { name: string; stepId: number }) => {
       data.updateCadenceStepName?.(param);
       isStepNew && data.endStepEdition();
-      setAnchorEl(null);
+      setIsStepNameEditionBubble(false);
     },
-    [data, isStepNew, setAnchorEl],
+    [data, isStepNew, setIsStepNameEditionBubble],
   );
   // ===================================================================
 
   // ==================== CONVERT INTO EXIT BUBBLE =====================
-  const [anchorConvertIntoExit, setAnchorConvertIntoExit] =
-    React.useState<HTMLDivElement>(null);
+  const [isConvertIntoExitBubbleVisible, setIsConvertIntoExitBubbleVisible] =
+    React.useState(false);
 
   const handleOpenConvertIntoExitBubble = React.useCallback(
-    () => setAnchorConvertIntoExit(stepCardRef?.current),
+    () => setIsConvertIntoExitBubbleVisible(true),
     [],
   );
 
   const handleCloseConvertIntoExitBubble = React.useCallback(
-    () => setAnchorConvertIntoExit(null),
+    () => setIsConvertIntoExitBubbleVisible(false),
     [],
   );
   // ===================================================================
 
   // =============== ADD UNIQUE MARKETING ACTION BUBBLE ================
-  const [anchorAddMarketingAction, setAnchorAddMarketingAction] =
-    React.useState<HTMLDivElement | null>(null);
+  const [
+    isAddMarketingActionBubbleVisible,
+    setIsAddMarketingActionBubbleVisible,
+  ] = React.useState(false);
 
   const [marketingAction, setMarketingAction] =
     React.useState<Partial<StepMarketingActions> | null>(null);
@@ -135,21 +136,21 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
   const handleCreateMarketingAction = React.useCallback(
     (type: MarketingActions) => {
       setMarketingAction(getMarketingActionPartialValues(type));
-      setAnchorAddMarketingAction(stepCardRef?.current);
+      setIsAddMarketingActionBubbleVisible(true);
     },
-    [stepCardRef],
+    [setIsAddMarketingActionBubbleVisible],
   );
 
   const handleEditMarketingAction = React.useCallback(
     (action: StepMarketingActions) => {
       setMarketingAction(action);
-      setAnchorAddMarketingAction(stepCardRef?.current);
+      setIsAddMarketingActionBubbleVisible(true);
     },
-    [stepCardRef],
+    [setIsAddMarketingActionBubbleVisible],
   );
 
   const handleCloseMarketingActionBubble = React.useCallback(
-    () => setAnchorAddMarketingAction(null),
+    () => setIsAddMarketingActionBubbleVisible(false),
     [],
   );
 
@@ -250,8 +251,8 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
   // ===================================================================
 
   React.useEffect(() => {
-    isStepNew && setAnchorEl(stepCardRef?.current);
-  }, [isStepNew, setAnchorEl]);
+    isStepNew && setIsStepNameEditionBubble(true);
+  }, [isStepNew, setIsStepNameEditionBubble]);
 
   return (
     <>
@@ -295,40 +296,40 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
         }
         informationText={t('cadence.steps.actions.nextStepTrigger')}
       />
-      <Popover
-        anchorEl={anchorEl}
-        anchorOrigin={anchorOrigin}
-        onClose={handleCloseStepNameEditionBubble}
-        open={!!anchorEl}
-        PaperProps={popoverStyle}
-        transformOrigin={transformOrigin}
+      <CadencePopover
+        handleOnClickAway={handleCloseConvertIntoExitBubble}
+        height={stepCardRef?.current?.clientHeight}
+        isVisible={isConvertIntoExitBubbleVisible}
+        nodePosition={data.position}
+        position={Position.Right}
+        width={stepCardRef?.current?.clientWidth}
+      >
+        <ConvertIntoExitBubble
+          onCancel={handleCloseConvertIntoExitBubble}
+          onConfirm={handleConvertStepIntoExit}
+        />
+      </CadencePopover>
+      <CadencePopover
+        handleOnClickAway={handleCloseStepNameEditionBubble}
+        height={stepCardRef?.current?.clientHeight}
+        isVisible={isStepNameEditionBubbleVisible}
+        nodePosition={data.position}
+        position={Position.Right}
+        width={stepCardRef?.current?.clientWidth}
       >
         <StepNameEditionBubble
           onCancel={handleCloseStepNameEditionBubble}
           onConfirm={handleEditStepName}
           step={data.step}
         />
-      </Popover>
-      <Popover
-        anchorEl={anchorConvertIntoExit}
-        anchorOrigin={anchorOrigin}
-        onClose={handleCloseConvertIntoExitBubble}
-        open={!!anchorConvertIntoExit}
-        PaperProps={popoverStyle}
-        transformOrigin={transformOrigin}
-      >
-        <ConvertIntoExitBubble
-          onCancel={handleCloseConvertIntoExitBubble}
-          onConfirm={handleConvertStepIntoExit}
-        />
-      </Popover>
-      <Popover
-        anchorEl={anchorAddMarketingAction}
-        anchorOrigin={anchorOrigin}
-        onClose={handleCloseMarketingActionBubble}
-        open={!!anchorAddMarketingAction}
-        PaperProps={popoverStyle}
-        transformOrigin={transformOrigin}
+      </CadencePopover>
+      <CadencePopover
+        handleOnClickAway={handleCloseMarketingActionBubble}
+        height={stepCardRef?.current?.clientHeight}
+        isVisible={isAddMarketingActionBubbleVisible}
+        nodePosition={data.position}
+        position={Position.Right}
+        width={stepCardRef?.current?.clientWidth}
       >
         <UniqueMarketingActionBubble
           {...data.marketingActionEssentials}
@@ -337,7 +338,7 @@ export const InnerStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
           onConfirm={handleUpsertMarketingAction}
           onDelete={handleDeleteMarketingAction}
         />
-      </Popover>
+      </CadencePopover>
       <CadenceUtilityDialog
         onCancel={handleCloseDeleteStepDialog}
         onConfirm={handleConfirmDeleteStepDialog}

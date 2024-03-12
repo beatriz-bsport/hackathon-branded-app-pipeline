@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import Select from 'react-select';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import useEventContext, {
   type EventOption,
 } from '../hooks/useEventContext.hook';
@@ -20,6 +21,7 @@ type Props = {
 
 const EventForm: React.FC<Props> = ({ trigger, updateValue }) => {
   const { t } = useTranslation('marketing');
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const { eventSelected, selectEvent, CADENCE_EVENT_GROUPED_OPTIONS } =
     useEventContext();
@@ -50,17 +52,36 @@ const EventForm: React.FC<Props> = ({ trigger, updateValue }) => {
     [trigger, selectEvent, updateValue],
   );
 
+  const handleCloseMenu = React.useCallback(() => {
+    setIsMenuOpen(false);
+  }, []);
+
+  const handleOnMenuClick = React.useCallback(() => {
+    setIsMenuOpen((prevState) => !prevState);
+  }, []);
+
   return (
-    <Select
-      isClearable
-      menuPlacement="auto"
-      menuPosition="fixed"
-      minMenuHeight={DEFAULT_REACT_SELECT_MAX_HEIGHT}
-      onChange={handleSelectEvent}
-      options={CADENCE_EVENT_GROUPED_OPTIONS}
-      placeholder={t('cadence.form.trigger.selectEvent')}
-      value={eventSelected}
-    />
+    <ClickAwayListener onClickAway={handleCloseMenu}>
+      <div
+        onClick={handleOnMenuClick}
+        onKeyDown={handleOnMenuClick}
+        role="button"
+        style={{ paddingLeft: 1 }} // needed to fully display the left border when selected
+        tabIndex={0}
+      >
+        <Select
+          menuIsOpen={isMenuOpen}
+          menuPlacement="auto"
+          menuPortalTarget={document.body}
+          minMenuHeight={DEFAULT_REACT_SELECT_MAX_HEIGHT}
+          onBlur={handleCloseMenu}
+          onChange={handleSelectEvent}
+          options={CADENCE_EVENT_GROUPED_OPTIONS}
+          placeholder={t('cadence.form.trigger.selectEvent')}
+          value={eventSelected}
+        />
+      </div>
+    </ClickAwayListener>
   );
 };
 

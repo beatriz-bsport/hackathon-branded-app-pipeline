@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import chroma from 'chroma-js';
 import Immutable from 'seamless-immutable';
 import classNames from 'classnames';
@@ -12,6 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
 import type { MenuAction } from '#components/menu/types';
+import { ClickAwayContext } from '#libs/sequential_marketing/components/graph/nodes/context/ClickAwayContext.component';
 
 type StylesProps = { color: string; open: boolean };
 
@@ -31,6 +32,7 @@ const MenuSelectorTextButton: React.FC<Props> = ({
   optionOnClick,
 }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const { setIsClickAwayEnabled } = useContext(ClickAwayContext);
 
   const classes = useStyles({ color: customColor, open: Boolean(anchorEl) });
 
@@ -40,9 +42,10 @@ const MenuSelectorTextButton: React.FC<Props> = ({
       event.stopPropagation();
       event.preventDefault();
       optionOnClick?.();
+      setIsClickAwayEnabled?.(false);
       setAnchorEl(current);
     },
-    [optionOnClick],
+    [optionOnClick, setIsClickAwayEnabled],
   );
 
   const handleRightClick = useCallback(
@@ -58,8 +61,12 @@ const MenuSelectorTextButton: React.FC<Props> = ({
       event.stopPropagation();
       event.preventDefault();
       setAnchorEl(null);
+      !!setIsClickAwayEnabled &&
+        setTimeout(() => {
+          setIsClickAwayEnabled(true);
+        });
     },
-    [],
+    [setIsClickAwayEnabled],
   );
 
   const handleOnClickAction = useCallback(
@@ -68,8 +75,12 @@ const MenuSelectorTextButton: React.FC<Props> = ({
       event.preventDefault();
       !action?.isDisabled && setAnchorEl(null);
       !action?.isDisabled && action?.onClick?.();
+      !!setIsClickAwayEnabled &&
+        setTimeout(() => {
+          setIsClickAwayEnabled(true);
+        });
     },
-    [],
+    [setIsClickAwayEnabled],
   );
 
   return (

@@ -3,6 +3,7 @@ import Immutable from 'seamless-immutable';
 import { useTranslation } from 'react-i18next';
 import Select from 'react-select';
 
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import useSmartlistContext, {
   type SmartlistOption,
 } from '../hooks/useSmartlistContext.hook';
@@ -24,12 +25,21 @@ const SmartlistForm: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation('marketing');
 
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const {
     smartlistSelected,
     selectSmartlist,
     getSmartlistName,
     SMARTLIST_OPTIONS,
   } = useSmartlistContext(smartlists);
+
+  const handleCloseMenu = React.useCallback(() => {
+    setIsMenuOpen(false);
+  }, []);
+
+  const handleOnMenuClick = React.useCallback(() => {
+    setIsMenuOpen((prevState) => !prevState);
+  }, []);
 
   React.useEffect(() => {
     const smartlistId = trigger?.filtering_config?.smartlist_pk;
@@ -58,16 +68,27 @@ const SmartlistForm: React.FC<Props> = ({
   );
 
   return (
-    <Select
-      isClearable
-      menuPlacement="auto"
-      menuPosition="fixed"
-      minMenuHeight={DEFAULT_REACT_SELECT_MAX_HEIGHT}
-      onChange={handleSelectSmartlist}
-      options={SMARTLIST_OPTIONS}
-      placeholder={t('cadence.form.trigger.selectSmartlist')}
-      value={smartlistSelected}
-    />
+    <ClickAwayListener onClickAway={handleCloseMenu}>
+      <div
+        onClick={handleOnMenuClick}
+        onKeyDown={handleOnMenuClick}
+        role="button"
+        style={{ paddingLeft: 1 }} // needed to fully display the left border when selected
+        tabIndex={0}
+      >
+        <Select
+          menuIsOpen={isMenuOpen}
+          menuPlacement="auto"
+          menuPortalTarget={document.body}
+          minMenuHeight={DEFAULT_REACT_SELECT_MAX_HEIGHT}
+          onBlur={handleCloseMenu}
+          onChange={handleSelectSmartlist}
+          options={SMARTLIST_OPTIONS}
+          placeholder={t('cadence.form.trigger.selectSmartlist')}
+          value={smartlistSelected}
+        />
+      </div>
+    </ClickAwayListener>
   );
 };
 

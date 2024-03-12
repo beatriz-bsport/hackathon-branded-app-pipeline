@@ -1,6 +1,6 @@
 import React from 'react';
 import Immutable from 'seamless-immutable';
-import { makeStyles } from '@material-ui/core';
+import { ClickAwayListener, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import Select from 'react-select';
 
@@ -32,6 +32,8 @@ const EventAndSmartlistForm: React.FC<Props> = ({
   updateValue,
 }) => {
   const { t } = useTranslation('marketing');
+  const [isEventMenuOpen, setIsEventMenuOpen] = React.useState(false);
+  const [isSmartlistMenuOpen, setIsSmartlistMenuOpen] = React.useState(false);
 
   const classes = useStyles();
 
@@ -93,19 +95,45 @@ const EventAndSmartlistForm: React.FC<Props> = ({
     },
     [selectSmartlist, updateValue, trigger],
   );
+  const handleOnEventMenuClick = React.useCallback(() => {
+    setIsEventMenuOpen((prevState) => !prevState);
+  }, []);
+
+  const handleEventMenuClose = React.useCallback(() => {
+    setIsEventMenuOpen(false);
+  }, []);
+
+  const handleOnSmartlistMenuClick = React.useCallback(() => {
+    setIsSmartlistMenuOpen((prevState) => !prevState);
+  }, []);
+
+  const handleSmartlistMenuClose = React.useCallback(() => {
+    setIsSmartlistMenuOpen(false);
+  }, []);
 
   return (
-    <div>
-      <Select
-        isClearable
-        menuPlacement="auto"
-        menuPosition="fixed"
-        minMenuHeight={DEFAULT_REACT_SELECT_MAX_HEIGHT}
-        onChange={handleSelectEvent}
-        options={CADENCE_EVENT_GROUPED_OPTIONS}
-        placeholder={t('cadence.form.trigger.selectEvent')}
-        value={eventSelected}
-      />
+    <>
+      <ClickAwayListener onClickAway={handleEventMenuClose}>
+        <div
+          onClick={handleOnEventMenuClick}
+          onKeyDown={handleOnEventMenuClick}
+          role="button"
+          style={{ paddingLeft: 1 }} // needed to fully display the left border when selected
+          tabIndex={0}
+        >
+          <Select
+            menuIsOpen={isEventMenuOpen}
+            menuPlacement="auto"
+            menuPortalTarget={document.body}
+            minMenuHeight={DEFAULT_REACT_SELECT_MAX_HEIGHT}
+            onBlur={handleEventMenuClose}
+            onChange={handleSelectEvent}
+            options={CADENCE_EVENT_GROUPED_OPTIONS}
+            placeholder={t('cadence.form.trigger.selectEvent')}
+            value={eventSelected}
+          />
+        </div>
+      </ClickAwayListener>
       <div className={classes.filtering}>
         <CustomMuiIcon
           defaultBackGround
@@ -113,20 +141,29 @@ const EventAndSmartlistForm: React.FC<Props> = ({
           icon="Add"
           withBackground={false}
         />
-        <div className={classes.selector}>
-          <Select
-            isClearable
-            menuPlacement="auto"
-            menuPosition="fixed"
-            minMenuHeight={DEFAULT_REACT_SELECT_MAX_HEIGHT}
-            onChange={handleSelectSmartlist}
-            options={SMARTLIST_OPTIONS}
-            placeholder={t('cadence.form.trigger.selectSmartlist')}
-            value={smartlistSelected}
-          />
-        </div>
+        <ClickAwayListener onClickAway={handleSmartlistMenuClose}>
+          <div
+            className={classes.selector}
+            onClick={handleOnSmartlistMenuClick}
+            onKeyDown={handleOnSmartlistMenuClick}
+            role="button"
+            tabIndex={0}
+          >
+            <Select
+              menuIsOpen={isSmartlistMenuOpen}
+              menuPlacement="auto"
+              menuPortalTarget={document.body}
+              minMenuHeight={DEFAULT_REACT_SELECT_MAX_HEIGHT}
+              onBlur={handleSmartlistMenuClose}
+              onChange={handleSelectSmartlist}
+              options={SMARTLIST_OPTIONS}
+              placeholder={t('cadence.form.trigger.selectSmartlist')}
+              value={smartlistSelected}
+            />
+          </div>
+        </ClickAwayListener>
       </div>
-    </div>
+    </>
   );
 };
 

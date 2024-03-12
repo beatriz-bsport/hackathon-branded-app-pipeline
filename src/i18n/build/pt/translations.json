@@ -851,7 +851,10 @@
         "day_plural": "Dias",
         "recommended": "Recomendado",
         "subscribe": "Subscrever",
-        "discard": "Descartar"
+        "discard": "Descartar",
+        "no": "Não",
+        "yes": "Sim",
+        "saveChanges": "Guardar alterações"
     },
     "communication": {
         "mail": {
@@ -1120,7 +1123,8 @@
                 "cancel": "Cancelar",
                 "content": "O envio de SMS para um grande grupo de membros pode ser custoso. Pode verificar o preço por SMS no seu contrato. Tem a certeza de que pretende enviar esta comunicação?",
                 "title": "Lembrete de custos por SMS"
-            }
+            },
+            "membersWontLoad": "Estamos atualmente a encontrar um problema ao carregar os membros desta lista inteligente. Tenha em atenção que não será possível pré-visualizar o número de membros que serão contactados por esta comunicação."
         },
         "common": {
             "confirm": "Confirmar",
@@ -1316,7 +1320,30 @@
             "nextCommunicationScheduled": "Próxima mensagem programada",
             "scheduledFor": "Programado para: {{ datetime }}",
             "numberOfRecipients": "Recipiente: {{ count }}",
-            "numberOfRecipients_plural": "Recipientes:{{ count }}"
+            "numberOfRecipients_plural": "Recipientes:{{ count }}",
+            "sendNowDialog": {
+                "confirm": "Enviar",
+                "close": "Cancelar",
+                "content": "A mensagem será enviada imediatamente e retirada da lista de agendamentos.",
+                "title": "Enviar imediatamente"
+            },
+            "deleteDialog": {
+                "submit": "Eliminar",
+                "close": "Cancelar",
+                "content": "Tem a certeza de que pretende apagar esta mensagem?",
+                "title": "Apagar esta mensagem"
+            },
+            "deleteMessage": "Apagar esta mensagem",
+            "cancelEdition": "Descartar alterações",
+            "saveEdition": "Guardar alterações",
+            "chooseTime": "Escolher uma altura",
+            "chooseDate": "Escolher uma data"
+        },
+        "sendNowDialog": {
+            "confirm": "Enviar",
+            "close": "Cancelar",
+            "content": "A mensagem será enviada imediatamente.",
+            "title": "Enviar imediatamente"
         }
     },
     "checkout": {
@@ -3254,7 +3281,7 @@
                     "label": "Preço de venda"
                 },
                 "expiration_days": {
-                    "helperText": "A validade do cartão presente começa na data de envio do convite",
+                    "helperText": "A validade do cartão-presente começa na data de envio do convite.",
                     "label": "Período de validade em dias"
                 },
                 "section": {
@@ -13172,7 +13199,8 @@
                 "calendarV2": "Calendário",
                 "calendar": "Calendário",
                 "paymentPackTemplate": "Passe de aulas partilhado",
-                "newsletterV2": "Aquisição de contactos"
+                "newsletterV2": "Aquisição de contactos",
+                "referral": "Referência"
             },
             "preview": "Previsualizar",
             "saveButton": "Guardar",
@@ -13586,7 +13614,11 @@
                     "activityPass": "Passe de atividade",
                     "appointmentPass": "Cartão de marcação de consulta",
                     "universalPass": "Passe universal",
-                    "card_payment_method": "Cartão"
+                    "card_payment_method": "Cartão",
+                    "unauthenticated": "Não autenticado",
+                    "loading": "Carregamento",
+                    "authenticated": "Autenticado",
+                    "unknownError": "Erro desconhecido"
                 },
                 "title": {
                     "paymentMethodType": "Modo de pagamento",
@@ -13716,7 +13748,10 @@
                     "isPaused": "Está atualmente em pausa",
                     "addPaymentMethodDisabled": "O botão Adicionar método de pagamento está desativado",
                     "hasMissingPaymentMethod": "Tem um método de pagamento em falta",
-                    "hasFailedPayments": "Não efectuou pagamentos"
+                    "hasFailedPayments": "Não efectuou pagamentos",
+                    "hasRemainingReferralUses": "Tem ainda utilizações de referência",
+                    "isReferralProgramAvailable": "Tem um programa de referência disponível",
+                    "state": "Estado"
                 },
                 "configurationTitle": "Variações",
                 "confirmationMessageComponentAlert": "Este componente gere principalmente os estados da reserva e do pagamento. Para personalizar o seu aspeto, recomendamos a utilização dos seus componentes de raiz localizados na secção comum",
@@ -13860,7 +13895,8 @@
                 "reset_password_confirmation": "Confirmação da redefinição da palavra-passe",
                 "consumer_subscription_details_card": "Cartão de dados de subscrição do consumidor",
                 "consumer_subscription_card": "Cartão de subscrição do consumidor",
-                "fabrique_big_icon": "Ícone grande"
+                "fabrique_big_icon": "Ícone grande",
+                "referral_details": "Dados de referência"
             },
             "cssEditor": {
                 "reset": "reposto",
@@ -13959,7 +13995,8 @@
                 "checkoutConfirmationPage": "Confirmação de pagamento",
                 "marketing": "Marketing",
                 "memberProfile": "Perfil de membro",
-                "consumer_space": "Espaço do consumidor"
+                "consumer_space": "Espaço do consumidor",
+                "referral_details": "Referência"
             },
             "customCss": {
                 "yourCode": "A sua implementação complementar:",
@@ -17348,6 +17385,85 @@
         "search": "Procurar um produto",
         "select": {
             "placeholder": "Artigo da loja"
+        },
+        "shopItemDetail": {
+            "table": {
+                "history": {
+                    "invoice": {
+                        "seeInvoice": "Ver fatura",
+                        "title": "Fatura"
+                    },
+                    "quantity": "Quantidade",
+                    "updateType": {
+                        "purchase": "Ordem de compra",
+                        "manual": "Ajuste manual",
+                        "sale": "Venda",
+                        "title": "Tipo de atualização"
+                    },
+                    "studio": "Estúdio",
+                    "variant": "VariantE",
+                    "date": "Data"
+                },
+                "settings": {
+                    "sku": "SKU",
+                    "barcodeTooltip": "Ver código de barras",
+                    "barcode": "Código de barras",
+                    "requiresDelivery": "Necessita de entrega",
+                    "featured": "Em destaque",
+                    "sellOnlyOnProvision": "Vender apenas quando houver stock disponível",
+                    "paymentMethodsChip": {
+                        "onlineInStore": "Online e na loja",
+                        "inStore": "Na loja",
+                        "online": "Online"
+                    },
+                    "paymentMethods": "Métodos de pagamento aceites",
+                    "availableOnline": "Disponível em linha",
+                    "vat": "IVA/imposto sobre vendas",
+                    "supplierPrice": "Preço do fornecedor",
+                    "supplier": "Fornecedor"
+                },
+                "variants": {
+                    "availableOnline": "Disponível em linha",
+                    "barcode": "Código de barras",
+                    "sku": "SKU",
+                    "supplierPrice": "Preço do fornecedor",
+                    "price": "Preço",
+                    "colorAndSize": "Cor e tamanho",
+                    "upload": "Carregar",
+                    "image": "Imagem",
+                    "action": {
+                        "edit": "Editar variante",
+                        "add": "Adicionar uma variante"
+                    },
+                    "placeholder": "Este produto ainda não tem variantes"
+                },
+                "inventory": {
+                    "seeInvoice": "Ver fatura",
+                    "totalSales": "Vendas totais",
+                    "stockAdjustment": "Ajustamento de stocks (+/-)",
+                    "currentStock": "Existências actuais",
+                    "variants": "Variantes"
+                }
+            },
+            "tab": {
+                "history": "História",
+                "settings": "Definições",
+                "variants": "Variantes",
+                "inventory": "Inventário"
+            },
+            "deleteModal": {
+                "comboWarning": "Atenção! A eliminação deste produto também o tornará indisponível para compra para os pacotes em que é utilizado.",
+                "message": "Tem a certeza de que pretende eliminar este produto da sua loja virtual? Esta ação não pode ser anulada.",
+                "genericTitle": "Confirmação da eliminação",
+                "title": "Eliminação {{name}}"
+            },
+            "deleteVariant": "Eliminar variante",
+            "viewBarcode": "Ver código de barras",
+            "copyPaymentPageLink": "Copiar a hiperligação da página de pagamento",
+            "showLess": "Mostrar menos",
+            "showMore": "Mostrar mais",
+            "startingAt": "A partir de",
+            "title": "Detalhes do produto"
         }
     },
     "quicksale": {
@@ -18832,7 +18948,13 @@
             "forYou": "Para você",
             "inviteFriend": "Convidar um amigo para se inscrever",
             "nbRemainingUses": "Número de utilizações restantes",
-            "referralLink": "Link de referência"
+            "referralLink": "Link de referência",
+            "loginToUseYourLink": "Iniciar sessão para utilizar a sua ligação",
+            "thanksForSharing": "Obrigado por partilhar com os seus amigos e familiares!",
+            "copyReferralLink": "Copiar o link de referência",
+            "yourFriendGets": "O teu amigo recebe",
+            "youGet": "Receberá",
+            "nbUsesLeft": "Número de utilizações restantes:"
         },
         "form": {
             "submit": "Guardar",
@@ -18937,7 +19059,9 @@
             "maxUsesReached": {
                 "title": "Link de referência inutilizável",
                 "description": "O número máximo de utilizações foi atingido para esta ligação de {{ referringMemberFirstName }}"
-            }
+            },
+            "somethingWentWrong": "Algo correu mal, não foi possível carregar esta página. Por favor, tente novamente mais tarde",
+            "noProgramAvailable": "Oops, parece que não há nenhum programa de referência disponível"
         }
     },
     "campaign": {

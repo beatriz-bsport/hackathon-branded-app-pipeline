@@ -2416,7 +2416,8 @@
                 "cancel": "Annuleren",
                 "title": "Herinnering sms-kosten",
                 "content": "SMS'en naar een grote groep leden kan duur zijn. Je kunt de prijs per sms controleren in je contract. Weet u zeker dat u deze communicatie wilt versturen?"
-            }
+            },
+            "membersWontLoad": "Er is momenteel een probleem met het laden van de leden in deze smartlist. Houd er rekening mee dat je geen voorbeeld kunt zien van het aantal leden dat wordt bereikt door deze communicatie."
         },
         "communication": "Bericht",
         "generic": {
@@ -10331,7 +10332,13 @@
                     "availableOnline": "Online beschikbaar",
                     "vat": "Btw",
                     "supplierPrice": "Leveranciersprijs",
-                    "supplier": "Leverancier"
+                    "supplier": "Leverancier",
+                    "sku": "SKU",
+                    "barcodeTooltip": "Zie barcode",
+                    "barcode": "Barcode",
+                    "requiresDelivery": "Levering vereist",
+                    "featured": "Aanbevolen",
+                    "sellOnlyOnProvision": "Verkoop alleen als er voorraad is"
                 },
                 "variants": {
                     "availableOnline": "Online beschikbaar",
@@ -10354,6 +10361,22 @@
                     "stockAdjustment": "Voorraadaanpassing (+/-)",
                     "currentStock": "Huidige voorraad",
                     "variants": "Varianten"
+                },
+                "history": {
+                    "invoice": {
+                        "seeInvoice": "Zie factuur",
+                        "title": "Factuur"
+                    },
+                    "quantity": "Hoeveelheid",
+                    "updateType": {
+                        "purchase": "Aankooporder",
+                        "manual": "Handmatige aanpassing",
+                        "sale": "Verkoop",
+                        "title": "Type van update"
+                    },
+                    "studio": "Studio",
+                    "variant": "Variant",
+                    "date": "Datum"
                 }
             },
             "tab": {
@@ -10372,7 +10395,9 @@
             "copyPaymentPageLink": "Kopieer de link naar de betaalpagina",
             "showLess": "Toon minder",
             "showMore": "Toon meer",
-            "title": "Productdetails"
+            "title": "Productdetails",
+            "deleteVariant": "Verwijderd variant",
+            "startingAt": "Startend op"
         }
     },
     "paymentRules": {
@@ -16458,7 +16483,11 @@
                     "activityPass": "Activiteit leskaart",
                     "appointmentPass": "Afspraakkaart",
                     "universalPass": "Universele leskaart",
-                    "card_payment_method": "Kaart"
+                    "card_payment_method": "Kaart",
+                    "unauthenticated": "Ongeauthenticeerd",
+                    "loading": "Laden",
+                    "authenticated": "Geverifieerd",
+                    "unknownError": "Onbekende fout"
                 },
                 "title": {
                     "nextOffer": "Volgende sessie beschikbaar",
@@ -16588,7 +16617,10 @@
                     "isPaused": "Is momenteel gepauzeerd",
                     "addPaymentMethodDisabled": "De knop Betaalmethode toevoegen is uitgeschakeld",
                     "hasMissingPaymentMethod": "Heeft ontbrekende betaalmethode",
-                    "hasFailedPayments": "Heeft betalingen mislukt"
+                    "hasFailedPayments": "Heeft betalingen mislukt",
+                    "hasRemainingReferralUses": "Heeft overblijvende verwijzingen",
+                    "isReferralProgramAvailable": "Heeft een verwijzingsprogramma",
+                    "state": "Staat"
                 },
                 "configurationTitle": "Variaties",
                 "confirmationMessageComponentAlert": "Deze component beheert voornamelijk boekings- en betalingsstatussen. Om het uiterlijk aan te passen, raden we aan de hoofdcomponenten te gebruiken in de gemeenschappelijke sectie",
@@ -16613,7 +16645,8 @@
                 "checkoutConfirmationPage": "Bevestiging van betaling",
                 "marketing": "Marketing",
                 "memberProfile": "Ledenprofiel",
-                "consumer_space": "Leden-omgeving"
+                "consumer_space": "Leden-omgeving",
+                "referral_details": "Verwijzing"
             },
             "components": {
                 "calendar": "Agenda",
@@ -16747,7 +16780,8 @@
                 "reset_password_confirmation": "Knop om wachtwoord te herstellen",
                 "consumer_subscription_details_card": "Gegevenskaart consumentenabonnement",
                 "consumer_subscription_card": "Consumentenabonnementskaart",
-                "fabrique_big_icon": "Groot logo"
+                "fabrique_big_icon": "Groot logo",
+                "referral_details": "Details verwijzing"
             },
             "customCss": {
                 "yourCode": "Je aanvullende implementatie:",

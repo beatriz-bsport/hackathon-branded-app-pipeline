@@ -12843,7 +12843,78 @@
             "showLess": "Voir moins",
             "showMore": "Voir plus",
             "startingAt": "À partir de",
-            "title": "Détails du produit"
+            "title": "Détails du produit",
+            "table": {
+                "inventory": {
+                    "variants": "Variantes",
+                    "seeInvoice": "Voir la facture",
+                    "totalSales": "Nombre d'articles vendus",
+                    "stockAdjustment": "Modification des stocks (+/-)",
+                    "currentStock": "Stock actuel"
+                },
+                "history": {
+                    "invoice": {
+                        "seeInvoice": "Voir la facture",
+                        "title": "Facture"
+                    },
+                    "quantity": "Quantité",
+                    "updateType": {
+                        "purchase": "Bon de commande",
+                        "manual": "Réglage manuel",
+                        "sale": "Vente",
+                        "title": "Type de mise à jour"
+                    },
+                    "studio": "Studio",
+                    "variant": "Variante",
+                    "date": "Date"
+                },
+                "settings": {
+                    "sku": "UGS",
+                    "barcodeTooltip": "Voir le code barre",
+                    "barcode": "Code barre",
+                    "requiresDelivery": "Livraison obligatoire",
+                    "featured": "Nous vous recommandons",
+                    "sellOnlyOnProvision": "Vendre seulement lorsque le stock est suffisant",
+                    "paymentMethodsChip": {
+                        "onlineInStore": "En ligne et en magasin",
+                        "inStore": "En magasin",
+                        "online": "En ligne"
+                    },
+                    "paymentMethods": "Moyens de paiement autorisés",
+                    "availableOnline": "Disponible en ligne",
+                    "vat": "TVA/Taxe sur la vente",
+                    "supplierPrice": "Prix fournisseur",
+                    "supplier": "Fournisseur"
+                },
+                "variants": {
+                    "availableOnline": "Disponible en ligne",
+                    "barcode": "Code barre",
+                    "sku": "SKU",
+                    "supplierPrice": "Prix fournisseur",
+                    "price": "Prix",
+                    "colorAndSize": "Couleur et taille",
+                    "upload": "Charger",
+                    "image": "Image",
+                    "action": {
+                        "edit": "Modifier la variante",
+                        "add": "Ajouter une variante"
+                    },
+                    "placeholder": "Ce produit n'a pas encore de variantes"
+                }
+            },
+            "tab": {
+                "variants": "Variantes",
+                "history": "Historique",
+                "settings": "Paramètres",
+                "inventory": "Évolution des stocks"
+            },
+            "deleteVariant": "Supprimer la variante",
+            "deleteModal": {
+                "comboWarning": "Attention ! Ce produit est utilisé dans un pack, ce pack ne sera plus disponible à la vente si vous supprimez ce produit.",
+                "message": "Êtes-vous sûr de vouloir supprimer cet élément du magasin ? Cette opération est irréversible.",
+                "genericTitle": "Confirmer la suppression",
+                "title": "Suppression - {{name}}"
+            }
         }
     },
     "smartList": {
@@ -18037,7 +18108,8 @@
                 "reset_password_confirmation": "Confirmation de la réinitialisation du mot de passe",
                 "consumer_subscription_card": "Carte de l'abonnement du consommateur",
                 "consumer_subscription_details_card": "Carte du détail de l'abonnement du consommateur",
-                "fabrique_big_icon": "Grande icône"
+                "fabrique_big_icon": "Grande icône",
+                "referral_details": "Détails du parrain"
             },
             "page": {
                 "common": "Commun",
@@ -18053,7 +18125,8 @@
                 "checkoutConfirmationPage": "Confirmation de paiement",
                 "marketing": "Marketing",
                 "memberProfile": "Profile du membre",
-                "consumer_space": "Espace consommateur"
+                "consumer_space": "Espace consommateur",
+                "referral_details": "Parrainage"
             },
             "cssConfig": {
                 "configurationTitle": "Variations",
@@ -18185,7 +18258,10 @@
                     "isPaused": "Est actuellement en pause",
                     "addPaymentMethodDisabled": "Le bouton \"Ajouter un mode de paiement\" est désactivé",
                     "hasMissingPaymentMethod": "A un mode de paiement manquant",
-                    "hasFailedPayments": "A des échecs de payment"
+                    "hasFailedPayments": "A des échecs de payment",
+                    "isReferralProgramAvailable": "Dispose d'un programme de parrainage",
+                    "hasRemainingReferralUses": "a des possibilités de parrainage restantes",
+                    "state": "État"
                 },
                 "option": {
                     "true": "Oui",
@@ -18282,7 +18358,11 @@
                     "activityPass": "Carte d'activité",
                     "appointmentPass": "Carte RDV",
                     "universalPass": "Carte universelle",
-                    "card_payment_method": "Carte"
+                    "card_payment_method": "Carte",
+                    "unauthenticated": "Non vérifié",
+                    "loading": "Chargement",
+                    "authenticated": "Vérifié",
+                    "unknownError": "Erreur inconnue"
                 },
                 "confirmationMessageComponentAlert": "Ce composant gère principalement les statuts de réservation et de paiement. Pour personnaliser son apparence, nous recommandons d'utiliser ses composants racine situés dans la section commune",
                 "marketplaceOfferBookingList": "Ce composant est une liste de séances réservées. Pour affiner les composants de {{component_name}}, vous pouvez utiliser la section dédiée dans l'éditeur.",

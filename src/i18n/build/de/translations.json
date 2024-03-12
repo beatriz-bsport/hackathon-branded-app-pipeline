@@ -8688,6 +8688,85 @@
         },
         "select": {
             "placeholder": "Produkt des Shops"
+        },
+        "shopItemDetail": {
+            "table": {
+                "settings": {
+                    "sku": "SKU",
+                    "barcodeTooltip": "Barcode anzeigen",
+                    "barcode": "Barcode",
+                    "requiresDelivery": "Benötigt Lieferung",
+                    "featured": "Ausgewählte",
+                    "sellOnlyOnProvision": "Verkaufen Sie nur, wenn der Bestand verfügbar ist",
+                    "paymentMethodsChip": {
+                        "onlineInStore": "Online & im Geschäft",
+                        "inStore": "Auf Lager",
+                        "online": "Online"
+                    },
+                    "paymentMethods": "Akzeptierte Zahlungsarten",
+                    "availableOnline": "Online erhältlich",
+                    "vat": "MwSt/Umsatzsteuer",
+                    "supplierPrice": "Lieferantenpreis",
+                    "supplier": "Lieferant"
+                },
+                "variants": {
+                    "barcode": "Barcode",
+                    "sku": "SKU",
+                    "availableOnline": "Online verfügbar",
+                    "supplierPrice": "Lieferantenpreis",
+                    "price": "Preis",
+                    "colorAndSize": "Farbe & Größe",
+                    "upload": "Hochladen",
+                    "image": "Bild",
+                    "action": {
+                        "edit": "Variante bearbeiten",
+                        "add": "Hinzufügen einer Variante"
+                    },
+                    "placeholder": "Dieses Produkt hat noch keine Varianten"
+                },
+                "history": {
+                    "invoice": {
+                        "seeInvoice": "Rechnung ansehen",
+                        "title": "Rechnung"
+                    },
+                    "quantity": "Anzahl",
+                    "updateType": {
+                        "purchase": "Bestellung",
+                        "manual": "Manuelle Anpassung",
+                        "sale": "Verkauf",
+                        "title": "Art der Aktualisierung"
+                    },
+                    "studio": "Studio",
+                    "variant": "Variante",
+                    "date": "Datum"
+                },
+                "inventory": {
+                    "seeInvoice": "Rechnung ansehen",
+                    "totalSales": "Gesamtumsatz",
+                    "stockAdjustment": "Bestandsanpassung (+/-)",
+                    "currentStock": "Aktueller Bestand",
+                    "variants": "Varianten"
+                }
+            },
+            "tab": {
+                "history": "Historie",
+                "settings": "Einstellungen",
+                "variants": "Varianten",
+                "inventory": "Inventar"
+            },
+            "deleteModal": {
+                "comboWarning": "Achtung! Wenn Sie dieses Produkt löschen, können Sie es auch nicht mehr für die Packete verkaufen, für die es verwendet wird.",
+                "message": "Sind Sie sicher, dass Sie dieses Produkt aus Ihrem Webshop löschen möchten? Diese Aktion kann nicht rückgängig gemacht werden.",
+                "genericTitle": "Bestätigung der Löschung",
+                "title": "Löschung"
+            },
+            "deleteVariant": "Variante löschen",
+            "viewBarcode": "Barcode anzeigen",
+            "copyPaymentPageLink": "Link zur Zahlungsseite kopieren",
+            "showLess": "Weniger anzeigen",
+            "showMore": "Mehr anzeigen",
+            "startingAt": "Ab",
+            "title": "Details zum Produkt"
         }
     },
     "datetime": {
@@ -9946,7 +10025,10 @@
         "day": "Tag",
         "day_plural": "Tage",
         "subscribe": "Abonnieren",
-        "discard": "Verwerfen"
+        "discard": "Verwerfen",
+        "no": "Nein",
+        "yes": "Ja",
+        "saveChanges": "Änderungen speichern"
     },
     "coupon": {
         "detail": {
@@ -11628,7 +11710,8 @@
                 "cancel": "Abbrechen",
                 "content": "Eine SMS an eine große Anzahl von Mitgliedern zu schicken kann teuer sein. Sie können den Preis pro SMS in Ihrem Vertrag nachschauen. Sind SIe sicher, dass Sie diese Nahcricht verschicken wollen?",
                 "title": "Erinnerung für SMS-Kosten"
-            }
+            },
+            "membersWontLoad": "Wir haben derzeit ein Problem beim Laden der Mitglieder in dieser Smartlist. Bitte beachten Sie, dass Sie die Anzahl der Mitglieder, die von dieser Mitteilung erreicht werden, nicht in der Vorschau sehen können."
         },
         "dialogRecipients": {
             "refreshMemberData": "Um Ihre Änderungen anzuzeigen, klicken Sie bitte auf die Schaltfläche \"Aktualisieren\".",
@@ -11789,7 +11872,30 @@
             "nextCommunicationScheduled": "Nächste geplante Nachricht",
             "scheduledFor": "Planen für",
             "numberOfRecipients": "Empfänger/in",
-            "numberOfRecipients_plural": "Empfänger/innen"
+            "numberOfRecipients_plural": "Empfänger/innen",
+            "sendNowDialog": {
+                "confirm": "Senden",
+                "close": "Abbrechen",
+                "content": "Die Nachricht wird sofort gesendet und aus der Liste der geplanten Nachrichten entfernt.",
+                "title": "Sofort senden"
+            },
+            "deleteDialog": {
+                "submit": "Löschen",
+                "close": "Abbrechen",
+                "content": "Sind Sie sicher, dass Sie diese Nachricht löschen möchten?",
+                "title": "Nachricht löschen"
+            },
+            "deleteMessage": "Nachricht löschen",
+            "cancelEdition": "Änderungen verwerfen",
+            "saveEdition": "Änderungen speichern",
+            "chooseTime": "Wählen Sie eine Zeit",
+            "chooseDate": "Wählen Sie ein Datum"
+        },
+        "sendNowDialog": {
+            "confirm": "Senden",
+            "close": "Abbrechen",
+            "content": "Die Nachricht wird sofort gesendet.",
+            "title": "Sofort senden"
         }
     },
     "consumerSpace": {
@@ -15330,7 +15436,8 @@
                 "giftcard": "Gutscheine",
                 "paymentPackTemplate": "Geteilte Kurspässe",
                 "calendarV2": "Kalender",
-                "newsletterV2": "Lead-Akquise"
+                "newsletterV2": "Lead-Akquise",
+                "referral": "Empfehlung"
             },
             "preview": "Vorschau",
             "saveButton": "Speichern",
@@ -16405,7 +16512,8 @@
                 "reset_password_confirmation": "Bestätigung der Passwortrücksetzung",
                 "consumer_subscription_details_card": "Karte mit Angaben zum Verbraucherabonnement",
                 "consumer_subscription_card": "Abonnementkarte für Verbraucher",
-                "fabrique_big_icon": "Großes Symbol"
+                "fabrique_big_icon": "Großes Symbol",
+                "referral_details": "Details zur Empfehlung"
             },
             "page": {
                 "calendar": "Kalender",
@@ -16420,7 +16528,8 @@
                 "checkoutConfirmationPage": "Zahlungsbestätigung",
                 "marketing": "Marketing",
                 "memberProfile": "Mitgliederprofil",
-                "consumer_space": "Verbraucherraum"
+                "consumer_space": "Verbraucherraum",
+                "referral_details": "Empfehlung"
             },
             "cssConfig": {
                 "configurationTitle": "Variationen",
@@ -16552,7 +16661,10 @@
                     "isPaused": "Ist derzeit pausiert",
                     "addPaymentMethodDisabled": "Schaltfläche \"Zahlungsmethode hinzufügen\" ist deaktiviert",
                     "hasMissingPaymentMethod": "Hat fehlende Zahlungsmethode",
-                    "hasFailedPayments": "Hat Zahlungen nicht geleistet"
+                    "hasFailedPayments": "Hat Zahlungen nicht geleistet",
+                    "hasRemainingReferralUses": "Hat verbleibende Verwendungszwecke",
+                    "isReferralProgramAvailable": "hat ein Empfehlungsprogramm",
+                    "state": "Zustand"
                 },
                 "option": {
                     "activityName": "Aktivität",
@@ -16649,7 +16761,11 @@
                     "universalPass": "Universaler Pass",
                     "appointmentPass": "Terminpass",
                     "activityPass": "Aktivitätspass",
-                    "card_payment_method": "Karte"
+                    "card_payment_method": "Karte",
+                    "unauthenticated": "Nicht authentifiziert",
+                    "loading": "Laden",
+                    "authenticated": "Authentifiziert",
+                    "unknownError": "Unbekannter Fehler"
                 },
                 "confirmationMessageComponentAlert": "Diese Komponente verwaltet hauptsächlich den Buchungs- und Zahlungsstatus. Für die Anpassung ihres Aussehens empfehlen wir die Verwendung ihrer Stammkomponenten, die sich im Allgemeinen Abschnitt befinden",
                 "marketplaceOfferBookingList": "Diese Komponente ist eine Liste der gebuchten Sitzungen. Zur Feinabstimmung einzelner {{component_name}}-Komponenten können Sie den entsprechenden Abschnitt im Editor verwenden.",
@@ -17807,7 +17923,7 @@
                     "label": "Unbegrenzt"
                 },
                 "expiration_days": {
-                    "helperText": "Die Gültigkeit des Gutscheins beginnt an dem Tag, an dem die E-Mail mit dem Gutschein versendet wird.",
+                    "helperText": "Die Gültigkeit der Geschenkkarte beginnt mit dem Versanddatum der Einladung.",
                     "label": "Dauer der Gültigkeit in Tagen"
                 },
                 "price": {
@@ -19044,7 +19160,13 @@
             "forYou": "für Sie",
             "inviteFriend": "Laden Sie einen Freund ein, sich zu anmelden",
             "nbRemainingUses": "Anzahl der vebleibenden Verwendungen",
-            "referralLink": "Empfehlungslink"
+            "referralLink": "Empfehlungslink",
+            "loginToUseYourLink": "Anmelden, um Ihren Link zu benutzen",
+            "thanksForSharing": "Vielen Dank für das Teilen an Ihre Freunde und Familie!",
+            "copyReferralLink": "Empfehlungslink kopieren",
+            "yourFriendGets": "Deine Freunde erhalten",
+            "youGet": "Sie erhalten",
+            "nbUsesLeft": "Anzahl der verbleibenden Verwendungen:"
         },
         "form": {
             "submit": "Speichern",
@@ -19145,7 +19267,9 @@
             "33000": {
                 "description": "Dieser Empfehlungslink kann nicht für dieses Studio verwendet werden.",
                 "title": "Empfehlungslink kann nicht verwendet werden"
-            }
+            },
+            "somethingWentWrong": "Es ist etwas schief gelaufen, wir können diese Seite nicht laden. Bitte versuchen Sie es später noch einmal",
+            "noProgramAvailable": "Ups, sieht so aus, als gäbe es kein Weiterempfehlungsprogramm"
         },
         "checkoutValidation": {
             "explain": "Sie erhalten Belohnungen, wenn Sie Ihren Empfehlungslink an Ihre Freunde weitergeben.",

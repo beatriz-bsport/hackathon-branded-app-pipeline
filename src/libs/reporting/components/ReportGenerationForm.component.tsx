@@ -73,6 +73,7 @@ type Props = {
 type DownloadButtonProps = {
   handleExcelExportation: (data: any) => void;
   isSubmitting_: boolean;
+  timeWindowFilteringEnabled: boolean;
   values: any;
 };
 
@@ -169,6 +170,12 @@ const DownloadButton: React.FC<DownloadButtonProps> = ({
         handleExcelExportation({
           dateStart: moment(values.dateStart).unix(),
           dateEnd: moment(values.dateEnd).unix(),
+          ...(timeWindowFilteringEnabled
+            ? {
+                timeStart: values?.timeStart,
+                timeEnd: values?.timeEnd,
+              }
+            : {}),
           reportFilterConfigId: values.reportFilterConfigId,
         });
         setIsExporting(true);
@@ -361,6 +368,7 @@ const ReportGenerationForm: React.FC<Props> = ({
               <DownloadButton
                 handleExcelExportation={handleExcelExportation}
                 isSubmitting_={isSubmitting_}
+                timeWindowFilteringEnabled={timeWindowFilteringEnabled}
                 values={values}
               />
             </ObjectLevelPermissionWrapper>

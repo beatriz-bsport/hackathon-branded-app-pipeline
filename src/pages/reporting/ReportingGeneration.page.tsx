@@ -227,6 +227,8 @@ export class ReportingGeneration extends Component<Props, State> {
   handleExcelExportation = (values: {
     dateStart: number;
     dateEnd: number;
+    timeStart?: string;
+    timeEnd?: string;
     reportFilterConfigId: number;
   }) => {
     this.setState({
@@ -246,6 +248,8 @@ export class ReportingGeneration extends Component<Props, State> {
       fileformat: 'xlsx',
       date_start: moment.unix(values.dateStart).format('YYYY-MM-DD'),
       date_end: moment.unix(values.dateEnd).format('YYYY-MM-DD'),
+      time_window_start: values?.timeStart ?? '',
+      time_window_end: values?.timeEnd ?? '',
       report_filter_config_id: values.reportFilterConfigId,
     };
 

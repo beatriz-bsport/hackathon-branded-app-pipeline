@@ -1,14 +1,15 @@
 import React from 'react';
 import Immutable from 'seamless-immutable';
 import { useTranslation } from 'react-i18next';
+import Select from 'react-select';
 
-import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
 import useSmartlistContext, {
   type SmartlistOption,
 } from '../hooks/useSmartlistContext.hook';
 
 import type { ConnectedTrigger } from '#libs/sequential_marketing/types';
 import type { SmartList } from '#libs/smart-list/types';
+import { DEFAULT_REACT_SELECT_MAX_HEIGHT } from './constants';
 
 type Props = {
   trigger: ConnectedTrigger;
@@ -57,8 +58,11 @@ const SmartlistForm: React.FC<Props> = ({
   );
 
   return (
-    <MaterialUISelector
+    <Select
       isClearable
+      menuPlacement="auto"
+      menuPosition="fixed"
+      minMenuHeight={DEFAULT_REACT_SELECT_MAX_HEIGHT}
       onChange={handleSelectSmartlist}
       options={SMARTLIST_OPTIONS}
       placeholder={t('cadence.form.trigger.selectSmartlist')}

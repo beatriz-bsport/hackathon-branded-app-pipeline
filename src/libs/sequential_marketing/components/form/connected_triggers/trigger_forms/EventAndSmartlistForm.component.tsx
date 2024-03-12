@@ -2,6 +2,7 @@ import React from 'react';
 import Immutable from 'seamless-immutable';
 import { makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
+import Select from 'react-select';
 
 import useEventContext, {
   type EventOption,
@@ -11,13 +12,13 @@ import useSmartlistContext, {
 } from '../hooks/useSmartlistContext.hook';
 import { CustomMuiIcon } from '#components/icons/CustomMuiIcon.component';
 import { SequentialMarketingColors } from '#libs/sequential_marketing/constants';
-import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
 
 import type {
   ConnectedTrigger,
   TriggerEventConfig,
 } from '#libs/sequential_marketing/types';
 import type { SmartList } from '#libs/smart-list/types';
+import { DEFAULT_REACT_SELECT_MAX_HEIGHT } from './constants';
 
 type Props = {
   trigger: ConnectedTrigger;
@@ -95,8 +96,11 @@ const EventAndSmartlistForm: React.FC<Props> = ({
 
   return (
     <div>
-      <MaterialUISelector
+      <Select
         isClearable
+        menuPlacement="auto"
+        menuPosition="fixed"
+        minMenuHeight={DEFAULT_REACT_SELECT_MAX_HEIGHT}
         onChange={handleSelectEvent}
         options={CADENCE_EVENT_GROUPED_OPTIONS}
         placeholder={t('cadence.form.trigger.selectEvent')}
@@ -110,8 +114,11 @@ const EventAndSmartlistForm: React.FC<Props> = ({
           withBackground={false}
         />
         <div className={classes.selector}>
-          <MaterialUISelector
+          <Select
             isClearable
+            menuPlacement="auto"
+            menuPosition="fixed"
+            minMenuHeight={DEFAULT_REACT_SELECT_MAX_HEIGHT}
             onChange={handleSelectSmartlist}
             options={SMARTLIST_OPTIONS}
             placeholder={t('cadence.form.trigger.selectSmartlist')}

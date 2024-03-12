@@ -1,15 +1,17 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
+import Select from 'react-select';
 import useEventContext, {
   type EventOption,
 } from '../hooks/useEventContext.hook';
-import MaterialUISelector from '#components/Selector/MaterialUISelector.component';
+
 import type {
   ConnectedTrigger,
   TriggerEventConfig,
 } from '#libs/sequential_marketing/types';
 import { Events } from '#libs/sequential_marketing/constants';
+import { DEFAULT_REACT_SELECT_MAX_HEIGHT } from './constants';
 
 type Props = {
   trigger: ConnectedTrigger;
@@ -49,8 +51,11 @@ const EventForm: React.FC<Props> = ({ trigger, updateValue }) => {
   );
 
   return (
-    <MaterialUISelector
+    <Select
       isClearable
+      menuPlacement="auto"
+      menuPosition="fixed"
+      minMenuHeight={DEFAULT_REACT_SELECT_MAX_HEIGHT}
       onChange={handleSelectEvent}
       options={CADENCE_EVENT_GROUPED_OPTIONS}
       placeholder={t('cadence.form.trigger.selectEvent')}

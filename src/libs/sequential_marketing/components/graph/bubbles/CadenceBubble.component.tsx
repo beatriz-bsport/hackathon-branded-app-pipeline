@@ -126,17 +126,19 @@ const CadenceBubble: React.FC<Props> = ({
       width={CADENCE_BUBBLE_WIDTH}
       withUpwardPointingTail={withUpwardPointingTail}
     >
-      <div className={classes.header}>
-        <CadenceBubbleHeader
-          color={color}
-          icon={icon}
-          minimalIcon={minimalIcon}
-          onCrossClick={onCrossClick}
-          smallTitle={smallTitle}
-          title={title}
-        />
+      <div className={classes.headerWithBody}>
+        <div className={classes.header}>
+          <CadenceBubbleHeader
+            color={color}
+            icon={icon}
+            minimalIcon={minimalIcon}
+            onCrossClick={onCrossClick}
+            smallTitle={smallTitle}
+            title={title}
+          />
+        </div>
+        {!!children && children}
       </div>
-      {!!children && children}
       {!withoutBottomActions && (
         <div className={classes.footer}>
           {!!onCancelClick && (
@@ -184,6 +186,12 @@ const useStyles = makeStyles<Theme, StylesProps>((theme) => ({
     borderRadius: theme.spacing(0.5),
     padding: theme.spacing(1, 2, 1, 2),
     fontWeight: 'bold',
+  },
+  headerWithBody: {
+    maxHeight: '50dvh',
+    overflowY: 'auto',
+    paddingRight: theme.spacing(1),
+    width: 'inherit',
   },
   header: {
     display: 'flex',

@@ -386,6 +386,15 @@ export const useNodeElementsRecorder = ({
           setCurrentStepConfiguration,
           submitMultipleMarketingActions: handleConfirmEntryActionBubble,
           upsertMarketingAction,
+          ...(storedEntryStep.canvas?.position?.x &&
+          storedEntryStep.canvas?.position?.y
+            ? {
+                position: {
+                  x: parseFloat(storedEntryStep.canvas.position.x ?? '0'),
+                  y: parseFloat(storedEntryStep.canvas.position.y ?? '0'),
+                },
+              }
+            : { position: { x: DEFAULT_X_FOR_ENTRYSTEP, y: 0 } }),
         },
       };
     }
@@ -512,6 +521,15 @@ export const useNodeElementsRecorder = ({
               onConfirm: handleConfirmTriggerBubble,
             },
             resetFakerTrigger: handleResetFakerTrigger,
+            ...(triggerNode?.trigger?.canvas?.position?.x &&
+            triggerNode?.trigger?.canvas?.position?.y
+              ? {
+                  position: {
+                    x: parseFloat(triggerNode.trigger.canvas.position.x),
+                    y: parseFloat(triggerNode.trigger.canvas.position.y),
+                  },
+                }
+              : { position: { x: DEFAULT_X_FOR_TRIGGER, y: 0 } }),
           },
         };
       });
@@ -579,6 +597,14 @@ export const useNodeElementsRecorder = ({
           submitMarketingActionForm,
           updateCadenceStepName,
           upsertMarketingAction,
+          ...(stepNode?.canvas?.position?.x && stepNode?.canvas?.position?.y
+            ? {
+                position: {
+                  x: parseFloat(stepNode.canvas.position.x),
+                  y: parseFloat(stepNode.canvas.position.y),
+                },
+              }
+            : { position: { x: DEFAULT_X_FOR_INNERSTEP, y: 0 } }),
         },
       }));
     }
@@ -662,6 +688,15 @@ export const useNodeElementsRecorder = ({
           onDelete: handleDeleteConnectedTrigger(triggerNode?.trigger),
           submitConvertIntoStep: handleConvertIntoStep(triggerNode?.trigger),
           editCadenceExit: handleEditCadenceExit(triggerNode?.trigger),
+          ...(triggerNode?.trigger?.canvas?.position?.x &&
+          triggerNode?.trigger?.canvas?.position?.y
+            ? {
+                position: {
+                  x: parseFloat(triggerNode.trigger.canvas.position.x) + 400,
+                  y: parseFloat(triggerNode.trigger.canvas.position.y) + 25,
+                },
+              }
+            : { position: { x: DEFAULT_X_FOR_EXIT, y: 0 } }),
         },
       }));
     }

@@ -2,56 +2,35 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { Handle, Position } from 'react-flow-renderer';
-import Popover from '@material-ui/core/Popover';
 
 import EntryStepCard from './EntryStepCard.component';
-import EntryActionBubble from '#libs/sequential_marketing/components/graph/bubbles/EntryActionBubble.component';
-import EntryTriggerBubble from '#libs/sequential_marketing/components/graph/bubbles/EntryTriggerBubble.component';
 import MenuSelectorOnly from '#components/menu/menu-only';
-import UniqueMarketingActionBubble from '#libs/sequential_marketing/components/graph/bubbles/UniqueMarketingActionBubble.component';
 import useConnectToStep from '#libs/sequential_marketing/components/graph/nodes/hooks/useConnectToStep.hook';
 import usePopoverBubble from '#libs/sequential_marketing/components/graph/nodes/hooks/usePopoverBubble.hook';
 
+import FirstEntryStepFlowConfigurationPopovers from './FirstEntryStepFlowConfigurationPopovers.component';
+import RegularEntryStepFlowConfigurationPopovers from './RegularEntryStepFlowConfigurationPopovers.component';
+
 import {
   HandleTypeChoices,
-  InitialConfigurationStep,
   MarketingActions,
   RIGHT_HANDLE_STYLE,
   SequentialMarketingColors,
-  TriggerKind,
 } from '#libs/sequential_marketing/constants';
 import { getMarketingActionPartialValues } from '#libs/sequential_marketing/components/form/marketing_actions/utils';
 
 import type {
-  ConnectedTrigger,
-  MarketingActionEssentials,
   StepMarketingActions,
+  EntryStepFlowVersionData,
 } from '#libs/sequential_marketing/types';
 
-type FlowProps = {
-  data: {
-    isEntryActionBubbleOpen: boolean;
-    marketingActionEssentials: MarketingActionEssentials;
-    connectedTriggersBubble: Pick<
-      React.ComponentProps<typeof EntryTriggerBubble>,
-      'onConfirm' | 'smartlists'
-    >;
-    isEntryFirstConfiguration?: boolean;
-    createNewMarketingAction: (value: Partial<StepMarketingActions>) => void;
-    upsertMarketingAction: (value: Partial<StepMarketingActions>) => void;
-    deleteStepMarketingAction: (data: { id: number; stepId: number }) => void;
-    submitMultipleMarketingActions: (data: StepMarketingActions[]) => void;
-    onConnectToStep: (destinationId: number, triggerKind: TriggerKind) => void;
-    setCurrentStepConfiguration: (
-      currentStepConfiguration: InitialConfigurationStep,
-    ) => void;
-  } & React.ComponentProps<typeof EntryStepCard>;
+export type FlowProps = {
+  data: EntryStepFlowVersionData & React.ComponentProps<typeof EntryStepCard>;
 };
 
 export const EntryStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
   const { t } = useTranslation('marketing');
   const entryCardRef = React.useRef<HTMLDivElement | null>(null);
-  const container = document.getElementById('cadence-detail-main-panel');
 
   const {
     stepDestinationId,
@@ -60,7 +39,7 @@ export const EntryStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
   } = useConnectToStep(data.onConnectToStep);
 
   // ================= ENTRY CRITERIA & ACTION BUBBLES ON CREATION =================
-  const { anchorOrigin, popoverStyle, transformOrigin, anchorEl, setAnchorEl } =
+  const { anchorEl, anchorOrigin, popoverStyle, setAnchorEl, transformOrigin } =
     usePopoverBubble();
 
   const [anchorActionBubble, setAnchorActionBubble] =
@@ -74,58 +53,11 @@ export const EntryStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
     [setAnchorEl],
   );
 
-  const openEntryActionBubble = React.useCallback(
-    () =>
-      setTimeout(() => {
-        setAnchorActionBubble(entryCardRef?.current);
-      }, 200),
-    [],
-  );
-
-  const handleCloseCriteriaBubble = React.useCallback(() => {
-    !data.isFirstConfigurationMode && setAnchorEl(null);
-  }, [data.isFirstConfigurationMode, setAnchorEl]);
-
-  const handleConfirmCriteriaBubble = React.useCallback(
-    (value: ConnectedTrigger[]) => {
-      setAnchorEl(null);
-      data.connectedTriggersBubble?.onConfirm?.(value);
-      data.isFirstConfigurationMode && openEntryActionBubble();
-    },
-    [
-      data.connectedTriggersBubble,
-      data.isFirstConfigurationMode,
-      openEntryActionBubble,
-      setAnchorEl,
-    ],
-  );
-
-  const handleCloseActionBubble = React.useCallback(() => {
-    !data.isFirstConfigurationMode && setAnchorActionBubble(null);
-  }, [data.isFirstConfigurationMode]);
-
-  const handleCancelActionBubble = React.useCallback(
-    (value: StepMarketingActions[]) => {
-      setAnchorActionBubble(null);
-      if (data.isFirstConfigurationMode) {
-        openEntryCriteriaBubble();
-        data.submitMultipleMarketingActions?.(value);
-      }
-    },
-    [data, openEntryCriteriaBubble],
-  );
-
-  const handleConfirmActionBubble = React.useCallback(
-    (value: StepMarketingActions[]) => {
-      setAnchorActionBubble(null);
-      data.submitMultipleMarketingActions?.(value);
-      data.isFirstConfigurationMode &&
-        data.setCurrentStepConfiguration(
-          InitialConfigurationStep.CADENCE_WIN_STEP,
-        );
-    },
-    [data],
-  );
+  const openEntryActionBubble = React.useCallback(() => {
+    data?.isFirstConfigurationMode
+      ? setAnchorActionBubble(entryCardRef?.current)
+      : setIsEntryActionBubbleIsVisible(true);
+  }, [data?.isFirstConfigurationMode]);
 
   React.useEffect(() => {
     data.isEntryFirstConfiguration && openEntryCriteriaBubble();
@@ -136,15 +68,6 @@ export const EntryStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
   }, [data.isEntryActionBubbleOpen, openEntryActionBubble]);
   // ===============================================================================
 
-  // ======================== ENTRY CRITERIA EDITION BUBBLE ========================
-  /**
-   * @description The handleClick function is used to open the criteria edition bubble on card click
-   */
-  const handleClick = React.useCallback(() => {
-    setAnchorEl(entryCardRef?.current);
-  }, [setAnchorEl]);
-  // ===============================================================================
-
   // ===================== ADD UNIQUE MARKETING ACTION BUBBLE ======================
   const [anchorAddMarketingAction, setAnchorAddMarketingAction] =
     React.useState<HTMLDivElement | null>(null);
@@ -152,53 +75,42 @@ export const EntryStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
   const [marketingAction, setMarketingAction] =
     React.useState<Partial<StepMarketingActions> | null>(null);
 
+  const [isEntryTriggerBubbleVisible, setIsEntryTriggerBubbleVisible] =
+    React.useState(false);
+
+  const [isEntryActionBubbleVisible, setIsEntryActionBubbleIsVisible] =
+    React.useState(false);
+
+  const [
+    isUniqueMarketingActionBubbleVisible,
+    setIsUniqueMarketingActionBubbleIsVisible,
+  ] = React.useState(false);
+
+  // ======================== ENTRY CRITERIA EDITION BUBBLE ========================
+  /**
+   * @description The handleClick function is used to open the criteria edition bubble on card click
+   */
+  const handleClick = React.useCallback(() => {
+    setIsEntryTriggerBubbleVisible((prevState) => !prevState);
+  }, [setIsEntryTriggerBubbleVisible]);
+  // ===============================================================================
+
   const handleCreateMarketingAction = React.useCallback(
     (type: MarketingActions) => {
       setMarketingAction(getMarketingActionPartialValues(type));
-      setAnchorAddMarketingAction(entryCardRef?.current);
+      setIsUniqueMarketingActionBubbleIsVisible(true);
     },
-    [entryCardRef],
+    [setIsUniqueMarketingActionBubbleIsVisible],
   );
 
   const handleEditMarketingAction = React.useCallback(
     (action: StepMarketingActions) => {
       setMarketingAction(action);
-      setAnchorAddMarketingAction(entryCardRef?.current);
+      setIsUniqueMarketingActionBubbleIsVisible(true);
     },
-    [entryCardRef],
+    [setIsUniqueMarketingActionBubbleIsVisible],
   );
 
-  const handleCloseMarketingActionBubble = React.useCallback(
-    () => setAnchorAddMarketingAction(null),
-    [],
-  );
-
-  const handleCancelMarketingActionBubble = React.useCallback(() => {
-    handleCloseMarketingActionBubble();
-    setMarketingAction(null);
-  }, [handleCloseMarketingActionBubble]);
-
-  const handleDeleteMarketingAction = React.useCallback(() => {
-    !!marketingAction?.id &&
-      !!data?.step?.id &&
-      data.deleteStepMarketingAction?.({
-        stepId: data.step.id,
-        id: marketingAction.id,
-      });
-    handleCancelMarketingActionBubble();
-  }, [data, handleCancelMarketingActionBubble, marketingAction?.id]);
-
-  const handleUpsertMarketingAction = React.useCallback(
-    (action: Partial<StepMarketingActions>) => {
-      data.upsertMarketingAction?.({
-        ...action,
-        cadence_step: action?.cadence_step || data?.step?.id,
-        name: t('cadence.form.marketing_action.defaultName'),
-      });
-      handleCloseMarketingActionBubble();
-    },
-    [data, handleCloseMarketingActionBubble, t],
-  );
   // ===============================================================================
 
   return (
@@ -240,59 +152,41 @@ export const EntryStepFlowVersion: React.FC<FlowProps> = ({ data }) => {
         }
         informationText={t('cadence.steps.actions.nextStepTrigger')}
       />
-      <Popover
-        anchorEl={anchorEl}
-        anchorOrigin={anchorOrigin}
-        container={container}
-        onClose={handleCloseCriteriaBubble}
-        open={!!anchorEl}
-        PaperProps={popoverStyle}
-        transformOrigin={transformOrigin}
-      >
-        <EntryTriggerBubble
-          connectedTriggers={data.triggerList}
-          entrystepId={data.step?.id}
-          isInitial={data.isFirstConfigurationMode}
-          onClose={handleCloseCriteriaBubble}
-          onConfirm={handleConfirmCriteriaBubble}
-          smartlists={data.connectedTriggersBubble?.smartlists}
-        />
-      </Popover>
-      <Popover
-        anchorEl={anchorActionBubble}
-        anchorOrigin={anchorOrigin}
-        container={container}
-        onClose={handleCloseActionBubble}
-        open={!!anchorActionBubble}
-        PaperProps={popoverStyle}
-        transformOrigin={transformOrigin}
-      >
-        <EntryActionBubble
-          {...data.marketingActionEssentials}
-          isInitial={data.isFirstConfigurationMode}
-          isPushNotificationUpsellActive={data.isPushNotificationUpsellActive}
-          marketingActions={data.marketingActionList}
-          onCancel={handleCancelActionBubble}
-          onConfirm={handleConfirmActionBubble}
-        />
-      </Popover>
-      <Popover
-        anchorEl={anchorAddMarketingAction}
-        anchorOrigin={anchorOrigin}
-        container={container}
-        onClose={handleCloseMarketingActionBubble}
-        open={!!anchorAddMarketingAction}
-        PaperProps={popoverStyle}
-        transformOrigin={transformOrigin}
-      >
-        <UniqueMarketingActionBubble
-          {...data.marketingActionEssentials}
+      {data.isFirstConfigurationMode ? (
+        <FirstEntryStepFlowConfigurationPopovers
+          anchorActionBubble={anchorActionBubble}
+          anchorAddMarketingAction={anchorAddMarketingAction}
+          anchorEl={anchorEl}
+          anchorOrigin={anchorOrigin}
+          data={data}
           marketingAction={marketingAction}
-          onCancel={handleCancelMarketingActionBubble}
-          onConfirm={handleUpsertMarketingAction}
-          onDelete={handleDeleteMarketingAction}
+          openEntryActionBubble={openEntryActionBubble}
+          openEntryCriteriaBubble={openEntryCriteriaBubble}
+          popoverStyle={popoverStyle}
+          setAnchorActionBubble={setAnchorActionBubble}
+          setAnchorAddMarketingAction={setAnchorAddMarketingAction}
+          setAnchorEl={setAnchorEl}
+          setMarketingAction={setMarketingAction}
+          transformOrigin={transformOrigin}
         />
-      </Popover>
+      ) : (
+        <RegularEntryStepFlowConfigurationPopovers
+          data={data}
+          entryCardRef={entryCardRef}
+          isEntryActionBubbleVisible={isEntryActionBubbleVisible}
+          isEntryTriggerBubbleVisible={isEntryTriggerBubbleVisible}
+          isUniqueMarketingActionBubbleVisible={
+            isUniqueMarketingActionBubbleVisible
+          }
+          marketingAction={marketingAction}
+          setIsEntryActionBubbleIsVisible={setIsEntryActionBubbleIsVisible}
+          setIsEntryTriggerBubbleVisible={setIsEntryTriggerBubbleVisible}
+          setIsUniqueMarketingActionBubbleIsVisible={
+            setIsUniqueMarketingActionBubbleIsVisible
+          }
+          setMarketingAction={setMarketingAction}
+        />
+      )}
     </>
   );
 };

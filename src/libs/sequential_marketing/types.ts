@@ -1,3 +1,4 @@
+import React from 'react';
 import type { Tag, TagGroupAPI } from '#libs/tag/types';
 import type { ErrorAndLoading } from '#libs/types';
 import type {
@@ -15,7 +16,9 @@ import type {
   MarketingActionKind,
   MarketingActions,
   TriggerIdentifier,
+  TriggerKind,
 } from './constants';
+import EntryTriggerBubble from '#libs/sequential_marketing/components/graph/bubbles/EntryTriggerBubble.component';
 
 // ========== BACKEND MODELS & JSON SPECIFICATIONS ==========
 export type Cadence = {
@@ -313,4 +316,23 @@ export type CadenceInitialConfiguration = {
     connectedTriggers: ConnectedTrigger[];
     marketingActions?: StepMarketingActions[];
   };
+};
+
+export type EntryStepFlowVersionData = {
+  isEntryActionBubbleOpen: boolean;
+  marketingActionEssentials: MarketingActionEssentials;
+  connectedTriggersBubble: Pick<
+    React.ComponentProps<typeof EntryTriggerBubble>,
+    'onConfirm' | 'smartlists'
+  >;
+  isEntryFirstConfiguration?: boolean;
+  createNewMarketingAction: (value: Partial<StepMarketingActions>) => void;
+  upsertMarketingAction: (value: Partial<StepMarketingActions>) => void;
+  deleteStepMarketingAction: (data: { id: number; stepId: number }) => void;
+  submitMultipleMarketingActions: (data: StepMarketingActions[]) => void;
+  onConnectToStep: (destinationId: number, triggerKind: TriggerKind) => void;
+  setCurrentStepConfiguration: (
+    currentStepConfiguration: InitialConfigurationStep,
+  ) => void;
+  position: { x: number; y: number };
 };

@@ -142,7 +142,7 @@ const pageDataConnector = connect(
       membershipError: state.membership.retrieve.error,
     };
   },
-  { fetchMembershipByCompany: fetchMembershipByCompanyAction },
+  null,
 );
 
 const authenticatedCallsConnector = connect(
@@ -164,6 +164,7 @@ const authenticatedCallsConnector = connect(
     fetchMember: fetchMemberAction,
     retrieveReferralProgramForCompany: retrieveReferralProgramForCompanyAction,
     retrieveReferralMemberStatus: retrieveReferralMemberStatusAction,
+    fetchMembershipByCompany: fetchMembershipByCompanyAction,
   },
 );
 

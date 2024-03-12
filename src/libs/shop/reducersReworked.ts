@@ -103,6 +103,12 @@ const initialState: Immutable.Immutable<ShopStateReworked> =
         updateSubshop: { error: null, loading: false },
         delete: { error: null, loading: false },
       },
+      /** State for combo warnings per shop item ID  */
+      usedInCombo: {
+        error: null,
+        loading: false,
+        byId: {},
+      },
     },
   });
 
@@ -212,7 +218,7 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
       return state.merge(
         {
           shopItemReworked: {
-            itemDetails: { byId: { [payload.id]: { item: payload } } },
+            itemDetails: { byId: { [payload.id]: payload } },
           },
         },
         { deep: true },
@@ -223,7 +229,7 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
       { payload }: { payload: boolean },
     ) => {
       return state.setIn(
-        ['shopItemReworked', 'itemDetails', 'loading'],
+        ['shopItemReworked', 'usedInCombo', 'loading'],
         payload,
       );
     },
@@ -231,20 +237,14 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
       state,
       { payload }: { payload: Error | null },
     ) => {
-      return state.setIn(['shopItemReworked', 'itemDetails', 'error'], payload);
+      return state.setIn(['shopItemReworked', 'usedInCombo', 'error'], payload);
     },
     [retrieveShopItemUsedInComboActions.success.toString()]: (
       state,
       { payload }: { payload: IsShopUsedInComboAPI },
     ) => {
       return state.setIn(
-        [
-          'shopItemReworked',
-          'itemDetails',
-          'byId',
-          payload.id,
-          'isUsedInCombo',
-        ],
+        ['shopItemReworked', 'usedInCombo', 'byId', payload.id],
         payload.is_used_in_payment_combo,
       );
     },
@@ -351,7 +351,7 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
       return state.merge(
         {
           shopItemReworked: {
-            itemDetails: { byId: { [payload.id]: { item: payload } } },
+            itemDetails: { byId: { [payload.id]: payload } },
           },
         },
         { deep: true },

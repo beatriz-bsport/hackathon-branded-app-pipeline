@@ -35,7 +35,6 @@ const { trackFormSuccess } = rudderStackFormTrackingFunctionsRegistry(
 
 type Props = {
   companyId?: number;
-  isShopItemUsedInCombo?: boolean;
   isLoading?: boolean;
   isVariantListLoading?: boolean;
   isDeleting?: boolean;
@@ -47,6 +46,7 @@ type Props = {
   variantList: ShopItemVariant[];
   page: number;
   count: number;
+  getIsShopItemUsedInCombo: (shopItemId: number) => boolean;
   updateShopItem: (
     formData: Partial<ShopItemEdit>,
     id: number,
@@ -69,7 +69,6 @@ type Props = {
 
 const ShopItemDetail: React.FC<Props> = ({
   companyId,
-  isShopItemUsedInCombo,
   isLoading,
   isVariantListLoading,
   isDeleting,
@@ -81,6 +80,7 @@ const ShopItemDetail: React.FC<Props> = ({
   variantList,
   count,
   page,
+  getIsShopItemUsedInCombo,
   updateShopItem,
   updateShopItemVariantBulk,
   deleteShopItem,
@@ -294,7 +294,7 @@ const ShopItemDetail: React.FC<Props> = ({
       </Dialog>
 
       <ShopItemDeleteConfirmDialog
-        isUsedInCombo={isShopItemUsedInCombo}
+        isUsedInCombo={getIsShopItemUsedInCombo(shopItem?.id)}
         onCancel={handleCloseDeleteConfirmationModal}
         onSubmit={deleteShopItem}
         open={showDeleteConfirmationModal}

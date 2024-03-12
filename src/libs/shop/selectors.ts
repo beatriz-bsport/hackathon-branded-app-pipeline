@@ -122,7 +122,7 @@ export const getShopItemDetailDeleteLoading = (state: RootState) =>
 /** Retrieves the shop item object from an base/standalone item id */
 export const getShopItemDetail = (state: RootState, id: number) => {
   if (!id) return null;
-  return state.shopReworked.shopItemReworked.itemDetails.byId[id]?.item ?? null;
+  return state.shopReworked.shopItemReworked.itemDetails.byId[id] ?? null;
 };
 
 /** Returns the loading state when updating a variant item */
@@ -135,11 +135,8 @@ export const getShopItemVariantDeleteLoading = (state: RootState) =>
 
 /** Retrieves the boolean for combo warning when deleting a shop item */
 export const getIsShopItemUsedInCombo = (state: RootState, id: number) => {
-  if (!id) return null;
-  return (
-    state.shopReworked.shopItemReworked.itemDetails.byId[id]?.isUsedInCombo ??
-    false
-  );
+  if (!id) return false;
+  return state.shopReworked.shopItemReworked.usedInCombo.byId[id];
 };
 
 /**

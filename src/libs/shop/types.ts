@@ -147,10 +147,7 @@ export type ShopStateReworked = {
     /** State for shop item details - only base/standalone items here */
     itemDetails: {
       byId: {
-        [key: number]: {
-          item: ShopItem;
-          isUsedInCombo: boolean;
-        };
+        [key: number]: ShopItem;
       };
       updateDetails: ErrorAndLoading;
       delete: ErrorAndLoading;
@@ -193,6 +190,10 @@ export type ShopStateReworked = {
       create: ErrorAndLoading;
       updateSubshop: ErrorAndLoading;
       delete: ErrorAndLoading;
+    } & ErrorAndLoading;
+    /** State for combo warnings per shop item ID  */
+    usedInCombo: {
+      byId: { [key: number]: boolean };
     } & ErrorAndLoading;
   };
 };

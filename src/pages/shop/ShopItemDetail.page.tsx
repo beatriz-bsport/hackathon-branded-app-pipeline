@@ -4,7 +4,6 @@ import { ConnectedProps, connect } from 'react-redux';
 import { push } from 'connected-react-router';
 
 // --- ACTIONS ---
-import { isShopItemUsedInCombo as isShopItemUsedInComboAction } from '#libs/shop/actions/shopitem';
 import {
   retrieveShopItemDetails as retrieveShopItemDetailsAction,
   retrieveShopItemVariantList as retrieveShopItemVariantListAction,
@@ -15,12 +14,13 @@ import {
   deleteShopItemVariant as deleteShopItemVariantAction,
   retrieveShopItemSupplier as retrieveShopItemSupplierAction,
   createShopItemProvisionBulk as createShopItemProvisionBulkAction,
+  retrieveShopItemUsedInCombo as retrieveShopItemUsedInComboAction,
 } from '#libs/shop/actions/shopItemReworked';
 
 // --- SELECTORS ---
 import { getTheme } from '#libs/theme/selectors';
 import {
-  getIsShopItemUsedInCombo,
+  getIsShopItemUsedInCombo as getIsShopItemUsedInComboSelector,
   getShopItemDetailLoading,
   getShopItemDetail,
   getShopItemDetailDeleteLoading,
@@ -28,7 +28,7 @@ import {
   getShopItemVariantState,
   getShopItemVariantDeleteLoading,
   getShopItemVariantUpdateLoading,
-  getShopItemSupplier,
+  getShopItemSupplier as getShopItemSupplierSelector,
 } from '#libs/shop/selectors';
 
 // --- COMPONENTS ---
@@ -62,7 +62,7 @@ type Props = OwnProps & ConnectedProps<typeof connector>;
 
 export class ShopItemDetailPage extends Component<Props> {
   componentDidMount() {
-    this.props.fetchIsShopItemUsedInCombo(this.props.id);
+    this.props.retrieveShopItemUsedInCombo(this.props.id);
     this.retrieveShopItemDetails();
   }
 
@@ -171,6 +171,9 @@ export class ShopItemDetailPage extends Component<Props> {
     });
   };
 
+  handleRetrieveShopItemUsedInCombo = (id: number) =>
+    this.props.retrieveShopItemUsedInCombo(id);
+
   render() {
     return (
       <ShopItemDetail
@@ -181,10 +184,10 @@ export class ShopItemDetailPage extends Component<Props> {
         deleteShopItem={this.handleDeleteShopItem}
         deleteShopItemVariant={this.handleDeleteShopItemVariant}
         fetchShopItemVariantList={this.retrieveShopItemVariantList}
+        getIsShopItemUsedInCombo={this.props.getIsShopItemUsedInCombo}
         isDeleting={this.props.isDeleteLoading}
         isDeletingVariant={this.props.isDeleteVariantLoading}
         isLoading={this.props.isLoading}
-        isShopItemUsedInCombo={this.props.isShopItemUsedInCombo}
         isUpdatingVariant={this.props.isUpdateVariantLoading}
         isVariantListLoading={this.props.isVariantListLoading}
         page={this.props.shopItemVariantState.page}
@@ -208,15 +211,16 @@ const connector = connect(
     isVariantListLoading: getShopItemVariantListLoading(state),
     isDeleteLoading: getShopItemDetailDeleteLoading(state),
     shopItem: getShopItemDetail(state, id),
-    isShopItemUsedInCombo: getIsShopItemUsedInCombo(state, id),
+    getIsShopItemUsedInCombo: (shopItemId: number) =>
+      getIsShopItemUsedInComboSelector(state, shopItemId),
     getShopItemSupplier: (supplierId: number) =>
-      getShopItemSupplier(state, supplierId),
+      getShopItemSupplierSelector(state, supplierId),
     isUpdateVariantLoading: getShopItemVariantUpdateLoading(state),
     isDeleteVariantLoading: getShopItemVariantDeleteLoading(state),
     shopItemVariantState: getShopItemVariantState(state, id),
   }),
   {
-    fetchIsShopItemUsedInCombo: isShopItemUsedInComboAction,
+    retrieveShopItemUsedInCombo: retrieveShopItemUsedInComboAction,
     retrieveShopItemDetails: retrieveShopItemDetailsAction,
     retrieveShopItemVariantList: retrieveShopItemVariantListAction,
     updateShopItem: updateShopItemAction,

@@ -29,9 +29,9 @@ import { getReportGlobalCategoryFromCategory } from '#libs/reporting/utils';
 
 import {
   ReportConfiguration as ReportConfigurationType,
+  ReportFilterConfig,
   ReportFilterConfigParams,
   ReportMetadataValue,
-  ReportFilterConfig,
 } from '../types';
 import { DynamicFilterDataType } from '#libs/datatype-filtering/types';
 import { OptionCallback } from '../../../state/types';
@@ -39,36 +39,35 @@ import ObjectLevelPermissionWrapper from '#libs/role/permission-utils/ObjectLeve
 import { handleGetDynamicDataForFiltersReturn } from '#libs/datatype-filtering/dynamic-data-hoc';
 
 type Props = {
-  isSubmitting_: boolean;
-  reportConfiguration: ReportConfigurationType;
-  showDialog: boolean;
-  disableContinue: boolean;
   columnsMetadata: ReportMetadataValue[];
-  values: any;
-  handleExcelExportation: () => void;
-  setShowDialog: (boolean: boolean) => void;
-  setDisableContinue: (boolean: boolean) => void;
-  handleGetDynamicDataForReport: (
-    type: DynamicFilterDataType,
-    valueId?: number,
-  ) => handleGetDynamicDataForFiltersReturn;
-  reportFilterConfigs: ReportFilterConfig[];
   createReportFilterConfig: (
     reportId: number,
     data: Omit<ReportFilterConfig, 'id'>,
     options?: OptionCallback<ReportFilterConfig>,
   ) => void;
+  deleteReportFilterConfig: (reporFilterConfigId: number) => void;
+  disableContinue: boolean;
   editReportFilterConfig: (
     reportFilterConfigId: number,
     data: Omit<ReportFilterConfig, 'id'>,
     options?: OptionCallback<ReportFilterConfig>,
   ) => void;
-  deleteReportFilterConfig: (reporFilterConfigId: number) => void;
-
   fetchReportFilterConfigList: (params: ReportFilterConfigParams) => void;
-  isFranchisor: boolean;
-  timeWindowFilteringEnabled: boolean;
+  handleExcelExportation: () => void;
+  handleGetDynamicDataForReport: (
+    type: DynamicFilterDataType,
+    valueId?: number,
+  ) => handleGetDynamicDataForFiltersReturn;
   isDisabled?: boolean;
+  isFranchisor: boolean;
+  isSubmitting_: boolean;
+  reportConfiguration: ReportConfigurationType;
+  reportFilterConfigs: ReportFilterConfig[];
+  setDisableContinue: (boolean: boolean) => void;
+  setShowDialog: (boolean: boolean) => void;
+  showDialog: boolean;
+  timeWindowFilteringEnabled: boolean;
+  values: any;
 };
 
 type DownloadButtonProps = {
@@ -78,40 +77,40 @@ type DownloadButtonProps = {
 };
 
 const CATEGORIES_NEEDING_HELPER_TEXT_FOR_DATES = [
-  ReportCategoryEnum.BILLING_PLAN,
-  ReportCategoryEnum.MEMBERS,
   ReportCategoryEnum.ACTIVITIES,
-  ReportCategoryEnum.ACTIVITY_BY_ESTABLISHMENT,
   ReportCategoryEnum.ACTIVITY_BY_COACH,
-  ReportCategoryEnum.WORKSHOP,
-  ReportCategoryEnum.OFFERS,
-  ReportCategoryEnum.SUBSCRIPTION,
-  ReportCategoryEnum.PRIVATE_SERVICE,
-  ReportCategoryEnum.DAY_BOOKINGS,
-  ReportCategoryEnum.FIRST_BOOKING,
+  ReportCategoryEnum.ACTIVITY_BY_ESTABLISHMENT,
+  ReportCategoryEnum.BILLING_PLAN,
   ReportCategoryEnum.BOOKINGS,
-  ReportCategoryEnum.FIRST_ATTENDANCE,
-  ReportCategoryEnum.FIRST_PRIVATE_BOOKING,
-  ReportCategoryEnum.PRIVATE_BOOKINGS,
-  ReportCategoryEnum.UNPAID_PRIVATE_BOOKINGS,
-  ReportCategoryEnum.PRIVATE_CONSUMER_PASS_EXPIRED,
-  ReportCategoryEnum.EXPIRED_PASS,
-  ReportCategoryEnum.MEMBERSHIPS,
-  ReportCategoryEnum.PRIVATE_CONSUMER_PASS,
-  ReportCategoryEnum.UNIVERSAL_PASSES,
-  ReportCategoryEnum.DISCOUNT,
-  ReportCategoryEnum.CONSUMER_GIFTCARD,
-  ReportCategoryEnum.SHOP,
   ReportCategoryEnum.CASHBOOK,
-  ReportCategoryEnum.EXPENSE,
-  ReportCategoryEnum.PAYMENTS,
-  ReportCategoryEnum.PAYMENT_SUMUP,
-  ReportCategoryEnum.ON_SPOT_PAYMENTS,
+  ReportCategoryEnum.CONSUMER_GIFTCARD,
+  ReportCategoryEnum.DAY_BOOKINGS,
+  ReportCategoryEnum.DISCOUNT,
   ReportCategoryEnum.DISPUTE,
-  ReportCategoryEnum.PAYMENT_INSTALMENTS,
-  ReportCategoryEnum.REFERRAL_GRANT,
-  ReportCategoryEnum.VIDEO_PURCHASE,
+  ReportCategoryEnum.EXPENSE,
+  ReportCategoryEnum.EXPIRED_PASS,
+  ReportCategoryEnum.FIRST_ATTENDANCE,
+  ReportCategoryEnum.FIRST_BOOKING,
+  ReportCategoryEnum.FIRST_PRIVATE_BOOKING,
   ReportCategoryEnum.INVOICES,
+  ReportCategoryEnum.MEMBERS,
+  ReportCategoryEnum.MEMBERSHIPS,
+  ReportCategoryEnum.OFFERS,
+  ReportCategoryEnum.ON_SPOT_PAYMENTS,
+  ReportCategoryEnum.PAYMENT_INSTALMENTS,
+  ReportCategoryEnum.PAYMENT_SUMUP,
+  ReportCategoryEnum.PAYMENTS,
+  ReportCategoryEnum.PRIVATE_BOOKINGS,
+  ReportCategoryEnum.PRIVATE_CONSUMER_PASS_EXPIRED,
+  ReportCategoryEnum.PRIVATE_CONSUMER_PASS,
+  ReportCategoryEnum.PRIVATE_SERVICE,
+  ReportCategoryEnum.REFERRAL_GRANT,
+  ReportCategoryEnum.SHOP,
+  ReportCategoryEnum.SUBSCRIPTION,
+  ReportCategoryEnum.UNIVERSAL_PASSES,
+  ReportCategoryEnum.UNPAID_PRIVATE_BOOKINGS,
+  ReportCategoryEnum.VIDEO_PURCHASE,
+  ReportCategoryEnum.WORKSHOP,
 ];
 
 const ReportGenerationSchema = Yup.object().shape({
@@ -147,6 +146,7 @@ const ReportGenerationSchema = Yup.object().shape({
 const DownloadButton: React.FC<DownloadButtonProps> = ({
   handleExcelExportation,
   isSubmitting_,
+  timeWindowFilteringEnabled,
   values,
 }) => {
   const { t } = useTranslation();
@@ -187,25 +187,25 @@ const DownloadButton: React.FC<DownloadButtonProps> = ({
 };
 
 const ReportGenerationForm: React.FC<Props> = ({
-  isSubmitting_,
-  reportConfiguration,
-  values,
-  disableContinue,
-  showDialog,
   columnsMetadata,
-  setFieldValue,
-  setShowDialog,
-  handleExcelExportation,
-  setDisableContinue,
-  handleGetDynamicDataForReport,
-  reportFilterConfigs,
   createReportFilterConfig,
+  deleteReportFilterConfig,
+  disableContinue,
   editReportFilterConfig,
   fetchReportFilterConfigList,
-  deleteReportFilterConfig,
-  isFranchisor,
-  timeWindowFilteringEnabled,
+  handleExcelExportation,
+  handleGetDynamicDataForReport,
   isDisabled,
+  isFranchisor,
+  isSubmitting_,
+  reportConfiguration,
+  reportFilterConfigs,
+  setDisableContinue,
+  setFieldValue,
+  setShowDialog,
+  showDialog,
+  timeWindowFilteringEnabled,
+  values,
 }) => {
   const { t } = useTranslation();
   const classes = useStyles();

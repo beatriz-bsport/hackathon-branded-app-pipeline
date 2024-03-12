@@ -4,7 +4,10 @@ import { useTranslation } from 'react-i18next';
 import Fuse, { FuseOptions } from 'fuse.js';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
+import ButtonBase from '@material-ui/core/ButtonBase';
 import Collapse from '@material-ui/core/Collapse';
+import Divider from '@material-ui/core/Divider';
+import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -14,6 +17,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Paper from '@material-ui/core/Paper';
 import TabPanel from '@material-ui/lab/TabPanel';
 import Tooltip from '@material-ui/core/Tooltip';
+import Typography from '@material-ui/core/Typography';
 
 import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -27,8 +31,11 @@ import FuzeSearch from '#components/FuzeSearch.component';
 import ShopItemListItem from '#libs/shop/components/ShopItemListItem.component';
 // @ts-ignore eslint-disable-next-line import/no-unresolved
 import SubShopList from '#pages/shop/SubShopList.component';
+import ShopListSubshopForm from '#libs/shop/components/ShopListSubshopForm';
 
 import type { ShopItem, SubShop } from '#libs/shop/types';
+import type { ShopListSubshopFormValues } from '#libs/shop/components/ShopListSubshopForm/types';
+import type { OptionCallback } from '../../../../../state/types';
 
 import { ShopListTab } from '#libs/shop/components/ShopListTabs/constants';
 
@@ -39,6 +46,15 @@ type Props = {
   setSelectedSubshopId: (id: number) => void;
   duplicateShopItem: (id: number, suffix: string) => void;
   setShopItemToDelete: (shopItem: ShopItem) => void;
+  createSubshop: (
+    values: ShopListSubshopFormValues,
+    options: OptionCallback<SubShop>,
+  ) => void;
+  updateSubshop: (
+    values: ShopListSubshopFormValues,
+    options: OptionCallback<SubShop>,
+  ) => void;
+  deleteSubshop: (id: number, options?: OptionCallback<number>) => void;
 };
 
 const ShopListProductsTab: React.FC<Props> = ({
@@ -48,12 +64,17 @@ const ShopListProductsTab: React.FC<Props> = ({
   setSelectedSubshopId,
   duplicateShopItem,
   setShopItemToDelete,
+  createSubshop,
+  updateSubshop,
+  deleteSubshop,
 }) => {
   const { t } = useTranslation(['shop', 'translation', 'common']);
 
   const [searchText, setSearchText] = useState<string>('');
 
   const [searchResult, setSearchResult] = useState<ShopItem[] | []>([]);
+
+  const [showSubshopForm, setShowSubshopForm] = useState(false);
 
   const classes = useStyles();
 
@@ -100,6 +121,29 @@ const ShopListProductsTab: React.FC<Props> = ({
       duplicateShopItem(subshopId, t('translation:common.copySuffix'));
     },
     [duplicateShopItem, t],
+  );
+
+  const handleShowSubshopForm = useCallback(() => setShowSubshopForm(true), []);
+
+  const handleHideSubshopForm = useCallback(
+    () => setShowSubshopForm(false),
+    [],
+  );
+
+  const handleSubshopSubmit = useCallback(
+    (values: ShopListSubshopFormValues) => {
+      if (values.id) {
+        updateSubshop(values, { onSuccess: handleHideSubshopForm });
+      } else {
+        createSubshop(values, { onSuccess: handleHideSubshopForm });
+      }
+    },
+    [updateSubshop, createSubshop, handleHideSubshopForm],
+  );
+
+  const handleSubshopDelete = useCallback(
+    (id: number) => () => deleteSubshop(id),
+    [deleteSubshop],
   );
 
   const fuzeSearchItems = useMemo(
@@ -163,8 +207,8 @@ const ShopListProductsTab: React.FC<Props> = ({
       {subshopList.map((subshop) => (
         <SubShopList
           key={subshop.id}
-          createOrUpdateSubShop={() => {}}
-          onDelete={() => {}}
+          createOrUpdateSubShop={handleSubshopSubmit}
+          onDelete={handleSubshopDelete(subshop.id)}
           subShop={subshop}
         >
           <Paper>
@@ -230,6 +274,26 @@ const ShopListProductsTab: React.FC<Props> = ({
           </Paper>
         </SubShopList>
       ))}
+
+      {showSubshopForm ? (
+        <ShopListSubshopForm
+          onCancel={handleHideSubshopForm}
+          onSubmit={handleSubshopSubmit}
+        />
+      ) : (
+        <div className={classes.title}>
+          <ButtonBase onClick={handleShowSubshopForm}>
+            <Grid container alignItems="center" direction="row">
+              <Grid item>
+                <Typography className={classes.sectionTitle} variant="h5">
+                  {`+ ${t('shopList.tab.products.subshopForm.title')}`}
+                </Typography>
+              </Grid>
+            </Grid>
+          </ButtonBase>
+          <Divider />
+        </div>
+      )}
     </TabPanel>
   );
 };
@@ -250,6 +314,13 @@ const useStyles = makeStyles((theme) => ({
     borderColor: theme.palette.primary.main,
     borderTop: 0,
     borderBottom: 0,
+  },
+  title: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(3),
+  },
+  sectionTitle: {
+    marginBottom: theme.spacing(1),
   },
 }));
 

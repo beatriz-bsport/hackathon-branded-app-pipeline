@@ -10,6 +10,8 @@ import ShopListProductsTab from './tabs/ShopListProductsTab.component';
 import ShopListSettingsTab from './tabs/ShopListSettingsTab.component';
 
 import type { ShopItem, ShopSupplier, SubShop } from '#libs/shop/types';
+import type { OptionCallback } from '../../../../state/types';
+import type { ShopListSubshopFormValues } from '#libs/shop/components/ShopListSubshopForm/types';
 
 import { ShopListTab } from './constants';
 
@@ -25,6 +27,15 @@ type Props = {
   handleSelectSupplierForDeletion: (supplier: ShopSupplier) => () => void;
   handleEditSupplier: (supplier: ShopSupplier) => () => void;
   handleOpenSupplierModal: () => void;
+  createSubshop: (
+    values: ShopListSubshopFormValues,
+    options: OptionCallback<SubShop>,
+  ) => void;
+  updateSubshop: (
+    values: ShopListSubshopFormValues,
+    options: OptionCallback<SubShop>,
+  ) => void;
+  deleteSubshop: (id: number, options?: OptionCallback<number>) => void;
 };
 
 const ShopListTabs: React.FC<Props> = ({
@@ -39,6 +50,9 @@ const ShopListTabs: React.FC<Props> = ({
   handleSelectSupplierForDeletion,
   handleEditSupplier,
   handleOpenSupplierModal,
+  createSubshop,
+  updateSubshop,
+  deleteSubshop,
 }) => {
   const { t } = useTranslation('shop');
 
@@ -74,12 +88,15 @@ const ShopListTabs: React.FC<Props> = ({
       </Tabs>
 
       <ShopListProductsTab
+        createSubshop={createSubshop}
+        deleteSubshop={deleteSubshop}
         duplicateShopItem={duplicateShopItem}
         goToShopItem={goToShopItem}
         openItemCreationDrawer={openItemCreationDrawer}
         setSelectedSubshopId={setSelectedSubshopId}
         setShopItemToDelete={setShopItemToDelete}
         subshopList={subshopList}
+        updateSubshop={updateSubshop}
       />
 
       <ShopListSettingsTab

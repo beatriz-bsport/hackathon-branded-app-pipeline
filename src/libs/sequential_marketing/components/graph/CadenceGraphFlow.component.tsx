@@ -354,6 +354,7 @@ export const CadenceGraphFlow: React.FC<Props> = ({
         onNodesChange={onNodesChange}
         onPaneClick={resetAllSelection}
         style={rfStyle}
+        zoomOnDoubleClick={false}
       />
     </ReactFlowProvider>
   );

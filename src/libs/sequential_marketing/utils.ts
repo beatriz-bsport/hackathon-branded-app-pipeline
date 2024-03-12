@@ -1,4 +1,5 @@
 import Immutable from 'seamless-immutable';
+import { Box, Position, Rect, Viewport } from 'react-flow-renderer';
 import Config from '../../config';
 import type {
   Cadence,
@@ -99,3 +100,76 @@ export const isSequentialMarketingAuthorized = (
 ) => {
   return Config.REACT_APP_SENTRY_ENVIRONMENT !== 'production' || hasUpsell;
 };
+
+export const rectToBox = ({ x, y, width, height }: Rect): Box => ({
+  x,
+  y,
+  x2: x + width,
+  y2: y + height,
+});
+
+export const boxToRect = ({ x, y, x2, y2 }: Box): Rect => ({
+  x,
+  y,
+  width: x2 - x,
+  height: y2 - y,
+});
+
+export function getNodeToolbarTransform(
+  nodeRect: Rect,
+  viewport: Viewport,
+  position: Position,
+  offset: number,
+  align?: 'start' | 'end',
+): string {
+  // center
+  let alignmentOffset = 0.5;
+
+  if (align === 'start') {
+    alignmentOffset = 0;
+  } else if (align === 'end') {
+    alignmentOffset = 1;
+  }
+
+  // we set the x any y position of the toolbar based on the nodes position
+  let pos = [0, 0];
+  // and than shift it based on the alignment. The shift values are in %.
+  let shift = [0, 0];
+
+  switch (position) {
+    case Position.Right:
+      pos = [
+        (nodeRect.x + nodeRect.width) * viewport.zoom + viewport.x + offset,
+        (nodeRect.y + nodeRect.height * alignmentOffset) * viewport.zoom +
+          viewport.y,
+      ];
+      shift = [0, -100 * alignmentOffset];
+      break;
+    case Position.Bottom:
+      pos[1] =
+        (nodeRect.y + nodeRect.height) * viewport.zoom + viewport.y + offset;
+      shift[1] = 0;
+      break;
+    case Position.Left:
+      pos = [
+        nodeRect.x * viewport.zoom + viewport.x - offset,
+        (nodeRect.y + nodeRect.height * alignmentOffset) * viewport.zoom +
+          viewport.y,
+      ];
+      shift = [-100, -100 * alignmentOffset];
+      break;
+    case Position.Top:
+      pos = [
+        (nodeRect.x + nodeRect.width * alignmentOffset) * viewport.zoom +
+          viewport.x,
+        nodeRect.y * viewport.zoom + viewport.y - offset,
+      ];
+      shift = [-100 * alignmentOffset, -100];
+      break;
+    default:
+      pos = [0, 0];
+      shift = [0, 0];
+  }
+
+  return `translate(${pos[0]}px, ${pos[1]}px) translate(${shift[0]}%, ${shift[1]}%)`;
+}

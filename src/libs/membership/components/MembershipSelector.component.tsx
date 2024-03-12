@@ -80,12 +80,14 @@ const MembershipSelectorBase: React.FC<MembershipSelectorBaseProps> =
           {!searchResult || searchResult.length === 0
             ? membershipList.map((membership) => (
                 <MembershipListItem
+                  key={membership.id}
                   membership={membership}
                   onClick={selectCompany(membership)}
                 />
               ))
             : searchResult.map((membership) => (
                 <MembershipListItem
+                  key={membership.id}
                   membership={membership}
                   onClick={selectCompany(membership)}
                 />
@@ -161,6 +163,7 @@ const CompanySelectorBase: React.FC<CompanySelectorBaseProps> = React.memo(
           ) : null}
           {companyList.map((company) => (
             <CompanyListItem
+              key={company.id}
               company={company}
               onClick={selectCompany(company)}
             />

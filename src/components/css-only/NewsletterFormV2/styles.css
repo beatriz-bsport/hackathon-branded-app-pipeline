@@ -16,6 +16,27 @@
   border: 2px solid var(--border-color);
 }
 
+.bs-newsletter-form__success__root {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: var(--bs-space-size-4);
+}
+
+.bs-newsletter-form__success__text__root {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.bs-newsletter-form__success__title {
+  color: var(--bs-color-text-default);
+}
+
+.bs-newsletter-form__success__text {
+  color: var(--bs-color-text-weak);
+}
+
 /* .bs-newsletter-form__root__text {} */
 
 .bs-newsletter-form__root__text__title {

@@ -3495,7 +3495,9 @@
         "email": "Email",
         "title": "Subscribe to our newsletter",
         "subtitle": "Get exclusive offers and hear about our latest news",
-        "error": { "emailRequired": "Please enter an email address.", "invalidEmail": "Please enter a valid email address." }
+        "error": { "emailRequired": "Please enter an email address.", "invalidEmail": "Please enter a valid email address." },
+        "successTitle": "Thanks for your interest!",
+        "successText": "Your subscription has been sent"
       }
     },
     "notifications": {
@@ -14604,7 +14606,11 @@
         "title": "Title",
         "showTitle": "Show title",
         "subtitle": "Subtitle",
-        "showSubtitle": "Show subtitle"
+        "showSubtitle": "Show subtitle",
+        "successTitle": "Confirmation title",
+        "showSuccessTitle": "Show confirmation title",
+        "successText": "Confirmation text",
+        "showSuccessText": "Show confirmation text"
       },
       "dialogModeLabel": "Popup type",
       "widgetPreviewError": "Please finish the settings",

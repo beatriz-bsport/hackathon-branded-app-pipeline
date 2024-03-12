@@ -27,6 +27,8 @@ exports.default = {
         emailRequired: 'Please enter an email address.',
         invalidEmail: 'Please enter a valid email address.',
       },
+      successTitle: 'Thanks for your interest!',
+      successText: 'Your subscription has been sent',
     },
   },
   notifications: {

@@ -2,11 +2,11 @@ import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Form, Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
-import { BellRinging03 } from '#components/untitledui';
 import { marketplaceCssHoc } from '#hocs/marketplace-css.hoc';
 import TextField from '#Fabrique/TextFieldV2';
 import Button from '#Fabrique/ButtonV2';
 import Typography from '#Fabrique/Typography';
+import BigIcon from '#Fabrique/BigIcon';
 import { emailValidationRegExp } from '#libs/custom-form/constants';
 
 import { NewsletterV2FieldsKind } from '#libs/marketplace/constants';
@@ -29,7 +29,7 @@ const initialValues = {
   email: '',
 };
 
-export type Props = {
+type FormProps = {
   /** The variant aka the fields to display: Full name and email, email only.. */
   fieldsType: `${NewsletterV2FieldsKind}`;
   /** The custom title text, displayed if `showTitle` is set to `true` */
@@ -55,182 +55,236 @@ export type Props = {
   ) => void;
 };
 
+type SuccessProps = {
+  successTitle?: string;
+  showSuccessTitle?: boolean;
+  successText?: string;
+  showSuccessText?: boolean;
+};
+
+export type Props = FormProps & SuccessProps;
+
 type Values = {
   email: string;
   firstName: string;
   lastName: string;
 };
 
-const NewsletterFormV2: React.FC<Props> = ({
-  fieldsType,
-  title,
-  showTitle,
-  subtitle,
-  showSubtitle,
-  onSubmit,
+const NewsletterFormV2SuccessStateComponent: React.FC<SuccessProps> = ({
+  successTitle,
+  showSuccessTitle,
+  successText,
+  showSuccessText,
 }) => {
-  const [isSuccessState, setIsSuccessState] = React.useState(false);
-  const { t } = useTranslation('marketing');
-
-  const handleSubmit = useCallback(
-    (values: Values, formikHelpers: FormikHelpers<Values>) => {
-      return onSubmit(
-        {
-          email: values.email,
-          first_name: values.firstName,
-          last_name: values.lastName,
-        },
-        {
-          onSuccess: () => {
-            formikHelpers?.resetForm();
-            Analytics.leadAcquisitionSuccess({
-              email: values.email,
-              first_name: values.firstName,
-              last_name: values.lastName,
-            });
-            setIsSuccessState(true);
-            setTimeout(() => {
-              setIsSuccessState(false);
-            }, 2000);
-          },
-        },
-      );
-    },
-    [onSubmit],
-  );
-
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={handleSubmit}
-      validationSchema={NewsletterFormSchema}
-    >
-      {(formik) => (
-        <div className="bs-newsletter-form__container">
-          <div className="bs-newsletter-form__root">
-            {(showTitle || showSubtitle) && (
-              <div className="bs-newsletter-form__root__text">
-                {showTitle && (
-                  <Typography
-                    className="bs-newsletter-form__root__text__title"
-                    variant="title-md"
-                  >
-                    {title || t('marketing:newsletter.formV2.title')}
-                  </Typography>
-                )}
-                {showSubtitle && (
-                  <Typography
-                    className="bs-newsletter-form__root__text__subtitle"
-                    variant="body-md"
-                  >
-                    {subtitle || t('marketing:newsletter.formV2.subtitle')}
-                  </Typography>
-                )}
-              </div>
-            )}
+    <div className="bs-newsletter-form__success__root">
+      <BigIcon variant="success" />
+      {(showSuccessTitle || showSuccessText) && (
+        <div className="bs-newsletter-form__success__text__root">
+          {showSuccessTitle && (
+            <Typography
+              className="bs-newsletter-form__success__title"
+              variant="title-md"
+            >
+              {successTitle}
+            </Typography>
+          )}
+          {showSuccessText && (
+            <Typography
+              className="bs-newsletter-form__success__text"
+              variant="body-md"
+            >
+              {successText}
+            </Typography>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
 
-            <Form className="bs-newsletter-form__root__form">
-              <div className="bs-newsletter-form__root__form-fields">
-                {fieldsType !== 'emailOnly' && (
-                  <div className="bs-newsletter-form__root__form__name-fields">
-                    <TextField
-                      classes={{
-                        inputContainer:
-                          'bs-newsletter-form__root__form__field-input-container',
-                        label: 'bs-newsletter-form__root__form__field-label',
-                        input: 'bs-newsletter-form__root__form__field-input',
-                      }}
-                      id="bs-newsletter-form-field-container-first-name"
-                      inputId="bs-newsletter-form-field-first-name"
-                      isDisabled={isSuccessState}
-                      label={t('marketing:newsletter.form.firstName')}
-                      name="firstName"
-                      onChange={formik.handleChange}
-                      placeholder={t('marketing:newsletter.form.firstName')}
-                      size="sm"
-                      value={formik.values.firstName}
-                    />
-                    {fieldsType !== 'firstNameAndEmail' && (
+const NewsletterFormV2: React.FC<Props> = React.memo(
+  ({
+    fieldsType,
+    title,
+    showTitle,
+    subtitle,
+    showSubtitle,
+    onSubmit,
+    successTitle,
+    showSuccessTitle,
+    successText,
+    showSuccessText,
+  }) => {
+    const [isSuccessState, setIsSuccessState] = React.useState(false);
+    const { t } = useTranslation('marketing');
+
+    const handleSubmit = useCallback(
+      (values: Values, formikHelpers: FormikHelpers<Values>) => {
+        return onSubmit(
+          {
+            email: values.email,
+            first_name: values.firstName,
+            last_name: values.lastName,
+          },
+          {
+            onSuccess: () => {
+              formikHelpers?.resetForm();
+              Analytics.leadAcquisitionSuccess({
+                email: values.email,
+                first_name: values.firstName,
+                last_name: values.lastName,
+              });
+              setIsSuccessState(true);
+              setTimeout(() => {
+                setIsSuccessState(false);
+              }, 5000);
+            },
+          },
+        );
+      },
+      [onSubmit],
+    );
+
+    const successArgs = React.useMemo(
+      () => ({
+        successTitle: successTitle || t('newsletter.formV2.successTitle'),
+        showSuccessTitle,
+        successText: successText || t('newsletter.formV2.successText'),
+        showSuccessText,
+      }),
+      [successTitle, showSuccessTitle, successText, showSuccessText, t],
+    );
+
+    return (
+      <Formik
+        initialValues={initialValues}
+        onSubmit={handleSubmit}
+        validationSchema={NewsletterFormSchema}
+      >
+        {(formik) => (
+          <div className="bs-newsletter-form__container">
+            <div className="bs-newsletter-form__root">
+              {isSuccessState ? (
+                <NewsletterFormV2SuccessStateComponent {...successArgs} />
+              ) : (
+                <div>
+                  {(showTitle || showSubtitle) && (
+                    <div className="bs-newsletter-form__root__text">
+                      {showTitle && (
+                        <Typography
+                          className="bs-newsletter-form__root__text__title"
+                          variant="title-md"
+                        >
+                          {title || t('newsletter.formV2.title')}
+                        </Typography>
+                      )}
+                      {showSubtitle && (
+                        <Typography
+                          className="bs-newsletter-form__root__text__subtitle"
+                          variant="body-md"
+                        >
+                          {subtitle || t('newsletter.formV2.subtitle')}
+                        </Typography>
+                      )}
+                    </div>
+                  )}
+
+                  <Form className="bs-newsletter-form__root__form">
+                    <div className="bs-newsletter-form__root__form-fields">
+                      {fieldsType !== 'emailOnly' && (
+                        <div className="bs-newsletter-form__root__form__name-fields">
+                          <TextField
+                            classes={{
+                              inputContainer:
+                                'bs-newsletter-form__root__form__field-input-container',
+                              label:
+                                'bs-newsletter-form__root__form__field-label',
+                              input:
+                                'bs-newsletter-form__root__form__field-input',
+                            }}
+                            id="bs-newsletter-form-field-container-first-name"
+                            inputId="bs-newsletter-form-field-first-name"
+                            isDisabled={isSuccessState}
+                            label={t('newsletter.form.firstName')}
+                            name="firstName"
+                            onChange={formik.handleChange}
+                            placeholder={t('newsletter.form.firstName')}
+                            size="sm"
+                            value={formik.values.firstName}
+                          />
+                          {fieldsType !== 'firstNameAndEmail' && (
+                            <TextField
+                              classes={{
+                                inputContainer:
+                                  'bs-newsletter-form__root__form__field-input-container',
+                                label:
+                                  'bs-newsletter-form__root__form__field-label',
+                                input:
+                                  'bs-newsletter-form__root__form__field-input',
+                              }}
+                              id="bs-newsletter-form-field-container-last-name"
+                              inputId="bs-newsletter-form-field-last-name"
+                              isDisabled={isSuccessState}
+                              label={t('newsletter.form.lastName')}
+                              name="lastName"
+                              onChange={formik.handleChange}
+                              placeholder={t('newsletter.form.lastName')}
+                              size="sm"
+                              value={formik.values.lastName}
+                            />
+                          )}
+                        </div>
+                      )}
+
                       <TextField
+                        isRequired
                         classes={{
                           inputContainer:
                             'bs-newsletter-form__root__form__field-input-container',
                           label: 'bs-newsletter-form__root__form__field-label',
                           input: 'bs-newsletter-form__root__form__field-input',
                         }}
-                        id="bs-newsletter-form-field-container-last-name"
-                        inputId="bs-newsletter-form-field-last-name"
+                        helperText={
+                          !formik.isValid &&
+                          (formik.values.email
+                            ? t('newsletter.formV2.error.invalidEmail')
+                            : t('newsletter.formV2.error.emailRequired'))
+                        }
+                        id="bs-newsletter-form-field-container-email"
+                        inputId="bs-newsletter-form-field-email"
                         isDisabled={isSuccessState}
-                        label={t('marketing:newsletter.form.lastName')}
-                        name="lastName"
+                        isError={!!formik.errors.email}
+                        label={t('newsletter.formV2.email')}
+                        name="email"
                         onChange={formik.handleChange}
-                        placeholder={t('marketing:newsletter.form.lastName')}
+                        placeholder={t('newsletter.formV2.email')}
                         size="sm"
-                        value={formik.values.lastName}
+                        type="email"
+                        value={formik.values.email}
                       />
-                    )}
-                  </div>
-                )}
+                    </div>
 
-                <TextField
-                  isRequired
-                  classes={{
-                    inputContainer:
-                      'bs-newsletter-form__root__form__field-input-container',
-                    label: 'bs-newsletter-form__root__form__field-label',
-                    input: 'bs-newsletter-form__root__form__field-input',
-                  }}
-                  helperText={
-                    !formik.isValid &&
-                    (formik.values.email
-                      ? t('marketing:newsletter.formV2.error.invalidEmail')
-                      : t('marketing:newsletter.formV2.error.emailRequired'))
-                  }
-                  id="bs-newsletter-form-field-container-email"
-                  inputId="bs-newsletter-form-field-email"
-                  isDisabled={isSuccessState}
-                  isError={!!formik.errors.email}
-                  label={t('marketing:newsletter.formV2.email')}
-                  name="email"
-                  onChange={formik.handleChange}
-                  placeholder={t('marketing:newsletter.formV2.email')}
-                  size="sm"
-                  type="email"
-                  value={formik.values.email}
-                />
-              </div>
-
-              <Button
-                isRippleEnabled
-                className="bs-newsletter-form__root__form__submit"
-                color="primary"
-                isDisabled={
-                  !!formik.errors.email ||
-                  !formik.values.email ||
-                  isSuccessState
-                }
-                leftIcon={
-                  isSuccessState && (
-                    <BellRinging03
-                      className="bs-newsletter-form__icon_bell_success"
-                      stroke="currentColor"
-                    />
-                  )
-                }
-                type="submit"
-                variant="contained"
-              >
-                {isSuccessState
-                  ? ''
-                  : t('marketing:newsletter.formV2.validate')}
-              </Button>
-            </Form>
+                    <Button
+                      isRippleEnabled
+                      className="bs-newsletter-form__root__form__submit"
+                      color="primary"
+                      isDisabled={!formik.isValid || isSuccessState}
+                      type="submit"
+                      variant="contained"
+                    >
+                      {isSuccessState ? '' : t('newsletter.formV2.validate')}
+                    </Button>
+                  </Form>
+                </div>
+              )}
+            </div>
           </div>
-        </div>
-      )}
-    </Formik>
-  );
-};
+        )}
+      </Formik>
+    );
+  },
+);
 
 export const NewsletterFormBase = marketplaceCssHoc<Props>()(
   React.memo(NewsletterFormV2),

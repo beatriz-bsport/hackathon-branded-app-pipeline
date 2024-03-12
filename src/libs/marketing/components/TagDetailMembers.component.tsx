@@ -1,27 +1,93 @@
-// @ts-nocheck
 import React from 'react';
-import { WithTranslation, withTranslation } from 'react-i18next';
-import { compose } from 'recompose';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import Typography from '@material-ui/core/Typography';
-import { Theme } from '@material-ui/core/styles';
-import { withStyles } from '@material-ui/styles';
+import { useTranslation } from 'react-i18next';
 
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import Paper from '@material-ui/core/Paper';
 import LabelIcon from '@material-ui/icons/Label';
 import LabelOffIcon from '@material-ui/icons/LabelOff';
-
 import ListItem from '@material-ui/core/ListItem';
-import Avatar from '@material-ui/core/Avatar';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 
-import PaginatedListBase from '../../../components/PaginatedListBase.component';
-import { MaterialStyleType } from '../../../utils/types';
-import { Member } from '../../member/types';
-
+// @ts-expect-error
+import PaginatedListBase from '#components/PaginatedListBase.component';
 import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
-type OwnProps = {
+import type { Member } from '#libs/member/types';
+import type { OptionCallback } from '../../../state/types';
+
+type MemberTagListItemProps = {
+  member: Member;
+  loading: boolean;
+  buttonLabel: string;
+  isTagAction?: boolean;
+  onClickMember: (id: number) => void;
+  onClickAction: (member: Member) => void;
+};
+
+const MemberTagListItem: React.FC<MemberTagListItemProps> = React.memo(
+  ({
+    member,
+    loading,
+    buttonLabel,
+    isTagAction,
+    onClickMember,
+    onClickAction,
+  }) => {
+    const classes = useStyles();
+
+    const handleClickMember = React.useCallback(
+      () => member?.id && onClickMember?.(member.id),
+      [member, onClickMember],
+    );
+
+    const handleClickAction = React.useCallback(
+      (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        event.stopPropagation();
+        onClickAction(member);
+      },
+      [member, onClickAction],
+    );
+
+    return (
+      <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.accessProfile">
+        {(hasMemberProfileAccessPermission: boolean) => (
+          <ListItem
+            key={member.id}
+            dense
+            divider
+            button={
+              !!onClickMember && (hasMemberProfileAccessPermission as any)
+            }
+            disabled={loading}
+            onClick={
+              hasMemberProfileAccessPermission ? handleClickMember : null
+            }
+          >
+            <div className={classes.listItemInfo}>
+              <Avatar alt={member.name} src={member.photo} />
+              <Typography className={classes.name}>{member.name}</Typography>
+            </div>
+            <ListItemSecondaryAction>
+              <Button color="primary" onClick={handleClickAction}>
+                {isTagAction ? (
+                  <LabelIcon className={classes.leftIcon} />
+                ) : (
+                  <LabelOffIcon className={classes.leftIcon} />
+                )}
+                {buttonLabel}
+              </Button>
+            </ListItemSecondaryAction>
+          </ListItem>
+        )}
+      </ObjectLevelPermissionProvider>
+    );
+  },
+);
+
+type Props = {
   membersWithTagList: Member[];
   membersWithTagListLoading: boolean;
   membersWithTagListCount: number;
@@ -32,183 +98,137 @@ type OwnProps = {
   membersWithoutTagListCount: number;
   membersWithoutTagListPage: number | null;
 
+  itemPerPage: number;
+
   onPageRequestWithTag: (page: number, pageSize: number) => void;
   onPageRequestWithoutTag: (page: number, pageSize: number) => void;
-
   onClickTagMember: (member: Member) => void;
   onClickUntagMember: (member: Member) => void;
-
   onClickMember: (id: number) => void;
-
-  untagAll: () => void;
-  tagAll: () => void;
+  untagAll: (options?: OptionCallback) => void;
+  tagAll: (options?: OptionCallback) => void;
 };
 
-type Props = OwnProps &
-  MaterialStyleType<ReturnType<typeof styles>> &
-  WithTranslation;
+const TagDetailMembers: React.FC<Props> = ({
+  membersWithTagList,
+  membersWithTagListLoading,
+  membersWithTagListCount,
+  membersWithTagListPage,
+  membersWithoutTagList,
+  membersWithoutTagListLoading,
+  membersWithoutTagListCount,
+  membersWithoutTagListPage,
+  itemPerPage,
+  onPageRequestWithTag,
+  onPageRequestWithoutTag,
+  onClickTagMember,
+  onClickUntagMember,
+  onClickMember,
+  untagAll,
+  tagAll,
+}) => {
+  const { t } = useTranslation('tag');
+  const classes = useStyles();
 
-const TagDetailMembers = (props: Props) => {
-  const { classes, t } = props;
   const [processing, setProcessing] = React.useState(false);
 
-  const handleOnClickMember = React.useCallback(
-    (item: Member) => () => props.onClickMember?.(item.id),
-    [props],
-  );
+  const handleTagAll = React.useCallback(() => {
+    setProcessing(true);
+    tagAll({
+      onSuccess: () => setProcessing(false),
+      onError: () => setProcessing(false),
+    });
+  }, [tagAll]);
+
+  const handleUntagAll = React.useCallback(() => {
+    setProcessing(true);
+    untagAll({
+      onSuccess: () => setProcessing(false),
+      onError: () => setProcessing(false),
+    });
+  }, [untagAll]);
 
   return (
-    <ObjectLevelPermissionProvider requiredPermission="member.allowed_actions.accessProfile">
-      {(hasMemberProfileAccessPermission: boolean) => (
-        <div className={classes.container}>
-          <div className={classes.row}>
-            <Typography variant="h5">
-              {t('management.memberDetail.memberWithTag')}
-            </Typography>
+    <div className={classes.container}>
+      <div className={classes.row}>
+        <Typography variant="h5">
+          {t('management.memberDetail.memberWithTag')}
+        </Typography>
 
-            <Button
-              color="primary"
-              disabled={processing}
-              onClick={() => {
-                setProcessing(true);
-                props.untagAll({
-                  onSuccess: () => setProcessing(false),
-                  onError: () => setProcessing(false),
-                });
-              }}
-              variant="outlined"
-            >
-              <LabelOffIcon className={classes.leftIcon} />
-              {t('management.memberDetail.removeTagFromAll')}
-            </Button>
-          </div>
+        <Button
+          color="primary"
+          disabled={processing}
+          onClick={handleUntagAll}
+          variant="outlined"
+        >
+          <LabelOffIcon className={classes.leftIcon} />
+          {t('management.memberDetail.removeTagFromAll')}
+        </Button>
+      </div>
 
-          <Paper className={classes.listContainer}>
-            <PaginatedListBase
-              itemPerPage={props.itemPerPage}
-              items={props.membersWithTagList}
-              listProps={{ dense: true }}
-              loading={props.membersWithTagListLoading || processing}
-              nbItems={props.membersWithTagListCount}
-              onPageRequested={props.onPageRequestWithTag}
-              page={props.membersWithTagListPage}
-              renderItem={(item: Member) => {
-                return (
-                  <ListItem
-                    key={item.id}
-                    dense
-                    divider
-                    button={
-                      !!props.onClickMember && hasMemberProfileAccessPermission
-                    }
-                    disabled={props.membersWithTagListLoading || processing}
-                    onClick={
-                      hasMemberProfileAccessPermission
-                        ? handleOnClickMember(item)
-                        : null
-                    }
-                  >
-                    <div className={classes.listItemInfo}>
-                      <Avatar alt={item.name} src={item.photo} />
-                      <Typography className={classes.name}>
-                        {item.name}
-                      </Typography>
-                    </div>
-                    <ListItemSecondaryAction>
-                      <Button
-                        color="primary"
-                        onClick={(ev) => {
-                          ev.stopPropagation();
-                          props.onClickUntagMember(item);
-                        }}
-                      >
-                        <LabelOffIcon className={classes.leftIcon} />
-                        {t('management.memberDetail.removeTag')}
-                      </Button>
-                    </ListItemSecondaryAction>
-                  </ListItem>
-                );
-              }}
+      <Paper className={classes.listContainer}>
+        <PaginatedListBase
+          itemPerPage={itemPerPage}
+          items={membersWithTagList}
+          listProps={{ dense: true }}
+          loading={membersWithTagListLoading || processing}
+          nbItems={membersWithTagListCount}
+          onPageRequested={onPageRequestWithTag}
+          page={membersWithTagListPage}
+          renderItem={(member: Member) => (
+            <MemberTagListItem
+              buttonLabel={t('management.memberDetail.removeTag')}
+              loading={membersWithTagListLoading || processing}
+              member={member}
+              onClickAction={onClickUntagMember}
+              onClickMember={onClickMember}
             />
-          </Paper>
-          <div className={classes.divider} />
+          )}
+        />
+      </Paper>
+      <div className={classes.divider} />
 
-          <div className={classes.row}>
-            <Typography variant="h5">
-              {t('management.memberDetail.memberWithoutTag')}
-            </Typography>
-            <Button
-              color="primary"
-              disabled={processing}
-              onClick={() => {
-                setProcessing(true);
-                props.tagAll({
-                  onSuccess: () => setProcessing(false),
-                  onError: () => setProcessing(false),
-                });
-              }}
-              variant="outlined"
-            >
-              <LabelIcon className={classes.leftIcon} />
-              {t('management.memberDetail.addTagToAll')}
-            </Button>
-          </div>
+      <div className={classes.row}>
+        <Typography variant="h5">
+          {t('management.memberDetail.memberWithoutTag')}
+        </Typography>
+        <Button
+          color="primary"
+          disabled={processing}
+          onClick={handleTagAll}
+          variant="outlined"
+        >
+          <LabelIcon className={classes.leftIcon} />
+          {t('management.memberDetail.addTagToAll')}
+        </Button>
+      </div>
 
-          <Paper className={classes.listContainer}>
-            <PaginatedListBase
-              itemPerPage={props.itemPerPage}
-              items={props.membersWithoutTagList}
-              listProps={{ dense: true }}
-              loading={props.membersWithoutTagListLoading || processing}
-              nbItems={props.membersWithoutTagListCount}
-              onPageRequested={props.onPageRequestWithoutTag}
-              page={props.membersWithoutTagListPage}
-              renderItem={(item: Member) => {
-                return (
-                  <ListItem
-                    key={item.id}
-                    dense
-                    divider
-                    button={
-                      !!props.onClickMember && hasMemberProfileAccessPermission
-                    }
-                    disabled={props.membersWithoutTagListLoading || processing}
-                    onClick={
-                      hasMemberProfileAccessPermission
-                        ? handleOnClickMember(item)
-                        : null
-                    }
-                  >
-                    <div className={classes.listItemInfo}>
-                      <Avatar alt={item.name} src={item.photo} />
-                      <Typography className={classes.name}>
-                        {item.name}
-                      </Typography>
-                    </div>
-                    <ListItemSecondaryAction>
-                      <Button
-                        color="primary"
-                        onClick={(ev) => {
-                          ev.stopPropagation();
-                          props.onClickTagMember(item);
-                        }}
-                      >
-                        <LabelIcon className={classes.leftIcon} />
-                        {t('management.memberDetail.addTag')}
-                      </Button>
-                    </ListItemSecondaryAction>
-                  </ListItem>
-                );
-              }}
+      <Paper className={classes.listContainer}>
+        <PaginatedListBase
+          itemPerPage={itemPerPage}
+          items={membersWithoutTagList}
+          listProps={{ dense: true }}
+          loading={membersWithoutTagListLoading || processing}
+          nbItems={membersWithoutTagListCount}
+          onPageRequested={onPageRequestWithoutTag}
+          page={membersWithoutTagListPage}
+          renderItem={(member: Member) => (
+            <MemberTagListItem
+              isTagAction
+              buttonLabel={t('management.memberDetail.addTag')}
+              loading={membersWithoutTagListLoading || processing}
+              member={member}
+              onClickAction={onClickTagMember}
+              onClickMember={onClickMember}
             />
-          </Paper>
-        </div>
-      )}
-    </ObjectLevelPermissionProvider>
+          )}
+        />
+      </Paper>
+    </div>
   );
 };
 
-const styles = (theme: Theme) => ({
+const useStyles = makeStyles((theme) => ({
   container: {
     width: '100%',
     marginTop: theme.spacing(2),
@@ -237,10 +257,6 @@ const styles = (theme: Theme) => ({
   leftIcon: {
     marginRight: theme.spacing(1),
   },
-});
+}));
 
-export default compose<any, OwnProps>(
-  withStyles(styles),
-  withTranslation(['tag']),
-  React.memo,
-)(TagDetailMembers);
+export default React.memo(TagDetailMembers);

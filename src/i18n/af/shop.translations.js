@@ -67,6 +67,12 @@ exports.default = {
     tab: {
       products: {
         title: 'Products',
+        subshopForm: {
+          title: 'Add a category',
+          field: {
+            name: 'Name',
+          },
+        },
       },
       settings: {
         title: 'Settings',

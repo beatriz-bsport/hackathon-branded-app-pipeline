@@ -10562,7 +10562,7 @@
     },
     "shopList": {
       "tab": {
-        "products": { "title": "Products" },
+        "products": { "title": "Products", "subshopForm": { "title": "Add a category", "field": { "name": "Name" } } },
         "settings": {
           "title": "Settings",
           "section": {

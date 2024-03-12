@@ -1,6 +1,5 @@
 import React from 'react';
 import { Position } from 'react-flow-renderer';
-import Popover from '@material-ui/core/Popover';
 
 import HiddenHandle from '#libs/sequential_marketing/components/graph/handles/HiddenHandle.component';
 import CadenceExitCard, {
@@ -13,12 +12,13 @@ import {
 import { HandleTypeChoices } from '#libs/sequential_marketing/constants/steps';
 import ConvertIntoStepBubble from '#libs/sequential_marketing/components/graph/bubbles/ConvertIntoStepBubble.component';
 import ConvertIntoExitBubble from '#libs/sequential_marketing/components/graph/bubbles/ConvertIntoExitBubble.component';
-import usePopoverBubble from '#libs/sequential_marketing/components/graph/nodes/hooks/usePopoverBubble.hook';
+import { CadencePopover } from '../internals/CadencePopover.component';
 
 type Props = {
   data: {
     submitConvertIntoStep: (stepName: string) => void;
     editCadenceExit: (status: DestinationStatus) => void;
+    position: { x: number; y: number };
   } & Omit<CadenceExitCardProps, 'onEdit' | 'handleConvertIntoStep'>;
 };
 
@@ -26,39 +26,38 @@ export const ExitCardFlowVersion: React.FC<Props> = ({ data }) => {
   const exitCardRef = React.useRef<HTMLDivElement | null>(null);
 
   // ================== CONVERT INTO STEP BUBBLE ==================
-  const { anchorOrigin, popoverStyle, transformOrigin, anchorEl, setAnchorEl } =
-    usePopoverBubble();
+  const [isConvertIntoStepBubbleVisible, setIsConvertIntoStepBubbleVisible] =
+    React.useState(false);
 
   const handleOpenConvertIntoStepBubble = React.useCallback(
-    () => setAnchorEl(exitCardRef?.current),
-    [setAnchorEl],
+    () => setIsConvertIntoStepBubbleVisible(true),
+    [setIsConvertIntoStepBubbleVisible],
   );
 
   const handleCloseConvertIntoStepBubble = React.useCallback(
-    () => setAnchorEl(null),
-    [setAnchorEl],
+    () => setIsConvertIntoStepBubbleVisible(false),
+    [setIsConvertIntoStepBubbleVisible],
   );
 
   const handleSubmitConvertIntoStep = React.useCallback(
     (stepName: string) => {
       data?.submitConvertIntoStep?.(stepName);
-      setAnchorEl(null);
+      setIsConvertIntoStepBubbleVisible(false);
     },
-    [data, setAnchorEl],
+    [data, setIsConvertIntoStepBubbleVisible],
   );
   // ==============================================================
 
   // ==================== EXIT EDITION BUBBLE =====================
-  const [anchorExitEdition, setAnchorExitEdition] =
-    React.useState<HTMLDivElement>(null);
+  const [isExitEditionVisible, setisExitEditionVisible] = React.useState(false);
 
   const handleOpenExitEditionBubble = React.useCallback(
-    () => setAnchorExitEdition(exitCardRef?.current),
+    () => setisExitEditionVisible(true),
     [],
   );
 
   const handleCloseExitEditionBubble = React.useCallback(
-    () => setAnchorExitEdition(null),
+    () => setisExitEditionVisible(false),
     [],
   );
 
@@ -87,32 +86,32 @@ export const ExitCardFlowVersion: React.FC<Props> = ({ data }) => {
           status={data.status}
         />
       </div>
-      <Popover
-        anchorEl={anchorEl}
-        anchorOrigin={anchorOrigin}
-        onClose={handleCloseConvertIntoStepBubble}
-        open={!!anchorEl}
-        PaperProps={popoverStyle}
-        transformOrigin={transformOrigin}
+      <CadencePopover
+        handleOnClickAway={handleCloseConvertIntoStepBubble}
+        height={exitCardRef?.current?.clientHeight}
+        isVisible={isConvertIntoStepBubbleVisible}
+        nodePosition={data.position}
+        position={Position.Right}
+        width={exitCardRef?.current?.clientWidth}
       >
         <ConvertIntoStepBubble
           onCancel={handleCloseConvertIntoStepBubble}
           onConfirm={handleSubmitConvertIntoStep}
         />
-      </Popover>
-      <Popover
-        anchorEl={anchorExitEdition}
-        anchorOrigin={anchorOrigin}
-        onClose={handleCloseExitEditionBubble}
-        open={!!anchorExitEdition}
-        PaperProps={popoverStyle}
-        transformOrigin={transformOrigin}
+      </CadencePopover>
+      <CadencePopover
+        handleOnClickAway={handleCloseExitEditionBubble}
+        height={exitCardRef?.current?.clientHeight}
+        isVisible={isExitEditionVisible}
+        nodePosition={data.position}
+        position={Position.Right}
+        width={exitCardRef?.current?.clientWidth}
       >
         <ConvertIntoExitBubble
           onCancel={handleCloseExitEditionBubble}
           onConfirm={handleEditCadenceExit}
         />
-      </Popover>
+      </CadencePopover>
     </>
   );
 };

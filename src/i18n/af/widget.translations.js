@@ -297,6 +297,8 @@ exports.default = {
         newsletterV2FieldsType: 'Informations asked',
         showTitle: 'Show title',
         showSubtitle: 'Show subtitle',
+        showSuccessTitle: 'Show confirmation title',
+        showSuccessText: 'Show confirmation text',
         isDetailsDisabled: "'See details' button is disabled",
         isMoreDisabled: "'More' button is disabled",
         isBookableDisabled: "'Book' button is disabled",

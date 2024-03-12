@@ -64,6 +64,29 @@ const MarketplaceCalendarV2SettingsForm: React.FC<Props> = ({
     },
     [config, onChange],
   );
+
+  const setSuccessTitle = useCallback(
+    (value: string) => {
+      const newConfig: MarketplaceNewsletterV2Data = {
+        ...config,
+        successTitle: value ?? null,
+      };
+      onChange(newConfig);
+    },
+    [config, onChange],
+  );
+
+  const setSuccessText = useCallback(
+    (value: string) => {
+      const newConfig: MarketplaceNewsletterV2Data = {
+        ...config,
+        successText: value ?? null,
+      };
+      onChange(newConfig);
+    },
+    [config, onChange],
+  );
+
   const setTag = useCallback(
     (value: number) => {
       const newConfig: MarketplaceNewsletterV2Data = {
@@ -108,6 +131,28 @@ const MarketplaceCalendarV2SettingsForm: React.FC<Props> = ({
     [config, onChange],
   );
 
+  const setShowSuccessTitle = useCallback(
+    (value: boolean) => {
+      const newConfig: MarketplaceNewsletterV2Data = {
+        ...config,
+        showSuccessTitle: value,
+      };
+      onChange(newConfig);
+    },
+    [config, onChange],
+  );
+
+  const setShowSuccessText = useCallback(
+    (value: boolean) => {
+      const newConfig: MarketplaceNewsletterV2Data = {
+        ...config,
+        showSuccessText: value,
+      };
+      onChange(newConfig);
+    },
+    [config, onChange],
+  );
+
   const handleFieldsTypeChange = useCallback(
     (event: React.ChangeEvent<HTMLSelectElement>) => {
       const eventTarget = event.target;
@@ -140,6 +185,32 @@ const MarketplaceCalendarV2SettingsForm: React.FC<Props> = ({
   const toggleShowSubtitle = useCallback(
     () => setShowSubtitle(!config.showSubtitle),
     [config.showSubtitle, setShowSubtitle],
+  );
+
+  const handleSetSuccessTitle = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const eventTarget = event.target;
+      setSuccessTitle(eventTarget.value);
+    },
+    [setSuccessTitle],
+  );
+
+  const toggleShowSuccessTitle = useCallback(
+    () => setShowSuccessTitle(!config.showSuccessTitle),
+    [config.showSuccessTitle, setShowSuccessTitle],
+  );
+
+  const handleSetSuccessText = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const eventTarget = event.target;
+      setSuccessText(eventTarget.value);
+    },
+    [setSuccessText],
+  );
+
+  const toggleShowSuccessText = useCallback(
+    () => setShowSuccessText(!config.showSuccessText),
+    [config.showSuccessText, setShowSuccessText],
   );
 
   if (!config) {
@@ -215,6 +286,38 @@ const MarketplaceCalendarV2SettingsForm: React.FC<Props> = ({
           />
         }
         label={t('widget:widget.newsletterV2.showSubtitle')}
+      />
+
+      <TextField
+        label={t('widget:widget.newsletterV2.successTitle')}
+        onChange={handleSetSuccessTitle}
+        value={config?.successTitle}
+      />
+      <FormControlLabel
+        control={
+          <Switch
+            checked={config?.showSuccessTitle}
+            color="primary"
+            onChange={toggleShowSuccessTitle}
+          />
+        }
+        label={t('widget:widget.newsletterV2.showSuccessTitle')}
+      />
+
+      <TextField
+        label={t('widget:widget.newsletterV2.successText')}
+        onChange={handleSetSuccessText}
+        value={config?.successText}
+      />
+      <FormControlLabel
+        control={
+          <Switch
+            checked={config?.showSuccessText}
+            color="primary"
+            onChange={toggleShowSuccessText}
+          />
+        }
+        label={t('widget:widget.newsletterV2.showSuccessText')}
       />
     </div>
   );

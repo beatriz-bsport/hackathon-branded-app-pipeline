@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { OptionCallback } from '../../../state/types';
 import NewsletterForm, { Props as NewsletterFormProps } from '.';
 
 // @ts-ignore
@@ -51,6 +52,22 @@ const newsletterFormV2VariationRegistry = [
     ],
     default: { label: 'false', value: 'false' },
   },
+  {
+    label: 'showSuccessTitle',
+    choices: [
+      { label: 'true', value: 'true' },
+      { label: 'false', value: 'false' },
+    ],
+    default: { label: 'true', value: 'true' },
+  },
+  {
+    label: 'showSuccessText',
+    choices: [
+      { label: 'true', value: 'true' },
+      { label: 'false', value: 'false' },
+    ],
+    default: { label: 'true', value: 'true' },
+  },
 ];
 
 const usePropsFromVariation = (
@@ -61,11 +78,19 @@ const usePropsFromVariation = (
   const isShowTitleSelected = variationsSelected?.showTitle?.value === 'true';
   const isShowSubtitleSelected =
     variationsSelected?.showSubtitle?.value === 'true';
+  const isShowSuccessTitleSelected =
+    variationsSelected?.showSuccessTitle?.value === 'true';
+  const isShowSuccessTextSelected =
+    variationsSelected?.showSuccessText?.value === 'true';
   return {
     fieldsType: fieldsTypeSelected,
     showTitle: isShowTitleSelected,
     showSubtitle: isShowSubtitleSelected,
-    onSubmit: () => {},
+    onSubmit: (_, options: OptionCallback) => {
+      options.onSuccess();
+    },
+    showSuccessTitle: isShowSuccessTitleSelected,
+    showSuccessText: isShowSuccessTextSelected,
   };
 };
 

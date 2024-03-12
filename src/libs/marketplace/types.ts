@@ -80,6 +80,10 @@ export type MarketplaceNewsletterV2Data = {
   title?: string;
   showSubtitle?: boolean;
   subtitle?: string;
+  showSuccessTitle?: boolean;
+  successTitle?: string;
+  showSuccessText?: boolean;
+  successText?: string;
   tag_id?: number;
 };
 

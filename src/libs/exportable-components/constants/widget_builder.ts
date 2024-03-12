@@ -118,6 +118,12 @@ export const EXPORTABLE_COMPONENTS = [
       // @ts-ignore
       subtitle: null,
       showSubtitle: true,
+      // @ts-ignore
+      successTitle: null,
+      showSuccessTitle: true,
+      // @ts-ignore
+      successText: null,
+      showSuccessText: true,
     },
   },
   {

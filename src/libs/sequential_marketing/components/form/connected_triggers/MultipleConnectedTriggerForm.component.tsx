@@ -218,6 +218,7 @@ const MultipleConnectedTriggerForm: React.FC<Props> = ({
               key={`ConnectedTrigger:${index}_${connectedTrigger?.trigger_config?.uuid}`}
               color={customColor}
               deleteTrigger={handleDeleteTrigger(index)}
+              isFromMUIPopover={isOutput}
               isLast={index === connectedTriggerList.length - 1}
               isOpen={index === openItem}
               openOrCloseTrigger={handleEditTrigger(index)}

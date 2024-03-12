@@ -26,6 +26,7 @@ type Props = {
   color: string;
   isLast: boolean;
   isOpen: boolean;
+  isFromMUIPopover?: boolean;
   withoutCollapseAnimation?: boolean;
   smartlists: Immutable.ImmutableArray<SmartList>;
   trigger: ConnectedTrigger;
@@ -39,6 +40,7 @@ const CollapsibleConnectedTriggerContent: React.FC<Props> = ({
   color,
   isLast,
   isOpen,
+  isFromMUIPopover,
   withoutCollapseAnimation,
   smartlists,
   trigger,
@@ -105,6 +107,7 @@ const CollapsibleConnectedTriggerContent: React.FC<Props> = ({
         >
           <div className={classes.collapseSection}>
             <ConnectedTriggerContent
+              isFromMUIPopover={isFromMUIPopover}
               kind={triggerKind}
               smartlists={smartlists}
               trigger={trigger}

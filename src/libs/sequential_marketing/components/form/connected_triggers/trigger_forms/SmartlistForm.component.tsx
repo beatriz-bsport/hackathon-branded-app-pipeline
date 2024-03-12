@@ -13,18 +13,19 @@ import type { SmartList } from '#libs/smart-list/types';
 import { DEFAULT_REACT_SELECT_MAX_HEIGHT } from './constants';
 
 type Props = {
+  isFromMUIPopover: boolean;
   trigger: ConnectedTrigger;
   smartlists: Immutable.ImmutableArray<SmartList>;
   updateValue: (trigger: ConnectedTrigger) => void;
 };
 
 const SmartlistForm: React.FC<Props> = ({
+  isFromMUIPopover,
   trigger,
   smartlists,
   updateValue,
 }) => {
   const { t } = useTranslation('marketing');
-
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const {
     smartlistSelected,
@@ -66,6 +67,25 @@ const SmartlistForm: React.FC<Props> = ({
     },
     [selectSmartlist, updateValue, trigger],
   );
+
+  if (isFromMUIPopover) {
+    return (
+      <div
+        style={{ paddingLeft: 1 }} // needed to fully display the left border when selected
+      >
+        <Select
+          isClearable
+          menuPlacement="auto"
+          menuPosition="fixed"
+          minMenuHeight={DEFAULT_REACT_SELECT_MAX_HEIGHT}
+          onChange={handleSelectSmartlist}
+          options={SMARTLIST_OPTIONS}
+          placeholder={t('cadence.form.trigger.selectSmartlist')}
+          value={smartlistSelected}
+        />
+      </div>
+    );
+  }
 
   return (
     <ClickAwayListener onClickAway={handleCloseMenu}>

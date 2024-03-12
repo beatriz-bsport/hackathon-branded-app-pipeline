@@ -12,6 +12,7 @@ import EventAndSmartlistForm from './trigger_forms/EventAndSmartlistForm.compone
 import TimeoutForm from './trigger_forms/TimeoutForm.component';
 
 type Props = {
+  isFromMUIPopover?: boolean;
   trigger: ConnectedTrigger;
   kind: TriggerKind;
   smartlists: Immutable.ImmutableArray<SmartList>;
@@ -19,6 +20,7 @@ type Props = {
 };
 
 const ConnectedTriggerContent: React.FC<Props> = ({
+  isFromMUIPopover,
   trigger,
   kind,
   smartlists,
@@ -26,10 +28,17 @@ const ConnectedTriggerContent: React.FC<Props> = ({
 }) => {
   switch (kind) {
     case TriggerKind.ONLY_EVENT_TRIGGER:
-      return <EventForm trigger={trigger} updateValue={updateValue} />;
+      return (
+        <EventForm
+          isFromMUIPopover={isFromMUIPopover}
+          trigger={trigger}
+          updateValue={updateValue}
+        />
+      );
     case TriggerKind.ONLY_SMARTLIST_FILTERING:
       return (
         <SmartlistForm
+          isFromMUIPopover={isFromMUIPopover}
           smartlists={smartlists}
           trigger={trigger}
           updateValue={updateValue}
@@ -38,6 +47,7 @@ const ConnectedTriggerContent: React.FC<Props> = ({
     case TriggerKind.EVENT_TRIGGER_AND_SMARTLIST_FILTERING:
       return (
         <EventAndSmartlistForm
+          isFromMUIPopover={isFromMUIPopover}
           smartlists={smartlists}
           trigger={trigger}
           updateValue={updateValue}

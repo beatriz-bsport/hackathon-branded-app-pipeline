@@ -21,12 +21,14 @@ import type { SmartList } from '#libs/smart-list/types';
 import { DEFAULT_REACT_SELECT_MAX_HEIGHT } from './constants';
 
 type Props = {
+  isFromMUIPopover: boolean;
   trigger: ConnectedTrigger;
   smartlists: Immutable.ImmutableArray<SmartList>;
   updateValue: (trigger: ConnectedTrigger) => void;
 };
 
 const EventAndSmartlistForm: React.FC<Props> = ({
+  isFromMUIPopover,
   trigger,
   smartlists,
   updateValue,
@@ -110,7 +112,44 @@ const EventAndSmartlistForm: React.FC<Props> = ({
   const handleSmartlistMenuClose = React.useCallback(() => {
     setIsSmartlistMenuOpen(false);
   }, []);
-
+  if (isFromMUIPopover) {
+    return (
+      <div
+        style={{ paddingLeft: 1 }} // needed to fully display the left border when selected
+      >
+        <Select
+          isClearable
+          menuPlacement="auto"
+          menuPosition="fixed"
+          minMenuHeight={DEFAULT_REACT_SELECT_MAX_HEIGHT}
+          onChange={handleSelectEvent}
+          options={CADENCE_EVENT_GROUPED_OPTIONS}
+          placeholder={t('cadence.form.trigger.selectEvent')}
+          value={eventSelected}
+        />
+        <div className={classes.filtering}>
+          <CustomMuiIcon
+            defaultBackGround
+            customColor={SequentialMarketingColors.GREY_FILTER_COLOR}
+            icon="Add"
+            withBackground={false}
+          />
+          <div className={classes.selector}>
+            <Select
+              isClearable
+              menuPlacement="auto"
+              menuPosition="fixed"
+              minMenuHeight={DEFAULT_REACT_SELECT_MAX_HEIGHT}
+              onChange={handleSelectSmartlist}
+              options={SMARTLIST_OPTIONS}
+              placeholder={t('cadence.form.trigger.selectSmartlist')}
+              value={smartlistSelected}
+            />
+          </div>
+        </div>
+      </div>
+    );
+  }
   return (
     <>
       <ClickAwayListener onClickAway={handleEventMenuClose}>

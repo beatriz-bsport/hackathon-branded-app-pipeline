@@ -15,11 +15,16 @@ import { Events } from '#libs/sequential_marketing/constants';
 import { DEFAULT_REACT_SELECT_MAX_HEIGHT } from './constants';
 
 type Props = {
+  isFromMUIPopover: boolean;
   trigger: ConnectedTrigger;
   updateValue: (value: ConnectedTrigger, event: Events) => void;
 };
 
-const EventForm: React.FC<Props> = ({ trigger, updateValue }) => {
+const EventForm: React.FC<Props> = ({
+  isFromMUIPopover,
+  trigger,
+  updateValue,
+}) => {
   const { t } = useTranslation('marketing');
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
@@ -59,7 +64,24 @@ const EventForm: React.FC<Props> = ({ trigger, updateValue }) => {
   const handleOnMenuClick = React.useCallback(() => {
     setIsMenuOpen((prevState) => !prevState);
   }, []);
-
+  if (isFromMUIPopover) {
+    return (
+      <div
+        style={{ paddingLeft: 1 }} // needed to fully display the left border when selected
+      >
+        <Select
+          isClearable
+          menuPlacement="auto"
+          menuPosition="fixed"
+          minMenuHeight={DEFAULT_REACT_SELECT_MAX_HEIGHT}
+          onChange={handleSelectEvent}
+          options={CADENCE_EVENT_GROUPED_OPTIONS}
+          placeholder={t('cadence.form.trigger.selectEvent')}
+          value={eventSelected}
+        />
+      </div>
+    );
+  }
   return (
     <ClickAwayListener onClickAway={handleCloseMenu}>
       <div

@@ -14,7 +14,7 @@ import type { DeliveryConfiguration, DeliveryFee } from '#libs/order/types';
 
 type Props = {
   deliveryFees: Array<DeliveryFee>;
-  configuration: DeliveryConfiguration;
+  configuration?: DeliveryConfiguration;
   onSubmit: (deliveryFeeConfiguration: DeliveryConfiguration) => void;
 } & WithTranslation &
   WithStyles<typeof styles>;
@@ -36,8 +36,8 @@ export class OrderConfigrationForm extends Component<Props, State> {
   };
 
   compareStateAndProps = () =>
-    this.props.configuration.default_delivery_fee ===
-    this.state.configuration.default_delivery_fee;
+    this.props.configuration?.default_delivery_fee ===
+    this.state.configuration?.default_delivery_fee;
 
   submit = () => {
     const default_delivery_fee =
@@ -49,7 +49,7 @@ export class OrderConfigrationForm extends Component<Props, State> {
 
   render() {
     const { t, classes, deliveryFees } = this.props;
-    const { configuration } = this.state;
+
     return (
       <div className={classes.container}>
         <div>
@@ -58,21 +58,17 @@ export class OrderConfigrationForm extends Component<Props, State> {
               {t('configuration.defaultDeliveryFee')}
             </InputLabel>
             <Select
-              onChange={(ev: React.ChangeEvent<HTMLInputElement>) =>
-                this.handleChange(parseInt(ev.target.value, 10))
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                this.handleChange(parseInt(event.target.value, 10))
               }
-              value={
-                configuration.default_delivery_fee === null
-                  ? -1
-                  : configuration.default_delivery_fee
-              }
+              value={this.state.configuration?.default_delivery_fee ?? -1}
             >
               <MenuItem value={-1}>
                 {t('configuration.noDefaultDeliveryFee')}
               </MenuItem>
-              {deliveryFees.map((df) => (
-                <MenuItem key={df.id} value={df.id}>
-                  {df.name}
+              {(deliveryFees || []).map((deliveryFee) => (
+                <MenuItem key={deliveryFee.id} value={deliveryFee.id}>
+                  {deliveryFee.name}
                 </MenuItem>
               ))}
             </Select>

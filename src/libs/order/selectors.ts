@@ -22,6 +22,9 @@ export const getDeliveryFeesActive = createSelector(getDeliveryFees, (fees) =>
   fees.filter((df) => !df.disabled),
 );
 
+export const getOrderConfigurationData = (state: RootState) =>
+  state.order.configuration.data;
+
 export const withMember = memoize(
   (
     selector: (

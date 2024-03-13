@@ -126,7 +126,7 @@ const CadenceBubble: React.FC<Props> = ({
       width={CADENCE_BUBBLE_WIDTH}
       withUpwardPointingTail={withUpwardPointingTail}
     >
-      <div className={classes.headerWithBody}>
+      <div className={classes.headerWithBody} id="CadenceBubbleHeaderWithBody">
         <div className={classes.header}>
           <CadenceBubbleHeader
             color={color}

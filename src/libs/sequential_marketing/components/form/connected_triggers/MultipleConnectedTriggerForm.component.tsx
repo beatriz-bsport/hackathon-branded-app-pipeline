@@ -108,6 +108,8 @@ const MultipleConnectedTriggerForm: React.FC<Props> = ({
     [values.connectedTriggers],
   );
 
+  const container = document.getElementById('CadenceBubbleHeaderWithBody');
+
   const handleAddTrigger = React.useCallback(
     (triggerKind: TriggerKind) => {
       updateConnectedTriggerList([
@@ -120,6 +122,12 @@ const MultipleConnectedTriggerForm: React.FC<Props> = ({
         }),
       ]);
       setOpenItem(connectedTriggerList.length);
+      // timeout necessary to wait for container scrollHeight update and then scroll to bottom
+      setTimeout(
+        () =>
+          container?.scrollHeight &&
+          container?.scrollTo({ top: container?.scrollHeight }),
+      );
     },
     [
       connectedTriggerList.length,
@@ -128,6 +136,7 @@ const MultipleConnectedTriggerForm: React.FC<Props> = ({
       values.connectedTriggers,
       destinationId,
       updateConnectedTriggerList,
+      container,
     ],
   );
 
@@ -202,6 +211,15 @@ const MultipleConnectedTriggerForm: React.FC<Props> = ({
   React.useEffect(() => {
     updateFormValidation(isValid);
   }, [isValid, updateFormValidation]);
+
+  // Once component is mounted, we use timeout to retrieve scrollHeight of container and then scroll to bottom
+  React.useEffect(() => {
+    setTimeout(
+      () =>
+        container?.scrollHeight &&
+        container?.scrollTo({ top: container?.scrollHeight }),
+    );
+  }, [container]);
 
   return (
     <div className={classes.container}>

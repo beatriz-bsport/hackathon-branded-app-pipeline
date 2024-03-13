@@ -1,6 +1,7 @@
 // @flow
-import React from 'react';
+import React, { useMemo } from 'react';
 
+import { useTranslation } from 'react-i18next';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
@@ -27,6 +28,26 @@ type Props = {
 };
 
 export default (props: Props) => {
+  const { t } = useTranslation('shop');
+
+  const itemName = props.shopitem.name;
+
+  const itemVariantsCount = props.shopitem.number_of_variants
+    ? t('variantCount', { count: props.shopitem.number_of_variants })
+    : '';
+
+  const itemPrice = getCurrencyDisplayWithPrice(
+    props.shopitem.lowest_variant_price ?? props.shopitem.price,
+  );
+
+  const listItemPrimaryText = useMemo(
+    () =>
+      [itemName, itemVariantsCount, itemPrice]
+        .filter((text) => !!text)
+        .join(' - '),
+    [itemName, itemPrice, itemVariantsCount],
+  );
+
   if (!props.shopitem) {
     return (
       <ConditionalWrapper
@@ -60,9 +81,7 @@ export default (props: Props) => {
           </ListItemIcon>
         )}
         <ListItemText
-          primary={`${props.shopitem.name} - ${getCurrencyDisplayWithPrice(
-            props.shopitem.price,
-          )}`}
+          primary={listItemPrimaryText}
           secondary={props.shopitem.subtitle || props.shopitem.name}
         />
         {props.additionalActions}

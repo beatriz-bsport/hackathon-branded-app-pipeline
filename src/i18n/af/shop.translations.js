@@ -56,7 +56,10 @@ exports.default = {
       },
       variantHelperText:
         'Define variants if this product is available in multiple colours and/or sizes. You will be able to edit the properties of each variant later.',
-      error: { name: 'A product name cannot exceed 200 characters' },
+      error: {
+        name: 'A product name cannot exceed 200 characters',
+        colorSize: 'A color/size name cannot exceed 100 characters',
+      },
     },
   },
   // reworked

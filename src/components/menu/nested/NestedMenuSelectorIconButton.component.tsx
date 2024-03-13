@@ -83,6 +83,7 @@ const NestedMenuSelectorIconButton: React.FC<Props> = ({
     (onClick: () => void) => (event: React.MouseEvent<HTMLElement>) => {
       event.stopPropagation();
       event.preventDefault();
+      setAnchorEl(null);
       onClick?.();
     },
     [],

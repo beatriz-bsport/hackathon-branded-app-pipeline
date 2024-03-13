@@ -221,9 +221,9 @@ export type ShopItemFactoryOptions = {
 };
 
 export type ShopItemListFilterParams = ShopAPIFilter & {
-  exclude_variants?: boolean;
-  exclude_standalone_items?: boolean;
-  exclude_base_items?: boolean;
+  is_variant?: boolean;
+  is_base_item?: boolean;
+  is_standalone_item?: boolean;
 };
 
 /** Represents all attributes you can create variants from */

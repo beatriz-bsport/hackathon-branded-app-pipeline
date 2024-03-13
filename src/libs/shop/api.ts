@@ -149,9 +149,9 @@ export default {
 
 /**
  * Fetch a list of shop item. Filters available to exclude items based on type.
- * @param exclude_variants Exclude all variants created from a base item
- * @param exclude_standalone_items Exclude all standalone items (legacy)
- * @param exclude_base_items Exclude all base items
+ * @param is_variant Include all variants created from a base item
+ * @param is_base_item Include all base items
+ * @param is_standalone_item Include all standalone items
  */
 export const fetchShopItemList = (params?: ShopItemListFilterParams) => {
   return getAuth<ShopItem[]>(

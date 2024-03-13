@@ -43,9 +43,9 @@ export const fetchShopItemBaseListActions = {
 
 /**
  * Fetch a list of base shop item. Those items can have variants.
- * @param exclude_variants Exclude all variants created from a base item
- * @param exclude_standalone_items Exclude all standalone items (legacy)
- * @param exclude_base_items Exclude all base items
+ * @param is_variant Include all variants created from a base item
+ * @param is_base_item Include all base items
+ * @param is_standalone_item Include all standalone items
  */
 export const fetchShopItemBaseList = (
   params?: ShopItemListFilterParams,
@@ -58,8 +58,9 @@ export const fetchShopItemBaseList = (
 
       const result = await retrieveShopItemListAPI({
         ...params,
-        exclude_variants: true,
-        exclude_standalone_items: true,
+        is_variant: false,
+        is_base_item: true,
+        is_standalone_item: false,
       });
 
       dispatch(fetchShopItemBaseListActions.success(result.data));
@@ -82,9 +83,9 @@ export const fetchShopItemStandaloneListActions = {
 
 /**
  * Fetch a list of standalone shop item. Those items have no variants.
- * @param exclude_variants Exclude all variants created from a base item
- * @param exclude_standalone_items Exclude all standalone items (legacy)
- * @param exclude_base_items Exclude all base items
+ * @param is_variant Include all variants created from a base item
+ * @param is_base_item Include all base items
+ * @param is_standalone_item Include all standalone items
  */
 export const fetchShopItemStandaloneList = (
   params?: ShopItemListFilterParams,
@@ -97,8 +98,9 @@ export const fetchShopItemStandaloneList = (
 
       const result = await retrieveShopItemListAPI({
         ...params,
-        exclude_variants: true,
-        exclude_base_items: true,
+        is_variant: false,
+        is_base_item: false,
+        is_standalone_item: true,
       });
 
       dispatch(fetchShopItemStandaloneListActions.success(result.data));

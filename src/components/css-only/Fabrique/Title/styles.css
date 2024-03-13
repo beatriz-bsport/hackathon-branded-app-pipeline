@@ -13,6 +13,10 @@
   border-radius: var(--bs-border-radius-sm);
 }
 
+.bs-fabrique-title__button-base:focus-visible {
+  box-shadow: var(--bs-shadow-focused-light);
+}
+
 .bs-fabrique-title__button-base:hover {
   background-color: var(--bs-color-action-grey-weak-hovered);
 }

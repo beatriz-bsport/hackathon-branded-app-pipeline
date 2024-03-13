@@ -331,6 +331,8 @@ export const useMuiThemeToCssVars = () => {
     --bs-shadow-input-field-focused: 0px 0px 2px 0px var(--bs-grey-alpha-500a);
     --bs-shadow-input-field-error: 0px 0px 3px 0px var(--bs-red-500);
 
+    --bs-shadow-focused-light: 0px 0px 0px 2px var(--bs-color-border-default-focused) inset, 0px 0px 0px 4px var(--bs-color-border-light-focused);
+
     /* FABRIQUE TRANSITIONS */
     --bs-transition-duration-quick:50ms;
     --bs-transition-duration-normal:100ms;
@@ -524,6 +526,8 @@ export const useMuiThemeToCssVars = () => {
     --bs-color-border-brand-secondary-weak: var(--bs-brand-secondary-weak);
 
     --bs-color-border-default: var(--bs-grey-alpha-500a);
+    --bs-color-border-default-focused: var(--bs-grey-alpha-800a);
+    --bs-color-border-light-focused: var(--bs-grey-alpha-500a);
     --bs-color-border-weak: var(--bs-grey-alpha-300a);
     --bs-color-border-strong: var(--bs-grey-800);
     --bs-color-border-inverse-default: var(--bs-grey-0);

@@ -58,7 +58,9 @@ export const fetchConsumerSubscriptionInvoicesDetails = (
   params: SubscriptionDetailsQueryParams,
 ) => {
   return getAuth<PaginatedResponse<SubscriptionsInvoicesDetailsREST>>(
-    `${API_V1_URI}/payment/consumer-invoices/${buildUrlParams(params)}`,
+    `${API_V1_URI}/payment/consumer-billing-plan-invoices/${buildUrlParams(
+      params,
+    )}`,
   );
 };
 

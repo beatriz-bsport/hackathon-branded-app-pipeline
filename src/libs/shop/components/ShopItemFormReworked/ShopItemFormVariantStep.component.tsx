@@ -23,7 +23,8 @@ const ShopItemFormVariantStep: React.FC<Props> = ({
 
   const classes = useStyles();
 
-  const { values, setFieldValue } = useFormikContext<ShopItemFormValues>();
+  const { values, errors, setFieldValue } =
+    useFormikContext<ShopItemFormValues>();
 
   const handleSetColors = useCallback(
     (value: ShopItemVariantOption[]) => setFieldValue('colors', value),
@@ -34,6 +35,10 @@ const ShopItemFormVariantStep: React.FC<Props> = ({
     (value: ShopItemVariantOption[]) => setFieldValue('sizes', value),
     [setFieldValue],
   );
+
+  const hasColorError = errors.colors?.length > 0;
+
+  const hasSizeError = errors.sizes?.length > 0;
 
   return (
     <>
@@ -53,8 +58,13 @@ const ShopItemFormVariantStep: React.FC<Props> = ({
             placeholder={t('shopitem.form.colors.title')}
             value={values.colors}
           />
-          <Typography variant="caption">
-            {t('shopitem.form.colors.helperText')}
+          <Typography
+            color={hasColorError ? 'error' : 'initial'}
+            variant="caption"
+          >
+            {hasColorError
+              ? t('shopitem.form.error.colorSize')
+              : t('shopitem.form.colors.helperText')}
           </Typography>
         </Grid>
         <Grid item className={classes.gridItemContainer} xs={12}>
@@ -67,8 +77,13 @@ const ShopItemFormVariantStep: React.FC<Props> = ({
             placeholder={t('shopitem.form.sizes.title')}
             value={values.sizes}
           />
-          <Typography variant="caption">
-            {t('shopitem.form.sizes.helperText')}
+          <Typography
+            color={hasSizeError ? 'error' : 'initial'}
+            variant="caption"
+          >
+            {hasSizeError
+              ? t('shopitem.form.error.colorSize')
+              : t('shopitem.form.sizes.helperText')}
           </Typography>
         </Grid>
       </Grid>

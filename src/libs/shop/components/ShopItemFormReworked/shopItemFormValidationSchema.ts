@@ -17,4 +17,24 @@ export const shopItemFormValidationSchema = Yup.object().shape({
   featured: Yup.boolean().required('common:requiredField'),
   sellOnlyOnProvision: Yup.boolean().required('common:requiredField'),
   isDeliverable: Yup.boolean().required('common:requiredField'),
+  colors: Yup.array().of(
+    Yup.object().shape({
+      label: Yup.string()
+        .required('common:requiredField')
+        .max(100, 'shop:shopItem.form.error.colorSize'),
+      value: Yup.string()
+        .required('common:requiredField')
+        .max(100, 'shop:shopItem.form.error.colorSize'),
+    }),
+  ),
+  sizes: Yup.array().of(
+    Yup.object().shape({
+      label: Yup.string()
+        .required('common:requiredField')
+        .max(100, 'shop:shopItem.form.error.colorSize'),
+      value: Yup.string()
+        .required('common:requiredField')
+        .max(100, 'shop:shopItem.form.error.colorSize'),
+    }),
+  ),
 });

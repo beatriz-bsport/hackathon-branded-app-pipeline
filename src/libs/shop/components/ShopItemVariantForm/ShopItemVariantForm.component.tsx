@@ -41,7 +41,6 @@ const ShopItemVariantForm: React.FC<Props> = ({ onSubmit, onCancel }) => {
     <Formik
       initialValues={initialValues}
       onSubmit={handleOnSubmit}
-      validateOnChange={false}
       validationSchema={shopItemVariantFormValidationSchema}
     >
       <Form noValidate>

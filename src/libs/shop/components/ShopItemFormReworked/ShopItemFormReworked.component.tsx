@@ -178,7 +178,6 @@ const ShopItemFormReworked: React.FC<Props> = ({
     <Formik
       initialValues={initialValues}
       onSubmit={handleOnSubmit}
-      validateOnChange={false}
       validationSchema={shopItemFormValidationSchema}
     >
       <Form noValidate>

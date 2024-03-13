@@ -10,7 +10,12 @@ import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/
 import ShopItemFormProductStep from './ShopItemFormProductStep.component';
 import ShopItemFormVariantStep from './ShopItemFormVariantStep.component';
 
-import type { ShopItem, ShopItemCreate, ShopItemEdit } from '#libs/shop/types';
+import type {
+  ShopItem,
+  ShopItemCreate,
+  ShopItemEdit,
+  ShopSupplier,
+} from '#libs/shop/types';
 import {
   ShopItemFormStep,
   ShopItemFormValues,
@@ -34,6 +39,7 @@ type Props = {
   onCancel: () => void;
   provincialTax: number;
   isEditForm?: boolean;
+  supplierList: ShopSupplier[];
 };
 
 const ShopItemFormReworked: React.FC<Props> = ({
@@ -44,12 +50,14 @@ const ShopItemFormReworked: React.FC<Props> = ({
   onCancel,
   provincialTax,
   isEditForm,
+  supplierList,
 }) => {
   const initialValues: ShopItemFormValues = useMemo(
     () => ({
       name: initial?.name ?? '',
       subtitle: initial?.subtitle ?? '',
       price: initial ? parseFloat(initial?.price) : 0,
+      supplier: initial?.supplier ?? null,
       supplierPrice: initial ? parseFloat(initial?.supplier_price) : 0,
       cover: initial?.cover ?? null,
       tva: initial ? parseFloat(initial?.tva) : 0,
@@ -188,6 +196,7 @@ const ShopItemFormReworked: React.FC<Props> = ({
             isEditForm={isEditForm}
             isLoading={isLoading}
             provincialTax={provincialTax}
+            supplierList={supplierList}
           />
         )}
         {formStep === ShopItemFormStep.VARIANT && (

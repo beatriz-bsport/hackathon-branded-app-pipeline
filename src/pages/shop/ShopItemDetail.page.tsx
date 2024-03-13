@@ -17,6 +17,8 @@ import {
   retrieveShopItemUsedInCombo as retrieveShopItemUsedInComboAction,
 } from '#libs/shop/actions/shopItemReworked';
 
+import { fetchShopSupplierList as fetchShopSupplierListAction } from '#libs/shop/actions/supplier';
+
 // --- SELECTORS ---
 import { getTheme } from '#libs/theme/selectors';
 import {
@@ -29,6 +31,7 @@ import {
   getShopItemVariantDeleteLoading,
   getShopItemVariantUpdateLoading,
   getShopItemSupplier as getShopItemSupplierSelector,
+  getShopSupplierList,
 } from '#libs/shop/selectors';
 
 // --- COMPONENTS ---
@@ -63,16 +66,14 @@ type Props = OwnProps & ConnectedProps<typeof connector>;
 export class ShopItemDetailPage extends Component<Props> {
   componentDidMount() {
     this.props.retrieveShopItemUsedInCombo(this.props.id);
+    this.props.fetchShopSupplierList();
     this.retrieveShopItemDetails();
   }
 
   retrieveShopItemDetails = () => {
     this.props.retrieveShopItemDetails(this.props.id, {
-      onSuccess: (shopItem) => {
+      onSuccess: () => {
         this.fetchShopItemVariantList(1);
-        if (shopItem.supplier) {
-          this.props.retrieveShopItemSupplier(shopItem.supplier);
-        }
       },
     });
   };
@@ -192,6 +193,7 @@ export class ShopItemDetailPage extends Component<Props> {
         shopItemSupplier={this.props.getShopItemSupplier(
           this.props.shopItem?.supplier,
         )}
+        supplierList={this.props.supplierList}
         updateShopItem={this.handleUpdateShopItem}
         updateShopItemVariantBulk={this.handleUpdateShopItemVariantBulk}
         variantList={this.props.shopItemVariantState.variants}
@@ -211,6 +213,7 @@ const connector = connect(
       getIsShopItemUsedInComboSelector(state, shopItemId),
     getShopItemSupplier: (supplierId: number) =>
       getShopItemSupplierSelector(state, supplierId),
+    supplierList: getShopSupplierList(state),
     isUpdateVariantLoading: getShopItemVariantUpdateLoading(state),
     isDeleteVariantLoading: getShopItemVariantDeleteLoading(state),
     shopItemVariantState: getShopItemVariantState(state, id),
@@ -221,6 +224,7 @@ const connector = connect(
     fetchShopItemVariantList: fetchShopItemVariantListAction,
     updateShopItem: updateShopItemAction,
     retrieveShopItemSupplier: retrieveShopItemSupplierAction,
+    fetchShopSupplierList: fetchShopSupplierListAction,
     updateShopItemVariantBulk: updateShopItemVariantBulkAction,
     deleteShopItem: deleteShopItemAction,
     createShopItemVariants: createShopItemVariantsAction,

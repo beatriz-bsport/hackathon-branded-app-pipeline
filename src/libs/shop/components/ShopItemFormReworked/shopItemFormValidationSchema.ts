@@ -37,4 +37,5 @@ export const shopItemFormValidationSchema = Yup.object().shape({
         .max(100, 'shop:shopItem.form.error.colorSize'),
     }),
   ),
+  supplier: Yup.number().nullable(true),
 });

@@ -21,6 +21,7 @@ export const SHOPITEM_FORMDATA_KEYS_MAPPER = {
   sell_only_on_provision: 'sell_only_on_provision',
   subshop: 'subshop',
   subtitle: 'subtitle',
+  supplier: 'supplier',
   supplier_price: 'supplier_price',
   tva: 'tva',
   variants: 'variants',

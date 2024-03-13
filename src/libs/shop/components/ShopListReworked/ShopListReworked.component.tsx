@@ -244,6 +244,7 @@ const ShopListReworked: React.FC<Props> = ({
           onCancel={handleCloseItemCreationDrawer}
           onCreateSubmit={handleCreateShopItem}
           provincialTax={provincialTax}
+          supplierList={supplierList}
         />
       </GenericResponsiveDrawer>
 

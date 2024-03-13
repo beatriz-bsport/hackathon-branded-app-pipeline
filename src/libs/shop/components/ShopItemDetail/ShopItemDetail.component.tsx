@@ -44,6 +44,7 @@ type Props = {
   shopItem: ShopItem;
   shopItemSupplier: ShopSupplier;
   variantList: ShopItemVariant[];
+  supplierList: ShopSupplier[];
   page: number;
   count: number;
   getIsShopItemUsedInCombo: (shopItemId: number) => boolean;
@@ -78,6 +79,7 @@ const ShopItemDetail: React.FC<Props> = ({
   shopItem,
   shopItemSupplier,
   variantList,
+  supplierList,
   count,
   page,
   getIsShopItemUsedInCombo,
@@ -276,6 +278,7 @@ const ShopItemDetail: React.FC<Props> = ({
           onCancel={handleCloseEditShopItemDrawer}
           onUpdateSubmit={handleSubmitEditShopItem}
           provincialTax={provincialTaxValue}
+          supplierList={supplierList}
         />
       </GenericResponsiveDrawer>
 

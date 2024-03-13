@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 
 import { useFormikContext } from 'formik';
-import { makeStyles } from '@material-ui/core';
+import { FormControl, InputLabel, makeStyles } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
 import Button from '@material-ui/core/Button';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -11,6 +11,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Grid from '@material-ui/core/Grid';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import LocalDrinkIcon from '@material-ui/icons/LocalDrink';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 
@@ -22,9 +24,12 @@ import PriceInput from '#components/input/PriceInput.component';
 import ImageUploader from '#components/input/ImageUploader.component';
 import PaymentMethodSelectorInput from '#libs/payment/components/PaymentMethodSelectorInput.component';
 
+import type { ShopSupplier } from '#libs/shop/types';
 import type { ShopItemFormValues } from '#libs/shop/components/ShopItemFormReworked/types';
 
 import { ALMOST_100 } from '../../../../constants';
+
+const SHOP_ITEM_SUPPLIER_FIELD_LABEL = 'shop-item-supplier-selector-label';
 
 const ShopItemPreview: React.FC<{
   previewURL?: string;
@@ -54,6 +59,7 @@ type Props = {
   isLoading?: boolean;
   isEditForm?: boolean;
   provincialTax: number;
+  supplierList: ShopSupplier[];
 };
 
 const ShopItemFormProductStep: React.FC<Props> = ({
@@ -62,6 +68,7 @@ const ShopItemFormProductStep: React.FC<Props> = ({
   isLoading,
   isEditForm,
   provincialTax,
+  supplierList,
 }) => {
   const { t } = useTranslation(['translation', 'theme', 'common', 'shop']);
 
@@ -191,6 +198,33 @@ const ShopItemFormProductStep: React.FC<Props> = ({
             value={values.supplierPrice}
             variant="outlined"
           />
+        </Grid>
+        <Grid item xs={6}>
+          <FormControl fullWidth>
+            <InputLabel
+              className={classes.supplierSelectorLabel}
+              id={SHOP_ITEM_SUPPLIER_FIELD_LABEL}
+            >
+              {t('translation:form.shop.item.supplier')}
+            </InputLabel>
+            <Select
+              label={t('translation:form.shop.item.supplier')}
+              labelId={SHOP_ITEM_SUPPLIER_FIELD_LABEL}
+              name="supplier"
+              onChange={handleChange}
+              value={values.supplier}
+              variant="outlined"
+            >
+              <MenuItem disabled value="">
+                {t('translation:form.shop.item.supplier')}
+              </MenuItem>
+              {(supplierList || []).map((supplier) => (
+                <MenuItem key={supplier.id} value={supplier.id}>
+                  {supplier.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </Grid>
       </Grid>
       <Grid item xs={12}>
@@ -382,6 +416,11 @@ const useStyles = makeStyles((theme) => ({
   shopItemPreivewIcon: {
     height: 40,
     width: 40,
+  },
+  supplierSelectorLabel: {
+    // class properties to fix default MUI position with label
+    top: '-7px',
+    left: '14px',
   },
 }));
 

@@ -68,6 +68,10 @@ export class NewsletterWidget extends Component<Props> {
         subtitle={this.props.config?.subtitle}
         showSubtitle={this.props.config?.showSubtitle}
         onSubmit={this.onSubmit}
+        showSuccessTitle={this.props.config?.showSuccessTitle}
+        successTitle={this.props.config?.successTitle}
+        showSuccessText={this.props.config?.showSuccessText}
+        successText={this.props.config?.successText}
       />
     );
   }

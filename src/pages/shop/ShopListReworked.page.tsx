@@ -27,6 +27,13 @@ import {
   duplicateShopItem as duplicateShopItemAction,
   deleteShopItem as deleteShopItemAction,
 } from '#libs/shop/actions/shopItemReworked';
+import {
+  fetchConfiguration as fetchConfigurationAction,
+  patchConfiguration as patchConfigurationAction,
+  createOrUpdateDeliveryFee as createOrUpdateDeliveryFeeAction,
+  disableDeliveryFee as disableDeliveryFeeAction,
+  fetchAllDeliveryFee as fetchAllDeliveryFeeAction,
+} from '#libs/order/actions';
 
 // --- SELECTORS ---
 import { getTheme } from '#libs/theme/selectors';
@@ -39,6 +46,10 @@ import {
   getSubshopList,
   getSubshopLoading,
 } from '#libs/shop/selectors';
+import {
+  getDeliveryFeesActive,
+  getOrderConfigurationData,
+} from '#libs/order/selectors';
 
 // --- COMPONENTS ---
 import ShopListReworked from '#libs/shop/components/ShopListReworked';
@@ -60,6 +71,7 @@ import type {
 import type { RootState } from '../../reducers';
 import type { OptionCallback } from '../../state/types';
 import type { ShopListSubshopFormValues } from '#libs/shop/components/ShopListSubshopForm/types';
+import type { DeliveryFee } from '#libs/order/types';
 
 // --- CONSTANTS ---
 import { SHOPITEM_FORMDATA_KEYS_MAPPER } from '#libs/shop/constants';
@@ -86,6 +98,8 @@ export class ShopListReworkedPage extends PureComponent<Props> {
         break;
       case ShopListTab.SETTINGS:
         this.props.fetchShopSupplierList();
+        this.props.fetchAllDeliveryFee();
+        this.props.fetchConfiguration();
         break;
       default:
     }
@@ -166,15 +180,22 @@ export class ShopListReworkedPage extends PureComponent<Props> {
     this.props.deleteSubshop(id, options);
   };
 
+  handleDisableDeliveryFee = (deliveryFee: DeliveryFee) =>
+    this.props.disableDeliveryFee(deliveryFee);
+
   render() {
     return (
       <ShopListReworked
+        createOrUpdateDeliveryFee={this.props.createOrUpdateDeliveryFee}
         createShopItem={this.handleCreateShopItem}
         createSubshop={this.props.createSubshop}
         createSupplier={this.handleCreateSupplier}
         deleteShopItem={this.handleDeleteShopItem}
         deleteSubshop={this.handleDeleteSubshop}
         deleteSupplier={this.handleDeleteSupplier}
+        deliveryConfiguration={this.props.deliveryConfiguration}
+        deliveryFees={this.props.deliveryFees}
+        disableDeliveryFee={this.handleDisableDeliveryFee}
         duplicateShopItem={this.handleDuplicateShopItem}
         getIsShopItemUsedInCombo={this.props.getIsShopItemUsedInCombo}
         goToShopItem={this.props.goToShopItem}
@@ -184,6 +205,11 @@ export class ShopListReworkedPage extends PureComponent<Props> {
           this.props.shopItemStandaloneLoading ||
           this.props.isSupplierListLoading
         }
+        isOrderConfigurationLoading={this.props.orderConfigurationLoading}
+        isOrderConfigurationUpdateLoading={
+          this.props.orderConfigurationUpdateLoading
+        }
+        patchDeliveryFee={this.props.patchConfiguration}
         provincialTax={this.props.theme.provincial_tax_value}
         retrieveShopItemUsedInCombo={this.handleRetrieveShopItemUsedInCombo}
         subshopList={this.props.subshopList}
@@ -204,6 +230,10 @@ const connector = connect(
     isSupplierListLoading: getShopSupplierListLoading(state),
     shopItemStandaloneList: getShopItemStandaloneList(state),
     shopItemStandaloneLoading: getShopItemStandaloneLoading(state),
+    deliveryConfiguration: getOrderConfigurationData(state),
+    deliveryFees: getDeliveryFeesActive(state),
+    orderConfigurationLoading: state.order.configuration.loading,
+    orderConfigurationUpdateLoading: state.order.configuration.update.loading,
     getIsShopItemUsedInCombo: (id: number) =>
       getIsShopItemUsedInCombo(state, id),
   }),
@@ -225,6 +255,12 @@ const connector = connect(
     createShopSupplier: createShopSupplierAction,
     updateShopSupplier: updateShopSupplierAction,
     deleteShopSupplier: deleteShopSupplierAction,
+    // ORDER CONFIGURATION
+    fetchConfiguration: fetchConfigurationAction,
+    patchConfiguration: patchConfigurationAction,
+    fetchAllDeliveryFee: fetchAllDeliveryFeeAction,
+    createOrUpdateDeliveryFee: createOrUpdateDeliveryFeeAction,
+    disableDeliveryFee: disableDeliveryFeeAction,
   },
 );
 

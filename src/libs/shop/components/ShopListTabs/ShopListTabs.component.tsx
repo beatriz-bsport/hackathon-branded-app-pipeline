@@ -12,12 +12,17 @@ import ShopListSettingsTab from './tabs/ShopListSettingsTab.component';
 import type { ShopItem, ShopSupplier, SubShop } from '#libs/shop/types';
 import type { OptionCallback } from '../../../../state/types';
 import type { ShopListSubshopFormValues } from '#libs/shop/components/ShopListSubshopForm/types';
+import type { DeliveryConfiguration, DeliveryFee } from '#libs/order/types';
 
 import { ShopListTab } from './constants';
 
 type Props = {
   subshopList: SubShop[];
   supplierList: ShopSupplier[];
+  deliveryConfiguration: DeliveryConfiguration;
+  deliveryFees: DeliveryFee[];
+  isOrderConfigurationLoading?: boolean;
+  isOrderConfigurationUpdateLoading?: boolean;
   goToShopItem: (id: number) => void;
   setSelectedSubshopId: (id: number) => void;
   openItemCreationDrawer: () => void;
@@ -36,11 +41,19 @@ type Props = {
     options: OptionCallback<SubShop>,
   ) => void;
   deleteSubshop: (id: number, options?: OptionCallback<number>) => void;
+  handleOpenDeliveryFeeModal: () => void;
+  handleEditDeliveryFee: (deliveryFee: DeliveryFee) => void;
+  patchDeliveryFee: (data: DeliveryConfiguration) => void;
+  disableDeliveryFee: (deliveryFee: DeliveryFee) => void;
 };
 
 const ShopListTabs: React.FC<Props> = ({
   subshopList,
   supplierList,
+  deliveryConfiguration,
+  deliveryFees,
+  isOrderConfigurationLoading,
+  isOrderConfigurationUpdateLoading,
   goToShopItem,
   setSelectedSubshopId,
   openItemCreationDrawer,
@@ -53,6 +66,10 @@ const ShopListTabs: React.FC<Props> = ({
   createSubshop,
   updateSubshop,
   deleteSubshop,
+  handleOpenDeliveryFeeModal,
+  handleEditDeliveryFee,
+  patchDeliveryFee,
+  disableDeliveryFee,
 }) => {
   const { t } = useTranslation('shop');
 
@@ -100,9 +117,17 @@ const ShopListTabs: React.FC<Props> = ({
       />
 
       <ShopListSettingsTab
+        deliveryConfiguration={deliveryConfiguration}
+        deliveryFees={deliveryFees}
+        disableDeliveryFee={disableDeliveryFee}
+        handleEditDeliveryFee={handleEditDeliveryFee}
         handleEditSupplier={handleEditSupplier}
+        handleOpenDeliveryFeeModal={handleOpenDeliveryFeeModal}
         handleOpenSupplierModal={handleOpenSupplierModal}
         handleSelectSupplierForDeletion={handleSelectSupplierForDeletion}
+        isOrderConfigurationLoading={isOrderConfigurationLoading}
+        isOrderConfigurationUpdateLoading={isOrderConfigurationUpdateLoading}
+        patchDeliveryFee={patchDeliveryFee}
         supplierList={supplierList}
       />
     </TabContext>

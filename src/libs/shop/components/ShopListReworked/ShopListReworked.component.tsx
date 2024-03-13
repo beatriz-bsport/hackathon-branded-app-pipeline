@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
+import DeliveryFeeDialogForm from '#libs/order/components/DeliveryFeeDialogForm.component';
 import GenericResponsiveDrawer from '#components/genericDrawer/GenericResponsiveDrawer.component';
 import ShopItemDeleteConfirmDialog from '#libs/shop/components/ShopItemDeleteConfirmDialog.component';
 import ShopItemFormReworked from '#libs/shop/components/ShopItemFormReworked';
@@ -22,6 +23,11 @@ import type {
 import type { OptionCallback } from '../../../../state/types';
 import type { ShopListSubshopFormValues } from '#libs/shop/components/ShopListSubshopForm/types';
 import type { ShopListSettingsSupplierValues } from '#libs/shop/components/ShopListSettingsSupplierModal/types';
+import type {
+  DeliveryConfiguration,
+  DeliveryFee,
+  DeliveryFeeCreationOrUpdatePayload,
+} from '#libs/order/types';
 
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { ShopListTab } from '#libs/shop/components/ShopListTabs/constants';
@@ -31,6 +37,10 @@ type Props = {
   subshopList: SubShop[];
   supplierList: ShopSupplier[];
   provincialTax: number;
+  deliveryConfiguration: DeliveryConfiguration;
+  deliveryFees: DeliveryFee[];
+  isOrderConfigurationLoading: boolean;
+  isOrderConfigurationUpdateLoading: boolean;
   retrieveShopItemUsedInCombo: (id: number) => void;
   getIsShopItemUsedInCombo: (id: number) => boolean;
   goToShopItem: (id: number) => void;
@@ -60,6 +70,9 @@ type Props = {
     options: OptionCallback<SubShop>,
   ) => void;
   deleteSubshop: (id: number, options?: OptionCallback<number>) => void;
+  createOrUpdateDeliveryFee: (data: DeliveryFeeCreationOrUpdatePayload) => void;
+  patchDeliveryFee: (data: DeliveryConfiguration) => void;
+  disableDeliveryFee: (deliveryFee: DeliveryFee) => void;
 };
 
 const ShopListReworked: React.FC<Props> = ({
@@ -67,6 +80,10 @@ const ShopListReworked: React.FC<Props> = ({
   subshopList,
   supplierList,
   provincialTax,
+  deliveryConfiguration,
+  deliveryFees,
+  isOrderConfigurationLoading,
+  isOrderConfigurationUpdateLoading,
   retrieveShopItemUsedInCombo,
   getIsShopItemUsedInCombo,
   goToShopItem,
@@ -80,6 +97,9 @@ const ShopListReworked: React.FC<Props> = ({
   createSubshop,
   updateSubshop,
   deleteSubshop,
+  createOrUpdateDeliveryFee,
+  patchDeliveryFee,
+  disableDeliveryFee,
 }) => {
   const { t } = useTranslation('shop');
 
@@ -103,7 +123,30 @@ const ShopListReworked: React.FC<Props> = ({
     null,
   );
 
+  const [selectedDeliveryFee, setSelectedDeliveryFee] =
+    useState<null | DeliveryFee>(null);
+
   const classes = useStyles();
+
+  const [isDeliveryFeeModalOpen, setIsDeliveryFeeModalOpen] = useState(false);
+
+  const handleOpenDeliveryFeeModal = useCallback(
+    () => setIsDeliveryFeeModalOpen(true),
+    [],
+  );
+
+  const handleCloseDeliveryFeeModal = useCallback(() => {
+    setIsDeliveryFeeModalOpen(false);
+    setSelectedDeliveryFee(null);
+  }, []);
+
+  const handleEditDeliveryFee = useCallback(
+    (deliveryFee: DeliveryFee) => {
+      setSelectedDeliveryFee(deliveryFee);
+      handleOpenDeliveryFeeModal();
+    },
+    [handleOpenDeliveryFeeModal],
+  );
 
   const handleOpenSupplierDeleteModal = useCallback(
     () => setIsSupplierDeleteModalOpen(true),
@@ -219,13 +262,21 @@ const ShopListReworked: React.FC<Props> = ({
       <ShopListTabs
         createSubshop={createSubshop}
         deleteSubshop={deleteSubshop}
+        deliveryConfiguration={deliveryConfiguration}
+        deliveryFees={deliveryFees}
+        disableDeliveryFee={disableDeliveryFee}
         duplicateShopItem={duplicateShopItem}
         goToShopItem={goToShopItem}
         handleChangeTab={handleChangeTab}
+        handleEditDeliveryFee={handleEditDeliveryFee}
         handleEditSupplier={handleEditSupplier}
+        handleOpenDeliveryFeeModal={handleOpenDeliveryFeeModal}
         handleOpenSupplierModal={handleOpenSupplierModal}
         handleSelectSupplierForDeletion={handleSelectSupplierForDeletion}
+        isOrderConfigurationLoading={isOrderConfigurationLoading}
+        isOrderConfigurationUpdateLoading={isOrderConfigurationUpdateLoading}
         openItemCreationDrawer={handleOpenItemCreationDrawer}
+        patchDeliveryFee={patchDeliveryFee}
         setSelectedSubshopId={handleSetSelectedSubshopId}
         setShopItemToDelete={handleSetShopItemToDelete}
         subshopList={subshopList}
@@ -268,6 +319,13 @@ const ShopListReworked: React.FC<Props> = ({
         onSubmit={handleDeleteSupplier}
         open={isSupplierDeleteModalOpen}
         supplierName={selectedSupplier?.name}
+      />
+
+      <DeliveryFeeDialogForm
+        deliveryFee={selectedDeliveryFee}
+        onClose={handleCloseDeliveryFeeModal}
+        onSubmit={createOrUpdateDeliveryFee}
+        open={isDeliveryFeeModalOpen}
       />
     </div>
   );

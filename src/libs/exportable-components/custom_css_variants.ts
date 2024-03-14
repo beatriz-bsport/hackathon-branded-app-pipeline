@@ -439,6 +439,15 @@ import {
   CONSUMER_SUBSCRIPTION_DETAILS_CARD_CONFIGURATION,
   CONSUMER_SUBSCRIPTION_DETAILS_CARD_PREVIEW,
 } from '#libs/consumer-space/components/reworked/@MySubscriptions/ConsumerSubscriptionDetailsCard';
+import {
+  CONSUMER_INVOICE_DETAILS_CARD_CONFIGURATION,
+  CONSUMER_INVOICE_DETAILS_CARD_PREVIEW,
+} from '#libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceDetailsCard';
+import {
+  CONSUMER_INVOICE_CARD_CONFIGURATION,
+  CONSUMER_INVOICE_CARD_PREVIEW,
+} from '#libs/consumer-space/components/reworked/@MyInvoices/ConsumerInvoiceCard';
+
 /* TEMPLATE
 
 {
@@ -556,6 +565,8 @@ export const CSS_COMPONENTS: MarketplaceCSSComponentConfig[] = [
         UNIVERSAL_PASS_DETAILS_CARD_CONFIGURATION,
         CONSUMER_SUBSCRIPTION_CARD_CONFIGURATION,
         CONSUMER_SUBSCRIPTION_DETAILS_CARD_CONFIGURATION,
+        CONSUMER_INVOICE_CARD_CONFIGURATION,
+        CONSUMER_INVOICE_DETAILS_CARD_CONFIGURATION,
       ]
     : []),
 ];
@@ -765,6 +776,10 @@ export const CSS_COMPONENTS_BY_ID: Immutable.Immutable<CSSComponentPreviews> =
         CONSUMER_SUBSCRIPTION_CARD_PREVIEW,
       [CssComponentsVariantIdentifiers.CONSUMER_SUBSCRIPTION_DETAILS_CARD]:
         CONSUMER_SUBSCRIPTION_DETAILS_CARD_PREVIEW,
+      [CssComponentsVariantIdentifiers.CONSUMER_INVOICE_DETAILS_CARD]:
+        CONSUMER_INVOICE_DETAILS_CARD_PREVIEW,
+      [CssComponentsVariantIdentifiers.CONSUMER_INVOICE_CARD]:
+        CONSUMER_INVOICE_CARD_PREVIEW,
     }),
   });
 

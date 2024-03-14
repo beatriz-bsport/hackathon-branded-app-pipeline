@@ -499,6 +499,7 @@ export class CadenceDetailPage extends Component<Props> {
                     onActivate={this.props.activateCadence}
                     onEdit={this.props.updateCadenceName}
                     onShutOff={this.props.shutOffCadence}
+                    setIsWelcomeDialogOpen={this.props.setIsWelcomeDialogOpen}
                     switchCadenceEditMode={this.switchCadenceEditMode}
                   />
                 </div>

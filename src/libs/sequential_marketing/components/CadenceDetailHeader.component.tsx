@@ -43,6 +43,9 @@ type Props = {
   switchCadenceEditMode: () => void;
   doNotDisplayEditingWorkflowPopinAnymore: () => void;
   isEditCadencePopinHidden: boolean;
+  setIsWelcomeDialogOpen: (isWelcomeDialogOpen: boolean) => {
+    isWelcomeDialogOpen: boolean;
+  };
 };
 
 type HeaderActionsProps = {
@@ -197,6 +200,7 @@ export const CadenceDetailHeader: React.FC<Props> = ({
   switchCadenceEditMode,
   doNotDisplayEditingWorkflowPopinAnymore,
   isEditCadencePopinHidden,
+  setIsWelcomeDialogOpen,
 }) => {
   const classes = useStyles();
 
@@ -251,12 +255,16 @@ export const CadenceDetailHeader: React.FC<Props> = ({
         onSuccess: () => {
           options?.onSuccess?.();
           setOpenEditDialog(false);
+          // setTimeout needed to prevent welcomeDialog from opening again because of the useEffect in CadenceDetail when
+          // in the initialization process of a cadence
+          !cadence.initialized &&
+            setTimeout(() => setIsWelcomeDialogOpen(false));
         },
         onError() {
           options?.onError?.();
         },
       }),
-    [onEdit],
+    [onEdit, setIsWelcomeDialogOpen, cadence.initialized],
   );
 
   const handleActivate = React.useCallback(() => {

@@ -95,6 +95,12 @@ const getShopItemStandaloneAllIds = (state: RootState) =>
 const getShopItemStandaloneById = (state: RootState) =>
   state.shopReworked.shopItemReworked.itemStandalone.byId;
 
+const getShopItemBaseAllIds = (state: RootState) =>
+  state.shopReworked.shopItemReworked.itemBase.allIds;
+
+const getShopItemBaseById = (state: RootState) =>
+  state.shopReworked.shopItemReworked.itemBase.byId;
+
 const getSubshopAllIds = (state: RootState) =>
   state.shopReworked.shopItemReworked.subshop.allIds;
 
@@ -186,15 +192,35 @@ export const getShopItemStandaloneList = createSelector(
 );
 
 /**
- * Retrieves the list of all subshop for the current company
+ * Retrieves the list of all base shop items for the current company
+ */
+export const getShopItemBaseList = createSelector(
+  [getShopItemBaseAllIds, getShopItemBaseById],
+  (shopItemBaseAllIds, shopItemBaseById) => {
+    return shopItemBaseAllIds.map((id) => shopItemBaseById[id]);
+  },
+);
+
+/**
+ * Retrieves the list of all available subshops for the current company
+ * This selector provides base list aka the objects as it
+ */
+export const getSubshopListBase = createSelector(
+  [getSubshopAllIds, getSubshopById],
+  (subshopAllIds, subshopById) => {
+    return subshopAllIds.map((id) => subshopById[id]);
+  },
+);
+
+/**
+ * Retrieves the list of all subshops with their shop items
  */
 export const getSubshopList = createSelector(
-  [getSubshopAllIds, getSubshopById, getShopItemStandaloneList],
-  (subshopAllIds, subshopById, shopItemStandaloneList) => {
-    const subshopList = subshopAllIds.map((id) => subshopById[id]);
-    return subshopList.map((subshop) => ({
+  [getSubshopListBase, getShopItemStandaloneList, getShopItemBaseList],
+  (subShopListBase, shopItemStandaloneList, shopItemBaseList) => {
+    return subShopListBase.map((subshop) => ({
       ...subshop,
-      shopItems: shopItemStandaloneList.filter(
+      shopItems: [...shopItemStandaloneList, ...shopItemBaseList].filter(
         (shopItem) => shopItem.subshop === subshop.id,
       ),
     }));
@@ -208,6 +234,10 @@ export const getSubshopLoading = (state: RootState) =>
 /** Returns the loading state when retrieving all subshop */
 export const getShopItemStandaloneLoading = (state: RootState) =>
   state.shopReworked.shopItemReworked.itemStandalone.loading;
+
+/** Returns the loading state when retrieving all subshop */
+export const getShopItemBaseLoading = (state: RootState) =>
+  state.shopReworked.shopItemReworked.itemBase.loading;
 
 /** Returns the loading state when retrieving all suppliers */
 export const getShopSupplierListLoading = (state: RootState) =>

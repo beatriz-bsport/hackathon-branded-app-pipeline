@@ -23,6 +23,7 @@ import {
 import {
   createShopItem as createShopItemAction,
   fetchShopItemStandaloneList as fetchShopItemStandaloneListAction,
+  fetchShopItemBaseList as fetchShopItemBaseListAction,
   retrieveShopItemUsedInCombo as retrieveShopItemUsedInComboAction,
   duplicateShopItem as duplicateShopItemAction,
   deleteShopItem as deleteShopItemAction,
@@ -39,7 +40,7 @@ import {
 import { getTheme } from '#libs/theme/selectors';
 import {
   getIsShopItemUsedInCombo,
-  getShopItemStandaloneList,
+  getShopItemBaseLoading,
   getShopItemStandaloneLoading,
   getShopSupplierList,
   getShopSupplierListLoading,
@@ -85,15 +86,22 @@ export class ShopListReworkedPage extends PureComponent<Props> {
   componentDidMount() {
     this.props.fetchSubshopList();
     this.props.fetchShopItemStandaloneList();
+    this.props.fetchShopItemBaseList();
     this.props.fetchShopSupplierList();
   }
+
+  /** Handler to retrieve standalone + base shop items */
+  handleFetchStandaloneBaseItemList = () => {
+    this.props.fetchShopItemStandaloneList();
+    this.props.fetchShopItemBaseList();
+  };
 
   handleChangeTab = (tab: ShopListTab, isSameTabAsSelected?: boolean) => {
     if (isSameTabAsSelected) return;
     switch (tab) {
       case ShopListTab.PRODUCTS:
+        this.handleFetchStandaloneBaseItemList();
         this.props.fetchSubshopList();
-        this.props.fetchShopItemStandaloneList();
         this.props.fetchShopSupplierList();
         break;
       case ShopListTab.SETTINGS:
@@ -120,7 +128,7 @@ export class ShopListReworkedPage extends PureComponent<Props> {
 
     this.props.createShopItem(formData, {
       onSuccess: () => {
-        this.props.fetchShopItemStandaloneList();
+        this.handleFetchStandaloneBaseItemList();
         options?.onSuccess?.();
       },
     });
@@ -129,7 +137,7 @@ export class ShopListReworkedPage extends PureComponent<Props> {
   handleDuplicateShopItem = (id: number, suffix: string) => {
     this.props.duplicateShopItem(id, suffix, {
       onSuccess: () => {
-        this.props.fetchShopItemStandaloneList();
+        this.handleFetchStandaloneBaseItemList();
       },
     });
   };
@@ -137,7 +145,7 @@ export class ShopListReworkedPage extends PureComponent<Props> {
   handleDeleteShopItem = (id: number, options?: OptionCallback<number>) => {
     this.props.deleteShopItem(id, {
       onSuccess: () => {
-        this.props.fetchShopItemStandaloneList();
+        this.handleFetchStandaloneBaseItemList();
         options?.onSuccess?.();
       },
     });
@@ -203,6 +211,7 @@ export class ShopListReworkedPage extends PureComponent<Props> {
         isLoading={
           this.props.subshopLoading ||
           this.props.shopItemStandaloneLoading ||
+          this.props.shopItemBaseLoading ||
           this.props.isSupplierListLoading
         }
         isOrderConfigurationLoading={this.props.orderConfigurationLoading}
@@ -228,8 +237,8 @@ const connector = connect(
     subshopLoading: getSubshopLoading(state),
     supplierList: getShopSupplierList(state),
     isSupplierListLoading: getShopSupplierListLoading(state),
-    shopItemStandaloneList: getShopItemStandaloneList(state),
     shopItemStandaloneLoading: getShopItemStandaloneLoading(state),
+    shopItemBaseLoading: getShopItemBaseLoading(state),
     deliveryConfiguration: getOrderConfigurationData(state),
     deliveryFees: getDeliveryFeesActive(state),
     orderConfigurationLoading: state.order.configuration.loading,
@@ -240,6 +249,7 @@ const connector = connect(
   {
     // SHOP ITEM
     fetchShopItemStandaloneList: fetchShopItemStandaloneListAction,
+    fetchShopItemBaseList: fetchShopItemBaseListAction,
     retrieveShopItemUsedInCombo: retrieveShopItemUsedInComboAction,
     createShopItem: createShopItemAction,
     deleteShopItem: deleteShopItemAction,

@@ -303,6 +303,8 @@ const getTranslations = async () => {
       date_bought: 'Date of purchase',
       due_date: 'Due date',
       supplier: 'Supplier',
+      bookkeeping_account_number: 'Account number',
+      bookkeeping_account_name: 'Account name',
       category: 'Category',
       is_recurring: 'Recurring',
       amount_expense: 'Amount',

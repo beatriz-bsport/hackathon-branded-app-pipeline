@@ -94,27 +94,27 @@ const getTranslations = async () => {
           'Show the amount of men and women that booked a session',
         waitingListAccountsForMaxFutureBookings: {
           label:
-            'Include waiting-list slots in maximum future booking/workshop count',
+            'Include waiting list registrations when counting future bookings',
           helperText:
-            'If activated, the number of future booking will be decreased by the number of future waiting-list slots registered. Future waiting-list slots will also be restricted based on this same count, to avoid overbooking.',
+            'If activated, future bookings will include both waiting list registrations and actual bookings. When the limit is reached, a member will be restricted from both joining a waitlist and booking a session.',
         },
         hideCoach: "Hide teachers' info on the calendar for members",
         maxFutureBooking: {
           numberCheck: {
             helperText:
-              'This will be the maximum amount of future bookings per member, excluding workshop bookings.',
+              'The maximum number of group activity sessions a member can book in advance.',
             placeholder: 'Maximum',
           },
-          label: 'Limit the amount of future bookings per member',
+          label:
+            'Limit the amount of future bookings per member for group activities',
         },
         maxFutureWorkshop: {
           numberCheck: {
             helperText:
-              'This will be the maximum amount of future booked workshop sessions per member.',
+              'The maximum number of workshop sessions a member can book in advance.',
             placeholder: 'Maximum',
           },
-          label:
-            'Limit the amount of future booked workshop sessions per member',
+          label: 'Limit the amount of future bookings per member for workshops',
         },
         hiddenFromMarketplace:
           'Activate this to display your studio on the general BSPORT app and marketplace',

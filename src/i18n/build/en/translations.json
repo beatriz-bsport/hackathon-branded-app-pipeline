@@ -7842,7 +7842,7 @@
                 },
                 "content": {
                     "cannotDelete": "This establishment can't be deleted, because you haven't cancelled and deleted the upcoming sessions that are linked to this establishment.",
-                    "canDelete": "Are you sure you that want to delete this establishment? Existing sessions and past bookings won't be modified. This action can't be undone."
+                    "canDelete": "Are you sure that you want to delete this establishment? Existing sessions and past bookings won't be modified. This action can't be undone."
                 },
                 "actions": {
                     "confirm": "Delete",

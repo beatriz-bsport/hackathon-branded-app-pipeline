@@ -150,7 +150,7 @@ const BottomActions: React.FC<BottomActionsProps> = React.memo(
           </div>
         )}
 
-        {buttons?.length && (
+        {!!buttons?.length && (
           <DialogActions
             className={classNames(
               classes.dialogActions,

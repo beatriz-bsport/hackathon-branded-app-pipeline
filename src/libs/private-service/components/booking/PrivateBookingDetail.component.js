@@ -112,7 +112,7 @@ export const PrivateBookingDetail = (props: Props) => {
             </Typography>
             <Typography inline>{private_booking.address}</Typography>
           </div>
-          {!!private_service && private_service.coaches.length && (
+          {!!private_service && !!private_service.coaches.length && (
             <div className={classes.parameterRow}>
               <Typography inline>
                 {t('privateBooking.detail.coach')} :

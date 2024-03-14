@@ -129,7 +129,7 @@ export const PriceCount: React.FC<PriceCountProps> = ({
 
   return (
     <div className={classes.priceCountContainer}>
-      {!!(deliveryFeeItem || discountItemList?.length || flatFeeItem) && (
+      {!!(deliveryFeeItem || !!discountItemList?.length || flatFeeItem) && (
         <>
           <div className={classes.subContainer}>
             {deliveryFeeItem && (
@@ -183,7 +183,7 @@ export const PriceCount: React.FC<PriceCountProps> = ({
           <Divider className={classes.divider} variant="middle" />
         </div>
       )}
-      {!!(giftcardItemList?.length || internalAccountItem) && (
+      {!!(!!giftcardItemList?.length || internalAccountItem) && (
         <>
           <div className={classes.subContainer}>
             {giftcardItemList.map((giftcardItem) => (

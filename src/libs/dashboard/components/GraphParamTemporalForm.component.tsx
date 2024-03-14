@@ -126,7 +126,7 @@ const GraphParamTemporalForm: React.FC<Props> = ({
           {helperText}
         </Typography>
       )}
-      {aggregationFunctionNameChoices.length &&
+      {!!aggregationFunctionNameChoices.length &&
         aggregationFunctionNameChoices[0].value !== 'count' && (
           <>
             <Typography

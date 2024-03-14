@@ -528,7 +528,7 @@ export class PaymentPackList extends React.Component<Props, State> {
           ]: boolean[]) => (
             <div className={classes.container}>
               <div className={classes.buttonRow}>
-                {this.props.enabledPacks?.length && (
+                {!!this.props.enabledPacks?.length && (
                   <div style={{ flex: 1 }}>
                     <FuzeSearch
                       changeSearch={this.changeSearch}

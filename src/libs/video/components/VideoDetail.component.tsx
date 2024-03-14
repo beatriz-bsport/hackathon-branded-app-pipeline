@@ -127,7 +127,7 @@ export class VideoDetail extends Component<Props, State> {
                       {t('video.rental.forRent')}
                     </Typography>
                   </div>
-                  {this.props.relatedVideoPurchaseList?.length && (
+                  {!!this.props.relatedVideoPurchaseList?.length && (
                     <div className={classes.rental}>
                       <IconButton
                         disabled={this.state.currentPage === 1}

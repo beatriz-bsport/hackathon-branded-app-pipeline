@@ -180,7 +180,7 @@ export function SubscriptionComponent(props: Props) {
                 />
               </Paper>
 
-              {pauseListV1.length && (
+              {!!pauseListV1.length && (
                 <Typography variant="h6">
                   {t('subscription.pauseSection')}
                 </Typography>

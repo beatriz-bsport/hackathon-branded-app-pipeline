@@ -432,7 +432,7 @@ export function CustomFormConfigurationTable(props: Props) {
             </>
             {!!(
               mainFormik.values.custom_form_field_disabled &&
-              mainFormik.values.custom_form_field_disabled.length
+              !!mainFormik.values.custom_form_field_disabled.length
             ) && (
               <>
                 <div>

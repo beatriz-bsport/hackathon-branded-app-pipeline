@@ -450,7 +450,7 @@ export class PaymentPackDetail extends Component<Props, State> {
               <div className={classes.massExtensionContainer}>
                 {!!(
                   this.props.massExtension.items &&
-                  this.props.massExtension.items.length
+                  !!this.props.massExtension.items.length
                 ) && (
                   <React.Fragment>
                     <Typography variant="h5">

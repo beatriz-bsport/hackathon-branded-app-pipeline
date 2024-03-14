@@ -109,7 +109,7 @@ export const PaymentStripe: React.FC<Props> = ({
           payment_note,
           date,
           // @ts-expect-error just to be safe since modifiedAmountToPay can be a string
-          price_cts: Math.round(parseFloat(modifiedAmountToPay) * 100),
+          price_cts: Math.round(parseFloat(modifiedAmountToPay) * 100 || 0),
         })
           .then(() => {
             onSuccess(() => setProcessing(false));

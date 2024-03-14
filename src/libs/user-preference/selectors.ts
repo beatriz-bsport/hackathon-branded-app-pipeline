@@ -55,6 +55,9 @@ export const getShrinkResponsiveDrawer = (state: RootState) =>
 const _getDoNotDisplayDeleteStepDialogCadenceIds = (state: RootState) =>
   state.userPreference.doNotDisplayDeleteStepDialogCadenceIds || [];
 
+const _getDoNotDisplayDeleteExitDialogCadenceIds = (state: RootState) =>
+  state.userPreference.doNotDisplayDeleteExitDialogCadenceIds || [];
+
 const _getDoNotDisplayConvertStepIntoExitDialogCadenceIds = (
   state: RootState,
 ) => state.userPreference.doNotDisplayConvertStepIntoExitDialogCadenceIds || [];
@@ -68,6 +71,14 @@ const _getDoNotDisplayPauseDialogCadenceIds = (state: RootState) =>
 export const getIsDeleteStepDialogHidden = createSelector(
   [
     _getDoNotDisplayDeleteStepDialogCadenceIds,
+    (_: RootState, id: number) => id,
+  ],
+  (cadenceIds, id) => cadenceIds?.includes(id) ?? false,
+);
+
+export const getIsDeleteExitDialogHidden = createSelector(
+  [
+    _getDoNotDisplayDeleteExitDialogCadenceIds,
     (_: RootState, id: number) => id,
   ],
   (cadenceIds, id) => cadenceIds?.includes(id) ?? false,

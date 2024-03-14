@@ -153,6 +153,7 @@ type NodeRendererProps = {
   storedTriggers: Immutable.ImmutableArray<StoredTrigger>;
   fakerTrigger?: StoredTrigger;
   isDeleteStepDialogHidden: boolean;
+  isDeleteExitDialogHidden: boolean;
   isConvertStepIntoExitDialogHidden: boolean;
   isPushNotificationUpsellActive: boolean;
   convertCadenceExitIntoStep: (
@@ -205,6 +206,7 @@ type NodeRendererProps = {
     marketingAction: Partial<StepMarketingActions>,
   ) => void;
   doNotDisplayDeleteStepDialogAnymore: () => void;
+  doNotDisplayDeleteExitDialogAnymore: () => void;
   doNotDisplayConvertStepIntoExitDialogAnymore: () => void;
   setInitialConfig: (data: CadenceInitialConfiguration) => void;
   setCurrentStepConfiguration: (
@@ -224,6 +226,7 @@ export const useNodeElementsRecorder = ({
   storedSteps,
   storedTriggers,
   isDeleteStepDialogHidden,
+  isDeleteExitDialogHidden,
   isConvertStepIntoExitDialogHidden,
   isPushNotificationUpsellActive,
   convertCadenceExitIntoStep,
@@ -246,6 +249,7 @@ export const useNodeElementsRecorder = ({
   setInitialConfig,
   upsertMarketingAction,
   doNotDisplayDeleteStepDialogAnymore,
+  doNotDisplayDeleteExitDialogAnymore,
   doNotDisplayConvertStepIntoExitDialogAnymore,
   submitMarketingActionForm,
   updateCadenceStepName,
@@ -697,6 +701,8 @@ export const useNodeElementsRecorder = ({
                 },
               }
             : { position: { x: DEFAULT_X_FOR_EXIT, y: 0 } }),
+          isDeleteExitDialogHidden,
+          doNotDisplayDeleteExitDialogAnymore,
         },
       }));
     }
@@ -707,6 +713,8 @@ export const useNodeElementsRecorder = ({
     handleDeleteConnectedTrigger,
     handleEditCadenceExit,
     storedTriggersToOutside,
+    isDeleteExitDialogHidden,
+    doNotDisplayDeleteExitDialogAnymore,
   ]);
 
   return { entryNode, triggerNodeElements, stepNodeElements, exitNodeElements };

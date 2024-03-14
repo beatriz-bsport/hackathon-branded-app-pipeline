@@ -60,6 +60,9 @@ export const userPreferenceActions = {
     'USER_PREFERANCE/HIDE_ASSOCIATED_COACH_WITHOUTH_PRIVATE_SERVICE_DIALOG',
   ),
   doNotDisplayDeleteStepDialogAnymore: createAction<number>(
+    'USER_PREFERENCE/ADD_DO_NOT_DISPLAY_DELETE_EXIT_DIALOG_CADENCE_IDS',
+  ),
+  doNotDisplayDeleteExitDialogAnymore: createAction<number>(
     'USER_PREFERENCE/ADD_DO_NOT_DISPLAY_DELETE_STEP_DIALOG_CADENCE_IDS',
   ),
   doNotDisplayConvertStepIntoExitDialogAnymore: createAction<number>(
@@ -247,6 +250,14 @@ export function doNotDisplayDeleteStepDialogAnymore(cadenceId: number) {
   return async (dispatch: Dispatch) => {
     dispatch(
       userPreferenceActions.doNotDisplayDeleteStepDialogAnymore(cadenceId),
+    );
+  };
+}
+
+export function doNotDisplayDeleteExitDialogAnymore(cadenceId: number) {
+  return async (dispatch: Dispatch) => {
+    dispatch(
+      userPreferenceActions.doNotDisplayDeleteExitDialogAnymore(cadenceId),
     );
   };
 }

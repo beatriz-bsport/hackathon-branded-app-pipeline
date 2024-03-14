@@ -39,6 +39,7 @@ type Props = {
   isConvertStepIntoExitDialogHidden: boolean;
   isPushNotificationUpsellActive: boolean;
   isDeleteStepDialogHidden: boolean;
+  isDeleteExitDialogHidden: boolean;
   isEntryActionBubbleOpen: boolean;
   isEntryFirstConfiguration: boolean;
   smartlists: Immutable.ImmutableArray<SmartList>;
@@ -98,6 +99,7 @@ type Props = {
     marketingAction: Partial<StepMarketingActions>,
   ) => void;
   doNotDisplayDeleteStepDialogAnymore: () => void;
+  doNotDisplayDeleteExitDialogAnymore: () => void;
   doNotDisplayConvertStepIntoExitDialogAnymore: () => void;
   setInitialConfig: (data: CadenceInitialConfiguration) => void;
   setCurrentStepConfiguration: (
@@ -113,6 +115,7 @@ export const useGraph = ({
   initialConfiguration,
   isConvertStepIntoExitDialogHidden,
   isDeleteStepDialogHidden,
+  isDeleteExitDialogHidden,
   isEntryActionBubbleOpen,
   isEntryFirstConfiguration,
   isPushNotificationUpsellActive,
@@ -125,6 +128,7 @@ export const useGraph = ({
   deleteStepMarketingAction,
   doNotDisplayConvertStepIntoExitDialogAnymore,
   doNotDisplayDeleteStepDialogAnymore,
+  doNotDisplayDeleteExitDialogAnymore,
   editConnectedTrigger,
   getEmailTemplate,
   getSmartlist,
@@ -196,6 +200,7 @@ export const useGraph = ({
       storedSteps,
       storedTriggers,
       isDeleteStepDialogHidden,
+      isDeleteExitDialogHidden,
       isConvertStepIntoExitDialogHidden,
       isPushNotificationUpsellActive,
       convertCadenceExitIntoStep,
@@ -205,6 +210,7 @@ export const useGraph = ({
       deleteStepMarketingAction,
       doNotDisplayConvertStepIntoExitDialogAnymore,
       doNotDisplayDeleteStepDialogAnymore,
+      doNotDisplayDeleteExitDialogAnymore,
       editConnectedTrigger,
       getEmailTemplate,
       getSmartlist,

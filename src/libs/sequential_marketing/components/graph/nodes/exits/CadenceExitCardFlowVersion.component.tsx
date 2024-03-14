@@ -13,9 +13,14 @@ import { HandleTypeChoices } from '#libs/sequential_marketing/constants/steps';
 import ConvertIntoStepBubble from '#libs/sequential_marketing/components/graph/bubbles/ConvertIntoStepBubble.component';
 import ConvertIntoExitBubble from '#libs/sequential_marketing/components/graph/bubbles/ConvertIntoExitBubble.component';
 import { CadencePopover } from '../internals/CadencePopover.component';
+import CadenceUtilityDialog, {
+  DialogVariant,
+} from '#libs/sequential_marketing/components/dialogs/DialogUtility';
 
 type Props = {
   data: {
+    isDeleteExitDialogHidden: boolean;
+    doNotDisplayDeleteExitDialogAnymore: () => void;
     submitConvertIntoStep: (stepName: string) => void;
     editCadenceExit: (status: DestinationStatus) => void;
     position: { x: number; y: number };
@@ -70,6 +75,32 @@ export const ExitCardFlowVersion: React.FC<Props> = ({ data }) => {
   );
   // ==============================================================
 
+  // ======================= DELETE EXIT DIALOG ========================
+  const [isDeleteExitDialogOpen, setIsDeleteExitDialogOpen] =
+    React.useState(false);
+
+  const handleCloseDeleteExitDialog = React.useCallback(() => {
+    setIsDeleteExitDialogOpen(false);
+  }, []);
+
+  const handleDeleteExit = React.useCallback(() => {
+    if (data?.isDeleteExitDialogHidden) {
+      data?.onDelete();
+    } else {
+      setIsDeleteExitDialogOpen(true);
+    }
+  }, [data]);
+
+  const handleConfirmDeleteExitDialog = React.useCallback(
+    (isChecked: boolean) => {
+      handleCloseDeleteExitDialog();
+      isChecked && data?.doNotDisplayDeleteExitDialogAnymore?.();
+      data?.onDelete();
+    },
+    [data, handleCloseDeleteExitDialog],
+  );
+  // ===================================================================
+
   return (
     <>
       <HiddenHandle
@@ -81,7 +112,7 @@ export const ExitCardFlowVersion: React.FC<Props> = ({ data }) => {
         <CadenceExitCard
           handleConvertIntoStep={handleOpenConvertIntoStepBubble}
           isSelected={data.isSelected}
-          onDelete={data.onDelete}
+          onDelete={handleDeleteExit}
           onEdit={handleOpenExitEditionBubble}
           status={data.status}
         />
@@ -112,6 +143,14 @@ export const ExitCardFlowVersion: React.FC<Props> = ({ data }) => {
           onConfirm={handleEditCadenceExit}
         />
       </CadencePopover>
+      {isDeleteExitDialogOpen && (
+        <CadenceUtilityDialog
+          onCancel={handleCloseDeleteExitDialog}
+          onConfirm={handleConfirmDeleteExitDialog}
+          open={isDeleteExitDialogOpen}
+          variant={DialogVariant.DELETE_EXIT}
+        />
+      )}
     </>
   );
 };

@@ -50,6 +50,7 @@ export type UserPreference = {
   replacementRequestOfferHistoryFilter: ReplacementRequestOfferHistoryFilter;
   hideCoachNotAssociatedToPrivateServiceWarning: boolean;
   doNotDisplayDeleteStepDialogCadenceIds: number[];
+  doNotDisplayDeleteExitDialogCadenceIds: number[];
   doNotDisplayConvertStepIntoExitDialogCadenceIds: number[];
   doNotDisplayEditingCadencePopinCadenceIds: number[];
   doNotDisplayPauseDialogCadenceIds: number[];

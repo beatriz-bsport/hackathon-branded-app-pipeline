@@ -76,6 +76,7 @@ import {
 // =================== USER PREFERENCE ====================
 import {
   doNotDisplayDeleteStepDialogAnymore as doNotDisplayDeleteStepDialogAnymoreAction,
+  doNotDisplayDeleteExitDialogAnymore as doNotDisplayDeleteExitDialogAnymoreAction,
   doNotDisplayConvertStepIntoExitDialogAnymore as doNotDisplayConvertStepIntoExitDialogAnymoreAction,
   doNotDisplayPauseDialogAnymore as doNotDisplayPauseDialogAnymoreAction,
   doNotDisplayWelcomeDialogAnymore as doNotDisplayWelcomeDialogAnymoreAction,
@@ -83,6 +84,7 @@ import {
 } from '#libs/user-preference/actions';
 import {
   getIsDeleteStepDialogHidden,
+  getIsDeleteExitDialogHidden,
   getIsConvertStepIntoExitDialogHidden,
   getIsPauseDialogHidden,
   getDoNotDisplayCadenceWelcomeDialog,
@@ -529,6 +531,9 @@ export class CadenceDetailPage extends Component<Props> {
                   doNotDisplayConvertStepIntoExitDialogAnymore={
                     this.props.doNotDisplayConvertStepIntoExitDialogAnymore
                   }
+                  doNotDisplayDeleteExitDialogAnymore={
+                    this.props.doNotDisplayDeleteExitDialogAnymore
+                  }
                   doNotDisplayDeleteStepDialogAnymore={
                     this.props.doNotDisplayDeleteStepDialogAnymore
                   }
@@ -556,6 +561,7 @@ export class CadenceDetailPage extends Component<Props> {
                   isConvertStepIntoExitDialogHidden={
                     this.props.isConvertStepIntoExitDialogHidden
                   }
+                  isDeleteExitDialogHidden={this.props.isDeleteExitDialogHidden}
                   isDeleteStepDialogHidden={this.props.isDeleteStepDialogHidden}
                   isEntryFirstConfiguration={isEntryFirstConfiguration}
                   isPushNotificationUpsellActive={this.isPushNotificationUpsellActive()}
@@ -1125,6 +1131,11 @@ const mapWithHandlers = {
       props.doNotDisplayDeleteStepDialogAnymoreAction(props.cadenceId);
     },
 
+  doNotDisplayDeleteExitDialogAnymore:
+    (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) => () => {
+      props.doNotDisplayDeleteExitDialogAnymoreAction(props.cadenceId);
+    },
+
   doNotDisplayConvertStepIntoExitDialogAnymore:
     (props: OwnProps & ConnectedPropsAndStateAndRefreshAll) => () => {
       props.doNotDisplayConvertStepIntoExitDialogAnymoreAction(props.cadenceId);
@@ -1174,6 +1185,7 @@ const connector = connect(
     // SMARTLISTS
     smartlists: getAllSmartList(state),
     isDeleteStepDialogHidden: getIsDeleteStepDialogHidden(state, cadenceId),
+    isDeleteExitDialogHidden: getIsDeleteExitDialogHidden(state, cadenceId),
     isConvertStepIntoExitDialogHidden: getIsConvertStepIntoExitDialogHidden(
       state,
       cadenceId,
@@ -1208,6 +1220,7 @@ const connector = connect(
     doNotDisplayEditingCadencePopinAnymoreAction,
     doNotDisplayConvertStepIntoExitDialogAnymoreAction,
     doNotDisplayDeleteStepDialogAnymoreAction,
+    doNotDisplayDeleteExitDialogAnymoreAction,
     doNotDisplayPauseDialogAnymoreAction,
     doNotDisplayWelcomeDialogAnymoreAction,
     fetchCadenceStepListAction,

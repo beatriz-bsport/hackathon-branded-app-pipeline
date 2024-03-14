@@ -191,6 +191,15 @@ export default handleActions<Immutable.Immutable<UserPreference>, any>(
         payload,
       ]);
     },
+    [userPreferenceActions.doNotDisplayDeleteExitDialogAnymore.toString()]: (
+      state,
+      { payload }: { payload: number },
+    ) => {
+      return state.set('doNotDisplayDeleteExitDialogCadenceIds', [
+        ...(state.doNotDisplayDeleteExitDialogCadenceIds || []),
+        payload,
+      ]);
+    },
     [userPreferenceActions.doNotDisplayConvertStepIntoExitDialogAnymore.toString()]:
       (state, { payload }: { payload: number }) => {
         return state.set('doNotDisplayConvertStepIntoExitDialogCadenceIds', [

@@ -45,6 +45,7 @@ export const shopItemFactory = (options?: ShopItemFactoryOptions) => {
     sell_only_on_provision: faker.datatype.boolean(),
     available_payment_method_identifiers: [CB.id],
     current_stock: faker.number.int(20),
+    number_of_variants: faker.number.int(20),
     total_sales: faker.number.int(500),
     disabled: options?.isDisabled ?? false,
     color: faker.color.human(),

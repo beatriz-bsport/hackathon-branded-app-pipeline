@@ -46,6 +46,7 @@ export type ShopItem = {
   lowest_variant_price: number | null;
   marketplace_enabled: boolean;
   name: string;
+  number_of_variants: number;
   price: string;
   sell_only_on_provision: boolean;
   size: string;

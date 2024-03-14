@@ -149,7 +149,8 @@ export class SubscriptionCreate extends Component<Props, State> {
       this.state.payment_combo) &&
     this.state.nb_interval &&
     this.props.member &&
-    (this.props.withName ? !!this.state.name : true);
+    (this.props.withName ? !!this.state.name : true) &&
+    this.state.recurrent_voucher;
 
   updatePaymentPack = (id: number) =>
     this.setState({
@@ -206,7 +207,7 @@ export class SubscriptionCreate extends Component<Props, State> {
 
   updateRecurrentVoucher = (event: any) =>
     this.setState({
-      recurrent_voucher: event.target.value || 0,
+      recurrent_voucher: event.target.value,
     });
 
   updateName = (event: any) =>

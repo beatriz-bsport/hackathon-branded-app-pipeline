@@ -18,6 +18,7 @@ import type { Cadence } from '#libs/sequential_marketing/types';
 export enum DialogVariant {
   ACTIVE = 'activate',
   DELETE_STEP = 'delete-step',
+  DELETE_EXIT = 'delete-exit',
   ARCHIVE_WORKFLOW = 'archive-workflow',
   CONVERT_STEP_INTO_EXIT = 'convert-step-into-exit',
   PAUSE_WORKFLOW = 'pause-workflow',
@@ -57,6 +58,12 @@ const useCadenceUtilityIcon = (
       };
     case DialogVariant.CONVERT_STEP_INTO_EXIT:
     case DialogVariant.DELETE_STEP:
+      return {
+        icon: null,
+        customIcon: WarningIconRounded,
+        color: theme.palette.warning.main,
+      };
+    case DialogVariant.DELETE_EXIT:
       return {
         icon: null,
         customIcon: WarningIconRounded,
@@ -160,6 +167,16 @@ const useCadenceUtilityButtons = (
           onClick: onConfirm,
         },
       ];
+    case DialogVariant.DELETE_EXIT:
+      return [
+        defaultCancelButtonProps,
+        {
+          title: t('cadence.deleteExit.dialog.confirmButton'),
+          fontColor: '',
+          backgroundColor: theme.palette.warning.main,
+          onClick: onConfirm,
+        },
+      ];
     case DialogVariant.PAUSE_WORKFLOW:
       return [
         defaultCancelButtonProps,
@@ -255,6 +272,11 @@ const useCadenceUtilityTexts = (
         title: t('cadence.step.archive.dialog.title'),
         descriptions: [[t('cadence.step.archive.dialog.helper')]],
       };
+    case DialogVariant.DELETE_EXIT:
+      return {
+        title: t('cadence.exit.archive.dialog.title'),
+        descriptions: [[t('cadence.exit.archive.dialog.helper')]],
+      };
     case DialogVariant.PAUSE_WORKFLOW:
       return {
         title: t('cadence.pause.dialog.title'),
@@ -298,6 +320,7 @@ const useCadenceUtilityCheckbox = (variant: DialogVariant) => {
 
     case DialogVariant.CONVERT_STEP_INTO_EXIT:
     case DialogVariant.DELETE_STEP:
+    case DialogVariant.DELETE_EXIT:
     case DialogVariant.PAUSE_WORKFLOW:
     case DialogVariant.WELCOME:
     case DialogVariant.EDITING_MODE:
@@ -317,6 +340,7 @@ const useCadenceUtilitySize = (variant: DialogVariant) => {
     case DialogVariant.ARCHIVE_WORKFLOW:
     case DialogVariant.CONVERT_STEP_INTO_EXIT:
     case DialogVariant.DELETE_STEP:
+    case DialogVariant.DELETE_EXIT:
     case DialogVariant.PAUSE_WORKFLOW:
     case DialogVariant.EDITING_MODE:
     default:

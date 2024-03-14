@@ -603,6 +603,11 @@ exports.default = {
         confirmButton: 'Delete',
       },
     },
+    deleteExit: {
+      dialog: {
+        confirmButton: 'Delete',
+      },
+    },
     howTo: {
       set_trigger_destination: '{{ index }}. Redirect to a marketing action',
       add_smartlist_filter: '{{ index }}. Filter on smartlists',
@@ -718,6 +723,15 @@ exports.default = {
           title: 'Convert this step into an exit',
           helper:
             'The triggers that directly follow this step will be deleted. The rest of the {{ workflowLowerCase }} will be disconnected but not deleted.',
+        },
+      },
+    },
+    exit: {
+      archive: {
+        dialog: {
+          title: 'Are you sure you want to delete this exit?',
+          helper:
+            'The trigger that precedes will be also deleted. The rest of the {{ workflowLowerCase }} will be disconnected but not deleted.',
         },
       },
     },

@@ -110,3 +110,25 @@ export const getStripePayoutList = createSelector(
   [_getStripePayoutAllIds, _getStripePayoutData],
   (ids, data) => (ids ?? []).map((id) => data[id]).filter((payout) => !!payout),
 );
+
+// -------------- Bookkeeping Accounts --------------
+
+const __getBookkeepingAccountList = (state: RootState) =>
+  state.paymentBackend.bookkeepingAccounts.allIds;
+
+export const getBookkeepingAccountById = (state: RootState) =>
+  state.paymentBackend.bookkeepingAccounts.byId;
+
+export const getBookkeepingAccountList = createSelector(
+  [__getBookkeepingAccountList, getBookkeepingAccountById],
+  (list, data) => list.map((id) => data[id]),
+);
+
+export const getBookkeepingAccountLoading = (state: RootState) =>
+  state.paymentBackend.bookkeepingAccounts.loading;
+
+export const getBookkeepingAccountError = (state: RootState) =>
+  state.paymentBackend.bookkeepingAccounts.error;
+
+export const getLinkedProductNames = (state: RootState) =>
+  state.paymentBackend.bookkeepingAccounts.linkedProductNames;

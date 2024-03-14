@@ -14,6 +14,11 @@ import {
   stripeBalanceActions,
   submitInternalPaymentInBackgroundActions,
   listStripePayoutActions,
+  listBookkeepingAccountActions,
+  createBookkeepingAccountActions,
+  updateBookkeepingAccountActions,
+  deleteBookkeepingAccountActions,
+  getLinkedProductNamesActions,
 } from './actions';
 
 const initialState = Immutable({
@@ -68,6 +73,13 @@ const initialState = Immutable({
   },
   paymentGroupBeingProcessed: {
     byInvoiceUuid: {},
+  },
+  bookkeepingAccounts: {
+    byId: {},
+    allIds: [],
+    loading: false,
+    error: null,
+    linkedProductNames: [],
   },
 });
 
@@ -255,6 +267,63 @@ export default handleActions(
     },
     [listStripePayoutActions.error]: (state, { payload }) => {
       return state.setIn(['stripePayout', 'error'], payload);
+    },
+    [listBookkeepingAccountActions.success.toString()]: (
+      state,
+      { payload },
+    ) => {
+      return state
+        .setIn(
+          ['bookkeepingAccounts', 'allIds'],
+          payload.map((bookkeepingAccount) => bookkeepingAccount.id),
+        )
+        .merge(
+          {
+            bookkeepingAccounts: {
+              byId: payload.reduce((accumulator, bookkeepingAccount) => {
+                accumulator[bookkeepingAccount.id] = bookkeepingAccount;
+                return accumulator;
+              }, {}),
+            },
+          },
+          { deep: true },
+        );
+    },
+    [listBookkeepingAccountActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['bookkeepingAccounts', 'loading'], payload);
+    },
+    [listBookkeepingAccountActions.error]: (state, { payload }) => {
+      return state.setIn(['bookkeepingAccounts', 'error'], payload);
+    },
+    [createBookkeepingAccountActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['bookkeepingAccounts', 'loading'], payload);
+    },
+    [createBookkeepingAccountActions.error]: (state, { payload }) => {
+      return state.setIn(['bookkeepingAccounts', 'error'], payload);
+    },
+    [updateBookkeepingAccountActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['bookkeepingAccounts', 'loading'], payload);
+    },
+    [updateBookkeepingAccountActions.error]: (state, { payload }) => {
+      return state.setIn(['bookkeepingAccounts', 'error'], payload);
+    },
+    [deleteBookkeepingAccountActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['bookkeepingAccounts', 'loading'], payload);
+    },
+    [deleteBookkeepingAccountActions.error]: (state, { payload }) => {
+      return state.setIn(['bookkeepingAccounts', 'error'], payload);
+    },
+    [getLinkedProductNamesActions.success.toString()]: (state, { payload }) => {
+      return state.setIn(
+        ['bookkeepingAccounts', 'linkedProductNames'],
+        payload,
+      );
+    },
+    [getLinkedProductNamesActions.isLoading]: (state, { payload }) => {
+      return state.setIn(['bookkeepingAccounts', 'loading'], payload);
+    },
+    [getLinkedProductNamesActions.error]: (state, { payload }) => {
+      return state.setIn(['bookkeepingAccounts', 'error'], payload);
     },
   },
   initialState,

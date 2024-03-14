@@ -8,6 +8,19 @@ import {
   MarketplacePaymentMethods,
 } from '#libs/marketplace/types';
 
+export type PaymentBackendState = {
+  // TODO: Add more properties and remove next line
+  [key: string]: any; // Allows to not check keys other than the ones defined below
+} & {
+  bookkeepingAccounts: {
+    byId: { [id: number]: BookkeepingAccount };
+    allIds: Array<number>;
+    loading: boolean;
+    error: number | null;
+    linkedProductNames: string[];
+  };
+};
+
 export type PaymentMethod = {
   type: MarketplacePaymentMethods;
   id: string;
@@ -132,3 +145,22 @@ export type StripeAPIException = {
 export type PaymentEngine =
   | typeof PAYMENT_ENGINE_STRIPE
   | typeof PAYMENT_ENGINE_BSPORT;
+
+export type BookkeepingAccount = {
+  id: number;
+  company_id: number;
+  account_number: string;
+  account_name: string;
+  vat_rate: string;
+  created_at: string;
+  updated_at: string;
+};
+
+export type BookkeepingAccountSubmitParams = Omit<
+  BookkeepingAccount,
+  'id' | 'company_id' | 'created_at' | 'updated_at'
+>;
+
+export type fetchBookkeepingAccountListFilter = {
+  is_active?: boolean;
+};

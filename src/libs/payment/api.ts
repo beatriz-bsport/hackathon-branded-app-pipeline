@@ -6,6 +6,8 @@ import {
   API_URI,
   postAuth,
   buildUrlParams,
+  deleteAuth,
+  patchAuth,
 } from '../../http';
 import type {
   PaymentGroup,
@@ -13,6 +15,8 @@ import type {
   InternalPaymentPayload,
   StripePayout,
   StripeBalance,
+  BookkeepingAccount,
+  fetchBookkeepingAccountListFilter,
 } from './types';
 import type { BillingDetails } from '#libs/marketplace/types';
 
@@ -238,5 +242,50 @@ export const fetchStripePayoutList = async (params: {
 }) => {
   return getAuth<StripePayout[]>(
     `${API_V1_URI}/payment/stripe/payout${buildUrlParams(params)}`,
+  );
+};
+
+// -------------- Bookkeeping Accounts --------------
+
+export const fetchBookkeepingAccountList = (
+  params: fetchBookkeepingAccountListFilter = {},
+) => {
+  return getAuth<BookkeepingAccount[]>(
+    `${API_V1_URI}/payment/bookkeeping_account/${buildUrlParams(params)}`,
+  );
+};
+
+export const createBookkeepingAccount = (data: {
+  account_name: string;
+  account_number: string;
+  vat_rate: string;
+}) => {
+  return postAuth<BookkeepingAccount>(
+    `${API_V1_URI}/payment/bookkeeping_account/`,
+    data,
+  );
+};
+
+export const updateBookkeepingAccount = (
+  id: number,
+  data: {
+    account_name?: string;
+    account_number?: string;
+    vat_rate?: string;
+  },
+) => {
+  return patchAuth<BookkeepingAccount>(
+    `${API_V1_URI}/payment/bookkeeping_account/${id}/`,
+    data,
+  );
+};
+
+export const deleteBookkeepingAccount = (id: number) => {
+  return deleteAuth<null>(`${API_V1_URI}/payment/bookkeeping_account/${id}/`);
+};
+
+export const getLinkedProductNames = (bookkeepingAccountId: number) => {
+  return getAuth<string[]>(
+    `${API_V1_URI}/payment/bookkeeping_account/${bookkeepingAccountId}/products/`,
   );
 };

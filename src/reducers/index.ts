@@ -159,6 +159,7 @@ import type { ReferralState } from '#libs/referral/types';
 import type { ZoomAppState } from '#libs/zoom-app/types';
 import type { ShopState, ShopStateReworked } from '#libs/shop/types';
 import type { AccessControlState } from '#libs/access-control/types';
+import type { PaymentBackendState } from '#libs/payment/types';
 
 const rootReducer = (history: any) =>
   combineReducers({
@@ -294,7 +295,7 @@ export type RootState = {
   offer: OfferState;
   order: OrderState;
   partnership: PartnershipState;
-  paymentBackend: any;
+  paymentBackend: PaymentBackendState;
   paymentCombo: PaymentComboState;
   paymentPack: any;
   paymentRules: any;

@@ -21,6 +21,11 @@ import {
   setPaymentMethodAsDefault as setPaymentMethodAsDefaultAPI,
   submitInternalPaymentInBackground as submitInternalPaymentInBackgroundAPI,
   fetchStripePayoutList as fetchStripePayoutListAPI,
+  fetchBookkeepingAccountList as fetchBookkeepingAccountListAPI,
+  createBookkeepingAccount as createBookkeepingAccountAPI,
+  updateBookkeepingAccount as updateBookkeepingAccountAPI,
+  deleteBookkeepingAccount as deleteBookkeepingAccountAPI,
+  getLinkedProductNames as getLinkedProductNamesAPI,
 } from './api';
 import type {
   PaymentGroup,
@@ -29,9 +34,13 @@ import type {
   InternalPaymentPayload,
   StripePayout,
   StripeBalance,
+  BookkeepingAccount,
+  BookkeepingAccountSubmitParams,
+  fetchBookkeepingAccountListFilter,
 } from './types';
 
 import { isErrorWithCustomCode } from '#libs/utils';
+import { CUSTOM_ERROR_CODE } from '#libs/constants';
 
 // Active campaign Account
 export const listSavedPaymentMethodListActions = {
@@ -419,3 +428,168 @@ export function fetchStripePayoutList(
     dispatch(listStripePayoutActions.isLoading(false));
   };
 }
+
+// -------------- Bookkeeping Accounts --------------
+
+export const createBookkeepingAccountActions = {
+  isLoading: createAction<boolean>('BOOKKEEPING_ACCOUNT/CREATE/LOADING'),
+  error: createAction<Error | null>('BOOKKEEPING_ACCOUNT/CREATE/ERROR'),
+  success: createAction<BookkeepingAccount | null>(
+    'BOOKKEEPING_ACCOUNT/CREATE/SUCCESS',
+  ),
+};
+
+export const updateBookkeepingAccountActions = {
+  isLoading: createAction<boolean>('BOOKKEEPING_ACCOUNT/UPDATE/LOADING'),
+  error: createAction<Error | null>('BOOKKEEPING_ACCOUNT/UPDATE/ERROR'),
+  success: createAction<BookkeepingAccount | null>(
+    'BOOKKEEPING_ACCOUNT/UPDATE/SUCCESS',
+  ),
+};
+
+export const deleteBookkeepingAccountActions = {
+  isLoading: createAction<boolean>('BOOKKEEPING_ACCOUNT/DELETE/LOADING'),
+  error: createAction<Error | null>('BOOKKEEPING_ACCOUNT/DETETE/ERROR'),
+};
+
+export const listBookkeepingAccountActions = {
+  isLoading: createAction<boolean>('BOOKKEEPING_ACCOUNT/LIST/LOADING'),
+  error: createAction<Error | null>('BOOKKEEPING_ACCOUNT/LIST/ERROR'),
+  success: createAction<StripePayout>('BOOKKEEPING_ACCOUNT/LIST/SUCCESS'),
+};
+
+export const getLinkedProductNamesActions = {
+  isLoading: createAction<boolean>(
+    'BOOKKEEPING_ACCOUNT/GET_LINKED_PRODUCTS/LOADING',
+  ),
+  error: createAction<Error | null>(
+    'BOOKKEEPING_ACCOUNT/GET_LINKED_PRODUCTS/ERROR',
+  ),
+  success: createAction<string[]>(
+    'BOOKKEEPING_ACCOUNT/GET_LINKED_PRODUCTS/SUCCESS',
+  ),
+};
+
+export function fetchBookkeepingAccountList(
+  params: fetchBookkeepingAccountListFilter = {},
+  options?: OptionCallback<BookkeepingAccount[]>,
+): ThunkAction {
+  return async (dispatch) => {
+    dispatch(listBookkeepingAccountActions.isLoading(true));
+    dispatch(listBookkeepingAccountActions.error(null));
+    try {
+      const response = await fetchBookkeepingAccountListAPI(params);
+      dispatch(listBookkeepingAccountActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(listBookkeepingAccountActions.error(err?.response?.status));
+      options?.onError?.(err);
+    } finally {
+      dispatch(listBookkeepingAccountActions.isLoading(false));
+    }
+  };
+}
+
+export const createBookkeepingAccount =
+  (
+    data: BookkeepingAccountSubmitParams,
+    options?: OptionCallback<BookkeepingAccount>,
+  ): ThunkAction =>
+  async (dispatch) => {
+    dispatch(createBookkeepingAccountActions.isLoading(true));
+    dispatch(createBookkeepingAccountActions.error(null));
+    try {
+      const response = await createBookkeepingAccountAPI(data);
+      dispatch(createBookkeepingAccountActions.success(response.data));
+      options?.onSuccess?.(response.data);
+      dispatch(snackbarSuccess('bookkeeping_account.create.success'));
+    } catch (err) {
+      console.error(err);
+      dispatch(createBookkeepingAccountActions.error(err?.response?.status));
+      if (err?.response?.status === CUSTOM_ERROR_CODE) {
+        dispatch(
+          snackbarError(
+            `bookkeeping_account.errors.${err.response.data.error_code}`,
+          ),
+        );
+      } else {
+        dispatch(snackbarError('bookkeeping_account.create.error'));
+      }
+      options?.onError?.(err);
+    } finally {
+      dispatch(createBookkeepingAccountActions.isLoading(false));
+    }
+  };
+
+export const updateBookkeepingAccount =
+  (
+    id: number,
+    data: BookkeepingAccountSubmitParams,
+    options?: OptionCallback<BookkeepingAccount>,
+  ): ThunkAction =>
+  async (dispatch) => {
+    dispatch(updateBookkeepingAccountActions.isLoading(true));
+    dispatch(updateBookkeepingAccountActions.error(null));
+    try {
+      const response = await updateBookkeepingAccountAPI(id, data);
+      dispatch(updateBookkeepingAccountActions.success(response.data));
+      options?.onSuccess?.(response.data);
+      dispatch(snackbarSuccess('bookkeeping_account.update.success'));
+    } catch (err) {
+      console.error(err);
+      dispatch(updateBookkeepingAccountActions.error(err?.response?.status));
+      if (err?.response?.status === CUSTOM_ERROR_CODE) {
+        dispatch(
+          snackbarError(
+            `bookkeeping_account.errors.${err.response.data.error_code}`,
+          ),
+        );
+      } else {
+        dispatch(snackbarError('bookkeeping_account.update.error'));
+      }
+      options?.onError?.(err);
+    } finally {
+      dispatch(updateBookkeepingAccountActions.isLoading(false));
+    }
+  };
+
+export const deleteBookkeepingAccount =
+  (id: number, options?: OptionCallback<null>): ThunkAction =>
+  async (dispatch) => {
+    dispatch(deleteBookkeepingAccountActions.isLoading(true));
+    dispatch(deleteBookkeepingAccountActions.error(null));
+    try {
+      await deleteBookkeepingAccountAPI(id);
+      options?.onSuccess?.();
+      dispatch(snackbarSuccess('bookkeeping_account.delete.success'));
+    } catch (err) {
+      console.error(err);
+      dispatch(deleteBookkeepingAccountActions.error(err?.respons?.status));
+      dispatch(snackbarError('bookkeeping_account.delete.error'));
+      options?.onError?.(err);
+    } finally {
+      dispatch(deleteBookkeepingAccountActions.isLoading(false));
+    }
+  };
+
+export const fetchLinkedProductNames = (
+  bookkeepingAccountId: number,
+  options?: OptionCallback<string[]>,
+): ThunkAction => {
+  return async (dispatch) => {
+    dispatch(getLinkedProductNamesActions.isLoading(true));
+    dispatch(getLinkedProductNamesActions.error(null));
+    try {
+      const response = await getLinkedProductNamesAPI(bookkeepingAccountId);
+      dispatch(getLinkedProductNamesActions.success(response.data));
+      options?.onSuccess?.(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(getLinkedProductNamesActions.error(err?.response?.status));
+      options?.onError?.(err);
+    } finally {
+      dispatch(getLinkedProductNamesActions.isLoading(false));
+    }
+  };
+};

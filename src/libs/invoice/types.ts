@@ -80,6 +80,38 @@ export type Invoice<M = number, PI = number, II = number> = {
   is_member_pos: boolean;
 };
 
+export type ConsumerInvoiceREST = {
+  amount_due_cts: number;
+  amount_paid_cts: number;
+  date: string;
+  invoice_items: InvoiceItem[];
+  invoice_legal_identifier: string | null;
+  invoice_type: InvoiceType;
+  is_draft: boolean;
+  is_finalized: boolean;
+  is_quick_invoice: boolean | null;
+  member: number;
+  payments: PaymentItem[];
+  plannedpaymentevent_set: PlannedPaymentEvent[];
+  reverse_invoices: string[];
+  reverted: boolean;
+  stripe_invoice_pdf: string | null;
+  uuid: string;
+  voucher: string;
+};
+
+export type ConsumerInvoiceComplementary = {
+  amount_left_to_pay_cts: number;
+  amount_refunded_cts: number;
+  disputed_payments: number[];
+  establishment_billing_group_name: string;
+  main_invoice_item_name: string | null;
+  uuid: string;
+};
+
+export type ConsumerInvoice = ConsumerInvoiceREST &
+  ConsumerInvoiceComplementary;
+
 export enum InvoiceType {
   REGULAR = 0,
   REVERSE = 1,

@@ -63,6 +63,8 @@ exports.default = {
     },
   },
   // reworked
+  variantCount: '{{count}} variant',
+  variantCount_plural: '{{count}} variants',
   shopList: {
     tab: {
       products: {

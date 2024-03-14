@@ -10560,6 +10560,8 @@
         }
       }
     },
+    "variantCount": "{{count}} variant",
+    "variantCount_plural": "{{count}} variants",
     "shopList": {
       "tab": {
         "products": { "title": "Products", "subshopForm": { "title": "Add a category", "field": { "name": "Name" } } },

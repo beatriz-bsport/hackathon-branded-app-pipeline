@@ -1,0 +1,47 @@
+.bs-consumer-invoice-page__body {
+}
+
+.bs-consumer-invoice-page__body-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--bs-space-size-4);
+  width: 100%;
+}
+
+.bs-consumer-invoice-page__body-details {
+  height: calc(
+    -204px + 100dvh
+  ); /* This 204px corresponds to the value from MY_INVOICES_LIST_CONTAINER_HEIGHT_DESKTOP */
+  overflow: auto;
+  -ms-overflow-style: none; /* for Internet Explorer, Edge */
+  scrollbar-width: none; /* for Firefox */
+  padding-bottom: var(--bs-space-size-6);
+}
+
+.bs-consumer-invoice-page__body-details--mobile {
+}
+
+.bs-consumer-invoice-page__body-details::-webkit-scrollbar {
+  display: none; /* for Chrome, Safari, and Opera */
+}
+
+.bs-consumer-invoice-page__body-list__loading {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--bs-space-size-4);
+  width: 100%;
+  height: var(--bs-space-size-1);
+}
+
+.bs-consumer-invoice-page__body-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bs-space-size-4);
+  padding-bottom: var(--bs-space-size-6);
+}
+
+.bs-consumer-invoice-page__card-skeleton {
+}
+
+.bs-consumer-invoice-page__details-card-skeleton {
+}

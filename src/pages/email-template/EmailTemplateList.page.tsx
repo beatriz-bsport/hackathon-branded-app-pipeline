@@ -281,12 +281,7 @@ export class MarketingEmail extends Component<Props, State> {
                               ? this.props.emailTemplateDelete
                               : undefined
                           }
-                          onDuplicate={
-                            email.company_id &&
-                            !email.is_default_bsport_template
-                              ? this.onDuplicate
-                              : undefined
-                          }
+                          onDuplicate={this.onDuplicate}
                           onEdit={
                             buttonEnabled(email)
                               ? this.props.goToEdit

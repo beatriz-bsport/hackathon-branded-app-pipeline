@@ -56,7 +56,8 @@ export type DataSourceMedadataDataType =
   | 'staff'
   | 'time'
   | 'user'
-  | 'video';
+  | 'video'
+  | 'bookkeeping_account';
 
 export type DataSourceMetadata = {
   identifier: string;
@@ -112,7 +113,8 @@ export type DatatypeFilterConfigItemTypeById =
   | 'subshop'
   | 'staff'
   | 'user'
-  | 'video';
+  | 'video'
+  | 'bookkeeping_account';
 
 export type DatatypeFilterConfigItemComparatorById =
   | typeof FILTER_IN_OPERAND
@@ -236,7 +238,8 @@ export type DynamicFilterDataType =
   | 'private_slot'
   | 'subshop'
   | 'staff'
-  | 'video';
+  | 'video'
+  | 'bookkeeping_account';
 
 export type DataSourceFieldMetadata = {
   identifier: string;

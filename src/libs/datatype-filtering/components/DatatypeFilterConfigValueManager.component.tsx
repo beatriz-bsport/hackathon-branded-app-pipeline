@@ -453,6 +453,7 @@ const DatatypeFilterConfigValueList: React.FC<{
       case 'subshop':
       case 'video':
       case 'staff':
+      case 'bookkeeping_account':
         return getDataByType(datatype, [], columnName);
 
       case 'payout_status':
@@ -700,6 +701,7 @@ const DatatypeFilterConfigValueList: React.FC<{
       'private_pass_category',
       'company',
       'staff',
+      'bookkeeping_account',
     ].includes(datatype) &&
     getOptions() === null
   ) {

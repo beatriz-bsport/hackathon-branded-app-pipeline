@@ -25,6 +25,7 @@ import { getAvailableContractList } from '#libs/subscription/selectors';
 import { getTheme } from '#libs/theme/selectors';
 import { getSubShopsByCompany } from '#libs/shop/selectors';
 import { getUsersWithRole } from '#libs/role/selectors';
+import { getBookkeepingAccountList } from '#libs/payment/selectors';
 import {
   getDynamicDataLoading,
   getDynamicDataHasBeenLoaded,
@@ -55,6 +56,7 @@ import { fetchVideoList as fetchVideoListAction } from '#libs/video/actions';
 import { fetchContractList as fetchContractListAction } from '#libs/subscription/actions';
 import { fetchAllSubShop as fetchAllSubShopAction } from '#libs/shop/actions/subshop';
 import { fetchFranchise as fetchFranchiseAction } from '#libs/franchise/actions';
+import { fetchBookkeepingAccountList as fetchBookkeepingAccountListAction } from '#libs/payment/actions';
 import {
   setDynamicDataHasBeenLoaded as setDynamicDataHasBeenLoadedAction,
   resetDynamicDataHasBeenLoaded as resetDynamicDataHasBeenLoadedAction,
@@ -102,6 +104,7 @@ const connector = connect(
     franchiseCompanies: getFranchiseCompanies(state),
     paymentPackCategories: getAllPaymentPackCategory(state),
     privatePassCategories: getPrivatePassCategories(state),
+    bookkeepingAccounts: getBookkeepingAccountList(state),
   }),
   {
     // Actions for dynamic data
@@ -125,6 +128,7 @@ const connector = connect(
     fetchFranchise: fetchFranchiseAction,
     fetchAllPaymentPackCategory: fetchAllPaymentPackCategoryAction,
     fetchAllPrivatePassCategory: fetchAllPrivatePassCategoryAction,
+    fetchBookkeepingAccountList: fetchBookkeepingAccountListAction,
   },
 );
 
@@ -307,6 +311,16 @@ export default function withDatatypeDynamicData(
                     props.setDynamicDataHasBeenLoaded('company');
                   },
                 });
+                break;
+              case ReportFilterableDataType.BOOKKEEPING_ACCOUNT:
+                props.fetchBookkeepingAccountList(
+                  {},
+                  {
+                    onSuccess: () => {
+                      props.setDynamicDataHasBeenLoaded('bookkeeping_account');
+                    },
+                  },
+                );
                 break;
               default:
             }
@@ -570,6 +584,19 @@ export default function withDatatypeDynamicData(
                   columnName,
                 })) ?? []
               );
+            case ReportFilterableDataType.BOOKKEEPING_ACCOUNT:
+              if (columnName === 'bookkeeping_account_name') {
+                return props.bookkeepingAccounts.map((bookkeepingAccount) => ({
+                  label: bookkeepingAccount.account_name,
+                  value: bookkeepingAccount.account_name,
+                  columnName,
+                }));
+              }
+              return props.bookkeepingAccounts.map((bookkeepingAccount) => ({
+                label: bookkeepingAccount.account_number,
+                value: bookkeepingAccount.account_number,
+                columnName,
+              }));
             default:
               return [];
           }

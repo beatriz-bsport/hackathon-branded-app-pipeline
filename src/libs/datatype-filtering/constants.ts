@@ -51,6 +51,7 @@ export const DATA_SOURCE_FILTERABLE_DATATYPE = [
   'video',
   'source_device',
   'staff',
+  'bookkeeping_account',
 ];
 
 export enum ReportFilterableDataType {
@@ -98,6 +99,7 @@ export enum ReportFilterableDataType {
   VIDEO = 'video',
   SOURCE_DEVICE = 'source_device',
   STAFF = 'staff',
+  BOOKKEEPING_ACCOUNT = 'bookkeeping_account',
 }
 
 export const DATATYPE_FILTERABLE_BY_FLOAT_RANGE = [
@@ -142,6 +144,7 @@ export const DATATYPE_FILTERABLE_BY_ID_IN = [
   'user',
   'video',
   'staff',
+  'bookkeeping_account',
 ];
 
 export const DATATYPE_PRESET_INTEGER_VALUE = [
@@ -220,6 +223,7 @@ export const defaultDynamicDataHasBeenLoaded = {
   contract: false,
   shop: false,
   subshop: false,
+  bookkeeping_account: false,
 };
 
 export const DATE_SUBDATA_TYPE = 0;

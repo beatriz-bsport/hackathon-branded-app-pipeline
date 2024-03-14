@@ -588,13 +588,13 @@ export default function withDatatypeDynamicData(
               if (columnName === 'bookkeeping_account_name') {
                 return props.bookkeepingAccounts.map((bookkeepingAccount) => ({
                   label: bookkeepingAccount.account_name,
-                  value: bookkeepingAccount.account_name,
+                  value: bookkeepingAccount.id,
                   columnName,
                 }));
               }
               return props.bookkeepingAccounts.map((bookkeepingAccount) => ({
                 label: bookkeepingAccount.account_number,
-                value: bookkeepingAccount.account_number,
+                value: bookkeepingAccount.id,
                 columnName,
               }));
             default:

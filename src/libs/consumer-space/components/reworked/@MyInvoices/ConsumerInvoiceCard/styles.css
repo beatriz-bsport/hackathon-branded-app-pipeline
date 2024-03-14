@@ -1,0 +1,115 @@
+/* INVOICE CARD */
+
+.bs-consumer-invoice-card__root {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: fit-content;
+  container: bsConsumerInvoiceCard / inline-size;
+  width: inherit;
+}
+
+.bs-consumer-invoice-card__container {
+  width: 100%;
+}
+
+/* HEADER STYLING */
+
+.bs-consumer-invoice-card__header {
+}
+
+.bs-consumer-invoice-card__header__chip {
+}
+
+.bs-consumer-invoice-card__header__chips-wrapper {
+}
+
+/* BODY STYLING */
+
+.bs-consumer-invoice-card__body__container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: var(--bs-space-size-2);
+  align-self: stretch;
+}
+
+.bs-consumer-invoice-card__body__description {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--bs-space-size-1);
+  align-self: stretch;
+}
+
+.bs-consumer-invoice-card__body__description-title {
+  font-weight: var(--bs-font-weight-strong);
+}
+
+.bs-consumer-invoice-card__body__description-label {
+}
+
+.bs-consumer-invoice-card__body__price {
+}
+
+.bs-consumer-invoice-card__body__button {
+  padding: var(--bs-space-size-2) 0;
+  width: fit-content;
+}
+
+/* FOOTER STYLING */
+
+.bs-consumer-invoice-card__footer {
+}
+
+.bs-consumer-invoice-card__footer__menu {
+}
+
+.bs-consumer-invoice-card__footer__menu-button {
+  white-space: nowrap;
+}
+
+.bs-consumer-invoice-card__menu-item {
+}
+
+.bs-consumer-invoice-card__footer__label-download {
+}
+
+.bs-consumer-invoice-card__footer__button-download {
+  white-space: nowrap;
+}
+
+.bs-consumer-invoice-card__footer__label-download-invoice {
+}
+
+.bs-consumer-invoice-card__footer__button-download-invoice {
+  white-space: nowrap;
+}
+
+.bs-consumer-invoice-card__footer__label-download-original-invoice {
+}
+
+.bs-consumer-invoice-card__footer__button-download-original-invoice {
+  white-space: nowrap;
+}
+
+.bs-consumer-invoice-card__footer__label-download-refunded-invoice {
+}
+
+.bs-consumer-invoice-card__footer__button-download-refunded-invoice {
+  white-space: nowrap;
+}
+
+.bs-consumer-invoice-card__footer__label-download-receipt {
+}
+
+.bs-consumer-invoice-card__footer__button-download-receipt {
+  white-space: nowrap;
+}
+
+.bs-consumer-invoice-card__footer__label-pay {
+}
+
+.bs-consumer-invoice-card__footer__button-pay {
+  white-space: nowrap;
+}

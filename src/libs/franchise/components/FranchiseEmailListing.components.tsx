@@ -104,9 +104,9 @@ const FranchiseEmailListing = (props: Props) => {
                 )}
                 email={email}
                 navigateTo={navigateTo}
-                onDelete={onDelete}
+                onDelete={!email.is_default_bsport_template && onDelete}
                 onDuplicate={onDuplicate}
-                onEdit={onEdit}
+                onEdit={!email.is_default_bsport_template && onEdit}
                 search={search}
                 selectedId={selectedId}
               />

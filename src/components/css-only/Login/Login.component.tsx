@@ -44,6 +44,7 @@ export type Props = {
    ** To not disrup login flow when going on the reset password page (in URI)
    */
   originalLoginNextLink?: string;
+  context?: string;
 } & WithTranslation;
 
 type State = {
@@ -78,6 +79,7 @@ export class ConsumerLogin extends Component<Props, State> {
       ...(this.props.originalLoginNextLink
         ? { originalLoginNextLink: this.props.originalLoginNextLink }
         : {}),
+      ...(this.props.context ? { context: this.props.context } : {}),
     })}`;
   };
 

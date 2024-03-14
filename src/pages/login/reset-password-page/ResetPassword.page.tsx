@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect, ConnectedProps as ConnectedPropsRedux } from 'react-redux';
 import { compose, withProps } from 'recompose';
-import { Redirect } from 'react-router-dom';
+import { Redirect, RouterProps } from 'react-router-dom';
 import ResetPasswordForm from '#csscomponents/ResetPasswordForm';
 import { parseQueryString, buildUrlParams } from '../../../http';
 import WithCustomCssProvider from '#hocs/company-custom-css.hoc';
@@ -21,6 +21,7 @@ type WithQueryParamsProps = {
    * Retrieving the location (as URI) where the login page wanted to go at first
    * */
   originalLoginNextLink?: string;
+  context?: string;
 };
 
 type ConnectedProps = ConnectedPropsRedux<typeof connector> & {
@@ -31,7 +32,10 @@ type ConnectedProps = ConnectedPropsRedux<typeof connector> & {
   ) => void;
   last_password_reset_request: string;
 };
-type Props = ConnectedProps & LocationProps & WithQueryParamsProps;
+type Props = ConnectedProps &
+  LocationProps &
+  WithQueryParamsProps &
+  RouterProps;
 
 type State = {
   email: string;
@@ -107,8 +111,12 @@ export class ResetPassword extends Component<Props, State> {
 
   render() {
     if (this.state.redirectLogin) {
+      if (this.props.context && this.props.context === 'widget') {
+        this.props.history.goBack();
+      }
       return <Redirect to={this.getRedirectUrlWithParams()} />;
     }
+
     return (
       <>
         <ResetPasswordForm
@@ -153,15 +161,10 @@ export default compose(
     membership: parseQueryString(props.location.search)?.membership,
     // @ts-expect-error
     franchisorId: parseQueryString(props.location.search)?.franchisor,
-    originalLoginNextLink:
-      props.location?.search &&
-      props.location.search?.indexOf('originalLoginNextLink') !== -1
-        ? props.location.search.substring(
-            props.location.search?.indexOf('originalLoginNextLink') +
-              'originalLoginNextLink'.length +
-              1,
-          )
-        : '',
+    originalLoginNextLink: parseQueryString(props.location.search) // @ts-expect-error
+      ?.originalLoginNextLink,
+    // @ts-expect-error
+    context: parseQueryString(props.location.search)?.context,
   })),
   connector,
   WithCustomCssProvider,

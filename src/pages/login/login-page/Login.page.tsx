@@ -106,6 +106,7 @@ export class ConsumerLoginPage extends Component<Props> {
       goNext,
       paymentPackTemplateCompanies,
       simplifyUI,
+      context,
     } = this.props;
 
     if (authenticated) {
@@ -153,6 +154,7 @@ export class ConsumerLoginPage extends Component<Props> {
             (franchisorId && step === STEPS.loginToFranchise)) && (
             <Login
               company={!!membership}
+              context={context}
               doEmailLogin={this.props.doEmailLogin}
               error={this.props.errorLogin}
               errorFields={this.props.errorFields}
@@ -280,7 +282,6 @@ export default compose(
       signUpNext,
     } = parseQueryString(props.location?.search || '');
     const step = parseInt(props.queryParams.step) || STEPS.loginToFranchise;
-
     return {
       membership,
       franchisorId: franchisor ? parseInt(franchisor, 10) : null,

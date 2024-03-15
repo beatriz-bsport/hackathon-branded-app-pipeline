@@ -1,7 +1,7 @@
 import { createAction } from 'redux-actions';
 
 import {
-  retrieveShopSupplierList as retrieveShopSupplierListAPI,
+  fetchShopSupplierList as retrieveShopSupplierListAPI,
   createShopSupplier as createShopSupplierAPI,
   updateShopSupplier as updateShopSupplierAPI,
   deleteShopSupplier as deleteShopSupplierAPI,
@@ -14,33 +14,33 @@ import type {
 } from '#libs/shop/types';
 import type { Dispatch, OptionCallback } from '../../../state/types';
 
-export const retrieveShopSupplierListActions = {
+export const fetchShopSupplierListActions = {
   isLoading: createAction<boolean>('SHOP_SUPPLIER/LIST/LOADING'),
   error: createAction<Error | null>('SHOP_SUPPLIER/LIST/ERROR'),
   success: createAction<ShopSupplier[]>('SHOP_SUPPLIER/LIST/SUCCESS'),
 };
 
 /**
- * Retrieves the list of all shop suppliers
+ * Fetch the list of all shop suppliers
  */
-export const retrieveShopSupplierList = (
+export const fetchShopSupplierList = (
   options?: OptionCallback<ShopSupplier[]>,
 ) => {
   return async (dispatch: Dispatch) => {
     try {
-      dispatch(retrieveShopSupplierListActions.isLoading(true));
-      dispatch(retrieveShopSupplierListActions.error(null));
+      dispatch(fetchShopSupplierListActions.isLoading(true));
+      dispatch(fetchShopSupplierListActions.error(null));
 
       const result = await retrieveShopSupplierListAPI();
 
-      dispatch(retrieveShopSupplierListActions.success(result.data.results));
+      dispatch(fetchShopSupplierListActions.success(result.data.results));
       options?.onSuccess?.(result.data.results);
     } catch (error) {
-      dispatch(retrieveShopSupplierListActions.error(error));
+      dispatch(fetchShopSupplierListActions.error(error));
       console.error(error);
       options?.onError?.();
     } finally {
-      dispatch(retrieveShopSupplierListActions.isLoading(false));
+      dispatch(fetchShopSupplierListActions.isLoading(false));
     }
   };
 };

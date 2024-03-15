@@ -4,8 +4,8 @@ import { handleActions } from 'redux-actions';
 import omit from 'lodash/omit';
 
 import {
-  retrieveShopItemBaseListActions,
-  retrieveShopItemStandaloneListActions,
+  fetchShopItemBaseListActions,
+  fetchShopItemStandaloneListActions,
   retrieveShopItemDetailsActions,
   retrieveShopItemUsedInComboActions,
   fetchShopItemVariantListActions,
@@ -20,14 +20,14 @@ import {
 } from './actions/shopItemReworked';
 
 import {
-  retrieveSubshopListActions,
+  fetchSubshopListActions,
   createSubshopActions,
   updateSubshopActions,
   deleteSubshopActions,
 } from './actions/subshopReworked';
 
 import {
-  retrieveShopSupplierListActions,
+  fetchShopSupplierListActions,
   createShopSupplierActions,
   updateShopSupplierActions,
   deleteShopSupplierActions,
@@ -114,19 +114,19 @@ const initialState: Immutable.Immutable<ShopStateReworked> =
 
 export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
   {
-    [retrieveShopItemBaseListActions.isLoading.toString()]: (
+    [fetchShopItemBaseListActions.isLoading.toString()]: (
       state,
       { payload }: { payload: boolean },
     ) => {
       return state.setIn(['shopItemReworked', 'itemBase', 'loading'], payload);
     },
-    [retrieveShopItemBaseListActions.error.toString()]: (
+    [fetchShopItemBaseListActions.error.toString()]: (
       state,
       { payload }: { payload: Error | null },
     ) => {
       return state.setIn(['shopItemReworked', 'itemBase', 'error'], payload);
     },
-    [retrieveShopItemBaseListActions.success.toString()]: (
+    [fetchShopItemBaseListActions.success.toString()]: (
       state,
       { payload }: { payload: ShopItem[] },
     ) => {
@@ -152,7 +152,7 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
           { deep: true },
         );
     },
-    [retrieveShopItemStandaloneListActions.isLoading.toString()]: (
+    [fetchShopItemStandaloneListActions.isLoading.toString()]: (
       state,
       { payload }: { payload: boolean },
     ) => {
@@ -161,7 +161,7 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
         payload,
       );
     },
-    [retrieveShopItemStandaloneListActions.error.toString()]: (
+    [fetchShopItemStandaloneListActions.error.toString()]: (
       state,
       { payload }: { payload: Error | null },
     ) => {
@@ -170,7 +170,7 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
         payload,
       );
     },
-    [retrieveShopItemStandaloneListActions.success.toString()]: (
+    [fetchShopItemStandaloneListActions.success.toString()]: (
       state,
       { payload }: { payload: ShopItem[] },
     ) => {
@@ -454,19 +454,19 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
         payload,
       );
     },
-    [retrieveSubshopListActions.isLoading.toString()]: (
+    [fetchSubshopListActions.isLoading.toString()]: (
       state,
       { payload }: { payload: boolean },
     ) => {
       return state.setIn(['shopItemReworked', 'subshop', 'loading'], payload);
     },
-    [retrieveSubshopListActions.error.toString()]: (
+    [fetchSubshopListActions.error.toString()]: (
       state,
       { payload }: { payload: Error | null },
     ) => {
       return state.setIn(['shopItemReworked', 'subshop', 'error'], payload);
     },
-    [retrieveSubshopListActions.success.toString()]: (
+    [fetchSubshopListActions.success.toString()]: (
       state,
       { payload }: { payload: SubShop[] },
     ) => {
@@ -592,19 +592,19 @@ export default handleActions<Immutable.Immutable<ShopStateReworked>, any>(
           omit(subshopById, payload),
         );
     },
-    [retrieveShopSupplierListActions.isLoading.toString()]: (
+    [fetchShopSupplierListActions.isLoading.toString()]: (
       state,
       { payload }: { payload: boolean },
     ) => {
       return state.setIn(['shopItemReworked', 'suppliers', 'loading'], payload);
     },
-    [retrieveShopSupplierListActions.error.toString()]: (
+    [fetchShopSupplierListActions.error.toString()]: (
       state,
       { payload }: { payload: Error | null },
     ) => {
       return state.setIn(['shopItemReworked', 'suppliers', 'error'], payload);
     },
-    [retrieveShopSupplierListActions.success.toString()]: (
+    [fetchShopSupplierListActions.success.toString()]: (
       state,
       { payload }: { payload: ShopSupplier[] },
     ) => {

@@ -1,7 +1,7 @@
 import { createAction } from 'redux-actions';
 
 import {
-  retrieveSubshopList as retrieveSubshopListAPI,
+  fetchSubshopList as retrieveSubshopListAPI,
   createSubshop as createSubshopAPI,
   updateSubshop as updateSubshopAPI,
   deleteSubshop as deleteSubshopAPI,
@@ -10,35 +10,35 @@ import {
 import type { SubShop } from '#libs/shop/types';
 import type { Dispatch, OptionCallback } from '../../../state/types';
 
-export const retrieveSubshopListActions = {
+export const fetchSubshopListActions = {
   isLoading: createAction<boolean>('SUB_SHOP/LIST/LOADING'),
   error: createAction<Error | null>('SUB_SHOP/LIST/ERROR'),
   success: createAction<SubShop[]>('SUB_SHOP/LIST/SUCCESS'),
 };
 
 /**
- * Retrieves the list of all subshops from a company
+ * Fetch the list of all subshops from a company
  * @param company The company ID
  */
-export const retrieveSubshopList = (
+export const fetchSubshopList = (
   company?: number,
   options?: OptionCallback<SubShop[]>,
 ) => {
   return async (dispatch: Dispatch) => {
     try {
-      dispatch(retrieveSubshopListActions.isLoading(true));
-      dispatch(retrieveSubshopListActions.error(null));
+      dispatch(fetchSubshopListActions.isLoading(true));
+      dispatch(fetchSubshopListActions.error(null));
 
       const result = await retrieveSubshopListAPI(company && { company });
 
-      dispatch(retrieveSubshopListActions.success(result.data));
+      dispatch(fetchSubshopListActions.success(result.data));
       options?.onSuccess?.(result.data);
     } catch (error) {
-      dispatch(retrieveSubshopListActions.error(error));
+      dispatch(fetchSubshopListActions.error(error));
       console.error(error);
       options?.onError?.();
     } finally {
-      dispatch(retrieveSubshopListActions.isLoading(false));
+      dispatch(fetchSubshopListActions.isLoading(false));
     }
   };
 };

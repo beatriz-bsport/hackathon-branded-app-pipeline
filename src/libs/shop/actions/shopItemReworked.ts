@@ -1,10 +1,10 @@
 import { createAction } from 'redux-actions';
 
 import {
-  retrieveShopItemList as retrieveShopItemListAPI,
+  fetchShopItemList as retrieveShopItemListAPI,
   retrieveShopItemDetails as retrieveShopItemDetailsAPI,
   retrieveShopItemUsedInCombo as retrieveShopItemUsedInComboAPI,
-  retrieveShopItemVariantList as retrieveShopItemVariantListAPI,
+  fetchShopItemVariantList as retrieveShopItemVariantListAPI,
   createShopItem as createShopItemAPI,
   createShopItemVariants as createShopItemVariantsAPI,
   updateShopItem as updateShopItemAPI,
@@ -35,26 +35,26 @@ import type {
 } from '../types';
 import { SHOP_ITEM_VARIANTS_PAGE_SIZE } from '../constants';
 
-export const retrieveShopItemBaseListActions = {
+export const fetchShopItemBaseListActions = {
   isLoading: createAction<boolean>('SHOP_ITEM_BASE/LIST/LOADING'),
   error: createAction<Error | null>('SHOP_ITEM_BASE/LIST/ERROR'),
   success: createAction<ShopItem[]>('SHOP_ITEM_BASE/LIST/SUCCESS'),
 };
 
 /**
- * Retrieves a list of base shop item. Those items can have variants.
+ * Fetch a list of base shop item. Those items can have variants.
  * @param exclude_variants Exclude all variants created from a base item
  * @param exclude_standalone_items Exclude all standalone items (legacy)
  * @param exclude_base_items Exclude all base items
  */
-export const retrieveShopItemBaseList = (
+export const fetchShopItemBaseList = (
   params?: ShopItemListFilterParams,
   options?: OptionCallback<ShopItem[]>,
 ) => {
   return async (dispatch: Dispatch) => {
     try {
-      dispatch(retrieveShopItemBaseListActions.isLoading(true));
-      dispatch(retrieveShopItemBaseListActions.error(null));
+      dispatch(fetchShopItemBaseListActions.isLoading(true));
+      dispatch(fetchShopItemBaseListActions.error(null));
 
       const result = await retrieveShopItemListAPI({
         ...params,
@@ -62,38 +62,38 @@ export const retrieveShopItemBaseList = (
         exclude_standalone_items: true,
       });
 
-      dispatch(retrieveShopItemBaseListActions.success(result.data));
+      dispatch(fetchShopItemBaseListActions.success(result.data));
       options?.onSuccess?.(result.data);
     } catch (error) {
-      dispatch(retrieveShopItemBaseListActions.error(error));
+      dispatch(fetchShopItemBaseListActions.error(error));
       console.error(error);
       options?.onError?.();
     } finally {
-      dispatch(retrieveShopItemBaseListActions.isLoading(false));
+      dispatch(fetchShopItemBaseListActions.isLoading(false));
     }
   };
 };
 
-export const retrieveShopItemStandaloneListActions = {
+export const fetchShopItemStandaloneListActions = {
   isLoading: createAction<boolean>('SHOP_ITEM_STANDALONE/LIST/LOADING'),
   error: createAction<Error | null>('SHOP_ITEM_STANDALONE/LIST/ERROR'),
   success: createAction<ShopItem[]>('SHOP_ITEM_STANDALONE/LIST/SUCCESS'),
 };
 
 /**
- * Retrieves a list of standalone shop item. Those items have no variants.
+ * Fetch a list of standalone shop item. Those items have no variants.
  * @param exclude_variants Exclude all variants created from a base item
  * @param exclude_standalone_items Exclude all standalone items (legacy)
  * @param exclude_base_items Exclude all base items
  */
-export const retrieveShopItemStandaloneList = (
+export const fetchShopItemStandaloneList = (
   params?: ShopItemListFilterParams,
   options?: OptionCallback<ShopItem[]>,
 ) => {
   return async (dispatch: Dispatch) => {
     try {
-      dispatch(retrieveShopItemStandaloneListActions.isLoading(true));
-      dispatch(retrieveShopItemStandaloneListActions.error(null));
+      dispatch(fetchShopItemStandaloneListActions.isLoading(true));
+      dispatch(fetchShopItemStandaloneListActions.error(null));
 
       const result = await retrieveShopItemListAPI({
         ...params,
@@ -101,14 +101,14 @@ export const retrieveShopItemStandaloneList = (
         exclude_base_items: true,
       });
 
-      dispatch(retrieveShopItemStandaloneListActions.success(result.data));
+      dispatch(fetchShopItemStandaloneListActions.success(result.data));
       options?.onSuccess?.(result.data);
     } catch (error) {
-      dispatch(retrieveShopItemStandaloneListActions.error(error));
+      dispatch(fetchShopItemStandaloneListActions.error(error));
       console.error(error);
       options?.onError?.();
     } finally {
-      dispatch(retrieveShopItemStandaloneListActions.isLoading(false));
+      dispatch(fetchShopItemStandaloneListActions.isLoading(false));
     }
   };
 };
@@ -191,12 +191,12 @@ export const fetchShopItemVariantListActions = {
 };
 
 /**
- * Retrieves all variants related to a base item.\
+ * Fetch all variants related to a base item.\
  * If there are no variants API will return an empty list
  * @param id The ID of the base item
  * @param page The page to fetch
  */
-export const retrieveShopItemVariantList = ({
+export const fetchShopItemVariantList = ({
   id,
   page,
   options,

@@ -6,7 +6,7 @@ import { push } from 'connected-react-router';
 // --- ACTIONS ---
 import {
   retrieveShopItemDetails as retrieveShopItemDetailsAction,
-  retrieveShopItemVariantList as retrieveShopItemVariantListAction,
+  fetchShopItemVariantList as fetchShopItemVariantListAction,
   updateShopItem as updateShopItemAction,
   updateShopItemVariantBulk as updateShopItemVariantBulkAction,
   deleteShopItem as deleteShopItemAction,
@@ -69,7 +69,7 @@ export class ShopItemDetailPage extends Component<Props> {
   retrieveShopItemDetails = () => {
     this.props.retrieveShopItemDetails(this.props.id, {
       onSuccess: (shopItem) => {
-        this.retrieveShopItemVariantList(1);
+        this.fetchShopItemVariantList(1);
         if (shopItem.supplier) {
           this.props.retrieveShopItemSupplier(shopItem.supplier);
         }
@@ -77,8 +77,8 @@ export class ShopItemDetailPage extends Component<Props> {
     });
   };
 
-  retrieveShopItemVariantList = (page: number) =>
-    this.props.retrieveShopItemVariantList({ id: this.props.id, page });
+  fetchShopItemVariantList = (page: number) =>
+    this.props.fetchShopItemVariantList({ id: this.props.id, page });
 
   handleUpdateShopItem = (
     formData: ShopItemEdit,
@@ -108,9 +108,7 @@ export class ShopItemDetailPage extends Component<Props> {
       id: this.props.id,
       options: {
         onSuccess: () => {
-          this.retrieveShopItemVariantList(
-            this.props.shopItemVariantState.page,
-          );
+          this.fetchShopItemVariantList(this.props.shopItemVariantState.page);
           options?.onSuccess?.();
         },
         onError: options?.onError,
@@ -124,7 +122,7 @@ export class ShopItemDetailPage extends Component<Props> {
   ) => {
     this.props.createShopItemProvisionBulk(this.props.id, data, {
       onSuccess: () => {
-        this.retrieveShopItemVariantList(this.props.shopItemVariantState.page);
+        this.fetchShopItemVariantList(this.props.shopItemVariantState.page);
         options?.onSuccess?.();
       },
       onError: options?.onError,
@@ -147,9 +145,7 @@ export class ShopItemDetailPage extends Component<Props> {
       data,
       options: {
         onSuccess: () => {
-          this.retrieveShopItemVariantList(
-            this.props.shopItemVariantState.page,
-          );
+          this.fetchShopItemVariantList(this.props.shopItemVariantState.page);
           options?.onSuccess?.();
         },
         onError: options?.onError,
@@ -164,7 +160,7 @@ export class ShopItemDetailPage extends Component<Props> {
 
     this.props.deleteShopItemVariant(id, {
       onSuccess: () => {
-        this.retrieveShopItemVariantList(
+        this.fetchShopItemVariantList(
           isLastItemInList ? currentPage - 1 : currentPage,
         );
       },
@@ -183,7 +179,7 @@ export class ShopItemDetailPage extends Component<Props> {
         createShopItemVariants={this.handleCreateShopItemVariants}
         deleteShopItem={this.handleDeleteShopItem}
         deleteShopItemVariant={this.handleDeleteShopItemVariant}
-        fetchShopItemVariantList={this.retrieveShopItemVariantList}
+        fetchShopItemVariantList={this.fetchShopItemVariantList}
         getIsShopItemUsedInCombo={this.props.getIsShopItemUsedInCombo}
         isDeleting={this.props.isDeleteLoading}
         isDeletingVariant={this.props.isDeleteVariantLoading}
@@ -222,7 +218,7 @@ const connector = connect(
   {
     retrieveShopItemUsedInCombo: retrieveShopItemUsedInComboAction,
     retrieveShopItemDetails: retrieveShopItemDetailsAction,
-    retrieveShopItemVariantList: retrieveShopItemVariantListAction,
+    fetchShopItemVariantList: fetchShopItemVariantListAction,
     updateShopItem: updateShopItemAction,
     retrieveShopItemSupplier: retrieveShopItemSupplierAction,
     updateShopItemVariantBulk: updateShopItemVariantBulkAction,

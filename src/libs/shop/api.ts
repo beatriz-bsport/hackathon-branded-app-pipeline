@@ -148,12 +148,12 @@ export default {
 /* --- REWORKED --- */
 
 /**
- * Retrieves a list of shop item. Filters available to exclude items based on type.
+ * Fetch a list of shop item. Filters available to exclude items based on type.
  * @param exclude_variants Exclude all variants created from a base item
  * @param exclude_standalone_items Exclude all standalone items (legacy)
  * @param exclude_base_items Exclude all base items
  */
-export const retrieveShopItemList = (params?: ShopItemListFilterParams) => {
+export const fetchShopItemList = (params?: ShopItemListFilterParams) => {
   return getAuth<ShopItem[]>(
     `${API_V1_URI}/shop/item/${buildUrlParams(params)}`,
   );
@@ -182,7 +182,7 @@ export const retrieveShopItemUsedInCombo = (id: number) => {
  * If there are no variants API will return an empty list
  * @param base_item_id The ID of the base item
  */
-export const retrieveShopItemVariantList = (
+export const fetchShopItemVariantList = (
   params: ShopItemVariantFilterParams,
 ) => {
   return getAuth<PaginatedResponse<ShopItemVariant>>(
@@ -270,9 +270,9 @@ export const retrieveShopItemSupplier = (id: number) => {
 };
 
 /**
- * Retrieves the list of all shop suppliers
+ * Fetch the list of all shop suppliers
  */
-export const retrieveShopSupplierList = () => {
+export const fetchShopSupplierList = () => {
   return getAuth<PaginatedResponse<ShopSupplier>>(
     `${API_V1_URI}/shop/supplier/`,
   );
@@ -317,10 +317,10 @@ export const createShopItemProvisionBulk = (data: ProvisionBulkCreate) => {
 };
 
 /**
- * Retrieves the list of all subshops from a company
+ * Fetch the list of all subshops from a company
  * @param company The company ID
  */
-export const retrieveSubshopList = (params: { company: number }) => {
+export const fetchSubshopList = (params: { company: number }) => {
   return getAuth<SubShop[]>(
     `${API_V1_URI}/shop/subshop/${buildUrlParams(params)}`,
   );

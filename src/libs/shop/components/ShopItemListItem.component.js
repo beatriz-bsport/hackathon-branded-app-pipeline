@@ -1,5 +1,5 @@
 // @flow
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import { useTranslation } from 'react-i18next';
 import ListItem from '@material-ui/core/ListItem';
@@ -15,6 +15,8 @@ import ConditionalWrapper from '#components/ConditionnalWrapper.component';
 
 import type { ShopItem } from '../types';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
+
+import { getShopItemName } from '../utils';
 
 type Props = {
   shopitem: ShopItem,
@@ -32,21 +34,23 @@ export default (props: Props) => {
 
   const itemName = props.shopitem.name;
 
-  const itemVariantsCount = props.shopitem.number_of_variants
-    ? t('variantCount', { count: props.shopitem.number_of_variants })
-    : '';
+  const itemSubtitle = props.shopitem.subtitle;
 
-  const itemPrice = getCurrencyDisplayWithPrice(
-    props.shopitem.lowest_variant_price ?? props.shopitem.price,
-  );
+  const itemPrice = props.shopitem.lowest_variant_price
+    ? t('startingAtWithPrice', {
+        price: getCurrencyDisplayWithPrice(props.shopitem.lowest_variant_price),
+      })
+    : getCurrencyDisplayWithPrice(props.shopitem.price);
 
-  const listItemPrimaryText = useMemo(
-    () =>
-      [itemName, itemVariantsCount, itemPrice]
-        .filter((text) => !!text)
-        .join(' - '),
-    [itemName, itemPrice, itemVariantsCount],
-  );
+  const shopItemName = getShopItemName({
+    name: props.shopitem?.name ?? '',
+    size: props.shopitem?.size ?? '',
+    color: props.shopitem?.color ?? '',
+    variantCount:
+      props.shopitem.number_of_variants &&
+      t('variantCount', { count: props.shopitem.number_of_variants }),
+    price: itemPrice,
+  });
 
   if (!props.shopitem) {
     return (
@@ -81,8 +85,8 @@ export default (props: Props) => {
           </ListItemIcon>
         )}
         <ListItemText
-          primary={listItemPrimaryText}
-          secondary={props.shopitem.subtitle || props.shopitem.name}
+          primary={shopItemName}
+          secondary={itemSubtitle || itemName}
         />
         {props.additionalActions}
         {props.onDelete ? (

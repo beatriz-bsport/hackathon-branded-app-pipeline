@@ -8,6 +8,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 
+import { getShopItemName } from '../../shop/utils';
+
 type Props = {
   invoiceItem: InvoiceItem,
   onDelete: () => void,
@@ -26,7 +28,11 @@ export const InvoiceItem = (props: Props) => {
     <div className={classes.container}>
       <div className={classes.leftText}>
         <Typography className={invoiceItem.reverted ? classes.revert : null}>
-          {invoiceItem.name}
+          {getShopItemName({
+            name: invoiceItem?.name ?? '',
+            color: invoiceItem?.color ?? '',
+            size: invoiceItem?.size ?? '',
+          })}
         </Typography>
         <Typography
           className={invoiceItem.reverted ? classes.revert : null}

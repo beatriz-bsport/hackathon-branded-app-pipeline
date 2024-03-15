@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { withTranslation } from 'react-i18next';
 
@@ -7,6 +7,8 @@ import classNames from 'classnames';
 import ShopItemListItem from './ShopItemListItem.component';
 
 import Selector from '../../../components/Selector.component';
+
+import { getShopItemName } from '../utils';
 
 import type { ShopItem } from '../types';
 
@@ -69,10 +71,22 @@ export function ShopItemSelector(props: Props) {
     nullCurrentValue,
     autofocus,
   } = props;
-  const suggestions = shopItemList
-    .asMutable()
-    .sort((pp, pp_) => pp.name > pp_.name)
-    .map((pp) => ({ value: pp.id, label: pp.name, pp }));
+  const suggestions = useMemo(
+    () =>
+      shopItemList
+        .asMutable()
+        .sort((pp, pp_) => pp.name > pp_.name)
+        .map((pp) => ({
+          value: pp.id,
+          label: getShopItemName({
+            name: pp?.name ?? '',
+            color: pp?.color ?? '',
+            size: pp?.size ?? '',
+          }),
+          pp,
+        })),
+    [shopItemList],
+  );
 
   return (
     <Selector

@@ -31,7 +31,7 @@ export const ProductLine = (props: Props) => (
       primary={props.product.name}
       secondary={`${props.product.subline} - ${getCurrencyDisplayWithPrice(
         props.product.unit_price,
-      )} x ${props.product.quantity}`}
+      )}`}
     />
     {props.onRemove ? (
       <ListItemSecondaryAction>

@@ -25,6 +25,8 @@ import {
   getIsCheckoutItemReferralItem,
 } from '../utils';
 
+import { getShopItemName } from '../../shop/utils';
+
 export const CheckoutItemListItem = (props: {
   checkout_item: CheckoutItem,
   onAddOne: () => void,
@@ -56,7 +58,11 @@ export const CheckoutItemListItem = (props: {
             <div>
               <ListItemText
                 classes={{ secondary: classes.checkoutItemPrice }}
-                primary={props.checkout_item.name}
+                primary={getShopItemName({
+                  name: props.checkout_item?.name ?? '',
+                  color: props.checkout_item?.color ?? '',
+                  size: props.checkout_item?.size ?? '',
+                })}
                 secondary={getCheckoutItemPrice({
                   checkoutItem: props.checkout_item,
                   isExcludingTax: props.isExcludingTax,

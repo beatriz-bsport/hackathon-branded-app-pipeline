@@ -23,9 +23,13 @@ export const _getAllShopItems = createSelector(
   (ids, data) => ids.map((id) => data[id]),
 );
 
+/**
+ * Retrieves all shop items available for member billing etc\
+ * Here we also want to return variants (not linked to any subshop)
+ */
 export const getShopItemsAvailable = createSelector(
   _getAllShopItems,
-  (shopItems) => shopItems.filter((si) => si.subshop),
+  (shopItems) => shopItems,
 );
 
 const getSubShops = createSelector(

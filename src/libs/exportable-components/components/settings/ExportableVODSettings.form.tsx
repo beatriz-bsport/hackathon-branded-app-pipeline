@@ -29,7 +29,7 @@ const MarketplaceVodSettingsForm: React.FC<Props> = (props) => {
         </InputLabel>
         <Select
           onChange={(ev: any) => props.onChange({ videoId: ev.target.value })}
-          value={props.config.videoId || -1}
+          value={props.config?.videoId || -1}
         >
           <MenuItem value={null}>---</MenuItem>
           {props.videos.map((video) => (

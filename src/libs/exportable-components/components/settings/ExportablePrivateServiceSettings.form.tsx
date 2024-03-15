@@ -31,7 +31,7 @@ const MarketplacePrivateServiceSettingsForm: React.FC<Props> = (props) => {
   let typeValue = props.config?.type;
 
   if (!typeValue) {
-    if (typeof props.config.serviceId === 'number') {
+    if (typeof props.config?.serviceId === 'number') {
       typeValue = 'detail';
     } else {
       typeValue = 'list';

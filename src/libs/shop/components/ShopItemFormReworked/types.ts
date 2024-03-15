@@ -22,6 +22,6 @@ export type ShopItemFormValues = {
   subshop?: number;
   subtitle: string;
   supplierPrice: number;
-  supplier?: number;
+  supplier?: number | null;
   tva: number;
 };

@@ -45,7 +45,7 @@ const ShopItemFormReworked: React.FC<Props> = ({
   provincialTax,
   isEditForm,
 }) => {
-  const initialValues = useMemo(
+  const initialValues: ShopItemFormValues = useMemo(
     () => ({
       name: initial?.name ?? '',
       subtitle: initial?.subtitle ?? '',

@@ -13,7 +13,6 @@ import type {
   IsShopUsedInComboAPI,
   Provision,
   ShopItem,
-  ShopAPIFilter,
   SubShop,
   SubShopAPI,
   ProvisionCreate,
@@ -30,7 +29,7 @@ import type {
 } from './types';
 
 export async function fetchAll(
-  params: ShopAPIFilter,
+  params: ShopItemListFilterParams,
 ): Promise<AxiosResponse<ShopItem[]>> {
   return getAuth(`${API_V1_URI}/shop/item/${buildUrlParams(params)}`);
 }

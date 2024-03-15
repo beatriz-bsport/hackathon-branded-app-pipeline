@@ -47,6 +47,7 @@ export function fetchShopItemAsConsumer(
         disabled: false,
         company,
         as_consumer: true,
+        is_base_item: false,
       });
       dispatch(shopItemAsConsumerActions.success(response.data));
       if (options && options.onSuccess) {
@@ -86,6 +87,7 @@ export function fetchShopItemFeatured(
         as_consumer: true,
         page,
         page_size,
+        is_base_item: false,
       });
       dispatch(shopItemFeaturedActions.success(response.data));
       if (options && options.onSuccess) {
@@ -116,7 +118,10 @@ export function fetchShopItemAsManager(
     dispatch(shopItemAsManagerActions.error(null));
 
     try {
-      const response = await fetchAll(company ? { company } : {});
+      const response = await fetchAll({
+        is_base_item: false,
+        ...(!!company && { company }),
+      });
       dispatch(shopItemAsManagerActions.success(response.data));
 
       if (options && options.onSuccess) {

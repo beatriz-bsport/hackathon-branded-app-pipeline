@@ -697,6 +697,8 @@ const styles = (theme) => ({
     paddingBottom: theme.spacing(1),
     paddingLeft: theme.spacing(2),
     marginTop: -theme.spacing(2),
+    marginLeft: -theme.spacing(3),
+    marginRight: -theme.spacing(3),
   },
   row: {
     display: 'flex',

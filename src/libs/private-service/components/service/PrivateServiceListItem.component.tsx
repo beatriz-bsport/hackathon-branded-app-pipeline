@@ -35,6 +35,7 @@ type Props = {
   onEdit?: () => void;
   privateService: PrivateService | PrivateServiceWithSlots;
   selected?: boolean;
+  isEditable: boolean;
 };
 
 export const PrivateServiceListItem: React.FC<Props> = ({
@@ -42,6 +43,7 @@ export const PrivateServiceListItem: React.FC<Props> = ({
   dense,
   excluded_slots,
   hideSecondary,
+  isEditable,
   included_slots,
   onClick,
   onDelete,
@@ -113,21 +115,23 @@ export const PrivateServiceListItem: React.FC<Props> = ({
         secondary={privateCoachList}
       />
 
-      <ListItemResponsiveAction
-        actions={[
-          onEdit && {
-            icon: EditIcon,
-            label: t('serviceGroup.edit'),
-            color: 'primary',
-            onClick: onEdit,
-          },
-          onDelete && {
-            icon: DeleteIcon,
-            label: t('serviceGroup.delete'),
-            onClick: onDelete,
-          },
-        ]}
-      />
+      {isEditable && (
+        <ListItemResponsiveAction
+          actions={[
+            onEdit && {
+              icon: EditIcon,
+              label: t('serviceGroup.edit'),
+              color: 'primary',
+              onClick: onEdit,
+            },
+            onDelete && {
+              icon: DeleteIcon,
+              label: t('serviceGroup.delete'),
+              onClick: onDelete,
+            },
+          ]}
+        />
+      )}
     </ListItem>
   );
 };

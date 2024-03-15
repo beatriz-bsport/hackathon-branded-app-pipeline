@@ -135,6 +135,7 @@ const VirtualizedPrivateServiceList: React.FC<PrivateServiceListProps> =
                 key={`private-service-group-${
                   privateServiceGroupId ?? null
                 }private-services-${privateService.id}`}
+                isEditable={hasEditPermission}
                 onClick={handleGoToPrivateService}
                 onDelete={handleDeletePrivateService(privateService)}
                 onEdit={handleEditPrivateService(privateService)}

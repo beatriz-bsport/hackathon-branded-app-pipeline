@@ -202,6 +202,7 @@ export class PrivateServiceList extends React.Component<Props, State> {
                     this.state.searchResult.map((ps) => (
                       <PrivateServiceListItem
                         key={ps.id}
+                        isEditable={hasEditPermission}
                         onClick={this.props.goToPrivateService}
                         onDelete={
                           hasDeletePermission

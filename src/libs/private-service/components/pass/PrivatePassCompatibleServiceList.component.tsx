@@ -114,6 +114,7 @@ export const PrivatePassCompatibleServiceList: React.FC<Props> = ({
                       (c) => c.private_service.id === privateService.id,
                     )
                   }
+                  isEditable={canEdit}
                   onDelete={canEdit && handleDelete(privateService)}
                   onEdit={
                     canEdit &&

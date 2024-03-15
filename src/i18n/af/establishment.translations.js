@@ -157,4 +157,34 @@ exports.default = {
   marketing: { notification: 'Notifications' },
   roomRequiredIsMissing: 'You have not selected a billing establishment.',
   roomRequired: 'Room *',
+  bookkeeping_account: {
+    account_number: 'Account number',
+    account_number_required: 'Account number *',
+    account_name: 'Account name',
+    account_name_required: 'Account name *',
+    vat_rate: 'VAT rate',
+    select_input: {
+      label: 'Bookkeeping account',
+      placeholder: 'Leave empty to not apply account',
+    },
+    table: {
+      actions: 'Actions',
+    },
+    add: 'Add account',
+    header: 'Accounts',
+    modal: {
+      delete: {
+        title: 'Deletion',
+        content:
+          'You are about to delete this account, are you sure you want to do so?',
+        confirm: 'Delete',
+        cancel: 'Cancel',
+        contentLinked:
+          'This account is linked to the following objects, if you wish to delete it, please remove it first.',
+      },
+    },
+    form: { titleCreate: 'Add account', titleUpdate: 'Edit account' },
+    helperText:
+      'The accounts can be linked to products so that the account number and VAT rate are automatically filled in the reports.',
+  },
 };

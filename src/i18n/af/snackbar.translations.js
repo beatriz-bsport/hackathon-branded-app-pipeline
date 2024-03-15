@@ -80,6 +80,10 @@ const getTranslations = async () => {
     PENDING_PAYMENT_INTENT_OF_PAYMENT_GROUP_BLOCKS_OTHER_PAYMENT_GROUP_CREATION,
   } = await import('@bsport/common/lib/master-data/payment-group.js');
 
+  const { BOOKKEEPING_ACCOUNT_NAME_ALREADY_USED_ERROR_CODE } = await import(
+    '@bsport/common/lib/master-data/error-codes/bookkeeping_account.js'
+  );
+
   const {
     INVOICE_PAYMENT_BY_GIFTCARD_ERROR,
     GIFTCARD_ACTIVATION_CODE_ERROR_CODE,
@@ -165,6 +169,24 @@ const getTranslations = async () => {
   } = await import('@bsport/common/lib/master-data/error-codes/spivi.js');
 
   return {
+    bookkeeping_account: {
+      errors: {
+        [BOOKKEEPING_ACCOUNT_NAME_ALREADY_USED_ERROR_CODE]:
+          'An account with this name already exists.',
+      },
+      create: {
+        error: 'An error occured while creating the account.',
+        success: 'The account has been successfully created.',
+      },
+      update: {
+        error: 'An error occured while updating the account.',
+        success: 'The changes have been successfully saved.',
+      },
+      delete: {
+        error: 'An error occured while deleting the account.',
+        success: 'The account has been successfully deleted.',
+      },
+    },
     communication: {
       error: 'Error while sending email',
       success: 'Mail being sent',

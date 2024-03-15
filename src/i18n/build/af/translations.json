@@ -989,6 +989,7 @@
     "text": { "showLessText": "Show less", "showMoreText": "Show more" },
     "close": "Close",
     "colorPicker": { "validate": "Save", "delete": "Clear", "noColor": "No color" },
+    "positiveNumber": "This field must be greater than 0.",
     "form": {
       "duration": {
         "day": "Duration in days:",
@@ -1015,6 +1016,7 @@
     "startAfterEnd": "The start date must be before the end date",
     "endBeforeStart": "The end date can't be greater than the start date",
     "requiredField": "this field is required",
+    "numberRequired": "This field must be a number",
     "monthly": "Monthly",
     "weekly": "Weekly",
     "showLess": "Show less",
@@ -2194,7 +2196,9 @@
       "invoiceitem_pk": "Number of items billed",
       "staff_commission_amount": "Staff commission fees incl. VAT",
       "staff_commission_amount_notax": "Staff commission fee excl. VAT",
-      "invoice_datetime": "Invoice issue date"
+      "invoice_datetime": "Invoice issue date",
+      "bookkeeping_account_name": "Account name",
+      "bookkeeping_account_number": "Account number"
     },
     "graphFormDrawer": {
       "helperText": {
@@ -2543,7 +2547,29 @@
     },
     "marketing": { "notification": "Notifications" },
     "roomRequiredIsMissing": "You have not selected a billing establishment.",
-    "roomRequired": "Room *"
+    "roomRequired": "Room *",
+    "bookkeeping_account": {
+      "account_number": "Account number",
+      "account_number_required": "Account number *",
+      "account_name": "Account name",
+      "account_name_required": "Account name *",
+      "vat_rate": "VAT rate",
+      "select_input": { "label": "Bookkeeping account", "placeholder": "Leave empty to not apply account" },
+      "table": { "actions": "Actions" },
+      "add": "Add account",
+      "header": "Accounts",
+      "modal": {
+        "delete": {
+          "title": "Deletion",
+          "content": "You are about to delete this account, are you sure you want to do so?",
+          "confirm": "Delete",
+          "cancel": "Cancel",
+          "contentLinked": "This account is linked to the following objects, if you wish to delete it, please remove it first."
+        }
+      },
+      "form": { "titleCreate": "Add account", "titleUpdate": "Edit account" },
+      "helperText": "The accounts can be linked to products so that the account number and VAT rate are automatically filled in the reports."
+    }
   },
   "event": {
     "list": { "title": { "latestEvents": "Recent events" } },
@@ -11358,6 +11384,21 @@
     }
   },
   "snackbar": {
+    "bookkeeping_account": {
+      "errors": { "1": "An account with this name already exists." },
+      "create": {
+        "error": "An error occured while creating the account.",
+        "success": "The account has been successfully created."
+      },
+      "update": {
+        "error": "An error occured while updating the account.",
+        "success": "The changes have been successfully saved."
+      },
+      "delete": {
+        "error": "An error occured while deleting the account.",
+        "success": "The account has been successfully deleted."
+      }
+    },
     "communication": { "error": "Error while sending email", "success": "Mail being sent" },
     "order": { "success": "Your payment has been successfully registered" },
     "booking": {

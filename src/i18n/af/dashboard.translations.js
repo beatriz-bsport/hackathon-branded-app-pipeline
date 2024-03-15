@@ -245,6 +245,8 @@ const getTranslations = async () => {
       staff_commission_amount: 'Staff commission fees incl. VAT',
       staff_commission_amount_notax: 'Staff commission fee excl. VAT',
       invoice_datetime: 'Invoice issue date',
+      bookkeeping_account_name: 'Account name',
+      bookkeeping_account_number: 'Account number',
     },
     graphFormDrawer: {
       helperText: {

@@ -2,6 +2,7 @@ exports.default = {
   text: { showLessText: 'Show less', showMoreText: 'Show more' },
   close: 'Close',
   colorPicker: { validate: 'Save', delete: 'Clear', noColor: 'No color' },
+  positiveNumber: 'This field must be greater than 0.',
   form: {
     duration: {
       day: 'Duration in days:',
@@ -28,6 +29,7 @@ exports.default = {
   startAfterEnd: 'The start date must be before the end date',
   endBeforeStart: "The end date can't be greater than the start date",
   requiredField: 'this field is required',
+  numberRequired: 'This field must be a number',
   monthly: 'Monthly',
   weekly: 'Weekly',
   showLess: 'Show less',

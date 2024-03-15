@@ -65,6 +65,7 @@ export type ShopItem = {
   total_sales?: number;
   tva: string;
   unlimited_provisions?: boolean;
+  bookkeeping_account?: number;
 };
 
 /** Represents a variant related to a base shop item */

@@ -16,6 +16,7 @@ export type Giftcard = {
   amount_gifted: string; // decimal price
   is_shared_giftcard?: boolean;
   tags_on_consumer_item_creation?: Array<number>;
+  bookkeeping_account?: number;
 };
 
 export type GiftcardDataAPI = {

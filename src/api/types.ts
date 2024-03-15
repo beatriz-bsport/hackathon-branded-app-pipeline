@@ -244,6 +244,7 @@ export type PaymentPack = {
   duration_months?: number;
   duration_years?: number;
   disabled: boolean;
+  bookkeeping_account?: number;
 };
 
 export type ConsumerPaymentPackConsumerView = {

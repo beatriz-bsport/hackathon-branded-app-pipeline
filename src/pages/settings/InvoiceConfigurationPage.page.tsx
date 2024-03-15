@@ -40,6 +40,14 @@ import {
   upsertEstablishmentBillingGroup as upsertEstablishmentBillingGroupAction,
   deleteEstablishmentBillingGroup as deleteEstablishmentBillingGroupAction,
 } from '../../libs/establishment/actions';
+import {
+  deleteBookkeepingAccount as deleteBookkeepingAccountAction,
+  fetchBookkeepingAccountList as fetchBookkeepingAccountListAction,
+  updateBookkeepingAccount as updateBookkeepingAccountAction,
+  createBookkeepingAccount as createBookkeepingAccountAction,
+  fetchLinkedProductNames as fetchLinkedProductNamesAction,
+} from '#libs/payment/actions';
+
 import EstablishmentBillingGroupTable from '../../libs/establishment/components/EstablishmentBillingGroupTable.component';
 import EstablishmentBillingGroupFormDialog from '../../libs/establishment/components/EstablishmentBillingGroupFormDialog.component';
 import {
@@ -52,6 +60,13 @@ import { getStripeReaders } from '#libs/terminal/selectors';
 import type { EstablishmentBillingGroup as EstablishmentBillingGroupType } from '../../libs/establishment/types';
 import themeSelectors from '../../libs/theme/selectors';
 import { updateCompanyTheme } from '../../libs/theme/actions';
+import {
+  getBookkeepingAccountList,
+  getBookkeepingAccountLoading,
+  getLinkedProductNames,
+} from '#libs/payment/selectors';
+import BookkeepingAccountSection from '#libs/invoice/components/BookkeepingAccountSection.component';
+import { IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED } from '#libs/payment/constants';
 
 type StateHandlerInit = {
   openDialogForm: boolean;
@@ -81,6 +96,8 @@ export class InvoiceConfigurationPage extends React.Component<Props, State> {
     }
     this.props.fetchEstablishments();
     this.props.fetchStripeReaders();
+    IS_BOOKKEEPING_ACOUNT_FEATURE_ENABLED &&
+      this.props.fetchBookkeepingAccountList();
   }
 
   render() {
@@ -160,6 +177,23 @@ export class InvoiceConfigurationPage extends React.Component<Props, State> {
               )}
             </>
           )}
+          <>
+            <BookkeepingAccountSection
+              bookkeepingAccounts={this.props.bookkeepingAccounts}
+              createBookkeepingAccount={this.props.createBookkeepingAccount}
+              fetchDisplayedBookkeepingAccounts={
+                this.props.fetchBookkeepingAccountList
+              }
+              fetchLinkedProductNames={this.props.fetchLinkedProductNames}
+              isBookkeepingAccountsLoading={
+                this.props.isBookkeepingAccountsLoading
+              }
+              linkedProductNames={this.props.linkedProductNames}
+              onCreateBookkeepingAccount={this.props.createBookkeepingAccount}
+              onDeleteBookkeepingAccount={this.props.deleteBookkeepingAccount}
+              onUpdateBookkeepingAccount={this.props.updateBookkeepingAccount}
+            />
+          </>
         </div>
       </>
     );
@@ -189,6 +223,9 @@ const mapStateToProps = (state: RootState) => ({
   )(state),
   establishments: getAvailableEstablishmentList(state),
   stripeReaders: getStripeReaders(state),
+  bookkeepingAccounts: getBookkeepingAccountList(state),
+  isBookkeepingAccountsLoading: getBookkeepingAccountLoading(state),
+  linkedProductNames: getLinkedProductNames(state),
 });
 const mapDispatchToProps = {
   fetchInvoiceConfiguration,
@@ -205,6 +242,11 @@ const mapDispatchToProps = {
   createStripeReader,
   deleteStripeReader,
   editStripeReader,
+  deleteBookkeepingAccount: deleteBookkeepingAccountAction,
+  updateBookkeepingAccount: updateBookkeepingAccountAction,
+  createBookkeepingAccount: createBookkeepingAccountAction,
+  fetchLinkedProductNames: fetchLinkedProductNamesAction,
+  fetchBookkeepingAccountList: fetchBookkeepingAccountListAction,
 };
 const mapWithHandlers = {
   patchTheme:
@@ -283,6 +325,10 @@ const mapWithHandlers = {
         },
       });
     },
+  fetchBookkeepingAccountList:
+    ({ fetchBookkeepingAccountList }) =>
+    () =>
+      fetchBookkeepingAccountList({ is_active: true }),
 };
 const withStateHandlersInit: StateHandlerInit = {
   openDialogForm: false,

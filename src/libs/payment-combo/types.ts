@@ -34,6 +34,7 @@ export type PaymentCombo = {
   new_member_only: boolean;
   is_usable_by_staff: boolean;
   highlighted_as_recommended: boolean;
+  bookkeeping_account?: number;
 };
 
 export type PaymentComboPayload = {

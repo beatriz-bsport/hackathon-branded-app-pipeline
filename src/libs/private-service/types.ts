@@ -172,6 +172,7 @@ export type PrivatePass<LPP = number | null> = {
   applies_for_payroll: boolean;
   on_behalf_of_teacher: boolean;
   tags_on_consumer_item_creation?: Array<number>;
+  bookkeeping_account?: number;
 };
 
 export type PrivatePassWithDetailedPrivateServices = PrivatePass & {

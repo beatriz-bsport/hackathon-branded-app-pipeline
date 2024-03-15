@@ -107,6 +107,7 @@ export type PaymentPack<LPP = number | null, PPCategories = Array<number>> = {
   applies_for_payroll: boolean;
   off_peak_schedule: Record<string, string[][]>;
   highlighted_as_recommended: boolean;
+  bookkeeping_account?: number;
 };
 
 export type PaymentPackTemplateInstance = {
@@ -290,6 +291,7 @@ export type PaymentPackFormValues<LPP = number> = {
   off_peak_active: boolean;
   off_peak_schedule: OffPeakSchedule[];
   highlighted_as_recommended: boolean;
+  bookkeeping_account?: number;
 };
 
 export type OffPeakIsoWeekdays = {

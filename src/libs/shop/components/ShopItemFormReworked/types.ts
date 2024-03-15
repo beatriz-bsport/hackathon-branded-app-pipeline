@@ -24,4 +24,5 @@ export type ShopItemFormValues = {
   supplierPrice: number;
   supplier?: number | null;
   tva: number;
+  bookkeepingAccount?: number;
 };

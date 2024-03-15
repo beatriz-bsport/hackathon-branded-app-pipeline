@@ -54,6 +54,7 @@ type BaseProps<T extends OptionTypeBase> = {
   options: T[] | Immutable.ImmutableArray<T>;
   inScrollBar?: boolean;
   isMenuListPaddingDisabled?: boolean;
+  isDisabled?: boolean;
   isMenuListVirtualized?: boolean;
   isSearchable?: boolean;
   leftIcon?: React.ReactNode;
@@ -118,6 +119,7 @@ function MaterialUISelector<T extends OptionTypeBase>(
     leftIcon,
     menuPortalTarget,
     withoutPortal = false,
+    isDisabled,
     inScrollBar,
     isMenuListPaddingDisabled,
     isMenuListVirtualized,
@@ -271,6 +273,7 @@ function MaterialUISelector<T extends OptionTypeBase>(
           hideSelectedOptions={false}
           id={id}
           inScrollBar={inScrollBar}
+          isDisabled={isDisabled}
           isMenuListPaddingDisabled={isMenuListPaddingDisabled}
           isMenuListVirtualized={isMenuListVirtualized}
           isMulti={isMulti}

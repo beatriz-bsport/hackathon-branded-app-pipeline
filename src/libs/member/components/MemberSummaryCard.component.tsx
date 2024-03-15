@@ -356,7 +356,7 @@ export class MemberSummaryCard extends PureComponent<Props> {
             <Avatar noname user={member.consumer} variant="mediumNoname" />
           </CreditMemberBadge>
           <div className={this.props.classes.consumerName}>
-            <Typography noWrap>
+            <Typography className={this.props.classes.firstAndLastName}>
               {member.consumer.first_name} {member.consumer.last_name}
             </Typography>
             <Typography noWrap>
@@ -565,10 +565,12 @@ const styles = (theme: Theme) =>
     },
     consumerName: {
       marginLeft: theme.spacing(2),
-      display: 'flew',
+      display: 'flex',
       flexDirection: 'column',
-      alignItems: 'center',
       justifyContent: 'center',
+    },
+    firstAndLastName: {
+      wordBreak: 'break-all',
     },
     accountBalance: {
       display: 'flex',

@@ -36,6 +36,7 @@ import { getCurrencyDisplay } from '#libs/theme/selectors';
 import ToolTip from '#components/Tooltip.component';
 import OffPeakTimeSlotGroup from '#libs/payment-packs/components/PaymentPackForm/PaymentPackOffPeak.component';
 import { offPeakGroupDefault } from '#libs/payment-packs/utils';
+import ObjectLevelPermissionProvider from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 type Props = {
   categoryList: Array<SCT>;
@@ -79,6 +80,8 @@ export const PaymentPackFormRestrictions = (props: Props) => {
   const addGroupTimeSlotLabel = t(
     'addPaymentPack.offPeak.addGroupTimeSlot',
   )?.toUpperCase();
+
+  const isCreatingPass = !initial?.id;
 
   return (
     <>
@@ -241,142 +244,154 @@ export const PaymentPackFormRestrictions = (props: Props) => {
             </div>
           </div>
         </Grid>
-        <Grid item xs={6}>
-          <div className={classes.titleAndSelector}>
-            <Typography className={classes.title}>
-              {t('addPaymentPack.categories')}
-            </Typography>
-            <MaterialUISelector
-              inScrollBar
-              isMulti
-              chipsRenderer={(chipProps: {
-                data: {
-                  label: string;
-                  value: number;
-                  parentCategory: number;
-                };
-                onDelete: () => void;
-              }) => (
-                <SCTChip
-                  color="primary"
-                  onDelete={chipProps.onDelete}
-                  parentCategory={chipProps.data.parentCategory}
-                  SCTName={chipProps.data.label}
-                />
-              )}
-              defaultNumberShown={3}
-              id="categories-selector"
-              onChange={(options) => {
-                setFieldValue(
-                  'categories',
-                  options?.map((option) => option.value),
-                );
-              }}
-              options={
-                [
-                  ...categoryList?.map((category) => ({
-                    label: category.name,
-                    value: category.id,
-                    parentCategory: category.SCS.id,
-                  })),
-                ] || []
-              }
-              placeholder={t('addPaymentPack.letBlank')}
-              value={values?.categories?.map((id) => ({
-                label: categoryList.find((category) => category.id === id)
-                  ?.name,
-                value: id,
-                parentCategory: categoryList.find(
-                  (category) => category.id === id,
-                )?.SCS.id,
-              }))}
-            />
-          </div>
-        </Grid>
-        <Grid item xs={6}>
-          <div className={classes.titleAndSelector}>
-            <Typography className={classes.title}>
-              {t('addPaymentPack.room')}
-            </Typography>
-            <MaterialUISelector
-              inScrollBar
-              isMulti
-              chipsRenderer={(chipProps: {
-                data: { label: string; value: number };
-                onDelete: () => void;
-              }) => (
-                <Chip
-                  color="primary"
-                  label={chipProps.data.label}
-                  onDelete={chipProps.onDelete}
-                />
-              )}
-              defaultNumberShown={3}
-              id="establishments-selector"
-              menuPosition="fixed"
-              onChange={(options) => {
-                setFieldValue(
-                  'establishments',
-                  options?.map((option) => option.value),
-                );
-              }}
-              options={
-                [
-                  ...availableEstablishmentList?.map((establishment) => ({
-                    label: establishment.title,
-                    value: establishment.id,
-                  })),
-                ] || []
-              }
-              placeholder={t('addPaymentPack.letBlank')}
-              value={values?.establishments?.map((id) => ({
-                label: availableEstablishmentList.find(
-                  (establishment) => establishment.id === id,
-                )?.title,
-                value: id,
-              }))}
-            />
-          </div>
-        </Grid>
-        <Grid item xs={6}>
-          <div className={classes.titleAndSelector}>
-            <Typography className={classes.title}>
-              {t('addPaymentPack.activities')}
-            </Typography>
-            <MaterialUISelector
-              inScrollBar
-              isMulti
-              chipsRenderer={(chipProps: { data; onDelete: () => void }) => (
-                <Chip
-                  color="primary"
-                  label={chipProps.data.label}
-                  onDelete={chipProps.onDelete}
-                />
-              )}
-              defaultNumberShown={3}
-              id="activities-selector"
-              onChange={(options) => {
-                setFieldValue(
-                  'metaActivities',
-                  options?.map((option) => option.value),
-                );
-              }}
-              options={[
-                ...metaActivityList?.map((metaActivity) => ({
-                  label: metaActivity.name,
-                  value: metaActivity.id,
-                })),
-              ]}
-              placeholder={t('addPaymentPack.letBlank')}
-              value={values?.metaActivities?.map((id) => ({
-                label: metaActivityList.find(
-                  (metaActivity) => metaActivity.id === id,
-                )?.name,
-                value: id,
-              }))}
-            />
-          </div>
-        </Grid>
+        <ObjectLevelPermissionProvider requiredPermission="product.paymentPack.allowed_actions.compatibility">
+          {(canEditCompatibilities: boolean) => (
+            <>
+              <Grid item xs={6}>
+                <div className={classes.titleAndSelector}>
+                  <Typography className={classes.title}>
+                    {t('addPaymentPack.categories')}
+                  </Typography>
+                  <MaterialUISelector
+                    inScrollBar
+                    isMulti
+                    chipsRenderer={(chipProps: {
+                      data: {
+                        label: string;
+                        value: number;
+                        parentCategory: number;
+                      };
+                      onDelete: () => void;
+                    }) => (
+                      <SCTChip
+                        color="primary"
+                        onDelete={chipProps.onDelete}
+                        parentCategory={chipProps.data.parentCategory}
+                        SCTName={chipProps.data.label}
+                      />
+                    )}
+                    defaultNumberShown={3}
+                    id="categories-selector"
+                    isDisabled={!canEditCompatibilities && !isCreatingPass}
+                    onChange={(options) => {
+                      setFieldValue(
+                        'categories',
+                        options?.map((option) => option.value),
+                      );
+                    }}
+                    options={
+                      [
+                        ...categoryList?.map((category) => ({
+                          label: category.name,
+                          value: category.id,
+                          parentCategory: category.SCS.id,
+                        })),
+                      ] || []
+                    }
+                    placeholder={t('addPaymentPack.letBlank')}
+                    value={values?.categories?.map((id) => ({
+                      label: categoryList.find((category) => category.id === id)
+                        ?.name,
+                      value: id,
+                      parentCategory: categoryList.find(
+                        (category) => category.id === id,
+                      )?.SCS.id,
+                    }))}
+                  />
+                </div>
+              </Grid>
+              <Grid item xs={6}>
+                <div className={classes.titleAndSelector}>
+                  <Typography className={classes.title}>
+                    {t('addPaymentPack.room')}
+                  </Typography>
+                  <MaterialUISelector
+                    inScrollBar
+                    isMulti
+                    chipsRenderer={(chipProps: {
+                      data: { label: string; value: number };
+                      onDelete: () => void;
+                    }) => (
+                      <Chip
+                        color="primary"
+                        label={chipProps.data.label}
+                        onDelete={chipProps.onDelete}
+                      />
+                    )}
+                    defaultNumberShown={3}
+                    id="establishments-selector"
+                    isDisabled={!canEditCompatibilities && !isCreatingPass}
+                    menuPosition="fixed"
+                    onChange={(options) => {
+                      setFieldValue(
+                        'establishments',
+                        options?.map((option) => option.value),
+                      );
+                    }}
+                    options={
+                      [
+                        ...availableEstablishmentList?.map((establishment) => ({
+                          label: establishment.title,
+                          value: establishment.id,
+                        })),
+                      ] || []
+                    }
+                    placeholder={t('addPaymentPack.letBlank')}
+                    value={values?.establishments?.map((id) => ({
+                      label: availableEstablishmentList.find(
+                        (establishment) => establishment.id === id,
+                      )?.title,
+                      value: id,
+                    }))}
+                  />
+                </div>
+              </Grid>
+              <Grid item xs={6}>
+                <div className={classes.titleAndSelector}>
+                  <Typography className={classes.title}>
+                    {t('addPaymentPack.activities')}
+                  </Typography>
+                  <MaterialUISelector
+                    inScrollBar
+                    isMulti
+                    chipsRenderer={(chipProps: {
+                      data;
+                      onDelete: () => void;
+                    }) => (
+                      <Chip
+                        color="primary"
+                        label={chipProps.data.label}
+                        onDelete={chipProps.onDelete}
+                      />
+                    )}
+                    defaultNumberShown={3}
+                    id="activities-selector"
+                    isDisabled={!canEditCompatibilities && !!initial}
+                    onChange={(options) => {
+                      setFieldValue(
+                        'metaActivities',
+                        options?.map((option) => option.value),
+                      );
+                    }}
+                    options={[
+                      ...metaActivityList?.map((metaActivity) => ({
+                        label: metaActivity.name,
+                        value: metaActivity.id,
+                      })),
+                    ]}
+                    placeholder={t('addPaymentPack.letBlank')}
+                    value={values?.metaActivities?.map((id) => ({
+                      label: metaActivityList.find(
+                        (metaActivity) => metaActivity.id === id,
+                      )?.name,
+                      value: id,
+                    }))}
+                  />
+                </div>
+              </Grid>
+            </>
+          )}
+        </ObjectLevelPermissionProvider>
         <Grid item className={classes.warningItem} xs={6}>
           <div className={classes.warning}>
             <WarningIcon color="primary" />

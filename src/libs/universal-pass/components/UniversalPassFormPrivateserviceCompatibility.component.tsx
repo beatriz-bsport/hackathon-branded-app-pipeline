@@ -30,6 +30,7 @@ import type {
 import { filterPrivateService } from '#libs/private-service/utils';
 import { PrivateSlotSelectionDialog } from '#libs/private-service/components//slot/PrivateSlotSelectionDialog.component';
 import { PaymentPackFormValues, PaymentPack } from '../../payment-packs/types';
+import ObjectLevelPermissionProviderComponent from '#libs/role/permission-utils/ObjectLevelPermissionProvider.component';
 
 const getExcludedSlots = (
   ps: PrivateServiceWithSlots,
@@ -88,6 +89,8 @@ export const UniversalPassFormPrivateserviceCompatibility = (props: Props) => {
     setServiceAndIndex(null, null);
   };
 
+  const isCreatingPass = !props?.initial;
+
   return (
     <>
       <div className={classes.flexRowCenter}>
@@ -102,110 +105,135 @@ export const UniversalPassFormPrivateserviceCompatibility = (props: Props) => {
           {({ remove, push, replace }) => {
             return (
               <>
-                <div className={classes.privateServiceSelector}>
-                  <PrivateServiceSelector
-                    onChange={(e: any) =>
-                      push({ private_service: e, excluded_slot_ids: [] })
-                    }
-                    placeholder={t('privatePass.form.selector.privateService')}
-                    privateServices={privateServices
-                      .filter((ps: PrivateServiceWithSlots) =>
-                        filterPrivateService(
-                          ps,
-                          values.linked_private_pass_compatibility,
-                          false,
-                        ),
-                      )
-                      .filter((ps) => ps.available)}
-                  />
-                </div>
-                <List>
-                  {!!values.linked_private_pass_compatibility?.length &&
-                    privateServices
-                      .filter((ps: PrivateServiceWithSlots) =>
-                        filterPrivateService(
-                          ps,
-                          values.linked_private_pass_compatibility,
-                          true,
-                        ),
-                      )
-                      .filter((ps) => ps.available)
-                      .map((ps) => (
-                        <PrivateServiceListItem
-                          key={ps.id}
-                          hideSecondary
-                          excluded_slots={getExcludedSlots(
-                            ps,
-                            values.linked_private_pass_compatibility,
-                          )}
-                          included_slots={getIncludedSlots(
-                            ps,
-                            values.linked_private_pass_compatibility,
-                          )}
-                          onDelete={() => {
-                            const psArray: number[] =
-                              props.initial &&
-                              props.initial?.linked_private_pass_compatibility
-                                ?.length
-                                ? props.initial.linked_private_pass_compatibility.map(
-                                    (p_s) => p_s.private_service,
-                                  )
-                                : [];
-                            const psListForIndex: number[] =
-                              values.linked_private_pass_compatibility?.map(
-                                (p_s: { private_service: any }) =>
-                                  p_s.private_service,
-                              );
-                            if (props.initial && psArray.includes(ps.id)) {
-                              setSelectedServiceIndex(
-                                psListForIndex.indexOf(ps.id),
-                              );
-                              setOpenDeleteCompatibilityDialog(true);
-                            } else {
-                              remove(psListForIndex.indexOf(ps.id));
+                <ObjectLevelPermissionProviderComponent requiredPermission="product.privatePass.allowed_actions.compatibility">
+                  {(canEditCompatibilities: boolean) => (
+                    <>
+                      {(canEditCompatibilities || isCreatingPass) && (
+                        <div className={classes.privateServiceSelector}>
+                          <PrivateServiceSelector
+                            onChange={(e: any) =>
+                              push({
+                                private_service: e,
+                                excluded_slot_ids: [],
+                              })
                             }
-                          }}
-                          onEdit={() => {
-                            if (props.compatibleServicePass) {
-                              const psListForIndex: number[] =
-                                values.linked_private_pass_compatibility?.map(
-                                  (p_s: { private_service: any }) =>
-                                    p_s.private_service,
-                                );
-                              setServiceAndIndex(
-                                ps,
-                                psListForIndex.indexOf(ps.id),
-                              );
-                            }
-                          }}
-                          privateService={ps}
-                        />
-                      ))}
+                            placeholder={t(
+                              'privatePass.form.selector.privateService',
+                            )}
+                            privateServices={privateServices
+                              .filter((ps: PrivateServiceWithSlots) =>
+                                filterPrivateService(
+                                  ps,
+                                  values.linked_private_pass_compatibility,
+                                  false,
+                                ),
+                              )
+                              .filter((ps) => ps.available)}
+                          />
+                        </div>
+                      )}
 
-                  {!values.linked_private_pass_compatibility.length && (
-                    <ListItem
-                      divider
-                      alignItems="center"
-                      className={classes.emptyListItem}
-                    >
-                      <ReportProblemIcon
-                        className={classes.reportProblemIcon}
-                      />
-                      <ListItemText
-                        primary={
-                          <div>
-                            <Typography variant="subtitle2">
-                              {t('privatePass.compatibleServices.isEmpty')}
-                            </Typography>
-                            <Typography variant="body2">
-                              {t('privatePass.compatibleServices.unusable')}
-                            </Typography>
-                          </div>
-                        }
-                      />
-                    </ListItem>
+                      <List>
+                        {!!values.linked_private_pass_compatibility?.length &&
+                          privateServices
+                            .filter((ps: PrivateServiceWithSlots) =>
+                              filterPrivateService(
+                                ps,
+                                values.linked_private_pass_compatibility,
+                                true,
+                              ),
+                            )
+                            .filter((ps) => ps.available)
+                            .map((ps) => (
+                              <PrivateServiceListItem
+                                key={ps.id}
+                                hideSecondary
+                                excluded_slots={getExcludedSlots(
+                                  ps,
+                                  values.linked_private_pass_compatibility,
+                                )}
+                                included_slots={getIncludedSlots(
+                                  ps,
+                                  values.linked_private_pass_compatibility,
+                                )}
+                                isEditable={
+                                  canEditCompatibilities || isCreatingPass
+                                }
+                                onDelete={() => {
+                                  const psArray: number[] =
+                                    props.initial &&
+                                    props.initial
+                                      ?.linked_private_pass_compatibility
+                                      ?.length
+                                      ? props.initial.linked_private_pass_compatibility.map(
+                                          (p_s) => p_s.private_service,
+                                        )
+                                      : [];
+                                  const psListForIndex: number[] =
+                                    values.linked_private_pass_compatibility?.map(
+                                      (p_s: { private_service: any }) =>
+                                        p_s.private_service,
+                                    );
+                                  if (
+                                    props.initial &&
+                                    psArray.includes(ps.id)
+                                  ) {
+                                    setSelectedServiceIndex(
+                                      psListForIndex.indexOf(ps.id),
+                                    );
+                                    setOpenDeleteCompatibilityDialog(true);
+                                  } else {
+                                    remove(psListForIndex.indexOf(ps.id));
+                                  }
+                                }}
+                                onEdit={() => {
+                                  if (props.compatibleServicePass) {
+                                    const psListForIndex: number[] =
+                                      values.linked_private_pass_compatibility?.map(
+                                        (p_s: { private_service: any }) =>
+                                          p_s.private_service,
+                                      );
+                                    setServiceAndIndex(
+                                      ps,
+                                      psListForIndex.indexOf(ps.id),
+                                    );
+                                  }
+                                }}
+                                privateService={ps}
+                              />
+                            ))}
+
+                        {!values.linked_private_pass_compatibility.length && (
+                          <ListItem
+                            divider
+                            alignItems="center"
+                            className={classes.emptyListItem}
+                          >
+                            <ReportProblemIcon
+                              className={classes.reportProblemIcon}
+                            />
+                            <ListItemText
+                              primary={
+                                <div>
+                                  <Typography variant="subtitle2">
+                                    {t(
+                                      'privatePass.compatibleServices.isEmpty',
+                                    )}
+                                  </Typography>
+                                  <Typography variant="body2">
+                                    {t(
+                                      'privatePass.compatibleServices.unusable',
+                                    )}
+                                  </Typography>
+                                </div>
+                              }
+                            />
+                          </ListItem>
+                        )}
+                      </List>
+                    </>
                   )}
-                </List>
+                </ObjectLevelPermissionProviderComponent>
                 <PrivateSlotSelectionDialog
                   compatibility={values.linked_private_pass_compatibility}
                   compatibleServicePass={props.compatibleServicePass}

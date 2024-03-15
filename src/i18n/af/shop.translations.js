@@ -64,6 +64,7 @@ exports.default = {
     },
   },
   // reworked
+  startingAtWithPrice: 'Starting at {{price}}',
   variantCount: '{{count}} variant',
   variantCount_plural: '{{count}} variants',
   shopList: {

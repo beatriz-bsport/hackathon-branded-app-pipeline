@@ -19,7 +19,7 @@ import {
 import type { Basket, CheckoutItem } from '#libs/checkout/types';
 import type { Member } from '#libs/member/types';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
-import { getBasketTotalPriceExcludingTax } from '#libs/checkout/utils';
+import { getSubTotal } from '#libs/checkout/utils';
 import DateInput from '../../../../components/input/DateInput.component';
 
 import { BasketName } from '../QuicksaleBasketPanel';
@@ -144,7 +144,7 @@ const QuicksaleBasketSummary: React.FC<Props> = ({
 
   if (!basket) return <></>;
 
-  const basketPriceExcludingTax = getBasketTotalPriceExcludingTax(basket, true);
+  const basketPriceExcludingTax = getSubTotal(basket, true);
 
   const taxPrice = (
     parseFloat(basket.total_price) -

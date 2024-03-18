@@ -45,7 +45,7 @@ import PrepaidLineListItem from '#libs/checkout/components/PrepaidLineListItem.c
 import type { CompanyTheme } from '#libs/theme/types';
 import type { RootState } from '../../reducers';
 import { MaterialStyleType } from '../../utils/types';
-import { getBasketTotalPriceExcludingTax } from '#libs/checkout/utils';
+import { getSubTotal } from '#libs/checkout/utils';
 import BasketTaxInfo from '#libs/checkout/components/BasketTaxInfo.component';
 import { fetchMembershipByBasket } from '#libs/membership/actions';
 import CheckoutBillingGroupSelector from '#libs/marketplace/components/@Basket/CheckoutBillingGroupSelector.component';
@@ -371,9 +371,7 @@ export class BasketPaymentIntent extends React.Component<Props, State> {
         </div>
       );
     }
-    const basketPriceExcludingTax = getBasketTotalPriceExcludingTax(
-      this.props.basket,
-    );
+    const basketPriceExcludingTax = getSubTotal(this.props.basket);
     const taxPrice = (
       parseFloat(this.props.basket.total_price) -
       parseFloat(basketPriceExcludingTax)

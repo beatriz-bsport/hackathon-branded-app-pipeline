@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { getBasketTotalPriceExcludingTax } from '#libs/checkout/utils';
+import { getSubTotal } from '#libs/checkout/utils';
 import MarketplaceBasketSummaryListCssOnly from '#libs/marketplace/components/@Basket/MarketplaceBasketSummaryListCssOnly';
 import MarketplaceBasketSummaryPrepaidLineList from '#libs/marketplace/components/@Basket/MarketplaceBasketSummaryPrepaidLineList';
 import CircularProgress from '#components/css-only/CircularProgress';
@@ -41,10 +41,7 @@ export const BasketSummaryCssOnly: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation('checkout');
   const basketTotalPrice = React.useMemo(
-    () =>
-      isExcludingTax
-        ? getBasketTotalPriceExcludingTax(basket)
-        : basket?.total_price,
+    () => (isExcludingTax ? getSubTotal(basket) : basket?.total_price),
     [isExcludingTax, basket],
   );
 

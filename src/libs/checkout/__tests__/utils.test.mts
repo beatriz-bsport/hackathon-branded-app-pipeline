@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { getBasketTotalPriceExcludingTax } from '../utils';
+import { getSubTotal } from '../utils';
 import { Basket, CheckoutItem } from '../types';
 
 const checkoutItems: Array<CheckoutItem> = [
@@ -198,16 +198,16 @@ const basketEmptyQuantity: Basket = {
   prepaid_lines: [],
 };
 
-describe('TEST getBasketTotalPriceExcludingTax', () => {
+describe('TEST getSubTotal', () => {
   it('Should calcul tax correctly', () => {
-    expect(getBasketTotalPriceExcludingTax(basket)).toBe(
+    expect(getSubTotal(basket)).toBe(
       (
         parseFloat(basket.total_price) /
         (1 +
           (30 * 0.1 + 20 * 2 * 0.12 + 10 * 3 * 0.15) / (30 + 20 * 2 + 10 * 3))
       ).toFixed(2),
     );
-    expect(getBasketTotalPriceExcludingTax(basketWithVoucher)).toBe(
+    expect(getSubTotal(basketWithVoucher)).toBe(
       (
         parseFloat(basketWithVoucher.total_price) /
         (1 +
@@ -216,11 +216,7 @@ describe('TEST getBasketTotalPriceExcludingTax', () => {
     );
   });
   it('Should not calcul ', () => {
-    expect(getBasketTotalPriceExcludingTax(basketEmpty)).toBe(
-      parseFloat('0').toFixed(2),
-    );
-    expect(getBasketTotalPriceExcludingTax(basketEmptyQuantity)).toBe(
-      parseFloat('0').toFixed(2),
-    );
+    expect(getSubTotal(basketEmpty)).toBe(parseFloat('0').toFixed(2));
+    expect(getSubTotal(basketEmptyQuantity)).toBe(parseFloat('0').toFixed(2));
   });
 });

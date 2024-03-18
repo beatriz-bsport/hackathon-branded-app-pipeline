@@ -14,7 +14,7 @@ import CustomMuiIcon from '#components/icons/CustomMuiIcon.component';
 import { QuicksaleInterfaceModalColors } from '#libs/quicksale/constants';
 import { formatAsDate, formatAsTime } from '../../../../utils/datetime';
 import { BasketSummary } from '#libs/checkout/components/new-checkout-flow/BasketSummary.component';
-import { getBasketTotalPriceExcludingTax } from '#libs/checkout/utils';
+import { getSubTotal } from '#libs/checkout/utils';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
 import type {
   Basket,
@@ -91,7 +91,7 @@ const QuicksaleBasketPanel: React.FC<Props> = ({
   const canChangeMember = basket && !basket.invoice;
   const basketPriceExcludingTax = React.useMemo(() => {
     if (basket) {
-      return getBasketTotalPriceExcludingTax(basket, true);
+      return getSubTotal(basket, true);
     }
     return '0';
   }, [basket]);

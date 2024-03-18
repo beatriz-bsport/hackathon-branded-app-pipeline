@@ -22,7 +22,7 @@ import BasketDeliveryForm from './BasketDeliveryForm.component';
 import CouponCodeForm from '../../coupon/components/CouponCodeForm.component';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
 import AcceptTermsAndConditions from '../../payment/components/AcceptTermsAndConditions.component';
-import { getBasketTotalPriceExcludingTax } from '../utils';
+import { getSubTotal } from '../utils';
 import BasketTaxInfo from './BasketTaxInfo.component';
 import { verifyPriceBasket as verifyPriceBasketAPI } from '#libs/payment/api';
 import { TermsAndConditionType } from '../../payment/types';
@@ -319,9 +319,7 @@ export class BasketFinalizer extends React.Component<Props, State> {
     if (this.props.basketIsEmpty) {
       return null;
     }
-    const basketPriceExcludingTax = getBasketTotalPriceExcludingTax(
-      this.props.basket,
-    );
+    const basketPriceExcludingTax = getSubTotal(this.props.basket);
     const taxPrice = (
       parseFloat(this.props.basket.total_price) -
       parseFloat(basketPriceExcludingTax)

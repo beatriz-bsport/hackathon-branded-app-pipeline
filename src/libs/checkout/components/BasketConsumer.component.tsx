@@ -12,7 +12,7 @@ import PrepaidLineListItem from './PrepaidLineListItem.component';
 
 import { CheckoutItem, Basket, CheckoutItemData, PrepaidLine } from '../types';
 import { getCurrencyDisplayWithPrice } from '../../theme/selectors';
-import { getBasketTotalPriceExcludingTax } from '../utils';
+import { getSubTotal } from '../utils';
 
 const useStyles = makeStyles((theme: Theme) => ({
   centeredAndPadded: {
@@ -70,7 +70,7 @@ export const BasketConsumer = (props: Props) => {
     );
   }
   const basketTotalPrice = props.isExcludingTax
-    ? getBasketTotalPriceExcludingTax(props.basket)
+    ? getSubTotal(props.basket)
     : props.basket.total_price;
 
   return (

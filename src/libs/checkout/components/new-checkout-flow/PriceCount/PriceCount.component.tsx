@@ -18,10 +18,7 @@ import type {
 
 import BasketTaxInfo from '#libs/checkout/components/BasketTaxInfo.component';
 
-import {
-  getBasketTotalPriceExcludingTax,
-  getCheckoutItemPrice,
-} from '#libs/checkout/utils';
+import { getSubTotal, getCheckoutItemPrice } from '#libs/checkout/utils';
 
 import { BillItem } from '#libs/checkout/components/new-checkout-flow/BilllItem.component';
 import { getCurrencyDisplayWithPrice } from '#libs/theme/selectors';
@@ -95,7 +92,7 @@ export const PriceCount: React.FC<PriceCountProps> = ({
     [prepaidLines],
   );
 
-  const basketPriceExcludingTax = getBasketTotalPriceExcludingTax(basket);
+  const basketPriceExcludingTax = getSubTotal(basket);
   const taxPrice = (
     parseFloat(basket.total_price) - parseFloat(basketPriceExcludingTax)
   ).toFixed(2);

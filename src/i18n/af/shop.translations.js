@@ -100,7 +100,7 @@ exports.default = {
               },
             },
             deleteModal: {
-              title: 'Supplier: {{supplierName}}',
+              title: 'Supplier: {{- supplierName }}',
               message: 'Are you sure you want to delete this supplier ?',
             },
           },
@@ -117,7 +117,7 @@ exports.default = {
     viewBarcode: 'View barcode',
     deleteVariant: 'Delete variant',
     deleteModal: {
-      title: 'Deletion - {{name}}',
+      title: 'Deletion - {{- name }}',
       genericTitle: 'Deletion confirmation',
       message:
         "Are you sure that you want to delete this product from your webshop? This action can't be undone.",

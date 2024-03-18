@@ -571,7 +571,7 @@ exports.default = {
         cancel: 'Cancel',
         helper:
           'Members currently in the cadence will automatically exit it. This cadence will be archived but you can reactivate it later.',
-        beingArchived: 'You are about to archive {{ name }}.',
+        beingArchived: 'You are about to archive {{-  name }}.',
         title: 'Delete a cadence',
         confirmButton: 'Archive',
       },
@@ -804,7 +804,7 @@ exports.default = {
     archive: {
       archivedHeader: 'Archived {{ workflowPluralLowerCase }}',
       dialog: {
-        beingArchived: 'You are about to archive "{{ name }}".',
+        beingArchived: 'You are about to archive "{{- name }}".',
         helper:
           'Members currently in the {{ workflowLowerCase }} will automatically exit it. The {{ workflowLowerCase }} will be paused and archived, but you can easily reactivate it later.',
         title: 'Are you sure you want to archive the {{ workflowLowerCase }}?',
@@ -863,7 +863,7 @@ exports.default = {
       },
       communication: {
         title: 'Communications sent',
-        knowMore: 'More information about {{ upsellName }} upsell',
+        knowMore: 'More information about {{- upsellName }} upsell',
         availableSoon: 'Available soon',
         email: 'Email',
         sms: 'SMS',

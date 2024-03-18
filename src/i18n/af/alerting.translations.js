@@ -37,13 +37,13 @@ const getTranslations = async () => {
     },
     newOrder: {
       title: 'Pending Order',
-      explain: 'Paid by <1>{{name}}</1> on the store.',
+      explain: 'Paid by <1>{{- name }}</1> on the store.',
       price: 'Amount: {{ price }}.',
     },
     task: { name: '{{ name }}' },
     privateBookingIncomplete: {
-      explain: 'The appointment of <1>{{name}}</1> has no assigned teacher.',
-      name: 'Member: {{ user_name }}',
+      explain: 'The appointment of <1>{{- name }}</1> has no assigned teacher.',
+      name: 'Member: {{- user_name }}',
       date: 'Date: {{ date_start }}',
     },
     companyOnboarding: {
@@ -78,7 +78,7 @@ const getTranslations = async () => {
     readAll: 'Mark all as read',
     lateReplacementRequest: {
       content:
-        'requested a substitution for the following session: {{activity_name}} - {{-date_start}}',
+        'requested a substitution for the following session: {{- activity_name}} - {{-date_start}}',
       title: 'Late substitution',
     },
   };

@@ -13,15 +13,15 @@ exports.default = {
   sectionFinishDialog: {
     continueButton: 'Continue',
     infoText:
-      'You have completed all the lessons in {{name}} section. Continue to improve by completing the next section.',
+      'You have completed all the lessons in {{- name }} section. Continue to improve by completing the next section.',
     title: 'Congratulations !',
   },
   shareDialog: {
     continueButton: 'Continue',
     infoTextLesson:
-      'Share the {{name}} lesson with your staff members who do not have access to the tutorials tab. They will only be able to navigate within this lesson.',
+      'Share the {{- name }} lesson with your staff members who do not have access to the tutorials tab. They will only be able to navigate within this lesson.',
     infoTextSection:
-      'Share all the lessons in the {{name}} section with your staff members who do not have access to the tutorials tab. They will only be able to navigate within this section.',
+      'Share all the lessons in the {{- name }} section with your staff members who do not have access to the tutorials tab. They will only be able to navigate within this section.',
     title: 'Share',
   },
   welcomeDialog: {

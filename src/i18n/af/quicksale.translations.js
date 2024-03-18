@@ -130,17 +130,17 @@ exports.default = {
     cannotAdd: {
       tag: {
         hasTagAndDoesNotHaveTag:
-          '{{ optionalBeginning }} {{ name }} is tagged as {{ ownedTagName }} and is not tagged as {{ notOwnedTagName }}.',
+          '{{ optionalBeginning }} {{- name }} is tagged as {{- ownedTagName }} and is not tagged as {{- notOwnedTagName }}.',
         hasTag:
-          '{{ optionalBeginning }} {{ name }} is tagged as {{ tagName }}.',
+          '{{ optionalBeginning }} {{- name }} is tagged as {{- tagName }}.',
         doesNotHaveTag:
-          '{{ optionalBeginning }} {{ name }} is not tagged as {{ tagName }}.',
+          '{{ optionalBeginning }} {{- name }} is not tagged as {{- tagName }}.',
       },
       title: 'Cannot be added',
       subTextListItem:
         'Unfortunately it was not possible to add the item because',
       newMember: {
-        subText: '{{ optionalBeginning }} {{ name }} is not a new member.',
+        subText: '{{ optionalBeginning }} {{- name }} is not a new member.',
       },
     },
     authenticationRequired: {

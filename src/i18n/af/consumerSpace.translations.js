@@ -15,7 +15,7 @@ exports.default = {
     statistic: 'Statistics',
     connectedAs: 'Login as',
     backToRelationMasterSpace: 'Return to my account',
-    relationConnectedAs: "You're currently connected as: {{name}}",
+    relationConnectedAs: "You're currently connected as: {{- name }}",
     goBack: 'Back',
   },
   pack: {

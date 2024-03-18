@@ -55,7 +55,7 @@ exports.default = {
       confirmHelper: 'Please confirm you want to subscribe to this add-on',
       infoHelper: 'Need more information?',
       info: 'Contact customer support',
-      confirmationMessage: 'You have successfully subscribed to {{ name }}',
+      confirmationMessage: 'You have successfully subscribed to {{- name }}',
       commitmentMessage:
         'Please note: Subscribing entails a 12-month commitment period',
     },

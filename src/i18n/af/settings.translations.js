@@ -124,7 +124,7 @@ exports.default = {
         'Select a bsport smartlist and link it to one of your ActiveCampaign lists',
       noList: 'LIST NOT FOUND',
       listItemText:
-        'Send members of smartlist <1>{{smartlist}}</2> to ActiveCampaign <3>{{list}}</4> list',
+        'Send members of smartlist <1>{{- smartlist }}</2> to ActiveCampaign <3>{{- list }}</4> list',
     },
   },
   marketplaceSettings: {

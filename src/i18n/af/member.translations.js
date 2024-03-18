@@ -106,7 +106,7 @@ const getTranslations = async () => {
           notMemberYet:
             'Looks like this will be your first time visiting our studio.',
         },
-        welcome: 'Hello {{firstname}}',
+        welcome: 'Hello {{- firstname }}',
       },
       title: '[Form] Sign up',
       newMemberOnlyHelperText:
@@ -174,7 +174,7 @@ const getTranslations = async () => {
       done: "I'm in possession of a valid COVID-19 Sanitary Pass",
     },
     signedUpWithReferral:
-      "Member signed up with <1>{{ name }}</1>'s referral link",
+      "Member signed up with <1>{{- name }}</1>'s referral link",
     archive: {
       dialog: {
         actions: { confirm: 'Confirm', close: 'Close' },
@@ -193,7 +193,7 @@ const getTranslations = async () => {
         helper_text_1: 'Are you sure that you want to archive this member?',
         title: 'Archive a member',
       },
-      archivedMember: 'Archived member: {{name}}',
+      archivedMember: 'Archived member: {{- name}}',
     },
     archived: 'Archived',
     restoreMember: 'Restore',
@@ -390,7 +390,7 @@ const getTranslations = async () => {
       },
       [MEMBER_EVENTS.custom_form_filled]: {
         filter: 'Profile form edited',
-        primaryText: 'Profile edit form {{ formName }} has been filled.',
+        primaryText: 'Profile edit form {{- formName }} has been filled.',
       },
       [MEMBER_EVENTS.giftcard_used]: {
         filter: 'Giftcards used',
@@ -411,11 +411,11 @@ const getTranslations = async () => {
         primaryText:
           '{{ source }} has booked appointment {{- privateServiceName }} - {{- privateSlotName }} for {{- privateServiceDate }}.',
         filter: 'Appointment',
-        sourceManager: 'The manager {{ managerName }}',
+        sourceManager: 'The manager {{- managerName }}',
       },
       [MEMBER_EVENTS.tag_applied]: {
         filter: 'Tags applied',
-        primaryText: 'The tag {{ tagName }} has been applied.',
+        primaryText: 'The tag {{- tagName }} has been applied.',
       },
       [MEMBER_EVENTS.vod_bought]: {
         filter: 'VOD bought',

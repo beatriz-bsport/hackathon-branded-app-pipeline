@@ -19,11 +19,15 @@
       "priceDue": "Amount due: {{ price_due }}.",
       "pricePayed": "Amount paid: {{price_payed }}."
     },
-    "newOrder": { "title": "Pending Order", "explain": "Paid by <1>{{name}}</1> on the store.", "price": "Amount: {{ price }}." },
+    "newOrder": {
+      "title": "Pending Order",
+      "explain": "Paid by <1>{{- name }}</1> on the store.",
+      "price": "Amount: {{ price }}."
+    },
     "task": { "name": "{{ name }}" },
     "privateBookingIncomplete": {
-      "explain": "The appointment of <1>{{name}}</1> has no assigned teacher.",
-      "name": "Member: {{ user_name }}",
+      "explain": "The appointment of <1>{{- name }}</1> has no assigned teacher.",
+      "name": "Member: {{- user_name }}",
       "date": "Date: {{ date_start }}"
     },
     "companyOnboarding": {
@@ -48,7 +52,7 @@
     },
     "readAll": "Mark all as read",
     "lateReplacementRequest": {
-      "content": "requested a substitution for the following session: {{activity_name}} - {{-date_start}}",
+      "content": "requested a substitution for the following session: {{- activity_name}} - {{-date_start}}",
       "title": "Late substitution"
     }
   },
@@ -130,12 +134,12 @@
     "loading": "Loading",
     "wasRefunded": "Refunded",
     "statusCode": {
-      "cancelledByManager": "Cancelled by manager ({{cancelled_by}})",
+      "cancelledByManager": "Cancelled by manager ({{- cancelled_by }})",
       "cancelledByConsumer": "Cancelled by customer",
       "cancelledByOffer": "Session cancelled",
       "cancelledByOfferDate": "Cancelled by the studio on {{-date}} at {{time}}.",
       "cancelledByConsumerDate": "Cancelled by customer on the {{-date}} at {{time}}",
-      "cancelledByManagerDate": "Cancelled by manager on the {{-date}} at {{time}} by {{cancelled_by}}",
+      "cancelledByManagerDate": "Cancelled by manager on the {{-date}} at {{time}} by {{- cancelled_by }}",
       "cancelledByAnonymousManagerDate": "Cancelled by the studio on {{-date}} at {{time}}",
       "cancelledByAnonymousManager": "Cancelled by the studio"
     },
@@ -687,7 +691,7 @@
   },
   "clockIn": {
     "clockinDialog": {
-      "subtitleClockIn": "Hello {{ name }}! Please click \"Clock-in\" to get started.",
+      "subtitleClockIn": "Hello {{- name }}! Please click \"Clock-in\" to get started.",
       "subtitleSuccess": "Your schedules have been saved. You can start a new punch the next time you open this window.",
       "title": "Time clock",
       "close": "Close",
@@ -1384,7 +1388,7 @@
       "statistic": "Statistics",
       "connectedAs": "Login as",
       "backToRelationMasterSpace": "Return to my account",
-      "relationConnectedAs": "You're currently connected as: {{name}}",
+      "relationConnectedAs": "You're currently connected as: {{- name }}",
       "goBack": "Back"
     },
     "pack": { "titlePaymentPack": "Group activities", "titlePrivatePack": "Appointments", "titleUniversalPack": "Universal" },
@@ -1845,7 +1849,7 @@
       "companyEmpty": "There are no studios offering this promotion to display.",
       "delete": {
         "explain2": "It can be readded later if necessary.",
-        "explain1": "Are you sure that you want to edit the availability for this promotion ({{name}})?",
+        "explain1": "Are you sure that you want to edit the availability for this promotion ({{- name }})?",
         "title": "Stop sharing"
       }
     },
@@ -3955,7 +3959,7 @@
           "confirm": "Continue",
           "cancel": "Cancel",
           "helper": "Members currently in the cadence will automatically exit it. This cadence will be archived but you can reactivate it later.",
-          "beingArchived": "You are about to archive {{ name }}.",
+          "beingArchived": "You are about to archive {{-  name }}.",
           "title": "Delete a cadence",
           "confirmButton": "Archive"
         }
@@ -4131,7 +4135,7 @@
       "archive": {
         "archivedHeader": "Archived {{ workflowPluralLowerCase }}",
         "dialog": {
-          "beingArchived": "You are about to archive \"{{ name }}\".",
+          "beingArchived": "You are about to archive \"{{- name }}\".",
           "helper": "Members currently in the {{ workflowLowerCase }} will automatically exit it. The {{ workflowLowerCase }} will be paused and archived, but you can easily reactivate it later.",
           "title": "Are you sure you want to archive the {{ workflowLowerCase }}?"
         }
@@ -4177,7 +4181,7 @@
         },
         "communication": {
           "title": "Communications sent",
-          "knowMore": "More information about {{ upsellName }} upsell",
+          "knowMore": "More information about {{- upsellName }} upsell",
           "availableSoon": "Available soon",
           "email": "Email",
           "sms": "SMS",
@@ -4250,7 +4254,7 @@
       "confirm": "Continue",
       "cancel": "Cancel",
       "loadMore": "See more",
-      "warningBookingRedirectToFirstOffer": "You have been redirected to the {{name}} session group booking screen, the sessions to be booked together will be listed on your booking screen."
+      "warningBookingRedirectToFirstOffer": "You have been redirected to the {{- name }} session group booking screen, the sessions to be booked together will be listed on your booking screen."
     },
     "calendar": {
       "registered": "Reservation confirmed",
@@ -4516,7 +4520,7 @@
           "memberOfCompany": "Please complete the following form.",
           "notMemberYet": "Looks like this will be your first time visiting our studio."
         },
-        "welcome": "Hello {{firstname}}"
+        "welcome": "Hello {{- firstname }}"
       },
       "title": "[Form] Sign up",
       "newMemberOnlyHelperText": "A member is considered \"new\" as long as they have not made a purchase greater than {{ currency }}0. Please note that any purchase of a paid item with a 100% reduction in price will result in the loss of the 'New Member' status."
@@ -4563,7 +4567,7 @@
       "notDone": "I'm not in possession of a valid COVID-19 Sanitary Pass",
       "done": "I'm in possession of a valid COVID-19 Sanitary Pass"
     },
-    "signedUpWithReferral": "Member signed up with <1>{{ name }}</1>'s referral link",
+    "signedUpWithReferral": "Member signed up with <1>{{- name }}</1>'s referral link",
     "archive": {
       "dialog": {
         "actions": { "confirm": "Confirm", "close": "Close" },
@@ -4581,7 +4585,7 @@
         "helper_text_1": "Are you sure that you want to archive this member?",
         "title": "Archive a member"
       },
-      "archivedMember": "Archived member: {{name}}"
+      "archivedMember": "Archived member: {{- name}}"
     },
     "archived": "Archived",
     "restoreMember": "Restore",
@@ -4731,7 +4735,7 @@
         "primaryText": "The appointment for {{- private_service_name}} - {{- private_slot_name }} the {{- date_start }} was canceled.",
         "filter": "Appointment cancelations"
       },
-      "member-custom_form_filled": { "filter": "Profile form edited", "primaryText": "Profile edit form {{ formName }} has been filled." },
+      "member-custom_form_filled": { "filter": "Profile form edited", "primaryText": "Profile edit form {{- formName }} has been filled." },
       "member-giftcard_used": { "filter": "Giftcards used", "primaryText": "Giftcard {{- giftcardName }} has been activated." },
       "member-invoice_paid": { "filter": "Invoices paid", "primaryText": "Invoice n°{{ invoiceUUID }} has been paid for {{ amount }}." },
       "member-login_successful": {
@@ -4743,9 +4747,9 @@
       "member-private_booking_registered": {
         "primaryText": "{{ source }} has booked appointment {{- privateServiceName }} - {{- privateSlotName }} for {{- privateServiceDate }}.",
         "filter": "Appointment",
-        "sourceManager": "The manager {{ managerName }}"
+        "sourceManager": "The manager {{- managerName }}"
       },
-      "member-tag_applied": { "filter": "Tags applied", "primaryText": "The tag {{ tagName }} has been applied." },
+      "member-tag_applied": { "filter": "Tags applied", "primaryText": "The tag {{- tagName }} has been applied." },
       "member-vod_bought": { "filter": "VOD bought", "primaryText": "The VOD {{- VODName }} has been bought." }
     },
     "resetPassword": {
@@ -5081,9 +5085,9 @@
       }
     },
     "multiSession": {
-      "previousSession": " You were connected as: {{name}}",
+      "previousSession": " You were connected as: {{- name }}",
       "title": " It appears that you're using multiple tabs simultaneously.",
-      "currentSession": "You're currently connected as: {{name}}",
+      "currentSession": "You're currently connected as: {{- name }}",
       "restore": "Continue with the previous account",
       "manager": "Manager",
       "franchisor": "Master Account",
@@ -5806,7 +5810,7 @@
           "description": { "label": "Description", "captionText": "Add a custom description to this session" }
         }
       },
-      "groupedOffer": { "warning": "Be careful this session is part of the group of sessions {{ name }}" },
+      "groupedOffer": { "warning": "Be careful this session is part of the group of sessions {{- name }}" },
       "stepper": { "step": { "SETTINGS": "Modification settings", "INFOS": "Session" } }
     },
     "isFree": "Free",
@@ -6931,7 +6935,7 @@
     },
     "common": { "from": "From", "until": "Until", "pick_a_month": "Select a month" },
     "calculate": "Calculate",
-    "title": "Teacher payment for {{name}}",
+    "title": "Teacher payment for {{- name }}",
     "label": "Payroll rule",
     "dateTitle": "Period",
     "coaches": "Teachers",
@@ -7209,7 +7213,7 @@
         "confirmHelper": "Please confirm you want to subscribe to this add-on",
         "infoHelper": "Need more information?",
         "info": "Contact customer support",
-        "confirmationMessage": "You have successfully subscribed to {{ name }}",
+        "confirmationMessage": "You have successfully subscribed to {{- name }}",
         "commitmentMessage": "Please note: Subscribing entails a 12-month commitment period"
       }
     },
@@ -8193,13 +8197,13 @@
       "objectAdded": { "title": "Item added", "subText": "The item was successfully added to the shopping cart." },
       "cannotAdd": {
         "tag": {
-          "hasTagAndDoesNotHaveTag": "{{ optionalBeginning }} {{ name }} is tagged as {{ ownedTagName }} and is not tagged as {{ notOwnedTagName }}.",
-          "hasTag": "{{ optionalBeginning }} {{ name }} is tagged as {{ tagName }}.",
-          "doesNotHaveTag": "{{ optionalBeginning }} {{ name }} is not tagged as {{ tagName }}."
+          "hasTagAndDoesNotHaveTag": "{{ optionalBeginning }} {{- name }} is tagged as {{- ownedTagName }} and is not tagged as {{- notOwnedTagName }}.",
+          "hasTag": "{{ optionalBeginning }} {{- name }} is tagged as {{- tagName }}.",
+          "doesNotHaveTag": "{{ optionalBeginning }} {{- name }} is not tagged as {{- tagName }}."
         },
         "title": "Cannot be added",
         "subTextListItem": "Unfortunately it was not possible to add the item because",
-        "newMember": { "subText": "{{ optionalBeginning }} {{ name }} is not a new member." }
+        "newMember": { "subText": "{{ optionalBeginning }} {{- name }} is not a new member." }
       },
       "authenticationRequired": {
         "subTextListItem": "The item that you want to add is",
@@ -8422,7 +8426,7 @@
         "email": "Email copy",
         "access": "Account Access",
         "accountInfo": "Sharing account access allows members to access other accounts to which they are connected to as a relationship.",
-        "autorization": "Allow \"{{name_1}}\" to access the account of \"{{name_2}}\".",
+        "autorization": "Allow \"{{- name_1 }}\" to access the account of \"{{- name_2 }}\".",
         "confirm": "Confirm"
       }
     },
@@ -8617,7 +8621,7 @@
       "delete": {
         "confirm": "Confirm",
         "cancel": "Cancel",
-        "description": "Are you sure you want to delete the {{name}} discipline group?",
+        "description": "Are you sure you want to delete the {{- name }} discipline group?",
         "title": "Delete"
       },
       "coaches": "{{count}} Teacher",
@@ -9067,7 +9071,7 @@
       "coupon": "Promotion",
       "giftcard": "Gift card"
     },
-    "report": { "delete_message": "Are you sure that you want to delete \"{{name}}\"?" },
+    "report": { "delete_message": "Are you sure that you want to delete \"{{- name }}\"?" },
     "form": {
       "title": "[Form] Report",
       "name": "Name",
@@ -10203,7 +10207,7 @@
       "expires": "Expires",
       "headOnIn": "Head on in!",
       "visitsLeft": "Remaining visits",
-      "spotInfo": "Your {{spotName}} is:",
+      "spotInfo": "Your {{- spotName }} is:",
       "spotUnassigned": "Spot unassigned"
     }
   },
@@ -10307,7 +10311,7 @@
         "listActiveCampaignSelection": "Select an ActiveCampaign list",
         "helperForm": "Select a bsport smartlist and link it to one of your ActiveCampaign lists",
         "noList": "LIST NOT FOUND",
-        "listItemText": "Send members of smartlist <1>{{smartlist}}</2> to ActiveCampaign <3>{{list}}</4> list"
+        "listItemText": "Send members of smartlist <1>{{- smartlist }}</2> to ActiveCampaign <3>{{- list }}</4> list"
       }
     },
     "marketplaceSettings": {
@@ -10591,7 +10595,10 @@
                 "titleUpdate": "Edit supplier",
                 "field": { "name": "Name *", "description": "Notes" }
               },
-              "deleteModal": { "title": "Supplier: {{supplierName}}", "message": "Are you sure you want to delete this supplier ?" }
+              "deleteModal": {
+                "title": "Supplier: {{- supplierName }}",
+                "message": "Are you sure you want to delete this supplier ?"
+              }
             }
           }
         }
@@ -10606,7 +10613,7 @@
       "viewBarcode": "View barcode",
       "deleteVariant": "Delete variant",
       "deleteModal": {
-        "title": "Deletion - {{name}}",
+        "title": "Deletion - {{- name }}",
         "genericTitle": "Deletion confirmation",
         "message": "Are you sure that you want to delete this product from your webshop? This action can't be undone.",
         "comboWarning": "Attention! Deleting this product will also make it unavailable for purchase for the packs it's used for."
@@ -11146,7 +11153,7 @@
     },
     "popup": { "sendPopup": "Send a pop-up" },
     "cadenceListDialog": { "close": "Close", "title": "List of the cadences" },
-    "cadence": { "content": "Used in the cadence: {{ cadence_name }}", "content_plural": "Used in {{ count }} cadences" },
+    "cadence": { "content": "Used in the cadence: {{- cadence_name }}", "content_plural": "Used in {{ count }} cadences" },
     "cannotBeDeletedDialog": {
       "content": "You cannot delete this smartlist as long as it is used in the following cadence:",
       "content_plural": "You cannot delete this smartlist as long as it is used in the following cadences:",
@@ -11155,7 +11162,7 @@
     },
     "audienceListDialog": { "title": "List of the {{ workflowPluralLowerCase }}" },
     "audience": {
-      "content": "Used in the {{ workflowLowerCase }}: {{ workflow_name }}",
+      "content": "Used in the {{ workflowLowerCase }}: {{- workflow_name }}",
       "content_plural": "Used in {{ count }} {{ workflowPluralLowerCase }}"
     },
     "cannotBeDeletedDialogAudience": {
@@ -11862,10 +11869,10 @@
       "missImageFree": "You have not loaded the image for the free spot",
       "missImageTaken": "You have not loaded the image for the reserved spot",
       "missImageSelected": "You have not loaded the image for the selected spot",
-      "selectedPersonalized": "{{name}} selected",
+      "selectedPersonalized": "{{- name }} selected",
       "selected": "Selected spot",
-      "freePersonalized": "Available: {{name}}",
-      "takenPersonalized": "Booked: {{name}}",
+      "freePersonalized": "Available: {{- name }}",
+      "takenPersonalized": "Booked: {{- name }}",
       "taken": "Booked spots",
       "free": "Available spot",
       "personalizedExplain": "You can customize the shape of the slots by importing your own images. For this we need 3 different icons. One to indicate that the spot is available, another when it is reserved. Make sure they are the same size and please do not include any numbers on your icons.",
@@ -11901,10 +11908,10 @@
       "legend": "Legend",
       "available": "Available",
       "availableSpot": "Available spot",
-      "availablePersonalizedSpot": "{{ spotName }} available",
+      "availablePersonalizedSpot": "{{- spotName }} available",
       "unavailable": "Not available",
       "unavailableSpot": "Spot not available",
-      "unavailablePersonalizedSpot": "{{ spotName }} not available",
+      "unavailablePersonalizedSpot": "{{- spotName }} not available",
       "seeAll": "See all",
       "confirm": "Confirm",
       "goBackToCheckout": "Go back to the checkout",
@@ -12472,12 +12479,12 @@
             "contentSubscriptionWillEndBeforePause": "The subscription cannot be paused over this period because it will have ended earlier or its renewal has not yet been executed at this time.",
             "contentCanNotCancelPause": "As the pause has already started or has already passed, it cannot be cancelled.",
             "contentInvalidTimedelta": "The pause should last at least one day.",
-            "contentOverlapPause": "The {{- subscriptionName}} subscription of {{subscriberName}} could not be paused because a pause is already scheduled from {{- fromDate}} to {{- untilDate}}.",
-            "contentIncomingBill": "The {{- subscriptionName}} subscription of {{subscriberName}} could not be paused because an invoice in the pause interval will be billed within 24 hours or has a payment in progress. Please change the start date of the break.",
+            "contentOverlapPause": "The {{- subscriptionName}} subscription of {{- subscriberName }} could not be paused because a pause is already scheduled from {{- fromDate}} to {{- untilDate}}.",
+            "contentIncomingBill": "The {{- subscriptionName}} subscription of {{- subscriberName }} could not be paused because an invoice in the pause interval will be billed within 24 hours or has a payment in progress. Please change the start date of the break.",
             "title": "Pause Failed"
           },
           "successStep": {
-            "content": "The {{- subscriptionName}} subscription of {{subscriberName}} has been paused from {{- fromDate}} to {{- untilDate}} included.",
+            "content": "The {{- subscriptionName}} subscription of {{- subscriberName }} has been paused from {{- fromDate}} to {{- untilDate}} included.",
             "title": "Pausing the subscription"
           },
           "initStep": {
@@ -12535,9 +12542,9 @@
           "label": "Pause from {{- fromDate}} to {{- untilDate}}",
           "pausedAt": "{{ days }} days - On {{- date}}",
           "deletedAt": "Cancelled on {{- dateDeletion}}",
-          "deletedAtBy": "Cancelled on {{- dateDeletion}} by {{staffName}}",
+          "deletedAtBy": "Cancelled on {{- dateDeletion}} by {{- staffName }}",
           "createdAt": "Created on {{- dateCreation}}",
-          "createdAtBy": "Created on {{- dateCreation}} by {{staffName}}",
+          "createdAtBy": "Created on {{- dateCreation}} by {{- staffName }}",
           "fromToUntil": "Pause from {{- fromDate}} to {{- untilDate}}"
         },
         "deleteDialog": { "title": "Cancel the pause" },
@@ -13173,7 +13180,7 @@
     "invoice": { "invoiceEdit": "Invoice", "invoiceList": "Invoices", "invoiceCreate": "Bill" },
     "coach": {
       "coachList": "Teachers",
-      "coachPerformance": "Payroll: {{name}}",
+      "coachPerformance": "Payroll: {{- name }}",
       "coachFormPage": "[Form] Teacher",
       "allCoachPerformance": "Payroll"
     },
@@ -13280,7 +13287,7 @@
           "doNotConsumeCredit": "Don't charge any credits for this booking",
           "bookSingleInGroup": "Exclusively book this session",
           "bookMoreInGroup": "Book other events",
-          "groupWarning": "This session is associated to an event ({{ name }}).",
+          "groupWarning": "This session is associated to an event ({{- name }}).",
           "loadingData": "Loading booking data",
           "bookingLimitReached": "Booking limit reached"
         }
@@ -13428,7 +13435,7 @@
       "notifyRevert": "Send a cancellation email",
       "refundRevert": "Refund the used credits",
       "cancellingBookingInGroup": "Cancel multiple sessions",
-      "cancellingOtherBookingInGroup": "This session is associated to an event ({{ name }}). Other bookings associated to this event won't be edited.",
+      "cancellingOtherBookingInGroup": "This session is associated to an event ({{- name }}). Other bookings associated to this event won't be edited.",
       "waitingListPosition": "On waiting list {{ position }}/{{ size }}"
     },
     "workshopActivity": {
@@ -13650,7 +13657,7 @@
         "willBeRefund": "The session of {{-day}} will be recredited",
         "discardAllGroup": "All bookings for this event will be cancelled.",
         "discardGroup3": "Contact the studio if you wish to cancel a single session.",
-        "discardGroup1": "This booking is part of \"{{ group }}\".",
+        "discardGroup1": "This booking is part of \"{{- group }}\".",
         "discardGroup2": "You'll be automatically unsubscribed from all future sessions that are associated to this event.",
         "waintingListPositionLabel": "Position :"
       },
@@ -13800,7 +13807,7 @@
           },
           "header": "Advanced"
         },
-        "editingGroup": "Attention this session is part of the session group {{ name }}",
+        "editingGroup": "Attention this session is part of the session group {{- name }}",
         "explainAllowGuest": "Allow the booking for a guest feature"
       },
       "payment": {
@@ -15182,13 +15189,13 @@
     },
     "sectionFinishDialog": {
       "continueButton": "Continue",
-      "infoText": "You have completed all the lessons in {{name}} section. Continue to improve by completing the next section.",
+      "infoText": "You have completed all the lessons in {{- name }} section. Continue to improve by completing the next section.",
       "title": "Congratulations !"
     },
     "shareDialog": {
       "continueButton": "Continue",
-      "infoTextLesson": "Share the {{name}} lesson with your staff members who do not have access to the tutorials tab. They will only be able to navigate within this lesson.",
-      "infoTextSection": "Share all the lessons in the {{name}} section with your staff members who do not have access to the tutorials tab. They will only be able to navigate within this section.",
+      "infoTextLesson": "Share the {{- name }} lesson with your staff members who do not have access to the tutorials tab. They will only be able to navigate within this lesson.",
+      "infoTextSection": "Share all the lessons in the {{- name }} section with your staff members who do not have access to the tutorials tab. They will only be able to navigate within this section.",
       "title": "Share"
     },
     "welcomeDialog": {

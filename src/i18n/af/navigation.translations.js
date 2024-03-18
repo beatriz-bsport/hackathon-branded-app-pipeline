@@ -150,9 +150,9 @@ exports.default = {
     },
   },
   multiSession: {
-    previousSession: ' You were connected as: {{name}}',
+    previousSession: ' You were connected as: {{- name }}',
     title: " It appears that you're using multiple tabs simultaneously.",
-    currentSession: "You're currently connected as: {{name}}",
+    currentSession: "You're currently connected as: {{- name }}",
     restore: 'Continue with the previous account',
     manager: 'Manager',
     franchisor: 'Master Account',

@@ -424,7 +424,7 @@ const getTranslations = async () => {
       giftcard: 'Gift card',
     },
     report: {
-      delete_message: 'Are you sure that you want to delete "{{name}}"?',
+      delete_message: 'Are you sure that you want to delete "{{- name }}"?',
     },
     form: {
       title: '[Form] Report',

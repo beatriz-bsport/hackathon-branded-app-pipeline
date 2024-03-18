@@ -18,7 +18,7 @@ exports.default = {
   },
   coach: {
     coachList: 'Teachers',
-    coachPerformance: 'Payroll: {{name}}',
+    coachPerformance: 'Payroll: {{- name }}',
     coachFormPage: '[Form] Teacher',
     allCoachPerformance: 'Payroll',
   },

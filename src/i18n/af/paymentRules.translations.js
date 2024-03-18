@@ -25,7 +25,7 @@ exports.default = {
   },
   common: { from: 'From', until: 'Until', pick_a_month: 'Select a month' },
   calculate: 'Calculate',
-  title: 'Teacher payment for {{name}}',
+  title: 'Teacher payment for {{- name }}',
   label: 'Payroll rule',
   dateTitle: 'Period',
   coaches: 'Teachers',

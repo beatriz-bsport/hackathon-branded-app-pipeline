@@ -49,7 +49,7 @@ exports.default = {
         doNotConsumeCredit: "Don't charge any credits for this booking",
         bookSingleInGroup: 'Exclusively book this session',
         bookMoreInGroup: 'Book other events',
-        groupWarning: 'This session is associated to an event ({{ name }}).',
+        groupWarning: 'This session is associated to an event ({{- name }}).',
         loadingData: 'Loading booking data',
         bookingLimitReached: 'Booking limit reached',
       },
@@ -208,7 +208,7 @@ exports.default = {
     refundRevert: 'Refund the used credits',
     cancellingBookingInGroup: 'Cancel multiple sessions',
     cancellingOtherBookingInGroup:
-      "This session is associated to an event ({{ name }}). Other bookings associated to this event won't be edited.",
+      "This session is associated to an event ({{- name }}). Other bookings associated to this event won't be edited.",
     waitingListPosition: 'On waiting list {{ position }}/{{ size }}',
   },
   workshopActivity: {
@@ -468,7 +468,7 @@ exports.default = {
       discardAllGroup: 'All bookings for this event will be cancelled.',
       discardGroup3:
         'Contact the studio if you wish to cancel a single session.',
-      discardGroup1: 'This booking is part of "{{ group }}".',
+      discardGroup1: 'This booking is part of "{{- group }}".',
       discardGroup2:
         "You'll be automatically unsubscribed from all future sessions that are associated to this event.",
       waintingListPositionLabel: 'Position :',
@@ -633,7 +633,7 @@ exports.default = {
         header: 'Advanced',
       },
       editingGroup:
-        'Attention this session is part of the session group {{ name }}',
+        'Attention this session is part of the session group {{- name }}',
       explainAllowGuest: 'Allow the booking for a guest feature',
     },
     payment: {

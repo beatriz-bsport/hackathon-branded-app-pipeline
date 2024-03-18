@@ -628,14 +628,14 @@ const getTranslations = async () => {
               'As the pause has already started or has already passed, it cannot be cancelled.',
             contentInvalidTimedelta: 'The pause should last at least one day.',
             contentOverlapPause:
-              'The {{- subscriptionName}} subscription of {{subscriberName}} could not be paused because a pause is already scheduled from {{- fromDate}} to {{- untilDate}}.',
+              'The {{- subscriptionName}} subscription of {{- subscriberName }} could not be paused because a pause is already scheduled from {{- fromDate}} to {{- untilDate}}.',
             contentIncomingBill:
-              'The {{- subscriptionName}} subscription of {{subscriberName}} could not be paused because an invoice in the pause interval will be billed within 24 hours or has a payment in progress. Please change the start date of the break.',
+              'The {{- subscriptionName}} subscription of {{- subscriberName }} could not be paused because an invoice in the pause interval will be billed within 24 hours or has a payment in progress. Please change the start date of the break.',
             title: 'Pause Failed',
           },
           successStep: {
             content:
-              'The {{- subscriptionName}} subscription of {{subscriberName}} has been paused from {{- fromDate}} to {{- untilDate}} included.',
+              'The {{- subscriptionName}} subscription of {{- subscriberName }} has been paused from {{- fromDate}} to {{- untilDate}} included.',
             title: 'Pausing the subscription',
           },
           initStep: {
@@ -706,9 +706,9 @@ const getTranslations = async () => {
           label: 'Pause from {{- fromDate}} to {{- untilDate}}',
           pausedAt: '{{ days }} days - On {{- date}}',
           deletedAt: 'Cancelled on {{- dateDeletion}}',
-          deletedAtBy: 'Cancelled on {{- dateDeletion}} by {{staffName}}',
+          deletedAtBy: 'Cancelled on {{- dateDeletion}} by {{- staffName }}',
           createdAt: 'Created on {{- dateCreation}}',
-          createdAtBy: 'Created on {{- dateCreation}} by {{staffName}}',
+          createdAtBy: 'Created on {{- dateCreation}} by {{- staffName }}',
           fromToUntil: 'Pause from {{- fromDate}} to {{- untilDate}}',
         },
         deleteDialog: { title: 'Cancel the pause' },

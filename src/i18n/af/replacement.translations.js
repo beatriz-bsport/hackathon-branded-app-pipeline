@@ -117,7 +117,7 @@ exports.default = {
       confirm: 'Confirm',
       cancel: 'Cancel',
       description:
-        'Are you sure you want to delete the {{name}} discipline group?',
+        'Are you sure you want to delete the {{- name }} discipline group?',
       title: 'Delete',
     },
     coaches: '{{count}} Teacher',

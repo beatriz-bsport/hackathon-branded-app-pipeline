@@ -207,7 +207,7 @@ const getTranslations = async () => {
       delete: {
         explain2: 'It can be readded later if necessary.',
         explain1:
-          'Are you sure that you want to edit the availability for this promotion ({{name}})?',
+          'Are you sure that you want to edit the availability for this promotion ({{- name }})?',
         title: 'Stop sharing',
       },
     },

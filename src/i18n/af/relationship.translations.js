@@ -22,7 +22,8 @@ exports.default = {
       access: 'Account Access',
       accountInfo:
         'Sharing account access allows members to access other accounts to which they are connected to as a relationship.',
-      autorization: 'Allow "{{name_1}}" to access the account of "{{name_2}}".',
+      autorization:
+        'Allow "{{- name_1 }}" to access the account of "{{- name_2 }}".',
       confirm: 'Confirm',
     },
   },

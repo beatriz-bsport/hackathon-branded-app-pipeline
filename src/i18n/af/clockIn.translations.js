@@ -1,7 +1,7 @@
 exports.default = {
   clockinDialog: {
     subtitleClockIn:
-      'Hello {{ name }}! Please click "Clock-in" to get started.',
+      'Hello {{- name }}! Please click "Clock-in" to get started.',
     subtitleSuccess:
       'Your schedules have been saved. You can start a new punch the next time you open this window.',
     title: 'Time clock',

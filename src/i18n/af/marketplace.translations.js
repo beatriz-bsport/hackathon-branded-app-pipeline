@@ -35,7 +35,7 @@ exports.default = {
     cancel: 'Cancel',
     loadMore: 'See more',
     warningBookingRedirectToFirstOffer:
-      'You have been redirected to the {{name}} session group booking screen, the sessions to be booked together will be listed on your booking screen.',
+      'You have been redirected to the {{- name }} session group booking screen, the sessions to be booked together will be listed on your booking screen.',
   },
   calendar: {
     registered: 'Reservation confirmed',

@@ -105,14 +105,14 @@ const getTranslations = async () => {
     loading: 'Loading',
     wasRefunded: 'Refunded',
     statusCode: {
-      cancelledByManager: 'Cancelled by manager ({{cancelled_by}})',
+      cancelledByManager: 'Cancelled by manager ({{- cancelled_by }})',
       cancelledByConsumer: 'Cancelled by customer',
       cancelledByOffer: 'Session cancelled',
       cancelledByOfferDate: 'Cancelled by the studio on {{-date}} at {{time}}.',
       cancelledByConsumerDate:
         'Cancelled by customer on the {{-date}} at {{time}}',
       cancelledByManagerDate:
-        'Cancelled by manager on the {{-date}} at {{time}} by {{cancelled_by}}',
+        'Cancelled by manager on the {{-date}} at {{time}} by {{- cancelled_by }}',
       cancelledByAnonymousManagerDate:
         'Cancelled by the studio on {{-date}} at {{time}}',
       cancelledByAnonymousManager: 'Cancelled by the studio',

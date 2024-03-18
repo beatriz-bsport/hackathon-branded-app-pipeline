@@ -704,7 +704,7 @@ const getTranslations = async () => {
     popup: { sendPopup: 'Send a pop-up' },
     cadenceListDialog: { close: 'Close', title: 'List of the cadences' },
     cadence: {
-      content: 'Used in the cadence: {{ cadence_name }}',
+      content: 'Used in the cadence: {{- cadence_name }}',
       content_plural: 'Used in {{ count }} cadences',
     },
     cannotBeDeletedDialog: {
@@ -719,7 +719,7 @@ const getTranslations = async () => {
       title: 'List of the {{ workflowPluralLowerCase }}',
     },
     audience: {
-      content: 'Used in the {{ workflowLowerCase }}: {{ workflow_name }}',
+      content: 'Used in the {{ workflowLowerCase }}: {{- workflow_name }}',
       content_plural: 'Used in {{ count }} {{ workflowPluralLowerCase }}',
     },
     cannotBeDeletedDialogAudience: {

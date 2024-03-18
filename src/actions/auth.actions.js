@@ -507,8 +507,10 @@ export function disconnect(callback) {
     } catch (err) {
       console.error(err);
     }
-    const storage = window.localStorage;
-    storage.removeItem('bsport:relatedMemberMaster:http:token');
+    const { localStorage, sessionStorage } = window;
+    localStorage.removeItem('bsport:relatedMemberMaster:http:token');
+    sessionStorage.removeItem(STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_URL);
+    sessionStorage.removeItem(STORAGE_KEY_BSPORT_IMPERSONATED_LEFT_URL);
     dispatch((() => ({ type: types.DISCONNECT }))());
     if (callback && typeof callback === 'function') callback();
   };
@@ -603,6 +605,17 @@ export function navigateAsCompanyAdmin(
   };
 }
 
+function clearSessionStorageOnDeImpersonating() {
+  sessionStorage.removeItem(STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_TOKEN);
+  sessionStorage.removeItem(STORAGE_KEY_BSPORT_I18NEXTLNG);
+  sessionStorage.removeItem(STORAGE_KEY_BSPORT_STRIPE_PK_KEY);
+  sessionStorage.removeItem(STORAGE_KEY_BSPORT_PAYMENT_CURRENCY_CODE);
+  sessionStorage.removeItem(STORAGE_KEY_BSPORT_PAYMENT_CURRENCY_DISPLAY);
+  sessionStorage.removeItem(STORAGE_KEY_BSPORT_PAYMENT_STRIPE_REGION);
+  sessionStorage.removeItem(STORAGE_KEY_BSPORT_PAYMENT_COMPANY_COUNTRY);
+  sessionStorage.removeItem(STORAGE_KEY_BSPORT_DISPLAY_PASS_CREDIT_FACTOR);
+}
+
 // BS-3649 Impersonation action dispatched when you click on return to Master Account
 export function navigateBackToFranchise() {
   return async (dispatch: Dispatch) => {
@@ -619,18 +632,14 @@ export function navigateBackToFranchise() {
       const lastUrlImpersonated = window.location.href
         .toString()
         .split(window.location.host)[1];
+
       sessionStorage.setItem(
         STORAGE_KEY_BSPORT_IMPERSONATED_LEFT_URL,
         lastUrlImpersonated,
       );
-      sessionStorage.removeItem(STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_TOKEN);
-      sessionStorage.removeItem(STORAGE_KEY_BSPORT_I18NEXTLNG);
-      sessionStorage.removeItem(STORAGE_KEY_BSPORT_STRIPE_PK_KEY);
-      sessionStorage.removeItem(STORAGE_KEY_BSPORT_PAYMENT_CURRENCY_CODE);
-      sessionStorage.removeItem(STORAGE_KEY_BSPORT_PAYMENT_CURRENCY_DISPLAY);
-      sessionStorage.removeItem(STORAGE_KEY_BSPORT_PAYMENT_STRIPE_REGION);
-      sessionStorage.removeItem(STORAGE_KEY_BSPORT_PAYMENT_COMPANY_COUNTRY);
-      sessionStorage.removeItem(STORAGE_KEY_BSPORT_DISPLAY_PASS_CREDIT_FACTOR);
+
+      clearSessionStorageOnDeImpersonating();
+
       dispatch((() => ({ type: types.RESET_STORE }))());
 
       // Set new access level

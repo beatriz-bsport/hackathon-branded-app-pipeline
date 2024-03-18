@@ -279,6 +279,7 @@ export const BackOfficeDrawer: React.FC<Props> = ({
     const handleLogoffOnOtherTab = (event: StorageEvent) => {
       if (event?.key === 'bsport:http:token' && event?.newValue === 'null') {
         setAuthToken('null');
+        window.sessionStorage.clear();
         disconnect();
       }
     };

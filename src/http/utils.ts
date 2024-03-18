@@ -82,15 +82,16 @@ export function buildUrlParams(params: any) {
 }
 
 export function setAuthToken(token: string) {
-  const localStorageToken: string = storage.getItem(STORAGE_KEY_BSPORT_TOKEN);
+  const originTmpToken: string = sessionStorage.getItem(
+    STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_TOKEN,
+  );
 
   const isTokenInvalid = !token || token === 'null';
-  const isLocalStorageTokenValid =
-    localStorageToken && localStorageToken !== 'null';
+  const isOriginTmpTokenValid = originTmpToken && originTmpToken !== 'null';
 
   if (isTokenInvalid) {
     clearTokens();
-  } else if (isLocalStorageTokenValid) {
+  } else if (isOriginTmpTokenValid) {
     sessionStorage.setItem(STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN, token);
   } else {
     storage.setItem(STORAGE_KEY_BSPORT_TOKEN, token);

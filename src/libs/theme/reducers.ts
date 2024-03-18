@@ -12,7 +12,7 @@ import {
   STORAGE_KEY_BSPORT_PAYMENT_STRIPE_REGION,
   STORAGE_KEY_BSPORT_STRIPE_PK_KEY,
 } from './constants';
-import { STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN } from '#src/actions/constants';
+import { STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_TOKEN } from '#src/actions/constants';
 
 export const initialState: Immutable.Immutable<ThemeState> =
   Immutable<ThemeState>({
@@ -39,7 +39,7 @@ export default handleActions<Immutable.Immutable<ThemeState>>(
         // If the user is impersonating a studio then we want to retrieve/set those data in the sessionStorage and not in the local storage where it is stored firstly
         const isImpersonatingStudio =
           window.sessionStorage.getItem(
-            STORAGE_KEY_BSPORT_IMPERSONATED_TOKEN,
+            STORAGE_KEY_BSPORT_IMPERSONATED_ORIGIN_TOKEN,
           ) !== null;
         const storage = isImpersonatingStudio
           ? window.sessionStorage

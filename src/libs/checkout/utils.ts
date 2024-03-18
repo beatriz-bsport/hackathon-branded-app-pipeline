@@ -81,6 +81,40 @@ export const getBasketTotalPriceExcludingTax = (
   return parseFloat(getPrice(sum_prices, true, mean_tax)).toFixed(2);
 };
 
+/**
+ * Calculates the sub total basket price excluding the tax
+ *
+ * @export
+ * @param {Basket | Basket<string, PrepaidLine> | Basket<number, PrepaidLine>} basket The basket for which we want to calculate the sub total price.
+ * @param {boolean} excludeDeliveryFee If 'true', the delivery fee is excluded.
+ * @return {string} The calculated sub total price.
+ */
+export const getSubTotal = (
+  basket: Basket | Basket<string, PrepaidLine> | Basket<number, PrepaidLine>,
+  excludeDeliveryFee?: boolean,
+): string => {
+  // if we don't have items, or items with no quantity, price returned is always 0
+  if (
+    !basket ||
+    !basket.checkout_items.length ||
+    basket.checkout_items.reduce((acc, ci) => acc + ci.quantity || 0, 0) === 0
+  ) {
+    return parseFloat('0').toFixed(2);
+  }
+  const relevantCheckoutItems = excludeDeliveryFee
+    ? basket.checkout_items.filter(
+        (_item) => _item.buyable_item_identifier !== BUYABLE_ITEM_FEE,
+      )
+    : basket.checkout_items;
+
+  const totalPrice = relevantCheckoutItems.reduce(
+    (acc, ci) =>
+      acc + parseFloat(getPrice(ci.unit_price * ci.quantity, true, ci.tax)),
+    0,
+  );
+  return totalPrice.toFixed(2);
+};
+
 export const getBookingErrorMessage = (t: TFunction, codeError?: number) => {
   if (!codeError) {
     return t('validation.sections.errorExplain.generic');

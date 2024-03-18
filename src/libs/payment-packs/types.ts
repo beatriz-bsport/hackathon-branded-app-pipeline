@@ -397,3 +397,9 @@ export type PaymentPackFactoryOptions = {
   isTemplate?: boolean;
   isHighlightedAsRecommended?: boolean;
 };
+
+export type PaymentPackCompatibilitiesData = {
+  metaActivities: number[];
+  SCTs: number[];
+  establishments: number[];
+};

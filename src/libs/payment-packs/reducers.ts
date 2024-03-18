@@ -26,6 +26,7 @@ import {
   updatePaymentPackCategoryOrderActions,
   isPaymentPackUsedInComboActions,
   paymentPackBulkWidgetActions,
+  updatePaymentPackCompatibilitiesAction,
 } from './actions';
 
 const initialState: PaymentPackState = Immutable({
@@ -657,6 +658,24 @@ export const newPaymentPackReducer = handleActions(
         ['archivationWarning', payload.id, 'used_in_combo'],
         payload.is_used_in_payment_combo,
       );
+    },
+    [updatePaymentPackCompatibilitiesAction.isLoading.toString()]: (
+      state,
+      { payload }: { payload: boolean },
+    ) => {
+      return state.set('isLoading', payload);
+    },
+    [updatePaymentPackCompatibilitiesAction.error.toString()]: (
+      state,
+      { payload }: { payload: Error | null },
+    ) => {
+      return state.set('error', payload);
+    },
+    [updatePaymentPackCompatibilitiesAction.success.toString()]: (
+      state,
+      { payload }: { payload: PaymentPack },
+    ) => {
+      return state.setIn(['byId', payload.id], payload);
     },
   },
   initialState,

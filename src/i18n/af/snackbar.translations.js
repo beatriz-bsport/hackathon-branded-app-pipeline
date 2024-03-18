@@ -500,6 +500,9 @@ const getTranslations = async () => {
         fail: 'Error while saving pass',
         success: 'Pass successfully saved',
       },
+      compatibilitiesUpdate: {
+        fail: 'Error while updating pass compatibilities',
+      },
       credit: { error: 'Error while saving', updated: 'Changes saved' },
       paymentPackDisabled: {
         error: 'Impossible to disable pass',

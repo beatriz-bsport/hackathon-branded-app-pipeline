@@ -15,7 +15,11 @@ import {
   putAuthDeprecated,
 } from '../../http';
 
-import type { PaymentPackCategory } from './types';
+import type {
+  PaymentPack,
+  PaymentPackCategory,
+  PaymentPackCompatibilitiesData,
+} from './types';
 
 export async function fetchAllPaymentPacks() {
   return getAuthDeprecated(
@@ -48,6 +52,16 @@ export async function edit(data: any) {
 export async function editOrder(data: any) {
   return patchAuthDeprecated(
     `${API_V1_URI}/payment-pack/payment-pack/set_multiple_order/`,
+    data,
+  );
+}
+
+export function editPackCompatibilities(
+  paymentPackId: number,
+  data: PaymentPackCompatibilitiesData,
+) {
+  return patchAuth<PaymentPack>(
+    `${API_V1_URI}/payment-pack/payment-pack/${paymentPackId}/compatibilities/`,
     data,
   );
 }

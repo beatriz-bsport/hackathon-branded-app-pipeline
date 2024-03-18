@@ -25,6 +25,7 @@ import {
   createPaymentPackTemplateInstance as createPaymentPackTemplateInstanceAPI,
   deletePaymentPackTemplateInstance as deletePaymentPackTemplateInstanceAPI,
   editCategoryOrder,
+  editPackCompatibilities as editPackCompatibilitiesAPI,
 } from './api';
 import { monitorBackgroundTask } from '#libs/background-task/actions';
 
@@ -35,6 +36,7 @@ import {
   PaymentPackCategory,
   PaymentPackCategoryWithPacks,
   PaymentPackTemplate,
+  PaymentPackCompatibilitiesData,
 } from './types';
 // @ts-expect-error
 import { createDictionnaryById, createIdList } from '../../actions/utils';
@@ -215,6 +217,43 @@ export function updateOrder(
       if (options && options.onError) options.onError();
     }
     dispatch(updatePaymentPackOrderActions.isLoading(data));
+  };
+}
+
+export const updatePaymentPackCompatibilitiesAction = {
+  isLoading: createAction<boolean>(
+    'PAYMENT_PACK/PATCH_COMPATIBILITIES/IS_LOADING',
+  ),
+  error: createAction<Error | null>('PAYMENT_PACK/PATCH_COMPATIBILITIES/ERROR'),
+  success: createAction<PaymentPack>(
+    'PAYMENT_PACK/PATCH_COMPATIBILITIES/SUCCESS',
+  ),
+};
+
+export function updatePaymentPackCompatibilities(
+  input: {
+    paymentPackId: number;
+    data: PaymentPackCompatibilitiesData;
+  },
+  options?: OptionCallback<PaymentPack>,
+) {
+  return async (dispatch: Dispatch) => {
+    dispatch(updatePaymentPackCompatibilitiesAction.isLoading(true));
+    dispatch(updatePaymentPackCompatibilitiesAction.error(null));
+    try {
+      const response = await editPackCompatibilitiesAPI(
+        input.paymentPackId,
+        input.data,
+      );
+      dispatch(updatePaymentPackCompatibilitiesAction.success(response.data));
+      options?.onSuccess(response.data);
+    } catch (err) {
+      console.error(err);
+      dispatch(updatePaymentPackCompatibilitiesAction.error(err));
+      dispatch(snackbarError('paymentPack.compatibilitiesUpdate.fail'));
+      options?.onError(err);
+    }
+    dispatch(updatePaymentPackCompatibilitiesAction.isLoading(false));
   };
 }
 

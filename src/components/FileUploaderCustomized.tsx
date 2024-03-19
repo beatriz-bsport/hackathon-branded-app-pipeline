@@ -129,7 +129,14 @@ const FileUploaderCustomized: React.FC<Props> = React.memo(
     );
 
     const handleOpenWindow = useCallback(() => {
-      window.open(file.webkitRelativePath);
+      let fileToPreview = '';
+      try {
+        fileToPreview = webkitURL.createObjectURL(file);
+      } catch {
+        fileToPreview = file.toString();
+      }
+
+      window.open(fileToPreview);
     }, [file]);
 
     const {

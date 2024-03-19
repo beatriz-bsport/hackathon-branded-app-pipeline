@@ -34,7 +34,9 @@ export const fetchAllPaymentRules = {
   error: createAction('COACH-PAYMENT/LIST/ERROR'),
 };
 
-export function fetchAllCoachPaymentRules(options?: OptionCallback) {
+export function fetchAllCoachPaymentRules(
+  options?: OptionCallback<CoachPaymentRule[]>,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(fetchAllPaymentRules.isLoading(true));
     dispatch(fetchAllPaymentRules.error(null));
@@ -397,12 +399,16 @@ export function setPrivateBookingCoachPaymentRule(
 }
 
 export const fetchAllPaymentRuleGroups = {
-  success: createAction('COACH-PAYMENT-GROUP/LIST/SUCCESS'),
-  isLoading: createAction('COACH-PAYMENT-GROUP/LIST/LOADING'),
-  error: createAction('COACH-PAYMENT-GROUP/LIST/ERROR'),
+  success: createAction<CoachPaymentRuleGroup[]>(
+    'COACH-PAYMENT-GROUP/LIST/SUCCESS',
+  ),
+  isLoading: createAction<boolean>('COACH-PAYMENT-GROUP/LIST/LOADING'),
+  error: createAction<Error | null>('COACH-PAYMENT-GROUP/LIST/ERROR'),
 };
 
-export function fetchAllCoachPaymentRuleGroups(options?: OptionCallback) {
+export function fetchAllCoachPaymentRuleGroups(
+  options?: OptionCallback<CoachPaymentRuleGroup[]>,
+) {
   return async (dispatch: Dispatch) => {
     dispatch(fetchAllPaymentRuleGroups.isLoading(true));
     dispatch(fetchAllPaymentRuleGroups.error(null));

@@ -6,15 +6,18 @@ import {
   postBaseAuth,
   buildUrlParams,
 } from '../../http';
+import type { CoachPaymentRule, CoachPaymentRuleGroup } from './types';
 
 const COACH_PERFORMANCE_EXPORT_PDF = 0;
 const COACH_PERFORMANCE_EXPORT_EXCEL = 1;
 
 export const fetchCoachPaymentRules = async () => {
-  return getAuth(`${API_V1_URI}/coach_payment_rules/get_coach_payment_rules/`);
+  return getAuth<CoachPaymentRule[]>(
+    `${API_V1_URI}/coach_payment_rules/get_coach_payment_rules/`,
+  );
 };
 export const fetchCoachPaymentRuleGroups = async () => {
-  return getAuth(
+  return getAuth<CoachPaymentRuleGroup[]>(
     `${API_V1_URI}/coach_payment_rule_group/get_coach_payment_rule_groups/`,
   );
 };

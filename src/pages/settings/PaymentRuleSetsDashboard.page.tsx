@@ -6,6 +6,7 @@ import { compose, withHandlers, withStateHandlers } from 'recompose';
 import { WithTranslation, withTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
 import { connect } from 'react-redux';
+import uniq from 'lodash/uniq';
 import { Theme } from '@material-ui/core/styles';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
@@ -30,9 +31,10 @@ import {
   deleteCoachPaymentRuleGroup as deleteCoachPaymentRuleGroupAction,
 } from '../../libs/coach-payment-rules/actions';
 import {
-  CoachPaymentRulesSelector,
   CoachPaymentRuleByKindSelector,
+  getCoachPaymentRuleGroupListCoaches,
   getCoachPaymentRuleGroups,
+  getCoachPaymentRuleListCoaches,
 } from '../../libs/coach-payment-rules/selectors';
 import { fetchAssociatedCoachBulk } from '../../libs/associated-coach/actions';
 import CoachPaymentRuleFormDrawer from '../../libs/coach-payment-rules/components/CoachPaymentRuleFormDrawer.component';
@@ -110,8 +112,12 @@ type Props = OwnAndConnectedProps &
 
 export class PaymentRulesDashboard extends Component<Props> {
   componentDidMount() {
-    this.props.fetchAllCoachPaymentRules();
-    this.props.fetchAllCoachPaymentRuleGroups();
+    this.props.fetchAllCoachPaymentRules({
+      onSuccess: this.handleFetchCoachList,
+    });
+    this.props.fetchAllCoachPaymentRuleGroups({
+      onSuccess: this.handleFetchCoachList,
+    });
     this.props.fetchAllPrivateServices();
     this.props.fetchAllPrivateSlots();
   }
@@ -144,6 +150,15 @@ export class PaymentRulesDashboard extends Component<Props> {
   handleAddNewPaymentRuleGroup = () => {
     this.props.setInitialGroup(null);
     this.props.handleOpenGroup();
+  };
+
+  handleFetchCoachList = () => {
+    const coachList = uniq([
+      ...(this.props.coachPaymentRuleGroupListCoaches ?? []),
+      ...(this.props.coachPaymentRuleListCoaches ?? []),
+    ]);
+
+    !!coachList?.length && this.props.fetchAssociatedCoachBulk(coachList);
   };
 
   render() {
@@ -240,6 +255,7 @@ export class PaymentRulesDashboard extends Component<Props> {
             coachPaymentRuleGroups={this.props.coachPaymentRuleGroups}
             items={this.props.rulesByKind}
             loading={this.props.loading}
+            onChangeTab={this.handleFetchCoachList}
             onDeletePaymentRule={this.props.deleteCoachPaymentRule}
             onDeletePaymentRuleGroup={this.props.deleteCoachPaymentRuleGroup}
             onEditPaymentRule={(paymentRule: CoachPaymentRule) => {
@@ -279,13 +295,14 @@ const mapStateToProps = (state: RootState) => ({
   simulationOpen: state.coachPaymentRules.simulationDialog,
   groupDialogFormOpen: state.coachPaymentRules.groupDialog,
   error: state.coachPaymentRules.upsert.error,
-  rules: CoachPaymentRulesSelector(state),
   getPaymentPack: (paymentPackId: number) =>
     getPaymentPack(state, paymentPackId),
   enabledPaymentPacks: getEnabledPaymentPacks(state),
   simulationResult: state.coachPaymentRules.simulation.result,
   rulesByKind: CoachPaymentRuleByKindSelector(state),
   coachPaymentRuleGroups: getCoachPaymentRuleGroups(state),
+  coachPaymentRuleGroupListCoaches: getCoachPaymentRuleGroupListCoaches(state),
+  coachPaymentRuleListCoaches: getCoachPaymentRuleListCoaches(state),
   associated_coaches: getActiveCoaches(state),
   privateServices: getAvailablePrivateServices(state),
 });

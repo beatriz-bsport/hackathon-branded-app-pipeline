@@ -18,7 +18,11 @@ import {
 } from '../associated-coach/selectors';
 
 import type { Coach } from '../associated-coach/types';
-import type { CoachPaymentRule, CoachPaymentRuleGroupAPI } from './types';
+import type {
+  CoachPaymentRule,
+  CoachPaymentRuleGroup,
+  CoachPaymentRuleGroupAPI,
+} from './types';
 
 export const CoachPaymentSelector = (state: RootState, id: number) =>
   state.coachPaymentRules.items[id];
@@ -28,7 +32,7 @@ export const CoachPaymentRulesSelector = (state: RootState) =>
   values(state.coachPaymentRules.items).map((rule: CoachPaymentRule) => ({
     ...rule,
     coaches: compact(
-      rule.associated_coach.map((coachId: number) =>
+      (rule.associated_coach ?? []).map((coachId: number) =>
         associatedCoachSelector.get(state, coachId),
       ),
     ),
@@ -46,7 +50,7 @@ export const CoachPaymentRuleByKindSelector = createSelector(
         .map((rule: CoachPaymentRule) => ({
           ...rule,
           coaches: compact(
-            rule.associated_coach.map((coachId: number) =>
+            (rule.associated_coach ?? []).map((coachId: number) =>
               allCoaches.find((coach) => coach.associated_coach_id === coachId),
             ),
           ),
@@ -66,7 +70,7 @@ export const CoachPaymentRuleByKindSelector = createSelector(
         .map((rule: CoachPaymentRule) => ({
           ...rule,
           coaches: compact(
-            rule.private_associated_coach.map((coachId: number) =>
+            (rule.associated_coach ?? []).map((coachId: number) =>
               allCoaches.find((coach) => coach.associated_coach_id === coachId),
             ),
           ),
@@ -76,7 +80,7 @@ export const CoachPaymentRuleByKindSelector = createSelector(
         .map((rule: CoachPaymentRule) => ({
           ...rule,
           coaches: compact(
-            rule.private_associated_coach.map((coachId: number) =>
+            (rule.workshop_associated_coach ?? []).map((coachId: number) =>
               allCoaches.find((coach) => coach.associated_coach_id === coachId),
             ),
           ),
@@ -291,5 +295,54 @@ export const getCoachPaymentRuleGroups = createSelector(
         ),
       };
     });
+  },
+);
+
+/**
+ * Get the list of all coach IDs of all payment rule groups from redux
+ */
+export const getCoachPaymentRuleGroupListCoaches = createSelector(
+  [getCoachPaymentRuleGroupsIds, getCoachPaymentRuleGroupsDict],
+  (
+    coachPaymentRuleGroupIds: number[],
+    coachPaymentRuleGroupById: CoachPaymentRuleGroupAPI,
+  ) => {
+    const coachPaymentRuleGroupList: CoachPaymentRuleGroup[] =
+      coachPaymentRuleGroupIds.map((id) => coachPaymentRuleGroupById[id]);
+
+    return (coachPaymentRuleGroupList ?? [])
+      .map((group) => group.associated_coach)
+      .flat();
+  },
+);
+
+const _getCoachPaymentRulesItemsById = (state: RootState) =>
+  state.coachPaymentRules.items;
+
+const _getCoachPaymentRulesItemsAllIds = (state: RootState) =>
+  Object.keys(state.coachPaymentRules.items).map(Number);
+
+/**
+ * Get the list of all coach IDs of all payment rules from redux
+ */
+export const getCoachPaymentRuleListCoaches = createSelector(
+  [_getCoachPaymentRulesItemsAllIds, _getCoachPaymentRulesItemsById],
+  (
+    coachPaymentRulesItemsAllIds: number[],
+    coachPaymentRulesItemsById: {
+      [key: number]: CoachPaymentRule;
+    },
+  ) => {
+    const coachPaymentRuleList = coachPaymentRulesItemsAllIds.map(
+      (id) => coachPaymentRulesItemsById[id],
+    );
+
+    return (coachPaymentRuleList ?? [])
+      .map((rule) =>
+        rule.private_associated_coach.length
+          ? rule.private_associated_coach
+          : rule.associated_coach,
+      )
+      .flat();
   },
 );

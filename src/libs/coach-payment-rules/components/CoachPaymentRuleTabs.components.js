@@ -16,6 +16,7 @@ type Props = {
   t: TFunction,
   items: Object<CoachPaymentRule[]>,
   coachPaymentRuleGroups: Array<CoachPaymentRuleGroup>,
+  onChangeTab: () => void,
 };
 
 const CoachPaymentRuleTabPanel = (props: Props) => {
@@ -25,9 +26,12 @@ const CoachPaymentRuleTabPanel = (props: Props) => {
 const COACH_PAYMENT_RULE_GROUP = 4;
 
 export const CoachPaymentRuleTabs = (props: Props) => {
-  const { t, items, coachPaymentRuleGroups } = props;
+  const { t, items, coachPaymentRuleGroups, onChangeTab } = props;
   const [value, setValue] = useState(COACH_PAYMENT_RULE_FOR_SESSION);
-  const handleChange = (event, newValue) => setValue(newValue);
+  const handleChange = (event, newValue) => {
+    onChangeTab(newValue);
+    setValue(newValue);
+  };
 
   const renderTabPanel = () => {
     if (

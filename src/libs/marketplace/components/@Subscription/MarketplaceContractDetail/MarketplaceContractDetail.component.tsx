@@ -28,6 +28,7 @@ import './styles.css';
 
 export type Props = {
   isExcludingTax?: boolean;
+  isContractObjectLoading: boolean;
   contract: Contract;
   getPaymentPackSelected: (id: number) => PaymentPack;
   getPrivatePassSelected: (id: number) => PrivatePass;
@@ -36,6 +37,7 @@ export type Props = {
 
 const ContractDetailList: React.FC<Props> = React.memo(
   ({
+    isContractObjectLoading,
     contract,
     getPaymentPackSelected,
     getPrivatePassSelected,
@@ -65,7 +67,8 @@ const ContractDetailList: React.FC<Props> = React.memo(
 
     return (
       <ul className="bs-description-details__list">
-        {objectIncludedInContract ? (
+        {isContractObjectLoading && <CircularProgress size="sm" />}
+        {!!objectIncludedInContract && (
           <li className="bs-description-details__list__item">
             <span className="bs-description-details__list__item__icon">
               <StarIcon />
@@ -74,8 +77,6 @@ const ContractDetailList: React.FC<Props> = React.memo(
               {objectIncludedInContract.name}
             </span>
           </li>
-        ) : (
-          <CircularProgress size="sm" />
         )}
         {!!contract?.nb_interval && (
           <li className="bs-description-details__list__item">
@@ -106,6 +107,7 @@ const ContractDetailList: React.FC<Props> = React.memo(
 
 const MarketplaceContractDetail: React.FC<Props> = React.memo(
   ({
+    isContractObjectLoading,
     contract,
     isExcludingTax,
     getPaymentPackSelected,
@@ -154,6 +156,7 @@ const MarketplaceContractDetail: React.FC<Props> = React.memo(
                   getPaymentComboSelected={getPaymentComboSelected}
                   getPaymentPackSelected={getPaymentPackSelected}
                   getPrivatePassSelected={getPrivatePassSelected}
+                  isContractObjectLoading={isContractObjectLoading}
                 />
               </Item>
               <Item

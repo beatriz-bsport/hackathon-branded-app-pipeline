@@ -538,6 +538,9 @@ export class MarketplaceSubscriptionPayment extends React.Component<
                     getPaymentComboSelected={this.props.getPaymentComboSelected}
                     getPaymentPackSelected={this.props.getPaymentPackSelected}
                     getPrivatePassSelected={this.props.getPrivatePassSelected}
+                    isContractObjectLoading={this.getContractObjectLoading(
+                      contract,
+                    )}
                   />
                 )}
 

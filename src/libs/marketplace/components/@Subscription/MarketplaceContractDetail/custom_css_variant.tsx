@@ -44,6 +44,7 @@ const usePropsFromVariation = (
   return {
     contract: contractFromFactory,
     isExcludingTax: isExcludingTaxSelected,
+    isContractObjectLoading: false,
     getPaymentComboSelected: (id: number) => {
       return { ...fakePaymentCombo, id } as PaymentCombo;
     },

@@ -33,7 +33,7 @@ import OfferFormSelector from '#libs/offer/form/OfferFormSelector.component';
 import { useOfferFormDateTime } from '#libs/offer/hooks';
 import { isAmPmTimeFormat } from '../../../../utils/datetime';
 
-import { OfferFormValues } from '#libs/offer/types';
+import { OfferFormRecurrenceWeekDay, OfferFormValues } from '#libs/offer/types';
 import { getOfferRecurrenceDates } from '#libs/offer/utils';
 import { DATE_PICKER_MASK } from '../../../../constants';
 
@@ -79,12 +79,29 @@ const OfferFormDateTime = (props: Props) => {
     [rebuildDatetime, setFieldValue, timezone],
   );
 
+  const getStartDateWeekDay = (date: Moment) => {
+    const startDateWeekDay = moment(date).isoWeekday();
+    return startDateWeekDay.toString() as OfferFormRecurrenceWeekDay;
+  };
+
   const handleChangeDateStart = useCallback(
     (date: Moment) => {
       const isDateEqualOrAfterEndDate = moment(date).isSameOrAfter(
         moment(dateIntervalEnd),
       );
       handleChangeDate('dateIntervalStart', date, moment(dateIntervalStart));
+      const newRecurrenceWeekDay = {
+        '1': false,
+        '2': false,
+        '3': false,
+        '4': false,
+        '5': false,
+        '6': false,
+        '7': false,
+      };
+      const startDateWeekDay = getStartDateWeekDay(date);
+      newRecurrenceWeekDay[startDateWeekDay] = true;
+      setFieldValue('recurrenceWeekDay', newRecurrenceWeekDay);
       if (isRecurrence && isDateEqualOrAfterEndDate) {
         setFieldValue('dateIntervalEnd', moment(date).add(1, 'day'));
       }

@@ -634,9 +634,14 @@ export default compose(
   ),
   withHandlers({
     makeActivityCopy:
-      ({ makeActivityCopy, fetchMetaActivities }) =>
+      ({ makeActivityCopy, goToDetail }) =>
       (id, suffix) => {
-        makeActivityCopy(id, suffix, { onSuccess: fetchMetaActivities });
+        makeActivityCopy(id, suffix, {
+          onSuccess: (data: MetaActivity) => {
+            // eslint-disable-next-line no-unused-expressions
+            data?.id && goToDetail(data.id);
+          },
+        });
       },
     onSubmit:
       ({

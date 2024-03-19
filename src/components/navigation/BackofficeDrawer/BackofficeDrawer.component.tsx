@@ -78,7 +78,10 @@ import type {
   UserWithRealTimeAttendance,
   ClockInQueryParams,
 } from '#libs/clock-in/types';
-import { UPSELL_IDENTIFIER_CLOCK_IN } from '#libs/platform-billing/upsell-identifiers';
+import {
+  UPSELL_IDENTIFIER_CLOCK_IN,
+  UPSELL_IDENTIFIER_INBOX,
+} from '#libs/platform-billing/upsell-identifiers';
 import { DEFAULT_ZINDEX, NAVIGATION_ZINDEX, BANNER_ZINDEX } from './const';
 import TutorialGenericDialog from '#libs/platform-tutorial/components/TutorialGenericDialog.component';
 import {
@@ -643,7 +646,11 @@ export const BackOfficeDrawer: React.FC<Props> = ({
                         <IconButton onClick={handleGoToInbox}>
                           <Tooltip title={t('navigation:backofficeMenu.inbox')}>
                             <Badge
-                              badgeContent={inboxUnreadAnswersCount}
+                              badgeContent={
+                                hasUpsellIdentifier(UPSELL_IDENTIFIER_INBOX)
+                                  ? inboxUnreadAnswersCount
+                                  : 0
+                              }
                               color="error"
                               max={99}
                             >

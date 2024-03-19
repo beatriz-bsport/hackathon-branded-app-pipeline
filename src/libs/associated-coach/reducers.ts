@@ -60,15 +60,20 @@ export default handleActions(
       state,
       { payload },
     ) => {
-      return state.merge(
-        {
-          byId: payload.reduce((acc, ps) => {
-            acc[ps.id] = ps;
-            return acc;
-          }, {}),
-        },
-        { deep: true },
-      );
+      return state
+        .setIn(
+          ['allIds'],
+          payload.map((coach) => coach.id),
+        )
+        .merge(
+          {
+            byId: payload.reduce((acc, coach) => {
+              acc[coach.id] = coach;
+              return acc;
+            }, {}),
+          },
+          { deep: true },
+        );
     },
     [bulkRetrieveActions.isLoading.toString()]: (state, { payload }) => {
       return state.set('loading', payload);

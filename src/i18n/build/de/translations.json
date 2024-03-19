@@ -3875,6 +3875,9 @@
                     },
                     "cancelInvoice": {
                         "_label": "Rechnungen stornieren"
+                    },
+                    "editBalanceWithoutInvoice": {
+                        "_label": "Anpassung des Mitgliederguthabens, ohne eine Rechnung zu erstellen"
                     }
                 },
                 "_label": "Abrechnung"
@@ -8644,7 +8647,8 @@
             "form": {
                 "title": "Webshopartikel",
                 "error": {
-                    "name": "Ein Produktname darf nicht länger als 200 Zeichen sein"
+                    "name": "Ein Produktname darf nicht länger als 200 Zeichen sein",
+                    "colorSize": "Der Name einer Farbe/Größe darf nicht länger als 100 Zeichen sein"
                 },
                 "variantHelperText": "Definieren Sie Varianten, wenn dieses Produkt in mehreren Farben und/oder Größen erhältlich ist. Die Eigenschaften der einzelnen Varianten können Sie später bearbeiten.",
                 "sizes": {
@@ -8745,7 +8749,11 @@
                     "totalSales": "Gesamtumsatz",
                     "stockAdjustment": "Bestandsanpassung (+/-)",
                     "currentStock": "Aktueller Bestand",
-                    "variants": "Varianten"
+                    "variants": "Varianten",
+                    "action": {
+                        "update": "Bestand aktualisieren"
+                    },
+                    "formError": "Bestandsanpassungswerte müssen gültige Zahlen sein"
                 }
             },
             "tab": {
@@ -12010,7 +12018,7 @@
                     "availability": {
                         "expiresToday": "Letzter Tag",
                         "expiresIn": "{{ daysRemaining }} Tag übrig",
-                        "expiresIn_plural": "verbleibende Tage",
+                        "expiresIn_plural": "{{ daysRemaining }}  Verbleibende Tage",
                         "future": "Beginnt am: {{ startDate }}",
                         "expired": "Abgelaufen am: {{ expirationDate }}",
                         "active": "Läuft ab am: {{ expirationDate }}"
@@ -16831,7 +16839,7 @@
             "groupTitle": {
                 "paymentPack": "Kurspässe",
                 "privateBooking": "Termine",
-                "booking": "Gruppenaktivitäten",
+                "booking": "Reservierung",
                 "privatePass": "Terminpass",
                 "birthday": "Geburtstag",
                 "contract": "Abonnement"
@@ -18661,7 +18669,7 @@
             "lateRequestInfo_plural": "Die Anfragen werden registriert, aber stellen Sie sicher, dass Sie Ihr Studio direkt kontaktieren, um es so schnell wie möglich zu benachrichtigen.",
             "title": "Vertretung anfragen",
             "label": "Grund der Abwesenheit",
-            "cancel": "Stornieren",
+            "cancel": "Abbrechen",
             "submit": "Absenden",
             "requestSent": "Anfrage gesendet",
             "requestSent_plural": "Anfragen gesendet",
@@ -18685,7 +18693,7 @@
             "confirmation": {
                 "title": "Lehrkraft zuordnen",
                 "description": "Sind Sie sicher, dass Sie {{coach_override}} als Vertretungslehrkraft für den Kurs von {{coach}} anmelden möchten?",
-                "cancel": "Stornieren",
+                "cancel": "Abbrechen",
                 "confirm": "Bestätigen"
             },
             "refuse": {
@@ -18703,7 +18711,7 @@
             "delete": {
                 "description": "Sind Sie sicher, dass Sie die Disziplingruppe {{name}} löschen möchten?",
                 "title": "Löschen",
-                "cancel": "Stornieren",
+                "cancel": "Abbrechen",
                 "confirm": "Bestätigen"
             },
             "form": {
@@ -18714,7 +18722,7 @@
                 "allCategories": "Unterrichtet alle Kategorien",
                 "coaches": "Zugehörige Lehrkräfte",
                 "close": "Stornieren",
-                "submit": "Sichern",
+                "submit": "Speichern",
                 "coachRequired": "Bitte wählen Sie mindestens eine Lehrkraft aus",
                 "name": "Name",
                 "nameHelperText": "Name der Disziplingruppe",
@@ -18826,7 +18834,7 @@
         "delete": {
             "title": "Anfrage stornieren",
             "description": "Sind Sie sicher, dass sie diese Anfrage stornieren wollen?",
-            "cancel": "Stornieren",
+            "cancel": "Abbrechen",
             "confirm": "Bestätigen"
         },
         "lateStatus": {

@@ -2313,7 +2313,7 @@
                     "availability": {
                         "expiresToday": "Último dia",
                         "expiresIn": "{{ daysRemaining }}dia restante",
-                        "expiresIn_plural": "{{ daysRemaining }} dias restantes",
+                        "expiresIn_plural": "{{ daysRemaining }}  dias restantes",
                         "future": "Começa: {{ startDate }}",
                         "expired": "Expirado: {{ expirationDate }}",
                         "active": "Expira{{ expirationDate }}"
@@ -8083,6 +8083,9 @@
                     },
                     "editBalance": {
                         "_label": "Ajustar o saldo dos membros"
+                    },
+                    "editBalanceWithoutInvoice": {
+                        "_label": "Ajustar o saldo dos membros sem gerar uma fatura"
                     }
                 },
                 "_label": "Faturação"
@@ -17326,7 +17329,8 @@
             "form": {
                 "title": "Artigo da loja",
                 "error": {
-                    "name": "O nome de um produto não pode exceder 200 caracteres"
+                    "name": "O nome de um produto não pode exceder 200 caracteres",
+                    "colorSize": "O nome de uma cor/tamanho não pode exceder 100 caracteres"
                 },
                 "variantHelperText": "Defina variantes se este produto estiver disponível em várias cores e/ou tamanhos. Poderá editar as propriedades de cada variante mais tarde.",
                 "sizes": {
@@ -17442,7 +17446,11 @@
                     "totalSales": "Vendas totais",
                     "stockAdjustment": "Ajustamento de stocks (+/-)",
                     "currentStock": "Existências actuais",
-                    "variants": "Variantes"
+                    "variants": "Variantes",
+                    "action": {
+                        "update": "Atualizar o inventário"
+                    },
+                    "formError": "Os valores de ajuste de estoque devem ser números válidos"
                 }
             },
             "tab": {

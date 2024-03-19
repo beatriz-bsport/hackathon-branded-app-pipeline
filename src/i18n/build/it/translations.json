@@ -12973,7 +12973,8 @@
             "form": {
                 "title": "Articolo dello shop",
                 "error": {
-                    "name": "Il nome di un prodotto non può superare i 200 caratteri"
+                    "name": "Il nome di un prodotto non può superare i 200 caratteri",
+                    "colorSize": "Il nome di un colore/taglia non può superare i 100 caratteri"
                 },
                 "variantHelperText": "Definire le varianti se il prodotto è disponibile in più colori e/o dimensioni. In seguito sarà possibile modificare le proprietà di ciascuna variante.",
                 "sizes": {
@@ -13059,7 +13060,11 @@
                     "totalSales": "Totale vendite",
                     "stockAdjustment": "Aggiornamento della giacenza (+/-)",
                     "currentStock": "Giacenza attuale",
-                    "variants": "Varianti"
+                    "variants": "Varianti",
+                    "action": {
+                        "update": "Aggiorna l'inventario"
+                    },
+                    "formError": "I valori di modifica delle scorte devono essere dei numeri validi"
                 }
             },
             "tab": {
@@ -15258,6 +15263,9 @@
                     },
                     "takePayment": {
                         "_label": "Incassa da un membro"
+                    },
+                    "editBalanceWithoutInvoice": {
+                        "_label": "Regola il saldo membro senza generare una ricevuta"
                     }
                 },
                 "_label": "Transazioni"

@@ -175,7 +175,7 @@
                     "availability": {
                         "expiresToday": "Laatste dag",
                         "expiresIn": "{{ daysRemaining }} dag(en) over",
-                        "expiresIn_plural": "Verloopt over {{ daysRemaining }} dagen",
+                        "expiresIn_plural": "Nog {{ daysRemaining }} dag(en) geldig",
                         "future": "Startdatum: {{ startDate }}",
                         "expired": "Verlopen op: {{ expirationDate }}",
                         "active": "Verloopdatum: {{ expirationDate }}"
@@ -1819,7 +1819,7 @@
             "packsAvailable": "Beschikbare kaarten:",
             "orNcredits2": " (credits)",
             "orNcredits1": "(of ",
-            "noOfferThisDay": "Vandaag zijn er geen sessies. Selecteer een andere datum of begin met het toevoegen van sessies.",
+            "noOfferThisDay": "Er zijn voor deze dag nog geen sessies ingepland. Selecteer een andere datum of begin met het toevoegen van sessies.",
             "offersThisDay": "Sessie(s) van vandaag:",
             "category": "Categorie",
             "description": "Beschrijving",
@@ -2482,9 +2482,9 @@
             },
             "panel": {
                 "navigation": {
-                    "offer": "Toon details",
-                    "smartlist": "Toon details",
-                    "member": "Toon details"
+                    "offer": "Sessie-details tonen",
+                    "smartlist": "Smartlist-details tonen",
+                    "member": "Leden-details tonen"
                 },
                 "smartlist": {
                     "description": "Beschrijving",
@@ -2501,8 +2501,8 @@
                 },
                 "tags": "Tags",
                 "header": "Details",
-                "openPanel": "Toon details",
-                "closePanel": "Verberg details"
+                "openPanel": "Details tonen",
+                "closePanel": "Details verbergen"
             },
             "selectThread": {
                 "description": "Klik op een lid, een Smartlist of een sessie om het bijbehorende gesprek weer te geven.",
@@ -2759,7 +2759,7 @@
         "signup": {
             "title": "Inschrijven"
         },
-        "contactUs": "Klik hier om vrijblijvend contact met ons op en om meer te leren over hoe BSPORT Solution uw studio helpt met het zetten van de volgende stap voor al uw dagelijkse handelingen.",
+        "contactUs": "Klik hier om vrijblijvend contact met ons op en om meer te leren over hoe bsport uw onderneming ondersteunt.",
         "or": " of ",
         "country": {
             "ES": "Spanje",
@@ -10288,7 +10288,8 @@
             "form": {
                 "title": "Webshop-product",
                 "error": {
-                    "name": "Een productnaam mag niet langer zijn dan 200 tekens"
+                    "name": "Een productnaam mag niet langer zijn dan 200 tekens",
+                    "colorSize": "Een kleur of grootte kan niet meer dan 100 karakters zijn"
                 },
                 "variantHelperText": "Definieer varianten als dit product beschikbaar is in meerdere kleuren en/of maten. Later kun je de eigenschappen van elke variant bewerken.",
                 "sizes": {
@@ -10360,7 +10361,11 @@
                     "totalSales": "Totaal aantal verkopen",
                     "stockAdjustment": "Voorraadaanpassing (+/-)",
                     "currentStock": "Huidige voorraad",
-                    "variants": "Varianten"
+                    "variants": "Varianten",
+                    "action": {
+                        "update": "Voorraad wijzigen"
+                    },
+                    "formError": "Voorraadswijzigingen moeten valide nummers zijn"
                 },
                 "history": {
                     "invoice": {
@@ -15936,6 +15941,9 @@
                     },
                     "takePayment": {
                         "_label": "Incasseren"
+                    },
+                    "editBalanceWithoutInvoice": {
+                        "_label": "Saldo van leden wijzigen zonder het aanmaken van een factuur"
                     }
                 },
                 "_label": "Facturatie"
@@ -16945,7 +16953,7 @@
             "groupTitle": {
                 "paymentPack": "Leskaarten",
                 "privateBooking": "Afspraken",
-                "booking": "Groepsactiviteiten",
+                "booking": "Reservering",
                 "privatePass": "Afspraakkaarten",
                 "birthday": "Verjaardag",
                 "contract": "Abonnementen"

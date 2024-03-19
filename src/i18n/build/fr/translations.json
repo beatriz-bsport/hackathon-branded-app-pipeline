@@ -11520,6 +11520,9 @@
                     },
                     "createManualDiscount": {
                         "_label": "Appliquer des réductions manuelles"
+                    },
+                    "editBalanceWithoutInvoice": {
+                        "_label": "Ajuster le solde des membres sans générer de facture"
                     }
                 }
             },
@@ -12805,7 +12808,8 @@
                 "title": "Article magasin",
                 "variantHelperText": "Définissez des variantes si ce produit est disponible en plusieurs couleurs et/ou tailles. Vous pourrez modifier les propriétés de chaque variante ultérieurement.",
                 "error": {
-                    "name": "Le nom d'un produit ne peut pas dépasser 200 caractères"
+                    "name": "Le nom d'un produit ne peut pas dépasser 200 caractères",
+                    "colorSize": "Le nom d'une couleur/taille ne peut pas dépasser 100 caractères"
                 },
                 "sizes": {
                     "helperText": "Ajoutez une taille en appuyant sur la touche Entrée",
@@ -12850,7 +12854,11 @@
                     "seeInvoice": "Voir la facture",
                     "totalSales": "Nombre d'articles vendus",
                     "stockAdjustment": "Modification des stocks (+/-)",
-                    "currentStock": "Stock actuel"
+                    "currentStock": "Stock actuel",
+                    "action": {
+                        "update": "Mise à jour de l'inventaire"
+                    },
+                    "formError": "Les valeurs de modification des stocks doivent être des nombres valides"
                 },
                 "history": {
                     "invoice": {

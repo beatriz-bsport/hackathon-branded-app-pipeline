@@ -2737,7 +2737,8 @@
             "form": {
                 "title": "Artículo de la tienda",
                 "error": {
-                    "name": "El nombre de un producto no puede superar los 200 caracteres"
+                    "name": "El nombre de un producto no puede superar los 200 caracteres",
+                    "colorSize": "Un nombre de color/talla no puede superar los 100 caracteres"
                 },
                 "variantHelperText": "Defina variantes si este producto está disponible en varios colores y/o tallas. Más adelante podrá editar las propiedades de cada variante.",
                 "sizes": {
@@ -2811,7 +2812,11 @@
                     "totalSales": "Ventas totales",
                     "stockAdjustment": "Ajuste de existencias (+/-)",
                     "currentStock": "Existencias actuales",
-                    "variants": "Variantes"
+                    "variants": "Variantes",
+                    "action": {
+                        "update": "Actualizar inventario"
+                    },
+                    "formError": "Los valores de ajuste de existencias deben ser números válidos"
                 }
             },
             "tab": {
@@ -11063,6 +11068,9 @@
                     },
                     "cancelInvoice": {
                         "_label": "Cancelar facturas"
+                    },
+                    "editBalanceWithoutInvoice": {
+                        "_label": "Ajustar el saldo de los miembros sin generar una factura"
                     }
                 }
             },

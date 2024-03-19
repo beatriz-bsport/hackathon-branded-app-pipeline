@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
-import { withTranslation } from 'react-i18next';
+import { withTranslation, WithTranslation } from 'react-i18next';
 import { compose } from 'recompose';
 import Button from '@material-ui/core/Button';
 import PersonIcon from '@material-ui/icons/Person';
@@ -24,7 +24,7 @@ type OwnProps = {
   uniqueWidgetId: string,
 };
 
-type Props = OwnProps;
+type Props = OwnProps & WithTranslation;
 
 class LoginButton extends Component<Props> {
   componentDidMount() {
@@ -85,7 +85,9 @@ class LoginButton extends Component<Props> {
             style={{ marginRight: 8 }}
             id="bsport-widget-authentication__login_icon"
           />
-          {this.props.t('LOGIN')}
+          {this.props.authenticated && this.props.authenticationReceived
+            ? this.props.t('logout')
+            : this.props.t('login')}
         </Button>
         {this.props.authenticated && this.props.authenticationReceived && (
           <Button

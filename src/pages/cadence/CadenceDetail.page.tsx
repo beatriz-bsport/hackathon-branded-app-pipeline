@@ -146,6 +146,7 @@ import type {
 
 import { SegmentAnalyticsFormObjectIdentifier } from '#components/analytics/segment';
 import { rudderStackFormTrackingFunctionsRegistry } from '#components/analytics/rudderstack/utils';
+import { CADENCE_DETAIL_MAIN_PANEL_ID } from '#libs/sequential_marketing/constants/keywords';
 
 const { trackFormAdd, trackFormSubmitIntent, trackFormSuccess } =
   rudderStackFormTrackingFunctionsRegistry(
@@ -473,7 +474,10 @@ export class CadenceDetailPage extends Component<Props> {
           loading={this.props.loading}
         >
           <>
-            <div className={classes.mainPanel} id="cadence-detail-main-panel">
+            <div
+              className={classes.mainPanel}
+              id={CADENCE_DETAIL_MAIN_PANEL_ID}
+            >
               <div className={classes.stickyTop}>
                 <div
                   className={classNames(

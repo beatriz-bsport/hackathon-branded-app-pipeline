@@ -39,6 +39,7 @@ import type {
   CadenceInitialConfiguration,
 } from '#libs/sequential_marketing/types';
 import type { SmartList } from '#libs/smart-list/types';
+import { CADENCE_DETAIL_MAIN_PANEL_ID } from '#libs/sequential_marketing/constants/keywords';
 
 const nbsp = `\u00A0`;
 type Props = {
@@ -290,7 +291,7 @@ export const CadenceGraphViewPort: React.FC<Props> = ({
     ],
   );
   // ========================================================
-  const container = document.getElementById('cadence-detail-main-panel');
+  const container = document.getElementById(CADENCE_DETAIL_MAIN_PANEL_ID);
 
   return (
     <>

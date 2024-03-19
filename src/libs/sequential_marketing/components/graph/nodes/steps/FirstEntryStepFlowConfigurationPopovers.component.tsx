@@ -15,6 +15,7 @@ import type {
 } from '#libs/sequential_marketing/types';
 
 import { InitialConfigurationStep } from '#libs/sequential_marketing/constants';
+import { CADENCE_DETAIL_MAIN_PANEL_ID } from '#libs/sequential_marketing/constants/keywords';
 
 type Props = {
   anchorActionBubble: HTMLDivElement | null;
@@ -57,7 +58,7 @@ const FirstEntryStepFlowConfigurationPopovers: React.FC<Props> = ({
 }) => {
   const { t } = useTranslation('marketing');
 
-  const container = document?.getElementById('cadence-detail-main-panel');
+  const container = document?.getElementById(CADENCE_DETAIL_MAIN_PANEL_ID);
 
   const handleConfirmCriteriaBubble = React.useCallback(
     (value: ConnectedTrigger[]) => {
